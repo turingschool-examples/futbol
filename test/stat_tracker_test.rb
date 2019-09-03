@@ -1,7 +1,9 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/stat_tracker'
+require './lib/team'
 require 'pry'
+require 'csv'
 
 class StatTrackerTest < Minitest::Test
 
@@ -20,6 +22,12 @@ class StatTrackerTest < Minitest::Test
 
   def test_from_csv
     assert_equal @locations, @stat_tracker
+  end
+
+  def test_for_all_made_teams
+    require "pry"; binding.pry
+    @stat_tracker.shift
+    assert_equal 32, @stat_tracker.length
   end
 
 end
