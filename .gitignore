@@ -1,2 +1,3 @@
 coverage
-.ds_store
+test/coverage/
+.DS_store
