@@ -10,10 +10,4 @@ class StatTracker
   def initialize
     @teams
   end
-
-  # def team_objects(location)
-  #   CSV.foreach(location) do |row|
-  #     require "pry"; binding.pry
-  #     Team.new(row)
-  #   end
 end
