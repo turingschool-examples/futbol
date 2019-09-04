@@ -1,7 +1,9 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/stat_tracker'
-require './lib/team'
+require_relative '../lib/stat_tracker'
+require_relative '../lib/team'
+require_relative '../lib/game'
+require_relative '../lib/game_team'
 require 'pry'
 require 'csv'
 
@@ -20,13 +22,13 @@ class StatTrackerTest < Minitest::Test
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
-  def test_from_csv
-    assert_equal @locations.keys, @stat_tracker.keys
+  def test_it_exists
+    assert_instance_of StatTracker, @stat_tracker
   end
 
-  def test_for_all_made_teams
-    # require "pry"; binding.pry
-    assert_equal 32, @stat_tracker[:teams].length
+  def test_for_all_made_data
+    assert_equal 32, @stat_tracker.all_teams.length
+    assert_equal 7441, @stat_tracker.all_games.length
+    assert_equal 14882, @stat_tracker.all_game_teams.length
   end
-
 end
