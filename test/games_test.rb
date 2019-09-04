@@ -48,14 +48,14 @@ class GamesTest < Minitest::Test
   # Percentage of games that a visitor has won (rounded to the nearest 100th)	Float
   # JP
   def test_percentage_visitor_wins
-    
+
     assert_equal 0.36, @stat_tracker.percentage_visitor_wins
   end
 
   #Percentage of games that has resulted in a tie (rounded to the nearest 100th)	Float
   #JP
   def test_percentage_ties
-    skip
+
     assert_equal 0.20, @stat_tracker.percentage_ties
   end
 

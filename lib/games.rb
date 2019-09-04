@@ -31,7 +31,6 @@ module Games
   #Percentage of games that a home team has won (rounded to the nearest 100th)	Float
   #JP
   def percentage_home_wins
-    # (number of games where home_goals > away_goals) / number of games.length
     home_wins = 0
     self.games.each do |game|
       if game["home_goals"].to_i > game["away_goals"].to_i
@@ -54,29 +53,36 @@ module Games
 
     (away_wins.to_f / (self.games.length).to_f).round(2)
   end
-  #
-  # #Percentage of games that has resulted in a tie (rounded to the nearest 100th)	Float
-  # #JP
-  # def percentage_ties
-  #   skip
-  # end
-  #
+
+  #Percentage of games that has resulted in a tie (rounded to the nearest 100th)	Float
+  #JP
+  def percentage_ties
+    ties = 0
+    self.games.each do |game|
+      if game["home_goals"].to_i == game["away_goals"].to_i
+        ties += 1
+      end
+    end
+
+    (ties.to_f / (self.games.length).to_f).round(2)
+  end
+  
   # #A hash with season names (e.g. 20122013) as keys and counts of games as values	Hash
   # #AM
   # def count_of_games_by_season
-  #   skip
+  #
   # end
   #
   # #Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)	Float
   # #AM
   # def average_goals_per_game
-  #   skip
+  #
   # end
   #
   # #Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the #average number of goals in a game for that season as a key (rounded to the nearest 100th)	Hash
   # #AM
   # def average_goals_by_season
-  #   skip
+  #
   # end
 
 end
