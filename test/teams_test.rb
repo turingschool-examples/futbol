@@ -1,4 +1,3 @@
-require_relative '../lib/game'
 require_relative '../lib/teams'
 require_relative 'test_helper'
 
