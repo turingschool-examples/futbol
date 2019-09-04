@@ -75,14 +75,23 @@ class GamesTest < Minitest::Test
   # #Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)	Float
   # #AM
   def test_average_goals_per_game
-    
+    skip
     assert_equal 4.22, @stat_tracker.average_goals_per_game
   end
 
   # #Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the #average number of goals in a game for that season as a key (rounded to the nearest 100th)	Hash
   # #AM
-  # def test_average_goals_by_season
-  #
-  # end
+  def test_average_goals_by_season
+
+    expected = {
+      "20122013"=>4.12,
+      "20162017"=>4.23,
+      "20142015"=>4.14,
+      "20152016"=>4.16,
+      "20132014"=>4.19,
+      "20172018"=>4.44
+    }
+    assert_equal expected, @stat_tracker.average_goals_by_season
+  end
 
 end
