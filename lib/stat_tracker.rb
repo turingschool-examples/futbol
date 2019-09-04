@@ -1,6 +1,8 @@
 require 'csv'
+require_relative 'games'
 
 class StatTracker
+  include Games
 
   attr_reader :data
 
@@ -9,7 +11,6 @@ class StatTracker
     @games = [] #array of hashes
     @teams = [] #array of hashes
     @game_teams = [] #array of hashes
-
   end
 
   def self.from_csv(locations)
