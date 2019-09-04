@@ -15,13 +15,19 @@ module Games
   #Lowest sum of the winning and losing teams’ scores	Integer
   #BB
   def lowest_total_score
-
+    sum = 100
+    self.games.each do |game|
+      if (game["home_goals"].to_i + game["away_goals"].to_i) < sum
+        sum = game["home_goals"].to_i + game["away_goals"].to_i
+      end
+    end
+    sum
   end
 
   #Highest difference between winner and loser	Integer
   #BB
   def biggest_blowout
-
+    
   end
 
   #Percentage of games that a home team has won (rounded to the nearest 100th)	Float
