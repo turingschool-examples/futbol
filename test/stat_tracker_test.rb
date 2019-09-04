@@ -10,9 +10,9 @@ require 'csv'
 class StatTrackerTest < Minitest::Test
 
   def setup
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_path = './test/games_sample.csv'
+    team_path = './test/teams_sample.csv'
+    game_teams_path = './test/game_teams_sample.csv'
 
     @locations = {
       games: game_path,
@@ -22,13 +22,13 @@ class StatTrackerTest < Minitest::Test
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
-  def test_it_exists
+  def test_it_exists_and_attributes
     assert_instance_of StatTracker, @stat_tracker
   end
 
-  def test_for_all_made_data
-    assert_equal 32, @stat_tracker.all_teams.length
-    assert_equal 7441, @stat_tracker.all_games.length
-    assert_equal 14882, @stat_tracker.all_game_teams.length
+  def test_attributes
+    assert_equal Team, @stat_tracker.all_teams.first.class
+    assert_equal Game, @stat_tracker.all_games.first.class
+    assert_equal GameTeam, @stat_tracker.all_game_teams.first.class
   end
 end

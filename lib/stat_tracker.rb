@@ -6,9 +6,9 @@ class StatTracker
   attr_reader :all_teams, :all_games, :all_game_teams
 
   def initialize(team_array, game_array, game_teams_array)
-    @all_teams = team_array[1..-1]
-    @all_games = game_array[1..-1]
-    @all_game_teams = game_teams_array[1..-1]
+    @all_teams = team_array
+    @all_games = game_array
+    @all_game_teams = game_teams_array
   end
 
   def self.from_csv(file_paths)
@@ -23,7 +23,7 @@ class StatTracker
 
 
   def self.generate_data(location ,obj_type, array)
-    CSV.foreach(location) do |row|
+    CSV.foreach(location, :headers => true) do |row|
       array << obj_type.new(row)
     end
   end
