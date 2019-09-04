@@ -1,3 +1,7 @@
+require_relative 'team'
+require_relative 'game'
+require_relative 'game_team'
+
 class StatTracker
   attr_reader :all_teams, :all_games, :all_game_teams
 
