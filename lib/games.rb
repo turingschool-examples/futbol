@@ -109,21 +109,21 @@ module Games
 
   #Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the #average number of goals in a game for that season as a key (rounded to the nearest 100th)	Hash
   #AM
-  def average_goals_by_season
-    seasons = self.games.map {|h| h["season"]}.uniq
-    output = Hash.new
-
-    seasons.each do |season|
-      goals = 0
-      count = 0
-      self.games.each do |game| game["season"] == season
-        # require 'pry'; binding.pry
-          goals += (game["home_goals"].to_i + game["away_goals"].to_i)
-          count += 1
-      end
-      output[season] = (goals.to_f / count).round(2)
-    end
-    output
-  end
+  # def average_goals_by_season
+  #   seasons = self.games.map {|h| h["season"]}.uniq
+  #   output = Hash.new
+  #
+  #   seasons.each do |season|
+  #     goals = 0
+  #     count = 0
+  #     self.games.each do |game| game["season"] == season
+  #       # require 'pry'; binding.pry
+  #         goals += (game["home_goals"].to_i + game["away_goals"].to_i)
+  #         count += 1
+  #     end
+  #     output[season] = (goals.to_f / count).round(2)
+  #   end
+  #   output
+  # end
 
 end
