@@ -26,38 +26,38 @@ class GamesTest < Minitest::Test
     assert_equal 11, @stat_tracker.highest_total_score
   end
 
-  # #Lowest sum of the winning and losing teams’ scores	Integer
-  # #BB
-  # def test_lowest_total_score
-  #
-  # end
-  #
-  # #Highest difference between winner and loser	Integer
-  # #BB
-  # def test_biggest_blowout
-  #
-  # end
-  #
-  # #Percentage of games that a home team has won (rounded to the nearest 100th)	Float
-  # #JP
-  # def test_percentage_home_wins
-  #
-  # end
-  #
-  # #Percentage of games that a visitor has won (rounded to the nearest 100th)	Float
-  # #JP
-  # def test_percentage_visitor_wins
-  #
-  # end
-  #
-  # #Percentage of games that has resulted in a tie (rounded to the nearest 100th)	Float
-  # #JP
-  # def test_percentage_ties
-  #
-  # end
-  #
-  # #A hash with season names (e.g. 20122013) as keys and counts of games as values	Hash
-  # #AM
+  #Lowest sum of the winning and losing teams’ scores	Integer
+  #BB
+  def test_lowest_total_score
+    assert_equal 0, @stat_tracker.lowest_total_score
+  end
+
+  #Highest difference between winner and loser	Integer
+  #BB
+  def test_biggest_blowout
+    assert_equal 8, @stat_tracker.biggest_blowout
+  end
+
+  # Percentage of games that a home team has won (rounded to the nearest 100th)	Float
+  # JP
+  def test_percentage_home_wins
+    assert_equal 0.44, @stat_tracker.percentage_home_wins
+  end
+
+  # Percentage of games that a visitor has won (rounded to the nearest 100th)	Float
+  # JP
+  def test_percentage_visitor_wins
+    assert_equal 0.36, @stat_tracker.percentage_visitor_wins
+  end
+
+  #Percentage of games that has resulted in a tie (rounded to the nearest 100th)	Float
+  #JP
+  def test_percentage_ties
+    assert_equal 0.20, @stat_tracker.percentage_ties
+  end
+
+  #A hash with season names (e.g. 20122013) as keys and counts of games as values	Hash
+  #AM
   def test_count_of_games_by_season
     skip
     expected = {
@@ -72,15 +72,15 @@ class GamesTest < Minitest::Test
 
   end
 
-  # #Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)	Float
-  # #AM
+  # Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)	Float
+  # AM
   def test_average_goals_per_game
     skip
     assert_equal 4.22, @stat_tracker.average_goals_per_game
   end
 
-  # #Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the #average number of goals in a game for that season as a key (rounded to the nearest 100th)	Hash
-  # #AM
+  # Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the #average number of goals in a game for that season as a key (rounded to the nearest 100th)	Hash
+  # AM
   def test_average_goals_by_season
 
     expected = {
@@ -92,6 +92,7 @@ class GamesTest < Minitest::Test
       "20172018"=>4.44
     }
     assert_equal expected, @stat_tracker.average_goals_by_season
+
   end
 
 end
