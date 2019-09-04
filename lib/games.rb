@@ -1,10 +1,15 @@
-
 module Games
 
   #Highest sum of the winning and losing teams’ scores	Integer
   #BB
   def highest_total_score
-
+    sum = 0
+    self.games.each do |game|
+      if (game["home_goals"].to_i + game["away_goals"].to_i) > sum
+        sum = game["home_goals"].to_i + game["away_goals"].to_i
+      end
+    end
+    sum
   end
 
   #Lowest sum of the winning and losing teams’ scores	Integer
