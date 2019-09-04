@@ -21,13 +21,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_from_csv
-    assert_equal @locations, @stat_tracker
+    assert_equal @locations.keys, @stat_tracker.keys
   end
 
   def test_for_all_made_teams
-    require "pry"; binding.pry
-    @stat_tracker.shift
-    assert_equal 32, @stat_tracker.length
+    # require "pry"; binding.pry
+    assert_equal 32, @stat_tracker[:teams].length
   end
 
 end
