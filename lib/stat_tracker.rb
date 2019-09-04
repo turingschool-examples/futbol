@@ -5,5 +5,4 @@ class StatTracker
     # call module methods ?
   end
 
-
 end
