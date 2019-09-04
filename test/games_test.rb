@@ -59,7 +59,6 @@ class GamesTest < Minitest::Test
   # #A hash with season names (e.g. 20122013) as keys and counts of games as values	Hash
   # #AM
   def test_count_of_games_by_season
-    skip
     expected = {
       "20122013"=>806,
       "20162017"=>1317,
@@ -68,7 +67,7 @@ class GamesTest < Minitest::Test
       "20132014"=>1323,
       "20172018"=>1355
     }
-    assert_equal expected, @stat_tracker.test_count_of_games_by_season
+    assert_equal expected, @stat_tracker.count_of_games_by_season
 
   end
 

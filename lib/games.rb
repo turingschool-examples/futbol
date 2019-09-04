@@ -45,7 +45,14 @@ module Games
   #A hash with season names (e.g. 20122013) as keys and counts of games as values	Hash
   #AM
   def count_of_games_by_season
+    seasons = self.games.map {|h| h["season"]}.uniq
+    output = Hash.new
 
+    seasons.each do |season|
+      output[season] = self.games.count {|hash| hash["season"] == season}
+    end
+
+    output
   end
 
   #Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)	Float
