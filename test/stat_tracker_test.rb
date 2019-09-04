@@ -3,6 +3,8 @@ require 'minitest/pride'
 require './lib/team'
 require './lib/game'
 require './lib/stat_tracker'
+require 'simplecov'
+SimpleCov.start
 
 class StatTrackerTest < Minitest::Test
   def setup
