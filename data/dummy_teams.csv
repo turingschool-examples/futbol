@@ -3,3 +3,9 @@ team_id,franchiseId,teamName,abbreviation,Stadium,link
 4,16,Chicago Fire,CHI,SeatGeek Stadium,/api/v1/teams/4
 26,14,FC Cincinnati,CIN,Nippert Stadium,/api/v1/teams/26
 14,31,DC United,DC,Audi Field,/api/v1/teams/14
+27,28,San Jose Earthquakes,SJ,Avaya Stadium,/api/v1/teams/27
+2,22,Seattle Sounders FC,SEA,Centruy Link Field,/api/v1/teams/2
+20,21,Toronto FC,TOR,BMO Field,/api/v1/teams/20
+21,27,Vancouver Whitecaps FC,VAN,BC Place,/api/v1/teams/21
+25,15,Chicago Red Stars,CRS,SeatGeek Stadium,/api/v1/teams/25
+13,33,Houston Dash,HOD,BBVA Stadium,/api/v1/teams/13
