@@ -1,12 +1,10 @@
-require_relative '../lib/game'
 require_relative '../lib/teams'
 require_relative 'test_helper'
 
 class TeamTest < Minitest::Test
 
   def setup
-    @line_2 = Team.new("1,23,Atlanta United,ATL,Mercedes-Benz Stadium,/api/v1/teams/1
-")
+    @line_2 = Team.new("1,23,Atlanta United,ATL,Mercedes-Benz Stadium,/api/v1/teams/1")
   end
 
   def test_attributes
@@ -18,4 +16,4 @@ class TeamTest < Minitest::Test
     assert_equal "/api/v1/teams/1", @line_2.link
   end
 
-end 
+end
