@@ -19,6 +19,8 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_initialize
-    #
+    assert_equal 32, @stat_tracker.teams.length
+    assert_equal 7441, @stat_tracker.games.length
+    assert_equal 14882, @stat_tracker.game_teams.length
   end
 end
