@@ -2,6 +2,8 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/team'
 require './lib/game'
+require 'simplecov'
+SimpleCov.start
 
 class GameTest < Minitest::Test
   def setup
