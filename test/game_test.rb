@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/game'
 
-class TeamTest < Minitest::Test
+class GameTest < Minitest::Test
 
   def setup
     @game = Game.new(['2012030221', '20122013', 'Postseason', '5/16/13', '3', '6', '2', '3', 'Toyota Stadium', '/api/v1/venues/null'])
