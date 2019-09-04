@@ -32,6 +32,11 @@ class GamesTest < Minitest::Test
     assert_equal 0, @stat_tracker.lowest_total_score
   end
 
+  #Highest difference between winner and loser	Integer
+  #BB
+  def test_biggest_blowout
+    assert_equal 8, @stat_tracker.biggest_blowout
+  end
 
   # Percentage of games that a home team has won (rounded to the nearest 100th)	Float
   # JP
