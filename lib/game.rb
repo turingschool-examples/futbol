@@ -22,4 +22,8 @@ class Game
     @venue = game_info[8]
     @venue_link = game_info[9]
   end
+
+  # def read_team_stats(game_id)
+  #
+  # end
 end
