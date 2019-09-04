@@ -58,7 +58,9 @@ module Games
   #Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)	Float
   #AM
   def average_goals_per_game
-
+    goals = self.games.map {|h| h["home_goals"].to_f + h["away_goals"].to_f}
+    # require 'pry'; binding.pry
+    (goals.sum / goals.length).round(2)
   end
 
   #Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the #average number of goals in a game for that season as a key (rounded to the nearest 100th)	Hash
