@@ -6,7 +6,6 @@ module GameStats
       object.away_goals + object.home_goals
     end
     game.away_goals + game.home_goals
-
   end
 
   def lowest_total_score #integer
@@ -20,13 +19,13 @@ module GameStats
     game = @game_objs.max_by do |object|
       (object.away_goals - object.home_goals).abs
     end
-    (game.away_goals - game.home_goals).abs 
+    (game.away_goals - game.home_goals).abs
   end
 
   def percentage_home_wins #float
     #Percentage of games that a home team has won (rounded to the nearest 100th)
     @game_objs.count do |object|
-      object.home_goals > object.away_goals
+      object.home_goals > object.away_goals # create method that takes 2 params for this and subsequent method & reverse as needed
     end/@game_objs.length.to_f * 100
   end
 

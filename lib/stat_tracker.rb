@@ -2,7 +2,7 @@ require 'csv'
 require_relative 'game_stats'
 
 class StatTracker
-  include GameStats 
+  include GameStats
   attr_reader :game_objs,
               :team_objs,
               :game_teams_objs

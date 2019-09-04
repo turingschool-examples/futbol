@@ -17,7 +17,7 @@ class Game
       @date_time = line.split(",")[3]
       @away_team_id = line.split(",")[4].to_i
       @home_team_id = line.split(",")[5].to_i
-      @away_goals = line.split(",")[6].to_i 
+      @away_goals = line.split(",")[6].to_i
       @home_goals = line.split(",")[7].to_i
       @venue = line.split(",")[8]
       @venue_link = line.split(",")[9]
