@@ -1,3 +1,5 @@
+require './lib/stat_tracker'
+
 module Games
 
   #Highest sum of the winning and losing teams’ scores	Integer
@@ -5,8 +7,9 @@ module Games
   def highest_total_score
     sum = 0
     self.games.each do |game|
+      #game["home_goals"] returns the value of the "home_goals" key.
       if (game["home_goals"].to_i + game["away_goals"].to_i) > sum
-        sum = game["home_goals"].to_i + game["away_goals"].to_i
+        sum = (game["home_goals"].to_i + game["away_goals"].to_i)
       end
     end
     sum
@@ -45,6 +48,7 @@ module Games
   #A hash with season names (e.g. 20122013) as keys and counts of games as values	Hash
   #AM
   def count_of_games_by_season
+
 
   end
 

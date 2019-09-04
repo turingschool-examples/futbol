@@ -40,22 +40,25 @@ class GamesTest < Minitest::Test
   #
   # #Percentage of games that a home team has won (rounded to the nearest 100th)	Float
   # #JP
-  # def test_percentage_home_wins
+  def test_percentage_home_wins
+
+    assert_equal 0.44, @stat_tracker.percentage_home_wins
+  end
   #
-  # end
-  #
-  # #Percentage of games that a visitor has won (rounded to the nearest 100th)	Float
-  # #JP
-  # def test_percentage_visitor_wins
-  #
-  # end
-  #
-  # #Percentage of games that has resulted in a tie (rounded to the nearest 100th)	Float
-  # #JP
-  # def test_percentage_ties
-  #
-  # end
-  #
+  # Percentage of games that a visitor has won (rounded to the nearest 100th)	Float
+  # JP
+  def test_percentage_visitor_wins
+
+    assert_equal 0.36, @stat_tracker.percentage_visitor_wins
+  end
+
+  #Percentage of games that has resulted in a tie (rounded to the nearest 100th)	Float
+  #JP
+  def test_percentage_ties
+
+    assert_equal 0.20, @stat_tracker.percentage_ties
+  end
+
   # #A hash with season names (e.g. 20122013) as keys and counts of games as values	Hash
   # #AM
   # def test_count_of_games_by_season
