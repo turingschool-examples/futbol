@@ -38,7 +38,7 @@ class GamesTest < Minitest::Test
     assert_equal 8, @stat_tracker.biggest_blowout
   end
 
-  #Percentage of games that a home team has won (rounded to the nearest 100th)	Float
+  Percentage of games that a home team has won (rounded to the nearest 100th)	Float
   #JP
   def test_percentage_home_wins
 

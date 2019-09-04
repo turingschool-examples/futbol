@@ -27,7 +27,21 @@ module Games
   #Highest difference between winner and loser	Integer
   #BB
   def biggest_blowout
-    
+    biggest_blowout_value = 0
+    self.games.each do |game|
+      if game["home_goals"].to_i > game["away_goals"].to_i
+        blowout_value = game["home_goals"].to_i - game["away_goals"].to_i
+        if blowout_value > biggest_blowout_value
+          biggest_blowout_value = blowout_value
+        end
+      elsif game["away_goals"].to_i > game["home_goals"].to_i
+        blowout_value = game["away_goals"].to_i - game["home_goals"].to_i
+        if blowout_value > biggest_blowout_value
+          biggest_blowout_value = blowout_value
+        end
+      end
+    end
+    biggest_blowout_value
   end
 
   #Percentage of games that a home team has won (rounded to the nearest 100th)	Float
