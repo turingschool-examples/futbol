@@ -9,7 +9,7 @@ class Team
     @teamName =
     @abbreviation =
     @stadium =
-    @link =
+    @link = d
   end
 
 
