@@ -22,14 +22,14 @@ class GameTeam
     @result = info[3]
     @settled_in = info[4]
     @head_coach = info[5]
-    @goals = info[6]
-    @shots = info[7]
-    @tackles = info[8]
-    @pim = info[9]
-    @power_play_opportunities = info[10]
-    @power_play_goals = info[11]
-    @face_off_win_percentage = info[12]
-    @giveaways = info[13]
-    @takeaways = info[14]
+    @goals = info[6].to_i
+    @shots = info[7].to_i
+    @tackles = info[8].to_i
+    @pim = info[9].to_i
+    @power_play_opportunities = info[10].to_i
+    @power_play_goals = info[11].to_i
+    @face_off_win_percentage = info[12].to_f
+    @giveaways = info[13].to_i
+    @takeaways = info[14].to_i
   end
 end

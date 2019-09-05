@@ -1,6 +1,7 @@
 require_relative 'team'
 require_relative 'game'
 require_relative 'game_team'
+require 'csv'
 
 class StatTracker
   attr_reader :all_teams, :all_games, :all_game_teams
@@ -23,7 +24,7 @@ class StatTracker
 
 
   def self.generate_data(location ,obj_type, array)
-    CSV.foreach(location, :headers => true) do |row|
+    CSV.foreach(location, headers: true) do |row|
       array << obj_type.new(row)
     end
   end
