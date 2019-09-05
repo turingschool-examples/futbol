@@ -43,4 +43,23 @@ module GameStat
     all_games.map { |game| game.home_goals + game.away_goals}.sum \
     / all_games.length.to_f
   end
+
+  def average_goals_by_season
+    seasons = all_games.map { |game| game.season}.uniq
+    count_result = Hash.new
+    
+    seasons.each do |season|
+      total_goals = all_games.map {
+        |game|
+        game.home_goals + game.away_goals if game.season == season
+      }.compact.sum
+
+      num_games = all_games.count {
+        |game| game.season == season
+      }
+
+      count_result[season] = total_goals / num_games.to_f
+    end
+    count_result
+  end
 end
