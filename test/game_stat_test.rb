@@ -45,4 +45,13 @@ class GameStatTest < Minitest::Test
   def test_percentage_ties
     assert_equal 5.26, @stat_tracker.percentage_ties.round(2)
   end
+
+  def test_count_of_games_by_season
+    expected = {
+      '20122013' => 10,
+      '20142015' => 5,
+      '20162017' => 4
+    }
+    assert_equal expected, @stat_tracker.count_of_games_by_season
+  end
 end

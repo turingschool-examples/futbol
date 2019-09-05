@@ -29,4 +29,13 @@ module GameStat
     all_games.count { |game| game.home_goals == game.away_goals} \
       / all_games.length.to_f * 100
   end
+
+  def count_of_games_by_season
+    seasons = all_games.map { |game| game.season}.uniq
+    count_result = Hash.new
+    seasons.each do |season|
+      count_result[season] = all_games.count {|game| game.season == season}
+    end
+    count_result
+  end
 end
