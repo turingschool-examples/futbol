@@ -38,4 +38,9 @@ module GameStat
     end
     count_result
   end
+
+  def average_goals_per_game
+    all_games.map { |game| game.home_goals + game.away_goals}.sum \
+     / all_games.length * 100
+  end
 end
