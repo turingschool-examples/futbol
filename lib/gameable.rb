@@ -7,10 +7,10 @@ module Gameable
   #BB
   def highest_total_score
     sum = 0
-    self.games.each do |game|
-      #game["home_goals"] returns the value of the "home_goals" key.
-      if (game["home_goals"].to_i + game["away_goals"].to_i) > sum
-        sum = (game["home_goals"].to_i + game["away_goals"].to_i)
+    self.games.each do |hash|
+      #hash.values[0].home_goals returns the value of the Games @home_goals.
+      if (hash.values[0].home_goals + hash.values[0].away_goals) > sum
+        sum = (hash.values[0].home_goals + hash.values[0].away_goals)
       end
     end
     sum
@@ -20,9 +20,9 @@ module Gameable
   #BB
   def lowest_total_score
     sum = 100
-    self.games.each do |game|
-      if (game["home_goals"].to_i + game["away_goals"].to_i) < sum
-        sum = game["home_goals"].to_i + game["away_goals"].to_i
+    self.games.each do |hash|
+      if (hash.values[0].home_goals + hash.values[0].away_goals) < sum
+        sum = hash.values[0].home_goals + hash.values[0].away_goals
       end
     end
     sum
@@ -32,17 +32,9 @@ module Gameable
   #BB
   def biggest_blowout
     biggest_blowout_value = 0
-    self.games.each do |game|
-      if game["home_goals"].to_i > game["away_goals"].to_i
-        blowout_value = game["home_goals"].to_i - game["away_goals"].to_i
-        if blowout_value > biggest_blowout_value
-          biggest_blowout_value = blowout_value
-        end
-      elsif game["away_goals"].to_i > game["home_goals"].to_i
-        blowout_value = game["away_goals"].to_i - game["home_goals"].to_i
-        if blowout_value > biggest_blowout_value
-          biggest_blowout_value = blowout_value
-        end
+    self.games.each do |hash|
+      if (hash.values[0].home_goals - hash.values[0].away_goals).abs > biggest_blowout_value
+        biggest_blowout_value = (hash.values[0].home_goals - hash.values[0].away_goals).abs
       end
     end
     biggest_blowout_value

@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './test/test_helper'
+# require './test/test_helper'
 require './lib/stat_tracker'
 require './lib/gameable'
 
@@ -42,24 +42,28 @@ class GameableTest < Minitest::Test
   # Percentage of games that a home team has won (rounded to the nearest 100th)	Float
   # JP
   def test_percentage_home_wins
+    skip
     assert_equal 0.44, @stat_tracker.percentage_home_wins
   end
 
   # Percentage of games that a visitor has won (rounded to the nearest 100th)	Float
   # JP
   def test_percentage_visitor_wins
+    skip
     assert_equal 0.36, @stat_tracker.percentage_visitor_wins
   end
 
   #Percentage of games that has resulted in a tie (rounded to the nearest 100th)	Float
   #JP
   def test_percentage_ties
+    skip
     assert_equal 0.20, @stat_tracker.percentage_ties
   end
 
   #A hash with season names (e.g. 20122013) as keys and counts of games as values	Hash
   #AM
   def test_count_of_games_by_season
+    skip
 
     expected = {
       "20122013"=>806,
@@ -76,7 +80,7 @@ class GameableTest < Minitest::Test
   # Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)	Float
   # AM
   def test_average_goals_per_game
-
+    skip
     assert_equal 4.22, @stat_tracker.average_goals_per_game
   end
 

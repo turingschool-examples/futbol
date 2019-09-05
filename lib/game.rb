@@ -24,7 +24,7 @@ class Game
     @home_goals   = home_goals
     @venue        = venue
     @venue_link   = venue_link
-    
+
   end
 
 end
