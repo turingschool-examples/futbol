@@ -7,8 +7,8 @@ class Team
               :link
 
   def initialize(line)
-    @team_id = line.split(",")[0].to_i
-    @franchiseId = line.split(",")[1].to_i
+    @team_id = line.split(",")[0]
+    @franchiseId = line.split(",")[1]
     @teamName = line.split(",")[2]
     @abbreviation = line.split(",")[3]
     @stadium = line.split(",")[4]

@@ -11,8 +11,13 @@ class Game
               :venue_link
 
     def initialize(line)
+<<<<<<< HEAD
       @game_id = line.split(",")[0].to_i
       @season = line.split(",")[1].to_i
+=======
+      @game_id = line.split(",")[0]
+      @season = line.split(",")[1]
+>>>>>>> 062b1457e42505450a782040d7272fe277c3c0d6
       @type = line.split(",")[2]
       @date_time = line.split(",")[3]
       @away_team_id = line.split(",")[4].to_i

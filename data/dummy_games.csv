@@ -1,0 +1,11 @@
+game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
+2012030221,20122013,Postseason,5/16/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
+2012030222,20122013,Postseason,5/19/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
+2013021187,20132014,Regular Season,4/9/14,6,30,3,3,Exploria Stadium,/api/v1/venues/null
+2013020898,20132014,Regular Season,3/1/14,28,7,2,2,Rio Tinto Stadium,/api/v1/venues/null
+2015020976,20152016,Regular Season,3/6/16,29,4,0,4,SeatGeek Stadium,/api/v1/venues/null
+2015020172,20152016,Regular Season,11/4/15,25,6,3,3,Toyota Stadium,/api/v1/venues/null
+2016020627,20162017,Regular Season,1/13/17,6,18,1,2,Allianz Field,/api/v1/venues/null
+2016020904,20162017,Regular Season,2/25/17,24,26,1,2,Nippert Stadium,/api/v1/venues/null
+2017020375,20172018,Regular Season,11/29/17,53,22,2,3,Maryland SoccerPlex,/api/v1/venues/null
+2017020109,20172018,Regular Season,10/21/17,8,24,2,4,Rio Tinto Stadium,/api/v1/venues/null
