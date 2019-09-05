@@ -8,7 +8,7 @@ class Game
     @date_time = game["date_time"]
     @away_team_id = game["away_team_id"].to_i
     @home_team_id = game["home_team_id"].to_i
-    @away_goals = game["away_goals"].to_i
+    @away_goals = game["away_goals"].to_f
     @home_goals = game["home_goals"].to_i
     @venue = game["venue"]
     @venue_link = game["venue_link"]
