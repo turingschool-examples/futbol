@@ -1,5 +1,5 @@
-require_relative '../lib/game'
 require_relative 'test_helper'
+require_relative '../lib/game'
 
 class GameTest < Minitest::Test
 
