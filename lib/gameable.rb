@@ -1,7 +1,7 @@
 require './lib/stat_tracker'
 require 'pry'
 
-module Games
+module Gameable
 
   #Highest sum of the winning and losing teams’ scores	Integer
   #BB

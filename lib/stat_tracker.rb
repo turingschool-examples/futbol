@@ -1,8 +1,12 @@
 require 'csv'
-require_relative 'games'
+require_relative 'gameable'
+require_relative 'league'
+#require_relative 'teamable'
 
 class StatTracker
-  include Games
+  include Gameable
+  include League
+  #include Teamable
 
   attr_reader :data
 

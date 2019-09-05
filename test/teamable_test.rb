@@ -1,9 +1,9 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/stat_tracker'
-require './lib/teams'
+require './lib/teamable'
 
-class TeamsTest < Minitest::Test
+class TeamableTest < Minitest::Test
 
   def setup
     @game_path = './data/games.csv'
