@@ -1,4 +1,4 @@
-module League
+module Leagueable
 
   # Total number of teams in the data. Return: Int
   # BB

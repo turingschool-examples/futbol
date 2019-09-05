@@ -1,9 +1,10 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require './test/test_helper'
 require './lib/stat_tracker'
-require './lib/games'
+require './lib/gameable'
 
-class GamesTest < Minitest::Test
+class GameableTest < Minitest::Test
 
   def setup
     @game_path = './data/games.csv'

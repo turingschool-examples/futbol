@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/stat_tracker'
-require './lib/league'
+require './lib/leagueable'
 
 class LeagueTest < Minitest::Test
 
