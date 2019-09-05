@@ -24,4 +24,9 @@ module GameStat
     all_games.count { |game| game.home_goals < game.away_goals} \
       / all_games.length.to_f * 100
   end
+
+  def percentage_ties
+    all_games.count { |game| game.home_goals == game.away_goals} \
+      / all_games.length.to_f * 100
+  end
 end

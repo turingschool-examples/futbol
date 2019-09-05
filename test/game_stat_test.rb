@@ -41,4 +41,8 @@ class GameStatTest < Minitest::Test
   def test_percentage_visitor_wins
     assert_equal 52.63, @stat_tracker.percentage_visitor_wins.round(2)
   end
+
+  def test_percentage_ties
+    assert_equal 5.26, @stat_tracker.percentage_ties.round(2)
+  end
 end
