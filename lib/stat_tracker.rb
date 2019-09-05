@@ -69,9 +69,14 @@ class StatTracker
                                                       row.fetch("takeaways").to_i
                                                       ) }
     end
-
     stat_tracker
-
   end
+
+  # def games_obj(instance_variable)
+  #   # hash.fetch(hash.keys.join).instance_variable
+  #   # @games.each do |hash|
+  #   hash.values[0].instance_variable
+  #   # end
+  # end
 
 end

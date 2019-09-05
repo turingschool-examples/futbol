@@ -52,39 +52,39 @@ module Gameable
   #JP
   def percentage_home_wins
     home_wins = 0
-    self.games.each do |game|
-      if game["home_goals"].to_i > game["away_goals"].to_i
+    self.games.each do |hash|
+      if hash.values[0].home_goals > hash.values[0].away_goals
         home_wins += 1
       end
     end
 
-    (home_wins.to_f / (self.games.length).to_f).round(2)
+    (home_wins / (self.games.length).to_f).round(2)
   end
 
   #Percentage of games that a visitor has won (rounded to the nearest 100th)	Float
   #JP
   def percentage_visitor_wins
     away_wins = 0
-    self.games.each do |game|
-      if game["home_goals"].to_i < game["away_goals"].to_i
+    self.games.each do |hash|
+      if hash.values[0].home_goals < hash.values[0].away_goals
         away_wins += 1
       end
     end
 
-    (away_wins.to_f / (self.games.length).to_f).round(2)
+    (away_wins / (self.games.length).to_f).round(2)
   end
 
   #Percentage of games that has resulted in a tie (rounded to the nearest 100th)	Float
   #JP
   def percentage_ties
     ties = 0
-    self.games.each do |game|
-      if game["home_goals"].to_i == game["away_goals"].to_i
+    self.games.each do |hash|
+      if hash.values[0].home_goals == hash.values[0].away_goals
         ties += 1
       end
     end
 
-    (ties.to_f / (self.games.length).to_f).round(2)
+    (ties / (self.games.length).to_f).round(2)
   end
 
   #A hash with season names (e.g. 20122013) as keys and counts of games as values	Hash
