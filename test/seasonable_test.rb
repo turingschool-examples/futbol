@@ -1,9 +1,9 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './test/test_helper'
-require './lib/season'
+require './lib/seasonable'
 
-class SeasonTest < Minitest::Test
+class SeasonableTest < Minitest::Test
 
   # Name of the team with the biggest decrease between regular season and postseason win percentage.	Return: String
   def test_biggest_bust
