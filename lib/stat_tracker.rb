@@ -2,9 +2,12 @@ require 'csv'
 require_relative './game'
 require_relative './team'
 require_relative './game_team'
+require_relative './game_statistics'
 
 
 class StatTracker
+  include GameStatistics
+  
   attr_reader :games, :teams, :game_teams
 
   def initialize(games, teams, game_teams)
@@ -30,14 +33,5 @@ class StatTracker
     end
 
     StatTracker.new(games, teams, game_teams)
-  end
-
-  def highest_total_score
-    sum = 0
-    @games.each do |game|
-      new_sum = game.away_goals + game.home_goals
-      sum = new_sum if new_sum > sum
-    end
-    sum
   end
 end
