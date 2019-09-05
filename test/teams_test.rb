@@ -13,8 +13,8 @@ class TeamTest < Minitest::Test
 
 
   def test_attributes
-    assert_equal 1, @line_2.team_id
-    assert_equal 23, @line_2.franchiseId
+    assert_equal '1', @line_2.team_id
+    assert_equal '23', @line_2.franchiseId
     assert_equal "Atlanta United", @line_2.teamName
     assert_equal "ATL", @line_2.abbreviation
     assert_equal "Mercedes-Benz Stadium", @line_2.stadium

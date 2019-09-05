@@ -36,7 +36,7 @@ class GameStatsTest < MiniTest::Test
   end
 
   def test_count_of_games_by_season
-    assert_equal ({ 20122013 => 2, 20132014 => 2, 20152016 => 2, 20162017 => 2, 20172018 => 2 }), @stat_tracker.count_of_games_by_season
+    assert_equal ({ '20122013' => 2, '20132014' => 2, '20152016' => 2, '20162017' => 2, '20172018' => 2 }), @stat_tracker.count_of_games_by_season
   end
 
   def test_average_goals_per_game
@@ -44,7 +44,7 @@ class GameStatsTest < MiniTest::Test
   end
 
   def test_average_goals_by_season
-    assert_equal ({20122013 => 5.00, 20132014 => 5.00, 20152016 => 5.00, 20162017 => 3.00, 20172018 => 5.50}), @stat_tracker.average_goals_by_season
+    assert_equal ({'20122013' => 5.00, '20132014' => 5.00, '20152016' => 5.00, '20162017' => 3.00, '20172018' => 5.50}), @stat_tracker.average_goals_by_season
   end
 
 

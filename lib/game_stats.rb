@@ -20,26 +20,26 @@ module GameStats
     game = @game_objs.max_by do |object|
       (object.away_goals - object.home_goals).abs
     end
-    (game.away_goals - game.home_goals).abs 
+    (game.away_goals - game.home_goals).abs
   end
 
   def percentage_home_wins #float
     #Percentage of games that a home team has won (rounded to the nearest 100th)
-    @game_objs.count do |object|
+    (@game_objs.count do |object|
       object.home_goals > object.away_goals
-    end/@game_objs.length.to_f * 100
+    end/@game_objs.length.to_f * 100).round(2)
   end
 
   def percentage_visitor_wins #float
-    @game_objs.count do |object|
+    (@game_objs.count do |object|
       object.away_goals > object.home_goals
-    end/@game_objs.length.to_f * 100
+    end/@game_objs.length.to_f * 100).round(2)
   end
 
   def percentage_ties #float
-    @game_objs.count do |object|
+    (@game_objs.count do |object|
       object.home_goals == object.away_goals
-    end/@game_objs.length.to_f * 100
+    end/@game_objs.length.to_f * 100).round(2)
   end
 
   def count_of_games_by_season #hash
@@ -67,7 +67,7 @@ module GameStats
       goals_by_season[object.season] += (object.away_goals + object.home_goals)
     end
     goals_by_season.each do |season, goals|
-      goals_by_season[season] = goals / count_of_games_by_season[season].to_f
+      goals_by_season[season] = goals / count_of_games_by_season[season].to_f.round(2)
     end
   end
 

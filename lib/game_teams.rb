@@ -16,8 +16,8 @@ class GameTeams
               :takeaways
 
   def initialize(line)
-    @game_id = line.split(",")[0].to_i
-    @team_id = line.split(",")[1].to_i
+    @game_id = line.split(",")[0]
+    @team_id = line.split(",")[1]
     @hoa = line.split(",")[2]
     @result = line.split(",")[3]
     @settled_in = line.split(",")[4]
