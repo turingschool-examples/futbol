@@ -28,17 +28,12 @@ module GameStatistics
 
   def percentage_home_wins
     wins = 0
-    home_games = 0
-    @game_teams.each do |game|
-      if game.hoa == "home" && game.result == "WIN"
+    @games.each do |game|
+      if game.home_goals > game.away_goals
         wins += 1
-        home_games += 1
-      elsif game.hoa == "home" && game.result == "LOSS"
-        home_games += 1
       end
     end
-    (wins / home_games).to_f.round(2)
-    # require 'pry'; binding.pry
+    (wins.to_f / @games.length).round(2)
   end
 
   def percentage_ties
