@@ -19,7 +19,7 @@ class GameTeam
     @powerPlayGoals =
     @faceOffWinPercentage =
     @giveaways =
-    @takeaways =
+    @takeaways = d
   end
 
 

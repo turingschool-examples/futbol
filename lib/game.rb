@@ -13,7 +13,7 @@ class Game
     @away_goals =
     @home_goals =
     @venue =
-    @venue_link =
+    @venue_link = d
   end
 
 
