@@ -36,6 +36,16 @@ module GameStatistics
     (wins.to_f / @games.length).round(2)
   end
 
+  def percentage_visitor_wins
+    wins = 0
+    @games.each do |game|
+      if game.home_goals < game.away_goals
+        wins += 1
+      end
+    end
+    (wins.to_f / @games.length).round(2)
+  end
+
   def percentage_ties
     (@games.find_all do |game|
       game.away_goals == game.home_goals
@@ -75,5 +85,4 @@ module GameStatistics
     end
     total_goals
   end
-
 end
