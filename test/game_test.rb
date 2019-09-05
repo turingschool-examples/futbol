@@ -1,5 +1,6 @@
 require './test/test_helper'
 require './lib/game'
+require "pry"
 
 class GameTest < Minitest::Test
 
