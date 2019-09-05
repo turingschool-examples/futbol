@@ -1,4 +1,6 @@
 class GameTeam
+  attr_reader :hoa, :result
+
   def initialize(game_team)
     @game_id = game_team["game_id"].to_i
     @team_id = game_team["team_id"].to_i
@@ -14,6 +16,6 @@ class GameTeam
     @power_play_goals = game_team["powerPlayGoals"].to_i
     @face_off_win_percentage = game_team["faceOffWinPercentage"].to_f
     @giveaways = game_team["giveaways"].to_i
-    @takeaways = game_team["takeaways"].to_i 
+    @takeaways = game_team["takeaways"].to_i
   end
 end
