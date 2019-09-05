@@ -1,9 +1,9 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/team'
-require './lib/game'
 require 'simplecov'
 SimpleCov.start
+
+require 'minitest/autorun'
+require 'minitest/pride'
+require './lib/game'
 
 class GameTest < Minitest::Test
   def setup
@@ -17,7 +17,7 @@ class GameTest < Minitest::Test
 
   def test_initialize
     assert_equal 2012030221, @game.game_id
-    assert_equal 20122013, @game.season
+    assert_equal "20122013", @game.season
     assert_equal "Postseason", @game.type
     assert_equal "5/16/13", @game.date_time
     assert_equal 3, @game.away_team_id
