@@ -17,8 +17,8 @@ class Game
     @date_time = info[3]
     @away_team_id = info[4]
     @home_team_id = info[5]
-    @away_goals = info[6]
-    @home_goals = info[7]
+    @away_goals = info[6].to_i
+    @home_goals = info[7].to_i
     @venue = info[8]
     @venue_link = info[9]
   end
