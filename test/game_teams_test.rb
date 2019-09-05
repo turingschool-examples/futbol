@@ -7,6 +7,11 @@ class GameTeamsTest < Minitest::Test
     @line_2 = GameTeams.new("2012030221,3,away,LOSS,OT,John Tortorella,2,8,44,8,3,0,44.8,17,7")
   end
 
+  def test_it_exists
+    assert_instance_of GameTeams, @line_2
+  end
+
+
   def test_attributes
     assert_equal 2012030221, @line_2.game_id
     assert_equal 3, @line_2.team_id
