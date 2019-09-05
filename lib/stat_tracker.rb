@@ -1,9 +1,11 @@
 require_relative 'team'
 require_relative 'game'
 require_relative 'game_team'
+require_relative 'game_stat'
 require 'csv'
 
 class StatTracker
+  include GameStat
   attr_reader :all_teams, :all_games, :all_game_teams
 
   def initialize(team_array, game_array, game_teams_array)
