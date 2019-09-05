@@ -1,5 +1,8 @@
-task default: %w[test]
+require 'rake/testtask'
 
-task :test do
-  ruby "test/est_test.rb"
+Rake::TestTask.new do |t|
+  t.pattern = "test/**/*_test.rb"
 end
+
+task default: ["test"]
+
