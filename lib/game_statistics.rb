@@ -62,7 +62,23 @@ module GameStatistics
   def average_goals_per_game
     (@games.sum do |game|
       game.home_goals + game.away_goals
-    end.to_f / @games.length).round(2) 
+    end.to_f / @games.length).round(2)
+  end
+
+  def average_goals_by_season
+    total_goals = Hash.new(0)
+    total_games = count_of_games_by_season
+    @games.each do |game|
+      if !total_goals.has_key?(game.season)
+        total_goals[game.season] = (game.away_goals + game.home_goals) / total_games[game.season]
+      else
+        total_goals[game.season] += game.away_goals + game.home_goals
+      end
+    end
+    total_goals.each do |season, goals|
+      total_goals[season] = (goals / total_games[season]).ceil(2)
+    end
+    total_goals
   end
 
 end
