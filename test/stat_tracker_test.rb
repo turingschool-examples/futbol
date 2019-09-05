@@ -22,4 +22,12 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_show_highest_total_score
     assert_equal 11, @stat_tracker.highest_total_score
   end
+
+  def test_it_can_show_lowest_total_score
+    assert_equal 0, @stat_tracker.lowest_total_score
+  end
+
+  def test_biggest_blowout
+    assert_equal 8, @stat_tracker.biggest_blowout
+  end
 end
