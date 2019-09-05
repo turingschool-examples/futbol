@@ -25,6 +25,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal 14882, @stat_tracker.game_teams.length
   end
 
+
+  # Game Statistics Tests
+
   def test_highest_total_score
     assert_equal 11, @stat_tracker.highest_total_score
   end
@@ -32,6 +35,8 @@ class StatTrackerTest < Minitest::Test
   def test_lowest_total_score
     assert_equal 0, @stat_tracker.lowest_total_score
   end
+
+  
 
   def test_count_of_games_by_season
     expected = { '20122013' => 806,
