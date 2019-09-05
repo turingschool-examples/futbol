@@ -30,4 +30,25 @@ class StatTrackerTest < Minitest::Test
   def test_biggest_blowout
     assert_equal 8, @stat_tracker.biggest_blowout
   end
+
+  def test_percentage_home_wins
+    skip
+    assert_equal 0.44, @stat_tracker.percentage_home_wins
+  end
+
+  def test_percentage_ties
+    assert_equal 0.20, @stat_tracker.percentage_ties
+  end
+
+  def test_count_of_games_by_season
+    expected = {
+      "20122013"=>806,
+      "20162017"=>1317,
+      "20142015"=>1319,
+      "20152016"=>1321,
+      "20132014"=>1323,
+      "20172018"=>1355
+    }
+    assert_equal expected, @stat_tracker.count_of_games_by_season
+  end
 end
