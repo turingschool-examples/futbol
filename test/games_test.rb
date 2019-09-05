@@ -2,8 +2,13 @@ require_relative '../lib/game'
 require_relative 'test_helper'
 
 class GameTest < Minitest::Test
+
   def setup
     @line_2 = Game.new("2012030221,20122013,Postseason,5/16/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null")
+  end
+
+  def test_it_exists
+    assert_instance_of Game, @line_2
   end
 
   def test_attributes
