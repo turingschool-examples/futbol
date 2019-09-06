@@ -3,7 +3,7 @@ module Leagueable
   # Total number of teams in the data. Return: Int
   # BB
   def count_of_teams
-    # code goes here!
+    teams.length
   end
 
   # Name of the team with the highest average number of goals scored per game across all seasons. Return: String
@@ -57,7 +57,9 @@ module Leagueable
   # Name of the team with the highest win percentage across all seasons. Return: String
   # BB
   def winningest_team
-    # code goes here!
+   # itrate through data and add team ids to a hash as keys
+   # set values for each key to 0
+   # iterate through data again and for every win/goal add x to that teams value
   end
 
   # Name of the team with biggest difference between home and away win percentages. Return: String

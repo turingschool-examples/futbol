@@ -16,8 +16,8 @@ class StatTracker
   attr_reader :games, :teams, :game_teams
 
   def initialize
-    @games = [] #array of hashes with values equal to Game objects
-    @teams = [] #array of hashes with values equal to Team objects
+    @games = {} #hash with keys equal to game_id and values equal to Game objects
+    @teams = {} #hash with keys equal to team_id and values equal to Team objects
     @game_teams = [] #array of hashes with values equal to GameTeams objects
   end
 
@@ -26,28 +26,12 @@ class StatTracker
 
     # creates unique Game objects as hashes in @games instance variable
     CSV.foreach(locations[:games], headers: true) do |row|
-      stat_tracker.games << {row.fetch("game_id") => Game.new(row.fetch("game_id"),
-                                                      row.fetch("season"),
-                                                      row.fetch("type"),
-                                                      row.fetch("date_time"),
-                                                      row.fetch("away_team_id"),
-                                                      row.fetch("home_team_id"),
-                                                      row.fetch("away_goals").to_i,
-                                                      row.fetch("home_goals").to_i,
-                                                      row.fetch("venue"),
-                                                      row.fetch("venue_link")
-                                                      ) }
+      stat_tracker.games[row["game_id"].to_i] = Game.new(row)
     end
 
     # creates unique Team objects as hashes in @teams instance variable
     CSV.foreach(locations[:teams], headers: true) do |row|
-      stat_tracker.teams << {row.fetch("team_id") => Team.new(row.fetch("team_id"),
-                                                      row.fetch("franchiseId"),
-                                                      row.fetch("teamName"),
-                                                      row.fetch("abbreviation"),
-                                                      row.fetch("Stadium"),
-                                                      row.fetch("link")
-                                                      ) }
+      stat_tracker.teams[row["team_id"].to_i] = Team.new(row)
     end
 
     # creates unique Game_Teams objects as hashes in @games_teams instance variable
@@ -71,12 +55,5 @@ class StatTracker
     end
     stat_tracker
   end
-
-  # def games_obj(instance_variable)
-  #   # hash.fetch(hash.keys.join).instance_variable
-  #   # @games.each do |hash|
-  #   hash.values[0].instance_variable
-  #   # end
-  # end
 
 end

@@ -1,5 +1,3 @@
-# require_relative 'stat_tracker'
-
 class GameTeam
   attr_reader :game_id,
               :team_id,
@@ -34,7 +32,7 @@ class GameTeam
     @faceOffWinPercentage   = faceOffWinPercentage
     @giveaways              = giveaways
     @takeaways              = takeaways
-    
+
   end
 
 end
