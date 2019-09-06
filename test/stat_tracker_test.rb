@@ -75,7 +75,10 @@ class StatTrackerTest < Minitest::Test
     }
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
-
+  
+  def test_average_goals_per_game
+    assert_equal 4.20, @stat_tracker.average_goals_per_game
+  end
 
   # League Statistics Tests
 
@@ -91,5 +94,12 @@ class StatTrackerTest < Minitest::Test
   #   assert_equal "DC United", @stat_tracker.team_name_from_team_id(14)
   # end
 
-
+  def test_average_goals_per_season
+    assert_equal ({ "20122013"=>5.0,
+                    "20132014"=>5.0,
+                    "20142015"=>3.0,
+                    "20152016"=>3.5,
+                    "20162017"=>4.5
+      }), @stat_tracker.average_goals_by_season
+  end
 end
