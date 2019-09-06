@@ -47,7 +47,7 @@ module GameStats
 
     (ties / @games.length.to_f).round(2)
   end
-  
+
   def count_of_games_by_season
     count = Hash.new(0)
 
@@ -59,30 +59,26 @@ module GameStats
   end
 
   def average_goals_per_game
-    home_goals = @games.sum {|game| game.home_goals}
-    away_goals = @games.sum {|game| game.away_goals}
+    total_goals = @games.sum {|id, game| game.home_goals + game.away_goals}
     total_games = @games.length
-    ((home_goals + away_goals).to_f / total_games).round(2)
+    #consider making helper methods for future iterations.
+    #good job team! :)
+    ((total_goals).to_f / total_games).round(2)
   end
 
   def average_goals_by_season
     avg_goals = Hash.new(0)
-    seasons = (@games.map {|game| game.season}).uniq
+    seasons = (@games.map {|id, game| game.season}).uniq
     seasons.each do |season|
-      home_goals = 0
-      @games.each do |game|
+      total_goals = 0
+      total_games = 0
+      @games.each do |id, game|
         if game.season == season
-          home_goals += game.home_goals
+          total_goals += game.home_goals + game.away_goals
+          total_games += 1
         end
       end
-      away_goals = 0
-      @games.each do |game|
-        if game.season == season
-          away_goals += game.away_goals
-        end
-      end
-      total_games = @games.find_all {|game| game.season == season}.length
-      season_avg_goals = ((home_goals + away_goals).to_f / total_games).round(2)
+      season_avg_goals = ((total_goals).to_f / total_games).round(2)
       avg_goals[season] = season_avg_goals
     end
     avg_goals
