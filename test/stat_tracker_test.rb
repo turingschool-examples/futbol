@@ -28,8 +28,10 @@ class StatTrackerTest < Minitest::Test
 
   def test_attributes
     assert_instance_of Hash, @stat_tracker.all_teams
+    assert_instance_of Hash, @stat_tracker.all_games
     assert_equal Team, @stat_tracker.all_teams.values.first.class
-    assert_equal Game, @stat_tracker.all_games.first.class
-    assert_equal GameTeam, @stat_tracker.all_game_teams.first.class
+    assert_equal Game, @stat_tracker.all_games.values.first.class
+    assert_equal GameTeam, @stat_tracker.all_game_teams.values[0]["home"].class
+    assert_equal GameTeam, @stat_tracker.all_game_teams.values[0]["away"].class
   end
 end
