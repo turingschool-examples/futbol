@@ -46,6 +46,41 @@ module Leagueable
     teams_total_goals_allowed
   end
 
+  def total_goals_at_home_helper
+    teams_total_goals_at_home = Hash.new
+    self.teams.each_key do |team_id|
+      teams_total_goals_at_home[team_id] = 0
+    end
+
+    #Iterate to find goals by home_team
+    self.games.each_value do |game_obj|
+      teams_total_goals_at_home.each_key do |team_id_key|
+        if game_obj.home_team_id == team_id_key
+          teams_total_goals_at_home[team_id_key] += game_obj.home_goals
+        end
+      end
+    end
+    teams_total_goals_at_home
+  end
+
+  def total_goals_visitor_helper
+    teams_total_goals_visitor = Hash.new
+    self.teams.each_key do |team_id|
+      teams_total_goals_visitor[team_id] = 0
+    end
+
+    #Iterate to find goals by away_team
+    self.games.each_value do |game_obj|
+      teams_total_goals_visitor.each_key do |team_id_key|
+        if game_obj.away_team_id == team_id_key
+          teams_total_goals_visitor[team_id_key] += game_obj.away_goals
+        end
+      end
+    end
+    teams_total_goals_visitor
+  end
+
+
   def total_games_helper
     teams_total_games = Hash.new
     self.teams.each_key do |team_id|
