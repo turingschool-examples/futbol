@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-require_relative '../lib/games'
+
 require_relative 'test_helper'
-=======
-require_relative './test_helper'
 require_relative '../lib/games'
->>>>>>> 062b1457e42505450a782040d7272fe277c3c0d6
+
 
 class GameTest < Minitest::Test
 
@@ -17,13 +14,9 @@ class GameTest < Minitest::Test
   end
 
   def test_attributes
-<<<<<<< HEAD
-    assert_equal 2012030221, @line_2.game_id
-    assert_equal 20122013, @line_2.season
-=======
+
     assert_equal "2012030221", @line_2.game_id
     assert_equal '20122013', @line_2.season
->>>>>>> 062b1457e42505450a782040d7272fe277c3c0d6
     assert_equal "Postseason", @line_2.type
     assert_equal "5/16/13", @line_2.date_time
     assert_equal 3, @line_2.away_team_id
