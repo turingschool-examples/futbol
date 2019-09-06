@@ -16,18 +16,18 @@ module GameStat
   end
 
   def percentage_home_wins
-    all_games.count { |game| game.home_goals > game.away_goals} \
-      / all_games.length.to_f * 100
+    (all_games.count { |game| game.home_goals > game.away_goals} \
+      / all_games.length.to_f).round(2)
   end
 
   def percentage_visitor_wins
-    all_games.count { |game| game.home_goals < game.away_goals} \
-      / all_games.length.to_f * 100
+    (all_games.count { |game| game.home_goals < game.away_goals} \
+      / all_games.length.to_f).round(2)
   end
 
   def percentage_ties
-    all_games.count { |game| game.home_goals == game.away_goals} \
-      / all_games.length.to_f * 100
+    (all_games.count { |game| game.home_goals == game.away_goals} \
+      / all_games.length.to_f).round(2)
   end
 
   def count_of_games_by_season
@@ -40,14 +40,14 @@ module GameStat
   end
 
   def average_goals_per_game
-    all_games.map { |game| game.home_goals + game.away_goals}.sum \
-    / all_games.length.to_f
+    (all_games.map { |game| game.home_goals + game.away_goals}.sum \
+    / all_games.length.to_f).round(2)
   end
 
   def average_goals_by_season
     seasons = all_games.map { |game| game.season}.uniq
     count_result = Hash.new
-    
+
     seasons.each do |season|
       total_goals = all_games.map {
         |game|
@@ -58,7 +58,7 @@ module GameStat
         |game| game.season == season
       }
 
-      count_result[season] = total_goals / num_games.to_f
+      count_result[season] = (total_goals / num_games.to_f).round(2)
     end
     count_result
   end
