@@ -50,7 +50,7 @@ class GameTest < Minitest::Test
     assert_instance_of Game, @game
   end
 
-  def test_attributes
+  def test_has_attributes
     assert_equal @game_hash[:id], @game.id
     assert_equal @game_hash[:season], @game.season
     assert_equal @game_hash[:type], @game.type
