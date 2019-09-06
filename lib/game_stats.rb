@@ -29,7 +29,7 @@ module GameStats
     end
     (home_wins / @games.length.to_f * 100).round(2)
   end
-
+  
   def count_of_games_by_season
     count = Hash.new(0)
 
@@ -40,5 +40,33 @@ module GameStats
     count
   end
 
+  def average_goals_per_game
+    home_goals = @games.sum {|game| game.home_goals}
+    away_goals = @games.sum {|game| game.away_goals}
+    total_games = @games.length
+    ((home_goals + away_goals).to_f / total_games).round(2)
+  end
 
+  def average_goals_by_season
+    avg_goals = Hash.new(0)
+    seasons = (@games.map {|game| game.season}).uniq
+    seasons.each do |season|
+      home_goals = 0
+      @games.each do |game|
+        if game.season == season
+          home_goals += game.home_goals
+        end
+      end
+      away_goals = 0
+      @games.each do |game|
+        if game.season == season
+          away_goals += game.away_goals
+        end
+      end
+      total_games = @games.find_all {|game| game.season == season}.length
+      season_avg_goals = ((home_goals + away_goals).to_f / total_games).round(2)
+      avg_goals[season] = season_avg_goals
+    end
+    avg_goals
+  end
 end
