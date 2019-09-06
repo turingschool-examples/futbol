@@ -5,16 +5,11 @@ module LeagueStat
   end
 
   def team_id_and_goals
-    team_id_goals = Hash.new(0)
-    all_game_teams.each do |game_team|
-      if team_id_goals.has_key?(game_team.team_id) == false
-        team_id_goals[game_team.team_id] = {goals: game_team.goals, game_count: 1}
-      else
-        team_id_goals[game_team.team_id][:goals] += game_team.goals
-        team_id_goals[game_team.team_id][:game_count] += 1
-      end
+    @team_id_goals ||= all_game_teams.each_with_object(Hash.new) do |game_team, team_id_goals|
+      team_id_goals[game_team.team_id] ||= {goals: 0, game_count: 0}
+      team_id_goals[game_team.team_id][:goals] += game_team.goals
+      team_id_goals[game_team.team_id][:game_count] += 1
     end
-    team_id_goals
   end
 
   def best_offense
@@ -25,9 +20,14 @@ module LeagueStat
   end
 
   def worst_offense
+    worst_offense = team_id_and_goals.min_by do |id, hash|
+      hash[:goals] / hash[:game_count].to_f
+    end
+    all_teams[worst_offense[0]].team_name
   end
 
   def best_defense
+    
   end
 
   def worst_defense

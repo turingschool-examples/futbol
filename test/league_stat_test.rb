@@ -31,9 +31,11 @@ class LeagueStatTest < Minitest::Test
   end
 
   def test_worst_offense
+    assert_equal "Philadelphia Union", @stat_tracker.worst_offense
   end
 
   def test_best_defense
+    assert_equal "Yo mama", @stat_tracker.best_defense
   end
 
   def test_worst_defense
