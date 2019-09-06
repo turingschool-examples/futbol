@@ -30,6 +30,22 @@ module GameStats
     (home_wins / @games.length.to_f * 100).round(2)
   end
 
+  def percentage_visitor_wins
+    visitor_wins = @games.count do |game|
+      game.away_goals > game.home_goals
+    end
+
+    (visitor_wins / @games.length.to_f * 100).round(2)
+  end
+
+  def percentage_ties
+    ties = @games.count do |game|
+      game.away_goals ==  game.home_goals
+    end
+
+    (ties / @games.length.to_f * 100).round(2)
+  end
+
   def count_of_games_by_season
     count = Hash.new(0)
 

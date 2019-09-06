@@ -56,6 +56,14 @@ class StatTrackerTest < Minitest::Test
     assert_equal 65.00, @stat_tracker.percentage_home_wins
   end
 
+  def test_percentage_visitor_wins
+    assert_equal 25.00, @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_percentage_ties
+    assert_equal 10.00, @stat_tracker.percentage_ties
+  end
+
   def test_count_of_games_by_season
     expected = {"20122013"=>4,
                 "20132014"=>4,
