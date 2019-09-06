@@ -5,16 +5,11 @@ module Leagueable
     ## HELPER METHODS ##
 
   def total_goals_helper
-    # Create a hash by iterating over the csv-teams hash.
-    # teams_total_goals hash:
-    # Key = team_id
-    # Value = total goals scored by that team for ALL seasons
     teams_total_goals = Hash.new
     self.teams.each_key do |team_id|
       teams_total_goals[team_id] = 0
     end
 
-    #iterate through game_teams. Assign the correct team's goals to the respective key value pair, then add 1 to the second hash's key value pair for games played.
     self.game_teams.each do |game_team_obj|
       teams_total_goals.each_key do |team_id_key|
         if game_team_obj.team_id == team_id_key
@@ -22,7 +17,6 @@ module Leagueable
         end
       end
     end
-    #Hash
     teams_total_goals
   end
 
@@ -49,15 +43,10 @@ module Leagueable
         end
       end
     end
-    #Hash
     teams_total_goals_allowed
   end
 
   def total_games_helper
-    # Create a hash by iterating over the csv-teams hash.
-    # teams_total_games hash:
-    # Key = team_id
-    # Value = total games played by that team for ALL seasons
     teams_total_games = Hash.new
     self.teams.each_key do |team_id|
       teams_total_games[team_id] = 0
@@ -70,7 +59,6 @@ module Leagueable
         end
       end
     end
-    #Hash
     teams_total_games
   end
 
@@ -91,9 +79,8 @@ module Leagueable
     best_team_goals_avg = 0
     best_offense_team_id = 0
     this_team_goals_avg = 0
-    # iterate over teams_total_games key/value pairs.
+
     teams_total_games.each do |games_key, games_value|
-    # nest an iteration over teams_total_goals key/value pairs.
       teams_total_goals.each do |goals_key, goals_value|
         if goals_key == games_key
           this_team_goals_avg = (goals_value / games_value.to_f)
@@ -104,7 +91,7 @@ module Leagueable
         end
       end
     end
-    # Then iterate through the teams hash and return the team name that corresponds with the best_offense_team_id
+
     team_with_best_offense = nil
     self.teams.each_value do |team_obj|
       if team_obj.team_id. == best_offense_team_id
@@ -123,9 +110,8 @@ module Leagueable
     worst_team_goals_avg = 1000
     worst_offense_team_id = 0
     this_team_goals_avg = 0
-    # iterate over teams_total_games key/value pairs.
+
     teams_total_games.each do |games_key, games_value|
-    # nest an iteration over teams_total_goals key/value pairs.
       teams_total_goals.each do |goals_key, goals_value|
         if goals_key == games_key
           this_team_goals_avg = (goals_value / games_value.to_f)
@@ -136,7 +122,7 @@ module Leagueable
         end
       end
     end
-    # Then iterate through the teams hash and return the team name that corresponds with the worst_offense_team_id
+
     team_with_worst_offense = nil
     self.teams.each_value do |team_obj|
       if team_obj.team_id. == worst_offense_team_id
@@ -147,13 +133,38 @@ module Leagueable
   end
 
   # Name of the team with the lowest avg number of goals allowed per game across all seasons. Return: String
-  # JP
+  # JP (Complete)
   def best_defense
+    teams_total_goals_allowed = total_goals_allowed_helper
+    teams_total_games = total_games_helper
 
+    best_team_goals_allowed_avg = 100
+    best_defense_team_id = 0
+    this_team_goals_allowed_avg = 0
+
+    teams_total_games.each do |games_key, games_value|
+      teams_total_goals_allowed.each do |goals_key, goals_value|
+        if goals_key == games_key
+          this_team_goals_allowed_avg = (goals_value / games_value.to_f)
+          if this_team_goals_allowed_avg < best_team_goals_allowed_avg
+            best_team_goals_allowed_avg = this_team_goals_allowed_avg
+            best_defense_team_id = games_key
+          end
+        end
+      end
+    end
+
+    team_with_best_defense = nil
+    self.teams.each_value do |team_obj|
+      if team_obj.team_id. == best_defense_team_id
+      team_with_best_defense = team_obj.teamName
+      end
+    end
+    team_with_best_defense
   end
 
   # Name of the team with the highest avg number of goals allowed per game across all seasons. Return: String
-  # JP
+  # JP (Complete)
   def worst_defense
     teams_total_goals_allowed = total_goals_allowed_helper
     teams_total_games = total_games_helper
@@ -161,9 +172,9 @@ module Leagueable
     worst_team_goals_allowed_avg = 0
     worst_defense_team_id = 0
     this_team_goals_allowed_avg = 0
-    # iterate over teams_total_games key/value pairs.
+
     teams_total_games.each do |games_key, games_value|
-    # nest an iteration over teams_total_goals_allowed key/value pairs.
+
       teams_total_goals_allowed.each do |goals_key, goals_value|
         if goals_key == games_key
           this_team_goals_allowed_avg = (goals_value / games_value.to_f)
@@ -174,7 +185,7 @@ module Leagueable
         end
       end
     end
-    # Then iterate through the teams hash and return the team name that corresponds with the worst_defense_team_id
+
     team_with_worst_defense = nil
     self.teams.each_value do |team_obj|
       if team_obj.team_id. == worst_defense_team_id
@@ -182,7 +193,6 @@ module Leagueable
       end
     end
     team_with_worst_defense
-    # binding.pry
   end
 
   # Name of the team with the highest avg score per game across all seasons when they are away. Return: String
