@@ -16,7 +16,7 @@ module LeagueStat
     best_offense = team_id_and_goals.max_by do |id, goals|
       goals
     end
-    all_teams.find {|team| best_offense[0] == team.team_id}.team_name
+    all_teams[best_offense[0]].team_name
   end
 
   def worst_offense
