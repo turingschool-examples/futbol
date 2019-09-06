@@ -15,23 +15,23 @@ class GameTeam
               :giveaways,
               :takeaways
 
-  def initialize(game_id, team_id, hoa, result, settled_in, head_coach, goals, shots, tackles, pim, powerPlayOpportunities, powerPlayGoals, faceOffWinPercentage, giveaways, takeaways)
-
-    @game_id                = game_id
-    @team_id                = team_id
-    @hoa                    = hoa
-    @result                 = result
-    @settled_in             = settled_in
-    @head_coach             = head_coach
-    @goals                  = goals
-    @shots                  = shots
-    @tackles                = tackles
-    @pim                    = pim
-    @powerPlayOpportunities = powerPlayOpportunities
-    @powerPlayGoals         = powerPlayGoals
-    @faceOffWinPercentage   = faceOffWinPercentage
-    @giveaways              = giveaways
-    @takeaways              = takeaways
+  def initialize(row)
+    
+    @game_id                = row["game_id"].to_i
+    @team_id                = row["team_id"]
+    @hoa                    = row["hoa"]
+    @result                 = row["result"]
+    @settled_in             = row["settled_in"]
+    @head_coach             = row["head_coach"]
+    @goals                  = row["goals"].to_i
+    @shots                  = row["shots"].to_i
+    @tackles                = row["tackles"].to_i
+    @pim                    = row["pim"]
+    @powerPlayOpportunities = row["powerPlayOpportunities"]
+    @powerPlayGoals         = row["powerPlayGoals"]
+    @faceOffWinPercentage   = row["faceOffWinPercentage"]
+    @giveaways              = row["giveaways"]
+    @takeaways              = row["takeaways"]
 
   end
 
