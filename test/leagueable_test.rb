@@ -42,7 +42,6 @@ class LeagueableTest < Minitest::Test
 
   # Name of the team with the highest average number of goals allowed per game across all seasons. Return: String
   def test_worst_defense
-    skip
     assert_equal "Columbus Crew SC", @stat_tracker.worst_defense
   end
 
