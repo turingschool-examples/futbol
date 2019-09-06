@@ -36,10 +36,9 @@ class StatTracker
 
     # creates unique Game_Teams objects as hashes in @games_teams instance variable
     CSV.foreach(locations[:game_teams], headers: true) do |row|
-      new_object = GameTeam.new(row)
-      stat_tracker.game_teams << new_object
+      stat_tracker.game_teams << GameTeam.new(row)
     end
-    
+
     stat_tracker
   end
 

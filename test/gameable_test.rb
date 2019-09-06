@@ -25,21 +25,18 @@ class GameableTest < Minitest::Test
   #Highest sum of the winning and losing teams’ scores	Integer
   #BB
   def test_highest_total_score
-    skip
     assert_equal 11, @stat_tracker.highest_total_score
   end
 
   #Lowest sum of the winning and losing teams’ scores	Integer
   #BB
   def test_lowest_total_score
-    skip
     assert_equal 0, @stat_tracker.lowest_total_score
   end
 
   #Highest difference between winner and loser	Integer
   #BB
   def test_biggest_blowout
-    skip
     assert_equal 8, @stat_tracker.biggest_blowout
   end
 
