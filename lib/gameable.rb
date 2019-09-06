@@ -41,8 +41,8 @@ module Gameable
   #JP
   def percentage_home_wins
     home_wins = 0
-    self.games.each do |hash|
-      if hash.values[0].home_goals > hash.values[0].away_goals
+    self.games.each_value do |object|
+      if object.home_goals > object.away_goals
         home_wins += 1
       end
     end
@@ -54,8 +54,8 @@ module Gameable
   #JP
   def percentage_visitor_wins
     away_wins = 0
-    self.games.each do |hash|
-      if hash.values[0].home_goals < hash.values[0].away_goals
+    self.games.each_value do |object|
+      if object.home_goals < object.away_goals
         away_wins += 1
       end
     end
@@ -67,8 +67,8 @@ module Gameable
   #JP
   def percentage_ties
     ties = 0
-    self.games.each do |hash|
-      if hash.values[0].home_goals == hash.values[0].away_goals
+    self.games.each_value do |object|
+      if object.home_goals == object.away_goals
         ties += 1
       end
     end
