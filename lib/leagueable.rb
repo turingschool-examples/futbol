@@ -2,26 +2,16 @@ require 'pry'
 
 module Leagueable
 
-  # Total number of teams in the data. Return: Int
-  # BB
-  def count_of_teams
-    self.teams.length
-  end
+    ## HELPER METHODS ##
 
-  # Name of the team with the highest average number of goals scored per game across all seasons. Return: String
-  # JP
-  def best_offense
-    #create a new hash by iterating over the teams hash. Each team ID is a key and the value is an integer representing the number of total goals.
+  def team_total_goals_helper
+    # Create a hash by iterating over the csv-teams hash.
+    # teams_total_goals hash:
+    # Key = team_id
+    # Value = total goals scored by that team for ALL seasons
     teams_total_goals = Hash.new
     self.teams.each_key do |team_id|
       teams_total_goals[team_id] = 0
-    end
-
-
-    #create a second hash by iterating over the teams hash. Each Team ID is a key and the value is an integer representing number of games
-    teams_total_games = Hash.new
-    self.teams.each_key do |team_id|
-      teams_total_games[team_id] = 0
     end
 
     #iterate through game_teams. Assign the correct team's goals to the respective key value pair, then add 1 to the second hash's key value pair for games played.
@@ -31,13 +21,45 @@ module Leagueable
           teams_total_goals[team_id_key] += game_team_obj.goals
         end
       end
+    end
+    #Hash
+    teams_total_goals
+  end
 
+  def team_total_games_helper
+    # Create a hash by iterating over the csv-teams hash.
+    # teams_total_games hash:
+    # Key = team_id
+    # Value = total games played by that team for ALL seasons
+    teams_total_games = Hash.new
+    self.teams.each_key do |team_id|
+      teams_total_games[team_id] = 0
+    end
+
+    self.game_teams.each do |game_team_obj|
       teams_total_games.each_key do |team_id_key|
         if game_team_obj.team_id == team_id_key
           teams_total_games[team_id_key] += 1
         end
       end
     end
+    #Hash
+    teams_total_games
+  end
+
+  ### Interaction Pattern Methods ###
+
+  # Total number of teams in the data. Return: Int
+  # BB
+  def count_of_teams
+    self.teams.length
+  end
+
+  # Name of the team with the highest average number of goals scored per game across all seasons. Return: String
+  # JP
+  def best_offense
+    teams_total_goals = team_total_goals_helper
+    teams_total_games = team_total_games_helper
 
     best_team_goals_average = 0
     best_offense_team_id = 0
