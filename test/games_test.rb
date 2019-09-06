@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require_relative '../lib/games'
 
+
 class GameTest < Minitest::Test
 
   def setup
@@ -12,6 +13,7 @@ class GameTest < Minitest::Test
   end
 
   def test_attributes
+
     assert_equal "2012030221", @line_2.game_id
     assert_equal '20122013', @line_2.season
     assert_equal "Postseason", @line_2.type

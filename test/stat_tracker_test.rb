@@ -30,7 +30,11 @@ class StatTrackerTest < MiniTest::Test
     assert_instance_of Team, stat_tracker_2.team_objs[3]
     assert_instance_of GameTeams, stat_tracker_2.game_teams_objs[2]
     assert_equal 10, stat_tracker_2.game_objs.length
+<<<<<<< HEAD
     assert_equal 10, stat_tracker_2.team_objs.length
+=======
+    assert_equal 4, stat_tracker_2.team_objs.length
+>>>>>>> 00422b159c10c5c719bad68b13c356ce22d1469c
     assert_equal 32, stat_tracker_2.game_teams_objs.length
   end
 
