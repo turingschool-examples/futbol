@@ -3,7 +3,7 @@ require 'minitest/pride'
 require './lib/stat_tracker'
 require './lib/leagueable'
 
-class LeagueTest < Minitest::Test
+class LeagueableTest < Minitest::Test
 
   def setup
     @game_path = './data/games.csv'
@@ -26,7 +26,6 @@ class LeagueTest < Minitest::Test
 
   # Name of the team with the highest average number of goals scored per game across all seasons. Return: String
   def test_best_offense
-    skip
     assert_equal "Reign FC", @stat_tracker.best_offense
   end
 
@@ -74,6 +73,7 @@ class LeagueTest < Minitest::Test
 
   # Name of the team with the highest win percentage across all seasons. Return: String
   def test_winningest_team
+    skip
     assert_equal "Reign FC", @stat_tracker.winningest_team
   end
 

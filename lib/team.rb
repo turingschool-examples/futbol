@@ -8,7 +8,7 @@ class Team
 
   def initialize(row)
 
-    @team_id      = row["team_id"]
+    @team_id      = row["team_id"].to_i
     @franchiseId  = row["franchiseId"]
     @teamName     = row["teamName"]
     @abbreviation = row["abbreviation"]

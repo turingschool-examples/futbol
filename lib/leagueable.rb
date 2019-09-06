@@ -5,7 +5,7 @@ module Leagueable
   # Total number of teams in the data. Return: Int
   # BB
   def count_of_teams
-    teams.length
+    self.teams.length
   end
 
   # Name of the team with the highest average number of goals scored per game across all seasons. Return: String
@@ -16,6 +16,7 @@ module Leagueable
     self.teams.each_key do |team_id|
       teams_total_goals[team_id] = 0
     end
+
 
     #create a second hash by iterating over the teams hash. Each Team ID is a key and the value is an integer representing number of games
     teams_total_games = Hash.new
@@ -38,18 +39,30 @@ module Leagueable
       end
     end
 
-    # team_goals_average = 0
-    # best best_offense_team_id = 0
+    best_team_goals_average = 0
+    best_offense_team_id = 0
+    this_team_goals_average = 0
     # iterate over teams_total_games key/value pairs.
-    # nest an iteration over teams_total_games key/value pairs.
-    # if goals_key == games_key
-    # this_teams_goals_average = goals_value / games_value
-    #     if this_teams_goals_average > team_goals_average
-    # =>      team_goals_average = this_teams_goals_average
-    # =>        best_offense_team_id = games_key
-
-    # Then iterate through the teams hash and return the team name that corresponds with the team id
-    binding.pry
+    teams_total_games.each do |games_key, games_value|
+    # nest an iteration over teams_total_goals key/value pairs.
+      teams_total_goals.each do |goals_key, goals_value|
+        if goals_key == games_key
+          this_team_goals_average = (goals_value / games_value.to_f)
+          if this_team_goals_average > best_team_goals_average
+            best_team_goals_average = this_team_goals_average
+            best_offense_team_id = games_key
+          end
+        end
+      end
+    end
+    # Then iterate through the teams hash and return the team name that corresponds with the best_offense_team_id
+    team_with_best_offense = "nobody"
+    self.teams.each_value do |team_obj|
+      if team_obj.team_id. == best_offense_team_id
+      team_with_best_offense = team_obj.teamName
+      end
+    end
+    team_with_best_offense
   end
 
   # Name of the team with the lowest average number of goals scored per game across all seasons. Return: String
