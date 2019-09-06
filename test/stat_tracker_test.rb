@@ -27,14 +27,15 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_initialize
-    assert_instance_of Team, @stat_tracker.teams[0]
+    assert_instance_of Team, @stat_tracker.teams[17]
     assert_equal 20, @stat_tracker.teams.length
 
-    assert_instance_of Game, @stat_tracker.games[0]
+    assert_instance_of Game, @stat_tracker.games[2012030221]
     assert_equal 20, @stat_tracker.games.length
 
-    assert_instance_of GameTeam, @stat_tracker.game_teams[0]
-    assert_equal 40, @stat_tracker.game_teams.length
+    assert_instance_of GameTeam, @stat_tracker.game_teams[2012030221][0]
+    assert_equal 2, @stat_tracker.game_teams[2012030221].length
+    assert_equal 20, @stat_tracker.game_teams.length
   end
 
 
@@ -53,18 +54,42 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_percentage_home_wins
-    assert_equal 65.00, @stat_tracker.percentage_home_wins
+    assert_equal 0.65, @stat_tracker.percentage_home_wins
+  end
+
+  def test_percentage_visitor_wins
+    assert_equal 0.25, @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_percentage_ties
+    assert_equal 0.10, @stat_tracker.percentage_ties
   end
 
   def test_count_of_games_by_season
-    expected = {"20122013"=>4,
-                "20132014"=>4,
-                "20142015"=>4,
-                "20152016"=>4,
-                "20162017"=>4
-              }
+    expected = {
+      "20122013" => 4,
+      "20132014" => 4,
+      "20142015" => 4,
+      "20152016" => 4,
+      "20162017" => 4
+    }
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
+
+
+  # League Statistics Tests
+
+  # def test_winningest_team
+  #   assert_equal "Seattle Sounders FC", @stat_tracker.winningest_team
+  # end
+
+
+
+  # Helper methods
+
+  # def test_team_name_from_team_id
+  #   assert_equal "DC United", @stat_tracker.team_name_from_team_id(14)
+  # end
 
 
 end
