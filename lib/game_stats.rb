@@ -16,6 +16,20 @@ module GameStats
     lowest_game.away_goals + lowest_game.home_goals
   end
 
+  def biggest_blowout
+    blowout_game = @games.max_by do |game|
+      (game.home_goals - game.away_goals).abs
+    end
+    (blowout_game.home_goals - blowout_game.away_goals).abs
+  end
+
+  def percentage_home_wins
+    home_wins = @games.count do |game|
+      game.home_goals > game.away_goals
+    end
+    (home_wins / @games.length.to_f * 100).round(2)
+  end
+  
   def count_of_games_by_season
     count = Hash.new(0)
 
@@ -55,5 +69,4 @@ module GameStats
     end
     avg_goals
   end
-
 end
