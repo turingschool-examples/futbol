@@ -29,7 +29,8 @@ module LeagueStats
   def generate_num_games_per_team
     games_per_team = Hash.new(0)
     @game_teams.each do |id, array|
-      games_per_team[array.team_id] += 1
+      games_per_team[array[0]] += 1
+      games_per_team[array[1]] += 1
     end
     games_per_team
   end
