@@ -31,7 +31,6 @@ class LeagueableTest < Minitest::Test
 
   # Name of the team with the lowest average number of goals scored per game across all seasons. Return: String
   def test_worst_offense
-    skip
     assert_equal "Utah Royals FC", @stat_tracker.worst_offense
   end
 

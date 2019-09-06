@@ -90,7 +90,33 @@ module Leagueable
   # Name of the team with the lowest average number of goals scored per game across all seasons. Return: String
   # JP
   def worst_offense
-    # code goes here!
+    teams_total_goals = team_total_goals_helper
+    teams_total_games = team_total_games_helper
+
+    worst_team_goals_average = 1000
+    worst_offense_team_id = 0
+    this_team_goals_average = 0
+    # iterate over teams_total_games key/value pairs.
+    teams_total_games.each do |games_key, games_value|
+    # nest an iteration over teams_total_goals key/value pairs.
+      teams_total_goals.each do |goals_key, goals_value|
+        if goals_key == games_key
+          this_team_goals_average = (goals_value / games_value.to_f)
+          if this_team_goals_average < worst_team_goals_average
+            worst_team_goals_average = this_team_goals_average
+            worst_offense_team_id = games_key
+          end
+        end
+      end
+    end
+    # Then iterate through the teams hash and return the team name that corresponds with the worst_offense_team_id
+    team_with_worst_offense = nil
+    self.teams.each_value do |team_obj|
+      if team_obj.team_id. == worst_offense_team_id
+      team_with_worst_offense = team_obj.teamName
+      end
+    end
+    team_with_worst_offense
   end
 
   # Name of the team with the lowest average number of goals allowed per game across all seasons. Return: String
