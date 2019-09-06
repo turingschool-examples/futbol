@@ -4,10 +4,10 @@ module Gameable
   #BB
   def highest_total_score
     sum = 0
-    self.games.each do |hash|
-      #hash.values[0].home_goals returns the value of the Games @home_goals.
-      if (hash.values[0].home_goals + hash.values[0].away_goals) > sum
-        sum = (hash.values[0].home_goals + hash.values[0].away_goals)
+    self.games.each_value do |object|
+      #object.home_goals returns the value of the Games @home_goals.
+      if (object.home_goals + object.away_goals) > sum
+        sum = (object.home_goals + object.away_goals)
       end
     end
     sum
@@ -17,9 +17,9 @@ module Gameable
   #BB
   def lowest_total_score
     sum = 100
-    self.games.each do |hash|
-      if (hash.values[0].home_goals + hash.values[0].away_goals) < sum
-        sum = hash.values[0].home_goals + hash.values[0].away_goals
+    self.games.each_value do |object|
+      if (object.home_goals + object.away_goals) < sum
+        sum = object.home_goals + object.away_goals
       end
     end
     sum
@@ -29,9 +29,9 @@ module Gameable
   #BB
   def biggest_blowout
     biggest_blowout_value = 0
-    self.games.each do |hash|
-      if (hash.values[0].home_goals - hash.values[0].away_goals).abs > biggest_blowout_value
-        biggest_blowout_value = (hash.values[0].home_goals - hash.values[0].away_goals).abs
+    self.games.each_value do |object|
+      if (object.home_goals - object.away_goals).abs > biggest_blowout_value
+        biggest_blowout_value = (object.home_goals - object.away_goals).abs
       end
     end
     biggest_blowout_value
@@ -98,21 +98,21 @@ module Gameable
 
   #Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the #average number of goals in a game for that season as a key (rounded to the nearest 100th)	Hash
   #AM
-  # def average_goals_by_season
-  #   seasons = self.games.map {|h| h["season"]}.uniq
-  #   output = Hash.new
-  #
-  #   seasons.each do |season|
-  #     goals = 0
-  #     count = 0
-  #     self.games.each do |game| game["season"] == season
-  #       # require 'pry'; binding.pry
-  #         goals += (game["home_goals"].to_i + game["away_goals"].to_i)
-  #         count += 1
-  #     end
-  #     output[season] = (goals.to_f / count).round(2)
-  #   end
-  #   output
-  # end
+  def average_goals_by_season
+    seasons = self.games.map {|h| h["season"]}.uniq
+    output = Hash.new
+
+    seasons.each do |season|
+      goals = 0
+      count = 0
+      self.games.each do |game| game["season"] == season
+        # require 'pry'; binding.pry
+          goals += (game["home_goals"].to_i + game["away_goals"].to_i)
+          count += 1
+      end
+      output[season] = (goals.to_f / count).round(2)
+    end
+    output
+  end
 
 end
