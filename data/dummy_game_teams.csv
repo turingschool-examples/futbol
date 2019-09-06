@@ -23,3 +23,7 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2016030173,20,home,LOSS,OT,Glen Gulutzan,2,8,28,2,5,3,52.7,10,6
 2016030174,24,away,WIN,REG,Randy Carlyle,3,6,15,6,2,0,42.1,6,6
 2016030174,20,home,LOSS,REG,Glen Gulutzan,1,9,28,4,3,1,57.9,9,7
+<<<<<<< HEAD
+=======
+2014030243,24,away,WIN,OT,Bruce Boudreau,3,5,21,14,2,0,67.8,12,19
+>>>>>>> 06ecc6e1449cb1c9f8635b15e6c842173f4c1767

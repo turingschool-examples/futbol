@@ -11,7 +11,6 @@ class TeamTest < Minitest::Test
     assert_instance_of Team, @line_2
   end
 
-
   def test_attributes
     assert_equal '1', @line_2.team_id
     assert_equal '23', @line_2.franchiseId
