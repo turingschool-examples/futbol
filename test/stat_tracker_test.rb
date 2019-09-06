@@ -23,15 +23,15 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_from_csv
-    locations = { games: './data/dummy_games.csv', teams: './data/dummy_teams.csv', game_teams: './data/dummy_game_teams.csv' }
+    locations = { games: './data/dummy_games.csv', teams: './data/teams.csv', game_teams: './data/dummy_game_teams.csv' }
     stat_tracker_2 = StatTracker.from_csv(locations)
     assert_instance_of StatTracker, stat_tracker_2
     assert_instance_of Game, stat_tracker_2.game_objs[0]
     assert_instance_of Team, stat_tracker_2.team_objs[3]
     assert_instance_of GameTeams, stat_tracker_2.game_teams_objs[2]
     assert_equal 10, stat_tracker_2.game_objs.length
-    assert_equal 4, stat_tracker_2.team_objs.length
-    assert_equal 4, stat_tracker_2.game_teams_objs.length
+    assert_equal 10, stat_tracker_2.team_objs.length
+    assert_equal 32, stat_tracker_2.game_teams_objs.length
   end
 
 end
