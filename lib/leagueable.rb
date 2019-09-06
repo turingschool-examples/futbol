@@ -56,7 +56,7 @@ module Leagueable
       end
     end
     # Then iterate through the teams hash and return the team name that corresponds with the best_offense_team_id
-    team_with_best_offense = "nobody"
+    team_with_best_offense = nil
     self.teams.each_value do |team_obj|
       if team_obj.team_id. == best_offense_team_id
       team_with_best_offense = team_obj.teamName
