@@ -11,7 +11,6 @@ class GameTeamsTest < Minitest::Test
     assert_instance_of GameTeams, @line_2
   end
 
-
   def test_attributes
     assert_equal '2012030221', @line_2.game_id
     assert_equal '3', @line_2.team_id
