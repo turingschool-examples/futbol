@@ -1,25 +1,5 @@
 module LeagueStats
 
-  def best_defense
-    best_def = "Nobody"
-    least_goals_allowed = 0
-    @teams.each do |team|
-      goals_allowed = 0
-      played_games = @game_teams.find_all { |game_team| game_team.team_id == team.team_id}
-      played_games.each do |game|
-        if game.home_or_away == "away"
-          goals_allowed += @games[game.game_id].home_goals
-        end
-        if game.home_or_away == "home"
-          goals_allowed += @games[game.game_id].away_goals
-        end
-        if goals_allowed < least_goals_allowed
-          best_def = team.team_name
-        end
-      end
-    end
-  end
-
   def worst_defense
     #
   end
@@ -27,4 +7,34 @@ module LeagueStats
   def highest_scoring_visitor
     #
   end
+  
+  def winningest_team
+    winning_team_id = @team_result_count.max_by do |team_id, counts|
+      (counts[:home_wins] + counts[:away_wins]) / counts[:games].to_f if counts[:games] != 0
+    end[0]
+
+    @teams[winning_team_id].team_name
+  end
+
+  def best_fans
+    best_fans_team_id = @team_result_count.max_by do |team_id, counts|
+      ((counts[:home_wins] / counts[:games].to_f) - (counts[:away_wins] / counts[:games].to_f)).abs
+    end[0]
+
+    @teams[best_fans_team_id].team_name
+  end
+
+  def worst_fans
+    worst_fans_teams = @team_result_count.find_all do |team_id, counts|
+      counts[:away_wins] > counts[:home_wins]
+    end
+
+    team_names = []
+    worst_fans_teams.each do |team|
+      team_names << @teams[team[0]].team_name
+    end
+
+    team_names
+  end
+
 end
