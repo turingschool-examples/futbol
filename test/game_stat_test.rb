@@ -10,9 +10,9 @@ require 'pry'
 class GameStatTest < Minitest::Test
 
   def setup
-    game_path = './test/games_sample.csv'
-    team_path = './test/teams_sample.csv'
-    game_teams_path = './test/game_teams_sample.csv'
+    game_path = './test/test_data/games_sample_2.csv'
+    team_path = './test/test_data/teams_sample.csv'
+    game_teams_path = './test/test_data/game_teams_sample_2.csv'
 
     @locations = {
       games: game_path,
@@ -35,36 +35,38 @@ class GameStatTest < Minitest::Test
   end
 
   def test_percentage_home_wins
-    assert_equal 0.42, @stat_tracker.percentage_home_wins
+    assert_equal 0.53, @stat_tracker.percentage_home_wins
   end
 
   def test_percentage_visitor_wins
-    assert_equal 0.53, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.35, @stat_tracker.percentage_visitor_wins
   end
 
   def test_percentage_ties
-    assert_equal 0.05, @stat_tracker.percentage_ties
+    assert_equal 0.13, @stat_tracker.percentage_ties
   end
 
   def test_count_of_games_by_season
-    expected = {
-      '20122013' => 10,
-      '20142015' => 5,
-      '20162017' => 4
-    }
+    expected = {"20122013"=>27,
+                "20142015"=>6,
+                "20162017"=>4,
+                "20152016"=>2,
+                "20132014"=>1
+              }
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
   def test_average_goals_per_game
-    assert_equal 30.0, @stat_tracker.average_goals_per_game
+    assert_equal 16.28, @stat_tracker.average_goals_per_game
   end
 
   def test_average_goals_by_season
-    expected = {
-      '20122013' => 53.2,
-      '20142015' => 3.8,
-      '20162017' => 4.75
-    }
+    expected = {"20122013"=>22.04,
+                "20142015"=>4.0,
+                "20162017"=>4.75,
+                "20152016"=>4.0,
+                "20132014"=>5.0
+              }
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
 end

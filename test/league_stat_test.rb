@@ -10,9 +10,9 @@ require 'pry'
 class LeagueStatTest < Minitest::Test
 
   def setup
-    game_path = './test/games_sample.csv'
-    team_path = './test/teams_sample.csv'
-    game_teams_path = './test/game_teams_sample.csv'
+    game_path = './test/test_data/games_sample_2.csv'
+    team_path = './test/test_data/teams_sample.csv'
+    game_teams_path = './test/test_data/game_teams_sample_2.csv'
 
     @locations = {
       games: game_path,
@@ -31,11 +31,11 @@ class LeagueStatTest < Minitest::Test
   end
 
   def test_worst_offense
-    assert_equal "Philadelphia Union", @stat_tracker.worst_offense
+    assert_equal "Seattle Sounders FC", @stat_tracker.worst_offense
   end
 
   def test_best_defense
-    assert_equal "Portland Timbers", @stat_tracker.best_defense
+    assert_equal "FC Dallas", @stat_tracker.best_defense
   end
 
   def test_worst_defense
@@ -43,30 +43,36 @@ class LeagueStatTest < Minitest::Test
   end
 
   def test_highest_scoring_visitor
-    assert_equal 'asdf', @stat_tracker.highest_scoring_visitor
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
   end
 
   def test_highest_scoring_home_team
-    assert_equal "idk", @stat_tracker.highest_scoring_home_team
+    assert_equal "LA Galaxy", @stat_tracker.highest_scoring_home_team
   end
 
   def test_lowest_scoring_visitor
-    assert_equal "jesus", @stat_tracker.lowest_scoring_visitor
+    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_visitor
   end
 
   def test_lowest_scoring_home_team
-    assert_equal "oh", @stat_tracker.lowest_scoring_home_team
+    assert_equal "Seattle Sounders FC", @stat_tracker.lowest_scoring_home_team
   end
 
   def test_winningest_team
-    assert_equal "asdf", @stat_tracker.winningest_team
+    assert_equal "FC Dallas", @stat_tracker.winningest_team
   end
 
   def test_best_fans
-    assert_equal "asfas", @stat_tracker.best_fans
+    assert_equal "FC Dallas", @stat_tracker.best_fans
   end
 
   def test_worst_fans
-    assert_equal "asfsd", @stat_tracker.worst_fans
+    assert_equal ["New England Revolution",
+                  "Seattle Sounders FC",
+                  "Atlanta United",
+                  "DC United",
+                  "FC Dallas",
+                  "Toronto FC"
+                  ], @stat_tracker.worst_fans
   end
 end
