@@ -3,7 +3,7 @@ require 'minitest/pride'
 require './lib/stat_tracker'
 require './lib/leagueable'
 
-class LeagueTest < Minitest::Test
+class LeagueableTest < Minitest::Test
 
   def setup
     @game_path = './data/games.csv'

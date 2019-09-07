@@ -1,5 +1,3 @@
-#require './lib/stat_tracker'
-
 module Teamable
 
   #A hash with key/value pairs for each of the attributes of a team.	Hash
