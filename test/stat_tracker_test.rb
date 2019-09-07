@@ -9,12 +9,13 @@ class StatTrackerTest < Minitest::Test
 
   def setup
     @locations = {
-      games: './data/dummy_games.csv',
-      teams: './data/dummy_teams.csv',
-      game_teams: './data/dummy_game_teams.csv'
+      games: './data/games.csv',
+      teams: './data/teams.csv',
+      game_teams: './data/game_teams.csv'
     }
 
     @stat_tracker = StatTracker.from_csv(@locations)
+    #require 'pry'; binding.pry
   end
 
   def test_it_exists
@@ -90,6 +91,30 @@ class StatTrackerTest < Minitest::Test
 
 
   ##### League Statistics Tests #####
+
+  def test_method_count_of_teams
+    assert_equal 20, @stat_tracker.count_of_teams
+  end
+
+  def test_method_best_offense
+    assert_equal "Seattle Sounders FC", @stat_tracker.best_offense
+  end
+
+  def test_method_worst_offense
+    assert_equal "Orlando Pride", @stat_tracker.worst_offense
+  end
+
+  def test_best_defense
+    assert_equal "Atlanta United", @stat_tracker.best_defense
+  end
+
+  def test_worst_defense
+    assert_equal "San Jose Earthquakes", @stat_tracker.worst_defense
+  end
+
+  def test_highest_scoring_visitor
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+  end
 
   def test_winningest_team
     assert_equal "Seattle Sounders FC", @stat_tracker.winningest_team
