@@ -55,7 +55,7 @@ class LeagueStatsTest < MiniTest::Test
 
 
   def test_winningest_team
-    
+
     assert_equal "New York City FC", @stat_tracker.winningest_team
   end
 

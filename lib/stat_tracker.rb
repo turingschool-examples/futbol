@@ -33,8 +33,8 @@ class StatTracker
     end
 
     CSV.foreach(locations[:game_teams], headers: true) do |row|
-      game_team = GameTeams.new(row.to_s)
-      game_teams[game_team.team_id].push(game_team)
+      game_team =  GameTeams.new(row.to_s)
+      game_teams[game_team.team_id] = [] << game_team
     end
 
     StatTracker.new(games, teams, game_teams)
