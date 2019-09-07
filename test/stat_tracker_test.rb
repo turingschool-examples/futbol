@@ -78,4 +78,16 @@ class StatTrackerTest < Minitest::Test
   def test_best_offense
     assert_equal "Reign FC", @stat_tracker.best_offense
   end
+
+  def test_worst_offense
+    assert_equal "Utah Royals FC", @stat_tracker.worst_offense
+  end
+
+  def test_best_defense
+    assert_equal "FC Cincinnati", @stat_tracker.best_defense
+  end
+
+  def test_worst_defense
+    assert_equal "Columbus Crew SC", @stat_tracker.worst_defense
+  end
 end
