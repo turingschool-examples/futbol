@@ -19,6 +19,7 @@ module HelperMethods
           team_result_count[game_team.team_id][:home_goals] += game_team.goals
           team_result_count[game_team.team_id][:home_games] += 1
           team_result_count[game_team.team_id][:home_wins] += 1 if game_team.result == "WIN"
+          # require 'pry'; binding.pry
         end
 
       end

@@ -92,6 +92,18 @@ class StatTrackerTest < Minitest::Test
 
   ##### League Statistics Tests #####
 
+  def test_method_count_of_teams
+    assert_equal 20, @stat_tracker.count_of_teams
+  end
+
+  def test_method_best_offense
+    assert_equal "Seattle Sounders FC", @stat_tracker.best_offense
+  end
+
+  def test_method_worst_offense
+    assert_equal "Orlando Pride", @stat_tracker.worst_offense
+  end
+  
   def test_best_defense
     assert_equal "Atlanta United", @stat_tracker.best_defense
   end
@@ -101,9 +113,9 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_highest_scoring_visitor
-    assert_equal "", @stat_tracker.highest_scoring_visitor
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
   end
-
+  
   def test_winningest_team
     assert_equal "Seattle Sounders FC", @stat_tracker.winningest_team
   end
