@@ -1,5 +1,10 @@
 class Game
-  attr_reader :away_goals, :home_goals, :season
+  attr_reader :game_id,
+              :away_goals,
+              :home_goals,
+              :season,
+              :away_team_id,
+              :home_team_id
 
   def initialize(game)
     @game_id = game["game_id"].to_i
