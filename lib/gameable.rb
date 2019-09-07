@@ -81,24 +81,52 @@ module Gameable
   def count_of_games_by_season
     output = Hash.new(0)
 
-    @games.each_value do |game|
+    self.games.each_value do |game|
       output[game.season] += 1
     end
 
     output
   end
 
-  #Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)	Float
-  #AM
+  #Average number of goals scored in a game across all seasons including both home and away goals
+  #(rounded to the nearest 100th)	Float
+  #AM (completed)
   def average_goals_per_game
-    goals = self.games.map {|h| h["home_goals"].to_f + h["away_goals"].to_f}
-    (goals.sum / goals.length).round(2)
+    sum = 0.00
+    self.games.each_value do |game|
+      sum += (game.home_goals + game.away_goals)
+    end
+
+    (sum / self.games.length).round(2)
   end
 
-  #Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the #average number of goals in a game for that season as a key (rounded to the nearest 100th)	Hash
-  #AM
+  #Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys
+  #and a float representing the #average number of goals in a game for that season as a key
+  #(rounded to the nearest 100th)	Hash
+  #AM (completed)
   def average_goals_by_season
+    seasons_goals = Hash.new(0.00)
 
+    helper_unique_seasons_array.each do |season|
+      self.games.each_value do |game|
+        seasons_goals[season] += (game.home_goals + game.away_goals) if game.season == season
+      end
+    end
+
+    seasons_goals.merge!(count_of_games_by_season)  do |key, oldval, newval|
+      (oldval / newval).round(2)
+    end
+
+  end
+
+  def helper_unique_seasons_array
+    unique_seasons = []
+
+    self.games.each_value do |game|
+      unique_seasons << game.season
+    end
+
+    unique_seasons.uniq
   end
 
 end
