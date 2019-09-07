@@ -80,7 +80,6 @@ module Leagueable
     teams_total_goals_visitor
   end
 
-
   def total_games_helper
     teams_total_games = Hash.new
     self.teams.each_key do |team_id|
@@ -96,6 +95,25 @@ module Leagueable
     end
     teams_total_games
   end
+
+  def total_away_games_helper
+
+  end
+
+  def total_home_games_helper
+
+  end
+
+  def team_name_finder_helper(team_id)
+    team_name = nil
+    self.teams.each_value do |team_obj|
+      if team_obj.team_id == team_id
+      team_name = team_obj.teamName
+      end
+    end
+    team_name
+  end
+
 
   ### Interaction Pattern Methods ###
 
@@ -223,7 +241,7 @@ module Leagueable
 
     team_with_worst_defense = nil
     self.teams.each_value do |team_obj|
-      if team_obj.team_id. == worst_defense_team_id
+      if team_obj.team_id == worst_defense_team_id
       team_with_worst_defense = team_obj.teamName
       end
     end
