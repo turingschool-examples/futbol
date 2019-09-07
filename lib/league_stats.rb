@@ -1,21 +1,87 @@
 module LeagueStats
 
-# Total teams in data -integer
   def count_of_teams
     @teams.length
   end
 
-# Team with highest average goals scored per game, all seasons -string
   def best_offense
     max = generate_average[0].max_by {|team,average| average }
     @teams[max[0]].teamName
   end
 
-# Team with lowest average goals scored per game, all seasons -string
   def worst_offense
     min = generate_average[0].min_by {|team,average| average }
     @teams[min[0]].teamName
   end
+
+
+  def best_defense
+    min = generate_average_allowed.min_by {|team, allowed| allowed }[0]
+    @teams[min].teamName
+  end
+
+  def worst_defense
+    max = generate_average_allowed.max_by {|team, allowed| allowed }[0]
+    @teams[max].teamName
+  end
+
+
+  def highest_scoring_visitor
+    generate_average
+    max = generate_average[2].max_by {|id, goals| goals}[0]
+    @teams[max].teamName
+  end
+
+  def highest_scoring_home_team
+    generate_average
+    max = generate_average[1].max_by {|id, goals| goals}[0]
+    @teams[max].teamName
+  end
+
+  def lowest_scoring_visitor
+    generate_average
+    min = generate_average[2].min_by {|id, goals| goals}[0]
+    @teams[min].teamName
+  end
+
+  def lowest_scoring_home_team
+    generate_average
+    min = generate_average[1].min_by {|id, goals| goals}[0]
+    @teams[min].teamName
+  end
+
+
+  def winningest_team
+    highest = calculate_percents[2].max_by {|id, percent| percent}[0]
+    @teams[highest].teamName
+  end
+
+  def best_fans
+    calculate_percents
+    home_away_difference = Hash.new(0)
+    calculate_percents[1].each do |k, v|
+      home_away_difference[k] = (v - calculate_percents[0][k]).abs
+    end
+    team = home_away_difference.max_by {|id, difference| difference}[0]
+    @teams[team].teamName
+  end
+
+  def worst_fans
+    generate_wins
+    worst_fans = []
+    records = Hash.new(0)
+    @teams.each do |id, team_obj|
+      records[id] = generate_wins[0][id] > generate_wins[1][id]
+    end
+    records.each do |id, boolean|
+      if boolean == true
+        worst_fans << @teams[id].teamName
+      end
+    end
+    worst_fans
+  end
+
+"----------------------SUPPORT METHODS-----------------------------------------"
 
   def generate_num_goals_per_team
     return @goals_per_team unless @goals_per_team.nil?
@@ -25,18 +91,6 @@ module LeagueStats
     end
     @goals_per_team
   end
-
-  # def generate_num_games_per_team
-  #   return @games_per_team unless @games_per_team.nil?
-  #   @games_per_team = Hash.new(0)
-  #   @game_teams.each do |id, array|
-  #     array.each do |game_object|
-  #     @games_per_team[game_object.team_id] += 1
-  #   end
-  # end
-  #
-  #   @games_per_team
-  # end
 
   def generate_num_games_per_team
     return @game_counts unless @games_counts.nil?
@@ -82,20 +136,6 @@ module LeagueStats
     @averages_total
   end
 
-
-# Team with lowest number of goals allowed per game, all seasons -string
-  def best_defense
-    min = generate_average_allowed.min_by {|team, allowed| allowed }[0]
-      # require 'pry' ; binding.pry
-    @teams[min].teamName
-  end
-
-# Team with highest number of goals allowed per game, all seasons -string
-  def worst_defense
-    max = generate_average_allowed.max_by {|team, allowed| allowed }[0]
-    @teams[max].teamName
-  end
-
   def generate_allowed_goals
     allowed_goals = Hash.new(0)
     @games.each do |id, obj|
@@ -122,38 +162,6 @@ module LeagueStats
       @home_and_away_goals[1][object.home_team_id] += object.home_goals
     end
     @home_and_away_goals
-  end
-
-
-# Name of away team with highest average score per game, all seasons -String
-  def highest_scoring_visitor
-    generate_average
-    # generate_home_and_away_goals
-    max = generate_average[2].max_by {|id, goals| goals}[0]
-    @teams[max].teamName
-  end
-
-# Name of home team with highest average score per game, all seasons -string
-  def highest_scoring_home_team
-    generate_average
-    # max = generate_home_and_away_goals[1].max_by {|id, goals| goals}[0]
-    # @teams[max].teamName
-    max = generate_average[1].max_by {|id, goals| goals}[0]
-    @teams[max].teamName
-  end
-
-# Name of away team with lowest average score per game, all seasons -string
-  def lowest_scoring_visitor
-    generate_average
-    min = generate_average[2].min_by {|id, goals| goals}[0]
-    @teams[min].teamName
-  end
-
-# Name of home team with lowest average score per game, all seasons -string
-  def lowest_scoring_home_team
-    generate_average
-    min = generate_average[1].min_by {|id, goals| goals}[0]
-    @teams[min].teamName
   end
 
   def generate_wins
@@ -186,55 +194,21 @@ module LeagueStats
   end
 
   def calculate_percents
-      generate_num_games_per_team
-      return @percents unless @percents.nil?
-      @percent_by_away = {}
-      @percent_by_home = {}
-      @percent_by_team = {}
-      @percents = [@percent_by_away, @percent_by_home, @percent_by_team]
-      generate_wins[0].each do |k,v|
-        @percent_by_away[k] = v / generate_num_games_per_team[1][k].to_f
-      end
-      generate_wins[1].each do |k,v|
-        @percent_by_home[k] = v / generate_num_games_per_team[2][k].to_f
-      end
-      generate_wins[2].each do |k,v|
-        @percent_by_team[k] = v / generate_num_games_per_team[0][k].to_f
-      end
-      @percents
-  end
-
-# Name of team with highest win percentage, all seasons -string
-  def winningest_team
-    highest = calculate_percents[2].max_by {|id, percent| percent}[0]
-    @teams[highest].teamName
-  end
-
-# Name of team with biggest difference between home and away win percentages -string
-  def best_fans
-    calculate_percents
-    home_away_difference = Hash.new(0)
-    calculate_percents[1].each do |k, v|
-      home_away_difference[k] = (v - calculate_percents[0][k]).abs
+    generate_num_games_per_team
+    return @percents unless @percents.nil?
+    @percent_by_away = {}
+    @percent_by_home = {}
+    @percent_by_team = {}
+    @percents = [@percent_by_away, @percent_by_home, @percent_by_team]
+    generate_wins[0].each do |k,v|
+      @percent_by_away[k] = v / generate_num_games_per_team[1][k].to_f
     end
-    team = home_away_difference.max_by {|id, difference| difference}[0]
-    @teams[team].teamName
-  end
-
-# List of names of all teams with better away records(wins) than home records(wins) -array
-  def worst_fans
-    generate_wins
-    worst_fans = []
-    records = Hash.new(0)
-    @teams.each do |id, team_obj|
-      records[id] = generate_wins[0][id] > generate_wins[1][id]
+    generate_wins[1].each do |k,v|
+      @percent_by_home[k] = v / generate_num_games_per_team[2][k].to_f
     end
-    records.each do |id, boolean|
-      if boolean == true
-        worst_fans << @teams[id].teamName
-      end
+    generate_wins[2].each do |k,v|
+      @percent_by_team[k] = v / generate_num_games_per_team[0][k].to_f
     end
-    worst_fans
+    @percents
   end
-
 end
