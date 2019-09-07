@@ -46,8 +46,8 @@ class GameableModuleTest < Minitest::Test
 
   def test_count_of_games_by_season
     expected_hash = {
-      "20132014" => 10,
-      "20142015" => 8
+      20132014 => 10,
+      20142015 => 8
     }
     assert_equal expected_hash, @stat_tracker.count_of_games_by_season
   end
@@ -58,8 +58,8 @@ class GameableModuleTest < Minitest::Test
 
   def test_average_goals_by_season
     expected_hash = {
-      "20132014" => 3.60,
-      "20142015" => 3.75
+      20132014 => 3.60,
+      20142015 => 3.75
     }
     assert_equal expected_hash, @stat_tracker.average_goals_by_season
 end
