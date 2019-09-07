@@ -15,7 +15,6 @@ class StatTrackerTest < Minitest::Test
     }
 
     @stat_tracker = StatTracker.from_csv(@locations)
-    require 'pry'; binding.pry
   end
 
   def test_it_exists
@@ -103,12 +102,15 @@ class StatTrackerTest < Minitest::Test
   def test_worst_fans
     expected = ["Atlanta United", "New England Revolution", "Vancouver Whitecaps FC"]
     assert_equal expected, @stat_tracker.worst_fans.sort
+  end
 
 
-    # assert_equal 3, @stat_tracker.worst_fans.length
-    # assert_equal true, @stat_tracker.worst_fans.include?("New England Revolution")
-    # assert_equal true, @stat_tracker.worst_fans.include?("Vancouver Whitecaps FC")
-    # assert_equal true, @stat_tracker.worst_fans.include?("Atlanta United")
+  # assert_equal 3, @stat_tracker.worst_fans.length
+  # assert_equal true, @stat_tracker.worst_fans.include?("New England Revolution")
+  # assert_equal true, @stat_tracker.worst_fans.include?("Vancouver Whitecaps FC")
+  # assert_equal true, @stat_tracker.worst_fans.include?("Atlanta United")
+  def test_highest_scoring_home_team
+    assert_equal "Seattle Sounders FC", @stat_tracker.highest_scoring_home_team
   end
 
 
