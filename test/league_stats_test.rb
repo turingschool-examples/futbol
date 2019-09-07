@@ -31,7 +31,6 @@ class LeagueStatsTest < MiniTest::Test
     assert_equal "Toronto FC", @stat_tracker.worst_defense
   end
 
-# Could be tie
   def highest_scoring_visitor
     assert_equal "Real Salt Lake", @stat_tracker.highest_scoring_visitor
   end
@@ -44,11 +43,9 @@ class LeagueStatsTest < MiniTest::Test
     assert_equal "New York Red Bulls", @stat_tracker.lowest_scoring_visitor
   end
 
-# tie???
   def lowest_scoring_home_team
     assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_home_team
   end
-
 
   def winningest_team
     assert_equal "New York City FC", @stat_tracker.winningest_team
@@ -61,5 +58,4 @@ class LeagueStatsTest < MiniTest::Test
   def worst_fans
     assert_equal ["Real Salt Lake"], @stat_tracker.worst_fans
   end
-
 end

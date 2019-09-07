@@ -19,5 +19,4 @@ class TeamTest < Minitest::Test
     assert_equal "Mercedes-Benz Stadium", @line_2.stadium
     assert_equal "/api/v1/teams/1", @line_2.link
   end
-
 end

@@ -31,6 +31,4 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 32, stat_tracker_2.teams.length
     assert_equal 25, stat_tracker_2.game_teams.length
   end
-
-
 end
