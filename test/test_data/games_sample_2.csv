@@ -1,0 +1,41 @@
+game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link,in_game_teams,team_in_teams
+2012030221,20122013,Postseason,5/16/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null,2012030221,3
+2012030222,20122013,Postseason,5/19/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null,2012030222,3
+2012030223,20122013,Postseason,5/21/13,6,3,2,1,BBVA Stadium,/api/v1/venues/null,2012030223,6
+2012030224,20122013,Postseason,5/23/13,6,3,3,2,BBVA Stadium,/api/v1/venues/null,2012030224,6
+2012030225,20122013,Postseason,5/25/13,3,6,1,3,Toyota Stadium,/api/v1/venues/null,2012030225,3
+2012030311,20122013,Postseason,6/2/13,6,5,3,0,Children's Mercy Park,/api/v1/venues/null,2012030311,6
+2012030312,20122013,Postseason,6/4/13,6,5,500,1,Children's Mercy Park,/api/v1/venues/null,2012030312,6
+2012030313,20122013,Postseason,6/6/13,5,6,1,2,Toyota Stadium,/api/v1/venues/null,2012030313,5
+2012030314,20122013,Postseason,6/8/13,5,6,0,0,Toyota Stadium,/api/v1/venues/null,2012030314,5
+2012030231,20122013,Postseason,5/16/13,17,16,1,2,Gillette Stadium,/api/v1/venues/null,2012030231,17
+2014030411,20142015,Postseason,6/4/15,16,14,2,1,Audi Field,/api/v1/venues/null,2014030411,16
+2014030412,20142015,Postseason,6/6/15,16,14,3,2,Audi Field,/api/v1/venues/null,2014030412,16
+2014030413,20142015,Postseason,6/9/15,14,16,3,2,Gillette Stadium,/api/v1/venues/null,2014030413,14
+2014030414,20142015,Postseason,6/11/15,14,16,1,2,Gillette Stadium,/api/v1/venues/null,2014030414,14
+2014030415,20142015,Postseason,6/14/15,16,14,2,1,Audi Field,/api/v1/venues/null,2014030415,16
+2016030171,20162017,Postseason,4/14/17,20,24,2,3,Rio Tinto Stadium,/api/v1/venues/null,2016030171,20
+2016030172,20162017,Postseason,4/16/17,20,24,2,3,Rio Tinto Stadium,/api/v1/venues/null,2016030172,20
+2016030173,20162017,Postseason,4/18/17,24,20,3,2,BMO Field,/api/v1/venues/null,2016030173,24
+2016030174,20162017,Postseason,4/20/17,24,20,3,1,BMO Field,/api/v1/venues/null,2016030174,24
+2012020122,20122013,Regular Season,2/3/13,1,2,3,0,Centruy Link Field,/api/v1/venues/null,2012020122,1
+2012020521,20122013,Regular Season,3/31/13,15,4,2,3,SeatGeek Stadium,/api/v1/venues/null,2012020521,15
+2012030182,20122013,Postseason,5/3/13,26,19,1,2,Talen Energy Stadium,/api/v1/venues/null,2012030182,26
+2012020087,20122013,Regular Season,1/30/13,24,28,2,2,Banc of California Stadium,/api/v1/venues/null,2012020087,24
+2012030151,20122013,Postseason,5/1/13,30,16,1,2,Gillette Stadium,/api/v1/venues/null,2012030151,30
+2012020142,20122013,Regular Season,2/8/13,14,1,2,2,Mercedes-Benz Stadium,/api/v1/venues/null,2012020142,14
+2014020348,20142015,Regular Season,11/29/14,4,3,2,3,BBVA Stadium,/api/v1/venues/null,2014020348,4
+2012030183,20122013,Postseason,5/5/13,19,26,0,1,Nippert Stadium,/api/v1/venues/null,2012030183,19
+2012020104,20122013,Regular Season,2/2/13,19,17,3,3,Dignity Health Sports Park,/api/v1/venues/null,2012020104,19
+2015030181,20152016,Postseason,4/15/16,28,26,2,3,Nippert Stadium,/api/v1/venues/null,2015030181,28
+2012030111,20122013,Postseason,5/1/13,2,5,0,3,Children's Mercy Park,/api/v1/venues/null,2012030111,2
+2012020089,20122013,Regular Season,1/31/13,16,30,2,2,Exploria Stadium,/api/v1/venues/null,2012020089,16
+2012030131,20122013,Postseason,5/2/13,3,15,1,3,Providence Park,/api/v1/venues/null,2012030131,3
+2012030232,20122013,Postseason,5/18/13,17,16,2,1,Gillette Stadium,/api/v1/venues/null,2012030232,17
+2013020444,20132014,Regular Season,12/8/13,1,3,2,3,BBVA Stadium,/api/v1/venues/null,2013020444,1
+2012030162,20122013,Postseason,5/3/13,17,24,3,2,Rio Tinto Stadium,/api/v1/venues/null,2012030162,17
+2015030182,20152016,Postseason,4/17/16,28,26,2,1,Nippert Stadium,/api/v1/venues/null,2015030182,28
+2012030112,20122013,Postseason,5/3/13,2,5,2,3,Children's Mercy Park,/api/v1/venues/null,2012030112,2
+2012030132,20122013,Postseason,5/4/13,3,15,0,1,Providence Park,/api/v1/venues/null,2012030132,3
+2012030152,20122013,Postseason,5/4/13,30,16,2,3,Gillette Stadium,/api/v1/venues/null,2012030152,30
+2012030161,20122013,Postseason,5/1/13,17,24,1,3,Rio Tinto Stadium,/api/v1/venues/null,2012030161,17
