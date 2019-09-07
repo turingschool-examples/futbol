@@ -35,30 +35,38 @@ class LeagueStatTest < Minitest::Test
   end
 
   def test_best_defense
-    assert_equal "Yo mama", @stat_tracker.best_defense
+    assert_equal "Portland Timbers", @stat_tracker.best_defense
   end
 
   def test_worst_defense
+    assert_equal "Seattle Sounders FC", @stat_tracker.worst_defense
   end
 
   def test_highest_scoring_visitor
+    assert_equal 'asdf', @stat_tracker.highest_scoring_visitor
   end
 
   def test_highest_scoring_home_team
+    assert_equal "idk", @stat_tracker.highest_scoring_home_team
   end
 
   def test_lowest_scoring_visitor
+    assert_equal "jesus", @stat_tracker.lowest_scoring_visitor
   end
 
   def test_lowest_scoring_home_team
+    assert_equal "oh", @stat_tracker.lowest_scoring_home_team
   end
 
   def test_winningest_team
+    assert_equal "asdf", @stat_tracker.winningest_team
   end
 
   def test_best_fans
+    assert_equal "asfas", @stat_tracker.best_fans
   end
 
   def test_worst_fans
+    assert_equal "asfsd", @stat_tracker.worst_fans
   end
 end
