@@ -7,7 +7,7 @@ require_relative './game_statistics'
 
 class StatTracker
   include GameStatistics
-  
+
   attr_reader :games, :teams, :game_teams
 
   def initialize(games, teams, game_teams)
@@ -17,14 +17,16 @@ class StatTracker
   end
 
   def self.from_csv(locations)
-    games = []
+    games = {}
     CSV.foreach(locations[:games], :headers=> true) do |row|
-      games.push(Game.new(row))
+      game = Game.new(row)
+      games[game.game_id] = game
     end
 
-    teams = []
+    teams = {}
     CSV.foreach(locations[:teams], :headers=> true) do |row|
-      teams.push(Team.new(row))
+      team = Team.new(row)
+      teams[team.team_id] = team
     end
 
     game_teams = []
@@ -32,6 +34,6 @@ class StatTracker
       game_teams.push(GameTeam.new(row))
     end
 
-    StatTracker.new(games, teams, game_teams)
+    new(games, teams, game_teams)
   end
 end
