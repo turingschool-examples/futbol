@@ -1,7 +1,7 @@
 module GameStatistics
   def highest_total_score
     sum = 0
-    @games.each do |game|
+    @games.each_value do |game|
       new_sum = game.away_goals + game.home_goals
       sum = new_sum if new_sum > sum
     end
@@ -10,7 +10,7 @@ module GameStatistics
 
   def lowest_total_score
     sum = 0
-    @games.each do |game|
+    @games.each_value do |game|
       new_sum = game.away_goals + game.home_goals
       sum = new_sum if new_sum <= sum
     end
@@ -19,7 +19,7 @@ module GameStatistics
 
   def biggest_blowout
     sum = 0
-    @games.each do |game|
+    @games.each_value do |game|
       new_sum = (game.away_goals - game.home_goals).abs
       sum = new_sum if new_sum > sum
     end
@@ -28,7 +28,7 @@ module GameStatistics
 
   def percentage_home_wins
     wins = 0
-    @games.each do |game|
+    @games.each_value do |game|
       if game.home_goals > game.away_goals
         wins += 1
       end
@@ -38,7 +38,7 @@ module GameStatistics
 
   def percentage_visitor_wins
     wins = 0
-    @games.each do |game|
+    @games.each_value do |game|
       if game.home_goals < game.away_goals
         wins += 1
       end
@@ -47,14 +47,14 @@ module GameStatistics
   end
 
   def percentage_ties
-    (@games.find_all do |game|
+    (@games.select do |game_id, game|
       game.away_goals == game.home_goals
     end.length.to_f / @games.length).round(2)
   end
 
   def count_of_games_by_season
     total_games = Hash.new(0)
-    @games.each do |game|
+    @games.each_value do |game|
       if !total_games.has_key?(game.season)
         total_games[game.season] = 1
       else
@@ -65,15 +65,17 @@ module GameStatistics
   end
 
   def average_goals_per_game
-    (@games.sum do |game|
-      game.home_goals + game.away_goals
-    end.to_f / @games.length).round(2)
+    sums = 0
+    @games.each_value do |game|
+      sums += game.home_goals + game.away_goals
+    end
+    (sums / @games.length).round(2)
   end
 
   def average_goals_by_season
     total_goals = Hash.new(0)
     total_games = count_of_games_by_season
-    @games.each do |game|
+    @games.each_value do |game|
       if !total_goals.has_key?(game.season)
         total_goals[game.season] = (game.away_goals + game.home_goals) / total_games[game.season]
       else
