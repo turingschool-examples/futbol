@@ -96,16 +96,6 @@ module Leagueable
     teams_total_games
   end
 
-<<<<<<< HEAD
-  def team_name_finder_helper(team_id)
-   team_name = nil
-   self.teams.each_value do |team_obj|
-     if team_obj.team_id == team_id
-     team_name = team_obj.teamName
-     end
-   end
-   team_name
-=======
   def total_away_games_helper
     teams_total_away_games = Hash.new
     self.teams.each_key do |team_id|
@@ -178,7 +168,6 @@ module Leagueable
       end
     end
     team_name
->>>>>>> d0aa94ecabbb88572d131eb036f823998c403867
   end
 
 
