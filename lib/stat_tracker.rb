@@ -3,13 +3,13 @@ require_relative './game'
 require_relative './game_team'
 require_relative './helper_methods'
 require_relative './game_stats'
-require_relative './league_stats'
+# require_relative './league_stats'
 require 'csv'
 require 'pry'
 
 class StatTracker
   include GameStats
-  include LeagueStats
+  # include LeagueStats
   include HelperMethods
 
   attr_reader :teams, :games, :game_teams
