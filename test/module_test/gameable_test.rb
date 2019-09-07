@@ -62,4 +62,5 @@ class GameableModuleTest < Minitest::Test
       20142015 => 3.75
     }
     assert_equal expected_hash, @stat_tracker.average_goals_by_season
+  end
 end

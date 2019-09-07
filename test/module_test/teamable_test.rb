@@ -69,3 +69,4 @@ class TeamableModuleTest < Minitest::Test
 
     assert_equal expected_hash, @stat_tracker.seasonal_summary(team_id)
   end
+end 
