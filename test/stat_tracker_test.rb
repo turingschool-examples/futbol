@@ -4,8 +4,6 @@ require_relative '../lib/games'
 require_relative '../lib/teams'
 require_relative '../lib/game_teams'
 
-
-
 class StatTrackerTest < MiniTest::Test
 
   def setup

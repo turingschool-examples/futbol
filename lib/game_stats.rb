@@ -5,9 +5,7 @@ module GameStats
     game = @games.max_by do |id, object|
       object.away_goals + object.home_goals
     end
-    # require 'pry' ; binding.pry
     game[1].away_goals + game[1].home_goals
-
   end
 
   def lowest_total_score #integer

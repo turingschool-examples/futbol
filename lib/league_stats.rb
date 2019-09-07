@@ -8,20 +8,20 @@ module LeagueStats
 # Team with highest average goals scored per game, all seasons -string
   def best_offense
     max = generate_average.max_by {|team,average| average }
-    @teams.find {|id, object| object.team_id == max}[1].teamName
+    @teams[max[0]].teamName
   end
 
 # Team with lowest average goals scored per game, all seasons -string
   def worst_offense
     min = generate_average.min_by {|team,average| average }
 
-    @teams.find {|id, object| object.team_id == min}.teamName
+    @teams[min[0]].teamName
   end
 
   def generate_num_goals_per_team
     goals_per_team = Hash.new(0)
     @game_teams.each do |id, array|
-      goals_per_team[array.team_id] += array.goals
+      goals_per_team[array[0].team_id] += array[0].goals
     end
     goals_per_team
   end
@@ -29,8 +29,7 @@ module LeagueStats
   def generate_num_games_per_team
     games_per_team = Hash.new(0)
     @game_teams.each do |id, array|
-      games_per_team[array[0]] += 1
-      games_per_team[array[1]] += 1
+      games_per_team[array[0].team_id] += 1
     end
     games_per_team
   end
@@ -46,16 +45,16 @@ module LeagueStats
 
 # Team with lowest number of goals allowed per game, all seasons -string
   def best_defense
-    min = generate_average_allowed.min_by {|team, allowed| allowed }
+    min = generate_average_allowed.min_by {|team, allowed| allowed }[0]
       #require 'pry' ; binding.pry
-    @teams.find {|id, obj| obj.team_id == min[0]}
+    @teams[min].teamName
   end
 
 # Team with highest number of goals allowed per game, all seasons -string
   def worst_defense
     max = generate_average_allowed.max_by {|team, allowed| allowed }[0]
-    #require 'pry' ; binding.pry
-    @teams.find {|id, obj| obj.team_id == max }
+    # require 'pry' ; binding.pry
+    @teams[max].teamName
   end
 
   def generate_allowed_goals

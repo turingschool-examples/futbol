@@ -62,9 +62,4 @@ class LeagueStatsTest < MiniTest::Test
     assert_equal ["Real Salt Lake"], @stat_tracker.worst_fans
   end
 
-
-
-
-
-
 end
