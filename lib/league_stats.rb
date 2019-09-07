@@ -19,14 +19,29 @@ module LeagueStats
     end[0]
     @teams[lowest_average_number_of_goals_id].team_name
   end
-
+  
+  def best_defense
+    best_def_id = @team_result_count.min_by do |team_id, counts|
+      counts[:goals_allowed] / counts[:games].to_f
+    end[0]
+    
+    @teams[best_def_id].team_name
+  end
 
   def worst_defense
-    #
+    worst_def_id = @team_result_count.max_by do |team_id, counts|
+      counts[:goals_allowed] / counts[:games].to_f
+    end[0]
+
+    @teams[worst_def_id].team_name
   end
 
   def highest_scoring_visitor
-    #
+    highest_scoring_visitor_id = @team_result_count.max_by do |team_id, counts|
+      counts[:away_goals] / counts[:away_games].to_f
+    end[0]
+
+    @teams[highest_scoring_visitor_id].team_name
   end
 
   def winningest_team
