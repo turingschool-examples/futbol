@@ -7,6 +7,7 @@ module LeagueStats
 
 # Team with highest average goals scored per game, all seasons -string
   def best_offense
+
     max = generate_average.max_by {|team,average| average }
     @teams[max[0]].teamName
   end
@@ -132,6 +133,7 @@ module LeagueStats
   end
 
   def calculate_percents
+    require 'pry' ; binding.pry
       return @percents unless @percents.nil?
       @percent_by_away = {}
       @percent_by_home = {}
