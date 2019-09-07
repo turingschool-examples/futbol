@@ -1,5 +1,13 @@
 module LeagueStats
 
+  def worst_defense
+    #
+  end
+
+  def highest_scoring_visitor
+    #
+  end
+  
   def winningest_team
     winning_team_id = @team_result_count.max_by do |team_id, counts|
       (counts[:home_wins] + counts[:away_wins]) / counts[:games].to_f if counts[:games] != 0
