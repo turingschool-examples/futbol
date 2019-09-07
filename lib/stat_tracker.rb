@@ -1,3 +1,8 @@
+require 'csv'
+require './lib/game'
+require './lib/team'
+require './lib/season'
+
 class StatTracker
   attr_reader
 
@@ -7,25 +12,27 @@ class StatTracker
     
     games_to_create = {}
     teams_to_create = {}
+    seasons_to_create = {}
     
-    CSV.foreach(locations[:teams], headers: true) do |row|
-      if !teams_to_create.has_key?(row["team_id"].to_i)
-        teams_to_create[row["team_id"].to_i] = {
-          team_id: row["team_id"].to_i,
-          franchiseId: row["franchiseId"].to_i,
-          teamName: row["teamName"],
-          abbreviation: row["abbreviation"],
-          Stadium: row["Stadium"],
-          link: row["link"],
-          games: []
-        }
-      end
-    end
-
     ######################################################
     # THESE NEED TO BE REFACTORED INTO THEIR OWN METHODS #
     # SO WE CAN ACTUALLY TEST THIS MONSTROCITY           #
     ######################################################
+
+    CSV.foreach(locations[:teams], headers: true) do |row|
+      if !teams_to_create.has_key?(row["team_id"].to_i)
+        teams_to_create[row["team_id"].to_i] = {
+          team_id:      row["team_id"].to_i,
+          franchiseId:  row["franchiseId"].to_i,
+          teamName:     row["teamName"],
+          abbreviation: row["abbreviation"],
+          Stadium:      row["Stadium"],
+          link:         row["link"],
+          games:        []
+        }
+      end
+    end
+
     CSV.foreach(locations[:games], headers: true) do |row|
       if !games_to_create.has_key?(row["game_id"].to_i)
         games_to_create[row["game_id"].to_i] = {
@@ -68,7 +75,14 @@ class StatTracker
     games_to_create.each do |key, value|
       new_game = Game.new(value)
       @games[key] = new_game
-      # require 'pry'; binding.pry
+
+      # if !seasons_to_create.has_key?(new_game.season)
+      #   teams_array = [new_game]
+      #   seasons_to_create = {
+      #     season: new_game.season
+      #     teams: {}
+      #   }
+      # end
 
       teams_to_create[new_game.home_team[:team_id]][:games].push(new_game)
       teams_to_create[new_game.away_team[:team_id]][:games].push(new_game)
@@ -78,7 +92,12 @@ class StatTracker
       @teams[key] = Team.new(value)
     end
 
-
+    # @seasons_to_create.each do |key, value|
+    #   @
+    # @teams.each do |team|
+    #   if seasons_to_create.has_key?()
+      
+    require 'pry'; binding.pry
   end
 
 end
