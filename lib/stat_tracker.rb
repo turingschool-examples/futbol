@@ -20,7 +20,7 @@ class StatTracker
 
     games = {}
     teams = {}
-    game_teams = Hash.new {|k,v| game_teams[k] = []}
+    game_teams = {}
 
     CSV.foreach(locations[:games], headers: true) do |row|
       game = Game.new(row.to_s)
@@ -33,11 +33,16 @@ class StatTracker
     end
 
     CSV.foreach(locations[:game_teams], headers: true) do |row|
-      game_team =  GameTeams.new(row.to_s)
-      game_teams[game_team.team_id] = [] << game_team
+    game_team =  GameTeams.new(row.to_s)
+      if game_teams.has_key?(game_team.team_id)
+        game_teams[game_team.team_id] << game_team
+      else
+        game_teams[game_team.team_id] = [game_team]
+      end
     end
 
     StatTracker.new(games, teams, game_teams)
   end
+
 
 end

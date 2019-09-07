@@ -17,11 +17,11 @@ class LeagueStatsTest < MiniTest::Test
   end
 
   def test_best_offense
-    assert_equal "Real Salt Lake", @stat_tracker.best_offense
+    assert_equal "New York City FC", @stat_tracker.best_offense
   end
 
   def test_worst_offense
-    assert_equal "Houston Dynamo", @stat_tracker.worst_offense
+    assert_equal "New York Red Bulls", @stat_tracker.worst_offense
   end
 
   def test_best_defense
@@ -29,7 +29,7 @@ class LeagueStatsTest < MiniTest::Test
   end
 
   def test_worst_defense
-    assert_equal "Toronto FC", @stat_tracker.worst_defense
+    assert_equal "New York Red Bulls", @stat_tracker.worst_defense
   end
 
 # Could be tie
@@ -56,16 +56,15 @@ class LeagueStatsTest < MiniTest::Test
 
   def test_winningest_team
 
-    assert_equal "New York City FC", @stat_tracker.winningest_team
+    assert_equal "FC Dallas", @stat_tracker.winningest_team
   end
 
   def test_best_fans
-    skip
+    # skip
     assert_equal "New York City FC", @stat_tracker.best_fans
   end
 
   def test_worst_fans
-    skip
     assert_equal ["Real Salt Lake"], @stat_tracker.worst_fans
   end
 
