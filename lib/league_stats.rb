@@ -1,17 +1,14 @@
 module LeagueStats
 
-# Total teams in data -integer
   def count_of_teams
     @teams.length
   end
 
-# Team with highest average goals scored per game, all seasons -string
   def best_offense
     max = generate_average.max_by {|team,average| average }
     @teams[max[0]].teamName
   end
 
-# Team with lowest average goals scored per game, all seasons -string
   def worst_offense
     min = generate_average.min_by {|team,average| average }
 
@@ -39,20 +36,16 @@ module LeagueStats
   def generate_average
     averages = {}
     generate_num_goals_per_team.each do |team, goals|
-      #  require 'pry' ; binding.pry
       averages[team] = goals / generate_num_games_per_team[team]
     end
   end
 
-
-# Team with lowest number of goals allowed per game, all seasons -string
   def best_defense
     min = generate_average_allowed.min_by {|team, allowed| allowed }[0]
       #require 'pry' ; binding.pry
     @teams[min].teamName
   end
 
-# Team with highest number of goals allowed per game, all seasons -string
   def worst_defense
     max = generate_average_allowed.max_by {|team, allowed| allowed }[0]
     @teams[max].teamName
@@ -85,26 +78,21 @@ module LeagueStats
     @home_and_away_goals
   end
 
-
-# Name of away team with highest average score per game, all seasons -String
   def highest_scoring_visitor
     max = generate_home_and_away_goals[0].max_by {|id, goals| goals}[0]
     @teams[max].teamName
   end
 
-# Name of home team with highest average score per game, all seasons -string
   def highest_scoring_home_team
     max = generate_home_and_away_goals[1].max_by {|id, goals| goals}[0]
     @teams[max].teamName
   end
 
-# Name of away team with lowest average score per game, all seasons -string
   def lowest_scoring_visitor
     min = generate_home_and_away_goals[0].min_by {|id, goals| goals}[0]
     @teams[min].teamName
   end
 
-# Name of home team with lowest average score per game, all seasons -string
   def lowest_scoring_home_team
     min = generate_home_and_away_goals[1].min_by {|id, goals| goals}[0]
     @teams[min].teamName
@@ -149,7 +137,6 @@ module LeagueStats
       @percents
   end
 
-# Name of team with highest win percentage, all seasons -string
   def winningest_team
     highest = calculate_percents[2].max_by {|id, percent| percent}
     @teams[highest].teamName

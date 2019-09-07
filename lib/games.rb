@@ -22,9 +22,4 @@ class Game
       @venue = line.split(",")[8]
       @venue_link = line.split(",")[9]
     end
-
-
-
-
-
 end

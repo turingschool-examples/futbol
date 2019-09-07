@@ -15,7 +15,6 @@ class StatTracker
     @game_teams = hash_game_teams_objs
   end
 
-      #passing in hash of csv paths for each csv file
   def StatTracker.from_csv(locations)
 
     games = {}
@@ -39,5 +38,4 @@ class StatTracker
 
     StatTracker.new(games, teams, game_teams)
   end
-
 end
