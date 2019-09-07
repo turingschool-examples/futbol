@@ -84,7 +84,8 @@ module LeagueStats
 "----------------------SUPPORT METHODS-----------------------------------------"
 
   def generate_num_goals_per_team
-    return @goals_per_team unless @goals_per_team.nil?
+    @goals_per_team = {}
+    return @goals_per_team unless @goals_per_team.empty?
     @goals_per_team = Hash.new(0)
     @game_teams.each do |id, array|
       @goals_per_team[array[0].team_id] += array[0].goals
@@ -93,11 +94,12 @@ module LeagueStats
   end
 
   def generate_num_games_per_team
-    return @game_counts unless @games_counts.nil?
-    @game_counts = [@games_per_team, @games_per_team_away, @games_per_team_home]
+    @game_counts = []
+    return @game_counts unless @game_counts.empty?
     @games_per_team = Hash.new(0)
     @games_per_team_away = Hash.new(0)
     @games_per_team_home = Hash.new(0)
+    @game_counts = [@games_per_team, @games_per_team_away, @games_per_team_home]
     @game_teams.each do |id, array|
       array.each do |object|
         if object.hoa == "away"
@@ -117,7 +119,8 @@ module LeagueStats
   end
 
   def generate_average
-    return @averages_total unless @averages_total.nil?
+    @averages_total = []
+    return @averages_total unless @averages_total.empty?
     generate_num_games_per_team
     generate_num_goals_per_team
     @averages = {}
@@ -155,7 +158,8 @@ module LeagueStats
   end
 
   def generate_home_and_away_goals
-    return @home_and_away_goals unless @home_and_away_goals.nil?
+    @home_and_away_goals = []
+    return @home_and_away_goals unless @home_and_away_goals.empty?
     @home_and_away_goals = [Hash.new(0), Hash.new(0)]
     @games.each do |team_id, object|
       @home_and_away_goals[0][object.away_team_id] += object.away_goals
@@ -165,7 +169,8 @@ module LeagueStats
   end
 
   def generate_wins
-    return @wins unless @wins.nil?
+    @wins = []
+    return @wins unless @wins.empty?
     @wins_by_team = Hash.new(0)
     @wins_by_home = Hash.new(0)
     @wins_by_away = Hash.new(0)
@@ -195,7 +200,8 @@ module LeagueStats
 
   def calculate_percents
     generate_num_games_per_team
-    return @percents unless @percents.nil?
+    @percents = []
+    return @percents unless @percents.empty?
     @percent_by_away = {}
     @percent_by_home = {}
     @percent_by_team = {}
