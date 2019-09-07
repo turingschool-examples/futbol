@@ -1,6 +1,6 @@
 require "minitest/autorun"
 require "minitest/pride"
-require "./lib/seasonable"
+require "./lib/modules/seasonable"
 require "./lib/stat_tracker"
 
 
