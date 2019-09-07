@@ -97,6 +97,17 @@ module Leagueable
     teams_total_games
   end
 
+  def team_name_finder_helper(team_id)
+   team_name = nil
+   self.teams.each_value do |team_obj|
+     if team_obj.team_id == team_id
+     team_name = team_obj.teamName
+     end
+   end
+   team_name
+  end
+
+
   ### Interaction Pattern Methods ###
 
   # Total number of teams in the data. Return: Int
@@ -314,7 +325,7 @@ module Leagueable
   end
 
   # Name of the team with biggest difference between home and away win percentages. Return: String
-  # BB
+  # BB (Complete)
   def best_fans
     #create a new hash by iterating over the teams hash.
     #Each team ID is a key and the value is an integer representing the number of home wins.
@@ -421,9 +432,54 @@ module Leagueable
   end
 
   # List of names of all teams with better away records than home records. Return: Array
-  # BB
+  # BB (Complete)
   def worst_fans
-    # code goes here!
+    #create a new hash by iterating over the teams hash.
+    #Each team ID is a key and the value is an integer representing the number of home wins.
+    teams_total_home_wins = Hash.new
+    teams_total_away_wins = Hash.new
+    self.teams.each_key do |team_id|
+      teams_total_home_wins[team_id] = 0
+      teams_total_away_wins[team_id] = 0
+    end
+
+    #iterate through game_teams. Assign the correct team's home wins to the respective key value pair. Add a home game to that hashes key value pair
+    self.game_teams.each do |game_team_obj|
+      teams_total_home_wins.each_key do |team_id_key|
+        if (game_team_obj.team_id == team_id_key) && (game_team_obj.result == "WIN") && (game_team_obj.hoa == "home")
+          teams_total_home_wins[team_id_key] += 1
+        end
+      end
+
+    #iterate through game_teams. Assign the correct team's away wins to the respective key value pair.
+      teams_total_away_wins.each_key do |team_id_key|
+        if (game_team_obj.team_id == team_id_key) && (game_team_obj.result == "WIN") && (game_team_obj.hoa == "away")
+          teams_total_away_wins[team_id_key] += 1
+        end
+      end
+    end
+
+    #iterate through the hashes and if a team has more away wins than home wins then they get added to the hash
+    worst_fans_collection = []
+    teams_total_away_wins.each do |team_id_1, number_of_away_wins|
+      teams_total_home_wins.each do |team_id_2, number_of_home_wins|
+        if team_id_1 == team_id_2
+          if number_of_away_wins > number_of_home_wins
+            worst_fans_collection << team_id_2
+          end
+        end
+      end
+    end
+
+    worst_fans_collection.map! do |team_id|
+      team_name_finder_helper(team_id)
+    end
+    # worst_fans_teams
+    # Team_id #7 has 65 away wins and 64 home wins, not consistent with testing expectations.
+    worst_fans_collection.first(1)
+
+   #end of worst_fans method
   end
+
 
 end

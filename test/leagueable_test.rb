@@ -80,7 +80,6 @@ class LeagueableTest < Minitest::Test
 
   # List of names of all teams with better away records than home records. Return: Array
   def test_worst_fans
-    skip
     assert_equal ["Houston Dynamo"], @stat_tracker.worst_fans
   end
 
