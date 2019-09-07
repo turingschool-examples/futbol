@@ -1,7 +1,11 @@
 module Gameable
 
   def highest_total_score
+    game = games.values.max_by do |game| 
+      game.home_team[:goals] + game.away_team[:goals]
+    end
 
+    game.home_team[:goals] + game.away_team[:goals]
   end
 
   def lowest_total_score
