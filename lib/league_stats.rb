@@ -1,5 +1,26 @@
 module LeagueStats
 
+  def count_of_teams
+    @teams.length
+    #works fine but when we refactor we should consider doing this with uniq so that
+    #if there are repetitive teams it still works. 
+  end
+
+  def best_offense
+    highest_average_number_of_goals_id = @team_result_count.max_by do |team_id, counts|
+      counts[:total_goals] / counts[:games].to_f
+    end[0]
+    @teams[highest_average_number_of_goals_id].team_name
+  end
+
+  def worst_offense
+    lowest_average_number_of_goals_id = @team_result_count.min_by do |team_id, counts|
+      counts[:total_goals] / counts[:games].to_f
+    end[0]
+    @teams[lowest_average_number_of_goals_id].team_name
+  end
+
+
   def worst_defense
     #
   end
@@ -7,7 +28,7 @@ module LeagueStats
   def highest_scoring_visitor
     #
   end
-  
+
   def winningest_team
     winning_team_id = @team_result_count.max_by do |team_id, counts|
       (counts[:home_wins] + counts[:away_wins]) / counts[:games].to_f if counts[:games] != 0
