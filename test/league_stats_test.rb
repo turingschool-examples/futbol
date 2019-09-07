@@ -7,21 +7,20 @@ require_relative '../lib/game_teams'
 class LeagueStatsTest < MiniTest::Test
 
   def setup
-    locations = { games: './data/dummy_games.csv', teams: './data/teams.csv', game_teams: './data/dummy_game_teams.csv' }
+    locations = { games: './data/games.csv', teams: './data/teams.csv', game_teams: './data/game_teams.csv' }
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
   def test_count_of_teams
-
     assert_equal 32, @stat_tracker.count_of_teams
   end
 
   def test_best_offense
-    assert_equal "Real Salt Lake", @stat_tracker.best_offense
+    assert_equal "New York City FC", @stat_tracker.best_offense
   end
 
   def test_worst_offense
-    assert_equal "Houston Dynamo", @stat_tracker.worst_offense
+    assert_equal "New York Red Bulls", @stat_tracker.worst_offense
   end
 
   def test_best_defense
@@ -29,7 +28,7 @@ class LeagueStatsTest < MiniTest::Test
   end
 
   def test_worst_defense
-    assert_equal "Toronto FC", @stat_tracker.worst_defense
+    assert_equal "New York Red Bulls", @stat_tracker.worst_defense
   end
 
   def test_highest_scoring_visitor
@@ -49,16 +48,14 @@ class LeagueStatsTest < MiniTest::Test
   end
 
   def test_winningest_team
-    assert_equal "New York City FC", @stat_tracker.winningest_team
+    assert_equal "FC Dallas", @stat_tracker.winningest_team
   end
 
   def test_best_fans
-    skip
     assert_equal "New York City FC", @stat_tracker.best_fans
   end
 
   def test_worst_fans
-    skip
     assert_equal ["Real Salt Lake"], @stat_tracker.worst_fans
   end
 end
