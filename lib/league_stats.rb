@@ -201,13 +201,13 @@ module LeagueStats
     @percent_by_team = {}
     @percents = [@percent_by_away, @percent_by_home, @percent_by_team]
     generate_wins[0].each do |k,v|
-      @percent_by_away[k] = v / generate_num_games_per_team[1][k].to_f
+      @percent_by_away[k] = (v / generate_num_games_per_team[1][k].to_f * 100).round(2)
     end
     generate_wins[1].each do |k,v|
-      @percent_by_home[k] = v / generate_num_games_per_team[2][k].to_f
+      @percent_by_home[k] = (v / generate_num_games_per_team[2][k].to_f * 100).round(2)
     end
     generate_wins[2].each do |k,v|
-      @percent_by_team[k] = v / generate_num_games_per_team[0][k].to_f
+      @percent_by_team[k] = (v / generate_num_games_per_team[0][k].to_f * 100).round(2)
     end
     @percents
   end
