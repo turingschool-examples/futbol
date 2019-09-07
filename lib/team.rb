@@ -1,6 +1,6 @@
 class Team
 
-  attr_reader :team_id
+  attr_reader :team_id, :team_name
 
   def initialize(team)
     @team_id = team["team_id"].to_i
