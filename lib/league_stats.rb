@@ -42,7 +42,6 @@ module LeagueStats
 
   def best_defense
     min = generate_average_allowed.min_by {|team, allowed| allowed }[0]
-      #require 'pry' ; binding.pry
     @teams[min].teamName
   end
 
@@ -152,5 +151,4 @@ module LeagueStats
   def worst_fans
 
   end
-
 end
