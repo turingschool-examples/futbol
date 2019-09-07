@@ -11,14 +11,16 @@ module HelperMethods
         if game_team.hoa == "away"
           team_result_count[game_team.team_id][:goals_allowed] += @games[game_team.game_id].home_goals
           team_result_count[game_team.team_id][:away_goals] += game_team.goals
+          team_result_count[game_team.team_id][:away_games] += 1
           team_result_count[game_team.team_id][:away_wins] += 1 if game_team.result == "WIN"
 
         elsif game_team.hoa == "home"
           team_result_count[game_team.team_id][:goals_allowed] += @games[game_team.game_id].away_goals
           team_result_count[game_team.team_id][:home_goals] += game_team.goals
+          team_result_count[game_team.team_id][:home_games] += 1
           team_result_count[game_team.team_id][:home_wins] += 1 if game_team.result == "WIN"
         end
-        
+
       end
     end
 
