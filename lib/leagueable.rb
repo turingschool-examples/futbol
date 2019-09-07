@@ -1,11 +1,10 @@
 require 'pry'
 
 module Leagueable
-  # Have to adjust ALL methods and helper methods in Leagueable to accept and recognize team_id as a string.
-  # Otherwise the spec_harness tests (which expect team_id to return a string) won't work for Teamable in Iteration 4.
 
     ## HELPER METHODS ##
 
+  # Create hash with team ids as keys and the total goals scored for each team as values
   def total_goals_helper
     teams_total_goals = Hash.new
     self.teams.each_key do |team_id|
@@ -22,6 +21,7 @@ module Leagueable
     teams_total_goals
   end
 
+  # Create hash with team ids as keys and the total goals allowed for each team as values
   def total_goals_allowed_helper
     teams_total_goals_allowed = Hash.new
     self.teams.each_key do |team_id|
@@ -48,6 +48,7 @@ module Leagueable
     teams_total_goals_allowed
   end
 
+  # Create hash with team ids as keys and the total goals scored at home for each team as values
   def total_goals_at_home_helper
     teams_total_goals_at_home = Hash.new
     self.teams.each_key do |team_id|
@@ -65,6 +66,7 @@ module Leagueable
     teams_total_goals_at_home
   end
 
+  # Create hash with team ids as keys and the total goals scored by away team for each team as values
   def total_goals_visitor_helper
     teams_total_goals_visitor = Hash.new
     self.teams.each_key do |team_id|
@@ -82,6 +84,7 @@ module Leagueable
     teams_total_goals_visitor
   end
 
+  # Create hash with team ids as keys and the total games played for each team as values
   def total_games_helper
     teams_total_games = Hash.new
     self.teams.each_key do |team_id|
@@ -98,6 +101,7 @@ module Leagueable
     teams_total_games
   end
 
+  # Create hash with team ids as keys and the total away games played for each team as values
   def total_away_games_helper
     teams_total_away_games = Hash.new
     self.teams.each_key do |team_id|
@@ -114,6 +118,7 @@ module Leagueable
     teams_total_away_games
   end
 
+  # Create hash with team ids as keys and the total home games played for each team as values
   def total_home_games_helper
     teams_total_home_games = Hash.new
     self.teams.each_key do |team_id|
@@ -130,6 +135,7 @@ module Leagueable
     teams_total_home_games
   end
 
+  # Create hash with team ids as keys and the total away wins for each team as values
   def total_away_wins_helper
     teams_total_away_wins = Hash.new
     self.teams.each_key do |team_id|
@@ -146,6 +152,7 @@ module Leagueable
     teams_total_away_wins
   end
 
+  # Create hash with team ids as keys and the total home wins for each team as values
   def total_home_wins_helper
     teams_total_home_wins = Hash.new
     self.teams.each_key do |team_id|
@@ -162,6 +169,26 @@ module Leagueable
     teams_total_home_wins
   end
 
+  # Create hash with team ids as keys and the total wins for each team as values
+  def total_wins_helper
+    teams_total_wins = Hash.new
+    self.teams.each_key do |team_id|
+      teams_total_wins[team_id] = 0
+    end
+
+    # Iterate through game_teams.
+    # Assign the correct team's wins to the respective key value pair.
+    self.game_teams.each do |game_team_obj|
+      teams_total_wins.each_key do |team_id_key|
+        if (game_team_obj.team_id == team_id_key) && (game_team_obj.result == "WIN")
+          teams_total_wins[team_id_key] += 1
+        end
+      end
+    end
+    teams_total_wins
+  end
+
+  # Pass in a team id to compare the team id to the team name. Return the team name
   def team_name_finder_helper(team_id)
     team_name = nil
     self.teams.each_value do |team_obj|
@@ -171,6 +198,7 @@ module Leagueable
     end
     team_name
   end
+
 
 
   ### Interaction Pattern Methods ###
@@ -329,60 +357,28 @@ module Leagueable
   # Name of the team with the highest win percentage across all seasons. Return: String
   # BB (Complete)
   def winningest_team
-    #create a new hash by iterating over the teams hash.
-    #Each team ID is a key and the value is an integer representing the number of total wins.
-    teams_total_wins = Hash.new
-    teams_total_games = Hash.new
-    self.teams.each_key do |team_id|
-      teams_total_wins[team_id] = 0
-      teams_total_games[team_id] = 0
-    end
 
-    # Iterate through game_teams.
-    # Assign the correct team's wins to the respective key value pair.
-    self.game_teams.each do |game_team_obj|
-      teams_total_wins.each_key do |team_id_key|
-        if (game_team_obj.team_id == team_id_key) && (game_team_obj.result == "WIN")
-          teams_total_wins[team_id_key] += 1
-        end
-      end
-
-      # Add 1 to the teams_total_games hash's value that keeps track of games played.
-      teams_total_games.each_key do |team_id_key|
-        if game_team_obj.team_id == team_id_key
-          teams_total_games[team_id_key] += 1
-        end
-      end
-    end
-
-    #
     winningest_team_wins_average = 0
-    winningest_team_team_id = 0
-    this_team_wins_average = 0
-    # Iterate over teams_total_games key/value pairs.
-    # games_key is the team_id and games_value is the number of games played
-    teams_total_games.each do |games_key, games_value|
-    # Nest an iteration over teams_total_wins key/value pairs.
-    # wins_key is the team_id and wins_value is the number of games won
-      teams_total_wins.each do |wins_key, wins_value|
-        if wins_key == games_key
-          this_team_wins_average = (wins_value / games_value.to_f)
-          if this_team_wins_average > winningest_team_wins_average
-            winningest_team_wins_average = this_team_wins_average
-            winningest_team_team_id = games_key
+      winningest_team_team_id = 0
+      this_team_wins_average = 0
+      # Iterate over teams_total_games key/value pairs.
+      # games_key is the team_id and games_value is the number of games played
+      total_games_helper.each do |games_key, games_value|
+      # Nest an iteration over teams_total_wins key/value pairs.
+      # wins_key is the team_id and wins_value is the number of games won
+        total_wins_helper.each do |wins_key, wins_value|
+          if wins_key == games_key
+            this_team_wins_average = (wins_value / games_value.to_f)
+            if this_team_wins_average > winningest_team_wins_average
+              winningest_team_wins_average = this_team_wins_average
+              winningest_team_team_id = games_key
+            end
           end
         end
       end
-    end
 
-    # Then iterate through the teams hash and return the team name that corresponds with the winningest_team_team_id
-    winningest_team = nil
-    self.teams.each_value do |team_obj|
-      if team_obj.team_id. == winningest_team_team_id
-      winningest_team = team_obj.teamName
-      end
-    end
-    winningest_team
+    team_name_finder_helper(winningest_team_team_id)
+
   end
 
   # Name of the team with biggest difference between home and away win percentages. Return: String
