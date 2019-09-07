@@ -75,7 +75,6 @@ class LeagueableTest < Minitest::Test
 
   # Name of the team with biggest difference between home and away win percentages. Return: String
   def test_best_fans
-    skip
     assert_equal "San Jose Earthquakes", @stat_tracker.best_fans
   end
 

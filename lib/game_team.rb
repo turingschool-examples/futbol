@@ -19,7 +19,7 @@ class GameTeam
 
     @game_id                = row["game_id"].to_i
     @team_id                = row["team_id"].to_i
-    @hoa                    = row["hoa"]
+    @hoa                    = row["HoA"]
     @result                 = row["result"]
     @settled_in             = row["settled_in"]
     @head_coach             = row["head_coach"]
