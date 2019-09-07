@@ -97,11 +97,67 @@ module Leagueable
   end
 
   def total_away_games_helper
+    teams_total_away_games = Hash.new
+    self.teams.each_key do |team_id|
+      teams_total_away_games[team_id] = 0
+    end
 
+    self.game_teams.each do |game_team_obj|
+      teams_total_away_games.each_key do |team_games_id|
+        if  (game_team_obj.team_id == team_games_id) && (game_team_obj.hoa == "home")
+          teams_total_away_games[team_games_id] += 1
+        end
+      end
+    end
+    teams_total_away_games
   end
 
   def total_home_games_helper
+    teams_total_home_games = Hash.new
+    self.teams.each_key do |team_id|
+      teams_total_home_games[team_id] = 0
+    end
 
+    self.game_teams.each do |game_team_obj|
+      teams_total_home_games.each_key do |team_games_id|
+        if  (game_team_obj.team_id == team_games_id) && (game_team_obj.hoa == "home")
+          teams_total_home_games[team_games_id] += 1
+        end
+      end
+    end
+    teams_total_home_games
+  end
+
+  def total_away_wins_helper
+    teams_total_away_wins = Hash.new
+    self.teams.each_key do |team_id|
+      teams_total_away_wins[team_id] = 0
+    end
+
+    self.game_teams.each do |game_team_obj|
+      teams_total_away_wins.each_key do |team_id_key|
+        if (game_team_obj.team_id == team_id_key) && (game_team_obj.result == "WIN") && (game_team_obj.hoa == "away")
+          teams_total_away_wins[team_id_key] += 1
+        end
+      end
+    end
+    teams_total_away_wins
+  end
+
+  def total_home_wins_helper
+    teams_total_home_wins = Hash.new
+    self.teams.each_key do |team_id|
+      teams_total_home_wins[team_id] = 0
+    end
+
+    self.game_teams.each do |game_team_obj|
+      teams_total_home_wins.each_key do |team_id_key|
+        if (game_team_obj.team_id == team_id_key) && (game_team_obj.result == "WIN") && (game_team_obj.hoa == "home")
+          teams_total_home_wins[team_id_key] += 1
+        end
+      end
+    end
+    teams_total_home_wins
   end
 
   def team_name_finder_helper(team_id)
@@ -239,12 +295,8 @@ module Leagueable
       end
     end
 
-    team_with_worst_defense = nil
-    self.teams.each_value do |team_obj|
-      if team_obj.team_id == worst_defense_team_id
-      team_with_worst_defense = team_obj.teamName
-      end
-    end
+    team_with_worst_defense = team_name_finder_helper(worst_defense_team_id)
+
     team_with_worst_defense
   end
 
