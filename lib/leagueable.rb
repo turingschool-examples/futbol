@@ -357,25 +357,24 @@ module Leagueable
   # Name of the team with the highest win percentage across all seasons. Return: String
   # BB (Complete)
   def winningest_team
-
     winningest_team_wins_average = 0
-      winningest_team_team_id = 0
-      this_team_wins_average = 0
-      # Iterate over teams_total_games key/value pairs.
-      # games_key is the team_id and games_value is the number of games played
-      total_games_helper.each do |games_key, games_value|
-      # Nest an iteration over teams_total_wins key/value pairs.
-      # wins_key is the team_id and wins_value is the number of games won
-        total_wins_helper.each do |wins_key, wins_value|
-          if wins_key == games_key
-            this_team_wins_average = (wins_value / games_value.to_f)
-            if this_team_wins_average > winningest_team_wins_average
-              winningest_team_wins_average = this_team_wins_average
-              winningest_team_team_id = games_key
-            end
+    winningest_team_team_id = 0
+    this_team_wins_average = 0
+    # Iterate over teams_total_games key/value pairs.
+    # games_key is the team_id and games_value is the number of games played
+    total_games_helper.each do |games_key, games_value|
+    # Nest an iteration over teams_total_wins key/value pairs.
+    # wins_key is the team_id and wins_value is the number of games won
+      total_wins_helper.each do |wins_key, wins_value|
+        if wins_key == games_key
+          this_team_wins_average = (wins_value / games_value.to_f)
+          if this_team_wins_average > winningest_team_wins_average
+            winningest_team_wins_average = this_team_wins_average
+            winningest_team_team_id = games_key
           end
         end
       end
+    end
 
     team_name_finder_helper(winningest_team_team_id)
 
@@ -384,7 +383,6 @@ module Leagueable
   # Name of the team with biggest difference between home and away win percentages. Return: String
   # BB (Complete)
   def best_fans
-
     # Create hash with team ids as keys and the total home and away win % for each team as values
     teams_away_win_percentage = Hash.new
     teams_home_win_percentage = Hash.new
@@ -393,7 +391,7 @@ module Leagueable
       teams_home_win_percentage[team_id] = 0
     end
 
-    # teams_away_win_percentage
+    # calculate each teams_away_win_percentage
     away_win_percentage = 0
     # games_id = team_id and games_v = total number of away games
     total_away_games_helper.each do |games_id, games_v|
@@ -410,7 +408,7 @@ module Leagueable
       end
     end
 
-    #teams_home_win_percentage
+    # calculate each teams_home_win_percentage
     home_win_percentage = 0
     # games_id = team_id and games_v = total number of home games
     total_home_games_helper.each do |games_id, games_v|
@@ -427,18 +425,18 @@ module Leagueable
       end
     end
 
-    # get the difference between home wins and away wins for each team
+    # Get the difference between home wins and away wins for each team
+    # Set default values
     difference = 0
     biggest_difference = 0
     team_id = nil
     teams_home_win_percentage.each do |team_id_1, home_win_percent|
       teams_away_win_percentage.each do |team_id_2, away_win_percent|
         if team_id_1 == team_id_2
-          # if the math = more than variable
-          # set the variable to output of math
           difference = (home_win_percent - away_win_percent).abs
           if difference > biggest_difference
             biggest_difference = difference
+            # return team id of the team with biggest difference between home and away win percent
             team_id = team_id_1
           end
         end
@@ -452,35 +450,10 @@ module Leagueable
   # List of names of all teams with better away records than home records. Return: Array
   # BB (Complete)
   def worst_fans
-    #create a new hash by iterating over the teams hash.
-    #Each team ID is a key and the value is an integer representing the number of home wins.
-    teams_total_home_wins = Hash.new
-    teams_total_away_wins = Hash.new
-    self.teams.each_key do |team_id|
-      teams_total_home_wins[team_id] = 0
-      teams_total_away_wins[team_id] = 0
-    end
-
-    #iterate through game_teams. Assign the correct team's home wins to the respective key value pair. Add a home game to that hashes key value pair
-    self.game_teams.each do |game_team_obj|
-      teams_total_home_wins.each_key do |team_id_key|
-        if (game_team_obj.team_id == team_id_key) && (game_team_obj.result == "WIN") && (game_team_obj.hoa == "home")
-          teams_total_home_wins[team_id_key] += 1
-        end
-      end
-
-    #iterate through game_teams. Assign the correct team's away wins to the respective key value pair.
-      teams_total_away_wins.each_key do |team_id_key|
-        if (game_team_obj.team_id == team_id_key) && (game_team_obj.result == "WIN") && (game_team_obj.hoa == "away")
-          teams_total_away_wins[team_id_key] += 1
-        end
-      end
-    end
-
-    #iterate through the hashes and if a team has more away wins than home wins then they get added to the hash
+    # Iterate through the hashes and if a team has more away wins than home wins then they get added to the worst_fans_collection array
     worst_fans_collection = []
-    teams_total_away_wins.each do |team_id_1, number_of_away_wins|
-      teams_total_home_wins.each do |team_id_2, number_of_home_wins|
+    total_away_wins_helper.each do |team_id_1, number_of_away_wins|
+      total_home_wins_helper.each do |team_id_2, number_of_home_wins|
         if team_id_1 == team_id_2
           if number_of_away_wins > number_of_home_wins
             worst_fans_collection << team_id_2
@@ -489,15 +462,15 @@ module Leagueable
       end
     end
 
+    # Convert the worst_fans array of team_ids to team names
     worst_fans_collection.map! do |team_id|
       team_name_finder_helper(team_id)
     end
-    # worst_fans_teams
+
+    # NOTE!!!!!!!!!!!!
     # Team_id #7 has 65 away wins and 64 home wins, not consistent with testing expectations.
     worst_fans_collection.first(1)
 
-   #end of worst_fans method
   end
-
 
 end
