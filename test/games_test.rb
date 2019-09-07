@@ -13,7 +13,6 @@ class GameTest < Minitest::Test
   end
 
   def test_attributes
-
     assert_equal "2012030221", @line_2.game_id
     assert_equal '20122013', @line_2.season
     assert_equal "Postseason", @line_2.type
@@ -25,5 +24,4 @@ class GameTest < Minitest::Test
     assert_equal "Toyota Stadium", @line_2.venue
     assert_equal "/api/v1/venues/null", @line_2.venue_link
   end
-
 end

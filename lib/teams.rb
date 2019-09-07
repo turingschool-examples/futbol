@@ -14,5 +14,4 @@ class Team
     @stadium = line.split(",")[4]
     @link = line.split(",")[5]
   end
-
 end

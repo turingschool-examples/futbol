@@ -32,7 +32,6 @@ class LeagueStatsTest < MiniTest::Test
   end
 
   def test_highest_scoring_visitor
-
     assert_equal "Real Salt Lake", @stat_tracker.highest_scoring_visitor
   end
 
@@ -48,9 +47,7 @@ class LeagueStatsTest < MiniTest::Test
     assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_home_team
   end
 
-
   def test_winningest_team
-
     assert_equal "FC Dallas", @stat_tracker.winningest_team
   end
 

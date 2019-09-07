@@ -168,6 +168,26 @@ module LeagueStats
     @home_and_away_goals
   end
 
+  def highest_scoring_visitor
+    max = generate_home_and_away_goals[0].max_by {|id, goals| goals}[0]
+    @teams[max].teamName
+  end
+
+  def highest_scoring_home_team
+    max = generate_home_and_away_goals[1].max_by {|id, goals| goals}[0]
+    @teams[max].teamName
+  end
+
+  def lowest_scoring_visitor
+    min = generate_home_and_away_goals[0].min_by {|id, goals| goals}[0]
+    @teams[min].teamName
+  end
+
+  def lowest_scoring_home_team
+    min = generate_home_and_away_goals[1].min_by {|id, goals| goals}[0]
+    @teams[min].teamName
+  end
+
   def generate_wins
     @wins = []
     return @wins unless @wins.empty?
