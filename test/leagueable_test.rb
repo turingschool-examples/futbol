@@ -73,7 +73,6 @@ class LeagueableTest < Minitest::Test
 
   # Name of the team with the highest win percentage across all seasons. Return: String
   def test_winningest_team
-    skip
     assert_equal "Reign FC", @stat_tracker.winningest_team
   end
 
