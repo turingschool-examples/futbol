@@ -93,8 +93,9 @@ module LeagueStat
 
   def best_fans
     helping_fans = team_id_and_goals.max_by do |id, hash|
-      (hash[:goals_when_home] / hash[:home_games].to_f) > (hash[:goals_when_away] / hash[:away_games].to_f)
-      id
+      (hash[:home_wins] / hash[:home_games].to_f) - (hash[:away_wins] / hash[:away_games].to_f)
+      # (hash[:home_wins] / hash[:home_games].to_f) > (hash[:away_wins] / hash[:away_games].to_f)
+      # id
     end
     all_teams[helping_fans[0]].team_name
   end
