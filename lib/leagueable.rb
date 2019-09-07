@@ -260,15 +260,9 @@ module Leagueable
     #create a new hash by iterating over the teams hash.
     #Each team ID is a key and the value is an integer representing the number of total wins.
     teams_total_wins = Hash.new
-    self.teams.each_key do |team_id|
-      teams_total_wins[team_id] = 0
-    end
-
-
-    # Create a second hash by iterating over the teams hash.
-    # Each Team ID is a key and the value is an integer representing number of games
     teams_total_games = Hash.new
     self.teams.each_key do |team_id|
+      teams_total_wins[team_id] = 0
       teams_total_games[team_id] = 0
     end
 
