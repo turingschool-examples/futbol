@@ -1,6 +1,6 @@
 require "minitest/autorun"
 require "minitest/pride"
-require "./lib/gameable"
+require "./lib/modules/gameable"
 require "./lib/stat_tracker"
 
 

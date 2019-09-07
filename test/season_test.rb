@@ -60,7 +60,7 @@ class SeasonTest < Minitest::Test
     @team = Team.new(@team_hash)
 
     @season_hash = {
-      season_id: 20122013
+      season_id: 20122013,
       teams: {
         @team.id => @team,
         games: { 
