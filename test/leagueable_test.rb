@@ -31,19 +31,16 @@ class LeagueableTest < Minitest::Test
 
   # Name of the team with the lowest average number of goals scored per game across all seasons. Return: String
   def test_worst_offense
-    skip
     assert_equal "Utah Royals FC", @stat_tracker.worst_offense
   end
 
   # Name of the team with the lowest average number of goals allowed per game across all seasons. Return: String
   def test_best_defense
-    skip
     assert_equal "FC Cincinnati", @stat_tracker.best_defense
   end
 
   # Name of the team with the highest average number of goals allowed per game across all seasons. Return: String
   def test_worst_defense
-    skip
     assert_equal "Columbus Crew SC", @stat_tracker.worst_defense
   end
 
