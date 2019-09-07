@@ -140,20 +140,20 @@ module LeagueStats
       @percent_by_team = {}
       @percents = [@percent_by_away, @percent_by_home, @percent_by_team]
       generate_wins[0].each do |k,v|
-        @percent_by_away[k] = v / generate_num_games_per_team[v]
+        @percent_by_away[k] = v / generate_num_games_per_team[k]
       end
       generate_wins[1].each do |k,v|
-        @percent_by_home[k] = v / generate_num_games_per_team[v]
+        @percent_by_home[k] = v / generate_num_games_per_team[k]
       end
       generate_wins[2].each do |k,v|
-        @percent_by_team[k] = v / generate_num_games_per_team[v]
+        @percent_by_team[k] = v / generate_num_games_per_team[k]
       end
       @percents
   end
 
 # Name of team with highest win percentage, all seasons -string
   def winningest_team
-    highest = calculate_percents[2].max_by {|id, percent| percent}
+    highest = calculate_percents[2].max_by {|id, percent| percent}[0]
     @teams[highest].teamName
   end
 
