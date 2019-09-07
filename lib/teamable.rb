@@ -1,9 +1,34 @@
+require 'pry'
+
 module Teamable
 
   #A hash with key/value pairs for each of the attributes of a team.	Hash
   #JP
-  def team_info
-    #your beautiful code
+  def team_info#(team_id)
+    # all_teams_hash = self.teams
+    all_teams_hash = Hash.new
+    attributes_array = []
+    self.teams.each_value do |team_obj|
+      attributes_array = team_obj.instance_variables.to_s.delete_prefix(":@")
+      # all_teams_hash.each do |key, value|
+    end
+    # self.teams.each do |team_id, team_obj|
+    #   all_teams_hash[team_id.to_s]
+    # end
+    # all_teams_hash.each_value do |team_hash|
+    #   team_hash.delete(:stadium)
+    # end
+    #add additional attributes?
+    # all_teams_hash.each do |key_id, attr_hash|
+    #   self.game_teams.each do |game_team_obj|
+    #     if game_team_obj.team_id.to_s == key_id
+    #       # Enter the attributes you want.
+    #       attr_hash[new_key] = game_team_obj.new_value
+    #       end
+    #     end
+    #   end
+    # all_teams_hash
+    binding.pry
   end
 
   #Season with the highest win percentage for a team.	Integer

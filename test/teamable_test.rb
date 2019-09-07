@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './test/test_helper'
+# require './test/test_helper'
 require './lib/stat_tracker'
 require './lib/teamable'
 
@@ -23,7 +23,7 @@ class TeamableTest < Minitest::Test
   #A hash with key/value pairs for each of the attributes of a team.	Hash
   #JP
   def test_team_info
-    skip
+
     expected = {
       "team_id" => "18",
       "franchise_id" => "34",

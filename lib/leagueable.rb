@@ -4,6 +4,8 @@ module Leagueable
   # Have to adjust ALL methods and helper methods in Leagueable to accept and recognize team_id as a string.
   # Otherwise the spec_harness tests (which expect team_id to return a string) won't work for Teamable in Iteration 4.
 
+  # Maybe we could add a to_s somewhere?
+
     ## HELPER METHODS ##
 
   def total_goals_helper
