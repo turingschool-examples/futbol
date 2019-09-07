@@ -172,6 +172,26 @@ module Leagueable
     team_name
   end
 
+  def helper_unique_home_teams_array
+    unique_home_teams = []
+
+    self.games.each_value do |game|
+      unique_home_teams << game.home_team_id
+    end
+
+    unique_home_teams.uniq
+  end
+
+  def helper_unique_away_teams_array
+    unique_away_teams = []
+
+    self.games.each_value do |game|
+      unique_away_teams << game.away_team_id
+    end
+
+    unique_away_teams.uniq
+  end
+
 
   ### Interaction Pattern Methods ###
 
@@ -303,27 +323,103 @@ module Leagueable
   end
 
   # Name of the team with the highest avg score per game across all seasons when they are away. Return: String
-  # AM
+  # AM (complete)
   def highest_scoring_visitor
-    # code goes here!
+    away_goals = Hash.new(0.00)
+    #get sum of away_goals per away team (hash output)
+    helper_unique_away_teams_array.each do |team_id|
+      self.games.each_value do |game|
+        away_goals[team_id] += (game.away_goals) if game.away_team_id == team_id
+      end
+    end
+
+    #turn sum into average
+    away_goals.merge!(total_away_games_helper)  do |key, oldval, newval|
+      (oldval / newval).round(2)
+    end
+
+    #return highest
+    highest_avg_hash = away_goals.max_by do |k, v|
+      v
+    end
+
+    team_name_finder_helper(highest_avg_hash[0])
+
   end
 
   # Name of the team with the highest avg score per game across all seasons when they are home. Return: String
-  # AM
+  # AM (complete)
   def highest_scoring_home_team
-    # code goes here!
+    home_goals = Hash.new(0.00)
+    #get sum of away_goals per home team (hash output)
+    helper_unique_home_teams_array.each do |team_id|
+      self.games.each_value do |game|
+        home_goals[team_id] += (game.home_goals) if game.home_team_id == team_id
+      end
+    end
+
+    #turn sum into average
+    home_goals.merge!(total_home_games_helper)  do |key, oldval, newval|
+      (oldval / newval).round(2)
+    end
+
+    #return highest
+    highest_avg_hash = home_goals.max_by do |k, v|
+      v
+    end
+
+    team_name_finder_helper(highest_avg_hash[0])
+
   end
 
   # Name of the team with the lowest avg score per game across all seasons when they are a visitor. Return: String
-  # AM
+  # AM (complete)
   def lowest_scoring_visitor
-    # code goes here!
+    away_goals = Hash.new(0.00)
+    #get sum of away_goals per away team (hash output)
+    helper_unique_away_teams_array.each do |team_id|
+      self.games.each_value do |game|
+        away_goals[team_id] += (game.away_goals) if game.away_team_id == team_id
+      end
+    end
+
+    #turn sum into average
+    away_goals.merge!(total_away_games_helper)  do |key, oldval, newval|
+      (oldval / newval).round(2)
+    end
+
+    #return lowest
+    lowest_avg_hash = away_goals.min_by do |k, v|
+      v
+    end
+
+    team_name_finder_helper(lowest_avg_hash[0])
+
   end
 
   # Name of the team with the lowest avg score per game across all seasons when they are at home. Return: String
-  # AM
+  # AM (complete)
   def lowest_scoring_home_team
-    # code goes here!
+    home_goals = Hash.new(0.00)
+    #get sum of away_goals per home team (hash output)
+    helper_unique_home_teams_array.each do |team_id|
+      self.games.each_value do |game|
+        home_goals[team_id] += (game.home_goals) if game.home_team_id == team_id
+      end
+    end
+
+    #turn sum into average
+    home_goals.merge!(total_home_games_helper)  do |key, oldval, newval|
+      (oldval / newval).round(2)
+    end
+
+    #return highest
+    lowest_avg_hash = home_goals.min_by do |k, v|
+      v
+    end
+
+    team_name_finder_helper(lowest_avg_hash[0])
+
   end
 
   # Name of the team with the highest win percentage across all seasons. Return: String

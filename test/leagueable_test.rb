@@ -46,25 +46,21 @@ class LeagueableTest < Minitest::Test
 
   # Name of the team with the highest average score per game across all seasons when they are away. Return: String
   def test_highest_scoring_visitor
-    skip
     assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
   end
 
   # Name of the team with the highest average score per game across all seasons when they are home. Return: String
   def test_highest_scoring_home_team
-    skip
     assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
   end
 
   # Name of the team with the lowest average score per game across all seasons when they are a visitor. Return: String
   def test_lowest_scoring_visitor
-    skip
     assert_equal "San Jose Earthquakes", @stat_tracker.lowest_scoring_visitor
   end
 
   # Name of the team with the lowest average score per game across all seasons when they are at home. Return: String
   def test_lowest_scoring_home_team
-    skip
     assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_home_team
   end
 
