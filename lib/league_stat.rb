@@ -86,7 +86,7 @@ module LeagueStat
 
   def winningest_team
     most_wins = team_id_and_goals.max_by do |id, hash|
-      hash[:away_wins] + hash[:home_wins]
+      (hash[:away_wins] + hash[:home_wins]) / (hash[:away_games] + hash[:home_games]).to_f
     end
     all_teams[most_wins[0]].team_name
   end
@@ -94,18 +94,15 @@ module LeagueStat
   def best_fans
     helping_fans = team_id_and_goals.max_by do |id, hash|
       (hash[:home_wins] / hash[:home_games].to_f) - (hash[:away_wins] / hash[:away_games].to_f)
-      # (hash[:home_wins] / hash[:home_games].to_f) > (hash[:away_wins] / hash[:away_games].to_f)
-      # id
     end
     all_teams[helping_fans[0]].team_name
   end
 
   def worst_fans
-    the_worst_fans = []
-    worst_operation = team_id_and_goals.each do |id, hash|
-      the_worst_fans << id if (hash[:goals_when_home] / hash[:home_games].to_f < hash[:goals_when_away] / hash[:away_games].to_f)
+    worst_operation = team_id_and_goals.map do |id, hash|
+      id if (hash[:home_wins] / hash[:home_games].to_f) < (hash[:away_wins] / hash[:away_games].to_f)
     end
-    the_worst_fans.map do |id|
+    worst_operation.compact.map do |id|
       all_teams[id].team_name
     end
   end

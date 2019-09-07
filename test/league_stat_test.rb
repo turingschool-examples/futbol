@@ -63,16 +63,14 @@ class LeagueStatTest < Minitest::Test
   end
 
   def test_best_fans
-    assert_equal "FC Dallas", @stat_tracker.best_fans
+    assert_equal "Philadelphia Union", @stat_tracker.best_fans
   end
 
   def test_worst_fans
-    assert_equal ["New England Revolution",
-                  "Seattle Sounders FC",
+    assert_equal ["Los Angeles FC",
+                  "New England Revolution",
+                  "LA Galaxy",
                   "Atlanta United",
-                  "DC United",
-                  "FC Dallas",
-                  "Toronto FC"
-                  ], @stat_tracker.worst_fans
+                  "DC United"], @stat_tracker.worst_fans
   end
 end
