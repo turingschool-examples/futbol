@@ -13,7 +13,7 @@ class GameTest < Minitest::Test
       venue: "Toyota Stadium",
       venue_link: "/api/v1/venues/null",
       away_team: {
-        team_id: 3,
+        id: 3,
         hoa: "away",
         result: "LOSS",
         head_coach: "John Tortorella",
@@ -28,7 +28,7 @@ class GameTest < Minitest::Test
         takeaways: 7
       },
       home_team: {
-        team_id: 6,
+        id: 6,
         hoa: "home",
         result: "WIN",
         head_coach: "Claude Julien",

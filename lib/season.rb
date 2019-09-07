@@ -1,8 +1,8 @@
 class Season
-  attr_reader :season_id
+  attr_reader :id, :teams
   
   def initialize(season_hash)
-    @season_id = season_hash[:season]
+    @id = season_hash[:season_id]
     @teams = season_hash[:teams]
   end
 

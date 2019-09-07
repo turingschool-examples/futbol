@@ -19,7 +19,7 @@ class Game
     @venue = game_hash[:venue]
     @venue_link = game_hash[:venue_link]
     @home_team = {
-      team_id: game_hash[:home_team][:team_id],
+      id: game_hash[:home_team][:id],
       hoa: game_hash[:home_team][:hoa],
       result: game_hash[:home_team][:result],
       head_coach: game_hash[:home_team][:head_coach],
@@ -34,7 +34,7 @@ class Game
       takeaways: game_hash[:home_team][:takeaways]
     }
     @away_team = {
-      team_id: game_hash[:away_team][:team_id],
+      id: game_hash[:away_team][:id],
       hoa: game_hash[:away_team][:hoa],
       result: game_hash[:away_team][:result],
       head_coach: game_hash[:away_team][:head_coach],
