@@ -384,55 +384,21 @@ module Leagueable
   # Name of the team with biggest difference between home and away win percentages. Return: String
   # BB (Complete)
   def best_fans
-    #create a new hash by iterating over the teams hash.
-    #Each team ID is a key and the value is an integer representing the number of home wins.
-    teams_total_home_wins = Hash.new
-    teams_total_away_wins = Hash.new
-    teams_total_home_games = Hash.new
-    teams_total_away_games = Hash.new
+
+    # Create hash with team ids as keys and the total home and away win % for each team as values
     teams_away_win_percentage = Hash.new
     teams_home_win_percentage = Hash.new
     self.teams.each_key do |team_id|
-      teams_total_home_wins[team_id] = 0
-      teams_total_away_wins[team_id] = 0
-      teams_total_home_games[team_id] = 0
-      teams_total_away_games[team_id] = 0
       teams_away_win_percentage[team_id] = 0
       teams_home_win_percentage[team_id] = 0
     end
 
-    #iterate through game_teams. Assign the correct team's home wins to the respective key value pair. Add a home game to that hashes key value pair
-    self.game_teams.each do |game_team_obj|
-      teams_total_home_wins.each_key do |team_id_key|
-        if (game_team_obj.team_id == team_id_key) && (game_team_obj.result == "WIN") && (game_team_obj.hoa == "home")
-          teams_total_home_wins[team_id_key] += 1
-        end
-      end
-      teams_total_home_games.each_key do |team_games_id|
-        if  (game_team_obj.team_id == team_games_id) && (game_team_obj.hoa == "home")
-          teams_total_home_games[team_games_id] += 1
-        end
-      end
-
-    #iterate through game_teams. Assign the correct team's away wins to the respective key value pair.
-      teams_total_away_wins.each_key do |team_id_key|
-        if (game_team_obj.team_id == team_id_key) && (game_team_obj.result == "WIN") && (game_team_obj.hoa == "away")
-          teams_total_away_wins[team_id_key] += 1
-        end
-      end
-      teams_total_away_games.each_key do |team_games_id|
-        if  (game_team_obj.team_id == team_games_id) && (game_team_obj.hoa == "home")
-          teams_total_away_games[team_games_id] += 1
-        end
-      end
-    end
-
-    #teams_away_win_percentage
+    # teams_away_win_percentage
     away_win_percentage = 0
     # games_id = team_id and games_v = total number of away games
-    teams_total_away_games.each do |games_id, games_v|
+    total_away_games_helper.each do |games_id, games_v|
       # wins_id = team_id and wins_v = total number of away wins
-      teams_total_away_wins.each do |wins_id, wins_v|
+      total_away_wins_helper.each do |wins_id, wins_v|
         teams_away_win_percentage.each_key do |team_id|
           if games_id == wins_id
             away_win_percentage = (wins_v / games_v.to_f).round(2)
@@ -447,9 +413,9 @@ module Leagueable
     #teams_home_win_percentage
     home_win_percentage = 0
     # games_id = team_id and games_v = total number of home games
-    teams_total_home_games.each do |games_id, games_v|
+    total_home_games_helper.each do |games_id, games_v|
       # wins_id = team_id and wins_v = total number of home wins
-      teams_total_home_wins.each do |wins_id, wins_v|
+      total_home_wins_helper.each do |wins_id, wins_v|
         teams_home_win_percentage.each_key do |team_id|
           if games_id == wins_id
             home_win_percentage = (wins_v / games_v.to_f).round(2)
@@ -479,13 +445,8 @@ module Leagueable
       end
     end
 
-    best_fans_team = nil
-    self.teams.each_value do |team_obj|
-      if team_obj.team_id. == team_id
-      best_fans_team = team_obj.teamName
-      end
-    end
-    best_fans_team
+    team_name_finder_helper(team_id)
+
   end
 
   # List of names of all teams with better away records than home records. Return: Array
