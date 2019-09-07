@@ -2,13 +2,29 @@ require 'csv'
 require './lib/game'
 require './lib/team'
 require './lib/season'
+require './lib/modules/gameable'
+require './lib/modules/leagueable'
+require './lib/modules/teamable'
+require './lib/modules/seasonable'
+
 
 class StatTracker
-  attr_reader
+  attr_reader :games, :teams, :seasons
 
-  def self.from_csv(locations)
+  include Gameable
+  include Leagueable
+  include Teamable
+  include Seasonable
+
+  def initialize
     @games = {}
     @teams = {}
+    @seasons = {}
+  end
+  
+  
+  def self.from_csv(locations)
+    stat_tracker = self.new
     
     games_to_create = {}
     teams_to_create = {}
@@ -74,7 +90,7 @@ class StatTracker
     
     games_to_create.each do |key, value|
       new_game = Game.new(value)
-      @games[key] = new_game
+      stat_tracker.games[key] = new_game
 
       # if !seasons_to_create.has_key?(new_game.season)
       #   teams_array = [new_game]
@@ -89,7 +105,7 @@ class StatTracker
     end
 
     teams_to_create.each do |key, value|
-      @teams[key] = Team.new(value)
+      stat_tracker.teams[key] = Team.new(value)
     end
 
     # @seasons_to_create.each do |key, value|
@@ -97,7 +113,7 @@ class StatTracker
     # @teams.each do |team|
     #   if seasons_to_create.has_key?()
       
-    require 'pry'; binding.pry
+    stat_tracker
   end
 
 end
