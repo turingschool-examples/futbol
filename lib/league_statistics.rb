@@ -1,5 +1,5 @@
 module LeagueStatistics
-
+  
   def count_of_teams
     @teams.length
   end
