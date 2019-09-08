@@ -1,7 +1,12 @@
 class Team
 
-  attr_reader :team_id, :team_name
-
+  attr_reader :team_id,
+              :team_name,
+              :franchise_id,
+              :abbreviation,
+              :stadium,
+              :link
+              
   def initialize(team)
     @team_id = team["team_id"].to_i
     @franchise_id = team["franchiseId"].to_i
