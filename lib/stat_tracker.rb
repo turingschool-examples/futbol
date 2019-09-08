@@ -28,6 +28,7 @@ class StatTracker
     
     games_to_create = {}
     teams_to_create = {}
+    team_seasons = {}
     seasons_to_create = {}
     
     ######################################################
@@ -44,7 +45,7 @@ class StatTracker
           abbreviation: row["abbreviation"],
           Stadium:      row["Stadium"],
           link:         row["link"],
-          games:        []
+          games:        {}
         }
       end
     end
@@ -53,7 +54,7 @@ class StatTracker
       if !games_to_create.has_key?(row["game_id"].to_i)
         games_to_create[row["game_id"].to_i] = {
           id:         row["game_id"].to_i,
-          season:     row["season"],
+          season:     row["season"].to_i,
           type:       row["type"],
           date_time:  row["date_time"],
           venue:      row["venue"],
@@ -64,7 +65,7 @@ class StatTracker
   
     CSV.foreach(locations[:game_teams], headers: true) do |row|
       team_data = {
-        team_id:                  row["team_id"].to_i,
+        id:                       row["team_id"].to_i,
         hoa:                      row["HoA"],
         result:                   row["result"],
         head_coach:               row["head_coach"],
@@ -87,33 +88,50 @@ class StatTracker
       end
       
     end
-    
-    games_to_create.each do |key, value|
-      new_game = Game.new(value)
+
+    games_to_create.each do |key, game|
+      new_game = Game.new(game)
       stat_tracker.games[key] = new_game
 
-      # if !seasons_to_create.has_key?(new_game.season)
-      #   teams_array = [new_game]
-      #   seasons_to_create = {
-      #     season: new_game.season
-      #     teams: {}
-      #   }
-      # end
+      teams_to_create[new_game.home_team[:id]][:games][new_game.id] = new_game
+      teams_to_create[new_game.away_team[:id]][:games][new_game.id] = new_game
 
-      teams_to_create[new_game.home_team[:team_id]][:games].push(new_game)
-      teams_to_create[new_game.away_team[:team_id]][:games].push(new_game)
+      if !seasons_to_create.has_key?(new_game.season)
+        seasons_to_create[new_game.season] = {
+          season_id: new_game.season,
+          teams: {}
+        }
+      end
     end
 
     teams_to_create.each do |key, value|
       stat_tracker.teams[key] = Team.new(value)
     end
 
-    # @seasons_to_create.each do |key, value|
-    #   @
-    # @teams.each do |team|
-    #   if seasons_to_create.has_key?()
-      
+    stat_tracker.games.values.each do |game|
+      ##############################################################################################
+      # The Marshal in these if statements makes a deep copy of the team and all of its attributes #
+      # This was done so we can delete all games not relevant to the season                        #
+      ##############################################################################################
+      if !seasons_to_create[game.season][:teams].has_key?(game.home_team[:id])
+        home_team_serialized = Marshal.dump(stat_tracker.teams[game.home_team[:id]].dup)
+        home_team = Marshal.load(home_team_serialized)
+        home_team.games.keep_if { |game_id, game_obj| game_obj.season == game.season }
+        seasons_to_create[game.season][:teams][game.home_team[:id]] = home_team
+      end
+
+      if !seasons_to_create[game.season][:teams].has_key?(game.away_team[:id])
+        away_team_serialized = Marshal.dump(stat_tracker.teams[game.away_team[:id]].dup)
+        away_team = Marshal.load(away_team_serialized)
+        away_team.games.keep_if { |game_id, game_obj| game_obj.season == game.season }
+        seasons_to_create[game.season][:teams][game.away_team[:id]] = away_team
+      end
+    end
+
+    seasons_to_create.each do |season_id, season|
+      stat_tracker.seasons[season_id] = Season.new(season)
+    end
+
     stat_tracker
   end
-
 end

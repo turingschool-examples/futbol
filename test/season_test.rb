@@ -14,7 +14,7 @@ class SeasonTest < Minitest::Test
       venue: "Toyota Stadium",
       venue_link: "/api/v1/venues/null",
       away_team: {
-        team_id: 3,
+        id: 3,
         hoa: "away",
         result: "LOSS",
         head_coach: "John Tortorella",
@@ -29,7 +29,7 @@ class SeasonTest < Minitest::Test
         takeaways: 7
       },
       home_team: {
-        team_id: 6,
+        id: 6,
         hoa: "home",
         result: "WIN",
         head_coach: "Claude Julien",
@@ -77,8 +77,8 @@ class SeasonTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    # assert_equal @season_hash[:season_id] = @season.season_id
-    # assert_equal @season_hash[:teams] = 
+    assert_equal @season_hash[:season_id], @season.id
+    assert_equal @season_hash[:teams], @season.teams
   end
 
 end

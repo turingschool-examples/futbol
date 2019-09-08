@@ -13,7 +13,7 @@ class TeamTest < Minitest::Test
       venue: "Toyota Stadium",
       venue_link: "/api/v1/venues/null",
       away_team: {
-        team_id: 3,
+        id: 3,
         hoa: "away",
         result: "LOSS",
         head_coach: "John Tortorella",
@@ -28,7 +28,7 @@ class TeamTest < Minitest::Test
         takeaways: 7
       },
       home_team: {
-        team_id: 6,
+        id: 6,
         hoa: "home",
         result: "WIN",
         head_coach: "Claude Julien",
@@ -64,9 +64,9 @@ class TeamTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal @team_hash[:team_id], @team.team_id
+    assert_equal @team_hash[:team_id], @team.id
     assert_equal @team_hash[:franchiseId], @team.franchise_id
-    assert_equal @team_hash[:teamName], @team.team_name
+    assert_equal @team_hash[:teamName], @team.name
     assert_equal @team_hash[:abbreviation], @team.abbreviation
     assert_equal @team_hash[:Stadium], @team.stadium
     assert_equal @team_hash[:link], @team.link
