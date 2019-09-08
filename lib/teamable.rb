@@ -25,9 +25,8 @@ module Teamable
   end
 
   #Highest number of goals a particular team has scored in a single game.	Integer
-  #BB
+  #BB (Complete)
   def most_goals_scored(team_id)
-
     most_goals_scored_counter = 0
     int_team_id = team_id.to_i
     self.game_teams.each do |game_team_obj|
@@ -41,9 +40,18 @@ module Teamable
   end
 
   #Lowest numer of goals a particular team has scored in a single game.	Integer
-  #BB
-  def fewest_goals_scored
-    #your beautiful code
+  #BB (Complete)
+  def fewest_goals_scored(team_id)
+    fewest_goals_scored_counter = 100
+    int_team_id = team_id.to_i
+    self.game_teams.each do |game_team_obj|
+      if game_team_obj.team_id == int_team_id
+        if game_team_obj.goals < fewest_goals_scored_counter
+          fewest_goals_scored_counter = game_team_obj.goals
+        end
+      end
+    end
+    fewest_goals_scored_counter
   end
 
   #Name of the opponent that has the lowest win percentage against the given team.	String
