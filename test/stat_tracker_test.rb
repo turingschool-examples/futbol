@@ -147,6 +147,18 @@ class StatTrackerTest < Minitest::Test
     # assert_equal true, @stat_tracker.worst_fans.include?("Atlanta United")
   end
 
+  ##### League Statistics Tests #####
+
+  def test_best_season
+    assert_equal "20132014", @stat_tracker.best_season(3)
+  end
+
+  def test_worst_season
+    assert_equal "20122013", @stat_tracker.worst_season(3)
+  end
+
+
+
 
 
 
