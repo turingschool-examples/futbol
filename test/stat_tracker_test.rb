@@ -122,13 +122,13 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Orlando City SC", @stat_tracker.highest_scoring_home_team
   end
 
-  # def test_lowest_scoring_visitor
-  #   assert_equal "North Carolina Courage", @stat_tracker.lowest_scoring_visitor
-  # end
-  #
-  # def lowest_scoring_home_team
-  #   assert_equal "", @stat_tracker.lowest_scoring_home_team
-  # end
+  def test_lowest_scoring_visitor
+    assert_equal "North Carolina Courage", @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_lowest_scoring_home_team
+    assert_equal "Orlando Pride", @stat_tracker.lowest_scoring_home_team
+  end
 
   def test_winningest_team
     assert_equal "New England Revolution", @stat_tracker.winningest_team
