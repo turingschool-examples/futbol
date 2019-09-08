@@ -152,11 +152,15 @@ class StatTrackerTest < Minitest::Test
   ##### Team Statistics Tests #####
 
   def test_best_season
-    assert_equal "20132014", @stat_tracker.best_season(3)
+    assert_equal "20132014", @stat_tracker.best_season("3")
   end
 
   def test_worst_season
-    assert_equal "20122013", @stat_tracker.worst_season(3)
+    assert_equal "20122013", @stat_tracker.worst_season("3")
+  end
+
+  def test_average_win_percentage
+    assert_equal 0.33, @stat_tracker.average_win_percentage("3")
   end
 
   def test_most_goals_scored
