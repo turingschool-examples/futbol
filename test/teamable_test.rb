@@ -64,7 +64,6 @@ class TeamableTest < Minitest::Test
   #Lowest numer of goals a particular team has scored in a single game.	Integer
   #BB
   def test_fewest_goals_scored
-    skip
     assert_equal 0, @stat_tracker.fewest_goals_scored("18")
   end
 
