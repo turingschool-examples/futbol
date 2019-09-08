@@ -222,6 +222,25 @@ module LeagueStatistics
   end
 
   def worst_fans
-    # 	List of names of all teams with better away records than home records.
+    games_by_team = @game_teams.group_by do |game_team|
+      game_team.team_id
+    end
+
+    worst_fans_teams = []
+    games_by_team.each do |team_id, games_arr|
+      home_won_games = games_arr.find_all do |game|
+        game.result == "WIN" && game.hoa == "home"
+      end.length
+
+      away_won_games = games_arr.find_all do |game|
+        game.result == "WIN" && game.hoa == "away"
+      end.length
+
+      worst_fans_teams.push(team_id) if away_won_games > home_won_games
+    end
+
+    worst_fans_teams.map do |worst_team|
+      @teams[worst_team].team_name
+    end
   end
 end
