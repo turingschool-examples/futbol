@@ -114,7 +114,7 @@ class LeagueStatsSupportTest < MiniTest::Test
     }
 
 
-    example [average_away, average_home]
+    example = [average_away, average_home]
 
     assert_equal example, @stat_tracker.generate_average_allowed
   end
