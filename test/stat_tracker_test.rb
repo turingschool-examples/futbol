@@ -15,7 +15,7 @@ class StatTrackerTest < Minitest::Test
     }
 
     @stat_tracker = StatTracker.from_csv(@locations)
-    #require 'pry'; binding.pry
+    # require 'pry'; binding.pry
   end
 
   def test_it_exists
@@ -147,8 +147,34 @@ class StatTrackerTest < Minitest::Test
     # assert_equal true, @stat_tracker.worst_fans.include?("Atlanta United")
   end
 
+  
 
   ##### Team Statistics Tests #####
+
+  def test_favorite_opponent
+    assert_equal "FC Dallas", @stat_tracker.favorite_opponent("21")
+    assert_equal "Orlando Pride", @stat_tracker.favorite_opponent("27")
+  end
+
+  def test_rival
+    assert_equal "Orlando City SC", @stat_tracker.rival("2")
+    assert_equal "Vancouver Whitecaps FC", @stat_tracker.rival("52")
+  end
+
+  def test_head_to_head
+    expected = {
+      "Houston Dynamo" => 1.0,
+      "Vancouver Whitecaps FC" => 0.0,
+      "North Carolina Courage" => 1.0,
+      "Atlanta United" => 0.0
+    }
+    assert_equal expected, @stat_tracker.head_to_head("6")
+  end
+
+  # def test_seasonal_summary
+  #   expected = {}
+  #   assert_equal expected, @stat_tracker.seasonal_summary("19")
+  # end
 
   def test_most_goals_scored
     assert_equal 3, @stat_tracker.most_goals_scored("12")
@@ -166,13 +192,45 @@ class StatTrackerTest < Minitest::Test
     assert_equal 2, @stat_tracker.fewest_goals_scored("6")
   end
 
+  
 
 ##### Helper Method Tests #####
 
   def test_team_result_count
-    expected = {3=>{:games=>3, :total_goals=>6, :goals_allowed=>7, :away_goals=>4, :away_games=>2, :home_goals=>2, :home_games=>1, :home_wins=>1}, 6=>{:games=>5, :total_goals=>12, :goals_allowed=>9, :home_goals=>8, :home_games=>3, :home_wins=>3, :away_goals=>4, :away_games=>2}, 13=>{:games=>4, :total_goals=>7, :goals_allowed=>10, :away_goals=>4, :away_games=>3, :home_goals=>3, :home_games=>1, :home_wins=>1}, 2=>{:games=>4, :total_goals=>11, :goals_allowed=>9, :home_goals=>9, :home_games=>3, :home_wins=>2, :away_goals=>2, :away_games=>1}, 19=>{:games=>5, :total_goals=>8, :goals_allowed=>13, :away_goals=>2, :away_games=>2, :home_goals=>6, :home_games=>3, :home_wins=>1}, 28=>{:games=>2, :total_goals=>5, :goals_allowed=>4, :home_goals=>3, :home_games=>1, :home_wins=>1, :away_goals=>2, :away_games=>1}, 16=>{:games=>3, :total_goals=>8, :goals_allowed=>4, :away_goals=>6, :away_games=>2, :away_wins=>2, :home_goals=>2, :home_games=>1, :home_wins=>1}, 27=>{:games=>2, :total_goals=>4, :goals_allowed=>7, :away_goals=>1, :away_games=>1, :home_goals=>3, :home_games=>1}, 22=>{:games=>2, :total_goals=>4, :goals_allowed=>4, :away_goals=>2, :away_games=>1, :home_goals=>2, :home_games=>1, :home_wins=>1}, 30=>{:games=>4, :total_goals=>11, :goals_allowed=>5, :away_goals=>1, :away_games=>1, :home_goals=>10, :home_games=>3, :home_wins=>3}, 21=>{:games=>2, :total_goals=>4, :goals_allowed=>3, :home_goals=>2, :home_games=>1, :away_goals=>2, :away_games=>1, :away_wins=>1}, 1=>{:games=>2, :total_goals=>4, :goals_allowed=>2, :away_goals=>2, :away_games=>1, :away_wins=>1, :home_goals=>2, :home_games=>1}, 29=>{:games=>3, :total_goals=>5, :goals_allowed=>7, :home_goals=>0, :home_games=>1, :away_goals=>5, :away_games=>2}, 4=>{:games=>5, :total_goals=>8, :goals_allowed=>13, :away_goals=>2, :away_games=>2, :home_goals=>6, :home_games=>3, :home_wins=>1}, 15=>{:games=>2, :total_goals=>6, :goals_allowed=>2, :home_goals=>2, :home_games=>1, :home_wins=>1, :away_goals=>4, :away_games=>1, :away_wins=>1}, 52=>{:games=>2, :total_goals=>2, :goals_allowed=>4, :home_goals=>1, :home_games=>1, :away_goals=>1, :away_games=>1}, 12=>{:games=>2, :total_goals=>5, :goals_allowed=>5, :home_goals=>2, :home_games=>1, :home_wins=>1, :away_goals=>3, :away_games=>1}, 20=>{:games=>3, :total_goals=>6, :goals_allowed=>9, :away_goals=>4, :away_games=>2, :home_goals=>2, :home_games=>1}, 24=>{:games=>4, :total_goals=>11, :goals_allowed=>7, :home_goals=>6, :home_games=>2, :home_wins=>2, :away_goals=>5, :away_games=>2, :away_wins=>2}, 10=>{:games=>3, :total_goals=>3, :goals_allowed=>6, :home_goals=>2, :home_games=>1, :away_goals=>1, :away_games=>2}}
+    expected = {
+      3 =>{:games=>3, :total_goals=>6, :goals_allowed=>7, :away_goals=>4, :away_games=>2, :home_goals=>2, :home_games=>1, :home_wins=>1},
+      6 =>{:games=>5, :total_goals=>12, :goals_allowed=>9, :home_goals=>8, :home_games=>3, :home_wins=>3, :away_goals=>4, :away_games=>2},
+      13=>{:games=>4, :total_goals=>7, :goals_allowed=>10, :away_goals=>4, :away_games=>3, :home_goals=>3, :home_games=>1, :home_wins=>1},
+      2 =>{:games=>4, :total_goals=>11, :goals_allowed=>9, :home_goals=>9, :home_games=>3, :home_wins=>2, :away_goals=>2, :away_games=>1},
+      19=>{:games=>5, :total_goals=>8, :goals_allowed=>13, :away_goals=>2, :away_games=>2, :home_goals=>6, :home_games=>3, :home_wins=>1},
+      28=>{:games=>2, :total_goals=>5, :goals_allowed=>4, :home_goals=>3, :home_games=>1, :home_wins=>1, :away_goals=>2, :away_games=>1},
+      16=>{:games=>3, :total_goals=>8, :goals_allowed=>4, :away_goals=>6, :away_games=>2, :away_wins=>2, :home_goals=>2, :home_games=>1, :home_wins=>1},
+      27=>{:games=>2, :total_goals=>4, :goals_allowed=>7, :away_goals=>1, :away_games=>1, :home_goals=>3, :home_games=>1},
+      22=>{:games=>2, :total_goals=>4, :goals_allowed=>4, :away_goals=>2, :away_games=>1, :home_goals=>2, :home_games=>1, :home_wins=>1},
+      30=>{:games=>4, :total_goals=>11, :goals_allowed=>5, :away_goals=>1, :away_games=>1, :home_goals=>10, :home_games=>3, :home_wins=>3},
+      21=>{:games=>2, :total_goals=>4, :goals_allowed=>3, :home_goals=>2, :home_games=>1, :away_goals=>2, :away_games=>1, :away_wins=>1},
+      1 =>{:games=>2, :total_goals=>4, :goals_allowed=>2, :away_goals=>2, :away_games=>1, :away_wins=>1, :home_goals=>2, :home_games=>1},
+      29=>{:games=>3, :total_goals=>5, :goals_allowed=>7, :home_goals=>0, :home_games=>1, :away_goals=>5, :away_games=>2},
+      4 =>{:games=>5, :total_goals=>8, :goals_allowed=>13, :away_goals=>2, :away_games=>2, :home_goals=>6, :home_games=>3, :home_wins=>1},
+      15=>{:games=>2, :total_goals=>6, :goals_allowed=>2, :home_goals=>2, :home_games=>1, :home_wins=>1, :away_goals=>4, :away_games=>1, :away_wins=>1},
+      52=>{:games=>2, :total_goals=>2, :goals_allowed=>4, :home_goals=>1, :home_games=>1, :away_goals=>1, :away_games=>1},
+      12=>{:games=>2, :total_goals=>5, :goals_allowed=>5, :home_goals=>2, :home_games=>1, :home_wins=>1, :away_goals=>3, :away_games=>1},
+      20=>{:games=>3, :total_goals=>6, :goals_allowed=>9, :away_goals=>4, :away_games=>2, :home_goals=>2, :home_games=>1},
+      24=>{:games=>4, :total_goals=>11, :goals_allowed=>7, :home_goals=>6, :home_games=>2, :home_wins=>2, :away_goals=>5, :away_games=>2, :away_wins=>2},
+      10=>{:games=>3, :total_goals=>3, :goals_allowed=>6, :home_goals=>2, :home_games=>1, :away_goals=>1, :away_games=>2}
+    }
 
     assert_equal expected, @stat_tracker.team_result_count
+  end
+
+  def test_opponent_stats
+    expected = {
+      13 => {:games=>1, :losses=>1},
+      27 => {:games=>1, :losses=>1},
+      30 => {:games=>1, :wins=>1},
+      29 => {:games=>1}
+    }
+    assert_equal expected, @stat_tracker.opponent_stats("2")
   end
 
 
@@ -180,7 +238,7 @@ end
 
 
 
-# Results from rspec
+# Worst Fans
 
 {
   3=>{:games=>531, :away_wins=>119, :home_wins=>111},
@@ -191,3 +249,48 @@ end
   3=>{:games=>531, :away_wins=>119, :home_wins=>111, :away_ties=>43, :home_ties=>54, :away_losses=>104, :home_losses=>100},
   7=>{:games=>458, :away_wins=>65,  :home_wins=>64,  :away_ties=>46, :home_ties=>55, :away_losses=>118, :home_losses=>110}
 }
+
+
+# Rival
+
+{
+  19=>{:games=>34, :wins=>15},
+  52=>{:games=>31, :wins=>14},
+  21=>{:games=>32, :wins=>12},
+  20=>{:games=>18, :wins=>7},
+  17=>{:games=>14, :wins=>9},
+  29=>{:games=>15, :wins=>6},
+  25=>{:games=>27, :wins=>10},
+  16=>{:games=>38, :wins=>14},
+  30=>{:games=>27, :wins=>11},
+  1=>{:games=>10, :wins=>4},
+  8=>{:games=>10, :wins=>3},
+  23=>{:games=>18, :wins=>7},
+  3=>{:games=>10, :wins=>3},
+  14=>{:games=>10},
+  15=>{:games=>10, :wins=>5},
+  28=>{:games=>25, :wins=>11},
+  22=>{:games=>18, :wins=>4},
+  24=>{:games=>31, :wins=>8},
+  5=>{:games=>16, :wins=>9},
+  2=>{:games=>10, :wins=>4},
+  26=>{:games=>18, :wins=>8},
+  7=>{:games=>10, :wins=>3},
+  27=>{:games=>6, :wins=>2},
+  6=>{:games=>10, :wins=>3},
+  13=>{:games=>10, :wins=>6},
+  10=>{:games=>10, :wins=>5},
+  9=>{:games=>10, :wins=>2},
+  12=>{:games=>10, :wins=>4},
+  54=>{:games=>3, :wins=>1},
+  4=>{:games=>10, :wins=>2},
+  53=>{:games=>12, :wins=>3}
+}
+
+# LA Galaxy:
+#   => team_id: 17
+#   => percentage: 9/14 (64.3%)
+
+# Houston Dash:
+#   => team_id: 13
+#   => percentage: 6/10 (60.0%)

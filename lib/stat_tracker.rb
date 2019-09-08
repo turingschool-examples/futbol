@@ -21,7 +21,7 @@ class StatTracker
     @teams = teams
     @games = games
     @game_teams = game_teams
-    @count_of_games_by_season = count_of_games_by_season
+    @seasons = count_of_games_by_season.keys
     @team_result_count = team_result_count
   end
 
