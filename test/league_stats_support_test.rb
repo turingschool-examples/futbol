@@ -1,6 +1,24 @@
+<<<<<<< HEAD
 module LeaguStatsSupport
 
 def test_generate_num_goals_per_team
+=======
+require_relative 'test_helper'
+require_relative '../lib/stat_tracker'
+require_relative '../lib/games'
+require_relative '../lib/teams'
+require_relative '../lib/game_teams'
+
+
+class LeagueStatsSupportTest < MiniTest::Test
+
+  def setup
+    locations = { games: './data/dummy_games.csv', teams: './data/dummy_teams.csv', game_teams: './data/dummy_game_teams.csv' }
+    @stat_tracker = StatTracker.from_csv(locations)
+  end
+
+  def test_generate_num_goals_per_team
+>>>>>>> master
 
   example = {
     "3" => 7,
@@ -55,7 +73,11 @@ def test_generate_average
     "20" => 4.5,
     "24" => 5
   }
+<<<<<<< HEAD
   assert_equal [averages, averages_home, averages_away], @stat_tracker.generate_average
+=======
+  assert_equal [averages, averages_home, averages_away], @stat_tracker.generate_average_goals
+>>>>>>> master
 end
 
 def test_generate_allowed_goals
@@ -100,7 +122,11 @@ def test_generate_average_allowed
     "24" => 0.6
   }
 
+<<<<<<< HEAD
   example [average_away, average_home]
+=======
+  example = [average_away, average_home]
+>>>>>>> master
   assert_equal example, @stat_tracker.generate_average_allowed
 end
 
@@ -173,7 +199,11 @@ def test_generate_wins
     "24" => 3
   }
 
+<<<<<<< HEAD
   example [team_wins, home_wins, away_wins]
+=======
+  example = [team_wins, home_wins, away_wins]
+>>>>>>> master
   assert_equal example, @stat_tracker.generate_wins
 end
 
