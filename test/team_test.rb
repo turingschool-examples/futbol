@@ -16,8 +16,8 @@ class TeamTest < Minitest::Test
   end
 
   def test_initialize
-    assert_equal 1, @team.team_id
-    assert_equal 23, @team.franchise_id
+    assert_equal "1", @team.team_id
+    assert_equal "23", @team.franchise_id
     assert_equal "Atlanta United", @team.team_name
     assert_equal "ATL", @team.abbr
     assert_equal "Mercedes-Benz Stadium", @team.stadium

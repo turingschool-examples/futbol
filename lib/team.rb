@@ -7,8 +7,8 @@ class Team
               :link
 
   def initialize(team_info)
-    @team_id = team_info[0].to_i
-    @franchise_id = team_info[1].to_i
+    @team_id = team_info[0]
+    @franchise_id = team_info[1]
     @team_name = team_info[2]
     @abbr = team_info[3]
     @stadium = team_info[4]
