@@ -19,7 +19,6 @@ class TeamStatsTest < MiniTest::Test
   #     "franchiseId" => "34",
   #     "teamName" => "Minnesota United FC",
   #     "abbreviation" => "MIN",
-  #     "Stadium" => "Allianz Field",
   #     "link" => "/api/v1/teams/18"
   #   }
   #   assert_equal expected, @stat_tracker.team_info("18")
@@ -52,22 +51,21 @@ class TeamStatsTest < MiniTest::Test
 #
 # # name of the opponent that has the lowest win percentage against the given
 # # team – String
-  def test_favorite_opponent
-    assert_equal "DC United", @stat_tracker.favorite_opponent("18")
-  end
+  # def test_favorite_opponent
+  #   assert_equal "DC United", @stat_tracker.favorite_opponent("18")
+  # end
 #
 # # name of the opponent that has the highest win percentage against the given
 # # team – String
-  def test_rival
-    assert_equal "Houston Dash", @stat_tracker.rival("18")
-  end
+  # def test_rival
+  #   assert_equal "Houston Dash", @stat_tracker.rival("18")
+  # end
 #
 # # biggest difference between team goals and opponent goals for a win for the
 # # given team – Integer
-#   def test_biggest_team_blowout
-#     skip
-#     assert_equal 5, @stat_tracker.biggest_team_blowout("18")
-#   end
+  def test_biggest_team_blowout
+    assert_equal 5, @stat_tracker.biggest_team_blowout("18")
+  end
 #
 # #  biggest difference between team goals and opponent goals for a loss for the
 # # given team – Integer
@@ -203,5 +201,15 @@ class TeamStatsTest < MiniTest::Test
 #     }
 #     assert_equal expected, @stat_tracker.seasonal_summary("18")
 #   end
+
+# helper methods
+
+  def test_worst_and_best_season
+    
+  end
+
+  def test_best_and_worst_opponent
+
+  end
 
 end

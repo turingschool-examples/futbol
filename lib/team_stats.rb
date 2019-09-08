@@ -6,7 +6,6 @@ module TeamStats
     info["franchiseId"] = @teams[team_id].franchiseId
     info["teamName"] = @teams[team_id].teamName
     info["abbreviation"] = @teams[team_id].abbreviation
-    info["Stadium"] = @teams[team_id].stadium
     info["link"] = @teams[team_id].link
     info
   end
@@ -59,38 +58,54 @@ module TeamStats
 
   def best_and_worst_opponent(team_id)
     games = []
-    @games.each do |game_id, game|
-      if team_id == game.home_team_id || team_id == game.away_team_id
-        games << game
-      end
-    end
     opponent_games = Hash.new(0)
     opponent_wins = Hash.new(0)
-    games.each do |game|
-      if game.home_team_id == team_id
+    @games.each do |game_id, game|
+      if team_id == game.home_team_id && game.away_goals > game.home_goals
+        opponent_games[game.away_team_id] += 1
+        opponent_wins[game.away_team_id] += 1
+      elsif team_id == game.home_team_id && game.away_goals <= game.home_goals
         opponent_games[game.away_team_id] += 1
         opponent_wins[game.away_team_id] += 0
-        if game.away_goals > game.home_goals
-          opponent_wins[game.away_team_id] += 1
-        end
-      elsif game.away_team_id == team_id
+      end
+      if team_id == game.away_team_id && game.home_goals > game.away_goals
+        opponent_games[game.home_team_id] += 1
+        opponent_wins[game.home_team_id] += 1
+      elsif team_id == game.away_team_id && game.home_goals <= game.away_goals
         opponent_games[game.home_team_id] += 1
         opponent_wins[game.home_team_id] += 0
-        if game.home_goals > game.away_goals
-          opponent_wins[game.home_team_id] += 1
-        end
       end
     end
     opponent_percent = {}
-    opponent_wins.each {|opponent, wins|
-      opponent_percent[opponent] = ((wins.to_f / opponent_games[opponent]) * 100).round(2)
-    }
+    opponent_wins.each {|opponent, wins| opponent_percent[opponent] = ((wins.to_f / opponent_games[opponent]) * 100).round(2) }
     min = opponent_percent.min_by{ |opp, percent| percent }[0]
     max = opponent_percent.max_by{ |opp, percent| percent }[0]
-    @teams[min].teamName
-    @teams[max].teamName
-    [@teams[min].teamName, @teams[max].teamName]
+    min_team = @teams[min].teamName
+    max_team = @teams[max].teamName
+    [min_team, max_team]
   end
+
+
+    # games.each do |game|
+    #   if game.home_team_id == team_id
+    #     opponent_wins[game.away_team_id] += 0
+    #     opponent_games[game.away_team_id] += 1
+    #     if game.away_goals > game.home_goals
+    #       opponent_wins[game.away_team_id] += 1
+    #     end
+    #   elsif game.away_team_id == team_id
+    #     opponent_wins[game.home_team_id] += 0
+    #     opponent_games[game.home_team_id] += 1
+    #     if game.home_goals > game.away_goals
+    #       opponent_wins[game.home_team_id] += 1
+    #     end
+    #   end
+    # end
+    # opponent_percent = {}
+    # opponent_wins.each {|opponent, wins|
+    #   opponent_percent[opponent] = ((wins.to_f / opponent_games[opponent]) * 100).round(2)
+    # }
+
 
   def favorite_opponent(team_id)
     best_and_worst_opponent(team_id)[0]
@@ -98,6 +113,10 @@ module TeamStats
 
   def rival(team_id)
     best_and_worst_opponent(team_id)[1]
+  end
+
+  def test_biggest_team_blowout(team_id)
+
   end
 
 end
