@@ -1,5 +1,29 @@
 module TeamStats
-  require 'pry'
+
+  def most_goals_scored(team_id)
+    team_id = team_id.to_i
+    most_goals = 0
+    @game_teams.each do |game_id, game_teams|
+      game_teams.each do |game_team|
+        if game_team.team_id == team_id
+          most_goals = game_team.goals if game_team.goals > most_goals
+        end
+      end
+    end
+    most_goals
+  end
+
+  def fewest_goals_scored(team_id)
+    team_id = team_id.to_i
+    fewest_goals = 50
+    @game_teams.each do |game_id, game_teams|
+      game_teams.each do |game_team|
+        if game_team.team_id == team_id
+          fewest_goals = game_team.goals if game_team.goals < fewest_goals
+        end
+      end
+    end
+    fewest_goals
 
   def best_season(team_id)
     team_id = team_id.to_i
@@ -21,7 +45,7 @@ module TeamStats
         season[game.season][:season_wins] += 1
       end
     end
-    #binding.pry
+
     best_season = ""
     best_season_percent = 0.0
     seasons.each do |season_id|
@@ -54,7 +78,7 @@ module TeamStats
         season[game.season][:season_wins] += 1
       end
     end
-    #binding.pry
+   
     worst_season = ""
     worst_season_percent = 101
     seasons.each do |season_id|
