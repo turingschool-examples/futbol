@@ -1285,7 +1285,6 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2017020001,52,home,LOSS,REG,Paul Maurice,2,9,18,8,8,0,44.4,7,5
 2016020933,10,away,LOSS,REG,Mike Babcock,1,5,20,4,3,1,49.2,15,8
 2016020933,28,home,WIN,REG,Peter DeBoer,3,9,27,6,2,0,50.8,14,13
-2015021066,6,away,LOSS,REG,Claude Julien,0,9,33,11,2,0,46.8,11,3
 2015021066,24,home,WIN,REG,Bruce Boudreau,2,6,29,11,2,0,53.2,10,2
 2015020086,14,away,TIE,SO,Jon Cooper,2,7,10,6,2,1,50.7,5,7
 2015020086,18,home,TIE,SO,Peter Laviolette,2,8,18,4,3,0,49.3,9,3
@@ -1513,7 +1512,6 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012030142,6,home,TIE,REG,Claude Julien,2,10,35,13,1,0,64.5,4,4
 2012030143,6,away,WIN,REG,Claude Julien,3,9,51,14,3,0,60,20,5
 2012030143,10,home,LOSS,REG,Randy Carlyle,2,11,48,10,5,2,40,24,10
-2012030144,6,away,LOSS,OT,Claude Julien,2,11,49,8,5,2,54.7,24,7
 2012030144,10,home,WIN,OT,Randy Carlyle,3,12,71,10,4,0,45.3,33,9
 2012030145,10,away,WIN,REG,Randy Carlyle,2,8,46,6,1,0,44.3,6,8
 2012030145,6,home,LOSS,REG,Claude Julien,1,11,39,4,2,0,55.7,9,6
