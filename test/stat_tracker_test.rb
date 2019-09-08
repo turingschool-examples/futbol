@@ -116,6 +116,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_worst_fans
-    assert_equal ["Houston Dynamo"], @stat_tracker.best_fans
+    assert_equal ["Houston Dynamo"], @stat_tracker.worst_fans
   end
 end
