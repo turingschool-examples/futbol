@@ -16,8 +16,8 @@ class GameTeam
               :takeaways
 
   def initialize(game_team_info)
-    @game_id = game_team_info[0].to_i
-    @team_id = game_team_info[1].to_i
+    @game_id = game_team_info[0]
+    @team_id = game_team_info[1]
     @hoa = game_team_info[2]
     @result = game_team_info[3]
     @settled_in = game_team_info[4]
@@ -32,6 +32,5 @@ class GameTeam
     @giveaways = game_team_info[13].to_i
     @takeaways = game_team_info[14].to_i
   end
-
 
 end

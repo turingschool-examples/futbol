@@ -11,19 +11,16 @@ class Game
               :venue_link
 
   def initialize(game_info)
-    @game_id = game_info[0].to_i
+    @game_id = game_info[0]
     @season = game_info[1]
     @type = game_info[2]
     @date_time = game_info[3]
-    @away_team_id = game_info[4].to_i
-    @home_team_id = game_info[5].to_i
+    @away_team_id = game_info[4]
+    @home_team_id = game_info[5]
     @away_goals = game_info[6].to_i
     @home_goals = game_info[7].to_i
     @venue = game_info[8]
     @venue_link = game_info[9]
   end
 
-  # def read_team_stats(game_id)
-  #
-  # end
 end

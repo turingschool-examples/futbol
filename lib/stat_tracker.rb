@@ -28,17 +28,17 @@ class StatTracker
   def self.from_csv(locations)
     teams = Hash.new
     CSV.foreach(locations[:teams], :headers => true) do |line|
-      teams[line["team_id"].to_i] = Team.new(line)
+      teams[line["team_id"]] = Team.new(line)
     end
 
     games = Hash.new
     CSV.foreach(locations[:games], :headers => true) do |line|
-      games[line["game_id"].to_i] = Game.new(line)
+      games[line["game_id"]] = Game.new(line)
     end
 
     game_teams = Hash.new { |h,k| h[k] = Array.new }
     CSV.foreach(locations[:game_teams], :headers => true) do |line|
-      game_teams[line["game_id"].to_i].push(GameTeam.new(line))
+      game_teams[line["game_id"]].push(GameTeam.new(line))
     end
 
     StatTracker.new(teams, games, game_teams)
