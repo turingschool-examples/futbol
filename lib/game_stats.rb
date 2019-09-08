@@ -66,9 +66,8 @@ module GameStats
 
   def average_goals_by_season
     avg_goals = Hash.new(0)
-    seasons = @count_of_games_by_season.keys
 
-    seasons.each do |season|
+    @seasons.each do |season|
       total_goals = 0
       total_games = 0
       @games.each do |id, game|

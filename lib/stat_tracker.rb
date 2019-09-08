@@ -5,12 +5,14 @@ require_relative './helper_methods'
 #thought you called modules directly, ask on monday
 require_relative './game_stats'
 require_relative './league_stats'
+require_relative './team_stats'
 require 'csv'
 require 'pry'
 
 class StatTracker
   include GameStats
   include LeagueStats
+  include TeamStats
   include HelperMethods
 
   attr_reader :teams, :games, :game_teams
@@ -19,7 +21,7 @@ class StatTracker
     @teams = teams
     @games = games
     @game_teams = game_teams
-    @count_of_games_by_season = count_of_games_by_season
+    @seasons = count_of_games_by_season.keys
     @team_result_count = team_result_count
   end
 
