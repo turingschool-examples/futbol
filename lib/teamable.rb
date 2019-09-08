@@ -26,8 +26,18 @@ module Teamable
 
   #Highest number of goals a particular team has scored in a single game.	Integer
   #BB
-  def most_goals_scored
-    #your beautiful code
+  def most_goals_scored(team_id)
+
+    most_goals_scored_counter = 0
+    int_team_id = team_id.to_i
+    self.game_teams.each do |game_team_obj|
+      if game_team_obj.team_id == int_team_id
+        if game_team_obj.goals > most_goals_scored_counter
+          most_goals_scored_counter = game_team_obj.goals
+        end
+      end
+    end
+    most_goals_scored_counter
   end
 
   #Lowest numer of goals a particular team has scored in a single game.	Integer
