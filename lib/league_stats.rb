@@ -24,7 +24,6 @@ module LeagueStats
     best_def_id = @team_result_count.min_by do |team_id, counts|
       counts[:goals_allowed] / counts[:games].to_f
     end[0]
-
     @teams[best_def_id].team_name
   end
 
@@ -32,7 +31,6 @@ module LeagueStats
     worst_def_id = @team_result_count.max_by do |team_id, counts|
       counts[:goals_allowed] / counts[:games].to_f
     end[0]
-
     @teams[worst_def_id].team_name
   end
 
@@ -40,8 +38,31 @@ module LeagueStats
     highest_scoring_visitor_id = @team_result_count.max_by do |team_id, counts|
       counts[:away_goals] / counts[:away_games].to_f
     end[0]
-
     @teams[highest_scoring_visitor_id].team_name
+  end
+
+  def highest_scoring_home_team
+    highest_scoring_home_team_id = @team_result_count.max_by do |team_id, counts|
+      counts[:home_goals] / counts[:home_games].to_f
+    end[0]
+
+    @teams[highest_scoring_home_team_id].team_name
+  end
+
+  def lowest_scoring_visitor
+    lowest_scoring_visitor_id = @team_result_count.min_by do |team_id, counts|
+      counts[:away_goals] / counts[:away_games].to_f
+    end[0]
+
+    @teams[lowest_scoring_visitor_id].team_name
+  end
+
+  def lowest_scoring_home_team
+    lowest_scoring_home_team_id = @team_result_count.min_by do |team_id, counts|
+      counts[:home_goals] / counts[:home_games].to_f
+    end[0]
+
+    @teams[lowest_scoring_home_team_id].team_name
   end
 
   def winningest_team
@@ -73,53 +94,4 @@ module LeagueStats
     team_names
   end
 
-  def highest_scoring_home_team
-    highest_scoring_home_team_id = @team_result_count.max_by do |team_id, counts|
-      counts[:home_goals] / counts[:home_games].to_f
-    end[0]
-    @teams[highest_scoring_home_team_id].team_name
-
-    # set these to 0 because we're just counting them
-    # num_home_goals = Hash.new(0)
-    # num_games = Hash.new(0)
-    #
-    # @games.each do |game_id, game|
-    #
-    #   # for each team, we want the name of the team with the highest average score per game across all seasons when they are home
-    #
-    #   num_games[game.home_team_id] += 1
-    #   num_home_goals[game.home_team_id] += game.home_goals
-    # end
-    #
-    # greatest = [nil, 0]
-    # @teams.each do |team_id, team|
-    #   if num_games[team_id] > 0
-    #     average = num_home_goals[team_id].to_f / num_games[team_id]
-    #     greatest = [team_id, average] if average > greatest[1]
-    #   end
-    # end
-    #
-    # @teams[greatest[0]].team_name
-    #
-
-
-    # # want to take each return value, find the max, and then return the team name associated with the team_id
-    # goal_average.max_by do |average|
-    #   average
-    # end
-  end
-
-  # def lowest_scoring_visitor
-  #   lowest_scoring_visitor_id = @team_result_count.min_by do |team_id, counts|
-  #     counts[:away_goals] / counts[:away_games].to_f
-  #   end[0]
-  #   @teams[lowest_scoring_visitor_id].team_name
-  # end
-  #
-  # def lowest_scoring_home_team
-  #   lowest_scoring_home_team_id = @team_result_count.min_by do |team_id, counts|
-  #     counts[:home_goals] / counts[:home_games].to_f
-  #   end[0]
-  #   @teams[lowest_scoring_home_team_id].team_name
-  # end
 end
