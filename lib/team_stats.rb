@@ -67,7 +67,9 @@ module TeamStats
   end
 
   def average_win_percentage(team_id)
-    #
+    team_id = team_id.to_i
+    total_wins = @team_result_count[team_id][:away_wins] + @team_result_count[team_id][:home_wins]
+    (total_wins.to_f / @team_result_count[team_id][:games]).round(2)
   end
 
   def most_goals_scored(team_id)
