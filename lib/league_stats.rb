@@ -5,12 +5,12 @@ module LeagueStats
   end
 
   def best_offense
-    max = generate_average[0].max_by {|team,average| average }
+    max = generate_average_goals[0].max_by {|team,average| average }
     @teams[max[0]].teamName
   end
 
   def worst_offense
-    min = generate_average[0].min_by {|team,average| average }
+    min = generate_average_goals[0].min_by {|team,average| average }
     @teams[min[0]].teamName
   end
 
@@ -25,28 +25,27 @@ module LeagueStats
     @teams[max].teamName
   end
 
-
   def highest_scoring_visitor
-    generate_average
-    max = generate_average[2].max_by {|id, goals| goals}[0]
+    generate_average_goals
+    max = generate_average_goals[2].max_by {|id, goals| goals}[0]
     @teams[max].teamName
   end
 
   def highest_scoring_home_team
-    generate_average
-    max = generate_average[1].max_by {|id, goals| goals}[0]
+    generate_average_goals
+    max = generate_average_goals[1].max_by {|id, goals| goals}[0]
     @teams[max].teamName
   end
 
   def lowest_scoring_visitor
-    generate_average
-    min = generate_average[2].min_by {|id, goals| goals}[0]
+    generate_average_goals
+    min = generate_average_goals[2].min_by {|id, goals| goals}[0]
     @teams[min].teamName
   end
 
   def lowest_scoring_home_team
-    generate_average
-    min = generate_average[1].min_by {|id, goals| goals}[0]
+    generate_average_goals
+    min = generate_average_goals[1].min_by {|id, goals| goals}[0]
     @teams[min].teamName
   end
 
@@ -88,7 +87,9 @@ module LeagueStats
     return @goals_per_team unless @goals_per_team.empty?
     @goals_per_team = Hash.new(0)
     @game_teams.each do |id, array|
-      @goals_per_team[array[0].team_id] += array[0].goals
+      array.each do |game_obj|
+        @goals_per_team[game_obj.team_id] += game_obj.goals
+      end
     end
     @goals_per_team
   end
@@ -118,7 +119,7 @@ module LeagueStats
     @game_counts
   end
 
-  def generate_average
+  def generate_average_goals
     @averages_total = []
     return @averages_total unless @averages_total.empty?
     generate_num_games_per_team
@@ -127,14 +128,14 @@ module LeagueStats
     @averages_home = {}
     @averages_away = {}
     @averages_total = [@averages, @averages_home, @averages_away]
-    generate_num_goals_per_team.each do |team, goals|
-      @averages[team] = goals.to_f / generate_num_games_per_team[0][team]
+    generate_num_goals_per_team.each do |id, goals|
+      @averages[id] = (goals.to_f / generate_num_games_per_team[0][id]).round(2)
     end
-    generate_home_and_away_goals[0].each do |team, goals|
-      @averages_away[team] = goals.to_f / generate_num_games_per_team[1][team]
+    generate_home_and_away_goals[0].each do |id, goals|
+      @averages_away[id] = (goals.to_f / generate_num_games_per_team[1][id]).round(2)
     end
-    generate_home_and_away_goals[1].each do |team, goals|
-      @averages_home[team] = goals.to_f / generate_num_games_per_team[2][team]
+    generate_home_and_away_goals[1].each do |id, goals|
+      @averages_home[id] = (goals.to_f / generate_num_games_per_team[2][id]).round(2)
     end
     @averages_total
   end
@@ -168,25 +169,6 @@ module LeagueStats
     @home_and_away_goals
   end
 
-  def highest_scoring_visitor
-    max = generate_home_and_away_goals[0].max_by {|id, goals| goals}[0]
-    @teams[max].teamName
-  end
-
-  def highest_scoring_home_team
-    max = generate_home_and_away_goals[1].max_by {|id, goals| goals}[0]
-    @teams[max].teamName
-  end
-
-  def lowest_scoring_visitor
-    min = generate_home_and_away_goals[0].min_by {|id, goals| goals}[0]
-    @teams[min].teamName
-  end
-
-  def lowest_scoring_home_team
-    min = generate_home_and_away_goals[1].min_by {|id, goals| goals}[0]
-    @teams[min].teamName
-  end
 
   def generate_wins
     @wins = []
