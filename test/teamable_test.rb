@@ -86,21 +86,18 @@ class TeamableTest < Minitest::Test
   #Biggest difference between team goals and opponent goals for a win for the given team.	Integer
   #AM
   def test_biggest_team_blowout
-    skip
     assert_equal 5, @stat_tracker.biggest_team_blowout("18")
   end
 
   #Biggest difference between team goals and opponent goals for a loss for the given team.	Integer
   #AM
   def test_worst_loss
-    skip
     assert_equal 4, @stat_tracker.worst_loss("18")
   end
 
   #Record (as a hash - win/loss) against all opponents with the opponents’ names as keys and the win percentage against that opponent as a value.	Hash
   #AM
   def test_head_to_head
-    skip
     expected = {
      "Atlanta United"=>0.5,
      "Chicago Fire"=>0.3,
@@ -141,7 +138,6 @@ class TeamableTest < Minitest::Test
   #For each season that the team has played, a hash that has two keys (:regular_season and :postseason), that each point to a hash with the following keys: :win_percentage, :total_goals_scored, :total_goals_against, :average_goals_scored, :average_goals_against.	Hash
   #AM
   def test_seasonal_summary
-    skip
     expected = {"20162017"=>
         {:postseason=>
           {:win_percentage=>0.59,
