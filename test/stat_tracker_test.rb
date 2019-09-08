@@ -116,8 +116,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_worst_fans
-    skip
-    assert_equal ["Houston Dynamo"], @stat_tracker.worst_fans
+    assert_equal ["Houston Dynamo", "Utah Royals FC"], @stat_tracker.worst_fans
   end
 
   def test_team_info
@@ -136,4 +135,15 @@ class StatTrackerTest < Minitest::Test
     assert_equal "20132014", @stat_tracker.best_season("6")
   end
 
+  def test_worst_season
+    assert_equal "20142015", @stat_tracker.worst_season("6")
+  end
+
+  def test_average_win_percentage
+    assert_equal 0.49, @stat_tracker.average_win_percentage("6")
+  end
+
+  def test_most_goals_scored
+    assert_equal 7, @stat_tracker.most_goals_scored("18")
+  end
 end
