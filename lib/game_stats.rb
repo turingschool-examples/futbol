@@ -1,5 +1,4 @@
 module GameStats
-
   def highest_total_score
     game = @games.max_by do |id, object|
       object.away_goals + object.home_goals
@@ -24,19 +23,19 @@ module GameStats
   def percentage_home_wins
     (@games.count do |id, object|
       object.home_goals > object.away_goals
-    end/@games.length.to_f * 100).round(2)
+    end/@games.length.to_f).round(2)
   end
 
   def percentage_visitor_wins
     (@games.count do |id, object|
       object.away_goals > object.home_goals
-    end/@games.length.to_f * 100).round(2)
+    end/@games.length.to_f).round(2)
   end
 
   def percentage_ties
     (@games.count do |id, object|
       object.home_goals == object.away_goals
-    end/@games.length.to_f * 100).round(2)
+    end/@games.length.to_f).round(2)
   end
 
   def count_of_games_by_season
