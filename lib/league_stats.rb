@@ -92,7 +92,7 @@ module LeagueStats
     end
     @goals_per_team
   end
-
+  
   def generate_num_games_per_team
     @game_counts = []
     return @game_counts unless @game_counts.empty?
