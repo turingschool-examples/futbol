@@ -33,4 +33,6 @@ class GameTeams
     @takeaways = line.split(",")[14].to_i
   end
 
+  
+
 end

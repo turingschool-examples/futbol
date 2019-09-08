@@ -9,13 +9,19 @@ class StatTracker
   include GenerateData
   attr_reader :games,
               :teams,
-              :game_teams
+              :game_teams,
+              #:league_stats
 
   def initialize(hash_game_objs, hash_team_objs, hash_game_teams_objs)
     @games = hash_game_objs
     @teams = hash_team_objs
     @game_teams = hash_game_teams_objs
+    @league_stats = LeagueStats.new(@games)
   end
+
+#  def count_of_teams
+  #  league_stats.count_of_teams
+#  end
 
   def StatTracker.from_csv(locations)
 
