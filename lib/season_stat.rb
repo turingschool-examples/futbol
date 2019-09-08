@@ -31,7 +31,29 @@ module SeasonStat
       wins = array_gameteams.count do |game_team_obj|
         game_team_obj.result == "WIN"
       end
+
+      total_games = array_gameteams.count do |game_team_obj|
+        game_team_obj
+      end
+
+      wins / total_games.to_f
     end
     best_season_var[0]
   end
+
+  def worst_season(team_id)
+    worst_season_var = seasons_to_game_teams(team_id).min_by do |season, array_gameteams|
+      wins = array_gameteams.count do |game_team_obj|
+        game_team_obj.result == "WIN"
+      end
+
+      total_games = array_gameteams.count do |game_team_obj|
+        game_team_obj
+      end
+
+      wins / total_games.to_f
+    end
+    worst_season_var[0]
+  end
+
 end
