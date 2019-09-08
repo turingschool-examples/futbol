@@ -147,12 +147,20 @@ class StatTrackerTest < Minitest::Test
     # assert_equal true, @stat_tracker.worst_fans.include?("Atlanta United")
   end
 
+
   ##### Team Statistics Tests #####
 
   def test_most_goals_scored
     assert_equal 3, @stat_tracker.most_goals_scored("12")
   end
 
+  def test_best_season
+    assert_equal "20132014", @stat_tracker.best_season(3)
+  end
+
+  def test_worst_season
+    assert_equal "20122013", @stat_tracker.worst_season(3)
+  end
 
   def test_fewest_goals_scored
     assert_equal 2, @stat_tracker.fewest_goals_scored("6")
