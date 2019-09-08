@@ -21,16 +21,20 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_from_csv
-    locations = { games: './data/dummy_games.csv', teams: './data/teams.csv', game_teams: './data/dummy_game_teams.csv' }
+    locations = { games: './data/games.csv', teams: './data/teams.csv', game_teams: './data/game_teams.csv' }
     stat_tracker_2 = StatTracker.from_csv(locations)
     assert_instance_of StatTracker, stat_tracker_2
     assert_instance_of Game, stat_tracker_2.games.values.sample
     assert_instance_of Team, stat_tracker_2.teams.values.sample
     assert_instance_of GameTeams, stat_tracker_2.game_teams.values.sample[0]
-    assert_equal 11, stat_tracker_2.games.length
+    assert_equal 7441, stat_tracker_2.games.length
     assert_equal 32, stat_tracker_2.teams.length
-    assert_equal 25, stat_tracker_2.game_teams.length
+    count = 0
+    stat_tracker_2.game_teams.each do |id, array|
+      array.each do |obj|
+        count += 1
+      end
+    end
+    assert_equal 14882, count
   end
-
-
 end
