@@ -154,4 +154,14 @@ class StatTrackerTest < Minitest::Test
   def test_favorite_opponent
     assert_equal "DC United", @stat_tracker.favorite_opponent("18")
   end
+
+  def test_rival
+    skip
+    assert_equal "Houston Dash", @stat_tracker.rival("18")
+  end
+
+  def test_biggest_team_blowout
+    assert_equal 5, @stat_tracker.biggest_team_blowout("18")
+  end
+
 end
