@@ -106,4 +106,31 @@ module TeamStatistics
       game.goals
     end.goals
   end
+
+  def favorite_opponent(team_id)
+    team_id = team_id.to_i
+
+    filtered_games = []
+    @games.each do |game_id, game|
+      if game.home_team_id == team_id || game.away_team_id == team_id
+        filtered_games.push(game)
+      end
+    end
+
+    losses = filtered_games.find_all do |game|
+      (game.away_team_id == team_id && game.home_goals >= game.away_goals) ||
+      (game.home_team_id == team_id && game.home_goals <= game.away_goals)
+    end
+
+    group = Hash.new(0)
+    losses.each do |game|
+      if game.home_team_id == team_id
+        group[game.away_team_id] += 1
+      elsif game.away_team_id == team_id
+        group[game.home_team_id] += 1
+      end
+    end
+    group.min_by {|key, value| value}
+    require 'pry'; binding.pry
+  end
 end
