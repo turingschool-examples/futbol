@@ -56,14 +56,4 @@ class TeamStatTest < Minitest::Test
   def test_fewest_goals_scored
     assert_equal 0, @stat_tracker.fewest_goals_scored("3")
   end
-
-  def test_opponents
-    assert_equal 0, @stat_tracker.opponents("2")["1"]["WINS"].length
-    assert_equal 0, @stat_tracker.opponents("2")["1"]["TIES"].length
-    assert_equal 1, @stat_tracker.opponents("2")["1"]["LOSS"].length
-  end
-
-  def test_head_to_head
-    assert_equal ({"FC Dallas"=>0.0, "Seattle Sounders FC"=>1.0}), @stat_tracker.head_to_head("5")
-  end
 end
