@@ -17,7 +17,10 @@ module Gameable
   end
 
   def biggest_blowout
-
+    game = games.values.max_by do |game|
+      (game.home_team[:goals] - game.away_team[:goals]).abs
+    end
+    (game.home_team[:goals] - game.away_team[:goals]).abs
   end
 
   def percentage_home_wins
@@ -51,7 +54,13 @@ module Gameable
   end
 
   def count_of_games_by_season
-
+    season_hash = {}
+    seasons.each do |season_id, season|
+      season_hash[season_id] = season.teams.values.sum {|team| team.games.count}
+    end
+    season_hash.each do |key, value|
+      season_hash[key] = value/2
+    end
   end
 
   def average_goals_per_game
