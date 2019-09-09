@@ -37,7 +37,6 @@ class TeamableTest < Minitest::Test
   #Season with the highest win percentage for a team.	Integer
   #JP
   def test_best_season
-    skip
     assert_equal "20132014", @stat_tracker.best_season("6")
   end
 
