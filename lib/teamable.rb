@@ -12,18 +12,20 @@ module Teamable
 
     self.teams.each do |team_id, team_obj|
       if team_id == teamid
-        # in iv_name array use capital letters as a separator to introduce spacing, then downcase
         iv_name_array = team_obj.instance_variables
+
         until iv_name_array == []
             iv_values_array << team_obj.instance_variable_get("#{iv_name_array[0]}")
+            iv_name_array[1].to_s.gsub!(/franchiseId/, "franchise_id")
+            iv_name_array[2].to_s.gsub!(/teamName/, "team_name")
             team_info_hash[iv_name_array.shift.to_s[1..-1]] = iv_values_array.shift
         end
       end
     end
-    #remove stadium key/value pair from team_info_hash
+    team_info_hash.delete("stadium")
     team_info_hash
   end
-  
+
   def best_season(team_id)
     #your beautiful code
   end
