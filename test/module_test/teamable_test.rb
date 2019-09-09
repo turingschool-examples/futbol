@@ -52,7 +52,7 @@ class TeamableModuleTest < Minitest::Test
     assert_equal "string", @stat_tracker.rival(team_id)
   end
 
-  def test_biggest_blowout
+  def test_biggest_team_blowout
     assert_equal int, @stat_tracker.biggest_blowout(team_id)
   end
 
@@ -69,4 +69,4 @@ class TeamableModuleTest < Minitest::Test
 
     assert_equal expected_hash, @stat_tracker.seasonal_summary(team_id)
   end
-end 
+end
