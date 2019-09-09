@@ -49,4 +49,8 @@ class Game
       takeaways: game_hash[:away_team][:takeaways]
     }
   end
+
+  def total_goals
+    @home_team[:goals] + @away_team[:goals]
+  end
 end
