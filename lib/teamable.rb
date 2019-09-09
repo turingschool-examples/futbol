@@ -1,13 +1,29 @@
+require 'pry'
+
 module Teamable
 
   #A hash with key/value pairs for each of the attributes of a team.	Hash
   #JP
-  def team_info(team_id)
-    #your beautiful code
-  end
 
-  #Season with the highest win percentage for a team.	Integer
-  #JP
+  def team_info(teamid)
+    team_info_hash = Hash.new
+    iv_name_array = []
+    iv_values_array = []
+
+    self.teams.each do |team_id, team_obj|
+      if team_id == teamid
+        # in iv_name array use capital letters as a separator to introduce spacing, then downcase
+        iv_name_array = team_obj.instance_variables
+        until iv_name_array == []
+            iv_values_array << team_obj.instance_variable_get("#{iv_name_array[0]}")
+            team_info_hash[iv_name_array.shift.to_s[1..-1]] = iv_values_array.shift
+        end
+      end
+    end
+    #remove stadium key/value pair from team_info_hash
+    team_info_hash
+  end
+  
   def best_season(team_id)
     #your beautiful code
   end

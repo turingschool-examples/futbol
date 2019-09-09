@@ -2,6 +2,8 @@ require 'pry'
 
 module Leagueable
 
+  # Maybe we could add a to_s somewhere?
+
     ## HELPER METHODS ##
 
   # Create hash with team ids as keys and the total goals scored for each team
