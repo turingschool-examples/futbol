@@ -14,11 +14,11 @@ class LeagueStatsSupportTest < MiniTest::Test
 
   def test_generate_num_goals_per_team
 
-  example = {
-    "3" => 7,
-    "6" => 11,
-    "8" => 5,
-    "9" => 9,
+    example = {
+      "3" => 7,
+      "6" => 11,
+      "8" => 5,
+      "9" => 9,
       "20" => 9,
       "24" => 15
     }
@@ -145,7 +145,7 @@ class LeagueStatsSupportTest < MiniTest::Test
   end
 
   def test_highest_scoring_home_team
-  assert_equal "New York City FC", @stat_tracker.highest_scoring_home_team
+    assert_equal "New York City FC", @stat_tracker.highest_scoring_home_team
   end
 
   def test_lowest_scoring_visitor
