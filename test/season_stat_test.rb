@@ -50,6 +50,10 @@ class TeamStatTest < Minitest::Test
   end
 
   def test_most_goals_scored
-    assert_equal 1000000, @stat_tracker.most_goals_scored("16")
+    assert_equal 3, @stat_tracker.most_goals_scored("16")
+  end
+
+  def test_fewest_goals_scored
+    assert_equal 0, @stat_tracker.fewest_goals_scored("3")
   end
 end

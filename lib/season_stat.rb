@@ -74,4 +74,12 @@ module SeasonStat
     end
     highest_scoring_game.goals
   end
+
+  def fewest_goals_scored(team_id)
+    all_games_for_team = seasons_to_game_teams(team_id).values.flatten
+    lowest_scoring_game = all_games_for_team.min_by do |game_team_obj|
+      game_team_obj.goals
+    end
+    lowest_scoring_game.goals
+  end 
 end
