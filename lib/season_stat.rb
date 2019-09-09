@@ -66,4 +66,12 @@ module SeasonStat
     end
     (wins.length / games.length.to_f).round(2)
   end
+
+  def most_goals_scored(team_id)
+    all_games_for_team = seasons_to_game_teams(team_id).values.flatten
+    highest_scoring_game = all_games_for_team.max_by do |game_team_obj|
+      game_team_obj.goals
+    end
+    highest_scoring_game.goals
+  end
 end

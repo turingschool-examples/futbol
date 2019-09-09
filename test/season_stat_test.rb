@@ -48,4 +48,8 @@ class TeamStatTest < Minitest::Test
   def test_average_win_per
     assert_equal 1.0, @stat_tracker.average_win_percentage("6")
   end
+
+  def test_most_goals_scored
+    assert_equal 1000000, @stat_tracker.most_goals_scored("16")
+  end
 end
