@@ -56,4 +56,9 @@ class TeamStatTest < Minitest::Test
   def test_fewest_goals_scored
     assert_equal 0, @stat_tracker.fewest_goals_scored("3")
   end
+
+  def test_game_result
+    assert_equal (["WIN", "LOSS"]), @stat_tracker.game_results("4").keys
+    assert_instance_of GameTeam, @stat_tracker.game_results("4").values[0][0]
+  end
 end
