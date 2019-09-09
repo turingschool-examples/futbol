@@ -28,69 +28,34 @@ class StatTracker
     
     games_to_create = {}
     teams_to_create = {}
-    team_seasons = {}
     seasons_to_create = {}
     
-    ######################################################
-    # THESE NEED TO BE REFACTORED INTO THEIR OWN METHODS #
-    # SO WE CAN ACTUALLY TEST THIS MONSTROCITY           #
-    ######################################################
-
-    CSV.foreach(locations[:teams], headers: true) do |row|
-      if !teams_to_create.has_key?(row["team_id"].to_i)
-        teams_to_create[row["team_id"].to_i] = {
-          team_id:      row["team_id"].to_i,
-          franchiseId:  row["franchiseId"].to_i,
-          teamName:     row["teamName"],
-          abbreviation: row["abbreviation"],
-          Stadium:      row["Stadium"],
-          link:         row["link"],
-          games:        {}
-        }
+    CSV.foreach(locations[:teams], headers: true) do |line|
+      if !teams_to_create.has_key?(line["team_id"].to_i)
+        teams_to_create[line["team_id"].to_i] = create_team_hash(line)
       end
     end
 
-    CSV.foreach(locations[:games], headers: true) do |row|
-      if !games_to_create.has_key?(row["game_id"].to_i)
-        games_to_create[row["game_id"].to_i] = {
-          id:         row["game_id"].to_i,
-          season:     row["season"].to_i,
-          type:       row["type"],
-          date_time:  row["date_time"],
-          venue:      row["venue"],
-          venue_link: row["venue_link"]
-        }
+    CSV.foreach(locations[:games], headers: true) do |line|
+      if !games_to_create.has_key?(line["game_id"].to_i)
+        games_to_create[line["game_id"].to_i] = create_game_hash(line)
       end
     end
   
-    CSV.foreach(locations[:game_teams], headers: true) do |row|
-      team_data = {
-        id:                       row["team_id"].to_i,
-        hoa:                      row["HoA"],
-        result:                   row["result"],
-        head_coach:               row["head_coach"],
-        goals:                    row["goals"].to_i,
-        shots:                    row["shots"].to_i,
-        tackles:                  row["tackles"].to_i,
-        pim:                      row["pim"].to_i,
-        power_play_opportunities: row["powerPlayOpportunities"].to_i,
-        power_play_goals:         row["powerPlayGoals"].to_i,
-        face_off_win_percentage:  row["faceOffWinPercentage"].to_f,
-        giveaways:                row["giveaways"].to_i,
-        takeaways:                row["takeaways"].to_i
-      }
-      if row["HoA"] == "home"
-        games_to_create[row["game_id"].to_i][:settled_in] = row["settled_in"]
-        games_to_create[row["game_id"].to_i][:home_team]  = team_data
+    CSV.foreach(locations[:game_teams], headers: true) do |line|
+      team_data = create_game_team_hash(line)
+      id = line["game_id"].to_i
+      games_to_create[id][:settled_in] = line["settled_in"]
+
+      if line["HoA"] == "home"
+        games_to_create[id][:home_team] = team_data
       else
-        games_to_create[row["game_id"].to_i][:settled_in] = row["settled_in"]
-        games_to_create[row["game_id"].to_i][:away_team]  = team_data
+        games_to_create[id][:away_team] = team_data
       end
-      
     end
 
-    games_to_create.each do |key, game|
-      new_game = Game.new(game)
+    games_to_create.each do |key, game_data|
+      new_game = Game.new(game_data)
       stat_tracker.games[key] = new_game
 
       teams_to_create[new_game.home_team[:id]][:games][new_game.id] = new_game
@@ -134,4 +99,46 @@ class StatTracker
 
     stat_tracker
   end
+
+  def self.create_team_hash(team_line)
+    {
+      team_id:      team_line["team_id"].to_i,
+      franchiseId:  team_line["franchiseId"].to_i,
+      teamName:     team_line["teamName"],
+      abbreviation: team_line["abbreviation"],
+      Stadium:      team_line["Stadium"],
+      link:         team_line["link"],
+      games:        {}
+    }
+  end
+
+  def self.create_game_hash(game_line)
+    {
+      id:         game_line["game_id"].to_i,
+      season:     game_line["season"].to_i,
+      type:       game_line["type"],
+      date_time:  game_line["date_time"],
+      venue:      game_line["venue"],
+      venue_link: game_line["venue_link"]
+    }
+  end
+
+  def self.create_game_team_hash(game_team_line)
+    {
+      id:                       game_team_line["team_id"].to_i,
+      hoa:                      game_team_line["HoA"],
+      result:                   game_team_line["result"],
+      head_coach:               game_team_line["head_coach"],
+      goals:                    game_team_line["goals"].to_i,
+      shots:                    game_team_line["shots"].to_i,
+      tackles:                  game_team_line["tackles"].to_i,
+      pim:                      game_team_line["pim"].to_i,
+      power_play_opportunities: game_team_line["powerPlayOpportunities"].to_i,
+      power_play_goals:         game_team_line["powerPlayGoals"].to_i,
+      face_off_win_percentage:  game_team_line["faceOffWinPercentage"].to_f,
+      giveaways:                game_team_line["giveaways"].to_i,
+      takeaways:                game_team_line["takeaways"].to_i
+    }
+  end
+
 end
