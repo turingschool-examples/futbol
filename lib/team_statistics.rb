@@ -14,7 +14,7 @@ module TeamStatistics
   def best_season(team_id)
     team_id = team_id.to_i
     filtered_games = []
-    games_by_team = @games.each do |game_id, game|
+    @games.each do |game_id, game|
       if game.home_team_id == team_id || game.away_team_id == team_id
         filtered_games.push(game)
       end
@@ -41,7 +41,7 @@ module TeamStatistics
   def worst_season(team_id)
     team_id = team_id.to_i
     filtered_games = []
-    games_by_team = @games.each do |game_id, game|
+    @games.each do |game_id, game|
       if game.home_team_id == team_id || game.away_team_id == team_id
         filtered_games.push(game)
       end
