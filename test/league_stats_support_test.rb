@@ -4,7 +4,6 @@ require_relative '../lib/games'
 require_relative '../lib/teams'
 require_relative '../lib/game_teams'
 
-
 class LeagueStatsSupportTest < MiniTest::Test
 
   def setup
@@ -13,7 +12,6 @@ class LeagueStatsSupportTest < MiniTest::Test
   end
 
   def test_generate_num_goals_per_team
-
     example = {
       "3" => 7,
       "6" => 11,
@@ -27,7 +25,6 @@ class LeagueStatsSupportTest < MiniTest::Test
   end
 
   def test_generate_num_games_per_team
-
     example_1 = {
       "3" => 4,
       "6" => 4,
@@ -99,7 +96,6 @@ class LeagueStatsSupportTest < MiniTest::Test
       "20" => 15
     }
 
-
     assert_equal example, @stat_tracker.generate_allowed_goals
   end
 
@@ -136,7 +132,6 @@ class LeagueStatsSupportTest < MiniTest::Test
     }
 
     example = [home_goals, away_goals]
-
     assert_equal example, @stat_tracker.generate_home_and_away_goals
   end
 
@@ -157,7 +152,6 @@ class LeagueStatsSupportTest < MiniTest::Test
   end
 
   def test_generate_wins
-
     team_wins = {
       "3" => 0,
       "6" => 4,
