@@ -43,7 +43,6 @@ class TeamableTest < Minitest::Test
   #Season with the lowest win percentage for a team.	Integer
   #JP
   def test_worst_season
-    skip
     assert_equal "20142015", @stat_tracker.worst_season("6")
   end
 

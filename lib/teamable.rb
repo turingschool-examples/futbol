@@ -48,7 +48,17 @@ module Teamable
   #Season with the lowest win percentage for a team.	Integer
   #JP
   def worst_season(team_id)
-    #your beautiful code
+    season_win_percentage_hash = season_win_percentage_helper(team_id)
+    worst_win_percentage = 2.0
+    worst_season = 0
+
+    season_win_percentage_hash.each do |season, win_percentage|
+      if win_percentage < worst_win_percentage
+       worst_win_percentage = win_percentage
+      end
+      worst_season = season_win_percentage_hash.key(worst_win_percentage)
+    end
+    worst_season
   end
 
   #Average win percentage of all games for a team.	Float
