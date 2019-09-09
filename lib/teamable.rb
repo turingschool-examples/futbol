@@ -25,7 +25,6 @@ module Teamable
   end
 
   #Highest number of goals a particular team has scored in a single game.	Integer
-<<<<<<< HEAD
   #BB (Complete)
   def most_goals_scored(team_id)
     most_goals_scored_counter = 0
@@ -53,29 +52,6 @@ module Teamable
       end
     end
     fewest_goals_scored_counter
-=======
-  #BB
-  def most_goals_scored(team_id)
-    #your beautiful code
-  end
-
-  #Lowest numer of goals a particular team has scored in a single game.	Integer
-  #BB
-  def fewest_goals_scored(team_id)
-    #your beautiful code
->>>>>>> 0920db58466846ac67ac85fee6871021a6d84468
-  end
-
-  #Name of the opponent that has the lowest win percentage against the given team.	String
-  #BB
-  def favorite_opponent(team_id)
-    #your beautiful code
-  end
-
-  #Name of the opponent that has the highest win percentage against the given team.	String
-  #BB
-  def rival(team_id)
-    #your beautiful code
   end
 
   #Biggest difference between team goals and opponent goals for a win
@@ -176,7 +152,7 @@ module Teamable
       games_for_team
   end
 
-  def total_wins_helper(team_id, loser_team_id)
+  def total_wins_helper2(team_id, loser_team_id)
 
     #select games team won and delete rest
     games_for_team_helper(team_id).select! do |game|
@@ -192,7 +168,7 @@ module Teamable
     end.length.to_f
   end
 
-  def total_games_helper(team_id, opponent_team_id)
+  def total_games_helper2(team_id, opponent_team_id)
 
     # can't get this to work for some reason!!!!!!!
     # games_for_team_helper(team_id).select! do |game|
