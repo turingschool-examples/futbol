@@ -87,7 +87,7 @@ module Leagueable
 
   # Create hash with team ids as keys and the total games played for each team as values
   def total_games_helper(team_id = "0")
-    teams_total_games = Hash.new
+    teams_total_games = Hash.new(0)
 
     if team_id == "0" #all teams in hash
       self.games.each_value do |game|
@@ -198,21 +198,37 @@ module Leagueable
   end
 
   # Create hash with team ids as keys and the total wins for each team as values
-  def total_wins_helper
-    teams_total_wins = Hash.new
-    self.teams.each_key do |team_id|
-      teams_total_wins[team_id] = 0
-    end
-
-    # Iterate through game_teams.
-    # Assign the correct team's wins to the respective key value pair.
-    self.game_teams.each do |game_team_obj|
-      teams_total_wins.each_key do |team_id_key|
-        if (game_team_obj.team_id == team_id_key) && (game_team_obj.result == "WIN")
-          teams_total_wins[team_id_key] += 1
+  def total_wins_helper(team_id = "0")
+    teams_total_wins = Hash.new(0)
+    # self.teams.each_key do |team_id|
+    #   teams_total_wins[team_id] = 0
+    # end
+    #
+    # # Iterate through game_teams.
+    # # Assign the correct team's wins to the respective key value pair.
+    # self.game_teams.each do |game_team_obj|
+    #   teams_total_wins.each_key do |team_id_key|
+    #     if (game_team_obj.team_id == team_id_key) && (game_team_obj.result == "WIN")
+    #       teams_total_wins[team_id_key] += 1
+    #     end
+    #   end
+    # end
+    if team_id == "0" #all teams in hash
+      self.games.each_value do |game|
+        if game.home_goals > game.away_goals
+          teams_total_wins[game.home_team_id] += 1
+        elsif game.away_goals > game.home_goals
+          teams_total_wins[game.away_team_id] += 1
         end
       end
+    else  #for only one team (away or home)
+      # self.games.each_value do |game|
+      #   teams_total_wins[team_id] += game.away_goals if game.away_team_id == team_id
+      #   teams_total_wins[team_id] += game.home_goals if game.home_team_id == team_id
+      # end
     end
+
+
     teams_total_wins
   end
 
