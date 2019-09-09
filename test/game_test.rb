@@ -60,4 +60,8 @@ class GameTest < Minitest::Test
     assert_equal @game_hash[:home_team], @game.home_team
     assert_equal @game_hash[:away_team], @game.away_team
   end
+
+  def test_can_give_total_goals
+    assert_equal 5, @game.total_goals
+  end
 end
