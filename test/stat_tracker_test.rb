@@ -15,7 +15,6 @@ class StatTrackerTest < Minitest::Test
     }
 
     @stat_tracker = StatTracker.from_csv(@locations)
-    # require 'pry'; binding.pry
   end
 
   def test_it_exists
@@ -78,7 +77,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal 4.19, @stat_tracker.average_goals_per_game
   end
 
-  def test_average_goals_per_season
+  def test_average_goals_by_season
     expected = {
       "20122013" => 4.86,
       "20132014" => 4.29,
@@ -94,15 +93,15 @@ class StatTrackerTest < Minitest::Test
 
   ##### League Statistics Tests #####
 
-  def test_method_count_of_teams
+  def test_count_of_teams
     assert_equal 20, @stat_tracker.count_of_teams
   end
 
-  def test_method_best_offense
+  def test_best_offense
     assert_equal "Portland Timbers", @stat_tracker.best_offense
   end
 
-  def test_method_worst_offense
+  def test_worst_offense
     assert_equal "Portland Thorns FC", @stat_tracker.worst_offense
   end
 
@@ -150,6 +149,17 @@ class StatTrackerTest < Minitest::Test
 
 
   ##### Team Statistics Tests #####
+
+  def test_team_info
+    expected = {
+      "team_id" => "21",
+      "franchise_id" => "27",
+      "team_name" => "Vancouver Whitecaps FC",
+      "abbreviation" => "VAN",
+      "link" => "/api/v1/teams/21"
+    }
+    assert_equal expected, @stat_tracker.team_info("21")
+  end
 
   def test_best_season
     assert_equal "20132014", @stat_tracker.best_season("3")
@@ -213,6 +223,26 @@ class StatTrackerTest < Minitest::Test
 
 ##### Helper Method Tests #####
 
+  def test_home_team?
+    assert_equal true, @stat_tracker.home_team?("19", @stat_tracker.games["2013030161"])
+    assert_equal false, @stat_tracker.home_team?("19", @stat_tracker.games["2014030153"])
+  end
+
+  def test_away_team?
+    assert_equal true, @stat_tracker.away_team?("52", @stat_tracker.games["2015020849"])
+    assert_equal false, @stat_tracker.away_team?("52", @stat_tracker.games["2015020314"])
+  end
+
+  def test_home_win?
+    assert_equal true, @stat_tracker.home_win?("4", @stat_tracker.games["2016020070"])
+    assert_equal false, @stat_tracker.home_win?("4", @stat_tracker.games["2015020797"])
+  end
+
+  def test_away_win?
+    assert_equal true, @stat_tracker.away_win?("21", @stat_tracker.games["2015020314"])
+    assert_equal false, @stat_tracker.away_win?("13", @stat_tracker.games["2013020333"])
+  end
+
   def test_team_result_count
     expected = {
       "3" =>{:games=>3, :total_goals=>6, :goals_allowed=>7, :away_goals=>4, :away_games=>2, :home_goals=>2, :home_games=>1, :home_wins=>1},
@@ -271,81 +301,4 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.team_stats_by_season("6")
   end
 
-  # def test_home_team
-  #   assert_equal false, @stat_tracker.home_team?("24", @stat_tracker.games[2016030171])
-  #   assert_equal true, @stat_tracker.home_team?("20", @stat_tracker.games[2016030171])
-  # end
-
-  # def test_away_team
-  #   assert_equal true, away_team?("19", @stat_tracker.games[2014030153])
-  #   assert_equal false, away_team?("30", @stat_tracker.games[2014030153])
-  # end
-  #
-  # def test_home_win
-  #   assert_equal true, home_team?("24", @stat_tracker.games[2016030171])
-  #   assert_equal false, home_team?("20", @stat_tracker.games[2016030171])
-  # end
-  #
-  # def test_away_win
-  #
-  # end
-
 end
-
-
-# Worst Fans
-
-{
-  3=>{:games=>531, :away_wins=>119, :home_wins=>111},
-  7=>{:games=>458, :away_wins=>65,  :home_wins=>64}
-}
-
-{
-  3=>{:games=>531, :away_wins=>119, :home_wins=>111, :away_ties=>43, :home_ties=>54, :away_losses=>104, :home_losses=>100},
-  7=>{:games=>458, :away_wins=>65,  :home_wins=>64,  :away_ties=>46, :home_ties=>55, :away_losses=>118, :home_losses=>110}
-}
-
-
-# Rival
-
-{
-  19=>{:games=>34, :wins=>15},
-  52=>{:games=>31, :wins=>14},
-  21=>{:games=>32, :wins=>12},
-  20=>{:games=>18, :wins=>7},
-  17=>{:games=>14, :wins=>9},
-  29=>{:games=>15, :wins=>6},
-  25=>{:games=>27, :wins=>10},
-  16=>{:games=>38, :wins=>14},
-  30=>{:games=>27, :wins=>11},
-  1=>{:games=>10, :wins=>4},
-  8=>{:games=>10, :wins=>3},
-  23=>{:games=>18, :wins=>7},
-  3=>{:games=>10, :wins=>3},
-  14=>{:games=>10},
-  15=>{:games=>10, :wins=>5},
-  28=>{:games=>25, :wins=>11},
-  22=>{:games=>18, :wins=>4},
-  24=>{:games=>31, :wins=>8},
-  5=>{:games=>16, :wins=>9},
-  2=>{:games=>10, :wins=>4},
-  26=>{:games=>18, :wins=>8},
-  7=>{:games=>10, :wins=>3},
-  27=>{:games=>6, :wins=>2},
-  6=>{:games=>10, :wins=>3},
-  13=>{:games=>10, :wins=>6},
-  10=>{:games=>10, :wins=>5},
-  9=>{:games=>10, :wins=>2},
-  12=>{:games=>10, :wins=>4},
-  54=>{:games=>3, :wins=>1},
-  4=>{:games=>10, :wins=>2},
-  53=>{:games=>12, :wins=>3}
-}
-
-# LA Galaxy:
-#   => team_id: 17
-#   => percentage: 9/14 (64.3%)
-
-# Houston Dash:
-#   => team_id: 13
-#   => percentage: 6/10 (60.0%)
