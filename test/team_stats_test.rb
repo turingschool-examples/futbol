@@ -58,7 +58,7 @@ class TeamStatsTest < MiniTest::Test
 # # # name of the opponent that has the highest win percentage against the given
 # # # team – String
 #   def test_rival
-#     assert_equal "Houston Dash", @stat_tracker.rival("18")
+#     assert_equal "LA Galaxy", @stat_tracker.rival("18")
 #   end
 #
 # biggest difference between team goals and opponent goals for a win for the
@@ -111,93 +111,97 @@ class TeamStatsTest < MiniTest::Test
 #     }
 #     assert_equal expected, @stat_tracker.head_to_head("18")
 #   end
+    def test_generate_post_and_regular
+      assert_equal ({}), @stat_tracker.generate_post_and_regular("18")
+    end
+
 
 # for each season that the team has played, a hash that has two keys
 # (:regular_season and :postseason), that each point to a hash with the
 # following keys: :win_percentage, :total_goals_scored, :total_goals_against,
-# :average_goals_scored, :average_goals_against – Hash
-  def test_seasonal_summary
-    expected = {"20162017"=>
-       {:postseason=>
-         {:win_percentage=>0.59,
-          :total_goals_scored=>48,
-          :total_goals_against=>40,
-          :average_goals_scored=>2.18,
-          :average_goals_against=>1.82},
-        :regular_season=>
-         {:win_percentage=>0.38,
-          :total_goals_scored=>180,
-          :total_goals_against=>170,
-          :average_goals_scored=>2.2,
-          :average_goals_against=>2.07}},
-      "20172018"=>
-       {:postseason=>
-         {:win_percentage=>0.54,
-          :total_goals_scored=>29,
-          :total_goals_against=>28,
-          :average_goals_scored=>2.23,
-          :average_goals_against=>2.15},
-        :regular_season=>
-         {:win_percentage=>0.44,
-          :total_goals_scored=>187,
-          :total_goals_against=>162,
-          :average_goals_scored=>2.28,
-          :average_goals_against=>1.98}},
-      "20132014"=>
-       {:postseason=>
-         {:win_percentage=>0.0,
-          :total_goals_scored=>0,
-          :total_goals_against=>0,
-          :average_goals_scored=>0.0,
-          :average_goals_against=>0.0},
-        :regular_season=>
-         {:win_percentage=>0.38,
-          :total_goals_scored=>166,
-          :total_goals_against=>177,
-          :average_goals_scored=>2.02,
-          :average_goals_against=>2.16}},
-      "20122013"=>
-       {:postseason=>
-         {:win_percentage=>0.0,
-          :total_goals_scored=>0,
-          :total_goals_against=>0,
-          :average_goals_scored=>0.0,
-          :average_goals_against=>0.0},
-        :regular_season=>
-         {:win_percentage=>0.25,
-          :total_goals_scored=>85,
-          :total_goals_against=>103,
-          :average_goals_scored=>1.77,
-          :average_goals_against=>2.15}},
-      "20142015"=>
-       {:postseason=>
-         {:win_percentage=>0.67,
-          :total_goals_scored=>17,
-          :total_goals_against=>13,
-          :average_goals_scored=>2.83,
-          :average_goals_against=>2.17},
-        :regular_season=>
-         {:win_percentage=>0.5,
-          :total_goals_scored=>186,
-          :total_goals_against=>162,
-          :average_goals_scored=>2.27,
-          :average_goals_against=>1.98}},
-      "20152016"=>
-       {:postseason=>
-         {:win_percentage=>0.36,
-          :total_goals_scored=>25,
-          :total_goals_against=>33,
-          :average_goals_scored=>1.79,
-          :average_goals_against=>2.36},
-        :regular_season=>
-         {:win_percentage=>0.45,
-          :total_goals_scored=>178,
-          :total_goals_against=>159,
-          :average_goals_scored=>2.17,
-          :average_goals_against=>1.94}}
-    }
-    assert_equal expected, @stat_tracker.seasonal_summary("18")
-  end
+# # :average_goals_scored, :average_goals_against – Hash
+#   def test_seasonal_summary
+#     expected = {"20162017"=>
+#        {:postseason=>
+#          {:win_percentage=>0.59,
+#           :total_goals_scored=>48,
+#           :total_goals_against=>40,
+#           :average_goals_scored=>2.18,
+#           :average_goals_against=>1.82},
+#         :regular_season=>
+#          {:win_percentage=>0.38,
+#           :total_goals_scored=>180,
+#           :total_goals_against=>170,
+#           :average_goals_scored=>2.2,
+#           :average_goals_against=>2.07}},
+#       "20172018"=>
+#        {:postseason=>
+#          {:win_percentage=>0.54,
+#           :total_goals_scored=>29,
+#           :total_goals_against=>28,
+#           :average_goals_scored=>2.23,
+#           :average_goals_against=>2.15},
+#         :regular_season=>
+#          {:win_percentage=>0.44,
+#           :total_goals_scored=>187,
+#           :total_goals_against=>162,
+#           :average_goals_scored=>2.28,
+#           :average_goals_against=>1.98}},
+#       "20132014"=>
+#        {:postseason=>
+#          {:win_percentage=>0.0,
+#           :total_goals_scored=>0,
+#           :total_goals_against=>0,
+#           :average_goals_scored=>0.0,
+#           :average_goals_against=>0.0},
+#         :regular_season=>
+#          {:win_percentage=>0.38,
+#           :total_goals_scored=>166,
+#           :total_goals_against=>177,
+#           :average_goals_scored=>2.02,
+#           :average_goals_against=>2.16}},
+#       "20122013"=>
+#        {:postseason=>
+#          {:win_percentage=>0.0,
+#           :total_goals_scored=>0,
+#           :total_goals_against=>0,
+#           :average_goals_scored=>0.0,
+#           :average_goals_against=>0.0},
+#         :regular_season=>
+#          {:win_percentage=>0.25,
+#           :total_goals_scored=>85,
+#           :total_goals_against=>103,
+#           :average_goals_scored=>1.77,
+#           :average_goals_against=>2.15}},
+#       "20142015"=>
+#        {:postseason=>
+#          {:win_percentage=>0.67,
+#           :total_goals_scored=>17,
+#           :total_goals_against=>13,
+#           :average_goals_scored=>2.83,
+#           :average_goals_against=>2.17},
+#         :regular_season=>
+#          {:win_percentage=>0.5,
+#           :total_goals_scored=>186,
+#           :total_goals_against=>162,
+#           :average_goals_scored=>2.27,
+#           :average_goals_against=>1.98}},
+#       "20152016"=>
+#        {:postseason=>
+#          {:win_percentage=>0.36,
+#           :total_goals_scored=>25,
+#           :total_goals_against=>33,
+#           :average_goals_scored=>1.79,
+#           :average_goals_against=>2.36},
+#         :regular_season=>
+#          {:win_percentage=>0.45,
+#           :total_goals_scored=>178,
+#           :total_goals_against=>159,
+#           :average_goals_scored=>2.17,
+#           :average_goals_against=>1.94}}
+#     }
+#     assert_equal expected, @stat_tracker.seasonal_summary("18")
+#   end
 
 # helper methods
   #

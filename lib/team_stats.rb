@@ -66,16 +66,34 @@ module TeamStats
 
   def generate_post_and_regular(team_id)
     game_ids = []
-    post_and_reg = {}
-    @game_teams.team_id.each {|game| game_ids << game.game_id}
+    post_and_reg = { }
+    @game_teams[team_id].each {|game| game_ids << game.game_id}
     game_ids.each do |id|
-      if @games[id].type == "Post Season"
-        post_and_reg[@games[id].season][:post_season] = id
-      elsif @games[id].type == "Regular Season"
-        post_and_reg[@games[id].season][:regular_season] = id
+      # require "pry"; binding.pry
+      if @games[id].type == "Postseason" && !post_and_reg.has_key?(@games[id].season)
+        post_and_reg[@games[id].season] = {}
+        post_and_reg[@games[id].season][:post_season] = [id]
+      elsif @games[id].type == "Postseason" && post_and_reg.has_key?(@games[id].season)
+          post_and_reg[@games[id].season] = {}
+          post_and_reg[@games[id].season][:post_season] = []
+          post_and_reg[@games[id].season][:post_season] << id
+      elsif @games[id].type == "Regular Season" && !post_and_reg.has_key?(@games[id].season)
+        post_and_reg[@games[id].season] = {}
+        post_and_reg[@games[id].season][:regular_season] = [id]
+      elsif @games[id].type == "Regular Season" && post_and_reg.has_key?(@games[id].season)
+        post_and_reg[@games[id].season] = {}
+        post_and_reg[@games[id].season][:regular_season] = []
+        post_and_reg[@games[id].season][:regular_season] << id
       end
     end
+    post_and_reg
   end
+
+  def generate_win_percentage_by_post_and_reg_per_season(team_id)
+
+
+  end
+
 
 
 
