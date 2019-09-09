@@ -90,4 +90,64 @@ class StatTrackerTest < Minitest::Test
   def test_worst_defense
     assert_equal "Columbus Crew SC", @stat_tracker.worst_defense
   end
+
+  def test_highest_scoring_visitor
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_lowest_scoring_visitor
+    assert_equal "San Jose Earthquakes", @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_lowest_scoring_home_team
+    assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_winningest_team
+    assert_equal "Reign FC", @stat_tracker.winningest_team
+  end
+
+  def test_best_fans
+    assert_equal "San Jose Earthquakes", @stat_tracker.best_fans
+  end
+
+  def test_worst_fans
+    assert_equal ["Houston Dynamo", "Utah Royals FC"], @stat_tracker.worst_fans
+  end
+
+  def test_team_info
+    expected = {
+      "team_id" => "18",
+      "franchise_id" => "34",
+      "team_name" => "Minnesota United FC",
+      "abbreviation" => "MIN",
+      "link" => "/api/v1/teams/18"
+    }
+
+    assert_equal expected, @stat_tracker.team_info("18")
+  end
+
+  def test_best_season
+    assert_equal "20132014", @stat_tracker.best_season("6")
+  end
+
+  def test_worst_season
+    assert_equal "20142015", @stat_tracker.worst_season("6")
+  end
+
+  def test_average_win_percentage
+    assert_equal 0.49, @stat_tracker.average_win_percentage("6")
+  end
+
+  def test_most_goals_scored
+    assert_equal 7, @stat_tracker.most_goals_scored("18")
+  end
+
+  def test_fewest_goals_scored
+    assert_equal 0, @stat_tracker.fewest_goals_scored("18")
+  end
 end
