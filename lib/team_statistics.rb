@@ -130,7 +130,61 @@ module TeamStatistics
         group[game.home_team_id] += 1
       end
     end
-    group.min_by {|key, value| value}
-    require 'pry'; binding.pry
+    team_id = (group.min_by {|key, value| value})[0]
+    @teams[team_id].team_name
   end
+
+  def rival(team_id)
+    team_id = team_id.to_i
+
+    filtered_games = []
+    @games.each do |game_id, game|
+      if game.home_team_id == team_id || game.away_team_id == team_id
+        filtered_games.push(game)
+      end
+    end
+
+    losses = filtered_games.find_all do |game|
+      (game.away_team_id == team_id && game.home_goals >= game.away_goals) ||
+      (game.home_team_id == team_id && game.home_goals <= game.away_goals)
+    end
+
+    group = Hash.new(0)
+    losses.each do |game|
+      if game.home_team_id == team_id
+        group[game.away_team_id] += 1
+      elsif game.away_team_id == team_id
+        group[game.home_team_id] += 1
+      end
+    end
+    team_id = (group.max_by {|key, value| value})[0]
+    @teams[team_id].team_name
+  end
+
+  def biggest_team_blowout(team_id)
+    team_id = team_id.to_i
+
+    filtered_games = []
+    @games.each do |game_id, game|
+      if game.home_team_id == team_id || game.away_team_id == team_id
+        filtered_games.push(game)
+      end
+    end
+
+    wins = filtered_games.find_all do |game|
+      (game.away_team_id == team_id && game.home_goals < game.away_goals) ||
+      (game.home_team_id == team_id && game.home_goals > game.away_goals)
+    end
+
+    biggest_blowout = 0
+    wins.each do |win|
+      if biggest_blowout < (win.home_goals - win.away_goals).abs
+        biggest_blowout = (win.home_goals - win.away_goals).abs
+      end
+    end
+    biggest_blowout.to_i
+    # require 'pry'; binding.pry
+  end
+
+
 end
