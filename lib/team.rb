@@ -18,4 +18,8 @@ class Team
     @games = team_hash[:games]
   end
 
+  def total_goals
+    @games.values.sum { |game| game.total_goals }
+  end
+
 end
