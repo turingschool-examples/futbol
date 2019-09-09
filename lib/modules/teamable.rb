@@ -13,7 +13,7 @@ module Teamable
   end
 
   def average_win_percentage(team_id)
-    
+
   end
 
   def most_goals_scored(team_id)
@@ -32,7 +32,7 @@ module Teamable
 
   end
 
-  def biggest_blowout(team_id)
+  def biggest_team_blowout(team_id)
 
   end
 
