@@ -1,12 +1,13 @@
 module SeasonStat
 
-  def team_info(team_id)
+  def team_game_info(team_id)
     team_info_hash = Hash.new
     team_info_hash["team_id"] = team_id
     team_info_hash["franchise_id"] = all_teams[team_id].franchise_id
     team_info_hash["team_name"] = all_teams[team_id].team_name
     team_info_hash["abbreviation"] = all_teams[team_id].abbreviation
     team_info_hash["link"] = all_teams[team_id].link
+    team_info_hash["game_teams_objs"] = seasons_to_game_teams(team_id).values.flatten
     team_info_hash
   end
 
@@ -23,6 +24,12 @@ module SeasonStat
       end
     end
     season_games
+  end
+
+  def game_results(team_id)
+    team_game_info(team_id)["game_teams_objs"].group_by do |game_team_obj|
+      game_team_obj.result
+    end
   end
 
   def best_season(team_id)
@@ -52,34 +59,21 @@ module SeasonStat
   end
 
   def average_win_percentage(team_id)
-    wins = []
-    games = []
-    all_game_teams.each do |game_id, hash_pair|
-      hash_pair.each do |key, game_team_obj|
-        if team_id == game_team_obj.team_id
-          if game_team_obj.result == "WIN"
-            wins << game_team_obj
-          end
-          games << game_team_obj
-        end
-      end
-    end
-    (wins.length / games.length.to_f).round(2)
+    (game_results(team_id)["WIN"].length / team_game_info(team_id)["game_teams_objs"]
+    .length.to_f).round(2)
   end
 
   def most_goals_scored(team_id)
-    all_games_for_team = seasons_to_game_teams(team_id).values.flatten
-    highest_scoring_game = all_games_for_team.max_by do |game_team_obj|
+    highest_scoring_game = team_game_info(team_id)["game_teams_objs"].max_by do |game_team_obj|
       game_team_obj.goals
     end
     highest_scoring_game.goals
   end
 
   def fewest_goals_scored(team_id)
-    all_games_for_team = seasons_to_game_teams(team_id).values.flatten
-    lowest_scoring_game = all_games_for_team.min_by do |game_team_obj|
+    lowest_scoring_game = team_game_info(team_id)["game_teams_objs"].min_by do |game_team_obj|
       game_team_obj.goals
     end
     lowest_scoring_game.goals
-  end 
+  end
 end
