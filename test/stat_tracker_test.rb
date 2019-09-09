@@ -164,4 +164,46 @@ class StatTrackerTest < Minitest::Test
     assert_equal 5, @stat_tracker.biggest_team_blowout("18")
   end
 
+  def test_worst_loss
+    assert_equal 4, @stat_tracker.worst_loss("18")
+  end
+
+  def test_head_to_head
+    expected = {
+     "Atlanta United"=>0.5,
+     "Chicago Fire"=>0.3,
+     "FC Cincinnati"=>0.39,
+     "DC United"=>0.8,
+     "FC Dallas"=>0.4,
+     "Houston Dynamo"=>0.4,
+     "Sporting Kansas City"=>0.25,
+     "LA Galaxy"=>0.29,
+     "Los Angeles FC"=>0.44,
+     "Montreal Impact"=>0.33,
+     "New England Revolution"=>0.47,
+     "New York City FC"=>0.6,
+     "New York Red Bulls"=>0.4,
+     "Orlando City SC"=>0.37,
+     "Portland Timbers"=>0.3,
+     "Philadelphia Union"=>0.44,
+     "Real Salt Lake"=>0.42,
+     "San Jose Earthquakes"=>0.33,
+     "Seattle Sounders FC"=>0.5,
+     "Toronto FC"=>0.33,
+     "Vancouver Whitecaps FC"=>0.44,
+     "Chicago Red Stars"=>0.48,
+     "Houston Dash"=>0.1,
+     "North Carolina Courage"=>0.2,
+     "Orlando Pride"=>0.47,
+     "Portland Thorns FC"=>0.45,
+     "Reign FC"=>0.33,
+     "Sky Blue FC"=>0.3,
+     "Utah Royals FC"=>0.6,
+     "Washington Spirit FC"=>0.67,
+     "Columbus Crew SC"=>0.5
+    }
+
+    assert_equal expected, @stat_tracker.head_to_head("18")
+  end
+
 end
