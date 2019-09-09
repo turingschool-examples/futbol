@@ -8,7 +8,7 @@ require_relative '../lib/game_teams'
 class LeagueStatsSupportTest < MiniTest::Test
 
   def setup
-    locations = { games: './data/dummy_games.csv', teams: './data/dummy_teams.csv', game_teams: './data/dummy_game_teams.csv' }
+    locations = { games: './data/dummy_games.csv', teams: './data/teams.csv', game_teams: './data/dummy_game_teams.csv' }
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
@@ -141,19 +141,19 @@ class LeagueStatsSupportTest < MiniTest::Test
   end
 
   def test_highest_scoring_visitor
-    assert_equal "24", @stat_tracker.highest_scoring_visitor
+    assert_equal "Real Salt Lake", @stat_tracker.highest_scoring_visitor
   end
 
   def test_highest_scoring_home_team
-  assert_equal "20", @stat_tracker.highest_scoring_home_team
+  assert_equal "New York City FC", @stat_tracker.highest_scoring_home_team
   end
 
   def test_lowest_scoring_visitor
-    assert_equal "9", @stat_tracker.lowest_scoring_visitor
+    assert_equal "New York Red Bulls", @stat_tracker.lowest_scoring_visitor
   end
 
   def test_lowest_scoring_home_team
-    assert_equal "8", @stat_tracker.lowest_scoring_home_team
+    assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_home_team
   end
 
   def test_generate_wins
