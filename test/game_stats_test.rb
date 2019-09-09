@@ -36,7 +36,7 @@ class GameStatsTest < MiniTest::Test
   end
 
   def test_count_of_games_by_season
-    assert_equal (    expected = {
+    assert_equal ({
       "20122013"=>806,
       "20162017"=>1317,
       "20142015"=>1319,
@@ -51,7 +51,7 @@ class GameStatsTest < MiniTest::Test
   end
 
   def test_average_goals_by_season
-    assert_equal (    expected = {
+    assert_equal ({
       "20122013"=>4.12,
       "20162017"=>4.23,
       "20142015"=>4.14,
