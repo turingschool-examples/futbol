@@ -4,40 +4,26 @@ module Teamable
 
   #A hash with key/value pairs for each of the attributes of a team.	Hash
   #JP
-<<<<<<< HEAD
-  def team_info#(team_id)
-    # all_teams_hash = self.teams
-    all_teams_hash = Hash.new
-    attributes_array = []
-    self.teams.each_value do |team_obj|
-      attributes_array = team_obj.instance_variables.to_s.delete_prefix(":@")
-      # all_teams_hash.each do |key, value|
-    end
-    # self.teams.each do |team_id, team_obj|
-    #   all_teams_hash[team_id.to_s]
-    # end
-    # all_teams_hash.each_value do |team_hash|
-    #   team_hash.delete(:stadium)
-    # end
-    #add additional attributes?
-    # all_teams_hash.each do |key_id, attr_hash|
-    #   self.game_teams.each do |game_team_obj|
-    #     if game_team_obj.team_id.to_s == key_id
-    #       # Enter the attributes you want.
-    #       attr_hash[new_key] = game_team_obj.new_value
-    #       end
-    #     end
-    #   end
-    # all_teams_hash
-    binding.pry
-=======
-  def team_info(team_id)
-    #your beautiful code
->>>>>>> 0920db58466846ac67ac85fee6871021a6d84468
-  end
 
-  #Season with the highest win percentage for a team.	Integer
-  #JP
+  def team_info(teamid)
+    team_info_hash = Hash.new
+    iv_name_array = []
+    iv_values_array = []
+
+    self.teams.each do |team_id, team_obj|
+      if team_id == teamid
+        # in iv_name array use capital letters as a separator to introduce spacing, then downcase
+        iv_name_array = team_obj.instance_variables
+        until iv_name_array == []
+            iv_values_array << team_obj.instance_variable_get("#{iv_name_array[0]}")
+            team_info_hash[iv_name_array.shift.to_s[1..-1]] = iv_values_array.shift
+        end
+      end
+    end
+    #remove stadium key/value pair from team_info_hash
+    team_info_hash
+  end
+  
   def best_season(team_id)
     #your beautiful code
   end
