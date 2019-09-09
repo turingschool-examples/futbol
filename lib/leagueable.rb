@@ -6,20 +6,23 @@ module Leagueable
 
     ## HELPER METHODS ##
 
-  # Create hash with team ids as keys and the total goals scored for each team as values
-  def total_goals_helper
+  # Create hash with team ids as keys and the total goals scored for each team
+  # as values
+  def total_goals_helper(team_id = 0)
     teams_total_goals = Hash.new
-    self.teams.each_key do |team_id|
-      teams_total_goals[team_id] = 0
-    end
 
-    self.game_teams.each do |game_team_obj|
-      teams_total_goals.each_key do |team_id_key|
-        if game_team_obj.team_id == team_id_key
-          teams_total_goals[team_id_key] += game_team_obj.goals
-        end
+    if team_id == "0" #all teams in hash
+      self.games.each_value do |game|
+        teams_total_goals[game.away_team_id] += game.away_goals
+        teams_total_goals[game.home_team_id] += game.home_goals
+      end
+    else  #for only one team (away or home)
+      self.games.each_value do |game|
+        teams_total_goals[team_id] += game.away_goals if game.away_team_id == team_id
+        teams_total_goals[team_id] += game.home_goals if game.home_team_id == team_id
       end
     end
+
     teams_total_goals
   end
 
@@ -87,44 +90,53 @@ module Leagueable
   end
 
   # Create hash with team ids as keys and the total games played for each team as values
-  def total_games_helper
-    teams_total_games = Hash.new
-    self.teams.each_key do |team_id|
-      teams_total_games[team_id] = 0
-    end
+  def total_games_helper(team_id = "0")
+    teams_total_games = Hash.new(0)
 
-    self.game_teams.each do |game_team_obj|
-      teams_total_games.each_key do |team_id_key|
-        if game_team_obj.team_id == team_id_key
-          teams_total_games[team_id_key] += 1
-        end
+    if team_id == "0" #all teams in hash
+      self.games.each_value do |game|
+        teams_total_games[game.away_team_id] += 1
+        teams_total_games[game.home_team_id] += 1
+      end
+    else  #for only one team (away or home)
+      self.games.each_value do |game|
+        teams_total_games[team_id] += 1 if game.away_team_id == team_id
+        teams_total_games[team_id] += 1 if game.home_team_id == team_id
       end
     end
+
+
     teams_total_games
   end
 
   # Create hash with team ids as keys and the total away games played for each team as values
-  def total_away_games_helper
-    teams_total_away_games = Hash.new
-    self.teams.each_key do |team_id|
-      teams_total_away_games[team_id] = 0
-    end
+  # def total_away_games_helper
+  #   teams_total_away_games = Hash.new
+  #   self.teams.each_key do |team_id|
+  #     teams_total_away_games[team_id] = 0
+  #   end
+  #
+  #   self.game_teams.each do |game_team_obj|
+  #     teams_total_away_games.each_key do |team_games_id|
+  #       if  (game_team_obj.team_id == team_games_id) && (game_team_obj.hoa == "away")
+  #         teams_total_away_games[team_games_id] += 1
+  #       end
+  #     end
+  #   end
+  #   teams_total_away_games
+  # end
 
-    self.game_teams.each do |game_team_obj|
-      teams_total_away_games.each_key do |team_games_id|
-        if  (game_team_obj.team_id == team_games_id) && (game_team_obj.hoa == "away")
-          teams_total_away_games[team_games_id] += 1
-        end
-      end
-    end
-    teams_total_away_games
-  end
-
-  def total_away_games_helper2
+  def total_away_games_helper(team_id = "0")
     teams_total_away_games = Hash.new(0)
 
-    self.games.each_value do |game|
-          teams_total_away_games[game.away_team_id] += 1
+    if team_id == "0" #all teams in hash
+      self.games.each_value do |game|
+        teams_total_away_games[game.away_team_id] += 1
+      end
+    else  #for only one away team
+      self.games.each_value do |game|
+        teams_total_away_games[team_id] += 1 if game.away_team_id == team_id
+      end
     end
     teams_total_away_games
   end
@@ -190,21 +202,37 @@ module Leagueable
   end
 
   # Create hash with team ids as keys and the total wins for each team as values
-  def total_wins_helper
-    teams_total_wins = Hash.new
-    self.teams.each_key do |team_id|
-      teams_total_wins[team_id] = 0
-    end
-
-    # Iterate through game_teams.
-    # Assign the correct team's wins to the respective key value pair.
-    self.game_teams.each do |game_team_obj|
-      teams_total_wins.each_key do |team_id_key|
-        if (game_team_obj.team_id == team_id_key) && (game_team_obj.result == "WIN")
-          teams_total_wins[team_id_key] += 1
+  def total_wins_helper(team_id = "0")
+    teams_total_wins = Hash.new(0)
+    # self.teams.each_key do |team_id|
+    #   teams_total_wins[team_id] = 0
+    # end
+    #
+    # # Iterate through game_teams.
+    # # Assign the correct team's wins to the respective key value pair.
+    # self.game_teams.each do |game_team_obj|
+    #   teams_total_wins.each_key do |team_id_key|
+    #     if (game_team_obj.team_id == team_id_key) && (game_team_obj.result == "WIN")
+    #       teams_total_wins[team_id_key] += 1
+    #     end
+    #   end
+    # end
+    if team_id == "0" #all teams in hash
+      self.games.each_value do |game|
+        if game.home_goals > game.away_goals
+          teams_total_wins[game.home_team_id] += 1
+        elsif game.away_goals > game.home_goals
+          teams_total_wins[game.away_team_id] += 1
         end
       end
+    else  #for only one team (away or home)
+      # self.games.each_value do |game|
+      #   teams_total_wins[team_id] += game.away_goals if game.away_team_id == team_id
+      #   teams_total_wins[team_id] += game.home_goals if game.home_team_id == team_id
+      # end
     end
+
+
     teams_total_wins
   end
 
@@ -383,7 +411,7 @@ module Leagueable
     end
 
     #turn sum into average
-    away_goals.merge!(total_away_games_helper2)  do |key, oldval, newval|
+    away_goals.merge!(total_away_games_helper)  do |key, oldval, newval|
       (oldval / newval).round(2)
     end
 
@@ -433,7 +461,7 @@ module Leagueable
     end
 
     #turn sum into average
-    away_goals.merge!(total_away_games_helper2)  do |key, oldval, newval|
+    away_goals.merge!(total_away_games_helper)  do |key, oldval, newval|
       (oldval / newval).round(2)
     end
 
