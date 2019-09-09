@@ -71,6 +71,17 @@ module Gameable
   end
 
   def average_goals_by_season
-
+    season_hash = {}
+    seasons.each do |season_id, season|
+      total_goals = 0
+      season.teams.values.each do |team|
+        total_goals += team.games.values.sum do |game|
+          game.home_team[:goals] + game.away_team[:goals]
+        end
+      end
+      game_count = season.teams.values.sum {|team| team.games.count}
+      season_hash[season_id] = (total_goals)/game_count.to_f
+    end
+    season_hash
   end
 end
