@@ -54,30 +54,28 @@ class TeamStatsTest < MiniTest::Test
   # def test_favorite_opponent
   #   assert_equal "DC United", @stat_tracker.favorite_opponent("18")
   # end
+# #
+# # # name of the opponent that has the highest win percentage against the given
+# # # team – String
+#   def test_rival
+#     assert_equal "LA Galaxy", @stat_tracker.rival("18")
+#   end
 #
-# # name of the opponent that has the highest win percentage against the given
-# # team – String
-  # def test_rival
-  #   assert_equal "Houston Dash", @stat_tracker.rival("18")
-  # end
-#
-# # biggest difference between team goals and opponent goals for a win for the
-# # given team – Integer
-  def test_biggest_team_blowout
-    assert_equal 5, @stat_tracker.biggest_team_blowout("18")
-  end
-#
+# biggest difference between team goals and opponent goals for a win for the
+# given team – Integer
+#   def test_biggest_team_blowout
+#     assert_equal 5, @stat_tracker.biggest_team_blowout("18")
+#   end
+# # #
 # #  biggest difference between team goals and opponent goals for a loss for the
 # # given team – Integer
 #   def test_worst_loss
-#     skip
 #     assert_equal 4, @stat_tracker.worst_loss("18")
 #   end
 #
-# # record (as a hash - win/loss) against all opponents with the opponents’ names
-# # as keys and the win percentage against that opponent as a value – Hash
+# record (as a hash - win/loss) against all opponents with the opponents’ names
+# as keys and the win percentage against that opponent as a value – Hash
 #   def test_head_to_head
-#     skip
 #     expected = {
 #      "Atlanta United"=>0.5,
 #      "Chicago Fire"=>0.3,
@@ -113,13 +111,16 @@ class TeamStatsTest < MiniTest::Test
 #     }
 #     assert_equal expected, @stat_tracker.head_to_head("18")
 #   end
-#
-# # for each season that the team has played, a hash that has two keys
-# # (:regular_season and :postseason), that each point to a hash with the
-# # following keys: :win_percentage, :total_goals_scored, :total_goals_against,
+    def test_generate_post_and_regular
+      assert_equal ({}), @stat_tracker.generate_post_and_regular("18")
+    end
+
+
+# for each season that the team has played, a hash that has two keys
+# (:regular_season and :postseason), that each point to a hash with the
+# following keys: :win_percentage, :total_goals_scored, :total_goals_against,
 # # :average_goals_scored, :average_goals_against – Hash
 #   def test_seasonal_summary
-#     skip
 #     expected = {"20162017"=>
 #        {:postseason=>
 #          {:win_percentage=>0.59,
@@ -203,13 +204,13 @@ class TeamStatsTest < MiniTest::Test
 #   end
 
 # helper methods
-
-  def test_worst_and_best_season
-    
-  end
-
-  def test_best_and_worst_opponent
-
-  end
+  #
+  # def test_worst_and_best_season
+  #
+  # end
+  #
+  # def test_best_and_worst_opponent
+  #
+  # end
 
 end
