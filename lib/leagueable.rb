@@ -108,10 +108,19 @@ module Leagueable
 
     self.game_teams.each do |game_team_obj|
       teams_total_away_games.each_key do |team_games_id|
-        if  (game_team_obj.team_id == team_games_id) && (game_team_obj.hoa == "home")
+        if  (game_team_obj.team_id == team_games_id) && (game_team_obj.hoa == "away")
           teams_total_away_games[team_games_id] += 1
         end
       end
+    end
+    teams_total_away_games
+  end
+
+  def total_away_games_helper2
+    teams_total_away_games = Hash.new(0)
+
+    self.games.each_value do |game|
+          teams_total_away_games[game.away_team_id] += 1
     end
     teams_total_away_games
   end
@@ -129,6 +138,15 @@ module Leagueable
           teams_total_home_games[team_games_id] += 1
         end
       end
+    end
+    teams_total_home_games
+  end
+
+  def total_home_games_helper2
+    teams_total_home_games = Hash.new(0)
+
+    self.games.each_value do |game|
+          teams_total_home_games[game.home_team_id] += 1
     end
     teams_total_home_games
   end
@@ -352,6 +370,7 @@ module Leagueable
   # AM (complete)
   def highest_scoring_visitor
     away_goals = Hash.new(0.00)
+
     #get sum of away_goals per away team (hash output)
     helper_unique_away_teams_array.each do |team_id|
       self.games.each_value do |game|
@@ -360,7 +379,7 @@ module Leagueable
     end
 
     #turn sum into average
-    away_goals.merge!(total_away_games_helper)  do |key, oldval, newval|
+    away_goals.merge!(total_away_games_helper2)  do |key, oldval, newval|
       (oldval / newval).round(2)
     end
 
@@ -385,7 +404,7 @@ module Leagueable
     end
 
     #turn sum into average
-    home_goals.merge!(total_home_games_helper)  do |key, oldval, newval|
+    home_goals.merge!(total_home_games_helper2)  do |key, oldval, newval|
       (oldval / newval).round(2)
     end
 
@@ -410,7 +429,7 @@ module Leagueable
     end
 
     #turn sum into average
-    away_goals.merge!(total_away_games_helper)  do |key, oldval, newval|
+    away_goals.merge!(total_away_games_helper2)  do |key, oldval, newval|
       (oldval / newval).round(2)
     end
 
@@ -435,7 +454,7 @@ module Leagueable
     end
 
     #turn sum into average
-    home_goals.merge!(total_home_games_helper)  do |key, oldval, newval|
+    home_goals.merge!(total_home_games_helper2)  do |key, oldval, newval|
       (oldval / newval).round(2)
     end
 
