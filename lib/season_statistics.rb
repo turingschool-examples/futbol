@@ -9,14 +9,25 @@ module SeasonStatistics
       ps_game = games.find_all do |game|
         @games[game.game_id].type == "Postseason"
       end
-    require'pry';binding.pry
     end
   end
-end
 
-    # post_season_games = games_by_season[season].find_all do |game|
-    #   game.season == "Postseason"
-    # end
-    # regular_season_games = games_by_season[season].find_all do |game|
-    #   game.season == "Regular Season"
-    # end
+  def most_tackles(season_id)
+    filtered_games = @game_teams.find_all do |game|
+      @games[game.game_id].season == season_id
+    end
+
+    games_by_teams = filtered_games.group_by(&:team_id)
+
+    most_tackles_team_id = nil
+    most_tackles = 0
+    games_by_teams.each do |team_id, games_arr|
+      tackles = games_arr.sum {|game| game.tackles}
+      if tackles > most_tackles
+        most_tackles_team_id = team_id
+        most_tackles = tackles
+      end
+    end
+    @teams[most_tackles_team_id].team_name
+  end
+end
