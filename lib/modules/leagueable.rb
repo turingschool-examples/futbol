@@ -67,11 +67,53 @@ module Leagueable
     winningest.name
   end
 
-  def best_fans
+  ###################################################
+  # These need to be refactored.                    #
+  # total_home/away_games is an expensive operation #
+  # These are also basically the same methods       #
+  ###################################################
 
+  def best_fans
+    home_away_hash = {}
+
+    teams.values.each do |team|
+      home_game_wins = 0
+      away_game_wins = 0
+      team.games.values.each do |game|
+        if team.win?(game)
+          home_game_wins += 1 if team.home_team?(game)
+          away_game_wins += 1 if !team.home_team?(game)
+        end
+      end
+      
+      home_win_percentage = home_game_wins / team.total_home_games.to_f
+      away_win_percentage = away_game_wins / team.total_away_games.to_f
+      
+      home_away_hash[team] = home_win_percentage - away_win_percentage
+    end
+    home_away_hash.max_by { |_, value| value }.first.name
   end
 
   def worst_fans
-    
+    home_away_hash = {}
+
+    teams.values.each do |team|
+      home_game_wins = 0
+      away_game_wins = 0
+      team.games.values.each do |game|
+        if team.win?(game)
+          home_game_wins += 1 if team.home_team?(game)
+          away_game_wins += 1 if !team.home_team?(game)
+        end
+      end
+      
+      home_win_percentage = home_game_wins / team.total_home_games.to_f
+      away_win_percentage = away_game_wins / team.total_away_games.to_f
+      
+      home_away_hash[team] = home_win_percentage - away_win_percentage
+    end
+    home_away_hash
+      .select { |team, percentage| percentage < 0.0 }
+      .keys.map { |team| team.name }
   end
 end
