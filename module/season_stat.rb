@@ -23,6 +23,7 @@ module SeasonStat
         end
       end
     end
+    # binding.pry
     season_games
   end
 

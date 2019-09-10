@@ -6,6 +6,7 @@ require_relative '../module/league_stat'
 require_relative '../module/team_stat'
 require_relative '../module/season_stat'
 require_relative '../module/opponent_stat'
+require_relative '../module/seasonal_sumary_stat'
 require 'csv'
 
 class StatTracker
@@ -14,6 +15,7 @@ class StatTracker
   include TeamStat
   include SeasonStat
   include OpponentStat
+  include SeasonalSumaryStat
   attr_reader :all_teams, :all_games, :all_game_teams
 
   def initialize(team_hash, game_hash, game_teams_array)
