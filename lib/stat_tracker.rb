@@ -1,11 +1,11 @@
 require 'csv'
-require './lib/game'
-require './lib/team'
-require './lib/season'
-require './lib/modules/gameable'
-require './lib/modules/leagueable'
-require './lib/modules/teamable'
-require './lib/modules/seasonable'
+require_relative './game'
+require_relative './team'
+require_relative './season'
+require_relative './modules/gameable'
+require_relative './modules/leagueable'
+require_relative './modules/teamable'
+require_relative './modules/seasonable'
 
 
 class StatTracker
@@ -115,7 +115,7 @@ class StatTracker
   def self.create_game_hash(game_line)
     {
       id:         game_line["game_id"].to_i,
-      season:     game_line["season"].to_i,
+      season:     game_line["season"],
       type:       game_line["type"],
       date_time:  game_line["date_time"],
       venue:      game_line["venue"],
