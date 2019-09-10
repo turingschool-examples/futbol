@@ -569,6 +569,7 @@ module Leagueable
 
     # NOTE!!!!!!!!!!!!
     # Team_id #7 has 65 away wins and 64 home wins, not consistent with testing expectations.
+    # Spec harness updated, should be correct now.
     worst_fans_collection
 
   end

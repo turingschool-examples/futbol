@@ -59,25 +59,33 @@ module Seasonable
   def coach_win_percentage_helper(season) #ALL Coaches. Hash. Key = coach name, Value = win percentage
     coach_array = coach_array_helper
     coach_win_game_hash = Hash.new(0)
-    coach_win_per
+    coach_win_percentage_hash = Hash.new(0)
     until coach_array == []
-      coach_win_game_hash[coach_array.shift]
+      coach_win_game_hash[coach_array.shift] = { :wins => 0,
+                                                :games => 0}
     end
+
     self.game_teams.each do |game_obj|
-      coach_win_game_hash.each_key do |coach|
-        if coach == game_obj.head_coach
+      coach_win_game_hash.each do |coach, win_game_hash|
+        # binding.pry
+        if coach == game_obj.head_coach && season_converter(season) == game_obj.game_id.to_s[0..3].to_i
           if game_obj.result == "WIN"
-            [coach][:win] += 1
-            [coach][:games] += 1
+            win_game_hash[:wins] += 1
+            win_game_hash[:games] += 1
           elsif game_obj.result == "LOSS"
-            [coach][:games] += 1
+            win_game_hash[:games] += 1
           end
+        # binding.pry
         end
       end
     end
-    coach_win_game_hash.each do |coach, win_games|
 
+    win_percentage = nil
+    coach_win_game_hash.each do |coach, win_games|
+      win_percentage = ((win_games[:wins]).to_f / (win_games[:games]).to_f).round(2)
+      coach_win_percentage_hash[coach] = win_percentage
     end
+    coach_win_percentage_hash
   end
 
   def coach_array_helper #All uniq coaches in an array
@@ -86,6 +94,12 @@ module Seasonable
       coach_array << game_obj.head_coach
     end
     coach_array.uniq!.sort!
+  end
+
+  def season_converter(season)
+    #convert full season to first 4 characters
+    shortened_season = season[0..3]
+    shortened_season.to_i
   end
 
   def shots_helper(season) #ALL Teams. Hash. Key = Team_id, Value = shots
