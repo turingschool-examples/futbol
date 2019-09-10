@@ -156,7 +156,53 @@ module Teamable
   #Name of the opponent that has the highest win percentage against the given team.	String
   #BB
   def rival(team_id)
+    # creates a hash full of opponent ids and sets the values to 0
+    opponents_number_of_wins = Hash.new(0.00)
+    games_for_team_helper(team_id).each do |game|
+      opponents_number_of_wins.store(game.away_team_id, 0.00) if game.away_team_id != team_id
+      opponents_number_of_wins.store(game.home_team_id, 0.00) if game.home_team_id != team_id
+    end
 
+    # set the value to the number of wins over
+    opponents_number_of_wins.each do |key, value|
+       opponents_number_of_wins[key] = total_wins_array_helper(team_id, key)
+    end
+
+    # creates a hash full of opponent ids and sets the values to 0
+    opponents_number_of_games = Hash.new(0.00)
+    games_for_team_helper(team_id).each do |game|
+      opponents_number_of_games.store(game.away_team_id, 0.00) if game.away_team_id != team_id
+      opponents_number_of_games.store(game.home_team_id, 0.00) if game.home_team_id != team_id
+    end
+
+    # set the value to the number of games played
+    opponents_number_of_games.each do |key, value|
+       opponents_number_of_games[key] = total_games_array_helper(team_id, key)
+    end
+
+    # make a new hash to check the percent of wins against the passed in team
+    opponents_percentage_of_wins = Hash.new(0.00)
+    games_for_team_helper(team_id).each do |game|
+      opponents_percentage_of_wins.store(game.away_team_id, 0.00) if game.away_team_id != team_id
+      opponents_percentage_of_wins.store(game.home_team_id, 0.00) if game.home_team_id != team_id
+    end
+
+    # Check for matching team ids and return the percent of games won for that team
+    opponents_percentage_of_wins.each do |key_3, value_3|
+      opponents_number_of_wins.each do |key_1, value_1|
+        opponents_number_of_games.each do |key_2, value_2|
+          if key_1 == key_2 && key_1 == key_3
+            opponents_percentage_of_wins[key_3] = (value_1 / value_2)
+          end
+        end
+      end
+    end
+
+    # find the max percent id from the opponents_percentage_of_wins hash
+    favorite_opponent_id = opponents_percentage_of_wins.min_by{|k,v| v}
+    favorite_opponent = favorite_opponent_id[0]
+
+    team_name_finder_helper(favorite_opponent)
   end
 
   #Biggest difference between team goals and opponent goals for a win
