@@ -6,14 +6,14 @@ class TeamTest < Minitest::Test
 
   def setup
     @game_hash = {
-      id: 2012030221,
-      season: 20122013,
+      id: "2012030221",
+      season: "20122013",
       type: "Postseason",
       date_time: "5/16/13",
       venue: "Toyota Stadium",
       venue_link: "/api/v1/venues/null",
       away_team: {
-        id: 3,
+        id: "3",
         hoa: "away",
         result: "LOSS",
         head_coach: "John Tortorella",
@@ -28,7 +28,7 @@ class TeamTest < Minitest::Test
         takeaways: 7
       },
       home_team: {
-        id: 6,
+        id: "6",
         hoa: "home",
         result: "WIN",
         head_coach: "Claude Julien",
@@ -46,8 +46,8 @@ class TeamTest < Minitest::Test
     @game = Game.new(@game_hash)
 
     @team_hash = {
-     team_id: 6,
-     franchiseId: 23,
+     team_id: "6",
+     franchiseId: "23",
      teamName: "Atlanta United",
      abbreviation: "ATL",
      Stadium: "Mercedes-Benz Stadium",
@@ -122,6 +122,6 @@ class TeamTest < Minitest::Test
   end
 
   def test_it_can_get_the_id_of_the_opponent_team
-    assert_equal 3, @team.opponent_id(@game)
+    assert_equal "3", @team.opponent_id(@game)
   end
 end

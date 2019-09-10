@@ -31,20 +31,20 @@ class StatTracker
     seasons_to_create = {}
     
     CSV.foreach(locations[:teams], headers: true) do |line|
-      if !teams_to_create.has_key?(line["team_id"].to_i)
-        teams_to_create[line["team_id"].to_i] = create_team_hash(line)
+      if !teams_to_create.has_key?(line["team_id"])
+        teams_to_create[line["team_id"]] = create_team_hash(line)
       end
     end
 
     CSV.foreach(locations[:games], headers: true) do |line|
-      if !games_to_create.has_key?(line["game_id"].to_i)
-        games_to_create[line["game_id"].to_i] = create_game_hash(line)
+      if !games_to_create.has_key?(line["game_id"])
+        games_to_create[line["game_id"]] = create_game_hash(line)
       end
     end
   
     CSV.foreach(locations[:game_teams], headers: true) do |line|
       team_data = create_game_team_hash(line)
-      id = line["game_id"].to_i
+      id = line["game_id"]
       games_to_create[id][:settled_in] = line["settled_in"]
 
       if line["HoA"] == "home"
@@ -102,8 +102,8 @@ class StatTracker
 
   def self.create_team_hash(team_line)
     {
-      team_id:      team_line["team_id"].to_i,
-      franchiseId:  team_line["franchiseId"].to_i,
+      team_id:      team_line["team_id"],
+      franchiseId:  team_line["franchiseId"],
       teamName:     team_line["teamName"],
       abbreviation: team_line["abbreviation"],
       Stadium:      team_line["Stadium"],
@@ -114,7 +114,7 @@ class StatTracker
 
   def self.create_game_hash(game_line)
     {
-      id:         game_line["game_id"].to_i,
+      id:         game_line["game_id"],
       season:     game_line["season"],
       type:       game_line["type"],
       date_time:  game_line["date_time"],
@@ -125,7 +125,7 @@ class StatTracker
 
   def self.create_game_team_hash(game_team_line)
     {
-      id:                       game_team_line["team_id"].to_i,
+      id:                       game_team_line["team_id"],
       hoa:                      game_team_line["HoA"],
       result:                   game_team_line["result"],
       head_coach:               game_team_line["head_coach"],
