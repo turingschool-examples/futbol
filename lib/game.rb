@@ -4,7 +4,8 @@ class Game
               :home_goals,
               :season,
               :away_team_id,
-              :home_team_id
+              :home_team_id,
+              :type
 
   def initialize(game)
     @game_id = game["game_id"].to_i
