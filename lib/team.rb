@@ -1,7 +1,7 @@
 class Team
   attr_reader :team_id,
-              :franchiseId,
-              :teamName,
+              :franchise_id,
+              :team_name,
               :abbreviation,
               :stadium,
               :link
