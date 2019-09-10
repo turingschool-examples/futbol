@@ -33,21 +33,21 @@ class GameableModuleTest < Minitest::Test
   end
 
   def test_percentage_home_wins
-    assert_equal 33.33, @stat_tracker.percentage_home_wins
+    assert_equal 0.33, @stat_tracker.percentage_home_wins
   end
 
   def test_percentage_visitor_wins
-    assert_equal 44.44, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.44, @stat_tracker.percentage_visitor_wins
   end
 
   def test_percentage_ties
-    assert_equal 22.22, @stat_tracker.percentage_ties
+    assert_equal 0.22, @stat_tracker.percentage_ties
   end
 
   def test_count_of_games_by_season
     expected_hash = {
-      20132014 => 10,
-      20142015 => 8
+      "20132014" => 10,
+      "20142015" => 8
     }
     assert_equal expected_hash, @stat_tracker.count_of_games_by_season
   end
@@ -58,8 +58,8 @@ class GameableModuleTest < Minitest::Test
 
   def test_average_goals_by_season
     expected_hash = {
-      20132014 => 3.70,
-      20142015 => 3.75
+      "20132014" => 3.70,
+      "20142015" => 3.75
     }
     assert_equal expected_hash, @stat_tracker.average_goals_by_season
   end
