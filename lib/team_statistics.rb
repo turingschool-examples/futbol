@@ -106,4 +106,142 @@ module TeamStatistics
       game.goals
     end.goals
   end
+
+  def favorite_opponent(team_id)
+    team_id = team_id.to_i
+
+    filtered_games = []
+    @games.each do |game_id, game|
+      if game.home_team_id == team_id || game.away_team_id == team_id
+        filtered_games.push(game)
+      end
+    end
+
+    losses = filtered_games.find_all do |game|
+      (game.away_team_id == team_id && game.home_goals >= game.away_goals) ||
+      (game.home_team_id == team_id && game.home_goals <= game.away_goals)
+    end
+
+    group = Hash.new(0)
+    losses.each do |game|
+      if game.home_team_id == team_id
+        group[game.away_team_id] += 1
+      elsif game.away_team_id == team_id
+        group[game.home_team_id] += 1
+      end
+    end
+    team_id = (group.min_by {|key, value| value})[0]
+    @teams[team_id].team_name
+  end
+
+  def rival(team_id)
+    team_id = team_id.to_i
+
+    filtered_games = []
+    @games.each do |game_id, game|
+      if game.home_team_id == team_id || game.away_team_id == team_id
+        filtered_games.push(game)
+      end
+    end
+
+    losses = filtered_games.find_all do |game|
+      (game.away_team_id == team_id && game.home_goals >= game.away_goals) ||
+      (game.home_team_id == team_id && game.home_goals <= game.away_goals)
+    end
+
+    group = Hash.new(0)
+    losses.each do |game|
+      if game.home_team_id == team_id
+        group[game.away_team_id] += 1
+      elsif game.away_team_id == team_id
+        group[game.home_team_id] += 1
+      end
+    end
+    team_id = (group.max_by {|key, value| value})[0]
+    @teams[team_id].team_name
+  end
+
+  def biggest_team_blowout(team_id)
+    team_id = team_id.to_i
+
+    filtered_games = []
+    @games.each do |game_id, game|
+      if game.home_team_id == team_id || game.away_team_id == team_id
+        filtered_games.push(game)
+      end
+    end
+
+    wins = filtered_games.find_all do |game|
+      (game.away_team_id == team_id && game.home_goals < game.away_goals) ||
+      (game.home_team_id == team_id && game.home_goals > game.away_goals)
+    end
+
+    biggest_blowout = 0
+    wins.each do |win|
+      if biggest_blowout < (win.home_goals - win.away_goals).abs
+        biggest_blowout = (win.home_goals - win.away_goals).abs
+      end
+    end
+    biggest_blowout.to_i
+    # require 'pry'; binding.pry
+  end
+
+  def worst_loss(team_id)
+    team_id = team_id.to_i
+
+    filtered_games = []
+    @games.each do |game_id, game|
+      if game.home_team_id == team_id || game.away_team_id == team_id
+        filtered_games.push(game)
+      end
+    end
+
+    losses = filtered_games.find_all do |game|
+      (game.away_team_id == team_id && game.home_goals > game.away_goals) ||
+      (game.home_team_id == team_id && game.home_goals < game.away_goals)
+    end
+
+    worst_loss = 0
+    losses.each do |loss|
+      if worst_loss < (loss.home_goals - loss.away_goals).abs
+        worst_loss = (loss.home_goals - loss.away_goals).abs
+      end
+    end
+    worst_loss.to_i
+  end
+
+  def head_to_head(team_id)
+    team_id = team_id.to_i
+
+    filtered_games = []
+    opponents = Hash.new(0)
+    head_averages = Hash.new(0)
+    @games.each do |game_id, game|
+      if game.home_team_id == team_id || game.away_team_id == team_id
+        filtered_games.push(game)
+      end
+      opponents_home = filtered_games.group_by do |game_o|
+        game_o.home_team_id
+      end
+      opponents_away = filtered_games.group_by do |game_a|
+        game_a.away_team_id
+      end
+      # require 'pry'; binding.pry
+      opponents = opponents_home.merge(opponents_away) do |team_id_m, home_value, away_value|
+        home_value + away_value
+      end
+      opponents.each do |opp_team_id, games|
+        win_average = games.find_all do |game_f|
+          (game_f.away_team_id == team_id && game_f.home_goals < game_f.away_goals) ||
+          (game_f.home_team_id == team_id && game_f.home_goals > game_f.away_goals)
+        end.length.to_f / games.length
+        head_averages[@teams[opp_team_id].team_name] = win_average.round(2)
+      end
+    end
+    head_averages.delete(@teams[team_id].team_name)
+    head_averages
+    # require 'pry'; binding.pry
+  end
+
+
 end
