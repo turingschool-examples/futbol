@@ -9,6 +9,7 @@ require_relative 'seasonable'
 require_relative 'leagueable_helper'
 require_relative 'teamable_helper'
 require_relative 'seasonable_helper'
+# require_relative 'goalable'
 
 
 class StatTracker
@@ -19,6 +20,7 @@ class StatTracker
   include LeagueableHelper
   include TeamableHelper
   include SeasonableHelper
+  # include Goalable
 
   attr_reader :games, :teams, :game_teams
 

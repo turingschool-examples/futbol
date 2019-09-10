@@ -97,7 +97,6 @@ module Leagueable
       team_with_best_defense = team_obj.team_name
       end
     end
-
     team_with_best_defense
   end
 
@@ -123,7 +122,6 @@ module Leagueable
         end
       end
     end
-
     team_with_worst_defense = team_name_finder_helper(worst_defense_team_id)
 
     team_with_worst_defense
