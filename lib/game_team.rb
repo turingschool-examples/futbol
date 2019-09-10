@@ -4,7 +4,9 @@ class GameTeam
               :hoa,
               :result,
               :goals,
-              :tackles
+              :tackles,
+              :shots,
+              :head_coach
 
   def initialize(game_team)
     @game_id = game_team["game_id"].to_i
