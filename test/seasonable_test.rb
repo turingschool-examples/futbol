@@ -1,4 +1,5 @@
 require './test/test_helper'
+require './lib/stat_tracker'
 require './lib/seasonable'
 
 class SeasonableTest < Minitest::Test
@@ -44,7 +45,7 @@ class SeasonableTest < Minitest::Test
   #JP
   def test_worst_coach
     assert_equal "Peter Laviolette", @stat_tracker.worst_coach("20132014")
-    assert_equal "Craig MacTavish", @stat_tracker.worst_coach("20142015")
+    assert_equal "Ted Nolan", @stat_tracker.worst_coach("20142015")
   end
 
   # Name of the Team with the best ratio of shots to goals for the season. Return:	String

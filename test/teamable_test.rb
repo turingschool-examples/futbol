@@ -90,7 +90,7 @@ class TeamableTest < Minitest::Test
   #Record (as a hash - win/loss) against all opponents with the opponents’ names as keys and the win percentage against that opponent as a value.	Hash
   #AM
   def test_head_to_head
-    expected = {
+    expected_1 = {
      "Atlanta United"=>0.5,
      "Chicago Fire"=>0.3,
      "FC Cincinnati"=>0.39,
@@ -124,7 +124,41 @@ class TeamableTest < Minitest::Test
      "Columbus Crew SC"=>0.5
     }
 
-    assert_equal expected, @stat_tracker.head_to_head("18")
+   expected_2 = {
+     "Atlanta United" => 0.6,
+     "Chicago Fire" => 0.8,
+     "Chicago Red Stars" => 0.63,
+     "Columbus Crew SC" => 0.75,
+     "DC United" => 1.0,
+     "FC Cincinnati" => 0.56,
+     "FC Dallas" => 0.7,
+     "Houston Dash" => 0.4,
+     "Houston Dynamo" => 0.7,
+     "LA Galaxy" => 0.36,
+     "Los Angeles FC" => 0.56,
+     "Montreal Impact" => 0.61,
+     "New England Revolution" => 0.63,
+     "New York City FC" => 0.8,
+     "New York Red Bulls" => 0.7,
+     "North Carolina Courage" => 0.5,
+     "Orlando City SC" => 0.59,
+     "Orlando Pride" => 0.6,
+     "Philadelphia Union" => 0.56,
+     "Portland Thorns FC" => 0.55,
+     "Portland Timbers" => 0.5,
+     "Real Salt Lake" => 0.74,
+     "Reign FC" => 0.67,
+     "San Jose Earthquakes" => 0.67,
+     "Seattle Sounders FC" => 0.6,
+     "Sky Blue FC" => 0.6,
+     "Sporting Kansas City" => 0.44,
+     "Toronto FC" => 0.61,
+     "Utah Royals FC" => 0.7,
+     "Vancouver Whitecaps FC" => 0.63,
+     "Washington Spirit FC" => 0.78,
+   }
+
+    assert_equal expected_1, @stat_tracker.head_to_head("18")
   end
 
   #For each season that the team has played, a hash that has two keys (:regular_season and :postseason), that each point to a hash with the following keys: :win_percentage, :total_goals_scored, :total_goals_against, :average_goals_scored, :average_goals_against.	Hash
