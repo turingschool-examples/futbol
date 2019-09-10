@@ -569,7 +569,7 @@ module Leagueable
 
     # NOTE!!!!!!!!!!!!
     # Team_id #7 has 65 away wins and 64 home wins, not consistent with testing expectations.
-    worst_fans_collection.first(1)
+    worst_fans_collection
 
   end
 
