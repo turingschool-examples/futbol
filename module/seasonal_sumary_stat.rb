@@ -21,39 +21,35 @@ module SeasonalSumaryStat
 
   def seasonal_summary(team_id)
     summary_hash = Hash.new
-    summary_hash[:regular_season] ||= {
-        win_percentage: 0,
-        total_goals_scored: 0,
-        total_goals_against: 0,
-        average_goals_scored: 0,
-        average_goals_against: 0
-      }
-
-    summary_hash[:postseason] ||= {
-      win_percentage: 0,
-      total_goals_scored: 0,
-      total_goals_against: 0,
-      average_goals_scored: 0,
-      average_goals_against: 0
-    }
     seasonal_summary_helper(team_id).each do |seasonid, hash_pair|
+      summary_hash[seasonid] ||= {postseason: nil, regular_season: nil}
       hash_pair.each do |pre_post_keys, game_team_obj_array|
-        summary_hash[pre_post_keys][:total_goals_scored] +=
+        summary_hash[seasonid][pre_post_keys] ||= {
+          win_percentage: 0,
+          total_goals_scored: 0,
+          total_goals_against: 0,
+          average_goals_scored: 0,
+          average_goals_against: 0
+        }
+        summary_hash[seasonid][pre_post_keys][:total_goals_scored] +=
           game_team_obj_array.sum {|game_team_obj| game_team_obj.goals}
-        summary_hash[pre_post_keys][:average_goals_scored] = (summary_hash[pre_post_keys][:total_goals_scored] / game_team_obj_array.length.to_f).round(2)
         if game_team_obj_array.any? {|game_team_obj| game_team_obj.result == "WIN"}
-          summary_hash[pre_post_keys][:win_percentage] =
+          summary_hash[seasonid][pre_post_keys][:win_percentage] =
             (game_team_obj_array.count {|game_team_obj| game_team_obj.result == "WIN"} / game_team_obj_array.length.to_f).round(2)
         else
-          summary_hash[pre_post_keys][:win_percentage] = 0
+          summary_hash[seasonid][pre_post_keys][:win_percentage] = 0.0
         end
         opponent_gts = opponent_summary(team_id, game_team_obj_array)
-        summary_hash[pre_post_keys][:total_goals_against] += opponent_gts.sum {|game_team_obj| game_team_obj.goals}
-        summary_hash[pre_post_keys][:average_goals_against] = (summary_hash[pre_post_keys][:total_goals_against] / game_team_obj_array.length.to_f).round(2)
+        summary_hash[seasonid][pre_post_keys][:total_goals_against] += opponent_gts.sum {|game_team_obj| game_team_obj.goals}
+        if game_team_obj_array.length > 0
+          summary_hash[seasonid][pre_post_keys][:average_goals_scored] = (summary_hash[seasonid][pre_post_keys][:total_goals_scored] / game_team_obj_array.length.to_f).round(2)
+          summary_hash[seasonid][pre_post_keys][:average_goals_against] = (summary_hash[seasonid][pre_post_keys][:total_goals_against] / game_team_obj_array.length.to_f).round(2)
+        else
+          summary_hash[seasonid][pre_post_keys][:average_goals_against] = 0.0
+        end
       end
     end
     summary_hash
-    binding.pry
   end
 
   def opponent_summary(team_id, gt_array)
@@ -66,30 +62,4 @@ module SeasonalSumaryStat
     oppo_game_teams.flatten!
     oppo_game_teams.reject {|gt_obj| gt_obj.team_id == team_id}
   end
-
-
-    #     if game.home_team_id == team_id
-    #       if game.type == 'Postseason'
-    #         summary_hash[:postseason][:total_goals_scored] += game.home_goals
-    #         summary_hash[:postseason][:total_goals_against] += game.away_goals
-    #       else
-    #         summary_hash[:regular_season][:total_goals_scored] += game.home_goals
-    #         summary_hash[:regular_season][:total_goals_against] += game.away_goals
-    #       end
-    #     elsif game.away_team_id == team_id
-    #       if game.type == 'Postseason'
-    #         summary_hash[:postseason][:total_goals_scored] += game.away_goals
-    #         summary_hash[:postseason][:total_goals_against] += game.home_goals
-    #       else
-    #         summary_hash[:regular_season][:total_goals_scored] += game.away_goals
-    #         summary_hash[:regular_season][:total_goals_against] += game.home_goals
-    #       end
-    #     end
-    #   end
-    # summary_hash[:regular_season][:average_goals_scored] = (summary_hash[:postseason][:total_goals_scored] / relavent_games.length.to_f).round(2)
-    # summary_hash[:regular_season][:average_goals_scored] = (summary_hash[:postseason][:total_goals_scored] / relavent_games.length.to_f).round(2)
-    # summary_hash[:postseason][:average_goals_against] = (summary_hash[:postseason][:total_goals_against] / relavent_games.length.to_f).round(2)
-    # summary_hash[:postseason][:average_goals_against] = (summary_hash[:postseason][:total_goals_against] / relavent_games.length.to_f).round(2)
-    # summary_hash
-  # end
 end
