@@ -1,7 +1,4 @@
-require 'pry'
-
 module Teamable
-  ### Methods ###
 
   #A hash with key/value pairs for each of the attributes of a team.	Hash
   #JP (Complete)
