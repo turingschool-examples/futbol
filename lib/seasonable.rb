@@ -48,4 +48,24 @@ module Seasonable
     # code goes here!
   end
 
+  ### Helper Methods ###
+
+  def regular_season_win_percentage_helper(season) #ALL Teams. Hash. Key = Team_id, Value = win percentage
+  end
+
+  def postseason_win_percentage_helper(season) #ALL Teams. Hash. Key = Team_id, Value = win percentage
+  end
+
+  def coach_win_percentage_helper(season) #ALL Coaches. Hash. Key = coach name, Value = win percentage
+  end
+
+  def shots_helper(season) #ALL Teams. Hash. Key = Team_id, Value = shots
+  end
+
+  def goals_helper(season) #ALL Teams. Hash. Key = Team_id, Value = goals
+  end
+
+  def tackles_helper(season) #ALL Teams. Hash. Key = Team_id, Value = tackles
+  end
+  
 end
