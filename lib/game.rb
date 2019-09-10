@@ -24,4 +24,5 @@ class Game
     @venue_link   = row["venue_link"]
 
   end
+
 end
