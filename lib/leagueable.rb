@@ -230,7 +230,6 @@ module Leagueable
   # Name of the team with the highest avg number of goals scored per game across all seasons. Return: String
   # JP (Complete)
   def best_offense
-  require 'pry';   binding.pry
     teams_total_goals = total_goals_helper
     teams_total_games = total_games_helper
 
