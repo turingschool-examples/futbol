@@ -37,21 +37,18 @@ class TeamableTest < Minitest::Test
   #Season with the highest win percentage for a team.	Integer
   #JP
   def test_best_season
-    skip
     assert_equal "20132014", @stat_tracker.best_season("6")
   end
 
   #Season with the lowest win percentage for a team.	Integer
   #JP
   def test_worst_season
-    skip
     assert_equal "20142015", @stat_tracker.worst_season("6")
   end
 
   #Average win percentage of all games for a team.	Float
   #JP
   def test_average_win_percentage
-    skip
     assert_equal 0.49, @stat_tracker.average_win_percentage("6")
   end
 
