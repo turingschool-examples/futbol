@@ -4,7 +4,8 @@ module Leagueable
 
   # Create hash with team ids as keys and the total goals scored for each team
   # as values
-  def total_goals_helper(team_id = 0)
+  #Returning empty hash
+  def total_goals_helper(team_id = "0")
     teams_total_goals = Hash.new
 
     if team_id == "0" #all teams in hash
@@ -38,7 +39,6 @@ module Leagueable
         teams_total_goals[team_id] += game.away_goals if game.home_team_id == team_id
       end
     end
-
     teams_total_goals_allowed
   end
 
@@ -163,6 +163,7 @@ module Leagueable
   end
 
   # Create hash with team ids as keys and the total wins for each team as values
+
   def total_wins_helper(team_id = "0")
     teams_total_wins = Hash.new(0)
 
@@ -180,6 +181,7 @@ module Leagueable
         teams_total_wins[team_id] += game.home_goals if game.home_team_id == team_id
       end
     end
+
 
     teams_total_wins
   end
@@ -250,9 +252,10 @@ module Leagueable
     team_with_best_offense = nil
     self.teams.each_value do |team_obj|
       if team_obj.team_id. == best_offense_team_id
-      team_with_best_offense = team_obj.teamName
+      team_with_best_offense = team_obj.team_name
       end
     end
+
     team_with_best_offense
   end
 
@@ -281,7 +284,7 @@ module Leagueable
     team_with_worst_offense = nil
     self.teams.each_value do |team_obj|
       if team_obj.team_id. == worst_offense_team_id
-      team_with_worst_offense = team_obj.teamName
+      team_with_worst_offense = team_obj.team_name
       end
     end
     team_with_worst_offense
@@ -312,9 +315,10 @@ module Leagueable
     team_with_best_defense = nil
     self.teams.each_value do |team_obj|
       if team_obj.team_id. == best_defense_team_id
-      team_with_best_defense = team_obj.teamName
+      team_with_best_defense = team_obj.team_name
       end
     end
+
     team_with_best_defense
   end
 
@@ -352,7 +356,7 @@ module Leagueable
     away_goals = Hash.new(0.00)
 
     #get sum of away_goals per away team (hash output)
-    require 'pry' ; binding.pry
+
     unique_away_teams_array_helper.each do |team_id|
       self.games.each_value do |game|
         away_goals[team_id] += (game.away_goals) if game.away_team_id == team_id
@@ -360,17 +364,17 @@ module Leagueable
     end
 
     #turn sum into average
-    binding.pry
+
     away_goals.merge!(total_away_games_helper)  do |key, oldval, newval|
       (oldval / newval).round(2)
     end
 
     #return highest
-    binding.pry
+
     highest_avg_hash = away_goals.max_by do |k, v|
       v
     end
-    binding.pry
+
     team_name_finder_helper(highest_avg_hash[0])
 
   end
