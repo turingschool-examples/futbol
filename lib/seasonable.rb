@@ -57,6 +57,35 @@ module Seasonable
   end
 
   def coach_win_percentage_helper(season) #ALL Coaches. Hash. Key = coach name, Value = win percentage
+    coach_array = coach_array_helper
+    coach_win_game_hash = Hash.new(0)
+    coach_win_per
+    until coach_array == []
+      coach_win_game_hash[coach_array.shift]
+    end
+    self.game_teams.each do |game_obj|
+      coach_win_game_hash.each_key do |coach|
+        if coach == game_obj.head_coach
+          if game_obj.result == "WIN"
+            [coach][:win] += 1
+            [coach][:games] += 1
+          elsif game_obj.result == "LOSS"
+            [coach][:games] += 1
+          end
+        end
+      end
+    end
+    coach_win_game_hash.each do |coach, win_games|
+
+    end
+  end
+
+  def coach_array_helper #All uniq coaches in an array
+    coach_array = []
+    self.game_teams.each do |game_obj|
+      coach_array << game_obj.head_coach
+    end
+    coach_array.uniq!.sort!
   end
 
   def shots_helper(season) #ALL Teams. Hash. Key = Team_id, Value = shots
@@ -67,5 +96,5 @@ module Seasonable
 
   def tackles_helper(season) #ALL Teams. Hash. Key = Team_id, Value = tackles
   end
-  
+
 end

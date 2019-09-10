@@ -260,9 +260,7 @@ module Teamable
       # require 'pry'; binding.pry
       # (game.away_team_id == opponent_team_id) ||
       # (game.home_team_id == opponent_team_id)
-
     # end.length
-
     total_games = []
     games_for_team_helper(team_id).each do |game|
       if game.away_team_id == opponent_team_id
@@ -273,8 +271,6 @@ module Teamable
     end
 
     total_games.length
-
-
   end
 
 end
