@@ -156,10 +156,10 @@ module Leagueable
         end
       end
     else  #for only one team (away or home)
-      # self.games.each_value do |game|
-      #   teams_total_wins[team_id] += game.away_goals if game.away_team_id == team_id
-      #   teams_total_wins[team_id] += game.home_goals if game.home_team_id == team_id
-      # end
+       self.games.each_value do |game|
+         teams_total_wins[team_id] += game.away_goals if game.away_team_id == team_id
+         teams_total_wins[team_id] += game.home_goals if game.home_team_id == team_id
+       end
     end
     teams_total_home_wins
   end
@@ -177,10 +177,10 @@ module Leagueable
         end
       end
     else  #for only one team (away or home)
-      # self.games.each_value do |game|
-      #   teams_total_wins[team_id] += game.away_goals if game.away_team_id == team_id
-      #   teams_total_wins[team_id] += game.home_goals if game.home_team_id == team_id
-      # end
+      self.games.each_value do |game|
+        teams_total_wins[team_id] += game.away_goals if game.away_team_id == team_id
+        teams_total_wins[team_id] += game.home_goals if game.home_team_id == team_id
+      end
     end
 
     teams_total_wins
