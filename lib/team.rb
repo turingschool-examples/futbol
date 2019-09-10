@@ -88,4 +88,20 @@ class Team
     home_team?(game) ? game.away_team[:id] : game.home_team[:id]
   end
 
+  def opponent_win_percentage
+    opponent_hash = {}
+    @games.values.each do |game|
+      if !opponent_hash.has_key?(opponent_id(game))
+        opponent_hash[opponent_id(game)] = {
+          games_won: win?(game) ? 1 : 0,
+          games_played: 1
+        }
+      else
+        opponent_hash[opponent_id(game)][:games_won] += 1 if win?(game)
+        opponent_hash[opponent_id(game)][:games_played] += 1
+      end
+    end
+    opponent_hash
+  end
+
 end
