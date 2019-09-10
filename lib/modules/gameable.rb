@@ -30,7 +30,7 @@ module Gameable
         num_home_wins += 1
       end
     end
-    ((num_home_wins.to_f/games.count.to_f) * 100).round(2)
+    (num_home_wins / games.count.to_f).round(2)
   end
 
   def percentage_visitor_wins
@@ -40,7 +40,7 @@ module Gameable
         num_visitor_wins += 1
       end
     end
-    ((num_visitor_wins.to_f/games.count.to_f) * 100).round(2)
+    (num_visitor_wins / games.count.to_f).round(2)
   end
 
   def percentage_ties
@@ -50,7 +50,7 @@ module Gameable
         num_ties += 1
       end
     end
-    ((num_ties.to_f/games.count.to_f) * 100).round(2)
+    (num_ties / games.count.to_f).round(2)
   end
 
   def count_of_games_by_season
@@ -80,7 +80,7 @@ module Gameable
         end
       end
       game_count = season.teams.values.sum {|team| team.games.count}
-      season_hash[season_id] = (total_goals)/game_count.to_f
+      season_hash[season_id] = (total_goals / game_count.to_f).round(2)
     end
     season_hash
   end

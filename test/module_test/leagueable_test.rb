@@ -65,6 +65,6 @@ class LeagueableModuleTest < Minitest::Test
   end
 
   def test_worst_fans
-    assert_equal ["Sporting Kansas City", "Chicago Fire"], @stat_tracker.worst_fans
+    assert_equal true, @stat_tracker.worst_fans.sort == ["Sporting Kansas City", "Chicago Fire"].sort
   end
 end
