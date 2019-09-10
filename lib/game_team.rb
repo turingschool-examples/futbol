@@ -1,5 +1,10 @@
 class GameTeam
-  attr_reader :game_id, :team_id, :hoa, :result, :goals
+  attr_reader :game_id,
+              :team_id,
+              :hoa,
+              :result,
+              :goals,
+              :tackles
 
   def initialize(game_team)
     @game_id = game_team["game_id"].to_i
