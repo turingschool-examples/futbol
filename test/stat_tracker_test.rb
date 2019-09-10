@@ -206,4 +206,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.head_to_head("18")
   end
 
+  def test_biggest_bust
+    assert_equal "Montreal Impact", @stat_tracker.biggest_bust("20132014")
+    assert_equal "Sporting Kansas City", @stat_tracker.biggest_bust("20142015")
+  end
+
 end
