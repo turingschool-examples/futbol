@@ -20,9 +20,8 @@ module TeamStatistics
       end
     end
 
-    games_by_season = filtered_games.group_by do |game|
-      game.season
-    end
+    # MEMOIZATION
+    games_by_season = filtered_games.group_by(&:season)
 
     season_win_avg = Hash.new(0)
     games_by_season.each do |season, games|
@@ -183,7 +182,6 @@ module TeamStatistics
       end
     end
     biggest_blowout.to_i
-    # require 'pry'; binding.pry
   end
 
   def worst_loss(team_id)
@@ -226,7 +224,6 @@ module TeamStatistics
       opponents_away = filtered_games.group_by do |game_a|
         game_a.away_team_id
       end
-      # require 'pry'; binding.pry
       opponents = opponents_home.merge(opponents_away) do |team_id_m, home_value, away_value|
         home_value + away_value
       end
@@ -240,8 +237,88 @@ module TeamStatistics
     end
     head_averages.delete(@teams[team_id].team_name)
     head_averages
-    # require 'pry'; binding.pry
   end
 
+  def seasonal_summary(team_id)
+    all_seasons = @games.inject([]) do |seasons, (game_id, game)|
+      seasons << game.season
+    end.uniq
+
+
+    team_id = team_id.to_i
+    filtered_games = []
+
+    @games.each do |game_id, game|
+      if game.home_team_id == team_id || game.away_team_id == team_id
+        filtered_games.push(game)
+      end
+    end
+
+    games_by_season = filtered_games.group_by do |fil_game|
+      fil_game.season
+    end
+
+    games_by_type = {}
+    games_by_season.each do |season_id, games_arr|
+      random_hash = games_arr.group_by do |game|
+        game.type
+      end
+      games_by_type[season_id] = random_hash
+    end
+
+    season_summary = {}
+    games_by_type.each do |season_id, seasons_hash|
+      season_summary[season_id] ||= {}
+      seasons_hash.each do |season_type, games_arr|
+        if season_type == 'Postseason'
+          season_type = :postseason
+        elsif season_type == 'Regular Season'
+          season_type = :regular_season
+        end
+        season_summary[season_id][season_type] ||= {}
+        win_avg = (games_arr.find_all do |game|
+          (game.away_team_id == team_id && game.home_goals < game.away_goals) ||
+          (game.home_team_id == team_id && game.home_goals > game.away_goals)
+        end.length.to_f) / games_arr.length
+        season_summary[season_id][season_type][:win_percentage] = win_avg.round(2)
+
+        total_goals_s = 0
+        total_goals_a = 0
+
+        games_arr.each do |game|
+          if game.home_team_id == team_id
+            total_goals_s += game.home_goals
+            total_goals_a += game.away_goals
+          elsif game.away_team_id == team_id
+            total_goals_a += game.home_goals
+            total_goals_s += game.away_goals
+          end
+        end
+        season_summary[season_id][season_type][:total_goals_scored] = total_goals_s.to_i
+        season_summary[season_id][season_type][:total_goals_against] = total_goals_a.to_i
+        season_summary[season_id][season_type][:average_goals_scored] = (total_goals_s.to_f / games_arr.length).round(2)
+        season_summary[season_id][season_type][:average_goals_against] = (total_goals_a.to_f / games_arr.length).round(2)
+      end
+    end
+
+    empty_summary = {
+      win_percentage: 0.0,
+      total_goals_scored: 0,
+      total_goals_against: 0,
+      average_goals_scored: 0.0,
+      average_goals_against: 0.0
+    }
+
+    all_seasons.each do |season|
+      if !season_summary[season].has_key?(:postseason)
+        season_summary[season][:postseason] = empty_summary
+      end
+      if !season_summary[season].has_key?(:regular_season)
+        season_summary[season][:regular_season] = empty_summary
+      end
+    end
+
+    season_summary
+  end
 
 end
