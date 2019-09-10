@@ -11,6 +11,7 @@ class StatTracker
   include GameStatistics
   include LeagueStatistics
   include TeamStatistics
+  include SeasonStatistics
 
   attr_reader :games, :teams, :game_teams
 
