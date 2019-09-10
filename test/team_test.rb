@@ -46,7 +46,7 @@ class TeamTest < Minitest::Test
     @game = Game.new(@game_hash)
 
     @team_hash = {
-     team_id: 1,
+     team_id: 6,
      franchiseId: 23,
      teamName: "Atlanta United",
      abbreviation: "ATL",
@@ -74,7 +74,34 @@ class TeamTest < Minitest::Test
   end
 
   def test_can_get_total_goals_of_team
-    assert_equal 5, @team.total_goals
+    assert_equal 3, @team.total_goals
   end
 
+  def test_can_get_total_goals_allowed
+    assert_equal 2, @team.total_goals_allowed
+  end
+
+  def test_it_can_get_total_away_goals
+    assert_equal 0, @team.total_away_goals
+  end
+
+  def test_it_can_get_total_home_goals
+    assert_equal 3, @team.total_home_goals
+  end
+
+  def test_it_can_get_total_away_games
+    assert_equal 0, @team.total_away_games
+  end
+
+  def test_it_can_get_total_home_games
+    assert_equal 1, @team.total_home_games
+  end
+
+  def test_it_can_get_total_wins
+    assert_equal 1, @team.total_wins
+  end
+
+  def test_it_can_check_home_team
+    assert_equal true, @team.home_team?(@game)
+  end
 end
