@@ -1,190 +1,188 @@
-require 'pry'
-
 module Leagueable
 
     ## HELPER METHODS ##
 
-  # Create hash with team ids as keys and the total goals scored for each team as values
-  def total_goals_helper
-    teams_total_goals = Hash.new
-    self.teams.each_key do |team_id|
-      teams_total_goals[team_id] = 0
-    end
+  # Create hash with team ids as keys and the total goals scored for each team
+  # as values
+  #Returning empty hash
+  def total_goals_helper(team_id = "0")
+    teams_total_goals = Hash.new(0)
 
-    self.game_teams.each do |game_team_obj|
-      teams_total_goals.each_key do |team_id_key|
-        if game_team_obj.team_id == team_id_key
-          teams_total_goals[team_id_key] += game_team_obj.goals
-        end
+    if team_id == "0" #all teams in hash
+      self.games.each_value do |game|
+        teams_total_goals[game.away_team_id] += game.away_goals
+        teams_total_goals[game.home_team_id] += game.home_goals
+      end
+    else  #for only one team (away or home)
+      self.games.each_value do |game|
+        teams_total_goals[team_id] += game.away_goals if game.away_team_id == team_id
+        teams_total_goals[team_id] += game.home_goals if game.home_team_id == team_id
       end
     end
+
     teams_total_goals
   end
 
-  # Create hash with team ids as keys and the total goals allowed for each team as values
-  def total_goals_allowed_helper
-    teams_total_goals_allowed = Hash.new
-    self.teams.each_key do |team_id|
-      teams_total_goals_allowed[team_id] = 0
-    end
+  # Create hash with team ids as keys and the total goals allowed for
+  # each team as values
+  def total_goals_allowed_helper(team_id = "0")
+    teams_total_goals_allowed = Hash.new(0)
 
-    #Iterate to find goals_allowed by home_team
-    self.games.each_value do |game_obj|
-      teams_total_goals_allowed.each_key do |team_id_key|
-        if game_obj.home_team_id == team_id_key
-          teams_total_goals_allowed[team_id_key] += game_obj.away_goals
-        end
+    if team_id == "0" #all teams in hash
+      self.games.each_value do |game|
+        teams_total_goals_allowed[game.away_team_id] += game.home_goals
+        teams_total_goals_allowed[game.home_team_id] += game.away_goals
       end
-    end
-
-    #Iterate to find goals_allowed by away_team
-    self.games.each_value do |game_obj|
-      teams_total_goals_allowed.each_key do |team_id_key|
-        if game_obj.away_team_id == team_id_key
-          teams_total_goals_allowed[team_id_key] += game_obj.home_goals
-        end
+    else  #for only one team (away or home)
+      self.games.each_value do |game|
+        teams_total_goals[team_id] += game.home_goals if game.away_team_id == team_id
+        teams_total_goals[team_id] += game.away_goals if game.home_team_id == team_id
       end
     end
     teams_total_goals_allowed
   end
 
-  # Create hash with team ids as keys and the total goals scored at home for each team as values
-  def total_goals_at_home_helper
-    teams_total_goals_at_home = Hash.new
-    self.teams.each_key do |team_id|
-      teams_total_goals_at_home[team_id] = 0
-    end
+  # Create hash with team ids as keys and the total goals scored
+  # at home for each team as values
+  def total_goals_at_home_helper(team_id = "0")
+    teams_total_goals_at_home = Hash.new(0)
 
-    #Iterate to find goals by home_team
-    self.games.each_value do |game_obj|
-      teams_total_goals_at_home.each_key do |team_id_key|
-        if game_obj.home_team_id == team_id_key
-          teams_total_goals_at_home[team_id_key] += game_obj.home_goals
-        end
+    if team_id == "0" #all teams in hash
+      self.games.each_value do |game|
+        teams_total_goals_at_home[game.home_team_id] += game.home_goals
+      end
+    else  #for only one team (away or home)
+      self.games.each_value do |game|
+        teams_total_goals_at_home[team_id] += game.home_goals if game.home_team_id == team_id
       end
     end
+
     teams_total_goals_at_home
   end
 
-  # Create hash with team ids as keys and the total goals scored by away team for each team as values
-  def total_goals_visitor_helper
-    teams_total_goals_visitor = Hash.new
-    self.teams.each_key do |team_id|
-      teams_total_goals_visitor[team_id] = 0
-    end
+  # Create hash with team ids as keys and the total goals scored
+  # by away team for each team as values
+  def total_goals_visitor_helper(team_id = "0")
+    teams_total_goals_visitor = Hash.new(0)
 
-    #Iterate to find goals by away_team
-    self.games.each_value do |game_obj|
-      teams_total_goals_visitor.each_key do |team_id_key|
-        if game_obj.away_team_id == team_id_key
-          teams_total_goals_visitor[team_id_key] += game_obj.away_goals
-        end
+    if team_id == "0" #all teams in hash
+      self.games.each_value do |game|
+        teams_total_goals_visitor[game.away_team_id] += game.away_goals
+      end
+    else  #for only one team (away or home)
+      self.games.each_value do |game|
+        teams_total_goals_visitor[team_id] += game.away_goals if game.away_team_id == team_id
       end
     end
+
     teams_total_goals_visitor
   end
 
-  # Create hash with team ids as keys and the total games played for each team as values
-  def total_games_helper
-    teams_total_games = Hash.new
-    self.teams.each_key do |team_id|
-      teams_total_games[team_id] = 0
-    end
+  # Create hash with team ids as keys and the total games played
+  # for each team as values
+  def total_games_helper(team_id = "0")
+    teams_total_games = Hash.new(0)
 
-    self.game_teams.each do |game_team_obj|
-      teams_total_games.each_key do |team_id_key|
-        if game_team_obj.team_id == team_id_key
-          teams_total_games[team_id_key] += 1
-        end
+    if team_id == "0" #all teams in hash
+      self.games.each_value do |game|
+        teams_total_games[game.away_team_id] += 1
+        teams_total_games[game.home_team_id] += 1
+      end
+    else  #for only one team (away or home)
+      self.games.each_value do |game|
+        teams_total_games[team_id] += 1 if game.away_team_id == team_id
+        teams_total_games[team_id] += 1 if game.home_team_id == team_id
       end
     end
+
     teams_total_games
   end
 
-  # Create hash with team ids as keys and the total away games played for each team as values
-  def total_away_games_helper
-    teams_total_away_games = Hash.new
-    self.teams.each_key do |team_id|
-      teams_total_away_games[team_id] = 0
-    end
+  # Create hash with team ids as keys and the total
+  # away games played for each team as values
+  def total_away_games_helper(team_id = "0")
+    teams_total_away_games = Hash.new(0)
 
-    self.game_teams.each do |game_team_obj|
-      teams_total_away_games.each_key do |team_games_id|
-        if  (game_team_obj.team_id == team_games_id) && (game_team_obj.hoa == "home")
-          teams_total_away_games[team_games_id] += 1
-        end
+    if team_id == "0" #all teams in hash
+      self.games.each_value do |game|
+        teams_total_away_games[game.away_team_id] += 1
+      end
+    else  #for only one away team
+      self.games.each_value do |game|
+        teams_total_away_games[team_id] += 1 if game.away_team_id == team_id
       end
     end
     teams_total_away_games
   end
 
-  # Create hash with team ids as keys and the total home games played for each team as values
-  def total_home_games_helper
-    teams_total_home_games = Hash.new
-    self.teams.each_key do |team_id|
-      teams_total_home_games[team_id] = 0
-    end
+  # Create hash with team ids as keys and the total
+  # home games played for each team as values
+  def total_home_games_helper(team_id = "0")
+    teams_total_home_games = Hash.new(0)
 
-    self.game_teams.each do |game_team_obj|
-      teams_total_home_games.each_key do |team_games_id|
-        if  (game_team_obj.team_id == team_games_id) && (game_team_obj.hoa == "home")
-          teams_total_home_games[team_games_id] += 1
-        end
-      end
+    self.games.each_value do |game|
+          teams_total_home_games[game.home_team_id] += 1
     end
     teams_total_home_games
   end
 
   # Create hash with team ids as keys and the total away wins for each team as values
-  def total_away_wins_helper
-    teams_total_away_wins = Hash.new
-    self.teams.each_key do |team_id|
-      teams_total_away_wins[team_id] = 0
-    end
-
-    self.game_teams.each do |game_team_obj|
-      teams_total_away_wins.each_key do |team_id_key|
-        if (game_team_obj.team_id == team_id_key) && (game_team_obj.result == "WIN") && (game_team_obj.hoa == "away")
-          teams_total_away_wins[team_id_key] += 1
+  def total_away_wins_helper(team_id = "0")
+    teams_total_away_wins = Hash.new(0)
+    if team_id == "0" #all teams in hash
+      self.games.each_value do |game|
+        if game.away_goals > game.home_goals
+          teams_total_away_wins[game.away_team_id] += 1
         end
       end
+    else  #for only one team (away or home)
+      # self.games.each_value do |game|
+      #   teams_total_wins[team_id] += game.away_goals if game.away_team_id == team_id
+      #   teams_total_wins[team_id] += game.home_goals if game.home_team_id == team_id
+      # end
     end
     teams_total_away_wins
   end
 
   # Create hash with team ids as keys and the total home wins for each team as values
-  def total_home_wins_helper
-    teams_total_home_wins = Hash.new
-    self.teams.each_key do |team_id|
-      teams_total_home_wins[team_id] = 0
-    end
-
-    self.game_teams.each do |game_team_obj|
-      teams_total_home_wins.each_key do |team_id_key|
-        if (game_team_obj.team_id == team_id_key) && (game_team_obj.result == "WIN") && (game_team_obj.hoa == "home")
-          teams_total_home_wins[team_id_key] += 1
+  def total_home_wins_helper(team_id = "0")
+    teams_total_home_wins = Hash.new(0)
+    if team_id == "0" #all teams in hash
+      self.games.each_value do |game|
+        if game.home_goals > game.away_goals
+          teams_total_home_wins[game.home_team_id] += 1
         end
       end
+    else  #for only one team (away or home)
+       self.games.each_value do |game|
+         teams_total_wins[team_id] += game.away_goals if game.away_team_id == team_id
+         teams_total_wins[team_id] += game.home_goals if game.home_team_id == team_id
+       end
     end
     teams_total_home_wins
   end
 
   # Create hash with team ids as keys and the total wins for each team as values
-  def total_wins_helper
-    teams_total_wins = Hash.new
-    self.teams.each_key do |team_id|
-      teams_total_wins[team_id] = 0
-    end
 
-    # Iterate through game_teams.
-    # Assign the correct team's wins to the respective key value pair.
-    self.game_teams.each do |game_team_obj|
-      teams_total_wins.each_key do |team_id_key|
-        if (game_team_obj.team_id == team_id_key) && (game_team_obj.result == "WIN")
-          teams_total_wins[team_id_key] += 1
+  def total_wins_helper(team_id = "0")
+    teams_total_wins = Hash.new(0)
+
+    if team_id == "0" #all teams in hash
+      self.games.each_value do |game|
+        if game.home_goals > game.away_goals
+          teams_total_wins[game.home_team_id] += 1
+        elsif game.away_goals > game.home_goals
+          teams_total_wins[game.away_team_id] += 1
         end
       end
+    else  #for only one team (away or home)
+      self.games.each_value do |game|
+        teams_total_wins[team_id] += game.away_goals if game.away_team_id == team_id
+        teams_total_wins[team_id] += game.home_goals if game.home_team_id == team_id
+      end
     end
+
+
     teams_total_wins
   end
 
@@ -193,13 +191,13 @@ module Leagueable
     team_name = nil
     self.teams.each_value do |team_obj|
       if team_obj.team_id == team_id
-      team_name = team_obj.teamName
+      team_name = team_obj.team_name
       end
     end
     team_name
   end
 
-  def helper_unique_home_teams_array
+  def unique_home_teams_array_helper
     unique_home_teams = []
 
     self.games.each_value do |game|
@@ -209,7 +207,7 @@ module Leagueable
     unique_home_teams.uniq
   end
 
-  def helper_unique_away_teams_array
+  def unique_away_teams_array_helper
     unique_away_teams = []
 
     self.games.each_value do |game|
@@ -254,9 +252,10 @@ module Leagueable
     team_with_best_offense = nil
     self.teams.each_value do |team_obj|
       if team_obj.team_id. == best_offense_team_id
-      team_with_best_offense = team_obj.teamName
+      team_with_best_offense = team_obj.team_name
       end
     end
+
     team_with_best_offense
   end
 
@@ -285,7 +284,7 @@ module Leagueable
     team_with_worst_offense = nil
     self.teams.each_value do |team_obj|
       if team_obj.team_id. == worst_offense_team_id
-      team_with_worst_offense = team_obj.teamName
+      team_with_worst_offense = team_obj.team_name
       end
     end
     team_with_worst_offense
@@ -316,9 +315,10 @@ module Leagueable
     team_with_best_defense = nil
     self.teams.each_value do |team_obj|
       if team_obj.team_id. == best_defense_team_id
-      team_with_best_defense = team_obj.teamName
+      team_with_best_defense = team_obj.team_name
       end
     end
+
     team_with_best_defense
   end
 
@@ -354,19 +354,23 @@ module Leagueable
   # AM (complete)
   def highest_scoring_visitor
     away_goals = Hash.new(0.00)
+
     #get sum of away_goals per away team (hash output)
-    helper_unique_away_teams_array.each do |team_id|
+
+    unique_away_teams_array_helper.each do |team_id|
       self.games.each_value do |game|
         away_goals[team_id] += (game.away_goals) if game.away_team_id == team_id
       end
     end
 
     #turn sum into average
+
     away_goals.merge!(total_away_games_helper)  do |key, oldval, newval|
       (oldval / newval).round(2)
     end
 
     #return highest
+
     highest_avg_hash = away_goals.max_by do |k, v|
       v
     end
@@ -380,7 +384,7 @@ module Leagueable
   def highest_scoring_home_team
     home_goals = Hash.new(0.00)
     #get sum of away_goals per home team (hash output)
-    helper_unique_home_teams_array.each do |team_id|
+    unique_home_teams_array_helper.each do |team_id|
       self.games.each_value do |game|
         home_goals[team_id] += (game.home_goals) if game.home_team_id == team_id
       end
@@ -405,7 +409,7 @@ module Leagueable
   def lowest_scoring_visitor
     away_goals = Hash.new(0.00)
     #get sum of away_goals per away team (hash output)
-    helper_unique_away_teams_array.each do |team_id|
+    unique_away_teams_array_helper.each do |team_id|
       self.games.each_value do |game|
         away_goals[team_id] += (game.away_goals) if game.away_team_id == team_id
       end
@@ -430,7 +434,7 @@ module Leagueable
   def lowest_scoring_home_team
     home_goals = Hash.new(0.00)
     #get sum of away_goals per home team (hash output)
-    helper_unique_home_teams_array.each do |team_id|
+    unique_home_teams_array_helper.each do |team_id|
       self.games.each_value do |game|
         home_goals[team_id] += (game.home_goals) if game.home_team_id == team_id
       end
@@ -565,7 +569,7 @@ module Leagueable
 
     # NOTE!!!!!!!!!!!!
     # Team_id #7 has 65 away wins and 64 home wins, not consistent with testing expectations.
-    worst_fans_collection.first(1)
+    worst_fans_collection
 
   end
 
