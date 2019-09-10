@@ -4,10 +4,10 @@ require_relative '../lib/stat_tracker'
 require_relative '../lib/team'
 require_relative '../lib/game'
 require_relative '../lib/game_team'
-# require_relative '../lib/team_stat'
+require_relative '../module/season_stat'
 require 'pry'
 
-class TeamStatTest < Minitest::Test
+class SeasonStatTest < Minitest::Test
 
   def setup
     game_path = './test/test_data/games_sample_2.csv'
@@ -20,16 +20,6 @@ class TeamStatTest < Minitest::Test
       game_teams: game_teams_path
     }
     @stat_tracker = StatTracker.from_csv(@locations)
-  end
-
-  def test_team_info
-    expected = {"team_id"=>"6",
-                "franchise_id"=>"6",
-                "team_name"=>"FC Dallas",
-                "abbreviation"=>"DAL",
-                "link"=>"/api/v1/teams/6"
-              }
-    assert_equal expected, @stat_tracker.team_info("6")
   end
 
   def test_seasons_to_game_teams
