@@ -56,16 +56,27 @@ class SeasonSumTest < Minitest::Test
   end
 
   def test_seasonal_summary_helper
-    assert_instance_of Array, @stat_tracker.seasonal_summary_helper("2").values[0].values[0]
-    assert_instance_of GameTeam, @stat_tracker.seasonal_summary_helper("2").values[0].values[0][0]
+    actual = @stat_tracker.seasonal_summary_helper("2").values[0].values[0]
+
+    assert_instance_of Array, actual
+    assert_instance_of GameTeam, actual[0]
+    assert_equal "Jack Capuano", actual[0].head_coach
+    assert_equal "away", actual[0].hoa
+    assert_equal "2012030111", actual[0].game_id
+    assert_equal 0, actual[0].goals
+    assert_equal 41, actual[0].tackles
   end
 
   def test_opponent_summary
+    # rewrite test to make sure game_team object returned from method doesn't have
+    # the same team_id as the team_id as the one passed into the method
     gt_1 = mock("gt_1")
     gt_2 = mock("gt_2")
     gt_1.expects(:game_id).returns("2012030161")
     gt_2.expects(:game_id).returns("2012030162")
+    # gt_2.expects(:result).returns("WIN")
     arr = [gt_1, gt_2]
     assert_instance_of Array, @stat_tracker.opponent_summary("24", arr)
   end
+
 end
