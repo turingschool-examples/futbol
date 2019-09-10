@@ -62,7 +62,7 @@ module Teamable
   #Average win percentage of all games for a team.	Float
   #JP (Complete, renamed helper methods will have to be adjusted)
   def average_win_percentage(team_id)
-    percentage = (total_wins_helper(team_id) / total_games_helper(team_id).to_f).round(2)
+    percentage = (total_wins_array_helper(team_id) / total_games_array_helper(team_id).to_f).round(2)
 
     percentage
   end
@@ -160,7 +160,7 @@ module Teamable
 
     #iterate over teams played and calculate win percentage for each
     opponent_teams.each do |opponent_team_id, opponent_team_name|
-      output[opponent_team_name] = (total_wins_helper(team_id, opponent_team_id) / total_games_helper(team_id, opponent_team_id)).round(2)
+      output[opponent_team_name] = (total_wins_array_helper(team_id, opponent_team_id) / total_games_array_helper(team_id, opponent_team_id)).round(2)
     end
 
     output
@@ -237,7 +237,7 @@ module Teamable
       games_for_team
   end
 
-  def total_wins_helper(team_id, loser_team_id)
+  def total_wins_array_helper(team_id, loser_team_id)
 
     #select games team won and delete rest
     games_for_team_helper(team_id).select! do |game|
@@ -253,7 +253,7 @@ module Teamable
     end.length.to_f
   end
 
-  def total_games_helper(team_id, opponent_team_id)
+  def total_games_array_helper(team_id, opponent_team_id)
 
     # can't get this to work for some reason!!!!!!!
     # games_for_team_helper(team_id).select! do |game|
