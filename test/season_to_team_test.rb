@@ -54,4 +54,12 @@ class SeasonToTeamStatsTest < Minitest::Test
     }
     assert_equal expected, @stat_tracker.seasonal_info("20162017")
   end
+
+  def test_biggest_bust
+    assert_equal "Toronto FC", @stat_tracker.biggest_bust("20162017")
+  end
+
+  def test_biggest_surprise
+    assert_equal "Real Salt Lake", @stat_tracker.biggest_surprise("20162017")
+  end
 end
