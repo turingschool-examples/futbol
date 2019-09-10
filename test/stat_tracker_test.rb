@@ -301,8 +301,28 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_fewest_tackles
-    assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
+    assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
+  end
+
+  def test_least_accurate_team
+    assert_equal "New York City FC", @stat_tracker.least_accurate_team("20132014")
+    assert_equal "Columbus Crew SC", @stat_tracker.least_accurate_team("20142015")
+  end
+
+  def test_most_accurate_team
+    assert_equal "Real Salt Lake", @stat_tracker.most_accurate_team("20132014")
+    assert_equal "Toronto FC", @stat_tracker.most_accurate_team("20142015")
+  end
+
+  def test_winningest_coach
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20132014")
+    assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
+  end
+
+  def test_worst_coach
+    assert_equal "Peter Laviolette", @stat_tracker.worst_coach("20132014")
+    assert_equal "Ted Nolan", @stat_tracker.worst_coach("20142015")
   end
 
 end
