@@ -41,27 +41,22 @@ class TeamableModuleTest < Minitest::Test
   end
 
   def test_average_win_percentage
-    skip
     assert_equal 0.57, @stat_tracker.average_win_percentage("3")
   end
 
   def test_most_goals_scored
-    skip
     assert_equal 3, @stat_tracker.most_goals_scored("3")
   end
 
   def test_fewest_goals_scored
-    skip
     assert_equal 0, @stat_tracker.fewest_goals_scored("3")
   end
 
   def test_favorite_opponent
-    skip
     assert_equal "Chicago Fire", @stat_tracker.favorite_opponent("3")
   end
 
   def test_rival
-    skip
     assert_equal "Sporting Kansas City", @stat_tracker.rival("3")
   end
 

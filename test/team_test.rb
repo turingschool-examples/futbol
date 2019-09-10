@@ -124,4 +124,14 @@ class TeamTest < Minitest::Test
   def test_it_can_get_the_id_of_the_opponent_team
     assert_equal "3", @team.opponent_id(@game)
   end
+
+  def test_it_can_make_win_percentage_by_opponents
+    expected_hash = {
+      "3" => {
+        games_won: 1,
+        games_played: 1
+      }
+    }
+    assert_equal expected_hash, @team.opponent_win_percentage
+  end
 end
