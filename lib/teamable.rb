@@ -97,6 +97,19 @@ module Teamable
     fewest_goals_scored_counter
   end
 
+  #Name of the opponent that has the lowest win percentage against the given team.	String
+  #BB
+  def favorite_opponent(team_id)
+
+  end
+
+
+  #Name of the opponent that has the highest win percentage against the given team.	String
+  #BB
+  def rival(team_id)
+
+  end
+
   #Biggest difference between team goals and opponent goals for a win
   #for the given team.	Integer
   #AM (complete)
