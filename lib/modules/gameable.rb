@@ -80,7 +80,7 @@ module Gameable
         end
       end
       game_count = season.teams.values.sum {|team| team.games.count}
-      season_hash[season_id] = (total_goals)/game_count.to_f
+      season_hash[season_id] = (total_goals / game_count.to_f).round(2)
     end
     season_hash
   end
