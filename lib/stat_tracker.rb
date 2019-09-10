@@ -1,11 +1,11 @@
 require_relative 'team'
 require_relative 'game'
 require_relative 'game_team'
-require_relative 'game_stat'
-require_relative 'league_stat'
-require_relative 'team_stat'
-require_relative 'season_stat'
-require_relative 'opponent_stat'
+require_relative '../module/game_stat'
+require_relative '../module/league_stat'
+require_relative '../module/team_stat'
+require_relative '../module/season_stat'
+require_relative '../module/opponent_stat'
 require 'csv'
 
 class StatTracker
