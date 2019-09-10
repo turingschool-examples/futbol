@@ -1,6 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-# require './test/test_helper'
+require './test/test_helper'
 require './lib/stat_tracker'
 require './lib/teamable'
 
@@ -67,7 +65,6 @@ class TeamableTest < Minitest::Test
   #Name of the opponent that has the lowest win percentage against the given team.	String
   #BB
   def test_favorite_opponent
-    skip
     assert_equal "DC United", @stat_tracker.favorite_opponent("18")
   end
 
