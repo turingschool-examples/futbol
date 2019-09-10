@@ -104,4 +104,24 @@ class TeamTest < Minitest::Test
   def test_it_can_check_home_team
     assert_equal true, @team.home_team?(@game)
   end
+
+  def test_it_can_check_if_game_was_a_win
+    assert_equal true, @team.win?(@game)
+  end
+
+  def test_it_can_check_if_game_was_a_tie
+    assert_equal false, @team.tie?(@game)
+  end
+
+  def test_it_can_get_goals_scored_in_a_game
+    assert_equal 3, @team.goals_scored(@game)
+  end
+
+  def test_it_can_get_goals_allowed
+    assert_equal 2, @team.goals_allowed(@game)
+  end
+
+  def test_it_can_get_the_id_of_the_opponent_team
+    assert_equal 3, @team.opponent_id(@game)
+  end
 end
