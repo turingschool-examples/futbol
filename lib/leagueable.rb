@@ -6,7 +6,7 @@ module Leagueable
   # as values
   #Returning empty hash
   def total_goals_helper(team_id = "0")
-    teams_total_goals = Hash.new
+    teams_total_goals = Hash.new(0)
 
     if team_id == "0" #all teams in hash
       self.games.each_value do |game|
@@ -230,6 +230,7 @@ module Leagueable
   # Name of the team with the highest avg number of goals scored per game across all seasons. Return: String
   # JP (Complete)
   def best_offense
+  require 'pry';   binding.pry
     teams_total_goals = total_goals_helper
     teams_total_games = total_games_helper
 
