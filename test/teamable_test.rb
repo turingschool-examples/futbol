@@ -49,7 +49,6 @@ class TeamableTest < Minitest::Test
   #Average win percentage of all games for a team.	Float
   #JP
   def test_average_win_percentage
-    skip
     assert_equal 0.49, @stat_tracker.average_win_percentage("6")
   end
 

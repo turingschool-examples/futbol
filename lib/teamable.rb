@@ -1,8 +1,6 @@
 require 'pry'
 
 module Teamable
-
-
   ### Methods ###
 
   #A hash with key/value pairs for each of the attributes of a team.	Hash
@@ -46,7 +44,7 @@ module Teamable
   end
 
   #Season with the lowest win percentage for a team.	Integer
-  #JP
+  #JP (Complete)
   def worst_season(team_id)
     season_win_percentage_hash = season_win_percentage_helper(team_id)
     worst_win_percentage = 2.0
@@ -62,9 +60,11 @@ module Teamable
   end
 
   #Average win percentage of all games for a team.	Float
-  #JP
+  #JP (Complete, renamed helper methods will have to be adjusted)
   def average_win_percentage(team_id)
-    #your beautiful code
+    percentage = (total_wins_helper(team_id) / total_games_helper(team_id).to_f).round(2)
+
+    percentage
   end
 
   #Highest number of goals a particular team has scored in a single game.	Integer
