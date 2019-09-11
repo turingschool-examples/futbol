@@ -77,38 +77,37 @@ class TeamableModuleTest < Minitest::Test
   end
 
   def test_seasonal_summary
-    skip
     expected_hash = {
       "20132014" => {
         regular_season: {
-          win_percentage: nil,
-          total_goals_scored: nil,
-          total_goals_against: nil,
-          average_goals_scored: nil,
-          average_goals_against: nil
+          win_percentage: 0.5,
+          total_goals_scored: 11,
+          total_goals_against: 7,
+          average_goals_scored: 2.75,
+          average_goals_against: 1.75
         },
         postseason: {
-          win_percentage: nil,
-          total_goals_scored: nil,
-          total_goals_against: nil,
-          average_goals_scored: nil,
-          average_goals_against: nil
+          win_percentage: 0.75,
+          total_goals_scored: 7,
+          total_goals_against: 6,
+          average_goals_scored: 1.75,
+          average_goals_against: 1.5
         }
       },
       "20142015" => {
         regular_season: {
-          win_percentage: nil,
-          total_goals_scored: nil,
-          total_goals_against: nil,
-          average_goals_scored: nil,
-          average_goals_against: nil
+          win_percentage: 0.25,
+          total_goals_scored: 9,
+          total_goals_against: 9,
+          average_goals_scored: 2.25,
+          average_goals_against: 2.25
           },
         postseason: {
-          win_percentage:nil ,
-          total_goals_scored: nil,
-          total_goals_against: nil,
-          average_goals_scored: nil,
-          average_goals_against: nil
+          win_percentage: 1.0,
+          total_goals_scored: 4,
+          total_goals_against: 2,
+          average_goals_scored: 2.0,
+          average_goals_against: 1.0
         }
       }
     }
