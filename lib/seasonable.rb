@@ -58,15 +58,34 @@ module Seasonable
   end
 
   # Name of the Team with the most tackles in the season. Return:	String
-  # AM
+  # JP
   def most_tackles(season)
-    # code goes here!
+    total_tackles = tackles_helper(season)
+    most_tackles = 0
+    best_team = 0
+    total_tackles.each do |team, tackles|
+      if tackles > most_tackles
+        most_tackles = tackles
+        best_team = team
+      end
+
+    end
+    team_name_finder_helper(best_team.to_s)
   end
 
   # Name of the Team with the fewest tackles in the season. Return:	String
-  # AM
+  # JP
   def fewest_tackles(season)
-    # code goes here!
+    total_tackles = tackles_helper(season)
+    least_tackles = 10000
+    worst_team = 0
+    total_tackles.each do |team, tackles|
+      if tackles < least_tackles
+        least_tackles = tackles
+        worst_team = team
+      end
+    end
+    team_name_finder_helper(worst_team.to_s)
   end
 
 end

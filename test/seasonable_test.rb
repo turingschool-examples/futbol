@@ -65,17 +65,17 @@ class SeasonableTest < Minitest::Test
   end
 
   # Name of the Team with the most tackles in the season. Return:	String
-  #AM
+  #JP
   def test_most_tackles
-    skip
+    
     assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
     assert_equal "Seattle Sounders FC", @stat_tracker.most_tackles("20142015")
   end
 
   # Name of the Team with the fewest tackles in the season. Return:	String
-  #AM
+  #JP
   def test_fewest_tackles
-    skip
+
     assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
   end
