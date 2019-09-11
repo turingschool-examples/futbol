@@ -175,7 +175,6 @@ module Teamable
   #Record (as a hash - win/loss) against all opponents with the opponents’ names
   #as keys and the win percentage against that opponent as a value.	Hash
   #AM (completed, but not in same order as spec spec_harness)
-  # Missing Minnesota United FC => 0.42
   def head_to_head(team_id)
     games_played = games_for_team_helper(team_id)
     opponent_teams = Hash.new(0)
@@ -206,7 +205,41 @@ module Teamable
   #:total_goals_against, :average_goals_scored, :average_goals_against.	Hash
   #AM
   def seasonal_summary(team_id)
-    #your beautiful code
+    unique_seasons = []
+
+    self.games.each_value do |game|
+      unique_seasons << game.season if (game.home_team_id == team_id) || (game.away_team_id == team_id)
+    end
+  require 'pry'
+    unique_seasons = unique_seasons.uniq
+
+    seasonal_summary_hash = Hash.new(0)
+    unique_seasons.each do |season|
+     # binding.pry
+      seasonal_summary_hash[season] = {:postseason =>
+        {:win_percent => season_type_win_percentage_helper(team_id, season, "Postseason"),
+         :total_goals_scored => season_type_goals_scored_helper(team_id, season, "Postseason"),
+         :total_goals_against => season_type_goals_against_helper(team_id, season, "Postseason"),
+         # :average_goals_scored => (season_type_goals_scored_helper(team_id, season, "Postseason") / season_type_goals_total(team_id, season, "Postseason").to_f).round(2),
+         # :average_goals_against => (season_type_goals_against_helper(team_id, season, "Postseason") / season_type_goals_total(team_id, season, "Postseason").to_f).round(2)
+        },
+
+        :regular_season =>
+          {:win_percent => season_type_win_percentage_helper(team_id, season, "Regular Season"),
+           :total_goals_scored => season_type_goals_scored_helper(team_id, season, "Regular Season"),
+           :total_goals_against => season_type_goals_against_helper(team_id, season, "Regular Season"),
+           # :average_goals_scored => (season_type_goals_scored_helper(team_id, season, "Regular Season") / season_type_goals_total(team_id, season, "Regular Season").to_f).round(2),
+           # :average_goals_against => (season_type_goals_against_helper(team_id, season, "Regular Season") / season_type_goals_total(team_id, season, "Regular Season").to_f).round(2)
+          }
+
+      }
+
+
+    end
+    binding.pry
+    seasonal_summary_hash
+
   end
+
 
 end

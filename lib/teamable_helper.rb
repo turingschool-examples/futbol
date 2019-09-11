@@ -85,9 +85,7 @@ module TeamableHelper
   end
 
   def total_games_count_helper(team_id, opponent_team_id)
-    # can't get this to work for some reason!!!!!!!
       games_for_team_helper(team_id).find_all do |game|
-        # require 'pry'; binding.pry
         (game.away_team_id == opponent_team_id) || (game.home_team_id == opponent_team_id)
       end.length
 

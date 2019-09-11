@@ -58,13 +58,13 @@ module Seasonable
   end
 
   # Name of the Team with the most tackles in the season. Return:	String
-  # AM
+  # JP
   def most_tackles(season)
     # code goes here!
   end
 
   # Name of the Team with the fewest tackles in the season. Return:	String
-  # AM
+  # JP
   def fewest_tackles(season)
     # code goes here!
   end

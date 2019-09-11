@@ -1,9 +1,82 @@
 module SeasonableHelper
 
-    def regular_season_win_percentage_helper(season) #ALL Teams. Hash. Key = Team_id, Value = win percentage
+    def season_type_win_percentage_helper(team_id, season, type)
+      total_wins = games_for_team_helper(team_id).find_all do |game|
+        if (game.season == season) && (game.type == type)
+          if (game.away_team_id == team_id) && (game.away_goals > game.home_goals)
+            true
+          elsif (game.home_team_id == team_id) && (game.home_goals > game.away_goals)
+            true
+          else
+            false
+          end
+
+        end
+      end.length.to_f
+
+      teams_total_games = 0
+      self.games.each_value do |game|
+        if (game.season == season) && (game.type == type)
+          teams_total_games += 1 if game.away_team_id == team_id
+          teams_total_games += 1 if game.home_team_id == team_id
+        end
+      end
+
+      (total_wins / teams_total_games).round(2)
     end
 
-    def postseason_win_percentage_helper(season) #ALL Teams. Hash. Key = Team_id, Value = win percentage
+    def season_type_goals_scored_helper(team_id, season, type)
+      teams_total_goals_scored = 0
+      self.games.each_value do |game|
+        if (game.season == season) && (game.type == type)
+          teams_total_goals_scored += game.away_goals if game.away_team_id == team_id
+          teams_total_goals_scored += game.home_goals if game.home_team_id == team_id
+        end
+      end
+
+      teams_total_goals_scored
+    end
+
+    def season_type_goals_against_helper(team_id, season, type)
+      teams_total_goals_against = 0
+      self.games.each_value do |game|
+        if (game.season == season) && (game.type == type)
+          teams_total_goals_against += game.home_goals if game.away_team_id == team_id
+          teams_total_goals_against += game.away_goals if game.home_team_id == team_id
+        end
+      end
+
+      teams_total_goals_against
+    end
+
+    def season_type_goals_total(team_id, season, type)
+      # teams_total_goals = 0
+      # self.games.each_value do |game|
+      #   if ((game.season == season) && (game.type == type)) && ((game.away_team_id == team_id) || (game.home_team_id == team_id))
+      #     # require 'pry'; binding.pry
+      #     # if (game.away_team_id == team_id) || (game.home_team_id == team_id)
+      #       teams_total_goals += (game.home_goals + game.away_goals)
+      #     # end
+      #   end
+      # end
+      # # binding.pry
+      # teams_total_goals
+
+      teams_total_goals = 0
+      # if team_id == "0" #all teams in hash
+      #   self.games.each_value do |game|
+      #     teams_total_goals[game.away_team_id] += game.away_goals
+      #     teams_total_goals[game.home_team_id] += game.home_goals
+      #   end
+      # else  #for only one team (away or home)
+        self.games.each_value do |game|
+          if ((game.season == season) && (game.type == type)) && ((game.away_team_id == team_id) || (game.home_team_id == team_id))
+            teams_total_goals += game.away_goals if game.away_team_id == team_id
+            teams_total_goals += game.home_goals if game.home_team_id == team_id
+          end
+        end
+      # end
+      teams_total_goals
     end
 
     def coach_win_percentage_helper(season) #ALL Coaches. Hash. Key = coach name, Value = win percentage
