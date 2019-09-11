@@ -61,20 +61,17 @@ class TeamableModuleTest < Minitest::Test
   end
 
   def test_biggest_team_blowout
-    skip
-    assert_equal 2, @stat_tracker.biggest_blowout("3")
+    assert_equal 2, @stat_tracker.biggest_team_blowout("3")
   end
 
   def test_worst_loss
-    skip
     assert_equal 2, @stat_tracker.worst_loss("3")
   end
 
   def test_head_to_head
-    skip
     expected_hash = {
-      "Chicago Fire" => 1.0,
-      "Sporting Kansas City" => 0.6
+      "Chicago Fire" => 0.67,
+      "Sporting Kansas City" => 0.5
     }
     assert_equal expected_hash, @stat_tracker.head_to_head("3")
   end
@@ -82,39 +79,39 @@ class TeamableModuleTest < Minitest::Test
   def test_seasonal_summary
     skip
     expected_hash = {
-     "20132014" => {
-       regular_season: {
-         win_percentage: nil,
-         total_goals_scored: nil,
-         total_goals_against: nil,
-         average_goals_scored: nil,
-         average_goals_against: nil
+      "20132014" => {
+        regular_season: {
+          win_percentage: nil,
+          total_goals_scored: nil,
+          total_goals_against: nil,
+          average_goals_scored: nil,
+          average_goals_against: nil
         },
-       postseason:{
-         win_percentage: nil,
-         total_goals_scored: nil,
-         total_goals_against: nil,
-         average_goals_scored: nil,
-         average_goals_against: nil
-       }
-     },
-    "20142015" => {
-       regular_season: {
-         win_percentage: nil,
-         total_goals_scored: nil,
-         total_goals_against: nil,
-         average_goals_scored: nil,
-         average_goals_against: nil
-        },
-       postseason:{
-         win_percentage:nil ,
-         total_goals_scored: nil,
-         total_goals_against: nil,
-         average_goals_scored: nil,
-         average_goals_against: nil
-       }
+        postseason: {
+          win_percentage: nil,
+          total_goals_scored: nil,
+          total_goals_against: nil,
+          average_goals_scored: nil,
+          average_goals_against: nil
+        }
+      },
+      "20142015" => {
+        regular_season: {
+          win_percentage: nil,
+          total_goals_scored: nil,
+          total_goals_against: nil,
+          average_goals_scored: nil,
+          average_goals_against: nil
+          },
+        postseason: {
+          win_percentage:nil ,
+          total_goals_scored: nil,
+          total_goals_against: nil,
+          average_goals_scored: nil,
+          average_goals_against: nil
+        }
       }
-     }
+    }
     assert_equal expected_hash, @stat_tracker.seasonal_summary("3")
   end
 end
