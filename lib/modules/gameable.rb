@@ -59,7 +59,7 @@ module Gameable
       season_hash[season_id] = season.teams.values.sum {|team| team.games.count}
     end
     season_hash.each do |key, value|
-      season_hash[key] = value/2
+      season_hash[key] = value / 2
     end
   end
 
