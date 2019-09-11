@@ -13,16 +13,21 @@ module SeasonableHelper
 
         end
       end.length.to_f
+      if total_wins > 0
 
-      teams_total_games = 0
-      self.games.each_value do |game|
-        if (game.season == season) && (game.type == type)
-          teams_total_games += 1 if game.away_team_id == team_id
-          teams_total_games += 1 if game.home_team_id == team_id
+        teams_total_games = 0
+        self.games.each_value do |game|
+          if (game.season == season) && (game.type == type)
+            teams_total_games += 1 if game.away_team_id == team_id
+            teams_total_games += 1 if game.home_team_id == team_id
+          end
         end
-      end
 
-      (total_wins / teams_total_games).round(2)
+        (total_wins / teams_total_games)
+
+      else
+        0.00
+      end
     end
 
     def season_type_goals_scored_helper(team_id, season, type)

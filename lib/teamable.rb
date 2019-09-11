@@ -308,10 +308,7 @@ module Teamable
           }
 
       }
-
-
     end
-    binding.pry
     seasonal_summary_hash
 
   end
