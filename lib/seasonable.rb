@@ -4,32 +4,45 @@ module Seasonable
   # Name of the team with the biggest decrease between regular season and postseason win percentage.	Return: String
   # BB
   def biggest_bust(season)
-    # Make a hash to hold the difference values.
-    # The key is a team id and the value is the difference between regular_season win percent and postseason win percent
-    teams_difference = Hash.new(0)
+    teams_difference = Hash.new
     self.games.each_value do |game|
       teams_difference[game.home_team_id] += 0
       teams_difference[game.away_team_id] += 0
     end
 
-      regular_season_win_percentages =  regular_season_win_percentage_helper(season)
-      postseason_win_percentages =  postseason_win_percentage_helper(season)
+    teams_difference.each do |team_id, percent|
+      teams_difference[team_id] = season_type_win_percentage_helper(team_id, season, type = "Regular Season")
+    end
 
-    regular_season_win_percentages.each do |team_id, reg_season_win_percentage|
-        postseason_win_percentages.each do |team_id_2, post_season_win_percentage|
-          teams_difference.each do |team_id_3, season_win_percentage_difference|
-          if team_id_3 == team_id && team_id_3 == team_id_2 && team_id_2 == team_id
-              teams_difference[team_id_3] = (reg_season_win_percentage - post_season_win_percentage)
-              # teams_difference[team_id_3] = ( post_season_win_percentage - reg_season_win_percentage)
-          end
-        end
-      end
-    end
-    team_with_biggest_difference = teams_difference.max_by do |team_id, difference|
-      difference
-    end
     binding.pry
-    team_name_finder_helper(team_with_biggest_difference[0])
+
+
+    # Make a hash to hold the difference values.
+    # The key is a team id and the value is the difference between regular_season win percent and postseason win percent
+    # teams_difference = Hash.new(0)
+    # self.games.each_value do |game|
+    #   teams_difference[game.home_team_id] += 0
+    #   teams_difference[game.away_team_id] += 0
+    # end
+    #
+    #   regular_season_win_percentages =  regular_season_win_percentage_helper(season)
+    #   postseason_win_percentages =  postseason_win_percentage_helper(season)
+    #
+    # regular_season_win_percentages.each do |team_id, reg_season_win_percentage|
+    #     postseason_win_percentages.each do |team_id_2, post_season_win_percentage|
+    #       teams_difference.each do |team_id_3, season_win_percentage_difference|
+    #       if team_id_3 == team_id && team_id_3 == team_id_2 && team_id_2 == team_id
+    #           teams_difference[team_id_3] = (reg_season_win_percentage - post_season_win_percentage)
+    #           # teams_difference[team_id_3] = ( post_season_win_percentage - reg_season_win_percentage)
+    #       end
+    #     end
+    #   end
+    # end
+    # team_with_biggest_difference = teams_difference.max_by do |team_id, difference|
+    #   difference
+    # end
+    # binding.pry
+    # team_name_finder_helper(team_with_biggest_difference[0])
     # end of biggest bust method
   end
 
@@ -40,7 +53,7 @@ module Seasonable
   end
 
   # Name of the Coach with the best win percentage for the season. Return:	String
-  # JP
+  # JP (complete)
   def winningest_coach(season)
     coach_win_percentage_hash = coach_win_percentage_helper(season)
     best_win_percentage = 0.0
@@ -56,7 +69,7 @@ module Seasonable
   end
 
   # Name of the Coach with the worst win percentage for the season. Return:	String
-  # JP
+  # JP (complete)
   def worst_coach(season)
     coach_win_percentage_hash = coach_win_percentage_helper(season)
     worst_win_percentage = 2.0
@@ -84,13 +97,13 @@ module Seasonable
   end
 
   # Name of the Team with the most tackles in the season. Return:	String
-  # AM
+  # JP
   def most_tackles(season)
     # code goes here!
   end
 
   # Name of the Team with the fewest tackles in the season. Return:	String
-  # AM
+  # JP
   def fewest_tackles(season)
     # code goes here!
   end

@@ -107,7 +107,7 @@ module Gameable
   def average_goals_by_season
     seasons_goals = Hash.new(0.00)
 
-    helper_unique_seasons_array.each do |season|
+    unique_seasons_array_helper.each do |season|
       self.games.each_value do |game|
         seasons_goals[season] += (game.home_goals + game.away_goals) if game.season == season
       end
@@ -119,7 +119,7 @@ module Gameable
 
   end
 
-  def helper_unique_seasons_array
+  def unique_seasons_array_helper
     unique_seasons = []
 
     self.games.each_value do |game|
