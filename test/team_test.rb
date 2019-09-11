@@ -142,4 +142,35 @@ class TeamTest < Minitest::Test
     }
     assert_equal expected_hash, @team.opponent_win_percentage
   end
+
+  def test_it_can_make_a_default_summary_hash
+    expected_hash = {
+      win_percentage:        0,
+      total_goals_scored:    0,
+      total_goals_against:   0,
+      average_goals_scored:  0,
+      average_goals_against: 0
+    }
+    assert_equal expected_hash, @team.default_summary_hash
+  end
+
+  def test_it_can_make_a_summary
+    expected_hash = {
+      regular_season: {
+        win_percentage:        0,
+        total_goals_scored:    0,
+        total_goals_against:   0,
+        average_goals_scored:  0,
+        average_goals_against: 0
+      },
+      postseason: {
+        win_percentage:        1.0,
+        total_goals_scored:    3,
+        total_goals_against:   2,
+        average_goals_scored:  3.0,
+        average_goals_against: 2.0
+      }
+    }
+    assert_equal expected_hash, @team.summary
+  end
 end

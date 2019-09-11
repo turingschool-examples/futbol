@@ -55,11 +55,7 @@ class Team
   end
 
   def win?(game)
-    if home_team?(game)
-      game.home_team[:result] == "WIN"
-    else
-      game.away_team[:result] == "WIN"
-    end
+    home_team?(game) ? game.home_team[:result] == "WIN" : game.away_team[:result] == "WIN"
   end
 
   def tie?(game)
@@ -102,6 +98,52 @@ class Team
     opponent_hash
   end
 
-  
+  def default_summary_hash
+    {
+      win_percentage:        0,
+      total_goals_scored:    0,
+      total_goals_against:   0,
+      average_goals_scored:  0,
+      average_goals_against: 0
+    }
+  end
 
+  def summary
+    regular_season = default_summary_hash
+    postseason     = default_summary_hash
+    num_regular_games    = 0
+    num_postseason_games = 0
+
+    @games.values.each do |game|
+      if game.type == "Regular Season"
+        regular_season[:win_percentage]        += 1 if win?(game)
+        regular_season[:total_goals_scored]    += goals_scored(game)
+        regular_season[:total_goals_against]   += goals_allowed(game)
+        regular_season[:average_goals_scored]  += goals_scored(game)
+        regular_season[:average_goals_against] += goals_allowed(game)
+        num_regular_games += 1
+      else
+        postseason[:win_percentage]        += 1 if win?(game)
+        postseason[:total_goals_scored]    += goals_scored(game)
+        postseason[:total_goals_against]   += goals_allowed(game)
+        postseason[:average_goals_scored]  += goals_scored(game)
+        postseason[:average_goals_against] += goals_allowed(game)
+        num_postseason_games += 1
+      end
+    end
+    num_regular_games = num_regular_games == 0 ? 1 : num_regular_games.to_f
+    num_postseason_games = num_postseason_games == 0 ? 1 : num_postseason_games.to_f
+
+    regular_season[:win_percentage]        = (regular_season[:win_percentage] / num_regular_games).round(2)
+    regular_season[:average_goals_scored]  = (regular_season[:average_goals_scored] / num_regular_games).round(2)
+    regular_season[:average_goals_against] = (regular_season[:average_goals_against] / num_regular_games).round(2)
+
+    postseason[:win_percentage]        = (postseason[:win_percentage] / num_postseason_games).round(2)
+    postseason[:average_goals_scored]  = (postseason[:average_goals_scored] / num_postseason_games).round(2)
+    postseason[:average_goals_against] = (postseason[:average_goals_against] / num_postseason_games).round(2)
+    {
+      regular_season: regular_season,
+      postseason: postseason
+    }
+  end
 end
