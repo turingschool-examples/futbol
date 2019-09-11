@@ -105,7 +105,7 @@ module Teamable
 
     # set the value to the number of wins over
     opponents_number_of_wins.each do |key, value|
-       opponents_number_of_wins[key] = total_wins_array_helper(team_id, key)
+       opponents_number_of_wins[key] = total_wins_count_helper(team_id, key)
     end
 
     # creates a hash full of opponent ids and sets the values to 0
@@ -117,7 +117,7 @@ module Teamable
 
     # set the value to the number of games played
     opponents_number_of_games.each do |key, value|
-       opponents_number_of_games[key] = total_games_array_helper(team_id, key)
+       opponents_number_of_games[key] = total_games_count_helper(team_id, key)
     end
 
     # make a new hash to check the percent of wins against the passed in team
@@ -159,7 +159,7 @@ module Teamable
 
     # set the value to the number of wins over
     opponents_number_of_wins.each do |key, value|
-       opponents_number_of_wins[key] = total_wins_array_helper(team_id, key)
+       opponents_number_of_wins[key] = total_wins_count_helper(team_id, key)
     end
 
     # creates a hash full of opponent ids and sets the values to 0
@@ -171,7 +171,7 @@ module Teamable
 
     # set the value to the number of games played
     opponents_number_of_games.each do |key, value|
-       opponents_number_of_games[key] = total_games_array_helper(team_id, key)
+       opponents_number_of_games[key] = total_games_count_helper(team_id, key)
     end
 
     # make a new hash to check the percent of wins against the passed in team
