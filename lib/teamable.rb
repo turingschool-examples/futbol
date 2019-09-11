@@ -177,6 +177,7 @@ module Teamable
   #Record (as a hash - win/loss) against all opponents with the opponents’ names
   #as keys and the win percentage against that opponent as a value.	Hash
   #AM (completed, but not in same order as spec spec_harness)
+  # Missing Minnesota United FC => 0.42
   def head_to_head(team_id)
     games_played = games_for_team_helper(team_id)
     opponent_teams = Hash.new(0)
@@ -208,104 +209,6 @@ module Teamable
   #AM
   def seasonal_summary(team_id)
     #your beautiful code
-  end
-
-  ### Helper Methods ###
-
-  def season_array_helper
-    season_array = []
-    # get array of seasons
-    self.games.each_value do |game_obj|
-      season_array << game_obj.season
-    end
-    season_array.uniq!.sort!
-  end
-
-  def season_win_loss_helper(teamid)
-    season_win_loss_hash = Hash.new
-    season_array = season_array_helper
-
-    season_array.each do |season|
-      season_win_loss_hash[season] = {wins:  0,
-                                    games:  0}
-    end
-
-    # assign wins to team's seasons
-    self.games.each_value do |game_obj|
-      if teamid == game_obj.home_team_id
-        season_win_loss_hash[game_obj.season][:games] +=1
-        if game_obj.home_goals > game_obj.away_goals
-          season_win_loss_hash[game_obj.season][:wins] +=1
-        end
-      elsif teamid == game_obj.away_team_id
-        season_win_loss_hash[game_obj.season][:games] +=1
-        if game_obj.home_goals < game_obj.away_goals
-          season_win_loss_hash[game_obj.season][:wins] +=1
-        end
-      end
-    end
-    season_win_loss_hash
-  end
-
-  def season_win_percentage_helper(teamid)
-    season_win_loss_hash = season_win_loss_helper(teamid)
-    season_win_percentage_hash = Hash.new
-
-    season_win_loss_hash.each do |season, wl_hash|
-      season_win_percentage_hash[season] = (wl_hash[:wins] / wl_hash[:games].to_f).round(2)
-    end
-
-    season_win_percentage_hash
-  end
-
-  #get games for a team_id
-  def games_for_team_helper(team_id)
-
-      games_for_team = []
-
-      self.games.each_value do |game|
-        if game.away_team_id == team_id || game.home_team_id == team_id
-          games_for_team << game
-        end
-      end
-
-      games_for_team
-  end
-
-  def total_wins_array_helper(team_id, loser_team_id)
-
-    #select games team won and delete rest
-    games_for_team_helper(team_id).select! do |game|
-      if (game.away_team_id == loser_team_id) || (game.home_team_id == loser_team_id)
-        if (game.away_team_id == team_id) && (game.away_goals > game.home_goals)
-          true
-        elsif (game.home_team_id == team_id) && (game.home_goals > game.away_goals)
-          true
-        else
-          false
-        end
-      end
-    end.length.to_f
-  end
-
-  def total_games_array_helper(team_id, opponent_team_id)
-
-    # can't get this to work for some reason!!!!!!!
-    # games_for_team_helper(team_id).select! do |game|
-      # require 'pry'; binding.pry
-      # (game.away_team_id == opponent_team_id) ||
-      # (game.home_team_id == opponent_team_id)
-    # end.length
-    total_games = []
-    games_for_team_helper(team_id).each do |game|
-      if game.away_team_id == opponent_team_id
-        total_games << game
-      elsif game.home_team_id == opponent_team_id
-        total_games << game
-      end
-    end
-
-    total_games.length
   end
 
 end
