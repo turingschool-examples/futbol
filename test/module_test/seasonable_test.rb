@@ -21,34 +21,34 @@ class SeasonableModuleTest < Minitest::Test
   end
 
   def test_biggest_bust
-    assert_equal "string", @stat_tracker.biggest_bust(season_id)
+    assert_equal "Chicago Fire", @stat_tracker.biggest_bust(season_id)
   end
 
   def test_biggest_surprise
-    assert_equal "string", @stat_tracker.biggest_surprise(season_id)
+    assert_equal "Houston Dynamo", @stat_tracker.biggest_surprise(season_id)
   end
 
   def test_winningest_coach
-    assert_equal "string", @stat_tracker.winningest_coach(season_id)
+    assert_equal "Alain Vignault", @stat_tracker.winningest_coach(season_id)
   end
 
   def test_worst_coach
-    assert_equal "string", @stat_tracker.worst_coach(season_id)
+    assert_equal "Craig Berube", @stat_tracker.worst_coach(season_id)
   end
 
   def test_most_accurate_team
-    assert_equal "string", @stat_tracker.most_accurate_team(season_id)
+    assert_equal "Houston Dynamo", @stat_tracker.most_accurate_team(season_id)
   end
 
   def test_least_accurate_team
-    assert_equal "string", @stat_tracker.least_accurate_team(season_id)
+    assert_equal "Chicago Fire", @stat_tracker.least_accurate_team(season_id)
   end
 
   def test_most_tackles
-    assert_equal "string", @stat_tracker.most_tackles(season_id)
+    assert_equal "Houston Dynamo", @stat_tracker.most_tackles(season_id)
   end
 
   def test_fewest_tackles
-    assert_equal "string", @stat_tracker.fewest_tackles(season_id)
+    assert_equal "Sporting Kansas City", @stat_tracker.fewest_tackles(season_id)
   end
-end 
+end
