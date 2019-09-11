@@ -56,37 +56,51 @@ module TeamableHelper
       games_for_team
   end
 
-  def total_wins_array_helper(team_id, loser_team_id)
+  def total_wins_count_helper(team_id, loser_team_id = "0")
     #select games team won and delete rest
-    games_for_team_helper(team_id).select! do |game|
-      if (game.away_team_id == loser_team_id) || (game.home_team_id == loser_team_id)
+    if loser_team_id != "0"
+      games_for_team_helper(team_id).find_all do |game|
+        if (game.away_team_id == loser_team_id) || (game.home_team_id == loser_team_id)
+          if (game.away_team_id == team_id) && (game.away_goals > game.home_goals)
+            true
+          elsif (game.home_team_id == team_id) && (game.home_goals > game.away_goals)
+            true
+          else
+            false
+          end
+        end
+      end.length.to_f
+    else #for all teams
+      games_for_team_helper(team_id).find_all do |game|
         if (game.away_team_id == team_id) && (game.away_goals > game.home_goals)
           true
         elsif (game.home_team_id == team_id) && (game.home_goals > game.away_goals)
-          true
+            true
         else
           false
         end
-      end
-    end.length.to_f
+      end.length.to_f
+    end
+
   end
 
-  def total_games_array_helper(team_id, opponent_team_id)
+  def total_games_count_helper(team_id, opponent_team_id)
     # can't get this to work for some reason!!!!!!!
-    # games_for_team_helper(team_id).find_all do |game|
-      # require 'pry'; binding.pry
-      # (game.away_team_id == opponent_team_id) ||
-      # (game.home_team_id == opponent_team_id)
-    # end.length
-    total_games = []
-    games_for_team_helper(team_id).each do |game|
-      if game.away_team_id == opponent_team_id
-        total_games << game
-      elsif game.home_team_id == opponent_team_id
-        total_games << game
-      end
-    end
-    total_games.length
+      games_for_team_helper(team_id).find_all do |game|
+        # require 'pry'; binding.pry
+        (game.away_team_id == opponent_team_id) || (game.home_team_id == opponent_team_id)
+      end.length
+
+
+    # total_games = []
+    # games_for_team_helper(team_id).each do |game|
+    #   if game.away_team_id == opponent_team_id
+    #     total_games << game
+    #   elsif game.home_team_id == opponent_team_id
+    #     total_games << game
+    #   end
+    # end
+    # total_games.length
   end
 
 end

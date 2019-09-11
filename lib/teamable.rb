@@ -59,9 +59,7 @@ module Teamable
   #Average win percentage of all games for a team.	Float
   #JP (Complete, renamed helper methods will have to be adjusted)
   def average_win_percentage(team_id)
-    percentage = (total_wins_array_helper(team_id) / total_games_array_helper(team_id).to_f).round(2)
-
-    percentage
+    (total_wins_count_helper(team_id) / games_for_team_helper(team_id).length.to_f).round(2)
   end
 
   #Highest number of goals a particular team has scored in a single game.	Integer
@@ -112,8 +110,8 @@ module Teamable
     end
     opponents_total_wins
 
-      # total_wins_array_helper(team_id, opponent) #it is the length
-      # total_games_array_helper # will get me the
+      # total_wins_count_helper(team_id, opponent) #it is the length
+      # total_games_count_helper # will get me the
 
       #crafty - min_by_value  ???
 
@@ -196,7 +194,7 @@ module Teamable
 
     #iterate over teams played and calculate win percentage for each
     opponent_teams.each do |opponent_team_id, opponent_team_name|
-      output[opponent_team_name] = (total_wins_array_helper(team_id, opponent_team_id) / total_games_array_helper(team_id, opponent_team_id)).round(2)
+      output[opponent_team_name] = (total_wins_count_helper(team_id, opponent_team_id) / total_games_count_helper(team_id, opponent_team_id)).round(2)
     end
 
     output
