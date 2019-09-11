@@ -1,9 +1,10 @@
+require 'pry'
 module Seasonable
 
   # Name of the team with the biggest decrease between regular season and postseason win percentage.	Return: String
   # BB
   def biggest_bust(season)
-    # code goes here!
+    regular_season_win_percentage_helper(season)
   end
 
   # Name of the team with the biggest increase between regular season and postseason win percentage.	Return: String
@@ -72,6 +73,54 @@ module Seasonable
   ### Helper Methods ###
 
   def regular_season_win_percentage_helper(season) #ALL Teams. Hash. Key = Team_id, Value = win percentage
+
+    # team hash generator creates a new hash with the team ids as keys and values as 0
+    number_of_regular_season_games_won = Hash.new(0)
+    self.games.each_value do |game|
+      number_of_regular_season_games_won[game.home_team_id] += 0
+      number_of_regular_season_games_won[game.away_team_id] += 0
+    end
+
+    number_of_regular_season_games_played = Hash.new(0)
+    self.games.each_value do |game|
+      number_of_regular_season_games_played[game.home_team_id] += 0
+      number_of_regular_season_games_played[game.away_team_id] += 0
+    end
+
+    percent_of_regular_season_games_won = Hash.new(0)
+    self.games.each_value do |game|
+      percent_of_regular_season_games_won[game.home_team_id] += 0
+      percent_of_regular_season_games_won[game.away_team_id] += 0
+    end
+
+    # return the number of games won for each team to the number_of_regular_season_games_won hash
+    seasons_winning_regular_season_games = []
+    number_of_regular_season_games_won.each do |team_id, games_won|
+      games_for_team_helper(team_id).each do |game|
+        seasons_winning_regular_season_games << game if game.season == season && game.type == "Regular Season" && ( ((team_id == game.home_team_id) && game.home_goals > game.away_goals) || ((team_id == game.away_team_id) && game.away_goals > game.home_goals) )
+        number_of_regular_season_games_won[team_id]= seasons_winning_regular_season_games.length
+      end
+    end
+
+    # return the number of games played for each team to the number_of_regular_season_games_played hash
+    seasons_regular_season_games_played = []
+    number_of_regular_season_games_played.each do |team_id, games_won|
+      games_for_team_helper(team_id).each do |game|
+        seasons_regular_season_games_played << game if game.season == season && game.type == "Regular Season"
+        number_of_regular_season_games_played[team_id]= seasons_regular_season_games_played.length
+      end
+    end
+
+    percent_of_regular_season_games_won.map do |k3, v3|
+      number_of_regular_season_games_won.each do |k, v|
+        number_of_regular_season_games_played.each do |k2, v2|
+          if k == k2 && k == k3
+            percent_of_regular_season_games_won[k3] = v.to_f / v2
+          end
+        end
+      end
+    end
+    percent_of_regular_season_games_won
   end
 
   def postseason_win_percentage_helper(season) #ALL Teams. Hash. Key = Team_id, Value = win percentage

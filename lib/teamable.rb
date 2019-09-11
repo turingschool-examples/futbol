@@ -99,7 +99,6 @@ module Teamable
 
   #Name of the opponent that has the lowest win percentage against the given team.	String
   #BB
-  #crafty - min_by_value  ???
   def favorite_opponent(team_id)
 
     # creates a hash full of opponent ids and sets the values to 0
