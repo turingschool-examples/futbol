@@ -217,19 +217,19 @@ module Teamable
     unique_seasons.each do |season|
      # binding.pry
       seasonal_summary_hash[season] = {:postseason =>
-        {:win_percent => season_type_win_percentage_helper(team_id, season, "Postseason"),
+        {:win_percentage => season_type_win_percentage_helper(team_id, season, "Postseason").round(2),
          :total_goals_scored => season_type_goals_scored_helper(team_id, season, "Postseason"),
          :total_goals_against => season_type_goals_against_helper(team_id, season, "Postseason"),
-         # :average_goals_scored => (season_type_goals_scored_helper(team_id, season, "Postseason") / season_type_goals_total(team_id, season, "Postseason").to_f).round(2),
-         # :average_goals_against => (season_type_goals_against_helper(team_id, season, "Postseason") / season_type_goals_total(team_id, season, "Postseason").to_f).round(2)
+         :average_goals_scored => season_type_average_goals_scored_helper(team_id, season, "Postseason"),
+         :average_goals_against => season_type_average_goals_against_helper(team_id, season, "Postseason")
         },
 
         :regular_season =>
-          {:win_percent => season_type_win_percentage_helper(team_id, season, "Regular Season"),
+          {:win_percentage => season_type_win_percentage_helper(team_id, season, "Regular Season").round(2),
            :total_goals_scored => season_type_goals_scored_helper(team_id, season, "Regular Season"),
            :total_goals_against => season_type_goals_against_helper(team_id, season, "Regular Season"),
-           # :average_goals_scored => (season_type_goals_scored_helper(team_id, season, "Regular Season") / season_type_goals_total(team_id, season, "Regular Season").to_f).round(2),
-           # :average_goals_against => (season_type_goals_against_helper(team_id, season, "Regular Season") / season_type_goals_total(team_id, season, "Regular Season").to_f).round(2)
+           :average_goals_scored => season_type_average_goals_scored_helper(team_id, season, "Regular Season"),
+           :average_goals_against => season_type_average_goals_against_helper(team_id, season, "Regular Season")
           }
 
       }
