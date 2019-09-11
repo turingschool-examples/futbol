@@ -13,9 +13,6 @@ module Teamable
 
         until iv_name_array == []
             iv_values_array << team_obj.instance_variable_get("#{iv_name_array[0]}")
-            # Changed team.rb instance variables to expected so this isn't necessary.
-            # iv_name_array[1].to_s.gsub!(/franchiseId/, "franchise_id")
-            # iv_name_array[2].to_s.gsub!(/teamName/, "team_name")
             team_info_hash[iv_name_array.shift.to_s[1..-1]] = iv_values_array.shift
         end
       end
