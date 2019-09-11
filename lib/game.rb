@@ -53,4 +53,8 @@ class Game
   def total_goals
     @home_team[:goals] + @away_team[:goals]
   end
+
+  def goals_difference
+    @home_team[:goals] - @away_team[:goals]
+  end
 end

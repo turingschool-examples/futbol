@@ -64,4 +64,8 @@ class GameTest < Minitest::Test
   def test_can_give_total_goals
     assert_equal 5, @game.total_goals
   end
+
+  def test_it_can_give_the_difference_in_goals
+    assert_equal 1, @game.goals_difference
+  end
 end
