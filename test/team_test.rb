@@ -121,6 +121,14 @@ class TeamTest < Minitest::Test
     assert_equal 2, @team.goals_allowed(@game)
   end
 
+  def test_it_can_get_shots_taken_in_a_game
+    assert_equal 12, @team.shots_taken(@game)
+  end
+
+  def test_it_can_get_tackles_made_in_a_game
+    assert_equal 51, @team.tackles_made(@game)
+  end
+
   def test_it_can_get_the_id_of_the_opponent_team
     assert_equal "3", @team.opponent_id(@game)
   end
