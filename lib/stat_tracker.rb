@@ -22,7 +22,6 @@ class StatTracker
     @seasons = {}
   end
   
-  
   def self.from_csv(locations)
     stat_tracker = self.new
     
