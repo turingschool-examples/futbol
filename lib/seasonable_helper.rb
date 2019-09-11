@@ -142,6 +142,22 @@ module SeasonableHelper
     end
 
     def tackles_helper(season) #ALL Teams. Hash. Key = Team_id, Value = tackles
+      total_tackles = Hash.new(0)
+      game_season = season_converter(season)
+      self.game_teams.each do |game_obj|
+        if game_season == game_obj.game_id.to_s[0..3].to_i
+          if total_tackles.has_key?(game_obj.team_id) == false
+            total_tackles[game_obj.team_id] = 0
+          end
+
+          total_tackles.each do |team, tackle|
+            if team == game_obj.team_id
+              total_tackles[team] += game_obj.tackles
+            end
+          end
+        end
+      end
+      total_tackles
     end
 
 end

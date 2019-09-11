@@ -1,5 +1,6 @@
 module TeamableHelper
 
+  # JP
   def season_array_helper
     season_array = []
     # get array of seasons
@@ -9,6 +10,7 @@ module TeamableHelper
     season_array.uniq!.sort!
   end
 
+  # JP
   def season_win_loss_helper(teamid)
     season_win_loss_hash = Hash.new
     season_array = season_array_helper
@@ -34,6 +36,7 @@ module TeamableHelper
     season_win_loss_hash
   end
 
+  # JP
   def season_win_percentage_helper(teamid)
     season_win_loss_hash = season_win_loss_helper(teamid)
     season_win_percentage_hash = Hash.new
