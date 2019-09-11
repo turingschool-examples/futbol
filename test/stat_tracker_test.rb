@@ -59,8 +59,8 @@ class StatTrackerTest < Minitest::Test
     }
     
     expected_hash = {
-      team_id:      3,
-      franchiseId:  10,
+      team_id:      "3",
+      franchiseId:  "10",
       teamName:     "Houston Dynamo",
       abbreviation: "HOU",
       Stadium:      "BBVA Stadium",
@@ -86,8 +86,8 @@ class StatTrackerTest < Minitest::Test
     }
 
     expected_hash = {
-      id:         2012030221,
-      season:     20122013,
+      id:         "2012030221",
+      season:     "20122013",
       type:       "Postseason",
       date_time:  "5/16/13",
       venue:      "Toyota Stadium",
@@ -117,7 +117,7 @@ class StatTrackerTest < Minitest::Test
     }
 
     expected_hash = {
-      id:                       3,
+      id:                       "3",
       hoa:                      "away",
       result:                   "WIN",
       head_coach:               "Alain Vigneault",
@@ -137,8 +137,3 @@ class StatTrackerTest < Minitest::Test
   end
 
 end
-
-# season_hash = {}
-# seasons.each do |season_id, season|
-#   season_hash[season_id] = season.teams.values.sum_by { |team| games.length }
-# end
