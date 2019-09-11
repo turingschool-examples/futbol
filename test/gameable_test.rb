@@ -102,7 +102,7 @@ class GameableTest < Minitest::Test
 
     expected = ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"]
 
-    assert_equal expected, @stat_tracker.helper_unique_seasons_array
+    assert_equal expected, @stat_tracker.unique_seasons_array_helper
 
   end
 
