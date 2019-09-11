@@ -54,22 +54,4 @@ class GoalableTest < Minitest::Test
     assert_equal 0, @stat_tracker.fewest_goals_scored("18")
   end
 
-  ### From Leagueable_Helper_Test ###
-
-  def total_goals_helper
-  assert_equal , @stat_tracker.total_goals_helper
-  end
-
-  def total_goals_allowed_helper
-  assert_equal , @stat_tracker.total_goals_allowed_helper
-  end
-
-  def total_goals_at_home_helper
-  assert_equal , @stat_tracker.total_goals_at_home_helper
-  end
-
-  def total_goals_visitor_helper
-  assert_equal , @stat_tracker.total_goals_visitor_helper
-  end
-
 end

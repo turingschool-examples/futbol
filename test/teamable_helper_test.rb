@@ -20,7 +20,8 @@ class TeamableHelperTest < Minitest::Test
   end
 
   def test_season_array_helper
-  assert_equal , @stat_tracker.season_array_helper
+    expected_array = ["20122013", "20132014", "20142015", "20152016", "20162017", "20172018"]
+  assert_equal expected_array, @stat_tracker.season_array_helper
   end
 
   def test_season_win_loss_helper
