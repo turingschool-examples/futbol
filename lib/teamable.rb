@@ -59,9 +59,7 @@ module Teamable
   #Average win percentage of all games for a team.	Float
   #JP (Complete, renamed helper methods will have to be adjusted)
   def average_win_percentage(team_id)
-    percentage = (total_wins_array_helper(team_id) / total_games_array_helper(team_id).to_f).round(2)
-
-    percentage
+    (total_wins_count_helper(team_id) / games_for_team_helper(team_id).length.to_f).round(2)
   end
 
   #Highest number of goals a particular team has scored in a single game.	Integer
@@ -98,24 +96,53 @@ module Teamable
   #BB
   def favorite_opponent(team_id)
 
-    opponents_percent_hash = Hash.new(0.00)
+    # creates a hash full of opponent ids and sets the values to 0
+    opponents_number_of_wins = Hash.new(0.00)
     games_for_team_helper(team_id).each do |game|
-      opponents_percent_hash.store(game.away_team_id, 0.00) if game.away_team_id != team_id
-      opponents_percent_hash.store(game.home_team_id, 0.00) if game.home_team_id != team_id
+      opponents_number_of_wins.store(game.away_team_id, 0.00) if game.away_team_id != team_id
+      opponents_number_of_wins.store(game.home_team_id, 0.00) if game.home_team_id != team_id
     end
 
-    # opponents hash and win percents
-    # min by over that hashes values
-
-    opponents_percent_hash.each_key do |key|
-      opponents_total_wins = total_wins_helper(team_id, key)
+    # set the value to the number of wins over
+    opponents_number_of_wins.each do |key, value|
+       opponents_number_of_wins[key] = total_wins_count_helper(team_id, key)
     end
-    opponents_total_wins
 
-      # total_wins_array_helper(team_id, opponent) #it is the length
-      # total_games_array_helper # will get me the
+    # creates a hash full of opponent ids and sets the values to 0
+    opponents_number_of_games = Hash.new(0.00)
+    games_for_team_helper(team_id).each do |game|
+      opponents_number_of_games.store(game.away_team_id, 0.00) if game.away_team_id != team_id
+      opponents_number_of_games.store(game.home_team_id, 0.00) if game.home_team_id != team_id
+    end
 
-      #crafty - min_by_value  ???
+    # set the value to the number of games played
+    opponents_number_of_games.each do |key, value|
+       opponents_number_of_games[key] = total_games_count_helper(team_id, key)
+    end
+
+    # make a new hash to check the percent of wins against the passed in team
+    opponents_percentage_of_wins = Hash.new(0.00)
+    games_for_team_helper(team_id).each do |game|
+      opponents_percentage_of_wins.store(game.away_team_id, 0.00) if game.away_team_id != team_id
+      opponents_percentage_of_wins.store(game.home_team_id, 0.00) if game.home_team_id != team_id
+    end
+
+    # Check for matching team ids and return the percent of games won for that team
+    opponents_percentage_of_wins.each do |key_3, value_3|
+      opponents_number_of_wins.each do |key_1, value_1|
+        opponents_number_of_games.each do |key_2, value_2|
+          if key_1 == key_2 && key_1 == key_3
+            opponents_percentage_of_wins[key_3] = (value_1 / value_2)
+          end
+        end
+      end
+    end
+
+    # find the max percent id from the opponents_percentage_of_wins hash
+    favorite_opponent_id = opponents_percentage_of_wins.max_by{|k,v| v}
+    favorite_opponent = favorite_opponent_id[0]
+
+    team_name_finder_helper(favorite_opponent)
 
   end
 
@@ -123,7 +150,53 @@ module Teamable
   #Name of the opponent that has the highest win percentage against the given team.	String
   #BB
   def rival(team_id)
+    # creates a hash full of opponent ids and sets the values to 0
+    opponents_number_of_wins = Hash.new(0.00)
+    games_for_team_helper(team_id).each do |game|
+      opponents_number_of_wins.store(game.away_team_id, 0.00) if game.away_team_id != team_id
+      opponents_number_of_wins.store(game.home_team_id, 0.00) if game.home_team_id != team_id
+    end
 
+    # set the value to the number of wins over
+    opponents_number_of_wins.each do |key, value|
+       opponents_number_of_wins[key] = total_wins_count_helper(team_id, key)
+    end
+
+    # creates a hash full of opponent ids and sets the values to 0
+    opponents_number_of_games = Hash.new(0.00)
+    games_for_team_helper(team_id).each do |game|
+      opponents_number_of_games.store(game.away_team_id, 0.00) if game.away_team_id != team_id
+      opponents_number_of_games.store(game.home_team_id, 0.00) if game.home_team_id != team_id
+    end
+
+    # set the value to the number of games played
+    opponents_number_of_games.each do |key, value|
+       opponents_number_of_games[key] = total_games_count_helper(team_id, key)
+    end
+
+    # make a new hash to check the percent of wins against the passed in team
+    opponents_percentage_of_wins = Hash.new(0.00)
+    games_for_team_helper(team_id).each do |game|
+      opponents_percentage_of_wins.store(game.away_team_id, 0.00) if game.away_team_id != team_id
+      opponents_percentage_of_wins.store(game.home_team_id, 0.00) if game.home_team_id != team_id
+    end
+
+    # Check for matching team ids and return the percent of games won for that team
+    opponents_percentage_of_wins.each do |key_3, value_3|
+      opponents_number_of_wins.each do |key_1, value_1|
+        opponents_number_of_games.each do |key_2, value_2|
+          if key_1 == key_2 && key_1 == key_3
+            opponents_percentage_of_wins[key_3] = (value_1 / value_2)
+          end
+        end
+      end
+    end
+
+    # find the max percent id from the opponents_percentage_of_wins hash
+    favorite_opponent_id = opponents_percentage_of_wins.min_by{|k,v| v}
+    favorite_opponent = favorite_opponent_id[0]
+
+    team_name_finder_helper(favorite_opponent)
   end
 
   #Biggest difference between team goals and opponent goals for a win
@@ -177,7 +250,6 @@ module Teamable
   #Record (as a hash - win/loss) against all opponents with the opponents’ names
   #as keys and the win percentage against that opponent as a value.	Hash
   #AM (completed, but not in same order as spec spec_harness)
-  # Missing Minnesota United FC => 0.42
   def head_to_head(team_id)
     games_played = games_for_team_helper(team_id)
     opponent_teams = Hash.new(0)
@@ -189,14 +261,14 @@ module Teamable
     games_played.each do |game|
       if (opponent_teams.has_key?(game.home_team_id) == false) && (game.home_team_id != team_id)
         opponent_teams.store(game.home_team_id, team_name_finder_helper(game.home_team_id))
-      elsif (opponent_teams.has_key?(game.away_team_id) == false)
+      elsif (opponent_teams.has_key?(game.away_team_id) == false) && (game.away_team_id != team_id)
         opponent_teams.store(game.away_team_id, team_name_finder_helper(game.away_team_id))
       end
     end
 
     #iterate over teams played and calculate win percentage for each
     opponent_teams.each do |opponent_team_id, opponent_team_name|
-      output[opponent_team_name] = (total_wins_array_helper(team_id, opponent_team_id) / total_games_array_helper(team_id, opponent_team_id)).round(2)
+      output[opponent_team_name] = (total_wins_count_helper(team_id, opponent_team_id) / total_games_count_helper(team_id, opponent_team_id)).round(2)
     end
 
     output
@@ -208,7 +280,36 @@ module Teamable
   #:total_goals_against, :average_goals_scored, :average_goals_against.	Hash
   #AM
   def seasonal_summary(team_id)
-    #your beautiful code
+    unique_seasons = []
+
+    self.games.each_value do |game|
+      unique_seasons << game.season if (game.home_team_id == team_id) || (game.away_team_id == team_id)
+    end
+    unique_seasons = unique_seasons.uniq
+
+    seasonal_summary_hash = Hash.new(0)
+    unique_seasons.each do |season|
+     # binding.pry
+      seasonal_summary_hash[season] = {:postseason =>
+        {:win_percentage => season_type_win_percentage_helper(team_id, season, "Postseason").round(2),
+         :total_goals_scored => season_type_goals_scored_helper(team_id, season, "Postseason"),
+         :total_goals_against => season_type_goals_against_helper(team_id, season, "Postseason"),
+         :average_goals_scored => season_type_average_goals_scored_helper(team_id, season, "Postseason"),
+         :average_goals_against => season_type_average_goals_against_helper(team_id, season, "Postseason")
+        },
+
+        :regular_season =>
+          {:win_percentage => season_type_win_percentage_helper(team_id, season, "Regular Season").round(2),
+           :total_goals_scored => season_type_goals_scored_helper(team_id, season, "Regular Season"),
+           :total_goals_against => season_type_goals_against_helper(team_id, season, "Regular Season"),
+           :average_goals_scored => season_type_average_goals_scored_helper(team_id, season, "Regular Season"),
+           :average_goals_against => season_type_average_goals_against_helper(team_id, season, "Regular Season")
+          }
+      }
+    end
+    seasonal_summary_hash
+
   end
+
 
 end
