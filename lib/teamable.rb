@@ -1,7 +1,4 @@
-require 'pry'
-
 module Teamable
-  ### Methods ###
 
   #A hash with key/value pairs for each of the attributes of a team.	Hash
   #JP (Complete)
@@ -100,6 +97,25 @@ module Teamable
   #Name of the opponent that has the lowest win percentage against the given team.	String
   #BB
   def favorite_opponent(team_id)
+
+    opponents_percent_hash = Hash.new(0.00)
+    games_for_team_helper(team_id).each do |game|
+      opponents_percent_hash.store(game.away_team_id, 0.00) if game.away_team_id != team_id
+      opponents_percent_hash.store(game.home_team_id, 0.00) if game.home_team_id != team_id
+    end
+
+    # opponents hash and win percents
+    # min by over that hashes values
+
+    opponents_percent_hash.each_key do |key|
+      opponents_total_wins = total_wins_helper(team_id, key)
+    end
+    opponents_total_wins
+
+      # total_wins_array_helper(team_id, opponent) #it is the length
+      # total_games_array_helper # will get me the
+
+      #crafty - min_by_value  ???
 
   end
 
@@ -279,9 +295,7 @@ module Teamable
       # require 'pry'; binding.pry
       # (game.away_team_id == opponent_team_id) ||
       # (game.home_team_id == opponent_team_id)
-
     # end.length
-
     total_games = []
     games_for_team_helper(team_id).each do |game|
       if game.away_team_id == opponent_team_id
@@ -292,8 +306,6 @@ module Teamable
     end
 
     total_games.length
-
-
   end
 
 end
