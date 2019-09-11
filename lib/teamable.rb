@@ -210,7 +210,6 @@ module Teamable
     self.games.each_value do |game|
       unique_seasons << game.season if (game.home_team_id == team_id) || (game.away_team_id == team_id)
     end
-  require 'pry'
     unique_seasons = unique_seasons.uniq
 
     seasonal_summary_hash = Hash.new(0)
@@ -234,9 +233,7 @@ module Teamable
 
       }
 
-
     end
-    binding.pry
     seasonal_summary_hash
 
   end
