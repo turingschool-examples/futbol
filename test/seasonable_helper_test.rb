@@ -18,15 +18,7 @@ class SeasonableHelperTest < Minitest::Test
 
     @stat_tracker = StatTracker.from_csv(@locations)
   end
-  # def test_regular_season_win_percentage_helper
-  #   assert_equal , @stat_tracker.regular_season_win_percentage_helper
-  # end
-  #
-  # def test_postseason_win_percentage_helper
-  #   assert_equal , @stat_tracker.postseason_win_percentage_helper
-  # end
 
-  # Working
   def test_coach_win_percentage_helper
     expected = {"Adam Oates"=>0.35, "Alain Vigneault"=>0.51, "Barry Trotz"=>0.51, "Bill Peters"=>0.3, "Bob Hartley"=>0.38, "Bruce Boudreau"=>0.49, "Claude Julien"=>0.38, "Craig Berube"=>0.33, "Craig MacTavish"=>0.2, "Dallas Eakins"=>0.29, "Darryl Sutter"=>0.4, "Dave Cameron"=>0.43, "Dave Tippett"=>0.23, "Gerard Gallant"=>0.29, "Jack Capuano"=>0.45, "Joel Quenneville"=>0.42, "Jon Cooper"=>0.42, "Ken Hitchcock"=>0.43, "Lindy Ruff"=>0.35, "Michel Therrien"=>0.49, "Mike Babcock"=>0.42, "Mike Johnston"=>0.43, "Mike Yeo"=>0.46, "Patrick Roy"=>0.35, "Paul MacLean"=>0.3, "Paul Maurice"=>0.42, "Peter DeBoer"=>0.33, "Peter Horachek"=>0.21, "Peter Laviolette"=>0.51, "Randy Carlyle"=>0.45, "Ted Nolan"=>0.18, "Todd McLellan"=>0.38, "Todd Nelson"=>0.22, "Todd Richards"=>0.32, "Willie Desjardins"=>0.48}
 
@@ -54,6 +46,35 @@ class SeasonableHelperTest < Minitest::Test
   # end
   #
   # def test_tackles_helper
+  # def regular_season_win_percentage_helper
+  #   assert_equal , @stat_tracker.regular_season_win_percentage_helper
+  # end
+  #
+  # def postseason_win_percentage_helper
+  #   assert_equal , @stat_tracker.postseason_win_percentage_helper
+  # end
+  #
+  # def coach_win_percentage_helper
+  #   assert_equal , @stat_tracker.coach_win_percentage_helper
+  # end
+  #
+  # def coach_array_helper
+  #   assert_equal , @stat_tracker.coach_array_helper
+  # end
+  #
+  # def season_converter
+  #   assert_equal , @stat_tracker.season_converter
+  # end
+  #
+  # def shots_helper
+  #   assert_equal , @stat_tracker.shots_helper
+  # end
+  #
+  # def goals_helper
+  #   assert_equal , @stat_tracker.goals_helper
+  # end
+  #
+  # def tackles_helper
   #   assert_equal , @stat_tracker.tackles_helper
   # end
 end

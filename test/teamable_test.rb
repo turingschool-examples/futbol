@@ -71,7 +71,6 @@ class TeamableTest < Minitest::Test
   #Name of the opponent that has the highest win percentage against the given team.	String
   #BB
   def test_rival
-    skip
     assert_equal "Houston Dash", @stat_tracker.rival("18")
   end
 

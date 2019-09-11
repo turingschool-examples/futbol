@@ -19,6 +19,7 @@ class TeamableHelperTest < Minitest::Test
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
+
   def test_season_array_helper
     expected_array = ["20122013", "20132014", "20142015", "20152016", "20162017", "20172018"]
   assert_equal expected_array, @stat_tracker.season_array_helper
@@ -44,6 +45,15 @@ class TeamableHelperTest < Minitest::Test
   def test_total_wins_array_helper
   assert_equal 6.0, @stat_tracker.total_wins_array_helper("7", "14")
   end
+
+  # def test_games_for_team_helper
+  # assert_equal , @stat_tracker.games_for_team_helper
+  # end
+  #
+  # def test_total_wins_array_helper
+  # assert_equal , @stat_tracker.total_wins_array_helper
+  # end
+  #
 
   # def test_total_games_array_helper
   # assert_equal , @stat_tracker.total_games_array_helper
