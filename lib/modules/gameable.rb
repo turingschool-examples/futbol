@@ -18,9 +18,9 @@ module Gameable
 
   def biggest_blowout
     game = games.values.max_by do |game|
-      (game.home_team[:goals] - game.away_team[:goals]).abs
+      game.goals_difference.abs
     end
-    (game.home_team[:goals] - game.away_team[:goals]).abs
+    game.goals_difference.abs
   end
 
   def percentage_home_wins

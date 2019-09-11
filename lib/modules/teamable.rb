@@ -56,16 +56,16 @@ module Teamable
 
   def biggest_team_blowout(team_id)
     blowout_game = teams[team_id].games.values.max_by do |game|
-      teams[team_id].win?(game) ? (game.home_team[:goals] - game.away_team[:goals]).abs : 0
+      teams[team_id].win?(game) ? game.goals_difference.abs : 0
     end
-    (blowout_game.home_team[:goals] - blowout_game.away_team[:goals]).abs
+    blowout_game.goals_difference.abs
   end
 
   def worst_loss(team_id)
     loss_game = teams[team_id].games.values.max_by do |game|
-      !teams[team_id].win?(game) ? (game.home_team[:goals] - game.away_team[:goals]).abs : 0
+      !teams[team_id].win?(game) ? game.goals_difference.abs : 0
     end
-    (loss_game.home_team[:goals] - loss_game.away_team[:goals]).abs
+    loss_game.goals_difference.abs
   end
 
   def head_to_head(team_id)
@@ -79,7 +79,9 @@ module Teamable
 
   def seasonal_summary(team_id)
     return_hash = {}
+
     seasons.each do |season_id, season|
+      team = season.teams[team_id]
       regular_season_hash = {
         win_percentage:        0,
         total_goals_scored:    0,
@@ -94,26 +96,27 @@ module Teamable
         average_goals_scored:  0,
         average_goals_against: 0
       }
-      num_regular_games = 0
+      num_regular_games    = 0
       num_postseason_games = 0
-      season.teams[team_id].games.values.each do |game|
+
+      team.games.values.each do |game|
         if game.type == "Regular Season"
-          regular_season_hash[:win_percentage]        += 1 if season.teams[team_id].win?(game)
-          regular_season_hash[:total_goals_scored]    += season.teams[team_id].goals_scored(game)
-          regular_season_hash[:total_goals_against]   += season.teams[team_id].goals_allowed(game)
-          regular_season_hash[:average_goals_scored]  += season.teams[team_id].goals_scored(game)
-          regular_season_hash[:average_goals_against] += season.teams[team_id].goals_allowed(game)
+          regular_season_hash[:win_percentage]        += 1 if team.win?(game)
+          regular_season_hash[:total_goals_scored]    += team.goals_scored(game)
+          regular_season_hash[:total_goals_against]   += team.goals_allowed(game)
+          regular_season_hash[:average_goals_scored]  += team.goals_scored(game)
+          regular_season_hash[:average_goals_against] += team.goals_allowed(game)
           num_regular_games += 1
         else
-          postseason_hash[:win_percentage]        += 1 if season.teams[team_id].win?(game)
-          postseason_hash[:total_goals_scored]    += season.teams[team_id].goals_scored(game)
-          postseason_hash[:total_goals_against]   += season.teams[team_id].goals_allowed(game)
-          postseason_hash[:average_goals_scored]  += season.teams[team_id].goals_scored(game)
-          postseason_hash[:average_goals_against] += season.teams[team_id].goals_allowed(game)
+          postseason_hash[:win_percentage]        += 1 if team.win?(game)
+          postseason_hash[:total_goals_scored]    += team.goals_scored(game)
+          postseason_hash[:total_goals_against]   += team.goals_allowed(game)
+          postseason_hash[:average_goals_scored]  += team.goals_scored(game)
+          postseason_hash[:average_goals_against] += team.goals_allowed(game)
           num_postseason_games += 1
         end
       end
-      
+
       regular_season_hash[:win_percentage]        /= num_regular_games == 0 ? 1 : num_regular_games.to_f
       regular_season_hash[:average_goals_scored]  /= num_regular_games == 0 ? 1 : num_regular_games.to_f
       regular_season_hash[:average_goals_against] /= num_regular_games == 0 ? 1 : num_regular_games.to_f
