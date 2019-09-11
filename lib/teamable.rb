@@ -187,7 +187,7 @@ module Teamable
     games_played.each do |game|
       if (opponent_teams.has_key?(game.home_team_id) == false) && (game.home_team_id != team_id)
         opponent_teams.store(game.home_team_id, team_name_finder_helper(game.home_team_id))
-      elsif (opponent_teams.has_key?(game.away_team_id) == false)
+      elsif (opponent_teams.has_key?(game.away_team_id) == false) && (game.away_team_id != team_id)
         opponent_teams.store(game.away_team_id, team_name_finder_helper(game.away_team_id))
       end
     end
