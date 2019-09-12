@@ -37,44 +37,4 @@ class SeasonableHelperTest < Minitest::Test
     assert_equal 2013, @stat_tracker.season_converter("20132014")
   end
 
-  # def test_shots_helper
-  #   assert_equal , @stat_tracker.shots_helper
-  # end
-  #
-  # def test_goals_helper
-  #   assert_equal , @stat_tracker.goals_helper
-  # end
-  #
-  # def test_tackles_helper
-  # def regular_season_win_percentage_helper
-  #   assert_equal , @stat_tracker.regular_season_win_percentage_helper
-  # end
-  #
-  # def postseason_win_percentage_helper
-  #   assert_equal , @stat_tracker.postseason_win_percentage_helper
-  # end
-  #
-  # def coach_win_percentage_helper
-  #   assert_equal , @stat_tracker.coach_win_percentage_helper
-  # end
-  #
-  # def coach_array_helper
-  #   assert_equal , @stat_tracker.coach_array_helper
-  # end
-  #
-  # def season_converter
-  #   assert_equal , @stat_tracker.season_converter
-  # end
-  #
-  # def shots_helper
-  #   assert_equal , @stat_tracker.shots_helper
-  # end
-  #
-  # def goals_helper
-  #   assert_equal , @stat_tracker.goals_helper
-  # end
-  #
-  # def tackles_helper
-  #   assert_equal , @stat_tracker.tackles_helper
-  # end
 end
