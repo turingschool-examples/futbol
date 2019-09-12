@@ -1,7 +1,6 @@
 require './test/test_helper'
 require './lib/game'
 require './lib/team'
-require './lib/league'
 require './lib/season'
 require './lib/stat_tracker'
 
@@ -24,9 +23,6 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, stat_tracker
   end
 
-  def test_it_has_attributes
-  end
-
   def test_it_create_data_from_csv
     stat_tracker = StatTracker.from_csv(@locations)
 
@@ -41,9 +37,9 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal 2, stat_tracker.seasons.length
     stat_tracker.seasons.values do |season| 
-      assert_equal 3, season.teams.length
+      assert_equal 3, season.teams.values.length
       season.teams.values.each do |team|
-        assert_equal true, stat_tracker.teams[team.id].length > team.games.length
+        assert_equal true, stat_tracker.teams[team.id].values.length > team.games.values.length
       end
     end
   end

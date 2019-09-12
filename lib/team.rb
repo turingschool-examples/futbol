@@ -27,15 +27,11 @@ class Team
   end
 
   def total_away_goals
-    @games.values.sum do |game|
-      !home_team?(game) ? game.away_team[:goals] : 0
-    end
+    @games.values.sum { |game| !home_team?(game) ? game.away_team[:goals] : 0 }
   end
 
   def total_home_goals
-    @games.values.sum do |game|
-      home_team?(game) ? game.home_team[:goals] : 0
-    end
+    @games.values.sum { |game| home_team?(game) ? game.home_team[:goals] : 0 }
   end
 
   def total_home_games
@@ -76,6 +72,10 @@ class Team
 
   def tackles_made(game)
     home_team?(game) ? game.home_team[:tackles] : game.away_team[:tackles]
+  end
+
+  def coach(game)
+    home_team?(game) ? game.home_team[:head_coach] : game.away_team[:head_coach]
   end
 
   def opponent_id(game)
