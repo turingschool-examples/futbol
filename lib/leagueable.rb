@@ -267,61 +267,41 @@ module Leagueable
       teams_away_win_percentage[team_id] = 0
       teams_home_win_percentage[team_id] = 0
     end
-
     # calculate each teams_away_win_percentage
     away_win_percentage = 0
-    # games_id = team_id and games_v = total number of away games
-    total_away_games_helper.each do |games_id, games_v|
-      # wins_id = team_id and wins_v = total number of away wins
-      total_away_wins_helper.each do |wins_id, wins_v|
+    total_away_games_helper.each do |games_id, number_of_away_games|
+      total_away_wins_helper.each do |wins_id, number_of_away_wins|
         teams_away_win_percentage.each_key do |team_id|
-          if games_id == wins_id
-            away_win_percentage = (wins_v / games_v.to_f).round(2)
-          end
-          if games_id == team_id
-            teams_away_win_percentage[team_id] = away_win_percentage
-          end
+          away_win_percentage = (number_of_away_wins / number_of_away_games.to_f).round(2) if games_id == wins_id
+          teams_away_win_percentage[team_id] = away_win_percentage if games_id == team_id
         end
       end
     end
-
     # calculate each teams_home_win_percentage
     home_win_percentage = 0
-    # games_id = team_id and games_v = total number of home games
-    total_home_games_helper.each do |games_id, games_v|
-      # wins_id = team_id and wins_v = total number of home wins
-      total_home_wins_helper.each do |wins_id, wins_v|
+    total_home_games_helper.each do |games_id, total_number_of_home_games|
+      total_home_wins_helper.each do |wins_id, number_of_home_wins|
         teams_home_win_percentage.each_key do |team_id|
-          if games_id == wins_id
-            home_win_percentage = (wins_v / games_v.to_f).round(2)
-          end
-          if games_id == team_id
-            teams_home_win_percentage[team_id] = home_win_percentage
-          end
+          home_win_percentage = (number_of_home_wins / total_number_of_home_games.to_f).round(2) if games_id == wins_id
+          teams_home_win_percentage[team_id] = home_win_percentage if games_id == team_id
         end
       end
     end
-
     # Get the difference between home wins and away wins for each team
-    # Set default values
     difference = 0
     biggest_difference = 0
     team_id = nil
     teams_home_win_percentage.each do |team_id_1, home_win_percent|
       teams_away_win_percentage.each do |team_id_2, away_win_percent|
-        if team_id_1 == team_id_2
-          difference = (home_win_percent - away_win_percent).abs
+          difference = (home_win_percent - away_win_percent).abs if team_id_1 == team_id_2
           if difference > biggest_difference
             biggest_difference = difference
             # return team id of the team with biggest difference between home and away win percent
             team_id = team_id_1
           end
-        end
       end
     end
-
     team_name_finder_helper(team_id)
-
   end
 
   # List of names of all teams with better away records than home records. Return: Array
