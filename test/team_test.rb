@@ -129,6 +129,10 @@ class TeamTest < Minitest::Test
     assert_equal 51, @team.tackles_made(@game)
   end
 
+  def test_it_can_get_game_coach
+    assert_equal "Claude Julien", @team.coach(@game)
+  end
+
   def test_it_can_get_the_id_of_the_opponent_team
     assert_equal "3", @team.opponent_id(@game)
   end
