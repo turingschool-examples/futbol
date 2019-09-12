@@ -2,18 +2,18 @@ module Gameable
 
   def highest_total_score
     game = games.values.max_by do |game|
-      game.home_team[:goals] + game.away_team[:goals]
+      game.total_goals
     end
 
-    game.home_team[:goals] + game.away_team[:goals]
+    game.total_goals
   end
 
   def lowest_total_score
     game = games.values.min_by do |game|
-      game.home_team[:goals] + game.away_team[:goals]
+      game.total_goals
     end
 
-    game.home_team[:goals] + game.away_team[:goals]
+    game.total_goals
   end
 
   def biggest_blowout
@@ -24,33 +24,24 @@ module Gameable
   end
 
   def percentage_home_wins
-    num_home_wins = 0
-    games.values.each do |game|
-      if game.home_team[:goals] > game.away_team[:goals]
-        num_home_wins += 1
-      end
+    num_home_wins = games.values.sum do |game|
+      game.home_team[:goals] > game.away_team[:goals] ? 1 : 0 
     end
-    (num_home_wins / games.count.to_f).round(2)
+    (num_home_wins / games.length.to_f).round(2)
   end
 
   def percentage_visitor_wins
-    num_visitor_wins = 0
-    games.values.each do |game|
-      if game.away_team[:goals] > game.home_team[:goals]
-        num_visitor_wins += 1
-      end
+    num_visitor_wins = games.values.sum do |game|
+      game.away_team[:goals] > game.home_team[:goals] ? 1 : 0
     end
-    (num_visitor_wins / games.count.to_f).round(2)
+    (num_visitor_wins / games.length.to_f).round(2)
   end
 
   def percentage_ties
-    num_ties = 0
-    games.values.each do |game|
-      if game.home_team[:goals] == game.away_team[:goals]
-        num_ties += 1
-      end
+    num_ties = games.values.sum do |game|
+      game.home_team[:goals] == game.away_team[:goals] ? 1 : 0
     end
-    (num_ties / games.count.to_f).round(2)
+    (num_ties / games.length.to_f).round(2)
   end
 
   def count_of_games_by_season
@@ -64,10 +55,10 @@ module Gameable
   end
 
   def average_goals_per_game
-    goals = games.values.map do |game|
-      game.home_team[:goals] + game.away_team[:goals]
+    goals = games.values.sum do |game|
+      game.total_goals
     end
-    ((goals.inject(0){|sum,x|sum + x}).to_f/games.count.to_f).round(2)
+    (goals / games.length.to_f).round(2)
   end
 
   def average_goals_by_season
@@ -75,11 +66,9 @@ module Gameable
     seasons.each do |season_id, season|
       total_goals = 0
       season.teams.values.each do |team|
-        total_goals += team.games.values.sum do |game|
-          game.home_team[:goals] + game.away_team[:goals]
-        end
+        total_goals += team.games.values.sum(&:total_goals)
       end
-      game_count = season.teams.values.sum {|team| team.games.count}
+      game_count = season.teams.values.sum { |team| team.games.length }
       season_hash[season_id] = (total_goals / game_count.to_f).round(2)
     end
     season_hash
