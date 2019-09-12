@@ -55,17 +55,15 @@ module Teamable
   end
 
   def biggest_team_blowout(team_id)
-    blowout_game = teams[team_id].games.values.max_by do |game|
-      teams[team_id].win?(game) ? game.goals_difference.abs : 0
-    end
-    blowout_game.goals_difference.abs
+    teams[team_id].games.values
+      .max_by { |game| teams[team_id].win?(game) ? game.goals_difference.abs : 0 }
+      .goals_difference.abs
   end
 
   def worst_loss(team_id)
-    loss_game = teams[team_id].games.values.max_by do |game|
-      !teams[team_id].win?(game) ? game.goals_difference.abs : 0
-    end
-    loss_game.goals_difference.abs
+    teams[team_id].games.values
+      .max_by { |game| !teams[team_id].win?(game) ? game.goals_difference.abs : 0 }
+      .goals_difference.abs
   end
 
   def head_to_head(team_id)

@@ -25,8 +25,8 @@ class StatTracker
   def self.from_csv(locations)
     stat_tracker = self.new
     
-    games_to_create = {}
-    teams_to_create = {}
+    games_to_create   = {}
+    teams_to_create   = {}
     seasons_to_create = {}
     
     CSV.foreach(locations[:teams], headers: true) do |line|
