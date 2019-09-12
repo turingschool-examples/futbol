@@ -43,7 +43,7 @@ class TeamableHelperTest < Minitest::Test
   # end
 
   def test_total_wins_array_helper
-  assert_equal 6.0, @stat_tracker.total_wins_array_helper("7", "14")
+  assert_equal 6.0, @stat_tracker.total_wins_count_helper("7", "14")
   end
 
   # def test_games_for_team_helper
