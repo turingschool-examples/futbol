@@ -70,10 +70,10 @@ module Seasonable
   def most_accurate_team(season_id)
     team_accuracies = {}
     seasons[season_id].teams.values.each do |team|
-      shots_taken = 0
+      shots_taken  = 0
       goals_scored = 0
       team.games.values.each do |game|
-        shots_taken += team.shots_taken(game)
+        shots_taken  += team.shots_taken(game)
         goals_scored += team.goals_scored(game)
       end
       team_accuracies[team] = goals_scored / shots_taken.to_f
@@ -87,10 +87,10 @@ module Seasonable
   def least_accurate_team(season_id)
     team_accuracies = {}
     seasons[season_id].teams.values.each do |team|
-      shots_taken = 0
+      shots_taken  = 0
       goals_scored = 0
       team.games.values.each do |game|
-        shots_taken += team.shots_taken(game)
+        shots_taken  += team.shots_taken(game)
         goals_scored += team.goals_scored(game)
       end
       team_accuracies[team] = goals_scored / shots_taken.to_f
