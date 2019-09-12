@@ -124,32 +124,23 @@ module Goalable
   end
 
 ### From Teamable ###
-
-#Highest number of goals a particular team has scored in a single game.	Integer
-#BB (Complete)
-def most_goals_scored(team_id)
+def most_goals_scored(team_id) #BB (Complete) Highest number of goals a particular team has scored in a single game.	Integer
   most_goals_scored_counter = 0
   int_team_id = team_id.to_i
   self.game_teams.each do |game_team_obj|
     if game_team_obj.team_id == int_team_id
-      if game_team_obj.goals > most_goals_scored_counter
-        most_goals_scored_counter = game_team_obj.goals
-      end
+      most_goals_scored_counter = game_team_obj.goals if game_team_obj.goals > most_goals_scored_counter
     end
   end
   most_goals_scored_counter
 end
 
-#Lowest numer of goals a particular team has scored in a single game.	Integer
-#BB (Complete)
-def fewest_goals_scored(team_id)
+def fewest_goals_scored(team_id) #BB (Complete) Lowest numer of goals a particular team has scored in a single game.	Integer
   fewest_goals_scored_counter = 100
   int_team_id = team_id.to_i
   self.game_teams.each do |game_team_obj|
     if game_team_obj.team_id == int_team_id
-      if game_team_obj.goals < fewest_goals_scored_counter
-        fewest_goals_scored_counter = game_team_obj.goals
-      end
+      fewest_goals_scored_counter = game_team_obj.goals if game_team_obj.goals < fewest_goals_scored_counter
     end
   end
   fewest_goals_scored_counter

@@ -17,6 +17,9 @@ class LeagueableHelperTest < Minitest::Test
     }
 
     @stat_tracker = StatTracker.from_csv(@locations)
+
+    @teams_away_win_percentage = Hash.new
+    @teams_home_win_percentage = Hash.new
   end
 
   def test_total_games_helper
@@ -80,6 +83,16 @@ class LeagueableHelperTest < Minitest::Test
     expected_array = ["3", "6", "5", "17", "16", "9", "8", "30", "26", "19", "24", "2", "15", "20", "14", "28", "4", "21", "25", "13", "18", "10", "29", "52", "54", "1", "12", "23", "22", "7", "27", "53"]
 
   assert_equal expected_array, @stat_tracker.unique_away_teams_array_helper
+  end
+
+  def test_away_win_percent_helper
+    expected = {"3"=>266, "6"=>253, "5"=>274, "17"=>247, "16"=>266, "9"=>248, "8"=>249, "30"=>252, "26"=>256, "19"=>254, "24"=>258, "2"=>242, "15"=>264, "20"=>237, "14"=>259, "28"=>258, "4"=>239, "21"=>235, "25"=>238, "13"=>232, "18"=>257, "10"=>240, "29"=>238, "52"=>239, "54"=>51, "1"=>232, "12"=>229, "23"=>234, "22"=>236, "7"=>229, "27"=>65, "53"=>164}
+    assert_equal expected, @stat_tracker.away_win_percent_helper(@teams_away_win_percentage)
+  end
+
+  def test_home_win_percent_helper
+    expected = {"3"=>266, "6"=>253, "5"=>274, "17"=>247, "16"=>266, "9"=>248, "8"=>249, "30"=>252, "26"=>256, "19"=>254, "24"=>258, "2"=>242, "15"=>264, "20"=>237, "14"=>259, "28"=>258, "4"=>239, "21"=>235, "25"=>238, "13"=>232, "18"=>257, "10"=>240, "29"=>238, "52"=>239, "54"=>51, "1"=>232, "12"=>229, "23"=>234, "22"=>236, "7"=>229, "27"=>65, "53"=>164}
+    assert_equal expected, @stat_tracker.away_win_percent_helper(@teams_away_win_percentage)
   end
 
 end

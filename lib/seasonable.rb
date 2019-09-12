@@ -1,19 +1,13 @@
-require 'pry'
 module Seasonable
 
-  # Name of the team with the biggest decrease between regular season and postseason win percentage.	Return: String
-  # BB (Complete)
-  def biggest_bust(season)
+  def biggest_bust(season) # BB (Complete) Name of the team with the biggest decrease between regular season and postseason win percentage.	Return: String
     teams_reg_season_win_percentage = Hash.new(0)
     teams_post_season_win_percentage = Hash.new(0)
     teams_differences = Hash.new(0)
-    self.games.each_value do |game|
-      teams_reg_season_win_percentage[game.home_team_id] += 0
-      teams_reg_season_win_percentage[game.away_team_id] += 0
-      teams_post_season_win_percentage[game.home_team_id] += 0
-      teams_post_season_win_percentage[game.away_team_id] += 0
-      teams_differences[game.home_team_id] += 0
-      teams_differences[game.away_team_id] += 0
+    self.teams.each_key do |team_id|
+      teams_reg_season_win_percentage[team_id] = 0
+      teams_post_season_win_percentage[team_id] = 0
+      teams_differences[team_id] = 0
     end
 
     teams_reg_season_win_percentage.each do |team_id, percent|
@@ -27,32 +21,24 @@ module Seasonable
     teams_differences.each do |team_id_1, diff_percent|
       teams_reg_season_win_percentage.each do |team_id_2, reg_win_percent|
         teams_post_season_win_percentage.each do |team_id_3, post_win_percent|
-          if team_id_1 == team_id_2 && team_id_1 == team_id_3 && team_id_2 == team_id_3
-            teams_differences[team_id_1] = reg_win_percent - post_win_percent
-          end
+          teams_differences[team_id_1] = reg_win_percent - post_win_percent if team_id_1 == team_id_2 && team_id_1 == team_id_3 && team_id_2 == team_id_3
         end
       end
     end
-
     team_with_biggest_diff = teams_differences.max_by {|k,v| v }
-
     team_name_finder_helper(team_with_biggest_diff[0])
-
   end
 
-  # Name of the team with the biggest increase between regular season and postseason win percentage.	Return: String
-  # BB (Complete)
-  def biggest_surprise(season)
+
+
+  def biggest_surprise(season) # BB (Complete) Name of the team with the biggest increase between regular season and postseason win percentage.	Return: String
     teams_reg_season_win_percentage = Hash.new(0)
     teams_post_season_win_percentage = Hash.new(0)
     teams_differences = Hash.new(0)
-    self.games.each_value do |game|
-      teams_reg_season_win_percentage[game.home_team_id] += 0
-      teams_reg_season_win_percentage[game.away_team_id] += 0
-      teams_post_season_win_percentage[game.home_team_id] += 0
-      teams_post_season_win_percentage[game.away_team_id] += 0
-      teams_differences[game.home_team_id] += 0
-      teams_differences[game.away_team_id] += 0
+    self.teams.each_key do |team_id|
+      teams_reg_season_win_percentage[team_id] = 0
+      teams_post_season_win_percentage[team_id] = 0
+      teams_differences[team_id] = 0
     end
 
     teams_reg_season_win_percentage.each do |team_id, percent|
@@ -73,7 +59,7 @@ module Seasonable
       end
     end
 
-    team_with_lowest_diff = teams_differences.min_by {|k,v| v }
+    team_with_lowest_diff = teams_differences.min_by {|team, difference| difference }
 
     team_name_finder_helper(team_with_lowest_diff[0])
   end

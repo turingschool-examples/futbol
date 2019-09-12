@@ -128,4 +128,28 @@ module LeagueableHelper
     unique_away_teams.uniq
   end
 
+  def away_win_percent_helper(teams_away_win_percentage)
+    away_win_percentage = 0
+    total_away_games_helper.each do |games_id, number_of_away_games|
+      total_away_wins_helper.each do |wins_id, number_of_away_wins|
+        teams_away_win_percentage.each_key do |team_id|
+          away_win_percentage = (number_of_away_wins / number_of_away_games.to_f).round(2) if games_id == wins_id
+          teams_away_win_percentage[team_id] = away_win_percentage if games_id == team_id
+        end
+      end
+    end
+  end
+
+  def home_win_percent_helper(teams_home_win_percentage)
+    home_win_percentage = 0
+    total_home_games_helper.each do |games_id, total_number_of_home_games|
+      total_home_wins_helper.each do |wins_id, number_of_home_wins|
+        teams_home_win_percentage.each_key do |team_id|
+          home_win_percentage = (number_of_home_wins / total_number_of_home_games.to_f).round(2) if games_id == wins_id
+          teams_home_win_percentage[team_id] = home_win_percentage if games_id == team_id
+        end
+      end
+    end
+  end
+
 end

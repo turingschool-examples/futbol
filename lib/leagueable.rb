@@ -231,62 +231,31 @@ module Leagueable
 
   end
 
-  # Name of the team with the highest win percentage across all seasons. Return: String
-  # BB (Complete)
-  def winningest_team
+  def winningest_team # Name of the team with the highest win percentage across all seasons. Return: String # BB (Complete)
     winningest_team_wins_average = 0
     winningest_team_team_id = 0
     this_team_wins_average = 0
-    # Iterate over teams_total_games key/value pairs.
-    # games_key is the team_id and games_value is the number of games played
-    total_games_helper.each do |games_key, games_value|
-    # Nest an iteration over teams_total_wins key/value pairs.
-    # wins_key is the team_id and wins_value is the number of games won
+    total_games_helper.each do |team_id, number_of_games_played|
       total_wins_helper.each do |wins_key, wins_value|
-        if wins_key == games_key
-          this_team_wins_average = (wins_value / games_value.to_f)
-          if this_team_wins_average > winningest_team_wins_average
-            winningest_team_wins_average = this_team_wins_average
-            winningest_team_team_id = games_key
-          end
+        this_team_wins_average = (wins_value / number_of_games_played.to_f) if wins_key == team_id
+        if this_team_wins_average > winningest_team_wins_average
+          winningest_team_wins_average = this_team_wins_average
+          winningest_team_team_id = team_id
         end
       end
     end
-
     team_name_finder_helper(winningest_team_team_id)
-
   end
 
-  # Name of the team with biggest difference between home and away win percentages. Return: String
-  # BB (Complete)
-  def best_fans
-    # Create hash with team ids as keys and the total home and away win % for each team as values
+  def best_fans # BB (Complete) Name of the team with biggest difference between home and away win percentages. Return: String
     teams_away_win_percentage = Hash.new
     teams_home_win_percentage = Hash.new
     self.teams.each_key do |team_id|
       teams_away_win_percentage[team_id] = 0
       teams_home_win_percentage[team_id] = 0
     end
-    # calculate each teams_away_win_percentage
-    away_win_percentage = 0
-    total_away_games_helper.each do |games_id, number_of_away_games|
-      total_away_wins_helper.each do |wins_id, number_of_away_wins|
-        teams_away_win_percentage.each_key do |team_id|
-          away_win_percentage = (number_of_away_wins / number_of_away_games.to_f).round(2) if games_id == wins_id
-          teams_away_win_percentage[team_id] = away_win_percentage if games_id == team_id
-        end
-      end
-    end
-    # calculate each teams_home_win_percentage
-    home_win_percentage = 0
-    total_home_games_helper.each do |games_id, total_number_of_home_games|
-      total_home_wins_helper.each do |wins_id, number_of_home_wins|
-        teams_home_win_percentage.each_key do |team_id|
-          home_win_percentage = (number_of_home_wins / total_number_of_home_games.to_f).round(2) if games_id == wins_id
-          teams_home_win_percentage[team_id] = home_win_percentage if games_id == team_id
-        end
-      end
-    end
+    away_win_percent_helper(teams_away_win_percentage)
+    home_win_percent_helper(teams_home_win_percentage)
     # Get the difference between home wins and away wins for each team
     difference = 0
     biggest_difference = 0
@@ -296,37 +265,27 @@ module Leagueable
           difference = (home_win_percent - away_win_percent).abs if team_id_1 == team_id_2
           if difference > biggest_difference
             biggest_difference = difference
-            # return team id of the team with biggest difference between home and away win percent
             team_id = team_id_1
           end
       end
     end
+    # return team id of the team with biggest difference between home and away win percent
     team_name_finder_helper(team_id)
   end
 
-  # List of names of all teams with better away records than home records. Return: Array
-  # BB (Complete)
-  def worst_fans
-    # Iterate through the hashes and if a team has more away wins than home wins then they get added to the worst_fans_collection array
+  def worst_fans #BB (Complete) List of names of all teams with better away records than home records. Return: Array
     worst_fans_collection = []
     total_away_wins_helper.each do |team_id_1, number_of_away_wins|
       total_home_wins_helper.each do |team_id_2, number_of_home_wins|
         if team_id_1 == team_id_2
-          if number_of_away_wins > number_of_home_wins
-            worst_fans_collection << team_id_2
-          end
+          worst_fans_collection << team_id_2 if number_of_away_wins > number_of_home_wins
         end
       end
     end
-
     # Convert the worst_fans array of team_ids to team names
     worst_fans_collection.map! do |team_id|
       team_name_finder_helper(team_id)
     end
-
-    # NOTE!!!!!!!!!!!!
-    # Team_id #7 has 65 away wins and 64 home wins, not consistent with testing expectations.
-    # Spec harness updated, should be correct now.
     worst_fans_collection
   end
 

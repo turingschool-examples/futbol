@@ -1,38 +1,25 @@
 module Gameable
 
-  #Highest sum of the winning and losing teams’ scores	Integer
-  #BB
-  def highest_total_score
+  def highest_total_score #BB Highest sum of the winning and losing teams’ scores	Integer
     sum = 0
     self.games.each_value do |object|
-      #object.home_goals returns the value of the Games @home_goals.
-      if (object.home_goals + object.away_goals) > sum
-        sum = (object.home_goals + object.away_goals)
-      end
+      sum = (object.home_goals + object.away_goals) if (object.home_goals + object.away_goals) > sum
     end
     sum
   end
 
-  #Lowest sum of the winning and losing teams’ scores	Integer
-  #BB
-  def lowest_total_score
+  def lowest_total_score #BB Lowest sum of the winning and losing teams’ scores	Integer
     sum = 100
     self.games.each_value do |object|
-      if (object.home_goals + object.away_goals) < sum
-        sum = object.home_goals + object.away_goals
-      end
+      sum = object.home_goals + object.away_goals if (object.home_goals + object.away_goals) < sum
     end
     sum
   end
 
-  #Highest difference between winner and loser	Integer
-  #BB
-  def biggest_blowout
+  def biggest_blowout  #BB Highest difference between winner and loser	Integer
     biggest_blowout_value = 0
     self.games.each_value do |object|
-      if (object.home_goals - object.away_goals).abs > biggest_blowout_value
-        biggest_blowout_value = (object.home_goals - object.away_goals).abs
-      end
+        biggest_blowout_value = (object.home_goals - object.away_goals).abs if (object.home_goals - object.away_goals).abs > biggest_blowout_value
     end
     biggest_blowout_value
   end
