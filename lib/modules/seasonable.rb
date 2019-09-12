@@ -24,11 +24,47 @@ module Seasonable
   end
 
   def winningest_coach(season_id)
-    
+    coach_summaries = {}
+
+    seasons[season_id].teams.values.each do |team|
+      team.games.values.each do |game|
+        coach = team.coach(game)
+        if !coach_summaries.has_key?(coach)
+          coach_summaries[coach] = {
+            games_won: team.win?(game) ? 1 : 0,
+            games_played: 1
+          }
+        else
+          coach_summaries[coach][:games_won]    += team.win?(game) ? 1 : 0
+          coach_summaries[coach][:games_played] += 1
+        end
+      end
+    end
+    coach_summaries
+      .max_by { |coach, summary| summary[:games_won] / summary[:games_played].to_f }
+      .first
   end
 
   def worst_coach(season_id)
+    coach_summaries = {}
 
+    seasons[season_id].teams.values.each do |team|
+      team.games.values.each do |game|
+        coach = team.coach(game)
+        if !coach_summaries.has_key?(coach)
+          coach_summaries[coach] = {
+            games_won: team.win?(game) ? 1 : 0,
+            games_played: 1
+          }
+        else
+          coach_summaries[coach][:games_won]    += team.win?(game) ? 1 : 0
+          coach_summaries[coach][:games_played] += 1
+        end
+      end
+    end
+    coach_summaries
+      .min_by { |coach, summary| summary[:games_won] / summary[:games_played].to_f }
+      .first
   end
 
   def most_accurate_team(season_id)

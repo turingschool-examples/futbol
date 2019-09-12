@@ -29,12 +29,10 @@ class SeasonableModuleTest < Minitest::Test
   end
 
   def test_winningest_coach
-    skip
-    assert_equal "Alain Vignault", @stat_tracker.winningest_coach("20132014")
+    assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20132014")
   end
 
   def test_worst_coach
-    skip
     assert_equal "Craig Berube", @stat_tracker.worst_coach("20132014")
   end
 
