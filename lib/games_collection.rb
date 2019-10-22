@@ -4,5 +4,4 @@ class GamesCollection
   def initialize(games_array)
     @games = games_array
   end
-  
 end

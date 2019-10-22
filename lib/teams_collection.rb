@@ -3,6 +3,5 @@ class TeamsCollection
 
   def initialize(teams_array)
     @teams = teams_array
-  end
-      
+  end  
 end
