@@ -11,9 +11,7 @@ locations = {
   game_teams: game_teams_path
 }
 
-# stat_tracker = StatTracker.from_csv()
+stat_tracker = StatTracker.from_csv(locations)
 
-file = CSV.read('./data/teams.csv')
 
-p file 
-# require 'pry'; binding.pry
+require 'pry'; binding.pry
