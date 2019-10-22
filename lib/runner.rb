@@ -13,6 +13,7 @@ locations = {
 
 # stat_tracker = StatTracker.from_csv()
 
-CSV.read('./data/teams.csv')
+file = CSV.read('./data/teams.csv')
 
+p file 
 # require 'pry'; binding.pry
