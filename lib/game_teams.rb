@@ -1,0 +1,5 @@
+
+class GameTeams < TeamCollection
+
+
+end
