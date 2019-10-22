@@ -1,3 +1,4 @@
+require 'CSV'
 require './lib/stat_tracker'
 
 game_path = './data/games.csv'
@@ -10,6 +11,8 @@ locations = {
   game_teams: game_teams_path
 }
 
-stat_tracker = StatTracker.from_csv(locations)
+# stat_tracker = StatTracker.from_csv()
 
-require 'pry'; binding.pry
+CSV.read('./data/teams.csv')
+
+# require 'pry'; binding.pry
