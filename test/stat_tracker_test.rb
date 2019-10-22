@@ -21,6 +21,6 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of GamesTeamsCollection, @stat_tracker.games_teams
   end
 
-
+  
 
 end
