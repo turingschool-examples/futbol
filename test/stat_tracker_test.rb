@@ -1,4 +1,5 @@
 require './test/test_helper'
+require './lib/game'
 require 'CSV'
 
 class StatTrackerTest < Minitest::Test
@@ -20,6 +21,7 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
-
-
+  # def test_it_can_read_files
+  #   assert_equal
+  # end
 end
