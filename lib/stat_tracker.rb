@@ -1,13 +1,16 @@
 class StatTracker
-  attr_reader :games, :teams, :game_teams
+  attr_reader :games, :teams, :games_teams
 
-  def initialize(locations)
-    @games = CSV.read(locations[:games])
-    @teams = CSV.read(locations[:teams])
-    @game_teams = CSV.read(locations[:game_teams])
+  def initialize(games, teams, games_teams)
+    @games = games
+    @teams = teams
+    @games_teams = games_teams
   end
 
   def self.from_csv(locations)
-    self.new(locations)
+    games = GamesCollection.new
+    teams = TeamsCollection.new
+    games_teams = GamesTeamsCollection.new
+    self.new(games, teams, games_teams)
   end
 end
