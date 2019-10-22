@@ -16,8 +16,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_initializes_with_attributes
-    assert_equal @locations[:games], @stat_tracker.games_path
-    assert_equal @locations[:teams], @stat_tracker.teams_path
-    assert_equal @locations[:game_teams], @stat_tracker.game_teams_path
+    assert_instance_of GamesCollection, @stat_tracker.games
+    assert_instance_of TeamsCollection, @stat_tracker.teams
+    assert_instance_of GamesTeamsCollection, @stat_tracker.games_teams
   end
+
+  
+
 end
