@@ -4,9 +4,9 @@ require_relative '../lib/stat_tracker'
 class StatTrackerTest < Minitest::Test
   def setup
     @locations = {
-                  games: '../data/dummy_games.csv',
-                  teams: '../data/dummy_teams.csv',
-                  game_teams: '../data/dummy_game_teams.csv'
+                  games: './data/dummy_games.csv',
+                  teams: './data/dummy_teams.csv',
+                  game_teams: './data/dummy_game_teams.csv'
                 }
     @stat_tracker = StatTracker.from_csv(@locations)
   end
