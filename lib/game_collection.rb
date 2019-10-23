@@ -16,6 +16,5 @@ class GameCollection
       game_obj = Game.new(row)
       @game_objs << game_obj
     end
-    # require 'pry'; binding.pry
   end
 end
