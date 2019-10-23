@@ -1,9 +1,7 @@
 require 'csv'
-require './lib/games'
 
-class Game
+class Games < Teams
   attr_reader :game_id, :season, :type, :date_time, :away_team_id, :home_team_id, :away_goals, :home_goals, :venue, :venue_link
-  @@games = []
 
   def initialize(game_id, season, type, date_time, away_team_id, home_team_id, away_goals, home_goals, venue, venue_link)
     @game_id = game_id
@@ -19,28 +17,38 @@ class Game
   end
 
   def self.create(file_path)
+    @games = []
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      @@games << self.new(row[:game_id],
+      @games << self.new(row[:game_id],
                                     row[:season],
                                     row[:type],
                                     row[:date_time],
                                     row[:away_team_id],
                                     row[:home_team_id],
-                                    row[:away_goals],
-                                    row[:home_goals],
+                                    row[:away_goals].to_i,
+                                    row[:home_goals].to_i,
                                     row[:venue],
                                     row[:venue_link])
     end
-    @@games
+    @games
   end
 
   def highest_total_score
+    games.max_by do |game|
+      game.away_goals + game.home_goals
+    end
   end
 
   def lowest_total_score
+    games.min_by do |game|
+      game.away_goals + game.home_goals
+    end
   end
 
   def biggest_blowout
+    games.max_by do |game|
+      (game.away_goals - game.home_goals).abs
+    end
   end
 
   def percentage_home_wins
