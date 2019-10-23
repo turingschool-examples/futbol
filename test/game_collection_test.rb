@@ -8,4 +8,8 @@ class GameCollectionTest < Minitest::Test
   def test_it_exists
     assert_instance_of GameCollection, @collection
   end
+
+  def test_it_can_read_csv
+    assert_equal 10, @collection.all_games.length
+  end
 end
