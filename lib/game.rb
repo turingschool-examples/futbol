@@ -1,3 +1,5 @@
+require 'csv'
+
 class Game
   attr_reader :game_id, :team_id, :hoa, :result, :settled_in, :head_coach, :goals,
       :shots, :tackles, :pim, :powerPlayOpportunities, :powerPlayGoals,
@@ -21,11 +23,11 @@ class Game
     @takeaways = game_info[:takeaways]
   end
 
-  def self.all
-    csv = CSV.read "./data/games.csv", headers: true, header_converters: symbols
+  def self.all_stats
+    csv = CSV.read "./data/games.csv", headers: true, header_converters: :symbols
 
     csv.map do |row|
-      Item.new(row)
+      Game.new(row)
     end
   end
 end
