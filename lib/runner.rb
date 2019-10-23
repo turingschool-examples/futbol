@@ -15,9 +15,13 @@ locations = {
 }
 
 stat_tracker = StatTracker.from_csv(locations)
-# game_array = stat_tracker.game
-# require "pry"; binding.pry
-# game_array.game_instances.first
+
 game_teams_array = stat_tracker.game_teams
-require "pry"; binding.pry
 game_teams_array.game_teams_instances.first
+
+team_array = stat_tracker.team
+team_array.team_instances.first
+
+game_array = stat_tracker.game
+game_array.game_instances.first
+
