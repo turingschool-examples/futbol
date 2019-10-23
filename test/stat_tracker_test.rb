@@ -17,4 +17,19 @@ class StatTrackerTest < Minitest::Test
   def test_games
     assert_instance_of GameCollection, @stat_tracker.games
   end
+
+  def test_count_of_games_by_season
+    expected = {
+      "20192020"=>2,
+      "20202021"=>2,
+      "20212022"=>2,
+      "20222023"=>2,
+      "20232024"=>2
+    }
+    assert_equal expected, @stat_tracker.count_of_games_by_season
+  end
+
+  def test_average_goals_per_game
+    assert_equal 5.8, @stat_tracker.average_goals_per_game
+  end
 end
