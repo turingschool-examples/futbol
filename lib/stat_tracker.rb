@@ -29,7 +29,14 @@ class StatTracker
   end
 
   def highest_total_score
-    highest_scoring_game = @game_repo.games.max_by {|game| game.total_score}
-    highest_scoring_game.total_score
+    @game_repo.games.max_by {|game| game.total_score}.total_score
   end
+
+  def lowest_total_score
+    @game_repo.games.min_by {|game| game.total_score}.total_score
+  end
+
+
+
+
 end
