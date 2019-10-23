@@ -3,7 +3,7 @@ require_relative 'test_helper'
 class GameTest < Minitest::Test
 
   def setup
-    @game_hash = {
+    game_hash = {
                   game_id: 2012030221,
                   season: 20122013,
                   type: 'Postseason',
@@ -16,7 +16,7 @@ class GameTest < Minitest::Test
                   venue_link: '/api/v1/venues/null'
                 }
 
-    @game_1 = Game.new
+    @game_1 = Game.new(game_hash)
   end
 
   def test_it_exists
