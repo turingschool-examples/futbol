@@ -3,12 +3,12 @@ require_relative '../lib/stat_tracker'
 
 class StatTrackerTest < Minitest::Test
   def setup
-    @locations = {
+    file_paths = {
                   games: './data/dummy_games.csv',
                   teams: './data/dummy_teams.csv',
-                  game_teams: './data/dummy_game_teams.csv'
+                  games_teams: './data/dummy_games_teams.csv'
                 }
-    @stat_tracker = StatTracker.from_csv(@locations)
+    @stat_tracker = StatTracker.from_csv(file_paths)
   end
 
   def test_it_exists

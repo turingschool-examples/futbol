@@ -3,10 +3,7 @@ require_relative 'test_helper'
 class TeamsCollectionTest < Minitest::Test
 
   def setup
-    @team_1 = Team.new
-    @team_2 = Team.new
-    @teams_array = [@team_1, @team_2]
-    @teams_collection = TeamsCollection.new(@teams_array)
+    @teams_collection = TeamsCollection.new('./data/dummy_teams.csv')
   end
 
   def test_it_exists
@@ -14,6 +11,7 @@ class TeamsCollectionTest < Minitest::Test
   end
 
   def test_it_initializes_attributes
-    assert_equal @teams_array, @teams_collection.teams
+    assert_equal 32, @teams_collection.teams.length
+    assert_equal true, @teams_collection.teams.all? {|team| team.is_a?(Team)}
   end
 end
