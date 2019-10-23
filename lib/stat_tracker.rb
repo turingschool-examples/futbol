@@ -54,13 +54,16 @@ class StatTracker
   end
 
   def average_goals_per_game
-    average = @games.map {|game| game.calculate_total_score(game)}
-    average.inject {|sum, num| sum + num} / games.length
+    average = @games.map {|game| self.calculate_total_score(game)}
+    average.inject {|sum, num| sum + num} / games.length.to_f
   end
 
   def average_goals_by_season
     avg_goals = @games.group_by {|game| game.season}
-    avg_goals.transform_values {|v| v.length}
+    avg_goals.transform_values do |v|
+      total = v.map {|game| self.calculate_total_score(game)}.inject {|sum, num| sum + num}
+      total / v.length.to_f
+    end
   end
 
 
