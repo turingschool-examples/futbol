@@ -1,4 +1,4 @@
-require './lib/game_stat_collection'
+require './lib/game_collection'
 require 'csv'
 
 class StatTracker
@@ -15,5 +15,9 @@ class StatTracker
 
     def game
       GameStatCollection.new(@game_path)
+    end
+
+    def game_teams
+      GameTeamsCollection.new(@game_teams_path)
     end
 end
