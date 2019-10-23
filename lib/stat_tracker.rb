@@ -30,3 +30,4 @@ class StatTracker
   #   GameTeamsCollection.new(@game_teams_path)
   # end
 end
+
