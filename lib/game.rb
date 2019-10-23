@@ -13,6 +13,5 @@ class Game
     @home_goals = game_info[:home_goals]
     @venue = game_info[:venue]
     @venue_link = game_info[:venue_link]
-
   end
 end
