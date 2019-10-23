@@ -24,4 +24,8 @@ class GamesTeamsCollection
       game_team.hoa == 'home' && game_team.result == 'WIN'
     end
   end
+
+  def percentage_home_wins
+    ((home_wins / total_home_games.to_f) * 100).round(2)
+  end
 end
