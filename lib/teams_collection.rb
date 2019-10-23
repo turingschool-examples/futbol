@@ -5,9 +5,9 @@ class TeamsCollection
     @teams = generate_objects_from_csv(teams_path)
   end
 
-  def generate_objects_from_csv(csv_file_path)
+  def generate_objects_from_csv(csv_teams_path)
     objects = []
-    CSV.foreach('./data/dummy_teams.csv', headers: true, header_converters: :symbol) do |row_object|
+    CSV.foreach(csv_teams_path, headers: true, header_converters: :symbol) do |row_object|
       objects << Team.new
     end
     objects
