@@ -1,9 +1,10 @@
+require 'csv'
 
 class GameTeams
   attr_reader :game_id, :team_id, :hoa, :result, :settled_in, :head_coach, :goals, :shots, :tackles, :pim,
               :powerPlayOpportunities, :powerPlayGoals, :faceOffWinPercentage, :giveaways, :takeaways
 
-  def initialize(game_id, team_id, hoa, result, settled_in, head_coach,goals, shots, tackles, pim,
+  def initialize(game_id, team_id, hoa, result, settled_in, head_coach, goals, shots, tackles, pim,
                   powerPlayOpportunities, powerPlayGoals, faceOffWinPercentage, giveaways, takeaways)
     @game_id = game_id
     @team_id = team_id
@@ -11,6 +12,7 @@ class GameTeams
     @result = result
     @settled_in = settled_in
     @head_coach = head_coach
+    @goals = goals
     @shots = shots
     @tackles = tackles
     @pim = pim
@@ -30,6 +32,7 @@ class GameTeams
                                     row[:result],
                                     row[:settled_in],
                                     row[:head_coach],
+                                    row[:goals],
                                     row[:shots],
                                     row[:tackles],
                                     row[:pim],
