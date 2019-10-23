@@ -1,33 +1,18 @@
-require 'csv'
-
 class Game
-  attr_reader :game_id, :team_id, :hoa, :result, :settled_in, :head_coach, :goals,
-      :shots, :tackles, :pim, :powerPlayOpportunities, :powerPlayGoals,
-      :faceOffWinPercentage, :giveaways, :takeaways
+  attr_reader :game_id, :season, :type, :date_time, :away_team_id,
+:home_team_id, :away_goals, :home_goals, :venue, :venue_link
 
   def initialize(game_info)
-    @game_id = game_info[:game_id].to_i
-    @team_id = game_info[:team_id]
-    @hoa = game_info[:description]
-    @result = game_info[:unit_price]
-    @settled_in = game_info[:settled_in]
-    @head_coach = game_info[:head_coach]
-    @goals = game_info[:goals]
-    @shots = game_info[:shots]
-    @tackles = game_info[:tackles]
-    @pim = game_info[:pim]
-    @powerPlayOpportunities = game_info[:powerPlayOpportunities]
-    @powerPlayGoals = game_info[:powerPlayGoals]
-    @faceOffWinPercentage = game_info[:faceOffWinPercentage]
-    @giveaways = game_info[:giveaways]
-    @takeaways = game_info[:takeaways]
-  end
+    @game_id = game_info[:game_id]
+    @season = game_info[:season]
+    @type = game_info[:type]
+    @date_time = game_info[:date_time]
+    @away_team_id = game_info[:away_team_id]
+    @home_team_id = game_info[:home_team_id]
+    @away_goals = game_info[:away_goals]
+    @home_goals = game_info[:home_goals]
+    @venue = game_info[:venue]
+    @venue_link = game_info[:venue_link]
 
-  # def self.all_stats
-  #   csv = CSV.read "./data/games.csv", headers: true, header_converters: :symbols
-  #
-  #   csv.map do |row|
-  #     Game.new(row)
-  #   end
-  # end
+  end
 end
