@@ -1,18 +1,16 @@
 require './lib/game_stat_collection'
+require 'csv'
 
 class StatTracker
 
     def self.from_csv(locations)
-      game_path = locations[:games]
-      team_path = locations[:teams]
-      game_teams_path = locations[:game]
-      StatTracker.new(game_path, team_path, game_teams_path)
+      StatTracker.new(locations)
     end
 
-    def initialize(game_path, team_path, game_teams_path)
-      @game_path = game_path
-      @team_path = team_path
-      @game_teams_path = game_teams_path
+    def initialize(locations)
+      @game_path = locations[:games]
+      @team_path = locations[:teams]
+      @game_teams_path = locations[:game_teams]
     end
 
     def game
