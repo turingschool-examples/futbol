@@ -21,7 +21,7 @@ class GameTest < Minitest::Test
     assert_equal "Toyota Stadium", @game.venue.first
   end
 
-  def test_it_makes_another_game_correctly
+  def test_it_initializes_another_game_correctly
     assert_equal 2016020251, @game.game_id.last.to_i
     assert_equal "Regular Season", @game.type.last
     assert_equal "SeatGeek Stadium", @game.venue.last
