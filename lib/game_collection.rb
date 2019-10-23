@@ -40,4 +40,13 @@ class GameCollection
     end
     return count_games_by_season_list
   end
+
+  def average_goals_per_game
+    total_goals = 0
+    @total_games.each do |game|
+      total_goals += game.home_goals
+      total_goals += game.away_goals
+    end
+    (total_goals / @total_games.count.to_f).round(2)
+  end
 end
