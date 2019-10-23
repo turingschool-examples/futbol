@@ -29,4 +29,15 @@ class GameCollection
     end
     (ties_count / @total_games.count.to_f).round(2)
   end
+
+  def count_of_games_by_season
+    count_games_by_season_list = {}
+    @total_games.each do |game|
+      count_games_by_season_list[game.season] = 0
+    end
+    @total_games.each do |game|
+      count_games_by_season_list[game.season] += 1
+    end
+    return count_games_by_season_list
+  end
 end
