@@ -13,4 +13,12 @@ class GameCollection
       Game.new(row)
     end
   end
+
+  def count_of_games_by_season
+    games_per_season = Hash.new{0}
+    all_games.each do |game|
+      games_per_season[game.season] += 1
+    end
+    games_per_season.sort.to_h
+  end
 end
