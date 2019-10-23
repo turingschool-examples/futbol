@@ -18,4 +18,8 @@ class GameCollection
     end
     game_objects
   end
+
+  def average_goals_per_game
+  require "pry"; binding.pry
+  end
 end
