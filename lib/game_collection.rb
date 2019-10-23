@@ -29,5 +29,4 @@ class GameCollection
     end
     (ties_count / @total_games.count.to_f).round(2)
   end
-
 end

@@ -26,4 +26,11 @@ class GameCollectionTest < Minitest::Test
     assert_equal (2/7.to_f).round(2), @game_collection.percentage_ties
   end
 
+  def test_it_can_calculate_count_of_games_by_season
+    count_games_by_season_list = {
+      20122013 => 4,
+      20142015 => 3
+    }
+    assert_equal count_games_by_season_list, @game_collection.count_of_games_by_season
+  end
 end
