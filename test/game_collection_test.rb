@@ -18,8 +18,15 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_it_can_calculate_highest_total_score
-    # look at our dumb file and figure out what that is
     assert_equal 5, @game_collection.highest_total_score
+  end
+
+  def test_it_can_calculate_lowest_total_score
+    assert_equal 3, @game_collection.lowest_total_score
+  end
+
+  def test_it_can_calculate_biggest_blowout
+    assert_equal 1, @game_collection.biggest_blowout
   end
 
 end
