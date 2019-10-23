@@ -10,7 +10,3 @@ stat_tracker = StatTracker.from_csv({
 # game_teams_collection = stat_tracker.game_teams
 game_collection = stat_tracker.game
 # teams = stat_tracker.teams
-
-
-
-
