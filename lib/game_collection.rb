@@ -23,6 +23,19 @@ class GameCollection
     game_sums.max_by { |sum| sum }
   end
 
+  def lowest_total_score
+    #game_sums has been used the same twice now
+    game_sums = @total_games.map do |game|
+      game.home_goals + game.away_goals
+    end
+    game_sums.min_by { |sum| sum }
+  end
 
-
+  def biggest_blowout
+    #mistake here
+    game_differences = @total_games.map do |game|
+      (game.home_goals + game.away_goals).abs
+    end
+    game_differences.max_by { |difference| difference }
+  end
 end
