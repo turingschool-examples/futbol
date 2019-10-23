@@ -34,7 +34,7 @@ class GameCollectionTest < Minitest::Test
     assert_equal count_games_by_season_list, @game_collection.count_of_games_by_season
   end
 
-  def average_goals_per_game
+  def test_it_can_average_goals_per_game
   # 15 away goals, 14 home goals, (29 total goals / 7 games)
     assert_equal (29/7.0).round(2), @game_collection.average_goals_per_game
   end
