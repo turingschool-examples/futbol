@@ -18,40 +18,40 @@ class GameTest < MiniTest::Test
   end
 
   def test_highest_total_score
-    assert_equal 9, @stat_tracker.highest_total_score
+    assert_equal 9, @stat_tracker.games.highest_total_score
 
   end
 
   def test_lowest_total_score
-    assert_equal 0, @stat_tracker.lowest_total_score
+    assert_equal 0, @stat_tracker.games.lowest_total_score
   end
 
   def test_largest_blowout
-    assert_equal @game3, @stat_tracker.biggest_blowout
+    assert_equal @game3, @stat_tracker.games.biggest_blowout
   end
 
   def test_percent_home_wins
-    assert_equal 60, @stat_tracker.percentage_home_wins
+    assert_equal 60, @stat_tracker.games.percentage_home_wins
   end
 
   def test_percent_visitor_wins
-    assert_equal 20, @stat_tracker.percentage_visitor_wins
+    assert_equal 20, @stat_tracker.games.percentage_visitor_wins
   end
 
   def test_percent_ties
-    assert_equal 20, @stat_tracker.percentage_ties
+    assert_equal 20, @stat_tracker.games.percentage_ties
   end
 
   def test_games_by_season
-    assert_equal {'20122013' => 5}, @stat_tracker.count_of_games_by_season
+    assert_equal {'20122013' => 5}, @stat_tracker.games.count_of_games_by_season
   end
 
   def test_average_goals_per_game
-    assert_equal 4.20, @stat_tracker.average_goals_per_game
+    assert_equal 4.20, @stat_tracker.games.average_goals_per_game
   end
 
   def test_average_goals_by_season
-    assert_equal {'20122013' => 4.20}
-  end            
+    assert_equal {'20122013' => 4.20}, @stat_tracker.games.average_goals_by_season
+  end
 
 end
