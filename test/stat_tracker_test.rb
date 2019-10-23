@@ -32,4 +32,8 @@ class StatTrackerTest < Minitest::Test
   def test_average_goals_per_game
     assert_equal 5.8, @stat_tracker.average_goals_per_game
   end
+
+  def test_highest_total_score
+    assert_equal 12, @stat_tracker.highest_total_score
+  end
 end
