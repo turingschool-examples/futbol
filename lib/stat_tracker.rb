@@ -42,20 +42,45 @@ class StatTracker
   end
 
   def percentage_home_wins
+    wins = games.count do |game|
+      game.home_goals > game.away_goals
+    end
+    (wins.to_f / games.count).round(3)
   end
 
   def percentage_visitor_wins
+    wins = games.count do |game|
+      game.home_goals < game.away_goals
+    end
+    (wins.to_f / games.count).round(3)
   end
 
   def percentage_ties
+    ties = games.count do |game|
+      game.home_goals == game.away_goals
+    end
+    (ties.to_f / games.count).round(3)
   end
 
   def count_of_games_by_season
+    hash = @games.reduce({}) do |acc, game|
+      if acc[game.season]
+        acc[game.season] += 1
+      else
+        acc[game.season] = 1
+      end
+      acc
+    end
+    hash
   end
 
   def average_goals_per_game
+<<<<<<< HEAD
     average = @games.map {|game| self.calculate_total_score(game)}
     average.inject {|sum, num| sum + num} / games.length.to_f
+=======
+  
+>>>>>>> master
   end
 
   def average_goals_by_season
