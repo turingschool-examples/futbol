@@ -29,3 +29,4 @@ class StatTracker
   def teams
     TeamsCollection.new(@teams_path)
   end
+end

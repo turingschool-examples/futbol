@@ -15,14 +15,3 @@ class GameTeamsCollection
        GameTeams.new(row)
     end
   end
-
-  def all_game_teams
-    @game_teams
-  end
-
-  # def find(id)
-  #   all_game_teams.find do |game_teams|
-  #     game_teams.id == id
-  #   end
-  # end
-end
