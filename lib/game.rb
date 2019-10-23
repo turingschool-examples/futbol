@@ -12,4 +12,13 @@ class Game
     @venue = game_info[:venue]
     @venue_link = game_info[:venue_link]
   end
+
+  # moved this back into game collection
+  # def self.all_games(game_path)
+  #   csv = CSV.read(game_path, headers: true, header_converters: :symbol)
+  #
+  #   csv.map do |row|
+  #     Game.new(row)
+  #   end
+  # end
 end
