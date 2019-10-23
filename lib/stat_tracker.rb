@@ -1,9 +1,12 @@
 require './lib/game_teams'
 require './lib/teams'
 require './lib/games'
+require_relative '../lib/helper_methods'
 
 class StatTracker
   attr_reader :games, :teams, :game_teams
+
+  include HelperMethods
 
   def initialize(game_teams, games, teams)
     @game_teams = game_teams
@@ -22,13 +25,13 @@ class StatTracker
 
   def highest_total_score
     games.max_by do |game|
-      game.away_goals + game.home_goals
+      self.calculate_total_score(game)
     end
   end
 
   def lowest_total_score
     games.min_by do |game|
-      game.away_goals + game.home_goals
+      self.calculate_total_score(game)
     end
   end
 
@@ -72,10 +75,25 @@ class StatTracker
   end
 
   def average_goals_per_game
+<<<<<<< HEAD
+    average = @games.map {|game| self.calculate_total_score(game)}
+    average.inject {|sum, num| sum + num} / games.length.to_f
+=======
   
+>>>>>>> master
   end
 
   def average_goals_by_season
+    avg_goals = @games.group_by {|game| game.season}
+    avg_goals.transform_values do |v|
+      total = v.map {|game| self.calculate_total_score(game)}.inject {|sum, num| sum + num}
+      total / v.length.to_f
+    end
   end
+
+
+
+
+
 
 end
