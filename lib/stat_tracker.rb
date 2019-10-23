@@ -1,3 +1,5 @@
+require_relative './game_collection'
+
 class StatTracker
   def self.from_csv(file_paths)
     game_path = file_paths[:games]
