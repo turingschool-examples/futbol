@@ -12,4 +12,10 @@ class GamesTeamsCollection
     end
     objects
   end
+
+  def total_home_games
+    @games_teams.count do |game_team|
+      game_team.hoa == 'home'
+    end
+  end
 end

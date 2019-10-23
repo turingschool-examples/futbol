@@ -15,4 +15,8 @@ class GamesTeamsCollectionTest < Minitest::Test
     assert_equal 99, @games_teams_collection.games_teams.length
     assert_equal true, @games_teams_collection.games_teams.all? {|game_team| game_team.is_a?(GameTeam)}
   end
+
+  def test_it_can_get_total_home_games
+    assert_equal 99, @games_teams_collection.total_home_games
+  end
 end
