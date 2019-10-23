@@ -10,18 +10,6 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_it_can_read_csv
-    expected = {
-      game_id: "1",
-      season: "20192020",
-      type: "Regular Season",
-      date_time: "10/22/19",
-      away_team_id: "3",
-      home_team_id: "5",
-      away_goals: 8,
-      home_goals: 4,
-      venue: "Sports Authority Field",
-      venue_link: "/api/v1/venues/null"
-    }
     assert_equal 10, @game_collection.games.count
   end
 
