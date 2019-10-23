@@ -27,4 +27,8 @@ class GamesTeamsCollectionTest < Minitest::Test
   def test_it_calculates_home_win_percentage_to_the_hundredths
     assert_equal 65.31, @games_teams_collection.percentage_home_wins
   end
+
+  def test_it_calculates_away_win_percentage_to_the_hundredths
+    assert_equal 34.69, @games_teams_collection.percentage_away_wins
+  end
 end

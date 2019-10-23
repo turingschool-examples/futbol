@@ -28,4 +28,8 @@ class GamesTeamsCollection
   def percentage_home_wins
     ((home_wins / total_home_games.to_f) * 100).round(2)
   end
+
+  def percentage_away_wins
+    (100 - percentage_home_wins).round(2)
+  end
 end
