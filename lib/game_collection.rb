@@ -2,7 +2,7 @@ require 'csv'
 require_relative 'game'
 require_relative 'stat_tracker'
 
-class GameStatCollection
+class GameCollection
   attr_reader :game_instances
 
   def initialize(game_path)

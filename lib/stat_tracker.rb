@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 require './lib/game_stat_collection'
 require './lib/team_collection'
+=======
+require './lib/game_collection'
+>>>>>>> d9e817c49f46b3bb20991431d4a0e2adbfde983f
 require 'csv'
 
 class StatTracker
