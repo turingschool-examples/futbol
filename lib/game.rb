@@ -23,11 +23,11 @@ class Game
     @takeaways = game_info[:takeaways]
   end
 
-  def self.all_stats
-    csv = CSV.read "./data/games.csv", headers: true, header_converters: :symbols
-
-    csv.map do |row|
-      Game.new(row)
-    end
-  end
+  # def self.all_stats
+  #   csv = CSV.read "./data/games.csv", headers: true, header_converters: :symbols
+  #
+  #   csv.map do |row|
+  #     Game.new(row)
+  #   end
+  # end
 end
