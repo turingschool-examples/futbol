@@ -3,7 +3,7 @@ require_relative 'test_helper'
 class GameTeamTest < Minitest::Test
 
   def setup
-    @game_team_hash = {
+    game_team_hash = {
                       game_id: 2012030222,
                       team_id: 3,
                       hoa: 'away',
@@ -21,7 +21,7 @@ class GameTeamTest < Minitest::Test
                       takeaways: 4
                     }
 
-    @game_team_1 = GameTeam.new(@game_team_hash)
+    @game_team_1 = GameTeam.new(game_team_hash)
   end
 
   def test_it_exists
