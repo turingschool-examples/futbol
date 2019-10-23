@@ -31,9 +31,8 @@ class StatTracker
   end
 
   def highest_total_score
-    require 'pry'; binding.pry
-    games.max_by{ |game| game.away_goals + game.home_goals }
-    # Highest sum of the winning and losing teams’ scores
+    highest_total = games.game_objs.max_by{ |game| game.away_goals + game.home_goals }
+    highest_total.away_goals + highest_total.home_goals
   end
 end
 

@@ -15,6 +15,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_calculate_highest_goal_total
-    assert_equal 5, @stat_tracker.highest_total_score
+    # not sure how to test this from dummy data
+    assert_equal 5, @games.highest_total_score
   end
 end
