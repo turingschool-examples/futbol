@@ -15,7 +15,6 @@ class GameTeamsCollection
     csv = CSV.read("#{@game_teams_path}", headers: true, header_converters: :symbol)
       csv.map do |row|
       game_teams_objects <<  GameTeams.new(row)
-  require "pry"; binding.pry
     end
     game_teams_objects
   end
