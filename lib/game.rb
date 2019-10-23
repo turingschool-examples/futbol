@@ -22,4 +22,8 @@ class Game
     @venue = game_info[:venue]
     @venue_link = game_info[:venue_link]
   end
+
+  def total_score
+    @away_goals.to_i + @home_goals.to_i
+  end
 end
