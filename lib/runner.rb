@@ -23,5 +23,4 @@ team_array = stat_tracker.team
 team_array.team_instances.first
 
 game_array = stat_tracker.game
-game_array.game_instances.first
-
+p game_array.game_instances[0...6]
