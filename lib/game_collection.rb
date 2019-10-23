@@ -2,12 +2,14 @@ require 'csv'
 require_relative 'game'
 
 class GameCollection
-  def initialize(game_collection_path)
-    @game_collection_path = game_collection_path
+  attr_reader :games
+
+  def initialize(csv_path)
+    @games = create_games(csv_path)
   end
 
-  def all
-    csv = CSV.read("#{@game_collection_path}", headers: true, header_converters: :symbol)
+  def create_games(csv_path)
+    csv = CSV.read("#{csv_path}", headers: true, header_converters: :symbol)
 
     csv.map do |row|
       Game.new(row)
@@ -15,6 +17,6 @@ class GameCollection
   end
 
   def total_games
-    all.length
+    @games.length
   end
 end

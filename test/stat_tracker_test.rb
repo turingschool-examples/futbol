@@ -15,7 +15,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_games
-    assert_instance_of GameCollection, @stat_tracker.games
+    assert_instance_of GameCollection, @stat_tracker.game_repo
   end
 
   def test_count_of_games_by_season

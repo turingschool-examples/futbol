@@ -13,22 +13,22 @@ class StatTracker
     @game_teams_path = game_teams_path
   end
 
-  def games
+  def game_repo
     GameCollection.new(@game_path)
   end
 
   def count_of_games_by_season
     games_per_season = Hash.new{0}
-    games.all.each do |game|
+    game_repo.games.each do |game|
       games_per_season[game.season] += 1
     end
     games_per_season.sort.to_h
   end
 
   def average_goals_per_game
-    total_goals = games.all.sum do |game|
+    total_goals = game_repo.games.sum do |game|
       game.total_score
     end
-    (total_goals.to_f/games.total_games).round(2)
+    (total_goals.to_f/game_repo.total_games).round(2)
   end
 end
