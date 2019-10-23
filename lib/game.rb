@@ -1,8 +1,10 @@
 require 'csv'
 require './lib/games'
 
+
 class Game
   attr_reader :game_id, :season, :type, :date_time, :away_team_id, :home_team_id, :away_goals, :home_goals, :venue, :venue_link
+  #redundant?
   @@games = []
 
   def initialize(game_id, season, type, date_time, away_team_id, home_team_id, away_goals, home_goals, venue, venue_link)
@@ -18,8 +20,13 @@ class Game
     @venue_link = venue_link
   end
 
+  def self.games
+
+  end
+
   def self.create(file_path)
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
+      binding.pry
       @@games << self.new(row[:game_id],
                                     row[:season],
                                     row[:type],
@@ -60,5 +67,6 @@ class Game
 
   def average_goals_by_season
   end
-
 end
+
+
