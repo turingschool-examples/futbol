@@ -8,7 +8,7 @@ class TeamsCollection
   def generate_objects_from_csv(csv_teams_path)
     objects = []
     CSV.foreach(csv_teams_path, headers: true, header_converters: :symbol) do |row_object|
-      objects << Team.new
+      objects << Team.new(row_object)
     end
     objects
   end
