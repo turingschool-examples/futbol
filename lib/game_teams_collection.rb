@@ -1,4 +1,4 @@
-require './lib/game_team'
+require './lib/game_teams'
 
 
 class GameTeamsCollection
