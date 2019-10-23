@@ -9,3 +9,4 @@ team_id,franchiseId,teamName,abbreviation,stadium,link
 7,19,Utah Royals FC,URF,Rio Tinto Stadium,/api/v1/teams/7
 53,28,Columbus Crew SC,CCS,Mapfre Stadium,/api/v1/teams/53
 19,18,Philadelphia Union,PHI,Talen Energy Stadium,/api/v1/teams/19
+ 
