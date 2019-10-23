@@ -27,4 +27,9 @@ class StatTracker
     total_goals = @game_repo.games.sum { |game| game.total_score }
     (total_goals.to_f/@game_repo.total_games).round(2)
   end
+
+  def highest_total_score
+    highest_scoring_game = @game_repo.games.max_by {|game| game.total_score}
+    highest_scoring_game.total_score
+  end
 end
