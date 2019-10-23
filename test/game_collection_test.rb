@@ -22,4 +22,8 @@ class GameCollectionTest < Minitest::Test
     assert_equal 5, @game_collection.highest_total_score
   end
 
+  def test_it_can_calculate_percentage_ties
+    assert_equal (1/7.to_f).round(2), @game_collection.percentage_ties
+  end
+
 end
