@@ -14,7 +14,7 @@ class TeamCollection
     team_objects = []
     csv = CSV.read("#{@team_path}", headers: true, header_converters: :symbol)
       csv.map do |row|
-      game_objects <<  Team.new(row)
+      team_objects <<  Team.new(row)
     end
     team_objects
   end
