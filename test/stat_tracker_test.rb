@@ -4,9 +4,10 @@ require 'CSV'
 
 class StatTrackerTest < Minitest::Test
   def setup
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    # using top 20 rows in each csv
+    game_path = './data/dummy_games.csv'
+    team_path = './data/dummy_teams.csv'
+    game_teams_path = './data/dummy_game_teams.csv'
 
     locations = {
       games: game_path,
