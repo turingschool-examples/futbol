@@ -2,6 +2,7 @@ require './test/test_helper'
 require './lib/stat_tracker'
 require './lib/game'
 require './lib/game_collection'
+#require './dummy_data/dummy_games'
 
 class GameCollectionTest < MiniTest::Test
 
@@ -12,6 +13,7 @@ class GameCollectionTest < MiniTest::Test
   end
 
   def test_it_exists
+skip
     assert_instance_of GameCollection, @game_collection
   end
 end
