@@ -15,4 +15,16 @@ class GamesTeamsCollectionTest < Minitest::Test
     assert_equal 99, @games_teams_collection.games_teams.length
     assert_equal true, @games_teams_collection.games_teams.all? {|game_team| game_team.is_a?(GameTeam)}
   end
+
+  def test_it_can_get_total_home_games
+    assert_equal 49, @games_teams_collection.total_home_games
+  end
+
+  def test_it_can_get_home_wins
+    assert_equal 32, @games_teams_collection.home_wins
+  end
+
+  def test_it_calculates_home_win_percentage_to_the_hundredths
+    assert_equal 65.31, @games_teams_collection.percentage_home_wins
+  end
 end
