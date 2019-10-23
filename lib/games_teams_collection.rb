@@ -7,7 +7,7 @@ class GamesTeamsCollection
 
   def generate_objects_from_csv(csv_file_path)
     objects = []
-    CSV.foreach(csv_file_path, headers: true, header_converters: :symbol) do |row_object|
+    CSV.foreach('./data/dummy_teams.csv', headers: true, header_converters: :symbol) do |row_object|
       objects << GameTeam.new(row_object)
     end
     objects

@@ -1,14 +1,14 @@
 class GamesCollection
   attr_reader :games
 
-  def initialize(games_path)
-    @games = generate_objects_from_csv(games_path)
+  def initialize
+    @games = generate_objects_from_csv
   end
 
-  def generate_objects_from_csv(csv_file_path)
+  def generate_objects_from_csv
     objects = []
-    CSV.foreach(csv_file_path, headers: true, header_converters: :symbol) do |row_object|
-      objects << Game.new(row_object)
+    CSV.foreach('./data/dummy_games.csv', headers: true, header_converters: :symbol) do |row_object|
+      objects << Game.new
     end
     objects
   end

@@ -16,7 +16,7 @@ class GameTest < Minitest::Test
                   venue_link: '/api/v1/venues/null'
                 }
 
-    @game_1 = Game.new(@game_hash)
+    @game_1 = Game.new
   end
 
   def test_it_exists
