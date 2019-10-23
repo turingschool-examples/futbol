@@ -11,7 +11,6 @@ class TeamCollection
   def create_teams(csv_file_path)
     csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
     csv.map do |row|
-      require 'pry'; binding.pry
       Team.new(row)
     end
   end
