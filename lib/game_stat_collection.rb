@@ -5,14 +5,14 @@ require_relative 'stat_tracker'
 class GameStatCollection
   attr_reader :game_instances
 
-  def initialize(csv_file_path)
-    @csv_file_path = csv_file_path
-    @game_instances = all_stats
+  def initialize(game_path)
+    @game_path = game_path
+    @game_instances = all_games
   end
 
-  def all_stats
+  def all_games
     game_objects = []
-    csv = CSV.read("#{@csv_file_path}", headers: true, header_converters: :symbol)
+    csv = CSV.read("#{@game_path}", headers: true, header_converters: :symbol)
       csv.map do |row|
       game_objects <<  Game.new(row)
     end
