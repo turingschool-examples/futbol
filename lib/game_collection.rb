@@ -23,6 +23,11 @@ class GameCollection
     game_sums.max_by { |sum| sum }
   end
 
-
+  def percentage_ties
+    ties_count = @total_games.count do |game|
+      game.home_goals == game.away_goals
+    end
+    (ties_count / @total_games.count.to_f).round(2)
+  end
 
 end

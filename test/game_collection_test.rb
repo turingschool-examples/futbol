@@ -14,7 +14,7 @@ class GameCollectionTest < Minitest::Test
 
   def test_it_has_total_games
     @game_collection.create_games('./data/games_sample.csv')
-    assert_equal 3, @game_collection.total_games.length
+    assert_equal 7, @game_collection.total_games.length
   end
 
   def test_it_can_calculate_highest_total_score
@@ -23,7 +23,7 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_it_can_calculate_percentage_ties
-    assert_equal (1/7.to_f).round(2), @game_collection.percentage_ties
+    assert_equal (2/7.to_f).round(2), @game_collection.percentage_ties
   end
 
 end
