@@ -1,5 +1,5 @@
-require './lib/game_teams'
-
+require './lib/game_team'
+require 'CSV'
 
 class GameTeamsCollection
   attr_reader :game_teams
@@ -10,8 +10,8 @@ class GameTeamsCollection
 
   def create_game_teams(csv_file_path)
     csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
-
     csv.map do |row|
        GameTeams.new(row)
     end
   end
+end

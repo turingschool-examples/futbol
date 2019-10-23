@@ -7,6 +7,6 @@ stat_tracker = StatTracker.from_csv({
  :games => "./data/games.csv",
  :teams => "./data/teams.csv",
 })
-# game_teams_collection = stat_tracker.game_teams
+game_teams_collection = stat_tracker.game_teams
 game_collection = stat_tracker.games
-# teams = stat_tracker.teams
+team_collection = stat_tracker.teams
