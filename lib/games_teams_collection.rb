@@ -42,7 +42,7 @@ class GamesTeamsCollection
   end
 
   def percentage_away_wins
-    ((total_away_wins  / total_away_games.to_f) * 100).round(2)
+    ((total_away_wins / total_away_games.to_f) * 100).round(2)
   end
 
   def total_ties
