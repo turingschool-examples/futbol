@@ -6,7 +6,7 @@ require './lib/game_collection'
 class GameTest < Minitest::Test
 
   def setup
-    csv_path = (CSV.read "./data/games.csv", headers: true, header_converters: :symbol)
+    csv_path = (CSV.read "./dummy_data/dummy_games.csv", headers: true, header_converters: :symbol)
     @game = Game.new(csv_path)
 
   end
@@ -22,8 +22,8 @@ class GameTest < Minitest::Test
   end
 
   def test_it_initializes_another_game_correctly
-    assert_equal 2016020251, @game.game_id.last.to_i
-    assert_equal "Regular Season", @game.type.last
-    assert_equal "SeatGeek Stadium", @game.venue.last
+    assert_equal 2012030236, @game.game_id.last.to_i
+    assert_equal "Postseason", @game.type.last
+    assert_equal "Dignity Health Sports Park", @game.venue.last
   end
 end
