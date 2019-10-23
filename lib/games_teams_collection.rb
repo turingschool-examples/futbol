@@ -18,4 +18,10 @@ class GamesTeamsCollection
       game_team.hoa == 'home'
     end
   end
+
+  def home_wins
+    @games_teams.count do |game_team|
+      game_team.hoa == 'home' && game_team.result == 'WIN'
+    end
+  end
 end
