@@ -1,7 +1,9 @@
 require 'Time'
 
-class GameTeam
-  attr_reader :id, :name, :engine, :created_at
+class GameTeams
+  attr_reader :game_id, :team_id, :HoA, :result, :settled_in, :head_coach,
+  :goals, :shots, :tackles, :pim, :powerPlayOpportunities, :powerPlayGoals,
+  :faceOffWinPercentage, :giveaways, :takeaways
 
   def initialize(game_team_info)
     @game_id = game_team_info[:game_id].to_i

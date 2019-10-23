@@ -1,28 +1,28 @@
 require './lib/game_team'
 
 
-class GameTeamCollection
-  attr_reader :game_team
+class GameTeamsCollection
+  attr_reader :game_teams
 
   def initialize(csv_file_path)
-    @game_team = create_game_team(csv_file_path)
+    @game_teams = create_game_teams(csv_file_path)
   end
 
-  # def create_merchants(csv_file_path)
-  #   csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
-  #
-  #   csv.map do |row|
-  #      Merchant.new(row)
-  #   end
-  # end
-  #
-  # def all_merchants
-  #   @merchants
-  # end
-  #
+  def create_game_teams(csv_file_path)
+    csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
+
+    csv.map do |row|
+       GameTeams.new(row)
+    end
+  end
+
+  def all_game_teams
+    @game_teams
+  end
+
   # def find(id)
-  #   all_merchants.find do |merchant|
-  #     merchant.id == id
+  #   all_game_teams.find do |game_teams|
+  #     game_teams.id == id
   #   end
   # end
 end
