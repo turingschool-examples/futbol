@@ -10,9 +10,10 @@ class GameCollection
 
   def create_games(csv_file_path)
     csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
-    csv.map do |row|
+    games = csv.map do |row|
+      require 'pry'; binding.pry
       Game.new(row)
     end
+    games
   end
 end
-

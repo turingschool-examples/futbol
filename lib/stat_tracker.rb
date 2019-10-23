@@ -22,11 +22,11 @@ class StatTracker
     GameCollection.new(@game_path)
   end
 
-  def teams(@teams)
-    TeamCollection.new(@team_path)
-  end
-
-  def game_teams(@game_teams)
-    GameTeamsCollection.new(@game_teams_path)
-  end
+  # def teams(@teams)
+  #   TeamCollection.new(@team_path)
+  # end
+  #
+  # def game_teams(@game_teams)
+  #   GameTeamsCollection.new(@game_teams_path)
+  # end
 end
