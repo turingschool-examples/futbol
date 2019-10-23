@@ -1,6 +1,7 @@
 require './lib/game_teams'
 require './lib/teams'
 require './lib/games'
+require_relative '../lib/helper_methods'
 
 class StatTracker
   attr_reader :games, :teams, :game_teams
@@ -53,13 +54,17 @@ class StatTracker
   end
 
   def average_goals_per_game
-    games.map {|game| game.calculate_total_score(game)}
-    average = games.inject {|sum, num| sum + num} / games.length
+    average = @games.map {|game| game.calculate_total_score(game)}
+    average.inject {|sum, num| sum + num} / games.length
   end
 
   def average_goals_by_season
-    
+    avg_goals = @games.group_by {|game| game.season}
+    avg_goals.transform_values {|v| v.length}
   end
+
+
+
 
 
 
