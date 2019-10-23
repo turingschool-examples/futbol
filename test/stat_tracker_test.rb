@@ -21,7 +21,9 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
-  # def test_it_can_read_files
-  #   assert_equal
-  # end
+  def test_it_initializes
+    assert_equal 32, @stat_tracker.teams.count
+    assert_equal 7441, @stat_tracker.games.count
+    assert_equal 14882, @stat_tracker.game_teams.count
+  end
 end
