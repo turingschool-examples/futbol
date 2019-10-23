@@ -23,7 +23,7 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_it_can_calculate_percentage_ties
-    assert_equal (2/7.to_f).round(2), @game_collection.percentage_ties
+    assert_equal (2/7.0).round(2), @game_collection.percentage_ties
   end
 
   def test_it_can_calculate_count_of_games_by_season
@@ -32,5 +32,10 @@ class GameCollectionTest < Minitest::Test
       20142015 => 3
     }
     assert_equal count_games_by_season_list, @game_collection.count_of_games_by_season
+  end
+
+  def average_goals_per_game
+  # 15 away goals, 14 home goals, (29 total goals / 7 games)
+    assert_equal (29/7.0).round(2), @game_collection.average_goals_per_game
   end
 end
