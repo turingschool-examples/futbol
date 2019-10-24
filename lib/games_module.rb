@@ -1,4 +1,4 @@
-module Game
+module GameModule
 
   def highest_total_score
     result = games.max_by do |game|

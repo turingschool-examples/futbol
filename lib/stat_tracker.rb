@@ -1,14 +1,17 @@
 require './lib/game_teams'
 require './lib/teams'
 require './lib/games'
+require './lib/games_module'
+require './lib/league_module'
+require './lib/season_module'
+require './lib/team_module'
 require 'pry'
-require_relative '../lib/helper_methods'
 
 class StatTracker
-  include Game
-  include League
-  include Team
-  include Season
+  include GameModule
+  include LeagueModule
+  include TeamModule
+  include SeasonModule
   attr_reader :games, :teams, :game_teams
 
   def initialize(game_teams, games, teams)

@@ -1,3 +1,3 @@
-module Season
+module SeasonModule
 
 end
