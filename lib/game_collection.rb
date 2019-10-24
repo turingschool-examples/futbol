@@ -49,4 +49,21 @@ class GameCollection
     end
     (total_goals / @total_games.count.to_f).round(2)
   end
+
+  def average_goals_by_season
+    season_list = count_of_games_by_season
+    season_list.transform_values! do |total_season_games|
+      [total_season_games, 0]
+      # transforming hash so that..
+      # Season (key value) = [total games of season, total goals of season]
+      # transform again dividing goals/games to get average for each season
+    end
+    @total_games.each do |game|
+      season_list[game.season][1] += game.home_goals
+      season_list[game.season][1] += game.away_goals
+    end
+    season_list.transform_values do |total_season_games|
+      (total_season_games[1] / total_season_games[0].to_f).round(2)
+    end
+  end
 end

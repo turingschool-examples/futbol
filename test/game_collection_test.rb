@@ -44,7 +44,7 @@ class GameCollectionTest < Minitest::Test
     # 2014/2015 12 goals / 3 games
     count_goals_by_season_list = {
       20122013 => (17/4.0).round(2),
-      20142015 => (13/3.0).round(2)
+      20142015 => (12/3.0).round(2)
     }
     assert_equal count_goals_by_season_list, @game_collection.average_goals_by_season
   end
