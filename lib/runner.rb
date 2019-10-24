@@ -1,7 +1,7 @@
 require 'csv'
-require './lib/stat_tracker'
-require './lib/game_teams'
-require './lib/game_teams_collection'
+require_relative 'stat_tracker'
+require_relative 'game_teams'
+require_relative 'game_teams_collection'
 
 
 game_path = './data/games.csv'
@@ -24,4 +24,3 @@ team_array.team_instances.first
 
 game_array = stat_tracker.game
 game_array.game_instances.first
-
