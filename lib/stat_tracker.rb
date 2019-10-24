@@ -40,20 +40,7 @@ class StatTracker
     lowest_total.away_goals + lowest_total.home_goals
   end
 
-# Average number of goals scored in a game organized in a hash with season
-# names (e.g. 20122013) as keys and a float representing the average number of
-# goals in a game for that season as a key (rounded to the nearest 100th)
-  # def average_goals_by_season
-  #   require 'pry'; binding.pry
-  #   avg_per_season = games.game_objs.map do |game|
-  #     game.away_goals + game.home_goals
-  #
-  #   # games.game_objs.reduce({}) do |avg_goals_by_season, season|
-  #   #   avg_goals_by_season[season] =
-  #   #
-  # end
-
-  def games_count_per_season
+  def game_count_per_season
     hash = games.game_objs.reduce({}) do |game_count, game|
       if game_count[game.season]
         game_count[game.season] += 1
@@ -75,6 +62,12 @@ class StatTracker
       goal_count
     end
     hash
+  end
+
+  def average_goals_by_season
+    goal_count_per_season.merge(game_count_per_season) do |key, goal_count, game_count|
+      (goal_count.to_f / game_count).round(2)
+    end
   end
 
   # we want a method to count our games in a season, as well as total goals by season, and then merge those hashes and divide the values
