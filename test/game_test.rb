@@ -39,4 +39,8 @@ class GameTest < Minitest::Test
   def test_total_score
     assert_equal 5, @game.total_score
   end
+
+  def test_score_difference
+    assert_equal 1, @game.score_difference
+  end
 end
