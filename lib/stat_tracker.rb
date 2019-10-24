@@ -20,7 +20,7 @@ class StatTracker
   def count_of_games_by_season
     games_per_season = Hash.new{0}
     @game_repo.games.each { |game| games_per_season[game.season] += 1 }
-    games_per_season.sort.to_h
+    games_per_season
   end
 
   def average_goals_per_game
@@ -36,7 +36,7 @@ class StatTracker
     @game_repo.games.min_by {|game| game.total_score}.total_score
   end
 
-
-
-
+  def biggest_blowout
+    @game_repo.games.max_by { |game| game.score_difference }.score_difference
+  end
 end

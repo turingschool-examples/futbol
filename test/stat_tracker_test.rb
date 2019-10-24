@@ -42,6 +42,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_biggest_blowout
-    assert_equal 4, @start_tracker.biggest_blowout
+    assert_equal 4, @stat_tracker.biggest_blowout
   end
 end
