@@ -1,3 +1,4 @@
+require './test/test_helper'
 require './lib/stat_tracker'
 require './lib/game'
 require './lib/game_collection'
@@ -26,8 +27,8 @@ class GameCollectionTest < MiniTest::Test
 
   def test_biggest_blowout
     assert_equal 3, @game_collection.biggest_blowout
-  end 
-  
+  end
+
   def test_average_goals_per_game
     assert_equal 4, @game_collection.average_goals_per_game
   end
@@ -44,6 +45,7 @@ class GameCollectionTest < MiniTest::Test
   end
 
   def test_count_of_games
+    @game_collection.count_of_games_by_season
     assert_equal Hash, @game_collection.count_of_games_by_season.class
     assert_equal 4, @game_collection.count_of_games_by_season.count
     assert_equal 10, @game_collection.value_maker("20122013").length
