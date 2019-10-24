@@ -27,4 +27,16 @@ class GamesTeamsCollectionTest < Minitest::Test
   def test_it_calculates_home_win_percentage_to_the_hundredths
     assert_equal 65.31, @games_teams_collection.percentage_home_wins
   end
+
+  def test_it_has_max_goals
+    assert_equal 4, @games_teams_collection.max_goals
+  end
+
+  def test_it_has_min_goals
+    assert_equal 0, @games_teams_collection.min_goals
+  end
+
+  def test_it_has_a_big_blow_out
+    assert_equal 4, @games_teams_collection.biggest_blowout
+  end
 end

@@ -28,4 +28,24 @@ class GamesTeamsCollection
   def percentage_home_wins
     ((home_wins / total_home_games.to_f) * 100).round(2)
   end
+
+  def max_goals
+    count = []
+    @games_teams.each do |game_team|
+      count << game_team.goals.to_i
+    end
+    count.max
+  end
+
+  def min_goals
+    count = []
+    @games_teams.each do |game_team|
+      count << game_team.goals.to_i
+    end
+    count.min
+  end
+
+  def biggest_blowout
+    max_goals - min_goals
+  end
 end
