@@ -6,3 +6,4 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2014020771,20142015,Regular Season,2/7/15,16,52,2,1,Providence Park,/api/v1/venues/null
 2014020465,20142015,Regular Season,12/18/14,6,30,3,2,Exploria Stadium,/api/v1/venues/null
 2014020694,20142015,Regular Season,1/22/15,6,21,2,2,BC Place,/api/v1/venues/null
+2012030163,20122013,Postseason,5/4/13,24,17,2,0,Dignity Health Sports Park,/api/v1/venues/null

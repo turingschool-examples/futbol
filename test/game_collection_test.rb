@@ -14,15 +14,30 @@ class GameCollectionTest < Minitest::Test
 
   def test_it_has_total_games
     @game_collection.create_games('./data/games_sample.csv')
-    assert_equal 7, @game_collection.total_games.length
+    assert_equal 8, @game_collection.total_games.length
   end
 
   def test_it_can_calculate_highest_total_score
-    # look at our dumb file and figure out what that is
     assert_equal 5, @game_collection.highest_total_score
   end
 
-  def test_it_can_calculate_percentage_ties
+  def test_it_can_calculate_lowest_total_score
+    assert_equal 2, @game_collection.lowest_total_score
+  end
+
+  def test_it_can_calculate_biggest_blowout
+    assert_equal 2, @game_collection.biggest_blowout
+  end
+
+  def test_it_can_calculate_percentage_home_wins
+    assert_equal 25.00, @game_collection.percentage_home_wins
+  end
+
+  def test_it_can_calculate_percentage_visitor_wins
+    assert_equal 50.00, @game_collection.percentage_visitor_wins
+  end
+  
+   def test_it_can_calculate_percentage_ties
     assert_equal (2/7.0).round(2), @game_collection.percentage_ties
   end
 

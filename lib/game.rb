@@ -14,4 +14,13 @@ class Game
     @venue = game_info[:venue]
     @venue_link = game_info[:venue_link]
   end
+
+  #game could add it's own goals
+
+  #def total goals
+  # away goal s + home goals
+
+  #end
 end
+
+#consider putting data folder in test folder and putting the samples
