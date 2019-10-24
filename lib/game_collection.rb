@@ -20,7 +20,7 @@ class GameCollection
   end
 
   def count_of_games_by_season
-    key_maker
+    season_key_maker
     season_count = {}
     @keys.each do |key|
       season_count[key] = value_maker(key)
@@ -28,7 +28,7 @@ class GameCollection
     season_count
   end
 
-  def key_maker
+  def season_key_maker
     @keys = []
     @game_instances.each do |game|
       @keys << game.season

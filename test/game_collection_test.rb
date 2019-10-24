@@ -21,5 +21,6 @@ class GameCollectionTest < Minitest::Test
     @gc.count_of_games_by_season
     assert_equal Hash, @gc.count_of_games_by_season.class
     assert_equal 4, @gc.count_of_games_by_season.count
+    assert_equal 10, @gc.value_maker("20122013").length
   end
 end
