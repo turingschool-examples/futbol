@@ -39,4 +39,10 @@ class GameCollection
     total_scores.uniq.min
   end
 
+  def biggest_blowout
+    difference = @game_instances.map do |game|
+      (game.away_goals - game.home_goals).abs
+    end
+    difference.uniq.max
+  end
 end
