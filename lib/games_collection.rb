@@ -29,11 +29,4 @@ class GamesCollection
     end
     target_hash
   end
-
-  #   num_games_in_season = {}
-  #   games_by_season.each do |season_of_game|
-  #     num_games_in_season[season_of_game] = number_of_games_in_each_season
-  #   end
-  #   num_games_in_season
-  # end
 end
