@@ -8,7 +8,6 @@ class GameCollection
   def initialize(game_path)
     @game_path = game_path
     all_games
-
   end
 
   def all_games
@@ -20,7 +19,30 @@ class GameCollection
     @game_instances
   end
 
-  def average_goals_per_game
+  def count_of_games_by_season
+    key_maker
+    season_count = {}
+    @keys.each do |key|
+      season_count[key] = value_maker(key)
+    end
+    season_count
+  end
 
+  def key_maker
+    @keys = []
+    @game_instances.each do |game|
+      @keys << game.season
+    end
+    @keys = @keys.uniq
+  end
+
+  def value_maker(season)
+    values = []
+    @game_instances.each do |game|
+      if game.season == season
+        values << game
+      end
+    end
+    values
   end
 end
