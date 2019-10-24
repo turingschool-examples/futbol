@@ -1,6 +1,6 @@
 require 'csv'
-require './lib/game'
-require './lib/stat_tracker'
+require_relative 'lib/game'
+require_relative 'lib/stat_tracker'
 
 class GameCollection
   attr_reader :game_instances
@@ -87,7 +87,7 @@ class GameCollection
         goal_array << game.home_goals.to_f
       end
     end
-    (goal_array.sum / goal_array.size).round(2)
+    (goal_array.sum / (goal_array.size / 2)).round(2)
   end
 
   def average_goals_per_season
