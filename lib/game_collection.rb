@@ -97,6 +97,7 @@ class GameCollection
     end
     season_list.transform_values do |total_season_games|
       (total_season_games[1] / total_season_games[0].to_f).round(2)
-  end
-    
+    end
+  end 
+
 end
