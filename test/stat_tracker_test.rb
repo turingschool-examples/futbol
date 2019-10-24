@@ -28,9 +28,15 @@ class StatTrackerTest < Minitest::Test
     assert_equal 20, @stat_tracker.game_teams.count
   end
 
-  def test_it_can_find_highest_and_lowest_scoring_game_and_biggest_blowout
+  def test_highest_total_score
     assert_equal 5, @stat_tracker.highest_total_score
+  end
+
+  def test_lowest_total_score
     assert_equal 1, @stat_tracker.lowest_total_score
+  end
+
+  def test_biggest_blowout
     assert_equal 3, @stat_tracker.biggest_blowout
   end
 end
