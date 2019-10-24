@@ -20,13 +20,12 @@ class StatTrackerTest < Minitest::Test
     #5 wins in test sample
   end
 
-  def test_percent_visitor_wins
-    assert_equal 50.00, @stat_tracker.percent_visitor_wins
-    #5 wins in test sample
-  end
-
   def test_percent_ties
     assert_equal 20.00, @stat_tracker.percent_ties
     # 2 ties in test sample
+  end
+
+  def test_count_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
   end
 end
