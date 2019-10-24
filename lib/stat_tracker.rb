@@ -47,4 +47,4 @@ class StatTracker
     (ties * 100.00 / @games.games.length).to_f
   end
 
-end
+
