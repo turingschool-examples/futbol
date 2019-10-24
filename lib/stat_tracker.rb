@@ -40,5 +40,8 @@ class StatTracker
     @game_repo.games.max_by {|game| game.game_goal_difference}.game_goal_difference
   end
 
+  def percentage_home_wins
+    (@game_repo.games.count {|game| game.home_team_win?}.to_f / @game_repo.total_games).round(2) 
+  end
 
 end

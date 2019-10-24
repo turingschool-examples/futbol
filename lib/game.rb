@@ -30,4 +30,8 @@ class Game
   def game_goal_difference
     (@home_goals - @away_goals).abs
   end
+
+  def home_team_win?
+    @home_goals > @away_goals
+  end
 end
