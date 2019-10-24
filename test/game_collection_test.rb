@@ -30,11 +30,11 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_it_can_calculate_percentage_home_wins
-    #8 total games
-    #2 home wins
-    #4 away wins
-    #2 ties
     assert_equal 25.00, @game_collection.percentage_home_wins
+  end
+
+  def test_it_can_calculate_percentage_visitor_wins
+    assert_equal 50.00, @game_collection.percentage_visitor_wins
   end
 
 end
