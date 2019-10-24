@@ -24,6 +24,8 @@ team_array.team_instances.first
 
 game_array = stat_tracker.game
 require "pry"; binding.pry
-
-hash = {}
-hash[season_name[0]] = season_counts
+games = game_array.game_instances
+home_goals = games.sum {|game| game.home_goals.to_i}
+away_goals = games.sum {|game| game.away_goals.to_i}
+total_games = games.size
+average_goals_per_game = (home_goals + away_goals) / total_games
