@@ -1,7 +1,7 @@
 require 'csv'
-require './lib/stat_tracker'
-require './lib/game_teams'
-require './lib/game_teams_collection'
+require_relative 'stat_tracker'
+require_relative 'game_teams'
+require_relative 'game_teams_collection'
 
 
 game_path = './data/games.csv'
@@ -22,7 +22,3 @@ game_teams_array.game_teams_instances.first
 team_array = stat_tracker.team
 team_array.team_instances.first
 
-game_array = stat_tracker.game.all_games
-require "pry"; binding.pry
-date_1 = game_array.game_instances.sort_by {}
-p game_array.game_instances

@@ -1,7 +1,6 @@
-
-require './lib/game_teams_collection'
-require './lib/team_collection'
-require './lib/game_collection'
+require_relative 'game_teams_collection'
+require_relative 'team_collection'
+require_relative 'game_collection'
 
 require 'csv'
 
