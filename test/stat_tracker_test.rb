@@ -78,4 +78,8 @@ class StatTrackerTest < Minitest::Test
   def test_percentage_ties
     assert_equal 0.20, @stat_tracker.percentage_ties
   end
+
+  def test_count_of_teams
+    assert_equal 10, @stat_tracker.count_of_teams
+  end
 end
