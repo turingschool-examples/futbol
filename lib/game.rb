@@ -26,4 +26,8 @@ class Game
   def total_score
     @away_goals + @home_goals
   end
+
+  def game_goal_difference
+    (@home_goals - @away_goals).abs
+  end
 end
