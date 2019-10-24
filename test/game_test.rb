@@ -1,8 +1,8 @@
 require './test/test_helper'
 require './lib/stat_tracker'
-require './lib/games'
+require './lib/games_module'
 
-class GameTest < MiniTest::Test
+class GameModuleTest < MiniTest::Test
   def setup
     @game1 = Games.new('1', '20122013', 'postseason', '12/08/2012', '3', '18', 1, 3, 'Allianz Field', '/api/v1/venues/null' )
     @game2 = Games.new('2', '20122013', 'postseason', '01/13/2013', '14', '4', 2, 3, 'Seatgeek Stadium', '/api/v1/venues/null')
