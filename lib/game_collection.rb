@@ -37,4 +37,11 @@ class GameCollection
     end
     game_differences.max_by { |difference| difference }
   end
+
+  def percentage_home_wins
+    home_wins = @total_games.find_all do |game|
+      game.home_goals > game.away_goals
+    end
+    home_wins.length.to_f / @total_games.length * 100
+  end
 end
