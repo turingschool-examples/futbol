@@ -7,7 +7,6 @@ class StatTracker
     game_path = file_paths[:games]
     teams_path = file_paths[:teams]
     game_teams_path = file_paths[:game_teams]
-
     StatTracker.new(game_path, teams_path, game_teams_path)
   end
 
@@ -38,5 +37,16 @@ class StatTracker
 
   def biggest_blowout
     @game_repo.games.max_by { |game| game.score_difference }.score_difference
+  end
+
+  def average_goals_by_season
+    total_goals_per_season = @game_repo.games.reduce(Hash.new(0)) do |hash, game|
+      hash[game.season] += game.total_score.to_f
+      hash
+    end
+
+    total_goals_per_season.merge(count_of_games_by_season) do |season, goals, games|
+      (goals/games).round(2)
+    end
   end
 end
