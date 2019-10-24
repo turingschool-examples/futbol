@@ -1,8 +1,8 @@
-require 'csv'
+require './test/test_helper'
 require './lib/stat_tracker'
-require './lib/game_teams'
-require './lib/game_teams_collection'
-
+require './lib/game'
+require './lib/game_collection'
+require 'csv'
 
 game_path = './data/games.csv'
 team_path = './data/teams.csv'
@@ -22,7 +22,8 @@ game_teams_array.game_teams_instances.first
 team_array = stat_tracker.team
 team_array.team_instances.first
 
-game_array = stat_tracker.game.all_games
+game_array = stat_tracker.game
 require "pry"; binding.pry
-date_1 = game_array.game_instances.sort_by {}
-p game_array.game_instances
+
+hash = {}
+hash[season_name[0]] = season_counts
