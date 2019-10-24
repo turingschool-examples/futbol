@@ -12,4 +12,9 @@ class TeamCollection
     csv = CSV.read("#{csv_path}", headers: true, header_converters: :symbol)
     csv.map { |row| Team.new(row) }
   end
+
+  def total_teams
+    require "pry"; binding.pry
+    @teams.length
+  end
 end
