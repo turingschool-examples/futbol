@@ -14,14 +14,10 @@ class GamesCollection
   end
 
   def highest_total_score
-    @games.map do |game|
-      game.away_goals.to_i + game.home_goals.to_i
-    end.max
+    @games.map {|game| game.away_goals.to_i + game.home_goals.to_i }.max
   end
 
   def lowest_total_score
-    @games.map do |game|
-      game.away_goals.to_i + game.home_goals.to_i
-    end.min
+    @games.map {|game| game.away_goals.to_i + game.home_goals.to_i }.min
   end
 end
