@@ -14,7 +14,7 @@ class GameCollectionTest < MiniTest::Test
   end
 
   def test_total_scores_returns_array_populated_with_all_game_scores_summed
-    assert_equal [5, 5, 3, 5, 4, 3, 5, 3, 1, 3, 3, 4, 2, 3, 5], @game_collection.total_scores
+    assert_equal [5, 5, 3, 5, 4, 3, 5, 5, 4, 4, 3, 4, 2, 3, 5], @game_collection.total_scores
   end
 
   def test_highest_total_score
@@ -22,7 +22,7 @@ class GameCollectionTest < MiniTest::Test
   end
 
   def test_lowest_total_score
-    assert_equal 1, @game_collection.lowest_total_score
+    assert_equal 2, @game_collection.lowest_total_score
   end
 
   def test_biggest_blowout
