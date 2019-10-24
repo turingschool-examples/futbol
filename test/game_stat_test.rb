@@ -12,7 +12,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_calculate_highest_goal_total
-    assert_equal 5, @stat_tracker.highest_total_score
+    assert_equal 7, @stat_tracker.highest_total_score
+  end
+
+  def test_it_can_calculate_lowest_goal_total
+    assert_equal 2, @stat_tracker.lowest_total_score
   end
 
   def test_it_can_calculate_biggest_blowout
@@ -20,18 +24,52 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_percent_home_wins
-    assert_equal 30.00, @stat_tracker.percent_home_wins
+    assert_equal 33.33, @stat_tracker.percent_home_wins
     #3 wins in test sample
   end
 
   def test_percent_visitor_wins
-    assert_equal 50.00, @stat_tracker.percent_visitor_wins
+    assert_equal 41.67, @stat_tracker.percent_visitor_wins
     #5 wins in test sample
   end
 
   def test_percent_ties
-    assert_equal 20.00, @stat_tracker.percent_ties
-    # 2 ties in test sample
+    assert_equal 25.00, @stat_tracker.percent_ties
   end
 
+  def test_it_can_give_number_of_games_in_season
+    expected = {
+    "20122013" => 5,
+    "20132014" => 1,
+    "20142015" => 1,
+    "20152016" => 2,
+    "20162017" => 2,
+    "20172018" => 1
+    }
+    assert_equal expected, @stat_tracker.game_count_per_season
+  end
+
+  def test_it_can_count_goals_per_season
+    expected = {
+    "20122013" => 18,
+    "20132014" => 5,
+    "20142015" => 2,
+    "20152016" => 12,
+    "20162017" => 6,
+    "20172018" => 4
+    }
+    assert_equal expected, @stat_tracker.goal_count_per_season
+  end
+
+  def test_it_can_get_average_goals_per_season
+    expected = {
+      "20122013" => 3.60,
+      "20132014" => 5.00,
+      "20142015" => 2.00,
+      "20152016" => 6.00,
+      "20162017" => 3.00,
+      "20172018" => 4.00
+    }
+    assert_equal expected, @stat_tracker.average_goals_by_season
+  end
 end
