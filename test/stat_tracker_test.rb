@@ -55,4 +55,15 @@ class StatTrackerTest < Minitest::Test
     }
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
+
+  def test_total_goals_by_season
+    expected = {
+      "20192020"=>20,
+      "20202021"=>7,
+      "20212022"=>9,
+      "20222023"=>14,
+      "20232024"=>8
+    }
+    assert_equal expected, @stat_tracker.total_goals_by_season
+  end
 end
