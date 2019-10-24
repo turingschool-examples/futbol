@@ -41,7 +41,11 @@ class StatTracker
   end
 
   def percentage_home_wins
-    (@game_repo.games.count {|game| game.home_team_win?}.to_f / @game_repo.games.length).round(2) 
+    (@game_repo.games.count {|game| game.home_team_win?}.to_f / @game_repo.games.length).round(2)
+  end
+
+  def percentage_visitor_wins
+    (@game_repo.games.count {|game| game.visitor_team_win?}.to_f / @game_repo.games.length).round(2)
   end
 
 end
