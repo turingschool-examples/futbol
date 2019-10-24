@@ -64,7 +64,7 @@ class StatTracker
     hash
   end
 
-def goal_count_per_season
+  def goal_count_per_season
     hash = @games.games.reduce({}) do |goal_count, game|
       if goal_count[game.season]
         goal_count[game.season] += (game.away_goals + game.home_goals)
@@ -82,16 +82,15 @@ def goal_count_per_season
     end
   end
 
-<<<<<<< HEAD
-  def count_of_games_by_season
-    games.game_objs.reduce({}) do |games_by_season, game|
-      games_by_season[game.season] = "tbd"
-      #need helper method for finding all games from that season and counting them (array.length)
-        games_by_season
+  def average_goals_per_game(season)
+    total_games = 0
+    total_points = 0
+    @games.games.each do |game|
+      if game.season == season
+        total_games += 1
+        total_points += (game.away_goals + game.home_goals)
       end
+    end
+    (total_points.to_f / total_games).round(2)
   end
-
 end
-=======
-
->>>>>>> cf7f2a9d2d6b83389d296e241e9981d6586d1d7b
