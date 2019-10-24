@@ -37,20 +37,17 @@ class StatTracker
   end
 
   def percent_visitor_wins
-      v_win = games.game_objs.count do |game|
-        game.away_goals > game.home_goals
-      end.to_f
-        (v_win * 100 / games.game_objs.length).to_f 
-
+    v_win = games.game_objs.count do |game|
+      game.away_goals > game.home_goals
+    end.to_f
+    (v_win * 100 / games.game_objs.length).to_f
   end
 
-      # x = game.away_goals > game.home_goals
-      # y = game.away_goals + game.home_goals
-      # games.game_objs.reduce do |result, total|
-      #   result / total
+  def percent_ties
+    ties = games.game_objs.count do |game|
+      game.away_goals == game.home_goals
+    end.to_f
+    (ties * 100 / games.game_objs.length).to_f
+  end
 
-      # binding.pry
-      # v_win / v_win.length
-    #   total trues / v_win.count
-    # end
 end
