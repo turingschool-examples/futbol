@@ -18,9 +18,9 @@ class GameCollectionTest < MiniTest::Test
   end
 
   def test_average_goals_per_season
-    assert_equal 2, @game_collection.ave_goals_per_season_values(20122013)
-    assert_equal 2, @game_collection.average_goals_per_season[20122013]
-    expected_value = {20122013=>2, 20152016=>2, 20162017=>2, 20172018=>1}
+    assert_equal 2.0, @game_collection.ave_goals_per_season_values(20122013)
+    assert_equal 2.0, @game_collection.average_goals_per_season[20122013]
+    expected_value = {20122013=>2.0, 20152016=>2.17, 20162017=>2.0, 20172018=>1.5}
     assert_equal expected_value,  @game_collection.average_goals_per_season
   end
 end
