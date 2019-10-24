@@ -7,16 +7,14 @@ class GameCollection
 
   def initialize(game_path)
     @game_path = game_path
-    all_games
+    @game_instances = all_games
   end
 
   def all_games
-    @game_instances = []
     csv = CSV.read("#{@game_path}", headers: true, header_converters: :symbol)
       csv.map do |row|
-      @game_instances <<  Game.new(row)
+       Game.new(row)
     end
-    @game_instances
   end
 
   def count_of_games_by_season
