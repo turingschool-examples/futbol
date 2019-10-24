@@ -16,6 +16,10 @@ class GameCollection
     end
   end
 
+  #method to sort by total goals
+  #max_by { \game| game. away + game. home}
+  #min_by ""
+  # OR just sort game_sums and pull the first/last
   def highest_total_score
     game_sums = @total_games.map do |game|
       game.home_goals + game.away_goals
