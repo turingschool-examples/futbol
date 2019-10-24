@@ -1,6 +1,7 @@
 require './lib/game_collection'
 require './lib/team_collection'
 require './lib/game_teams_collection'
+require 'pry'
 
 class StatTracker
 
@@ -40,4 +41,28 @@ class StatTracker
     (blowout.home_goals - blowout.away_goals).abs
   end
 
+  def percent_home_wins
+    h_win = games.game_objs.count do |game|
+      game.away_goals < game.home_goals
+    end
+    (h_win * 100.00 / games.game_objs.length).to_f
+  end
+
+  def percent_visitor_wins
+    v_win = games.game_objs.count do |game|
+      game.away_goals > game.home_goals
+    end
+    (v_win * 100.00 / games.game_objs.length).to_f
+  end
+
+  def percent_ties
+    ties = games.game_objs.count do |game|
+      game.away_goals == game.home_goals
+    end
+    (ties * 100.00 / games.game_objs.length).to_f
+  end
+
+  def count_of_teams
+    @teams.team_objs.length
+  end
 end

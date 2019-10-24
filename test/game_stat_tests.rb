@@ -4,7 +4,7 @@ require './lib/stat_tracker'
 
 class StatTrackerTest < Minitest::Test
   def setup
-    @stat_tracker = StatTracker.new("./data/test_game_data.csv", "./data/games.csv", "./data/teams.csv")
+    @stat_tracker = StatTracker.new("./data/test_game_data.csv", "./data/test_game_team_data.csv", "./data/teams.csv")
   end
 
   def test_it_exists
@@ -19,4 +19,22 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3, @stat_tracker.biggest_blowout
   end
 
+  def test_percent_home_wins
+    assert_equal 30.00, @stat_tracker.percent_home_wins
+    #3 wins in test sample
+  end
+
+  def test_percent_visitor_wins
+    assert_equal 50.00, @stat_tracker.percent_visitor_wins
+    #5 wins in test sample
+  end
+
+  def test_percent_ties
+    assert_equal 20.00, @stat_tracker.percent_ties
+    # 2 ties in test sample
+  end
+
+  def test_count_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
 end
