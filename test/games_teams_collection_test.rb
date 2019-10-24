@@ -37,8 +37,8 @@ class GamesTeamsCollectionTest < Minitest::Test
 
   def test_it_has_a_big_blow_out
     assert_equal 4, @games_teams_collection.biggest_blowout
-  end 
-  
+  end
+
   def test_it_can_get_total_away_games
     assert_equal 50, @games_teams_collection.total_away_games
   end
@@ -48,7 +48,7 @@ class GamesTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_calculates_away_win_percentage_to_the_hundredths
-    assert_equal 32.0, @games_teams_collection.percentage_away_wins
+    assert_equal 32.0, @games_teams_collection.percentage_visitor_wins
   end
 
   def test_it_can_get_total_ties

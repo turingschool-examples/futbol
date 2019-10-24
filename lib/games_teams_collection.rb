@@ -41,7 +41,7 @@ class GamesTeamsCollection
     end
   end
 
-  def percentage_away_wins
+  def percentage_visitor_wins
     ((total_away_wins / total_away_games.to_f) * 100).round(2)
   end
 
