@@ -35,6 +35,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_count_of_teams
-    assert_equal 32, @stat_tracker.count_of_teams
+    assert_equal 10, @stat_tracker.count_of_teams
   end
 end
