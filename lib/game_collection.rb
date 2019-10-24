@@ -98,4 +98,5 @@ class GameCollection
     end
     ave_goals_per_season
   end
+
 end
