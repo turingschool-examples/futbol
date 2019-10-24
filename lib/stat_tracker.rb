@@ -17,6 +17,7 @@ class StatTracker
     @game_path = game_path
     @team_path = team_path
     @game_teams_path = game_teams_path
+    @games = GameCollection.new(@game_path)
   end
 
   def games
