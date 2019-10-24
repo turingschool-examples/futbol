@@ -23,31 +23,28 @@ class StatTracker
   end
 
   def highest_total_score
-    highest_total = @games.game_objs.max_by{ |game| game.away_goals + game.home_goals }
+    highest_total = @games.games.max_by{ |game| game.away_goals + game.home_goals }
     highest_total.away_goals + highest_total.home_goals
   end
 
   def biggest_blowout
-    blowout = @games.game_objs.max_by { |game| (game.home_goals - game.away_goals).abs }
+    blowout = @games.games.max_by { |game| (game.home_goals - game.away_goals).abs }
     (blowout.home_goals - blowout.away_goals).abs
   end
 
   def percent_home_wins
-    h_win = @games.game_objs.count { |game| game.away_goals < game.home_goals }
-    (h_win * 100.00 / @games.game_objs.length).to_f
+    h_win = @games.games.count { |game| game.away_goals < game.home_goals }
+    (h_win * 100.00 / @games.games.length).to_f
   end
 
   def percent_visitor_wins
-    v_win = @games.game_objs.count { |game| game.away_goals > game.home_goals }
-    (v_win * 100.00 / @games.game_objs.length).to_f
+    v_win = @games.games.count { |game| game.away_goals > game.home_goals }
+    (v_win * 100.00 / @games.games.length).to_f
   end
 
   def percent_ties
-    ties = @games.game_objs.count { |game| game.away_goals == game.home_goals }
-    (ties * 100.00 / @games.game_objs.length).to_f
+    ties = @games.games.count { |game| game.away_goals == game.home_goals }
+    (ties * 100.00 / @games.games.length).to_f
   end
 
-  def count_of_teams
-    @teams.team_objs.length
-  end
 end
