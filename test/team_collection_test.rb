@@ -1,5 +1,4 @@
 require './test/test_helper'
-require './lib/team'
 require './lib/team_collection'
 
 class TeamsCollectionTest < Minitest::Test
@@ -13,7 +12,7 @@ class TeamsCollectionTest < Minitest::Test
   end
 
   def test_it_has_total_teams
-    @total_teams.create_games('./data/teams_sample.csv')
+    @total_teams.team_games('./data/teams_sample.csv')
     assert_equal 3, @total_teams.total_teams.length
   end
 end
