@@ -15,6 +15,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal 5, @stat_tracker.highest_total_score
   end
 
+  def test_percent_home_wins
+    assert_equal 30.00, @stat_tracker.percent_home_wins
+    #3 wins in test sample
+  end
+
   def test_percent_visitor_wins
     assert_equal 50.00, @stat_tracker.percent_visitor_wins
     #5 wins in test sample

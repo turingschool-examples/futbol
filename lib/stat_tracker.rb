@@ -36,6 +36,14 @@ class StatTracker
     highest_total.away_goals + highest_total.home_goals
   end
 
+  def percent_home_wins
+    h_win = games.game_objs.count do |game|
+      game.away_goals < game.home_goals
+    end
+    (h_win * 100.00 / games.game_objs.length).to_f
+  end
+
+
   def percent_visitor_wins
     v_win = games.game_objs.count do |game|
       game.away_goals > game.home_goals
@@ -50,5 +58,8 @@ class StatTracker
     (ties * 100.00 / games.game_objs.length).to_f
   end
 
+  def count_of_teams
+    @teams.team_objs.length
+  end
 
 end
