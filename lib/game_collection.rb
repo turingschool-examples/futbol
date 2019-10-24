@@ -20,7 +20,7 @@ class GameCollection
   end
 
   def count_of_games_by_season
-    key_maker
+    season_key_maker
     season_count = {}
     @keys.each do |key|
       season_count[key] = value_maker(key)
@@ -28,7 +28,7 @@ class GameCollection
     season_count
   end
 
-  def key_maker
+  def season_key_maker
     @keys = []
     @game_instances.each do |game|
       @keys << game.season
@@ -44,5 +44,32 @@ class GameCollection
       end
     end
     values
+  end
+
+  def average_goals_per_game
+    home_goals = @game_instances.sum { |game| game.home_goals.to_i }
+    away_goals = @game_instances.sum { |game| game.away_goals.to_i }
+    total_games = @game_instances.size
+    average_goals_per_game = (home_goals + away_goals) / total_games
+  end
+
+  def ave_goals_per_season_values(season)
+    goal_array = []
+    @game_instances.each do |game|
+      if game.season.to_i == season
+        goal_array <<  game.away_goals.to_i
+        goal_array << game.home_goals.to_i
+      end
+    end
+    goal_array.sum / goal_array.size
+  end
+
+  def average_goals_per_season
+    ave_goals_per_season = {}
+    season_key_maker
+    @keys.each do |key|
+      ave_goals_per_season[key.to_i] = ave_goals_per_season_values(key.to_i)
+    end
+    ave_goals_per_season
   end
 end
