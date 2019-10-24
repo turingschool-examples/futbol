@@ -8,7 +8,7 @@ require 'CSV'
 
 
 class StatTracker
-  attr_reader :games, :teams, :game_teams, :game_file, :team_file
+  attr_reader  :game_collection, :team_collection
 
   def self.from_csv(locations)
     game_file = locations[:games]
@@ -17,8 +17,8 @@ class StatTracker
 
     game_collection = GameCollection.load_data(game_file)
     team_collection = TeamCollection.load_data(team_file)
-    
-    StatTracker.new(game_collection, team_file, game_teams_file)
+
+    StatTracker.new(game_collection, team_collection, game_teams_file)
   end
 
   def initialize(game_collection, team_collection, game_teams_file)
@@ -28,20 +28,14 @@ class StatTracker
   end
 
   def highest_total_score
-    game_collection.high_score
+    @game_collection.highest_score
   end
 
   def lowest_total_score
-    lowest = @games.min_by do |game|
-      game.away_goals + game.home_goals
-    end
-    lowest.away_goals + lowest.home_goals
+    @game_collection.lowest_score
   end
 
   def biggest_blowout
-    biggest = @games.max_by do |game|
-      (game.away_goals - game.home_goals).abs
-    end
-    (biggest.away_goals - biggest.home_goals).abs
+    @game_collection.blowout
   end
 end

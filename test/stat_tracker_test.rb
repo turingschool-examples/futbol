@@ -23,9 +23,9 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_initializes
-    assert_equal 20, @stat_tracker.teams.count
-    assert_equal 20, @stat_tracker.games.count
-    assert_equal 20, @stat_tracker.game_teams.count
+    assert_equal 20, @stat_tracker.team_collection.teams.count
+    assert_equal 20, @stat_tracker.game_collection.games.count
+    # assert_equal 20, @stat_tracker.game_teams.count
   end
 
   def test_highest_total_score
