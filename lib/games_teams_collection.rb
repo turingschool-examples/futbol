@@ -54,4 +54,16 @@ class GamesTeamsCollection
   def percentage_ties
     ((total_ties.to_f / @games_teams.count) * 100).round(2)
   end
+
+  def max_goals
+    @games_teams.map {|game_team| game_team.goals.to_i}.max
+  end
+
+  def min_goals
+    @games_teams.map {|game_team| game_team.goals.to_i}.min
+  end
+
+  def biggest_blowout
+    max_goals - min_goals
+  end
 end
