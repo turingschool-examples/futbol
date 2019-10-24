@@ -35,13 +35,9 @@ class StatTracker
     @game_repo.games.min_by {|game| game.total_score}.total_score
   end
 
-  def biggest_blowout
-    @game_repo.games.max_by { |game| game.score_difference }.score_difference
-  end
-
   def average_goals_by_season
-    total_goals_by_season.merge(count_of_games_by_season) do |season, goals, games|
-      (goals/games).round(2)
+    total_goals_by_season.merge(count_of_games_by_season) do |season, total_goals, number_of_games|
+      (total_goals/number_of_games).round(2)
     end
   end
 
@@ -50,5 +46,21 @@ class StatTracker
       hash[game.season] += game.total_score.to_f
       hash
     end
+  end
+  
+  def biggest_blowout
+    @game_repo.games.max_by {|game| game.game_goal_difference}.game_goal_difference
+  end
+
+  def percentage_home_wins
+    (@game_repo.games.count {|game| game.home_team_win?}.to_f / @game_repo.total_games).round(2)
+  end
+
+  def percentage_visitor_wins
+    (@game_repo.games.count {|game| game.visitor_team_win?}.to_f / @game_repo.total_games).round(2)
+  end
+
+  def percentage_ties
+    (@game_repo.games.count {|game| game.tie_game?}.to_f / @game_repo.total_games).round(2)
   end
 end
