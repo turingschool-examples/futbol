@@ -18,13 +18,13 @@ class StatTracker
     end
 
     def game
-      GameStatCollection.new(@game_path)
+      GameCollection.new(@game_path)
     end
 
     def game_teams
       GameTeamsCollection.new(@game_teams_path)
-    end 
-  
+    end
+
     def team
       TeamCollection.new(@team_path)
     end
