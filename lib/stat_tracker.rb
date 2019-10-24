@@ -39,15 +39,16 @@ class StatTracker
   def percent_visitor_wins
     v_win = games.game_objs.count do |game|
       game.away_goals > game.home_goals
-    end.to_f
-    (v_win * 100 / games.game_objs.length).to_f
+    end
+    (v_win * 100.00 / games.game_objs.length).to_f
   end
 
   def percent_ties
     ties = games.game_objs.count do |game|
       game.away_goals == game.home_goals
-    end.to_f
-    (ties * 100 / games.game_objs.length).to_f
+    end
+    (ties * 100.00 / games.game_objs.length).to_f
   end
+
 
 end
