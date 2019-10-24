@@ -19,7 +19,32 @@ class StatTrackerTest < Minitest::Test
     assert_equal 2, @stat_tracker.lowest_total_score
   end
 
+  def test_it_can_give_number_of_games_in_season
+    expected = {
+    "20122013" => 5,
+    "20132014" => 1,
+    "20142015" => 1,
+    "20152016" => 2,
+    "20162017" => 2,
+    "20172018" => 1
+    }
+    assert_equal expected, @stat_tracker.games_count_per_season
+  end
+
+  def test_it_can_count_goals_per_season
+    expected = {
+    "20122013" => 18,
+    "20132014" => 5,
+    "20142015" => 2,
+    "20152016" => 12,
+    "20162017" => 6,
+    "20172018" => 4
+    }
+    assert_equal expected, @stat_tracker.goal_count_per_season
+  end
+
   def test_it_can_get_average_goals_per_season
+    skip
     expected = {
       "20122013" => 3.60,
       "20132014" => 5.00,
