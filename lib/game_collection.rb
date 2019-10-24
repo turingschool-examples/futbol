@@ -47,8 +47,8 @@ class GameCollection
   end
 
   def average_goals_per_game
-    home_goals = @game_instances.sum { |game| game.home_goals.to_i }
-    away_goals = @game_instances.sum { |game| game.away_goals.to_i }
+    home_goals = @game_instances.sum { |game| game.home_goals }
+    away_goals = @game_instances.sum { |game| game.away_goals }
     total_games = @game_instances.size
     average_goals_per_game = (home_goals + away_goals) / total_games
   end
@@ -57,11 +57,11 @@ class GameCollection
     goal_array = []
     @game_instances.each do |game|
       if game.season.to_i == season
-        goal_array <<  game.away_goals.to_i
-        goal_array << game.home_goals.to_i
+        goal_array <<  game.away_goals.to_f
+        goal_array << game.home_goals.to_f
       end
     end
-    goal_array.sum / goal_array.size
+    (goal_array.sum / goal_array.size).round(2)
   end
 
   def average_goals_per_season
