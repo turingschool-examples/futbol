@@ -36,5 +36,31 @@ class GameCollectionTest < Minitest::Test
   def test_it_can_calculate_percentage_visitor_wins
     assert_equal 50.00, @game_collection.percentage_visitor_wins
   end
+  
+   def test_it_can_calculate_percentage_ties
+    assert_equal (2/7.0).round(2), @game_collection.percentage_ties
+  end
 
+  def test_it_can_calculate_count_of_games_by_season
+    count_games_by_season_list = {
+      20122013 => 4,
+      20142015 => 3
+    }
+    assert_equal count_games_by_season_list, @game_collection.count_of_games_by_season
+  end
+
+  def test_it_can_calculate_average_goals_per_game
+    # 15 away goals, 14 home goals, (29 total goals / 7 games)
+    assert_equal (29/7.0).round(2), @game_collection.average_goals_per_game
+  end
+
+  def test_it_can_calculate_average_goals_by_season
+    # 2012/2013 17 goals / 4 games
+    # 2014/2015 12 goals / 3 games
+    count_goals_by_season_list = {
+      20122013 => (17/4.0).round(2),
+      20142015 => (12/3.0).round(2)
+    }
+    assert_equal count_goals_by_season_list, @game_collection.average_goals_by_season
+  end
 end
