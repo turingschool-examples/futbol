@@ -1,6 +1,5 @@
 require './test/test_helper'
 require './lib/team'
-require './lib/team_collection'
 
 class TeamsTest < Minitest::Test
 
