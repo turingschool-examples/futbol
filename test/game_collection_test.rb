@@ -2,18 +2,18 @@ require './test/test_helper'
 require './lib/stat_tracker'
 require './lib/game'
 require './lib/game_collection'
-#require './dummy_data/dummy_games'
 
 class GameCollectionTest < MiniTest::Test
 
   def setup
-    csv_path = (CSV.read "./dummy_data/dummy_games.csv", headers: true, header_converters: :symbol)
-    @game_collection = GameCollection.new(csv_path)
-    # @game = Game.new(csv_path)
+    @game_collection = GameCollection.new('./dummy_data/dummy_games.csv')
   end
 
   def test_it_exists
-skip
     assert_instance_of GameCollection, @game_collection
+  end
+  def test_average_goals_per_game
+  skip
+    assert_equal 6, @game_collection.average_goals_per_game
   end
 end

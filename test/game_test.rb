@@ -3,7 +3,7 @@ require './lib/stat_tracker'
 require './lib/game'
 require './lib/game_collection'
 
-class GameCollectionTest < MiniTest::Test
+class GameTest < MiniTest::Test
 
   def setup
     csv_path = (CSV.read "./dummy_data/dummy_games.csv", headers: true, header_converters: :symbol)
