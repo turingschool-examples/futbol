@@ -2,7 +2,7 @@ require 'csv'
 require_relative 'team'
 
 class TeamCollection
-  attr_reader :games
+  attr_reader :teams
 
   def initialize(csv_path)
     @teams = create_teams(csv_path)

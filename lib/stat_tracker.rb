@@ -1,4 +1,5 @@
 require_relative './game_collection'
+require_relative './team_collection'
 
 class StatTracker
   attr_reader :game_repo
@@ -11,7 +12,7 @@ class StatTracker
   end
 
   def initialize(game_path, teams_path, game_teams_path)
-    @teams_path = teams_path
+    @team_repo = TeamCollection.new(teams_path)
     @game_teams_path = game_teams_path
     @game_repo = GameCollection.new(game_path)
   end
@@ -47,7 +48,7 @@ class StatTracker
       hash
     end
   end
-  
+
   def biggest_blowout
     @game_repo.games.max_by {|game| game.game_goal_difference}.game_goal_difference
   end
@@ -62,5 +63,9 @@ class StatTracker
 
   def percentage_ties
     (@game_repo.games.count {|game| game.tie_game?}.to_f / @game_repo.total_games).round(2)
+  end
+
+  def count_of_teams
+    @team_repo.total_teams
   end
 end
