@@ -40,12 +40,12 @@ class StatTracker
   end
 
   def average_goals_by_season
-    total_goals_per_season = @game_repo.games.reduce(Hash.new(0)) do |hash, game|
+    total_goals_by_season = @game_repo.games.reduce(Hash.new(0)) do |hash, game|
       hash[game.season] += game.total_score.to_f
       hash
     end
 
-    total_goals_per_season.merge(count_of_games_by_season) do |season, goals, games|
+    total_goals_by_season.merge(count_of_games_by_season) do |season, goals, games|
       (goals/games).round(2)
     end
   end
