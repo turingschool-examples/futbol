@@ -44,4 +44,15 @@ class StatTrackerTest < Minitest::Test
   def test_biggest_blowout
     assert_equal 4, @stat_tracker.biggest_blowout
   end
+
+  def test_average_goals_by_season
+    expected = {
+      "20192020"=>10,
+      "20202021"=>3.5,
+      "20212022"=>4.5,
+      "20222023"=>7,
+      "20232024"=>4
+    }
+    assert_equal expected, @stat_tracker.average_goals_by_season
+  end
 end
