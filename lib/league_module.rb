@@ -46,7 +46,6 @@ module LeagueModule
 
   end
 
-
   ##Helper Methods##
   def generate_avg_goals_by_team
     games_by_team = game_teams.group_by do |game|
@@ -60,6 +59,7 @@ module LeagueModule
   end
 
   def convert_ids_to_team_name(id)
-
-  end   
+    ids_to_name = teams.group_by {|team| team.team_id}.transform_values {|obj| obj.team_name}
+    ids_to_name[id]
+  end
 end
