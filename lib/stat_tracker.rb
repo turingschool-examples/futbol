@@ -34,5 +34,12 @@ class StatTracker
     highest_total = games.game_objs.max_by{ |game| game.away_goals + game.home_goals }
     highest_total.away_goals + highest_total.home_goals
   end
-end
 
+  def count_of_games_by_season
+    games.game_objs.reduce({}) do |games_by_season, game|
+      games_by_season[game.season] = "tbd"
+        games_by_season
+      end
+  end
+
+end
