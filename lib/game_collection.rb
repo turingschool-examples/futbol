@@ -1,6 +1,6 @@
 require 'csv'
-require './lib/game'
-require './lib/stat_tracker'
+require_relative 'lib/game'
+require_relative 'lib/stat_tracker'
 
 class GameCollection
   attr_reader :game_instances
