@@ -40,4 +40,8 @@ class StatTrackerTest < Minitest::Test
   def test_lowest_total_score
     assert_equal 3 ,@stat_tracker.lowest_total_score
   end
+
+  def test_biggest_blowout
+    assert_equal 4, @start_tracker.biggest_blowout
+  end
 end
