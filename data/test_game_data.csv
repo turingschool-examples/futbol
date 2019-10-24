@@ -9,3 +9,5 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2016030135,20162017,Postseason,4/21/17,10,15,1,2,Providence Park,/api/v1/venues/null
 2016030162,20162017,Postseason,4/15/17,19,30,2,1,Exploria Stadium,/api/v1/venues/null
 2017030311,20172018,Postseason,5/12/18,15,14,2,2,Audi Field,/api/v1/venues/null
+2014020576,20142015,Regular Season,1/4/15,6,12,1,1,Yurcak Field,/api/v1/venues/null
+2015020027,20152016,Regular Season,10/11/15,25,21,3,4,BC Place,/api/v1/venues/null
