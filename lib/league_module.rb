@@ -1,6 +1,6 @@
 module LeagueModule
   def count_of_teams
-    
+    teams.length
   end
 
   def best_offense
