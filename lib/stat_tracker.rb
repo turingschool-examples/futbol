@@ -36,7 +36,9 @@ class StatTracker
     @game_repo.games.min_by {|game| game.total_score}.total_score
   end
 
-
+  def biggest_blowout
+    @game_repo.games.max_by {|game| game.game_goal_difference}.game_goal_difference
+  end
 
 
 end
