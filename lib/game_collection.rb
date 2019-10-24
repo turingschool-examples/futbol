@@ -32,9 +32,8 @@ class GameCollection
   end
 
   def biggest_blowout
-    #mistake here
     game_differences = @total_games.map do |game|
-      (game.home_goals + game.away_goals).abs
+      (game.home_goals - game.away_goals).abs
     end
     game_differences.max_by { |difference| difference }
   end
