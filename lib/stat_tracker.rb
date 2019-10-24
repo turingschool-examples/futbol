@@ -48,4 +48,9 @@ class StatTracker
     (@game_repo.games.count {|game| game.visitor_team_win?}.to_f / @game_repo.total_games).round(2)
   end
 
+  def percentage_ties
+    (@game_repo.games.count {|game| game.tie_game?}.to_f / @game_repo.total_games).round(2)
+
+  end
+
 end
