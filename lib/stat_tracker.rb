@@ -2,6 +2,8 @@ require_relative './game'
 require_relative './team'
 require_relative './game_team'
 require_relative './game_collection'
+require_relative './team_collection'
+require_relative './game_team_collection'
 require 'CSV'
 
 
@@ -14,7 +16,7 @@ class StatTracker
     game_teams_file = locations[:game_teams]
 
     game_collection = GameCollection.load_data(game_file)
-    team_collection = TeamCollection.load_data(team_file)
+    # team_collection = TeamCollection.load_data(team_file)
     require "pry"; binding.pry
     StatTracker.new(game_collection, team_file, game_teams_file)
   end
@@ -26,10 +28,7 @@ class StatTracker
   end
 
   def highest_total_score
-    highest = @games.max_by do |game|
-      game.away_goals + game.home_goals
-    end
-    highest.away_goals + highest.home_goals
+    game_collection.high_score
   end
 
   def lowest_total_score
