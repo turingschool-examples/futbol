@@ -1,6 +1,7 @@
 require './lib/game_teams'
 require './lib/teams'
 require './lib/games'
+require 'pry'
 require_relative '../lib/helper_methods'
 
 class StatTracker
@@ -24,15 +25,17 @@ class StatTracker
 ##games methods for iteration 2
 
   def highest_total_score
-    games.max_by do |game|
-      self.calculate_total_score(game)
+    result = games.max_by do |game|
+      game.away_goals + game.home_goals
     end
+    self.calculate_total_score(result)
   end
 
   def lowest_total_score
-    games.min_by do |game|
-      self.calculate_total_score(game)
+    result = games.min_by do |game|
+      game.away_goals + game.home_goals
     end
+    self.calculate_total_score(result)
   end
 
   def biggest_blowout
@@ -45,21 +48,21 @@ class StatTracker
     wins = games.count do |game|
       game.home_goals > game.away_goals
     end
-    (wins.to_f / games.count).round(3)
+    (wins.to_f / games.count).round(3) * 100
   end
 
   def percentage_visitor_wins
     wins = games.count do |game|
       game.home_goals < game.away_goals
     end
-    (wins.to_f / games.count).round(3)
+    (wins.to_f / games.count).round(3) * 100
   end
 
   def percentage_ties
     ties = games.count do |game|
       game.home_goals == game.away_goals
     end
-    (ties.to_f / games.count).round(3)
+    (ties.to_f / games.count).round(3) * 100 
   end
 
   def count_of_games_by_season
@@ -75,12 +78,8 @@ class StatTracker
   end
 
   def average_goals_per_game
-<<<<<<< HEAD
     average = @games.map {|game| self.calculate_total_score(game)}
     average.inject {|sum, num| sum + num} / games.length.to_f
-=======
-  
->>>>>>> master
   end
 
   def average_goals_by_season
