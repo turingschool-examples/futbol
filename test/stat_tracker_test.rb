@@ -44,4 +44,9 @@ class StatTrackerTest < Minitest::Test
   def test_biggest_blowout
     assert_equal 4, @stat_tracker.biggest_blowout
   end
+
+  def test_percentage_home_wins
+    assert_equal 0.30, @stat_tracker.percentage_home_wins
+  end
+
 end
