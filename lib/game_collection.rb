@@ -2,19 +2,14 @@ require_relative 'game'
 require 'CSV'
 
 class GameCollection
-  attr_reader :games, :game_objs
+  attr_reader :games
 
   def initialize(csv_file_path)
-    @game_objs = []
     @games = create_games(csv_file_path)
   end
 
   def create_games(csv_file_path)
-    csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
-    game_obj = 0
-    csv.map do |row|
-      game_obj = Game.new(row)
-      @game_objs << game_obj
-    end
+    csv = CSV.foreach("#{csv_file_path}", headers: true, header_converters: :symbol)
+    csv.map { |row| Game.new(row) }
   end
 end

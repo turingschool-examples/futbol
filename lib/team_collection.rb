@@ -9,9 +9,8 @@ class TeamCollection
   end
 
   def create_teams(csv_file_path)
-    csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
-    csv.map do |row|
-      Team.new(row)
-    end
+    csv = CSV.foreach("#{csv_file_path}", headers: true, header_converters: :symbol)
+
+    csv.map { |row| Team.new(row) }
   end
 end
