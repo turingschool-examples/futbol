@@ -82,15 +82,10 @@ class StatTracker
     end
   end
 
-  def average_goals_per_game(season)
-    total_games = 0
-    total_points = 0
-    @games.games.each do |game|
-      if game.season == season
-        total_games += 1
-        total_points += (game.away_goals + game.home_goals)
-      end
+  def average_goals_per_game
+    goals = @games.games.reduce(0) do |total_goals, game|
+      total_goals += (game.away_goals + game.home_goals)
     end
-    (total_points.to_f / total_games).round(2)
+    (goals.to_f / @games.games.length).round(2)
   end
 end
