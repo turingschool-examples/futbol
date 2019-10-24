@@ -34,5 +34,10 @@ class StatTracker
     highest_total = games.game_objs.max_by{ |game| game.away_goals + game.home_goals }
     highest_total.away_goals + highest_total.home_goals
   end
-end
 
+  def biggest_blowout
+    blowout = games.game_objs.max_by { |game| (game.home_goals - game.away_goals).abs }
+    (blowout.home_goals - blowout.away_goals).abs
+  end
+
+end
