@@ -44,4 +44,42 @@ class StatTrackerTest < Minitest::Test
   def test_biggest_blowout
     assert_equal 4, @stat_tracker.biggest_blowout
   end
+
+  def test_average_goals_by_season
+    expected = {
+      "20192020"=>10,
+      "20202021"=>3.5,
+      "20212022"=>4.5,
+      "20222023"=>7,
+      "20232024"=>4
+    }
+    assert_equal expected, @stat_tracker.average_goals_by_season
+  end
+
+  def test_total_goals_by_season
+    expected = {
+      "20192020"=>20,
+      "20202021"=>7,
+      "20212022"=>9,
+      "20222023"=>14,
+      "20232024"=>8
+    }
+    assert_equal expected, @stat_tracker.total_goals_by_season
+  end
+
+  def test_percentage_home_wins
+    assert_equal 0.30, @stat_tracker.percentage_home_wins
+  end
+
+  def test_percentage_visitor_wins
+    assert_equal 0.50, @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_percentage_ties
+    assert_equal 0.20, @stat_tracker.percentage_ties
+  end
+
+  def test_count_of_teams
+    assert_equal 10, @stat_tracker.count_of_teams
+  end
 end
