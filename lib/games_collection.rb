@@ -12,4 +12,16 @@ class GamesCollection
     end
     objects
   end
+
+  def highest_total_score
+    @games.map do |game|
+      game.away_goals.to_i + game.home_goals.to_i
+    end.max
+  end
+
+  def lowest_total_score
+    @games.map do |game|
+      game.away_goals.to_i + game.home_goals.to_i
+    end.min
+  end
 end
