@@ -1,37 +1,28 @@
 require_relative './game'
 require_relative './team'
 require_relative './game_team'
+require_relative './game_collection'
 require 'CSV'
 
 
 class StatTracker
-  attr_reader :games, :teams, :game_teams
+  attr_reader :games, :teams, :game_teams, :game_file, :team_file
 
   def self.from_csv(locations)
+    game_file = locations[:games]
+    team_file = locations[:teams]
+    game_teams_file = locations[:game_teams]
 
-    games = []
-    CSV.foreach(locations[:games], headers: true, header_converters: :symbol) do |row|
-      games << Game.new(row)
-    end
-
-    teams = []
-    CSV.foreach(locations[:teams], headers: true, header_converters: :symbol) do |row|
-      teams << Team.new(row)
-    end
-
-    game_teams = []
-    CSV.foreach(locations[:game_teams], headers: true, header_converters: :symbol) do |row|
-      game_teams << GameTeam.new(row)
-    end
-
-
-    StatTracker.new(games, teams, game_teams)
+    game_collection = GameCollection.load_data(game_file)
+    team_collection = TeamCollection.load_data(team_file)
+    require "pry"; binding.pry
+    StatTracker.new(game_collection, team_file, game_teams_file)
   end
 
-  def initialize(games, teams, game_teams)
-    @games = games
-    @teams = teams
-    @game_teams = game_teams
+  def initialize(game_collection, team_file, game_teams_file)
+    @game_collection = game_collection
+    @team_file = team_file
+    @game_teams_file = game_teams_file
   end
 
   def highest_total_score
