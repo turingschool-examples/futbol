@@ -4,18 +4,17 @@ module LeagueModule
   end
 
   def best_offense
-    # goals_by_team = Hash.new
-    # teams.each {|team| goals_by_team[team] = 0}
-
-
+    team_id = self.generate_avg_goals_by_team.max_by {|team, avg| avg}
+    self.convert_ids_to_team_name(team_id)
   end
 
   def worst_offense
-
+    team_id = self.generate_avg_goals_by_team.min_by {|team, avg| avg}
+    self.convert_ids_to_team_name(team_id)
   end
 
   def best_defense
-
+    
   end
 
   def worst_defense
@@ -53,7 +52,7 @@ module LeagueModule
     end
     games_by_team.transform_values do |val|
       games = val.length
-      val.map {|v| v.goals}.reduce {|sum, num| sum + num} / val.length
+      val.map {|v| v.goals}.reduce {|sum, num| sum + num} / games
     end
     games_by_team
   end
