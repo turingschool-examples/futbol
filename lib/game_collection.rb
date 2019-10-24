@@ -29,4 +29,9 @@ class GameCollection
     total_scores_array
   end
 
+# Returns the sum of both teams score for the highest scoring game
+  def highest_total_score
+    total_scores.uniq.max
+  end
+
 end
