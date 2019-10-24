@@ -16,7 +16,4 @@ class TeamsCollectionTest < Minitest::Test
     @total_teams.create_games('./data/teams_sample.csv')
     assert_equal 3, @total_teams.total_teams.length
   end
-
-  def test_it_has_attributes
-  end
 end
