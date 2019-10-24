@@ -30,19 +30,11 @@ class GamesTeamsCollection
   end
 
   def max_goals
-    count = []
-    @games_teams.each do |game_team|
-      count << game_team.goals.to_i
-    end
-    count.max
+    @games_teams.map {|game_team| game_team.goals.to_i}.max
   end
 
   def min_goals
-    count = []
-    @games_teams.each do |game_team|
-      count << game_team.goals.to_i
-    end
-    count.min
+    @games_teams.map {|game_team| game_team.goals.to_i}.min
   end
 
   def biggest_blowout
