@@ -27,7 +27,19 @@ class Game
     @away_goals + @home_goals
   end
 
-  def score_difference
-    (@away_goals - @home_goals).abs
+  def game_goal_difference
+    (@home_goals - @away_goals).abs
+  end
+
+  def home_team_win?
+    @home_goals > @away_goals
+  end
+
+  def visitor_team_win?
+    @home_goals < @away_goals
+  end
+
+  def tie_game?
+    @home_goals == @away_goals
   end
 end
