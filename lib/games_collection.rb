@@ -13,6 +13,14 @@ class GamesCollection
     objects
   end
 
+  def highest_total_score
+    @games.map {|game| game.away_goals.to_i + game.home_goals.to_i }.max
+  end
+
+  def lowest_total_score
+    @games.map {|game| game.away_goals.to_i + game.home_goals.to_i }.min
+  end
+
   # Helper method designed to be reusable; consider moving to a module
   def every(attribute, collection)
     collection.map { |element| element.send(attribute) }
@@ -60,5 +68,4 @@ class GamesCollection
       hash
     end
   end
-
 end

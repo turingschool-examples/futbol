@@ -15,6 +15,14 @@ class GamesCollectionTest < Minitest::Test
     assert_equal true, @games_collection.games.all? {|game| game.is_a?(Game)}
   end
 
+  def test_it_grabs_highest_total_score
+    assert_equal 7, @games_collection.highest_total_score
+  end
+
+  def test_it_grabs_lowest_total_score
+    assert_equal 1, @games_collection.lowest_total_score
+  end
+  
   def test_it_can_return_total_goals_across_all_games
     assert_equal 387, @games_collection.total_goals(@games_collection.games)
   end
