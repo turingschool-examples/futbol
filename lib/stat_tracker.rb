@@ -38,6 +38,7 @@ class StatTracker
   def count_of_games_by_season
     games.game_objs.reduce({}) do |games_by_season, game|
       games_by_season[game.season] = "tbd"
+      #need helper method for finding all games from that season and counting them (array.length)
         games_by_season
       end
   end
