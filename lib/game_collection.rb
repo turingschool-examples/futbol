@@ -10,13 +10,38 @@ class GameCollection
     @game_instances = all_stats
   end
 
-  def all_stats
-    game_objects = []
-    csv = CSV.read("#{@csv_file_path}", headers: true, header_converters: :symbol)
+  def all_games
+    csv = CSV.read("#{@game_path}", headers: true, header_converters: :symbol)
       csv.map do |row|
-      game_objects <<  Game.new(row)
+       Game.new(row)
     end
-    game_objects
+  end
+
+  def count_of_games_by_season
+    season_key_maker
+    season_count = {}
+    @keys.each do |key|
+      season_count[key] = value_maker(key)
+    end
+    season_count
+  end
+
+  def season_key_maker
+    @keys = []
+    @game_instances.each do |game|
+      @keys << game.season
+    end
+    @keys = @keys.uniq
+  end
+
+  def value_maker(season)
+    values = []
+    @game_instances.each do |game|
+      if game.season == season
+        values << game
+      end
+    end
+    values
   end
 
 # Returns an array that contains every game score both winners and losers added together
