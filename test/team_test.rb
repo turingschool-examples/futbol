@@ -1,3 +1,4 @@
+require 'csv'
 require './test/test_helper'
 require './lib/team'
 
@@ -17,11 +18,13 @@ class TeamsTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal 1, @teams.first.team_id
-    assert_equal 23, @teams.first.franchise_id
-    assert_equal "Atlanta United", @teams.first.team_name
-    assert_equal "ATL", @teams.first.abbreviation
-    assert_equal "Mercedes-Benz Stadium", @teams.first.stadium
-    assert_equal "/api/v1/teams/1", @teams.first.link
+    team = @teams.first
+
+    assert_equal 1, team.team_id
+    assert_equal 23, team.franchise_id
+    assert_equal "Atlanta United", team.team_name
+    assert_equal "ATL", team.abbreviation
+    assert_equal "Mercedes-Benz Stadium", team.stadium
+    assert_equal "/api/v1/teams/1", team.link
   end
 end

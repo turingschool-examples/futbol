@@ -18,20 +18,22 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal 2012030221, @game_teams.first.game_id
-    assert_equal 3, @game_teams.first.team_id
-    assert_equal "away", @game_teams.first.hoa
-    assert_equal "LOSS", @game_teams.first.result
-    assert_equal "OT", @game_teams.first.settled_in
-    assert_equal "John Tortorella", @game_teams.first.head_coach
-    assert_equal 2, @game_teams.first.goals
-    assert_equal 8, @game_teams.first.shots
-    assert_equal 44, @game_teams.first.tackles
-    assert_equal 8, @game_teams.first.pim
-    assert_equal 3, @game_teams.first.powerplayopportunities
-    assert_equal 0, @game_teams.first.powerplaygoals
-    assert_equal 44.8, @game_teams.first.faceoffwinpercentage
-    assert_equal 17, @game_teams.first.giveaways
-    assert_equal 7, @game_teams.first.takeaways
+    game_team = @game_teams.first
+    
+    assert_equal 2012030221, game_team.game_id
+    assert_equal 3, game_team.team_id
+    assert_equal "away", game_team.hoa
+    assert_equal "LOSS", game_team.result
+    assert_equal "OT", game_team.settled_in
+    assert_equal "John Tortorella", game_team.head_coach
+    assert_equal 2, game_team.goals
+    assert_equal 8, game_team.shots
+    assert_equal 44, game_team.tackles
+    assert_equal 8, game_team.pim
+    assert_equal 3, game_team.powerplayopportunities
+    assert_equal 0, game_team.powerplaygoals
+    assert_equal 44.8, game_team.faceoffwinpercentage
+    assert_equal 17, game_team.giveaways
+    assert_equal 7, game_team.takeaways
   end
 end
