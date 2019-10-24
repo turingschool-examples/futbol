@@ -1,31 +1,30 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require 'csv'
+require './test/test_helper'
 require './lib/team'
 
-class TeamTest < Minitest::Test
+class TeamsTest < Minitest::Test
 
   def setup
-    @team = Team.new({
-      :team_id => 1,
-      :franchiseid => 23,
-      :teamname => "Atlanta United",
-      :abbreviation => "ATL",
-      :stadium => "Mercedes-Benz Stadium",
-      :link => "/api/v1/teams/1"
-      })
+    csv = CSV.read('./data/teams_sample.csv', headers: true, header_converters: :symbol)
+    @teams = csv.map do |row|
+      Team.new(row)
+    end
   end
 
   def test_it_exists
-    assert_instance_of Team, @team
+    @teams.each do |team|
+      assert_instance_of Team, team
+    end
   end
 
   def test_it_has_attributes
-    assert_equal 1, @team.team_id
-    assert_equal 23, @team.franchiseid
-    assert_equal "Atlanta United", @team.teamname
-    assert_equal "ATL", @team.abbreviation
-    assert_equal "Mercedes-Benz Stadium", @team.stadium
-    assert_equal "/api/v1/teams/1", @team.link
-  end
+    team = @teams.first
 
+    assert_equal 1, team.team_id
+    assert_equal 23, team.franchise_id
+    assert_equal "Atlanta United", team.team_name
+    assert_equal "ATL", team.abbreviation
+    assert_equal "Mercedes-Benz Stadium", team.stadium
+    assert_equal "/api/v1/teams/1", team.link
+  end
 end
