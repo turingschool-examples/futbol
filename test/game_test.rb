@@ -25,4 +25,9 @@ class GameTest < MiniTest::Test
     assert_equal "Postseason", @game.type.last
     assert_equal "Dignity Health Sports Park", @game.venue.last
   end
+
+  # Tests returing the highest sum of the winning and losing teams’ scores
+  def test_highest_total_score
+    assert_equal 
+  end
 end
