@@ -14,7 +14,6 @@ class TeamCollection
   end
 
   def total_teams
-    require "pry"; binding.pry
     @teams.length
   end
 end
