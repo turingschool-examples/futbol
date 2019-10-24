@@ -15,9 +15,7 @@ class GamesCollection
 
   # Helper method designed to be reusable; consider moving to a module
   def every(attribute, collection)
-    collection.map do |element|
-      element.send(attribute)
-    end
+    collection.map { |element| element.send(attribute) }
   end
 
   # Helper method designed to be reusable; consider moving to a module
@@ -37,9 +35,7 @@ class GamesCollection
 
   # Helper method
   def total_goals(games)
-    games.sum do |game|
-      goals(game)
-    end
+    games.sum { |game| goals(game) }
   end
 
   # Helper method
@@ -54,9 +50,7 @@ class GamesCollection
 
   # Helper method
   def all_games_in_season(season)
-    @games.select do |game|
-      game.season == season
-    end
+    @games.select { |game| game.season == season }
   end
 
   # Iteration 2 required method
