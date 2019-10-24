@@ -16,14 +16,14 @@ class StatTracker
     game_teams_file = locations[:game_teams]
 
     game_collection = GameCollection.load_data(game_file)
-    # team_collection = TeamCollection.load_data(team_file)
-    require "pry"; binding.pry
+    team_collection = TeamCollection.load_data(team_file)
+    
     StatTracker.new(game_collection, team_file, game_teams_file)
   end
 
-  def initialize(game_collection, team_file, game_teams_file)
+  def initialize(game_collection, team_collection, game_teams_file)
     @game_collection = game_collection
-    @team_file = team_file
+    @team_collection = team_collection
     @game_teams_file = game_teams_file
   end
 
