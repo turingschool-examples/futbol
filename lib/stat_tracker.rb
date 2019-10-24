@@ -7,7 +7,6 @@ class StatTracker
     game_path = file_paths[:games]
     teams_path = file_paths[:teams]
     game_teams_path = file_paths[:game_teams]
-
     StatTracker.new(game_path, teams_path, game_teams_path)
   end
 
@@ -20,7 +19,7 @@ class StatTracker
   def count_of_games_by_season
     games_per_season = Hash.new{0}
     @game_repo.games.each { |game| games_per_season[game.season] += 1 }
-    games_per_season.sort.to_h
+    games_per_season
   end
 
   def average_goals_per_game
@@ -36,6 +35,19 @@ class StatTracker
     @game_repo.games.min_by {|game| game.total_score}.total_score
   end
 
+  def average_goals_by_season
+    total_goals_by_season.merge(count_of_games_by_season) do |season, total_goals, number_of_games|
+      (total_goals/number_of_games).round(2)
+    end
+  end
+
+  def total_goals_by_season
+    @game_repo.games.reduce(Hash.new(0)) do |hash, game|
+      hash[game.season] += game.total_score.to_f
+      hash
+    end
+  end
+  
   def biggest_blowout
     @game_repo.games.max_by {|game| game.game_goal_difference}.game_goal_difference
   end
@@ -50,7 +62,5 @@ class StatTracker
 
   def percentage_ties
     (@game_repo.games.count {|game| game.tie_game?}.to_f / @game_repo.total_games).round(2)
-
   end
-
 end
