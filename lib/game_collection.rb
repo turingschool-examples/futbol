@@ -34,4 +34,9 @@ class GameCollection
     total_scores.uniq.max
   end
 
+# Returns the sum of both teams score for the lowest scoring game
+  def lowest_total_score
+    total_scores.uniq.min
+  end
+
 end
