@@ -37,7 +37,6 @@ class GameCollectionTest < MiniTest::Test
     assert_equal 2.0, @game_collection.average_goals_per_season[20122013]
     expected_value = {20122013=>2.0, 20152016=>2.17, 20162017=>2.0, 20172018=>1.5}
     assert_equal expected_value,  @game_collection.average_goals_per_season
-    assert_instance_of GameCollection, @game_collection
   end
 
   def test_initialize_data
@@ -45,7 +44,6 @@ class GameCollectionTest < MiniTest::Test
   end
 
   def test_count_of_games
-    @game_collection.count_of_games_by_season
     assert_equal Hash, @game_collection.count_of_games_by_season.class
     assert_equal 4, @game_collection.count_of_games_by_season.count
     assert_equal 10, @game_collection.value_maker("20122013").length

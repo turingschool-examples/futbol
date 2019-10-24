@@ -1,6 +1,6 @@
 require 'csv'
-require_relative 'game'
-require_relative 'stat_tracker'
+require './lib/game'
+require './lib/stat_tracker'
 
 class GameCollection
   attr_reader :game_instances
@@ -43,7 +43,34 @@ class GameCollection
     end
     values
   end
+  
+  def average_goals_per_game
+    home_goals = @game_instances.sum { |game| game.home_goals }
+    away_goals = @game_instances.sum { |game| game.away_goals }
+    total_games = @game_instances.size
+    average_goals_per_game = (home_goals + away_goals) / total_games
+  end
 
+  def ave_goals_per_season_values(season)
+    goal_array = []
+    @game_instances.each do |game|
+      if game.season.to_i == season
+        goal_array <<  game.away_goals.to_f
+        goal_array << game.home_goals.to_f
+      end
+    end
+    (goal_array.sum / goal_array.size).round(2)
+  end
+
+  def average_goals_per_season
+    ave_goals_per_season = {}
+    season_key_maker
+    @keys.each do |key|
+      ave_goals_per_season[key.to_i] = ave_goals_per_season_values(key.to_i)
+    end
+    ave_goals_per_season
+  end
+  
 # Returns an array that contains every game score both winners and losers added together
   def total_scores
     total_scores_array = []
