@@ -1,11 +1,10 @@
-require './lib/game_team'
-require './lib/team'
-require './lib/game'
-require './lib/game_module'
-require './lib/league_module'
-require './lib/season_module'
-require './lib/team_module'
-require 'pry'
+require_relative 'game_team'
+require_relative 'team'
+require_relative 'game'
+require_relative 'game_module'
+require_relative 'league_module'
+require_relative 'season_module'
+require_relative 'team_module'
 
 class StatTracker
   include GameModule

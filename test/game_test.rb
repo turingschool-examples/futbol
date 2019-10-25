@@ -1,6 +1,6 @@
 require './test/test_helper'
 require './lib/stat_tracker'
-require './lib/games_module'
+require './lib/game_module'
 
 class GameModuleTest < MiniTest::Test
   def setup
@@ -21,19 +21,19 @@ class GameModuleTest < MiniTest::Test
   end
 
   def test_largest_blowout
-    assert_equal @game3, @stat_tracker.biggest_blowout
+    assert_equal 9, @stat_tracker.biggest_blowout
   end
 
   def test_percent_home_wins
-    assert_equal 60.00, @stat_tracker.percentage_home_wins
+    assert_equal 0.60, @stat_tracker.percentage_home_wins
   end
 
   def test_percent_visitor_wins
-    assert_equal 20.00, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.20, @stat_tracker.percentage_visitor_wins
   end
 
   def test_percent_ties
-    assert_equal 20.00, @stat_tracker.percentage_ties
+    assert_equal 0.20, @stat_tracker.percentage_ties
   end
 
   def test_games_by_season
