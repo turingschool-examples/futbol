@@ -35,6 +35,13 @@ class GameCollection
     @games.min_by {|game| game.total_score}.total_score
   end
 
+  def calculate_total_goals_by_season
+    @games.reduce(Hash.new(0)) do |acc, game|
+      acc[game.season] += game.total_score.to_f
+      acc
+    end
+  end
+
   def calculate_goal_differences
     @games.max_by {|game| game.game_goal_difference}.game_goal_difference
   end
