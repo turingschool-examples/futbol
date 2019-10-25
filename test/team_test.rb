@@ -67,9 +67,12 @@ class TeamsTest < Minitest::Test
 
   def test_it_has_a_home_win_percentage
     team = @teams.find {|team| team.team_id == "8"}
+    home_win_percentage = (1/3.0*100).round(2)
+    assert_equal home_win_percentage, team.home_win_percentage
   end
 
   def test_it_has_an_away_win_percentage
     team = @teams.find {|team| team.team_id == "8"}
+    assert_equal 0, team.away_win_percentage
   end
 end
