@@ -25,7 +25,7 @@ class GamesCollection
     seasons_of_games.values.map {|value| value.length}
   end
 
-  def count_of_games_per_season
+  def count_of_games_by_season
     target_hash = {}
     unique_seasons.each_with_index do |season, index|
       target_hash[season] = number_of_games_in_each_season[index]
