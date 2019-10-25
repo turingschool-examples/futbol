@@ -50,7 +50,7 @@ class GamesTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_calculates_away_win_percentage_to_the_hundredths
-    assert_equal 32.0, @games_teams_collection.percentage_visitor_wins
+    assert_equal 32.00, @games_teams_collection.percentage_visitor_wins
   end
 
   def test_it_can_get_total_ties

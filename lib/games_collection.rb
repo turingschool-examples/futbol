@@ -88,4 +88,86 @@ class GamesCollection
       hash
     end
   end
+
+  def home_teams
+    every_unique("home_team_id", @games)
+  end
+
+  def total_home_goals(team)
+    season_goals = 0
+    @games.each do |game|
+      if team == game.home_team_id
+        season_goals += game.home_goals.to_i
+      end
+    end
+    season_goals
+  end
+
+  def total_home_games(team)
+    @games.select { |game| game.home_team_id == team }.count
+  end
+
+  # # address this with .max_by
+  def home_team_goals
+    home_teams.reduce({}) do |acc, team|
+      acc[team] = season_goals
+      acc
+    end
+    season_goals  
+  end
+
+  # ==============================
+  # OLD OLD OLD OLD OLD OLD OLD OLD
+  # def total_home_goals(team)
+  #   season_goals = []
+  #   @games.each do |game|
+  #     if team == game.home_team_id
+  #       season_goals += game.home_goals.to_i
+  #     end
+  #   end
+  #   season_goals
+  # end
+  # ==============================
+
+  def highest_scoring_home_team
+    home_team_goals.find do |team, goals|
+      goals == home_team_goals.values.sort.last
+    end.first
+  end
+
+  def lowest_scoring_home_team
+    home_team_goals.find do |team, goals|
+      goals == home_team_goals.values.sort.first
+    end.first
+  end
+
+  def away_teams
+    every_unique("away_team_id", @games)
+  end
+
+  def away_team_goals
+    away_teams.reduce({}) do |acc, team|
+    season_goals = 0
+      games.each do |game|
+        if team == game.away_team_id
+          season_goals += game.away_goals.to_i
+        end
+      end
+      acc[team] = season_goals
+      acc
+    end
+  end
+
+  def highest_scoring_away_team
+    away_team_goals.find do |team, goals|
+      goals == away_team_goals.values.sort.last
+    end.first
+  end
+
+  def lowest_scoring_away_team
+    away_team_goals.find do |team, goals|
+      goals == away_team_goals.values.sort.first
+    end.first
+  end
+
 end
