@@ -14,7 +14,7 @@ module LeagueModule
   end
 
   def best_defense
-    
+
   end
 
   def worst_defense
@@ -55,6 +55,18 @@ module LeagueModule
       val.map {|v| v.goals}.reduce {|sum, num| sum + num} / games
     end
     games_by_team
+  end
+
+  def generate_avg_scored_upon_by_team
+    teams_by_game = game_teams.group_by do |game|
+      game.game_id
+    end
+
+
+  end
+
+  def empty_team_hash
+    
   end
 
   def convert_ids_to_team_name(id)
