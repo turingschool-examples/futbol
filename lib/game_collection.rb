@@ -13,6 +13,11 @@ class GameCollection
     csv.map { |row| Game.new(row) }
   end
 
+  def highest_total_score
+    highest_total = @games.max_by{ |game| game.away_goals + game.home_goals }
+    highest_total.away_goals + highest_total.home_goals
+  end
+
   def avg_goals_per_game
     goals = @games.reduce(0) do |total_goals, game|
       total_goals += (game.away_goals + game.home_goals)

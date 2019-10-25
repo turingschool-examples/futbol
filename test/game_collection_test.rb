@@ -3,10 +3,16 @@ require_relative '../lib/game_collection'
 
 class GamecollectionTest < Minitest::Test
 
-  def test_it_exists
+  def setup
     game_path = "./test/dummy_game_data.csv"
-    game_collection = GameCollection.new(game_path)
+    @game_collection = GameCollection.new(game_path)
+  end
 
-    assert_instance_of GameCollection, game_collection
+  def test_it_exists
+    assert_instance_of GameCollection, @game_collection
+  end
+
+  def test_it_can_calculate_highest_total_score
+    assert_equal 7, @game_collection.highest_total_score
   end
 end

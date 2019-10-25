@@ -23,8 +23,9 @@ class StatTracker
   end
 
   def highest_total_score
-    highest_total = @games.games.max_by{ |game| game.away_goals + game.home_goals }
-    highest_total.away_goals + highest_total.home_goals
+    @games.highest_total_score
+    # highest_total = @games.games.max_by{ |game| game.away_goals + game.home_goals }
+    # highest_total.away_goals + highest_total.home_goals
   end
 
   def lowest_total_score
