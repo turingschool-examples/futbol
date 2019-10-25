@@ -19,17 +19,35 @@ class TeamCollection
 
   def create_teams(team_path)
     csv = CSV.read(team_path, headers: true, header_converters: :symbol)
-    csv.map do |row|
-      all_team_games = @total_games.find_all do |game|
-        row[:team_id] == game.team_id
+
+    csv.map do |team|
+      all_game_ids = []
+      all_team_games = @total_games.find_all do |game_team|
+        if team[:team_id] == game_team.team_id
+          all_game_ids << game_team.game_id
+        end
       end
-      Team.new(row, all_team_games)
+      all_opponent_games = all_game_ids.flat_map do |game_id|
+        @total_games.find_all do |game_team|
+          game_team.game_id == game_id && game_team.team_id != team[:team_id]
+        end
+      end
+      # all_opponent_games = @total_games.find_all do |game|
+      #   team[:team_id] == game.team_id
+      # end
+      Team.new(team, all_team_games, all_opponent_games)
     end
   end
 
   def winningest_team
     @total_teams.max_by do |team|
       team.win_percentage
+    end.team_name
+  end
+
+  def best_offense
+    @total_teams.max_by do |team|
+      team.average_goals_scored_per_game
     end.team_name
   end
 end
