@@ -72,6 +72,10 @@ module LeagueModule
     binding.pry
   end
 
+  def games_played_by_team
+    game_teams.group_by {|game| game.team_id}.transform_values {|val| val.length}
+  end
+
   def empty_team_hash
     teams_hash = Hash.new
     teams.each {|team| teams_hash[team.team_id] = 0}
