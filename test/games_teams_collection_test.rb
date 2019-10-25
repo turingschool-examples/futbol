@@ -27,16 +27,18 @@ class GamesTeamsCollectionTest < Minitest::Test
     assert_equal 65.31, @games_teams_collection.percentage_home_wins
   end
 
-  def test_it_has_max_goals
-    assert_equal 4, @games_teams_collection.max_goals
+  def test_it_can_see_how_many_wins
+    expected = [0, 9, 4, 7, 7, 3, 1, 1, 3, 3, 4, 2, 4]
+    assert_equal expected, @games_teams_collection.number_of_wins
   end
 
-  def test_it_has_min_goals
-    assert_equal 0, @games_teams_collection.min_goals
+  def test_it_can_see_how_many_losses
+    expected = [10, 0, 6, 7, 5, 1, 3, 4, 3, 3, 3, 4, 0]
+    assert_equal expected, @games_teams_collection.number_of_losses
   end
 
   def test_it_has_a_big_blow_out
-    assert_equal 4, @games_teams_collection.biggest_blowout
+    assert_equal -10, @games_teams_collection.biggest_blowout
   end
 
   def test_it_can_get_total_away_games
