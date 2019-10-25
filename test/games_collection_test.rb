@@ -49,7 +49,7 @@ class GamesCollectionTest < Minitest::Test
       "20132014" => 6
     }
 
-    assert_equal expected, @games_collection.count_of_games_by_season
+    assert_equal expected, @games_collection.count_of_games_per_season
   end
 
   def test_it_grabs_highest_total_score
@@ -104,6 +104,6 @@ class GamesCollectionTest < Minitest::Test
                       "20152016"=>3.88,
                       "20132014"=>4.33
                     }
-    assert_equal expected_hash, @games_collection.average_goals_by_season
+    assert_equal expected_hash, @games_collection.average_goals_per_season
   end
 end

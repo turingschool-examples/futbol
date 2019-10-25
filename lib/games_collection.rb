@@ -25,7 +25,7 @@ class GamesCollection
     seasons_of_games.values.map {|value| value.length}
   end
 
-  def count_of_games_by_season
+  def count_of_games_per_season
     target_hash = {}
     unique_seasons.each_with_index do |season, index|
       target_hash[season] = number_of_games_in_each_season[index]
@@ -82,7 +82,7 @@ class GamesCollection
   end
 
   # Iteration 2 required method
-  def average_goals_by_season
+  def average_goals_per_season
     every_unique("season", @games).reduce({}) do |hash, season|
       hash[season] = average_goals_in(all_games_in_season(season))
       hash

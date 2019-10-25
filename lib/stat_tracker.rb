@@ -40,15 +40,15 @@ class StatTracker
     @games_teams.percentage_ties
   end
 
-  def count_of_games_by_season
-    @games.count_of_games_by_season
+  def count_of_games_per_season
+    @games.count_of_games_per_season
   end
 
   def average_goals_per_game
     @games.average_goals_per_game
   end
 
-  def average_goals_by_season
+  def average_goals_per_season
     @games.average_goals_per_season
   end
 
