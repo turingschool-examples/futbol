@@ -14,6 +14,7 @@ class LeagueModuleTest < Minitest::Test
 
   def test_count_of_teams
     assert_equal 3, @stat_tracker.count_of_teams
+    
   end
 
   def test_best_offense
