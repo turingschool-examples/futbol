@@ -56,16 +56,16 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
 
-  def test_total_goals_by_season
-    expected = {
-      "20192020"=>20,
-      "20202021"=>7,
-      "20212022"=>9,
-      "20222023"=>14,
-      "20232024"=>8
-    }
-    assert_equal expected, @stat_tracker.total_goals_by_season
-  end
+  # def test_total_goals_by_season
+  #   expected = {
+  #     "20192020"=>20,
+  #     "20202021"=>7,
+  #     "20212022"=>9,
+  #     "20222023"=>14,
+  #     "20232024"=>8
+  #   }
+  #   assert_equal expected, @stat_tracker.total_goals_by_season
+  # end
 
   def test_percentage_home_wins
     assert_equal 0.30, @stat_tracker.percentage_home_wins
@@ -81,5 +81,13 @@ class StatTrackerTest < Minitest::Test
 
   def test_count_of_teams
     assert_equal 5, @stat_tracker.count_of_teams
+  end
+
+  def test_best_defense
+    assert_equal "Atlanta United", @stat_tracker.best_defense
+  end
+
+  def test_worst_defense
+    assert_equal "Montreal Impact", @stat_tracker.worst_defense
   end
 end

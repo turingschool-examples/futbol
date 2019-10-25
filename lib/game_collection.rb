@@ -67,4 +67,31 @@ class GameCollection
     tied_games = @games.count {|game| game.tie_game?}.to_f
     (tied_games/total_games).round(2)
   end
+
+  def goals_scored_per_team
+    team_hash = Hash.new()
+    @games.each do |game|
+      team_hash[game.home_team_id] ||= Hash.new(0)
+      team_hash[game.home_team_id][:my_goals] += game.home_goals
+      team_hash[game.home_team_id][:their_goals] += game.away_goals
+
+      team_hash[game.away_team_id] ||= Hash.new(0)
+      team_hash[game.away_team_id][:my_goals] += game.away_goals
+      team_hash[game.away_team_id][:their_goals] += game.home_goals
+    end
+    team_hash
+  end
+
+  def best_defense_pair
+    goals_scored_per_team.min_by do |team_id, goals|
+      goals[:their_goals]
+    end
+  end
+
+  def worst_defense_pair
+    goals_scored_per_team.max_by do |team_id, goals|
+      goals[:their_goals]
+    end
+  end
+
 end

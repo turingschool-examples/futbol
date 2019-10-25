@@ -56,4 +56,18 @@ class StatTracker
   def count_of_teams
     @team_repo.total_teams
   end
+
+  def best_defense
+    best_defender = @game_repo.best_defense_pair
+    @team_repo.teams.find do |team|
+      best_defender[0] == team.team_id
+    end.team_name
+  end
+
+  def worst_defense
+    worst_defender = @game_repo.worst_defense_pair
+    @team_repo.teams.find do |team|
+      worst_defender[0] == team.team_id
+    end.team_name
+  end
 end
