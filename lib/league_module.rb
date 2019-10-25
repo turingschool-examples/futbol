@@ -65,7 +65,10 @@ module LeagueModule
     end
     scored_upon_by_team = self.empty_team_hash
     teams_by_game.each do |game, teams|
-
+      scored_upon_by_team[teams[0].team_id] += teams[1].goals
+      scored_upon_by_team[teams[1].team_id] += teams[0].goals
+    end
+    scored_upon_by_team
     binding.pry
   end
 
