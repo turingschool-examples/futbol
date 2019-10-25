@@ -66,4 +66,22 @@ class GamesTeamsCollection
   def biggest_blowout
     max_goals - min_goals
   end
+
+  def find_by(element, attribute)
+    @games_teams.find_all do |game_team|
+      game_team.send(attribute) == element
+    end
+  end
+
+  def total_found_in(element, attribute)
+    find_by(element, attribute).length
+  end
+
+  def total_wins_of_team(team_id)
+    
+  end
+
+  def team_win_percentage(team_id)
+
+  end
 end
