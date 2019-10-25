@@ -3,6 +3,7 @@ module LeagueModule
     teams.length
   end
 
+<<<<<<< HEAD
   def best_offense
     team_id = self.generate_avg_goals_by_team.max_by {|team, avg| avg}
     self.convert_ids_to_team_name(team_id)
@@ -73,4 +74,7 @@ module LeagueModule
     ids_to_name = teams.group_by {|team| team.team_id}.transform_values {|obj| obj.team_name}
     ids_to_name[id]
   end
+=======
+  
+>>>>>>> master
 end

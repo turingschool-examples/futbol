@@ -4,16 +4,16 @@ require './lib/games_module'
 
 class GameModuleTest < MiniTest::Test
   def setup
-    @game1 = Games.new('1', '20122013', 'postseason', '12/08/2012', '3', '18', 1, 3, 'Allianz Field', '/api/v1/venues/null' )
-    @game2 = Games.new('2', '20122013', 'postseason', '01/13/2013', '14', '4', 2, 3, 'Seatgeek Stadium', '/api/v1/venues/null')
-    @game3 = Games.new('3', '20122013', 'postseason', '11/12/2012', '3', '23', 3, 6, 'Saputo Stadium', '/api/v1/venues/null')
-    @game4 = Games.new('4', '20122013', 'postseason', '10/31/2012', '5', '12', 2, 1, 'Mile High Stadium', '/api/v1/venues/null')
-    @game5 = Games.new('5', '20122013', 'postseason', '11/11/2012', '1', '13', 0, 0, 'Fenway Park', '/api/v1/venues/null')
+    @game1 = Game.new('1', '20122013', 'postseason', '12/08/2012', '3', '18', 1, 3, 'Allianz Field', '/api/v1/venues/null' )
+    @game2 = Game.new('2', '20122013', 'postseason', '01/13/2013', '14', '4', 2, 3, 'Seatgeek Stadium', '/api/v1/venues/null')
+    @game3 = Game.new('3', '20122013', 'postseason', '11/12/2012', '3', '23', 3, 6, 'Saputo Stadium', '/api/v1/venues/null')
+    @game4 = Game.new('4', '20122013', 'postseason', '10/31/2012', '5', '12', 2, 1, 'Mile High Stadium', '/api/v1/venues/null')
+    @game5 = Game.new('5', '20122013', 'postseason', '11/11/2012', '1', '13', 0, 0, 'Fenway Park', '/api/v1/venues/null')
     @stat_tracker = StatTracker.new(nil, [@game1, @game2, @game3, @game4, @game5], nil)
   end
 
   def test_existence
-    assert_instance_of Games, @game1
+    assert_instance_of Game, @game1
     assert_instance_of StatTracker, @stat_tracker
   end
 
