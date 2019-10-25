@@ -50,4 +50,19 @@ class TeamCollection
       team.average_goals_scored_per_game
     end.team_name
   end
+
+  def best_fans
+    @total_teams.max_by do |team|
+      team.home_win_percentage - team.away_win_percentage
+    end.team_name
+  end
+
+  def worst_fans
+    worst_fans_list = @total_teams.find_all do |team|
+      team.away_win_percentage > team.home_win_percentage
+    end
+    worst_fans_list.map do |team|
+      team.team_name
+    end
+  end
 end
