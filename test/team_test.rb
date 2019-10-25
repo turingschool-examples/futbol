@@ -60,6 +60,6 @@ class TeamsTest < Minitest::Test
 
   def test_it_has_average_goals_allowed_per_game
     team = @teams.find {|team| team.team_id == "8"}
-    assert_equal 2,8, team.average_goals_allowed_per_game
+    assert_equal 2.8, team.average_goals_allowed_per_game
   end
 end
