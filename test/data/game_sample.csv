@@ -4,8 +4,8 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 3,20202021,Regular Season,5/2/20,5,1,2,1,Yankeer Stadium,/api/v1/venues/null
 4,20202021,Postseason,5/3/20,1,2,3,1,Red Rock Amphitheatre,/api/v1/venues/null
 5,20212022,Regular Season,9/7/21,3,1,1,2,Yankeer Stadium,/api/v1/venues/null
-6,20212022,Postseason,9/8/21,2,1,4,2,Eagles Nest,/api/v1/venues/null
-7,20222023,Regular Season,7/2/22,2,1,2,2,Eagles Nest,/api/v1/venues/null
+6,20212022,Postseason,9/8/21,2,3,4,2,Eagles Nest,/api/v1/venues/null
+7,20222023,Regular Season,7/2/22,2,3,2,2,Eagles Nest,/api/v1/venues/null
 8,20222023,Postseason,7/3/22,4,2,5,5,Red Rock Amphitheatre,/api/v1/venues/null
 9,20232024,Regular Season,2/2/23,5,4,1,4,ET,/api/v1/venues/null
 10,20232024,Postseason,2/3/23,1,4,2,1,ET,/api/v1/venues/null
