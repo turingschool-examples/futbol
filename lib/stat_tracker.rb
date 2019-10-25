@@ -1,3 +1,7 @@
+require './lib/game_teams'
+require './lib/teams'
+require './lib/games'
+require './lib/games_module'
 require './lib/game_team'
 require './lib/team'
 require './lib/game'
