@@ -35,6 +35,12 @@ class GameCollection
     @games.min_by {|game| game.total_score}.total_score
   end
 
+  def find_average_goals_by_season
+    calculate_total_goals_by_season.merge(find_count_of_game_by_season) do |season, goals, games|
+      (goals/games).round(2)
+    end
+  end
+
   def calculate_total_goals_by_season
     @games.reduce(Hash.new(0)) do |acc, game|
       acc[game.season] += game.total_score.to_f

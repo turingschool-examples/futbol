@@ -2,7 +2,7 @@ require_relative './game_collection'
 require_relative './team_collection'
 
 class StatTracker
-  attr_reader :game_repo
+  attr_reader :game_repo, :team_repo
 
   def self.from_csv(file_paths)
     game_path = file_paths[:games]
@@ -34,13 +34,7 @@ class StatTracker
   end
 
   def average_goals_by_season
-    total_goals_by_season.merge(count_of_games_by_season) do |season, total_goals, number_of_games|
-      (total_goals/number_of_games).round(2)
-    end
-  end
-
-  def total_goals_by_season
-    @game_repo.calculate_total_goals_by_season
+    @game_repo.find_average_goals_by_season
   end
 
   def biggest_blowout
