@@ -18,5 +18,4 @@ class GameTeamCollectionTest < Minitest::Test
   # def test_it_returns_the_winningest_team
   #   assert_equal 0, @game_team_collection.winningest_team
   # end
-
 end
