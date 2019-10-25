@@ -3,15 +3,14 @@ module LeagueModule
     teams.length
   end
 
-<<<<<<< HEAD
   def best_offense
     team_id = self.generate_avg_goals_by_team.max_by {|team, avg| avg}
-    self.convert_ids_to_team_name(team_id)
+    self.convert_ids_to_team_name(team_id[0])
   end
 
   def worst_offense
     team_id = self.generate_avg_goals_by_team.min_by {|team, avg| avg}
-    self.convert_ids_to_team_name(team_id)
+    self.convert_ids_to_team_name(team_id[0])
   end
 
   def best_defense
@@ -67,14 +66,12 @@ module LeagueModule
   end
 
   def empty_team_hash
-    
+
   end
 
   def convert_ids_to_team_name(id)
-    ids_to_name = teams.group_by {|team| team.team_id}.transform_values {|obj| obj.team_name}
+    ids_to_name = teams.group_by {|team| team.team_id}.transform_values {|obj| obj[0].team_name}
     ids_to_name[id]
   end
-=======
-  
->>>>>>> master
+
 end

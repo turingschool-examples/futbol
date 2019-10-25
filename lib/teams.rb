@@ -22,7 +22,6 @@ class Team
                                     row[:abbreviation],
                                     row[:stadium],
                                     row[:link])
-                                    binding.pry
     end
     @teams
   end
