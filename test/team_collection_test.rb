@@ -10,6 +10,6 @@ class TeamCollectionTest < Minitest::Test
   end
 
   def test_total_teams
-    assert_equal 10, @team_collection.total_teams
+    assert_equal 5, @team_collection.total_teams
   end
 end
