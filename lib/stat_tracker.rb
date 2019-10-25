@@ -4,8 +4,9 @@ class StatTracker
   attr_reader :stats
 
   def initialize(game_path, team_path, game_team_path)
-    @games_collection = GameCollection.new(game_path) #should we move the creation of GameCollection instance into a method
-    #teams_collection = TeamCollection.new(team_path)
+    # should we move the creation of instances into a method
+    @games_collection = GameCollection.new(game_path)
+    @teams_collection = TeamCollection.new(team_path, game_team_path)
     #game_teams_path = GameTeamsCollection.new(team_path)
 
   end
