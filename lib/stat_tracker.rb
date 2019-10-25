@@ -38,4 +38,24 @@ class StatTracker
   def biggest_blowout
     @game_collection.blowout
   end
+
+  def percentage_home_wins
+    @game_collection.percent_home_wins
+  end
+
+  def percentage_visitor_wins
+    @game_collection.percent_visitor_wins
+  end
+
+  def percentage_ties
+    @game_collection.percent_ties
+  end
+
+  def count_of_games_by_season
+    @game_collection.count_of_games_by_season
+  end
+
+  def average_goals_per_game
+    @game_collection.avg_goals_per_game
+  end
 end

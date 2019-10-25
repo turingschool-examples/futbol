@@ -38,5 +38,61 @@ class GameCollection
     (biggest.away_goals - biggest.home_goals).abs
   end
 
-  def 
+  def percent_home_wins
+    percent = @games.values.count do |game|
+      game.home_goals > game.away_goals
+    end
+    (percent.to_f / @games.length).round(2)
+  end
+
+  def percent_visitor_wins
+    percent = @games.values.count do |game|
+      game.home_goals < game.away_goals
+    end
+    (percent.to_f / @games.length).round(2)
+  end
+
+  def percent_ties
+    percent = @games.values.count do |game|
+      game.home_goals == game.away_goals
+    end
+    (percent.to_f / @games.length).round(2)
+  end
+
+  def seasons
+    seasons = @games.values.map do |game|
+      game.season
+    end
+    seasons.uniq.sort
+  end
+
+  def games_by_season
+    seasons.reduce({}) do |season_game, season|
+      games_in_season = @games.values.find_all do |game|
+        game.season.include?(season)
+      end
+      season_game[season] = games_in_season
+      season_game
+    end
+  end
+
+  def count_of_games_by_season
+    @games.values.reduce(Hash.new(0)) do |count_in_season, game|
+      count_in_season[game.season] += 1
+      count_in_season
+    end
+  end
+
+  def avg_goals_per_game
+    total = @games.values.sum do |game|
+      game.home_goals + game.away_goals
+    end
+    (total.to_f / @games.values.length).round(2)
+  end
+
+  # def avg_goals_in_season
+  #   games_by_season.each do |key, games|
+  #   end
+  # end
+
 end
