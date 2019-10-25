@@ -16,11 +16,11 @@ module LeagueModule
   end
 
   def best_defense
-
+    self.generate_avg_scored_upon_by_team
   end
 
   def worst_defense
-
+    self.generate_avg_scored_upon_by_team
   end
 
   def highest_scoring_visitor
@@ -53,25 +53,26 @@ module LeagueModule
       game.team_id
     end
     avg_score_by_team = games_by_team.transform_values do |val|
-      #binding.pry
       total_games = val.length
-      #binding.pry
       val.map {|v| v.goals}.reduce {|sum, num| sum + num}.to_f / total_games
     end
     avg_score_by_team
-    #binding.pry
   end
 
   def generate_avg_scored_upon_by_team
     teams_by_game = game_teams.group_by do |game|
       game.game_id
     end
+    scored_upon_by_team = self.empty_team_hash
+    teams_by_game.each do |game, teams|
 
-
+    binding.pry
   end
 
   def empty_team_hash
-
+    teams_hash = Hash.new
+    teams.each {|team| teams_hash[team.team_id] = 0}
+    teams_hash
   end
 
   def convert_ids_to_team_name(id)
