@@ -21,9 +21,9 @@ class StatTracker
   end
 
   def self.from_csv(locations)
-    game_teams = GameTeams.create(locations[:game_teams])
-    games = Games.create(locations[:games])
-    teams =  Teams.create(locations[:teams])
+    game_teams = GameTeam.create(locations[:game_teams])
+    games = Game.create(locations[:games])
+    teams =  Team.create(locations[:teams])
     self.new(game_teams, games, teams)
   end
 
