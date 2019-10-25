@@ -31,15 +31,15 @@ class GameModuleTest < MiniTest::Test
   end
 
   def test_percent_home_wins
-    assert_equal 60.00, @stat_tracker.percentage_home_wins
+    assert_equal 0.60, @stat_tracker.percentage_home_wins
   end
 
   def test_percent_visitor_wins
-    assert_equal 20.00, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.20, @stat_tracker.percentage_visitor_wins
   end
 
   def test_percent_ties
-    assert_equal 20.00, @stat_tracker.percentage_ties
+    assert_equal 0.20, @stat_tracker.percentage_ties
   end
 
   def test_games_by_season
