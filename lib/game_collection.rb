@@ -9,7 +9,10 @@ class GameCollection
   end
 
   def create_games(csv_file_path)
-    csv = CSV.foreach("#{csv_file_path}", headers: true, header_converters: :symbol)
-    csv.map { |row| Game.new(row) }
+    game_array = []
+      CSV.foreach("#{csv_file_path}", headers: true, header_converters: :symbol) do |row|
+        game_array << Game.new(row)
+      end
+    game_array
   end
 end

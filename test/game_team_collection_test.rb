@@ -9,7 +9,11 @@ class GameTeamCollectionTest < Minitest::Test
   end
 
   def test_count_of_teams
-    assert_equal 7, @game_team_collection.count_of_teams
+    assert_equal 12, @game_team_collection.count_of_teams
   end
 
+  def test_best_fans
+    skip
+    assert_equal cc, @game_team_collection.best_fans
+  end
 end
