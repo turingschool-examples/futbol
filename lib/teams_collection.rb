@@ -1,3 +1,6 @@
+require_relative 'team'
+require 'csv'
+
 class TeamsCollection
   attr_reader :teams
 

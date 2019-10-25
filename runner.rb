@@ -12,3 +12,5 @@ locations = {
 stat_tracker = StatTracker.from_csv(locations)
 
 require "pry"; binding.pry
+
+# open coverage/index.html
