@@ -1,11 +1,6 @@
 team_id,franchise_id,team_name,abbreviation,stadium,link
-1,23,Atlanta United,ATL,Mercedes-Benz Stadium,/api/v1/teams/1
-23,20,Montreal Impact,MTL,Saputo Stadium,/api/v1/teams/23
-30,37,Orlando City SC,ORL,Exploria Stadium,/api/v1/teams/30
-2,22,Seattle Sounders FC,SEA,Centruy Link Field,/api/v1/teams/2
-25,15,Chicago Red Stars,CRS,SeatGeek Stadium,/api/v1/teams/25
-29,36,Orlando Pride,FLP,Exploria Stadium,/api/v1/teams/29
-12,26,Sky Blue FC,SBL,Yurcak Field,/api/v1/teams/12
-7,19,Utah Royals FC,URF,Rio Tinto Stadium,/api/v1/teams/7
-53,28,Columbus Crew SC,CCS,Mapfre Stadium,/api/v1/teams/53
-19,18,Philadelphia Union,PHI,Talen Energy Stadium,/api/v1/teams/19
+1,23,Atlanta United,ATL,Yankeer Stadium,/api/v1/teams/1
+2,20,Montreal Impact,MTL,Red Rock Amphitheatre,/api/v1/teams/1
+3,37,Orlando City SC,ORL,Eagles Nest,/api/v1/teams/3
+4,22,Seattle Sounders FC,SEA,ET,/api/v1/teams/4
+5,15,Chicago Red Stars,CRS,Sports Authority Field,/api/v1/teams/5
