@@ -47,7 +47,13 @@ class StatTracker
     @games.average_goals_by_season
   end
 
+  # Helper method
+  def name_of_team(team_id)
+    @teams.name_of_team_by_id(team_id)
+  end
+
   def winningest_team
+    name_of_team(@games_teams.team_id_with_best_win_percentage)
   end
 
   def best_fans
