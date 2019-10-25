@@ -104,8 +104,17 @@ class GamesCollection
     @games.select { |game| game.home_team_id == team }.count
   end
 
+  # # address this with .max_by
+  def home_team_goals
+    home_teams.reduce({}) do |acc, team|
+      acc[team] = season_goals
+      acc
+    end
+    season_goals  
+  end
 
-  # old
+  # ==============================
+  # OLD OLD OLD OLD OLD OLD OLD OLD
   # def total_home_goals(team)
   #   season_goals = []
   #   @games.each do |game|
@@ -115,16 +124,7 @@ class GamesCollection
   #   end
   #   season_goals
   # end
-
-
-
-  # # address this
-  # def home_team_goals
-  #   home_teams.reduce({}) do |acc, team|
-  #     acc[team] = season_goals
-  #     acc
-  #   end
-  # end
+  # ==============================
 
   def highest_scoring_home_team
     home_team_goals.find do |team, goals|
