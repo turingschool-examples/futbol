@@ -12,8 +12,11 @@ class GameTeamCollectionTest < Minitest::Test
   end
 
   def test_it_has_total_game_team
-    @game_team_collection.create_game_teams("./test/data/game_teams_sample.csv")
     assert_equal 50, @game_team_collection.total_game_teams.length
   end
+
+  # def test_it_returns_the_winningest_team
+  #   assert_equal 0, @game_team_collection.winningest_team
+  # end
 
 end
