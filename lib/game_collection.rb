@@ -10,20 +10,21 @@ class GameCollection
 
   def create_games(csv_path)
     csv = CSV.read("#{csv_path}", headers: true, header_converters: :symbol)
-    csv.map { |row| Game.new(row) }
+    csv.map {|row| Game.new(row)}
   end
 
   def total_games
     @games.length
   end
+
   def find_count_of_game_by_season
     games_per_season = Hash.new(0)
-      @games.each { |game| games_per_season[game.season] += 1}
+      @games.each {|game| games_per_season[game.season] += 1}
       games_per_season.sort.to_h
   end
 
   def find_average_goals_per_game
-    total_goals = @games.sum { |game| game.total_score }
+    total_goals = @games.sum {|game| game.total_score}
       (total_goals.to_f/total_games).round(2)
   end
 
@@ -33,6 +34,12 @@ class GameCollection
 
   def find_lowest_total_score
     @games.min_by {|game| game.total_score}.total_score
+  end
+
+  def find_average_goals_by_season
+    calculate_total_goals_by_season.merge(find_count_of_game_by_season) do |season, goals, games|
+      (goals/games).round(2)
+    end
   end
 
   def calculate_total_goals_by_season
@@ -57,7 +64,7 @@ class GameCollection
   end
 
   def find_percentage_of_ties
-    tied_games = games.count {|game| game.tie_game?}.to_f
+    tied_games = @games.count {|game| game.tie_game?}.to_f
     (tied_games/total_games).round(2)
   end
 end
