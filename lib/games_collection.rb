@@ -109,6 +109,12 @@ class GamesCollection
     end.first
   end
 
+  def lowest_scoring_home_team
+    home_team_goals.find do |team, goals|
+      goals == home_team_goals.values.sort.first
+    end.first
+  end
+
   def away_teams
     every_unique("away_team_id", @games)
   end
@@ -127,8 +133,14 @@ class GamesCollection
   end
 
   def highest_scoring_away_team
-    home_team_goals.find do |team, goals|
-      goals == home_team_goals.values.sort.last
+    away_team_goals.find do |team, goals|
+      goals == away_team_goals.values.sort.last
+    end.first
+  end
+
+  def lowest_scoring_away_team
+    away_team_goals.find do |team, goals|
+      goals == away_team_goals.values.sort.first
     end.first
   end
 

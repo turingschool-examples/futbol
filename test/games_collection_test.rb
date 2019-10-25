@@ -142,11 +142,11 @@ class GamesCollectionTest < Minitest::Test
 
   def test_it_can_tell_us_lowest_scoring_home_team
 
-    assert_equal "0", @games_collection.lowest_scoring_home_team
+    assert_equal "30", @games_collection.lowest_scoring_home_team
   end
 
   def test_it_can_tell_us_lowest_scoring_away_team
 
-    assert_equal "0", @games_collection.lowest_scoring_away_team
+    assert_equal "2", @games_collection.lowest_scoring_away_team
   end
 end
