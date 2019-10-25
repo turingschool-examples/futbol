@@ -90,18 +90,23 @@ class GamesCollection
     every_unique("home_team_id", @games)
   end
 
-  def home_team_goals
-    home_teams.reduce({}) do |acc, team|
+  def total_home_goals(team)
     season_goals = 0
-      games.each do |game|
-        if team == game.home_team_id
-          season_goals += game.home_goals.to_i
-        end
+    @games.each do |game|
+      if team == game.home_team_id
+        season_goals += game.home_goals.to_i
       end
-      acc[team] = season_goals
-      acc
     end
+    season_goals
   end
+
+  # # address this
+  # def home_team_goals
+  #   home_teams.reduce({}) do |acc, team|
+  #     acc[team] = season_goals
+  #     acc
+  #   end
+  # end
 
   def highest_scoring_home_team
     home_team_goals.find do |team, goals|
