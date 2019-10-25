@@ -65,6 +65,12 @@ class GamesTeamsCollectionTest < Minitest::Test
     assert_equal true, @games_teams_collection.find_by_in("6", "team_id", @games_teams_collection.games_teams).all? { |element| element.is_a?(GameTeam) }
   end
 
+  def test_it_can_find_all_rows_with_given_team_id
+    assert_instance_of Array, @games_teams_collection.games_with_team("6")
+    assert_equal 9, @games_teams_collection.games_with_team("6").length
+    assert_equal true, @games_teams_collection.games_with_team("6").all? { |element| element.is_a?(GameTeam) }
+  end
+
   def test_it_totals_games_for_given_team
     assert_equal 9, @games_teams_collection.total_found_by_in("6", "team_id", @games_teams_collection.games_teams)
     assert_equal 6, @games_teams_collection.total_found_by_in("2", "team_id", @games_teams_collection.games_teams)
@@ -83,5 +89,14 @@ class GamesTeamsCollectionTest < Minitest::Test
   def test_it_calculates_win_percentage_for_given_team_id
     assert_equal 100.00, @games_teams_collection.team_win_percentage("6")
     assert_equal 33.33, @games_teams_collection.team_win_percentage("2")
+  end
+
+  def test_it_can_find_all_team_ids
+    expected_array = ["2", "3", "5", "6", "8", "9", "15", "16", "17", "19", "24", "26", "30"].sort
+    assert_equal expected_array, @games_teams_collection.all_team_ids.sort
+  end
+
+  def test_it_can_return_team_id_of_team_with_best_win_percentage
+    assert_equal "6", @games_teams_collection.team_id_with_best_win_percentage
   end
 end

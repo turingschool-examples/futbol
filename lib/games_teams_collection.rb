@@ -78,15 +78,18 @@ class GamesTeamsCollection
   end
 
   # Helper method
+  def games_with_team(team_id)
+    find_by_in(team_id, "team_id", @games_teams)
+  end
+
+  # Helper method
   def total_games_with_team(team_id)
     total_found_by_in(team_id, "team_id", @games_teams)
   end
 
   # Helper method
   def total_wins_of_team(team_id)
-    find_by_in(team_id, "team_id", @games_teams).count do |game_team|
-      game_team.result == "WIN"
-    end
+    games_with_team(team_id).count { |game_team| game_team.result == "WIN" }
   end
 
   # Helper method designed to be reusable; consider moving to a stats module
@@ -97,5 +100,25 @@ class GamesTeamsCollection
   # Helper method
   def team_win_percentage(team_id)
     percent_of(total_wins_of_team(team_id), total_games_with_team(team_id))
+  end
+
+  # Helper method designed to be reusable; consider moving to a module
+  def every(attribute, collection)
+    collection.map { |element| element.send(attribute) }
+  end
+
+  # Helper method designed to be reusable; consider moving to a module
+  def every_unique(attribute, collection)
+    every(attribute, collection).uniq
+  end
+
+  # Helper method
+  def all_team_ids
+    every_unique("team_id", @games_teams)
+  end
+
+  # Core helper method for several Iteration 3 methods
+  def team_id_with_best_win_percentage
+    all_team_ids.max_by { |team_id| team_win_percentage(team_id) }
   end
 end
