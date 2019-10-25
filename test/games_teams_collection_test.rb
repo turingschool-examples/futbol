@@ -99,4 +99,24 @@ class GamesTeamsCollectionTest < Minitest::Test
   def test_it_can_return_team_id_of_team_with_best_win_percentage
     assert_equal "6", @games_teams_collection.team_id_with_best_win_percentage
   end
+
+  def test_it_can_find_all_away_games_of_team_by_id
+    assert_instance_of Array, @games_teams_collection.away_games_of_team("2")
+    assert_equal 3, @games_teams_collection.away_games_of_team("2").length
+    assert_equal true, @games_teams_collection.away_games_of_team("2").all? { |element| element.is_a?(GameTeam) }
+  end
+
+  def test_it_can_find_all_home_games_of_team_by_id
+    assert_instance_of Array, @games_teams_collection.away_games_of_team("2")
+    assert_equal 3, @games_teams_collection.away_games_of_team("2").length
+    assert_equal true, @games_teams_collection.away_games_of_team("2").all? { |element| element.is_a?(GameTeam) }
+  end
+
+  def test_it_can_find_team_win_percentage_at_home_by_id
+    assert_equal 66.67, @games_teams_collection.team_home_win_percentage("2")
+  end
+
+  def test_it_can_find_team_win_percentage_while_away_by_id
+    assert_equal 0.00, @games_teams_collection.team_away_win_percentage("2")
+  end
 end
