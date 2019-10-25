@@ -24,4 +24,12 @@ class TeamsCollectionTest < Minitest::Test
   def test_it_has_the_best_offense
     assert_equal "New York City FC", @total_teams.best_offense
   end
+
+  def test_it_has_best_fans
+    assert_equal "New England Revolution", @total_teams.best_fans
+  end
+
+  def test_it_has_worst_fans
+    assert_equal [], @total_teams.worst_fans
+  end
 end
