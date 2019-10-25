@@ -121,7 +121,7 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_tell_us_highest_scoring_home_team
-    skip
+    # skip
     assert_equal "16", @games_collection.highest_scoring_home_team
   end
 end

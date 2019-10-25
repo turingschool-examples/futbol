@@ -29,7 +29,7 @@ class GamesCollection
     end
     target_hash
   end
-  
+
   def highest_total_score
     @games.map {|game| game.away_goals.to_i + game.home_goals.to_i }.max
   end
@@ -84,5 +84,28 @@ class GamesCollection
       hash[season] = average_goals_in(all_games_in_season(season))
       hash
     end
+  end
+
+  def home_teams
+    every_unique("home_team_id", @games)
+  end
+
+  def home_team_goals
+    home_teams.reduce({}) do |acc, team|
+    season_goals = 0
+      games.each do |game|
+        if team == game.home_team_id
+          season_goals += game.home_goals.to_i
+        end
+      end
+      acc[team] = season_goals
+      acc
+    end
+  end
+
+  def highest_scoring_home_team
+    home_team_goals.find do |team, goals|
+      goals == home_team_goals.values.sort.last
+    end.first
   end
 end
