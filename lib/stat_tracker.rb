@@ -46,4 +46,13 @@ class StatTracker
   def average_goals_by_season
     @games.average_goals_by_season
   end
+
+  def winningest_team
+  end
+
+  def best_fans
+  end
+
+  def worst_fans
+  end
 end
