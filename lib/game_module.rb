@@ -15,9 +15,10 @@ module GameModule
   end
 
   def biggest_blowout
-    games.max_by do |game|
+    result = games.max_by do |game|
       (game.away_goals - game.home_goals).abs
     end
+    self.calculate_total_score(result)
   end
 
   def percentage_home_wins
@@ -55,7 +56,7 @@ module GameModule
 
   def average_goals_per_game
     average = @games.map {|game| self.calculate_total_score(game)}
-    average.inject {|sum, num| sum + num} / games.length.to_f
+    (average.inject {|sum, num| sum + num} / games.length.to_f).round(2)
   end
 
   def average_goals_by_season

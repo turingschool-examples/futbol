@@ -1,5 +1,3 @@
-
-
 module LeagueModule
   def count_of_teams
     teams.length

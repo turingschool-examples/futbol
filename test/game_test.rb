@@ -27,7 +27,7 @@ class GameModuleTest < MiniTest::Test
   end
 
   def test_largest_blowout
-    assert_equal @game3, @stat_tracker.biggest_blowout
+    assert_equal 8, @stat_tracker.biggest_blowout
   end
 
   def test_percent_home_wins
