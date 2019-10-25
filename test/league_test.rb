@@ -5,7 +5,7 @@ require './lib/team_module'
 class LeagueModuleTest < Minitest::Test
 
   def setup
-    game_path = './data/games.csv'
+    game_path = './data/games_fixture.csv'
     team_path = './data/teams_fixture.csv'
     game_teams_path = './data/game_teams_fixture.csv'
     locations = { games: game_path, teams: team_path, game_teams: game_teams_path }
