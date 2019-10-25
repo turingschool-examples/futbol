@@ -13,11 +13,22 @@ class TeamsTest < Minitest::Test
     end
 
     csv = CSV.read('./test/data/teams_sample.csv', headers: true, header_converters: :symbol)
-    @teams = csv.map do |row|
-      all_team_games = all_games.find_all do |game|
-        row[:team_id] == game.team_id
+    @teams = csv.map do |team|
+      all_game_ids = []
+      all_team_games = all_games.find_all do |game_team|
+        if team[:team_id] == game_team.team_id
+          all_game_ids << game_team.game_id
+        end
       end
-      Team.new(row, all_team_games)
+      all_opponent_games = all_game_ids.flat_map do |game_id|
+        all_games.find_all do |game_team|
+          game_team.game_id == game_id && game_team.team_id != team[:team_id]
+        end
+      end
+      # all_opponent_games = @total_games.find_all do |game|
+      #   team[:team_id] == game.team_id
+      # end
+      Team.new(team, all_team_games, all_opponent_games)
     end
   end
 
@@ -40,5 +51,15 @@ class TeamsTest < Minitest::Test
     # 1 win 3 losses 1 tie
     win_percentage = (1 / 5.0).round(2)
     assert_equal win_percentage, team.win_percentage
+  end
+
+  def test_it_has_average_goals_scored_per_game
+    team = @teams.find {|team| team.team_id == "8"}
+    assert_equal 1.8, team.average_goals_scored_per_game
+  end
+
+  def test_it_has_average_goals_allowed_per_game
+    team = @teams.find {|team| team.team_id == "8"}
+    assert_equal 2,8, team.average_goals_allowed_per_game
   end
 end
