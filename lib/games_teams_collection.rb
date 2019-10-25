@@ -166,9 +166,12 @@ class GamesTeamsCollection
     percent_of(number_of_wins_in(away_games_of_team(team_id)), home_games_of_team(team_id).length)
   end
 
-  # def team_with_best_home_win_percentage
-  # end
-  #
+  def team_with_best_home_win_percentage
+    all_team_ids.max_by do |team_id|
+      team_home_win_percentage(team_id)
+    end
+  end
+
   # def teams_with_better_away_win_percentage_than_home
   # end
 end
