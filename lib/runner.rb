@@ -24,5 +24,3 @@ team_array.team_instances.first
 
 game_array = stat_tracker.game
 game_array.game_instances.first
-=======
->>>>>>> f9f8c621675927c2c999014779a7a0bbe01ad96a

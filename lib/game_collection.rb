@@ -17,7 +17,7 @@ class GameCollection
     end
   end
 
-  def count_of_games_by_season
+  def count_of_games_per_season
     season_key_maker
     season_count = {}
     @keys.each do |key|
@@ -87,6 +87,7 @@ class GameCollection
         goal_array << game.home_goals.to_f
       end
     end
+
     (goal_array.sum / (goal_array.size / 2)).round(2)
   end
 
@@ -98,5 +99,57 @@ class GameCollection
     end
     ave_goals_per_season
   end
+
+  def percentage_home_wins
+  all_results = []
+  @game_instances.each do |instance|
+    all_results << instance.result
+  end
+  number_of_results = all_results.length
+
+  result_win = []
+  @game_instances.each do |instance|
+    if instance.result.include?("WIN")
+      result_win << instance.result
+    end
+  end
+  number_of_wins = result_win.length
+  home_win_percentage = number_of_wins.to_f / number_of_results
+end
+
+def percentage_vistor_wins
+  all_results = []
+  @game_instances.each do |instance|
+    all_results << instance.result
+  end
+  number_of_results = all_results.length
+
+  result_loss = []
+  @game_instances.each do |instance|
+    if instance.result.include?("LOSS")
+      result_loss << instance.result
+    end
+  end
+  number_of_losses = result_loss.length
+  home_win_percentage = number_of_losses.to_f / number_of_results
+end
+
+def percentage_ties
+  all_results = []
+  @game_instances.each do |instance|
+    all_results << instance.result
+  end
+  number_of_results = all_results.length
+
+  result_tie = []
+  @game_instances.each do |instance|
+    if instance.result.include?("TIE")
+      result_tie << instance.result
+    end
+
+  end
+  number_of_ties = result_tie.length
+  home_win_percentage = number_of_ties.to_f / number_of_results
+end
 
 end
