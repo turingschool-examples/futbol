@@ -1,3 +1,6 @@
+require_relative 'game'
+require 'csv'
+
 class GamesCollection
   attr_reader :games
 
