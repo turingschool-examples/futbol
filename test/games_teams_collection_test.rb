@@ -60,13 +60,14 @@ class GamesTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_can_find_rows_by_given_value_in_given_column
-    assert_instance_of Array, @games_teams_collection.find_by("6", "team_id")
-    assert_equal 9, @games_teams_collection.find_by("6", "team_id").length
-    assert_equal true, @games_teams_collection.find_by("6", "team_id").all? { |element| element.is_a?(GameTeam) }
+    assert_instance_of Array, @games_teams_collection.find_by_in("6", "team_id", @games_teams_collection.games_teams)
+    assert_equal 9, @games_teams_collection.find_by_in("6", "team_id", @games_teams_collection.games_teams).length
+    assert_equal true, @games_teams_collection.find_by_in("6", "team_id", @games_teams_collection.games_teams).all? { |element| element.is_a?(GameTeam) }
   end
 
   def test_it_totals_games_for_given_team
-    assert_equal 9, @games_teams_collection.total_found_in("6", "team_id")
+    assert_equal 9, @games_teams_collection.total_found_by_in("6", "team_id", @games_teams_collection.games_teams)
+    assert_equal 6, @games_teams_collection.total_found_by_in("2", "team_id", @games_teams_collection.games_teams)
   end
 
   def test_it_totals_wins_of_given_team
@@ -74,8 +75,13 @@ class GamesTeamsCollectionTest < Minitest::Test
     assert_equal 2, @games_teams_collection.total_wins_of_team("2")
   end
 
+  def test_it_can_make_percentage_with_numerator_and_denominator
+    assert_equal 50.00, @games_teams_collection.percent_of(1, 2)
+    assert_equal 33.33, @games_teams_collection.percent_of(2, 6)
+  end
+
   def test_it_calculates_win_percentage_for_given_team_id
-    skip
-    assert_equal 75.34, @games_teams_collection.team_win_percentage("6")
+    assert_equal 100.00, @games_teams_collection.team_win_percentage("6")
+    assert_equal 33.33, @games_teams_collection.team_win_percentage("2")
   end
 end

@@ -67,21 +67,35 @@ class GamesTeamsCollection
     max_goals - min_goals
   end
 
-  def find_by(element, attribute)
-    @games_teams.find_all do |game_team|
-      game_team.send(attribute) == element
+  # Helper method designed to be reusable; consider moving to a parent Collection class
+  def find_by_in(element, attribute, collection)
+    collection.find_all { |member| member.send(attribute) == element }
+  end
+
+  # Helper method designed to be reusable; consider moving to a parent Collection class
+  def total_found_by_in(element, attribute, collection)
+    find_by_in(element, attribute, collection).length
+  end
+
+  # Helper method
+  def total_games_with_team(team_id)
+    total_found_by_in(team_id, "team_id", @games_teams)
+  end
+
+  # Helper method
+  def total_wins_of_team(team_id)
+    find_by_in(team_id, "team_id", @games_teams).count do |game_team|
+      game_team.result == "WIN"
     end
   end
 
-  def total_found_in(element, attribute)
-    find_by(element, attribute).length
+  # Helper method designed to be reusable; consider moving to a stats module
+  def percent_of(numerator, denominator)
+    ((numerator / denominator.to_f) * 100).round(2)
   end
 
-  def total_wins_of_team(team_id)
-    
-  end
-
+  # Helper method
   def team_win_percentage(team_id)
-
+    percent_of(total_wins_of_team(team_id), total_games_with_team(team_id))
   end
 end
