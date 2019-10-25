@@ -40,10 +40,7 @@ class StatTracker
   end
 
   def total_goals_by_season
-    @game_repo.games.reduce(Hash.new(0)) do |hash, game|
-      hash[game.season] += game.total_score.to_f
-      hash
-    end
+    @game_repo.calculate_total_goals_by_season
   end
 
   def biggest_blowout
