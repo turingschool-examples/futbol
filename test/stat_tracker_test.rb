@@ -58,14 +58,14 @@ class StatTrackerTest < Minitest::Test
       "20132014" => 6
     }
 
-    assert_equal expected, @stat_tracker.count_of_games_per_season
+    assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
   def test_it_can_calculate_average_goals_per_game
     assert_equal 3.91, @stat_tracker.average_goals_per_game
   end
 
-  def test_it_can_return_hash_of_average_goals_per_season
+  def test_it_can_return_hash_of_average_goals_by_season
     expected_hash = {
                       "20122013"=>3.86,
                       "20162017"=>4.75,
@@ -73,7 +73,7 @@ class StatTrackerTest < Minitest::Test
                       "20152016"=>3.88,
                       "20132014"=>4.33
                     }
-    assert_equal expected_hash, @stat_tracker.average_goals_per_season
+    assert_equal expected_hash, @stat_tracker.average_goals_by_season
   end
 
   def test_it_can_get_name_of_team_by_id
