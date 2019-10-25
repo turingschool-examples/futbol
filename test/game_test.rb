@@ -12,14 +12,8 @@ class GameModuleTest < MiniTest::Test
     @stat_tracker = StatTracker.new(nil, [@game1, @game2, @game3, @game4, @game5], nil)
   end
 
-  def test_existence
-    assert_instance_of Game, @game1
-    assert_instance_of StatTracker, @stat_tracker
-  end
-
   def test_highest_total_score
     assert_equal 9, @stat_tracker.highest_total_score
-
   end
 
   def test_lowest_total_score
