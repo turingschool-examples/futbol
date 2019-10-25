@@ -12,4 +12,8 @@ class TeamsCollection
     end
     objects
   end
+
+  def name_of_team_by_id(team_id)
+    @teams.find {|team| team.team_id == team_id}.team_name
+  end
 end

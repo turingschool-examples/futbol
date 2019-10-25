@@ -14,4 +14,9 @@ class TeamsCollectionTest < Minitest::Test
     assert_equal 32, @teams_collection.teams.length
     assert_equal true, @teams_collection.teams.all? {|team| team.is_a?(Team)}
   end
+
+  def test_it_can_get_name_of_team_by_id
+    assert_equal "FC Dallas", @teams_collection.name_of_team_by_id("6")
+    assert_equal "Los Angeles FC", @teams_collection.name_of_team_by_id("28")
+  end
 end
