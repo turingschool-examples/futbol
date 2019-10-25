@@ -1,4 +1,8 @@
 require_relative 'test_helper'
+require 'pry'
+require 'minitest/autorun'
+require 'minitest/pride'
+
 
 class GamesCollectionTest < Minitest::Test
 
@@ -51,7 +55,7 @@ class GamesCollectionTest < Minitest::Test
 
     assert_equal expected, @games_collection.count_of_games_by_season
   end
-  
+
   def test_it_grabs_highest_total_score
     assert_equal 7, @games_collection.highest_total_score
   end
@@ -59,7 +63,7 @@ class GamesCollectionTest < Minitest::Test
   def test_it_grabs_lowest_total_score
     assert_equal 1, @games_collection.lowest_total_score
   end
-  
+
   def test_it_can_return_total_goals_across_all_games
     assert_equal 387, @games_collection.total_goals(@games_collection.games)
   end
@@ -105,5 +109,19 @@ class GamesCollectionTest < Minitest::Test
                       "20132014"=>4.33
                     }
     assert_equal expected_hash, @games_collection.average_goals_per_season
+  end
+
+  def test_it_can_tell_us_each_unique_home_team_id
+    #this validates that we're getting a condensed list of teams
+    assert_equal 17, @games_collection.home_teams.length
+  end
+
+  def test_it_can_tell_us_number_of_goals_per_home_team
+    assert_instance_of Hash, @games_collection.home_team_goals
+  end
+
+  def test_it_can_tell_us_highest_scoring_home_team
+    skip
+    assert_equal "16", @games_collection.highest_scoring_home_team
   end
 end
