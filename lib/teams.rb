@@ -1,4 +1,5 @@
 require 'csv'
+require 'pry'
 
 class Team
   attr_reader :team_id, :franchiseId, :teamName, :abbreviation, :stadium, :link
@@ -16,11 +17,12 @@ class Team
     @teams = []
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       @teams << self.new(row[:team_id],
-                                    row[:franchiseId],
-                                    row[:teamName],
+                                    row[:franchiseid],
+                                    row[:teamname],
                                     row[:abbreviation],
                                     row[:stadium],
                                     row[:link])
+                                    binding.pry
     end
     @teams
   end
