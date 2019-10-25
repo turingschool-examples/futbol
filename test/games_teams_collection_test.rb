@@ -121,4 +121,13 @@ class GamesTeamsCollectionTest < Minitest::Test
   def test_it_can_find_team_win_percentage_while_away_by_id
     assert_equal 0.00, @games_teams_collection.team_away_win_percentage("2")
   end
+
+  def test_it_can_find_id_of_team_with_highest_home_win_percentage
+    assert_equal "6", @games_teams_collection.team_with_best_home_win_percentage
+    refute_equal "2", @games_teams_collection.team_with_best_home_win_percentage
+  end
+
+  def test_it_can_find_array_of_team_ids_with_higher_away_win_percentages
+    assert_equal [], @games_teams_collection.teams_with_better_away_win_percentage_than_home
+  end
 end
