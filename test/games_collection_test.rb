@@ -103,7 +103,7 @@ class GamesCollectionTest < Minitest::Test
                       "20152016"=>3.88,
                       "20132014"=>4.33
                     }
-    assert_equal expected_hash, @games_collection.average_goals_by_season
+    assert_equal expected_hash, @games_collection.average_goals_per_season
   end
 
   def test_it_can_tell_us_each_unique_home_team_id

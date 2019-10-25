@@ -28,17 +28,19 @@ class GamesTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_can_see_how_many_wins
-    expected = [0, 9, 4, 7, 7, 3, 1, 1, 3, 3, 4, 2, 4]
+    expected = [3, 3, 2, 3, 3, 3, 4, 2, 1, 2, 2, 3, 2, 2, 3, 2, 3, 4, 3, 4, 2, 3, 3, 3,
+                3, 2, 2, 1, 3, 3, 2, 3, 3, 2, 3, 3, 3, 3, 3, 3, 3, 4, 2, 3, 3, 1, 3, 3]
     assert_equal expected, @games_teams_collection.number_of_wins
   end
 
   def test_it_can_see_how_many_losses
-    expected = [10, 0, 6, 7, 5, 1, 3, 4, 3, 3, 3, 4, 0]
+    expected = [2, 2, 1, 2, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 2, 1, 1, 1, 2, 1, 1, 2, 2, 0,
+                1, 1, 1, 0, 2, 2, 1, 1, 2, 0, 2, 2, 2, 2, 0, 2, 2, 2, 0, 2, 1, 0, 2, 2, 1]
     assert_equal expected, @games_teams_collection.number_of_losses
   end
 
   def test_it_has_a_big_blow_out
-    assert_equal -10, @games_teams_collection.biggest_blowout
+    assert_equal 4, @games_teams_collection.biggest_blowout
   end
 
   def test_it_can_get_total_away_games

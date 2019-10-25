@@ -72,7 +72,7 @@ class GamesCollection
   end
 
   # Iteration 2 required method
-  def average_goals_per_game
+  def average_goals_by_game
     average_goals_in(@games)
   end
 
