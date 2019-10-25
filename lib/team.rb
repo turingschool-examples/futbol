@@ -32,16 +32,25 @@ class Team
   end
 
   def home_win_percentage
+    total_home_games = 0
     win_count = @all_team_games.count do |game|
-      game.result == "WIN" && game.HoA == "home"
+      if game.hoa == "home"
+        total_home_games += 1
+      end
+      game.result == "WIN" && game.hoa == "home"
     end
-    (win_count / @all_team_games.length.to_f).round(2)
+    (win_count.to_f / total_home_games * 100).round(2)
   end
 
   def away_win_percentage
+    total_away_games = 0
     win_count = @all_team_games.count do |game|
-      game.result == "WIN" && game.HoA == "away"
+      if game.hoa == "away"
+        total_away_games += 1
+      end
+      game.result == "WIN" && game.hoa == "away"
+
     end
-    (win_count / @all_team_games.length.to_f).round(2)
+    (win_count.to_f / total_away_games * 100).round(2)
   end
 end
