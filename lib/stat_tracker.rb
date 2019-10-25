@@ -4,7 +4,7 @@ class StatTracker
   def initialize(file_paths)
     @games = GamesCollection.new(file_paths[:games])
     @teams = TeamsCollection.new(file_paths[:teams])
-    @games_teams = GamesTeamsCollection.new(file_paths[:games_teams])
+    @games_teams = GamesTeamsCollection.new(file_paths[:game_teams])
   end
 
   def self.from_csv(file_paths)
