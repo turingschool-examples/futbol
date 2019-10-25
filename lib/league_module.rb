@@ -68,12 +68,16 @@ module LeagueModule
       scored_upon_by_team[teams[0].team_id] += teams[1].goals
       scored_upon_by_team[teams[1].team_id] += teams[0].goals
     end
-    scored_upon_by_team
-    binding.pry
+    avg_by_team = scored_upon_by_team.transform_values do |total_score|
+      team_id = scored_upon_by_team.key(total_score)
+      total_score / self.games_played_by_team(team_id).to_f
+    end
+    avg_by_team
   end
 
-  def games_played_by_team
-    game_teams.group_by {|game| game.team_id}.transform_values {|val| val.length}
+  def games_played_by_team(id)
+    gbt = game_teams.group_by {|game| game.team_id}.transform_values {|val| val.length}
+    gbt[id]
   end
 
   def empty_team_hash
