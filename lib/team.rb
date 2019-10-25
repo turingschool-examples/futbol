@@ -1,12 +1,13 @@
 class Team
   attr_reader :team_id, :franchise_id, :team_name, :abbreviation, :stadium, :link
 
-  def initialize(team_info, all_team_games)
+  def initialize(team_info, all_team_games, all_opponent_games)
     @team_id = team_info[:team_id]
     @franchise_id = team_info[:franchiseid].to_i
     @team_name = team_info[:teamname]
     @abbreviation = team_info[:abbreviation]
     @all_team_games = all_team_games
+    @all_opponent_games = all_opponent_games
   end
 
   def win_percentage
@@ -14,5 +15,19 @@ class Team
       game.result == "WIN"
     end
     (win_count / @all_team_games.length.to_f).round(2)
+  end
+
+  def average_goals_scored_per_game
+    goal_count = @all_team_games.sum do |game|
+      game.goals
+    end
+    (goal_count / @all_team_games.length.to_f).round(2)
+  end
+
+  def average_goals_allowed_per_game
+    goal_count = @all_opponent_games.sum do |game|
+      game.goals
+    end
+    (goal_count / @all_opponent_games.length.to_f).round(2)
   end
 end
