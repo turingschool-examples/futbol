@@ -16,11 +16,13 @@ module LeagueModule
   end
 
   def best_defense
-    self.generate_avg_scored_upon_by_team
+    team_id = self.generate_avg_scored_upon_by_team.min_by {|team, avg| avg}
+    self.convert_ids_to_team_name(team_id[0])
   end
 
   def worst_defense
-    self.generate_avg_scored_upon_by_team
+    team_id = self.generate_avg_scored_upon_by_team.max_by {|team, avg| avg}
+    self.convert_ids_to_team_name(team_id[0])
   end
 
   def highest_scoring_visitor
