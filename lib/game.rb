@@ -9,6 +9,7 @@ class Game
     @type = game_info[:type]
     @date_time = game_info[:date_time]
     @away_team_id = game_info[:away_team_id]
+    #require 'pry'; binding.pry
     @home_team_id = game_info[:home_team_id]
     @away_goals = game_info[:away_goals].to_i
     @home_goals = game_info[:home_goals].to_i
