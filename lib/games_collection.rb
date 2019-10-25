@@ -108,4 +108,28 @@ class GamesCollection
       goals == home_team_goals.values.sort.last
     end.first
   end
+
+  def away_teams
+    every_unique("away_team_id", @games)
+  end
+
+  def away_team_goals
+    away_teams.reduce({}) do |acc, team|
+    season_goals = 0
+      games.each do |game|
+        if team == game.away_team_id
+          season_goals += game.away_goals.to_i
+        end
+      end
+      acc[team] = season_goals
+      acc
+    end
+  end
+
+  def highest_scoring_away_team
+    home_team_goals.find do |team, goals|
+      goals == home_team_goals.values.sort.last
+    end.first
+  end
+
 end

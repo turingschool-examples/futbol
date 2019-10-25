@@ -131,11 +131,12 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_tell_us_number_of_goals_per_away_team
+    
     assert_instance_of Hash, @games_collection.away_team_goals
   end
 
   def test_it_can_tell_us_highest_scoring_away_team
 
-    assert_equal "0", @games_collection.highest_scoring_away_team
+    assert_equal "16", @games_collection.highest_scoring_away_team
   end
 end
