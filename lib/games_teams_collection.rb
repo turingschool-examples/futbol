@@ -140,4 +140,35 @@ class GamesTeamsCollection
   def team_id_with_best_win_percentage
     all_team_ids.max_by { |team_id| team_win_percentage(team_id) }
   end
+
+  # Helper method
+  def away_games_of_team(team_id)
+    find_by_in(team_id, "team_id", find_by_in("away", "hoa", @games_teams))
+  end
+
+  # Helper method
+  def home_games_of_team(team_id)
+    find_by_in(team_id, "team_id", find_by_in("home", "hoa", @games_teams))
+  end
+
+  # Helper method
+  def number_of_wins_in(collection)
+    collection.count { |game_team| game_team.result == "WIN" }
+  end
+
+  # Helper method
+  def team_home_win_percentage(team_id)
+    percent_of(number_of_wins_in(home_games_of_team(team_id)), home_games_of_team(team_id).length)
+  end
+
+  # Helper method
+  def team_away_win_percentage(team_id)
+    percent_of(number_of_wins_in(away_games_of_team(team_id)), home_games_of_team(team_id).length)
+  end
+
+  # def team_with_best_home_win_percentage
+  # end
+  #
+  # def teams_with_better_away_win_percentage_than_home
+  # end
 end
