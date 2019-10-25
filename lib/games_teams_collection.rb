@@ -59,21 +59,23 @@ class GamesTeamsCollection
   end
 
   def number_of_wins
-    teams = @games_teams.group_by {|game_team| game_team.team_id}
-    teams.values.map do |game|
-      game.count do |game|
-        game.result == "WIN"
+    winner_goals = []
+    @games_teams.each do |game_team|
+      if game_team.result == "WIN"
+        winner_goals << game_team.goals.to_i
       end
     end
+    winner_goals
   end
 
   def number_of_losses
-    teams = @games_teams.group_by {|game_team| game_team.team_id}
-    teams.values.map do |game|
-      game.count do |game|
-        game.result == "LOSS"
+    losser_goals = []
+    @games_teams.each do |game_team|
+      if game_team.result == "LOSS"
+        losser_goals << game_team.goals.to_i
       end
     end
+    losser_goals
   end
 
   def biggest_blowout
@@ -83,7 +85,7 @@ class GamesTeamsCollection
         difference << wins - losses
       end
     end
-    difference.min
+    difference.max
   end
 
   # Helper method designed to be reusable; consider moving to a parent Collection class
