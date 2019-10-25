@@ -100,6 +100,24 @@ class GamesCollection
     season_goals
   end
 
+  def total_home_games(team)
+    @games.select { |game| game.home_team_id == team }.count
+  end
+
+
+  # old
+  # def total_home_goals(team)
+  #   season_goals = []
+  #   @games.each do |game|
+  #     if team == game.home_team_id
+  #       season_goals += game.home_goals.to_i
+  #     end
+  #   end
+  #   season_goals
+  # end
+
+
+
   # # address this
   # def home_team_goals
   #   home_teams.reduce({}) do |acc, team|

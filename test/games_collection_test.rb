@@ -111,10 +111,17 @@ class GamesCollectionTest < Minitest::Test
     assert_equal 17, @games_collection.home_teams.length
   end
 
-  def test_it_can_tell_us_total_team_goals
+  def test_it_can_tell_us_total_team_home_goals
 
     assert_equal 12, @games_collection.total_home_goals("6")
   end
+
+  def test_it_can_tell_us_total_team_home_games
+
+    assert_equal 5, @games_collection.total_home_games("6")
+  end
+
+
 
   def test_it_can_tell_us_total_number_of_goals_per_home_team
     skip
