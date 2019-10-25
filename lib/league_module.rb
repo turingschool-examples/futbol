@@ -1,3 +1,5 @@
+require 'pry'
+
 module LeagueModule
   def count_of_teams
     teams.length
@@ -50,11 +52,14 @@ module LeagueModule
     games_by_team = game_teams.group_by do |game|
       game.team_id
     end
-    games_by_team.transform_values do |val|
-      games = val.length
-      val.map {|v| v.goals}.reduce {|sum, num| sum + num} / games
+    avg_score_by_team = games_by_team.transform_values do |val|
+      #binding.pry
+      total_games = val.length
+      #binding.pry
+      val.map {|v| v.goals}.reduce {|sum, num| sum + num}.to_f / total_games
     end
-    games_by_team
+    avg_score_by_team
+    #binding.pry
   end
 
   def generate_avg_scored_upon_by_team
@@ -70,8 +75,7 @@ module LeagueModule
   end
 
   def convert_ids_to_team_name(id)
-    ids_to_name = teams.group_by {|team| team.team_id}.transform_values {|obj| obj[0].team_name}
+    ids_to_name = teams.group_by {|team| team.team_id}.transform_values {|obj| obj[0].teamName}
     ids_to_name[id]
   end
-
 end

@@ -19,6 +19,7 @@
         1,
         null,
         1,
+<<<<<<< Updated upstream
         12,
         12,
         12,
@@ -29,6 +30,18 @@
         12,
         12,
         12,
+=======
+        2,
+        2,
+        2,
+        null,
+        null,
+        1,
+        2,
+        2,
+        2,
+        2,
+>>>>>>> Stashed changes
         null,
         null,
         null,
@@ -43,6 +56,7 @@
         null,
         1,
         null,
+<<<<<<< Updated upstream
         192,
         192,
         192,
@@ -64,6 +78,29 @@
         12,
         12,
         192,
+=======
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        null,
+        null,
+        1,
+        2,
+        2,
+        32,
+>>>>>>> Stashed changes
         null,
         null,
         null,
@@ -79,19 +116,23 @@
         null,
         null,
         null,
+<<<<<<< Updated upstream
         12,
+=======
+        2,
+>>>>>>> Stashed changes
         null,
         null,
         null
       ],
       "/Users/mattsimon/turing/futbol/lib/teams.rb": [
         1,
-        1,
         null,
         1,
         1,
         null,
         1,
+<<<<<<< Updated upstream
         36,
         36,
         36,
@@ -105,12 +146,31 @@
         12,
         36,
         null,
+=======
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        null,
+        null,
+        1,
+        2,
+        2,
+        6,
+>>>>>>> Stashed changes
         null,
         null,
         null,
         null,
         null,
+<<<<<<< Updated upstream
         12,
+=======
+        null,
+        2,
+>>>>>>> Stashed changes
         null,
         null,
         null
@@ -123,6 +183,7 @@
         1,
         null,
         1,
+<<<<<<< Updated upstream
         89292,
         89292,
         89292,
@@ -139,6 +200,24 @@
         12,
         12,
         89292,
+=======
+        14882,
+        14882,
+        14882,
+        14882,
+        14882,
+        14882,
+        14882,
+        14882,
+        14882,
+        14882,
+        null,
+        null,
+        1,
+        2,
+        2,
+        14882,
+>>>>>>> Stashed changes
         null,
         null,
         null,
@@ -149,7 +228,11 @@
         null,
         null,
         null,
+<<<<<<< Updated upstream
         12,
+=======
+        2,
+>>>>>>> Stashed changes
         null,
         null,
         null,
@@ -246,12 +329,20 @@
         null,
         null,
         1,
+<<<<<<< Updated upstream
         3,
+=======
+        1,
+>>>>>>> Stashed changes
         0,
         null,
         null,
         1,
+<<<<<<< Updated upstream
         3,
+=======
+        0,
+>>>>>>> Stashed changes
         0,
         null,
         null,
@@ -289,16 +380,29 @@
         null,
         null,
         1,
-        2,
-        32,
+        1,
         null,
+<<<<<<< Updated upstream
         2,
         6,
         64,
+=======
+        16,
         null,
-        2,
+        1,
+        null,
+        3,
+>>>>>>> Stashed changes
+        null,
+        32,
         null,
         null,
+<<<<<<< Updated upstream
+=======
+        1,
+        null,
+        null,
+>>>>>>> Stashed changes
         1,
         0,
         0,
@@ -314,7 +418,10 @@
         1,
         0,
         0,
+<<<<<<< Updated upstream
         null,
+=======
+>>>>>>> Stashed changes
         null,
         null
       ],
@@ -331,6 +438,10 @@
         null
       ]
     },
+<<<<<<< Updated upstream
     "timestamp": 1571983936
+=======
+    "timestamp": 1571983714
+>>>>>>> Stashed changes
   }
 }

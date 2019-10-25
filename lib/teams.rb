@@ -22,6 +22,10 @@ class Team
                                     row[:abbreviation],
                                     row[:stadium],
                                     row[:link])
+<<<<<<< Updated upstream
+=======
+                                    
+>>>>>>> Stashed changes
     end
     @teams
   end
