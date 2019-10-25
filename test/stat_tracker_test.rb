@@ -85,15 +85,12 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas", @stat_tracker.winningest_team
   end
 
-  # Name of the team with biggest difference between home and away win percentages.
   def test_it_can_find_team_with_best_fans
-    skip
-    assert_equal "New England Revolution", @stat_tracker.best_fans
+    assert_equal "FC Dallas", @stat_tracker.best_fans
   end
 
-  # List of names of all teams with better away records than home records.
-  def test_it_can_find_team_with_worst_fans
-    skip
-    assert_equal "Philadelphia Union", @stat_tracker.worst_fans
+  def test_it_can_find_names_of_teams_with_worst_fans
+    # no such teams exist in fixture data, but 2 exist in real data
+    assert_equal [], @stat_tracker.worst_fans
   end
 end
