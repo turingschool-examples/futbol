@@ -15,4 +15,8 @@ class TeamsCollection
     end
     objects
   end
+
+  def count_of_teams
+    @teams.count {|team| team.team_id.length}
+  end
 end
