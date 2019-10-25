@@ -1,3 +1,6 @@
+require_relative 'game_team'
+require 'csv'
+
 class GamesTeamsCollection
   attr_reader :games_teams
 
@@ -55,15 +58,31 @@ class GamesTeamsCollection
     ((total_ties.to_f / @games_teams.count) * 100).round(2)
   end
 
-  def max_goals
-    @games_teams.map {|game_team| game_team.goals.to_i}.max
+  def number_of_wins
+    teams = @games_teams.group_by {|game_team| game_team.team_id}
+    teams.values.map do |game|
+      game.count do |game|
+        game.result == "WIN"
+      end
+    end
   end
 
-  def min_goals
-    @games_teams.map {|game_team| game_team.goals.to_i}.min
+  def number_of_losses
+    teams = @games_teams.group_by {|game_team| game_team.team_id}
+    teams.values.map do |game|
+      game.count do |game|
+        game.result == "LOSS"
+      end
+    end
   end
 
   def biggest_blowout
-    max_goals - min_goals
+    difference = []
+    number_of_wins.each do |wins|
+      number_of_losses.each do |losses|
+        difference << wins - losses
+      end
+    end
+    difference.min
   end
 end

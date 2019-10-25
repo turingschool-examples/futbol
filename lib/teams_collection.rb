@@ -1,3 +1,6 @@
+require_relative 'team'
+require 'csv'
+
 class TeamsCollection
   attr_reader :teams
 
@@ -11,5 +14,9 @@ class TeamsCollection
       objects << Team.new(row_object)
     end
     objects
+  end
+
+  def count_of_teams
+    @teams.count {|team| team.team_id.length}
   end
 end

@@ -1,3 +1,6 @@
+require_relative 'game'
+require 'csv'
+
 class GamesCollection
   attr_reader :games
 
@@ -29,7 +32,7 @@ class GamesCollection
     end
     target_hash
   end
-  
+
   def highest_total_score
     @games.map {|game| game.away_goals.to_i + game.home_goals.to_i }.max
   end

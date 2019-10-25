@@ -14,4 +14,8 @@ class TeamsCollectionTest < Minitest::Test
     assert_equal 32, @teams_collection.teams.length
     assert_equal true, @teams_collection.teams.all? {|team| team.is_a?(Team)}
   end
+
+  def test_it_knows_how_many_teams_there_are
+    assert_equal 32, @teams_collection.count_of_teams
+  end
 end
