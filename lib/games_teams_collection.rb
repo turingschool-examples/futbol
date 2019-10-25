@@ -172,6 +172,9 @@ class GamesTeamsCollection
     end
   end
 
-  # def teams_with_better_away_win_percentage_than_home
-  # end
+  def teams_with_better_away_win_percentage_than_home
+    all_team_ids.find_all do |team_id|
+      team_home_win_percentage(team_id) < team_away_win_percentage(team_id)
+    end
+  end
 end
