@@ -26,7 +26,7 @@ class TeamsCollectionTest < Minitest::Test
   end
 
   def test_it_has_best_fans
-    assert_equal "New England Revolution", @total_teams.best_fans
+    assert_equal "LA Galaxy", @total_teams.best_fans
   end
 
   def test_it_has_worst_fans
