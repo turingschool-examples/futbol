@@ -6,8 +6,7 @@ require './lib/game_collection'
 class GameTest < MiniTest::Test
 
   def setup
-    csv_path = (CSV.read "./dummy_data/dummy_games.csv", headers: true, header_converters: :symbol)
-    @game = Game.new(csv_path)
+    @game = Game.new({game_id: "2012030221",season: "20122013",type: "Postseason", date_time: "5/16/13",away_team_id: "3",home_team_id: "6",away_goals: "2",home_goals: "3",venue: "Toyota Stadium",venue_link: "/api/v1/venues/null"})
   end
 
   def test_it_exists
@@ -15,19 +14,9 @@ class GameTest < MiniTest::Test
   end
 
   def test_it_initializes
-    assert_equal 2012030221, @game.game_id.first.to_i
-    assert_equal "Postseason", @game.type.first
-    assert_equal "Toyota Stadium", @game.venue.first
+    assert_equal "2012030221", @game.game_id
+    assert_equal "Postseason", @game.type
+    assert_equal "Toyota Stadium", @game.venue
   end
 
-  def test_it_initializes_another_game_correctly
-    assert_equal 2012030236, @game.game_id.last.to_i
-    assert_equal "Postseason", @game.type.last
-    assert_equal "Dignity Health Sports Park", @game.venue.last
-  end
-
-  # Tests returing the highest sum of the winning and losing teams’ scores
-  def test_highest_total_score
-    assert_equal 
-  end
 end
