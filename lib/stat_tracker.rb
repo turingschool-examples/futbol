@@ -49,7 +49,7 @@ class StatTracker
   end
 
   def average_goals_by_season
-    @games.average_goals_per_season
+    @games.average_goals_by_season
   end
 
   # Helper method
