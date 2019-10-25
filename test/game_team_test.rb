@@ -5,7 +5,7 @@ require './lib/game_team'
 class GameTeamTest < Minitest::Test
 
   def setup
-    csv = CSV.read('./data/game_teams_sample.csv', headers: true, header_converters: :symbol)
+    csv = CSV.read('./test/data/game_teams_sample.csv', headers: true, header_converters: :symbol)
     @game_teams = csv.map do |row|
       GameTeam.new(row)
     end
@@ -19,7 +19,7 @@ class GameTeamTest < Minitest::Test
 
   def test_it_has_attributes
     game_team = @game_teams.first
-    
+
     assert_equal 2012030221, game_team.game_id
     assert_equal 3, game_team.team_id
     assert_equal "away", game_team.hoa

@@ -5,7 +5,7 @@ require './lib/game'
 class GameTest < Minitest::Test
 
   def setup
-    csv = CSV.read('./data/games_sample.csv', headers: true, header_converters: :symbol)
+    csv = CSV.read('./test/data/games_sample.csv', headers: true, header_converters: :symbol)
     @games = csv.map do |row|
       Game.new(row)
     end
@@ -20,7 +20,7 @@ class GameTest < Minitest::Test
   def test_it_has_attributes
 
     game = @games.first
-    
+
     assert_equal 2012030221, game.game_id
     assert_equal 20122013, game.season
     assert_equal "Postseason", game.type

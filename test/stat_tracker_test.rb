@@ -4,9 +4,9 @@ require './lib/game_collection'
 
 class StatTrackerTest < Minitest::Test
   def setup
-    game_path = './data/games_sample.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_path = './test/data/games_sample.csv'
+    team_path = './test/data/teams_sample.csv'
+    game_teams_path = './test/data/game_teams_sample.csv'
     locations = {
       games: game_path,
       teams: team_path,
@@ -16,7 +16,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_exists
-    stat_tracker = StatTracker.new('./data/games_sample.csv', './data/teams.csv', './data/game_teams.csv')
+    stat_tracker = StatTracker.new('./test/data/games_sample.csv', './test/data/teams_sample.csv', './test/data/game_teams_sample.csv')
     assert_instance_of StatTracker, stat_tracker
   end
 

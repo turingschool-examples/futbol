@@ -5,7 +5,7 @@ require './lib/team'
 class TeamsTest < Minitest::Test
 
   def setup
-    csv = CSV.read('./data/teams_sample.csv', headers: true, header_converters: :symbol)
+    csv = CSV.read('./test/data/teams_sample.csv', headers: true, header_converters: :symbol)
     @teams = csv.map do |row|
       Team.new(row)
     end
