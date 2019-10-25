@@ -13,7 +13,7 @@ class GameTeamCollectionTest < Minitest::Test
 
   def test_it_has_total_game_team
     @game_team_collection.create_game_teams("./test/data/game_teams_sample.csv")
-    assert_equal 9, @game_team_collection.total_game_teams.length
+    assert_equal 50, @game_team_collection.total_game_teams.length
   end
 
 end
