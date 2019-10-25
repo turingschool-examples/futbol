@@ -9,7 +9,7 @@ class StatTracker
   def initialize(file_paths)
     @games = GamesCollection.new(file_paths[:games])
     @teams = TeamsCollection.new(file_paths[:teams])
-    @games_teams = GamesTeamsCollection.new(file_paths[:games_teams])
+    @games_teams = GamesTeamsCollection.new(file_paths[:game_teams])
   end
 
   def self.from_csv(file_paths)
@@ -50,5 +50,20 @@ class StatTracker
 
   def average_goals_by_season
     @games.average_goals_per_season
+  end
+
+  # Helper method
+  def name_of_team(team_id)
+    @teams.name_of_team_by_id(team_id)
+  end
+
+  def winningest_team
+    name_of_team(@games_teams.team_id_with_best_win_percentage)
+  end
+
+  def best_fans
+  end
+
+  def worst_fans
   end
 end

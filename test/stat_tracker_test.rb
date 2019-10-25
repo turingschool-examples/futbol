@@ -7,7 +7,7 @@ class StatTrackerTest < Minitest::Test
     file_paths = {
                   games: './data/dummy_games.csv',
                   teams: './data/dummy_teams.csv',
-                  games_teams: './data/dummy_games_teams.csv'
+                  game_teams: './data/dummy_games_teams.csv'
                 }
     @stat_tracker = StatTracker.from_csv(file_paths)
   end
@@ -65,7 +65,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3.91, @stat_tracker.average_goals_per_game
   end
 
-  def test_it_can_return_hash_of_average_goals_per_season
+  def test_it_can_return_hash_of_average_goals_by_season
     expected_hash = {
                       "20122013"=>3.86,
                       "20162017"=>4.75,
@@ -74,5 +74,26 @@ class StatTrackerTest < Minitest::Test
                       "20132014"=>4.33
                     }
     assert_equal expected_hash, @stat_tracker.average_goals_by_season
+  end
+
+  def test_it_can_get_name_of_team_by_id
+    assert_equal "FC Dallas", @stat_tracker.name_of_team("6")
+    assert_equal "Los Angeles FC", @stat_tracker.name_of_team("28")
+  end
+
+  def test_it_can_find_name_of_winningest_team
+    assert_equal "FC Dallas", @stat_tracker.winningest_team
+  end
+
+  # Name of the team with biggest difference between home and away win percentages.
+  def test_it_can_find_team_with_best_fans
+    skip
+    assert_equal "New England Revolution", @stat_tracker.best_fans
+  end
+
+  # List of names of all teams with better away records than home records.
+  def test_it_can_find_team_with_worst_fans
+    skip
+    assert_equal "Philadelphia Union", @stat_tracker.worst_fans
   end
 end

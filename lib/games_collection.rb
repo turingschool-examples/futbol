@@ -82,7 +82,7 @@ class GamesCollection
   end
 
   # Iteration 2 required method
-  def average_goals_per_season
+  def average_goals_by_season
     every_unique("season", @games).reduce({}) do |hash, season|
       hash[season] = average_goals_in(all_games_in_season(season))
       hash
