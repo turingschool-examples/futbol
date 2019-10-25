@@ -75,7 +75,8 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_average_goals_per_season
+    expected = {"20122013"=>3.6, "20132014"=>4.0, "20152016"=>4.33, "20162017"=>3.8, "20172018"=>4.0}
     assert_instance_of Hash, @stat_tracker.average_goals_by_season
-    require "pry"; binding.pry
+    assert_equal expected, @stat_tracker.average_goals_by_season
   end
 end

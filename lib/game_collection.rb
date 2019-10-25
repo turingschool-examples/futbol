@@ -80,15 +80,6 @@ class GameCollection
     end
   end
 
-  # count number of games in each season using games_by_season method
-  def count
-    count = {}
-    games_by_season.each do |season, game|
-      count[season] = game.length
-    end
-    count
-  end
-
   def count_of_games_by_season
     @games.values.reduce(Hash.new(0)) do |count_in_season, game|
       count_in_season[game.season] += 1
