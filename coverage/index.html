@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2019-10-24T21:55:56-06:00">2019-10-24T21:55:56-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2019-10-24T22:30:57-06:00">2019-10-24T22:30:57-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,7 +25,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         7641.65
+         12.18
        </span>
     </span> hits/line)
   </h2>
@@ -51,33 +51,33 @@
     <tbody>
       
       <tr>
-        <td class="strong"><a href="#9529184e22f301e1730513fa38e1ea9b44a8ce6e" class="src_link" title="lib/game_teams.rb">lib/game_teams.rb</a></td>
-        <td class="green strong">100.0 %</td>
-        <td>48</td>
-        <td>24</td>
-        <td>24</td>
-        <td>0</td>
-        <td>129.7</td>
-      </tr>
-      
-      <tr>
-        <td class="strong"><a href="#12d4ee255189be1e50b880e6e5794bbace3ab662" class="src_link" title="lib/games.rb">lib/games.rb</a></td>
+        <td class="strong"><a href="#251c89ecf3103964226c47223c71761f9fc2d485" class="src_link" title="lib/game.rb">lib/game.rb</a></td>
         <td class="green strong">100.0 %</td>
         <td>38</td>
         <td>19</td>
         <td>19</td>
         <td>0</td>
-        <td>51697.5</td>
+        <td>19.4</td>
       </tr>
       
       <tr>
-        <td class="strong"><a href="#9a164fede02a53bb98b0b61710f0a2541825309b" class="src_link" title="lib/games_module.rb">lib/games_module.rb</a></td>
+        <td class="strong"><a href="#b2d68b664c3900213bb65d98ba331787019db251" class="src_link" title="lib/game_module.rb">lib/game_module.rb</a></td>
         <td class="red strong">26.67 %</td>
         <td>82</td>
         <td>45</td>
         <td>12</td>
         <td>33</td>
         <td>0.3</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#231d353f64f38bd9630d5468b033a661b12b6f25" class="src_link" title="lib/game_team.rb">lib/game_team.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>48</td>
+        <td>24</td>
+        <td>24</td>
+        <td>0</td>
+        <td>43.4</td>
       </tr>
       
       <tr>
@@ -107,7 +107,17 @@
         <td>23</td>
         <td>23</td>
         <td>0</td>
-        <td>4.3</td>
+        <td>1.9</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#b76c5fd8d29082d38823070a59baecb39f499631" class="src_link" title="lib/team.rb">lib/team.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>28</td>
+        <td>15</td>
+        <td>15</td>
+        <td>0</td>
+        <td>6.7</td>
       </tr>
       
       <tr>
@@ -118,16 +128,6 @@
         <td>1</td>
         <td>0</td>
         <td>1.0</td>
-      </tr>
-      
-      <tr>
-        <td class="strong"><a href="#ccb847c771aa699c79c063dad201a6fe84d78a43" class="src_link" title="lib/teams.rb">lib/teams.rb</a></td>
-        <td class="green strong">100.0 %</td>
-        <td>28</td>
-        <td>15</td>
-        <td>15</td>
-        <td>0</td>
-        <td>19.5</td>
       </tr>
       
     </tbody>
@@ -146,316 +146,9 @@
     
       <div class="source_files">
       
-        <div class="source_table" id="9529184e22f301e1730513fa38e1ea9b44a8ce6e">
+        <div class="source_table" id="251c89ecf3103964226c47223c71761f9fc2d485">
   <div class="header">
-    <h3>lib/game_teams.rb</h3>
-    <h4><span class="green">100.0 %</span> covered</h4>
-    <div>
-      <b>24</b> relevant lines. 
-      <span class="green"><b>24</b> lines covered</span> and
-      <span class="red"><b>0</b> lines missed.</span>
-    </div>
-  </div>
-  
-  <pre>
-    <ol>
-      
-        <li class="covered" data-hits="1" data-linenumber="1">
-          <span class="hits">1</span>
-          
-          <code class="ruby">require &#39;csv&#39;</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="2">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="3">
-          <span class="hits">1</span>
-          
-          <code class="ruby">class GameTeam</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="4">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  attr_reader :game_id, :team_id, :hoa, :result, :settled_in, :head_coach, :goals, :shots, :tackles, :pim,</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="5">
-          
-          
-          <code class="ruby">              :powerPlayOpportunities, :powerPlayGoals, :faceOffWinPercentage, :giveaways, :takeaways</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="6">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="7">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def initialize(game_id, team_id, hoa, result, settled_in, head_coach, goals, shots, tackles, pim,</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="8">
-          
-          
-          <code class="ruby">                  powerPlayOpportunities, powerPlayGoals, faceOffWinPercentage, giveaways, takeaways)</code>
-        </li>
-      
-        <li class="covered" data-hits="192" data-linenumber="9">
-          <span class="hits">192</span>
-          
-          <code class="ruby">    @game_id = game_id</code>
-        </li>
-      
-        <li class="covered" data-hits="192" data-linenumber="10">
-          <span class="hits">192</span>
-          
-          <code class="ruby">    @team_id = team_id</code>
-        </li>
-      
-        <li class="covered" data-hits="192" data-linenumber="11">
-          <span class="hits">192</span>
-          
-          <code class="ruby">    @hoa = hoa</code>
-        </li>
-      
-        <li class="covered" data-hits="192" data-linenumber="12">
-          <span class="hits">192</span>
-          
-          <code class="ruby">    @result = result</code>
-        </li>
-      
-        <li class="covered" data-hits="192" data-linenumber="13">
-          <span class="hits">192</span>
-          
-          <code class="ruby">    @settled_in = settled_in</code>
-        </li>
-      
-        <li class="covered" data-hits="192" data-linenumber="14">
-          <span class="hits">192</span>
-          
-          <code class="ruby">    @head_coach = head_coach</code>
-        </li>
-      
-        <li class="covered" data-hits="192" data-linenumber="15">
-          <span class="hits">192</span>
-          
-          <code class="ruby">    @goals = goals</code>
-        </li>
-      
-        <li class="covered" data-hits="192" data-linenumber="16">
-          <span class="hits">192</span>
-          
-          <code class="ruby">    @shots = shots</code>
-        </li>
-      
-        <li class="covered" data-hits="192" data-linenumber="17">
-          <span class="hits">192</span>
-          
-          <code class="ruby">    @tackles = tackles</code>
-        </li>
-      
-        <li class="covered" data-hits="192" data-linenumber="18">
-          <span class="hits">192</span>
-          
-          <code class="ruby">    @pim = pim</code>
-        </li>
-      
-        <li class="covered" data-hits="192" data-linenumber="19">
-          <span class="hits">192</span>
-          
-          <code class="ruby">    @powerPlayOpportunities = powerPlayOpportunities</code>
-        </li>
-      
-        <li class="covered" data-hits="192" data-linenumber="20">
-          <span class="hits">192</span>
-          
-          <code class="ruby">    @powerPlayGoals = powerPlayGoals</code>
-        </li>
-      
-        <li class="covered" data-hits="192" data-linenumber="21">
-          <span class="hits">192</span>
-          
-          <code class="ruby">    @faceOffWinPercentage = faceOffWinPercentage</code>
-        </li>
-      
-        <li class="covered" data-hits="192" data-linenumber="22">
-          <span class="hits">192</span>
-          
-          <code class="ruby">    @giveaways = giveaways</code>
-        </li>
-      
-        <li class="covered" data-hits="192" data-linenumber="23">
-          <span class="hits">192</span>
-          
-          <code class="ruby">    @takeaways = takeaways</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="24">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="25">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="26">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def self.create(file_path)</code>
-        </li>
-      
-        <li class="covered" data-hits="12" data-linenumber="27">
-          <span class="hits">12</span>
-          
-          <code class="ruby">    @game_teams = []</code>
-        </li>
-      
-        <li class="covered" data-hits="12" data-linenumber="28">
-          <span class="hits">12</span>
-          
-          <code class="ruby">    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|</code>
-        </li>
-      
-        <li class="covered" data-hits="192" data-linenumber="29">
-          <span class="hits">192</span>
-          
-          <code class="ruby">      @game_teams &lt;&lt; self.new(row[:game_id],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="30">
-          
-          
-          <code class="ruby">                                    row[:team_id],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="31">
-          
-          
-          <code class="ruby">                                    row[:HoA],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="32">
-          
-          
-          <code class="ruby">                                    row[:result],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="33">
-          
-          
-          <code class="ruby">                                    row[:settled_in],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="34">
-          
-          
-          <code class="ruby">                                    row[:head_coach],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="35">
-          
-          
-          <code class="ruby">                                    row[:goals],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="36">
-          
-          
-          <code class="ruby">                                    row[:shots],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="37">
-          
-          
-          <code class="ruby">                                    row[:tackles],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="38">
-          
-          
-          <code class="ruby">                                    row[:pim],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="39">
-          
-          
-          <code class="ruby">                                    row[:powerPlayOpportunities],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="40">
-          
-          
-          <code class="ruby">                                    row[:powerPlayGoals],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="41">
-          
-          
-          <code class="ruby">                                    row[:faceOffWinPercentage],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="42">
-          
-          
-          <code class="ruby">                                    row[:giveaways],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="43">
-          
-          
-          <code class="ruby">                                    row[:takeaways],)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="44">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="covered" data-hits="12" data-linenumber="45">
-          <span class="hits">12</span>
-          
-          <code class="ruby">    @game_teams</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="46">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="47">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="48">
-          
-          
-          <code class="ruby">end</code>
-        </li>
-      
-    </ol>
-  </pre>
-</div>
-
-      
-        <div class="source_table" id="12d4ee255189be1e50b880e6e5794bbace3ab662">
-  <div class="header">
-    <h3>lib/games.rb</h3>
+    <h3>lib/game.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
       <b>19</b> relevant lines. 
@@ -509,62 +202,62 @@
           <code class="ruby">  def initialize(game_id, season, type, date_time, away_team_id, home_team_id, away_goals, home_goals, venue, venue_link)</code>
         </li>
       
-        <li class="covered" data-hits="89292" data-linenumber="8">
-          <span class="hits">89292</span>
+        <li class="covered" data-hits="32" data-linenumber="8">
+          <span class="hits">32</span>
           
           <code class="ruby">    @game_id = game_id</code>
         </li>
       
-        <li class="covered" data-hits="89292" data-linenumber="9">
-          <span class="hits">89292</span>
+        <li class="covered" data-hits="32" data-linenumber="9">
+          <span class="hits">32</span>
           
           <code class="ruby">    @season = season</code>
         </li>
       
-        <li class="covered" data-hits="89292" data-linenumber="10">
-          <span class="hits">89292</span>
+        <li class="covered" data-hits="32" data-linenumber="10">
+          <span class="hits">32</span>
           
           <code class="ruby">    @type = type</code>
         </li>
       
-        <li class="covered" data-hits="89292" data-linenumber="11">
-          <span class="hits">89292</span>
+        <li class="covered" data-hits="32" data-linenumber="11">
+          <span class="hits">32</span>
           
           <code class="ruby">    @date_time = date_time</code>
         </li>
       
-        <li class="covered" data-hits="89292" data-linenumber="12">
-          <span class="hits">89292</span>
+        <li class="covered" data-hits="32" data-linenumber="12">
+          <span class="hits">32</span>
           
           <code class="ruby">    @away_team_id = away_team_id</code>
         </li>
       
-        <li class="covered" data-hits="89292" data-linenumber="13">
-          <span class="hits">89292</span>
+        <li class="covered" data-hits="32" data-linenumber="13">
+          <span class="hits">32</span>
           
           <code class="ruby">    @home_team_id = home_team_id</code>
         </li>
       
-        <li class="covered" data-hits="89292" data-linenumber="14">
-          <span class="hits">89292</span>
+        <li class="covered" data-hits="32" data-linenumber="14">
+          <span class="hits">32</span>
           
           <code class="ruby">    @away_goals = away_goals</code>
         </li>
       
-        <li class="covered" data-hits="89292" data-linenumber="15">
-          <span class="hits">89292</span>
+        <li class="covered" data-hits="32" data-linenumber="15">
+          <span class="hits">32</span>
           
           <code class="ruby">    @home_goals = home_goals</code>
         </li>
       
-        <li class="covered" data-hits="89292" data-linenumber="16">
-          <span class="hits">89292</span>
+        <li class="covered" data-hits="32" data-linenumber="16">
+          <span class="hits">32</span>
           
           <code class="ruby">    @venue = venue</code>
         </li>
       
-        <li class="covered" data-hits="89292" data-linenumber="17">
-          <span class="hits">89292</span>
+        <li class="covered" data-hits="32" data-linenumber="17">
+          <span class="hits">32</span>
           
           <code class="ruby">    @venue_link = venue_link</code>
         </li>
@@ -587,20 +280,20 @@
           <code class="ruby">  def self.create(file_path)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="21">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="4" data-linenumber="21">
+          <span class="hits">4</span>
           
           <code class="ruby">    @games = []</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="22">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="4" data-linenumber="22">
+          <span class="hits">4</span>
           
           <code class="ruby">    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|</code>
         </li>
       
-        <li class="covered" data-hits="89292" data-linenumber="23">
-          <span class="hits">89292</span>
+        <li class="covered" data-hits="32" data-linenumber="23">
+          <span class="hits">32</span>
           
           <code class="ruby">      @games &lt;&lt; self.new(row[:game_id],</code>
         </li>
@@ -665,8 +358,8 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="34">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="4" data-linenumber="34">
+          <span class="hits">4</span>
           
           <code class="ruby">    @games</code>
         </li>
@@ -700,9 +393,9 @@
 </div>
 
       
-        <div class="source_table" id="9a164fede02a53bb98b0b61710f0a2541825309b">
+        <div class="source_table" id="b2d68b664c3900213bb65d98ba331787019db251">
   <div class="header">
-    <h3>lib/games_module.rb</h3>
+    <h3>lib/game_module.rb</h3>
     <h4><span class="red">26.67 %</span> covered</h4>
     <div>
       <b>45</b> relevant lines. 
@@ -1211,6 +904,313 @@
 </div>
 
       
+        <div class="source_table" id="231d353f64f38bd9630d5468b033a661b12b6f25">
+  <div class="header">
+    <h3>lib/game_team.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>24</b> relevant lines. 
+      <span class="green"><b>24</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require &#39;csv&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="2">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
+          
+          <code class="ruby">class GameTeam</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="4">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  attr_reader :game_id, :team_id, :hoa, :result, :settled_in, :head_coach, :goals, :shots, :tackles, :pim,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="5">
+          
+          
+          <code class="ruby">              :powerPlayOpportunities, :powerPlayGoals, :faceOffWinPercentage, :giveaways, :takeaways</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="6">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="7">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def initialize(game_id, team_id, hoa, result, settled_in, head_coach, goals, shots, tackles, pim,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="8">
+          
+          
+          <code class="ruby">                  powerPlayOpportunities, powerPlayGoals, faceOffWinPercentage, giveaways, takeaways)</code>
+        </li>
+      
+        <li class="covered" data-hits="64" data-linenumber="9">
+          <span class="hits">64</span>
+          
+          <code class="ruby">    @game_id = game_id</code>
+        </li>
+      
+        <li class="covered" data-hits="64" data-linenumber="10">
+          <span class="hits">64</span>
+          
+          <code class="ruby">    @team_id = team_id</code>
+        </li>
+      
+        <li class="covered" data-hits="64" data-linenumber="11">
+          <span class="hits">64</span>
+          
+          <code class="ruby">    @hoa = hoa</code>
+        </li>
+      
+        <li class="covered" data-hits="64" data-linenumber="12">
+          <span class="hits">64</span>
+          
+          <code class="ruby">    @result = result</code>
+        </li>
+      
+        <li class="covered" data-hits="64" data-linenumber="13">
+          <span class="hits">64</span>
+          
+          <code class="ruby">    @settled_in = settled_in</code>
+        </li>
+      
+        <li class="covered" data-hits="64" data-linenumber="14">
+          <span class="hits">64</span>
+          
+          <code class="ruby">    @head_coach = head_coach</code>
+        </li>
+      
+        <li class="covered" data-hits="64" data-linenumber="15">
+          <span class="hits">64</span>
+          
+          <code class="ruby">    @goals = goals</code>
+        </li>
+      
+        <li class="covered" data-hits="64" data-linenumber="16">
+          <span class="hits">64</span>
+          
+          <code class="ruby">    @shots = shots</code>
+        </li>
+      
+        <li class="covered" data-hits="64" data-linenumber="17">
+          <span class="hits">64</span>
+          
+          <code class="ruby">    @tackles = tackles</code>
+        </li>
+      
+        <li class="covered" data-hits="64" data-linenumber="18">
+          <span class="hits">64</span>
+          
+          <code class="ruby">    @pim = pim</code>
+        </li>
+      
+        <li class="covered" data-hits="64" data-linenumber="19">
+          <span class="hits">64</span>
+          
+          <code class="ruby">    @powerPlayOpportunities = powerPlayOpportunities</code>
+        </li>
+      
+        <li class="covered" data-hits="64" data-linenumber="20">
+          <span class="hits">64</span>
+          
+          <code class="ruby">    @powerPlayGoals = powerPlayGoals</code>
+        </li>
+      
+        <li class="covered" data-hits="64" data-linenumber="21">
+          <span class="hits">64</span>
+          
+          <code class="ruby">    @faceOffWinPercentage = faceOffWinPercentage</code>
+        </li>
+      
+        <li class="covered" data-hits="64" data-linenumber="22">
+          <span class="hits">64</span>
+          
+          <code class="ruby">    @giveaways = giveaways</code>
+        </li>
+      
+        <li class="covered" data-hits="64" data-linenumber="23">
+          <span class="hits">64</span>
+          
+          <code class="ruby">    @takeaways = takeaways</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="24">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="25">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="26">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def self.create(file_path)</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="27">
+          <span class="hits">4</span>
+          
+          <code class="ruby">    @game_teams = []</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="28">
+          <span class="hits">4</span>
+          
+          <code class="ruby">    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|</code>
+        </li>
+      
+        <li class="covered" data-hits="64" data-linenumber="29">
+          <span class="hits">64</span>
+          
+          <code class="ruby">      @game_teams &lt;&lt; self.new(row[:game_id],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="30">
+          
+          
+          <code class="ruby">                                    row[:team_id],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="31">
+          
+          
+          <code class="ruby">                                    row[:HoA],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="32">
+          
+          
+          <code class="ruby">                                    row[:result],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="33">
+          
+          
+          <code class="ruby">                                    row[:settled_in],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="34">
+          
+          
+          <code class="ruby">                                    row[:head_coach],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="35">
+          
+          
+          <code class="ruby">                                    row[:goals],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="36">
+          
+          
+          <code class="ruby">                                    row[:shots],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="37">
+          
+          
+          <code class="ruby">                                    row[:tackles],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="38">
+          
+          
+          <code class="ruby">                                    row[:pim],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="39">
+          
+          
+          <code class="ruby">                                    row[:powerPlayOpportunities],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="40">
+          
+          
+          <code class="ruby">                                    row[:powerPlayGoals],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="41">
+          
+          
+          <code class="ruby">                                    row[:faceOffWinPercentage],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="42">
+          
+          
+          <code class="ruby">                                    row[:giveaways],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="43">
+          
+          
+          <code class="ruby">                                    row[:takeaways],)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="44">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="45">
+          <span class="hits">4</span>
+          
+          <code class="ruby">    @game_teams</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="46">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="47">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="48">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+
+      
         <div class="source_table" id="178007ac636aaa3fbc07665dd02981b51a245680">
   <div class="header">
     <h3>lib/league_module.rb</h3>
@@ -1308,25 +1308,25 @@
         <li class="covered" data-hits="1" data-linenumber="1">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/game_teams&#39;</code>
+          <code class="ruby">require &#39;./lib/game_team&#39;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="2">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/teams&#39;</code>
+          <code class="ruby">require &#39;./lib/team&#39;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="3">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/games&#39;</code>
+          <code class="ruby">require &#39;./lib/game&#39;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="4">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/games_module&#39;</code>
+          <code class="ruby">require &#39;./lib/game_module&#39;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="5">
@@ -1407,20 +1407,20 @@
           <code class="ruby">  def initialize(game_teams, games, teams)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="18">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="4" data-linenumber="18">
+          <span class="hits">4</span>
           
           <code class="ruby">    @game_teams = game_teams</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="19">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="4" data-linenumber="19">
+          <span class="hits">4</span>
           
           <code class="ruby">    @games = games</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="20">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="4" data-linenumber="20">
+          <span class="hits">4</span>
           
           <code class="ruby">    @teams = teams</code>
         </li>
@@ -1443,26 +1443,26 @@
           <code class="ruby">  def self.from_csv(locations)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="24">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="4" data-linenumber="24">
+          <span class="hits">4</span>
           
           <code class="ruby">    game_teams = GameTeam.create(locations[:game_teams])</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="25">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="4" data-linenumber="25">
+          <span class="hits">4</span>
           
           <code class="ruby">    games = Game.create(locations[:games])</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="26">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="4" data-linenumber="26">
+          <span class="hits">4</span>
           
           <code class="ruby">    teams =  Team.create(locations[:teams])</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="27">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="4" data-linenumber="27">
+          <span class="hits">4</span>
           
           <code class="ruby">    self.new(game_teams, games, teams)</code>
         </li>
@@ -1486,6 +1486,193 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="31">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+
+      
+        <div class="source_table" id="b76c5fd8d29082d38823070a59baecb39f499631">
+  <div class="header">
+    <h3>lib/team.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>15</b> relevant lines. 
+      <span class="green"><b>15</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require &#39;csv&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="2">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
+          
+          <code class="ruby">class Team</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="4">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  attr_reader :team_id, :franchiseId, :teamName, :abbreviation, :stadium, :link</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="5">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="6">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def initialize(team_id, franchiseId, teamName, abbreviation, stadium, link)</code>
+        </li>
+      
+        <li class="covered" data-hits="12" data-linenumber="7">
+          <span class="hits">12</span>
+          
+          <code class="ruby">    @team_id = team_id</code>
+        </li>
+      
+        <li class="covered" data-hits="12" data-linenumber="8">
+          <span class="hits">12</span>
+          
+          <code class="ruby">    @franchiseId = franchiseId</code>
+        </li>
+      
+        <li class="covered" data-hits="12" data-linenumber="9">
+          <span class="hits">12</span>
+          
+          <code class="ruby">    @teamName = teamName</code>
+        </li>
+      
+        <li class="covered" data-hits="12" data-linenumber="10">
+          <span class="hits">12</span>
+          
+          <code class="ruby">    @abbreviation = abbreviation</code>
+        </li>
+      
+        <li class="covered" data-hits="12" data-linenumber="11">
+          <span class="hits">12</span>
+          
+          <code class="ruby">    @stadium = stadium</code>
+        </li>
+      
+        <li class="covered" data-hits="12" data-linenumber="12">
+          <span class="hits">12</span>
+          
+          <code class="ruby">    @link = link</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="13">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="14">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="15">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def self.create(file_path)</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="16">
+          <span class="hits">4</span>
+          
+          <code class="ruby">    @teams = []</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="17">
+          <span class="hits">4</span>
+          
+          <code class="ruby">    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|</code>
+        </li>
+      
+        <li class="covered" data-hits="12" data-linenumber="18">
+          <span class="hits">12</span>
+          
+          <code class="ruby">      @teams &lt;&lt; self.new(row[:team_id],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="19">
+          
+          
+          <code class="ruby">                                    row[:franchiseId],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="20">
+          
+          
+          <code class="ruby">                                    row[:teamName],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="21">
+          
+          
+          <code class="ruby">                                    row[:abbreviation],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="22">
+          
+          
+          <code class="ruby">                                    row[:stadium],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="23">
+          
+          
+          <code class="ruby">                                    row[:link])</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="24">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="25">
+          <span class="hits">4</span>
+          
+          <code class="ruby">    @teams</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="26">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="27">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="28">
           
           
           <code class="ruby">end</code>
@@ -1535,193 +1722,6 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="5">
-          
-          
-          <code class="ruby">end</code>
-        </li>
-      
-    </ol>
-  </pre>
-</div>
-
-      
-        <div class="source_table" id="ccb847c771aa699c79c063dad201a6fe84d78a43">
-  <div class="header">
-    <h3>lib/teams.rb</h3>
-    <h4><span class="green">100.0 %</span> covered</h4>
-    <div>
-      <b>15</b> relevant lines. 
-      <span class="green"><b>15</b> lines covered</span> and
-      <span class="red"><b>0</b> lines missed.</span>
-    </div>
-  </div>
-  
-  <pre>
-    <ol>
-      
-        <li class="covered" data-hits="1" data-linenumber="1">
-          <span class="hits">1</span>
-          
-          <code class="ruby">require &#39;csv&#39;</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="2">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="3">
-          <span class="hits">1</span>
-          
-          <code class="ruby">class Team</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="4">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  attr_reader :team_id, :franchiseId, :teamName, :abbreviation, :stadium, :link</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="5">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="6">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def initialize(team_id, franchiseId, teamName, abbreviation, stadium, link)</code>
-        </li>
-      
-        <li class="covered" data-hits="36" data-linenumber="7">
-          <span class="hits">36</span>
-          
-          <code class="ruby">    @team_id = team_id</code>
-        </li>
-      
-        <li class="covered" data-hits="36" data-linenumber="8">
-          <span class="hits">36</span>
-          
-          <code class="ruby">    @franchiseId = franchiseId</code>
-        </li>
-      
-        <li class="covered" data-hits="36" data-linenumber="9">
-          <span class="hits">36</span>
-          
-          <code class="ruby">    @teamName = teamName</code>
-        </li>
-      
-        <li class="covered" data-hits="36" data-linenumber="10">
-          <span class="hits">36</span>
-          
-          <code class="ruby">    @abbreviation = abbreviation</code>
-        </li>
-      
-        <li class="covered" data-hits="36" data-linenumber="11">
-          <span class="hits">36</span>
-          
-          <code class="ruby">    @stadium = stadium</code>
-        </li>
-      
-        <li class="covered" data-hits="36" data-linenumber="12">
-          <span class="hits">36</span>
-          
-          <code class="ruby">    @link = link</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="13">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="14">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="15">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def self.create(file_path)</code>
-        </li>
-      
-        <li class="covered" data-hits="12" data-linenumber="16">
-          <span class="hits">12</span>
-          
-          <code class="ruby">    @teams = []</code>
-        </li>
-      
-        <li class="covered" data-hits="12" data-linenumber="17">
-          <span class="hits">12</span>
-          
-          <code class="ruby">    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|</code>
-        </li>
-      
-        <li class="covered" data-hits="36" data-linenumber="18">
-          <span class="hits">36</span>
-          
-          <code class="ruby">      @teams &lt;&lt; self.new(row[:team_id],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="19">
-          
-          
-          <code class="ruby">                                    row[:franchiseId],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="20">
-          
-          
-          <code class="ruby">                                    row[:teamName],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="21">
-          
-          
-          <code class="ruby">                                    row[:abbreviation],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="22">
-          
-          
-          <code class="ruby">                                    row[:stadium],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="23">
-          
-          
-          <code class="ruby">                                    row[:link])</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="24">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="covered" data-hits="12" data-linenumber="25">
-          <span class="hits">12</span>
-          
-          <code class="ruby">    @teams</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="26">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="27">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="28">
           
           
           <code class="ruby">end</code>
