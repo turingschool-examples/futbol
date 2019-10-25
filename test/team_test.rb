@@ -55,11 +55,21 @@ class TeamsTest < Minitest::Test
 
   def test_it_has_average_goals_scored_per_game
     team = @teams.find {|team| team.team_id == "8"}
-    assert_equal 1.8, team.average_goals_scored_per_game
+    average_goals_scored_per_game = (9/5.0).round(2)
+    assert_equal average_goals_scored_per_game, team.average_goals_scored_per_game
   end
 
   def test_it_has_average_goals_allowed_per_game
     team = @teams.find {|team| team.team_id == "8"}
+    average_goals_allowed_per_game = (14/5.0).round(2)
     assert_equal 2.8, team.average_goals_allowed_per_game
+  end
+
+  def test_it_has_a_home_win_percentage
+    team = @teams.find {|team| team.team_id == "8"}
+  end
+
+  def test_it_has_an_away_win_percentage
+    team = @teams.find {|team| team.team_id == "8"}
   end
 end
