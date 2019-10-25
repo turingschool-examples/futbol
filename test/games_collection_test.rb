@@ -51,7 +51,7 @@ class GamesCollectionTest < Minitest::Test
 
     assert_equal expected, @games_collection.count_of_games_by_season
   end
-  
+
   def test_it_grabs_highest_total_score
     assert_equal 7, @games_collection.highest_total_score
   end
@@ -59,7 +59,7 @@ class GamesCollectionTest < Minitest::Test
   def test_it_grabs_lowest_total_score
     assert_equal 1, @games_collection.lowest_total_score
   end
-  
+
   def test_it_can_return_total_goals_across_all_games
     assert_equal 387, @games_collection.total_goals(@games_collection.games)
   end
@@ -96,7 +96,7 @@ class GamesCollectionTest < Minitest::Test
     assert_equal 16, @games_collection.all_games_in_season("20142015").length
   end
 
-  def test_it_can_return_hash_of_average_goals_per_season
+  def test_it_can_return_hash_of_average_goals_by_season
     expected_hash = {
                       "20122013"=>3.86,
                       "20162017"=>4.75,
@@ -104,6 +104,6 @@ class GamesCollectionTest < Minitest::Test
                       "20152016"=>3.88,
                       "20132014"=>4.33
                     }
-    assert_equal expected_hash, @games_collection.average_goals_per_season
+    assert_equal expected_hash, @games_collection.average_goals_by_season
   end
 end

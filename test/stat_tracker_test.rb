@@ -24,27 +24,27 @@ class StatTrackerTest < Minitest::Test
   # Begin tests for iteration-required methods
 
   def test_it_grabs_highest_total_score
-    assert_equal 7, @stat_tracker.games.highest_total_score
+    assert_equal 7, @stat_tracker.highest_total_score
   end
 
   def test_it_grabs_lowest_total_score
-    assert_equal 1, @stat_tracker.games.lowest_total_score
+    assert_equal 1, @stat_tracker.lowest_total_score
   end
 
   def test_it_has_a_big_blow_out
-    assert_equal 4, @stat_tracker.games_teams.biggest_blowout
+    assert_equal 4, @stat_tracker.biggest_blowout
   end
 
   def test_it_calculates_home_win_percentage_to_the_hundredths
-    assert_equal 65.31, @stat_tracker.games_teams.percentage_home_wins
+    assert_equal 65.31, @stat_tracker.percentage_home_wins
   end
 
   def test_it_calculates_away_win_percentage_to_the_hundredths
-    assert_equal 32.0, @stat_tracker.games_teams.percentage_visitor_wins
+    assert_equal 32.0, @stat_tracker.percentage_visitor_wins
   end
 
   def test_it_calculates_percentage_ties
-    assert_equal 2.02, @stat_tracker.games_teams.percentage_ties
+    assert_equal 2.02, @stat_tracker.percentage_ties
   end
 
   def test_it_can_count_game_by_season
@@ -57,14 +57,14 @@ class StatTrackerTest < Minitest::Test
       "20132014" => 6
     }
 
-    assert_equal expected, @stat_tracker.games.count_of_games_by_season
+    assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
   def test_it_can_calculate_average_goals_per_game
-    assert_equal 3.91, @stat_tracker.games.average_goals_per_game
+    assert_equal 3.91, @stat_tracker.average_goals_per_game
   end
 
-  def test_it_can_return_hash_of_average_goals_per_season
+  def test_it_can_return_hash_of_average_goals_by_season
     expected_hash = {
                       "20122013"=>3.86,
                       "20162017"=>4.75,
@@ -72,7 +72,7 @@ class StatTrackerTest < Minitest::Test
                       "20152016"=>3.88,
                       "20132014"=>4.33
                     }
-    assert_equal expected_hash, @stat_tracker.games.average_goals_per_season
+    assert_equal expected_hash, @stat_tracker.average_goals_by_season
   end
 
   def test_it_can_get_name_of_team_by_id
