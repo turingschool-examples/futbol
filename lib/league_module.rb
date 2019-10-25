@@ -1,4 +1,4 @@
-require 'pry'
+
 
 module LeagueModule
   def count_of_teams
