@@ -59,6 +59,8 @@ class GameCollection
     (percent.to_f / @games.length).round(2)
   end
 
+
+  #test this method
   def seasons
     seasons = @games.values.map do |game|
       game.season
@@ -66,6 +68,8 @@ class GameCollection
     seasons.uniq.sort
   end
 
+
+  # need to test this method
   def games_by_season
     seasons.reduce({}) do |season_game, season|
       games_in_season = @games.values.find_all do |game|
@@ -74,6 +78,15 @@ class GameCollection
       season_game[season] = games_in_season
       season_game
     end
+  end
+
+  # count number of games in each season using games_by_season method
+  def count
+    count = {}
+    games_by_season.each do |season, game|
+      count[season] = game.length
+    end
+    count
   end
 
   def count_of_games_by_season
@@ -90,9 +103,15 @@ class GameCollection
     (total.to_f / @games.values.length).round(2)
   end
 
-  # def avg_goals_in_season
-  #   games_by_season.each do |key, games|
-  #   end
-  # end
+  def avg_goals_in_season
+    goals = {}
+    games_by_season.each do |season, games|
+      total = goals[season] = games.sum do |game|
+        game.home_goals + game.away_goals
+      end
+      goals[season] = (total.to_f / games.length).round(2)
+    end
+    goals
+  end
 
 end

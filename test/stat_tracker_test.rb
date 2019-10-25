@@ -73,4 +73,9 @@ class StatTrackerTest < Minitest::Test
   def test_average_goals_per_game
     assert_equal 3.9, @stat_tracker.average_goals_per_game
   end
+
+  def test_average_goals_per_season
+    assert_instance_of Hash, @stat_tracker.average_goals_by_season
+    require "pry"; binding.pry
+  end
 end
