@@ -20,4 +20,8 @@ class TeamsCollectionTest < Minitest::Test
     # FC Dallas has only wins
     assert_equal "FC Dallas", @total_teams.winningest_team
   end
+
+  def test_it_has_the_best_offense
+    assert_equal "New York City FC", @total_teams.best_offense
+  end
 end
