@@ -22,5 +22,4 @@ class TeamCollection
     end
     id_list.uniq.length
   end
-
 end
