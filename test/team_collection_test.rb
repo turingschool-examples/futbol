@@ -46,6 +46,7 @@ class TeamsCollectionTest < Minitest::Test
   end
 
   def test_it_has_worst_fans
+    #need to include more data so we an actually get a list of the worst teams?
     assert_equal [], @total_teams.worst_fans
   end
 end
