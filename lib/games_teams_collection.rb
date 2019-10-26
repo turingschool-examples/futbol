@@ -178,4 +178,9 @@ class GamesTeamsCollection
       team_home_win_percentage(team_id) < team_away_win_percentage(team_id)
     end
   end
+
+  def list_of_games_of_team(team_id)
+    find_by_in(team_id, "team_id", @games_teams)
+  end
+
 end

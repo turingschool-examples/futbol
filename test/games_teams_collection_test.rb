@@ -132,4 +132,22 @@ class GamesTeamsCollectionTest < Minitest::Test
   def test_it_can_find_teams_with_higher_away_win_percentages_aka_worst_fans
     assert_equal [], @games_teams_collection.worst_fans # none in fixture data
   end
+
+  def test_it_can_get_all_games_of_a_given_team
+    assert_equal 6, @games_teams_collection.list_of_games_of_team("2").length
+    assert_instance_of Array, @games_teams_collection.list_of_games_of_team("2")
+    assert_equal true, @games_teams_collection.list_of_games_of_team("2").all? {|element| element.is_a?(GameTeam)}
+  end
+  #all games of a given team
+  #all goals in season
+  #average number of goal for a given team
+  #find highest goals of a given team
+  #lowest goals of a given team
+
+  #find oppoinets game team object for a given game team object
+  #find all the games of oppoinet of a given team
+  #total goals of oppoinet of a given team
+  #average the goals of oppoinet team
+  #find highest average goals
+  #find lowest goals
 end
