@@ -172,7 +172,7 @@ class GamesCollection
   def team_games(team_id)
     team_games_list = []
     @games.each do |game|
-      if team_id == game.home_team_id || game.away_team_id
+      if team_id == game.home_team_id || team_id == game.away_team_id
         team_games_list << game
       end
     end
