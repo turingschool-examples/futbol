@@ -137,4 +137,12 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_find_the_fewest_goals_scored
     assert_equal 0, @stat_tracker.fewest_goals_scored("2")
   end
+  
+  def test_it_can_tell_us_best_season_for_given_team
+    assert_equal "20122013", @stat_tracker.best_season("2")
+  end
+
+  def test_it_can_tell_us_worst_season_for_given_team
+    assert_equal "20122013", @stat_tracker.worst_season("2")
+  end
 end
