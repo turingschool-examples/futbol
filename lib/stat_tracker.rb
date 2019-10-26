@@ -89,7 +89,6 @@ class StatTracker
     @games_teams.worst_fans.map { |team_id| name_of_team(team_id) }
   end
 
-
   def team_info(team_id)
     @teams.team_info(team_id)
   end
@@ -112,5 +111,21 @@ class StatTracker
 
   def biggest_team_blowout(team_id)
     @games_teams.biggest_team_blowout(team_id)
+  end
+  
+  def most_goals_scored(team_id)
+    @games_teams.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    @games_teams.fewest_goals_scored(team_id)
+  end
+  
+  def best_season(team_id)
+    @games.best_season(team_id)
+  end
+
+  def worst_season(team_id)
+    @games.worst_season(team_id)
   end
 end
