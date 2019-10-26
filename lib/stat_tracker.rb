@@ -109,4 +109,12 @@ class StatTracker
   def worst_defense
     name_of_team(@games_teams.worst_defense)
   end
+
+  def best_season(team_id)
+    @games.best_season(team_id)
+  end
+
+  def worst_season(team_id)
+    @games.worst_season(team_id)
+  end
 end
