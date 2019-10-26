@@ -13,6 +13,15 @@ class GameCollectionTest < MiniTest::Test
     assert_instance_of GameCollection, @game_collection
   end
 
+  def test_it_initializes
+    assert_equal './dummy_data/dummy_games.csv', @game_collection.game_path
+    assert_equal 15, @game_collection.game_instances.size
+  end
+
+  def test_all_games
+    assert_equal "2012030221" , @game_collection.all_games.first.game_id
+  end
+
   def test_total_scores_returns_array_populated_with_all_game_scores_summed
     assert_equal [5, 5, 3, 5, 4, 3, 5, 5, 4, 4, 3, 4, 2, 3, 5], @game_collection.total_scores
   end
