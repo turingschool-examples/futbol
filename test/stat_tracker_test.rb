@@ -85,6 +85,26 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Los Angeles FC", @stat_tracker.name_of_team("28")
   end
 
+  def test_it_can_tell_name_of_highest_scoring_home_team
+    skip
+    assert_equal "16", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_it_can_tell_name_of_highest_scoring_visitor
+    skip
+    assert_equal "16", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_it_can_tell_name_of_lowest_scoring_home_team
+    skip
+    assert_equal "30", @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_it_can_tell_name_of_lowest_scoring_visitor
+    skip
+    assert_equal "2", @stat_tracker.lowest_scoring_visitor
+  end
+
   def test_it_can_find_name_of_winningest_team
     assert_equal "FC Dallas", @stat_tracker.winningest_team
   end

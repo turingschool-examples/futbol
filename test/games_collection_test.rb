@@ -22,7 +22,6 @@ class GamesCollectionTest < Minitest::Test
       "20152016",
       "20132014"
     ]
-
     assert_equal expected, @games_collection.unique_seasons
   end
 
@@ -34,12 +33,10 @@ class GamesCollectionTest < Minitest::Test
       16,
       6
     ]
-
     assert_equal expected, @games_collection.number_of_games_in_each_season
   end
 
   def test_it_can_count_game_by_season
-
     expected = {
       "20122013" => 57,
       "20162017" => 4,
@@ -47,7 +44,6 @@ class GamesCollectionTest < Minitest::Test
       "20152016" => 16,
       "20132014" => 6
     }
-
     assert_equal expected, @games_collection.count_of_games_by_season
   end
 
@@ -112,16 +108,12 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_tell_us_total_team_home_goals
-
     assert_equal 12, @games_collection.total_home_goals("6")
   end
 
   def test_it_can_tell_us_total_team_home_games
-
     assert_equal 5, @games_collection.total_home_games("6")
   end
-
-
 
   def test_it_can_tell_us_total_number_of_goals_per_home_team
     skip
@@ -147,24 +139,22 @@ class GamesCollectionTest < Minitest::Test
     assert_equal expected, @games_collection.home_team_goals
   end
 
-  def test_it_can_tell_us_highest_scoring_home_team
-    skip
-    assert_equal "16", @games_collection.highest_scoring_home_team
-  end
-
   def test_it_can_tell_us_each_unique_away_team_id
-
     assert_equal 17, @games_collection.away_teams.length
   end
 
   def test_it_can_tell_us_number_of_goals_per_away_team
-
     assert_instance_of Hash, @games_collection.away_team_goals
   end
 
-  def test_it_can_tell_us_highest_scoring_away_team
+  def test_it_can_tell_us_highest_scoring_home_team
     skip
-    assert_equal "16", @games_collection.highest_scoring_away_team
+    assert_equal "16", @games_collection.highest_scoring_home_team
+  end
+  
+  def test_it_can_tell_us_highest_scoring_visitor
+    skip
+    assert_equal "16", @games_collection.highest_scoring_visitor
   end
 
   def test_it_can_tell_us_lowest_scoring_home_team
@@ -172,8 +162,7 @@ class GamesCollectionTest < Minitest::Test
     assert_equal "30", @games_collection.lowest_scoring_home_team
   end
 
-  def test_it_can_tell_us_lowest_scoring_away_team
-
-    assert_equal "2", @games_collection.lowest_scoring_away_team
+  def test_it_can_tell_us_lowest_scoring_visitor
+    assert_equal "2", @games_collection.lowest_scoring_visitor
   end
 end

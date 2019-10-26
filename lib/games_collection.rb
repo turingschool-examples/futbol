@@ -158,16 +158,15 @@ class GamesCollection
     end
   end
 
-  def highest_scoring_away_team
+  def highest_scoring_visitor
     away_team_goals.find do |team, goals|
       goals == away_team_goals.values.sort.last
     end.first
   end
 
-  def lowest_scoring_away_team
+  def lowest_scoring_visitor
     away_team_goals.find do |team, goals|
       goals == away_team_goals.values.sort.first
     end.first
   end
-
 end

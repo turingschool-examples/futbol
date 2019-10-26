@@ -61,6 +61,22 @@ class StatTracker
     @teams.name_of_team_by_id(team_id)
   end
 
+  def highest_scoring_visitor
+    name_of_team(@games.highest_scoring_visitor)
+  end
+
+  def highest_scoring_home_team
+    name_of_team(@games.highest_scoring_home_team)
+  end
+
+  def lowest_scoring_visitor
+    name_of_team(@games.lowest_scoring_visitor)
+  end
+
+  def lowest_scoring_home_team
+    name_of_team(@games.lowest_scoring_home_team)
+  end
+
   def winningest_team
     name_of_team(@games_teams.winningest_team)
   end
