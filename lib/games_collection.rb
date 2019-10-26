@@ -115,7 +115,7 @@ class GamesCollection
 
   # Helper method
   def average_home_score_of_team(team_id)
-    total_home_goals(team_id) / total_home_games(team_id)
+    total_home_goals(team_id) / total_home_games(team_id).to_f
   end
 
   # Iteration 3 required method
@@ -152,7 +152,7 @@ class GamesCollection
 
   # Helper method
   def average_away_score_of_team(team_id)
-    total_away_goals(team_id) / total_away_games(team_id)
+    total_away_goals(team_id) / total_away_games(team_id).to_f
   end
 
   # Iteration 3 required method
