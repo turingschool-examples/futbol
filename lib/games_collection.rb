@@ -177,23 +177,45 @@ class GamesCollection
     find_by_in(team_id, "home_team_id", @games) + find_by_in(team_id, "away_team_id", @games)
   end
 
+  def games_with_team_in_season(team_id, season)
+    games_with_team(team_id).select do |game|
+      game.season == season
+    end
+  end
+
   def away_win?(game)
     game.away_goals > game.home_goals
   end
 
-  def total_away_wins(team_id)
-    all_away_games_of_team(team_id).count do |game|
+  def away_games_in_season(team_id, season)
+    all_away_games_of_team(team_id).select do |game|
+      game.season == season
+    end
+  end
+
+  def home_games_in_season(team_id, season)
+    all_home_games_of_team(team_id).select do |game|
+      game.season == season
+    end
+  end
+
+  def total_away_wins(team_id, season)
+    away_games_in_season(team_id, season).count do |game|
       away_win?(game)
     end
   end
 
-  def total_home_wins(team_id)
-    all_home_games_of_team(team_id).count do |game|
+  def total_home_wins(team_id, season)
+    home_games_in_season(team_id, season).count do |game|
       !away_win?(game)
     end
   end
 
-  def total_team_wins(team_id)
-    total_home_wins(team_id) + total_away_wins(team_id)
+  def total_team_wins(team_id, season)
+    total_home_wins(team_id, season) + total_away_wins(team_id, season)
+  end
+
+  def team_win_percentage(team_id, season)
+    (total_team_wins(team_id, season) / games_with_team_in_season(team_id, season).length.to_f).round(2)
   end
 end

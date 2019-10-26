@@ -174,14 +174,18 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_count_away_wins
-    assert_equal 0, @games_collection.total_away_wins("2")
+    assert_equal 0, @games_collection.total_away_wins("2", "20122013")
   end
 
   def test_it_can_count_home_wins
-    assert_equal 2, @games_collection.total_home_wins("2")
+    assert_equal 2, @games_collection.total_home_wins("2", "20122013")
   end
 
   def test_it_can_count_total_team_wins
-    assert_equal 2, @games_collection.total_team_wins("2")
+    assert_equal 2, @games_collection.total_team_wins("2", "20122013")
+  end
+
+  def test_it_can_calculate_win_percentage_for_a_team
+    assert_equal 0.33, @games_collection.team_win_percentage("2", "20122013")
   end
 end
