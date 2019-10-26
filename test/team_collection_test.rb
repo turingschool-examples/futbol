@@ -4,7 +4,7 @@ require './lib/team'
 require './lib/stat_tracker'
 require './lib/team_collection'
 
-class TeamsCollectionTest < MiniTest::Test
+class TeamCollectionTest < MiniTest::Test
 
   def setup
     @team_instance = TeamCollection.new('./dummy_data/dummy_teams.csv')
