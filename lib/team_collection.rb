@@ -1,6 +1,5 @@
 require 'csv'
 require_relative 'team'
-require_relative 'stat_tracker'
 
 class TeamCollection
   attr_reader :team_instances
