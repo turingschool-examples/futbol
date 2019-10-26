@@ -196,4 +196,18 @@ class GamesCollection
   def away_win?(game)
     game.away_goals > game.home_goals
   end
+
+  def total_away_wins(team_id)
+    all_away_games_of_team(team_id).count do |game|
+      away_win?(game)
+    end
+  end
+
+  def total_home_wins(team_id)
+    all_home_games_of_team(team_id).count do |game|
+      !away_win?(game)
+    end
+  end
+
+
 end
