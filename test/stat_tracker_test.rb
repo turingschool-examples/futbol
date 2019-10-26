@@ -35,6 +35,10 @@ class StatTrackerTest < Minitest::Test
     # assert_equal 20, @stat_tracker.game_teams.count
   end
 
+  ##############
+  # game stats #
+  ##############
+
   def test_highest_total_score
     assert_equal 7, @stat_tracker.highest_total_score
   end
@@ -89,7 +93,18 @@ class StatTrackerTest < Minitest::Test
     assert_equal 5, @stat_tracker.game_collection.games_by_season["20122013"].length
   end
 
+<<<<<<< HEAD
   def best_offense
 
   end
+=======
+  ##############
+  #league stats#
+  ##############
+
+  def test_team_count
+    assert_equal 20, @stat_tracker.count_of_teams
+  end
+  
+>>>>>>> 8c73bca1787e3d85c92bfb6cc94468f38f95d073
 end

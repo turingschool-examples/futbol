@@ -16,4 +16,9 @@ class TeamCollection
   def initialize(teams)
     @teams = teams
   end
+
+  def team_count
+    @teams.length
+  end
+
 end

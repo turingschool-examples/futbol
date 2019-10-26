@@ -12,4 +12,6 @@ locations = {
 
 stat_tracker = StatTracker.from_csv(locations)
 
+stat_tracker.game_team_collection.best_offense
+
 require "pry"; binding.pry
