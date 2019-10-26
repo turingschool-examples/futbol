@@ -169,13 +169,31 @@ class GamesCollection
     end
   end
 
-  def team_games(team_id)
-    team_games_list = []
-    @games.each do |game|
-      if team_id == game.home_team_id || team_id == game.away_team_id
-        team_games_list << game
-      end
-    end
-    team_games_list
+  # def team_games(team_id)
+  #   team_games_list = []
+  #   @games.each do |game|
+  #     if team_id == game.home_team_id || team_id == game.away_team_id
+  #       team_games_list << game
+  #     end
+  #   end
+  #   team_games_list
+  # end
+
+  def total_wins_by_team(team_id)
+    games_with_team(team_id).count { |game| game.result == "WIN" }
+  end
+
+
+
+  def find_by_in(element, attribute, collection)
+    collection.find_all { |member| member.send(attribute) == element }
+  end
+
+  def games_with_team(team_id)
+    find_by_in(team_id, "home_team_id", @games) + find_by_in(team_id, "away_team_id", @games)
+  end
+
+  def away_win?(game)
+    game.away_goals > game.home_goals
   end
 end

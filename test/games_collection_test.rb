@@ -139,8 +139,37 @@ class GamesCollectionTest < Minitest::Test
     assert_equal "2", @games_collection.lowest_scoring_visitor
   end
 
+
+# calculate: (total_wins_for_a_team_id / total_games_for_a_team_id)
+# calculate win percentage for given_set_of_games
+# get all games in a particular season (team_game_list)
+# calculate win_percentage for a given_season for a team_id
+# get list of unique seasons
+# for each season, calcul;ate win percentage for a given team
+# get highest
+# get lowest
+
+  def test_it_can_calculate_total_wins_for_a_team
+    skip
+    assert_equal 9, @games_collection.total_wins_by_team("6")
+  end
+
   def test_it_knows_all_the_games_per_teams
-    expected = ({})
-    assert_equal expected, @games_collection.team_games("1")
+    skip
+    expected = [
+      @games_collection.games[40],
+      @games_collection.games[41],
+      @games_collection.games[42],
+      @games_collection.games[43],
+      @games_collection.games[44],
+      @games_collection.games[45]
+    ]
+
+    assert_equal expected, @games_collection.games_with_team("2")
+  end
+
+  def test_it_can_tell_away_win
+    assert_equal true, @games_collection.away_win?(@games_collection.games[3])
+    assert_equal false, @games_collection.away_win?(@games_collection.games[0])
   end
 end
