@@ -29,7 +29,7 @@ class GamesTeamsCollection
   end
 
   def percentage_home_wins
-    ((total_home_wins / total_home_games.to_f) * 100).round(2)
+    (total_home_wins / total_home_games.to_f).round(2)
   end
 
   def total_away_games
@@ -45,7 +45,7 @@ class GamesTeamsCollection
   end
 
   def percentage_visitor_wins
-    ((total_away_wins / total_away_games.to_f) * 100).round(2)
+    (total_away_wins / total_away_games.to_f).round(2)
   end
 
   def total_ties
@@ -55,7 +55,7 @@ class GamesTeamsCollection
   end
 
   def percentage_ties
-    ((total_ties.to_f / @games_teams.count) * 100).round(2)
+    (total_ties.to_f / @games_teams.count).round(2)
   end
 
   def number_of_wins

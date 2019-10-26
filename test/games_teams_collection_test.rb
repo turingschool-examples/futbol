@@ -24,7 +24,7 @@ class GamesTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_calculates_home_win_percentage_to_the_hundredths
-    assert_equal 65.31, @games_teams_collection.percentage_home_wins
+    assert_equal 0.65, @games_teams_collection.percentage_home_wins
   end
 
   def test_it_can_see_how_many_wins
@@ -52,7 +52,7 @@ class GamesTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_calculates_away_win_percentage_to_the_hundredths
-    assert_equal 32.00, @games_teams_collection.percentage_visitor_wins
+    assert_equal 0.32, @games_teams_collection.percentage_visitor_wins
   end
 
   def test_it_can_get_total_ties
@@ -60,7 +60,7 @@ class GamesTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_calculates_percentage_ties
-    assert_equal 2.02, @games_teams_collection.percentage_ties
+    assert_equal 0.02, @games_teams_collection.percentage_ties
   end
 
   def test_it_can_find_rows_by_given_value_in_given_column
