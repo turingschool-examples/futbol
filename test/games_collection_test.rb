@@ -184,13 +184,14 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_list_seasons_a_team_played_in
-    # skip
     assert_equal ["20122013"], @games_collection.team_seasons("2")
   end
-  
+
   def test_it_can_tell_us_best_season_for_given_team
-    # skip
     assert_equal "20122013", @games_collection.best_season("2")
   end
 
+  def test_it_can_tell_us_worst_season_for_given_team
+    assert_equal "20122013", @games_collection.worst_season("2")
+  end
 end

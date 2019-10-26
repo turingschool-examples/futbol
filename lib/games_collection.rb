@@ -225,6 +225,12 @@ class GamesCollection
     end
   end
 
+  def worst_season(team_id)
+    team_seasons(team_id).min_by do |season|
+      team_win_percentage(team_id, season)
+    end
+  end
+
   def team_seasons(team_id)
     games_with_team(team_id).map do |game|
       game.season
