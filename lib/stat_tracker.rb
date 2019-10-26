@@ -32,8 +32,8 @@ class StatTracker
     game.highest_total_score
   end
 
-  def count_of_games_by_season
-    game.count_of_games_by_season
+  def count_of_games_per_season
+    game.count_of_games_per_season
   end
 
   def lowest_total_score
