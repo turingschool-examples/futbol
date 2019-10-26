@@ -79,4 +79,13 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of Hash, @stat_tracker.average_goals_by_season
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
+
+  def test_seasons_helper_method
+    assert_equal ["20122013", "20132014", "20152016", "20162017", "20172018"], @stat_tracker.game_collection.seasons
+  end
+
+  def test_games_by_seasons_helper_method
+    assert_instance_of Game, @stat_tracker.game_collection.games_by_season["20122013"].first
+    assert_equal 5, @stat_tracker.game_collection.games_by_season["20122013"].length
+  end
 end
