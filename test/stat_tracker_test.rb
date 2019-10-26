@@ -88,4 +88,8 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of Game, @stat_tracker.game_collection.games_by_season["20122013"].first
     assert_equal 5, @stat_tracker.game_collection.games_by_season["20122013"].length
   end
+
+  def best_offense
+
+  end
 end
