@@ -72,7 +72,7 @@ class GamesCollection
   end
 
   # Iteration 2 required method
-  def average_goals_by_game
+  def average_goals_per_game
     average_goals_in(@games)
   end
 
@@ -113,7 +113,7 @@ class GamesCollection
       acc[team] = season_goals
       acc
     end
-    season_goals  
+    season_goals
   end
 
   # ==============================
