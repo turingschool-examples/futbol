@@ -1,9 +1,8 @@
 require 'csv'
 require_relative 'game'
-require_relative 'stat_tracker'
 
 class GameCollection
-  attr_reader :game_instances
+  attr_reader :game_instances, :game_path
 
   def initialize(game_path)
     @game_path = game_path
@@ -18,30 +17,11 @@ class GameCollection
   end
 
   def count_of_games_by_season
-    season_key_maker
-    season_count = {}
-    @keys.each do |key|
-      season_count[key] = value_maker(key)
-    end
-    season_count
-  end
-
-  def season_key_maker
-    @keys = []
+    season_game_count = Hash.new(0)
     @game_instances.each do |game|
-      @keys << game.season
+      season_game_count[game.season] += 1
     end
-    @keys = @keys.uniq
-  end
-
-  def value_maker(season)
-    values = []
-    @game_instances.each do |game|
-      if game.season == season
-        values << game
-      end
-    end
-    values
+    season_game_count
   end
 
   # Returns an array that contains every game score both winners and losers added together
@@ -73,30 +53,38 @@ class GameCollection
     end
 
   def average_goals_per_game
-    home_goals = @game_instances.sum { |game| game.home_goals }
-    away_goals = @game_instances.sum { |game| game.away_goals }
-    total_games = @game_instances.size
-    average_goals_per_game = (home_goals + away_goals) / total_games
+    goals = @game_instances.sum do |game|
+      game.home_goals + game.away_goals
+    end
+    (goals.to_f / @game_instances.length).round(2)
   end
 
-  def ave_goals_per_season_values(season)
-    goal_array = []
+  def average_goals_by_season
+    ave_season_goals = Hash.new(0)
     @game_instances.each do |game|
-      if game.season.to_i == season
-        goal_array <<  game.away_goals.to_f
-        goal_array << game.home_goals.to_f
-      end
+      ave_season_goals[game.season] += (game.away_goals.to_f + game.home_goals)
     end
-    (goal_array.sum / (goal_array.size / 2)).round(2)
+    ave_season_goals.each do |key, value|
+        ave_season_goals[key] = (value / count_of_games_by_season[key]).round(2)
+    end
   end
 
-  def average_goals_per_season
-    ave_goals_per_season = {}
-    season_key_maker
-    @keys.each do |key|
-      ave_goals_per_season[key.to_i] = ave_goals_per_season_values(key.to_i)
+  def home_wins
+    @game_instances.count do |game|
+      game.home_goals > game.away_goals
     end
-    ave_goals_per_season
+  end
+
+  def visitor_wins
+    @game_instances.count do |game|
+      game.home_goals < game.away_goals
+    end
+  end
+
+  def ties
+    @game_instances.count do |game|
+      game.home_goals == game.away_goals
+    end
   end
 
   # def best_defense_per_season

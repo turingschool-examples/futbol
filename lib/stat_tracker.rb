@@ -27,4 +27,40 @@ class StatTracker
     def team
       TeamCollection.new(@team_path)
     end
+
+  def highest_total_score
+    game.highest_total_score
+  end
+
+  def count_of_games_by_season
+    game.count_of_games_by_season
+  end
+
+  def lowest_total_score
+    game.lowest_total_score
+  end
+
+  def biggest_blowout
+    game.biggest_blowout
+  end
+
+  def average_goals_per_game
+    game.average_goals_per_game
+  end
+
+  def average_goals_by_season
+    game.average_goals_by_season
+  end
+
+  def percentage_visitor_wins
+    (game.visitor_wins / game.game_instances.length.to_f).round(2)
+  end
+
+  def percentage_home_wins
+    (game.home_wins / game.game_instances.length.to_f).round(2)
+  end
+
+  def percentage_ties
+    (game.ties / game.game_instances.length.to_f).round(2)
+  end
 end
