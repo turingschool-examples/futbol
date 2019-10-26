@@ -24,4 +24,6 @@ class GameTeamsCollection
     end
     team_game_count.max_by {|key, value| value}.first.to_s
   end
+
+
 end

@@ -22,4 +22,8 @@ class TeamCollectionTest < MiniTest::Test
     assert_equal "FC Dallas", @team_instance.winningest_team("6")
     assert_equal "LA Galaxy", @team_instance.winningest_team("17")
   end
+
+  def test_worst_fans
+    assert_equal ["6", "4"], @team_instance.worst_fans
+  end
 end
