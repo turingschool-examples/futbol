@@ -223,4 +223,7 @@ class GamesTeamsCollection
     all_team_ids.min_by { |team_id| average_goals_of_opponents(team_id) }
   end
 
+  def worst_defense
+    all_team_ids.max_by { |team_id| average_goals_of_opponents(team_id) }
+  end
 end

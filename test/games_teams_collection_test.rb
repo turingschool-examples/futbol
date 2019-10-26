@@ -182,16 +182,8 @@ class GamesTeamsCollectionTest < Minitest::Test
   def test_it_can_find_team_with_best_defense
     assert_equal "6", @games_teams_collection.best_defense
   end
-  #all games of a given team
-  #all goals in season
-  #average number of goal for a given team
-  #find highest goals of a given team
-  #lowest goals of a given team
 
-  #find oppoinets game team object for a given game team object
-  #find all the games of oppoinet of a given team
-  #total goals of oppoinet of a given team
-  #average the goals of oppoinet team
-  #find highest average goals
-  #find lowest goals
+  def test_it_can_find_team_with_worst_defense
+    assert_equal "8", @games_teams_collection.worst_defense
+  end
 end
