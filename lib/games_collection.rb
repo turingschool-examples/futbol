@@ -89,84 +89,83 @@ class GamesCollection
     end
   end
 
+  # Helper method
   def home_teams
     every_unique("home_team_id", @games)
   end
 
-  def total_home_goals(team)
-    season_goals = 0
-    @games.each do |game|
-      if team == game.home_team_id
-        season_goals += game.home_goals.to_i
-      end
-    end
-    season_goals
+  # Helper method designed to be reusable; consider moving to a parent Collection class
+  def find_by_in(element, attribute_str, collection)
+    collection.find_all { |member| member.send(attribute_str) == element }
   end
 
+  def all_home_games_of_team(team_id)
+    find_by_in(team_id, "home_team_id", @games)
+  end
+
+  # Helper method
   def total_home_games(team)
-    @games.select { |game| game.home_team_id == team }.count
+    all_home_games_of_team(team).count
   end
 
-  # # address this with .max_by
-  def home_team_goals
-    home_teams.reduce({}) do |acc, team|
-      acc[team] = season_goals
-      acc
-    end
-    season_goals
+  # Helper method
+  def total_home_goals(team)
+    all_home_games_of_team(team).sum { |game| game.home_goals.to_i }
   end
 
-  # ==============================
-  # OLD OLD OLD OLD OLD OLD OLD OLD
-  # def total_home_goals(team)
-  #   season_goals = []
-  #   @games.each do |game|
-  #     if team == game.home_team_id
-  #       season_goals += game.home_goals.to_i
-  #     end
-  #   end
-  #   season_goals
-  # end
-  # ==============================
+  # Helper method
+  def average_home_score_of_team(team_id)
+    total_home_goals(team_id) / total_home_games(team_id).to_f
+  end
 
+  # Iteration 3 required method
   def highest_scoring_home_team
-    home_team_goals.find do |team, goals|
-      goals == home_team_goals.values.sort.last
-    end.first
+    home_teams.max_by do |home_team_id|
+      average_home_score_of_team(home_team_id)
+    end
   end
 
+  # Iteration 3 required method
   def lowest_scoring_home_team
-    home_team_goals.find do |team, goals|
-      goals == home_team_goals.values.sort.first
-    end.first
+    home_teams.min_by do |home_team_id|
+      average_home_score_of_team(home_team_id)
+    end
   end
 
   def away_teams
     every_unique("away_team_id", @games)
   end
 
-  def away_team_goals
-    away_teams.reduce({}) do |acc, team|
-    season_goals = 0
-      games.each do |game|
-        if team == game.away_team_id
-          season_goals += game.away_goals.to_i
-        end
-      end
-      acc[team] = season_goals
-      acc
+  def all_away_games_of_team(team_id)
+    find_by_in(team_id, "away_team_id", @games)
+  end
+
+  # Helper method
+  def total_away_games(team)
+    all_away_games_of_team(team).count
+  end
+
+  # Helper method
+  def total_away_goals(team)
+    all_away_games_of_team(team).sum { |game| game.away_goals.to_i }
+  end
+
+  # Helper method
+  def average_away_score_of_team(team_id)
+    total_away_goals(team_id) / total_away_games(team_id).to_f
+  end
+
+  # Iteration 3 required method
+  def highest_scoring_visitor
+    away_teams.max_by do |away_team_id|
+      average_away_score_of_team(away_team_id)
     end
   end
 
-  def highest_scoring_visitor
-    away_team_goals.find do |team, goals|
-      goals == away_team_goals.values.sort.last
-    end.first
-  end
-
+  # Iteration 3 required method
   def lowest_scoring_visitor
-    away_team_goals.find do |team, goals|
-      goals == away_team_goals.values.sort.first
-    end.first
+    away_teams.min_by do |away_team_id|
+      average_away_score_of_team(away_team_id)
+    end
   end
 end
