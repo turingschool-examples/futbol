@@ -226,4 +226,8 @@ class GamesTeamsCollection
   def worst_defense
     all_team_ids.max_by { |team_id| average_goals_of_opponents(team_id) }
   end
+
+  def most_goals_scored(team_id)
+    list_of_games_of_team(team_id).map(&:goals).max.to_i
+  end
 end

@@ -109,4 +109,8 @@ class StatTracker
   def worst_defense
     name_of_team(@games_teams.worst_defense)
   end
+
+  def most_goals_scored(team_id)
+    @games_teams.most_goals_scored(team_id)
+  end
 end

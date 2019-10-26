@@ -129,4 +129,8 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_find_team_with_worst_defense
     assert_equal "New York Red Bulls", @stat_tracker.worst_defense
   end
+
+  def test_it_can_find_the_most_goals_scored
+    assert_equal 4, @stat_tracker.most_goals_scored("2")
+  end
 end
