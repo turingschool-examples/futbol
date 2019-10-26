@@ -43,6 +43,59 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_percentage_ties
+    assert_equal 0.25, @stat_tracker.percentage_ties
+  end
 
+  def test_it_has_count_of_games_by_season
+    count_games_by_season_list = {
+      20122013 => 5,
+      20142015 => 3
+    }
+    assert_equal count_games_by_season_list, @stat_tracker.count_of_games_by_season
+  end
+
+  def test_it_has_average_goals_per_game
+    assert_equal 3.88, @stat_tracker.average_goals_per_game
+  end
+
+  def test_it_has_average_goals_by_season
+    count_goals_by_season_list = {
+      20122013 => (19/5.0).round(2),
+      20142015 => (12/3.0).round(2)
+    }
+    assert_equal count_goals_by_season_list, @stat_tracker.average_goals_by_season
+  end
+
+  def test_it_has_count_of_teams
+    assert_equal 8, @stat_tracker.count_of_teams
+  end
+
+  def test_it_has_best_offense
+    assert_equal "New York City FC", @stat_tracker.best_offense
+  end
+
+  def test_it_has_worst_offense
+    assert_equal "Sporting Kansas City", @stat_tracker.worst_offense
+  end
+
+  def test_it_has_best_defense
+    assert_equal "FC Dallas", @stat_tracker.best_defense
+  end
+
+  def test_it_has_the_worst_defense
+    assert_equal "Houston Dynamo", @stat_tracker.worst_defense
+  end
+
+  def test_it_has_winningest_team
+    assert_equal "FC Dallas", @stat_tracker.winningest_team
+  end
+
+  def test_it_has_best_fans
+    assert_equal "LA Galaxy", @stat_tracker.best_fans
+  end
+
+  def test_it_has_worst_fans
+    #need to include more data so we an actually get a list of the worst teams?
+    assert_equal [], @stat_tracker.worst_fans
   end
 end
