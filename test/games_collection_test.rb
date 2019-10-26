@@ -138,4 +138,9 @@ class GamesCollectionTest < Minitest::Test
   def test_it_can_tell_us_lowest_scoring_visitor
     assert_equal "2", @games_collection.lowest_scoring_visitor
   end
+
+  def test_it_knows_all_the_games_per_teams
+    expected = ({})
+    assert_equal expected, @games_collection.team_games("1")
+  end
 end
