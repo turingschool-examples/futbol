@@ -52,20 +52,40 @@ class StatTracker
     @games.average_goals_by_season
   end
 
+  def count_of_teams
+    @teams.count_of_teams
+  end
+
   # Helper method
   def name_of_team(team_id)
     @teams.name_of_team_by_id(team_id)
   end
 
+  def highest_scoring_visitor
+    name_of_team(@games.highest_scoring_visitor)
+  end
+
+  def highest_scoring_home_team
+    name_of_team(@games.highest_scoring_home_team)
+  end
+
+  def lowest_scoring_visitor
+    name_of_team(@games.lowest_scoring_visitor)
+  end
+
+  def lowest_scoring_home_team
+    name_of_team(@games.lowest_scoring_home_team)
+  end
+
   def winningest_team
-    name_of_team(@games_teams.team_id_with_best_win_percentage)
+    name_of_team(@games_teams.winningest_team)
   end
 
   def best_fans
-    name_of_team(@games_teams.team_with_best_home_win_percentage)
+    name_of_team(@games_teams.best_fans)
   end
 
   def worst_fans
-    @games_teams.teams_with_better_away_win_percentage_than_home.map { |team_id| name_of_team(team_id) }
+    @games_teams.worst_fans.map { |team_id| name_of_team(team_id) }
   end
 end

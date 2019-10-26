@@ -37,15 +37,15 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_calculates_home_win_percentage_to_the_hundredths
-    assert_equal 65.31, @stat_tracker.percentage_home_wins
+    assert_equal 0.65, @stat_tracker.percentage_home_wins
   end
 
   def test_it_calculates_away_win_percentage_to_the_hundredths
-    assert_equal 32.0, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.32, @stat_tracker.percentage_visitor_wins
   end
 
   def test_it_calculates_percentage_ties
-    assert_equal 2.02, @stat_tracker.percentage_ties
+    assert_equal 0.02, @stat_tracker.percentage_ties
   end
 
   def test_it_can_count_game_by_season
@@ -76,9 +76,33 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected_hash, @stat_tracker.average_goals_by_season
   end
 
+  def test_it_knows_how_many_teams_there_are
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+
   def test_it_can_get_name_of_team_by_id
     assert_equal "FC Dallas", @stat_tracker.name_of_team("6")
     assert_equal "Los Angeles FC", @stat_tracker.name_of_team("28")
+  end
+
+  def test_it_can_tell_name_of_highest_scoring_home_team
+    skip
+    assert_equal "16", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_it_can_tell_name_of_highest_scoring_visitor
+    skip
+    assert_equal "16", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_it_can_tell_name_of_lowest_scoring_home_team
+    skip
+    assert_equal "30", @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_it_can_tell_name_of_lowest_scoring_visitor
+    skip
+    assert_equal "2", @stat_tracker.lowest_scoring_visitor
   end
 
   def test_it_can_find_name_of_winningest_team
@@ -86,7 +110,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_team_with_best_fans
-    assert_equal "FC Dallas", @stat_tracker.best_fans
+    assert_equal "New England Revolution", @stat_tracker.best_fans
   end
 
   def test_it_can_find_names_of_teams_with_worst_fans

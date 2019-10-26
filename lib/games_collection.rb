@@ -72,7 +72,7 @@ class GamesCollection
   end
 
   # Iteration 2 required method
-  def average_goals_by_game
+  def average_goals_per_game
     average_goals_in(@games)
   end
 
@@ -113,7 +113,7 @@ class GamesCollection
       acc[team] = season_goals
       acc
     end
-    season_goals  
+    season_goals
   end
 
   # ==============================
@@ -158,16 +158,15 @@ class GamesCollection
     end
   end
 
-  def highest_scoring_away_team
+  def highest_scoring_visitor
     away_team_goals.find do |team, goals|
       goals == away_team_goals.values.sort.last
     end.first
   end
 
-  def lowest_scoring_away_team
+  def lowest_scoring_visitor
     away_team_goals.find do |team, goals|
       goals == away_team_goals.values.sort.first
     end.first
   end
-
 end
