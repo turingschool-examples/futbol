@@ -17,5 +17,4 @@ class TeamsCollectionTest < MiniTest::Test
   def test_the_count_of_teams
     assert_equal 15, @team_instance.count_of_teams
   end
-
 end
