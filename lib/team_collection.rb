@@ -39,15 +39,37 @@ class TeamCollection
     end
   end
 
-  def winningest_team
-    @total_teams.max_by do |team|
-      team.win_percentage
-    end.team_name
+  def count_of_teams
+    @total_teams.total_teams.length
   end
 
   def best_offense
     @total_teams.max_by do |team|
       team.average_goals_scored_per_game
+    end.team_name
+  end
+
+  def worst_offense
+    @total_teams.min_by do |team|
+      team.average_goals_scored_per_game
+    end.team_name
+  end
+
+  def best_defense
+    @total_teams.min_by do |team|
+      team.average_goals_allowed_per_game
+    end.team_name
+  end
+
+  def worst_defense
+    @total_teams.max_by do |team|
+      team.average_goals_allowed_per_game
+    end.team_name
+  end 
+
+  def winningest_team
+    @total_teams.max_by do |team|
+      team.win_percentage
     end.team_name
   end
 
