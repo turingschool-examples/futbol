@@ -226,4 +226,27 @@ class GamesTeamsCollection
   def worst_defense
     all_team_ids.max_by { |team_id| average_goals_of_opponents(team_id) }
   end
+
+  # def biggest_team_blowout(team_id)
+  #   difference = 0
+  #   @games_teams.each do |game_team|
+  #     if game_team.team_id == team_id
+  #      game_team.goals
+  #
+  # end
+  def team_goals(team_id)
+    team_goals = all_opponent_games(team_id).map { |game_team| game_team.goals.to_i }
+  end
+
+  def opponents_goals(team_id)
+    opponents_goals = list_of_games_of_team(team_id).map { |team_game| team_game.goals.to_i }
+  end
+
+  def biggest_team_blowout(team_id)
+    difference = []
+    team_goals(team_id).each_with_index do |team_goal, index|
+      difference << team_goal - opponents_goals(team_id)[index]
+    end
+    difference.map { |number| number.abs }.max
+  end
 end

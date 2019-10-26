@@ -129,4 +129,8 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_find_team_with_worst_defense
     assert_equal "New York Red Bulls", @stat_tracker.worst_defense
   end
+
+  def test_it_has_a_biggest_team_blowout
+    assert_equal 3, @stat_tracker.biggest_team_blowout("2")
+  end
 end

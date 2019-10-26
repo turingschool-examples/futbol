@@ -186,4 +186,16 @@ class GamesTeamsCollectionTest < Minitest::Test
   def test_it_can_find_team_with_worst_defense
     assert_equal "8", @games_teams_collection.worst_defense
   end
+
+  def test_it_can_find_team_goals
+    assert_equal [3,3,3,2,2,2], @games_teams_collection.team_goals("2")
+  end
+
+  def test_it_can_find_team_goals
+    assert_equal [0,2,2,4,0,3], @games_teams_collection.opponents_goals("2")
+  end
+
+  def test_it_can_see_biggest_team_blowout
+    assert_equal 3, @games_teams_collection.biggest_team_blowout("2")
+  end
 end
