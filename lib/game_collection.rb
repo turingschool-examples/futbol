@@ -17,31 +17,12 @@ class GameCollection
     end
   end
 
-  def count_of_games_per_season
-    season_key_maker
-    season_count = {}
-    @keys.each do |key|
-      season_count[key] = value_maker(key)
-    end
-    season_count
-  end
-
-  def season_key_maker
-    @keys = []
+  def count_of_games_by_season
+    season_game_count = Hash.new(0)
     @game_instances.each do |game|
-      @keys << game.season
+      season_game_count[game.season] += 1
     end
-    @keys = @keys.uniq
-  end
-
-  def value_maker(season)
-    values = []
-    @game_instances.each do |game|
-      if game.season == season
-        values << game
-      end
-    end
-    values
+    season_game_count
   end
 
   # Returns an array that contains every game score both winners and losers added together
@@ -73,83 +54,39 @@ class GameCollection
     end
 
   def average_goals_per_game
-    home_goals = @game_instances.sum { |game| game.home_goals }
-    away_goals = @game_instances.sum { |game| game.away_goals }
-    total_games = @game_instances.size
-    average_goals_per_game = (home_goals + away_goals) / total_games
-  end
-
-  def ave_goals_per_season_values(season)
-    goal_array = []
-    @game_instances.each do |game|
-      if game.season.to_i == season
-        goal_array <<  game.away_goals.to_f
-        goal_array << game.home_goals.to_f
-      end
+    goals = @game_instances.sum do |game|
+      game.home_goals + game.away_goals
     end
-
-    (goal_array.sum / (goal_array.size / 2)).round(2)
+    (goals.to_f / @game_instances.length).round(2)
   end
 
   def average_goals_per_season
-    ave_goals_per_season = {}
-    season_key_maker
-    @keys.each do |key|
-      ave_goals_per_season[key.to_i] = ave_goals_per_season_values(key.to_i)
+    ave_season_goals = Hash.new(0)
+    goals = 0
+    @game_instances.each do |game|
+      ave_season_goals[game.season] += (game.away_goals.to_f + game.home_goals)
     end
-    ave_goals_per_season
-  end
-
-  def percentage_home_wins
-  all_results = []
-  @game_instances.each do |instance|
-    all_results << instance.result
-  end
-  number_of_results = all_results.length
-
-  result_win = []
-  @game_instances.each do |instance|
-    if instance.result.include?("WIN")
-      result_win << instance.result
+    ave_season_goals.each do |key, value|
+        ave_season_goals[key] = (value / count_of_games_by_season[key]).round(2)
     end
   end
-  number_of_wins = result_win.length
-  home_win_percentage = number_of_wins.to_f / number_of_results
-end
 
-def percentage_vistor_wins
-  all_results = []
-  @game_instances.each do |instance|
-    all_results << instance.result
-  end
-  number_of_results = all_results.length
-
-  result_loss = []
-  @game_instances.each do |instance|
-    if instance.result.include?("LOSS")
-      result_loss << instance.result
+  def home_wins
+    @game_instances.count do |game|
+      game.home_goals > game.away_goals
     end
   end
-  number_of_losses = result_loss.length
-  home_win_percentage = number_of_losses.to_f / number_of_results
-end
 
-def percentage_ties
-  all_results = []
-  @game_instances.each do |instance|
-    all_results << instance.result
-  end
-  number_of_results = all_results.length
-
-  result_tie = []
-  @game_instances.each do |instance|
-    if instance.result.include?("TIE")
-      result_tie << instance.result
+  def visitor_wins
+    @game_instances.count do |game|
+      game.home_goals < game.away_goals
     end
-
   end
-  number_of_ties = result_tie.length
-  home_win_percentage = number_of_ties.to_f / number_of_results
-end
+
+  def ties
+    @game_instances.count do |game|
+      game.home_goals == game.away_goals
+    end
+  end
 
 end
