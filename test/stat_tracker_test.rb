@@ -23,4 +23,21 @@ class StatTrackerTest < Minitest::Test
   def test_it_has_scores
     @stat_tracker.highest_total_score
   end
+
+  def test_it_has_winningest_team
+    # FC Dallas has only wins
+    assert_equal "FC Dallas", @stat_tracker.winningest_team
+  end
+
+  def test_it_has_the_best_offense
+    assert_equal "New York City FC", @stat_tracker.best_offense
+  end
+
+  def test_it_has_best_fans
+    assert_equal "LA Galaxy", @stat_tracker.best_fans
+  end
+
+  def test_it_has_worst_fans
+    assert_equal [], @stat_tracker.worst_fans
+  end
 end
