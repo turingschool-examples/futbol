@@ -20,7 +20,29 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, stat_tracker
   end
 
-  def test_it_has_scores
-    @stat_tracker.highest_total_score
+  #what happened to testing it can be made from csv?
+
+  def test_it_has_highest_total_score
+    assert_equal 5, @stat_tracker.highest_total_score
+  end
+
+  def test_it_has_lowest_total_score
+    assert_equal 2, @stat_tracker.lowest_total_score
+  end
+
+  def test_it_has_biggest_blowout
+    assert_equal 2, @stat_tracker.biggest_blowout
+  end
+
+  def test_it_has_percentage_home_wins
+    assert_equal 0.25, @stat_tracker.percentage_home_wins
+  end
+
+  def test_it_has_percentage_visitor_wins
+    assert_equal 0.50, @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_it_has_percentage_ties
+
   end
 end

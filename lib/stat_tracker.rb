@@ -44,7 +44,7 @@ class StatTracker
     @games_collection.percentage_ties
   end
 
-  def count_of_games_by_season_list
+  def count_of_games_by_season_list # rename to count_of_games_by_season to match spec? or is this what is in in specharnes?
     @games_collection.count_of_games_by_season
   end
 
@@ -56,7 +56,24 @@ class StatTracker
     @games_collection.average_goals_by_season
   end
 
+
+  #count of teams
+
+  #best_offense
+
+  #worst_offense
+
+  #best_defense
+
+  #worst_defense
+
+  
   def winningest_team
     @teams_collection.winningest_team
   end
+
+  #def best_fans?
+
+  #def worst_fans?
+
 end
