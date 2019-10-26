@@ -149,23 +149,17 @@ class GamesCollectionTest < Minitest::Test
 # get highest
 # get lowest
 
-  def test_it_can_calculate_total_wins_for_a_team
-    skip
-    assert_equal 9, @games_collection.total_wins_by_team("6")
-  end
-
   def test_it_knows_all_the_games_per_teams
-    skip
+    # skip
     expected = [
+      @games_collection.games[39],
       @games_collection.games[40],
       @games_collection.games[41],
       @games_collection.games[42],
       @games_collection.games[43],
-      @games_collection.games[44],
-      @games_collection.games[45]
+      @games_collection.games[44]
     ]
-
-    assert_equal expected, @games_collection.games_with_team("2")
+    assert_equal expected, @games_collection.games_with_team("2").sort_by { |game| game.game_id}
   end
 
   def test_it_can_tell_away_win
