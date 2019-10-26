@@ -115,51 +115,24 @@ class GamesCollectionTest < Minitest::Test
     assert_equal 5, @games_collection.total_home_games("6")
   end
 
-  def test_it_can_tell_us_total_number_of_goals_per_home_team
-    skip
-    expected = {
-      "6"=>12,
-      "3"=>20,
-      "5"=>20,
-      "16"=>34,
-      "17"=>13,
-      "8"=>6,
-      "9"=>7,
-      "30"=>3,
-      "19"=>12,
-      "26"=>17,
-      "24"=>16,
-      "2"=>9,
-      "15"=>10,
-      "20"=>3,
-      "14"=>9,
-      "28"=>4,
-      "4"=>3
-    }
-    assert_equal expected, @games_collection.home_team_goals
-  end
-
   def test_it_can_tell_us_each_unique_away_team_id
     assert_equal 17, @games_collection.away_teams.length
   end
 
-  def test_it_can_tell_us_number_of_goals_per_away_team
-    assert_instance_of Hash, @games_collection.away_team_goals
+  def test_it_can_calculate_average_home_score_of_given_team
+    assert_equal 2, @games_collection.average_home_score_of_team("6")
   end
 
   def test_it_can_tell_us_highest_scoring_home_team
-    skip
-    assert_equal "16", @games_collection.highest_scoring_home_team
+    assert_equal "9", @games_collection.highest_scoring_home_team
   end
-  
+
   def test_it_can_tell_us_highest_scoring_visitor
-    skip
-    assert_equal "16", @games_collection.highest_scoring_visitor
+    assert_equal "6", @games_collection.highest_scoring_visitor
   end
 
   def test_it_can_tell_us_lowest_scoring_home_team
-    skip
-    assert_equal "30", @games_collection.lowest_scoring_home_team
+    assert_equal "3", @games_collection.lowest_scoring_home_team
   end
 
   def test_it_can_tell_us_lowest_scoring_visitor
