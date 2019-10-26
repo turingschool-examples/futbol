@@ -59,8 +59,6 @@ class GameCollection
     (percent.to_f / @games.length).round(2)
   end
 
-
-  #test this method
   def seasons
     seasons = @games.values.map do |game|
       game.season
@@ -68,8 +66,6 @@ class GameCollection
     seasons.uniq.sort
   end
 
-
-  # need to test this method
   def games_by_season
     seasons.reduce({}) do |season_game, season|
       games_in_season = @games.values.find_all do |game|
