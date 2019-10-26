@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/game.rb'
+require_relative './game.rb'
 
 class GameCollection
   attr_reader :total_games
@@ -83,6 +83,22 @@ class GameCollection
     (total_goals / @total_games.count.to_f).round(2)
   end
 
+  def away_team_goals
+    team_away_goal = 0
+    away_team_goal_count = @total_games.each do |game|
+      # require "pry"; binding.pry
+      game.team_id == team_id
+      team_away_goal += game.away_goals
+    end
+  end
+
+  def group_by_team_id_and_goals
+    away_team_groups = @total_games.flat_map { |game| game.away_team_id}
+    away_team_goals = @total_games.flat_map { |game| game.away_goals}
+    away_team_id_goals = away_team_groups.zip(away_team_goals)
+    require "pry"; binding.pry
+  end
+
   def average_goals_by_season
     season_list = count_of_games_by_season
     season_list.transform_values! do |total_season_games|
@@ -98,6 +114,6 @@ class GameCollection
     season_list.transform_values do |total_season_games|
       (total_season_games[1] / total_season_games[0].to_f).round(2)
     end
-  end 
+  end
 
 end
