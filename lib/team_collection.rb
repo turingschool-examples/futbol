@@ -17,4 +17,8 @@ class TeamCollection
     end
     team_objects
   end
+
+  def highest_scoring_visitor
+  x = @game_instances.highest_visitor_score
+  end
 end
