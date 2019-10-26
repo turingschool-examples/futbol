@@ -30,13 +30,13 @@ class GameCollectionTest < MiniTest::Test
   end
 
   def test_average_goals_per_game
-    assert_equal 4, @game_collection.average_goals_per_game
+    assert_equal 4.0, @game_collection.average_goals_per_game
   end
 
   def test_average_goals_per_season
-    assert_equal 4.0, @game_collection.ave_goals_per_season_values(20122013)
-    assert_equal 4.0, @game_collection.average_goals_per_season[20122013]
-    expected_value = {20122013=>4.0, 20152016=>4.33, 20162017=>4.0, 20172018=>3.0}
+    #assert_equal 4.0, @game_collection.ave_goals_per_season_values("20122013")
+    assert_equal 4.0, @game_collection.average_goals_per_season["20122013"]
+    expected_value = {"20122013"=>4.0, "20152016"=>4.33, "20162017"=>4.0, "20172018"=>3.0}
     assert_equal expected_value,  @game_collection.average_goals_per_season
   end
 
@@ -48,25 +48,18 @@ class GameCollectionTest < MiniTest::Test
     @game_collection.count_of_games_by_season
     assert_equal Hash, @game_collection.count_of_games_by_season.class
     assert_equal 4, @game_collection.count_of_games_by_season.count
-    assert_equal 10, @game_collection.value_maker("20122013").length
   end
 
-    def test_percentage_home_wins
+  def test_home_wins
+    assert_equal 8, @game_collection.home_wins
+  end
 
-      new_game_tracker_instance = GameCollection.new('./dummy_data/dummy_game.csv')
-      assert_equal 0.40, new_game_tracker_instance.percentage_home_wins
-    end
+  def test_visitor_wins
+    assert_equal 5, @game_collection.visitor_wins
+  end
 
-    def test_percentage_vistor_wins
-
-      new_game_tracker_instance = GameCollection.new('./dummy_data/dummy_game.csv')
-      assert_equal 0.60, new_game_tracker_instance.percentage_vistor_wins
-    end
-
-    def test_percentage_ties
-
-      new_game_tracker_instance = GameCollection.new('./dummy_data/dummy_game.csv')
-      assert_equal 0, new_game_tracker_instance.percentage_ties
-    end
+  def test_ties
+    assert_equal 2, @game_collection.ties
+  end
 
 end
