@@ -87,4 +87,9 @@ class GameCollection
     end
   end
 
+  def highest_visitor_score
+     @game_instances.max_by do |game|
+      game.away_goals
+    end
+  end
 end
