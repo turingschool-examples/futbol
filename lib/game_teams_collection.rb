@@ -68,4 +68,46 @@ class GameTeamsCollection
    number_of_ties = result_tie.length
    home_win_percentage = number_of_ties.to_f / number_of_results
  end
+
+ def winningest_team
+   #refactor for winningest
+   team_game_count = Hash.new(0)
+   @game_teams_collection_instances.each do |game|
+     if game.result == "WIN"
+     team_game_count[game.team_id] += 1
+    end
+   end
+  winningest = team_game_count.max_by {|key, value| value}
+ end
+ # def count_of_games_per_season
+ #   #refactor for winningest
+ #   season_game_count = Hash.new(0)
+ #   @game_instances.each do |game|
+ #     season_game_count[game.season]+=1
+ #   end
+ #   season_game_count
+ # end
+ # # def winningest_team
+ #   team_totals = {}
+ #   teams_list.map do |team|
+ #     team_totals[team] = games_by_team_array(team)
+ #   end
+ #
+ # end
+ #
+ # def teams_list
+ #  @game_teams_collection_instances.map do |game|
+ #    game[team_id]
+ #  end.uniq
+ # end
+ #
+ #  def games_by_team_array(team_id)
+ #   games = []
+ #   @game_teams_collection_instances.each do |game|
+ #     if game.team_id == team_id
+ #       games << game
+ #     end
+ #    games
+ #    end
+ #  end
 end
