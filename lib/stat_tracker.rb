@@ -32,8 +32,8 @@ class StatTracker
     game.highest_total_score
   end
 
-  def count_of_games_per_season
-    game.count_of_games_per_season
+  def count_of_games_by_season
+    game.count_of_games_by_season
   end
 
   def lowest_total_score
@@ -48,8 +48,8 @@ class StatTracker
     game.average_goals_per_game
   end
 
-  def average_goals_per_season
-    game.average_goals_per_season
+  def average_goals_by_season
+    game.average_goals_by_season
   end
 
   def percentage_visitor_wins
