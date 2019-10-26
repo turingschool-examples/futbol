@@ -19,6 +19,6 @@ class TeamCollectionTest < MiniTest::Test
   end
 
   def test_winningest_team
-    assert_equal "FC Dallas", @team_instance.winningest_team(6)
+    assert_equal "FC Dallas", @team_instance.winningest_team("6")
   end
 end
