@@ -35,51 +35,30 @@ class StatTracker
   end
 
   def percentage_home_wins
-    h_win = @games.games.count { |game| game.away_goals < game.home_goals }
-    ((h_win * 100.00).to_f / @games.games.length).round(2)
+    @games.percentage_home_wins
   end
 
   def percentage_visitor_wins
-    v_win = @games.games.count { |game| game.away_goals > game.home_goals }
-    ((v_win * 100.00).to_f / @games.games.length).round(2)
+    @games.percentage_visitor_wins
   end
 
   def percentage_ties
-    ties = @games.games.count { |game| game.away_goals == game.home_goals }
-    ((ties * 100.00).to_f / @games.games.length).round(2)
+    @games.percentage_ties
   end
 
   def count_of_games_by_season
-    hash = @games.games.reduce({}) do |game_count, game|
-      if game_count[game.season]
-        game_count[game.season] += 1
-      else
-        game_count[game.season] = 1
-      end
-      game_count
-    end
-    hash
+   @games.count_of_games_by_season
   end
 
   def goal_count_per_season
-    hash = @games.games.reduce({}) do |goal_count, game|
-      if goal_count[game.season]
-        goal_count[game.season] += (game.away_goals + game.home_goals)
-      else
-        goal_count[game.season] = (game.away_goals + game.home_goals)
-      end
-      goal_count
-    end
-    hash
+    @games.goal_count_per_season
   end
 
   def average_goals_by_season
-    goal_count_per_season.merge(count_of_games_by_season) do |key, goal_count, game_count|
-      (goal_count.to_f / game_count).round(2)
-    end
+    @games.average_goals_by_season
   end
 
   def average_goals_per_game
-    @games.avg_goals_per_game
+    @games.average_goals_per_game
   end
 end
