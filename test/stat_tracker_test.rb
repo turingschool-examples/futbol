@@ -41,7 +41,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_calculates_away_win_percentage_to_the_hundredths
-    assert_equal 0.32, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.33, @stat_tracker.percentage_visitor_wins
   end
 
   def test_it_calculates_percentage_ties
@@ -112,5 +112,21 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_find_names_of_teams_with_worst_fans
     # no such teams exist in fixture data, but 2 exist in real data
     assert_equal [], @stat_tracker.worst_fans
+  end
+
+  def test_it_can_find_team_with_best_offense
+    assert_equal "New York City FC", @stat_tracker.best_offense
+  end
+
+  def test_it_can_find_team_with_worst_offense
+    assert_equal "Orlando City SC", @stat_tracker.worst_offense
+  end
+
+  def test_it_can_find_team_with_best_defense
+    assert_equal "FC Dallas", @stat_tracker.best_defense
+  end
+
+  def test_it_can_find_team_with_worst_defense
+    assert_equal "New York Red Bulls", @stat_tracker.worst_defense
   end
 end

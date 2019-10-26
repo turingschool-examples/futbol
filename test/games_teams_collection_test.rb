@@ -11,7 +11,7 @@ class GamesTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_initializes_attributes
-    assert_equal 99, @games_teams_collection.games_teams.length
+    assert_equal 98, @games_teams_collection.games_teams.length
     assert_equal true, @games_teams_collection.games_teams.all? {|game_team| game_team.is_a?(GameTeam)}
   end
 
@@ -35,7 +35,7 @@ class GamesTeamsCollectionTest < Minitest::Test
 
   def test_it_can_see_how_many_losses
     expected = [2, 2, 1, 2, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 2, 1, 1, 1, 2, 1, 1, 2, 2, 0,
-                1, 1, 1, 0, 2, 2, 1, 1, 2, 0, 2, 2, 2, 2, 0, 2, 2, 2, 0, 2, 1, 0, 2, 2, 1]
+                1, 1, 1, 0, 2, 2, 1, 1, 2, 0, 2, 2, 2, 2, 0, 2, 2, 2, 0, 2, 1, 0, 2, 2]
     assert_equal expected, @games_teams_collection.number_of_losses
   end
 
@@ -44,7 +44,7 @@ class GamesTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_can_get_total_away_games
-    assert_equal 50, @games_teams_collection.total_away_games
+    assert_equal 49, @games_teams_collection.total_away_games
   end
 
   def test_it_can_get_away_wins
@@ -52,7 +52,7 @@ class GamesTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_calculates_away_win_percentage_to_the_hundredths
-    assert_equal 0.32, @games_teams_collection.percentage_visitor_wins
+    assert_equal 0.33, @games_teams_collection.percentage_visitor_wins
   end
 
   def test_it_can_get_total_ties
@@ -131,5 +131,59 @@ class GamesTeamsCollectionTest < Minitest::Test
 
   def test_it_can_find_teams_with_higher_away_win_percentages_aka_worst_fans
     assert_equal [], @games_teams_collection.worst_fans # none in fixture data
+  end
+
+  def test_it_can_get_all_games_of_a_given_team
+    assert_equal 6, @games_teams_collection.list_of_games_of_team("2").length
+    assert_instance_of Array, @games_teams_collection.list_of_games_of_team("2")
+    assert_equal true, @games_teams_collection.list_of_games_of_team("2").all? {|element| element.is_a?(GameTeam)}
+  end
+
+  def test_it_can_total_all_goals_of_given_team
+    assert_equal 11, @games_teams_collection.total_goals_of_team("2")
+  end
+
+  def test_it_can_average_goals_of_team
+    assert_equal 1.83, @games_teams_collection.average_goals_for_team("2")
+  end
+
+  def test_it_can_find_team_with_best_offense
+    assert_equal "9", @games_teams_collection.best_offense
+  end
+
+  def test_it_can_find_team_with_worst_offense
+    assert_equal "30", @games_teams_collection.worst_offense
+  end
+
+  def test_it_can_find_opponent_game_team_object_given_game_team_object
+    assert_equal @games_teams_collection.games_teams[1], @games_teams_collection.opponent_object(@games_teams_collection.games_teams[0])
+  end
+
+  def test_it_can_find_all_opponent_games_by_team
+    expected_array = [
+      @games_teams_collection.games_teams[79],
+      @games_teams_collection.games_teams[81],
+      @games_teams_collection.games_teams[82],
+      @games_teams_collection.games_teams[84],
+      @games_teams_collection.games_teams[87],
+      @games_teams_collection.games_teams[88]
+    ]
+    assert_equal expected_array, @games_teams_collection.all_opponent_games("2")
+  end
+
+  def test_it_can_find_total_goals_of_opponent
+    assert_equal 15, @games_teams_collection.total_goals_of_opponents("2")
+  end
+
+  def test_it_can_find_average_of_opponents_goals
+    assert_equal 2.50, @games_teams_collection.average_goals_of_opponents("2")
+  end
+
+  def test_it_can_find_team_with_best_defense
+    assert_equal "6", @games_teams_collection.best_defense
+  end
+
+  def test_it_can_find_team_with_worst_defense
+    assert_equal "8", @games_teams_collection.worst_defense
   end
 end
