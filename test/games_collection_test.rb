@@ -120,7 +120,7 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_calculate_average_home_score_of_given_team
-    assert_equal 2, @games_collection.average_home_score_of_team("6")
+    assert_equal 2.4, @games_collection.average_home_score_of_team("6")
   end
 
   def test_it_can_tell_us_highest_scoring_home_team
@@ -132,7 +132,7 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_tell_us_lowest_scoring_home_team
-    assert_equal "3", @games_collection.lowest_scoring_home_team
+    assert_equal "4", @games_collection.lowest_scoring_home_team
   end
 
   def test_it_can_tell_us_lowest_scoring_visitor
