@@ -17,7 +17,7 @@ class TeamsCollectionTest < Minitest::Test
   end
 
   def test_it_has_count_of_teams
-    assert_equal 8, @total_teams.total_teams.length
+    assert_equal 8, @total_teams.count_of_teams
   end
 
   def test_it_has_the_best_offense
@@ -33,7 +33,7 @@ class TeamsCollectionTest < Minitest::Test
   end
 
   def test_it_has_the_worst_defense
-    assert_equal "Houston Dynamo", @total_teams.worst_defense 
+    assert_equal "Houston Dynamo", @total_teams.worst_defense
   end
 
   def test_it_has_winningest_team

@@ -40,7 +40,7 @@ class TeamCollection
   end
 
   def count_of_teams
-    @total_teams.total_teams.length
+    @total_teams.length
   end
 
   def best_offense
@@ -65,7 +65,7 @@ class TeamCollection
     @total_teams.max_by do |team|
       team.average_goals_allowed_per_game
     end.team_name
-  end 
+  end
 
   def winningest_team
     @total_teams.max_by do |team|
