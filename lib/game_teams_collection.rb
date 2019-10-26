@@ -15,14 +15,13 @@ class GameTeamsCollection
     end
   end
 
-  def winningest_team
-     #refactor for winningest
+  def winningest_team_id
     team_game_count = Hash.new(0)
     @game_teams_collection_instances.each do |game|
       if game.result == "WIN"
        team_game_count[game.team_id] += 1
       end
     end
-    team_game_count.max_by {|key, value| value}
+    team_game_count.max_by {|key, value| value}.first.to_s
   end
 end

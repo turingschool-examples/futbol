@@ -29,6 +29,6 @@ class GameTeamsCollectionTest < MiniTest::Test
     #this is in progress
     new_game_tracker_instance = GameTeamsCollection.new('./dummy_data/dummy_game_teams.csv')
 
-    assert_equal [6, 4], new_game_tracker_instance.winningest_team
+    assert_equal "6", new_game_tracker_instance.winningest_team
   end
 end
