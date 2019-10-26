@@ -2,8 +2,7 @@ require_relative './game_collection'
 require_relative './team_collection'
 
 class StatTracker
-  attr_reader :stats
-
+  
   def initialize(game_path, team_path, game_team_path)
     # should we move the creation of instances into a method
     @games_collection = GameCollection.new(game_path)
@@ -58,5 +57,17 @@ class StatTracker
 
   def winningest_team
     @teams_collection.winningest_team
+  end
+
+  def best_offense
+    @teams_collection.best_offense
+  end
+
+  def best_fans
+    @teams_collection.best_fans
+  end
+
+  def worst_fans
+    @teams_collection.worst_fans
   end
 end
