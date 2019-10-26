@@ -37,4 +37,13 @@ class TeamsCollection
     end
     team_data
   end
+
+  def best_season(team_id)
+    season = ""
+    @teams.each do |team|
+      if team.team_id == team_id
+      end
+    end
+    season
+  end
 end

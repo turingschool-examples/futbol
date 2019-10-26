@@ -35,4 +35,8 @@ class TeamsCollectionTest < Minitest::Test
     }
     assert_equal expected, @teams_collection.team_info("1")
   end
+
+  def test_it_can_find_best_season
+    assert_equal "", @teams_collection.best_season("1")
+  end
 end

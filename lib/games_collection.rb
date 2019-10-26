@@ -168,4 +168,14 @@ class GamesCollection
       average_away_score_of_team(away_team_id)
     end
   end
+
+  def team_games(team_id)
+    team_games_list = []
+    @games.each do |game|
+      if team_id == game.home_team_id || game.away_team_id
+        team_games_list << game
+      end
+    end
+    team_games_list
+  end
 end
