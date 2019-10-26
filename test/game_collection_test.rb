@@ -5,7 +5,7 @@ require './lib/game_collection'
 class GameCollectionTest < Minitest::Test
 
   def setup
-    @game_collection = GameCollection.new("./data/games_sample.csv")
+    @game_collection = GameCollection.new("./test/data/games_sample.csv")
   end
 
   def test_it_exists
@@ -13,7 +13,7 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_it_has_total_games
-    @game_collection.create_games('./data/games_sample.csv')
+    @game_collection.create_games('./test/data/games_sample.csv')
     assert_equal 8, @game_collection.total_games.length
   end
 

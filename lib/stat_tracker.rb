@@ -1,4 +1,4 @@
-require './lib/game_collection'
+require_relative './game_collection'
 
 class StatTracker
   attr_reader :stats

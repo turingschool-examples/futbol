@@ -4,7 +4,7 @@ require './lib/team_collection'
 class TeamsCollectionTest < Minitest::Test
 
   def setup
-    @total_teams = TeamCollection.new("./data/teams_sample.csv")
+    @total_teams = TeamCollection.new("./test/data/teams_sample.csv")
   end
 
   def test_it_exists
@@ -12,7 +12,7 @@ class TeamsCollectionTest < Minitest::Test
   end
 
   def test_it_has_total_teams
-    @total_teams.create_teams('./data/teams_sample.csv')
+    @total_teams.create_teams("./test/data/teams_sample.csv")
     assert_equal 3, @total_teams.total_teams.length
   end
 end
