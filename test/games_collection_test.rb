@@ -184,14 +184,14 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_list_seasons_a_team_played_in
-    assert_equal ["20122013"], @games_collection.team_seasons("2")
+    assert_equal ["20122013", "20152016", "20142015"], @games_collection.team_seasons("5")
   end
 
   def test_it_can_tell_us_best_season_for_given_team
-    assert_equal "20122013", @games_collection.best_season("2")
+    assert_equal "20152016", @games_collection.best_season("5")
   end
 
   def test_it_can_tell_us_worst_season_for_given_team
-    assert_equal "20122013", @games_collection.worst_season("2")
+    assert_equal "20142015", @games_collection.worst_season("5")
   end
 end

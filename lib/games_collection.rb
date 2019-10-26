@@ -219,6 +219,12 @@ class GamesCollection
     @games.map {|game| game.season}.uniq
   end
 
+  def team_seasons(team_id)
+    games_with_team(team_id).map do |game|
+      game.season
+    end.uniq
+  end
+
   def best_season(team_id)
     team_seasons(team_id).max_by do |season|
       team_win_percentage(team_id, season)
@@ -229,11 +235,5 @@ class GamesCollection
     team_seasons(team_id).min_by do |season|
       team_win_percentage(team_id, season)
     end
-  end
-
-  def team_seasons(team_id)
-    games_with_team(team_id).map do |game|
-      game.season
-    end.uniq
   end
 end
