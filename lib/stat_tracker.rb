@@ -63,4 +63,8 @@ class StatTracker
   def average_goals_by_season
     @game_collection.avg_goals_in_season
   end
+
+  def count_of_teams
+    @team_collection.team_count
+  end
 end
