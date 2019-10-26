@@ -2,7 +2,7 @@ require_relative './game_collection'
 require_relative './team_collection'
 
 class StatTracker
-  
+
   def initialize(game_path, team_path, game_team_path)
     # should we move the creation of instances into a method
     @games_collection = GameCollection.new(game_path)
@@ -43,7 +43,7 @@ class StatTracker
     @games_collection.percentage_ties
   end
 
-  def count_of_games_by_season_list
+  def count_of_games_by_season
     @games_collection.count_of_games_by_season
   end
 
