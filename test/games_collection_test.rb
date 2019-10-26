@@ -180,4 +180,8 @@ class GamesCollectionTest < Minitest::Test
   def test_it_can_count_home_wins
     assert_equal 2, @games_collection.total_home_wins("2")
   end
+
+  def test_it_can_count_total_team_wins
+    assert_equal 2, @games_collection.total_team_wins("2")
+  end
 end
