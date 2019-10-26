@@ -20,4 +20,16 @@ class GameTeamCollection
     team_id_array.uniq.length
   end
 
+
+
+  def winningest_team
+    win = []
+    winning = @game_team.find_all do |gt|
+    gt.result == "LA Galaxy" && gt.team_id == gt.team_id
+      end
+    end
+#need to iterate over the game_team csv to find the team ID associated with the most
+#WINS. then refernce the teams.csv to grab the name of the team associated with that
+#team_id
+
 end
