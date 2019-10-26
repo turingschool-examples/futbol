@@ -50,4 +50,14 @@ class GameCollectionTest < MiniTest::Test
     assert_equal 4, @game_collection.count_of_games_by_season.count
     assert_equal 10, @game_collection.value_maker("20122013").length
   end
+
+  def test_best_defense_per_season
+    assert_equal 4, @game_collection.best_defense_per_season
+  end
+
+
+  def test_worst_defense_per_season
+    skip
+  end
+
 end
