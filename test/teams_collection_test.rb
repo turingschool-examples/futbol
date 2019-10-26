@@ -19,9 +19,23 @@ class TeamsCollectionTest < Minitest::Test
   def test_it_can_get_name_of_team_by_id
     assert_equal "FC Dallas", @teams_collection.name_of_team_by_id("6")
     assert_equal "Los Angeles FC", @teams_collection.name_of_team_by_id("28")
-  end 
-  
+  end
+
   def test_it_knows_how_many_teams_there_are
     assert_equal 32, @teams_collection.count_of_teams
+  end
+
+  def test_it_can_give_team_info
+    expected = {
+      team_id: {
+        "1" => {
+          franchise_id: "23",
+          team_name: "Atlanta United",
+          abbreviation: "ATL",
+          link: '/api/v1/teams/1'
+        }
+      }
+    }
+    assert_equal expected, @teams_collection.team_info("1")
   end
 end
