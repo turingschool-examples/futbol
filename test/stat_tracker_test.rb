@@ -20,4 +20,7 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, stat_tracker
   end
 
+  def test_it_has_scores
+    @stat_tracker.highest_total_score
+  end
 end
