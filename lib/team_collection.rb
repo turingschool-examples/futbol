@@ -17,4 +17,13 @@ class TeamCollection
     end
     team_objects
   end
+
+  def winningest_team(team_id)
+    #untested
+    @team_instances.each do |team|
+      if team[:team_id] == team_id
+        team[:teamname]
+      end
+    end
+  end
 end
