@@ -8,23 +8,24 @@ require 'CSV'
 
 
 class StatTracker
-  attr_reader  :game_collection, :team_collection
+  attr_reader  :game_collection, :team_collection, :game_team_collection
 
   def self.from_csv(locations)
     game_file = locations[:games]
     team_file = locations[:teams]
-    game_teams_file = locations[:game_teams]
+    game_team_file = locations[:game_teams]
 
     game_collection = GameCollection.load_data(game_file)
     team_collection = TeamCollection.load_data(team_file)
+    game_team_collection = GameTeamCollection.load_data(game_team_file)
 
-    StatTracker.new(game_collection, team_collection, game_teams_file)
+    StatTracker.new(game_collection, team_collection, game_team_collection)
   end
 
-  def initialize(game_collection, team_collection, game_teams_file)
+  def initialize(game_collection, team_collection, game_team_collection)
     @game_collection = game_collection
     @team_collection = team_collection
-    @game_teams_file = game_teams_file
+    @game_team_collection = game_team_collection
   end
 
   def highest_total_score
