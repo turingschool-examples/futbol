@@ -183,4 +183,44 @@ class GamesTeamsCollection
     find_by_in(team_id, "team_id", @games_teams)
   end
 
+  def total_goals_of_team(team_id)
+    list_of_games_of_team(team_id).sum { |game_team| game_team.goals.to_i }
+  end
+
+  def average_goals_for_team(team_id)
+    (total_goals_of_team(team_id) / total_games_with_team(team_id).to_f).round(2)
+  end
+
+  def best_offense
+    all_team_ids.max_by { |team_id| average_goals_for_team(team_id) }
+  end
+
+  def worst_offense
+    all_team_ids.min_by { |team_id| average_goals_for_team(team_id) }
+  end
+
+  def opponent_object(game_team_selected)
+    @games_teams.find do |game_team|
+      game_team.game_id == game_team_selected.game_id && game_team.hoa != game_team_selected.hoa
+    end
+  end
+
+  def all_opponent_games(team_id)
+    list_of_games_of_team(team_id).map do |game_team|
+      opponent_object(game_team)
+    end
+  end
+
+  def total_goals_of_opponents(team_id)
+    all_opponent_games(team_id).sum { |game_team| game_team.goals.to_i }
+  end
+
+  def average_goals_of_opponents(team_id)
+    (total_goals_of_opponents(team_id) / all_opponent_games(team_id).length.to_f).round(2)
+  end
+
+  def best_defense
+    all_team_ids.min_by { |team_id| average_goals_of_opponents(team_id) }
+  end
+
 end
