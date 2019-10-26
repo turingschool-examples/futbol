@@ -4,14 +4,14 @@ require './lib/stat_tracker'
 
 class StatTrackerTest < Minitest::Test
   def setup
-    @stat_tracker = StatTracker.new("./test/test_game_data.csv", "./test/test_game_team_data.csv", "./data/teams.csv")
+    @stat_tracker = StatTracker.new("./test/dummy_game_data.csv", "./test/dummy_game_team_data.csv", "./test/dummy_team_data.csv")
   end
 
   def test_it_exists
     assert_instance_of StatTracker, @stat_tracker
   end
 
-  def test_it_can_calculate_highest_goal_total
+  def test_it_can_calculate_highest_total_score
     assert_equal 7, @stat_tracker.highest_total_score
   end
 
@@ -23,18 +23,18 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3, @stat_tracker.biggest_blowout
   end
 
-  def test_percent_home_wins
-    assert_equal 33.33, @stat_tracker.percent_home_wins
+  def test_percentage_home_wins
+    assert_equal 33.33, @stat_tracker.percentage_home_wins
     #3 wins in test sample
   end
 
-  def test_percent_visitor_wins
-    assert_equal 41.67, @stat_tracker.percent_visitor_wins
+  def test_percentage_visitor_wins
+    assert_equal 41.67, @stat_tracker.percentage_visitor_wins
     #5 wins in test sample
   end
 
-  def test_percent_ties
-    assert_equal 25.00, @stat_tracker.percent_ties
+  def test_percentage_ties
+    assert_equal 25.00, @stat_tracker.percentage_ties
   end
 
   def test_it_can_give_number_of_games_in_season
@@ -46,7 +46,7 @@ class StatTrackerTest < Minitest::Test
     "20162017" => 2,
     "20172018" => 1
     }
-    assert_equal expected, @stat_tracker.game_count_per_season
+    assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
   def test_it_can_count_goals_per_season
@@ -71,5 +71,9 @@ class StatTrackerTest < Minitest::Test
       "20172018" => 4.00
     }
     assert_equal expected, @stat_tracker.average_goals_by_season
+  end
+
+  def test_it_can_return_average_goals_per_game
+    assert_equal 3.92, @stat_tracker.average_goals_per_game
   end
 end
