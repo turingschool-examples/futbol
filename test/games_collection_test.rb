@@ -14,17 +14,6 @@ class GamesCollectionTest < Minitest::Test
     assert_equal true, @games_collection.games.all? {|game| game.is_a?(Game)}
   end
 
-  def test_it_can_find_games_by_season
-    expected = [
-      "20122013",
-      "20162017",
-      "20142015",
-      "20152016",
-      "20132014"
-    ]
-    assert_equal expected, @games_collection.unique_seasons
-  end
-
   def test_it_knows_the_number_of_games_in_each_season
     expected = [
       57,
@@ -181,5 +170,16 @@ class GamesCollectionTest < Minitest::Test
 
   def test_it_can_calculate_win_percentage_for_a_team
     assert_equal 0.33, @games_collection.team_win_percentage("2", "20122013")
+  end
+
+  def test_it_can_list_seasons
+    expected = [
+      "20122013",
+      "20162017",
+      "20142015",
+      "20152016",
+      "20132014"
+    ]
+    assert_equal expected, @games_collection.unique_seasons
   end
 end

@@ -16,10 +16,6 @@ class GamesCollection
     objects
   end
 
-  def unique_seasons
-    @games.map {|game| game.season}.uniq
-  end
-
   def number_of_games_in_each_season
     seasons_of_games = @games.group_by {|game| game.season}
     seasons_of_games.values.map {|value| value.length}
@@ -217,5 +213,9 @@ class GamesCollection
 
   def team_win_percentage(team_id, season)
     (total_team_wins(team_id, season) / games_with_team_in_season(team_id, season).length.to_f).round(2)
+  end
+
+  def unique_seasons
+    @games.map {|game| game.season}.uniq
   end
 end
