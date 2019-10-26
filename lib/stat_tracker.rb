@@ -52,6 +52,10 @@ class StatTracker
     @games.average_goals_by_season
   end
 
+  def count_of_teams
+    @teams.count_of_teams
+  end
+
   # Helper method
   def name_of_team(team_id)
     @teams.name_of_team_by_id(team_id)

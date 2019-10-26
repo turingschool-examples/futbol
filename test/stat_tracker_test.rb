@@ -76,6 +76,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected_hash, @stat_tracker.average_goals_by_season
   end
 
+  def test_it_knows_how_many_teams_there_are
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+
   def test_it_can_get_name_of_team_by_id
     assert_equal "FC Dallas", @stat_tracker.name_of_team("6")
     assert_equal "Los Angeles FC", @stat_tracker.name_of_team("28")
