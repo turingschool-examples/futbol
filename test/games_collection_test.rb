@@ -14,17 +14,6 @@ class GamesCollectionTest < Minitest::Test
     assert_equal true, @games_collection.games.all? {|game| game.is_a?(Game)}
   end
 
-  def test_it_can_find_games_by_season
-    expected = [
-      "20122013",
-      "20162017",
-      "20142015",
-      "20152016",
-      "20132014"
-    ]
-    assert_equal expected, @games_collection.unique_seasons
-  end
-
   def test_it_knows_the_number_of_games_in_each_season
     expected = [
       57,
@@ -139,8 +128,70 @@ class GamesCollectionTest < Minitest::Test
     assert_equal "2", @games_collection.lowest_scoring_visitor
   end
 
+
+# calculate: (total_wins_for_a_team_id / total_games_for_a_team_id)
+# calculate win percentage for given_set_of_games
+# get all games in a particular season (team_game_list)
+# calculate win_percentage for a given_season for a team_id
+# get list of unique seasons
+# for each season, calcul;ate win percentage for a given team
+# get highest
+# get lowest
+
   def test_it_knows_all_the_games_per_teams
-    expected = ({})
-    assert_equal expected, @games_collection.team_games("1")
+    # skip
+    expected = [
+      @games_collection.games[39],
+      @games_collection.games[40],
+      @games_collection.games[41],
+      @games_collection.games[42],
+      @games_collection.games[43],
+      @games_collection.games[44]
+    ]
+    assert_equal expected, @games_collection.games_with_team("2").sort_by { |game| game.game_id}
+  end
+
+  def test_it_can_tell_away_win
+    assert_equal true, @games_collection.away_win?(@games_collection.games[3])
+    assert_equal false, @games_collection.away_win?(@games_collection.games[0])
+  end
+
+  def test_it_can_count_away_wins
+    assert_equal 0, @games_collection.total_away_wins("2", "20122013")
+  end
+
+  def test_it_can_count_home_wins
+    assert_equal 2, @games_collection.total_home_wins("2", "20122013")
+  end
+
+  def test_it_can_count_total_team_wins
+    assert_equal 2, @games_collection.total_team_wins("2", "20122013")
+  end
+
+  def test_it_can_calculate_win_percentage_for_a_team
+    assert_equal 0.33, @games_collection.team_win_percentage("2", "20122013")
+  end
+
+  def test_it_can_list_seasons
+    expected = [
+      "20122013",
+      "20162017",
+      "20142015",
+      "20152016",
+      "20132014"
+    ]
+    assert_equal expected, @games_collection.unique_seasons
+  end
+
+  def test_it_can_list_seasons_a_team_played_in
+    assert_equal ["20122013", "20152016", "20142015"], @games_collection.team_seasons("5")
+  end
+
+  def test_it_can_tell_us_best_season_for_given_team
+    assert_equal "20152016", @games_collection.best_season("5")
+  end
+
+  def test_it_can_tell_us_worst_season_for_given_team
+    assert_equal "20142015", @games_collection.worst_season("5")
   end
 end
