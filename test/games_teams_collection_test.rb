@@ -100,8 +100,8 @@ class GamesTeamsCollectionTest < Minitest::Test
     assert_equal expected_array, @games_teams_collection.all_team_ids.sort
   end
 
-  def test_it_can_return_team_id_of_team_with_best_win_percentage
-    assert_equal "6", @games_teams_collection.team_id_with_best_win_percentage
+  def test_it_finds_team_id_of_team_with_best_win_percentage_aka_winningest
+    assert_equal "6", @games_teams_collection.winningest_team
   end
 
   def test_it_can_find_all_away_games_of_team_by_id
@@ -124,12 +124,12 @@ class GamesTeamsCollectionTest < Minitest::Test
     assert_equal 0.00, @games_teams_collection.team_away_win_percentage("2")
   end
 
-  def test_it_can_find_id_of_team_with_highest_home_win_percentage
-    assert_equal "6", @games_teams_collection.team_with_best_home_win_percentage
-    refute_equal "2", @games_teams_collection.team_with_best_home_win_percentage
+  def test_it_finds_team_with_biggest_diff_btw_home_and_away_percent_aka_best_fans
+    assert_equal "16", @games_teams_collection.best_fans
+    refute_equal "2", @games_teams_collection.best_fans
   end
 
-  def test_it_can_find_array_of_team_ids_with_higher_away_win_percentages
-    assert_equal [], @games_teams_collection.teams_with_better_away_win_percentage_than_home
+  def test_it_can_find_teams_with_higher_away_win_percentages_aka_worst_fans
+    assert_equal [], @games_teams_collection.worst_fans # none in fixture data
   end
 end

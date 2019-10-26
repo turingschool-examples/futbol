@@ -138,8 +138,7 @@ class GamesTeamsCollection
     every_unique("team_id", @games_teams)
   end
 
-  # Core helper method for several Iteration 3 methods
-  def team_id_with_best_win_percentage
+  def winningest_team
     all_team_ids.max_by { |team_id| team_win_percentage(team_id) }
   end
 
@@ -168,13 +167,13 @@ class GamesTeamsCollection
     percent_of(number_of_wins_in(away_games_of_team(team_id)), home_games_of_team(team_id).length)
   end
 
-  def team_with_best_home_win_percentage
+  def best_fans
     all_team_ids.max_by do |team_id|
-      team_home_win_percentage(team_id)
+      (team_home_win_percentage(team_id) - team_away_win_percentage(team_id)).abs
     end
   end
 
-  def teams_with_better_away_win_percentage_than_home
+  def worst_fans
     all_team_ids.find_all do |team_id|
       team_home_win_percentage(team_id) < team_away_win_percentage(team_id)
     end
