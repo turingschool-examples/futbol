@@ -50,4 +50,5 @@ class GameCollectionTest < MiniTest::Test
     assert_equal 4, @game_collection.count_of_games_by_season.count
     assert_equal 10, @game_collection.value_maker("20122013").length
   end
+
 end
