@@ -62,14 +62,14 @@ class StatTracker
   end
 
   def winningest_team
-    name_of_team(@games_teams.team_id_with_best_win_percentage)
+    name_of_team(@games_teams.winningest_team)
   end
 
   def best_fans
-    name_of_team(@games_teams.team_with_best_home_win_percentage)
+    name_of_team(@games_teams.best_fans)
   end
 
   def worst_fans
-    @games_teams.teams_with_better_away_win_percentage_than_home.map { |team_id| name_of_team(team_id) }
+    @games_teams.worst_fans.map { |team_id| name_of_team(team_id) }
   end
 end

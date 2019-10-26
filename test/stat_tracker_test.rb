@@ -90,7 +90,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_team_with_best_fans
-    assert_equal "FC Dallas", @stat_tracker.best_fans
+    assert_equal "New England Revolution", @stat_tracker.best_fans
   end
 
   def test_it_can_find_names_of_teams_with_worst_fans
