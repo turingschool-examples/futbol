@@ -22,7 +22,7 @@ class GameTest < Minitest::Test
     game = @games.first
 
     assert_equal 2012030221, game.game_id
-    assert_equal 20122013, game.season
+    assert_equal "20122013", game.season
     assert_equal "Postseason", game.type
     assert_equal "5/16/13", game.date_time
     assert_equal 3, game.away_team_id
