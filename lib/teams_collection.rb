@@ -28,13 +28,11 @@ class TeamsCollection
     team_data = {}
     @teams.each do |team|
       if team.team_id == team_id
-        team_data[:team_id] = {team_id => {
-          :franchise_id => team.franchise_id,
-          :team_name => team.team_name,
-          :abbreviation => team.abbreviation,
-          :link => team.link
-        }
-      }
+        team_data["abbreviation"] = team.abbreviation
+        team_data["franchise_id"] = team.franchise_id
+        team_data["link"] = team.link
+        team_data["team_id"] = team.team_id
+        team_data["team_name"] = team.team_name
       end
     end
     team_data

@@ -88,4 +88,8 @@ class StatTracker
   def worst_fans
     @games_teams.worst_fans.map { |team_id| name_of_team(team_id) }
   end
+
+  def team_info(team_id)
+    @teams.team_info(team_id)
+  end
 end

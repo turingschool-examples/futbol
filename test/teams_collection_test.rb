@@ -27,14 +27,11 @@ class TeamsCollectionTest < Minitest::Test
 
   def test_it_can_give_team_info
     expected = {
-      team_id: {
-        "1" => {
-          franchise_id: "23",
-          team_name: "Atlanta United",
-          abbreviation: "ATL",
-          link: '/api/v1/teams/1'
-        }
-      }
+      "abbreviation" => "ATL",
+      "franchise_id" => "23",
+      "link" => '/api/v1/teams/1',
+      "team_id" => "1",
+      "team_name" => "Atlanta United",
     }
     assert_equal expected, @teams_collection.team_info("1")
   end
