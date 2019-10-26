@@ -230,4 +230,8 @@ class GamesTeamsCollection
   def most_goals_scored(team_id)
     list_of_games_of_team(team_id).map(&:goals).max.to_i
   end
+
+  def fewest_goals_scored(team_id)
+    list_of_games_of_team(team_id).map(&:goals).min.to_i
+  end
 end

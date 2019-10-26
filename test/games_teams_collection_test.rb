@@ -187,7 +187,11 @@ class GamesTeamsCollectionTest < Minitest::Test
     assert_equal "8", @games_teams_collection.worst_defense
   end
 
-  def test_it_can_list_all_teams_goals
+  def test_it_can_find_most_goals_scored_per_team
     assert_equal 4, @games_teams_collection.most_goals_scored("2")
+  end
+
+  def test_it_can_find_least_goals_scored_per_team
+    assert_equal 0, @games_teams_collection.fewest_goals_scored("2")
   end
 end
