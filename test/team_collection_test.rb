@@ -30,6 +30,8 @@ class TeamsCollectionTest < Minitest::Test
   end
 
   def test_it_has_worst_fans
+    # with data samples as of 10/25/19,
+    # there are no worst fans in the data set
     assert_equal [], @total_teams.worst_fans
   end
 end
