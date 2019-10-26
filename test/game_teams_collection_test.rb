@@ -1,10 +1,8 @@
-require 'minitest/autorun'
-# require 'minitest/reporters'
-# Minitest::Reporters.use!
 require 'csv'
 require './lib/game_teams'
 require './lib/stat_tracker'
 require './lib/game_teams_collection'
+require_relative 'test_helper'
 
 class GameTeamsCollectionTest < MiniTest::Test
   def test_it_exists
