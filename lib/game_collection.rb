@@ -1,6 +1,5 @@
 require 'csv'
 require_relative 'game'
-require_relative 'stat_tracker'
 
 class GameCollection
   attr_reader :game_instances
@@ -60,9 +59,8 @@ class GameCollection
     (goals.to_f / @game_instances.length).round(2)
   end
 
-  def average_goals_per_season
+  def average_goals_by_season
     ave_season_goals = Hash.new(0)
-    goals = 0
     @game_instances.each do |game|
       ave_season_goals[game.season] += (game.away_goals.to_f + game.home_goals)
     end
