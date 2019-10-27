@@ -236,4 +236,42 @@ class GamesCollection
       team_win_percentage(team_id, season)
     end
   end
+
+  def season_values(team_id, season)
+    values = {}
+    @games.each do |game|
+      if team_id == game.away_team_id || team_id == game.home_team_id
+        values[:win_percentage] = team_win_percentage(team_id, season)
+        values[:total_goals_scored] = total_home_goals(team_id) + total_away_goals(team_id)
+        values[:total_goals_against] = 0
+        values[:average_goals_scored] = (average_away_score_of_team(team_id) + average_home_score_of_team(team_id)).round(2)
+        values[:average_goals_against] = 0
+      end
+    end
+    values
+  end
+
+  def season_type(team_id, season)
+    type = {}
+    @games.each do |game|
+      if team_id == game.away_team_id || team_id == game.home_team_id
+      type[game.type.gsub(/\s+/, "_").downcase.intern] = season_values(team_id, season)
+      end
+    end
+    type
+  end
+
+  # def games_by_seasons(element, attribute_str, collection)
+  #   find_by_in(element, attribute_str, collection)
+  # end
+
+  def seasonal_summary(team_id, season_id)
+    season_info = {}
+    @games.each do |game|
+      if team_id == game.away_team_id || team_id == game.home_team_id
+      season_info[game.season] = season_type(team_id, season_id)
+      end
+    end
+    season_info
+  end
 end

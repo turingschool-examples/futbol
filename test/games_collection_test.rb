@@ -194,4 +194,78 @@ class GamesCollectionTest < Minitest::Test
   def test_it_can_tell_us_worst_season_for_given_team
     assert_equal "20142015", @games_collection.worst_season("5")
   end
+
+  def test_it_has_season_values
+
+    expected = {
+      :win_percentage=>0.61,
+     :total_goals_scored=>65,
+     :total_goals_against=>40,
+     :average_goals_scored=>4.34,
+     :average_goals_against=>1.82
+   }
+
+    assert_equal expected, @games_collection.season_values("16", "20122013")
+  end
+
+  def test_it_can_check_season_type
+
+    expected =
+    {:postseason=>
+      {:win_percentage=>0.59,
+       :total_goals_scored=>48,
+       :total_goals_against=>40,
+       :average_goals_scored=>2.18,
+       :average_goals_against=>1.82},
+     :regular_season=>
+      {:win_percentage=>0.38,
+       :total_goals_scored=>180,
+       :total_goals_against=>170,
+       :average_goals_scored=>2.2,
+       :average_goals_against=>2.07}}
+
+    assert_equal expected, @games_collection.season_type("16", "20122013")
+  end
+
+  def test_it_has_a_seasonal_summary
+
+    expected = {
+                "20162017"=>
+                {
+                  :postseason=>
+                    {:win_percentage=>0.59,
+                     :total_goals_scored=>48,
+                     :total_goals_against=>40,
+                     :average_goals_scored=>2.18,
+                     :average_goals_against=>1.82
+                    },
+                  :regular_season=>
+                    {:win_percentage=>0.38,
+                     :total_goals_scored=>180,
+                     :total_goals_against=>170,
+                     :average_goals_scored=>2.2,
+                     :average_goals_against=>2.07
+                    }
+                },
+                "20172018"=>
+                {
+                  :postseason=>
+                    {:win_percentage=>0.54,
+                     :total_goals_scored=>29,
+                     :total_goals_against=>28,
+                     :average_goals_scored=>2.23,
+                     :average_goals_against=>2.15
+                    },
+                 :regular_season=>
+                    {:win_percentage=>0.44,
+                     :total_goals_scored=>187,
+                     :total_goals_against=>162,
+                     :average_goals_scored=>2.28,
+                     :average_goals_against=>1.98
+                    }
+                }
+              }
+
+    assert_equal expected, @games_collection.seasonal_summary("16", "20122013")
+  end
 end
