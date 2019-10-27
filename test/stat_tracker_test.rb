@@ -93,18 +93,15 @@ class StatTrackerTest < Minitest::Test
     assert_equal 5, @stat_tracker.game_collection.games_by_season["20122013"].length
   end
 
-<<<<<<< HEAD
-  def best_offense
-
-  end
-=======
   ##############
   #league stats#
   ##############
-
+  
   def test_team_count
     assert_equal 20, @stat_tracker.count_of_teams
   end
-  
->>>>>>> 8c73bca1787e3d85c92bfb6cc94468f38f95d073
+
+  def test_best_defense
+    assert_equal "Atlanta United", @stat_tracker.best_defense
+  end
 end

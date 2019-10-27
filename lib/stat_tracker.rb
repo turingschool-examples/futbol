@@ -67,4 +67,7 @@ class StatTracker
   def count_of_teams
     @team_collection.team_count
   end
+
+  def best_defense
+  end
 end
