@@ -199,11 +199,11 @@ class GamesCollectionTest < Minitest::Test
   def test_it_has_season_values
 
     expected = {
-      :win_percentage=>0.61,
+      :win_percentage=>0.56,
      :total_goals_scored=>65,
-     :total_goals_against=>40,
+     :total_goals_against=>4,
      :average_goals_scored=>4.34,
-     :average_goals_against=>1.82
+     :average_goals_against=>0
    }
 
     assert_equal expected, @games_collection.season_values("16", "20122013")
@@ -213,59 +213,63 @@ class GamesCollectionTest < Minitest::Test
 
     expected =
     {:postseason=>
-      {:win_percentage=>0.59,
-       :total_goals_scored=>48,
-       :total_goals_against=>40,
-       :average_goals_scored=>2.18,
-       :average_goals_against=>1.82},
+      {:win_percentage=>0.56,
+       :total_goals_scored=>65,
+       :total_goals_against=>4,
+       :average_goals_scored=>4.34,
+       :average_goals_against=>0},
      :regular_season=>
-      {:win_percentage=>0.38,
-       :total_goals_scored=>180,
-       :total_goals_against=>170,
-       :average_goals_scored=>2.2,
-       :average_goals_against=>2.07}}
+      {:win_percentage=>0.56,
+       :total_goals_scored=>65,
+       :total_goals_against=>4,
+       :average_goals_scored=>4.34,
+       :average_goals_against=>0}}
 
     assert_equal expected, @games_collection.season_type("16", "20122013")
   end
 
   def test_it_has_a_seasonal_summary
-
     expected = {
-                "20162017"=>
-                {
-                  :postseason=>
-                    {:win_percentage=>0.59,
-                     :total_goals_scored=>48,
-                     :total_goals_against=>40,
-                     :average_goals_scored=>2.18,
-                     :average_goals_against=>1.82
-                    },
-                  :regular_season=>
-                    {:win_percentage=>0.38,
-                     :total_goals_scored=>180,
-                     :total_goals_against=>170,
-                     :average_goals_scored=>2.2,
-                     :average_goals_against=>2.07
-                    }
-                },
-                "20172018"=>
-                {
-                  :postseason=>
-                    {:win_percentage=>0.54,
-                     :total_goals_scored=>29,
-                     :total_goals_against=>28,
-                     :average_goals_scored=>2.23,
-                     :average_goals_against=>2.15
-                    },
-                 :regular_season=>
-                    {:win_percentage=>0.44,
-                     :total_goals_scored=>187,
-                     :total_goals_against=>162,
-                     :average_goals_scored=>2.28,
-                     :average_goals_against=>1.98
-                    }
-                }
-              }
+     "20122013"=>{
+       :postseason=>
+        {:win_percentage=>0.56,
+         :total_goals_scored=>65,
+         :total_goals_against=>4,
+         :average_goals_scored=>4.34,
+         :average_goals_against=>0},
+        :regular_season=>
+         {:win_percentage=>0.56,
+          :total_goals_scored=>65,
+          :total_goals_against=>4,
+          :average_goals_scored=>4.34,
+          :average_goals_against=>0}},
+      "20142015"=>{
+        :postseason=>
+        {:win_percentage=>0.56,
+         :total_goals_scored=>65,
+         :total_goals_against=>4,
+         :average_goals_scored=>4.34,
+         :average_goals_against=>0},
+        :regular_season=>
+        {:win_percentage=>0.56,
+         :total_goals_scored=>65,
+         :total_goals_against=>4,
+         :average_goals_scored=>4.34,
+         :average_goals_against=>0}},
+      "20132014"=>{
+        :postseason=>
+        {:win_percentage=>0.56,
+         :total_goals_scored=>65,
+         :total_goals_against=>4,
+         :average_goals_scored=>4.34,
+         :average_goals_against=>0},
+        :regular_season=>
+        {:win_percentage=>0.56,
+         :total_goals_scored=>65,
+         :total_goals_against=>4,
+         :average_goals_scored=>4.34,
+         :average_goals_against=>0}}
+       }
 
     assert_equal expected, @games_collection.seasonal_summary("16", "20122013")
   end

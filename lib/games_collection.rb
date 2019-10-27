@@ -249,9 +249,9 @@ class GamesCollection
       if team_id == game.away_team_id || team_id == game.home_team_id
         values[:win_percentage] = team_win_percentage(team_id, season)
         values[:total_goals_scored] = total_home_goals(team_id) + total_away_goals(team_id)
-        values[:total_goals_against] = 0
+        values[:total_goals_against] = total_opponent_goals(team_id)
         values[:average_goals_scored] = (average_away_score_of_team(team_id) + average_home_score_of_team(team_id)).round(2)
-        values[:average_goals_against] = 0
+        values[:average_goals_against] = average_goals_of_opponent(team_id)
       end
     end
     values
