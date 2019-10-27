@@ -196,18 +196,18 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_find_the_home_goals_if_away_team
-    assert_equal 3, @games_collection.find_opponents_goals_if_away_team("2")
+    assert_equal 8, @games_collection.find_opponents_goals_if_away_team("2")
   end
 
   def test_it_can_find_the_away_goals_if_home_team
-    assert_equal 3, @games_collection.find_opponents_goals_if_home_team("2")
+    assert_equal 7, @games_collection.find_opponents_goals_if_home_team("2")
   end
 
   def test_it_can_get_total_opponents_goals
-    assert_equal 6, @games_collection.total_opponent_goals("2")
+    assert_equal 15, @games_collection.total_opponent_goals("2")
   end
 
   def test_it_can_find_average_of_opponenets_goals_given_team
-    assert_equal 1, @games_collection.average_goals_of_opponent("2")
+    assert_equal 2.5, @games_collection.average_goals_of_opponent("2")
   end
 end
