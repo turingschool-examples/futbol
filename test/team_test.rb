@@ -5,7 +5,6 @@ require 'mocha/minitest'
 require './lib/game_team'
 
 
-
 class TeamsTest < Minitest::Test
   def setup
     csv = CSV.read('./test/data/game_teams_sample.csv', headers: true, header_converters: :symbol)
@@ -67,7 +66,7 @@ class TeamsTest < Minitest::Test
     assert_equal 50.0, @team.away_win_percentage
   end
 
-  def test_it_can_find_away_games_by_team
+    def test_it_can_find_away_games_by_team
     team = @teams.find {|team| team.team_id == "26"}
     assert_equal 4, team.away_games_by_team.length
   end
