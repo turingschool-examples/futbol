@@ -101,4 +101,13 @@ class GameCollectionTest < Minitest::Test
   def test_highest_average_home_goals
     assert_equal 6, @game_collection.highest_average_home_goals
   end
+
+  def test_lowest_average_away_goals
+    assert_equal 3, @game_collection.lowest_average_away_goals
+    #returns 3 because multiple teams have an average of 2 goals
+  end
+
+  def test_lowest_average_home_goals
+    assert_equal 0, @game_collection.lowest_average_home_goals
+  end
 end
