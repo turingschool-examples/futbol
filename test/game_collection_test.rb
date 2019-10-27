@@ -63,4 +63,23 @@ class GameCollectionTest < Minitest::Test
     }
     assert_equal count_goals_by_season_list, @game_collection.average_goals_by_season
   end
+
+  def test_it_can_group_by_team_id_and_goals
+    group = [[3, 2], [3, 2], [6, 2], [9, 2], [24, 2], [16, 2], [6, 3], [6, 2]]
+    assert_equal group, @game_collection.group_by_away_team_id_and_goals
+  end
+
+  def test_sum_of_away_games
+    away_game_sum = {3=>4, 6=>7, 9=>2, 24=>2, 16=>2}
+    assert_equal away_game_sum, @game_collection.sum_of_away_games
+  end
+
+  def test_count_of_away_games
+    away_games_count = {3=>2, 6=>3, 9=>1, 24=>1, 16=>1}
+    assert_equal away_games_count, @game_collection.count_of_away_games
+  end
+
+  def test_highest_average_away_goals
+    assert_equal 3, @game_collection.highest_average_away_goals
+  end
 end
