@@ -20,5 +20,10 @@ class TeamCollectionTest < MiniTest::Test
 
   def test_highest_scoring_visitor
     assert_equal "Dallas", @team_instance.highest_scoring_visitor
+  end 
+
+  def test_winningest_team_method
+    assert_equal "FC Dallas", @team_instance.winningest_team("6")
+    assert_equal "LA Galaxy", @team_instance.winningest_team("17")
   end
 end

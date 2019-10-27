@@ -16,6 +16,11 @@ class TeamCollection
     end
   end
 
+  def highest_scoring_visitor(team_id)
+require "pry"; binding.pry
+   highest_visitor_score
+  end
+
   def count_of_teams
     id_list = @team_instances.map do |team|
       team.team_id
@@ -23,8 +28,12 @@ class TeamCollection
     id_list.uniq.length
   end
 
-  def highest_scoring_visitor(team_id)
-require "pry"; binding.pry
-   highest_visitor_score
+  def winningest_team(team_id)
+     @team_instances.reduce do |x, team|
+      if team.team_id == team_id
+        x = team.teamname
+      end
+      x
+    end
   end
 end
