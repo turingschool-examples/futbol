@@ -24,27 +24,34 @@ module LeagueModule
   end
 
   def highest_scoring_visitor
-
   end
 
   def lowest_scoring_visitor
-
   end
 
   def lowest_scoring_home_team
-
   end
 
   def winningest_team
-
+    teams_hash = game_teams.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = { :wins => 0, :total_games => games_played_by_team(game_team.team_id)}
+      acc
+    end
+    game_teams.map do |game|
+      teams_hash[game.team_id][:wins] += game.result == "WIN" ? 1 : 0
+    end
+    win_percent = teams_hash.reduce({}) do |acc, (k, v)|
+      acc[k] = (v[:wins].to_f / v[:total_games].to_f).round(2)
+      acc
+    end
+    result = win_percent.sort_by { |k, v| v }.last.first
+    convert_ids_to_team_name(result)
   end
 
   def best_fans
-
   end
 
   def worst_fans
-
   end
 
   ##Helper Methods##
@@ -90,4 +97,5 @@ module LeagueModule
     ids_to_name = teams.group_by {|team| team.team_id}.transform_values {|obj| obj[0].teamName}
     ids_to_name[id]
   end
+
 end

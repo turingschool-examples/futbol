@@ -5,10 +5,6 @@ require_relative 'game_module'
 require_relative 'league_module'
 require_relative 'season_module'
 require_relative 'team_module'
-<<<<<<< HEAD
-=======
-
->>>>>>> a03afb82e303b60969be1dbf01c0c1cea7cdfc2c
 
 class StatTracker
   include GameModule

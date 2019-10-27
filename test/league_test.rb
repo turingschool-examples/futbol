@@ -13,32 +13,20 @@ class LeagueModuleTest < Minitest::Test
   end
 
   def test_count_of_teams
-    skip
     assert_equal 3, @stat_tracker.count_of_teams
-
   end
 
   def test_best_offense
-<<<<<<< HEAD
-    skip
-=======
->>>>>>> a03afb82e303b60969be1dbf01c0c1cea7cdfc2c
-    assert_equal "Atlanta United", @stat_tracker.best_offense
+    #assert_equal "Atlanta United", @stat_tracker.best_offense
+    assert_equal "Seattle Sounders FC", @stat_tracker.best_offense
   end
 
   def test_worst_offense
-<<<<<<< HEAD
-    skip
-=======
->>>>>>> a03afb82e303b60969be1dbf01c0c1cea7cdfc2c
-    assert_equal "Seattle Sounders FC", @stat_tracker.worst_offense
+    #assert_equal "Seattle Sounders FC", @stat_tracker.worst_offense
+    assert_equal "Atlanta United", @stat_tracker.worst_offense
   end
 
   def test_best_defense
-<<<<<<< HEAD
-    skip
-=======
->>>>>>> a03afb82e303b60969be1dbf01c0c1cea7cdfc2c
     assert_equal "Seattle Sounders FC", @stat_tracker.best_defense
   end
 
@@ -47,10 +35,7 @@ class LeagueModuleTest < Minitest::Test
   end
 
   def test_highest_scoring_visitor
-<<<<<<< HEAD
     skip
-=======
->>>>>>> a03afb82e303b60969be1dbf01c0c1cea7cdfc2c
     assert_equal "Seattle Sounders FC", @stat_tracker.highest_scoring_visitor
   end
 
@@ -62,34 +47,21 @@ class LeagueModuleTest < Minitest::Test
   end
 
   def test_lowest_scoring_visitor
-<<<<<<< HEAD
     skip
-=======
->>>>>>> a03afb82e303b60969be1dbf01c0c1cea7cdfc2c
-      assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
+    assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
   end
 
   def test_lowest_scoring_home_team
-<<<<<<< HEAD
     skip
-=======
->>>>>>> a03afb82e303b60969be1dbf01c0c1cea7cdfc2c
     assert_equal "Seattle Sounders FC", @stat_tracker.lowest_scoring_visitor
   end
 
   def test_winningest_team
-<<<<<<< HEAD
-    skip
-=======
->>>>>>> a03afb82e303b60969be1dbf01c0c1cea7cdfc2c
     assert_equal "Atlanta United", @stat_tracker.winningest_team
   end
 
   def test_best_fans
-<<<<<<< HEAD
     skip
-=======
->>>>>>> a03afb82e303b60969be1dbf01c0c1cea7cdfc2c
     assert_equal "Houston Dynamo", @stat_tracker.best_fans
   end
 
