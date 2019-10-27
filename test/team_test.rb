@@ -5,6 +5,7 @@ require 'mocha/minitest'
 require './lib/game_team'
 
 
+
 class TeamsTest < Minitest::Test
   def setup
     csv = CSV.read('./test/data/game_teams_sample.csv', headers: true, header_converters: :symbol)
@@ -67,22 +68,22 @@ class TeamsTest < Minitest::Test
   end
 
   def test_it_can_find_away_games_by_team
-    team = @teams.find {|team| team.team_id == "8"}
-    assert_equal 2, team.away_games_by_team.length
+    team = @teams.find {|team| team.team_id == "26"}
+    assert_equal 4, team.away_games_by_team.length
   end
 
   def test_away_game_goals_by_team
-    team = @teams.find {|team| team.team_id == "8"}
-    assert_equal 3, team.away_game_goals
+    team = @teams.find {|team| team.team_id == "26"}
+    assert_equal 6, team.away_game_goals
   end
 
   def test_it_can_find_home_games_by_team
-    team = @teams.find {|team| team.team_id == "8"}
-    assert_equal 3, team.home_games_by_team.length
+    team = @teams.find {|team| team.team_id == "26"}
+    assert_equal 8, team.home_games_by_team.length
   end
 
   def test_it_can_find_home_goals_by_team
-    team = @teams.find {|team| team.team_id == "3"}
-    assert_equal 3, team.home_game_goals
+    team = @teams.find {|team| team.team_id == "26"}
+    assert_equal 22, team.home_game_goals
   end
 end

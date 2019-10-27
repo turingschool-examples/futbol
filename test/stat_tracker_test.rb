@@ -1,6 +1,7 @@
 require './test/test_helper'
 require './lib/stat_tracker'
 require './lib/game_collection'
+require 'minitest/nyan_cat'
 
 class StatTrackerTest < Minitest::Test
   def setup
@@ -99,23 +100,22 @@ class StatTrackerTest < Minitest::Test
   def test_it_has_worst_fans
     #need to include more data so we an actually get a list of the worst teams?
     assert_equal ["FC Cincinnati"], @stat_tracker.worst_fans
-<<<<<<< HEAD
   end
 
   def test_it_has_highest_scoring_visitor
-    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+    assert_equal "Chicago Fire", @stat_tracker.highest_scoring_visitor
   end
 
   def test_it_has_a_highest_scoring_home_team
-    assert_equal "New York City FC", @stat_tracker.highest_scoring_home_team
+    assert_equal "FC Cincinnati", @stat_tracker.highest_scoring_home_team
   end
 
   def test_it_has_a_lowest_scoring_away_team
-    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_visitor
+    assert_equal "FC Cincinnati", @stat_tracker.lowest_scoring_visitor
   end
 
   def test_lowest_scoring_home_team
-    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_home_team
+    assert_equal "Chicago Fire", @stat_tracker.lowest_scoring_home_team
   end
 
   def test_it_has_winningest_team
