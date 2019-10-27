@@ -100,5 +100,8 @@ class StatTrackerTest < Minitest::Test
   def test_team_count
     assert_equal 20, @stat_tracker.count_of_teams
   end
-  
+
+  def test_best_offense
+    assert_equal "FC Dallas", @stat_tracker.best_offense
+  end
 end

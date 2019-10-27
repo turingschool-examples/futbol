@@ -21,4 +21,10 @@ class TeamCollection
     @teams.length
   end
 
+  def team_name(team_id)
+    @teams.find_all do |key, team_obj|
+      key == team_id
+    end.flatten[1].team_name
+  end
+
 end
