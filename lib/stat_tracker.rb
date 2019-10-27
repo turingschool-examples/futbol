@@ -71,4 +71,8 @@ class StatTracker
   def winningest_team
     team_collection.winningest_team(game_teams_collection.winningest_team_id)
   end
+
+  def worst_fans
+    team_collection.worst_fans(game_teams_collection.worst_fans)
+  end
 end
