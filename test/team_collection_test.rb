@@ -4,7 +4,7 @@ require './lib/team_collection'
 class TeamsCollectionTest < Minitest::Test
 
   def setup
-    @total_teams = TeamCollection.new("./data/teams_sample.csv", "./data/game_teams_sample.csv", "./data/games_sample.csv")
+    @total_teams = TeamCollection.new("./data/teams_sample.csv", "./data/game_teams_sample.csv")
   end
 
   def test_it_exists
@@ -45,12 +45,27 @@ class TeamsCollectionTest < Minitest::Test
   #   assert_equal "LA Galaxy", @total_teams.best_fans
   # end
   #
-  # def test_it_has_worst_fans
-  #   #need to include more data so we an actually get a list of the worst teams?
-  #   assert_equal [], @total_teams.worst_fans
+  def test_it_has_worst_fans
+    #need to include more data so we an actually get a list of the worst teams?
+    assert_equal [], @total_teams.worst_fans
+  end
+
+  # def test_it_has_highest_scoring_visitor
+  #   assert_equal "Houston Dynamo", @total_teams.highest_scoring_visitor
   # end
 
-  def test_it_has_highest_scoring_visitor
-    assert_equal "Houston Dynamo", @total_teams.highest_scoring_visitor
+  def test_it_can_group_by_away_team_id_and_goals
+    away_group = [[3, 2], [6, 3], [3, 2], [6, 3], [6, 2], [3, 1], [6, 3], [3, 2], [3, 1]]
+    assert_equal away_group, @total_teams.group_by_away_team_id_and_goals
   end
+
+  def test_sum_of_away_games
+    away_game_sum = {3=>8, 6=>11}
+    assert_equal away_game_sum, @total_teams.sum_of_away_games
+  end
+
+  def test_grouping_away_test
+    assert_equal 4, @total_teams.group_away_goals
+  end
+
 end
