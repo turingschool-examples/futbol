@@ -82,12 +82,12 @@ class GamesCollectionTest < Minitest::Test
 
   def test_it_can_return_hash_of_average_goals_by_season
     expected_hash = {
-                      "20122013"=>3.9,
-                      "20162017"=>4.75,
-                      "20142015"=>3.75,
-                      "20152016"=>3.88,
-                      "20132014"=>4.67
-                    }
+      "20122013"=>3.9,
+      "20162017"=>4.75,
+      "20142015"=>3.75,
+      "20152016"=>3.88,
+      "20132014"=>4.67
+    }
     assert_equal expected_hash, @games_collection.average_goals_by_season
   end
 
@@ -129,17 +129,17 @@ class GamesCollectionTest < Minitest::Test
   end
 
 
-# calculate: (total_wins_for_a_team_id / total_games_for_a_team_id)
-# calculate win percentage for given_set_of_games
-# get all games in a particular season (team_game_list)
-# calculate win_percentage for a given_season for a team_id
-# get list of unique seasons
-# for each season, calcul;ate win percentage for a given team
-# get highest
-# get lowest
+  # calculate: (total_wins_for_a_team_id / total_games_for_a_team_id)
+  # calculate win percentage for given_set_of_games
+  # get all games in a particular season (team_game_list)
+  # calculate win_percentage for a given_season for a team_id
+  # get list of unique seasons
+  # for each season, calcul;ate win percentage for a given team
+  # get highest
+  # get lowest
 
   def test_it_knows_all_the_games_per_teams
-    # skip
+
     expected = [
       @games_collection.games[39],
       @games_collection.games[40],
@@ -148,6 +148,7 @@ class GamesCollectionTest < Minitest::Test
       @games_collection.games[43],
       @games_collection.games[44]
     ]
+
     assert_equal expected, @games_collection.games_with_team("2").sort_by { |game| game.game_id}
   end
 
@@ -267,5 +268,39 @@ class GamesCollectionTest < Minitest::Test
               }
 
     assert_equal expected, @games_collection.seasonal_summary("16", "20122013")
+  end
+
+  def test_it_can_find_the_home_goals_if_away_team
+    assert_equal 3, @games_collection.find_opponents_goals_if_away_team("2")
+  end
+
+  def test_it_can_find_the_away_goals_if_home_team
+    assert_equal 3, @games_collection.find_opponents_goals_if_home_team("2")
+  end
+
+  def test_it_can_get_total_opponents_goals
+    assert_equal 6, @games_collection.total_opponent_goals("2")
+  end
+
+  def test_it_can_find_average_of_opponenets_goals_given_team
+    assert_equal 1, @games_collection.average_goals_of_opponent("2")
+  end
+
+  def test_it_can_get_total_wins_across_seasons
+    assert_equal 8, @games_collection.total_wins_across_seasons("5")
+  end
+
+  def test_it_can_calculate_average_win_percentage_across_seasons
+    assert_equal 0.40, @games_collection.average_win_percentage("5")
+  end
+
+  def test_it_can_count_number_of_ties_of_team_in_given_season
+    assert_equal 1, @games_collection.total_team_ties_in_season("5", "20152016")
+  end
+
+  def test_it_calculates_total_non_tie_games_for_team_in_season
+    assert_equal 1, @games_collection.total_team_ties_in_season("9", "20122013")
+    expected = @games_collection.games_with_team_in_season("9", "20122013").length - 1
+    assert_equal expected, @games_collection.total_non_tie_games("9", "20122013")
   end
 end

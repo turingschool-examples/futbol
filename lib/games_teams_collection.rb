@@ -228,11 +228,11 @@ class GamesTeamsCollection
   end
 
   def team_goals(team_id)
-    team_goals = all_opponent_games(team_id).map { |game_team| game_team.goals.to_i }
+    all_opponent_games(team_id).map { |game_team| game_team.goals.to_i }
   end
 
   def opponents_goals(team_id)
-    opponents_goals = list_of_games_of_team(team_id).map { |team_game| team_game.goals.to_i }
+    list_of_games_of_team(team_id).map { |team_game| team_game.goals.to_i }
   end
 
   def biggest_team_blowout(team_id)

@@ -150,10 +150,17 @@ class StatTrackerTest < Minitest::Test
     assert_equal "20122013", @stat_tracker.worst_season("2")
   end
 
+  def test_it_calculates_win_percentage_for_given_team_id
+    assert_equal 1.00, @stat_tracker.average_win_percentage("6")
+    assert_equal 0.33, @stat_tracker.average_win_percentage("2")
+    assert_equal 0.40, @stat_tracker.average_win_percentage("5")
+  end
+
   def test_it_has_a_worst_loss
     assert_equal 3, @stat_tracker.worst_loss("2")
   end
 
+<<<<<<< HEAD
   def test_it_has_a_seasonal_summary
   expected = {"20162017"=>
           {:postseason=>
@@ -236,4 +243,15 @@ class StatTrackerTest < Minitest::Test
 
     expect(@stat_tracker.seasonal_summary("18")).to eq expected
   end
+=======
+  # def test_it_has_a_seasonal_summary
+  #   # expected = {
+  #   #   "stuff" => "things"
+  #   #   "other stuff" => "more things"
+  #   # }
+  #
+  #   assert_equal expected, @stat_tracker.seasonal_summary("2")
+  # end
+
+>>>>>>> 256e0aed8c6bc8381ab9e878620dee7e50433ebe
 end

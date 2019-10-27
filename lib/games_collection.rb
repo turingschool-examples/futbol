@@ -165,10 +165,6 @@ class GamesCollection
     end
   end
 
-  def find_by_in(element, attribute, collection)
-    collection.find_all { |member| member.send(attribute) == element }
-  end
-
   def games_with_team(team_id)
     find_by_in(team_id, "home_team_id", @games) + find_by_in(team_id, "away_team_id", @games)
   end
@@ -181,6 +177,10 @@ class GamesCollection
 
   def away_win?(game)
     game.away_goals > game.home_goals
+  end
+
+  def home_win?(game)
+    game.home_goals > game.away_goals
   end
 
   def away_games_in_season(team_id, season)
@@ -203,7 +203,7 @@ class GamesCollection
 
   def total_home_wins(team_id, season)
     home_games_in_season(team_id, season).count do |game|
-      !away_win?(game)
+      home_win?(game)
     end
   end
 
@@ -213,6 +213,12 @@ class GamesCollection
 
   def team_win_percentage(team_id, season)
     (total_team_wins(team_id, season) / games_with_team_in_season(team_id, season).length.to_f).round(2)
+  end
+
+  def total_non_tie_games(team_id, season)
+    games_with_team_in_season(team_id, season).reject do |game|
+      game.away_goals == game.home_goals
+    end.length
   end
 
   def unique_seasons
@@ -273,5 +279,41 @@ class GamesCollection
       end
     end
     season_info
+  end
+
+  def find_opponents_goals_if_away_team(team_id)
+    games_with_team(team_id).map do |game_team|
+      return game_team.home_goals.to_i if team_id == game_team.away_team_id
+    end
+  end
+
+  def find_opponents_goals_if_home_team(team_id)
+    games_with_team(team_id).map do |game_team|
+      return game_team.away_goals.to_i if team_id == game_team.home_team_id
+    end
+  end
+
+  def total_opponent_goals(team_id)
+    find_opponents_goals_if_home_team(team_id) + find_opponents_goals_if_away_team(team_id)
+  end
+
+  def average_goals_of_opponent(team_id)
+    total_opponent_goals(team_id) / games_with_team(team_id).length
+  end
+
+  def total_wins_across_seasons(team_id)
+    unique_seasons.sum do |season|
+      games_with_team_in_season(team_id, season) != nil ? total_team_wins(team_id, season) : 0
+    end
+  end
+
+  def average_win_percentage(team_id)
+    (total_wins_across_seasons(team_id).to_f / games_with_team(team_id).length.to_f).round(2)
+  end
+
+  def total_team_ties_in_season(team_id, season)
+    games_with_team_in_season(team_id, season).count do |game|
+      game.away_goals == game.home_goals
+    end
   end
 end

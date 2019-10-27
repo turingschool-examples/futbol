@@ -9,7 +9,7 @@ file_paths = {
   game_teams: './data/dummy_games_teams.csv'
 }
 
-stat_tracker = StatTracker.from_csv(locations)
+stat_tracker = StatTracker.from_csv(file_paths)
 
 require "pry"; binding.pry
 
