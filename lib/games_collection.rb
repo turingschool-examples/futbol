@@ -243,6 +243,26 @@ class GamesCollection
     end
   end
 
+  def find_opponents_goals_if_away_team(team_id)
+    games_with_team(team_id).map do |game_team|
+      return game_team.home_goals.to_i if team_id == game_team.away_team_id
+    end
+  end
+
+  def find_opponents_goals_if_home_team(team_id)
+    games_with_team(team_id).map do |game_team|
+      return game_team.away_goals.to_i if team_id == game_team.home_team_id
+    end
+  end
+
+  def total_opponent_goals(team_id)
+    find_opponents_goals_if_home_team(team_id) + find_opponents_goals_if_away_team(team_id)
+  end
+
+  def average_goals_of_opponent(team_id)
+    total_opponent_goals(team_id) / games_with_team(team_id).length
+  end
+  
   def total_wins_across_seasons(team_id)
     unique_seasons.sum do |season|
       games_with_team_in_season(team_id, season) != nil ? total_team_wins(team_id, season) : 0
