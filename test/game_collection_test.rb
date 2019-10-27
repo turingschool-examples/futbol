@@ -64,9 +64,14 @@ class GameCollectionTest < Minitest::Test
     assert_equal count_goals_by_season_list, @game_collection.average_goals_by_season
   end
 
-  def test_it_can_group_by_team_id_and_goals
-    group = [[3, 2], [3, 2], [6, 2], [9, 2], [24, 2], [16, 2], [6, 3], [6, 2]]
-    assert_equal group, @game_collection.group_by_away_team_id_and_goals
+  def test_it_can_group_by_away_team_id_and_goals
+    away_group = [[3, 2], [3, 2], [6, 2], [9, 2], [24, 2], [16, 2], [6, 3], [6, 2]]
+    assert_equal away_group, @game_collection.group_by_away_team_id_and_goals
+  end
+
+  def test_it_can_group_by_home_team_id_and_goals
+    home_group = [[6, 3], [6, 3], [3, 1], [8, 2], [17, 0], [52, 1], [30, 2], [21, 2]]
+    assert_equal home_group, @game_collection.group_by_home_team_id_and_goals
   end
 
   def test_sum_of_away_games
@@ -74,12 +79,26 @@ class GameCollectionTest < Minitest::Test
     assert_equal away_game_sum, @game_collection.sum_of_away_games
   end
 
+  def test_sum_of_home_games
+    home_game_sum = {6=>6, 3=>1, 8=>2, 17=>0, 52=>1, 30=>2, 21=>2}
+    assert_equal home_game_sum, @game_collection.sum_of_home_games
+  end
+
   def test_count_of_away_games
     away_games_count = {3=>2, 6=>3, 9=>1, 24=>1, 16=>1}
     assert_equal away_games_count, @game_collection.count_of_away_games
   end
 
+  def test_count_of_home_games
+    home_game_count = {6=>2, 3=>1, 8=>1, 17=>1, 52=>1, 30=>1, 21=>1}
+    assert_equal home_game_count, @game_collection.count_of_home_games
+  end
+
   def test_highest_average_away_goals
     assert_equal 3, @game_collection.highest_average_away_goals
+  end
+
+  def test_highest_average_home_goals
+    assert_equal 6, @game_collection.highest_average_home_goals
   end
 end
