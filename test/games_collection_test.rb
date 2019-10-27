@@ -201,10 +201,10 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_get_total_wins_across_seasons
-    assert_equal 9, @games_collection.total_wins_across_seasons("5")
+    assert_equal 8, @games_collection.total_wins_across_seasons("5")
   end
 
   def test_it_can_calculate_average_win_percentage_across_seasons
-    assert_equal 0.45, @games_collection.average_win_percentage("5")
+    assert_equal 0.40, @games_collection.average_win_percentage("5")
   end
 end
