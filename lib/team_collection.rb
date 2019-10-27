@@ -29,7 +29,6 @@ class TeamCollection
 
   def name_finder(team_id)
     @team_instances.reduce do |x, team|
-      #require 'pry'; binding.pry
      if team.team_id == team_id
        x = team.teamname
      end

@@ -31,6 +31,5 @@ class TeamCollectionTest < MiniTest::Test
   def test_worst_fans
     assert_equal ["Sporting Kansas City"], @team_instance.worst_fans(["5"])
     assert_equal ["LA Galaxy", "Houston Dynamo"], @team_instance.worst_fans(["17", "3"])
-
   end
 end
