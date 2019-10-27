@@ -55,12 +55,28 @@ class StatTracker
     @games_collection.average_goals_by_season
   end
 
-  def winningest_team
-    @teams_collection.winningest_team
+  def count_of_teams
+    @teams_collection.count_of_teams
   end
 
   def best_offense
     @teams_collection.best_offense
+  end
+
+  def worst_offense
+    @teams_collection.worst_offense
+  end
+
+  def best_defense
+    @teams_collection.best_defense
+  end
+
+  def worst_defense
+    @teams_collection.worst_defense
+  end
+
+  def winningest_team
+    @teams_collection.winningest_team
   end
 
   def best_fans
@@ -68,6 +84,7 @@ class StatTracker
   end
 
   def worst_fans
+    #need to include more data so we an actually get a list of the worst teams?
     @teams_collection.worst_fans
   end
 end

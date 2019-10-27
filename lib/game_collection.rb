@@ -46,14 +46,14 @@ class GameCollection
     home_wins = @total_games.find_all do |game|
       game.home_goals > game.away_goals
     end
-    (home_wins.length.to_f / @total_games.length * 100).round(2)
+    (home_wins.length.to_f / @total_games.length).round(2)
   end
 
   def percentage_visitor_wins
     visitor_wins = @total_games.find_all do |game|
       game.away_goals > game.home_goals
     end
-    (visitor_wins.length.to_f / @total_games.length * 100).round(2)
+    (visitor_wins.length.to_f / @total_games.length).round(2)
   end
 
   def percentage_ties
