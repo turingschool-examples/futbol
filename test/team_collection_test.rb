@@ -60,6 +60,14 @@ class TeamsCollectionTest < Minitest::Test
   end
 
   def test_it_can_find_highest_home_average
-    assert_equal "Sporting Kansas City", @total_teams.highest_scoring_home_team
+    assert_equal "New York City FC", @total_teams.highest_scoring_home_team
+  end
+
+  def test_it_can_find_the_lowest_scoring_visitor
+    assert_equal "Sporting Kansas City", @total_teams.lowest_scoring_visitor
+  end
+
+  def test_it_can_find_the_lowest_scoring_home_team
+    assert_equal "Sporting Kansas City", @total_teams.lowest_scoring_home_team
   end
 end
