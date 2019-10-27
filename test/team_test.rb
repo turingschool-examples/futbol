@@ -78,12 +78,22 @@ class TeamsTest < Minitest::Test
   end
 
   def test_it_can_find_away_games_by_team
-    team = @teams.find {|team| team.team_id == "3"}
-    assert_equal 3, team.away_games_by_team.length
+    team = @teams.find {|team| team.team_id == "8"}
+    assert_equal 2, team.away_games_by_team.length
   end
 
-  def test_away_game_goals
+  def test_away_game_goals_by_team
+    team = @teams.find {|team| team.team_id == "8"}
+    assert_equal 3, team.away_game_goals
+  end
+
+  def test_it_can_find_home_games_by_team
+    team = @teams.find {|team| team.team_id == "8"}
+    assert_equal 3, team.home_games_by_team.length
+  end
+
+  def test_it_can_find_home_goals_by_team
     team = @teams.find {|team| team.team_id == "3"}
-    assert_equal 5, team.away_game_goals
+    assert_equal 3, team.home_game_goals
   end
 end
