@@ -195,6 +195,7 @@ class GamesCollectionTest < Minitest::Test
     assert_equal "20142015", @games_collection.worst_season("5")
   end
 
+
   def test_it_can_find_the_home_goals_if_away_team
     assert_equal 3, @games_collection.find_opponents_goals_if_away_team("2")
   end
@@ -209,5 +210,23 @@ class GamesCollectionTest < Minitest::Test
 
   def test_it_can_find_average_of_opponenets_goals_given_team
     assert_equal 1, @games_collection.average_goals_of_opponent("2")
+  end
+  
+  def test_it_can_get_total_wins_across_seasons
+    assert_equal 8, @games_collection.total_wins_across_seasons("5")
+  end
+
+  def test_it_can_calculate_average_win_percentage_across_seasons
+    assert_equal 0.40, @games_collection.average_win_percentage("5")
+  end
+
+  def test_it_can_count_number_of_ties_of_team_in_given_season
+    assert_equal 1, @games_collection.total_team_ties_in_season("5", "20152016")
+  end
+
+  def test_it_calculates_total_non_tie_games_for_team_in_season
+    assert_equal 1, @games_collection.total_team_ties_in_season("9", "20122013")
+    expected = @games_collection.games_with_team_in_season("9", "20122013").length - 1
+    assert_equal expected, @games_collection.total_non_tie_games("9", "20122013")
   end
 end
