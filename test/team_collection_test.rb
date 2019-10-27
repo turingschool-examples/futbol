@@ -58,4 +58,8 @@ class TeamsCollectionTest < Minitest::Test
   def test_it_can_find_highest_away_average
     assert_equal "FC Dallas", @total_teams.highest_scoring_visitor
   end
+
+  def test_it_can_find_highest_home_average
+    assert_equal "Sporting Kansas City", @total_teams.highest_scoring_home_team
+  end
 end
