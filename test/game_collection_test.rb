@@ -3,7 +3,6 @@ require './lib/game'
 require './lib/game_collection'
 
 class GameCollectionTest < Minitest::Test
-
   def setup
     @game_collection = GameCollection.new("./test/data/games_sample.csv")
   end
@@ -14,53 +13,49 @@ class GameCollectionTest < Minitest::Test
 
   def test_it_has_total_games
     @game_collection.create_games('./test/data/games_sample.csv')
-    assert_equal 8, @game_collection.total_games.length
+    assert_equal 20, @game_collection.total_games.length
   end
 
   def test_it_can_calculate_highest_total_score
-    assert_equal 5, @game_collection.highest_total_score
+    assert_equal 10, @game_collection.highest_total_score
   end
 
   def test_it_can_calculate_lowest_total_score
-    assert_equal 2, @game_collection.lowest_total_score
+    assert_equal 0, @game_collection.lowest_total_score
   end
 
   def test_it_can_calculate_biggest_blowout
-    assert_equal 2, @game_collection.biggest_blowout
+    assert_equal 6, @game_collection.biggest_blowout
   end
 
   def test_it_can_calculate_percentage_home_wins
-    assert_equal 0.25, @game_collection.percentage_home_wins
+    assert_equal 0.45, @game_collection.percentage_home_wins
   end
 
   def test_it_can_calculate_percentage_visitor_wins
-    assert_equal 0.50, @game_collection.percentage_visitor_wins
+    assert_equal 0.40, @game_collection.percentage_visitor_wins
   end
 
   def test_it_can_calculate_percentage_ties
-    #i think we can just put the expected value here and not do math in the assertion
-    assert_equal (2/8.0).round(2), @game_collection.percentage_ties
+    assert_equal 0.15, @game_collection.percentage_ties
   end
 
   def test_it_can_calculate_count_of_games_by_season
     count_games_by_season_list = {
-      "20122013" => 5,
-      "20142015" => 3
+      "20172018" => 10,
+      "20152016" => 10
     }
     assert_equal count_games_by_season_list, @game_collection.count_of_games_by_season
   end
 
   def test_it_can_calculate_average_goals_per_game
-    #(31 total goals / 8 games)
-    assert_equal (31/8.0).round(2), @game_collection.average_goals_per_game
+    assert_equal 4.60, @game_collection.average_goals_per_game
   end
 
   def test_it_can_calculate_average_goals_by_season
-    # 2012/2013 19 goals / 5 games
-    # 2014/2015 12 goals / 3 games
     count_goals_by_season_list = {
-      "20122013" => (19/5.0).round(2),
-      "20142015" => (12/3.0).round(2)
+      "20172018" => 4.10,
+      "20152016" => 5.10
     }
     assert_equal count_goals_by_season_list, @game_collection.average_goals_by_season
   end
