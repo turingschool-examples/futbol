@@ -10,34 +10,34 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_initializes_attributes
-    assert_equal 99, @games_collection.games.length
+    assert_equal 111, @games_collection.games.length
     assert_equal true, @games_collection.games.all? {|game| game.is_a?(Game)}
   end
 
   def test_it_knows_the_number_of_games_in_each_season
     expected = [
-      57,
+      63,
       4,
       16,
       16,
-      6
+      12
     ]
     assert_equal expected, @games_collection.number_of_games_in_each_season
   end
 
   def test_it_can_count_game_by_season
     expected = {
-      "20122013" => 57,
+      "20122013" => 63,
       "20162017" => 4,
       "20142015" => 16,
       "20152016" => 16,
-      "20132014" => 6
+      "20132014" => 12
     }
     assert_equal expected, @games_collection.count_of_games_by_season
   end
 
   def test_it_grabs_highest_total_score
-    assert_equal 7, @games_collection.highest_total_score
+    assert_equal 8, @games_collection.highest_total_score
   end
 
   def test_it_grabs_lowest_total_score
@@ -45,20 +45,20 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_return_total_goals_across_all_games
-    assert_equal 387, @games_collection.total_goals(@games_collection.games)
+    assert_equal 443, @games_collection.total_goals(@games_collection.games)
   end
 
   def test_it_can_get_array_of_every_element_in_a_given_column
     assert_instance_of Array, @games_collection.every("game_id", @games_collection.games)
-    assert_equal 99, @games_collection.every("game_id", @games_collection.games).length
+    assert_equal 111, @games_collection.every("game_id", @games_collection.games).length
   end
 
   def test_it_can_get_array_of_every_unique_element_in_a_given_column
-    assert_equal 99, @games_collection.every_unique("game_id", @games_collection.games).length
+    assert_equal 111, @games_collection.every_unique("game_id", @games_collection.games).length
   end
 
   def test_it_can_count_total_unique_elements_in_a_given_column
-    assert_equal 99, @games_collection.total_unique("game_id", @games_collection.games)
+    assert_equal 111, @games_collection.total_unique("game_id", @games_collection.games)
   end
 
   def test_it_can_total_goals_for_given_game
@@ -72,7 +72,7 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_calculate_average_goals_per_game
-    assert_equal 3.91, @games_collection.average_goals_per_game
+    assert_equal 3.99, @games_collection.average_goals_per_game
   end
 
   def test_it_can_select_all_games_in_given_season
@@ -82,18 +82,18 @@ class GamesCollectionTest < Minitest::Test
 
   def test_it_can_return_hash_of_average_goals_by_season
     expected_hash = {
-                      "20122013"=>3.86,
+                      "20122013"=>3.9,
                       "20162017"=>4.75,
                       "20142015"=>3.75,
                       "20152016"=>3.88,
-                      "20132014"=>4.33
+                      "20132014"=>4.67
                     }
     assert_equal expected_hash, @games_collection.average_goals_by_season
   end
 
   def test_it_can_tell_us_each_unique_home_team_id
     #this validates that we're getting a condensed list of teams
-    assert_equal 17, @games_collection.home_teams.length
+    assert_equal 22, @games_collection.home_teams.length
   end
 
   def test_it_can_tell_us_total_team_home_goals
@@ -105,7 +105,7 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_tell_us_each_unique_away_team_id
-    assert_equal 17, @games_collection.away_teams.length
+    assert_equal 24, @games_collection.away_teams.length
   end
 
   def test_it_can_calculate_average_home_score_of_given_team
@@ -113,7 +113,7 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_tell_us_highest_scoring_home_team
-    assert_equal "9", @games_collection.highest_scoring_home_team
+    assert_equal "25", @games_collection.highest_scoring_home_team
   end
 
   def test_it_can_tell_us_highest_scoring_visitor

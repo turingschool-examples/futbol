@@ -250,4 +250,12 @@ class GamesTeamsCollection
   def fewest_goals_scored(team_id)
     list_of_games_of_team(team_id).map(&:goals).min.to_i
   end
+
+  def worst_loss(team_id)
+    difference = []
+    team_goals(team_id).each_with_index do |team_goal, index|
+      difference << team_goal - opponents_goals(team_id)[index]
+    end
+    difference.map { |number| number }.max
+  end
 end

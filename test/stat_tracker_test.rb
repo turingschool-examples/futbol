@@ -25,7 +25,7 @@ class StatTrackerTest < Minitest::Test
   # Begin tests for iteration-required methods
 
   def test_it_grabs_highest_total_score
-    assert_equal 7, @stat_tracker.highest_total_score
+    assert_equal 8, @stat_tracker.highest_total_score
   end
 
   def test_it_grabs_lowest_total_score
@@ -51,27 +51,27 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_count_game_by_season
 
     expected = {
-      "20122013" => 57,
+      "20122013" => 63,
       "20162017" => 4,
       "20142015" => 16,
       "20152016" => 16,
-      "20132014" => 6
+      "20132014" => 12
     }
 
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
   def test_it_can_calculate_average_goals_per_game
-    assert_equal 3.91, @stat_tracker.average_goals_per_game
+    assert_equal 3.99, @stat_tracker.average_goals_per_game
   end
 
   def test_it_can_return_hash_of_average_goals_by_season
     expected_hash = {
-                      "20122013"=>3.86,
+                      "20122013"=>3.9,
                       "20162017"=>4.75,
                       "20142015"=>3.75,
                       "20152016"=>3.88,
-                      "20132014"=>4.33
+                      "20132014"=>4.67
                     }
     assert_equal expected_hash, @stat_tracker.average_goals_by_season
   end
@@ -86,7 +86,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_tell_name_of_highest_scoring_home_team
-    assert_equal "New York City FC", @stat_tracker.highest_scoring_home_team
+    assert_equal "Chicago Red Stars", @stat_tracker.highest_scoring_home_team
   end
 
   def test_it_can_tell_name_of_highest_scoring_visitor
@@ -155,4 +155,18 @@ class StatTrackerTest < Minitest::Test
     assert_equal 0.33, @stat_tracker.average_win_percentage("2")
     assert_equal 0.40, @stat_tracker.average_win_percentage("5")
   end
+
+  def test_it_has_a_worst_loss
+    assert_equal 3, @stat_tracker.worst_loss("2")
+  end
+
+  # def test_it_has_a_seasonal_summary
+  #   # expected = {
+  #   #   "stuff" => "things"
+  #   #   "other stuff" => "more things"
+  #   # }
+  #
+  #   assert_equal expected, @stat_tracker.seasonal_summary("2")
+  # end
+
 end
