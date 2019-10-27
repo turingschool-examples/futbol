@@ -165,10 +165,6 @@ class GamesCollection
     end
   end
 
-  def find_by_in(element, attribute, collection)
-    collection.find_all { |member| member.send(attribute) == element }
-  end
-
   def games_with_team(team_id)
     find_by_in(team_id, "home_team_id", @games) + find_by_in(team_id, "away_team_id", @games)
   end
@@ -216,7 +212,7 @@ class GamesCollection
   end
 
   def team_win_percentage(team_id, season)
-    ((total_team_wins(team_id, season) + (total_team_ties_in_season(team_id, season) / 2)) / games_with_team_in_season(team_id, season).length.to_f).round(2)
+    ((total_team_wins(team_id, season).to_f + (total_team_ties_in_season(team_id, season) / 2.0)) / games_with_team_in_season(team_id, season).length.to_f).round(2)
   end
 
   def unique_seasons
@@ -248,7 +244,7 @@ class GamesCollection
   end
 
   def average_win_percentage(team_id)
-    (total_wins_across_seasons(team_id) / games_with_team(team_id).length.to_f).round(2)
+    (total_wins_across_seasons(team_id).to_f / games_with_team(team_id).length.to_f).round(2)
   end
 
   def total_team_ties_in_season(team_id, season)
