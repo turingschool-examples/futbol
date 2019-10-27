@@ -195,8 +195,15 @@ class GamesCollectionTest < Minitest::Test
     assert_equal "20142015", @games_collection.worst_season("5")
   end
 
-  def test_it_can_get_opponents_goals
-    assert_equal 6, @games_collection.total_opponent_goals("2")
+  def test_it_can_find_the_home_goals_if_away_team
+    assert_equal 3, @games_collection.find_opponents_goals_if_away_team("2")
   end
 
+  def test_it_can_find_the_away_goals_if_home_team
+    assert_equal 3, @games_collection.find_opponents_goals_if_home_team("2")
+  end
+
+  def test_it_can_get_total_opponents_goals
+    assert_equal 6, @games_collection.total_opponent_goals("2")
+  end
 end
