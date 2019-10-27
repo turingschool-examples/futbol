@@ -99,6 +99,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_has_worst_fans
     #need to include more data so we an actually get a list of the worst teams?
     assert_equal ["FC Cincinnati"], @stat_tracker.worst_fans
+<<<<<<< HEAD
   end
 
   def test_it_has_highest_scoring_visitor
