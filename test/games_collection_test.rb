@@ -201,9 +201,9 @@ class GamesCollectionTest < Minitest::Test
     expected = {
       :win_percentage=>0.56,
      :total_goals_scored=>65,
-     :total_goals_against=>4,
+     :total_goals_against=>51,
      :average_goals_scored=>4.34,
-     :average_goals_against=>0
+     :average_goals_against=>1.7
    }
 
     assert_equal expected, @games_collection.season_values("16", "20122013")
@@ -215,15 +215,15 @@ class GamesCollectionTest < Minitest::Test
     {:postseason=>
       {:win_percentage=>0.56,
        :total_goals_scored=>65,
-       :total_goals_against=>4,
+       :total_goals_against=>51,
        :average_goals_scored=>4.34,
-       :average_goals_against=>0},
+       :average_goals_against=>1.7},
      :regular_season=>
       {:win_percentage=>0.56,
        :total_goals_scored=>65,
-       :total_goals_against=>4,
+       :total_goals_against=>51,
        :average_goals_scored=>4.34,
-       :average_goals_against=>0}}
+       :average_goals_against=>1.7}}
 
     assert_equal expected, @games_collection.season_type("16", "20122013")
   end
@@ -234,41 +234,41 @@ class GamesCollectionTest < Minitest::Test
        :postseason=>
         {:win_percentage=>0.56,
          :total_goals_scored=>65,
-         :total_goals_against=>4,
+         :total_goals_against=>51,
          :average_goals_scored=>4.34,
-         :average_goals_against=>0},
+         :average_goals_against=>1.7},
         :regular_season=>
          {:win_percentage=>0.56,
           :total_goals_scored=>65,
-          :total_goals_against=>4,
+          :total_goals_against=>51,
           :average_goals_scored=>4.34,
-          :average_goals_against=>0}},
+          :average_goals_against=>1.7}},
       "20142015"=>{
         :postseason=>
         {:win_percentage=>0.56,
          :total_goals_scored=>65,
-         :total_goals_against=>4,
+         :total_goals_against=>51,
          :average_goals_scored=>4.34,
-         :average_goals_against=>0},
+         :average_goals_against=>1.7},
         :regular_season=>
         {:win_percentage=>0.56,
          :total_goals_scored=>65,
-         :total_goals_against=>4,
+         :total_goals_against=>51,
          :average_goals_scored=>4.34,
-         :average_goals_against=>0}},
+         :average_goals_against=>1.7}},
       "20132014"=>{
         :postseason=>
         {:win_percentage=>0.56,
          :total_goals_scored=>65,
-         :total_goals_against=>4,
+         :total_goals_against=>51,
          :average_goals_scored=>4.34,
-         :average_goals_against=>0},
+         :average_goals_against=>1.7},
         :regular_season=>
         {:win_percentage=>0.56,
          :total_goals_scored=>65,
-         :total_goals_against=>4,
+         :total_goals_against=> 51,
          :average_goals_scored=>4.34,
-         :average_goals_against=>0}}
+         :average_goals_against=>1.7}}
        }
 
     assert_equal expected, @games_collection.seasonal_summary("16", "20122013")

@@ -267,10 +267,6 @@ class GamesCollection
     type
   end
 
-  # def games_by_seasons(element, attribute_str, collection)
-  #   find_by_in(element, attribute_str, collection)
-  # end
-
   def seasonal_summary(team_id, season_id)
     season_info = {}
     @games.each do |game|
