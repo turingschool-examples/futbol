@@ -207,7 +207,7 @@ class GamesCollection
 
   def total_home_wins(team_id, season)
     home_games_in_season(team_id, season).count do |game|
-      !away_win?(game)
+      home_win?(game)
     end
   end
 
