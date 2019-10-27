@@ -53,29 +53,23 @@ class Team
     (win_count.to_f / total_away_games * 100).round(2)
   end
 
-  def away_games_by_team
-    away_game_sum = 0
+    def away_games_by_team
     away_game_list = []
     away_games = @all_team_games.each do |game|
       if game.hoa == "away"
-        away_game_sum += 1
         away_game_list << game
       end
     end
-    away_game_sum
     away_game_list
   end
 
   def home_games_by_team
-    home_game_sum = 0
     home_games_list = []
     home_games = @all_team_games.each do |game|
       if game.hoa == "home"
-        home_game_sum += 1
         home_games_list << game
       end
     end
-    home_game_sum
     home_games_list
   end
 
