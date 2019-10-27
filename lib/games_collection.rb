@@ -183,6 +183,10 @@ class GamesCollection
     game.away_goals > game.home_goals
   end
 
+  def home_win?(game)
+    game.home_goals > game.away_goals
+  end
+
   def away_games_in_season(team_id, season)
     all_away_games_of_team(team_id).select do |game|
       game.season == season
