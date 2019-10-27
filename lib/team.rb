@@ -66,18 +66,18 @@ class Team
     away_game_list
   end
 
-    def home_games_by_team
-      home_game_sum = 0
-      home_games = []
-      home_games = @all_team_games.each do |team|
-        if game.hoa == "home"
-          home_game_sum += 1
-          home_games_list << games
-        end
+  def home_games_by_team
+    home_game_sum = 0
+    home_games_list = []
+    home_games = @all_team_games.each do |game|
+      if game.hoa == "home"
+        home_game_sum += 1
+        home_games_list << game
       end
-      home_game_sum
-      home_games
     end
+    home_game_sum
+    home_games_list
+  end
 
   def away_game_goals
     away_goals_sum = 0
@@ -85,6 +85,14 @@ class Team
       away_goals_sum += game.goals
     end
     away_goals_sum
+  end
+
+  def home_game_goals
+    home_goals_sum = 0
+    home_games_by_team.each do |game|
+      home_goals_sum += game.goals
+    end
+    home_goals_sum
   end
 
 end
