@@ -252,4 +252,8 @@ class GamesCollection
   def total_opponent_goals(team_id)
     find_opponents_goals_if_home_team(team_id) + find_opponents_goals_if_away_team(team_id)
   end
+
+  def average_goals_of_opponent(team_id)
+    total_opponent_goals(team_id) / games_with_team(team_id).length
+  end
 end
