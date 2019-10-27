@@ -191,14 +191,14 @@ class GamesTeamsCollectionTest < Minitest::Test
     assert_equal [3,3,3,2,2,2], @games_teams_collection.team_goals("2")
   end
 
-  def test_it_can_find_team_goals
+  def test_it_can_find_opponent_goals
     assert_equal [0,2,2,4,0,3], @games_teams_collection.opponents_goals("2")
   end
 
   def test_it_can_see_biggest_team_blowout
     assert_equal 3, @games_teams_collection.biggest_team_blowout("2")
   end
-  
+
   def test_it_can_find_most_goals_scored_per_team
     assert_equal 4, @games_teams_collection.most_goals_scored("2")
   end
