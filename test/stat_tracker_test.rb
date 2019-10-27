@@ -96,12 +96,12 @@ class StatTrackerTest < Minitest::Test
   ##############
   #league stats#
   ##############
-  
+
   def test_team_count
     assert_equal 20, @stat_tracker.count_of_teams
   end
 
-  def test_best_defense
-    assert_equal "Atlanta United", @stat_tracker.best_defense
+  def test_best_offense
+    assert_equal "FC Dallas", @stat_tracker.best_offense
   end
 end

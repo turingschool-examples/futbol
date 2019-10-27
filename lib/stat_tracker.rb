@@ -68,6 +68,7 @@ class StatTracker
     @team_collection.team_count
   end
 
-  def best_defense
+  def best_offense
+    @team_collection.team_name(@game_team_collection.most_goals)
   end
 end
