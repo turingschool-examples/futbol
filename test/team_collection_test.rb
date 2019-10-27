@@ -27,4 +27,8 @@ class TeamCollectionTest < MiniTest::Test
     assert_equal "Chicago Fire", @team_instance.name_finder("4")
     assert_equal "New York Red Bulls", @team_instance.name_finder("8")
   end
+
+  def test_worst_fans
+    assert_equal ["Sporting Kansas City"], @team_instance.worst_fans(["5"])
+  end
 end
