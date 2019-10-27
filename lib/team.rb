@@ -42,6 +42,8 @@ class Team
     (win_count.to_f / total_home_games * 100).round(2)
   end
 
+
+
   def away_win_percentage
     total_away_games = 0
     win_count = @all_team_games.count do |game|
