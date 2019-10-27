@@ -151,6 +151,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_a_worst_loss
-    assert_equal 0, @stat_tracker.worst_loss("2")
+    assert_equal 3, @stat_tracker.worst_loss("2")
   end
 end

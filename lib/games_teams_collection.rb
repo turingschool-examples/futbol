@@ -256,6 +256,6 @@ class GamesTeamsCollection
     team_goals(team_id).each_with_index do |team_goal, index|
       difference << team_goal - opponents_goals(team_id)[index]
     end
-    difference.map { |number| number.abs }.min
+    difference.map { |number| number }.max
   end
 end

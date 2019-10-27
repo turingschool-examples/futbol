@@ -208,6 +208,6 @@ class GamesTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_can_find_the_worst_loss
-    assert_equal 0, @games_teams_collection.worst_loss("2")
+    assert_equal 3, @games_teams_collection.worst_loss("2")
   end
 end
