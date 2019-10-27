@@ -153,4 +153,13 @@ class StatTrackerTest < Minitest::Test
   def test_it_has_a_worst_loss
     assert_equal 3, @stat_tracker.worst_loss("2")
   end
+
+  def test_it_has_a_seasonal_summary
+    expected = {
+      "stuff" => "things"
+      "other stuff" => "more things"
+    }
+
+    assert_equal expected, @stat_tracker.seasonal_summary("2")
+  end
 end
