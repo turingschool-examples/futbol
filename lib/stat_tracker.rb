@@ -2,7 +2,6 @@ require_relative './game_collection'
 require_relative './team_collection'
 
 class StatTracker
-  attr_reader :stats
 
   def initialize(game_path, team_path, game_team_path)
     # should we move the creation of instances into a method
@@ -44,7 +43,7 @@ class StatTracker
     @games_collection.percentage_ties
   end
 
-  def count_of_games_by_season # rename to count_of_games_by_season to match spec? or is this what is in in specharnes?
+  def count_of_games_by_season
     @games_collection.count_of_games_by_season
   end
 
@@ -55,7 +54,6 @@ class StatTracker
   def average_goals_by_season
     @games_collection.average_goals_by_season
   end
-
 
   def count_of_teams
     @teams_collection.count_of_teams
@@ -89,5 +87,4 @@ class StatTracker
     #need to include more data so we an actually get a list of the worst teams?
     @teams_collection.worst_fans
   end
-
 end
