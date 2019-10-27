@@ -156,6 +156,11 @@ class GamesCollectionTest < Minitest::Test
     assert_equal false, @games_collection.away_win?(@games_collection.games[0])
   end
 
+  def test_it_can_tell_away_win
+    assert_equal false, @games_collection.home_win?(@games_collection.games[3])
+    assert_equal true, @games_collection.home_win?(@games_collection.games[0])
+  end
+
   def test_it_can_count_away_wins
     assert_equal 0, @games_collection.total_away_wins("2", "20122013")
   end
