@@ -30,21 +30,22 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_it_can_calculate_percentage_home_wins
-    assert_equal 25.00, @game_collection.percentage_home_wins
+    assert_equal 0.25, @game_collection.percentage_home_wins
   end
 
   def test_it_can_calculate_percentage_visitor_wins
-    assert_equal 50.00, @game_collection.percentage_visitor_wins
+    assert_equal 0.50, @game_collection.percentage_visitor_wins
   end
 
   def test_it_can_calculate_percentage_ties
+    #i think we can just put the expected value here and not do math in the assertion
     assert_equal (2/8.0).round(2), @game_collection.percentage_ties
   end
 
   def test_it_can_calculate_count_of_games_by_season
     count_games_by_season_list = {
-      20122013 => 5,
-      20142015 => 3
+      "20122013" => 5,
+      "20142015" => 3
     }
     assert_equal count_games_by_season_list, @game_collection.count_of_games_by_season
   end
@@ -58,8 +59,8 @@ class GameCollectionTest < Minitest::Test
     # 2012/2013 19 goals / 5 games
     # 2014/2015 12 goals / 3 games
     count_goals_by_season_list = {
-      20122013 => (19/5.0).round(2),
-      20142015 => (12/3.0).round(2)
+      "20122013" => (19/5.0).round(2),
+      "20142015" => (12/3.0).round(2)
     }
     assert_equal count_goals_by_season_list, @game_collection.average_goals_by_season
   end
