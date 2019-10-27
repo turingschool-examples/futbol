@@ -129,6 +129,10 @@ class StatTracker
     @games.worst_season(team_id)
   end
 
+  def average_win_percentage(team_id)
+    @games.average_win_percentage(team_id)
+  end
+  
   def worst_loss(team_id)
     @games_teams.worst_loss(team_id)
   end

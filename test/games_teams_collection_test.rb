@@ -191,7 +191,7 @@ class GamesTeamsCollectionTest < Minitest::Test
     assert_equal [3,3,3,2,2,2], @games_teams_collection.team_goals("2")
   end
 
-  def test_it_can_find_team_goals
+  def test_it_can_find_opponent_goals
     assert_equal [0,2,2,4,0,3], @games_teams_collection.opponents_goals("2")
   end
 
