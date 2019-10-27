@@ -10,11 +10,25 @@ class TeamCollection
   end
 
   def all_teams
-    team_objects = []
     csv = CSV.read("#{@team_path}", headers: true, header_converters: :symbol)
       csv.map do |row|
-      team_objects <<  Team.new(row)
+      Team.new(row)
     end
-    team_objects
+  end
+
+  def count_of_teams
+    id_list = @team_instances.map do |team|
+      team.team_id
+    end
+    id_list.uniq.length
+  end
+
+  def winningest_team(team_id)
+     @team_instances.reduce do |x, team|
+      if team.team_id == team_id
+        x = team.teamname
+      end
+      x
+    end
   end
 end

@@ -63,4 +63,12 @@ class StatTracker
   def percentage_ties
     (game.ties / game.game_instances.length.to_f).round(2)
   end
+
+  def count_of_teams
+    team.count_of_teams
+  end
+
+  def winningest_team
+    team_collection.winningest_team(game_teams_collection.winningest_team_id)
+  end
 end
