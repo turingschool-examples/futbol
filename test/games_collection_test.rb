@@ -139,7 +139,7 @@ class GamesCollectionTest < Minitest::Test
   # get lowest
 
   def test_it_knows_all_the_games_per_teams
-    # skip
+
     expected = [
       @games_collection.games[39],
       @games_collection.games[40],
@@ -148,6 +148,7 @@ class GamesCollectionTest < Minitest::Test
       @games_collection.games[43],
       @games_collection.games[44]
     ]
+
     assert_equal expected, @games_collection.games_with_team("2").sort_by { |game| game.game_id}
   end
 
@@ -195,6 +196,83 @@ class GamesCollectionTest < Minitest::Test
     assert_equal "20142015", @games_collection.worst_season("5")
   end
 
+  def test_it_has_season_values
+
+    expected = {
+      :win_percentage=>0.56,
+     :total_goals_scored=>65,
+     :total_goals_against=>51,
+     :average_goals_scored=>4.34,
+     :average_goals_against=>1.7
+   }
+
+    assert_equal expected, @games_collection.season_values("16", "20122013")
+  end
+
+  def test_it_can_check_season_type
+
+    expected =
+    {:postseason=>
+      {:win_percentage=>0.56,
+       :total_goals_scored=>65,
+       :total_goals_against=>51,
+       :average_goals_scored=>4.34,
+       :average_goals_against=>1.7},
+     :regular_season=>
+      {:win_percentage=>0.56,
+       :total_goals_scored=>65,
+       :total_goals_against=>51,
+       :average_goals_scored=>4.34,
+       :average_goals_against=>1.7}}
+
+    assert_equal expected, @games_collection.season_type("16", "20122013")
+  end
+
+  def test_it_has_a_seasonal_summary
+    expected = {
+     "20122013"=>{
+       :postseason=>
+        {:win_percentage=>0.56,
+         :total_goals_scored=>65,
+         :total_goals_against=>51,
+         :average_goals_scored=>4.34,
+         :average_goals_against=>1.7},
+        :regular_season=>
+         {:win_percentage=>0.56,
+          :total_goals_scored=>65,
+          :total_goals_against=>51,
+          :average_goals_scored=>4.34,
+          :average_goals_against=>1.7}},
+      "20142015"=>{
+        :postseason=>
+        {:win_percentage=>0.56,
+         :total_goals_scored=>65,
+         :total_goals_against=>51,
+         :average_goals_scored=>4.34,
+         :average_goals_against=>1.7},
+        :regular_season=>
+        {:win_percentage=>0.56,
+         :total_goals_scored=>65,
+         :total_goals_against=>51,
+         :average_goals_scored=>4.34,
+         :average_goals_against=>1.7}},
+      "20132014"=>{
+        :postseason=>
+        {:win_percentage=>0.56,
+         :total_goals_scored=>65,
+         :total_goals_against=>51,
+         :average_goals_scored=>4.34,
+         :average_goals_against=>1.7},
+        :regular_season=>
+        {:win_percentage=>0.56,
+         :total_goals_scored=>65,
+         :total_goals_against=> 51,
+         :average_goals_scored=>4.34,
+         :average_goals_against=>1.7}}
+       }
+
+    assert_equal expected, @games_collection.seasonal_summary("16", "20122013")
+  end
 
   def test_it_can_find_the_home_goals_if_away_team
     assert_equal 8, @games_collection.find_opponents_goals_if_away_team("2")
@@ -211,7 +289,7 @@ class GamesCollectionTest < Minitest::Test
   def test_it_can_find_average_of_opponenets_goals_given_team
     assert_equal 2.5, @games_collection.average_goals_of_opponent("2")
   end
-  
+
   def test_it_can_get_total_wins_across_seasons
     assert_equal 8, @games_collection.total_wins_across_seasons("5")
   end

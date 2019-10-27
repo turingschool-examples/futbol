@@ -243,6 +243,40 @@ class GamesCollection
     end
   end
 
+  def season_values(team_id, season)
+    values = {}
+    @games.each do |game|
+      if team_id == game.away_team_id || team_id == game.home_team_id
+        values[:win_percentage] = team_win_percentage(team_id, season)
+        values[:total_goals_scored] = total_home_goals(team_id) + total_away_goals(team_id)
+        values[:total_goals_against] = total_opponent_goals(team_id)
+        values[:average_goals_scored] = (average_away_score_of_team(team_id) + average_home_score_of_team(team_id)).round(2)
+        values[:average_goals_against] = average_goals_of_opponent(team_id)
+      end
+    end
+    values
+  end
+
+  def season_type(team_id, season)
+    type = {}
+    @games.each do |game|
+      if team_id == game.away_team_id || team_id == game.home_team_id
+      type[game.type.gsub(/\s+/, "_").downcase.intern] = season_values(team_id, season)
+      end
+    end
+    type
+  end
+
+  def seasonal_summary(team_id, season_id)
+    season_info = {}
+    @games.each do |game|
+      if team_id == game.away_team_id || team_id == game.home_team_id
+      season_info[game.season] = season_type(team_id, season_id)
+      end
+    end
+    season_info
+  end
+
   def find_opponents_goals_if_away_team(team_id)
     games_with_team(team_id).sum do |game_team|
       team_id == game_team.away_team_id ? game_team.home_goals.to_i : 0
@@ -262,7 +296,7 @@ class GamesCollection
   def average_goals_of_opponent(team_id)
     total_opponent_goals(team_id) / games_with_team(team_id).length.to_f
   end
-  
+
   def total_wins_across_seasons(team_id)
     unique_seasons.sum do |season|
       games_with_team_in_season(team_id, season) != nil ? total_team_wins(team_id, season) : 0

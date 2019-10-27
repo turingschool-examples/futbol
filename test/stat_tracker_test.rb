@@ -160,13 +160,49 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3, @stat_tracker.worst_loss("2")
   end
 
-  # def test_it_has_a_seasonal_summary
-  #   # expected = {
-  #   #   "stuff" => "things"
-  #   #   "other stuff" => "more things"
-  #   # }
-  #
-  #   assert_equal expected, @stat_tracker.seasonal_summary("2")
-  # end
+  def test_it_has_a_seasonal_summary
+    expected = {
+     "20122013"=>{
+       :postseason=>
+        {:win_percentage=>0.56,
+         :total_goals_scored=>65,
+         :total_goals_against=>51,
+         :average_goals_scored=>4.34,
+         :average_goals_against=>1.7},
+        :regular_season=>
+         {:win_percentage=>0.56,
+          :total_goals_scored=>65,
+          :total_goals_against=>51,
+          :average_goals_scored=>4.34,
+          :average_goals_against=>1.7}},
+      "20142015"=>{
+        :postseason=>
+        {:win_percentage=>0.56,
+         :total_goals_scored=>65,
+         :total_goals_against=>51,
+         :average_goals_scored=>4.34,
+         :average_goals_against=>1.7},
+        :regular_season=>
+        {:win_percentage=>0.56,
+         :total_goals_scored=>65,
+         :total_goals_against=>51,
+         :average_goals_scored=>4.34,
+         :average_goals_against=>1.7}},
+      "20132014"=>{
+        :postseason=>
+        {:win_percentage=>0.56,
+         :total_goals_scored=>65,
+         :total_goals_against=>51,
+         :average_goals_scored=>4.34,
+         :average_goals_against=>1.7},
+        :regular_season=>
+        {:win_percentage=>0.56,
+         :total_goals_scored=>65,
+         :total_goals_against=> 51,
+         :average_goals_scored=>4.34,
+         :average_goals_against=>1.7}}
+       }
 
+    assert_equal expected, @stat_tracker.seasonal_summary("16", "20122013")
+  end
 end
