@@ -1,0 +1,9 @@
+team_id,franchiseId,teamName,abbreviation,Stadium,link
+3,10,Houston Dynamo,HOU,BBVA Stadium,/api/v1/teams/3
+5,17,Sporting Kansas City,SKC,Children's Mercy Park,/api/v1/teams/5
+6,6,FC Dallas,DAL,Toyota Stadium,/api/v1/teams/6
+8,1,New York Red Bulls,NY,Red Bull Arena,/api/v1/teams/8
+9,30,New York City FC,NYC,Yankee Stadium,/api/v1/teams/9
+16,11,New England Revolution,NE,Gillette Stadium,/api/v1/teams/16
+17,12,LA Galaxy,LA,Dignity Health Sports Park,/api/v1/teams/17
+30,37,Orlando City SC,ORL,Exploria Stadium,/api/v1/teams/30

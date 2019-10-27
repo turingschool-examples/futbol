@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/game_team.rb'
+require_relative './game_team.rb'
 
 class GameTeamCollection
   attr_reader :total_game_teams

@@ -1,5 +1,5 @@
 class Team
-  attr_reader :team_id, :franchise_id, :team_name, :abbreviation, :stadium, :link
+  attr_reader :team_id, :franchise_id, :team_name, :abbreviation, :stadium, :link, :all_team_games, :all_opponent_games
 
   def initialize(team_info, all_team_games, all_opponent_games)
     @team_id = team_info[:team_id]
@@ -42,8 +42,6 @@ class Team
     (win_count.to_f / total_home_games * 100).round(2)
   end
 
-
-
   def away_win_percentage
     total_away_games = 0
     win_count = @all_team_games.count do |game|
@@ -51,8 +49,32 @@ class Team
         total_away_games += 1
       end
       game.result == "WIN" && game.hoa == "away"
-
     end
     (win_count.to_f / total_away_games * 100).round(2)
+  end
+
+  def away_games_by_team
+    away_game_sum = 0
+    away_game_list = []
+    away_games = @all_team_games.each do |game|
+      if game.hoa == "away"
+        away_game_sum += 1
+        away_game_list << game
+      end
+    end
+    away_game_sum
+    away_game_list
+  end
+
+  def away_game_goals
+    away_goals_sum = 0
+    away_games_by_team.each do |game|
+      away_goals_sum += game.goals
+    end
+    away_goals_sum
+  end
+
+  def average_away_goals
+    away_game_goals / away_games_by_team
   end
 end
