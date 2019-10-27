@@ -177,6 +177,33 @@ class GameCollection
     highest_home_team_id
   end
 
+  def lowest_average_away_goals
+    lowest_away_team_id = 0
+    lowest_away_average = 100
+    count_of_away_games.each do |team_id, away_game|
+      average = sum_of_away_games[team_id] / away_game
+      if average < lowest_away_average
+        lowest_away_average = average
+        lowest_away_team_id = team_id
+      end
+    end
+    lowest_away_team_id
+  end
+
+#returns 3 because multiple teams have an average of 2 goals
+  def lowest_average_home_goals
+    lowest_home_team_id = 0
+    lowest_home_average = 100
+    count_of_home_games.each do |team_id, home_game|
+      average = sum_of_home_games[team_id] / home_game
+      if average <= lowest_home_average
+        lowest_home_average = average
+        lowest_home_team_id = team_id
+      end
+    end
+    lowest_home_team_id
+  end
+
   def average_goals_by_season
     season_list = count_of_games_by_season
     season_list.transform_values! do |total_season_games|

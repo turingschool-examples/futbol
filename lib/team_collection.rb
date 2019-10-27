@@ -1,26 +1,14 @@
 require 'csv'
 require_relative './team.rb'
 require_relative './game_team.rb'
-require_relative './game_collection'
+# require_relative './game_collection'
 
 class TeamCollection
   attr_reader :total_teams
 
-  def initialize(team_path, game_team_path, game_path)
+  def initialize(team_path, game_team_path)
     @total_games = create_game_team(game_team_path)
     @total_teams = create_teams(team_path)
-    @game_collection = create_games(game_path)
-  end
-
-  def create_teams(team_path)
-    csv = CSV.read(team_path, headers: true, header_converters: :symbol)
-    csv.map do |row|
-      Team.new(row)
-    end
-  end
-
-  def create_games(game_path)
-    total_games = GameCollection.new(game_path)
   end
 
   def create_game_team(game_team_path)
@@ -101,10 +89,17 @@ class TeamCollection
     end
   end
 
+  def group_by_away_team_id_and_goals
+    away_team_groups = @all_team_games.map { |team| team.team_id}
+    away_team_goals = @all_team_games.flat_map { |team| team.goals}
+    away_team_id_goals = away_team_groups.zip(away_team_goals)
+    require "pry"; binding.pry
+  end
+
   def highest_scoring_visitor
     highest_away_team_name = @total_teams.find do |team|
-      @game_collection.highest_average_away_goals == team.team_id.to_i
-    end
+       @game_collection.highest_average_away_goals == team.team_id.to_i
+     end
     highest_away_team_name.team_name
   end
 
@@ -115,4 +110,17 @@ class TeamCollection
     highest_home_team_name.team_name
   end
 
+  def lowest_scoring_away_team
+    lowest_away_team_name = @total_teams.find do |team|
+      @game_collection.lowest_average_away_goals == team.team_id.to_i
+    end
+    lowest_average_away_goals.team_name
+  end
+
+  def lowest_scoring_home_team
+    lowest_home_team_name = @total_teams.find do |team|
+      @game_collection.lowest_average_home_goals == team.team_id.to_i
+    end
+    lowest_average_home_goals.team_name
+  end
 end
