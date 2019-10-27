@@ -83,20 +83,98 @@ class GameCollection
     (total_goals / @total_games.count.to_f).round(2)
   end
 
-  def away_team_goals
-    team_away_goal = 0
-    away_team_goal_count = @total_games.each do |game|
-      # require "pry"; binding.pry
-      game.team_id == team_id
-      team_away_goal += game.away_goals
-    end
-  end
-
-  def group_by_team_id_and_goals
+  def group_by_away_team_id_and_goals
     away_team_groups = @total_games.flat_map { |game| game.away_team_id}
     away_team_goals = @total_games.flat_map { |game| game.away_goals}
     away_team_id_goals = away_team_groups.zip(away_team_goals)
-    require "pry"; binding.pry
+  end
+
+  def group_by_home_team_id_and_goals
+    home_team_groups = @total_games.flat_map { |game| game.home_team_id}
+    home_team_goals = @total_games.flat_map { |game| game.home_goals}
+    home_team_id_goals = home_team_groups.zip(home_team_goals)
+  end
+
+  def sum_of_away_games
+    team_to_total_away_goals = {}
+    group_by_away_team_id_and_goals.each do |game|
+      if team_to_total_away_goals.has_key?(game.first)
+        old_score = team_to_total_away_goals[game.first]
+        new_score = old_score + game[1]
+        team_to_total_away_goals[game[0]] = new_score
+      else
+        team_to_total_away_goals[game[0]] = game[1]
+      end
+    end
+    team_to_total_away_goals
+  end
+
+  def sum_of_home_games
+    team_to_total_home_goals = {}
+    group_by_home_team_id_and_goals.each do |game|
+      if team_to_total_home_goals.has_key?(game.first)
+        old_score = team_to_total_home_goals[game.first]
+        new_score = old_score + game[1]
+        team_to_total_home_goals[game[0]] = new_score
+      else
+        team_to_total_home_goals[game[0]] = game[1]
+      end
+    end
+    team_to_total_home_goals
+  end
+
+  def count_of_away_games
+    total_away_games = {}
+    group_by_away_team_id_and_goals.each do |game|
+      if total_away_games.has_key?(game.first)
+        old_count = total_away_games[game.first]
+        new_count = old_count + 1
+        total_away_games[game[0]] = new_count
+      else
+        total_away_games[game[0]] = 1
+      end
+    end
+    total_away_games
+  end
+
+  def count_of_home_games
+    total_home_games = {}
+    group_by_home_team_id_and_goals.each do |game|
+      if total_home_games.has_key?(game.first)
+        old_count = total_home_games[game.first]
+        new_count = old_count + 1
+        total_home_games[game[0]] = new_count
+      else
+        total_home_games[game[0]] = 1
+      end
+    end
+    total_home_games
+  end
+
+  def highest_average_away_goals
+    highest_away_team_id = -1
+    highest_away_average = -1
+    count_of_away_games.each do |team_id, away_game|
+      average = sum_of_away_games[team_id] / away_game
+      if average > highest_away_average
+        highest_away_average = average
+        highest_away_team_id = team_id
+      end
+    end
+    highest_away_team_id
+  end
+
+  def highest_average_home_goals
+    highest_home_team_id = -1
+    highest_home_average = -1
+    count_of_home_games.each do |team_id, home_game|
+      average = sum_of_home_games[team_id] / home_game
+      if average > highest_home_average
+        highest_home_average = average
+        highest_home_team_id = team_id
+      end
+    end
+    highest_home_team_id
   end
 
   def average_goals_by_season
@@ -115,5 +193,4 @@ class GameCollection
       (total_season_games[1] / total_season_games[0].to_f).round(2)
     end
   end
-
 end
