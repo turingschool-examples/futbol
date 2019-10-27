@@ -22,4 +22,13 @@ class TeamCollection
     end
     id_list.uniq.length
   end
+
+  def winningest_team(team_id)
+     @team_instances.reduce do |x, team|
+      if team.team_id == team_id
+        x = team.teamname
+      end
+      x
+    end
+  end
 end
