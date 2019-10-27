@@ -1,10 +1,10 @@
 require 'csv'
 require_relative './team.rb'
 require_relative './game_team.rb'
-# require_relative './game_collection'
+ require_relative './game_collection'
 
 class TeamCollection
-  attr_reader :total_teams
+  attr_reader :total_teams, :total_games
 
   def initialize(team_path, game_team_path)
     @total_games = create_game_team(game_team_path)
@@ -90,14 +90,58 @@ class TeamCollection
   end
 
   def group_by_away_team_id_and_goals
-    away_team_groups = @all_team_games.map { |team| team.team_id}
-    away_team_goals = @all_team_games.flat_map { |team| team.goals}
+    away_team_groups = @total_games.map { |team| team.team_id}
+    away_team_goals = @total_games.map { |team| team.goals}
     away_team_id_goals = away_team_groups.zip(away_team_goals)
+  end
+# team[:team_id] == game_team.team_id
+
+# @total_games.find_all do |game_team|
+#   if team[:team_id] == game_team.team_id
+#     all_game_ids << game_team.game_id
+#   end
+
+  def group_away_goals
+    away_sum = 0
     require "pry"; binding.pry
+    away_goals = @total_games.map do |game_team|
+      if @total_games.team_id == game_team.team_id && @total_games.hoa == "away"
+        @total_games.sum
+      end
+      away_sum
+    end
+  end
+
+  def sum_of_away_games
+    team_to_total_away_goals = {}
+    group_by_away_team_id_and_goals.each do |game|
+      if team_to_total_away_goals.has_key?(game.first)
+        old_score = team_to_total_away_goals[game.first]
+        new_score = old_score + game[1]
+        team_to_total_away_goals[game[0]] = new_score
+      else
+        team_to_total_away_goals[game[0]] = game[1]
+      end
+    end
+    team_to_total_away_goals
+  end
+
+  def count_of_away_games
+    total_away_games = {}
+    group_by_away_team_id_and_goals.each do |game|
+      if total_away_games.has_key?(game.first)
+        old_count = total_away_games[game.first]
+        new_count = old_count + 1
+        total_away_games[game[0]] = new_count
+      else
+        total_away_games[game[0]] = 1
+      end
+    end
+    total_away_games
   end
 
   def highest_scoring_visitor
-    highest_away_team_name = @total_teams.find do |team|
+    highest_away_team_name = @total_games.find do |team|
        @game_collection.highest_average_away_goals == team.team_id.to_i
      end
     highest_away_team_name.team_name
