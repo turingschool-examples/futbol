@@ -206,4 +206,10 @@ class GamesCollectionTest < Minitest::Test
   def test_it_can_count_number_of_ties_of_team_in_given_season
     assert_equal 1, @games_collection.total_team_ties_in_season("5", "20152016")
   end
+
+  def test_it_calculates_total_non_tie_games_for_team_in_season
+    assert_equal 1, @games_collection.total_team_ties_in_season("9", "20122013")
+    expected = @games_collection.games_with_team_in_season("9", "20122013").length - 1
+    assert_equal expected, @games_collection.total_non_tie_games("9", "20122013")
+  end
 end

@@ -212,7 +212,13 @@ class GamesCollection
   end
 
   def team_win_percentage(team_id, season)
-    ((total_team_wins(team_id, season).to_f + (total_team_ties_in_season(team_id, season) / 2.0)) / games_with_team_in_season(team_id, season).length.to_f).round(2)
+    (total_team_wins(team_id, season) / games_with_team_in_season(team_id, season).length.to_f).round(2)
+  end
+
+  def total_non_tie_games(team_id, season)
+    games_with_team_in_season(team_id, season).reject do |game|
+      game.away_goals == game.home_goals
+    end.length
   end
 
   def unique_seasons
