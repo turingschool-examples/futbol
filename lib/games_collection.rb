@@ -236,4 +236,14 @@ class GamesCollection
       team_win_percentage(team_id, season)
     end
   end
+
+  def total_wins_across_seasons(team_id)
+    unique_seasons.sum do |season|
+      games_with_team_in_season(team_id, season) != nil ? total_team_wins(team_id, season) : 0
+    end
+  end
+
+  def average_win_percentage(team_id)
+    (total_wins_across_seasons(team_id) / games_with_team(team_id).length.to_f).round(2)
+  end
 end
