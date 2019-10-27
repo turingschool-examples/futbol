@@ -153,5 +153,6 @@ class StatTrackerTest < Minitest::Test
   def test_it_calculates_win_percentage_for_given_team_id
     assert_equal 1.00, @stat_tracker.average_win_percentage("6")
     assert_equal 0.33, @stat_tracker.average_win_percentage("2")
+    assert_equal 0.40, @stat_tracker.average_win_percentage("5")
   end
 end
