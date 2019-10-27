@@ -2,10 +2,10 @@ require 'csv'
 
 class GameTeam
   attr_reader :game_id, :team_id, :hoa, :result, :settled_in, :head_coach, :goals, :shots, :tackles, :pim,
-              :powerPlayOpportunities, :powerPlayGoals, :faceOffWinPercentage, :giveaways, :takeaways
+              :power_play_opportunities, :power_play_goals, :face_off_win_percentage, :giveaways, :takeaways
 
   def initialize(game_id, team_id, hoa, result, settled_in, head_coach, goals, shots, tackles, pim,
-                  powerPlayOpportunities, powerPlayGoals, faceOffWinPercentage, giveaways, takeaways)
+                  powerplayppportunities, powerplaygoals, faceoffwinpercentage, giveaways, takeaways)
     @game_id = game_id
     @team_id = team_id
     @hoa = hoa
@@ -16,9 +16,9 @@ class GameTeam
     @shots = shots
     @tackles = tackles
     @pim = pim
-    @powerPlayOpportunities = powerPlayOpportunities
-    @powerPlayGoals = powerPlayGoals
-    @faceOffWinPercentage = faceOffWinPercentage
+    @power_play_opportunities = powerplayppportunities
+    @power_play_goals = powerplaygoals
+    @face_off_win_percentage = faceoffwinpercentage
     @giveaways = giveaways
     @takeaways = takeaways
   end
@@ -28,7 +28,7 @@ class GameTeam
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       @game_teams << self.new(row[:game_id],
                                     row[:team_id],
-                                    row[:HoA],
+                                    row[:hoa],
                                     row[:result],
                                     row[:settled_in],
                                     row[:head_coach],
@@ -36,9 +36,9 @@ class GameTeam
                                     row[:shots],
                                     row[:tackles],
                                     row[:pim],
-                                    row[:powerPlayOpportunities],
-                                    row[:powerPlayGoals],
-                                    row[:faceOffWinPercentage],
+                                    row[:powerplayopportunities],
+                                    row[:powerplaygoals],
+                                    row[:faceoffwinpercentage],
                                     row[:giveaways],
                                     row[:takeaways],)
     end
