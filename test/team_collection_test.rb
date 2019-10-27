@@ -17,4 +17,8 @@ class TeamCollectionTest < MiniTest::Test
   def test_the_count_of_teams
     assert_equal 15, @team_instance.count_of_teams
   end
+
+  def test_highest_scoring_visitor
+    assert_equal "Dallas", @team_instance.highest_scoring_visitor
+  end
 end

@@ -23,7 +23,8 @@ class TeamCollection
     id_list.uniq.length
   end
 
-  def highest_scoring_visitor
-  x = @game_instances.highest_visitor_score
+  def highest_scoring_visitor(team_id)
+require "pry"; binding.pry
+   highest_visitor_score
   end
 end
