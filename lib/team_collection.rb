@@ -7,6 +7,7 @@ class TeamCollection
   def self.load_data(path)
     teams = {}
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
+      # require "pry"; binding.pry
       teams[row[:team_id]] = Team.new(row)
     end
 

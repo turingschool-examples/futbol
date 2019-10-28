@@ -71,4 +71,8 @@ class StatTracker
   def best_offense
     @team_collection.team_name(@game_team_collection.most_goals)
   end
+
+  def worst_offense
+    @team_collection.team_name(@game_team_collection.fewest_goals)
+  end
 end

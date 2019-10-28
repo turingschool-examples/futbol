@@ -33,14 +33,20 @@ class GameTeamCollection
   end
 
   def most_goals
-    x = @game_teams_by_team_id.max_by do |team_id, game_array|
+    @game_teams_by_team_id.max_by do |team_id, game_array|
       total = game_array.sum do |game|
         game.goals
       end
       (total.to_f / game_array.length).round(2)
     end[0]
   end
-  # def best_offense
-  #   # look through game teams and count goals based off team_id
-  # end
+
+  def fewest_goals
+    @game_teams_by_team_id.min_by do |team_id, game_array|
+      total = game_array.sum do |game|
+        game.goals
+      end
+      (total.to_f / game_array.length).round(2)
+    end[0]
+  end
 end
