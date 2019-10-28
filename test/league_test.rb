@@ -65,7 +65,7 @@ class LeagueModuleTest < Minitest::Test
   end
 
   def test_worst_fans
-    assert_equal [], @stat_tracker.worst_fans
+    assert_equal ["Atlanta United"], @stat_tracker.worst_fans
   end
 
 end
