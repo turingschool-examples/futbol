@@ -13,7 +13,7 @@ class TeamModuleTest < Minitest::Test
   end
 
   def test_team_info
-
+    skip
     team = {Name: 'Atlanta United',
       Team_id: '1',
       Franchise_id: '23',
@@ -23,6 +23,8 @@ class TeamModuleTest < Minitest::Test
     assert_equal team, @stat_tracker.team_info('Atlanta United')
   end
 
-
+  def test_best_season
+    assert_equal '20122013', @stat_tracker.best_season('Seattle Sounders')
+  end 
 
 end
