@@ -90,12 +90,6 @@ class GameCollection
 
   def worst_defense
     all_team_ids = TeamCollection.new('./dummy_data/dummy_teams.csv')
-    # team_ids = []
-    # @team_instances.each do |instance|
-    #   team_ids << instance.team_id
-    # end
-    # require "pry"; binding.pry
-    # team_ids.uniq!
     team_ids = all_team_ids.array_of_team_ids
     team_id_goals_against = Hash.new(0)
     team_ids.each do |id|
@@ -114,12 +108,6 @@ class GameCollection
 
   def best_defense
     all_team_ids = TeamCollection.new('./dummy_data/dummy_teams.csv')
-    # team_ids = []
-    # @team_instances.each do |instance|
-    #   team_ids << instance.team_id
-    # end
-    # require "pry"; binding.pry
-    # team_ids.uniq!
     team_ids = all_team_ids.array_of_team_ids
     team_id_goals_against = Hash.new(0)
     team_ids.each do |id|
