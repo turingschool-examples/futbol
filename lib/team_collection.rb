@@ -117,4 +117,15 @@ class TeamCollection
     end
     lowest_scoring_home.team_name
   end
+
+  def most_goals_scored(team_id)
+    team = @total_teams.find {|team| team.team_id == team_id }
+    team.most_goals_scored
+  end
+
+  def fewest_goals_scored(team_id)
+    team = @total_teams.find {|team| team.team_id == team_id }
+    team.fewest_goals_scored
+  end
+
 end
