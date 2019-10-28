@@ -353,4 +353,11 @@ class GamesCollection
       win_percentage_against(team_opponent, team_id)
     end
   end
+
+  def head_to_head(team_id)
+    team_opponents(team_id).reduce({}) do |record, team_opponent|
+      record[team_opponent] = win_percentage_against(team_id, team_opponent)
+      record
+    end
+  end
 end

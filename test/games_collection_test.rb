@@ -381,11 +381,10 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_generate_head_to_head_hash_of_win_percentage_against_others
-    skip
     expected_hash = {
                       "6" => 0.00,
-                      "2" => 0.66,
-                      "3" => 0.50
+                      "2" => 0.67,
+                      "3" => 0.40
                     }
     assert_equal expected_hash, @games_collection.head_to_head("5")
   end
