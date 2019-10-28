@@ -207,14 +207,17 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_favorite_opponent_of_given_team
+    skip
     assert_equal "Seattle Sounders FC", @stat_tracker.favorite_opponent("5")
   end
 
   def test_in_can_find_rival_of_given_team
+    skip
     assert_equal "FC Dallas", @stat_tracker.rival("5")
   end
 
   def test_it_can_generate_head_to_head_hash_of_win_percentage_against_others
+    skip
     expected_hash = {
                       "Seattle Sounders FC" => 0.66,
                       "FC Dallas" => 0.00,

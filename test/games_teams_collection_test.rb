@@ -210,4 +210,24 @@ class GamesTeamsCollectionTest < Minitest::Test
   def test_it_can_find_the_worst_loss
     assert_equal 3, @games_teams_collection.worst_loss("2")
   end
+
+  def test_it_can_find_all_games_with_matching_game_ids
+    argument_array = [
+                        "2012030311",
+                        "2012030312",
+                        "2012030313",
+                        "2012030314"
+                     ]
+    expected_array = [
+                        @games_teams_collection.games_teams[10],
+                        @games_teams_collection.games_teams[11],
+                        @games_teams_collection.games_teams[12],
+                        @games_teams_collection.games_teams[13],
+                        @games_teams_collection.games_teams[14],
+                        @games_teams_collection.games_teams[15],
+                        @games_teams_collection.games_teams[16],
+                        @games_teams_collection.games_teams[17]
+    ]
+    assert_equal expected_array, @games_teams_collection.all_games_with_ids(argument_array)
+  end
 end
