@@ -377,7 +377,6 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_in_can_find_rival_of_given_team
-    skip
     assert_equal "6", @games_collection.rival("5")
   end
 

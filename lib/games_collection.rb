@@ -347,4 +347,10 @@ class GamesCollection
       win_percentage_against(team_opponent, team_id)
     end
   end
+
+  def rival(team_id)
+    team_opponents(team_id).max_by do |team_opponent|
+      win_percentage_against(team_opponent, team_id)
+    end
+  end
 end
