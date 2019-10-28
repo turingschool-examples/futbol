@@ -26,6 +26,9 @@ module LeagueModule
   def highest_scoring_visitor
   end
 
+  def highest_scoring_home_team
+  end
+
   def lowest_scoring_visitor
   end
 
@@ -57,7 +60,7 @@ module LeagueModule
       teams_hash[game.team_id][:home_wins] += game.result == "WIN" && game.hoa == "home" ? 1 : 0
       teams_hash[game.team_id][:away_wins] += game.result == "WIN" && game.hoa == "away" ? 1 : 0
       teams_hash[game.team_id][:home_games] += game.hoa == "home" ? 1 : 0
-      teams_hash[game.team_id][:away_games] += game.hoa == "home" ? 1 : 0
+      teams_hash[game.team_id][:away_games] += game.hoa == "away" ? 1 : 0
     end
     biggest_diff = teams_hash.reduce({}) do |acc, (k, v)|
       acc[k] = (v[:home_wins].to_f / v[:home_games].to_f).round(2) - (v[:away_wins].to_f / v[:away_games].to_f).round(2)
@@ -127,7 +130,7 @@ module LeagueModule
   end
 
   def convert_ids_to_team_name(id)
-    ids_to_name = teams.group_by {|team| team.team_id}.transform_values {|obj| obj[0].teamName}
+    ids_to_name = teams.group_by {|team| team.team_id}.transform_values {|obj| obj[0].teamname}
     ids_to_name[id]
   end
 
