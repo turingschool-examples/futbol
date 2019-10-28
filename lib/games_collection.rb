@@ -244,37 +244,28 @@ class GamesCollection
   end
 
   def season_values(team_id, season)
-    values = {}
-    @games.each do |game|
-      if team_id == game.away_team_id || team_id == game.home_team_id
-        values[:win_percentage] = team_win_percentage(team_id, season)
-        values[:total_goals_scored] = total_home_goals(team_id) + total_away_goals(team_id)
-        values[:total_goals_against] = total_opponent_goals(team_id)
-        values[:average_goals_scored] = (average_away_score_of_team(team_id) + average_home_score_of_team(team_id)).round(2)
-        values[:average_goals_against] = average_goals_of_opponent(team_id)
-      end
+    games_with_team_in_season(team_id, season).reduce({}) do |values, game|
+      values[:win_percentage] = team_win_percentage(team_id, season)
+      values[:total_goals_scored] = total_home_goals(team_id) + total_away_goals(team_id)
+      values[:total_goals_against] = total_opponent_goals(team_id)
+      values[:average_goals_scored] = (average_away_score_of_team(team_id) + average_home_score_of_team(team_id)).round(2)
+      values[:average_goals_against] = average_goals_of_opponent(team_id)
+      values
     end
-    values
   end
 
   def season_type(team_id, season)
-    type = {}
-    @games.each do |game|
-      if team_id == game.away_team_id || team_id == game.home_team_id
+    games_with_team_in_season(team_id, season).reduce({}) do |type, game|
       type[game.type.gsub(/\s+/, "_").downcase.intern] = season_values(team_id, season)
-      end
+      type
     end
-    type
   end
 
-  def seasonal_summary(team_id, season_id)
-    season_info = {}
-    @games.each do |game|
-      if team_id == game.away_team_id || team_id == game.home_team_id
-      season_info[game.season] = season_type(team_id, season_id)
-      end
+  def seasonal_summary(team_id, season)
+    games_with_team(team_id).reduce({}) do |season_info, game|
+      season_info[game.season] = season_type(team_id, season)
+      season_info
     end
-    season_info
   end
 
   def find_opponents_goals_if_away_team(team_id)
@@ -311,5 +302,17 @@ class GamesCollection
     games_with_team_in_season(team_id, season).count do |game|
       game.away_goals == game.home_goals
     end
+  end
+
+  def game_ids_in_season(season)
+    all_games_in_season(season).map { |game| game.game_id }
+  end
+
+  def all_games_in_season_and_type(season, type)
+    all_games_in_season(season).select { |game| game.type == type }
+  end
+
+  def game_ids_in_season_and_type(season, type)
+    all_games_in_season_and_type(season, type).map { |game| game.game_id }
   end
 end
