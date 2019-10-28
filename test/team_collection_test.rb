@@ -44,4 +44,14 @@ class TeamCollectionTest < MiniTest::Test
     game_collection = GameCollection.new('./dummy_data/dummy_games.csv')
     assert_equal "Sporting Kansas City", @team_instance.lowest_scoring_home_team(game_collection.lowest_home_id)
   end
+
+  def test_name_finder_method
+    assert_equal "Chicago Fire", @team_instance.name_finder("4")
+    assert_equal "New York Red Bulls", @team_instance.name_finder("8")
+  end
+
+  def test_worst_fans
+    assert_equal ["Sporting Kansas City"], @team_instance.worst_fans(["5"])
+    assert_equal ["LA Galaxy", "Houston Dynamo"], @team_instance.worst_fans(["17", "3"])
+  end 
 end

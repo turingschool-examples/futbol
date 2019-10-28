@@ -90,4 +90,8 @@ include GameModule
     team.lowest_scoring_visitor(game.lowest_visitor_id)
   end
 
+  def worst_fans
+    team_collection.worst_fans(game_teams_collection.worst_fans)
+  end
+
 end
