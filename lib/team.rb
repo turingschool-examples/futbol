@@ -68,4 +68,9 @@ class Team
   def home_game_goals
     home_goals_sum = home_games_by_team.sum { |game| game.goals }
   end
+
+  def average_win_percentage(team_id)
+    wins = @all_team_games.find_all { |game| game.result == "WIN"}
+    (wins.count / (away_games_by_team.count.to_f + home_games_by_team.count)*100).round(2)
+  end
 end
