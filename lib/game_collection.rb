@@ -1,5 +1,6 @@
 require 'csv'
 require_relative 'game'
+require_relative 'team_collection'
 
 class GameCollection
   attr_reader :game_instances, :game_path
@@ -87,14 +88,52 @@ class GameCollection
     end
   end
 
-  # def best_defense_per_season
-  #
-  #   home_team_ids = []
-  #   @game_instances.each do |instance|
-  #     home_team_ids << instance.home_team_id
-  #   end
-  #   home_team_ids.uniq!
-  #
-  # end
+  def worst_defense
+    all_team_ids = TeamCollection.new('./dummy_data/dummy_teams.csv')
+    # team_ids = []
+    # @team_instances.each do |instance|
+    #   team_ids << instance.team_id
+    # end
+    # require "pry"; binding.pry
+    # team_ids.uniq!
+    team_ids = all_team_ids.array_of_team_ids
+    team_id_goals_against = Hash.new(0)
+    team_ids.each do |id|
+      @game_instances.each do |instance|
+        if id == instance.home_team_id
+          team_id_goals_against[id] += instance.away_goals
+        elsif id == instance.away_team_id
+          team_id_goals_against[id] += instance.home_goals
+        end
+      end
+    end
+    team_id_goals_against
+    worst_team_hash = team_id_goals_against.select { |k, v| v == team_id_goals_against.values.max }
+    worst_team_hash.keys
+  end
+
+  def best_defense
+    all_team_ids = TeamCollection.new('./dummy_data/dummy_teams.csv')
+    # team_ids = []
+    # @team_instances.each do |instance|
+    #   team_ids << instance.team_id
+    # end
+    # require "pry"; binding.pry
+    # team_ids.uniq!
+    team_ids = all_team_ids.array_of_team_ids
+    team_id_goals_against = Hash.new(0)
+    team_ids.each do |id|
+      @game_instances.each do |instance|
+        if id == instance.home_team_id
+          team_id_goals_against[id] += instance.away_goals
+        elsif id == instance.away_team_id
+          team_id_goals_against[id] += instance.home_goals
+        end
+      end
+    end
+    team_id_goals_against
+    best_team_hash = team_id_goals_against.select { |k, v| v == team_id_goals_against.values.min }
+    best_team_hash.keys
+  end
 
 end

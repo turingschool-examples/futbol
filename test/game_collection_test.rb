@@ -2,6 +2,8 @@ require './test/test_helper'
 require './lib/stat_tracker'
 require './lib/game'
 require './lib/game_collection'
+require './lib/team_collection'
+
 
 class GameCollectionTest < MiniTest::Test
 
@@ -59,10 +61,6 @@ class GameCollectionTest < MiniTest::Test
     assert_equal 4, @game_collection.count_of_games_by_season.count
   end
 
-  def test_best_defense_per_season
-    assert_equal 4, @game_collection.best_defense_per_season
-  end
-
   def test_home_wins
     assert_equal 8, @game_collection.home_wins
   end
@@ -73,6 +71,16 @@ class GameCollectionTest < MiniTest::Test
 
   def test_ties
     assert_equal 2, @game_collection.ties
+  end
+
+  def test_worst_defense
+    expected = ["3"]
+    assert_equal expected, @game_collection.worst_defense
+  end
+
+  def test_best_defense
+    expected = ["14", "23"]
+    assert_equal expected, @game_collection.best_defense
   end
 
 end
