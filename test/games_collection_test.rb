@@ -313,14 +313,13 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_get_all_games_between_two_teams
-    skip
     expected_array_1 = [
                           @games_collection.games[5],
                           @games_collection.games[6],
                           @games_collection.games[7],
                           @games_collection.games[8]
                        ]
-    assert_equal expected_array_1, @games_collection.games_between("5", "6")
+    assert_equal expected_array_1, @games_collection.games_between("5", "6").sort_by {|game| game.game_id}
     expected_array_2 = [
                           @games_collection.games[39],
                           @games_collection.games[40],
@@ -329,20 +328,21 @@ class GamesCollectionTest < Minitest::Test
                           @games_collection.games[43],
                           @games_collection.games[44]
                        ]
-    assert_equal expected_array_2, @games_collection.games_between("5", "2")
+    assert_equal expected_array_2, @games_collection.games_between("5", "2").sort_by {|game| game.game_id}
     expected_array_3 = [
-                          @games_collection.games[67],
-                          @games_collection.games[68],
-                          @games_collection.games[69],
-                          @games_collection.games[70],
-                          @games_collection.games[71],
                           @games_collection.games[89],
                           @games_collection.games[90],
                           @games_collection.games[91],
                           @games_collection.games[92],
-                          @games_collection.games[93]
+                          @games_collection.games[93],
+                          @games_collection.games[67],
+                          @games_collection.games[68],
+                          @games_collection.games[69],
+                          @games_collection.games[70],
+                          @games_collection.games[71]
+
                        ]
-    assert_equal expected_array_3, @games_collection.games_between("5", "3")
+    assert_equal expected_array_3, @games_collection.games_between("5", "3").sort_by {|game| game.game_id}
   end
 
   def test_it_can_total_wins_of_one_team_against_another

@@ -321,4 +321,10 @@ class GamesCollection
       team_id == game.away_team_id ? game.home_team_id : game.away_team_id
     end.uniq
   end
+
+  def games_between(team_id, team_opponents)
+    games_with_team(team_id).find_all do |game|
+      team_opponents == game.away_team_id || team_opponents == game.home_team_id  
+    end
+  end
 end
