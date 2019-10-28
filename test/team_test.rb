@@ -24,7 +24,7 @@ class TeamModuleTest < Minitest::Test
   end
 
   def test_best_season
-    assert_equal '20122013', @stat_tracker.best_season('Seattle Sounders')
-  end 
+    assert_equal '20122013', @stat_tracker.best_season('Seattle Sounders FC')
+  end
 
 end
