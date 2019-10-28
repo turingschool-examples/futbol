@@ -333,4 +333,12 @@ class GamesCollection
       team_id == game.home_team_id ? home_win?(game) : away_win?(game)
     end
   end
+
+  def total_games_between(team_id, team_opponent)
+    games_between(team_id, team_opponent).length
+  end
+
+  def win_percentage_against(team_id, team_opponent)
+    (total_wins_against(team_id, team_opponent) / total_games_between(team_id, team_opponent).to_f).round(2)
+  end
 end

@@ -355,7 +355,6 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_total_games_between_two_teams
-    skip
     assert_equal 4, @games_collection.total_games_between("6", "5")
     assert_equal 4, @games_collection.total_games_between("5", "6")
     assert_equal 6, @games_collection.total_games_between("2", "5")
@@ -365,17 +364,15 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_calculates_win_percentage_of_one_team_against_another
-    skip
     assert_equal 1.00, @games_collection.win_percentage_against("6", "5")
     assert_equal 0.00, @games_collection.win_percentage_against("5", "6")
-    assert_equal 0.33, @games_collection.win_percentage_against("3", "5")
-    assert_equal 0.67, @games_collection.win_percentage_against("5", "3")
-    assert_equal 0.50, @games_collection.win_percentage_against("2", "5")
-    assert_equal 0.50, @games_collection.win_percentage_against("5", "2")
+    assert_equal 0.33, @games_collection.win_percentage_against("2", "5")
+    assert_equal 0.67, @games_collection.win_percentage_against("5", "2")
+    assert_equal 0.50, @games_collection.win_percentage_against("3", "5")
+    assert_equal 0.40, @games_collection.win_percentage_against("5", "3")
   end
 
   def test_it_calculates_all_opponent_win_percentages_against_given_team
-    skip
     assert_equal [1.00, 0.33, 0.50], @games_collection.all_opponent_win_percentages("5")
   end
 
