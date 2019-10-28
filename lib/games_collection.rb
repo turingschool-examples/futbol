@@ -322,9 +322,15 @@ class GamesCollection
     end.uniq
   end
 
-  def games_between(team_id, team_opponents)
+  def games_between(team_id, team_opponent)
     games_with_team(team_id).find_all do |game|
-      team_opponents == game.away_team_id || team_opponents == game.home_team_id  
+      team_opponent == game.away_team_id || team_opponent == game.home_team_id
+    end
+  end
+
+  def total_wins_against(team_id, team_opponent)
+    games_between(team_id, team_opponent).count do |game|
+      team_id == game.home_team_id ? home_win?(game) : away_win?(game)
     end
   end
 end

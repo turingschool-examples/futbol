@@ -346,13 +346,12 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_total_wins_of_one_team_against_another
-    skip
     assert_equal 4, @games_collection.total_wins_against("6", "5")
     assert_equal 0, @games_collection.total_wins_against("5", "6")
     assert_equal 2, @games_collection.total_wins_against("2", "5")
     assert_equal 4, @games_collection.total_wins_against("5", "2")
     assert_equal 5, @games_collection.total_wins_against("3", "5")
-    assert_equal 5, @games_collection.total_wins_against("5", "3")
+    assert_equal 4, @games_collection.total_wins_against("5", "3")
   end
 
   def test_it_can_total_games_between_two_teams
