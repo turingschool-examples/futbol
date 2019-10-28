@@ -25,18 +25,30 @@ module TeamModule
 
   end
 
-  ##Helper Methods
+  ##Helper Methods##
   def generate_win_percentage_season(team)
      team_obj = self.convert_team_name_to_obj(team)
-     seasons = self.generate_seasons_hash(games)
-     games_by_team = game_teams.group_by do |game|
-       game.team_id
+     games_by_team = game_teams.group_by {|game| game.team_id}
+     by_season = games_by_team[team_obj.team_id].group_by do |game|
+       season = find_season_game_id(game.game_id)
      end
+     win_percent_season = by_season.transform_values do |val|
+       val.map {|game| game.result == 'WIN' ? 1 : 0}
+     end
+     win_percent_season 
      binding.pry
   end
 
-  def convert_team_name_to_obj(team)
-    team_obj = teams.select {|team_obj| team_obj.teamname == team}[0]
+  def convert_team_name_to_obj(team_name)
+    team_obj = teams.select {|team| team.teamname == team_name}[0]
   end
+
+  def find_season_game_id(gameid)
+    game = games.find {|game| game.game_id == gameid}
+    game.season
+  end
+
+
+
 
 end
