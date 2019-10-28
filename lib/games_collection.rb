@@ -342,5 +342,9 @@ class GamesCollection
     (total_wins_against(team_id, team_opponent) / total_games_between(team_id, team_opponent).to_f).round(2)
   end
 
-
+  def favorite_opponent(team_id)
+    team_opponents(team_id).min_by do |team_opponent|
+      win_percentage_against(team_opponent, team_id)
+    end
+  end
 end

@@ -373,7 +373,6 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_find_favorite_opponent_of_given_team
-    skip
     assert_equal "2", @games_collection.favorite_opponent("5")
   end
 
