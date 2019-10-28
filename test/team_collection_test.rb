@@ -64,4 +64,10 @@ class TeamsCollectionTest < Minitest::Test
   def test_it_can_find_the_lowest_scoring_home_team
     assert_equal "Chicago Fire", @total_teams.lowest_scoring_home_team
   end
+
+  def test_it_can_create_team_info
+    team_information = {:team_id=>"26", :franchise_id=>14, :team_name=>"FC Cincinnati",
+                        :abbreviation=>"CIN", :link=>"/api/v1/teams/26"}
+    assert_equal team_information, @total_teams.team_info("26")
+  end
 end
