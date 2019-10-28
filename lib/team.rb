@@ -1,11 +1,18 @@
 class Team
-  attr_reader :team_id, :franchise_id, :team_name, :abbreviation, :stadium, :link, :all_team_games, :all_opponent_games
+  attr_reader :team_id,
+              :franchise_id,
+              :team_name,
+              :abbreviation,
+              :link,
+              :all_team_games,
+              :all_opponent_games
 
   def initialize(team_info, all_team_games, all_opponent_games)
     @team_id = team_info[:team_id]
     @franchise_id = team_info[:franchiseid].to_i
     @team_name = team_info[:teamname]
     @abbreviation = team_info[:abbreviation]
+    @link = team_info[:link]
     @all_team_games = all_team_games
     @all_opponent_games = all_opponent_games
   end
@@ -67,10 +74,5 @@ class Team
 
   def home_game_goals
     home_goals_sum = home_games_by_team.sum { |game| game.goals }
-  end
-
-  def average_win_percentage(team_id)
-    wins = @all_team_games.find_all { |game| game.result == "WIN"}
-    (wins.count / (away_games_by_team.count.to_f + home_games_by_team.count)*100).round(2)
   end
 end
