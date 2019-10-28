@@ -230,4 +230,10 @@ class GamesTeamsCollectionTest < Minitest::Test
     ]
     assert_equal expected_array, @games_teams_collection.all_games_with_ids(argument_array)
   end
+
+  def test_it_can_get_opponents_id
+    assert_equal ["3", "5"], @games_teams_collection.opponents_team_id("6")
+  end
+
+
 end

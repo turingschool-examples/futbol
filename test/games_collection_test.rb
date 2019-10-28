@@ -309,19 +309,17 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_find_all_opponents_of_given_team
-    skip
     assert_equal ["6", "2", "3"], @games_collection.team_opponents("5")
   end
 
   def test_it_can_get_all_games_between_two_teams
-    skip
     expected_array_1 = [
                           @games_collection.games[5],
                           @games_collection.games[6],
                           @games_collection.games[7],
                           @games_collection.games[8]
                        ]
-    assert_equal expected_array_1, @games_collection.games_between("5", "6")
+    assert_equal expected_array_1, @games_collection.games_between("5", "6").sort_by {|game| game.game_id}
     expected_array_2 = [
                           @games_collection.games[39],
                           @games_collection.games[40],
@@ -330,34 +328,33 @@ class GamesCollectionTest < Minitest::Test
                           @games_collection.games[43],
                           @games_collection.games[44]
                        ]
-    assert_equal expected_array_2, @games_collection.games_between("5", "2")
+    assert_equal expected_array_2, @games_collection.games_between("5", "2").sort_by {|game| game.game_id}
     expected_array_3 = [
-                          @games_collection.games[67],
-                          @games_collection.games[68],
-                          @games_collection.games[69],
-                          @games_collection.games[70],
-                          @games_collection.games[71],
                           @games_collection.games[89],
                           @games_collection.games[90],
                           @games_collection.games[91],
                           @games_collection.games[92],
-                          @games_collection.games[93]
+                          @games_collection.games[93],
+                          @games_collection.games[67],
+                          @games_collection.games[68],
+                          @games_collection.games[69],
+                          @games_collection.games[70],
+                          @games_collection.games[71]
+
                        ]
-    assert_equal expected_array_3, @games_collection.games_between("5", "3")
+    assert_equal expected_array_3, @games_collection.games_between("5", "3").sort_by {|game| game.game_id}
   end
 
   def test_it_can_total_wins_of_one_team_against_another
-    skip
     assert_equal 4, @games_collection.total_wins_against("6", "5")
     assert_equal 0, @games_collection.total_wins_against("5", "6")
     assert_equal 2, @games_collection.total_wins_against("2", "5")
     assert_equal 4, @games_collection.total_wins_against("5", "2")
     assert_equal 5, @games_collection.total_wins_against("3", "5")
-    assert_equal 5, @games_collection.total_wins_against("5", "3")
+    assert_equal 4, @games_collection.total_wins_against("5", "3")
   end
 
   def test_it_can_total_games_between_two_teams
-    skip
     assert_equal 4, @games_collection.total_games_between("6", "5")
     assert_equal 4, @games_collection.total_games_between("5", "6")
     assert_equal 6, @games_collection.total_games_between("2", "5")
@@ -367,36 +364,27 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_calculates_win_percentage_of_one_team_against_another
-    skip
     assert_equal 1.00, @games_collection.win_percentage_against("6", "5")
     assert_equal 0.00, @games_collection.win_percentage_against("5", "6")
-    assert_equal 0.33, @games_collection.win_percentage_against("3", "5")
-    assert_equal 0.67, @games_collection.win_percentage_against("5", "3")
-    assert_equal 0.50, @games_collection.win_percentage_against("2", "5")
-    assert_equal 0.50, @games_collection.win_percentage_against("5", "2")
-  end
-
-  def test_it_calculates_all_opponent_win_percentages_against_given_team
-    skip
-    assert_equal [1.00, 0.33, 0.50], @games_collection.all_opponent_win_percentages("5")
+    assert_equal 0.33, @games_collection.win_percentage_against("2", "5")
+    assert_equal 0.67, @games_collection.win_percentage_against("5", "2")
+    assert_equal 0.50, @games_collection.win_percentage_against("3", "5")
+    assert_equal 0.40, @games_collection.win_percentage_against("5", "3")
   end
 
   def test_it_can_find_favorite_opponent_of_given_team
-    skip
     assert_equal "2", @games_collection.favorite_opponent("5")
   end
 
   def test_in_can_find_rival_of_given_team
-    skip
     assert_equal "6", @games_collection.rival("5")
   end
 
   def test_it_can_generate_head_to_head_hash_of_win_percentage_against_others
-    skip
     expected_hash = {
                       "6" => 0.00,
-                      "2" => 0.66,
-                      "3" => 0.50
+                      "2" => 0.67,
+                      "3" => 0.40
                     }
     assert_equal expected_hash, @games_collection.head_to_head("5")
   end

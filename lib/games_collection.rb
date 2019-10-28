@@ -315,4 +315,49 @@ class GamesCollection
   def game_ids_in_season_and_type(season, type)
     all_games_in_season_and_type(season, type).map { |game| game.game_id }
   end
+
+  def team_opponents(team_id)
+    games_with_team(team_id).map do |game|
+      team_id == game.away_team_id ? game.home_team_id : game.away_team_id
+    end.uniq
+  end
+
+  def games_between(team_id, team_opponent)
+    games_with_team(team_id).find_all do |game|
+      team_opponent == game.away_team_id || team_opponent == game.home_team_id
+    end
+  end
+
+  def total_wins_against(team_id, team_opponent)
+    games_between(team_id, team_opponent).count do |game|
+      team_id == game.home_team_id ? home_win?(game) : away_win?(game)
+    end
+  end
+
+  def total_games_between(team_id, team_opponent)
+    games_between(team_id, team_opponent).length
+  end
+
+  def win_percentage_against(team_id, team_opponent)
+    (total_wins_against(team_id, team_opponent) / total_games_between(team_id, team_opponent).to_f).round(2)
+  end
+
+  def favorite_opponent(team_id)
+    team_opponents(team_id).min_by do |team_opponent|
+      win_percentage_against(team_opponent, team_id)
+    end
+  end
+
+  def rival(team_id)
+    team_opponents(team_id).max_by do |team_opponent|
+      win_percentage_against(team_opponent, team_id)
+    end
+  end
+
+  def head_to_head(team_id)
+    team_opponents(team_id).reduce({}) do |record, team_opponent|
+      record[team_opponent] = win_percentage_against(team_id, team_opponent)
+      record
+    end
+  end
 end
