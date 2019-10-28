@@ -315,4 +315,10 @@ class GamesCollection
   def game_ids_in_season_and_type(season, type)
     all_games_in_season_and_type(season, type).map { |game| game.game_id }
   end
+
+  def team_opponents(team_id)
+    games_with_team(team_id).map do |game|
+      team_id == game.away_team_id ? game.home_team_id : game.away_team_id
+    end.uniq
+  end
 end

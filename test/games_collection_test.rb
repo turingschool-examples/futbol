@@ -309,7 +309,6 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_find_all_opponents_of_given_team
-    skip
     assert_equal ["6", "2", "3"], @games_collection.team_opponents("5")
   end
 
