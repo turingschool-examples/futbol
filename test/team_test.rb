@@ -12,5 +12,17 @@ class TeamModuleTest < Minitest::Test
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
+  def test_team_info
 
-end   
+    team = {Name: 'Atlanta United',
+      Team_id: '1',
+      Franchise_id: '23',
+      Abbreviation: 'ATL',
+      Link: '/api/v1/teams/1'
+    }
+    assert_equal team, @stat_tracker.team_info('Atlanta United')
+  end
+
+
+
+end
