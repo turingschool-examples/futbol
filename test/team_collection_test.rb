@@ -23,6 +23,17 @@ class TeamCollectionTest < MiniTest::Test
     assert_equal "LA Galaxy", @team_instance.winningest_team("17")
   end
 
+<<<<<<< HEAD
+def test_name_finder_method
+  assert_equal "Chicago Fire", @team_instance.name_finder("4")
+  assert_equal "New York Red Bulls", @team_instance.name_finder("8")
+end
+
+def test_worst_fans
+  assert_equal ["Sporting Kansas City"], @team_instance.worst_fans(["5"])
+  assert_equal ["LA Galaxy", "Houston Dynamo"], @team_instance.worst_fans(["17", "3"])
+end
+
   def test_array_of_team_ids
     assert_equal ["1", "4", "26", "14", "6", "3", "5", "17", "28", "18", "23", "16", "9", "8", "30"], @team_instance.array_of_team_ids
     assert_equal 15, @team_instance.array_of_team_ids.length

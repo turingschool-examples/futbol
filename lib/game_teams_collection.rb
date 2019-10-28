@@ -24,4 +24,56 @@ class GameTeamsCollection
     end
     team_game_count.max_by {|key, value| value}.first.to_s
   end
+
+  def game_stat_maker(team_id)
+    team_data = {
+      away_wins: 0,
+      away_losses: 0,
+      home_wins: 0,
+      home_losses: 0
+    }
+    @game_teams_collection_instances.each do |game|
+      if game.team_id == team_id
+        if game.result == "WIN" && game.hoa == "away"
+          team_data[:away_wins] += 1
+        elsif game.result == "LOSS" && game.hoa == "away"
+          team_data[:away_losses] += 1
+        elsif game.result == "WIN" && game.hoa == "home"
+          team_data[:home_wins] += 1
+        elsif game.result == "LOSS" && game.hoa == "home"
+          team_data[:home_losses] += 1
+        end
+      end
+    end
+    team_data
+
+  end
+
+  def team_id_maker
+    @team_list = []
+    @game_teams_collection_instances.map do |game|
+      @team_list << game.team_id
+    end
+    @team_list = @team_list.uniq
+  end
+
+  def team_stat_maker
+    @team_accumulator = {}
+    team_id_maker.each do |team_id|
+      @team_accumulator[team_id] = game_stat_maker(team_id)
+    end
+    @team_accumulator
+  end
+
+  def worst_fans
+    worst_fans_teams = []
+    team_stat_maker
+    @team_accumulator.map do |team|
+      if team[1][:away_wins] > team[1][:home_wins]
+        worst_fans_teams<< team[0]
+      end
+    end
+    worst_fans_teams
+  end
+
 end
