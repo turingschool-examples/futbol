@@ -1,9 +1,11 @@
 require 'csv'
 require_relative './team.rb'
 require_relative './game_team.rb'
+# require_relative './game_collection'
+
 
 class TeamCollection
-  attr_reader :total_teams
+  attr_reader :total_teams, :total_games
 
   def initialize(team_path, game_team_path)
     @total_games = create_game_team(game_team_path)
@@ -86,5 +88,33 @@ class TeamCollection
     worst_fans_list.map do |team|
       team.team_name
     end
+  end
+
+  def highest_scoring_visitor
+    highest_away_team = @total_teams.max_by do |team|
+      team.away_game_goals / team.away_games_by_team.count.to_f
+    end
+    highest_away_team.team_name
+  end
+
+  def highest_scoring_home_team
+    highest_home_team = @total_teams.max_by do |team|
+      team.home_game_goals / team.home_games_by_team.count.to_f
+    end
+    highest_home_team.team_name
+  end
+
+  def lowest_scoring_visitor
+    lowest_scoring_away_team = @total_teams.min_by do |team|
+      team.away_game_goals / team.away_games_by_team.count.to_f
+    end
+    lowest_scoring_away_team.team_name
+  end
+
+  def lowest_scoring_home_team
+    lowest_scoring_home = @total_teams.min_by do |team|
+      team.home_game_goals / team.home_games_by_team.count.to_f
+    end
+    lowest_scoring_home.team_name
   end
 end

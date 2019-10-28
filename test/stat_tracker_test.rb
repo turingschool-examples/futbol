@@ -101,6 +101,22 @@ class StatTrackerTest < Minitest::Test
     assert_equal ["FC Cincinnati"], @stat_tracker.worst_fans
   end
 
+  def test_it_has_highest_scoring_visitor
+    assert_equal "Chicago Fire", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_it_has_a_highest_scoring_home_team
+    assert_equal "FC Cincinnati", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_it_has_a_lowest_scoring_away_team
+    assert_equal "FC Cincinnati", @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_lowest_scoring_home_team
+    assert_equal "Chicago Fire", @stat_tracker.lowest_scoring_home_team
+  end
+
   def test_it_has_winningest_team
     # FC Dallas has only wins
     assert_equal "Atlanta United", @stat_tracker.winningest_team
