@@ -23,7 +23,6 @@ class TeamCollectionTest < MiniTest::Test
     assert_equal "LA Galaxy", @team_instance.winningest_team("17")
   end
 
-<<<<<<< HEAD
 def test_name_finder_method
   assert_equal "Chicago Fire", @team_instance.name_finder("4")
   assert_equal "New York Red Bulls", @team_instance.name_finder("8")

@@ -63,7 +63,7 @@ class TeamCollection
     worst_teams.each do |team|
       worst_teams_array << team.teamname
     end
-    worst_teams_string = worst_teams_array.join
+    worst_teams_array.join
   end
 
   def best_defense
@@ -78,7 +78,7 @@ class TeamCollection
     best_teams.each do |team|
       best_teams_array << team.teamname
     end
-    best_teams_string = best_teams_array.join(", ")
+    best_teams_array.join(", ")
   end
 
 end

@@ -101,7 +101,6 @@ class GameCollection
         end
       end
     end
-    team_id_goals_against
     worst_team_hash = team_id_goals_against.select { |k, v| v == team_id_goals_against.values.max }
     worst_team_hash.keys
   end
@@ -119,7 +118,6 @@ class GameCollection
         end
       end
     end
-    team_id_goals_against
     best_team_hash = team_id_goals_against.select { |k, v| v == team_id_goals_against.values.min }
     best_team_hash.keys
   end

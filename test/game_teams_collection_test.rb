@@ -26,12 +26,6 @@ class GameTeamsCollectionTest < MiniTest::Test
     assert_equal expected, new_game_tracker_instance.team_stat_maker.first
   end
 
-  def test_team_id_maker
-    new_game_tracker_instance = GameTeamsCollection.new('./dummy_data/dummy_game_teams.csv')
-    assert_equal [3, 6, 12, 30, 26, 29, 5], new_game_tracker_instance.team_id_maker
-
-  end
-
   def test_game_stat_maker
     new_game_tracker_instance = GameTeamsCollection.new('./dummy_data/dummy_game_teams.csv')
     expected = {:away_wins=>1, :away_losses=>0, :home_wins=>0, :home_losses=>1}
