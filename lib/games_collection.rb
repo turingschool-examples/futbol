@@ -341,4 +341,6 @@ class GamesCollection
   def win_percentage_against(team_id, team_opponent)
     (total_wins_against(team_id, team_opponent) / total_games_between(team_id, team_opponent).to_f).round(2)
   end
+
+
 end

@@ -372,10 +372,6 @@ class GamesCollectionTest < Minitest::Test
     assert_equal 0.40, @games_collection.win_percentage_against("5", "3")
   end
 
-  def test_it_calculates_all_opponent_win_percentages_against_given_team
-    assert_equal [1.00, 0.33, 0.50], @games_collection.all_opponent_win_percentages("5")
-  end
-
   def test_it_can_find_favorite_opponent_of_given_team
     skip
     assert_equal "2", @games_collection.favorite_opponent("5")
