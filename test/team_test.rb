@@ -83,8 +83,4 @@ class TeamsTest < Minitest::Test
   def test_it_can_find_home_goals_by_team
     assert_equal 22, @team_26.home_game_goals
   end
-
-  def test_it_can_find_average_win_percentage
-    assert_equal 41.67, @team_26.average_win_percentage("26")
-  end
 end

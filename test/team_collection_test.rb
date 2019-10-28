@@ -70,4 +70,16 @@ class TeamsCollectionTest < Minitest::Test
                         :abbreviation=>"CIN", :link=>"/api/v1/teams/26"}
     assert_equal team_information, @total_teams.team_info("26")
   end
+
+  def test_it_can_find_all_teams_games
+    assert_equal (12), @total_teams.all_team_games("26")
+  end
+
+  def test_it_can_find_all_won_games
+    assert_equal (5), @total_teams.all_won_games("26")
+  end
+
+  def test_it_can_find_average_win_percentage
+    assert_equal 41.67, @total_teams.average_win_percentage("26")
+  end
 end
