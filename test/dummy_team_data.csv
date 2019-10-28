@@ -1,0 +1,11 @@
+team_id,franchiseId,teamName,abbreviation,Stadium,link
+1,23,Atlanta United,ATL,Mercedes-Benz Stadium,/api/v1/teams/1
+26,14,FC Cincinnati,CIN,Nippert Stadium,/api/v1/teams/26
+6,6,FC Dallas,DAL,Toyota Stadium,/api/v1/teams/6
+5,17,Sporting Kansas City,SKC,Children's Mercy Park,/api/v1/teams/5
+28,29,Los Angeles FC,LFC,Banc of California Stadium,/api/v1/teams/28
+16,11,New England Revolution,NE,Gillette Stadium,/api/v1/teams/16
+2,22,Seattle Sounders FC,SEA,Centruy Link Field,/api/v1/teams/2
+29,36,Orlando Pride,FLP,Exploria Stadium,/api/v1/teams/29
+7,19,Utah Royals FC,URF,Rio Tinto Stadium,/api/v1/teams/7
+53,28,Columbus Crew SC,CCS,Mapfre Stadium,/api/v1/teams/53
