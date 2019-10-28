@@ -1,4 +1,4 @@
-team_id,franchiseId,teamName,abbreviation,Stadium,link
+team_id,franchiseid,teamname,abbreviation,stadium,link
 1,23,Atlanta United,ATL,Mercedes-Benz Stadium,/api/v1/teams/1
 2,22,Seattle Sounders FC,SEA,Centruy Link Field,/api/v1/teams/2
 3,10,Houston Dynamo,HOU,BBVA Stadium,/api/v1/teams/3

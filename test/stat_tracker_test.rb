@@ -33,11 +33,30 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_team_instance_variables
-    skip
+    assert_equal ('1'), @stat_tracker.teams.first.team_id
+    assert_equal ('23'), @stat_tracker.teams.first.franchiseid
+    assert_equal ('Atlanta United'), @stat_tracker.teams.first.teamname
+    assert_equal ('ATL'), @stat_tracker.teams.first.abbreviation
+    assert_equal ('Mercedes-Benz Stadium'), @stat_tracker.teams.first.stadium
+    assert_equal ('/api/v1/teams/1'), @stat_tracker.teams.first.link
   end
 
   def test_game_team_instance_variables
-    skip
+    assert_equal ('2012020006'), @stat_tracker.game_teams.first.game_id
+    assert_equal ('1'), @stat_tracker.game_teams.first.team_id
+    assert_equal ('away'), @stat_tracker.game_teams.first.hoa
+    assert_equal ('WIN'), @stat_tracker.game_teams.first.result
+    assert_equal ('REG'), @stat_tracker.game_teams.first.settled_in
+    assert_equal ('Peter DeBoer'), @stat_tracker.game_teams.first.head_coach
+    assert_equal (2), @stat_tracker.game_teams.first.goals
+    assert_equal ('7'), @stat_tracker.game_teams.first.shots
+    assert_equal ('23'), @stat_tracker.game_teams.first.tackles
+    assert_equal ('8'), @stat_tracker.game_teams.first.pim
+    assert_equal ('2'), @stat_tracker.game_teams.first.power_play_opportunities
+    assert_equal ('0'), @stat_tracker.game_teams.first.power_play_goals
+    assert_equal ('41.2'), @stat_tracker.game_teams.first.face_off_win_percentage
+    assert_equal ('7'), @stat_tracker.game_teams.first.giveaways
+    assert_equal ('6'), @stat_tracker.game_teams.first.takeaways
   end
 
 end
