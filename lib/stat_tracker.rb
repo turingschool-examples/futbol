@@ -140,4 +140,16 @@ class StatTracker
   def seasonal_summary(team_id, season)
     @games.seasonal_summary(team_id, season)
   end
+
+  def favorite_opponent(team_id)
+    name_of_team(@games.favorite_opponent(team_id))
+  end
+
+  def rival(team_id)
+    name_of_team(@games.rival(team_id))
+  end
+
+  def head_to_head(team_id)
+    name_of_team(@games.head_to_head(team_id))
+  end
 end

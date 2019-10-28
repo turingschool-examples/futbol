@@ -205,4 +205,21 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal expected, @stat_tracker.seasonal_summary("16", "20122013")
   end
+
+  def test_it_can_find_favorite_opponent_of_given_team
+    assert_equal "Seattle Sounders FC", @stat_tracker.favorite_opponent("5")
+  end
+
+  def test_in_can_find_rival_of_given_team
+    assert_equal "FC Dallas", @stat_tracker.rival("5")
+  end
+
+  def test_it_can_generate_head_to_head_hash_of_win_percentage_against_others
+    expected_hash = {
+                      "Seattle Sounders FC" => 0.66,
+                      "FC Dallas" => 0.00,
+                      "Houston Dynamo" => 0.35
+                    }
+    assert_equal expected_hash, @stat_tracker.head_to_head("5")
+  end
 end

@@ -307,4 +307,88 @@ class GamesCollectionTest < Minitest::Test
     expected = @games_collection.games_with_team_in_season("9", "20122013").length - 1
     assert_equal expected, @games_collection.total_non_tie_games("9", "20122013")
   end
+
+  def test_it_can_find_all_opponents_of_given_team
+    assert_equal ["6", "2", "3"], @games_collection.team_opponents("5")
+  end
+
+  def test_it_can_get_all_games_between_two_teams
+    expected_array_1 = [
+                          @games_collection.games[9],
+                          @games_collection.games[10],
+                          @games_collection.games[11],
+                          @games_collection.games[12]
+                       ]
+    assert_equal expected_array_1, @games_collection.games_between("5", "6")
+    expected_array_2 = [
+                          @games_collection.games[43],
+                          @games_collection.games[44],
+                          @games_collection.games[45],
+                          @games_collection.games[46],
+                          @games_collection.games[47],
+                          @games_collection.games[48]
+                       ]
+    assert_equal expected_array_2, @games_collection.games_between("5", "2")
+    expected_array_3 = [
+                          @games_collection.games[71],
+                          @games_collection.games[72],
+                          @games_collection.games[73],
+                          @games_collection.games[74],
+                          @games_collection.games[75],
+                          @games_collection.games[93],
+                          @games_collection.games[94],
+                          @games_collection.games[95],
+                          @games_collection.games[96],
+                          @games_collection.games[97]
+                       ]
+    assert_equal expected_array_3, @games_collection.games_between("5", "3")
+  end
+
+  def test_it_can_total_wins_of_one_team_against_another
+    assert_equal 4, @games_collection.total_wins_against("6", "5")
+    assert_equal 0, @games_collection.total_wins_against("5", "6")
+    assert_equal 2, @games_collection.total_wins_against("2", "5")
+    assert_equal 4, @games_collection.total_wins_against("5", "2")
+    assert_equal 5, @games_collection.total_wins_against("3", "5")
+    assert_equal 5, @games_collection.total_wins_against("5", "3")
+  end
+
+  def test_it_can_total_games_between_two_teams
+    assert_equal 4, @games_collection.total_games_between("6", "5")
+    assert_equal 4, @games_collection.total_games_between("5", "6")
+    assert_equal 6, @games_collection.total_games_between("2", "5")
+    assert_equal 6, @games_collection.total_games_between("5", "2")
+    assert_equal 10, @games_collection.total_games_between("3", "5")
+    assert_equal 10, @games_collection.total_games_between("5", "3")
+  end
+
+  def test_it_calculates_win_percentage_of_one_team_against_another
+    assert_equal 1.00, @games_collection.win_percentage_against("6", "5")
+    assert_equal 0.00, @games_collection.win_percentage_against("5", "6")
+    assert_equal 0.33, @games_collection.win_percentage_against("3", "5")
+    assert_equal 0.67, @games_collection.win_percentage_against("5", "3")
+    assert_equal 0.50, @games_collection.win_percentage_against("2", "5")
+    assert_equal 0.50, @games_collection.win_percentage_against("5", "2")
+  end
+
+  def test_it_calculates_all_opponent_win_percentages_against_given_team
+    assert_equal [1.00, 0.33, 0.50], @games_collection.all_opponent_win_percentages("5")
+  end
+
+  def test_it_can_find_favorite_opponent_of_given_team
+    assert_equal "2", @games_collection.favorite_opponent("5")
+  end
+
+  def test_in_can_find_rival_of_given_team
+    assert_equal "6", @games_collection.rival("5")
+  end
+
+  def test_it_can_generate_head_to_head_hash_of_win_percentage_against_others
+    expected_hash = {
+                      "6" => 0.00,
+                      "2" => 0.66,
+                      "3" => 0.50
+                    }
+    assert_equal expected_hash, @games_collection.head_to_head("5")
+  end
 end
