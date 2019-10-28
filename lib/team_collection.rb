@@ -16,9 +16,28 @@ class TeamCollection
     end
   end
 
-  def highest_scoring_visitor(team_id)
-require "pry"; binding.pry
-   highest_visitor_score
+  def highest_scoring_visitor(game_id) #these methods are the same - module
+    team_instances.find do |team|
+      team.team_id == game_id
+    end.teamname
+  end
+
+  def highest_scoring_home_team(game_id) #these methods are the same - module
+    team_instances.find do |team|
+      team.team_id == game_id
+    end.teamname
+  end
+
+  def lowest_scoring_visitor(game_id) #these methods are the same - module
+    team_instances.find do |team|
+      team.team_id == game_id
+    end.teamname
+  end
+
+  def lowest_scoring_home_team(game_id) #these methods are the same - module
+    team_instances.find do |team|
+      team.team_id == game_id
+    end.teamname
   end
 
   def count_of_teams
