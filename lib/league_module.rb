@@ -24,27 +24,67 @@ module LeagueModule
   end
 
   def highest_scoring_visitor
-
   end
 
   def lowest_scoring_visitor
-
   end
 
   def lowest_scoring_home_team
-
   end
 
   def winningest_team
-
+    teams_hash = game_teams.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = { :wins => 0, :total_games => games_played_by_team(game_team.team_id)}
+      acc
+    end
+    game_teams.map do |game|
+      teams_hash[game.team_id][:wins] += game.result == "WIN" ? 1 : 0
+    end
+    win_percent = teams_hash.reduce({}) do |acc, (k, v)|
+      acc[k] = (v[:wins].to_f / v[:total_games].to_f).round(2)
+      acc
+    end
+    result = win_percent.sort_by { |k, v| v }.last.first
+    convert_ids_to_team_name(result)
   end
 
   def best_fans
-
+    teams_hash = game_teams.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = { :home_wins => 0, :home_games => 0, :away_wins => 0, :away_games => 0}
+      acc
+    end
+    game_teams.map do |game|
+      teams_hash[game.team_id][:home_wins] += game.result == "WIN" && game.hoa == "home" ? 1 : 0
+      teams_hash[game.team_id][:away_wins] += game.result == "WIN" && game.hoa == "away" ? 1 : 0
+      teams_hash[game.team_id][:home_games] += game.hoa == "home" ? 1 : 0
+      teams_hash[game.team_id][:away_games] += game.hoa == "home" ? 1 : 0
+    end
+    biggest_diff = teams_hash.reduce({}) do |acc, (k, v)|
+      acc[k] = (v[:home_wins].to_f / v[:home_games].to_f).round(2) - (v[:away_wins].to_f / v[:away_games].to_f).round(2)
+      acc
+    end
+    result = biggest_diff.sort_by { |k, v| v }.last.first
+    convert_ids_to_team_name(result)
   end
 
   def worst_fans
-
+    teams_hash = game_teams.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = { :home_wins => 0, :home_games => 0, :away_wins => 0, :away_games => 0}
+      acc
+    end
+    game_teams.map do |game|
+      teams_hash[game.team_id][:home_wins] += game.result == "WIN" && game.hoa == "home" ? 1 : 0
+      teams_hash[game.team_id][:away_wins] += game.result == "WIN" && game.hoa == "away" ? 1 : 0
+      teams_hash[game.team_id][:home_games] += game.hoa == "home" ? 1 : 0
+      teams_hash[game.team_id][:away_games] += game.hoa == "away" ? 1 : 0
+    end
+    biggest_diff = teams_hash.reduce({}) do |acc, (k, v)|
+      #acc[k] = ((v[:home_wins].to_f / v[:home_games].to_f).round(2) - (v[:away_wins].to_f / v[:away_games].to_f).round(2)).round(2)
+      acc[k] = (v[:home_wins].to_f - v[:away_wins].to_f).round(2)
+      acc
+    end
+    result = biggest_diff.select { |k, v| v < 0 }
+    result.map { |k, v| convert_ids_to_team_name(k) }
   end
 
   ##Helper Methods##
@@ -90,4 +130,5 @@ module LeagueModule
     ids_to_name = teams.group_by {|team| team.team_id}.transform_values {|obj| obj[0].teamName}
     ids_to_name[id]
   end
+
 end
