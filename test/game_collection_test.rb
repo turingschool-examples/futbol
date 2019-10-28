@@ -71,8 +71,19 @@ class GameCollectionTest < MiniTest::Test
     assert_equal 2, @game_collection.ties
   end
 
-  def test_highest_scoring_visitor
-    assert_equal 4, @game_collection.highest_visitor_score.away_goals
-    assert_equal "2012030312", @game_collection.highest_visitor_score.game_id
+  def test_highest_visitor_score
+    assert_equal "6", @game_collection.highest_visitor_id
+  end
+
+  def test_highest_home_score
+    assert_equal "14", @game_collection.highest_home_id
+  end
+
+  def test_lowest_away_score
+    assert_equal "20", @game_collection.lowest_visitor_id
+  end
+
+  def test_lowest_home_score
+    assert_equal "5", @game_collection.lowest_home_id
   end
 end
