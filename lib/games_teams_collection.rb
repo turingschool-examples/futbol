@@ -98,7 +98,7 @@ class GamesTeamsCollection
     find_by_in(element, attribute, collection).length
   end
 
-  # Helper method
+  # Helper method see 182
   def games_with_team(team_id)
     find_by_in(team_id, "team_id", @games_teams)
   end
@@ -263,5 +263,9 @@ class GamesTeamsCollection
     @games_teams.find_all do |game_team|
       game_ids.include?(game_team.game_id)
     end
+  end
+
+  def opponents_team_id(team_id)
+    every_unique("team_id", all_opponent_games(team_id))
   end
 end
