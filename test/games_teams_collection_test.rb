@@ -234,8 +234,4 @@ class GamesTeamsCollectionTest < Minitest::Test
   def test_it_can_get_opponents_id
     assert_equal ["3", "5"], @games_teams_collection.opponents_team_id("6")
   end
-
-  def test_it_can_list_all_games_won_by_team
-    assert_equal
-  end
 end
