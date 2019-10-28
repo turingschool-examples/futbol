@@ -258,4 +258,10 @@ class GamesTeamsCollection
     end
     difference.map { |number| number }.max
   end
+
+  def all_games_with_ids(game_ids)
+    @games_teams.find_all do |game_team|
+      game_ids.include?(game_team.game_id)
+    end
+  end
 end
