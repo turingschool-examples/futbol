@@ -23,18 +23,18 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3, @stat_tracker.biggest_blowout
   end
 
-  def test_percent_home_wins
-    assert_equal 33.33, @stat_tracker.percent_home_wins
+  def test_percentage_home_wins
+    assert_equal 33.33, @stat_tracker.percentage_home_wins
     #3 wins in test sample
   end
 
-  def test_percent_visitor_wins
-    assert_equal 41.67, @stat_tracker.percent_visitor_wins
+  def test_percentage_visitor_wins
+    assert_equal 41.67, @stat_tracker.percentage_visitor_wins
     #5 wins in test sample
   end
 
-  def test_percent_ties
-    assert_equal 25.00, @stat_tracker.percent_ties
+  def test_percentage_ties
+    assert_equal 25.00, @stat_tracker.percentage_ties
   end
 
   def test_it_can_give_number_of_games_in_season
@@ -46,7 +46,7 @@ class StatTrackerTest < Minitest::Test
     "20162017" => 2,
     "20172018" => 1
     }
-    assert_equal expected, @stat_tracker.game_count_per_season
+    assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
   def test_it_can_count_goals_per_season
