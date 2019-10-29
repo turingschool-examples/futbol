@@ -260,12 +260,40 @@ class GamesTeamsCollection
   end
 
   def all_games_with_ids(game_ids)
-    @games_teams.find_all do |game_team|
-      game_ids.include?(game_team.game_id)
-    end
+    @games_teams.find_all { |game_team| game_ids.include?(game_team.game_id) }
   end
 
   def opponents_team_id(team_id)
     every_unique("team_id", all_opponent_games(team_id))
+  end
+
+  def all_coach_games_in_season(coach, game_ids)
+    all_games_with_ids(game_ids).find_all { |game_team| game_team.head_coach == coach }
+  end
+
+  def total_wins_of_coach_in_season(coach, game_ids)
+    all_coach_games_in_season(coach, game_ids).count do |game|
+      game.result == "WIN"
+    end
+  end
+
+  def total_coach_games_in_season(coach, game_ids)
+    all_coach_games_in_season(coach, game_ids).length
+  end
+
+  def coach_win_percent_in_season(coach, game_ids)
+    (total_wins_of_coach_in_season(coach, game_ids) / total_coach_games_in_season(coach, game_ids).to_f).round(2)
+  end
+
+  def unique_coaches_in_season(game_ids)
+    all_games_with_ids(game_ids).map { |game| game.head_coach }.uniq
+  end
+
+  def winningest_coach(game_ids)
+    unique_coaches_in_season(game_ids).max_by { |coach| coach_win_percent_in_season(coach, game_ids) }
+  end
+
+  def worst_coach(game_ids)
+    unique_coaches_in_season(game_ids).min_by { |coach| coach_win_percent_in_season(coach, game_ids) }
   end
 end
