@@ -42,17 +42,20 @@ class GameTeamCollection
   end
 
   def most_visitor_goals
-    @game_teams_by_team_id.max_by do |team_id, game_array|
-      away_games = game_array.find_all do |game|
+    away_games.max_by do |team_id, away_game_array|
+      total = away_game_array.sum do |away_game|
+        away_game.goals
+      end
+      (total.to_f / away_game_array.length).round(2)
+    end[0]
+  end
+
+  def away_games
+    away_games = {}
+    x = @game_teams_by_team_id.each do |team_id, game_array|
+      away_games[team_id] = game_array.find_all do |game|
         game.hoa == "away"
       end
-      if away_games.length != 0
-        total = away_games.sum do |away_game|
-          away_game.goals
-        end
-        (total.to_f / away_games.length).round(2)
-      else 0
-      end
-    end[0]
+    end
   end
 end
