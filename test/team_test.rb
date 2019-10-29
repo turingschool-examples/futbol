@@ -95,4 +95,8 @@ class TeamsTest < Minitest::Test
   def test_it_has_biggest_blowout
     assert_equal 4, @team_26.biggest_blowout
   end
+
+  def test_it_has_worst_loss
+    assert_equal 4, @team_26.worst_loss
+  end
 end
