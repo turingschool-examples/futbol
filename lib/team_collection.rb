@@ -129,34 +129,40 @@ class TeamCollection
   end
 
   def favorite_opponent(team_id)
-    team = @total_teams.find {|team| team.team_id == team_id }
-    require "pry"; binding.pry
-
-    opponent_games = team.all_opponent_games
-    opponent_team_ids = opponent_games.map { |game| game.team_id }.uniq
-    opponent_teams = opponent_team_ids.map do |id|
-      @total_teams.find { |team| team.team_id == id }
+    team = @total_teams.find { |team| team.team_id == team_id }
+    #find the opponent games of the team
+    all_opponent_games = team.all_opponent_games
+    #find the ids of the opponents ["4", "1"]
+    team_ids_played_against = all_opponent_games.map { |game| game.team_id }.uniq
+    #this is a hash where the output ends up with keys being the team_id of each opponent and the value is the
+    #percentage of games that opponent has won against the team_id that is the method argument
+    x = team_ids_played_against.reduce({}) do |opponent_id_percentage_won, opponent_id|
+      opponent_games = all_opponent_games.find_all { |game| game.team_id == opponent_id}
+      number_of_games_won_by_opponent = opponent_games.count{ |game| game.result == "WIN"}
+      # require "pry"; binding.pry
+      opponent_id_percentage_won[opponent_id] = number_of_games_won_by_opponent / opponent_games.length.to_f
+      opponent_id_percentage_won
     end
-    x = opponent_teams.min_by { |team| team.win_percentage }.team_name
-    require "pry"; binding.pry
-
- #    team_game_ids = team.all_team_games.map { |game| game.game_id }
- #    team_game_ids.reduce({}) do |game_id_collection, game_id|
- #      key = game_id
- #      value = team.all_team_games.find_all { |game| game.game_id == game_id }, team.all_opponent_games.find_all { |game|
- # game.game_id == game_id }
- #      game_id_collection[key] = value
- #      game_id_collection
- #    end
+    #now we are finding the team_id that has the lowest win percentage agains the team passed in
+    team_id = x.min_by { |k,v| v}.first
+    #and here we get the name of the team
+    @total_teams.find { |team| team.team_id == team_id }.team_name
   end
 
   def rival(team_id)
-    team = @total_teams.find {|team| team.team_id == team_id }
-    opponent_games = team.all_opponent_games
-    opponent_team_ids = opponent_games.map { |game| game.team_id }.uniq
-    opponent_teams = opponent_team_ids.map do |id|
-      @total_teams.find { |team| team.team_id == id }
+    team = @total_teams.find { |team| team.team_id == team_id }
+    all_opponent_games = team.all_opponent_games
+    team_ids_played_against = all_opponent_games.map { |game| game.team_id }.uniq
+
+    x =   team_ids_played_against.reduce({}) do |opponent_id_percentage_won, opponent_id|
+      opponent_games = all_opponent_games.find_all { |game| game.team_id == opponent_id}
+      number_of_games_won_by_opponent = opponent_games.count{ |game| game.result == "WIN"}
+      opponent_id_percentage_won[opponent_id] = number_of_games_won_by_opponent / opponent_games.length.to_f
+      opponent_id_percentage_won
     end
-    opponent_teams.max_by { |team| team.win_percentage }.team_name
+
+    team_id = x.max_by { |k,v| v}.first
+    @total_teams.find { |team| team.team_id == team_id }.team_name
   end
+
 end
