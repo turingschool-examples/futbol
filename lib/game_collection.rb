@@ -113,7 +113,6 @@ class GameCollection
         game_season[:season] = game.season
         game_season[:away_team_id] = game.away_team_id
         game_season[:home_team_id] = game.home_team_id
-        require "pry"; binding.pry
     end
     games
   end
