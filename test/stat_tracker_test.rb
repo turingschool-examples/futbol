@@ -108,4 +108,8 @@ class StatTrackerTest < Minitest::Test
   def test_most_visitor_goals
     assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
   end
+
+  def test_most_home_goals
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_home_team
+  end
 end
