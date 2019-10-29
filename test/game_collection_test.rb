@@ -61,6 +61,6 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_it_can_find_games_by_season
-    assert_equal 12, @game_collection.games_by_season("26")
+    assert_equal 20, @game_collection.games_by_season("26").length
   end
 end
