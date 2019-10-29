@@ -99,7 +99,7 @@ module SeasonModule
 
   def winningest_coach(season)
     best_team = self.team_records_by_season(season).max_by {|team, record| record}[0]
-    best_team
+    best_team.
   end
 
   def worst_coach(season)
@@ -129,5 +129,9 @@ module SeasonModule
     records
     binding.pry
   end
+
+  def find_coach(team, season)
+
+  end   
 
 end
