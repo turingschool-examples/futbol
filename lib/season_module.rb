@@ -44,12 +44,11 @@ module SeasonModule
         (oldval.to_f - newval.to_f).round(5)
     end
 
-    require "pry"; binding.pry
     id = results.sort_by { |k, v| v }.last.first
     convert_ids_to_team_name(id)
   end
 
-  def biggest_surprise
+  def biggest_surprise(season_id)
     games_in_regular_season = games.find_all { |game| game.season == season_id && game.type == 'Regular Season'}
     games_in_post_season = games.find_all { |game| game.season == season_id && game.type == 'Postseason' }
 
