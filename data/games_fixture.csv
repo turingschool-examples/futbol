@@ -1,9 +1,9 @@
 game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
-2012020122,20122013,Regular Season,2/3/13,1,2,3,0,Centruy Link Field,/api/v1/venues/null
+2012020122,20122013,Postseason,2/3/13,1,2,3,0,Centruy Link Field,/api/v1/venues/null
 2012020128,20122013,Regular Season,2/6/13,3,1,1,3,Mercedes-Benz Stadium,/api/v1/venues/null
-2012020006,20122013,Regular Season,1/20/13,1,2,2,1,Centruy Link Field,/api/v1/venues/null
+2012020006,20122013,Postseason,1/20/13,1,2,2,1,Centruy Link Field,/api/v1/venues/null
 2012020191,20122013,Regular Season,2/15/13,2,3,3,3,BBVA Stadium,/api/v1/venues/null
 2012020143,20122013,Regular Season,2/8/13,2,3,1,2,BBVA Stadium,/api/v1/venues/null
 2012020094,20122013,Regular Season,2/1/13,2,1,3,2,Mercedes-Benz Stadium,/api/v1/venues/null
 2012020207,20122013,Regular Season,2/17/13,1,2,1,3,Centruy Link Field,/api/v1/venues/null
-2012020208,20122013,Regular Season,2/17/13,1,2,1,5,Centruy Link Field,/api/v1/venues/null
+2012020208,20122013,Postseason,2/17/13,1,2,1,5,Centruy Link Field,/api/v1/venues/null
