@@ -33,7 +33,7 @@ class GameTeamCollection
   end
 
   def most_goals
-    x = @game_teams_by_team_id.max_by do |team_id, game_array|
+    @game_teams_by_team_id.max_by do |team_id, game_array|
       total = game_array.sum do |game|
         game.goals
       end
@@ -42,7 +42,7 @@ class GameTeamCollection
   end
 
   def most_visitor_goals
-    x = @game_teams_by_team_id.max_by do |team_id, game_array|
+    @game_teams_by_team_id.max_by do |team_id, game_array|
       away_games = game_array.find_all do |game|
         game.hoa == "away"
       end
