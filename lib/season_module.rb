@@ -97,10 +97,11 @@ module SeasonModule
     convert_ids_to_team_name(id)
   end
 
-  def winningest_coach
+  def winningest_coach(season)
+    self.team_records_by_season(season)
   end
 
-  def worst_coach
+  def worst_coach(season)
   end
 
   def most_accurate_team
@@ -125,7 +126,7 @@ module SeasonModule
       end
     end
     win_percent_season
-    binding.pry 
+    binding.pry
   end
 
 end
