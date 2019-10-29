@@ -1,4 +1,5 @@
 require_relative './game_team'
+require_relative './team'
 require 'CSV'
 
 class GameTeamCollection
@@ -85,18 +86,5 @@ class GameTeamCollection
     end
   end
 
-  def best_fans
-    diff = home_win_percentage.merge(away_win_percentage) do |key, home_win_percent, away_win_percent|
-      (home_win_percent - away_win_percent)
-    end
-      diff.max_by{ |team| team.values_at }.first
-  end
 
-  def worst_fans
-    diff = away_wins.merge(home_wins) do |key, away_wins, home_wins|
-      away_wins - home_wins
-    end
-    positives = diff.find_all { |gt| gt.last > 0 }
-    positives.map { |array| array.first }
-  end
 end

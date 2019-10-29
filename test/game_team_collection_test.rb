@@ -5,7 +5,7 @@ require './lib/stat_tracker'
 class GameTeamCollectionTest < Minitest::Test
 
   def setup
-    @game_team_collection= GameTeamCollection.new("./test/test_game_team_data.csv")
+    @game_team_collection = GameTeamCollection.new("./test/test_game_team_data.csv")
   end
 
   def test_count_of_teams
@@ -34,13 +34,5 @@ class GameTeamCollectionTest < Minitest::Test
 
   def test_away_win_percentage
     assert_equal 100.0, @game_team_collection.away_win_percentage[16]
-  end
-
-  def test_best_fans
-    assert_equal 6, @game_team_collection.best_fans
-  end
-
-  def test_worst_fans
-    assert_equal [16], @game_team_collection.worst_fans
   end
 end

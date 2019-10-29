@@ -11,7 +11,7 @@ class TeamCollection
   def create_teams(csv_file_path)
     team_array = []
       CSV.foreach("#{csv_file_path}", headers: true, header_converters: :symbol) do |row|
-        Team.new(row)
+        team_array << Team.new(row)
       end
     team_array
   end
