@@ -71,4 +71,8 @@ class StatTracker
   def best_offense
     @team_collection.team_name(@game_team_collection.most_goals)
   end
+
+  def highest_scoring_visitor
+    @team_collection.team_name(@game_team_collection.most_visitor_goals)
+  end
 end

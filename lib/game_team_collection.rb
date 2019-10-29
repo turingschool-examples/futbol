@@ -46,10 +46,13 @@ class GameTeamCollection
       away_games = game_array.find_all do |game|
         game.hoa == "away"
       end
-      total = away_games.sum do |away_game|
-        away_game.goals
+      if away_games.length != 0
+        total = away_games.sum do |away_game|
+          away_game.goals
+        end
+        (total.to_f / away_games.length).round(2)
+      else 0
       end
-      (total.to_f / away_games.length).round(2)
     end[0]
   end
 end
