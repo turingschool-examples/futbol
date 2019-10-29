@@ -2,13 +2,16 @@ require_relative './game_collection'
 require_relative './team_collection'
 
 class StatTracker
+  # include season module
 
   def initialize(game_path, team_path, game_team_path)
     # should we move the creation of instances into a method
     @games_collection = GameCollection.new(game_path)
     @teams_collection = TeamCollection.new(team_path, game_team_path)
     #game_teams_path = GameTeamsCollection.new(team_path)
-
+    @games = @games_collection.total_games
+    @teams = @teams_collection.total_teams
+    #instance variable that holds onto all games and all teams
   end
 
   def self.from_csv(locations)

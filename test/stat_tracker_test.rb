@@ -22,6 +22,8 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_from_csv
     # need test for self.from_csv method
+    # assert instance of stat tracker
+    assert_instance_of StatTracker, @stat_tracker
   end
 
   def test_it_has_highest_total_score
