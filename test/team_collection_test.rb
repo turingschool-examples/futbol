@@ -80,4 +80,8 @@ class TeamsCollectionTest < Minitest::Test
   def test_it_can_find_rival_by_team
     assert_equal "Atlanta United", @total_teams.rival("26")
   end
+
+  def test_it_has_biggest_team_blowout
+    assert_equal 4, @total_teams.biggest_team_blowout("26")
+  end
 end
