@@ -16,9 +16,6 @@ class GameTeamCollectionTest < Minitest::Test
     assert_equal 12, @game_team_collection.count_of_teams
   end
 
-  def test_winningest_team
-    assert_equal "LA Galaxy", @game_team_collection.winningest_team
-  end
 
   def test_home_games
     # expected = {6=>1, 5=>1, 16=>2, 17=>4, 9=>1, 19=>1, 24=>2, 2=>1, 3=>2, 26=>1}
@@ -35,6 +32,11 @@ class GameTeamCollectionTest < Minitest::Test
   def test_away_wins
     assert_equal 3, @game_team_collection.away_wins.values.sum
   end
+
+  def test_winningest_team_id
+    assert_equal 16, @game_team_collection.winningest_team_id
+  end
+
 
   def test_home_win_percentage
     assert_equal 50.0, @game_team_collection.home_win_percentage[24]
