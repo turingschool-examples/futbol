@@ -16,6 +16,17 @@ class TeamCollectionTest < MiniTest::Test
     assert_instance_of TeamCollection, @team_instance
   end
 
+  def test_it_initalizes
+    def test_it_initializes
+      assert_equal './dummy_data/dummy_teams.csv', @team_instance.team_path
+      assert_equal 16, @team_instance.team_instances.size
+    end
+  end
+
+  def test_all_teams
+    assert_equal "Atlanta United" , @team_instance.all_teams.first.teamname
+  end
+
   def test_the_count_of_teams
     assert_equal 16, @team_instance.count_of_teams
   end
@@ -53,5 +64,5 @@ class TeamCollectionTest < MiniTest::Test
   def test_worst_fans
     assert_equal ["Sporting Kansas City"], @team_instance.worst_fans(["5"])
     assert_equal ["LA Galaxy", "Houston Dynamo"], @team_instance.worst_fans(["17", "3"])
-  end 
+  end
 end
