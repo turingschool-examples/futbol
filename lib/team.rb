@@ -1,11 +1,18 @@
 class Team
-  attr_reader :team_id, :franchise_id, :team_name, :abbreviation, :stadium, :link, :all_team_games, :all_opponent_games
+  attr_reader :team_id,
+              :franchise_id,
+              :team_name,
+              :abbreviation,
+              :link,
+              :all_team_games,
+              :all_opponent_games
 
   def initialize(team_info, all_team_games, all_opponent_games)
     @team_id = team_info[:team_id]
-    @franchise_id = team_info[:franchiseid].to_i
+    @franchise_id = team_info[:franchiseid]
     @team_name = team_info[:teamname]
     @abbreviation = team_info[:abbreviation]
+    @link = team_info[:link]
     @all_team_games = all_team_games
     @all_opponent_games = all_opponent_games
   end
@@ -54,39 +61,19 @@ class Team
   end
 
     def away_games_by_team
-    away_game_list = []
-    away_games = @all_team_games.each do |game|
-      if game.hoa == "away"
-        away_game_list << game
-      end
-    end
-    away_game_list
+    away_games = @all_team_games.find_all { |game| game.hoa == "away"}
   end
 
   def home_games_by_team
-    home_games_list = []
-    home_games = @all_team_games.each do |game|
-      if game.hoa == "home"
-        home_games_list << game
-      end
-    end
-    home_games_list
+    home_games = @all_team_games.find_all { |game| game.hoa == "home" }
   end
 
   def away_game_goals
-    away_goals_sum = 0
-    away_games_by_team.each do |game|
-      away_goals_sum += game.goals
-    end
-    away_goals_sum
+    away_goals_sum = away_games_by_team.sum { |game| game.goals }
   end
 
   def home_game_goals
-    home_goals_sum = 0
-    home_games_by_team.each do |game|
-      home_goals_sum += game.goals
-    end
-    home_goals_sum
+    home_goals_sum = home_games_by_team.sum { |game| game.goals }
   end
 
   def most_goals_scored

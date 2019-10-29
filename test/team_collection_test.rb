@@ -64,6 +64,23 @@ class TeamsCollectionTest < Minitest::Test
   def test_it_can_find_the_lowest_scoring_home_team
     assert_equal "Chicago Fire", @total_teams.lowest_scoring_home_team
   end
+  
+  def test_it_can_create_team_info
+    team_information = {"team_id"=>"26", "franchise_id" =>"14", "team_name"=>"FC Cincinnati",
+                        "abbreviation"=>"CIN", "link"=>"/api/v1/teams/26"}
+    assert_equal team_information, @total_teams.team_info("26")
+  end
+
+  def test_it_can_find_all_teams_games
+    assert_equal (12), @total_teams.all_team_games("26")
+  end
+
+  def test_it_can_find_all_won_games
+    assert_equal (5), @total_teams.all_won_games("26")
+  end
+
+  def test_it_can_find_average_win_percentage
+    assert_equal 41.67, @total_teams.average_win_percentage("26")
 
   def test_it_can_find_most_goals_scored_by_team
     assert_equal 7, @total_teams.most_goals_scored("26")
