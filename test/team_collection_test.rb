@@ -84,4 +84,8 @@ class TeamsCollectionTest < Minitest::Test
   def test_it_has_biggest_team_blowout
     assert_equal 4, @total_teams.biggest_team_blowout("26")
   end
+
+  def test_it_has_worst_loss
+    assert_equal 4, @total_teams.worst_loss("26")
+  end
 end
