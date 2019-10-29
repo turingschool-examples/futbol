@@ -75,4 +75,12 @@ class Team
   def home_game_goals
     home_goals_sum = home_games_by_team.sum { |game| game.goals }
   end
+
+  def most_goals_scored
+    @all_team_games.max_by {|game| game.goals}.goals
+  end
+
+  def fewest_goals_scored
+    @all_team_games.min_by {|game| game.goals}.goals
+  end
 end

@@ -83,4 +83,14 @@ class TeamsTest < Minitest::Test
   def test_it_can_find_home_goals_by_team
     assert_equal 22, @team_26.home_game_goals
   end
+
+  def test_it_can_find_most_goals_scored_by_team
+    team = @teams.find {|team| team.team_id == "26"}
+    assert_equal 7, team.most_goals_scored
+  end
+
+  def test_it_can_find_fewest_goals_scored_by_team
+    team = @teams.find {|team| team.team_id == "26"}
+    assert_equal 0, team.fewest_goals_scored
+  end
 end

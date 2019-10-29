@@ -149,4 +149,52 @@ class TeamCollection
   # return the string of season name
   # def best_season(team_id)
   # end
+  
+  def most_goals_scored(team_id)
+    team = @total_teams.find {|team| team.team_id == team_id }
+    team.most_goals_scored
+  end
+
+  def fewest_goals_scored(team_id)
+    team = @total_teams.find {|team| team.team_id == team_id }
+    team.fewest_goals_scored
+  end
+
+  def favorite_opponent(team_id)
+    team = @total_teams.find { |team| team.team_id == team_id }
+    #find the opponent games of the team
+    all_opponent_games = team.all_opponent_games
+    #find the ids of the opponents ["4", "1"]
+    team_ids_played_against = all_opponent_games.map { |game| game.team_id }.uniq
+    #this is a hash where the output ends up with keys being the team_id of each opponent and the value is the
+    #percentage of games that opponent has won against the team_id that is the method argument
+    x = team_ids_played_against.reduce({}) do |opponent_id_percentage_won, opponent_id|
+      opponent_games = all_opponent_games.find_all { |game| game.team_id == opponent_id}
+      number_of_games_won_by_opponent = opponent_games.count{ |game| game.result == "WIN"}
+      # require "pry"; binding.pry
+      opponent_id_percentage_won[opponent_id] = number_of_games_won_by_opponent / opponent_games.length.to_f
+      opponent_id_percentage_won
+    end
+    #now we are finding the team_id that has the lowest win percentage agains the team passed in
+    team_id = x.min_by { |k,v| v}.first
+    #and here we get the name of the team
+    @total_teams.find { |team| team.team_id == team_id }.team_name
+  end
+
+  def rival(team_id)
+    team = @total_teams.find { |team| team.team_id == team_id }
+    all_opponent_games = team.all_opponent_games
+    team_ids_played_against = all_opponent_games.map { |game| game.team_id }.uniq
+
+    x =   team_ids_played_against.reduce({}) do |opponent_id_percentage_won, opponent_id|
+      opponent_games = all_opponent_games.find_all { |game| game.team_id == opponent_id}
+      number_of_games_won_by_opponent = opponent_games.count{ |game| game.result == "WIN"}
+      opponent_id_percentage_won[opponent_id] = number_of_games_won_by_opponent / opponent_games.length.to_f
+      opponent_id_percentage_won
+    end
+
+    team_id = x.max_by { |k,v| v}.first
+    @total_teams.find { |team| team.team_id == team_id }.team_name
+  end
+
 end
