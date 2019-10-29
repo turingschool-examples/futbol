@@ -105,6 +105,7 @@ class GameCollection
     home_score_maker
     id_goal_counter_home
     @id_identifier_home.min_by {|key,value| value }.first
+
   end
 
   def lowest_visitor_id
