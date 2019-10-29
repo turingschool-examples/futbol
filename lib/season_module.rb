@@ -98,7 +98,8 @@ module SeasonModule
   end
 
   def winningest_coach(season)
-    self.team_records_by_season(season)
+    best_team = self.team_records_by_season(season).max_by {|team, record| record}[0]
+    best_team
   end
 
   def worst_coach(season)
@@ -121,11 +122,11 @@ module SeasonModule
   def team_records_by_season(season)
     records = Hash.new
     win_percent_season = teams.collect do |team|
-      records[team] = self.generate_win_percentage_season(team).select do |sea, team|
+      records[team] = self.generate_win_percentage_season(team.teamname).select do |sea, team|
         sea == season
-      end
+      end.values[0]
     end
-    win_percent_season
+    records
     binding.pry
   end
 
