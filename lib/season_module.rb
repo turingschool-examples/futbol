@@ -99,7 +99,7 @@ module SeasonModule
 
   def winningest_coach(season)
     best_team = self.team_records_by_season(season).max_by {|team, record| record}[0]
-    best_team.
+    self.find_coach(best_team.team_id, season)
   end
 
   def worst_coach(season)
@@ -130,8 +130,13 @@ module SeasonModule
     binding.pry
   end
 
-  def find_coach(team, season)
-
-  end   
+  def find_coach(team_id, season)
+    games_in_season = game_teams.find_all do |game|
+      self.find_season_game_id(game.game_id) == season
+    end
+    games_by_season_team = games_in_season.find {|game| game.team_id == team_id}
+    games_by_season_team.head_coach
+    binding.pry
+  end
 
 end
