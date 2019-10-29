@@ -12,7 +12,25 @@ class TeamModuleTest < Minitest::Test
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
+  def test_most_goals_scored
+    assert_equal 5, @stat_tracker.most_goals_scored('2')
+  end
 
+  def test_fewest_goals_scored
+    assert_equal 0, @stat_tracker.fewest_goals_scored('2')
+  end
+
+  def test_favorite_opponent
+    assert_equal "Houston Dynamo", @stat_tracker.favorite_opponent('1')
+  end
+
+  def test_rival
+    assert_equal "Seattle Sounders FC", @stat_tracker.favorite_opponent('3')
+  end
+
+end
+
+<<<<<<< HEAD
 
 
 
@@ -102,3 +120,5 @@ class TeamModuleTest < Minitest::Test
   end
 
 end
+=======
+>>>>>>> master
