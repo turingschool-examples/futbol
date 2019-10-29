@@ -27,4 +27,12 @@ class TeamModuleTest < Minitest::Test
     assert_equal '20122013', @stat_tracker.best_season('Seattle Sounders FC')
   end
 
+  def test_worst_season
+    assert_equal '20122013', @stat_tracker.best_season('Seattle Sounders FC')
+  end
+
+  def test_avg_win_percentage
+    assert_equal 0.43, @stat_tracker.average_win_percentage('Seattle Sounders FC')
+  end     
+
 end
