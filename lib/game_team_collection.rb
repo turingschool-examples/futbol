@@ -52,10 +52,11 @@ class GameTeamCollection
 
   def away_games
     away_games = {}
-    x = @game_teams_by_team_id.each do |team_id, game_array|
+    @game_teams_by_team_id.each do |team_id, game_array|
       away_games[team_id] = game_array.find_all do |game|
         game.hoa == "away"
       end
     end
+    away_games
   end
 end
