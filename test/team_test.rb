@@ -99,4 +99,13 @@ class TeamsTest < Minitest::Test
   def test_it_has_worst_loss
     assert_equal 4, @team_26.worst_loss
   end
+
+  def test_it_has_head_to_head
+    team_names_list = {
+      "1" => "Atlanta United",
+      "4" => "Chicago Fire",
+      "26" => "FC Cincinnati"
+    }
+    assert_equal ({"Chicago Fire"=>0.5, "Atlanta United"=>0.33}), @team_26.head_to_head(team_names_list)
+  end
 end
