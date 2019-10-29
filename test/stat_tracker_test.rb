@@ -159,4 +159,8 @@ class StatTrackerTest < Minitest::Test
   def test_it_has_worst_loss
     assert_equal 4, @stat_tracker.worst_loss("26")
   end
+
+  def test_it_has_head_to_head
+    assert_equal ({"Chicago Fire"=>0.5, "Atlanta United"=>0.33}), @stat_tracker.head_to_head("26")
+  end
 end
