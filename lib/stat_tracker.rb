@@ -103,4 +103,20 @@ class StatTracker
     #need to include more data so we an actually get a list of the worst teams?
     @teams_collection.worst_fans
   end
+
+  def most_goals_scored(team_id)
+    @teams_collection.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    @teams_collection.fewest_goals_scored(team_id)
+  end
+
+  def favorite_opponent(team_id)
+    @teams_collection.favorite_opponent(team_id)
+  end
+
+  def rival(team_id)
+    @teams_collection.rival(team_id)
+  end
 end

@@ -64,4 +64,20 @@ class TeamsCollectionTest < Minitest::Test
   def test_it_can_find_the_lowest_scoring_home_team
     assert_equal "Chicago Fire", @total_teams.lowest_scoring_home_team
   end
+
+  def test_it_can_find_most_goals_scored_by_team
+    assert_equal 7, @total_teams.most_goals_scored("26")
+  end
+
+  def test_it_can_find_fewest_goals_scored_by_team
+    assert_equal 0, @total_teams.fewest_goals_scored("26")
+  end
+
+  def test_it_can_find_favorite_opponent_by_team
+    assert_equal "Chicago Fire", @total_teams.favorite_opponent("26")
+  end
+
+  def test_it_can_find_rival_by_team
+    assert_equal "Atlanta United", @total_teams.rival("26")
+  end
 end
