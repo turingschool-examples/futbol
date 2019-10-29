@@ -1,5 +1,124 @@
 require 'pry'
 module TeamModule
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   def team_info(team)
     team_obj = self.convert_team_name_to_obj(team)
     team_info = {
@@ -22,7 +141,7 @@ module TeamModule
 
   def average_win_percentage(team)
     values = self.generate_win_percentage_season(team).values
-    values.reduce {|sum, num| sum + num}.to_f / values.length  
+    values.reduce {|sum, num| sum + num}.to_f / values.length
   end
 
   ##Helper Methods##
@@ -46,8 +165,4 @@ module TeamModule
     game = games.find {|game| game.game_id == gameid}
     game.season
   end
-
-
-
-
 end
