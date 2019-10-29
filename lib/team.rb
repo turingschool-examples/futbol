@@ -108,4 +108,19 @@ class Team
       game.goals - @all_opponent_games[index].goals
     end.min.abs
   end
+
+  def head_to_head(team_names_list)
+    list = @all_opponent_games.reduce({}) do |new_list, game|
+      opponent_name = team_names_list[game.team_id]
+      if !new_list.keys.include?(opponent_name)
+        new_list[opponent_name] = []
+      end
+      new_list[opponent_name] << game
+      new_list
+    end
+    list.transform_values do |games_array|
+      win_count = games_array.count {|game| game.result == "LOSS"}
+      (win_count.to_f / games_array.length).round(2)
+    end
+  end
 end
