@@ -165,4 +165,9 @@ class TeamCollection
     @total_teams.find { |team| team.team_id == team_id }.team_name
   end
 
+  def biggest_team_blowout(team_id)
+    select_team = @total_teams.find {|team| team.team_id == team_id}
+    select_team.biggest_blowout
+  end
+
 end
