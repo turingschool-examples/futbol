@@ -1,6 +1,6 @@
 team_id,franchiseId,teamName,abbreviation,Stadium,link
-1,23,Atlanta United,ATL,Mercedes-Benz Stadium,/api/v1/teams/1
-26,14,FC Cincinnati,CIN,Nippert Stadium,/api/v1/teams/26
+30,37,Orlando City SC,ORL,Exploria Stadium,/api/v1/teams/30
+25,15,Chicago Red Stars,CRS,SeatGeek Stadium,/api/v1/teams/25
 6,6,FC Dallas,DAL,Toyota Stadium,/api/v1/teams/6
 5,17,Sporting Kansas City,SKC,Children's Mercy Park,/api/v1/teams/5
 28,29,Los Angeles FC,LFC,Banc of California Stadium,/api/v1/teams/28
