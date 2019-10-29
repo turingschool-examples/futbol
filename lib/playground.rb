@@ -23,7 +23,7 @@ team_array = stat_tracker.team
 team_array.team_instances.first
 
 game_array = stat_tracker.game
-require "pry"; binding.pry
+
 games = game_array.game_instances
 home_goals = games.sum {|game| game.home_goals.to_i}
 away_goals = games.sum {|game| game.away_goals.to_i}
