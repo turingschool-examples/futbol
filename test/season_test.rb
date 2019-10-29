@@ -20,5 +20,12 @@ class SeasonModuleTest < Minitest::Test
     assert_equal 0, @stat_tracker.biggest_bust('20122013')
   end
 
+  def test_winningest_coach
+    assert_equal 'Peter Deboer', @stat_tracker.winningest_coach('20122013')
+  end
+
+  def test_worst_coach
+    assert_equal 'John Tortorella', @stat_tracker.worst_coach('20122013')
+  end
 
 end
