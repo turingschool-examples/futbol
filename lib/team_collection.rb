@@ -118,6 +118,38 @@ class TeamCollection
     lowest_scoring_home.team_name
   end
 
+  def team_info(team_id)
+    team_information = {}
+    @total_teams.map do |team|
+      if team_id == team.team_id
+        team_information["team_id"] = team.team_id
+        team_information["franchise_id"] = team.franchise_id
+        team_information["team_name"] = team.team_name
+        team_information["abbreviation"] = team.abbreviation
+        team_information["link"] = team.link
+      end
+    end
+    team_information
+  end
+
+  def all_team_games(team_id)
+    all_games = @total_games.count { |game| game.team_id == team_id }
+  end
+
+  def all_won_games(team_id)
+    wins = @total_games.count { |game| game.result == "WIN" && game.team_id == team_id }
+  end
+
+  def average_win_percentage(team_id)
+    avg_win_percentage = (all_won_games(team_id).to_f / all_team_games(team_id)*100).round(2)
+  end
+
+  # group games by season (game_collection)
+  # number of wins in season / number of games in season
+  # return the string of season name
+  # def best_season(team_id)
+  # end
+  
   def most_goals_scored(team_id)
     team = @total_teams.find {|team| team.team_id == team_id }
     team.most_goals_scored

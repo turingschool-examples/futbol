@@ -31,6 +31,8 @@ class TeamsTest < Minitest::Test
       Team.new(team, all_team_games, all_opponent_games)
     end
     @team = @teams.first
+    # Added team_26 to instance variable to account for small data set
+    @team_26 = @teams.find {|team| team.team_id == "26"}
   end
 
   def test_it_exists
@@ -41,7 +43,7 @@ class TeamsTest < Minitest::Test
 
   def test_it_has_attributes
     assert_equal "1", @team.team_id
-    assert_equal 23, @team.franchise_id
+    assert_equal "23", @team.franchise_id
     assert_equal "Atlanta United", @team.team_name
     assert_equal "ATL", @team.abbreviation
   end
@@ -67,23 +69,19 @@ class TeamsTest < Minitest::Test
   end
 
     def test_it_can_find_away_games_by_team
-    team = @teams.find {|team| team.team_id == "26"}
-    assert_equal 4, team.away_games_by_team.length
+    assert_equal 4, @team_26.away_games_by_team.length
   end
 
   def test_away_game_goals_by_team
-    team = @teams.find {|team| team.team_id == "26"}
-    assert_equal 6, team.away_game_goals
+    assert_equal 6, @team_26.away_game_goals
   end
 
   def test_it_can_find_home_games_by_team
-    team = @teams.find {|team| team.team_id == "26"}
-    assert_equal 8, team.home_games_by_team.length
+    assert_equal 8, @team_26.home_games_by_team.length
   end
 
   def test_it_can_find_home_goals_by_team
-    team = @teams.find {|team| team.team_id == "26"}
-    assert_equal 22, team.home_game_goals
+    assert_equal 22, @team_26.home_game_goals
   end
 
   def test_it_can_find_most_goals_scored_by_team

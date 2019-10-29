@@ -1,5 +1,6 @@
 require_relative './game_collection'
 require_relative './team_collection'
+require_relative './team'
 
 class StatTracker
 
@@ -103,7 +104,15 @@ class StatTracker
     #need to include more data so we an actually get a list of the worst teams?
     @teams_collection.worst_fans
   end
-
+  
+  def team_info(team_id)
+    @teams_collection.team_info(team_id)
+  end 
+  
+  def average_win_percentage(team_id)
+    @teams_collection.average_win_percentage(team_id)
+  end
+  
   def most_goals_scored(team_id)
     @teams_collection.most_goals_scored(team_id)
   end
