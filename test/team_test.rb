@@ -13,7 +13,6 @@ class TeamModuleTest < Minitest::Test
   end
 
   def test_team_info
-    skip
     team = {Name: 'Atlanta United',
       Team_id: '1',
       Franchise_id: '23',
@@ -33,6 +32,6 @@ class TeamModuleTest < Minitest::Test
 
   def test_avg_win_percentage
     assert_equal 0.43, @stat_tracker.average_win_percentage('Seattle Sounders FC')
-  end     
+  end
 
 end
