@@ -9,7 +9,7 @@ class GameTeamCollectionTest < Minitest::Test
   end
 
   def test_count_of_teams
-    assert_equal 11, @game_team_collection.count_of_teams
+    assert_equal 12, @game_team_collection.count_of_teams
   end
 
   def test_home_games

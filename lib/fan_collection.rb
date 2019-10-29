@@ -21,7 +21,9 @@ class Fan
     diff = @game_teams.home_win_percentage.merge(@game_teams.away_win_percentage) do |key, home_win_percent, away_win_percent|
       (home_win_percent - away_win_percent)
     end
-      best = diff.max_by{ |team| team.values_at }
+      best = diff.max_by do |team|
+        team.last
+      end
       best.first
   end
 
