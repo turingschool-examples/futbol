@@ -16,5 +16,9 @@ class SeasonModuleTest < Minitest::Test
     assert_equal 0, @stat_tracker.biggest_bust('20122013')
   end
 
+  def test_biggest_bust
+    assert_equal 0, @stat_tracker.biggest_bust('20122013')
+  end
+
 
 end
