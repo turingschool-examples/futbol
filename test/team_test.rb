@@ -31,8 +31,8 @@ class TeamsTest < Minitest::Test
       Team.new(team, all_team_games, all_opponent_games)
     end
     @team = @teams.first
-    # Added team_26 to instance variable to account for small data set
     @team_26 = @teams.find {|team| team.team_id == "26"}
+
   end
 
   def test_it_exists
@@ -85,12 +85,27 @@ class TeamsTest < Minitest::Test
   end
 
   def test_it_can_find_most_goals_scored_by_team
-    team = @teams.find {|team| team.team_id == "26"}
-    assert_equal 7, team.most_goals_scored
+    assert_equal 7, @team_26.most_goals_scored
   end
 
   def test_it_can_find_fewest_goals_scored_by_team
-    team = @teams.find {|team| team.team_id == "26"}
-    assert_equal 0, team.fewest_goals_scored
+    assert_equal 0, @team_26.fewest_goals_scored
+  end
+
+  def test_it_has_biggest_blowout
+    assert_equal 4, @team_26.biggest_blowout
+  end
+
+  def test_it_has_worst_loss
+    assert_equal 4, @team_26.worst_loss
+  end
+
+  def test_it_has_head_to_head
+    team_names_list = {
+      "1" => "Atlanta United",
+      "4" => "Chicago Fire",
+      "26" => "FC Cincinnati"
+    }
+    assert_equal ({"Chicago Fire"=>0.5, "Atlanta United"=>0.33}), @team_26.head_to_head(team_names_list)
   end
 end

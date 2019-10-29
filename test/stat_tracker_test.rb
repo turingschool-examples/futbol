@@ -22,6 +22,8 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_from_csv
     # need test for self.from_csv method
+    # assert instance of stat tracker
+    assert_instance_of StatTracker, @stat_tracker
   end
 
   def test_it_has_highest_total_score
@@ -133,7 +135,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_has_worst_fans
     assert_equal ["Chicago Fire"], @stat_tracker.worst_fans
   end
-  
+
   def test_it_can_create_team_info
     team_information = {"team_id"=>"26",
                         "franchise_id" =>"14",
@@ -145,9 +147,9 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_calculate_average_win_percentage
-    assert_equal 41.67, @stat_tracker.average_win_percentage("26")
-  end 
-  
+    assert_equal 0.42, @stat_tracker.average_win_percentage("26")
+  end
+
   def test_it_has_most_goals_scored_by_team
     assert_equal 7, @stat_tracker.most_goals_scored("26")
   end
@@ -162,5 +164,17 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_find_rival_by_team
     assert_equal "Atlanta United", @stat_tracker.rival("26")
+  end
+
+  def test_it_has_biggest_team_blowout
+    assert_equal 4, @stat_tracker.biggest_team_blowout("26")
+  end
+
+  def test_it_has_worst_loss
+    assert_equal 4, @stat_tracker.worst_loss("26")
+  end
+
+  def test_it_has_head_to_head
+    assert_equal ({"Chicago Fire"=>0.5, "Atlanta United"=>0.33}), @stat_tracker.head_to_head("26")
   end
 end

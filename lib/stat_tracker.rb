@@ -3,13 +3,16 @@ require_relative './team_collection'
 require_relative './team'
 
 class StatTracker
+  # include season module
 
   def initialize(game_path, team_path, game_team_path)
     # should we move the creation of instances into a method
     @games_collection = GameCollection.new(game_path)
     @teams_collection = TeamCollection.new(team_path, game_team_path)
     #game_teams_path = GameTeamsCollection.new(team_path)
-
+    @games = @games_collection.total_games
+    @teams = @teams_collection.total_teams
+    #instance variable that holds onto all games and all teams
   end
 
   def self.from_csv(locations)
@@ -127,5 +130,17 @@ class StatTracker
 
   def rival(team_id)
     @teams_collection.rival(team_id)
+  end
+
+  def biggest_team_blowout(team_id)
+    @teams_collection.biggest_team_blowout(team_id)
+  end
+
+  def worst_loss(team_id)
+    @teams_collection.worst_loss(team_id)
+  end
+
+  def head_to_head(team_id)
+    @teams_collection.head_to_head(team_id)
   end
 end

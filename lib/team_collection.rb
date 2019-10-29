@@ -141,7 +141,7 @@ class TeamCollection
   end
 
   def average_win_percentage(team_id)
-    avg_win_percentage = (all_won_games(team_id).to_f / all_team_games(team_id)*100).round(2)
+    avg_win_percentage = (all_won_games(team_id).to_f / all_team_games(team_id)).round(2)
   end
 
   # group games by season (game_collection)
@@ -149,7 +149,7 @@ class TeamCollection
   # return the string of season name
   # def best_season(team_id)
   # end
-  
+
   def most_goals_scored(team_id)
     team = @total_teams.find {|team| team.team_id == team_id }
     team.most_goals_scored
@@ -186,7 +186,7 @@ class TeamCollection
     all_opponent_games = team.all_opponent_games
     team_ids_played_against = all_opponent_games.map { |game| game.team_id }.uniq
 
-    x =   team_ids_played_against.reduce({}) do |opponent_id_percentage_won, opponent_id|
+    x = team_ids_played_against.reduce({}) do |opponent_id_percentage_won, opponent_id|
       opponent_games = all_opponent_games.find_all { |game| game.team_id == opponent_id}
       number_of_games_won_by_opponent = opponent_games.count{ |game| game.result == "WIN"}
       opponent_id_percentage_won[opponent_id] = number_of_games_won_by_opponent / opponent_games.length.to_f
@@ -197,4 +197,22 @@ class TeamCollection
     @total_teams.find { |team| team.team_id == team_id }.team_name
   end
 
+  def biggest_team_blowout(team_id)
+    select_team = @total_teams.find {|team| team.team_id == team_id}
+    select_team.biggest_blowout
+  end
+
+  def worst_loss(team_id)
+    select_team = @total_teams.find {|team| team.team_id == team_id}
+    select_team.worst_loss
+  end
+
+  def head_to_head(team_id)
+    team_names_list = @total_teams.reduce({}) do |new_list, team|
+      new_list[team.team_id] = team.team_name
+      new_list
+    end
+    select_team = @total_teams.find {|team| team.team_id == team_id}
+    select_team.head_to_head(team_names_list)
+  end
 end
