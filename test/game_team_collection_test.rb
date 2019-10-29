@@ -37,7 +37,10 @@ class GameTeamCollectionTest < Minitest::Test
   end
 
   def test_best_fans
-    skip
-    assert_equal "LA Galaxy", @game_team_collection.best_fans
+    assert_equal 6, @game_team_collection.best_fans
+  end
+
+  def test_worst_fans
+    assert_equal [16], @game_team_collection.worst_fans
   end
 end

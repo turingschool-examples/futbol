@@ -86,12 +86,17 @@ class GameTeamCollection
   end
 
   def best_fans
-
+    diff = home_win_percentage.merge(away_win_percentage) do |key, home_win_percent, away_win_percent|
+      (home_win_percent - away_win_percent)
+    end
+      diff.max_by{ |team| team.values_at }.first
   end
 
   def worst_fans
-    # team_ids_for_worst_fans = @game_teams.find_all do |team|
-    #   team_away_wins > team_home_wins
-    # end
+    diff = away_wins.merge(home_wins) do |key, away_wins, home_wins|
+      away_wins - home_wins
+    end
+    positives = diff.find_all { |gt| gt.last > 0 }
+    positives.map { |array| array.first }
   end
 end
