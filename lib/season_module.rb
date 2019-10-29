@@ -115,6 +115,17 @@ module SeasonModule
   def fewest_tackles
   end
 
-#HELPER METHODS
+  #HELPER METHODS
+
+  def team_records_by_season(season)
+    records = Hash.new
+    win_percent_season = teams.collect do |team|
+      records[team] = self.generate_win_percentage_season(team).select do |sea, team|
+        sea == season
+      end
+    end
+    win_percent_season
+    binding.pry 
+  end
 
 end
