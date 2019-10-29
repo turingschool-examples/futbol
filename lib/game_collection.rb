@@ -99,29 +99,3 @@ class GameCollection
       (total_season_games[1] / total_season_games[0].to_f).round(2)
     end
   end
-
-  def games_by_season(team_id)
-
-    # home_team_id || away_team_id
-
-    #if away_team_id == game.team_id
-
-    game_season = {}
-    games = @total_games.find_all do |game|
-      team_id == game.away_team_id || game.home_team_id
-        game_season[:game_id] = game.game_id
-        game_season[:season] = game.season
-        game_season[:away_team_id] = game.away_team_id
-        game_season[:home_team_id] = game.home_team_id
-    end
-    games
-  end
-
-  def total_home_games
-   total_home_games = @total_games.count {|game| game.home_team_id == "26"}
-  end
-
-  def total_home_wins
-   total_home_wins = @total_games.count {|game| game.home_team_id == "26" && game.home_goals > game.away_goals}
-  end
-end
