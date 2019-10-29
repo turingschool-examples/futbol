@@ -174,4 +174,13 @@ class TeamCollection
     select_team = @total_teams.find {|team| team.team_id == team_id}
     select_team.worst_loss
   end
+
+  def head_to_head(team_id)
+    team_names_list = @total_teams.reduce({}) do |new_list, team|
+      new_list[team.team_id] = team.team_name
+      new_list
+    end
+    select_team = @total_teams.find {|team| team.team_id == team_id}
+    select_team.head_to_head(team_names_list)
+  end
 end
