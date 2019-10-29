@@ -77,4 +77,29 @@ class GameCollection
     end
     (goals.to_f / @games.length).round(2)
   end
+
+  def number_away_games_by_away_team_id
+    @games.reduce(Hash.new(0)) do |games_by_id, game|
+      games_by_id[game.away_team_id] += 1
+      games_by_id
+    end
+  end
+
+  def total_away_goals_by_away_team_id
+    @games.reduce(Hash.new(0)) do |total_goals_by_id, game|
+      total_goals_by_id[game.away_team_id] += game.away_goals
+      total_goals_by_id
+    end
+  end
+
+  def average_away_goals_by_away_team_id
+    total_away_goals_by_away_team_id.merge(number_away_games_by_away_team_id) do |away_team_id, total_goals, total_games|
+      total_goals / total_games
+    end
+  end
+
+  def away_team_id_for_highest_average_goals
+    highest_average = average_away_goals_by_away_team_id.values.sort.last
+    average_away_goals_by_away_team_id.key(highest_average)
+  end
 end
