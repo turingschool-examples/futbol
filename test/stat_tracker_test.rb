@@ -151,4 +151,8 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_find_rival_by_team
     assert_equal "Atlanta United", @stat_tracker.rival("26")
   end
+
+  def test_it_has_biggest_team_blowout
+    assert_equal 4, @stat_tracker.biggest_team_blowout("26")
+  end
 end
