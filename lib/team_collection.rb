@@ -15,4 +15,9 @@ class TeamCollection
       end
     team_array
   end
+
+  def assocate_team_id_with_team_name
+
+  end
+
 end

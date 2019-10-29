@@ -4,14 +4,14 @@ require './lib/stat_tracker'
 
 class StatTrackerTest < Minitest::Test
   def setup
-    @stat_tracker = StatTracker.new("./test/test_game_data.csv", "./test/test_game_team_data.csv", "./data/teams.csv")
+    @stat_tracker = StatTracker.new("./test/dummy_game_data.csv", "./test/dummy_game_team_data.csv", "./test/dummy_team_data.csv")
   end
 
   def test_it_exists
     assert_instance_of StatTracker, @stat_tracker
   end
 
-  def test_it_can_calculate_highest_goal_total
+  def test_it_can_calculate_highest_total_score
     assert_equal 7, @stat_tracker.highest_total_score
   end
 
@@ -71,5 +71,9 @@ class StatTrackerTest < Minitest::Test
       "20172018" => 4.00
     }
     assert_equal expected, @stat_tracker.average_goals_by_season
+  end
+
+  def test_it_can_return_average_goals_per_game
+    assert_equal 3.92, @stat_tracker.average_goals_per_game
   end
 end
