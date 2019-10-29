@@ -77,6 +77,7 @@ module GameModule
     avg_by_season = Hash.new
     seasons = games.map {|game| game.season}.uniq
     seasons.each {|season| avg_by_season[season] = 0}
+    avg_by_season
   end
 
 
