@@ -1,10 +1,11 @@
 require_relative 'test_helper'
-require_relative 'game_collection'
-require_relative 'stat_tracker'
+require_relative '../lib/game_collection'
+require_relative '../lib/stat_tracker'
 
 class StatTrackerTest < Minitest::Test
   def setup
-    @stat_tracker = StatTracker.new("./test/dummy_game_data.csv", "./test/dummy_game_team_data.csv", "./test/dummy_team_data.csv")
+    @stat_tracker = StatTracker.new("./test/dummy_game_data.csv", "./test/dummy_game_team_data.csv",
+    )
   end
 
   def test_it_exists
@@ -75,5 +76,9 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_return_average_goals_per_game
     assert_equal 3.92, @stat_tracker.average_goals_per_game
+  end
+
+  def test_it_can_return_name_of_highest_scoring_visitor
+    assert_equal "Orlando City SC", @stat_tracker.highest_scoring_visitor
   end
 end
