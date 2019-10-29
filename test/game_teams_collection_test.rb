@@ -10,9 +10,20 @@ class GameTeamsCollectionTest < MiniTest::Test
     assert_instance_of GameTeamsCollection, new_game_tracker_instance
   end
 
+  def test_it_initializes
+    tracker_instance = GameTeamsCollection.new('./dummy_data/dummy_game_teams.csv')
+    assert_equal './dummy_data/dummy_game_teams.csv', tracker_instance.game_teams_path
+    assert_equal 15, tracker_instance.game_teams_collection_instances.size
+  end
+
   def test_winningest_team
     new_game_tracker_instance = GameTeamsCollection.new('./dummy_data/dummy_game_teams.csv')
     assert_equal "6", new_game_tracker_instance.winningest_team_id
+  end
+
+  def test_all_game_teams
+    new_game_tracker_instance = GameTeamsCollection.new('./dummy_data/dummy_game_teams.csv')
+    assert_equal 3 , new_game_tracker_instance.all_game_teams.first.team_id
   end
 
   def test_team_id_maker
@@ -26,11 +37,10 @@ class GameTeamsCollectionTest < MiniTest::Test
     assert_equal expected, new_game_tracker_instance.team_stat_maker.first
   end
 
-  def test_team_id_maker
-    new_game_tracker_instance = GameTeamsCollection.new('./dummy_data/dummy_game_teams.csv')
-    assert_equal [3, 6, 12, 30, 26, 29, 5], new_game_tracker_instance.team_id_maker
-
-  end
+  # def test_team_id_maker
+  #   new_game_tracker_instance = GameTeamsCollection.new('./dummy_data/dummy_game_teams.csv')
+  #   assert_equal [3, 6, 12, 30, 26, 29, 5], new_game_tracker_instance.team_id_maker
+  # end
 
   def test_game_stat_maker
     new_game_tracker_instance = GameTeamsCollection.new('./dummy_data/dummy_game_teams.csv')
