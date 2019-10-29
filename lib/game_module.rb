@@ -8,7 +8,6 @@ module GameModule
       @game_counter_visitor[game.away_team_id] += 1.0
       @away_goals[game.away_team_id] += game.away_goals.to_f
     end
-    @game_counter_visitor
     @away_goals
   end
 
@@ -20,7 +19,6 @@ module GameModule
       @game_counter_home[game.home_team_id] += 1.0
       @home_goals[game.home_team_id] += game.home_goals.to_f
     end
-    @game_counter_home
     @home_goals
   end
 

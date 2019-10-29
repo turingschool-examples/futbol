@@ -18,7 +18,7 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
-   def test_it_initializes
+  def test_it_initializes
     assert_equal './dummy_data/dummy_games.csv', @stat_tracker.game_path
     assert_equal './dummy_data/dummy_game_teams.csv', @stat_tracker.game_teams_path
     assert_equal './dummy_data/dummy_teams.csv', @stat_tracker.team_path
@@ -103,5 +103,4 @@ class StatTrackerTest < Minitest::Test
   def test_worst_fans
     assert_equal ["Sporting Kansas City"], @stat_tracker.worst_fans
   end
-
 end

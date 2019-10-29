@@ -94,5 +94,4 @@ class StatTracker
   def worst_fans
     team.worst_fans(game_teams.worst_fans)
   end
-
 end
