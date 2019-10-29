@@ -126,4 +126,8 @@ class StatTracker
   def biggest_team_blowout(team_id)
     @teams_collection.biggest_team_blowout(team_id)
   end
+
+  def worst_loss(team_id)
+    @teams_collection.worst_loss(team_id)
+  end
 end
