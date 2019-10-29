@@ -16,12 +16,13 @@ module TeamModule
     self.generate_win_percentage_season(team).max_by{|season, pct| pct}[0]
   end
 
-  def worst_season
+  def worst_season(team)
     self.generate_win_percentage_season(team).min_by{|season, pct| pct}[0]
   end
 
-  def average_win_percentage
-
+  def average_win_percentage(team)
+    values = self.generate_win_percentage_season(team).values
+    values.reduce {|sum, num| sum + num}.to_f / values.length  
   end
 
   ##Helper Methods##
