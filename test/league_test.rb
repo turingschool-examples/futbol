@@ -1,6 +1,5 @@
 require './test/test_helper'
 require './lib/stat_tracker'
-require './lib/team_module'
 
 class LeagueModuleTest < Minitest::Test
 
