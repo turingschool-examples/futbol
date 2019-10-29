@@ -33,10 +33,9 @@ module TeamModule
        season = find_season_game_id(game.game_id)
      end
      win_percent_season = by_season.transform_values do |val|
-       val.map {|game| game.result == 'WIN' ? 1 : 0}
+       (val.map {|game| game.result == 'WIN' ? 1 : 0}.reduce {|sum, num| sum + num}.to_f / val.length).round(2)
      end
-     win_percent_season 
-     binding.pry
+     win_percent_season
   end
 
   def convert_team_name_to_obj(team_name)
