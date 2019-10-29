@@ -23,16 +23,17 @@ class SeasonModuleTest < Minitest::Test
   end
 
   def test_winningest_coach
-    assert_equal 'Peter Deboer', @stat_tracker.winningest_coach('20122013')
+
+    assert_equal 'Peter DeBoer', @stat_tracker.winningest_coach('20122013')
   end
 
   def test_worst_coach
-    skip
+
     assert_equal 'John Tortorella', @stat_tracker.worst_coach('20122013')
   end
 
   def test_find_coach
-    assert_equal 'Peter Deboor', @stat_tracker.find_coach('1', '20122013')
+    assert_equal 'Peter DeBoer', @stat_tracker.find_coach('1', '20122013')
   end
 
 end
