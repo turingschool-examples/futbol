@@ -59,4 +59,8 @@ class GameCollectionTest < Minitest::Test
     }
     assert_equal count_goals_by_season_list, @game_collection.average_goals_by_season
   end
+
+  def test_it_can_find_games_by_season
+    assert_equal 12, @game_collection.games_by_season("26")
+  end
 end

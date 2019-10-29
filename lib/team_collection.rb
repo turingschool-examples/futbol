@@ -142,10 +142,10 @@ class TeamCollection
   def average_win_percentage(team_id)
     avg_win_percentage = (all_won_games(team_id).to_f / all_team_games(team_id)*100).round(2)
   end
-
+  
+  # group games by season (game_collection)
+  # number of wins in season / number of games in season
+  # return the string of season name
   def best_season(team_id)
-    # group games by season (game_collection)
-    # number of wins in season / number of games in season
-    # return the string of season name
   end
 end
