@@ -103,6 +103,8 @@ module SeasonModule
   end
 
   def worst_coach(season)
+    worst_team = self.team_records_by_season(season).min_by {|team, record| record}[0]
+    self.find_coach(worst_team.team_id, season)
   end
 
   def most_accurate_team
