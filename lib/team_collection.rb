@@ -128,4 +128,35 @@ class TeamCollection
     team.fewest_goals_scored
   end
 
+  def favorite_opponent(team_id)
+    team = @total_teams.find {|team| team.team_id == team_id }
+    require "pry"; binding.pry
+
+    opponent_games = team.all_opponent_games
+    opponent_team_ids = opponent_games.map { |game| game.team_id }.uniq
+    opponent_teams = opponent_team_ids.map do |id|
+      @total_teams.find { |team| team.team_id == id }
+    end
+    x = opponent_teams.min_by { |team| team.win_percentage }.team_name
+    require "pry"; binding.pry
+
+ #    team_game_ids = team.all_team_games.map { |game| game.game_id }
+ #    team_game_ids.reduce({}) do |game_id_collection, game_id|
+ #      key = game_id
+ #      value = team.all_team_games.find_all { |game| game.game_id == game_id }, team.all_opponent_games.find_all { |game|
+ # game.game_id == game_id }
+ #      game_id_collection[key] = value
+ #      game_id_collection
+ #    end
+  end
+
+  def rival(team_id)
+    team = @total_teams.find {|team| team.team_id == team_id }
+    opponent_games = team.all_opponent_games
+    opponent_team_ids = opponent_games.map { |game| game.team_id }.uniq
+    opponent_teams = opponent_team_ids.map do |id|
+      @total_teams.find { |team| team.team_id == id }
+    end
+    opponent_teams.max_by { |team| team.win_percentage }.team_name
+  end
 end
