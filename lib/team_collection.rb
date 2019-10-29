@@ -170,4 +170,8 @@ class TeamCollection
     select_team.biggest_blowout
   end
 
+  def worst_loss(team_id)
+    select_team = @total_teams.find {|team| team.team_id == team_id}
+    select_team.worst_loss
+  end
 end
