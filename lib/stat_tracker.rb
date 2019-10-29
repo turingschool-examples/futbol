@@ -130,4 +130,8 @@ class StatTracker
   def worst_loss(team_id)
     @teams_collection.worst_loss(team_id)
   end
+
+  def head_to_head(team_id)
+    @teams_collection.head_to_head(team_id)
+  end
 end
