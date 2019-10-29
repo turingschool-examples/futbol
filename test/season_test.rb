@@ -13,11 +13,11 @@ class SeasonModuleTest < Minitest::Test
   end
 
   def test_biggest_bust
-    assert_equal "Houston Dynamo", @stat_tracker.biggest_bust('20122013')
+    assert_equal "Houston Dynamo", @stat_tracker.biggest_bust('20132014')
   end
 
   def test_biggest_surprise
-    assert_equal "Chicago Fire", @stat_tracker.biggest_surprise('20122013')
+    assert_equal "Chicago Fire", @stat_tracker.biggest_surprise('20132014')
   end
 
   def test_winningest_coach
@@ -33,6 +33,7 @@ class SeasonModuleTest < Minitest::Test
   end
 
   def test_most_tackles
+    assert_equal 'Houston Dynamo', @stat_tracker.most_trackles('20122013')
   end
 
   def test_fewest_tackles
