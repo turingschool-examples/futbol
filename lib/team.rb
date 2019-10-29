@@ -102,4 +102,10 @@ class Team
       game.goals - @all_opponent_games[index].goals
     end.max
   end
+
+  def worst_loss
+    @all_team_games.map.with_index do |game, index|
+      game.goals - @all_opponent_games[index].goals
+    end.min.abs
+  end
 end
