@@ -85,4 +85,24 @@ class GameTeamCollection
     home_games
   end
 
+  def team_highest_win_percent
+    @game_teams_by_team_id.max_by do |team_id, game_array|
+      (games_won(game_array) / game_array.length.to_f).round(2)
+    end[0]
+  end
+
+  def games_won(games)
+    games.count do |game|
+      game.result == "WIN"
+    end
+  end
+
+  def best_fans
+    # game_team by team
+    #separate into home and away games
+    #percentage win for home and away
+    #get the largest difference
+  end
+
+
 end

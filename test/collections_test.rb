@@ -33,4 +33,8 @@ class CollectionsTest < Minitest::Test
   def test_away_games
     @game_team_collection.away_games
   end
+
+  def test_team_highest_win_percent
+    assert_equal "6", @game_team_collection.team_highest_win_percent
+  end
 end

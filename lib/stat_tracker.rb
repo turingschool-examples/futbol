@@ -79,4 +79,8 @@ class StatTracker
   def highest_scoring_home_team
     @team_collection.team_name(@game_team_collection.most_home_goals)
   end
+
+  def winningest_team
+    @team_collection.team_name(@game_team_collection.team_highest_win_percent)
+  end
 end
