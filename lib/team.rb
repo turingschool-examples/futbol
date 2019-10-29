@@ -96,4 +96,10 @@ class Team
   def fewest_goals_scored
     @all_team_games.min_by {|game| game.goals}.goals
   end
+
+  def biggest_blowout
+    @all_team_games.map.with_index do |game, index|
+      game.goals - @all_opponent_games[index].goals
+    end.max
+  end
 end
