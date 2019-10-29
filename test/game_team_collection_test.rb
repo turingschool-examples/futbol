@@ -37,7 +37,6 @@ class GameTeamCollectionTest < Minitest::Test
     assert_equal 16, @game_team_collection.winningest_team_id
   end
 
-
   def test_home_win_percentage
     assert_equal 50.0, @game_team_collection.home_win_percentage[24]
   end

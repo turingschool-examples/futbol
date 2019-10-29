@@ -4,8 +4,8 @@ require './lib/stat_tracker'
 
 class FanTest < Minitest::Test
   def setup
-    @fan = Fan.new("./test/test_game_team_data.csv", "./data/teams.csv")
-    @game_teams = GameTeamCollection.new("./test/test_game_team_data.csv")
+    @fan = Fan.new("./test/dummy_game_team_data.csv", "./data/teams.csv")
+    @game_teams = GameTeamCollection.new("./test/dummy_game_team_data.csv")
     @teams = TeamCollection.new("./data/teams.csv")
   end
 
@@ -36,4 +36,9 @@ class FanTest < Minitest::Test
   def test_worst_fans
     assert_equal ["FC Dallas", "New England Revolution", "New York City FC", "Philadelphia Union", "Real Salt Lake"], @fan.worst_fans
   end
+
+  def test_winningest_team
+    assert_equal "New England Revolution", @fan.winningest_team_name
+  end
+
 end

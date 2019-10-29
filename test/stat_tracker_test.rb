@@ -76,4 +76,8 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_return_average_goals_per_game
     assert_equal 3.92, @stat_tracker.average_goals_per_game
   end
+
+  def test_winningest_team
+    assert_equal "New England Revolution", @stat_tracker.winningest_team
+  end
 end

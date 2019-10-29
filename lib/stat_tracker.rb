@@ -62,4 +62,8 @@ attr_reader :game_teams, :games, :teams
   def average_goals_per_game
     @games.average_goals_per_game
   end
+
+  def winngingest_team
+    @fan_collection.winningest_team_name
+  end
 end
