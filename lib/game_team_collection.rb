@@ -40,7 +40,16 @@ class GameTeamCollection
       (total.to_f / game_array.length).round(2)
     end[0]
   end
-  # def best_offense
-  #   # look through game teams and count goals based off team_id
-  # end
+
+  def most_visitor_goals
+    x = @game_teams_by_team_id.max_by do |team_id, game_array|
+      away_games = game_array.find_all do |game|
+        game.hoa == "away"
+      end
+      total = away_games.sum do |away_game|
+        away_game.goals
+      end
+      (total.to_f / away_games.length).round(2)
+    end[0]
+  end
 end
