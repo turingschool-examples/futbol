@@ -122,4 +122,8 @@ class StatTracker
   def rival(team_id)
     @teams_collection.rival(team_id)
   end
+
+  def biggest_team_blowout(team_id)
+    @teams_collection.biggest_team_blowout(team_id)
+  end
 end
