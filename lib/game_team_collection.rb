@@ -43,10 +43,25 @@ class GameTeamCollection
 
   def most_visitor_goals
     away_games.max_by do |team_id, away_game_array|
+      if away_game_array.length != 0
       total = away_game_array.sum do |away_game|
         away_game.goals
       end
       (total.to_f / away_game_array.length).round(2)
+      else 0
+      end
+    end[0]
+  end
+
+  def most_home_goals
+    home_games.max_by do |team_id, home_game_array|
+      if home_game_array.length != 0
+      total = home_game_array.sum do |home_game|
+        home_game.goals
+      end
+      (total.to_f / home_game_array.length).round(2)
+      else 0
+      end
     end[0]
   end
 
@@ -59,4 +74,15 @@ class GameTeamCollection
     end
     away_games
   end
+
+  def home_games
+    home_games = {}
+    @game_teams_by_team_id.each do |team_id, game_array|
+      home_games[team_id] = game_array.find_all do |game|
+        game.hoa == "home"
+      end
+    end
+    home_games
+  end
+
 end

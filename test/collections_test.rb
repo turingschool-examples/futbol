@@ -26,9 +26,9 @@ class CollectionsTest < Minitest::Test
     assert_equal "6", @game_team_collection.most_visitor_goals
   end
 
-  # def test_most_home_goals
-  #   assert_equal "6", @game_team_collection.most_home_goals
-  # end
+  def test_most_home_goals
+    assert_equal "6", @game_team_collection.most_home_goals
+  end
 
   def test_away_games
     @game_team_collection.away_games
