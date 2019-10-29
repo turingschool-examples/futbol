@@ -129,7 +129,6 @@ module SeasonModule
       end.values[0]
     end
     records
-    binding.pry
   end
 
   def find_coach(team_id, season)
@@ -138,7 +137,6 @@ module SeasonModule
     end
     games_by_season_team = games_in_season.find {|game| game.team_id == team_id}
     games_by_season_team.head_coach
-    binding.pry
   end
 
 end
