@@ -162,66 +162,69 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_has_a_seasonal_summary
     expected = {
-     "20122013"=>{
-       :postseason=>
-        {:win_percentage=>0.56,
-         :total_goals_scored=>65,
-         :total_goals_against=>51,
-         :average_goals_scored=>4.34,
-         :average_goals_against=>1.7},
-        :regular_season=>
-         {:win_percentage=>0.56,
-          :total_goals_scored=>65,
-          :total_goals_against=>51,
-          :average_goals_scored=>4.34,
-          :average_goals_against=>1.7}},
-      "20142015"=>{
-        :postseason=>
-        {:win_percentage=>0.56,
-         :total_goals_scored=>65,
-         :total_goals_against=>51,
-         :average_goals_scored=>4.34,
-         :average_goals_against=>1.7},
-        :regular_season=>
-        {:win_percentage=>0.56,
-         :total_goals_scored=>65,
-         :total_goals_against=>51,
-         :average_goals_scored=>4.34,
-         :average_goals_against=>1.7}},
-      "20132014"=>{
-        :postseason=>
-        {:win_percentage=>0.56,
-         :total_goals_scored=>65,
-         :total_goals_against=>51,
-         :average_goals_scored=>4.34,
-         :average_goals_against=>1.7},
-        :regular_season=>
-        {:win_percentage=>0.56,
-         :total_goals_scored=>65,
-         :total_goals_against=> 51,
-         :average_goals_scored=>4.34,
-         :average_goals_against=>1.7}}
-       }
-
-    assert_equal expected, @stat_tracker.seasonal_summary("16", "20122013")
+                 "20122013"=>{
+                             postseason:  {
+                                                 win_percentage: 0.71,
+                                                 total_goals_scored: 12,
+                                                 total_goals_against: 10,
+                                                 average_goals_scored: 1.71,
+                                                 average_goals_against: 1.43
+                                           },
+                             regular_season:  {
+                                                 win_percentage: 1.00,
+                                                 total_goals_scored: 3,
+                                                 total_goals_against: 2,
+                                                 average_goals_scored: 3.00,
+                                                 average_goals_against: 2.00
+                                               }
+                            },
+                  "20152016"=>{
+                              postseason:  {
+                                                  win_percentage: 0.67,
+                                                  total_goals_scored: 10,
+                                                  total_goals_against: 6,
+                                                  average_goals_scored: 1.67,
+                                                  average_goals_against: 1.00
+                                            },
+                              regular_season:  {
+                                                  win_percentage: 0.00,
+                                                  total_goals_scored: 0,
+                                                  total_goals_against: 0,
+                                                  average_goals_scored: 0.00,
+                                                  average_goals_against: 0.00
+                                                }
+                             }
+                }
+    assert_equal expected, @stat_tracker.seasonal_summary("15")
   end
 
   def test_it_can_find_favorite_opponent_of_given_team
-    skip
     assert_equal "Seattle Sounders FC", @stat_tracker.favorite_opponent("5")
   end
 
   def test_in_can_find_rival_of_given_team
-    skip
     assert_equal "FC Dallas", @stat_tracker.rival("5")
   end
 
-  def test_it_can_generate_head_to_head_hash_of_win_percentage_against_others
-    skip
+  def test_it_can_change_team_id_keys_to_team_names
+    incoming_hash = {
+                      "6" => 0.00,
+                      "2" => 0.67,
+                      "3" => 0.40
+                    }
     expected_hash = {
-                      "Seattle Sounders FC" => 0.66,
+                      "Seattle Sounders FC" => 0.67,
                       "FC Dallas" => 0.00,
-                      "Houston Dynamo" => 0.35
+                      "Houston Dynamo" => 0.40
+                    }
+    assert_equal expected_hash, @stat_tracker.name_team_keys(incoming_hash)
+  end
+
+  def test_it_can_generate_head_to_head_hash_of_win_percentage_against_others
+    expected_hash = {
+                      "Seattle Sounders FC" => 0.67,
+                      "FC Dallas" => 0.00,
+                      "Houston Dynamo" => 0.40
                     }
     assert_equal expected_hash, @stat_tracker.head_to_head("5")
   end

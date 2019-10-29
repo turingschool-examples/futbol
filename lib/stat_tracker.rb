@@ -137,8 +137,8 @@ class StatTracker
     @games_teams.worst_loss(team_id)
   end
 
-  def seasonal_summary(team_id, season)
-    @games.seasonal_summary(team_id, season)
+  def seasonal_summary(team_id)
+    @games.seasonal_summary(team_id)
   end
 
   def favorite_opponent(team_id)
@@ -149,7 +149,14 @@ class StatTracker
     name_of_team(@games.rival(team_id))
   end
 
+  def name_team_keys(team_hash)
+    team_hash.reduce({}) do |hash, pair|
+      hash[name_of_team(pair[0])] = pair[1]
+      hash
+    end
+  end
+
   def head_to_head(team_id)
-    name_of_team(@games.head_to_head(team_id))
+    name_team_keys(@games.head_to_head(team_id))
   end
 end

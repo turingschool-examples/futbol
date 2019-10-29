@@ -243,27 +243,70 @@ class GamesCollection
     end
   end
 
-  def season_values(team_id, season)
-    games_with_team_in_season(team_id, season).reduce({}) do |values, game|
-      values[:win_percentage] = team_win_percentage(team_id, season)
-      values[:total_goals_scored] = total_home_goals(team_id) + total_away_goals(team_id)
-      values[:total_goals_against] = total_opponent_goals(team_id)
-      values[:average_goals_scored] = (average_away_score_of_team(team_id) + average_home_score_of_team(team_id)).round(2)
-      values[:average_goals_against] = average_goals_of_opponent(team_id)
-      values
+  def team_games_in_season_and_type(team_id, season, type)
+    all_games_in_season_and_type(season, type).select do |game|
+      team_id == game.home_team_id || team_id == game.away_team_id
     end
   end
 
-  def season_type(team_id, season)
-    games_with_team_in_season(team_id, season).reduce({}) do |type, game|
-      type[game.type.gsub(/\s+/, "_").downcase.intern] = season_values(team_id, season)
-      type
+  def team_wins_in_season_and_type(team_id, season, type)
+    team_games_in_season_and_type(team_id, season, type).count do |game|
+      team_id == game.home_team_id ? home_win?(game) : away_win?(game)
     end
   end
 
-  def seasonal_summary(team_id, season)
-    games_with_team(team_id).reduce({}) do |season_info, game|
-      season_info[game.season] = season_type(team_id, season)
+  def team_games_denominator(team_id, season, type)
+    team_games_in_season_and_type(team_id, season, type).length.to_f.nonzero? || 1.0
+  end
+
+  def team_win_percentage_in_season_and_type(team_id, season, type)
+    (team_wins_in_season_and_type(team_id, season, type) / team_games_denominator(team_id, season, type)).round(2)
+  end
+
+  def total_team_goals_in_season_and_type(team_id, season, type)
+    team_games_in_season_and_type(team_id, season, type).sum do |game|
+      team_id == game.home_team_id ? game.home_goals.to_i : game.away_goals.to_i
+    end
+  end
+
+  def total_opponent_goals_in_season_and_type(team_id, season, type)
+    team_games_in_season_and_type(team_id, season, type).sum do |game|
+      team_id == game.home_team_id ? game.away_goals.to_i : game.home_goals.to_i
+    end
+  end
+
+  def avg_team_goals_in_season_and_type(team_id, season, type)
+    (total_team_goals_in_season_and_type(team_id, season, type) / team_games_denominator(team_id, season, type)).round(2)
+  end
+
+  def avg_opponent_goals_in_season_and_type(team_id, season, type)
+    (total_opponent_goals_in_season_and_type(team_id, season, type) / team_games_denominator(team_id, season, type)).round(2)
+  end
+
+  def season_sub_type_summary(team_id, season, type)
+    {
+      win_percentage: team_win_percentage_in_season_and_type(team_id, season, type),
+      total_goals_scored: total_team_goals_in_season_and_type(team_id, season, type),
+      total_goals_against: total_opponent_goals_in_season_and_type(team_id, season, type),
+      average_goals_scored: avg_team_goals_in_season_and_type(team_id, season, type),
+      average_goals_against: avg_opponent_goals_in_season_and_type(team_id, season, type)
+    }
+  end
+
+  def type_to_symbol(season_type)
+    season_type.gsub(/\s+/, "_").downcase.intern
+  end
+
+  def season_summary(team_id, season)
+    ["Regular Season", "Postseason"].reduce({}) do |season_summary, type|
+      season_summary[type_to_symbol(type)] = season_sub_type_summary(team_id, season, type)
+      season_summary
+    end
+  end
+
+  def seasonal_summary(team_id)
+    team_seasons(team_id).reduce({}) do |season_info, season|
+      season_info[season] = season_summary(team_id, season)
       season_info
     end
   end

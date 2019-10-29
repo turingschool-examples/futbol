@@ -196,82 +196,73 @@ class GamesCollectionTest < Minitest::Test
     assert_equal "20142015", @games_collection.worst_season("5")
   end
 
-  def test_it_has_season_values
-
+  def test_it_can_generate_season_sub_type_summary
     expected = {
-      :win_percentage=>0.56,
-     :total_goals_scored=>65,
-     :total_goals_against=>51,
-     :average_goals_scored=>4.34,
-     :average_goals_against=>1.7
-   }
-
-    assert_equal expected, @games_collection.season_values("16", "20122013")
+                  win_percentage: 0.20,
+                  total_goals_scored: 9,
+                  total_goals_against: 14,
+                  average_goals_scored: 1.80,
+                  average_goals_against: 2.80
+               }
+    assert_equal expected, @games_collection.season_sub_type_summary("8", "20122013", "Postseason")
   end
 
-  def test_it_can_check_season_type
-
-    expected =
-    {:postseason=>
-      {:win_percentage=>0.56,
-       :total_goals_scored=>65,
-       :total_goals_against=>51,
-       :average_goals_scored=>4.34,
-       :average_goals_against=>1.7},
-     :regular_season=>
-      {:win_percentage=>0.56,
-       :total_goals_scored=>65,
-       :total_goals_against=>51,
-       :average_goals_scored=>4.34,
-       :average_goals_against=>1.7}}
-
-    assert_equal expected, @games_collection.season_type("16", "20122013")
+  def test_it_can_generate_single_season_summary_for_given_team
+    expected = {
+                postseason:  {
+                                    win_percentage: 0.71,
+                                    total_goals_scored: 12,
+                                    total_goals_against: 10,
+                                    average_goals_scored: 1.71,
+                                    average_goals_against: 1.43
+                              },
+                regular_season:  {
+                                    win_percentage: 1.00,
+                                    total_goals_scored: 3,
+                                    total_goals_against: 2,
+                                    average_goals_scored: 3.00,
+                                    average_goals_against: 2.00
+                                  }
+               }
+    assert_equal expected, @games_collection.season_summary("15", "20122013")
   end
 
-  def test_it_has_a_seasonal_summary
+  def test_it_can_generate_multi_season_seasonal_summary_for_given_team
     expected = {
-     "20122013"=>{
-       :postseason=>
-        {:win_percentage=>0.56,
-         :total_goals_scored=>65,
-         :total_goals_against=>51,
-         :average_goals_scored=>4.34,
-         :average_goals_against=>1.7},
-        :regular_season=>
-         {:win_percentage=>0.56,
-          :total_goals_scored=>65,
-          :total_goals_against=>51,
-          :average_goals_scored=>4.34,
-          :average_goals_against=>1.7}},
-      "20142015"=>{
-        :postseason=>
-        {:win_percentage=>0.56,
-         :total_goals_scored=>65,
-         :total_goals_against=>51,
-         :average_goals_scored=>4.34,
-         :average_goals_against=>1.7},
-        :regular_season=>
-        {:win_percentage=>0.56,
-         :total_goals_scored=>65,
-         :total_goals_against=>51,
-         :average_goals_scored=>4.34,
-         :average_goals_against=>1.7}},
-      "20132014"=>{
-        :postseason=>
-        {:win_percentage=>0.56,
-         :total_goals_scored=>65,
-         :total_goals_against=>51,
-         :average_goals_scored=>4.34,
-         :average_goals_against=>1.7},
-        :regular_season=>
-        {:win_percentage=>0.56,
-         :total_goals_scored=>65,
-         :total_goals_against=> 51,
-         :average_goals_scored=>4.34,
-         :average_goals_against=>1.7}}
-       }
-
-    assert_equal expected, @games_collection.seasonal_summary("16", "20122013")
+                 "20122013"=>{
+                             postseason:  {
+                                                 win_percentage: 0.71,
+                                                 total_goals_scored: 12,
+                                                 total_goals_against: 10,
+                                                 average_goals_scored: 1.71,
+                                                 average_goals_against: 1.43
+                                           },
+                             regular_season:  {
+                                                 win_percentage: 1.00,
+                                                 total_goals_scored: 3,
+                                                 total_goals_against: 2,
+                                                 average_goals_scored: 3.00,
+                                                 average_goals_against: 2.00
+                                               }
+                            },
+                  "20152016"=>{
+                              postseason:  {
+                                                  win_percentage: 0.67,
+                                                  total_goals_scored: 10,
+                                                  total_goals_against: 6,
+                                                  average_goals_scored: 1.67,
+                                                  average_goals_against: 1.00
+                                            },
+                              regular_season:  {
+                                                  win_percentage: 0.00,
+                                                  total_goals_scored: 0,
+                                                  total_goals_against: 0,
+                                                  average_goals_scored: 0.00,
+                                                  average_goals_against: 0.00
+                                                }
+                             }
+                }
+    assert_equal expected, @games_collection.seasonal_summary("15")
   end
 
   def test_it_can_find_the_home_goals_if_away_team
@@ -458,5 +449,62 @@ class GamesCollectionTest < Minitest::Test
                         "2013020357"
                        ]
     assert_equal expected_array_2, @games_collection.game_ids_in_season_and_type("20132014", "Regular Season")
+  end
+
+  def test_it_can_find_games_of_given_team_in_given_season_and_subtype
+    expected_array_1 = [
+      @games_collection.games[99],
+      @games_collection.games[100],
+      @games_collection.games[109]
+    ]
+    assert_equal expected_array_1, @games_collection.team_games_in_season_and_type("23", "20122013", "Regular Season")
+    expected_array_2 = [
+      @games_collection.games[16],
+      @games_collection.games[17],
+      @games_collection.games[18],
+      @games_collection.games[19],
+      @games_collection.games[20]
+    ]
+    assert_equal expected_array_2, @games_collection.team_games_in_season_and_type("8", "20122013", "Postseason")
+  end
+
+  def test_it_can_find_team_wins_in_season_and_type
+    assert_equal 1, @games_collection.team_wins_in_season_and_type("8", "20122013", "Postseason")
+    assert_equal 0, @games_collection.team_wins_in_season_and_type("23", "20122013", "Regular Season")
+  end
+
+  def test_it_can_total_team_games_in_season_and_type
+    assert_equal 5, @games_collection.team_games_denominator("8", "20122013", "Postseason")
+    assert_equal 3, @games_collection.team_games_denominator("23", "20122013", "Regular Season")
+  end
+
+  def test_it_can_calculate_win_percentage_for_a_team_in_season_and_type
+    assert_equal 0.20, @games_collection.team_win_percentage_in_season_and_type("8", "20122013", "Postseason")
+    assert_equal 0.00, @games_collection.team_win_percentage_in_season_and_type("23", "20122013", "Regular Season")
+  end
+
+  def test_it_can_total_team_goals_in_season_and_type
+    assert_equal 9, @games_collection.total_team_goals_in_season_and_type("8", "20122013", "Postseason")
+    assert_equal 4, @games_collection.total_team_goals_in_season_and_type("23", "20122013", "Regular Season")
+  end
+
+  def test_it_can_total_opponent_goals_of_team_in_season_and_type
+    assert_equal 14, @games_collection.total_opponent_goals_in_season_and_type("8", "20122013", "Postseason")
+    assert_equal 6, @games_collection.total_opponent_goals_in_season_and_type("23", "20122013", "Regular Season")
+  end
+
+  def test_it_can_calculate_average_goals_of_team_in_season_and_type
+    assert_equal 1.80, @games_collection.avg_team_goals_in_season_and_type("8", "20122013", "Postseason")
+    assert_equal 1.33, @games_collection.avg_team_goals_in_season_and_type("23", "20122013", "Regular Season")
+  end
+
+  def test_it_can_calculate_average_goals_of_opponents_in_season_and_type
+    assert_equal 2.80, @games_collection.avg_opponent_goals_in_season_and_type("8", "20122013", "Postseason")
+    assert_equal 2.00, @games_collection.avg_opponent_goals_in_season_and_type("23", "20122013", "Regular Season")
+  end
+
+  def test_it_can_convert_type_to_symbol
+    assert_equal :regular_season, @games_collection.type_to_symbol("Regular Season")
+    assert_equal :postseason, @games_collection.type_to_symbol("Postseason")
   end
 end
