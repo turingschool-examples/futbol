@@ -32,26 +32,21 @@ class LeagueModuleTest < Minitest::Test
   end
 
   def test_highest_scoring_visitor
-    skip
-    assert_equal "Seattle Sounders FC", @stat_tracker.highest_scoring_visitor
+    assert_equal "Atlanta United", @stat_tracker.highest_scoring_visitor
   end
 
   def test_highest_scoring_home_team
-    skip
-    assert_equal 2, @stat_tracker.highest_scoring_home_team.length
-    assert_equal true, @stat_tracker.highest_scoring_home_team.include?("Atlanta United")
-    assert_equal true, @stat_tracker.highest_scoring_home_team.include?("Houston Dynamo")
+    assert_equal "Seattle Sounders FC", @stat_tracker.highest_scoring_home_team
   end
 
   def test_lowest_scoring_visitor
-    skip
     assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
   end
 
   def test_lowest_scoring_home_team
-    skip
-    assert_equal "Seattle Sounders FC", @stat_tracker.lowest_scoring_visitor
+    assert_equal "Atlanta United", @stat_tracker.lowest_scoring_home_team
   end
+
 
   def test_winningest_team
     assert_equal "Atlanta United", @stat_tracker.winningest_team
