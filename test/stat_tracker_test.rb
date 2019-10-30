@@ -84,4 +84,8 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_return_name_of_highest_scoring_visitor
     assert_equal "Orlando City SC", @stat_tracker.highest_scoring_visitor
   end
+
+  def test_it_can_return_name_of_lowest_scoring_visitor
+    assert_equal "New England Revolution", @stat_tracker.lowest_scoring_visitor
+  end
 end

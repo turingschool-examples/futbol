@@ -120,4 +120,8 @@ class GamecollectionTest < Minitest::Test
   def test_it_can_return_away_team_id_for_highest_average_goals
     assert_equal "30", @game_collection.away_team_id_for_highest_average_goals
   end
+
+  def test_it_can_return_away_team_id_for_lowest_average_goals
+    assert_equal "16", @game_collection.away_team_id_for_lowest_average_goals
+  end
 end
