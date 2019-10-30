@@ -128,7 +128,24 @@ module SeasonModule
     convert_ids_to_team_name(id)
   end
 
-  def fewest_tackles
+  def fewest_tackles(season_id)
+    games_in_season = games.find_all { |game| game.season == season_id }
+    games = games_in_season.map { |game| game.game_id }
+
+    tackles_hash = games_in_season.reduce({}) do |acc, game|
+      acc[game.home_team_id] = { :tackles => 0 }
+      acc[game.away_team_id] = { :tackles => 0 }
+      acc
+    end
+
+    game_teams.map do |game_team|
+      if games.include?(game_team.game_id)
+        tackles_hash[game_team.team_id][:tackles] += game_team.tackles.to_i
+      end
+    end
+
+    id = tackles_hash.sort_by { |k, v| v[:tackles] }.first.first
+    convert_ids_to_team_name(id)
   end
 
 #HELPER METHODS
