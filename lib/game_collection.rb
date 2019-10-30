@@ -33,17 +33,17 @@ class GameCollection
 
   def percentage_home_wins
     h_win = @games.count { |game| game.away_goals < game.home_goals }
-    ((h_win * 100.00).to_f / @games.length).round(2)
+    ((h_win).to_f / @games.length).round(2)
   end
 
   def percentage_visitor_wins
     v_win = @games.count { |game| game.away_goals > game.home_goals }
-    ((v_win * 100.00).to_f / @games.length).round(2)
+    ((v_win).to_f / @games.length).round(2)
   end
 
   def percentage_ties
     ties = @games.count { |game| game.away_goals == game.home_goals }
-    ((ties * 100.00).to_f / @games.length).round(2)
+    ((ties).to_f / @games.length).round(2)
   end
 
   def count_of_games_by_season

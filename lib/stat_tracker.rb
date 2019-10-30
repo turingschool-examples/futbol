@@ -1,9 +1,11 @@
 require_relative './game_collection'
 require_relative './team_collection'
 require_relative './game_team_collection'
-require 'pry'
+require_relative './helper'
+
 
 class StatTracker
+  include Helper
 attr_reader :game_teams, :games, :teams
 
   def self.from_csv(locations)
@@ -63,7 +65,8 @@ attr_reader :game_teams, :games, :teams
     @games.average_goals_per_game
   end
 
-  def winngingest_team
-    @fan_collection.winningest_team_name
+  def count_of_teams
+    @game_teams.count_of_teams
   end
+
 end
