@@ -1,4 +1,4 @@
-require 'pry'
+
 module SeasonModule
 
   def biggest_bust(season_id)
@@ -172,7 +172,6 @@ module SeasonModule
   def find_coach(team_id, season)
     games_played = self.find_games_in_season_team(team_id, season)
     games_played[0].head_coach
-    #binding.pry
   end
 
   def find_games_in_season_team(team_id, season)
@@ -180,7 +179,6 @@ module SeasonModule
       self.find_season_game_id(game.game_id) == season
     end
     games_by_season_team = games_in_season.find_all {|game| game.team_id == team_id}
-    #binding.pry
   end
 
   def accuracy_by_team(season)
