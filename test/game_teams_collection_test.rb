@@ -33,7 +33,7 @@ class GameTeamsCollectionTest < MiniTest::Test
 
   def test_team_stat_maker
     new_game_tracker_instance = GameTeamsCollection.new('./dummy_data/dummy_game_teams.csv')
-    expected = [3, {:away_wins=>0, :away_losses=>2, :home_wins=>0, :home_losses=>2}]
+    expected = [3, {:away_wins=>0, :away_losses=>2, :home_wins=>0, :home_losses=>2, :all_ties=>0}]
     assert_equal expected, new_game_tracker_instance.team_stat_maker.first
   end
 
