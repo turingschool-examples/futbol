@@ -105,11 +105,15 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_team_info
-      expected = {"team_id"=> "20", "franchise_id"=> "21", "team_name"=> "Toronto FC", "abbreviation"=> "TOR", "link"=> "/api/v1/teams/20"}
+    expected = {"team_id"=> "20", "franchise_id"=> "21", "team_name"=> "Toronto FC", "abbreviation"=> "TOR", "link"=> "/api/v1/teams/20"}
     assert_equal expected, @stat_tracker.team_info("20")
   end
 
   def test_most_goals_scored
-    assert_equal 3, @stat_tracker.most_goals_scored.goals
+    assert_equal 2, @stat_tracker.most_goals_scored("3")
+  end
+
+  def test_fewest_goals_scored
+    assert_equal 1, @stat_tracker.fewest_goals_scored("3")
   end
 end

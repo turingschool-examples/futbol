@@ -99,7 +99,11 @@ class StatTracker
     team.team_info(value)
   end
 
-  def most_goals_scored
-    game_teams.most_goals_scored
+  def most_goals_scored(value)
+    game_teams.most_goals_scored(value)
+  end
+
+  def fewest_goals_scored(value)
+    game_teams.fewest_goals_scored(value)
   end
 end

@@ -79,8 +79,15 @@ class GameTeamsCollection
 
   def most_goals_scored(value)
     most_goals = @game_teams_collection_instances.find_all do |team|
-      team.team_id == value
+      team.team_id == value.to_i
     end
     most_goals.max_by { |team| team.goals }.goals
+  end
+
+  def fewest_goals_scored(value)
+    most_goals = @game_teams_collection_instances.find_all do |team|
+      team.team_id == value.to_i
+    end
+    most_goals.min_by { |team| team.goals }.goals
   end
 end

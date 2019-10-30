@@ -50,6 +50,11 @@ class GameTeamsCollectionTest < MiniTest::Test
 
   def test_most_goals_scored
     new_game_tracker_instance = GameTeamsCollection.new('./dummy_data/dummy_game_teams.csv')
-    assert_equal 3, new_game_tracker_instance.most_goals_scored("3")
+    assert_equal 2, new_game_tracker_instance.most_goals_scored("3")
+  end
+
+  def test_fewest_goals_scored
+    new_game_tracker_instance = GameTeamsCollection.new('./dummy_data/dummy_game_teams.csv')
+    assert_equal 1, new_game_tracker_instance.fewest_goals_scored("3")
   end
 end
