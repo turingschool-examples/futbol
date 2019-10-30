@@ -92,6 +92,7 @@ class StatTracker
   end
 
   def worst_fans
+#require "pry"; binding.pry
     team.worst_fans(game_teams.worst_fans)
   end
 

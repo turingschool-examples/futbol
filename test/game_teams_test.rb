@@ -1,8 +1,7 @@
-require 'csv'
+require './test/test_helper'
 require './lib/game_teams'
 require './lib/stat_tracker'
 require './lib/game_teams_collection'
-require_relative 'test_helper'
 
 class GameTeamsTest < MiniTest::Test
   def setup
@@ -25,7 +24,7 @@ class GameTeamsTest < MiniTest::Test
       assert_equal 8, @game_teams.shots
       assert_equal 4, @game_teams.tackles
       assert_equal 8, @game_teams.pim
-      assert_equal 3, @game_teams.powerplayopportunities
+      assert_equal 0, @game_teams.powerplayopportunities
       assert_equal 0, @game_teams.powerplaygoals
       assert_equal 44.8, @game_teams.faceoffwinpercentage
       assert_equal 17, @game_teams.giveaways

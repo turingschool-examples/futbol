@@ -51,20 +51,20 @@ class TeamCollection
     name_finder(team_id)
   end
 
-  def name_finder(team_id)
-    @team_instances.reduce do |x, team|
-     if team.team_id == team_id
-       x = team.teamname
-     end
-     x
-   end
+  def name_finder(id_of_team)
+    @name = []
+    @team_instances.find do |team|
+      if team.team_id == id_of_team
+        @name << team.teamname
+      end
+    end
+    @name.join
   end
 
   def worst_fans(team_id_list)
-    team_list = []
-    team_id_list.map do |team|
-      team_list << name_finder(team)
-    end
+      team_list = team_id_list.map do |team|
+        name_finder(team.to_s)
+      end
     team_list
   end
 

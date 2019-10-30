@@ -69,9 +69,11 @@ class GameTeamsCollection
   def worst_fans
     worst_fans_teams = []
     team_stat_maker
+
     @team_accumulator.map do |team|
+
       if team[1][:away_wins] > team[1][:home_wins]
-        worst_fans_teams<< team[0]
+        worst_fans_teams << team[0]
       end
     end
     worst_fans_teams
