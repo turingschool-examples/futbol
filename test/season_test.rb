@@ -16,12 +16,24 @@ class SeasonModuleTest < Minitest::Test
     assert_equal "Atlanta United", @stat_tracker.biggest_bust('20132014')
   end
 
+  def test_biggest_surprise
+    assert_equal "Seattle Sounders FC", @stat_tracker.biggest_surprise('20132014')
+  end
+
   def test_winningest_coach
     assert_equal 'Peter DeBoer', @stat_tracker.winningest_coach('20122013')
   end
 
   def test_worst_coach
     assert_equal 'John Tortorella', @stat_tracker.worst_coach('20122013')
+  end
+
+  def test_most_tackles
+    assert_equal 'Houston Dynamo', @stat_tracker.most_tackles('20132014')
+  end
+
+  def test_fewest_tackles
+    assert_equal 'Atlanta United', @stat_tracker.fewest_tackles('20132014')
   end
 
   def test_find_coach
