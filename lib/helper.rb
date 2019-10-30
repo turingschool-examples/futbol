@@ -1,20 +1,27 @@
-require_relative './game_team'
-require_relative './team'
-require 'CSV'
+# require_relative './game_team'
+# require_relative './team'
+# require 'CSV'
 
-class Fan
-  attr_reader :game_teams, :teams
-  def initialize(csv_file_path_1, csv_file_path_2)
-    @game_teams = create_game_teams(csv_file_path_1)
-    @teams = create_teams(csv_file_path_2)
-  end
+module Helper
+  # attr_reader :game_teams, :teams
+  # def initialize(csv_file_path_1, csv_file_path_2)
+  #   @game_teams = create_game_teams(csv_file_path_1)
+  #   @teams = create_teams(csv_file_path_2)
+  # end
+  #
+  # def create_game_teams(csv_file_path_1)
+  #   GameTeamCollection.new("./test/dummy_game_team_data.csv")
+  # end
+  #
+  # def create_teams(csv_file_path_2)
+  #   TeamCollection.new("./data/teams.csv")
+  # end
 
-  def create_game_teams(csv_file_path_1)
-    GameTeamCollection.new("./test/dummy_game_team_data.csv")
-  end
-
-  def create_teams(csv_file_path_2)
-    TeamCollection.new("./data/teams.csv")
+  def winningest_team
+    most_wins_team = @teams.teams.find do |team|
+      team.team_id == @game_teams.winningest_team_id
+      end
+    most_wins_team.teamName
   end
 
   def best_fans_team_id

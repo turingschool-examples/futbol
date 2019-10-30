@@ -2,10 +2,12 @@ require_relative './game_collection'
 require_relative './team_collection'
 require_relative './game_team_collection'
 require_relative './goal_average_module'
-require 'pry'
+require_relative './helper'
+
 
 class StatTracker
   include GoalAverage
+  include Helper
 attr_reader :game_teams, :games, :teams
 
   def self.from_csv(locations)
@@ -17,9 +19,12 @@ attr_reader :game_teams, :games, :teams
   end
 
   def initialize(game_path, team_path, game_teams_path)
-    @games = GameCollection.new(game_path)
-    @teams = TeamCollection.new(team_path)
-    @game_teams = GameTeamCollection.new(game_teams_path)
+    @game_path = game_path
+    @team_path = team_path
+    @game_teams_path = game_teams_path
+    @games = GameCollection.new(@game_path)
+    @teams = TeamCollection.new(@team_path)
+    @game_teams = GameTeamCollection.new(@game_teams_path)
   end
 
   def highest_total_score
@@ -62,7 +67,8 @@ attr_reader :game_teams, :games, :teams
     @games.average_goals_per_game
   end
 
-  # def highest_scoring_visitor
-  #
-  # end
+  def count_of_teams
+    @game_teams.count_of_teams
+  end
+
 end
