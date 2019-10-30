@@ -77,4 +77,10 @@ class GameTeamsCollection
     worst_fans_teams
   end
 
+  def most_goals_scored(value)
+    most_goals = @game_teams_collection_instances.find_all do |team|
+      team.team_id == value
+    end
+    most_goals.max_by { |team| team.goals }.goals
+  end
 end

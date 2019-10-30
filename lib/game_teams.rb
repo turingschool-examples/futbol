@@ -5,7 +5,7 @@ class GameTeams
 
   def initialize(game_teams_info)
     @game_id = game_teams_info[:game_id].to_i
-    @team_id = game_teams_info[:team_id].to_i
+    @team_id = game_teams_info[:team_id]
     @hoa = game_teams_info[:hoa]
     @result = game_teams_info[:result]
     @settled_in = game_teams_info[:settled_in]

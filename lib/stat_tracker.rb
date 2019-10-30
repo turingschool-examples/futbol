@@ -94,4 +94,12 @@ class StatTracker
   def worst_fans
     team.worst_fans(game_teams.worst_fans)
   end
+
+  def team_info(value)
+    team.team_info(value)
+  end
+
+  def most_goals_scored
+    game_teams.most_goals_scored
+  end
 end

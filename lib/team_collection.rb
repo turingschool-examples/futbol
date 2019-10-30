@@ -67,4 +67,18 @@ class TeamCollection
     end
     team_list
   end
+
+  def team_info(value_id)
+    team_info_storage = []
+      @team_instances.each do |team|
+      team_information = Hash.new(0)
+      team_information["team_id"] = team.team_id
+      team_information["franchise_id"] = team.franchiseid
+      team_information["team_name"] = team.teamname
+      team_information["abbreviation"] = team.abbreviation
+      team_information["link"] = team.link
+      team_info_storage << team_information
+    end
+    team_info_storage.find { |team| team["team_id"] == value_id }
+  end
 end

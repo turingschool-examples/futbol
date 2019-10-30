@@ -65,4 +65,9 @@ class TeamCollectionTest < MiniTest::Test
     assert_equal ["Sporting Kansas City"], @team_instance.worst_fans(["5"])
     assert_equal ["LA Galaxy", "Houston Dynamo"], @team_instance.worst_fans(["17", "3"])
   end
+
+  def test_team_info
+    expected = {"team_id"=> "20", "franchise_id"=> "21", "team_name"=> "Toronto FC", "abbreviation"=> "TOR", "link"=> "/api/v1/teams/20"}
+    assert_equal expected, @team_instance.team_info("20")
+  end
 end
