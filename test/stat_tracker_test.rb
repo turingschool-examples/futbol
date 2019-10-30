@@ -72,6 +72,22 @@ class StatTrackerTest < Minitest::Test
     assert_equal 5, @stat_tracker.count_of_teams
   end
 
+  def test_highest_scoring_home_test
+    assert_equal "Chicago Red Stars", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_highest_scoring_visitor
+    assert_equal "Seattle Sounders FC", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_lowest_scoring_home_test
+    assert_equal "Atlanta United", @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_lowest_scoring_visitor
+    assert_equal "Chicago Red Stars", @stat_tracker.lowest_scoring_visitor
+  end
+  
   def test_winningest_team
     assert_equal "Atlanta United", @stat_tracker.winningest_team
   end
