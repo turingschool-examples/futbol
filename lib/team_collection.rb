@@ -17,13 +17,6 @@ class TeamCollection
     @teams.length
   end
 
-  def find_team_name_by_id(team_id)
-    team = @teams.find do |team|
-      team.team_id.to_i == team_id
-    end
-  team.team_name
-  end
-
   def find_by_id(id)
     @teams.find do |team|
       team if team.team_id == id
