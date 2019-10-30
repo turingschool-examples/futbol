@@ -33,7 +33,7 @@ class GameTeam
                                     row[:settled_in],
                                     row[:head_coach],
                                     row[:goals].to_i,
-                                    row[:shots],
+                                    row[:shots].to_i,
                                     row[:tackles],
                                     row[:pim],
                                     row[:powerplayopportunities],

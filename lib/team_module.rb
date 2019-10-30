@@ -34,7 +34,7 @@ module TeamModule
     end
     team_goals.map { |k, v| v.max }.first
   end
-  
+
   def fewest_goals_scored(team_lookup)
     goals = []
     team_goals = game_teams.reduce({}) do |acc, game_team|

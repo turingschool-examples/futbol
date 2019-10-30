@@ -21,15 +21,11 @@ class SeasonModuleTest < Minitest::Test
   end
 
   def test_winningest_coach
+    assert_equal 'Peter DeBoer', @stat_tracker.winningest_coach('20122013')
   end
 
   def test_worst_coach
-  end
-
-  def test_most_accurate_team
-  end
-
-  def test_least_accurate_team
+    assert_equal 'John Tortorella', @stat_tracker.worst_coach('20122013')
   end
 
   def test_most_tackles
@@ -38,6 +34,18 @@ class SeasonModuleTest < Minitest::Test
 
   def test_fewest_tackles
     assert_equal 'Atlanta United', @stat_tracker.fewest_tackles('20132014')
+  end
+
+  def test_find_coach
+    assert_equal 'Peter DeBoer', @stat_tracker.find_coach('1', '20122013')
+  end
+
+  def test_most_accurate_team
+    assert_equal 'Atlanta United', @stat_tracker.most_accurate_team('20122013')
+  end
+
+  def test_least_accurate_team
+    assert_equal 'Houston Dynamo', @stat_tracker.least_accurate_team('20122013')
   end
 
 end

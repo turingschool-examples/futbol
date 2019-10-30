@@ -1,3 +1,4 @@
+
 module SeasonModule
 
   def biggest_bust(season_id)
@@ -96,16 +97,24 @@ module SeasonModule
     convert_ids_to_team_name(id)
   end
 
-  def winningest_coach
+  def winningest_coach(season)
+    best_team = self.team_records_by_season(season).max_by {|team, record| record}[0]
+    self.find_coach(best_team.team_id, season)
   end
 
-  def worst_coach
+  def worst_coach(season)
+    worst_team = self.team_records_by_season(season).min_by {|team, record| record}[0]
+    self.find_coach(worst_team.team_id, season)
   end
 
-  def most_accurate_team
+  def most_accurate_team(season)
+    id_team = self.accuracy_by_team(season).max_by{|team, avg| avg}[0]
+    self.convert_ids_to_team_name(id_team)
   end
 
-  def least_accurate_team
+  def least_accurate_team(season)
+    id_team = self.accuracy_by_team(season).min_by{|team, avg| avg}[0]
+    self.convert_ids_to_team_name(id_team)
   end
 
   def most_tackles(season_id)
@@ -148,6 +157,41 @@ module SeasonModule
     convert_ids_to_team_name(id)
   end
 
-#HELPER METHODS
+  #HELPER METHODS
 
+  def team_records_by_season(season)
+    records = Hash.new
+    win_percent_season = teams.collect do |team|
+      records[team] = self.generate_win_percentage_season(team.teamname).select do |sea, team|
+        sea == season
+      end.values[0]
+    end
+    records
+  end
+
+  def find_coach(team_id, season)
+    games_played = self.find_games_in_season_team(team_id, season)
+    games_played[0].head_coach
+  end
+
+  def find_games_in_season_team(team_id, season)
+    games_in_season = game_teams.find_all do |game|
+      self.find_season_game_id(game.game_id) == season
+    end
+    games_by_season_team = games_in_season.find_all {|game| game.team_id == team_id}
+  end
+
+  def accuracy_by_team(season)
+    by_team = Hash.new
+    teams.each do |team|
+      by_team[team.team_id] = self.find_games_in_season_team(team.team_id, season)
+    end
+    avg_by_team = by_team.transform_values do |games_t|
+      total_by_game = games_t.map {|game| game.goals.to_f / game.shots}.reduce do |sum, avg|
+        sum + avg
+      end
+      total_by_game / games_t.length
+    end
+    avg_by_team
+  end
 end
