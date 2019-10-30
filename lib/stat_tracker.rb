@@ -6,6 +6,7 @@ require 'pry'
 
 class StatTracker
   include GoalAverage
+attr_reader :game_teams, :games, :teams
 
   def self.from_csv(locations)
     game_path = locations[:games]
@@ -16,12 +17,9 @@ class StatTracker
   end
 
   def initialize(game_path, team_path, game_teams_path)
-    @game_path = game_path
-    @team_path = team_path
-    @game_teams_path = game_teams_path
-    @games = GameCollection.new(@game_path)
-    @teams = TeamCollection.new(@team_path)
-    @game_teams = GameTeamCollection.new(@game_teams_path)
+    @games = GameCollection.new(game_path)
+    @teams = TeamCollection.new(team_path)
+    @game_teams = GameTeamCollection.new(game_teams_path)
   end
 
   def highest_total_score
