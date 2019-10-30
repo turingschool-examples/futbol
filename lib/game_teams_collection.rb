@@ -17,13 +17,18 @@ class GameTeamsCollection
   end
 
   def winningest_team_id
-    team_game_count = Hash.new(0)
-    @game_teams_collection_instances.each do |game|
-      if game.result == "WIN"
-       team_game_count[game.team_id] += 1
+    team_percents = {}
+    team_stat_maker.each do |team|
+      wins = team[1][:away_wins] + team[1][:home_wins]
+      if wins > 0
+        losses = team[1][:away_losses] + team[1][:home_losses] + team[1][:all_ties]
+        percent = (wins + losses) / (wins).to_f
+        team_percents[team[0]] = percent.round(3)
+      else
+        team_percents[team[0]] = 0
       end
     end
-    team_game_count.max_by {|key, value| value}.first.to_s
+    team_percents.min_by{|k,v| v}[0].to_s
   end
 
   def game_stat_maker(team_id)
@@ -31,7 +36,8 @@ class GameTeamsCollection
       away_wins: 0,
       away_losses: 0,
       home_wins: 0,
-      home_losses: 0
+      home_losses: 0,
+      all_ties: 0
     }
     @game_teams_collection_instances.each do |game|
       if game.team_id == team_id
@@ -43,11 +49,12 @@ class GameTeamsCollection
           team_data[:home_wins] += 1
         elsif game.result == "LOSS" && game.hoa == "home"
           team_data[:home_losses] += 1
+        else
+          team_data[:all_ties] += 1
         end
       end
     end
     team_data
-
   end
 
   def team_id_maker
@@ -71,7 +78,7 @@ class GameTeamsCollection
     team_stat_maker
     @team_accumulator.map do |team|
       if team[1][:away_wins] > team[1][:home_wins]
-        worst_fans_teams<< team[0]
+        worst_fans_teams << team[0]
       end
     end
     worst_fans_teams
