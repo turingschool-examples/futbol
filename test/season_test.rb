@@ -13,11 +13,7 @@ class SeasonModuleTest < Minitest::Test
   end
 
   def test_biggest_bust
-    assert_equal 0, @stat_tracker.biggest_bust('20122013')
-  end
-
-  def test_biggest_bust
-    assert_equal 0, @stat_tracker.biggest_bust('20122013')
+    assert_equal "Atlanta United", @stat_tracker.biggest_bust('20132014')
   end
 
   def test_winningest_coach
