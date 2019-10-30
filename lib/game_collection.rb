@@ -105,4 +105,11 @@ class GameCollection
     highest_average = average_away_goals_by_away_team_id.values.sort.last
     average_away_goals_by_away_team_id.key(highest_average)
   end
+
+  def away_team_id_for_lowest_average_goals
+    lowest_average = average_away_goals_by_away_team_id.values.sort.first
+    average_away_goals_by_away_team_id.key(lowest_average)
+  end
+
+
 end
