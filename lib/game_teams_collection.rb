@@ -16,22 +16,15 @@ class GameTeamsCollection
     end
   end
 
-  def winningest_team_id
-    team_game_count = Hash.new(0)
-    @game_teams_collection_instances.each do |game|
-      if game.result == "WIN"
-       team_game_count[game.team_id] += 1
-      end
-    end
-    team_game_count.max_by {|key, value| value}.first.to_s
-  end
+  
 
   def game_stat_maker(team_id)
     team_data = {
       away_wins: 0,
       away_losses: 0,
       home_wins: 0,
-      home_losses: 0
+      home_losses: 0,
+      all_ties: 0
     }
     @game_teams_collection_instances.each do |game|
       if game.team_id == team_id
@@ -43,11 +36,12 @@ class GameTeamsCollection
           team_data[:home_wins] += 1
         elsif game.result == "LOSS" && game.hoa == "home"
           team_data[:home_losses] += 1
+        else
+          team_data[:all_ties] += 1
         end
       end
     end
     team_data
-
   end
 
   def team_id_maker
