@@ -10,7 +10,7 @@ class Fan
   end
 
   def create_game_teams(csv_file_path_1)
-    GameTeamCollection.new("./test/test_game_team_data.csv")
+    GameTeamCollection.new("./test/dummy_game_team_data.csv")
   end
 
   def create_teams(csv_file_path_2)
