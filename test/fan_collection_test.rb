@@ -4,8 +4,8 @@ require './lib/stat_tracker'
 
 class FanTest < Minitest::Test
   def setup
-    @fan = Fan.new("./test/test_game_team_data.csv", "./data/teams.csv")
-    @game_teams = GameTeamCollection.new("./test/test_game_team_data.csv")
+    @fan = Fan.new("./test/dummy_game_team_data.csv", "./data/teams.csv")
+    @game_teams = GameTeamCollection.new("./test/dummy_game_team_data.csv")
     @teams = TeamCollection.new("./data/teams.csv")
   end
 
