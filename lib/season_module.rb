@@ -1,3 +1,4 @@
+require 'pry'
 module SeasonModule
 
   def biggest_bust(season_id)
@@ -106,10 +107,12 @@ module SeasonModule
     self.find_coach(worst_team.team_id, season)
   end
 
-  def most_accurate_team
+  def most_accurate_team(season)
+
   end
 
-  def least_accurate_team
+  def least_accurate_team(season)
+
   end
 
   def most_tackles(season_id)
@@ -165,11 +168,21 @@ module SeasonModule
   end
 
   def find_coach(team_id, season)
+    games_played = self.find_games_in_season_team(team_id, season)
+    games_played[0].head_coach
+    #binding.pry
+  end
+
+  def find_games_in_season_team(team_id, season)
     games_in_season = game_teams.find_all do |game|
       self.find_season_game_id(game.game_id) == season
     end
-    games_by_season_team = games_in_season.find {|game| game.team_id == team_id}
-    games_by_season_team.head_coach
+    games_by_season_team = games_in_season.find_all {|game| game.team_id == team_id}
+    #binding.pry
   end
+
+  def accuracy_by_team
+
+    
 
 end
