@@ -26,46 +26,57 @@ module LeagueModule
   def highest_scoring_visitor
     team_hash = games.reduce({}) do |acc, game|
       if acc[game.away_team_id]
-        acc[game.away_team_id] += game.away_goals.to_f
+        acc[game.away_team_id][:goals] += game.away_goals.to_f
+        acc[game.away_team_id][:games] += 1
       else
-        acc[game.away_team_id] = game.away_goals.to_f
+        acc[game.away_team_id] = {goals: game.away_goals.to_f, games: 1}
       end
       acc
     end
-    new_hash = team_hash.transform_values {|value| value / games.count}
+
+    new_hash = team_hash.transform_values {|value| value[:goals] / value[:games]}
     highest_num = new_hash.values.max
+    
     teams.find do |team|
       new_hash[team.team_id] == highest_num
     end.teamname
+
   end
 
   def highest_scoring_home_team
     team_hash = games.reduce({}) do |acc, game|
       if acc[game.home_team_id]
-        acc[game.home_team_id] += game.home_goals.to_f
+        acc[game.home_team_id][:goals] += game.home_goals.to_f
+        acc[game.home_team_id][:games] += 1
       else
-        acc[game.home_team_id] = game.home_goals.to_f
+        acc[game.home_team_id] = {goals: game.home_goals.to_f, games: 1}
       end
       acc
     end
-    new_hash = team_hash.transform_values {|value| value / games.count}
+
+    new_hash = team_hash.transform_values {|value| value[:goals] / value[:games]}
     highest_num = new_hash.values.max
+    
     teams.find do |team|
       new_hash[team.team_id] == highest_num
     end.teamname
+
   end
 
   def lowest_scoring_visitor
     team_hash = games.reduce({}) do |acc, game|
       if acc[game.away_team_id]
-        acc[game.away_team_id] += game.away_goals.to_f
+        acc[game.away_team_id][:goals] += game.away_goals.to_f
+        acc[game.away_team_id][:games] += 1
       else
-        acc[game.away_team_id] = game.away_goals.to_f
+        acc[game.away_team_id] = {goals: game.away_goals.to_f, games: 1}
       end
       acc
     end
-    new_hash = team_hash.transform_values {|value| value / games.count}
+
+    new_hash = team_hash.transform_values {|value| value[:goals] / value[:games]}
     lowest_num = new_hash.values.min
+    
     teams.find do |team|
       new_hash[team.team_id] == lowest_num
     end.teamname
@@ -74,14 +85,17 @@ module LeagueModule
   def lowest_scoring_home_team
     team_hash = games.reduce({}) do |acc, game|
       if acc[game.home_team_id]
-        acc[game.home_team_id] += game.home_goals.to_f
+        acc[game.home_team_id][:goals] += game.home_goals.to_f
+        acc[game.home_team_id][:games] += 1
       else
-        acc[game.home_team_id] = game.home_goals.to_f
+        acc[game.home_team_id] = {goals: game.home_goals.to_f, games: 1}
       end
       acc
     end
-    new_hash = team_hash.transform_values {|value| value / games.count}
+
+    new_hash = team_hash.transform_values {|value| value[:goals] / value[:games]}
     lowest_num = new_hash.values.min
+    
     teams.find do |team|
       new_hash[team.team_id] == lowest_num
     end.teamname
