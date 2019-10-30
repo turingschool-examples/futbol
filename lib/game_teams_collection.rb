@@ -16,7 +16,20 @@ class GameTeamsCollection
     end
   end
 
-  
+  def winningest_team_id
+    team_percents = {}
+    team_stat_maker.each do |team|
+      wins = team[1][:away_wins] + team[1][:home_wins]
+      if wins > 0
+        losses = team[1][:away_losses] + team[1][:home_losses] + team[1][:all_ties]
+        percent = (wins + losses) / (wins).to_f
+        team_percents[team[0]] = percent.round(3)
+      else
+        team_percents[team[0]] = 0
+      end
+    end
+    team_percents.min_by{|k,v| v}[0].to_s
+  end
 
   def game_stat_maker(team_id)
     team_data = {
