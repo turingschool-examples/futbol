@@ -59,22 +59,22 @@ class StatTracker
   end
 
   def highest_scoring_home_team
-    highest_scoring_home_team_id = @game_repo.find_highest_average_home_score_per_home_game
+    highest_scoring_home_team_id = @game_repo.find_highest_average_home_score_per_home_game.to_s
     @team_repo.find_team_name_by_id(highest_scoring_home_team_id)
   end
 
   def highest_scoring_visitor
-    highest_scoring_away_team_id = @game_repo.find_highest_average_away_score_per_away_game
+    highest_scoring_away_team_id = @game_repo.find_highest_average_away_score_per_away_game.to_s
     @team_repo.find_team_name_by_id(highest_scoring_away_team_id)
   end
 
   def lowest_scoring_home_team
-    lowest_scoring_home_team_id = @game_repo.find_lowest_average_home_score_per_home_game
+    lowest_scoring_home_team_id = @game_repo.find_lowest_average_home_score_per_home_game.to_s
     @team_repo.find_team_name_by_id(lowest_scoring_home_team_id)
   end
 
   def lowest_scoring_visitor
-    lowest_scoring_away_team_id = @game_repo.find_lowest_average_away_score_per_away_game
+    lowest_scoring_away_team_id = @game_repo.find_lowest_average_away_score_per_away_game.to_s
     @team_repo.find_team_name_by_id(lowest_scoring_away_team_id)
 
   def winningest_team
