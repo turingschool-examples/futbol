@@ -108,11 +108,13 @@ module SeasonModule
   end
 
   def most_accurate_team(season)
-    self.accuracy_by_team(season)
+    id_team = self.accuracy_by_team(season).max_by{|team, avg| avg}[0]
+    self.convert_ids_to_team_name(id_team)
   end
 
   def least_accurate_team(season)
-
+    id_team = self.accuracy_by_team(season).min_by{|team, avg| avg}[0]
+    self.convert_ids_to_team_name(id_team)
   end
 
   def most_tackles(season_id)
