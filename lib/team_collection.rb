@@ -2,7 +2,7 @@ require 'csv'
 require_relative 'team'
 
 class TeamCollection
-  attr_reader :team_instances, :team_path
+  attr_reader :team_instances, :team_path, :name
 
   def initialize(team_path)
     @team_path = team_path
@@ -60,11 +60,10 @@ class TeamCollection
     end
     @name.join
   end
-
   def worst_fans(team_id_list)
-      team_list = team_id_list.map do |team|
-        name_finder(team.to_s)
-      end
+    team_list = team_id_list.map do |team|
+      name_finder(team.to_s)
+    end
     team_list
   end
 

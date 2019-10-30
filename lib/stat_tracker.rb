@@ -71,7 +71,7 @@ class StatTracker
     team.count_of_teams
   end
 
-  def winningest_team
+  def winningest_team 
     team.winningest_team(game_teams.winningest_team_id)
   end
 

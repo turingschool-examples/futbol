@@ -80,8 +80,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_winningest_team
-    assert_equal "FC Dallas", @stat_tracker.winningest_team
-    assert_equal "LA Galaxy", @stat_tracker.winningest_team
+    assert_equal "Houston Dynamo", @stat_tracker.winningest_team
   end
 
   def test_highest_scoring_visitor
