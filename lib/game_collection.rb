@@ -72,7 +72,7 @@ class GameCollection
   def find_number_of_home_games
     number_of_home_games = Hash.new()
     @games.each do |game|
-      home_team_id = game.home_team_id.to_i
+      home_team_id = game.home_team_id
       if number_of_home_games.has_key?(home_team_id)
         number_of_home_games[home_team_id] = number_of_home_games[home_team_id] + 1
       else
@@ -85,7 +85,7 @@ class GameCollection
   def find_number_of_away_games
     number_of_away_games = Hash.new()
     @games.each do |game|
-      away_team_id = game.away_team_id.to_i
+      away_team_id = game.away_team_id
       if number_of_away_games.has_key?(away_team_id)
         number_of_away_games[away_team_id] = number_of_away_games[away_team_id] + 1
       else
@@ -98,7 +98,7 @@ class GameCollection
   def find_total_home_score
     total_home_score = Hash.new()
     @games.each do |game|
-      home_team_id = game.home_team_id.to_i
+      home_team_id = game.home_team_id
       if total_home_score.has_key?(home_team_id)
         total_home_score[home_team_id] = total_home_score[home_team_id] + game.home_goals
       else
@@ -111,7 +111,7 @@ class GameCollection
   def find_total_away_score
     total_away_score = Hash.new()
     @games.each do |game|
-      away_team_id = game.away_team_id.to_i
+      away_team_id = game.away_team_id
       if total_away_score.has_key?(away_team_id)
         total_away_score[away_team_id] = total_away_score[away_team_id] + game.away_goals
       else
