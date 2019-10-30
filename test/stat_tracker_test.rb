@@ -57,6 +57,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_total_goals_by_season
+    skip
     expected = {
       "20192020"=>20,
       "20202021"=>7,
@@ -82,4 +83,21 @@ class StatTrackerTest < Minitest::Test
   def test_count_of_teams
     assert_equal 5, @stat_tracker.count_of_teams
   end
+
+  def test_highest_scoring_home_test
+    assert_equal "Chicago Red Stars", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_highest_scoring_visitor
+    assert_equal "Seattle Sounders FC", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_lowest_scoring_home_test
+    assert_equal "Atlanta United", @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_lowest_scoring_visitor
+    assert_equal "Chicago Red Stars", @stat_tracker.lowest_scoring_visitor
+  end
+
 end
