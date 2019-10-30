@@ -183,6 +183,8 @@ module SeasonModule
 
   def accuracy_by_team
 
-    
+  end   
+
+
 
 end
