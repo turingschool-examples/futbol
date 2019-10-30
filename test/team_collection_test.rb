@@ -17,10 +17,8 @@ class TeamCollectionTest < MiniTest::Test
   end
 
   def test_it_initalizes
-    def test_it_initializes
-      assert_equal './dummy_data/dummy_teams.csv', @team_instance.team_path
-      assert_equal 16, @team_instance.team_instances.size
-    end
+    assert_equal './dummy_data/dummy_teams.csv', @team_instance.team_path
+    assert_equal 16, @team_instance.team_instances.size
   end
 
   def test_all_teams
