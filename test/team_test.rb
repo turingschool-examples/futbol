@@ -6,10 +6,10 @@ class TeamTest < Minitest::Test
 def setup
   team_info = {
     team_id: "1",
-    franchise_id: "23",
-    team_name: "Atlanta United",
+    franchiseId: "23",
+    teamName: "Atlanta United",
     abbreviation: "ATL",
-    stadium: "Mercedes-Benz Stadium",
+    Stadium: "Mercedes-Benz Stadium",
     link: "/api/v1/teams/1"
   }
   @team = Team.new(team_info)
@@ -26,5 +26,9 @@ end
     assert_equal "ATL", @team.abbreviation
     assert_equal "Mercedes-Benz Stadium", @team.stadium
     assert_equal "/api/v1/teams/1", @team.link
+  end
+
+  def method_name
+
   end
 end

@@ -24,4 +24,13 @@ class TeamCollection
   team.team_name
   end
 
+  def find_by_id(id)
+    @teams.find do |team|
+      team if team.team_id == id
+    end
+  end
+
+  def find_name_by_id(id)
+    find_by_id(id).team_name
+  end
 end

@@ -1,8 +1,9 @@
 require_relative './game_collection'
 require_relative './team_collection'
+require_relative './game_team_collection'
 
 class StatTracker
-  attr_reader :game_repo, :team_repo
+  attr_reader :game_repo, :team_repo, :game_teams_repo
 
   def self.from_csv(file_paths)
     game_path = file_paths[:games]
@@ -13,7 +14,7 @@ class StatTracker
 
   def initialize(game_path, teams_path, game_teams_path)
     @team_repo = TeamCollection.new(teams_path)
-    @game_teams_path = game_teams_path
+    @game_teams_repo = GameTeamCollection.new(game_teams_path)
     @game_repo = GameCollection.new(game_path)
   end
 
@@ -75,5 +76,9 @@ class StatTracker
   def lowest_scoring_visitor
     lowest_scoring_away_team_id = @game_repo.find_lowest_average_away_score_per_away_game
     @team_repo.find_team_name_by_id(lowest_scoring_away_team_id)
+
+  def winningest_team
+    id = @game_teams_repo.winningest_team_id
+    @team_repo.find_name_by_id(id)
   end
 end

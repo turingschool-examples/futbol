@@ -5,7 +5,7 @@ class StatTrackerTest < Minitest::Test
     test_paths = {
       games: "./test/data/game_sample.csv",
       teams: "./test/data/team_sample.csv",
-      game_teams: "./test/data/game_teams_sample.csv"
+      game_teams: "./test/data/gameteam_sample.csv"
     }
     @stat_tracker = StatTracker.from_csv(test_paths)
   end
@@ -56,18 +56,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
 
-  def test_total_goals_by_season
-    skip
-    expected = {
-      "20192020"=>20,
-      "20202021"=>7,
-      "20212022"=>9,
-      "20222023"=>14,
-      "20232024"=>8
-    }
-    assert_equal expected, @stat_tracker.total_goals_by_season
-  end
-
   def test_percentage_home_wins
     assert_equal 0.30, @stat_tracker.percentage_home_wins
   end
@@ -99,5 +87,8 @@ class StatTrackerTest < Minitest::Test
   def test_lowest_scoring_visitor
     assert_equal "Chicago Red Stars", @stat_tracker.lowest_scoring_visitor
   end
-
+  
+  def test_winningest_team
+    assert_equal "Atlanta United", @stat_tracker.winningest_team
+  end
 end

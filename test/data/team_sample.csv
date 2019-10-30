@@ -1,4 +1,4 @@
-team_id,franchise_id,team_name,abbreviation,stadium,link
+team_id,franchiseId,teamName,abbreviation,Stadium,link
 1,23,Atlanta United,ATL,Yankeer Stadium,/api/v1/teams/1
 2,20,Montreal Impact,MTL,Red Rock Amphitheatre,/api/v1/teams/1
 3,37,Orlando City SC,ORL,Eagles Nest,/api/v1/teams/3
