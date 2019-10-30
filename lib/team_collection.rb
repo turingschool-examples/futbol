@@ -52,7 +52,6 @@ class TeamCollection
   end
 
   def name_finder(id_of_team)
-    #require 'pry'; binding.pry
     @name = []
     @team_instances.find do |team|
       if team.team_id == id_of_team
@@ -61,13 +60,10 @@ class TeamCollection
     end
     @name.join
   end
-
   def worst_fans(team_id_list)
-    team_list = []
-    team_id_list.map do |team|
-      team_list << name_finder(team)
-      #require 'pry'; binding.pry
-      end
-    team_list.flatten
+    team_list = team_id_list.map do |team|
+      name_finder(team.to_s)
+    end
+    team_list
   end
 end
