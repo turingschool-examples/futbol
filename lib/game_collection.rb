@@ -1,7 +1,9 @@
 require 'csv'
 require_relative 'game'
+require_relative 'game_module'
 
 class GameCollection
+  include GameModule
   attr_reader :game_instances, :game_path
 
   def initialize(game_path)
@@ -87,4 +89,28 @@ class GameCollection
     end
   end
 
+  def highest_visitor_id
+    visitor_score_maker
+    id_goal_counter_away
+    @id_identifier.max_by {|key,value| value }.first
+  end
+
+  def highest_home_id #returns the highest home_team ave. wins team_id
+    home_score_maker
+    id_goal_counter_home
+    @id_identifier_home.max_by {|key,value| value }.first
+  end
+
+  def lowest_home_id
+    home_score_maker
+    id_goal_counter_home
+    @id_identifier_home.min_by {|key,value| value }.first
+
+  end
+
+  def lowest_visitor_id
+    visitor_score_maker
+    id_goal_counter_away
+    @id_identifier.min_by {|key,value| value }.first
+  end
 end

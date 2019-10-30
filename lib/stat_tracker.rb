@@ -1,10 +1,13 @@
 require_relative 'game_teams_collection'
 require_relative 'team_collection'
 require_relative 'game_collection'
+require_relative 'game_module'
 
 require 'csv'
 
 class StatTracker
+  include GameModule
+  attr_reader :game_path, :team_path, :game_teams_path
 
     def self.from_csv(locations)
       StatTracker.new(locations)
@@ -69,10 +72,26 @@ class StatTracker
   end
 
   def winningest_team
-    team_collection.winningest_team(game_teams_collection.winningest_team_id)
+    team.winningest_team(game_teams.winningest_team_id)
+  end
+
+  def highest_scoring_visitor
+    team.highest_scoring_visitor(game.highest_visitor_id)
+  end
+
+  def highest_scoring_home_team
+    team.highest_scoring_visitor(game.highest_home_id)
+  end
+
+  def lowest_scoring_visitor
+    team.lowest_scoring_visitor(game.lowest_visitor_id)
+  end
+
+  def lowest_scoring_home_team
+    team.lowest_scoring_visitor(game.lowest_home_id)
   end
 
   def worst_fans
-    team_collection.worst_fans(game_teams_collection.worst_fans)
+    team.worst_fans(game_teams.worst_fans)
   end
 end
