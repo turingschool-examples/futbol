@@ -41,7 +41,7 @@ class TeamModuleTest < Minitest::Test
   end
 
   def test_rival
-    assert_equal "Seattle Sounders FC", @stat_tracker.favorite_opponent('3')
+    assert_equal "Chicago Fire", @stat_tracker.rival('3')
   end
 
   def test_biggest_team_blowout

@@ -44,7 +44,7 @@ class LeagueModuleTest < Minitest::Test
   end
 
   def test_lowest_scoring_home_team
-    assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
+    assert_equal "Atlanta United", @stat_tracker.lowest_scoring_home_team
   end
 
 
