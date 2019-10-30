@@ -17,7 +17,6 @@ class TeamTest < Minitest::Test
   end
 
   def test_it_has_attributes
-
     assert_equal 30, @team.team_id
     assert_equal 37, @team.franchise_id
     assert_equal "Orlando City SC", @team.team_name
