@@ -7,9 +7,8 @@ class GameCollection
   def self.load_data(path)
     games = {}
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
-      # require "pry"; binding.pry
+
       games[row[:game_id]] = Game.new(row)
-      # require "pry"; binding.pry
     end
 
     GameCollection.new(games)
@@ -103,12 +102,11 @@ class GameCollection
     goals
   end
 
-  def allowed(fewest_allowed_goals)
-    min_allowed = @games.find do |game_id, game|
-      require "pry"; binding.pry
-     fewest_allowed_goals == game.away_team_id
-    end
-
-    min_allowed[1].home_team_id
-  end
+  # def allowed(fewest_allowed_goals)
+  #   min_allowed = @games.find do |game_id, game|
+  #    fewest_allowed_goals == game.away_team_id
+  #   end
+  #
+  #   min_allowed[1].home_team_id
+  # end
 end

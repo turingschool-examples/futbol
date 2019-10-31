@@ -76,9 +76,9 @@ class StatTracker
     @team_collection.team_name(@game_team_collection.fewest_goals)
   end
 
-  def best_defense
-    @team_collection.team_name(@game_collection.allowed(@game_team_collection.fewest_allowed_goals))
-  end
+  # def best_defense
+  #   @team_collection.team_name(@game_collection.allowed(@game_team_collection.fewest_allowed_goals))
+  # end
 
   def best_fans
     @team_collection.team_name(@game_team_collection.team_with_best_fans)

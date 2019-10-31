@@ -52,35 +52,35 @@ class GameTeamCollection
     end[0]
   end
 
-  def fewest_allowed_goals
-    @game_teams_by_team_id.map do |team_id, game_array|
-      away_games = game_array.find_all do |game_team|
-        game_team.hoa == "away"
-      end
-      fewest_goals = away_games.sum do |game|
-        game.goals
-      end
-
-      if away_games.length > 0
-        f = fewest_goals.to_f / away_games.length
-      elsif away_games.length == 0
-        0
-      end
-
-      key = away_games.map do |game_team|
-        game_team.team_id
-      end
-
-      away_avg = away_games.reduce({}) do |min_goals, game_team|
-        min_goals[key.flatten] = f
-        min_goals
-      end
-
-      away_avg.min_by do |team_id, avg_goals_scored|
-        avg_goals_scored
-      end
-    end
-  end
+  # def fewest_allowed_goals
+  #   @game_teams_by_team_id.map do |team_id, game_array|
+  #     away_games = game_array.find_all do |game_team|
+  #       game_team.hoa == "away"
+  #     end
+  #     fewest_goals = away_games.sum do |game|
+  #       game.goals
+  #     end
+  #
+  #     if away_games.length > 0
+  #       f = fewest_goals.to_f / away_games.length
+  #     elsif away_games.length == 0
+  #       0
+  #     end
+  #
+  #     key = away_games.map do |game_team|
+  #       game_team.team_id
+  #     end
+  #
+  #     away_avg = away_games.reduce({}) do |min_goals, game_team|
+  #       min_goals[key.flatten] = f
+  #       min_goals
+  #     end
+  #
+  #     away_avg.min_by do |team_id, avg_goals_scored|
+  #       avg_goals_scored
+  #     end
+  #   end
+  # end
 
   def team_with_best_fans
     @game_teams_by_team_id.max_by do |team_id, game_array|
@@ -92,7 +92,6 @@ class GameTeamCollection
       away_wins = game_array.count do |game_team|
         game_team.result == "WIN" && game_team.hoa == "away"
       end
-# initially used a find_all and then a .length at the end
 
       home = (home_wins.to_f / game_array.length).round(2)
       away = (away_wins.to_f / game_array.length).round(2)
@@ -106,7 +105,7 @@ class GameTeamCollection
       home_wins = game_array.count do |game_team|
         game_team.result == "WIN" && game_team.hoa == "home"
       end
-# initially used a find_all and then a .length at the end
+
       away_wins = game_array.count do |game_team|
         game_team.result == "WIN" && game_team.hoa == "away"
       end
