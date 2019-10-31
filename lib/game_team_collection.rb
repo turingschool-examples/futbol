@@ -96,13 +96,4 @@ class GameTeamCollection
       game.result == "WIN"
     end
   end
-
-  def best_fans
-    # game_team by team
-    #separate into home and away games
-    #percentage win for home and away
-    #get the largest difference
-  end
-
-
 end

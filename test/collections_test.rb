@@ -6,6 +6,7 @@ require './lib/team_collection'
 class CollectionsTest < Minitest::Test
 
   def setup
+    @game_collection = GameCollection.load_data('./data/dummy_games.csv')
     @game_team_collection = GameTeamCollection.load_data('./data/dummy_game_teams.csv')
   end
 
@@ -37,4 +38,8 @@ class CollectionsTest < Minitest::Test
   def test_team_highest_win_percent
     assert_equal "6", @game_team_collection.team_highest_win_percent
   end
+
+  # def test_opponents_of_a_team_can_be_found
+  #   @game_collection.opponent_of_team("6")
+  # end
 end

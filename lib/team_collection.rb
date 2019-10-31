@@ -26,5 +26,4 @@ class TeamCollection
       key == team_id
     end.flatten[1].team_name
   end
-
 end
