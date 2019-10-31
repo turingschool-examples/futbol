@@ -39,7 +39,7 @@ class GameTeamsCollectionTest < MiniTest::Test
 
   def test_team_id_maker
     new_game_tracker_instance = GameTeamsCollection.new('./dummy_data/dummy_game_teams.csv')
-    assert_equal [3, 6, 12, 30, 26, 29, 5], new_game_tracker_instance.team_id_maker
+    assert_equal [3, 6, 12, 30, 26, 29, 5, 9], new_game_tracker_instance.team_id_maker
   end
 
   def test_game_stat_maker
