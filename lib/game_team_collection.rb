@@ -51,7 +51,62 @@ class GameTeamCollection
       (total.to_f / game_array.length).round(2)
     end[0]
   end
+  
+  def most_visitor_goals
+    away_games.max_by do |team_id, away_game_array|
+      if away_game_array.length != 0
+      total = away_game_array.sum do |away_game|
+        away_game.goals
+      end
+      (total.to_f / away_game_array.length).round(2)
+      else 0
+      end
+    end[0]
+  end
 
+  def most_home_goals
+    home_games.max_by do |team_id, home_game_array|
+      if home_game_array.length != 0
+      total = home_game_array.sum do |home_game|
+        home_game.goals
+      end
+      (total.to_f / home_game_array.length).round(2)
+      else 0
+      end
+    end[0]
+  end
+
+  def away_games
+    away_games = {}
+    @game_teams_by_team_id.each do |team_id, game_array|
+      away_games[team_id] = game_array.find_all do |game|
+        game.hoa == "away"
+      end
+    end
+    away_games
+  end
+
+  def home_games
+    home_games = {}
+    @game_teams_by_team_id.each do |team_id, game_array|
+      home_games[team_id] = game_array.find_all do |game|
+        game.hoa == "home"
+      end
+    end
+    home_games
+  end
+
+  def team_highest_win_percent
+    @game_teams_by_team_id.max_by do |team_id, game_array|
+      (games_won(game_array) / game_array.length.to_f).round(2)
+    end[0]
+  end
+
+  def games_won(games)
+    games.count do |game|
+      game.result == "WIN"
+    end
+    
   # def fewest_allowed_goals
   #   @game_teams_by_team_id.map do |team_id, game_array|
   #     away_games = game_array.find_all do |game_team|

@@ -105,6 +105,17 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas", @stat_tracker.best_offense
   end
 
+  def test_most_visitor_goals
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_most_home_goals
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_winningest_team
+    assert_equal "FC Dallas", @stat_tracker.winningest_team
+
   def test_worst_offense
     assert_equal "Sporting Kansas City", @stat_tracker.worst_offense
   end

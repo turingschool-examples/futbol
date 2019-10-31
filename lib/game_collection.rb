@@ -109,4 +109,10 @@ class GameCollection
   #
   #   min_allowed[1].home_team_id
   # end
+  
+    # def opponent_of_team(team_id)
+  #   x = @games.reduce do |game_id, game|
+  #     if team_id == game.home_team_id
+  # 
+
 end

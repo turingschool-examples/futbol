@@ -36,4 +36,23 @@ class CollectionsTest < Minitest::Test
     assert_equal "2012030221", @game_team_collection.game_teams["2012030221"].first.game_id
   end
 
+  def test_most_visitor_goals
+    assert_equal "6", @game_team_collection.most_visitor_goals
+  end
+
+  def test_most_home_goals
+    assert_equal "6", @game_team_collection.most_home_goals
+  end
+
+  def test_away_games
+    @game_team_collection.away_games
+  end
+
+  def test_team_highest_win_percent
+    assert_equal "6", @game_team_collection.team_highest_win_percent
+  end
+
+  # def test_opponents_of_a_team_can_be_found
+  #   @game_collection.opponent_of_team("6")
+  # end
 end
