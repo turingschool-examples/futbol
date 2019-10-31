@@ -80,6 +80,13 @@ class StatTracker
     @team_collection.team_name(@game_team_collection.most_home_goals)
   end
 
+  def lowest_scoring_visitor
+    @team_collection.team_name(@game_team_collection.lowest_visitor_goals)
+  end
+
+  def lowest_scoring_home_team
+    @team_collection.team_name(@game_team_collection.lowest_home_goals)
+
   def winningest_team
     @team_collection.team_name(@game_team_collection.team_highest_win_percent)
   end
