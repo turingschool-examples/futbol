@@ -115,6 +115,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_winningest_team
     assert_equal "FC Dallas", @stat_tracker.winningest_team
+  end
 
   def test_worst_offense
     assert_equal "Sporting Kansas City", @stat_tracker.worst_offense
