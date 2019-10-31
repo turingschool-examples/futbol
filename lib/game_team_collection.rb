@@ -51,7 +51,7 @@ class GameTeamCollection
       (total.to_f / game_array.length).round(2)
     end[0]
   end
-  
+
   def most_visitor_goals
     away_games.max_by do |team_id, away_game_array|
       if away_game_array.length != 0
@@ -106,7 +106,8 @@ class GameTeamCollection
     games.count do |game|
       game.result == "WIN"
     end
-    
+  end
+
   # def fewest_allowed_goals
   #   @game_teams_by_team_id.map do |team_id, game_array|
   #     away_games = game_array.find_all do |game_team|
