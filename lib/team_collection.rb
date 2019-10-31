@@ -27,4 +27,9 @@ class TeamCollection
     end.flatten[1].team_name
   end
 
+  def team_name_array(team_id)
+    team_id.map do |id|
+      @teams[id].team_name
+    end
+  end
 end

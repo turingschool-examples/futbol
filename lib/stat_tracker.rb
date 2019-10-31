@@ -86,5 +86,24 @@ class StatTracker
 
   def lowest_scoring_home_team
     @team_collection.team_name(@game_team_collection.lowest_home_goals)
+
+  def winningest_team
+    @team_collection.team_name(@game_team_collection.team_highest_win_percent)
+  end
+  
+  def worst_offense
+    @team_collection.team_name(@game_team_collection.fewest_goals)
+  end
+
+  # def best_defense
+  #   @team_collection.team_name(@game_collection.allowed(@game_team_collection.fewest_allowed_goals))
+  # end
+
+  def best_fans
+    @team_collection.team_name(@game_team_collection.team_with_best_fans)
+  end
+
+  def worst_fans
+    @team_collection.team_name_array(@game_team_collection.team_with_worst_fans)
   end
 end

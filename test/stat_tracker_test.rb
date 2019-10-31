@@ -121,5 +121,23 @@ class StatTrackerTest < Minitest::Test
     assert_equal "LA Galaxy", @stat_tracker.lowest_scoring_home_team
   end
 
+  def test_winningest_team
+    assert_equal "FC Dallas", @stat_tracker.winningest_team
+  end
 
+  def test_worst_offense
+    assert_equal "Sporting Kansas City", @stat_tracker.worst_offense
+  end
+
+  # def test_best_defense
+  #   assert_equal "Atlanta United", @stat_tracker.best_defense
+  # end
+
+  def test_best_fans
+    assert_equal "New England Revolution", @stat_tracker.best_fans
+  end
+
+  def test_worst_fans
+    assert_equal [], @stat_tracker.worst_fans
+  end
 end
