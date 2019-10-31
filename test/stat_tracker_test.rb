@@ -108,4 +108,16 @@ class StatTrackerTest < Minitest::Test
   def test_worst_offense
     assert_equal "Sporting Kansas City", @stat_tracker.worst_offense
   end
+
+  def test_best_defense
+    assert_equal "Atlanta United", @stat_tracker.best_defense
+  end
+
+  def test_best_fans
+    assert_equal "New England Revolution", @stat_tracker.best_fans
+  end
+
+  def test_worst_fans
+    assert_equal [], @stat_tracker.worst_fans
+  end
 end
