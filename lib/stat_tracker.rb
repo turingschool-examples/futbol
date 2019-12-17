@@ -1,6 +1,4 @@
-
-
 class StatTracker
 
-  
+
 end
