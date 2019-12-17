@@ -34,4 +34,8 @@ class GameTest < MiniTest::Test
   def test_score_difference
     assert_equal @game.score_difference, 1
   end
+
+  def test_winner_teamid_can_be_returned
+    assert_equal @game.winner, 6
+  end
 end

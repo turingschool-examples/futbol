@@ -22,13 +22,13 @@ class Game
     (@home_goals - @away_goals).abs
   end
 
-  # def winner
-  #   if @home_goals > @away_goals
-  #     return @home_team_id
-  #   elsif @away_goals > @home_goals
-  #     return @away_team_id
-  #   else
-  #     return nil
-  #   end
-  # end
+  def winner
+    if @home_goals > @away_goals
+      return @home_team_id
+    elsif @away_goals > @home_goals
+      return @away_team_id
+    else
+      return nil
+    end
+  end
 end
