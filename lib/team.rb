@@ -8,10 +8,10 @@ class Team
 
   def initialize(team_info)
     @id = team_info[:team_id].to_i
-    @franchiseId = team_info[:franchiseId].to_i
-    @name = team_info[:teamName]
+    @franchiseId = team_info[:franchiseid].to_i
+    @name = team_info[:teamname]
     @abbr = team_info[:abbreviation]
-    @stadium = team_info[:Stadium]
+    @stadium = team_info[:stadium]
     @link = team_info[:link]
   end
 
