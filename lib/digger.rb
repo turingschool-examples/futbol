@@ -6,4 +6,6 @@ module Digger
 
   def game(game_id)
 
+  end
+
 end
