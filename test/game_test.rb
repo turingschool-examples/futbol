@@ -26,4 +26,16 @@ class GameTest < MiniTest::Test
     assert_equal 2012030221, @game.id
     assert_equal 20122013, @game.season
   end
+
+  def test_total_score
+    assert_equal @game.total_score, 5
+  end
+
+  def test_score_difference
+    assert_equal @game.score_difference, 1
+  end
+
+  def test_winner_teamid_can_be_returned
+    assert_equal @game.winner, 6
+  end
 end
