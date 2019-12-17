@@ -22,4 +22,13 @@ class SeasonTest < MiniTest::Test
     # assert_equal false, @season.games_by_type["Postseason"].include?(2012020510)
     # assert_equal true, @season.games_by_type["Regular Season"].include?(2012020510)
   end
+
+  def test_can_total_games_by_type
+    assert_equal 86, @season.number_of_games_by_type("Postseason")
+    assert_equal 720, @season.number_of_games_by_type("Regular Season")
+  end
+
+  def test_find_total_games_in_season
+    assert_equal 806, @season.total_games
+  end
 end

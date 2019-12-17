@@ -18,4 +18,8 @@ class Season
     end
     game_sort_hash
   end
+
+  def number_of_games_by_type(type)
+    games_by_type[type].length
+  end
 end
