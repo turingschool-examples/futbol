@@ -29,4 +29,10 @@ class StatTrackerTest < Minitest::Test
 		assert_instance_of Team, @stat_tracker.teams.first
 		assert_instance_of Team, @stat_tracker.teams.last
 	end
+
+	def test_dig_module_can_pull_single_team
+		
+	end
+
+	end
 end
