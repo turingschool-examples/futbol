@@ -22,4 +22,8 @@ class Season
   def number_of_games_by_type(type)
     games_by_type[type].length
   end
+
+  def total_games
+    @games_by_type.values.flatten.length
+  end
 end
