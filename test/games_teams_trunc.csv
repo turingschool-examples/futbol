@@ -1,0 +1,11 @@
+game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways
+2012030312,6,away,WIN,REG,Claude Julien,4,7,19,6,1,0,50.9,2,5
+2012030232,16,home,LOSS,REG,Joel Quenneville,1,5,36,10,2,0,44.6,7,9
+2012030163,24,away,WIN,REG,Bruce Boudreau,2,7,26,14,6,2,49.2,3,5
+2012030114,2,home,WIN,REG,Jack Capuano,4,6,33,11,4,1,53.7,8,13
+2012030137,15,home,LOSS,REG,Adam Oates,0,8,39,14,2,0,59.4,7,7
+2012030135,3,away,LOSS,OT,John Tortorella,1,6,43,4,4,0,41.7,14,9
+2015030144,5,away,WIN,REG,Mike Sullivan,3,8,22,10,6,3,42.3,9,8
+2013030164,19,away,WIN,OT,Ken Hitchcock,3,8,42,6,5,1,47.6,4,10
+2015030132,15,home,WIN,REG,Barry Trotz,2,5,38,12,2,2,53.2,9,5
+2014030311,3,home,WIN,REG,Alain Vigneault,2,7,30,8,2,0,43.4,8,10
