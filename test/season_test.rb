@@ -13,9 +13,11 @@ class SeasonTest < MiniTest::Test
 
   def test_sort_games_in_season_by_game_type
     assert_instance_of Hash, @season.games_by_type
-    assert_equal true, @season.games_by_type["Postseason"].include?(2012030325)
+    require "pry"; binding.pry
+    assert_equal true, @season.games_by_type["Postseason"].include?(id = 2012030325)
     assert_equal false, @season.games_by_type["Postseason"].include?(2016030171)
     assert_equal false, @season.games_by_type["Postseason"].include?(2012020510)
     assert_equal true, @season.games_by_type["Regular Season"].include?(2012020510)
+
   end
 end

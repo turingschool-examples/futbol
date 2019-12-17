@@ -1,4 +1,5 @@
 require "CSV"
+require_relative './game'
 
 class Season
   attr_reader :id, :games_by_type
@@ -12,7 +13,7 @@ class Season
     game_sort_hash = Hash.new { |hash, key| hash[key] = [] }
     CSV.foreach(games_path, :headers => true, header_converters: :symbol) do |row|
       if row[1].to_i == @id
-        game_sort_hash[(row[2])].push(row[0].to_i)
+        game_sort_hash[(row[2])].push((Game.new(row)))
       end
     end
     game_sort_hash
