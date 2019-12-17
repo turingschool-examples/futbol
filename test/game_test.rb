@@ -1,9 +1,10 @@
 require_relative 'test_helper'
+require_relative '../lib/game'
 
-class GamesTest < MiniTest::Test
+class GameTest < MiniTest::Test
 
   def setup
-    @games = Games.new({
+    @game = Game.new({
       :game_id     => 2012030221,
       :season      => 20122013,
       :game_type   => "Postseason",
@@ -18,11 +19,11 @@ class GamesTest < MiniTest::Test
   end
 
   def test_it_exists
-    assert_instance_of Games, @games
+    assert_instance_of Game, @game
   end
 
   def test_it_has_attributes
-    assert_equal 2012030221, @games.game_id
-    assert_equal 20122013, @games.season
+    assert_equal 2012030221, @game.game_id
+    assert_equal 20122013, @game.season
   end
 end
