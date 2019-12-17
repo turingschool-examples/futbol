@@ -1,0 +1,12 @@
+game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
+2012030224,20122013,Postseason,5/23/13,6,3,3,2,BBVA Stadium,/api/v1/venues/null
+2012030234,20122013,Postseason,5/24/13,16,17,0,2,Dignity Health Sports Park,/api/v1/venues/null
+2012030124,20122013,Postseason,5/7/13,8,9,2,3,Yankee Stadium,/api/v1/venues/null
+2014030155,20142015,Postseason,4/25/15,30,19,2,1,Talen Energy Stadium,/api/v1/venues/null
+2014030113,20142015,Postseason,4/19/15,8,9,2,1,Yankee Stadium,/api/v1/venues/null
+2015030223,20152016,Postseason,5/3/16,15,5,2,3,Children's Mercy Park,/api/v1/venues/null
+2015030115,20152016,Postseason,4/23/16,2,13,2,1,BBVA Stadium,/api/v1/venues/null
+2015030166,20152016,Postseason,4/24/16,19,16,3,4,Gillette Stadium,/api/v1/venues/null
+2014030212,20142015,Postseason,5/3/15,14,8,4,2,Red Bull Arena,/api/v1/venues/null
+2016030133,20162017,Postseason,4/17/17,15,10,3,2,WakeMed Soccer Park,/api/v1/venues/null
+2016030161,20162017,Postseason,4/13/17,19,30,2,1,Exploria Stadium,/api/v1/venues/null
