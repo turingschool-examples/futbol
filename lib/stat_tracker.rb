@@ -1,13 +1,13 @@
 require "CSV"
+require_relative './team'
 
 class StatTracker
-
-	attr_reader :games, :teams, :game_teams
+	attr_reader :seasons, :teams, :game_teams, :locations
 
 	def initialize(locations)
-		@locations = locations
+		@season = create_seasons(location[:games])
 		@games = CSV.read(locations[:games])
-    @teams = CSV.read(locations[:teams])
+		@teams = create_teams(locations[:teams])
 		@game_teams = CSV.read(locations[:game_teams])
 	end
 
@@ -15,6 +15,12 @@ class StatTracker
 		self.new(locations)
 	end
 
-	# def create_teams(@locations[:teams])
+	def create_teams(team_path)
+		teams_storage = []
+		CSV.foreach(team_path, :headers => true, header_converters: :symbol) do |row|
+			teams_storage.push(Team.new(row))
+		end
+		teams_storage
+	end
 
 end
