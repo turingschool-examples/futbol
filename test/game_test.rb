@@ -7,7 +7,7 @@ class GameTest < MiniTest::Test
     @game = Game.new({
       :game_id     => 2012030221,
       :season      => 20122013,
-      :game_type   => "Postseason",
+      :type   => "Postseason",
       :date_time   => "5/16/13",
       :away_team_id => 3,
       :home_team_id => 6,
@@ -23,7 +23,7 @@ class GameTest < MiniTest::Test
   end
 
   def test_it_has_attributes
-    assert_equal 2012030221, @game.game_id
+    assert_equal 2012030221, @game.id
     assert_equal 20122013, @game.season
   end
 end

@@ -5,7 +5,7 @@ class Season
   attr_reader :id, :games_by_type
 
   def initialize(season_hash)
-    @id = season_hash[:id]
+    @id = season_hash[:id].to_i
     @games_by_type = games_gather(season_hash[:path])
   end
 
