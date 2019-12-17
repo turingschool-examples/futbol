@@ -15,7 +15,20 @@ class Game
   end
 
   def total_score
-    binding.pry
     @away_goals + @home_goals
   end
+
+  def score_difference
+    (@home_goals - @away_goals).abs
+  end
+
+  # def winner
+  #   if @home_goals > @away_goals
+  #     return @home_team_id
+  #   elsif @away_goals > @home_goals
+  #     return @away_team_id
+  #   else
+  #     return nil
+  #   end
+  # end
 end
