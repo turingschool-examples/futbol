@@ -5,7 +5,9 @@ module Digger
   end
 
   def game(game_id)
-
+    all_games = []
+    @seasons.each {|season| all_games << season.games_by_type.values}
+    all_games.flatten.find {|game| game.id == game_id}
   end
 
 end
