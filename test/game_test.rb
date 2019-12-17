@@ -69,7 +69,7 @@ class GameTest < MiniTest::Test
     assert_equal @game2.winner, 3
   end
 
-  # def test_nil_is_returned_if_game_is_tie
-  #   assert_nil @game3.winner, nil
-  # end
+  def test_nil_is_returned_if_game_is_tie
+    assert_nil @game3.winner
+  end
 end
