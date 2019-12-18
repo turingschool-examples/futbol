@@ -24,3 +24,4 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2014020010,20142015,Regular Season,10/9/14,13,14,2,3,Audi Field,/api/v1/venues/null
 2012030413,20122013,Postseason,6/18/13,16,6,0,2,Toyota Stadium,/api/v1/venues/null
 2016030114,20162017,Postseason,4/18/17,8,3,1,2,BBVA Stadium,/api/v1/venues/null
+2014030226,20142015,Postseason,5/10/15,3,15,2,3,Providence Park,/api/v1/venues/null
