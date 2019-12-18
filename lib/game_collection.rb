@@ -15,13 +15,6 @@ class GameCollection
   end
 
   def highest_total_score
-    # highest_score = 0
-    # @games.each do |game|
-    #   if game.total_score > highest_score
-    #     highest_score = game.total_score
-    #     end
-    #   end
-    #   highest_score
     highest_score = @games.max_by do |game|
       game.total_score
     end.total_score
