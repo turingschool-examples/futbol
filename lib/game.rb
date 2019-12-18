@@ -57,6 +57,15 @@ class Game
       acc
     end
   end
+
+  def self.average_goals_per_game
+    total_games = 0
+    total_goals = @@games.reduce(0) do |acc, game|
+      total_games += 1
+      acc += game.away_goals
+      acc += game.home_goals
+    end
+    total_goals.to_f/total_games
   
   def self.average_goals_by_season
     goal_count_per_season = @@games.reduce({}) do |acc, game_1|

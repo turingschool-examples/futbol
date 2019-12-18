@@ -48,4 +48,8 @@ class GameTest < Minitest::Test
 
     assert_instance_of Hash, Game.count_of_games_by_season
   end
+
+  def test_it_can_calcualte_the_average_number_of_goals_per_game_accross_all_games
+    assert_equal 4.4, Game.average_goals_per_game
+  end
 end
