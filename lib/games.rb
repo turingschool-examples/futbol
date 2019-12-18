@@ -71,4 +71,36 @@ class Games
     ties = @@all_games.find_all {|game| game.home_goals == game.away_goals }
     (ties.length / @@all_games.length.to_f).round(2)
   end
+
+  def count_of_games_by_season
+    @@all_games.reduce({}) do |hash, game|
+      if hash.keys.include?(game.season)
+        hash[game.season] += 1
+        hash
+      else
+        hash[game.season] = 1
+        hash
+      end
+    end
+  end
+
+  def average_goals_per_game
+    sums = @@all_games.sum do |game|
+      (game.away_goals + game.home_goals)
+    end
+    (sums / @@all_games.length.to_f).round(2)
+  end
+
+  def average_goals_by_season
+    games_by_season = count_of_games_by_season
+    @@all_games.reduce({}) do |hash, game|
+      if hash.keys.include?(game.season)
+        hash[game.season] += ((game.away_goals + game.home_goals) / games_by_season[game.season].to_f).round(2)
+        hash
+      else
+        hash[game.season] = ((game.away_goals + game.home_goals) / games_by_season[game.season].to_f).round(2)
+        hash
+      end
+    end
+  end
 end
