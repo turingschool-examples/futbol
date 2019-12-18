@@ -10,6 +10,7 @@ attr_reader :games
       Game.new(row)
     end
   end
+  #
 
   def initialize(csv_file_path)
     @games = create_games(csv_file_path)
@@ -33,7 +34,7 @@ attr_reader :games
     blowout = @games.max_by do |game|
       (game.home_goals - game.away_goals).abs
     end
-    (blowout.home_goals - blowout.away_goals).abs 
+    (blowout.home_goals - blowout.away_goals).abs
   end
 end
 
