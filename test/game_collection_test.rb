@@ -28,17 +28,22 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_it_can_store_games_by_season
-    assert_equal 4, @game_collection.games_by_season.length
+    assert_equal 4, @game_collection.game_lists_by_season.length
+  end
+
+  def test_games_by_season
+    expected = {"20162017" => 4, "20142015" => 6, "20152016" => 10, "20132014" => 6}
+    assert_equal expected, @game_collection.games_by_season
   end
 
   def test_it_can_calculate_average_goals_by_season
     avg_goals_by_season = @game_collection.average_goals_by_season
-    assert_equal 4.43, avg_goals_by_season["20132014"]
-    assert_equal 3.43, avg_goals_by_season["20142015"]
-    assert_equal 4.64, avg_goals_by_season["20152016"]
-    assert_equal 4.8, avg_goals_by_season["20162017"]
+    assert_equal 4.33, avg_goals_by_season["20132014"]
+    assert_equal 3.5, avg_goals_by_season["20142015"]
+    assert_equal 4.6, avg_goals_by_season["20152016"]
+    assert_equal 4.75, avg_goals_by_season["20162017"]
   end
-  
+
   def test_it_can_get_the_sum_of_highest_winning_and_losing_team_score
     assert_equal 7, @game_collection.highest_total_score
   end
