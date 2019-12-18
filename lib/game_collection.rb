@@ -14,13 +14,17 @@ class GameCollection
     csv.map { |row| Game.new(row) }
   end
 
-  def average_goals_per_game
-    total_goals = @games.reduce(0) do |sum, game|
+  def average_goals(array)
+    total_goals = array.reduce(0) do |sum, game|
       sum += game.away_goals
       sum += game.home_goals
       sum
     end
-    (total_goals.to_f / @games.length).round(2)
+    (total_goals.to_f / array.length).round(2)
+  end
+
+  def average_goals_per_game
+    average_goals(@games)
   end
 
   def games_by_season
@@ -30,4 +34,5 @@ class GameCollection
       hash
     end
   end
+
 end
