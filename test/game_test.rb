@@ -49,4 +49,8 @@ class GameTest < Minitest::Test
     assert_equal "3", @csv_game.home_goals
     assert_equal "Toyota Stadium", @csv_game.venue
   end
+  
+  def test_it_can_return_average_goals_by_season
+    assert_instance_of Hash, @game.average_goals_by_season
+  end
 end

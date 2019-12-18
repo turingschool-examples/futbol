@@ -34,13 +34,4 @@ class StatTracker
     GameTeam.from_csv(@game_team_path)
     GameTeam.all_game_teams
   end
-  
-  def average_goals_by_season
-    # Need to figure out how to add all away_goals and home_goals for each season, then divide that by number of games in that season. Finally, turn that into a hash with seasons as keys, and the averages as a matching value.
-    total_goals_per_game = games.map do |game|
-      game.home_goals.to_i + game.away_goals.to_i
-    end
-
-    {}
-  end
 end
