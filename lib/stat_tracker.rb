@@ -40,11 +40,10 @@ class StatTracker
 	end
 
 	def highest_scoring_visitor
-		@away_goals.map do |score|
-			score.max
-			return @away_team_id
-			#need to return a team object
+		team = @teams.max_by do |team|
+			team.average_goals_away
 		end
+		team.team_name
 	end
 
 	def highest_scoring_home_team

@@ -35,10 +35,18 @@ class Team
      away_scores = away_games.map do |game|
        game.away_goals
      end
-     (away_scores.sum / away_games.length).to_f.round(4) * 100
+     (away_scores.sum.to_f / away_games.length.to_f).round(2)
+    end
 
-
-  end
+    def average_goals_home
+      home_games = Game.all.find_all do |game|
+        game.home_team_id == @team_id
+      end
+      home_scores = home_games.map do |game|
+        game.home_goals
+      end
+      (home_scores.sum.to_f / home_games.length.to_f).round(2)
+    end
 
   # def stats_by_season
   #   stats_by_season = Hash.new {|hash, key| hash[key] = {}}

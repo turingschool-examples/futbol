@@ -30,14 +30,7 @@ class StatTrackerTest < Minitest::Test
 		assert_instance_of Team, @stat_tracker.teams.last
 	end
 
-	def test_dig_module_can_pull_single_team
-		assert_instance_of Team, @stat_tracker.team(17)
-		assert_equal 17, @stat_tracker.team(17).team_id
+	def test_highest_scoring_visitor
+		@stat_tracker.highest_scoring_visitor
 	end
-
-	def test_dig_module_can_pull_single_game
-		assert_instance_of Game, @stat_tracker.game(2012030221)
-		assert_equal 2012030221, @stat_tracker.game(2012030221).id
-	end
-
 end
