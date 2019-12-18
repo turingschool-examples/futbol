@@ -5,7 +5,12 @@ require './lib/game'
 require './lib/game_collection'
 
 class GameCollectionTest < Minitest::Test
-  def test_it_exists 
+  def setup
+    csv_file_path = 
+    @game_collection = GameCollection.new(csv_file_path)
+  end
 
+  def test_it_exists
+    assert_instance_of GameCollection, @game_collection
   end
 end
