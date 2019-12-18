@@ -1,7 +1,9 @@
 require_relative "game_teams"
-require "csv"
+require_relative 'csv_loadable'
 
 class GameTeamsCollection
+  include CsvLoadable
+
   attr_reader :game_teams_array
 
   def initialize(file_path)
@@ -9,8 +11,9 @@ class GameTeamsCollection
   end
 
   def create_game_teams_array(file_path)
-    csv = CSV.read(file_path, headers: true, header_converters: :symbol)
-
-    csv.map { |row| GameTeams.new(row) }
+    # csv = CSV.read(file_path, headers: true, header_converters: :symbol)
+    #
+    # csv.map { |row| GameTeams.new(row) }
+    load_from_csv(file_path, GameTeams)
   end
 end

@@ -1,7 +1,9 @@
 require_relative "game"
-require "csv"
+require_relative "csv_loadable"
 
 class GameCollection
+  include CsvLoadable
+
   attr_reader :games
 
   def initialize(file_path)
@@ -9,9 +11,11 @@ class GameCollection
   end
 
   def create_games(file_path)
-    csv = CSV.read(file_path, headers: true, header_converters: :symbol)
+    # csv = CSV.read(file_path, headers: true, header_converters: :symbol)
+    #
+    # csv.map { |row| Game.new(row) }
 
-    csv.map { |row| Game.new(row) }
+    load_from_csv(file_path, Game)
   end
 
   def average_goals(array)
