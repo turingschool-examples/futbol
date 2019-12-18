@@ -22,4 +22,12 @@ class GameCollection
     end
     (total_goals.to_f / @games.length).round(2)
   end
+
+  def games_by_season
+    @games.reduce({}) do |hash, game|
+      hash[game.season] = [game] if hash[game.season].nil?
+      hash[game.season] << game if hash[game.season]
+      hash
+    end
+  end
 end
