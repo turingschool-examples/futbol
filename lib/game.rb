@@ -21,7 +21,6 @@ class Game
   def score_difference
     (@home_goals - @away_goals).abs
   end
-
   def winner
     if @home_goals > @away_goals
       return @home_team_id
