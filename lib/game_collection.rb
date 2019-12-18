@@ -14,7 +14,22 @@ attr_reader :games
       Game.new(row)
     end
   end
-  #
+
+  def percentage_home_wins
+    (@games.count {|game| game.home_goals > game.away_goals} / @games.size.to_f * 100).round(2)
+  end
+
+  def percentage_away_wins
+    (@games.count {|game| game.away_goals > game.home_goals} / @games.size.to_f * 100).round(2)
+  end
+
+  def percentage_ties
+     (@games.count {|game| game.away_goals == game.home_goals} / @games.size.to_f * 100).round(2)
+  end
+
+  
+
+end
 
   #helper method that takes argument to pull whole column
   # helper method to get an array of away goals
@@ -33,4 +48,3 @@ attr_reader :games
 # count_of_games_by_season	A hash with season names (e.g. 20122013) as keys and counts of games as values	Hash
 # average_goals_per_game	Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)	Float
 # average_goals_by_season	Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as a key (rounded to the nearest 100th)
-end

@@ -30,4 +30,22 @@ class GameCollectionTest < Minitest::Test
       assert_instance_of Game, game
     end
   end
+
+  def test_it_can_return_percentage_home_wins
+    assert_equal 53.85, @game_collection.percentage_home_wins
+  end
+
+  def test_it_can_return_percentage_away_wins
+    assert_equal 42.31, @game_collection.percentage_away_wins
+  end
+
+  def test_it_can_return_percentage_away_wins
+    assert_equal 3.85, @game_collection.percentage_ties
+  end
+
+  def test_it_can_return_average_season_game
+    result = {20122013 => }
+    assert_equal 
+  end
+
 end
