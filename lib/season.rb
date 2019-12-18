@@ -36,4 +36,8 @@ class Season
   def total_games
     @games_by_type.values.flatten.length
   end
+
+  # def average_score(season)
+  #
+  # end
 end
