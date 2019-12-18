@@ -1,5 +1,6 @@
 require_relative "game"
 require "csv"
+require "pry"
 
 class GameCollection
   attr_reader :games
@@ -15,13 +16,19 @@ class GameCollection
   end
 
   def percentage_home_wins
-    home_wins = @games.find_all do |game|
+    home_wins = @games.count do |game|
       game.home_goals > game.away_goals
     end
-    (home_wins.length.to_f / @games.length).round(2)
+    (home_wins.to_f / @games.length).round(2)
   end
 
-  
+  def percentage_visitor_wins
+    visitor_wins = @games.count do |game|
+      game.away_goals > game.home_goals
+    end
+    (visitor_wins.to_f / @games.length).round(2)
+  end
+
 
 
 end
