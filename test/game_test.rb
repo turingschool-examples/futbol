@@ -32,6 +32,17 @@ class GameTest < Minitest::Test
     assert_equal 3, Game.lowest_total_score
   end
 
+  def test_it_can_find_average_goals_by_season
+    expected = {
+                20122013 => 5,
+                20142015 => 3.5,
+                20152016 => 5
+                }
+
+    assert_equal expected, Game.average_goals_by_season
+    assert_instance_of Hash, Game.average_goals_by_season
+  end
+  
   def test_it_can_count_the_number_of_games_in_a_season
     assert_equal ({20122013=>1, 20152016=>2, 20142015=>2}), Game.count_of_games_by_season
 
