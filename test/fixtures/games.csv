@@ -22,3 +22,4 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2013030161,20132014,Postseason,4/18/14,16,19,3,2,Talen Energy Stadium,/api/v1/venues/null
 014020394,20142015,Regular Season,12/7/14,29,14,3,1,Audi Field,/api/v1/venues/null
 2014020010,20142015,Regular Season,10/9/14,13,14,2,3,Audi Field,/api/v1/venues/null
+2012030413,20122013,Postseason,6/18/13,16,6,0,2,Toyota Stadium,/api/v1/venues/null
