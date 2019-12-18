@@ -4,6 +4,7 @@ require_relative 'csvloadable'
 
 class GamesCollection
   include CsvLoadable
+  
   attr_reader :games
 
   def initialize(csv_file_path)
