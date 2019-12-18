@@ -4,11 +4,11 @@ require_relative '../lib/teams'
 class TeamsTest < Minitest::Test
   def setup
     @team = Teams.new({
-            franchiseId: 23, 
-            teamName: "Atlanta United", 
-            abbreviation: "ATL", 
-            stadium: "Mercedes-Benz Stadium"
-            })
+                        franchiseId: 23,
+                        teamName: "Atlanta United",
+                        abbreviation: "ATL",
+                        stadium: "Mercedes-Benz Stadium"
+                      })
   end
 
   def test_a_team_exists
