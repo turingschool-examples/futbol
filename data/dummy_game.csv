@@ -1,0 +1,6 @@
+game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
+2012030221,20122013,Postseason,5/16/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
+2015030155,20152016,Postseason,4/23/16,30,25,3,2,SeatGeek Stadium,/api/v1/venues/null
+2015030156,20152016,Postseason,4/24/16,25,30,3,2,Exploria Stadium,/api/v1/venues/null
+2014030151,20142015,Postseason,4/17/15,30,19,2,2,Talen Energy Stadium,/api/v1/venues/null
+2014030152,20142015,Postseason,4/18/15,30,19,1,2,Talen Energy Stadium,/api/v1/venues/null
