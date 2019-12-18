@@ -30,4 +30,8 @@ class GameTeamTest < Minitest::Test
     assert_equal 7, @game_team.first.takeaways
   end
 
+  def test_percentage_vistor_team_wins
+    assert_equal 33, GameTeam.percentage_visitor_wins
+  end
+
 end
