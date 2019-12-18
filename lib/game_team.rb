@@ -43,4 +43,20 @@ class GameTeam
       @giveaways = game_team_info[:giveaways].to_i
       @takeaways = game_team_info[:takeaways].to_i
     end
+
+    def self.percentage_home_wins
+      total_wins = 0
+      total_games = 0
+      @@game_teams.each do |game|
+        if game.hoa == "home" && game.result == "WIN"
+          total_wins += 1
+        end
+      end
+      @@game_teams.each do |game|
+        if game.hoa == "home"
+          total_games += 1
+        end
+      end
+      ((total_wins.to_f / total_games) * 100).round(3)
+    end
 end

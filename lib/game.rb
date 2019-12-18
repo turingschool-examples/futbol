@@ -66,6 +66,20 @@ class Game
       acc += game.home_goals
     end
     total_goals.to_f/total_games
+  
+  def self.average_goals_by_season
+    goal_count_per_season = @@games.reduce({}) do |acc, game_1|
+      games_per_season = @@games.find_all do |game_2|
+        game_2.season == game_1.season
+      end
+      acc[game_1.season] = games_per_season.sum do |game|
+        game.home_goals + game.away_goals
+      end
+      acc
+    end
+    count_of_games_by_season.merge(goal_count_per_season) do |key, game_count, goal_count|
+      goal_count / game_count.to_f.round(2)
+    end
   end
 
   def self.percentage_ties
