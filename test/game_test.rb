@@ -12,7 +12,7 @@ class GamesTest < Minitest::Test
 
   def test_games_has_attributes
     # insert tests for games attributes
-    #   determine what attributes will 
+    #   determine what attributes will
     #   need to be tested.
   end
 end

@@ -1,0 +1,12 @@
+rubocop:
+  config_file: .rubocop.yml
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+  

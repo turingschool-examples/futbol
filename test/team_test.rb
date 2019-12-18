@@ -10,7 +10,7 @@ class TeamTest < Minitest::Test
             abbreviation: "ATL",
             Stadium: "Mercedes-Benz Stadium",
             link: "/api/v1/team/1"
-            })
+     })
   end
 
   def test_a_team_exists
