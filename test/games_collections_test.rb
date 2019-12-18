@@ -14,7 +14,7 @@ class GamesCollectionTest < Minitest::Test
 
   def test_attributes
     assert_equal Array, @gamescollection.games.class
-    assert_equal 11, @gamescollection.games.length
+    assert_equal 15, @gamescollection.games.length
   end
 
   def test_it_can_create_games_from_csv
