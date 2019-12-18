@@ -19,8 +19,21 @@ attr_reader :games
     highest_scoring_game = @games.max_by do |game|
       game.home_goals + game.away_goals
     end
-    highest_scoring_game
-    require "pry"; binding.pry
+    highest_scoring_game.home_goals + highest_scoring_game.away_goals
+  end
+
+  def lowest_total_score
+    lowest_scoring_game = @games.min_by do |game|
+      game.home_goals + game.away_goals
+    end
+    lowest_scoring_game.home_goals + lowest_scoring_game.away_goals
+  end
+
+  def biggest_blowout
+    blowout = @games.max_by do |game|
+      (game.home_goals - game.away_goals).abs
+    end
+    (blowout.home_goals - blowout.away_goals).abs 
   end
 end
 
