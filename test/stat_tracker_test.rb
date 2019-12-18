@@ -21,8 +21,9 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
-  def test_it_has_path_locations
-    assert_equal './data/games_dummy.csv', @stat_tracker.game_path
+  def test_it_has_attributes
+    assert_instance_of Array, @stat_tracker.games
+    assert_instance_of Games, @stat_tracker.games[0]
     assert_equal './data/teams.csv', @stat_tracker.teams_path
     assert_equal './data/game_teams_dummy.csv', @stat_tracker.game_teams_path
   end
