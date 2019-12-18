@@ -31,4 +31,8 @@ class GameCollectionTest < Minitest::Test
     assert_equal 0.36, @game_collection.percentage_visitor_wins
   end
 
+  def test_it_can_calculate_percentage_ties
+    assert_equal 0.2, @game_collection.percentage_ties
+  end
+
 end
