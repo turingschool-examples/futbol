@@ -9,7 +9,7 @@ class StatTracker
   def self.from_csv(file_paths)
     games_path = file_paths[:games]
     teams_path = file_paths[:teams]
-    games_teams_path = file_paths[:game_teams]
+    game_teams_path = file_paths[:game_teams]
 
     StatTracker.new(games_path, teams_path, game_teams_path)
   end
