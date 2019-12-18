@@ -6,7 +6,7 @@ require './lib/game'
 
 class GameTest < Minitest::Test
   def setup
-    game_path = './data/games.csv'
+    game_path = './test/fixtures/games.csv'
     game_info = {:game_id => "2012030221",
                  :season => "20122013",
                  :type => "Postseason",
