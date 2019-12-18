@@ -6,8 +6,6 @@ require './lib/game_collection'
 
 class GameCollectionTest < Minitest::Test
   def setup
-    @game_collection = GameCollection.new("./test/fixtures/games.csv")
-    @game = @game_collection.games.first
     csv_file_path = './test/fixtures/games.csv'
     @game_collection = GameCollection.new(csv_file_path)
     game_info = {:game_id => "2012030221",

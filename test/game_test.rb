@@ -35,8 +35,4 @@ class GameTest < Minitest::Test
     assert_equal "Toyota Stadium", @game.venue
     assert_equal "20122013", @game.season
   end
-
-  def test_games_per_season
-@game.games_per_season
-  end
 end
