@@ -3,14 +3,14 @@ require './lib/stat_tracker'
 
 class StatTrackerTest < Minitest::Test
   def setup
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    @game_path = './test/fixtures/games_truncated.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './test/fixtures/game_teams_truncated.csv'
 
     locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
     }
     @stat_tracker = StatTracker.from_csv(locations)
   end
@@ -20,9 +20,9 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal './data/games.csv', @stat_tracker.game_path
-    assert_equal './data/teams.csv', @stat_tracker.team_path
-    assert_equal './data/game_teams.csv', @stat_tracker.game_teams_path
+    assert_equal @game_path, @stat_tracker.game_path
+    assert_equal @team_path, @stat_tracker.team_path
+    assert_equal @game_teams_path, @stat_tracker.game_teams_path
   end
 
   def test_it_can_create_a_game_collection
