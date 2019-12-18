@@ -24,8 +24,7 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_it_can_calculate_average_goals_per_game
-    expected = 4.31
-    assert_equal  expected, @game_collection.average_goals_per_game
+    assert_equal  4.31, @game_collection.average_goals_per_game
   end
 
   def test_it_can_store_games_by_season
