@@ -32,10 +32,10 @@ class GameTeamTest < Minitest::Test
 
   def test_percentage_vistor_team_wins
     assert_equal 33, GameTeam.percentage_visitor_wins
+  end
 
   def test_percentage_home_wins_calculation
     assert_equal 100.000, GameTeam.percentage_home_wins
-
   end
 
 end

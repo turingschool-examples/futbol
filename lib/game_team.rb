@@ -52,6 +52,7 @@ class GameTeam
         game_team.result == "WIN" && game_team.hoa == "away"
       end
       (away_wins.to_f / away_games * 100).round
+    end
 
     def self.percentage_home_wins
       total_wins = 0
