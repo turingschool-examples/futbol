@@ -1,0 +1,24 @@
+game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways
+2012030221,3,away,LOSS,OT,John Tortorella,2,8,44,8,3,0,44.8,17,7
+2012030221,6,home,WIN,OT,Claude Julien,3,12,51,6,4,1,55.2,4,5
+2012030222,3,away,LOSS,REG,John Tortorella,2,9,33,11,5,0,51.7,1,4
+2012030222,6,home,WIN,REG,Claude Julien,3,8,36,19,1,0,48.3,16,6
+2016020231,12,home,WIN,REG,Bill Peters,1,8,14,2,1,0,69.4,9,11
+2016020163,23,away,LOSS,REG,Willie Desjardins,3,7,24,96,4,0,39.1,10,8
+2016020163,10,home,WIN,REG,Mike Babcock,4,10,32,75,5,1,60.9,10,10
+2016020811,5,away,WIN,REG,Mike Sullivan,2,7,11,8,3,1,44.4,8,9
+2016020811,21,home,LOSS,REG,Jared Bednar,1,7,23,8,3,1,55.6,6,7
+2017021215,19,away,LOSS,REG,Mike Yeo,0,8,26,11,1,0,52.1,7,9
+2017021215,53,home,WIN,REG,Rick Tocchet,4,8,32,9,2,1,47.9,6,3
+2016020828,28,away,WIN,REG,Peter DeBoer,2,9,14,9,6,0,50,5,7
+2016020828,1,home,LOSS,REG,John Hynes,1,5,24,17,2,0,50,5,5
+2016021118,25,away,WIN,OT,Lindy Ruff,2,8,19,5,4,2,50.9,6,6
+2016021118,1,home,LOSS,OT,John Hynes,1,5,17,13,0,0,49.1,8,9
+2017021096,24,home,TIE,REG,Randy Carlyle,2,9,13,25,2,0,56.5,9,10
+2016021202,23,away,WIN,REG,Willie Desjardins,3,7,13,8,3,1,58.2,3,6
+2016021202,53,home,LOSS,REG,Dave Tippett,2,5,14,18,3,2,41.8,5,8
+2017020335,2,away,WIN,OT,Doug Weight,3,9,24,4,3,1,36.2,15,5
+2017020335,4,home,LOSS,OT,Dave Hakstol,2,7,35,8,1,0,63.8,11,11
+2017020468,10,away,TIE,REG,Mike Babcock,2,5,18,2,1,1,43.6,10,6
+2017020468,4,home,TIE,REG,Dave Hakstol,2,9,22,2,1,0,56.4,11,5
+2017020958,6,away,LOSS,REG,Bruce Cassidy,1,8,19,10,4,0,43.8,8,1
