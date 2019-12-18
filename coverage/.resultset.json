@@ -1,0 +1,47 @@
+{
+  "Unit Tests": {
+    "coverage": {
+      "/Users/meghanstovall/turing/1module/projects/futbol/lib/games.rb": [
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        1,
+        null,
+        7442,
+        null,
+        null,
+        1,
+        7442,
+        7442,
+        7442,
+        7442,
+        7442,
+        7442,
+        7442,
+        7442,
+        7442,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1576629062
+  }
+}
