@@ -20,6 +20,5 @@ class TeamCollectionTest < Minitest::Test
     assert_instance_of Team, @team
     assert_equal 'ATL', @team.abbreviation
     assert_equal 1, @team.team_id
-    
   end
 end
