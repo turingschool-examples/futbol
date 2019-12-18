@@ -1,9 +1,10 @@
+require 'csv'
 require_relative 'games_collection'
 
 class StatTracker
   attr_reader :games_path, :teams_path, :game_teams_path
 
-  def self.from_csv(file_path)
+  def self.from_csv(file_paths)
     games_path = file_paths[:games]
     teams_path = file_paths[:teams]
     game_teams_path = file_paths[:game_teams]
