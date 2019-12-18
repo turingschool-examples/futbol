@@ -15,7 +15,7 @@ class GameCollectionTest < Minitest::Test
     assert_instance_of Array, @game_collection.games
   end
 
-  def test_it_can_create_games
+  def test_it_can_create_games_from_csv
     assert_instance_of Game, @game
     assert_equal "20122013", @game.season
     assert_equal 2, @game.away_goals
