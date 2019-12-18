@@ -39,4 +39,10 @@ class TeamTest < MiniTest::Test
     @team.stats_by_season
   end
 
+  def test_that_teams_have_average_away_scores
+    assert_equal 26, @team.average_goals_away
+
+
+
+  end
 end
