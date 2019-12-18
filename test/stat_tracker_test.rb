@@ -5,9 +5,9 @@ require 'pry'
 class StatTrackerTest < Minitest::Test
 
 	def setup
-		game_path = './data/games.csv'
+		game_path = './test/fixtures/truncated_games.csv'
 		team_path = './data/teams.csv'
-		game_teams_path = './data/game_teams.csv'
+		game_teams_path = './test/fixtures/truncated_game_teams.csv'
 		locations = {
 		  games: game_path,
 		  teams: team_path,
@@ -29,4 +29,15 @@ class StatTrackerTest < Minitest::Test
 		assert_instance_of Team, @stat_tracker.teams.first
 		assert_instance_of Team, @stat_tracker.teams.last
 	end
+
+	def test_dig_module_can_pull_single_team
+		assert_instance_of Team, @stat_tracker.team(17)
+		assert_equal 17, @stat_tracker.team(17).team_id
+	end
+
+	def test_dig_module_can_pull_single_game
+		assert_instance_of Game, @stat_tracker.game(2012030221)
+		assert_equal 2012030221, @stat_tracker.game(2012030221).id
+	end
+
 end
