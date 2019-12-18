@@ -11,9 +11,6 @@ class GameTeamsCollection
   end
 
   def create_game_teams_array(file_path)
-    # csv = CSV.read(file_path, headers: true, header_converters: :symbol)
-    #
-    # csv.map { |row| GameTeams.new(row) }
     load_from_csv(file_path, GameTeams)
   end
 end

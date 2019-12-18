@@ -11,10 +11,6 @@ class GameCollection
   end
 
   def create_games(file_path)
-    # csv = CSV.read(file_path, headers: true, header_converters: :symbol)
-    #
-    # csv.map { |row| Game.new(row) }
-
     load_from_csv(file_path, Game)
   end
 
