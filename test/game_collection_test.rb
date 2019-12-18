@@ -1,5 +1,6 @@
 require './test/test_helper'
 require './lib/game_collection'
+require './lib/game'
 
 class GameCollectionTest < Minitest::Test
   def setup
@@ -42,6 +43,18 @@ class GameCollectionTest < Minitest::Test
     assert_equal 3.5, avg_goals_by_season["20142015"]
     assert_equal 4.6, avg_goals_by_season["20152016"]
     assert_equal 4.75, avg_goals_by_season["20162017"]
+  end
+
+  def test_it_can_calculate_percentage_home_wins
+    assert_equal 0.38, @game_collection.percentage_home_wins
+  end
+
+  def test_it_can_calculate_percentage_visitor_wins
+    assert_equal 0.58, @game_collection.percentage_visitor_wins
+  end
+
+  def test_it_can_calculate_percentage_ties
+    assert_equal 0.04, @game_collection.percentage_ties
   end
 
   def test_it_can_get_the_sum_of_highest_winning_and_losing_team_score
