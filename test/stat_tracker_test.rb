@@ -44,4 +44,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal 5, @stat_tracker.game_teams.length
     assert_instance_of GameTeam, @stat_tracker.game_teams.first
   end
+  
+  def test_it_can_return_average_goals_by_season
+    assert_instance_of Hash, @stat_tracker.average_goals_by_season
+  end
 end
