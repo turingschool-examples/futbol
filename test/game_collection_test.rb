@@ -7,6 +7,7 @@ class GameCollectionTest < Minitest::Test
     @collection = GameCollection.new('./test/fixtures/games_truncated.csv')
     @game = @collection.games.first
   end
+
   def test_team_collection_exists
     assert_instance_of GameCollection, @collection
   end
