@@ -33,4 +33,18 @@ class Game
     @venue = game_info[:venue]
     @venue_link = game_info[:venue_link]
   end
+
+  def self.highest_total_score
+    most_goals = @@games.max_by do |game|
+      game.home_goals + game.away_goals
+    end
+    most_goals.home_goals + most_goals.away_goals
+  end
+
+  def self.lowest_total_score
+    least_goals = @@games.min_by do |game|
+      game.home_goals + game.away_goals
+    end
+    least_goals.home_goals + least_goals.away_goals
+  end
 end
