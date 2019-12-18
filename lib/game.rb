@@ -66,7 +66,8 @@ class Game
       acc += game.home_goals
     end
     total_goals.to_f/total_games
-  
+  end
+
   def self.average_goals_by_season
     goal_count_per_season = @@games.reduce({}) do |acc, game_1|
       games_per_season = @@games.find_all do |game_2|
@@ -80,5 +81,13 @@ class Game
     count_of_games_by_season.merge(goal_count_per_season) do |key, game_count, goal_count|
       goal_count / game_count.to_f.round(2)
     end
+  end
+
+  def self.biggest_blowout
+    all_abs_vals = []
+    @@games.each do |game|
+      all_abs_vals << (game.home_goals - game.away_goals).abs
+    end
+    all_abs_vals.max
   end
 end

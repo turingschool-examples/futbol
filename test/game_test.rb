@@ -42,7 +42,7 @@ class GameTest < Minitest::Test
     assert_equal expected, Game.average_goals_by_season
     assert_instance_of Hash, Game.average_goals_by_season
   end
-  
+
   def test_it_can_count_the_number_of_games_in_a_season
     assert_equal ({20122013=>1, 20152016=>2, 20142015=>2}), Game.count_of_games_by_season
 
@@ -51,5 +51,9 @@ class GameTest < Minitest::Test
 
   def test_it_can_calcualte_the_average_number_of_goals_per_game_accross_all_games
     assert_equal 4.4, Game.average_goals_per_game
+  end
+
+  def test_biggest_blowout
+    assert_equal 1, Game.biggest_blowout
   end
 end
