@@ -30,3 +30,4 @@ class GameCollectionTest < Minitest::Test
     refute_nil collection.from_csv
   end
 end
+ 
