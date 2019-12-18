@@ -27,6 +27,13 @@ class GameCollection
     average_goals(@games)
   end
 
+  def average_goals_by_season
+    season_hash = games_by_season
+    season_hash.each do |key, value|
+      season_hash[key] = average_goals(value)
+    end
+  end
+
   def games_by_season
     @games.reduce({}) do |hash, game|
       hash[game.season] = [game] if hash[game.season].nil?
