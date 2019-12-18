@@ -65,4 +65,17 @@ class StatTracker
 			return @home_team_id
 		end
 	end
+
+	def count_of_games_by_season
+		games_by_season = {}
+			@seasons.each {|season| games_by_season[season.id] = season.total_games}
+			return games_by_season
+	end
+
+	# def average_goals_by_season
+	# 	goals_by_season = {}
+	# 	@seasons.each {|season| goals_by_season[season.id] = season.total_games}
+	# end
+
+
 end
