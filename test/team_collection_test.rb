@@ -19,7 +19,6 @@ class TeamCollectionTest < Minitest::Test
   def test_team_collection_can_create_team_from_csv
     assert_instance_of Team, @team
     assert_equal 'ATL', @team.abbreviation
-    assert_equal 1, @team.team_id
-    
+    assert_equal "1", @team.team_id
   end
 end
