@@ -23,4 +23,16 @@ class GamesCollectionTest < Minitest::Test
     assert_equal 3, @game.away_goals
     assert_equal "Postseason", @game.type
   end
+
+  def test_highest_total_score
+    assert_equal 6, @gamescollection.highest_total_score
+  end
+
+  def test_lowest_totalP_score
+    assert_equal 2, @gamescollection.lowest_total_score
+  end
+
+  def test_biggest_blowout
+    assert_equal 2, @gamescollection.biggest_blowout
+  end
 end
