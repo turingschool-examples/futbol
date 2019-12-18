@@ -1,5 +1,4 @@
 require './lib/game_collection'
-require './lib/team_collection'
 require './lib/game_teams_collection'
 
 class StatTracker
