@@ -30,11 +30,6 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of Array, @stat_tracker.game_collection.games
   end
 
-  # def test_it_can_create_a_team_collection
-  #   assert_instance_of TeamCollection, @stat_tracker.team_collection
-  #   assert_instance_of Array, @stat_tracker.team_collection.teams
-  # end
-
   def test_it_can_create_a_game_teams_collection
     assert_instance_of GameTeamsCollection, @stat_tracker.game_teams_collection
     assert_instance_of Array, @stat_tracker.game_teams_collection.game_teams_array

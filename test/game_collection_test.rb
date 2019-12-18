@@ -35,4 +35,15 @@ class GameCollectionTest < Minitest::Test
     assert_equal 0.04, @game_collection.percentage_ties
   end
 
+  def test_it_can_get_the_sum_of_highest_winning_and_losing_team_score
+    assert_equal 7, @game_collection.highest_total_score
+  end
+
+  def test_it_can_get_the_sum_of_lowest_winning_and_losing_team_score
+    assert_equal 2, @game_collection.lowest_total_score
+  end
+
+  def test_it_can_get_biggest_blowout
+    assert_equal 3, @game_collection.biggest_blowout
+  end
 end
