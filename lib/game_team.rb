@@ -57,6 +57,6 @@ class GameTeam
           total_games += 1
         end
       end
-      (percentage_home_wins = (total_wins.to_f / total_games) * 100).round(3)
+      ((total_wins.to_f / total_games) * 100).round(3)
     end
 end
