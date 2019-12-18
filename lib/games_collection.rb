@@ -4,14 +4,14 @@ require_relative 'csvloadable'
 
 class GamesCollection
   include CsvLoadable
-  
+
   attr_reader :games
 
-  def initialize(csv_file_path)
-    @games = create_games(csv_file_path)
+  def initialize(games_path)
+    @games = create_games(games_path)
   end
 
-  def create_games(csv_file_path)
-    create_instances(csv_file_path, Game)
+  def create_games(games_path)
+    create_instances(games_path, Game)
   end
 end

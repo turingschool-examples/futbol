@@ -16,4 +16,17 @@ class StatTrackerTest < Minitest::Test
     assert_equal "./test/fixtures/teams_trunc.csv", @stat_tracker.teams_path
     assert_equal "./test/fixtures/game_teams_trunc.csv", @stat_tracker.game_teams_path
   end
+
+  def test_it_can_create_a_games_teams_collection
+    assert_instance_of GameTeamsCollection, @stat_tracker.game_teams_collection
+  end
+
+  def test_it_can_create_a_games_collection
+    assert_instance_of GamesCollection, @stat_tracker.games_collection
+  end
+
+  def test_it_can_create_a_teams_collection
+    assert_instance_of TeamsCollection, @stat_tracker.teams_collection
+  end
+
 end

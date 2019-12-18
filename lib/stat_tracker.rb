@@ -1,5 +1,7 @@
 require 'csv'
 require_relative 'games_collection'
+require_relative 'game_teams_collection'
+require_relative 'teams_collection'
 
 class StatTracker
   attr_reader :games_path, :teams_path, :game_teams_path
@@ -16,5 +18,18 @@ class StatTracker
     @games_path = games_path
     @teams_path = teams_path
     @game_teams_path = game_teams_path
+  end
+
+  def game_teams_collection
+    GameTeamsCollection.new(@game_teams_path)
+  end
+
+
+  def games_collection
+    GamesCollection.new(@games_path)
+  end
+
+  def teams_collection
+    TeamsCollection.new(@teams_path)
   end
 end
