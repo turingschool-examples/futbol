@@ -1,6 +1,5 @@
 require_relative "game"
 require "csv"
-require "pry"
 
 class GameCollection
   attr_reader :games
