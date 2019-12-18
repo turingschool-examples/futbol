@@ -4,11 +4,20 @@ require './lib/games'
 
 class GamesTest < Minitest::Test
   def setup
-    @game = Games.new({})
+    @game = Games.new({
+      :game_id => "201203022015",
+      :season => "20192020",
+      :type => "Preseason",
+      :date_time => "12/16/19",
+      :away_team_id => "3",
+      :home_team_id => "10",
+      :away_goals => "4",
+      :home_goals => "1",
+      :venue => "Mercedes Benz Superdome"
+      })
     @game_path = './data/games.csv'
     @games = Games.from_csv(@game_path)
     @csv_game = @games[1]
-    require "pry"; binding.pry
   end
 
   def test_it_exists
@@ -16,7 +25,16 @@ class GamesTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    skip
+    assert_instance_of Games, @game
+    assert_equal "201203022015", @game.game_id
+    assert_equal "20192020", @game.season
+    assert_equal "Preseason", @game.type
+    assert_equal "12/16/19", @game.date_time
+    assert_equal "3", @game.away_team_id
+    assert_equal "10", @game.home_team_id
+    assert_equal "4", @game.away_goals
+    assert_equal "1", @game.home_goals
+    assert_equal "Mercedes Benz Superdome", @game.venue
   end
 
   def test_it_reads_csv
