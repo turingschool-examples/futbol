@@ -1,15 +1,15 @@
 require 'csv'
 
 class TeamCollection
-  attr_accessor :teams
-  attr_reader :teams_file_path
+  attr_accessor :team
+  attr_reader :team_file_path
 
   def initialize
-    @teams = nil
-    @teams_file_path = './data/teams.csv'
+    @team_data = nil
+    @team_file_path = './data/team.csv'
   end
 
   def from_csv
-    @teams = CSV.read(@teams_file_path, headers: true, header_converters: :symbol)
+    @team_data = CSV.read(@team_file_path, headers: true, header_converters: :symbol)
   end
 end
