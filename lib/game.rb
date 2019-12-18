@@ -81,4 +81,13 @@ class Game
       goal_count / game_count.to_f.round(2)
     end
   end
+
+  def self.percentage_ties
+    total_games = 0
+    total_ties = @@games.count do |game|
+      total_games += 1
+      game.away_goals == game.home_goals
+    end
+    (total_ties.to_f / total_games) * 100
+  end
 end
