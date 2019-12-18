@@ -15,4 +15,12 @@ class GameTest < Minitest::Test
     assert_equal 3, @game.away_goals
     assert_equal 4, @game.home_goals
   end
+
+  def test_can_get_total_score
+    assert_equal 7, @game.total_score
+  end
+
+  def test_can_get_difference_between_scores
+    assert_equal 1, @game.difference_between_score
+  end
 end
