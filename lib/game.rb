@@ -12,6 +12,11 @@ class Game
     @home_goals = game_info[:home_goals].to_i
     @venue = game_info[:venue]
     @venue_link = game_info[:venue_link]
+    # @stats_by_team = create_stat_hash(array_of_stats)
+  end
+
+  def create_stat_hash(array)
+
   end
 
   def total_score
