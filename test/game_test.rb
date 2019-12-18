@@ -42,6 +42,7 @@ class GameTest < MiniTest::Test
       :venue => "Toyota Stadium",
       :venue_link => "/api/v1/venues/null"
     })
+
   end
 
   def test_it_exists
@@ -73,10 +74,8 @@ class GameTest < MiniTest::Test
     assert_nil @game3.winner
   end
 
-  def test_self_method_can_pull_all_games
-    require "pry"; binding.pry
-    
-    assert_equal 3, Game.all.length
-    assert_instance_of Game, Game.all[0]
-  end
+  # def test_self_method_can_pull_all_games
+  #   assert_equal 3, Game.all.length
+  #   assert_instance_of Game, Game.all[0]
+  # end
 end

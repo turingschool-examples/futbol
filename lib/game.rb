@@ -20,7 +20,6 @@ class Game
     @venue = game_info[:venue]
     @venue_link = game_info[:venue_link]
     @@all << self
-    # @stats_by_team = create_stat_hash(array_of_stats)
   end
 
   def create_stat_hash(array)

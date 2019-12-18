@@ -4,6 +4,7 @@ require_relative '../lib/season'
 class SeasonTest < MiniTest::Test
   def setup
     @season = Season.new({id: 20122013, path: "./test/fixtures/truncated_games.csv"})
+    require "pry"; binding.pry
   end
 
   def test_season_is_created_with_id

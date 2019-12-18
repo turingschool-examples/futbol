@@ -36,7 +36,7 @@ class TeamTest < MiniTest::Test
   end
 
   def test_can_pull_its_best_season_object
-    
+    @team.stats_by_season
   end
 
 end

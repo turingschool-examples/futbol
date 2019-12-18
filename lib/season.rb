@@ -2,11 +2,21 @@ require "CSV"
 require_relative './game'
 
 class Season
+
+  @@all = []
+
+  def self.all
+    require "pry"; binding.pry
+    @all
+  end
+
   attr_reader :id, :games_by_type
 
   def initialize(season_hash)
     @id = season_hash[:id].to_i
     @games_by_type = games_gather(season_hash[:path])
+    @games_unsorted = @games_by_type.values.flatten
+    @@all << self
   end
 
   def games_gather(games_path)

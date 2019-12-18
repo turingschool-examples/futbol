@@ -1,3 +1,5 @@
+require_relative "season"
+
 class Team
   attr_reader :team_id,
               :franchise_id,
@@ -22,6 +24,21 @@ class Team
                 abbreviation: @abbreviation,
                 link: @link}
     team_info
+  end
+
+  def stats_by_season
+    stats_by_season = Hash.new {|hash, key| hash[key] = {}}
+    Season.all.each do |season|
+      games = season.games_unsorted.find_all do |game|
+        (game.home_team_id == @team_id || game.away_team_id == @team_id)
+      end
+      wins = games.find_all {|game| game.winner == @team_id}
+      stats_by_season[season.id] = {total_games: games.length,
+                                    wins: wins.length,
+                                    win_percentage: (wins.length / games.length).to_f * 100}
+    end
+    stats_by_season
+    require "pry"; binding.pry
   end
 
 end
