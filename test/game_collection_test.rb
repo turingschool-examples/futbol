@@ -26,4 +26,9 @@ class GameCollectionTest < Minitest::Test
     expected = 4.22 #to-do: set up dummy test b/c idk if this is accurate
     assert_equal  expected, @game_collection.average_goals_per_game
   end
+
+  def test_it_can_store_games_by_season
+    #to-do: change to account for dummy test stats
+    assert_equal 6, @game_collection.games_by_season.length
+  end
 end
