@@ -47,4 +47,47 @@ class Game
     end
     least_goals.home_goals + least_goals.away_goals
   end
+
+  def self.count_of_games_by_season
+    @@games.reduce({}) do |acc, game_1|
+      games_per_season = @@games.find_all do |game_2|
+        game_2.season == game_1.season
+      end
+      acc[game_1.season] = games_per_season.length
+      acc
+    end
+  end
+
+  def self.average_goals_per_game
+    total_games = 0
+    total_goals = @@games.reduce(0) do |acc, game|
+      total_games += 1
+      acc += game.away_goals
+      acc += game.home_goals
+    end
+    total_goals.to_f/total_games
+  
+  def self.average_goals_by_season
+    goal_count_per_season = @@games.reduce({}) do |acc, game_1|
+      games_per_season = @@games.find_all do |game_2|
+        game_2.season == game_1.season
+      end
+      acc[game_1.season] = games_per_season.sum do |game|
+        game.home_goals + game.away_goals
+      end
+      acc
+    end
+    count_of_games_by_season.merge(goal_count_per_season) do |key, game_count, goal_count|
+      goal_count / game_count.to_f.round(2)
+    end
+  end
+
+  def self.percentage_ties
+    total_games = 0
+    total_ties = @@games.count do |game|
+      total_games += 1
+      game.away_goals == game.home_goals
+    end
+    (total_ties.to_f / total_games) * 100
+  end
 end
