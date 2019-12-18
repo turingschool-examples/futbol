@@ -11,13 +11,13 @@ class GameTest < Minitest::Test
       :date_time => "12/16/19",
       :away_team_id => "3",
       :home_team_id => "10",
-      :away_goals => "4",
-      :home_goals => "1",
+      :away_goals => 4,
+      :home_goals => 1,
       :venue => "Mercedes Benz Superdome"
       })
     @game_path = './test/dummy/games_trunc.csv'
     @games = Game.from_csv(@game_path)
-    @csv_game = @games[1]
+    @csv_game = @games[4]
   end
 
   def test_it_exists
@@ -32,8 +32,8 @@ class GameTest < Minitest::Test
     assert_equal "12/16/19", @game.date_time
     assert_equal "3", @game.away_team_id
     assert_equal "10", @game.home_team_id
-    assert_equal "4", @game.away_goals
-    assert_equal "1", @game.home_goals
+    assert_equal 4, @game.away_goals
+    assert_equal 1, @game.home_goals
     assert_equal "Mercedes Benz Superdome", @game.venue
   end
 
@@ -45,8 +45,20 @@ class GameTest < Minitest::Test
     assert_equal "5/19/13", @csv_game.date_time
     assert_equal "3", @csv_game.away_team_id
     assert_equal "6", @csv_game.home_team_id
-    assert_equal "2", @csv_game.away_goals
-    assert_equal "3", @csv_game.home_goals
+    assert_equal 2, @csv_game.away_goals
+    assert_equal 3, @csv_game.home_goals
     assert_equal "Toyota Stadium", @csv_game.venue
+  end
+  
+  def test_it_gives_count_of_games_by_season
+    expected = {"20122013"=>4, "20132014"=>1, "20152016"=>1, "20162017"=>2}
+    
+    assert_instance_of Hash, Game.count_of_games_by_season
+    assert_equal 4, Game.count_of_games_by_season.length
+    assert_equal expected, Game.count_of_games_by_season
+  end
+  
+  def test_it_can_return_average_goals_by_season
+    assert_instance_of Hash, @game.average_goals_by_season
   end
 end
