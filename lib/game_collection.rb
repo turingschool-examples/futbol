@@ -16,8 +16,7 @@ class GameCollection
 
   def average_goals(array)
     total_goals = array.reduce(0) do |sum, game|
-      sum += game.away_goals
-      sum += game.home_goals
+      sum += game.total_score
       sum
     end
     (total_goals.to_f / array.length).round(2)
@@ -58,8 +57,8 @@ class GameCollection
   end
 
   def biggest_blowout
-      games_difference = @games.max_by do |game|
-        game.difference_between_score
+    games_difference = @games.max_by do |game|
+      game.difference_between_score
     end.difference_between_score
     games_difference
   end
