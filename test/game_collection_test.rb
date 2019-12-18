@@ -6,10 +6,8 @@ require './lib/game_collection'
 
 class GameCollectionTest < Minitest::Test
   def setup
-<<<<<<< HEAD
     @game_collection = GameCollection.new("./test/fixtures/games.csv")
     @game = @game_collection.games.first
-=======
     csv_file_path = './test/fixtures/games.csv'
     @game_collection = GameCollection.new(csv_file_path)
     game_info = {:game_id => "2012030221",
@@ -22,7 +20,6 @@ class GameCollectionTest < Minitest::Test
                  :home_goals => "3",
                  :venue => "Toyota Stadium"}
     @first_game = @game_collection.games.first
->>>>>>> 0e05bb735e64f8567bb3885d8bfd5e9b0e68baae
   end
 
   def test_it_exists

@@ -37,6 +37,6 @@ class GameTest < Minitest::Test
   end
 
   def test_games_per_season
-
+@game.games_per_season
   end
 end
