@@ -22,21 +22,4 @@ class TeamCollectionTest < Minitest::Test
     assert_equal 1, @team.team_id
     
   end
-  # def test_team_collection_has_teams_instance_variable
-  #   collection = TeamCollection.new
-
-  #   assert_nil collection.teams
-  # end
-
-  # def test_file_path_locations
-  #   collection = TeamCollection.new
-
-  #   assert_equal './data/teams.csv', collection.teams_file_path
-  # end
-
-  # def test_team_collection_can_have_csv_data_added
-  #   collection = TeamCollection.new
-
-  #   refute_nil collection.from_csv
-  # end
 end
