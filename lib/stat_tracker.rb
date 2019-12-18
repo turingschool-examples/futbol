@@ -1,10 +1,25 @@
 require 'csv'
+require_relative 'game'
 
 class StatTracker
   def self.from_csv(file_path)
-    StatTracker.new
-    games_csv = CSV.read("#{file_path[:games]}", headers: true, header_converters: :symbol)
-    teams_csv = CSV.read("#{file_path[:teams]}", headers: true, header_converters: :symbol)
-    game_teams_csv = CSV.read("#{file_path[:game_teams]}", headers: true, header_converters: :symbol)
+    game_path = file_path[:games]
+    team_path = file_path[:teams]
+    game_team_path = file_path[:game_teams]
+
+    StatTracker.new(game_path, team_path, game_team_path)
+  end
+
+  attr_reader :game_path, :team_path, :game_team_path
+
+  def initialize(game_path, team_path, game_team_path)
+    @game_path =  game_path
+    @team_path = team_path
+    @game_team_path = game_team_path
+  end
+
+  def games
+    Game.from_csv(@game_path)
+    Game.all_games
   end
 end

@@ -1,10 +1,10 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/games'
+require './lib/game'
 
-class GamesTest < Minitest::Test
+class GameTest < Minitest::Test
   def setup
-    @game = Games.new({
+    @game = Game.new({
       :game_id => "201203022015",
       :season => "20192020",
       :type => "Preseason",
@@ -15,17 +15,17 @@ class GamesTest < Minitest::Test
       :home_goals => "1",
       :venue => "Mercedes Benz Superdome"
       })
-    @game_path = './data/games.csv'
-    @games = Games.from_csv(@game_path)
+    @game_path = './test/dummy/games_trunc.csv'
+    @games = Game.from_csv(@game_path)
     @csv_game = @games[1]
   end
 
   def test_it_exists
-    assert_instance_of Games, @game
+    assert_instance_of Game, @game
   end
 
   def test_it_has_attributes
-    assert_instance_of Games, @game
+    assert_instance_of Game, @game
     assert_equal "201203022015", @game.game_id
     assert_equal "20192020", @game.season
     assert_equal "Preseason", @game.type
@@ -38,7 +38,7 @@ class GamesTest < Minitest::Test
   end
 
   def test_it_reads_csv
-    assert_instance_of Games, @csv_game
+    assert_instance_of Game, @csv_game
     assert_equal "2012030222", @csv_game.game_id
     assert_equal "20122013", @csv_game.season
     assert_equal "Postseason", @csv_game.type

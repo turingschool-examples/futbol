@@ -1,12 +1,16 @@
 require 'csv'
 
-class Games
+class Game
   @@all_games
+
+  def self.all_games
+    @@all_games
+  end
 
   def self.from_csv(file_path)
     csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
     @@all_games = csv.map do |row|
-                    Games.new(row)
+                    Game.new(row)
                   end
   end
 
