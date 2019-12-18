@@ -1,5 +1,4 @@
-require 'minitest/pride'
-require 'minitest/autorun'
+require_relative 'test_helper'
 require './lib/game'
 
 class GameTest < Minitest::Test
@@ -42,7 +41,7 @@ class GameTest < Minitest::Test
     assert_equal expected, Game.average_goals_by_season
     assert_instance_of Hash, Game.average_goals_by_season
   end
-  
+
   def test_it_can_count_the_number_of_games_in_a_season
     assert_equal ({20122013=>1, 20152016=>2, 20142015=>2}), Game.count_of_games_by_season
 
