@@ -30,4 +30,16 @@ class GameCollectionTest < Minitest::Test
       assert_instance_of Game, game
     end
   end
+
+  def test_it_can_find_highest_total_score
+    assert_equal 7, @game_collection.highest_total_score
+  end
+
+  def test_it_can_find_lowest_total_score
+    assert_equal 2, @game_collection.lowest_total_score
+  end
+
+  def test_it_can_find_biggest_blowout
+    assert_equal 3, @game_collection.biggest_blowout
+  end
 end
