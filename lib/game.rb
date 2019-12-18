@@ -33,7 +33,6 @@ class Game
   def score_difference
     (@home_goals - @away_goals).abs
   end
-
   def winner
     return @home_team_id if @home_goals > @away_goals
     return @away_team_id if @away_goals > @home_goals

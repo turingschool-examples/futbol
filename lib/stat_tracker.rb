@@ -35,4 +35,34 @@ class StatTracker
 		season_storage
 	end
 
+	def all_games
+		
+	end
+
+	def highest_scoring_visitor
+		@away_goals.map do |score|
+			score.max
+			return @away_team_id
+		end
+	end
+
+	def highest_scoring_home_team
+		@away_goals.map do |score|
+			score.max
+			return @home_team_id
+		end
+	end
+
+	def lowest_scoring_visitor
+		@away_goals.map do |score|
+			score.min
+			return @away_team_id
+		end
+	end
+	def lowest_scoring_home_team
+		@home_goals.map do |score|
+			score.min
+			return @home_team_id
+		end
+	end
 end
