@@ -27,18 +27,26 @@ class GameCollection
   end
 
   def average_goals_by_season
-    season_hash = games_by_season
+    season_hash = game_lists_by_season
     season_hash.each do |key, value|
       season_hash[key] = average_goals(value)
     end
   end
 
-  def games_by_season
+  def game_lists_by_season
     @games.reduce({}) do |hash, game|
-      hash[game.season] = [game] if hash[game.season].nil?
       hash[game.season] << game if hash[game.season]
+      hash[game.season] = [game] if hash[game.season].nil?
       hash
     end
+  end
+
+  def games_by_season
+    season_games = game_lists_by_season
+    season_games.each do |key, value|
+      season_games[key] = value.length
+    end
+    season_games
   end
 
   def highest_total_score
