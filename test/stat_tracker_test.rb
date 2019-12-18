@@ -32,4 +32,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal 4, @stat_tracker.games.length
     assert_instance_of Game, @stat_tracker.games.first
   end
+
+  def test_it_can_create_a_team_collection
+    assert_instance_of Array, @stat_tracker.teams
+    assert_equal 5, @stat_tracker.teams.length
+    assert_instance_of Team, @stat_tracker.teams.first
+  end
 end

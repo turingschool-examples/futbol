@@ -1,5 +1,6 @@
 require 'csv'
 require_relative 'game'
+require_relative 'team'
 
 class StatTracker
   def self.from_csv(file_path)
@@ -21,5 +22,10 @@ class StatTracker
   def games
     Game.from_csv(@game_path)
     Game.all_games
+  end
+
+  def teams
+    Team.from_csv(@team_path)
+    Team.all_teams
   end
 end

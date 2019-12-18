@@ -3,6 +3,10 @@ require 'csv'
 class Team
   @@all_teams
 
+  def self.all_teams
+    @@all_teams
+  end
+  
   def self.from_csv(file_path)
     csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
     @@all_teams = csv.map do |row|
