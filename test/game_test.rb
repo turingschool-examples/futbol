@@ -72,4 +72,11 @@ class GameTest < MiniTest::Test
   def test_nil_is_returned_if_game_is_tie
     assert_nil @game3.winner
   end
+
+  def test_self_method_can_pull_all_games
+    require "pry"; binding.pry
+    
+    assert_equal 3, Game.all.length
+    assert_instance_of Game, Game.all[0]
+  end
 end

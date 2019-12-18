@@ -32,7 +32,7 @@ class StatTrackerTest < Minitest::Test
 
 	def test_dig_module_can_pull_single_team
 		assert_instance_of Team, @stat_tracker.team(17)
-		assert_equal 17, @stat_tracker.team(17).id
+		assert_equal 17, @stat_tracker.team(17).team_id
 	end
 
 	def test_dig_module_can_pull_single_game
