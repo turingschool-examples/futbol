@@ -6,7 +6,6 @@ class Season
   @@all = []
 
   def self.all
-    require "pry"; binding.pry
     @all
   end
 
