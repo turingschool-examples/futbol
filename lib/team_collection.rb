@@ -1,17 +1,20 @@
-# frozen_string_literal: true
-
+require_relative './team'
 require 'csv'
 
 class TeamCollection
-  attr_accessor :team
-  attr_reader :team_file_path
+  attr_accessor :teams
 
-  def initialize
-    @team_data = nil
-    @team_file_path = './data/team.csv'
+  def initialize(csv_file_path)
+    @teams = create_teams(csv_file_path)
   end
 
-  def from_csv
-    @team_data = CSV.read(@team_file_path, headers: true, header_converters: :symbol)
+  def from_csv(csv_file_path)
+    CSV.read(csv_file_path, headers: true, header_converters: :symbol)
+  end
+
+  def create_teams(csv_file_path)
+    from_csv(csv_file_path).map do |row|
+      Team.new(row)
+    end
   end
 end
