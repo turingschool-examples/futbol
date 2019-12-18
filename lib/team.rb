@@ -4,8 +4,8 @@ class Team
                 :stadium
 
     def initialize(team_info)
-        @team_id = team_info[:team_id]
-        @franchiseId = team_info[:franchiseId]
+        @team_id = team_info[:team_id].to_i
+        @franchiseId = team_info[:franchiseId].to_i
         @teamName = team_info[:teamName]
         @abbreviation = team_info[:abbreviation]
         @stadium = team_info[:stadium]
