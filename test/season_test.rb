@@ -3,7 +3,8 @@ require_relative '../lib/season'
 
 class SeasonTest < MiniTest::Test
   def setup
-    @season = Season.new({id: 20122013, path: "./data/games.csv"})
+    @season = Season.new({id: 20122013, path: "./test/fixtures/truncated_games.csv"})
+    require "pry"; binding.pry
   end
 
   def test_season_is_created_with_id
@@ -21,5 +22,14 @@ class SeasonTest < MiniTest::Test
     # assert_equal false, @season.games_by_type["Postseason"].include?(2016030171)
     # assert_equal false, @season.games_by_type["Postseason"].include?(2012020510)
     # assert_equal true, @season.games_by_type["Regular Season"].include?(2012020510)
+  end
+
+  def test_can_total_games_by_type
+    assert_equal 4, @season.number_of_games_by_type("Postseason")
+    assert_equal 7, @season.number_of_games_by_type("Regular Season")
+  end
+
+  def test_find_total_games_in_season
+    assert_equal 11, @season.total_games
   end
 end

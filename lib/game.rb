@@ -1,4 +1,11 @@
 class Game
+
+  @@all = []
+
+  def self.all
+   @@all
+  end
+
   attr_reader :id, :season, :type, :date_time, :away_team_id, :home_team_id, :away_goals, :home_goals, :venue, :venue_link
 
   def initialize(game_info)
@@ -12,6 +19,11 @@ class Game
     @home_goals = game_info[:home_goals].to_i
     @venue = game_info[:venue]
     @venue_link = game_info[:venue_link]
+    @@all << self
+  end
+
+  def create_stat_hash(array)
+
   end
 
   def total_score
@@ -22,12 +34,8 @@ class Game
     (@home_goals - @away_goals).abs
   end
   def winner
-    if @home_goals > @away_goals
-      return @home_team_id
-    elsif @away_goals > @home_goals
-      return @away_team_id
-    else
-      return nil
-    end
+    return @home_team_id if @home_goals > @away_goals
+    return @away_team_id if @away_goals > @home_goals
+    return nil
   end
 end
