@@ -31,4 +31,10 @@ class GameTest < Minitest::Test
   def test_it_can_find_lowest_total_score
     assert_equal 3, Game.lowest_total_score
   end
+
+  def test_it_can_count_the_number_of_games_in_a_season
+    assert_equal ({20122013=>1, 20152016=>2, 20142015=>2}), Game.count_of_games_by_season
+
+    assert_instance_of Hash, Game.count_of_games_by_season
+  end
 end

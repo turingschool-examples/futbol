@@ -47,4 +47,14 @@ class Game
     end
     least_goals.home_goals + least_goals.away_goals
   end
+
+  def self.count_of_games_by_season
+    @@games.reduce({}) do |acc, game_1|
+      games_per_season = @@games.find_all do |game_2|
+        game_2.season == game_1.season
+      end
+      acc[game_1.season] = games_per_season.length
+      acc
+    end
+  end
 end
