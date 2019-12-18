@@ -13,4 +13,26 @@ class GameCollection
 
     csv.map { |row| Game.new(row) }
   end
+
+  def highest_total_score
+    highest_score = @games.max_by do |game|
+      game.total_score
+    end.total_score
+      highest_score
+
+  end
+
+  def lowest_total_score
+    lowest_score = @games.min_by do |game|
+      game.total_score
+    end.total_score
+      lowest_score
+  end
+
+  def biggest_blowout
+      games_difference = @games.max_by do |game|
+        game.difference_between_score
+    end.difference_between_score
+    games_difference
+  end
 end
