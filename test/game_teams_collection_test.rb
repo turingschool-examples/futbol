@@ -3,7 +3,7 @@ require './lib/game_teams_collection'
 
 class GameTeamsCollectionTest < Minitest::Test
   def setup
-    @game_teams_collection = GameTeamsCollection.new("./data/game_teams.csv")
+    @game_teams_collection = GameTeamsCollection.new("./test/fixtures/game_teams_truncated.csv")
     @game_teams = @game_teams_collection.game_teams_array.first
   end
 
