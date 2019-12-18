@@ -1,0 +1,16 @@
+game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
+2012030224,20122013,Postseason,5/23/13,6,3,3,2,BBVA Stadium,/api/v1/venues/null
+2012030234,20122013,Postseason,5/24/13,16,17,0,2,Dignity Health Sports Park,/api/v1/venues/null
+2012030124,20122013,Postseason,5/7/13,8,9,2,3,Yankee Stadium,/api/v1/venues/null
+2014030113,20142015,Postseason,4/19/15,8,9,2,1,Yankee Stadium,/api/v1/venues/null
+2015030223,20152016,Postseason,5/3/16,15,5,2,3,Children's Mercy Park,/api/v1/venues/null
+2015030115,20152016,Postseason,4/23/16,2,13,2,1,BBVA Stadium,/api/v1/venues/null
+2014030212,20142015,Postseason,5/3/15,14,8,4,2,Red Bull Arena,/api/v1/venues/null
+2016030133,20162017,Postseason,4/17/17,15,10,3,2,WakeMed Soccer Park,/api/v1/venues/null
+2016030161,20162017,Postseason,4/13/17,19,30,2,1,Exploria Stadium,/api/v1/venues/null
+2014020930,20142015,Regular Season,3/1/15,30,21,3,1,BC Place,/api/v1/venues/null
+2014020614,20142015,Regular Season,1/10/15,18,30,3,1,Exploria Stadium,/api/v1/venues/null
+2014020772,20142015,Regular Season,2/7/15,5,20,2,0,BMO Field,/api/v1/venues/null
+2014020675,20142015,Regular Season,1/19/15,7,17,2,4,Dignity Health Sports Park,/api/v1/venues/null
+2014021227,20142015,Regular Season,4/12/15,18,25,1,2,SeatGeek Stadium,/api/v1/venues/null
+2014020868,20142015,Regular Season,2/21/15,10,12,1,2,Yurcak Field,/api/v1/venues/null
