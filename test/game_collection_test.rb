@@ -1,5 +1,6 @@
 require './test/test_helper'
 require './lib/game_collection'
+require './lib/game'
 
 class GameCollectionTest < Minitest::Test
   def setup
@@ -21,4 +22,9 @@ class GameCollectionTest < Minitest::Test
     assert_equal 2, @game.away_goals
     assert_equal 3, @game.home_goals
   end
+
+  def test_it_can_calculate_percentage_home_wins
+    assert_equal 0.44, @game_collection.percentage_home_wins
+  end
+  
 end
