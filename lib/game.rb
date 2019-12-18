@@ -21,6 +21,5 @@ class Game
   end
 
   def games_per_season
-require "pry"; binding.pry
   end 
 end
