@@ -24,7 +24,6 @@ class StatTracker
     GameTeamsCollection.new(@game_teams_path)
   end
 
-
   def games_collection
     GamesCollection.new(@games_path)
   end
@@ -32,4 +31,17 @@ class StatTracker
   def teams_collection
     TeamsCollection.new(@teams_path)
   end
+
+  def highest_total_score
+    games_collection.highest_total_score
+  end
+
+  def lowest_total_score
+    games_collection.lowest_total_score
+  end
+
+  def biggest_blowout
+    games_collection.biggest_blowout
+  end
+
 end

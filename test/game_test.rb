@@ -14,9 +14,9 @@ class GameTest < Minitest::Test
                      away_team_id: 3,
                      home_team_id: 2,
                      away_goals: 1,
-                     home_goals: 2
+                     home_goals: 2,
+                     type: "Postseason"
                      })
-
     assert_equal 1, game.game_id
     assert_equal 20122013, game.season
     assert_equal 3, game.away_team_id

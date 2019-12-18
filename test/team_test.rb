@@ -7,7 +7,7 @@ class TeamTest < Minitest::Test
         assert_instance_of Team, team
     end
 
-    def test_it_has_attrubutes
+    def test_it_has_attributes
         team = Team.new({ team_id: 1,
                         franchiseId: 23,
                         teamName: "Atlanta United",

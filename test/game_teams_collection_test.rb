@@ -1,6 +1,5 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/stat_tracker'
+require_relative 'testhelper'
+require_relative '../lib/stat_tracker'
 
 class GameTeamsCollectionTest < Minitest::Test
   def setup

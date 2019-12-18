@@ -9,6 +9,6 @@ class Game
     @home_team_id = game_info[:home_team_id].to_i
     @away_goals = game_info[:away_goals].to_i
     @home_goals = game_info[:home_goals].to_i
-    @type =  game_info[:type]
+    @type = game_info[:type]
   end
 end
