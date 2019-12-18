@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Teams
   attr_reader :franchise_id,
               :team_name,
