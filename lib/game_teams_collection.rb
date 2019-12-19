@@ -21,4 +21,9 @@ class GameTeamsCollection
       hash
     end
   end
+
+  def team_win_percentage(team)
+    hash = game_teams_hash
+    (hash[team].count { |game| game.result == "WIN" } / hash[team].length.to_f) * 100
+  end
 end
