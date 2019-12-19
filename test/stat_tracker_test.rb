@@ -1,7 +1,5 @@
 require_relative 'test_helper'
-require 'minitest/autorun'
-require 'minitest/autorun'
-require './lib/stat_tracker'
+require_relative '../lib/stat_tracker'
 
 class StatTrackerTest < Minitest::Test
   def setup
