@@ -36,6 +36,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_count_of_games_by_season
-    assert_equal {"20122013"=>8}, @new_tracker.count_of_games_by_season
+    assert_equal ({"20122013"=>8}), @new_tracker.count_of_games_by_season
   end
 end
