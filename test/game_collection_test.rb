@@ -7,6 +7,7 @@ class GameCollectionTest < Minitest::Test
     @collection = GameCollection.new('./test/fixtures/games_truncated.csv')
     @game = @collection.games.first
   end
+
   def test_team_collection_exists
     assert_instance_of GameCollection, @collection
   end
@@ -20,5 +21,6 @@ class GameCollectionTest < Minitest::Test
     assert_instance_of Game, @game
     assert_equal 'Postseason', @game.type
     assert_equal '20122013', @game.season
+    assert_equal '2', @game.away_goals
   end
 end

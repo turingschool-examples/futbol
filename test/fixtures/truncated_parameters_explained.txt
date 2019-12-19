@@ -1,0 +1,9 @@
+Sample Sizes
+
+game_teams_truncated.csv
+    We used a sample size of 375 randomly selected rows out of a data set containing 14,882
+instances of game_teams, giving us 95% confidence that we cover our sample parameters with a margin of error of 5.
+
+For games_truncated.csv
+    We used a sample size of 365 randomly selected rows out of a data set containing 7,442
+instances of games, giving us 95% confidence that we cover our sample parameters with a margin of error of 5.
