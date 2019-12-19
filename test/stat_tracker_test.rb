@@ -3,10 +3,7 @@ require 'CSV'
 require './lib/stat_tracker'
 require './lib/game'
 require './lib/team'
-<<<<<<< HEAD
-=======
 require './lib/game_team'
->>>>>>> dev
 require './lib/game_collection'
 require './lib/team_collection'
 require './lib/game_team_collection'
@@ -30,5 +27,15 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of GameCollection, @new_tracker.games
     assert_instance_of TeamCollection, @new_tracker.teams
     # assert_instance_of GameCollection, @new_tracker.games
+  end
+
+  def test_stat_tracker_average_goals_per_game
+    assert_equal 4.13, @new_tracker.average_goals_per_game
+  end
+
+  def test_stat_tracker_average_goals_by_season
+    average_hash = {20122013 => 4.13, 20162017 => 5, 20142015 => 5}
+
+    assert_equal average_hash, @new_tracker.average_goals_by_season
   end
 end
