@@ -27,4 +27,8 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal 4, game_teams_hash["20"].length
     assert_equal 5, game_teams_hash["3"].length
   end
+
+  def test_it_can_find_win_percentage_of_a_team
+    assert_equal 40, @game_teams_collection.team_win_percentage("26")
+  end
 end
