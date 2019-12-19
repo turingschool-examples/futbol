@@ -59,6 +59,10 @@ class GameTest < Minitest::Test
   end
   
   def test_it_can_return_average_goals_by_season
-    assert_instance_of Hash, @game.average_goals_by_season
+    expected = {"20122013"=>4.5, "20132014"=>4.0, "20152016"=>5.0, "20162017"=>5.0}
+    
+    assert_instance_of Hash, Game.average_goals_by_season
+    assert_equal 4, Game.average_goals_by_season.length
+    assert_equal expected, Game.average_goals_by_season
   end
 end

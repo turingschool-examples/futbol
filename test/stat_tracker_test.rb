@@ -29,7 +29,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_create_a_game_collection
     assert_instance_of Array, @stat_tracker.games
-    assert_equal 4, @stat_tracker.games.length
+    assert_equal 8, @stat_tracker.games.length
     assert_instance_of Game, @stat_tracker.games.first
   end
 
