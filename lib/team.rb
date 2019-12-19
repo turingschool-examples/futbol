@@ -25,4 +25,9 @@ class Team
     @stadium = team_info[:stadium]
     @link = team_info[:link]
   end
+
+  def self.count_of_teams
+    @@teams.length
+    # do we need .uniq here?
+  end
 end
