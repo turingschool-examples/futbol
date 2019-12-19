@@ -10,7 +10,6 @@ attr_reader :games
       Game.new(row)
     end
   end
-  #
 
   def initialize(csv_file_path)
     @games = create_games(csv_file_path)
@@ -36,11 +35,18 @@ attr_reader :games
     end
     (blowout.home_goals - blowout.away_goals).abs
   end
-end
 
-
-  #
 
 # count_of_games_by_season	A hash with season names (e.g. 20122013) as keys and counts of games as values	Hash
 # average_goals_per_game	Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)	Float
 # average_goals_by_season	Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as a key (rounded to the nearest 100th)
+  def games_per_season
+    games_per_season_hash = @games.group_by {|game| game.season}
+    games_per_season_hash.reduce({}) do |new_hash, game|
+      new_hash[game[0]] = game[1].length
+      new_hash
+    end
+  end
+# count_of_games_by_season	A hash with season names (e.g. 20122013) as keys and counts of games as values	Hash
+# average_goals_per_game	Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)	Float
+end
