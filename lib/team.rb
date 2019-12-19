@@ -8,6 +8,9 @@ class Team
     @@all
   end
 
+  #this can be a self.reset method which makes an empty array again
+  ## Teardown method for minitest
+
   def self.from_csv(file_path)
     csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
 
@@ -26,11 +29,5 @@ class Team
     @abbreviation = team_info[:abbreviation]
     # @Stadium = team_info[:] #downcase
   end
-  
+
 end
-
-
-
-
-## Teardown method for minitest
-#this can be a self.reset method which makes an empty array again
