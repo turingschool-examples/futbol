@@ -29,9 +29,4 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of TeamsCollection, @stat_tracker.teams_collection
   end
 
-  def test_it_can_create_games_collection_averages
-    assert_equal 3.93, @stat_tracker.average_goals_per_game
-    assert_equal ({20122013=>4.0, 20142015=>3.88, 20152016=>4.0, 20162017=>4.0}), @stat_tracker.average_goals_by_season
-  end
-
 end
