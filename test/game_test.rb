@@ -59,6 +59,6 @@ class GameTest < Minitest::Test
   end
   
   def test_it_can_return_average_goals_by_season
-    assert_instance_of Hash, @game.average_goals_by_season
+    assert_instance_of Hash, Game.average_goals_by_season
   end
 end

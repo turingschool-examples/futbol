@@ -47,7 +47,7 @@ attr_reader :game_id, :season, :type, :date_time, :away_team_id, :home_team_id, 
     season_games
   end
   
-  def average_goals_by_season
+  def self.average_goals_by_season
     # Need to figure out how to add all away_goals and home_goals for each season, then divide that by number of games in that season. Finally, turn that into a hash with seasons as keys, and the averages as a matching value.
     seasons = @@all_games.map do |game|
       game.season
