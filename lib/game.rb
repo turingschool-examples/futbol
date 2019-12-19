@@ -1,10 +1,13 @@
 class Game
-  attr_reader :season, :away_goals, :home_goals
+  attr_reader :season, :away_goals, :home_goals, :home_team_id, :away_team_id, :game_id
 
   def initialize(game_info)
     @season = game_info[:season]
     @away_goals = game_info[:away_goals].to_i
     @home_goals = game_info[:home_goals].to_i
+    @home_team_id = game_info[:home_team_id].to_i
+    @away_team_id = game_info[:away_team_id].to_i
+    @game_id = game_info[:game_id]
   end
 
   def total_score

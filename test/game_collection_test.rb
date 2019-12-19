@@ -67,4 +67,8 @@ class GameCollectionTest < Minitest::Test
   def test_it_can_get_biggest_blowout
     assert_equal 3, @game_collection.biggest_blowout
   end
+
+  def test_it_can_get_best_defense
+    assert_equal 1.5, @game_collection.best_defense
+  end
 end

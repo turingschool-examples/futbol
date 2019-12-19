@@ -49,6 +49,7 @@ class GameCollection
     season_games
   end
 
+  #could possibly move to game_teams_collection?
   def percentage_home_wins
     home_wins = @games.count do |game|
       game.home_goals > game.away_goals
@@ -56,6 +57,7 @@ class GameCollection
     (home_wins.to_f / @games.length).round(2)
   end
 
+  #could possibly move to game_teams_collection?
   def percentage_visitor_wins
     visitor_wins = @games.count do |game|
       game.away_goals > game.home_goals
@@ -63,6 +65,7 @@ class GameCollection
     (visitor_wins.to_f / @games.length).round(2)
   end
 
+  #could possibly move to game_teams_collection?
   def percentage_ties
     ties_count = @games.count do |game|
       game.home_goals == game.away_goals
@@ -90,4 +93,56 @@ class GameCollection
     end.difference_between_score
     games_difference
   end
+
+  def find_away_defense_goals(away_team_id)
+    away_defense = @games.find_all do |game|
+      game.away_team_id == (away_team_id)
+    end
+
+    away_defense_goals = away_defense.map do |game|
+      game.home_goals
+    end
+
+    away_defense_goals
+  end
+
+  def find_home_defense_goals(home_team_id)
+    home_defense = @games.find_all do |game|
+      game.home_team_id == (home_team_id)
+    end
+
+    home_defense_goals = home_defense.map do |game|
+      game.away_goals
+    end
+
+    home_defense_goals
+  end
+
+  def find_average_defense_goals(team_id)
+    defense_goals_array = find_home_defense_goals(team_id) + find_away_defense_goals(team_id)
+
+    goals_total = defense_goals_array.reduce(0) {|sum, defense_score| sum + defense_score}
+
+    average = goals_total.to_f / defense_goals_array.length
+  end
+
+
+  def find_defensive_averages
+    teams = @games.reduce([]) do |teams,game|
+      teams << game.home_team_id
+      teams
+    end.uniq
+require "pry"; binding.pry
+    teams.reduce({}) do |defenses, team|
+      defenses[team] = find_average_defense_goals(team)
+    end
+    require "pry"; binding.pry
+  end
+
+  def worst_defense
+
+
+
+  end
+
 end
