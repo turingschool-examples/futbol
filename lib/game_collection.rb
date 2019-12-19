@@ -10,10 +10,32 @@ attr_reader :games
       Game.new(row)
     end
   end
-  #
 
   def initialize(csv_file_path)
     @games = create_games(csv_file_path)
+  end
+
+  def percentage_home_wins
+    (@games.count {|game| game.home_goals > game.away_goals} / @games.size.to_f * 100).round(2)
+  end
+
+  def percentage_visitor_wins
+    (@games.count {|game| game.away_goals > game.home_goals} / @games.size.to_f * 100).round(2)
+  end
+
+  def percentage_ties
+     (@games.count {|game| game.away_goals == game.home_goals} / @games.size.to_f * 100).round(2)
+  end
+
+  def average_goals_by_season
+    game_per_season = @games.group_by{|game| game.season}
+    game_per_season.reduce({}) do |result, season|
+      sum_goals = season[1].sum do |game|
+        game.away_goals + game.home_goals
+      end
+      result[season[0]] = (sum_goals/season[1].size.to_f).round(2)
+      result
+    end
   end
 
   def highest_total_score
@@ -36,11 +58,18 @@ attr_reader :games
     end
     (blowout.home_goals - blowout.away_goals).abs
   end
+
+  def games_per_season
+    games_per_season_hash = @games.group_by {|game| game.season}
+    games_per_season_hash.reduce({}) do |new_hash, game|
+      new_hash[game[0]] = game[1].length
+      new_hash
+    end
+  end
+
+  def average_goals_per_game
+    game_goals_total = @games.sum {|game| game.away_goals + game.home_goals}
+    game_goals_total / @games.length.to_f).round(2)
+  end
+# 	Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)	Float
 end
-
-
-  #
-
-# count_of_games_by_season	A hash with season names (e.g. 20122013) as keys and counts of games as values	Hash
-# average_goals_per_game	Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)	Float
-# average_goals_by_season	Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as a key (rounded to the nearest 100th)
