@@ -77,4 +77,24 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of Float, @new_tracker.percentage_ties
     assert_equal 0.21, @new_tracker.percentage_ties
   end
+
+  def test_percentage_home_wins
+    team_1_home = @new_tracker.percentage_home_wins
+    assert_instance_of Float, team_1_home
+    assert_equal 0.4, team_1_home
+
+    team_2_home = @new_tracker.percentage_home_wins
+    assert_instance_of Float, team_2_home
+    assert_equal 0.4, team_2_home
+  end
+
+  def test_percentage_visitor_wins
+    team_1_visitor = @new_tracker.percentage_visitor_wins
+    assert_instance_of Float, team_1_visitor
+    assert_equal 0.39, team_1_visitor
+
+    team_2_visitor = @new_tracker.percentage_visitor_wins
+    assert_instance_of Float, team_2_visitor
+    assert_equal 0.39, team_2_visitor
+  end  
 end
