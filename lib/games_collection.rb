@@ -47,6 +47,7 @@ class GamesCollection
   def percentage_visitor_wins
     visitor_wins = @games.find_all { |game| game.away_goals > game.home_goals}
     (visitor_wins.length.to_f / @games.length.to_f).round(2)
+  end
     
   def average_goals_by_season
     season_to_game = games.reduce({}) do |acc, game|
