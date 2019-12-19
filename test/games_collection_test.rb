@@ -46,7 +46,7 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_calculates_percentage_of_home_wins
-    assert_equal 0.40, @gamescollection.percentage_home_wins
+    assert_equal 0.38, @gamescollection.percentage_home_wins
   end
 
   def test_it_calculates_percentage_of_visitor_wins
