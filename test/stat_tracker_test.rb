@@ -15,4 +15,6 @@ class StatTrackerTest < Minitest::Test
   def test_a_stat_tracker_exists
     assert_instance_of StatTracker, @stat_tracker
   end
+
+  def test_stat_tracker
 end
