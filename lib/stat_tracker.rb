@@ -35,10 +35,6 @@ class StatTracker
 		season_storage
 	end
 
-	def all_games
-
-	end
-
 	def highest_scoring_visitor
 		team = @teams.max_by do |team|
 			team.average_goals_away
@@ -77,4 +73,10 @@ class StatTracker
 	# 	goals_by_season = {}
 	# 	@seasons.each {|season| goals_by_season[season.id] = season.total_games}
 	# end
+
+	def winningest_team
+		@teams.max_by do |team|
+			team.total_winning_percentage
+		end.team_name
+	end
 end
