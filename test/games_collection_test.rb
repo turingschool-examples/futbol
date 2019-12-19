@@ -37,7 +37,7 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_count_of_games_by_season
-    expected = {20122013=>3, 20142015=>8, 20152016=>2, 20162017=>2, 20132014=>1}
+    expected = {"20122013"=>3, "20142015"=>8, "20152016"=>2, "20162017"=>2, "20132014"=>1}
     assert_equal expected, @gamescollection.count_of_games_by_season
   end
 
