@@ -37,16 +37,6 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal "24", @game_teams_collection.winningest_team_id
   end
 
-  def test_it_can_find_home_percentage
-    hash = @game_teams_collection.game_teams_hash
-    assert_equal 33.33, @game_teams_collection.home_percentage(hash, "26")
-  end
-
-  def test_it_can_find_away_percentage
-    hash = @game_teams_collection.game_teams_hash
-    assert_equal 50, @game_teams_collection.away_percentage(hash, "26")
-  end
-
   def test_it_can_calculate_home_or_away_differences
     hash = @game_teams_collection.game_teams_hash
     diffs = @game_teams_collection.hoa_differences(hash)
