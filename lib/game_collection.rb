@@ -30,12 +30,12 @@ attr_reader :games
   def average_goals_by_season
     game_per_season = @games.group_by{|game| game.season}
     game_per_season.reduce({}) do |result, season|
-      sum_goals = season[1].sum do |game| 
+      sum_goals = season[1].sum do |game|
         game.away_goals + game.home_goals
       end
       result[season[0]] = (sum_goals/season[1].size.to_f).round(2)
       result
-    end 
+    end
   end
 
   def highest_total_score
@@ -66,6 +66,10 @@ attr_reader :games
       new_hash
     end
   end
-  
-# average_goals_per_game	Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)	Float
+
+  def average_goals_per_game
+    game_goals_total = @games.sum {|game| game.away_goals + game.home_goals}
+    (game_goals_total / @games.length.to_f).round(2)
+  end
+# 	Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)	Float
 end
