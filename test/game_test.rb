@@ -2,6 +2,7 @@ require_relative 'test_helper'
 require './lib/game'
 
 class GameTest < Minitest::Test
+
   def setup
     @game = Game.from_csv('./data/dummy_game.csv')
   end
@@ -50,6 +51,10 @@ class GameTest < Minitest::Test
 
   def test_it_can_calcualte_the_average_number_of_goals_per_game_accross_all_games
     assert_equal 4.4, Game.average_goals_per_game
+  end
+
+  def test_biggest_blowout
+    assert_equal 1, Game.biggest_blowout
   end
 
   def test_it_can_calculate_the_percentage_of_games_that_end_in_a_tie

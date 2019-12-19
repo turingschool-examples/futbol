@@ -5,7 +5,6 @@ class TeamTest < Minitest::Test
 
   def setup
     @team = Team.from_csv('./data/dummy_team.csv')
-
   end
 
   def test_it_exists
@@ -19,6 +18,10 @@ class TeamTest < Minitest::Test
     assert_equal "ATL", @team.first.abbreviation
     assert_equal "Mercedes-Benz Stadium", @team.first.stadium
     assert_equal "/api/v1/teams/1", @team.first.link
+  end
+
+  def test_it_can_calculate_total_teams
+    assert_equal 5, Team.count_of_teams
   end
 
 end

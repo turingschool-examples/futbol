@@ -1,6 +1,9 @@
 require 'csv'
+require_relative 'csv_loadable'
 
 class Game
+  extend CsvLoadable
+
   attr_reader :game_id,
               :season,
               :type,
@@ -12,13 +15,11 @@ class Game
               :venue,
               :venue_link
 
-@@games = []
+  @@games = []
 
   def self.from_csv(file_path)
-    csv = CSV.read(file_path, headers: true, header_converters: :symbol)
-    @@games = csv.map do |row|
-      Game.new(row)
-    end
+    create_instances(file_path, Game)
+    @@games = @objects
   end
 
   def initialize(game_info)
@@ -81,6 +82,14 @@ class Game
     count_of_games_by_season.merge(goal_count_per_season) do |key, game_count, goal_count|
       goal_count / game_count.to_f.round(2)
     end
+  end
+
+  def self.biggest_blowout
+    all_abs_vals = []
+    @@games.each do |game|
+      all_abs_vals << (game.home_goals - game.away_goals).abs
+    end
+    all_abs_vals.max
   end
 
   def self.percentage_ties
