@@ -31,6 +31,4 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of TeamCollection, @new_tracker.teams
     # assert_instance_of GameCollection, @new_tracker.games
   end
-
-  def test_stat_tracker
 end
