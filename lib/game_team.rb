@@ -44,17 +44,17 @@ class GameTeam
       @takeaways = game_team_info[:takeaways].to_i
     end
 
-    def self.percentage_visitor_wins
-      away_games = @@game_teams.count do |game_team|
-         game_team.hoa == "away"
-      end
-      away_wins = @@game_teams.count do |game_team|
-        game_team.result == "WIN" && game_team.hoa == "away"
-      end
-      (away_wins.to_f / away_games * 100).round
+  def self.percentage_visitor_wins
+    away_games = @@game_teams.count do |game_team|
+        game_team.hoa == "away"
     end
+    away_wins = @@game_teams.count do |game_team|
+      game_team.result == "WIN" && game_team.hoa == "away"
+    end
+      (away_wins.to_f / away_games * 100).round
+  end
 
-    def self.percentage_home_wins
+  def self.percentage_home_wins
       total_wins = 0
       total_games = 0
       @@game_teams.each do |game|
@@ -68,6 +68,17 @@ class GameTeam
         end
       end
       ((total_wins.to_f / total_games) * 100).round(3)
+  end
 
+  def self.best_offense
+    team_goals = @@game_teams.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = 0
+      acc
     end
-end
+    goal_value = @@game_teams.each do |game_team|
+      team_goals[game_team.team_id] += game_team.goals
+    end
+    team_goals
+    end
+
+  end

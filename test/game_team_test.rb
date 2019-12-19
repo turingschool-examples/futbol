@@ -38,4 +38,8 @@ class GameTeamTest < Minitest::Test
     assert_equal 100.000, GameTeam.percentage_home_wins
   end
 
+  def test_team_with_best_offense
+    assert_equal "FC Dallas", GameTeam.best_offense
+  end
+
 end
