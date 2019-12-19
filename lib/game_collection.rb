@@ -95,27 +95,15 @@ class GameCollection
   end
 
   def find_away_defense_goals(away_team_id)
-    away_defense = @games.find_all do |game|
-      game.away_team_id == (away_team_id)
-    end
+    away_defense = @games.find_all {|game| game.away_team_id == (away_team_id)}
 
-    away_defense_goals = away_defense.map do |game|
-      game.home_goals
-    end
-
-    away_defense_goals
+    away_defense.map {|game| game.home_goals}
   end
 
   def find_home_defense_goals(home_team_id)
-    home_defense = @games.find_all do |game|
-      game.home_team_id == (home_team_id)
-    end
+    home_defense = @games.find_all {|game| game.home_team_id == (home_team_id)}
 
-    home_defense_goals = home_defense.map do |game|
-      game.away_goals
-    end
-
-    home_defense_goals
+    home_defense.map {|game| game.away_goals}
   end
 
   def find_average_defense_goals(team_id)
@@ -123,26 +111,29 @@ class GameCollection
 
     goals_total = defense_goals_array.reduce(0) {|sum, defense_score| sum + defense_score}
 
-    average = goals_total.to_f / defense_goals_array.length
+    average = (goals_total.to_f / defense_goals_array.length).round(2)
   end
 
 
-  def find_defensive_averages
-    teams = @games.reduce([]) do |teams,game|
+  def teams
+    @games.reduce([]) do |teams,game|
       teams << game.home_team_id
       teams
     end.uniq
-require "pry"; binding.pry
+  end
+
+  def find_defensive_averages
     teams.reduce({}) do |defenses, team|
       defenses[team] = find_average_defense_goals(team)
+      defenses
     end
-    require "pry"; binding.pry
   end
 
   def worst_defense
-
-
-
+    find_defensive_averages.max_by{|team, average| average}[0]
   end
 
+  def best_defense
+    find_defensive_averages.min_by{|team, average| average}[0]
+  end
 end
