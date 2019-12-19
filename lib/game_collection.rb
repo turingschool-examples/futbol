@@ -1,9 +1,8 @@
 require_relative './game'
 require 'csv'
-require 'matrix'
 
 class GameCollection
-  attr_accessor :games
+  attr_reader :games
 
   def initialize(csv_file_path)
     @games = create_games(csv_file_path)

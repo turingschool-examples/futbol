@@ -11,3 +11,5 @@ locations = {
 }
 
 stat_tracker = StatTracker.from_csv(locations)
+
+stat_tracker.average_goals_per_game

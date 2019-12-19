@@ -3,6 +3,13 @@ require 'csv'
 class StatTracker
   attr_reader :games_collection, :teams_collection, :game_teams_collection
 
+  def self.from_csv(locations)
+    games_collection = locations[:games]
+    teams_collection = locations[:teams]
+
+    StatTracker.new(games_collection, teams_collection)
+  end
+
   def initialize(games_collection, teams_collection)
     @games_collection = games_collection
     @teams_collection = teams_collection
