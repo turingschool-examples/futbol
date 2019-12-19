@@ -25,4 +25,8 @@ class Team
     @stadium = team_info[:stadium]
     @link = team_info[:link]
   end
+
+  def self.count_of_teams
+    @@teams.length
+  end
 end

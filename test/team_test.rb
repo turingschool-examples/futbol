@@ -20,4 +20,8 @@ class TeamTest < Minitest::Test
     assert_equal "/api/v1/teams/1", @team.first.link
   end
 
+  def test_it_can_calculate_total_teams
+    assert_equal 5, Team.count_of_teams
+  end
+
 end
