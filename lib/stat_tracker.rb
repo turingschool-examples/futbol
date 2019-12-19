@@ -30,7 +30,7 @@ class StatTracker
       end
     end
 
-    require 'pry'; binding.pry
-    
+    # require 'pry'; binding.pry
+    averages
   end
 end
