@@ -44,6 +44,10 @@ class GameTeamsCollectionTest < Minitest::Test
 
   def test_it_can_find_away_percentage
     hash = @game_teams_collection.game_teams_hash
-    assert_equal 66.67, @game_teams_collection.away_percentage(hash, "26")
+    assert_equal 50, @game_teams_collection.away_percentage(hash, "26")
+  end
+
+  def test_it_can_find_id_of_team_with_best_fans
+    assert_equal "24", @game_teams_collection.best_fans_id
   end
 end
