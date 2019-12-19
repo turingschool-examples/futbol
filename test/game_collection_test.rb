@@ -31,23 +31,6 @@ class GameCollectionTest < Minitest::Test
     end
   end
 
-  def test_it_can_return_percentage_home_wins
-    assert_equal 53.85, @game_collection.percentage_home_wins
-  end
-
-  def test_it_can_return_percentage_visitor_wins
-    assert_equal 42.31, @game_collection.percentage_visitor_wins
-  end
-
-  def test_it_can_return_percentage_tie_wins
-    assert_equal 3.85, @game_collection.percentage_ties
-  end
-
-  def test_it_can_return_average_season_game
-    result = {"20122013" => 4.25, "20132014" => 5.00, "20142015" => 4.67, "20152016" => 4.56, "20162017" => 3.00}
-    assert_equal result, @game_collection.average_goals_by_season
-  end
-
   def test_it_can_find_highest_total_score
     assert_equal 7, @game_collection.highest_total_score
   end
@@ -60,9 +43,21 @@ class GameCollectionTest < Minitest::Test
     assert_equal 3, @game_collection.biggest_blowout
   end
 
-  def test_games_per_season_method
+  def test_it_can_return_percentage_home_wins
+    assert_equal 53.85, @game_collection.percentage_home_wins
+  end
+
+  def test_it_can_return_percentage_visitor_wins
+    assert_equal 42.31, @game_collection.percentage_visitor_wins
+  end
+
+  def test_it_can_return_percentage_tie_wins
+    assert_equal 3.85, @game_collection.percentage_ties
+  end
+
+  def test_count_of_games_by_season_method
     expected = {"20122013"=>12, "20152016"=>9, "20132014"=>1, "20142015"=>3, "20162017"=>1}
-    assert_equal expected, @game_collection.games_per_season
+    assert_equal expected, @game_collection.count_of_games_by_season
   end
 
   def test_average_goals_per_game_method
