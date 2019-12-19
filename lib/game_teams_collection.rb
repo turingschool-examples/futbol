@@ -47,8 +47,16 @@ class GameTeamsCollection
   end
 
   def away_percentage(hash, team)
-    home_games = hash[team].find_all { |game_team| game_team.hoa == "home" }
-    home_losses = home_games.count { |game_team| game_team.result == "LOSS"}
-    percentage(home_losses, home_games.length)
+    home_games = hash[team].find_all { |game_team| game_team.hoa == "away" }
+    home_wins = home_games.count { |game_team| game_team.result == "WIN"}
+    percentage(home_wins, home_games.length)
+  end
+
+  def best_fans_id
+    hash = game_teams_hash
+    hash.each do |key, value|
+      hash[key] = home_percentage(hash, key)
+    end
+    hash.max_by { |key, value| value }[0]
   end
 end
