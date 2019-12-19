@@ -78,7 +78,7 @@ attr_reader :game_id, :season, :type, :date_time, :away_team_id, :home_team_id, 
     season_avg_goals.keys.each do |key|
       season_avg_goals[key] = averages[counter += 1]
     end
-    require "pry"; binding.pry
+    
     season_avg_goals
   end
 end
