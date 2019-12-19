@@ -1,5 +1,6 @@
 require_relative './game'
 require 'csv'
+require 'matrix'
 
 class GameCollection
   attr_accessor :games

@@ -1,7 +1,5 @@
-require 'simplecov'
-SimpleCov.start
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative './test_helper'
+require 'csv'
 require './lib/stat_tracker'
 require './lib/game'
 require './lib/team'
@@ -29,6 +27,27 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of GameCollection, @new_tracker.games_collection
     assert_instance_of TeamCollection, @new_tracker.teams_collection
     # assert_instance_of GameCollection, @new_tracker.games
+  end
+
+  def test_stat_tracker_average_goals_per_game
+    assert_instance_of Float, @new_tracker.average_goals_per_game
+    assert_equal 4.15, @new_tracker.average_goals_per_game
+  end
+
+  def test_stat_tracker_average_goals_by_season
+    average_hash = {"20122013" => 4.13, "20162017" => 5, "20142015" => 5}
+
+    assert_equal average_hash, @new_tracker.average_goals_by_season
+  end
+
+  def test_highest_total_score
+    assert_instance_of Integer, @new_tracker.highest_total_score
+    assert_equal 10, @new_tracker.highest_total_score
+  end
+
+  def test_lowest_total_score
+    assert_instance_of Integer, @new_tracker.lowest_total_score
+    assert_equal 1, @new_tracker.lowest_total_score
   end
 
   def test_biggest_blowout_method_can_look_at_game_scores
