@@ -34,10 +34,11 @@ class GameTeamsCollection
 
   def winningest_team_id
     hash = game_teams_hash
+    win_percentages = Hash.new
     hash.each do |key, value|
-      hash[key] = team_win_percentage(hash, key)
+      win_percentages[key] = team_win_percentage(hash, key)
     end
-    hash.max_by { |key, value| value }[0]
+    win_percentages.max_by { |key, value| value }[0]
   end
 
   def home_percentage(hash, team)
@@ -52,11 +53,19 @@ class GameTeamsCollection
     percentage(home_wins, home_games.length)
   end
 
-  def best_fans_id
-    hash = game_teams_hash
+  def hoa_differences(hash)
+    diffs = Hash.new{}
     hash.each do |key, value|
-      hash[key] = home_percentage(hash, key)
+      diffs[key] = home_percentage(hash, key) - away_percentage(hash, key)
     end
-    hash.max_by { |key, value| value }[0]
+    diffs
   end
+
+  def best_fans_id
+    hoa_differences(game_teams_hash).max_by { |key, value| value }[0]
+  end
+
+  # def worst_fans_ids
+  #
+  # end
 end
