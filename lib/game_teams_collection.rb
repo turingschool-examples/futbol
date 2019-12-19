@@ -31,4 +31,12 @@ class GameTeamsCollection
     denominator = hash[team].length
     percentage(numerator, denominator)
   end
+
+  def winningest_team_id
+    hash = game_teams_hash
+    hash.each do |key, value|
+      hash[key] = team_win_percentage(hash, key)
+    end
+    hash.max_by { |key, value| value }[0]
+  end
 end
