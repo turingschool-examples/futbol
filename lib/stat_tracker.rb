@@ -64,4 +64,8 @@ class StatTracker
     games_collection.count_of_games_by_season
   end
 
+  def percentage_ties
+    games_collection.percentage_ties
+  end
+
 end
