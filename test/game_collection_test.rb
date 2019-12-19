@@ -22,3 +22,4 @@ class GameCollectionTest < Minitest::Test
     assert_equal '20122013', @game.season
   end
 end
+ 
