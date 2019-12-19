@@ -20,4 +20,11 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal "away", @game_teams.hoa
     assert_equal "LOSS", @game_teams.result
   end
+
+  def test_it_can_make_a_game_teams_hash
+    game_teams_hash = @game_teams_collection.game_teams_hash
+
+    assert_equal 4, game_teams_hash["20"].length
+    assert_equal 5, game_teams_hash["3"].length
+  end
 end
