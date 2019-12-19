@@ -25,6 +25,4 @@ class StatTrackerTest < Minitest::Test
     assert_equal './data/teams.csv', @stat_tracker.team_path
     assert_equal './data/game_teams.csv', @stat_tracker.game_teams_path
   end
-
-  
 end

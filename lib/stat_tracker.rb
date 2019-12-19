@@ -18,4 +18,8 @@ class StatTracker
     @team_path = team_path
     @game_teams_path = game_teams_path
   end
+
+  def highest_total_score
+    @game_collection.highest_total_score
+  end
 end
