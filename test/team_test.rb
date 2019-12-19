@@ -5,7 +5,6 @@ class TeamTest < Minitest::Test
 
   def setup
     @team = Team.from_csv('./data/dummy_team.csv')
-
   end
 
   def test_it_exists
