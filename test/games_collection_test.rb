@@ -23,7 +23,7 @@ class GamesCollectionTest < Minitest::Test
     assert_equal 3, @game.away_goals
     assert_equal "Postseason", @game.type
   end
-
+  
   def test_highest_total_score
     assert_equal 6, @gamescollection.highest_total_score
   end
@@ -42,5 +42,13 @@ class GamesCollectionTest < Minitest::Test
 
   def test_it_calculates_percentage_of_visitor_wins
     assert_equal 0.60, @gamescollection.percentage_visitor_wins
+  end
+    
+  def test_average_goals_per_game
+    assert_equal 3.93, @gamescollection.average_goals_per_game
+  end
+
+  def test_average_goals_by_season
+    assert_equal ({20122013=>4.0, 20142015=>3.88, 20152016=>4.0, 20162017=>4.0}), @gamescollection.average_goals_by_season
   end
 end
