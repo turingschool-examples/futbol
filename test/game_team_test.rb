@@ -49,4 +49,20 @@ class GameTeamTest < Minitest::Test
     assert_equal "12", @csv_game_team.shots
     assert_equal "51", @csv_game_team.tackles
   end
+
+  def test_percentage_home_wins
+    assert_equal 0.67, GameTeam.percent_home_wins
+  end
+
+  def test_percentage_visitor_wins
+    assert_equal 0.33, GameTeam.percent_visitor_wins
+  end
+
+  def test_percentage_ties
+    assert_equal 0.25, GameTeam.percent_ties
+  end
+
+  def test_highest_scoring_visitor
+    assert_equal , GameTeam.highest_scoring_visitor
+  end
 end

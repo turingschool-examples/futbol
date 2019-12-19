@@ -27,4 +27,39 @@ class GameTeam
     @shots = game_team_info[:shots]
     @tackles = game_team_info[:tackles]
   end
+
+  def self.percent_home_wins
+    count_game = 0
+    count_win = 0
+    @@all_game_teams.each do |game_team|
+      if game_team.result == "WIN" && game_team.hoa == "home"
+        count_game += 1
+        count_win += 1
+      elsif game_team.result == "LOSS" && game_team.hoa == "home"
+        count_game += 1
+      end
+    end
+    (count_win/count_game.to_f).round(2)
+  end
+
+  def self.percent_visitor_wins
+    count_game = 0
+    count_win = 0
+    @@all_game_teams.each do |game_team|
+      if game_team.result == "WIN" && game_team.hoa == "away"
+        count_game += 1
+        count_win += 1
+      elsif game_team.result == "LOSS" && game_team.hoa == "away"
+        count_game += 1
+      end
+    end
+    (count_win/count_game.to_f).round(2)
+  end
+
+  def self.percent_ties
+    total_games = @@all_game_teams.map {|game_team| game_team.game_id}.uniq.length
+    count_tie = 0
+    @@all_game_teams.each {|game_team| count_tie += 1 if game_team.result == "TIE" && game_team.hoa == "home"}
+    (count_tie/total_games.to_f).round(2)
+  end
 end
