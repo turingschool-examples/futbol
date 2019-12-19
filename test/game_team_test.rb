@@ -69,4 +69,17 @@ class GameTeamTest < Minitest::Test
     #assert_equal "26", GameTeam.highest_scoring_visitor
     assert_equal "FC Cincinnati", GameTeam.highest_scoring_visitor
   end
+
+  def test_lowest_scoring_visitor
+    assert_equal "Houston Dynamo", GameTeam.lowest_scoring_visitor
+  end
+
+  def test_lowest_scoring_home_team
+    assert_equal "Houston Dynamo", GameTeam.lowest_scoring_home
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal "FC Dallas", GameTeam.highest_scoring_home
+  end
+
 end
