@@ -13,7 +13,19 @@ class GameTest < Minitest::Test
                                         home_goals: 3,
                                         venue: "Toyota Stadium",
                                         venue_link: "/api/v1/venues/null"
-      } )
+                                        } )
+
+    @second_truncated_game = Game.new( {
+                                        season: 20122013,
+                                        type: "Postseason",
+                                        date_time: 5/17/13,
+                                        away_team_id: 5,
+                                        home_team_id: 9,
+                                        away_goals: 4,
+                                        home_goals: 2,
+                                        venue: "BBVA Stadium",
+                                        venue_link: "/api/v1/venues/null"
+                                        } )
   end
 
   def test_games_exists
@@ -31,4 +43,10 @@ class GameTest < Minitest::Test
     assert_equal "Toyota Stadium", @first_truncated_game.venue
     assert_equal "/api/v1/venues/null", @first_truncated_game.venue_link
   end
+
+  def test_highest_total_score
+    assert_equal 
+
+  end
+
 end
