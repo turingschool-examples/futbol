@@ -34,4 +34,14 @@ class StatTracker
     GameTeam.from_csv(@game_team_path)
     GameTeam.all_game_teams
   end
+  
+  def count_of_games_by_season
+    Game.from_csv(@game_path)
+    Game.count_of_games_by_season
+  end
+  
+  def average_goals_by_season
+    Game.from_csv(@game_path)
+    Game.average_goals_by_season
+  end
 end
