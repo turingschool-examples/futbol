@@ -90,6 +90,7 @@ class Game
       all_abs_vals << (game.home_goals - game.away_goals).abs
     end
     all_abs_vals.max
+  end
 
   def self.percentage_ties
     total_games = 0
