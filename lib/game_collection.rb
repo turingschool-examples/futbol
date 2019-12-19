@@ -10,10 +10,32 @@ attr_reader :games
       Game.new(row)
     end
   end
-  #
 
   def initialize(csv_file_path)
     @games = create_games(csv_file_path)
+  end
+
+  def percentage_home_wins
+    (@games.count {|game| game.home_goals > game.away_goals} / @games.size.to_f * 100).round(2)
+  end
+
+  def percentage_visitor_wins
+    (@games.count {|game| game.away_goals > game.home_goals} / @games.size.to_f * 100).round(2)
+  end
+
+  def percentage_ties
+     (@games.count {|game| game.away_goals == game.home_goals} / @games.size.to_f * 100).round(2)
+  end
+
+  def average_goals_by_season
+    game_per_season = @games.group_by{|game| game.season}
+    game_per_season.reduce({}) do |result, season|
+      sum_goals = season[1].sum do |game| 
+        game.away_goals + game.home_goals
+      end
+      result[season[0]] = (sum_goals/season[1].size.to_f).round(2)
+      result
+    end 
   end
 
   def highest_total_score
@@ -36,6 +58,7 @@ attr_reader :games
     end
     (blowout.home_goals - blowout.away_goals).abs
   end
+
 end
 
 
