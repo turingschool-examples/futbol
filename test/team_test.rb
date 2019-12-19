@@ -56,6 +56,5 @@ class TeamTest < MiniTest::Test
 
   def test_that_home_teams_have_average_home_scores
     assert_equal 1.11, @team.average_goals_home
-
   end
 end
