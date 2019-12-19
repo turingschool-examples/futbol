@@ -58,11 +58,15 @@ class GameCollectionTest < Minitest::Test
 
   def test_it_can_find_biggest_blowout
     assert_equal 3, @game_collection.biggest_blowout
-  end 
-  
+  end
+
   def test_games_per_season_method
     expected = {"20122013"=>12, "20152016"=>9, "20132014"=>1, "20142015"=>3, "20162017"=>1}
     assert_equal expected, @game_collection.games_per_season
+  end
+
+  def test_average_goals_per_game_method
+    assert_equal 4.38, @game_collection.average_goals_per_game
   end
 
 end
