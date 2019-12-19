@@ -73,4 +73,12 @@ class StatTracker
     end
     season
   end
+
+  def percentage_ties
+    ties_sum = 0.0
+    @games_collection.games.each do |game|
+      ties_sum += 1 if game.home_goals == game.away_goals
+    end
+    (ties_sum / @games_collection.games.length).round(2)
+  end
 end
