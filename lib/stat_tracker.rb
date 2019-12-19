@@ -47,23 +47,24 @@ class StatTracker
 	end
 
 	def highest_scoring_home_team
-		@away_goals.map do |score|
-			score.max
-			return @home_team_id
+		team = @teams.max_by do |team|
+			team.average_goals_home
 		end
+			team.team_name
 	end
 
 	def lowest_scoring_visitor
-		@away_goals.map do |score|
-			score.min
-			return @away_team_id
+		team = @teams.min_by do |team|
+			team.average_goals_away
 		end
+		team.team_name
 	end
+
 	def lowest_scoring_home_team
-		@home_goals.map do |score|
-			score.min
-			return @home_team_id
+		team = @teams.min_by do |team|
+			team.average_goals_home
 		end
+			team.team_name
 	end
 
 	def count_of_games_by_season
@@ -76,6 +77,4 @@ class StatTracker
 	# 	goals_by_season = {}
 	# 	@seasons.each {|season| goals_by_season[season.id] = season.total_games}
 	# end
-
-
 end

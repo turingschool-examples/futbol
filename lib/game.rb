@@ -39,30 +39,30 @@ class Game
     return nil
   end
 
-  def highest_score
-    Game.all.max_by {|game| game.total_score}
+  def highest_total_score
+    Game.all.max_by {|game| game.total_score}.total_score
   end
 
-  def lowest_score
-    Game.all.min_by {|game| game.total_score}
+  def lowest_total_score
+    Game.all.min_by {|game| game.total_score}.total_score
   end
 
   def biggest_blow_out
-    Game.all.max_by {|game| game.score_difference}
+    Game.all.max_by {|game| game.score_difference}.score_difference
   end
 
-  def percent_home_wins
+  def percentage_home_wins
     home_wins = Game.all.find_all do |game|
       game.home_goals > game.away_goals
     end
-    return ((home_wins.length.to_f/Game.all.length) * 100).round(2)
+    return ((home_wins.length.to_f/Game.all.length).round(2)
   end
 
-  def percent_away_wins
+  def percentage_visitor_wins
     away_wins = Game.all.find_all do |game|
       game.away_goals > game.home_goals
     end
-    return ((away_wins.length.to_f/Game.all.length) * 100).round(2)
+    return ((away_wins.length.to_f/Game.all.length).round(2)
   end
 
   def percent_ties
@@ -76,5 +76,4 @@ class Game
     total_goals = Games.all.map {|game| game.total_score}
     return ((total_goals.sum.to_f / Game.all.length) * 100.round(2))
   end
-
 end
