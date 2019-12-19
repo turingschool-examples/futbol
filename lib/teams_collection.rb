@@ -14,4 +14,8 @@ class TeamsCollection
   def create_teams(teams_path)
     create_instances(teams_path, Team)
   end
+
+  def count_of_teams
+    teams.length
+  end
 end

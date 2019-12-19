@@ -68,4 +68,8 @@ class StatTracker
     games_collection.percentage_ties
   end
 
+  def count_of_teams
+    teams_collection.count_of_teams
+  end
+
 end

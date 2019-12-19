@@ -17,4 +17,8 @@ class TeamsCollectionTest < Minitest::Test
     assert_equal 1, @teams_collection.teams.first.team_id
     assert_equal "ATL", @teams_collection.teams.first.abbreviation
   end
+
+  def test_count_of_teams
+    assert_equal 32, @teams_collection.count_of_teams
+  end
 end
