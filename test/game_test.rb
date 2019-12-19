@@ -45,6 +45,10 @@ class GameTest < MiniTest::Test
 
   end
 
+  def teardown
+    Game.reset_all
+  end
+
   def test_it_exists
     assert_instance_of Game, @game
   end
@@ -74,8 +78,8 @@ class GameTest < MiniTest::Test
     assert_nil @game3.winner
   end
 
-  # def test_self_method_can_pull_all_games
-  #   assert_equal 3, Game.all.length
-  #   assert_instance_of Game, Game.all[0]
-  # end
+  def test_self_method_can_pull_all_games
+    assert_equal 3, Game.all.length
+    assert_instance_of Game, Game.all[0]
+  end
 end

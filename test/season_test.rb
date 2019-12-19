@@ -31,4 +31,8 @@ class SeasonTest < MiniTest::Test
   def test_find_total_games_in_season
     assert_equal 11, @season.total_games
   end
+
+  def test_season_all_class_variable_is_an_array
+    assert_instance_of Array, Season.all
+  end
 end

@@ -6,10 +6,14 @@ class Season
   @@all = []
 
   def self.all
-    @all
+    @@all
   end
 
-  attr_reader :id, :games_by_type
+  def self.reset_all
+    @@all = []
+  end
+
+  attr_reader :id, :games_by_type, :games_unsorted
 
   def initialize(season_hash)
     @id = season_hash[:id].to_i

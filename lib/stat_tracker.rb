@@ -1,10 +1,9 @@
 require "CSV"
 require_relative './team'
 require_relative './season'
-require_relative './digger'
+require_relative './game'
 
 class StatTracker
-	include Digger
 	attr_reader :seasons, :teams, :game_teams, :locations
 
 	def initialize(locations)
@@ -40,12 +39,10 @@ class StatTracker
 	end
 
 	def highest_scoring_visitor
-		team = @teams.max_by do |team|
-			team.average_goals_away
-		end
-		team.team_name
+		@teams.max_by { |team| team.average_goals_away }.team_name
 	end
 
+  #alex
 	def highest_scoring_home_team
 		@away_goals.map do |score|
 			score.max
@@ -59,6 +56,7 @@ class StatTracker
 			return @away_team_id
 		end
 	end
+
 	def lowest_scoring_home_team
 		@home_goals.map do |score|
 			score.min
@@ -68,8 +66,46 @@ class StatTracker
 
 	def count_of_games_by_season
 		games_by_season = {}
-			@seasons.each {|season| games_by_season[season.id] = season.total_games}
+			@seasons.each {|season| games_by_season[season.id.to_s] = season.total_games}
 			return games_by_season
+	end
+
+	def highest_total_score
+		Game.all.max_by {|game| game.total_score}.total_score
+	end
+
+	def lowest_total_score
+		Game.all.min_by {|game| game.total_score}.total_score
+	end
+
+	def biggest_blowout
+		Game.all.max_by {|game| game.score_difference}.score_difference
+	end
+
+	def percentage_home_wins
+		home_wins = Game.all.find_all do |game|
+			game.home_goals > game.away_goals
+		end
+		return ((home_wins.length.to_f/Game.all.length)).round(2)
+	end
+
+	def percentage_visitor_wins
+		away_wins = Game.all.find_all do |game|
+			game.away_goals > game.home_goals
+		end
+		return ((away_wins.length.to_f/Game.all.length)).round(2)
+	end
+
+	def percentage_ties
+			ties = Game.all.find_all do |game|
+				game.winner == nil
+			end
+			return ((ties.length.to_f/Game.all.length)).round(2)
+	end
+
+	def average_goals_per_game
+		total_goals = Game.all.map {|game| game.total_score}
+		return ((total_goals.sum.to_f / Game.all.length).round(2))
 	end
 
 	# def average_goals_by_season

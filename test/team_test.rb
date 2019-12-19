@@ -36,19 +36,19 @@ class TeamTest < MiniTest::Test
   #   skip
   # end
   #
-  # def test_has_hash_of_info
-  #   expected = {team_id: 3,
-  #               franchise_id: 10,
-  #               team_name: "Houston Dynamo",
-  #               abbreviation: "HOU",
-  #               link: "/api/v1/teams/3"}
-  #
-  #   assert_equal expected, @team.team_info
-  # end
-  #
-  # def test_can_pull_its_best_season_object
-  #   # @team.stats_by_season
-  # end
+  def test_has_hash_of_info
+    expected = {team_id: 3,
+                franchise_id: 10,
+                team_name: "Houston Dynamo",
+                abbreviation: "HOU",
+                link: "/api/v1/teams/3"}
+
+    assert_equal expected, @team.team_info
+  end
+
+  def test_can_pull_its_best_season_object
+    @team.stats_by_season
+  end
 
   def test_that_teams_have_average_away_scores
     assert_equal 2.6, @team.average_goals_away
