@@ -59,15 +59,15 @@ attr_reader :games
   def average_goals_per_game
     game_goals_total = @games.sum {|game| game.away_goals + game.home_goals}
     (game_goals_total / @games.length.to_f).round(2)
-<<<<<<< HEAD
+
   end
 # 	Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)	Float
 
   def count_teams
     @game_collection.team_id.uniq
   end
-=======
-  end
+
+
 
   def average_goals_by_season
     game_per_season = @games.group_by{|game| game.season}
@@ -79,5 +79,4 @@ attr_reader :games
       result
     end
   end
->>>>>>> 02407cfb0d91646c3a10828b0459a3f35bd1932c
-end
+end 
