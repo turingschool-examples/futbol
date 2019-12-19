@@ -1,6 +1,5 @@
-require 'minitest/pride'
-require 'minitest/autorun'
 require './lib/game_team'
+require_relative 'test_helper'
 
 class GameTeamTest < Minitest::Test
 
@@ -28,6 +27,11 @@ class GameTeamTest < Minitest::Test
     assert_equal 44.8, @game_team.first.faceoffwinpercentage
     assert_equal 17, @game_team.first.giveaways
     assert_equal 7, @game_team.first.takeaways
+  end
+
+
+  def test_percentage_vistor_team_wins
+    assert_equal 33, GameTeam.percentage_visitor_wins
   end
 
   def test_percentage_home_wins_calculation

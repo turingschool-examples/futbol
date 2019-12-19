@@ -89,5 +89,13 @@ class Game
       all_abs_vals << (game.home_goals - game.away_goals).abs
     end
     all_abs_vals.max
+
+  def self.percentage_ties
+    total_games = 0
+    total_ties = @@games.count do |game|
+      total_games += 1
+      game.away_goals == game.home_goals
+    end
+    (total_ties.to_f / total_games) * 100
   end
 end

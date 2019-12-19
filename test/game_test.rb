@@ -1,5 +1,4 @@
-require 'minitest/pride'
-require 'minitest/autorun'
+require_relative 'test_helper'
 require './lib/game'
 
 class GameTest < Minitest::Test
@@ -55,5 +54,9 @@ class GameTest < Minitest::Test
 
   def test_biggest_blowout
     assert_equal 1, Game.biggest_blowout
+  end
+
+  def test_it_can_calculate_the_percentage_of_games_that_end_in_a_tie
+    assert_equal 20.0, Game.percentage_ties
   end
 end
