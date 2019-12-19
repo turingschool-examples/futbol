@@ -23,12 +23,12 @@ class GamesCollectionTest < Minitest::Test
     assert_equal 3, @game.away_goals
     assert_equal "Postseason", @game.type
   end
-
+  
   def test_highest_total_score
     assert_equal 6, @gamescollection.highest_total_score
   end
 
-  def test_lowest_totalP_score
+  def test_lowest_total_score
     assert_equal 2, @gamescollection.lowest_total_score
   end
 
@@ -43,5 +43,21 @@ class GamesCollectionTest < Minitest::Test
 
   def test_percentage_ties
     assert_equal 0.06, @gamescollection.percentage_ties
+  end
+  
+  def test_it_calculates_percentage_of_home_wins
+    assert_equal 0.40, @gamescollection.percentage_home_wins
+  end
+
+  def test_it_calculates_percentage_of_visitor_wins
+    assert_equal 0.60, @gamescollection.percentage_visitor_wins
+  end
+    
+  def test_average_goals_per_game
+    assert_equal 3.93, @gamescollection.average_goals_per_game
+  end
+
+  def test_average_goals_by_season
+    assert_equal ({20122013=>4.0, 20142015=>3.88, 20152016=>4.0, 20162017=>4.0}), @gamescollection.average_goals_by_season
   end
 end
