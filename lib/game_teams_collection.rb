@@ -45,4 +45,10 @@ class GameTeamsCollection
     home_wins = home_games.count { |game_team| game_team.result == "WIN"}
     percentage(home_wins, home_games.length)
   end
+
+  def away_percentage(hash, team)
+    home_games = hash[team].find_all { |game_team| game_team.hoa == "home" }
+    home_losses = home_games.count { |game_team| game_team.result == "LOSS"}
+    percentage(home_losses, home_games.length)
+  end
 end
