@@ -34,6 +34,6 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_can_find_winningest_team_id
-    assert_equal "27", @game_teams_collection.winningest_team_id
+    assert_equal "24", @game_teams_collection.winningest_team_id
   end
 end
