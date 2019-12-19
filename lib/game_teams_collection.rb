@@ -13,4 +13,12 @@ class GameTeamsCollection
 
     csv.map { |row| GameTeams.new(row) }
   end
+
+  def game_teams_hash
+    @game_teams_array.reduce({}) do |hash, game_teams|
+      hash[game_teams.team_id] << game_teams if hash[game_teams.team_id]
+      hash[game_teams.team_id] = [game_teams] if hash[game_teams.team_id].nil?
+      hash
+    end
+  end
 end
