@@ -36,4 +36,9 @@ class GameTeamsCollectionTest < Minitest::Test
   def test_it_can_find_winningest_team_id
     assert_equal "24", @game_teams_collection.winningest_team_id
   end
+
+  def test_it_can_home_percentage
+    hash = @game_teams_collection.game_teams_hash
+    assert_equal 33.33, @game_teams_collection.home_percentage(hash, "26")
+  end
 end
