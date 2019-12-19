@@ -28,7 +28,7 @@ class GamesCollectionTest < Minitest::Test
     assert_equal 6, @gamescollection.highest_total_score
   end
 
-  def test_lowest_totalP_score
+  def test_lowest_total_score
     assert_equal 2, @gamescollection.lowest_total_score
   end
 

@@ -33,11 +33,11 @@ class GamesCollection
 
   def percentage_home_wins
     home_wins = @games.find_all { |game| game.home_goals > game.away_goals}
-    (home_wins.count.to_f / @games.count.to_f).round(2)
+    (home_wins.length.to_f / @games.length.to_f).round(2)
   end
 
   def percentage_visitor_wins
     visitor_wins = @games.find_all { |game| game.away_goals > game.home_goals}
-    (visitor_wins.count.to_f / @games.count.to_f).round(2)
+    (visitor_wins.length.to_f / @games.length.to_f).round(2)
   end
 end
