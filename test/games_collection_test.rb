@@ -23,4 +23,12 @@ class GamesCollectionTest < Minitest::Test
     assert_equal 3, @game.away_goals
     assert_equal "Postseason", @game.type
   end
+
+  def test_average_goals_per_game
+    assert_equal 3.93, @gamescollection.average_goals_per_game
+  end
+
+  def test_average_goals_by_season
+    assert_equal ({20122013=>4.0, 20142015=>3.88, 20152016=>4.0, 20162017=>4.0}), @gamescollection.average_goals_by_season
+  end
 end
