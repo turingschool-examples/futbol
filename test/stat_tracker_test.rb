@@ -35,7 +35,14 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_stat_tracker_average_goals_by_season
-    average_hash = {"20122013" => 4.13, "20162017" => 5, "20142015" => 5}
+    average_hash = {
+      "20122013"=>3.85, 
+      "20142015"=>4.02, 
+      "20152016"=>4.1, 
+      "20162017"=>4.36, 
+      "20172018"=>4.16, 
+      "20132014"=>4.27
+    }
 
     assert_equal average_hash, @new_tracker.average_goals_by_season
   end
@@ -51,10 +58,23 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_biggest_blowout_method_can_look_at_game_scores
-    assert_equal 3, @new_tracker.biggest_blowout
+    assert_equal 5, @new_tracker.biggest_blowout
   end
 
   def test_count_of_games_by_season
-    assert_equal ({"20122013"=>8}), @new_tracker.count_of_games_by_season
+    count_game_hash = {
+      "20122013"=>33, 
+      "20142015"=>49, 
+      "20152016"=>90, 
+      "20162017"=>73, 
+      "20172018"=>68, 
+      "20132014"=>52
+    }
+    assert_equal count_game_hash, @new_tracker.count_of_games_by_season
+  end
+
+  def test_percentage_ties_method
+    assert_instance_of Float, @new_tracker.percentage_ties
+    assert_equal 0.21, @new_tracker.percentage_ties
   end
 end
