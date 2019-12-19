@@ -14,7 +14,7 @@ class GamesCollectionTest < Minitest::Test
 
   def test_attributes
     assert_equal Array, @gamescollection.games.class
-    assert_equal 15, @gamescollection.games.length
+    assert_equal 16, @gamescollection.games.length
   end
 
   def test_it_can_create_games_from_csv
@@ -34,5 +34,14 @@ class GamesCollectionTest < Minitest::Test
 
   def test_biggest_blowout
     assert_equal 2, @gamescollection.biggest_blowout
+  end
+
+  def test_count_of_games_by_season
+    expected = {20122013=>3, 20142015=>8, 20152016=>2, 20162017=>2, 20132014=>1}
+    assert_equal expected, @gamescollection.count_of_games_by_season
+  end
+
+  def test_percentage_ties
+    assert_equal 0.06, @gamescollection.percentage_ties
   end
 end
