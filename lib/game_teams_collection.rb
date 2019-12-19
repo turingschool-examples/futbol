@@ -65,7 +65,9 @@ class GameTeamsCollection
     hoa_differences(game_teams_hash).max_by { |key, value| value }[0]
   end
 
-  # def worst_fans_ids
-  #
-  # end
+  def worst_fans_ids
+    hoa_diffs = hoa_differences(game_teams_hash)
+    worst_fan_teams = hoa_diffs.find_all { |key, value| value < 0 }
+    worst_fan_teams.map { |element| element[0] }
+  end
 end
