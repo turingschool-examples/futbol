@@ -27,9 +27,9 @@ class GameTeamsCollection
   end
 
   def team_win_percentage(hash, team)
-    numerator = hash[team].count { |game| game.result == "WIN" }
-    denominator = hash[team].length
-    percentage(numerator, denominator)
+    wins = hash[team].count { |game_team| game_team.result == "WIN" }
+    number_of_games = hash[team].length
+    percentage(wins, number_of_games)
   end
 
   def winningest_team_id
@@ -38,5 +38,11 @@ class GameTeamsCollection
       hash[key] = team_win_percentage(hash, key)
     end
     hash.max_by { |key, value| value }[0]
+  end
+
+  def home_percentage(hash, team)
+    home_games = hash[team].find_all { |game_team| game_team.hoa == "home" }
+    home_wins = home_games.count { |game_team| game_team.result == "WIN"}
+    percentage(home_wins, home_games.length)
   end
 end
