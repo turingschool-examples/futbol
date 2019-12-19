@@ -1,8 +1,8 @@
 require_relative '../test_helper'
 require "minitest/autorun"
 require 'minitest/pride'
-require './lib/game'
-require './lib/game_collection'
+require_relative '../lib/game'
+require_relative '../lib/game_collection'
 
 class GameCollectionTest < Minitest::Test
   def setup
@@ -63,9 +63,8 @@ class GameCollectionTest < Minitest::Test
   def test_average_goals_per_game_method
     assert_equal 4.38, @game_collection.average_goals_per_game
   end
+  def test
+    @game_collection.count_teams
 
-  def test_it_can_return_average_goals_by_season
-    result = {"20122013" => 4.25, "20132014" => 5.00, "20142015" => 4.67, "20152016" => 4.56, "20162017" => 3.00}
-    assert_equal result, @game_collection.average_goals_by_season
   end
 end
