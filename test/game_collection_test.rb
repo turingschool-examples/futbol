@@ -35,17 +35,28 @@ class GameCollectionTest < Minitest::Test
     assert_equal 53.85, @game_collection.percentage_home_wins
   end
 
-  def test_it_can_return_percentage_away_wins
-    assert_equal 42.31, @game_collection.percentage_away_wins
+  def test_it_can_return_percentage_visitor_wins
+    assert_equal 42.31, @game_collection.percentage_visitor_wins
   end
 
-  def test_it_can_return_percentage_away_wins
+  def test_it_can_return_percentage_tie_wins
     assert_equal 3.85, @game_collection.percentage_ties
   end
 
   def test_it_can_return_average_season_game
-    result = {20122013 => }
-    assert_equal 
+    result = {"20122013" => 4.25, "20132014" => 5.00, "20142015" => 4.67, "20152016" => 4.56, "20162017" => 3.00}
+    assert_equal result, @game_collection.average_goals_by_season
   end
 
+  def test_it_can_find_highest_total_score
+    assert_equal 7, @game_collection.highest_total_score
+  end
+
+  def test_it_can_find_lowest_total_score
+    assert_equal 2, @game_collection.lowest_total_score
+  end
+
+  def test_it_can_find_biggest_blowout
+    assert_equal 3, @game_collection.biggest_blowout
+  end
 end
