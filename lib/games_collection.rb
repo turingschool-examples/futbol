@@ -29,4 +29,18 @@ class GamesCollection
     blowout = @games.max_by { |game| (game.home_goals - game.away_goals).abs }
     (blowout.home_goals - blowout.away_goals).abs
   end
+
+  def count_of_games_by_season
+    games_per_season = Hash.new(0)
+    games.each do |game|
+      games_per_season[game.season] += 1
+    end
+    games_per_season
+   end
+
+  def percentage_ties
+    ties = @games.find_all { |game| game.home_goals == game.away_goals}
+    (ties.length.to_f / @games.length.to_f).round(2)
+  end
+
 end
