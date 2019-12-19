@@ -20,6 +20,6 @@ class GameCollectionTest < Minitest::Test
     assert_instance_of Game, @game
     assert_equal 'Postseason', @game.type
     assert_equal '20122013', @game.season
+    assert_equal '2', @game.away_goals
   end
 end
- 
