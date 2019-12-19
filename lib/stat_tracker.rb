@@ -44,4 +44,11 @@ class StatTracker
     games_collection.biggest_blowout
   end
 
+  def percentage_home_wins
+    games_collection.percentage_home_wins
+  end
+
+  def percentage_visitor_wins
+    games_collection.percentage_visitor_wins
+  end
 end
