@@ -32,21 +32,21 @@ class StatTrackerTest < Minitest::Test
     # assert_instance_of GameCollection, @new_tracker.games
   end
 
-  def test_percentage_home_away_wins
-    team_1_home = @new_tracker.percentage_home_away_wins("3", "home")
+  def test_percentage_home_visitor_wins_method
+    team_1_home = @new_tracker.percentage_home_visitor_wins("home")
     assert_instance_of Float, team_1_home
-    assert_equal 0.0, team_1_home
+    assert_equal 0.5, team_1_home
 
-    team_1_away = @new_tracker.percentage_home_away_wins("3", "away")
-    assert_instance_of Float, team_1_away
-    assert_equal 1.0, team_1_away
+    team_1_visitor = @new_tracker.percentage_home_visitor_wins("visitor")
+    assert_instance_of Float, team_1_visitor
+    assert_equal 0.5, team_1_visitor
 
-    team_2_home = @new_tracker.percentage_home_away_wins("6", "home")
+    team_2_home = @new_tracker.percentage_home_visitor_wins("home")
     assert_instance_of Float, team_2_home
-    assert_equal 1.0, team_2_home
+    assert_equal 0.5, team_2_home
 
-    team_2_away = @new_tracker.percentage_home_away_wins("6", "away")
-    assert_instance_of Float, team_2_away
-    assert_equal 0.0, team_2_away
+    team_2_visitor = @new_tracker.percentage_home_visitor_wins("visitor")
+    assert_instance_of Float, team_2_visitor
+    assert_equal 0.5, team_2_visitor
   end
 end
