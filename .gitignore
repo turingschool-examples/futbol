@@ -1,2 +1,5 @@
 # Simple Cov #
 coverage/
+
+# ruby version #
+.ruby-version
