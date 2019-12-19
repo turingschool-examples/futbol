@@ -33,20 +33,31 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_percentage_home_visitor_wins_method
-    team_1_home = @new_tracker.percentage_home_visitor_wins("home")
+    team_1_home = @new_tracker.percentage_home_visitor_wins(:home)
     assert_instance_of Float, team_1_home
     assert_equal 0.5, team_1_home
 
-    team_1_visitor = @new_tracker.percentage_home_visitor_wins("visitor")
+    team_1_visitor = @new_tracker.percentage_home_visitor_wins(:visitor)
     assert_instance_of Float, team_1_visitor
     assert_equal 0.5, team_1_visitor
 
-    team_2_home = @new_tracker.percentage_home_visitor_wins("home")
+    team_2_home = @new_tracker.percentage_home_visitor_wins(:home)
     assert_instance_of Float, team_2_home
     assert_equal 0.5, team_2_home
 
-    team_2_visitor = @new_tracker.percentage_home_visitor_wins("visitor")
+    team_2_visitor = @new_tracker.percentage_home_visitor_wins(:visitor)
     assert_instance_of Float, team_2_visitor
     assert_equal 0.5, team_2_visitor
+  end
+
+  def test_highest_lowest_total_score_method
+    test_1 = @new_tracker.highest_lowest_total_score(:highest)
+    assert_instance_of Integer, test_1
+    assert_equal 5, test_1
+
+
+    test_2 = @new_tracker.highest_lowest_total_score(:lowest)
+    assert_instance_of Integer, test_2
+    assert_equal 3, test_2
   end
 end
