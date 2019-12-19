@@ -62,4 +62,13 @@ class Team
   #   stats_by_season
   # end
 
+  def total_winning_percentage
+    all_games_played = Game.all.find_all do |game|
+      game.home_team_id == @team_id || game.away_team_id == @team_id
+    end
+    all_games_won = all_games_played.find_all do |game|
+      game.winner == @team_id
+    end
+    (all_games_won.length.to_f / all_games_played.length).round(2)
+  end
 end
