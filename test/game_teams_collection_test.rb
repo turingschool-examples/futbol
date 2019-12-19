@@ -59,7 +59,7 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_can_find_teams_with_worst_fans
-    skip
-    assert_equal [], @game_teams_collection.worst_fans_ids
+    expected = ["16", "14", "5", "28", "26", "19"]
+    assert_equal expected, @game_teams_collection.worst_fans_ids
   end
 end
