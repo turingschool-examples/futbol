@@ -51,7 +51,7 @@ class GameTeam
     away_wins = @@game_teams.count do |game_team|
       game_team.result == "WIN" && game_team.hoa == "away"
     end
-      (away_wins.to_f / away_games * 100).round
+      (away_wins.to_f / away_games * 100).round(2)
   end
 
   def self.percentage_home_wins
@@ -67,7 +67,7 @@ class GameTeam
           total_games += 1
         end
       end
-      ((total_wins.to_f / total_games) * 100).round(3)
+      ((total_wins.to_f / total_games) * 100).round(2)
   end
 
   def self.best_offense
@@ -75,10 +75,13 @@ class GameTeam
       acc[game_team.team_id] = 0
       acc
     end
-    goal_value = @@game_teams.each do |game_team|
+     @@game_teams.each do |game_team|
       team_goals[game_team.team_id] += game_team.goals
     end
     team_goals
     end
-
+    total_games = @@game_teams.count do |game_team|
+      game_team.team_id
+    end
+    total_games
   end
