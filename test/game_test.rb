@@ -2,6 +2,7 @@ require_relative 'test_helper'
 require './lib/game'
 
 class GameTest < Minitest::Test
+
   def setup
     @game = Game.from_csv('./data/dummy_game.csv')
   end

@@ -1,6 +1,8 @@
 require 'csv'
+require_relative 'csv_loadable'
 
 class Team
+  extend CsvLoadable
   attr_reader :team_id,
               :franchiseid,
               :teamname,
@@ -11,14 +13,11 @@ class Team
   @@teams = []
 
   def self.from_csv(file_path)
-    csv = CSV.read(file_path, headers: true, header_converters: :symbol)
-    @@teams = csv.map do |row|
-      Team.new(row)
-    end
+    create_instances(file_path, Team)
+    @@teams = @objects
   end
 
   def initialize(team_info)
-    # require "pry"; binding.pry
     @team_id = team_info[:team_id].to_i
     @franchiseid = team_info[:franchiseid].to_i
     @teamname = team_info[:teamname]

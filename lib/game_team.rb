@@ -1,6 +1,9 @@
 require 'csv'
+require_relative 'csv_loadable'
 
 class GameTeam
+  extend CsvLoadable
+
   attr_reader :game_id,
               :team_id,
               :hoa,
@@ -20,10 +23,8 @@ class GameTeam
   @@game_teams = []
 
   def self.from_csv(file_path)
-    csv = CSV.read(file_path, headers: true, header_converters: :symbol)
-    @@game_teams = csv.map do |row|
-      GameTeam.new(row)
-    end
+    create_instances(file_path, GameTeam)
+    @@game_teams = @objects
   end
 
   def initialize(game_team_info)
