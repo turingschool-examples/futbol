@@ -9,6 +9,7 @@ class GamesCollection
 
   def initialize(games_path)
     @games = create_games(games_path)
+
   end
 
   def create_games(games_path)
@@ -28,5 +29,15 @@ class GamesCollection
   def biggest_blowout
     blowout = @games.max_by { |game| (game.home_goals - game.away_goals).abs }
     (blowout.home_goals - blowout.away_goals).abs
+  end
+
+  def percentage_home_wins
+    home_wins = @games.find_all { |game| game.home_goals > game.away_goals}
+    (home_wins.count.to_f / @games.count.to_f).round(2)
+  end
+
+  def percentage_visitor_wins
+    visitor_wins = @games.find_all { |game| game.away_goals > game.home_goals}
+    (visitor_wins.count.to_f / @games.count.to_f).round(2)
   end
 end
