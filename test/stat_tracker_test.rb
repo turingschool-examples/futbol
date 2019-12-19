@@ -26,8 +26,17 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_that_data_can_be_passed_to_stat_tracker_attributes
+    skip
     assert_instance_of GameCollection, @new_tracker.games
     assert_instance_of TeamCollection, @new_tracker.teams
     # assert_instance_of GameCollection, @new_tracker.games
+  end
+
+  def test_highest_total_score
+    assert_equal 5, @new_tracker.highest_total_score
+  end
+
+  def test_lowest_total_score
+    assert_equal 3, @new_tracker.lowest_total_score
   end
 end
