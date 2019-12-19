@@ -26,10 +26,15 @@ class GameTeamsCollection
     return ((numerator.to_f / denominator) * 100).round(2)
   end
 
-  def team_win_percentage(hash, team)
-    wins = hash[team].count { |game_team| game_team.result == "WIN" }
-    number_of_games = hash[team].length
-    percentage(wins, number_of_games)
+  def team_win_percentage(games_hash, team, hoa = nil)
+    team_games = Hash.new
+    if hoa
+      team_games[team] = games_hash[team].find_all { |game_team| game_team.hoa == hoa }
+    else
+      team_games[team] = games_hash[team]
+    end
+    wins = team_games[team].count { |game_team| game_team.result == "WIN" }
+    percentage(wins, team_games[team].length)
   end
 
   def winningest_team_id
@@ -41,22 +46,10 @@ class GameTeamsCollection
     win_percentages.max_by { |key, value| value }[0]
   end
 
-  def home_percentage(hash, team)
-    home_games = hash[team].find_all { |game_team| game_team.hoa == "home" }
-    home_wins = home_games.count { |game_team| game_team.result == "WIN"}
-    percentage(home_wins, home_games.length)
-  end
-
-  def away_percentage(hash, team)
-    home_games = hash[team].find_all { |game_team| game_team.hoa == "away" }
-    home_wins = home_games.count { |game_team| game_team.result == "WIN"}
-    percentage(home_wins, home_games.length)
-  end
-
   def hoa_differences(hash)
     diffs = Hash.new{}
     hash.each do |key, value|
-      diffs[key] = home_percentage(hash, key) - away_percentage(hash, key)
+      diffs[key] = team_win_percentage(hash, key, "home") - team_win_percentage(hash, key, "away")
     end
     diffs
   end
