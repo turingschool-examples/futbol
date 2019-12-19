@@ -6,9 +6,11 @@ class Game
    @@all
   end
 
+  #For minitest only
   def self.reset_all
     @@all = []
   end
+  #for MiniTest only
 
   attr_reader :id, :season, :type, :date_time, :away_team_id, :home_team_id, :away_goals, :home_goals, :venue, :venue_link
 
