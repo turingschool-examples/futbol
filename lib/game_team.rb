@@ -1,4 +1,5 @@
 require 'csv'
+require './lib/team'
 
 class GameTeam
   @@all_game_teams
@@ -61,5 +62,42 @@ class GameTeam
     count_tie = 0
     @@all_game_teams.each {|game_team| count_tie += 1 if game_team.result == "TIE" && game_team.hoa == "home"}
     (count_tie/total_games.to_f).round(2)
+  end
+
+  def self.highest_scoring_visitor
+    goals_team = {}
+    games_team = {}
+    goal_count = 0
+    game_count = 0
+    visitors = @@all_game_teams.find_all {|game_team| game_team.hoa == "away"}
+    visitors_sorted = visitors.sort_by(&:team_id)
+
+    visitors_sorted.each do |visitor|
+      if goals_team.keys.include?(visitor.team_id) == false
+        goals = 0
+        goals_team[visitor.team_id] = (goals += visitor.goals.to_i)
+        game_count = 0
+        games_team[visitor.team_id] = (game_count += 1)
+      else
+        goals_team[visitor.team_id] = (goal_count += visitor.goals.to_i)
+        games_team[visitor.team_id] = (game_count += 1)
+      end
+    end
+
+    avg_goal_team = {}
+    games_team.keys.each do |key|
+      avg_goal_per_game = goals_team[key]/games_team[key]
+      avg_goal_team[key] = avg_goal_per_game
+    end
+    max_team = avg_goal_team.max_by do |goal|
+      goal[-1]
+    end
+    max_team.first
+    team_name = ""
+    Team.all_teams.each do |team_param|
+      team_name = team_param.team_name if max_team.first == team_param.team_id
+    end
+    team_name
+    #make module for finding team name from team id using hash
   end
 end

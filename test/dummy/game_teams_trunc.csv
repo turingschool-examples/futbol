@@ -7,3 +7,5 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012030223,3,home,LOSS,REG,John Tortorella,1,6,37,2,2,0,38.2,7,9
 2012030121,9,away,TIE,REG,Paul MacLean,2,7,31,23,2,0,39.4,9,1
 2012030121,8,home,TIE,REG,Michel Therrien,2,12,24,6,5,1,60.6,11,10
+2012030185,26,away,WIN,OT,Darryl Sutter,3,6,30,2,2,1,50,2,7
+2012030185,19,home,LOSS,OT,Ken Hitchcock,2,9,41,4,1,0,50,7,7
