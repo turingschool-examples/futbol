@@ -26,8 +26,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_that_data_can_be_passed_to_stat_tracker_attributes
-    assert_instance_of GameCollection, @new_tracker.games
-    assert_instance_of TeamCollection, @new_tracker.teams
+    assert_instance_of GameCollection, @new_tracker.games_collection
+    assert_instance_of TeamCollection, @new_tracker.teams_collection
     # assert_instance_of GameCollection, @new_tracker.games
+  end
+
+  def test_biggest_blowout_method_can_look_at_game_scores
+    assert_equal 3, @new_tracker.biggest_blowout
   end
 end
