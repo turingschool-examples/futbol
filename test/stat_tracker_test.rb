@@ -34,7 +34,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_stat_tracker_average_goals_by_season
-    average_hash = {20122013 => 4.13, 20162017 => 5, 20142015 => 5}
+    average_hash = {"20122013" => 4.13, "20162017" => 5, "20142015" => 5}
 
     assert_equal average_hash, @new_tracker.average_goals_by_season
   end

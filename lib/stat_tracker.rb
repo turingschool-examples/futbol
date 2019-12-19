@@ -24,10 +24,10 @@ class StatTracker
     averages = {}
 
     @game_collection.games.each do |game|
-      if !sums.key?(game.season.to_i)
-        sums[game.season.to_i] = (game.home_goals.to_i + game.away_goals.to_i)
+      if !sums.key?(game.season)
+        sums[game.season] = (game.home_goals.to_i + game.away_goals.to_i)
       else
-        sums[game.season.to_i] += (game.home_goals.to_i + game.away_goals.to_i)
+        sums[game.season] += (game.home_goals.to_i + game.away_goals.to_i)
       end
     end
 
