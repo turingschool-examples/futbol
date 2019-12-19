@@ -83,6 +83,13 @@ class Game
     end
   end
 
+  def self.biggest_blowout
+    all_abs_vals = []
+    @@games.each do |game|
+      all_abs_vals << (game.home_goals - game.away_goals).abs
+    end
+    all_abs_vals.max
+
   def self.percentage_ties
     total_games = 0
     total_ties = @@games.count do |game|
