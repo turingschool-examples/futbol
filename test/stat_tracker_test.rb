@@ -34,4 +34,8 @@ class StatTrackerTest < Minitest::Test
   def test_biggest_blowout_method_can_look_at_game_scores
     assert_equal 3, @new_tracker.biggest_blowout
   end
+
+  def test_count_of_games_by_season
+    assert_equal {"20122013"=>8}, @new_tracker.count_of_games_by_season
+  end
 end
