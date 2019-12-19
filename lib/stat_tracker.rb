@@ -24,6 +24,10 @@ class StatTracker
   end
 
   def count_of_games_by_season
-    
+    season = Hash.new(0)
+    @games_collection.games.each do |game|
+      season[game.season] += 1
+    end
+    season
   end
 end
