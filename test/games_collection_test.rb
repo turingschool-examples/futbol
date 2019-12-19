@@ -54,7 +54,7 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_average_goals_per_game
-    assert_equal 3.93, @gamescollection.average_goals_per_game
+    assert_equal 4.06, @gamescollection.average_goals_per_game
   end
 
   def test_average_goals_by_season
