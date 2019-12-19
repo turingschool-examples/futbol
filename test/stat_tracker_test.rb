@@ -49,4 +49,12 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of Integer, @new_tracker.lowest_total_score
     assert_equal 1, @new_tracker.lowest_total_score
   end
+
+  def test_biggest_blowout_method_can_look_at_game_scores
+    assert_equal 3, @new_tracker.biggest_blowout
+  end
+
+  def test_count_of_games_by_season
+    assert_equal ({"20122013"=>8}), @new_tracker.count_of_games_by_season
+  end
 end
