@@ -1,5 +1,5 @@
 require_relative './test_helper'
-require 'CSV'
+require 'csv'
 require './lib/stat_tracker'
 require './lib/game'
 require './lib/team'
@@ -24,8 +24,8 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_that_data_can_be_passed_to_stat_tracker_attributes
-    assert_instance_of GameCollection, @new_tracker.games
-    assert_instance_of TeamCollection, @new_tracker.teams
+    assert_instance_of GameCollection, @new_tracker.game_collection
+    assert_instance_of TeamCollection, @new_tracker.team_collection
     # assert_instance_of GameCollection, @new_tracker.games
   end
 

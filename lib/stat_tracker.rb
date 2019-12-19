@@ -1,36 +1,40 @@
-require 'CSV'
+require 'csv'
 
 class StatTracker
-  attr_reader :games, :teams, :game_teams
+  attr_reader :game_collection, :team_collection, :game_teams
 
   def initialize(games, teams)
-    @games = games
-    @teams = teams
+    @game_collection = games
+    @team_collection = teams
     # @game_team = game_team
   end
 
   def average_goals_per_game
     sum = 0
 
-    @games.games.each do |game|
+    @game_collection.games.each do |game|
       sum += (game.away_goals.to_i + game.home_goals.to_i)
     end
 
-    (sum.to_f / @games.games.length).round(2)
+    (sum.to_f / @game_collection.games.length).round(2)
   end
 
   def average_goals_by_season
+    sums = {}
     averages = {}
 
-    @games.games.each do |game|
-      if !averages.key?(game.season.to_i)
-        averages[game.season.to_i] = (game.home_goals.to_i + game.away_goals.to_i)
+    @game_collection.games.each do |game|
+      if !sums.key?(game.season.to_i)
+        sums[game.season.to_i] = (game.home_goals.to_i + game.away_goals.to_i)
       else
-        averages[game.season.to_i] += (game.home_goals.to_i + game.away_goals.to_i)
+        sums[game.season.to_i] += (game.home_goals.to_i + game.away_goals.to_i)
       end
     end
 
-    # require 'pry'; binding.pry
+    sums.each do |key, value|
+      averages[key] = (value.to_f / count_of_games_by_season[key]).round(2)
+    end
+
     averages
   end
 end
