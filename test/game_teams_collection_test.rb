@@ -47,7 +47,19 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal 50, @game_teams_collection.away_percentage(hash, "26")
   end
 
+  def test_it_can_calculate_home_or_away_differences
+    hash = @game_teams_collection.game_teams_hash
+    diffs = @game_teams_collection.hoa_differences(hash)
+    assert diffs.find { |key, value| value < 0 }
+    assert diffs.find { |key, value| value == 0 }
+  end
+
   def test_it_can_find_id_of_team_with_best_fans
-    assert_equal "24", @game_teams_collection.best_fans_id
+    assert_equal "20", @game_teams_collection.best_fans_id
+  end
+
+  def test_it_can_find_teams_with_worst_fans
+    skip
+    assert_equal [], @game_teams_collection.worst_fans_ids
   end
 end
