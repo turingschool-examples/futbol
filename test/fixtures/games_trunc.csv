@@ -14,3 +14,4 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2014020675,20142015,Regular Season,1/19/15,7,17,2,4,Dignity Health Sports Park,/api/v1/venues/null
 2014021227,20142015,Regular Season,4/12/15,18,25,1,2,SeatGeek Stadium,/api/v1/venues/null
 2014020868,20142015,Regular Season,2/21/15,10,12,1,2,Yurcak Field,/api/v1/venues/null
+2013020246,20132014,Regular Season,11/9/13,13,9,3,3,Yankee Stadium,/api/v1/venues/null
