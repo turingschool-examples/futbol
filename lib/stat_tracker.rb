@@ -38,12 +38,12 @@ class StatTracker
   def average_goals_by_season
     game_per_season = @game_collection.games.group_by{|game| game.season}
     game_per_season.reduce({}) do |result, season|
-      sum_goals = season[1].sum do |game| 
+      sum_goals = season[1].sum do |game|
         game.away_goals + game.home_goals
       end
       result[season[0]] = (sum_goals/season[1].size.to_f).round(2)
       result
-    end 
+    end
   end
 
   def highest_total_score
@@ -74,5 +74,6 @@ class StatTracker
       new_hash
     end
   end
+
 
 end
