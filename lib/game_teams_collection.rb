@@ -22,8 +22,13 @@ class GameTeamsCollection
     end
   end
 
-  def team_win_percentage(team)
-    hash = game_teams_hash
-    (hash[team].count { |game| game.result == "WIN" } / hash[team].length.to_f) * 100
+  def percentage(numerator, denominator) #to-do: make Calculatable module
+    return ((numerator.to_f / denominator) * 100).round(2)
+  end
+
+  def team_win_percentage(hash, team)
+    numerator = hash[team].count { |game| game.result == "WIN" }
+    denominator = hash[team].length
+    percentage(numerator, denominator)
   end
 end
