@@ -31,7 +31,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_stat_tracker_average_goals_per_game
     assert_instance_of Float, @new_tracker.average_goals_per_game
-    assert_equal 4.3, @new_tracker.average_goals_per_game
+    assert_equal 4.15, @new_tracker.average_goals_per_game
   end
 
   def test_stat_tracker_average_goals_by_season
@@ -42,11 +42,11 @@ class StatTrackerTest < Minitest::Test
 
   def test_highest_total_score
     assert_instance_of Integer, @new_tracker.highest_total_score
-    assert_equal 5, @new_tracker.highest_total_score
+    assert_equal 10, @new_tracker.highest_total_score
   end
 
   def test_lowest_total_score
     assert_instance_of Integer, @new_tracker.lowest_total_score
-    assert_equal 3, @new_tracker.lowest_total_score
+    assert_equal 1, @new_tracker.lowest_total_score
   end
 end

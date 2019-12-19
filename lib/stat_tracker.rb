@@ -12,18 +12,18 @@ class StatTracker
   def average_goals_per_game
     sum = 0
 
-    @game_collection.games.each do |game|
+    @games_collection.games.each do |game|
       sum += (game.away_goals.to_i + game.home_goals.to_i)
     end
 
-    (sum.to_f / @game_collection.games.length).round(2)
+    (sum.to_f / @games_collection.games.length).round(2)
   end
 
   def average_goals_by_season
     sums = {}
     averages = {}
 
-    @game_collection.games.each do |game|
+    @games_collection.games.each do |game|
       if !sums.key?(game.season)
         sums[game.season] = (game.home_goals.to_i + game.away_goals.to_i)
       else
