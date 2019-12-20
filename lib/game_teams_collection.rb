@@ -27,20 +27,20 @@ class GameTeamsCollection
 
   def home_games_only
     home_only = {}
-    game_teams_lists_by_id.each do |game_id, games|
+    game_teams_lists_by_id.each do |team_id, games|
       #all games that belong to game_id
-      home_only[game_id] = games.find_all do |game|
+      home_only[team_id] = games.find_all do |game|
         game.hoa == "home"
       end
     end
     home_only
   end
 
-  def find_games_only_average
-    home_only["19"].sum {|game| game.goals}
-    home_only["19"].sum {|game| game.goals.to_i}/home_only["19"].length
+  def home_games_only_average
+    home_only_average = {}
+    home_games_only.each do |game_id, games|
+    home_only_average[game_id] = games.sum { |game| game.goals.to_i} / games.length.to_f
+    end
+    home_only_average
   end
-
-
-
 end
