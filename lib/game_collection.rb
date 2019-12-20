@@ -94,6 +94,8 @@ class GameCollection
     games_difference
   end
 
+  
+
   def find_away_defense_goals(away_team_id)
     away_defense = @games.find_all {|game| game.away_team_id == (away_team_id)}
 

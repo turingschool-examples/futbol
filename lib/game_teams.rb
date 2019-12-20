@@ -1,4 +1,5 @@
 class GameTeams
+
   attr_reader :hoa, :result
 
   def initialize(game_teams_info)
@@ -6,3 +7,4 @@ class GameTeams
     @result = game_teams_info[:result]
   end
 end
+# require "pry"; binding.pry
