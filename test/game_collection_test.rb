@@ -14,13 +14,13 @@ class GameCollectionTest < Minitest::Test
 
   def test_game_collection_has_games
     assert_instance_of Array, @collection.games
-    assert_equal 8, @collection.games.length
+    assert_equal 365, @collection.games.length
   end
 
   def test_game_collection_can_create_games_from_csv
     assert_instance_of Game, @game
     assert_equal 'Postseason', @game.type
     assert_equal '20122013', @game.season
-    assert_equal '2', @game.away_goals
+    assert_equal '1', @game.away_goals
   end
 end
