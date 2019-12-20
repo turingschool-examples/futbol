@@ -122,5 +122,6 @@ class GamesCollection
   end
 end
 
+#best offence
 # Name of the team with the highest average number of goals scored
 # per game across all seasons.	String
