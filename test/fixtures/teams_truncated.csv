@@ -1,6 +1,6 @@
-team_id,franchiseId,teamName,abbreviation,Stadium,link
-1,23,Atlanta United,ATL,Mercedes-Benz Stadium,/api/v1/teams/1
-4,16,Chicago Fire,CHI,SeatGeek Stadium,/api/v1/teams/4
-26,14,FC Cincinnati,CIN,Nippert Stadium,/api/v1/teams/26
-14,31,DC United,DC,Audi Field,/api/v1/teams/14
-6,6,FC Dallas,DAL,Toyota Stadium,/api/v1/teams/6
+team_id,franchise_id,team_name,abbreviation,stadium
+1,23,Atlanta United,ATL,Mercedes-Benz Stadium
+4,16,Chicago Fire,CHI,SeatGeek Stadium
+26,14,FC Cincinnati,CIN,Nippert Stadium
+14,31,DC United,DC,Audi Field
+6,6,FC Dallas,DAL,Toyota Stadium
