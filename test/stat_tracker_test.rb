@@ -50,6 +50,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal 0.20, @stat_tracker.percentage_ties
   end
 
+  def test_team_with_best_offense
+    assert_equal "FC Dallas", @stat_tracker.best_offense
+  end
+
 
 
 
