@@ -1,18 +1,21 @@
 require 'csv'
+require_relative 'game_collection'
+require_relative 'team_collection'
 
 class StatTracker
   attr_reader :games_collection, :teams_collection, :game_teams_collection
 
   def self.from_csv(locations)
-    games_collection = locations[:games]
-    teams_collection = locations[:teams]
+    games_collect = locations[:games]
+    teams_collect = locations[:teams]
 
-    StatTracker.new(games_collection, teams_collection)
+    StatTracker.new(games_collect, teams_collect)
   end
 
   def initialize(games_collection, teams_collection)
-    @games_collection = games_collection
-    @teams_collection = teams_collection
+    @games_collection = GameCollection.new(games_collection)
+    @teams_collection = TeamCollection.new(teams_collection)
+    # require 'pry'; binding.pry
     # @game_team = game_team
   end
 
