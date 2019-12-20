@@ -118,11 +118,17 @@ class GamesCollection
     end
   end
 
-  def best_offence
-    x = team_id_to_avg
+  def best_offence_id
+    avg_hash = team_id_to_avg
     #Find team_id with highest average goals
-    y = team_id_to_avg.max_by {|k, v| v}
+    highest_avg = avg_hash.max_by {|k, v| v}
     #pull that team's id
-    z = y[0]
+    highest_avg_id = highest_avg[0]
+  end
+
+  def worst_offence_id
+    avg_hash = team_id_to_avg
+    lowest_avg = avg_hash.min_by {|k, v| v}
+    lowest_avg_id = lowest_avg[0]
   end
 end

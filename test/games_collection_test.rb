@@ -61,7 +61,11 @@ class GamesCollectionTest < Minitest::Test
     assert_equal ({"20122013"=>4.0, "20142015"=>3.88, "20152016"=>4.0, "20162017"=>4.0, "20132014"=>6.0}), @gamescollection.average_goals_by_season
   end
 
-  def test_away_max
-    @gamescollection.best_offence
+  def test_best_offence_id
+    assert_equal 14, @gamescollection.best_offence_id
+  end
+
+  def test_worst_offence_id
+    assert_equal 16, @gamescollection.worst_offence_id
   end
 end

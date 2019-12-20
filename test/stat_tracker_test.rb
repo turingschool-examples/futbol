@@ -29,4 +29,8 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of TeamsCollection, @stat_tracker.teams_collection
   end
 
+  def test_best_offence
+    assert_equal "DC United", @stat_tracker.best_offence
+  end
+
 end
