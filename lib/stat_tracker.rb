@@ -19,38 +19,38 @@ class StatTracker
   end
 
   def highest_total_score
-    @games.all.highest_total_score
+    Games.highest_total_score
   end
 
   def lowest_total_score
-    @games.all.lowest_total_score
+    Games.lowest_total_score
   end
 
   def biggest_blowout
-    @games.all.biggest_blowout
+    Games.biggest_blowout
   end
 
   def percentage_home_wins
-    @games.all.percentage_home_wins
+    Games.percentage_home_wins
   end
 
   def percentage_visitor_wins
-    @games.all.percentage_visitor_wins
+    Games.percentage_visitor_wins
   end
 
   def percentage_ties
-    @games.all.percentage_ties
+    Games.percentage_ties
   end
 
   def count_of_games_by_season
-    @games.all.count_of_games_by_season
+    Games.count_of_games_by_season
   end
 
   def average_goals_per_game
-    @games.all.average_goals_per_game
+    Games.average_goals_per_game
   end
 
   def average_goals_by_season
-    @games.all.average_goals_by_season
+    Games.average_goals_by_season
   end
 end
