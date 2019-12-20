@@ -2,6 +2,7 @@ require 'csv'
 require_relative 'team'
 
 class Team
+  attr_reader :team_id, :franchiseId, :teamName, :abbreviation
   @@all = []
 
   def self.all
@@ -14,13 +15,10 @@ class Team
   def self.from_csv(file_path)
     csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
 
-
     @@all = csv.map do |row|
       Team.new(row)
     end
   end
-
-    attr_reader :team_id, :franchiseId, :teamName, :abbreviation
 
   def initialize(team_info)
     @team_id = team_info[:team_id]
