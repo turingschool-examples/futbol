@@ -48,7 +48,7 @@ class GamesCollection
     visitor_wins = @games.find_all { |game| game.away_goals > game.home_goals}
     (visitor_wins.length.to_f / @games.length.to_f).round(2)
   end
-  
+
   def count_of_games_by_season
   games_per_season = Hash.new(0)
     games.each do |game|
@@ -61,7 +61,7 @@ class GamesCollection
     ties = @games.find_all { |game| game.home_goals == game.away_goals}
     (ties.length.to_f / @games.length.to_f).round(2)
   end
-    
+
   def average_goals_by_season
     season_to_game = games.reduce({}) do |acc, game|
     if acc[game.season] == nil
@@ -80,5 +80,55 @@ class GamesCollection
        game.home_goals}).length.to_f).round(2)
     end
   avg_by_season
+  end
+
+  def team_id_to_avg
+    # Create a hash that matches, for each game, the team id to the matching goals
+    # If the team id shows up more than once, then its goals for that new game
+    # are added to the hash key created for it. This should give us for each team,
+    # the total amount of goals they made for all games.
+    y = games.reduce({}) do |acc, game|
+      if acc[game.home_team_id] == nil
+        acc[game.home_team_id] = []
+        acc[game.home_team_id] << game.home_goals
+        if acc[game.away_team_id] == nil
+          acc[game.away_team_id] = []
+          acc[game.away_team_id] << game.away_goals
+        else
+          acc[game.away_team_id] << game.away_goals
+        end
+      else
+        acc[game.home_team_id] << game.home_goals
+        if acc[game.away_team_id] == nil
+          acc[game.away_team_id] = []
+          acc[game.away_team_id] << game.away_goals
+        else
+          acc[game.away_team_id] << game.away_goals
+        end
+      end
+      acc
+    end
+    # Create a hash that matches each team_id to their goal average (total
+    # amount of goals divided by the number of games they played)
+    team_id_to_avg = y.reduce({}) do |acc, y|
+      id = y[0]
+      avg = (y[1].sum) / (y[1].length).to_f
+      acc[id] = [avg]
+      acc
+    end
+  end
+
+  def best_offence_id
+    avg_hash = team_id_to_avg
+    #Find team_id with highest average goals
+    highest_avg = avg_hash.max_by {|k, v| v}
+    #pull that team's id
+    highest_avg_id = highest_avg[0]
+  end
+
+  def worst_offence_id
+    avg_hash = team_id_to_avg
+    lowest_avg = avg_hash.min_by {|k, v| v}
+    lowest_avg_id = lowest_avg[0]
   end
 end
