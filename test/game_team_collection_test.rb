@@ -16,4 +16,10 @@ class GameTeamCollectionTest < Minitest::Test
     assert_instance_of Array, @collection.game_teams
     assert_equal 375, @collection.game_teams.length
   end
+
+  def test_game_team_collection_can_create_game_teams_from_csv
+    assert_instance_of GameTeam, @game_team
+    assert_equal '3', @game_team.team_id
+    assert_equal 'John Tortorella', @game_team.head_coach
+  end
 end
