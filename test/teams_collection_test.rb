@@ -21,4 +21,8 @@ class TeamsCollectionTest < Minitest::Test
   def test_count_of_teams
     assert_equal 32, @teams_collection.count_of_teams
   end
+
+  def test_associate_team_id_with_team_name
+    assert_equal "Atlanta United", @teams_collection.associate_team_id_with_team_name(1)
+  end
 end

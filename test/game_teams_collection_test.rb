@@ -17,4 +17,7 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal "Claude Julien", @game_teams_collection.game_teams.first.head_coach
     assert_equal 4, @game_teams_collection.game_teams.first.goals
   end
+
+
+  
 end
