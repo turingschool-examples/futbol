@@ -36,6 +36,17 @@ class GameTeamsCollection
     home_only
   end
 
+  def away_games_only
+    away_only = {}
+    game_teams_lists_by_id.each do |team_id, games|
+      #all games that belong to game_id
+      away_only[team_id] = games.find_all do |game|
+        game.hoa == "away"
+      end
+    end
+    away_only
+  end
+
   def home_games_only_average
     home_only_average = {}
     home_games_only.each do |game_id, games|
@@ -43,4 +54,5 @@ class GameTeamsCollection
     end
     home_only_average
   end
+
 end
