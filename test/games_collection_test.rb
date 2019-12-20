@@ -60,4 +60,8 @@ class GamesCollectionTest < Minitest::Test
   def test_average_goals_by_season
     assert_equal ({"20122013"=>4.0, "20142015"=>3.88, "20152016"=>4.0, "20162017"=>4.0, "20132014"=>6.0}), @gamescollection.average_goals_by_season
   end
+
+  def test_away_max
+    @gamescollection.away_max
+  end
 end

@@ -48,7 +48,7 @@ class GamesCollection
     visitor_wins = @games.find_all { |game| game.away_goals > game.home_goals}
     (visitor_wins.length.to_f / @games.length.to_f).round(2)
   end
-  
+
   def count_of_games_by_season
   games_per_season = Hash.new(0)
     games.each do |game|
@@ -61,7 +61,7 @@ class GamesCollection
     ties = @games.find_all { |game| game.home_goals == game.away_goals}
     (ties.length.to_f / @games.length.to_f).round(2)
   end
-    
+
   def average_goals_by_season
     season_to_game = games.reduce({}) do |acc, game|
     if acc[game.season] == nil
@@ -81,4 +81,46 @@ class GamesCollection
     end
   avg_by_season
   end
+
+  def away_max
+    x = games.reduce({}) do |acc, game|
+      if acc[game.away_team_id] == nil
+        acc[game.away_team_id] = []
+        acc[game.away_team_id] << game.away_goals
+      else
+        acc[game.away_team_id] << game.away_goals
+      end
+      acc
+    end
+    ateam_avg = x.reduce({}) do |acc, x|
+      id = x[0]
+      avg = (x[1]).sum / (x[1]).length
+      acc[id] = acc[avg]
+      acc
+    end
+    #why is it returning nil?
+    require "pry"; binding.pry
+
+  end
+
+  def home_max
+    y = games.reduce({}) do |acc, game|
+      if acc[game.home_team_id] == nil
+        acc[game.home_team_id] = []
+        acc[game.home_team_id] << game.home_goals
+      else
+        acc[game.home_team_id] << game.home_goals
+      end
+      acc
+    end
+
+  end
+
+  def best_offence
+
+    require "pry"; binding.pry
+  end
 end
+
+# Name of the team with the highest average number of goals scored
+# per game across all seasons.	String
