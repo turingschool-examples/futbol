@@ -31,11 +31,6 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal 9, @game_teams_collection.game_teams_lists_by_id.length
   end
 
-  # def test_games_by_id
-  #   expected = {"20"=>4, "24"=>4, "16"=>12, "14"=>6, "3"=>5, "5"=>5, "28"=>5, "26"=>5, "19"=>6}
-  #   assert_equal expected, @game_teams_collection.game_teams_by_id
-  # end
-
   def test_it_can_get_home_games_only
     assert_equal 3, @game_teams_collection.home_games_only["26"].length
   end
