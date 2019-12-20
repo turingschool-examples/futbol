@@ -14,8 +14,4 @@ class GameTeamsCollection
   def create_game_teams(game_teams_path)
     create_instances(game_teams_path, GameTeam)
   end
-
-  def best_defense
-
-  end
 end
