@@ -56,13 +56,10 @@ attr_reader :game_id, :season, :type, :date_time, :away_team_id, :home_team_id, 
     all_games_sorted.each do |game|
       if season_avg_goals.keys.include?(game.season) == false
         total_games_per_season = 0
-        season_avg_goals[game.season] =
-          total_games_per_season = total_games_per_season +
-          game.away_goals + game.home_goals
+        season_avg_goals[game.season] = total_games_per_season = total_games_per_season + game.away_goals + game.home_goals
       else
         season_avg_goals[game.season] =
-          total_games_per_season = total_games_per_season +
-          game.away_goals + game.home_goals
+          total_games_per_season = total_games_per_season + game.away_goals + game.home_goals
       end
     end
 
@@ -80,5 +77,12 @@ attr_reader :game_id, :season, :type, :date_time, :away_team_id, :home_team_id, 
     end
     
     season_avg_goals
+  end
+  
+  def self.average_goals_per_game
+    number_of_games = @@all_games.map {|game| game.game_id}.count
+    total_goals = @@all_games.map {|game| game.away_goals + game.home_goals}.sum
+    
+    (total_goals / number_of_games.to_f).round(2)
   end
 end
