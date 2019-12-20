@@ -48,7 +48,7 @@ class GameTeamsCollection
   def home_games_only_average
     home_only_average = {}
     home_games_only.each do |game_id, games|
-    home_only_average[game_id] = games.sum { |game| game.goals.to_i} / games.length.to_f
+    home_only_average[game_id] = (games.sum { |game| game.goals.to_i} / games.length.to_f).round(2)
     end
     home_only_average
   end
@@ -56,7 +56,7 @@ class GameTeamsCollection
   def away_games_only_average
     away_only_average = {}
     away_games_only.each do |game_id, games|
-    away_only_average[game_id] = games.sum { |game| game.goals.to_i} / games.length.to_f
+    away_only_average[game_id] = (games.sum { |game| game.goals.to_i} / games.length.to_f).round(2)
     end
     away_only_average
   end
