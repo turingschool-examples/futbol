@@ -4,8 +4,8 @@ class StatTracker
   attr_reader :games_collection, :teams_collection, :game_teams_collection
 
   def initialize(games_collection, teams_collection)
-    @games_collection = games_collection
-    @teams_collection = teams_collection
+    @games_collection = GameCollection.new(games_collection)
+    @teams_collection = TeamCollecion.new(teams_collection)
     # @game_team = game_team
   end
 
