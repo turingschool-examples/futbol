@@ -55,6 +55,16 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas", @stat_tracker.best_offense
   end
 
+  def test_it_can_find_average_goals_by_season
+    assert_equal ({"20122013"=>1, "20152016"=>2, "20142015"=>2}), Game.count_of_games_by_season
+
+    assert_instance_of Hash, @stat_tracker.count_of_games_by_season
+  end
+
+  def test_it_can_find_count_of_teams
+    assert_equal 5, Team.count_of_teams
+  end
+
 
 
 

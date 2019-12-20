@@ -51,7 +51,7 @@ class StatTracker
        team.teamname
      end
    end
-  
+
   def highest_total_score
     Game.highest_total_score
   end
@@ -114,5 +114,14 @@ class StatTracker
     end
     final.teamname
   end
+
+  def average_goals_by_season
+    Game.average_goals_by_season
+  end
+
+  def count_of_teams
+    Team.count_of_teams
+  end
+
 
 end
