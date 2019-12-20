@@ -1,22 +1,23 @@
 require 'csv'
 require_relative 'game_collection'
 require_relative 'team_collection'
+require_relative 'game_team_collection'
 
 class StatTracker
   attr_reader :games_collection, :teams_collection, :game_teams_collection
 
   def self.from_csv(locations)
-    games_collect = locations[:games]
-    teams_collect = locations[:teams]
+    game_file = locations[:games]
+    team_file = locations[:teams]
+    game_team_file = locations[:game_teams]
 
-    StatTracker.new(games_collect, teams_collect)
+    StatTracker.new(game_file, team_file, game_team_file)
   end
 
-  def initialize(games_collection, teams_collection)
-    @games_collection = GameCollection.new(games_collection)
-    @teams_collection = TeamCollection.new(teams_collection)
-    # require 'pry'; binding.pry
-    # @game_team = game_team
+  def initialize(game_file, team_file)
+    @games_collection = GameCollection.new(game_file)
+    @teams_collection = TeamCollection.new(team_file)
+    @game_teams_collection = GameTeamCollection.new(game_team_file)
   end
 
   def average_goals_per_game
