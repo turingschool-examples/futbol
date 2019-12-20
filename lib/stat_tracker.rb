@@ -72,11 +72,11 @@ class StatTracker
     teams_collection.count_of_teams
   end
 
-  def best_offence
+  def best_offense
     teams_collection.associate_team_id_with_team_name(games_collection.best_offence_id)
   end
 
-  def worst_offence
+  def worst_offense
     teams_collection.associate_team_id_with_team_name(games_collection.worst_offence_id)
   end
 
