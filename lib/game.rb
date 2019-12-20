@@ -24,7 +24,7 @@ class Game
 
   def initialize(game_info)
     @game_id  = game_info[:game_id].to_i
-    @season  = game_info[:season].to_i
+    @season  = game_info[:season]
     @type  = game_info[:type]
     @date_time = game_info[:date_time]
     @away_team_id = game_info[:away_team_id].to_i
@@ -66,7 +66,7 @@ class Game
       acc += game.away_goals
       acc += game.home_goals
     end
-    total_goals.to_f/total_games
+    (total_goals.to_f/total_games).round(2)
   end
 
   def self.average_goals_by_season
@@ -98,6 +98,6 @@ class Game
       total_games += 1
       game.away_goals == game.home_goals
     end
-    (total_ties.to_f / total_games) * 100
+    (total_ties.to_f / total_games).round(2)
   end
 end
