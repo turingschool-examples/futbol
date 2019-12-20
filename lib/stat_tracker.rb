@@ -76,4 +76,8 @@ class StatTracker
     teams_collection.associate_team_id_with_team_name(games_collection.best_offence_id)
   end
 
+  def worst_offence
+    teams_collection.associate_team_id_with_team_name(games_collection.worst_offence_id)
+  end
+
 end

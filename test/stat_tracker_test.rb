@@ -33,4 +33,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal "DC United", @stat_tracker.best_offence
   end
 
+  def test_worst_offence
+    assert_equal "New England Revolution", @stat_tracker.worst_offence
+  end
+
 end
