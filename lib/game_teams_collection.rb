@@ -28,7 +28,6 @@ class GameTeamsCollection
   def home_games_only
     home_only = {}
     game_teams_lists_by_id.each do |team_id, games|
-      #all games that belong to game_id
       home_only[team_id] = games.find_all do |game|
         game.hoa == "home"
       end
@@ -39,7 +38,6 @@ class GameTeamsCollection
   def away_games_only
     away_only = {}
     game_teams_lists_by_id.each do |team_id, games|
-      #all games that belong to game_id
       away_only[team_id] = games.find_all do |game|
         game.hoa == "away"
       end
