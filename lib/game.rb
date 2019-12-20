@@ -80,7 +80,7 @@ class Game
       acc
     end
     count_of_games_by_season.merge(goal_count_per_season) do |key, game_count, goal_count|
-      goal_count / game_count.to_f.round(2)
+      (goal_count / game_count.to_f).round(2)
     end
   end
 
@@ -100,4 +100,5 @@ class Game
     end
     (total_ties.to_f / total_games).round(2)
   end
+
 end

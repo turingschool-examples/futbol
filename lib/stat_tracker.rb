@@ -115,6 +115,14 @@ class StatTracker
     final.teamname
   end
 
+  def average_goals_by_season
+    Game.average_goals_by_season
+  end
+
+  def count_of_teams
+    Team.count_of_teams
+  end
+
   def worst_offense
     team_goals = @game_teams.reduce({}) do |acc, game_team|
       acc[game_team.team_id] = 0
