@@ -34,4 +34,16 @@ class CollectionTest < Minitest::Test
 
     assert_equal 'DC', teams['14'].abbreviation
   end
+
+  def test_csv_read_method_opens_file
+    teams = Collection.new(@teams, Team).from_csv(@teams)
+
+    assert_equal [:team_id, "4"], teams[1].first
+  end
+
+  def test_create_collection_opens_csv_and_parses_to_hash
+    teams = Collection.new(@teams, Team).create_collection(@teams, Team)
+
+    assert_equal 'Chicago Fire', teams['4'].team_name
+  end
 end
