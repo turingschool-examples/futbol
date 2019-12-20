@@ -60,4 +60,15 @@ class GameTeamsCollection
     end
     away_only_average
   end
+
+  def highest_scoring_home_team
+    new = []
+    home_games_only_average.each do |game_id, average|
+      if average == home_games_only_average.values.max
+      new << game_id.to_i
+      end
+    end
+    new
+  end
+
 end
