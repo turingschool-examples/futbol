@@ -83,6 +83,10 @@ class GamesCollection
   end
 
   def team_id_to_avg
+    # Create a hash that matches, for each game, the team id to the matching goals
+    # If the team id shows up more than once, then its goals for that new game
+    # are added to the hash key created for it. This should give us for each team,
+    # the total amount of goals they made for all games.
     y = games.reduce({}) do |acc, game|
       if acc[game.home_team_id] == nil
         acc[game.home_team_id] = []
@@ -104,84 +108,23 @@ class GamesCollection
       end
       acc
     end
-
+    # Create a hash that matches each team_id to their goal average (total
+    # amount of goals divided by the number of games they played)
     team_id_to_avg = y.reduce({}) do |acc, y|
       id = y[0]
-      avg = (y[1]).sum / (y[1]).length
-      acc[id] = [avg]
-      acc
-    end
-
-  end
-
-  def away_team_id_to_avg
-    # Create a hash that matches, for each game, the away team id to the away goals
-    # If the away team id shows up more than once, then its goals for that new game
-    # are added to the hash key created for it. This should give us for each team,
-    # the total amount of goals they made when playing away games.
-    x = games.reduce({}) do |acc, game|
-      if acc[game.away_team_id] == nil
-        acc[game.away_team_id] = []
-        acc[game.away_team_id] << game.away_goals
-      else
-        acc[game.away_team_id] << game.away_goals
-      end
-      acc
-    end
-    # Create a hash that matches, for each game, the away team id to the total
-    # amount of goals divided by the number of games they played (which gives us
-    # that team's goal average)
-    ateam_id_to_avg = x.reduce({}) do |acc, x|
-      id = x[0]
-      avg = (x[1]).sum / (x[1]).length
-      acc[id] = [avg]
-      acc
-    end
-  end
-
-  def home_team_id_to_avg
-    # Create a hash that matches, for each game, the home team id to the home goals
-    # If the home team id shows up more than once, then its goals for that new game
-    # are added to the hash key created for it. This should give us for each team,
-    # the total amount of goals they made when playing home games.
-    y = games.reduce({}) do |acc, game|
-      if acc[game.home_team_id] == nil
-        acc[game.home_team_id] = []
-        acc[game.home_team_id] << game.home_goals
-      else
-        acc[game.home_team_id] << game.home_goals
-      end
-      acc
-    end
-    require "pry"; binding.pry
-    # Create a hash that matches, for each game, the home team id to the total
-    # amount of goals divided by the number of games they played (which gives us
-    # that team's goal average)
-    hteam_id_to_avg = y.reduce({}) do |acc, y|
-      id = y[0]
-      avg = (y[1]).sum / (y[1]).length
+      avg = (y[1].sum) / (y[1].length).to_f
       acc[id] = [avg]
       acc
     end
   end
 
   def best_offence
-    x = home_team_id_to_avg
-    y = away_team_id_to_avg
-    if y[3] == nil
-      y[3] = [ ]
-      y[3] << 13
-    end
+    x = team_id_to_avg
+    y = team_id_to_avg.max_by {|k, v| v}
 
-
-    x.each_key do |key|
-      (y.has_key?(key))
-
-
-      require "pry"; binding.pry
-    end
-
+    
     require "pry"; binding.pry
+
   end
 end
 
