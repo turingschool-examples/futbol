@@ -82,6 +82,38 @@ class GamesCollection
   avg_by_season
   end
 
+  def team_id_to_avg
+    y = games.reduce({}) do |acc, game|
+      if acc[game.home_team_id] == nil
+        acc[game.home_team_id] = []
+        acc[game.home_team_id] << game.home_goals
+        if acc[game.away_team_id] == nil
+          acc[game.away_team_id] = []
+          acc[game.away_team_id] << game.away_goals
+        else
+          acc[game.away_team_id] << game.away_goals
+        end
+      else
+        acc[game.home_team_id] << game.home_goals
+        if acc[game.away_team_id] == nil
+          acc[game.away_team_id] = []
+          acc[game.away_team_id] << game.away_goals
+        else
+          acc[game.away_team_id] << game.away_goals
+        end
+      end
+      acc
+    end
+
+    team_id_to_avg = y.reduce({}) do |acc, y|
+      id = y[0]
+      avg = (y[1]).sum / (y[1]).length
+      acc[id] = [avg]
+      acc
+    end
+
+  end
+
   def away_team_id_to_avg
     # Create a hash that matches, for each game, the away team id to the away goals
     # If the away team id shows up more than once, then its goals for that new game
@@ -102,7 +134,7 @@ class GamesCollection
     ateam_id_to_avg = x.reduce({}) do |acc, x|
       id = x[0]
       avg = (x[1]).sum / (x[1]).length
-      acc[id] = avg
+      acc[id] = [avg]
       acc
     end
   end
@@ -121,20 +153,33 @@ class GamesCollection
       end
       acc
     end
+    require "pry"; binding.pry
     # Create a hash that matches, for each game, the home team id to the total
     # amount of goals divided by the number of games they played (which gives us
     # that team's goal average)
     hteam_id_to_avg = y.reduce({}) do |acc, y|
       id = y[0]
       avg = (y[1]).sum / (y[1]).length
-      acc[id] = avg
+      acc[id] = [avg]
       acc
     end
   end
 
   def best_offence
-    home_team_id_to_avg
-    away_team_id_to_avg
+    x = home_team_id_to_avg
+    y = away_team_id_to_avg
+    if y[3] == nil
+      y[3] = [ ]
+      y[3] << 13
+    end
+
+
+    x.each_key do |key|
+      (y.has_key?(key))
+
+
+      require "pry"; binding.pry
+    end
 
     require "pry"; binding.pry
   end
@@ -142,4 +187,4 @@ end
 
 #best offence
 # Name of the team with the highest average number of goals scored
-# per game across all seasons.	String
+# per game across all seasons. it's a string.
