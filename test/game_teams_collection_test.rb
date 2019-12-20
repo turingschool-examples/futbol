@@ -1,5 +1,7 @@
 require './test/test_helper'
 require './lib/game_teams_collection'
+require './lib/game_teams'
+
 
 class GameTeamsCollectionTest < Minitest::Test
   def setup
@@ -19,5 +21,46 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_instance_of GameTeams, @game_teams
     assert_equal "away", @game_teams.hoa
     assert_equal "LOSS", @game_teams.result
+  end
+
+  def test_it_can_store_game_teams_by_id
+    var = @game_teams_collection.game_teams_lists_by_id.first
+    name = var[0]
+    value = var[1]
+    test_hash = {name => value}
+    assert_equal 9, @game_teams_collection.game_teams_lists_by_id.length
+  end
+
+  # def test_games_by_id
+  #   expected = {"20"=>4, "24"=>4, "16"=>12, "14"=>6, "3"=>5, "5"=>5, "28"=>5, "26"=>5, "19"=>6}
+  #   assert_equal expected, @game_teams_collection.game_teams_by_id
+  # end
+
+  def test_it_can_get_home_games_only
+    assert_equal 3, @game_teams_collection.home_games_only["26"].length
+  end
+
+  def test_it_can_get_home_games_only_average
+    assert_equal 2.33, @game_teams_collection.home_games_only_average["26"]
+  end
+
+  def test_it_can_get_team_with_highest_average_score_for_away_games
+    skip
+    assert_equal [24, 5], @game_teams_collection.highest_scoring_visitor
+  end
+
+  def test_it_can_get_team_with_lowest_average_score_for_away_games
+    skip
+    assert_equal 19, @game_teams_collection.lowest_scoring_visitor
+  end
+
+  def test_it_can_get_team_with_highest_average_score_for_home_games
+    skip
+    assert_equal [24, 5], @game_teams_collection.highest_scoring_home_team
+  end
+
+  def test_it_can_get_team_with_lowest_average_score_for_home_games
+    skip
+    assert_equal 3, @game_teams_collection.lowest_scoring_home_team
   end
 end
