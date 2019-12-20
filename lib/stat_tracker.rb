@@ -3,10 +3,18 @@ require 'csv'
 class StatTracker
   attr_reader :games_collection, :teams_collection, :game_teams_collection
 
-  def initialize(games_collection, teams_collection)
-    @games_collection = games_collection
-    @teams_collection = teams_collection
-    # @game_team = game_team
+  def self.from_csv(locations)
+    game_file = locations[:games]
+    team_file = locations[:teams]
+    game_team_file = locations[:game_teams]
+
+    StatTracker.new(game_file, team_file, game_team_file)
+  end
+
+  def initialize(game_file, team_file)
+    @games_collection = GameCollection.new(game_file)
+    @teams_collection = TeamCollection.new(team_file)
+    @game_teams_collection = GameTeamCollection.new(game_team_file)
   end
 
   def average_goals_per_game
