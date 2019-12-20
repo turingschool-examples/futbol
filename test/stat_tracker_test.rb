@@ -26,7 +26,8 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_pull_all_teams_with_the_worst_fans
-    skip
+      stat_tracker = StatTracker.from_csv({games: './data/game.csv', teams: './data/team.csv', game_teams: './data/game_team.csv'})
+    assert_equal ["Houston Dynamo", "Utah Royals FC"], stat_tracker.worst_fans
     assert_equal [], @stat_tracker.worst_fans
   end
 end
