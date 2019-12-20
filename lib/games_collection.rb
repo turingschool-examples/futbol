@@ -120,14 +120,9 @@ class GamesCollection
 
   def best_offence
     x = team_id_to_avg
+    #Find team_id with highest average goals
     y = team_id_to_avg.max_by {|k, v| v}
-
-    
-    require "pry"; binding.pry
-
+    #pull that team's id
+    z = y[0]
   end
 end
-
-#best offence
-# Name of the team with the highest average number of goals scored
-# per game across all seasons. it's a string.

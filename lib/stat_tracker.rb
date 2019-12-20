@@ -72,4 +72,6 @@ class StatTracker
     teams_collection.count_of_teams
   end
 
+  
+
 end
