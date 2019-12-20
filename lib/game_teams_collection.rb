@@ -71,4 +71,34 @@ class GameTeamsCollection
     new
   end
 
+  def lowest_scoring_home_team
+    new = []
+    home_games_only_average.each do |game_id, average|
+      if average == home_games_only_average.values.min
+      new << game_id.to_i
+      end
+    end
+    new
+  end
+
+  def highest_scoring_visitor
+    new = []
+    away_games_only_average.each do |game_id, average|
+      if average == away_games_only_average.values.max
+      new << game_id.to_i
+      end
+    end
+    new
+  end
+
+  def lowest_scoring_visitor
+    new = []
+    away_games_only_average.each do |game_id, average|
+      if average == away_games_only_average.values.min
+      new << game_id.to_i
+      end
+    end
+    new
+  end
+
 end
