@@ -62,6 +62,6 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_away_max
-    @gamescollection.away_max
+    @gamescollection.best_offence
   end
 end
