@@ -29,4 +29,32 @@ class StatTrackerTest < Minitest::Test
     skip
     assert_equal [], @stat_tracker.worst_fans
   end
+
+  def test_it_can_find_highest_total_score
+    assert_equal 5, @stat_tracker.highest_total_score
+  end
+
+  def test_it_can_find_lowest_total_score
+    assert_equal 3, @stat_tracker.lowest_total_score
+  end
+
+  def test_it_can_find_average_goals_per_game
+    assert_equal 4.4, @stat_tracker.average_goals_per_game
+  end
+
+  def test_it_can_find_percentage_home_wins
+    assert_equal 1.00, @stat_tracker.percentage_home_wins
+  end
+
+  def test_it_can_find_percentage_ties
+    assert_equal 0.20, @stat_tracker.percentage_ties
+  end
+
+
+
+
+
+
+
+
 end

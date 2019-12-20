@@ -52,7 +52,7 @@ class GameTeam
       away_wins = @@game_teams.count do |game_team|
         game_team.result == "WIN" && game_team.hoa == "away"
       end
-      (away_wins.to_f / away_games * 100).round
+      (away_wins.to_f / away_games).round(2)
     end
 
     def self.percentage_home_wins
@@ -68,7 +68,6 @@ class GameTeam
           total_games += 1
         end
       end
-      ((total_wins.to_f / total_games) * 100).round(3)
-
+      (total_wins.to_f / total_games).round(2)
     end
 end
