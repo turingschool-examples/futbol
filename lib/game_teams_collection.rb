@@ -55,4 +55,11 @@ class GameTeamsCollection
     home_only_average
   end
 
+  def away_games_only_average
+    away_only_average = {}
+    away_games_only.each do |game_id, games|
+    away_only_average[game_id] = games.sum { |game| game.goals.to_i} / games.length.to_f
+    end
+    away_only_average
+  end
 end
