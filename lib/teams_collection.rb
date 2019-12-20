@@ -16,6 +16,11 @@ class TeamsCollection
   end
 
   def count_of_teams
-    teams.length
+    @teams.length
+  end
+
+  def associate_team_id_with_team_name(id)
+    tname = @teams.find { |team| team.team_id == id }
+    tname.teamname
   end
 end
