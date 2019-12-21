@@ -51,7 +51,7 @@ class StatTracker
        team.teamname
      end
    end
-  
+
   def highest_total_score
     Game.highest_total_score
   end
@@ -115,4 +115,15 @@ class StatTracker
     final.teamname
   end
 
+  def highest_scoring_home_team
+    team_goals = @game_teams.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = 0
+      acc
+    end
+     @game_teams.each do |game_team|
+      team_goals[game_team.team_id] += game_team.goals
+    end
+    team_goals
+    
+  end
 end
