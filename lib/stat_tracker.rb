@@ -80,4 +80,8 @@ class StatTracker
     teams_collection.associate_team_id_with_team_name(games_collection.worst_offence_id)
   end
 
+  def highest_scoring_visitor
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.highest_scoring_visitor_id)
+  end
+
 end

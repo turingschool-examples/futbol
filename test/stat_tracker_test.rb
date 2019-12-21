@@ -37,4 +37,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal "New England Revolution", @stat_tracker.worst_offence
   end
 
+  def test_highest_scoring_visitor_id
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+  end
+
 end
