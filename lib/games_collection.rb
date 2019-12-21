@@ -148,13 +148,12 @@ class GamesCollection
       acc[game.away_team_id] << game.home_goals.to_f.round(2)
       acc
     end
-    average_goals_against = id_associate.reduce({}) do |acc, id_goals|
+    id_associate.reduce({}) do |acc, id_goals|
       id = id_goals.first
       goal_average = (id_goals.last.sum / id_goals.last.length).to_f.round(2)
       acc[id] = [goal_average]
       acc
     end
-    average_goals_against
   end
 
   def best_defense_id
