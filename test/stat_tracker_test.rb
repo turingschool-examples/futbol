@@ -31,10 +31,20 @@ class StatTrackerTest < Minitest::Test
     assert_equal 'StatTracker', stat_tracker.klass
   end
 
-  def test_that_data_can_be_passed_to_stat_tracker_attributes
-    assert_instance_of GameCollection, @stat_tracker.games_collection
-    assert_instance_of TeamCollection, @stat_tracker.teams_collection
-    assert_instance_of GameTeamsCollection, @stat_tracker.game_teams_collection
+  def test_that_collections_are_the_correct_class_type
+    stat_tracker = mock('StatTracker')
+    stat_tracker.stubs(:klass).returns('KlassType')
+
+    assert_equal 'KlassType', stat_tracker.klass
+
+    stat_tracker.stubs(:games_collection).returns('GamesCollection')
+    assert_equal 'GamesCollection', stat_tracker.games_collection
+
+    stat_tracker.stubs(:teams_collection).returns('TeamsCollection')
+    assert_equal 'TeamsCollection', stat_tracker.teams_collection
+
+    stat_tracker.stubs(:game_teams_collection).returns('GameTeamsCollection')
+    assert_equal 'GameTeamsCollection', stat_tracker.game_teams_collection
   end
 
   def test_stat_tracker_average_goals_per_game
