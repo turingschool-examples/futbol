@@ -18,6 +18,10 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal 4, @game_teams_collection.game_teams.first.goals
   end
 
+  def test_highest_scoring_visitor_id
+    assert_equal 6, @game_teams_collection.highest_scoring_visitor_id
+  end
 
-  
+
+
 end
