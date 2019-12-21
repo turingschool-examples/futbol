@@ -48,35 +48,31 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_stat_tracker_average_goals_per_game
-    skip
     assert_instance_of Float, @stat_tracker.average_goals_per_game
-    assert_equal 4.15, @stat_tracker.average_goals_per_game
+    assert_equal 4.22, @stat_tracker.average_goals_per_game
   end
 
   def test_stat_tracker_average_goals_by_season
-    skip
     average_hash = {
-      "20122013"=>3.85, 
-      "20142015"=>4.02, 
-      "20152016"=>4.1, 
-      "20162017"=>4.36, 
-      "20172018"=>4.16, 
-      "20132014"=>4.27
+      "20122013"=>4.12,
+      "20132014"=>4.19,
+      "20142015"=>4.14,
+      "20152016"=>4.16,
+      "20162017"=>4.23,
+      "20172018"=>4.44,
     }
 
     assert_equal average_hash, @stat_tracker.average_goals_by_season
   end
 
   def test_highest_total_score
-    skip
     assert_instance_of Integer, @stat_tracker.highest_total_score
-    assert_equal 10, @stat_tracker.highest_total_score
+    assert_equal 11, @stat_tracker.highest_total_score
   end
 
   def test_lowest_total_score
-    skip
     assert_instance_of Integer, @stat_tracker.lowest_total_score
-    assert_equal 1, @stat_tracker.lowest_total_score
+    assert_equal 0, @stat_tracker.lowest_total_score
   end
 
   def test_biggest_blowout_method_can_look_at_game_scores
@@ -101,30 +97,19 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_percentage_ties_method
-    skip
     assert_instance_of Float, @stat_tracker.percentage_ties
-    assert_equal 0.21, @stat_tracker.percentage_ties
+    assert_equal 0.2, @stat_tracker.percentage_ties
   end
 
   def test_percentage_home_wins
-    skip
     team_1_home = @stat_tracker.percentage_home_wins
     assert_instance_of Float, team_1_home
-    assert_equal 0.4, team_1_home
-
-    team_2_home = @stat_tracker.percentage_home_wins
-    assert_instance_of Float, team_2_home
-    assert_equal 0.4, team_2_home
+    assert_equal 0.44, team_1_home
   end
 
   def test_percentage_visitor_wins
-    skip
     team_1_visitor = @stat_tracker.percentage_visitor_wins
     assert_instance_of Float, team_1_visitor
-    assert_equal 0.39, team_1_visitor
-
-    team_2_visitor = @stat_tracker.percentage_visitor_wins
-    assert_instance_of Float, team_2_visitor
-    assert_equal 0.39, team_2_visitor
+    assert_equal 0.36, team_1_visitor
   end
 end
