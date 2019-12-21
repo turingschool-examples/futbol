@@ -14,7 +14,7 @@ class StatTracker
   def initialize(games, teams, game_teams)
     @games_collection = GameCollection.new(games)
     @teams_collection = TeamCollection.new(teams)
-    @game_teams_collection = GameTeamCollection.new(game_teams)
+    @game_teams_collection = GameTeamsCollection.new(game_teams)
   end
 
   def average_goals_per_game
