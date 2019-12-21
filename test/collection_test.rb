@@ -6,7 +6,10 @@ require 'csv'
 require './lib/collection'
 require './lib/game'
 require './lib/team'
-require './lib/game_team'
+require './lib/game_teams'
+require './lib/game_collection'
+require './lib/team_collection'
+require './lib/game_teams_collection'
 
 class CollectionTest < Minitest::Test
   def setup
