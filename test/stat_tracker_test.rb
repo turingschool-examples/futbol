@@ -1,12 +1,12 @@
 require_relative './test_helper'
 require 'csv'
-require './lib/stat_tracker'
-require './lib/game'
-require './lib/team'
-require './lib/game_team'
-require './lib/game_collection'
-require './lib/team_collection'
-require './lib/game_team_collection'
+require_relative './lib/stat_tracker'
+require_relative './lib/game'
+require_relative './lib/team'
+require_relative './lib/game_team'
+require_relative './lib/game_collection'
+require_relative './lib/team_collection'
+require_relative './lib/game_team_collection'
 
 class StatTrackerTest < Minitest::Test
   def setup
