@@ -7,6 +7,7 @@ require './lib/collection'
 require './lib/game'
 require './lib/team'
 require './lib/game_team'
+require './lib/team_collection'
 
 class CollectionTest < Minitest::Test
   def setup
