@@ -62,13 +62,13 @@ class StatTracker
 
   def biggest_blowout
     blowout = {}
-    @games_collection.games.find_all do |game|
-      margin = (game.home_goals.to_i - game.away_goals.to_i).abs
+    @games_collection.collection.each do |game|
+      margin = (game[1].home_goals.to_i - game[1].away_goals.to_i).abs
       if blowout.empty?
-        blowout[game] = margin
+        blowout[game[1]] = margin
       elsif margin > blowout.values[0]
         blowout.clear
-        blowout[game] = margin
+        blowout[game[1]] = margin
       end
     end
     blowout.values.last
@@ -77,7 +77,7 @@ class StatTracker
   def count_of_games_by_season
     season = Hash.new(0)
     @games_collection.collection.each do |game|
-      season[game.season] += 1
+      season[game[1].season] += 1
     end
     season
   end
