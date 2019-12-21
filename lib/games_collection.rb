@@ -131,4 +131,5 @@ class GamesCollection
     lowest_avg = avg_hash.min_by {|k, v| v}
     lowest_avg_id = lowest_avg[0]
   end
+
 end
