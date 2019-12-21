@@ -19,11 +19,9 @@ class StatTracker
 
   def average_goals_per_game
     sum = 0
-
     @games_collection.games.each do |game|
       sum += (game.away_goals.to_i + game.home_goals.to_i)
     end
-
     (sum.to_f / @games_collection.games.length).round(2)
   end
 
