@@ -32,10 +32,9 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_that_data_can_be_passed_to_stat_tracker_attributes
-    skip
     assert_instance_of GameCollection, @stat_tracker.games_collection
     assert_instance_of TeamCollection, @stat_tracker.teams_collection
-    # assert_instance_of GameCollection, @stat_tracker.games
+    assert_instance_of GameTeamsCollection, @stat_tracker.game_teams_collection
   end
 
   def test_stat_tracker_average_goals_per_game
