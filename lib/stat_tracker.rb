@@ -4,17 +4,17 @@ class StatTracker
   attr_reader :games_collection, :teams_collection, :game_teams_collection
 
   def self.from_csv(locations)
-    game_file = locations[:games]
-    team_file = locations[:teams]
-    game_team_file = locations[:game_teams]
+    games = locations[:games]
+    teams = locations[:teams]
+    game_teams = locations[:game_teams]
 
-    StatTracker.new(game_file, team_file, game_team_file)
+    StatTracker.new(games, teams, game_teams)
   end
 
-  def initialize(game_file, team_file)
-    @games_collection = GameCollection.new(game_file)
-    @teams_collection = TeamCollection.new(team_file)
-    @game_teams_collection = GameTeamCollection.new(game_team_file)
+  def initialize(games, teams, game_teams)
+    @games_collection = GameCollection.new(games)
+    @teams_collection = TeamCollection.new(teams)
+    @game_teams_collection = GameTeamCollection.new(game_teams)
   end
 
   def average_goals_per_game
@@ -76,7 +76,7 @@ class StatTracker
 
   def count_of_games_by_season
     season = Hash.new(0)
-    @games_collection.games.each do |game|
+    @games_collection.collection.each do |game|
       season[game.season] += 1
     end
     season
