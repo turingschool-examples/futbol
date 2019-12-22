@@ -1,12 +1,12 @@
-require 'simplecov'
-SimpleCov.start
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative './test_helper'
 require 'csv'
 require './lib/collection'
 require './lib/game'
 require './lib/team'
-require './lib/game_team'
+require './lib/game_teams'
+require './lib/game_collection'
+require './lib/team_collection'
+require './lib/game_teams_collection'
 
 class CollectionTest < Minitest::Test
   def setup
@@ -38,7 +38,7 @@ class CollectionTest < Minitest::Test
   def test_csv_read_method_opens_file
     teams = Collection.new(@teams, Team).from_csv(@teams)
 
-    assert_equal [:team_id, "4"], teams[1].first
+    assert_equal [:team_id, '4'], teams[1].first
   end
 
   def test_create_collection_opens_csv_and_parses_to_hash

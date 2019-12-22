@@ -1,4 +1,4 @@
-class Game
+class Season
   attr_reader :game_id,
               :season,
               :type,

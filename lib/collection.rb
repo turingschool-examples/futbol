@@ -1,3 +1,5 @@
+require 'csv'
+
 class Collection
   attr_reader :collection
 
