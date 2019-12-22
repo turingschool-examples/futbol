@@ -10,7 +10,7 @@ class Game
               :venue,
               :venue_link
 
-  def initialize(game_id)
+  def initialize(row)
     @game_id = game_id[:game_id]
     @season = game_id[:season]
     @type = game_id[:type]
