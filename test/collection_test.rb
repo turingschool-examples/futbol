@@ -38,7 +38,7 @@ class CollectionTest < Minitest::Test
   def test_csv_read_method_opens_file
     teams = Collection.new(@teams, Team).from_csv(@teams)
 
-    assert_equal [:team_id, "4"], teams[1].first
+    assert_equal [:team_id, '4'], teams[1].first
   end
 
   def test_create_collection_opens_csv_and_parses_to_hash
