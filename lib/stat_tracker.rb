@@ -2,13 +2,18 @@ require 'csv'
 require_relative 'game'
 require_relative 'team'
 require_relative 'game_teams'
+require_relative 'season'
 require_relative 'collection'
 require_relative 'game_collection'
 require_relative 'team_collection'
 require_relative 'game_teams_collection'
+require_relative 'season_collection'
 
 class StatTracker
-  attr_reader :games_collection, :teams_collection, :game_teams_collection
+  attr_reader :game_collection,
+              :team_collection,
+              :season_collection,
+              :game_teams_collection
 
   def self.from_csv(locations)
     games = locations[:games]
@@ -19,23 +24,24 @@ class StatTracker
   end
 
   def initialize(games, teams, game_teams)
-    @games_collection = GameCollection.new(games)
-    @teams_collection = TeamCollection.new(teams)
+    @game_collection = GameCollection.new(games)
+    @team_collection = TeamCollection.new(teams)
+    @season_collection = SeasonCollection.new(games)
     @game_teams_collection = GameTeamsCollection.new(game_teams)
   end
 
   def average_goals_per_game
     sum = 0
-    @games_collection.collection.each do |game|
+    @game_collection.collection.each do |game|
       sum += (game[1].away_goals.to_i + game[1].home_goals.to_i)
     end
-    (sum.to_f / @games_collection.collection.length).round(2)
+    (sum.to_f / @game_collection.collection.length).round(2)
   end
 
   def average_goals_by_season
     sums = {}
     averages = {}
-    @games_collection.collection.each do |game|
+    @game_collection.collection.each do |game|
       if !sums.key?(game[1].season)
         sums[game[1].season] = (game[1].home_goals.to_i + game[1].away_goals.to_i)
       else
@@ -51,14 +57,14 @@ class StatTracker
   end
 
   def highest_total_score
-    total_scores = @games_collection.collection.map do |game|
+    total_scores = @game_collection.collection.map do |game|
       game[1].away_goals.to_i + game[1].home_goals.to_i
     end
     total_scores.max
   end
 
   def lowest_total_score
-    total_scores = @games_collection.collection.map do |game|
+    total_scores = @game_collection.collection.map do |game|
       game[1].away_goals.to_i + game[1].home_goals.to_i
     end
     total_scores.min
@@ -66,7 +72,7 @@ class StatTracker
 
   def biggest_blowout
     blowout = {}
-    @games_collection.collection.each do |game|
+    @game_collection.collection.each do |game|
       margin = (game[1].home_goals.to_i - game[1].away_goals.to_i).abs
       if blowout.empty?
         blowout[game[1]] = margin
@@ -80,7 +86,7 @@ class StatTracker
 
   def count_of_games_by_season
     season = Hash.new(0)
-    @games_collection.collection.each do |game|
+    @game_collection.collection.each do |game|
       season[game[1].season] += 1
     end
     season
@@ -88,17 +94,17 @@ class StatTracker
 
   def percentage_ties
     ties_sum = 0.0
-    @games_collection.collection.each do |game|
+    @game_collection.collection.each do |game|
       ties_sum += 1 if game[1].home_goals == game[1].away_goals
     end
-    (ties_sum / @games_collection.collection.length).round(2)
+    (ties_sum / @game_collection.collection.length).round(2)
   end
 
   def percentage_home_wins
     home_wins = 0
-    total_games = @games_collection.collection.length
+    total_games = @game_collection.collection.length
 
-    @games_collection.collection.each do |game|
+    @game_collection.collection.each do |game|
       if game[1].home_goals.to_i > game[1].away_goals.to_i
         home_wins += 1
       end
@@ -108,9 +114,9 @@ class StatTracker
 
   def percentage_visitor_wins
     visitor_wins = 0
-    total_games = @games_collection.collection.length
+    total_games = @game_collection.collection.length
 
-    @games_collection.collection.each do |game|       
+    @game_collection.collection.each do |game|       
       if game[1].home_goals.to_i < game[1].away_goals.to_i
         visitor_wins += 1
       end
