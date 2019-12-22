@@ -125,53 +125,72 @@ class StatTracker
   end
 
   def count_of_teams
-    @teams_collection.collection.length
+    @team_collection.collection.length
   end
 
-  def best_offense
-    # create hash of teams to their total scores across all games
-    # will move to helper method later
-    team_total_scores = @games_collection.collection.inject(Hash.new(0)) do |scores, game|
+  def goals_by_team
+    @game_collection.collection.inject(Hash.new(0)) do |scores, game|
       scores[game[1].home_team_id] += game[1].home_goals.to_i
       scores[game[1].away_team_id] += game[1].away_goals.to_i
       scores
     end
+  end
 
-    game_count = @games_collection.collection.inject(Hash.new(0)) do |count, game|
+  def goals_against_team
+    @game_collection.collection.inject(Hash.new(0)) do |scores, game|
+      scores[game[1].home_team_id] += game[1].away_goals.to_i
+      scores[game[1].away_team_id] += game[1].home_goals.to_i
+      scores
+    end
+  end
+
+  def games_by_team
+    @game_collection.collection.inject(Hash.new(0)) do |count, game|
       count[game[1].home_team_id] += 1
       count[game[1].away_team_id] += 1
       count
     end
+  end
 
-    
+  def average_goals_by_team
+    average_goals = {}
+    goals_by_team.each do |team, tot_score|
+      average_goals[team] = (tot_score.to_f / games_by_team[team]).round(2)
+    end
 
-    require 'pry'; binding.pry
+    average_goals
+  end
 
-    # @games_collection.collection.map do |game|
-    #   if goals_scored.has_key?(game[1].away_team_id)
-    #     goals_scored[game[1].away_team_id] << game[1].away_goals.to_i
-    #   elsif !goals_scored.has_key?(game[1].away_team_id)
-    #     goals_scored[game[1].away_team_id] = [game[1].away_goals.to_i]
-    #   end
-    # end
+  def average_goals_against_team
+    average_goals = {}
+    goals_against_team.each do |team, tot_score|
+      average_goals[team] = (tot_score.to_f / games_by_team[team]).round(2)
+    end
 
-    # @games_collection.collection.map do |game|
-    #   if goals_scored.has_key?(game[1].home_team_id)
-    #     goals_scored[game[1].home_team_id] << game[1].home_goals.to_i
-    #   elsif !goals_scored.has_key?(game[1].home_team_id)
-    #     goals_scored[game[1].home_team_id] = [game[1].home_goals.to_i]
-    #   end
-    # end
-    # team_names_ids = Hash.new(0)
+    average_goals
+  end
 
-    # @teams_collection.collection.each do |team|
-    #   team_names_ids[team[1].team_id] = team[1].abbreviation
-    # end
-    #   goals_scored.each do |team|
-    #     goals_scored_averages = team[1].sum / team[1].length
-    #     goals_scored[team[0]] = goals_scored_averages
-    # end
-    # team_id_max_goals = goals_scored.max_by{ |k, v| v}
-    # team_names_ids[team_id_max_goals[0]]
+  def best_offense
+    team_id = average_goals_by_team.max_by{ |id, avg| avg }[0]
+
+    @team_collection.collection[team_id].team_name
+  end
+
+  def worst_offense
+    team_id = average_goals_by_team.min_by{ |id, avg| avg }[0]
+
+    @team_collection.collection[team_id].team_name
+  end
+
+  def best_defense
+    team_id = average_goals_against_team.min_by{ |id, avg| avg }[0]
+
+    @team_collection.collection[team_id].team_name
+  end
+
+  def worst_defense
+    team_id = average_goals_against_team.max_by{ |id, avg| avg }[0]
+
+    @team_collection.collection[team_id].team_name
   end
 end
