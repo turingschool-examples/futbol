@@ -20,9 +20,9 @@ class SeasonTest < Minitest::Test
   end
 
   def test_game_collection_can_create_games_from_csv
-    assert_instance_of Season, @season["20122013"][0]
-    assert_equal '17', @season["20122013"][0].home_team_id
-    assert_equal 'Postseason', @season["20122013"][0].type
-    assert_equal '1', @season["20122013"][0].away_goals
+    assert_instance_of Season, @season['20122013'][0]
+    assert_equal '17', @season['20122013'][0].home_team_id
+    assert_equal 'Postseason', @season['20122013'][0].type
+    assert_equal '1', @season['20122013'][0].away_goals
   end
 end
