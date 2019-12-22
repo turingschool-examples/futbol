@@ -112,4 +112,12 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of Float, team_1_visitor
     assert_equal 0.36, team_1_visitor
   end
+
+  def test_stat_tracker_gets_count_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+
+  def test_stat_tracker_can_get_best_offense
+    assert_equal "Reign FC", @stat_tracker.best_offense
+  end
 end

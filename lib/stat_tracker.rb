@@ -117,4 +117,55 @@ class StatTracker
     end
     (visitor_wins / total_games.to_f).abs.round(2)
   end
+
+  def count_of_teams
+    @teams_collection.collection.length
+  end
+
+  def best_offense
+    # create hash of teams to their total scores across all games
+    # will move to helper method later
+    team_total_scores = @games_collection.collection.inject(Hash.new(0)) do |scores, game|
+      scores[game[1].home_team_id] += game[1].home_goals.to_i
+      scores[game[1].away_team_id] += game[1].away_goals.to_i
+      scores
+    end
+
+    game_count = @games_collection.collection.inject(Hash.new(0)) do |count, game|
+      count[game[1].home_team_id] += 1
+      count[game[1].away_team_id] += 1
+      count
+    end
+
+    
+
+    require 'pry'; binding.pry
+
+    # @games_collection.collection.map do |game|
+    #   if goals_scored.has_key?(game[1].away_team_id)
+    #     goals_scored[game[1].away_team_id] << game[1].away_goals.to_i
+    #   elsif !goals_scored.has_key?(game[1].away_team_id)
+    #     goals_scored[game[1].away_team_id] = [game[1].away_goals.to_i]
+    #   end
+    # end
+
+    # @games_collection.collection.map do |game|
+    #   if goals_scored.has_key?(game[1].home_team_id)
+    #     goals_scored[game[1].home_team_id] << game[1].home_goals.to_i
+    #   elsif !goals_scored.has_key?(game[1].home_team_id)
+    #     goals_scored[game[1].home_team_id] = [game[1].home_goals.to_i]
+    #   end
+    # end
+    # team_names_ids = Hash.new(0)
+
+    # @teams_collection.collection.each do |team|
+    #   team_names_ids[team[1].team_id] = team[1].abbreviation
+    # end
+    #   goals_scored.each do |team|
+    #     goals_scored_averages = team[1].sum / team[1].length
+    #     goals_scored[team[0]] = goals_scored_averages
+    # end
+    # team_id_max_goals = goals_scored.max_by{ |k, v| v}
+    # team_names_ids[team_id_max_goals[0]]
+  end
 end

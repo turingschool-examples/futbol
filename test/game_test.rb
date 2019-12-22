@@ -43,10 +43,4 @@ class GameTest < Minitest::Test
     assert_equal "Toyota Stadium", @first_truncated_game.venue
     assert_equal "/api/v1/venues/null", @first_truncated_game.venue_link
   end
-
-  def test_highest_total_score
-    assert_equal 
-
-  end
-
 end
