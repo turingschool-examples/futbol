@@ -77,7 +77,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal 0, @stat_tracker.lowest_total_score
   end
 
-  def test_biggest_blowout_method_can_look_at_game_scores
+  def test_biggest_blowout_margin
     stat_tracker = mock('StatTracker')
     stat_tracker.stubs(:biggest_blowout).returns(8)
     assert_equal 8, stat_tracker.biggest_blowout

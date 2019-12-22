@@ -42,21 +42,12 @@ class StatTracker
   end
 
   def average_goals_by_season
-    sums = {}
-    averages = {}
-    @game_collection.collection.each do |game|
-      if !sums.key?(game[1].season)
-        sums[game[1].season] = (game[1].home_goals.to_i + game[1].away_goals.to_i)
-      else
-        sums[game[1].season] += (game[1].home_goals.to_i + game[1].away_goals.to_i)
-      end
+    avg_gpg = Hash.new(0)
+    @season_collection.collection.each_pair do |key, season_array|
+      season_array.find_all { |game| avg_gpg[key] += (game.home_goals.to_f + game.away_goals.to_f) }
+      avg_gpg[key] = (avg_gpg[key] / season_array.length).round(2)
     end
-
-    sums.each do |key, value|
-      averages[key] = (value.to_f / count_of_games_by_season[key]).round(2)
-    end
-
-    averages
+    avg_gpg
   end
 
   def highest_total_score
@@ -74,25 +65,17 @@ class StatTracker
   end
 
   def biggest_blowout
-    blowout = {}
-    @game_collection.collection.each do |game|
-      margin = (game[1].home_goals.to_i - game[1].away_goals.to_i).abs
-      if blowout.empty?
-        blowout[game[1]] = margin
-      elsif margin > blowout.values[0]
-        blowout.clear
-        blowout[game[1]] = margin
-      end
+    blowout = @game_collection.collection.max_by do |id, game|
+      (game.home_goals.to_i - game.away_goals.to_i).abs
     end
-    blowout.values.last
+    (blowout[1].home_goals.to_i - blowout[1].away_goals.to_i).abs
   end
 
   def count_of_games_by_season
-    season = Hash.new(0)
-    @game_collection.collection.each do |game|
-      season[game[1].season] += 1
+    @game_collection.collection.reduce(Hash.new{0}) do |hash, game|
+      hash[game[1].season] += 1
+      hash
     end
-    season
   end
 
   def percentage_ties
