@@ -8,8 +8,11 @@ require_relative 'game_collection'
 require_relative 'team_collection'
 require_relative 'game_teams_collection'
 require_relative 'season_collection'
+require_relative './modules/calculateable'
 
 class StatTracker
+  include Calculateable
+
   attr_reader :game_collection,
               :team_collection,
               :season_collection,
@@ -128,68 +131,26 @@ class StatTracker
     @team_collection.collection.length
   end
 
-  def goals_by_team
-    @game_collection.collection.inject(Hash.new(0)) do |scores, game|
-      scores[game[1].home_team_id] += game[1].home_goals.to_i
-      scores[game[1].away_team_id] += game[1].away_goals.to_i
-      scores
-    end
-  end
-
-  def goals_against_team
-    @game_collection.collection.inject(Hash.new(0)) do |scores, game|
-      scores[game[1].home_team_id] += game[1].away_goals.to_i
-      scores[game[1].away_team_id] += game[1].home_goals.to_i
-      scores
-    end
-  end
-
-  def games_by_team
-    @game_collection.collection.inject(Hash.new(0)) do |count, game|
-      count[game[1].home_team_id] += 1
-      count[game[1].away_team_id] += 1
-      count
-    end
-  end
-
-  def average_goals_by_team
-    average_goals = {}
-    goals_by_team.each do |team, tot_score|
-      average_goals[team] = (tot_score.to_f / games_by_team[team]).round(2)
-    end
-
-    average_goals
-  end
-
-  def average_goals_against_team
-    average_goals = {}
-    goals_against_team.each do |team, tot_score|
-      average_goals[team] = (tot_score.to_f / games_by_team[team]).round(2)
-    end
-
-    average_goals
-  end
-
   def best_offense
-    team_id = average_goals_by_team.max_by{ |id, avg| avg }[0]
+    team_id = average_goals(goals_by_team).max_by{ |id, avg| avg }[0]
 
     @team_collection.collection[team_id].team_name
   end
 
   def worst_offense
-    team_id = average_goals_by_team.min_by{ |id, avg| avg }[0]
+    team_id = average_goals(goals_by_team).min_by{ |id, avg| avg }[0]
 
     @team_collection.collection[team_id].team_name
   end
 
   def best_defense
-    team_id = average_goals_against_team.min_by{ |id, avg| avg }[0]
+    team_id = average_goals(goals_against_team).min_by{ |id, avg| avg }[0]
 
     @team_collection.collection[team_id].team_name
   end
 
   def worst_defense
-    team_id = average_goals_against_team.max_by{ |id, avg| avg }[0]
+    team_id = average_goals(goals_against_team).max_by{ |id, avg| avg }[0]
 
     @team_collection.collection[team_id].team_name
   end
