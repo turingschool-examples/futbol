@@ -4,10 +4,12 @@ require './lib/stat_tracker'
 require './lib/game'
 require './lib/team'
 require './lib/game_teams'
+require './lib/season'
 require './lib/collection'
 require './lib/game_collection'
 require './lib/team_collection'
 require './lib/game_teams_collection'
+require './lib/season_collection'
 
 class StatTrackerTest < Minitest::Test
   def setup
@@ -16,9 +18,9 @@ class StatTrackerTest < Minitest::Test
     game_teams_path = './data/game_teams.csv'
 
     locations = {
-                  games: game_path,
-                  teams: team_path,
-                  game_teams: game_teams_path
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
     }
 
     @stat_tracker = StatTracker.from_csv(locations)
@@ -54,12 +56,12 @@ class StatTrackerTest < Minitest::Test
 
   def test_stat_tracker_average_goals_by_season
     average_hash = {
-      "20122013"=>4.12,
-      "20132014"=>4.19,
-      "20142015"=>4.14,
-      "20152016"=>4.16,
-      "20162017"=>4.23,
-      "20172018"=>4.44,
+      '20122013'=>4.12,
+      '20132014'=>4.19,
+      '20142015'=>4.14,
+      '20152016'=>4.16,
+      '20162017'=>4.23,
+      '20172018'=>4.44
     }
 
     assert_equal average_hash, @stat_tracker.average_goals_by_season
@@ -83,16 +85,14 @@ class StatTrackerTest < Minitest::Test
 
   def test_count_of_games_by_season
     stat_tracker = mock('StatTracker')
-    stat_tracker.stubs(:count_of_games_by_season).returns(
-      {
-        '20122013'=>806,
-        '20132014'=>1323,
-        '20142015'=>1319,
-        '20152016'=>1321,
-        '20162017'=>1317,
-        '20172018'=>1355,
-      }
-    )
+    stat_tracker.stubs(:count_of_games_by_season).returns({
+      '20122013'=>806,
+      '20132014'=>1323,
+      '20142015'=>1319,
+      '20152016'=>1321,
+      '20162017'=>1317,
+      '20172018'=>1355
+    })
     assert_equal 1355, stat_tracker.count_of_games_by_season['20172018']
   end
 
