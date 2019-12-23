@@ -1,5 +1,6 @@
 require_relative './test_helper'
 require 'csv'
+require './lib/tracker'
 require './lib/stat_tracker'
 require './lib/game'
 require './lib/team'
@@ -23,7 +24,7 @@ class StatTrackerTest < Minitest::Test
       game_teams: game_teams_path
     }
 
-    @stat_tracker = StatTracker.from_csv(locations)
+    @stat_tracker = Tracker.from_csv(locations)
   end
 
   def test_stat_tracker_exists

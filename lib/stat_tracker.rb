@@ -1,37 +1,12 @@
 require 'csv'
-require_relative 'game'
-require_relative 'team'
-require_relative 'game_teams'
-require_relative 'season'
-require_relative 'collection'
-require_relative 'game_collection'
-require_relative 'team_collection'
-require_relative 'game_teams_collection'
-require_relative 'season_collection'
+require_relative 'tracker'
 require_relative './modules/calculateable'
+require_relative './modules/gatherable'
 
-class StatTracker
+
+class StatTracker < Tracker
   include Calculateable
-
-  attr_reader :game_collection,
-              :team_collection,
-              :season_collection,
-              :game_teams_collection
-
-  def self.from_csv(locations)
-    games = locations[:games]
-    teams = locations[:teams]
-    game_teams = locations[:game_teams]
-
-    StatTracker.new(games, teams, game_teams)
-  end
-
-  def initialize(games, teams, game_teams)
-    @game_collection = GameCollection.new(games)
-    @team_collection = TeamCollection.new(teams)
-    @season_collection = SeasonCollection.new(games)
-    @game_teams_collection = GameTeamsCollection.new(game_teams)
-  end
+  include Gatherable
 
   def average_goals_per_game
     sum = 0
@@ -115,26 +90,26 @@ class StatTracker
   end
 
   def best_offense
-    team_id = average_goals(goals_by_team).max_by{ |id, avg| avg }[0]
+    team_id = team_average_goals(goals_by_team).max_by{ |id, avg| avg }[0]
 
-    @team_collection.collection[team_id].team_name
+    get_team_name_by_id(team_id)
   end
 
   def worst_offense
-    team_id = average_goals(goals_by_team).min_by{ |id, avg| avg }[0]
+    team_id = team_average_goals(goals_by_team).min_by{ |id, avg| avg }[0]
 
-    @team_collection.collection[team_id].team_name
+    get_team_name_by_id(team_id)
   end
 
   def best_defense
-    team_id = average_goals(goals_against_team).min_by{ |id, avg| avg }[0]
+    team_id = team_average_goals(goals_against_team).min_by{ |id, avg| avg }[0]
 
-    @team_collection.collection[team_id].team_name
+    get_team_name_by_id(team_id)
   end
 
   def worst_defense
-    team_id = average_goals(goals_against_team).max_by{ |id, avg| avg }[0]
+    team_id = team_average_goals(goals_against_team).max_by{ |id, avg| avg }[0]
 
-    @team_collection.collection[team_id].team_name
+    get_team_name_by_id(team_id)
   end
 end
