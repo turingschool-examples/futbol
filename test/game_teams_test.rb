@@ -32,9 +32,12 @@ class GameTeamsTest < Minitest::Test
   end
 
   def test_it_can_get_the_best_fans
-    # assert_equal 
+    assert_equal 'FC Dallas', GameTeams.best_fans
   end
 
+  def test_it_can_get_the_best_fans
+    assert_equal ['Houston Dynamo'], GameTeams.worst_fans
+  end
   
 # 3 away L  L  L (0) home L (0)    
 # 6 away W W L W (75) home W W W (100) 
