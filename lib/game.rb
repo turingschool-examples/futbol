@@ -59,9 +59,8 @@ class Game
   end
 
   def winner
-    @home_team_id if @home_goals > @away_goals
-    @away_team_id if @away_goals > @home_goals
-
+    return @home_team_id if @home_goals > @away_goals
+    return @away_team_id if @away_goals > @home_goals
     nil
   end
 end
