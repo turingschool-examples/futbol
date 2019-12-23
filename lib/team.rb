@@ -13,8 +13,6 @@ class Team
 
   def self.from_csv(file_path)
     csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
-
-
     @@all = csv.map do |row|
       Team.new(row)
     end
@@ -27,7 +25,10 @@ class Team
     @franchiseId = team_info[:franchiseid]
     @teamName = team_info[:teamname]
     @abbreviation = team_info[:abbreviation]
-    # @Stadium = team_info[:] #downcase
+  end
+
+  def self.count_of_teams
+    @@all.size
   end
 
 end
