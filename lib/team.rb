@@ -39,6 +39,10 @@ class Team
     (home_scores.sum.to_f / home_games.length.to_f).round(2)
   end
 
+  def average_goals_total
+    (average_goals_away + average_goals_home / 2).round(2)
+  end
+
   def stats_by_season
     stats_by_season = Hash.new {|hash, key| hash[key] = {}}
     Season.all.each do |season|
@@ -51,6 +55,44 @@ class Team
                                     win_percentage: (wins.length.to_f / games.length).round(2)}
     end
     stats_by_season
+  end
+
+  def win_percent_total
+    games_played = Game.all.find_all do |game|
+      game.home_team_id == @team_id || game.away_team_id == @team_id
+    end
+    won_games = games_played.find_all { |game| game.winner == @team_id }.length
+    (won_games.to_f / games_played.length).round(2)
+  end
+
+  def total_games_played
+    Game.all.find_all do |game|
+      game.home_team_id == @team_id || game.away_team_id == @team_id
+    end.length
+  end
+
+  def home_win_percentage
+    home_wins = Game.all.find_all do |game|
+      game.home_team_id == @team_id && game.winner == @team_id
+    end
+    (home_wins.length.to_f / total_games_played).round(2)
+  end
+
+  def away_win_percentage
+    away_wins = Game.all.find_all do |game|
+      game.away_team_id == @team_id && game.winner == @team_id
+    end
+    (away_wins.length.to_f / total_games_played).round(2)
+  end
+
+  def total_scores_against
+    away_against_score = Game.all.find_all do |game|
+      game.away_team_id == @team_id
+    end.sum(&:home_goals)
+    home_against_score = Game.all.find_all do |game|
+      game.home_team_id == @team_id
+    end.sum(&:away_goals)
+    ((away_against_score.to_f + home_against_score) / total_games_played).round(2)
   end
 
 end
