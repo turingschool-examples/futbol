@@ -14,6 +14,7 @@ require_relative 'team_season_collection'
 class Tracker
   attr_reader :game_collection,
               :team_collection,
+              :team_season_collection,
               :season_collection,
               :game_teams_collection
 

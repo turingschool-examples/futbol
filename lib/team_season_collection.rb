@@ -19,8 +19,6 @@ class TeamSeasonCollection < Collection
 
       collection_helper_home(row, hash, season_hash)
 
-      require 'pry'; binding.pry
-
       hash
     end
   end
