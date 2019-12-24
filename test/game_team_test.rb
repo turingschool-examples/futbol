@@ -84,14 +84,4 @@ class GameTeamTest < Minitest::Test
   def test_highest_scoring_home_team
     assert_equal "FC Dallas", GameTeam.highest_scoring_home
   end
-
-  def test_count_of_teams
-    assert_equal 6, GameTeam.count_of_teams
-  end
-
-  def test_best_offence
-    # assert_equal 4, GameTeam.best_offence
-    assert_equal "FC Dallas", GameTeam.best_offence
-  end
-
 end

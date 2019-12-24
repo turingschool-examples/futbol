@@ -3,7 +3,7 @@ require_relative 'team'
 require_relative 'game_team'
 require_relative 'data_objects/incremental_average'
 
-class Offence
+class Offense
 
   def self.count_of_teams
     count = []
@@ -13,7 +13,7 @@ class Offence
     count.length
   end
 
-  def self.best_offence
+  def self.best_offense
     hash = get_team_goal_avg_hash()
 
     current_max_team_id = ""
@@ -51,14 +51,14 @@ class Offence
     hash
   end
 
-  def self.worst_offence
+  def self.worst_offense
     hash = get_team_goal_avg_hash()
 
     current_min_team_id = ""
     current_min_avg = -1
     hash.map do |team_id, avg|
       if current_min_avg == -1
-        current_min_avg = avg.average 
+        current_min_avg = avg.average
       else(avg.average < current_min_avg)
         current_min_team_id = team_id
         current_min_avg = avg.average
