@@ -1,5 +1,6 @@
 require 'csv'
-require './lib/team'
+require_relative 'team'
+require_relative 'game'
 
 class GameTeam
   @@all_game_teams
@@ -15,7 +16,8 @@ class GameTeam
                   end
   end
 
-  attr_reader :game_id, :team_id, :hoa, :result, :settled_in, :head_coach, :goals, :shots, :tackles
+  attr_reader :game_id, :team_id, :hoa, :result, :settled_in,
+              :head_coach, :goals, :shots, :tackles
 
   def initialize(game_team_info)
     @game_id = game_team_info[:game_id]
@@ -210,5 +212,43 @@ class GameTeam
     end
     team_name
     #make module for finding team name from team id using hash
+  end
+
+  # def self.count_of_teams
+  #   count = []
+  #   @@all_game_teams.map do |game_team|
+  #     count << game_team.team_id
+  #   end
+  #   count.uniq.length
+  # end
+
+  def self.best_offence
+    # array of uniq seasons
+    # season_games = []
+    # Game.all_games.each do |game|
+    #   season_games << game.season
+    # end
+    # season = season_games.uniq.sort
+    #
+    # # array of uniq team ids
+    # id_team = @@all_game_teams.map do |game_team|
+    #   game_team.team_id
+    # end
+    # id = id_team.uniq
+    #
+    # # array of all goals in file order
+    # goals = @@all_game_teams.map do |game_team|
+    #   game_team.goals.to_i
+    # end
+    #
+    # # array of team names
+    # name_of_team = Team.all_teams.map do |team|
+    #   team.team_name
+    # end
+
+    # need to add all goals per team id
+    # divide total goals by games played that season
+    # return name of team with highest number of goals
+
   end
 end
