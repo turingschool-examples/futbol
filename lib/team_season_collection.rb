@@ -12,16 +12,39 @@ class TeamSeasonCollection < Collection
 
   def create_collection(csv_file_path, collection_type)
     from_csv(csv_file_path).reduce(Hash.new(Hash.new([]))) do |hash, row|
-      # require 'pry'; binding.pry
-      # season_hash = { row[:home_team_id] => { row[:season] => ([] << collection_type.new(row)) } }
-      hash[row[:home_team_id]] = { row[:season] => (hash[row[:home_team_id]][row[:season]] += [collection_type.new(row)]) }
-      hash[row[:away_team_id]] = { row[:season] => (hash[row[:away_team_id]][row[:season]] += [collection_type.new(row)]) }
-      # nest1 = season_hash.dig(row[:home_team_id])
-      # nest2 = season_hash.dig(row[:home_team_id], row[:season])
-      # require 'pry'; binding.pry
-      # hash.merge!(season_hash){ |k, old_val, new_val| hash[k] = nest1.keys[0] = old_val.append(new_val) }
-      # require 'pry'; binding.pry
+      season_hash = { row[:home_team_id] => { row[:season] => [] } }
+      season_hash[row[:home_team_id]] = { row[:season] => (season_hash[row[:home_team_id]][row[:season]] += [collection_type.new(row)]) }
+      season_data = season_hash[row[:home_team_id]].values.flatten!
+      key = season_hash.keys[0]
+
+      require 'pry'; binding.pry
+
+      if !hash.empty? && hash.has_key?(key)
+        data = hash[key].values.flatten!
+        hash[key] = { row[:season] => (data << season_data).flatten! }
+      elsif hash.empty? || !hash.has_key?(key)
+        hash[key] = { row[:season] => (hash[key].values << season_data).flatten! }
+      end
+
+      require 'pry'; binding.pry
+
+      season_hash = { row[:away_team_id] => { row[:season] => [] } }
+      season_hash[row[:away_team_id]] = { row[:season] => (season_hash[row[:away_team_id]][row[:season]] += [collection_type.new(row)]) }
+      season_data = season_hash[row[:away_team_id]].values.flatten!
+      key = season_hash.keys[0]
+
+      require 'pry'; binding.pry
+
+      if !hash.empty? && hash.has_key?(key)
+        data = hash[key].values.flatten!
+        hash[key] = { row[:season] => (data << season_data).flatten! }
+      elsif hash.empty? || !hash.has_key?(key)
+        hash[key] = { row[:season] => (hash[key].values << season_data).flatten! }
+      end
+      require 'pry'; binding.pry
       hash
     end
   end
 end
+
+# hash.keys[0] = hash[row[:home_team_id]].keys[0] = (hash[row[:home_team_id]][row[:season]] += season_hash[row[:home_team_id]][row[:season]])
