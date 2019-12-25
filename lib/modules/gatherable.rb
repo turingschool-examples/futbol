@@ -55,7 +55,7 @@ module Gatherable
     season_hash
   end
 
-  def season_data_array(row, season_hash, team_id)
+  def season_data_array(season_hash, team_id)
     season_hash[team_id].values.flatten!
   end
 
