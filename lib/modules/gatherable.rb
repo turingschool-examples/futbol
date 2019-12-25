@@ -53,7 +53,7 @@ module Gatherable
       hash[key][season_key] << season_data
     elsif hash.key?(key) && !hash[key].key?(season_key)
       { hash[key] => hash[key][season_key] = season_data }
-    elsif !hash.has_key?(key) && !hash.empty?
+    elsif !hash.key?(key) && !hash.empty?
       hash[key] = { season_key => season_data }
     elsif hash.empty?
       hash = { key => { season_key => season_data } }
