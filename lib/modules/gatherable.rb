@@ -46,8 +46,7 @@ module Gatherable
   end
 
   def team_hash(row, team_id)
-    season_hash = { team_id => { row[:season] => [] } }
-    season_hash
+    { team_id => { row[:season] => [] } }
   end
 
   def team_season_hash(row, collection_type, season_hash, team_id)
@@ -60,16 +59,14 @@ module Gatherable
   end
 
   def team_key(season_hash)
-    key = season_hash.keys[0]
-    key
+    season_hash.keys[0]
   end
 
   def season_key(season_hash, key)
-    season_key = season_hash[key].keys[0]
-    season_key
+    season_hash[key].keys[0]
   end
 
-  def season_parse(key, season_key, season_hash, season_data, hash)
+  def season_parse(key, season_key, season_data, hash)
     if hash.key?(key) && hash[key].key?(season_key)
       hash[key][season_key] << season_data
     elsif hash.key?(key) && !hash[key].key?(season_key)
