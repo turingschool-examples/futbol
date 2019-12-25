@@ -17,14 +17,14 @@ class TeamSeasonCollection < Collection
 
       season_hash = team_hash(row, home_id)
       season_hash = season_hash(row, collection_type, season_hash, home_id)
-      season_data = season_data_hash(row, season_hash, home_id)
+      season_data = season_data_array(row, season_hash, home_id)
       key = team_key(season_hash)
       season_key = season_key(season_hash, key)
       hash = season_parse(key, season_key, season_hash, season_data, hash)
 
       season_hash = team_hash(row, away_id)
       season_hash = season_hash(row, collection_type, season_hash, away_id)
-      season_data = season_data_hash(row, season_hash, away_id)
+      season_data = season_data_array(row, season_hash, away_id)
       key = team_key(season_hash)
       season_key = season_key(season_hash, key)
       hash = season_parse(key, season_key, season_hash, season_data, hash)
