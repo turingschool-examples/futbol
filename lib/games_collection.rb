@@ -9,7 +9,6 @@ class GamesCollection
 
   def initialize(games_path)
     @games = create_games(games_path)
-
   end
 
   def create_games(games_path)
@@ -50,12 +49,12 @@ class GamesCollection
   end
 
   def count_of_games_by_season
-  games_per_season = Hash.new(0)
-    games.each do |game|
-      games_per_season[game.season] += 1
+    games_per_season = Hash.new(0)
+      games.each do |game|
+        games_per_season[game.season] += 1
     end
-  games_per_season
- end
+    games_per_season
+  end
 
   def percentage_ties
     ties = @games.find_all { |game| game.home_goals == game.away_goals}
@@ -87,7 +86,7 @@ class GamesCollection
     # If the team id shows up more than once, then its goals for that new game
     # are added to the hash key created for it. This should give us for each team,
     # the total amount of goals they made for all games.
-    y = games.reduce({}) do |acc, game|
+    team_id_to_games = games.reduce({}) do |acc, game|
       if acc[game.home_team_id] == nil
         acc[game.home_team_id] = []
         acc[game.home_team_id] << game.home_goals
@@ -110,9 +109,9 @@ class GamesCollection
     end
     # Create a hash that matches each team_id to their goal average (total
     # amount of goals divided by the number of games they played)
-    team_id_to_avg = y.reduce({}) do |acc, y|
-      id = y[0]
-      avg = (y[1].sum) / (y[1].length).to_f
+    team_id_to_games.reduce({}) do |acc, id_and_games|
+      id = id_and_games[0]
+      avg = (id_and_games[1].sum) / (id_and_games[1].length).to_f
       acc[id] = [avg]
       acc
     end
@@ -123,13 +122,42 @@ class GamesCollection
     #Find team_id with highest average goals
     highest_avg = avg_hash.max_by {|k, v| v}
     #pull that team's id
-    highest_avg_id = highest_avg[0]
+    highest_avg[0]
   end
 
   def worst_offence_id
     avg_hash = team_id_to_avg
     lowest_avg = avg_hash.min_by {|k, v| v}
-    lowest_avg_id = lowest_avg[0]
+    lowest_avg[0]
   end
 
+  def reg_season_game_ids(season_id)
+    #create array with regular season game ids to be used in game_teams_collection
+    reg_game_ids = @games.reduce([]) do |acc, game|
+      if game.season == season_id.to_s && game.type == "Regular Season" && acc.include?(game.game_id) == false
+        acc << game.game_id
+      end
+      acc
+    end
+  end
+
+  def post_season_game_ids(season_id)
+    #create array with postseason game ids to be used in game_teams_collection
+    post_game_ids = @games.reduce([]) do |acc, game|
+      if game.season == season_id.to_s && game.type == "Postseason" && acc.include?(game.game_id) == false
+        acc << game.game_id
+      end
+      acc
+    end
+  end
+
+
+
 end
+
+# These methods each take a season id as an argument and return the values described below.
+
+# biggest_bust	Name of the team with the biggest decrease between regular season
+# and postseason win percentage.	String
+# biggest_surprise	Name of the team with the biggest increase between regular
+# season and postseason win percentage.	String

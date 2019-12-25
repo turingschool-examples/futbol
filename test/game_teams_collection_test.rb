@@ -22,6 +22,22 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal 6, @game_teams_collection.highest_scoring_visitor_id
   end
 
+  def test_highest_scoring_home_team_id
+    assert_equal 2, @game_teams_collection.highest_scoring_home_team_id
+  end
+
+  def test_lowest_scoring_visitor_id
+    assert_equal 3, @game_teams_collection.lowest_scoring_visitor_id
+  end
+
+  def test_lowest_scoring_home_team_id
+    assert_equal 16, @game_teams_collection.lowest_scoring_home_team_id
+  end
+
+  def test_biggest_bust_id
+    assert_equal 2, @game_teams_collection.biggest_bust_id(20142015)
+  end
+
 
 
 end

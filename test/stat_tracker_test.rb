@@ -37,8 +37,24 @@ class StatTrackerTest < Minitest::Test
     assert_equal "New England Revolution", @stat_tracker.worst_offense
   end
 
-  def test_highest_scoring_visitor_id
+  def test_highest_scoring_visitor
     assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal "Seattle Sounders FC", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_lowest_scoring_visitor
+    assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_lowest_scoring_home_team
+    assert_equal "New England Revolution", @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_biggest_bust
+    assert_equal "Seattle Sounders FC", @stat_tracker.biggest_bust(20142015)
   end
 
 end
