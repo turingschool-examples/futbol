@@ -40,11 +40,14 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal 'KlassType', stat_tracker.klass
 
-    stat_tracker.stubs(:games_collection).returns('GamesCollection')
-    assert_equal 'GamesCollection', stat_tracker.games_collection
+    stat_tracker.stubs(:game_collection).returns('GameCollection')
+    assert_equal 'GameCollection', stat_tracker.game_collection
 
-    stat_tracker.stubs(:teams_collection).returns('TeamsCollection')
-    assert_equal 'TeamsCollection', stat_tracker.teams_collection
+    stat_tracker.stubs(:team_collection).returns('TeamCollection')
+    assert_equal 'TeamCollection', stat_tracker.team_collection
+
+    stat_tracker.stubs(:team_season_collection).returns('TeamSeasonCollection')
+    assert_equal 'TeamSeasonCollection', stat_tracker.team_season_collection
 
     stat_tracker.stubs(:game_teams_collection).returns('GameTeamsCollection')
     assert_equal 'GameTeamsCollection', stat_tracker.game_teams_collection
