@@ -27,24 +27,6 @@ module Gatherable
     @team_collection.collection[team_id].team_name
   end
 
-  def collection_helper_home(row, hash, season_hash)
-    if !(hash[row[:home_team_id]][row[:season]])
-      hash[row[:home_team_id]] = {}
-      hash[row[:home_team_id]][row[:season]] = []
-    end
-
-    hash[row[:home_team_id]][row[:season]] += season_hash.values.flatten(1)
-  end
-
-  def collection_helper_away(row, hash, season_hash)
-    if !(hash[row[:away_team_id]][row[:season]])
-      hash[row[:away_team_id]] = {}
-      hash[row[:away_team_id]][row[:season]] = []
-    end
-
-    hash[row[:away_team_id]][row[:season]] += season_hash.values.flatten(1)
-  end
-
   def team_hash(row, team_id)
     { team_id => { row[:season] => [] } }
   end
