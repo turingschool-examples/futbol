@@ -50,7 +50,7 @@ module Gatherable
     season_hash
   end
 
-  def season_hash(row, collection_type, season_hash, team_id)
+  def team_season_hash(row, collection_type, season_hash, team_id)
     season_hash[team_id] = { row[:season] => (season_hash[team_id][row[:season]] += [collection_type.new(row)]) }
     season_hash
   end
