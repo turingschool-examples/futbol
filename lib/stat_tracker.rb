@@ -3,7 +3,6 @@ require_relative 'tracker'
 require_relative './modules/calculateable'
 require_relative './modules/gatherable'
 
-
 class StatTracker < Tracker
   include Calculateable
   include Gatherable
@@ -77,7 +76,7 @@ class StatTracker < Tracker
     visitor_wins = 0
     total_games = @game_collection.collection.length
 
-    @game_collection.collection.each do |game|       
+    @game_collection.collection.each do |game|
       if game[1].home_goals.to_i < game[1].away_goals.to_i
         visitor_wins += 1
       end
