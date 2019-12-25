@@ -12,44 +12,24 @@ class TeamSeasonCollection < Collection
 
   def create_collection(csv_file_path, collection_type)
     from_csv(csv_file_path).reduce(Hash.new(Hash.new([]))) do |hash, row|
-      season_hash = { row[:home_team_id] => { row[:season] => [] } }
-      season_hash[row[:home_team_id]] = { row[:season] => (season_hash[row[:home_team_id]][row[:season]] += [collection_type.new(row)]) }
-      season_data = season_hash[row[:home_team_id]].values.flatten!
-      key = season_hash.keys[0]
-      season_key = season_hash[key].keys[0]
+      home_id = row[:home_team_id]
+      away_id = row[:away_team_id]
 
-      if hash.key?(key) && hash[key].has_key?(season_key)
-        data = hash[key].values.flatten!
-        hash[key][season_key] << season_data
-      elsif hash.key?(key) && !hash[key].has_key?(season_key)
-        data = hash[key].values.flatten!
-        { hash[key] => hash[key][season_key] = season_data }
-      elsif !hash.has_key?(key) && !hash.empty?
-        hash[key] = { season_key => season_data }
-      elsif hash.empty?
-        hash = { key => { season_key => season_data } }
-      end
+      season_hash = team_hash(row, home_id)
+      season_hash = season_hash(row, collection_type, season_hash, home_id)
+      season_data = season_data_hash(row, season_hash, home_id)
+      key = team_key(season_hash)
+      season_key = season_key(season_hash, key)
+      hash = season_parse(key, season_key, season_hash, season_data, hash)
 
-      season_hash = { row[:away_team_id] => { row[:season] => [] } }
-      season_hash[row[:away_team_id]] = { row[:season] => (season_hash[row[:away_team_id]][row[:season]] += [collection_type.new(row)]) }
-      season_data = season_hash[row[:away_team_id]].values.flatten!
-      key = season_hash.keys[0]
-      season_key = season_hash[key].keys[0]
+      season_hash = team_hash(row, away_id)
+      season_hash = season_hash(row, collection_type, season_hash, away_id)
+      season_data = season_data_hash(row, season_hash, away_id)
+      key = team_key(season_hash)
+      season_key = season_key(season_hash, key)
+      hash = season_parse(key, season_key, season_hash, season_data, hash)
 
-      if hash.key?(key) && hash[key].has_key?(season_key)
-        data = hash[key].values.flatten!
-        hash[key][season_key] << season_data
-      elsif hash.key?(key) && !hash[key].has_key?(season_key)
-        data = hash[key].values.flatten!
-        { hash[key] => hash[key][season_key] = season_data }
-      elsif !hash.has_key?(key) && !hash.empty?
-        hash[key] = { season_key => season_data }
-      elsif hash.empty?
-        hash = { key => { season_key => season_data } }
-      end
       hash
     end
   end
 end
-
-# { hash[key] => hash[key][season_key] = season_data }
