@@ -3,11 +3,13 @@ require_relative "game"
 
 class Team
   attr_reader :team_id,
-  :franchise_id,
-  :team_name,
-  :abbreviation,
-  :stadium,
-  :link
+              :franchise_id,
+              :team_name,
+              :abbreviation,
+              :stadium,
+              :link,
+              :away_games,
+              :home_games
 
   def initialize(team_info)
     @team_id = team_info[:team_id].to_i
@@ -16,6 +18,8 @@ class Team
     @abbreviation = team_info[:abbreviation]
     @stadium = team_info[:stadium]
     @link = team_info[:link]
+    @away_games = away_games_getter
+    @home_games = home_games_getter
   end
 
   def team_info
@@ -24,23 +28,28 @@ class Team
       team_name: @team_name,
       abbreviation: @abbreviation,
       link: @link}
-    team_info
+  end
+
+  def away_games_getter
+    Game.all.find_all { |game| game.away_team_id == @team_id }
+  end
+
+  def home_games_getter
+    Game.all.find_all { |game| game.home_team_id == @team_id }
   end
 
   def average_goals_away
-    away_games = Game.all.find_all { |game| game.away_team_id == @team_id }
-    away_scores = away_games.map { |game| game.away_goals }
-    (away_scores.sum.to_f / away_games.length.to_f).round(2)
+    away_scores = @away_games.map { |game| game.away_goals }
+    (away_scores.sum.to_f / @away_games.length.to_f).round(3)
   end
 
   def average_goals_home
-    home_games = Game.all.find_all { |game| game.home_team_id == @team_id }
-    home_scores = home_games.map { |game| game.home_goals }
-    (home_scores.sum.to_f / home_games.length.to_f).round(2)
+    home_scores = @home_games.map { |game| game.home_goals }
+    (home_scores.sum.to_f / @home_games.length.to_f).round(2)
   end
 
   def average_goals_total
-    (average_goals_away + average_goals_home / 2).round(2)
+    (average_goals_away + average_goals_home / 2).round(3)
   end
 
   def stats_by_season
@@ -58,41 +67,31 @@ class Team
   end
 
   def win_percent_total
-    games_played = Game.all.find_all do |game|
-      game.home_team_id == @team_id || game.away_team_id == @team_id
-    end
+    games_played = (@home_games + @away_games)
     won_games = games_played.find_all { |game| game.winner == @team_id }.length
     (won_games.to_f / games_played.length).round(2)
   end
 
   def total_games_played
-    Game.all.find_all do |game|
-      game.home_team_id == @team_id || game.away_team_id == @team_id
-    end.length
+    @home_games.length + @away_games.length
   end
 
   def home_win_percentage
-    home_wins = Game.all.find_all do |game|
-      game.home_team_id == @team_id && game.winner == @team_id
+    home_wins = @home_games.find_all do |game|
+      game.winner == @team_id
     end
     (home_wins.length.to_f / total_games_played).round(2)
   end
 
   def away_win_percentage
-    away_wins = Game.all.find_all do |game|
-      game.away_team_id == @team_id && game.winner == @team_id
+    away_wins = @away_games.find_all do |game|
+      game.winner == @team_id
     end
     (away_wins.length.to_f / total_games_played).round(2)
   end
 
   def total_scores_against
-    away_against_score = Game.all.find_all do |game|
-      game.away_team_id == @team_id
-    end.sum(&:home_goals)
-    home_against_score = Game.all.find_all do |game|
-      game.home_team_id == @team_id
-    end.sum(&:away_goals)
-    ((away_against_score.to_f + home_against_score) / total_games_played).round(2)
+    ((@away_games.sum(&:home_goals).to_f + @home_games.sum(&:away_goals)) / total_games_played).round(2)
   end
 
 end
