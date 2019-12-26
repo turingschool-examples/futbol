@@ -31,4 +31,8 @@ class Team
     @@all.size
   end
 
+  def self.team_id_to_team_name(team_id)
+    @@all.find {|team| team.team_id == team_id}.teamName
+  end
+
 end

@@ -44,15 +44,15 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_it_can_return_percentage_home_wins
-    assert_equal 53.85, @game_collection.percentage_home_wins
+    assert_equal 0.54, @game_collection.percentage_home_wins
   end
 
   def test_it_can_return_percentage_visitor_wins
-    assert_equal 42.31, @game_collection.percentage_visitor_wins
+    assert_equal 0.42, @game_collection.percentage_visitor_wins
   end
 
   def test_it_can_return_percentage_tie_wins
-    assert_equal 3.85, @game_collection.percentage_ties
+    assert_equal 0.04, @game_collection.percentage_ties
   end
 
   def test_count_of_games_by_season_method
@@ -63,8 +63,8 @@ class GameCollectionTest < Minitest::Test
   def test_average_goals_per_game_method
     assert_equal 4.38, @game_collection.average_goals_per_game
   end
+  
   def test
     @game_collection.count_teams
-
   end
 end

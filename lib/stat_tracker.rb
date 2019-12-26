@@ -30,10 +30,6 @@ class StatTracker
      GameCollection.new(@game_path)
   end
 
-  # def game_teams 
-  #   GameTeams.new(@game_teams_path)
-  # end
-
   def percentage_home_wins
     @game_collection.percentage_home_wins
   end
@@ -48,6 +44,10 @@ class StatTracker
 
   def average_goals_by_season
     @game_collection.average_goals_by_season
+  end
+
+  def average_goals_per_game
+    @game_collection.average_goals_per_game
   end
 
   def highest_total_score
@@ -81,6 +81,5 @@ class StatTracker
   def count_of_teams
     Team.count_of_teams
   end
-
 
 end

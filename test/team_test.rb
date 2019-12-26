@@ -21,4 +21,8 @@ class TeamTest < Minitest::Test
     assert_instance_of Team, @team
   end
 
+  def test_it_can_find_a_team_name_by_team_id
+    assert_equal "Houston Dynamo", Team.team_id_to_team_name("3")
+  end
+
 end
