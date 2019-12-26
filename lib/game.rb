@@ -40,12 +40,8 @@ class Game
   end
 
   def stat_results(stat_array)
-    stat_array.flatten!.shift
     stat_array.reduce({}) do |acc, inner_hash|
-      acc[inner_hash[:team_id]] = {HOA: inner_hash[:HOA],
-                                  Coach: inner_hash[:Coach],
-                                  Shots: inner_hash[:Shots],
-                                  Tackles: inner_hash[:Tackles]}
+      acc[inner_hash[:team_id]] = inner_hash.slice(:HOA, :Coach, :Shots, :Tackles)
       acc
     end
   end
