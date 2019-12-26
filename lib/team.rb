@@ -28,7 +28,6 @@ class Team
   end
 
   def average_goals_away
-    #alex review
     away_games = Game.all.find_all do |game|
        game.away_team_id == @team_id
      end
@@ -63,12 +62,41 @@ class Team
   # end
 
   def total_winning_percentage
-    all_games_played = Game.all.find_all do |game|
-      game.home_team_id == @team_id || game.away_team_id == @team_id
-    end
     all_games_won = all_games_played.find_all do |game|
       game.winner == @team_id
     end
     (all_games_won.length.to_f / all_games_played.length).round(2)
+  end
+
+  def home_win_percentage
+    all_home_games = all_games_played.find_all do |game|
+      game.home_team_id == @team_id
+    end
+    (home_games_won.length.to_f / all_home_games.length).round(2)
+  end
+
+  def away_win_percentage
+    all_away_games = all_games_played.find_all do |game|
+      game.away_team_id == @team_id
+    end
+    (away_games_won.length.to_f / all_away_games.length).round(2)
+  end
+
+  def all_games_played
+    all_games_played = Game.all.find_all do |game|
+      game.home_team_id == @team_id || game.away_team_id == @team_id
+    end
+  end
+
+  def home_games_won
+    home_won = Game.all.find_all do |game|
+      game.home_team_id == @team_id && game.winner == @team_id
+    end
+  end
+
+  def away_games_won
+    away_won = Game.all.find_all do |game|
+      game.away_team_id == @team_id && game.winner == @team_id
+    end
   end
 end

@@ -69,14 +69,67 @@ class StatTracker
 			return games_by_season
 	end
 
-	# def average_goals_by_season
-	# 	goals_by_season = {}
-	# 	@seasons.each {|season| goals_by_season[season.id] = season.total_games}
-	# end
-
 	def winningest_team
 		@teams.max_by do |team|
 			team.total_winning_percentage
 		end.team_name
+	end
+
+	def worst_fans
+		teams = @teams.find_all do |team|
+			team.away_games_won.length > team.home_games_won.length
+		end
+		teams.map do |team|
+			team.team_name
+		end
+	end
+
+	def best_fans
+		team = @teams.max_by do |team|
+			team.home_win_percentage - team.away_win_percentage
+		end
+		team.team_name
+	end
+
+	def highest_total_score
+		Game.all.max_by {|game| game.total_score}.total_score
+	end
+
+	def lowest_total_score
+		Game.all.min_by {|game| game.total_score}.total_score
+	end
+
+	def biggest_blowout
+		Game.all.max_by {|game| game.score_difference}.score_difference
+	end
+
+	def percentage_home_wins
+		home_wins = Game.all.find_all do |game|
+			game.home_goals > game.away_goals
+		end
+		return ((home_wins.length.to_f/Game.all.length).round(2))
+	end
+
+	def percentage_visitor_wins
+		away_wins = Game.all.find_all do |game|
+			game.away_goals > game.home_goals
+		end
+		return ((away_wins.length.to_f/Game.all.length).round(2))
+	end
+
+	def percentage_ties
+		ties = Game.all.find_all do |game|
+			game.winner == nil
+		end
+		return ((ties.length.to_f/Game.all.length)).round(2)
+	end
+
+	def average_goals_per_game
+		total_goals = Games.all.map {|game| game.total_score}
+		return ((total_goals.sum.to_f / Game.all.length)).round(2)
+	end
+
+	def count_of_teams
+		@teams.length
 	end
 end
