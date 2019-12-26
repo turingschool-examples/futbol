@@ -3,14 +3,14 @@ require_relative './game'
 
 class Season
 
-  @@all = []
-
-  def self.all
-    @@all
-  end
-
-  def self.reset_all
-    @@all = []
+  def self.from_csv(season_path, gt_path)
+    season_ids = []
+		season_storage = []
+		CSV.foreach(season_path, :headers => true, header_converters: :symbol) do |row|
+			season_ids.push(row[1])
+		end
+		season_ids.uniq.each {|id| season_storage.push(Season.new({id: id, path: season_path}, gt_path))}
+		season_storage
   end
 
   attr_reader :id, :games_by_type, :games_unsorted
@@ -19,7 +19,6 @@ class Season
     @id = season_hash[:id].to_i
     @games_by_type = games_gather(season_hash[:path], gt_path)
     @games_unsorted = @games_by_type.values.flatten
-    @@all << self
   end
 
   def games_gather(games_path, gt_path)
@@ -30,7 +29,7 @@ class Season
     game_sort_hash = Hash.new { |hash, key| hash[key] = [] }
     CSV.foreach(games_path, :headers => true, header_converters: :symbol) do |row|
       if row[1].to_i == @id
-        game_sort_hash[(row[2])].push((Game.new(row, stats_hash.shift)))
+        game_sort_hash[(row[2])].push((Game.new(row, stats_hash[row[0]])))
       end
     end
     game_sort_hash
@@ -43,8 +42,4 @@ class Season
   def total_games
     @games_unsorted.length
   end
-
-  # def average_score(season)
-  #
-  # end
 end
