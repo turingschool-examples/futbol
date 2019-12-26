@@ -2,15 +2,17 @@ require "CSV"
 require_relative './team'
 require_relative './season'
 require_relative './game'
+require_relative './merge_sortable'
 
 class StatTracker
-	attr_reader :seasons, :teams, :game_teams, :locations
+  include MergeSort
+	attr_reader :seasons, :teams, :game_teams
 
 	def initialize(locations)
-		@seasons = create_seasons(locations[:games], locations[:game_teams])
+		@seasons = Season.from_csv(locations[:games], locations[:game_teams])
 		@teams = create_teams(locations[:teams])
-		@game_teams = CSV.read(locations[:game_teams])
-	end
+		@game_teams = locations[:game_teams]
+  end
 
 	def self.from_csv(locations)
 		self.new(locations)
@@ -24,34 +26,28 @@ class StatTracker
 		teams_storage
 	end
 
-	def create_seasons(season_path, gt_path)
-		season_ids = []
-		season_storage = []
-		CSV.foreach(season_path, :headers => true, header_converters: :symbol) do |row|
-			season_ids.push(row[1])
-		end
-		season_ids.uniq.each {|id| season_storage.push(Season.new({id: id, path: season_path}, gt_path))}
-		season_storage
-	end
-
 	def count_of_teams
 		@teams.length
 	end
 
-	def highest_scoring_visitor
+  def highest_scoring_visitor
+    # merge_sort(@teams, "average_goals_away")[-1].team_name
 		@teams.max_by(&:average_goals_away).team_name
 	end
 
   #alex
-	def highest_scoring_home_team
+  def highest_scoring_home_team
+    # merge_sort(@teams, "average_goals_home")[-1].team_name
 		@teams.max_by(&:average_goals_home).team_name
 	end
 
-	def lowest_scoring_visitor
-		@teams.min_by(&:average_goals_away).team_name
+  def lowest_scoring_visitor
+    # merge_sort(@teams, "average_goals_away")[0].team_name
+    @teams.min_by(&:average_goals_away).team_name
 	end
 
-	def lowest_scoring_home_team
+  def lowest_scoring_home_team
+    # merge_sort(@teams, "average_goals_home")[0].team_name
 		@teams.min_by(&:average_goals_home).team_name
 	end
 
@@ -61,15 +57,18 @@ class StatTracker
 		return games_by_season
 	end
 
-	def highest_total_score
+  def highest_total_score
+    # merge_sort(Game.all, "total_score")[-1].total_score
 		Game.all.max_by {|game| game.total_score}.total_score
 	end
 
-	def lowest_total_score
+  def lowest_total_score
+    # merge_sort(Game.all, "total_score")[0].total_score
 		Game.all.min_by {|game| game.total_score}.total_score
 	end
 
-	def biggest_blowout
+  def biggest_blowout
+    # merge_sort(Game.all, "score_difference")[-1].score_difference
 		Game.all.max_by {|game| game.score_difference}.score_difference
 	end
 
