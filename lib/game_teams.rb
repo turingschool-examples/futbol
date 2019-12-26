@@ -9,12 +9,9 @@ class GameTeams
     @@all
   end
 
-   def self.team
+  def self.team
     @@team
   end
-
-  #this can be a self.reset method which makes an empty array again
-  ## Teardown method for minitest
 
   def self.from_csv(file_path)
     csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
@@ -43,8 +40,8 @@ class GameTeams
 
   def self.wins_per_team 
     games_per_team.reduce({}) do |result, team_result|
-        result[team_result[0]] = team_result[1].count {|game| game.result == 'WIN'} / team_result[1].size.to_f
-        result
+      result[team_result[0]] = team_result[1].count {|game| game.result == 'WIN'} / team_result[1].size.to_f
+      result
     end
   end
 
@@ -59,17 +56,17 @@ class GameTeams
   end
 
   def self.home_away_games_per_team
-  games_per_team.reduce({}) do |result, games|
+    games_per_team.reduce({}) do |result, games|
       result[games[0]] = games[1].group_by {|game| game.hoa}
       result
     end
   end
 
   def self.win_loss_perc_per_team
-    win_loss_perc_per_team = home_away_games_per_team.reduce({}) do |output, team|
+    home_away_games_per_team.reduce({}) do |output, team|
       output[team[0]] = {
-        away_win_percentage: ((team[1]["away"].count {|game| game.result == "WIN"})/team[1]["away"].size.to_f).round(2), 
-        home_win_percentage: ((team[1]["home"].count {|game| game.result == "WIN"})/team[1]["home"].size.to_f).round(2)
+        away_win_percentage: ((team[1]["away"].count {|game| game.result == "WIN"})/team[1]["away"].size.to_f).round(4), 
+        home_win_percentage: ((team[1]["home"].count {|game| game.result == "WIN"})/team[1]["home"].size.to_f).round(4)
         }
       output
     end
@@ -83,20 +80,10 @@ class GameTeams
   end
 
   def self.worst_fans
-    home_away_games_per_team = games_per_team.reduce({}) do |result, games|
-      result[games[0]] = games[1].group_by {|game| game.hoa}
-      result
-    end
-    win_loss_perc_per_team = home_away_games_per_team.reduce({}) do |output, team|
-      output[team[0]] = {
-        away_win_percentage: ((team[1]["away"].count {|game| game.result == "WIN"})/team[1]["away"].size.to_f).round(4), 
-        home_win_percentage: ((team[1]["home"].count {|game| game.result == "WIN"})/team[1]["home"].size.to_f).round(4)
-        }
-      output
-    end
     worst_fan_team_id = win_loss_perc_per_team.map do |team|
       team[1][:away_win_percentage] > team[1][:home_win_percentage] ? team[0] : nil
     end.compact
+    require 'pry'; binding.pry
     worst_fan_team_id.map do |team_id|
       Team.team_id_to_team_name(team_id)
     end
