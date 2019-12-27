@@ -21,7 +21,7 @@ class StatTrackerTest < Minitest::Test
     locations = {
       games: game_path,
       teams: team_path,
-      game_teams: game_teams_path
+      game_teams: game_teams_path,
     }
 
     @stat_tracker = Tracker.from_csv(locations)
@@ -60,12 +60,12 @@ class StatTrackerTest < Minitest::Test
 
   def test_stat_tracker_average_goals_by_season
     average_hash = {
-      '20122013'=>4.12,
-      '20132014'=>4.19,
-      '20142015'=>4.14,
-      '20152016'=>4.16,
-      '20162017'=>4.23,
-      '20172018'=>4.44
+      '20122013' => 4.12,
+      '20132014' => 4.19,
+      '20142015' => 4.14,
+      '20152016' => 4.16,
+      '20162017' => 4.23,
+      '20172018' => 4.44
     }
 
     assert_equal average_hash, @stat_tracker.average_goals_by_season
@@ -89,14 +89,14 @@ class StatTrackerTest < Minitest::Test
 
   def test_count_of_games_by_season
     stat_tracker = mock('StatTracker')
-    stat_tracker.stubs(:count_of_games_by_season).returns({
-      '20122013'=>806,
-      '20132014'=>1323,
-      '20142015'=>1319,
-      '20152016'=>1321,
-      '20162017'=>1317,
-      '20172018'=>1355
-    })
+    stat_tracker.stubs(:count_of_games_by_season).returns(
+      '20122013' => 806,
+      '20132014' => 1323,
+      '20142015' => 1319,
+      '20152016' => 1321,
+      '20162017' => 1317,
+      '20172018' => 1355
+    )
     assert_equal 1355, stat_tracker.count_of_games_by_season['20172018']
   end
 
@@ -122,18 +122,18 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_stat_tracker_can_get_best_offense
-    assert_equal "Reign FC", @stat_tracker.best_offense
+    assert_equal 'Reign FC', @stat_tracker.best_offense
   end
 
   def test_stat_tracker_can_get_worst_offense
-    assert_equal "Utah Royals FC", @stat_tracker.worst_offense
+    assert_equal 'Utah Royals FC', @stat_tracker.worst_offense
   end
 
   def test_stat_tracker_can_get_best_defense
-    assert_equal "FC Cincinnati", @stat_tracker.best_defense
+    assert_equal 'FC Cincinnati', @stat_tracker.best_defense
   end
 
   def test_stat_tracker_can_get_worst_defense
-    assert_equal "Columbus Crew SC", @stat_tracker.worst_defense
+    assert_equal 'Columbus Crew SC', @stat_tracker.worst_defense
   end
 end
