@@ -29,6 +29,6 @@ class GatherableTest < Minitest::Test
   end
 
   def test_team_season_total_goals
-    require 'pry'; binding.pry
+    # pry test
   end
 end
