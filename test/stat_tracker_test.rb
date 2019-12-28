@@ -21,7 +21,7 @@ class StatTrackerTest < Minitest::Test
     locations = {
       games: game_path,
       teams: team_path,
-      game_teams: game_teams_path,
+      game_teams: game_teams_path
     }
 
     @stat_tracker = Tracker.from_csv(locations)
