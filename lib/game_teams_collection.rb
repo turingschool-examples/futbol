@@ -14,4 +14,21 @@ class GameTeamsCollection
   def create_game_teams(game_teams_path)
     create_instances(game_teams_path, GameTeam)
   end
+
+  def winningest_team_id
+    team_all_games = @game_teams.group_by { |game| game.team_id }
+
+    team_records = team_all_games.reduce({}) do |records, games|
+      wlt_percent_calculator(games[1], "WIN")
+      records[games[0]] = @wlt_percentage
+      records
+    end
+    team_records.max_by { |team_id, percentage| percentage }[0]
+  end
+
+  # module candidate?
+  def wlt_percent_calculator(games_array, wlt)
+    wlt_total = (games_array.find_all { |game| game.result == wlt }).length
+    @wlt_percentage = (wlt_total.to_f / games_array.length.to_f).round(3)
+  end
 end
