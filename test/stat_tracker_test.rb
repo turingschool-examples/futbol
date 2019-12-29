@@ -37,6 +37,14 @@ class StatTrackerTest < Minitest::Test
     assert_equal "New England Revolution", @stat_tracker.worst_offense
   end
 
+  def test_name_of_best_defense
+    assert_equal "LA Galaxy", @stat_tracker.best_defense
+  end
+
+  def test_name_of_worst_defense
+    assert_equal "Utah Royals FC", @stat_tracker.worst_defense
+  end
+
   def test_name_of_winningest_team
     assert_equal "FC Dallas", @stat_tracker.winningest_team
   end
