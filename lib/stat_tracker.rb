@@ -2,30 +2,24 @@ require "CSV"
 require_relative './team'
 require_relative './season'
 require_relative './game'
-require_relative './merge_sortable'
+# require_relative './merge_sortable'
 require_relative './team_searchable'
+# require_relative './searchables'
 
 class StatTracker
-  include MergeSort
+  # include MergeSort
   include TeamSearchable
+  # include Searchable
 	attr_reader :seasons, :teams, :game_teams
 
 	def initialize(locations)
 		@seasons = Season.from_csv(locations[:games], locations[:game_teams])
-		@teams = create_teams(locations[:teams])
+		@teams = Team.from_csv(locations[:teams])
 		@game_teams = locations[:game_teams]
   end
 
 	def self.from_csv(locations)
 		self.new(locations)
-	end
-
-	def create_teams(team_path)
-		teams_storage = []
-		CSV.foreach(team_path, :headers => true, header_converters: :symbol) do |row|
-			teams_storage.push(Team.new(row))
-		end
-		teams_storage
 	end
 
 	def count_of_teams
@@ -40,7 +34,8 @@ class StatTracker
 
   def highest_total_score
     # merge_sort(Game.all, "total_score")[-1].total_score
-		Game.all.max_by {|game| game.total_score}.total_score
+    Game.all.max_by {|game| game.total_score}.total_score
+    # search(Game.all, "max_by", "total_score").total_score
 	end
 
   def lowest_total_score
