@@ -92,4 +92,8 @@ class StatTracker
     teams_collection.associate_team_id_with_team_name(game_teams_collection.winningest_team_id)
   end
 
+  def best_fans
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.best_fans_team_id)
+  end
+
 end

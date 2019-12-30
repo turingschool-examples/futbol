@@ -49,4 +49,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas", @stat_tracker.winningest_team
   end
 
+  def test_name_of_team_with_best_fans
+    assert_equal "Houston Dynamo", @stat_tracker.best_fans
+  end
+
 end
