@@ -26,13 +26,21 @@ class GameTeamsCollection
 
   def best_fans_team_id
     home_games_teams = hoa_game_sorter("home")
+    away_games_teams = hoa_game_sorter("away")
 
     home_win_pcts = home_games_teams.reduce({}) do |records, games|
       wlt_percent_calculator(games[1], "WIN")
       records[games[0]] = @wlt_percentage
       records
     end
-    # require "pry"; binding.pry
+    require "pry"; binding.pry
+    away_win_pcts = away_games_teams.reduce({}) do |records, games|
+      wlt_percent_calculator(games[1], "WIN")
+      records[games[0]] = @wlt_percentage
+      records
+    end
+    require "pry"; binding.pry
+    #home_win_percent - away_win_percent MAX DIFFERENCE
   end
 
   # module candidate?
@@ -47,8 +55,7 @@ class GameTeamsCollection
 
   def hoa_game_sorter(h_a)
     all_games_by_team.reduce({}) do |records, games|
-      h_a_games = games[1].find_all {|game| game.hoa == h_a }
-      records[games[0]] = h_a_games
+      records[games[0]] = games[1].find_all {|game| game.hoa == h_a }
       records
     end
   end
