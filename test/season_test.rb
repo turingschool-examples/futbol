@@ -21,12 +21,12 @@ class SeasonTest < MiniTest::Test
   end
 
   def test_can_total_games_by_type
-    assert_equal 57, @season.number_of_games_by_type("Postseason")
+    assert_equal 9, @season.number_of_games_by_type("Postseason")
     assert_equal 6, @season.number_of_games_by_type("Regular Season")
   end
 
   def test_find_total_games_in_season
-    assert_equal 63, @season.total_games
+    assert_equal 15, @season.total_games
   end
 
   def test_season_all_class_variable_is_an_array
