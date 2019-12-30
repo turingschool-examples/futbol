@@ -3,6 +3,12 @@ require_relative './game'
 
 class Season
 
+  @@all = []
+
+  def self.all
+    @@all
+  end
+
   def self.from_csv(season_path, gt_path)
     season_ids = []
 		season_storage = []
@@ -19,6 +25,7 @@ class Season
     @id = season_hash[:id].to_i
     @games_by_type = games_gather(season_hash[:path], gt_path)
     @games_unsorted = @games_by_type.values.flatten
+    @@all << self
   end
 
   def games_gather(games_path, gt_path)
