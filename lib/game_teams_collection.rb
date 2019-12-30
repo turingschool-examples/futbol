@@ -24,6 +24,17 @@ class GameTeamsCollection
     team_records.max_by { |team_id, percentage| percentage }[0]
   end
 
+  def best_fans_team_id
+    home_games_teams = hoa_game_sorter("home")
+
+    home_win_pcts = home_games_teams.reduce({}) do |records, games|
+      wlt_percent_calculator(games[1], "WIN")
+      records[games[0]] = @wlt_percentage
+      records
+    end
+    # require "pry"; binding.pry
+  end
+
   # module candidate?
   def wlt_percent_calculator(games_array, wlt)
     wlt_total = (games_array.find_all { |game| game.result == wlt }).length
@@ -32,5 +43,13 @@ class GameTeamsCollection
 
   def all_games_by_team
     @game_teams.group_by { |game| game.team_id }
+  end
+
+  def hoa_game_sorter(h_a)
+    all_games_by_team.reduce({}) do |records, games|
+      h_a_games = games[1].find_all {|game| game.hoa == h_a }
+      records[games[0]] = h_a_games
+      records
+    end
   end
 end
