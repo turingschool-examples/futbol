@@ -33,20 +33,24 @@ class GameTeamsCollection
       records[games[0]] = @wlt_percentage
       records
     end
-    require "pry"; binding.pry
+
     away_win_pcts = away_games_teams.reduce({}) do |records, games|
       wlt_percent_calculator(games[1], "WIN")
       records[games[0]] = @wlt_percentage
       records
     end
-    require "pry"; binding.pry
-    #home_win_percent - away_win_percent MAX DIFFERENCE
+
+    home_win_pcts.keys.max_by do |key|
+      home_win_pcts[key] - away_win_pcts[key]
+    end
   end
 
   # module candidate?
   def wlt_percent_calculator(games_array, wlt)
     wlt_total = (games_array.find_all { |game| game.result == wlt }).length
-    @wlt_percentage = (wlt_total.to_f / games_array.length.to_f).round(3)
+    percentage = (wlt_total.to_f / games_array.length.to_f).round(3)
+    return @wlt_percentage = 0 if percentage.nan? == true
+    @wlt_percentage = percentage
   end
 
   def all_games_by_team
