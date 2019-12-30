@@ -4,6 +4,17 @@ require_relative '../lib/game'
 class GameTest < MiniTest::Test
 
   def setup
+    stat_array = [{:team_id=>"3",
+                   :HOA=>"away", 
+                   :Coach=>"John Tortorella", 
+                   :Shots=>"8", 
+                   :Tackles=>"44"},
+                  {:team_id=>"6", 
+                   :HOA=>"home", 
+                   :Coach=>"Claude Julien", 
+                   :Shots=>"12", 
+                   :Tackles=>"51"}]
+
     @game = Game.new({
       :game_id     => 2012030221,
       :season      => 20122013,
@@ -15,7 +26,7 @@ class GameTest < MiniTest::Test
       :home_goals => 3,
       :venue => "Toyota Stadium",
       :venue_link => "/api/v1/venues/null"
-    })
+    }, stat_array)
 
     @game2 = Game.new({
       :game_id     => 2012030222,
@@ -28,7 +39,7 @@ class GameTest < MiniTest::Test
       :home_goals => 2,
       :venue => "Toyota Stadium",
       :venue_link => "/api/v1/venues/null"
-    })
+    }, stat_array)
 
     @game3 = Game.new({
       :game_id     => 2012030222,
@@ -41,7 +52,7 @@ class GameTest < MiniTest::Test
       :home_goals => 2,
       :venue => "Toyota Stadium",
       :venue_link => "/api/v1/venues/null"
-    })
+    }, stat_array)
 
   end
 
