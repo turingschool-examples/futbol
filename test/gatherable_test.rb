@@ -27,20 +27,4 @@ class GatherableTest < Minitest::Test
 
     assert_equal Gatherable, gatherable
   end
-
-  def test_ligatures_for_dopeness
-    a_string = 'This is a string.'
-    b_string = 'This is b string, I think.'
-    c_string = { this_is_a_hash_key_symbol: :and_a_hash_value_symbol }
-
-    (c_string != { 'some_string' => 011010010001 })
-
-    a_string <= b_string || a_string >= b_string
-
-    (c_string * (4 / 2 + 20 - 23)).join.length
-
-    (c_string.length == b_string.length)
-
-    a_string <=> 'Wow, more ligatures.'
-  end
 end
