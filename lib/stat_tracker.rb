@@ -112,4 +112,32 @@ class StatTracker < Tracker
 
     get_team_name_by_id(team_id)
   end
+
+  def highest_scoring_visitor
+    team_id = team_average_goals(away_goals_by_team).max_by{ |id, avg| avg }[0]
+
+    get_team_name_by_id(team_id)
+  end
+
+  def highest_scoring_home_team
+    team_id = team_average_goals(home_goals_by_team).max_by{ |id, avg| avg }[0]
+
+    get_team_name_by_id(team_id)
+  end
+
+  def lowest_scoring_visitor
+    team_id = team_average_goals(away_goals_by_team).min_by{ |id, avg| avg }[0]
+
+    get_team_name_by_id(team_id)
+  end
+
+  def lowest_scoring_home_team
+    team_id = team_average_goals(home_goals_by_team).min_by{ |id, avg| avg }[0]
+
+    get_team_name_by_id(team_id)
+  end
+
+  def winningest_team
+    
+  end
 end
