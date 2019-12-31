@@ -9,19 +9,19 @@ class GameTeamsCollection
 
   def initialize(game_teams_path)
     @game_teams = create_game_teams(game_teams_path)
-    all_games_by_team
+    all_games_by_team_id
   end
 
   def create_game_teams(game_teams_path)
     create_instances(game_teams_path, GameTeam)
   end
 
-  def all_games_by_team
-    @game_teams.group_by { |game| game.team_id }
+  def all_games_by_team_id
+    @all_games_by_team = @game_teams.group_by { |game| game.team_id }
   end
 
   def winningest_team_id
-    team_records = percent_sort_by_id(all_games_by_team, "WIN")
+    team_records = percent_sort_by_id(@all_games_by_team, "WIN")
     team_records.max_by { |team_id, percentage| percentage }[0]
   end
 
@@ -66,7 +66,7 @@ class GameTeamsCollection
   end
 
   def hoa_game_sorter(h_a)
-    all_games_by_team.reduce({}) do |records, games|
+    @all_games_by_team.reduce({}) do |records, games|
       records[games[0]] = games[1].find_all {|game| game.hoa == h_a }
       records
     end
