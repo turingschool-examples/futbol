@@ -3,7 +3,6 @@ require_relative 'tracker'
 require_relative './modules/calculateable'
 require_relative './modules/gatherable'
 
-
 class StatTracker < Tracker
   include Calculateable
   include Gatherable
