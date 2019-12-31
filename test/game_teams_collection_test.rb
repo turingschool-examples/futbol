@@ -27,6 +27,10 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal 3, @game_teams_collection.best_fans_team_id
   end
 
+  def test_find_id_of_teams_with_worst_fans
+    assert_equal [24, 5], @game_teams_collection.worst_fans_team_id
+  end
+
   def test_all_are_home_games
     skip
     assert_equal expected, @game_teams_collection.hoa_game_sorter("home")
