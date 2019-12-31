@@ -7,6 +7,10 @@ class SeasonTest < MiniTest::Test
     @season = Season.new({id: 20122013, path: "./test/fixtures/truncated_games.csv"}, gt_path)
   end
 
+  def teardown
+    Game.reset_all
+  end
+
   def test_season_is_created_with_id
     assert_instance_of Season, @season
     assert_equal 20122013, @season.id

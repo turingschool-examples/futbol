@@ -47,6 +47,10 @@ class TeamTest < MiniTest::Test
     @team.stubs(:away_games => fake_away_games, :home_games => fake_home_games)
   end
 
+  def teardown
+    Game.reset_all
+  end
+
   def test_team_is_made_with_accessible_states
     assert_instance_of Team, @team
     assert_equal 3, @team.team_id
