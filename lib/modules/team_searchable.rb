@@ -5,15 +5,15 @@ module TeamSearchable
 
   def highest_scoring_visitor
 		teams.max_by(&:average_goals_away).team_name
-	end
+  end
 
   def highest_scoring_home_team
 		teams.max_by(&:average_goals_home).team_name
-	end
+  end
 
   def lowest_scoring_visitor
     teams.min_by(&:average_goals_away).team_name
-	end
+  end
 
   def lowest_scoring_home_team
 		teams.min_by(&:average_goals_home).team_name
@@ -21,7 +21,7 @@ module TeamSearchable
   
   def best_offense
 		teams.max_by(&:average_goals_total).team_name
-	end
+  end
 
 	def worst_offense
 		teams.min_by(&:average_goals_total).team_name

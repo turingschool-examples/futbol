@@ -1,15 +1,15 @@
 module GameSearchable
   def highest_total_score
     Game.all.max_by {|game| game.total_score}.total_score
-	end
+  end
 
   def lowest_total_score
 		Game.all.min_by {|game| game.total_score}.total_score
-	end
+  end
 
   def biggest_blowout
 		Game.all.max_by {|game| game.score_difference}.score_difference
-	end
+  end
 
 	def percentage_home_wins
 		home_wins = Game.all.find_all { |game| game.home_goals > game.away_goals }
