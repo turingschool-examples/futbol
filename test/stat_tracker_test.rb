@@ -53,4 +53,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Houston Dynamo", @stat_tracker.best_fans
   end
 
+  def test_names_of_teams_with_worst_fans
+    assert_equal ["Real Salt Lake", "Sporting Kansas City"], @stat_tracker.worst_fans
+  end
+
 end
