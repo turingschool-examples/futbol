@@ -2,16 +2,16 @@ require "CSV"
 require_relative './team'
 require_relative './season'
 require_relative './game'
-require_relative './modules/team_searchable'
-require_relative './modules/game_searchable'
 
+# A League handles all the storage for its collections.  This was a design
+# idea with the thought that the seasons, games, and teams belong to a league
+# and not to a stat_tracker.  The stat_tracker can inherit these collections
+# for processing through it's calculation modules.
 
 class League
-  include TeamSearchable
-  include GameSearchable
 	attr_reader :seasons, :teams, :game_teams
 
-	def initialize(locations)
+  def initialize(locations)
 		@seasons = Season.from_csv(locations[:games], locations[:game_teams])
 		@teams = Team.from_csv(locations[:teams])
 		@game_teams = locations[:game_teams]
