@@ -1,4 +1,8 @@
+require_relative 'gatherable'
+
 module Calculateable
+  include Gatherable
+
   def team_average_goals(goals_hash)
     average_goals = {}
     goals_hash.each do |team, tot_score|
@@ -6,5 +10,13 @@ module Calculateable
     end
 
     average_goals
+  end
+
+  def team_total_seasons(team_id)
+    @team_season_collection.collection[team_id].size
+  end
+
+  def team_season_keys(team_id)
+    { team_id => @team_season_collection.collection[team_id].keys }
   end
 end

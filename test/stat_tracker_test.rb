@@ -40,11 +40,14 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal 'KlassType', stat_tracker.klass
 
-    stat_tracker.stubs(:games_collection).returns('GamesCollection')
-    assert_equal 'GamesCollection', stat_tracker.games_collection
+    stat_tracker.stubs(:game_collection).returns('GameCollection')
+    assert_equal 'GameCollection', stat_tracker.game_collection
 
-    stat_tracker.stubs(:teams_collection).returns('TeamsCollection')
-    assert_equal 'TeamsCollection', stat_tracker.teams_collection
+    stat_tracker.stubs(:team_collection).returns('TeamCollection')
+    assert_equal 'TeamCollection', stat_tracker.team_collection
+
+    stat_tracker.stubs(:team_season_collection).returns('TeamSeasonCollection')
+    assert_equal 'TeamSeasonCollection', stat_tracker.team_season_collection
 
     stat_tracker.stubs(:game_teams_collection).returns('GameTeamsCollection')
     assert_equal 'GameTeamsCollection', stat_tracker.game_teams_collection
@@ -57,12 +60,12 @@ class StatTrackerTest < Minitest::Test
 
   def test_stat_tracker_average_goals_by_season
     average_hash = {
-      '20122013'=>4.12,
-      '20132014'=>4.19,
-      '20142015'=>4.14,
-      '20152016'=>4.16,
-      '20162017'=>4.23,
-      '20172018'=>4.44
+      '20122013' => 4.12,
+      '20132014' => 4.19,
+      '20142015' => 4.14,
+      '20152016' => 4.16,
+      '20162017' => 4.23,
+      '20172018' => 4.44
     }
 
     assert_equal average_hash, @stat_tracker.average_goals_by_season
@@ -86,14 +89,14 @@ class StatTrackerTest < Minitest::Test
 
   def test_count_of_games_by_season
     stat_tracker = mock('StatTracker')
-    stat_tracker.stubs(:count_of_games_by_season).returns({
-      '20122013'=>806,
-      '20132014'=>1323,
-      '20142015'=>1319,
-      '20152016'=>1321,
-      '20162017'=>1317,
-      '20172018'=>1355
-    })
+    stat_tracker.stubs(:count_of_games_by_season).returns(
+      '20122013' => 806,
+      '20132014' => 1323,
+      '20142015' => 1319,
+      '20152016' => 1321,
+      '20162017' => 1317,
+      '20172018' => 1355
+    )
     assert_equal 1355, stat_tracker.count_of_games_by_season['20172018']
   end
 
@@ -127,7 +130,7 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of String, @stat_tracker.worst_offense
     assert_equal "Utah Royals FC", @stat_tracker.worst_offense
   end
-  
+
   def test_stat_tracker_can_get_best_defense
     assert_instance_of String, @stat_tracker.best_defense
     assert_equal "FC Cincinnati", @stat_tracker.best_defense
