@@ -31,7 +31,6 @@ class GameTeamsCollection
     home_win_percents.keys.find_all do |key|
       (home_win_percents[key] < away_win_percents[key])
     end
-    require "pry"; binding.pry
   end
 
   def all_games_by_team_id
