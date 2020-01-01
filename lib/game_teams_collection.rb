@@ -16,10 +16,6 @@ class GameTeamsCollection
     create_instances(game_teams_path, GameTeam)
   end
 
-  def all_games_by_team_id
-    @all_games_by_team = @game_teams.group_by { |game| game.team_id }
-  end
-
   def winningest_team_id
     team_records = percent_sort_by_id(@all_games_by_team, "WIN")
     team_records.max_by { |team_id, percentage| percentage }[0]
@@ -32,12 +28,14 @@ class GameTeamsCollection
   end
 
   def worst_fans_team_id
-    away_diff = {}
-    home_win_percents.keys.each do |key|
-      away_diff[key] = home_win_percents[key] - away_win_percents[key]
+    home_win_percents.keys.find_all do |key|
+      (home_win_percents[key] < away_win_percents[key])
     end
-    worst = away_diff.find_all {|k2,v2| v2 == away_diff.min_by {|k1,v1| v1 }[1] }
-    worst.to_h.keys
+    require "pry"; binding.pry
+  end
+
+  def all_games_by_team_id
+    @all_games_by_team = @game_teams.group_by { |game| game.team_id }
   end
 
   def home_win_percents
@@ -58,8 +56,8 @@ class GameTeamsCollection
     end
   end
 
-  def wlt_percent_calculator(games_array, wlt)
-    wlt_total = (games_array.find_all { |game| game.result == wlt }).length
+  def wlt_percent_calculator(games_array, stat)
+    wlt_total = (games_array.find_all { |game| game.result == stat }).length
     percentage = (wlt_total.to_f / games_array.length.to_f).round(3)
     return @wlt_percentage = 0 if percentage.nan? == true
     @wlt_percentage = percentage
