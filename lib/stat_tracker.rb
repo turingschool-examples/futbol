@@ -1,34 +1,11 @@
 require 'csv'
-require_relative 'game'
-require_relative 'team'
-require_relative 'game_teams'
-require_relative 'season'
-require_relative 'collection'
-require_relative 'game_collection'
-require_relative 'team_collection'
-require_relative 'game_teams_collection'
-require_relative 'season_collection'
+require_relative 'tracker'
+require_relative './modules/calculateable'
+require_relative './modules/gatherable'
 
-class StatTracker
-  attr_reader :game_collection,
-              :team_collection,
-              :season_collection,
-              :game_teams_collection
-
-  def self.from_csv(locations)
-    games = locations[:games]
-    teams = locations[:teams]
-    game_teams = locations[:game_teams]
-
-    StatTracker.new(games, teams, game_teams)
-  end
-
-  def initialize(games, teams, game_teams)
-    @game_collection = GameCollection.new(games)
-    @team_collection = TeamCollection.new(teams)
-    @season_collection = SeasonCollection.new(games)
-    @game_teams_collection = GameTeamsCollection.new(game_teams)
-  end
+class StatTracker < Tracker
+  include Calculateable
+  include Gatherable
 
   def average_goals_per_game
     sum = 0
@@ -39,21 +16,12 @@ class StatTracker
   end
 
   def average_goals_by_season
-    sums = {}
-    averages = {}
-    @game_collection.collection.each do |game|
-      if !sums.key?(game[1].season)
-        sums[game[1].season] = (game[1].home_goals.to_i + game[1].away_goals.to_i)
-      else
-        sums[game[1].season] += (game[1].home_goals.to_i + game[1].away_goals.to_i)
-      end
+    avg_gpg = Hash.new(0)
+    @season_collection.collection.each_pair do |key, season_array|
+      season_array.find_all { |game| avg_gpg[key] += (game.home_goals.to_f + game.away_goals.to_f) }
+      avg_gpg[key] = (avg_gpg[key] / season_array.length).round(2)
     end
-
-    sums.each do |key, value|
-      averages[key] = (value.to_f / count_of_games_by_season[key]).round(2)
-    end
-
-    averages
+    avg_gpg
   end
 
   def highest_total_score
@@ -71,25 +39,16 @@ class StatTracker
   end
 
   def biggest_blowout
-    blowout = {}
-    @game_collection.collection.each do |game|
-      margin = (game[1].home_goals.to_i - game[1].away_goals.to_i).abs
-      if blowout.empty?
-        blowout[game[1]] = margin
-      elsif margin > blowout.values[0]
-        blowout.clear
-        blowout[game[1]] = margin
-      end
+    blowout = @game_collection.collection.max_by do |_id, game|
+      (game.home_goals.to_i - game.away_goals.to_i).abs
     end
-    blowout.values.last
+    (blowout[1].home_goals.to_i - blowout[1].away_goals.to_i).abs
   end
 
   def count_of_games_by_season
-    season = Hash.new(0)
-    @game_collection.collection.each do |game|
-      season[game[1].season] += 1
+    @game_collection.collection.each_with_object(Hash.new { 0 }) do |game, hash|
+      hash[game[1].season] += 1
     end
-    season
   end
 
   def percentage_ties
@@ -105,9 +64,7 @@ class StatTracker
     total_games = @game_collection.collection.length
 
     @game_collection.collection.each do |game|
-      if game[1].home_goals.to_i > game[1].away_goals.to_i
-        home_wins += 1
-      end
+      home_wins += 1 if game[1].home_goals.to_i > game[1].away_goals.to_i
     end
     (home_wins / total_games.to_f).abs.round(2)
   end
@@ -116,11 +73,37 @@ class StatTracker
     visitor_wins = 0
     total_games = @game_collection.collection.length
 
-    @game_collection.collection.each do |game|       
-      if game[1].home_goals.to_i < game[1].away_goals.to_i
-        visitor_wins += 1
-      end
+    @game_collection.collection.each do |game|
+      visitor_wins += 1 if game[1].home_goals.to_i < game[1].away_goals.to_i
     end
     (visitor_wins / total_games.to_f).abs.round(2)
+  end
+
+  def count_of_teams
+    @team_collection.collection.length
+  end
+
+  def best_offense
+    team_id = team_average_goals(goals_by_team).max_by { |_id, avg| avg }[0]
+
+    get_team_name_by_id(team_id)
+  end
+
+  def worst_offense
+    team_id = team_average_goals(goals_by_team).min_by { |_id, avg| avg }[0]
+
+    get_team_name_by_id(team_id)
+  end
+
+  def best_defense
+    team_id = team_average_goals(goals_against_team).min_by { |_id, avg| avg }[0]
+
+    get_team_name_by_id(team_id)
+  end
+
+  def worst_defense
+    team_id = team_average_goals(goals_against_team).max_by { |_id, avg| avg }[0]
+
+    get_team_name_by_id(team_id)
   end
 end

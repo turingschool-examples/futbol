@@ -5,15 +5,15 @@ require './lib/team_collection'
 class TeamCollectionTest < Minitest::Test
   def setup
     @collection = TeamCollection.new('./test/fixtures/teams_truncated.csv')
-    @team = @collection.teams.first
+    @team = @collection.collection.first
   end
   def test_team_collection_exists
     assert_instance_of TeamCollection, @collection
   end
 
   def test_team_collection_has_teams
-    assert_instance_of Array, @collection.teams
-    assert_equal 5, @collection.teams.length
+    assert_instance_of Array, @collection.collection
+    assert_equal 5, @collection.collection.length
   end
 
   def test_team_collection_can_create_team_from_csv

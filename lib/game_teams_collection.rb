@@ -1,4 +1,5 @@
 require_relative 'game_teams'
+require_relative 'collection'
 require 'csv'
 
 class GameTeamsCollection < Collection
