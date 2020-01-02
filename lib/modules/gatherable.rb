@@ -15,6 +15,20 @@ module Gatherable
     end
   end
 
+  def home_goals_by_team
+    @game_collection.collection.inject(Hash.new(0)) do |scores, game|
+      scores[game[1].home_team_id] += game[1].home_goals.to_i
+      scores
+    end
+  end
+
+  def away_goals_by_team
+    @game_collection.collection.inject(Hash.new(0)) do |scores, game|
+      scores[game[1].away_team_id] += game[1].away_goals.to_i
+      scores
+    end
+  end
+
   def goals_against_team
     @game_collection.collection.inject(Hash.new(0)) do |scores, game|
       scores[game[1].home_team_id] += game[1].away_goals.to_i
