@@ -88,4 +88,16 @@ class StatTracker
     teams_collection.associate_team_id_with_team_name(games_collection.worst_defense_id)
   end
 
+  def winningest_team
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.winningest_team_id)
+  end
+
+  def best_fans
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.best_fans_team_id)
+  end
+
+  def worst_fans
+    teams_collection.associate_multi_team_id_with_team_name(game_teams_collection.worst_fans_team_id)
+  end
+
 end

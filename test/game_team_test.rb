@@ -11,7 +11,7 @@ class GameTeamTest < Minitest::Test
         game_team = GameTeam.new({
                         game_id: 2012030312,
                         team_id: 6,
-                        HoA: "away",
+                        hoa: "away",
                         result: "WIN",
                         settled_in: "REG",
                         head_coach: "Claude Julien",
@@ -21,7 +21,7 @@ class GameTeamTest < Minitest::Test
 
         assert_equal 2012030312, game_team.game_id
         assert_equal 6, game_team.team_id
-        assert_equal "away", game_team.HoA
+        assert_equal "away", game_team.hoa
         assert_equal "WIN", game_team.result
         assert_equal "REG", game_team.settled_in
         assert_equal "Claude Julien", game_team.head_coach
