@@ -21,15 +21,29 @@ class Defense
     get_team_name_from_id(current_min_team_id)
   end
 
+  def self.worst_defense
+    hash = get_team_goal_avg_hash()
+
+    current_max_team_id = ""
+    current_max_avg = -1
+    hash.map do |team_id, avg|
+      if(avg.average > current_max_avg)
+        current_max_team_id = team_id
+        current_max_avg = avg.average
+      end
+    end
+    get_team_name_from_id(current_max_team_id)
+  end
+
   def self.get_team_goal_avg_hash
     hash = {}
     winning_team = GameTeam.all_game_teams.map do |game_team|
-      add_goals_to_oposing_team(game_team.game_id, game_team.team_id, game_team.goals.to_f, hash)
+      add_goals_to_opposing_team(game_team.game_id, game_team.team_id, game_team.goals.to_f, hash)
     end
     hash
   end
 
-  def self.add_goals_to_oposing_team(game_id, team_id, goals, hash)
+  def self.add_goals_to_opposing_team(game_id, team_id, goals, hash)
     GameTeam.all_game_teams.map do |game_team|
       if game_team.game_id == game_id
         if hash.key?(team_id)
