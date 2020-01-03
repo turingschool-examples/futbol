@@ -11,10 +11,9 @@ module Gatherable
     @game_collection.collection.inject(Hash.new(0)) do |wins, game|
       if game[1].home_goals.to_i > game[1].away_goals.to_i
         wins[game[1].home_team_id] += 1
-      elsif game[1].away_goals.to_i > game[1].home_goals.to_i
+      else
         wins[game[1].away_team_id] += 1
       end
-
       wins
     end
   end

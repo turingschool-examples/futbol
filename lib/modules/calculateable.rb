@@ -15,10 +15,10 @@ module Calculateable
   def team_average_wins(wins_hash)
     average_wins = {}
     wins_hash.each do |team, tot_wins|
-      average_wins[team] = (tot_wins.to_f / games_by_team[team]).round(2)
+      average_wins[team] = (tot_wins.to_f / games_by_team[team])
     end
 
-    require 'pry'; binding.pry
+    average_wins
   end
 
   def team_total_seasons(team_id)
