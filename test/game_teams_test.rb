@@ -71,4 +71,18 @@ class GameTeamsTest < Minitest::Test
     assert_equal expected, GameTeams.away_games
   end
 
+  def test_all_home_games_by_team
+    expected = {
+        "3" => [@game_teams[5], @game_teams[7]],
+        "6" => [@game_teams[1], @game_teams[3], @game_teams[9]]
+    }
+    assert_equal expected, GameTeams.home_games
+  end
+
+  def test_highest_scoring_visitor
+    # assert_equal "6", GameTeams.highest_scoring_visitor
+    assert_equal "FC Dallas", GameTeams.highest_scoring_visitor
+  end
+
+
 end
