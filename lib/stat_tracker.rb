@@ -117,13 +117,22 @@ class StatTracker
 
   def highest_scoring_home_team
     team_goals = @game_teams.reduce({}) do |acc, game_team|
-      acc[game_team.team_id] = 0
+      acc[game_team.team_id] = {:total_games => 0, :total_goals => 0}
       acc
     end
      @game_teams.each do |game_team|
-      team_goals[game_team.team_id] += game_team.goals
+      if game_team.hoa == "home"
+         team_goals[game_team.team_id][:total_games] += 1
+
+         team_goals[game_team.team_id][:total_goals] += game_team.goals
+      end
     end
-    team_goals
-    
+    highest_team_id = team_goals.max_by do |k , v|
+      v[:total_goals] / v[:total_games]
+    end[0]
+      final = @teams.find do |team|
+        team.team_id == highest_team_id
+      end
+      final.teamname
   end
 end
