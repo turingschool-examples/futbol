@@ -228,7 +228,8 @@ class GameTeamsCollection #< StatTracker
     biggest_increase[0]
   end
 
-  def winningest_coach(season_id)
+  def winningest_coach_name(season_id)
+    require "pry"; binding.pry
   end
 
 
