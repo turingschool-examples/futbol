@@ -47,11 +47,11 @@ class GameTeams
   end
 
   def self.games_per_team
-    # @@games_per_team ||= 
+    # @@games_per_team ||=
     @@all.group_by {|game| game.team_id}
   end
 
-  def self.wins_per_team 
+  def self.wins_per_team
     games_per_team.reduce({}) do |result, team_result|
       result[team_result[0]] = team_result[1].count {|game| game.result == 'WIN'} / team_result[1].size.to_f
       result
@@ -68,7 +68,7 @@ class GameTeams
   def self.win_loss_perc_per_team
     home_away_games_per_team.reduce({}) do |result, team|
       result[team[0]] = {
-        away_win_percentage: ((team[1]["away"].count {|game| game.result == "WIN"})/team[1]["away"].size.to_f).round(4), 
+        away_win_percentage: ((team[1]["away"].count {|game| game.result == "WIN"})/team[1]["away"].size.to_f).round(4),
         home_win_percentage: ((team[1]["home"].count {|game| game.result == "WIN"})/team[1]["home"].size.to_f).round(4)
         }
       result
@@ -82,4 +82,14 @@ class GameTeams
     end
   end
 
+  def self.away_games
+    away_games = {}
+    games_per_team.each do |team_id, game_array|
+      away_games[team_id] = game_array.find_all do |game|
+        game.hoa == "away"
+      end
+    end
+    away_games
+  end
+  
 end
