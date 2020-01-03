@@ -21,6 +21,7 @@ class StatTracker
     @teams = Team.from_csv(@team_path)
   end
 
+
   def worst_fans
      unique_teams = @game_teams.reduce({}) do |acc, game_team|
        acc[game_team.team_id] = {away: 0, home: 0}
@@ -51,4 +52,25 @@ class StatTracker
        team.teamname
      end
    end
+
+  def best_fans
+    unique_teams = @game_teams.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = {away: 0, home: 0}
+      acc
+    end
+
+    @game_teams.each do |game_team|
+      unique_teams[game_team.team_id][:away] += 1 if game_team.hoa == "away" && game_team.result == "WIN"
+
+      unique_teams[game_team.team_id][:home] += 1 if game_team.hoa == "home" && game_team.result == "WIN"
+    end
+
+    best_fans = unique_teams.max_by do |team|
+      team[1][:home] - team[1][:away]
+    end
+
+    @teams.find do |team|
+      team.team_id == best_fans[0]
+    end.teamname
+  end
 end

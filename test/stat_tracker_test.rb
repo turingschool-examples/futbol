@@ -30,4 +30,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal ["Houston Dynamo", "Utah Royals FC"], stat_tracker.worst_fans
     assert_equal [], @stat_tracker.worst_fans
   end
+
+  def test_it_can_pull_teams_with_the_best_fans
+    stat_tracker = StatTracker.from_csv({games: './data/dummy_game.csv', teams: './data/dummy_team.csv', game_teams: './data/dummy_game_team.csv'})
+
+    assert_equal "FC Dallas", stat_tracker.best_fans
+  end
 end
