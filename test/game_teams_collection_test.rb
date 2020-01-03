@@ -35,7 +35,17 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_biggest_bust_id
-    assert_equal 2, @game_teams_collection.biggest_bust_id(20142015)
+    stat_tracker = StatTracker.new("./data/games.csv", "./data/teams.csv", "./data/game_teams.csv")
+    game_teams_collection = GameTeamsCollection.new(stat_tracker.game_teams_path)
+
+    assert_equal 23, game_teams_collection.biggest_bust_id("20132014")
+  end
+
+  def test_biggest_surprise_id
+    stat_tracker = StatTracker.new("./data/games.csv", "./data/teams.csv", "./data/game_teams.csv")
+    game_teams_collection = GameTeamsCollection.new(stat_tracker.game_teams_path)
+
+    assert_equal 26, game_teams_collection.biggest_surprise_id("20132014")
   end
 
 

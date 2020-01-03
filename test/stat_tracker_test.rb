@@ -54,7 +54,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_biggest_bust
-    assert_equal "Seattle Sounders FC", @stat_tracker.biggest_bust(20142015)
+    assert_equal "Montreal Impact", @stat_tracker.biggest_bust("20132014")
+  end
+
+  def test_biggest_surprise
+     assert_equal "FC Cincinnati", @stat_tracker.biggest_surprise("20132014")
   end
 
 end

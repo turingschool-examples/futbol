@@ -100,4 +100,8 @@ class StatTracker
     teams_collection.associate_team_id_with_team_name(game_teams_collection.biggest_bust_id(season_id))
   end
 
+  def biggest_surprise(season_id)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.biggest_surprise_id(season_id))
+  end
+
 end

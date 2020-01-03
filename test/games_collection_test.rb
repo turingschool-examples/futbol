@@ -70,7 +70,7 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_season_game_ids
-    assert_equal [2014020930, 2014020614, 2014020772, 2014020675, 2014021227, 2014020868], @gamescollection.reg_season_game_ids(20142015)
-    assert_equal [2014030113, 2014030212], @gamescollection.post_season_game_ids(20142015)
+    assert_equal [2013020246], @gamescollection.reg_season_game_ids("20132014")
+    assert_equal [2014030113, 2014030212], @gamescollection.post_season_game_ids("20132014")
   end
 end

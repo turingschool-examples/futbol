@@ -1,10 +1,14 @@
 require 'csv'
-require_relative 'game_team'
+require_relative 'game_team' #what's the need for inheritance when you can
+#access methods through require (instructor/mod2 support)
 require_relative 'csvloadable'
 require_relative 'games_collection'
+require_relative 'create_objects'
 
-class GameTeamsCollection
+
+class GameTeamsCollection #< StatTracker
   include CsvLoadable
+  include CreateObjects
 
   attr_reader :game_teams
 
@@ -121,88 +125,107 @@ class GameTeamsCollection
   end
 
   def reg_season_team_percentages(season_id)
-    gamescollection = GamesCollection.new("./data/games.csv")
-    game_teams1 = create_game_teams("./data/game_teams.csv") #could inherit
-    #parent class stattracker to have access to gamescollection without building it
+    gamescollection = games_collection("./data/games.csv")
+    game_teams1 = create_game_teams("./data/game_teams.csv")
 
     reg_game_ids = gamescollection.reg_season_game_ids(season_id)
 
-    reg_team_to_allper = reg_game_ids.reduce({}) do |acc, game_id|
-      z = game_teams1.find_all {|team| team.game_id == game_id}
-      if acc[z[0].team_id] == nil
-        acc[z[0].team_id] = []
-        acc[z[0].team_id] << z[0].faceoffwinpercentage.to_i
+    reg_team_to_allresults = reg_game_ids.reduce({}) do |acc, game_id|
+      reg_gameteams_byid = game_teams1.find_all {|team| team.game_id == game_id}
+      if acc[reg_gameteams_byid[0].team_id] == nil
+        acc[reg_gameteams_byid[0].team_id] = []
+        acc[reg_gameteams_byid[0].team_id] << reg_gameteams_byid[0].result
       else
-        acc[z[0].team_id] << z[0].faceoffwinpercentage.to_i
+        acc[reg_gameteams_byid[0].team_id] << reg_gameteams_byid[0].result
       end
-      if acc[z[1].team_id] == nil
-        acc[z[1].team_id] = []
-        acc[z[1].team_id] << z[1].faceoffwinpercentage.to_i
+      if acc[reg_gameteams_byid[1].team_id] == nil
+        acc[reg_gameteams_byid[1].team_id] = []
+        acc[reg_gameteams_byid[1].team_id] << reg_gameteams_byid[1].result
       else
-        acc[z[1].team_id] << z[1].faceoffwinpercentage.to_i
+        acc[reg_gameteams_byid[1].team_id] << reg_gameteams_byid[1].result
       end
       acc
     end
 
-    reg_team_to_avgper = reg_team_to_allper.reduce({}) do |acc, kv|
-      id = kv[0]
-      avg = (kv[1].sum) / (kv[1].length).to_f
+    reg_team_to_winpercent = reg_team_to_allresults.reduce({}) do |acc, kv|
+      team_id = kv[0]
+      win_count = kv[1].count("WIN")
+      total_games = kv[1].length
+      win_percentage = (win_count / total_games.to_f) * 100
 
-      acc[id] = [avg]
+      acc[team_id] = [win_percentage]
       acc
     end
   end
 
   def post_season_team_percentages(season_id)
-    gamescollection = GamesCollection.new("./data/games.csv")
+    gamescollection = games_collection("./data/games.csv")
     game_teams1 = create_game_teams("./data/game_teams.csv")
 
     post_game_ids = gamescollection.post_season_game_ids(season_id)
 
-    post_team_to_allper = post_game_ids.reduce({}) do |acc, game_id|
-      z = game_teams1.find_all {|team| team.game_id == game_id}
-      if acc[z[0].team_id] == nil
-        acc[z[0].team_id] = []
-        acc[z[0].team_id] << z[0].faceoffwinpercentage.to_i
+    post_team_to_allresults = post_game_ids.reduce({}) do |acc, game_id|
+      post_gameteams_byid = game_teams1.find_all {|team| team.game_id == game_id}
+      if acc[post_gameteams_byid[0].team_id] == nil
+        acc[post_gameteams_byid[0].team_id] = []
+        acc[post_gameteams_byid[0].team_id] << post_gameteams_byid[0].result
       else
-        acc[z[0].team_id] << z[0].faceoffwinpercentage.to_i
+        acc[post_gameteams_byid[0].team_id] << post_gameteams_byid[0].result
       end
-      if acc[z[1].team_id] == nil
-        acc[z[1].team_id] = []
-        acc[z[1].team_id] << z[1].faceoffwinpercentage.to_i
+      if acc[post_gameteams_byid[1].team_id] == nil
+        acc[post_gameteams_byid[1].team_id] = []
+        acc[post_gameteams_byid[1].team_id] << post_gameteams_byid[1].result
       else
-        acc[z[1].team_id] << z[1].faceoffwinpercentage.to_i
+        acc[post_gameteams_byid[1].team_id] << post_gameteams_byid[1].result
       end
       acc
     end
 
-    post_team_to_avgper = post_team_to_allper.reduce({}) do |acc, kv|
-      id = kv[0]
-      avg = (kv[1].sum) / (kv[1].length).to_f
+    post_team_to_winpercent = post_team_to_allresults.reduce({}) do |acc, kv|
+      team_id = kv[0]
+      win_count = kv[1].count("WIN")
+      total_games = kv[1].length
+      win_percentage = (win_count / total_games.to_f) * 100
 
-      acc[id] = [avg]
+      acc[team_id] = [win_percentage]
       acc
     end
   end
 
   def biggest_bust_id(season_id)
-    x = reg_season_team_percentages(season_id)
-    y = post_season_team_percentages(season_id)
+    reg_team_id_topercent = reg_season_team_percentages(season_id)
+    post_team_id_topercent = post_season_team_percentages(season_id)
+    matching_teamids = (reg_team_id_topercent.keys & post_team_id_topercent.keys).sort
 
-    team_to_decrease = x.reduce({}) do |acc, regkv|
-      if y.has_key?(regkv[0]) == true
-        team_id = regkv[0]
-        regper = regkv[1][0]
-        postper = y[regkv[0]][0]
-        if regper > postper
-            acc[team_id] = (regper - postper)
-        end
+    teamid_to_decrease = matching_teamids.reduce({}) do |acc, team_id|
+      reg_winpercent = reg_team_id_topercent[team_id][0]
+      post_winpercent = post_team_id_topercent[team_id][0]
+      if reg_winpercent > post_winpercent
+        acc[team_id] = (reg_winpercent - post_winpercent)
       end
       acc
     end
 
-    biggest_decrease = team_to_decrease.max_by{|k, v| v}
+    biggest_decrease = teamid_to_decrease.max_by{|k, v| v}
     biggest_decrease[0]
+  end
+
+  def biggest_surprise_id(season_id)
+    reg_team_id_topercent = reg_season_team_percentages(season_id)
+    post_team_id_topercent = post_season_team_percentages(season_id)
+    matching_teamids = (reg_team_id_topercent.keys & post_team_id_topercent.keys).sort
+
+    teamid_to_increase = matching_teamids.reduce({}) do |acc, team_id|
+      reg_winpercent = reg_team_id_topercent[team_id][0]
+      post_winpercent = post_team_id_topercent[team_id][0]
+      if reg_winpercent < post_winpercent
+        acc[team_id] = (post_winpercent - reg_winpercent)
+      end
+      acc
+    end
+
+    biggest_increase = teamid_to_increase.max_by{|k, v| v}
+    biggest_increase[0]
   end
 
 

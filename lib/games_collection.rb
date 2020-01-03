@@ -133,9 +133,11 @@ class GamesCollection
 
   def reg_season_game_ids(season_id)
     #create array with regular season game ids to be used in game_teams_collection
-    reg_game_ids = @games.reduce([]) do |acc, game|
-      if game.season == season_id.to_s && game.type == "Regular Season" && acc.include?(game.game_id) == false
-        acc << game.game_id
+    @games.reduce([]) do |acc, game|
+      if game.season == season_id
+        if game.type == "Regular Season"
+          acc << game.game_id
+        end
       end
       acc
     end
@@ -143,13 +145,16 @@ class GamesCollection
 
   def post_season_game_ids(season_id)
     #create array with postseason game ids to be used in game_teams_collection
-    post_game_ids = @games.reduce([]) do |acc, game|
-      if game.season == season_id.to_s && game.type == "Postseason" && acc.include?(game.game_id) == false
-        acc << game.game_id
+    @games.reduce([]) do |acc, game|
+      if game.season == season_id
+        if game.type == "Postseason"
+          acc << game.game_id
+        end
       end
       acc
     end
   end
+
 
 
 
