@@ -52,38 +52,6 @@ class StatTracker
      end
    end
 
-  def highest_total_score
-    Game.highest_total_score
-  end
-
-  def lowest_total_score
-    Game.lowest_total_score
-  end
-
-  def biggest_blowout
-    Game.biggest_blowout
-  end
-
-  def average_goals_per_game
-    Game.average_goals_per_game
-  end
-
-  def percentage_home_wins
-    GameTeam.percentage_home_wins
-  end
-
-  def percentage_visitor_wins
-    GameTeam.percentage_visitor_wins
-  end
-
-  def percentage_ties
-    Game.percentage_ties
-  end
-
-  def count_of_games_by_season
-    Game.count_of_games_by_season
-  end
-
   def best_offense
     team_goals = @game_teams.reduce({}) do |acc, game_team|
       acc[game_team.team_id] = 0
