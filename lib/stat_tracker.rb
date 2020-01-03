@@ -133,5 +133,8 @@ class StatTracker < Tracker
 
   def winningest_team
     # Logic
+    team_id = team_average_wins(wins_by_team).max_by { |_id, avg| avg }[0]
+    
+    get_team_name_by_id(team_id)
   end
 end

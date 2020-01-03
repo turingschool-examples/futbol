@@ -12,6 +12,15 @@ module Calculateable
     average_goals
   end
 
+  def team_average_wins(wins_hash)
+    average_wins = {}
+    wins_hash.each do |team, tot_wins|
+      average_wins[team] = (tot_wins.to_f / games_by_team[team]).round(2)
+    end
+
+    require 'pry'; binding.pry
+  end
+
   def team_total_seasons(team_id)
     @team_season_collection.collection[team_id].size
   end
