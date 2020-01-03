@@ -53,6 +53,42 @@ class StatTracker
      end
    end
 
+   def highest_total_score
+     Game.highest_total_score
+   end
+
+   def lowest_total_score
+     Game.lowest_total_score
+   end
+
+   def biggest_blowout
+     Game.biggest_blowout
+   end
+
+   def average_goals_per_game
+     Game.average_goals_per_game
+   end
+
+   def percentage_home_wins
+     GameTeam.percentage_home_wins
+   end
+
+   def percentage_visitor_wins
+     GameTeam.percentage_visitor_wins
+   end
+
+   def percentage_ties
+     Game.percentage_ties
+   end
+
+   def count_of_games_by_season
+     Game.count_of_games_by_season
+   end
+
+  def best_offense
+    team_goals = @game_teams.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = 0
+
   def best_fans
     unique_teams = @game_teams.reduce({}) do |acc, game_team|
       acc[game_team.team_id] = {away: 0, home: 0}
@@ -75,7 +111,6 @@ class StatTracker
     end
     final.teamname
   end
-
 
   def highest_scoring_home_team
     team_goals = @game_teams.reduce({}) do |acc, game_team|
@@ -135,9 +170,33 @@ class StatTracker
     best_fans = unique_teams.max_by do |team|
       team[1][:home] - team[1][:away]
     end
-
-    @teams.find do |team|
-      team.team_id == best_fans[0]
-    end.teamname
+    final.teamname
   end
+
+  def winningest_team
+    total_games_per_team = @game_teams.reduce(Hash.new(0)) do |acc, game_team|
+      acc[game_team.team_id] +=1
+      acc
+    end
+
+    total_team_wins = @game_teams.reduce(Hash.new(0)) do |acc, game_team|
+        acc[game_team.team_id] += 1 if game_team.result == "WIN"
+        acc
+    end
+
+    team_win_percentage = total_team_wins.merge(total_games_per_team) do |game_team, wins, games|
+      (wins.to_f/games).round(2)
+    end
+
+    winningest_team_id =  team_win_percentage.max_by do |game_team, percentage|
+      percentage
+    end.first
+
+    best_team = @teams.find do |team|
+      team.team_id == winningest_team_id
+    end
+
+    best_team.teamname
+  end
+
 end
