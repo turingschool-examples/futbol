@@ -80,9 +80,13 @@ class GameTeamsTest < Minitest::Test
   end
 
   def test_highest_scoring_visitor
-    # assert_equal "6", GameTeams.highest_scoring_visitor
     assert_equal "FC Dallas", GameTeams.highest_scoring_visitor
   end
+
+  def test_highest_scoring_home_team
+    assert_equal "FC Dallas", GameTeams.highest_scoring_home_team 
+  end
+
 
 
 end
