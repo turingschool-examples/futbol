@@ -1,6 +1,20 @@
 game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
 2012030221,20122013,Postseason,5/16/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
-2015030155,20152016,Postseason,4/23/16,30,25,3,2,SeatGeek Stadium,/api/v1/venues/null
-2015030156,20152016,Postseason,4/24/16,25,30,3,2,Exploria Stadium,/api/v1/venues/null
-2014030151,20142015,Postseason,4/17/15,30,19,2,2,Talen Energy Stadium,/api/v1/venues/null
-2014030152,20142015,Postseason,4/18/15,30,19,1,2,Talen Energy Stadium,/api/v1/venues/null
+2012030222,20122013,Postseason,5/19/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
+2012030231,20122013,Postseason,5/16/13,17,16,1,2,Gillette Stadium,/api/v1/venues/null
+2012030232,20122013,Postseason,5/18/13,17,16,2,1,Gillette Stadium,/api/v1/venues/null
+2012030121,20122013,Postseason,5/2/13,9,8,2,2,Red Bull Arena,/api/v1/venues/null
+2012030122,20122013,Postseason,5/3/13,9,8,1,3,Red Bull Arena,/api/v1/venues/null
+2013020444,20132014,Regular Season,12/8/13,1,3,2,3,BBVA Stadium,/api/v1/venues/null
+2013020723,20132014,Regular Season,1/18/14,3,9,2,1,Yankee Stadium,/api/v1/venues/null
+2013020760,20132014,Regular Season,1/24/14,19,3,2,1,BBVA Stadium,/api/v1/venues/null
+2013020868,20132014,Regular Season,2/8/14,3,5,3,3,Children's Mercy Park,/api/v1/venues/null
+2013020795,20132014,Regular Season,1/29/14,13,6,2,4,Toyota Stadium,/api/v1/venues/null
+2013020924,20132014,Regular Season,3/5/14,13,6,1,2,Toyota Stadium,/api/v1/venues/null
+2013020956,20132014,Regular Season,3/9/14,6,14,3,3,Audi Field,/api/v1/venues/null
+2012020050,20122013,Regular Season,1/26/13,2,6,2,2,Toyota Stadium,/api/v1/venues/null
+2013020874,20132014,Regular Season,2/8/14,9,6,2,5,Toyota Stadium,/api/v1/venues/null
+2013020557,20132014,Regular Season,12/24/13,5,9,0,3,Yankee Stadium,/api/v1/venues/null
+2012020598,20122013,Regular Season,4/11/13,9,4,3,1,SeatGeek Stadium,/api/v1/venues/null
+2014020206,20142015,Regular Season,11/9/14,52,9,1,1,Yankee Stadium,/api/v1/venues/null
+2014020823,20142015,Regular Season,2/14/15,22,9,2,5,Yankee Stadium,/api/v1/venues/null

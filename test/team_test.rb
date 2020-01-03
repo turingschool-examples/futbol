@@ -21,7 +21,7 @@ class TeamTest < Minitest::Test
   end
 
   def test_it_can_calculate_total_teams
-    assert_equal 5, Team.count_of_teams
+    assert_equal 32, Team.count_of_teams
   end
 
 end
