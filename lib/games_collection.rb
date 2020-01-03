@@ -134,10 +134,8 @@ class GamesCollection
   def reg_season_game_ids(season_id)
     #create array with regular season game ids to be used in game_teams_collection
     @games.reduce([]) do |acc, game|
-      if game.season == season_id
-        if game.type == "Regular Season"
+      if game.season == season_id && game.type == "Regular Season"
           acc << game.game_id
-        end
       end
       acc
     end
@@ -146,10 +144,17 @@ class GamesCollection
   def post_season_game_ids(season_id)
     #create array with postseason game ids to be used in game_teams_collection
     @games.reduce([]) do |acc, game|
+      if game.season == season_id && game.type == "Postseason"
+        acc << game.game_id
+      end
+      acc
+    end
+  end
+
+  def winningest_coach_game_ids(season_id)
+    @games.reduce([]) do |acc, game|
       if game.season == season_id
-        if game.type == "Postseason"
-          acc << game.game_id
-        end
+        acc << game.game_id
       end
       acc
     end
@@ -161,8 +166,3 @@ class GamesCollection
 end
 
 # These methods each take a season id as an argument and return the values described below.
-
-# biggest_bust	Name of the team with the biggest decrease between regular season
-# and postseason win percentage.	String
-# biggest_surprise	Name of the team with the biggest increase between regular
-# season and postseason win percentage.	String

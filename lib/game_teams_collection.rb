@@ -165,7 +165,7 @@ class GameTeamsCollection #< StatTracker
     post_game_ids = gamescollection.post_season_game_ids(season_id)
 
     post_team_to_allresults = post_game_ids.reduce({}) do |acc, game_id|
-      post_gameteams_byid = game_teams1.find_all {|team| team.game_id == game_id}
+      post_gameteams_byid = game_teams1.find_all {|gameteam| gameteam.game_id == game_id}
       if acc[post_gameteams_byid[0].team_id] == nil
         acc[post_gameteams_byid[0].team_id] = []
         acc[post_gameteams_byid[0].team_id] << post_gameteams_byid[0].result
@@ -228,12 +228,12 @@ class GameTeamsCollection #< StatTracker
     biggest_increase[0]
   end
 
+  def winningest_coach(season_id)
+  end
+
 
 end
 
 
 # winningest_coach	Name of the Coach with the best win percentage for
 # the season	String
-
-# biggest_bust	Name of the team with the biggest decrease between regular season
-# and postseason win percentage.	String
