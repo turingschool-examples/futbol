@@ -68,4 +68,10 @@ class GameTeamsCollection
       records
     end
   end
+
+  def most_tackles_in_season_team_id
+    @all_games_by_team.max_by do |team|
+      require "pry"; binding.pry
+    end
+  end
 end

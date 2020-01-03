@@ -30,4 +30,8 @@ class GameTeamsCollectionTest < Minitest::Test
   def test_find_id_of_teams_with_worst_fans
     assert_equal [24, 5, 19], @game_teams_collection.worst_fans_team_id
   end
+
+  def test_most_tackles_in_season_team_id
+    assert_equal 3, @game_teams_collection.most_tackles_in_season_team_id
+  end
 end
