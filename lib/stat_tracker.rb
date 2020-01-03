@@ -39,7 +39,7 @@ class StatTracker
   end
 
   def percentage_ties
-    @game_collection.percentage_ties 
+    @game_collection.percentage_ties
   end
 
   def average_goals_by_season
@@ -80,6 +80,22 @@ class StatTracker
 
   def count_of_teams
     Team.count_of_teams
+  end
+
+  def highest_scoring_visitor
+    GameTeams.highest_scoring_visitor
+  end
+
+  def highest_scoring_home_team
+    GameTeams.highest_scoring_home_team
+  end
+
+  def lowest_scoring_visitor
+    GameTeams.lowest_scoring_visitor
+  end
+
+  def lowest_scoring_home_team
+    GameTeams.lowest_scoring_home_team
   end
 
 end
