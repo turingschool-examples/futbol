@@ -91,5 +91,25 @@ class GameTeams
     end
     away_games
   end
-  
+
+  def self.home_games
+    home_games = {}
+    games_per_team.each do |team_id, game_array|
+      home_games[team_id] = game_array.find_all do |game|
+        game.hoa == "home"
+      end
+    end
+    home_games
+  end
+
+  def self.highest_scoring_visitor
+    order = away_games.max_by do |team_id, game_array|
+      total = game_array.sum do |game|
+        game.goals.to_f
+      end
+       (total / game_array.length).round(2)
+    end
+    order[0]
+    Team.team_id_to_team_name(order[0])
+  end
 end
