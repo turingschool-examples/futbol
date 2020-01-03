@@ -32,6 +32,6 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_most_tackles_in_season_team_id
-    assert_equal 3, @game_teams_collection.most_tackles_in_season_team_id
+    assert_equal 9, @game_teams_collection.most_tackles_in_season_team_id
   end
 end
