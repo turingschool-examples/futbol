@@ -136,4 +136,12 @@ class StatTracker < Tracker
 
     get_team_name_by_id(team_id)
   end
+
+  def best_fans
+    #logic
+  end
+
+  def worst_fans
+    #logic
+  end
 end
