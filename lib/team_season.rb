@@ -20,6 +20,5 @@ class TeamSeason
     @away_goals = row[:away_goals]
     @home_goals = row[:home_goals]
     @venue = row[:venue]
-    @venue_link = row[:venue_link]
   end
 end
