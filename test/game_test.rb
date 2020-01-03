@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/game'
+require_relative '../lib/calculable'
 
 class GameTest < Minitest::Test
 
@@ -13,7 +14,7 @@ class GameTest < Minitest::Test
 
   def test_it_has_attributes
     assert_equal 2012030221, @game.first.game_id
-    assert_equal 20122013, @game.first.season
+    assert_equal "20122013", @game.first.season
     assert_equal "Postseason", @game.first.type
     assert_equal "5/16/13", @game.first.date_time
     assert_equal 3, @game.first.away_team_id
@@ -34,9 +35,9 @@ class GameTest < Minitest::Test
 
   def test_it_can_find_average_goals_by_season
     expected = {
-                20122013 => 5,
-                20142015 => 3.5,
-                20152016 => 5
+                "20122013" => 5.00,
+                "20142015" => 3.50,
+                "20152016" => 5.00
                 }
 
     assert_equal expected, Game.average_goals_by_season
@@ -44,13 +45,13 @@ class GameTest < Minitest::Test
   end
 
   def test_it_can_count_the_number_of_games_in_a_season
-    assert_equal ({20122013=>1, 20152016=>2, 20142015=>2}), Game.count_of_games_by_season
+    assert_equal ({"20122013"=>1, "20152016"=>2, "20142015"=>2}), Game.count_of_games_by_season
 
     assert_instance_of Hash, Game.count_of_games_by_season
   end
 
   def test_it_can_calcualte_the_average_number_of_goals_per_game_accross_all_games
-    assert_equal 4.4, Game.average_goals_per_game
+    assert_equal 4.40, Game.average_goals_per_game
   end
 
   def test_biggest_blowout
@@ -58,6 +59,6 @@ class GameTest < Minitest::Test
   end
 
   def test_it_can_calculate_the_percentage_of_games_that_end_in_a_tie
-    assert_equal 20.0, Game.percentage_ties
+    assert_equal 0.20, Game.percentage_ties
   end
 end

@@ -36,4 +36,44 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal "FC Dallas", stat_tracker.best_fans
   end
+
+  def test_it_can_find_highest_total_score
+    assert_equal 5, @stat_tracker.highest_total_score
+  end
+
+  def test_it_can_find_lowest_total_score
+    assert_equal 3, @stat_tracker.lowest_total_score
+  end
+
+  def test_it_can_find_average_goals_per_game
+    assert_equal 4.4, @stat_tracker.average_goals_per_game
+  end
+
+  def test_it_can_find_percentage_home_wins
+    assert_equal 1.00, @stat_tracker.percentage_home_wins
+  end
+
+  def test_it_can_find_percentage_ties
+    assert_equal 0.20, @stat_tracker.percentage_ties
+  end
+
+  def test_team_with_best_offense
+    assert_equal "FC Dallas", @stat_tracker.best_offense
+  end
+
+  def test_it_can_find_average_goals_by_season
+    assert_equal ({"20122013"=>1, "20152016"=>2, "20142015"=>2}), Game.count_of_games_by_season
+
+    assert_instance_of Hash, @stat_tracker.count_of_games_by_season
+  end
+
+  def test_it_can_find_count_of_teams
+    assert_equal 5, Team.count_of_teams
+  end
+
+  def test_team_with_worst_offense
+    stat_tracker = StatTracker.from_csv({games: './data/game.csv', teams: './data/team.csv', game_teams: './data/game_team.csv'})
+
+    assert_equal "Reign FC", stat_tracker.best_offense
+  end
 end
