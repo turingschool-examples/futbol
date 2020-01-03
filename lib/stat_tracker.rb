@@ -60,6 +60,73 @@ class StatTracker
     end
 
     @game_teams.each do |game_team|
+      total_games[game_team.team_id] += 1
+    end
+    total_games
+
+    average = team_goals.merge(total_games) do |key, team_goals, total_games|
+      team_goals / total_games.to_f
+    end
+    best_o = average.max_by do |k, v|
+      v
+    end
+    final = @teams.find do |team|
+      team.team_id == best_o[0]
+    end
+    final.teamname
+  end
+
+
+  def highest_scoring_home_team
+    team_goals = @game_teams.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = {:total_games => 0, :total_goals => 0}
+      acc
+    end
+     @game_teams.each do |game_team|
+      if game_team.hoa == "home"
+         team_goals[game_team.team_id][:total_games] += 1
+
+         team_goals[game_team.team_id][:total_goals] += game_team.goals
+      end
+    end
+    highest_team_id = team_goals.max_by do |k , v|
+      v[:total_goals] / v[:total_games]
+    end[0]
+      final = @teams.find do |team|
+        team.team_id == highest_team_id
+      end
+      final.teamname
+
+  def average_goals_by_season
+    Game.average_goals_by_season
+  end
+
+  def count_of_teams
+    Team.count_of_teams
+  end
+
+  def worst_offense
+    team_goals = @game_teams.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = 0
+      acc
+    end
+     @game_teams.each do |game_team|
+      team_goals[game_team.team_id] += game_team.goals
+    end
+    team_goals
+
+    total_games = @game_teams.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = 0
+      acc
+    end
+    @game_teams.each do |game_team|
+      total_games[game_team.team_id] += 1
+    end
+    total_games
+
+    average = team_goals.merge(total_games) do |key, team_goals, total_games|
+      team_goals / total_games.to_f
+    end
       unique_teams[game_team.team_id][:away] += 1 if game_team.hoa == "away" && game_team.result == "WIN"
 
       unique_teams[game_team.team_id][:home] += 1 if game_team.hoa == "home" && game_team.result == "WIN"
