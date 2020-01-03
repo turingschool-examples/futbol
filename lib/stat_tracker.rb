@@ -21,6 +21,7 @@ class StatTracker
     @teams = Team.from_csv(@team_path)
   end
 
+
   def worst_fans
      unique_teams = @game_teams.reduce({}) do |acc, game_team|
        acc[game_team.team_id] = {away: 0, home: 0}
@@ -52,109 +53,24 @@ class StatTracker
      end
    end
 
-  def highest_total_score
-    Game.highest_total_score
-  end
-
-  def lowest_total_score
-    Game.lowest_total_score
-  end
-
-  def biggest_blowout
-    Game.biggest_blowout
-  end
-
-  def average_goals_per_game
-    Game.average_goals_per_game
-  end
-
-  def percentage_home_wins
-    GameTeam.percentage_home_wins
-  end
-
-  def percentage_visitor_wins
-    GameTeam.percentage_visitor_wins
-  end
-
-  def percentage_ties
-    Game.percentage_ties
-  end
-
-  def count_of_games_by_season
-    Game.count_of_games_by_season
-  end
-
-  def best_offense
-    team_goals = @game_teams.reduce({}) do |acc, game_team|
-      acc[game_team.team_id] = 0
+  def best_fans
+    unique_teams = @game_teams.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = {away: 0, home: 0}
       acc
     end
-     @game_teams.each do |game_team|
-      team_goals[game_team.team_id] += game_team.goals
-    end
-    team_goals
 
-    total_games = @game_teams.reduce({}) do |acc, game_team|
-      acc[game_team.team_id] = 0
-      acc
-    end
     @game_teams.each do |game_team|
-      total_games[game_team.team_id] += 1
-    end
-    total_games
+      unique_teams[game_team.team_id][:away] += 1 if game_team.hoa == "away" && game_team.result == "WIN"
 
-    average = team_goals.merge(total_games) do |key, team_goals, total_games|
-      team_goals / total_games.to_f
-    end
-    best_o = average.max_by do |k, v|
-      v
-    end
-    final = @teams.find do |team|
-      team.team_id == best_o[0]
-    end
-    final.teamname
-  end
-
-  def average_goals_by_season
-    Game.average_goals_by_season
-  end
-
-  def count_of_teams
-    Team.count_of_teams
-  end
-
-  def worst_offense
-    team_goals = @game_teams.reduce({}) do |acc, game_team|
-      acc[game_team.team_id] = 0
-      acc
-    end
-     @game_teams.each do |game_team|
-      team_goals[game_team.team_id] += game_team.goals
-    end
-    team_goals
-
-    total_games = @game_teams.reduce({}) do |acc, game_team|
-      acc[game_team.team_id] = 0
-      acc
-    end
-    @game_teams.each do |game_team|
-      total_games[game_team.team_id] += 1
-    end
-    total_games
-
-    average = team_goals.merge(total_games) do |key, team_goals, total_games|
-      team_goals / total_games.to_f
+      unique_teams[game_team.team_id][:home] += 1 if game_team.hoa == "home" && game_team.result == "WIN"
     end
 
-    worst_o = average.min_by do |k, v|
-      v
+    best_fans = unique_teams.max_by do |team|
+      team[1][:home] - team[1][:away]
     end
 
-    final = @teams.find do |team|
-      team.team_id == worst_o[0]
-    end
-    final.teamname
-    require "pry"; binding.pry
-
+    @teams.find do |team|
+      team.team_id == best_fans[0]
+    end.teamname
   end
 end
