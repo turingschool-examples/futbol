@@ -1,5 +1,6 @@
 require 'csv'
-require './lib/team'
+require_relative 'team'
+require_relative 'game'
 
 class GameTeam
   @@all_game_teams
@@ -15,7 +16,8 @@ class GameTeam
                   end
   end
 
-  attr_reader :game_id, :team_id, :hoa, :result, :settled_in, :head_coach, :goals, :shots, :tackles
+  attr_reader :game_id, :team_id, :hoa, :result, :settled_in,
+              :head_coach, :goals, :shots, :tackles
 
   def initialize(game_team_info)
     @game_id = game_team_info[:game_id]

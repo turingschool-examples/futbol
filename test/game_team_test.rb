@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/game_team'
 require './lib/team'
+require './lib/game'
 
 class GameTeamTest < Minitest::Test
   def setup
@@ -21,6 +22,8 @@ class GameTeamTest < Minitest::Test
     @csv_game_team = @game_teams[1]
     @team_path = './test/dummy/teams_trunc.csv'
     @game_teams = Team.from_csv(@team_path)
+    @game_path = './test/dummy/games_trunc.csv'
+    @games = Game.from_csv(@game_path)
   end
 
   def test_it_exists
@@ -81,5 +84,4 @@ class GameTeamTest < Minitest::Test
   def test_highest_scoring_home_team
     assert_equal "FC Dallas", GameTeam.highest_scoring_home
   end
-
 end
