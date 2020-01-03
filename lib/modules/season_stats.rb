@@ -1,3 +1,3 @@
 module SeasonStats
-  
+  # logic
 end

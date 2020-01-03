@@ -64,10 +64,10 @@ module LeagueStats
   end
 
   def best_fans
-    #logic
+    # logic
   end
 
   def worst_fans
-    #logic
+    # logic
   end
 end
