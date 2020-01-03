@@ -55,9 +55,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas", @stat_tracker.best_offense
   end
 
+
   def test_highest_scoring_home_team
     stat_tracker = StatTracker.from_csv({games: './data/game.csv', teams: './data/team.csv', game_teams: './data/game_team.csv'})
 
     assert_equal "FC Dallas", @stat_tracker.highest_scoring_home_team
   end
+
 end

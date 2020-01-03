@@ -115,6 +115,7 @@ class StatTracker
     final.teamname
   end
 
+
   def highest_scoring_home_team
     team_goals = @game_teams.reduce({}) do |acc, game_team|
       acc[game_team.team_id] = {:total_games => 0, :total_goals => 0}
@@ -134,5 +135,47 @@ class StatTracker
         team.team_id == highest_team_id
       end
       final.teamname
+
+  def average_goals_by_season
+    Game.average_goals_by_season
+  end
+
+  def count_of_teams
+    Team.count_of_teams
+  end
+
+  def worst_offense
+    team_goals = @game_teams.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = 0
+      acc
+    end
+     @game_teams.each do |game_team|
+      team_goals[game_team.team_id] += game_team.goals
+    end
+    team_goals
+
+    total_games = @game_teams.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = 0
+      acc
+    end
+    @game_teams.each do |game_team|
+      total_games[game_team.team_id] += 1
+    end
+    total_games
+
+    average = team_goals.merge(total_games) do |key, team_goals, total_games|
+      team_goals / total_games.to_f
+    end
+
+    worst_o = average.min_by do |k, v|
+      v
+    end
+
+    final = @teams.find do |team|
+      team.team_id == worst_o[0]
+    end
+    final.teamname
+    require "pry"; binding.pry
+
   end
 end

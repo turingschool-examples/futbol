@@ -1,7 +1,9 @@
 require 'csv'
 require_relative 'csv_loadable'
+require_relative 'calculable'
 
 class Game
+  extend Calculable
   extend CsvLoadable
 
   attr_reader :game_id,
@@ -66,7 +68,8 @@ class Game
       acc += game.away_goals
       acc += game.home_goals
     end
-    (total_goals.to_f/total_games).round(2)
+    average_of(total_goals, total_games).round(2)
+    # (total_goals.to_f/total_games).round(2)
   end
 
   def self.average_goals_by_season
@@ -80,7 +83,7 @@ class Game
       acc
     end
     count_of_games_by_season.merge(goal_count_per_season) do |key, game_count, goal_count|
-      goal_count / game_count.to_f.round(2)
+      (goal_count / game_count.to_f).round(2)
     end
   end
 
@@ -100,4 +103,5 @@ class Game
     end
     (total_ties.to_f / total_games).round(2)
   end
+
 end

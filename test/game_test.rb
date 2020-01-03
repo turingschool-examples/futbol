@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/game'
+require_relative '../lib/calculable'
 
 class GameTest < Minitest::Test
 
@@ -34,9 +35,9 @@ class GameTest < Minitest::Test
 
   def test_it_can_find_average_goals_by_season
     expected = {
-                "20122013" => 5,
-                "20142015" => 3.5,
-                "20152016" => 5
+                "20122013" => 5.00,
+                "20142015" => 3.50,
+                "20152016" => 5.00
                 }
 
     assert_equal expected, Game.average_goals_by_season
