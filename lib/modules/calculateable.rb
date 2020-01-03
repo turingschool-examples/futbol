@@ -21,6 +21,24 @@ module Calculateable
     average_wins
   end
 
+  def team_home_average_wins(wins_hash)
+    average_wins = {}
+    wins_hash.each do |team, tot_wins|
+      average_wins[team] = (tot_wins.to_f / home_games_by_team[team])
+    end
+
+    average_wins
+  end
+
+  def team_away_average_wins(wins_hash)
+    average_wins = {}
+    wins_hash.each do |team, tot_wins|
+      average_wins[team] = (tot_wins.to_f / away_games_by_team[team])
+    end
+
+    average_wins
+  end
+
   def team_total_seasons(team_id)
     @team_season_collection.collection[team_id].size
   end
