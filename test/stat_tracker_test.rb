@@ -31,6 +31,12 @@ class StatTrackerTest < Minitest::Test
     assert_equal [], @stat_tracker.worst_fans
   end
 
+  def test_it_can_pull_teams_with_the_best_fans
+    stat_tracker = StatTracker.from_csv({games: './data/dummy_game.csv', teams: './data/dummy_team.csv', game_teams: './data/dummy_game_team.csv'})
+
+    assert_equal "FC Dallas", stat_tracker.best_fans
+  end
+
   def test_it_can_find_highest_total_score
     assert_equal 7, @stat_tracker.highest_total_score
   end
@@ -65,15 +71,13 @@ class StatTrackerTest < Minitest::Test
     assert_equal 32, Team.count_of_teams
   end
 
-  def test_team_with_worst_offense
+  def test_highest_scoring_home_team
     stat_tracker = StatTracker.from_csv({games: './data/game.csv', teams: './data/team.csv', game_teams: './data/game_team.csv'})
 
-    assert_equal "Utah Royals FC", stat_tracker.worst_offense
+    assert_equal "Utah Royals FC", stat_tracker.highest_scoring_home_team
   end
 
   def test_winningest_team
     assert_equal "Houston Dynamo", @stat_tracker.winningest_team
   end
-
-
 end
