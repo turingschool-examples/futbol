@@ -165,4 +165,17 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of String, @stat_tracker.winningest_team
     assert_equal 'Reign FC', @stat_tracker.winningest_team
   end
+
+  def test_stat_tracker_can_get_best_fans
+    assert_instance_of String, @stat_tracker.best_fans
+    assert_equal 'San Jose Earthquakes', @stat_tracker.best_fans
+  end
+
+  def test_stat_tracker_can_get_worst_fans
+    @stat_tracker.worst_fans.each do |team|
+      assert_instance_of String, team
+    end
+
+    assert_equal ['Houston Dynamo', 'Utah Royals FC'], @stat_tracker.worst_fans
+  end
 end
