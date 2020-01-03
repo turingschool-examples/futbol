@@ -63,4 +63,12 @@ class GameTeamsTest < Minitest::Test
     assert_equal true, (expected_output == GameTeams.difference_home_and_away_wins_percentage)
   end
 
+  def test_all_away_games_by_team
+    expected = {
+      "3" => [@game_teams[0], @game_teams[2], @game_teams[8]],
+      "6" => [@game_teams[4], @game_teams[6], @game_teams[10]]
+    }
+    assert_equal expected, GameTeams.away_games
+  end
+
 end
