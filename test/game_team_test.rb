@@ -44,11 +44,7 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_percentage_home_wins_calculation
-    assert_equal 100.00, GameTeam.percentage_home_wins
-  end
-
-  def test_team_with_best_offense
-    assert_equal "FC Dallas", GameTeam.best_offense
+    assert_equal 0.75, GameTeam.percentage_home_wins
   end
 
 end
