@@ -61,4 +61,12 @@ class StatTrackerTest < Minitest::Test
      assert_equal "FC Cincinnati", @stat_tracker.biggest_surprise("20132014")
   end
 
+  def test_winningest_coach
+    assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
+  end
+
+  def test_worst_coach
+    assert_equal "Ted Nolan", @stat_tracker.worst_coach("20142015")
+  end
+
 end
