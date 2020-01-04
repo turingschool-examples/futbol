@@ -49,6 +49,7 @@ class GameTeamsCollectionTest < Minitest::Test
   # end
 
   def test_winningest_coach_name
+
     assert_equal "Alain Vigneault", @game_teams_collection.winningest_coach_name("20142015")
   end
 
