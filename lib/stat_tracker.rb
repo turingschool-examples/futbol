@@ -2,7 +2,7 @@ require './lib/games'
 
 class StatTracker
 
-  attr_reader :game_teams_path, :games, :teams_path
+  attr_reader :game_teams, :games, :teams
 
   def self.from_csv(locations)
     game_teams_path = locations[:game_teams]
@@ -13,8 +13,8 @@ class StatTracker
   end
 
   def initialize(game_teams_path, game_path, teams_path)
-    @game_teams_path = game_teams_path
-    @teams_path = teams_path
+    @game_teams = game_teams_path
+    @teams = Team.from_csv(teams_path)
     @games = Games.from_csv(game_path)
   end
 

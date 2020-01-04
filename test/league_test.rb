@@ -13,11 +13,11 @@ class LeagueTest < Minitest::Test
     assert_instance_of League, @league
   end
 
-  def test_count_of_teams
-    assert_equal 23, League.count_of_teams
-  end
+  # def test_count_of_teams
+  #   assert_equal 23, League.count_of_teams
+  # end
 
-  def test_best_offense
-    assert_equal , League.best_offense
-  end
+  # def test_best_offense
+  #   assert_equal , League.best_offense
+  # end
 end

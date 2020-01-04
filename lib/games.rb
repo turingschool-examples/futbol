@@ -1,6 +1,9 @@
 require 'csv'
+require './lib/csv_loadable'
+require './lib/team'
 
-class Games
+class Games < Team
+  extend CsvLoadable
 
   @@all_games = []
 
@@ -19,9 +22,7 @@ class Games
               :venue
 
   def self.from_csv(file_path)
-    csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
-
-    @@all_games = csv.map {|row| Games.new(row)}
+    @@all_games = load_from_csv(file_path, Games)
   end
 
   def initialize(game_info)
@@ -102,5 +103,42 @@ class Games
         hash
       end
     end
+  end
+
+  # Start of iteration 3
+  def self.count_of_teams
+    @@all_teams.count
+  end
+
+  def self.best_offense
+    # go through games and teams
+    # get all goals scored for that team and divide by game count
+    # Find highest average
+    # return that team name
+
+    team_id_scores = @@all_teams.reduce({}) do |hash, team|
+      hash[team.team_id] = []
+      hash
+    end
+
+    @@all_teams.each do |team|
+      @@all_games.each do |game|
+        if team.team_id == game.home_team_id
+          team_id_scores[team.team_id] << game.home_goals
+        elsif team.team_id == game.away_team_id
+          team_id_scores[team.team_id] << game.away_goals
+        end
+      end.compact
+    end
+
+    team_id_scores.each do |key, value|
+      average = (value.sum / value.count.to_f).round(2)
+      team_id_scores[key] = average
+    end
+
+    team_id = team_id_scores.key(team_id_scores.values.max)
+
+    team = @@all_teams.find {|team| team.team_name if team.team_id == team_id}
+    team_name = team.team_name
   end
 end

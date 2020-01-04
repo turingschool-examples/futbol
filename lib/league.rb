@@ -32,11 +32,14 @@ class League
   end
 
   def self.count_of_teams
-    @@all_leagues.count
+    # @@all_leagues.map do ||
   end
 
   def self.best_offense
-    @@all_leagues
+    sum = @@all_leagues.sum do |testy|
+      (testy.away_goals + testy.home_goals)
+    end
+    (sums / @@all_leagues.length.to_f).round(2)
   end
 
   def self.worst_offense
