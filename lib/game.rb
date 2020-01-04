@@ -3,7 +3,7 @@ class Game
   @@all = []
 
   def self.all
-   @@all
+    @@all
   end
 
   # For minitest only
@@ -57,6 +57,6 @@ class Game
   def winner
     return @home_team_id if @home_goals > @away_goals
     return @away_team_id if @away_goals > @home_goals
-    nil
+    return nil
   end
 end

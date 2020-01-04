@@ -6,11 +6,13 @@ class StatTracker < League
   include TeamSearchable
   include GameSearchable
 
+
 	def count_of_games_by_season
 		games_by_season = {}
 		@seasons.each {|season| games_by_season[season.id.to_s] = season.total_games}
 		games_by_season
 	end
+
 
 	def average_goals_by_season
 		@seasons.reduce({}) do |acc, season|
