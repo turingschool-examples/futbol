@@ -28,6 +28,5 @@ class Team
 
   def self.count_of_teams
     @@teams.length
-    # do we need .uniq here?
   end
 end

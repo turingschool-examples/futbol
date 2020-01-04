@@ -25,18 +25,6 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of Team, @stat_tracker.teams[0]
   end
 
-  def test_it_can_pull_all_teams_with_the_worst_fans
-      stat_tracker = StatTracker.from_csv({games: './data/game.csv', teams: './data/team.csv', game_teams: './data/game_team.csv'})
-    assert_equal ["Houston Dynamo", "Utah Royals FC"], stat_tracker.worst_fans
-    assert_equal [], @stat_tracker.worst_fans
-  end
-
-  def test_it_can_pull_teams_with_the_best_fans
-    stat_tracker = StatTracker.from_csv({games: './data/dummy_game.csv', teams: './data/dummy_team.csv', game_teams: './data/dummy_game_team.csv'})
-
-    assert_equal "FC Dallas", stat_tracker.best_fans
-  end
-
   def test_it_can_find_highest_total_score
     assert_equal 7, @stat_tracker.highest_total_score
   end
@@ -57,27 +45,48 @@ class StatTrackerTest < Minitest::Test
     assert_equal 0.26, @stat_tracker.percentage_ties
   end
 
-  def test_team_with_best_offense
-    assert_equal "FC Dallas", @stat_tracker.best_offense
+  def test_it_can_count_the_number_of_games_in_a_season
+    assert_equal ({"20122013"=>8, "20132014"=>9, "20142015"=>2}), @stat_tracker.count_of_games_by_season
   end
 
   def test_it_can_find_average_goals_by_season
-    assert_equal ({"20122013"=>8, "20132014"=>9, "20142015"=>2}), Game.count_of_games_by_season
-
-    assert_instance_of Hash, @stat_tracker.count_of_games_by_season
+    assert_equal ({"20122013"=>8, "20132014"=>9, "20142015"=>2}), @stat_tracker.count_of_games_by_season
   end
 
   def test_it_can_find_count_of_teams
     assert_equal 32, Team.count_of_teams
   end
 
+  def test_it_can_pull_all_teams_with_the_worst_fans
+    stat_tracker = StatTracker.from_csv({games: './data/game.csv', teams: './data/team.csv', game_teams: './data/game_team.csv'})
+    assert_equal ["Houston Dynamo", "Utah Royals FC"], stat_tracker.worst_fans
+    assert_equal [], @stat_tracker.worst_fans
+  end
+
+  def test_it_can_pull_teams_with_the_best_fans
+    stat_tracker = StatTracker.from_csv({games: './data/dummy_game.csv', teams: './data/dummy_team.csv', game_teams: './data/dummy_game_team.csv'})
+
+    assert_equal "Houston Dynamo", stat_tracker.best_fans
+  end
+
+  def test_team_with_best_offense
+    assert_equal "FC Dallas", @stat_tracker.best_offense
+  end
+
+  def test_team_with_worst_offense
+    stat_tracker = StatTracker.from_csv({games: './data/game.csv', teams: './data/team.csv', game_teams: './data/game_team.csv'})
+
+    assert_equal "Utah Royals FC", stat_tracker.worst_offense
+  end
+
   def test_highest_scoring_home_team
     stat_tracker = StatTracker.from_csv({games: './data/game.csv', teams: './data/team.csv', game_teams: './data/game_team.csv'})
 
-    assert_equal "Utah Royals FC", stat_tracker.highest_scoring_home_team
+    assert_equal "Reign FC", stat_tracker.best_offense
   end
 
   def test_winningest_team
     assert_equal "Houston Dynamo", @stat_tracker.winningest_team
   end
+
 end
