@@ -85,6 +85,16 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Reign FC", stat_tracker.highest_scoring_home_team
   end
 
+  def test_lowest_scoring_home_team
+    stat_tracker = StatTracker.from_csv({games: './data/game.csv', teams: './data/team.csv', game_teams: './data/game_team.csv'})
+
+    assert_equal "Utah Royals FC", stat_tracker.lowest_scoring_home_team
+  end
+    
+  def test_lowest_scoring_visitor
+    assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
+  end
+
   def test_winningest_team
     assert_equal "Houston Dynamo", @stat_tracker.winningest_team
   end
@@ -93,5 +103,9 @@ class StatTrackerTest < Minitest::Test
     stat_tracker = StatTracker.from_csv({games: './data/game.csv', teams: './data/team.csv', game_teams: './data/game_team.csv'})
 
     assert_equal "FC Dallas", stat_tracker.highest_scoring_visitor
+  end
+
+  def test_worst_defense
+    assert_equal "Washington Spirit FC", @stat_tracker.worst_defense
   end
 end
