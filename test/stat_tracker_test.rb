@@ -71,4 +71,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Reign FC", stat_tracker.best_offense
   end
 
+  def test_lowest_scoring_visitor
+    assert_equal 3, @stat_tracker.lowest_scoring_visitor
+  end
 end

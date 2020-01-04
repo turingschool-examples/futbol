@@ -157,4 +157,27 @@ class StatTracker
     require "pry"; binding.pry
 
   end
+
+  def lowest_scoring_visitor
+    all_teams = @game_teams.reduce({}) do |acc, game_team|
+        acc[game_team.team_id] = {total_games: 0, total_goals: 0}
+        acc
+    end
+
+    @game_teams.each do |game_team|
+      if game_team.hoa == "away"
+        all_teams[game_team.team_id][:total_games] += 1
+        all_teams[game_team.team_id][:total_goals] += game_team.goals
+      end
+    end
+
+    worst_team = all_teams.find do |key, value|
+      value[:total_goals] / value[:total_games]
+    end[0]
+
+    final = @teams.find do |team|
+      team.team_id == worst_team
+    end
+    final.teamname
+  end
 end
