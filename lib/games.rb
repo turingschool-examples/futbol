@@ -111,16 +111,13 @@ class Games < Team
   end
 
   def self.best_offense
-    # go through games and teams
-    # get all goals scored for that team and divide by game count
-    # Find highest average
-    # return that team name
-
+    #creates hash with team_id as key and empty array as value
     team_id_scores = @@all_teams.reduce({}) do |hash, team|
       hash[team.team_id] = []
       hash
     end
 
+    # put num of goals into value in the hash
     @@all_teams.each do |team|
       @@all_games.each do |game|
         if team.team_id == game.home_team_id
@@ -131,13 +128,16 @@ class Games < Team
       end.compact
     end
 
+    # change the hash value to the average
     team_id_scores.each do |key, value|
       average = (value.sum / value.count.to_f).round(2)
       team_id_scores[key] = average
     end
 
+    # find team_id with the highest average
+    # find team with that team_id
+    # return the cooresponding team name 
     team_id = team_id_scores.key(team_id_scores.values.max)
-
     team = @@all_teams.find {|team| team.team_name if team.team_id == team_id}
     team_name = team.team_name
   end
