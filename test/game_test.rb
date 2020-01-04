@@ -65,4 +65,8 @@ class GameTest < Minitest::Test
     assert_equal 4, Game.average_goals_by_season.length
     assert_equal expected, Game.average_goals_by_season
   end
+  
+  def test_it_can_return_average_goals_per_game
+    assert_equal 4.63, Game.average_goals_per_game
+  end
 end
