@@ -5,11 +5,11 @@ require 'csv'
 class SeasonCollection < Collection
   include Gatherable
 
-  attr_reader :teams
+  attr_reader :team_seasons
 
   def initialize(csv_file_path)
     super(csv_file_path, Season)
-    @teams = create_team_collection(csv_file_path, Season)
+    @team_seasons = create_team_collection(csv_file_path, Season)
   end
 
   def create_collection(csv_file_path, collection_type)
