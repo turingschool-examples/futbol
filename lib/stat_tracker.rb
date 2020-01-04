@@ -238,12 +238,35 @@ class StatTracker
     end
 
     worst_team = all_teams.find do |key, value|
-      value[:total_goals] / value[:total_games]
+      value[:total_goals].to_f / value[:total_games]
     end[0]
 
     final = @teams.find do |team|
       team.team_id == worst_team
     end
     final.teamname
+  end
+
+  def worst_defense
+    teams_counter = @games.reduce({}) do |acc, game|
+      acc[game.home_team_id] = {games: 0, goals_allowed: 0}
+      acc[game.away_team_id] = {games: 0, goals_allowed: 0}
+      acc
+    end
+
+    @games.each do |game|
+      teams_counter[game.home_team_id][:games] += 1
+      teams_counter[game.away_team_id][:games] += 1
+      teams_counter[game.away_team_id][:goals_allowed] += game.home_goals
+      teams_counter[game.home_team_id][:goals_allowed] += game.away_goals
+    end
+
+    final = teams_counter.max_by do |id, stats|
+      stats[:goals_allowed].to_f / stats[:games]
+    end[0]
+    
+    @teams.find do |team|
+      team.team_id == final
+    end.teamname
   end
 end
