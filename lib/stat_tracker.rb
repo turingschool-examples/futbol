@@ -198,6 +198,29 @@ class StatTracker
     final.teamname
   end
 
+  def lowest_scoring_home_team
+    team_goals = @game_teams.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = {:total_games => 0, :total_goals => 0}
+      acc
+    end
+
+    @game_teams.each do |game_team|
+      if game_team.hoa == "home"
+        team_goals[game_team.team_id][:total_games] += 1
+        team_goals[game_team.team_id][:total_goals] += game_team.goals
+      end
+    end
+
+    lowest_team_id = team_goals.min_by do |k , v|
+      v[:total_goals] / v[:total_games].to_f
+    end[0]
+
+    final = @teams.find do |team|
+      team.team_id == lowest_team_id
+    end
+    final.teamname
+  end
+
   def winningest_team
     total_games_per_team = @game_teams.reduce(Hash.new(0)) do |acc, game_team|
       acc[game_team.team_id] +=1
