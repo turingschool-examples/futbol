@@ -24,8 +24,9 @@ class StatTrackerTest < Minitest::Test
   def test_it_has_attributes
     assert_instance_of Array, @stat_tracker.games
     assert_instance_of Games, @stat_tracker.games[0]
-    assert_equal './data/teams.csv', @stat_tracker.teams_path
-    assert_equal './data/game_teams_dummy.csv', @stat_tracker.game_teams_path
+    assert_instance_of Array, @stat_tracker.teams
+    assert_instance_of Team, @stat_tracker.teams[0]
+    assert_equal './data/game_teams_dummy.csv', @stat_tracker.game_teams
   end
 
   def test_it_can_calculate_highest_total_score
@@ -41,26 +42,34 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_calculate_percentage_home_wins
-    assert_equal 0.43, @stat_tracker.percentage_home_wins
+    assert_equal 0.53, @stat_tracker.percentage_home_wins
   end
 
   def test_it_can_calculate_percentage_visitor_wins
-    assert_equal 0.48, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.41, @stat_tracker.percentage_visitor_wins
   end
 
   def test_it_can_calculate_percentage_ties
-    assert_equal 0.09, @stat_tracker.percentage_ties
+    assert_equal 0.06, @stat_tracker.percentage_ties
   end
 
   def test_it_can_count_games_by_season
-    assert_equal ({20122013 => 4, 20142015 => 11, 20152016 => 1, 20172018 => 7}), @stat_tracker.count_of_games_by_season
+    assert_equal ({20122013 => 5, 20142015 => 12, 20152016 => 1, 20172018 => 9, 20132014=>4, 20162017=>1}), @stat_tracker.count_of_games_by_season
   end
 
   def test_it_calculate_average_goals_per_game
-    assert_equal 4.17, @stat_tracker.average_goals_per_game
+    assert_equal 4.13, @stat_tracker.average_goals_per_game
   end
 
   def test_it_calculate_average_goals_per_season
-    assert_equal ({20122013 => 4.5, 20142015 => 4.06, 20152016 => 3.0, 20172018 => 4.27}), @stat_tracker.average_goals_by_season
+    assert_equal ({20122013 => 4.6, 20142015 => 3.84, 20152016 => 3.0, 20172018 => 4.33, 20132014=>4.0, 20162017=>5.0}), @stat_tracker.average_goals_by_season
+  end
+
+  def test_count_of_teams
+    assert_equal 32, Games.count_of_teams
+  end
+
+  def test_finds_team_with_best_offense
+    assert_equal "Reign FC", Games.best_offense
   end
 end
