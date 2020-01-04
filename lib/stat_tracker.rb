@@ -247,4 +247,3 @@ class StatTracker
     final.teamname
   end
 end
-end
