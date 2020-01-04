@@ -336,4 +336,24 @@ class StatTracker
       team.team_id == final
     end.teamname
   end
+
+  def least_accurate_team
+    teams_counter = @game_teams.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = {goals: 0, attempts: 0}
+      acc
+    end
+
+    @game_teams.each do |game_team|
+      teams_counter[game_team.team_id][:goals] += game_team.goals
+      teams_counter[game_team.team_id][:attempts] += game_team.shots
+    end
+
+    final = teams_counter.min_by do |key, value|
+      value[:attempts].to_f / value[:goals]
+    end[0]
+
+    @teams.find do |team|
+      final = team.team_id
+    end.teamname
+  end
 end

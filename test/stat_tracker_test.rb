@@ -114,4 +114,8 @@ class StatTrackerTest < Minitest::Test
   def test_best_defense
     assert_equal "LA Galaxy", @stat_tracker.best_defense
   end
+
+  def test_least_accurate_team
+    assert_equal "Atlanta United", @stat_tracker.least_accurate_team
+  end
 end
