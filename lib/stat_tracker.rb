@@ -259,7 +259,14 @@ class StatTracker
       teams_counter[game.away_team_id][:games] += 1
       teams_counter[game.away_team_id][:goals_allowed] += game.home_goals
       teams_counter[game.home_team_id][:goals_allowed] += game.away_goals
-    require "pry"; binding.pry
-  end
+    end
+
+    final = teams_counter.max_by do |id, stats|
+      stats[:goals_allowed].to_f / stats[:games]
+    end[0]
+    
+    @teams.find do |team|
+      team.team_id == final
+    end.teamname
   end
 end

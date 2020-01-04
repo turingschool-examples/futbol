@@ -94,6 +94,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_worst_defense
-    assert_equal "Seattle Sounders FC", @stat_tracker.worst_defense
+    assert_equal "Washington Spirit FC", @stat_tracker.worst_defense
   end
 end
