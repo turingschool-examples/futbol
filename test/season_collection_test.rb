@@ -6,17 +6,17 @@ require 'csv'
 
 class SeasonTest < Minitest::Test
   def setup
-    @season_collection = SeasonCollection.new('./test/fixtures/games_truncated.csv')
-    @season = @season_collection.collection
+    @seasons = SeasonCollection.new('./test/fixtures/games_truncated.csv')
+    @season = @seasons.collection
   end
 
   def test_team_collection_exists
-    assert_instance_of SeasonCollection, @season_collection
+    assert_instance_of SeasonCollection, @seasons
   end
 
   def test_game_collection_has_games
-    assert_instance_of Hash, @season_collection.collection
-    assert_equal 5, @season_collection.collection.length
+    assert_instance_of Hash, @seasons.collection
+    assert_equal 5, @seasons.collection.length
   end
 
   def test_game_collection_can_create_games_from_csv

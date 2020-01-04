@@ -6,7 +6,7 @@ module LeagueStats
   include Gatherable
 
   def count_of_teams
-    @team_collection.collection.length
+    @teams.collection.length
   end
 
   def best_offense

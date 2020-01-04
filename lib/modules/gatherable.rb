@@ -1,6 +1,6 @@
 module Gatherable
   def games_by_team
-    @game_collection.collection.inject(Hash.new(0)) do |count, game|
+    @games.collection.inject(Hash.new(0)) do |count, game|
       count[game[1].home_team_id] += 1
       count[game[1].away_team_id] += 1
       count
@@ -8,21 +8,21 @@ module Gatherable
   end
 
   def home_games_by_team
-    @game_collection.collection.inject(Hash.new(0)) do |count, game|
+    @games.collection.inject(Hash.new(0)) do |count, game|
       count[game[1].home_team_id] += 1
       count
     end
   end
 
   def away_games_by_team
-    @game_collection.collection.inject(Hash.new(0)) do |count, game|
+    @games.collection.inject(Hash.new(0)) do |count, game|
       count[game[1].away_team_id] += 1
       count
     end
   end
 
   def wins_by_team
-    @game_collection.collection.inject(Hash.new(0)) do |wins, game|
+    @games.collection.inject(Hash.new(0)) do |wins, game|
       if game[1].home_goals.to_i > game[1].away_goals.to_i
         wins[game[1].home_team_id] += 1
       else
@@ -33,7 +33,7 @@ module Gatherable
   end
 
   def home_wins_by_team
-    @game_collection.collection.inject(Hash.new(0)) do |wins, game|
+    @games.collection.inject(Hash.new(0)) do |wins, game|
       if game[1].home_goals.to_i > game[1].away_goals.to_i
         wins[game[1].home_team_id] += 1
       end
@@ -42,7 +42,7 @@ module Gatherable
   end
 
   def away_wins_by_team
-    @game_collection.collection.inject(Hash.new(0)) do |wins, game|
+    @games.collection.inject(Hash.new(0)) do |wins, game|
       if game[1].away_goals.to_i > game[1].home_goals.to_i
         wins[game[1].away_team_id] += 1
       end
@@ -51,7 +51,7 @@ module Gatherable
   end
 
   def goals_by_team
-    @game_collection.collection.inject(Hash.new(0)) do |scores, game|
+    @games.collection.inject(Hash.new(0)) do |scores, game|
       scores[game[1].home_team_id] += game[1].home_goals.to_i
       scores[game[1].away_team_id] += game[1].away_goals.to_i
       scores
@@ -59,21 +59,21 @@ module Gatherable
   end
 
   def home_goals_by_team
-    @game_collection.collection.inject(Hash.new(0)) do |scores, game|
+    @games.collection.inject(Hash.new(0)) do |scores, game|
       scores[game[1].home_team_id] += game[1].home_goals.to_i
       scores
     end
   end
 
   def away_goals_by_team
-    @game_collection.collection.inject(Hash.new(0)) do |scores, game|
+    @games.collection.inject(Hash.new(0)) do |scores, game|
       scores[game[1].away_team_id] += game[1].away_goals.to_i
       scores
     end
   end
 
   def goals_against_team
-    @game_collection.collection.inject(Hash.new(0)) do |scores, game|
+    @games.collection.inject(Hash.new(0)) do |scores, game|
       scores[game[1].home_team_id] += game[1].away_goals.to_i
       scores[game[1].away_team_id] += game[1].home_goals.to_i
       scores
@@ -81,7 +81,7 @@ module Gatherable
   end
 
   def get_team_name_by_id(team_id)
-    @team_collection.collection[team_id].team_name
+    @teams.collection[team_id].team_name
   end
 
   def team_hash(row, team_id)
