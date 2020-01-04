@@ -348,7 +348,7 @@ class StatTracker
       teams_counter[game_team.team_id][:attempts] += game_team.shots
     end
 
-    final = teams_counter.min_by do |key, value|
+    final = teams_counter.max_by do |key, value|
       value[:attempts].to_f / value[:goals]
     end[0]
 
