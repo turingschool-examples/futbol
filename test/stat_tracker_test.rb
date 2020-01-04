@@ -85,8 +85,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Reign FC", stat_tracker.highest_scoring_home_team
   end
 
+  def test_lowest_scoring_visitor
+    assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
+  end
+
   def test_winningest_team
     assert_equal "Houston Dynamo", @stat_tracker.winningest_team
   end
-
 end
