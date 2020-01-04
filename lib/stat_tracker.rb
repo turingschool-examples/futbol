@@ -19,5 +19,9 @@ class StatTracker < League
 			acc[season.id.to_s] = (season.games_unsorted.sum {|game| game.total_score}/season.games_unsorted.length.to_f).round(2)
 			acc
 		end
-	end
+  end
+  
+  def game_stat_check
+    Game.all.find_all {|game| game.stats.keys[1].to_i != game.home_team_id}
+  end
 end

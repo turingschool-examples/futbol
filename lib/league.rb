@@ -19,6 +19,6 @@ class League
 
 	def self.from_csv(locations)
 		self.new(locations)
-	end
+  end
 
 end
