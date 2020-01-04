@@ -90,9 +90,11 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal "Utah Royals FC", stat_tracker.lowest_scoring_home_team
   end
-    
+
   def test_lowest_scoring_visitor
-    assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
+    stat_tracker = StatTracker.from_csv({games: './data/game.csv', teams: './data/team.csv', game_teams: './data/game_team.csv'})
+
+    assert_equal "San Jose Earthquakes", stat_tracker.lowest_scoring_visitor
   end
 
   def test_winningest_team
