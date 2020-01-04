@@ -64,4 +64,12 @@ class StatTrackerTest < Minitest::Test
   def test_it_calculate_average_goals_per_season
     assert_equal ({20122013 => 4.6, 20142015 => 3.84, 20152016 => 3.0, 20172018 => 4.33, 20132014=>4.0, 20162017=>5.0}), @stat_tracker.average_goals_by_season
   end
+
+  def test_count_of_teams
+    assert_equal 32, Games.count_of_teams
+  end
+
+  def test_finds_team_with_best_offense
+    assert_equal "Reign FC", Games.best_offense
+  end
 end
