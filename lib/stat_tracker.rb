@@ -189,7 +189,7 @@ class StatTracker
     end
 
     highest_team_id = team_goals.max_by do |k , v|
-      v[:total_goals] / v[:total_games]
+      v[:total_goals] / v[:total_games].to_f
     end[0]
 
     final = @teams.find do |team|
