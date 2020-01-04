@@ -6,9 +6,25 @@ class Game
     @@all
   end
 
-  attr_reader :id, :season, :type, :date_time, :away_team_id, :home_team_id, :away_goals, :home_goals, :venue, :venue_link
+  # For minitest only
+  def self.reset_all
+    @@all = []
+  end
+  # for MiniTest only
 
-  def initialize(game_info)
+  attr_reader :id,
+              :season,
+              :type,
+              :date_time,
+              :away_team_id,
+              :home_team_id,
+              :away_goals,
+              :home_goals,
+              :venue,
+              :venue_link,
+              :stats
+
+  def initialize(game_info, stat_array)
     @id = game_info[:game_id].to_i
     @season = game_info[:season].to_i
     @type = game_info[:type]
@@ -19,12 +35,16 @@ class Game
     @home_goals = game_info[:home_goals].to_i
     @venue = game_info[:venue]
     @venue_link = game_info[:venue_link]
+    @stats = stat_results(stat_array)
     @@all << self
   end
 
-  # def create_stat_hash(array)
-  #
-  # end
+  def stat_results(stat_array)
+    stat_array.reduce({}) do |acc, inner_hash|
+      acc[inner_hash[:team_id]] = inner_hash.slice(:HOA, :Coach, :Shots, :Tackles)
+      acc
+    end
+  end
 
   def total_score
     @away_goals + @home_goals
