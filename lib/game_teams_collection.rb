@@ -259,6 +259,37 @@ class GameTeamsCollection #< StatTracker
     top_coach_name = coach_withmaxpercent[0]
   end
 
+  def worst_coach_name(season_id)
+    gamescollection = GamesCollection.new("./data/games.csv")
+    game_teams1 = create_game_teams("./data/game_teams.csv")
+
+    game_ids = gamescollection.winningest_coach_game_ids(season_id)
+    coach_to_results = game_ids.reduce({}) do |acc, gameid|
+      game_teams1.each do |gameteam|
+        if gameteam.game_id == gameid && acc[gameteam.head_coach] == nil
+          acc[gameteam.head_coach] = []
+          acc[gameteam.head_coach] << gameteam.result
+        elsif gameteam.game_id == gameid && acc[gameteam.head_coach] != nil
+          acc[gameteam.head_coach] << gameteam.result
+        end
+      end
+      acc
+    end
+
+    coach_to_winpercent = coach_to_results.reduce({}) do |acc, coachresults|
+      coachname = coachresults[0]
+      win_count = coachresults[1].count("WIN")
+      game_count = coachresults[1].length
+      win_percentage = (win_count / game_count.to_f) * 100
+      acc[coachname] = win_percentage
+      acc
+    end
+
+    coach_withminpercent = coach_to_winpercent.min_by {|k, v| v}
+
+    bottom_coach_name = coach_withminpercent[0]
+  end
+
 
 end
 

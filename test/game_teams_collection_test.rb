@@ -53,6 +53,11 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal "Alain Vigneault", @game_teams_collection.winningest_coach_name("20142015")
   end
 
+  def test_worst_coach_name
+    
+    assert_equal "Ted Nolan", @game_teams_collection.worst_coach_name("20142015")
+  end
+
 
 
 end
