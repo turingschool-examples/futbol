@@ -37,41 +37,31 @@ attr_reader :games
   end
 
   def percentage_home_wins
-    (@games.count {|game| game.home_goals > game.away_goals} / @games.size.to_f * 100).round(2)
+    (@games.count {|game| game.home_goals > game.away_goals} / @games.size.to_f ).round(2)
   end
 
   def percentage_visitor_wins
-    (@games.count {|game| game.away_goals > game.home_goals} / @games.size.to_f * 100).round(2)
+    (@games.count {|game| game.away_goals > game.home_goals} / @games.size.to_f ).round(2)
   end
 
   def percentage_ties
-     (@games.count {|game| game.away_goals == game.home_goals} / @games.size.to_f * 100).round(2)
+     (@games.count {|game| game.away_goals == game.home_goals} / @games.size.to_f ).round(2)
   end
 
   def count_of_games_by_season
-    games_per_season_hash = @games.group_by {|game| game.season}
-    games_per_season_hash.reduce({}) do |new_hash, game|
-      new_hash[game[0]] = game[1].length
-      new_hash
+    games_per_season.reduce({}) do |output, game|
+      output[game[0]] = game[1].length
+      output
     end
   end
 
   def average_goals_per_game
     game_goals_total = @games.sum {|game| game.away_goals + game.home_goals}
     (game_goals_total / @games.length.to_f).round(2)
-
   end
-# 	Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)	Float
-
-  def count_teams
-    @game_collection.team_id.uniq
-  end
-
-
 
   def average_goals_by_season
-    game_per_season = @games.group_by{|game| game.season}
-    game_per_season.reduce({}) do |result, season|
+    games_per_season.reduce({}) do |result, season|
       sum_goals = season[1].sum do |game|
         game.away_goals + game.home_goals
       end
@@ -79,4 +69,9 @@ attr_reader :games
       result
     end
   end
+
+  def games_per_season
+    @games_per_season ||= @games.group_by{|game| game.season}
+  end
+
 end 

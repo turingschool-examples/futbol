@@ -13,8 +13,6 @@ class Team
 
   def self.from_csv(file_path)
     csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
-
-
     @@all = csv.map do |row|
       Team.new(row)
     end
@@ -24,10 +22,17 @@ class Team
 
   def initialize(team_info)
     @team_id = team_info[:team_id]
-    @franchiseId = team_info[:franchiseId]
-    @teamName = team_info[:teamName]
+    @franchiseId = team_info[:franchiseid]
+    @teamName = team_info[:teamname]
     @abbreviation = team_info[:abbreviation]
-    # @Stadium = team_info[:] #downcase
+  end
+
+  def self.count_of_teams
+    @@all.size
+  end
+
+  def self.team_id_to_team_name(team_id)
+    @@all.find {|team| team.team_id == team_id}.teamName
   end
 
 end
