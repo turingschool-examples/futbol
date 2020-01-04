@@ -29,13 +29,22 @@ class GameTeamTest < Minitest::Test
     assert_equal 7, @game_team.first.takeaways
   end
 
-
   def test_percentage_vistor_team_wins
+    assert_equal 0.17, GameTeam.percentage_visitor_wins
+  end
+
+  def test_percentage_home_wins_calculation
+    assert_equal 0.75, GameTeam.percentage_home_wins
     assert_equal 0.33, GameTeam.percentage_visitor_wins
   end
 
   def test_percentage_home_wins_calculation
     assert_equal 1.00, GameTeam.percentage_home_wins
+    assert_equal 33.33, GameTeam.percentage_visitor_wins
+  end
+
+  def test_percentage_home_wins_calculation
+    assert_equal 0.75, GameTeam.percentage_home_wins
   end
 
 end

@@ -21,37 +21,6 @@ class StatTracker
     @teams = Team.from_csv(@team_path)
   end
 
-  def worst_fans
-     unique_teams = @game_teams.reduce({}) do |acc, game_team|
-       acc[game_team.team_id] = {away: 0, home: 0}
-       acc
-     end
-
-     @game_teams.each do |game_team|
-       if game_team.hoa == "away" && game_team.result == "WIN"
-         unique_teams[game_team.team_id][:away] += 1
-      elsif game_team.hoa == "home" && game_team.result == "WIN"
-        unique_teams[game_team.team_id][:home] += 1
-      end
-     end
-
-     worst_fans_are = unique_teams.find_all do |key, value|
-       value[:away] > value[:home]
-     end.to_h
-
-     worst_teams = worst_fans_are.to_h.keys
-
-     final = worst_teams.map do |team2|
-       @teams.find do |team1|
-          team2 == team1.team_id
-       end
-     end
-
-     finnalist = final.map do |team|
-       team.teamname
-     end
-   end
-
   def highest_total_score
     Game.highest_total_score
   end
@@ -82,6 +51,64 @@ class StatTracker
 
   def count_of_games_by_season
     Game.count_of_games_by_season
+  end
+
+  def average_goals_by_season
+    Game.average_goals_by_season
+  end
+
+  def count_of_teams
+    Team.count_of_teams
+  end
+
+  def worst_fans
+    unique_teams = @game_teams.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = {away: 0, home: 0}
+      acc
+    end
+
+    @game_teams.each do |game_team|
+      if game_team.hoa == "away" && game_team.result == "WIN"
+        unique_teams[game_team.team_id][:away] += 1
+      elsif game_team.hoa == "home" && game_team.result == "WIN"
+        unique_teams[game_team.team_id][:home] += 1
+      end
+    end
+
+    worst_fans_are = unique_teams.find_all do |key, value|
+      value[:away] > value[:home]
+    end.to_h
+
+    worst_teams = worst_fans_are.to_h.keys
+
+    final = worst_teams.map do |team2|
+      @teams.find do |team1|
+        team2 == team1.team_id
+      end
+    end
+
+    finnalist = final.map do |team|
+      team.teamname
+    end
+  end
+
+  def best_fans
+    unique_teams = @game_teams.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = {away: 0, home: 0}
+      acc
+    end
+
+    @game_teams.each do |game_team|
+      unique_teams[game_team.team_id][:away] += 1 if game_team.hoa == "away" && game_team.result == "WIN"
+    end
+
+    best_fans = unique_teams.max_by do |team|
+      team[1][:home] - team[1][:away]
+    end
+
+    @teams.find do |team|
+      team.team_id == best_fans[0]
+    end.teamname
   end
 
   def best_offense
@@ -115,14 +142,6 @@ class StatTracker
     final.teamname
   end
 
-  def average_goals_by_season
-    Game.average_goals_by_season
-  end
-
-  def count_of_teams
-    Team.count_of_teams
-  end
-
   def worst_offense
     team_goals = @game_teams.reduce({}) do |acc, game_team|
       acc[game_team.team_id] = 0
@@ -154,8 +173,55 @@ class StatTracker
       team.team_id == worst_o[0]
     end
     final.teamname
-    require "pry"; binding.pry
+  end
 
+  def highest_scoring_home_team
+    team_goals = @game_teams.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = {:total_games => 0, :total_goals => 0}
+      acc
+    end
+
+    @game_teams.each do |game_team|
+      if game_team.hoa == "home"
+        team_goals[game_team.team_id][:total_games] += 1
+        team_goals[game_team.team_id][:total_goals] += game_team.goals
+      end
+    end
+
+    highest_team_id = team_goals.max_by do |k , v|
+      v[:total_goals] / v[:total_games]
+    end[0]
+
+    final = @teams.find do |team|
+      team.team_id == highest_team_id
+    end
+    final.teamname
+  end
+
+  def winningest_team
+    total_games_per_team = @game_teams.reduce(Hash.new(0)) do |acc, game_team|
+      acc[game_team.team_id] +=1
+      acc
+    end
+
+    total_team_wins = @game_teams.reduce(Hash.new(0)) do |acc, game_team|
+      acc[game_team.team_id] += 1 if game_team.result == "WIN"
+      acc
+    end
+
+    team_win_percentage = total_team_wins.merge(total_games_per_team) do |game_team, wins, games|
+      (wins.to_f/games).round(2)
+    end
+
+    winningest_team_id = team_win_percentage.max_by do |game_team, percentage|
+      percentage
+    end.first
+
+    best_team = @teams.find do |team|
+      team.team_id == winningest_team_id
+    end
+
+    best_team.teamname
   end
 
   def lowest_scoring_visitor
@@ -180,4 +246,5 @@ class StatTracker
     end
     final.teamname
   end
+end
 end

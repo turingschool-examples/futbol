@@ -69,7 +69,6 @@ class Game
       acc += game.home_goals
     end
     average_of(total_goals, total_games).round(2)
-    # (total_goals.to_f/total_games).round(2)
   end
 
   def self.average_goals_by_season
