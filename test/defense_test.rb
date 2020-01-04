@@ -22,10 +22,6 @@ class DefenseTest < Minitest::Test
     assert_equal "New York City FC", Defense.worst_defense
   end
 
-  def test_it_can_get_team_goal_avg_hash
-    assert_instance_of Hash, Defense.get_team_goal_avg_hash
-  end
-
   def test_it_can_get_team_name_from_id
     assert_equal "New York City FC", Defense.get_team_name_from_id("9")
   end
