@@ -1,7 +1,7 @@
 game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
 2012030221,20122013,Postseason,5/16/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
 2012030222,20122013,Postseason,5/19/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
-2012030231,20122013,Postseason,5/16/13,17,16,1,2,Gillette Stadium,/api/v1/venues/null
+2012030231,20122013,Postseason,5/16/13,27,16,1,2,Gillette Stadium,/api/v1/venues/null
 2012030232,20122013,Postseason,5/18/13,17,16,2,1,Gillette Stadium,/api/v1/venues/null
 2012030121,20122013,Postseason,5/2/13,9,8,2,2,Red Bull Arena,/api/v1/venues/null
 2012030122,20122013,Postseason,5/3/13,9,8,1,3,Red Bull Arena,/api/v1/venues/null
