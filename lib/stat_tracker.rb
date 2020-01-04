@@ -247,4 +247,49 @@ class StatTracker
     best_team.teamname
   end
 
+  def lowest_scoring_visitor
+    all_teams = @game_teams.reduce({}) do |acc, game_team|
+        acc[game_team.team_id] = {total_games: 0, total_goals: 0}
+        acc
+    end
+
+    @game_teams.each do |game_team|
+      if game_team.hoa == "away"
+        all_teams[game_team.team_id][:total_games] += 1
+        all_teams[game_team.team_id][:total_goals] += game_team.goals
+      end
+    end
+
+    worst_team = all_teams.find do |key, value|
+      value[:total_goals].to_f / value[:total_games]
+    end[0]
+
+    final = @teams.find do |team|
+      team.team_id == worst_team
+    end
+    final.teamname
+  end
+
+  def worst_defense
+    teams_counter = @games.reduce({}) do |acc, game|
+      acc[game.home_team_id] = {games: 0, goals_allowed: 0}
+      acc[game.away_team_id] = {games: 0, goals_allowed: 0}
+      acc
+    end
+
+    @games.each do |game|
+      teams_counter[game.home_team_id][:games] += 1
+      teams_counter[game.away_team_id][:games] += 1
+      teams_counter[game.away_team_id][:goals_allowed] += game.home_goals
+      teams_counter[game.home_team_id][:goals_allowed] += game.away_goals
+    end
+
+    final = teams_counter.max_by do |id, stats|
+      stats[:goals_allowed].to_f / stats[:games]
+    end[0]
+    
+    @teams.find do |team|
+      team.team_id == final
+    end.teamname
+  end
 end

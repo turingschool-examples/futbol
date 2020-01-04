@@ -90,9 +90,16 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal "Utah Royals FC", stat_tracker.lowest_scoring_home_team
   end
+    
+  def test_lowest_scoring_visitor
+    assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
+  end
 
   def test_winningest_team
     assert_equal "Houston Dynamo", @stat_tracker.winningest_team
   end
 
+  def test_worst_defense
+    assert_equal "Washington Spirit FC", @stat_tracker.worst_defense
+  end
 end
