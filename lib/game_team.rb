@@ -31,7 +31,7 @@ class GameTeam
     @tackles = game_team_info[:tackles]
   end
 
-  def self.percent_home_wins
+  def self.percentage_home_wins
     count_game = 0
     count_win = 0
     @@all_game_teams.each do |game_team|
@@ -45,7 +45,7 @@ class GameTeam
     (count_win/count_game.to_f).round(2)
   end
 
-  def self.percent_visitor_wins
+  def self.percentage_visitor_wins
     count_game = 0
     count_win = 0
     @@all_game_teams.each do |game_team|
@@ -59,7 +59,7 @@ class GameTeam
     (count_win/count_game.to_f).round(2)
   end
 
-  def self.percent_ties
+  def self.percentage_ties
     total_games = @@all_game_teams.map {|game_team| game_team.game_id}.uniq.length
     count_tie = 0
     @@all_game_teams.each {|game_team| count_tie += 1 if game_team.result == "TIE" && game_team.hoa == "home"}
@@ -140,7 +140,7 @@ class GameTeam
     #make module for finding team name from team id using hash
   end
 
-  def self.lowest_scoring_home
+  def self.lowest_scoring_home_team
     goals_team = {}
     games_team = {}
     goal_count = 0
@@ -177,7 +177,7 @@ class GameTeam
     #make module for finding team name from team id using hash
   end
 
-  def self.highest_scoring_home
+  def self.highest_scoring_home_team
     goals_team = {}
     games_team = {}
     goal_count = 0

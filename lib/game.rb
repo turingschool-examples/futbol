@@ -66,8 +66,7 @@ attr_reader :game_id, :season, :type, :date_time, :away_team_id, :home_team_id, 
     counter = -1
 
     averages = season_avg_goals.values.map do |goals_total|
-      (goals_total /
-        count_of_games_by_season.values[counter += 1].to_f).round(2)
+      (goals_total / count_of_games_by_season.values[counter += 1].to_f).round(2)
     end
 
     counter = -1
