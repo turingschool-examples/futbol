@@ -281,7 +281,7 @@ class StatTracker
       end
     end
 
-    worst_team = all_teams.min_by do |key, value|
+    worst_team = all_teams.max_by do |key, value|
       value[:total_goals] / value[:total_games].to_f
     end[0]
 
@@ -337,8 +337,37 @@ class StatTracker
     end.teamname
   end
 
+  def winningest_coach(season_id)
+    needed_game_ids = []
+    @games.find_all do |game|
+      if game.season == season_id
+        needed_game_ids << game.game_id
+      end
+    end
+
+    stats_repo = @game_teams.reduce({}) do |acc, game_team|
+      if needed_game_ids.include?(game_team.game_id)
+        acc[game_team.head_coach] = {:total_wins => 0, :total_games => 0 }
+        end
+      acc
+    end
+
+    @game_teams.each do |game_team|
+      if needed_game_ids.include?(game_team.game_id) && game_team.result == "WIN"
+        stats_repo[game_team.head_coach][:total_wins] += 1
+
+      elsif needed_game_ids.include?(game_team.game_id)
+        stats_repo[game_team.head_coach][:total_games] += 1
+      end
+    end
+
+    best_percentage = stats_repo.max_by do |k,v|
+      v[:total_wins] / v[:total_games].to_f
+    end
+    best_percentage[0]
+  end
+
   def least_accurate_team(season_id)
-    skip
     game_ids = []
     @games.each do |game|
       if game.season == season_id
@@ -361,11 +390,11 @@ class StatTracker
     end
 
     final = teams_counter.max_by do |key, value|
-        Rational(value[:attempts], value[:goals])
-    end
+      value[:attempts].to_f / value[:goals]
+    end[0]
 
     @teams.find do |team|
-      final = team.team_id
+      final == team.team_id
     end.teamname
   end
 
@@ -380,24 +409,35 @@ class StatTracker
     teams_counter = @game_teams.reduce({}) do |acc, game_team|
       if game_ids.include?(game_team.game_id)
         acc[game_team.team_id] = {goals: 0, attempts: 0}
+
+  def worst_coach(season_id)
+    needed_game_ids = []
+    @games.find_all do |game|
+      if game.season == season_id
+        needed_game_ids << game.game_id
+      end
+    end
+
+    stats_repo = @game_teams.reduce({}) do |acc, game_team|
+      if needed_game_ids.include?(game_team.game_id)
+        acc[game_team.head_coach] = {:total_wins => 0, :total_games => 0 }
       end
       acc
     end
 
-     @game_teams.each do |game_team|
-      if game_ids.include?(game_team.game_id)
-        teams_counter[game_team.team_id][:goals] += game_team.goals
-        teams_counter[game_team.team_id][:attempts] += game_team.shots
+    @game_teams.each do |game_team|
+      if needed_game_ids.include?(game_team.game_id) && game_team.result == "WIN"
+        stats_repo[game_team.head_coach][:total_wins] += 1
+
+      elsif needed_game_ids.include?(game_team.game_id)
+        stats_repo[game_team.head_coach][:total_games] += 1
       end
     end
 
-    final = teams_counter.min_by do |key, value|
-        Rational(value[:attempts], value[:goals])
-    end[0]
-
-    @teams.find do |team|
-      final == team.team_id
-    end.teamname
+    worst_percentage = stats_repo.min_by do |k,v|
+      v[:total_wins] / v[:total_games].to_f
+    end
+    worst_percentage[0]
   end
 
   def most_tackles(season_id)
@@ -456,4 +496,5 @@ class StatTracker
     end
     final.teamname
   end
+
 end
