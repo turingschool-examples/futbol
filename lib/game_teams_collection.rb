@@ -39,18 +39,17 @@ class GameTeamsCollection
   end
 
   def winningest_team_id
-    hash = @game_teams_by_id
     win_percentages = Hash.new
-    hash.each do |key, value|
-      win_percentages[key] = team_win_percentage(hash, key)
+    @game_teams_by_id.each do |key, value|
+      win_percentages[key] = team_win_percentage(@game_teams_by_id, key)
     end
     win_percentages.max_by { |key, value| value }[0]
   end
 
-  def hoa_differences(hash)
+  def hoa_differences(all_games)
     diffs = Hash.new{}
-    hash.each do |key, value|
-      diffs[key] = team_win_percentage(hash, key, "home") - team_win_percentage(hash, key, "away")
+    all_games.each do |key, value|
+      diffs[key] = team_win_percentage(all_games, key, "home") - team_win_percentage(all_games, key, "away")
     end
     diffs
   end
