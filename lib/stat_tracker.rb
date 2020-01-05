@@ -12,21 +12,11 @@ class StatTracker
     StatTracker.new(game_path, team_path, game_teams_path)
   end
 
-  def initialize(game_path, team_path, game_teams_path)
-    @game_path = game_path
-    @team_path = team_path
-    @game_teams_path = game_teams_path
+  def initialize(game_teams_path, game_path)
+    @game_teams = GameTeams.new(game_teams_path)
+    @games = Games.new(game_path)
   end
 
-  def game_collection
-    GameCollection.new(@game_path)
-  end
 
-  def team_collection
-    TeamCollection.new(@team_path)
-  end
 
-  def game_teams_collection
-    GameTeamsCollection.new(@game_teams_path)
-  end
 end
