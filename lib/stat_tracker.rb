@@ -58,7 +58,7 @@ class StatTracker
     Games.count_of_teams
   end
 
-  def best_offense
-    Games.best_offense
-  end
+  # def best_offense
+  #   Games.best_offense
+  # end
 end

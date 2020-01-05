@@ -18,4 +18,14 @@ class Team
     @franchise_id = team_info[:franchiseid].to_i
     @team_name = team_info[:teamname]
   end
+
+  
+
+
+
+
+
+
+
+
 end
