@@ -36,7 +36,7 @@ class GameTeamsCollection
   end
 
   def average_goals_per_team_id(team_id)
-    (total_goals_by_team_id(team_id).to_f / games_by_team_id(team_id).count).to_f
+    (total_goals_by_team_id(team_id).to_f / games_by_team_id(team_id).count)
   end
 
   def unique_team_ids
