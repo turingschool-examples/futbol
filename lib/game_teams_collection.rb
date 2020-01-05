@@ -80,7 +80,20 @@ class GameTeamsCollection #< StatTracker
           acc[gameteam.team_id] << gameteam.goals
         end
       end
-      acc 
+      acc
+    end
+
+    id_to_average = id_to_goal.reduce({}) do |acc, kv|
+      id = kv[0]
+      avg = (kv[1].sum) / (kv[1].length).to_f
+
+      acc[id] = [avg]
+      acc
+    end
+
+    highest_avg = id_to_average.max_by{|k,v| v}
+
+    highest_avg[0]
   end
 
 
