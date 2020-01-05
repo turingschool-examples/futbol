@@ -6,6 +6,7 @@ class Games < Team
   extend CsvLoadable
 
   @@all_games = []
+  @@team_id_scores = {}
 
   def self.all
     @@all_games
@@ -111,34 +112,126 @@ class Games < Team
   end
 
   def self.best_offense
-    #creates hash with team_id as key and empty array as value
-    team_id_scores = @@all_teams.reduce({}) do |hash, team|
+    total_score_average_added_by_team
+    max_value_team
+  end
+
+  def self.worst_offense
+    total_score_average_added_by_team
+    min_value_team
+  end
+
+  def self.best_defense
+    total_points_allowed_by_team
+    min_value_team
+  end
+
+  def self.worst_defense
+    total_points_allowed_by_team
+    max_value_team
+  end
+
+  def self.highest_scoring_visitor
+    away_score_values_added_by_team
+    max_value_team
+  end
+
+  def self.highest_scoring_home_team
+    home_score_values_added_by_team
+    max_value_team
+  end
+
+  def self.lowest_scoring_visitor
+    away_score_values_added_by_team
+    min_value_team
+  end
+
+  def self.lowest_scoring_home_team
+    home_score_values_added_by_team
+    min_value_team
+  end
+
+  def self.max_value_team
+    team_id_average_scores
+    team_id = @@team_id_scores.key(@@team_id_scores.values.max)
+    team = @@all_teams.find {|team| team.team_name if team.team_id == team_id}
+    team.team_name
+  end
+
+  def self.min_value_team
+    team_id_average_scores
+    team_id = @@team_id_scores.key(@@team_id_scores.values.min)
+    team = @@all_teams.find {|team| team.team_name if team.team_id == team_id}
+    team.team_name
+  end
+
+
+  def self.team_id_average_scores
+    @@team_id_scores.each do |key, value|
+      @@team_id_scores[key] = (value.sum / value.count.to_f).round(2)
+    end
+  end
+
+  def self.team_id_scores_hash
+    @@team_id_scores = @@all_teams.reduce({}) do |hash, team|
       hash[team.team_id] = []
       hash
     end
+  end
 
-    # put num of goals into value in the hash
+  def self.total_score_average_added_by_team
+    away_score_values_added_by_team
+    home_score_values_added_by_team
+  end
+
+  def self.home_score_values_added_by_team
+    @@team_id_scores = team_id_scores_hash
     @@all_teams.each do |team|
       @@all_games.each do |game|
         if team.team_id == game.home_team_id
-          team_id_scores[team.team_id] << game.home_goals
-        elsif team.team_id == game.away_team_id
-          team_id_scores[team.team_id] << game.away_goals
+          @@team_id_scores[team.team_id] << game.home_goals
         end
       end.compact
     end
-
-    # change the hash value to the average
-    team_id_scores.each do |key, value|
-      average = (value.sum / value.count.to_f).round(2)
-      team_id_scores[key] = average
-    end
-
-    # find team_id with the highest average
-    # find team with that team_id
-    # return the cooresponding team name 
-    team_id = team_id_scores.key(team_id_scores.values.max)
-    team = @@all_teams.find {|team| team.team_name if team.team_id == team_id}
-    team_name = team.team_name
   end
+
+  def self.away_score_values_added_by_team
+    @@team_id_scores = team_id_scores_hash
+    @@all_teams.each do |team|
+      @@all_games.each do |game|
+        if team.team_id == game.away_team_id
+          @@team_id_scores[team.team_id] << game.away_goals
+        end
+      end.compact
+    end
+  end
+
+  def self.total_points_allowed_by_team
+    @@team_id_scores = team_id_scores_hash
+    away_points_allowed_by_home_team
+    home_points_allowed_by_away_team
+  end
+
+  def self.away_points_allowed_by_home_team
+    @@team_id_scores = team_id_scores_hash
+    @@all_teams.each do |team|
+      @@all_games.each do |game|
+        if team.team_id == game.home_team_id
+          @@team_id_scores[team.team_id] << game.away_goals
+        end
+      end.compact
+    end
+  end
+
+  def self.home_points_allowed_by_away_team
+    @@team_id_scores = team_id_scores_hash
+    @@all_teams.each do |team|
+      @@all_games.each do |game|
+        if team.team_id == game.away_team_id
+          @@team_id_scores[team.team_id] << game.home_goals
+        end
+      end.compact
+    end
+  end
+
 end

@@ -1,17 +1,19 @@
 require 'csv'
+require './lib/games'
 
-class League
+class Season < Games
 
-  @@all_leagues = []
+
+  @@all_season = []
 
   def self.all
-    @@all_leagues
+    @@all_season
   end
 
   def self.from_csv(file_path)
     csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
 
-    @@all_leagues = csv.map {|row| League.new(row)}
+    @@all_season = csv.map {|row| Season.new(row)}
   end
 
   def initialize(league_info)
@@ -31,54 +33,4 @@ class League
     @takeaways = league_info[:takeaways]
   end
 
-  def self.count_of_teams
-    # @@all_leagues.map do ||
-  end
-
-  def self.best_offense
-    sum = @@all_leagues.sum do |testy|
-      (testy.away_goals + testy.home_goals)
-    end
-    (sums / @@all_leagues.length.to_f).round(2)
-  end
-
-  def self.worst_offense
-
-  end
-
-  def self.best_defence
-
-  end
-
-  def self.worst_defense
-
-  end
-
-  def self.highest_scoring_visitor
-
-  end
-
-  def self.highest_scoring_home_team
-
-  end
-
-  def self.lowest_scoring_visitor
-
-  end
-
-  def self.lowest_scoring_home_team
-
-  end
-
-  def self.winningest_team
-
-  end
-
-  def self.best_fans
-
-  end
-
-  def self.worst_fans
-
-  end
 end
