@@ -8,6 +8,7 @@ class GameTeamsCollection
 
   def initialize(file_path)
     @game_teams_array = create_game_teams_array(file_path)
+    @game_teams_by_id = game_teams_hash
   end
 
   def create_game_teams_array(file_path)
@@ -38,7 +39,7 @@ class GameTeamsCollection
   end
 
   def winningest_team_id
-    hash = game_teams_hash
+    hash = @game_teams_by_id
     win_percentages = Hash.new
     hash.each do |key, value|
       win_percentages[key] = team_win_percentage(hash, key)
@@ -55,24 +56,12 @@ class GameTeamsCollection
   end
 
   def best_fans_id
-    hoa_differences(game_teams_hash).max_by { |key, value| value }[0]
+    hoa_differences(@game_teams_by_id).max_by { |key, value| value }[0]
   end
 
   def worst_fans_ids
-    hoa_diffs = hoa_differences(game_teams_hash)
+    hoa_diffs = hoa_differences(@game_teams_by_id)
     worst_fan_teams = hoa_diffs.find_all { |key, value| value < 0 }
     worst_fan_teams.map { |element| element[0] }
   end
-
-  # def game_teams_by_id
-  #   hash.keys.reduce({}) do |new_hash, key|
-  #     new_hash[key] = hash[key].find_home_games
-  #   end
-  # end
-  #
-  # def find_home_games
-  #   game_teams_lists_by_id[team_id].find_all do |game_teams|
-  #     game_teams.hoa == "home"
-  #   end
-  # end
 end
