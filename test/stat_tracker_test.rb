@@ -64,4 +64,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas", @stat_tracker.most_accurate_team("20122013")
   end
 
+  def test_name_of_least_accurate_team_for_given_season
+    assert_equal "Portland Timbers", @stat_tracker.least_accurate_team("20122013")
+    assert_equal "New York City FC", @stat_tracker.least_accurate_team("20142015")
+  end
+
 end
