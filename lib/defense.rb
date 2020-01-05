@@ -7,7 +7,7 @@ class Defense
 
   def self.best_defense
     hash = add_goals_to_opposing_team()
-    
+
     current_min_team_id = ""
     current_min_avg = -1
     hash.map do |team_id, avg|
@@ -38,6 +38,7 @@ class Defense
   def self.add_goals_to_opposing_team
     hash = {}
     GameTeam.all_game_teams.map do |game_team|
+      require "pry"; binding.pry
       if game_team.game_id == game_team.game_id
         hash[game_team.game_id] = [winning_team(game_team.game_id), losing_team(game_team.game_id)]
       end
@@ -66,12 +67,10 @@ class Defense
   def self.winning_team(game_id)
     hash = {}
     GameTeam.all_game_teams.map do |game_team|
-      if ((game_team.result == "WIN") || (game_team.result == "TIE")) && (game_team.game_id == game_id)
-        if game_team.result == "WIN"
-          hash[game_team.team_id] = game_team.goals
-        else (game_team.result == "TIE") && (game_team.hoa == "home")
-          hash[game_team.team_id] = game_team.goals
-        end
+      if (game_team.result == "WIN")  && (game_team.game_id == game_id)
+        hash[game_team.team_id] = game_team.goals
+      else (game_team.result == "TIE") && (game_team.hoa == "home") && (game_team.game_id == game_id)
+        hash[game_team.team_id] = game_team.goals
       end
     end
     hash
@@ -80,12 +79,10 @@ class Defense
   def self.losing_team(game_id)
     hash = {}
     GameTeam.all_game_teams.map do |game_team|
-      if ((game_team.result == "LOSS") || (game_team.result == "TIE")) && (game_team.game_id == game_id)
-        if game_team.result == "LOSS"
-          hash[game_team.team_id] = game_team.goals
-        else (game_team.result == "TIE") && (game_team.hoa == "away")
-          hash[game_team.team_id] = game_team.goals
-        end
+      if (game_team.result == "LOSS") && (game_team.game_id == game_id)
+        hash[game_team.team_id] = game_team.goals
+      else (game_team.result == "TIE") && (game_team.hoa == "away") && (game_team.game_id == game_id)
+        hash[game_team.team_id] = game_team.goals
       end
     end
     hash
