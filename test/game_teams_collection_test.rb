@@ -22,6 +22,10 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal 6, @game_teams_collection.highest_scoring_visitor
   end
 
+  def test_lowest_scoring_visitor
+    assert_equal 3, @game_teams_collection.lowest_scoring_visitor
+  end
+
   # def test_biggest_bust_id
   #   stat_tracker = StatTracker.new("./data/games.csv", "./data/teams.csv", "./data/game_teams.csv")
   #   game_teams_collection = GameTeamsCollection.new(stat_tracker.game_teams_path)
