@@ -5,7 +5,7 @@ class GameTeams
     @hoa = game_teams_info[:hoa]
     @result = game_teams_info[:result]
     @game_id = game_teams_info[:game_id]
-    @team_id = game_teams_info[:team_id]
+    @team_id = game_teams_info[:team_id].to_i
     @goals = game_teams_info[:goals]
   end
 end

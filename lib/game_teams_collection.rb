@@ -16,7 +16,7 @@ class GameTeamsCollection
   end
 
   def games_by_team_id(team_id)
-    @game_teams_array.select {|game_team| game_team.team_id.to_i == team_id}
+    @game_teams_array.select {|game_team| game_team.team_id == team_id}
   end
 
   def total_wins_per_team
@@ -40,7 +40,7 @@ class GameTeamsCollection
   end
 
   def unique_team_ids
-    @game_teams_array.uniq {|game_team| game_team.team_id.to_i}.map { |game_team| game_team.team_id.to_i}
+    @game_teams_array.uniq {|game_team| game_team.team_id}.map { |game_team| game_team.team_id}
   end
 
   def best_offense
