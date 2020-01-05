@@ -131,6 +131,14 @@ class StatTrackerTest < Minitest::Test
     assert_equal "DC United", @stat_tracker.fewest_tackles("20122013")
   end
 
+  def test_most_goals_scored
+    assert_equal 4, @stat_tracker.most_goals_scored("6")
+  end
+
+  def test_fewest_goals_scored
+    assert_equal 0, @stat_tracker.fewest_goals_scored("2")
+  end
+
   def test_winningest_coach
     assert_equal "Peter Laviolette", @stat_tracker.winningest_coach("20122013")
   end

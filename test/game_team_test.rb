@@ -37,6 +37,14 @@ class GameTeamTest < Minitest::Test
     assert_equal 0.56, GameTeam.percentage_home_wins
   end
 
+  def test_most_goals_scored
+    assert_equal 4, GameTeam.most_goals_scored("6")
+  end
+
+  def test_fewest_goals_scored
+    assert_equal 0, GameTeam.fewest_goals_scored("2")
+  end
+
   def test_it_can_find_average_win_percentage
     assert_equal 0.73, GameTeam.average_win_percentage("16")
   end
