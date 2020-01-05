@@ -48,6 +48,5 @@ class GameTeamsCollection
 
   def worst_offense
     unique_team_ids.min_by {|team_id| average_goals_per_team_id(team_id)}
-  end
-
+  end  
 end
