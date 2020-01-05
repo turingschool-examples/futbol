@@ -2,6 +2,8 @@ require 'csv'
 require_relative 'game'
 require_relative 'team'
 require_relative 'game_team'
+require_relative 'offense'
+require_relative 'defense'
 
 class StatTracker
   def self.from_csv(file_path)
@@ -15,7 +17,7 @@ class StatTracker
   attr_reader :game_path, :team_path, :game_team_path
 
   def initialize(game_path, team_path, game_team_path)
-    @game_path =  game_path
+    @game_path = game_path
     @team_path = team_path
     @game_team_path = game_team_path
   end
