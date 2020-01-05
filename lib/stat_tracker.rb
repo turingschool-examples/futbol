@@ -281,7 +281,7 @@ class StatTracker
       end
     end
 
-    worst_team = all_teams.max_by do |key, value|
+    worst_team = all_teams.min_by do |key, value|
       value[:total_goals] / value[:total_games].to_f
     end[0]
 
