@@ -338,6 +338,7 @@ class StatTracker
   end
 
   def least_accurate_team(season_id)
+    skip
     game_ids = []
     @games.each do |game|
       if game.season == season_id
