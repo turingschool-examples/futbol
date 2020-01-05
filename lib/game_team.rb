@@ -38,7 +38,7 @@ class GameTeam
       if game_team.result == "WIN" && game_team.hoa == "home"
         count_game += 1
         count_win += 1
-      elsif game_team.result == "LOSS" && game_team.hoa == "home"
+      elsif (game_team.result == "LOSS" || game_team.result == "TIE") && game_team.hoa == "home"
         count_game += 1
       end
     end
@@ -52,7 +52,7 @@ class GameTeam
       if game_team.result == "WIN" && game_team.hoa == "away"
         count_game += 1
         count_win += 1
-      elsif game_team.result == "LOSS" && game_team.hoa == "away"
+      elsif (game_team.result == "LOSS" || game_team.result == "TIE") && game_team.hoa == "away"
         count_game += 1
       end
     end
@@ -88,7 +88,7 @@ class GameTeam
 
     avg_goal_team = {}
     games_team.keys.each do |key|
-      avg_goal_per_game = goals_team[key]/games_team[key]
+      avg_goal_per_game = (goals_team[key]/games_team[key].to_f).round(4)
       avg_goal_team[key] = avg_goal_per_game
     end
     max_team = avg_goal_team.max_by do |goal|
@@ -125,7 +125,7 @@ class GameTeam
 
     avg_goal_team = {}
     games_team.keys.each do |key|
-      avg_goal_per_game = goals_team[key]/games_team[key]
+      avg_goal_per_game = (goals_team[key]/games_team[key].to_f).round(4)
       avg_goal_team[key] = avg_goal_per_game
     end
     min_team = avg_goal_team.min_by do |goal|
@@ -162,7 +162,7 @@ class GameTeam
 
     avg_goal_team = {}
     games_team.keys.each do |key|
-      avg_goal_per_game = goals_team[key]/games_team[key]
+      avg_goal_per_game = (goals_team[key]/games_team[key].to_f).round(4)
       avg_goal_team[key] = avg_goal_per_game
     end
     min_team = avg_goal_team.min_by do |goal|
@@ -199,7 +199,7 @@ class GameTeam
 
     avg_goal_team = {}
     games_team.keys.each do |key|
-      avg_goal_per_game = goals_team[key]/games_team[key]
+      avg_goal_per_game = (goals_team[key]/games_team[key].to_f).round(4)
       avg_goal_team[key] = avg_goal_per_game
     end
     max_team = avg_goal_team.max_by do |goal|

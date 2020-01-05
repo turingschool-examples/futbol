@@ -72,9 +72,9 @@ class StatTracker
     Offense.worst_offense
   end
 
-  def best_defense
-    Defense.best_defense
-  end
+  # def best_defense
+  #   Defense.best_defense
+  # end
 
   # def worst_defense
   #   Defense.worst_defense
