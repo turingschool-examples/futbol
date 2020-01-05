@@ -196,9 +196,12 @@ class GameTeamsCollection #< StatTracker
     reg_team_id_topercent = reg_season_team_percentages(season_id)
     post_team_id_topercent = post_season_team_percentages(season_id)
     matching_teamids = (reg_team_id_topercent.keys & post_team_id_topercent.keys).sort
+    all_teamids = reg_team_id_topercent.keys + post_team_id_topercent.keys
+    all_teamids = all_teamids.uniq.sort
 
-    teamid_to_decrease = matching_teamids.reduce({}) do |acc, team_id|
+    teamid_to_decrease = all_teamids.reduce({}) do |acc, team_id|
       reg_winpercent = reg_team_id_topercent[team_id][0]
+      post_team_id_topercent[team_id] = [0.0] if post_team_id_topercent[team_id] == nil
       post_winpercent = post_team_id_topercent[team_id][0]
       if reg_winpercent > post_winpercent
         acc[team_id] = (reg_winpercent - post_winpercent)
