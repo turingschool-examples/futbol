@@ -71,6 +71,26 @@ class GameTeam
     (total_wins.to_f / total_games).round(2)
   end
 
+  def self.most_goals_scored(team_id)
+    team = []
+    @@game_teams.map do |game|
+      if game.team_id.to_s == team_id
+        team << game.goals
+      end
+    end
+    team.max
+  end
+
+  def self.fewest_goals_scored(team_id)
+    team = []
+    @@game_teams.map do |game|
+      if game.team_id.to_s == team_id
+        team << game.goals
+      end
+    end
+    team.min
+  end
+
   def self.average_win_percentage(id)
     total_games = @@game_teams.find_all do |game_team|
       game_team.team_id == id.to_i
