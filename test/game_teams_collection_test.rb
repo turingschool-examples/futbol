@@ -20,4 +20,10 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal "away", @game_teams.hoa
     assert_equal "LOSS", @game_teams.result
   end
+
+  def test_it_can_find_the_number_of_games_by_the_game_team_id
+  assert_instance_of GameTeams, @game_teams
+  assert_equal 4, @game_teams_collection.games_by_team_id(20).count
+  assert_equal 4, @game_teams_collection.games_by_team_id(24).count
+  end
 end
