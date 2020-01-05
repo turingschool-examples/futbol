@@ -71,4 +71,23 @@ class GameTeam
     (total_wins.to_f / total_games).round(2)
   end
 
+  def self.most_goals_scored(team_id)
+    team = []
+    @@game_teams.map do |game|
+      if game.team_id.to_s == team_id
+        team << game.goals
+      end
+    end
+    team.max
+  end
+
+  def self.fewest_goals_scored(team_id)
+    team = []
+    @@game_teams.map do |game|
+      if game.team_id.to_s == team_id
+        team << game.goals
+      end
+    end
+    team.min
+  end
 end

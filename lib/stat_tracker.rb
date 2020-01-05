@@ -61,6 +61,14 @@ class StatTracker
     Team.count_of_teams
   end
 
+  def most_goals_scored(team_id)
+    GameTeam.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    GameTeam.fewest_goals_scored(team_id)
+  end
+
   def worst_fans
     unique_teams = @game_teams.reduce({}) do |acc, game_team|
       acc[game_team.team_id] = {away: 0, home: 0}
@@ -345,25 +353,25 @@ class StatTracker
         game_ids << game.game_id
       end
     end
-    
+
     teams_counter = @game_teams.reduce({}) do |acc, game_team|
       if game_ids.include?(game_team.game_id)
         acc[game_team.team_id] = {goals: 0, attempts: 0}
       end
       acc
     end
-    
+
      @game_teams.each do |game_team|
       if game_ids.include?(game_team.game_id)
         teams_counter[game_team.team_id][:goals] += game_team.goals
         teams_counter[game_team.team_id][:attempts] += game_team.shots
       end
     end
-    
+
     final = teams_counter.max_by do |key, value|
         Rational(value[:attempts], value[:goals])
     end
-    
+
     @teams.find do |team|
       final = team.team_id
     end.teamname
@@ -376,7 +384,7 @@ class StatTracker
         game_ids << game.game_id
       end
     end
-    
+
       all_teams = @game_teams.reduce({}) do |acc, game_team|
         acc[game_team.team_id] = {total_tackles: 0}
         acc
