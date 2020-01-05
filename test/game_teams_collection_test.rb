@@ -35,4 +35,11 @@ class GameTeamsCollectionTest < Minitest::Test
    assert_equal 1.75, @game_teams_collection.average_goals_per_team_id(20)
   end
 
+  def test_best_offense
+    assert_equal 24, @game_teams_collection.best_offense
+  end
+
+  def test_worst_offense
+    assert_equal 14, @game_teams_collection.worst_offense
+  end
 end
