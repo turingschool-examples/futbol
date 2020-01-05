@@ -96,7 +96,7 @@ module TeamSearchable
 			binding.pry
 			games_to_return << games_between_teams(id, opp_team)
 		end
-		games_to_return
+		games_to_return.reject(&:empty?)
 	end	
 	
 end
