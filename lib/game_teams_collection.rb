@@ -29,4 +29,8 @@ class GameTeamsCollection
   def average_win_percentage(team_id)
     total_wins_per_team / total_games_per_team(team_id).to_f
   end
+
+  def total_goals_by_team_id(team_id)
+    games_by_team_id(team_id).sum {|game_team| game_team.goals.to_i}
+  end
 end
