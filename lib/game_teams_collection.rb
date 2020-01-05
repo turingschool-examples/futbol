@@ -13,7 +13,7 @@ class GameTeamsCollection
   def create_game_teams_array(file_path)
     load_from_csv(file_path, GameTeams)
   end
-  
+
   def game_teams_hash
     @game_teams_array.reduce({}) do |hash, game_teams|
       hash[game_teams.team_id] << game_teams if hash[game_teams.team_id]
@@ -63,16 +63,11 @@ class GameTeamsCollection
     worst_fan_teams = hoa_diffs.find_all { |key, value| value < 0 }
     worst_fan_teams.map { |element| element[0] }
   end
-end
-
-
 
   def game_teams_by_id
-
     hash.keys.reduce({}) do |new_hash, key|
       new_hash[key] = hash[key].find_home_games
     end
-
   end
 
   def find_home_games
@@ -80,3 +75,4 @@ end
       game_teams.hoa == "home"
     end
   end
+end
