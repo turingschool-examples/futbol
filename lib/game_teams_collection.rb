@@ -33,8 +33,30 @@ class GameTeamsCollection
     end
   end
 
+  def most_accurate_team_id(season)
+    games_by_season = all_games_by_season(season)
+    season_by_team = games_by_season.group_by do |game|
+      game.team_id
+      #returns a hash with team_id keys
+    end
+    x = {}
+    season_by_team.map do |id, games|
+      x[id] = games.map do |game|
+        (game.goals.to_f / game.shots.to_f).round(3)
+      end
+    end
+    (x.max_by {|id, pcts| (pcts.sum / pcts.length).round(3)})[0]
+    # require "pry"; binding.pry
+  end
+
   def all_games_by_team_id
     @all_games_by_team = @game_teams.group_by { |game| game.team_id }
+  end
+
+  def all_games_by_season(season)
+    @game_teams.find_all do |game|
+      game if game.game_id.to_s[0..3] == season[0..3]
+    end
   end
 
   def home_win_percents
