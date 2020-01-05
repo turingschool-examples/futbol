@@ -38,8 +38,7 @@ class GameTeamsCollectionTest < Minitest::Test
 
     assert_equal "2012", first_game.game_id.to_s[0..3]
     assert_equal "2012", last_game.game_id.to_s[0..3]
-    # assert_equal [6, 16, 24, 2, 15, 3, 9, 19], @game_teams_collection.all_games_by_season("2012013").keys
-    assert_equal 6, @game_teams_collection.most_accurate_team_id("20122013")
+    assert_equal 2, @game_teams_collection.most_accurate_team_id("20122013")
     assert_equal true, season_2017.all? {|game| game.game_id.to_s[0..3]}
   end
 
