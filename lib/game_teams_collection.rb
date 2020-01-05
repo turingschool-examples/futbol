@@ -37,4 +37,8 @@ class GameTeamsCollection
   def average_goals_per_team_id(team_id)
     (total_goals_by_team_id(team_id).to_f / games_by_team_id(team_id).count).to_f
   end
+
+  def unique_team_ids
+  @game_teams_array.uniq {|game_team| game_team.team_id.to_i}.map { |game_team| game_team.team_id.to_i}
+end
 end
