@@ -37,4 +37,8 @@ class GameTeamTest < Minitest::Test
     assert_equal 0.56, GameTeam.percentage_home_wins
   end
 
+  def test_it_can_find_average_win_percentage
+    assert_equal 0.73, GameTeam.average_win_percentage("16")
+  end
+
 end
