@@ -679,4 +679,26 @@ end
       team.team_id == team_with_biggest_surprise.first
     end.teamname
   end
+
+  def best_season(team_id)
+    all_seasons = @games.reduce({}) do |acc, game|
+      if acc[game.season] == nil
+        acc[game.season] = {game_ids: [], wins: 0, games: 0}
+      end
+      acc[game.season][:game_ids] << game.game_id
+      acc
+    end
+
+    @game_teams.each do |game_team|
+      season = all_seasons.find do |key, value|
+        value[:game_ids].include?(game_team.game_id)
+      end
+      season[1][:games] += 1
+      season[1][:wins] += 1 if game_team.result == "WIN"
+    end
+
+    all_seasons.max_by do |key, value|
+      value[:games] / value[:wins].to_f
+  end[0]
+  end
 end
