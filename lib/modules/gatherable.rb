@@ -21,6 +21,16 @@ module Gatherable
     end
   end
 
+  def games_by_season(season_id)
+    @games.collection.inject(Hash.new(0)) do |count, game|
+      if game[1].season == season_id
+        count[game[1].home_team_id] += 1
+        count[game[1].away_team_id] += 1
+      end
+      count
+    end
+  end
+
   def postseason_games_by_team
     @games.collection.inject(Hash.new(0)) do |count, game|
       if game[1].type == 'Postseason'
@@ -45,36 +55,25 @@ module Gatherable
     collection.inject(Hash.new(0)) do |wins, game|
       if game[1].home_goals.to_i > game[1].away_goals.to_i
         wins[game[1].home_team_id] += 1
-      else
+      elsif game[1].away_goals.to_i > game[1].home_goals.to_i
         wins[game[1].away_team_id] += 1
       end
       wins
     end
   end
 
-  def season_wins_by_team(collection)
-    # require 'pry'; binding.pry
-    collection.inject(Hash.new(0)) do |wins, season|
-      if season.home_goals.to_i > season.away_goals.to_i
-        # require 'pry'; binding.pry
-        wins[season.home_team_id] += 1
+  def season_wins_by_team(season_id)
+    @games.collection.inject(Hash.new(0)) do |season_wins, game|
+      if (game[1].season == season_id)
+        if (game[1].home_goals.to_i > game[1].away_goals.to_i)
+          season_wins[game[1].home_team_id] += 1
+        elsif (game[1].away_goals.to_i > game[1].home_goals.to_i)
+          season_wins[game[1].away_team_id] += 1
+        end
       end
-
-      if season.away_goals.to_i > season.home_goals.to_i
-        wins[season.away_team_id] += 1
-      end
-      require 'pry'; binding.pry
-      wins
+      season_wins
     end
   end
-
-  # def game_win_count
-  #   if type == 'Postseason'
-  #     wins[type] = game_win_count
-  #   elsif type == 'Regular Season'
-  #     wins[type] = game_win_count
-  #   end
-  # end
 
   def home_wins_by_team
     @games.collection.inject(Hash.new(0)) do |wins, game|
@@ -126,6 +125,12 @@ module Gatherable
 
   def get_team_name_by_id(team_id)
     @teams.collection[team_id].team_name
+  end
+
+  def get_coach_by_id(team_id)
+    unique_coaches = @game_teams.collection.values.uniq { |attribute| attribute.head_coach }
+
+    unique_coaches.map { |team| team.head_coach if team.team_id == team_id }.compact[0]
   end
 
   def team_hash(row, team_id)
