@@ -44,4 +44,9 @@ class GameTeamTest < Minitest::Test
   def test_fewest_goals_scored
     assert_equal 0, GameTeam.fewest_goals_scored("2")
   end
+
+  def test_it_can_find_average_win_percentage
+    assert_equal 0.73, GameTeam.average_win_percentage("16")
+  end
+
 end

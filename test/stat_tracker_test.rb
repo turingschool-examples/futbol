@@ -116,6 +116,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_least_accurate_team
+    assert_equal "Seattle Sounders FC", @stat_tracker.least_accurate_team("20122013")
+  end
+
+  def test_most_accurate_team
+    assert_equal "Los Angeles FC", @stat_tracker.most_accurate_team("20122013")
   end
 
   def test_most_tackles
@@ -133,4 +138,25 @@ class StatTrackerTest < Minitest::Test
   def test_fewest_goals_scored
     assert_equal 0, @stat_tracker.fewest_goals_scored("2")
   end
+
+  def test_winningest_coach
+    assert_equal "Peter Laviolette", @stat_tracker.winningest_coach("20122013")
+  end
+
+  def test_worst_coach
+    assert_equal "Todd McLellan", @stat_tracker.worst_coach("20122013")
+  end
+
+  def test_biggest_bust
+    assert_equal "Houston Dynamo", @stat_tracker.biggest_bust("20132014")
+  end
+
+  def test_biggest_surprise
+    assert_equal "New England Revolution", @stat_tracker.biggest_surprise("20142015")
+  end
+
+  def test_average_win_percentage
+    assert_equal 0.73, @stat_tracker.average_win_percentage("16")
+  end
+
 end
