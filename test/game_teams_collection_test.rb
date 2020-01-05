@@ -22,9 +22,9 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_can_find_the_number_of_games_by_the_game_team_id
-  assert_instance_of GameTeams, @game_teams
-  assert_equal 4, @game_teams_collection.games_by_team_id(20).count
-  assert_equal 4, @game_teams_collection.games_by_team_id(24).count
+    assert_instance_of GameTeams, @game_teams
+    assert_equal 4, @game_teams_collection.games_by_team_id(20).count
+    assert_equal 4, @game_teams_collection.games_by_team_id(24).count
   end
 
   def test_it_can_get_the_total_goals_by_game_team_id
@@ -36,7 +36,7 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_can_calculate_average_goals_by_team_id
-   assert_equal 1.75, @game_teams_collection.average_goals_per_team_id(20)
+    assert_equal 1.75, @game_teams_collection.average_goals_per_team_id(20)
   end
 
   def test_best_offense
