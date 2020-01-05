@@ -45,6 +45,20 @@ class GameTeamsCollection #< StatTracker
     highest_avg[0]
   end
 
+  def lowest_scoring_visitor
+    t_id_to_goal = game_teams.reduce({}) do |acc, gameteam|
+      if gameteam.hoa == "away"
+        if acc[gameteam.team_id] == nil
+          acc[gameteam.team_id] = []
+          acc[gameteam.team_id] << gameteam.goals
+        else
+          acc[gameteam.team_id] << gameteam.goals
+        end
+      end
+      acc
+    end 
+  end
+
 
 
   def reg_season_team_percentages(season_id)
