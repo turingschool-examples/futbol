@@ -118,6 +118,10 @@ class StatTrackerTest < Minitest::Test
   def test_least_accurate_team
   end
 
+  def test_most_accurate_team
+    assert_equal "Los Angeles FC", @stat_tracker.most_accurate_team("20122013")
+  end
+
   def test_most_tackles
     assert_equal "FC Dallas", @stat_tracker.most_tackles("20122013")
   end
