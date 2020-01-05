@@ -94,7 +94,7 @@ class StatTrackerTest < Minitest::Test
   def test_lowest_scoring_visitor
     stat_tracker = StatTracker.from_csv({games: './data/game.csv', teams: './data/team.csv', game_teams: './data/game_team.csv'})
 
-    assert_equal "FC Dallas", stat_tracker.lowest_scoring_visitor
+    assert_equal "San Jose Earthquakes", stat_tracker.lowest_scoring_visitor
   end
 
   def test_winningest_team
@@ -117,6 +117,10 @@ class StatTrackerTest < Minitest::Test
 
   def test_least_accurate_team
     assert_equal "Seattle Sounders FC", @stat_tracker.least_accurate_team("20122013")
+  end
+
+  def test_most_accurate_team
+    assert_equal "Los Angeles FC", @stat_tracker.most_accurate_team("20122013")
   end
 
   def test_most_tackles
