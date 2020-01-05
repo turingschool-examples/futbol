@@ -1,7 +1,9 @@
 require_relative "game_teams"
-require "csv"
+require_relative 'csv_loadable'
 
 class GameTeamsCollection
+  include CsvLoadable
+
   attr_reader :game_teams_array
 
   def initialize(file_path)
@@ -9,11 +11,9 @@ class GameTeamsCollection
   end
 
   def create_game_teams_array(file_path)
-    csv = CSV.read(file_path, headers: true, header_converters: :symbol)
-
-    csv.map { |row| GameTeams.new(row) }
+    load_from_csv(file_path, GameTeams)
   end
-
+  
   def game_teams_hash
     @game_teams_array.reduce({}) do |hash, game_teams|
       hash[game_teams.team_id] << game_teams if hash[game_teams.team_id]
@@ -64,3 +64,19 @@ class GameTeamsCollection
     worst_fan_teams.map { |element| element[0] }
   end
 end
+
+
+
+  def game_teams_by_id
+
+    hash.keys.reduce({}) do |new_hash, key|
+      new_hash[key] = hash[key].find_home_games
+    end
+
+  end
+
+  def find_home_games
+    game_teams_lists_by_id[team_id].find_all do |game_teams|
+      game_teams.hoa == "home"
+    end
+  end

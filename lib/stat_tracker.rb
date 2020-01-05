@@ -1,5 +1,5 @@
-require './lib/game_collection'
-require './lib/game_teams_collection'
+require_relative 'game_collection'
+require_relative 'game_teams_collection'
 
 class StatTracker
   attr_reader :game_path, :team_path, :game_teams_path
