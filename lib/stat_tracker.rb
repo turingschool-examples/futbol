@@ -29,6 +29,10 @@ class StatTracker
     @games.biggest_blowout
   end
 
+  def percentage_home_wins
+    @games.percentage_home_wins
+  end
+
 
 
 end
