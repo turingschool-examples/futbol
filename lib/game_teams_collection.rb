@@ -39,6 +39,15 @@ class GameTeamsCollection
   end
 
   def unique_team_ids
-  @game_teams_array.uniq {|game_team| game_team.team_id.to_i}.map { |game_team| game_team.team_id.to_i}
-end
+    @game_teams_array.uniq {|game_team| game_team.team_id.to_i}.map { |game_team| game_team.team_id.to_i}
+  end
+
+  def best_offense
+    unique_team_ids.max_by {|team_id| average_goals_per_team_id(team_id)}
+  end
+
+  def worst_offense
+    unique_team_ids.min_by {|team_id| average_goals_per_team_id(team_id)}
+  end
+
 end
