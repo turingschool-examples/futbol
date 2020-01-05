@@ -139,4 +139,16 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Todd McLellan", @stat_tracker.worst_coach("20122013")
   end
 
+  def test_biggest_bust
+    assert_equal "Houston Dynamo", @stat_tracker.biggest_bust("20132014")
+  end
+
+  def test_biggest_surprise
+    assert_equal "New England Revolution", @stat_tracker.biggest_surprise("20142015")
+  end
+
+  def test_average_win_percentage
+    assert_equal 0.73, @stat_tracker.average_win_percentage("16")
+  end
+
 end

@@ -71,4 +71,16 @@ class GameTeam
     (total_wins.to_f / total_games).round(2)
   end
 
+  def self.average_win_percentage(id)
+    total_games = @@game_teams.find_all do |game_team|
+      game_team.team_id == id.to_i
+    end
+
+    games_won = total_games.find_all do |game_team|
+      game_team.result == "WIN"
+    end
+
+    (games_won.length / total_games.length.to_f).round(2)
+  end
+
 end
