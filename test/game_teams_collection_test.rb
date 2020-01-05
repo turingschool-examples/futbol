@@ -26,4 +26,8 @@ class GameTeamsCollectionTest < Minitest::Test
   assert_equal 4, @game_teams_collection.games_by_team_id(20).count
   assert_equal 4, @game_teams_collection.games_by_team_id(24).count
   end
+
+  def test_it_can_get_the_total_goals_by_game_team_id
+    assert_equal 7, @game_teams_collection.total_goals_by_team_id(20)
+  end
 end
