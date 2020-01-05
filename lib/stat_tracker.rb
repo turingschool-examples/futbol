@@ -336,4 +336,61 @@ class StatTracker
       team.team_id == final
     end.teamname
   end
+
+  def most_tackles(season_id)
+    game_ids = []
+    @games.find_all do |game|
+      if game.season == season_id
+        game_ids << game.game_id
+      end
+    end
+
+      all_teams = @game_teams.reduce({}) do |acc, game_team|
+        acc[game_team.team_id] = {total_tackles: 0}
+        acc
+      end
+
+      @game_teams.each do |game_team|
+        if game_ids.include?(game_team.game_id)
+      all_teams[game_team.team_id][:total_tackles] += game_team.tackles
+        end
+      end
+
+      team_with_most_tackles = all_teams.max_by do |team|
+        team.last[:total_tackles]
+      end
+
+      final = @teams.find do |team|
+        team.team_id == team_with_most_tackles.first
+      end
+      final.teamname
+    end
+
+  def fewest_tackles(season_id)
+    game_ids = []
+    @games.find_all do |game|
+      if game.season == season_id
+        game_ids << game.game_id
+      end
+    end
+
+    all_teams = @game_teams.reduce({}) do |acc, game_team|
+      if game_ids.include?(game_team.game_id)
+        acc[game_team.team_id] = {total_tackles: 0}
+      end
+      acc
+    end
+    @game_teams.each do |game_team|
+      if all_teams[game_team.team_id] && game_ids.include?(game_team.game_id)
+        all_teams[game_team.team_id][:total_tackles] += game_team.tackles
+      end
+    end
+    team_with_least_tackles = all_teams.min_by do |team|
+      team.last[:total_tackles]
+    end
+    final = @teams.find do |team|
+      team.team_id == team_with_least_tackles.first
+    end
+    final.teamname
+  end
 end

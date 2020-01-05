@@ -114,4 +114,12 @@ class StatTrackerTest < Minitest::Test
   def test_best_defense
     assert_equal "LA Galaxy", @stat_tracker.best_defense
   end
+
+  def test_most_tackles
+    assert_equal "FC Dallas", @stat_tracker.most_tackles("20122013")
+  end
+
+  def test_fewest_tackles
+    assert_equal "LA Galaxy", @stat_tracker.fewest_tackles("20122013")
+  end
 end
