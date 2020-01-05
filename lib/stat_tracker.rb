@@ -101,35 +101,22 @@ class StatTracker
   end
 
   def most_tackles(season_id)
-    #narrow down the games i can work with based on season
     use_games = games_collection.narrow_down_by_season(season_id)
-    x = use_games.map do |game|
-      game.game_id
-    end
 
-    game_ids = game_teams_collection.game_teams.find_all do |gameteam|
-      x.any? do |game|
-        gameteam.game_id == game
+    game_ids = []
+    game_teams_collection.game_teams.find_all do |gameteam|
+      use_games.each do |game|
+        if (gameteam.game_id == game.game_id) == true
+          game_ids << gameteam
+        end
       end
     end
-
+    #think the issue is that this data set is not accociating the team with the
+    #season?
+    require "pry"; binding.pry
     most_tackles = game_ids.max_by do |game|
       game.tackles
     end
-
-    # x = use_games.find do |game|
-    #   game.game_id == game_teams_collection.most_tackles_game_id
-      #problem with this method is it never finds the game id with the mos
-      #tackless since it does not exists in the collection
-
-      #if i can find all the game ids in the game team collection for the season
-      #i can then use a method that will find the most tackles
-      # for that collection of game teams and spit out the id
-    # end
-
-    # y = game_teams_collection.game_teams.find do |gameteam|
-    #   gameteam.game_id == x.game_id
-    # end
 
     teams_collection.associate_team_id_with_team_name(most_tackles.team_id)
   end
