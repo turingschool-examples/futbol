@@ -17,4 +17,8 @@ class GameTeamsCollection
   def games_by_team_id(team_id)
     @game_teams_array.select {|game_team| game_team.team_id.to_i == team_id}
   end
+
+  def total_wins_per_team
+    @game_teams_array.select {|game_team| game_team.result == "WIN"}.count
+  end
 end
