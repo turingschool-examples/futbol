@@ -337,20 +337,31 @@ class StatTracker
     end.teamname
   end
 
-  def least_accurate_team
+  def least_accurate_team(season_id)
+    game_ids = []
+    @games.each do |game|
+      if game.season == season_id
+        game_ids << game.game_id
+      end
+    end
+
     teams_counter = @game_teams.reduce({}) do |acc, game_team|
-      acc[game_team.team_id] = {goals: 0, attempts: 0}
+      if game_ids.include?(game_team.game_id)
+        acc[game_team.team_id] = {goals: 0, attempts: 0}
+      end
       acc
     end
 
     @game_teams.each do |game_team|
-      teams_counter[game_team.team_id][:goals] += game_team.goals
-      teams_counter[game_team.team_id][:attempts] += game_team.shots
+      if game_ids.include?(game_team.game_id)
+        teams_counter[game_team.team_id][:goals] += game_team.goals
+        teams_counter[game_team.team_id][:attempts] += game_team.shots
+      end
     end
 
     final = teams_counter.max_by do |key, value|
-      value[:attempts].to_f / value[:goals]
-    end[0]
+        Rational(value[:attempts], value[:goals])
+    end
 
     @teams.find do |team|
       final = team.team_id
