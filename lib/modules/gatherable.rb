@@ -75,6 +75,12 @@ module Gatherable
     end
   end
 
+  def get_coach_by_id(team_id)
+    unique_coaches = @game_teams.collection.values.uniq { |attribute| attribute.head_coach }
+
+    unique_coaches.map { |team| team.head_coach if team.team_id == team_id }.compact[0]
+  end
+
   def home_wins_by_team
     @games.collection.inject(Hash.new(0)) do |wins, game|
       if game[1].home_goals.to_i > game[1].away_goals.to_i
@@ -125,12 +131,6 @@ module Gatherable
 
   def get_team_name_by_id(team_id)
     @teams.collection[team_id].team_name
-  end
-
-  def get_coach_by_id(team_id)
-    unique_coaches = @game_teams.collection.values.uniq { |attribute| attribute.head_coach }
-
-    unique_coaches.map { |team| team.head_coach if team.team_id == team_id }.compact[0]
   end
 
   def team_hash(row, team_id)

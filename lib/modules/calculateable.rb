@@ -16,7 +16,6 @@ module Calculateable
     average_wins = {}
     wins_hash.each do |team, tot_wins|
       average_wins[team] = (tot_wins.to_f / games_by_team[team])
-      require 'pry'; binding.pry
     end
 
     average_wins
@@ -27,7 +26,6 @@ module Calculateable
     wins_hash.each do |coach, tot_wins|
       average_wins[coach] = (tot_wins.to_f / games_by_season(season_id)[coach])
     end
-
     average_wins
   end
 
@@ -36,7 +34,6 @@ module Calculateable
     wins_hash.each do |team, tot_wins|
       average_wins[team] = (tot_wins.to_f / postseason_games_by_team[team])
     end
-
     average_wins
   end
 
@@ -45,7 +42,6 @@ module Calculateable
     wins_hash.each do |team, tot_wins|
       average_wins[team] = (tot_wins.to_f / home_games_by_team[team])
     end
-
     average_wins
   end
 
@@ -54,7 +50,6 @@ module Calculateable
     wins_hash.each do |team, tot_wins|
       average_wins[team] = (tot_wins.to_f / away_games_by_team[team])
     end
-
     average_wins
   end
 

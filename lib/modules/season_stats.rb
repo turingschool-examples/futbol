@@ -25,4 +25,11 @@ module SeasonStats
 
     get_coach_by_id(team_id)
   end
+
+  def worst_coach(season_id)
+    team_id = season_win_percentage(season_wins_by_team(season_id), season_id).min_by { |_id, avg| avg }[0]
+
+    get_coach_by_id(team_id)
+  end
+
 end
