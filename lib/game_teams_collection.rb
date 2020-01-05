@@ -31,7 +31,21 @@ class GameTeamsCollection #< StatTracker
         end
       end
       acc
+    end
+    id_to_average = team_id_to_goal.reduce({}) do |acc, keyvalue|
+      id = keyvalue[0]
+      avg = (keyvalue[1].sum) / (keyvalue[1].length).to_f
+
+      acc[id] = [avg]
+      acc
+    end
+
+    highest_avg = id_to_average.max_by{|k,v| v}
+
+    highest_avg[0]
   end
+
+
 
   def reg_season_team_percentages(season_id)
     gamescollection = games_collection("./data/games.csv")
