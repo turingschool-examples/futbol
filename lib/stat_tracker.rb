@@ -17,6 +17,7 @@ class StatTracker
     @games = Games.new(game_path)
   end
 
-
-
+  def highest_total_score
+    @games.highest_total_score
+  end
 end
