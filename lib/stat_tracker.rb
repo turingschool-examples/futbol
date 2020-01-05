@@ -73,6 +73,10 @@ class StatTracker
     GameTeam.average_win_percentage(id)
   end
 
+  def team_info(id)
+    Team.team_info(id)
+  end
+
   def worst_fans
     unique_teams = @game_teams.reduce({}) do |acc, game_team|
       acc[game_team.team_id] = {away: 0, home: 0}
@@ -675,5 +679,4 @@ end
       team.team_id == team_with_biggest_surprise.first
     end.teamname
   end
-
 end
