@@ -32,13 +32,20 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_most_accurate_team
-    # first_game = @game_teams_collection.all_games_by_season(20122013).first
-    # last_game = @game_teams_collection.all_games_by_season(20122013).last
-    #
-    # assert_equal "2012", first_game.game_id.to_s[0..3]
-    # assert_equal "2012", last_game.game_id.to_s[0..3]
-    # assert_equal [6, 16, 24, 2, 15, 3, 9, 19], @game_teams_collection.most_accurate_team_id.keys
+    first_game = @game_teams_collection.all_games_by_season("20122013").first
+    last_game = @game_teams_collection.all_games_by_season("20122013").last
+    season_2017 = @game_teams_collection.all_games_by_season("20172018")
+
+    assert_equal "2012", first_game.game_id.to_s[0..3]
+    assert_equal "2012", last_game.game_id.to_s[0..3]
+    # assert_equal [6, 16, 24, 2, 15, 3, 9, 19], @game_teams_collection.all_games_by_season("2012013").keys
     assert_equal 6, @game_teams_collection.most_accurate_team_id("20122013")
+    assert_equal true, season_2017.all? {|game| game.game_id.to_s[0..3]}
+  end
+
+  def test_least_accurate_team
+    assert_equal 15, @game_teams_collection.least_accurate_team_id("20122013")
+    assert_equal 9, @game_teams_collection.least_accurate_team_id("20142015")
   end
 
 end

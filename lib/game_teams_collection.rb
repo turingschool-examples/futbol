@@ -41,12 +41,32 @@ class GameTeamsCollection
     end
     x = {}
     season_by_team.map do |id, games|
+      # require "pry"; binding.pry
       x[id] = games.map do |game|
         (game.goals.to_f / game.shots.to_f).round(3)
       end
     end
-    (x.max_by {|id, pcts| (pcts.sum / pcts.length).round(3)})[0]
+    y = (x.max_by {|id, pcts| (pcts.sum / pcts.length).round(3)})[0]
     # require "pry"; binding.pry
+    y
+  end
+
+  def least_accurate_team_id(season)
+    games_by_season = all_games_by_season(season)
+    season_by_team = games_by_season.group_by do |game|
+      game.team_id
+      #returns a hash with team_id keys
+    end
+    x = {}
+    season_by_team.map do |id, games|
+      # require "pry"; binding.pry
+      x[id] = games.map do |game|
+        (game.goals.to_f / game.shots.to_f).round(3)
+      end
+    end
+    y = (x.min_by {|id, pcts| (pcts.sum / pcts.length).round(3)})[0]
+    # require "pry"; binding.pry
+    y
   end
 
   def all_games_by_team_id
