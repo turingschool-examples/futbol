@@ -409,6 +409,25 @@ class StatTracker
     teams_counter = @game_teams.reduce({}) do |acc, game_team|
       if game_ids.include?(game_team.game_id)
         acc[game_team.team_id] = {goals: 0, attempts: 0}
+      end
+      acc
+    end
+
+    @game_teams.each do |game_team|
+     if game_ids.include?(game_team.game_id)
+       teams_counter[game_team.team_id][:goals] += game_team.goals
+       teams_counter[game_team.team_id][:attempts] += game_team.shots
+     end
+   end
+
+   final = teams_counter.min_by do |key, value|
+     value[:attempts].to_f / value[:goals]
+   end[0]
+
+   @teams.find do |team|
+     final == team.team_id
+   end.teamname
+end
 
   def worst_coach(season_id)
     needed_game_ids = []
@@ -483,18 +502,20 @@ class StatTracker
       end
       acc
     end
+
     @game_teams.each do |game_team|
       if all_teams[game_team.team_id] && game_ids.include?(game_team.game_id)
         all_teams[game_team.team_id][:total_tackles] += game_team.tackles
       end
     end
+
     team_with_least_tackles = all_teams.min_by do |team|
       team.last[:total_tackles]
     end
+
     final = @teams.find do |team|
       team.team_id == team_with_least_tackles.first
     end
     final.teamname
   end
-
 end
