@@ -113,26 +113,29 @@ class StatTracker
     end
     #think the issue is that this data set is not accociating the team with the
     #season?
-    require "pry"; binding.pry
-    most_tackles = game_ids.max_by do |game|
+    most_tackle = game_ids.max_by do |game|
       game.tackles
     end
 
-    teams_collection.associate_team_id_with_team_name(most_tackles.team_id)
+    teams_collection.associate_team_id_with_team_name(most_tackle.team_id)
   end
 
   def fewest_tackles(season_id)
     use_games = games_collection.narrow_down_by_season(season_id)
-    x = game_teams_collection.game_teams.find_all do |gameteams|
+
+    game_ids = []
+    game_teams_collection.game_teams.find_all do |gameteam|
       use_games.each do |game|
-        gameteams.game_id == game.game_id
+        if (gameteam.game_id == game.game_id) == true
+          game_ids << gameteam
+        end
       end
     end
 
-    fewest_tackles = x.min_by do |team|
+    fewest_tackle = game_ids.min_by do |team|
       team.tackles
     end
 
-    teams_collection.associate_team_id_with_team_name(fewest_tackles.team_id)
+    teams_collection.associate_team_id_with_team_name(fewest_tackle.team_id)
   end
 end
