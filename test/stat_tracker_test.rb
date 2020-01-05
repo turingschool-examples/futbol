@@ -123,6 +123,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_fewest_tackles
-    assert_equal "LA Galaxy", @stat_tracker.fewest_tackles("20122013")
+    assert_equal "DC United", @stat_tracker.fewest_tackles("20122013")
   end
 end
