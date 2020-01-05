@@ -5,7 +5,7 @@ require './lib/team_collection'
 class TeamCollectionTest < Minitest::Test
   def setup
     @teams_collection = TeamCollection.new("./data/teams.csv")
-    @teams = @teams_array.create_teams_array.first
+    @team = @teams_collection.teams_array.first
   end
 
   def test_it_exists
@@ -13,12 +13,12 @@ class TeamCollectionTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_instance_of Array, @teams_collection.teams_collection
+    assert_instance_of Array, @teams_collection.teams_array
   end
 
   def test_it_can_create_games_from_csv
-    assert_instance_of Team, @teams
-    assert_equal "1", @teams.team_id
-    assert_equal "Atanta United", @teams.team_name
+    assert_instance_of Team, @team
+    assert_equal "1", @team.team_id
+    assert_equal "Atlanta United", @team.team_name
   end
 end
