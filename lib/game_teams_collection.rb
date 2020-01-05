@@ -56,7 +56,31 @@ class GameTeamsCollection #< StatTracker
         end
       end
       acc
-    end 
+    end
+
+    id_to_average = t_id_to_goal.reduce({}) do |acc, keyvalue|
+      id = keyvalue[0]
+      avg = (keyvalue[1].sum) / (keyvalue[1].length).to_f
+
+      acc[id] = [avg]
+      acc
+    end
+
+    lowest_avg = id_to_average.min_by{|k,v| v}
+
+    lowest_avg[0]
+  end
+
+  def highest_scoring_home_team
+    id_to_goal = game_teams.reduce({}) do |acc, gameteam|
+      if gameteam.hoa == "home"
+          acc[gameteam.team_id] = []
+          acc[gameteam.team_id] << gameteam.goals
+        else
+          acc[gameteam.team_id] << gameteam.goals
+        end
+      end
+      acc 
   end
 
 
