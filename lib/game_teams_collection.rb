@@ -33,4 +33,8 @@ class GameTeamsCollection
   def total_goals_by_team_id(team_id)
     games_by_team_id(team_id).sum {|game_team| game_team.goals.to_i}
   end
+
+  def average_goals_per_team_id(team_id)
+    (total_goals_by_team_id(team_id).to_f / games_by_team_id(team_id).count).to_f
+  end
 end
