@@ -351,7 +351,7 @@ class StatTracker
         end
       acc
     end
-    
+
     @game_teams.each do |game_team|
       if needed_game_ids.include?(game_team.game_id) && game_team.result == "WIN"
         stats_repo[game_team.head_coach][:total_wins] += 1
@@ -378,7 +378,11 @@ class StatTracker
     teams_counter = @game_teams.reduce({}) do |acc, game_team|
       if game_ids.include?(game_team.game_id)
         acc[game_team.team_id] = {goals: 0, attempts: 0}
-        @game_teams.each do |game_team|
+      end
+      acc
+    end
+
+     @game_teams.each do |game_team|
       if game_ids.include?(game_team.game_id)
         teams_counter[game_team.team_id][:goals] += game_team.goals
         teams_counter[game_team.team_id][:attempts] += game_team.shots
@@ -386,14 +390,14 @@ class StatTracker
     end
 
     final = teams_counter.max_by do |key, value|
-        value[:attempts].to_f / value[:goals]
+      value[:attempts].to_f / value[:goals]
     end[0]
 
     @teams.find do |team|
       final == team.team_id
     end.teamname
   end
-   
+
   def worst_coach(season_id)
     needed_game_ids = []
     @games.find_all do |game|
