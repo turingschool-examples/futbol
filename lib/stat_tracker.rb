@@ -2,7 +2,7 @@ require './lib/game_collection'
 require './lib/game_teams_collection'
 
 class StatTracker
-  attr_reader :game_path, :team_path, :game_teams_path
+  attr_reader :game_path, :game_teams_path
 
   def self.from_csv(file_paths)
     game_path = file_paths[:games]
@@ -49,5 +49,7 @@ class StatTracker
     @games.average_goals_per_game
   end
 
-
+  def average_goals_by_season
+    @games.average_goals_by_season
+  end
 end
