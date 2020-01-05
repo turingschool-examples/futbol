@@ -4,7 +4,7 @@ require_relative '../lib/stat_tracker'
 class StatTrackerTest < Minitest::Test
 
   def setup
-    @stat_tracker = StatTracker.from_csv({ :games => "./test/fixtures/games_trunc.csv", :teams => "./test/fixtures/teams_trunc.csv", :game_teams => "./test/fixtures/game_teams_trunc.csv"})
+    @stat_tracker = StatTracker.from_csv({ :games => "./data/games.csv", :teams => "./test/fixtures/teams_trunc.csv", :game_teams => "./data/game_teams.csv"})
   end
 
   def test_it_exists
@@ -57,4 +57,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal ["Real Salt Lake", "Sporting Kansas City", "Philadelphia Union"], @stat_tracker.worst_fans
   end
 
+  def test_most_tackles
+    assert_equal "Seattle Sounders FC", @stat_tracker.most_tackles("20142015")
+  end
 end

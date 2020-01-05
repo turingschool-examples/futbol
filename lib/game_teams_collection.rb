@@ -68,11 +68,4 @@ class GameTeamsCollection
       records
     end
   end
-
-  def most_tackles_in_season_team_id
-    most_tackles = @game_teams.max_by do |gameteam|
-      gameteam.tackles
-    end
-    most_tackles.team_id
-  end
 end
