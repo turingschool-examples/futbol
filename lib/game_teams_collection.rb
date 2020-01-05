@@ -74,6 +74,7 @@ class GameTeamsCollection #< StatTracker
   def highest_scoring_home_team
     id_to_goal = game_teams.reduce({}) do |acc, gameteam|
       if gameteam.hoa == "home"
+        if acc[gameteam.team_id] == nil
           acc[gameteam.team_id] = []
           acc[gameteam.team_id] << gameteam.goals
         else
