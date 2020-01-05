@@ -30,4 +30,9 @@ class GameTeamsCollectionTest < Minitest::Test
   def test_it_can_get_the_total_goals_by_game_team_id
     assert_equal 7, @game_teams_collection.total_goals_by_team_id(20)
   end
+
+  def test_it_can_calculate_average_goals_by_team_id
+   assert_equal 1.75, @game_teams_collection.average_goals_per_team_id(20)
+  end
+
 end
