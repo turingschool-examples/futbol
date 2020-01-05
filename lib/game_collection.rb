@@ -93,9 +93,7 @@ class GameCollection
     end.difference_between_score
     games_difference
   end
-
   
-
   def find_away_defense_goals(away_team_id)
     away_defense = @games.find_all {|game| game.away_team_id == (away_team_id)}
 
@@ -115,7 +113,6 @@ class GameCollection
 
     average = (goals_total.to_f / defense_goals_array.length).round(2)
   end
-
 
   def teams
     @games.reduce([]) do |teams,game|
