@@ -17,4 +17,35 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal "Claude Julien", @game_teams_collection.game_teams.first.head_coach
     assert_equal 4, @game_teams_collection.game_teams.first.goals
   end
+
+  def test_highest_scoring_visitor
+    assert_equal 6, @game_teams_collection.highest_scoring_visitor
+  end
+
+  # def test_biggest_bust_id
+  #   stat_tracker = StatTracker.new("./data/games.csv", "./data/teams.csv", "./data/game_teams.csv")
+  #   game_teams_collection = GameTeamsCollection.new(stat_tracker.game_teams_path)
+  #
+  #   assert_equal 23, game_teams_collection.biggest_bust_id("20132014")
+  # end
+  #
+  # def test_biggest_surprise_id
+  #   stat_tracker = StatTracker.new("./data/games.csv", "./data/teams.csv", "./data/game_teams.csv")
+  #   game_teams_collection = GameTeamsCollection.new(stat_tracker.game_teams_path)
+  #
+  #   assert_equal 26, game_teams_collection.biggest_surprise_id("20132014")
+  # end
+
+  # def test_winningest_coach_name
+  #
+  #   assert_equal "Alain Vigneault", @game_teams_collection.winningest_coach_name("20142015")
+  # end
+  #
+  # def test_worst_coach_name
+  #
+  #   assert_equal "Ted Nolan", @game_teams_collection.worst_coach_name("20142015")
+  # end
+
+
+
 end
