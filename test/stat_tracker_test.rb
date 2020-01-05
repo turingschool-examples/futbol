@@ -57,4 +57,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal ["Real Salt Lake", "Sporting Kansas City", "Philadelphia Union"], @stat_tracker.worst_fans
   end
 
+  def test_name_of_most_accurate_team_for_given_season
+    # season_1 = mock('game_teams_collection')
+    # season_1.stubs(:most_accurate_team_id).returns(24)
+    #
+    assert_equal "FC Dallas", @stat_tracker.most_accurate_team("20122013")
+  end
+
 end
