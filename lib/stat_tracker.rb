@@ -104,20 +104,20 @@ class StatTracker
     teams_collection.associate_team_id_with_team_name(game_teams_collection.lowest_scoring_home_team_id)
   end
 
-  def biggest_bust(season_id)
-    teams_collection.associate_team_id_with_team_name(game_teams_collection.biggest_bust_id(season_id))
-  end
-
-  def biggest_surprise(season_id)
-    teams_collection.associate_team_id_with_team_name(game_teams_collection.biggest_surprise_id(season_id))
-  end
-
-  def winningest_coach(season_id)
-    game_teams_collection.winningest_coach_name(season_id)
-  end
-
-  def worst_coach(season_id)
-    game_teams_collection.worst_coach_name(season_id)
-  end
+  # def biggest_bust(season_id)
+  #   teams_collection.associate_team_id_with_team_name(game_teams_collection.biggest_bust_id(season_id))
+  # end
+  #
+  # def biggest_surprise(season_id)
+  #   teams_collection.associate_team_id_with_team_name(game_teams_collection.biggest_surprise_id(season_id))
+  # end
+  #
+  # def winningest_coach(season_id)
+  #   game_teams_collection.winningest_coach_name(season_id)
+  # end
+  #
+  # def worst_coach(season_id)
+  #   game_teams_collection.worst_coach_name(season_id)
+  # end
 
 end

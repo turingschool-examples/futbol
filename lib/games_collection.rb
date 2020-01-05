@@ -160,7 +160,7 @@ class GamesCollection
     end
   end
 
-<<<<<<< HEAD
+
   def average_goals_scored_by_opposite_team
 #calculate the average goals scored ON each home/away team
 #goals scored against the other team
@@ -194,11 +194,10 @@ class GamesCollection
     worst_d = average_goals_scored_by_opposite_team.max_by { |team_id, goals| goals }
     worst_d.first
   end
-=======
 
 
 
->>>>>>> 75a4239f07977d0d79348297f983d7bafa94d7b6
+
 end
 
 # These methods each take a season id as an argument and return the values described below.
