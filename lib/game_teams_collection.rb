@@ -25,4 +25,8 @@ class GameTeamsCollection
   def total_games_per_team(team_id)
     games_by_team_id(team_id).length
   end
+
+  def average_win_percentage(team_id)
+    total_wins_per_team / total_games_per_team(team_id).to_f
+  end
 end
