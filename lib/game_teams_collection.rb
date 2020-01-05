@@ -64,15 +64,15 @@ class GameTeamsCollection
     worst_fan_teams.map { |element| element[0] }
   end
 
-  def game_teams_by_id
-    hash.keys.reduce({}) do |new_hash, key|
-      new_hash[key] = hash[key].find_home_games
-    end
-  end
-
-  def find_home_games
-    game_teams_lists_by_id[team_id].find_all do |game_teams|
-      game_teams.hoa == "home"
-    end
-  end
+  # def game_teams_by_id
+  #   hash.keys.reduce({}) do |new_hash, key|
+  #     new_hash[key] = hash[key].find_home_games
+  #   end
+  # end
+  #
+  # def find_home_games
+  #   game_teams_lists_by_id[team_id].find_all do |game_teams|
+  #     game_teams.hoa == "home"
+  #   end
+  # end
 end
