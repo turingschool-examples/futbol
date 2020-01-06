@@ -36,6 +36,10 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_most_tackles_team_id
-    assert_equal [], @game_teams_collection.most_tackles_team_id("20142015").length
+    assert_equal 9, @game_teams_collection.most_tackles_team_id("20142015")
+  end
+
+  def test_most_tackles_team_id
+    assert_equal 16, @game_teams_collection.fewest_tackles_team_id("20142015")
   end
 end
