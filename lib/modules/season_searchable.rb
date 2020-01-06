@@ -1,0 +1,3 @@
+module SeasonSearchable
+
+end
