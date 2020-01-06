@@ -28,14 +28,17 @@ class SeasonStatsTest < Minitest::Test
   end
 
   def test_biggest_bust_method
-    skip
     assert_equal 'Montreal Impact', @stat_tracker.biggest_bust('20132014')
     assert_equal 'Sporting Kansas City', @stat_tracker.biggest_bust('20142015')
   end
 
   def test_season_stats_can_get_winningest_coach
-    require 'pry'; binding.pry
     assert_equal 'Claude Julien', @stat_tracker.winningest_coach('20132014')
     assert_equal 'Alain Vigneault', @stat_tracker.winningest_coach('20142015')
+  end
+
+  def test_season_stats_can_get_worst_coach
+    assert_equal 'Peter Laviolette', @stat_tracker.worst_coach('20132014')
+    assert_includes ['Ted Nolan','Craig MacTavish'], @stat_tracker.worst_coach('20142015')
   end
 end
