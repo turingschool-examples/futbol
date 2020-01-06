@@ -19,4 +19,8 @@ module SeasonStats
     get_team_name_by_id(team_id.first)
   end
 
+  def most_goals_scored
+    require 'pry'; binding.pry
+  end
+
 end
