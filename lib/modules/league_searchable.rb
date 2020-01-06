@@ -48,56 +48,77 @@ module LeagueSearchable
                         binding.pry
                         games_to_return << games_between_teams(id, opp_team)
                 end
-               by_opponent(games_to_return.reject(&:empty?))
+                games_to_return.reject(&:empty?)
         end
 
-	def favorite_opponenent(id)
+	def favorite_opponenent_id(id)
 		all_games = games_for_team(id)
-		loop_teams = team_ids
-			
-		all_games.map! do |game|
-			holder = []
-			holder << game[0]
-			holder << win_percentage(game)		
-		end
-		all_games.max_by {|game| game[1]}[0]
-		
+		all_games_by_team = organize_by_team(all_games)
+		wins_by_team = convert_to_wins(all_games_by_team)
+		win_percent_by_opp(wins_by_team)
+		win_percent_by_opp.key(win_percent_by_opp.values.max {|win_percent| win_percent.round(4)})
 	end
-	
-	
 
-	def rival(id)	
+	def rival_id(id)	
 		all_games = games_for_team(id)
-		games_per_opponent = {}
-		all_games.each do |game|
-			if games_per_opponent[:game[0]] = nil
-				games_per_opponent[:game[0]] = game[1,2]
+		all_games_by_team = organize_by_team(all_games)
+		wins_by_team = convert_to_wins(all_games_by_team)
+		win_percent_by_opp(wins_by_team)
+		win_percent_by_opp.key(win_percent_by_opp.values.min {|win_percent| win_percent.round(4)})
+	end
+
+	def organize_by_team(games)
+		games.reduce({}) do |total, game|
+			if total[game[0]].empty?
+				total[game[0]] = [game[1,2]]
+				total
 			else
-				games_per_opponent[:game[0]} << game[1,2]
+				total[game[0]] << game[1,2]
+				total
 			end
 		end
-		games_per_opponent
-		all_games.min_by {|game| game[1]}[0]
+	end
+	
+	def win_percent_by_opp(games_hash)
+		updated_games_hash = {}
+		games_hash.each do |opp, w_l|
+			updated_games_hash[opp] = win_percent(w_l)
+		end
+		updated_games_hash
 	end
 
-	def individual_win_loss(game)
-		if game[1] > game[2]
-			return "W"
+	def win?(scores)
+		if scores[0] > scores[1]
+			return true
 		else
-			return "L/T"
+			return false
 		end
 	end
 
-	def find_opp_games(all_games, opp_id)
-		games = []
-		all_games.each do |game|
-			if game[0] = opp_id
-				games << game.slice(1,2)
+	def convert_to_wins(games_hash)
+		updated_games_hash = {}
+		games_hash.each do |opp, games|
+			updated_games_hash[opp] = games.map do |scores|
+				win?(scores)
 			end
-		games
 		end
+		updated_games_hash
+	end
+
+	def win_percent(w_l)
+		win_count = 0
+		game_count = 0
+		w_l.each do |game|
+			if game
+				win_count += 1
+				game_count += 1
+			else
+				game_count += 1
+			end
+		end
+		win_count.to_f / game_count.to_f
 	end
 				
-		
-		
-		
+				
+			
+end
