@@ -170,7 +170,7 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal 6, stat_tracker.biggest_team_blowout("24")
   end
-  
+
   def test_best_season
     assert_equal "20142015", @stat_tracker.best_season("16")
   end
@@ -178,4 +178,18 @@ class StatTrackerTest < Minitest::Test
   def test_worst_season
     assert_equal "20122013", @stat_tracker.worst_season("16")
   end
+
+  def test_head_to_head
+    expected = {"LA Galaxy"=>0.5, "DC United"=>0.8, "Orlando City SC"=>0.67}
+    assert_equal expected, @stat_tracker.head_to_head("16")
+  end
+
+  def test_rival
+    assert_equal "LA Galaxy", @stat_tracker.rival("16")
+  end
+
+  def test_favorite_opponent
+    assert_equal "DC United", @stat_tracker.favorite_opponent("16")
+  end
+
 end
