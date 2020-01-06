@@ -48,44 +48,56 @@ module LeagueSearchable
                         binding.pry
                         games_to_return << games_between_teams(id, opp_team)
                 end
-                games_to_return.reject(&:empty?)
+               by_opponent(games_to_return.reject(&:empty?))
         end
 
 	def favorite_opponenent(id)
 		all_games = games_for_team(id)
+		loop_teams = team_ids
+			
 		all_games.map! do |game|
 			holder = []
 			holder << game[0]
 			holder << win_percentage(game)		
 		end
 		all_games.max_by {|game| game[1]}[0]
+		
 	end
+	
+	
 
 	def rival(id)	
 		all_games = games_for_team(id)
-		all_games.map! do |game|
-			holder = []
-			holder << game[0]
-			holder << win_percentage(game)		
+		games_per_opponent = {}
+		all_games.each do |game|
+			if games_per_opponent[:game[0]] = nil
+				games_per_opponent[:game[0]] = game[1,2]
+			else
+				games_per_opponent[:game[0]} << game[1,2]
+			end
 		end
+		games_per_opponent
 		all_games.min_by {|game| game[1]}[0]
 	end
 
-	def individual_win_percentage(games, opp_id)
-		win_count = 0
-		game_count = 0
-		games.each do |game|
-			if game[0] == opp_id
-				game_count += 1
-				if game[1] > game[2]
-					win_count += 1
-				end
-			end
-		win_count / game_count
+	def individual_win_loss(game)
+		if game[1] > game[2]
+			return "W"
+		else
+			return "L/T"
+		end
 	end
 
-	def find_
-			
+	def find_opp_games(all_games, opp_id)
+		games = []
+		all_games.each do |game|
+			if game[0] = opp_id
+				games << game.slice(1,2)
+			end
+		games
+		end
+	end
+				
 		
 		
 		
