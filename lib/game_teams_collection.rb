@@ -4,7 +4,7 @@ require_relative 'csv_loadable'
 class GameTeamsCollection
   include CsvLoadable
 
-  attr_reader :game_teams_array
+  attr_reader :game_teams_array, :game_teams_by_id
 
   def initialize(file_path)
     @game_teams_array = create_game_teams_array(file_path)
@@ -43,13 +43,13 @@ class GameTeamsCollection
     @game_teams_array.uniq {|game_team| game_team.team_id}.map { |game_team| game_team.team_id}
   end
 
-  def best_offense
-    unique_team_ids.max_by {|team_id| average_goals_per_team_id(team_id)}
-  end
-
-  def worst_offense
-    unique_team_ids.min_by {|team_id| average_goals_per_team_id(team_id)}
-  end
+  # def best_offense
+  #   unique_team_ids.max_by {|team_id| average_goals_per_team_id(team_id)}
+  # end
+  #
+  # def worst_offense
+  #   unique_team_ids.min_by {|team_id| average_goals_per_team_id(team_id)}
+  # end
 
   def game_teams_hash
     @game_teams_array.reduce({}) do |hash, game_teams|
@@ -95,45 +95,45 @@ class GameTeamsCollection
   #   away_only_average
   # end
 
-  def highest_scoring_home_team
-    new = []
-    home_games_only_average.each do |game_id, average|
-      if average == home_games_only_average.values.max
-      new << game_id.to_i
-      end
-    end
-    new
-  end
-
-  def lowest_scoring_home_team
-    new = []
-    home_games_only_average.each do |game_id, average|
-      if average == home_games_only_average.values.min
-      new << game_id.to_i
-      end
-    end
-    new
-  end
-
-  def highest_scoring_visitor
-    new = []
-    away_games_only_average.each do |game_id, average|
-      if average == away_games_only_average.values.max
-      new << game_id.to_i
-      end
-    end
-    new
-  end
-
-  def lowest_scoring_visitor
-    new = []
-    away_games_only_average.each do |game_id, average|
-      if average == away_games_only_average.values.min
-      new << game_id.to_i
-      end
-    end
-    new
-  end
+  # def highest_scoring_home_team
+  #   new = []
+  #   home_games_only_average.each do |game_id, average|
+  #     if average == home_games_only_average.values.max
+  #     new << game_id.to_i
+  #     end
+  #   end
+  #   new
+  # end
+  #
+  # def lowest_scoring_home_team
+  #   new = []
+  #   home_games_only_average.each do |game_id, average|
+  #     if average == home_games_only_average.values.min
+  #     new << game_id.to_i
+  #     end
+  #   end
+  #   new
+  # end
+  #
+  # def highest_scoring_visitor
+  #   new = []
+  #   away_games_only_average.each do |game_id, average|
+  #     if average == away_games_only_average.values.max
+  #     new << game_id.to_i
+  #     end
+  #   end
+  #   new
+  # end
+  #
+  # def lowest_scoring_visitor
+  #   new = []
+  #   away_games_only_average.each do |game_id, average|
+  #     if average == away_games_only_average.values.min
+  #     new << game_id.to_i
+  #     end
+  #   end
+  #   new
+  # end
 
   # def percentage(numerator, denominator) #to-do: make Calculatable module
   #   return ((numerator.to_f / denominator) * 100).round(2)
@@ -149,14 +149,14 @@ class GameTeamsCollection
   #   wins = team_games[team].count { |game_team| game_team.result == "WIN" }
   #   percentage(wins, team_games[team].length)
   # end
-
-  def winningest_team_id
-    win_percentages = Hash.new
-    @game_teams_by_id.each do |key, value|
-      win_percentages[key] = team_win_percentage(@game_teams_by_id, key)
-    end
-    win_percentages.max_by { |key, value| value }[0]
-  end
+  #
+  # def winningest_team_id
+  #   win_percentages = Hash.new
+  #   @game_teams_by_id.each do |key, value|
+  #     win_percentages[key] = team_win_percentage(@game_teams_by_id, key)
+  #   end
+  #   win_percentages.max_by { |key, value| value }[0]
+  # end
 
   # def hoa_differences(all_games)
   #   diffs = Hash.new{}
@@ -166,14 +166,14 @@ class GameTeamsCollection
   #   diffs
   # end
 
-  def best_fans_id
-    hoa_differences(@game_teams_by_id).max_by { |key, value| value }[0]
-  end
-
-  def worst_fans_ids
-    hoa_diffs = hoa_differences(@game_teams_by_id)
-    worst_fan_teams = hoa_diffs.find_all { |key, value| value < 0 }
-    worst_fan_teams.map { |element| element[0] }
-  end
+  # def best_fans_id
+  #   hoa_differences(@game_teams_by_id).max_by { |key, value| value }[0]
+  # end
+  #
+  # def worst_fans_ids
+  #   hoa_diffs = hoa_differences(@game_teams_by_id)
+  #   worst_fan_teams = hoa_diffs.find_all { |key, value| value < 0 }
+  #   worst_fan_teams.map { |element| element[0] }
+  # end
 
 end

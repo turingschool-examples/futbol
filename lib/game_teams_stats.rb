@@ -17,6 +17,14 @@ class GameTeamsStats
     (total_goals_by_team_id(team_id).to_f / @game_teams_collection.games_by_team_id(team_id).count)
   end
 
+  def best_offense
+    @game_teams_collection.unique_team_ids.max_by {|team_id| average_goals_per_team_id(team_id)}
+  end
+
+  def worst_offense
+    @game_teams_collection.unique_team_ids.min_by {|team_id| average_goals_per_team_id(team_id)}
+  end
+
   def home_games_only_average
     home_only_average = {}
     @game_teams_collection.home_games_only.each do |game_id, games|
@@ -31,6 +39,46 @@ class GameTeamsStats
       away_only_average[game_id] = (games.sum { |game| game.goals.to_i} / games.length.to_f).round(2)
     end
     away_only_average
+  end
+
+  def highest_scoring_home_team
+    new = []
+    home_games_only_average.each do |game_id, average|
+      if average == home_games_only_average.values.max
+      new << game_id.to_i
+      end
+    end
+    new
+  end
+
+  def lowest_scoring_home_team
+    new = []
+    home_games_only_average.each do |game_id, average|
+      if average == home_games_only_average.values.min
+      new << game_id.to_i
+      end
+    end
+    new
+  end
+
+  def highest_scoring_visitor
+    new = []
+    away_games_only_average.each do |game_id, average|
+      if average == away_games_only_average.values.max
+      new << game_id.to_i
+      end
+    end
+    new
+  end
+
+  def lowest_scoring_visitor
+    new = []
+    away_games_only_average.each do |game_id, average|
+      if average == away_games_only_average.values.min
+      new << game_id.to_i
+      end
+    end
+    new
   end
 
   def percentage(numerator, denominator) #to-do: make Calculatable module
@@ -48,12 +96,30 @@ class GameTeamsStats
     percentage(wins, team_games[team].length)
   end
 
+  def winningest_team_id
+    win_percentages = Hash.new
+    @game_teams_collection.game_teams_by_id.each do |key, value|
+      win_percentages[key] = team_win_percentage(@game_teams_collection.game_teams_by_id, key)
+    end
+    win_percentages.max_by { |key, value| value }[0]
+  end
+
   def hoa_differences(all_games)
     diffs = Hash.new{}
     all_games.each do |key, value|
       diffs[key] = team_win_percentage(all_games, key, "home") - team_win_percentage(all_games, key, "away")
     end
     diffs
+  end
+
+  def best_fans_id
+    hoa_differences(@game_teams_collection.game_teams_by_id).max_by { |key, value| value }[0]
+  end
+
+  def worst_fans_ids
+    hoa_diffs = hoa_differences(@game_teams_collection.game_teams_by_id)
+    worst_fan_teams = hoa_diffs.find_all { |key, value| value < 0 }
+    worst_fan_teams.map { |element| element[0] }
   end
 
 end
