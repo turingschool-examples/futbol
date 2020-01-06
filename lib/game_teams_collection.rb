@@ -6,7 +6,7 @@ require_relative 'games_collection'
 require_relative 'create_objects'
 
 
-class GameTeamsCollection #< StatTracker
+class GameTeamsCollection
   include CsvLoadable
   include CreateObjects
 
@@ -295,7 +295,3 @@ class GameTeamsCollection #< StatTracker
 
 
 end
-
-
-# winningest_coach	Name of the Coach with the best win percentage for
-# the season	String

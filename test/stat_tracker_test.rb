@@ -69,4 +69,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Ted Nolan", @stat_tracker.worst_coach("20142015")
   end
 
+  def test_team_info
+    expected = {"team_id"=>"7", "franchise_id"=>"19", "team_name"=>"Utah Royals FC",
+      "abbreviation"=>"URF", "link"=>"/api/v1/teams/7"}
+      
+    assert_equal expected, @stat_tracker.team_info("7")
+  end
+
 end

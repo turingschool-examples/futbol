@@ -25,4 +25,11 @@ class TeamsCollectionTest < Minitest::Test
   def test_associate_team_id_with_team_name
     assert_equal "Atlanta United", @teams_collection.associate_team_id_with_team_name(1)
   end
+
+  def test_team_info
+    expected = {"team_id"=>"7", "franchise_id"=>"19", "team_name"=>"Utah Royals FC",
+      "abbreviation"=>"URF", "link"=>"/api/v1/teams/7"}
+
+    assert_equal expected, @teams_collection.team_info(7)
+  end
 end

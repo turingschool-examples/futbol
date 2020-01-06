@@ -112,4 +112,8 @@ class StatTracker
     game_teams_collection.worst_coach_name(season_id)
   end
 
+  def team_info(teamid)
+    teams_collection.team_info(teamid.to_i)
+  end
+
 end
