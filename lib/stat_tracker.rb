@@ -764,5 +764,6 @@ end
     all_seasons.min_by do |key, value|
       value[:wins].to_f / value[:games]
     end[0]
+
   end
 end
