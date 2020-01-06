@@ -48,19 +48,19 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_can_get_team_with_highest_average_score_for_away_games
-    assert_equal [24, 5], @game_teams_collection.highest_scoring_visitor
+    assert_equal 24, @game_teams_collection.highest_scoring_visitor
   end
 
   def test_it_can_get_team_with_lowest_average_score_for_away_games
-    assert_equal [14, 19], @game_teams_collection.lowest_scoring_visitor
+    assert_equal 14, @game_teams_collection.lowest_scoring_visitor
   end
 
   def test_it_can_get_team_with_highest_average_score_for_home_games
-    assert_equal [24, 5], @game_teams_collection.highest_scoring_home_team
+    assert_equal 24, @game_teams_collection.highest_scoring_home_team
   end
 
   def test_it_can_get_team_with_lowest_average_score_for_home_games
-    assert_equal [3], @game_teams_collection.lowest_scoring_home_team
+    assert_equal 3, @game_teams_collection.lowest_scoring_home_team
   end
 
   def test_it_can_find_the_number_of_games_by_the_game_team_id
