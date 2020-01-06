@@ -14,6 +14,7 @@ class TeamCollection
     load_from_csv(file_path, Team)
   end
 
-  # def find_name_by_id(id)
-    #will use id argrument that will return team name
+  def team_name_by_id(team_id)
+    @teams_array.find {|team| team.team_id == team_id}.team_name
+  end
 end
