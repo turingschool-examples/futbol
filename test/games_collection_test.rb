@@ -82,4 +82,17 @@ class GamesCollectionTest < Minitest::Test
   def test_worst_defense_id
     assert_equal 7, @gamescollection.worst_defense_id
   end
+
+  def test_season_game_ids
+    assert_equal [2013020246], @gamescollection.reg_season_game_ids("20132014")
+    assert_equal [], @gamescollection.post_season_game_ids("20132014")
+  end
+
+  def test_winningest_coach_game_ids
+    expected = [2014030113, 2014030212,
+      2014020930, 2014020614, 2014020772,
+      2014020675, 2014021227, 2014020868]
+    assert_equal expected, @gamescollection.winningest_coach_game_ids("20142015")
+  end
+  
 end

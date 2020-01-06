@@ -47,4 +47,31 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal 9, @game_teams_collection.least_accurate_team_id("20142015")
   end
 
+  def test_all_games_by_season
+    assert_equal 3, @game_teams_collection.all_games_by_season("20142015").length
+  end
+
+  def test_most_tackles_team_id
+    assert_equal 9, @game_teams_collection.most_tackles_team_id("20142015")
+  end
+
+  def test_fewest_tackles_team_id
+    assert_equal 16, @game_teams_collection.fewest_tackles_team_id("20142015")
+
+  def test_highest_scoring_visitor
+    assert_equal 5, @game_teams_collection.highest_scoring_visitor
+  end
+
+  def test_lowest_scoring_visitor
+    assert_equal 3, @game_teams_collection.lowest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal 6, @game_teams_collection.highest_scoring_home_team
+  end
+
+  def test_lowest_scoring_home_team
+    assert_equal 9, @game_teams_collection.lowest_scoring_home_team
+  end
+    
 end

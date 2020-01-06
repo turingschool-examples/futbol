@@ -2,6 +2,7 @@ require_relative 'testhelper'
 require_relative '../lib/stat_tracker'
 
 class TeamsCollectionTest < Minitest::Test
+  
   def setup
     @stat_tracker = StatTracker.new("./test/fixtures/games_trunc.csv", "./test/fixtures/teams_trunc.csv", "./test/fixtures/game_teams_trunc.csv")
     @teams_collection = TeamsCollection.new(@stat_tracker.teams_path)
