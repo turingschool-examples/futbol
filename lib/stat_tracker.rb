@@ -115,4 +115,13 @@ class StatTracker
   def worst_fans
     teams_collection.associate_multi_team_id_with_team_name(game_teams_collection.worst_fans_team_id)
   end
+
+  def most_tackles(season_id)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.most_tackles_team_id(season_id))
+  end
+
+  def fewest_tackles(season_id)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.fewest_tackles_team_id(season_id))
+  end
+  
 end

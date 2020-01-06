@@ -176,4 +176,32 @@ class GameTeamsCollection #< StatTracker
       records
     end
   end
+
+  def all_games_by_season(season)
+   @game_teams.find_all do |game|
+     game if game.game_id.to_s[0..3] == season[0..3]
+   end
+  end
+
+  def season_by_team(season)
+    games_by_season = all_games_by_season(season)
+    games_by_season.group_by { |game| game.team_id }
+  end
+
+  def team_total_tackles(season)
+    team_total_tackles =  Hash.new(0)
+    season_by_team(season).map do |id, games|
+      team_total_tackles[id] = games.sum { |game| game.tackles }
+    end
+    team_total_tackles
+  end
+
+  def most_tackles_team_id(season)
+    team_total_tackles(season).max_by { |team_id, totaltackles| totaltackles }.first
+  end
+
+  def fewest_tackles_team_id(season)
+    team_total_tackles(season).min_by { |team_id, totaltackles| totaltackles }.first
+  end
+
 end
