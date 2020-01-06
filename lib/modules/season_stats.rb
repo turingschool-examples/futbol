@@ -21,17 +21,8 @@ module SeasonStats
   end
 
   def winningest_coach(season_id)
-    season_games = @seasons.teams.map do |team|
-      team.last[season_id]
-    end
-
-    season_games = season_games.flatten!
+    total_games = total_season_games_team_id(season_id)
     require 'pry'; binding.pry
-
-    team_id = team_win_percentage(season_wins_by_team(season_games))
-    team_total_wins = 80
-    team_totaal_games = 120
-
-    get_team_name_by_id(team_id)
+    record = total_season_wins_losses_team_id(season_id)
   end
 end

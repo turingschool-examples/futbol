@@ -55,4 +55,34 @@ module Calculateable
   def team_season_keys(team_id)
     { team_id => @team_season_collection.collection[team_id].keys }
   end
+
+  def win_or_loss(team_id, team_season)
+    team_season.reduce(Hash.new(0)) do |hash, game|
+      if game.home_team_id == team_id && game.home_goals > game.away_goals
+        hash[team_id][:wins] += 1
+      elsif game.away_team_id == team_id && game.away_goals > game.home_goals
+        hash[team_id][:wins] += 1
+      elsif game.home_goals == game.away_goals
+        hash[team_id][:draw] += 1
+      else
+        hash[team_id][:losses] += 1
+      end
+      hash
+    end
+  end
+
+  def combine_game_data
+    @game_teams.collection.each do |game|
+      team_game = @games.collection[game[1].game_id]
+      if game[1].team_id == team_game.home_team_id
+        team_game.home_head_coach = game[1].head_coach
+        team_game.home_shots = game[1].shots
+        team_game.home_tackles = game[1].tackles
+      elsif game[1].team_id == team_game.away_team_id
+        team_game.away_head_coach = game[1].head_coach
+        team_game.away_shots = game[1].shots
+        team_game.away_tackles = game[1].tackles
+      end
+    end
+  end
 end

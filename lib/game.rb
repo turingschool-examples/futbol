@@ -10,6 +10,13 @@ class Game
               :venue,
               :venue_link
 
+  attr_accessor :home_head_coach,
+                :home_shots,
+                :home_tackles,
+                :away_head_coach,
+                :away_shots,
+                :away_tackles
+
   def initialize(row)
     @game_id = row[:game_id]
     @season = row[:season]
@@ -20,5 +27,11 @@ class Game
     @away_goals = row[:away_goals]
     @home_goals = row[:home_goals]
     @venue = row[:venue]
+    @home_head_coach = nil
+    @home_shots = nil
+    @home_tackles = nil
+    @away_head_coach = nil
+    @away_shots = nil
+    @away_tackles = nil
   end
 end
