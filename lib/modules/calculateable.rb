@@ -60,4 +60,23 @@ module Calculateable
   def team_season_keys(team_id)
     { team_id => @team_season_collection.collection[team_id].keys }
   end
+
+  def games_game_team_combo
+    @game_teams.collection.each do |game|
+      require 'pry'; binding.pry
+      team_game = @games.collection[game.first]
+      if game[1].team_id == team_game.home_team_id
+        require 'pry'; binding.pry
+        team_game.home_head_coach = game[1].head_coach
+        team_game.home_shots = game[1].shots
+        team_game.home_tackles = game[1].tackles
+      elsif game[1].team_id == team_game.away_team_id
+        require 'pry'; binding.pry
+        team_game.away_head_coach = game[1].head_coach
+        team_game.away_shots = game[1].shots
+        team_game.away_tackles = game[1].tackles
+      end
+      require 'pry'; binding.pry
+    end
+  end
 end
