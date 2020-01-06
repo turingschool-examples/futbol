@@ -160,7 +160,6 @@ class GamesCollection
     end
   end
 
-
   def average_goals_scored_by_opposite_team
     id_associate= games.reduce({}) do |acc, game|
       if acc.has_key?(game.home_team_id) == false
@@ -189,11 +188,5 @@ class GamesCollection
   def worst_defense_id
     worst_d = average_goals_scored_by_opposite_team.max_by { |team_id, goals| goals }
     worst_d.first
-  end
-
-  def narrow_down_by_season(season_id)
-    @games.find_all do |game|
-      game.season == season_id
-    end
   end
 end
