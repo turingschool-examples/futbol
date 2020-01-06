@@ -1,5 +1,5 @@
 require 'csv'
-require_relative 'game_team' 
+require_relative 'game_team'
 require_relative 'csvloadable'
 require_relative 'games_collection'
 require_relative 'create_objects'
@@ -150,6 +150,66 @@ class GameTeamsCollection
     shot_goals
   end
 
+  def reg_season_team_percentages(season_id)
+    gamescollection = games_collection("./data/games.csv")
+    game_teams1 = create_game_teams("./data/game_teams.csv")
+    reg_game_ids = gamescollection.reg_season_game_ids(season_id)
+    reg_team_to_allresults = reg_game_ids.reduce({}) do |acc, game_id|
+      reg_gameteams_byid = game_teams1.find_all {|team| team.game_id == game_id}
+      if acc[reg_gameteams_byid[0].team_id] == nil
+        acc[reg_gameteams_byid[0].team_id] = []
+        acc[reg_gameteams_byid[0].team_id] << reg_gameteams_byid[0].result
+      else
+        acc[reg_gameteams_byid[0].team_id] << reg_gameteams_byid[0].result
+      end
+      if acc[reg_gameteams_byid[1].team_id] == nil
+        acc[reg_gameteams_byid[1].team_id] = []
+        acc[reg_gameteams_byid[1].team_id] << reg_gameteams_byid[1].result
+      else
+        acc[reg_gameteams_byid[1].team_id] << reg_gameteams_byid[1].result
+      end
+      acc
+    end
+    reg_team_to_winpercent = reg_team_to_allresults.reduce({}) do |acc, kv|
+      team_id = kv[0]
+      win_count = kv[1].count("WIN")
+      total_games = kv[1].length
+      win_percentage = (win_count / total_games.to_f) * 100
+      acc[team_id] = [win_percentage]
+      acc
+    end
+  end
+
+  def post_season_team_percentages(season_id)
+    gamescollection = games_collection("./data/games.csv")
+    game_teams1 = create_game_teams("./data/game_teams.csv")
+    post_game_ids = gamescollection.post_season_game_ids(season_id)
+    post_team_to_allresults = post_game_ids.reduce({}) do |acc, game_id|
+      post_gameteams_byid = game_teams1.find_all {|gameteam| gameteam.game_id == game_id}
+      if acc[post_gameteams_byid[0].team_id] == nil
+        acc[post_gameteams_byid[0].team_id] = []
+        acc[post_gameteams_byid[0].team_id] << post_gameteams_byid[0].result
+      else
+        acc[post_gameteams_byid[0].team_id] << post_gameteams_byid[0].result
+      end
+      if acc[post_gameteams_byid[1].team_id] == nil
+        acc[post_gameteams_byid[1].team_id] = []
+        acc[post_gameteams_byid[1].team_id] << post_gameteams_byid[1].result
+      else
+        acc[post_gameteams_byid[1].team_id] << post_gameteams_byid[1].result
+      end
+      acc
+    end
+    post_team_to_winpercent = post_team_to_allresults.reduce({}) do |acc, kv|
+      team_id = kv[0]
+      win_count = kv[1].count("WIN")
+      total_games = kv[1].length
+      win_percentage = (win_count / total_games.to_f) * 100
+      acc[team_id] = [win_percentage]
+      acc
+    end
+  end
+
   def biggest_bust_id(season_id)
     reg_team_id_topercent = reg_season_team_percentages(season_id)
     post_team_id_topercent = post_season_team_percentages(season_id)
@@ -165,6 +225,7 @@ class GameTeamsCollection
         acc[team_id] = (reg_winpercent - post_winpercent)
       end
     end
+  end
 
   def most_accurate_team_id(season)
     shot_goal_ratio(season).max_by { |id, pcts| pcts }.first
