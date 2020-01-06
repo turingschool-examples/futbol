@@ -35,17 +35,15 @@ class GameTeamsCollection
 
   def most_accurate_team_id(season)
     games_by_season = all_games_by_season(season)
-    season_by_team = games_by_season.group_by do |game|
-      game.team_id #returns a hash with team_id keys
-    end
+    season_by_team = games_by_season.group_by { |game| game.team_id }
 
-    x = {}
+    shot_goals = {}
     season_by_team.map do |id, games|
       goals = (games.map { |game| game.goals }).sum.to_f
       shots = (games.map { |game| game.shots }).sum.to_f
-      x[id] = (goals / shots).round(3)
+      shot_goals[id] = (goals / shots).round(3)
     end
-    (x.max_by {|id, pcts| pcts })[0]
+    (shot_goals.max_by {|id, pcts| pcts })[0]
   end
 
   def least_accurate_team_id(season)
@@ -53,16 +51,13 @@ class GameTeamsCollection
     season_by_team = games_by_season.group_by do |game|
       game.team_id #returns a hash with team_id keys
     end
-    x = {}
+    shot_goals = {}
     season_by_team.map do |id, games|
-      # require "pry"; binding.pry
-      x[id] = games.map do |game|
+      shot_goals[id] = games.map do |game|
         (game.goals.to_f / game.shots.to_f).round(3)
       end
     end
-    y = (x.min_by {|id, pcts| (pcts.sum / pcts.length).round(3)})[0]
-    # require "pry"; binding.pry
-    y
+    (shot_goals.min_by {|id, pcts| (pcts.sum / pcts.length).round(3)})[0]
   end
 
   def all_games_by_team_id
