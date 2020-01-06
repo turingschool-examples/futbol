@@ -176,5 +176,31 @@ class GamesCollection
     top_season[0]
   end
 
+  def worst_season(teamid)
+    seasons_result = Hash.new {|hash, key| hash[key] = []}
+    games.each do |game|
+      if teamid.to_i == game.away_team_id
+        result = "WIN" if game.away_goals > game.home_goals
+        result = "LOSS" if game.away_goals < game.home_goals
+        result = "TIE" if game.away_goals == game.home_goals
+        seasons_result[game.season] << result
+
+      elsif teamid.to_i == game.home_team_id
+        result = "WIN" if game.home_goals > game.away_goals
+        result = "LOSS" if game.home_goals < game.away_goals
+        result = "TIE" if game.home_goals == game.away_goals
+        "LOSS" if game.home_goals < game.away_goals
+        seasons_result[game.season] << result
+      end
+    end
+    seasons_to_winpercent = seasons_result.reduce({}) do |acc, (key, value)|
+      avg = value.count("WIN") / value.length.to_f
+      acc[key] = avg
+      acc
+    end
+    bottom_season = seasons_to_winpercent.min_by {|seasonid, winpercentage| winpercentage}
+    bottom_season[0]
+  end
+
 
 end

@@ -86,5 +86,10 @@ class GamesCollectionTest < Minitest::Test
     assert_equal "20122013", @gamescollection.best_season("6")
   end
 
+  def test_worst_season
+    assert_equal "20122013", @gamescollection.worst_season("6")
+  end
+
+
 
 end

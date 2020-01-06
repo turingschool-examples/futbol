@@ -120,4 +120,8 @@ class StatTracker
     games_collection.best_season(teamid)
   end
 
+  def worst_season(teamid)
+    games_collection.worst_season(teamid)
+  end
+
 end
