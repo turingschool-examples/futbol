@@ -9,7 +9,7 @@ class TeamTest < Minitest::Test
 
     def test_it_has_attributes
         team = Team.new({ team_id: 1,
-                        franchiseId: 23,
+                        franchiseid: 23,
                         teamname: "Atlanta United",
                         abbreviation: "ATL",
                         stadium: "Mercedes-Benz Stadium" })

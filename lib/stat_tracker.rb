@@ -136,4 +136,13 @@ class StatTracker
     games_collection.fewest_goals_scored(teamid)
   end
 
+  def favorite_opponent(teamid)
+    teams_collection.associate_team_id_with_team_name(games_collection.favorite_opponent_id(teamid).to_i)
+  end
+
+  def rival(teamid)
+    teams_collection.associate_team_id_with_team_name(games_collection.rival_id(teamid).to_i)
+  end
+
+
 end

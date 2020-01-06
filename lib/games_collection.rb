@@ -251,8 +251,69 @@ class GamesCollection
     fewest_goals[1]
   end
 
+  def favorite_opponent_id(teamid)
+    opponentid_results = Hash.new {|hash, key| hash[key] = []}
+
+    games.each do |game|
+      if teamid.to_i == game.away_team_id
+        result = "WIN" if game.home_goals > game.away_goals
+        result = "LOSS" if game.home_goals < game.away_goals
+        result = "TIE" if game.home_goals == game.away_goals
+        opponentid_results[game.home_team_id] << result
+
+      elsif teamid.to_i == game.home_team_id
+        result = "WIN" if game.away_goals > game.home_goals
+        result = "LOSS" if game.away_goals < game.home_goals
+        result = "TIE" if game.away_goals == game.home_goals
+        opponentid_results[game.away_team_id] << result
+
+      end
+    end
+
+    opponentid_winpercent = opponentid_results.reduce({}) do |acc, (key, value)|
+      avg = value.count("WIN") / value.length.to_f
+      acc[key] = avg
+      acc
+    end
+
+    lowest = opponentid_winpercent.min_by {|id, winpercentage| winpercentage}
+    lowest[0].to_s
+  end
+
+  def rival_id(teamid)
+    opponentid_results = Hash.new {|hash, key| hash[key] = []}
+
+    games.each do |game|
+      if teamid.to_i == game.away_team_id
+        result = "WIN" if game.home_goals > game.away_goals
+        result = "LOSS" if game.home_goals < game.away_goals
+        result = "TIE" if game.home_goals == game.away_goals
+        opponentid_results[game.home_team_id] << result
+
+      elsif teamid.to_i == game.home_team_id
+        result = "WIN" if game.away_goals > game.home_goals
+        result = "LOSS" if game.away_goals < game.home_goals
+        result = "TIE" if game.away_goals == game.home_goals
+        opponentid_results[game.away_team_id] << result
+
+      end
+    end
+
+    opponentid_winpercent = opponentid_results.reduce({}) do |acc, (key, value)|
+      avg = value.count("WIN") / value.length.to_f
+      acc[key] = avg
+      acc
+    end
+
+    highest = opponentid_winpercent.max_by {|id, winpercentage| winpercentage}
+    highest[0].to_s
+  end
+
 
 end
 
-
-# expect(@stat_tracker.most_goals_scored("18")).to eq 7
+# favorite_opponent	Name of the opponent that has the lowest win percentage against the given team.	String
+# expect(@stat_tracker.favorite_opponent("18")).to eq "DC United" 155
+#
+# rival	Name of the opponent that has the highest win percentage against the given team.	String
+# expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy")) 159

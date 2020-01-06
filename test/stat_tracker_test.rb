@@ -96,4 +96,13 @@ class StatTrackerTest < Minitest::Test
     assert_equal 1, @stat_tracker.fewest_goals_scored("18")
   end
 
+  def test_favorite_opponent
+    assert_equal "Orlando City SC", @stat_tracker.favorite_opponent("18")
+  end
+
+  def test_rival
+    assert_equal "Chicago Red Stars", @stat_tracker.rival("18")
+  end
+
+
 end

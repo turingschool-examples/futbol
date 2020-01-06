@@ -102,6 +102,14 @@ class GamesCollectionTest < Minitest::Test
     assert_equal 1, @gamescollection.fewest_goals_scored("18")
   end
 
+  def test_favorite_opponent_id
+    assert_equal "30", @gamescollection.favorite_opponent_id("18")
+  end
+
+  def test_rival_id
+    assert_equal "25", @gamescollection.rival_id("18")
+  end
+
 
 
 end
