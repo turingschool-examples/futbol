@@ -85,22 +85,16 @@ class GameTeamsCollection
   def team_total_tackles(season)
     team_total_tackles =  {}
     season_by_team(season).map do |id, games|
-      team_total_tackles[id] = games.sum do |game|
-        game.tackles
-      end
+      team_total_tackles[id] = games.sum { |game| game.tackles }
     end
     team_total_tackles
   end
 
   def most_tackles_team_id(season)
-    most_tackles = team_total_tackles(season).max_by do |team_id, totaltackles|
-      totaltackles
-    end.first
+    team_total_tackles(season).max_by { |team_id, totaltackles| totaltackles }.first
   end
 
   def fewest_tackles_team_id(season)
-    fewest_tackles_team_id_tackles = team_total_tackles(season).min_by do |team_id, totaltackles|
-      totaltackles
-    end.first
+    team_total_tackles(season).min_by { |team_id, totaltackles| totaltackles }.first
   end
 end
