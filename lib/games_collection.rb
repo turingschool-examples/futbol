@@ -162,10 +162,6 @@ class GamesCollection
 
 
   def average_goals_scored_by_opposite_team
-#calculate the average goals scored ON each home/away team
-#goals scored against the other team
-#match up away team id with home team goals
-#match up home team it with away team goals
     id_associate= games.reduce({}) do |acc, game|
       if acc.has_key?(game.home_team_id) == false
         acc[game.home_team_id] = []
@@ -194,10 +190,6 @@ class GamesCollection
     worst_d = average_goals_scored_by_opposite_team.max_by { |team_id, goals| goals }
     worst_d.first
   end
-
-
-
-
 end
 
 # These methods each take a season id as an argument and return the values described below.
