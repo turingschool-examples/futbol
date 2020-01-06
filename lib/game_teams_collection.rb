@@ -59,8 +59,6 @@ class GameTeamsCollection
     end
   end
 
-<<<<<<< Updated upstream
-=======
   def home_games_only
     home_only = {}
     @game_teams_by_id.each do |team_id, games|
@@ -137,7 +135,6 @@ class GameTeamsCollection
     new.first
   end
 
->>>>>>> Stashed changes
   def percentage(numerator, denominator) #to-do: make Calculatable module
     return ((numerator.to_f / denominator) * 100).round(2)
   end
