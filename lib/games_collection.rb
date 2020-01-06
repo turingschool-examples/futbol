@@ -151,6 +151,23 @@ class GamesCollection
     end
   end
 
+  def worst_coach_name(season_id)
+    gamescollection = GamesCollection.new("./data/games.csv")
+    game_teams1 = create_game_teams("./data/game_teams.csv")
+    game_ids = gamescollection.winningest_coach_game_ids(season_id)
+    coach_to_results = game_ids.reduce({}) do |acc, gameid|
+      game_teams1.each do |gameteam|
+        if gameteam.game_id == gameid && acc[gameteam.head_coach] == nil
+          acc[gameteam.head_coach] = []
+          acc[gameteam.head_coach] << gameteam.result
+        elsif gameteam.game_id == gameid && acc[gameteam.head_coach] != nil
+          acc[gameteam.head_coach] << gameteam.result
+        end
+      end
+      end
+    acc
+  end
+
   def best_season(teamid)
     seasons_result = Hash.new {|hash, key| hash[key] = []}
     games.each do |game|
@@ -355,5 +372,4 @@ class GamesCollection
     worst_d = average_goals_scored_by_opposite_team.max_by { |team_id, goals| goals }
     worst_d.first
   end
-
 end

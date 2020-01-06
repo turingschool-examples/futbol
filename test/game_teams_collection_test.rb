@@ -70,7 +70,6 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_worst_coach_name
-    skip
     assert_equal "Ted Nolan", @game_teams_collection.worst_coach_name("20142015")
   end
 
