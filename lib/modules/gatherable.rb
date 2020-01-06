@@ -21,12 +21,45 @@ module Gatherable
     end
   end
 
-  def wins_by_team
-    @games.collection.inject(Hash.new(0)) do |wins, game|
+  def postseason_games_by_team
+    @games.collection.inject(Hash.new(0)) do |count, game|
+      if game[1].type == 'Postseason'
+        count[game[1].home_team_id] += 1
+        count[game[1].away_team_id] += 1
+      end
+      count
+    end
+  end
+
+  def regular_season_games_by_team
+    @games.collection.inject(Hash.new(0)) do |count, game|
+      if game[1].type == 'Regular Season'
+        count[game[1].home_team_id] += 1
+        count[game[1].away_team_id] += 1
+      end
+      count
+    end
+  end
+
+  def wins_by_team(collection)
+    collection.inject(Hash.new(0)) do |wins, game|
       if game[1].home_goals.to_i > game[1].away_goals.to_i
         wins[game[1].home_team_id] += 1
       else
         wins[game[1].away_team_id] += 1
+      end
+      wins
+    end
+  end
+
+  def season_wins_by_team(collection)
+    collection.inject(Hash.new(0)) do |wins, season|
+      if season.home_goals.to_i > season.away_goals.to_i
+        wins[season.home_team_id] += 1
+      end
+
+      if season.away_goals.to_i > season.home_goals.to_i
+        wins[season.away_team_id] += 1
       end
       wins
     end

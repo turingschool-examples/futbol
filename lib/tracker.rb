@@ -8,8 +8,11 @@ require_relative 'game_collection'
 require_relative 'team_collection'
 require_relative 'game_teams_collection'
 require_relative 'season_collection'
+require_relative './modules/calculateable'
 
 class Tracker
+  include Calculateable
+
   attr_reader :games,
               :teams,
               :seasons,
@@ -25,8 +28,10 @@ class Tracker
 
   def initialize(games, teams, game_teams)
     @games = GameCollection.new(games)
-    @teams = TeamCollection.new(teams)
-    @seasons = SeasonCollection.new(games)
     @game_teams = GameTeamsCollection.new(game_teams)
+    @teams = TeamCollection.new(teams)
+    combine_game_data
+    @seasons = SeasonCollection.new(games)
+    # combine_season_data
   end
 end
