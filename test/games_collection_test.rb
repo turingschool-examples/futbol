@@ -110,6 +110,9 @@ class GamesCollectionTest < Minitest::Test
     assert_equal "25", @gamescollection.rival_id("18")
   end
 
+  def test_biggest_team_blowout
+    assert_equal 2, @gamescollection.biggest_team_blowout("18")
+  end
 
 
 end

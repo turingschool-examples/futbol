@@ -309,11 +309,29 @@ class GamesCollection
     highest[0].to_s
   end
 
+  def biggest_team_blowout(teamid)
+
+    difference_array = games.reduce([]) do |acc, game|
+      if teamid.to_i == game.away_team_id && game.away_goals > game.home_goals
+        difference = game.away_goals - game.home_goals
+        acc << difference
+      elsif teamid.to_i == game.home_team_id && game.home_goals > game.away_goals
+        difference = game.home_goals - game.away_goals
+        acc << difference
+      end
+      acc
+    end
+
+    difference_array.max
+  end
+
+
+
 
 end
 
-# favorite_opponent	Name of the opponent that has the lowest win percentage against the given team.	String
-# expect(@stat_tracker.favorite_opponent("18")).to eq "DC United" 155
+# biggest_team_blowout	Biggest difference between team goals and opponent goals for a win for the given team.	Integer
+# expect(@stat_tracker.biggest_team_blowout("18")).to eq 5
 #
-# rival	Name of the opponent that has the highest win percentage against the given team.	String
-# expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy")) 159
+# worst_loss	Biggest difference between team goals and opponent goals for a loss for the given team.	Integer
+# expect(@stat_tracker.worst_loss("18")).to eq 4
