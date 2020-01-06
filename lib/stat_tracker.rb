@@ -73,43 +73,63 @@ class StatTracker
   end
 
   def best_offense
-    teams_collection.associate_team_id_with_team_name(games_collection.best_offence_id)
+    teams_collection.associate_team_id_with_team_name(games_collection.best_offense_id)
   end
 
   def worst_offense
-    teams_collection.associate_team_id_with_team_name(games_collection.worst_offence_id)
+    teams_collection.associate_team_id_with_team_name(games_collection.worst_offense_id)
+  end
+
+  def best_defense
+    teams_collection.associate_team_id_with_team_name(games_collection.best_defense_id)
+  end
+
+  def worst_defense
+    teams_collection.associate_team_id_with_team_name(games_collection.worst_defense_id)
   end
 
   def highest_scoring_visitor
-    teams_collection.associate_team_id_with_team_name(game_teams_collection.highest_scoring_visitor_id)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.highest_scoring_visitor)
   end
 
   def highest_scoring_home_team
-    teams_collection.associate_team_id_with_team_name(game_teams_collection.highest_scoring_home_team_id)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.highest_scoring_home_team)
   end
 
   def lowest_scoring_visitor
-    teams_collection.associate_team_id_with_team_name(game_teams_collection.lowest_scoring_visitor_id)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.lowest_scoring_visitor)
   end
 
   def lowest_scoring_home_team
-    teams_collection.associate_team_id_with_team_name(game_teams_collection.lowest_scoring_home_team_id)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.lowest_scoring_home_team)
   end
 
-  def biggest_bust(season_id)
-    teams_collection.associate_team_id_with_team_name(game_teams_collection.biggest_bust_id(season_id))
+  def winningest_team
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.winningest_team_id)
   end
 
-  def biggest_surprise(season_id)
-    teams_collection.associate_team_id_with_team_name(game_teams_collection.biggest_surprise_id(season_id))
+  def best_fans
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.best_fans_team_id)
   end
 
-  def winningest_coach(season_id)
-    game_teams_collection.winningest_coach_name(season_id)
+  def worst_fans
+    teams_collection.associate_multi_team_id_with_team_name(game_teams_collection.worst_fans_team_id)
   end
 
-  def worst_coach(season_id)
-    game_teams_collection.worst_coach_name(season_id)
+  def most_accurate_team(season)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.most_accurate_team_id(season))
   end
 
+  def least_accurate_team(season)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.least_accurate_team_id(season))
+  end
+
+  def most_tackles(season_id)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.most_tackles_team_id(season_id))
+  end
+
+  def fewest_tackles(season_id)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.fewest_tackles_team_id(season_id))
+  end
+  
 end

@@ -112,13 +112,13 @@ class GamesCollection
     end
   end
 
-  def best_offence_id
+  def best_offense_id
     avg_hash = team_id_to_avg
     highest_avg = avg_hash.max_by {|k, v| v}
     highest_avg[0]
   end
 
-  def worst_offence_id
+  def worst_offense_id
     avg_hash = team_id_to_avg
     lowest_avg = avg_hash.min_by {|k, v| v}
     lowest_avg[0]
@@ -149,6 +149,36 @@ class GamesCollection
       end
       acc
     end
+  end
+
+  def average_goals_scored_by_opposite_team
+    id_associate= games.reduce({}) do |acc, game|
+      if acc.has_key?(game.home_team_id) == false
+        acc[game.home_team_id] = []
+      end
+      acc[game.home_team_id] << game.away_goals.to_f.round(2)
+      if acc.has_key?(game.away_team_id) == false
+        acc[game.away_team_id] = []
+      end
+      acc[game.away_team_id] << game.home_goals.to_f.round(2)
+      acc
+    end
+    id_associate.reduce({}) do |acc, id_goals|
+      id = id_goals.first
+      goal_average = (id_goals.last.sum / id_goals.last.length).to_f.round(2)
+      acc[id] = [goal_average]
+      acc
+    end
+  end
+
+  def best_defense_id
+    best_d = average_goals_scored_by_opposite_team.min_by { |team_id, goals| goals }
+    best_d.first
+  end
+
+  def worst_defense_id
+    worst_d = average_goals_scored_by_opposite_team.max_by { |team_id, goals| goals }
+    worst_d.first
   end
 
 end

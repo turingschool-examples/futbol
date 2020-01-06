@@ -23,4 +23,11 @@ class TeamsCollection
     tname = @teams.find { |team| team.team_id == id }
     tname.teamname
   end
+
+  def associate_multi_team_id_with_team_name(id)
+    id.map do |x|
+      tname = @teams.find { |team| team.team_id == x }
+      tname.teamname
+    end
+  end
 end
