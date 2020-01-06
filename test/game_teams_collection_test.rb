@@ -32,19 +32,19 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_can_get_home_games_only
-    assert_equal 3, @game_teams_collection.home_games_only["26"].length
+    assert_equal 3, @game_teams_collection.home_games_only[26].length
   end
 
   def test_it_can_get_home_games_only_average
-    assert_equal 2.33, @game_teams_collection.home_games_only_average["26"]
+    assert_equal 2.33, @game_teams_collection.home_games_only_average[26]
   end
 
   def test_it_can_get_away_games_only
-    assert_equal 2, @game_teams_collection.away_games_only["26"].length
+    assert_equal 2, @game_teams_collection.away_games_only[26].length
   end
 
   def test_it_can_get_away_games_only_average
-    assert_equal 2.0, @game_teams_collection.away_games_only_average["26"]
+    assert_equal 2.0, @game_teams_collection.away_games_only_average[26]
   end
 
   def test_it_can_get_team_with_highest_average_score_for_away_games
