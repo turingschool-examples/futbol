@@ -59,6 +59,82 @@ class GameTeamsCollection
     end
   end
 
+  def home_games_only
+    home_only = {}
+    @game_teams_by_id.each do |team_id, games|
+      home_only[team_id] = games.find_all do |game|
+        game.hoa == "home"
+      end
+    end
+    home_only
+  end
+
+  def away_games_only
+    away_only = {}
+    @game_teams_by_id.each do |team_id, games|
+      away_only[team_id] = games.find_all do |game|
+        game.hoa == "away"
+      end
+    end
+    away_only
+  end
+
+  def home_games_only_average
+    home_only_average = {}
+    home_games_only.each do |game_id, games|
+    home_only_average[game_id] = (games.sum { |game| game.goals.to_i} / games.length.to_f).round(2)
+    end
+    home_only_average
+  end
+
+  def away_games_only_average
+    away_only_average = {}
+    away_games_only.each do |game_id, games|
+    away_only_average[game_id] = (games.sum { |game| game.goals.to_i} / games.length.to_f).round(2)
+    end
+    away_only_average
+  end
+
+  def highest_scoring_home_team
+    new = []
+    home_games_only_average.each do |game_id, average|
+      if average == home_games_only_average.values.max
+      new << game_id.to_i
+      end
+    end
+    new
+  end
+
+  def lowest_scoring_home_team
+    new = []
+    home_games_only_average.each do |game_id, average|
+      if average == home_games_only_average.values.min
+      new << game_id.to_i
+      end
+    end
+    new
+  end
+
+  def highest_scoring_visitor
+    new = []
+    away_games_only_average.each do |game_id, average|
+      if average == away_games_only_average.values.max
+      new << game_id.to_i
+      end
+    end
+    new
+  end
+
+  def lowest_scoring_visitor
+    new = []
+    away_games_only_average.each do |game_id, average|
+      if average == away_games_only_average.values.min
+      new << game_id.to_i
+      end
+    end
+    new
+  end
+
   def percentage(numerator, denominator) #to-do: make Calculatable module
     return ((numerator.to_f / denominator) * 100).round(2)
   end
