@@ -121,5 +121,4 @@ class GameTeamsStats
     worst_fan_teams = hoa_diffs.find_all { |key, value| value < 0 }
     worst_fan_teams.map { |element| element[0] }
   end
-
 end

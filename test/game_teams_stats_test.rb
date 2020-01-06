@@ -81,7 +81,4 @@ class GameTeamsStatsTest < Minitest::Test
     expected = [16, 14, 5, 28, 26, 19]
     assert_equal expected, @game_teams_stats.worst_fans_ids
   end
-
-
-
 end
