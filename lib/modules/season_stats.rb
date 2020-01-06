@@ -6,23 +6,9 @@ module SeasonStats
   include Gatherable
 
   def biggest_bust(season_id)
-    # in: season_id
-    # out: team_id
-    # team_win_percentage(wins_by_team(@seasons.teams[season_id]))
-    #     team_win_percentage(postseason_games_by_team)
-    #     team_win_percentage(regular_season_games_by_team)
-
-    # @seasons.teams.reduce({}) do |hash, season|
-    #   require 'pry'; binding.pry
-
-    #   season(season_id)
-    # end
-    # get_team_name_by_id(team_id)
-  end
-
-  def winningest_coach(season_id)
-    total_games = total_season_games_team_id(season_id)
+    regular = team_regular_season_record(season_id)
+    post = team_postseason_record(season_id)
+    biggest_difference = win_percentage_difference(regular, post)
     require 'pry'; binding.pry
-    record = total_season_wins_losses_team_id(season_id)
   end
 end
