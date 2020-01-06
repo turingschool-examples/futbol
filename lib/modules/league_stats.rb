@@ -64,10 +64,20 @@ module LeagueStats
   end
 
   def best_fans
-    # logic
+    team_home_avg = team_away_average_wins(home_wins_by_team)
+    team_away_avg = team_away_average_wins(away_wins_by_team)
+    difference = league_win_percent_diff(team_home_avg, team_away_avg)
+
+    team_id = difference.max_by { |_id, diff| diff }[0]
+
+    get_team_name_by_id(team_id)
   end
 
   def worst_fans
-    # logic
+    team_home_avg = team_away_average_wins(home_wins_by_team)
+    team_away_avg = team_away_average_wins(away_wins_by_team)
+    difference = worst_team_helper(team_home_avg, team_away_avg)
+
+    difference.keys.map { |team_id| get_team_name_by_id(team_id) }
   end
 end

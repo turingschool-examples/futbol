@@ -21,12 +21,23 @@ module Calculateable
     average_wins
   end
 
+  def season_coach_win_percent(wins_hash, season_id)
+    average_wins = {}
+    wins_hash.each do |coach, tot_wins|
+      if season_games_by_coach(season_id)[coach] == 0
+        average_wins[coach] = nil
+      else
+        average_wins[coach] = (tot_wins.to_f / season_games_by_coach(season_id)[coach])
+      end
+    end
+    average_wins
+  end
+
   def team_postseason_win_percent(wins_hash)
     average_wins = {}
     wins_hash.each do |team, tot_wins|
       average_wins[team] = (tot_wins.to_f / postseason_games_by_team[team])
     end
-
     average_wins
   end
 
@@ -35,7 +46,6 @@ module Calculateable
     wins_hash.each do |team, tot_wins|
       average_wins[team] = (tot_wins.to_f / home_games_by_team[team])
     end
-
     average_wins
   end
 
@@ -44,7 +54,6 @@ module Calculateable
     wins_hash.each do |team, tot_wins|
       average_wins[team] = (tot_wins.to_f / away_games_by_team[team])
     end
-
     average_wins
   end
 
@@ -73,18 +82,21 @@ module Calculateable
 
   def create_season
     @games.collection.reduce(Hash.new({})) do |hash, game|
-      require 'pry'; binding.pry
       h_team_id = game[1].home_team_id
       a_team_id = game[1].away_team_id
       season = game[1].season
       hash = { h_team_id => { season => [] } } if hash.empty?
       hash = { h_team_id => { season => [] } } if hash[h_team_id].nil?
       hash = { h_team_id => { season => [] } } if hash[h_team_id][season].nil?
-      require 'pry'; binding.pry
       hash[h_team_id] = { season => (hash[h_team_id][season] += [game[1]]) }
       # season_hash[team_id] = { row[:season] => (season_hash[team_id][row[:season]] += [collection_type.new(row)]) }
-      require 'pry'; binding.pry
       hash
+    end
+  end
+
+  def league_win_percent_diff(home, away)
+    home.inject(Hash.new(0)) do |hash, team|
+      hash[team[0]] = (team[1] - away[team[0]]).abs.round(2)
     end
   end
 
@@ -102,6 +114,15 @@ module Calculateable
       next(hash) if team[1][:win_percentage].nan?
 
       hash[team[0]] = (team[1][:win_percentage] - regular[team[0]][:win_percentage]).round(2)
+      hash
+    end
+  end
+
+  def worst_team_helper(home, away)
+    home.inject(Hash.new(0)) do |hash, team|
+      if away[team[0]] > team[1]
+        hash[team[0]] = (team[1] - away[team[0]]).abs.round(2)
+      end
       hash
     end
   end

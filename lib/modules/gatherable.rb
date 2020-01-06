@@ -21,6 +21,17 @@ module Gatherable
     end
   end
 
+  def wins_by_team(collection)
+    collection.inject(Hash.new(0)) do |wins, game|
+      if game[1].home_goals.to_i > game[1].away_goals.to_i
+        wins[game[1].home_team_id] += 1
+      elsif game[1].away_goals.to_i > game[1].home_goals.to_i
+        wins[game[1].away_team_id] += 1
+      end
+      wins
+    end
+  end
+
   def postseason_games_by_team
     @games.collection.inject(Hash.new(0)) do |count, game|
       if game[1].type == 'Postseason'
@@ -41,25 +52,38 @@ module Gatherable
     end
   end
 
-  def wins_by_team(collection)
-    collection.inject(Hash.new(0)) do |wins, game|
-      if game[1].home_goals.to_i > game[1].away_goals.to_i
-        wins[game[1].home_team_id] += 1
-      else
-        wins[game[1].away_team_id] += 1
+  def games_by_season(season_id)
+    @games.collection.inject(Hash.new(0)) do |count, game|
+      if game[1].season == season_id
+        count[game[1].home_team_id] += 1
+        count[game[1].away_team_id] += 1
       end
-      wins
+      count
     end
   end
 
-  def season_wins_by_team(collection)
-    collection.inject(Hash.new(0)) do |wins, season|
-      if season.home_goals.to_i > season.away_goals.to_i
-        wins[season.home_team_id] += 1
+  def season_games_by_coach(season_id)
+    @games.collection.inject(Hash.new(0)) do |count, game|
+      if game[1].season == season_id
+        count[game[1].home_coach] += 1
+        count[game[1].away_coach] += 1
+      else
+        count[game[1].home_coach] += 0
+        count[game[1].away_coach] += 0
       end
+      count
+    end
+  end
 
-      if season.away_goals.to_i > season.home_goals.to_i
-        wins[season.away_team_id] += 1
+  def season_wins_by_coach(season_id)
+    @games.collection.inject(Hash.new(0)) do |wins, game|
+      if game[1].season == season_id && game[1].home_goals.to_i > game[1].away_goals.to_i
+        wins[game[1].home_coach] += 1
+      elsif game[1].season == season_id && game[1].away_goals.to_i > game[1].home_goals.to_i
+        wins[game[1].away_coach] += 1
+      else
+        wins[game[1].home_coach] += 0
+        wins[game[1].away_coach] += 0
       end
       wins
     end
