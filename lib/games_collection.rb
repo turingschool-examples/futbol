@@ -151,6 +151,181 @@ class GamesCollection
     end
   end
 
+  def best_season(teamid)
+    seasons_result = Hash.new {|hash, key| hash[key] = []}
+    games.each do |game|
+      if teamid.to_i == game.away_team_id
+        result = "WIN" if game.away_goals > game.home_goals
+        result = "LOSS" if game.away_goals < game.home_goals
+        result = "TIE" if game.away_goals == game.home_goals
+        seasons_result[game.season] << result
+
+      elsif teamid.to_i == game.home_team_id
+        result = "WIN" if game.home_goals > game.away_goals
+        result = "LOSS" if game.home_goals < game.away_goals
+        result = "TIE" if game.home_goals == game.away_goals
+        "LOSS" if game.home_goals < game.away_goals
+        seasons_result[game.season] << result
+      end
+    end
+    seasons_to_winpercent = seasons_result.reduce({}) do |acc, (key, value)|
+      avg = value.count("WIN") / value.length.to_f
+      acc[key] = avg
+      acc
+    end
+    top_season = seasons_to_winpercent.max_by {|seasonid, winpercentage| winpercentage}
+    top_season[0]
+  end
+
+  def worst_season(teamid)
+    seasons_result = Hash.new {|hash, key| hash[key] = []}
+    games.each do |game|
+      if teamid.to_i == game.away_team_id
+        result = "WIN" if game.away_goals > game.home_goals
+        result = "LOSS" if game.away_goals < game.home_goals
+        result = "TIE" if game.away_goals == game.home_goals
+        seasons_result[game.season] << result
+
+      elsif teamid.to_i == game.home_team_id
+        result = "WIN" if game.home_goals > game.away_goals
+        result = "LOSS" if game.home_goals < game.away_goals
+        result = "TIE" if game.home_goals == game.away_goals
+        "LOSS" if game.home_goals < game.away_goals
+        seasons_result[game.season] << result
+      end
+    end
+    seasons_to_winpercent = seasons_result.reduce({}) do |acc, (key, value)|
+      avg = value.count("WIN") / value.length.to_f
+      acc[key] = avg
+      acc
+    end
+    bottom_season = seasons_to_winpercent.min_by {|seasonid, winpercentage| winpercentage}
+    bottom_season[0]
+  end
+
+  def average_win_percentage(teamid)
+    results = []
+    games.each do |game|
+      if teamid.to_i == game.away_team_id
+        result = "WIN" if game.away_goals > game.home_goals
+        result = "LOSS" if game.away_goals < game.home_goals
+        result = "TIE" if game.away_goals == game.home_goals
+        results << result
+
+      elsif teamid.to_i == game.home_team_id
+        result = "WIN" if game.home_goals > game.away_goals
+        result = "LOSS" if game.home_goals < game.away_goals
+        result = "TIE" if game.home_goals == game.away_goals
+        "LOSS" if game.home_goals < game.away_goals
+        results << result
+      end
+    end
+    avg = results.count("WIN") / results.length.to_f
+    avg.round(2)
+  end
+
+  def most_goals_scored(teamid)
+    game_to_goals = games.reduce({}) do |acc, game|
+      if teamid.to_i == game.away_team_id
+        acc[game.game_id] = game.away_goals
+      elsif teamid.to_i == game.home_team_id
+        acc[game.game_id] = game.home_goals
+      end
+      acc
+    end
+
+    most_goals = game_to_goals.max_by {|gameid, goals| goals}
+    most_goals[1]
+  end
+
+  def fewest_goals_scored(teamid)
+    game_to_goals = games.reduce({}) do |acc, game|
+      if teamid.to_i == game.away_team_id
+        acc[game.game_id] = game.away_goals
+      elsif teamid.to_i == game.home_team_id
+        acc[game.game_id] = game.home_goals
+      end
+      acc
+    end
+
+    fewest_goals = game_to_goals.min_by {|gameid, goals| goals}
+    fewest_goals[1]
+  end
+
+  def favorite_opponent_id(teamid)
+    opponentid_results = Hash.new {|hash, key| hash[key] = []}
+
+    games.each do |game|
+      if teamid.to_i == game.away_team_id
+        result = "WIN" if game.home_goals > game.away_goals
+        result = "LOSS" if game.home_goals < game.away_goals
+        result = "TIE" if game.home_goals == game.away_goals
+        opponentid_results[game.home_team_id] << result
+
+      elsif teamid.to_i == game.home_team_id
+        result = "WIN" if game.away_goals > game.home_goals
+        result = "LOSS" if game.away_goals < game.home_goals
+        result = "TIE" if game.away_goals == game.home_goals
+        opponentid_results[game.away_team_id] << result
+
+      end
+    end
+
+    opponentid_winpercent = opponentid_results.reduce({}) do |acc, (key, value)|
+      avg = value.count("WIN") / value.length.to_f
+      acc[key] = avg
+      acc
+    end
+
+    lowest = opponentid_winpercent.min_by {|id, winpercentage| winpercentage}
+    lowest[0].to_s
+  end
+
+  def rival_id(teamid)
+    opponentid_results = Hash.new {|hash, key| hash[key] = []}
+
+    games.each do |game|
+      if teamid.to_i == game.away_team_id
+        result = "WIN" if game.home_goals > game.away_goals
+        result = "LOSS" if game.home_goals < game.away_goals
+        result = "TIE" if game.home_goals == game.away_goals
+        opponentid_results[game.home_team_id] << result
+
+      elsif teamid.to_i == game.home_team_id
+        result = "WIN" if game.away_goals > game.home_goals
+        result = "LOSS" if game.away_goals < game.home_goals
+        result = "TIE" if game.away_goals == game.home_goals
+        opponentid_results[game.away_team_id] << result
+
+      end
+    end
+
+    opponentid_winpercent = opponentid_results.reduce({}) do |acc, (key, value)|
+      avg = value.count("WIN") / value.length.to_f
+      acc[key] = avg
+      acc
+    end
+
+    highest = opponentid_winpercent.max_by {|id, winpercentage| winpercentage}
+    highest[0].to_s
+  end
+
+  def biggest_team_blowout(teamid)
+
+    difference_array = games.reduce([]) do |acc, game|
+      if teamid.to_i == game.away_team_id && game.away_goals > game.home_goals
+        difference = game.away_goals - game.home_goals
+        acc << difference
+      elsif teamid.to_i == game.home_team_id && game.home_goals > game.away_goals
+        difference = game.home_goals - game.away_goals
+        acc << difference
+      end
+      acc
+    end
+
+    difference_array.max
+  end
+
   def average_goals_scored_by_opposite_team
     id_associate= games.reduce({}) do |acc, game|
       if acc.has_key?(game.home_team_id) == false

@@ -71,4 +71,40 @@ class StatTrackerTest < Minitest::Test
     assert_equal "New York City FC", @stat_tracker.least_accurate_team("20142015")
   end
 
+  def test_team_info
+    expected = {"team_id"=>"7", "franchise_id"=>"19", "team_name"=>"Utah Royals FC",
+      "abbreviation"=>"URF", "link"=>"/api/v1/teams/7"}
+
+    assert_equal expected, @stat_tracker.team_info("7")
+  end
+
+  def test_best_season
+    assert_equal "20122013", @stat_tracker.best_season("6")
+  end
+
+  def test_worst_season
+    assert_equal "20122013", @stat_tracker.worst_season("6")
+  end
+
+  def test_average_win_percentage
+    assert_equal 1.0, @stat_tracker.average_win_percentage("6")
+  end
+
+  def test_most_goals_scored
+    assert_equal 3, @stat_tracker.most_goals_scored("18")
+  end
+
+  def test_fewest_goals_scored
+    assert_equal 1, @stat_tracker.fewest_goals_scored("18")
+  end
+
+  def test_favorite_opponent
+    assert_equal "Orlando City SC", @stat_tracker.favorite_opponent("18")
+  end
+
+  def test_rival
+    assert_equal "Chicago Red Stars", @stat_tracker.rival("18")
+  end
+
+
 end
