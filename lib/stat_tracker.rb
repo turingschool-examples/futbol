@@ -676,4 +676,54 @@ end
     end.teamname
   end
 
+  def seasonal_summary(team_id)
+    summary_object = @game_teams.find do |game|
+      game.team_id.to_s == team_id
+    end
+    summary = {:regular_season => {:win_percentage => 0,
+                                          :total_goals_scored => 0,
+                                          :total_goals_against => 0,
+                                          :average_goals_scored => 0,
+                                          :average_goals_against => 0},
+              :postseason => {:win_percentage => 0,
+                                      :total_goals_scored => 0,
+                                      :total_goals_against => 0,
+                                      :average_goals_scored => 0,
+                                      :average_goals_against => 0 }}
+      calculation = {"Regular Season" => {:total_games => 0,
+                                        :total_goals_scored => 0,
+                                        :total_goals_against=> 0,
+                                        :wins => 0},
+                    "Postseason" => {:total_games => 0,
+                                    :total_goals_scored => 0,
+                                    :total_goals_against => 0,
+                                    :wins => 0}}
+      @games.reduce({}) do |acc, game|
+        require "pry"; binding.pry
+        if team_id == game.away_team_id.to_s
+          
+          calculation[game.type][:total_games] += 1
+          calculation[game.type][:total_goals_scored] += game.away_goals
+          calculation[game.type][:total_goals_against] += game.home_goals
+          calculation[game.type][:wins] += 1 if game.away_goals > game.home_goals
+        elsif team_id == game.home_team_id.to_s
+          calculation[game.type][:total_games] += 1
+          calculation[game.type][:total_goals_scored] += game.home_goals
+          calculation[game.type][:total_goals_against] += game.away_goals
+          calculation[game.type][:wins] += 1 if game.home_goals > game.away_goals
+        end
+        acc
+      end
+      summary[:regular_season][:total_goals_scored] = calculation["Regular Season"][:total_goals_scored]
+      summary[:postseason][:total_goals_scored] = calculation["Postseason"][:total_goals_scored]
+      summary[:regular_season][:total_goals_against] = calculation["Regular Season"][:total_goals_against]
+      summary[:postseason][:total_goals_against] = calculation["Postseason"][:total_goals_against]
+      summary[:regular_season][:average_goals_scored] = calculation["Regular Season"][:total_goals_scored]/calculation["Regular Season"][:total_games].to_f
+      summary[:postseason][:average_goals_scored] = calculation["Postseason"][:total_goals_scored]/calculation["Postseason"][:total_games].to_f
+      summary[:regular_season][:average_goals_against] = calculation["Regular Season"][:total_goals_against]/calculation["Regular Season"][:total_games].to_f
+      summary[:postseason][:average_goals_against] = calculation["Postseason"][:total_goals_against]/calculation["Postseason"][:total_games].to_f
+      summary[:regular_season][:win_percentage] = (calculation["Regular Season"][:wins]/calculation["Regular Season"][:total_games].to_f) * 100
+      summary[:postseason][:win_percentage] = (calculation["Postseason"][:wins]/calculation["Postseason"][:total_games].to_f) * 100
+
+  end
 end

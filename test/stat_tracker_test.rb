@@ -159,4 +159,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal 0.73, @stat_tracker.average_win_percentage("16")
   end
 
+  def test_seasonal_summary
+    assert_equal ({}), @stat_tracker.seasonal_summary("15")
+  end
 end

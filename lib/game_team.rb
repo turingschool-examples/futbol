@@ -102,5 +102,4 @@ class GameTeam
 
     (games_won.length / total_games.length.to_f).round(2)
   end
-
 end
