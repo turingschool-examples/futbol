@@ -6,8 +6,9 @@ require_relative 'data_objects/incremental_average'
 class Defense
 
   def self.best_defense
+# FC Cincinnati 26
     hash = add_goals_to_opposing_team()
-
+# require "pry"; binding.pry
     current_min_team_id = ""
     current_min_avg = -1
     hash.map do |team_id, avg|
@@ -22,6 +23,7 @@ class Defense
   end
 
   def self.worst_defense
+    # Columbus Crew SC 53
     hash = add_goals_to_opposing_team()
 
     current_max_team_id = ""
@@ -38,13 +40,12 @@ class Defense
   def self.add_goals_to_opposing_team
     hash = {}
     GameTeam.all_game_teams.map do |game_team|
-      require "pry"; binding.pry
-      if game_team.game_id == game_team.game_id
-        hash[game_team.game_id] = [winning_team(game_team.game_id), losing_team(game_team.game_id)]
-      end
+      hash[game_team.game_id] = [winning_team(game_team.game_id), losing_team(game_team.game_id)]
+      # puts "Hi I'm a string " + winning_team("2012030121").to_s
     end
     new_hash = {}
     hash.map do |key, value|
+      # require "pry"; binding.pry
       winning_team_id = value[0].keys.pop
       winning_team_goals = value[1].values.pop.to_f
       losing_team_id = value[1].keys.pop
@@ -60,32 +61,38 @@ class Defense
         else
           new_hash[losing_team_id] = IncrementalAverage.new(winning_team_goals)
         end
+        # require "pry"; binding.pry
       end
       new_hash
   end
 
   def self.winning_team(game_id)
-    hash = {}
-    GameTeam.all_game_teams.map do |game_team|
-      if (game_team.result == "WIN")  && (game_team.game_id == game_id)
-        hash[game_team.team_id] = game_team.goals
-      else (game_team.result == "TIE") && (game_team.hoa == "home") && (game_team.game_id == game_id)
-        hash[game_team.team_id] = game_team.goals
-      end
+    win_hash = {}
+    y = GameTeam.all_game_teams.find do |game_team|
+      # require "pry"; binding.pry
+      game_team.game_id == game_id && (game_team.result == "WIN" || (game_team.result == "TIE" && game_team.hoa == "home"))
+      # if (game_team.result == "WIN")  && (game_team.game_id == game_id)
+      #     win_hash[game_team.team_id] = game_team.goals
+      # else (game_team.result == "TIE") && (game_team.hoa == "home") && (game_team.game_id == game_id)
+      #     win_hash[game_team.team_id] = game_team.goals
+      # end
     end
-    hash
+    win_hash[y.team_id] = y.goals
+    win_hash
   end
 
   def self.losing_team(game_id)
-    hash = {}
-    GameTeam.all_game_teams.map do |game_team|
-      if (game_team.result == "LOSS") && (game_team.game_id == game_id)
-        hash[game_team.team_id] = game_team.goals
-      else (game_team.result == "TIE") && (game_team.hoa == "away") && (game_team.game_id == game_id)
-        hash[game_team.team_id] = game_team.goals
-      end
+    lose_hash = {}
+    x = GameTeam.all_game_teams.find do |game_team|
+      game_team.game_id == game_id && (game_team.result == "LOSS" || (game_team.result == "TIE" && game_team.hoa == "away"))
+      # if (game_team.result == "LOSS") && (game_team.game_id == game_id)
+      #     lose_hash[game_team.team_id] = game_team.goals
+      # else (game_team.result == "TIE") && (game_team.hoa == "away") && (game_team.game_id == game_id)
+      #     lose_hash[game_team.team_id] = game_team.goals
+      # end
     end
-    hash
+    lose_hash[x.team_id] = x.goals
+    lose_hash
   end
 
   def self.get_team_name_from_id(team_id)
