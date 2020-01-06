@@ -680,6 +680,40 @@ end
     end.teamname
   end
 
+  def worst_loss(team_id)
+    needed_game_ids = []
+    @game_teams.find_all do |game_team|
+      if game_team.team_id.to_s == team_id && game_team.result == "LOSS"
+        needed_game_ids << game_team.game_id
+      end
+    end
+
+    all_abs_vals = []
+    @games.each do |game|
+      if needed_game_ids.include?(game.game_id)
+        all_abs_vals << (game.home_goals - game.away_goals).abs
+      end
+    end
+    all_abs_vals.max
+  end
+
+  def biggest_team_blowout(team_id)
+    needed_game_ids = []
+    @game_teams.find_all do |game_team|
+      if game_team.team_id.to_s == team_id && game_team.result == "WIN"
+          needed_game_ids << game_team.game_id
+      end
+    end
+
+    all_abs_vals = []
+    @games.each do |game|
+      if needed_game_ids.include?(game.game_id)
+        all_abs_vals << (game.home_goals - game.away_goals).abs
+      end
+    end
+    all_abs_vals.max
+  end
+
   def best_season(team_id)
     all_seasons = @games.reduce({}) do |acc, game|
       if acc[game.season] == nil
@@ -703,7 +737,7 @@ end
 
     all_seasons.max_by do |key, value|
       value[:wins].to_f / value[:games]
-  end[0]
+    end[0]
   end
 
   def worst_season(team_id)
@@ -729,6 +763,6 @@ end
 
     all_seasons.min_by do |key, value|
       value[:wins].to_f / value[:games]
-  end[0]
+    end[0]
   end
 end
