@@ -42,6 +42,20 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal true, season_2017.all? {|game| game.game_id.to_s[0..3]}
   end
 
+  def test_biggest_bust_id
+    stat_tracker = StatTracker.new("./data/games.csv", "./data/teams.csv", "./data/game_teams.csv")
+    game_teams_collection = GameTeamsCollection.new(stat_tracker.game_teams_path)
+
+    assert_equal 23, game_teams_collection.biggest_bust_id("20132014")
+  end
+
+  def test_biggest_surprise_id
+    stat_tracker = StatTracker.new("./data/games.csv", "./data/teams.csv", "./data/game_teams.csv")
+    game_teams_collection = GameTeamsCollection.new(stat_tracker.game_teams_path)
+
+    assert_equal 26, game_teams_collection.biggest_surprise_id("20132014")
+  end
+
   def test_least_accurate_team
     assert_equal 15, @game_teams_collection.least_accurate_team_id("20122013")
     assert_equal 9, @game_teams_collection.least_accurate_team_id("20142015")
@@ -53,6 +67,10 @@ class GameTeamsCollectionTest < Minitest::Test
 
   def test_most_tackles_team_id
     assert_equal 9, @game_teams_collection.most_tackles_team_id("20142015")
+  end
+
+  def test_worst_coach_name
+    assert_equal "Ted Nolan", @game_teams_collection.worst_coach_name("20142015")
   end
 
   def test_fewest_tackles_team_id
