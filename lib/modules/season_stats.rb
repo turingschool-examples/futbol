@@ -9,10 +9,7 @@ module SeasonStats
     regular = team_regular_season_record(season_id)
     post = team_postseason_record(season_id)
     biggest_difference = win_percentage_difference(regular, post)
-<<<<<<< HEAD
-=======
     require 'pry'; binding.pry
->>>>>>> 582e414e958f63f04fb25a947e1d967d9c2589fc
     team_id = biggest_difference.max_by { |_k, v| v }[0]
     get_team_name_by_id(team_id)
   end
@@ -25,14 +22,14 @@ module SeasonStats
     get_team_name_by_id(team_id)
   end
 
-<<<<<<< HEAD
   def winningest_coach(season_id)
     season_coach_win_percent(season_wins_by_coach(season_id), season_id).compact.max_by { |_id, avg| avg }[0]
   end
 
   def worst_coach(season_id)
     season_coach_win_percent(season_wins_by_coach(season_id), season_id).compact.min_by { |_id, avg| avg }[0]
-=======
+  end
+
   def total_season_games_team_id(season_id)
     @seasons.teams.reduce({}) do |hash, season|
       hash[season.first] = season[1][season_id].size
@@ -157,6 +154,5 @@ module SeasonStats
       hash = record
       hash
     end
->>>>>>> 582e414e958f63f04fb25a947e1d967d9c2589fc
   end
 end
