@@ -124,4 +124,8 @@ class StatTracker
     games_collection.worst_season(teamid)
   end
 
+  def average_win_percentage(teamid)
+    games_collection.average_win_percentage(teamid)
+  end
+
 end

@@ -202,5 +202,29 @@ class GamesCollection
     bottom_season[0]
   end
 
+  def average_win_percentage(teamid)
+    results = []
+    games.each do |game|
+      if teamid.to_i == game.away_team_id
+        result = "WIN" if game.away_goals > game.home_goals
+        result = "LOSS" if game.away_goals < game.home_goals
+        result = "TIE" if game.away_goals == game.home_goals
+        results << result
+
+      elsif teamid.to_i == game.home_team_id
+        result = "WIN" if game.home_goals > game.away_goals
+        result = "LOSS" if game.home_goals < game.away_goals
+        result = "TIE" if game.home_goals == game.away_goals
+        "LOSS" if game.home_goals < game.away_goals
+        results << result
+      end
+    end
+    avg = results.count("WIN") / results.length.to_f
+    avg.round(2)
+  end
+
 
 end
+# expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
+
+# average_win_percentage	Average win percentage of all games for a team.	Float

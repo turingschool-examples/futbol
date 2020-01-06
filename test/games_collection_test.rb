@@ -90,6 +90,10 @@ class GamesCollectionTest < Minitest::Test
     assert_equal "20122013", @gamescollection.worst_season("6")
   end
 
+  def test_average_win_percentage
+    assert_equal 1.0, @gamescollection.average_win_percentage("6")
+  end
+
 
 
 end
