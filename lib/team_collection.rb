@@ -14,6 +14,10 @@ class TeamCollection
     load_from_csv(file_path, Team)
   end
 
+  def number_of_teams
+    @teams_array.length
+  end 
+
   def team_name_by_id(team_id)
     @teams_array.find {|team| team.team_id == team_id}.team_name
   end
