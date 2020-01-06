@@ -1,12 +1,11 @@
 require 'csv'
-require_relative 'game_team' #what's the need for inheritance when you can
-#access methods through require (instructor/mod2 support)
+require_relative 'game_team' 
 require_relative 'csvloadable'
 require_relative 'games_collection'
 require_relative 'create_objects'
 
 
-class GameTeamsCollection #< StatTracker
+class GameTeamsCollection
   include CsvLoadable
   include CreateObjects
 
@@ -295,7 +294,3 @@ class GameTeamsCollection #< StatTracker
 
 
 end
-
-
-# winningest_coach	Name of the Coach with the best win percentage for
-# the season	String
