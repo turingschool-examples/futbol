@@ -41,7 +41,8 @@ class GameTeamsCollectionTest < Minitest::Test
 
   def test_fewest_tackles_team_id
     assert_equal 16, @game_teams_collection.fewest_tackles_team_id("20142015")
-
+  end
+  
   def test_highest_scoring_visitor
     assert_equal 5, @game_teams_collection.highest_scoring_visitor
   end
@@ -57,5 +58,4 @@ class GameTeamsCollectionTest < Minitest::Test
   def test_lowest_scoring_home_team
     assert_equal 9, @game_teams_collection.lowest_scoring_home_team
   end
-    
 end

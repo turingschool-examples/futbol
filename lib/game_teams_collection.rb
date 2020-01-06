@@ -203,5 +203,4 @@ class GameTeamsCollection #< StatTracker
   def fewest_tackles_team_id(season)
     team_total_tackles(season).min_by { |team_id, totaltackles| totaltackles }.first
   end
-
 end
