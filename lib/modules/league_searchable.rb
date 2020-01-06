@@ -8,8 +8,8 @@ module LeagueSearchable
         def games_between_teams(id, opp_id)
                 games_to_return = []
                 Game.all.each do |game|
-                                if (game.home_team_id == id || game.away_team>
-                                        if (game.home_team_id == opp_id || ga>
+                                if (game.home_team_id == id || game.away_team_id == id)
+                                        if (game.home_team_id == opp_id || game.away_team_id == opp_id)
                                                 games_to_return << game
                                         end
                                 end
@@ -45,7 +45,6 @@ module LeagueSearchable
                 loop_teams.delete(id)
                 games_to_return = []
                 loop_teams.map do |opp_team|
-                        binding.pry
                         games_to_return << games_between_teams(id, opp_team)
                 end
                 games_to_return.reject(&:empty?)
@@ -63,13 +62,13 @@ module LeagueSearchable
 		all_games = games_for_team(id)
 		all_games_by_team = organize_by_team(all_games)
 		wins_by_team = convert_to_wins(all_games_by_team)
-		win_percent_by_opp(wins_by_team)
-		win_percent_by_opp.key(win_percent_by_opp.values.min {|win_percent| win_percent.round(4)})
+		win_percent_per_opp = win_percent_by_opp(wins_by_team)
+		win_percent_per_opp.key(win_percent_per_opp.values.min {|win_percent| win_percent.round(4)})
 	end
 
 	def organize_by_team(games)
-		games.reduce({}) do |total, game|
-			if total[game[0]].empty?
+		games.flatten(1).reduce({}) do |total, game|
+			if total[game[0]] == nil
 				total[game[0]] = [game[1,2]]
 				total
 			else

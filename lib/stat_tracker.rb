@@ -1,11 +1,13 @@
 require_relative "./league"
 require_relative './modules/team_searchable'
 require_relative './modules/game_searchable'
+require_relative './modules/league_searchable'
+
 
 class StatTracker < League
   include TeamSearchable
   include GameSearchable
-
+	include LeagueSearchable
 
 	def count_of_games_by_season
 		games_by_season = {}

@@ -46,7 +46,6 @@ class TeamTest < MiniTest::Test
     fake_home_games = [game3, game4]
 
     @team.stubs(:away_games => fake_away_games, :home_games => fake_home_games)
-	binding.pry
   end
 
   def teardown
