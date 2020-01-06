@@ -713,4 +713,56 @@ end
     end
     all_abs_vals.max
   end
+
+  def best_season(team_id)
+    all_seasons = @games.reduce({}) do |acc, game|
+      if acc[game.season] == nil
+        acc[game.season] = {game_ids: [], wins: 0, games: 0}
+      end
+      acc[game.season][:game_ids] << game.game_id
+      acc
+    end
+
+    @game_teams.each do |game_team|
+      season = all_seasons.find do |key, value|
+        value[:game_ids].include?(game_team.game_id)
+      end
+      season[1][:games] += 1 if game_team.team_id.to_s == team_id
+      season[1][:wins] += 1 if game_team.result == "WIN" && game_team.team_id.to_s == team_id
+    end
+
+    all_seasons = all_seasons.reject do |key, value|
+      value[:games] == 0
+    end
+
+    all_seasons.max_by do |key, value|
+      value[:wins].to_f / value[:games]
+    end[0]
+  end
+
+  def worst_season(team_id)
+    all_seasons = @games.reduce({}) do |acc, game|
+      if acc[game.season] == nil
+        acc[game.season] = {game_ids: [], wins: 0, games: 0}
+      end
+      acc[game.season][:game_ids] << game.game_id
+      acc
+    end
+
+    @game_teams.each do |game_team|
+      season = all_seasons.find do |key, value|
+        value[:game_ids].include?(game_team.game_id)
+      end
+      season[1][:games] += 1 if game_team.team_id.to_s == team_id
+      season[1][:wins] += 1 if game_team.result == "WIN" && game_team.team_id.to_s == team_id
+    end
+
+    all_seasons = all_seasons.reject do |key, value|
+      value[:games] == 0
+    end
+
+    all_seasons.min_by do |key, value|
+      value[:wins].to_f / value[:games]
+    end[0]
+  end
 end
