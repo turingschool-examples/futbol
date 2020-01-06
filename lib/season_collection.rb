@@ -8,8 +8,8 @@ class SeasonCollection < Collection
   attr_reader :teams
 
   def initialize(csv_file_path)
-    super(csv_file_path, Season)
-    @teams = create_team_collection(csv_file_path, Season)
+    super(csv_file_path, Game)
+    @teams = create_team_collection(csv_file_path, Game)
   end
 
   def create_collection(csv_file_path, collection_type)
