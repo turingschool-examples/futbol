@@ -77,13 +77,11 @@ class GameTeamsCollection
 
   def season_by_team(season)
     games_by_season = all_games_by_season(season)
-    games_by_season.group_by do |game|
-      game.team_id
-    end
+    games_by_season.group_by { |game| game.team_id }
   end
 
   def team_total_tackles(season)
-    team_total_tackles =  {}
+    team_total_tackles =  Hash.new(0)
     season_by_team(season).map do |id, games|
       team_total_tackles[id] = games.sum { |game| game.tackles }
     end
