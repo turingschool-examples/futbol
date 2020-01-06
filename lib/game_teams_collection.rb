@@ -15,6 +15,42 @@ class GameTeamsCollection
     load_from_csv(file_path, GameTeams)
   end
 
+  def games_by_team_id(team_id)
+    @game_teams_array.select {|game_team| game_team.team_id == team_id}
+  end
+
+  def total_wins_per_team
+    @game_teams_array.select {|game_team| game_team.result == "WIN"}.count
+  end
+
+  def total_games_per_team(team_id)
+    games_by_team_id(team_id).length
+  end
+
+  def average_win_percentage(team_id)
+    total_wins_per_team / total_games_per_team(team_id).to_f
+  end
+
+  def total_goals_by_team_id(team_id)
+    games_by_team_id(team_id).sum {|game_team| game_team.goals.to_i}
+  end
+
+  def average_goals_per_team_id(team_id)
+    (total_goals_by_team_id(team_id).to_f / games_by_team_id(team_id).count)
+  end
+
+  def unique_team_ids
+    @game_teams_array.uniq {|game_team| game_team.team_id}.map { |game_team| game_team.team_id}
+  end
+
+  def best_offense
+    unique_team_ids.max_by {|team_id| average_goals_per_team_id(team_id)}
+  end
+
+  def worst_offense
+    unique_team_ids.min_by {|team_id| average_goals_per_team_id(team_id)}
+  end
+
   def game_teams_hash
     @game_teams_array.reduce({}) do |hash, game_teams|
       hash[game_teams.team_id] << game_teams if hash[game_teams.team_id]
@@ -63,4 +99,5 @@ class GameTeamsCollection
     worst_fan_teams = hoa_diffs.find_all { |key, value| value < 0 }
     worst_fan_teams.map { |element| element[0] }
   end
+
 end
