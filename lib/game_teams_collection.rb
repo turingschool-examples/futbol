@@ -68,4 +68,39 @@ class GameTeamsCollection
       records
     end
   end
+
+  def all_games_by_season(season_id)
+   @game_teams.find_all do |game|
+     game if game.game_id.to_s[0..3] == season_id[0..3]
+   end
+  end
+
+  def season_by_team(season)
+    games_by_season = all_games_by_season(season)
+    games_by_season.group_by do |game|
+      game.team_id
+    end
+  end
+
+  def team_total_tackles(season)
+    team_total_tackles =  {}
+    season_by_team(season).map do |id, games|
+      team_total_tackles[id] = games.sum do |game|
+        game.tackles
+      end
+    end
+    team_total_tackles
+  end
+
+  def most_tackles_team_id(season)
+    most_tackles = team_total_tackles(season).max_by do |team_id, totaltackles|
+      totaltackles
+    end.first
+  end
+
+  def fewest_tackles_team_id(season)
+    fewest_tackles_team_id_tackles = team_total_tackles(season).min_by do |team_id, totaltackles|
+      totaltackles
+    end.first
+  end
 end
