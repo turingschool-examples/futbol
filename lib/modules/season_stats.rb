@@ -5,24 +5,31 @@ module SeasonStats
   include Calculateable
   include Gatherable
 
-  def biggest_bust(season_id)
-    # in: season_id
-    # out: team_id
-    # team_win_percentage(wins_by_team(@seasons.teams[season_id]))
-    #     team_win_percentage(postseason_games_by_team)
-    #     team_win_percentage(regular_season_games_by_team)
+  def most_tackles(season_id)
+    team_tackles = {}
+    @games.collection.each do |game|
+      if game.last.season == season_id
+        team_tackles[game.last.away_team_id] = game.last.away_tackles.to_i
+        team_tackles[game.last.home_team_id] = game.last.home_tackles.to_i
+      end
+    end
 
-    # @seasons.teams.reduce({}) do |hash, season|
-    #   require 'pry'; binding.pry
+    team_id = team_tackles.max_by { |team| team.last}
 
-    #   season(season_id)
-    # end
-    # get_team_name_by_id(team_id)
+    get_team_name_by_id(team_id.first)
   end
 
-  def winningest_coach(season_id)
-    total_games = total_season_games_team_id(season_id)
-    require 'pry'; binding.pry
-    record = total_season_wins_losses_team_id(season_id)
+  def fewest_tackles(season_id)
+    team_tackles = {}
+    @games.collection.each do |game|
+      if game.last.season == season_id
+        team_tackles[game.last.away_team_id] = game.last.away_tackles.to_i
+        team_tackles[game.last.home_team_id] = game.last.home_tackles.to_i
+      end
+    end
+
+    team_id = team_tackles.min_by { |team| team.last}
+
+    get_team_name_by_id(team_id.first)
   end
 end
