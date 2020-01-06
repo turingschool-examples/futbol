@@ -28,7 +28,6 @@ class SeasonStatsTest < Minitest::Test
   end
 
   def test_biggest_bust_method
-    require 'pry'; binding.pry
     assert_equal 'Montreal Impact', @stat_tracker.biggest_bust('20132014')
     assert_equal 'Sporting Kansas City', @stat_tracker.biggest_bust('20142015')
   end

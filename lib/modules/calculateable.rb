@@ -79,20 +79,17 @@ module Calculateable
       end
     end
   end
-  
+
   def create_season
     @games.collection.reduce(Hash.new({})) do |hash, game|
-      require 'pry'; binding.pry
       h_team_id = game[1].home_team_id
       a_team_id = game[1].away_team_id
       season = game[1].season
       hash = { h_team_id => { season => [] } } if hash.empty?
       hash = { h_team_id => { season => [] } } if hash[h_team_id].nil?
       hash = { h_team_id => { season => [] } } if hash[h_team_id][season].nil?
-      require 'pry'; binding.pry
       hash[h_team_id] = { season => (hash[h_team_id][season] += [game[1]]) }
       # season_hash[team_id] = { row[:season] => (season_hash[team_id][row[:season]] += [collection_type.new(row)]) }
-      require 'pry'; binding.pry
       hash
     end
   end
@@ -100,7 +97,7 @@ module Calculateable
   def league_win_percent_diff(home, away)
     home.inject(Hash.new(0)) do |hash, team|
       hash[team[0]] = (team[1] - away[team[0]]).abs.round(2)
-  
+    end
   end
 
   def win_percentage_difference(regular, post)
