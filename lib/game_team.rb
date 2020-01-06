@@ -1,6 +1,5 @@
 class GameTeam
-  attr_reader :game_id, :team_id, :hoa, :result, :settled_in, :head_coach,
-  :goals, :shots, :tackles
+  attr_reader :game_id, :team_id, :hoa, :result, :settled_in, :head_coach, :goals, :shots, :tackles, :faceoffwinpercentage
 
   def initialize(game_team_info)
     @game_id = game_team_info[:game_id].to_i
@@ -12,5 +11,6 @@ class GameTeam
     @goals = game_team_info[:goals].to_i
     @shots = game_team_info[:shots].to_i
     @tackles = game_team_info[:tackles].to_i
+    @faceoffwinpercentage = game_team_info[:faceoffwinpercentage]
   end
 end

@@ -30,4 +30,47 @@ class GameTeamsCollectionTest < Minitest::Test
   def test_find_id_of_teams_with_worst_fans
     assert_equal [24, 5, 19], @game_teams_collection.worst_fans_team_id
   end
+
+  def test_highest_scoring_visitor
+    assert_equal 6, @game_teams_collection.highest_scoring_visitor
+  end
+
+  def test_lowest_scoring_visitor
+    assert_equal 3, @game_teams_collection.lowest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal 2, @game_teams_collection.highest_scoring_home_team
+  end
+
+  def test_lowest_scoring_home_team
+    assert_equal 16, @game_teams_collection.lowest_scoring_home_team
+  end
+
+  # def test_biggest_bust_id
+  #   stat_tracker = StatTracker.new("./data/games.csv", "./data/teams.csv", "./data/game_teams.csv")
+  #   game_teams_collection = GameTeamsCollection.new(stat_tracker.game_teams_path)
+  #
+  #   assert_equal 23, game_teams_collection.biggest_bust_id("20132014")
+  # end
+  #
+  # def test_biggest_surprise_id
+  #   stat_tracker = StatTracker.new("./data/games.csv", "./data/teams.csv", "./data/game_teams.csv")
+  #   game_teams_collection = GameTeamsCollection.new(stat_tracker.game_teams_path)
+  #
+  #   assert_equal 26, game_teams_collection.biggest_surprise_id("20132014")
+  # end
+
+  # def test_winningest_coach_name
+  #
+  #   assert_equal "Alain Vigneault", @game_teams_collection.winningest_coach_name("20142015")
+  # end
+  #
+  # def test_worst_coach_name
+  #
+  #   assert_equal "Ted Nolan", @game_teams_collection.worst_coach_name("20142015")
+  # end
+
+
+
 end
