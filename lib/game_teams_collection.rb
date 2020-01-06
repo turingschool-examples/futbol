@@ -141,8 +141,41 @@ class GameTeamsCollection #< StatTracker
     end
   end
 
+  def most_accurate_team_id(season)
+    games_by_season = all_games_by_season(season)
+    season_by_team = games_by_season.group_by { |game| game.team_id }
+
+    shot_goals = {}
+    season_by_team.map do |id, games|
+      goals = (games.map { |game| game.goals }).sum.to_f
+      shots = (games.map { |game| game.shots }).sum.to_f
+      shot_goals[id] = (goals / shots).round(3)
+    end
+    (shot_goals.max_by {|id, pcts| pcts })[0]
+  end
+
+  def least_accurate_team_id(season)
+    games_by_season = all_games_by_season(season)
+    season_by_team = games_by_season.group_by do |game|
+      game.team_id #returns a hash with team_id keys
+    end
+    shot_goals = {}
+    season_by_team.map do |id, games|
+      shot_goals[id] = games.map do |game|
+        (game.goals.to_f / game.shots.to_f).round(3)
+      end
+    end
+    (shot_goals.min_by {|id, pcts| (pcts.sum / pcts.length).round(3)})[0]
+  end
+
   def all_games_by_team_id
     @all_games_by_team = @game_teams.group_by { |game| game.team_id }
+  end
+
+  def all_games_by_season(season) #returns Array
+    @game_teams.find_all do |game|
+      game if game.game_id.to_s[0..3] == season[0..3]
+    end
   end
 
   def home_win_percents
