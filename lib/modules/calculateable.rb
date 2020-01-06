@@ -21,10 +21,14 @@ module Calculateable
     average_wins
   end
 
-  def season_win_percentage(wins_hash, season_id)
+  def season_coach_win_percent(wins_hash, season_id)
     average_wins = {}
     wins_hash.each do |coach, tot_wins|
-      average_wins[coach] = (tot_wins.to_f / games_by_season(season_id)[coach])
+      if season_games_by_coach(season_id)[coach] == 0
+        average_wins[coach] = nil
+      else
+        average_wins[coach] = (tot_wins.to_f / season_games_by_coach(season_id)[coach])
+      end
     end
     average_wins
   end
@@ -80,11 +84,11 @@ module Calculateable
     @game_teams.collection.each do |game|
       team_game = @games.collection[game[1].game_id]
       if game[1].team_id == team_game.home_team_id
-        team_game.home_head_coach = game[1].head_coach
+        team_game.home_coach = game[1].head_coach
         team_game.home_shots = game[1].shots
         team_game.home_tackles = game[1].tackles
       elsif game[1].team_id == team_game.away_team_id
-        team_game.away_head_coach = game[1].head_coach
+        team_game.away_coach = game[1].head_coach
         team_game.away_shots = game[1].shots
         team_game.away_tackles = game[1].tackles
       end

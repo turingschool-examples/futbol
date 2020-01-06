@@ -52,7 +52,7 @@ module LeagueStats
   end
 
   def lowest_scoring_home_team
-    team_id = team_average_goals(home_goals_by_team).min_by { |_id, avg| avg }[0]
+    # team_id = team_average_goals(home_goals_by_team).min_by { |_id, avg| avg }[0]
 
     get_team_name_by_id(team_id)
   end

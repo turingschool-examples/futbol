@@ -21,7 +21,10 @@ module SeasonStats
   end
 
   def winningest_coach(season_id)
-    
+    season_coach_win_percent(season_wins_by_coach(season_id), season_id).compact.max_by { |_id, avg| avg }[0]
   end
 
+  def worst_coach(season_id)
+    season_coach_win_percent(season_wins_by_coach(season_id), season_id).compact.min_by { |_id, avg| avg }[0]
+  end
 end
