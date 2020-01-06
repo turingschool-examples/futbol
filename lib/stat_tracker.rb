@@ -11,9 +11,10 @@ class StatTracker
     StatTracker.new(game_path, game_teams_path)
   end
 
-  def initialize(game_teams_path, game_path)
+  def initialize(game_path, game_teams_path)
     @game_teams = GameTeamsCollection.new(game_teams_path)
     @games = GameCollection.new(game_path)
+    # require "pry"; binding.pry
   end
 
   def highest_total_score
