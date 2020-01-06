@@ -82,8 +82,4 @@ class GamesCollectionTest < Minitest::Test
   def test_worst_defense_id
     assert_equal 7, @gamescollection.worst_defense_id
   end
-
-  def test_narrow_down_by_season
-    assert_equal 3, @gamescollection.narrow_down_by_season("20122013").length
-  end
 end
