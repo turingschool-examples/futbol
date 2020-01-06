@@ -28,5 +28,4 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_create_a_teams_collection
     assert_instance_of TeamsCollection, @stat_tracker.teams_collection
   end
-
 end

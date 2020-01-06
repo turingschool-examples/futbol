@@ -14,4 +14,20 @@ class TeamsCollection
   def create_teams(teams_path)
     create_instances(teams_path, Team)
   end
+
+  def count_of_teams
+    @teams.length
+  end
+
+  def associate_team_id_with_team_name(id)
+    tname = @teams.find { |team| team.team_id == id }
+    tname.teamname
+  end
+
+  def associate_multi_team_id_with_team_name(id)
+    id.map do |x|
+      tname = @teams.find { |team| team.team_id == x }
+      tname.teamname
+    end
+  end
 end

@@ -60,4 +60,38 @@ class GamesCollectionTest < Minitest::Test
   def test_average_goals_by_season
     assert_equal ({"20122013"=>4.0, "20142015"=>3.88, "20152016"=>4.0, "20162017"=>4.0, "20132014"=>6.0}), @gamescollection.average_goals_by_season
   end
+
+  def test_best_offence_id
+    assert_equal 14, @gamescollection.best_offense_id
+  end
+
+  def test_worst_offence_id
+    assert_equal 16, @gamescollection.worst_offense_id
+  end
+
+  def test_average_goals_scored_by_opposite_team
+    expected = {3=>[3.0], 6=>[2.0], 17=>[1.0], 16=>[2.0], 9=>[2.33], 8=>[2.67], 5=>[1.0], 15=>[2.5], 13=>[2.5], 2=>[1.0], 14=>[2.0], 10=>[2.5],
+      30=>[2.0], 19=>[1.0], 21=>[3.0], 18=>[1.5], 20=>[2.0], 7=>[4.0], 25=>[1.0], 12=>[1.0]}
+    assert_equal expected, @gamescollection.average_goals_scored_by_opposite_team
+  end
+
+  def test_best_defense_id
+    assert_equal 17, @gamescollection.best_defense_id
+  end
+
+  def test_worst_defense_id
+    assert_equal 7, @gamescollection.worst_defense_id
+  end
+
+  def test_season_game_ids
+    assert_equal [2013020246], @gamescollection.reg_season_game_ids("20132014")
+    assert_equal [], @gamescollection.post_season_game_ids("20132014")
+  end
+
+  def test_winningest_coach_game_ids
+    expected = [2014030113, 2014030212,
+      2014020930, 2014020614, 2014020772,
+      2014020675, 2014021227, 2014020868]
+    assert_equal expected, @gamescollection.winningest_coach_game_ids("20142015")
+  end
 end

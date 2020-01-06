@@ -68,4 +68,51 @@ class StatTracker
     games_collection.percentage_ties
   end
 
+  def count_of_teams
+    teams_collection.count_of_teams
+  end
+
+  def best_offense
+    teams_collection.associate_team_id_with_team_name(games_collection.best_offense_id)
+  end
+
+  def worst_offense
+    teams_collection.associate_team_id_with_team_name(games_collection.worst_offense_id)
+  end
+
+  def best_defense
+    teams_collection.associate_team_id_with_team_name(games_collection.best_defense_id)
+  end
+
+  def worst_defense
+    teams_collection.associate_team_id_with_team_name(games_collection.worst_defense_id)
+  end
+
+  def highest_scoring_visitor
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.highest_scoring_visitor)
+  end
+
+  def highest_scoring_home_team
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.highest_scoring_home_team)
+  end
+
+  def lowest_scoring_visitor
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.lowest_scoring_visitor)
+  end
+
+  def lowest_scoring_home_team
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.lowest_scoring_home_team)
+  end
+
+  def winningest_team
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.winningest_team_id)
+  end
+
+  def best_fans
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.best_fans_team_id)
+  end
+
+  def worst_fans
+    teams_collection.associate_multi_team_id_with_team_name(game_teams_collection.worst_fans_team_id)
+  end
 end

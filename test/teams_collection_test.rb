@@ -17,4 +17,16 @@ class TeamsCollectionTest < Minitest::Test
     assert_equal 1, @teams_collection.teams.first.team_id
     assert_equal "ATL", @teams_collection.teams.first.abbreviation
   end
+
+  def test_count_of_teams
+    assert_equal 32, @teams_collection.count_of_teams
+  end
+
+  def test_associate_team_id_with_team_name
+    assert_equal "Atlanta United", @teams_collection.associate_team_id_with_team_name(1)
+  end
+
+  def test_associate_multi_team_id_with_team_name
+    assert_equal ["Chicago Fire", "Montreal Impact"], @teams_collection.associate_multi_team_id_with_team_name([4, 23])
+  end
 end
