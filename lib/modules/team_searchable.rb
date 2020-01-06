@@ -53,4 +53,9 @@ module TeamSearchable
     team.stats_by_season
   end
 
+  def team_info(teamid)
+    team = teams.find {|team| team.team_id.to_s == teamid}
+    team.team_info
+  end
+
 end
