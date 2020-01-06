@@ -9,7 +9,6 @@ class GamesCollection
 
   def initialize(games_path)
     @games = create_games(games_path)
-
   end
 
   def create_games(games_path)
