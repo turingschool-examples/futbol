@@ -295,5 +295,3 @@ class GameTeamsCollection
 
 
 end
-
-# best_season	Season with the highest win percentage for a team.	String

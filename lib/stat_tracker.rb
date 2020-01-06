@@ -128,4 +128,12 @@ class StatTracker
     games_collection.average_win_percentage(teamid)
   end
 
+  def most_goals_scored(teamid)
+    games_collection.most_goals_scored(teamid)
+  end
+
+  def fewest_goals_scored(teamid)
+    games_collection.fewest_goals_scored(teamid)
+  end
+
 end

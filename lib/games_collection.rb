@@ -223,8 +223,36 @@ class GamesCollection
     avg.round(2)
   end
 
+  def most_goals_scored(teamid)
+    game_to_goals = games.reduce({}) do |acc, game|
+      if teamid.to_i == game.away_team_id
+        acc[game.game_id] = game.away_goals
+      elsif teamid.to_i == game.home_team_id
+        acc[game.game_id] = game.home_goals
+      end
+      acc
+    end
+
+    most_goals = game_to_goals.max_by {|gameid, goals| goals}
+    most_goals[1]
+  end
+
+  def fewest_goals_scored(teamid)
+    game_to_goals = games.reduce({}) do |acc, game|
+      if teamid.to_i == game.away_team_id
+        acc[game.game_id] = game.away_goals
+      elsif teamid.to_i == game.home_team_id
+        acc[game.game_id] = game.home_goals
+      end
+      acc
+    end
+
+    fewest_goals = game_to_goals.min_by {|gameid, goals| goals}
+    fewest_goals[1]
+  end
+
 
 end
-# expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
 
-# average_win_percentage	Average win percentage of all games for a team.	Float
+
+# expect(@stat_tracker.most_goals_scored("18")).to eq 7

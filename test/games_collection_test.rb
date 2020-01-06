@@ -94,6 +94,14 @@ class GamesCollectionTest < Minitest::Test
     assert_equal 1.0, @gamescollection.average_win_percentage("6")
   end
 
+  def test_most_goals_scored
+    assert_equal 3, @gamescollection.most_goals_scored("18")
+  end
+
+  def test_fewest_goals_scored
+    assert_equal 1, @gamescollection.fewest_goals_scored("18")
+  end
+
 
 
 end

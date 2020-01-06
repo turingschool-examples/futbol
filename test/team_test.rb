@@ -15,7 +15,7 @@ class TeamTest < Minitest::Test
                         stadium: "Mercedes-Benz Stadium" })
 
         assert_equal 1, team.team_id
-        assert_equal 23, team.franchiseId
+        assert_equal 23, team.franchiseid
         assert_equal "Atlanta United", team.teamname
         assert_equal "ATL", team.abbreviation
         assert_equal "Mercedes-Benz Stadium", team.stadium
