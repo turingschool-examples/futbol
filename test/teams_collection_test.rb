@@ -25,4 +25,8 @@ class TeamsCollectionTest < Minitest::Test
   def test_associate_team_id_with_team_name
     assert_equal "Atlanta United", @teams_collection.associate_team_id_with_team_name(1)
   end
+
+  def test_associate_multi_team_id_with_team_name
+    assert_equal ["Chicago Fire", "Montreal Impact"], @teams_collection.associate_multi_team_id_with_team_name([4, 23])
+  end
 end

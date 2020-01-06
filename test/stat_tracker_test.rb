@@ -29,11 +29,11 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of TeamsCollection, @stat_tracker.teams_collection
   end
 
-  def test_best_offense
+  def test_name_of_best_offense
     assert_equal "DC United", @stat_tracker.best_offense
   end
 
-  def test_worst_offense
+  def test_name_of_worst_offense
     assert_equal "New England Revolution", @stat_tracker.worst_offense
 
   end
@@ -69,5 +69,25 @@ class StatTrackerTest < Minitest::Test
   # def test_worst_coach
   #   assert_equal "Ted Nolan", @stat_tracker.worst_coach("20142015")
   # end
+
+  def test_name_of_best_defense
+    assert_equal "LA Galaxy", @stat_tracker.best_defense
+  end
+
+  def test_name_of_worst_defense
+    assert_equal "Utah Royals FC", @stat_tracker.worst_defense
+  end
+
+  def test_name_of_winningest_team
+    assert_equal "FC Dallas", @stat_tracker.winningest_team
+  end
+
+  def test_name_of_team_with_best_fans
+    assert_equal "Houston Dynamo", @stat_tracker.best_fans
+  end
+
+  def test_names_of_teams_with_worst_fans
+    assert_equal ["Real Salt Lake", "Sporting Kansas City", "Philadelphia Union"], @stat_tracker.worst_fans
+  end
 
 end

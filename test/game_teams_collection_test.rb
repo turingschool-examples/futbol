@@ -16,6 +16,19 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_instance_of GameTeam, @game_teams_collection.game_teams.first
     assert_equal "Claude Julien", @game_teams_collection.game_teams.first.head_coach
     assert_equal 4, @game_teams_collection.game_teams.first.goals
+    assert_equal "away", @game_teams_collection.game_teams.first.hoa
+  end
+
+  def test_find_id_of_winningest_team
+    assert_equal 6, @game_teams_collection.winningest_team_id
+  end
+
+  def test_find_id_of_team_with_best_fans
+    assert_equal 3, @game_teams_collection.best_fans_team_id
+  end
+
+  def test_find_id_of_teams_with_worst_fans
+    assert_equal [24, 5, 19], @game_teams_collection.worst_fans_team_id
   end
 
   def test_highest_scoring_visitor
