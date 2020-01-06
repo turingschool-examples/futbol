@@ -72,8 +72,12 @@ class StatTrackerTest < Minitest::Test
   def test_team_info
     expected = {"team_id"=>"7", "franchise_id"=>"19", "team_name"=>"Utah Royals FC",
       "abbreviation"=>"URF", "link"=>"/api/v1/teams/7"}
-      
+
     assert_equal expected, @stat_tracker.team_info("7")
+  end
+
+  def test_best_season
+    assert_equal "20122013", @stat_tracker.best_season("6")
   end
 
 end

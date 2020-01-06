@@ -80,4 +80,11 @@ class GamesCollectionTest < Minitest::Test
       2014020675, 2014021227, 2014020868]
     assert_equal expected, @gamescollection.winningest_coach_game_ids("20142015")
   end
+
+  def test_best_season
+
+    assert_equal "20122013", @gamescollection.best_season("6")
+  end
+
+
 end

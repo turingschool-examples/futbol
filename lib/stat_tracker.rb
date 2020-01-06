@@ -116,4 +116,8 @@ class StatTracker
     teams_collection.team_info(teamid.to_i)
   end
 
+  def best_season(teamid)
+    games_collection.best_season(teamid)
+  end
+
 end

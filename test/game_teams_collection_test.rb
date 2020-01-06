@@ -58,6 +58,4 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal "Ted Nolan", @game_teams_collection.worst_coach_name("20142015")
   end
 
-
-
 end
