@@ -50,3 +50,42 @@ module LeagueSearchable
                 end
                 games_to_return.reject(&:empty?)
         end
+
+	def favorite_opponenent(id)
+		all_games = games_for_team(id)
+		all_games.map! do |game|
+			holder = []
+			holder << game[0]
+			holder << win_percentage(game)		
+		end
+		all_games.max_by {|game| game[1]}[0]
+	end
+
+	def rival(id)	
+		all_games = games_for_team(id)
+		all_games.map! do |game|
+			holder = []
+			holder << game[0]
+			holder << win_percentage(game)		
+		end
+		all_games.min_by {|game| game[1]}[0]
+	end
+
+	def individual_win_percentage(games, opp_id)
+		win_count = 0
+		game_count = 0
+		games.each do |game|
+			if game[0] == opp_id
+				game_count += 1
+				if game[1] > game[2]
+					win_count += 1
+				end
+			end
+		win_count / game_count
+	end
+
+	def find_
+			
+		
+		
+		
