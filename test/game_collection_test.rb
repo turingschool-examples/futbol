@@ -3,6 +3,7 @@ require "minitest/autorun"
 require 'minitest/pride'
 require_relative '../lib/game'
 require_relative '../lib/game_collection'
+require_relative '../lib/team'
 
 class GameCollectionTest < Minitest::Test
   def setup
@@ -18,6 +19,7 @@ class GameCollectionTest < Minitest::Test
                  :home_goals => "3",
                  :venue => "Toyota Stadium"}
     @first_game = @game_collection.games.first
+    @team = Team.from_csv("./data/teams.csv")
   end
 
   def test_it_exists
@@ -63,8 +65,20 @@ class GameCollectionTest < Minitest::Test
   def test_average_goals_per_game_method
     assert_equal 4.38, @game_collection.average_goals_per_game
   end
-  
-  def test
-    @game_collection.count_teams
+
+  def test_it_finds_best_offense
+    assert_equal "New York City FC", @game_collection.best_offense
+  end
+
+  def test_it_finds_worst_offense
+    assert_equal "New York Red Bulls", @game_collection.worst_offense
+  end
+
+  def test_worst_defense
+    assert_equal "New York Red Bulls", @game_collection.worst_defense
+  end
+
+  def test_best_defense
+    assert_equal "Orlando Pride", @game_collection.best_defense
   end
 end

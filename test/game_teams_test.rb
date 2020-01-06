@@ -3,7 +3,6 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/game_teams'
 require './lib/team'
-require 'mocha/minitest'
 
 class GameTeamsTest < Minitest::Test
 
@@ -92,9 +91,7 @@ class GameTeamsTest < Minitest::Test
   end
 
   def test_lowest_scoring_home_team
-    assert_equal "Houston Dynamo", GameTeams.lowest_scoring_home_team 
+    assert_equal "Houston Dynamo", GameTeams.lowest_scoring_home_team
   end
-
-
 
 end
