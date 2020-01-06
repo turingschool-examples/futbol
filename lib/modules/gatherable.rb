@@ -21,6 +21,17 @@ module Gatherable
     end
   end
 
+  def wins_by_team(collection)
+    collection.inject(Hash.new(0)) do |wins, game|
+      if game[1].home_goals.to_i > game[1].away_goals.to_i
+        wins[game[1].home_team_id] += 1
+      elsif game[1].away_goals.to_i > game[1].home_goals.to_i
+        wins[game[1].away_team_id] += 1
+      end
+      wins
+    end
+  end
+
   def postseason_games_by_team
     @games.collection.inject(Hash.new(0)) do |count, game|
       if game[1].type == 'Postseason'
@@ -41,40 +52,42 @@ module Gatherable
     end
   end
 
-  def wins_by_team(collection)
-    collection.inject(Hash.new(0)) do |wins, game|
-      if game[1].home_goals.to_i > game[1].away_goals.to_i
-        wins[game[1].home_team_id] += 1
+  def games_by_season(season_id)
+    @games.collection.inject(Hash.new(0)) do |count, game|
+      if game[1].season == season_id
+        count[game[1].home_team_id] += 1
+        count[game[1].away_team_id] += 1
+      end
+      count
+    end
+  end
+
+  def season_games_by_coach(season_id)
+    @games.collection.inject(Hash.new(0)) do |count, game|
+      if game[1].season == season_id
+        count[game[1].home_coach] += 1
+        count[game[1].away_coach] += 1
       else
-        wins[game[1].away_team_id] += 1
+        count[game[1].home_coach] += 0
+        count[game[1].away_coach] += 0
+      end
+      count
+    end
+  end
+
+  def season_wins_by_coach(season_id)
+    @games.collection.inject(Hash.new(0)) do |wins, game|
+      if game[1].season == season_id && game[1].home_goals.to_i > game[1].away_goals.to_i
+        wins[game[1].home_coach] += 1
+      elsif game[1].season == season_id && game[1].away_goals.to_i > game[1].home_goals.to_i
+        wins[game[1].away_coach] += 1
+      else
+        wins[game[1].home_coach] += 0
+        wins[game[1].away_coach] += 0
       end
       wins
     end
   end
-
-  def season_wins_by_team(collection)
-    # require 'pry'; binding.pry
-    collection.inject(Hash.new(0)) do |wins, season|
-      if season.home_goals.to_i > season.away_goals.to_i
-        # require 'pry'; binding.pry
-        wins[season.home_team_id] += 1
-      end
-
-      if season.away_goals.to_i > season.home_goals.to_i
-        wins[season.away_team_id] += 1
-      end
-      require 'pry'; binding.pry
-      wins
-    end
-  end
-
-  # def game_win_count
-  #   if type == 'Postseason'
-  #     wins[type] = game_win_count
-  #   elsif type == 'Regular Season'
-  #     wins[type] = game_win_count
-  #   end
-  # end
 
   def home_wins_by_team
     @games.collection.inject(Hash.new(0)) do |wins, game|
@@ -160,21 +173,5 @@ module Gatherable
       hash = { key => { season_key => season_data } }
     end
     hash
-  end
-
-  def total_season_games_team_id(season_id)
-    @seasons.teams.reduce({}) do |hash, team|
-      hash[team.first] = team.last[season_id].size
-      hash
-    end
-  end
-
-  def total_season_wins_losses_team_id(season_id)
-    @seasons.teams.reduce({}) do |hash, team|
-      team_season = team[season_id]
-      require 'pry'; binding.pry
-      hash = win_or_loss(team.first, team_season)
-      hash
-    end
   end
 end

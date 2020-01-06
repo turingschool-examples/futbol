@@ -28,9 +28,10 @@ class Tracker
 
   def initialize(games, teams, game_teams)
     @games = GameCollection.new(games)
-    @teams = TeamCollection.new(teams)
-    @seasons = SeasonCollection.new(games)
     @game_teams = GameTeamsCollection.new(game_teams)
+    @teams = TeamCollection.new(teams)
     combine_game_data
+    @seasons = SeasonCollection.new(games)
+    # combine_season_data
   end
 end
