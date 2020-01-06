@@ -69,9 +69,9 @@ class GameTeamsCollection
     end
   end
 
-  def all_games_by_season(season_id)
+  def all_games_by_season(season)
    @game_teams.find_all do |game|
-     game if game.game_id.to_s[0..3] == season_id[0..3]
+     game if game.game_id.to_s[0..3] == season[0..3]
    end
   end
 
