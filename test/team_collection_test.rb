@@ -27,6 +27,6 @@ class TeamCollectionTest < Minitest::Test
   end
 
   def test_it_can_find_team_name_by_id
-    assert_equal "Chicago Fire", @teams_collection.team_name_by_id("4")
+    assert_equal "Chicago Fire", @teams_collection.team_name_by_id(4)
   end
 end

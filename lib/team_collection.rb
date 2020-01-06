@@ -16,9 +16,9 @@ class TeamCollection
 
   def number_of_teams
     @teams_array.length
-  end 
+  end
 
   def team_name_by_id(team_id)
-    @teams_array.find {|team| team.team_id == team_id}.team_name
+    @teams_array.find {|team| team.team_id.to_i == team_id}.team_name
   end
 end

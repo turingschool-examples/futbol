@@ -102,7 +102,7 @@ class GameTeamsCollection
       new << game_id.to_i
       end
     end
-    new
+    new.first
   end
 
   def lowest_scoring_home_team
@@ -112,7 +112,7 @@ class GameTeamsCollection
       new << game_id.to_i
       end
     end
-    new
+    new.first
   end
 
   def highest_scoring_visitor
@@ -122,7 +122,7 @@ class GameTeamsCollection
       new << game_id.to_i
       end
     end
-    new
+    new.first
   end
 
   def lowest_scoring_visitor
@@ -132,7 +132,7 @@ class GameTeamsCollection
       new << game_id.to_i
       end
     end
-    new
+    new.first
   end
 
   def percentage(numerator, denominator) #to-do: make Calculatable module
