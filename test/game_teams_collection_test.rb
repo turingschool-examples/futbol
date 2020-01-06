@@ -31,7 +31,19 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal [24, 5, 19], @game_teams_collection.worst_fans_team_id
   end
 
-  def test_most_tackles_in_season_team_id
-    assert_equal 9, @game_teams_collection.most_tackles_in_season_team_id
+  def test_highest_scoring_visitor
+    assert_equal 5, @game_teams_collection.highest_scoring_visitor
+  end
+
+  def test_lowest_scoring_visitor
+    assert_equal 3, @game_teams_collection.lowest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal 6, @game_teams_collection.highest_scoring_home_team
+  end
+
+  def test_lowest_scoring_home_team
+    assert_equal 9, @game_teams_collection.lowest_scoring_home_team
   end
 end

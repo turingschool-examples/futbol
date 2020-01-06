@@ -88,6 +88,22 @@ class StatTracker
     teams_collection.associate_team_id_with_team_name(games_collection.worst_defense_id)
   end
 
+  def highest_scoring_visitor
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.highest_scoring_visitor)
+  end
+
+  def highest_scoring_home_team
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.highest_scoring_home_team)
+  end
+
+  def lowest_scoring_visitor
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.lowest_scoring_visitor)
+  end
+
+  def lowest_scoring_home_team
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.lowest_scoring_home_team)
+  end
+
   def winningest_team
     teams_collection.associate_team_id_with_team_name(game_teams_collection.winningest_team_id)
   end
@@ -98,10 +114,5 @@ class StatTracker
 
   def worst_fans
     teams_collection.associate_multi_team_id_with_team_name(game_teams_collection.worst_fans_team_id)
-  end
-
-  def most_tackles
-    use_games = games_collection.narrow_down_by_season("20132014")
-    teams_collection.associate_team_id_with_team_name(game_teams_collection.most_tackles_in_season_team_id)
   end
 end
