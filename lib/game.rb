@@ -59,4 +59,9 @@ class Game
     return @away_team_id if @away_goals > @home_goals
     return nil
   end
+
+  def winning_coach
+    return nil if winner == nil
+    @stats[winner.to_s][:Coach]
+  end
 end
