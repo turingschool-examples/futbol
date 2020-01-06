@@ -24,11 +24,11 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_can_store_game_teams_by_id
-    var = @game_teams_collection.game_teams_lists_by_id.first
+    var = @game_teams_collection.game_teams_hash.first
     name = var[0]
     value = var[1]
     test_hash = {name => value}
-    assert_equal 9, @game_teams_collection.game_teams_lists_by_id.length
+    assert_equal 9, @game_teams_collection.game_teams_hash.length
   end
 
   def test_it_can_get_home_games_only
@@ -52,7 +52,7 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_can_get_team_with_lowest_average_score_for_away_games
-    assert_equal 19, @game_teams_collection.lowest_scoring_visitor
+    assert_equal [14, 19], @game_teams_collection.lowest_scoring_visitor
   end
 
   def test_it_can_get_team_with_highest_average_score_for_home_games
@@ -60,7 +60,8 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_can_get_team_with_lowest_average_score_for_home_games
-    assert_equal 3, @game_teams_collection.lowest_scoring_home_team
+    assert_equal [3], @game_teams_collection.lowest_scoring_home_team
+  end
 
   def test_it_can_make_a_game_teams_hash
     game_teams_hash = @game_teams_collection.game_teams_hash
