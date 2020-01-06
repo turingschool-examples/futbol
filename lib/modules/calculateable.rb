@@ -89,13 +89,15 @@ module Calculateable
   end
 
   def win_percentage_difference(regular, post)
-    post.max_by do |team|
-      require 'pry'; binding.pry
-      next if team[1][:win_percentage].nil?
+    post.reduce(Hash.new(0)) do |hash, team|
+      # require 'pry'; binding.pry
+      next(hash) if team[1][:win_percentage].nan?
 
-      require 'pry'; binding.pry
-      (team[1][:win_percentage] - regular[team[0]][:win_percentage]).abs.round(2)
-      require 'pry'; binding.pry
+      # require 'pry'; binding.pry
+      hash[team[0]] = (team[1][:win_percentage] - regular[team[0]][:win_percentage]).abs.round(2)
+      # require 'pry'; binding.pry
+      hash
     end
+    # require 'pry'; binding.pry
   end
 end
