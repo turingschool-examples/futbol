@@ -191,5 +191,3 @@ class GamesCollection
     worst_d.first
   end
 end
-
-# These methods each take a season id as an argument and return the values described below.
