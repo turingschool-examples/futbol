@@ -66,6 +66,18 @@ module LeagueSearchable
 		win_percent_per_opp.key(win_percent_per_opp.values.min {|win_percent| win_percent.round(4)})
 	end
 
+	def rival(id)
+		team_from_id(rival_id(id))
+	end
+
+	def favorite_opponenent(id)
+		team_from_id(favorite_opponenent(id)).team_name
+	end
+
+	def team_from_id(id)
+		teams.find {|team| team.team_id == id}.team_name
+	end
+
 	def organize_by_team(games)
 		games.flatten(1).reduce({}) do |total, game|
 			if total[game[0]] == nil
