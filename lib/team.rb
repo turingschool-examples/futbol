@@ -34,11 +34,11 @@ class Team
   end
 
   def team_info
-    {team_id: @team_id,
-    franchise_id: @franchise_id,
-    team_name: @team_name,
-    abbreviation: @abbreviation,
-    link: @link}
+    {"team_id" => @team_id.to_s,
+    "franchise_id" => @franchise_id.to_s,
+    "team_name" => @team_name,
+    "abbreviation" => @abbreviation,
+    "link" => @link}
   end
 
   def away_games_getter
@@ -69,18 +69,16 @@ class Team
     Season.all.each do |season|
       games_reg = season.games_by_type["Regular Season"].find_all {|game| team_id == game.home_team_id || team_id == game.away_team_id}
       games_post = season.games_by_type["Postseason"].find_all {|game| team_id == game.home_team_id || team_id == game.away_team_id}
-      if games_reg.length > 0
-        stats[season.id.to_s] = {:regular_season => {win_percentage: calc_win_percent(games_reg),
+      stats[season.id.to_s] = {:regular_season => {win_percentage: calc_win_percent(games_reg),
                                               total_goals_scored: goals_scored(games_reg),
                                               total_goals_against: goals_against(games_reg),
                                               average_goals_scored: goals_scored_ave(games_reg),
                                               average_goals_against: goals_against_ave(games_reg)}}
-          stats[season.id.to_s].merge!({:postseason => {win_percentage: calc_win_percent(games_post),
+      stats[season.id.to_s].merge!({:postseason => {win_percentage: calc_win_percent(games_post),
                                               total_goals_scored: goals_scored(games_post),
                                               total_goals_against: goals_against(games_post),
                                               average_goals_scored: goals_scored_ave(games_post),
                                               average_goals_against: goals_against_ave(games_post)}})
-      end
     end
     stats
   end
@@ -168,20 +166,18 @@ class Team
   end
 
   def all_games_played
-    all_games_played = Game.all.find_all do |game|
-      game.home_team_id == @team_id || game.away_team_id == @team_id
-    end
+    home_games + away_games
   end
 
   def home_games_won
-    home_won = Game.all.find_all do |game|
-      game.home_team_id == @team_id && game.winner == @team_id
+    home_won = home_games.find_all do |game|
+      game.winner == @team_id
     end
   end
 
   def away_games_won
-    away_won = Game.all.find_all do |game|
-      game.away_team_id == @team_id && game.winner == @team_id
+    away_won = away_games.find_all do |game|
+      game.winner == @team_id
     end
   end
 end

@@ -54,6 +54,7 @@ module TeamSearchable
     team.stats_by_season
   end
 
+
 	# def all_games_played
 	# 	all_games = []
 	# 	@away_games.each {|game| all_games << game}
@@ -75,4 +76,16 @@ module TeamSearchable
 		least_goals << (team.home_games.min_by{|game| game.home_goals}).home_goals
 		return least_goals.min
 	end
+end
+
+  def team_info(teamid)
+    team = teams.find {|team| team.team_id.to_s == teamid}
+    team.team_info
+  end
+
+  def average_win_percentage(teamid)
+    team = teams.find {|team| team.team_id.to_s == teamid}
+    team.total_winning_percentage
+  end
+
 end
