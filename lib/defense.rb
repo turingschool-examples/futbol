@@ -5,40 +5,39 @@ require_relative 'data_objects/incremental_average'
 
 class Defense
 
-  def self.best_defense
-    hash = add_goals_to_opposing_team()
-
-    current_min_team_id = ""
-    current_min_avg = -1
-    hash.map do |team_id, avg|
-      if current_min_avg == -1
-        current_min_avg = avg.average
-      else (avg.average < current_min_avg)
-        current_min_team_id = team_id
-        current_min_avg = avg.average
-      end
-    end
-    get_team_name_from_id(current_min_team_id)
-  end
-
-  def self.worst_defense
-    hash = add_goals_to_opposing_team()
-
-    current_max_team_id = ""
-    current_max_avg = -1
-    hash.map do |team_id, avg|
-      if (avg.average > current_max_avg)
-        current_max_team_id = team_id
-        current_max_avg = avg.average
-      end
-    end
-    get_team_name_from_id(current_max_team_id)
-  end
+  # def self.best_defense
+  #   hash = add_goals_to_opposing_team()
+  #
+  #   current_min_team_id = ""
+  #   current_min_avg = -1
+  #   hash.map do |team_id, avg|
+  #     if current_min_avg == -1
+  #       current_min_avg = avg.average
+  #     else (avg.average < current_min_avg)
+  #       current_min_team_id = team_id
+  #       current_min_avg = avg.average
+  #     end
+  #   end
+  #   get_team_name_from_id(current_min_team_id)
+  # end
+  #
+  # def self.worst_defense
+  #   hash = add_goals_to_opposing_team()
+  #
+  #   current_max_team_id = ""
+  #   current_max_avg = -1
+  #   hash.map do |team_id, avg|
+  #     if (avg.average > current_max_avg)
+  #       current_max_team_id = team_id
+  #       current_max_avg = avg.average
+  #     end
+  #   end
+  #   get_team_name_from_id(current_max_team_id)
+  # end
 
   def self.add_goals_to_opposing_team
     hash = {}
     GameTeam.all_game_teams.map do |game_team|
-      require "pry"; binding.pry
       if game_team.game_id == game_team.game_id
         hash[game_team.game_id] = [winning_team(game_team.game_id), losing_team(game_team.game_id)]
       end
