@@ -80,11 +80,6 @@ class StatTracker
   end
 
   def worst_fans
-    # unique_teams = @game_teams.reduce({}) do |acc, game_team|
-    #   acc[game_team.team_id] = {away: 0, home: 0}
-    #   acc
-    # end
-
     unique_teams = game_team_ids_away_home(@game_teams)
 
     @game_teams.each do |game_team|
