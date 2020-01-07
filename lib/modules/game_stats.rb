@@ -22,22 +22,20 @@ module GameStats
 
   def percentage_home_wins
     home_wins = 0
-    total_games = @games.collection.length
 
     @games.collection.each do |game|
       home_wins += 1 if game[1].home_goals.to_i > game[1].away_goals.to_i
     end
-    (home_wins / total_games.to_f).abs.round(2)
+    (home_wins / @games.collection.length.to_f).abs.round(2)
   end
 
   def percentage_visitor_wins
     visitor_wins = 0
-    total_games = @games.collection.length
 
     @games.collection.each do |game|
       visitor_wins += 1 if game[1].home_goals.to_i < game[1].away_goals.to_i
     end
-    (visitor_wins / total_games.to_f).abs.round(2)
+    (visitor_wins / @games.collection.length.to_f).abs.round(2)
   end
 
   def percentage_ties
