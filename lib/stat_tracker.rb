@@ -166,4 +166,39 @@ class StatTracker
     teams_collection.associate_team_id_with_team_name(game_teams_collection.fewest_tackles_team_id(season_id))
   end #need fewest_tackles_team_id
 
+  def team_info(teamid)
+    teams_collection.team_info(teamid.to_i)
+  end
+
+  def best_season(teamid)
+    games_collection.best_season(teamid)
+  end
+
+  def worst_season(teamid)
+    games_collection.worst_season(teamid)
+  end
+
+  def average_win_percentage(teamid)
+    games_collection.average_win_percentage(teamid)
+  end
+
+  def most_goals_scored(teamid)
+    games_collection.most_goals_scored(teamid)
+  end
+
+  def fewest_goals_scored(teamid)
+    games_collection.fewest_goals_scored(teamid)
+  end
+
+  def favorite_opponent(teamid)
+    integer = games_collection.favorite_opponent_id(teamid).to_i
+    teams_collection.associate_team_id_with_team_name(integer)
+  end
+
+  def rival(teamid)
+    integer = games_collection.rival_id(teamid).to_i
+    teams_collection.associate_team_id_with_team_name(integer)
+  end
+
+
 end
