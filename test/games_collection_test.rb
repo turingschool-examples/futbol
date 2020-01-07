@@ -99,8 +99,11 @@ class GamesCollectionTest < Minitest::Test
     assert_equal 7, @gamescollection.worst_defense_id
   end
 
-  def test_season_game_ids
+  def test_reg_season_game_ids
     assert_equal [2013020246], @gamescollection.reg_season_game_ids("20132014")
+  end
+
+  def test_post_season_game_ids
     assert_equal [], @gamescollection.post_season_game_ids("20132014")
   end
 
