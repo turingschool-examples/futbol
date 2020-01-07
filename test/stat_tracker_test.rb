@@ -167,6 +167,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_stat_tracker_can_get_best_fans
+    skip
     assert_instance_of String, @stat_tracker.best_fans
     assert_equal 'San Jose Earthquakes', @stat_tracker.best_fans
   end
@@ -177,6 +178,23 @@ class StatTrackerTest < Minitest::Test
 
   def test_stat_tracker_can_get_most_goals_scored
     assert_instance_of Integer, @stat_tracker.most_goals_scored('6')
-    require 'pry'; binding.pry
+    assert_equal 6, @stat_tracker.most_goals_scored('6')
+
+    assert_instance_of Integer, @stat_tracker.most_goals_scored('3')
+    assert_equal 6, @stat_tracker.most_goals_scored('3')
+
+    assert_instance_of Integer, @stat_tracker.most_goals_scored('17')
+    assert_equal 6, @stat_tracker.most_goals_scored('17')
+  end
+
+  def test_stat_tracker_can_get_fewest_goals_scored
+    assert_instance_of Integer, @stat_tracker.fewest_goals_scored('6')
+    assert_equal 0, @stat_tracker.fewest_goals_scored('6')
+
+    assert_instance_of Integer, @stat_tracker.fewest_goals_scored('3')
+    assert_equal 0, @stat_tracker.fewest_goals_scored('3')
+
+    assert_instance_of Integer, @stat_tracker.fewest_goals_scored('17')
+    assert_equal 0, @stat_tracker.fewest_goals_scored('17')
   end
 end
