@@ -140,6 +140,12 @@ class GameTeamsCollection
     end
   end
 
+  def all_games_by_season(season)
+   @game_teams.find_all do |game|
+     game if game.game_id.to_s[0..3] == season[0..3]
+   end
+  end
+
   def shot_goal_ratio(season)
     shot_goals = {}
     season_by_team(season).map do |id, games|
@@ -302,12 +308,6 @@ class GameTeamsCollection
       records[games[0]] = games[1].find_all {|game| game.hoa == h_a }
       records
     end
-  end
-
-  def all_games_by_season(season)
-   @game_teams.find_all do |game|
-     game if game.game_id.to_s[0..3] == season[0..3]
-   end
   end
 
   def season_by_team(season)
