@@ -5,8 +5,8 @@ require 'pry'
 
 class StatTrackerTest < Minitest::Test
 	def setup
-		game_path = './test/fixtures/truncated_games.csv'
-		team_path = './test/fixtures/truncated_teams.csv'
+		game_path = './data/games.csv'
+		team_path = './data/teams.csv'
 		game_teams_path = './test/fixtures/truncated_game_teams.csv'
 		locations = {
 		  games: game_path,
