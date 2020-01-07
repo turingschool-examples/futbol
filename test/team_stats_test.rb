@@ -28,12 +28,24 @@ class TeamStatsTest < Minitest::Test
   end
 
   def test_team_info
-    expected = { 'team_id' => '6', 'franchise_id' => '6', 'team_name' => 'FC Dallas', 'abbreviation' => 'DAL', 'link' => '/api/v1/teams/6' }
-    assert_equal expected, @stat_tracker.team_info('6')
+    expected = {
+      'team_id' => '18',
+      'franchise_id' => '34',
+      'team_name' => 'Minnesota United FC',
+      'abbreviation' => 'MIN',
+      'link' => '/api/v1/teams/18'
+    }
+    assert_equal expected, @stat_tracker.team_info('18')
   end
 
   def test_average_win_percentage
     assert_equal 0.49, @stat_tracker.average_win_percentage('6')
+  end
+
+  def test_all_team_games
+    expected = @stat_tracker.all_team_games('18').first
+
+    assert_equal expected, @stat_tracker.all_team_games('18')[0]
   end
 
   def test_team_biggest_blowout
