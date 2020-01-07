@@ -1,5 +1,7 @@
 require_relative 'game_collection'
 require_relative 'game_teams_collection'
+require_relative 'game_stats'
+require_relative 'game_teams_stats'
 require_relative 'team_collection'
 
 class StatTracker
@@ -14,8 +16,10 @@ class StatTracker
   end
 
   def initialize(game_path, game_teams_path, teams_path)
-    @game_teams = GameTeamsCollection.new(game_teams_path)
-    @games = GameCollection.new(game_path)
+    game_teams_collection = GameTeamsCollection.new(game_teams_path)
+    @game_collection = GameCollection.new(game_path)
+    @game_teams = GameTeamsStats.new(game_teams_collection)
+    @games = GameStats.new(@game_collection)
     @team_collection = TeamCollection.new(teams_path)
   end
 
@@ -44,7 +48,7 @@ class StatTracker
   end
 
   def count_of_games_by_season
-    @games.games_by_season
+    @game_collection.games_by_season
   end
 
   def average_goals_per_game
@@ -100,6 +104,6 @@ class StatTracker
   end
 
   def worst_fans
-      @game_teams.worst_fans_ids.map {|id| @team_collection.team_name_by_id(id)}
+    @game_teams.worst_fans_ids.map {|id| @team_collection.team_name_by_id(id)}
   end
 end
