@@ -94,6 +94,7 @@ module SeasonSearchable
       # else
       # acc[season] = (values[:regular_season][:win_percentage])
       # end
+
     acc
     end
   end
