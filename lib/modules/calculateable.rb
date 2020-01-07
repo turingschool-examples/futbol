@@ -59,6 +59,7 @@ module Calculateable
 
   def team_total_seasons(team_id)
     @team_season_collection.collection[team_id].size
+    
   end
 
   def team_season_keys(team_id)
