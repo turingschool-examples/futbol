@@ -235,4 +235,7 @@ class StatTrackerTest < Minitest::Test
 		assert_equal "Chicago Fire", @stat_tracker2.least_accurate_team("20132014")
 	end
 
+	def test_most_accurate_team_can_be_returned
+		assert_equal "Atlanta United", @stat_tracker2.most_accurate_team("20122013")
+	end
 end
