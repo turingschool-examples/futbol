@@ -76,7 +76,7 @@ module TeamSearchable
 		least_goals << (team.home_games.min_by{|game| game.home_goals}).home_goals
 		return least_goals.min
 	end
-end
+
 
   def team_info(teamid)
     team = teams.find {|team| team.team_id.to_s == teamid}
