@@ -53,6 +53,4 @@ module TeamSearchable
     team.stats_by_season
   end
 
-	
 end
-
