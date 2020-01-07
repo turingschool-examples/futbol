@@ -12,5 +12,6 @@ class Team
     @team_name = row[:teamname]
     @abbreviation = row[:abbreviation]
     @stadium = row[:stadium]
+    @link = row[:link]
   end
 end
