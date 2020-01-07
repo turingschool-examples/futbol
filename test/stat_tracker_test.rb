@@ -193,5 +193,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal "DC United", @stat_tracker.favorite_opponent("16")
   end
 
-
+  def test_seasonal_summary
+    assert_equal ({}), @stat_tracker.seasonal_summary("16")
+  end
 end
