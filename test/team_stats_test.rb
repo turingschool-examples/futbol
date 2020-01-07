@@ -28,11 +28,15 @@ class TeamStatsTest < Minitest::Test
   end
 
   def test_team_info
-    expected = {"team_id"=>"6", "franchise_id"=>"6", "team_name"=>"FC Dallas", "abbreviation"=>"DAL", "link"=>"/api/v1/teams/6"}
+    expected = { 'team_id' => '6', 'franchise_id' => '6', 'team_name' => 'FC Dallas', 'abbreviation' => 'DAL', 'link' => '/api/v1/teams/6' }
     assert_equal expected, @stat_tracker.team_info('6')
   end
 
   def test_average_win_percentage
-    require 'pry'; binding.pry
+    assert_equal 0.49, @stat_tracker.average_win_percentage('6')
+  end
+
+  def test_team_biggest_blowout
+    assert_equal 5, @stat_tracker.biggest_team_blowout('18')
   end
 end
