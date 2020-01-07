@@ -134,28 +134,23 @@ module TeamStats
     hash[game[0]] = (game[1].home_goals.to_i - game[1].away_goals.to_i).abs
   end
 
-  def most_goals_scored(team_id)
-    team_goals = []
-    @games.collection.each do |game|
+  def total_goals_by_team_id(team_id) # Helper
+    team_goals = @games.collection.map do |game|
       if game.last.home_team_id == team_id
-        team_goals << game.last.home_goals.to_i
+        game.last.home_goals.to_i
       elsif game.last.away_team_id == team_id
-        team_goals << game.last.away_goals.to_i
+        game.last.away_goals.to_i
       end
     end
-    team_goals.max
+    team_goals.compact
+  end
+
+  def most_goals_scored(team_id)
+    total_goals_by_team_id(team_id).max
   end
 
   def fewest_goals_scored(team_id)
-    team_goals = []
-    @games.collection.each do |game|
-      if game.last.home_team_id == team_id
-        team_goals << game.last.home_goals.to_i
-      elsif game.last.away_team_id == team_id
-        team_goals << game.last.away_goals.to_i
-      end
-    end
-    team_goals.min
+    total_goals_by_team_id(team_id).min
   end
 
   def worst_loss(team_id)
