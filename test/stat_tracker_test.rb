@@ -238,4 +238,8 @@ class StatTrackerTest < Minitest::Test
 	def test_most_accurate_team_can_be_returned
 		assert_equal "Atlanta United", @stat_tracker2.most_accurate_team("20122013")
 	end
+
+	def test_biggest_suprise_can_be_returned
+		assert_equal "Houston Dynamo", @stat_tracker2.biggest_surprise("20122013")
+	end
 end
