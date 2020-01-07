@@ -47,15 +47,15 @@ module LeagueSearchable
                 loop_teams.map do |opp_team|
                         games_to_return << games_between_teams(id, opp_team)
                 end
-                games_to_return.reject(&:empty?)
+                games_to_return.reject(&:empty?).flatten(1)
         end
 
 	def favorite_opponenent_id(id)
 		all_games = games_for_team(id)
 		all_games_by_team = organize_by_team(all_games)
 		wins_by_team = convert_to_wins(all_games_by_team)
-		win_percent_by_opp(wins_by_team)
-		win_percent_by_opp.key(win_percent_by_opp.values.max {|win_percent| win_percent.round(4)})
+		win_percent_per_opp = win_percent_by_opp(wins_by_team)
+		win_percent_per_opp.key(win_percent_per_opp.values.max)
 	end
 
 	def rival_id(id)	
@@ -63,23 +63,23 @@ module LeagueSearchable
 		all_games_by_team = organize_by_team(all_games)
 		wins_by_team = convert_to_wins(all_games_by_team)
 		win_percent_per_opp = win_percent_by_opp(wins_by_team)
-		win_percent_per_opp.key(win_percent_per_opp.values.min {|win_percent| win_percent.round(4)})
+		win_percent_per_opp.key(win_percent_per_opp.values.min)
 	end
 
 	def rival(id)
-		team_from_id(rival_id(id))
+		team_from_id(rival_id(id.to_i)).team_name
 	end
 
-	def favorite_opponenent(id)
-		team_from_id(favorite_opponenent(id)).team_name
+	def favorite_opponent(id)
+		team_from_id(favorite_opponenent_id(id.to_i)).team_name
 	end
 
 	def team_from_id(id)
-		teams.find {|team| team.team_id == id}.team_name
+		teams.find {|team| team.team_id == id}
 	end
 
 	def organize_by_team(games)
-		games.flatten(1).reduce({}) do |total, game|
+		games.reduce({}) do |total, game|
 			if total[game[0]] == nil
 				total[game[0]] = [game[1,2]]
 				total
@@ -128,6 +128,24 @@ module LeagueSearchable
 			end
 		end
 		win_count.to_f / game_count.to_f
+	end
+
+	def biggest_team_blowout(id)
+		all_games = games_for_team(id.to_i)
+		win_loss_games = win_loss_difference(all_games)
+		win_loss_games.max
+	end
+
+	def worst_loss(id)
+		all_games = games_for_team(id.to_i)
+		win_loss_games = win_loss_difference(all_games)
+		win_loss_games.min.abs
+	end
+
+	def win_loss_difference(games)
+		games.map do |game|
+			game[1] - game[2]
+		end
 	end
 				
 				
