@@ -28,4 +28,16 @@ module TeamStats
     end
     team_goals.min
   end
+
+  def worst_loss(team_id)
+    team_goal_diff = []
+    @games.collection.each do |game|
+      if game.last.home_team_id == team_id && game.last.home_goals < game.last.away_goals
+        team_goal_diff << game.last.away_goals.to_i - game.last.home_goals.to_i
+      elsif game.last.away_team_id == team_id && game.last.away_goals < game.last.home_goals
+        team_goal_diff << game.last.home_goals.to_i - game.last.away_goals.to_i
+      end
+    end
+    team_goal_diff.max
+  end
 end

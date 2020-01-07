@@ -197,4 +197,15 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of Integer, @stat_tracker.fewest_goals_scored('17')
     assert_equal 0, @stat_tracker.fewest_goals_scored('17')
   end
+
+  def test_stat_tracker_can_get_worst_loss
+    assert_instance_of Integer, @stat_tracker.worst_loss('3')
+    assert_equal 5, @stat_tracker.worst_loss('3')
+
+    assert_instance_of Integer, @stat_tracker.worst_loss('6')
+    assert_equal 5, @stat_tracker.worst_loss('6')
+
+    assert_instance_of Integer, @stat_tracker.worst_loss('17')
+    assert_equal 7, @stat_tracker.worst_loss('17')   
+  end
 end
