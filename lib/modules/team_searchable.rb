@@ -53,4 +53,14 @@ module TeamSearchable
     team.stats_by_season
   end
 
+  def team_info(teamid)
+    team = teams.find {|team| team.team_id.to_s == teamid}
+    team.team_info
+  end
+
+  def average_win_percentage(teamid)
+    team = teams.find {|team| team.team_id.to_s == teamid}
+    team.total_winning_percentage
+  end
+
 end
