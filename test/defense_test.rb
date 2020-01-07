@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require_relative 'test_helper'
 require './lib/team'
 require './lib/game_team'
 require './lib/defense'
@@ -15,11 +16,11 @@ class DefenseTest < Minitest::Test
   end
 
   def test_it_can_return_best_defense
-    assert_equal "Portland Timbers", Defense.best_defense
+    assert_equal "FC Dallas", Defense.best_defense
   end
 
   def test_it_can_return_worst_defense
-    assert_equal "New York City FC", Defense.worst_defense
+    assert_equal "New York Red Bulls", Defense.worst_defense
   end
 
   def test_it_can_get_team_name_from_id

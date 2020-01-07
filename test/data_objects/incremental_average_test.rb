@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require_relative 'test_helper'
 require './lib/data_objects/incremental_average'
 
 class IncrementalAverageTest < Minitest::Test
