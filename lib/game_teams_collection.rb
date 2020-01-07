@@ -219,7 +219,7 @@ class GameTeamsCollection
   def biggest_bust_id(season_id)
     reg_team_id_topercent = reg_season_team_percentages(season_id)
     post_team_id_topercent = post_season_team_percentages(season_id)
-    matching_teamids = (reg_team_id_topercent.keys & post_team_id_topercent.keys).sort
+    # matching_teamids = (reg_team_id_topercent.keys & post_team_id_topercent.keys).sort
     all_teamids = reg_team_id_topercent.keys + post_team_id_topercent.keys
     all_teamids = all_teamids.uniq.sort
 
@@ -230,7 +230,9 @@ class GameTeamsCollection
       if reg_winpercent > post_winpercent
         acc[team_id] = (reg_winpercent - post_winpercent)
       end
+      acc
     end
+    teamid_to_decrease.max_by { |teamid, percentage| percentage }.first
   end
 
   def season_by_coach(season)
