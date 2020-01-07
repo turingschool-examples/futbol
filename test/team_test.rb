@@ -120,4 +120,8 @@ class TeamTest < MiniTest::Test
   def test_can_return_total_winning_percentage
     assert_equal 0.5, @team.total_winning_percentage
   end
+
+  def test_can_return_home_win_percentage
+    assert_equal 0.5, @team.home_win_percentage
+  end
 end
