@@ -184,7 +184,6 @@ class StatTrackerTest < Minitest::Test
 
     assert_instance_of String, @stat_tracker.most_tackles('20152016')
     assert_equal "Vancouver Whitecaps FC", @stat_tracker.most_tackles('20152016')
-
   end
 
   def test_stat_tracker_can_get_fewest_tackles
