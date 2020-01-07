@@ -57,6 +57,10 @@ class GamesCollectionTest < Minitest::Test
     assert_equal 0.56, @gamescollection.percentage_visitor_wins
   end
 
+  def test_season_to_game
+    assert_equal 5, @gamescollection.season_to_game.length
+  end
+
   def test_average_goals_per_game
     assert_equal 4.06, @gamescollection.average_goals_per_game
   end

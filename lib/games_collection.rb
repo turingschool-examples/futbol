@@ -59,24 +59,24 @@ class GamesCollection
     (ties.length.to_f / @games.length.to_f).round(2)
   end
 
-  def average_goals_by_season
-    season_to_game = games.reduce({}) do |acc, game|
-    if acc[game.season] == nil
-      acc[game.season] = []
+  def season_to_game
+    games.reduce({}) do |acc, game|
+      if acc.has_key?(game.season) == false
+        acc[game.season] = []
+      end
       acc[game.season] << game
-    else
-      acc[game.season] << game
+      acc
     end
-    acc
   end
 
-  avg_by_season = {}
-  season_to_game.each do |season, games|
-  avg_by_season[season] = ((games.map {|game| game.away_goals +
-    game.home_goals}).sum / (games.map {|game| game.away_goals +
-       game.home_goals}).length.to_f).round(2)
-    end
-  avg_by_season
+  def average_goals_by_season
+    avg_by_season = {}
+    season_to_game.each do |season, games|
+    avg_by_season[season] = ((games.map {|game| game.away_goals +
+      game.home_goals}).sum / (games.map {|game| game.away_goals +
+         game.home_goals}).length.to_f).round(2)
+      end
+    avg_by_season
   end
 
   def team_id_to_avg
