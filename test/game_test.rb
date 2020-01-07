@@ -5,14 +5,14 @@ class GameTest < MiniTest::Test
 
   def setup
     stat_array = [{:team_id=>"3",
-                   :HOA=>"away", 
-                   :Coach=>"John Tortorella", 
-                   :Shots=>"8", 
+                   :HOA=>"away",
+                   :Coach=>"John Tortorella",
+                   :Shots=>"8",
                    :Tackles=>"44"},
-                  {:team_id=>"6", 
-                   :HOA=>"home", 
-                   :Coach=>"Claude Julien", 
-                   :Shots=>"12", 
+                  {:team_id=>"6",
+                   :HOA=>"home",
+                   :Coach=>"Claude Julien",
+                   :Shots=>"12",
                    :Tackles=>"51"}]
 
     @game = Game.new({
@@ -92,5 +92,9 @@ class GameTest < MiniTest::Test
   def test_self_method_can_pull_all_games
     assert_equal 3, Game.all.length
     assert_instance_of Game, Game.all[0]
+  end
+
+  def test_winning_coach_can_be_returned
+    assert_equal "Claude Julien", @game.winning_coach
   end
 end
