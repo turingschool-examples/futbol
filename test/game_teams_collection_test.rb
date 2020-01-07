@@ -43,6 +43,7 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_biggest_bust_id
+    skip
     stat_tracker = StatTracker.new("./data/games.csv", "./data/teams.csv", "./data/game_teams.csv")
     game_teams_collection = GameTeamsCollection.new(stat_tracker.game_teams_path)
 
@@ -50,6 +51,7 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_biggest_surprise_id
+    skip
     stat_tracker = StatTracker.new("./data/games.csv", "./data/teams.csv", "./data/game_teams.csv")
     game_teams_collection = GameTeamsCollection.new(stat_tracker.game_teams_path)
 
@@ -69,8 +71,25 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal 9, @game_teams_collection.most_tackles_team_id("20142015")
   end
 
+  def test_season_by_coach
+    assert_equal 3, @game_teams_collection.season_by_coach("20142015").length
+  end
+
+  def test_coach_wins_losses
+    assert_equal 3, @game_teams_collection.coach_wins_losses("20142015").length
+  end
+
+  def test_coach_percentage
+    expected = {"Alain Vigneault"=>100.0, "Dave Cameron"=>0.0, "Joel Quenneville"=>0.0}
+    assert_equal expected, @game_teams_collection.coach_percentage("20142015")
+  end
+
   def test_worst_coach_name
-    assert_equal "Ted Nolan", @game_teams_collection.worst_coach_name("20142015")
+    assert_equal "Dave Cameron", @game_teams_collection.worst_coach_name("20142015")
+  end
+
+  def test_winningest_coach_name
+    assert_equal "Dave Cameron", @game_teams_collection.worst_coach_name("20142015")
   end
 
   def test_fewest_tackles_team_id

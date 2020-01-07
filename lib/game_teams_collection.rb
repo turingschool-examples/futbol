@@ -227,6 +227,38 @@ class GameTeamsCollection
     end
   end
 
+  def season_by_coach(season)
+    games_by_season = all_games_by_season(season)
+    games_by_season.group_by { |game| game.head_coach }
+  end
+
+  def coach_wins_losses(season)
+    coach_wins_losses =  Hash.new(0)
+    season_by_coach(season).map do |coach, games|
+      coach_wins_losses[coach] = games.map { |game| game.result }
+    end
+    coach_wins_losses
+  end
+
+  def coach_percentage(season)
+    coach_to_winpercent = coach_wins_losses(season).reduce({}) do |acc, coachresults|
+      coachname = coachresults[0]
+      win_count = coachresults[1].count("WIN")
+      game_count = coachresults[1].length
+      win_percentage = (win_count / game_count.to_f) * 100
+      acc[coachname] = win_percentage
+      acc
+    end
+  end
+
+  def worst_coach_name(season)
+    coach_percentage(season).min_by { |coach, losses| losses }.first
+  end
+
+  def winningest_coach_name(season)
+    coach_percentage(season).max_by { |coach, wins| wins }.first
+  end
+
   def most_accurate_team_id(season)
     shot_goal_ratio(season).max_by { |id, pcts| pcts }.first
   end
