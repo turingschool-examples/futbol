@@ -10,7 +10,7 @@ class Team
 		end
 		teams_storage
   end
-  
+
   attr_reader :team_id,
               :franchise_id,
               :team_name,
@@ -151,33 +151,8 @@ class Team
     (all_games_won.length.to_f / all_games_played.length).round(2)
   end
 
-  def home_win_percentage
-    all_home_games = all_games_played.find_all do |game|
-      game.home_team_id == @team_id
-    end
-    (home_games_won.length.to_f / all_home_games.length).round(2)
-  end
-
-  def away_win_percentage
-    all_away_games = all_games_played.find_all do |game|
-      game.away_team_id == @team_id
-    end
-    (away_games_won.length.to_f / all_away_games.length).round(2)
-  end
-
   def all_games_played
     home_games + away_games
   end
 
-  def home_games_won
-    home_won = home_games.find_all do |game|
-      game.winner == @team_id
-    end
-  end
-
-  def away_games_won
-    away_won = away_games.find_all do |game|
-      game.winner == @team_id
-    end
-  end
 end

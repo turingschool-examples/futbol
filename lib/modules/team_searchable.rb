@@ -54,7 +54,6 @@ module TeamSearchable
     team.stats_by_season
   end
 
-
 	# def all_games_played
 	# 	all_games = []
 	# 	@away_games.each {|game| all_games << game}
