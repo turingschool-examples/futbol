@@ -69,6 +69,14 @@ class GamesCollectionTest < Minitest::Test
     assert_equal ({"20122013"=>4.0, "20142015"=>3.88, "20152016"=>4.0, "20162017"=>4.0, "20132014"=>6.0}), @gamescollection.average_goals_by_season
   end
 
+  def test_team_id_to_games
+    assert_equal 20, @gamescollection.team_id_to_games.length
+  end
+
+  def test_team_id_to_avg
+    assert_equal 20, @gamescollection.team_id_to_avg.length
+  end
+
   def test_best_offence_id
     assert_equal 14, @gamescollection.best_offense_id
   end
@@ -91,8 +99,11 @@ class GamesCollectionTest < Minitest::Test
     assert_equal 7, @gamescollection.worst_defense_id
   end
 
-  def test_season_game_ids
+  def test_reg_season_game_ids
     assert_equal [2013020246], @gamescollection.reg_season_game_ids("20132014")
+  end
+
+  def test_post_season_game_ids
     assert_equal [], @gamescollection.post_season_game_ids("20132014")
   end
 

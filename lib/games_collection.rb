@@ -79,47 +79,33 @@ class GamesCollection
     avg_by_season
   end
 
-  def team_id_to_avg
+  def team_id_to_games
     team_id_to_games = games.reduce({}) do |acc, game|
-      if acc[game.home_team_id] == nil
+      if acc.has_key?(game.home_team_id) == false
         acc[game.home_team_id] = []
-        acc[game.home_team_id] << game.home_goals
-        if acc[game.away_team_id] == nil
-          acc[game.away_team_id] = []
-          acc[game.away_team_id] << game.away_goals
-        else
-          acc[game.away_team_id] << game.away_goals
-        end
-      else
-        acc[game.home_team_id] << game.home_goals
-        if acc[game.away_team_id] == nil
-          acc[game.away_team_id] = []
-          acc[game.away_team_id] << game.away_goals
-        else
-          acc[game.away_team_id] << game.away_goals
-        end
       end
+      acc[game.home_team_id] << game.home_goals
+      if acc.has_key?(game.away_team_id) == false
+        acc[game.away_team_id] = []
+      end
+      acc[game.away_team_id] << game.away_goals
       acc
     end
+  end
 
-    team_id_to_games.reduce({}) do |acc, id_and_games|
-      id = id_and_games[0]
-      avg = (id_and_games[1].sum) / (id_and_games[1].length).to_f
-      acc[id] = [avg]
+  def team_id_to_avg
+    team_id_to_games.reduce({}) do |acc, teamid|
+      acc[teamid[0]] = (teamid[1].sum) / (teamid[1].length).to_f
       acc
     end
   end
 
   def best_offense_id
-    avg_hash = team_id_to_avg
-    highest_avg = avg_hash.max_by {|k, v| v}
-    highest_avg[0]
+    team_id_to_avg.max_by {|teamid, average|  average }.first
   end
 
   def worst_offense_id
-    avg_hash = team_id_to_avg
-    lowest_avg = avg_hash.min_by {|k, v| v}
-    lowest_avg[0]
+    team_id_to_avg.min_by {|teamid, average| average }.first
   end
 
   def reg_season_game_ids(season_id)
@@ -138,32 +124,6 @@ class GamesCollection
       end
       acc
     end
-  end
-
-  def winningest_coach_game_ids(season_id)
-    @games.reduce([]) do |acc, game|
-      if game.season == season_id
-        acc << game.game_id
-      end
-      acc
-    end
-  end
-
-  def worst_coach_name(season_id)
-    gamescollection = GamesCollection.new("./data/games.csv")
-    game_teams1 = create_game_teams("./data/game_teams.csv")
-    game_ids = gamescollection.winningest_coach_game_ids(season_id)
-    coach_to_results = game_ids.reduce({}) do |acc, gameid|
-      game_teams1.each do |gameteam|
-        if gameteam.game_id == gameid && acc[gameteam.head_coach] == nil
-          acc[gameteam.head_coach] = []
-          acc[gameteam.head_coach] << gameteam.result
-        elsif gameteam.game_id == gameid && acc[gameteam.head_coach] != nil
-          acc[gameteam.head_coach] << gameteam.result
-        end
-      end
-      end
-    acc
   end
 
   def best_season(teamid)
