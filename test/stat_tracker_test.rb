@@ -56,10 +56,30 @@ class StatTrackerTest < Minitest::Test
                 :away_win_percentage => 0.5,
                 :total_scores_against => 4,
                 :team_name => "Fake 4")
+  	# game1 = mock("Game1")
+  	# game1.stubs(:away_team_id => 2,
+		# 				  	:home_team_id => 1,
+		# 				  	:away_goals => 5,
+		# 				  	:home_goals => 2)
+  	# game2 = mock("Game2")
+  	# game2.stubs(:away_team_id => 1,
+		# 					  :home_team_id => 2,
+		# 				  	:away_goals => 4,
+		# 				  	:home_goals => 1)
+		#
+		# away_games = [game1]
+		# home_games = [game2]
+		#
+		# team1.stubs(:away_games => away_games, :home_games => home_games)
+		# team2.stubs(:away_games => away_games, :home_games => home_games)
+		# team3.stubs(:away_games => away_games, :home_games => home_games)
+		# team4.stubs(:away_games => away_games, :home_games => home_games)
 
     fake_teams = [team1, team2, team3, team4]
 
     @stat_tracker.stubs(:teams => fake_teams)
+
+		@stat_tracker2 = StatTracker.from_csv(locations)
   end
 
   def teardown
@@ -147,4 +167,12 @@ class StatTrackerTest < Minitest::Test
   def test_can_find_average_goal_per_game
     assert_equal 4.24, @stat_tracker.average_goals_per_game
   end
+
+	def test_team_can_return_most_goals_scored
+		assert_equal 2, @stat_tracker2.most_goals_scored("3")
+	end
+
+	def test_team_can_return_fewest_goals_scored
+		assert_equal 1, @stat_tracker2.fewest_goals_scored("3")
+	end
 end
