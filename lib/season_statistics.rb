@@ -5,12 +5,10 @@ class SeasonStatistics
 
   def self.all_games_all_seasons
     season_games = {}
-    # game_ids = []
     Game.all_games.each do |game|
       if season_games.keys.include?(game.season)
         game_ids = season_games[game.season]
         game_ids << game.game_id
-        #season_games[game.season] = game_ids
       else
         season_games[game.season] = [game.game_id]
       end
@@ -63,7 +61,6 @@ class SeasonStatistics
       team[0] if team[-1] == win_percent_by_team_id(season).values.max
     end
     max_wins_team.flatten.first
-    #winning_team_ids = max_wins_team.map {|max| max[0]}
   end
 
   def self.coach_by_team_id(season)
@@ -91,13 +88,10 @@ class SeasonStatistics
 
   def self.post_season_games
     post_season_games = {}
-    # game_ids = []
     Game.all_games.each do |game|
       if game.type == "Postseason" && post_season_games.keys.include?(game.season)
-        game_ids = post_season_games[game.season] #
+        game_ids = post_season_games[game.season]
         game_ids << game.game_id
-        # game_ids << game.game_id
-        # post_season_games[game.season] = game_ids
       elsif game.type == "Postseason" && post_season_games.keys.include?(game.season) == false
         post_season_games[game.season] = [game.game_id]
       end
@@ -141,13 +135,10 @@ class SeasonStatistics
 
   def self.regular_games
     regular_games = {}
-    # game_ids = []
     Game.all_games.each do |game|
       if game.type == "Regular Season" && regular_games.keys.include?(game.season)
         game_ids = regular_games[game.season] #
         game_ids << game.game_id
-        # game_ids << game.game_id
-        # regular_games[game.season] = game_ids
       elsif game.type == "Regular Season" && regular_games.keys.include?(game.season) == false
         regular_games[game.season] = [game.game_id]
       end
@@ -156,7 +147,6 @@ class SeasonStatistics
   end
 
   def self.win_percent_regular(season)
-    # regular_games_per_season = regular_games[season]
     all_regular_games = regular_games[season].map do |game_id|
       GameTeam.all_game_teams.find_all do |game_team|
         game_id == game_team.game_id
@@ -194,8 +184,6 @@ class SeasonStatistics
       if win_percent_regular(season).keys.include?(key[0]) && win_percent_post_season(season).keys.include?(key[0])
       diff = win_percent_regular(season)[key[0]] - win_percent_post_season(season)[key[0]]
       diff_post_reg[key[0]] = diff
-      # else
-      #   diff_post_reg[key[0]] = -0.05
       end
     end
     diff_post_reg
