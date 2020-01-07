@@ -228,8 +228,7 @@ class GameTeamsCollection
   end
 
   def season_by_coach(season)
-    games_by_season = all_games_by_season(season)
-    games_by_season.group_by { |game| game.head_coach }
+    all_games_by_season(season).group_by { |game| game.head_coach }
   end
 
   def coach_wins_losses(season)
@@ -241,12 +240,8 @@ class GameTeamsCollection
   end
 
   def coach_percentage(season)
-    coach_to_winpercent = coach_wins_losses(season).reduce({}) do |acc, coachresults|
-      coachname = coachresults[0]
-      win_count = coachresults[1].count("WIN")
-      game_count = coachresults[1].length
-      win_percentage = (win_count / game_count.to_f) * 100
-      acc[coachname] = win_percentage
+    coach_wins_losses(season).reduce({}) do |acc, coachresults|
+      acc[coachresults[0]] = (coachresults[1].count("WIN") / (coachresults[1].length).to_f) * 100
       acc
     end
   end
@@ -316,8 +311,7 @@ class GameTeamsCollection
   end
 
   def season_by_team(season)
-    games_by_season = all_games_by_season(season)
-    games_by_season.group_by { |game| game.team_id }
+    all_games_by_season(season).group_by { |game| game.team_id }
   end
 
   def team_total_tackles(season)
