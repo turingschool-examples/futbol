@@ -325,13 +325,49 @@ class GamesCollection
     difference_array.max
   end
 
+  def worst_loss(teamid)
+    difference_array = games.reduce([]) do |acc, game|
+      if teamid.to_i == game.away_team_id && game.away_goals < game.home_goals
+        difference = game.home_goals - game.away_goals
+        acc << difference
+      elsif teamid.to_i == game.home_team_id && game.home_goals < game.away_goals
+        difference = game.away_goals - game.home_goals
+        acc << difference
+      end
+      acc
+    end
+
+    difference_array.max
+  end
+
+  def head_to_head(teamid)
+    opponentid_results = Hash.new {|hash, key| hash[key] = []}
+
+    games.each do |game|
+      if teamid.to_i == game.away_team_id
+        result = "WIN" if game.away_goals > game.home_goals
+        result = "LOSS" if game.away_goals < game.home_goals
+        result = "TIE" if game.away_goals == game.home_goals
+        opponentid_results[game.home_team_id] << result
+
+      elsif teamid.to_i == game.home_team_id
+        result = "WIN" if game.home_goals > game.away_goals
+        result = "LOSS" if game.home_goals < game.away_goals
+        result = "TIE" if game.home_goals == game.away_goals
+        opponentid_results[game.away_team_id] << result
+
+      end
+    end
+
+    opponentid_winpercent = opponentid_results.reduce({}) do |acc, (key, value)|
+      avg = value.count("WIN") / value.length.to_f
+      acc[key] = avg
+      acc
+    end
+  end
+
+
 
 
 
 end
-
-# biggest_team_blowout	Biggest difference between team goals and opponent goals for a win for the given team.	Integer
-# expect(@stat_tracker.biggest_team_blowout("18")).to eq 5
-#
-# worst_loss	Biggest difference between team goals and opponent goals for a loss for the given team.	Integer
-# expect(@stat_tracker.worst_loss("18")).to eq 4

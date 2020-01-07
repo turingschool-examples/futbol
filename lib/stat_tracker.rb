@@ -144,5 +144,23 @@ class StatTracker
     teams_collection.associate_team_id_with_team_name(games_collection.rival_id(teamid).to_i)
   end
 
+  def biggest_team_blowout(teamid)
+    games_collection.biggest_team_blowout(teamid)
+  end
+
+  def worst_loss(teamid)
+    games_collection.worst_loss(teamid)
+  end
+
+  def head_to_head(teamid)
+    team_to_winper = games_collection.head_to_head(teamid)
+    teamname_to_winper = team_to_winper.reduce({}) do |acc, (team, winpercent)|
+      teamname = teams_collection.associate_team_id_with_team_name(team)
+      rounded = winpercent.round(2)
+      acc[teamname] = rounded
+      acc
+    end
+  end
+
 
 end
