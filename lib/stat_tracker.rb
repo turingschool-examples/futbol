@@ -22,7 +22,7 @@ class StatTracker < League
 			acc
 		end
   end
-  
+
   def game_stat_check
     Game.all.find_all {|game| game.stats.keys[1].to_i != game.home_team_id}
   end
