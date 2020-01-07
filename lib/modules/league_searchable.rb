@@ -4,7 +4,7 @@ module LeagueSearchable
                 teams.map(&:team_id)
         end
 
-
+#hey look at this
         def games_between_teams(id, opp_id)
                 games_to_return = []
                 Game.all.each do |game|
