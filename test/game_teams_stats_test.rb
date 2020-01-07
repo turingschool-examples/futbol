@@ -93,4 +93,8 @@ class GameTeamsStatsTest < Minitest::Test
   def test_most_goals_score_by_team_in_a_single_game
     assert_equal 4, @game_teams_stats.most_goals_scored(5)
   end
+
+  def test_fewest_goals_score_by_team_in_a_single_game
+    assert_equal 2, @game_teams_stats.fewest_goals_scored(5)
+  end
 end
