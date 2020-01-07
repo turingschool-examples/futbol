@@ -327,19 +327,45 @@ class GamesCollection
     highest[0].to_s
   end
 
-  def biggest_team_blowout(teamid)
+  def worst_loss_num(teamid)
     difference_array = games.reduce([]) do |acc, game|
-      if teamid.to_i == game.away_team_id && game.away_goals > game.home_goals
-        difference = game.away_goals - game.home_goals
-        acc << difference
-      elsif teamid.to_i == game.home_team_id && game.home_goals > game.away_goals
+      if teamid.to_i == game.away_team_id && game.away_goals < game.home_goals
         difference = game.home_goals - game.away_goals
+        acc << difference
+      elsif teamid.to_i == game.home_team_id && game.home_goals < game.away_goals
+        difference = game.away_goals - game.home_goals
         acc << difference
       end
       acc
     end
 
     difference_array.max
+  end
+
+  def head_to_head(teamid)
+    opponentid_results = Hash.new {|hash, key| hash[key] = []}
+
+    games.each do |game|
+      if teamid.to_i == game.away_team_id
+        result = "WIN" if game.away_goals > game.home_goals
+        result = "LOSS" if game.away_goals < game.home_goals
+        result = "TIE" if game.away_goals == game.home_goals
+        opponentid_results[game.home_team_id] << result
+
+      elsif teamid.to_i == game.home_team_id
+        result = "WIN" if game.home_goals > game.away_goals
+        result = "LOSS" if game.home_goals < game.away_goals
+        result = "TIE" if game.home_goals == game.away_goals
+        opponentid_results[game.away_team_id] << result
+
+      end
+    end
+
+    opponentid_winpercent = opponentid_results.reduce({}) do |acc, (key, value)|
+      avg = value.count("WIN") / value.length.to_f
+      acc[key] = avg
+      acc
+    end
   end
 
   def average_goals_scored_by_opposite_team
@@ -384,17 +410,5 @@ class GamesCollection
     difference_array.max
   end
 
-  def worst_loss_num(teamid)
-    difference_array = games.reduce([]) do |acc,game|
-      if teamid.to_i == game.home_team_id && game.home_goals < game.away_goals
-        difference = game.away_goals - game.home_goals
-        acc << difference
-      elsif teamid.to_i == game.away_team_id && game.away_goals < game.home_goals
-        difference = game.home_goals - game.away_goals
-        acc << difference
-      end
-      acc
-    end
-    difference_array.max
-  end
+
 end
