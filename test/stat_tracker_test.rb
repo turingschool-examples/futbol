@@ -224,6 +224,15 @@ class StatTrackerTest < Minitest::Test
 	end
 
 	def test_best_season_can_be_returned
-		assert_equal "20122013", @stat_tracker2.best_season("3")
+		assert_equal "20122013", @stat_tracker2.best_season("1")
 	end
+
+	# def test_coach_winningest_can_be_returned
+	# 	binding.pry
+	# end
+
+	def test_least_accurate_team_can_be_returned
+		assert_equal "Chicago Fire", @stat_tracker2.least_accurate_team("20132014")
+	end
+
 end
