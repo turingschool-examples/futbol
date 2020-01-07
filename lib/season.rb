@@ -1,5 +1,6 @@
 require 'csv'
 require_relative './game'
+require_relative './team'
 require 'pry'
 
 class Season < Game
@@ -18,7 +19,7 @@ class Season < Game
   end
 
   def initialize(league_info)
-    @game_id = league_info[:game_id].to_i
+    @game_id = league_info[:game_id]
     @team_id = league_info[:team_id].to_i
     @hoa = league_info[:hoa]
     @result = league_info[:result]
@@ -88,55 +89,60 @@ class Season < Game
   end
 
   def self.seasons_filter(season_id)
-    @@all_games.map do |game|
-      game.game_id if game.season == season_id
-    end.compact.uniq
-
-  end
+      game_team_objects_array_by_season = @@all_seasons.find_all do |season|
+        season if season_id.slice(0..3) == season.game_id.slice(0..3)
+      end
+    end
 
   def self.most_accurate_team(season_id)	#Name of the Team with the best ratio of shots to goals for the season	String
-    team_accuracy_hash = shot_to_goal_ratio_per_game(season_id)
-    team_accuracy_average_hash = average_shots_per_goal_by_team(team_accuracy_hash)
-    binding.pry
+    ratio_per_game_hash = shot_to_goal_ratio_per_game(season_id)
+    team_accuracy_average_hash = average_shots_per_goal_by_team(ratio_per_game_hash)
     max_value_team(team_accuracy_average_hash)
   end
 
   def self.least_accurate_team(season_id)	#Name of the Team with the best ratio of shots to goals for the season	String
-    team_accuracy_hash = shot_to_goal_ratio_per_game(season_id)
-    team_accuracy_average_hash = average_shots_per_goal_by_team(team_accuracy_hash)
+    ratio_per_game_hash = shot_to_goal_ratio_per_game(season_id)
+    team_accuracy_average_hash = average_shots_per_goal_by_team(ratio_per_game_hash)
     min_value_team(team_accuracy_average_hash)
   end
 
-
   def self.shot_to_goal_ratio_per_game(season_id)
-    games_in_season = seasons_filter(season_id)
-    shot_to_goal_ratio_per_game_by_season = @@all_seasons.reduce (Hash.new([])) do |acc, season|
-      # binding.pry
-      if games_in_season.include?(season.game_id) && acc.keys.include?(season.team_id)
-        acc[season.team_id] << (season.shots/season.goals)
-      elsif games_in_season.include?(season.game_id)
-        acc[season.team_id] = (season.shots/season.goals)
+    game_team_objects_array_by_season = seasons_filter(season_id)
+    ratio_per_game_hash = game_team_objects_array_by_season.reduce (Hash.new([])) do |acc, season|
+      if acc.keys.include?(season.team_id)
+        acc[season.team_id] << (season.goals/season.shots.to_f).round(2)
+      elsif !acc.keys.include?(season.team_id)
+        acc[season.team_id] = [(season.goals/season.shots.to_f).round(2)]
       end
       acc
     end.compact
   end
 
-  def self.average_shots_per_goal_by_team(hash)
-      hash.each do |key, value|
-        hash[key] = (value.sum / value.count.to_f).round(2)
+  def self.average_shots_per_goal_by_team(ratio_per_game_hash)
+      ratio_per_game_hash.each do |key, value|
+        ratio_per_game_hash[key] = (value.sum / value.count.to_f).round(2)
       end
   end
 
   def self.max_value_team(team_accuracy_average_hash)
-    team_id = team_accuracy_average_hash.key(team_accuracy_average_hash.values.max)
-    team = @@all_teams.find {|team| team.team_name if team.team_id == team_id}
-    team.team_name
+    team_id_2 = team_accuracy_average_hash.max_by {|k, v| v}
+    find_team_name(team_id_2)
   end
 
   def self.min_value_team(team_accuracy_average_hash)
-    team_id = team_accuracy_average_hash.key(team_accuracy_average_hash.values.min)
-    team = @@all_teams.find {|team| team.team_name if team.team_id == team_id}
-    team.team_name
+    team_id_3 = team_accuracy_average_hash.min_by {|k, v| v}
+    find_team_name(team_id_3)
   end
 
+  def self.find_team_name(id)
+      testy = @@all_teams.find do |team|
+        return team.team_name if team.team_id == id[0]
+      end
+
+    end
+
 end
+# team_accuracy_hash = shot_to_goal_ratio_per_game(season_id)
+# team_accuracy_average_hash = average_shots_per_goal_by_team(team_accuracy_hash)
+# binding.pry
+# max_value_team(team_accuracy_average_hash)
