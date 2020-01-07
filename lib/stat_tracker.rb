@@ -765,4 +765,48 @@ end
       value[:wins].to_f / value[:games]
     end[0]
   end
+
+  def head_to_head(id)
+    opponent_hash = Hash.new
+    relavent_games = @games.find_all do |game|
+      game.away_team_id == id.to_i || game.home_team_id == id.to_i
+    end
+    relavent_games.each do |game|
+      opponent_id = game.home_team_id if game.home_team_id != id.to_i
+      opponent_id = game.away_team_id if game.home_team_id == id.to_i
+      opponent_hash[opponent_id] ||= opponent_hash[opponent_id] = {"Wins" => [], "Losses" => []}
+
+      if game.home_team_id == id.to_i
+        opponent_hash[opponent_id]["Wins"] << game if game.home_goals > game.away_goals
+        opponent_hash[opponent_id]["Losses"] << game if game.home_goals < game.away_goals || game.home_goals == game.away_goals
+      elsif game.away_team_id == id.to_i
+        opponent_hash[opponent_id]["Wins"] << game if game.away_goals > game.home_goals
+        opponent_hash[opponent_id]["Losses"] << game if game.away_goals < game.home_goals || game.away_goals == game.home_goals
+      end
+    end
+
+    win_perc_hash = Hash.new
+
+    opponent_hash.each do |opponent_id, win_loss_hash|
+      @teams.find do |team|
+        if team.team_id == opponent_id
+          win_perc_hash[team.teamname] = (win_loss_hash["Wins"].length / win_loss_hash.values.flatten.length.to_f).round(2)
+        end
+      end
+    end
+    win_perc_hash
+  end
+
+  def rival(id)
+    head_to_head(id).min_by do |team|
+      team.last
+    end.first
+  end
+
+  def favorite_opponent(id)
+    head_to_head(id).max_by do |team|
+      team.last
+    end.first
+  end
+
 end
