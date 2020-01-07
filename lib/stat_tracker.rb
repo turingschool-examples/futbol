@@ -104,21 +104,6 @@ class StatTracker
     teams_collection.associate_team_id_with_team_name(game_teams_collection.lowest_scoring_home_team)
   end
 
-  # def biggest_bust(season_id)
-  #   teams_collection.associate_team_id_with_team_name(game_teams_collection.biggest_bust_id(season_id))
-  # end
-  #
-  # def biggest_surprise(season_id)
-  #   teams_collection.associate_team_id_with_team_name(game_teams_collection.biggest_surprise_id(season_id))
-  # end
-  #
-  # def winningest_coach(season_id)
-  #   game_teams_collection.winningest_coach_name(season_id)
-  # end
-  #
-  # def worst_coach(season_id)
-  #   game_teams_collection.worst_coach_name(season_id)
-  # end
   def biggest_team_blowout(teamid)
     games_collection.biggest_team_blowout_num(teamid)
   end
@@ -130,5 +115,48 @@ class StatTracker
     end
     names_percent
   end
+  
+  def winningest_team
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.winningest_team_id)
+  end
 
+  def best_fans
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.best_fans_team_id)
+  end
+
+  def worst_fans
+    teams_collection.associate_multi_team_id_with_team_name(game_teams_collection.worst_fans_team_id)
+  end
+
+  def biggest_bust(season)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.biggest_bust_id(season))
+  end
+
+  def biggest_surprise(season)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.biggest_surprise_id(season))
+  end
+
+  def worst_coach(season)
+    game_teams_collection.worst_coach_name(season)
+  end
+
+  def winningest_coach(season)
+    game_teams_collection.winningest_coach_name(season)
+  end
+
+  def most_accurate_team(season)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.most_accurate_team_id(season))
+  end
+
+  def least_accurate_team(season)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.least_accurate_team_id(season))
+  end
+
+  def most_tackles(season_id)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.most_tackles_team_id(season_id))
+  end
+
+  def fewest_tackles(season_id)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.fewest_tackles_team_id(season_id))
+  end
 end

@@ -73,5 +73,4 @@ class StatTrackerTest < Minitest::Test
   def test_head_to_head
     assert_equal ({"Portland Timbers"=>0.5}), @stat_tracker.head_to_head("15")
   end
-
 end
