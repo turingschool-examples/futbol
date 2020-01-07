@@ -195,9 +195,33 @@ class GamesCollection
     worst_d.first
   end
 
+  def biggest_team_blowout_num(teamid)
+    difference_array  = games.reduce([]) do |acc, game|
+      if teamid.to_i == game.home_team_id && game.home_goals > game.away_goals
+        difference = game.home_goals - game.away_goals
+        acc << difference
+      elsif teamid.to_i == game.away_team_id && game.away_goals > game.home_goals
+        difference = game.away_goals - game.home_goals
+        acc << difference
+      end
+      acc
+    end
+    difference_array.max
+  end
 
-
-
+  def worst_loss_num(teamid)
+    difference_array = games.reduce([]) do |acc,game|
+      if teamid.to_i == game.home_team_id && game.home_goals < game.away_goals
+        difference = game.away_goals - game.home_goals
+        acc << difference
+      elsif teamid.to_i == game.away_team_id && game.away_goals < game.home_goals
+        difference = game.home_goals - game.away_goals
+        acc << difference
+      end
+      acc
+    end
+    difference_array.max
+  end
 end
 
 # These methods each take a season id as an argument and return the values described below.

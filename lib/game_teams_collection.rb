@@ -289,6 +289,17 @@ class GameTeamsCollection #< StatTracker
     bottom_coach_name = coach_withminpercent[0]
   end
 
+  def head_to_head_hash(teamid)
+    record = Hash.new {|hash, key| hash[key] = []}
+    game_teams.each do |gameteam|
+      record[gameteam.team_id] << gameteam.result if teamid.to_i == gameteam.team_id
+    end
+    id_to_percentage = record.reduce({}) do |acc, (key, value)|
+      acc[key] = (value.count("WIN") / value.length.to_f)
+      acc
+    end
+  end
+
 
 end
 

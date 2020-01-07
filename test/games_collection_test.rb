@@ -94,4 +94,12 @@ class GamesCollectionTest < Minitest::Test
       2014020675, 2014021227, 2014020868]
     assert_equal expected, @gamescollection.winningest_coach_game_ids("20142015")
   end
+
+  def test_biggest_team_blowout
+    assert_equal 2, @gamescollection.biggest_team_blowout_num("18")
+  end
+  def test_worst_loss
+    assert_equal 1, @gamescollection.worst_loss_num("18")
+  end
+
 end

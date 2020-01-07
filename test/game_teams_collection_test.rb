@@ -34,6 +34,10 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal 16, @game_teams_collection.lowest_scoring_home_team
   end
 
+  def test_head_to_head
+    assert_equal ({15=>0.5}), @game_teams_collection.head_to_head_hash("15")
+  end
+
   # def test_biggest_bust_id
   #   stat_tracker = StatTracker.new("./data/games.csv", "./data/teams.csv", "./data/game_teams.csv")
   #   game_teams_collection = GameTeamsCollection.new(stat_tracker.game_teams_path)

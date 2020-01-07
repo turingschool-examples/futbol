@@ -119,5 +119,16 @@ class StatTracker
   # def worst_coach(season_id)
   #   game_teams_collection.worst_coach_name(season_id)
   # end
+  def biggest_team_blowout(teamid)
+    games_collection.biggest_team_blowout_num(teamid)
+  end
+
+  def head_to_head(teamid)
+    names_percent = {}
+    game_teams_collection.head_to_head_hash(teamid).each do |key, value|
+      names_percent[teams_collection.associate_team_id_with_team_name(key)] = value.round(2)
+    end
+    names_percent
+  end
 
 end
