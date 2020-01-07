@@ -204,4 +204,9 @@ class StatTrackerTest < Minitest::Test
                 :average_goals_scored=>2.2, :average_goals_against=>1.6}}}
     assert_equal expected, @stat_tracker.seasonal_summary("16")
   end
+
+  def test_accurate_team_calculation
+    result = {24=>{:goals=>7, :attempts=>21}, 28=>{:goals=>2, :attempts=>4}, 16=>{:goals=>10, :attempts=>44}, 30=>{:goals=>5, :attempts=>19}, 19=>{:goals=>5, :attempts=>19}, 17=>{:goals=>10,:attempts=>32}, 2=>{:goals=>2, :attempts=>21}, 1=>{:goals=>5, :attempts=>12}, 14=>{:goals=>2, :attempts=>4}, 4=>{:goals=>3, :attempts=>8}, 15=>{:goals=>6, :attempts=>23}, 5=>{:goals=>8, :attempts=>46}, 3=>{:goals=>9, :attempts=>53}, 26=>{:goals=>2, :attempts=>12}, 6=>{:goals=>24, :attempts=>76}}
+    assert_equal result, @stat_tracker.accurate_team_calculation("20122013")
+  end
 end
