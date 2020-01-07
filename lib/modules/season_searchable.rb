@@ -14,15 +14,6 @@ module SeasonSearchable
     end
   end
 
-  def find_coach_games(season_to_search)
-    coach_games = season_to_search.games_unsorted.reduce(Hash.new(0)) do |acc, game|
-      acc[game.stats.first[1][:Coach]] += 1
-      acc[game.stats.to_a.last[1][:Coach]] += 1
-      coach_wins[game.winning_coach] += 1
-      acc
-    end
-  end
-
   def winningest_coach(season_id)
     percentage_hash = coach_win_percentages(season_id)
     percentage_hash.key(percentage_hash.values.max)
@@ -59,4 +50,29 @@ module SeasonSearchable
     teams.key(teams.values.max)
   end
 
+  def accuracy_of_shots(season_id)
+    season = Season.all.find {|season| season.id.to_s == season_id}
+    teams_in_season = teams.find_all {|team| team.stats_by_season.keys.include?(season_id)}
+    team_shot_accuracy = teams_in_season.reduce({}) do |acc, team|
+      shots_taken = season.games_unsorted.find_all {|game| game.stats.keys.include?(team.team_id.to_s)}.sum {|game| game.stats[team.team_id.to_s][:Shots].to_i}
+      acc[team.team_name] = ((team.stats_by_season[season_id][:regular_season][:total_goals_scored] + team.stats_by_season[season_id][:postseason][:total_goals_scored]).abs/ shots_taken)
+      acc
+    end
+    team_shot_accuracy
+  end
+
+  def most_accurate_team(season_id)
+    teams_accuracy = accuracy_of_shots(season_id)
+    teams_accuracy.key(teams_accuracy.values.reject{|num| num.nan? }.max)
+  end
+
+  def least_accurate_team(season_id)
+    teams_accuracy = accuracy_of_shots(season_id)
+    teams_accuracy.key(teams_accuracy.values.reject{|num| num.nan?}.min)
+  end
+
+  def tackles_in_season(season_id)
+    season = Season.all.find {|find| season.id.to_s == season_id }
+
+  end
 end
