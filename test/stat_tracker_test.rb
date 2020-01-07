@@ -167,7 +167,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_stat_tracker_can_get_best_fans
-    skip
     assert_instance_of String, @stat_tracker.best_fans
     assert_equal 'San Jose Earthquakes', @stat_tracker.best_fans
   end
@@ -183,6 +182,11 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of Integer, @stat_tracker.most_goals_scored('3')
     assert_equal 6, @stat_tracker.most_goals_scored('3')
 
+    assert_instance_of String, @stat_tracker.most_tackles('20152016')
+    assert_equal 'Vancouver Whitecaps FC', @stat_tracker.most_tackles('20152016')
+  end
+
+  def test_a_stat_tracker_can_get_most_goals_scored
     assert_instance_of Integer, @stat_tracker.most_goals_scored('17')
     assert_equal 6, @stat_tracker.most_goals_scored('17')
   end
@@ -206,6 +210,29 @@ class StatTrackerTest < Minitest::Test
     assert_equal 5, @stat_tracker.worst_loss('6')
 
     assert_instance_of Integer, @stat_tracker.worst_loss('17')
-    assert_equal 7, @stat_tracker.worst_loss('17')   
+    assert_equal 7, @stat_tracker.worst_loss('17')
+  end
+
+  def test_stat_tracker_can_get_most_tackles
+    assert_instance_of String, @stat_tracker.most_tackles('20172018')
+    assert_equal "Minnesota United FC", @stat_tracker.most_tackles('20172018')
+
+    assert_instance_of String, @stat_tracker.most_tackles('20132014')
+    assert_equal "Sporting Kansas City", @stat_tracker.most_tackles('20132014')
+
+    assert_instance_of String, @stat_tracker.most_tackles('20152016')
+    assert_equal "Vancouver Whitecaps FC", @stat_tracker.most_tackles('20152016')
+
+  end
+
+  def test_stat_tracker_can_get_fewest_tackles
+    assert_instance_of String, @stat_tracker.fewest_tackles('20172018')
+    assert_equal "New England Revolution", @stat_tracker.fewest_tackles('20172018')
+
+    assert_instance_of String, @stat_tracker.fewest_tackles('20132014')
+    assert_equal "Montreal Impact", @stat_tracker.fewest_tackles('20132014')
+
+    assert_instance_of String, @stat_tracker.fewest_tackles('20152016')
+    assert_equal "Philadelphia Union", @stat_tracker.fewest_tackles('20152016')
   end
 end
