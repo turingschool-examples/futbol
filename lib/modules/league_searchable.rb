@@ -149,7 +149,7 @@ module LeagueSearchable
 	end
 
 	def head_to_head(id)
-		all_games = games_for_team(id)
+		all_games = games_for_team(id.to_i)
 		all_games_by_team = organize_by_team(all_games)
 		wins_by_team = convert_to_wins(all_games_by_team)
 		win_percent_per_opp = win_percent_by_opp(wins_by_team)
