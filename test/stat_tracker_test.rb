@@ -242,4 +242,12 @@ class StatTrackerTest < Minitest::Test
 	def test_biggest_suprise_can_be_returned
 		assert_equal "Houston Dynamo", @stat_tracker2.biggest_surprise("20122013")
 	end
+
+	def test_biggest_bust_can_be_returned
+		assert_equal "Atlanta United", @stat_tracker2.biggest_bust("20122013")
+	end
+
+	# def test_worst_coach_can_be_returned
+	# 	binding.pry
+	# end
 end
