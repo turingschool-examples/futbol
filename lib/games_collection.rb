@@ -15,12 +15,12 @@ class GamesCollection
     create_instances(games_path, Game)
   end
 
+  def goals_per_game
+    @games.map {|game| game.away_goals + game.home_goals}
+  end
+
   def average_goals_per_game
-    goals_per_game = @games.map {|game| game.away_goals + game.home_goals}
-    all_goals = goals_per_game.sum
-    number_of_games = goals_per_game.length
-    average_goals_per_game = all_goals / number_of_games.to_f
-    average_goals_per_game.round(2)
+    (goals_per_game.sum / goals_per_game.length.to_f).round(2)
   end
 
   def highest_total_score
@@ -50,9 +50,7 @@ class GamesCollection
 
   def count_of_games_by_season
     games_per_season = Hash.new(0)
-      games.each do |game|
-        games_per_season[game.season] += 1
-    end
+      games.each { |game| games_per_season[game.season] += 1 }
     games_per_season
   end
 
@@ -300,7 +298,6 @@ class GamesCollection
 
   def rival_id(teamid)
     opponentid_results = Hash.new {|hash, key| hash[key] = []}
-
     games.each do |game|
       if teamid.to_i == game.away_team_id
         result = "WIN" if game.home_goals > game.away_goals

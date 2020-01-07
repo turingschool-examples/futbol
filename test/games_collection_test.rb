@@ -24,6 +24,10 @@ class GamesCollectionTest < Minitest::Test
     assert_equal "Postseason", @game.type
   end
 
+  def test_goals_per_game
+    assert_equal [5, 2, 5, 3, 5, 3, 6, 5, 3, 4, 4, 2, 6, 3, 3, 6], @gamescollection.goals_per_game
+  end
+
   def test_highest_total_score
     assert_equal 6, @gamescollection.highest_total_score
   end
