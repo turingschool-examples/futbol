@@ -159,6 +159,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal 0.73, @stat_tracker.average_win_percentage("16")
   end
 
+
   def test_worst_loss
     stat_tracker = StatTracker.from_csv({games: './data/game.csv', teams: './data/team.csv', game_teams: './data/game_team.csv'})
 
@@ -192,4 +193,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal "DC United", @stat_tracker.favorite_opponent("16")
   end
 
+  def test_seasonal_summary
+    assert_equal ({}), @stat_tracker.seasonal_summary("16")
+  end
 end
