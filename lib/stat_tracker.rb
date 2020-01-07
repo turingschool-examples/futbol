@@ -73,83 +73,83 @@ class StatTracker
   end
 
   def best_offense
-    teams_collection.associate_team_id_with_team_name(games_collection.best_offence_id)
+    teams_collection.associate_team_id_with_team_name(games_collection.best_offense_id)
   end
 
   def worst_offense
-    teams_collection.associate_team_id_with_team_name(games_collection.worst_offence_id)
+    teams_collection.associate_team_id_with_team_name(games_collection.worst_offense_id)
+  end
+
+  def best_defense
+    teams_collection.associate_team_id_with_team_name(games_collection.best_defense_id)
+  end
+
+  def worst_defense
+    teams_collection.associate_team_id_with_team_name(games_collection.worst_defense_id)
   end
 
   def highest_scoring_visitor
-    teams_collection.associate_team_id_with_team_name(game_teams_collection.highest_scoring_visitor_id)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.highest_scoring_visitor)
   end
 
   def highest_scoring_home_team
-    teams_collection.associate_team_id_with_team_name(game_teams_collection.highest_scoring_home_team_id)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.highest_scoring_home_team)
   end
 
   def lowest_scoring_visitor
-    teams_collection.associate_team_id_with_team_name(game_teams_collection.lowest_scoring_visitor_id)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.lowest_scoring_visitor)
   end
 
   def lowest_scoring_home_team
-    teams_collection.associate_team_id_with_team_name(game_teams_collection.lowest_scoring_home_team_id)
-  end
-
-  def biggest_bust(season_id)
-    teams_collection.associate_team_id_with_team_name(game_teams_collection.biggest_bust_id(season_id))
-  end
-
-  def biggest_surprise(season_id)
-    teams_collection.associate_team_id_with_team_name(game_teams_collection.biggest_surprise_id(season_id))
-  end
-
-  def winningest_coach(season_id)
-    game_teams_collection.winningest_coach_name(season_id)
-  end
-
-  def worst_coach(season_id)
-    game_teams_collection.worst_coach_name(season_id)
-  end
-
-  def team_info(teamid)
-    teams_collection.team_info(teamid.to_i)
-  end
-
-  def best_season(teamid)
-    games_collection.best_season(teamid)
-  end
-
-  def worst_season(teamid)
-    games_collection.worst_season(teamid)
-  end
-
-  def average_win_percentage(teamid)
-    games_collection.average_win_percentage(teamid)
-  end
-
-  def most_goals_scored(teamid)
-    games_collection.most_goals_scored(teamid)
-  end
-
-  def fewest_goals_scored(teamid)
-    games_collection.fewest_goals_scored(teamid)
-  end
-
-  def favorite_opponent(teamid)
-    teams_collection.associate_team_id_with_team_name(games_collection.favorite_opponent_id(teamid).to_i)
-  end
-
-  def rival(teamid)
-    teams_collection.associate_team_id_with_team_name(games_collection.rival_id(teamid).to_i)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.lowest_scoring_home_team)
   end
 
   def biggest_team_blowout(teamid)
-    games_collection.biggest_team_blowout(teamid)
+    games_collection.biggest_team_blowout_num(teamid)
+  end
+
+  def winningest_team
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.winningest_team_id)
+  end
+
+  def best_fans
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.best_fans_team_id)
+  end
+
+  def worst_fans
+    teams_collection.associate_multi_team_id_with_team_name(game_teams_collection.worst_fans_team_id)
+  end
+
+  def biggest_bust(season)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.biggest_bust_id(season))
+  end
+
+  def biggest_surprise(season)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.biggest_surprise_id(season))
+  end
+
+  def worst_coach(season)
+    game_teams_collection.worst_coach_name(season)
+  end
+
+  def winningest_coach(season)
+    game_teams_collection.winningest_coach_name(season)
+  end
+
+  def most_accurate_team(season)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.most_accurate_team_id(season))
+  end
+
+  def least_accurate_team(season)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.least_accurate_team_id(season))
+  end
+
+  def most_tackles(season_id)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.most_tackles_team_id(season_id))
   end
 
   def worst_loss(teamid)
-    games_collection.worst_loss(teamid)
+    games_collection.worst_loss_num(teamid)
   end
 
   def head_to_head(teamid)
@@ -162,5 +162,8 @@ class StatTracker
     end
   end
 
+  def fewest_tackles(season_id)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.fewest_tackles_team_id(season_id))
+  end #need fewest_tackles_team_id
 
 end

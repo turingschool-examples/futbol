@@ -103,6 +103,7 @@ class GamesCollection
       end
       acc
     end
+
     team_id_to_games.reduce({}) do |acc, id_and_games|
       id = id_and_games[0]
       avg = (id_and_games[1].sum) / (id_and_games[1].length).to_f
@@ -111,13 +112,13 @@ class GamesCollection
     end
   end
 
-  def best_offence_id
+  def best_offense_id
     avg_hash = team_id_to_avg
     highest_avg = avg_hash.max_by {|k, v| v}
     highest_avg[0]
   end
 
-  def worst_offence_id
+  def worst_offense_id
     avg_hash = team_id_to_avg
     lowest_avg = avg_hash.min_by {|k, v| v}
     lowest_avg[0]
@@ -148,6 +149,23 @@ class GamesCollection
       end
       acc
     end
+  end
+
+  def worst_coach_name(season_id)
+    gamescollection = GamesCollection.new("./data/games.csv")
+    game_teams1 = create_game_teams("./data/game_teams.csv")
+    game_ids = gamescollection.winningest_coach_game_ids(season_id)
+    coach_to_results = game_ids.reduce({}) do |acc, gameid|
+      game_teams1.each do |gameteam|
+        if gameteam.game_id == gameid && acc[gameteam.head_coach] == nil
+          acc[gameteam.head_coach] = []
+          acc[gameteam.head_coach] << gameteam.result
+        elsif gameteam.game_id == gameid && acc[gameteam.head_coach] != nil
+          acc[gameteam.head_coach] << gameteam.result
+        end
+      end
+      end
+    acc
   end
 
   def best_season(teamid)
@@ -309,23 +327,7 @@ class GamesCollection
     highest[0].to_s
   end
 
-  def biggest_team_blowout(teamid)
-
-    difference_array = games.reduce([]) do |acc, game|
-      if teamid.to_i == game.away_team_id && game.away_goals > game.home_goals
-        difference = game.away_goals - game.home_goals
-        acc << difference
-      elsif teamid.to_i == game.home_team_id && game.home_goals > game.away_goals
-        difference = game.home_goals - game.away_goals
-        acc << difference
-      end
-      acc
-    end
-
-    difference_array.max
-  end
-
-  def worst_loss(teamid)
+  def worst_loss_num(teamid)
     difference_array = games.reduce([]) do |acc, game|
       if teamid.to_i == game.away_team_id && game.away_goals < game.home_goals
         difference = game.home_goals - game.away_goals
@@ -366,8 +368,47 @@ class GamesCollection
     end
   end
 
+  def average_goals_scored_by_opposite_team
+    id_associate= games.reduce({}) do |acc, game|
+      if acc.has_key?(game.home_team_id) == false
+        acc[game.home_team_id] = []
+      end
+      acc[game.home_team_id] << game.away_goals.to_f.round(2)
+      if acc.has_key?(game.away_team_id) == false
+        acc[game.away_team_id] = []
+      end
+      acc[game.away_team_id] << game.home_goals.to_f.round(2)
+      acc
+    end
+    id_associate.reduce({}) do |acc, id_goals|
+      id = id_goals.first
+      goal_average = (id_goals.last.sum / id_goals.last.length).to_f.round(2)
+      acc[id] = [goal_average]
+      acc
+    end
+  end
 
+  def best_defense_id
+    average_goals_scored_by_opposite_team.min_by { |team_id, goals| goals }.first
+  end
 
+  def worst_defense_id
+    average_goals_scored_by_opposite_team.max_by { |team_id, goals| goals }.first
+  end
+
+  def biggest_team_blowout_num(teamid)
+    difference_array  = games.reduce([]) do |acc, game|
+      if teamid.to_i == game.home_team_id && game.home_goals > game.away_goals
+        difference = game.home_goals - game.away_goals
+        acc << difference
+      elsif teamid.to_i == game.away_team_id && game.away_goals > game.home_goals
+        difference = game.away_goals - game.home_goals
+        acc << difference
+      end
+      acc
+    end
+    difference_array.max
+  end
 
 
 end

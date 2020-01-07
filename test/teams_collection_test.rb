@@ -2,6 +2,7 @@ require_relative 'testhelper'
 require_relative '../lib/stat_tracker'
 
 class TeamsCollectionTest < Minitest::Test
+  
   def setup
     @stat_tracker = StatTracker.new("./test/fixtures/games_trunc.csv", "./test/fixtures/teams_trunc.csv", "./test/fixtures/game_teams_trunc.csv")
     @teams_collection = TeamsCollection.new(@stat_tracker.teams_path)
@@ -31,5 +32,9 @@ class TeamsCollectionTest < Minitest::Test
       "abbreviation"=>"URF", "link"=>"/api/v1/teams/7"}
 
     assert_equal expected, @teams_collection.team_info(7)
+  end
+  
+  def test_associate_multi_team_id_with_team_name
+    assert_equal ["Chicago Fire", "Montreal Impact"], @teams_collection.associate_multi_team_id_with_team_name([4, 23])
   end
 end

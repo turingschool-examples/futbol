@@ -1,5 +1,6 @@
 game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways
-2012030312,6,away,WIN,REG,Claude Julien,4,7,19,6,1,0,50.9,2,5
+2012030312,6,away,WIN,REG,Claude Julien,4,7,19,6,1,0,50.9,2,
+2012030313,6,home,WIN,OT,Claude Julien,2,10,34,18,5,0,42.7,10,13
 2012030232,16,home,LOSS,REG,Joel Quenneville,1,5,36,10,2,0,44.6,7,9
 2012030163,24,away,WIN,REG,Bruce Boudreau,2,7,26,14,6,2,49.2,3,5
 2012030114,2,home,WIN,REG,Jack Capuano,4,6,33,11,4,1,53.7,8,13
@@ -9,3 +10,14 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2013030164,19,away,WIN,OT,Ken Hitchcock,3,8,42,6,5,1,47.6,4,10
 2015030132,15,home,WIN,REG,Barry Trotz,2,5,38,12,2,2,53.2,9,5
 2014030311,3,home,WIN,REG,Alain Vigneault,2,7,30,8,2,0,43.4,8,10
+2012030121,9,away,TIE,REG,Paul MacLean,2,7,31,23,2,0,39.4,9,1
+2014030116,9,home,LOSS,REG,Dave Cameron,0,10,45,2,4,0,41.5,14,4
+2014030234,16,away,LOSS,REG,Joel Quenneville,2,6,6,6,2,1,50,0,12
+2013030322,16,home,LOSS,REG,Joel Quenneville,2,6,23,10,4,1,38.6,9,4
+2013030327,16,home,LOSS,OT,Joel Quenneville,2,10,28,4,5,2,52.6,8,5
+2017030214,6,home,WIN,OT,Bruce Cassidy,3,8,30,8,4,2,62.1,13,12
+2017030215,6,away,LOSS,REG,Bruce Cassidy,1,7,29,8,3,1,44.8,8,5
+2017030182,24,home,LOSS,REG,Randy Carlyle,2,7,24,8,2,1,49.2,13,3
+2012020122,2,home,LOSS,REG,Jack Capuano,0,5,24,15,7,0,53.4,12,6
+2013020192,5,home,TIE,REG,Dan Bylsma,2,6,21,13,4,2,54.4,4,4
+2012020358,19,away,LOSS,OT,Ken Hitchcock,2,8,22,6,4,1,49.3,4,10
