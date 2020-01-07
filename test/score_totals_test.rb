@@ -1,10 +1,11 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative 'game'
-require_relative 'score_totals'
+require './lib/game'
+require './lib/score_totals'
 
 class ScoreTotalsTest < Minitest::Test
   def setup
+    @score_totals = ScoreTotals.new
     @game = Game.new({
       :game_id => "201203022015",
       :season => "20192020",
@@ -40,14 +41,20 @@ class ScoreTotalsTest < Minitest::Test
 
   def test_it_reads_csv
     assert_instance_of Game, @csv_game
-    assert_equal "2012030222", @csv_game.game_id
+    # require "pry"; binding.pry
+    assert_equal "2012030225", @csv_game.game_id
     assert_equal "20122013", @csv_game.season
     assert_equal "Postseason", @csv_game.type
-    assert_equal "5/19/13", @csv_game.date_time
+    assert_equal "5/25/13", @csv_game.date_time
     assert_equal "3", @csv_game.away_team_id
     assert_equal "6", @csv_game.home_team_id
-    assert_equal 2, @csv_game.away_goals
+    assert_equal 1, @csv_game.away_goals
     assert_equal 3, @csv_game.home_goals
     assert_equal "Toyota Stadium", @csv_game.venue
+  end
+
+  def test_can_find_highest_score_total
+    require "pry"; binding.pry
+    assert_equal 1000, ScoreTotals.highest_score_total
   end
 end
