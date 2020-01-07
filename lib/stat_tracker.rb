@@ -764,6 +764,53 @@ end
     all_seasons.min_by do |key, value|
       value[:wins].to_f / value[:games]
     end[0]
+  end
 
+  def seasonal_summary(team_id)
+    data = @games.reduce({}) do |acc, game|
+      if game.away_team_id.to_s == team_id || game.home_team_id.to_s == team_id
+        acc[game.season] = {
+          "Regular Season" => {:total_games => 0,
+                              :total_goals_scored => 0,
+                              :total_goals_against => 0,
+                              :wins => 0},
+          "Postseason" => {:total_games => 0,
+                          :total_goals_scored => 0,
+                          :total_goals_against => 0,
+                          :wins => 0}
+        }
+      end
+      acc
+    end
+    @games.each do |game|
+      if game.away_team_id.to_s == team_id
+        data[game.season][game.type][:total_games] += 1
+        data[game.season][game.type][:total_goals_scored] += game.away_goals
+        data[game.season][game.type][:total_goals_against] += game.home_goals
+        data[game.season][game.type][:wins] += 1 if game.away_goals > game.home_goals
+      elsif game.home_team_id.to_s == team_id
+        data[game.season][game.type][:total_games] += 1
+        data[game.season][game.type][:total_goals_scored] += game.home_goals
+        data[game.season][game.type][:total_goals_against] += game.away_goals
+        data[game.season][game.type][:wins] += 1 if game.away_goals < game.home_goals
+      end
+    end
+
+    summary = data.reduce({}) do |acc, season|
+      season.last.each do |season_totals|
+        # if acc[season[0]] == nil
+        require "pry"; binding.pry
+          acc[season[0]] = {season_totals[0].to_sym => {}
+          #   :win_percentage => (season_totals[1][:wins] / season_totals[1][:total_games].to_f) * 100,
+          #   :total_goals_scored => season_totals[1][:total_goals_scored],
+          #   :total_goals_against => season_totals[1][:total_goals_against],
+          #   :average_goals_scored => season_totals[1][:total_goals_scored] / season_totals[1][:total_games].to_f,
+          #   :average_goals_against => season_totals[1][:total_goals_against] / season_totals[1][:total_games].to_f
+          # }} if acc[season[0]]
+          }
+        # end
+      end
+      acc
+    end
   end
 end
