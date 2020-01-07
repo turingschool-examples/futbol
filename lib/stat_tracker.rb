@@ -31,7 +31,8 @@ class StatTracker
     :best_defense,
     :worst_defense,
     :best_fans,
-    :worst_fans
+    :worst_fans,
+    :winningest_team
 
   def initialize(game_path, team_path, game_team_path)
     Game.from_csv(game_path)
@@ -51,9 +52,10 @@ class StatTracker
     @count_of_teams = Offense.count_of_teams
     @best_offense = Offense.best_offense
     @worst_offense = Offense.worst_offense
-    # best_defense = Defense.best_defense
-    # worst_defense = Defense.worst_defense
+    @best_defense = Defense.best_defense
+    @worst_defense = Defense.worst_defense
     @best_fans = GameTeam.best_fans
     @worst_fans = GameTeam.worst_fans
+    @winningest_team = GameTeam.winningest_team
   end
 end

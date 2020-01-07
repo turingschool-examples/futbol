@@ -90,6 +90,12 @@ class GameTeamTest < Minitest::Test
   end
   
   def test_worst_fans
-    assert_instance_of String, GameTeam.worst_fans
+    worst_fans = ["this team", "that team"]
+    
+    assert_equal worst_fans, GameTeam.worst_fans
+  end
+  
+  def test_winningest_team
+    assert_equal "AAAAAA", GameTeam.winningest_team
   end
 end
