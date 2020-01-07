@@ -16,7 +16,7 @@ class GameTeamsCollection
   end
 
   def games_by_team_id(team_id)
-    @game_teams_array.select {|game_team| game_team.team_id == team_id}
+    @game_teams_array.select {|game_team| game_team.team_id == team_id.to_i}
   end
 
   def total_games_per_team(team_id)
