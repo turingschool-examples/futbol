@@ -115,6 +115,10 @@ class StatTracker
     @game_teams.fewest_goals_scored(team_id.to_s)
   end
 
+  def average_win_percentage(team_id)
+    @game_teams.average_win_percentage(team_id.to_s).round(2)
+  end
+
 
 
 end
