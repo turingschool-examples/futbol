@@ -23,7 +23,6 @@ module SeasonStats
     regular = team_regular_season_record(season_id)
     post = team_postseason_record(season_id)
     biggest_difference = win_percentage_difference(regular, post)
-    require 'pry'; binding.pry
     team_id = biggest_difference.max_by { |_k, v| v }[0]
     get_team_name_by_id(team_id)
   end
