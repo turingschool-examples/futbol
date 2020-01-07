@@ -7,12 +7,12 @@ class GameTeamsStats
     @game_teams_collection = game_teams_collection
   end
 
-  def total_wins_per_team
-    @game_teams_collection.game_teams_array.select {|game_team| game_team.result == "WIN"}.count
+  def total_wins_per_team(team_id)
+    @game_teams_collection.game_teams_array.select {|game_team| game_team.result == "WIN" && team_id == game_team.team_id.to_i}.count
   end
 
   def average_win_percentage(team_id)
-    total_wins_per_team / @game_teams_collection.total_games_per_team(team_id).to_f
+    total_wins_per_team(team_id.to_i) / @game_teams_collection.total_games_per_team(team_id.to_i).to_f
   end
 
   def total_goals_by_team_id(team_id)
