@@ -2,6 +2,7 @@ require_relative 'test_helper'
 require 'mocha/minitest'
 require_relative '../lib/team'
 require_relative '../lib/stat_tracker'
+require 'pry'
 
 class TeamTest < MiniTest::Test
   def setup
