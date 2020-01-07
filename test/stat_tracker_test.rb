@@ -218,4 +218,8 @@ class StatTrackerTest < Minitest::Test
 						     :average_goals_against=>0.0}}}
 				assert_equal expected, @stat_tracker2.seasonal_summary("3")
 	end
+
+	def test_worst_season_can_be_returned
+		assert_equal "20122013", @stat_tracker2.worst_season("3")
+	end
 end
