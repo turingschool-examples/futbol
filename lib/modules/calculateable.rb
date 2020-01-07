@@ -97,6 +97,7 @@ module Calculateable
   def league_win_percent_diff(home, away)
     home.inject(Hash.new(0)) do |hash, team|
       hash[team[0]] = (team[1] - away[team[0]]).abs.round(2)
+      hash 
     end
   end
 
