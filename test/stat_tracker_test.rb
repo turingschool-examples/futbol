@@ -15,9 +15,10 @@ class StatTrackerTest < Minitest::Test
 		}
 
     @stat_tracker = StatTracker.from_csv(locations)
-    
+
     team1 = mock("Team1")
-    team1.stubs(:average_goals_away => 1,
+    team1.stubs(:team_id => "1",
+								:average_goals_away => 1,
                 :average_goals_home => 2,
                 :average_goals_total => 1.5,
                 :win_percent_total => 1.0,
@@ -26,7 +27,8 @@ class StatTrackerTest < Minitest::Test
                 :total_scores_against => 3,
                 :team_name => "Fake 1")
     team2 = mock("Team2")
-    team2.stubs(:average_goals_away => 2,
+    team2.stubs(:team_id => "2",
+								:average_goals_away => 2,
                 :average_goals_home => 3,
                 :average_goals_total => 2.5,
                 :win_percent_total => 4.0,
@@ -35,7 +37,8 @@ class StatTrackerTest < Minitest::Test
                 :total_scores_against => 7,
                 :team_name => "Fake 2")
     team3 = mock("Team3")
-    team3.stubs(:average_goals_away => 0,
+    team3.stubs(:team_id => "3",
+								:average_goals_away => 0,
                 :average_goals_home => 1,
                 :average_goals_total => 0.5,
                 :win_percent_total => 2.5,
@@ -44,7 +47,8 @@ class StatTrackerTest < Minitest::Test
                 :total_scores_against => 2,
                 :team_name => "Fake 3")
     team4 = mock("Team4")
-    team4.stubs(:average_goals_away => 5,
+    team4.stubs(:team_id => "4",
+								:average_goals_away => 5,
                 :average_goals_home => 4,
                 :average_goals_total => 4.5,
                 :win_percent_total => 0.5,
@@ -57,7 +61,7 @@ class StatTrackerTest < Minitest::Test
 
     @stat_tracker.stubs(:teams => fake_teams)
   end
-  
+
   def teardown
     Game.reset_all
   end
@@ -72,7 +76,7 @@ class StatTrackerTest < Minitest::Test
 		assert_instance_of Season, @stat_tracker.seasons.first
 		assert_instance_of Season, @stat_tracker.seasons.last
   end
-  
+
   def test_find_count_of_games
     assert_equal 4, @stat_tracker.count_of_teams
   end
@@ -92,7 +96,7 @@ class StatTrackerTest < Minitest::Test
   def test_lowest_scoring_home_team
 		assert_equal "Fake 3", @stat_tracker.lowest_scoring_home_team
   end
-  
+
   def test_find_team_with_best_offense
     assert_equal "Fake 4", @stat_tracker.best_offense
   end
