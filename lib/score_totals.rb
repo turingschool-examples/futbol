@@ -2,7 +2,6 @@ require_relative 'game'
 require 'csv'
 
 class ScoreTotals
-  # @@all_games
 
   def self.highest_score_total
     total_goals = Game.all_games.map {|game| game.away_goals + game.home_goals}
@@ -15,7 +14,10 @@ class ScoreTotals
   end
 
   def self.biggest_blowout
-
+    total_goals_diff = Game.all_games.map do |game|
+      (game.away_goals - game.home_goals).abs
+    end
+    total_goals_diff.max
   end
 
 end

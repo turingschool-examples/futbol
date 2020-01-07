@@ -4,6 +4,7 @@ require_relative 'team'
 require_relative 'game_team'
 require_relative 'offense'
 require_relative 'defense'
+require_relative 'score_totals'
 
 class StatTracker
   def self.from_csv(file_path)
@@ -78,5 +79,17 @@ class StatTracker
 
   def worst_defense
     Defense.worst_defense
+  end
+
+  def highest_score_total
+    ScoreTotals.highest_score_total
+  end
+
+  def lowest_score_total
+    ScoreTotals.lowest_score_total
+  end
+
+  def biggest_blowout
+    ScoreTotals.biggest_blowout
   end
 end

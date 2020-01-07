@@ -41,7 +41,6 @@ class ScoreTotalsTest < Minitest::Test
 
   def test_it_reads_csv
     assert_instance_of Game, @csv_game
-    # require "pry"; binding.pry
     assert_equal "2012030225", @csv_game.game_id
     assert_equal "20122013", @csv_game.season
     assert_equal "Postseason", @csv_game.type
@@ -54,11 +53,14 @@ class ScoreTotalsTest < Minitest::Test
   end
 
   def test_can_find_highest_score_total
-    # require "pry"; binding.pry
     assert_equal 7, ScoreTotals.highest_score_total
   end
 
   def test_can_find_lowest_score_total
     assert_equal 1, ScoreTotals.lowest_score_total
+  end
+
+  def test_can_find_biggest_blowout
+    assert_equal 3, ScoreTotals.biggest_blowout
   end
 end
