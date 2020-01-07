@@ -256,10 +256,8 @@ class StatTracker
   end
 
   def highest_scoring_visitor
-    team_goals = @game_teams.reduce({}) do |acc, game_team|
-      acc[game_team.team_id] = {:total_games => 0, :total_goals => 0}
-      acc
-    end
+    team_goals = game_team_ids_games_and_goals(@game_teams)
+
     @game_teams.each do |game_team|
       if game_team.hoa == "away"
         team_goals[game_team.team_id][:total_games] += 1
