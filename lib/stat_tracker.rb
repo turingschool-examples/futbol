@@ -1,8 +1,10 @@
 require_relative 'game_team'
 require_relative 'game'
 require_relative 'team'
+require_relative 'calculable'
 
 class StatTracker
+  include Calculable
   attr_reader :game_path, :team_path, :game_teams_path, :game_teams, :games, :teams
 
   def self.from_csv(locations)
@@ -109,17 +111,14 @@ class StatTracker
   end
 
   def best_fans
-    unique_teams = @game_teams.reduce({}) do |acc, game_team|
-      acc[game_team.team_id] = {away: 0, home: 0}
-      acc
-    end
+    unique_teams = game_team_ids(0)
 
     @game_teams.each do |game_team|
-      unique_teams[game_team.team_id][:away] += 1 if game_team.hoa == "away" && game_team.result == "WIN"
+      unique_teams[game_team.team_id] += 1 if game_team.hoa == "away" && game_team.result == "WIN"
     end
 
-    best_fans = unique_teams.max_by do |team|
-      team[1][:home] - team[1][:away]
+    best_fans = unique_teams.min_by do |team|
+      team[1]
     end
 
     @teams.find do |team|
