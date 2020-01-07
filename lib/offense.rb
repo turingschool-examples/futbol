@@ -56,11 +56,11 @@ class Offense
     hash = get_team_goal_avg_hash()
 
     current_min_team_id = ""
-    current_min_avg = -1
+    current_min_avg = nil
     hash.map do |team_id, avg|
-      if current_min_avg == -1
+      if current_min_avg == nil
         current_min_avg = avg.average
-      else(avg.average < current_min_avg)
+      elsif (avg.average < current_min_avg)
         current_min_team_id = team_id
         current_min_avg = avg.average
       end
