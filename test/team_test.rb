@@ -106,11 +106,11 @@ class TeamTest < MiniTest::Test
   end
 
   def test_can_find_home_only_win_percentage
-    assert_equal 0.5, @team.home_win_percentage
+    assert_equal 0.25, @team.home_win_percentage
   end
 
   def test_can_find_away_only_win_percentage
-    assert_equal 0.5, @team.away_win_percentage
+    assert_equal 0.25, @team.away_win_percentage
   end
 
   def test_can_find_total_scores_against
@@ -121,11 +121,11 @@ class TeamTest < MiniTest::Test
     assert_equal 0.5, @team.total_winning_percentage
   end
 
-  def test_can_return_home_win_percentage
-    assert_equal 0.5, @team.home_win_percentage
-  end
-
-  def test_can_return_away_win_percentage
-    assert_equal 0.5, @team.away_win_percentage
-  end
+  # def test_can_return_home_win_percentage
+  #   assert_equal 0.5, @team.home_win_percentage
+  # end
+  #
+  # def test_can_return_away_win_percentage
+  #   assert_equal 0.5, @team.away_win_percentage
+  # end
 end
