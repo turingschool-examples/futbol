@@ -5,8 +5,8 @@ require 'pry'
 
 class StatTrackerTest < Minitest::Test
 	def setup
-		game_path = './data/games.csv'
-		team_path = './data/teams.csv'
+		game_path = './test/fixtures/truncated_games.csv'
+		team_path = './test/fixtures/truncated_teams.csv'
 		game_teams_path = './test/fixtures/truncated_game_teams.csv'
 		locations = {
 		  games: game_path,
@@ -16,47 +16,46 @@ class StatTrackerTest < Minitest::Test
 
     @stat_tracker = StatTracker.from_csv(locations)
     
-#    team1 = mock("Team1")
-#    team1.stubs(:average_goals_away => 1,
-#                :average_goals_home => 2,
-#                :average_goals_total => 1.5,
-#                :win_percent_total => 1.0,
-#                :home_win_percentage => 0.5,
-#                :away_win_percentage => 2.0,
-#                :total_scores_against => 3,
-#                :team_name => "Fake 1")
-#    team2 = mock("Team2")
-#    team2.stubs(:average_goals_away => 2,
-#                :average_goals_home => 3,
-#                :average_goals_total => 2.5,
-#                :win_percent_total => 4.0,
-#                :home_win_percentage => 1.5,
-#                :away_win_percentage => 2.5,
-#                :total_scores_against => 7,
-#                :team_name => "Fake 2")
-#    team3 = mock("Team3")
-#    team3.stubs(:average_goals_away => 0,
-#                :average_goals_home => 1,
-#                :average_goals_total => 0.5,
-#                :win_percent_total => 2.5,
-#                :home_win_percentage => 2.0,
-#                :away_win_percentage => 1.5,
-#                :total_scores_against => 2,
-#                :team_name => "Fake 3")
-#    team4 = mock("Team4")
-#    team4.stubs(:average_goals_away => 5,
-#                :average_goals_home => 4,
-#                :average_goals_total => 4.5,
-#                :win_percent_total => 0.5,
-#                :home_win_percentage => 4.5,
-#                :away_win_percentage => 0.5,
-#                :total_scores_against => 4,
-#                :team_name => "Fake 4")
-#
-#    fake_teams = [team1, team2, team3, team4]
-#
-#    @stat_tracker.stubs(:teams => fake_teams)
-	binding.pry
+    team1 = mock("Team1")
+    team1.stubs(:average_goals_away => 1,
+                :average_goals_home => 2,
+                :average_goals_total => 1.5,
+                :win_percent_total => 1.0,
+                :home_win_percentage => 0.5,
+                :away_win_percentage => 2.0,
+                :total_scores_against => 3,
+                :team_name => "Fake 1")
+    team2 = mock("Team2")
+    team2.stubs(:average_goals_away => 2,
+                :average_goals_home => 3,
+                :average_goals_total => 2.5,
+                :win_percent_total => 4.0,
+                :home_win_percentage => 1.5,
+                :away_win_percentage => 2.5,
+                :total_scores_against => 7,
+                :team_name => "Fake 2")
+    team3 = mock("Team3")
+    team3.stubs(:average_goals_away => 0,
+                :average_goals_home => 1,
+                :average_goals_total => 0.5,
+                :win_percent_total => 2.5,
+                :home_win_percentage => 2.0,
+                :away_win_percentage => 1.5,
+                :total_scores_against => 2,
+                :team_name => "Fake 3")
+    team4 = mock("Team4")
+    team4.stubs(:average_goals_away => 5,
+                :average_goals_home => 4,
+                :average_goals_total => 4.5,
+                :win_percent_total => 0.5,
+                :home_win_percentage => 4.5,
+                :away_win_percentage => 0.5,
+                :total_scores_against => 4,
+                :team_name => "Fake 4")
+
+    fake_teams = [team1, team2, team3, team4]
+
+    @stat_tracker.stubs(:teams => fake_teams)
   end
   
   def teardown

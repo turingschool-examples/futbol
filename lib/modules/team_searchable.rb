@@ -46,8 +46,21 @@ module TeamSearchable
 
 	def worst_defense
 		teams.max_by(&:total_scores_against).team_name
-	end
+  end
+  
+  def seasonal_summary(teamid)
+    team = teams.find {|team| team.team_id.to_s == teamid}
+    team.stats_by_season
+  end
 
-	
+  def team_info(teamid)
+    team = teams.find {|team| team.team_id.to_s == teamid}
+    team.team_info
+  end
+
+  def average_win_percentage(teamid)
+    team = teams.find {|team| team.team_id.to_s == teamid}
+    team.total_winning_percentage
+  end
+
 end
-
