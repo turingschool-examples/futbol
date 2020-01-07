@@ -56,4 +56,28 @@ class GameStatsTest < Minitest::Test
   def test_it_can_get_biggest_blowout
     assert_equal 3, @game_stats.biggest_blowout
   end
+
+  def test_it_can_find_away_defense_goals
+    assert_equal [2,1], @game_stats.find_away_defense_goals(24)
+  end
+
+  def test_it_can_find_home_defense_goals
+    assert_equal [2,2], @game_stats.find_home_defense_goals(24)
+  end
+
+  def test_it_can_find_teams
+    assert_equal [24, 20, 14, 16, 5, 3, 26, 28, 19], @game_stats.teams
+  end
+
+  def test_it_can_get_defensive_averages
+    assert_equal ({24=>1.75, 20=>3.0, 14=>2.17, 16=>1.5, 5=>1.6, 3=>3.0, 26=>2.4, 28=>2.2, 19=>2.67}), @game_stats.find_defensive_averages
+  end
+
+  def test_it_can_get_best_defense
+    assert_equal 16, @game_stats.best_defense
+  end
+
+  def test_it_can_get_worst_defense
+    assert_equal 20, @game_stats.worst_defense
+  end
 end

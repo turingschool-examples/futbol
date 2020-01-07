@@ -17,6 +17,14 @@ class GameTeamsStatsTest < Minitest::Test
     assert_instance_of GameTeamsCollection, @game_teams_stats.game_teams_collection
   end
 
+  def test_it_can_get_total_wins_per_team
+    assert_equal 25, @game_teams_stats.total_wins_per_team
+  end
+
+  def test_it_can_get_a_teams_average_win_percentage
+    assert_equal 6.25, @game_teams_stats.average_win_percentage(20)
+  end
+
   def test_it_can_find_win_percentage_of_a_team
     hash = @game_teams_collection.game_teams_hash
     assert_equal 40, @game_teams_stats.team_win_percentage(hash, 26)
@@ -58,19 +66,19 @@ class GameTeamsStatsTest < Minitest::Test
   end
 
   def test_it_can_get_team_with_highest_average_score_for_away_games
-    assert_equal [24, 5], @game_teams_stats.highest_scoring_visitor
+    assert_equal 24, @game_teams_stats.highest_scoring_visitor
   end
 
   def test_it_can_get_team_with_lowest_average_score_for_away_games
-    assert_equal [14, 19], @game_teams_stats.lowest_scoring_visitor
+    assert_equal 14, @game_teams_stats.lowest_scoring_visitor
   end
 
   def test_it_can_get_team_with_highest_average_score_for_home_games
-    assert_equal [24, 5], @game_teams_stats.highest_scoring_home_team
+    assert_equal 24, @game_teams_stats.highest_scoring_home_team
   end
 
   def test_it_can_get_team_with_lowest_average_score_for_home_games
-    assert_equal [3], @game_teams_stats.lowest_scoring_home_team
+    assert_equal 3, @game_teams_stats.lowest_scoring_home_team
   end
 
   def test_it_can_find_id_of_team_with_best_fans

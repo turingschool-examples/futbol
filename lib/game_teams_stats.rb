@@ -5,8 +5,12 @@ class GameTeamsStats
     @game_teams_collection = game_teams_collection
   end
 
+  def total_wins_per_team
+    @game_teams_collection.game_teams_array.select {|game_team| game_team.result == "WIN"}.count
+  end
+
   def average_win_percentage(team_id)
-    @game_teams_collection.total_wins_per_team / @game_teams_collection.total_games_per_team(team_id).to_f
+    total_wins_per_team / @game_teams_collection.total_games_per_team(team_id).to_f
   end
 
   def total_goals_by_team_id(team_id)
@@ -48,7 +52,7 @@ class GameTeamsStats
       new << game_id.to_i
       end
     end
-    new
+    new.first
   end
 
   def lowest_scoring_home_team
@@ -58,7 +62,7 @@ class GameTeamsStats
       new << game_id.to_i
       end
     end
-    new
+    new.first
   end
 
   def highest_scoring_visitor
@@ -68,7 +72,7 @@ class GameTeamsStats
       new << game_id.to_i
       end
     end
-    new
+    new.first
   end
 
   def lowest_scoring_visitor
@@ -78,7 +82,7 @@ class GameTeamsStats
       new << game_id.to_i
       end
     end
-    new
+    new.first
   end
 
   def percentage(numerator, denominator) #to-do: make Calculatable module
