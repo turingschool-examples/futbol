@@ -130,7 +130,7 @@ class StatTracker
 
   def best_offense
     team_goals = game_team_ids(@game_teams, 0)
-    
+
      @game_teams.each do |game_team|
       team_goals[game_team.team_id] += game_team.goals
     end
@@ -158,10 +158,8 @@ class StatTracker
   end
 
   def worst_offense
-    team_goals = @game_teams.reduce({}) do |acc, game_team|
-      acc[game_team.team_id] = 0
-      acc
-    end
+    team_goals = game_team_ids(@game_teams, 0)
+
      @game_teams.each do |game_team|
       team_goals[game_team.team_id] += game_team.goals
     end
