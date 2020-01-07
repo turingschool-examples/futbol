@@ -175,4 +175,21 @@ class StatTrackerTest < Minitest::Test
 	def test_team_can_return_fewest_goals_scored
 		assert_equal 1, @stat_tracker2.fewest_goals_scored("3")
 	end
+
+	def test_team_info_can_be_returned
+		expected = {"team_id"=>"3",
+		 "franchise_id"=>"10",
+		 "team_name"=>"Houston Dynamo",
+		 "abbreviation"=>"HOU",
+		 "link"=>"/api/v1/teams/3"}
+		assert_equal expected, @stat_tracker2.team_info("3")
+	end
+
+	def test_average_win_percentage_can_be_returned
+		assert_equal 0.0, @stat_tracker2.average_win_percentage("3")
+	end
+
+	def test_seasonal_summary_can_be_generated
+		binding.pry
+	end
 end
