@@ -34,7 +34,10 @@ class GameTeamsStats
 
   def most_goals_scored(team_id)
     @game_teams_collection.games_by_team_id(team_id).max_by {|game_team| game_team.goals}.goals.to_i
-    # Highest number of goals a particular team has scored in a single game.
+  end
+
+  def fewest_goals_scored(team_id)
+    @game_teams_collection.games_by_team_id(team_id).min_by {|game_team| game_team.goals}.goals.to_i
   end
 
   def worst_offense
