@@ -190,6 +190,32 @@ class StatTrackerTest < Minitest::Test
 	end
 
 	def test_seasonal_summary_can_be_generated
-		binding.pry
+		expected = {"20122013"=>
+						  {:regular_season=>
+						    {:win_percentage=>0.0,
+						     :total_goals_scored=>0.0,
+						     :total_goals_against=>0.0,
+						     :average_goals_scored=>0.0,
+						     :average_goals_against=>0.0},
+						   :postseason=>
+						    {:win_percentage=>0.0,
+						     :total_goals_scored=>8.0,
+						     :total_goals_against=>14.0,
+						     :average_goals_scored=>1.6,
+						     :average_goals_against=>2.8}},
+						 "20132014"=>
+						  {:regular_season=>
+						    {:win_percentage=>0.0,
+						     :total_goals_scored=>0.0,
+						     :total_goals_against=>0.0,
+						     :average_goals_scored=>0.0,
+						     :average_goals_against=>0.0},
+						   :postseason=>
+						    {:win_percentage=>0.0,
+						     :total_goals_scored=>0.0,
+						     :total_goals_against=>0.0,
+						     :average_goals_scored=>0.0,
+						     :average_goals_against=>0.0}}}
+				assert_equal expected, @stat_tracker2.seasonal_summary("3")
 	end
 end
