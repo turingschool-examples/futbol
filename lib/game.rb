@@ -1,8 +1,8 @@
 require 'csv'
-require './lib/csv_loadable'
-require './lib/team'
+require_relative './csv_loadable'
+require_relative './team'
 
-class Games < Team
+class Game < Team
   extend CsvLoadable
 
   @@all_games = []
@@ -23,12 +23,12 @@ class Games < Team
               :venue
 
   def self.from_csv(file_path)
-    @@all_games = load_from_csv(file_path, Games)
+    @@all_games = load_from_csv(file_path, Game)
   end
 
   def initialize(game_info)
     @game_id = game_info[:game_id].to_i
-    @season = game_info[:season].to_i
+    @season = game_info[:season]
     @type = game_info[:type]
     @date_time = game_info[:date_time]
     @away_team_id = game_info[:away_team_id].to_i
@@ -95,14 +95,19 @@ class Games < Team
 
   def self.average_goals_by_season
     games_by_season = count_of_games_by_season
-    @@all_games.reduce({}) do |hash, game|
+    testy = @@all_games.reduce({}) do |hash, game|
       if hash.keys.include?(game.season)
-        hash[game.season] += ((game.away_goals + game.home_goals) / games_by_season[game.season].to_f).round(2)
+        hash[game.season] += (game.away_goals + game.home_goals)
         hash
       else
-        hash[game.season] = ((game.away_goals + game.home_goals) / games_by_season[game.season].to_f).round(2)
+        hash[game.season] = (game.away_goals + game.home_goals)
         hash
       end
+    end
+    games_by_season.reduce(Hash.new(0)) do |result, pair|
+      result[pair[0]] = (testy[pair[0]] / pair[-1].to_f).round(2)
+      result
+      # require "pry"; binding.pry
     end
   end
 
@@ -233,5 +238,11 @@ class Games < Team
       end.compact
     end
   end
+
+  def self.winner
+    return @home_team_id if @home_goals > @away_goals
+    @away_team_id
+  end
+
 
 end

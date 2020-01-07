@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <script src='./assets/0.10.2/application.js' type='text/javascript'></script>    
     <link href='./assets/0.10.2/application.css' media='screen, projection, print' rel='stylesheet' type='text/css'>
-    <link rel="shortcut icon" type="image/png" href="./assets/0.10.2/favicon_yellow.png" />
+    <link rel="shortcut icon" type="image/png" href="./assets/0.10.2/favicon_green.png" />
     <link rel="icon" type="image/png" href="./assets/0.10.2/favicon.png" />
   </head>
   
@@ -14,27 +14,27 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2020-01-05T15:14:25-07:00">2020-01-05T15:14:25-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2020-01-06T15:49:48-07:00">2020-01-06T15:49:48-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="yellow">81.46%</span></span>
+    (<span class="covered_percent"><span class="green">100.0%</span></span>
      covered at
      <span class="covered_strength">
-       <span class="green">
-         187.17
+       <span class="red">
+         0.0
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
-    <b>3</b> files in total.
-    <b>151</b> relevant lines. 
-    <span class="green"><b>123</b> lines covered</span> and
-    <span class="red"><b>28</b> lines missed </span>
+    <b>1</b> files in total.
+    <b>0</b> relevant lines. 
+    <span class="green"><b>0</b> lines covered</span> and
+    <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -51,33 +51,13 @@
     <tbody>
       
       <tr>
-        <td class="strong"><a href="#a474d09847a7b700f5b37aac95da7c1664166034" class="src_link" title="lib/csv_loadable.rb">lib/csv_loadable.rb</a></td>
+        <td class="strong"><a href="#2f7cc09f0ba1b2219a9f3774d5864f5cbd4f3088" class="src_link" title="lib/game.rb">lib/game.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>12</td>
-        <td>6</td>
-        <td>6</td>
+        <td>245</td>
         <td>0</td>
-        <td>168.5</td>
-      </tr>
-      
-      <tr>
-        <td class="strong"><a href="#077e3eb76b2133eb5088f5b8886a80b6d7f465ba" class="src_link" title="lib/games.rb">lib/games.rb</a></td>
-        <td class="red strong">78.95 %</td>
-        <td>237</td>
-        <td>133</td>
-        <td>105</td>
-        <td>28</td>
-        <td>196.0</td>
-      </tr>
-      
-      <tr>
-        <td class="strong"><a href="#65470289f1e595aaa31d20753f08f435c8b60c19" class="src_link" title="lib/team.rb">lib/team.rb</a></td>
-        <td class="green strong">100.0 %</td>
-        <td>31</td>
-        <td>12</td>
-        <td>12</td>
         <td>0</td>
-        <td>98.6</td>
+        <td>0</td>
+        <td>0.0</td>
       </tr>
       
     </tbody>
@@ -96,13 +76,13 @@
     
       <div class="source_files">
       
-        <div class="source_table" id="a474d09847a7b700f5b37aac95da7c1664166034">
+        <div class="source_table" id="2f7cc09f0ba1b2219a9f3774d5864f5cbd4f3088">
   <div class="header">
-    <h3>lib/csv_loadable.rb</h3>
+    <h3>lib/game.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>6</b> relevant lines. 
-      <span class="green"><b>6</b> lines covered</span> and
+      <b>0</b> relevant lines. 
+      <span class="green"><b>0</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -110,8 +90,8 @@
   <pre>
     <ol>
       
-        <li class="covered" data-hits="1" data-linenumber="1">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="1">
+          
           
           <code class="ruby">require &#39;csv&#39;</code>
         </li>
@@ -119,104 +99,13 @@
         <li class="never" data-hits="" data-linenumber="2">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">require_relative &#39;./csv_loadable&#39;</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="3">
-          <span class="hits">1</span>
-          
-          <code class="ruby">module CsvLoadable</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="4">
+        <li class="never" data-hits="" data-linenumber="3">
           
           
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="5">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def load_from_csv(csv_file_path, class_object)</code>
-        </li>
-      
-        <li class="covered" data-hits="24" data-linenumber="6">
-          <span class="hits">24</span>
-          
-          <code class="ruby">    csv = CSV.read(&quot;#{csv_file_path}&quot;, headers: true, header_converters: :symbol)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="7">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="24" data-linenumber="8">
-          <span class="hits">24</span>
-          
-          <code class="ruby">    csv.map do |row|</code>
-        </li>
-      
-        <li class="covered" data-hits="960" data-linenumber="9">
-          <span class="hits">960</span>
-          
-          <code class="ruby">       class_object.new(row)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="10">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="11">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="12">
-          
-          
-          <code class="ruby">end</code>
-        </li>
-      
-    </ol>
-  </pre>
-</div>
-
-      
-        <div class="source_table" id="077e3eb76b2133eb5088f5b8886a80b6d7f465ba">
-  <div class="header">
-    <h3>lib/games.rb</h3>
-    <h4><span class="red">78.95 %</span> covered</h4>
-    <div>
-      <b>133</b> relevant lines. 
-      <span class="green"><b>105</b> lines covered</span> and
-      <span class="red"><b>28</b> lines missed.</span>
-    </div>
-  </div>
-  
-  <pre>
-    <ol>
-      
-        <li class="covered" data-hits="1" data-linenumber="1">
-          <span class="hits">1</span>
-          
-          <code class="ruby">require &#39;csv&#39;</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="2">
-          <span class="hits">1</span>
-          
-          <code class="ruby">require &#39;./lib/csv_loadable&#39;</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="3">
-          <span class="hits">1</span>
-          
-          <code class="ruby">require &#39;./lib/team&#39;</code>
+          <code class="ruby">require_relative &#39;./team&#39;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="4">
@@ -225,14 +114,14 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="5">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="5">
           
-          <code class="ruby">class Games &lt; Team</code>
+          
+          <code class="ruby">class Game &lt; Team</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="6">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="6">
+          
           
           <code class="ruby">  extend CsvLoadable</code>
         </li>
@@ -243,14 +132,14 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="8">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="8">
+          
           
           <code class="ruby">  @@all_games = []</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="9">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="9">
+          
           
           <code class="ruby">  @@team_id_scores = {}</code>
         </li>
@@ -261,14 +150,14 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="11">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="11">
+          
           
           <code class="ruby">  def self.all</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="12">
-          <span class="hits">12</span>
+        <li class="never" data-hits="" data-linenumber="12">
+          
           
           <code class="ruby">    @@all_games</code>
         </li>
@@ -285,8 +174,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="15">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="15">
+          
           
           <code class="ruby">  attr_reader :game_id,</code>
         </li>
@@ -345,14 +234,14 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="25">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="25">
+          
           
           <code class="ruby">  def self.from_csv(file_path)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="26">
-          <span class="hits">12</span>
+        <li class="never" data-hits="" data-linenumber="26">
+          
           
           <code class="ruby">    @@all_games = load_from_csv(file_path, Games)</code>
         </li>
@@ -369,62 +258,62 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="29">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="29">
+          
           
           <code class="ruby">  def initialize(game_info)</code>
         </li>
       
-        <li class="covered" data-hits="576" data-linenumber="30">
-          <span class="hits">576</span>
+        <li class="never" data-hits="" data-linenumber="30">
+          
           
           <code class="ruby">    @game_id = game_info[:game_id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="576" data-linenumber="31">
-          <span class="hits">576</span>
+        <li class="never" data-hits="" data-linenumber="31">
           
-          <code class="ruby">    @season = game_info[:season].to_i</code>
+          
+          <code class="ruby">    @season = game_info[:season]</code>
         </li>
       
-        <li class="covered" data-hits="576" data-linenumber="32">
-          <span class="hits">576</span>
+        <li class="never" data-hits="" data-linenumber="32">
+          
           
           <code class="ruby">    @type = game_info[:type]</code>
         </li>
       
-        <li class="covered" data-hits="576" data-linenumber="33">
-          <span class="hits">576</span>
+        <li class="never" data-hits="" data-linenumber="33">
+          
           
           <code class="ruby">    @date_time = game_info[:date_time]</code>
         </li>
       
-        <li class="covered" data-hits="576" data-linenumber="34">
-          <span class="hits">576</span>
+        <li class="never" data-hits="" data-linenumber="34">
+          
           
           <code class="ruby">    @away_team_id = game_info[:away_team_id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="576" data-linenumber="35">
-          <span class="hits">576</span>
+        <li class="never" data-hits="" data-linenumber="35">
+          
           
           <code class="ruby">    @home_team_id = game_info[:home_team_id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="576" data-linenumber="36">
-          <span class="hits">576</span>
+        <li class="never" data-hits="" data-linenumber="36">
+          
           
           <code class="ruby">    @away_goals = game_info[:away_goals].to_i</code>
         </li>
       
-        <li class="covered" data-hits="576" data-linenumber="37">
-          <span class="hits">576</span>
+        <li class="never" data-hits="" data-linenumber="37">
+          
           
           <code class="ruby">    @home_goals = game_info[:home_goals].to_i</code>
         </li>
       
-        <li class="covered" data-hits="576" data-linenumber="38">
-          <span class="hits">576</span>
+        <li class="never" data-hits="" data-linenumber="38">
+          
           
           <code class="ruby">    @venue = game_info[:venue]</code>
         </li>
@@ -441,8 +330,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="41">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="41">
+          
           
           <code class="ruby">  def self.highest_total_score</code>
         </li>
@@ -453,13 +342,13 @@
           <code class="ruby">    #refactor later</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="43">
+        <li class="never" data-hits="" data-linenumber="43">
           
           
           <code class="ruby">    max = @@all_games.max_by {|game| game.away_goals + game.home_goals }</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="44">
+        <li class="never" data-hits="" data-linenumber="44">
           
           
           <code class="ruby">    max_score = (max.away_goals + max.home_goals)</code>
@@ -477,8 +366,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="47">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="47">
+          
           
           <code class="ruby">  def self.lowest_total_score</code>
         </li>
@@ -489,13 +378,13 @@
           <code class="ruby">    #refactor later</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="49">
+        <li class="never" data-hits="" data-linenumber="49">
           
           
           <code class="ruby">    min = @@all_games.min_by {|game| game.away_goals + game.home_goals }</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="50">
+        <li class="never" data-hits="" data-linenumber="50">
           
           
           <code class="ruby">    min_score = (min.away_goals + min.home_goals)</code>
@@ -513,8 +402,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="53">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="53">
+          
           
           <code class="ruby">  def self.biggest_blowout</code>
         </li>
@@ -525,13 +414,13 @@
           <code class="ruby">    #refactor later</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="55">
+        <li class="never" data-hits="" data-linenumber="55">
           
           
           <code class="ruby">    difference = @@all_games.max_by {|game| (game.away_goals - game.home_goals).abs }</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="56">
+        <li class="never" data-hits="" data-linenumber="56">
           
           
           <code class="ruby">    difference_absolutely = (difference.away_goals - difference.home_goals).abs</code>
@@ -549,8 +438,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="59">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="59">
+          
           
           <code class="ruby">  def self.percentage_home_wins</code>
         </li>
@@ -561,13 +450,13 @@
           <code class="ruby">    #refactor later</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="61">
+        <li class="never" data-hits="" data-linenumber="61">
           
           
           <code class="ruby">    home_wins = @@all_games.find_all {|game| game.home_goals &gt; game.away_goals }</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="62">
+        <li class="never" data-hits="" data-linenumber="62">
           
           
           <code class="ruby">    (home_wins.length / @@all_games.length.to_f).round(2)</code>
@@ -585,8 +474,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="65">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="65">
+          
           
           <code class="ruby">  def self.percentage_visitor_wins</code>
         </li>
@@ -597,13 +486,13 @@
           <code class="ruby">    #refactor later</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="67">
+        <li class="never" data-hits="" data-linenumber="67">
           
           
           <code class="ruby">    vis_wins = @@all_games.find_all {|game| game.home_goals &lt; game.away_goals }</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="68">
+        <li class="never" data-hits="" data-linenumber="68">
           
           
           <code class="ruby">    (vis_wins.length / @@all_games.length.to_f).round(2)</code>
@@ -621,8 +510,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="71">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="71">
+          
           
           <code class="ruby">  def self.percentage_ties</code>
         </li>
@@ -633,13 +522,13 @@
           <code class="ruby">    #refactor later</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="73">
+        <li class="never" data-hits="" data-linenumber="73">
           
           
           <code class="ruby">    ties = @@all_games.find_all {|game| game.home_goals == game.away_goals }</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="74">
+        <li class="never" data-hits="" data-linenumber="74">
           
           
           <code class="ruby">    (ties.length / @@all_games.length.to_f).round(2)</code>
@@ -657,31 +546,31 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="77">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="77">
+          
           
           <code class="ruby">  def self.count_of_games_by_season</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="78">
+        <li class="never" data-hits="" data-linenumber="78">
           
           
           <code class="ruby">    @@all_games.reduce({}) do |hash, game|</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="79">
+        <li class="never" data-hits="" data-linenumber="79">
           
           
           <code class="ruby">      if hash.keys.include?(game.season)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="80">
+        <li class="never" data-hits="" data-linenumber="80">
           
           
           <code class="ruby">        hash[game.season] += 1</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="81">
+        <li class="never" data-hits="" data-linenumber="81">
           
           
           <code class="ruby">        hash</code>
@@ -693,13 +582,13 @@
           <code class="ruby">      else</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="83">
+        <li class="never" data-hits="" data-linenumber="83">
           
           
           <code class="ruby">        hash[game.season] = 1</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="84">
+        <li class="never" data-hits="" data-linenumber="84">
           
           
           <code class="ruby">        hash</code>
@@ -729,19 +618,19 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="89">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="89">
+          
           
           <code class="ruby">  def self.average_goals_per_game</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="90">
+        <li class="never" data-hits="" data-linenumber="90">
           
           
           <code class="ruby">    sums = @@all_games.sum do |game|</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="91">
+        <li class="never" data-hits="" data-linenumber="91">
           
           
           <code class="ruby">      (game.away_goals + game.home_goals)</code>
@@ -753,7 +642,7 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="93">
+        <li class="never" data-hits="" data-linenumber="93">
           
           
           <code class="ruby">    (sums / @@all_games.length.to_f).round(2)</code>
@@ -771,37 +660,37 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="96">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="96">
+          
           
           <code class="ruby">  def self.average_goals_by_season</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="97">
+        <li class="never" data-hits="" data-linenumber="97">
           
           
           <code class="ruby">    games_by_season = count_of_games_by_season</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="98">
+        <li class="never" data-hits="" data-linenumber="98">
           
           
-          <code class="ruby">    @@all_games.reduce({}) do |hash, game|</code>
+          <code class="ruby">    testy = @@all_games.reduce({}) do |hash, game|</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="99">
+        <li class="never" data-hits="" data-linenumber="99">
           
           
           <code class="ruby">      if hash.keys.include?(game.season)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="100">
+        <li class="never" data-hits="" data-linenumber="100">
           
           
-          <code class="ruby">        hash[game.season] += ((game.away_goals + game.home_goals) / games_by_season[game.season].to_f).round(2)</code>
+          <code class="ruby">        hash[game.season] += (game.away_goals + game.home_goals)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="101">
+        <li class="never" data-hits="" data-linenumber="101">
           
           
           <code class="ruby">        hash</code>
@@ -813,13 +702,13 @@
           <code class="ruby">      else</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="103">
+        <li class="never" data-hits="" data-linenumber="103">
           
           
-          <code class="ruby">        hash[game.season] = ((game.away_goals + game.home_goals) / games_by_season[game.season].to_f).round(2)</code>
+          <code class="ruby">        hash[game.season] = (game.away_goals + game.home_goals)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="104">
+        <li class="never" data-hits="" data-linenumber="104">
           
           
           <code class="ruby">        hash</code>
@@ -840,31 +729,31 @@
         <li class="never" data-hits="" data-linenumber="107">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">    games_by_season.reduce(Hash.new(0)) do |result, pair|</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="108">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">      result[pair[0]] = (testy[pair[0]] / pair[-1].to_f).round(2)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="109">
           
           
-          <code class="ruby">  # Start of iteration 3</code>
+          <code class="ruby">      result</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="110">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="110">
           
-          <code class="ruby">  def self.count_of_teams</code>
+          
+          <code class="ruby">      # require &quot;pry&quot;; binding.pry</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="111">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="111">
           
-          <code class="ruby">    @@all_teams.count</code>
+          
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="112">
@@ -879,22 +768,22 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="114">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="114">
           
-          <code class="ruby">  def self.best_offense</code>
+          
+          <code class="ruby">  # Start of iteration 3</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="115">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="115">
           
-          <code class="ruby">    total_score_average_added_by_team</code>
+          
+          <code class="ruby">  def self.count_of_teams</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="116">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="116">
           
-          <code class="ruby">    max_value_team</code>
+          
+          <code class="ruby">    @@all_teams.count</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="117">
@@ -909,22 +798,22 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="119">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="119">
           
-          <code class="ruby">  def self.worst_offense</code>
+          
+          <code class="ruby">  def self.best_offense</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="120">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="120">
+          
           
           <code class="ruby">    total_score_average_added_by_team</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="121">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="121">
           
-          <code class="ruby">    min_value_team</code>
+          
+          <code class="ruby">    max_value_team</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="122">
@@ -939,20 +828,20 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="124">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="124">
           
-          <code class="ruby">  def self.best_defense</code>
+          
+          <code class="ruby">  def self.worst_offense</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="125">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="125">
           
-          <code class="ruby">    total_points_allowed_by_team</code>
+          
+          <code class="ruby">    total_score_average_added_by_team</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="126">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="126">
+          
           
           <code class="ruby">    min_value_team</code>
         </li>
@@ -969,22 +858,22 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="129">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="129">
           
-          <code class="ruby">  def self.worst_defense</code>
+          
+          <code class="ruby">  def self.best_defense</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="130">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="130">
+          
           
           <code class="ruby">    total_points_allowed_by_team</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="131">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="131">
           
-          <code class="ruby">    max_value_team</code>
+          
+          <code class="ruby">    min_value_team</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="132">
@@ -999,20 +888,20 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="134">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="134">
           
-          <code class="ruby">  def self.highest_scoring_visitor</code>
+          
+          <code class="ruby">  def self.worst_defense</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="135">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="135">
           
-          <code class="ruby">    away_score_values_added_by_team</code>
+          
+          <code class="ruby">    total_points_allowed_by_team</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="136">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="136">
+          
           
           <code class="ruby">    max_value_team</code>
         </li>
@@ -1029,20 +918,20 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="139">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="139">
           
-          <code class="ruby">  def self.highest_scoring_home_team</code>
+          
+          <code class="ruby">  def self.highest_scoring_visitor</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="140">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="140">
           
-          <code class="ruby">    home_score_values_added_by_team</code>
+          
+          <code class="ruby">    away_score_values_added_by_team</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="141">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="141">
+          
           
           <code class="ruby">    max_value_team</code>
         </li>
@@ -1059,22 +948,22 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="144">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="144">
           
-          <code class="ruby">  def self.lowest_scoring_visitor</code>
+          
+          <code class="ruby">  def self.highest_scoring_home_team</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="145">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="145">
           
-          <code class="ruby">    away_score_values_added_by_team</code>
+          
+          <code class="ruby">    home_score_values_added_by_team</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="146">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="146">
           
-          <code class="ruby">    min_value_team</code>
+          
+          <code class="ruby">    max_value_team</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="147">
@@ -1089,20 +978,20 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="149">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="149">
           
-          <code class="ruby">  def self.lowest_scoring_home_team</code>
+          
+          <code class="ruby">  def self.lowest_scoring_visitor</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="150">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="150">
           
-          <code class="ruby">    home_score_values_added_by_team</code>
+          
+          <code class="ruby">    away_score_values_added_by_team</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="151">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="151">
+          
           
           <code class="ruby">    min_value_team</code>
         </li>
@@ -1119,190 +1008,190 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="154">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="154">
           
-          <code class="ruby">  def self.max_value_team</code>
+          
+          <code class="ruby">  def self.lowest_scoring_home_team</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="155">
-          <span class="hits">4</span>
+        <li class="never" data-hits="" data-linenumber="155">
           
-          <code class="ruby">    team_id_average_scores</code>
+          
+          <code class="ruby">    home_score_values_added_by_team</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="156">
-          <span class="hits">4</span>
+        <li class="never" data-hits="" data-linenumber="156">
           
-          <code class="ruby">    team_id = @@team_id_scores.key(@@team_id_scores.values.max)</code>
+          
+          <code class="ruby">    min_value_team</code>
         </li>
       
-        <li class="covered" data-hits="94" data-linenumber="157">
-          <span class="hits">94</span>
+        <li class="never" data-hits="" data-linenumber="157">
           
-          <code class="ruby">    team = @@all_teams.find {|team| team.team_name if team.team_id == team_id}</code>
+          
+          <code class="ruby">  end</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="158">
-          <span class="hits">4</span>
+        <li class="never" data-hits="" data-linenumber="158">
           
-          <code class="ruby">    team.team_name</code>
+          
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="159">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">  def self.max_value_team</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="160">
           
           
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="161">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def self.min_value_team</code>
-        </li>
-      
-        <li class="covered" data-hits="4" data-linenumber="162">
-          <span class="hits">4</span>
-          
           <code class="ruby">    team_id_average_scores</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="163">
-          <span class="hits">4</span>
+        <li class="never" data-hits="" data-linenumber="161">
           
-          <code class="ruby">    team_id = @@team_id_scores.key(@@team_id_scores.values.min)</code>
+          
+          <code class="ruby">    team_id = @@team_id_scores.key(@@team_id_scores.values.max)</code>
         </li>
       
-        <li class="covered" data-hits="88" data-linenumber="164">
-          <span class="hits">88</span>
+        <li class="never" data-hits="" data-linenumber="162">
+          
           
           <code class="ruby">    team = @@all_teams.find {|team| team.team_name if team.team_id == team_id}</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="165">
-          <span class="hits">4</span>
+        <li class="never" data-hits="" data-linenumber="163">
+          
           
           <code class="ruby">    team.team_name</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="164">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="165">
+          
+          
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="166">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">  def self.min_value_team</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="167">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    team_id_average_scores</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="168">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    team_id = @@team_id_scores.key(@@team_id_scores.values.min)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="169">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="169">
           
-          <code class="ruby">  def self.team_id_average_scores</code>
+          
+          <code class="ruby">    team = @@all_teams.find {|team| team.team_name if team.team_id == team_id}</code>
         </li>
       
-        <li class="covered" data-hits="8" data-linenumber="170">
-          <span class="hits">8</span>
+        <li class="never" data-hits="" data-linenumber="170">
           
-          <code class="ruby">    @@team_id_scores.each do |key, value|</code>
+          
+          <code class="ruby">    team.team_name</code>
         </li>
       
-        <li class="covered" data-hits="256" data-linenumber="171">
-          <span class="hits">256</span>
+        <li class="never" data-hits="" data-linenumber="171">
           
-          <code class="ruby">      @@team_id_scores[key] = (value.sum / value.count.to_f).round(2)</code>
+          
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="172">
           
           
-          <code class="ruby">    end</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="173">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="174">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  def self.team_id_average_scores</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="175">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="175">
           
-          <code class="ruby">  def self.team_id_scores_hash</code>
-        </li>
-      
-        <li class="covered" data-hits="14" data-linenumber="176">
-          <span class="hits">14</span>
           
-          <code class="ruby">    @@team_id_scores = @@all_teams.reduce({}) do |hash, team|</code>
+          <code class="ruby">    @@team_id_scores.each do |key, value|</code>
         </li>
       
-        <li class="covered" data-hits="448" data-linenumber="177">
-          <span class="hits">448</span>
+        <li class="never" data-hits="" data-linenumber="176">
           
-          <code class="ruby">      hash[team.team_id] = []</code>
-        </li>
-      
-        <li class="covered" data-hits="448" data-linenumber="178">
-          <span class="hits">448</span>
           
-          <code class="ruby">      hash</code>
+          <code class="ruby">      @@team_id_scores[key] = (value.sum / value.count.to_f).round(2)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="179">
+        <li class="never" data-hits="" data-linenumber="177">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="180">
+        <li class="never" data-hits="" data-linenumber="178">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="181">
+        <li class="never" data-hits="" data-linenumber="179">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="182">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="180">
           
-          <code class="ruby">  def self.total_score_average_added_by_team</code>
+          
+          <code class="ruby">  def self.team_id_scores_hash</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="183">
-          <span class="hits">2</span>
+        <li class="never" data-hits="" data-linenumber="181">
           
-          <code class="ruby">    away_score_values_added_by_team</code>
+          
+          <code class="ruby">    @@team_id_scores = @@all_teams.reduce({}) do |hash, team|</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="184">
-          <span class="hits">2</span>
+        <li class="never" data-hits="" data-linenumber="182">
           
-          <code class="ruby">    home_score_values_added_by_team</code>
+          
+          <code class="ruby">      hash[team.team_id] = []</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="183">
+          
+          
+          <code class="ruby">      hash</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="184">
+          
+          
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="185">
@@ -1317,512 +1206,355 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="187">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="187">
           
-          <code class="ruby">  def self.home_score_values_added_by_team</code>
+          
+          <code class="ruby">  def self.total_score_average_added_by_team</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="188">
-          <span class="hits">4</span>
+        <li class="never" data-hits="" data-linenumber="188">
           
-          <code class="ruby">    @@team_id_scores = team_id_scores_hash</code>
+          
+          <code class="ruby">    away_score_values_added_by_team</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="189">
-          <span class="hits">4</span>
+        <li class="never" data-hits="" data-linenumber="189">
           
-          <code class="ruby">    @@all_teams.each do |team|</code>
+          
+          <code class="ruby">    home_score_values_added_by_team</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="190">
           
           
-          <code class="ruby">      @@all_games.each do |game|</code>
+          <code class="ruby">  end</code>
         </li>
       
-        <li class="covered" data-hits="6144" data-linenumber="191">
-          <span class="hits">6144</span>
+        <li class="never" data-hits="" data-linenumber="191">
           
-          <code class="ruby">        if team.team_id == game.home_team_id</code>
+          
+          <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="192" data-linenumber="192">
-          <span class="hits">192</span>
+        <li class="never" data-hits="" data-linenumber="192">
           
-          <code class="ruby">          @@team_id_scores[team.team_id] &lt;&lt; game.home_goals</code>
+          
+          <code class="ruby">  def self.home_score_values_added_by_team</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="193">
           
           
-          <code class="ruby">        end</code>
+          <code class="ruby">    @@team_id_scores = team_id_scores_hash</code>
         </li>
       
-        <li class="covered" data-hits="128" data-linenumber="194">
-          <span class="hits">128</span>
+        <li class="never" data-hits="" data-linenumber="194">
           
-          <code class="ruby">      end.compact</code>
+          
+          <code class="ruby">    @@all_teams.each do |team|</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="195">
           
           
-          <code class="ruby">    end</code>
+          <code class="ruby">      @@all_games.each do |game|</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="196">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">        if team.team_id == game.home_team_id</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="197">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">          @@team_id_scores[team.team_id] &lt;&lt; game.home_goals</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="198">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="198">
           
-          <code class="ruby">  def self.away_score_values_added_by_team</code>
+          
+          <code class="ruby">        end</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="199">
-          <span class="hits">4</span>
+        <li class="never" data-hits="" data-linenumber="199">
           
-          <code class="ruby">    @@team_id_scores = team_id_scores_hash</code>
+          
+          <code class="ruby">      end.compact</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="200">
-          <span class="hits">4</span>
+        <li class="never" data-hits="" data-linenumber="200">
           
-          <code class="ruby">    @@all_teams.each do |team|</code>
+          
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="201">
           
           
-          <code class="ruby">      @@all_games.each do |game|</code>
+          <code class="ruby">  end</code>
         </li>
       
-        <li class="covered" data-hits="6144" data-linenumber="202">
-          <span class="hits">6144</span>
+        <li class="never" data-hits="" data-linenumber="202">
           
-          <code class="ruby">        if team.team_id == game.away_team_id</code>
+          
+          <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="192" data-linenumber="203">
-          <span class="hits">192</span>
+        <li class="never" data-hits="" data-linenumber="203">
           
-          <code class="ruby">          @@team_id_scores[team.team_id] &lt;&lt; game.away_goals</code>
+          
+          <code class="ruby">  def self.away_score_values_added_by_team</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="204">
           
           
-          <code class="ruby">        end</code>
+          <code class="ruby">    @@team_id_scores = team_id_scores_hash</code>
         </li>
       
-        <li class="covered" data-hits="128" data-linenumber="205">
-          <span class="hits">128</span>
+        <li class="never" data-hits="" data-linenumber="205">
           
-          <code class="ruby">      end.compact</code>
+          
+          <code class="ruby">    @@all_teams.each do |team|</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="206">
           
           
-          <code class="ruby">    end</code>
+          <code class="ruby">      @@all_games.each do |game|</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="207">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">        if team.team_id == game.away_team_id</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="208">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">          @@team_id_scores[team.team_id] &lt;&lt; game.away_goals</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="209">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="209">
           
-          <code class="ruby">  def self.total_points_allowed_by_team</code>
+          
+          <code class="ruby">        end</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="210">
-          <span class="hits">2</span>
+        <li class="never" data-hits="" data-linenumber="210">
           
-          <code class="ruby">    @@team_id_scores = team_id_scores_hash</code>
+          
+          <code class="ruby">      end.compact</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="211">
-          <span class="hits">2</span>
+        <li class="never" data-hits="" data-linenumber="211">
           
-          <code class="ruby">    away_points_allowed_by_home_team</code>
+          
+          <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="212">
-          <span class="hits">2</span>
+        <li class="never" data-hits="" data-linenumber="212">
           
-          <code class="ruby">    home_points_allowed_by_away_team</code>
+          
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="213">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="214">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  def self.total_points_allowed_by_team</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="215">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="215">
           
-          <code class="ruby">  def self.away_points_allowed_by_home_team</code>
-        </li>
-      
-        <li class="covered" data-hits="2" data-linenumber="216">
-          <span class="hits">2</span>
           
           <code class="ruby">    @@team_id_scores = team_id_scores_hash</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="217">
-          <span class="hits">2</span>
+        <li class="never" data-hits="" data-linenumber="216">
           
-          <code class="ruby">    @@all_teams.each do |team|</code>
+          
+          <code class="ruby">    away_points_allowed_by_home_team</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="217">
+          
+          
+          <code class="ruby">    home_points_allowed_by_away_team</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="218">
           
           
-          <code class="ruby">      @@all_games.each do |game|</code>
+          <code class="ruby">  end</code>
         </li>
       
-        <li class="covered" data-hits="3072" data-linenumber="219">
-          <span class="hits">3072</span>
+        <li class="never" data-hits="" data-linenumber="219">
           
-          <code class="ruby">        if team.team_id == game.home_team_id</code>
+          
+          <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="96" data-linenumber="220">
-          <span class="hits">96</span>
+        <li class="never" data-hits="" data-linenumber="220">
           
-          <code class="ruby">          @@team_id_scores[team.team_id] &lt;&lt; game.away_goals</code>
+          
+          <code class="ruby">  def self.away_points_allowed_by_home_team</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="221">
           
           
-          <code class="ruby">        end</code>
+          <code class="ruby">    @@team_id_scores = team_id_scores_hash</code>
         </li>
       
-        <li class="covered" data-hits="64" data-linenumber="222">
-          <span class="hits">64</span>
+        <li class="never" data-hits="" data-linenumber="222">
           
-          <code class="ruby">      end.compact</code>
+          
+          <code class="ruby">    @@all_teams.each do |team|</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="223">
           
           
-          <code class="ruby">    end</code>
+          <code class="ruby">      @@all_games.each do |game|</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="224">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">        if team.team_id == game.home_team_id</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="225">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">          @@team_id_scores[team.team_id] &lt;&lt; game.away_goals</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="226">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def self.home_points_allowed_by_away_team</code>
-        </li>
-      
-        <li class="covered" data-hits="2" data-linenumber="227">
-          <span class="hits">2</span>
-          
-          <code class="ruby">    @@team_id_scores = team_id_scores_hash</code>
-        </li>
-      
-        <li class="covered" data-hits="2" data-linenumber="228">
-          <span class="hits">2</span>
-          
-          <code class="ruby">    @@all_teams.each do |team|</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="229">
-          
-          
-          <code class="ruby">      @@all_games.each do |game|</code>
-        </li>
-      
-        <li class="covered" data-hits="3072" data-linenumber="230">
-          <span class="hits">3072</span>
-          
-          <code class="ruby">        if team.team_id == game.away_team_id</code>
-        </li>
-      
-        <li class="covered" data-hits="96" data-linenumber="231">
-          <span class="hits">96</span>
-          
-          <code class="ruby">          @@team_id_scores[team.team_id] &lt;&lt; game.home_goals</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="232">
+        <li class="never" data-hits="" data-linenumber="226">
           
           
           <code class="ruby">        end</code>
         </li>
       
-        <li class="covered" data-hits="64" data-linenumber="233">
-          <span class="hits">64</span>
+        <li class="never" data-hits="" data-linenumber="227">
+          
           
           <code class="ruby">      end.compact</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="234">
+        <li class="never" data-hits="" data-linenumber="228">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="235">
+        <li class="never" data-hits="" data-linenumber="229">
           
           
           <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="230">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="231">
+          
+          
+          <code class="ruby">  def self.home_points_allowed_by_away_team</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="232">
+          
+          
+          <code class="ruby">    @@team_id_scores = team_id_scores_hash</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="233">
+          
+          
+          <code class="ruby">    @@all_teams.each do |team|</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="234">
+          
+          
+          <code class="ruby">      @@all_games.each do |game|</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="235">
+          
+          
+          <code class="ruby">        if team.team_id == game.away_team_id</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="236">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">          @@team_id_scores[team.team_id] &lt;&lt; game.home_goals</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="237">
           
           
-          <code class="ruby">end</code>
+          <code class="ruby">        end</code>
         </li>
       
-    </ol>
-  </pre>
-</div>
-
-      
-        <div class="source_table" id="65470289f1e595aaa31d20753f08f435c8b60c19">
-  <div class="header">
-    <h3>lib/team.rb</h3>
-    <h4><span class="green">100.0 %</span> covered</h4>
-    <div>
-      <b>12</b> relevant lines. 
-      <span class="green"><b>12</b> lines covered</span> and
-      <span class="red"><b>0</b> lines missed.</span>
-    </div>
-  </div>
-  
-  <pre>
-    <ol>
-      
-        <li class="covered" data-hits="1" data-linenumber="1">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="238">
           
-          <code class="ruby">class Team</code>
+          
+          <code class="ruby">      end.compact</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="2">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="239">
           
-          <code class="ruby">  extend CsvLoadable</code>
+          
+          <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="3">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="4">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  attr_reader :team_id, :team_name</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="5">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="6">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  @@all_teams = []</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="7">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="8">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def self.all</code>
-        </li>
-      
-        <li class="covered" data-hits="12" data-linenumber="9">
-          <span class="hits">12</span>
-          
-          <code class="ruby">    @@all_teams</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="10">
+        <li class="never" data-hits="" data-linenumber="240">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="11">
+        <li class="never" data-hits="" data-linenumber="241">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="12">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="242">
           
-          <code class="ruby">  def self.from_csv(file_path)</code>
+          
+          <code class="ruby">  self.winner</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="13">
-          <span class="hits">12</span>
+        <li class="never" data-hits="" data-linenumber="243">
           
-          <code class="ruby">    @@all_teams = load_from_csv(file_path, Team)</code>
+          
+          <code class="ruby">  if @home_team_id</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="14">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="15">
+        <li class="never" data-hits="" data-linenumber="244">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="16">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def initialize(team_info)</code>
-        </li>
-      
-        <li class="covered" data-hits="384" data-linenumber="17">
-          <span class="hits">384</span>
-          
-          <code class="ruby">    @team_id = team_info[:team_id].to_i</code>
-        </li>
-      
-        <li class="covered" data-hits="384" data-linenumber="18">
-          <span class="hits">384</span>
-          
-          <code class="ruby">    @franchise_id = team_info[:franchiseid].to_i</code>
-        </li>
-      
-        <li class="covered" data-hits="384" data-linenumber="19">
-          <span class="hits">384</span>
-          
-          <code class="ruby">    @team_name = team_info[:teamname]</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="20">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="21">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="22">
-          
-          
-          <code class="ruby">  </code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="23">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="24">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="25">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="26">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="27">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="28">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="29">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="30">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="31">
+        <li class="never" data-hits="" data-linenumber="245">
           
           
           <code class="ruby">end</code>
