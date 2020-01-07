@@ -138,7 +138,7 @@ module Gatherable
   end
 
   def get_team_name_by_id(team_id)
-    @teams.collection[team_id].team_name
+    @teams.collection[team_id].team_name.to_s
   end
 
   def team_hash(row, team_id)
