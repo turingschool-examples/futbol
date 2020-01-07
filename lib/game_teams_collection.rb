@@ -156,10 +156,10 @@ class GameTeamsCollection
     shot_goals
   end
 
-  def reg_season_team_percentages(season_id)
+  def reg_season_team_percentages(season)
     gamescollection = games_collection("./data/games.csv")
     game_teams1 = create_game_teams("./data/game_teams.csv")
-    reg_game_ids = gamescollection.reg_season_game_ids(season_id)
+    reg_game_ids = gamescollection.reg_season_game_ids(season)
     reg_team_to_allresults = reg_game_ids.reduce({}) do |acc, game_id|
       reg_gameteams_byid = game_teams1.find_all {|team| team.game_id == game_id}
       if acc[reg_gameteams_byid[0].team_id] == nil
@@ -219,7 +219,6 @@ class GameTeamsCollection
   def biggest_bust_id(season_id)
     reg_team_id_topercent = reg_season_team_percentages(season_id)
     post_team_id_topercent = post_season_team_percentages(season_id)
-    # matching_teamids = (reg_team_id_topercent.keys & post_team_id_topercent.keys).sort
     all_teamids = reg_team_id_topercent.keys + post_team_id_topercent.keys
     all_teamids = all_teamids.uniq.sort
 
@@ -238,7 +237,6 @@ class GameTeamsCollection
   def biggest_surprise_id(season_id)
     reg_team_id_topercent = reg_season_team_percentages(season_id)
     post_team_id_topercent = post_season_team_percentages(season_id)
-    # matching_teamids = (reg_team_id_topercent.keys & post_team_id_topercent.keys).sort
     all_teamids = reg_team_id_topercent.keys + post_team_id_topercent.keys
     all_teamids = all_teamids.uniq.sort
 
@@ -324,9 +322,9 @@ class GameTeamsCollection
     @wlt_percentage = percentage
   end
 
-  def hoa_game_sorter(h_a)
+  def hoa_game_sorter(homeoraway)
     @all_games_by_team.reduce({}) do |records, games|
-      records[games[0]] = games[1].find_all {|game| game.hoa == h_a }
+      records[games[0]] = games[1].find_all {|game| game.hoa == homeoraway }
       records
     end
   end
