@@ -852,18 +852,17 @@ end
     end
 
   summary.each do |key, value|
-    summary[key][:regular_season][:win_percentage] = (data[key]["Regular Season"][:wins].to_f / data[key]["Regular Season"][:total_games]) * 100.round(2) unless data[key]["Regular Season"][:total_games] == 0
-    summary[key][:postseason][:win_percentage] = (data[key]["Postseason"][:wins].to_f / data[key]["Postseason"][:total_games]) * 100.round(2) unless data[key]["Postseason"][:total_games] == 0
+    summary[key][:regular_season][:win_percentage] = (data[key]["Regular Season"][:wins].to_f / data[key]["Regular Season"][:total_games]).round(2) unless data[key]["Regular Season"][:total_games] == 0
+    summary[key][:postseason][:win_percentage] = (data[key]["Postseason"][:wins].to_f / data[key]["Postseason"][:total_games]).round(2) unless data[key]["Postseason"][:total_games] == 0
     summary[key][:regular_season][:total_goals_scored] = data[key]["Regular Season"][:total_goals_scored]
     summary[key][:postseason][:total_goals_scored] = data[key]["Postseason"][:total_goals_scored]
     summary[key][:regular_season][:total_goals_against] = data[key]["Regular Season"][:total_goals_against]
     summary[key][:postseason][:total_goals_against] = data[key]["Postseason"][:total_goals_against]
-    summary[key][:regular_season][:average_goals_scored] = data[key]["Regular Season"][:total_goals_scored].to_f / data[key]["Regular Season"][:total_games].round(2) unless data[key]["Regular Season"][:total_goals_scored] == 0
-    summary[key][:postseason][:average_goals_scored] = data[key]["Postseason"][:total_goals_scored].to_f / data[key]["Postseason"][:total_games].round(2) unless data[key]["Postseason"][:total_games] == 0
-    summary[key][:regular_season][:average_goals_against] = data[key]["Regular Season"][:total_goals_against].to_f / data[key]["Regular Season"][:total_games].round(2) unless data[key]["Regular Season"][:total_goals_against] == 0
-    summary[key][:postseason][:average_goals_against] = data[key]["Postseason"][:total_goals_against].to_f / data[key]["Postseason"][:total_games].round(2) unless data[key]["Postseason"][:total_goals_against] == 0
+    summary[key][:regular_season][:average_goals_scored] = (data[key]["Regular Season"][:total_goals_scored] / data[key]["Regular Season"][:total_games].to_f).round(2) unless data[key]["Regular Season"][:total_goals_scored] == 0
+    summary[key][:postseason][:average_goals_scored] = (data[key]["Postseason"][:total_goals_scored] / data[key]["Postseason"][:total_games].to_f).round(2) unless data[key]["Postseason"][:total_games] == 0
+    summary[key][:regular_season][:average_goals_against] = (data[key]["Regular Season"][:total_goals_against] / data[key]["Regular Season"][:total_games].to_f).round(2) unless data[key]["Regular Season"][:total_goals_against] == 0
+    summary[key][:postseason][:average_goals_against] = (data[key]["Postseason"][:total_goals_against] / data[key]["Postseason"][:total_games].to_f).round(2) unless data[key]["Postseason"][:total_goals_against] == 0
   end
-  require "pry"; binding.pry
   summary
   end
 end
