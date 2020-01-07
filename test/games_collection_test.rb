@@ -88,10 +88,35 @@ class GamesCollectionTest < Minitest::Test
     assert_equal [], @gamescollection.post_season_game_ids("20132014")
   end
 
-  def test_winningest_coach_game_ids
-    expected = [2014030113, 2014030212,
-      2014020930, 2014020614, 2014020772,
-      2014020675, 2014021227, 2014020868]
-    assert_equal expected, @gamescollection.winningest_coach_game_ids("20142015")
+  def test_best_season
+    assert_equal "20122013", @gamescollection.best_season("6")
+  end
+
+  def test_worst_season
+    assert_equal "20122013", @gamescollection.worst_season("6")
+  end
+
+  def test_average_win_percentage
+    assert_equal 1.0, @gamescollection.average_win_percentage("6")
+  end
+
+  def test_most_goals_scored
+    assert_equal 3, @gamescollection.most_goals_scored("18")
+  end
+
+  def test_fewest_goals_scored
+    assert_equal 1, @gamescollection.fewest_goals_scored("18")
+  end
+
+  def test_favorite_opponent_id
+    assert_equal "30", @gamescollection.favorite_opponent_id("18")
+  end
+
+  def test_rival_id
+    assert_equal "25", @gamescollection.rival_id("18")
+  end
+
+  def test_biggest_team_blowout
+    assert_equal 2, @gamescollection.biggest_team_blowout("18")
   end
 end
