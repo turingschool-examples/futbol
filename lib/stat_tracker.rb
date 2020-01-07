@@ -120,6 +120,10 @@ class StatTracker
     teams_collection.associate_team_id_with_team_name(game_teams_collection.biggest_bust_id(season))
   end
 
+  def biggest_surprise(season)
+    teams_collection.associate_team_id_with_team_name(game_teams_collection.biggest_surprise_id(season))
+  end
+
   def worst_coach(season)
     game_teams_collection.worst_coach_name(season)
   end

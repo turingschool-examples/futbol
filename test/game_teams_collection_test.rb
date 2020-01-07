@@ -42,12 +42,12 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal true, season_2017.all? {|game| game.game_id.to_s[0..3]}
   end
 
-  def test_biggest_bust_id  
+  def test_biggest_bust_id
     assert_equal 23, @game_teams_collection.biggest_bust_id("20132014")
   end
 
   def test_biggest_surprise_id
-    skip
+    
     assert_equal 26, @game_teams_collection.biggest_surprise_id("20132014")
   end
 

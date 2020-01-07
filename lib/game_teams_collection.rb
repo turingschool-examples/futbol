@@ -235,6 +235,25 @@ class GameTeamsCollection
     teamid_to_decrease.max_by { |teamid, percentage| percentage }.first
   end
 
+  def biggest_surprise_id(season_id)
+    reg_team_id_topercent = reg_season_team_percentages(season_id)
+    post_team_id_topercent = post_season_team_percentages(season_id)
+    # matching_teamids = (reg_team_id_topercent.keys & post_team_id_topercent.keys).sort
+    all_teamids = reg_team_id_topercent.keys + post_team_id_topercent.keys
+    all_teamids = all_teamids.uniq.sort
+
+    teamid_to_increase = all_teamids.reduce({}) do |acc, team_id|
+      reg_winpercent = reg_team_id_topercent[team_id][0]
+      post_team_id_topercent[team_id] = [0.0] if post_team_id_topercent[team_id] == nil
+      post_winpercent = post_team_id_topercent[team_id][0]
+      if post_winpercent > reg_winpercent
+        acc[team_id] = (post_winpercent - reg_winpercent)
+      end
+      acc
+    end
+    teamid_to_increase.max_by { |teamid, percentage| percentage }.first
+  end
+
   def season_by_coach(season)
     all_games_by_season(season).group_by { |game| game.head_coach }
   end
