@@ -80,10 +80,12 @@ class StatTracker
   end
 
   def worst_fans
-    unique_teams = @game_teams.reduce({}) do |acc, game_team|
-      acc[game_team.team_id] = {away: 0, home: 0}
-      acc
-    end
+    # unique_teams = @game_teams.reduce({}) do |acc, game_team|
+    #   acc[game_team.team_id] = {away: 0, home: 0}
+    #   acc
+    # end
+
+    unique_teams = game_team_ids_away_home(@game_teams)
 
     @game_teams.each do |game_team|
       if game_team.hoa == "away" && game_team.result == "WIN"
@@ -111,7 +113,7 @@ class StatTracker
   end
 
   def best_fans
-    unique_teams = game_team_ids(0)
+    unique_teams = game_team_ids(@game_teams, 0)
 
     @game_teams.each do |game_team|
       unique_teams[game_team.team_id] += 1 if game_team.hoa == "away" && game_team.result == "WIN"
@@ -127,10 +129,8 @@ class StatTracker
   end
 
   def best_offense
-    team_goals = @game_teams.reduce({}) do |acc, game_team|
-      acc[game_team.team_id] = 0
-      acc
-    end
+    team_goals = game_team_ids(@game_teams, 0)
+    
      @game_teams.each do |game_team|
       team_goals[game_team.team_id] += game_team.goals
     end

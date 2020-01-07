@@ -4,8 +4,15 @@ module Calculable
     total / out_of.to_f
   end
 
-  def game_team_ids(value)
-    @game_teams.reduce({}) do |acc, game_team|
+  def game_team_ids_away_home(data_set)
+    data_set.reduce({}) do |acc, game_team|
+      acc[game_team.team_id] = {away: 0, home: 0}
+      acc
+    end
+  end
+
+  def game_team_ids(data_set, value)
+    data_set.reduce({}) do |acc, game_team|
       acc[game_team.team_id] = value
       acc
     end
