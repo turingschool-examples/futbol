@@ -369,4 +369,32 @@ class GamesCollection
   def worst_defense_id
     average_goals_scored_by_opposite_team.max_by { |team_id, goals| goals }.first
   end
+
+  def biggest_team_blowout_num(teamid)
+    difference_array  = games.reduce([]) do |acc, game|
+      if teamid.to_i == game.home_team_id && game.home_goals > game.away_goals
+        difference = game.home_goals - game.away_goals
+        acc << difference
+      elsif teamid.to_i == game.away_team_id && game.away_goals > game.home_goals
+        difference = game.away_goals - game.home_goals
+        acc << difference
+      end
+      acc
+    end
+    difference_array.max
+  end
+
+  def worst_loss_num(teamid)
+    difference_array = games.reduce([]) do |acc,game|
+      if teamid.to_i == game.home_team_id && game.home_goals < game.away_goals
+        difference = game.away_goals - game.home_goals
+        acc << difference
+      elsif teamid.to_i == game.away_team_id && game.away_goals < game.home_goals
+        difference = game.home_goals - game.away_goals
+        acc << difference
+      end
+      acc
+    end
+    difference_array.max
+  end
 end

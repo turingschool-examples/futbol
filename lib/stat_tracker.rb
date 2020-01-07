@@ -104,6 +104,18 @@ class StatTracker
     teams_collection.associate_team_id_with_team_name(game_teams_collection.lowest_scoring_home_team)
   end
 
+  def biggest_team_blowout(teamid)
+    games_collection.biggest_team_blowout_num(teamid)
+  end
+
+  def head_to_head(teamid)
+    names_percent = {}
+    game_teams_collection.head_to_head_hash(teamid).each do |key, value|
+      names_percent[teams_collection.associate_team_id_with_team_name(key)] = value.round(2)
+    end
+    names_percent
+  end
+  
   def winningest_team
     teams_collection.associate_team_id_with_team_name(game_teams_collection.winningest_team_id)
   end

@@ -119,4 +119,12 @@ class GamesCollectionTest < Minitest::Test
   def test_biggest_team_blowout
     assert_equal 2, @gamescollection.biggest_team_blowout("18")
   end
+
+  def test_biggest_team_blowout
+    assert_equal 2, @gamescollection.biggest_team_blowout_num("18")
+  end
+  def test_worst_loss
+    assert_equal 1, @gamescollection.worst_loss_num("18")
+  end
+
 end

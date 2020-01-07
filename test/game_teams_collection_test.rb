@@ -102,6 +102,10 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_lowest_scoring_home_team
-    assert_equal 9, @game_teams_collection.lowest_scoring_home_team
+      assert_equal 9, @game_teams_collection.lowest_scoring_home_team
+  end
+
+  def test_head_to_head
+    assert_equal ({15=>0.5}), @game_teams_collection.head_to_head_hash("15")
   end
 end
