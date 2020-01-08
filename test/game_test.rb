@@ -109,7 +109,7 @@ class GameTest < Minitest::Test
     assert_equal "Los Angeles FC", Game.max_value_team
   end
 
-  def test_it_can_determine_winner
-    assert_equal "sfgdfg", Game.winner
+  def test_it_can_determine_winner_team_id
+    assert_equal 6, Game.winner(@game)
   end
 end

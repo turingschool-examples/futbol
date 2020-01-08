@@ -154,16 +154,18 @@ class Season < Game
   end
 
   def self.biggest_bust(season)
-    regular_season_win_percents = regular_season_win_percentages(season)
-    postseason_win_percents = postseason_win_percentages(season)
+    regular_season_percents = regular_season_win_percentages(season)
+    postseason_percents = postseason_win_percentages(season)
 
-    percentage_diff = postseason_win_percents.reduce(regular_season_win_percents) do |acc, (key, ps_win_percent)|
-      acc[key] = (regular_season_win_percents[key] - postseason_win_percents[key]).round(2)
+
+    percentage_diff = postseason_percents.reduce({}) do |acc, (ps_id, ps_percent)|
+      acc[ps_id] = (ps_percent - regular_season_percents[ps_id])
       acc
     end
 
-    max_percent = percentage_diff.max_by {|id, percent| percent}
-    find_team_name(max_percent[0])
+    max_percent = percentage_diff.values.max
+    name = find_team_name(percentage_diff.key(max_percent))
+    require "pry"; binding.pry
   end
 
   def self.all_regular_season_games(season)
@@ -217,8 +219,8 @@ class Season < Game
 
     win_percentages = total_games_hash.reduce({}) do |acc, (team_id, total_games)|
       if total_wins.keys.include?(team_id) && !acc.keys.include?(team_id)
-        acc[team_id] = ((total_wins[team_id] / total_games_hash[team_id].to_f) * 100).round(2)
-      elsif total_games_hash.keys.include?(team_id) && !total_wins.keys.include?(team_id)
+        acc[team_id] = ((total_wins[team_id] / total_games_hash[team_id].to_f)).round(2)
+      elsif total_games_hash.keys.include?(team_id) && !total_wins.keys.include?(team_id) && !acc.keys.include?(team_id)
         acc[team_id] = 0.0
       end
       acc
@@ -227,7 +229,9 @@ class Season < Game
 
   def self.total_postseason_games_by_team(season)
     postseason_games = all_postseason_games(season)
-    postseason_games.reduce({}) do |acc, game|
+    regular_season_games = all_regular_season_games(season)
+
+    post_games = postseason_games.reduce({}) do |acc, game|
       if acc.keys.include?(game.home_team_id)
         acc[game.home_team_id] += 1
       else
@@ -241,6 +245,15 @@ class Season < Game
       end
       acc
     end
+
+    regular_season_games.each do |game|
+      if !post_games.keys.include?(game.home_team_id)
+        post_games[game.home_team_id] = 0
+      elsif !post_games.keys.include?(game.away_team_id)
+        post_games[game.away_team_id] = 0
+      end
+    end
+    post_games
   end
 
   def self.total_postseason_wins_by_team(season)
@@ -264,7 +277,7 @@ class Season < Game
 
     win_percentages = total_games_hash.reduce({}) do |acc, (team_id, total_games)|
       if total_wins.keys.include?(team_id) && !acc.keys.include?(team_id)
-        acc[team_id] = ((total_wins[team_id] / total_games.to_f) * 100).round(2)
+        acc[team_id] = ((total_wins[team_id] / total_games.to_f)).round(2)
       elsif !total_games_hash.keys.include?(team_id)
         acc[team.team_id] = 0.0
       end
@@ -397,8 +410,8 @@ class Season < Game
   end
 
   def self.find_team_name(id)
-    testy = @@all_teams.find do |team|
-      return team.team_name if team.team_id == id[0]
+    @@all_teams.find do |team|
+      return team.team_name if team.team_id == id
     end
   end
 
