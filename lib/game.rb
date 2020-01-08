@@ -196,7 +196,7 @@ class Game < Team
         if team.team_id == game.home_team_id
           @@team_id_scores[team.team_id] << game.home_goals
         end
-      end.compact
+      end
     end
   end
 

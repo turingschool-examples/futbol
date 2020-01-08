@@ -5,6 +5,8 @@ require 'pry'
 
 class Season < Game
 
+  attr_reader :game_id, :team_id, :hoa, :result, :settled_in, :head_coach, :shots, :goals, :tackles
+
   @@all_seasons = []
 
   def self.all
@@ -295,12 +297,6 @@ class Season < Game
   def self.seasons_filter(season_id)
     season_filter = @@all_seasons.find_all do |season|
       season if season_id.slice(0..3) == season.game_id.slice(0..3)
-    end
-  end
-
-  def self.find_team_name(id)
-    testy = @@all_teams.find do |team|
-      return team.team_name if team.team_id == id[0]
     end
   end
 
