@@ -14,14 +14,14 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2020-01-07T15:20:54-07:00">2020-01-07T15:20:54-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2020-01-07T23:25:27-07:00">2020-01-07T23:25:27-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="red">14.16%</span></span>
+    (<span class="covered_percent"><span class="red">14.24%</span></span>
      covered at
      <span class="covered_strength">
        <span class="red">
@@ -32,9 +32,9 @@
   <a name="AllFiles"></a>
   <div>
     <b>5</b> files in total.
-    <b>332</b> relevant lines. 
+    <b>330</b> relevant lines. 
     <span class="green"><b>47</b> lines covered</span> and
-    <span class="red"><b>285</b> lines missed </span>
+    <span class="red"><b>283</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -82,11 +82,11 @@
       
       <tr>
         <td class="strong"><a href="#237143dd008a60856b1a7412512f3047f68ac9cc" class="src_link" title="lib/tackle.rb">lib/tackle.rb</a></td>
-        <td class="red strong">26.19 %</td>
-        <td>82</td>
-        <td>42</td>
+        <td class="red strong">27.5 %</td>
+        <td>95</td>
+        <td>40</td>
         <td>11</td>
-        <td>31</td>
+        <td>29</td>
         <td>0.3</td>
       </tr>
       
@@ -2702,11 +2702,11 @@
         <div class="source_table" id="237143dd008a60856b1a7412512f3047f68ac9cc">
   <div class="header">
     <h3>lib/tackle.rb</h3>
-    <h4><span class="red">26.19 %</span> covered</h4>
+    <h4><span class="red">27.5 %</span> covered</h4>
     <div>
-      <b>42</b> relevant lines. 
+      <b>40</b> relevant lines. 
       <span class="green"><b>11</b> lines covered</span> and
-      <span class="red"><b>31</b> lines missed.</span>
+      <span class="red"><b>29</b> lines missed.</span>
     </div>
   </div>
   
@@ -2779,82 +2779,82 @@
           <code class="ruby">    # hash = get_team_tackles_avg_hash(season)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="12">
+        <li class="never" data-hits="" data-linenumber="12">
           
           
-          <code class="ruby">    team_season(season)</code>
+          <code class="ruby">    # team_seasons()</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="13">
           
           
-          <code class="ruby">    require &quot;pry&quot;; binding.pry</code>
+          <code class="ruby">    hash = get_most_tackles_hash(season)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="14">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    # require &quot;pry&quot;; binding.pry</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="15">
           
           
-          <code class="ruby">    current_max_team_id = &quot;&quot;</code>
+          <code class="ruby">    max = hash.max_by {|key, value| value}</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="16">
+        <li class="never" data-hits="" data-linenumber="16">
           
           
-          <code class="ruby">    current_max_avg = -1</code>
+          <code class="ruby"></code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="17">
+        <li class="never" data-hits="" data-linenumber="17">
           
           
-          <code class="ruby">    hash.map do |team_id, avg|</code>
+          <code class="ruby"></code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="18">
+        <li class="never" data-hits="" data-linenumber="18">
           
           
-          <code class="ruby">      if(avg.average &gt; current_max_avg)</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="19">
           
           
-          <code class="ruby">        current_max_team_id = team_id</code>
+          <code class="ruby">    get_team_name_from_id(max[0])</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="20">
+        <li class="never" data-hits="" data-linenumber="20">
           
           
-          <code class="ruby">        current_max_avg = avg.average</code>
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="21">
           
           
-          <code class="ruby">      end</code>
+          <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="22">
+        <li class="covered" data-hits="1" data-linenumber="22">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">    end</code>
+          <code class="ruby">  def self.fewest_tackles(season)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="23">
+        <li class="never" data-hits="" data-linenumber="23">
           
           
-          <code class="ruby">    get_team_name_from_id(current_max_team_id)</code>
+          <code class="ruby">    #Name of the Team with the fewest tackles in the season</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="24">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">    # hash = get_team_tackles_avg_hash(season)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="25">
@@ -2863,286 +2863,286 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="26">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def self.fewest_tackles(season)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="27">
-          
-          
-          <code class="ruby">    #Name of the Team with the fewest tackles in the season</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="28">
-          
-          
-          <code class="ruby">    hash = get_team_tackles_avg_hash(season)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="29">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="30">
+        <li class="missed" data-hits="0" data-linenumber="26">
           
           
           <code class="ruby">    current_min_team_id = &quot;&quot;</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="31">
+        <li class="missed" data-hits="0" data-linenumber="27">
           
           
           <code class="ruby">    current_min_avg = nil</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="32">
+        <li class="missed" data-hits="0" data-linenumber="28">
           
           
           <code class="ruby">    hash.map do |team_id, avg|</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="33">
+        <li class="missed" data-hits="0" data-linenumber="29">
           
           
           <code class="ruby">      if current_min_avg == nil</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="34">
+        <li class="missed" data-hits="0" data-linenumber="30">
           
           
           <code class="ruby">        current_min_avg = avg.average</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="35">
+        <li class="missed" data-hits="0" data-linenumber="31">
           
           
           <code class="ruby">      elsif (avg.average &lt; current_min_avg)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="36">
+        <li class="missed" data-hits="0" data-linenumber="32">
           
           
           <code class="ruby">        current_min_team_id = team_id</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="37">
+        <li class="missed" data-hits="0" data-linenumber="33">
           
           
           <code class="ruby">        current_min_avg = avg.average</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="38">
+        <li class="never" data-hits="" data-linenumber="34">
           
           
           <code class="ruby">      end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="39">
+        <li class="never" data-hits="" data-linenumber="35">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="40">
+        <li class="missed" data-hits="0" data-linenumber="36">
           
           
           <code class="ruby">    get_team_name_from_id(current_min_team_id)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="41">
+        <li class="never" data-hits="" data-linenumber="37">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="42">
+        <li class="never" data-hits="" data-linenumber="38">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="43">
+        <li class="never" data-hits="" data-linenumber="39">
           
           
           <code class="ruby">  # def self.add_tackles_to_team(team_id, sample)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="44">
+        <li class="never" data-hits="" data-linenumber="40">
           
           
           <code class="ruby">  #   if hash.key?(team_id)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="45">
+        <li class="never" data-hits="" data-linenumber="41">
           
           
           <code class="ruby">  #     hash[team_id].add_sample(sample)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="46">
+        <li class="never" data-hits="" data-linenumber="42">
           
           
           <code class="ruby">  #   else</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="47">
+        <li class="never" data-hits="" data-linenumber="43">
           
           
           <code class="ruby">  #     hash[team_id] = IncrementalAverage.new(sample)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="48">
+        <li class="never" data-hits="" data-linenumber="44">
           
           
           <code class="ruby">  #   end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="49">
+        <li class="never" data-hits="" data-linenumber="45">
           
           
           <code class="ruby">  # end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="50">
+        <li class="covered" data-hits="1" data-linenumber="46">
           <span class="hits">1</span>
           
-          <code class="ruby">  def self.team_season(season)</code>
+          <code class="ruby">  def self.team_seasons</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="47">
+          
+          
+          <code class="ruby">    hash = {}</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="48">
+          
+          
+          <code class="ruby">    # require &quot;pry&quot;; binding.pry</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="49">
+          
+          
+          <code class="ruby">    Game.all_games.map do |game|</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="50">
+          
+          
+          <code class="ruby">      if hash.key?(game.season)</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="51">
           
           
-          <code class="ruby">    hash = {}</code>
+          <code class="ruby">        hash[game.season] &lt;&lt; game.game_id</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="52">
+        <li class="never" data-hits="" data-linenumber="52">
           
           
-          <code class="ruby">    require &quot;pry&quot;; binding.pry</code>
+          <code class="ruby">      else</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="53">
           
           
-          <code class="ruby">    Game.all_games.find_all do |game|</code>
+          <code class="ruby">        hash[game.season] = game.game_id</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="54">
+        <li class="never" data-hits="" data-linenumber="54">
           
           
-          <code class="ruby">      game.season == season</code>
+          <code class="ruby">      end</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="55">
+        <li class="never" data-hits="" data-linenumber="55">
           
           
-          <code class="ruby">      hash[season] = [game.game_id]</code>
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="56">
           
           
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="57">
-          
-          
           <code class="ruby">    # require &quot;pry&quot;; binding.pry</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="58">
+        <li class="missed" data-hits="0" data-linenumber="57">
           
           
           <code class="ruby">    hash</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="59">
+        <li class="never" data-hits="" data-linenumber="58">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="60">
+        <li class="never" data-hits="" data-linenumber="59">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="61">
+        <li class="covered" data-hits="1" data-linenumber="60">
           <span class="hits">1</span>
           
-          <code class="ruby">  def self.get_team_tackles_avg_hash(season)</code>
+          <code class="ruby">  def self.get_most_tackles_hash(season)</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="61">
+          
+          
+          <code class="ruby">    new_hash = {}</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="62">
           
           
-          <code class="ruby">    hash = {}</code>
+          <code class="ruby">    GameTeam.all_game_teams.map do |game_team|</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="63">
           
           
-          <code class="ruby">    tackles = GameTeam.all_game_teams.map do |game_team|</code>
+          <code class="ruby">      if team_seasons()[season].include?(game_team.game_id)</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="64">
           
           
-          <code class="ruby">      hash[season] = [game_team.team_id, game_team.tackles.to_f]</code>
+          <code class="ruby">        if new_hash.key?(game_team.team_id)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="65">
+        <li class="missed" data-hits="0" data-linenumber="65">
           
           
-          <code class="ruby">    end</code>
+          <code class="ruby">          new_hash[game_team.team_id] = new_hash[game_team.team_id] + game_team.tackles.to_i</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="66">
           
           
-          <code class="ruby">    # require &quot;pry&quot;; binding.pry</code>
+          <code class="ruby">        else</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="67">
+        <li class="missed" data-hits="0" data-linenumber="67">
           
           
-          <code class="ruby">    # new_hash = {}</code>
+          <code class="ruby">          new_hash[game_team.team_id] = game_team.tackles.to_i</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="68">
           
           
-          <code class="ruby">    # if hash.key?(tackles.team_id)</code>
+          <code class="ruby">        end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="69">
           
           
-          <code class="ruby">    #   new_hash[tackles.team_id].add_sample(tackles.tackles.to_f)</code>
+          <code class="ruby">      end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="70">
           
           
-          <code class="ruby">    # else</code>
+          <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="71">
+        <li class="missed" data-hits="0" data-linenumber="71">
           
           
-          <code class="ruby">    #   new_hash[tackles.team_id] = IncrementalAverage.new(tackles.tackles.to_f)</code>
+          <code class="ruby">    require &quot;pry&quot;; binding.pry</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="72">
+        <li class="missed" data-hits="0" data-linenumber="72">
           
           
-          <code class="ruby">    # end</code>
+          <code class="ruby">    new_hash</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="73">
@@ -3154,52 +3154,130 @@
         <li class="never" data-hits="" data-linenumber="74">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  # def self.get_team_tackles_avg_hash(season)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="75">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="75">
           
-          <code class="ruby">  def self.get_team_name_from_id(team_id)</code>
+          
+          <code class="ruby">  #   hash = {}</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="76">
+        <li class="never" data-hits="" data-linenumber="76">
           
           
-          <code class="ruby">    Team.all_teams.map do |team|</code>
+          <code class="ruby">  #   tackles = GameTeam.all_game_teams.map do |game_team|</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="77">
+        <li class="never" data-hits="" data-linenumber="77">
           
           
-          <code class="ruby">      if team_id == team.team_id</code>
+          <code class="ruby">  #     hash[season] = [game_team.team_id, game_team.tackles.to_f]</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="78">
+        <li class="never" data-hits="" data-linenumber="78">
           
           
-          <code class="ruby">        return team.team_name</code>
+          <code class="ruby">  #   end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="79">
           
           
-          <code class="ruby">      end</code>
+          <code class="ruby">    # require &quot;pry&quot;; binding.pry</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="80">
           
           
-          <code class="ruby">    end</code>
+          <code class="ruby">    # new_hash = {}</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="81">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">    # if hash.key?(tackles.team_id)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="82">
+          
+          
+          <code class="ruby">    #   new_hash[tackles.team_id].add_sample(tackles.tackles.to_f)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="83">
+          
+          
+          <code class="ruby">    # else</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="84">
+          
+          
+          <code class="ruby">    #   new_hash[tackles.team_id] = IncrementalAverage.new(tackles.tackles.to_f)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="85">
+          
+          
+          <code class="ruby">    # end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="86">
+          
+          
+          <code class="ruby">  # end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="87">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="88">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def self.get_team_name_from_id(team_id)</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="89">
+          
+          
+          <code class="ruby">    Team.all_teams.map do |team|</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="90">
+          
+          
+          <code class="ruby">      if team_id == team.team_id</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="91">
+          
+          
+          <code class="ruby">        return team.team_name</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="92">
+          
+          
+          <code class="ruby">      end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="93">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="94">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="95">
           
           
           <code class="ruby">end</code>

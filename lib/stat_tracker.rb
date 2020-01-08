@@ -58,11 +58,11 @@ class StatTracker
     @worst_fans = GameTeam.worst_fans
   end
 
-  def most_tackles
-    Tackle.most_tackles
+  def most_tackles(season)
+    Tackle.most_tackles(season)
   end
 
-  def fewest_tackles
-    Tackle.fewest_tackles
-  end 
+  # def fewest_tackles
+  #   Tackle.fewest_tackles
+  # end
 end

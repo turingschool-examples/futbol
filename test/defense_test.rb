@@ -16,7 +16,7 @@ class DefenseTest < Minitest::Test
   end
 
   def test_it_can_return_best_defense
-    assert_equal "FC Dallas", Defense.best_defense
+    assert_equal "Montreal Impact", Defense.best_defense
   end
 
   def test_it_can_return_worst_defense
