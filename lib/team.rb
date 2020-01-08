@@ -30,7 +30,6 @@ class Team
 
   def self.find_team(teamid)
     @@all_teams.find do |team|
-      # binding.pry
       team.team_id == teamid
     end
   end
