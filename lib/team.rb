@@ -21,7 +21,6 @@ class Team
     @link = team_info[:link]
   end
 
-
   def self.team_info(teamid)
     team = find_team(teamid)
     teaminfo = {"team_id" => team.team_id, "franchise_id" => team.franchise_id,
@@ -35,12 +34,4 @@ class Team
       team.team_id == teamid
     end
   end
-
-
-
-
-
-
-
-
 end

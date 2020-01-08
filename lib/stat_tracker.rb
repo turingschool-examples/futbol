@@ -92,6 +92,22 @@ class StatTracker
     Game.lowest_scoring_home_team
   end
 
+  def winningest_team
+    Season.winningest_team
+  end
+
+  def best_fans
+    Season.best_fans
+  end
+
+  def worst_fans
+    Season.worst_fans
+  end
+
+  def biggest_bust(season)
+    Season.biggest_bust(season)
+  end
+
   def most_tackles(season)
     Season.most_tackles(season)
   end

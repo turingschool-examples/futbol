@@ -3,7 +3,7 @@ require './lib/game'
 require './lib/team'
 require 'mocha/minitest'
 
-class GamesTest < Minitest::Test
+class GameTest < Minitest::Test
 
   def setup
     Game.from_csv('./data/games_dummy.csv')

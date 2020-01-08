@@ -27,7 +27,7 @@ class Game < Team
   end
 
   def initialize(game_info)
-    @game_id = game_info[:game_id].to_i
+    @game_id = game_info[:game_id]
     @season = game_info[:season]
     @type = game_info[:type]
     @date_time = game_info[:date_time]
@@ -41,19 +41,19 @@ class Game < Team
   def self.highest_total_score
     #refactor later
     max = @@all_games.max_by {|game| game.away_goals + game.home_goals }
-    max_score = (max.away_goals + max.home_goals)
+    max.away_goals + max.home_goals
   end
 
   def self.lowest_total_score
     #refactor later
     min = @@all_games.min_by {|game| game.away_goals + game.home_goals }
-    min_score = (min.away_goals + min.home_goals)
+    min.away_goals + min.home_goals
   end
 
   def self.biggest_blowout
     #refactor later
     difference = @@all_games.max_by {|game| (game.away_goals - game.home_goals).abs }
-    difference_absolutely = (difference.away_goals - difference.home_goals).abs
+    (difference.away_goals - difference.home_goals).abs
   end
 
   def self.percentage_home_wins
@@ -239,10 +239,9 @@ class Game < Team
     end
   end
 
-  def self.winner
-    return @home_team_id if @home_goals > @away_goals
-    @away_team_id
-  end
-
+  # def self.winner
+  #   return @home_team_id if @home_goals > @away_goals
+  #   @away_team_id
+  # end
 
 end
