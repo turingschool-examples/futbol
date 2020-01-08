@@ -31,7 +31,6 @@ class StatTrackerTest < Minitest::Test
 	
 
 	def test_rival
-		binding.pry
 		assert_equal @stat_tracker.rival(6), "Houston Dynamo"
 	end
 
@@ -70,10 +69,9 @@ class StatTrackerTest < Minitest::Test
 		assert_equal @stat_tracker.worst_loss("6"), 1
 	end
 
-	#def test_win_loss_difference #work
-	#	binding.pry
-#		assert_equal
-#	end
+	def test_win_loss_difference
+		assert_equal @stat_tracker.win_loss_difference(@stat_tracker.games_for_team(5)), [-3, -3, -1, -1]
+	end
 	
 	def test_head_to_head
 		assert_equal @stat_tracker.head_to_head("6"), {"Houston Dynamo"=>1.0}
