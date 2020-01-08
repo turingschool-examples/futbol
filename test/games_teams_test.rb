@@ -12,8 +12,6 @@ class GamesTest < Minitest::Test
 
     Team.from_csv('./data/teams.csv')
     @team = Team.all[0]
-
-
   end
 
   def test_it_exists

@@ -1,5 +1,6 @@
 require_relative './game'
 require_relative './season'
+require_relative './team'
 
 class StatTracker
 
@@ -177,4 +178,15 @@ class StatTracker
   #   @away_team_id
   # end
 
+  def most_accurate_team(season_id)
+    Season.most_accurate_team(season_id)
+  end
+
+  def least_accurate_team(season_id)
+    Season.least_accurate_team(season_id)
+  end
+
+  def team_info(teamid)
+    Team.team_info(teamid)
+  end
 end
