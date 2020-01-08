@@ -244,5 +244,5 @@ class Game < Team
     @away_team_id
   end
 
-  
+
 end
