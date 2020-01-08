@@ -1,4 +1,6 @@
 require_relative './game'
+require_relative './season'
+require_relative './team'
 
 class StatTracker
 
@@ -13,7 +15,7 @@ class StatTracker
   end
 
   def initialize(game_teams_path, game_path, teams_path)
-    @game_teams = game_teams_path
+    @game_teams = Season.from_csv(game_teams_path)
     @teams = Team.from_csv(teams_path)
     @games = Game.from_csv(game_path)
   end
@@ -89,74 +91,20 @@ class StatTracker
   def lowest_scoring_home_team
     Game.lowest_scoring_home_team
   end
-  #
-  # def max_value_team
-  #   Game.max_value_team
-  # end
-  #
-  # def min_value_team
-  #   Game.min_value_team
-  # end
 
-  #
-  # def team_id_average_scores
-  #   Game.team_id_average_scores
-  # end
+  def most_accurate_team(season_id)
+    Season.most_accurate_team(season_id)
+  end
 
-  # def team_id_scores_hash
-  #    Game.team_id_scores_hash
-  # end
+  def least_accurate_team(season_id)
+    Season.least_accurate_team(season_id)
+  end
 
-  # def total_score_average_added_by_team
-  #   Game.total_score_average_added_by_team
-  # end
+  def team_info(teamid)
+    Team.team_info(teamid)
+  end
 
-  # def home_score_values_added_by_team
-  #   Game.home_score_values_added_by_team
-  # end
 
-  # def away_score_values_added_by_team
-  #   @@team_id_scores = team_id_scores_hash
-  #   @@all_teams.each do |team|
-  #     @@all_games.each do |game|
-  #       if team.team_id == game.away_team_id
-  #         @@team_id_scores[team.team_id] << game.away_goals
-  #       end
-  #     end.compact
-  #   end
-  # end
 
-  # def total_points_allowed_by_team
-  #   @@team_id_scores = team_id_scores_hash
-  #   away_points_allowed_by_home_team
-  #   home_points_allowed_by_away_team
-  # end
-  #
-  # def away_points_allowed_by_home_team
-  #   @@team_id_scores = team_id_scores_hash
-  #   @@all_teams.each do |team|
-  #     @@all_games.each do |game|
-  #       if team.team_id == game.home_team_id
-  #         @@team_id_scores[team.team_id] << game.away_goals
-  #       end
-  #     end.compact
-  #   end
-  # end
-  #
-  # def home_points_allowed_by_away_team
-  #   @@team_id_scores = team_id_scores_hash
-  #   @@all_teams.each do |team|
-  #     @@all_games.each do |game|
-  #       if team.team_id == game.away_team_id
-  #         @@team_id_scores[team.team_id] << game.home_goals
-  #       end
-  #     end.compact
-  #   end
-  # end
-  #
-  # def winner
-  #   return @home_team_id if @home_goals > @away_goals
-  #   @away_team_id
-  # end
 
 end
