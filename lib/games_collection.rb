@@ -1,9 +1,11 @@
 require 'csv'
 require_relative 'game'
 require_relative 'csvloadable'
+require_relative 'calculator'
 
 class GamesCollection
   include CsvLoadable
+  include Calculator
 
   attr_reader :games
 
@@ -20,32 +22,32 @@ class GamesCollection
   end
 
   def average_goals_per_game
-    (goals_per_game.sum / goals_per_game.length.to_f).round(2)
+    divide(goals_per_game.sum, goals_per_game.length.to_f).round(2)
   end
 
   def highest_total_score
     highest_total = @games.max_by { |game| game.away_goals + game.home_goals}
-    highest_total.away_goals + highest_total.home_goals
+    add(highest_total.away_goals, highest_total.home_goals)
   end
 
   def lowest_total_score
     lowest_total = @games.min_by { |game| game.away_goals + game.home_goals }
-    lowest_total.away_goals + lowest_total.home_goals
+    add(lowest_total.away_goals, lowest_total.home_goals)
   end
 
   def biggest_blowout
     blowout = @games.max_by { |game| (game.home_goals - game.away_goals).abs }
-    (blowout.home_goals - blowout.away_goals).abs
+    subtract(blowout.home_goals, blowout.away_goals).abs
   end
 
   def percentage_home_wins
     home_wins = @games.find_all { |game| game.home_goals > game.away_goals}
-    (home_wins.length.to_f / @games.length.to_f).round(2)
+    divide(home_wins.length.to_f, @games.length.to_f).round(2)
   end
 
   def percentage_visitor_wins
     visitor_wins = @games.find_all { |game| game.away_goals > game.home_goals}
-    (visitor_wins.length.to_f / @games.length.to_f).round(2)
+    divide(visitor_wins.length.to_f, @games.length.to_f).round(2)
   end
 
   def count_of_games_by_season
@@ -56,7 +58,7 @@ class GamesCollection
 
   def percentage_ties
     ties = @games.find_all { |game| game.home_goals == game.away_goals}
-    (ties.length.to_f / @games.length.to_f).round(2)
+    divide(ties.length.to_f, @games.length.to_f).round(2)
   end
 
   def season_to_game
@@ -80,7 +82,7 @@ class GamesCollection
   end
 
   def team_id_to_games
-    games.reduce({}) do |acc, game|
+    team_id_to_games = games.reduce({}) do |acc, game|
       if acc.has_key?(game.home_team_id) == false
         acc[game.home_team_id] = []
       end
@@ -195,8 +197,7 @@ class GamesCollection
         results << result
       end
     end
-    avg = results.count("WIN") / results.length.to_f
-    avg.round(2)
+    divide(results.count("WIN"), results.length.to_f).round(2)
   end
 
   def most_goals_scored(teamid)
@@ -318,7 +319,7 @@ class GamesCollection
       end
     end
 
-    opponentid_results.reduce({}) do |acc, (key, value)|
+    opponentid_winpercent = opponentid_results.reduce({}) do |acc, (key, value)|
       avg = value.count("WIN") / value.length.to_f
       acc[key] = avg
       acc
