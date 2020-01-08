@@ -221,3 +221,4 @@ class Season < Game
 # team_accuracy_average_hash = average_shots_per_goal_by_team(team_accuracy_hash)
 # binding.pry
 # max_value_team(team_accuracy_average_hash)
+end
