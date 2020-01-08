@@ -1,4 +1,5 @@
 require_relative './game'
+require_relative './season'
 
 class StatTracker
 
@@ -13,7 +14,7 @@ class StatTracker
   end
 
   def initialize(game_teams_path, game_path, teams_path)
-    @game_teams = game_teams_path
+    @game_teams = Season.from_csv(game_teams_path)
     @teams = Team.from_csv(teams_path)
     @games = Game.from_csv(game_path)
   end
@@ -89,6 +90,23 @@ class StatTracker
   def lowest_scoring_home_team
     Game.lowest_scoring_home_team
   end
+
+  def most_tackles(season)
+    Season.most_tackles(season)
+  end
+
+  def fewest_tackles(season)
+    Season.fewest_tackles(season)
+  end
+
+  def winningest_coach(season_id)
+    Season.winningest_coach(season_id)
+  end
+
+  def worst_coach(season_id)
+    Season.worst_coach(season_id)
+  end
+
   #
   # def max_value_team
   #   Game.max_value_team

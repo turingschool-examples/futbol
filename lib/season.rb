@@ -2,7 +2,7 @@ require 'csv'
 require_relative './game'
 
 class Season < Game
-  attr_reader :hoa, :result
+  attr_reader :hoa, :result, :tackles, :head_coach
 
   @@all_seasons = []
 
@@ -84,4 +84,86 @@ class Season < Game
   def self.winningest_team
 
   end
+
+  def self.seasons_filter(season_id)
+    season_filter = @@all_seasons.find_all do |season|
+      season if season_id.slice(0..3) == season.game_id.slice(0..3)
+    end
+  end
+
+  def self.find_team_name(id)
+    testy = @@all_teams.find do |team|
+      return team.team_name if team.team_id == id[0]
+    end
+  end
+
+  def self.most_tackles(season_id)
+    seasons_by_season = seasons_filter(season_id)
+    team_tackles = seasons_by_season.reduce(Hash.new(0)) do |result, season|
+      result[season.team_id] += season.tackles
+      result
+    end
+    id_stat = team_tackles.max_by {|k, v| v}
+    find_team_name(id_stat)
+  end
+
+  def self.fewest_tackles(season_id)
+    seasons_by_season = seasons_filter(season_id)
+    team_tackles = seasons_by_season.reduce(Hash.new(0)) do |result, season|
+      result[season.team_id] += season.tackles
+      result
+    end
+    id_stat = team_tackles.min_by {|k, v| v}
+    find_team_name(id_stat)
+  end
+
+  def self.winningest_coach(season_id)
+    seasons_by_season = seasons_filter(season_id)
+    coach_wins = seasons_by_season.reduce(Hash.new(0)) do |result, season|
+      result[season.head_coach] += 1 if season.result == "WIN"
+      result
+    end
+    coach_total_games = seasons_by_season.reduce(Hash.new(0)) do |result, season|
+      result[season.head_coach] += 1
+      result
+    end
+    coach_percentage = coach_total_games.reduce(coach_wins) do |result, (coach, total_games)|
+      result[coach] = ((result[coach] / total_games.to_f) * 100).round(2)
+      result
+    end
+    coach = coach_percentage.max_by {|k, v| v}
+    coach[0]
+  end
+
+  def self.worst_coach(season_id)
+    seasons_by_season = seasons_filter(season_id)
+    coach_wins = seasons_by_season.reduce(Hash.new(0)) do |result, season|
+      result[season.head_coach] += 1 if season.result == "WIN"
+      result
+    end
+    coach_total_games = seasons_by_season.reduce(Hash.new(0)) do |result, season|
+      result[season.head_coach] += 1
+      result
+    end
+    coach_percentage = coach_total_games.reduce(coach_wins) do |result, (coach, total_games)|
+      result[coach] = ((result[coach] / total_games.to_f) * 100).round(2)
+      result
+    end
+    coach = coach_percentage.min_by {|k, v| v}
+    coach[0]
+  end
+
+  # def coach_wins
+  #   seasons_by_season.reduce(Hash.new(0)) do |result, season|
+  #     result[season.head_coach] += 1 if season.result == "WIN"
+  #     result
+  #   end
+  # end
+  #
+  # def coach_total_games
+  #   coach_total_games = seasons_by_season.reduce(Hash.new(0)) do |result, season|
+  #     result[season.head_coach] += 1
+  #     result
+  #   end
+  # end
 end
