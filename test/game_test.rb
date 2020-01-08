@@ -18,12 +18,12 @@ class GamesTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal 2012030221, @game.game_id
+    assert_equal "2012030221", @game.game_id
     assert_equal "20122013", @game.season
     assert_equal "Postseason", @game.type
     assert_equal "5/16/13", @game.date_time
-    assert_equal 3, @game.away_team_id
-    assert_equal 6, @game.home_team_id
+    assert_equal "3", @game.away_team_id
+    assert_equal "6", @game.home_team_id
     assert_equal 2, @game.away_goals
     assert_equal 3, @game.home_goals
     assert_equal "Toyota Stadium", @game.venue
@@ -47,23 +47,23 @@ class GamesTest < Minitest::Test
   end
 
   def test_it_can_calculate_percentage_visitor_wins
-    assert_equal 0.37, Game.percentage_visitor_wins
+    assert_equal 0.38, Game.percentage_visitor_wins
   end
 
   def test_it_can_calculate_percentage_ties
-    assert_equal 0.05, Game.percentage_ties
+    assert_equal 0.04, Game.percentage_ties
   end
 
   def test_it_can_count_games_by_season
-    assert_equal ({20122013 => 5, 20142015 => 19, 20152016 => 2, 20172018 => 10, 20132014=>5, 20162017=>2}), Game.count_of_games_by_season
+    assert_equal ({"20122013" => 6, "20142015" => 20, "20152016" => 2, "20172018" => 12, "20132014"=>6, "20162017"=>2}), Game.count_of_games_by_season
   end
 
   def test_it_calculate_average_goals_per_game
-    assert_equal 4.02, Game.average_goals_per_game
+    assert_equal 4.08, Game.average_goals_per_game
   end
 
   def test_it_calculate_average_goals_per_season
-    assert_equal ({20122013 => 4.6, 20142015 => 3.790000000000001, 20152016 => 3.0, 20172018 => 4.299999999999999, 20132014=>3.8, 20162017=>5.0}), Game.average_goals_by_season
+    assert_equal ({"20122013" => 4.67, "20142015" => 3.8, "20152016" => 3.0, "20172018" => 4.42, "20132014"=>3.83, "20162017"=>5.0}), Game.average_goals_by_season
   end
 
   def test_count_of_teams

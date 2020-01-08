@@ -4,7 +4,8 @@ require_relative './team'
 require 'pry'
 
 class Season < Game
-
+  attr_reader :game_id, :team_id, :hoa, :result, :settled_in, :head_coach,
+  :shots, :goals, :tackles
   @@all_seasons = []
 
   def self.all
@@ -19,7 +20,7 @@ class Season < Game
 
   def initialize(league_info)
     @game_id = league_info[:game_id]
-    @team_id = league_info[:team_id].to_i
+    @team_id = league_info[:team_id]
     @hoa = league_info[:hoa]
     @result = league_info[:result]
     @settled_in = league_info[:settled_in]
@@ -27,7 +28,7 @@ class Season < Game
     @shots = league_info[:shots].to_i
     @goals = league_info[:goals].to_i
     @tackles = league_info[:tackles].to_i
-    @pim = league_info[:pim].to_i
+    @pim = league_info[:pim]
     @power_play_opportunities = league_info[:powerplayopportunities].to_i
     @power_play_goals = league_info[:powerplaygoals].to_i
     @face_off_win_percentage = league_info[:faceoffwinpercentage].to_i
@@ -67,7 +68,6 @@ class Season < Game
       end
       acc
     end
-    # require "pry"; binding.pry
   end
 
   # def self.home_win_percentage
@@ -169,19 +169,27 @@ class Season < Game
 
   def self.shot_to_goal_ratio_per_game(season_id)
     game_team_objects_array_by_season = seasons_filter(season_id)
-    ratio_per_game_hash = game_team_objects_array_by_season.reduce (Hash.new([])) do |acc, season|
-      if acc.keys.include?(season.team_id)
-        acc[season.team_id] << (season.goals/season.shots.to_f).round(2)
-      elsif !acc.keys.include?(season.team_id)
-        acc[season.team_id] = [(season.goals/season.shots.to_f).round(2)]
+    goal_per_game_hash = game_team_objects_array_by_season.reduce ({}) do |acc, season|
+      if !acc.keys.include?(season.team_id)
+        acc[season.team_id] = season.goals
+      elsif acc.keys.include?(season.team_id)
+        acc[season.team_id] += season.goals
       end
       acc
-    end.compact
+    end
+    shot_per_game_hash = game_team_objects_array_by_season.reduce ({}) do |acc, season|
+      if !acc.keys.include?(season.team_id)
+      acc[season.team_id] = season.shots
+    elsif acc.keys.include?(season.team_id)
+      acc[season.team_id] += season.shots
+    end
+      acc
+    end
   end
 
   def self.average_shots_per_goal_by_team(ratio_per_game_hash)
     ratio_per_game_hash.each do |key, value|
-      ratio_per_game_hash[key] = (value.sum / value.count.to_f).round(2)
+      ratio_per_game_hash[key] = (value.sum / value.count.to_f)
     end
   end
 
@@ -201,24 +209,59 @@ class Season < Game
     end
   end
 
+    def self.best_season(team_id)
+      team_record = team_record(team_id)
+      season_win_percentage = win_percentage_by_season(team_record)
+      (season_array = season_win_percentage.max_by {|k, v| v})[0]
+    end
 
-  # def coach_wins
-  #   seasons_by_season.reduce(Hash.new(0)) do |result, season|
-  #     result[season.head_coach] += 1 if season.result == "WIN"
-  #     result
-  #   end
-  # end
-  #
-  # def coach_total_games
-  #   coach_total_games = seasons_by_season.reduce(Hash.new(0)) do |result, season|
-  #     result[season.head_coach] += 1
-  #     result
-  #   end
-  # endend
+    def self.worst_season(team_id)
+      team_record = team_record(team_id)
+      season_win_percentage = win_percentage_by_season(team_record)
+      (season_array = season_win_percentage.min_by {|k, v| v})[0]
+    end
+
+    def self.average_win_percentage(team_id)
+      team_record = @@all_seasons.find_all do |season|
+        season.team_id == team_id
+      end
+      team_record_integer = []
+      win_loss_integer_array = team_record.map do |game|
+        if game.result == "WIN"
+           1.0
+        elsif game.result == "LOSS"
+           0
+        elsif game.result == "TIE"
+           0
+        end
+      end
+      ((win_loss_integer_array.sum / win_loss_integer_array.count.to_f).round(2))
+    end
 
 
-# team_accuracy_hash = shot_to_goal_ratio_per_game(season_id)
-# team_accuracy_average_hash = average_shots_per_goal_by_team(team_accuracy_hash)
-# binding.pry
-# max_value_team(team_accuracy_average_hash)
+    def self.team_record(team_id)
+      team_record = @@all_seasons.reduce (Hash.new([])) do |acc, season|
+          seasonid = (season.game_id.slice(0..3)) + ((((season.game_id.slice(0..3)).to_i) + 1).to_s)
+          if season.result == "WIN"
+            seasonresult = 1
+          elsif season.result == "LOSS"
+            seasonresult = 0
+          elsif season.result == "TIE"
+            seasonresult = 0
+          end
+        if season.team_id == team_id && acc.keys.include?(seasonid)
+          acc[seasonid] << seasonresult
+        elsif season.team_id == team_id
+          acc[seasonid] = [seasonresult]
+        end
+        acc
+      end
+    end
+
+    def self.win_percentage_by_season(hash)
+      hash.reduce (Hash.new(0)) do |acc, (season, result_array)|
+        acc[season] = ((result_array.sum / result_array.count.to_f).round(2))
+        acc
+      end
+    end
 end
