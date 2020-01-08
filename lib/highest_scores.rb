@@ -26,6 +26,7 @@ class HighestScores
       avg_goal_per_game = (goals_team[key]/games_team[key].to_f).round(4)
       avg_goal_team[key] = avg_goal_per_game
     end
+    
     max_team = avg_goal_team.max_by do |goal|
       goal[-1]
     end
@@ -35,9 +36,9 @@ class HighestScores
       team_name = team_param.team_name if max_team.first == team_param.team_id
     end
     team_name
-    #make module for finding team name from team id using hash
   end
-def self.highest_scoring_home_team
+  
+  def self.highest_scoring_home_team
     goals_team = {}
     games_team = {}
     goal_count = 0
@@ -71,6 +72,5 @@ def self.highest_scoring_home_team
       team_name = team_param.team_name if max_team.first == team_param.team_id
     end
     team_name
-    #make module for finding team name from team id using hash
   end
 end

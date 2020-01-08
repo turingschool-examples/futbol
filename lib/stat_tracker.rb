@@ -71,9 +71,9 @@ class StatTracker
     @biggest_blowout = ScoreTotals.biggest_blowout
   end
   
-  def most_tackles(season)
-    Tackle.most_tackles(season)
-  end
+  # def most_tackles(season)
+  #   Tackle.most_tackles(season)
+  # end
 
   # def fewest_tackles
   #   Tackle.fewest_tackles

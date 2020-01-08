@@ -35,7 +35,6 @@ class LowestScores
       team_name = team_param.team_name if min_team.first == team_param.team_id
     end
     team_name
-    #make module for finding team name from team id using hash
   end
 
   def self.lowest_scoring_home_team
@@ -72,6 +71,5 @@ class LowestScores
       team_name = team_param.team_name if min_team.first == team_param.team_id
     end
     team_name
-    #make module for finding team name from team id using hash
   end
 end
