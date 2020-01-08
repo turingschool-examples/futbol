@@ -35,7 +35,14 @@ class StatTrackerTest < Minitest::Test
 
   def test_worst_offense
     assert_equal "New England Revolution", @stat_tracker.worst_offense
+  end
 
+  def test_best_defense
+    assert_equal "LA Galaxy", @stat_tracker.best_defense
+  end
+
+  def test_worst_defense
+    assert_equal "Utah Royals FC", @stat_tracker.worst_defense
   end
 
   def test_highest_scoring_visitor
@@ -128,6 +135,22 @@ class StatTrackerTest < Minitest::Test
 
   def test_rival
     assert_equal "Chicago Red Stars", @stat_tracker.rival("18")
+  end
+
+  def test_biggest_team_blowout
+    assert_equal 1, @stat_tracker.biggest_team_blowout(6)
+  end
+
+  def test_winningest_team
+    assert_equal "FC Dallas", @stat_tracker.winningest_team
+  end
+
+  def test_best_fans
+    assert_equal "Houston Dynamo", @stat_tracker.best_fans
+  end
+
+  def test_worst_fans
+    assert_equal ["Real Salt Lake", "Sporting Kansas City", "Philadelphia Union"], @stat_tracker.worst_fans
   end
 
 end
