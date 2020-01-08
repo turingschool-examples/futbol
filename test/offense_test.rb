@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require_relative 'test_helper'
 require './lib/team'
 require './lib/game_team'
 require './lib/offense'

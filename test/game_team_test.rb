@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require_relative 'test_helper'
 require './lib/game_team'
 require './lib/team'
 require './lib/game'
@@ -84,11 +85,11 @@ class GameTeamTest < Minitest::Test
   def test_highest_scoring_home_team
     assert_equal "FC Dallas", GameTeam.highest_scoring_home
   end
-  
+
   def test_best_fans
     assert_equal "AAAAAA", GameTeam.best_fans
   end
-  
+
   def test_worst_fans
     assert_instance_of String, GameTeam.worst_fans
   end
