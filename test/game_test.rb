@@ -23,5 +23,6 @@ class GameTest < Minitest::Test
     assert_equal 2, game.home_team_id
     assert_equal 1, game.away_goals
     assert_equal 2, game.home_goals
+    assert_equal "Postseason", game.type
   end
 end
