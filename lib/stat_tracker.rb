@@ -104,6 +104,10 @@ class StatTracker
     teams_collection.associate_team_id_with_team_name(game_teams_collection.lowest_scoring_home_team)
   end
 
+  def biggest_team_blowout(teamid)
+    games_collection.biggest_team_blowout_num(teamid)
+  end
+
   def winningest_team
     teams_collection.associate_team_id_with_team_name(game_teams_collection.winningest_team_id)
   end
@@ -144,7 +148,57 @@ class StatTracker
     teams_collection.associate_team_id_with_team_name(game_teams_collection.most_tackles_team_id(season_id))
   end
 
+  def worst_loss(teamid)
+    games_collection.worst_loss_num(teamid)
+  end
+
+  def head_to_head(teamid)
+    team_to_winper = games_collection.head_to_head(teamid)
+    teamname_to_winper = team_to_winper.reduce({}) do |acc, (team, winpercent)|
+      teamname = teams_collection.associate_team_id_with_team_name(team)
+      rounded = winpercent.round(2)
+      acc[teamname] = rounded
+      acc
+    end
+  end
+
   def fewest_tackles(season_id)
     teams_collection.associate_team_id_with_team_name(game_teams_collection.fewest_tackles_team_id(season_id))
+  end #need fewest_tackles_team_id
+
+  def team_info(teamid)
+    teams_collection.team_info(teamid.to_i)
   end
+
+  def best_season(teamid)
+    games_collection.best_season(teamid)
+  end
+
+  def worst_season(teamid)
+    games_collection.worst_season(teamid)
+  end
+
+  def average_win_percentage(teamid)
+    games_collection.average_win_percentage(teamid)
+  end
+
+  def most_goals_scored(teamid)
+    games_collection.most_goals_scored(teamid)
+  end
+
+  def fewest_goals_scored(teamid)
+    games_collection.fewest_goals_scored(teamid)
+  end
+
+  def favorite_opponent(teamid)
+    integer = games_collection.favorite_opponent_id(teamid).to_i
+    teams_collection.associate_team_id_with_team_name(integer)
+  end
+
+  def rival(teamid)
+    integer = games_collection.rival_id(teamid).to_i
+    teams_collection.associate_team_id_with_team_name(integer)
+  end
+
+
 end
