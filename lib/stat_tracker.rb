@@ -203,10 +203,11 @@ class StatTracker
   end
 
   def seasonal_summary(teamid)
+    #this summary pair has to happen for each season "20132014", "20142015",etc
+    # season_ids = sort_what_by(teamid, season.uniq) #find all season codes per team and use as keys to loop how many times to do this?
     summary = {}
     summary[:postseason] = season_summary("Postseason", teamid)
     summary[:regular_season] = season_summary("Regular Season", teamid)
-    # require "pry"; binding.pry
     summary
   end
 
