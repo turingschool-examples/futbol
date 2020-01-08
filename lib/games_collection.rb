@@ -80,7 +80,7 @@ class GamesCollection
   end
 
   def team_id_to_games
-    team_id_to_games = games.reduce({}) do |acc, game|
+    games.reduce({}) do |acc, game|
       if acc.has_key?(game.home_team_id) == false
         acc[game.home_team_id] = []
       end
@@ -318,7 +318,7 @@ class GamesCollection
       end
     end
 
-    opponentid_winpercent = opponentid_results.reduce({}) do |acc, (key, value)|
+    opponentid_results.reduce({}) do |acc, (key, value)|
       avg = value.count("WIN") / value.length.to_f
       acc[key] = avg
       acc

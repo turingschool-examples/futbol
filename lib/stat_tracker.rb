@@ -156,7 +156,7 @@ class StatTracker < GamesCollection
 
   def head_to_head(teamid)
     team_to_winper = games_collection.head_to_head(teamid)
-    teamname_to_winper = team_to_winper.reduce({}) do |acc, (team, winpercent)|
+    team_to_winper.reduce({}) do |acc, (team, winpercent)|
       teamname = teams_collection.associate_team_id_with_team_name(team)
       rounded = winpercent.round(2)
       acc[teamname] = rounded
@@ -166,7 +166,7 @@ class StatTracker < GamesCollection
 
   def fewest_tackles(season_id)
     teams_collection.associate_team_id_with_team_name(game_teams_collection.fewest_tackles_team_id(season_id))
-  end #need fewest_tackles_team_id
+  end
 
   def team_info(teamid)
     teams_collection.team_info(teamid.to_i)

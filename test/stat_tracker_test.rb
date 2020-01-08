@@ -35,7 +35,14 @@ class StatTrackerTest < Minitest::Test
 
   def test_worst_offense
     assert_equal "New England Revolution", @stat_tracker.worst_offense
+  end
 
+  def test_best_defense
+    assert_equal "LA Galaxy", @stat_tracker.best_defense
+  end
+
+  def test_worst_defense
+    assert_equal "Utah Royals FC", @stat_tracker.worst_defense
   end
 
   def test_highest_scoring_visitor
@@ -54,6 +61,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal "New York City FC", @stat_tracker.lowest_scoring_home_team
   end
 
+  def test_fewest_tackles
+    assert_equal "New England Revolution", @stat_tracker.fewest_tackles("20142015")
+  end
+
   def test_biggest_bust
     assert_equal "Montreal Impact", @stat_tracker.biggest_bust("20132014")
   end
@@ -70,6 +81,22 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Dave Cameron", @stat_tracker.worst_coach("20142015")
   end
 
+  def test_worst_loss
+    assert_nil @stat_tracker.worst_loss(6)
+  end
+
+  def test_most_tackles
+    assert_equal "New York City FC", @stat_tracker.most_tackles("20142015")
+  end
+
+  def test_least_accurate_team
+    assert_equal "New York City FC", @stat_tracker.least_accurate_team("20142015")
+  end
+
+  def test_most_accurate_team
+    assert_equal "New England Revolution", @stat_tracker.most_accurate_team("20142015")
+  end
+
   def test_head_to_head
     expected = {"Sporting Kansas City"=>0.0, "North Carolina Courage"=>1.0}
     assert_equal expected, @stat_tracker.head_to_head("15")
@@ -84,6 +111,10 @@ class StatTrackerTest < Minitest::Test
 
   def test_best_season
     assert_equal "20122013", @stat_tracker.best_season("6")
+  end
+
+  def test_worst_season
+    assert_equal "20122013", @stat_tracker.worst_season("6")
   end
 
   def test_average_win_percentage
@@ -124,7 +155,22 @@ class StatTrackerTest < Minitest::Test
     expected = ["20122013", "20142015", "20152016", "20162017", "20132014"]
 
     assert_equal expected, @stat_tracker.seasonal_summary("18").keys
+  end
+  
+  def test_biggest_team_blowout
+    assert_equal 1, @stat_tracker.biggest_team_blowout(6)
+  end
 
+  def test_winningest_team
+    assert_equal "FC Dallas", @stat_tracker.winningest_team
+  end
+
+  def test_best_fans
+    assert_equal "Houston Dynamo", @stat_tracker.best_fans
+  end
+
+  def test_worst_fans
+    assert_equal ["Real Salt Lake", "Sporting Kansas City", "Philadelphia Union"], @stat_tracker.worst_fans
   end
 
 end

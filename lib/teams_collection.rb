@@ -26,9 +26,9 @@ class TeamsCollection
 
   def team_info(teamid)
     matchingteam = teams.find {|team| team.team_id == teamid}
-    infohash = {"team_id" => matchingteam.team_id.to_s, "franchise_id" => matchingteam.franchiseid, "team_name" => matchingteam.teamname, "abbreviation" => matchingteam.abbreviation, "link" => matchingteam.link}
+    {"team_id" => matchingteam.team_id.to_s, "franchise_id" => matchingteam.franchiseid, "team_name" => matchingteam.teamname, "abbreviation" => matchingteam.abbreviation, "link" => matchingteam.link}
   end
-  
+
   def associate_multi_team_id_with_team_name(id)
     id.map do |x|
       tname = @teams.find { |team| team.team_id == x }
