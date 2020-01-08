@@ -28,6 +28,16 @@ class StatTrackerTest < Minitest::Test
 	def test_games_between_teams
 		assert_includes @stat_tracker.games_between_teams(2, 1), [1, 0, 3]
 	end
+	
+
+	def test_rival
+		binding.pry
+		assert_equal @stat_tracker.rival(6), "Houston Dynamo"
+	end
+
+	def test_favorite_opponenet
+		assert_equal @stat_tracker.favorite_opponent(3), "FC Dallas"
+	end
 
 	def test_team_from_id
 		assert_equal @stat_tracker.team_from_id(1), "Atlanta United"
