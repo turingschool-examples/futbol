@@ -1,6 +1,8 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/stat_tracker'
+require 'simplecov'
+SimpleCov.start
 
 class StatTrackerTest < Minitest::Test
   def setup
