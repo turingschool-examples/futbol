@@ -29,12 +29,43 @@ class StatTrackerTest < Minitest::Test
 		assert_includes @stat_tracker.games_between_teams(2, 1), [1, 0, 3]
 	end
 
-	def test_win_loss_difference
-		binding.pry
-		assert_equal
+	def test_team_from_id
+		assert_equal @stat_tracker.team_from_id(1), "Atlanta United"
+	end
+
+	def test_organize_by_team
+		assert_equal @stat_tracker.organize_by_team([[1, 0, 3], [1, 2, 2], [1, 3, 3]]), {1=>[[0, 3], [2, 2], [3, 3]]}
+	end
+
+	def test_win_percent_by_opp
+		assert_equal @stat_tracker.win_percent_by_opp({5 => [[1, 0], [2, 0]]}), {5=>1.0}
+	end
+
+	def test_win
+		assert_equal @stat_tracker.win?([1, 0]), true
+	end
+
+	def test_convert_to_wins
+		assert_equal @stat_tracker.convert_to_wins({5 => [1, 0]}), {5=>[true, false]}
+	end
+	
+	def test_win_percent
+		assert_equal @stat_tracker.win_percent([3, 1]), 1.0
+	end
+
+	def test_biggest_team_blowout
+		assert_equal @stat_tracker.biggest_team_blowout("6"), 2
+	end
+	def test_worst_loss
+		assert_equal @stat_tracker.worst_loss("6"), 1
+	end
+
+	#def test_win_loss_difference #work
+	#	binding.pry
+#		assert_equal
+#	end
 	
 	def test_head_to_head
-		binding.pry
 		assert_equal @stat_tracker.head_to_head("6"), {"Houston Dynamo"=>1.0}
 	end		
 		
