@@ -4,7 +4,7 @@ require_relative 'game_teams_collection'
 require_relative 'teams_collection'
 require_relative 'season_summary'
 
-class StatTracker
+class StatTracker < GamesCollection
   include SeasonSummary
   attr_reader :games_path, :teams_path, :game_teams_path
 
@@ -203,11 +203,18 @@ class StatTracker
   end
 
   def seasonal_summary(teamid)
-    #this summary pair has to happen for each season "20132014", "20142015",etc
-    # season_ids = sort_what_by(teamid, season.uniq) #find all season codes per team and use as keys to loop how many times to do this?
+    # NOTE: EXPERIMENTAL -- seasons may not return correct info, but it does inherit information that it usable to make keys
+    # NOTE: Need to find list of seasons by teamid
+    seasons = count_of_games_by_season.keys #Inherit from GamesCollection
     summary = {}
-    summary[:postseason] = season_summary("Postseason", teamid)
-    summary[:regular_season] = season_summary("Regular Season", teamid)
+    seasons.map do |season|
+      stats = {}
+      summary[season] = stats
+      stats[:postseason] = season_summary("Postseason", teamid)
+      stats[:regular_season] = season_summary("Regular Season", teamid)
+      stats
+    end
+    # require "pry"; binding.pry
     summary
   end
 
