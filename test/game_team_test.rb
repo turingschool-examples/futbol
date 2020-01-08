@@ -56,18 +56,6 @@ class GameTeamTest < Minitest::Test
     assert_equal "51", @csv_game_team.tackles
   end
 
-  def test_percentage_home_wins
-    assert_equal 0.50, GameTeam.percent_home_wins
-  end
-
-  def test_percentage_visitor_wins
-    assert_equal 0.50, GameTeam.percent_visitor_wins
-  end
-
-  def test_percentage_ties
-    assert_equal 0.20, GameTeam.percent_ties
-  end
-
   def test_highest_scoring_visitor
     #assert_equal "26", GameTeam.highest_scoring_visitor
     assert_equal "FC Cincinnati", GameTeam.highest_scoring_visitor
@@ -93,9 +81,5 @@ class GameTeamTest < Minitest::Test
     worst_fans = ["this team", "that team"]
     
     assert_equal worst_fans, GameTeam.worst_fans
-  end
-  
-  def test_winningest_team
-    assert_equal "AAAAAA", GameTeam.winningest_team
   end
 end

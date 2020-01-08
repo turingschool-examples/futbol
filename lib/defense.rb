@@ -60,6 +60,7 @@ class Defense
         new_hash[losing_team_id] = IncrementalAverage.new(winning_team_goals)
       end
     end
+
     new_hash
   end
 
