@@ -10,16 +10,16 @@ class Team
   def self.from_csv(file_path)
     csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
     @@all_teams = csv.map do |row|
-                    Team.new(row)
-                  end
+      Team.new(row)
+    end
   end
 
-attr_reader :team_id, :franchise_id, :team_name, :abbreviation, :stadium
+  attr_reader :team_id, :franchise_id, :team_name, :abbreviation, :stadium
 
   def initialize(team_info)
     @team_id = team_info[:team_id]
-    @franchise_id = team_info[:franchiseid]
-    @team_name = team_info[:teamname]
+    @franchise_id = team_info[:franchise_id]
+    @team_name = team_info[:team_name]
     @abbreviation = team_info[:abbreviation]
     @stadium = team_info[:stadium]
   end
