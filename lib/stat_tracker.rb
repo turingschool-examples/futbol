@@ -5,6 +5,7 @@ require_relative 'game_team'
 require_relative 'offense'
 require_relative 'defense'
 require_relative 'tackle'
+require_relative 'score_totals'
 
 class StatTracker
 
@@ -65,4 +66,16 @@ class StatTracker
   # def fewest_tackles
   #   Tackle.fewest_tackles
   # end
+
+  def highest_score_total
+    ScoreTotals.highest_score_total
+  end
+
+  def lowest_score_total
+    ScoreTotals.lowest_score_total
+  end
+
+  def biggest_blowout
+    ScoreTotals.biggest_blowout
+  end
 end
