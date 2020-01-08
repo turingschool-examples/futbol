@@ -74,4 +74,50 @@ class SeasonTest < Minitest::Test
   def test_it_can_determine_worst_fans
     assert_equal ["Sporting Kansas City", "Seattle Sounders FC"], Season.worst_fans
   end
+
+  def test_finds_team_name_with_biggest_bust
+    assert_equal "FC Cincinnati", Season.biggest_bust("20172018")
+  end
+
+  def test_can_find_all_regular_season_games
+    regular_season_games = Season.all_regular_season_games("20172018")
+
+    assert_instance_of Array, regular_season_games
+    assert_instance_of Game, regular_season_games[0]
+    assert_instance_of Game, regular_season_games[-1]
+  end
+
+  def test_can_find_all_postseason_games
+    postseason_games = Season.all_postseason_games("20172018")
+
+    assert_instance_of Array, postseason_games
+    assert_instance_of Game, postseason_games[0]
+    assert_instance_of Game, postseason_games[-1]
+  end
+
+  def test_finds_total_regular_season_games_by_team
+    assert_equal ({13=>2, 19=>2, 26=>1, 29=>1}), Season.total_regular_season_games_by_team("20172018")
+  end
+
+  def test_finds_total_postseason_games_by_team
+    assert_equal ({5=>5, 4=>5, 14=>2, 1=>2, 54=>2, 28=>2}), Season.total_postseason_games_by_team("20172018")
+  end
+
+  def test_finds_total_regular_season_wins_by_team
+    assert_equal ({13=>1, 19=>1, 26=>1, 29=>0}), Season.total_regular_season_wins_by_team("20172018")
+  end
+
+  def test_finds_total_postseason_wins_by_team
+    assert_equal ({5=>3, 4=>1, nil=>0, 14=>1, 1=>1, 54=>1, 28=>1}), Season.total_postseason_wins_by_team("20172018")
+  end
+
+  def test_regular_season_win_percentages
+    assert_equal ({13=>50.0, 19=>50.0, 26=>100.0, 29=>0.0}), Season.regular_season_win_percentages("20172018")
+  end
+
+  def test_postseason_win_percentages
+    expected = {5=>60.0, 4=>20.0, 14=>50.0, 1=>50.0, 54=>50.0, 28=>50.0}
+
+    assert_equal expected, Season.postseason_win_percentages("20172018")
+  end
 end
