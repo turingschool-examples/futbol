@@ -29,10 +29,8 @@ attr_reader :game_id, :season, :type, :date_time, :away_team_id, :home_team_id, 
   end
 
   def self.count_of_games_by_season
-
     season_games = {}
     number_of_games = 0
-
     all_games_sorted = @@all_games.sort_by(&:season)
 
     all_games_sorted.each do |game|
@@ -50,7 +48,6 @@ attr_reader :game_id, :season, :type, :date_time, :away_team_id, :home_team_id, 
   def self.average_goals_by_season
     season_avg_goals = {}
     total_games_per_season = 0
-
     all_games_sorted = @@all_games.sort_by(&:season)
 
     all_games_sorted.each do |game|
