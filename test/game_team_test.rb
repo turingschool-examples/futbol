@@ -55,31 +55,4 @@ class GameTeamTest < Minitest::Test
     assert_equal "12", @csv_game_team.shots
     assert_equal "51", @csv_game_team.tackles
   end
-
-  def test_highest_scoring_visitor
-    #assert_equal "26", GameTeam.highest_scoring_visitor
-    assert_equal "FC Cincinnati", GameTeam.highest_scoring_visitor
-  end
-
-  def test_lowest_scoring_visitor
-    assert_equal "Houston Dynamo", GameTeam.lowest_scoring_visitor
-  end
-
-  def test_lowest_scoring_home_team
-    assert_equal "Houston Dynamo", GameTeam.lowest_scoring_home
-  end
-
-  def test_highest_scoring_home_team
-    assert_equal "FC Dallas", GameTeam.highest_scoring_home
-  end
-  
-  def test_best_fans
-    assert_equal "AAAAAA", GameTeam.best_fans
-  end
-  
-  def test_worst_fans
-    worst_fans = ["this team", "that team"]
-    
-    assert_equal worst_fans, GameTeam.worst_fans
-  end
 end

@@ -5,7 +5,10 @@ require_relative 'game_team'
 require_relative 'offense'
 require_relative 'defense'
 require_relative 'wins_and_ties'
+require_relative 'fans'
 require_relative 'score_totals'
+require_relative 'highest_scores'
+require_relative 'lowest_scores'
 
 class StatTracker
   
@@ -50,17 +53,17 @@ class StatTracker
     @percentage_home_wins = WinsAndTies.percentage_home_wins
     @percentage_visitor_wins = WinsAndTies.percentage_visitor_wins
     @percentage_ties = WinsAndTies.percentage_ties
-    @highest_scoring_visitor = GameTeam.highest_scoring_visitor
-    @lowest_scoring_visitor = GameTeam.lowest_scoring_visitor
-    @lowest_scoring_home_team = GameTeam.lowest_scoring_home_team
-    @highest_scoring_home_team = GameTeam.highest_scoring_home_team
+    @highest_scoring_visitor = HighestScores.highest_scoring_visitor
+    @lowest_scoring_visitor = LowestScores.lowest_scoring_visitor
+    @lowest_scoring_home_team = LowestScores.lowest_scoring_home_team
+    @highest_scoring_home_team = HighestScores.highest_scoring_home_team
     @count_of_teams = Offense.count_of_teams
     @best_offense = Offense.best_offense
     @worst_offense = Offense.worst_offense
     @best_defense = Defense.best_defense
     @worst_defense = Defense.worst_defense
-    @best_fans = GameTeam.best_fans
-    @worst_fans = GameTeam.worst_fans
+    @best_fans = Fans.best_fans
+    @worst_fans = Fans.worst_fans
     @winningest_team = WinsAndTies.winningest_team
     @highest_total_score = ScoreTotals.highest_total_score
     @lowest_total_score = ScoreTotals.lowest_total_score
