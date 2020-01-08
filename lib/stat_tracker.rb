@@ -2,8 +2,10 @@ require 'csv'
 require_relative 'games_collection'
 require_relative 'game_teams_collection'
 require_relative 'teams_collection'
+require_relative 'season_summary'
 
 class StatTracker
+  include SeasonSummary
   attr_reader :games_path, :teams_path, :game_teams_path
 
   def self.from_csv(file_paths)
@@ -198,6 +200,14 @@ class StatTracker
   def rival(teamid)
     integer = games_collection.rival_id(teamid).to_i
     teams_collection.associate_team_id_with_team_name(integer)
+  end
+
+  def seasonal_summary(teamid)
+    summary = {}
+    summary[:postseason] = season_summary("Postseason", teamid)
+    summary[:regular_season] = season_summary("Regular Season", teamid)
+    # require "pry"; binding.pry
+    summary
   end
 
 

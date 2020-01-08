@@ -106,4 +106,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Chicago Red Stars", @stat_tracker.rival("18")
   end
 
+  def test_seasonal_summary
+    @stat_tracker.seasonal_summary("18")
+    expected = {:postseason=>{}, :regular_season=>{}}
+    assert_equal expected, @stat_tracker.seasonal_summary("18")
+  end
+
 end
