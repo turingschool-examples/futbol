@@ -33,37 +33,12 @@ module Calculateable
     average_wins
   end
 
-  def team_postseason_win_percent(wins_hash)
-    average_wins = {}
-    wins_hash.each do |team, tot_wins|
-      average_wins[team] = (tot_wins.to_f / postseason_games_by_team[team])
-    end
-    average_wins
-  end
-
-  def team_home_average_wins(wins_hash)
-    average_wins = {}
-    wins_hash.each do |team, tot_wins|
-      average_wins[team] = (tot_wins.to_f / home_games_by_team[team])
-    end
-    average_wins
-  end
-
   def team_away_average_wins(wins_hash)
     average_wins = {}
     wins_hash.each do |team, tot_wins|
       average_wins[team] = (tot_wins.to_f / away_games_by_team[team])
     end
     average_wins
-  end
-
-  def team_total_seasons(team_id)
-    @team_season_collection.collection[team_id].size
-    
-  end
-
-  def team_season_keys(team_id)
-    { team_id => @team_season_collection.collection[team_id].keys }
   end
 
   def combine_game_data
@@ -81,33 +56,10 @@ module Calculateable
     end
   end
 
-  def create_season
-    @games.collection.reduce(Hash.new({})) do |hash, game|
-      h_team_id = game[1].home_team_id
-      a_team_id = game[1].away_team_id
-      season = game[1].season
-      hash = { h_team_id => { season => [] } } if hash.empty?
-      hash = { h_team_id => { season => [] } } if hash[h_team_id].nil?
-      hash = { h_team_id => { season => [] } } if hash[h_team_id][season].nil?
-      hash[h_team_id] = { season => (hash[h_team_id][season] += [game[1]]) }
-      # season_hash[team_id] = { row[:season] => (season_hash[team_id][row[:season]] += [collection_type.new(row)]) }
-      hash
-    end
-  end
-
   def league_win_percent_diff(home, away)
     home.inject(Hash.new(0)) do |hash, team|
       hash[team[0]] = (team[1] - away[team[0]]).abs.round(2)
       hash 
-    end
-  end
-
-  def win_percentage_difference(regular, post)
-    post.reduce(Hash.new(0)) do |hash, team|
-      next(hash) if team[1][:win_percentage].nan?
-
-      hash[team[0]] = (team[1][:win_percentage] - regular[team[0]][:win_percentage]).abs.round(2)
-      hash
     end
   end
 
@@ -128,4 +80,51 @@ module Calculateable
       hash
     end
   end
+
+  # def team_postseason_win_percent(wins_hash) # Not Used
+  #   average_wins = {}
+  #   wins_hash.each do |team, tot_wins|
+  #     average_wins[team] = (tot_wins.to_f / postseason_games_by_team[team])
+  #   end
+  #   average_wins
+  # end
+
+  # def team_home_average_wins(wins_hash) # Not Used
+  #   average_wins = {}
+  #   wins_hash.each do |team, tot_wins|
+  #     average_wins[team] = (tot_wins.to_f / home_games_by_team[team])
+  #   end
+  #   average_wins
+  # end
+
+  # def team_total_seasons(team_id) # Not Used
+    # @team_season_collection.collection[team_id].size
+  # end
+
+  # def team_season_keys(team_id) # Not Used
+    # { team_id => @team_season_collection.collection[team_id].keys }
+  # end
+
+  # def create_season # Not Uzed
+  #   @games.collection.reduce(Hash.new({})) do |hash, game|
+  #     h_team_id = game[1].home_team_id
+  #     a_team_id = game[1].away_team_id
+  #     season = game[1].season
+  #     hash = { h_team_id => { season => [] } } if hash.empty?
+  #     hash = { h_team_id => { season => [] } } if hash[h_team_id].nil?
+  #     hash = { h_team_id => { season => [] } } if hash[h_team_id][season].nil?
+  #     hash[h_team_id] = { season => (hash[h_team_id][season] += [game[1]]) }
+  #     # season_hash[team_id] = { row[:season] => (season_hash[team_id][row[:season]] += [collection_type.new(row)]) }
+  #     hash
+  #   end
+  # end
+
+  # def win_percentage_difference(regular, post) # Not Used
+  #   post.reduce(Hash.new(0)) do |hash, team|
+  #     next(hash) if team[1][:win_percentage].nan?
+
+  #     hash[team[0]] = (team[1][:win_percentage] - regular[team[0]][:win_percentage]).abs.round(2)
+  #     hash
+  #   end
+  # end
 end

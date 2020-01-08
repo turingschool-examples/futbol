@@ -30,66 +30,99 @@ class GatherableTest < Minitest::Test
 
   def test_gatherable_can_return_games_by_team
     assert_instance_of Hash, @stat_tracker.games_by_team
+    assert @stat_tracker.games_by_team.has_key?("3")
+    assert @stat_tracker.games_by_team.has_key?("18")
   end
 
   def test_gatherable_can_return_home_games_by_team
     assert_instance_of Hash, @stat_tracker.home_games_by_team
+    assert @stat_tracker.home_games_by_team.has_key?("3")
+    assert @stat_tracker.home_games_by_team.has_key?("18")
   end
 
   def test_gatherable_can_return_away_games_by_team
     assert_instance_of Hash, @stat_tracker.away_games_by_team
+    assert @stat_tracker.away_games_by_team.has_key?("3")
+    assert @stat_tracker.away_games_by_team.has_key?("18")
   end
 
   def test_gatherable_can_return_wins_by_team
     # assert_instance_of Hash, @stat_tracker.wins_by_team(collection)
+  require 'pry'; binding.pry
   end
 
   def test_gatherable_can_return_postseason_games_by_team
     assert_instance_of Hash, @stat_tracker.postseason_games_by_team
+    assert @stat_tracker.postseason_games_by_team.has_key?("3")
+    assert @stat_tracker.postseason_games_by_team.has_key?("18")
   end
 
   def test_gatherable_can_return_regular_season_games_by_team
     assert_instance_of Hash, @stat_tracker.regular_season_games_by_team
+    assert @stat_tracker.regular_season_games_by_team.has_key?("3")
+    assert @stat_tracker.regular_season_games_by_team.has_key?("18")
   end
 
   def test_gatherable_can_return_games_by_season
     assert_instance_of Hash, @stat_tracker.games_by_season('20132014')
+    assert @stat_tracker.games_by_season('20132014').has_key?("3")
+    assert @stat_tracker.games_by_season('20132014').has_key?("18")
   end
 
   def test_gatherable_can_return_season_games_by_coach
     assert_instance_of Hash, @stat_tracker.season_games_by_coach('20132014')
+    assert @stat_tracker.season_games_by_coach('20132014').has_key?("Darryl Sutter")
+    assert @stat_tracker.season_games_by_coach('20132014').has_key?("Mike Sullivan")
   end
 
   def test_gatherable_can_return_season_wins_by_coach
     assert_instance_of Hash, @stat_tracker.season_wins_by_coach('20132014')
+    assert @stat_tracker.season_wins_by_coach('20132014').has_key?("Darryl Sutter")
+    assert @stat_tracker.season_wins_by_coach('20132014').has_key?("Mike Sullivan")
   end
 
   def test_gatherable_can_return_home_wins_by_team
     assert_instance_of Hash, @stat_tracker.home_wins_by_team
+    assert @stat_tracker.home_wins_by_team.has_key?("3")
+    assert @stat_tracker.home_wins_by_team.has_key?("18")
   end
 
   def test_gatherable_can_return_away_wins_by_team
     assert_instance_of Hash, @stat_tracker.away_wins_by_team
+    assert @stat_tracker.away_wins_by_team.has_key?("3")
+    assert @stat_tracker.away_wins_by_team.has_key?("18")
   end
 
   def test_gatherable_can_return_goals_by_team
     assert_instance_of Hash, @stat_tracker.goals_by_team
+    assert @stat_tracker.goals_by_team.has_key?("3")
+    assert @stat_tracker.goals_by_team.has_key?("18")
   end
 
   def test_gatherable_can_return_home_goals_by_team
     assert_instance_of Hash, @stat_tracker.home_goals_by_team
+    assert @stat_tracker.home_goals_by_team.has_key?("3")
+    assert @stat_tracker.home_goals_by_team.has_key?("18")
   end
 
   def test_gatherable_can_return_away_goals_by_team
     assert_instance_of Hash, @stat_tracker.away_goals_by_team
+    assert @stat_tracker.away_goals_by_team.has_key?("3")
+    assert @stat_tracker.away_goals_by_team.has_key?("18")
   end
 
   def test_gatherable_can_return_goals_against_team
     assert_instance_of Hash, @stat_tracker.goals_against_team
+    assert @stat_tracker.goals_against_team.has_key?("3")
+    assert @stat_tracker.goals_against_team.has_key?("18")
   end
 
   def test_gatherable_can_return_get_team_name_by_id
     assert_instance_of String, @stat_tracker.get_team_name_by_id('3')
+    assert_equal "Houston Dynamo", @stat_tracker.get_team_name_by_id('3')
+
+    assert_instance_of String, @stat_tracker.get_team_name_by_id('18')
+    assert_equal "Minnesota United FC", @stat_tracker.get_team_name_by_id('18')
   end
 
   def test_gatherable_can_return_team_hash

@@ -45,40 +45,17 @@ class CalculateableTest < Minitest::Test
     # assert_instance_of DATA, @stat_tracker.season_coach_win_percent(wins_hash, season_id)
   end
 
-  def test_calculateable_can_return_team_postseason_win_percent
-    # assert_instance_of DATA, @stat_tracker.team_postseason_win_percent(wins_hash)
-  end
-
-  def test_calculateable_can_return_team_home_average_wins
-    # assert_instance_of DATA, @stat_tracker.team_home_average_wins(wins_hash)
-  end
-
   def test_calculateable_can_return_team_away_average_wins
     # assert_instance_of DATA, @stat_tracker.team_away_average_wins(wins_hash)
   end
 
-  def test_calculateable_can_return_team_total_seasons
-    # assert_instance_of Integer, @stat_tracker.team_total_seasons('6')
-  end
-
-  def test_calculateable_can_return_team_season_keys
-    # assert_instance_of Hash, @stat_tracker.team_season_keys('6')
-  end
-
   def test_calculateable_can_return_combine_game_data
-    # assert_instance_of DATA, @stat_tracker.combine_game_data
-  end
-
-  def test_calculateable_can_return_create_season
-    # assert_instance_of DATA, @stat_tracker.create_season
+    assert_instance_of Hash, @stat_tracker.combine_game_data
+    assert_equal 14882, @stat_tracker.combine_game_data.size
   end
 
   def test_calculateable_can_return_league_win_percent_diff
     # assert_instance_of DATA, @stat_tracker.league_win_percent_diff(home, away)
-  end
-
-  def test_calculateable_can_return_win_percentage_difference
-    # assert_instance_of DATA, @stat_tracker.win_percentage_difference(regular, post)
   end
 
   def test_calculateable_can_return_win_percentage_increase
@@ -88,4 +65,28 @@ class CalculateableTest < Minitest::Test
   def test_calculateable_can_return_worst_team_helper
     # assert_instance_of DATA, @stat_tracker.worst_team_helper(home, away)
   end
+
+  # def test_calculateable_can_return_team_postseason_win_percent
+    # assert_instance_of DATA, @stat_tracker.team_postseason_win_percent(wins_hash)
+  # end
+
+  # def test_calculateable_can_return_team_home_average_wins
+    # assert_instance_of DATA, @stat_tracker.team_home_average_wins(wins_hash)
+  # end
+
+  # def test_calculateable_can_return_team_total_seasons
+    # assert_instance_of Integer, @stat_tracker.team_total_seasons('6')
+  # end
+
+  # def test_calculateable_can_return_team_season_keys
+    # assert_instance_of Hash, @stat_tracker.team_season_keys('6')
+  # end
+
+  # def test_calculateable_can_return_create_season
+    # assert_instance_of DATA, @stat_tracker.create_season
+  # end
+
+  # def test_calculateable_can_return_win_percentage_difference
+    # assert_instance_of DATA, @stat_tracker.win_percentage_difference(regular, post)
+  # end
 end
