@@ -24,5 +24,12 @@ class GameTest < Minitest::Test
     assert_equal 1, game.away_goals
     assert_equal 2, game.home_goals
     assert_equal "Postseason", game.type
+
+    game_2 = mock('game')
+    game_2.stubs(:type).returns("Regular Season")
+    game_2.stubs(:season).returns(20192020)
+
+    assert_equal "Regular Season", game_2.type
+    assert_equal 20192020, game_2.season
   end
 end
