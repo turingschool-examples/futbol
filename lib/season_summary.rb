@@ -1,7 +1,7 @@
-require 'sorters'
+# require 'sorters'
 
 module SeasonSummary
-  include Sorters
+  # include Sorters
 
   def season_summary(type, teamid)
     # season_ids = sort_what_by(teamid, season.uniq) #find all season codes per team and use as keys to loop how many times to do this
