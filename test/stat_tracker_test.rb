@@ -17,7 +17,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_exists
-    @stat_tracker1 = StatTracker.new
     assert_instance_of StatTracker, @stat_tracker
   end
 
