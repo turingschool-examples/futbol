@@ -1,5 +1,4 @@
 class Team
-
   attr_reader :team_id,
               :franchise_id,
               :team_name,
@@ -9,10 +8,10 @@ class Team
 
   def initialize(details)
     @team_id = details[:team_id].to_i
-    @franchise_id = details[:franchiseId].to_i
-    @team_name = details[:teamName]
+    @franchise_id = details[:franchise_id].to_i
+    @team_name = details[:team_name]
     @abbreviation = details[:abbreviation]
-    @stadium = details[:Stadium]
+    @stadium = details[:stadium]
     @link = details[:link]
   end
 
