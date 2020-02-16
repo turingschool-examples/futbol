@@ -1,5 +1,21 @@
 class GameTeams
 
+  attr_reader :game_id,
+              :team_id,
+              :home_away,
+              :result,
+              :settled_in,
+              :head_coach,
+              :goals,
+              :shots,
+              :tackles,
+              :pim,
+              :power_play_opps,
+              :power_play_goals,
+              :face_off_win_pct,
+              :giveaways,
+              :takeaways
+
   def initialize(details)
     @game_id = details[:game_id].to_i
     @team_id = details[:team_id].to_i
