@@ -1,4 +1,4 @@
-class GameTeam
+class GameTeams
 
   attr_reader :game_id,
               :team_id,

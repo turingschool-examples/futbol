@@ -21,6 +21,7 @@ class GameTeamsTest < Minitest::Test
       giveaways: "17",
       takeaways: "7"
     }
+
   end
 
   def test_it_exists
@@ -48,6 +49,4 @@ class GameTeamsTest < Minitest::Test
     assert_equal 17, game_team3.giveaways
     assert_equal 7, game_team3.takeaways
   end
-
-
 end
