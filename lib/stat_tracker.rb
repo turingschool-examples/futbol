@@ -9,7 +9,6 @@ class StatTracker
     @games = games
     @teams = teams
     @game_teams = game_teams
-    require "pry"; binding.pry
   end
 
   def self.from_csv(locations_params)
@@ -31,7 +30,8 @@ class StatTracker
 
     game_teams_array = []
     CSV.foreach(game_teams_file, headers: true, header_converters: :symbol) do |row|
-      game_teams_array << row
+      game_team = GameTeam.new(row)
+      game_teams_array << game_team
     end
 
     StatTracker.new(games_array, teams_array, game_teams_array)
