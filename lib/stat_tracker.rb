@@ -38,4 +38,16 @@ class StatTracker
     end
     (100 * ties.fdiv(ties + not_ties)).round(2)
   end
+
+  def count_of_games_by_season
+    games_by_season = {}
+    CSV.foreach(@game_path, headers: true, header_converters: :symbol) do |row|
+      if games_by_season[row[:season]] == nil
+        games_by_season[row[:season]] = 1
+      else
+        games_by_season[row[:season]] += 1
+      end
+    end
+    games_by_season
+  end
 end
