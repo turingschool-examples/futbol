@@ -1,22 +1,26 @@
 class StatTracker
-  def initialize()
-
+  def initialize(stat_collections)
+    @games_collection = stat_collections[:games]
+    @teams_collection = stat_collections[:teams]
+    @game_teams_collection = stat_collections[:game_teams]
   end
 
   def self.from_csv(locations)
-    games_collection = GamesCollection.new
-    teams_collection = TeamsCollection.new
-    options = {
-                  headers: true,
-                  header_converters: :symbol,
-                  converters: :all
+    StatTracker.new({
+                    games: StatTracker.fill_collection(locations[:games], GamesCollection, Game),
+                    game_teams: StatTracker.fill_collection(locations[:game_teams], GameTeamsCollection, GameTeam),
+                    teams: StatTracker.fill_collection(locations[:teams], TeamsCollection, Team),
+                    })
+  end
+
+  def self.fill_collection(file, collection_class, element_class)
+    collection = collection_class.new
+    csv_options = {
+                    headers: true,
+                    header_converters: :symbol,
+                    converters: :all
                   }
-
-    CSV.foreach(locations[:games], options) { |row| games_collection.add_game(Game.new(row.to_hash)) }
-    CSV.foreach(locations[:teams], options) { |row| teams_collection.add_team(Team.new(row.to_hash)) }
-    binding.pry
-
-    # for each row in games csv create game object and put into collection of games
-    StatTracker.new()
+      CSV.foreach(file, csv_options) { |row| collection.add(element_class.new(row.to_hash)) }
+      collection
   end
 end

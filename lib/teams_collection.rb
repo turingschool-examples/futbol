@@ -1,10 +1,10 @@
 class TeamsCollection
 
-  def initialize(teams = {})
-    @teams = teams
+  def initialize()
+    @teams = {}
   end
 
-  def add_team(team_to_add)
+  def add(team_to_add)
     @teams[team_to_add.team_id] = team_to_add
   end
 

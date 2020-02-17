@@ -1,11 +1,5 @@
 # runner.rb
-require './lib/stat_tracker'
-require "CSV"
-require "./lib/game"
-require "./lib/games_collection"
-require "./lib/team"
-require "./lib/teams_collection"
-require "pry"
+require "./runner_helper"
 
 game_path = './data/games.csv'
 team_path = './data/teams.csv'
@@ -16,3 +10,4 @@ locations = {
   game_teams: game_teams_path
 }
 stat_tracker = StatTracker.from_csv(locations)
+binding.pry

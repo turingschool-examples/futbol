@@ -1,10 +1,10 @@
 class GamesCollection
 
-  def initialize(games = {})
-    @games = games
+  def initialize()
+    @games = {}
   end
 
-  def add_game(game_to_add)
+  def add(game_to_add)
     @games[game_to_add.game_id] = game_to_add
   end
 
