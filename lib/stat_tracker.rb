@@ -23,4 +23,5 @@ class StatTracker
       CSV.foreach(file, csv_options) { |row| collection.add(element_class.new(row.to_hash)) }
       collection
   end
+
 end
