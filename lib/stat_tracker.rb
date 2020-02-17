@@ -25,4 +25,17 @@ class StatTracker
     end
     (100 * home_wins.fdiv(home_wins + home_losses)).round(2)
   end
+
+  def percentage_ties
+    ties = 0
+    not_ties = 0
+    CSV.foreach(@game_path, headers: true, header_converters: :symbol) do |row|
+      if row[:away_goals] == row[:home_goals]
+        ties += 1
+      else
+        not_ties += 1
+      end
+    end
+    (100 * ties.fdiv(ties + not_ties)).round(2)
+  end
 end

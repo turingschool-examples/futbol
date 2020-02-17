@@ -28,4 +28,8 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_calculate_percentage_home_wins
     assert_equal 66.67, @stat_tracker.percentage_home_wins
   end
+
+  def test_it_can_calculate_percentage_ties
+    assert_equal 14.29, @stat_tracker.percentage_ties
+  end
 end
