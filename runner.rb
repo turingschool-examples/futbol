@@ -3,6 +3,8 @@ require './lib/stat_tracker'
 require "CSV"
 require "./lib/game"
 require "./lib/games_collection"
+require "./lib/team"
+require "./lib/teams_collection"
 require "pry"
 
 game_path = './data/games.csv'
