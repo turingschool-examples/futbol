@@ -1,0 +1,10 @@
+team_id,franchiseId,teamName,abbreviation,Stadium,link
+1,11,Team1,T1,Stadium1,/api/v1/teams/1
+2,22,Team2,T2,Stadium2,/api/v1/teams/2
+3,33,Team3,T3,Stadium3,/api/v1/teams/3
+4,44,Team4,T4,Stadium4,/api/v1/teams/4
+5,55,Team5,T5,Stadium5,/api/v1/teams/5
+6,66,Team6,T6,Stadium6,/api/v1/teams/6
+7,77,Team7,T7,Stadium7,/api/v1/teams/7
+8,88,Team8,T8,Stadium8,/api/v1/teams/8
+9,99,Team9,T9,Stadium9,/api/v1/teams/9
