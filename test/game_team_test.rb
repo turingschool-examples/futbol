@@ -1,7 +1,7 @@
 require_relative 'test_helper'
 require './lib/game_teams'
 
-class GameTeamsTest < Minitest::Test
+class GameTeamTest < Minitest::Test
 
   def setup
     @game = {
@@ -25,13 +25,13 @@ class GameTeamsTest < Minitest::Test
   end
 
   def test_it_exists
-    game_team3 = GameTeams.new(@game)
+    game_team3 = GameTeam.new(@game)
 
-    assert_instance_of GameTeams, game_team3
+    assert_instance_of GameTeam, game_team3
   end
 
   def test_it_returns_details
-    game_team3 = GameTeams.new(@game)
+    game_team3 = GameTeam.new(@game)
 
     assert_equal 2012030221, game_team3.game_id
     assert_equal 3, game_team3.team_id
