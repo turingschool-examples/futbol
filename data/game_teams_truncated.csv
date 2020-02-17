@@ -1,0 +1,13 @@
+game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways
+2012030221,3,away,LOSS,OT,John Tortorella,2,8,44,8,3,0,44.8,17,7
+2012030221,6,home,WIN,OT,Claude Julien,3,12,51,6,4,1,55.2,4,5
+2013020444,1,away,LOSS,OT,Peter DeBoer,2,6,26,8,2,1,46.3,3,5
+2013020444,3,home,WIN,OT,Alain Vigneault,3,6,33,6,4,1,53.7,8,6
+2014030243,24,away,WIN,OT,Bruce Boudreau,3,5,21,14,2,0,67.8,12,19
+2014030243,20,home,LOSS,OT,Bob Hartley,2,5,26,6,6,1,32.2,15,19
+2014030245,20,away,LOSS,OT,Bob Hartley,2,4,31,12,4,1,37.7,16,9
+2014030245,24,home,WIN,OT,Bruce Boudreau,3,11,33,12,4,2,62.3,15,13
+2015030171,18,away,WIN,REG,Peter Laviolette,3,8,33,8,3,0,39.1,11,5
+2015030171,24,home,LOSS,REG,Bruce Boudreau,2,7,31,6,4,1,60.9,20,5
+2014020539,26,away,LOSS,REG,Darryl Sutter,1,6,29,4,2,0,55.7,10,11
+2014020539,20,home,WIN,REG,Bob Hartley,2,3,12,4,2,0,44.3,10,21
