@@ -24,4 +24,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal './data/game_teams_truncated.csv', @stat_tracker.game_teams_path
     assert_equal './data/teams.csv', @stat_tracker.team_path
   end
+
+  def test_it_can_calculate_percentage_home_wins
+    assert_equal 66.67, @stat_tracker.percentage_home_wins
+  end
 end
