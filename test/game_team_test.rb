@@ -25,13 +25,10 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_exists
-
-
     assert_instance_of GameTeam, @game_team3
   end
 
   def test_it_returns_details
-
     assert_equal 2012030221, @game_team3.game_id
     assert_equal 3, @game_team3.team_id
     assert_equal "away", @game_team3.home_away
