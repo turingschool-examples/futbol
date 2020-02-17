@@ -14,5 +14,4 @@ class Team
     @stadium = details[:stadium]
     @link = details[:link]
   end
-
 end

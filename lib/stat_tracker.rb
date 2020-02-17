@@ -9,7 +9,6 @@ class StatTracker
     @games = games
     @teams = teams
     @game_teams = game_teams
-    require "pry"; binding.pry
   end
 
   def self.from_csv(locations_params)
