@@ -35,4 +35,8 @@ class GameStatsTest < Minitest::Test
   def test_returns_lowest_total_score
     assert_equal 3, @game_stats.lowest_total_score
   end
+
+  def test_returns_biggest_blowout
+    assert_equal 2, @game_stats.biggest_blowout
+  end
 end

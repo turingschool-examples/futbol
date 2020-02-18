@@ -16,4 +16,8 @@ class GameStats
   def lowest_total_score
     @games.map {|game| game.away_goals + game.home_goals}.min
   end
+
+  def biggest_blowout
+    @games.map {|game| (game.away_goals - game.home_goals).abs}.max
+  end
 end
