@@ -43,6 +43,10 @@ class GameTest < Minitest::Test
     assert_equal 5, @game.total_goals
   end
 
+  def test_home_win
+    assert_equal true, @game.home_win?
+  end
+
 end
 
 # === DONE ===
@@ -50,9 +54,8 @@ end
 # * home_goals
 # * away_goals
 # * season
-
-# === TODO ===
 # > total_goals
+# === TODO ===
 # > home_win?
 # > away_win?
 # > tie?

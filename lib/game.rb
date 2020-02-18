@@ -28,4 +28,8 @@ class Game
     @home_goals + @away_goals
   end
 
+  def home_win?
+    @home_goals > @away_goals
+  end
+
 end
