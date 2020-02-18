@@ -24,7 +24,19 @@ class GameStatsTest < Minitest::Test
     assert_equal "Postseason", @game.type
     assert_equal "3", @game.away_team_id
     assert_equal "26", @game.home_team_id
-    assert_equal 2  , @game.away_goals
+    assert_equal 2, @game.away_goals
     assert_equal 3, @game.home_goals
+  end
+
+  def test_returns_highest_total_score
+    assert_equal 5, @game_stats.highest_total_score
+  end
+
+  def test_returns_lowest_total_score
+    assert_equal 3, @game_stats.lowest_total_score
+  end
+
+  def test_returns_biggest_blowout
+    assert_equal 2, @game_stats.biggest_blowout
   end
 end
