@@ -1,4 +1,13 @@
 class Team
+  @@teams = {}
+
+  def self.add(team)
+    @@teams[team.team_id] = team
+  end
+
+  def self.all
+    @@teams
+  end
   attr_reader :team_id,
               :franchise_id,
               :team_name,
