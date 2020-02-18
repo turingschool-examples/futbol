@@ -60,4 +60,16 @@ class GameStatsTest < Minitest::Test
                         '20162017' => 4}
     assert_equal goals_by_season, @games_stats.average_goals_by_season
   end
+
+  def test_returns_highest_total_score
+    assert_equal 6, @games_stats.highest_total_score
+  end
+
+  def test_returns_lowest_total_score
+    assert_equal 3, @games_stats.lowest_total_score
+  end
+
+  def test_returns_biggest_blowout
+    assert_equal 2, @games_stats.biggest_blowout
+  end
 end
