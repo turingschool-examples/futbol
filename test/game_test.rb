@@ -39,6 +39,10 @@ class GameTest < Minitest::Test
 
   end
 
+  def test_it_can_return_total_goals
+    assert_equal 5, @game.total_goals
+  end
+
 end
 
 # === DONE ===
@@ -47,7 +51,7 @@ end
 # * away_goals
 # * season
 
-
+# === TODO ===
 # > total_goals
 # > home_win?
 # > away_win?
