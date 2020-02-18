@@ -10,17 +10,17 @@ class Game
               :venue
               :venue_link
 
-  def initialize(game_params)
-    @id             = game_params[:id]
-    @season         = game_params[:season]
-    @type           = game_params[:type]
-    @date_time      = game_params[:date_time]
-    @away_team_id   = game_params[:away_team_id]
-    @home_team_id   = game_params[:home_team_id]
-    @away_goals     = game_params[:away_goals]
-    @home_goals     = game_params[:home_goals]
-    @venue          = game_params[:venue]
-    @venue_link     = game_params[:venue_link]
+  def initialize(game_data)
+    @id             = game_data[:id]
+    @season         = game_data[:season].to_i
+    @type           = game_data[:type]
+    @date_time      = game_data[:date_time]
+    @away_team_id   = game_data[:away_team_id]
+    @home_team_id   = game_data[:home_team_id]
+    @away_goals     = game_data[:away_goals]
+    @home_goals     = game_data[:home_goals]
+    @venue          = game_data[:venue]
+    @venue_link     = game_data[:venue_link]
   end
 
   def average_goals_per_game

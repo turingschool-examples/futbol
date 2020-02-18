@@ -26,7 +26,7 @@ class GameTest < Minitest::Test
 
   def test_it_has_attributes
     assert_equal 2012030221, @game.id
-    # assert_equal 20122013, @game.season
+    assert_equal 20122013, @game.season
   end
 
 end
