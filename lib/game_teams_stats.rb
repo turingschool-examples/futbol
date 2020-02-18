@@ -1,4 +1,4 @@
-require './lib/data_module'
+require_relative './lib/data_module'
 
 class GameTeamsStats
   include DataLoadable
