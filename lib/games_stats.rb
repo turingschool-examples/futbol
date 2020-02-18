@@ -3,12 +3,12 @@ require './lib/data_module'
 class GamesStats
   include DataLoadable
 
-  def initialize(game_path_param)
-    @game_path = game_path_param
+  def initialize(games_path_param)
+    @games_path = games_path_param
   end
 
   def percentage_ties
-    games = csv_data(@game_path)
+    games = csv_data(@games_path)
 
     ties = games.count do |game|
       game[:away_goals] == game[:home_goals]
@@ -18,7 +18,7 @@ class GamesStats
   end
 
   def count_of_games_by_season
-    csv_data(@game_path).reduce(Hash.new(0)) do |games_by_season, game|
+    csv_data(@games_path).reduce(Hash.new(0)) do |games_by_season, game|
       games_by_season[game[:season]] += 1
       games_by_season
     end
