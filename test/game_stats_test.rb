@@ -24,7 +24,7 @@ class GameStatsTest < Minitest::Test
     assert_equal "Postseason", @game.type
     assert_equal "3", @game.away_team_id
     assert_equal "26", @game.home_team_id
-    assert_equal 2  , @game.away_goals
+    assert_equal 2, @game.away_goals
     assert_equal 3, @game.home_goals
   end
 
