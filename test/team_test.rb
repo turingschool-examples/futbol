@@ -6,8 +6,8 @@ class TeamTest < Minitest::Test
   def setup
     @team = Team.new({
           team_id: 1,
-          franchiseId: 23,
-          teamName: "Atlanta United"
+          franchiseid: 23,
+          teamname: "Atlanta United"
         })
   end
 
@@ -17,8 +17,8 @@ class TeamTest < Minitest::Test
 
   def test_attributes
     assert_equal 1, @team.team_id
-    assert_equal 23, @team.franchiseId
-    assert_equal "Atlanta United", @team.teamName
+    assert_equal 23, @team.franchiseid
+    assert_equal "Atlanta United", @team.teamname
   end
 
 

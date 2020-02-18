@@ -19,11 +19,11 @@ class GameStatsTest < Minitest::Test
   end
 
   def test_attributes_for_instance_of_game_withing_game_stats
-    assert_equal "2013030411", @game.game_id
-    assert_equal "20132014", @game.season
+    assert_equal 2013030411, @game.game_id
+    assert_equal 20132014, @game.season
     assert_equal "Postseason", @game.type
-    assert_equal "3", @game.away_team_id
-    assert_equal "26", @game.home_team_id
+    assert_equal 3, @game.away_team_id
+    assert_equal 26, @game.home_team_id
     assert_equal 2, @game.away_goals
     assert_equal 3, @game.home_goals
   end
@@ -38,10 +38,10 @@ class GameStatsTest < Minitest::Test
 
   def test_it_can_count_games_by_season
     games_by_season = {
-      "20152016" => 3,
-      "20132014" => 2,
-      "20142015" => 1,
-      "20162017" => 1
+      20152016 => 3,
+      20132014 => 2,
+      20142015 => 1,
+      20162017 => 1
     }
 
     assert_equal games_by_season, @games_stats.count_of_games_by_season
@@ -56,8 +56,8 @@ class GameStatsTest < Minitest::Test
   end
 
   def test_it_can_calculate_average_goals_per_season
-    goals_by_season = { '20152016' => 5.33, '20132014' => 5, '20142015' => 3,
-                        '20162017' => 4}
+    goals_by_season = { 20152016 => 5.33, 20132014 => 5, 20142015 => 3,
+                        20162017 => 4}
     assert_equal goals_by_season, @games_stats.average_goals_by_season
   end
 
