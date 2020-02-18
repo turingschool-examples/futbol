@@ -34,7 +34,7 @@ class GamesStats
 
   def average_goals_per_game
     games = csv_data(@games_path)
-    all_goals = games.sum {|game| game[:away_goals] + game[:home_goals]}
+    all_goals = games.sum {|game| game[:away_goals].to_i + game[:home_goals].to_i}
     sum = all_goals.to_f / games.length
     sum.round(2)
   end
