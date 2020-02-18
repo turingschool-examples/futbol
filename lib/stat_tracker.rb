@@ -5,10 +5,10 @@ require './lib/game'
 class StatTracker
   attr_reader :games, :teams, :game_teams
 
-  def initialize(games, teams, game_teams)
-    @games = games
-    @teams = teams
-    @game_teams = game_teams
+  def initialize(games_file, teams_, game_teams)
+    @games_file = games_file
+    @teams_file = teams_file
+    @game_teams_file = game_teams_file
   end
 
   def self.from_csv(locations_params)
@@ -16,24 +16,6 @@ class StatTracker
     teams_file = locations_params[:teams]
     game_teams_file = locations_params[:game_teams]
 
-    games_array = []
-    CSV.foreach(games_file, headers: true, header_converters: :symbol) do |row|
-      game = Game.new(row)
-      games_array << game
-    end
-
-    teams_array = []
-    CSV.foreach(teams_file, headers: true, header_converters: :symbol) do |row|
-      team = Team.new(row)
-      teams_array << team
-    end
-
-    game_teams_array = []
-    CSV.foreach(game_teams_file, headers: true, header_converters: :symbol) do |row|
-      game_team = GameTeam.new(row)
-      game_teams_array << game_team
-    end
-
-    StatTracker.new(games_array, teams_array, game_teams_array)
+    StatTracker.new(games_file, teams_file, game_teams_file)
   end
 end
