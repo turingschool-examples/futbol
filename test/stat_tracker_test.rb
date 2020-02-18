@@ -20,8 +20,9 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_initialize_from_correct_file_plath
-    assert_equal './data/games_truncated.csv', @stat_tracker.game_path
+    assert_equal './data/games_truncated.csv', @stat_tracker.games_path
     assert_equal './data/game_teams_truncated.csv', @stat_tracker.game_teams_path
     assert_equal './data/teams.csv', @stat_tracker.team_path
   end
+
 end
