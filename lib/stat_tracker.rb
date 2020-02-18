@@ -30,19 +30,13 @@ class StatTracker
   end
 
   def percentage_ties
-    ties = 0
-    not_ties = 0
     games = csv_data(@game_path)
 
-    games.each do |game|
-      if game[:away_goals] == game[:home_goals]
-        ties += 1
-      else
-        not_ties += 1
-      end
+    ties = games.count do |game|
+      game[:away_goals] == game[:home_goals]
     end
 
-    (100 * ties.fdiv(ties + not_ties)).round(2)
+    (100 * ties.fdiv(games.length)).round(2)
   end
 
   def count_of_games_by_season
