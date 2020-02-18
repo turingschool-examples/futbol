@@ -1,11 +1,11 @@
 class Team
   attr_reader :team_id,
-              :franchiseId,
-              :teamName
+              :franchiseid,
+              :teamname
 
   def initialize(attributes)
-    @team_id = attributes[:team_id]
-    @franchiseId = attributes[:franchiseId]
-    @teamName = attributes[:teamName]
+    @team_id = attributes[:team_id].to_i
+    @franchiseid = attributes[:franchiseid].to_i
+    @teamname = attributes[:teamname]
   end
 end
