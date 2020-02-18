@@ -1,4 +1,14 @@
 class Game
+  @@games = {}
+
+  def self.add(game)
+    @@games[game.game_id] = game
+  end
+
+  def self.all
+    @@games
+  end
+
   attr_reader :game_id,
               :season,
               :type,
@@ -9,7 +19,7 @@ class Game
               :home_goals,
               :venue,
               :venue_link
-              
+
   def initialize(data)
     @game_id = data[:game_id]
     @season = data[:season]
