@@ -16,19 +16,17 @@ class StatTracker
   end
 
   def percentage_home_wins
-    home_wins = 0
-    home_losses = 0
     game_teams = csv_data(@game_teams_path)
 
-    game_teams.each do |game|
-      if game[:hoa] == "home" && game[:result] == "WIN"
-        home_wins += 1
-      elsif game[:hoa] == "home" && game[:result] == "LOSS"
-        home_losses += 1
-      end
+    home_wins = game_teams.count do |game|
+      game[:hoa] == "home" && game[:result] == "WIN"
     end
 
-    (100 * home_wins.fdiv(home_wins + home_losses)).round(2)
+    home_games = game_teams.count do |game|
+      game[:hoa] == "home"
+    end
+
+    (100 * home_wins.fdiv(home_games)).round(2)
   end
 
   def percentage_ties
