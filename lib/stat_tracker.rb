@@ -40,9 +40,7 @@ class StatTracker
   end
 
   def count_of_games_by_season
-    games = csv_data(@game_path)
-
-    games.reduce(Hash.new(0)) do |games_by_season, game|
+    csv_data(@game_path).reduce(Hash.new(0)) do |games_by_season, game|
       games_by_season[game[:season]] += 1
       games_by_season
     end
