@@ -40,17 +40,11 @@ class StatTracker
   end
 
   def count_of_games_by_season
-    games_by_season = {}
     games = csv_data(@game_path)
 
-    games.each do |game|
-      if games_by_season[game[:season]] == nil
-        games_by_season[game[:season]] = 1
-      else
-        games_by_season[game[:season]] += 1
-      end
+    games.reduce(Hash.new(0)) do |games_by_season, game|
+      games_by_season[game[:season]] += 1
+      games_by_season
     end
-
-    games_by_season
   end
 end
