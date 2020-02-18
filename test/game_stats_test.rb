@@ -27,4 +27,8 @@ class GameStatsTest < Minitest::Test
     assert_equal 2  , @game.away_goals
     assert_equal 3, @game.home_goals
   end
+
+  def test_returns_highest_total_score
+    assert_equal 5, @game_stats.highest_total_score
+  end
 end
