@@ -40,4 +40,6 @@ class GamesStatsTest < Minitest::Test
     assert_equal 28.57, @games_stats.percentage_visitor_wins
   end
 
+  def test_it_can_calculate_average_goals_per_game
+  end
 end
