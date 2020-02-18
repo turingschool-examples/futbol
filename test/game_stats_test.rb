@@ -16,6 +16,9 @@ class GameStatsTest < Minitest::Test
 
   def test_game_objects_are_new_instances_of_game_class
     assert_instance_of Game, @game_stats.games.first
+  end
+
+  def test_attributes_for_instance_of_game_withing_game_stats
     assert_equal "2013030411", @game.game_id
     assert_equal "20132014", @game.season
     assert_equal "Postseason", @game.type
