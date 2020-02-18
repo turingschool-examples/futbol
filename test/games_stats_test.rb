@@ -47,6 +47,6 @@ class GamesStatsTest < Minitest::Test
   def test_it_can_calculate_average_goals_per_season
     goals_by_season = { '20152016' => 5.33, '20132014' => 5, '20142015' => 3,
                         '20162017' => 4}
-    assert_equal goals_by_season, @games_stats.verage_goals_per_season
+    assert_equal goals_by_season, @games_stats.average_goals_by_season
   end
 end
