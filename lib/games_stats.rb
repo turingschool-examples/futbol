@@ -5,6 +5,7 @@ class GamesStats
 
   def initialize(games_path_param)
     @games_path = games_path_param
+
   end
 
   def percentage_ties
@@ -22,6 +23,13 @@ class GamesStats
       games_by_season[game[:season]] += 1
       games_by_season
     end
+  end
+
+  def percentage_visitor_wins
+    games = csv_data(@games_path)
+    vistor_wins = games.find_all {|game| game[:away_goals] > game[:home_goals]}
+    sum = (vistor_wins.length).to_f / (games.length).to_f
+    (100 * sum).round(2)
   end
 
 end
