@@ -1,0 +1,10 @@
+team_id,franchiseId,teamName,abbreviation,Stadium,link
+6,6,FC Dallas,DAL,Toyota Stadium,/api/v1/teams/6
+3,10,Houston Dynamo,HOU,BBVA Stadium,/api/v1/teams/3
+19,18,Philadelphia Union,PHI,Talen Energy Stadium,/api/v1/teams/19
+24,32,Real Salt Lake,RSL,Rio Tinto Stadium,/api/v1/teams/24
+12,26,Sky Blue FC,SBL,Yurcak Field,/api/v1/teams/12
+29,36,Orlando Pride,FLP,Exploria Stadium,/api/v1/teams/29
+17,12,LA Galaxy,LA,Dignity Health Sports Park,/api/v1/teams/17
+23,20,Montreal Impact,MTL,Saputo Stadium,/api/v1/teams/23
+4,16,Chicago Fire,CHI,SeatGeek Stadium,/api/v1/teams/4
