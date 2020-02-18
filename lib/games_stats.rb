@@ -5,44 +5,39 @@ class GamesStats
 
   def initialize(games_path_param)
     @games_path = games_path_param
-
+    @games = csv_data(@games_path)
   end
 
   def percentage_ties
-    games = csv_data(@games_path)
-
-    ties = games.count do |game|
+    ties = @games.count do |game|
       game[:away_goals] == game[:home_goals]
     end
 
-    (100 * ties.fdiv(games.length)).round(2)
+    (100 * ties.fdiv(@games.length)).round(2)
   end
 
   def count_of_games_by_season
-    csv_data(@games_path).reduce(Hash.new(0)) do |games_by_season, game|
+    @games.reduce(Hash.new(0)) do |games_by_season, game|
       games_by_season[game[:season]] += 1
       games_by_season
     end
   end
 
   def percentage_visitor_wins
-    games = csv_data(@games_path)
-    vistor_wins = games.find_all {|game| game[:away_goals] > game[:home_goals]}
-    sum = (vistor_wins.length).to_f / (games.length).to_f
+    vistor_wins = @games.find_all {|game| game[:away_goals] > game[:home_goals]}
+    sum = (vistor_wins.length).to_f / (@games.length).to_f
     (100 * sum).round(2)
   end
 
   def average_goals_per_game
-    games = csv_data(@games_path)
-    all_goals = games.sum {|game| game[:away_goals].to_i + game[:home_goals].to_i}
-    sum = all_goals.to_f / games.length
+    all_goals = @games.sum {|game| game[:away_goals].to_i + game[:home_goals].to_i}
+    sum = all_goals.to_f / @games.length
     sum.round(2)
   end
 
   def average_goals_by_season
-    games = csv_data(@games_path)
     goals_per_season = {}
-    games.each do |game|
+    @games.each do |game|
       if goals_per_season[game[:season]] == nil
         goals_per_season[game[:season]] = game[:away_goals].to_i + game[:home_goals].to_i
       else
@@ -50,7 +45,7 @@ class GamesStats
       end
     end
     count = count_of_games_by_season
-    games.reduce(Hash.new(0)) do |average_goals, game|
+    @games.reduce(Hash.new(0)) do |average_goals, game|
       average_goals[game[:season]] = (goals_per_season[game[:season]].to_f / count[game[:season]]).round(2)
       average_goals
     end
