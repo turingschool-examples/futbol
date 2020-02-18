@@ -1,8 +1,7 @@
 require 'csv'
-require './lib/data_module'
+require_relative './lib/data_module'
 
 class StatTracker
-  include DataLoadable
   attr_accessor :games_path, :team_path, :game_teams_path
 
   def self.from_csv(locations)
