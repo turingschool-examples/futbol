@@ -36,4 +36,8 @@ class GamesStatsTest < Minitest::Test
     assert_equal games_by_season, @games_stats.count_of_games_by_season
   end
 
+  def test_it_can_calculate_percentage_vistor
+    assert_equal 28.57, @games_stats.percentage_visitor_wins
+  end
+
 end
