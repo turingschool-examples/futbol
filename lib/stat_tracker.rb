@@ -1,5 +1,4 @@
 require 'csv'
-require_relative './lib/data_module'
 
 class StatTracker
   attr_accessor :games_path, :team_path, :game_teams_path
