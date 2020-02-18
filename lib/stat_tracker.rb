@@ -18,9 +18,9 @@ class StatTracker
   def percentage_home_wins
     home_wins = 0
     home_losses = 0
-    games_teams = csv_data(@game_teams_path)
+    game_teams = csv_data(@game_teams_path)
 
-    games_teams.each do |game|
+    game_teams.each do |game|
       if game[:hoa] == "home" && game[:result] == "WIN"
         home_wins += 1
       elsif game[:hoa] == "home" && game[:result] == "LOSS"
