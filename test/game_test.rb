@@ -52,8 +52,6 @@ class GameTest < Minitest::Test
     assert_equal 2012030221, Game.all[2012030221].game_id
     assert_equal "5/16/13", Game.all[2012030221].date_time
     assert_equal 20122013, Game.all[2012030221].season
-  end
-
     assert_equal 20122013, Game.all[2012030221].season
     assert_equal "Postseason", Game.all[2012030221].type
     assert_equal "5/16/13", Game.all[2012030221].date_time
@@ -63,7 +61,6 @@ class GameTest < Minitest::Test
     assert_equal 3, Game.all[2012030221].home_goals
     assert_equal "Toyota Stadium", Game.all[2012030221].venue
     assert_equal "/api/v1/venues/null", Game.all[2012030221].venue_link
-
   end
 
   def test_it_loads_all_games_from_csv
