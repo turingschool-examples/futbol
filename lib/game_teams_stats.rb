@@ -11,31 +11,62 @@ class GameTeamStats
   end
 
   def lowest_scoring_visitor
-    visitor_hash = {}
+    scoring('away','low')
+  end
+
+  def lowest_scoring_home_team
+    scoring('home','low')
+  end
+
+  def highest_scoring_visitor
+    scoring('away','win')
+  end
+
+  def highest_scoring_home_team
+    scoring('home','win')
+  end
+
+  def scoring(hoa, wol)
+    scoring_hash = {}
     @game_teams.each do |game|
-      if game.hoa == 'away'
-        if visitor_hash[game.team_id] == nil
-          visitor_hash[game.team_id] = [0,0]
+      if game.hoa == hoa
+        if scoring_hash[game.team_id] == nil
+          scoring_hash[game.team_id] = [0,0]
         end
-        visitor_hash[game.team_id][0] += game.goals.to_i
-        visitor_hash[game.team_id][1] += 1
+        scoring_hash[game.team_id][0] += game.goals.to_i
+        scoring_hash[game.team_id][1] += 1
       end
     end
-    visitor_hash
-    visitor_hash.each_key do |key|
-      visitor_hash[key] = visitor_hash[key][0].to_f / visitor_hash[key][1].to_f
+    scoring_hash.each_key do |key|
+      scoring_hash[key] = scoring_hash[key][0].to_f / scoring_hash[key][1].to_f
     end
-    lowest_id  = {'id' => [-1, -1]}
-    visitor_hash.each_key do |key|
-      if lowest_id['id'][0] == -1
-        lowest_id['id'][1] = key.to_i
-        lowest_id['id'][0] = visitor_hash[key]
-      elsif lowest_id['id'][0] > visitor_hash[key]
-        lowest_id['id'][0] = visitor_hash[key]
-        lowest_id['id'][1] = key.to_i
+    low_or_high(wol, scoring_hash)
+  end
+
+  def low_or_high(wol, scoring_hash)
+    id  = {'id' => [-1, -1]}
+    if wol == 'low'
+      scoring_hash.each_key do |key|
+        if id['id'][0] == -1
+          id['id'][1] = key.to_i
+          id['id'][0] = scoring_hash[key]
+        elsif id['id'][0] > scoring_hash[key]
+          id['id'][0] = scoring_hash[key]
+          id['id'][1] = key.to_i
+        end
+      end
+    elsif wol == 'win'
+      id  = {'id' => [-1, -1]}
+      scoring_hash.each_key do |key|
+        if id['id'][0] == -1
+          id['id'][1] = key.to_i
+          id['id'][0] = scoring_hash[key]
+        elsif id['id'][0] < scoring_hash[key]
+          id['id'][0] = scoring_hash[key]
+          id['id'][1] = key.to_i
+        end
       end
     end
-    binding.pry
-    lowest_id
+    id['id'][1]
   end
 end

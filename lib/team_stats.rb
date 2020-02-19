@@ -1,7 +1,7 @@
 require_relative 'team'
 require_relative 'data_loadable'
 
-module TeamStats
+class TeamStats
   include DataLoadable
   attr_reader :teams
 

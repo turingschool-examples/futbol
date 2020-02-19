@@ -6,7 +6,7 @@ require './lib/team_stats'
 class TeamStatsTest < Minitest::Test
 
   def setup
-    @team_stats = TeamStats.new("./data/teams.csv", TeamStats)
+    @team_stats = TeamStats.new("./data/teams.csv", Team)
     @team = @team_stats.teams[1]
   end
 
@@ -14,9 +14,10 @@ class TeamStatsTest < Minitest::Test
     assert_instance_of TeamStats, @team_stats
   end
 
-  def test_it_can_find_team_name
-    assert_equal 'Chicago Red Stars', @team_stats.find_name(25)
-    assert_equal 'New York Red Bulls', @team_stats.find_name(8)
+  def test_attributes_for_instance_of_team_within_team_stats
+    assert_equal 4, @team.team_id
+    assert_equal 16, @team.franchiseid
+    assert_equal "Chicago Fire", @team.teamname
   end
 
 end
