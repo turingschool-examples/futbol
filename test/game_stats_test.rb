@@ -15,7 +15,7 @@ class GameStatsTest < Minitest::Test
   end
 
   def test_game_objects_are_new_instances_of_game_class
-    assert_instance_of Game, @games_stats.games.first
+    assert_instance_of Game, @game
   end
 
   def test_attributes_for_instance_of_game_withing_game_stats
@@ -71,5 +71,12 @@ class GameStatsTest < Minitest::Test
 
   def test_returns_biggest_blowout
     assert_equal 2, @games_stats.biggest_blowout
+  end
+
+  def test_returns_winningest_team
+    games_stats = GameStats.new("./data/games_truncated_with_winningest_team.csv", Game)
+
+    #note morph team id into team name
+    assert_equal 1, games_stats.winningest_team
   end
 end
