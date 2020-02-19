@@ -29,4 +29,8 @@ class GameteamsStatsTest < Minitest::Test
   def test_returns_unique_team_ids_array
     assert_equal [3, 6, 1, 24, 20, 18, 26], @game_team_stats.unique_team_ids
   end
+
+  def test_games_by_team
+    assert_equal 1, @game_team_stats.games_by_team(1).count
+  end
 end
