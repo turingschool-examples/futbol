@@ -10,6 +10,6 @@ class GameteamsStatsTest < Minitest::Test
   end
 
   def test_it_exists
-    assert_instance_of GameTeamStats, @game_Team_stats
+    assert_instance_of GameTeamStats, @game_team_stats
   end
 end
