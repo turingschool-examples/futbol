@@ -1,28 +1,24 @@
 require "./test/test_helper"
-
-require "pry"
 require './lib/stat_tracker'
-require "./lib/game"
 require "./lib/team"
-require "./lib/game_team"
 
 class TeamTest < Minitest::Test
 
   def setup
     StatTracker.create_items("./test/fixtures/teams_sample.csv", Team)
-
     @team1 = Team.new({
-      team_id: 1,
-      franchiseid: 23,
-      teamname: "Atlanta United",
-      abbreviation: "ATL",
-      stadium: "Mercedes-Benz Stadium",
-      link: "/api/v1/teams/1"
-      })
+                      team_id: 1,
+                      franchiseid: 23,
+                      teamname: "Atlanta United",
+                      abbreviation: "ATL",
+                      stadium: "Mercedes-Benz Stadium",
+                      link: "/api/v1/teams/1"
+                      })
   end
 
   def test_it_exists
     team = Team.new({})
+
     assert_instance_of Team, team
   end
 
@@ -39,7 +35,6 @@ class TeamTest < Minitest::Test
     assert_instance_of Hash, Team.all
     assert_equal 32, Team.all.length
     assert_instance_of Team, Team.all[26]
-
     assert_equal 26, Team.all[26].team_id
     assert_equal 14, Team.all[26].franchise_id
     assert_equal "FC Cincinnati", Team.all[26].team_name

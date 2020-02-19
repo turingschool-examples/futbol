@@ -16,7 +16,6 @@ class StatTracker
                     converters: :all
                   }
       CSV.foreach(file, csv_options) { |row| item_class.add(item_class.new(row.to_hash)) }
-
   end
 
 end
