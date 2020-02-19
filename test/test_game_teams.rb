@@ -1,7 +1,7 @@
 require_relative 'test_helper'
 require './lib/game_teams'
 
-class TeamTest < Minitest::Test
+class GameTeamsTest < Minitest::Test
 
   def setup
     @game_teams = GameTeams.new({
