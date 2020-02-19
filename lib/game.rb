@@ -5,12 +5,12 @@ class Game
               :home_team_id,
               :away_goals,
               :home_goals
-  def initialize(data)
-    @game_id = data[:game_id].to_i
-    @season = data[:season]
-    @away_team_id = data[:away_team_id].to_i
-    @home_team_id = data[:home_team_id].to_i
-    @away_goals = data[:away_goals].to_i
-    @home_goals = data[:home_goals].to_i
+  def initialize(info)
+    @game_id = info[:game_id].to_i
+    @season = info[:season]
+    @away_team_id = info[:away_team_id].to_i
+    @home_team_id = info[:home_team_id].to_i
+    @away_goals = info[:away_goals].to_i
+    @home_goals = info[:home_goals].to_i
   end
 end
