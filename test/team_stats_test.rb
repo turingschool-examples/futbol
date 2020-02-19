@@ -4,7 +4,7 @@ require './lib/team_stats'
 class TeamStatsTest < Minitest::Test
 
   def setup
-    @team_stats = TeamStats.new("./data/teams.csv", TeamStats)
+    @team_stats = TeamStats.new("./data/teams.csv", Team)
     @team = @team_stats.teams[1]
   end
 

@@ -6,7 +6,7 @@ class TeamStats
   attr_reader :teams
 
   def initialize(file_path, object)
-    @teams = csv_data('./data/teams.csv', Team)
+    @teams = csv_data(file_path, object)
   end
 
 end
