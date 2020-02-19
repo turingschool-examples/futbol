@@ -20,4 +20,8 @@ class TeamStatsTest < Minitest::Test
     assert_equal "Chicago Fire", @team.teamname
   end
 
+  def test_team_stats_find_name
+    assert_equal "Chicago Fire", @team_stats.find_name(4)
+  end
+
 end

@@ -8,6 +8,7 @@ class GameTeamStats
 
   def initialize(file_path, object)
     @game_teams = csv_data(file_path, object)
+    @team_stats = TeamStats.new("./data/teams.csv", Team)
   end
 
   def lowest_scoring_visitor
@@ -40,7 +41,7 @@ class GameTeamStats
     scoring_hash.each_key do |key|
       scoring_hash[key] = scoring_hash[key][0].to_f / scoring_hash[key][1].to_f
     end
-    low_or_high(wol, scoring_hash)
+    @team_stats.find_name(low_or_high(wol, scoring_hash))
   end
 
   def low_or_high(wol, scoring_hash)

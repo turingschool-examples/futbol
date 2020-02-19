@@ -27,10 +27,8 @@ class GameteamsStatsTest < Minitest::Test
   end
 
   def test_game_teams_stats_scoring
-    assert_equal 26, @game_team_stats.scoring('away','low')
-    assert_equal 6, @game_team_stats.scoring('home','win')
-    assert_equal 20, @game_team_stats.scoring('home','low')
-    assert_equal 24, @game_team_stats.scoring('away','win')
+    assert_equal "FC Cincinnati", @game_team_stats.scoring('away','low')
+    assert_equal "Real Salt Lake", @game_team_stats.scoring('away','win')
   end
 
   def test_game_teams_stats_low_or_high
@@ -40,19 +38,19 @@ class GameteamsStatsTest < Minitest::Test
   end
 
   def test_game_teams_stats_lowest_visitor_score
-    assert_equal 26, @game_team_stats.lowest_scoring_visitor
+    assert_equal "FC Cincinnati", @game_team_stats.lowest_scoring_visitor
   end
 
   def test_game_teams_stats_lowest_home_score
-    assert_equal 20, @game_team_stats.lowest_scoring_home_team
+    assert_equal "Toronto FC", @game_team_stats.lowest_scoring_home_team
   end
 
   def test_game_teams_stats_highest_scoring_visitor
-    assert_equal 24, @game_team_stats.highest_scoring_visitor
+    assert_equal "Real Salt Lake", @game_team_stats.highest_scoring_visitor
   end
 
   def test_game_teams_stats_highest_scoring_home_team
-    assert_equal 6, @game_team_stats.highest_scoring_home_team
+    assert_equal "FC Dallas", @game_team_stats.highest_scoring_home_team
   end
 
 end
