@@ -1,4 +1,8 @@
 require "./test/test_helper"
+require './lib/stat_tracker'
+require "./lib/game"
+require "./lib/team"
+require "./lib/game_team"
 
 class GameTest < Minitest::Test
 
@@ -24,6 +28,7 @@ class GameTest < Minitest::Test
 
   def test_it_exists
     game = Game.new({})
+
     assert_instance_of Game, game
   end
 
@@ -44,7 +49,6 @@ class GameTest < Minitest::Test
     assert_instance_of Hash, Game.all
     assert_equal 100, Game.all.length
     assert_instance_of Game, Game.all[2012030221]
-
     assert_equal 2012030221, Game.all[2012030221].game_id
     assert_equal "5/16/13", Game.all[2012030221].date_time
     assert_equal 20122013, Game.all[2012030221].season
@@ -59,12 +63,12 @@ class GameTest < Minitest::Test
     assert_equal 3, Game.all[2012030221].home_goals
     assert_equal "Toyota Stadium", Game.all[2012030221].venue
     assert_equal "/api/v1/venues/null", Game.all[2012030221].venue_link
+
   end
 
   def test_it_loads_all_games_from_csv
     assert_equal 2012030221, Game.all[2012030221].game_id
     assert_equal 2014030316, Game.all[2014030316].game_id
-
   end
 
 end
