@@ -11,15 +11,31 @@ class GameTeamStats
   end
 
   def lowest_scoring_visitor
-    vistor_hash = Hash.new([0,0])
+    visitor_hash = {}
     @game_teams.each do |game|
       if game.hoa == 'away'
-        vistor_hash[game.team_id][0] += game.goals
-        vistor_hash[game.team_id][0] += 1
+        if visitor_hash[game.team_id] == nil
+          visitor_hash[game.team_id] = [0,0]
+        end
+        visitor_hash[game.team_id][0] += game.goals.to_i
+        visitor_hash[game.team_id][1] += 1
       end
     end
-
-    vistor_hash
+    visitor_hash
+    visitor_hash.each_key do |key|
+      visitor_hash[key] = visitor_hash[key][0].to_f / visitor_hash[key][1].to_f
+    end
+    lowest_id  = {'id' => [-1, -1]}
+    visitor_hash.each_key do |key|
+      if lowest_id['id'][0] == -1
+        lowest_id['id'][1] = key.to_i
+        lowest_id['id'][0] = visitor_hash[key]
+      elsif lowest_id['id'][0] > visitor_hash[key]
+        lowest_id['id'][0] = visitor_hash[key]
+        lowest_id['id'][1] = key.to_i
+      end
+    end
+    binding.pry
+    lowest_id
   end
-
 end
