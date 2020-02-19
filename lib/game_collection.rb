@@ -11,4 +11,8 @@ class GameCollection
   def instantiate_game(info)
     Game.new(info)
   end
+
+  def collect_game(game)
+    @games << game
+  end
 end
