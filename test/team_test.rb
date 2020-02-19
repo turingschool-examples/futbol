@@ -13,8 +13,8 @@ class TeamTest < Minitest::Test
 
     @team1 = Team.new({
       team_id: 1,
-      franchise_id: 23,
-      team_name: "Atlanta United",
+      franchiseid: 23,
+      teamname: "Atlanta United",
       abbreviation: "ATL",
       stadium: "Mercedes-Benz Stadium",
       link: "/api/v1/teams/1"
@@ -36,7 +36,6 @@ class TeamTest < Minitest::Test
   end
 
   def test_it_can_add_team
-    skip
     assert_instance_of Hash, Team.all
     assert_equal 32, Team.all.length
     assert_instance_of Team, Team.all[26]
