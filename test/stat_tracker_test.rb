@@ -22,6 +22,10 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of GameCollection, @stat_tracker.game_collection
   end
 
+  def test_it_show_highest_total_goals
+    assert_equal 7, @stat_tracker.highest_total_goals
+  end
+
   def test_calculates_percentage_home_wins
     assert_equal 0.40, @stat_tracker.percentage_home_wins
   end

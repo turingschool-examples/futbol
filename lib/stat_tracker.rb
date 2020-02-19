@@ -19,6 +19,13 @@ class StatTracker
     GameCollection.new(@game_path)
   end
 
+  def highest_total_goals
+    highest_score_game = game_collection.games.max_by do |game|
+      game.total_goals
+    end
+    highest_score_game.total_goals
+  end
+
   def percentage_home_wins
     count = game_collection.games.count { |game| game.home_goals > game.away_goals }
     (count.to_f / game_collection.games.length).round(2)
