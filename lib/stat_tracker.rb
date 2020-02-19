@@ -26,6 +26,13 @@ class StatTracker
     highest_score_game.total_goals
   end
 
+  def lowest_total_goals
+    lowest_score_game = game_collection.games.min_by do |game|
+      game.total_goals
+    end
+    lowest_score_game.total_goals
+  end
+
   def percentage_home_wins
     count = game_collection.games.count { |game| game.home_goals > game.away_goals }
     (count.to_f / game_collection.games.length).round(2)

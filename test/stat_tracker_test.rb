@@ -26,6 +26,12 @@ class StatTrackerTest < Minitest::Test
     assert_equal 7, @stat_tracker.highest_total_goals
   end
 
+  def test_it_show_lowest_total_goals
+    assert_equal 3, @stat_tracker.lowest_total_goals
+  end
+
+
+
   def test_calculates_percentage_home_wins
     assert_equal 0.40, @stat_tracker.percentage_home_wins
   end
