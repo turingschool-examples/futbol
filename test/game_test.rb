@@ -8,10 +8,9 @@ require 'CSV'
 class GameTest < Minitest::Test
 
   def setup
-    @games = []
     @test_data = CSV.read('./data/little_games.csv', headers: true, header_converters: :symbol)
-    @test_data.map do |row|
-      @games << Game.new(row.to_h)
+    @games = @test_data.map do |row|
+      Game.new(row.to_h)
     end
   end
 
