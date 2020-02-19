@@ -9,8 +9,8 @@ class Team
     @@teams
   end
   attr_reader :team_id,
-              :franchiseid,
-              :teamname,
+              :franchise_id,
+              :team_name,
               :abbreviation,
               :stadium,
               :link
