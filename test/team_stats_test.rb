@@ -20,4 +20,8 @@ class TeamStatsTest < Minitest::Test
     assert_equal "Chicago Fire", @team.teamname
   end
 
+  def test_it_can_return_count_of_teams
+    assert_equal 32, @team_stats.count_of_teams
+  end
+
 end

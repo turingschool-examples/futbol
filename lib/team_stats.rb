@@ -9,4 +9,8 @@ class TeamStats
     @teams = csv_data('./data/teams.csv', Team)
   end
 
+  def count_of_teams
+    @teams.count
+  end
+
 end
