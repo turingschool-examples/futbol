@@ -47,27 +47,35 @@ class GameTeamStats
   def low_or_high(wol, scoring_hash)
     id  = {'id' => [-1, -1]}
     if wol == 'low'
-      scoring_hash.each_key do |key|
-        if id['id'][0] == -1
-          id['id'][1] = key.to_i
-          id['id'][0] = scoring_hash[key]
-        elsif id['id'][0] > scoring_hash[key]
-          id['id'][0] = scoring_hash[key]
-          id['id'][1] = key.to_i
-        end
-      end
+      low(scoring_hash, id)
     elsif wol == 'win'
-      id  = {'id' => [-1, -1]}
-      scoring_hash.each_key do |key|
-        if id['id'][0] == -1
-          id['id'][1] = key.to_i
-          id['id'][0] = scoring_hash[key]
-        elsif id['id'][0] < scoring_hash[key]
-          id['id'][0] = scoring_hash[key]
-          id['id'][1] = key.to_i
-        end
-      end
+      high(scoring_hash, id)
     end
     id['id'][1]
   end
+
+  def low(scoring_hash, id)
+    scoring_hash.each_key do |key|
+      if id['id'][0] == -1
+        id['id'][1] = key.to_i
+        id['id'][0] = scoring_hash[key]
+      elsif id['id'][0] > scoring_hash[key]
+        id['id'][0] = scoring_hash[key]
+        id['id'][1] = key.to_i
+      end
+    end
+  end
+
+  def high(scoring_hash, id)
+    scoring_hash.each_key do |key|
+      if id['id'][0] == -1
+        id['id'][1] = key.to_i
+        id['id'][0] = scoring_hash[key]
+      elsif id['id'][0] < scoring_hash[key]
+        id['id'][0] = scoring_hash[key]
+        id['id'][1] = key.to_i
+      end
+    end
+  end
+
 end
