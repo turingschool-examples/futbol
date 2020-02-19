@@ -1,10 +1,11 @@
 require_relative 'test_helper'
 # require './fixtures/teams_truncated'
-require './data/teams_sample.csv'
+# require './data/teams_sample.csv'
 require './lib/team.rb'
 
 class TeamStatsTest < MiniTest::Test
   def setup
+    require 'pry'; binding.pry
     @team = Team.new
     @team_collection = Team.all
   end
