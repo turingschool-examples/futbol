@@ -6,7 +6,7 @@ require './lib/game_teams_stats'
 class GameteamsStatsTest < Minitest::Test
 
   def setup
-    @game_Team_stats = GameTeamStats.new("./data/game_teams_truncated.csv", GameTeams)
+    @game_team_stats = GameTeamStats.new("./data/game_teams_truncated.csv", GameTeams)
   end
 
   def test_it_exists
