@@ -19,14 +19,14 @@ class StatTracker
     GameCollection.new(@game_path)
   end
 
-  def highest_total_goals
+  def highest_total_score
     highest_score_game = game_collection.games.max_by do |game|
       game.total_goals
     end
     highest_score_game.total_goals
   end
 
-  def lowest_total_goals
+  def lowest_total_score
     lowest_score_game = game_collection.games.min_by do |game|
       game.total_goals
     end
