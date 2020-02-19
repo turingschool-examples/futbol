@@ -33,4 +33,8 @@ class GameteamsStatsTest < Minitest::Test
   def test_games_by_team
     assert_equal 1, @game_team_stats.games_by_team(1).count
   end
+
+  def test_total_goals_per_team
+    assert_equal 2, @game_team_stats.total_goals_per_team(1)
+  end
 end

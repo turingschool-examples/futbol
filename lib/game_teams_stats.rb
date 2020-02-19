@@ -17,4 +17,9 @@ class GameTeamStats
     @game_teams.find_all { |team| team.team_id == team_id }
   end
 
-end
+  def total_goals_per_team(team_id)
+    games_by_team(team_id).sum do |team|
+        team.goals
+      end 
+    end
+  end
