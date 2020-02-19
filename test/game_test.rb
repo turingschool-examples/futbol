@@ -52,4 +52,5 @@ class GameTest < Minitest::Test
     assert_equal "5/16/13", Game.all[2012030221].date_time
     assert_equal 20122013, Game.all[2012030221].season
   end
+
 end

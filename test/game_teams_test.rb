@@ -70,5 +70,5 @@ class GameTeamTest < Minitest::Test
     assert_equal 2012030221, GameTeam.all.keys.first
     assert_equal 2012030135, GameTeam.all.keys.last
   end
-
+  
 end
