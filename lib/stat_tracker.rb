@@ -33,6 +33,14 @@ class StatTracker
     lowest_score_game.total_goals
   end
 
+  def biggest_blowout
+    game_goals_ranges = []
+    game_collection.games.each do |game|
+      game_goals_ranges << (game.home_goals - game.away_goals).abs
+    end
+    game_goals_ranges.max
+  end
+
   def percentage_home_wins
     count = game_collection.games.count { |game| game.home_goals > game.away_goals }
     (count.to_f / game_collection.games.length).round(2)
