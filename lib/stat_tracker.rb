@@ -24,6 +24,8 @@ class StatTracker
     @game_teams_csv = 0
   end
 
+  
+
 
 
 end
