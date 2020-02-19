@@ -15,4 +15,5 @@ class GameTeamTest < Minitest::Test
 
     assert_instance_of GameTeam, game_team
   end
+
 end
