@@ -23,8 +23,7 @@ class Game
     @venue_link     = game_data[:venue_link]
   end
 
-  def average_goals_per_game
-		total_goals = Game.all.map {|game| game.total_score}
-		return ((total_goals.sum.to_f / Game.length).round(2))
-	end
+  def total_score
+    @away_goals + @home_goals
+  end
 end
