@@ -1,9 +1,9 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'mocha/minitest'
-require 'csv'
+require "./test/test_helper"
+
 require './lib/stat_tracker'
-require './lib/game'
+require "./lib/game"
+require "./lib/team"
+require "./lib/game_team"
 
 class GameTest < Minitest::Test
 
