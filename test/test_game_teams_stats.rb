@@ -12,4 +12,8 @@ class GameteamsStatsTest < Minitest::Test
   def test_it_exists
     assert_instance_of GameTeamStats, @game_Team_stats
   end
+
+  def test_it_can_find_team_with_lowest_home_goals
+    assert_equal 'Toronto FC', @game_Team_stats.lowest_scoring_visitor
+  end
 end
