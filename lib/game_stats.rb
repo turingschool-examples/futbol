@@ -6,7 +6,7 @@ class GameStats
   attr_reader :games
 
   def initialize(file_path, object)
-    @games = csv_data('./data/games_truncated.csv', Game)
+    @games = csv_data(file_path, object)
   end
 
   def percentage_ties
