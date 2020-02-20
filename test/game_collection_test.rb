@@ -2,7 +2,6 @@ require "./test/test_helper"
 require "./lib/stat_tracker"
 require "./lib/game_collection"
 require 'mocha/minitest'
-require "CSV"
 require './lib/game'
 
 class GameCollectionTest < Minitest::Test
