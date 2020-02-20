@@ -1,9 +1,7 @@
-require 'SimpleCOV'
-SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/game'
-require 'CSV'
+require 'csv'
 
 class GameTest < Minitest::Test
 
