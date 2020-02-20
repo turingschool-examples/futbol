@@ -15,13 +15,14 @@ class GameTest < Minitest::Test
             venue: 'Toyota Stadium'}
     @game1 = Game.new(info)
   end
+
   def test_it_exists
     assert_instance_of Game, @game1
   end
 
   def test_it_has_attributes
     assert_equal 2012030221, @game1.game_id
-    assert_equal 20122013, @game1.season
+    assert_equal '20122013', @game1.season
     assert_equal 'Postseason', @game1.type
     assert_equal '5/16/13', @game1.date_time
     assert_equal 3, @game1.away_team_id
