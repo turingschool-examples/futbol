@@ -41,4 +41,16 @@ class Game
     @venue = game_parameter[:venue]
     @venue_link = game_parameter[:venue_link]
   end
+
+  def highest_total_score
+    @@all.map { |game| game.away_goals + game.home_goals}.max
+  end
+
+  def lowest_total_score
+    @@all.map { |game| game.away_goals + game.home_goals}.min
+  end
+
+  def biggest_blowout
+    @@all.map { |game| (game.away_goals - game.home_goals).abs}.max
+  end
 end
