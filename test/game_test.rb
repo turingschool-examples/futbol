@@ -27,7 +27,7 @@ class GameTest < Minitest::Test
   end
 
   def test_it_can_calculate_highest_total_score
-    assert_equal 5, @game.highest_total_score
+    assert_equal 7, @game.highest_total_score
   end
 
   def test_it_can_calculate_lowest_total_score
@@ -35,6 +35,22 @@ class GameTest < Minitest::Test
   end
 
   def test_it_can_find_biggest_blowout
-    assert_equal 3, @game.biggest_blowout
+    assert_equal 4, @game.biggest_blowout
+  end
+
+  def test_it_can_find_all_seasons
+    assert_equal [20122013, 20132014], @game.find_all_seasons
+  end
+
+  def test_it_can_calculate_count_of_games_by_season
+    assert_equal ({20122013=>51, 20132014=>29}), @game.count_of_games_by_season
+  end
+
+  def test_it_can_average_goals_per_game
+    assert_equal 4.01, @game.average_goals_per_game
+  end
+
+  def test_it_can_average_goals_by_season
+    assert_equal ({20122013=>4.02, 20132014=>4.0}), @game.average_goals_by_season
   end
 end
