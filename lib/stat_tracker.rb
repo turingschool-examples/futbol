@@ -10,7 +10,7 @@ class StatTracker
 
   attr_reader :game_path, :team_path, :game_teams_path
   def initialize(game_path, team_path, game_teams_path)
-    @game_path = game_path
+    @games = Game.create_all(game_path)
     @team_path = team_path
     @game_teams_path = game_teams_path
   end

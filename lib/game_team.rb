@@ -50,5 +50,7 @@ class GameTeam
     @face_off_win_percentage = game_team_parameter[:faceoffwinpercentage].to_f
     @giveaways = game_team_parameter[:giveaways].to_i
     @takeaways = game_team_parameter[:takeaways].to_i
+    # aggregate team with goals scored
+    # aggregate team w goals scored against then
   end
 end
