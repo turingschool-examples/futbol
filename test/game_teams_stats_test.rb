@@ -35,6 +35,7 @@ class GameteamsStatsTest < Minitest::Test
     assert_equal 12, @game_teams.shots
     assert_equal 51, @game_teams.tackles
   end
+  
   def test_returns_unique_team_ids_array
     assert_equal [3, 6, 1, 24, 20, 18, 26], @game_team_stats.unique_team_ids
   end

@@ -24,6 +24,5 @@ class TeamStatsTest < Minitest::Test
 
   def test_team_stats_find_name
     assert_equal "Chicago Fire", @team_stats.find_name(4)
-  end
-
+  end  
 end
