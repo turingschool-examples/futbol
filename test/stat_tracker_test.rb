@@ -42,4 +42,68 @@ class StatTrackerTest < Minitest::Test
     assert_equal 32, Team.all.count
   end
 
+  def test_highest_total_score
+    assert_equal 8, @stat_tracker.highest_total_score
+  end
+
+  def test_lowest_total_score
+    assert_equal 1, @stat_tracker.lowest_total_score
+  end
+
+  def test_biggest_blowout
+    assert_equal 3, @stat_tracker.biggest_blowout
+  end
+
+  def test_percentage_home_wins
+    assert_equal 54.00, @stat_tracker.percentage_home_wins
+  end
+
+  def test_percentage_away_wins
+    assert_equal 43.00, @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_percentage_ties
+    assert_equal 3.00, @stat_tracker.percentage_ties
+  end
+
+  def test_count_of_games_by_season
+    expected =
+    {
+      20122013 => 57,
+      20162017 => 4,
+      20142015 => 17,
+      20152016 => 16,
+      20132014 => 6
+    }
+    assert_equal expected, @stat_tracker.count_of_games_by_season
+  end
+
+  def test_average_goals_per_game
+    assert_equal 3.95, @stat_tracker.average_goals_per_game
+  end
+
+  def test_total_goals_per_season
+    game = Game.all.values.first
+
+    assert_equal 220, @stat_tracker.total_goals_per_season(game.season)
+  end
+
+  def test_number_of_games_per_season
+    game = Game.all.values.first
+
+    assert_equal 57, @stat_tracker.number_of_games_per_season(game.season)
+  end
+
+  def test_average_goals_by_season
+    expected =
+    {
+      20122013 => 3.86,
+      20162017 => 4.75,
+      20142015 => 4.00,
+      20152016 => 3.88,
+      20132014 => 4.33
+    }
+    assert_equal expected, @stat_tracker.average_goals_by_season
+  end
+
 end
