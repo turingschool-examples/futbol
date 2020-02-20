@@ -31,4 +31,13 @@ class TeamCollectionTest < Minitest::Test
     assert_equal "Toyota Stadium", team.stadium
     assert_equal "/api/v1/teams/6", team.team_link
   end
+
+  def test_it_can_collect_team
+    info = {team_id: "6", franchiseId: "6", teamName: "FC Dallas",
+            abbreviation: "DAL", Stadium: "Toyota Stadium", link: "/api/v1/teams/6"}
+    team = @team_collection.instantiate_team(info)
+    @team_collection.collect_team(team)
+
+    assert_equal [team], @team_collection.teams
+  end
 end
