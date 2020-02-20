@@ -1,5 +1,5 @@
 require './lib/team'
-require 'CSV'
+require 'csv'
 
 class TeamCollection
   attr_reader :teams
