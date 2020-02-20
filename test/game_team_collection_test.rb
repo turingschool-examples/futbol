@@ -1,12 +1,11 @@
 require "minitest/autorun"
 require "minitest/pride"
 require "./lib/game_team_collection"
-require "./lib/game_team"
 
 class GameTeamCollectionTest < Minitest::Test
 
   def setup
-    @file_path = "./test/fixtures/game_teams_truncated"
+    @file_path = "./test/fixtures/game_teams_truncated.csv"
     @game_team_collection = GameTeamCollection.new(@file_path)
   end
 
@@ -16,7 +15,7 @@ class GameTeamCollectionTest < Minitest::Test
 
   def test_it_has_attributes
     assert_equal [], @game_team_collection.games_by_teams
-    assert_equal "./test/fixtures/game_teams_truncated", @game_team_collection.csv_file_path
+    assert_equal "./test/fixtures/game_teams_truncated.csv", @game_team_collection.csv_file_path
   end
 
   def test_it_can_instantiate_a_game_team_object
@@ -57,5 +56,13 @@ class GameTeamCollectionTest < Minitest::Test
     @game_team_collection.collect_game_team(game_team)
 
     assert_equal [game_team], @game_team_collection.games_by_teams
+  end
+
+  def test_it_can_create_collection_of_game_team_objects_from_csv
+    @game_team_collection.create_game_team_collection
+
+    assert_instance_of GameTeam, @game_team_collection.games_by_teams.first
+    assert_instance_of GameTeam, @game_team_collection.games_by_teams.last
+    assert_equal 20, @game_team_collection.games_by_teams.length
   end
 end
