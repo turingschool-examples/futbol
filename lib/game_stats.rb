@@ -27,19 +27,19 @@ class GameStats
   end
 
   def percentage_home_wins
-    home_wins = @games.find_all {|game| game.away_goals < game.home_goals}
+    home_wins = @games.find_all { |game| game.away_goals < game.home_goals }
     sum = (home_wins.length).to_f / (@games.length).to_f
     (100 * sum).round(2)
   end
 
   def percentage_visitor_wins
-    vistor_wins = @games.find_all {|game| game.away_goals > game.home_goals}
+    vistor_wins = @games.find_all { |game| game.away_goals > game.home_goals }
     sum = (vistor_wins.length).to_f / (@games.length).to_f
     (100 * sum).round(2)
   end
 
   def average_goals_per_game
-    all_goals = @games.sum {|game| game.away_goals + game.home_goals}
+    all_goals = @games.sum { |game| game.away_goals + game.home_goals }
     sum = all_goals.to_f / @games.length
     sum.round(2)
   end
@@ -81,8 +81,8 @@ class GameStats
       if game.home_goals > game.away_goals
         win_ratios[game.home_team_id][0] += 1
       end
-        win_ratios[game.away_team_id][1] += 1
-        win_ratios[game.home_team_id][1] += 1
+      win_ratios[game.away_team_id][1] += 1
+      win_ratios[game.home_team_id][1] += 1
     end
 
     win_percentages = win_ratios.each_with_object(Hash.new) do |(team_id, win_ratio), win_percent|
@@ -92,6 +92,4 @@ class GameStats
     team_id = win_percentages.key(win_percentages.values.max)
     @team_stats.find_name(team_id)
   end
-
-
 end

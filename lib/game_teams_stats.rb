@@ -11,6 +11,36 @@ class GameTeamStats
     @team_stats = TeamStats.new("./data/teams.csv", Team)
   end
 
+  def unique_team_ids
+    @game_teams.uniq { |game_team| game_team.team_id}.map { |game_team| game_team.team_id }
+  end
+
+  def games_by_team(team_id)
+    @game_teams.find_all { |team| team.team_id == team_id }
+  end
+
+  def total_games_by_team_id(team_id)
+    games_by_team(team_id).length
+  end
+
+  def total_goals_by_team_id(team_id)
+    games_by_team(team_id).sum { |game_team| game_team.goals }
+  end
+
+  def average_goals_per_team(team_id)
+    total_goals_by_team_id(team_id) / total_games_by_team_id(team_id)
+  end
+
+  def best_offense
+    team_id = unique_team_ids.max_by { |team_id| average_goals_per_team(team_id) }
+    @team_stats.find_name(team_id)
+  end
+
+  def worst_offense
+    team_id = unique_team_ids.min_by { |team_id| average_goals_per_team(team_id) }
+    @team_stats.find_name(team_id)
+  end
+
   def percent_differences
     # home results
     home_games = @game_teams.select do |game_team|
@@ -23,7 +53,7 @@ class GameTeamStats
       if home_game.result == "WIN"
         home_win_ratios[home_game.team_id][0] += 1
       end
-        home_win_ratios[home_game.team_id][1] += 1
+      home_win_ratios[home_game.team_id][1] += 1
     end
 
     home_win_percentages = home_win_ratios.each_with_object(Hash.new) do |(team_id, home_win_ratio), home_win_percentages|
@@ -41,7 +71,7 @@ class GameTeamStats
       if away_game.result == "WIN"
         away_win_ratios[away_game.team_id][0] += 1
       end
-        away_win_ratios[away_game.team_id][1] += 1
+      away_win_ratios[away_game.team_id][1] += 1
     end
 
     away_win_percentages = away_win_ratios.each_with_object(Hash.new) do |(team_id, away_win_ratio), away_win_percentages|
@@ -117,20 +147,20 @@ class GameTeamStats
   end
 
   def low_or_high(wol, scoring_hash)
-   id  = {'id' => [scoring_hash[scoring_hash.first.first], scoring_hash.first.first]}
-   scoring_hash.each_key do |key|
-     if id['id'][0] > scoring_hash[key] && wol == 'low'
-       update_id(id, key, scoring_hash)
-     elsif id['id'][0] < scoring_hash[key] && wol == 'win'
-       update_id(id, key, scoring_hash)
-     end
-   end
-   id['id'][1]
+    id  = {'id' => [scoring_hash[scoring_hash.first.first], scoring_hash.first.first]}
+    scoring_hash.each_key do |key|
+      if id['id'][0] > scoring_hash[key] && wol == 'low'
+        update_id(id, key, scoring_hash)
+      elsif id['id'][0] < scoring_hash[key] && wol == 'win'
+        update_id(id, key, scoring_hash)
+      end
+    end
+    id['id'][1]
   end
 
- def update_id(id, key, scoring_hash)
-   id['id'][1] = key.to_i
-   id['id'][0] = scoring_hash[key]
-   id
- end
+  def update_id(id, key, scoring_hash)
+    id['id'][1] = key.to_i
+    id['id'][0] = scoring_hash[key]
+    id
+  end
 end
