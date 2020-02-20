@@ -10,6 +10,10 @@ class GameTeam
     @@game_teams
   end
 
+  def self.game_teams=(value)
+    @@game_teams = value
+  end
+
   attr_reader :game_id,
               :team_id,
               :hoa,
