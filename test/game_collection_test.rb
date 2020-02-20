@@ -18,6 +18,8 @@ class GameCollectionTest < Minitest::Test
   def test_it_has_attributes
     assert_instance_of Array, @game_collection.games
     assert_equal 10, @game_collection.games.length
+    assert_instance_of Game, @game_collection.games.first
+    assert_instance_of Game, @game_collection.games.first
   end
 
   def test_it_can_create_games_from_csv
