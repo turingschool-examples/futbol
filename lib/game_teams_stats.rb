@@ -1,6 +1,5 @@
 require_relative 'game_teams'
 require_relative 'data_loadable'
-require 'pry'
 
 class GameTeamStats
   include DataLoadable
