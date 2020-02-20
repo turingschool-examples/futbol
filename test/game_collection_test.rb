@@ -17,4 +17,8 @@ class GameCollectionClass < Minitest::Test
     assert_instance_of Game, @game_collection.games_list.first
     assert_equal 200, @game_collection.games_list.length
   end
+
+  def test_it_can_get_all_seasons
+    season_test_list = ["20122013"]
+  end
 end
