@@ -20,17 +20,17 @@ class StatTracker
   end
 
   def percentage_home_wins
-    count = game_collection.games.count { |game| game.home_goals > game.away_goals }
+    count = game_collection.games.count { |game| game.home_win? }
     (count.to_f / game_collection.games.length).round(2)
   end
 
   def percentage_visitor_wins
-    count = game_collection.games.count { |game| game.away_goals > game.home_goals }
+    count = game_collection.games.count { |game| game.away_win? }
     (count.to_f / game_collection.games.length).round(2)
   end
 
   def percentage_ties
-    count = game_collection.games.count { |game| game.away_goals == game.home_goals }
+    count = game_collection.games.count { |game| game.tie? }
     (count.to_f / game_collection.games.length).round(2)
   end
 end
