@@ -4,7 +4,10 @@ require_relative 'game_collection'
 
 class SeasonWin
 
-  def initialize
+  attr_reader :team_id
+
+  def initialize(team_id)
+    @team_id = team_id
   end
 
   def team_info(team_id)
@@ -22,7 +25,7 @@ class SeasonWin
   end
 
   def best_season(team_id)
-    total_games_by_season(team_id)
+    games_by_team_id_in_season(team_id)
   end
 
   def game_id_by_season(team_id)
