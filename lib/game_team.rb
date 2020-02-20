@@ -10,7 +10,6 @@ class GameTeam
     @@game_teams
   end
 
-
   attr_reader :game_id,
               :team_id,
               :hoa,
