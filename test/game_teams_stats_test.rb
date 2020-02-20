@@ -25,4 +25,46 @@ class GameteamsStatsTest < Minitest::Test
     assert_equal 12, @game_teams.shots
     assert_equal 51, @game_teams.tackles
   end
+
+  def test_game_teams_stats_scoring
+    assert_equal "FC Cincinnati", @game_team_stats.scoring('away','low')
+    assert_equal "Real Salt Lake", @game_team_stats.scoring('away','win')
+  end
+
+  def test_game_teams_stats_low_or_high
+    test_hash = {1 => 4.0, 2 => 5.5, 3 => 4.5}
+    assert_equal 2, @game_team_stats.low_or_high('win', test_hash)
+    assert_equal 1, @game_team_stats.low_or_high('low', test_hash)
+  end
+
+  def test_game_teams_stats_update_scoring_hash
+    scoring_hash = {}
+    result = {6 => [3,1]}
+    assert_equal result, @game_team_stats.update_scoring_hash(scoring_hash, @game_teams)
+  end
+
+  def test_game_teams_stats_update_id
+    id  = {'id' => [-1, -1]}
+    key = 2
+    test_hash = {1 => 4.0, 2 => 5.5, 3 => 4.5}
+    expected = {'id' => [5.5, 2]}
+    assert_equal expected, @game_team_stats.update_id(id, key, test_hash)
+  end
+
+  def test_game_teams_stats_lowest_visitor_score
+    assert_equal "FC Cincinnati", @game_team_stats.lowest_scoring_visitor
+  end
+
+  def test_game_teams_stats_lowest_home_score
+    assert_equal "Toronto FC", @game_team_stats.lowest_scoring_home_team
+  end
+
+  def test_game_teams_stats_highest_scoring_visitor
+    assert_equal "Real Salt Lake", @game_team_stats.highest_scoring_visitor
+  end
+
+  def test_game_teams_stats_highest_scoring_home_team
+    assert_equal "FC Dallas", @game_team_stats.highest_scoring_home_team
+  end
+
 end
