@@ -12,7 +12,7 @@ class GameTeamStats
     @team_stats = TeamStats.new("./data/teams.csv", Team)
   end
 
-  def best_fans
+  def percent_differences
     # home results
     home_games = @game_teams.select do |game_team|
       game_team.hoa == "home"
@@ -61,9 +61,22 @@ class GameTeamStats
     team_ids.each do |team_id|
       percent_differences[team_id] = home_win_percentages[team_id] - away_win_percentages[team_id]
     end
+    percent_differences
+  end
 
+  def best_fans
     team_id = percent_differences.key(percent_differences.values.max).to_i
     @team_stats.find_name(team_id)
+  end
+
+  def worst_fans
+    team_names = []
+    percent_differences.each do |team_id, percent_difference|
+      if percent_difference < 0
+        team_names << @team_stats.find_name(team_id.to_i)
+      end
+    end
+    team_names
   end
 
 end
