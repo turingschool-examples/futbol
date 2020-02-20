@@ -53,4 +53,44 @@ class Game
   def biggest_blowout
     @@all.map { |game| (game.away_goals - game.home_goals).abs}.max
   end
+
+  def find_all_seasons
+    @@all.map do |game|
+      game.season
+    end.uniq
+  end
+
+  def count_of_games_by_season
+    seasons_and_games_count = {}
+    find_all_seasons.each do |season|
+      seasons_and_games_count[season] = @@all.count do |game|
+        game.season == season
+      end
+    end
+    seasons_and_games_count
+  end
+
+  def average_goals_per_game
+    all_goals = @@all.sum do |game|
+      game.away_goals + game.home_goals
+    end
+    (all_goals / @@all.length.to_f).round(2)
+  end
+
+  def find_games_by_season(season)
+    @@all.find_all do |game|
+      game.season == season
+    end
+  end
+
+  def average_goals_by_season
+    seasons_and_goals_average = {}
+    find_all_seasons.each do |season|
+      sum_of_goals = find_games_by_season(season).sum do |game|
+        (game.away_goals + game.home_goals)
+      end
+      seasons_and_goals_average[season] = (sum_of_goals.to_f / count_of_games_by_season[season]).round(2)
+    end
+    seasons_and_goals_average
+  end
 end

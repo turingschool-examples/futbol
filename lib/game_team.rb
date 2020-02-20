@@ -72,4 +72,10 @@ class GameTeam
     ((visitor_wins.length / all_visitor_games.length.to_f) * 100).round(2)
   end
 
+  def percentage_ties
+  all_ties = @@all.find_all do |game_team|
+       game_team.result == "TIE"
+    end
+    ((all_ties.length / @@all.length.to_f) * 100).round(2)
+  end
 end
