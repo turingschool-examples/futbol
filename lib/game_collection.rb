@@ -18,6 +18,6 @@ class GameCollection
   end
 
   def get_all_seasons
-    @games_list.find_all { |game| game.season}.uniq
+    @games_list.map { |game| game.season }.uniq
   end
 end
