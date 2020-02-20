@@ -8,6 +8,11 @@ class Team
   def self.all
     @@teams
   end
+
+  def self.teams=(value)
+    @@teams = value
+  end
+
   attr_reader :team_id,
               :franchise_id,
               :team_name,

@@ -9,6 +9,10 @@ class Game
     @@games
   end
 
+  def self.games=(value)
+    @@games = value
+  end
+
   attr_reader :game_id,
               :season,
               :type,
