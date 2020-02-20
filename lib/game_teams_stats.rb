@@ -17,9 +17,15 @@ class GameTeamStats
     @game_teams.find_all { |team| team.team_id == team_id }
   end
 
-  def total_goals_per_team(team_id)
-    games_by_team(team_id).sum do |team|
-        team.goals
-      end 
-    end
+  def total_games_by_team_id(team_id)
+    games_by_team(team_id).length
   end
+
+  def total_goals_by_team_id(team_id)
+      games_by_team(team_id).sum {|game_team| game_team.goals}
+  end
+
+  def average_goals_per_team(team_id)
+    total_goals_by_team_id(team_id) / total_games_by_team_id(team_id)
+  end
+end
