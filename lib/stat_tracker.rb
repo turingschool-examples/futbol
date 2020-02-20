@@ -12,5 +12,4 @@ class StatTracker
     @team_path = locations[:teams]
     @game_teams_path = locations[:game_teams]
   end
-
 end

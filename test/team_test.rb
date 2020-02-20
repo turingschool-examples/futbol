@@ -20,6 +20,4 @@ class TeamTest < Minitest::Test
     assert_equal 23, @team.franchiseid
     assert_equal "Atlanta United", @team.teamname
   end
-
-
 end

@@ -1,4 +1,5 @@
 require_relative 'game'
+require_relative 'team_stats'
 require_relative 'data_loadable'
 
 class GameStats
@@ -7,6 +8,8 @@ class GameStats
 
   def initialize(file_path, object)
     @games = csv_data(file_path, object)
+    # this smells
+    @team_stats = TeamStats.new("./data/teams.csv", Team)
   end
 
   def percentage_ties
@@ -24,19 +27,19 @@ class GameStats
   end
 
   def percentage_home_wins
-    home_wins = @games.find_all {|game| game.away_goals < game.home_goals}
+    home_wins = @games.find_all { |game| game.away_goals < game.home_goals }
     sum = (home_wins.length).to_f / (@games.length).to_f
     (100 * sum).round(2)
   end
 
   def percentage_visitor_wins
-    vistor_wins = @games.find_all {|game| game.away_goals > game.home_goals}
+    vistor_wins = @games.find_all { |game| game.away_goals > game.home_goals }
     sum = (vistor_wins.length).to_f / (@games.length).to_f
     (100 * sum).round(2)
   end
 
   def average_goals_per_game
-    all_goals = @games.sum {|game| game.away_goals + game.home_goals}
+    all_goals = @games.sum { |game| game.away_goals + game.home_goals }
     sum = all_goals.to_f / @games.length
     sum.round(2)
   end
@@ -69,4 +72,24 @@ class GameStats
     @games.map { |game| (game.away_goals - game.home_goals).abs }.max
   end
 
+  def winningest_team
+    win_ratios = Hash.new { |hash, key| hash[key] = [0,0] }
+    @games.each do |game|
+      if game.away_goals > game.home_goals
+        win_ratios[game.away_team_id][0] += 1
+      end
+      if game.home_goals > game.away_goals
+        win_ratios[game.home_team_id][0] += 1
+      end
+      win_ratios[game.away_team_id][1] += 1
+      win_ratios[game.home_team_id][1] += 1
+    end
+
+    win_percentages = win_ratios.each_with_object(Hash.new) do |(team_id, win_ratio), win_percent|
+      win_percent[team_id] = win_ratio[0].fdiv(win_ratio[1]) * 100
+    end
+
+    team_id = win_percentages.key(win_percentages.values.max)
+    @team_stats.find_name(team_id)
+  end
 end
