@@ -42,6 +42,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal 32, Team.all.count
   end
 
+  def test_sort_module
+    assert_equal [1,2,3,4,5,6,7,8], @stat_tracker.sort(Game)
+  end
+
   def test_highest_total_score
     assert_equal 8, @stat_tracker.highest_total_score
   end
