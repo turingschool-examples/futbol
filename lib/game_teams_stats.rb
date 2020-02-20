@@ -31,11 +31,7 @@ class GameTeamStats
     scoring_hash = {}
     @game_teams.each do |game|
       if game.hoa == hoa
-        if scoring_hash[game.team_id] == nil
-          scoring_hash[game.team_id] = [0,0]
-        end
-        scoring_hash[game.team_id][0] += game.goals.to_i
-        scoring_hash[game.team_id][1] += 1
+        update_scoring_hash(scoring_hash, game)
       end
     end
     scoring_hash.each_key do |key|
@@ -44,38 +40,30 @@ class GameTeamStats
     @team_stats.find_name(low_or_high(wol, scoring_hash))
   end
 
+  def update_scoring_hash(scoring_hash, game)
+    if scoring_hash[game.team_id] == nil
+      scoring_hash[game.team_id] = [0,0]
+    end
+    scoring_hash[game.team_id][0] += game.goals.to_i
+    scoring_hash[game.team_id][1] += 1
+  end
+
   def low_or_high(wol, scoring_hash)
-    id  = {'id' => [-1, -1]}
-    if wol == 'low'
-      low(scoring_hash, id)
-    elsif wol == 'win'
-      high(scoring_hash, id)
-    end
-    id['id'][1]
-  end
+   id  = {'id' => [-1, -1]}
+   scoring_hash.each_key do |key|
+     if id['id'][0] == -1
+       update_id(id, key, scoring_hash)
+     elsif id['id'][0] > scoring_hash[key] && wol == 'low'
+       update_id(id, key, scoring_hash)
+     elsif id['id'][0] < scoring_hash[key] && wol == 'win'
+       update_id(id, key, scoring_hash)
+     end
+   end
+   id['id'][1]
+ end
 
-  def low(scoring_hash, id)
-    scoring_hash.each_key do |key|
-      if id['id'][0] == -1
-        id['id'][1] = key.to_i
-        id['id'][0] = scoring_hash[key]
-      elsif id['id'][0] > scoring_hash[key]
-        id['id'][0] = scoring_hash[key]
-        id['id'][1] = key.to_i
-      end
-    end
-  end
-
-  def high(scoring_hash, id)
-    scoring_hash.each_key do |key|
-      if id['id'][0] == -1
-        id['id'][1] = key.to_i
-        id['id'][0] = scoring_hash[key]
-      elsif id['id'][0] < scoring_hash[key]
-        id['id'][0] = scoring_hash[key]
-        id['id'][1] = key.to_i
-      end
-    end
-  end
-
+ def update_id(id, key, scoring_hash)
+   id['id'][1] = key.to_i
+   id['id'][0] = scoring_hash[key]
+ end
 end

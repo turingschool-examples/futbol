@@ -32,7 +32,7 @@ class GameteamsStatsTest < Minitest::Test
   end
 
   def test_game_teams_stats_low_or_high
-    fake_hash = {1 => 4.0, 2 =>5.5, 3 => 4.5}
+    fake_hash = {1 => 4.0, 2 => 5.5, 3 => 4.5}
     assert_equal 2, @game_team_stats.low_or_high('win', fake_hash)
     assert_equal 1, @game_team_stats.low_or_high('low', fake_hash)
   end
