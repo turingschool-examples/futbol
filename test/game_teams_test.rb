@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/game_teams'
-require 'CSV'
+require 'csv'
 
 class GameTeamsTest < Minitest::Test
 
