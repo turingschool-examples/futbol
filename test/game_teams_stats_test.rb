@@ -32,15 +32,23 @@ class GameteamsStatsTest < Minitest::Test
   end
 
   def test_game_teams_stats_low_or_high
-    fake_hash = {1 => 4.0, 2 => 5.5, 3 => 4.5}
-    assert_equal 2, @game_team_stats.low_or_high('win', fake_hash)
-    assert_equal 1, @game_team_stats.low_or_high('low', fake_hash)
+    test_hash = {1 => 4.0, 2 => 5.5, 3 => 4.5}
+    assert_equal 2, @game_team_stats.low_or_high('win', test_hash)
+    assert_equal 1, @game_team_stats.low_or_high('low', test_hash)
   end
 
   def test_game_teams_stats_update_scoring_hash
     scoring_hash = {}
     result = {6 => [3,1]}
     assert_equal result, @game_team_stats.update_scoring_hash(scoring_hash, @game_teams)
+  end
+
+  def test_game_teams_stats_update_id
+    id  = {'id' => [-1, -1]}
+    key = 2
+    test_hash = {1 => 4.0, 2 => 5.5, 3 => 4.5}
+    expected = {'id' => [5.5, 2]}
+    assert_equal expected, @game_team_stats.update_id(id, key, test_hash)
   end
 
   def test_game_teams_stats_lowest_visitor_score

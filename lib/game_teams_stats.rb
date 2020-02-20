@@ -66,5 +66,6 @@ class GameTeamStats
  def update_id(id, key, scoring_hash)
    id['id'][1] = key.to_i
    id['id'][0] = scoring_hash[key]
+   id
  end
 end
