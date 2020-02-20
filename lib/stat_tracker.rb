@@ -1,4 +1,8 @@
+require "./lib/modules/calculable"
+
 class StatTracker
+  include Calculable
+
   def initialize()
   end
 
@@ -19,19 +23,11 @@ class StatTracker
   end
 
   def highest_total_score
-    total_scores = []
-    Game.all.each_value do |value|
-      total_scores << value.home_goals + value.away_goals
-    end
-    total_scores.max
+    sort(Game).max
   end
 
   def lowest_total_score
-    total_scores = []
-    Game.all.each_value do |value|
-      total_scores << value.home_goals + value.away_goals
-    end
-    total_scores.min
+    sort(Game).min
   end
 
   def biggest_blowout
