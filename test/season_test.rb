@@ -18,7 +18,7 @@ class SeasonTest < Minitest::Test
     game_file_path = './test/fixtures/truncated_games.csv'
     @game_collection = GameCollection.new(game_file_path)
 
-    @season = Season.new(@game_collection, @team_collection, @game_team_collection, "20122013")
+    @season = Season.new(@game_collection, @team_collection, @game_team_collection)
   end
 
   def test_it_exists
@@ -80,5 +80,9 @@ class SeasonTest < Minitest::Test
     skip
     @season.get_team_info
     @season.get_regular_percents('Regular Season')
+  end
+
+  def test_it_can_count_games_by_season
+
   end
 end

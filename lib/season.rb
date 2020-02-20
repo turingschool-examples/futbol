@@ -2,15 +2,16 @@ require_relative 'game_collection'
 require_relative 'game_team_collection'
 require_relative 'team_collection'
 
-class Season
+class SeasonStat
   attr_reader :all_games
 
-  def initialize(game_collection, team_collection, game_team_collection, season)
+  def initialize(game_collection, team_collection, game_team_collection)
     @game_collection = game_collection
     @team_collection = team_collection
     @game_team_collection = game_team_collection
     @all_games = get_season_games(season)
     @team_info = nil
+    @season_list = @game_collection.get_all_seasons
   end
 
   def get_season_games(season)
