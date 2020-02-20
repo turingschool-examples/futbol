@@ -2,7 +2,7 @@ require "./lib/team_collection"
 require "./lib/game_team_collection"
 require "./lib/game_collection"
 
-class FutbolDAL
+class StatTracker
 
   def self.from_csv(csv_file_paths)
     self.new(csv_file_paths)
