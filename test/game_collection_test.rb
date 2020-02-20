@@ -33,6 +33,16 @@ class GameCollectionClass < Minitest::Test
     assert_equal 49.83, @game_collection.pct_of_total_games(:home_wins)
   end
 
+  def test_it_returns_away_win_pct
+    @game_collection.create_pct_data
+    assert_equal 34.45, @game_collection.pct_of_total_games(:away_wins)
+  end
+
+  def test_it_returns_tie_pct
+    @game_collection.create_pct_data
+    assert_equal 15.72, @game_collection.pct_of_total_games(:ties)
+  end
+
   def test_it_can_get_all_seasons
     season_test_list = ["20122013", "20162017", "20142015", "20152016", "20132014"]
 
