@@ -17,7 +17,6 @@ class GameCollection
     end
   end
 
-
   def create_pct_data
     @games_list.each do |game|
       @pct_data[:total_games] += 1
@@ -33,7 +32,7 @@ class GameCollection
   end
 
   def pct_of_total_games(outcome_type)
-    (@pct_data[outcome_type] / @pct_data[:total_games].to_f) * 100
+    ((@pct_data[outcome_type] / @pct_data[:total_games].to_f) * 100).round(2)
   end
 
   def get_all_seasons
