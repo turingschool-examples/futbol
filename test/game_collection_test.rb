@@ -33,4 +33,8 @@ class GameCollectionClass < Minitest::Test
     assert_equal 53.5, @game_collection.pct_of_total_games(:home_wins)
   end
 
+  def test_it_can_get_all_seasons
+    season_test_list = ["20122013"]
+  end
+
 end

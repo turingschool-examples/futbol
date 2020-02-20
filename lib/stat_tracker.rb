@@ -1,9 +1,8 @@
-require 'CSV'
-require './lib/team'
-require './lib/game'
+require 'csv'
+require_relative 'season'
 
 class StatTracker
-  attr_reader :games, :teams, :game_teams
+  attr_reader :games_file, :teams_file, :game_teams_file
 
   def initialize(games_file, teams_, game_teams)
     @games_file = games_file
@@ -17,5 +16,9 @@ class StatTracker
     game_teams_file = locations_params[:game_teams]
 
     StatTracker.new(games_file, teams_file, game_teams_file)
+  end
+
+  def count_of_games_by_season
+    season = Season.new(season)
   end
 end
