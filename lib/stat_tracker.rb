@@ -18,4 +18,11 @@ class StatTracker
       CSV.foreach(file, csv_options) { |row| item_class.add(item_class.new(row.to_hash)) }
   end
 
+  def win_percentage(season, team_id)
+    Game.all.select do |game_id, game_data|
+      game_data.season == season
+    end
+  end
+
+
 end

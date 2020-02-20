@@ -42,4 +42,23 @@ class StatTrackerTest < Minitest::Test
     assert_equal 32, Team.all.count
   end
 
+  def test_it_can_calculate_win_percentage
+    assert_equal 0.143, @stat_tracker.win_percentage(20122013, 3)
+  end
+#  def test_biggest_bust
+#
+
+
+#    For each team in that season , we need
+#    win_percentage("Regular Season") - win_percentage("Postseason")
+#    return Team Name with largest number difference
+
+#    Store list of win percentages by season with team name and result of win percentage differential
+
+#    Team Name
+
+#    Game.all
+
+#  end
+
 end
