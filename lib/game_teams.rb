@@ -10,7 +10,7 @@ class GameTeams
               :shots,
               :tackles
 
-
+  def initialize(attributes)
     @game_id = attributes[:game_id].to_i
     @team_id = attributes[:team_id].to_i
     @hoa = attributes[:hoa]
@@ -20,6 +20,5 @@ class GameTeams
     @goals = attributes[:goals].to_i
     @shots = attributes[:shots].to_i
     @tackles = attributes[:tackles].to_i
-
   end
 end
