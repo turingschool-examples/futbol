@@ -40,4 +40,12 @@ class TeamCollectionTest < Minitest::Test
 
     assert_equal [team], @team_collection.teams
   end
+
+  def test_it_can_create_teams_collection
+    @team_collection.create_teams_collection
+
+    assert_equal 9, @team_collection.teams.length
+    assert_instance_of Team, @team_collection.teams.first
+    assert_instance_of Team, @team_collection.teams.last
+  end
 end
