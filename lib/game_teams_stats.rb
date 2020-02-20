@@ -13,9 +13,6 @@ class GameTeamStats
   end
 
   def best_fans
-    # Name of the team with biggest difference
-    # between home and away win percentages.
-
     # home results
     home_games = @game_teams.select do |game_team|
       game_team.hoa == "home"
