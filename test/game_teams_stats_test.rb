@@ -3,6 +3,7 @@ require './lib/data_loadable'
 require './lib/game_teams'
 require './lib/game_teams_stats'
 
+
 class GameteamsStatsTest < Minitest::Test
 
   def setup
@@ -12,6 +13,15 @@ class GameteamsStatsTest < Minitest::Test
 
   def test_it_exists
     assert_instance_of GameTeamStats, @game_team_stats
+  end
+
+  def test_it_can_name_team_with_best_fans
+    game_team_stats = GameTeamStats.new("./data/game_teams_truncated_with_best_fans.csv", GameTeams)
+    assert_equal "FC Dallas", game_team_stats.best_fans
+  end
+
+  def test_it_can_list_teams_with_worst_fans
+    assert_equal ["Real Salt Lake", "Minnesota United FC"], @game_team_stats.worst_fans
   end
 
   def test_attributes_for_instance_of_game_teams_within_game_team_stats
@@ -25,7 +35,6 @@ class GameteamsStatsTest < Minitest::Test
     assert_equal 12, @game_teams.shots
     assert_equal 51, @game_teams.tackles
   end
-
   def test_returns_unique_team_ids_array
     assert_equal [3, 6, 1, 24, 20, 18, 26], @game_team_stats.unique_team_ids
   end
@@ -52,5 +61,46 @@ class GameteamsStatsTest < Minitest::Test
 
   def test_worst_offense
     assert_equal "FC Cincinnati", @game_team_stats.worst_offense
+  end
+
+  def test_game_teams_stats_scoring
+    assert_equal "FC Cincinnati", @game_team_stats.scoring('away','low')
+    assert_equal "Real Salt Lake", @game_team_stats.scoring('away','win')
+  end
+
+  def test_game_teams_stats_low_or_high
+    test_hash = {1 => 4.0, 2 => 5.5, 3 => 4.5}
+    assert_equal 2, @game_team_stats.low_or_high('win', test_hash)
+    assert_equal 1, @game_team_stats.low_or_high('low', test_hash)
+  end
+
+  def test_game_teams_stats_update_scoring_hash
+    scoring_hash = {}
+    result = {6 => [3,1]}
+    assert_equal result, @game_team_stats.update_scoring_hash(scoring_hash, @game_teams)
+  end
+
+  def test_game_teams_stats_update_id
+    id  = {'id' => [-1, -1]}
+    key = 2
+    test_hash = {1 => 4.0, 2 => 5.5, 3 => 4.5}
+    expected = {'id' => [5.5, 2]}
+    assert_equal expected, @game_team_stats.update_id(id, key, test_hash)
+  end
+
+  def test_game_teams_stats_lowest_visitor_score
+    assert_equal "FC Cincinnati", @game_team_stats.lowest_scoring_visitor
+  end
+
+  def test_game_teams_stats_lowest_home_score
+    assert_equal "Toronto FC", @game_team_stats.lowest_scoring_home_team
+  end
+
+  def test_game_teams_stats_highest_scoring_visitor
+    assert_equal "Real Salt Lake", @game_team_stats.highest_scoring_visitor
+  end
+
+  def test_game_teams_stats_highest_scoring_home_team
+    assert_equal "FC Dallas", @game_team_stats.highest_scoring_home_team
   end
 end

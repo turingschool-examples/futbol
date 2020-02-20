@@ -1,6 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/team'
+require_relative 'test_helper'
 require './lib/team_stats'
 
 class TeamStatsTest < Minitest::Test
@@ -22,6 +20,10 @@ class TeamStatsTest < Minitest::Test
 
   def test_it_can_return_count_of_teams
     assert_equal 32, @team_stats.count_of_teams
+  end
+
+  def test_team_stats_find_name
+    assert_equal "Chicago Fire", @team_stats.find_name(4)
   end
 
 end
