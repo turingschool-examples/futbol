@@ -44,4 +44,12 @@ class GameCollectionTest < Minitest::Test
 
     assert_equal [game], @game_collection.games
   end
+
+  def test_games_can_be_created_through_csv
+    @game_collection.create_game_collection
+
+    assert_instance_of Game, @game_collection.games.first
+    assert_instance_of Game, @game_collection.games.last
+    assert_equal 10, @game_collection.games.length
+  end
 end
