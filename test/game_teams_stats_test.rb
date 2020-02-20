@@ -18,4 +18,8 @@ class GameTeamStatsTest < Minitest::Test
     assert_equal "FC Dallas", game_team_stats.best_fans
   end
 
+  def test_it_can_list_teams_with_worst_fans
+    assert_equal ["Real Salt Lake", "Minnesota United FC"], @game_team_stats.worst_fans
+  end
+
 end
