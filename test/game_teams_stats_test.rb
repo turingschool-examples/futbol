@@ -45,4 +45,12 @@ class GameteamsStatsTest < Minitest::Test
   def test_returns_average_goals
     assert_equal 2, @game_team_stats.average_goals_per_team(1)
   end
+
+  def test_best_offense
+    assert_equal "FC Dallas", @game_team_stats.best_offense
+  end
+
+  def test_worst_offense
+    assert_equal "FC Cincinnati", @game_team_stats.worst_offense
+  end
 end
