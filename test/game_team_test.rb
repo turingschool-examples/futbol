@@ -6,6 +6,7 @@ class GameTeamTest < Minitest::Test
   def setup
     @game_teams = GameTeam.create_game_team('./test/fixtures/game_teams_truncated.csv')
     @game_team = GameTeam.all[2]
+
   end
 
   def test_it_exists
@@ -28,5 +29,13 @@ class GameTeamTest < Minitest::Test
     assert_equal 51.7, @game_team.face_off_win_percentage
     assert_equal 1, @game_team.giveaways
     assert_equal 4, @game_team.takeaways
+  end
+
+  def test_it_can_find_percentage_home_wins
+    assert_equal 68.42, @game_team.percentage_home_wins
+  end
+
+  def test_it_can_find_percentage_visitor_wins
+    assert_equal 25.0, @game_team.percentage_visitor_wins
   end
 end
