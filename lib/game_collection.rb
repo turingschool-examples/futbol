@@ -8,8 +8,8 @@ class GameCollection
   end
 
   def create_games(game_file_path)
-    @game_data = CSV.read(game_file_path, headers: true, header_converters: :symbol)
-    @game_data.map do |row|
+    game_data = CSV.read(game_file_path, headers: true, header_converters: :symbol)
+    game_data.map do |row|
       Game.new(row.to_h)
     end
   end
