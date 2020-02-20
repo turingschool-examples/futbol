@@ -40,4 +40,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal 32, Team.all.count
   end
 
+  def test_it_knows_how_many_teams_there_are
+    stat_tracker = StatTracker.new
+    assert_equal 32, stat_tracker.count_of_teams
+  end
+  
+
 end
