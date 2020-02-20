@@ -6,8 +6,8 @@ class TeamTest < Minitest::Test
   def setup
     @team = Team.new({
       team_id:        1,
-      franchiseId:    23,
-      teamName:       "Atlanta United",
+      franchiseid:    23,
+      teamname:       "Atlanta United",
       abbreviation:   "ATL",
       stadium:        "Mercedes-Benz Stadium",
       link:           "/api/v1/teams/1"
