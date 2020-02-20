@@ -7,7 +7,14 @@ require "CSV"
 class GameCollectionTest < Minitest::Test
 
   def setup
-    @game_collection = GameCollection.new("./test/fixtures/games_truncated.csv")
+    locations = {
+      games: "./test/fixtures/games_truncated.csv",
+      teams: "",
+      game_teams: ""
+    }
+
+    @stat_tracker = StatTracker.from_csv(locations)
+    @game_collection = @stat_tracker.game_collection
   end
 
   def test_it_exists
@@ -26,15 +33,4 @@ class GameCollectionTest < Minitest::Test
     assert_equal game, @game_collection.games
   end
 
-  def test_calculates_percentage_home_wins
-    assert_equal 40.0, @game_collection.percentage_home_wins
-  end
-
-  def test_calculates_percentage_visitor_wins
-    assert_equal 50.0, @game_collection.percentage_visitor_wins
-  end
-
-  def test_calculates_percentage_ties
-    assert_equal 10.0, @game_collection.percentage_ties
-  end
 end
