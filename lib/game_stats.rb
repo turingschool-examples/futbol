@@ -69,4 +69,26 @@ class GameStats
     @games.map { |game| (game.away_goals - game.home_goals).abs }.max
   end
 
+  def winningest_team
+    win_ratios = Hash.new { |hash, key| hash[key] = [0,0] }
+    @games.each do |game|
+      if game.away_goals > game.home_goals
+        win_ratios[game.away_team_id][0] += 1
+      end
+      if game.home_goals > game.away_goals
+        win_ratios[game.home_team_id][0] += 1
+      end
+        win_ratios[game.away_team_id][1] += 1
+        win_ratios[game.home_team_id][1] += 1
+    end
+
+    win_percentages = win_ratios.each_with_object(Hash.new) do |(team_id, win_ratio), win_percent|
+      win_percent[team_id] = win_ratio[0].fdiv(win_ratio[1]) * 100
+    end
+
+    #note use the morph to change team_id to team_name
+    win_percentages.key(win_percentages.values.max)
+  end
+
+
 end
