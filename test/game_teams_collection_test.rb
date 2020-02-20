@@ -21,7 +21,7 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_has_as_many_teams_as_data_lines
-    assert = @gtc.game_teams.length == CSV.readlines(@locations, headers: true).size
+    assert @gtc.game_teams.length == CSV.readlines(@locations, headers: true).size
   end
 
   def test_it_has_real_data
