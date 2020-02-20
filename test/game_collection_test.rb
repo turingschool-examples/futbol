@@ -17,4 +17,20 @@ class GameCollectionClass < Minitest::Test
     assert_instance_of Game, @game_collection.games_list.first
     assert_equal 200, @game_collection.games_list.length
   end
+
+  def test_it_creates_pct_data
+    expected = {
+      total_games: 200,
+      home_wins: 107,
+      away_wins: 86,
+      ties: 7
+    }
+    assert_equal expected, @game_collection.create_pct_data
+  end
+
+  def test_it_returns_home_win_pct
+    @game_collection.create_pct_data
+    assert_equal 53.5, @game_collection.pct_of_total_games(:home_wins)
+  end
+
 end
