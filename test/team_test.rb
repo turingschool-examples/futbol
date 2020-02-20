@@ -22,5 +22,4 @@ class TeamTest < Minitest::Test
     assert_equal '/api/v1/teams/26', @team.link
 
   end
-
- end
+end
