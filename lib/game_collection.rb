@@ -22,4 +22,8 @@ class GameCollection
       collect_game(instantiate_game(row))
     end
   end
+
+  def total_goals_per_game
+    @games.map {|game| game.away_goals + game.home_goals}
+  end
 end
