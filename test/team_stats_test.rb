@@ -12,4 +12,10 @@ class TeamStatsTest < Minitest::Test
     assert_instance_of TeamStats, @team_stats
   end
 
+  def test_attributes_for_instance_of_team_within_team_stats
+    assert_equal 4, @team.team_id
+    assert_equal 16, @team.franchiseid
+    assert_equal "Chicago Fire", @team.teamname
+  end
+
 end
