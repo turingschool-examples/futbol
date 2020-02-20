@@ -17,7 +17,7 @@ class TeamCollection
     @teams << team
   end
 
-  def create_teams_collection
+  def create_team_collection
     CSV.foreach(@csv_file_path, headers: true, header_converters: :symbol) do |row|
       collect_team(instantiate_team(row))
     end
