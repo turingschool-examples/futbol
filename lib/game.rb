@@ -11,7 +11,7 @@ class Game
 
   def initialize(info_params)
     @game_id = info_params[:game_id].to_i
-    @season = info_params[:season].to_i
+    @season = info_params[:season]
     @type = info_params[:type]
     @date_time = info_params[:date_time]
     @away_team_id = info_params[:away_team_id].to_i
