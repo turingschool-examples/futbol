@@ -19,8 +19,8 @@ class TeamCollectionTest < Minitest::Test
   end
 
   def test_it_can_instantiate_a_game_object
-    info = {team_id: "6", franchiseId: "6", teamName: "FC Dallas",
-            abbreviation: "DAL", Stadium: "Toyota Stadium", link: "/api/v1/teams/6"}
+    info = {team_id: "6", franchiseid: "6", teamname: "FC Dallas",
+            abbreviation: "DAL", stadium: "Toyota Stadium", link: "/api/v1/teams/6"}
     team = @team_collection.instantiate_team(info)
 
     assert_instance_of Team, team
@@ -33,16 +33,16 @@ class TeamCollectionTest < Minitest::Test
   end
 
   def test_it_can_collect_team
-    info = {team_id: "6", franchiseId: "6", teamName: "FC Dallas",
-            abbreviation: "DAL", Stadium: "Toyota Stadium", link: "/api/v1/teams/6"}
+    info = {team_id: "6", franchiseid: "6", teamname: "FC Dallas",
+            abbreviation: "DAL", stadium: "Toyota Stadium", link: "/api/v1/teams/6"}
     team = @team_collection.instantiate_team(info)
     @team_collection.collect_team(team)
 
     assert_equal [team], @team_collection.teams
   end
 
-  def test_it_can_create_teams_collection
-    @team_collection.create_teams_collection
+  def test_it_can_create_team_collection
+    @team_collection.create_team_collection
 
     assert_equal 9, @team_collection.teams.length
     assert_instance_of Team, @team_collection.teams.first

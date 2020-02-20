@@ -6,7 +6,7 @@ class GameTeam
   def initialize(game_team_params)
     @game_id = game_team_params[:game_id].to_i
     @team_id = game_team_params[:team_id].to_i
-    @home_or_away = game_team_params[:HoA]
+    @home_or_away = game_team_params[:hoa]
     @result = game_team_params[:result]
     @settled_in = game_team_params[:settled_in]
     @head_coach = game_team_params[:head_coach]
@@ -14,9 +14,9 @@ class GameTeam
     @shots = game_team_params[:shots].to_i
     @tackles = game_team_params[:tackles].to_i
     @pim = game_team_params[:pim].to_i
-    @power_play_opportunities = game_team_params[:powerPlayOpportunities].to_i
-    @power_play_goals = game_team_params[:powerPlayGoals].to_i
-    @face_of_win_percentage = game_team_params[:faceOffWinPercentage].to_f
+    @power_play_opportunities = game_team_params[:powerplayopportunities].to_i
+    @power_play_goals = game_team_params[:powerplaygoals].to_i
+    @face_of_win_percentage = game_team_params[:faceoffwinpercentage].to_f
     @giveaways = game_team_params[:giveaways].to_i
     @takeaways = game_team_params[:takeaways].to_i
   end

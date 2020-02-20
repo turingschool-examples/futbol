@@ -5,16 +5,16 @@ require './lib/team'
 class TeamTest < Minitest::Test
 
   def test_it_exists
-    info = {team_id: "6", franchiseId: "6", teamName: "FC Dallas",
-            abbreviation: "DAL", Stadium: "Toyota Stadium", link: "/api/v1/teams/6"}
+    info = {team_id: "6", franchiseid: "6", teamname: "FC Dallas",
+            abbreviation: "DAL", stadium: "Toyota Stadium", link: "/api/v1/teams/6"}
     team = Team.new(info)
-    
+
     assert_instance_of Team, team
   end
 
   def test_it_has_attributes
-    info = {team_id: "6", franchiseId: "6", teamName: "FC Dallas",
-            abbreviation: "DAL", Stadium: "Toyota Stadium", link: "/api/v1/teams/6"}
+    info = {team_id: "6", franchiseid: "6", teamname: "FC Dallas",
+            abbreviation: "DAL", stadium: "Toyota Stadium", link: "/api/v1/teams/6"}
     team = Team.new(info)
 
     assert_equal 6, team.team_id
