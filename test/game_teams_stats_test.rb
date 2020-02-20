@@ -3,6 +3,7 @@ require './lib/data_loadable'
 require './lib/game_teams'
 require './lib/game_teams_stats'
 
+
 class GameteamsStatsTest < Minitest::Test
 
   def setup
@@ -12,6 +13,15 @@ class GameteamsStatsTest < Minitest::Test
 
   def test_it_exists
     assert_instance_of GameTeamStats, @game_team_stats
+  end
+
+  def test_it_can_name_team_with_best_fans
+    game_team_stats = GameTeamStats.new("./data/game_teams_truncated_with_best_fans.csv", GameTeams)
+    assert_equal "FC Dallas", game_team_stats.best_fans
+  end
+
+  def test_it_can_list_teams_with_worst_fans
+    assert_equal ["Real Salt Lake", "Minnesota United FC"], @game_team_stats.worst_fans
   end
 
   def test_attributes_for_instance_of_game_teams_within_game_team_stats
@@ -66,5 +76,4 @@ class GameteamsStatsTest < Minitest::Test
   def test_game_teams_stats_highest_scoring_home_team
     assert_equal "FC Dallas", @game_team_stats.highest_scoring_home_team
   end
-
 end
