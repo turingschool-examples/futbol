@@ -1,4 +1,5 @@
 require_relative 'game'
+require_relative 'team_stats'
 require_relative 'data_loadable'
 
 class GameStats
@@ -7,6 +8,8 @@ class GameStats
 
   def initialize(file_path, object)
     @games = csv_data(file_path, object)
+    # this smells
+    @team_stats = TeamStats.new("./data/teams.csv", Team)
   end
 
   def percentage_ties
@@ -86,8 +89,8 @@ class GameStats
       win_percent[team_id] = win_ratio[0].fdiv(win_ratio[1]) * 100
     end
 
-    #note use the morph to change team_id to team_name
-    win_percentages.key(win_percentages.values.max)
+    team_id = win_percentages.key(win_percentages.values.max)
+    @team_stats.find_name(team_id)
   end
 
 
