@@ -3,6 +3,7 @@ require "./lib/stat_tracker"
 require "./lib/game_collection"
 require 'mocha/minitest'
 require "CSV"
+require './lib/game'
 
 class GameCollectionTest < Minitest::Test
 
@@ -20,10 +21,28 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_it_can_create_games_from_csv
-    game = mock('game')
-    @game_collection.stubs(:games).returns(game)
+    game1 = @game_collection.games.first
+    game2 = @game_collection.games.last
 
-    assert_equal game, @game_collection.games
+    assert_instance_of Game, game1
+    assert_equal 2, game1.away_goals
+    assert_equal 3, game1.away_team_id
+    assert_equal "5/16/13", game1.date_time
+    assert_equal 3, game1.home_goals
+    assert_equal 6, game1.home_team_id
+    assert_equal 0, game1.id
+    assert_equal "20122013", game1.season
+    assert_equal "Postseason", game1.type
+
+    assert_instance_of Game, game2
+    assert_equal 3, game2.away_goals
+    assert_equal 16, game2.away_team_id
+    assert_equal "4/18/14", game2.date_time
+    assert_equal 2, game2.home_goals
+    assert_equal 19, game2.home_team_id
+    assert_equal 0, game2.id
+    assert_equal "20132014", game2.season
+    assert_equal "Postseason", game2.type
   end
 
 end
