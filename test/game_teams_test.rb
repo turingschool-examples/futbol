@@ -5,16 +5,16 @@ class GameTeamsTest < Minitest::Test
 
   def setup
     @game_teams = GameTeams.new({
-          game_id: 2012030221,
-          team_id: 3,
-          hoa: "away",
-          result: "LOSS",
-          settled_in: "OT",
-          head_coach: "John Tortorella",
-          goals: 2,
-          shots: 8,
-          tackles: 44
-        })
+      game_id: 2012030221,
+      team_id: 3,
+      hoa: "away",
+      result: "LOSS",
+      settled_in: "OT",
+      head_coach: "John Tortorella",
+      goals: 2,
+      shots: 8,
+      tackles: 44
+      })
   end
 
   def test_it_exists
@@ -32,6 +32,4 @@ class GameTeamsTest < Minitest::Test
     assert_equal 8, @game_teams.shots
     assert_equal 44, @game_teams.tackles
   end
-
-
 end

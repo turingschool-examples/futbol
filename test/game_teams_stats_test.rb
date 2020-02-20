@@ -25,6 +25,34 @@ class GameteamsStatsTest < Minitest::Test
     assert_equal 12, @game_teams.shots
     assert_equal 51, @game_teams.tackles
   end
+  
+  def test_returns_unique_team_ids_array
+    assert_equal [3, 6, 1, 24, 20, 18, 26], @game_team_stats.unique_team_ids
+  end
+
+  def test_games_by_team
+    assert_equal 1, @game_team_stats.games_by_team(1).count
+  end
+
+  def test_total_games_by_team_id
+    assert_equal 1, @game_team_stats.total_games_by_team_id(1)
+  end
+
+  def test_total_goals_by_team_id
+    assert_equal 2, @game_team_stats.total_goals_by_team_id(1)
+  end
+
+  def test_returns_average_goals
+    assert_equal 2, @game_team_stats.average_goals_per_team(1)
+  end
+
+  def test_best_offense
+    assert_equal "FC Dallas", @game_team_stats.best_offense
+  end
+
+  def test_worst_offense
+    assert_equal "FC Cincinnati", @game_team_stats.worst_offense
+  end
 
   def test_game_teams_stats_scoring
     assert_equal "FC Cincinnati", @game_team_stats.scoring('away','low')

@@ -15,17 +15,17 @@ class GameTest < Minitest::Test
       })
   end
 
-    def test_it_exists
-      assert_instance_of Game, @game
-    end
+  def test_it_exists
+    assert_instance_of Game, @game
+  end
 
-    def test_attribues
-      assert_equal 2015030226, @game.game_id
-      assert_equal 20152016, @game.season
-      assert_equal "Postseason", @game.type
-      assert_equal 15, @game.away_team_id
-      assert_equal 5, @game.home_team_id
-      assert_equal 3, @game.away_goals
-      assert_equal 2, @game.home_goals
-    end
+  def test_attribues
+    assert_equal 2015030226, @game.game_id
+    assert_equal 20152016, @game.season
+    assert_equal "Postseason", @game.type
+    assert_equal 15, @game.away_team_id
+    assert_equal 5, @game.home_team_id
+    assert_equal 3, @game.away_goals
+    assert_equal 2, @game.home_goals
+  end
 end
