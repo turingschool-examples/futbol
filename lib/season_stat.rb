@@ -2,15 +2,14 @@ require_relative 'game_collection'
 require_relative 'game_team_collection'
 require_relative 'team_collection'
 
-class Season
-  attr_reader :all_games
+class SeasonStat
 
-  def initialize(game_collection, team_collection, game_team_collection, season)
+  def initialize(game_collection, team_collection, game_team_collection)
     @game_collection = game_collection
     @team_collection = team_collection
     @game_team_collection = game_team_collection
-    @all_games = get_season_games(season)
     @team_info = nil
+    @season_list = @game_collection.get_all_seasons
   end
 
   def get_season_games(season)
@@ -23,50 +22,57 @@ class Season
     get_season_games(season).size
   end
 
-  def games_by_type(game_type)
-    @all_games.find_all do |game|
+  def count_of_games_by_season
+    @season_list.reduce({}) do |season_games_hash, season|
+      season_games_hash[season] = count_of_season_games(season)
+      season_games_hash
+    end
+  end
+
+  def games_by_type(game_type, season)
+    get_season_games(season).find_all do |game|
       game.type == game_type
     end
   end
 
-  def get_team_info
+  def get_team_info(season)
     @team_collection.teams_list.reduce({}) do |team_hash, team|
       team_hash[team.team_id] = {
          team_name: team.team_name,
-         season_win_percent: team_win_percentage(team.team_id, 'Regular Season'),
-         postseason_win_percent: team_win_percentage(team.team_id, 'Postseason')
+         season_win_percent: team_win_percentage(team.team_id, 'Regular Season', season),
+         postseason_win_percent: team_win_percentage(team.team_id, 'Postseason', season)
 }
       @team_info = team_hash
     end
   end
 
-  def total_team_games_by_game_type(team_id, game_type)
+  def total_team_games_by_game_type(team_id, game_type, season)
     total_games = 0
 
-    total_games += @all_games.find_all do |game|
+    total_games += get_season_games(season).find_all do |game|
        game.away_team_id == team_id && game.type == game_type
      end.length
 
-    total_games += @all_games.find_all do |game|
+    total_games += get_season_games(season).find_all do |game|
        game.home_team_id == team_id  && game.type == game_type
      end.length
 
     total_games
   end
 
-  def total_team_wins_by_game_type(team_id, game_type)
+  def total_team_wins_by_game_type(team_id, game_type, season)
     wins = 0
-    wins += @all_games.find_all do |game|
+    wins += get_season_games(season).find_all do |game|
       game.away_team_id == team_id && game.away_goals > game.home_goals && game.type == game_type
     end.length
-    wins += @all_games.find_all do |game|
+    wins += get_season_games(season).find_all do |game|
       game.home_team_id == team_id && game.home_goals > game.away_goals && game.type == game_type
     end.length
   end
 
-  def team_win_percentage(team_id, game_type)
-    total_wins = total_team_wins_by_game_type(team_id, game_type).to_f
-    total_games = total_team_games_by_game_type(team_id, game_type)
+  def team_win_percentage(team_id, game_type, season)
+    total_wins = total_team_wins_by_game_type(team_id, game_type, season).to_f
+    total_games = total_team_games_by_game_type(team_id, game_type, season)
     ((total_wins / total_games) * 100).round(2)
   end
 
