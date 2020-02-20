@@ -50,11 +50,9 @@ class GameTeamStats
   end
 
   def low_or_high(wol, scoring_hash)
-   id  = {'id' => [-1, -1]}
+   id  = {'id' => [scoring_hash[scoring_hash.first.first], scoring_hash.first.first]}
    scoring_hash.each_key do |key|
-     if id['id'][0] == -1
-       update_id(id, key, scoring_hash)
-     elsif id['id'][0] > scoring_hash[key] && wol == 'low'
+     if id['id'][0] > scoring_hash[key] && wol == 'low'
        update_id(id, key, scoring_hash)
      elsif id['id'][0] < scoring_hash[key] && wol == 'win'
        update_id(id, key, scoring_hash)
