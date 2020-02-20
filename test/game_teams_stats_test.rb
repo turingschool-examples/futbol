@@ -37,6 +37,12 @@ class GameteamsStatsTest < Minitest::Test
     assert_equal 1, @game_team_stats.low_or_high('low', fake_hash)
   end
 
+  def test_game_teams_stats_update_scoring_hash
+    scoring_hash = {}
+    result = {6 => [3,1]}
+    assert_equal result, @game_team_stats.update_scoring_hash(scoring_hash, @game_teams)
+  end
+
   def test_game_teams_stats_lowest_visitor_score
     assert_equal "FC Cincinnati", @game_team_stats.lowest_scoring_visitor
   end

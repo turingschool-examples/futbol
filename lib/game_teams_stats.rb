@@ -46,6 +46,7 @@ class GameTeamStats
     end
     scoring_hash[game.team_id][0] += game.goals.to_i
     scoring_hash[game.team_id][1] += 1
+    scoring_hash
   end
 
   def low_or_high(wol, scoring_hash)
