@@ -7,14 +7,7 @@ require "CSV"
 class GameCollectionTest < Minitest::Test
 
   def setup
-    locations = {
-      games: "./test/fixtures/games_truncated.csv",
-      teams: "",
-      game_teams: ""
-    }
-
-    @stat_tracker = StatTracker.from_csv(locations)
-    @game_collection = @stat_tracker.game_collection
+    @game_collection = GameCollection.new("./test/fixtures/games_truncated.csv")
   end
 
   def test_it_exists
