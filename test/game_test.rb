@@ -26,4 +26,15 @@ class GameTest < Minitest::Test
     assert_equal '/api/v1/venues/null', @game.venue_link
   end
 
- end
+  def test_it_can_calculate_highest_total_score
+    assert_equal 5, @game.highest_total_score
+  end
+
+  def test_it_can_calculate_lowest_total_score
+    assert_equal 1, @game.lowest_total_score
+  end
+
+  def test_it_can_find_biggest_blowout
+    assert_equal 3, @game.biggest_blowout
+  end
+end

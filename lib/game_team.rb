@@ -4,7 +4,7 @@ class GameTeam
 
   @@all = []
 
-  def self.create_game_team(csv_file_path)
+  def self.create_game_teams(csv_file_path)
     csv = CSV.read(csv_file_path, headers: true, header_converters: :symbol)
 
     all_game_team = csv.map do |row|
@@ -53,4 +53,25 @@ class GameTeam
     # aggregate team with goals scored
     # aggregate team w goals scored against then
   end
+
+  def percentage_home_wins
+    all_home_games = @@all.find_all do |game_team|
+      game_team.hoa == "home"
+    end
+    home_wins = all_home_games.find_all do |game_team|
+       game_team.result == "WIN"
+    end
+    ((home_wins.length / all_home_games.length.to_f) * 100).round(2)
+  end
+
+  def percentage_visitor_wins
+    all_visitor_games = @@all.find_all do |game_team|
+      game_team.hoa == "away"
+    end
+    visitor_wins = all_visitor_games.find_all do |game_team|
+       game_team.result == "WIN"
+    end
+    ((visitor_wins.length / all_visitor_games.length.to_f) * 100).round(2)
+  end
+
 end

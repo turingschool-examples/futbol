@@ -12,10 +12,7 @@ class Test < Minitest::Test
     team_path = './test/fixtures/teams_truncated.csv'
     game_teams_path = './test/fixtures/game_teams_truncated.csv'
 
-    @teams = Team.create_teams(team_path)
-    @games = Game.create_games(game_path)
-    @game_teams = GameTeam.create_game_team(game_teams_path)
-    @league = LeagueStatistics.new
+    @stat_tracker = StatTracker.from_csv(game_path, team_path, game_teams_path)
   end
 
   def test_it_can_count_teams

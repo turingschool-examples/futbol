@@ -19,6 +19,7 @@ class Team
 
   def self.all
     @@all
+  
   end
 
   attr_reader :team_id,

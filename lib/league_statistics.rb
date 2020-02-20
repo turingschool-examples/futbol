@@ -1,15 +1,10 @@
 class LeagueStatistics
 
-  def initialize
-    @teams = Team.all
-    @games = Game.all
-    @game_teams = GameTeam.all
-  end
-
   def count_of_teams
-    @teams.size
+    @teams.all.size
   end
 end
+
 # best_offense
 # 	Name of the team with the highest average number of goals scored
 #   per game across all seasons.
@@ -17,7 +12,6 @@ end
 def goal_average # module?
   game_teams.goals per game
   goals_per_game = @game_teams.game_id.each(&:goals)
-
 end
 
 def best_offense
