@@ -22,4 +22,12 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of GameCollection, @stat_tracker.game_collection
     assert_instance_of GameTeamCollection, @stat_tracker.game_team_collection
   end
+
+  def test_it_can_calculate_highest_total_score
+    assert_equal 6, @stat_tracker.highest_total_score
+  end
+
+  def test_it_can_calculate_lowest_total_score
+    assert_equal 3, @stat_tracker.lowest_total_score
+  end
 end
