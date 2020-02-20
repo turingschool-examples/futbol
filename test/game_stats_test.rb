@@ -76,7 +76,6 @@ class GameStatsTest < Minitest::Test
   def test_returns_winningest_team
     games_stats = GameStats.new("./data/games_truncated_with_winningest_team.csv", Game)
 
-    #note morph team id into team name
-    assert_equal 1, games_stats.winningest_team
+    assert_equal "Atlanta United", games_stats.winningest_team
   end
 end
