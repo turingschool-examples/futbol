@@ -4,7 +4,7 @@ class GameTeam
 
   @@all = []
 
-  def self.create_game_team(csv_file_path)
+  def self.create_game_teams(csv_file_path)
     csv = CSV.read(csv_file_path, headers: true, header_converters: :symbol)
 
     all_game_team = csv.map do |row|

@@ -4,7 +4,7 @@ require './lib/game_team'
 class GameTeamTest < Minitest::Test
 
   def setup
-    @game_teams = GameTeam.create_game_team('./test/fixtures/game_teams_truncated.csv')
+    @game_teams = GameTeam.create_game_teams('./test/fixtures/game_teams_truncated.csv')
     @game_team = GameTeam.all[2]
 
   end
