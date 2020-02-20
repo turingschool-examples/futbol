@@ -8,7 +8,6 @@ class GameStats
 
   def initialize(file_path, object)
     @games = csv_data(file_path, object)
-    # this smells
     @team_stats = TeamStats.new("./data/teams.csv", Team)
   end
 
@@ -92,6 +91,4 @@ class GameStats
     team_id = win_percentages.key(win_percentages.values.max)
     @team_stats.find_name(team_id)
   end
-
-
 end
