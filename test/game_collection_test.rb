@@ -15,10 +15,43 @@ class GameCollectionClass < Minitest::Test
   def test_it_has_list_of_games
     assert_instance_of Array, @game_collection.games_list
     assert_instance_of Game, @game_collection.games_list.first
-    assert_equal 200, @game_collection.games_list.length
+    assert_equal 299, @game_collection.games_list.length
+  end
+
+  def test_it_creates_pct_data
+    expected = {
+      total_games: 299,
+      home_wins: 149,
+      away_wins: 103,
+      ties: 47
+    }
+    assert_equal expected, @game_collection.create_pct_data
+  end
+
+  def test_it_returns_home_win_pct
+    @game_collection.create_pct_data
+    assert_equal 49.83, @game_collection.pct_of_total_games(:home_wins)
+  end
+
+  def test_it_returns_away_win_pct
+    @game_collection.create_pct_data
+    assert_equal 34.45, @game_collection.pct_of_total_games(:away_wins)
+  end
+
+  def test_it_returns_tie_pct
+    @game_collection.create_pct_data
+    assert_equal 15.72, @game_collection.pct_of_total_games(:ties)
+  end
+
+  def test_it_can_calculate_average_goals_per_game
+    @game_collection.create_pct_data
+    assert_equal 4.03, @game_collection.average_goals_per_game
   end
 
   def test_it_can_get_all_seasons
-    season_test_list = ["20122013"]
+    season_test_list = ["20122013", "20162017", "20142015", "20152016", "20132014"]
+
+    assert_equal season_test_list, @game_collection.get_all_seasons
   end
+
 end

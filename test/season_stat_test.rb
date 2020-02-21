@@ -83,8 +83,14 @@ class SeasonStatTest < Minitest::Test
   end
 
   def test_it_can_calculate_biggest_bust
+<<<<<<< HEAD
     @season_stat.get_team_info
     @season_stat.biggest_bust("20122013")
+=======
+      skip
+    @season_stat.get_team_info
+    @season_stat.get_regular_percents('Regular Season')
+>>>>>>> e2d084ce967654433b487d89cc3132e35c8d7766
   end
 
   def test_it_can_count_games_by_season
