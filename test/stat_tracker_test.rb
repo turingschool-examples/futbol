@@ -47,4 +47,17 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_return_the_biggest_blowout
     assert_equal 1, @stattracker.biggest_blowout
   end
+
+  def test_it_can_return_percentage_ties
+    assert_equal 0.0, @stattracker.percentage_ties
+  end
+
+  def test_it_can_return_count_of_games_by_season
+    expected = {
+        "20122013" => 2,
+        "20132014" => 1,
+        "20142015" => 1
+      }
+    assert_equal expected, @stattracker.count_of_games_by_season
+  end
 end
