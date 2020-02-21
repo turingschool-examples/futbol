@@ -58,25 +58,25 @@ class GameStatsTest < Minitest::Test
   def test_it_can_calculate_average_goals_per_season
     goals_by_season = { 20152016 => 5.33, 20132014 => 5, 20142015 => 3,
       20162017 => 4}
-      
+
       assert_equal goals_by_season, @games_stats.average_goals_by_season
-    end
-
-    def test_returns_highest_total_score
-      assert_equal 6, @games_stats.highest_total_score
-    end
-
-    def test_returns_lowest_total_score
-      assert_equal 3, @games_stats.lowest_total_score
-    end
-
-    def test_returns_biggest_blowout
-      assert_equal 2, @games_stats.biggest_blowout
-    end
-
-    def test_returns_winningest_team
-      games_stats = GameStats.new("./data/games_truncated_with_winningest_team.csv", Game)
-
-      assert_equal "Atlanta United", games_stats.winningest_team
-    end
   end
+
+  def test_returns_highest_total_score
+    assert_equal 6, @games_stats.highest_total_score
+  end
+
+  def test_returns_lowest_total_score
+    assert_equal 3, @games_stats.lowest_total_score
+  end
+
+  def test_returns_biggest_blowout
+    assert_equal 2, @games_stats.biggest_blowout
+  end
+
+  def test_returns_winningest_team
+    games_stats = GameStats.new("./data/games_truncated_with_winningest_team.csv", Game)
+
+    assert_equal "Atlanta United", games_stats.winningest_team
+  end
+end
