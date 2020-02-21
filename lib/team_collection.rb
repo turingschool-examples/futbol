@@ -4,12 +4,11 @@ require 'csv'
 class TeamCollection
   attr_reader :teams
 
-  def initialize(team_file_path)
-    @teams = create_teams(team_file_path)
+  def initialize(team_data)
+    @teams = create_teams(team_data)
   end
 
-  def create_teams(team_file_path)
-    team_data = CSV.read(team_file_path, headers: true, header_converters: :symbol)
+  def create_teams(team_data)
     team_data.map do |row|
       Team.new(row.to_h)
     end

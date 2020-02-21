@@ -6,8 +6,11 @@ require 'csv'
 class TeamCollectionTest < Minitest::Test
 
   def setup
-    @team_file_path = './data/teams.csv'
-    @team_collection = TeamCollection.new(@team_file_path)
+    @team_file_path =
+    @team_data = CSV.read('./data/teams.csv',
+                          headers: true,
+                          header_converters: :symbol)
+    @team_collection = TeamCollection.new(@team_data)
   end
 
   def test_it_exists
