@@ -9,7 +9,7 @@ class StatTrackerTest < Minitest::Test
 
   def setup
     @locations = {
-                  games: "./test/fixtures/games_sample.csv",
+                  games: "./test/fixtures/season_games_sample.csv",
                   game_teams: "./test/fixtures/game_teams_sample.csv",
                   teams: "./test/fixtures/teams_sample.csv"
                 }
@@ -37,15 +37,28 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_from_csv_loads_all_three_files
-    assert_equal 100, Game.all.count
+    assert_equal 20, Game.all.count
     assert_equal 50, GameTeam.all.count
     assert_equal 32, Team.all.count
   end
 
   def test_it_can_calculate_win_percentage
-    assert_equal 0.167, @stat_tracker.win_percentage(20122013, 3)
+    assert_equal 1.0, @stat_tracker.win_percentage(20122013, 6, "Postseason")
+    assert_equal 0, @stat_tracker.win_percentage(20122013, 3, "Postseason")
+    assert_equal 0.667, @stat_tracker.win_percentage(20122013, 6, "Regular Season")
   end
-#  def test_biggest_bust
+
+  #def test_it_can_find_postseason_games
+  #  assert_equal 5, @stat_tracker.post_season(20122013).count
+  #end
+
+  #def test_it_can_find_postseason_games
+  #  assert_equal 5, @stat_tracker.regular_season(20122013).count
+  #end
+
+  def test_biggest_bust
+    assert_equal "Houston Dynamo", @stat_tracker.biggest_bust(20122013)
+  end
 #
 
 
