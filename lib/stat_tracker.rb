@@ -6,6 +6,7 @@ require_relative 'game'
 
 class StatTracker
   include DataLoadable
+  attr_reader :games_path, :team_path, :game_teams_path
 
   def self.from_csv(locations)
     StatTracker.new(locations)
