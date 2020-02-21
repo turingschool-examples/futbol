@@ -53,4 +53,8 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_home_wins_percentage
     assert_equal 0.6, @stat_tracker.percentage_home_wins
   end
+
+  def test_it_can_get_away_win_percentages
+    assert_equal 0.3, @stat_tracker.percentage_visitor_wins
+  end
 end
