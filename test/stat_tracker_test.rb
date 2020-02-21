@@ -43,7 +43,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_calculate_win_percentage
-    assert_equal 0.143, @stat_tracker.win_percentage(20122013, 3)
+    assert_equal 0.167, @stat_tracker.win_percentage(20122013, 3)
   end
 #  def test_biggest_bust
 #
