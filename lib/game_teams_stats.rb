@@ -31,12 +31,10 @@ class GameTeamStats
 
   def best_offense
     team_id = unique_team_ids.max_by { |team_id| average_goals_per_team(team_id) }
-    team_id
   end
 
   def worst_offense
     team_id = unique_team_ids.min_by { |team_id| average_goals_per_team(team_id) }
-    team_id
   end
 
   def percent_differences
