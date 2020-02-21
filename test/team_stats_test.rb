@@ -6,26 +6,7 @@ require "./lib/game_team"
 require "./lib/team_stats"
 
 class TeamStatsTest < MiniTest::Test
-  def setup
-    StatTracker.create_items("./test/fixtures/teams_sample.csv", Team)
 
-    @team_expected = {
-      team_id: 1,
-      franchiseid: 23,
-      teamname: "Atlanta United",
-      abbreviation: "ATL",
-      stadium: "Mercedes-Benz Stadium",
-      link: "/api/v1/teams/1"
-    }
-
-    # @team1 = Team.new(@team_expected)
-    @team_collection = Team.all
-  end
-
-  def test_it_can_get_team_info
-    require 'pry'; binding.pry
-    assert team_info(1)
-  end
 
   def test_it_can_get_best_season
     skip

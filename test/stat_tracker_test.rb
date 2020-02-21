@@ -42,4 +42,62 @@ class StatTrackerTest < Minitest::Test
     assert_equal 32, Team.all.count
   end
 
+  def test_it_can_get_team_info_by_team_id
+    expected = {
+          team_id: 1,
+          franchiseid: 23,
+          teamname: "Atlanta United",
+          abbreviation: "ATL",
+          link: "/api/v1/teams/1"
+        }
+
+    assert_instance_of Hash, @stat_tracker.team_info(1)
+    assert_equal expected, @stat_tracker.team_info(1)
+    assert_equal 5, @stat_tracker.team_info(1).count
+    assert_equal 5, @stat_tracker.team_info(5).count
+  end
+
+  def test_it_can_get_average_win_percentage_by_team_id
+    assert_equal 0.0, @stat_tracker.average_win_percentage(3)
+    assert_equal 0.4, @stat_tracker.average_win_percentage(5)
+    assert_equal 1.0, @stat_tracker.average_win_percentage(6)
+    assert_equal -0.0, @stat_tracker.average_win_percentage(1)
+  end
+
+  def test_it_can_get_most_goals_scored_by_team_id
+    assert_equal 3, @stat_tracker.most_goals_scored(5)
+    assert_equal 2, @stat_tracker.most_goals_scored(3)
+    assert_equal 4, @stat_tracker.most_goals_scored(6)
+  end
+
+  def test_it_can_get_fewest_goals_scored
+    assert_equal 0, @stat_tracker.fewest_goals_scored(5)
+    assert_equal 0, @stat_tracker.fewest_goals_scored(3)
+    assert_equal 0, @stat_tracker.fewest_goals_scored(6)
+  end
+
+  def test_it_can_get_biggest_team_blowout
+    require 'pry'; binding.pry
+    assert_equal 0, @stat_tracker.biggest_team_blowout(5)
+    assert_equal 0, @stat_tracker.biggest_team_blowout(3)
+    assert_equal 0, @stat_tracker.biggest_team_blowout(6)
+  end
+
+  def test_it_can_get_biggest_team_blowout
+    assert_equal 3, @stat_tracker.biggest_team_blowout(5)
+    assert_equal 3, @stat_tracker.biggest_team_blowout(3)
+    assert_equal 3, @stat_tracker.biggest_team_blowout(6)
+  end
+
+  def test_it_can_get_worst_loss
+    require 'pry'; binding.pry
+    assert_equal 3, @stat_tracker.worst_loss(5)
+    assert_equal 3, @stat_tracker.worst_loss(3)
+    assert_equal 3, @stat_tracker.worst_loss(6)
+  end
+
+  # def test_it_can_get_rival
+  #   skip
+  #   assert @stat_tracker.rival(3)
+  # end
 end
