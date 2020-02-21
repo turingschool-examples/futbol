@@ -74,12 +74,6 @@ class StatTracker
   end
 
 
-    #Find regular season games
-    #Find post season games
-    #FIND TEAMS FOR EACH REGULAR SEASON AND POST SEASON
-
-    #For each team who took part in the season, calculate win percentage for regular season
-    #For each team who took part in the season, calculate win percentage for post season_games_sample
     #Calculate team with biggest decrease between regular and post season win percentage
     #Find name of team with corresponding team ID (will need to use Team Data!!!)
     #
