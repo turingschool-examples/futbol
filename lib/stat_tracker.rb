@@ -28,6 +28,7 @@ class StatTracker
 
   def biggest_blowout
     @game_collection.games.map {|game| (game.away_goals - game.home_goals).abs}.max
+  end
 
   # This only requires game information.
   # It should probably move to game collection eventually.
@@ -68,5 +69,10 @@ class StatTracker
       goals_by_season[season] = average.round(2)
       goals_by_season
     end
+  end
+
+  def percentage_home_wins
+    home_wins = @game_collection.games.find_all {|game| game.home_goals > game.away_goals}
+    home_wins.count.to_f / (@game_collection.games.count.to_f).round(2)
   end
 end

@@ -33,6 +33,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_return_biggest_blowout
     assert_equal 2, @stat_tracker.biggest_blowout
+  end
 
   def test_it_can_count_the_games_by_season
     expected = {20122013=>7, 20132014=>3}
@@ -47,5 +48,9 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_show_average_goals_by_season
     expected = {20122013=>4.71, 20132014=>4.00}
     assert_equal expected, @stat_tracker.average_goals_by_season
+  end
+
+  def test_it_can_get_home_wins_percentage
+    assert_equal 0.6, @stat_tracker.percentage_home_wins
   end
 end
