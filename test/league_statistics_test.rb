@@ -53,22 +53,24 @@ class Test < Minitest::Test
   end
 
   def test_it_can_average_goals_per_team
-    assert_equal [], @league.average_goals_per_team
-  end
-
-  def test_it_can_average_goals_per_team
-    skip
-    assert_equal 12, @league.average_goals_per_team
+    expected = {
+      3=>1.14,
+      6=>3.43,
+      5=>0.29,
+      17=>1.86,
+      16=>1.43,
+      9=>1.0,
+      8=>1.14
+    }
+    assert_equal expected, @league.average_goals_per_team
   end
 
   def test_it_can_tell_best_offense
-    skip
     assert_equal "FC Dallas", @league.best_offense
   end
 
   def test_it_can_tell_worst_offense
-    skip
-    assert_equal "", @league.worst_offense
+    assert_equal "Sporting Kansas City", @league.worst_offense
   end
 
   def test_it_can_tell_best_defense

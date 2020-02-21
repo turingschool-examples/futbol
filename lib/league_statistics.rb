@@ -34,46 +34,26 @@ class LeagueStatistics
   end
 
   def average_goals_per_team
-    require "pry"; binding.pry
-    # sum_goals_per_team
+    sum_goals_per_team.transform_values do |summed_goal|
+       (summed_goal.to_f / goals_per_team.values.size).round(2)
+     end
+  end
+
+  def best_offense
+    max_avg_goal_team_id = average_goals_per_team.key(average_goals_per_team.values.max)
+    find_team_names(max_avg_goal_team_id)
+  end
+
+  def worst_offense
+    min_avg_goal_team_id = average_goals_per_team.key(average_goals_per_team.values.min)
+    find_team_names(min_avg_goal_team_id)
   end
 
 end
-  #
-  # def best_offense
-  #   max_by average
-  #   return match of game_teams.team_id and team.id
-  # end
-# end
-#
-# # best_offense
-# # 	Name of the team with the highest average number of goals scored
-# #   per game across all seasons.
-# # 	String
-# def goal_average # module?
-#   game_teams.goals per game
-#   goals_per_game = @game_teams.game_id.each(&:goals)
-# end
-#
-# def best_offense
-#   max_by average
-#   return match of game_teams.team_id and team.id
-# end
-# #
-# # # worst_offense
-# # 	Name of the team with the lowest average number of goals scored
-# #   per game across all seasons.
-# # 	String
-# def average #module?
-#   game_teams.goals
-# end
-#
-# def worst_offense
-#   min_by average
-#   return match of game_teams.id and team.id
-# end
-#
+
 # # best_defense
+# average goals of other team per game...
+
 # # 	Name of the team with the lowest average number of goals
 # #   allowed per game across all seasons.
 # # 	String
