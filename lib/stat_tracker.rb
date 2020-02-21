@@ -70,6 +70,11 @@ class StatTracker
         ps_win_percentage_by_team[game_data.away_team_id] = win_percentage(season, game_data.away_team_id, "Postseason")
       end
     end
+    bust_diff = {}
+    ps_win_percentage_by_team.each_key do |team|
+       bust_diff[team] = ps_win_percentage_by_team[team] - rs_win_percentage_by_team[team]
+    end
+
     require "pry"; binding.pry
   end
 
