@@ -34,9 +34,9 @@ class SeasonWin
       game_id = game.game_id if game.away_team_id.to_s == team_id || game.home_team_id.to_s == team_id
       next acc if game_id.nil?
       if acc.include?(game.season)
-        acc[game.season] = acc[game.season] << game_id
+        acc[game.season] = acc[game.season] << game_id.to_s
       else
-        acc[game.season] = [game_id]
+        acc[game.season] = [game_id.to_s]
       end
       acc
     end
@@ -50,21 +50,27 @@ class SeasonWin
     total_games
   end
 
-  #not returning correctly. Throwing a nil class error
-  def total_wins_by_team_per_season(team_id)
-    counter = 0
+  def winning_game_ids(team_id)
     game_team_collection = GameTeamCollection.new('./data/game_teams.csv')
-    game_team_collection.game_team_list.reduce({}) do |acc, game_team|
-      if game_team.team_id.to_s == team_id
-        acc[game_team.team_id] = counter += 1 if game_team.result == "WIN"
-        acc
+    #array of winning game id's by team id
+    game_team_collection.game_team_list.map do |game_team|
+      if (game_team.team_id.to_s == team_id) && (game_team.result == "WIN")
+        game_team.game_id.to_s
       end
+    end.compact
+  end
+
+  def total_wins_by_team_per_season(team_id)
+    wins = winning_game_ids(team_id).group_by do |game_id|
+      game_id[0..3]
     end
-    # game_team_collection.game_team_list.reduce({}) do |acc, game_team|
-    #   if (game_team.team_id.to_s == team_id) && (game_team.result == "WIN")
-    #     acc[game_team.team_id] = counter += 1
-    #   end
-    #   acc
-    # end
+    total_won_games = {}
+    wins.map do |key, value|
+      total_won_games[key] = value.length
+    end
+    max_value = total_won_games.max_by do |key, value|
+      value
+    end
+    max_value.first + (max_value.first.to_i + 1).to_s
   end
 end
