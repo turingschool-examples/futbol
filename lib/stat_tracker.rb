@@ -19,13 +19,14 @@ class StatTracker
     @game_team_collection.create_game_team_collection
   end
 
-  #should make a helper method for seasons array, I iterate over it twice.
+
+
   # This only requires game information.
-  # It should probably move there eventually.
+  # It should probably move to game collection eventually.
   def count_of_games_by_season
-    seasons = @game_collection.games.map{|game| game.season }.uniq
-    x = seasons.reduce({}) do |games_by_season, season|
-      games_per_season = @game_collection.games.find_all do |game|
+    seasons = @game_collection.games.map{|game| game.season }.uniq  #season needs helper method
+    seasons.reduce({}) do |games_by_season, season|
+      games_per_season = @game_collection.games.find_all do |game|  #games_per_season needs helper method
          season == game.season
       end.length
     games_by_season[season] = games_per_season
@@ -35,13 +36,29 @@ class StatTracker
 
   # Can and should implement daniels helper method for total_goals_per_game
   # This only requires game information.
-  # It should probably move there eventually.
+  # It should probably move to game collection eventually.
   def average_goals_per_game
     total_goals_per_game = @game_collection.games.map do |game|
       game.home_goals + game.away_goals
     end
-    average = total_goals_per_game.sum / total_goals_per_game.length.to_f
-    require "pry"; binding.pry
+    average = total_goals_per_game.sum / total_goals_per_game.length.to_f  # create module with average method??
     average.round(2)
+  end
+
+  # This only requires game information.
+  # It should probably move to game collection eventually.
+  def average_goals_by_season
+    seasons = @game_collection.games.map{|game| game.season }.uniq #season needs helper method
+    seasons.reduce({}) do |goals_by_season, season|
+      games_per_season = @game_collection.games.find_all do |game|  #games_per_season needs helper method
+         season == game.season
+      end
+      total_goals_per_game = games_per_season.map do |game|  #very similar to total_goals_per_game in previus method
+        game.home_goals + game.away_goals
+      end
+      average = total_goals_per_game.sum / total_goals_per_game.length.to_f
+      goals_by_season[season] = average.round(2)
+      goals_by_season
+    end
   end
 end
