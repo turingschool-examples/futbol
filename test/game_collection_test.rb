@@ -43,6 +43,11 @@ class GameCollectionClass < Minitest::Test
     assert_equal 15.72, @game_collection.pct_of_total_games(:ties)
   end
 
+  def test_it_can_calculate_average_goals_per_game
+    @game_collection.create_pct_data
+    assert_equal 4.03, @game_collection.average_goals_per_game
+  end
+
   def test_it_can_get_all_seasons
     season_test_list = ["20122013", "20162017", "20142015", "20152016", "20132014"]
 
