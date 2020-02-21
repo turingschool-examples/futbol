@@ -31,6 +31,14 @@ class GameCollection
     @pct_data
   end
 
+  def average_goals_per_game
+  total = 0
+    @games_list.each do |game|
+      total += (game.home_goals + game.away_goals)
+    end
+    (total.to_f / @pct_data[:total_games]).round(2)
+  end
+
   def pct_of_total_games(outcome_type)
     ((@pct_data[outcome_type] / @pct_data[:total_games].to_f) * 100).round(2)
   end
