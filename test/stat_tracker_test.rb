@@ -11,9 +11,9 @@ require 'minitest/pride'
 class StatTrackerTest < Minitest::Test
   def setup
     @locations = {
-      games: './data/little_games.csv',
+      games: './fixture_files/games_fixture.csv',
       teams: './data/teams.csv',
-      game_teams: './data/little_game_teams.csv'
+      game_teams: './fixture_files/game_teams_fixture.csv'
     }
     @stattracker = StatTracker.new(@locations)
     @stattracker.load_game_data
@@ -45,18 +45,21 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_the_biggest_blowout
-    assert_equal 1, @stattracker.biggest_blowout
+    assert_equal 5, @stattracker.biggest_blowout
   end
 
   def test_it_can_return_percentage_ties
-    assert_equal 0.0, @stattracker.percentage_ties
+    assert_equal 0.09, @stattracker.percentage_ties
   end
 
   def test_it_can_return_count_of_games_by_season
     expected = {
-        "20122013" => 2,
-        "20132014" => 1,
-        "20142015" => 1
+      "20122013"=>5,
+      "20162017"=>7,
+      "20142015"=>4,
+      "20152016"=>5,
+      "20132014"=>5,
+      "20172018"=>6
       }
     assert_equal expected, @stattracker.count_of_games_by_season
   end
