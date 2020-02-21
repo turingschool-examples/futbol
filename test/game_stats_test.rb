@@ -19,8 +19,8 @@ class GameStatsTest < Minitest::Test
   end
 
   def test_attributes_for_instance_of_game_within_game_stats
-    assert_equal 2013030411, @game.game_id
-    assert_equal 20132014, @game.season
+    assert_equal '2013030411', @game.game_id
+    assert_equal '20132014', @game.season
     assert_equal "Postseason", @game.type
     assert_equal 3, @game.away_team_id
     assert_equal 26, @game.home_team_id

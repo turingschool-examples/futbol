@@ -20,7 +20,7 @@ class GameStats
   def count_of_games_by_season
     #sort by number/games_by_season
     @games.reduce(Hash.new(0)) do |games_by_season, game|
-      games_by_season[game.season.to_s] += 1
+      games_by_season[game.season] += 1
       games_by_season
     end
   end
@@ -54,7 +54,7 @@ class GameStats
     end
     count = count_of_games_by_season
     @games.reduce(Hash.new(0)) do |average_goals, game|
-      average_goals[game.season.to_s] = (goals_per_season[game.season].to_f / count[game.season.to_s]).round(2)
+      average_goals[game.season] = (goals_per_season[game.season].to_f / count[game.season]).round(2)
       average_goals
     end
   end
