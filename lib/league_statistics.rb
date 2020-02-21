@@ -49,13 +49,6 @@ class LeagueStatistics
     find_team_names(min_avg_goal_team_id)
   end
 
-  def games_teams_and_goals
-    @games.reduce({}) do |games, game|
-      games[game.game_id] = {game.home_team_id => game.home_goals, game.away_team_id => game.away_goals}
-      games
-    end
-  end
-
   def games_teams_and_allowed_goals
     @games.reduce({}) do |teams_allowed_goals, game|
       teams_allowed_goals[game.home_team_id] = [] if teams_allowed_goals[game.home_team_id].nil?
@@ -83,53 +76,43 @@ class LeagueStatistics
     min_avg_allowed_goals_team_id = average_games_teams_and_allowed_goals.key(average_games_teams_and_allowed_goals.values.min)
     find_team_names(min_avg_allowed_goals_team_id)
   end
+
+  def visiting_teams_and_goals
+    @games.reduce({}) do |visitor_games, game|
+      visitor_games[game.away_team_id] = [] if visitor_games[game.away_team_id].nil?
+      visitor_games[game.away_team_id] << game.away_goals
+      visitor_games
+    end
+  end
+
+  def average_visiting_teams_and_goals
+    visiting_teams_and_goals.transform_values do |goals|
+      (goals.sum.to_f / goals.size).round(2)
+    end
+  end
+
+  def highest_scoring_visitor
+    max_visitor_scores = average_visiting_teams_and_goals.key(average_visiting_teams_and_goals.values.max)
+    find_team_names(max_visitor_scores)
+  end
+
+  def lowest_scoring_visitor
+    min_visitor_scores = average_visiting_teams_and_goals.key(average_visiting_teams_and_goals.values.min)
+    find_team_names(min_visitor_scores)
+  end
+
+  def home_teams_and_goals
+    @games.reduce({}) do |visitor_games, game|
+      home_games[game.home_team_id] = [] if home_games[game.home_team_id].nil?
+      home_games[game.home_team_id] << game.home_goals
+      home_games
+    end
+  end
+
+
 end
 
-# # best_defense
-# average goals of other team per game...
-# hash of game_id => {home_team_id => home_goals, away_team_id => away_goals}
 
-
-
-# # 	Name of the team with the lowest average number of goals
-# #   allowed per game across all seasons.
-# # 	String
-# #scored against them
-# def average #module?
-#   games_teams.goals(for home and away)
-# end
-#
-# def best_defense
-#   min_by average
-#   return teams.team_name by game_teams.id
-# end
-#
-# # worst_defense
-# # 	Name of the team with the highest average number of goals
-# #   allowed per game across all seasons.
-# # 	String
-# def average #module?
-#   games_teams.goals(for home and away)
-# end
-#
-# def worst_defense
-#   max_by average
-#   return teams.team_name by game_teams.id
-# end
-#
-# # highest_scoring_visitor
-# # 	Name of the team with the highest average score per game
-# #   across all seasons when they are away.
-# # 	String
-# def average #module?
-#   games_teams.goals(away)
-# end
-#
-# def highest_scoring_visitor
-#   max_by average
-#   return teams.team_name by game_teams.id
-# end
-#
 # # highest_scoring_home_team
 # # 	Name of the team with the highest average score per game
 # #   across all seasons when they are home.
@@ -143,19 +126,7 @@ end
 #   return teams.team_name by game_teams.id
 # end
 #
-# # lowest_scoring_visitor
-# # 	Name of the team with the lowest average score per game
-# #   across all seasons when they are a visitor.
-# # 	String
-# def average #module?
-#   games_teams.goals(away)
-# end
-#
-# def lowest_scoring_visitor
-#   min_by average
-#   return teams.team_name by game_teams.id
-# end
-#
+
 # # lowest_scoring_home_team
 # # 	Name of the team with the lowest average score per game across all seasons when they are at home.
 # # 	String

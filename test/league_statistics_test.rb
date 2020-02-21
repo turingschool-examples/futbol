@@ -73,15 +73,6 @@ class Test < Minitest::Test
     assert_equal "Sporting Kansas City", @league.worst_offense
   end
 
-  def test_it_can_tell_games_teams_and_goals
-    expected = {
-      6=>3,
-      3=>2
-    }
-
-    assert_equal expected, @league.games_teams_and_goals[2012030221]
-  end
-
   def test_it_can_tell_games_teams_and_allowed_goals
     assert_equal [3, 3, 2, 3, 3], @league.games_teams_and_allowed_goals[3]
   end
@@ -98,9 +89,24 @@ class Test < Minitest::Test
     assert_equal "Orlando Pride", @league.worst_defense
   end
 
+  def test_it_can_tell_visiting_teams_and_goals
+    assert_equal [2, 3, 3, 4, 3], @league.visiting_teams_and_goals[6]
+  end
+
+  def test_it_can_tell_average_visiting_teams_and_goals
+    assert_equal 3, @league.average_visiting_teams_and_goals[6]
+  end
+
   def test_it_can_tell_highest_scoring_visitor
-    skip
-    assert_equal "", @league.highest_scoring_visitor
+    assert_equal "Orlando Pride", @league.highest_scoring_visitor
+  end
+
+  def test_lowest_scoring_visitor
+    assert_equal "DC United", @league.lowest_scoring_visitor
+  end
+
+  def test_it_can_return_home_teams_and_goals
+
   end
 
   def test_highest_scoring_home_team
@@ -108,10 +114,6 @@ class Test < Minitest::Test
     assert_equal "", @league.highest_scoring_home_team
   end
 
-  def test_lowest_scoring_visitor
-    skip
-    assert_equal "", @league.lowest_scoring_visitor
-  end
 
   def test_it_can_tell_lowest_scoring_home_team
     skip
