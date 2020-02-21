@@ -5,7 +5,6 @@ class SeasonWinTest < Minitest::Test
 
   def setup
     @season_win = SeasonWin.new("18")
-    @game_collection = GameCollection.new('./test/fixtures/truncated_games.csv')
   end
 
   def test_it_exists
@@ -25,7 +24,11 @@ class SeasonWinTest < Minitest::Test
     assert_equal "20132014", @season_win.best_season("6")
   end
 
-  def test_it_can_return_game_id_by_season
+  def test_it_can_return_worst_season
+    assert_equal "20142015", @season_win.worst_season("6")
+  end
 
+  def test_it_can_return_game_id_by_season
+    expected = {}
   end
 end

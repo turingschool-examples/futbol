@@ -20,7 +20,13 @@ class StatTracker
   end
 
   def team_info(team_id)
-    SeasonWin.new(team_id)
+    season_win = SeasonWin.new(team_id)
+    season_win.team_info(team_id)
+  end
+
+  def best_season(team_id)
+    season_win = SeasonWin.new(team_id)
+    season_win.best_season(team_id)
   end
 
   def count_of_games_by_season
