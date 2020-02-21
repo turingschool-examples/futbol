@@ -9,6 +9,7 @@ class StatTracker
     @game_path = game_path
     @team_path = team_path
     @game_team_path = game_team_path
+    require 'pry'; binding.pry
   end
 
   def game_collection
@@ -22,11 +23,6 @@ class StatTracker
   def count_of_games_by_season(season)
     game_collection.games.length == season
   end
-
-  def average_goals_per_game
-		total_goals = Game.all.map {|game| game.total_score}
-		return ((total_goals.sum.to_f / Game.length).round(2))
-	end
 
   def average_goals_by_season(season)
     game_count = game_collection.games.length == season
