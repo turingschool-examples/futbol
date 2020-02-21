@@ -73,14 +73,29 @@ class Test < Minitest::Test
     assert_equal "Sporting Kansas City", @league.worst_offense
   end
 
+  def test_it_can_tell_games_teams_and_goals
+    expected = {
+      6=>3,
+      3=>2
+    }
+
+    assert_equal expected, @league.games_teams_and_goals[2012030221]
+  end
+
+  def test_it_can_tell_games_teams_and_allowed_goals
+    assert_equal [3, 3, 2, 3, 3], @league.games_teams_and_allowed_goals[3]
+  end
+
+  def test_it_can_average_games_teams_and_allowed_goals
+    assert_equal 2.8, @league.average_games_teams_and_allowed_goals[3]
+  end
+
   def test_it_can_tell_best_defense
-    skip
-    assert_equal "", @league.best_defense
+    assert_equal "New York Red Bulls", @league.best_defense
   end
 
   def test_it_can_tell_worst_defense
-    skip
-    assert_equal "", @league.worst_defense
+    assert_equal "Orlando Pride", @league.worst_defense
   end
 
   def test_it_can_tell_highest_scoring_visitor

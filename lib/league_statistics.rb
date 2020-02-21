@@ -18,7 +18,7 @@ class LeagueStatistics
     end
     match_team.team_name
   end
-# =====================================================
+
   def goals_per_team
     @game_teams.reduce({}) do |goals_per_team, game_team|
       goals_per_team[game_team.team_id] = [] if goals_per_team[game_team.team_id].nil?
@@ -49,10 +49,47 @@ class LeagueStatistics
     find_team_names(min_avg_goal_team_id)
   end
 
+  def games_teams_and_goals
+    @games.reduce({}) do |games, game|
+      games[game.game_id] = {game.home_team_id => game.home_goals, game.away_team_id => game.away_goals}
+      games
+    end
+  end
+
+  def games_teams_and_allowed_goals
+    @games.reduce({}) do |teams_allowed_goals, game|
+      teams_allowed_goals[game.home_team_id] = [] if teams_allowed_goals[game.home_team_id].nil?
+      teams_allowed_goals[game.away_team_id] = [] if teams_allowed_goals[game.away_team_id].nil?
+
+      teams_allowed_goals[game.home_team_id] << game.away_goals
+      teams_allowed_goals[game.away_team_id] << game.home_goals
+
+      teams_allowed_goals
+    end
+  end
+
+  def average_games_teams_and_allowed_goals
+    games_teams_and_allowed_goals.transform_values do |allowed_goals|
+      (allowed_goals.sum.to_f / allowed_goals.size).round(2)
+    end
+  end
+
+  def best_defense
+    max_avg_allowed_goals_team_id = average_games_teams_and_allowed_goals.key(average_games_teams_and_allowed_goals.values.max)
+    find_team_names(max_avg_allowed_goals_team_id)
+  end
+
+  def worst_defense
+    min_avg_allowed_goals_team_id = average_games_teams_and_allowed_goals.key(average_games_teams_and_allowed_goals.values.min)
+    find_team_names(min_avg_allowed_goals_team_id)
+  end
 end
 
 # # best_defense
 # average goals of other team per game...
+# hash of game_id => {home_team_id => home_goals, away_team_id => away_goals}
+
+
 
 # # 	Name of the team with the lowest average number of goals
 # #   allowed per game across all seasons.
