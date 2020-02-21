@@ -43,4 +43,8 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_return_the_highest_total_score
     assert_equal 5, @stattracker.highest_total_score
   end
+
+  def test_it_can_return_the_biggest_blowout
+    assert_equal 1, @stattracker.biggest_blowout
+  end
 end
