@@ -1,6 +1,7 @@
 require './test/test_helper'
 require "minitest/autorun"
 require "minitest/pride"
+require 'mocha/minitest'
 require "./lib/stat_tracker"
 
 class StatTrackerTest < Minitest::Test
@@ -56,5 +57,11 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_get_away_win_percentages
     assert_equal 0.3, @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_it_can_get_tied_percentage
+    @stat_tracker.stubs(:percentage_ties).returns(0.10)
+
+    assert 0.10, @stat_tracker.percentage_ties
   end
 end
