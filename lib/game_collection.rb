@@ -6,7 +6,6 @@ class GameCollection
 
   def initialize(file_path)
     @games_list = create_games(file_path)
-    require "pry"; binding.pry
   end
 
   def create_games(file_path)
