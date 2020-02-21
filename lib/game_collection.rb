@@ -3,12 +3,11 @@ require 'csv'
 
 class GameCollection
   attr_reader :games
-  def initialize(game_file_path)
-    @games = create_games(game_file_path)
+  def initialize(game_data)
+    @games = create_games(game_data)
   end
 
-  def create_games(game_file_path)
-    game_data = CSV.read(game_file_path, headers: true, header_converters: :symbol)
+  def create_games(game_data)
     game_data.map do |row|
       Game.new(row.to_h)
     end
