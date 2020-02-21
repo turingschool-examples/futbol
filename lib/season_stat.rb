@@ -4,10 +4,10 @@ require_relative 'team_collection'
 
 class SeasonStat
 
-  def initialize(game_collection, team_collection, game_team_collection)
-    @game_collection = game_collection
-    @team_collection = team_collection
-    @game_team_collection = game_team_collection
+  def initialize(game_file_path, team_file_path, game_team_file_path)
+    @game_collection = GameCollection.new(game_file_path)
+    @team_collection = TeamCollection.new(team_file_path)
+    @game_team_collection = GameTeamCollection.new(game_team_file_path)
     @team_info = nil
     @season_list = @game_collection.get_all_seasons
   end
