@@ -14,16 +14,6 @@ class TeamStats
     team.teamname
   end
 
-  def find_name(id)
-    team = @teams.find { |team| team.team_id == id }
-    team.teamname
-  end
-
-  def find_name(id)
-     team = @teams.find { |team| team.team_id == id }
-     team.teamname
-  end
-
   def count_of_teams
     @teams.count
   end
