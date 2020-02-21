@@ -29,6 +29,11 @@ class SeasonWinTest < Minitest::Test
   end
 
   def test_it_can_return_game_id_by_season
-    expected = {}
+    assert_instance_of Hash, @season_win.game_id_by_season("6")
+    assert_equal ["20122013", "20172018", "20132014", "20142015", "20152016", "20162017"], @season_win.game_id_by_season("6").keys
+    assert_equal 70, @season_win.game_id_by_season("6")["20122013"].length
+    assert_equal "2012030221", @season_win.game_id_by_season("6")["20122013"].first
   end
+
+
 end

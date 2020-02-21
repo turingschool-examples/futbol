@@ -29,6 +29,11 @@ class StatTracker
     season_win.best_season(team_id)
   end
 
+  def worst_season(team_id)
+    season_win = SeasonWin.new(team_id)
+    season_win.worst_season(team_id)
+  end
+
   def count_of_games_by_season
     season = SeasonStat.new(@games_file, @teams_file, @game_teams_file)
     season.count_of_games_by_season

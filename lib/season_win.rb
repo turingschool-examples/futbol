@@ -87,30 +87,4 @@ class SeasonWin
     final_total_won_games
   end
 
-  # max_value = total_won_games.max_by do |key, value|
-  #   value
-  # end
-  # max_value.first + (max_value.first.to_i + 1).to_s
-  # def losing_game_ids(team_id)
-  #   game_team_collection = GameTeamCollection.new('./data/game_teams.csv')
-  #   game_team_collection.game_team_list.map do |game_team|
-  #     if (game_team.team_id.to_s == team_id) && (game_team.result == "LOSS")
-  #       game_team.game_id.to_s
-  #     end
-  #   end.compact
-  # end
-
-  # def total_losses_by_team_per_season(team_id)
-  #   losses = losing_game_ids(team_id).group_by do |game_id|
-  #     game_id[0..3]
-  #   end
-  #   total_lost_games = {}
-  #   losses.map do |key, value|
-  #     total_lost_games[key + (key.to_i + 1).to_s] = value.length
-  #   end
-  #   max_value = total_lost_games.max_by do |key, value|
-  #     value
-  #   end
-  #   max_value.first + (max_value.first.to_i + 1).to_s
-  # end
 end
