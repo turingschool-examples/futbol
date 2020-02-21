@@ -53,4 +53,11 @@ class GameCollectionTest < Minitest::Test
     assert_instance_of Game, @game_collection.games.last
     assert_equal 10, @game_collection.games.length
   end
+
+  def test_it_can_return_total_scores_per_game
+    @game_collection.create_game_collection
+    expected = [5, 5, 3, 5, 4, 3, 5, 5, 6, 4]
+
+    assert_equal expected, @game_collection.total_goals_per_game
+  end
 end
