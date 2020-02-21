@@ -26,7 +26,7 @@ class GameTeamStats
   end
 
   def average_goals_per_team(team_id)
-    total_goals_by_team_id(team_id) / total_games_by_team_id(team_id)
+    total_goals_by_team_id(team_id).to_f / total_games_by_team_id(team_id).to_f
   end
 
   def best_offense
