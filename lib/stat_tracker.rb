@@ -27,4 +27,10 @@ class StatTracker
     end.max
   end
 
+  def biggest_blowout
+    game_collection.games.map do |game|
+      Math.sqrt((game.home_goals - game.away_goals)**2).to_i
+    end.max
+  end
+
 end
