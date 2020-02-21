@@ -35,6 +35,18 @@ class SeasonStatTest < Minitest::Test
     assert_equal 257, @season_stat.count_of_season_games("20122013")
   end
 
+
+  def test_it_can_get_average_goals_by_season
+    test_hash = {
+            "20122013"=>4.04,
+            "20162017"=>4.75,
+            "20142015"=>3.75,
+            "20152016"=>3.88,
+            "20132014"=>4.33
+                }
+    assert_equal test_hash, @season_stat.average_goals_by_season
+  end
+
   def test_it_can_get_season_games_by_type
     assert_instance_of Array, @season_stat.games_by_type('Regular Season', "20122013")
     assert_equal 'Regular Season', @season_stat.games_by_type('Regular Season', "20122013").first.type

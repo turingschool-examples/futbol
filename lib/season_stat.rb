@@ -22,6 +22,22 @@ class SeasonStat
     get_season_games(season).size
   end
 
+  def average_goals_per_game_per_season(season)
+  total = 0
+    get_season_games(season).each do |game|
+      total += (game.home_goals + game.away_goals)
+    end
+    (total.to_f / count_of_season_games(season)).round(2)
+  end
+
+  def average_goals_by_season
+    @season_list.reduce({}) do |season_goals, season|
+      season_goals[season] = average_goals_per_game_per_season(season)
+      season_goals
+    end
+
+  end
+
   def count_of_games_by_season
     @season_list.reduce({}) do |season_games_hash, season|
       season_games_hash[season] = count_of_season_games(season)
