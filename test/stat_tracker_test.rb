@@ -22,4 +22,19 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of GameCollection, @stat_tracker.game_collection
     assert_instance_of GameTeamCollection, @stat_tracker.game_team_collection
   end
+
+  def test_it_can_count_the_games_by_season
+    expected = {20122013=>7, 20132014=>3}
+
+    assert_equal expected, @stat_tracker.count_of_games_by_season
+  end
+
+  def test_it_can_calculate_average_goals_per_game
+    assert_equal (4.50), @stat_tracker.average_goals_per_game
+  end
+
+  def test_it_can_show_average_goals_by_season
+    expected = {20122013=>4.71, 20132014=>4.00}
+    assert_equal expected, @stat_tracker.average_goals_by_season
+  end
 end
