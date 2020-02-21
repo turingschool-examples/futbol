@@ -21,4 +21,10 @@ class StatTracker
     @team_collection = TeamCollection.new(@teams_file_path)
   end
 
+  def highest_total_score
+    game_collection.games.map do |game|
+      game.home_goals + game.away_goals
+    end.max
+  end
+
 end
