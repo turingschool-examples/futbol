@@ -18,7 +18,7 @@ class GameCollection
   end
 
   def create_pct_data
-  
+
     @games_list.each do |game|
       @pct_data[:total_games] += 1
       if game.home_goals == game.away_goals

@@ -83,14 +83,28 @@ class SeasonStatTest < Minitest::Test
   end
 
   def test_it_can_calculate_biggest_bust
-<<<<<<< HEAD
-    @season_stat.get_team_info
-    @season_stat.biggest_bust("20122013")
-=======
-      skip
-    @season_stat.get_team_info
-    @season_stat.get_regular_percents('Regular Season')
->>>>>>> e2d084ce967654433b487d89cc3132e35c8d7766
+    team_info = {
+
+      1 => {:team_name=> "Apples",
+            :season_win_percent => 50.00,
+            :postseason_win_percent => 70.00
+          },
+      2 => {:team_name=> "The Bunnies",
+            :season_win_percent => 80.00,
+            :postseason_win_percent => 15.00
+          },
+      3 => {:team_name=> "Broncos",
+            :season_win_percent => 60.00,
+            :postseason_win_percent => 70.00
+          },
+      4 => {:team_name=> "Avalanche",
+            :season_win_percent => 50.00,
+            :postseason_win_percent => 25.00
+            }
+    }
+    season = mock('testseason')
+    @season_stat.stubs(:get_team_info).returns(team_info)
+    assert_equal "The Bunnies", @season_stat.biggest_bust(season)
   end
 
   def test_it_can_count_games_by_season
