@@ -29,26 +29,26 @@ class GameStatsTest < Minitest::Test
   end
 
   def test_it_can_calculate_percentage_ties
-    assert_equal 14.29, @games_stats.percentage_ties
+    assert_equal 0.14, @games_stats.percentage_ties
   end
 
   def test_it_can_calculate_percentage_home_wins
-    assert_equal 57.14, @games_stats.percentage_home_wins
+    assert_equal 0.57, @games_stats.percentage_home_wins
   end
 
   def test_it_can_count_games_by_season
     games_by_season = {
-      20152016 => 3,
-      20132014 => 2,
-      20142015 => 1,
-      20162017 => 1
+      '20152016' => 3,
+      '20132014' => 2,
+      '20142015' => 1,
+      '20162017' => 1
     }
 
     assert_equal games_by_season, @games_stats.count_of_games_by_season
   end
 
   def test_it_can_calculate_percentage_vistor
-    assert_equal 28.57, @games_stats.percentage_visitor_wins
+    assert_equal 0.29, @games_stats.percentage_visitor_wins
   end
 
   def test_it_can_calculate_average_goals_per_game
@@ -56,8 +56,8 @@ class GameStatsTest < Minitest::Test
   end
 
   def test_it_can_calculate_average_goals_per_season
-    goals_by_season = { 20152016 => 5.33, 20132014 => 5, 20142015 => 3,
-      20162017 => 4}
+    goals_by_season = { '20152016' => 5.33, '20132014' => 5, '20142015' => 3,
+      '20162017' => 4}
 
       assert_equal goals_by_season, @games_stats.average_goals_by_season
   end
@@ -77,6 +77,6 @@ class GameStatsTest < Minitest::Test
   def test_returns_winningest_team
     games_stats = GameStats.new("./data/games_truncated_with_winningest_team.csv", Game)
 
-    assert_equal "Atlanta United", games_stats.winningest_team
+    assert_equal 1, games_stats.winningest_team
   end
 end
