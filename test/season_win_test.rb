@@ -26,6 +26,6 @@ class SeasonWinTest < Minitest::Test
   end
 
   def test_it_can_return_game_id_by_season
-    @game_collection.stubs()
+
   end
 end

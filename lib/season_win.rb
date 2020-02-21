@@ -25,13 +25,14 @@ class SeasonWin
   end
 
   def best_season(team_id)
-    games_by_team_id_in_season(team_id)
+    total_wins_by_team_per_season(team_id)
   end
 
   def game_id_by_season(team_id)
     game_collection = GameCollection.new('./data/games.csv')
     game_collection.games_list.reduce({}) do |acc, game|
       game_id = game.game_id if game.away_team_id.to_s == team_id || game.home_team_id.to_s == team_id
+      next acc if game_id.nil?
       if acc.include?(game.season)
         acc[game.season] = acc[game.season] << game_id
       else
@@ -41,17 +42,9 @@ class SeasonWin
     end
   end
 
-  def games_by_team_id_in_season(team_id)
-    season_teams = {}
-    game_id_by_season(team_id).each do |season, game_id|
-      season_teams[season] = game_id.compact
-    end
-    season_teams
-  end
-
   def total_games_by_season(team_id)
     total_games = {}
-    games_by_team_id_in_season(team_id).map do |season, game_id|
+    game_id_by_season(team_id).map do |season, game_id|
       total_games[season] = game_id.length
     end
     total_games
@@ -67,5 +60,11 @@ class SeasonWin
         acc
       end
     end
+    # game_team_collection.game_team_list.reduce({}) do |acc, game_team|
+    #   if (game_team.team_id.to_s == team_id) && (game_team.result == "WIN")
+    #     acc[game_team.team_id] = counter += 1
+    #   end
+    #   acc
+    # end
   end
 end
