@@ -10,7 +10,7 @@ class GameTeams
               :tackles
 
   def initialize(attributes)
-    @game_id = attributes[:game_id].to_i
+    @game_id = attributes[:game_id]
     @team_id = attributes[:team_id].to_i
     @hoa = attributes[:hoa]
     @result = attributes[:result]
