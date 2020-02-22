@@ -8,8 +8,8 @@ class Game
               :home_goals
 
   def initialize(attributes)
-    @game_id = attributes[:game_id].to_i
-    @season = attributes[:season].to_i
+    @game_id = attributes[:game_id]
+    @season = attributes[:season]
     @type = attributes[:type]
     @away_team_id = attributes[:away_team_id].to_i
     @home_team_id = attributes[:home_team_id].to_i
