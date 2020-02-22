@@ -22,4 +22,8 @@ class GameTeamCollection
     end
   end
 
+  def all
+    @games_by_teams
+  end
+
 end
