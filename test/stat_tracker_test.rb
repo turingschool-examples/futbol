@@ -55,4 +55,9 @@ class StatTrackerTest < Minitest::Test
       }
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
+
+  def test_it_can_return_lowest_score
+
+    assert_equal 2, @stat_tracker.lowest_total_score
+  end
 end

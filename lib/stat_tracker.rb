@@ -58,4 +58,9 @@ class StatTracker
     games_in_season
   end
 
+  def lowest_total_score
+    game_collection.games.map do |game|
+      game.home_goals + game.away_goals
+    end.min
+  end
 end
