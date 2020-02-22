@@ -78,9 +78,20 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.ps_win_percentage_by_team(20122013)
   end
 
-  def test_biggest_bust_team_number
+  def test_finds_bust_differential
+    expected = {
+                6=>-0.33,
+                3=>0
+                }
+    assert_equal expected, @stat_tracker.bust_diff(20122013)
+  end
 
+  def test_biggest_bust_team_number
     assert_equal 6, @stat_tracker.biggest_bust(20122013)
+  end
+
+  def test_biggest_surprise_team_number
+    assert_equal 3, @stat_tracker.biggest_surprise(20122013)
   end
 
 end

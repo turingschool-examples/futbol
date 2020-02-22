@@ -103,21 +103,23 @@ class StatTracker
     ps_win_percentage_by_team.delete_if { |team, win_percentage| win_percentage.nan? }
   end
 
-  def biggest_bust(season)
-
-
-
-
+  def bust_diff(season)
     bust_diff = {}
     ps_win_percentage_by_team(season).each_key do |team|
-       bust_diff[team] = (rs_win_percentage_by_team(season)[team] - ps_win_percentage_by_team(season)[team])
+       bust_diff[team] = (rs_win_percentage_by_team(season)[team] - ps_win_percentage_by_team(season)[team]).round(2)
     end
-
     bust_diff.delete_if { |team, win_percentage| win_percentage.nan? }
-
-    biggest_bust_team = [bust_diff.min_by{|team, win_percentage| win_percentage}][0][0]
   end
-end
 
+
+  def biggest_bust(season)
+    biggest_bust = [bust_diff(season).min_by{|team, win_percentage| win_percentage}][0][0]
+  end
+
+  def biggest_surprise(season)
+    biggest_surprise = [bust_diff(season).max_by{|team, win_percentage| win_percentage}][0][0]
+  end
+
+end
     #Find name of team with corresponding team ID (will need to use Team Data!!!)
     #
