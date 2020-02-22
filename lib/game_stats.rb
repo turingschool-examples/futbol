@@ -43,7 +43,6 @@ class GameStats
     end
   end
 
-
   def average_goals_per_game
     all_goals = @games.sum { |game| game.away_goals + game.home_goals }
     sum = all_goals.to_f / @games.length
