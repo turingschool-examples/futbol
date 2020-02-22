@@ -48,7 +48,13 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_show_the_worst_fans
+    skip
     assert_equal [6], @stat_tracker.worst_fans
+  end
+
+  def test_it_knows_the_lowest_scoring_home_team
+    skip
+    @stat_tracker.lowest_scoring_home_team
   end
 
 
@@ -127,7 +133,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.total_loss_by_team
   end
 
-  def test_it_can_show_total_tie
+  def test_it_can_show_total_ties
     skip
     expected = {
       3 => 0,
@@ -152,6 +158,15 @@ class StatTrackerTest < Minitest::Test
       5 => 2
     }
     assert_equal expected_away, @stat_tracker.hoa_games_by_team("away")
+  end
+
+  def test_it_can_display_all_goals_scored_hoa_by_team
+    expected_home = {
+      3 => 4,
+      6 => 12,
+      5 => 1
+    }
+    assert_equal expected_home, @stat_tracker.total_hoa_goals_by_team("home")
   end
 
   def test_it_can_display_home_or_away_wins_by_team
