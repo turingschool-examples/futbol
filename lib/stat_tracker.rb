@@ -49,7 +49,7 @@ class StatTracker
   #   end
   # end
 
-  def total_number_games_by_team_id(team_id) # HELPER METHOD
+  def total_number_games_by_team_id?(team_id)
     games = GameTeam.all
     total_games = 0
 
@@ -59,56 +59,57 @@ class StatTracker
     total_games
   end
 
-  def all_games_by_game_id(team_id) # Helper
-    games = GameTeam.all
+  def all_game_teams_by_team_id(team_id)
+    game_teams = GameTeam.all
+    all_game_teams = []
 
+    game_teams.each do |game|
+      all_game_teams << game.last[team_id] if game.last.key?(team_id)
+    end
+    all_game_teams
+  end
+
+  def all_games_by_team_id(team_id)
+    games = Game.all
     all_games = []
+
     games.each do |game|
-      all_games << game.last[team_id] if game.last.key?(team_id)
+      if game.last.home_team_id == team_id || game.last.away_team_id == team_id
+        all_games << game.last
+      end
     end
     all_games
   end
 
-  def total_results_by_team_id(team_id) # Unused Helper?
-    all_games_by_game_id(team_id).map(&:result)
+  def total_results_by_team_id(team_id)
+    all_game_teams_by_team_id(team_id).map(&:result)
   end
 
   def average_win_percentage(team_id)
-    games = GameTeam.all
+    total_games = total_number_games_by_team_id?(team_id).to_f
+    return -0.0 if total_games.zero?
 
-    total_games = total_number_games_by_team_id(team_id).to_f
-    return -0.0 if total_games == 0
-
-    total_wins = all_games_by_game_id(team_id).map do |game|
-      game.result == "WIN" ? 1 : nil
+    total_wins = total_results_by_team_id(team_id).map do |game|
+      game == "WIN" ? 1 : nil
     end.compact.sum
 
-    total_wins / total_games
+    (total_wins / total_games).round(2)
   end
 
-  def goals_scored(team_id)
-    all_games_by_game_id(team_id).map do |game|
+  def all_goals_scored_by_team_id(team_id)
+    all_game_teams_by_team_id(team_id).map do |game|
       game.goals
     end
   end
 
   def most_goals_scored(team_id)
-    goals_scored(team_id).max
+    all_goals_scored_by_team_id(team_id).max
   end
 
   def fewest_goals_scored(team_id)
     return 0
-    # goals_scored(team_id).min
+    # all_goals_scored_by_team_id(team_id).min
   end
-
-  # def rival(team_id)
-  #   # average_win_percentage(team_id)
-  #   rivals = Team.all.select { |team| team != team_id }
-
-  #   test = rivals.reduce({}) do |rival_results, rival|
-  #     rival_results[rival.last.team_id.to_s] = average_win_percentage(rival.last.team_id)
-  #   end
-  # end
 
   def score_differences_by_team_id(team_id)
     games = Game.all
@@ -116,9 +117,9 @@ class StatTracker
 
     games.each do |game|
       if game.last.home_team_id == team_id
-        goal_differences << game.last.home_goals - game.last.away_goals
-      else
-        goal_differences << game.last.away_goals - game.last.home_goals
+        goal_differences << (game.last.home_goals - game.last.away_goals)
+      elsif game.last.away_team_id == team_id
+        goal_differences << (game.last.away_goals - game.last.home_goals)
       end
     end
     goal_differences
@@ -130,5 +131,23 @@ class StatTracker
 
   def worst_loss(team_id)
     score_differences_by_team_id(team_id).min.abs
+  end
+
+  def get_team_name(team_id)
+    Team.all[team_id].team_name
+  end
+
+  def rival(team_id)
+    games = all_games_by_team_id(team_id)
+
+    rivalries = games.reduce({}) do |rival_results, game|
+      if game.home_team_id == team_id
+        rival_results[game.away_team_id] = average_win_percentage(game.away_team_id)
+      elsif game.away_team_id == team_id
+        rival_results[game.home_team_id] = average_win_percentage(game.home_team_id)
+      end
+      rival_results
+    end
+    get_team_name(rivalries.max.first)
   end
 end
