@@ -46,14 +46,6 @@ class GameteamsStatsTest < Minitest::Test
     assert_equal 2, @game_team_stats.average_goals_per_team(1)
   end
 
-  def test_best_offense
-    assert_equal 6, @game_team_stats.best_offense
-  end
-
-  def test_worst_offense
-    assert_equal 26, @game_team_stats.worst_offense
-  end
-
   def test_game_teams_stats_scoring
     assert_equal 26, @game_team_stats.scoring('away','low')
     assert_equal 24, @game_team_stats.scoring('away','win')
@@ -77,22 +69,6 @@ class GameteamsStatsTest < Minitest::Test
     test_hash = {1 => 4.0, 2 => 5.5, 3 => 4.5}
     expected = {'id' => [5.5, 2]}
     assert_equal expected, @game_team_stats.update_id(id, key, test_hash)
-  end
-
-  def test_game_teams_stats_lowest_visitor_score
-    assert_equal 26, @game_team_stats.lowest_scoring_visitor
-  end
-
-  def test_game_teams_stats_lowest_home_score
-    assert_equal 20, @game_team_stats.lowest_scoring_home_team
-  end
-
-  def test_game_teams_stats_highest_scoring_visitor
-    assert_equal 24, @game_team_stats.highest_scoring_visitor
-  end
-
-  def test_game_teams_stats_highest_scoring_home_team
-    assert_equal 6, @game_team_stats.highest_scoring_home_team
   end
 
 end

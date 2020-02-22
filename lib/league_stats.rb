@@ -1,8 +1,9 @@
 class LeagueStats
-  def initialize(games, game_teams, teams)
+  attr_reader :games, :teams, :game_teams
+  def initialize(games, teams, game_teams)
     @games = games
-    @game_teams = game_teams
     @teams = teams
+    @game_teams = game_teams
   end
 
   def count_of_teams
@@ -188,5 +189,4 @@ class LeagueStats
   def total_games_by_team_id(team_id)
     games_by_team(team_id).length
   end
-
 end
