@@ -39,28 +39,15 @@ class Test < Minitest::Test
     assert_equal expected, @league.goals_per_team
   end
 
-  def test_it_can_sum_goals_per_team
-    expected = {
-      3=>8,
-      6=>24,
-      5=>2,
-      17=>13,
-      16=>10,
-      9=>7,
-      8=>8
-    }
-    assert_equal expected, @league.sum_goals_per_team
-  end
-
   def test_it_can_average_goals_per_team
     expected = {
-      3=>1.14,
-      6=>3.43,
-      5=>0.29,
+      3=>1.6,
+      6=>2.67,
+      5=>0.5,
       17=>1.86,
       16=>1.43,
-      9=>1.0,
-      8=>1.14
+      9=>2.33,
+      8=>2.0
     }
     assert_equal expected, @league.average_goals_per_team
   end
@@ -82,11 +69,11 @@ class Test < Minitest::Test
   end
 
   def test_it_can_tell_best_defense
-    assert_equal "New York Red Bulls", @league.best_defense
+    assert_equal "Orlando Pride", @league.best_defense
   end
 
   def test_it_can_tell_worst_defense
-    assert_equal "Orlando Pride", @league.worst_defense
+    assert_equal "New York Red Bulls", @league.worst_defense
   end
 
   def test_it_can_tell_visiting_teams_and_goals

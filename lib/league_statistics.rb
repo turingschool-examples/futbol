@@ -27,16 +27,10 @@ class LeagueStatistics
     end
   end
 
-  def sum_goals_per_team
-    goals_per_team.transform_values do |goals|
-      goals.sum
-    end
-  end
-
   def average_goals_per_team
-    sum_goals_per_team.transform_values do |summed_goal|
-       (summed_goal.to_f / goals_per_team.values.size).round(2)
-     end
+    goals_per_team.transform_values do |goals|
+      (goals.sum.to_f / goals.size).round(2)
+    end
   end
 
   def best_offense
@@ -68,13 +62,13 @@ class LeagueStatistics
   end
 
   def best_defense
-    max_avg_allowed_goals_team_id = average_games_teams_and_allowed_goals.key(average_games_teams_and_allowed_goals.values.max)
-    find_team_names(max_avg_allowed_goals_team_id)
+    min_avg_allowed_goals_team_id = average_games_teams_and_allowed_goals.key(average_games_teams_and_allowed_goals.values.min)
+    find_team_names(min_avg_allowed_goals_team_id)
   end
 
   def worst_defense
-    min_avg_allowed_goals_team_id = average_games_teams_and_allowed_goals.key(average_games_teams_and_allowed_goals.values.min)
-    find_team_names(min_avg_allowed_goals_team_id)
+    max_avg_allowed_goals_team_id = average_games_teams_and_allowed_goals.key(average_games_teams_and_allowed_goals.values.max)
+    find_team_names(max_avg_allowed_goals_team_id)
   end
 
   def visiting_teams_and_goals
@@ -108,8 +102,6 @@ class LeagueStatistics
       home_games
     end
   end
-
-
 end
 
 
