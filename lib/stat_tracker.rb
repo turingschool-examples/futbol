@@ -1,6 +1,7 @@
 require 'csv'
 require_relative 'season_win'
 require_relative 'season_stat'
+require_relative 'scored_goal_stat'
 
 class StatTracker
   attr_reader :games_file, :teams_file, :game_teams_file
@@ -37,6 +38,26 @@ class StatTracker
   def average_win_percentage(team_id)
     season_win = SeasonWin.new(@teams_file, @game_teams_file)
     season_win.average_win_percentage(team_id)
+  end
+
+  def most_goals_scored(team_id)
+    scored_goal_stat = ScoredGoalStat.new(@teams_file, @game_teams_file, @games_file)
+    scored_goal_stat.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    scored_goal_stat = ScoredGoalStat.new(@teams_file, @game_teams_file, @games_file)
+    scored_goal_stat.fewest_goals_scored(team_id)
+  end
+
+  def biggest_team_blowout(team_id)
+    scored_goal_stat = ScoredGoalStat.new(@teams_file, @game_teams_file, @games_file)
+    scored_goal_stat.biggest_team_blowout(team_id)
+  end
+
+  def worst_loss(team_id)
+    scored_goal_stat = ScoredGoalStat.new(@teams_file, @game_teams_file, @games_file)
+    scored_goal_stat.worst_loss(team_id)
   end
 
   def count_of_games_by_season
