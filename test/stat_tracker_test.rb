@@ -134,6 +134,13 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Reign FC", @stat_tracker.get_team_name(54)
   end
 
+  def test_it_can_get_win_percentage_against_opponent
+    assert_equal 0.67, @stat_tracker.win_percentage_against_opponent(3, 6)
+    assert_equal 1.5, @stat_tracker.win_percentage_against_opponent(6, 3)
+    assert_equal 0.92, @stat_tracker.win_percentage_against_opponent(1, 5)
+    assert_equal 1.08, @stat_tracker.win_percentage_against_opponent(5, 1)
+  end
+
   def test_it_can_get_rival
     assert_equal "Reign FC", @stat_tracker.rival(3)
     assert_equal "Reign FC", @stat_tracker.rival(5)

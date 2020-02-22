@@ -137,14 +137,37 @@ class StatTracker
     Team.all[team_id].team_name
   end
 
+  def win_percentage_against_opponent(team_id, opponent_team_id)
+    games = all_games_by_team_id(team_id)
+    total_losses = 0.0
+    total_wins = 0.0
+
+    games.each do |game|
+      if opponent_team_id == game.home_team_id
+        if game.home_goals > game.away_goals
+          total_losses += 1
+        elsif game.home_goals < game.away_goals
+          total_wins += 1
+        end
+      elsif opponent_team_id == game.away_team_id
+        if game.home_goals > game.away_goals
+          total_wins += 1
+        elsif game.home_goals < game.away_goals
+          total_losses += 1
+        end
+      end
+    end
+    (total_wins / total_losses).round(2)
+  end
+
   def rival(team_id)
     games = all_games_by_team_id(team_id)
 
     rivalries = games.reduce({}) do |rival_results, game|
       if game.home_team_id == team_id
-        rival_results[game.away_team_id] = average_win_percentage(game.away_team_id)
+        rival_results[game.away_team_id] = win_percentage_against_opponent(team_id, game.away_team_id)
       elsif game.away_team_id == team_id
-        rival_results[game.home_team_id] = average_win_percentage(game.home_team_id)
+        rival_results[game.home_team_id] = win_percentage_against_opponent(team_id, game.home_team_id)
       end
       rival_results
     end
