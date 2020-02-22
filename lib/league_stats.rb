@@ -84,9 +84,9 @@ class LeagueStats
 
   def scoring(hoa, wol)
     scoring_hash = {}
-    @game_teams.each do |game|
-      if game.hoa == hoa
-        update_scoring_hash(scoring_hash, game)
+    @game_teams.each do |game_team|
+      if game_team.hoa == hoa
+        update_scoring_hash(scoring_hash, game_team)
       end
     end
     scoring_hash.each_key do |key|
