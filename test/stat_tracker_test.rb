@@ -14,7 +14,7 @@ class StatTrackerTest < Minitest::Test
     @locations = {
         games: './data/little_games.csv',
         teams: './data/teams.csv',
-        game_teams: './data/little_game_teams.csv'
+        game_teams: './data/game_teams.csv'
       }
     @stat_tracker = StatTracker.from_csv(@locations)
   end
@@ -53,8 +53,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_knows_the_lowest_scoring_home_team
-    skip
-    @stat_tracker.lowest_scoring_home_team
+    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_home_team
   end
 
 
@@ -161,19 +160,20 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_display_all_goals_scored_hoa_by_team
+    skip
     expected_home = {
       3 => 4,
       6 => 12,
       5 => 1
     }
-    assert_equal expected_home, @stat_tracker.total_hoa_goals_by_team("home")
+    assert_equal expected_home, @stat_tracker.hoa_goals_by_team("home")
 
     expected_away = {
       3 => 5,
       6 => 11,
       5 => 1
     }
-    assert_equal expected_away, @stat_tracker.total_hoa_goals_by_team("away")
+    assert_equal expected_away, @stat_tracker.hoa_goals_by_team("away")
   end
 
   def test_it_can_display_home_or_away_wins_by_team
