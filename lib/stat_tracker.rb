@@ -113,6 +113,7 @@ class StatTracker
       games_by_team
     end
 
+
     average_goals_by_team = games_by_team.transform_values do |games|
       ((games.map{|game| game.goals}.sum)/games.length.to_f)  # average calculation
     end
@@ -126,7 +127,27 @@ class StatTracker
     end.team_name
   end
 
-  def best_defense
-    
+  def worst_defense
+    goals_against_team = @team_collection.all.reduce({}) do |hash, team|
+      hash[team.team_id] = []
+      hash
+    end
+
+    @game_collection.all.each do |game|
+      goals_against_team[game.home_team_id] << game.away_goals
+      goals_against_team[game.away_team_id] << game.home_goals
+    end
+
+    average_goals_against_team = goals_against_team.transform_values do |goals|
+      (goals.sum/goals.length.to_f)  # average calculation
+    end
+
+    worst_average = average_goals_against_team.values.max
+
+    worst_team = average_goals_against_team.key(worst_average)
+
+    @team_collection.all.find do |team| # This snippet should move to team_collection as a #where(:key, value), ie where(team_id, 6)
+      team.team_id == worst_team
+    end.team_name
   end
 end
