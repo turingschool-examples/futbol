@@ -58,6 +58,13 @@ class StatTracker
     end.keys
     teams.map { |team_id| team_name_by_id(team_id) }
   end
+
+  def lowest_scoring_home_team
+    x = hoa_games_by_team("home")
+
+  end
+  #	Name of the team with the lowest average score per game
+  # across all seasons when they are at home.
   ###### move these methods somewhere else
 
   def count_of_games_by_season
@@ -147,6 +154,18 @@ class StatTracker
     hoa_games_by_team
   end
 
+  def total_hoa_goals_by_team(hoa)
+    total_hoa_goals_by_team = Hash.new(0)
+    gtc.game_teams.find_all do |game|
+      if game.hoa == hoa.downcase
+        total_hoa_goals_by_team[game.team_id] += game.goals
+      else
+        total_hoa_goals_by_team[game.team_id] += 0
+      end
+    end
+    total_hoa_goals_by_team
+  end
+
   def hoa_wins_by_team(hoa)
     hoa_wins_by_team = Hash.new(0)
     gtc.game_teams.find_all do |game|
@@ -182,5 +201,8 @@ class StatTracker
     end
     hoa_tie_by_team
   end
+
+  ##############
+  #These can likely be moved into a module
 
 end
