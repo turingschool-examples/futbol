@@ -69,6 +69,15 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.rs_win_percentage_by_team(20122013)
   end
 
+  def test_ps_win_percentage_by_team
+
+    expected = {
+                6=>1.0,
+                3=>0.0,
+              }
+    assert_equal expected, @stat_tracker.ps_win_percentage_by_team(20122013)
+  end
+
   def test_biggest_bust_team_number
 
     assert_equal 6, @stat_tracker.biggest_bust(20122013)
