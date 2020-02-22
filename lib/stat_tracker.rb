@@ -53,9 +53,124 @@ class StatTracker
   def count_of_games_by_season
     games_in_season = Hash.new(0)
     game_collection.games.each do |game|
-        games_in_season[game.season] += 1
+      games_in_season[game.season] += 1
     end
     games_in_season
+  end
+
+  def team_name_by_id(team_id)
+    team_collection.teams.find do |team|
+      team.team_id == team_id
+    end.teamname
+  end
+
+  def total_games_by_team
+    games_by_team = Hash.new(0)
+    game_collection.games.each do |game|
+      games_by_team[game.away_team_id] += 1
+      games_by_team[game.home_team_id] += 1
+    end
+    games_by_team
+  end
+
+  def total_wins_by_team
+    total_wins = Hash.new(0)
+    gtc.game_teams.each do |game|
+      if game.result == "WIN"
+        total_wins[game.team_id] += 1
+      elsif game.result == "LOSS"
+        total_wins[game.team_id] =+ 0
+      end
+    end
+    total_wins
+  end
+
+  def total_loss_by_team
+    total_loss = Hash.new(0)
+    gtc.game_teams.each do |game|
+      if game.result == "LOSS"
+        total_loss[game.team_id] += 1
+      elsif game.result == "WIN"
+        total_loss[game.team_id] =+ 0
+      end
+    end
+    total_loss
+  end
+
+  def total_tie_by_team
+    total_loss = Hash.new(0)
+    gtc.game_teams.each do |game|
+      if game.result == "TIE"
+        total_loss[game.team_id] += 1
+      elsif game.result == "WIN"
+        total_loss[game.team_id] =+ 0
+      elsif game.result == "LOSS"
+        total_loss[game.team_id] += 0
+      end
+    end
+    total_loss
+  end
+
+  def all_goals_scored_by_team
+    goals_scored_by_team = Hash.new(0)
+    game_collection.games.each do |game|
+      goals_scored_by_team[game.away_team_id] += game.away_goals
+      goals_scored_by_team[game.home_team_id] += game.home_goals
+    end
+    goals_scored_by_team
+  end
+
+  def all_goals_allowed_by_team
+    goals_allowed_by_team = Hash.new(0)
+    game_collection.games.each do |game|
+      goals_allowed_by_team[game.away_team_id] += game.home_goals
+      goals_allowed_by_team[game.home_team_id] += game.away_goals
+    end
+    goals_allowed_by_team
+  end
+
+  def hoa_games_by_team(hoa)
+    hoa_games_by_team = Hash.new(0)
+    gtc.game_teams.find_all do |game|
+      hoa_games_by_team[game.team_id] += 1 if hoa.downcase == game.hoa
+    end
+    hoa_games_by_team
+  end
+
+  def hoa_wins_by_team(hoa)
+    hoa_wins_by_team = Hash.new(0)
+    gtc.game_teams.find_all do |game|
+      if hoa.downcase == game.hoa && game.result == "WIN"
+        hoa_wins_by_team[game.team_id] += 1
+      else
+        hoa_wins_by_team[game.team_id] += 0
+      end
+    end
+    hoa_wins_by_team
+  end
+
+  def hoa_loss_by_team(hoa)
+    hoa_loss_by_team = Hash.new(0)
+    gtc.game_teams.find_all do |game|
+      if hoa.downcase == game.hoa && game.result == "LOSS"
+        hoa_loss_by_team[game.team_id] += 1
+      else
+        hoa_loss_by_team[game.team_id] += 0
+      end
+    end
+    hoa_loss_by_team
+  end
+
+  def hoa_tie_by_team(hoa)
+    hoa_tie_by_team = Hash.new(0)
+    gtc.game_teams.find_all do |game|
+      if hoa.downcase == game.hoa && game.result == "TIE"
+        hoa_tie_by_team[game.team_id] += 1
+      else
+        hoa_tie_by_team[game.team_id] += 0
+      end
+    end
+    hoa_tie_by_team
   end
 
 end
