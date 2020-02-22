@@ -10,9 +10,9 @@ class StatTracker
 
   attr_reader :team_collection, :game_collection, :game_team_collection
   def initialize(files)
-    @team_collection = TeamCollection.new(files[:team])
-    @game_collection = GameCollection.new(files[:game])
-    @game_team_collection = GameTeamCollection.new(files[:game_team])
+    @team_collection = TeamCollection.new(files[:teams])
+    @game_collection = GameCollection.new(files[:games])
+    @game_team_collection = GameTeamCollection.new(files[:game_teams])
     @team_collection.create_team_collection
     @game_collection.create_game_collection
     @game_team_collection.create_game_team_collection
@@ -103,7 +103,7 @@ class StatTracker
 
     # uses both team and game_team info, needs to live in stat_tracker.
   def worst_offense
-    team_ids = @team_collection.all.map{|team| team.team_id}  # This could be shifted to use the game_team_collection data, just use a #uniq at the end
+    team_ids = @team_collection.all.map{|team| team.team_id}  # This snippet should be transfered to team_collection
 
     games_by_team = team_ids.reduce({}) do |games_by_team, team_id| # this snippet would better serve us in the game_team collection to be used by other methods
       games = @game_team_collection.all.find_all do |game_team|
@@ -127,7 +127,7 @@ class StatTracker
   end
 
   def best_defense
-    team_ids = @team_collection.all.map{|team| team.team_id}
+    team_ids = @team_collection.all.map{|team| team.team_id} # This snippet should be transfered to team_collection
 
     goals_against_by_team = {}
 
@@ -152,4 +152,5 @@ class StatTracker
       team.team_id == best_defense
     end.team_name
   end
+
 end

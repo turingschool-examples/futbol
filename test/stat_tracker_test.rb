@@ -6,15 +6,15 @@ require "./lib/stat_tracker"
 class StatTrackerTest < Minitest::Test
   def setup
     @info = {
-            game: "./test/fixtures/games_truncated.csv",
-            team: "./test/fixtures/teams_truncated.csv",
-            game_team: "./test/fixtures/game_teams_truncated.csv"
+            games: "./test/fixtures/games_truncated.csv",
+            teams: "./test/fixtures/teams_truncated.csv",
+            game_teams: "./test/fixtures/game_teams_truncated.csv"
             }
 
     @info_for_averages = {
-                          game: "./test/fixtures/games_average_truncated.csv",
-                          team: "./test/fixtures/teams_truncated.csv",
-                          game_team: "./test/fixtures/game_teams_average_truncated.csv"
+                          games: "./test/fixtures/games_average_truncated.csv",
+                          teams: "./test/fixtures/teams_truncated.csv",
+                          game_teams: "./test/fixtures/game_teams_average_truncated.csv"
                           }
 
     @stat_tracker = StatTracker.from_csv(@info)
