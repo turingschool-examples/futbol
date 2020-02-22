@@ -94,14 +94,34 @@ class StatTracker
 
     best_average = average_goals_by_team.values.max
 
-    # best_teams = average_goals_by_team.keep_if do |key, value| # I wrote this to check for multiple teams who fit the criteria
-    #   value == best_average
-    # end
-
     best_team = average_goals_by_team.key(best_average) # checks for first occurance of best average, need to gain clarification from teachers!!
 
     @team_collection.all.find do |team| # This snippet should move to team_collection as a #where(:key, value), ie where(team_id, 6)
       team.team_id == best_team
+    end.team_name
+  end
+
+  def worst_offense
+    team_ids = @team_collection.all.map{|team| team.team_id}  # This could be shifted to use the game_team_collection data, just use a #uniq at the end
+
+    games_by_team = team_ids.reduce({}) do |games_by_team, team_id| # this snippet would better serve us in the game_team collection to be used by other methods
+      games = @game_team_collection.all.find_all do |game_team|
+         game_team.team_id == team_id
+      end
+      games_by_team[team_id] = games
+      games_by_team
+    end
+
+    average_goals_by_team = games_by_team.transform_values do |games|
+      ((games.map{|game| game.goals}.sum)/games.length.to_f)  # average calculation
+    end
+
+    worst_average = average_goals_by_team.values.min
+
+    worst_team = average_goals_by_team.key(worst_average) # checks for first occurance of best average, need to gain clarification from teachers!!
+
+    @team_collection.all.find do |team| # This snippet should move to team_collection as a #where(:key, value), ie where(team_id, 6)
+      team.team_id == worst_team
     end.team_name
   end
 end

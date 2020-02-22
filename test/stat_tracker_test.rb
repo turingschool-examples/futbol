@@ -10,11 +10,13 @@ class StatTrackerTest < Minitest::Test
             team: "./test/fixtures/teams_truncated.csv",
             game_team: "./test/fixtures/game_teams_truncated.csv"
             }
+
     @info_for_averages = {
                           game: "./test/fixtures/games_average_truncated.csv",
                           team: "./test/fixtures/teams_truncated.csv",
                           game_team: "./test/fixtures/game_teams_average_truncated.csv"
                           }
+
     @stat_tracker = StatTracker.from_csv(@info)
     @stat_tracker_average = StatTracker.from_csv(@info_for_averages)
   end
@@ -63,4 +65,9 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_find_the_best_offense
     assert_equal "Real Salt Lake", @stat_tracker_average.best_offense
   end
+
+  def test_it_can_find_the_worst_offense
+    assert_equal "Orlando Pride", @stat_tracker_average.worst_offense
+  end
+
 end
