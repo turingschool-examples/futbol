@@ -55,16 +55,6 @@ class SeasonStatTest < Minitest::Test
     assert_equal "20122013", @season_stat.get_season_games("20122013").first.season
   end
 
-  def test_it_can_get_game_teams_by_season
-    assert_instance_of Array, @season_stat.get_season_game_teams("20122013")
-    assert_equal 117, @season_stat.get_season_game_teams("20122013").length
-    assert_instance_of GameTeam, @season_stat.get_season_game_teams("20122013").first
-  end
-
-  def test_it_can_get_coaches_by_season
-    assert_equal "John Tortorella", @season_stat.coaches_by_team_by_season("20122013")[3]
-  end
-
   def test_it_has_attributes
     assert_instance_of Array, @season_stat.get_season_games("20122013")
     assert_equal 257, @season_stat.get_season_games("20122013").length
@@ -97,8 +87,8 @@ class SeasonStatTest < Minitest::Test
   def test_it_get_team_data_by_team
     assert_instance_of Hash, @season_stat.get_team_data("20122013")
     assert_equal 32, @season_stat.get_team_data("20122013").length
-    assert_equal 1, @season_stat.get_team_data("20122013").keys.first
-    assert_equal 'Atlanta United', @season_stat.get_team_data("20122013")[1][:team_name]
+    assert_equal "1", @season_stat.get_team_data("20122013").keys.first
+    assert_equal 'Atlanta United', @season_stat.get_team_data("20122013")["1"][:team_name]
   end
 
   def test_it_can_get_total_team_games_by_game_type
@@ -140,10 +130,5 @@ class SeasonStatTest < Minitest::Test
   def test_it_can_calculate_biggest_surprise
     @season_stat.stubs(:get_team_data).returns(@team_info)
     assert_equal "Apples", @season_stat.biggest_surprise(@season)
-  end
-
-  def test_it_can_find_winningest_coach
-    @season_stat.stubs(:get_team_data).returns(@team_info)
-    assert_equal "Rufus", @season_stat.winningest_coach(@season)
   end
 end

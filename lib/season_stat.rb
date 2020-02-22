@@ -17,19 +17,6 @@ class SeasonStat
     end
   end
 
-  def get_season_game_teams(season)
-    @game_team_collection.game_team_list.find_all do |game_team|
-      game_team.game_id.include?(season[0..3])
-    end
-  end
-
-  def coaches_by_team_by_season(season)
-    get_season_game_teams(season).reduce({}) do |acc, info|
-      acc[info.team_id] = info.head_coach
-      acc
-    end
-  end
-
   def count_of_season_games(season)
     get_season_games(season).size
   end
@@ -64,7 +51,7 @@ class SeasonStat
 
   def get_team_data(season)
     @team_collection.teams_list.reduce({}) do |team_hash, team|
-      team_hash[team.team_id] = {
+      team_hash[team.team_id.to_s] = {
          team_name: team.team_name,
          season_win_percent: team_win_percentage(team.team_id, 'Regular Season', season),
          postseason_win_percent: team_win_percentage(team.team_id, 'Postseason', season),
@@ -119,12 +106,5 @@ class SeasonStat
       (team_info[:postseason_win_percent] - team_info[:season_win_percent])
     end
     team_bust[1][:team_name]
-  end
-
-  def winningest_coach(season)
-    best_coach = get_team_data(season).max_by do |team_id, team_info|
-      team_info[:season_win_percent]
-    end
-    best_coach[1][:head_coach]
   end
 end
