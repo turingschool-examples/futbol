@@ -22,4 +22,8 @@ class TeamCollection
       collect_team(instantiate_team(row))
     end
   end
+
+  def all
+    @teams    
+  end
 end

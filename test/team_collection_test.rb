@@ -49,4 +49,10 @@ class TeamCollectionTest < Minitest::Test
     assert_instance_of Team, @team_collection.teams.first
     assert_instance_of Team, @team_collection.teams.last
   end
+
+  def test_it_can_return_all_teams
+    @team_collection.create_team_collection
+
+    assert_equal @team_collection.teams, @team_collection.all
+  end
 end
