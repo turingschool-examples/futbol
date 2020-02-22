@@ -20,7 +20,7 @@ class StatTracker
     @teams = csv_data(locations[:teams], Team)
     @game_teams = csv_data(locations[:game_teams], GameTeam)
     @game_stats = GameStats.new(@games)
-    @league_stats = LeagueStats.new(@games, @game_teams, @teams)
+    @league_stats = LeagueStats.new(@games, @teams, @game_teams)
     # @season_stats = SeasonStats.new(@games, @game_teams, @teams)
     # @team_stats = TeamStats.new(@games, @game_teams, @teams)
 
