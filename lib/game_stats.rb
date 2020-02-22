@@ -1,6 +1,6 @@
 class GameStats
   def initialize(games)
-    @games = (games)
+    @games = games
   end
 
   def highest_total_score
@@ -20,7 +20,7 @@ class GameStats
     sum = (home_wins.length).to_f / (@games.length).to_f
     sum.round(2)
   end
-  
+
   def percentage_visitor_wins
     vistor_wins = @games.find_all { |game| game.away_goals > game.home_goals }
     sum = (vistor_wins.length).to_f / (@games.length).to_f
@@ -63,26 +63,5 @@ class GameStats
       average_goals[game.season] = (goals_per_season[game.season].to_f / count[game.season]).round(2)
       average_goals
     end
-  end
-
-  def winningest_team
-    win_ratios = Hash.new { |hash, key| hash[key] = [0,0] }
-    @games.each do |game|
-      if game.away_goals > game.home_goals
-        win_ratios[game.away_team_id][0] += 1
-      end
-      if game.home_goals > game.away_goals
-        win_ratios[game.home_team_id][0] += 1
-      end
-      win_ratios[game.away_team_id][1] += 1
-      win_ratios[game.home_team_id][1] += 1
-    end
-
-    win_percentages = win_ratios.each_with_object(Hash.new) do |(team_id, win_ratio), win_percent|
-      win_percent[team_id] = win_ratio[0].fdiv(win_ratio[1]) * 100
-    end
-
-    team_id = win_percentages.key(win_percentages.values.max)
-    team_id
   end
 end
