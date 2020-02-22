@@ -35,4 +35,8 @@ class ScoredGoalStatTest < Minitest::Test
   def test_it_can_return_worst_loss
     assert_equal 3, @scored_goal_stat.worst_loss("3")
   end
+
+  def test_it_can_return_favorite_opponent
+    assert_equal "Dallas Cowboys", @scored_goal_stat.favorite_opponent("3")
+  end
 end
