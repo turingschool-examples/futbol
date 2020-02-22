@@ -31,4 +31,31 @@ class StatTracker
     @team_collection = TeamCollection.new(@team_data)
   end
 
+  def highest_total_score
+    game_collection.games.map do |game|
+      game.home_goals + game.away_goals
+    end.max
+  end
+
+  def biggest_blowout
+    game_collection.games.map do |game|
+      Math.sqrt((game.home_goals - game.away_goals)**2).to_i
+    end.max
+  end
+
+  def percentage_ties
+    ties = game_collection.games.find_all do |game|
+      game.home_goals == game.away_goals
+    end.length
+    (ties / game_collection.games.length.to_f).round(2)
+  end
+
+  def count_of_games_by_season
+    games_in_season = Hash.new(0)
+    game_collection.games.each do |game|
+        games_in_season[game.season] += 1
+    end
+    games_in_season
+  end
+
 end
