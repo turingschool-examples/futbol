@@ -55,42 +55,23 @@ class ScoredGoalStat
   end
 
   def favorite_opponent(team_id)
-    ''
-  end
-
-  # @game_collection.games_list.map do |game|
-  #   if game.away_team_id.to_s == team_id
-  #     if hash.include?(game.home_team_id.to_s)
-  #       hash[game.home_team_id.to_s] = hash[game.home_team_id.to_s] << game.game_id.to_s
-  #     else
-  #       hash[game.home_team_id.to_s] = [game.game_id.to_s]
-  #     end
-  #   end
-  # end
-
-  @game_collection.games_list.map do |game|
-    if game.away_team_id.to_s == team_id
-      if home_hash.include?(game.home_team_id.to_s)
-        home_hash[game.home_team_id.to_s] = (hash[game.home_team_id.to_s] << game.game_id.to_s).flatten
-      else
-        home_hash[game.home_team_id.to_s] = [game.game_id.to_s]
-      end
-    elsif game.home_team_id.to_s == team_id
-      if away_hash.include?(game.away_team_id.to_s)
-        away_hash[game.away_team_id.to_s] = (away_hash[game.away_team_id.to_s] << game.game_id.to_s).flatten
-      else
-        away_hash[game.away_team_id.to_s] = [game.game_id.to_s]
+    home_hash = {}
+    away_hash = {}
+    @game_collection.games_list.map do |game|
+      if game.away_team_id.to_s == team_id
+        if home_hash.include?(game.home_team_id.to_s)
+          home_hash[game.home_team_id.to_s] = (hash[game.home_team_id.to_s] << game.game_id.to_s).flatten
+        else
+          home_hash[game.home_team_id.to_s] = [game.game_id.to_s]
+        end
+      elsif game.home_team_id.to_s == team_id
+        if away_hash.include?(game.away_team_id.to_s)
+          away_hash[game.away_team_id.to_s] = (away_hash[game.away_team_id.to_s] << game.game_id.to_s).flatten
+        else
+          away_hash[game.away_team_id.to_s] = [game.game_id.to_s]
+        end
       end
     end
-  end
-  #   hash = {}
-  #   home_hash.map do |key, value|
-  #     total = away_hash[key]
-  #     if total != nil
-  #       hash[key] = value << total
-  #       end
-  #     end
-  #   hash
-  #   end
-  # end
+    away_hash.merge(home_hash) { |key, old, new| (old << new).flatten.uniq }
+    end
 end
