@@ -60,11 +60,14 @@ class StatTracker
   end
 
   def lowest_scoring_home_team
-    x = hoa_games_by_team("home")
-
+    home_games = hoa_games_by_team("home")
+    home_goals = hoa_goals_by_team("home")
+    home_goals_per_game = {}
+    home_goals.each do |team_id, total_home_goals|
+      home_goals_per_game[team_id] = total_home_goals / hoa_games_by_team("home")[team_id].to_f
+    end
+    team_name_by_id(home_goals_per_game.key(home_goals_per_game.values.min))
   end
-  #	Name of the team with the lowest average score per game
-  # across all seasons when they are at home.
   ###### move these methods somewhere else
 
   def count_of_games_by_season
@@ -154,16 +157,16 @@ class StatTracker
     hoa_games_by_team
   end
 
-  def total_hoa_goals_by_team(hoa)
-    total_hoa_goals_by_team = Hash.new(0)
+  def hoa_goals_by_team(hoa)
+    hoa_goals_by_team = Hash.new(0)
     gtc.game_teams.find_all do |game|
       if game.hoa == hoa.downcase
-        total_hoa_goals_by_team[game.team_id] += game.goals
+        hoa_goals_by_team[game.team_id] += game.goals
       else
-        total_hoa_goals_by_team[game.team_id] += 0
+        hoa_goals_by_team[game.team_id] += 0
       end
     end
-    total_hoa_goals_by_team
+    hoa_goals_by_team
   end
 
   def hoa_wins_by_team(hoa)
