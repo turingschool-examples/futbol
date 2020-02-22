@@ -46,6 +46,28 @@ class SeasonWinTest < Minitest::Test
     assert_equal ["20122013", "20142015"], @season_win.winning_game_ids("3").keys
   end
 
+  def test_it_can_group_arrays_by_season
+    array = ["2012030136", "2012030137", "2014030131", "2014030132", "2014030133", "2014030134", "2014030135", "2014030311", "2014030314", "2014030316"]
+
+    assert_instance_of Hash, @season_win.group_arrays_by_season(array)
+
+    expected = {"2012"=>["2012030136", "2012030137"],
+                "2014"=>["2014030131", "2014030132", "2014030133", "2014030134", "2014030135", "2014030311", "2014030314", "2014030316"]}
+
+    assert_equal expected, @season_win.group_arrays_by_season(array)
+  end
+
+  def test_it_can_transform_key_into_season_and_length
+    collection = {"2012"=>["2012030136", "2012030137"],
+                  "2014"=>["2014030131", "2014030132", "2014030133", "2014030134", "2014030135", "2014030311", "2014030314", "2014030316"]}
+
+    assert_instance_of Hash, @season_win.transform_key_into_season(collection)
+
+    expected = {"20122013"=>2, "20142015"=>8}
+
+    assert_equal expected, @season_win.transform_key_into_season(collection)
+  end
+
   def test_it_can_return_average_wins
     assert_instance_of Hash, @season_win.average_wins_by_team_per_season("3")
     assert_equal 16.67, @season_win.average_wins_by_team_per_season("3")["20122013"]
