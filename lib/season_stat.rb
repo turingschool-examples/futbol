@@ -88,7 +88,11 @@ class SeasonStat
   def team_win_percentage(team_id, game_type, season)
     total_wins = total_team_wins_by_game_type(team_id, game_type, season).to_f
     total_games = total_team_games_by_game_type(team_id, game_type, season)
-    ((total_wins / total_games) * 100).round(2)
+    if total_games == 0
+      return 0.00
+    else
+      ((total_wins / total_games) * 100).round(2)
+    end
   end
 
   def biggest_bust(season)
