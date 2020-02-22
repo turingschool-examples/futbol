@@ -127,6 +127,29 @@ class StatTracker
   end
 
   def best_defense
-    
+    team_ids = @team_collection.all.map{|team| team.team_id}
+
+    goals_against_by_team = {}
+
+    team_ids.each do |team_id|
+      goals_against_by_team[team_id] = []
+    end
+
+    @game_collection.all.each do |game|
+      goals_against_by_team[game.home_team_id] << game.away_goals
+      goals_against_by_team[game.away_team_id] << game.home_goals
+    end
+
+    goals_against_by_team.transform_values! do |goals|
+      goals.sum/goals.length.to_f  # average calcultion
+    end
+
+    lowest_goals_against = goals_against_by_team.values.min
+
+    best_defense = goals_against_by_team.key(lowest_goals_against)
+
+    @team_collection.all.find do |team| # This snippet should move to team_collection as a #where(:key, value), ie where(team_id, 6)
+      team.team_id == best_defense
+    end.team_name
   end
 end

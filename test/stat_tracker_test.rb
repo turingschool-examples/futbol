@@ -71,7 +71,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_the_best_defence
-    
+    assert_equal "Real Salt Lake", @stat_tracker_average.best_defense
   end
 
 end
