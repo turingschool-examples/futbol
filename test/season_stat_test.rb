@@ -35,6 +35,18 @@ class SeasonStatTest < Minitest::Test
     assert_equal 257, @season_stat.count_of_season_games("20122013")
   end
 
+
+  def test_it_can_get_average_goals_by_season
+    test_hash = {
+            "20122013"=>4.04,
+            "20162017"=>4.75,
+            "20142015"=>3.75,
+            "20152016"=>3.88,
+            "20132014"=>4.33
+                }
+    assert_equal test_hash, @season_stat.average_goals_by_season
+  end
+
   def test_it_can_get_season_games_by_type
     assert_instance_of Array, @season_stat.games_by_type('Regular Season', "20122013")
     assert_equal 'Regular Season', @season_stat.games_by_type('Regular Season', "20122013").first.type
@@ -71,9 +83,28 @@ class SeasonStatTest < Minitest::Test
   end
 
   def test_it_can_calculate_biggest_bust
-      skip
-    @season_stat.get_team_info
-    @season_stat.get_regular_percents('Regular Season')
+    team_info = {
+
+      1 => {:team_name=> "Apples",
+            :season_win_percent => 50.00,
+            :postseason_win_percent => 70.00
+          },
+      2 => {:team_name=> "The Bunnies",
+            :season_win_percent => 80.00,
+            :postseason_win_percent => 15.00
+          },
+      3 => {:team_name=> "Broncos",
+            :season_win_percent => 60.00,
+            :postseason_win_percent => 70.00
+          },
+      4 => {:team_name=> "Avalanche",
+            :season_win_percent => 50.00,
+            :postseason_win_percent => 25.00
+            }
+    }
+    season = mock('testseason')
+    @season_stat.stubs(:get_team_info).returns(team_info)
+    assert_equal "The Bunnies", @season_stat.biggest_bust(season)
   end
 
   def test_it_can_count_games_by_season

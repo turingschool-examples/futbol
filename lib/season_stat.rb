@@ -8,7 +8,6 @@ class SeasonStat
     @game_collection = GameCollection.new(game_file_path)
     @team_collection = TeamCollection.new(team_file_path)
     @game_team_collection = GameTeamCollection.new(game_team_file_path)
-    @team_info = nil
     @season_list = @game_collection.get_all_seasons
   end
 
@@ -20,6 +19,22 @@ class SeasonStat
 
   def count_of_season_games(season)
     get_season_games(season).size
+  end
+
+  def average_goals_per_game_per_season(season)
+  total = 0
+    get_season_games(season).each do |game|
+      total += (game.home_goals + game.away_goals)
+    end
+    (total.to_f / count_of_season_games(season)).round(2)
+  end
+
+  def average_goals_by_season
+    @season_list.reduce({}) do |season_goals, season|
+      season_goals[season] = average_goals_per_game_per_season(season)
+      season_goals
+    end
+
   end
 
   def count_of_games_by_season
@@ -42,7 +57,7 @@ class SeasonStat
          season_win_percent: team_win_percentage(team.team_id, 'Regular Season', season),
          postseason_win_percent: team_win_percentage(team.team_id, 'Postseason', season)
 }
-      @team_info = team_hash
+      team_hash
     end
   end
 
@@ -76,9 +91,10 @@ class SeasonStat
     ((total_wins / total_games) * 100).round(2)
   end
 
-  def get_regular_percents(game_type)
-    @team_info.map do |team_info, team|
-      team_info[team] = team_win_percentage(team, game_type)
+  def biggest_bust(season)
+    team_bust = get_team_info(season).max_by do |team_id, team_info|
+      (team_info[:season_win_percent] - team_info[:postseason_win_percent])
     end
+    team_bust[1][:team_name]
   end
 end
