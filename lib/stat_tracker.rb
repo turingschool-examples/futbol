@@ -68,6 +68,16 @@ class StatTracker
     end
     team_name_by_id(home_goals_per_game.key(home_goals_per_game.values.min))
   end
+
+  def highest_scoring_home_team
+    home_games = hoa_games_by_team("home")
+    home_goals = hoa_goals_by_team("home")
+    home_goals_per_game = {}
+    home_goals.each do |team_id, total_home_goals|
+      home_goals_per_game[team_id] = total_home_goals / hoa_games_by_team("home")[team_id].to_f
+    end
+    team_name_by_id(home_goals_per_game.key(home_goals_per_game.values.max))
+  end
   ###### move these methods somewhere else
 
   def count_of_games_by_season
