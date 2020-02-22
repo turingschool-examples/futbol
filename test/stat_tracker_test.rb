@@ -60,4 +60,9 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal 2, @stat_tracker.lowest_total_score
   end
+
+  def test_it_can_return_average_goals_per_game
+
+    assert_equal 4.13, @stat_tracker.average_goals_per_game
+  end
 end
