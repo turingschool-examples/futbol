@@ -14,7 +14,7 @@ class StatTrackerTest < Minitest::Test
     @locations = {
         games: './data/little_games.csv',
         teams: './data/teams.csv',
-        game_teams: './data/game_teams.csv'
+        game_teams: './data/little_game_teams.csv'
       }
     @stat_tracker = StatTracker.from_csv(@locations)
   end
@@ -53,7 +53,13 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_knows_the_lowest_scoring_home_team
+    skip
     assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_it_knows_the_hightest_scoring_home_team
+    skip
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_home_team
   end
 
 
