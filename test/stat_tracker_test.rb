@@ -42,36 +42,22 @@ class StatTrackerTest < Minitest::Test
     assert_equal 32, Team.all.count
   end
 
-  def test_it_can_calculate_win_percentage
-    assert_equal 1.0, @stat_tracker.win_percentage(20122013, 6, "Postseason")
-    assert_equal 0, @stat_tracker.win_percentage(20122013, 3, "Postseason")
-    assert_equal 0.667, @stat_tracker.win_percentage(20122013, 6, "Regular Season")
+  def test_it_can_calculate_post_season_win_percentage
+    assert_equal 1.0, @stat_tracker.post_season_win_percentage(20122013, 6)
+    assert_equal 0, @stat_tracker.post_season_win_percentage(20122013, 3)
   end
 
-  #def test_it_can_find_postseason_games
-  #  assert_equal 5, @stat_tracker.post_season(20122013).count
-  #end
-
-  #def test_it_can_find_postseason_games
-  #  assert_equal 5, @stat_tracker.regular_season(20122013).count
-  #end
-
-  def test_biggest_bust
-    assert_equal "Houston Dynamo", @stat_tracker.biggest_bust(20122013)
+  def test_it_can_calculate_regular_season_win_percentage
+    assert_equal 0.667, @stat_tracker.regular_season_win_percentage(20122013, 6)
   end
-#
 
+  def test_it_finds_season_games
+    assert_equal 10, @stat_tracker.season_games(20122013).count
+    assert_equal 10, @stat_tracker.season_games(20142015).count
+  end
 
-#    For each team in that season , we need
-#    win_percentage("Regular Season") - win_percentage("Postseason")
-#    return Team Name with largest number difference
-
-#    Store list of win percentages by season with team name and result of win percentage differential
-
-#    Team Name
-
-#    Game.all
-
-#  end
+  def test_biggest_bust_team_name
+    assert_equal "FC Dallas", @stat_tracker.biggest_bust(20122013)
+  end
 
 end
