@@ -1,6 +1,6 @@
-require "./lib/team_collection"
-require "./lib/game_team_collection"
-require "./lib/game_collection"
+require_relative "team_collection"
+require_relative "game_team_collection"
+require_relative "game_collection"
 
 class StatTracker
 
@@ -28,7 +28,7 @@ class StatTracker
 
   def biggest_blowout
     @game_collection.games.map {|game| (game.away_goals - game.home_goals).abs}.max
-
+  end
   # This only requires game information.
   # It should probably move to game collection eventually.
   def count_of_games_by_season
@@ -64,9 +64,92 @@ class StatTracker
       total_goals_per_game = games_per_season.map do |game|  #very similar to total_goals_per_game in previus method
         game.home_goals + game.away_goals
       end
-      average = total_goals_per_game.sum / total_goals_per_game.length.to_f
+      average = total_goals_per_game.sum / total_goals_per_game.length.to_f # create module with average method??
       goals_by_season[season] = average.round(2)
       goals_by_season
     end
+  end
+
+  # This only requires team information.
+  # It should probably move to team collection eventually.
+  def count_of_teams
+    @team_collection.teams.length
+  end
+
+  # uses both team and game_team info, needs to live in stat_tracker.
+  def best_offense
+    team_ids = @team_collection.all.map{|team| team.team_id}  # This could be shifted to use the game_team_collection data, just use a #uniq at the end
+
+    games_by_team = team_ids.reduce({}) do |games_by_team, team_id| # this snippet would better serve us in the game_team collection to be used by other methods
+      games = @game_team_collection.all.find_all do |game_team|
+         game_team.team_id == team_id
+      end
+      games_by_team[team_id] = games
+      games_by_team
+    end
+
+    average_goals_by_team = games_by_team.transform_values do |games|
+      ((games.map{|game| game.goals}.sum)/games.length.to_f)  # average calculation
+    end
+
+    best_average = average_goals_by_team.values.max
+
+    best_team = average_goals_by_team.key(best_average) # checks for first occurance of best average, need to gain clarification from teachers!!
+
+    @team_collection.all.find do |team| # This snippet should move to team_collection as a #where(:key, value), ie where(team_id, 6)
+      team.team_id == best_team
+    end.team_name
+  end
+
+    # uses both team and game_team info, needs to live in stat_tracker.
+  def worst_offense
+    team_ids = @team_collection.all.map{|team| team.team_id}  # This could be shifted to use the game_team_collection data, just use a #uniq at the end
+
+    games_by_team = team_ids.reduce({}) do |games_by_team, team_id| # this snippet would better serve us in the game_team collection to be used by other methods
+      games = @game_team_collection.all.find_all do |game_team|
+         game_team.team_id == team_id
+      end
+      games_by_team[team_id] = games
+      games_by_team
+    end
+
+    average_goals_by_team = games_by_team.transform_values do |games|
+      ((games.map{|game| game.goals}.sum)/games.length.to_f)  # average calculation
+    end
+
+    worst_average = average_goals_by_team.values.min
+
+    worst_team = average_goals_by_team.key(worst_average) # checks for first occurance of best average, need to gain clarification from teachers!!
+
+    @team_collection.all.find do |team| # This snippet should move to team_collection as a #where(:key, value), ie where(team_id, 6)
+      team.team_id == worst_team
+    end.team_name
+  end
+
+  def best_defense
+    team_ids = @team_collection.all.map{|team| team.team_id}
+
+    goals_against_by_team = {}
+
+    team_ids.each do |team_id|
+      goals_against_by_team[team_id] = []
+    end
+
+    @game_collection.all.each do |game|
+      goals_against_by_team[game.home_team_id] << game.away_goals
+      goals_against_by_team[game.away_team_id] << game.home_goals
+    end
+
+    goals_against_by_team.transform_values! do |goals|
+      goals.sum/goals.length.to_f  # average calcultion
+    end
+
+    lowest_goals_against = goals_against_by_team.values.min
+
+    best_defense = goals_against_by_team.key(lowest_goals_against)
+
+    @team_collection.all.find do |team| # This snippet should move to team_collection as a #where(:key, value), ie where(team_id, 6)
+      team.team_id == best_defense
+    end.team_name
   end
 end

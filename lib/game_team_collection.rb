@@ -1,4 +1,4 @@
-require "./lib/game_team"
+require_relative "game_team"
 require "csv"
 class GameTeamCollection
 
@@ -20,6 +20,10 @@ class GameTeamCollection
     CSV.foreach(@csv_file_path, headers:true, header_converters: :symbol) do |row|
       collect_game_team(instantiate_game_team(row))
     end
+  end
+
+  def all
+    @games_by_teams
   end
 
 end

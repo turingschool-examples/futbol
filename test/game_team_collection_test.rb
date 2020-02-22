@@ -66,4 +66,10 @@ class GameTeamCollectionTest < Minitest::Test
     assert_instance_of GameTeam, @game_team_collection.games_by_teams.last
     assert_equal 20, @game_team_collection.games_by_teams.length
   end
+
+  def test_it_can_return_all_game_team_objects
+    @game_team_collection.create_game_team_collection
+    
+    assert_equal @game_team_collection.games_by_teams, @game_team_collection.all
+  end
 end
