@@ -59,4 +59,14 @@ class StatTracker
     season = SeasonStat.new(@games_file, @teams_file, @game_teams_file)
     season.biggest_bust(season_param)
   end
+
+  def biggest_surprise(season_param)
+    season = SeasonStat.new(@games_file, @teams_file, @game_teams_file)
+    season.biggest_surprise(season_param)
+  end
+
+  def winningest_coach(season_param)
+    season = SeasonStat.new(@games_file, @teams_file, @game_teams_file)
+    season.winningest_coach(season_param)
+  end
 end
