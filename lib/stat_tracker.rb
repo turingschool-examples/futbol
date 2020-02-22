@@ -50,6 +50,16 @@ class StatTracker
     scored_goal_stat.fewest_goals_scored(team_id)
   end
 
+  def biggest_team_blowout(team_id)
+    scored_goal_stat = ScoredGoalStat.new(@teams_file, @game_teams_file, @games_file)
+    scored_goal_stat.biggest_team_blowout(team_id)
+  end
+
+  def worst_loss(team_id)
+    scored_goal_stat = ScoredGoalStat.new(@teams_file, @game_teams_file, @games_file)
+    scored_goal_stat.worst_loss(team_id)
+  end
+
   def count_of_games_by_season
     season = SeasonStat.new(@games_file, @teams_file, @game_teams_file)
     season.count_of_games_by_season

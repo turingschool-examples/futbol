@@ -27,4 +27,12 @@ class ScoredGoalStatTest < Minitest::Test
     assert_equal 28, @scored_goal_stat.total_goals_scored("3").length
     assert_equal 2, @scored_goal_stat.total_goals_scored("3").first
   end
+
+  def test_it_can_return_biggest_team_blowout
+    assert_equal 4, @scored_goal_stat.biggest_team_blowout("3")
+  end
+
+  def test_it_can_return_worst_loss
+    assert_equal 3, @scored_goal_stat.worst_loss("3")
+  end
 end

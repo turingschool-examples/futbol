@@ -25,4 +25,32 @@ class ScoredGoalStat
       end
     end.compact
   end
+
+  def biggest_team_blowout(team_id)
+    hash = {}
+    @game_collection.games_list.map do |game|
+      if game.away_team_id.to_s == team_id || game.home_team_id.to_s == team_id
+        if team_id == game.away_team_id.to_s && game.away_goals >= game.home_goals
+          hash[game.game_id.to_s] = game.away_goals - game.home_goals
+        elsif team_id == game.home_team_id.to_s && game.away_goals < game.home_goals
+          hash[game.game_id.to_s] = game.away_goals - game.home_goals
+        end
+      end
+    end
+    hash.values.max
+  end
+
+  def worst_loss(team_id)
+    hash = {}
+    @game_collection.games_list.map do |game|
+      if game.away_team_id.to_s == team_id || game.home_team_id.to_s == team_id
+        if team_id == game.away_team_id.to_s && game.away_goals < game.home_goals
+          hash[game.game_id.to_s] = (game.away_goals - game.home_goals).abs
+        elsif team_id == game.home_team_id.to_s && game.away_goals >= game.home_goals
+          hash[game.game_id.to_s] = (game.away_goals - game.home_goals).abs
+        end
+      end
+    end
+    hash.values.max
+  end
 end
