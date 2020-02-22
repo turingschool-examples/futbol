@@ -110,10 +110,10 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_get_score_differences_by_team_id
     assert_equal 531, @stat_tracker.score_differences_by_team_id(3).length
-    assert_equal -1, @stat_tracker.score_differences_by_team_id(3).first
+    assert_equal (-1), @stat_tracker.score_differences_by_team_id(3).first
 
     assert_equal 552, @stat_tracker.score_differences_by_team_id(5).length
-    assert_equal -3, @stat_tracker.score_differences_by_team_id(5).first
+    assert_equal (-3), @stat_tracker.score_differences_by_team_id(5).first
   end
 
   def test_it_can_get_biggest_team_blowout
@@ -141,10 +141,22 @@ class StatTrackerTest < Minitest::Test
     assert_equal 1.08, @stat_tracker.win_percentage_against_opponent(5, 1)
   end
 
+  def test_it_can_get_all_team_average_wins_by_opponent
+    assert_instance_of Hash, @stat_tracker.all_team_average_wins_by_opponent(3)
+    assert_equal 31, @stat_tracker.all_team_average_wins_by_opponent(3).length
+    assert_equal 1.33, @stat_tracker.all_team_average_wins_by_opponent(3)[22]
+  end
+
   def test_it_can_get_rival
-    assert_equal "Reign FC", @stat_tracker.rival(3)
-    assert_equal "Reign FC", @stat_tracker.rival(5)
-    assert_equal "Reign FC", @stat_tracker.rival(6)
+    assert_equal "Montreal Impact", @stat_tracker.rival(3)
+    assert_equal "Washington Spirit FC", @stat_tracker.rival(5)
+    assert_equal "Columbus Crew SC", @stat_tracker.rival(6)
+  end
+
+  def test_it_can_get_favorite_opponent
+    assert_equal "San Jose Earthquakes", @stat_tracker.favorite_opponent(3)
+    assert_equal "San Jose Earthquakes", @stat_tracker.favorite_opponent(5)
+    assert_equal "Real Salt Lake", @stat_tracker.favorite_opponent(6)
   end
 
   def test_it_can_get_win_percentage_by_season
@@ -171,5 +183,12 @@ class StatTrackerTest < Minitest::Test
     assert_equal "20172018", @stat_tracker.worst_season(3)
     assert_equal "20142015", @stat_tracker.worst_season(5)
     assert_equal "20152016", @stat_tracker.worst_season(6)
+  end
+
+  def test_it_can_get_head_to_head
+    assert_equal 31, @stat_tracker.head_to_head(3).length
+    assert_equal 1.0, @stat_tracker.head_to_head(3)["DC United"]
+    assert_equal 1.63, @stat_tracker.head_to_head(5)["DC United"]
+    assert_equal 1.63, @stat_tracker.head_to_head(6)["DC United"]
   end
 end

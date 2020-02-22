@@ -175,17 +175,36 @@ class StatTracker
     score_differences_by_team_id(team_id).min.abs
   end
 
-  def rival(team_id)
+  def all_team_average_wins_by_opponent(team_id)
     games = all_games_by_team_id(team_id)
 
-    rivalries = games.reduce({}) do |rival_results, game|
+    games.reduce({}) do |matchup_results, game|
       if game.home_team_id == team_id
-        rival_results[game.away_team_id] = win_percentage_against_opponent(team_id, game.away_team_id)
+        matchup_results[game.away_team_id] = win_percentage_against_opponent(team_id, game.away_team_id)
       elsif game.away_team_id == team_id
-        rival_results[game.home_team_id] = win_percentage_against_opponent(team_id, game.home_team_id)
+        matchup_results[game.home_team_id] = win_percentage_against_opponent(team_id, game.home_team_id)
       end
-      rival_results
+      matchup_results
     end
-    get_team_name(rivalries.max.first)
+  end
+
+  def rival(team_id)
+    team_averages = all_team_average_wins_by_opponent(team_id)
+    rival = team_averages.max_by { |_team_id, result| result }.first
+    get_team_name(rival)
+  end
+
+  def favorite_opponent(team_id)
+    team_averages = all_team_average_wins_by_opponent(team_id)
+    rival = team_averages.min_by { |_team_id, result| result }.first
+    get_team_name(rival)
+  end
+
+  def head_to_head(team_id)
+    averages = all_team_average_wins_by_opponent(team_id)
+    averages.reduce({}) do |results, (opponent_id, average)|
+      results[get_team_name(opponent_id)] = average
+      results
+    end
   end
 end
