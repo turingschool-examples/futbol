@@ -121,4 +121,33 @@ class SeasonStatTest < Minitest::Test
     }
     assert_equal test_hash, @season_stat.count_of_games_by_season
   end
+
+  def test_it_can_calculate_biggest_surprise
+    team_info = {
+
+      1 => {:team_name=> "Apples",
+            :season_win_percent => 50.00,
+            :postseason_win_percent => 70.00
+          },
+      2 => {:team_name=> "The Bunnies",
+            :season_win_percent => 80.00,
+            :postseason_win_percent => 15.00
+          },
+      3 => {:team_name=> "Broncos",
+            :season_win_percent => 60.00,
+            :postseason_win_percent => 70.00
+          },
+      4 => {:team_name=> "Avalanche",
+            :season_win_percent => 50.00,
+            :postseason_win_percent => 25.00
+          },
+      5 => {:team_name=> "Avalanche",
+            :season_win_percent => 25.00,
+            :postseason_win_percent => 0.0
+            }
+    }
+    season = mock('testseason')
+    @season_stat.stubs(:get_team_info).returns(team_info)
+    assert_equal "Apples", @season_stat.biggest_surprise(season)
+  end
 end

@@ -101,4 +101,11 @@ class SeasonStat
     end
     team_bust[1][:team_name]
   end
+
+  def biggest_surprise(season)
+    team_bust = get_team_info(season).max_by do |team_id, team_info|
+      (team_info[:postseason_win_percent] - team_info[:season_win_percent])
+    end
+    team_bust[1][:team_name]
+  end
 end
