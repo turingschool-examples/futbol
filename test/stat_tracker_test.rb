@@ -47,6 +47,13 @@ class StatTrackerTest < Minitest::Test
     assert_equal 0.09, @stat_tracker.percentage_ties
   end
 
+  def test_it_can_show_the_worst_fans
+    assert_equal [6], @stat_tracker.worst_fans
+  end
+
+
+  ######  Move these tests somewhere else
+
   def test_it_can_return_count_of_games_by_season
     skip
     expected = {
@@ -61,6 +68,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_count_total_games_by_team
+    skip
     expected = {
       3 => 2,
       6 => 3,
@@ -72,6 +80,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_count_all_goals_scored_by_team
+    skip
     expected = {
       3 => 3,
       12 => 2,
@@ -82,6 +91,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_count_goals_allowed_by_team
+    skip
     expected = {
       3 => 5,
       6 => 6,
@@ -92,11 +102,13 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_team_names_by_id_number
+    skip
     assert_equal "Atlanta United", @stat_tracker.team_name_by_id(1)
     assert_equal "LA Galaxy", @stat_tracker.team_name_by_id(17)
   end
 
   def test_it_can_show_total_wins
+    skip
     expected = {
       3 => 0,
       6 => 9,
@@ -106,6 +118,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_show_total_loss
+    skip
     expected = {
       3 => 5,
       6 => 0,
@@ -115,6 +128,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_show_total_tie
+    skip
     expected = {
       3 => 0,
       6 => 0,
@@ -124,6 +138,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_display_home_or_away_games_by_team
+    skip
     expected_home = {
       3 => 2,
       6 => 5,
@@ -140,6 +155,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_display_home_or_away_wins_by_team
+    skip
     expected_home = {
       3 => 0,
       6 => 5,
@@ -156,6 +172,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_display_home_or_away_losses_by_team
+    skip
     expected_home = {
       3 => 2,
       6 => 0,
@@ -172,6 +189,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_display_home_or_away_ties_by_team
+    skip
     expected_home = {
       3 => 0,
       6 => 0,
