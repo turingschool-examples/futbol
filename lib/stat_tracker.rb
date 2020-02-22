@@ -2,6 +2,7 @@ require 'csv'
 require_relative 'season_win'
 require_relative 'season_stat'
 require_relative 'scored_goal_stat'
+require_relative 'season_stat_coach'
 
 class StatTracker
   attr_reader :games_file, :teams_file, :game_teams_file
@@ -87,7 +88,7 @@ class StatTracker
   end
 
   def winningest_coach(season_param)
-    season = SeasonStat.new(@games_file, @teams_file, @game_teams_file)
+    season = SeasonStatCoach.new(@games_file, @teams_file, @game_teams_file)
     season.winningest_coach(season_param)
   end
 end

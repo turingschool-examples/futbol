@@ -50,7 +50,6 @@ class SeasonStatCoach
 
   def winningest_coach(season)
     best_coach = create_coach_win_data_by_season(season).max_by do |coach, coach_wins|
-
       coach_wins
     end
     best_coach[0]
