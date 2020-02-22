@@ -32,7 +32,9 @@ class StatTracker
   # This only requires game information.
   # It should probably move to game collection eventually.
   def count_of_games_by_season
-    seasons = @game_collection.games.map{|game| game.season }.uniq  #season needs helper method
+    seasons = @game_collection.array_by_key(:season)
+    require "pry"; binding.pry
+    # seasons = @game_collection.games.map{|game| game.season }.uniq  #season needs helper method
     seasons.reduce({}) do |games_by_season, season|
       games_per_season = @game_collection.games.find_all do |game|  #games_per_season needs helper method
          season == game.season
@@ -56,7 +58,7 @@ class StatTracker
   # This only requires game information.
   # It should probably move to game collection eventually.
   def average_goals_by_season
-    seasons = @game_collection.games.map{|game| game.season }.uniq #season needs helper method
+    seasons = @game_collection.array_by_key(:season) 
     seasons.reduce({}) do |goals_by_season, season|
       games_per_season = @game_collection.games.find_all do |game|  #games_per_season needs helper method
          season == game.season
