@@ -100,6 +100,10 @@ class SeasonStatTest < Minitest::Test
       4 => {:team_name=> "Avalanche",
             :season_win_percent => 50.00,
             :postseason_win_percent => 25.00
+          },
+      5 => {:team_name=> "Avalanche",
+            :season_win_percent => 25.00,
+            :postseason_win_percent => 0.0
             }
     }
     season = mock('testseason')

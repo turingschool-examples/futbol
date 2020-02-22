@@ -43,4 +43,20 @@ class StatTracker
     season = SeasonStat.new(@games_file, @teams_file, @game_teams_file)
     season.count_of_games_by_season
   end
+
+  def average_goals_per_game
+    game_collection = GameCollection.new(@games_file)
+    game_collection.create_pct_data
+    game_collection.average_goals_per_game
+  end
+
+  def average_goals_by_season
+    season = SeasonStat.new(@games_file, @teams_file, @game_teams_file)
+    season.average_goals_by_season
+  end
+
+  def biggest_bust(season_param)
+    season = SeasonStat.new(@games_file, @teams_file, @game_teams_file)
+    season.biggest_bust(season_param)
+  end
 end
