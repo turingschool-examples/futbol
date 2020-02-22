@@ -78,6 +78,16 @@ class StatTracker
     end
     team_name_by_id(home_goals_per_game.key(home_goals_per_game.values.max))
   end
+
+  def best_defense
+    allowed = all_goals_allowed_by_team
+    games = total_games_by_team
+    average_goals_allowed = {}
+    allowed.each do |team_id, goals_allowed|
+      average_goals_allowed[team_id] = goals_allowed / total_games_by_team[team_id].to_f
+    end
+    team_name_by_id(average_goals_allowed.key(average_goals_allowed.values.min))
+  end
   ###### move these methods somewhere else
 
   def count_of_games_by_season
