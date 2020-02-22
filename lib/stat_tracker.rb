@@ -50,6 +50,16 @@ class StatTracker
     (ties / game_collection.games.length.to_f).round(2)
   end
 
+  def worst_fans
+    home_w = hoa_wins_by_team("home")
+    away_w = hoa_wins_by_team("away")
+    teams = away_w.select do |team, away_wins|
+      home_w[team] < away_wins
+    end.keys
+    teams.map { |team_id| team_name_by_id(team_id) }
+  end
+  ###### move these methods somewhere else
+
   def count_of_games_by_season
     games_in_season = Hash.new(0)
     game_collection.games.each do |game|
