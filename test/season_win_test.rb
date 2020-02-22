@@ -6,8 +6,7 @@ class SeasonWinTest < Minitest::Test
   def setup
     team_file_path = './data/teams.csv'
     game_team_file_path = './test/fixtures/truncated_game_teams.csv'
-    game_file_path = './test/fixtures/truncated_games.csv'
-    @season_win = SeasonWin.new(team_file_path, game_team_file_path, game_file_path)
+    @season_win = SeasonWin.new(team_file_path, game_team_file_path)
   end
 
   def test_it_exists

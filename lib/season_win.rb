@@ -1,17 +1,15 @@
 require_relative 'team_collection'
 require_relative 'game_team_collection'
-require_relative 'game_collection'
 
 class SeasonWin
 
-  def initialize(team_file_path, game_team_file_path, game_file_path)
-    @game_collection = GameCollection.new(game_file_path)
+  def initialize(team_file_path, game_team_file_path)
     @team_collection = TeamCollection.new(team_file_path)
     @game_team_collection = GameTeamCollection.new(game_team_file_path)
   end
 
   def team_info(team_id)
-    @team_collection.teams_list.reduce({}) do |acc, team|
+    @team_collection.teams_list.reduce(Hash.new) do |acc, team|
       if team_id == team.team_id.to_s
         acc = {"team_id" => team.team_id.to_s,
                "franchise_id" => team.franchise_id.to_s,

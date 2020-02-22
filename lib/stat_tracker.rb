@@ -20,17 +20,17 @@ class StatTracker
   end
 
   def team_info(team_id)
-    season_win = SeasonWin.new(@teams_file, @game_teams_file, @games_file)
+    season_win = SeasonWin.new(@teams_file, @game_teams_file)
     season_win.team_info(team_id)
   end
 
   def best_season(team_id)
-    season_win = SeasonWin.new(@teams_file, @game_teams_file, @games_file)
+    season_win = SeasonWin.new(@teams_file, @game_teams_file)
     season_win.best_season(team_id)
   end
 
   def worst_season(team_id)
-    season_win = SeasonWin.new(@teams_file, @game_teams_file, @games_file)
+    season_win = SeasonWin.new(@teams_file, @game_teams_file)
     season_win.worst_season(team_id)
   end
 
