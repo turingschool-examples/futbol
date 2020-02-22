@@ -1,6 +1,6 @@
-require "./lib/team_collection"
-require "./lib/game_team_collection"
-require "./lib/game_collection"
+require_relative "team_collection"
+require_relative "game_team_collection"
+require_relative "game_collection"
 
 class StatTracker
 
@@ -101,6 +101,7 @@ class StatTracker
     end.team_name
   end
 
+    # uses both team and game_team info, needs to live in stat_tracker.
   def worst_offense
     team_ids = @team_collection.all.map{|team| team.team_id}  # This could be shifted to use the game_team_collection data, just use a #uniq at the end
 
@@ -123,5 +124,9 @@ class StatTracker
     @team_collection.all.find do |team| # This snippet should move to team_collection as a #where(:key, value), ie where(team_id, 6)
       team.team_id == worst_team
     end.team_name
+  end
+
+  def best_defense
+    
   end
 end

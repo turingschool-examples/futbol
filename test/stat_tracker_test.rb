@@ -70,4 +70,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Orlando Pride", @stat_tracker_average.worst_offense
   end
 
+  def test_it_can_find_the_best_defence
+    
+  end
+
 end

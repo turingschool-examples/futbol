@@ -1,4 +1,4 @@
-require './lib/team'
+require_relative 'team'
 require 'csv'
 
 class TeamCollection
@@ -24,6 +24,6 @@ class TeamCollection
   end
 
   def all
-    @teams    
+    @teams
   end
 end
