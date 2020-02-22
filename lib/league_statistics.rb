@@ -1,6 +1,10 @@
 require './lib/game'
+require './lib/modules/calculable'
+require './lib/modules/hashable'
 
 class LeagueStatistics
+  include Calculable
+  include Hashable
 
   def initialize
     @teams = Team.all
@@ -29,7 +33,7 @@ class LeagueStatistics
 
   def average_goals_per_team
     goals_per_team.transform_values do |goals|
-      (goals.sum.to_f / goals.size).round(2)
+      average(goals.sum.to_f, goals.size)
     end
   end
 
@@ -57,7 +61,7 @@ class LeagueStatistics
 
   def average_games_teams_and_allowed_goals
     games_teams_and_allowed_goals.transform_values do |allowed_goals|
-      (allowed_goals.sum.to_f / allowed_goals.size).round(2)
+      average(allowed_goals.sum.to_f, allowed_goals.size)
     end
   end
 
@@ -73,15 +77,16 @@ class LeagueStatistics
 
   def visiting_teams_and_goals
     @games.reduce({}) do |visitor_games, game|
-      visitor_games[game.away_team_id] = [] if visitor_games[game.away_team_id].nil?
-      visitor_games[game.away_team_id] << game.away_goals
-      visitor_games
+      hash_builder(visitor_games, game.away_team_id, game.away_goals)
     end
+    # visitor_games[game.away_team_id] = [] if visitor_games[game.away_team_id].nil?
+    # visitor_games[game.away_team_id] << game.away_goals
+    # visitor_games
   end
 
   def average_visiting_teams_and_goals
     visiting_teams_and_goals.transform_values do |goals|
-      (goals.sum.to_f / goals.size).round(2)
+      average(goals.sum.to_f, goals.size)
     end
   end
 
