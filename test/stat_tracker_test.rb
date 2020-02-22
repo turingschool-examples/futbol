@@ -71,11 +71,19 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_the_worst_defence
-    assert_equal "Sky Blue FC", @stat_tracker_average.worst_defense
+    assert_equal "Chicago Fire", @stat_tracker_average.worst_defense
   end
 
   def test_it_can_return_highest_scoring_visitor
     assert_equal "Real Salt Lake", @stat_tracker_average.highest_scoring_visitor
+  end
+
+  def test_it_can_return_highest_scoring_home_team
+    assert_equal "FC Dallas", @stat_tracker_average.highest_scoring_home_team
+  end
+
+  def test_it_can_return_lowest_scoring_visitor
+    assert_equal "Orlando Pride", @stat_tracker_average.lowest_scoring_visitor
   end
 
 end

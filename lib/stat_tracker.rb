@@ -165,12 +165,58 @@ class StatTracker
       (goals.sum/goals.length.to_f) if goals != []# average calculation
     end
 
-    highest_avergae = average_away_goals.values.max
+    highest_average = average_away_goals.values.max
 
-    best_team = average_away_goals.key(highest_avergae)
+    best_team = average_away_goals.key(highest_average)
 
     @team_collection.all.find do |team| # This snippet should move to team_collection as a #where(:key, value), ie where(team_id, 6)
       team.team_id == best_team
+    end.team_name
+  end
+
+  def highest_scoring_home_team
+    home_team_goals = @team_collection.all.reduce({}) do |hash, team|
+      hash[team.team_id] = []
+      hash
+    end
+
+    @game_collection.all.each do |game|
+      home_team_goals[game.home_team_id] << game.home_goals
+    end
+
+    average_home_goals = home_team_goals.transform_values do |goals|
+      (goals.sum/goals.length.to_f) if goals != []# average calculation
+    end
+
+    highest_average = average_home_goals.values.max
+
+    best_team = average_home_goals.key(highest_average)
+
+    @team_collection.all.find do |team| # This snippet should move to team_collection as a #where(:key, value), ie where(team_id, 6)
+      team.team_id == best_team
+    end.team_name
+  end
+
+  def lowest_scoring_visitor
+    away_team_goals = @team_collection.all.reduce({}) do |hash, team|
+      hash[team.team_id] = []
+      hash
+    end
+
+    @game_collection.all.each do |game|
+      away_team_goals[game.away_team_id] << game.away_goals
+    end
+
+    average_away_goals = away_team_goals.transform_values do |goals|
+      (goals.sum/goals.length.to_f) if goals != []# average calculation
+    end
+
+    lowest_average = average_away_goals.values.min
+
+    worst_team = average_away_goals.key(lowest_average)
+
+    @team_collection.all.find do |team| # This snippet should move to team_collection as a #where(:key, value), ie where(team_id, 6)
+      team.team_id == worst_team
     end.team_name
   end
 end
