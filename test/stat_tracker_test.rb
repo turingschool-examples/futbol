@@ -167,6 +167,13 @@ class StatTrackerTest < Minitest::Test
       5 => 1
     }
     assert_equal expected_home, @stat_tracker.total_hoa_goals_by_team("home")
+
+    expected_away = {
+      3 => 5,
+      6 => 11,
+      5 => 1
+    }
+    assert_equal expected_away, @stat_tracker.total_hoa_goals_by_team("away")
   end
 
   def test_it_can_display_home_or_away_wins_by_team
