@@ -63,6 +63,7 @@ class GameCollectionTest < Minitest::Test
 
   def test_it_can_return_all_games
     @game_collection.create_game_collection
+    
     assert_equal @game_collection.games, @game_collection.all
   end
 end
