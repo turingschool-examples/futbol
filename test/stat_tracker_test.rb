@@ -56,8 +56,22 @@ class StatTrackerTest < Minitest::Test
     assert_equal 10, @stat_tracker.season_games(20142015).count
   end
 
-  def test_biggest_bust_team_name
-    assert_equal "FC Dallas", @stat_tracker.biggest_bust(20122013)
+  def test_rs_win_percentage_by_team
+    expected = {
+                6=>0.667,
+                3=>0.0,
+                52=>1.0,
+                1=>1.0,
+                12=>0.0,
+                14=>0.0,
+                5=>1.0
+              }
+    assert_equal expected, @stat_tracker.rs_win_percentage_by_team(20122013)
+  end
+
+  def test_biggest_bust_team_number
+
+    assert_equal 6, @stat_tracker.biggest_bust(20122013)
   end
 
 end

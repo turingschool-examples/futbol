@@ -72,7 +72,7 @@ class StatTracker
     end
   end
 
-  def biggest_bust(season)
+  def rs_win_percentage_by_team(season)
     rs_win_percentage_by_team = {}
     season_games(season).each_value do |game_data|
       if rs_win_percentage_by_team[game_data.home_team_id] == nil
@@ -84,7 +84,10 @@ class StatTracker
         rs_win_percentage_by_team[game_data.away_team_id] = regular_season_win_percentage(season, game_data.away_team_id)
       end
     end
+    rs_win_percentage_by_team
+  end
 
+  def biggest_bust(season)
     ps_win_percentage_by_team = {}
     season_games(season).each_value do |game_data|
       if ps_win_percentage_by_team[game_data.home_team_id] == nil
@@ -98,7 +101,7 @@ class StatTracker
     end
     bust_diff = {}
     ps_win_percentage_by_team.each_key do |team|
-       bust_diff[team] = (rs_win_percentage_by_team[team] - ps_win_percentage_by_team[team])
+       bust_diff[team] = (rs_win_percentage_by_team(season)[team] - ps_win_percentage_by_team[team])
     end
 
     bust_diff.delete_if { |team, win_percentage| win_percentage.nan? }
