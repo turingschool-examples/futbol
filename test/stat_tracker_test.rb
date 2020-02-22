@@ -24,13 +24,13 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_load_collections_of_various_data
-      assert_instance_of GameTeamsCollection, @stat_tracker.gtc
-      assert_equal GameTeams, @stat_tracker.gtc.game_teams.first.class
-      assert_instance_of GameCollection, @stat_tracker.game_collection
-      assert_equal Game, @stat_tracker.game_collection.games.first.class
-      assert_instance_of TeamCollection, @stat_tracker.team_collection
-      assert_equal Team, @stat_tracker.team_collection.teams.first.class
-    end
+    assert_instance_of GameTeamsCollection, @stat_tracker.gtc
+    assert_equal GameTeams, @stat_tracker.gtc.game_teams.first.class
+    assert_instance_of GameCollection, @stat_tracker.game_collection
+    assert_equal Game, @stat_tracker.game_collection.games.first.class
+    assert_instance_of TeamCollection, @stat_tracker.team_collection
+    assert_equal Team, @stat_tracker.team_collection.teams.first.class
+  end
 
   def test_it_can_return_the_highest_total_score
     assert_equal 5, @stat_tracker.highest_total_score
