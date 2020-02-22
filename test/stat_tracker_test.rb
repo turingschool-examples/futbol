@@ -59,25 +59,25 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_percentage_home_wins
-    assert_equal 54.00, @stat_tracker.percentage_home_wins
+    assert_equal 0.54, @stat_tracker.percentage_home_wins
   end
 
   def test_percentage_away_wins
-    assert_equal 43.00, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.43, @stat_tracker.percentage_visitor_wins
   end
 
   def test_percentage_ties
-    assert_equal 3.00, @stat_tracker.percentage_ties
+    assert_equal 0.03, @stat_tracker.percentage_ties
   end
 
   def test_count_of_games_by_season
     expected =
     {
-      20122013 => 57,
-      20162017 => 4,
-      20142015 => 17,
-      20152016 => 16,
-      20132014 => 6
+      "20122013" => 57,
+      "20162017" => 4,
+      "20142015" => 17,
+      "20152016" => 16,
+      "20132014" => 6
     }
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
@@ -101,11 +101,11 @@ class StatTrackerTest < Minitest::Test
   def test_average_goals_by_season
     expected =
     {
-      20122013 => 3.86,
-      20162017 => 4.75,
-      20142015 => 4.00,
-      20152016 => 3.88,
-      20132014 => 4.33
+      "20122013" => 3.86,
+      "20162017" => 4.75,
+      "20142015" => 4.00,
+      "20152016" => 3.88,
+      "20132014" => 4.33
     }
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
