@@ -146,4 +146,30 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Reign FC", @stat_tracker.rival(5)
     assert_equal "Reign FC", @stat_tracker.rival(6)
   end
+
+  def test_it_can_get_win_percentage_by_season
+    expected = {
+      "20122013" => 0.81,
+      "20152016" => 1.22,
+      "20142015" => 1.53,
+      "20132014" => 1.23,
+      "20172018" => 0.62,
+      "20162017" => 1.38
+    }
+
+    assert_instance_of Hash, @stat_tracker.win_percentage_by_season(3)
+    assert_equal expected, @stat_tracker.win_percentage_by_season(3)
+  end
+
+  def test_it_can_get_best_season
+    assert_equal "20142015", @stat_tracker.best_season(3)
+    assert_equal "20122013", @stat_tracker.best_season(5)
+    assert_equal "20132014", @stat_tracker.best_season(6)
+  end
+
+  def test_it_can_get_worst_season
+    assert_equal "20172018", @stat_tracker.worst_season(3)
+    assert_equal "20142015", @stat_tracker.worst_season(5)
+    assert_equal "20152016", @stat_tracker.worst_season(6)
+  end
 end
