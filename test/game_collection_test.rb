@@ -60,4 +60,9 @@ class GameCollectionTest < Minitest::Test
 
     assert_equal expected, @game_collection.total_goals_per_game
   end
+
+  def test_it_can_return_all_games
+    @game_collection.create_game_collection
+    assert_equal @game_collection.games, @game_collection.all
+  end
 end
