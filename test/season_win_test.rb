@@ -74,6 +74,6 @@ class SeasonWinTest < Minitest::Test
   end
 
   def test_it_can_return_average_win_percentage
-    assert_equal 35.71, @season_win.average_win_percentage("3")
+    assert_equal 0.36, @season_win.average_win_percentage("3")
   end
 end
