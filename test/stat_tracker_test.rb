@@ -20,7 +20,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_exists
     assert_instance_of StatTracker, @stat_tracker
   end
-  
+
   def test_it_can_create_objects
     assert_instance_of Game, @stat_tracker.games[2]
     assert_instance_of Team, @stat_tracker.teams[2]

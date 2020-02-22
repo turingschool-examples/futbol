@@ -12,6 +12,9 @@ class Team
     end
 
     @@all = all_teams
+    # send it game and team file
+    # team can have total goals as instance var
+    # 
   end
 
   def self.all
