@@ -80,4 +80,9 @@ class SeasonWin
     final_total_won_games
   end
 
+  def average_win_percentage(team_id)
+    won_games = winning_game_ids(team_id).values.sum
+    total_games = total_games_by_season(team_id).values.sum
+    (won_games.to_f / total_games).round(2)
+  end
 end

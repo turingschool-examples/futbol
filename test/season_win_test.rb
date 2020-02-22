@@ -72,4 +72,8 @@ class SeasonWinTest < Minitest::Test
     assert_equal 16.67, @season_win.average_wins_by_team_per_season("3")["20122013"]
     assert_equal 72.73, @season_win.average_wins_by_team_per_season("3")["20142015"]
   end
+
+  def test_it_can_return_average_win_percentage
+    assert_equal 35.71, @season_win.average_win_percentage("3")
+  end
 end
