@@ -1,16 +1,9 @@
-class GameTeams
-  attr_reader :game_id,
-              :team_id,
-              :hoa,
-              :result,
-              :settled_in,
-              :head_coach,
-              :goals,
-              :shots,
-              :tackles
+class GameTeam
+  attr_reader :game_id, :team_id, :hoa, :result, :settled_in,
+              :head_coach, :goals, :shots, :tackles
 
   def initialize(attributes)
-    @game_id = attributes[:game_id]
+    @game_id = attributes[:game_id].to_i
     @team_id = attributes[:team_id].to_i
     @hoa = attributes[:hoa]
     @result = attributes[:result]
