@@ -20,10 +20,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_exists
+    skip
     assert_instance_of StatTracker, @stat_tracker
   end
 
   def test_it_can_load_collections_of_various_data
+    skip
     assert_instance_of GameTeamsCollection, @stat_tracker.gtc
     assert_equal GameTeams, @stat_tracker.gtc.game_teams.first.class
     assert_instance_of GameCollection, @stat_tracker.game_collection
@@ -60,6 +62,10 @@ class StatTrackerTest < Minitest::Test
   def test_it_knows_the_hightest_scoring_home_team
     skip
     assert_equal "FC Dallas", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_it_can_return_the_best_overall_defense
+    assert_equal "FC Dallas", @stat_tracker.best_defense
   end
 
 
