@@ -5,10 +5,6 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012030121,8,home,TIE,REG,Michel Therrien,2,12,24,6,5,1,60.6,11,10
 2012030311,6,away,WIN,REG,Claude Julien,3,7,19,17,4,0,66.7,1,5
 2012030311,5,home,LOSS,REG,Dan Bylsma,0,7,34,28,4,0,33.3,8,9
-2014030411,16,away,WIN,REG,Joel Quenneville,2,5,21,4,3,0,47.4,11,5
-2014030411,14,home,LOSS,REG,Jon Cooper,1,5,29,6,2,0,52.6,12,5
-2014030412,16,away,WIN,REG,Joel Quenneville,3,7,28,6,3,1,64.8,8,4
-2014030412,14,home,LOSS,REG,Jon Cooper,2,6,33,6,3,1,35.2,11,6
 2015030141,3,away,LOSS,REG,Alain Vigneault,2,9,50,10,5,1,48.5,2,3
 2015030141,5,home,WIN,REG,Mike Sullivan,3,7,35,10,5,1,51.5,10,4
 2015030142,3,away,TIE,REG,Alain Vigneault,2,7,57,19,3,0,44.3,3,3
@@ -17,10 +13,6 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012020701,19,home,WIN,REG,Ken Hitchcock,2,5,19,18,5,1,58.6,5,7
 2012020587,7,away,LOSS,REG,Ron Rolston,1,7,22,2,3,0,43.6,13,3
 2012020587,52,home,WIN,REG,Claude Noel,2,7,39,6,1,0,56.4,9,8
-2014020793,26,away,LOSS,REG,Darryl Sutter,2,11,39,7,1,0,39,1,2
-2014020793,29,home,WIN,REG,Todd Richards,3,6,34,7,1,0,61,4,1
-2014021092,19,away,WIN,OT,Ken Hitchcock,3,8,34,13,0,0,56.7,2,5
-2014021092,5,home,LOSS,OT,Mike Johnston,2,6,39,7,3,0,43.3,5,5
 2015020606,10,away,LOSS,REG,Mike Babcock,1,6,24,19,4,1,56.9,6,2
 2015020606,26,home,WIN,REG,Darryl Sutter,2,10,23,10,2,0,43.1,12,2
 2015020346,22,away,TIE,SO,Todd McLellan,2,9,31,8,4,1,50.6,5,2

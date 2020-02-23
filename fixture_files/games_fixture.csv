@@ -2,13 +2,9 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2012030221,20122013,Postseason,5/16/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
 2012030121,20122013,Postseason,5/2/13,9,8,2,2,Red Bull Arena,/api/v1/venues/null
 2012030311,20122013,Postseason,6/2/13,6,5,3,0,Children's Mercy Park,/api/v1/venues/null
-2014030411,20142015,Postseason,6/4/15,16,14,2,1,Audi Field,/api/v1/venues/null
-2014030412,20142015,Postseason,6/6/15,16,14,3,2,Audi Field,/api/v1/venues/null
 2015030141,20152016,Postseason,4/14/16,3,5,2,3,Children's Mercy Park,/api/v1/venues/null
 2015030142,20152016,Postseason,4/16/16,3,5,2,2,Children's Mercy Park,/api/v1/venues/null
 2012020701,20122013,Regular Season,4/26/13,20,19,1,2,Talen Energy Stadium,/api/v1/venues/null
 2012020587,20122013,Regular Season,4/10/13,7,52,1,2,Providence Park,/api/v1/venues/null
-2014020793,20142015,Regular Season,2/10/15,26,29,2,3,Exploria Stadium,/api/v1/venues/null
-2014021092,20142015,Regular Season,3/24/15,19,5,3,2,Children's Mercy Park,/api/v1/venues/null
 2015020606,20152016,Regular Season,1/8/16,10,26,1,2,Nippert Stadium,/api/v1/venues/null
 2015020346,20152016,Regular Season,11/29/15,22,5,2,2,Children's Mercy Park,/api/v1/venues/null
