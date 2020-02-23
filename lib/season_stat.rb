@@ -4,10 +4,9 @@ require_relative 'team_collection'
 
 class SeasonStat
 
-  def initialize(game_file_path, team_file_path, game_team_file_path)
+  def initialize(game_file_path, team_file_path)
     @game_collection = GameCollection.new(game_file_path)
     @team_collection = TeamCollection.new(team_file_path)
-    @game_team_collection = GameTeamCollection.new(game_team_file_path)
     @season_list = @game_collection.get_all_seasons
   end
 
@@ -34,7 +33,6 @@ class SeasonStat
       season_goals[season] = average_goals_per_game_per_season(season)
       season_goals
     end
-
   end
 
   def count_of_games_by_season
@@ -50,12 +48,12 @@ class SeasonStat
     end
   end
 
-  def get_team_info(season)
+  def get_team_data(season)
     @team_collection.teams_list.reduce({}) do |team_hash, team|
-      team_hash[team.team_id] = {
+      team_hash[team.team_id.to_s] = {
          team_name: team.team_name,
          season_win_percent: team_win_percentage(team.team_id, 'Regular Season', season),
-         postseason_win_percent: team_win_percentage(team.team_id, 'Postseason', season)
+         postseason_win_percent: team_win_percentage(team.team_id, 'Postseason', season),
 }
       team_hash
     end
@@ -96,8 +94,15 @@ class SeasonStat
   end
 
   def biggest_bust(season)
-    team_bust = get_team_info(season).max_by do |team_id, team_info|
+    team_bust = get_team_data(season).max_by do |team_id, team_info|
       (team_info[:season_win_percent] - team_info[:postseason_win_percent])
+    end
+    team_bust[1][:team_name]
+  end
+
+  def biggest_surprise(season)
+    team_bust = get_team_data(season).max_by do |team_id, team_info|
+      (team_info[:postseason_win_percent] - team_info[:season_win_percent])
     end
     team_bust[1][:team_name]
   end

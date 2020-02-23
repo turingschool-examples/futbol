@@ -2,6 +2,7 @@ require 'csv'
 require_relative 'season_win'
 require_relative 'season_stat'
 require_relative 'scored_goal_stat'
+require_relative 'season_stat_coach'
 
 class StatTracker
   attr_reader :games_file, :teams_file, :game_teams_file
@@ -71,7 +72,7 @@ class StatTracker
   end
 
   def count_of_games_by_season
-    season = SeasonStat.new(@games_file, @teams_file, @game_teams_file)
+    season = SeasonStat.new(@games_file, @teams_file)
     season.count_of_games_by_season
   end
 
@@ -82,12 +83,22 @@ class StatTracker
   end
 
   def average_goals_by_season
-    season = SeasonStat.new(@games_file, @teams_file, @game_teams_file)
+    season = SeasonStat.new(@games_file, @teams_file)
     season.average_goals_by_season
   end
 
   def biggest_bust(season_param)
-    season = SeasonStat.new(@games_file, @teams_file, @game_teams_file)
+    season = SeasonStat.new(@games_file, @teams_file)
     season.biggest_bust(season_param)
+  end
+
+  def biggest_surprise(season_param)
+    season = SeasonStat.new(@games_file, @teams_file)
+    season.biggest_surprise(season_param)
+  end
+
+  def winningest_coach(season_param)
+    season = SeasonStatCoach.new(@game_teams_file)
+    season.winningest_coach(season_param)
   end
 end
