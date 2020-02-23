@@ -38,7 +38,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_from_csv_loads_all_three_files
     assert_equal 100, Game.all.count
-    assert_equal 50, GameTeam.all.count
+    # assert_equal 50, GameTeam.all.count
     assert_equal 32, Team.all.count
   end
 
@@ -110,4 +110,14 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
 
+  def test_most_tackles
+    game = Game.all.values.first
+
+    assert_equal "Houston Dynamo", @stat_tracker.most_tackles(game.season)
+  end
+
+  def test_fewest_tackles
+    game = Game.all.values.first
+    assert_equal "Orlando City SC", @stat_tracker.fewest_tackles(game.season)
+  end
 end
