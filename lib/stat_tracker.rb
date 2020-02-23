@@ -124,8 +124,8 @@ class StatTracker
   def most_tackles(season)
     games = games_in_season(season)
 
-    tackles_by_team_by_season = GameTeam.all.values.reduce(Hash.new(0)) do |acc, team|
-      team.each do |game|
+    tackles_by_team_by_season = GameTeam.all.values.reduce(Hash.new(0)) do |acc, teams|
+      teams.each do |game|
         if games.include?(game.game_id)
           acc[game.team_id] += game.tackles
         end
@@ -141,8 +141,8 @@ class StatTracker
   def fewest_tackles(season)
     games = games_in_season(season)
 
-    tackles_by_team_by_season = GameTeam.all.values.reduce(Hash.new(0)) do |acc, team|
-      team.each do |game|
+    tackles_by_team_by_season = GameTeam.all.values.reduce(Hash.new(0)) do |acc, teams|
+      teams.each do |game|
         if games.include?(game.game_id)
           acc[game.team_id] += game.tackles
         end
@@ -155,4 +155,48 @@ class StatTracker
     Team.all[team].team_name
   end
 
+  def total_goals_by_team_in_season(season, team_id)
+    games = games_in_season(season)
+
+    team_goals = GameTeam.all.values.reduce(0) do |acc, teams|
+      teams.each do |game|
+        if games.include?(game.game_id) && game.team_id == team_id
+          acc += game.goals
+        end
+      end
+      acc
+    end
+    team_goals
+  end
+
+  def total_shots_by_team_in_season(season, team_id)
+    games = games_in_season(season)
+
+    team_shots = GameTeam.all.values.reduce(0) do |acc, teams|
+      teams.each do |game|
+        if games.include?(game.game_id) && game.team_id == team_id
+          acc += game.shots
+        end
+      end
+      acc
+    end
+    team_shots
+  end
+
+  def most_accurate_team(season)
+    games = games_in_season(season)
+
+    teams_accuracy = GameTeam.all.values.reduce(Hash.new(0)) do |acc, teams|
+      teams.each do |game|
+        shots = total_shots_by_team_in_season(season, game.team_id)
+        goals = total_goals_by_team_in_season(season, game.team_id)
+        acc[game.team_id] = (shots.to_f / goals).round(2)
+      end
+      acc
+    end
+
+    most_accurate = teams_accuracy.values.max
+    team = teams_accuracy.key(most_accurate)
+    Team.all[team].team_name
+  end
 end
