@@ -1,5 +1,5 @@
 require 'CSV'
-require_relative './game_collection'
+require './lib/game_collection'
 require "./test/test_helper"
 require "./lib/game"
 
