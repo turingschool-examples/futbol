@@ -27,7 +27,7 @@ class StatTracker
     game_count = game_collection.games.length == season
     (game_count.to_f / game_collection.games.length).round(2)
   end
-  
+
   def highest_total_score
     highest_score_game = game_collection.games.max_by do |game|
       game.total_goals
@@ -63,5 +63,10 @@ class StatTracker
   def percentage_ties
     count = game_collection.games.count { |game| game.tie? }
     (count.to_f / game_collection.games.length).round(2)
+  end
+
+  def average_goals_per_game
+		total_goals = game_collection.games.map { |game| game.total_score }
+		return (total_goals.sum.to_f / game_collection.games.length).round(2)
   end
 end
