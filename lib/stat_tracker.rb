@@ -1,3 +1,8 @@
+require 'csv'
+require_relative 'game'
+require_relative 'game_team'
+require_relative 'team'
+
 class StatTracker
   def initialize()
   end
@@ -18,108 +23,24 @@ class StatTracker
       CSV.foreach(file, csv_options) { |row| item_class.add(item_class.new(row.to_hash)) }
   end
 
-  def regular_season_win_percentage(season, team_id)
-  game_in_season = Game.all.select do |game_id, game_data|
-      game_data.season == season && game_data.type == "Regular Season"
-    end
-  games = game_in_season.select do |game_id, game_data|
-      game_data.home_team_id == team_id || game_data.away_team_id == team_id
-    end
-    wins = 0
-  games.each_value do |game_data|
-    if team_id == game_data.home_team_id
-      if game_data.home_goals > game_data.away_goals
-        wins += 1
-      end
-    end
-    if team_id == game_data.away_team_id
-      if game_data.away_goals > game_data.home_goals
-        wins += 1
-      end
-    end
-  end
-    percentage = wins.to_f/games.count
-    percentage.round(3)
-  end
-
-  def post_season_win_percentage(season, team_id)
-  game_in_season = Game.all.select do |game_id, game_data|
-      game_data.season == season && game_data.type == "Postseason"
-    end
-  games = game_in_season.select do |game_id, game_data|
-      game_data.home_team_id == team_id || game_data.away_team_id == team_id
-    end
-    wins = 0
-  games.each_value do |game_data|
-    if team_id == game_data.home_team_id
-      if game_data.home_goals > game_data.away_goals
-        wins += 1
-      end
-    end
-    if team_id == game_data.away_team_id
-      if game_data.away_goals > game_data.home_goals
-        wins += 1
-      end
-    end
-  end
-    percentage = wins.to_f/games.count
-    percentage.round(3)
-  end
-
-  def season_games(season)
-    season_games = Game.all.select do |game_id, game_data|
+  def find_games_in_season(season)
+    season = season.to_i
+    Game.all.select do |game_id, game_data|
       game_data.season == season
     end
+    require "pry"; binding.pry
   end
 
-  def rs_win_percentage_by_team(season)
-    rs_win_percentage_by_team = {}
-    season_games(season).each_value do |game_data|
-      if rs_win_percentage_by_team[game_data.home_team_id] == nil
-        rs_win_percentage_by_team[game_data.home_team_id] = regular_season_win_percentage(season, game_data.home_team_id)
-      end
+  def find_eligible_teams(season)
+    Team.all.select do |team_id, team_data|
+      require "pry"; binding.pry
+      team_data.team_id
     end
-    season_games(season).each_value do |game_data|
-      if rs_win_percentage_by_team[game_data.away_team_id] == nil
-        rs_win_percentage_by_team[game_data.away_team_id] = regular_season_win_percentage(season, game_data.away_team_id)
-      end
-    end
-    rs_win_percentage_by_team
-  end
+    find_games_in_season(season)
+    eligible_teams = {}
 
-  def ps_win_percentage_by_team(season)
-    ps_win_percentage_by_team = {}
-    season_games(season).each_value do |game_data|
-      if ps_win_percentage_by_team[game_data.home_team_id] == nil
-        ps_win_percentage_by_team[game_data.home_team_id] = post_season_win_percentage(season, game_data.home_team_id)
-      end
-    end
-    season_games(season).each_value do |game_data|
-      if ps_win_percentage_by_team[game_data.away_team_id] == nil
-        ps_win_percentage_by_team[game_data.away_team_id] = post_season_win_percentage(season, game_data.away_team_id)
-      end
-    end
-    ps_win_percentage_by_team
-    ps_win_percentage_by_team.delete_if { |team, win_percentage| win_percentage.nan? }
-  end
-
-  def bust_diff(season)
-    bust_diff = {}
-    ps_win_percentage_by_team(season).each_key do |team|
-       bust_diff[team] = (rs_win_percentage_by_team(season)[team] - ps_win_percentage_by_team(season)[team]).round(2)
-    end
-    bust_diff.delete_if { |team, win_percentage| win_percentage.nan? }
-  end
-
-
-  def biggest_bust(season)
-    biggest_bust = [bust_diff(season).min_by{|team, win_percentage| win_percentage}][0][0]
-  end
-
-  def biggest_surprise(season)
-    biggest_surprise = [bust_diff(season).max_by{|team, win_percentage| win_percentage}][0][0]
+    #Iterate over each team. Include the team if they played at least one regular season
+    #and one post season game.
   end
 
 end
-    #Find name of team with corresponding team ID (will need to use Team Data!!!)
-    #
