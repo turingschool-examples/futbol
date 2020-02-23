@@ -67,4 +67,11 @@ class TeamCollectionTest < Minitest::Test
     assert_equal expected_team_id, @team_collection.array_by_key(:team_id).sort
     assert_equal expected_team_name, @team_collection.array_by_key(:team_name)
   end
+
+  def test_it_can_find_a_team_name_when_given_id
+    @team_collection.create_team_collection
+
+    assert_equal "FC Dallas", @team_collection.where_id(6)
+    assert_equal "LA Galaxy", @team_collection.where_id(17)
+  end
 end
