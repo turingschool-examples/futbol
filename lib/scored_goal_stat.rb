@@ -49,48 +49,31 @@ class ScoredGoalStat
   end
 
   def favorite_opponent(team_id)
-    min_average_wins = average_opponent_games(team_id).min_by { |key, value| value }
+    min_average_wins = average_opponent_games(team_id).min_by { |opponent_id, average| average }
     retrieve_team_name(min_average_wins.first)
   end
 
   def rival(team_id)
-    max_average_wins = average_opponent_games(team_id).max_by { |key, value| value }
+    max_average_wins = average_opponent_games(team_id).max_by { |opponent_id, average| average }
     retrieve_team_name(max_average_wins.first)
   end
 
   def opponent_games(team_id)
-    @game_collection.games_list.reduce({}) do |acc, game|
-      if game.away_team_id.to_s == team_id
-        if acc.include?(game.home_team_id.to_s)
-          acc[game.home_team_id.to_s] = acc[game.home_team_id.to_s] << game.game_id.to_s
-        else
-          acc[game.home_team_id.to_s] = [game.game_id.to_s]
-        end
-      elsif game.home_team_id.to_s == team_id
-        if acc.include?(game.away_team_id.to_s)
-          acc[game.away_team_id.to_s] = acc[game.away_team_id.to_s] << game.game_id.to_s
-        else
-          acc[game.away_team_id.to_s] = [game.game_id.to_s]
-        end
-      end
-      acc
-    end
+    create_list_opponent_games(team_id, lost_games = false)
   end
 
   def given_team_games_lost(team_id)
+    create_list_opponent_games(team_id, lost_games = true)
+  end
+
+  def create_list_opponent_games(team_id, lost_games)
     @game_collection.games_list.reduce({}) do |acc, game|
-      if (game.away_team_id.to_s == team_id) && (game.away_goals < game.home_goals)
-        if acc.include?(game.home_team_id.to_s)
-          acc[game.home_team_id.to_s] = acc[game.home_team_id.to_s] << game.game_id.to_s
-        else
-          acc[game.home_team_id.to_s] = [game.game_id.to_s]
-        end
-      elsif (game.home_team_id.to_s == team_id) && (game.home_goals < game.away_goals)
-        if acc.include?(game.away_team_id.to_s)
-          acc[game.away_team_id.to_s] = acc[game.away_team_id.to_s] << game.game_id.to_s
-        else
-          acc[game.away_team_id.to_s] = [game.game_id.to_s]
-        end
+      if ((game.away_team_id.to_s == team_id && (game.away_goals < game.home_goals)) && lost_games) ||
+          (game.away_team_id.to_s == team_id && !lost_games)
+        (acc[game.home_team_id.to_s] ||= []) << game.game_id.to_s
+      elsif  ((game.home_team_id.to_s == team_id && (game.home_goals < game.away_goals)) && lost_games) ||
+          (game.home_team_id.to_s == team_id && !lost_games)
+        (acc[game.away_team_id.to_s] ||= []) << game.game_id.to_s
       end
       acc
     end
@@ -98,22 +81,22 @@ class ScoredGoalStat
 
   def total_opponent_games(team_id)
     total_games_played = {}
-    opponent_games(team_id).map do |key, game_id|
-      total_games_played[key] = game_id.length
+    opponent_games(team_id).map do |opponent_id, game_id|
+      total_games_played[opponent_id] = game_id.length
     end
     total_games_played
   end
 
   def total_given_team_losses(team_id)
     total_games_lost = {}
-    given_team_games_lost(team_id).map do |key, game_id|
-      total_games_lost[key] = game_id.length
+    given_team_games_lost(team_id).map do |opponent_id, game_id|
+      total_games_lost[opponent_id] = game_id.length
     end
     total_games_lost
   end
 
   def average_opponent_games(team_id)
-    total_given_team_losses(team_id).merge(total_opponent_games(team_id)) do |key, old, new|
+    total_given_team_losses(team_id).merge(total_opponent_games(team_id)) do |opponent_id, old, new|
       (old.to_f / new) * 100
     end
   end
