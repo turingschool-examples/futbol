@@ -71,10 +71,15 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Vancouver Whitecaps FC", @stat_tracker.best_defense
   end
 
+  def test_it_can_return_the_worst_coach_of_the_season
+    skip
+    assert_equal "John Tortorella", @stat_tracker.worst_coach(20122013)
+  end
+
 
   ######  Move these tests somewhere else
 
-  def test_it_can_return_count_of_games_by_season
+  def test_it_can_return_total_games_by_season
     skip
     expected = {
       "20122013"=>5,
@@ -84,7 +89,7 @@ class StatTrackerTest < Minitest::Test
       "20132014"=>5,
       "20172018"=>6
       }
-    assert_equal expected, @stat_tracker.count_of_games_by_season
+    assert_equal expected, @stat_tracker.total_games_by_season
   end
 
   def test_it_can_count_total_games_by_team
@@ -129,6 +134,15 @@ class StatTrackerTest < Minitest::Test
   def test_it_knows_all_the_game_ids_in_a_given_season
     assert_equal [2012030221], @stat_tracker.game_ids_in_season(20122013)
     assert_equal [2012030223,2012030224], @stat_tracker.game_ids_in_season(20152016)
+  end
+
+  def test_it_knows_all_the_games_played_by_teams_in_a_season
+    expected = {
+      1 => 2,
+      3 => 1,
+      6 => 1,
+    }
+    assert_equal expected, @stat_tracker.games_by_team_by_season(20152016)
   end
 
   def test_it_knows_coachs_by_season
