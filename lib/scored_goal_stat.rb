@@ -26,32 +26,26 @@ class ScoredGoalStat
     end.compact
   end
 
-  def biggest_team_blowout(team_id)
-    blowout = {}
-    @game_collection.games_list.map do |game|
-      if game.away_team_id.to_s == team_id || game.home_team_id.to_s == team_id
-        if team_id == game.away_team_id.to_s && game.away_goals >= game.home_goals
-          blowout[game.game_id.to_s] = (game.away_goals - game.home_goals).abs
-        elsif team_id == game.home_team_id.to_s && game.away_goals < game.home_goals
-          blowout[game.game_id.to_s] = (game.away_goals - game.home_goals).abs
-        end
-      end
-    end
-    blowout.values.max
+  def biggest_team_blowout(team_id, use_greater = true)
+    win_loss_logic(team_id, use_greater)
   end
 
-  def worst_loss(team_id)
-    loss = {}
+  def worst_loss(team_id, use_greater = false)
+    win_loss_logic(team_id, use_greater)
+  end
+
+  def win_loss_logic(team_id, use_greater)
+    win_loss = {}
     @game_collection.games_list.map do |game|
       if game.away_team_id.to_s == team_id || game.home_team_id.to_s == team_id
-        if team_id == game.away_team_id.to_s && game.away_goals < game.home_goals
-          loss[game.game_id.to_s] = (game.away_goals - game.home_goals).abs
-        elsif team_id == game.home_team_id.to_s && game.away_goals >= game.home_goals
-          loss[game.game_id.to_s] = (game.away_goals - game.home_goals).abs
+        if game.away_team_id.to_s == team_id &&
+            ((game.away_goals > game.home_goals && use_greater) ||
+                (game.home_goals > game.away_goals && !use_greater))
+          win_loss[game.game_id.to_s] = (game.away_goals - game.home_goals).abs
         end
       end
     end
-    loss.values.max
+    win_loss.values.max
   end
 
   def favorite_opponent(team_id)
