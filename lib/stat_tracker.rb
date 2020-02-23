@@ -83,4 +83,11 @@ class StatTracker
     games_grouped_by_season[season] = average
     end
   end
+
+  def percentage_visitor_wins
+    visitor_wins = game_collection.games.find_all do |game|
+      game.away_goals > game.home_goals
+    end
+    (visitor_wins.length.to_f / game_collection.games.length).round(2)
+  end
 end

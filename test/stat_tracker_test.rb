@@ -79,4 +79,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
 
+  def test_can_return_percentage_of_visitor_wins
+
+    assert_equal 0.38, @stat_tracker.percentage_visitor_wins
+  end
 end
