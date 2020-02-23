@@ -10,9 +10,8 @@ require './lib/team'
 class SeasonStatTest < Minitest::Test
   def setup
     team_file_path = './data/teams.csv'
-    game_team_file_path = './test/fixtures/truncated_game_teams.csv'
     game_file_path = './test/fixtures/truncated_games.csv'
-    @season_stat = SeasonStat.new(game_file_path, team_file_path, game_team_file_path)
+    @season_stat = SeasonStat.new(game_file_path, team_file_path)
 
     @team_info = {
 

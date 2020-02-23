@@ -11,40 +11,8 @@ require './lib/season_stat_coach'
 
 class SeasonStatCoachTest < Minitest::Test
   def setup
-    team_file_path = './data/teams.csv'
     game_team_file_path = './test/fixtures/truncated_game_teams.csv'
-    game_file_path = './test/fixtures/truncated_games.csv'
-    @season_stat_coach = SeasonStatCoach.new(game_file_path, team_file_path, game_team_file_path)
-
-    @team_info = {
-
-      1 => {:team_name=> "Apples",
-            :season_win_percent => 50.00,
-            :postseason_win_percent => 70.00,
-            :head_coach => "Jaughn"
-          },
-      2 => {:team_name=> "The Bunnies",
-            :season_win_percent => 80.00,
-            :postseason_win_percent => 15.00,
-            :head_coach => "Rufus"
-          },
-      3 => {:team_name=> "Broncos",
-            :season_win_percent => 60.00,
-            :postseason_win_percent => 70.00,
-            :head_coach => "Tim"
-          },
-      4 => {:team_name=> "Avalanche",
-            :season_win_percent => 50.00,
-            :postseason_win_percent => 25.00,
-            :head_coach => "Aurora"
-          },
-      5 => {:team_name=> "John",
-            :season_win_percent => 25.00,
-            :postseason_win_percent => 0.0,
-            :head_coach => "Megan"
-            }
-    }
-    @season = mock('testseason')
+    @season_stat_coach = SeasonStatCoach.new(game_team_file_path)
   end
 
   def test_it_exists
