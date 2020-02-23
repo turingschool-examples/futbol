@@ -55,23 +55,85 @@ class ScoredGoalStat
   end
 
   def favorite_opponent(team_id)
-    home_hash = {}
-    away_hash = {}
-    @game_collection.games_list.map do |game|
+    min_average_wins = average_opponent_games(team_id).min.first
+    retrieve_team_name(min_average_wins)
+  end
+
+  def rival(team_id)
+    max_average_wins = average_opponent_games(team_id).max.first
+    retrieve_team_name(max_average_wins)
+  end
+
+  def opponent_games_total(team_id)
+    @game_collection.games_list.reduce({}) do |acc, game|
       if game.away_team_id.to_s == team_id
-        if home_hash.include?(game.home_team_id.to_s)
-          home_hash[game.home_team_id.to_s] = (hash[game.home_team_id.to_s] << game.game_id.to_s).flatten
+        if acc.include?(game.home_team_id.to_s)
+          acc[game.home_team_id.to_s] = acc[game.home_team_id.to_s] << game.game_id.to_s
         else
-          home_hash[game.home_team_id.to_s] = [game.game_id.to_s]
+          acc[game.home_team_id.to_s] = [game.game_id.to_s]
         end
       elsif game.home_team_id.to_s == team_id
-        if away_hash.include?(game.away_team_id.to_s)
-          away_hash[game.away_team_id.to_s] = (away_hash[game.away_team_id.to_s] << game.game_id.to_s).flatten
+        if acc.include?(game.away_team_id.to_s)
+          acc[game.away_team_id.to_s] = acc[game.away_team_id.to_s] << game.game_id.to_s
         else
-          away_hash[game.away_team_id.to_s] = [game.game_id.to_s]
+          acc[game.away_team_id.to_s] = [game.game_id.to_s]
         end
       end
+      acc
     end
-    away_hash.merge(home_hash) { |key, old, new| (old << new).flatten.uniq }
+  end
+
+  def given_team_loss_games_total(team_id)
+    @game_collection.games_list.reduce({}) do |acc, game|
+      if (game.away_team_id.to_s == team_id) && (game.away_goals < game.home_goals)
+        if acc.include?(game.home_team_id.to_s)
+          acc[game.home_team_id.to_s] = acc[game.home_team_id.to_s] << game.game_id.to_s
+        else
+          acc[game.home_team_id.to_s] = [game.game_id.to_s]
+        end
+      elsif (game.home_team_id.to_s == team_id) && (game.home_goals < game.away_goals)
+        if acc.include?(game.away_team_id.to_s)
+          acc[game.away_team_id.to_s] = acc[game.away_team_id.to_s] << game.game_id.to_s
+        else
+          acc[game.away_team_id.to_s] = [game.game_id.to_s]
+        end
+      end
+      acc
     end
+  end
+
+  def number_of_total_opponent_games(team_id)
+    total_games_played = {}
+    opponent_games_total(team_id).map do |team_id, game_id|
+      total_games_played[team_id] = game_id.length
+    end
+    total_games_played
+  end
+
+  def number_of_total_team_losses(team_id)
+    total_games_lost = {}
+    given_team_loss_games_total(team_id).map do |team_id, game_id|
+      total_games_lost[team_id] = game_id.length
+    end
+    total_games_lost
+  end
+
+  def average_opponent_games(team_id)
+    average_wins = {}
+    number_of_total_opponent_games(team_id).map do |key, value|
+      total_losses = number_of_total_team_losses(team_id)[key]
+      if total_losses != nil
+        average_wins[key] = ((value.to_f / total_losses) * 100).round(2)
+      end
+    end
+    average_wins
+  end
+
+  def retrieve_team_name(team_id)
+    @team_collection.teams_list.map do |team|
+      if team.team_id.to_s == team_id
+        team.team_name
+      end
+    end.compact.first
+  end
 end
