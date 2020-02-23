@@ -70,11 +70,15 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Orlando Pride", @stat_tracker_average.worst_offense
   end
 
-  def test_it_can_find_the_best_defence
+  def test_it_can_find_the_best_defense
     assert_equal "Real Salt Lake", @stat_tracker_average.best_defense
   end
 
+  def test_it_can_find_the_worst_defence
+    assert_equal "Chicago Fire", @stat_tracker_average.worst_defense
+  end
+
   def test_it_can_find_the_winningest_coach_by_season
-    
+
   end
 end
