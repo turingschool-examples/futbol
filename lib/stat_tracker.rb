@@ -30,37 +30,28 @@ class StatTracker
     @game_collection.games.map {|game| (game.away_goals - game.home_goals).abs}.max
   end
 
-  # This only requires game information.
-  # It should probably move to game collection eventually.
-  def count_of_games_by_season #refactored by Ryan 2.22.20
-    seasons = @game_collection.array_by_key(:season)
-    games_by_season = Hash[@game_collection.array_by_key(:season).product([0])] # an amazing way to start a hash!!!!
-    @game_collection.all.each do |game|
-      games_by_season[game.season] += 1
-    end
+                                                                    # This only requires game information.
+                                                                    # It should probably move to game collection eventually.
+  def count_of_games_by_season                                      #refactored by Ryan 2.22.20
+    games_by_season = @game_collection.all.group_by{|game| game.season} #first time we use this
+    games_by_season.transform_values!{|games| games.length}
   end
 
-  # This only requires game information.
-  # It should probably move to game collection eventually.
-  def average_goals_per_game #refactored by Ryan 2.22.20
+                                                      # This only requires game information.
+                                                      # It should probably move to game collection eventually.
+  def average_goals_per_game                          # refactored by Ryan 2.22.20
     all_goals = @game_collection.total_goals_per_game
-    (all_goals.sum / all_goals.length.to_f).round(2) # create module with average method??
+    (all_goals.sum / all_goals.length.to_f).round(2)  # create module with average method??
+
   end
 
   # This only requires game information.
   # It should probably move to game collection eventually.
-  def average_goals_by_season # need to refacor without nesting iteration.
-    seasons = @game_collection.array_by_key(:season)
-    seasons.reduce({}) do |goals_by_season, season|
-      games_per_season = @game_collection.games.find_all do |game|  #games_per_season needs helper method
-         season == game.season
-      end
-      total_goals_per_game = games_per_season.map do |game|  #very similar to total_goals_per_game in previus method
-        game.home_goals + game.away_goals
-      end
-      average = total_goals_per_game.sum / total_goals_per_game.length.to_f # create module with average method??
-      goals_by_season[season] = average.round(2)
-      goals_by_season
+  def average_goals_by_season
+    games_by_season = @game_collection.all.group_by{|game| game.season}
+    games_by_season.transform_values! do |games|
+      all_goals = games.map{|game| game.away_goals + game.home_goals}
+      (all_goals.sum/all_goals.length.to_f).round(2) #average_calculation
     end
   end
 
@@ -72,27 +63,12 @@ class StatTracker
 
   # uses both team and game_team info, needs to live in stat_tracker.
   def best_offense
-    team_ids = @team_collection.all.map{|team| team.team_id}  # This could be shifted to use the game_team_collection data, just use a #uniq at the end
-
-    games_by_team = team_ids.reduce({}) do |games_by_team, team_id| # this snippet would better serve us in the game_team collection to be used by other methods
-      games = @game_team_collection.all.find_all do |game_team|
-         game_team.team_id == team_id
-      end
-      games_by_team[team_id] = games
-      games_by_team
-    end
-
+    games_by_team = @game_team_collection.all.group_by{|game| game.team_id}
     average_goals_by_team = games_by_team.transform_values do |games|
       ((games.map{|game| game.goals}.sum)/games.length.to_f)  # average calculation
     end
-
-    best_average = average_goals_by_team.values.max
-
-    best_team = average_goals_by_team.key(best_average) # checks for first occurance of best average, need to gain clarification from teachers!!
-
-    @team_collection.all.find do |team| # This snippet should move to team_collection as a #where(:key, value), ie where(team_id, 6)
-      team.team_id == best_team
-    end.team_name
+    best_team = average_goals_by_team.key(average_goals_by_team.values.max)
+    @team_collection.where_id(best_team)
   end
 
     # uses both team and game_team info, needs to live in stat_tracker.
