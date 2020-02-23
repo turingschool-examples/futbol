@@ -91,10 +91,9 @@ class StatTracker
     team_name_by_id(average_goals_allowed.key(average_goals_allowed.values.min))
   end
 
-
   ###### move these methods somewhere else
 
-  def count_of_games_by_season
+  def total_games_by_season
     games_in_season = Hash.new(0)
     game_collection.games.each do |game|
       games_in_season[game.season] += 1
@@ -113,6 +112,17 @@ class StatTracker
       ids_in_season << game.game_id if game.season == season
       ids_in_season
     end
+  end
+
+  def games_by_team_by_season(season)
+    games_per_team = Hash.new(0)
+    game_collection.games.each do |game|
+      if season == game.season
+        games_per_team[game.home_team_id] += 1
+        games_per_team[game.away_team_id] += 1
+      end
+    end
+    games_per_team
   end
 
   def head_coaches(season)
