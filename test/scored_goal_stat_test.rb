@@ -62,6 +62,14 @@ class ScoredGoalStatTest < Minitest::Test
     assert_equal ["2014030312", "2014030313", "2014030315"], @scored_goal_stat.given_team_games_lost("3")["14"]
   end
 
+  def test_it_can_create_list_of_opponent_games
+    assert_instance_of Hash, @scored_goal_stat.create_list_opponent_games("3", true)
+    assert_equal 9, @scored_goal_stat.create_list_opponent_games("3", true).length
+    assert_equal ["2014030312", "2014030313", "2014030315"], @scored_goal_stat.create_list_opponent_games("3", true)["14"]
+    assert_equal 12, @scored_goal_stat.create_list_opponent_games("3", false).length
+    assert_equal ["2012020714", "2012020128"], @scored_goal_stat.create_list_opponent_games("3", false)["1"]
+  end
+
   def test_it_can_return_total_opponent_games
     assert_instance_of Hash, @scored_goal_stat.total_opponent_games("3")
     assert_equal [1, 1, 2, 1, 2, 1, 11, 2, 1, 5, 7, 5], @scored_goal_stat.total_opponent_games("3").values

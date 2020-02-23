@@ -26,12 +26,12 @@ class ScoredGoalStat
     end.compact
   end
 
-  def biggest_team_blowout(team_id, use_greater = true)
-    win_loss_logic(team_id, use_greater)
+  def biggest_team_blowout(team_id)
+    win_loss_logic(team_id, use_greater = true)
   end
 
-  def worst_loss(team_id, use_greater = false)
-    win_loss_logic(team_id, use_greater)
+  def worst_loss(team_id)
+    win_loss_logic(team_id, use_greater = false)
   end
 
   def win_loss_logic(team_id, use_greater)
