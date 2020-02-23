@@ -12,9 +12,11 @@ class StatTrackerTest < Minitest::Test
 
   def setup
     @locations = {
-        games: './data/games.csv',
+        # games: './fixture_files/games_fixture.csv',
+        games: './data/little_games.csv',
         teams: './data/teams.csv',
-        game_teams: './data/game_teams.csv'
+        # game_teams: './fixture_files/game_teams_fixture.csv'
+        game_teams: './data/little_game_teams.csv'
       }
     @stat_tracker = StatTracker.from_csv(@locations)
   end
@@ -51,22 +53,22 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_show_the_worst_fans
     skip
-    assert_equal [6], @stat_tracker.worst_fans
+    assert_equal ["Real Salt Lake", "New England Revolution", "Portland Thorns FC", "Portland Timbers"], @stat_tracker.worst_fans
   end
 
   def test_it_knows_the_lowest_scoring_home_team
     skip
-    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_home_team
+    assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_home_team
   end
 
   def test_it_knows_the_hightest_scoring_home_team
     skip
-    assert_equal "FC Dallas", @stat_tracker.highest_scoring_home_team
+    assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
   end
 
   def test_it_can_return_the_best_overall_defense
     skip
-    assert_equal "FC Dallas", @stat_tracker.best_defense
+    assert_equal "Vancouver Whitecaps FC", @stat_tracker.best_defense
   end
 
 
@@ -87,12 +89,11 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_count_total_games_by_team
     skip
-    expected = {
-      3 => 2,
-      6 => 3,
-      12 => 1,
-      1 => 2
-    }
+    expected = {3=>5, 6=>3, 20=>5, 24=>6,
+      16=>3, 14=>2, 5=>4, 19=>4, 28=>4, 54=>4,
+      7=>1, 52=>5, 15=>2, 8=>1, 53=>1, 4=>2,
+      26=>2, 29=>3, 12=>1, 10=>1, 22=>1, 23=>1,
+      17=>1, 21=>1, 25=>1}
 
     assert_equal expected, @stat_tracker.total_games_by_team
   end
@@ -123,6 +124,19 @@ class StatTrackerTest < Minitest::Test
     skip
     assert_equal "Atlanta United", @stat_tracker.team_name_by_id(1)
     assert_equal "LA Galaxy", @stat_tracker.team_name_by_id(17)
+  end
+
+  def test_it_knows_coachs_by_season
+    expected_1213 = {
+      3 => "John Tortorella",
+      6 => "Claude Julien"
+    }
+    expected_1516 = {
+      6 => "Josh Thompson",
+      3 => "Kelly Dean"
+    }
+    assert_equal expected_1213, @stat_tracker.head_coaches(20122013)
+    assert_equal expected_1516, @stat_tracker.head_coaches(20152016)
   end
 
   def test_it_can_show_total_wins
