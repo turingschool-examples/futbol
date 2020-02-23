@@ -64,7 +64,7 @@ class ScoredGoalStat
     retrieve_team_name(max_average_wins.first)
   end
 
-  def opponent_games_total(team_id)
+  def opponent_games(team_id)
     @game_collection.games_list.reduce({}) do |acc, game|
       if game.away_team_id.to_s == team_id
         if acc.include?(game.home_team_id.to_s)
@@ -83,7 +83,7 @@ class ScoredGoalStat
     end
   end
 
-  def given_team_loss_games_total(team_id)
+  def given_team_games_lost(team_id)
     @game_collection.games_list.reduce({}) do |acc, game|
       if (game.away_team_id.to_s == team_id) && (game.away_goals < game.home_goals)
         if acc.include?(game.home_team_id.to_s)
@@ -102,24 +102,24 @@ class ScoredGoalStat
     end
   end
 
-  def number_of_total_opponent_games(team_id)
+  def total_opponent_games(team_id)
     total_games_played = {}
-    opponent_games_total(team_id).map do |key, game_id|
+    opponent_games(team_id).map do |key, game_id|
       total_games_played[key] = game_id.length
     end
     total_games_played
   end
 
-  def number_of_total_team_losses(team_id)
+  def total_given_team_losses(team_id)
     total_games_lost = {}
-    given_team_loss_games_total(team_id).map do |key, game_id|
+    given_team_games_lost(team_id).map do |key, game_id|
       total_games_lost[key] = game_id.length
     end
     total_games_lost
   end
 
   def average_opponent_games(team_id)
-    number_of_total_team_losses(team_id).merge(number_of_total_opponent_games(team_id)) do |key, old, new|
+    total_given_team_losses(team_id).merge(total_opponent_games(team_id)) do |key, old, new|
       (old.to_f / new) * 100
     end
   end
