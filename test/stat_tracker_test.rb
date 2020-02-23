@@ -126,6 +126,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal "LA Galaxy", @stat_tracker.team_name_by_id(17)
   end
 
+  def test_it_knows_all_the_game_ids_in_a_given_season
+    assert_equal [2012030221], @stat_tracker.game_ids_in_season(20122013)
+    assert_equal [2012030223,2012030224], @stat_tracker.game_ids_in_season(20152016)
+  end
+
   def test_it_knows_coachs_by_season
     expected_1213 = {
       3 => "John Tortorella",
