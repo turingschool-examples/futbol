@@ -33,25 +33,25 @@ class StatTracker
                                                                     # This only requires game information.
                                                                     # It should probably move to game collection eventually.
   def count_of_games_by_season                                      #refactored by Ryan 2.22.20
-    games_by_season = @game_collection.all.group_by{|game| game.season} #first time we use this
+    games_by_season = @game_collection.all.group_by{|game| game.season}         #games_by_season 1st occurance
     games_by_season.transform_values!{|games| games.length}
   end
 
-                                                      # This only requires game information.
-                                                      # It should probably move to game collection eventually.
-  def average_goals_per_game                          # refactored by Ryan 2.22.20
+  # This only requires game information.
+  # It should probably move to game collection eventually.
+  def average_goals_per_game
     all_goals = @game_collection.total_goals_per_game
-    (all_goals.sum / all_goals.length.to_f).round(2)  # create module with average method??
+    (all_goals.sum / all_goals.length.to_f).round(2)                            # create module with average method??
 
   end
 
   # This only requires game information.
   # It should probably move to game collection eventually.
   def average_goals_by_season
-    games_by_season = @game_collection.all.group_by{|game| game.season}
+    games_by_season = @game_collection.all.group_by{|game| game.season}         #games_by_season 2nd occurance
     games_by_season.transform_values! do |games|
       all_goals = games.map{|game| game.away_goals + game.home_goals}
-      (all_goals.sum/all_goals.length.to_f).round(2) #average_calculation
+      (all_goals.sum/all_goals.length.to_f).round(2)                            #average_calculation
     end
   end
 
@@ -61,26 +61,27 @@ class StatTracker
     @team_collection.teams.length
   end
 
-  # uses both team and game_team info, needs to live in stat_tracker.
+  # uses both team and game_team collections
   def best_offense
     games_by_team = @game_team_collection.all.group_by{|game| game.team_id}
     average_goals_by_team = games_by_team.transform_values do |games|
-      ((games.map{|game| game.goals}.sum)/games.length.to_f)  # average calculation
+      ((games.map{|game| game.goals}.sum)/games.length.to_f)                      # average calculation
     end
     best_team = average_goals_by_team.key(average_goals_by_team.values.max)
     @team_collection.where_id(best_team)
   end
 
-    # uses both team and game_team info, needs to live in stat_tracker.
+  # uses both team and game_team collections
   def worst_offense
     games_by_team = @game_team_collection.all.group_by{|game| game.team_id}
     average_goals_by_team = games_by_team.transform_values do |games|
-      ((games.map{|game| game.goals}.sum)/games.length.to_f)  # average calculation
+      ((games.map{|game| game.goals}.sum)/games.length.to_f)                      # average calculation
     end
     worst_team = average_goals_by_team.key(average_goals_by_team.values.min)
     @team_collection.where_id(worst_team)
   end
 
+  #uses both team and game collections.
   def best_defense
     goals_against_by_team = {}
     @team_collection.array_by_key(:team_id).each do |team_id|
@@ -91,7 +92,7 @@ class StatTracker
       goals_against_by_team[game.away_team_id] << game.home_goals
     end
     goals_against_by_team.transform_values! do |goals|
-      goals.sum/goals.length.to_f  # average calcultion
+      goals.sum/goals.length.to_f                                                 # average calcultion
     end
     best_defense = goals_against_by_team.key(goals_against_by_team.values.min)
     @team_collection.where_id(best_defense)
