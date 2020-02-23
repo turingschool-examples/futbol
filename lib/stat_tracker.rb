@@ -29,33 +29,27 @@ class StatTracker
   def biggest_blowout
     @game_collection.games.map {|game| (game.away_goals - game.home_goals).abs}.max
   end
+
   # This only requires game information.
   # It should probably move to game collection eventually.
-  def count_of_games_by_season
+  def count_of_games_by_season #refactored by Ryan 2.22.20
     seasons = @game_collection.array_by_key(:season)
-    seasons.reduce({}) do |games_by_season, season|
-      games_per_season = @game_collection.games.find_all do |game|  #games_per_season needs helper method
-         season == game.season
-      end.length
-    games_by_season[season] = games_per_season
-    games_by_season
+    games_by_season = Hash[@game_collection.array_by_key(:season).product([0])] # an amazing way to start a hash!!!!
+    @game_collection.all.each do |game|
+      games_by_season[game.season] += 1
     end
-  end
-
-  # Can and should implement daniels helper method for total_goals_per_game
-  # This only requires game information.
-  # It should probably move to game collection eventually.
-  def average_goals_per_game
-    total_goals_per_game = @game_collection.games.map do |game|
-      game.home_goals + game.away_goals
-    end
-    average = total_goals_per_game.sum / total_goals_per_game.length.to_f  # create module with average method??
-    average.round(2)
   end
 
   # This only requires game information.
   # It should probably move to game collection eventually.
-  def average_goals_by_season
+  def average_goals_per_game #refactored by Ryan 2.22.20
+    all_goals = @game_collection.total_goals_per_game
+    (all_goals.sum / all_goals.length.to_f).round(2) # create module with average method??
+  end
+
+  # This only requires game information.
+  # It should probably move to game collection eventually.
+  def average_goals_by_season # need to refacor without nesting iteration.
     seasons = @game_collection.array_by_key(:season)
     seasons.reduce({}) do |goals_by_season, season|
       games_per_season = @game_collection.games.find_all do |game|  #games_per_season needs helper method
