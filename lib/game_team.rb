@@ -2,8 +2,8 @@ class GameTeam
   @@game_teams = {}
 
   def self.add(game_team)
-    @@game_teams[game_team.game_id] = {} if !@@game_teams.has_key?(game_team.game_id)
-    @@game_teams[game_team.game_id][game_team.team_id] = game_team
+    @@game_teams[game_team.team_id] = [] if !@@game_teams.has_key?(game_team.team_id)
+    @@game_teams[game_team.team_id] << game_team
   end
 
   def self.all
