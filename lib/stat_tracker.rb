@@ -96,7 +96,7 @@ class StatTracker
     end
     best_defense = goals_against_by_team.key(goals_against_by_team.values.min)
     @team_collection.where_id(best_defense)
-
+  end
 
   def worst_defense
     goals_against_team = @team_collection.all.reduce({}) do |hash, team|
