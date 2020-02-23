@@ -93,12 +93,12 @@ class StatTracker
 
   def worst_coach(season)
     ## does not work
-    averages = {}
-    wins_in_season(season).each do |team_id, wins|
-      averages[team_id] = wins / games_by_team_by_season(season)[team_id].to_f
-    end
-    averages
-    head_coaches(season)[averages.key(averages.values.min)]
+    # averages = {}
+    # wins_in_season(season).each do |team_id, wins|
+    #   averages[team_id] = wins / games_by_team_by_season(season)[team_id].to_f
+    # end
+    # averages
+    # head_coaches(season)[averages.key(averages.values.min)]
   end
 
   ###### move these methods somewhere else
@@ -116,38 +116,6 @@ class StatTracker
       team.team_id == team_id
     end.teamname
   end
-
-  def game_ids_in_season(season)
-    game_collection.games.find_all do |game|
-      season == game.season
-    end.map { |game| game.game_id }
-  end
-
-  def games_by_team_by_season(season)
-    games_per_team = Hash.new(0)
-    game_collection.games.each do |game|
-      if season == game.season
-        games_per_team[game.home_team_id] += 1
-        games_per_team[game.away_team_id] += 1
-      end
-    end
-    games_per_team
-  end
-
-  def head_coaches(season)
-    skip
-    #slow
-    gtc.game_teams.reduce({}) do |coaches_in_season, game|
-      if game_ids_in_season(season).include?(game.game_id)
-        coaches_in_season[game.team_id] = game.head_coach
-      end
-      coaches_in_season
-    end
-  end
-
-  # def wins_in_season(season)
-  #   require "pry"; binding.pry
-  # end
 
   def total_games_by_team
     games_by_team = Hash.new(0)
@@ -269,6 +237,40 @@ class StatTracker
     end
     hoa_tie_by_team
   end
+
+#####
+## it4 season methods
+  def game_ids_in_season(season)
+    game_collection.games.find_all do |game|
+      season == game.season
+    end.map { |game| game.game_id }
+  end
+
+  def games_by_team_by_season(season)
+    games_per_team = Hash.new(0)
+    game_collection.games.each do |game|
+      if season == game.season
+        games_per_team[game.home_team_id] += 1
+        games_per_team[game.away_team_id] += 1
+      end
+    end
+    games_per_team
+  end
+
+  def head_coaches(season)
+    #slow
+    gtc.game_teams.reduce({}) do |coaches_in_season, game|
+      if game_ids_in_season(season).include?(game.game_id)
+        coaches_in_season[game.team_id] = game.head_coach
+      end
+      coaches_in_season
+    end
+  end
+
+  def wins_in_season(season)
+    require "pry"; binding.pry
+  end
+
 
   ##############
   #These can likely be moved into a module
