@@ -108,15 +108,16 @@ class StatTracker
     end.teamname
   end
 
-  def head_coaches(season)
-    game_ids_in_season = game_collection.games.reduce([]) do |games_in_season, game|
-      if game.season == season
-        games_in_season << game.game_id
-      end
-      games_in_season
+  def game_ids_in_season(season)
+    game_collection.games.reduce([]) do |ids_in_season, game|
+      ids_in_season << game.game_id if game.season == season
+      ids_in_season
     end
+  end
+
+  def head_coaches(season)
     coaches = gtc.game_teams.reduce({}) do |coaches_in_season, game|
-      if game_ids_in_season.include?(game.game_id)
+      if game_ids_in_season(season).include?(game.game_id)
         coaches_in_season[game.team_id] = game.head_coach
       end
       coaches_in_season
