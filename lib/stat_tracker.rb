@@ -91,6 +91,16 @@ class StatTracker
     team_name_by_id(average_goals_allowed.key(average_goals_allowed.values.min))
   end
 
+  def worst_coach(season)
+    ## does not work
+    averages = {}
+    wins_in_season(season).each do |team_id, wins|
+      averages[team_id] = wins / games_by_team_by_season(season)[team_id].to_f
+    end
+    averages
+    head_coaches(season)[averages.key(averages.values.min)]
+  end
+
   ###### move these methods somewhere else
 
   def total_games_by_season
@@ -108,10 +118,9 @@ class StatTracker
   end
 
   def game_ids_in_season(season)
-    game_collection.games.reduce([]) do |ids_in_season, game|
-      ids_in_season << game.game_id if game.season == season
-      ids_in_season
-    end
+    game_collection.games.find_all do |game|
+      season == game.season
+    end.map { |game| game.game_id }
   end
 
   def games_by_team_by_season(season)
@@ -126,6 +135,8 @@ class StatTracker
   end
 
   def head_coaches(season)
+    skip
+    #slow
     gtc.game_teams.reduce({}) do |coaches_in_season, game|
       if game_ids_in_season(season).include?(game.game_id)
         coaches_in_season[game.team_id] = game.head_coach
@@ -134,15 +145,9 @@ class StatTracker
     end
   end
 
-  def wins_in_season(season)
-    wins_in_season = Hash.new(0)
-    gtc.game_teams.each do |game|
-      if game_ids_in_season(season).include?(game.game_id) && game.result == "WIN"
-        wins_in_season[game.team_id] += 1
-      end
-    end
-    wins_in_season
-  end
+  # def wins_in_season(season)
+  #   require "pry"; binding.pry
+  # end
 
   def total_games_by_team
     games_by_team = Hash.new(0)
