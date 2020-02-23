@@ -16,4 +16,7 @@ class GameCollectionTest < Minitest::Test
     assert_equal './data/games.csv', @game_collection.game_path
   end
 
+  def test_game_collection_is_parsing_through_csv_file
+    assert_equal [], @game_collection.parse
+  end
 end
