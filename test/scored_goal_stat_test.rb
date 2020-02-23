@@ -36,6 +36,12 @@ class ScoredGoalStatTest < Minitest::Test
     assert_equal 3, @scored_goal_stat.worst_loss("3")
   end
 
+  def test_it_can_calculate_win_or_loss
+    assert_instance_of Integer, @scored_goal_stat.win_loss_logic("3", true)
+    assert_equal 4, @scored_goal_stat.win_loss_logic("3", true)
+    assert_equal 3, @scored_goal_stat.win_loss_logic("3", false)
+  end
+
   def test_it_can_return_favorite_opponent
     assert_equal "North Carolina Courage", @scored_goal_stat.favorite_opponent("3")
   end
