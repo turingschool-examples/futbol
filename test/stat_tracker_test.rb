@@ -144,6 +144,14 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected_1516, @stat_tracker.head_coaches(20152016)
   end
 
+  def test_it_knows_wins_by_season
+    expected = {
+      3 => 1,
+      6 => 1
+    }
+    assert_equal expected, @stat_tracker.wins_in_season(20152016)
+  end
+
   def test_it_can_show_total_wins
     skip
     expected = {
