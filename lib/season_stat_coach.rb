@@ -7,7 +7,7 @@ class SeasonStatCoach
   def initialize(game_team_file_path)
     @game_team_collection = GameTeamCollection.new(game_team_file_path)
   end
-
+  
   def get_season_game_teams(season)
     @game_team_collection.game_team_list.find_all do |game_team|
       game_team.game_id[0..3] == season[0..3]
@@ -50,5 +50,12 @@ class SeasonStatCoach
       coach_wins
     end
     best_coach[0]
+  end
+
+  def worst_coach(season)
+    worst_coach = create_coach_win_data_by_season(season).min_by do |coach, coach_wins|
+      coach_wins
+    end
+    worst_coach[0]
   end
 end
