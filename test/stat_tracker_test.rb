@@ -79,6 +79,7 @@ class StatTrackerTest < Minitest::Test
       "20152016" => 16,
       "20132014" => 6
     }
+
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
@@ -92,12 +93,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal 220, @stat_tracker.total_goals_per_season(game.season)
   end
 
-  def test_number_of_games_per_season
-    game = Game.all.values.first
-
-    assert_equal 57, @stat_tracker.number_of_games_per_season(game.season)
-  end
-
   def test_average_goals_by_season
     expected =
     {
@@ -107,6 +102,7 @@ class StatTrackerTest < Minitest::Test
       "20152016" => 3.88,
       "20132014" => 4.33
     }
+
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
 
@@ -118,6 +114,13 @@ class StatTrackerTest < Minitest::Test
 
   def test_fewest_tackles
     game = Game.all.values.first
+
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles(game.season)
+  end
+
+  def test_games_in_season
+    game = Game.all.values.first
+
+    assert_equal 57, @stat_tracker.games_in_season(game.season).length
   end
 end

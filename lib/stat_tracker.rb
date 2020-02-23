@@ -29,10 +29,10 @@ class StatTracker
   def sort(class_object, function = "add")
     total_scores = []
     class_object.all.each_value do |value|
-      if function == "add"
-        total_scores << value.home_goals + value.away_goals
-      elsif function == "subtract"
+      if function == "subtract"
         total_scores << (value.home_goals - value.away_goals).abs
+      else
+        total_scores << value.home_goals + value.away_goals
       end
     end
     total_scores.uniq.sort
@@ -101,37 +101,32 @@ class StatTracker
     total_goals
   end
 
-  def number_of_games_per_season(season)
-    total_games = 0
-    Game.all.each_value do |game|
-      if game.season == season
-        total_games += 1
-      end
-    end
-    total_games
-  end
-
   def average_goals_by_season
     Game.all.each_value.reduce(Hash.new(0)) do |goals_by_season, game|
       goals = total_goals_per_season(game.season)
-      games = number_of_games_per_season(game.season)
+      games = games_in_season(game.season).length
 
       goals_by_season[game.season.to_s] = (goals / games).round(2)
       goals_by_season
     end
   end
 
-  def most_tackles(season)
+  def games_in_season(season)
     games_in_season = Game.all.values.reduce([]) do |acc, game|
       if game.season == season
         acc << game.game_id
       end
       acc
     end
+    games_in_season
+  end
+
+  def most_tackles(season)
+    games = games_in_season(season)
 
     tackles_by_team_by_season = GameTeam.all.values.reduce(Hash.new(0)) do |acc, team|
       team.each do |game|
-        if games_in_season.include?(game.game_id)
+        if games.include?(game.game_id)
           acc[game.team_id] += game.tackles
         end
       end
@@ -144,16 +139,11 @@ class StatTracker
   end
 
   def fewest_tackles(season)
-    games_in_season = Game.all.values.reduce([]) do |acc, game|
-      if game.season == season
-        acc << game.game_id
-      end
-      acc
-    end
+    games = games_in_season(season)
 
     tackles_by_team_by_season = GameTeam.all.values.reduce(Hash.new(0)) do |acc, team|
       team.each do |game|
-        if games_in_season.include?(game.game_id)
+        if games.include?(game.game_id)
           acc[game.team_id] += game.tackles
         end
       end
@@ -164,5 +154,5 @@ class StatTracker
     team = tackles_by_team_by_season.key(most_tackles)
     Team.all[team].team_name
   end
-  
+
 end
