@@ -93,23 +93,32 @@ class Test < Minitest::Test
   end
 
   def test_it_can_return_home_teams_and_goals
+    assert_equal [3, 3, 3, 2, 1, 2, 2, 4, 2], @league.home_teams_and_goals[6]
+  end
 
+  def test_it_can_calculate_average_home_teams_and_goals
+    assert_equal 2.44, @league.average_home_teams_and_goals[6]
   end
 
   def test_highest_scoring_home_team
-    skip
-    assert_equal "", @league.highest_scoring_home_team
+    assert_equal "New York City FC", @league.highest_scoring_home_team
   end
 
 
   def test_it_can_tell_lowest_scoring_home_team
-    skip
-    assert_equal "", @league.lowest_scoring_home_team
+    assert_equal "DC United", @league.lowest_scoring_home_team
+  end
+
+  def test_it_can_create_game_team_results
+    assert_equal ["TIE", "WIN", "LOSS", "LOSS"], @league.game_team_results[8]
+  end
+
+  def test_it_can_calculate_percent_wins
+    assert_equal 25.0, @league.percent_wins[8]
   end
 
   def test_it_can_tell_winningest_team
-    skip
-    assert_equal "", @league.winningest_team
+    assert_equal "FC Dallas", @league.winningest_team
   end
 
   def test_it_can_tell_best_fans
