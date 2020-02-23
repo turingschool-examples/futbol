@@ -6,7 +6,7 @@ class ScoredGoalStatTest < Minitest::Test
   def setup
     team_file_path = './data/teams.csv'
     game_team_file_path = './test/fixtures/truncated_game_teams.csv'
-    game_file_path = './data/games.csv'
+    game_file_path = './test/fixtures/truncated_games.csv'
     @scored_goal_stat = ScoredGoalStat.new(team_file_path, game_team_file_path, game_file_path)
   end
 
@@ -37,8 +37,10 @@ class ScoredGoalStatTest < Minitest::Test
   end
 
   def test_it_can_return_favorite_opponent
-    assert_equal "DC United", @scored_goal_stat.favorite_opponent("18")
-    # assert_equal "blah", @scored_goal_stat.number_of_total_opponent_games("3")
-    # assert_equal "yay", @scored_goal_stat.retrieve_team_name("3")
+    assert_equal "North Carolina Courage", @scored_goal_stat.favorite_opponent("3")
+  end
+
+  def test_it_can_return_rival
+    assert_equal "Portland Thorns FC", @scored_goal_stat.rival("3")
   end
 end

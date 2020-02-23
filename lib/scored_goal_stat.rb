@@ -55,13 +55,13 @@ class ScoredGoalStat
   end
 
   def favorite_opponent(team_id)
-    min_average_wins = average_opponent_games(team_id).min.first
-    retrieve_team_name(min_average_wins)
+    min_average_wins = average_opponent_games(team_id).min_by { |key, value| value }
+    retrieve_team_name(min_average_wins.first)
   end
 
   def rival(team_id)
-    max_average_wins = average_opponent_games(team_id).max.first
-    retrieve_team_name(max_average_wins)
+    max_average_wins = average_opponent_games(team_id).max_by { |key, value| value }
+    retrieve_team_name(max_average_wins.first)
   end
 
   def opponent_games_total(team_id)
@@ -104,29 +104,24 @@ class ScoredGoalStat
 
   def number_of_total_opponent_games(team_id)
     total_games_played = {}
-    opponent_games_total(team_id).map do |team_id, game_id|
-      total_games_played[team_id] = game_id.length
+    opponent_games_total(team_id).map do |key, game_id|
+      total_games_played[key] = game_id.length
     end
     total_games_played
   end
 
   def number_of_total_team_losses(team_id)
     total_games_lost = {}
-    given_team_loss_games_total(team_id).map do |team_id, game_id|
-      total_games_lost[team_id] = game_id.length
+    given_team_loss_games_total(team_id).map do |key, game_id|
+      total_games_lost[key] = game_id.length
     end
     total_games_lost
   end
 
   def average_opponent_games(team_id)
-    average_wins = {}
-    number_of_total_opponent_games(team_id).map do |key, value|
-      total_losses = number_of_total_team_losses(team_id)[key]
-      if total_losses != nil
-        average_wins[key] = ((value.to_f / total_losses) * 100).round(2)
-      end
+    number_of_total_team_losses(team_id).merge(number_of_total_opponent_games(team_id)) do |key, old, new|
+      (old.to_f / new) * 100
     end
-    average_wins
   end
 
   def retrieve_team_name(team_id)
