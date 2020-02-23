@@ -74,4 +74,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Real Salt Lake", @stat_tracker_average.best_defense
   end
 
+  def test_it_can_find_the_winningest_coach_by_season
+    
+  end
 end

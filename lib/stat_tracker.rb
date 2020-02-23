@@ -30,9 +30,9 @@ class StatTracker
     @game_collection.games.map {|game| (game.away_goals - game.home_goals).abs}.max
   end
 
-                                                                    # This only requires game information.
-                                                                    # It should probably move to game collection eventually.
-  def count_of_games_by_season                                      #refactored by Ryan 2.22.20
+  # This only requires game information.
+  # It should probably move to game collection eventually.
+  def count_of_games_by_season
     games_by_season = @game_collection.all.group_by{|game| game.season}         #games_by_season 1st occurance
     games_by_season.transform_values!{|games| games.length}
   end
