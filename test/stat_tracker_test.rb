@@ -63,6 +63,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_the_worst_coach_of_the_season
+    skip
     assert_equal "John Tortorella", @stat_tracker.worst_coach(20132014)
   end
 
@@ -100,42 +101,6 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_return_team_names_by_id_number
     assert_equal "Atlanta United", @stat_tracker.team_name_by_id(1)
     assert_equal "LA Galaxy", @stat_tracker.team_name_by_id(17)
-  end
-
-  def test_it_knows_all_the_game_ids_in_a_given_season
-    skip
-    assert_equal [2012030221], @stat_tracker.game_ids_in_season(20122013)
-    assert_equal [2012030223,2012030224], @stat_tracker.game_ids_in_season(20152016)
-  end
-
-  def test_it_knows_all_the_games_played_by_teams_in_a_season
-    skip
-    expected = {5=>3, 3=>2, 26=>1, 10=>1, 22=>1}
-    assert_equal expected, @stat_tracker.games_by_team_by_season(20152016)
-  end
-
-  def test_it_knows_coachs_by_season
-    skip
-    expected_1213 = {
-      3 => "John Tortorella",
-      6 => "Claude Julien"
-    }
-    expected_1516 = {
-      6 => "Josh Thompson",
-      3 => "Kelly Dean"
-    }
-    assert_equal expected_1213, @stat_tracker.head_coaches(20122013)
-    assert_equal expected_1516, @stat_tracker.head_coaches(20152016)
-  end
-
-  def test_it_knows_wins_by_season
-    skip
-    expected = {
-      1 => 1,
-      3 => 0,
-      6 => 1
-    }
-    assert_equal expected, @stat_tracker.wins_in_season(20152016)
   end
 
   def test_it_can_show_total_wins
@@ -203,6 +168,40 @@ class StatTrackerTest < Minitest::Test
     expected_away = {3=>1, 6=>0, 9=>1, 8=>0, 5=>0, 20=>0, 19=>0,
       7=>0, 52=>0, 10=>0, 26=>0, 22=>1}
     assert_equal expected_away, @stat_tracker.hoa_tie_by_team("away")
+  end
+
+  ### Seasonal Stats Below
+  def test_it_knows_all_the_game_ids_in_a_given_season
+    assert_equal [2012030221, 2012030121, 2012030311, 2012020701, 2012020587], @stat_tracker.game_ids_in_season(20122013)
+  end
+
+  def test_it_knows_the_number_of_games_played_by_teams_in_a_season
+    expected = {3 => 2, 5 => 3, 10 => 1, 26 => 1, 22 => 1}
+    assert_equal expected, @stat_tracker.games_by_team_by_season(20152016)
+  end
+
+  def test_it_knows_coachs_by_season
+    expected_1213 = {
+      3 => "John Tortorella",
+      6 => "Claude Julien",
+      9 => "Paul MacLean",
+      8 => "Michel Therrien",
+      5 => "Dan Bylsma",
+      20 => "Bob Hartley",
+      19 => "Ken Hitchcock",
+      7 => "Ron Rolston",
+      52 => "Claude Noel"
+
+    }
+    assert_equal expected_1213, @stat_tracker.head_coaches(20122013)
+
+  end
+
+  def test_it_knows_wins_by_season
+    skip
+    expected = {5 => 1, 26 => 1}
+    assert_equal expected, @stat_tracker.wins_in_season(20152016)
+
   end
 
 end
