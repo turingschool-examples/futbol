@@ -13,7 +13,7 @@ class GameCollectionTest < Minitest::Test
   def test_it_exists
     assert_instance_of GameCollection, @game_collection
   end
-
+  
   def test_it_has_attributes
     assert_instance_of Array, @game_collection.games
     assert_equal 10, @game_collection.games.length

@@ -2,7 +2,6 @@ require_relative './game'
 require "CSV"
 
 class GameCollection
-
   attr_reader :games
 
   def initialize(csv_file_path)
@@ -15,5 +14,4 @@ class GameCollection
        Game.new(row)
     end
   end
-
 end

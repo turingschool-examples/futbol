@@ -19,6 +19,15 @@ class StatTracker
     GameCollection.new(@game_path)
   end
 
+  def count_of_games_by_season(season)
+    game_collection.games.length == season
+  end
+
+  def average_goals_by_season(season)
+    game_count = game_collection.games.length == season
+    (game_count.to_f / game_collection.games.length).round(2)
+  end
+  
   def highest_total_score
     highest_score_game = game_collection.games.max_by do |game|
       game.total_goals

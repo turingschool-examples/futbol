@@ -1,3 +1,5 @@
+require 'CSV'
+require_relative './game_collection'
 require "./test/test_helper"
 require "./lib/game"
 
@@ -75,7 +77,6 @@ class GameTest < Minitest::Test
     assert_equal false, @game2.tie?
     assert_equal true, @game3.tie?
   end
-
 end
 
 # === DONE ===
