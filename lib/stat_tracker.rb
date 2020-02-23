@@ -116,12 +116,22 @@ class StatTracker
   end
 
   def head_coaches(season)
-    coaches = gtc.game_teams.reduce({}) do |coaches_in_season, game|
+    gtc.game_teams.reduce({}) do |coaches_in_season, game|
       if game_ids_in_season(season).include?(game.game_id)
         coaches_in_season[game.team_id] = game.head_coach
       end
       coaches_in_season
     end
+  end
+
+  def wins_in_season(season)
+    wins_in_season = Hash.new(0)
+    gtc.game_teams.each do |game|
+      if game_ids_in_season(season).include?(game.game_id) && game.result == "WIN"
+        wins_in_season[game.team_id] += 1
+      end
+    end
+    wins_in_season
   end
 
   def total_games_by_team
