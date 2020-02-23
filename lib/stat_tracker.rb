@@ -121,4 +121,48 @@ class StatTracker
     end
   end
 
+  def most_tackles(season)
+    games_in_season = Game.all.values.reduce([]) do |acc, game|
+      if game.season == season
+        acc << game.game_id
+      end
+      acc
+    end
+
+    tackles_by_team_by_season = GameTeam.all.values.reduce(Hash.new(0)) do |acc, team|
+      team.each do |game|
+        if games_in_season.include?(game.game_id)
+          acc[game.team_id] += game.tackles
+        end
+      end
+      acc
+    end
+
+    most_tackles = tackles_by_team_by_season.values.max
+    team = tackles_by_team_by_season.key(most_tackles)
+    Team.all[team].team_name
+  end
+
+  def fewest_tackles(season)
+    games_in_season = Game.all.values.reduce([]) do |acc, game|
+      if game.season == season
+        acc << game.game_id
+      end
+      acc
+    end
+
+    tackles_by_team_by_season = GameTeam.all.values.reduce(Hash.new(0)) do |acc, team|
+      team.each do |game|
+        if games_in_season.include?(game.game_id)
+          acc[game.team_id] += game.tackles
+        end
+      end
+      acc
+    end
+
+    most_tackles = tackles_by_team_by_season.values.min
+    team = tackles_by_team_by_season.key(most_tackles)
+    Team.all[team].team_name
+  end
+  
 end
