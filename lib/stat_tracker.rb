@@ -64,6 +64,7 @@ class StatTracker
     home_goals = hoa_goals_by_team("home")
     home_goals_per_game = {}
     home_goals.each do |team_id, total_home_goals|
+      next if total_home_goals == 0
       home_goals_per_game[team_id] = total_home_goals / hoa_games_by_team("home")[team_id].to_f
     end
     team_name_by_id(home_goals_per_game.key(home_goals_per_game.values.min))
@@ -74,6 +75,7 @@ class StatTracker
     home_goals = hoa_goals_by_team("home")
     home_goals_per_game = {}
     home_goals.each do |team_id, total_home_goals|
+      next if total_home_goals == 0
       home_goals_per_game[team_id] = total_home_goals / hoa_games_by_team("home")[team_id].to_f
     end
     team_name_by_id(home_goals_per_game.key(home_goals_per_game.values.max))
@@ -88,6 +90,8 @@ class StatTracker
     end
     team_name_by_id(average_goals_allowed.key(average_goals_allowed.values.min))
   end
+
+
   ###### move these methods somewhere else
 
   def count_of_games_by_season
@@ -102,6 +106,21 @@ class StatTracker
     team_collection.teams.find do |team|
       team.team_id == team_id
     end.teamname
+  end
+
+  def head_coaches(season)
+    game_ids_in_season = game_collection.games.reduce([]) do |games_in_season, game|
+      if game.season == season
+        games_in_season << game.game_id
+      end
+      games_in_season
+    end
+    coaches = gtc.game_teams.reduce({}) do |coaches_in_season, game|
+      if game_ids_in_season.include?(game.game_id)
+        coaches_in_season[game.team_id] = game.head_coach
+      end
+      coaches_in_season
+    end
   end
 
   def total_games_by_team
