@@ -30,4 +30,8 @@ class GameCollection
   def all
     @games
   end
+
+  def array_by_key(key)
+    @games.map{|game| game.send "#{key}" }.uniq  ## can probably put this in a module passing class, collection, and key as arguments
+  end
 end
