@@ -1,7 +1,8 @@
-class GameStats
-  attr_reader :games
+require './lib/stats'
+
+class GameStats < Stats
   def initialize(games)
-    @games = games
+    super(games)
   end
 
   def highest_total_score

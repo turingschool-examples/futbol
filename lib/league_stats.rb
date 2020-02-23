@@ -1,9 +1,8 @@
-class LeagueStats
-  attr_reader :games, :teams, :game_teams
+require './lib/stats'
+
+class LeagueStats < Stats
   def initialize(games, teams, game_teams)
-    @games = games
-    @teams = teams
-    @game_teams = game_teams
+    super(games, teams, game_teams)
   end
 
   def count_of_teams
