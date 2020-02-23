@@ -85,8 +85,4 @@ class SeasonWin
     total_games = total_games_by_season(team_id).values.sum
     (won_games.to_f / total_games).round(2)
   end
-
-  def favorite_opponent(team_id)
-    ''
-  end
 end

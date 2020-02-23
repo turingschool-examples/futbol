@@ -76,8 +76,4 @@ class SeasonWinTest < Minitest::Test
   def test_it_can_return_average_win_percentage
     assert_equal 0.36, @season_win.average_win_percentage("3")
   end
-
-  def test_it_can_return_favorite_opponent
-    assert_equal "Dallas Cowboys", @season_win.favorite_opponent("3")
-  end
 end
