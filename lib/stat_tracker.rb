@@ -73,27 +73,12 @@ class StatTracker
 
     # uses both team and game_team info, needs to live in stat_tracker.
   def worst_offense
-    team_ids = @team_collection.all.map{|team| team.team_id}  # This snippet should be transfered to team_collection
-
-    games_by_team = team_ids.reduce({}) do |games_by_team, team_id| # this snippet would better serve us in the game_team collection to be used by other methods
-      games = @game_team_collection.all.find_all do |game_team|
-         game_team.team_id == team_id
-      end
-      games_by_team[team_id] = games
-      games_by_team
-    end
-
+    games_by_team = @game_team_collection.all.group_by{|game| game.team_id}
     average_goals_by_team = games_by_team.transform_values do |games|
       ((games.map{|game| game.goals}.sum)/games.length.to_f)  # average calculation
     end
-
-    worst_average = average_goals_by_team.values.min
-
-    worst_team = average_goals_by_team.key(worst_average) # checks for first occurance of best average, need to gain clarification from teachers!!
-
-    @team_collection.all.find do |team| # This snippet should move to team_collection as a #where(:key, value), ie where(team_id, 6)
-      team.team_id == worst_team
-    end.team_name
+    worst_team = average_goals_by_team.key(average_goals_by_team.values.min)
+    @team_collection.where_id(worst_team)
   end
 
   def best_defense
