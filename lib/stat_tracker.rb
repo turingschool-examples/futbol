@@ -61,6 +61,16 @@ class StatTracker
     scored_goal_stat.worst_loss(team_id)
   end
 
+  def favorite_opponent(team_id)
+    scored_goal_stat = ScoredGoalStat.new(@teams_file, @game_teams_file, @games_file)
+    scored_goal_stat.favorite_opponent(team_id)
+  end
+
+  def rival(team_id)
+    scored_goal_stat = ScoredGoalStat.new(@teams_file, @game_teams_file, @games_file)
+    scored_goal_stat.rival(team_id)
+  end
+
   def count_of_games_by_season
     season = SeasonStat.new(@games_file, @teams_file)
     season.count_of_games_by_season
