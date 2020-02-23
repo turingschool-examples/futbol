@@ -78,14 +78,3 @@ class GameTest < Minitest::Test
     assert_equal true, @game3.tie?
   end
 end
-
-# === DONE ===
-# * ID
-# * home_goals
-# * away_goals
-# * season
-# > total_goals
-# > home_win?
-# > away_win?
-# === TODO ===
-# > tie?
