@@ -26,4 +26,8 @@ class TeamCollection
   def all
     @teams
   end
+
+  def array_by_key(key)
+    @teams.map{ |team| team.send "#{key}" }.uniq  ## can probably put this in a module passing class, collection, and key as arguments
+  end 
 end
