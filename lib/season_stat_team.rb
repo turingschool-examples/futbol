@@ -96,7 +96,7 @@ class SeasonStatTeam
     team_tackles[1][:team_name]
   end
 
-  def least_tackles(season)
+  def fewest_tackles(season)
     team_tackles = create_team_data_by_season(season).min_by do |team, team_data|
       team_data[:tackles]
     end
