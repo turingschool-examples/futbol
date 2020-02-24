@@ -73,7 +73,18 @@ class StatTracker
 
   # uses both team and game_team collections
   def worst_offense
+    team_ids = @team_collection.all.map{|team| team.team_id}  # This could be shifted to use the game_team_collection data, just use a #uniq at the end
+
+    games_by_team = team_ids.reduce({}) do |games_by_team, team_id| # this snippet would better serve us in the game_team collection to be used by other methods
+      games = @game_team_collection.all.find_all do |game_team|
+         game_team.team_id == team_id
+      end
+      games_by_team[team_id] = games
+      games_by_team
+    end
+
     games_by_team = @game_team_collection.all.group_by{|game| game.team_id}
+
     average_goals_by_team = games_by_team.transform_values do |games|
       ((games.map{|game| game.goals}.sum)/games.length.to_f)                      # average calculation
     end
@@ -81,6 +92,29 @@ class StatTracker
     @team_collection.where_id(worst_team)
   end
 
+  def worst_defense
+    goals_against_team = @team_collection.all.reduce({}) do |hash, team|
+      hash[team.team_id] = []
+      hash
+    end
+
+    @game_collection.all.each do |game|
+      goals_against_team[game.home_team_id] << game.away_goals
+      goals_against_team[game.away_team_id] << game.home_goals
+    end
+
+    average_goals_against_team = goals_against_team.transform_values do |goals|
+      (goals.sum/goals.length.to_f)  # average calculation
+    end
+
+    worst_average = average_goals_against_team.values.max
+
+    worst_team = average_goals_against_team.key(worst_average)
+
+    @team_collection.all.find do |team| # This snippet should move to team_collection as a #where(:key, value), ie where(team_id, 6)
+      team.team_id == worst_team
+    end.team_name
+  end 
   #uses both team and game collections.
   def best_defense
     goals_against_by_team = {}
