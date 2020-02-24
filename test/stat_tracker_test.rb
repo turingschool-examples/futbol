@@ -1,6 +1,7 @@
 require './test/test_helper'
 require "minitest/autorun"
 require "minitest/pride"
+require 'mocha/minitest'
 require "./lib/stat_tracker"
 
 class StatTrackerTest < Minitest::Test
@@ -58,6 +59,20 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
 
+  def test_it_can_get_home_wins_percentage
+    assert_equal 0.6, @stat_tracker.percentage_home_wins
+  end
+
+  def test_it_can_get_away_win_percentages
+    assert_equal 0.3, @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_it_can_get_tied_percentage ## refactor with new data pool to grab real percentage instead of stub
+    @stat_tracker.stubs(:percentage_ties).returns(0.10)
+
+    assert 0.10, @stat_tracker.percentage_ties
+  end
+
   def test_it_can_count_number_of_teams
     assert_equal 9, @stat_tracker.count_of_teams
   end
@@ -74,7 +89,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Real Salt Lake", @stat_tracker_average.best_defense
   end
 
-  def test_it_can_find_the_worst_defence
+  def test_it_can_find_the_worst_defense
     assert_equal "Chicago Fire", @stat_tracker_average.worst_defense
   end
 
