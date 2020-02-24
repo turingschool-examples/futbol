@@ -45,7 +45,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_calculate_count_of_games_by_season
-    assert_equal ({20122013=>51, 20132014=>29}), @stat_tracker.count_of_games_by_season
+    assert_equal ({"20122013"=>51, "20132014"=>29}), @stat_tracker.count_of_games_by_season
   end
 
   def test_it_can_average_goals_per_game
@@ -53,19 +53,19 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_average_goals_by_season
-    assert_equal ({20122013=>4.02, 20132014=>4.0}), @stat_tracker.average_goals_by_season
+    assert_equal ({"20122013"=>4.02, "20132014"=>4.0}), @stat_tracker.average_goals_by_season
   end
 
   def test_it_can_find_percentage_home_wins
-    assert_equal 68.42, @stat_tracker.percentage_home_wins
+    assert_equal 0.68, @stat_tracker.percentage_home_wins
   end
 
   def test_it_can_find_percentage_visitor_wins
-    assert_equal 25.0, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.25, @stat_tracker.percentage_visitor_wins
   end
 
   def test_it_can_find_percentage_ties
-    assert_equal 5.13, @stat_tracker.percentage_ties
+    assert_equal 0.05, @stat_tracker.percentage_ties
   end
 
   def test_it_can_count_teams

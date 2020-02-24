@@ -21,7 +21,7 @@ module GameStatistics
   def count_of_games_by_season
     seasons_and_games_count = {}
     find_all_seasons.each do |season|
-      seasons_and_games_count[season] = @games.count do |game|
+      seasons_and_games_count[season.to_s] = @games.count do |game|
         game.season == season
       end
     end
@@ -47,7 +47,7 @@ module GameStatistics
       sum_of_goals = find_games_by_season(season).sum do |game|
         (game.away_goals + game.home_goals)
       end
-      seasons_and_goals_average[season] = (sum_of_goals.to_f / count_of_games_by_season[season]).round(2)
+      seasons_and_goals_average[season.to_s] = (sum_of_goals.to_f / count_of_games_by_season[season.to_s]).round(2)
     end
     seasons_and_goals_average
   end
@@ -59,7 +59,7 @@ module GameStatistics
     home_wins = all_home_games.find_all do |game_team|
        game_team.result == "WIN"
     end
-    ((home_wins.length / all_home_games.length.to_f) * 100).round(2)
+    (home_wins.length / all_home_games.length.to_f).round(2)
   end
 
   def percentage_visitor_wins
@@ -69,14 +69,14 @@ module GameStatistics
     visitor_wins = all_visitor_games.find_all do |game_team|
        game_team.result == "WIN"
     end
-    ((visitor_wins.length / all_visitor_games.length.to_f) * 100).round(2)
+    (visitor_wins.length / all_visitor_games.length.to_f).round(2)
   end
 
   def percentage_ties
   all_ties = @game_teams.find_all do |game_team|
        game_team.result == "TIE"
     end
-    ((all_ties.length / @game_teams.length.to_f) * 100).round(2)
+    (all_ties.length / @game_teams.length.to_f).round(2)
   end
 
 end
