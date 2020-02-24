@@ -72,7 +72,7 @@ class StatTrackerTest < Minitest::Test
 
     assert 0.10, @stat_tracker.percentage_ties
   end
-  
+
   def test_it_can_count_number_of_teams
     assert_equal 9, @stat_tracker.count_of_teams
   end
@@ -88,8 +88,12 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_find_the_worst_defence
     assert_equal "Chicago Fire", @stat_tracker_average.worst_defense
   end
-  
+
   def test_it_can_find_the_best_defence
     assert_equal "Real Salt Lake", @stat_tracker_average.best_defense
+  end
+
+  def test_it_can_return_team_with_most_tackles
+    assert_equal "FC Dallas", @stat_tracker_average.most_tackles
   end
 end
