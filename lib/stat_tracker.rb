@@ -118,4 +118,14 @@ class StatTracker
     season.least_accurate_team(season_param)
   end
 
+  def most_tackles(season_param)
+    season = SeasonStatTeam.new(@game_teams_file, @teams_file)
+    season.most_tackles(season_param)
+  end
+
+  def fewest_tackles(season_param)
+    season = SeasonStatTeam.new(@game_teams_file, @teams_file)
+    season.fewest_tackles(season_param)
+  end
+
 end
