@@ -227,4 +227,16 @@ class StatTrackerTest < Minitest::Test
     expected = {3=>0, 5=>1, 10=>0, 26=>1, 22=>0}
     assert_equal expected, @stat_tracker.wins_in_season(20152016)
   end
+
+  def test_count_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+
+  def test_best_fans
+    assert_equal "Reign FC", @stat_tracker.best_fans
+  end
+
+  def test_worst_defense
+    assert_equal 0 ,@stat_tracker.worst_defense
+  end
 end

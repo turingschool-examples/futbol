@@ -166,6 +166,91 @@ class StatTracker
     games_by_team
   end
 
+  def count_of_teams
+    @team_collection.teams.length
+  end
+
+  def worst_defense
+    # Name of the team with the highest average number of goals
+    # allowed per game across all seasons.
+    #find all games per team
+    teams_per_game = @gtc.game_teams.reduce(Hash.new(nil)) do |games_played, game_team|
+      if games_played[game_team.game_id] == nil
+        games_played[game_team.game_id] = [game_team]
+      elsif games_played[game_team.game_id] != nil
+        games_played[game_team.game_id] << game_team
+      end
+      games_played
+    end
+    # find other teams stats from that game
+    require "pry"; binding.pry
+    
+
+    #points-allowed-per-game by team
+  end
+
+  def best_fans
+    #biggest diff between home/away win percentages.
+    home_games_played = Hash.new(0)
+    @game_collection.games.each do |game|
+      if home_games_played[game.home_team_id] == 0
+        home_games_played[game.home_team_id] = [game]
+      elsif home_games_played[game.home_team_id] != 0
+        home_games_played[game.home_team_id] << game
+      end
+    end
+
+    home_games_won = Hash.new(0)
+    home_games_played.each do |team_id, games|
+      games_won = games.find_all { |game| game.home_goals > game.away_goals}
+      home_games_won[team_id] = games_won
+    end
+
+    home_win_percentages = Hash.new(0)
+    home_games_played.each_key do |team_id|
+      percentage = 100 * (home_games_won[team_id].count.to_f / home_games_played[team_id].count.to_f).round(2)
+      home_win_percentages[team_id] = percentage
+    end
+
+    away_games_played = Hash.new(0)
+    @game_collection.games.each do |game|
+      if away_games_played[game.away_team_id] == 0
+        away_games_played[game.away_team_id] = [game]
+      elsif away_games_played[game.away_team_id] != 0
+        away_games_played[game.away_team_id] << game
+      end
+    end
+
+    away_games_won = Hash.new(0)
+    away_games_played.each do |team_id, games|
+      games_won = games.find_all { |game| game.home_goals < game.away_goals}
+      away_games_won[team_id] = games_won
+    end
+
+    away_win_percentages = Hash.new(0)
+    away_games_played.each_key do |team_id|
+      percentage = 100 * (away_games_won[team_id].count.to_f / away_games_played[team_id].count.to_f).round(2)
+      away_win_percentages[team_id] = percentage
+    end
+
+    percentage_differences = Hash.new(0)
+    home_win_percentages.each do |team_id, home_percentage|
+      away_percentage = away_win_percentages[team_id]
+      percentage_differences[team_id] = (home_percentage - away_percentage).abs
+    end
+
+    team_with_largest_difference = percentage_differences.max_by { |team_id, percentage_diff| percentage_diff}
+
+    team = @team_collection.teams.find do |team|
+      team.team_id == team_with_largest_difference[0]
+    end
+    team.teamname
+  end
+
+  def lowest_scoring_visitor
+    #team with lowest totals when playing as visitor
+  end
+
   def total_wins_by_team
     total_wins = Hash.new(0)
     gtc.game_teams.each do |game|
