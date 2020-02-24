@@ -65,7 +65,7 @@ class StatTracker
     teams
   end
 
-  def find_bust_eligible_teams(season)
+  def find_eligible_teams(season)
     season = season.to_i
     find_post_season_teams(season) & find_regular_season_teams(season)
   end
@@ -76,7 +76,7 @@ class StatTracker
         game_data.season == season && game_data.type == type
     end
     team_games = games_in_post_season.select do |game_id, game_data|
-      if find_bust_eligible_teams(season).include?(team_id)
+      if find_eligible_teams(season).include?(team_id)
         game_data.home_team_id == team_id || game_data.away_team_id == team_id
       end
     end
@@ -97,19 +97,34 @@ class StatTracker
       percentage.round(3)
   end
 
-  def bust_differential(season)
+  def post_season_decline(season)
     season = season.to_i
     teams = {}
-    find_bust_eligible_teams(season).each do |team_id|
+    find_eligible_teams(season).each do |team_id|
       teams[team_id] = win_percentage(season, team_id, "Regular Season") - win_percentage(season, team_id, "Postseason")
     end
     teams
-    require "pry"; binding.pry
     end
 
   def biggest_bust(season)
     season = season.to_i
-    biggest_bust = bust_differential(season).min_by{|team, win_percentage| win_percentage}
+    maximum_decline_team = post_season_decline(season).max_by{|team, win_percentage| win_percentage}
+    Team.all[maximum_decline_team[0]].team_name
+    end
+
+  def post_season_improvement(season)
+    season = season.to_i
+    teams = {}
+    find_eligible_teams(season).each do |team_id|
+      teams[team_id] = win_percentage(season, team_id, "Postseason") - win_percentage(season, team_id, "Regular Season")
+    end
+    teams
+  end
+
+  def biggest_surprise(season)
+    season = season.to_i
+    maximum_improvement = post_season_improvement(season).max_by{|team, win_percentage| win_percentage}
+    Team.all[maximum_improvement[0]].team_name
     end
   end
 

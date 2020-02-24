@@ -7,14 +7,14 @@ require "./lib/game_team"
 
 class StatTrackerTest < Minitest::Test
 
-  def setup
-    @locations = {
-                  games: "./test/fixtures/season_games_sample.csv",
-                  game_teams: "./test/fixtures/game_teams_sample.csv",
-                  teams: "./test/fixtures/teams_sample.csv"
-                }
-    @stat_tracker = StatTracker.from_csv(@locations)
-  end
+#  def setup
+#    @locations = {
+#                  games: "./test/fixtures/season_games_sample.csv",
+#                  game_teams: "./test/fixtures/game_teams_sample.csv",
+#                  teams: "./test/fixtures/teams_sample.csv"
+#                }
+#    @stat_tracker = StatTracker.from_csv(@locations)
+#  end
 
   def teardown
     Game.games = {}
@@ -125,8 +125,8 @@ class StatTrackerTest < Minitest::Test
                   }
     @stat_tracker = StatTracker.from_csv(@locations)
 
-    assert_equal true, @stat_tracker.find_bust_eligible_teams(20142015).include?(14)
-    assert_equal true, @stat_tracker.find_bust_eligible_teams(20142015).include?(5)
+    assert_equal true, @stat_tracker.find_eligible_teams(20142015).include?(14)
+    assert_equal true, @stat_tracker.find_eligible_teams(20142015).include?(5)
   #  assert_equal true, @stat_tracker.find_bust_eligible_teams(20132014).include?(23)
   end
 
@@ -161,7 +161,20 @@ class StatTrackerTest < Minitest::Test
                   }
     @stat_tracker = StatTracker.from_csv(@locations)
 
-    assert_equal "Montreal Impact", @stat_tracker.biggest_bust(20142015)
+    assert_equal "Sporting Kansas City", @stat_tracker.biggest_bust(20142015)
+#    assert_equal "Montreal Impact", @stat_tracker.biggest_bust(20132014)
+  end
+
+  def test_it_can_calculate_biggest_surprise
+    @locations = {
+                  games: "./data/games.csv",
+                  game_teams: "./test/fixtures/game_teams_sample.csv",
+                  teams: "./test/fixtures/teams_sample.csv"
+                  }
+    @stat_tracker = StatTracker.from_csv(@locations)
+
+    assert_equal "Minnesota United FC", @stat_tracker.biggest_surprise(20142015)
+    assert_equal "FC Cincinnati", @stat_tracker.biggest_surprise(20132014)
   end
 
 end
