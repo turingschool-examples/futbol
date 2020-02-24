@@ -92,12 +92,12 @@ class StatTracker
   end
 
   def worst_coach(season)
-    ## does not work
     # averages = {}
     # wins_in_season(season).each do |team_id, wins|
     #   averages[team_id] = wins / games_by_team_by_season(season)[team_id].to_f
     # end
     # averages
+    # require "pry"; binding.pry
     # head_coaches(season)[averages.key(averages.values.min)]
   end
 
@@ -268,8 +268,22 @@ class StatTracker
   end
 
   def wins_in_season(season)
-    require "pry"; binding.pry
+    winners = Hash.new(0)
+    games = game_ids_in_season(season).flat_map do |id|
+      gtc.game_teams.find_all do |game|
+        id == game.game_id
+      end
+    end
+    games.each do |game|
+      if game.result == "WIN"
+        winners[game.team_id] += 1
+      else
+        winners[game.team_id] += 0
+      end
+    end
+    winners
   end
+
 
 
   ##############
