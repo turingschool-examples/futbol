@@ -34,8 +34,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal 2, @stat_tracker.biggest_blowout
   end
 
-
-
   def test_calculates_percentage_home_wins
     assert_equal 0.40, @stat_tracker.percentage_home_wins
   end
@@ -47,5 +45,9 @@ class StatTrackerTest < Minitest::Test
   def test_calculates_percentage_ties
     assert_equal 0.10, @stat_tracker.percentage_ties
   end
+
+  # test count_of_games_by_season
+  # test average_goals_per_game
+  # test average_goals_by_season
 
 end
