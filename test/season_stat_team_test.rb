@@ -42,12 +42,12 @@ class SeasonStatTeamTest < Minitest::Test
   end
 
   def test_it_can_get_goals_to_shots_ratio
-    assert_equal 4.83, @season_stat_team.team_shots_to_goal_ratio_by_season("3", "20122013")
+    assert_equal 4.833, @season_stat_team.team_shots_to_goal_ratio_by_season("3", "20122013")
   end
 
   def test_it_can_create_team_data_by_season
     assert_instance_of Hash, @season_stat_team.create_team_data_by_season("20122013")
-    assert_equal 4.83, @season_stat_team.create_team_data_by_season("20122013")["3"][:goal_ratio]
+    assert_equal 4.833, @season_stat_team.create_team_data_by_season("20122013")["3"][:goal_ratio]
     assert_equal "Houston Dynamo", @season_stat_team.create_team_data_by_season("20122013")["3"][:team_name]
     assert_nil @season_stat_team.create_team_data_by_season("20122013")["100"]
     assert_equal 14, @season_stat_team.create_team_data_by_season("20122013").keys.length
