@@ -126,14 +126,14 @@ class StatTrackerTest < Minitest::Test
 
   def test_total_goals_per_season
     game = Game.all.values.first
-    game_team = GameTeam.all.values.first.first
+    game_team = GameTeam.all.values.first.first.last
 
     assert_equal 14, @stat_tracker.total_goals_by_team_in_season(game.season, game_team.team_id)
   end
 
   def test_total_shots_per_season
     game = Game.all.values.first
-    game_team = GameTeam.all.values[0][0]
+    game_team = GameTeam.all.values.first.first.last
 
     assert_equal 74, @stat_tracker.total_shots_by_team_in_season(game.season, game_team.team_id)
   end
@@ -142,5 +142,11 @@ class StatTrackerTest < Minitest::Test
     game = Game.all.values.first
 
     assert_equal "Houston Dynamo", @stat_tracker.most_accurate_team(game.season)
+  end
+
+  def test_least_accurate_team
+    game = Game.all.values.first
+
+    assert_equal "New York City FC", @stat_tracker.least_accurate_team(game.season)
   end
 end
