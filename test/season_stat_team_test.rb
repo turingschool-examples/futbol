@@ -66,4 +66,12 @@ class SeasonStatTeamTest < Minitest::Test
   def test_it_can_find_least_accurate_team_name
     assert_equal "Houston Dynamo", @season_stat_team.least_accurate_team("20122013")
   end
+
+  def test_it_can_get_team_with_most_tackles
+    assert_equal "Houston Dynamo", @season_stat_team.most_tackles("20122013")
+  end
+
+  def test_it_can_find_team_with_least_tackles
+    assert_equal "Orlando Pride", @season_stat_team.least_tackles("20122013")
+  end
 end

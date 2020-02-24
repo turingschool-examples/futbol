@@ -88,4 +88,18 @@ class SeasonStatTeam
     end
     inaccurate_team[1][:team_name]
   end
+
+  def most_tackles(season)
+    team_tackles = create_team_data_by_season(season).max_by do |team, team_data|
+      team_data[:tackles]
+    end
+    team_tackles[1][:team_name]
+  end
+
+  def least_tackles(season)
+    team_tackles = create_team_data_by_season(season).min_by do |team, team_data|
+      team_data[:tackles]
+    end
+    team_tackles[1][:team_name]
+  end
 end
