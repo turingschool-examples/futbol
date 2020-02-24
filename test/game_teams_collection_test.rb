@@ -1,8 +1,8 @@
 require 'csv'
-require './lib/game_teams'
-require './lib/game_teams_collection'
 require 'minitest/autorun'
 require 'minitest/pride'
+require_relative './game_teams'
+require_relative './game_teams_collection'
 
 class GameTeamsCollectionTest < Minitest::Test
 

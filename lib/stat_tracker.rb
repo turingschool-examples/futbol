@@ -1,7 +1,7 @@
 require 'csv'
-require './lib/game_teams_collection'
-require './lib/game_collection'
-require './lib/team_collection'
+require_relative './game_teams_collection'
+require_relative './game_collection'
+require_relative './team_collection'
 
 class StatTracker
 
@@ -31,10 +31,18 @@ class StatTracker
     @team_collection = TeamCollection.new(@team_data)
   end
 
+  ### Iteration 2 # - - - - - - - - - - - - - - - - - - -
+
   def highest_total_score
     game_collection.games.map do |game|
       game.home_goals + game.away_goals
     end.max
+  end
+
+  def lowest_total_score
+    game_collection.games.map do |game|
+      game.home_goals + game.away_goals
+    end.min
   end
 
   def biggest_blowout
@@ -43,11 +51,68 @@ class StatTracker
     end.max
   end
 
+  def percentage_home_wins
+    home_wins = game_collection.games.find_all do |game|
+      game.home_goals > game.away_goals
+    end
+    (home_wins.length.to_f / game_collection.games.length).round(2)
+  end
+
+  def percentage_visitor_wins
+    visitor_wins = game_collection.games.find_all do |game|
+      game.away_goals > game.home_goals
+    end
+    (visitor_wins.length.to_f / game_collection.games.length).round(2)
+  end
+
   def percentage_ties
     ties = game_collection.games.find_all do |game|
       game.home_goals == game.away_goals
     end.length
     (ties / game_collection.games.length.to_f).round(2)
+  end
+
+  def average_goals_per_game
+    total_goals_per_game = game_collection.games.map do |game|
+      game.home_goals + game.away_goals
+    end
+    (total_goals_per_game.sum.to_f / game_collection.games.length).round(2)
+  end
+
+  def average_goals_by_season
+    games_grouped_by_season = game_collection.games.group_by do |game|
+      game.season
+    end
+    games_grouped_by_season.each_pair do |season, games_by_season|
+      total_goals = games_by_season.map do |single_game|
+        single_game.home_goals + single_game.away_goals
+      end
+    average = (total_goals.sum.to_f / total_goals.length).round(2)
+    games_grouped_by_season[season] = average
+    end
+  end
+
+  ## Iteration 3 # - - - - - - - - - - - - - - - - - - - - -
+  def count_of_teams
+    @team_collection.teams.length
+  end
+
+  def best_defense
+    allowed = all_goals_allowed_by_team
+    games = total_games_by_team
+    average_goals_allowed = {}
+    allowed.each do |team_id, goals_allowed|
+      average_goals_allowed[team_id] = goals_allowed / total_games_by_team[team_id].to_f
+    end
+    team_name_by_id(average_goals_allowed.key(average_goals_allowed.values.min))
+  end
+
+  def worst_defense
+    #Colin work in progress
+  end
+
+  def lowest_scoring_visitor
+    #team with lowest totals when playing as visitor
   end
 
   def worst_fans
@@ -79,114 +144,6 @@ class StatTracker
       home_goals_per_game[team_id] = total_home_goals / hoa_games_by_team("home")[team_id].to_f
     end
     team_name_by_id(home_goals_per_game.key(home_goals_per_game.values.max))
-  end
-
-  def best_defense
-    allowed = all_goals_allowed_by_team
-    games = total_games_by_team
-    average_goals_allowed = {}
-    allowed.each do |team_id, goals_allowed|
-      average_goals_allowed[team_id] = goals_allowed / total_games_by_team[team_id].to_f
-    end
-    team_name_by_id(average_goals_allowed.key(average_goals_allowed.values.min))
-  end
-
-  def worst_coach(season)
-    averages = {}
-    wins_in_season(season).each do |team_id, wins|
-      avg = wins.to_f / games_by_team_by_season(season)[team_id]
-      averages[team_id] = avg
-    end
-    require "pry"; binding.pry
-    coach = head_coaches(season)[averages.key(averages.values.min)]
-  end
-  
-  def lowest_total_score
-    game_collection.games.map do |game|
-      game.home_goals + game.away_goals
-    end.min
-  end
-
-  def average_goals_per_game
-    total_goals_per_game = game_collection.games.map do |game|
-      game.home_goals + game.away_goals
-    end
-    (total_goals_per_game.sum.to_f / game_collection.games.length).round(2)
-  end
-
-  def average_goals_by_season
-    games_grouped_by_season = game_collection.games.group_by do |game|
-      game.season
-    end
-    games_grouped_by_season.each_pair do |season, games_by_season|
-      total_goals = games_by_season.map do |single_game|
-        single_game.home_goals + single_game.away_goals
-      end
-    average = (total_goals.sum.to_f / total_goals.length).round(2)
-    games_grouped_by_season[season] = average
-    end
-  end
-
-  def percentage_visitor_wins
-    visitor_wins = game_collection.games.find_all do |game|
-      game.away_goals > game.home_goals
-    end
-    (visitor_wins.length.to_f / game_collection.games.length).round(2)
-  end
-
-  def percentage_home_wins
-    home_wins = game_collection.games.find_all do |game|
-      game.home_goals > game.away_goals
-    end
-    (home_wins.length.to_f / game_collection.games.length).round(2)
-  end
-  
-  ###### move these methods somewhere else
-
-  def total_games_by_season
-    games_in_season = Hash.new(0)
-    game_collection.games.each do |game|
-      games_in_season[game.season] += 1
-    end
-    games_in_season
-  end
-  
-  def team_name_by_id(team_id)
-    team_collection.teams.find do |team|
-      team.team_id == team_id
-    end.teamname
-  end
-
-  def total_games_by_team
-    games_by_team = Hash.new(0)
-    game_collection.games.each do |game|
-      games_by_team[game.away_team_id] += 1
-      games_by_team[game.home_team_id] += 1
-    end
-    games_by_team
-  end
-
-  def count_of_teams
-    @team_collection.teams.length
-  end
-
-  def worst_defense
-    # Name of the team with the highest average number of goals
-    # allowed per game across all seasons.
-    #find all games per team
-    teams_per_game = @gtc.game_teams.reduce(Hash.new(nil)) do |games_played, game_team|
-      if games_played[game_team.game_id] == nil
-        games_played[game_team.game_id] = [game_team]
-      elsif games_played[game_team.game_id] != nil
-        games_played[game_team.game_id] << game_team
-      end
-      games_played
-    end
-    # find other teams stats from that game
-    require "pry"; binding.pry
-    
-
-    #points-allowed-per-game by team
   end
 
   def best_fans
@@ -247,8 +204,43 @@ class StatTracker
     team.teamname
   end
 
-  def lowest_scoring_visitor
-    #team with lowest totals when playing as visitor
+  def worst_coach(season)
+    averages = {}
+    wins_in_season(season).each do |team_id, wins|
+      avg = wins.to_f / games_by_team_by_season(season)[team_id]
+      averages[team_id] = avg
+    end
+    coach = head_coaches(season)[averages.key(averages.values.min)]
+  end
+
+
+
+
+
+  ###### move these methods somewhere else - - - - - - - - - - - - - - - - - - -
+  ## Helper Methods
+
+  def total_games_by_season
+    games_in_season = Hash.new(0)
+    game_collection.games.each do |game|
+      games_in_season[game.season] += 1
+    end
+    games_in_season
+  end
+
+  def team_name_by_id(team_id)
+    team_collection.teams.find do |team|
+      team.team_id == team_id
+    end.teamname
+  end
+
+  def total_games_by_team
+    games_by_team = Hash.new(0)
+    game_collection.games.each do |game|
+      games_by_team[game.away_team_id] += 1
+      games_by_team[game.home_team_id] += 1
+    end
+    games_by_team
   end
 
   def total_wins_by_team
@@ -368,7 +360,7 @@ class StatTracker
   def game_ids_in_season(season)
     game_collection.games.find_all do |game|
       season == game.season
-    end.map { |game| game.game_id }
+    end.map { |game| game.game_id.to_i }
   end
 
   def games_by_team_by_season(season)

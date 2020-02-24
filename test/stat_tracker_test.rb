@@ -1,12 +1,12 @@
-require './lib/stat_tracker'
-require './lib/game_collection'
-require './lib/game_teams_collection'
-require './lib/game_teams'
-require './lib/game'
-require './lib/team_collection'
-require './lib/team'
 require 'minitest/autorun'
 require 'minitest/pride'
+require_relative './stat_tracker'
+require_relative './game_collection'
+require_relative './game_teams_collection'
+require_relative './game_teams'
+require_relative './game'
+require_relative './team_collection'
+require_relative './team'
 
 class StatTrackerTest < Minitest::Test
 
@@ -63,38 +63,33 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_the_worst_coach_of_the_season
+    # mike said skip, for now
+    skip
     assert_equal "Alain Vigneault", @stat_tracker.worst_coach(20132014)
   end
 
   def test_it_can_return_lowest_score
-    assert_equal 2, @stat_tracker.lowest_total_score
+    assert_equal 3, @stat_tracker.lowest_total_score
   end
 
   def test_it_can_return_average_goals_per_game
-    assert_equal 4.13, @stat_tracker.average_goals_per_game
+    assert_equal 3.78, @stat_tracker.average_goals_per_game
   end
 
   def test_it_can_return_average_goals_by_season
-    expected = {
-      "20122013"=>3.8,
-      "20162017"=>4.57,
-      "20142015"=>4.5,
-      "20152016"=>3.8,
-      "20132014"=>4.4,
-      "20172018"=>3.67
-      }
+    expected = {20122013=>3.6, 20152016=>4.0}
 
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
 
   def test_can_return_percentage_of_visitor_wins
-    assert_equal 0.38, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.11, @stat_tracker.percentage_visitor_wins
   end
 
   def test_can_return_percentage_of_home_wins
-    assert_equal 0.53, @stat_tracker.percentage_home_wins
+    assert_equal 0.56, @stat_tracker.percentage_home_wins
   end
-  
+
   ######  Move these tests somewhere else
 
   def test_it_can_return_total_games_by_season
@@ -111,7 +106,7 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal expected, @stat_tracker.total_games_by_team
   end
-  
+
   def test_it_can_count_all_goals_scored_by_team
     expected = {3=>6, 6=>6, 9=>2, 8=>2, 5=>7, 20=>1, 19=>2,
     7=>1, 52=>2, 10=>1, 26=>2, 22=>2}
@@ -233,10 +228,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_best_fans
-    assert_equal "Reign FC", @stat_tracker.best_fans
+    assert_equal "Philadelphia Union", @stat_tracker.best_fans
   end
 
   def test_worst_defense
+    skip
     assert_equal 0 ,@stat_tracker.worst_defense
   end
 end
