@@ -1,4 +1,5 @@
 require_relative 'test_helper'
+require 'mocha/minitest'
 require './lib/stat_tracker'
 require './lib/stat_tracker'
 require './lib/team'
@@ -66,5 +67,141 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_find_percentage_ties
     assert_equal 5.13, @stat_tracker.percentage_ties
   end
+
+  def test_it_can_count_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+
+  def test_it_can_find_team_names
+    assert_equal "FC Dallas", @stat_tracker.find_team_names(6)
+  end
+
+  def test_it_can_calculate_goals_per_team
+    expected = {
+      3=>[2, 2, 1, 2, 1],
+      6=>[3, 3, 2, 3, 3, 3, 4, 2, 1],
+      5=>[0, 1, 1, 0],
+      17=>[1, 2, 3, 2, 1, 3, 1],
+      16=>[2, 1, 1, 0, 2, 2, 2],
+      9=>[2, 1, 4],
+      8=>[2, 3, 1, 2]
+    }
+    assert_equal expected, @stat_tracker.goals_per_team
+  end
+
+  def test_it_can_average_goals_per_team
+    expected = {
+      3=>1.6,
+      6=>2.67,
+      5=>0.5,
+      17=>1.86,
+      16=>1.43,
+      9=>2.33,
+      8=>2.0
+    }
+    assert_equal expected, @stat_tracker.average_goals_per_team
+  end
+
+  def test_it_can_tell_best_offense
+    assert_equal "FC Dallas", @stat_tracker.best_offense
+  end
+
+  def test_it_can_tell_worst_offense
+    assert_equal "Sporting Kansas City", @stat_tracker.worst_offense
+  end
+
+  def test_it_can_tell_games_teams_and_allowed_goals
+    assert_equal [3, 3, 2, 3, 3], @stat_tracker.games_teams_and_allowed_goals[3]
+  end
+
+  def test_it_can_average_games_teams_and_allowed_goals
+    assert_equal 2.8, @stat_tracker.average_games_teams_and_allowed_goals[3]
+  end
+
+  def test_it_can_tell_best_defense
+    assert_equal "Orlando Pride", @stat_tracker.best_defense
+  end
+
+  def test_it_can_tell_worst_defense
+    assert_equal "New York Red Bulls", @stat_tracker.worst_defense
+  end
+
+  def test_it_can_tell_visiting_teams_and_goals
+    assert_equal [2, 3, 3, 4, 3], @stat_tracker.visiting_teams_and_goals[6]
+  end
+
+  def test_it_can_tell_average_visiting_teams_and_goals
+    assert_equal 3, @stat_tracker.average_visiting_teams_and_goals[6]
+  end
+
+  def test_it_can_tell_highest_scoring_visitor
+    assert_equal "Orlando Pride", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_lowest_scoring_visitor
+    assert_equal "DC United", @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_it_can_return_home_teams_and_goals
+    assert_equal [3, 3, 3, 2, 1, 2, 2, 4, 2], @stat_tracker.home_teams_and_goals[6]
+  end
+
+  def test_it_can_calculate_average_home_teams_and_goals
+    assert_equal 2.44, @stat_tracker.average_home_teams_and_goals[6]
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal "New York City FC", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_it_can_tell_lowest_scoring_home_team
+    assert_equal "DC United", @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_it_can_create_game_team_results
+    assert_equal ["TIE", "WIN", "LOSS", "LOSS"], @stat_tracker.game_team_results[8]
+  end
+
+  def test_it_can_calculate_percent_wins
+    assert_equal 25.0, @stat_tracker.percent_wins[8]
+  end
+
+  def test_it_can_tell_winningest_team
+    assert_equal "FC Dallas", @stat_tracker.winningest_team
+  end
+
+  def test_finding_home_games_for_a_team
+  assert_equal 5, @stat_tracker.home_games(6).length
+  assert_equal @stat_tracker.game_teams[1], @stat_tracker.home_games(6)[0]
+end
+
+def test_finding_away_games_for_a_team
+  assert_equal 4, @stat_tracker.away_games(6).length
+  assert_includes @stat_tracker.away_games(6), @stat_tracker.game_teams[4]
+end
+
+def test_getting_home_win_percentage_for_a_team
+  assert_equal 75.0, @stat_tracker.home_win_percentage(16)
+  assert_equal 100, @stat_tracker.home_win_percentage(9)
+end
+
+def test_getting_away_win_percentage_for_a_team
+  assert_equal 33.33, @stat_tracker.away_win_percentage(17)
+  assert_equal 80, @stat_tracker.away_win_percentage(6)
+end
+
+def test_all_teams_playing
+  assert_equal [3, 6, 5, 17, 16, 9, 8], @stat_tracker.all_teams_playing
+end
+
+def test_getting_the_team_with_the_best_fans
+  assert_equal "New York City FC", @stat_tracker.best_fans
+end
+
+def test_getting_the_teams_with_the_worst_fans
+  @stat_tracker.stubs(:away_win_percentage).returns(80)
+  expected = ["Houston Dynamo", "Sporting Kansas City", "New England Revolution", "New York Red Bulls"]
+  assert_equal expected, @stat_tracker.worst_fans
+end
 
 end
