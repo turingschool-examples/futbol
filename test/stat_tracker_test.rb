@@ -126,7 +126,42 @@ class StatTrackerTest < Minitest::Test
     @stat_tracker = StatTracker.from_csv(@locations)
 
     assert_equal true, @stat_tracker.find_bust_eligible_teams(20142015).include?(14)
-    assert_equal false, @stat_tracker.find_bust_eligible_teams(20142015).include?(5)
+    assert_equal true, @stat_tracker.find_bust_eligible_teams(20142015).include?(5)
+  #  assert_equal true, @stat_tracker.find_bust_eligible_teams(20132014).include?(23)
+  end
+
+  def test_it_can_calculate_regular_season_win_percentage
+    @locations = {
+                  games: "./test/fixtures/season_games_sample.csv",
+                  game_teams: "./test/fixtures/game_teams_sample.csv",
+                  teams: "./test/fixtures/teams_sample.csv"
+                  }
+    @stat_tracker = StatTracker.from_csv(@locations)
+
+    assert_equal 0.667, @stat_tracker.win_percentage(20122013, 6, "Regular Season")
+  end
+
+  def test_it_can_calculate_post_season_win_percentage
+    @locations = {
+                  games: "./test/fixtures/season_games_sample.csv",
+                  game_teams: "./test/fixtures/game_teams_sample.csv",
+                  teams: "./test/fixtures/teams_sample.csv"
+                  }
+    @stat_tracker = StatTracker.from_csv(@locations)
+
+    assert_equal 1.0, @stat_tracker.win_percentage(20122013, 6, "Postseason")
+    assert_equal 0, @stat_tracker.win_percentage(20122013, 3, "Postseason")
+  end
+
+  def test_it_can_calculate_biggest_bust
+    @locations = {
+                  games: "./data/games.csv",
+                  game_teams: "./test/fixtures/game_teams_sample.csv",
+                  teams: "./test/fixtures/teams_sample.csv"
+                  }
+    @stat_tracker = StatTracker.from_csv(@locations)
+
+    assert_equal "Montreal Impact", @stat_tracker.biggest_bust(20142015)
   end
 
 end
