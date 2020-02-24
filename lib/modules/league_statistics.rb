@@ -2,15 +2,9 @@ require './lib/game'
 require './lib/modules/calculable'
 require './lib/modules/hashable'
 
-class LeagueStatistics
+module LeagueStatistics
   include Calculable
   include Hashable
-
-  def initialize
-    @teams = Team.all
-    @games = Game.all
-    @game_teams = GameTeam.all
-  end
 
   def count_of_teams
     @teams.size
@@ -124,5 +118,54 @@ class LeagueStatistics
 
   def winningest_team
     find_team_names(hash_key_max_by(percent_wins))
+  end
+
+  # =====================================================================
+
+  def home_games(team_id)
+    @game_teams.find_all do |game_team|
+      game_team.hoa == "home" && game_team.team_id == team_id
+    end
+  end
+
+  def away_games(team_id)
+    @game_teams.find_all do |game_team|
+      game_team.hoa == "away" && game_team.team_id == team_id
+    end
+  end
+
+  def home_win_percentage(team_id)
+    home_wins = home_games(team_id).find_all do |game|
+      game.result == "WIN"
+    end
+    percent(home_wins.length, home_games(team_id).length.to_f)
+  end
+
+  def away_win_percentage(team_id)
+    away_wins = away_games(team_id).find_all do |game|
+      game.result == "WIN"
+    end
+    percent(away_wins.length, home_games(team_id).length.to_f)
+    percent = (away_wins.length / home_games(team_id).length.to_f) * 100
+    percent.round(2)
+  end
+
+  def all_teams_playing
+    @game_teams.map {|game_team| game_team.team_id}.uniq
+  end
+
+  def best_fans
+    best_fans_team_id = all_teams_playing.max_by do |team_id|
+      home_win_percentage(team_id) - away_win_percentage(team_id)
+    end
+    find_team_names(best_fans_team_id)
+  end
+
+
+  def worst_fans
+    worst_fans_id = all_teams_playing.find_all do |team_id|
+      away_win_percentage(team_id) > home_win_percentage(team_id)
+    end
+    worst_fans_id.map {|id| find_team_names(id)}
   end
 end

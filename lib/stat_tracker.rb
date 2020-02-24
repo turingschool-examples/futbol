@@ -1,8 +1,9 @@
 require './lib/modules/game_statistics'
+require './lib/modules/league_statistics'
 
 class StatTracker
   include GameStatistics
-
+  include LeagueStatistics
 
   def self.from_csv(locations)
     game_path = locations[:games]
