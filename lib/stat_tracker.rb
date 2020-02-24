@@ -131,4 +131,19 @@ class StatTracker
     best_defense = goals_against_by_team.key(goals_against_by_team.values.min)
     @team_collection.where_id(best_defense)
   end
+
+  def percentage_home_wins
+    home_wins = @game_collection.games.find_all {|game| game.home_goals > game.away_goals}
+    home_wins.length.to_f / (@game_collection.games.length.to_f).round(2)
+  end
+
+  def percentage_visitor_wins
+    away_wins = @game_collection.games.find_all {|game| game.home_goals < game.away_goals}
+    away_wins.length.to_f / (@game_collection.games.length.to_f).round(2)
+  end
+
+  def percentage_ties
+    tied_games = @game_collection.games.find_all {|game| game.home_goals == game.away_goals}
+    tied_games.lengtht.to_f / (@game_collection.games.length.to_f).round(2)
+  end
 end
