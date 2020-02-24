@@ -51,4 +51,11 @@ class SeasonStatCoach
     end
     best_coach[0]
   end
+
+  def worst_coach(season)
+    worst_coach = create_coach_win_data_by_season(season).min_by do |coach, coach_wins|
+      coach_wins
+    end
+    worst_coach[0]
+  end
 end
