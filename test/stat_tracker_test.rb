@@ -78,7 +78,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Chicago Fire", @stat_tracker_average.worst_defense
   end
 
-  def test_it_can_find_the_winningest_coach_by_season
-
+  def test_it_can_find_the_winningest_coach_by_season #I need a better data pool for this
+    assert_equal "Bruce Boudreau", @stat_tracker_average.winningest_coach("20122013")
   end
 end

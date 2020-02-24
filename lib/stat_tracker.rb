@@ -98,6 +98,8 @@ class StatTracker
     @team_collection.where_id(best_defense)
   end
 
+  # uses both team and game collections.
+  # needs refactoring
   def worst_defense
     goals_against_team = @team_collection.all.reduce({}) do |hash, team|
       hash[team.team_id] = []
@@ -110,16 +112,33 @@ class StatTracker
     end
 
     average_goals_against_team = goals_against_team.transform_values do |goals|
-      (goals.sum/goals.length.to_f)  # average calculation
+      (goals.sum/goals.length.to_f)                                               # average calculation
     end
 
     worst_average = average_goals_against_team.values.max
 
     worst_team = average_goals_against_team.key(worst_average)
 
-    @team_collection.all.find do |team| # This snippet should move to team_collection as a #where(:key, value), ie where(team_id, 6)
-      team.team_id == worst_team
-    end.team_name
+    @team_collection.where_id(worst_team)
   end
 
+  #uses
+  def winningest_coach(for_season)
+    games_by_season = @game_collection.all.group_by{|game| game.season}           # games_by_season 3rd occurance
+    games_for_season = games_by_season.fetch_values(for_season).flatten
+
+    game_teams = games_for_season.map do |game|
+      @game_team_collection.where(:game_id, game.game_id)
+    end.flatten
+
+    game_team_by_coach = game_teams.group_by { |game| game.head_coach }
+
+    percent_win_by_coach = game_team_by_coach.transform_values do |games|
+      results = games.map{|game| game.result}
+      results.count{|result| result == "WIN"}/results.length.to_f
+    end
+
+    best_percent = percent_win_by_coach.values.max
+    best_coach = percent_win_by_coach.key(best_percent) 
+  end
 end
