@@ -72,6 +72,6 @@ class SeasonStatTeamTest < Minitest::Test
   end
 
   def test_it_can_find_team_with_least_tackles
-    assert_equal "Orlando Pride", @season_stat_team.least_tackles("20122013")
+    assert_equal "Orlando Pride", @season_stat_team.fewest_tackles("20122013")
   end
 end
