@@ -72,4 +72,24 @@ class Summary
       end
     end.compact.first
   end
+
+  def seasonal_summary(team_id)
+    setup_hash(team_id)
+  end
+
+  def setup_hash(team_id)
+    @game_collection.games_list.reduce({}) do |acc, game|
+      acc[game.season] = {:postseason => {:win_percentage => 1,
+                                          :total_goals_scored => 1,
+                                          :total_goals_against =>1,
+                                          :average_goals_scored => 1,
+                                          :average_goals_against => 1},
+                          :regular_season => {:win_percentage => 1,
+                                              :total_goals_scored => 1,
+                                              :total_goals_against =>1,
+                                              :average_goals_scored => 1,
+                                              :average_goals_against => 1}}
+      acc
+    end
+  end
 end

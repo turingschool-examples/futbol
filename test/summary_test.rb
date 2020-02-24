@@ -19,4 +19,10 @@ class SummaryTest < Minitest::Test
 
     assert_equal expected, @summary.head_to_head("3")
   end
+
+  def test_it_can_return_seaosnal_summary
+    expected = {"3523532524" => {:postseason => {:win_percentage => 23.45}}}
+
+    assert_equal expected, @summary.seasonal_summary("3")
+  end
 end
