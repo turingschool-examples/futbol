@@ -52,30 +52,4 @@ class GameTeam
     @takeaways = game_team_parameter[:takeaways].to_i
   end
 
-  def percentage_home_wins
-    all_home_games = @@all.find_all do |game_team|
-      game_team.hoa == "home"
-    end
-    home_wins = all_home_games.find_all do |game_team|
-       game_team.result == "WIN"
-    end
-    ((home_wins.length / all_home_games.length.to_f) * 100).round(2)
-  end
-
-  def percentage_visitor_wins
-    all_visitor_games = @@all.find_all do |game_team|
-      game_team.hoa == "away"
-    end
-    visitor_wins = all_visitor_games.find_all do |game_team|
-       game_team.result == "WIN"
-    end
-    ((visitor_wins.length / all_visitor_games.length.to_f) * 100).round(2)
-  end
-
-  def percentage_ties
-  all_ties = @@all.find_all do |game_team|
-       game_team.result == "TIE"
-    end
-    ((all_ties.length / @@all.length.to_f) * 100).round(2)
-  end
 end
