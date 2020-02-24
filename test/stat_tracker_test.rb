@@ -93,11 +93,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Chicago Fire", @stat_tracker_average.worst_defense
   end
 
-<<<<<<< HEAD
-  def test_it_can_find_the_best_defence
-    assert_equal "Real Salt Lake", @stat_tracker_average.best_defense
-=======
   def test_it_can_find_the_winningest_coach_by_season #I need a better data pool for this
+    skip
     assert_equal "Bruce Boudreau", @stat_tracker_average.winningest_coach("20122013")
     game_1_info = {
                     game_id: "2012030221", season: "20122013", type: "Postseason",
@@ -145,8 +142,9 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_the_worst_coach_by_season
-    assert_equal "TBD", @stat_tracker_average.worst_coach("20122013")  #Ileft this a TBD for now. i need a new fixture file.
->>>>>>> a04fc1c46799d61be3f45368ab45ecc582288955
+    skip
+    assert_equal "TBD", @stat_tracker_average.worst_coach("20122013")  #Ileft this a TBD for now. i need a new fixture file.  def test_it_can_find_the_best_defence
+    assert_equal "Real Salt Lake", @stat_tracker_average.best_defense
   end
 
   def test_it_can_return_team_with_most_tackles
