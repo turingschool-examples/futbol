@@ -60,4 +60,20 @@ class GameCollectionTest < Minitest::Test
 
     assert_equal expected, @game_collection.total_goals_per_game
   end
+
+  def test_it_can_return_all_games
+    @game_collection.create_game_collection
+
+    assert_equal @game_collection.games, @game_collection.all
+  end
+
+  def test_it_can_make_an_array_based_on_key
+    @game_collection.create_game_collection
+    season_expected = ["20122013", "20132014"]
+    game_id_expected = [2012030221, 2012030222, 2012030223, 2012030224, 2012030225,
+                        2013020674, 2013020177, 2012020225, 2012020577, 2013021085]
+
+    assert_equal season_expected, @game_collection.array_by_key(:season)
+    assert_equal game_id_expected, @game_collection.array_by_key(:game_id)
+  end
 end

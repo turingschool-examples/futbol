@@ -1,4 +1,4 @@
-require './lib/game'
+require_relative 'game'
 require 'csv'
 
 class GameCollection
@@ -25,5 +25,13 @@ class GameCollection
 
   def total_goals_per_game
     @games.map {|game| game.away_goals + game.home_goals}
+  end
+
+  def all
+    @games
+  end
+
+  def array_by_key(key)
+    @games.map{|game| game.send "#{key}" }.uniq  ## can probably put this in a module passing class, collection, and key as arguments
   end
 end

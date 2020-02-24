@@ -10,7 +10,7 @@ class GameTeam
     @result = game_team_params[:result]
     @settled_in = game_team_params[:settled_in]
     @head_coach = game_team_params[:head_coach]
-    @goals = game_team_params[:goals].to_i
+    @goals = game_team_params[:goals].to_i # used
     @shots = game_team_params[:shots].to_i
     @tackles = game_team_params[:tackles].to_i
     @pim = game_team_params[:pim].to_i

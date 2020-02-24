@@ -1,4 +1,4 @@
-require "./lib/game_team"
+require_relative "game_team"
 require "csv"
 class GameTeamCollection
 
@@ -22,4 +22,11 @@ class GameTeamCollection
     end
   end
 
+  def all
+    @games_by_teams
+  end
+
+  def array_by_key(key)
+    @games_by_teams.map{|game| game.send "#{key}" }.uniq
+  end
 end
