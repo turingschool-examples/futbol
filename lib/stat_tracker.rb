@@ -3,6 +3,7 @@ require_relative 'season_win'
 require_relative 'season_stat'
 require_relative 'scored_goal_stat'
 require_relative 'season_stat_coach'
+require_relative 'summary'
 
 class StatTracker
   attr_reader :games_file, :teams_file, :game_teams_file
@@ -69,6 +70,11 @@ class StatTracker
   def rival(team_id)
     scored_goal_stat = ScoredGoalStat.new(@teams_file, @game_teams_file, @games_file)
     scored_goal_stat.rival(team_id)
+  end
+
+  def head_to_head(team_id)
+    summary = Summary.new(@teams_file, @game_teams_file, @games_file)
+    summary.head_to_head(team_id)
   end
 
   def count_of_games_by_season
