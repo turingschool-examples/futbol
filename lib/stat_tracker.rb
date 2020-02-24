@@ -23,24 +23,58 @@ class StatTracker
       CSV.foreach(file, csv_options) { |row| item_class.add(item_class.new(row.to_hash)) }
   end
 
-  def find_games_in_season(season)
+  def find_games_in_regular_season(season)
     season = season.to_i
     Game.all.select do |game_id, game_data|
-      game_data.season == season
+      game_data.season == season && game_data.type == "Regular Season"
     end
-    require "pry"; binding.pry
   end
 
-  def find_eligible_teams(season)
-    Team.all.select do |team_id, team_data|
-      require "pry"; binding.pry
-      team_data.team_id
+  def find_games_in_post_season(season)
+    season = season.to_i
+    Game.all.select do |game_id, game_data|
+      game_data.season == season && game_data.type == "Postseason"
     end
-    find_games_in_season(season)
-    eligible_teams = {}
+  end
+
+  def find_regular_season_teams(season)
+    teams = []
+    find_games_in_regular_season(season).select do |game_id, game_object|
+      if !teams.include?(game_object.home_team_id)
+        teams << game_object.home_team_id
+      end
+      if !teams.include?(game_object.away_team_id)
+        teams << game_object.away_team_id
+      end
+    end
+    teams
+  end
+
+  def find_post_season_teams(season)
+    teams = []
+    find_games_in_post_season(season).select do |game_id, game_object|
+      if !teams.include?(game_object.home_team_id)
+        teams << game_object.home_team_id
+      end
+      if !teams.include?(game_object.away_team_id)
+        teams << game_object.away_team_id
+      end
+    end
+    teams
+  end
+
+  def find_bust_eligible_teams(season)
+    find_post_season_teams(season) & find_regular_season_teams(season)
+  end
+
+  
+
+
+end
+
+
+
+
 
     #Iterate over each team. Include the team if they played at least one regular season
     #and one post season game.
-  end
-
-end
