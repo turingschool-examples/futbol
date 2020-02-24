@@ -4,6 +4,7 @@ require_relative 'season_stat'
 require_relative 'scored_goal_stat'
 require_relative 'season_stat_coach'
 require_relative 'summary'
+require_relative 'season_stat_team'
 
 class StatTracker
   attr_reader :games_file, :teams_file, :game_teams_file
@@ -107,4 +108,30 @@ class StatTracker
     season = SeasonStatCoach.new(@game_teams_file)
     season.winningest_coach(season_param)
   end
+
+  def worst_coach(season_param)
+    season = SeasonStatCoach.new(@game_teams_file)
+    season.worst_coach(season_param)
+  end
+
+  def most_accurate_team(season_param)
+    season = SeasonStatTeam.new(@game_teams_file, @teams_file)
+    season.most_accurate_team(season_param)
+  end
+
+  def least_accurate_team(season_param)
+    season = SeasonStatTeam.new(@game_teams_file, @teams_file)
+    season.least_accurate_team(season_param)
+  end
+
+  def most_tackles(season_param)
+    season = SeasonStatTeam.new(@game_teams_file, @teams_file)
+    season.most_tackles(season_param)
+  end
+
+  def fewest_tackles(season_param)
+    season = SeasonStatTeam.new(@game_teams_file, @teams_file)
+    season.fewest_tackles(season_param)
+  end
+
 end
