@@ -196,4 +196,62 @@ class StatTracker
     end
   end
 
+  def winningest_coach(season)
+    season = season.to_i
+    games = Game.all.select do |game_id, game|
+      game.season == season
+    end
+    games = GameTeam.all.select do |game_id, gameteam|
+      games.keys.include?(game_id)
+    end
+    # get list of coaches in the current season
+    coaches = []
+    games.each_value do |gameteams|
+      gameteams.each_value do |team|
+        coaches << team.head_coach
+      end
+    end
+    coaches = coaches.uniq
+
+    coaches.each do |coach|
+      games_by_coach(coach)
+      coach_win_percentage(games, coach)
+    end
+
+  end
+
+  coach_win_percentage(games, coachname)
+    total_games = 0
+    total_wins = 0
+    games.each_value do |gameteam|
+      require "pry"; binding.pry
+    end
+  end
+
+  games_by_coach(coach)
+  Games.all.select
+    games.select do |game_id, team_id|
+      team_id.each_value {|gameteam| gameteam}
+    end
+  end
+
+  def worst_coach(season)
+    season = season.to_i
+    games = Game.all.select do |game_id, game|
+      game.season == season
+    end
+    games = GameTeam.all.select do |game_id, gameteam|
+      games.keys.include?(game_id)
+    end
+    losing_coaches = []
+    # games.each_value do |gameteams|
+    #   gameteams.each_value do |team|
+    #     losing_coaches << team.head_coach if team.result == "LOSS"
+    #   end
+    # end
+    # coaches = losing_coaches.uniq
+    # coaches.max_by {|coach| losing_coaches.count(coach)}
+    # require "pry"; binding.pry
+  end
+
 end
