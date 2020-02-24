@@ -100,7 +100,47 @@ class StatTracker
     require "pry"; binding.pry
     coach = head_coaches(season)[averages.key(averages.values.min)]
   end
+  
+  def lowest_total_score
+    game_collection.games.map do |game|
+      game.home_goals + game.away_goals
+    end.min
+  end
 
+  def average_goals_per_game
+    total_goals_per_game = game_collection.games.map do |game|
+      game.home_goals + game.away_goals
+    end
+    (total_goals_per_game.sum.to_f / game_collection.games.length).round(2)
+  end
+
+  def average_goals_by_season
+    games_grouped_by_season = game_collection.games.group_by do |game|
+      game.season
+    end
+    games_grouped_by_season.each_pair do |season, games_by_season|
+      total_goals = games_by_season.map do |single_game|
+        single_game.home_goals + single_game.away_goals
+      end
+    average = (total_goals.sum.to_f / total_goals.length).round(2)
+    games_grouped_by_season[season] = average
+    end
+  end
+
+  def percentage_visitor_wins
+    visitor_wins = game_collection.games.find_all do |game|
+      game.away_goals > game.home_goals
+    end
+    (visitor_wins.length.to_f / game_collection.games.length).round(2)
+  end
+
+  def percentage_home_wins
+    home_wins = game_collection.games.find_all do |game|
+      game.home_goals > game.away_goals
+    end
+    (home_wins.length.to_f / game_collection.games.length).round(2)
+  end
+  
   ###### move these methods somewhere else
 
   def total_games_by_season
@@ -110,7 +150,7 @@ class StatTracker
     end
     games_in_season
   end
-
+  
   def team_name_by_id(team_id)
     team_collection.teams.find do |team|
       team.team_id == team_id
@@ -284,10 +324,4 @@ class StatTracker
     end
     winners
   end
-
-
-
-  ##############
-  #These can likely be moved into a module
-
 end

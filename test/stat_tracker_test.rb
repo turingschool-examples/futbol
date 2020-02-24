@@ -66,7 +66,35 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Alain Vigneault", @stat_tracker.worst_coach(20132014)
   end
 
+  def test_it_can_return_lowest_score
+    assert_equal 2, @stat_tracker.lowest_total_score
+  end
 
+  def test_it_can_return_average_goals_per_game
+    assert_equal 4.13, @stat_tracker.average_goals_per_game
+  end
+
+  def test_it_can_return_average_goals_by_season
+    expected = {
+      "20122013"=>3.8,
+      "20162017"=>4.57,
+      "20142015"=>4.5,
+      "20152016"=>3.8,
+      "20132014"=>4.4,
+      "20172018"=>3.67
+      }
+
+    assert_equal expected, @stat_tracker.average_goals_by_season
+  end
+
+  def test_can_return_percentage_of_visitor_wins
+    assert_equal 0.38, @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_can_return_percentage_of_home_wins
+    assert_equal 0.53, @stat_tracker.percentage_home_wins
+  end
+  
   ######  Move these tests somewhere else
 
   def test_it_can_return_total_games_by_season
@@ -83,7 +111,7 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal expected, @stat_tracker.total_games_by_team
   end
-
+  
   def test_it_can_count_all_goals_scored_by_team
     expected = {3=>6, 6=>6, 9=>2, 8=>2, 5=>7, 20=>1, 19=>2,
     7=>1, 52=>2, 10=>1, 26=>2, 22=>2}
@@ -199,5 +227,4 @@ class StatTrackerTest < Minitest::Test
     expected = {3=>0, 5=>1, 10=>0, 26=>1, 22=>0}
     assert_equal expected, @stat_tracker.wins_in_season(20152016)
   end
-
 end
