@@ -6,15 +6,15 @@ require "./lib/stat_tracker"
 class StatTrackerTest < Minitest::Test
   def setup
     @info = {
-            game: "./test/fixtures/games_truncated.csv",
-            team: "./test/fixtures/teams_truncated.csv",
-            game_team: "./test/fixtures/game_teams_truncated.csv"
+            games: "./test/fixtures/games_truncated.csv",
+            teams: "./test/fixtures/teams_truncated.csv",
+            game_teams: "./test/fixtures/game_teams_truncated.csv"
             }
 
     @info_for_averages = {
-                          game: "./test/fixtures/games_average_truncated.csv",
-                          team: "./test/fixtures/teams_truncated.csv",
-                          game_team: "./test/fixtures/game_teams_average_truncated.csv"
+                          games: "./test/fixtures/games_average_truncated.csv",
+                          teams: "./test/fixtures/teams_truncated.csv",
+                          game_teams: "./test/fixtures/game_teams_average_truncated.csv"
                           }
 
     @stat_tracker = StatTracker.from_csv(@info)
@@ -44,7 +44,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_count_the_games_by_season
-    expected = {20122013=>7, 20132014=>3}
+    expected = {"20122013"=>7, "20132014"=>3}
 
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
@@ -54,7 +54,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_show_average_goals_by_season
-    expected = {20122013=>4.71, 20132014=>4.00}
+    expected = {"20122013"=>4.71, "20132014"=>4.00}
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
 
@@ -73,5 +73,8 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_find_the_worst_defence
     assert_equal "Chicago Fire", @stat_tracker_average.worst_defense
   end
-
+  
+  def test_it_can_find_the_best_defence
+    assert_equal "Real Salt Lake", @stat_tracker_average.best_defense
+  end
 end
