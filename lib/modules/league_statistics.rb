@@ -1,6 +1,5 @@
-require './lib/game'
-require './lib/modules/calculable'
-require './lib/modules/hashable'
+require_relative 'calculable'
+require_relative 'hashable'
 
 module LeagueStatistics
   include Calculable

@@ -1,5 +1,5 @@
-require './lib/modules/game_statistics'
-require './lib/modules/league_statistics'
+require_relative './modules/game_statistics'
+require_relative './modules/league_statistics'
 
 class StatTracker
   include GameStatistics

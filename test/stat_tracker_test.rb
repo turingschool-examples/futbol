@@ -173,7 +173,7 @@ class StatTrackerTest < Minitest::Test
   def test_finding_home_games_for_a_team
   assert_equal 5, @stat_tracker.home_games(6).length
   assert_equal @stat_tracker.game_teams[1], @stat_tracker.home_games(6)[0]
-end
+  end
 
 def test_finding_away_games_for_a_team
   assert_equal 4, @stat_tracker.away_games(6).length
