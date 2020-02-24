@@ -30,9 +30,9 @@ class StatTracker
     @game_collection.games.map {|game| (game.away_goals - game.home_goals).abs}.max
   end
 
-                                                                    # This only requires game information.
-                                                                    # It should probably move to game collection eventually.
-  def count_of_games_by_season                                      #refactored by Ryan 2.22.20
+  # This only requires game information.
+  # It should probably move to game collection eventually.
+  def count_of_games_by_season
     games_by_season = @game_collection.all.group_by{|game| game.season}         #games_by_season 1st occurance
     games_by_season.transform_values!{|games| games.length}
   end
@@ -73,6 +73,7 @@ class StatTracker
 
   # uses both team and game_team collections
   def worst_offense
+    games_by_team = @game_team_collection.all.group_by{|game| game.team_id}
     team_ids = @team_collection.all.map{|team| team.team_id}  # This could be shifted to use the game_team_collection data, just use a #uniq at the end
 
     games_by_team = team_ids.reduce({}) do |games_by_team, team_id| # this snippet would better serve us in the game_team collection to be used by other methods
@@ -92,29 +93,6 @@ class StatTracker
     @team_collection.where_id(worst_team)
   end
 
-  def worst_defense
-    goals_against_team = @team_collection.all.reduce({}) do |hash, team|
-      hash[team.team_id] = []
-      hash
-    end
-
-    @game_collection.all.each do |game|
-      goals_against_team[game.home_team_id] << game.away_goals
-      goals_against_team[game.away_team_id] << game.home_goals
-    end
-
-    average_goals_against_team = goals_against_team.transform_values do |goals|
-      (goals.sum/goals.length.to_f)  # average calculation
-    end
-
-    worst_average = average_goals_against_team.values.max
-
-    worst_team = average_goals_against_team.key(worst_average)
-
-    @team_collection.all.find do |team| # This snippet should move to team_collection as a #where(:key, value), ie where(team_id, 6)
-      team.team_id == worst_team
-    end.team_name
-  end 
   #uses both team and game collections.
   def best_defense
     goals_against_by_team = {}
@@ -132,6 +110,30 @@ class StatTracker
     @team_collection.where_id(best_defense)
   end
 
+  # uses both team and game collections.
+  # needs refactoring
+  def worst_defense
+    goals_against_team = @team_collection.all.reduce({}) do |hash, team|
+      hash[team.team_id] = []
+      hash
+    end
+
+    @game_collection.all.each do |game|
+      goals_against_team[game.home_team_id] << game.away_goals
+      goals_against_team[game.away_team_id] << game.home_goals
+    end
+
+    average_goals_against_team = goals_against_team.transform_values do |goals|
+      (goals.sum/goals.length.to_f)                                               # average calculation
+    end
+
+    worst_average = average_goals_against_team.values.max
+
+    worst_team = average_goals_against_team.key(worst_average)
+
+    @team_collection.where_id(worst_team)
+  end
+
   def percentage_home_wins
     home_wins = @game_collection.games.find_all {|game| game.home_goals > game.away_goals}
     home_wins.length.to_f / (@game_collection.games.length.to_f).round(2)
@@ -145,5 +147,43 @@ class StatTracker
   def percentage_ties
     tied_games = @game_collection.games.find_all {|game| game.home_goals == game.away_goals}
     tied_games.lengtht.to_f / (@game_collection.games.length.to_f).round(2)
+  end
+
+  #uses game and game_team collections.
+  def winningest_coach(for_season) # the game_ids can tell you what season there from. first 4 numbers of id will match the first 4 from season.
+    games_by_season = @game_collection.all.group_by{|game| game.season}           # games_by_season 3rd occurance
+    games_for_season = games_by_season.fetch_values(for_season).flatten
+
+    game_teams = games_for_season.map do |game|
+      @game_team_collection.where(:game_id, game.game_id)
+    end.flatten
+
+    game_team_by_coach = game_teams.group_by { |game| game.head_coach }
+
+    game_team_by_coach.each do |key, value|
+       percent = value.count{|game| game.result == "WIN"}/value.length.to_f
+       game_team_by_coach[key] = percent
+    end
+
+    game_team_by_coach.key(game_team_by_coach.values.max)
+  end
+
+  def worst_coach(for_season)
+    games_by_season = @game_collection.all.group_by{|game| game.season}           # games_by_season 3rd occurance
+    games_for_season = games_by_season.fetch_values(for_season).flatten
+
+    game_teams = games_for_season.map do |game|
+      @game_team_collection.where(:game_id, game.game_id)
+    end.flatten
+
+    game_team_by_coach = game_teams.group_by { |game| game.head_coach }
+
+    game_team_by_coach.each do |key, value|
+       percent = value.count{|game| game.result == "WIN"}/value.length.to_f
+       game_team_by_coach[key] = percent
+     end
+
+    game_team_by_coach.key(game_team_by_coach.values.min)
+    require "pry"; binding.pry
   end
 end
