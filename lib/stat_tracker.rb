@@ -1,4 +1,9 @@
+require './lib/modules/game_statistics'
+
 class StatTracker
+  include GameStatistics
+
+
   def self.from_csv(locations)
     game_path = locations[:games]
     team_path = locations[:teams]
@@ -11,4 +16,5 @@ class StatTracker
     @teams = Team.create_teams(team_path)
     @game_teams = GameTeam.create_game_teams(game_teams_path)
   end
+
 end
