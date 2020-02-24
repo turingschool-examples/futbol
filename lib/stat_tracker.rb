@@ -187,7 +187,7 @@ class StatTracker
   end
 
   def most_tackles(season)
-    tackles_by_team = {}
+    tackles_by_team = {} #can add lines 190 - 199 as method in GameTeamCollection
     @game_team_collection.all.each do |game|
       if game.game_id.to_s.start_with?(season[0..3])
         if tackles_by_team.has_key?(game.team_id)
@@ -201,7 +201,7 @@ class StatTracker
   end
 
   def fewest_tackles(season)
-    tackles_by_team = {}
+    tackles_by_team = {} #Lines 204 - 213 are duplicate from most_tackles
     @game_team_collection.all.each do |game|
       if game.game_id.to_s.start_with?(season[0..3])
         if tackles_by_team.has_key?(game.team_id)
