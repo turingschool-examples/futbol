@@ -6,11 +6,9 @@ require './lib/game_collection'
 class LeagueStatClass < Minitest::Test
 
   def setup
-    games_file_path = './test/fixtures/truncated_games.csv'
     teams_file_path = './data/teams.csv'
-    @team_collection = TeamCollection.new(teams_file_path)
-    @game_collection = GameCollection.new(games_file_path)
-    @league_stat = LeagueStat.new(@team_collection.teams_list, @game_collection.games_list)
+    games_file_path = './test/fixtures/truncated_games.csv'
+    @league_stat = LeagueStat.new(teams_file_path, games_file_path)
   end
 
   def test_it_exists
