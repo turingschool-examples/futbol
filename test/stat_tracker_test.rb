@@ -77,8 +77,8 @@ class StatTrackerTest < Minitest::Test
                   }
     @stat_tracker = StatTracker.from_csv(@locations)
 
-    assert_equal 5, @stat_tracker.find_games_in_regular_season(20122013).count
-    assert_equal 5, @stat_tracker.find_games_in_regular_season(20142015).count
+    assert_equal 5, @stat_tracker.find_games(20122013, "Regular Season").count
+    assert_equal 5, @stat_tracker.find_games(20142015, "Regular Season").count
   end
 
   def test_it_can_find_post_season_games
@@ -89,8 +89,8 @@ class StatTrackerTest < Minitest::Test
                   }
     @stat_tracker = StatTracker.from_csv(@locations)
 
-    assert_equal 5, @stat_tracker.find_games_in_post_season(20122013).count
-    assert_equal 5, @stat_tracker.find_games_in_post_season(20142015).count
+    assert_equal 5, @stat_tracker.find_games(20122013, "Postseason").count
+    assert_equal 5, @stat_tracker.find_games(20142015, "Postseason").count
   end
 
   def test_it_has_regular_season_teams
@@ -162,7 +162,7 @@ class StatTrackerTest < Minitest::Test
     @stat_tracker = StatTracker.from_csv(@locations)
 
     assert_equal "Sporting Kansas City", @stat_tracker.biggest_bust(20142015)
-#    assert_equal "Montreal Impact", @stat_tracker.biggest_bust(20132014)
+    assert_equal "Montreal Impact", @stat_tracker.biggest_bust(20132014)
   end
 
   def test_it_can_calculate_biggest_surprise
