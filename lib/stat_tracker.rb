@@ -73,16 +73,16 @@ class StatTracker
 
   def percentage_home_wins
     home_wins = @game_collection.games.find_all {|game| game.home_goals > game.away_goals}
-    home_wins.count.to_f / (@game_collection.games.count.to_f).round(2)
+    home_wins.length.to_f / (@game_collection.games.length.to_f).round(2)
   end
 
   def percentage_visitor_wins
     away_wins = @game_collection.games.find_all {|game| game.home_goals < game.away_goals}
-    away_wins.count.to_f / (@game_collection.games.count.to_f).round(2)
+    away_wins.length.to_f / (@game_collection.games.length.to_f).round(2)
   end
 
   def percentage_ties
     tied_games = @game_collection.games.find_all {|game| game.home_goals == game.away_goals}
-    tied_games.count.to_f / (@game_collection.games.count.to_f).round(2)
+    tied_games.lengtht.to_f / (@game_collection.games.length.to_f).round(2)
   end
 end
