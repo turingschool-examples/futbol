@@ -94,6 +94,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_team_with_most_tackles
-    assert_equal "FC Dallas", @stat_tracker_average.most_tackles
+    assert_equal "FC Dallas", @stat_tracker_average.most_tackles("20122013")
   end
 end
