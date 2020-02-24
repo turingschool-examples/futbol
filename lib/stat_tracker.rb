@@ -92,13 +92,13 @@ class StatTracker
   end
 
   def worst_coach(season)
-    # averages = {}
-    # wins_in_season(season).each do |team_id, wins|
-    #   averages[team_id] = wins / games_by_team_by_season(season)[team_id].to_f
-    # end
-    # averages
-    # require "pry"; binding.pry
-    # head_coaches(season)[averages.key(averages.values.min)]
+    averages = {}
+    wins_in_season(season).each do |team_id, wins|
+      avg = wins.to_f / games_by_team_by_season(season)[team_id]
+      averages[team_id] = avg
+    end
+    require "pry"; binding.pry
+    coach = head_coaches(season)[averages.key(averages.values.min)]
   end
 
   ###### move these methods somewhere else
@@ -258,11 +258,12 @@ class StatTracker
   end
 
   def head_coaches(season)
-    #slow
-    gtc.game_teams.reduce({}) do |coaches_in_season, game|
-      if game_ids_in_season(season).include?(game.game_id)
-        coaches_in_season[game.team_id] = game.head_coach
-      end
+    season_id = season.to_s[0..3]
+    coaches = gtc.game_teams.find_all do |game|
+      game.game_id.to_s[0..3] == season_id
+    end
+    coaches.reduce({}) do |coaches_in_season, game|
+      coaches_in_season[game.team_id] = game.head_coach
       coaches_in_season
     end
   end
