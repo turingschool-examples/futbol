@@ -4,6 +4,7 @@ require_relative 'season_stat'
 require_relative 'scored_goal_stat'
 require_relative 'season_stat_coach'
 require_relative 'season_stat_team'
+require_relative 'league_stat'
 
 class StatTracker
   attr_reader :games_file, :teams_file, :game_teams_file
@@ -126,6 +127,16 @@ class StatTracker
   def fewest_tackles(season_param)
     season = SeasonStatTeam.new(@game_teams_file, @teams_file)
     season.fewest_tackles(season_param)
+  end
+
+  def count_of_teams
+    # require 'pry'; binding.pry
+    # games_file_path = './data/games.csv'
+    # teams_file_path = './data/teams.csv'
+    # @team_collection = TeamCollection.new(teams_file_path)
+    # @game_collection = GameCollection.new(games_file_path)
+    @league_stat = LeagueStat.new(@teams_file, @games_file)
+    @league_stat.count_of_teams
   end
 
 end
