@@ -122,12 +122,12 @@ class StatTracker
   end
 
   def most_tackles(season)
-    games = games_in_season(season)
+    games_in_season = games_in_season(season)
 
-    tackles_by_team_by_season = GameTeam.all.values.reduce(Hash.new(0)) do |acc, teams|
-      teams.each do |game|
-        if games.include?(game.game_id)
-          acc[game.team_id] += game.tackles
+    tackles_by_team_by_season = GameTeam.all.values.reduce(Hash.new(0)) do |acc, game|
+      game.each_value do |team|
+        if games_in_season.include?(team.game_id)
+          acc[team.team_id] += team.tackles
         end
       end
       acc
@@ -139,29 +139,29 @@ class StatTracker
   end
 
   def fewest_tackles(season)
-    games = games_in_season(season)
+    games_in_season = games_in_season(season)
 
-    tackles_by_team_by_season = GameTeam.all.values.reduce(Hash.new(0)) do |acc, teams|
-      teams.each do |game|
-        if games.include?(game.game_id)
-          acc[game.team_id] += game.tackles
+    tackles_by_team_by_season = GameTeam.all.values.reduce(Hash.new(0)) do |acc, game|
+      game.each_value do |team|
+        if games_in_season.include?(team.game_id)
+          acc[team.team_id] += team.tackles
         end
       end
       acc
     end
 
-    most_tackles = tackles_by_team_by_season.values.min
-    team = tackles_by_team_by_season.key(most_tackles)
+    fewest_tackles = tackles_by_team_by_season.values.min
+    team = tackles_by_team_by_season.key(fewest_tackles)
     Team.all[team].team_name
   end
 
   def total_goals_by_team_in_season(season, team_id)
-    games = games_in_season(season)
+    games_in_season = games_in_season(season)
 
-    team_goals = GameTeam.all.values.reduce(0) do |acc, teams|
-      teams.each do |game|
-        if games.include?(game.game_id) && game.team_id == team_id
-          acc += game.goals
+    team_goals = GameTeam.all.values.reduce(0) do |acc, game|
+      game.each_value do |team|
+        if games_in_season.include?(team.game_id) && team.team_id == team_id
+          acc += team.goals
         end
       end
       acc
@@ -170,12 +170,12 @@ class StatTracker
   end
 
   def total_shots_by_team_in_season(season, team_id)
-    games = games_in_season(season)
+    games_in_season = games_in_season(season)
 
-    team_shots = GameTeam.all.values.reduce(0) do |acc, teams|
-      teams.each do |game|
-        if games.include?(game.game_id) && game.team_id == team_id
-          acc += game.shots
+    team_shots = GameTeam.all.values.reduce(0) do |acc, game|
+      game.each_value do |team|
+        if games_in_season.include?(team.game_id) && team.team_id == team_id
+          acc += team.shots
         end
       end
       acc
@@ -184,19 +184,36 @@ class StatTracker
   end
 
   def most_accurate_team(season)
-    games = games_in_season(season)
+    games_in_season = games_in_season(season)
 
-    teams_accuracy = GameTeam.all.values.reduce(Hash.new(0)) do |acc, teams|
-      teams.each do |game|
-        shots = total_shots_by_team_in_season(season, game.team_id)
-        goals = total_goals_by_team_in_season(season, game.team_id)
-        acc[game.team_id] = (shots.to_f / goals).round(2)
+    teams_accuracy = GameTeam.all.values.reduce(Hash.new(0)) do |acc, game|
+      game.each_value do |team|
+        shots = total_shots_by_team_in_season(season, team.team_id)
+        goals = total_goals_by_team_in_season(season, team.team_id)
+        acc[team.team_id] = (shots.to_f / goals).round(2)
       end
       acc
     end
 
     most_accurate = teams_accuracy.values.max
     team = teams_accuracy.key(most_accurate)
+    Team.all[team].team_name
+  end
+
+  def least_accurate_team(season)
+    games_in_season = games_in_season(season)
+
+    teams_accuracy = GameTeam.all.values.reduce(Hash.new(0)) do |acc, game|
+      game.each_value do |team|
+        shots = total_shots_by_team_in_season(season, team.team_id)
+        goals = total_goals_by_team_in_season(season, team.team_id)
+        acc[team.team_id] = (shots.to_f / goals).round(2)
+      end
+      acc
+    end
+
+    least_accurate = teams_accuracy.values.min
+    team = teams_accuracy.key(least_accurate)
     Team.all[team].team_name
   end
 end
