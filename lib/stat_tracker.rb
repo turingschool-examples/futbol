@@ -199,4 +199,18 @@ class StatTracker
     end
     @team_collection.where_id(tackles_by_team.key(tackles_by_team.values.max))
   end
+
+  def fewest_tackles(season)
+    tackles_by_team = {}
+    @game_team_collection.all.each do |game|
+      if game.game_id.to_s.start_with?(season[0..3])
+        if tackles_by_team.has_key?(game.team_id)
+          tackles_by_team[game.team_id] += game.tackles
+        else
+          tackles_by_team[game.team_id] = game.tackles
+        end
+      end
+    end
+    @team_collection.where_id(tackles_by_team.key(tackles_by_team.values.min))
+  end
 end
