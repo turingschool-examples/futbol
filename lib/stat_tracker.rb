@@ -122,7 +122,7 @@ class StatTracker
     @team_collection.where_id(worst_team)
   end
 
-  #uses
+  #uses game and game_team collections.
   def winningest_coach(for_season)
     games_by_season = @game_collection.all.group_by{|game| game.season}           # games_by_season 3rd occurance
     games_for_season = games_by_season.fetch_values(for_season).flatten
@@ -133,12 +133,11 @@ class StatTracker
 
     game_team_by_coach = game_teams.group_by { |game| game.head_coach }
 
-    percent_win_by_coach = game_team_by_coach.transform_values do |games|
-      results = games.map{|game| game.result}
-      results.count{|result| result == "WIN"}/results.length.to_f
+    game_team_by_coach.each do |key, value|
+       percent = value.count{|game| game.result == "WIN"}/value.length.to_f
+       game_team_by_coach[key] = percent
     end
 
-    best_percent = percent_win_by_coach.values.max
-    best_coach = percent_win_by_coach.key(best_percent) 
+    game_team_by_coach.key(game_team_by_coach.values.max)
   end
 end
