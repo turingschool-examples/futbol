@@ -155,22 +155,6 @@ class StatTracker
       team.team_id == worst_team
     end.team_name
   end
-  #uses both team and game collections.
-  def best_defense
-    goals_against_by_team = {}
-    @team_collection.array_by_key(:team_id).each do |team_id|
-      goals_against_by_team[team_id] = []
-    end
-    @game_collection.all.each do |game|
-      goals_against_by_team[game.home_team_id] << game.away_goals
-      goals_against_by_team[game.away_team_id] << game.home_goals
-    end
-    goals_against_by_team.transform_values! do |goals|
-      goals.sum/goals.length.to_f                                                 # average calcultion
-    end
-    best_defense = goals_against_by_team.key(goals_against_by_team.values.min)
-    @team_collection.where_id(best_defense)
-  end
 
   def percentage_home_wins
     home_wins = @game_collection.games.find_all {|game| game.home_goals > game.away_goals}
