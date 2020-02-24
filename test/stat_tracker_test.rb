@@ -63,7 +63,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_the_worst_coach_of_the_season
-    skip
     assert_equal "John Tortorella", @stat_tracker.worst_coach(20132014)
   end
 
@@ -191,17 +190,14 @@ class StatTrackerTest < Minitest::Test
       19 => "Ken Hitchcock",
       7 => "Ron Rolston",
       52 => "Claude Noel"
-
     }
     assert_equal expected_1213, @stat_tracker.head_coaches(20122013)
 
   end
 
   def test_it_knows_wins_by_season
-    skip
-    expected = {5 => 1, 26 => 1}
+    expected = {3=>0, 5=>1, 10=>0, 26=>1, 22=>0}
     assert_equal expected, @stat_tracker.wins_in_season(20152016)
-
   end
 
 end
