@@ -1,11 +1,6 @@
 require_relative 'test_helper'
-require './lib/season_stat'
-require './lib/game_collection'
 require './lib/game_team_collection'
-require './lib/team_collection'
-require './lib/game'
 require './lib/game_team'
-require './lib/team'
 require './lib/season_stat_coach'
 
 
