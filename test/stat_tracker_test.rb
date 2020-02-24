@@ -61,6 +61,10 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_best_fans
-    assert_equal "FC Dallas at Toyota Stadium", @stat_tracker.best_fans
+    assert_equal "Reign FC", @stat_tracker.best_fans
+  end
+
+  def test_worst_defense
+    assert_equal 0 ,@stat_tracker.worst_defense
   end
 end
