@@ -33,6 +33,11 @@ class SeasonStatTeamTest < Minitest::Test
     assert_equal "Houston Dynamo", @season_stat_team.get_team_name(3)
   end
 
+  def test_it_can_get_team_tackles_by_season
+    assert_instance_of Integer, @season_stat_team.get_tackles_by_team_season("3", "20122013")
+    assert_equal 466, @season_stat_team.get_tackles_by_team_season("3", "20122013")
+  end
+
   def test_it_can_get_team_goals_by_season
     assert_equal 18, @season_stat_team.get_goals_by_team_season("3", "20122013")
   end
@@ -49,6 +54,7 @@ class SeasonStatTeamTest < Minitest::Test
     assert_instance_of Hash, @season_stat_team.create_team_data_by_season("20122013")
     assert_equal 4.833, @season_stat_team.create_team_data_by_season("20122013")["3"][:goal_ratio]
     assert_equal "Houston Dynamo", @season_stat_team.create_team_data_by_season("20122013")["3"][:team_name]
+    assert_equal 466, @season_stat_team.create_team_data_by_season("20122013")["3"][:tackles]
     assert_nil @season_stat_team.create_team_data_by_season("20122013")["100"]
     assert_equal 14, @season_stat_team.create_team_data_by_season("20122013").keys.length
   end
@@ -59,5 +65,13 @@ class SeasonStatTeamTest < Minitest::Test
 
   def test_it_can_find_least_accurate_team_name
     assert_equal "Houston Dynamo", @season_stat_team.least_accurate_team("20122013")
+  end
+
+  def test_it_can_get_team_with_most_tackles
+    assert_equal "Houston Dynamo", @season_stat_team.most_tackles("20122013")
+  end
+
+  def test_it_can_find_team_with_least_tackles
+    assert_equal "Orlando Pride", @season_stat_team.least_tackles("20122013")
   end
 end
