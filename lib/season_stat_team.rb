@@ -28,6 +28,16 @@ class SeasonStatTeam
     team_name_by_id.team_name
   end
 
+  def get_tackles_by_team_season(team_id, season)#refactor to a reduce
+    team_tackles = 0
+    get_season_game_teams(season).each do |game_team|
+      if game_team.team_id.to_s == team_id
+        team_tackles += game_team.tackles
+      end
+    end
+    team_tackles
+  end
+
   def get_goals_by_team_season(team_id, season)#refactor to a reduce
     team_goals = 0
     get_season_game_teams(season).each do |game_team|
@@ -58,7 +68,8 @@ class SeasonStatTeam
     get_team_ids_by_season(season).reduce({}) do |acc, team_id|
       acc[team_id.to_s] = {
         team_name: get_team_name(team_id),
-        goal_ratio: team_shots_to_goal_ratio_by_season(team_id.to_s, season)
+        goal_ratio: team_shots_to_goal_ratio_by_season(team_id.to_s, season),
+        tackles: get_tackles_by_team_season(team_id.to_s, season)
       }
       acc
     end
