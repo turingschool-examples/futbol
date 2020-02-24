@@ -134,8 +134,23 @@ class StatTracker
     @team_collection.where_id(worst_team)
   end
 
+  def percentage_home_wins
+    home_wins = @game_collection.games.find_all {|game| game.home_goals > game.away_goals}
+    home_wins.length.to_f / (@game_collection.games.length.to_f).round(2)
+  end
+
+  def percentage_visitor_wins
+    away_wins = @game_collection.games.find_all {|game| game.home_goals < game.away_goals}
+    away_wins.length.to_f / (@game_collection.games.length.to_f).round(2)
+  end
+
+  def percentage_ties
+    tied_games = @game_collection.games.find_all {|game| game.home_goals == game.away_goals}
+    tied_games.lengtht.to_f / (@game_collection.games.length.to_f).round(2)
+  end
+
   #uses game and game_team collections.
-  def winningest_coach(for_season)
+  def winningest_coach(for_season) # the game_ids can tell you what season there from. first 4 numbers of id will match the first 4 from season.
     games_by_season = @game_collection.all.group_by{|game| game.season}           # games_by_season 3rd occurance
     games_for_season = games_by_season.fetch_values(for_season).flatten
 
@@ -151,23 +166,24 @@ class StatTracker
     end
 
     game_team_by_coach.key(game_team_by_coach.values.max)
-    @team_collection.all.find do |team| # This snippet should move to team_collection as a #where(:key, value), ie where(team_id, 6)
-      team.team_id == worst_team
-    end.team_name
   end
 
-  def percentage_home_wins
-    home_wins = @game_collection.games.find_all {|game| game.home_goals > game.away_goals}
-    home_wins.length.to_f / (@game_collection.games.length.to_f).round(2)
-  end
+  def worst_coach(for_season)
+    games_by_season = @game_collection.all.group_by{|game| game.season}           # games_by_season 3rd occurance
+    games_for_season = games_by_season.fetch_values(for_season).flatten
 
-  def percentage_visitor_wins
-    away_wins = @game_collection.games.find_all {|game| game.home_goals < game.away_goals}
-    away_wins.length.to_f / (@game_collection.games.length.to_f).round(2)
-  end
+    game_teams = games_for_season.map do |game|
+      @game_team_collection.where(:game_id, game.game_id)
+    end.flatten
 
-  def percentage_ties
-    tied_games = @game_collection.games.find_all {|game| game.home_goals == game.away_goals}
-    tied_games.lengtht.to_f / (@game_collection.games.length.to_f).round(2)
+    game_team_by_coach = game_teams.group_by { |game| game.head_coach }
+
+    game_team_by_coach.each do |key, value|
+       percent = value.count{|game| game.result == "WIN"}/value.length.to_f
+       game_team_by_coach[key] = percent
+     end
+
+    game_team_by_coach.key(game_team_by_coach.values.min)
+    require "pry"; binding.pry
   end
 end
