@@ -63,7 +63,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_the_worst_coach_of_the_season
-    assert_equal "John Tortorella", @stat_tracker.worst_coach(20132014)
+    assert_equal "Alain Vigneault", @stat_tracker.worst_coach(20132014)
   end
 
 
@@ -179,19 +179,19 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.games_by_team_by_season(20152016)
   end
 
-  def test_it_knows_coachs_by_season
-    expected_1213 = {
-      3 => "John Tortorella",
-      6 => "Claude Julien",
-      9 => "Paul MacLean",
-      8 => "Michel Therrien",
-      5 => "Dan Bylsma",
-      20 => "Bob Hartley",
-      19 => "Ken Hitchcock",
-      7 => "Ron Rolston",
-      52 => "Claude Noel"
-    }
-    assert_equal expected_1213, @stat_tracker.head_coaches(20122013)
+  def test_it_knows_coaches_by_season
+    expected = {
+            3 => "John Tortorella",
+            6 => "Claude Julien",
+            9 => "Paul MacLean",
+            8 => "Michel Therrien",
+            5 => "Dan Bylsma",
+            20 => "Bob Hartley",
+            19 => "Ken Hitchcock",
+            7 => "Ron Rolston",
+            52 => "Claude Noel"
+          }
+    assert_equal expected, @stat_tracker.head_coaches(20122013)
 
   end
 
