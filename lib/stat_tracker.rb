@@ -58,4 +58,47 @@ class StatTracker
     games_in_season
   end
 
+  def count_of_teams
+    @team_collection.teams.length
+  end
+
+  def worst_defense
+    #most losses, with biggest point difference,
+  end
+
+  def best_fans
+    #biggest diff between home and win percentages.
+    #first, total games played by each team
+    games_played = Hash.new(0)
+    @gtc.game_teams.each do |game_team|
+      if games_played[game_team.team_id] == 0
+        games_played[game_team.team_id] = [game_team]
+      elsif games_played[game_team.team_id] != 0
+        games_played[game_team.team_id] << game_team
+      end
+    end
+
+    #next, of those games, how many won at home and away
+    
+
+    require "pry"; binding.pry
+    # games_played_at_home =@gtc.game_teams.find_all do |game_team|
+    #   game_team.result == "WIN" && game_team.hoa == "home"
+    # end
+    # games_won_at_home =@gtc.game_teams.find_all do |game_team|
+    #   game_team.result == "WIN" && game_team.hoa == "home"
+    # end
+    # team_most_win_games = games_won_at_home.max_by do |game|
+    #   games_won_at_home.count(game.team_id)
+    # end
+    # team = @team_collection.teams.find do |team|
+    #   team.team_id == team_most_win_games.team_id
+    # end
+
+  end
+
+  def lowest_scoring_visitor
+    #team with lowest totals when playing as visitor
+  end
+
 end

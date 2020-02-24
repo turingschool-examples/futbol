@@ -55,4 +55,12 @@ class StatTrackerTest < Minitest::Test
       }
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
+
+  def test_count_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+
+  def test_best_fans
+    assert_equal "FC Dallas at Toyota Stadium", @stat_tracker.best_fans
+  end
 end
