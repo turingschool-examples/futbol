@@ -156,4 +156,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Sky Blue FC", @stat_tracker_average.fewest_tackles("20122013")
     assert_equal "Montreal Impact", @stat_tracker_average.fewest_tackles("20132014")
   end
+
+  def test_it_can_return_least_accurate_team
+    assert_equal "TBD", @stat_tracker_average.least_accurate_team("20122013")
+    assert_equal "TBD", @stat_tracker_average.least_accurate_team("20132014")
+  end
 end
