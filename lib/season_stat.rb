@@ -1,25 +1,38 @@
 require_relative 'game_collection'
 require_relative 'game_team_collection'
 require_relative 'team_collection'
+require_relative './modules/helper_methods'
 
 class SeasonStat
+  include Helperable
 
-  def initialize(game_file_path, team_file_path, game_team_file_path)
-    @game_collection = GameCollection.new(game_file_path)
-    @team_collection = TeamCollection.new(team_file_path)
-    @game_team_collection = GameTeamCollection.new(game_team_file_path)
-    @team_info = nil
-    @season_list = @game_collection.get_all_seasons
+  def initialize(game_collection, team_collection)
+    @game_collection = game_collection
+    @team_collection = team_collection
+    @season_list = get_all_seasons
   end
 
-  def get_season_games(season)
-    @game_collection.games_list.find_all do |game|
-      game.season == season
-    end
+  def get_all_seasons
+    @game_collection.games_list.map { |game| game.season }.uniq
   end
 
   def count_of_season_games(season)
     get_season_games(season).size
+  end
+
+  def average_goals_per_game_per_season(season)
+  total = 0
+    get_season_games(season).each do |game|
+      total += (game.home_goals + game.away_goals)
+    end
+    (total.to_f / count_of_season_games(season)).round(2)
+  end
+
+  def average_goals_by_season
+    @season_list.reduce({}) do |season_goals, season|
+      season_goals[season] = average_goals_per_game_per_season(season)
+      season_goals
+    end
   end
 
   def count_of_games_by_season
@@ -35,14 +48,14 @@ class SeasonStat
     end
   end
 
-  def get_team_info(season)
+  def get_team_data(season)
     @team_collection.teams_list.reduce({}) do |team_hash, team|
-      team_hash[team.team_id] = {
+      team_hash[team.team_id.to_s] = {
          team_name: team.team_name,
          season_win_percent: team_win_percentage(team.team_id, 'Regular Season', season),
-         postseason_win_percent: team_win_percentage(team.team_id, 'Postseason', season)
+         postseason_win_percent: team_win_percentage(team.team_id, 'Postseason', season),
 }
-      @team_info = team_hash
+      team_hash
     end
   end
 
@@ -73,12 +86,24 @@ class SeasonStat
   def team_win_percentage(team_id, game_type, season)
     total_wins = total_team_wins_by_game_type(team_id, game_type, season).to_f
     total_games = total_team_games_by_game_type(team_id, game_type, season)
-    ((total_wins / total_games) * 100).round(2)
+    if total_games == 0
+      return 0.00
+    else
+      ((total_wins / total_games) * 100).round(2)
+    end
   end
 
-  def get_regular_percents(game_type)
-    @team_info.map do |team_info, team|
-      team_info[team] = team_win_percentage(team, game_type)
+  def biggest_bust(season)
+    team_bust = get_team_data(season).max_by do |team_id, team_info|
+      (team_info[:season_win_percent] - team_info[:postseason_win_percent])
     end
+    team_bust[1][:team_name]
+  end
+
+  def biggest_surprise(season)
+    team_bust = get_team_data(season).max_by do |team_id, team_info|
+      (team_info[:postseason_win_percent] - team_info[:season_win_percent])
+    end
+    team_bust[1][:team_name]
   end
 end

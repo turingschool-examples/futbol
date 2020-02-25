@@ -15,6 +15,6 @@ class GameTeamCollectionTest < Minitest::Test
   def test_it_has_list_of_game_teams
     assert_instance_of Array, @game_team_collection.game_team_list
     assert_instance_of GameTeam, @game_team_collection.game_team_list.first
-    assert_equal 200, @game_team_collection.game_team_list.length
+    assert_equal 217, @game_team_collection.game_team_list.length
   end
 end

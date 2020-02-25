@@ -10,13 +10,50 @@ require './lib/team'
 class SeasonStatTest < Minitest::Test
   def setup
     team_file_path = './data/teams.csv'
-    game_team_file_path = './test/fixtures/truncated_game_teams.csv'
     game_file_path = './test/fixtures/truncated_games.csv'
-    @season_stat = SeasonStat.new(game_file_path, team_file_path, game_team_file_path)
+    @game_collection = GameCollection.new(game_file_path)
+    @team_collection = TeamCollection.new(team_file_path)
+    @season_stat = SeasonStat.new(@game_collection, @team_collection)
+
+    @team_info = {
+
+      1 => {:team_name=> "Apples",
+            :season_win_percent => 50.00,
+            :postseason_win_percent => 70.00,
+            :head_coach => "Jaughn"
+          },
+      2 => {:team_name=> "The Bunnies",
+            :season_win_percent => 80.00,
+            :postseason_win_percent => 15.00,
+            :head_coach => "Rufus"
+          },
+      3 => {:team_name=> "Broncos",
+            :season_win_percent => 60.00,
+            :postseason_win_percent => 70.00,
+            :head_coach => "Tim"
+          },
+      4 => {:team_name=> "Avalanche",
+            :season_win_percent => 50.00,
+            :postseason_win_percent => 25.00,
+            :head_coach => "Aurora"
+          },
+      5 => {:team_name=> "Avalanche",
+            :season_win_percent => 25.00,
+            :postseason_win_percent => 0.0,
+            :head_coach => "Megan"
+            }
+    }
+    @season = mock('testseason')
   end
 
   def test_it_exists
     assert_instance_of SeasonStat, @season_stat
+  end
+
+  def test_it_can_get_all_seasons
+    season_test_list = ["20122013", "20162017", "20142015", "20152016", "20132014"]
+
+    assert_equal season_test_list, @season_stat.get_all_seasons
   end
 
   def test_it_can_get_season_games
@@ -35,6 +72,17 @@ class SeasonStatTest < Minitest::Test
     assert_equal 257, @season_stat.count_of_season_games("20122013")
   end
 
+  def test_it_can_get_average_goals_by_season
+    test_hash = {
+            "20122013"=>4.04,
+            "20162017"=>4.75,
+            "20142015"=>3.75,
+            "20152016"=>3.88,
+            "20132014"=>4.33
+                }
+    assert_equal test_hash, @season_stat.average_goals_by_season
+  end
+
   def test_it_can_get_season_games_by_type
     assert_instance_of Array, @season_stat.games_by_type('Regular Season', "20122013")
     assert_equal 'Regular Season', @season_stat.games_by_type('Regular Season', "20122013").first.type
@@ -43,11 +91,11 @@ class SeasonStatTest < Minitest::Test
     assert_equal [], @season_stat.games_by_type('Overtime', "20122013")
   end
 
-  def test_it_get_team_info_by_team
-    assert_instance_of Hash, @season_stat.get_team_info("20122013")
-    assert_equal 32, @season_stat.get_team_info("20122013").length
-    assert_equal 1, @season_stat.get_team_info("20122013").keys.first
-    assert_equal 'Atlanta United', @season_stat.get_team_info("20122013")[1][:team_name]
+  def test_it_get_team_data_by_team
+    assert_instance_of Hash, @season_stat.get_team_data("20122013")
+    assert_equal 32, @season_stat.get_team_data("20122013").length
+    assert_equal "1", @season_stat.get_team_data("20122013").keys.first
+    assert_equal 'Atlanta United', @season_stat.get_team_data("20122013")["1"][:team_name]
   end
 
   def test_it_can_get_total_team_games_by_game_type
@@ -71,9 +119,8 @@ class SeasonStatTest < Minitest::Test
   end
 
   def test_it_can_calculate_biggest_bust
-      skip
-    @season_stat.get_team_info
-    @season_stat.get_regular_percents('Regular Season')
+    @season_stat.stubs(:get_team_data).returns(@team_info)
+    assert_equal "The Bunnies", @season_stat.biggest_bust(@season)
   end
 
   def test_it_can_count_games_by_season
@@ -85,5 +132,10 @@ class SeasonStatTest < Minitest::Test
       "20132014" => 6
     }
     assert_equal test_hash, @season_stat.count_of_games_by_season
+  end
+
+  def test_it_can_calculate_biggest_surprise
+    @season_stat.stubs(:get_team_data).returns(@team_info)
+    assert_equal "Apples", @season_stat.biggest_surprise(@season)
   end
 end
