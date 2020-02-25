@@ -204,44 +204,24 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.worst_fans
   end
 
-  def test_can_get_gameid_of_games_that_season
-      assert_kind_of Array, @stat_tracker.gameid_of_games_that_season(20122013)
-      assert_equal 51, @stat_tracker.gameid_of_games_that_season(20122013).length
-  end
-
   def test_it_can_get_game_teams_that_season
       assert_kind_of Array, @stat_tracker.game_teams_that_season(8, 20122013)
       assert_equal 4, @stat_tracker.game_teams_that_season(8, 20122013).length
   end
 
-  def test_make_hash_with_team_games_by_team
-    assert_kind_of Hash, @stat_tracker.create_hash_with_team_games_by_team(20122013)
-    assert_equal 7, @stat_tracker.create_hash_with_team_games_by_team(20122013).length
+  def test_all_goals_that_season
+    expected = 0.23
+    assert_equal expected, @stat_tracker.goals_to_shots_ratio_that_season(8, 20122013)
   end
 
-  def test_adding_all_goals_for_each_team
-    expected = {3=>8, 6=>24, 5=>2, 17=>13, 16=>10, 9=>7, 8=>8}
-    assert_equal expected, @stat_tracker.teams_with_goals_total(20122013)
-  end
-
-  def test_adding_all_shots_for_each_team
-    expected = {3=>38, 6=>76, 5=>32, 17=>46, 16=>58, 9=>21, 8=>35}
-    assert_equal expected, @stat_tracker.teams_with_shots_total(20122013)
-  end
-
-  def test_getting_goals_to_shots_ratio
-    expected = {3=>0.21, 6=>0.32, 5=>0.06, 17=>0.28, 16=>0.17, 9=>0.33, 8=>0.23}
-    assert_equal expected, @stat_tracker.getting_goals_to_shots_ratio(20122013)
-  end
-
-  def test_can_get_most_accurate_team
-    assert_equal "New York City FC", @stat_tracker.most_accurate_team(20122013)
+  def test_most_accurate_team
+     assert_equal "New York City FC", @stat_tracker.most_accurate_team(20122013)
   end
 
   def test_can_get_least_accurate_team
     assert_equal "Sporting Kansas City", @stat_tracker.least_accurate_team(20122013)
   end
-
+  #
   def test_if_can_get_all_coaches
     expected = ["John Tortorella", "Claude Julien", "Dan Bylsma",
                 "Mike Babcock", "Joel Quenneville", "Paul MacLean", "Michel Therrien"
