@@ -229,10 +229,21 @@ end
     assert_equal expected_away, @stat_tracker.hoa_tie_by_team("away")
   end
 
-  
-  #
-  # ######### it5 ###############
-  #
+####### It4 Methods #############
+def test_team_with_the_most_tackles_in_a_season
+  assert_equal "FC Dallas", @stat_tracker.most_tackles("20122013")
+  assert_equal "Houston Dynamo",@stat_tracker.most_tackles("20152016")
+end
+
+def test_team_with_the_fewest_tackles_in_a_season
+  assert_equal "Philadelphia Union", @stat_tracker.fewest_tackles("20122013")
+  assert_equal "FC Cincinnati", @stat_tracker.fewest_tackles("20152016")
+
+end
+
+
+######### it5 ###############
+
       def test_it_knows_team_info
     expected = {
      "team_id" => "3",
