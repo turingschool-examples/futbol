@@ -225,7 +225,23 @@ class StatTrackerTest < Minitest::Test
     assert_equal ({"team_id"=>6, "franchise_id"=>6, "team_name"=>"FC Dallas", "abbreviation"=>"DAL", "link"=>"/api/v1/teams/6"}), @stat_tracker.team_info(6)
   end
 
+  def test_find_season_wins
+    assert_equal ({}), @stat_tracker.find_season_wins(17, 20122013)
+  end
+
+  def test_all_seasons
+    assert_equal [20122013, 20132014], @stat_tracker.all_seasons
+  end
+
+  def test_find_win_average_in_season
+    assert_equal 20122013, @stat_tracker.find_win_average_in_seasons(17, 20122013)
+  end
+
   def test_best_season
     assert_equal "TBD", @stat_tracker.best_season(6)
+  end
+
+  def test_worst_season
+
   end
 end
