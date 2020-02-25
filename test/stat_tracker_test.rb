@@ -231,8 +231,21 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Philadelphia Union", @stat_tracker.best_fans
   end
 
-  def test_worst_defense
-    skip
-    assert_equal 0 ,@stat_tracker.worst_defense
+  def test_best_offense
+    assert_equal "FC Dallas", @stat_tracker.best_offense
+  end
+
+  def test_worst_offense
+    assert_equal "Toronto FC", @stat_tracker.worst_offense
+  end
+
+  def test_higest_scoring_visitor
+
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_winningest_team
+
+    assert_equal "FC Dallas", @stat_tracker.winningest_team
   end
 end

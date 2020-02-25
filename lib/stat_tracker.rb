@@ -98,6 +98,34 @@ class StatTracker
     @team_collection.teams.length
   end
 
+  def best_offense
+    game_teams_grouped_by_team_id = @gtc.game_teams.group_by do |game_team|
+      game_team.team_id
+    end
+    x = game_teams_grouped_by_team_id.each_pair do |team_id, games_by_team|
+      total_goals = games_by_team.map do |single_game|
+        single_game.goals
+      end
+      game_team_averages = (total_goals.sum.to_f / total_goals.length).round(2)
+      (game_teams_grouped_by_team_id[team_id] = game_team_averages)
+    end
+    team_name_by_id(x.key(x.values.max))
+  end
+
+  def worst_offense
+    game_teams_grouped_by_team_id = @gtc.game_teams.group_by do |game_team|
+      game_team.team_id
+    end
+    x = game_teams_grouped_by_team_id.each_pair do |team_id, games_by_team|
+      total_goals = games_by_team.map do |single_game|
+        single_game.goals
+      end
+      game_team_averages = (total_goals.sum.to_f / total_goals.length).round(2)
+      (game_teams_grouped_by_team_id[team_id] = game_team_averages)
+    end
+    team_name_by_id(x.key(x.values.min))
+  end
+
   def best_defense
     allowed = all_goals_allowed_by_team
     games = total_games_by_team
@@ -134,6 +162,26 @@ class StatTracker
       home_goals_per_game[team_id] = total_home_goals / hoa_games_by_team("home")[team_id].to_f
     end
     team_name_by_id(home_goals_per_game.key(home_goals_per_game.values.min))
+  end
+
+  def winningest_team
+    total_games_by_team
+    total_wins_by_team
+    winning_percentages = total_games_by_team.merge(total_games_by_team) do |team_id, total_games|
+      total_wins_by_team[team_id] / total_games.to_f
+    end
+    team_name_by_id(winning_percentages.key(winning_percentages.values.max))
+  end
+
+  def highest_scoring_visitor
+    away_games = hoa_games_by_team("away")
+    away_goals = hoa_goals_by_team("away")
+    away_goals_per_game = {}
+    away_goals.each do |team_id, total_away_goals|
+      next if total_away_goals == 0
+      away_goals_per_game[team_id] = total_away_goals / hoa_games_by_team("away")[team_id].to_f
+      end
+    team_name_by_id(away_goals_per_game.key(away_goals_per_game.values.max))
   end
 
   def highest_scoring_home_team
