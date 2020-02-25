@@ -126,7 +126,7 @@ end
     assert_equal "Toronto FC", @stat_tracker.worst_offense
   end
 
-  def test_higest_scoring_visitor
+  def test_highest_scoring_visitor
 
     assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
   end
@@ -178,57 +178,6 @@ end
     assert_equal expected, @stat_tracker.total_tie_by_team
   end
 
-  def test_it_can_display_home_or_away_games_by_team
-    expected_home = {6=>1, 8=>1, 5=>4, 19=>1, 52=>1, 26=>1}
-
-    assert_equal expected_home, @stat_tracker.hoa_games_by_team("home")
-
-    expected_away = {3=>3, 9=>1, 6=>1, 20=>1, 7=>1, 10=>1, 22=>1}
-    assert_equal expected_away, @stat_tracker.hoa_games_by_team("away")
-  end
-
-  def test_it_can_display_all_goals_scored_hoa_by_team
-    expected_home = {3=>0, 6=>3, 9=>0, 8=>2, 5=>7, 20=>0, 19=>2,
-      7=>0, 52=>2, 10=>0, 26=>2, 22=>0}
-    assert_equal expected_home, @stat_tracker.hoa_goals_by_team("home")
-
-    expected_away = {3=>6, 6=>3, 9=>2, 8=>0, 5=>0, 20=>1,
-      19=>0, 7=>1, 52=>0, 10=>1, 26=>0, 22=>2}
-
-    assert_equal expected_away, @stat_tracker.hoa_goals_by_team("away")
-  end
-
-  def test_it_can_display_home_or_away_wins_by_team
-    expected_home = {3=>0, 6=>1, 9=>0, 8=>0, 5=>1, 20=>0, 19=>1,
-      7=>0, 52=>1, 10=>0, 26=>1, 22=>0}
-    assert_equal expected_home, @stat_tracker.hoa_wins_by_team("home")
-
-    expected_away = {3=>0, 6=>1, 9=>0, 8=>0, 5=>0, 20=>0, 19=>0,
-      7=>0, 52=>0, 10=>0, 26=>0, 22=>0}
-
-    assert_equal expected_away, @stat_tracker.hoa_wins_by_team("away")
-  end
-
-  def test_it_can_display_home_or_away_losses_by_team
-    expected_home = {3=>0, 6=>0, 9=>0, 8=>0, 5=>1, 20=>0,
-      19=>0, 7=>0, 52=>0, 10=>0, 26=>0, 22=>0}
-    assert_equal expected_home, @stat_tracker.hoa_loss_by_team("home")
-
-    expected_away = {3=>2, 6=>0, 9=>0, 8=>0, 5=>0, 20=>1, 19=>0, 7=>1,
-      52=>0, 10=>1, 26=>0, 22=>0}
-    assert_equal expected_away, @stat_tracker.hoa_loss_by_team("away")
-  end
-
-  def test_it_can_display_home_or_away_ties_by_team
-    expected_home = {3=>0, 6=>0, 9=>0, 8=>1, 5=>2, 20=>0, 19=>0,
-      7=>0, 52=>0, 10=>0, 26=>0, 22=>0}
-    assert_equal expected_home, @stat_tracker.hoa_tie_by_team("home")
-
-    expected_away = {3=>1, 6=>0, 9=>1, 8=>0, 5=>0, 20=>0, 19=>0,
-      7=>0, 52=>0, 10=>0, 26=>0, 22=>1}
-    assert_equal expected_away, @stat_tracker.hoa_tie_by_team("away")
-  end
-
 ####### It4 Methods #############
 def test_team_with_the_most_tackles_in_a_season
   assert_equal "FC Dallas", @stat_tracker.most_tackles("20122013")
@@ -246,7 +195,6 @@ end
 
       def test_it_knows_team_info
     expected = {
-<<<<<<< HEAD
      "team_id" => "3",
      "franchise_id" => "10",
      "team_name" => "Houston Dynamo",
@@ -276,23 +224,10 @@ end
   def test_it_can_return_a_team
     assert_equal Team, @stat_tracker.retrieve_team(18).class
     assert_equal 18, @stat_tracker.retrieve_team(18).team_id
-
-=======
-            3 => "John Tortorella",
-            6 => "Claude Julien",
-            9 => "Paul MacLean",
-            8 => "Michel Therrien",
-            5 => "Dan Bylsma",
-            20 => "Bob Hartley",
-            19 => "Ken Hitchcock",
-            7 => "Ron Rolston",
-            52 => "Claude Noel"
-          }
-    assert_equal expected, @stat_tracker.head_coaches(20122013)
-
   end
 
   def test_it_knows_wins_by_season
+    skip
     expected = {3=>0, 5=>1, 10=>0, 26=>1, 22=>0}
     assert_equal expected, @stat_tracker.wins_in_season("20152016")
   end
@@ -308,6 +243,5 @@ end
   def test_lowest_scoring_visitor
     skip
     assert_equal "FC Dallas", @stat_tracker.lowest_scoring_visitor
->>>>>>> 0828c2902ac640f5652c5c2675a760ea6143e858
   end
 end
