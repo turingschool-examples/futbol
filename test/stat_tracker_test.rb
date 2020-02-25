@@ -165,4 +165,8 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_return_best_fan
     assert_equal "Philadelphia Union", @stat_tracker_average.best_fans
   end
+
+  def test_it_can_return_worst_fan
+    assert_equal "FC Dallas", @stat_tracker_average.worst_fans
+  end
 end
