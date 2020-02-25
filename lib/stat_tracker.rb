@@ -188,14 +188,6 @@ class StatTracker
   end
 
   ###### Iterartion 2/3 Helpers - - - - - - - - - - - - - - - - - -
-  def total_games_by_season
-    games_in_season = Hash.new(0)
-    game_collection.games.each do |game|
-      games_in_season[game.season] += 1
-    end
-    games_in_season
-  end
-
   def team_name_by_id(team_id)
     team_collection.teams.find do |team|
       team.team_id == team_id
