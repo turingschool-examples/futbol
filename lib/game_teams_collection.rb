@@ -44,28 +44,4 @@ class GameTeamsCollection
     end
     hoa_wins_by_team
   end
-
-  def hoa_loss_by_team(hoa)
-    hoa_loss_by_team = Hash.new(0)
-    game_teams.find_all do |game|
-      if hoa.downcase == game.hoa && game.result == "LOSS"
-        hoa_loss_by_team[game.team_id] += 1
-      else
-        hoa_loss_by_team[game.team_id] += 0
-      end
-    end
-    hoa_loss_by_team
-  end
-
-  def hoa_tie_by_team(hoa)
-    hoa_tie_by_team = Hash.new(0)
-    game_teams.find_all do |game|
-      if hoa.downcase == game.hoa && game.result == "TIE"
-        hoa_tie_by_team[game.team_id] += 1
-      else
-        hoa_tie_by_team[game.team_id] += 0
-      end
-    end
-    hoa_tie_by_team
-  end
 end
