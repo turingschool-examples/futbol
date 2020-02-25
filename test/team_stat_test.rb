@@ -15,8 +15,8 @@ class TeamStatTest < Minitest::Test
   end
 
   def test_it_initializes
-    assert_equal 2012030221, @game.game_collection.games_list[0].game_id
-    assert_equal "Postseason", @game.game_collection.games_list[9].type
+    assert_equal 2012020225, @game.game_collection.games_list[0].game_id
+    assert_equal "Regular Season", @game.game_collection.games_list[9].type
   end
 
   def test_highest_total_score
@@ -28,7 +28,7 @@ class TeamStatTest < Minitest::Test
   end
 
   def test_biggest_blowout
-    assert_equal 3, @game.biggest_blowout
+    assert_equal 4, @game.biggest_blowout
   end
 
 end
