@@ -13,9 +13,11 @@ class StatTrackerTest < Minitest::Test
   def setup
     @locations = {
         games: './fixture_files/games_fixture.csv',
+        # games: './data/little_games.csv',
         # games: './data/games.csv',
         teams: './data/teams.csv',
         game_teams: './fixture_files/game_teams_fixture.csv'
+        # game_teams: './data/little_game_teams.csv'
         # game_teams: './data/game_teams.csv'
       }
     @stat_tracker = StatTracker.from_csv(@locations)
@@ -36,70 +38,142 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_return_the_highest_total_score
     assert_equal 5, @stat_tracker.highest_total_score
-  end
-
-  def test_it_can_return_the_biggest_blowout
-    assert_equal 3, @stat_tracker.biggest_blowout
-  end
-
-  def test_it_can_return_percentage_ties
-    assert_equal 0.33, @stat_tracker.percentage_ties
-  end
-
-  def test_it_can_show_the_worst_fans
-    assert_equal [], @stat_tracker.worst_fans
+    #harness pass
   end
 
   def test_it_knows_the_lowest_scoring_home_team
     assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_home_team
+    #harness pass
   end
 
-  def test_it_knows_the_hightest_scoring_home_team
-    assert_equal "FC Dallas", @stat_tracker.highest_scoring_home_team
+  def test_it_can_return_the_biggest_blowout
+    assert_equal 3, @stat_tracker.biggest_blowout
+    #narness pass
   end
 
-  def test_it_can_return_the_best_overall_defense
-    assert_equal "FC Dallas", @stat_tracker.best_defense
+  def test_can_return_percentage_of_home_wins
+    assert_equal 0.56, @stat_tracker.percentage_home_wins
+    #harness pass
   end
 
-  def test_it_can_return_the_worst_coach_of_the_season
-    # mike said skip, for now
-    skip
-    assert_equal "Alain Vigneault", @stat_tracker.worst_coach(20132014)
+  def test_can_return_percentage_of_visitor_wins
+    assert_equal 0.11, @stat_tracker.percentage_visitor_wins
+    #harness pass
   end
 
-  def test_it_can_return_lowest_score
-    assert_equal 3, @stat_tracker.lowest_total_score
+  def test_it_can_return_percentage_ties
+    assert_equal 0.33, @stat_tracker.percentage_ties
+    #jarness pass
+  end
+
+  def test_it_can_return_a_count_of_games_per_season
+    expected = {
+      "20122013" => 5,
+      "20152016" => 4
+    }
+    assert_equal expected, @stat_tracker.count_of_games_by_season
+    #harness pass
   end
 
   def test_it_can_return_average_goals_per_game
     assert_equal 3.78, @stat_tracker.average_goals_per_game
+    #harness pass
   end
 
   def test_it_can_return_average_goals_by_season
     expected = {"20122013"=>3.6, "20152016"=>4.0}
 
     assert_equal expected, @stat_tracker.average_goals_by_season
+    #harness pass
   end
 
-  def test_can_return_percentage_of_visitor_wins
-    assert_equal 0.11, @stat_tracker.percentage_visitor_wins
+###### it3 - - - - - - - - - - - - - - - - -
+
+def test_count_of_teams
+  assert_equal 32, @stat_tracker.count_of_teams
+  #harness pass
+end
+
+def test_it_can_show_the_worst_fans
+  assert_equal [], @stat_tracker.worst_fans
+  #harness pass
+end
+
+def test_it_knows_the_hightest_scoring_home_team
+  assert_equal "FC Dallas", @stat_tracker.highest_scoring_home_team
+  #harness pass
+end
+
+def test_it_can_return_the_best_overall_defense
+  assert_equal "FC Dallas", @stat_tracker.best_defense
+  #harness pass
+end
+
+def test_it_can_return_lowest_score
+  assert_equal 3, @stat_tracker.lowest_total_score
+  #harness pass
+end
+ 
+    def test_count_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
   end
 
-  def test_can_return_percentage_of_home_wins
-    assert_equal 0.56, @stat_tracker.percentage_home_wins
+  def test_best_offense
+    assert_equal "FC Dallas", @stat_tracker.best_offense
   end
+
+  def test_worst_offense
+    assert_equal "Toronto FC", @stat_tracker.worst_offense
+  end
+
+  def test_higest_scoring_visitor
+
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_winningest_team
+
+    assert_equal "FC Dallas", @stat_tracker.winningest_team
+  end
+
+
+  #
+  # def test_team_with_most_tackles_in_a_season
+  #   assert_equal "FC Dallas", @stat_tracker.most_tackles("20122013")
+  #
+  # end
+  #
+  # def test_team_with_fewest_tackles_in_a_season
+  #   assert_equal "FC Cincinnati", @stat_tracker.fewest_tackles("20152016")
+  # end
+  #
+  # def test_most_accurate_team
+  #   assert_equal "FC Dallas", @stat_tracker.most_accurate_team("20122013")
+  # end
+  #
+  # def test_least_accurate_team
+  #   assert_equal "Houston Dynamo", @stat_tracker.least_accurate_team("20132014")
+  # end
+  #
+  # def test_it_can_return_the_worst_coach_of_the_season
+  #   # mike said skip, for now
+  #   skip
+  #   assert_equal "Alain Vigneault", @stat_tracker.worst_coach(20132014)
+  # end
+  #
+
+
 
   ######  Move these tests somewhere else
 
-  def test_it_can_return_total_games_by_season
-    expected = {
-      "20122013"=>5,
-      "20152016"=>4
-      }
-    assert_equal expected, @stat_tracker.total_games_by_season
-  end
-
+  # def test_it_can_return_total_games_by_season
+  #   expected = {
+  #     "20122013"=>5,
+  #     "20152016"=>4
+  #     }
+  #   assert_equal expected, @stat_tracker.total_games_by_season
+  # end
+  #
   def test_it_can_count_total_games_by_team
     expected = {3=>3, 6=>2, 9=>1, 8=>1, 5=>4, 20=>1, 19=>1,
       7=>1, 52=>1, 10=>1, 26=>1, 22=>1}
@@ -192,60 +266,80 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected_away, @stat_tracker.hoa_tie_by_team("away")
   end
 
-  ### Seasonal Stats Below
-  def test_it_knows_all_the_game_ids_in_a_given_season
-    assert_equal [2012030221, 2012030121, 2012030311, 2012020701, 2012020587], @stat_tracker.game_ids_in_season("20122013")
-  end
-
-  def test_it_knows_the_number_of_games_played_by_teams_in_a_season
-    expected = {3 => 2, 5 => 3, 10 => 1, 26 => 1, 22 => 1}
-    assert_equal expected, @stat_tracker.games_by_team_by_season("20152016")
-  end
-
-  def test_it_knows_coaches_by_season
+  # ### it4  #############
+  # def test_it_knows_all_the_game_ids_in_a_given_season
+  #   assert_equal [2012030221, 2012030121, 2012030311, 2012020701, 2012020587], @stat_tracker.game_ids_in_season("20122013")
+  # end
+  #
+  # def test_it_knows_the_games_in_a_season
+  #   assert_equal 10, @stat_tracker.games_in_season("20122013").length
+  #   assert_equal true, @stat_tracker.games_in_season("20122013").all?{ |item| item.class == GameTeams }
+  # end
+  #
+  # def test_it_knows_the_number_of_games_played_by_teams_in_a_season
+  #   expected = {3 => 2, 5 => 3, 10 => 1, 26 => 1, 22 => 1}
+  #   assert_equal expected, @stat_tracker.games_by_team_by_season("20152016")
+  # end
+  #
+  # def test_it_knows_coaches_by_season
+  #   expected = {
+  #           3 => "John Tortorella",
+  #           6 => "Claude Julien",
+  #           9 => "Paul MacLean",
+  #           8 => "Michel Therrien",
+  #           5 => "Dan Bylsma",
+  #           20 => "Bob Hartley",
+  #           19 => "Ken Hitchcock",
+  #           7 => "Ron Rolston",
+  #           52 => "Claude Noel"
+  #         }
+  #   assert_equal expected, @stat_tracker.head_coaches(20122013)
+  #
+  # end
+  #
+  # def test_it_knows_wins_by_season
+  #   expected = {3=>0, 5=>1, 10=>0, 26=>1, 22=>0}
+  #   assert_equal expected, @stat_tracker.wins_in_season("20152016")
+  # end
+  #
+  #
+  # def test_best_fans
+  #   assert_equal "Philadelphia Union", @stat_tracker.best_fans
+  # end
+  #
+  #
+  # ######### it5 ###############
+  #
+  def test_it_knows_team_info
     expected = {
-            3 => "John Tortorella",
-            6 => "Claude Julien",
-            9 => "Paul MacLean",
-            8 => "Michel Therrien",
-            5 => "Dan Bylsma",
-            20 => "Bob Hartley",
-            19 => "Ken Hitchcock",
-            7 => "Ron Rolston",
-            52 => "Claude Noel"
-          }
-    assert_equal expected, @stat_tracker.head_coaches(20122013)
-
+     "team_id" => "3",
+     "franchise_id" => "10",
+     "team_name" => "Houston Dynamo",
+     "abbreviation" => "HOU",
+     "link" => "/api/v1/teams/3"
+   }
+   assert_equal expected, @stat_tracker.team_info("3")
+   #harness pass
   end
 
-  def test_it_knows_wins_by_season
-    expected = {3=>0, 5=>1, 10=>0, 26=>1, 22=>0}
-    assert_equal expected, @stat_tracker.wins_in_season("20152016")
+  def test_it_knows_the_most_points_a_team_has_scored
+    assert_equal 2, @stat_tracker.most_goals_scored("3")
+    #harness pass
   end
 
-  def test_count_of_teams
-    assert_equal 32, @stat_tracker.count_of_teams
+  def test_it_knows_the_fewest_points_a_team_has_scored
+    assert_equal 2, @stat_tracker.fewest_goals_scored("3")
+    #harness pass
   end
-
-  def test_best_fans
-    assert_equal "Philadelphia Union", @stat_tracker.best_fans
-  end
-
-  def test_best_offense
-    assert_equal "FC Dallas", @stat_tracker.best_offense
-  end
-
-  def test_worst_offense
-    assert_equal "Toronto FC", @stat_tracker.worst_offense
-  end
-
-  def test_higest_scoring_visitor
-
-    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
-  end
-
-  def test_winningest_team
-
-    assert_equal "FC Dallas", @stat_tracker.winningest_team
+  #
+  # def test_it_knows_a_teams_worst_loss
+  #   skip
+  #   assert_equal 4, @stat_tracker.worst_loss("3")
+  # end
+  #
+  # ### it5 helpers ##
+  def test_it_can_return_a_team
+    assert_equal Team, @stat_tracker.retrieve_team(18).class
+    assert_equal 18, @stat_tracker.retrieve_team(18).team_id
   end
 end
