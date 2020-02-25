@@ -41,9 +41,24 @@ class StatTrackerTest < Minitest::Test
     #harness pass
   end
 
+  def test_it_knows_the_lowest_scoring_home_team
+    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_home_team
+    #harness pass
+  end
+
   def test_it_can_return_the_biggest_blowout
     assert_equal 3, @stat_tracker.biggest_blowout
     #narness pass
+  end
+
+  def test_can_return_percentage_of_home_wins
+    assert_equal 0.56, @stat_tracker.percentage_home_wins
+    #harness pass
+  end
+
+  def test_can_return_percentage_of_visitor_wins
+    assert_equal 0.11, @stat_tracker.percentage_visitor_wins
+    #harness pass
   end
 
   def test_it_can_return_percentage_ties
@@ -60,13 +75,21 @@ class StatTrackerTest < Minitest::Test
     #harness pass
   end
 
-  def test_it_can_show_the_worst_fans
-    assert_equal [], @stat_tracker.worst_fans
+  def test_it_can_return_average_goals_per_game
+    assert_equal 3.78, @stat_tracker.average_goals_per_game
     #harness pass
   end
 
-  def test_it_knows_the_lowest_scoring_home_team
-    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_home_team
+  def test_it_can_return_average_goals_by_season
+    expected = {"20122013"=>3.6, "20152016"=>4.0}
+
+    assert_equal expected, @stat_tracker.average_goals_by_season
+    #harness pass
+  end
+
+###### it3 - - - - - - - - - - - - - - - - -
+  def test_it_can_show_the_worst_fans
+    assert_equal [], @stat_tracker.worst_fans
     #harness pass
   end
 
@@ -85,27 +108,7 @@ class StatTrackerTest < Minitest::Test
     #harness pass
   end
 
-  def test_it_can_return_average_goals_per_game
-    assert_equal 3.78, @stat_tracker.average_goals_per_game
-    #harness pass
-  end
 
-  def test_it_can_return_average_goals_by_season
-    expected = {"20122013"=>3.6, "20152016"=>4.0}
-
-    assert_equal expected, @stat_tracker.average_goals_by_season
-    #harness pass
-  end
-
-  def test_can_return_percentage_of_visitor_wins
-    assert_equal 0.11, @stat_tracker.percentage_visitor_wins
-    #harness pass
-  end
-
-  def test_can_return_percentage_of_home_wins
-    assert_equal 0.56, @stat_tracker.percentage_home_wins
-    #harness pass
-  end
   #
   # def test_team_with_most_tackles_in_a_season
   #   assert_equal "FC Dallas", @stat_tracker.most_tackles("20122013")
