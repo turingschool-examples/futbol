@@ -113,7 +113,7 @@ def test_it_can_return_lowest_score
   assert_equal 3, @stat_tracker.lowest_total_score
   #harness pass
 end
- 
+
     def test_count_of_teams
     assert_equal 32, @stat_tracker.count_of_teams
   end
@@ -137,43 +137,6 @@ end
   end
 
 
-  #
-  # def test_team_with_most_tackles_in_a_season
-  #   assert_equal "FC Dallas", @stat_tracker.most_tackles("20122013")
-  #
-  # end
-  #
-  # def test_team_with_fewest_tackles_in_a_season
-  #   assert_equal "FC Cincinnati", @stat_tracker.fewest_tackles("20152016")
-  # end
-  #
-  # def test_most_accurate_team
-  #   assert_equal "FC Dallas", @stat_tracker.most_accurate_team("20122013")
-  # end
-  #
-  # def test_least_accurate_team
-  #   assert_equal "Houston Dynamo", @stat_tracker.least_accurate_team("20132014")
-  # end
-  #
-  # def test_it_can_return_the_worst_coach_of_the_season
-  #   # mike said skip, for now
-  #   skip
-  #   assert_equal "Alain Vigneault", @stat_tracker.worst_coach(20132014)
-  # end
-  #
-
-
-
-  ######  Move these tests somewhere else
-
-  # def test_it_can_return_total_games_by_season
-  #   expected = {
-  #     "20122013"=>5,
-  #     "20152016"=>4
-  #     }
-  #   assert_equal expected, @stat_tracker.total_games_by_season
-  # end
-  #
   def test_it_can_count_total_games_by_team
     expected = {3=>3, 6=>2, 9=>1, 8=>1, 5=>4, 20=>1, 19=>1,
       7=>1, 52=>1, 10=>1, 26=>1, 22=>1}
@@ -266,50 +229,21 @@ end
     assert_equal expected_away, @stat_tracker.hoa_tie_by_team("away")
   end
 
-  # ### it4  #############
-  # def test_it_knows_all_the_game_ids_in_a_given_season
-  #   assert_equal [2012030221, 2012030121, 2012030311, 2012020701, 2012020587], @stat_tracker.game_ids_in_season("20122013")
-  # end
-  #
-  # def test_it_knows_the_games_in_a_season
-  #   assert_equal 10, @stat_tracker.games_in_season("20122013").length
-  #   assert_equal true, @stat_tracker.games_in_season("20122013").all?{ |item| item.class == GameTeams }
-  # end
-  #
-  # def test_it_knows_the_number_of_games_played_by_teams_in_a_season
-  #   expected = {3 => 2, 5 => 3, 10 => 1, 26 => 1, 22 => 1}
-  #   assert_equal expected, @stat_tracker.games_by_team_by_season("20152016")
-  # end
-  #
-  # def test_it_knows_coaches_by_season
-  #   expected = {
-  #           3 => "John Tortorella",
-  #           6 => "Claude Julien",
-  #           9 => "Paul MacLean",
-  #           8 => "Michel Therrien",
-  #           5 => "Dan Bylsma",
-  #           20 => "Bob Hartley",
-  #           19 => "Ken Hitchcock",
-  #           7 => "Ron Rolston",
-  #           52 => "Claude Noel"
-  #         }
-  #   assert_equal expected, @stat_tracker.head_coaches(20122013)
-  #
-  # end
-  #
-  # def test_it_knows_wins_by_season
-  #   expected = {3=>0, 5=>1, 10=>0, 26=>1, 22=>0}
-  #   assert_equal expected, @stat_tracker.wins_in_season("20152016")
-  # end
-  #
-  #
-  # def test_best_fans
-  #   assert_equal "Philadelphia Union", @stat_tracker.best_fans
-  # end
-  #
-  #
-  # ######### it5 ###############
-  #
+####### It4 Methods #############
+def test_team_with_the_most_tackles_in_a_season
+  assert_equal "FC Dallas", @stat_tracker.most_tackles("20122013")
+  assert_equal "Houston Dynamo",@stat_tracker.most_tackles("20152016")
+end
+
+def test_team_with_the_fewest_tackles_in_a_season
+  assert_equal "Philadelphia Union", @stat_tracker.fewest_tackles("20122013")
+  assert_equal "FC Cincinnati", @stat_tracker.fewest_tackles("20152016")
+
+end
+
+
+######### it5 ###############
+
       def test_it_knows_team_info
     expected = {
 <<<<<<< HEAD
