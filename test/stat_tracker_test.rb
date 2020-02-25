@@ -12,10 +12,12 @@ class StatTrackerTest < Minitest::Test
 
   def setup
     @locations = {
-        games: './fixture_files/games_fixture.csv',
+        # games: './fixture_files/games_fixture.csv',
+        games: './data/little_games.csv',
         # games: './data/games.csv',
         teams: './data/teams.csv',
-        game_teams: './fixture_files/game_teams_fixture.csv'
+        # game_teams: './fixture_files/game_teams_fixture.csv'
+        game_teams: './data/little_game_teams.csv'
         # game_teams: './data/game_teams.csv'
       }
     @stat_tracker = StatTracker.from_csv(@locations)
@@ -107,9 +109,13 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Cincinnati", @stat_tracker.fewest_tackles("20152016")
   end
 
-  # def test_most_accurate_team
-    # assert_equal ,@stat_tracker.most_accurate_team("20152016")
-  # end
+  def test_most_accurate_team
+    assert_equal "New York City FC", @stat_tracker.most_accurate_team("20122013")
+  end
+
+  def test_least_accurate_team
+    assert_equal "Houston Dynamo", @stat_tracker.least_accurate_team("20132014")
+  end
 
 
 
