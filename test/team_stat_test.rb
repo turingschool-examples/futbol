@@ -1,0 +1,34 @@
+require 'csv'
+require_relative './test_helper'
+require './lib/team_stat.rb'
+require './lib/game_collection.rb'
+
+class TeamStatTest < Minitest::Test
+
+  def setup
+    team_games = "./test/fixtures/truncated_games.csv"
+    @game = TeamStat.new(team_games)
+  end
+
+  def test_it_exists
+    assert_instance_of TeamStat, @game
+  end
+
+  def test_it_initializes
+    assert_equal 2012030221, @game.game_collection.games_list[0].game_id
+    assert_equal "Postseason", @game.game_collection.games_list[9].game_type
+  end
+
+  # def test_highest_total_score
+  #   assert_equal 11, @game.highest_total_score
+  # end
+  #
+  # def test_lowest_total_score
+  #   assert_equal 0, @game.lowest_total_score
+  # end
+  #
+  # def test_biggest_blowout
+  #   assert_equal 8, @game.biggest_blowout
+  # end
+
+end
