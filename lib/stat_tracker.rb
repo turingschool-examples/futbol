@@ -226,10 +226,7 @@ class StatTracker
 
 def most_tackles(season)
   #works in one but not both years on big test
-  games = gtc.game_teams.find_all do |game|
-    game.game_id.to_s[0..3] == season[0..3]
-  end
-  most = games.max_by do |game|
+  most = games_in_season(season).max_by do |game|
     game.tackles
   end.team_id
   team_name_by_id(most)
@@ -237,15 +234,26 @@ end
 
 def fewest_tackles(season)
   #works in one but not both years on big test
+  min = games_in_season(season).min_by do |game|
+    game.tackles
+  end.team_id
+  team_name_by_id(min)
+end
+
+def most_accurate_team
   games = game_ids_in_season(season).flat_map do |id|
     gtc.game_teams.find_all do |game|
       id == game.game_id
     end
   end
-  min = games.min_by do |game|
-    game.tackles
-  end.team_id
-  team_name_by_id(min)
+
+# Name of the Team with the best ratio of shots
+# to goals for the season	String
+end
+
+def least_accurate_team
+# Name of the Team with the worst ratio of shots
+# to goals for the season
 end
 
 
@@ -395,6 +403,14 @@ end
     game_collection.games.find_all do |game|
       season == game.season
     end.map { |game| game.game_id.to_i }
+  end
+
+  def games_in_season(season)
+    game_ids_in_season(season).flat_map do |id|
+      gtc.game_teams.find_all do |game|
+        id == game.game_id
+      end
+    end
   end
 
   def games_by_team_by_season(season)
