@@ -107,6 +107,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Cincinnati", @stat_tracker.fewest_tackles("20152016")
   end
 
+  # def test_most_accurate_team
+    # assert_equal ,@stat_tracker.most_accurate_team("20152016")
+  # end
+
 
 
   ######  Move these tests somewhere else
@@ -214,6 +218,11 @@ class StatTrackerTest < Minitest::Test
   ### Seasonal Stats Below
   def test_it_knows_all_the_game_ids_in_a_given_season
     assert_equal [2012030221, 2012030121, 2012030311, 2012020701, 2012020587], @stat_tracker.game_ids_in_season("20122013")
+  end
+
+  def test_it_knows_the_games_in_a_season
+    assert_equal 10, @stat_tracker.games_in_season("20122013").length
+    assert_equal true, @stat_tracker.games_in_season("20122013").all?{ |item| item.class == GameTeams }
   end
 
   def test_it_knows_the_number_of_games_played_by_teams_in_a_season
