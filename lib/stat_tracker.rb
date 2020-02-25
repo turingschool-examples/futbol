@@ -207,4 +207,98 @@ class StatTracker
       results
     end
   end
+
+  def seasonal_win_percentage(team_id, season_type)
+    games = all_games_by_team_id(team_id)
+    total_wins = 0.0
+    total_losses = 0.0
+
+    season_type == :regular_season ? seasonal = "Regular Season" : seasonal = "Postseason"
+    games.each do |game|
+      next unless game.type == seasonal
+
+      if team_id == game.home_team_id
+        game.away_goals < game.home_goals ? total_wins += 1 : total_losses += 1
+      elsif team_id == game.away_team_id
+        game.home_goals < game.away_goals ? total_wins += 1 : total_losses += 1
+      end
+    end
+    (total_wins / total_losses).round(2)
+  end
+
+  def seasonal_total_goals_scored(team_id, season_type)
+    games = all_games_by_team_id(team_id)
+    total_goals = 0
+
+    season_type == :regular_season ? seasonal = "Regular Season" : seasonal = "Postseason"
+    games.each do |game|
+      next unless game.type == seasonal
+
+      if team_id == game.home_team_id
+        total_goals += game.home_goals
+      elsif team_id == game.away_team_id
+        total_goals += game.away_goals
+      end
+    end
+    total_goals
+  end
+
+  def seasonal_total_goals_against(team_id, season_type)
+    games = all_games_by_team_id(team_id)
+    total_goals = 0
+
+    season_type == :regular_season ? seasonal = "Regular Season" : seasonal = "Postseason"
+    games.each do |game|
+      next unless game.type == seasonal
+
+      if team_id == game.home_team_id
+        total_goals += game.away_goals
+      elsif team_id == game.away_team_id
+        total_goals += game.home_goals
+      end
+    end
+    total_goals
+  end
+
+  def seasonal_average_goals_scored(team_id, season_type)
+    games = all_games_by_team_id(team_id)
+    season_type == :regular_season ? seasonal = "Regular Season" : seasonal = "Postseason"
+    total_goals = seasonal_total_goals_scored(team_id, season_type)
+    total_games = games.select { |game| game.type == seasonal }.length
+    total_goals / total_games
+  end
+
+  def seasonal_average_goals_against(team_id, season_type)
+    games = all_games_by_team_id(team_id)
+    season_type == :regular_season ? seasonal = "Regular Season" : seasonal = "Postseason"
+    total_goals = seasonal_total_goals_against(team_id, season_type)
+    total_games = games.select { |game| game.type == seasonal }.length
+    total_goals / total_games
+  end
+
+  def seasonal_summary(team_id)
+    games = all_games_by_team_id(team_id)
+    seasonal_summary = Hash.new({})
+
+    games.each do |game|
+      unless seasonal_summary.key?(game.season)
+        seasonal_summary[game.season] = Hash.new({})
+
+        seasonal_summary[game.season][:regular_season] = Hash.new({})
+        seasonal_summary[:regular_season][:win_percentage] = seasonal_win_percentage(team_id, :regular_season)
+        seasonal_summary[:regular_season][:total_goals_scored] = seasonal_total_goals_scored(team_id, :regular_season)
+        seasonal_summary[:regular_season][:total_goals_against] = seasonal_total_goals_against(team_id, :regular_season)
+        seasonal_summary[:regular_season][:average_goals_scored] = seasonal_average_goals_scored(team_id, :regular_season)
+        seasonal_summary[:regular_season][:average_goals_against] = seasonal_average_goals_against(team_id, :regular_season)
+
+        seasonal_summary[game.season][:postseason] = Hash.new({})
+        seasonal_summary[:postseason][:win_percentage] = seasonal_win_percentage(team_id, :postseason)
+        seasonal_summary[:postseason][:total_goals_scored] = seasonal_total_goals_scored(team_id, :postseason)
+        seasonal_summary[:postseason][:total_goals_against] = seasonal_total_goals_against(team_id, :postseason)
+        seasonal_summary[:postseason][:average_goals_scored] = seasonal_average_goals_scored(team_id, :postseason)
+        seasonal_summary[:postseason][:average_goals_against] = seasonal_average_goals_against(team_id, :postseason)
+      end
+    end
+    seasonal_summary
+  end
 end

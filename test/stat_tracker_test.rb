@@ -191,4 +191,13 @@ class StatTrackerTest < Minitest::Test
     assert_equal 1.63, @stat_tracker.head_to_head(5)["DC United"]
     assert_equal 1.63, @stat_tracker.head_to_head(6)["DC United"]
   end
+
+  def test_it_can_get_seasonal_summary
+    expected1 = @stat_tracker.seasonal_summary(3)
+    assert_instance_of Hash, expected1
+    assert expected1[20122013].key?(:regular_season)
+    assert expected1[20122013].key?(:postseason)
+    require 'pry'; binding.pry
+
+  end
 end
