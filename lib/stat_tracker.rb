@@ -130,13 +130,18 @@ class StatTracker
   end
 
   def count_of_teams
-    # require 'pry'; binding.pry
-    # games_file_path = './data/games.csv'
-    # teams_file_path = './data/teams.csv'
-    # @team_collection = TeamCollection.new(teams_file_path)
-    # @game_collection = GameCollection.new(games_file_path)
-    @league_stat = LeagueStat.new(@teams_file, @games_file)
-    @league_stat.count_of_teams
+    league_stat = LeagueStat.new(@teams_file, @games_file)
+    league_stat.count_of_teams
+  end
+
+  def best_offense
+    league_stat = LeagueStat.new(@teams_file, @games_file)
+    league_stat.best_offense
+  end
+
+  def worst_offense
+    league_stat = LeagueStat.new(@teams_file, @games_file)
+    league_stat.worst_offense
   end
 
 end
