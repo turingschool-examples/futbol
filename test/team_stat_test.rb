@@ -19,9 +19,9 @@ class TeamStatTest < Minitest::Test
     assert_equal "Postseason", @game.game_collection.games_list[9].type
   end
 
-  # def test_highest_total_score
-  #   assert_equal 11, @game.highest_total_score
-  # end
+  def test_highest_total_score
+    assert_equal 8, @game.highest_total_score
+  end
   #
   # def test_lowest_total_score
   #   assert_equal 0, @game.lowest_total_score

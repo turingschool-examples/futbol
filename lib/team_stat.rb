@@ -12,7 +12,7 @@ class TeamStat
 
   end
 
-  def self.highest_total_score
+  def highest_total_score
       max_sum = 0
       @game_collection.games_list.each do |game|
         sum = game.away_goals.to_i + game.home_goals.to_i
@@ -23,7 +23,7 @@ class TeamStat
       max_sum
   end
 
-  def self.lowest_total_score
+  def lowest_total_score
   min_sum = 0
   @game_collection.games_list.each do |game|
     sum = game.away_goals.to_i + game.home_goals.to_i
@@ -34,7 +34,7 @@ class TeamStat
     min_sum
   end
 
-  def self.biggest_blowout
+  def biggest_blowout
   highest_difference = 0
   @game_collection.games_list.each do |game|
     difference = (game.away_goals.to_i - game.home_goals.to_i).abs
