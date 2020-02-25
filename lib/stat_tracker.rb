@@ -215,14 +215,14 @@ class StatTracker
 
   ###### Iteration 4 Methods - - - - - - - - - -- -- - - - - - -
 
-  def worst_coach(season)
-    averages = {}
-    wins_in_season(season).each do |team_id, wins|
-      avg = wins.to_f / games_by_team_by_season(season)[team_id]
-      averages[team_id] = avg
-    end
-    coach = head_coaches(season)[averages.key(averages.values.min)]
+def worst_coach(season)
+  averages = {}
+  wins_in_season(season).each do |team_id, wins|
+    avg = wins.to_f / games_by_team_by_season(season)[team_id]
+    averages[team_id] = avg
   end
+  coach = head_coaches(season)[averages.key(averages.values.min)]
+end
 
 def most_tackles(season)
   #works in one but not both years on big test
@@ -240,18 +240,24 @@ def fewest_tackles(season)
   team_name_by_id(min)
 end
 
-def most_accurate_team
-  games = game_ids_in_season(season).flat_map do |id|
-    gtc.game_teams.find_all do |game|
-      id == game.game_id
-    end
+def most_accurate_team(season)
+  games = games_in_season(season)
+  averages = games.reduce({}) do |avg, game|
+    avg[game.team_id] = (game.goals / game.shots.to_f)
+    avg
   end
-
+  team_name_by_id(averages.key(averages.values.max))
 # Name of the Team with the best ratio of shots
 # to goals for the season	String
 end
 
-def least_accurate_team
+def least_accurate_team(season)
+  games = games_in_season(season)
+  averages = games.reduce({}) do |avg, game|
+    avg[game.team_id] = (game.goals / game.shots.to_f)
+    avg
+  end
+  team_name_by_id(averages.key(averages.values.min))
 # Name of the Team with the worst ratio of shots
 # to goals for the season
 end
