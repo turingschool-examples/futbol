@@ -226,7 +226,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_find_season_wins
-    assert_equal ({}), @stat_tracker.find_season_wins(17, 20122013)
+    assert_equal 0.57, @stat_tracker.find_season_wins(17, 20122013)
   end
 
   def test_all_seasons
@@ -234,14 +234,14 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_find_win_average_in_season
-    assert_equal 20122013, @stat_tracker.find_win_average_in_seasons(17, 20122013)
+    assert_equal 20122013, @stat_tracker.find_win_average_in_seasons(17)
   end
 
   def test_best_season
-    assert_equal "TBD", @stat_tracker.best_season(6)
+    assert_equal 20122013, @stat_tracker.best_season(6)
   end
 
   def test_worst_season
-
+    assert_equal 20132014, @stat_tracker.worst_season(6)
   end
 end
