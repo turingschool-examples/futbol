@@ -46,6 +46,14 @@ class StatTrackerTest < Minitest::Test
     assert_equal 0.33, @stat_tracker.percentage_ties
   end
 
+  def test_it_can_return_a_count_of_games_per_season
+    expected = {
+      "20122013" => 5,
+      "20152016" => 4
+    }
+    assert_equal expected, @stat_tracker.count_of_games_by_season
+  end
+
   def test_it_can_show_the_worst_fans
     assert_equal [], @stat_tracker.worst_fans
   end
@@ -99,7 +107,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Cincinnati", @stat_tracker.fewest_tackles("20152016")
   end
 
-  
+
 
   ######  Move these tests somewhere else
 
