@@ -24,14 +24,12 @@ class StatTracker
   end
 
  def find_games(season, type)
-    season = season.to_i
     Game.all.select do |game_id, game_data|
       game_data.season == season && game_data.type == type
     end
   end
 
   def find_regular_season_teams(season)
-    season = season.to_i
     teams = []
     find_games(season, "Regular Season").select do |game_id, game_object|
         teams << game_object.home_team_id
@@ -41,7 +39,6 @@ class StatTracker
   end
 
   def find_post_season_teams(season)
-    season = season.to_i
     teams = []
     find_games(season, "Postseason").select do |game_id, game_object|
       teams << game_object.home_team_id
@@ -51,7 +48,6 @@ class StatTracker
   end
 
  def find_eligible_teams(season)
-    season = season.to_i
     eligible_teams = []
     find_regular_season_teams(season).each do |team_id|
       eligible_teams << team_id
@@ -63,21 +59,15 @@ class StatTracker
   end
 
   def win_percentage(season, team_id, type)
-    season = season.to_i
       team_games = find_games(season, type).select do |game_id, game_data|
         game_data.home_team_id == team_id || game_data.away_team_id == team_id
       end
       wins = 0
       team_games.each_value do |game_data|
         if team_id == game_data.home_team_id
-          if game_data.home_goals > game_data.away_goals
-            wins += 1
-          end
-        end
-        if team_id == game_data.away_team_id
-          if game_data.away_goals > game_data.home_goals
-            wins += 1
-          end
+          wins += 1 if game_data.home_goals > game_data.away_goals
+        elsif team_id == game_data.away_team_id
+          wins += 1 if game_data.away_goals > game_data.home_goals
         end
       end
       if team_games.count > 0
@@ -89,7 +79,6 @@ class StatTracker
   end
 
   def post_season_decline(season)
-    season = season.to_i
     teams = {}
     find_eligible_teams(season).each do |team_id|
       teams[team_id] = win_percentage(season, team_id, "Regular Season") - win_percentage(season, team_id, "Postseason")
@@ -104,7 +93,6 @@ class StatTracker
   end
 
   def post_season_improvement(season)
-    season = season.to_i
     teams = {}
     find_eligible_teams(season).each do |team_id|
       teams[team_id] = win_percentage(season, team_id, "Postseason") - win_percentage(season, team_id, "Regular Season")

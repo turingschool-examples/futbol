@@ -23,12 +23,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_exists
-    @locations = {
+    locations = {
                   games: "./test/fixtures/season_games_sample.csv",
                   game_teams: "./test/fixtures/game_teams_sample.csv",
                   teams: "./test/fixtures/teams_sample.csv"
                   }
-    @stat_tracker = StatTracker.from_csv(@locations)
+    stat_tracker = StatTracker.from_csv(locations)
 
     assert_instance_of StatTracker, StatTracker.new
   end
@@ -69,7 +69,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal 32, Team.all.count
   end
 
-  def test_it_can_find_regular_season_games
+  def test_it_can_find_games
     @locations = {
                   games: "./test/fixtures/season_games_sample.csv",
                   game_teams: "./test/fixtures/game_teams_sample.csv",
@@ -79,21 +79,11 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal 5, @stat_tracker.find_games(20122013, "Regular Season").count
     assert_equal 5, @stat_tracker.find_games(20142015, "Regular Season").count
-  end
-
-  def test_it_can_find_post_season_games
-    @locations = {
-                  games: "./test/fixtures/season_games_sample.csv",
-                  game_teams: "./test/fixtures/game_teams_sample.csv",
-                  teams: "./test/fixtures/teams_sample.csv"
-                  }
-    @stat_tracker = StatTracker.from_csv(@locations)
-
     assert_equal 5, @stat_tracker.find_games(20122013, "Postseason").count
     assert_equal 5, @stat_tracker.find_games(20142015, "Postseason").count
   end
 
-  def test_it_has_regular_season_teams
+  def test_it_finds_regular_season_teams
     @locations = {
                   games: "./test/fixtures/season_games_sample.csv",
                   game_teams: "./data/game_teams.csv",
@@ -102,6 +92,8 @@ class StatTrackerTest < Minitest::Test
     @stat_tracker = StatTracker.from_csv(@locations)
 
     assert_equal 9, @stat_tracker.find_regular_season_teams(20142015).count
+    assert_equal true, @stat_tracker.find_regular_season_teams(20142015).include?(26)
+    assert_equal false, @stat_tracker.find_regular_season_teams(20142015).include?(59)
   end
 
   def test_it_has_post_season_teams
@@ -117,7 +109,7 @@ class StatTrackerTest < Minitest::Test
 
 
 
-  def test_it_can_find_bust_eligible_teams
+  def test_it_can_find_eligible_teams
     @locations = {
                   games: "./data/games.csv",
                   game_teams: "./test/fixtures/game_teams_sample.csv",
@@ -127,7 +119,7 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal true, @stat_tracker.find_eligible_teams(20142015).include?(14)
     assert_equal true, @stat_tracker.find_eligible_teams(20142015).include?(5)
-  #  assert_equal true, @stat_tracker.find_bust_eligible_teams(20132014).include?(23)
+    assert_equal true, @stat_tracker.find_eligible_teams(20132014).include?(23)
   end
 
   def test_it_can_calculate_regular_season_win_percentage
