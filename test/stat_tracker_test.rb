@@ -90,6 +90,17 @@ class StatTrackerTest < Minitest::Test
     assert_equal 0.56, @stat_tracker.percentage_home_wins
   end
 
+  def test_team_with_most_tackles_in_a_season
+    assert_equal "FC Dallas", @stat_tracker.most_tackles("20122013")
+
+  end
+
+  def test_team_with_fewest_tackles_in_a_season
+    assert_equal "FC Cincinnati", @stat_tracker.fewest_tackles("20152016")
+  end
+
+  
+
   ######  Move these tests somewhere else
 
   def test_it_can_return_total_games_by_season
