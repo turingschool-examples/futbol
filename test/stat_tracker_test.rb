@@ -139,4 +139,16 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
   end
+
+  def test_it_returns_home_win_pct
+    assert_equal 0.44, @stat_tracker.percentage_home_wins
+  end
+
+  def test_it_returns_away_win_pct
+    assert_equal 0.36, @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_it_returns_tie_pct
+    assert_equal 0.2, @stat_tracker.percentage_ties
+  end
 end
