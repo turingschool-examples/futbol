@@ -205,6 +205,8 @@ class StatTracker
     team.teamname
   end
 
+  ###### Iteration 4 Methods - - - - - - - - - -- -- - - - - - -
+
   def worst_coach(season)
     averages = {}
     wins_in_season(season).each do |team_id, wins|
@@ -214,6 +216,29 @@ class StatTracker
     coach = head_coaches(season)[averages.key(averages.values.min)]
   end
 
+def most_tackles(season)
+  #works in one but not both years on big test
+  games = gtc.game_teams.find_all do |game|
+    game.game_id.to_s[0..3] == season[0..3]
+  end
+  most = games.max_by do |game|
+    game.tackles
+  end.team_id
+  team_name_by_id(most)
+end
+
+def fewest_tackles(season)
+  #works in one but not both years on big test
+  games = game_ids_in_season(season).flat_map do |id|
+    gtc.game_teams.find_all do |game|
+      id == game.game_id
+    end
+  end
+  min = games.min_by do |game|
+    game.tackles
+  end.team_id
+  team_name_by_id(min)
+end
 
 
 
