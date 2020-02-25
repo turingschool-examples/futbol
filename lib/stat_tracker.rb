@@ -1,11 +1,9 @@
 require 'csv'
-# require './lib/modules/calculable'
 require_relative 'game'
 require_relative 'game_team'
 require_relative 'team'
 
 class StatTracker
-  # include Calculable
 
   def initialize()
   end
@@ -26,54 +24,28 @@ class StatTracker
       CSV.foreach(file, csv_options) { |row| item_class.add(item_class.new(row.to_hash)) }
   end
 
-  def sort(class_object, function = "add")
-    total_scores = []
-    class_object.all.each_value do |value|
-      if function == "subtract"
-        total_scores << (value.home_goals - value.away_goals).abs
-      else
-        total_scores << value.home_goals + value.away_goals
-      end
-    end
-    total_scores.uniq.sort
-  end
-
   def highest_total_score
-    sort(Game).max
+    Game.sort.max
   end
 
   def lowest_total_score
-    sort(Game).min
+    Game.sort.min
   end
 
   def biggest_blowout
-    sort(Game, "subtract").max
-  end
-
-  def games_outcome_percent(outcome = nil)
-    games_count = 0.0
-    Game.all.each_value do |value|
-      if outcome == "away" && value.home_goals < value.away_goals
-        games_count += 1
-      elsif outcome == "home" && value.home_goals > value.away_goals
-        games_count += 1
-      elsif outcome == "draw" && value.home_goals == value.away_goals
-        games_count += 1
-      end
-    end
-    (games_count / Game.all.length).round(2)
+    Game.sort("subtract").max
   end
 
   def percentage_home_wins
-    games_outcome_percent("home")
+    Game.games_outcome_percent("home")
   end
 
   def percentage_visitor_wins
-    games_outcome_percent("away")
+    Game.games_outcome_percent("away")
   end
 
   def percentage_ties
-    games_outcome_percent("draw")
+    Game.games_outcome_percent("draw")
   end
 
   def count_of_games_by_season
@@ -88,7 +60,7 @@ class StatTracker
     Game.all.each_value do |game|
       total_goals_per_game << game.away_goals + game.home_goals.to_f
     end
-    (total_goals_per_game.sum.to_f / Game.all.length).round(2)
+    (total_goals_per_game.sum / Game.all.length).round(2)
   end
 
   def total_goals_per_season(season)
@@ -104,123 +76,86 @@ class StatTracker
   def average_goals_by_season
     Game.all.each_value.reduce(Hash.new(0)) do |goals_by_season, game|
       goals = total_goals_per_season(game.season)
-      games = games_in_season(game.season).length
+      games = Game.games_in_a_season(game.season).length
 
       goals_by_season[game.season.to_s] = (goals / games).round(2)
       goals_by_season
     end
   end
 
-  def games_in_season(season)
-    games_in_season = Game.all.values.reduce([]) do |acc, game|
-      if game.season == season
-        acc << game.game_id
-      end
-      acc
-    end
-    games_in_season
-  end
-
-  def return_tackles_team(acc, condition = "max")
+  def return_team_name(acc, condition = "max")
     if condition == "min"
-      tackles = acc.values.min
+      stat = acc.values.min
     else
-      tackles = acc.values.max
+      stat = acc.values.max
     end
 
-    team = acc.key(tackles)
+    team = acc.key(stat)
     Team.all[team].team_name
   end
 
   def most_tackles(season)
-    games_in_season = games_in_season(season)
+    games = Game.games_in_a_season(season)
+    gameteams = GameTeam.season_games(games)
 
-    tackles_by_team_by_season = GameTeam.all.values.reduce(Hash.new(0)) do |acc, game|
-      game.each_value do |team|
-        if games_in_season.include?(team.game_id)
-          acc[team.team_id] += team.tackles
-        end
+    tackles = Hash.new(0)
+    gameteams.each_value do |gameteam|
+      gameteam.each_value do |team|
+        tackles[team.team_id] += team.tackles
       end
-      acc
     end
-
-    return_tackles_team(tackles_by_team_by_season)
+    return_team_name(tackles)
   end
 
   def fewest_tackles(season)
-    games_in_season = games_in_season(season)
+    games = Game.games_in_a_season(season)
+    gameteams = GameTeam.season_games(games)
 
-    tackles_by_team_by_season = GameTeam.all.values.reduce(Hash.new(0)) do |acc, game|
-      game.each_value do |team|
-        if games_in_season.include?(team.game_id)
-          acc[team.team_id] += team.tackles
-        end
+    tackles = Hash.new(0)
+    gameteams.each_value do |gameteam|
+      gameteam.each_value do |team|
+        tackles[team.team_id] += team.tackles
       end
-      acc
     end
-
-    return_tackles_team(tackles_by_team_by_season, "min")
+    return_team_name(tackles, "min")
   end
 
-#   def total_goals_by_team_in_season(season, team_id)
-#     games_in_season = games_in_season(season)
-#
-#     team_goals = GameTeam.all.values.reduce(0) do |acc, game|
-#       game.each_value do |team|
-#         if games_in_season.include?(team.game_id) && team.team_id == team_id
-#           acc += team.goals
-#         end
-#       end
-#       acc
-#     end
-#     team_goals
-#   end
-#
-#   def total_shots_by_team_in_season(season, team_id)
-#     games_in_season = games_in_season(season)
-#
-#     team_shots = GameTeam.all.values.reduce(0) do |acc, game|
-#       game.each_value do |team|
-#         if games_in_season.include?(team.game_id) && team.team_id == team_id
-#           acc += team.shots
-#         end
-#       end
-#       acc
-#     end
-#     team_shots
-#   end
-#
-#   def most_accurate_team(season)
-#     games_in_season = games_in_season(season)
-#
-#     teams_accuracy = GameTeam.all.values.reduce(Hash.new(0)) do |acc, game|
-#       game.each_value do |team|
-#         shots = total_shots_by_team_in_season(season, team.team_id)
-#         goals = total_goals_by_team_in_season(season, team.team_id)
-#         acc[team.team_id] = (shots.to_f / goals).round(2)
-#       end
-#       acc
-#     end
-#
-#     most_accurate = teams_accuracy.values.max
-#     team = teams_accuracy.key(most_accurate)
-#     Team.all[team].team_name
-#   end
-#
-#   def least_accurate_team(season)
-#     games_in_season = games_in_season(season)
-#
-#     teams_accuracy = GameTeam.all.values.reduce(Hash.new(0)) do |acc, game|
-#       game.each_value do |team|
-#         shots = total_shots_by_team_in_season(season, team.team_id)
-#         goals = total_goals_by_team_in_season(season, team.team_id)
-#         acc[team.team_id] = (shots.to_f / goals).round(2)
-#       end
-#       acc
-#     end
-#
-#     least_accurate = teams_accuracy.values.min
-#     team = teams_accuracy.key(least_accurate)
-#     Team.all[team].team_name
-#   end
+  def most_accurate_team(season)
+    games = Game.games_in_a_season(season)
+    gameteams = GameTeam.season_games(games)
+
+    teams = Hash.new
+    gameteams.each_value do |gameteam|
+      gameteam.each_value do |team|
+        teams[team.team_id] = Hash.new(0) if !teams.has_key?(team.team_id)
+        teams[team.team_id][:shots] += team.shots
+        teams[team.team_id][:goals] += team.goals
+      end
+    end
+
+    accuracy = teams.transform_values do |team|
+      ((team[:goals] / team[:shots].to_f) * 100).round(2)
+    end
+    return_team_name(accuracy)
+  end
+
+  def least_accurate_team(season)
+    games = Game.games_in_a_season(season)
+    gameteams = GameTeam.season_games(games)
+
+    teams = Hash.new
+    gameteams.each_value do |gameteam|
+      gameteam.each_value do |team|
+        teams[team.team_id] = Hash.new(0) if !teams.has_key?(team.team_id)
+        teams[team.team_id][:shots] += team.shots
+        teams[team.team_id][:goals] += team.goals
+      end
+    end
+
+    accuracy = teams.transform_values do |team|
+      ((team[:goals] / team[:shots].to_f) * 100).round(2)
+    end
+    return_team_name(accuracy, "min")
+  end
+
 end
