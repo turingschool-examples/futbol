@@ -5,7 +5,7 @@ require "./lib/game"
 class GameTest < Minitest::Test
 
   def setup
-    StatTracker.create_items("./test/fixtures/games_sample.csv", Game)
+    StatTracker.create_items("./test/fixtures/season_games_sample.csv", Game)
     @game = Game.all
     @new_game = Game.new({
                           game_id: 2012030221,
@@ -42,7 +42,7 @@ class GameTest < Minitest::Test
 
   def test_it_can_add_game
     assert_instance_of Hash, Game.all
-    assert_equal 100, Game.all.length
+    assert_equal 20, Game.all.length
     assert_instance_of Game, Game.all[2012030221]
     assert_equal 2012030221, Game.all[2012030221].game_id
     assert_equal "5/16/13", Game.all[2012030221].date_time
@@ -59,7 +59,7 @@ class GameTest < Minitest::Test
 
   def test_it_loads_all_games_from_csv
     assert_equal 2012030221, Game.all[2012030221].game_id
-    assert_equal 2014030316, Game.all[2014030316].game_id
+    assert_equal 2014020201, Game.all[2014020201].game_id
   end
 
 end
