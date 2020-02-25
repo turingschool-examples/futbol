@@ -55,8 +55,4 @@ class GameCollection
     pct_of_total_games(:ties)
   end
 
-  def get_all_seasons
-    @games_list.map { |game| game.season }.uniq
-  end
-
 end

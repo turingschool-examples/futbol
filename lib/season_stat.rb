@@ -9,7 +9,11 @@ class SeasonStat
   def initialize(game_collection, team_collection)
     @game_collection = game_collection
     @team_collection = team_collection
-    @season_list = @game_collection.get_all_seasons
+    @season_list = get_all_seasons
+  end
+
+  def get_all_seasons
+    @game_collection.games_list.map { |game| game.season }.uniq
   end
 
   def count_of_season_games(season)

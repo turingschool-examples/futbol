@@ -50,6 +50,12 @@ class SeasonStatTest < Minitest::Test
     assert_instance_of SeasonStat, @season_stat
   end
 
+  def test_it_can_get_all_seasons
+    season_test_list = ["20122013", "20162017", "20142015", "20152016", "20132014"]
+
+    assert_equal season_test_list, @season_stat.get_all_seasons
+  end
+
   def test_it_can_get_season_games
     assert_instance_of Array, @season_stat.get_season_games("20122013")
     assert_equal 257, @season_stat.get_season_games("20122013").length
