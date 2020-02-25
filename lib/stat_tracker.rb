@@ -213,4 +213,21 @@ class StatTracker
     end
     @team_collection.where_id(tackles_by_team.key(tackles_by_team.values.min))
   end
+
+  def least_accurate_team(season)
+    shot_ratio_by_team = {}
+    @game_team_collection.all.each do |game|
+      if game.game_id.to_s.start_with?(season[0..3])
+        if shot_ratio_by_team.has_key?(game.team_id)
+          shot_ratio_by_team[game.team_id] << game.shots/game.goals.to_f.round(2)
+        else
+          shot_ratio_by_team[game.team_id] = [game.shots/game.goals.to_f.round(2)]
+        end
+      end
+    end
+    shot_ratio_by_team.transform_values! do |array|
+      array.sum/array.length
+    end
+    @team_collection.where_id(shot_ratio_by_team.key(shot_ratio_by_team.values.min))
+  end
 end
