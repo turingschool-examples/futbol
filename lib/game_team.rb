@@ -14,6 +14,12 @@ class GameTeam
     @@game_teams = value
   end
 
+  def self.season_games(games)
+    GameTeam.all.select do |game_id, gameteam|
+      games.keys.include?(game_id)
+    end
+  end
+
   attr_reader :game_id,
               :team_id,
               :hoa,
