@@ -43,7 +43,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_sort_module
-    assert_equal [1,2,3,4,5,6,7,8], Game.sort(Game)
+    assert_equal [1,2,3,4,5,6,7,8], Game.find_all_scores(Game)
   end
 
   def test_highest_total_score

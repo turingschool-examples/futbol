@@ -25,15 +25,15 @@ class StatTracker
   end
 
   def highest_total_score
-    Game.sort.max
+    Game.find_all_scores.max
   end
 
   def lowest_total_score
-    Game.sort.min
+    Game.find_all_scores.min
   end
 
   def biggest_blowout
-    Game.sort("subtract").max
+    Game.find_all_scores("subtract").max
   end
 
   def percentage_home_wins
