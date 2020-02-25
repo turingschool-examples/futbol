@@ -24,4 +24,9 @@ class GameCollectionTest < Minitest::Test
     assert_equal 5, @game_collection.highest_total_score
     #harness pass
   end
+
+  def test_it_can_return_lowest_score
+    assert_equal 3, @game_collection.lowest_total_score
+    #harness pass
+  end
 end
