@@ -95,52 +95,64 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_find_the_winningest_coach_by_season #I need a better data pool for this
     assert_equal "Bruce Boudreau", @stat_tracker_average.winningest_coach("20122013")
-    game_1_info = {
-                    game_id: "2012030221", season: "20122013", type: "Postseason",
-                    date_time: "5/16/13", away_team_id: "3", home_team_id: "6", away_goals: "2",
-                    home_goals: "3", venue: "Toyota Stadium", venue_link: "/api/v1/venues/null"
-                  }
-    game_2_info = {
-                    game_id: "2012030222", season: "20122013", type: "Postseason",
-                    date_time: "5/16/13", away_team_id: "6", home_team_id: "3", away_goals: "2",
-                    home_goals: "3", venue: "Toyota Stadium", venue_link: "/api/v1/venues/null"
-                  }
-    game_team_1_info =  {
-                        game_id: "2012030221",team_id: "3",
-                        hoa: "away",result: "LOSS",settled_in: "OT",
-                        head_coach: "John Tortorella",goals: "2",shots: "8",
-                        tackles: "44",pim: "8",powerplayopportunities: "3",
-                        powerplaygoals: "0",faceoffwinpercentage: "44.8",
-                        giveaways: "17",takeaways: "7"
-                        }
-    game_team_2_info = {
-                        game_id: "2012030221",team_id: "6",
-                        hoa: "away",result: "WIN",settled_in: "OT",
-                        head_coach: "John Tortorella",goals: "2",shots: "8",
-                        tackles: "44",pim: "8",powerplayopportunities: "3",
-                        powerplaygoals: "0",faceoffwinpercentage: "44.8",
-                        giveaways: "17",takeaways: "7"
-                        }
-    game_team_3_info = {
-                        game_id: "2012030222",team_id: "6",
-                        hoa: "away",result: "WIN",settled_in: "OT",
-                        head_coach: "John Tortorella",goals: "2",shots: "8",
-                        tackles: "44",pim: "8",powerplayopportunities: "3",
-                        powerplaygoals: "0",faceoffwinpercentage: "44.8",
-                        giveaways: "17",takeaways: "7"
-                        }
-    game_team_4_info = {
-                        game_id: "2012030222",team_id: "3",
-                        hoa: "away",result: "LOSS",settled_in: "OT",
-                        head_coach: "John Tortorella",goals: "2",shots: "8",
-                        tackles: "44",pim: "8",powerplayopportunities: "3",
-                        powerplaygoals: "0",faceoffwinpercentage: "44.8",
-                        giveaways: "17",takeaways: "7"
-                        }
-    @game_collection.stubs(:all).returns([])
+    # game_1_info = {
+    #                 game_id: "2012030221", season: "20122013", type: "Postseason",
+    #                 date_time: "5/16/13", away_team_id: "3", home_team_id: "6", away_goals: "2",
+    #                 home_goals: "3", venue: "Toyota Stadium", venue_link: "/api/v1/venues/null"
+    #               }
+    # game_2_info = {
+    #                 game_id: "2012030222", season: "20122013", type: "Postseason",
+    #                 date_time: "5/16/13", away_team_id: "6", home_team_id: "3", away_goals: "2",
+    #                 home_goals: "3", venue: "Toyota Stadium", venue_link: "/api/v1/venues/null"
+    #               }
+    # game_team_1_info =  {
+    #                     game_id: "2012030221",team_id: "3",
+    #                     hoa: "away",result: "LOSS",settled_in: "OT",
+    #                     head_coach: "John Tortorella",goals: "2",shots: "8",
+    #                     tackles: "44",pim: "8",powerplayopportunities: "3",
+    #                     powerplaygoals: "0",faceoffwinpercentage: "44.8",
+    #                     giveaways: "17",takeaways: "7"
+    #                     }
+    # game_team_2_info = {
+    #                     game_id: "2012030221",team_id: "6",
+    #                     hoa: "away",result: "WIN",settled_in: "OT",
+    #                     head_coach: "John Tortorella",goals: "2",shots: "8",
+    #                     tackles: "44",pim: "8",powerplayopportunities: "3",
+    #                     powerplaygoals: "0",faceoffwinpercentage: "44.8",
+    #                     giveaways: "17",takeaways: "7"
+    #                     }
+    # game_team_3_info = {
+    #                     game_id: "2012030222",team_id: "6",
+    #                     hoa: "away",result: "WIN",settled_in: "OT",
+    #                     head_coach: "John Tortorella",goals: "2",shots: "8",
+    #                     tackles: "44",pim: "8",powerplayopportunities: "3",
+    #                     powerplaygoals: "0",faceoffwinpercentage: "44.8",
+    #                     giveaways: "17",takeaways: "7"
+    #                     }
+    # game_team_4_info = {
+    #                     game_id: "2012030222",team_id: "3",
+    #                     hoa: "away",result: "LOSS",settled_in: "OT",
+    #                     head_coach: "John Tortorella",goals: "2",shots: "8",
+    #                     tackles: "44",pim: "8",powerplayopportunities: "3",
+    #                     powerplaygoals: "0",faceoffwinpercentage: "44.8",
+    #                     giveaways: "17",takeaways: "7"
+    #                     }
+    # game1 = Game.new(game_1_info)
+    # game2 = Game.new(game_2_info)
+    # game_team1_1 = GameTeam.new(game_team_1_info)
+    # game_team1_2 = GameTeam.new(game_team_2_info)
+    # game_team2_1 = GameTeam.new(game_team_3_info)
+    # game_team2_2 = GameTeam.new(game_team_4_info)
+    #
+    # # @game_collection.stubs(:games).returns([game1, game2])
+    # # @game_team_collection.stubs(:games_by_team).returns([game_team1_1, game_team1_2,
+    #                                                      # game_team2_1, game_team2_2])
+
+
   end
 
   def test_it_can_find_the_worst_coach_by_season
-    assert_equal "TBD", @stat_tracker_average.worst_coach("20122013")  #Ileft this a TBD for now. i need a new fixture file.
+    
+    assert_equal "TBD", @stat_tracker.worst_coach("20122013")  #Ileft this a TBD for now. i need a new fixture file.
   end
 end
