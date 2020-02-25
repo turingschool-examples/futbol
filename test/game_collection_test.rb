@@ -45,18 +45,4 @@ class GameCollectionTest < Minitest::Test
     assert_equal "20132014", game2.season
     assert_equal "Postseason", game2.type
   end
-
-  def test_count_of_games_season
-    expected_hash = {"20122013" => 5, "20172018" => 2, "20162017" => 1, "20152016" => 1, "20132014" => 1 }
-    assert_equal expected_hash, @game_collection.count_of_games_by_season
-  end
-
-  def test_average_goals_per_game
-    assert_equal 4.7, @game_collection.average_goals_per_game
-  end
-
-  def test_average_goals_by_season
-    expected_hash = {"20122013" => 4.4, "20172018" => 4, "20162017" => 5, "20152016" => 7, "20132014" => 5 }
-    assert_equal expected_hash, @game_collection.average_goals_per_season
-  end
 end

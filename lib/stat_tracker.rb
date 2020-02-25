@@ -51,18 +51,21 @@ class StatTracker
     (ties.to_f / @games.length).round(2)
   end
 
-  def count_of_games_by_season(season)
-    game_collection.games.length == season
+  def count_of_games_by_season
+    @games.reduce(Hash.new(0)) do |acc, game|
+      acc[game.season] += 1
+      acc
+    end
   end
 
   def average_goals_per_game
-    total_goals = game_collection.games.map { |game| game.total_score }
-    (total_goals.sum.to_f / game_collection.games.length).round(2)
+    (@games.map {|game| game.total_score}.sum / @games.length.to_f).round(2)
   end
 
-  def average_goals_by_season(season)
-    game_count = game_collection.games.length == season
-    (game_count.to_f / game_collection.games.length).round(2)
+  def average_goals_per_season
+    @games.reduce(Hash.new(0)) do |acc, game|
+      acc[game.season] += (game.total_goals / count_of_games_by_season[game.season].to_f).round(2)
+      acc
+    end
   end
-
 end
