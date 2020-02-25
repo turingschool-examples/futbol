@@ -16,6 +16,9 @@ class StatTracker
     @game_collection = GameCollection.new(games_file)
     @game_team_collection = GameTeamCollection.new(game_teams_file)
     @team_collection = TeamCollection.new(teams_file)
+    @season = SeasonStat.new(@game_collection, @team_collection, @game_team_collection)
+    @season.get_all_seasons
+    @season.season_games_by_all_seasons
   end
 
   def self.from_csv(locations_params)
@@ -82,8 +85,7 @@ class StatTracker
   end
 
   def count_of_games_by_season
-    season = SeasonStat.new(@game_collection, @team_collection)
-    season.count_of_games_by_season
+    @season.count_of_games_by_season
   end
 
   def average_goals_per_game
@@ -92,18 +94,15 @@ class StatTracker
   end
 
   def average_goals_by_season
-    season = SeasonStat.new(@game_collection, @team_collection)
-    season.average_goals_by_season
+    @season.average_goals_by_season
   end
 
   def biggest_bust(season_param)
-    season = SeasonStat.new(@game_collection, @team_collection)
-    season.biggest_bust(season_param)
+    @season.biggest_bust(season_param)
   end
 
   def biggest_surprise(season_param)
-    season = SeasonStat.new(@game_collection, @team_collection)
-    season.biggest_surprise(season_param)
+    @season.biggest_surprise(season_param)
   end
 
   def winningest_coach(season_param)

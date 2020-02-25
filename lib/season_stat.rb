@@ -6,9 +6,10 @@ require_relative './modules/helper_methods'
 class SeasonStat
   include Helperable
 
-  def initialize(game_collection, team_collection)
+  def initialize(game_collection, team_collection, game_team_collection)
     @game_collection = game_collection
     @team_collection = team_collection
+    @game_team_collection = game_team_collection
     @season_list = []
     @games_by_season = {}
     @game_teams_by_season = {}
