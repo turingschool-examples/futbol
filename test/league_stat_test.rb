@@ -6,11 +6,9 @@ require './lib/game_collection'
 class LeagueStatClass < Minitest::Test
 
   def setup
-    games_file_path = './test/fixtures/truncated_games.csv'
     teams_file_path = './data/teams.csv'
-    @team_collection = TeamCollection.new(teams_file_path)
-    @game_collection = GameCollection.new(games_file_path)
-    @league_stat = LeagueStat.new(@team_collection.teams_list, @game_collection.games_list)
+    games_file_path = './data/games.csv'
+    @league_stat = LeagueStat.new(teams_file_path, games_file_path)
   end
 
   def test_it_exists
@@ -41,6 +39,7 @@ class LeagueStatClass < Minitest::Test
     )
     @league_stat.game_stats_away(test_game)
     expected = {
+      total_games: 1,
       away_goals: 3,
       away_goals_allowed: 2,
       away_wins: 1,
@@ -58,6 +57,7 @@ class LeagueStatClass < Minitest::Test
     )
     @league_stat.game_stats_home(test_game)
     expected = {
+      total_games: 1,
       home_goals: 2,
       home_goals_allowed: 3,
       home_losses: 1,
@@ -75,11 +75,13 @@ class LeagueStatClass < Minitest::Test
     )
     @league_stat.create_league_stats([test_game])
     expected_away = {
+      total_games: 1,
       away_goals: 3,
       away_goals_allowed: 2,
       away_wins: 1,
     }
     expected_home = {
+      total_games: 1,
       home_goals: 2,
       home_goals_allowed: 3,
       home_losses: 1,
@@ -91,6 +93,14 @@ class LeagueStatClass < Minitest::Test
 
   def test_it_returns_count_of_teams
     assert_equal 32, @league_stat.count_of_teams
+  end
+
+  def test_it_returns_best_offense
+    assert_equal "Reign FC", @league_stat.best_offense
+  end
+
+  def test_it_returns_worst_offense
+    assert_equal "Utah Royals FC", @league_stat.worst_offense
   end
 
 end
