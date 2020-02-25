@@ -11,7 +11,9 @@ class SeasonStatTest < Minitest::Test
   def setup
     team_file_path = './data/teams.csv'
     game_file_path = './test/fixtures/truncated_games.csv'
-    @season_stat = SeasonStat.new(game_file_path, team_file_path)
+    @game_collection = GameCollection.new(game_file_path)
+    @team_collection = TeamCollection.new(team_file_path)
+    @season_stat = SeasonStat.new(@game_collection, @team_collection)
 
     @team_info = {
 
@@ -46,6 +48,12 @@ class SeasonStatTest < Minitest::Test
 
   def test_it_exists
     assert_instance_of SeasonStat, @season_stat
+  end
+
+  def test_it_can_get_all_seasons
+    season_test_list = ["20122013", "20162017", "20142015", "20152016", "20132014"]
+
+    assert_equal season_test_list, @season_stat.get_all_seasons
   end
 
   def test_it_can_get_season_games

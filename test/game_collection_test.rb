@@ -30,17 +30,17 @@ class GameCollectionClass < Minitest::Test
 
   def test_it_returns_home_win_pct
     @game_collection.create_pct_data
-    assert_equal 49.83, @game_collection.pct_of_total_games(:home_wins)
+    assert_equal 0.5, @game_collection.percentage_home_wins
   end
 
   def test_it_returns_away_win_pct
     @game_collection.create_pct_data
-    assert_equal 34.45, @game_collection.pct_of_total_games(:away_wins)
+    assert_equal 0.34, @game_collection.percentage_visitor_wins
   end
 
   def test_it_returns_tie_pct
     @game_collection.create_pct_data
-    assert_equal 15.72, @game_collection.pct_of_total_games(:ties)
+    assert_equal 0.16, @game_collection.percentage_ties
   end
 
   def test_it_can_calculate_average_goals_per_game

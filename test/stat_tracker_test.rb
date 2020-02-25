@@ -21,9 +21,9 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal './data/games.csv', @stat_tracker.games_file
-    assert_equal './data/teams.csv', @stat_tracker.teams_file
-    assert_equal './data/game_teams.csv', @stat_tracker.game_teams_file
+    assert_instance_of GameTeamCollection, @stat_tracker.game_team_collection
+    assert_instance_of TeamCollection, @stat_tracker.team_collection
+    assert_instance_of GameCollection, @stat_tracker.game_collection
   end
 
   def test_it_can_return_team_info
@@ -138,5 +138,17 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_find_team_with_fewest_tackles
     assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
+  end
+
+  def test_it_returns_home_win_pct
+    assert_equal 0.44, @stat_tracker.percentage_home_wins
+  end
+
+  def test_it_returns_away_win_pct
+    assert_equal 0.36, @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_it_returns_tie_pct
+    assert_equal 0.2, @stat_tracker.percentage_ties
   end
 end

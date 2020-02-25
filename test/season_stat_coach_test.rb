@@ -7,7 +7,8 @@ require './lib/season_stat_coach'
 class SeasonStatCoachTest < Minitest::Test
   def setup
     game_team_file_path = './test/fixtures/truncated_game_teams.csv'
-    @season_stat_coach = SeasonStatCoach.new(game_team_file_path)
+    @game_team_collection = GameTeamCollection.new(game_team_file_path)
+    @season_stat_coach = SeasonStatCoach.new(@game_team_collection)
   end
 
   def test_it_exists

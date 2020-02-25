@@ -10,7 +10,9 @@ class SeasonStatTeamTest < Minitest::Test
   def setup
     team_file_path = './data/teams.csv'
     game_team_file_path = './test/fixtures/truncated_game_teams.csv'
-    @season_stat_team = SeasonStatTeam.new(game_team_file_path, team_file_path)
+    @team_collection = TeamCollection.new(team_file_path)
+    @game_team_collection = GameTeamCollection.new(game_team_file_path)
+    @season_stat_team = SeasonStatTeam.new(@game_team_collection, @team_collection)
   end
 
   def test_it_exists
