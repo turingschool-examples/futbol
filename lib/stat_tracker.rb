@@ -1,5 +1,6 @@
 require_relative './modules/game_statistics'
 require_relative './modules/league_statistics'
+require_relative './modules/season_statistics'
 require_relative 'game_team'
 require_relative 'game'
 require_relative 'team'
@@ -7,6 +8,7 @@ require_relative 'team'
 class StatTracker
   include GameStatistics
   include LeagueStatistics
+  include SeasonStatistcs
 
   def self.from_csv(locations)
     game_path = locations[:games]
