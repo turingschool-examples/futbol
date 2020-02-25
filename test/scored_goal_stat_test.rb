@@ -1,5 +1,8 @@
 require_relative 'test_helper'
 require './lib/scored_goal_stat'
+require './lib/team_collection'
+require './lib/game_team_collection'
+require './lib/game_collection'
 
 class ScoredGoalStatTest < Minitest::Test
 
@@ -7,7 +10,10 @@ class ScoredGoalStatTest < Minitest::Test
     team_file_path = './data/teams.csv'
     game_team_file_path = './test/fixtures/truncated_game_teams.csv'
     game_file_path = './test/fixtures/truncated_games.csv'
-    @scored_goal_stat = ScoredGoalStat.new(team_file_path, game_team_file_path, game_file_path)
+    @team_collection = TeamCollection.new(team_file_path)
+    @game_team_collection = GameTeamCollection.new(game_team_file_path)
+    @game_collection = GameCollection.new(game_file_path)
+    @scored_goal_stat = ScoredGoalStat.new(@team_collection, @game_team_collection, @game_collection)
   end
 
   def test_it_exists
@@ -70,93 +76,25 @@ class ScoredGoalStatTest < Minitest::Test
     assert_equal ["2012020714", "2012020128"], @scored_goal_stat.create_list_opponent_games("3", false)["1"]
   end
 
-  def test_it_can_return_head_to_head_results
-    assert_instance_of Hash, @scored_goal_stat.head_to_head("3")
-    assert_equal 12, @scored_goal_stat.head_to_head("3").length
-    expected = ["Atlanta United", "Utah Royals FC", "Sporting Kansas City", "Portland Timbers", "DC United", "Portland Thorns FC", "New York City FC", "North Carolina Courage", "New York Red Bulls", "Chicago Fire", "Seattle Sounders FC", "FC Dallas"]
-    assert_equal expected, @scored_goal_stat.head_to_head("3").keys
-    assert_equal 0.5, @scored_goal_stat.head_to_head("3")["Atlanta United"]
-  end
-
-  def test_it_can_list_opponent_games
-    assert_instance_of Hash, @scored_goal_stat.list_opponent_games("3")
-    assert_equal 12, @scored_goal_stat.list_opponent_games("3").length
-    assert_equal ["2012020495"], @scored_goal_stat.list_opponent_games("3")["9"]
-  end
-
-  def test_it_can_list_won_team_games
-    assert_instance_of Hash, @scored_goal_stat.list_given_team_won_games("3")
-    assert_equal 5, @scored_goal_stat.list_given_team_won_games("3").length
-    assert_equal ["2012020655"], @scored_goal_stat.list_given_team_won_games("3")["7"]
-  end
-
-  def test_it_can_creat_list_of_opponent_game_id
-    assert_instance_of Hash, @scored_goal_stat.create_opponent_game_id_list("3", true)
-    assert_equal 5, @scored_goal_stat.create_opponent_game_id_list("3", true).length
-    assert_equal ["2012030136", "2012030137"], @scored_goal_stat.create_opponent_game_id_list("3", true)["15"]
-    assert_equal 12, @scored_goal_stat.create_opponent_game_id_list("3", false).length
-    assert_equal ["2012020714", "2012020128"], @scored_goal_stat.create_opponent_game_id_list("3", false)["1"]
-  end
-
   def test_it_can_return_total_opponent_games
-    opponents = {"52"=>["2012020396"], "9"=>["2012020495"], "1"=>["2012020714", "2012020128"],
-                 "10"=>["2012020592"], "7"=>["2012020655", "2012020317"], "8"=>["2012020512"]}
-
-    assert_instance_of Hash, @scored_goal_stat.total_opponent_games("3", opponents)
-    assert_equal [1, 1, 2, 1, 2, 1], @scored_goal_stat.total_opponent_games("3", opponents).values
-    assert_equal 1, @scored_goal_stat.total_opponent_games("3", opponents)["8"]
-    assert_equal 2, @scored_goal_stat.total_opponent_games("3", opponents)["7"]
+    assert_instance_of Hash, @scored_goal_stat.total_opponent_games("3")
+    assert_equal [1, 1, 2, 1, 2, 1, 11, 2, 1, 5, 7, 5], @scored_goal_stat.total_opponent_games("3").values
+    assert_equal 11, @scored_goal_stat.total_opponent_games("3")["5"]
+    assert_equal 2, @scored_goal_stat.total_opponent_games("3")["7"]
   end
 
   def test_it_can_return_total_team_losses
-    teams =  {"1"=>["2012020714"], "7"=>["2012020655"],
-              "5"=>["2012020538", "2014030131", "2014030132", "2014030133", "2014030134", "2014030135"],
-              "15"=>["2012030136", "2012030137"], "14"=>["2014030311", "2014030314"]}
-
-    assert_instance_of Hash, @scored_goal_stat.total_given_team_losses("3", teams)
-    assert_equal 5, @scored_goal_stat.total_given_team_losses("3", teams).length
-    assert_equal ["1", "7", "5", "15", "14"], @scored_goal_stat.total_given_team_losses("3", teams).keys
-    assert_equal 2, @scored_goal_stat.total_given_team_losses("3", teams)["14"]
-    assert_equal 6, @scored_goal_stat.total_given_team_losses("3", teams)["5"]
+    assert_instance_of Hash, @scored_goal_stat.total_given_team_losses("3")
+    assert_equal 9, @scored_goal_stat.total_given_team_losses("3").length
+    assert_equal ["52", "9", "1", "8", "4", "6", "15", "5", "14"], @scored_goal_stat.total_given_team_losses("3").keys
+    assert_equal 1, @scored_goal_stat.total_given_team_losses("3")["4"]
+    assert_equal 1, @scored_goal_stat.total_given_team_losses("3")["52"]
   end
 
   def test_it_can_return_average_opponent_games
-    teams =  {"1"=>["2012020714"], "7"=>["2012020655"],
-              "5"=>["2012020538", "2014030131", "2014030132", "2014030133", "2014030134", "2014030135"],
-              "15"=>["2012030136", "2012030137"], "14"=>["2014030311", "2014030314"]}
-    opponents = {"52"=>["2012020396"], "9"=>["2012020495"], "1"=>["2012020714", "2012020128"],
-                 "10"=>["2012020592"], "7"=>["2012020655", "2012020317"], "8"=>["2012020512"]}
-
-    assert_instance_of Hash, @scored_goal_stat.average_opponent_games("3", teams, opponents)
-    assert_equal 2, @scored_goal_stat.average_opponent_games("3", teams, opponents)["15"]
-    assert_equal 1, @scored_goal_stat.average_opponent_games("3", teams, opponents)["8"]
-  end
-
-  def test_it_can_return_head_to_head_average
-    teams =  {"1"=>["2012020714"], "7"=>["2012020655"],
-              "5"=>["2012020538", "2014030131", "2014030132", "2014030133", "2014030134", "2014030135"],
-              "15"=>["2012030136", "2012030137"], "14"=>["2014030311", "2014030314"]}
-    opponents = {"52"=>["2012020396"], "9"=>["2012020495"], "1"=>["2012020714", "2012020128"],
-                 "10"=>["2012020592"], "7"=>["2012020655", "2012020317"], "8"=>["2012020512"]}
-    assert_instance_of Hash, @scored_goal_stat.average_opponent_games_head_to_head("3", teams, opponents)
-
-    expected = {"1"=>0.5, "7"=>0.5, "5"=>6, "15"=>2, "14"=>2, "52"=>1, "9"=>1, "10"=>1, "8"=>1}
-
-    assert_equal expected, @scored_goal_stat.average_opponent_games_head_to_head("3", teams, opponents)
-    assert_equal 9, @scored_goal_stat.average_opponent_games_head_to_head("3", teams, opponents).length
-    assert_equal 2, @scored_goal_stat.average_opponent_games_head_to_head("3", teams, opponents)["14"]
-  end
-
-  def test_it_can_convert_id_to_name
-    teams =  {"1"=>["2012020714"], "7"=>["2012020655"],
-              "5"=>["2012020538", "2014030131", "2014030132", "2014030133", "2014030134", "2014030135"],
-              "15"=>["2012030136", "2012030137"], "14"=>["2014030311", "2014030314"]}
-    opponents = {"52"=>["2012020396"], "9"=>["2012020495"], "1"=>["2012020714", "2012020128"],
-                 "10"=>["2012020592"], "7"=>["2012020655", "2012020317"], "8"=>["2012020512"]}
-
-    assert_instance_of Hash, @scored_goal_stat.convert_id_to_name("3", teams, opponents)
-    assert_equal 6, @scored_goal_stat.convert_id_to_name("3", teams, opponents)["Sporting Kansas City"]
-    assert_equal 9, @scored_goal_stat.convert_id_to_name("3", teams, opponents).length
+    assert_instance_of Hash, @scored_goal_stat.average_opponent_games("3")
+    assert_equal 71.42857142857143, @scored_goal_stat.average_opponent_games("3")["15"]
+    assert_equal 100.0, @scored_goal_stat.average_opponent_games("3")["8"]
   end
 
   def test_it_can_retrieve_team_name

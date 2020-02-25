@@ -4,10 +4,10 @@ require_relative 'game_collection'
 
 class ScoredGoalStat
 
-  def initialize(team_file_path, game_team_file_path, game_file_path)
-    @team_collection = TeamCollection.new(team_file_path)
-    @game_team_collection = GameTeamCollection.new(game_team_file_path)
-    @game_collection = GameCollection.new(game_file_path)
+  def initialize(team_collection, game_team_collection, game_collection)
+    @team_collection = team_collection
+    @game_team_collection = game_team_collection
+    @game_collection = game_collection
   end
 
   def most_goals_scored(team_id)

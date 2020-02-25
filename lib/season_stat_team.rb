@@ -4,9 +4,9 @@ require_relative 'team_collection'
 
 class SeasonStatTeam
 
-  def initialize(game_team_file_path, team_file_path)
-    @game_team_collection = GameTeamCollection.new(game_team_file_path)
-    @team_collection = TeamCollection.new(team_file_path)
+  def initialize(game_team_collection, team_collection)
+    @game_team_collection =game_team_collection
+    @team_collection = team_collection
   end
 
   def get_season_game_teams(season)
