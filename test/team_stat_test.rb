@@ -22,10 +22,10 @@ class TeamStatTest < Minitest::Test
   def test_highest_total_score
     assert_equal 8, @game.highest_total_score
   end
-  #
-  # def test_lowest_total_score
-  #   assert_equal 0, @game.lowest_total_score
-  # end
+
+  def test_lowest_total_score
+    assert_equal 0, @game.lowest_total_score
+  end
   #
   # def test_biggest_blowout
   #   assert_equal 8, @game.biggest_blowout
