@@ -25,4 +25,5 @@ class GameCollection
   def average_goals_per_game
     (@games.map {|game| game.total_score}.sum / @games.length.to_f).round(2)
   end
+  
 end

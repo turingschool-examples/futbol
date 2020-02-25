@@ -44,6 +44,7 @@ class GameCollectionTest < Minitest::Test
     assert_equal 0, game2.id
     assert_equal "20132014", game2.season
     assert_equal "Postseason", game2.type
+    
   end
 
   def test_count_of_games_season
