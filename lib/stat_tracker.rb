@@ -73,6 +73,14 @@ class StatTracker
     (ties / game_collection.games.length.to_f).round(2)
   end
 
+  def count_of_games_by_season
+    games_per_season = Hash.new(0)
+    game_collection.games.each do |game|
+      games_per_season[game.season] += 1
+    end
+    games_per_season
+  end
+
   def average_goals_per_game
     total_goals_per_game = game_collection.games.map do |game|
       game.home_goals + game.away_goals
@@ -96,6 +104,34 @@ class StatTracker
   ## Iteration 3 # - - - - - - - - - - - - - - - - - - - - -
   def count_of_teams
     @team_collection.teams.length
+  end
+
+  def best_offense
+    game_teams_grouped_by_team_id = @gtc.game_teams.group_by do |game_team|
+      game_team.team_id
+    end
+    x = game_teams_grouped_by_team_id.each_pair do |team_id, games_by_team|
+      total_goals = games_by_team.map do |single_game|
+        single_game.goals
+      end
+      game_team_averages = (total_goals.sum.to_f / total_goals.length).round(2)
+      (game_teams_grouped_by_team_id[team_id] = game_team_averages)
+    end
+    team_name_by_id(x.key(x.values.max))
+  end
+
+  def worst_offense
+    game_teams_grouped_by_team_id = @gtc.game_teams.group_by do |game_team|
+      game_team.team_id
+    end
+    x = game_teams_grouped_by_team_id.each_pair do |team_id, games_by_team|
+      total_goals = games_by_team.map do |single_game|
+        single_game.goals
+      end
+      game_team_averages = (total_goals.sum.to_f / total_goals.length).round(2)
+      (game_teams_grouped_by_team_id[team_id] = game_team_averages)
+    end
+    team_name_by_id(x.key(x.values.min))
   end
 
   def best_defense
@@ -137,6 +173,26 @@ class StatTracker
     team_name_by_id(home_goals_per_game.key(home_goals_per_game.values.min))
   end
 
+  def winningest_team
+    total_games_by_team
+    total_wins_by_team
+    winning_percentages = total_games_by_team.merge(total_games_by_team) do |team_id, total_games|
+      total_wins_by_team[team_id] / total_games.to_f
+    end
+    team_name_by_id(winning_percentages.key(winning_percentages.values.max))
+  end
+
+  def highest_scoring_visitor
+    away_games = hoa_games_by_team("away")
+    away_goals = hoa_goals_by_team("away")
+    away_goals_per_game = {}
+    away_goals.each do |team_id, total_away_goals|
+      next if total_away_goals == 0
+      away_goals_per_game[team_id] = total_away_goals / hoa_games_by_team("away")[team_id].to_f
+      end
+    team_name_by_id(away_goals_per_game.key(away_goals_per_game.values.max))
+  end
+
   def highest_scoring_home_team
     home_games = hoa_games_by_team("home")
     home_goals = hoa_goals_by_team("home")
@@ -167,15 +223,54 @@ class StatTracker
     team_name_by_id(team_and_difference[0])
   end
 
-  def worst_coach(season)
-    averages = {}
-    wins_in_season(season).each do |team_id, wins|
-      avg = wins.to_f / games_by_team_by_season(season)[team_id]
-      averages[team_id] = avg
-    end
-    coach = head_coaches(season)[averages.key(averages.values.min)]
-  end
+  ###### Iteration 4 Methods - - - - - - - - - -- -- - - - - - -
 
+def worst_coach(season)
+  averages = {}
+  wins_in_season(season).each do |team_id, wins|
+    avg = wins.to_f / games_by_team_by_season(season)[team_id]
+    averages[team_id] = avg
+  end
+  coach = head_coaches(season)[averages.key(averages.values.min)]
+end
+
+def most_tackles(season)
+  #works in one but not both years on big test
+  most = games_in_season(season).max_by do |game|
+    game.tackles
+  end.team_id
+  team_name_by_id(most)
+end
+
+def fewest_tackles(season)
+  #works in one but not both years on big test
+  min = games_in_season(season).min_by do |game|
+    game.tackles
+  end.team_id
+  team_name_by_id(min)
+end
+
+def most_accurate_team(season)
+  games = games_in_season(season)
+  averages = games.reduce({}) do |avg, game|
+    avg[game.team_id] = (game.goals / game.shots.to_f)
+    avg
+  end
+  team_name_by_id(averages.key(averages.values.max))
+# Name of the Team with the best ratio of shots
+# to goals for the season	String
+end
+
+def least_accurate_team(season)
+  games = games_in_season(season)
+  averages = games.reduce({}) do |avg, game|
+    avg[game.team_id] = (game.goals / game.shots.to_f)
+    avg
+  end
+  team_name_by_id(averages.key(averages.values.min))
+# Name of the Team with the worst ratio of shots
+# to goals for the season
+end
 
 
 
@@ -326,6 +421,14 @@ class StatTracker
     end.map { |game| game.game_id.to_i }
   end
 
+  def games_in_season(season)
+    game_ids_in_season(season).flat_map do |id|
+      gtc.game_teams.find_all do |game|
+        id == game.game_id
+      end
+    end
+  end
+
   def games_by_team_by_season(season)
     games_per_team = Hash.new(0)
     game_collection.games.each do |game|
@@ -364,4 +467,51 @@ class StatTracker
     end
     winners
   end
+
+  ######## it5 Methods - - - - - - - - - - -
+
+  def team_info(team_num)
+    #tested to harness
+    info = {}
+    team_obj = retrieve_team(team_num.to_i)
+      info["team_id"] = team_obj.team_id.to_s
+      info["franchise_id"] = team_obj.franchiseid.to_s
+      info["team_name"] = team_obj.teamname
+      info["abbreviation"] = team_obj.abbreviation
+      info["link"] = team_obj.link
+      info
+  end
+
+  def most_goals_scored(team_num)
+    #tested to harness
+    total_scores_by_team(team_num).max
+  end
+
+  def fewest_goals_scored(team_num)
+    #tested to harness
+    total_scores_by_team(team_num).min
+  end
+
+  def worst_loss(team)
+
+  end
+
+
+  ##### it5 Helpers
+  def retrieve_team(team_num)
+    team_collection.teams.find { |team_obj| team_obj.team_id == team_num }
+  end
+
+  def total_scores_by_team(team_num)
+    game_collection.games.reduce([]) do |scores, game|
+      if team_num.to_i == game.home_team_id
+        scores << game.home_goals
+      elsif team_num.to_i == game.away_team_id
+        scores << game.away_goals
+      end
+      scores
+    end
+  end
+
+
 end
