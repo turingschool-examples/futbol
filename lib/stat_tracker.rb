@@ -230,4 +230,52 @@ class StatTracker
     end
     @team_collection.where_id(shot_ratio_by_team.key(shot_ratio_by_team.values.min))
   end
+
+  def best_fans
+    home_hash = @game_team_collection.all.reduce({}) do |accum, game|
+      if accum.has_key?(game.team_id) && game.home_or_away == 'home'
+        accum[game.team_id] << game.result
+      else
+        accum[game.team_id] = [game.result] if game.home_or_away == 'home'
+      end
+      accum
+    end
+    away_hash = @game_team_collection.all.reduce({}) do |accum, game|
+      if accum.has_key?(game.team_id)
+        accum[game.team_id] << game.result && game.home_or_away == "away"
+      else
+        accum[game.team_id] = [game.result] if game.home_or_away == "away"
+      end
+      accum
+    end
+    home_hash.transform_values! { |stats| stats.count("WIN")/stats.length.to_f }
+    away_hash.transform_values! { |stats| stats.count("WIN")/stats.length.to_f }
+    home_minus_away = away_hash.merge(home_hash){|key, oldval, newval| newval - oldval}
+    best_team = home_minus_away.key(home_minus_away.values.max)
+    @team_collection.where_id(best_team)
+  end
+
+  def worst_fans
+    home_hash = @game_team_collection.all.reduce({}) do |accum, game|
+      if accum.has_key?(game.team_id) && game.home_or_away == 'home'
+        accum[game.team_id] << game.result
+      else
+        accum[game.team_id] = [game.result] if game.home_or_away == 'home'
+      end
+      accum
+    end
+    away_hash = @game_team_collection.all.reduce({}) do |accum, game|
+      if accum.has_key?(game.team_id)
+        accum[game.team_id] << game.result && game.home_or_away == "away"
+      else
+        accum[game.team_id] = [game.result] if game.home_or_away == "away"
+      end
+      accum
+    end
+    home_hash.transform_values! { |stats| stats.count("WIN")/stats.length.to_f }
+    away_hash.transform_values! { |stats| stats.count("WIN")/stats.length.to_f }
+    home_minus_away = away_hash.merge(home_hash){|key, oldval, newval| newval - oldval}
+    worst_team = home_minus_away.key(home_minus_away.values.min)
+    @team_collection.where_id(worst_team)
+  end
 end
