@@ -157,14 +157,11 @@ class StatTracker
     game_teams = @game_team_collection.all.find_all do |game|
        game.game_id.to_s[0,4] == for_season[0,4]
     end
-
     game_team_by_coach = game_teams.group_by { |game| game.head_coach }
-
     game_team_by_coach.each do |key, value|
        percent = value.count{|game| game.result == "WIN"}/value.length.to_f
        game_team_by_coach[key] = percent
     end
-
     game_team_by_coach.key(game_team_by_coach.values.max)
   end
 
@@ -173,14 +170,11 @@ class StatTracker
     game_teams = @game_team_collection.all.find_all do |game|
        game.game_id.to_s[0,4] == for_season[0,4]
     end
-
     game_team_by_coach = game_teams.group_by { |game| game.head_coach }
-
     game_team_by_coach.each do |key, value|
        percent = value.count{|game| game.result == "WIN"}/value.length.to_f
        game_team_by_coach[key] = percent
      end
-
     game_team_by_coach.key(game_team_by_coach.values.min)
   end
 
@@ -212,14 +206,14 @@ class StatTracker
     @team_collection.where_id(tackles_by_team.key(tackles_by_team.values.min))
   end
 
-  def least_accurate_team(season)
+  def least_accurate_team(season) #maybe refactor to do shots/attempts.
     shot_ratio_by_team = {}
     @game_team_collection.all.each do |game|
       if game.game_id.to_s.start_with?(season[0..3])
         if shot_ratio_by_team.has_key?(game.team_id)
-          shot_ratio_by_team[game.team_id] << game.shots/game.goals.to_f.round(2)
+          shot_ratio_by_team[game.team_id] << (game.goals.to_f/game.shots).round(2)
         else
-          shot_ratio_by_team[game.team_id] = [game.shots/game.goals.to_f.round(2)]
+          shot_ratio_by_team[game.team_id] = [(game.goals.to_f/game.shots).round(2)]
         end
       end
     end
@@ -227,5 +221,22 @@ class StatTracker
       array.sum/array.length
     end
     @team_collection.where_id(shot_ratio_by_team.key(shot_ratio_by_team.values.min))
+  end
+
+  def most_accurate_team(season)
+    shot_ratio_by_team = {}
+    @game_team_collection.all.each do |game|
+      if game.game_id.to_s.start_with?(season[0..3])
+        if shot_ratio_by_team.has_key?(game.team_id)
+          shot_ratio_by_team[game.team_id] << (game.goals.to_f/game.shots).round(2)
+        else
+          shot_ratio_by_team[game.team_id] = [(game.goals.to_f/game.shots).round(2)]
+        end
+      end
+    end
+    shot_ratio_by_team.transform_values! do |array|
+      array.sum/array.length
+    end
+    @team_collection.where_id(shot_ratio_by_team.key(shot_ratio_by_team.values.max))
   end
 end

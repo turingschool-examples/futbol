@@ -98,61 +98,49 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_the_worst_coach_by_season
-    # game_1_info = {
-    #                 game_id: "2012030221", season: "20122013", type: "Postseason",
-    #                 date_time: "5/16/13", away_team_id: "3", home_team_id: "6", away_goals: "2",
-    #                 home_goals: "3", venue: "Toyota Stadium", venue_link: "/api/v1/venues/null"
-    #               }
-    # game_2_info = {
-    #                 game_id: "2012030222", season: "20122013", type: "Postseason",
-    #                 date_time: "5/16/13", away_team_id: "6", home_team_id: "3", away_goals: "2",
-    #                 home_goals: "3", venue: "Toyota Stadium", venue_link: "/api/v1/venues/null"
-    #               }
-    # game_team_1_info =  {
-    #                     game_id: "2012030221",team_id: "3",
-    #                     hoa: "away",result: "LOSS",settled_in: "OT",
-    #                     head_coach: "John Tortorella",goals: "2",shots: "8",
-    #                     tackles: "44",pim: "8",powerplayopportunities: "3",
-    #                     powerplaygoals: "0",faceoffwinpercentage: "44.8",
-    #                     giveaways: "17",takeaways: "7"
-    #                     }
-    # game_team_2_info = {
-    #                     game_id: "2012030221",team_id: "6",
-    #                     hoa: "away",result: "WIN",settled_in: "OT",
-    #                     head_coach: "John Tortorella",goals: "2",shots: "8",
-    #                     tackles: "44",pim: "8",powerplayopportunities: "3",
-    #                     powerplaygoals: "0",faceoffwinpercentage: "44.8",
-    #                     giveaways: "17",takeaways: "7"
-    #                     }
-    # game_team_3_info = {
-    #                     game_id: "2012030222",team_id: "6",
-    #                     hoa: "away",result: "WIN",settled_in: "OT",
-    #                     head_coach: "John Tortorella",goals: "2",shots: "8",
-    #                     tackles: "44",pim: "8",powerplayopportunities: "3",
-    #                     powerplaygoals: "0",faceoffwinpercentage: "44.8",
-    #                     giveaways: "17",takeaways: "7"
-    #                     }
-    # game_team_4_info = {
-    #                     game_id: "2012030222",team_id: "3",
-    #                     hoa: "away",result: "LOSS",settled_in: "OT",
-    #                     head_coach: "John Tortorella",goals: "2",shots: "8",
-    #                     tackles: "44",pim: "8",powerplayopportunities: "3",
-    #                     powerplaygoals: "0",faceoffwinpercentage: "44.8",
-    #                     giveaways: "17",takeaways: "7"
-    #                     }
-    # game1 = Game.new(game_1_info)
-    # game2 = Game.new(game_2_info)
-    # game_team1_1 = GameTeam.new(game_team_1_info)
-    # game_team1_2 = GameTeam.new(game_team_2_info)
-    # game_team2_1 = GameTeam.new(game_team_3_info)
-    # game_team2_2 = GameTeam.new(game_team_4_info)
-    #
-    # # @game_collection.stubs(:games).returns([game1, game2])
-    # # @game_team_collection.stubs(:games_by_team).returns([game_team1_1, game_team1_2,
-    #                                                      # game_team2_1, game_team2_2])
 
+    game_team_1_info =  {
+                        game_id: "2012030221",team_id: "3",
+                        hoa: "away",result: "LOSS",settled_in: "OT",
+                        head_coach: "John Tortorella",goals: "2",shots: "8",
+                        tackles: "44",pim: "8",powerplayopportunities: "3",
+                        powerplaygoals: "0",faceoffwinpercentage: "44.8",
+                        giveaways: "17",takeaways: "7"
+                        }
+    game_team_2_info = {
+                        game_id: "2012030221",team_id: "6",
+                        hoa: "away",result: "WIN",settled_in: "OT",
+                        head_coach: "John Tortorella",goals: "2",shots: "8",
+                        tackles: "44",pim: "8",powerplayopportunities: "3",
+                        powerplaygoals: "0",faceoffwinpercentage: "44.8",
+                        giveaways: "17",takeaways: "7"
+                        }
+    game_team_3_info = {
+                        game_id: "2012030222",team_id: "6",
+                        hoa: "away",result: "WIN",settled_in: "OT",
+                        head_coach: "John Tortorella",goals: "2",shots: "8",
+                        tackles: "44",pim: "8",powerplayopportunities: "3",
+                        powerplaygoals: "0",faceoffwinpercentage: "44.8",
+                        giveaways: "17",takeaways: "7"
+                        }
+    game_team_4_info = {
+                        game_id: "2012030222",team_id: "3",
+                        hoa: "away",result: "LOSS",settled_in: "OT",
+                        head_coach: "John Tortorella",goals: "2",shots: "8",
+                        tackles: "44",pim: "8",powerplayopportunities: "3",
+                        powerplaygoals: "0",faceoffwinpercentage: "44.8",
+                        giveaways: "17",takeaways: "7"
+                        }
 
-    ## find out proper way to stub this. Or make games and game_teams long way.
+    game_team1_1 = GameTeam.new(game_team_1_info)
+    game_team1_2 = GameTeam.new(game_team_2_info)
+    game_team2_1 = GameTeam.new(game_team_3_info)
+    game_team2_2 = GameTeam.new(game_team_4_info)
+
+    @stat_tracker.game_team_collection.stubs(:all).returns([game_team1_1, game_team1_2,
+                                                         game_team2_1, game_team2_2])
+
+    assert_equal "John Tortorella", @stat_tracker.worst_coach("20122013")
   end
 
   def test_it_can_return_team_with_most_tackles
@@ -166,7 +154,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_least_accurate_team
-    assert_equal "Real Salt Lake", @stat_tracker_average.least_accurate_team("20122013")
-    assert_equal "Real Salt Lake", @stat_tracker_average.least_accurate_team("20132014")
+    assert_equal "Orlando Pride", @stat_tracker_average.least_accurate_team("20122013")
+    assert_equal "LA Galaxy", @stat_tracker_average.least_accurate_team("20132014")
   end
+
+  def test_it_can_find_the_most_accurate_team
+    assert_equal "Real Salt Lake", @stat_tracker_average.most_accurate_team("20122013")
+  end
+
 end
