@@ -11,15 +11,6 @@ module SeasonStatistics
     end
   end
 
-  def find_game_teams_in_season(season)
-    @game_teams.find_all do |game_team|
-      game_team_season = @games.find do |game|
-        game.game_id == game_team.game_id
-      end.season
-      game_team_season == season
-    end
-  end
-
   def all_teams_playing
     @game_teams.map {|game_team| game_team.team_id}.uniq
   end
