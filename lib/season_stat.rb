@@ -1,19 +1,15 @@
 require_relative 'game_collection'
 require_relative 'game_team_collection'
 require_relative 'team_collection'
+require_relative './modules/helper_methods'
 
 class SeasonStat
+  include Helperable
 
-  def initialize(game_file_path, team_file_path)
-    @game_collection = GameCollection.new(game_file_path)
-    @team_collection = TeamCollection.new(team_file_path)
+  def initialize(game_collection, team_collection)
+    @game_collection = game_collection
+    @team_collection = team_collection
     @season_list = @game_collection.get_all_seasons
-  end
-
-  def get_season_games(season)
-    @game_collection.games_list.find_all do |game|
-      game.season == season
-    end
   end
 
   def count_of_season_games(season)
