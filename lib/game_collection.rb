@@ -28,8 +28,7 @@ class GameCollection
 
   def average_goals_per_season
     @games.reduce(Hash.new(0)) do |acc, game|
-      #fix method
-      acc[game.season] = (game.total_goals / game.season.length.to_f).round(2)
+      acc[game.season] += (game.total_goals / count_of_games_by_season[game.season].to_f).round(2)
       acc
     end
   end
