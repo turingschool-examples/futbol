@@ -15,14 +15,12 @@ class GameTest < Minitest::Test
                           away_team_id: 3,
                           home_team_id: 6,
                           away_goals: 2,
-                          home_goals: 3,
-                          venue: "Toyota Stadium",
-                          venue_link: "/api/v1/venues/null"
+                          home_goals: 3
                           })
   end
 
   def test_it_exists
-    game = Game.new({})
+    game = Game.new({away_goals: 1, home_goals: 1})
 
     assert_instance_of Game, game
   end
@@ -36,13 +34,11 @@ class GameTest < Minitest::Test
     assert_equal 6, @new_game.home_team_id
     assert_equal 2, @new_game.away_goals
     assert_equal 3, @new_game.home_goals
-    assert_equal "Toyota Stadium", @new_game.venue
-    assert_equal "/api/v1/venues/null", @new_game.venue_link
   end
 
   def test_it_can_add_game
     assert_instance_of Hash, Game.all
-    assert_equal 20, Game.all.length
+    assert_equal 7441, Game.all.length
     assert_instance_of Game, Game.all[2012030221]
     assert_equal 2012030221, Game.all[2012030221].game_id
     assert_equal "5/16/13", Game.all[2012030221].date_time
@@ -53,8 +49,6 @@ class GameTest < Minitest::Test
     assert_equal 6, Game.all[2012030221].home_team_id
     assert_equal 2, Game.all[2012030221].away_goals
     assert_equal 3, Game.all[2012030221].home_goals
-    assert_equal "Toyota Stadium", Game.all[2012030221].venue
-    assert_equal "/api/v1/venues/null", Game.all[2012030221].venue_link
   end
 
   def test_it_loads_all_games_from_csv

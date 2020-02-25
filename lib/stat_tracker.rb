@@ -24,7 +24,11 @@ class StatTracker
       CSV.foreach(file, csv_options) { |row| item_class.add(item_class.new(row.to_hash)) }
   end
 
- def find_games(season, type)
+  def change_data_to_array(data_class)
+    data_class.all.values
+  end
+
+  def find_games(season, type)
     Game.all.select do |game_id, game_data|
       game_data.season == season && game_data.type == type
     end
@@ -48,7 +52,7 @@ class StatTracker
     teams = teams.uniq
   end
 
- def find_eligible_teams(season)
+  def find_eligible_teams(season)
     eligible_teams = []
     find_regular_season_teams(season).each do |team_id|
       eligible_teams << team_id
@@ -59,7 +63,7 @@ class StatTracker
     eligible_teams = eligible_teams.uniq
   end
 
-  def win_percentage(season, team_id, type)
+  def win_percentage_by_season(season, team_id, type)
       team_games = find_games(season, type).select do |game_id, game_data|
         game_data.home_team_id == team_id || game_data.away_team_id == team_id
       end
@@ -82,13 +86,12 @@ class StatTracker
   def post_season_decline(season)
     teams = {}
     find_eligible_teams(season).each do |team_id|
-      teams[team_id] = win_percentage(season, team_id, "Regular Season") - win_percentage(season, team_id, "Postseason")
+      teams[team_id] = win_percentage_by_season(season, team_id, "Regular Season") - win_percentage_by_season(season, team_id, "Postseason")
     end
     teams
   end
 
   def biggest_bust(season)
-    season = season.to_i
     maximum_decline_team = post_season_decline(season).max_by{|team, win_percentage| win_percentage}
     Team.all[maximum_decline_team[0]].team_name
   end
@@ -96,16 +99,14 @@ class StatTracker
   def post_season_improvement(season)
     teams = {}
     find_eligible_teams(season).each do |team_id|
-      teams[team_id] = win_percentage(season, team_id, "Postseason") - win_percentage(season, team_id, "Regular Season")
+      teams[team_id] = win_percentage_by_season(season, team_id, "Postseason") - win_percentage_by_season(season, team_id, "Regular Season")
     end
     teams
   end
 
   def biggest_surprise(season)
-    season = season.to_i
-    maximum_improvement = post_season_improvement(season).max_by{|team, win_percentage| win_percentage}
+    maximum_improvement = post_season_improvement(season).max_by {|team, win_percentage| win_percentage}
     Team.all[maximum_improvement[0]].team_name
-    end
   end
 
   def count_of_teams
@@ -273,10 +274,6 @@ class StatTracker
     total_score.to_f / games.count
   end
 
-  def change_data_to_array(data_class)
-    data_class.all.values
-  end
-
   def games_played_by_team(team)
     Game.all.values.select do |game|
       game.home_team_id == team.team_id || game.away_team_id == team.team_id
@@ -284,28 +281,23 @@ class StatTracker
   end
 
   def winningest_coach(season)
-    season = season.to_i
-    # Get a list of games in the season
-    games = games_in_a_season(season)
-    # Get a list of coaches and thier team ids
+    season = season
+    games = Game.games_in_a_season(season)
     coaches = coaches_with_team_id(games)
-    # calculate win percentage for each coach and get max
     winner = coaches.max_by do |coach, game_results|
       game_results.count("WIN") / game_results.count.to_f
     end
     winner.first
   end
 
- def gameteams_matching_games(games)
-   GameTeam.all.select do |game_id, gameteam|
-     games.keys.include?(game_id)
-   end
- end
+  def gameteams_matching_games(games)
+    GameTeam.all.select do |game_id, gameteam|
+      games.keys.include?(game_id)
+    end
+  end
 
- def coaches_with_team_id(games)
-    # get a list of gameteams in the season
+  def coaches_with_team_id(games)
     gamesteams = gameteams_matching_games(games)
-    # get list of coaches in the current season
     coaches = {}
     gamesteams.each_value do |gameteam|
       gameteam.each_value do |team|
@@ -316,19 +308,10 @@ class StatTracker
     coaches
   end
 
-  def games_in_a_season(season)
-    Game.all.select do |game_id, game|
-      game.season == season
-    end
-  end
-
   def worst_coach(season)
-    season = season.to_i
-    # Get a list of games in the season
-    games = games_in_a_season(season)
-    # Get a list of coaches and thier team ids
+    season = season
+    games = Game.games_in_a_season(season)
     coaches = coaches_with_team_id(games)
-    # calculate win percentage for each coach and get max
     loser = coaches.min_by do |coach, game_results|
       game_results.count("WIN") / game_results.count.to_f
     end
@@ -374,34 +357,39 @@ class StatTracker
     (total_goals_per_game.sum / Game.all.length).round(2)
   end
 
-  def total_goals_per_season(season)
-    total_goals = 0.0
+  def total_goals_per_games(games)
+    total_goals = games.values.sum { |game| game.total_goals }.to_f
+  end
+
+  def all_seasons
+    all_seasons = []
     Game.all.each_value do |game|
-      if game.season == season
-        total_goals += (game.away_goals + game.home_goals)
-      end
+      all_seasons << game.season
     end
-    total_goals
+    all_seasons.uniq
   end
 
   def average_goals_by_season
-    Game.all.each_value.reduce(Hash.new(0)) do |goals_by_season, game|
-      goals = total_goals_per_season(game.season)
-      games = Game.games_in_a_season(game.season).length
+    seasons = all_seasons
+    goals_by_season = {}
 
-      goals_by_season[game.season.to_s] = (goals / games).round(2)
-      goals_by_season
+    seasons.each do |season|
+      games = Game.games_in_a_season(season)
+      goals = total_goals_per_games(games)
+
+      goals_by_season[season] = (goals / games.length).round(2)
     end
+    goals_by_season
   end
 
-  def return_team_name(acc, condition = "max")
+  def return_team_name(accumulator, condition = "max")
     if condition == "min"
-      stat = acc.values.min
+      stat = accumulator.values.min
     else
-      stat = acc.values.max
+      stat = accumulator.values.max
     end
 
-    team = acc.key(stat)
+    team = accumulator.key(stat)
     Team.all[team].team_name
   end
 
