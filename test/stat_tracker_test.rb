@@ -246,6 +246,7 @@ end
 
       def test_it_knows_team_info
     expected = {
+<<<<<<< HEAD
      "team_id" => "3",
      "franchise_id" => "10",
      "team_name" => "Houston Dynamo",
@@ -276,5 +277,37 @@ end
     assert_equal Team, @stat_tracker.retrieve_team(18).class
     assert_equal 18, @stat_tracker.retrieve_team(18).team_id
 
+=======
+            3 => "John Tortorella",
+            6 => "Claude Julien",
+            9 => "Paul MacLean",
+            8 => "Michel Therrien",
+            5 => "Dan Bylsma",
+            20 => "Bob Hartley",
+            19 => "Ken Hitchcock",
+            7 => "Ron Rolston",
+            52 => "Claude Noel"
+          }
+    assert_equal expected, @stat_tracker.head_coaches(20122013)
+
+  end
+
+  def test_it_knows_wins_by_season
+    expected = {3=>0, 5=>1, 10=>0, 26=>1, 22=>0}
+    assert_equal expected, @stat_tracker.wins_in_season("20152016")
+  end
+
+  def test_count_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+
+  def test_best_fans
+    assert_equal "Philadelphia Union", @stat_tracker.best_fans
+  end
+
+  def test_lowest_scoring_visitor
+    skip
+    assert_equal "FC Dallas", @stat_tracker.lowest_scoring_visitor
+>>>>>>> 0828c2902ac640f5652c5c2675a760ea6143e858
   end
 end
