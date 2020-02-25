@@ -24,6 +24,10 @@ class StatTracker
       CSV.foreach(file, csv_options) { |row| item_class.add(item_class.new(row.to_hash)) }
   end
 
+  def change_data_to_array(data_class)
+    data_class.all.values
+  end
+
   def count_of_teams
     Team.all.count
   end
@@ -189,10 +193,6 @@ class StatTracker
     total_score.to_f / games.count
   end
 
-  def change_data_to_array(data_class)
-    data_class.all.values
-  end
-
   def games_played_by_team(team)
     Game.all.values.select do |game|
       game.home_team_id == team.team_id || game.away_team_id == team.team_id
@@ -201,14 +201,12 @@ class StatTracker
 
   def winningest_coach(season)
     season = season.to_i
-    # Get a list of games in the season
     games = games_in_a_season(season)
-    # Get a list of coaches and thier team ids
     coaches = coaches_with_team_id(games)
-    # calculate win percentage for each coach and get max
     winner = coaches.max_by do |coach, game_results|
       game_results.count("WIN") / game_results.count.to_f
     end
+    require "pry"; binding.pry
     winner.first
   end
 
@@ -219,9 +217,7 @@ class StatTracker
  end
 
   def coaches_with_team_id(games)
-    # get a list of gameteams in the season
     gamesteams = gameteams_matching_games(games)
-    # get list of coaches in the current season
     coaches = {}
     gamesteams.each_value do |gameteam|
       gameteam.each_value do |team|
@@ -240,11 +236,8 @@ class StatTracker
 
   def worst_coach(season)
     season = season.to_i
-    # Get a list of games in the season
     games = games_in_a_season(season)
-    # Get a list of coaches and thier team ids
     coaches = coaches_with_team_id(games)
-    # calculate win percentage for each coach and get max
     loser = coaches.min_by do |coach, game_results|
       game_results.count("WIN") / game_results.count.to_f
     end
@@ -310,14 +303,14 @@ class StatTracker
     end
   end
 
-  def return_team_name(acc, condition = "max")
+  def return_team_name(accumulator, condition = "max")
     if condition == "min"
-      stat = acc.values.min
+      stat = accumulator.values.min
     else
-      stat = acc.values.max
+      stat = accumulator.values.max
     end
 
-    team = acc.key(stat)
+    team = accumulator.key(stat)
     Team.all[team].team_name
   end
 
