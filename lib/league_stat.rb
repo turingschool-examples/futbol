@@ -29,6 +29,7 @@ class LeagueStat
     stats_by_team[game.away_team_id][:away_goals] += game.away_goals
     stats_by_team[game.away_team_id][:away_goals_allowed] += game.home_goals
     stats_by_team[game.away_team_id][:total_games] += 1
+    stats_by_team[game.away_team_id][:away_games] += 1
     if game.away_goals > game.home_goals
       stats_by_team[game.away_team_id][:away_wins] += 1
     elsif game.away_goals < game.home_goals
@@ -40,6 +41,7 @@ class LeagueStat
     stats_by_team[game.home_team_id][:home_goals] += game.home_goals
     stats_by_team[game.home_team_id][:home_goals_allowed] += game.away_goals
     stats_by_team[game.home_team_id][:total_games] += 1
+    stats_by_team[game.home_team_id][:home_games] += 1
     if game.away_goals > game.home_goals
       stats_by_team[game.home_team_id][:home_losses] += 1
     elsif game.away_goals < game.home_goals
@@ -51,22 +53,48 @@ class LeagueStat
     stats_by_team.keys.size
   end
 
-  def best_offense
-    goals_per_game = {}
+  def create_scoring_averages
     stats_by_team.each do |team|
+      total_games = team[1][:total_games]
       total_goals = (team[1][:home_goals] + team[1][:away_goals]).to_f
-      goals_per_game[team[1][:team_name]] = (total_goals / team[1][:total_games]).round(2)
+      total_goals_allowed = (team[1][:home_goals_allowed] + team[1][:away_goals_allowed]).to_f
+      team[1][:total_scoring_avg] = (total_goals / total_games).round(2)
+      team[1][:total_goals_allowed_avg] = (total_goals_allowed / total_games).round(2)
+      team[1][:away_scoring_avg] = (team[1][:away_goals] / team[1][:away_games].to_f).round(2)
+      team[1][:home_scoring_avg] = (team[1][:home_goals] / team[1][:home_games].to_f).round(2)
     end
-    goals_per_game.max_by { |name, goals_per_game| goals_per_game }[0]
+  end
+
+  def best_offense
+    stats_by_team.max_by { |team_id| team_id[1][:total_scoring_avg]}[1][:team_name]
   end
 
   def worst_offense
-    goals_per_game = {}
-    stats_by_team.each do |team|
-      total_goals = (team[1][:home_goals] + team[1][:away_goals]).to_f
-      goals_per_game[team[1][:team_name]] = (total_goals / team[1][:total_games]).round(2)
-    end
-    goals_per_game.min_by { |name, goals_per_game| goals_per_game }[0]
+    stats_by_team.min_by { |team_id| team_id[1][:total_scoring_avg]}[1][:team_name]
+  end
+
+  def best_defense
+    stats_by_team.min_by { |team_id| team_id[1][:total_goals_allowed_avg]}[1][:team_name]
+  end
+
+  def worst_defense
+    stats_by_team.max_by { |team_id| team_id[1][:total_goals_allowed_avg]}[1][:team_name]
+  end
+
+  def highest_scoring_visitor
+    stats_by_team.max_by { |team_id| team_id[1][:away_scoring_avg]}[1][:team_name]
+  end
+
+  def highest_scoring_home_team
+    stats_by_team.max_by { |team_id| team_id[1][:home_scoring_avg]}[1][:team_name]
+  end
+
+  def lowest_scoring_visitor
+    stats_by_team.min_by { |team_id| team_id[1][:away_scoring_avg]}[1][:team_name]
+  end
+
+  def lowest_scoring_home_team
+    stats_by_team.min_by { |team_id| team_id[1][:home_scoring_avg]}[1][:team_name]
   end
 
 end
