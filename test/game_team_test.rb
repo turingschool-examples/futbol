@@ -13,13 +13,7 @@ class GameTeamTest < Minitest::Test
       head_coach: "John Tortorella",
       goals: "2",
       shots: "8",
-      tackles: "44",
-      pim: "8",
-      power_play_opps: "3",
-      power_play_goals: "0",
-      face_off_win_pct: "44.8",
-      giveaways: "17",
-      takeaways: "7"
+      tackles: "44"
     }
     @game_team3 = GameTeam.new(@game)
   end
@@ -38,11 +32,5 @@ class GameTeamTest < Minitest::Test
     assert_equal 2, @game_team3.goals
     assert_equal 8, @game_team3.shots
     assert_equal 44, @game_team3.tackles
-    assert_equal 8, @game_team3.pim
-    assert_equal 3, @game_team3.power_play_opps
-    assert_equal 0, @game_team3.power_play_goals
-    assert_equal 44.8, @game_team3.face_off_win_pct
-    assert_equal 17, @game_team3.giveaways
-    assert_equal 7, @game_team3.takeaways
   end
 end
