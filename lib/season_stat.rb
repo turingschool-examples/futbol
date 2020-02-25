@@ -9,20 +9,36 @@ class SeasonStat
   def initialize(game_collection, team_collection)
     @game_collection = game_collection
     @team_collection = team_collection
-    @season_list = get_all_seasons
+    @season_list = []
+    @games_by_season = {}
+    @game_teams_by_season = {}
   end
 
   def get_all_seasons
-    @game_collection.games_list.map { |game| game.season }.uniq
+    @season_list = @game_collection.games_list.map { |game| game.season }.uniq
+  end
+
+  def season_games_by_all_seasons #need to test
+    @season_list.reduce({}) do |acc, season|
+      acc[season] = get_season_games(season)
+      @games_by_season = acc
+    end
+  end
+
+  def season_game_teams_by_all_seasons #need to test
+    @season_list.reduce({}) do |acc, season|
+      acc[season] = get_season_game_team(season)
+      @game_teams_by_season = acc
+    end
   end
 
   def count_of_season_games(season)
-    get_season_games(season).size
+    @games_by_season[season].size
   end
 
   def average_goals_per_game_per_season(season)
   total = 0
-    get_season_games(season).each do |game|
+    @games_by_season[season].each do |game|
       total += (game.home_goals + game.away_goals)
     end
     (total.to_f / count_of_season_games(season)).round(2)
@@ -43,7 +59,7 @@ class SeasonStat
   end
 
   def games_by_type(game_type, season)
-    get_season_games(season).find_all do |game|
+    @games_by_season[season].find_all do |game|
       game.type == game_type
     end
   end
@@ -62,11 +78,11 @@ class SeasonStat
   def total_team_games_by_game_type(team_id, game_type, season)
     total_games = 0
 
-    total_games += get_season_games(season).find_all do |game|
+    total_games += @games_by_season[season].find_all do |game|
        game.away_team_id == team_id && game.type == game_type
      end.length
 
-    total_games += get_season_games(season).find_all do |game|
+    total_games += @games_by_season[season].find_all do |game|
        game.home_team_id == team_id  && game.type == game_type
      end.length
 
@@ -75,10 +91,10 @@ class SeasonStat
 
   def total_team_wins_by_game_type(team_id, game_type, season)
     wins = 0
-    wins += get_season_games(season).find_all do |game|
+    wins += @games_by_season[season].find_all do |game|
       game.away_team_id == team_id && game.away_goals > game.home_goals && game.type == game_type
     end.length
-    wins += get_season_games(season).find_all do |game|
+    wins += @games_by_season[season].find_all do |game|
       game.home_team_id == team_id && game.home_goals > game.away_goals && game.type == game_type
     end.length
   end
