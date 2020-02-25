@@ -125,12 +125,12 @@ class StatTracker
     season = SeasonStatTeam.new(@game_team_collection, @team_collection)
     season.least_accurate_team(season_param)
   end
-
+  #
   def most_tackles(season_param)
     season = SeasonStatTeam.new(@game_team_collection, @team_collection)
     season.most_tackles(season_param)
   end
-
+  #
   def fewest_tackles(season_param)
     season = SeasonStatTeam.new(@game_team_collection, @team_collection)
     season.fewest_tackles(season_param)
@@ -150,7 +150,7 @@ class StatTracker
     league_stat = LeagueStat.new(@teams_file, @games_file)
     league_stat.worst_offense
   end
-
+  #
   def percentage_home_wins
     @game_collection.create_pct_data
     @game_collection.percentage_home_wins
