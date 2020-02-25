@@ -457,4 +457,24 @@ end
     end
     winners
   end
+
+  ######## it5 Methods - - - - - - - - - - -
+
+  def team_info(team)
+    info = {}
+    team_obj = retrieve_team(team)
+      info["team_id"] = team_obj.team_id.to_s
+      info["franchise_id"] = team_obj.franchiseid.to_s
+      info["team_name"] = team_obj.teamname
+      info["abbreviation"] = team_obj.abbreviation
+      info["link"] = team_obj.link
+      info
+  end
+
+  ##### it5 Helpers
+  def retrieve_team(team)
+    team_collection.teams.find { |team_obj| team_obj.team_id == team }
+  end
+
+
 end

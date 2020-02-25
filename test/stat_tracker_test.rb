@@ -221,7 +221,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected_away, @stat_tracker.hoa_tie_by_team("away")
   end
 
-  ### Seasonal Stats Below
+  ### it4  #############
   def test_it_knows_all_the_game_ids_in_a_given_season
     assert_equal [2012030221, 2012030121, 2012030311, 2012020701, 2012020587], @stat_tracker.game_ids_in_season("20122013")
   end
@@ -268,5 +268,25 @@ class StatTrackerTest < Minitest::Test
   def test_worst_defense
     skip
     assert_equal 0 ,@stat_tracker.worst_defense
+  end
+
+  ######### it5 ###############
+
+  def test_it_knows_team_info
+    expected = {
+     "team_id" => "18",
+     "franchise_id" => "34",
+     "team_name" => "Minnesota United FC",
+     "abbreviation" => "MIN",
+     "link" => "/api/v1/teams/18"
+   }
+   assert_equal expected, @stat_tracker.team_info(18)
+
+  end
+
+  ### it5 helpers ##
+  def test_it_can_return_a_team
+    assert_equal Team, @stat_tracker.retrieve_team(18).class
+    assert_equal 18, @stat_tracker.retrieve_team(18).team_id
   end
 end
