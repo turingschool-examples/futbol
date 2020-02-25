@@ -276,24 +276,29 @@ class StatTracker
     (total_goals_per_game.sum / Game.all.length).round(2)
   end
 
-  def total_goals_per_season(season)
-    total_goals = 0.0
+  def total_goals_per_games(games)
+    total_goals = games.values.sum { |game| game.total_goals }.to_f
+  end
+
+  def all_seasons
+    all_seasons = []
     Game.all.each_value do |game|
-      if game.season == season
-        total_goals += (game.away_goals + game.home_goals)
-      end
+      all_seasons << game.season
     end
-    total_goals
+    all_seasons.uniq
   end
 
   def average_goals_by_season
-    Game.all.each_value.reduce(Hash.new(0)) do |goals_by_season, game|
-      goals = total_goals_per_season(game.season)
-      games = Game.games_in_a_season(game.season).length
+    seasons = all_seasons
+    goals_by_season = {}
 
-      goals_by_season[game.season.to_s] = (goals / games).round(2)
-      goals_by_season
+    seasons.each do |season|
+      games = Game.games_in_a_season(season)
+      goals = total_goals_per_games(games)
+
+      goals_by_season[season] = (goals / games.length).round(2)
     end
+    goals_by_season
   end
 
   def return_team_name(accumulator, condition = "max")

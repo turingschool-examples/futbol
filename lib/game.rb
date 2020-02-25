@@ -52,7 +52,8 @@ class Game
               :away_team_id,
               :home_team_id,
               :away_goals,
-              :home_goals
+              :home_goals,
+              :total_goals
 
   def initialize(data)
     @game_id = data[:game_id]
@@ -63,6 +64,7 @@ class Game
     @home_team_id = data[:home_team_id]
     @away_goals = data[:away_goals]
     @home_goals = data[:home_goals]
+    @total_goals = @away_goals + @home_goals
   end
 
 end
