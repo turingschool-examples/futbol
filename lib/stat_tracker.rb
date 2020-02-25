@@ -463,7 +463,7 @@ end
   def team_info(team_num)
     #tested to harness
     info = {}
-    team_obj = retrieve_team(team_num)
+    team_obj = retrieve_team(team_num.to_i)
       info["team_id"] = team_obj.team_id.to_s
       info["franchise_id"] = team_obj.franchiseid.to_s
       info["team_name"] = team_obj.teamname
