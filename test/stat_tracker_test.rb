@@ -224,4 +224,8 @@ class StatTrackerTest < Minitest::Test
   def test_team_info
     assert_equal ({"team_id"=>6, "franchise_id"=>6, "team_name"=>"FC Dallas", "abbreviation"=>"DAL", "link"=>"/api/v1/teams/6"}), @stat_tracker.team_info(6)
   end
+
+  def test_best_season
+    assert_equal "TBD", @stat_tracker.best_season(6)
+  end
 end
