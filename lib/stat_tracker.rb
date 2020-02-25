@@ -150,7 +150,6 @@ class StatTracker
 
   def lowest_scoring_visitor
     #team with lowest totals when playing as visitor
-    require "pry"; binding.pry
   end
 
   def worst_fans
@@ -223,61 +222,7 @@ class StatTracker
     team_name_by_id(team_and_difference[0])
   end
 
-  ###### Iteration 4 Methods - - - - - - - - - -- -- - - - - - -
-
-def worst_coach(season)
-  averages = {}
-  wins_in_season(season).each do |team_id, wins|
-    avg = wins.to_f / games_by_team_by_season(season)[team_id]
-    averages[team_id] = avg
-  end
-  coach = head_coaches(season)[averages.key(averages.values.min)]
-end
-
-def most_tackles(season)
-  #works in one but not both years on big test
-  most = games_in_season(season).max_by do |game|
-    game.tackles
-  end.team_id
-  team_name_by_id(most)
-end
-
-def fewest_tackles(season)
-  #works in one but not both years on big test
-  min = games_in_season(season).min_by do |game|
-    game.tackles
-  end.team_id
-  team_name_by_id(min)
-end
-
-def most_accurate_team(season)
-  games = games_in_season(season)
-  averages = games.reduce({}) do |avg, game|
-    avg[game.team_id] = (game.goals / game.shots.to_f)
-    avg
-  end
-  team_name_by_id(averages.key(averages.values.max))
-# Name of the Team with the best ratio of shots
-# to goals for the season	String
-end
-
-def least_accurate_team(season)
-  games = games_in_season(season)
-  averages = games.reduce({}) do |avg, game|
-    avg[game.team_id] = (game.goals / game.shots.to_f)
-    avg
-  end
-  team_name_by_id(averages.key(averages.values.min))
-# Name of the Team with the worst ratio of shots
-# to goals for the season
-end
-
-
-
-
-  ###### move these methods somewhere else - - - - - - - - - - - - - - - - - - -
-  ## Helper Methods
-
+  ###### Iterartion 2/3 Helpers - - - - - - - - - - - - - - - - - -
   def total_games_by_season
     games_in_season = Hash.new(0)
     game_collection.games.each do |game|
@@ -413,60 +358,34 @@ end
     hoa_tie_by_team
   end
 
-#####
-## it4 season methods
-  def game_ids_in_season(season)
-    game_collection.games.find_all do |game|
-      season == game.season
-    end.map { |game| game.game_id.to_i }
-  end
 
-  def games_in_season(season)
-    game_ids_in_season(season).flat_map do |id|
-      gtc.game_teams.find_all do |game|
-        id == game.game_id
-      end
-    end
-  end
 
-  def games_by_team_by_season(season)
-    games_per_team = Hash.new(0)
-    game_collection.games.each do |game|
-      if season == game.season
-        games_per_team[game.home_team_id] += 1
-        games_per_team[game.away_team_id] += 1
-      end
-    end
-    games_per_team
-  end
-
-  def head_coaches(season)
-    season_id = season.to_s[0..3]
-    coaches = gtc.game_teams.find_all do |game|
-      game.game_id.to_s[0..3] == season_id
-    end
-    coaches.reduce({}) do |coaches_in_season, game|
-      coaches_in_season[game.team_id] = game.head_coach
-      coaches_in_season
-    end
-  end
-
-  def wins_in_season(season)
-    winners = Hash.new(0)
-    games = game_ids_in_season(season).flat_map do |id|
-      gtc.game_teams.find_all do |game|
-        id == game.game_id
-      end
-    end
+  ###### Iteration 4 Methods - - - - - - - - - -- -- - - - - - -
+  def most_tackles(season)
+    games = find_games_in_season(season)
+    totals = Hash.new(0)
     games.each do |game|
-      if game.result == "WIN"
-        winners[game.team_id] += 1
-      else
-        winners[game.team_id] += 0
-      end
+      totals[game.team_id] += game.tackles
     end
-    winners
+    team_name_by_id(totals.key(totals.values.max))
   end
+
+  def fewest_tackles(season)
+    games = find_games_in_season(season)
+    totals = Hash.new(0)
+    games.each do |game|
+      totals[game.team_id] += game.tackles
+    end
+    team_name_by_id(totals.key(totals.values.min))
+  end
+
+###### Helpful IT4 methods
+
+def find_games_in_season(season)
+  gtc.game_teams.find_all do |game|
+    season[0..3] == game.game_id.to_s[0..3]
+  end
+end
 
   ######## it5 Methods - - - - - - - - - - -
 
@@ -490,10 +409,6 @@ end
   def fewest_goals_scored(team_num)
     #tested to harness
     total_scores_by_team(team_num).min
-  end
-
-  def worst_loss(team)
-
   end
 
 
