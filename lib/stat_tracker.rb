@@ -5,7 +5,7 @@ require_relative 'scored_goal_stat'
 require_relative 'season_stat_coach'
 require_relative 'season_stat_team'
 require_relative 'league_stat'
-# require_relative 'team_stat'
+require_relative 'team_stat'
 
 class StatTracker
   attr_reader :games_file, :teams_file, :game_teams_file
@@ -148,6 +148,16 @@ class StatTracker
   def highest_total_score
     team_stat = TeamStat.new(@games_file)
     team_stat.highest_total_score
+  end
+
+  def lowest_total_score
+    team_stat = TeamStat.new(@games_file)
+    team_stat.lowest_total_score
+  end
+
+  def biggest_blowout
+    team_stat = TeamStat.new(@games_file)
+    team_stat.biggest_blowout
   end
 
 end
