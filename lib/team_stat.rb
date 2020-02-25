@@ -1,7 +1,7 @@
 require 'csv'
-require './lib/game_team_collection.rb'
-require './lib/team'
-require './lib/game'
+require_relative 'game_team_collection'
+require_relative 'team'
+require_relative 'game'
 
 
 
