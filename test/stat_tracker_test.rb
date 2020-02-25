@@ -9,9 +9,9 @@ class StatTrackerTest < Minitest::Test
 
   def setup
     @locations = {
-                  games: "./data/games.csv", 
-                  game_teams: "./data/game_teams.csv", 
-                  teams: "./data/teams.csv" 
+                  games: "./data/games.csv",
+                  game_teams: "./data/game_teams.csv",
+                  teams: "./data/teams.csv"
                 }
     @stat_tracker = StatTracker.from_csv(@locations)
   end
@@ -114,7 +114,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_sort_module
-    assert_equal [1,2,3,4,5,6,7,8], Game.find_all_scores(Game)
+    assert_equal [1,2,3,4,5,6,7,8], Game.find_all_scores
   end
 
   def test_highest_total_score
