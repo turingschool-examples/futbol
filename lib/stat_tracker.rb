@@ -474,18 +474,25 @@ end
 
   def most_goals_scored(team_num)
     #tested to harness
-    game_collection.games.reduce([]) do |scores, game|
-      if team_num.to_i == game.home_team_id
-        scores << game.home_goals
-      elsif team_num.to_i == game.away_team_id
-        scores << game.away_goals
-      end
-      scores
-    end.max
+    total_scores_by_team(team_num).max
   end
 
   def fewest_goals_scored(team_num)
     #tested to harness
+    total_scores_by_team(team_num).min
+  end
+
+  def worst_loss(team)
+
+  end
+
+
+  ##### it5 Helpers
+  def retrieve_team(team_num)
+    team_collection.teams.find { |team_obj| team_obj.team_id == team_num }
+  end
+
+  def total_scores_by_team(team_num)
     game_collection.games.reduce([]) do |scores, game|
       if team_num.to_i == game.home_team_id
         scores << game.home_goals
@@ -493,13 +500,7 @@ end
         scores << game.away_goals
       end
       scores
-    end.min
-  end
-
-
-  ##### it5 Helpers
-  def retrieve_team(team)
-    team_collection.teams.find { |team_obj| team_obj.team_id == team }
+    end
   end
 
 

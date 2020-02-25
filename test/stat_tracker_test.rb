@@ -285,11 +285,15 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_knows_the_most_points_a_team_has_scored
-    assert_equal 6, @stat_tracker.most_goals_scored("3")
+    assert_equal 7, @stat_tracker.most_goals_scored("18")
   end
 
   def test_it_knows_the_fewest_points_a_team_has_scored
-    assert_equal 0, @stat_tracker.fewest_goals_scored("3")
+    assert_equal 0, @stat_tracker.fewest_goals_scored("18")
+  end
+
+  def test_it_knows_a_teams_worst_loss
+    assert_equal 4, @stat_tracker.worst_loss("18")
   end
 
   ### it5 helpers ##
@@ -297,4 +301,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal Team, @stat_tracker.retrieve_team(18).class
     assert_equal 18, @stat_tracker.retrieve_team(18).team_id
   end
+  
+  # Make this work
+  # def test_it_can_return_total_scores_by_team
+  #   assert_equal [], @stat_tracker.total_scores_by_team("18")
+  # end
 end
