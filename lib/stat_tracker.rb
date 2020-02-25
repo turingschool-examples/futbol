@@ -1,4 +1,4 @@
-require 'csv'
+require 'CSV'
 require_relative 'game'
 require_relative 'game_team'
 require_relative 'team'
@@ -200,13 +200,12 @@ class StatTracker
   end
 
   def winningest_coach(season)
-    season = season.to_i
-    games = games_in_a_season(season)
+    season = season
+    games = Game.games_in_a_season(season)
     coaches = coaches_with_team_id(games)
     winner = coaches.max_by do |coach, game_results|
       game_results.count("WIN") / game_results.count.to_f
     end
-    require "pry"; binding.pry
     winner.first
   end
 
@@ -228,15 +227,9 @@ class StatTracker
     coaches
   end
 
-  def games_in_a_season(season)
-    Game.all.select do |game_id, game|
-      game.season == season
-    end
-  end
-
   def worst_coach(season)
-    season = season.to_i
-    games = games_in_a_season(season)
+    season = season
+    games = Game.games_in_a_season(season)
     coaches = coaches_with_team_id(games)
     loser = coaches.min_by do |coach, game_results|
       game_results.count("WIN") / game_results.count.to_f
