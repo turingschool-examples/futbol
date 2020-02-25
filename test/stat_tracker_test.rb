@@ -9,9 +9,9 @@ class StatTrackerTest < Minitest::Test
 
   def setup
     @locations = {
-                  games: "./data/games.csv", # "./test/fixtures/games_sample.csv",
-                  game_teams: "./data/game_teams.csv", # "./test/fixtures/game_teams_sample.csv",
-                  teams: "./data/teams.csv" # "./test/fixtures/teams_sample.csv"
+                  games: "./data/games.csv", 
+                  game_teams: "./data/game_teams.csv", 
+                  teams: "./data/teams.csv" 
                 }
     @stat_tracker = StatTracker.from_csv(@locations)
   end
@@ -111,6 +111,107 @@ class StatTrackerTest < Minitest::Test
   def test_it_knows_worst_coach
   assert_equal "Peter Laviolette", @stat_tracker.worst_coach("20132014")
   assert_equal ("Craig MacTavish" || "Ted Nolan"), @stat_tracker.worst_coach("20142015")
+  end
+
+  def test_sort_module
+    assert_equal [1,2,3,4,5,6,7,8], Game.find_all_scores(Game)
+  end
+
+  def test_highest_total_score
+    assert_equal 8, @stat_tracker.highest_total_score
+  end
+
+  def test_lowest_total_score
+    assert_equal 1, @stat_tracker.lowest_total_score
+  end
+
+  def test_biggest_blowout
+    assert_equal 3, @stat_tracker.biggest_blowout
+  end
+
+  def test_percentage_home_wins
+    assert_equal 0.54, @stat_tracker.percentage_home_wins
+  end
+
+  def test_percentage_away_wins
+    assert_equal 0.43, @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_percentage_ties
+    assert_equal 0.03, @stat_tracker.percentage_ties
+  end
+
+  def test_count_of_games_by_season
+    expected =
+    {
+      "20122013" => 57,
+      "20162017" => 4,
+      "20142015" => 17,
+      "20152016" => 16,
+      "20132014" => 6
+    }
+
+    assert_equal expected, @stat_tracker.count_of_games_by_season
+  end
+
+  def test_average_goals_per_game
+    assert_equal 3.95, @stat_tracker.average_goals_per_game
+  end
+
+  def test_total_goals_per_season
+    game = Game.all.values.first
+
+    assert_equal 220, @stat_tracker.total_goals_per_season(game.season)
+  end
+
+  def test_average_goals_by_season
+    expected =
+    {
+      "20122013" => 3.86,
+      "20162017" => 4.75,
+      "20142015" => 4.00,
+      "20152016" => 3.88,
+      "20132014" => 4.33
+    }
+
+    assert_equal expected, @stat_tracker.average_goals_by_season
+  end
+
+  def test_return_team_name
+    tackles = mock("tackles")
+    tackles.stubs(:accumulator).returns({3 => 10, 10 => 1})
+
+    assert_equal "Houston Dynamo", @stat_tracker.return_team_name(tackles.accumulator)
+  end
+
+  def test_most_tackles
+    game = Game.all.values.first
+
+    assert_equal "Houston Dynamo", @stat_tracker.most_tackles(game.season)
+  end
+
+  def test_fewest_tackles
+    game = Game.all.values.first
+
+    assert_equal "Orlando City SC", @stat_tracker.fewest_tackles(game.season)
+  end
+
+  def test_games_in_season
+    game = Game.all.values.first
+
+    assert_equal 57, Game.games_in_a_season(game.season).length
+  end
+
+  def test_most_accurate_team
+    game = Game.all.values.first
+
+    assert_equal "New York City FC", @stat_tracker.most_accurate_team(game.season)
+  end
+
+  def test_least_accurate_team
+    game = Game.all.values.first
+
+    assert_equal "Houston Dynamo", @stat_tracker.least_accurate_team(game.season)
   end
 
 end
