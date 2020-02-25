@@ -17,7 +17,7 @@ class GameTeam
               :takeaways
 
   def initialize(details)
-    @game_id = details[:game_id].to_i
+    @game_id = details[:game_id]
     @team_id = details[:team_id].to_i
     @home_away = details[:home_away]
     @result = details[:result]
