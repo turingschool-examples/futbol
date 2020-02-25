@@ -114,6 +114,7 @@ class StatTracker
 
   def lowest_scoring_visitor
     #team with lowest totals when playing as visitor
+    require "pry"; binding.pry
   end
 
   def worst_fans
@@ -148,61 +149,22 @@ class StatTracker
   end
 
   def best_fans
-    #biggest diff between home/away win percentages.
-    home_games_played = Hash.new(0)
-    @game_collection.games.each do |game|
-      if home_games_played[game.home_team_id] == 0
-        home_games_played[game.home_team_id] = [game]
-      elsif home_games_played[game.home_team_id] != 0
-        home_games_played[game.home_team_id] << game
-      end
+    #biggest diff between home win % and away win %
+    home_games_played = hoa_games_by_team("home")
+    home_games_won = hoa_wins_by_team("home")
+    away_games_played = hoa_games_by_team("away")
+    away_games_won = hoa_wins_by_team("away")
+    home_percentage = home_games_played.merge(home_games_played) do |team, home_game|
+      home_games_won[team] / home_game.to_f
     end
-
-    home_games_won = Hash.new(0)
-    home_games_played.each do |team_id, games|
-      games_won = games.find_all { |game| game.home_goals > game.away_goals}
-      home_games_won[team_id] = games_won
+    away_percentage = away_games_played.merge(away_games_played) do |team, away_game|
+      away_games_won[team] / away_game.to_f
     end
-
-    home_win_percentages = Hash.new(0)
-    home_games_played.each_key do |team_id|
-      percentage = 100 * (home_games_won[team_id].count.to_f / home_games_played[team_id].count.to_f).round(2)
-      home_win_percentages[team_id] = percentage
+    differences = home_percentage.merge(home_percentage) do |team, percent|
+      (percent - away_percentage[team])
     end
-
-    away_games_played = Hash.new(0)
-    @game_collection.games.each do |game|
-      if away_games_played[game.away_team_id] == 0
-        away_games_played[game.away_team_id] = [game]
-      elsif away_games_played[game.away_team_id] != 0
-        away_games_played[game.away_team_id] << game
-      end
-    end
-
-    away_games_won = Hash.new(0)
-    away_games_played.each do |team_id, games|
-      games_won = games.find_all { |game| game.home_goals < game.away_goals}
-      away_games_won[team_id] = games_won
-    end
-
-    away_win_percentages = Hash.new(0)
-    away_games_played.each_key do |team_id|
-      percentage = 100 * (away_games_won[team_id].count.to_f / away_games_played[team_id].count.to_f).round(2)
-      away_win_percentages[team_id] = percentage
-    end
-
-    percentage_differences = Hash.new(0)
-    home_win_percentages.each do |team_id, home_percentage|
-      away_percentage = away_win_percentages[team_id]
-      percentage_differences[team_id] = (home_percentage - away_percentage).abs
-    end
-
-    team_with_largest_difference = percentage_differences.max_by { |team_id, percentage_diff| percentage_diff}
-
-    team = @team_collection.teams.find do |team|
-      team.team_id == team_with_largest_difference[0]
-    end
-    team.teamname
+    team_and_difference = differences.max_by { |team, difference| difference}
+    team_name_by_id(team_and_difference[0])
   end
 
   def worst_coach(season)

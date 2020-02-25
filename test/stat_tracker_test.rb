@@ -231,8 +231,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Philadelphia Union", @stat_tracker.best_fans
   end
 
-  def test_worst_defense
-    skip
-    assert_equal 0 ,@stat_tracker.worst_defense
+  def test_lowest_scoring_visitor
+
   end
 end
