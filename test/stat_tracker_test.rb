@@ -310,7 +310,7 @@ end
   #
   # ######### it5 ###############
   #
-  def test_it_knows_team_info
+      def test_it_knows_team_info
     expected = {
      "team_id" => "3",
      "franchise_id" => "10",
@@ -341,5 +341,6 @@ end
   def test_it_can_return_a_team
     assert_equal Team, @stat_tracker.retrieve_team(18).class
     assert_equal 18, @stat_tracker.retrieve_team(18).team_id
+
   end
 end
