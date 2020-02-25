@@ -3,7 +3,6 @@ class Team
               :franchise_id,
               :team_name,
               :abbreviation,
-              :stadium,
               :link
 
   def initialize(details)
@@ -11,7 +10,6 @@ class Team
     @franchise_id = details[:franchiseid].to_i
     @team_name = details[:teamname]
     @abbreviation = details[:abbreviation]
-    @stadium = details[:stadium]
     @link = details[:link]
   end
 end
