@@ -158,7 +158,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_least_accurate_team
-    assert_equal "TBD", @stat_tracker_average.least_accurate_team("20122013")
-    assert_equal "TBD", @stat_tracker_average.least_accurate_team("20132014")
+    assert_equal "Real Salt Lake", @stat_tracker_average.least_accurate_team("20122013")
+    assert_equal "Real Salt Lake", @stat_tracker_average.least_accurate_team("20132014")
   end
 end
