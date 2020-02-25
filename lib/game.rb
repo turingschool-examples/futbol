@@ -13,7 +13,7 @@ class Game
     @@games = value
   end
 
-  def self.sort(function = "add")
+  def self.find_all_scores(function = "add")
     total_scores = []
     Game.all.each_value do |value|
       if function == "subtract"
