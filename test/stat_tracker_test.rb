@@ -220,4 +220,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal "New York City FC", @stat_tracker.fewest_tackles(20122013)
     # assert_equal "", @stat_tracker.fewest_tackles(20132014)
   end
+
+  def test_team_info
+    assert_equal ({"team_id"=>6, "franchise_id"=>6, "team_name"=>"FC Dallas", "abbreviation"=>"DAL", "link"=>"/api/v1/teams/6"}), @stat_tracker.team_info(6)
+  end
 end
