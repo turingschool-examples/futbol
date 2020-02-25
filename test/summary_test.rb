@@ -24,5 +24,6 @@ class SummaryTest < Minitest::Test
     expected = {"3523532524" => {:postseason => {:win_percentage => 23.45}}}
 
     assert_equal expected, @summary.seasonal_summary("3")
+    assert_equal "yes", @summary.split_post_reg_season("3")
   end
 end

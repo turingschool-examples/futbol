@@ -5,6 +5,8 @@ require_relative 'scored_goal_stat'
 require_relative 'season_stat_coach'
 require_relative 'summary'
 require_relative 'season_stat_team'
+require_relative 'league_stat'
+require_relative 'game_collection'
 
 class StatTracker
   attr_reader :games_file, :teams_file, :game_teams_file
@@ -134,4 +136,14 @@ class StatTracker
     season.fewest_tackles(season_param)
   end
 
+  def count_of_teams
+    league_stat = LeagueStat.new(@teams_file, @games_file)
+    league_stat.count_of_teams
+  end
+
+  def percentage_home_wins
+    game_collection = GameCollection.new(@games_file)
+    game_collection.create_pct_data
+    game_collection.pct_of_total_games(:home_wins)
+  end
 end

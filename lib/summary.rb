@@ -92,4 +92,122 @@ class Summary
       acc
     end
   end
+
+  def split_post_reg_season(team_id)
+    @game_collection.games_list.reduce({}) do |acc, game|
+      if game.away_team_id.to_s == team_id || game.home_team_id.to_s == team_id
+        (acc[game.type] ||= []) << game.game_id.to_s
+      end
+      acc
+    end
+  end
+
+  def regular_season(team_id)
+    x = split_post_reg_season(team_id)["Regular Season"]
+    y = group_arrays_by_season(x)
+    transform_key_into_season(y)
+  end
+
+  def post_season(team_id)
+    x = split_post_reg_season(team_id)["Postseason"]
+    y = group_arrays_by_season(x)
+    transform_key_into_season(y)
+  end
+
+  def split_post_reg_season_wins(team_id)
+    @game_collection.games_list.reduce({}) do |acc, game|
+      if ((game.away_team_id.to_s == team_id) && (game.away_goals > game.home_goals)) || ((game.home_team_id.to_s == team_id) && (game.home_goals > game.away_goals))
+        (acc[game.type] ||= []) << game.game_id.to_s
+      end
+      acc
+    end
+  end
+
+  def regular_season_wins(team_id)
+    x = split_post_reg_season_wins(team_id)["Regular Season"]
+    y = group_arrays_by_season(x)
+    transform_key_into_season(y)
+  end
+
+  def post_season_wins(team_id)
+    x = split_post_reg_season_wins(team_id)["Postseason"]
+    y = group_arrays_by_season(x)
+    transform_key_into_season(y)
+  end
+
+  def average_wins_regular_season(team_id)
+    # x = regular_season_wins(team_id).values.sum
+    # y = regular_season(team_id).values.sum
+    # (x.to_f / y).round(2)
+    hash = {}
+    regular_season_wins(team_id).map do |key, value|
+      total = regular_season(team_id)[key]
+      if total != nil
+        hash[key] = (value.to_f / total).round(2)
+      end
+    end
+  end
+
+  def average_wins_post_season(team_id)
+    x = post_season_wins(team_id).values.sum
+    y = post_season(team_id).values.sum
+    (x.to_f / y).round(2)
+  end
+
+  def average_wins_by_team_per_season(team_id)
+    final_total_won_games = {}
+    winning_game_ids(team_id).map do |key, value|
+      total_games = total_games_by_season(team_id)[key]
+      if total_games != nil
+        final_total_won_games[key] = ((value.to_f / total_games) * 100).round(2)
+      end
+    end
+    final_total_won_games
+  end
+
+
+
+
+
+
+
+  def total_games_by_season(team_id)
+    games =  @game_team_collection.game_team_list.map do |game_team|
+      if game_team.team_id.to_s == team_id
+        game_team.game_id.to_s
+      end
+    end.compact
+    grouped_games = group_arrays_by_season(games)
+    transform_key_into_season(grouped_games)
+  end
+
+  def winning_game_ids(team_id)
+    wins =  @game_team_collection.game_team_list.map do |game_team|
+      if (game_team.team_id.to_s == team_id) && (game_team.result == "WIN")
+        game_team.game_id.to_s
+      end
+    end.compact
+    grouped_wins = group_arrays_by_season(wins)
+    transform_key_into_season(grouped_wins)
+  end
+
+  def group_arrays_by_season(game_id_array)
+    game_id_array.group_by do |game_id|
+      game_id[0..3]
+    end
+  end
+
+  def transform_key_into_season(team_collection)
+    total = {}
+    team_collection.map do |key, value|
+      total[key + (key.to_i + 1).to_s] = value.length
+    end
+    total
+  end
+
+  def average_win_percentage(team_id)
+    won_games = winning_game_ids(team_id).values.sum
+    total_games = total_games_by_season(team_id).values.sum
+    (won_games.to_f / total_games).round(2)
+  end
 end
