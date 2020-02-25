@@ -2,12 +2,6 @@ class GameTeam
   @@game_teams = {}
 
   def self.add(game_team)
-    #hash[game_id]
-      #hash[teams] of teams that played in game
-        #GameTeam object
-
-    #hash[team_id]
-      #GameTeam objects that have team_id
     @@game_teams[game_team.game_id] = {} if !@@game_teams.has_key?(game_team.game_id)
     @@game_teams[game_team.game_id][game_team.team_id] = game_team
   end
@@ -18,6 +12,12 @@ class GameTeam
 
   def self.game_teams=(value)
     @@game_teams = value
+  end
+
+  def self.season_games(games)
+    GameTeam.all.select do |game_id, gameteam|
+      games.keys.include?(game_id)
+    end
   end
 
   attr_reader :game_id,
