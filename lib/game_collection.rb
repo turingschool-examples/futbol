@@ -40,7 +40,19 @@ class GameCollection
   end
 
   def pct_of_total_games(outcome_type)
-    ((@pct_data[outcome_type] / @pct_data[:total_games].to_f) * 100).round(2)
+    (@pct_data[outcome_type] / @pct_data[:total_games].to_f).round(2)
+  end
+
+  def percentage_home_wins
+    pct_of_total_games(:home_wins)
+  end
+
+  def percentage_visitor_wins
+    pct_of_total_games(:away_wins)
+  end
+
+  def percentage_ties
+    pct_of_total_games(:ties)
   end
 
   def get_all_seasons

@@ -5,6 +5,7 @@ require_relative 'scored_goal_stat'
 require_relative 'season_stat_coach'
 require_relative 'season_stat_team'
 require_relative 'league_stat'
+require_relative 'game_collection'
 
 class StatTracker
   attr_reader :games_file, :teams_file, :game_teams_file
@@ -142,6 +143,24 @@ class StatTracker
   def worst_offense
     league_stat = LeagueStat.new(@teams_file, @games_file)
     league_stat.worst_offense
+  end
+
+  def percentage_home_wins
+    game_collection = GameCollection.new(@games_file)
+    game_collection.create_pct_data
+    game_collection.percentage_home_wins
+  end
+
+  def percentage_visitor_wins
+    game_collection = GameCollection.new(@games_file)
+    game_collection.create_pct_data
+    game_collection.percentage_visitor_wins
+  end
+
+  def percentage_ties
+    game_collection = GameCollection.new(@games_file)
+    game_collection.create_pct_data
+    game_collection.percentage_ties
   end
 
 end
