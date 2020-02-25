@@ -38,12 +38,12 @@ class StatTrackerTest < Minitest::Test
 
   def test_from_csv_loads_all_three_files
     assert_equal 100, Game.all.count
-    # assert_equal 50, GameTeam.all.count
+    assert_equal 50, GameTeam.all.count
     assert_equal 32, Team.all.count
   end
 
   def test_sort_module
-    assert_equal [1,2,3,4,5,6,7,8], @stat_tracker.sort(Game)
+    assert_equal [1,2,3,4,5,6,7,8], Game.sort(Game)
   end
 
   def test_highest_total_score
@@ -106,6 +106,13 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
 
+  def test_return_team_name
+    tackles = mock("tackles")
+    tackles.stubs(:accumulator).returns({3 => 10, 10 => 1})
+
+    assert_equal "Houston Dynamo", @stat_tracker.return_team_name(tackles.accumulator)
+  end
+
   def test_most_tackles
     game = Game.all.values.first
 
@@ -121,32 +128,18 @@ class StatTrackerTest < Minitest::Test
   def test_games_in_season
     game = Game.all.values.first
 
-    assert_equal 57, @stat_tracker.games_in_season(game.season).length
-  end
-
-  def test_total_goals_per_season
-    game = Game.all.values.first
-    game_team = GameTeam.all.values.first.first.last
-
-    assert_equal 14, @stat_tracker.total_goals_by_team_in_season(game.season, game_team.team_id)
-  end
-
-  def test_total_shots_per_season
-    game = Game.all.values.first
-    game_team = GameTeam.all.values.first.first.last
-
-    assert_equal 74, @stat_tracker.total_shots_by_team_in_season(game.season, game_team.team_id)
+    assert_equal 57, Game.games_in_a_season(game.season).length
   end
 
   def test_most_accurate_team
     game = Game.all.values.first
 
-    assert_equal "Houston Dynamo", @stat_tracker.most_accurate_team(game.season)
+    assert_equal "New York City FC", @stat_tracker.most_accurate_team(game.season)
   end
 
   def test_least_accurate_team
     game = Game.all.values.first
 
-    assert_equal "New York City FC", @stat_tracker.least_accurate_team(game.season)
+    assert_equal "Houston Dynamo", @stat_tracker.least_accurate_team(game.season)
   end
 end
