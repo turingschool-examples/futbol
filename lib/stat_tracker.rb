@@ -37,7 +37,7 @@ class StatTracker
         teams << game_object.home_team_id
         teams << game_object.away_team_id
     end
-    teams = teams.uniq!
+    teams = teams.uniq
   end
 
   def find_post_season_teams(season)
@@ -47,24 +47,24 @@ class StatTracker
       teams << game_object.home_team_id
       teams << game_object.away_team_id
     end
-    teams = teams.uniq!
+    teams = teams.uniq
     #I think this is where the failure is coming from. Montreal Impact (Team 23) isn't included in this array.
   end
 
-  def find_eligible_teams(season)
+ def find_eligible_teams(season)
     season = season.to_i
     eligible_teams = []
     find_regular_season_teams(season).each do |team_id|
-      if find_post_season_teams(season).include?(team_id)
-          eligible_teams << team_id
+      eligible_teams << team_id
+    find_post_season_teams(season).each do |team_id|
+      eligible_teams << team_id
       end
     end
-    eligible_teams
+    eligible_teams = eligible_teams.uniq
   end
 
   def win_percentage(season, team_id, type)
     season = season.to_i
-    if find_eligible_teams(season).include?(team_id)
       team_games = find_games(season, type).select do |game_id, game_data|
         game_data.home_team_id == team_id || game_data.away_team_id == team_id
       end
@@ -81,9 +81,12 @@ class StatTracker
           end
         end
       end
-      percentage = wins.to_f/team_games.count
-      percentage.round(3)
-    end
+      if team_games.count > 0
+        percentage = wins.to_f/team_games.count
+        percentage.round(3)
+      elsif team_games.count == 0
+        percentage = 0
+      end
   end
 
   def post_season_decline(season)
@@ -93,13 +96,13 @@ class StatTracker
       teams[team_id] = win_percentage(season, team_id, "Regular Season") - win_percentage(season, team_id, "Postseason")
     end
     teams
-    end
+  end
 
   def biggest_bust(season)
     season = season.to_i
     maximum_decline_team = post_season_decline(season).max_by{|team, win_percentage| win_percentage}
     Team.all[maximum_decline_team[0]].team_name
-    end
+  end
 
   def post_season_improvement(season)
     season = season.to_i
@@ -115,4 +118,4 @@ class StatTracker
     maximum_improvement = post_season_improvement(season).max_by{|team, win_percentage| win_percentage}
     Team.all[maximum_improvement[0]].team_name
     end
-  end
+end
