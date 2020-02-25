@@ -11,25 +11,27 @@ module SeasonStatistcs
     all_games = game_teams_that_season(team_id, season_id)
     all_goals = all_games.sum {|game_team| game_team.goals}
     all_shots = all_games.sum{|game_team| game_team.shots}
-    (all_goals.to_f / all_shots).round(2)
+    (all_goals.to_f / all_shots).round(5)
   end
 
   def most_accurate_team(season_id)
-    teams_with_goals_to_shots_ration = {}
+    teams_with_goals_to_shots_ratio = {}
     all_teams_playing.each do |team_id|
-      teams_with_goals_to_shots_ration[team_id] = goals_to_shots_ratio_that_season(team_id, season_id)
+      teams_with_goals_to_shots_ratio[team_id] = goals_to_shots_ratio_that_season(team_id, season_id)
     end
-    highest = teams_with_goals_to_shots_ration.max_by {|id, ratio| ratio}
+    teams_with_goals_to_shots_ratio.delete_if { |id, ratio| ratio.nil? || ratio.nan?}
+    highest = teams_with_goals_to_shots_ratio.max_by {|id, ratio| ratio}
     find_team_names(highest[0])
   end
 
   def least_accurate_team(season_id)
-    teams_with_goals_to_shots_ration = {}
+    teams_with_goals_to_shots_ratio = {}
     all_teams_playing.each do |team_id|
-      teams_with_goals_to_shots_ration[team_id] = goals_to_shots_ratio_that_season(team_id, season_id)
+      teams_with_goals_to_shots_ratio[team_id] = goals_to_shots_ratio_that_season(team_id, season_id)
     end
-    highest = teams_with_goals_to_shots_ration.min_by {|id, ratio| ratio}
-    find_team_names(highest[0])
+    teams_with_goals_to_shots_ratio.delete_if { |id, ratio| ratio.nil? || ratio.nan?}
+    lowest = teams_with_goals_to_shots_ratio.min_by {|id, ratio| ratio}
+    find_team_names(lowest[0])
   end
 
   def all_coaches
@@ -70,12 +72,14 @@ module SeasonStatistcs
   end
 
   def winningest_coach(season_id)
-    most_wins = percent_wins_by_coach(season_id).max_by {|coach, percent| percent}
+    percent_wins_with_active_coaches = percent_wins_by_coach(season_id).delete_if {|coach, wins| wins.nan?}
+    most_wins = percent_wins_with_active_coaches.max_by {|coach, percent| percent}
     most_wins[0]
   end
 
   def worst_coach(season_id)
-    least_wins = percent_wins_by_coach(season_id).min_by {|coach, percent| percent}
+    percent_wins_with_active_coaches = percent_wins_by_coach(season_id).delete_if {|coach, wins| wins.nan?}
+    least_wins = percent_wins_with_active_coaches.min_by {|coach, percent| percent}
     least_wins[0]
   end
 

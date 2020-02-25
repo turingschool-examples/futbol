@@ -10,6 +10,11 @@ class StatTrackerTest < Minitest::Test
     game_path = './test/fixtures/games_truncated.csv'
     team_path = './test/fixtures/teams_truncated.csv'
     game_teams_path = './test/fixtures/game_teams_truncated.csv'
+
+    # game_path = './data/games.csv'
+    # team_path = './data/teams.csv'
+    # game_teams_path = './data/game_teams.csv'
+
     locations = {
       games: game_path,
       teams: team_path,
@@ -221,7 +226,7 @@ class StatTrackerTest < Minitest::Test
   def test_can_get_least_accurate_team
     assert_equal "Sporting Kansas City", @stat_tracker.least_accurate_team(20122013)
   end
-  #
+
   def test_if_can_get_all_coaches
     expected = ["John Tortorella", "Claude Julien", "Dan Bylsma",
                 "Mike Babcock", "Joel Quenneville", "Paul MacLean", "Michel Therrien"
