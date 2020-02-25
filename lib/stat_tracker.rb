@@ -14,6 +14,7 @@ class StatTracker
     StatTracker.new()
   end
 
+
   def self.create_items(file, item_class)
     csv_options = {
                     headers: true,
