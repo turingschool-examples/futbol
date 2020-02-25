@@ -13,7 +13,7 @@ class StatTrackerTest < Minitest::Test
                 }
 
   @@stat_tracker = StatTracker.from_csv(@@locations)
-  
+
   # def setup
   #   @locations = {
   #                 games: "./data/games.csv",
@@ -116,7 +116,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_knows_worst_coach
   assert_equal "Peter Laviolette", @@stat_tracker.worst_coach("20132014")
-  assert_equal ("Craig MacTavish" || "Ted Nolan"), @@stat_tracker.worst_coach("20142015")
+  assert_includes ["Craig MacTavish", "Ted Nolan"], @@stat_tracker.worst_coach("20142015")
   end
 
   def test_sort_module
