@@ -73,6 +73,14 @@ class StatTracker
     (ties / game_collection.games.length.to_f).round(2)
   end
 
+  def count_of_games_by_season
+    games_per_season = Hash.new(0)
+    game_collection.games.each do |game|
+      games_per_season[game.season] += 1
+    end
+    games_per_season
+  end
+
   def average_goals_per_game
     total_goals_per_game = game_collection.games.map do |game|
       game.home_goals + game.away_goals
