@@ -35,15 +35,11 @@ class StatTracker
   ### Iteration 2 # - - - - - - - - - - - - - - - - - - -
 
   def highest_total_score
-    game_collection.games.map do |game|
-      game.home_goals + game.away_goals
-    end.max
+    game_collection.highest_total_score
   end
 
   def lowest_total_score
-    game_collection.games.map do |game|
-      game.home_goals + game.away_goals
-    end.min
+    game_collection.lowest_total_score
   end
 
   def biggest_blowout
@@ -109,12 +105,7 @@ class StatTracker
   end
 
   def worst_defense
-    #Colin work in progress
-  end
 
-  def lowest_scoring_visitor
-    #team with lowest totals when playing as visitor
-    require "pry"; binding.pry
   end
 
   def worst_fans
