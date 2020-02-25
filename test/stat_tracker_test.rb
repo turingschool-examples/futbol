@@ -113,6 +113,28 @@ def test_it_can_return_lowest_score
   assert_equal 3, @stat_tracker.lowest_total_score
   #harness pass
 end
+ 
+    def test_count_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+
+  def test_best_offense
+    assert_equal "FC Dallas", @stat_tracker.best_offense
+  end
+
+  def test_worst_offense
+    assert_equal "Toronto FC", @stat_tracker.worst_offense
+  end
+
+  def test_higest_scoring_visitor
+
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_winningest_team
+
+    assert_equal "FC Dallas", @stat_tracker.winningest_team
+  end
 
 
   #
@@ -285,10 +307,6 @@ end
   #   assert_equal "Philadelphia Union", @stat_tracker.best_fans
   # end
   #
-  # def test_worst_defense
-  #   skip
-  #   assert_equal 0 ,@stat_tracker.worst_defense
-  # end
   #
   # ######### it5 ###############
   #
@@ -324,9 +342,4 @@ end
     assert_equal Team, @stat_tracker.retrieve_team(18).class
     assert_equal 18, @stat_tracker.retrieve_team(18).team_id
   end
-
-  #Make this work
-  # def test_it_can_return_total_scores_by_team
-  #   assert_equal [], @stat_tracker.total_scores_by_team("18")
-  # end
 end
