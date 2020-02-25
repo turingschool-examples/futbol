@@ -39,18 +39,16 @@ class StatTracker
     @game_stats.percentage_ties
   end
 
-  def count_of_games_by_season(season)
-    @game_stats.length == season
+  def count_of_games_by_season
+    @game_stats.count_of_games_by_season
   end
 
   def average_goals_per_game
-    total_goals = @game_stats.map { |game| game.total_score }
-    (total_goals.sum.to_f / @game_stats.length).round(2)
+    @game_stats.average_goals_per_game
   end
 
   def average_goals_by_season(season)
-    game_count = @game_stats.length == season
-    (game_count.to_f / @game_stats.length).round(2)
+    @game_stats.average_goals_by_season(season)
   end
 
 end

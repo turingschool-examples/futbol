@@ -45,4 +45,15 @@ class GameCollection
     (ties.to_f / @games.length).round(2)
   end
 
+  # def count_of_games_by_season(season)
+  # end
+
+  def average_goals_per_game
+    goals = @games.sum { |game| game.total_goals }
+    (goals.to_f / @games.count).round(2)
+  end
+
+  # def average_goals_by_season(season)
+  # end
+
 end
