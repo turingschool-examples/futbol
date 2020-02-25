@@ -26,4 +26,11 @@ class GameTeamCollection
     @games_by_teams
   end
 
+  def array_by_key(key)
+    @games_by_teams.map{|game| game.send "#{key}" }.uniq
+  end
+
+  def where(key, value)
+    @games_by_teams.find_all{|game| game.send("#{key}") == value}
+  end
 end

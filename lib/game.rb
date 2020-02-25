@@ -3,8 +3,8 @@ class Game
                :home_goals, :away_goals, :venue, :venue_link
 
   def initialize(game_params)
-    @game_id = game_params[:game_id].to_i
-    @season = game_params[:season].to_i  #used
+    @game_id = game_params[:game_id].to_i #used
+    @season = game_params[:season] #used
     @type = game_params[:type]
     @date_time = game_params[:date_time]
     @away_team_id = game_params[:away_team_id].to_i

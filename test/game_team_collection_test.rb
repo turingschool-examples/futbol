@@ -69,7 +69,26 @@ class GameTeamCollectionTest < Minitest::Test
 
   def test_it_can_return_all_game_team_objects
     @game_team_collection.create_game_team_collection
-    
+
     assert_equal @game_team_collection.games_by_teams, @game_team_collection.all
+  end
+
+  def test_it_can_make_an_array_based_on_key
+    @game_team_collection.create_game_team_collection
+    expected_game_id = [2012030221, 2012030222, 2012030223, 2012030224, 2012030225,
+                        2013020674, 2013020177, 2012020225, 2012020577, 2013021085]
+    expected_team_id = [3, 4, 6, 12, 17, 19, 23, 24, 29]
+
+    assert_equal expected_game_id, @game_team_collection.array_by_key(:game_id)
+    assert_equal expected_team_id, @game_team_collection.array_by_key(:team_id).sort
+  end
+
+  def test_it_can_find_game_team_objects_based_on_keys_and_values
+    @game_team_collection.create_game_team_collection
+    expected_first = @game_team_collection.all[0..1]
+    expected_second = @game_team_collection.all[-2..-1]
+
+    assert_equal expected_first, @game_team_collection.where(:game_id, 2012030221)
+    assert_equal expected_second, @game_team_collection.where(:game_id, 2013021085)
   end
 end
