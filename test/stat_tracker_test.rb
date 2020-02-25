@@ -161,4 +161,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Real Salt Lake", @stat_tracker_average.least_accurate_team("20122013")
     assert_equal "Real Salt Lake", @stat_tracker_average.least_accurate_team("20132014")
   end
+
+  def test_it_can_return_best_fan
+    assert_equal "Philadelphia Union", @stat_tracker_average.best_fans
+  end
 end
