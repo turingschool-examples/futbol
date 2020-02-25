@@ -42,5 +42,4 @@ class Game
   def tie?
     @home_goals == @away_goals
   end
-
 end

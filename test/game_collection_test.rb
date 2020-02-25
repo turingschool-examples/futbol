@@ -55,5 +55,5 @@ class GameCollectionTest < Minitest::Test
   # test test_it_count_games_by_season
   # test average_goals_per_game
   # test average_goals_by_season
-
+  
 end
