@@ -150,7 +150,6 @@ class StatTracker
 
   def lowest_scoring_visitor
     #team with lowest totals when playing as visitor
-    require "pry"; binding.pry
   end
 
   def worst_fans
