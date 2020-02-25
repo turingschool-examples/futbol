@@ -13,6 +13,38 @@ class Game
     @@games = value
   end
 
+  def self.sort(function = "add")
+    total_scores = []
+    Game.all.each_value do |value|
+      if function == "subtract"
+        total_scores << (value.home_goals - value.away_goals).abs
+      else
+        total_scores << value.home_goals + value.away_goals
+      end
+    end
+    total_scores.uniq.sort
+  end
+
+  def self.games_outcome_percent(outcome = nil)
+    games_count = 0.0
+    Game.all.each_value do |value|
+      if outcome == "away" && value.home_goals < value.away_goals
+        games_count += 1
+      elsif outcome == "home" && value.home_goals > value.away_goals
+        games_count += 1
+      elsif outcome == "draw" && value.home_goals == value.away_goals
+        games_count += 1
+      end
+    end
+    (games_count / Game.all.length).round(2)
+  end
+
+  def self.games_in_a_season(season)
+    Game.all.select do |game_id, game|
+      game.season == season
+    end
+  end
+
   attr_reader :game_id,
               :season,
               :type,
