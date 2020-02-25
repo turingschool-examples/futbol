@@ -1,4 +1,13 @@
+require_relative './modules/game_statistics'
+require_relative './modules/league_statistics'
+require_relative 'game_team'
+require_relative 'game'
+require_relative 'team'
+
 class StatTracker
+  include GameStatistics
+  include LeagueStatistics
+
   def self.from_csv(locations)
     game_path = locations[:games]
     team_path = locations[:teams]
@@ -11,4 +20,5 @@ class StatTracker
     @teams = Team.create_teams(team_path)
     @game_teams = GameTeam.create_game_teams(game_teams_path)
   end
+
 end
