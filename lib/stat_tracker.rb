@@ -48,7 +48,6 @@ class StatTracker
       teams << game_object.away_team_id
     end
     teams = teams.uniq
-    #I think this is where the failure is coming from. Montreal Impact (Team 23) isn't included in this array.
   end
 
  def find_eligible_teams(season)
