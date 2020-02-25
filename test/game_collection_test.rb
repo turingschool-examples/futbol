@@ -13,7 +13,7 @@ class GameCollectionTest < Minitest::Test
   def test_it_exists
     assert_instance_of GameCollection, @game_collection
   end
-  
+
   def test_it_has_attributes
     assert_instance_of Array, @game_collection.games
     assert_equal 10, @game_collection.games.length
@@ -46,4 +46,12 @@ class GameCollectionTest < Minitest::Test
     assert_equal "Postseason", game2.type
   end
 
+  def test_count_of_games_season
+    expected_hash = {"20122013" => 5, "20172018" => 2, "20162017" => 1, "20152016" => 1, "20132014" => 1 }
+    assert_equal expected_hash, @game_collection.count_of_games_by_season
+  end
+
+  def test_average_goals_per_game
+    assert_equal 4.7, @game_collection.average_goals_per_game
+  end
 end

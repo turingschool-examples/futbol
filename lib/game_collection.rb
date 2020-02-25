@@ -14,4 +14,15 @@ class GameCollection
        Game.new(row)
     end
   end
+
+  def count_of_games_by_season
+    @games.reduce(Hash.new(0)) do |acc, game|
+      acc[game.season] += 1
+      acc
+    end
+  end
+
+  def average_goals_per_game
+    (@games.map {|game| game.total_score}.sum / @games.length.to_f).round(2)
+  end
 end
