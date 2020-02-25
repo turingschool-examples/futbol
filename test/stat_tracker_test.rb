@@ -1,12 +1,12 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative './stat_tracker'
-require_relative './game_collection'
-require_relative './game_teams_collection'
-require_relative './game_teams'
-require_relative './game'
-require_relative './team_collection'
-require_relative './team'
+require './lib/stat_tracker.rb'
+require './lib/game_collection'
+require './lib/game_teams_collection'
+require './lib/game_teams'
+require './lib/game'
+require './lib/team_collection'
+require './lib/team'
 
 class StatTrackerTest < Minitest::Test
 
@@ -77,7 +77,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_average_goals_by_season
-    expected = {20122013=>3.6, 20152016=>4.0}
+    expected = {"20122013"=>3.6, "20152016"=>4.0}
 
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
@@ -94,8 +94,8 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_return_total_games_by_season
     expected = {
-      20122013=>5,
-      20152016=>4
+      "20122013"=>5,
+      "20152016"=>4
       }
     assert_equal expected, @stat_tracker.total_games_by_season
   end
@@ -194,12 +194,12 @@ class StatTrackerTest < Minitest::Test
 
   ### Seasonal Stats Below
   def test_it_knows_all_the_game_ids_in_a_given_season
-    assert_equal [2012030221, 2012030121, 2012030311, 2012020701, 2012020587], @stat_tracker.game_ids_in_season(20122013)
+    assert_equal [2012030221, 2012030121, 2012030311, 2012020701, 2012020587], @stat_tracker.game_ids_in_season("20122013")
   end
 
   def test_it_knows_the_number_of_games_played_by_teams_in_a_season
     expected = {3 => 2, 5 => 3, 10 => 1, 26 => 1, 22 => 1}
-    assert_equal expected, @stat_tracker.games_by_team_by_season(20152016)
+    assert_equal expected, @stat_tracker.games_by_team_by_season("20152016")
   end
 
   def test_it_knows_coaches_by_season
@@ -220,7 +220,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_knows_wins_by_season
     expected = {3=>0, 5=>1, 10=>0, 26=>1, 22=>0}
-    assert_equal expected, @stat_tracker.wins_in_season(20152016)
+    assert_equal expected, @stat_tracker.wins_in_season("20152016")
   end
 
   def test_count_of_teams
