@@ -88,25 +88,31 @@ class StatTrackerTest < Minitest::Test
   end
 
 ###### it3 - - - - - - - - - - - - - - - - -
-  def test_it_can_show_the_worst_fans
-    assert_equal [], @stat_tracker.worst_fans
-    #harness pass
-  end
 
-  def test_it_knows_the_hightest_scoring_home_team
-    assert_equal "FC Dallas", @stat_tracker.highest_scoring_home_team
-    #harness pass
-  end
+def test_count_of_teams
+  assert_equal 32, @stat_tracker.count_of_teams
+  #harness pass
+end
 
-  def test_it_can_return_the_best_overall_defense
-    assert_equal "FC Dallas", @stat_tracker.best_defense
-    #harness pass
-  end
+def test_it_can_show_the_worst_fans
+  assert_equal [], @stat_tracker.worst_fans
+  #harness pass
+end
 
-  def test_it_can_return_lowest_score
-    assert_equal 3, @stat_tracker.lowest_total_score
-    #harness pass
-  end
+def test_it_knows_the_hightest_scoring_home_team
+  assert_equal "FC Dallas", @stat_tracker.highest_scoring_home_team
+  #harness pass
+end
+
+def test_it_can_return_the_best_overall_defense
+  assert_equal "FC Dallas", @stat_tracker.best_defense
+  #harness pass
+end
+
+def test_it_can_return_lowest_score
+  assert_equal 3, @stat_tracker.lowest_total_score
+  #harness pass
+end
 
 
   #
@@ -274,9 +280,6 @@ class StatTrackerTest < Minitest::Test
   #   assert_equal expected, @stat_tracker.wins_in_season("20152016")
   # end
   #
-  # def test_count_of_teams
-  #   assert_equal 32, @stat_tracker.count_of_teams
-  # end
   #
   # def test_best_fans
   #   assert_equal "Philadelphia Union", @stat_tracker.best_fans
