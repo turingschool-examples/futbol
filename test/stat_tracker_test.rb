@@ -176,5 +176,4 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Minnesota United FC", @stat_tracker.biggest_surprise(20142015)
     assert_equal "FC Cincinnati", @stat_tracker.biggest_surprise(20132014)
   end
-
 end

@@ -28,43 +28,34 @@ class StatTracker
     Game.all.select do |game_id, game_data|
       game_data.season == season && game_data.type == type
     end
-
   end
 
   def find_regular_season_teams(season)
     season = season.to_i
     teams = []
     find_games(season, "Regular Season").select do |game_id, game_object|
-      if !teams.include?(game_object.home_team_id)
         teams << game_object.home_team_id
-      end
-      if !teams.include?(game_object.away_team_id)
         teams << game_object.away_team_id
-      end
     end
-    teams
+    teams = teams.uniq!
   end
 
   def find_post_season_teams(season)
     season = season.to_i
     teams = []
     find_games(season, "Postseason").select do |game_id, game_object|
-      if !teams.include?(game_object.home_team_id)
-        teams << game_object.home_team_id
-      end
-      if !teams.include?(game_object.away_team_id)
-        teams << game_object.away_team_id
-      end
+      teams << game_object.home_team_id
+      teams << game_object.away_team_id
     end
-
-    teams
+    teams = teams.uniq!
+    #I think this is where the failure is coming from. Montreal Impact (Team 23) isn't included in this array.
   end
 
   def find_eligible_teams(season)
     season = season.to_i
     eligible_teams = []
-    find_post_season_teams(season).each do |team_id|
-      if find_regular_season_teams(season).include?(team_id)
+    find_regular_season_teams(season).each do |team_id|
+      if find_post_season_teams(season).include?(team_id)
           eligible_teams << team_id
       end
     end
@@ -125,10 +116,3 @@ class StatTracker
     Team.all[maximum_improvement[0]].team_name
     end
   end
-
-
-
-
-
-    #Iterate over each team. Include the team if they played at least one regular season
-    #and one post season game.
