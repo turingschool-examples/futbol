@@ -162,4 +162,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Real Salt Lake", @stat_tracker_average.most_accurate_team("20122013")
   end
 
+  def test_it_can_return_best_fan
+    assert_equal "Philadelphia Union", @stat_tracker_average.best_fans
+  end
+
+  def test_it_can_return_worst_fan
+    assert_equal "FC Dallas", @stat_tracker_average.worst_fans
+  end
 end
