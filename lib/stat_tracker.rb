@@ -144,4 +144,10 @@ class StatTracker
     league_stat.worst_offense
   end
 
+  def highest_total_score
+    team_stat = TeamStat.new(@games_file)
+    require "pry"; binding.pry
+    team_stat.highest_total_score
+  end
+
 end
