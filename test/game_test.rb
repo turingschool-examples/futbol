@@ -29,7 +29,7 @@ class GameTest < Minitest::Test
 
   def test_it_has_attributes
     assert_equal 2012030221, @new_game.game_id
-    assert_equal 20122013, @new_game.season
+    assert_equal "20122013", @new_game.season
     assert_equal "Postseason", @new_game.type
     assert_equal "5/16/13", @new_game.date_time
     assert_equal 3, @new_game.away_team_id
@@ -46,8 +46,7 @@ class GameTest < Minitest::Test
     assert_instance_of Game, Game.all[2012030221]
     assert_equal 2012030221, Game.all[2012030221].game_id
     assert_equal "5/16/13", Game.all[2012030221].date_time
-    assert_equal 20122013, Game.all[2012030221].season
-    assert_equal 20122013, Game.all[2012030221].season
+    assert_equal "20122013", Game.all[2012030221].season
     assert_equal "Postseason", Game.all[2012030221].type
     assert_equal "5/16/13", Game.all[2012030221].date_time
     assert_equal 3, Game.all[2012030221].away_team_id
