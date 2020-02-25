@@ -19,7 +19,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_game_collection
-    assert_instance_of GameCollection, @stat_tracker.game_collection
+    assert_instance_of GameCollection, @stat_tracker.game_stats
   end
 
   def test_it_show_highest_total_score
