@@ -361,7 +361,31 @@ class StatTracker
 
 
   ###### Iteration 4 Methods - - - - - - - - - -- -- - - - - - -
+  def most_tackles(season)
+    games = find_games_in_season(season)
+    totals = Hash.new(0)
+    games.each do |game|
+      totals[game.team_id] += game.tackles
+    end
+    team_name_by_id(totals.key(totals.values.max))
+  end
 
+  def fewest_tackles(season)
+    games = find_games_in_season(season)
+    totals = Hash.new(0)
+    games.each do |game|
+      totals[game.team_id] += game.tackles
+    end
+    team_name_by_id(totals.key(totals.values.min))
+  end
+
+###### Helpful IT4 methods
+
+def find_games_in_season(season)
+  gtc.game_teams.find_all do |game|
+    season[0..3] == game.game_id.to_s[0..3]
+  end
+end
 
   ######## it5 Methods - - - - - - - - - - -
 
