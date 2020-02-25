@@ -5,7 +5,7 @@ require_relative 'scored_goal_stat'
 require_relative 'season_stat_coach'
 require_relative 'season_stat_team'
 require_relative 'league_stat'
-require_relative 'team_stat'
+# require_relative 'team_stat'
 
 class StatTracker
   attr_reader :games_file, :teams_file, :game_teams_file
