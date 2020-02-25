@@ -42,7 +42,7 @@ class GameTest < Minitest::Test
 
   def test_it_can_add_game
     assert_instance_of Hash, Game.all
-    assert_equal 100, Game.all.length
+    assert_equal 7441, Game.all.length
     assert_instance_of Game, Game.all[2012030221]
     assert_equal 2012030221, Game.all[2012030221].game_id
     assert_equal "5/16/13", Game.all[2012030221].date_time

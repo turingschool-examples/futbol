@@ -52,8 +52,8 @@ class GameTeamTest < Minitest::Test
 
   def test_it_can_add_game_teams
     assert_instance_of Hash, GameTeam.all
-    assert_equal 50, GameTeam.all.length
-    
+    assert_equal 7441, GameTeam.all.length
+
     assert_instance_of GameTeam, GameTeam.all[2012030221][3]
     assert_instance_of GameTeam, GameTeam.all[2012030221][6]
 
@@ -65,7 +65,7 @@ class GameTeamTest < Minitest::Test
 
   def test_it_can_load_all_game_teams_from_csv
     assert_equal 2012030221, GameTeam.all.keys.first
-    assert_equal 2012030135, GameTeam.all.keys.last
+    assert_equal 2016020251, GameTeam.all.keys.last
   end
 
 end
