@@ -176,10 +176,11 @@ class StatTracker
   end
 
   def win_percentage(games, team)
+    team = team.team_id if team.is_a?(Team)
     total_score = games.sum do |game|
-      if game.home_team_id == team.team_id
+      if game.home_team_id == team
         game.home_goals > game.away_goals ? 1 : 0
-      elsif game.away_team_id == team.team_id
+      elsif game.away_team_id == team
         game.away_goals > game.home_goals ? 1 : 0
       end
     end
@@ -198,60 +199,54 @@ class StatTracker
 
   def winningest_coach(season)
     season = season.to_i
-    games = Game.all.select do |game_id, game|
-      game.season == season
+    # Get a list of games in the season
+    games = games_in_a_season(season)
+    # Get a list of coaches and thier team ids
+    coaches = coaches_with_team_id(games)
+    # calculate win percentage for each coach and get max
+    winner = coaches.max_by do |coach, game_results|
+      game_results.count("WIN") / game_results.count.to_f
     end
-    games = GameTeam.all.select do |game_id, gameteam|
-      games.keys.include?(game_id)
-    end
+    winner.first
+  end
+
+ def gameteams_matching_games(games)
+   GameTeam.all.select do |game_id, gameteam|
+     games.keys.include?(game_id)
+   end
+ end
+
+  def coaches_with_team_id(games)
+    # get a list of gameteams in the season
+    gamesteams = gameteams_matching_games(games)
     # get list of coaches in the current season
-    coaches = []
-    games.each_value do |gameteams|
-      gameteams.each_value do |team|
-        coaches << team.head_coach
+    coaches = {}
+    gamesteams.each_value do |gameteam|
+      gameteam.each_value do |team|
+        coaches[team.head_coach] = [] if !coaches.has_key?(team.head_coach)
+        coaches[team.head_coach] << team.result
       end
     end
-    coaches = coaches.uniq
-
-    coaches.each do |coach|
-      games_by_coach(coach)
-      coach_win_percentage(games, coach)
-    end
-
+    coaches
   end
 
-  coach_win_percentage(games, coachname)
-    total_games = 0
-    total_wins = 0
-    games.each_value do |gameteam|
-      require "pry"; binding.pry
-    end
-  end
-
-  games_by_coach(coach)
-  Games.all.select
-    games.select do |game_id, team_id|
-      team_id.each_value {|gameteam| gameteam}
+  def games_in_a_season(season)
+    Game.all.select do |game_id, game|
+      game.season == season
     end
   end
 
   def worst_coach(season)
     season = season.to_i
-    games = Game.all.select do |game_id, game|
-      game.season == season
+    # Get a list of games in the season
+    games = games_in_a_season(season)
+    # Get a list of coaches and thier team ids
+    coaches = coaches_with_team_id(games)
+    # calculate win percentage for each coach and get max
+    loser = coaches.min_by do |coach, game_results|
+      game_results.count("WIN") / game_results.count.to_f
     end
-    games = GameTeam.all.select do |game_id, gameteam|
-      games.keys.include?(game_id)
-    end
-    losing_coaches = []
-    # games.each_value do |gameteams|
-    #   gameteams.each_value do |team|
-    #     losing_coaches << team.head_coach if team.result == "LOSS"
-    #   end
-    # end
-    # coaches = losing_coaches.uniq
-    # coaches.max_by {|coach| losing_coaches.count(coach)}
-    # require "pry"; binding.pry
+    loser.first
   end
 
 end
