@@ -16,7 +16,7 @@ class TeamStatTest < Minitest::Test
 
   def test_it_initializes
     assert_equal 2012030221, @game.game_collection.games_list[0].game_id
-    assert_equal "Postseason", @game.game_collection.games_list[9].game_type
+    assert_equal "Postseason", @game.game_collection.games_list[9].type
   end
 
   # def test_highest_total_score
