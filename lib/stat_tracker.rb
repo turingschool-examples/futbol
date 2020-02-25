@@ -102,7 +102,7 @@ class StatTracker
     Team.all[team_id].team_name
   end
 
-  def win_percentage_by_season(team_id)
+  def win_percentage_by_season_by_team_id(team_id)
     team_id = team_id.to_i if team_id.class != Integer
     games = all_games_by_team_id(team_id)
     season_results = {}
@@ -147,13 +147,13 @@ class StatTracker
 
   def best_season(team_id)
     team_id = team_id.to_i if team_id.class != Integer
-    season_averages = win_percentage_by_season(team_id)
+    season_averages = win_percentage_by_season_by_team_id(team_id)
     season_averages.max_by { |_season, result| result }.first
   end
 
   def worst_season(team_id)
     team_id = team_id.to_i if team_id.class != Integer
-    season_averages = win_percentage_by_season(team_id)
+    season_averages = win_percentage_by_season_by_team_id(team_id)
     season_averages.min_by { |_season, result| result }.first
   end
 
