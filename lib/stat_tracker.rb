@@ -460,9 +460,10 @@ end
 
   ######## it5 Methods - - - - - - - - - - -
 
-  def team_info(team)
+  def team_info(team_num)
+    #tested to harness
     info = {}
-    team_obj = retrieve_team(team)
+    team_obj = retrieve_team(team_num)
       info["team_id"] = team_obj.team_id.to_s
       info["franchise_id"] = team_obj.franchiseid.to_s
       info["team_name"] = team_obj.teamname
@@ -470,6 +471,31 @@ end
       info["link"] = team_obj.link
       info
   end
+
+  def most_goals_scored(team_num)
+    #tested to harness
+    game_collection.games.reduce([]) do |scores, game|
+      if team_num.to_i == game.home_team_id
+        scores << game.home_goals
+      elsif team_num.to_i == game.away_team_id
+        scores << game.away_goals
+      end
+      scores
+    end.max
+  end
+
+  def fewest_goals_scored(team_num)
+    #tested to harness
+    game_collection.games.reduce([]) do |scores, game|
+      if team_num.to_i == game.home_team_id
+        scores << game.home_goals
+      elsif team_num.to_i == game.away_team_id
+        scores << game.away_goals
+      end
+      scores
+    end.min
+  end
+
 
   ##### it5 Helpers
   def retrieve_team(team)

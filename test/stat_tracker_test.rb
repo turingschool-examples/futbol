@@ -13,12 +13,12 @@ class StatTrackerTest < Minitest::Test
   def setup
     @locations = {
         # games: './fixture_files/games_fixture.csv',
-        games: './data/little_games.csv',
-        # games: './data/games.csv',
+        # games: './data/little_games.csv',
+        games: './data/games.csv',
         teams: './data/teams.csv',
         # game_teams: './fixture_files/game_teams_fixture.csv'
-        game_teams: './data/little_game_teams.csv'
-        # game_teams: './data/game_teams.csv'
+        # game_teams: './data/little_game_teams.csv'
+        game_teams: './data/game_teams.csv'
       }
     @stat_tracker = StatTracker.from_csv(@locations)
   end
@@ -282,6 +282,14 @@ class StatTrackerTest < Minitest::Test
    }
    assert_equal expected, @stat_tracker.team_info(18)
 
+  end
+
+  def test_it_knows_the_most_points_a_team_has_scored
+    assert_equal 6, @stat_tracker.most_goals_scored("3")
+  end
+
+  def test_it_knows_the_fewest_points_a_team_has_scored
+    assert_equal 0, @stat_tracker.fewest_goals_scored("3")
   end
 
   ### it5 helpers ##
