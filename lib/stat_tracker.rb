@@ -3,7 +3,6 @@ require_relative 'season_win'
 require_relative 'season_stat'
 require_relative 'scored_goal_stat'
 require_relative 'season_stat_coach'
-require_relative 'summary'
 require_relative 'season_stat_team'
 require_relative 'league_stat'
 
