@@ -1,13 +1,13 @@
 require 'csv'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative './game_teams'
-require_relative './game_teams_collection'
+require_relative '../lib/game_teams'
+require_relative '../lib/game_teams_collection'
 
 class GameTeamsCollectionTest < Minitest::Test
 
   def setup
-    @game_team_data = CSV.read('./data/little_game_teams.csv',
+    @game_team_data = CSV.read('./fixture_files/game_teams_fixture.csv',
                               headers: true,
                               header_converters: :symbol)
     @gtc = GameTeamsCollection.new(@game_team_data)
@@ -42,5 +42,36 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal 44, @gtc.game_teams.first.tackles
     assert_equal 7, @gtc.game_teams.first.takeaways
     assert_equal 3, @gtc.game_teams.first.team_id
+  end
+
+  def test_it_can_display_home_or_away_games_by_team
+    expected_home = {6=>1, 8=>1, 5=>4, 19=>1, 52=>1, 26=>1}
+
+    assert_equal expected_home, @gtc.hoa_games_by_team("home")
+
+    expected_away = {3=>3, 9=>1, 6=>1, 20=>1, 7=>1, 10=>1, 22=>1}
+    assert_equal expected_away, @gtc.hoa_games_by_team("away")
+  end
+
+  def test_it_can_display_all_goals_scored_hoa_by_team
+    expected_home = {3=>0, 6=>3, 9=>0, 8=>2, 5=>7, 20=>0, 19=>2,
+      7=>0, 52=>2, 10=>0, 26=>2, 22=>0}
+    assert_equal expected_home, @gtc.hoa_goals_by_team("home")
+
+    expected_away = {3=>6, 6=>3, 9=>2, 8=>0, 5=>0, 20=>1,
+      19=>0, 7=>1, 52=>0, 10=>1, 26=>0, 22=>2}
+
+    assert_equal expected_away, @gtc.hoa_goals_by_team("away")
+  end
+
+  def test_it_can_display_home_or_away_wins_by_team
+    expected_home = {3=>0, 6=>1, 9=>0, 8=>0, 5=>1, 20=>0, 19=>1,
+      7=>0, 52=>1, 10=>0, 26=>1, 22=>0}
+    assert_equal expected_home, @gtc.hoa_wins_by_team("home")
+
+    expected_away = {3=>0, 6=>1, 9=>0, 8=>0, 5=>0, 20=>0, 19=>0,
+      7=>0, 52=>0, 10=>0, 26=>0, 22=>0}
+
+    assert_equal expected_away, @gtc.hoa_wins_by_team("away")
   end
 end

@@ -24,4 +24,50 @@ class GameCollectionTest < Minitest::Test
     assert_equal 5, @game_collection.highest_total_score
     #harness pass
   end
+
+  def test_it_can_return_lowest_score
+    assert_equal 3, @game_collection.lowest_total_score
+    #harness pass
+  end
+
+  def test_it_can_return_the_biggest_blowout
+    assert_equal 3, @game_collection.biggest_blowout
+    #narness pass
+  end
+
+  def test_can_return_percentage_of_home_wins
+    assert_equal 0.56, @game_collection.percentage_home_wins
+    #harness pass
+  end
+
+  def test_can_return_percentage_of_visitor_wins
+    assert_equal 0.11, @game_collection.percentage_visitor_wins
+    #harness pass
+  end
+
+  def test_it_can_return_percentage_ties
+    assert_equal 0.33, @game_collection.percentage_ties
+    #jarness pass
+  end
+
+  def test_it_can_return_a_count_of_games_per_season
+    expected = {
+      "20122013" => 5,
+      "20152016" => 4
+    }
+    assert_equal expected, @game_collection.count_of_games_by_season
+    #harness pass
+  end
+
+  def test_it_can_return_average_goals_per_game
+    assert_equal 3.78, @game_collection.average_goals_per_game
+    #harness pass
+  end
+
+  def test_it_can_return_average_goals_by_season
+    expected = {"20122013"=>3.6, "20152016"=>4.0}
+
+    assert_equal expected, @game_collection.average_goals_by_season
+    #harness pass
+  end
 end

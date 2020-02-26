@@ -12,4 +12,36 @@ class GameTeamsCollection
       GameTeams.new(row.to_h)
     end
   end
+
+  def hoa_games_by_team(hoa)
+    hoa_games_by_team = Hash.new(0)
+    game_teams.find_all do |game|
+      hoa_games_by_team[game.team_id] += 1 if hoa.downcase == game.hoa
+    end
+    hoa_games_by_team
+  end
+
+  def hoa_goals_by_team(hoa)
+    hoa_goals_by_team = Hash.new(0)
+    game_teams.find_all do |game|
+      if game.hoa == hoa.downcase
+        hoa_goals_by_team[game.team_id] += game.goals
+      else
+        hoa_goals_by_team[game.team_id] += 0
+      end
+    end
+    hoa_goals_by_team
+  end
+
+  def hoa_wins_by_team(hoa)
+    hoa_wins_by_team = Hash.new(0)
+    game_teams.find_all do |game|
+      if hoa.downcase == game.hoa && game.result == "WIN"
+        hoa_wins_by_team[game.team_id] += 1
+      else
+        hoa_wins_by_team[game.team_id] += 0
+      end
+    end
+    hoa_wins_by_team
+  end
 end

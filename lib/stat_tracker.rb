@@ -43,91 +43,64 @@ class StatTracker
   end
 
   def biggest_blowout
-    game_collection.games.map do |game|
-      Math.sqrt((game.home_goals - game.away_goals)**2).to_i
-    end.max
+    game_collection.biggest_blowout
   end
 
   def percentage_home_wins
-    home_wins = game_collection.games.find_all do |game|
-      game.home_goals > game.away_goals
-    end
-    (home_wins.length.to_f / game_collection.games.length).round(2)
+    game_collection.percentage_home_wins
   end
 
   def percentage_visitor_wins
-    visitor_wins = game_collection.games.find_all do |game|
-      game.away_goals > game.home_goals
-    end
-    (visitor_wins.length.to_f / game_collection.games.length).round(2)
+    game_collection.percentage_visitor_wins
   end
 
   def percentage_ties
-    ties = game_collection.games.find_all do |game|
-      game.home_goals == game.away_goals
-    end.length
-    (ties / game_collection.games.length.to_f).round(2)
+    game_collection.percentage_ties
   end
 
   def count_of_games_by_season
-    games_per_season = Hash.new(0)
-    game_collection.games.each do |game|
-      games_per_season[game.season] += 1
-    end
-    games_per_season
+    game_collection.count_of_games_by_season
   end
 
   def average_goals_per_game
-    total_goals_per_game = game_collection.games.map do |game|
-      game.home_goals + game.away_goals
-    end
-    (total_goals_per_game.sum.to_f / game_collection.games.length).round(2)
+    game_collection.average_goals_per_game
   end
 
   def average_goals_by_season
-    games_grouped_by_season = game_collection.games.group_by do |game|
-      game.season
-    end
-    games_grouped_by_season.each_pair do |season, games_by_season|
-      total_goals = games_by_season.map do |single_game|
-        single_game.home_goals + single_game.away_goals
-      end
-    average = (total_goals.sum.to_f / total_goals.length).round(2)
-    games_grouped_by_season[season] = average
-    end
+    game_collection.average_goals_by_season
   end
 
   ## Iteration 3 # - - - - - - - - - - - - - - - - - - - - -
   def count_of_teams
-    @team_collection.teams.length
+    @team_collection.count_of_teams
   end
 
   def best_offense
     game_teams_grouped_by_team_id = @gtc.game_teams.group_by do |game_team|
       game_team.team_id
     end
-    x = game_teams_grouped_by_team_id.each_pair do |team_id, games_by_team|
+    games_per_team = game_teams_grouped_by_team_id.each_pair do |team_id, games_by_team|
       total_goals = games_by_team.map do |single_game|
         single_game.goals
       end
       game_team_averages = (total_goals.sum.to_f / total_goals.length).round(2)
       (game_teams_grouped_by_team_id[team_id] = game_team_averages)
     end
-    team_name_by_id(x.key(x.values.max))
+    team_name_by_id(games_per_team.key(games_per_team.values.max))
   end
 
   def worst_offense
     game_teams_grouped_by_team_id = @gtc.game_teams.group_by do |game_team|
       game_team.team_id
     end
-    x = game_teams_grouped_by_team_id.each_pair do |team_id, games_by_team|
+    games_per_team = game_teams_grouped_by_team_id.each_pair do |team_id, games_by_team|
       total_goals = games_by_team.map do |single_game|
         single_game.goals
       end
       game_team_averages = (total_goals.sum.to_f / total_goals.length).round(2)
       (game_teams_grouped_by_team_id[team_id] = game_team_averages)
     end
-    team_name_by_id(x.key(x.values.min))
+    team_name_by_id(games_per_team.key(games_per_team.values.min))
   end
 
   def best_defense
@@ -141,12 +114,12 @@ class StatTracker
   end
 
   def lowest_scoring_visitor
-    
+
   end
 
   def worst_fans
-    home_w = hoa_wins_by_team("home")
-    away_w = hoa_wins_by_team("away")
+    home_w = gtc.hoa_wins_by_team("home")
+    away_w = gtc.hoa_wins_by_team("away")
     teams = away_w.select do |team, away_wins|
       home_w[team] < away_wins
     end.keys
@@ -154,12 +127,12 @@ class StatTracker
   end
 
   def lowest_scoring_home_team
-    home_games = hoa_games_by_team("home")
-    home_goals = hoa_goals_by_team("home")
+    home_games = gtc.hoa_games_by_team("home")
+    home_goals = gtc.hoa_goals_by_team("home")
     home_goals_per_game = {}
     home_goals.each do |team_id, total_home_goals|
       next if total_home_goals == 0
-      home_goals_per_game[team_id] = total_home_goals / hoa_games_by_team("home")[team_id].to_f
+      home_goals_per_game[team_id] = total_home_goals / gtc.hoa_games_by_team("home")[team_id].to_f
     end
     team_name_by_id(home_goals_per_game.key(home_goals_per_game.values.min))
   end
@@ -174,33 +147,33 @@ class StatTracker
   end
 
   def highest_scoring_visitor
-    away_games = hoa_games_by_team("away")
-    away_goals = hoa_goals_by_team("away")
+    away_games = gtc.hoa_games_by_team("away")
+    away_goals = gtc.hoa_goals_by_team("away")
     away_goals_per_game = {}
     away_goals.each do |team_id, total_away_goals|
       next if total_away_goals == 0
-      away_goals_per_game[team_id] = total_away_goals / hoa_games_by_team("away")[team_id].to_f
+      away_goals_per_game[team_id] = total_away_goals / gtc.hoa_games_by_team("away")[team_id].to_f
       end
     team_name_by_id(away_goals_per_game.key(away_goals_per_game.values.max))
   end
 
   def highest_scoring_home_team
-    home_games = hoa_games_by_team("home")
-    home_goals = hoa_goals_by_team("home")
+    home_games = gtc.hoa_games_by_team("home")
+    home_goals = gtc.hoa_goals_by_team("home")
     home_goals_per_game = {}
     home_goals.each do |team_id, total_home_goals|
       next if total_home_goals == 0
-      home_goals_per_game[team_id] = total_home_goals / hoa_games_by_team("home")[team_id].to_f
+      home_goals_per_game[team_id] = total_home_goals / gtc.hoa_games_by_team("home")[team_id].to_f
     end
     team_name_by_id(home_goals_per_game.key(home_goals_per_game.values.max))
   end
 
   def best_fans
     #biggest diff between home win % and away win %
-    home_games_played = hoa_games_by_team("home")
-    home_games_won = hoa_wins_by_team("home")
-    away_games_played = hoa_games_by_team("away")
-    away_games_won = hoa_wins_by_team("away")
+    home_games_played = gtc.hoa_games_by_team("home")
+    home_games_won = gtc.hoa_wins_by_team("home")
+    away_games_played = gtc.hoa_games_by_team("away")
+    away_games_won = gtc.hoa_wins_by_team("away")
     home_percentage = home_games_played.merge(home_games_played) do |team, home_game|
       home_games_won[team] / home_game.to_f
     end
@@ -215,14 +188,6 @@ class StatTracker
   end
 
   ###### Iterartion 2/3 Helpers - - - - - - - - - - - - - - - - - -
-  def total_games_by_season
-    games_in_season = Hash.new(0)
-    game_collection.games.each do |game|
-      games_in_season[game.season] += 1
-    end
-    games_in_season
-  end
-
   def team_name_by_id(team_id)
     team_collection.teams.find do |team|
       team.team_id == team_id
@@ -292,62 +257,6 @@ class StatTracker
       goals_allowed_by_team[game.home_team_id] += game.away_goals
     end
     goals_allowed_by_team
-  end
-
-  def hoa_games_by_team(hoa)
-    hoa_games_by_team = Hash.new(0)
-    gtc.game_teams.find_all do |game|
-      hoa_games_by_team[game.team_id] += 1 if hoa.downcase == game.hoa
-    end
-    hoa_games_by_team
-  end
-
-  def hoa_goals_by_team(hoa)
-    hoa_goals_by_team = Hash.new(0)
-    gtc.game_teams.find_all do |game|
-      if game.hoa == hoa.downcase
-        hoa_goals_by_team[game.team_id] += game.goals
-      else
-        hoa_goals_by_team[game.team_id] += 0
-      end
-    end
-    hoa_goals_by_team
-  end
-
-  def hoa_wins_by_team(hoa)
-    hoa_wins_by_team = Hash.new(0)
-    gtc.game_teams.find_all do |game|
-      if hoa.downcase == game.hoa && game.result == "WIN"
-        hoa_wins_by_team[game.team_id] += 1
-      else
-        hoa_wins_by_team[game.team_id] += 0
-      end
-    end
-    hoa_wins_by_team
-  end
-
-  def hoa_loss_by_team(hoa)
-    hoa_loss_by_team = Hash.new(0)
-    gtc.game_teams.find_all do |game|
-      if hoa.downcase == game.hoa && game.result == "LOSS"
-        hoa_loss_by_team[game.team_id] += 1
-      else
-        hoa_loss_by_team[game.team_id] += 0
-      end
-    end
-    hoa_loss_by_team
-  end
-
-  def hoa_tie_by_team(hoa)
-    hoa_tie_by_team = Hash.new(0)
-    gtc.game_teams.find_all do |game|
-      if hoa.downcase == game.hoa && game.result == "TIE"
-        hoa_tie_by_team[game.team_id] += 1
-      else
-        hoa_tie_by_team[game.team_id] += 0
-      end
-    end
-    hoa_tie_by_team
   end
 
 
