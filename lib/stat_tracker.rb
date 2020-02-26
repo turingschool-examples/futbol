@@ -611,4 +611,53 @@ class StatTracker
     return_team_name(accuracy, "min")
   end
 
+  def win_percentage_against_opponent(team_id, opponent_team_id)
+    team_id = team_id.to_i if team_id.class != Integer
+    opponent_team_id = opponent_team_id.to_i if opponent_team_id.class != Integer
+    games = all_games_by_team_id(team_id)
+    total_opponent_wins = 0.0
+    total_opponent_losses = 0.0
+    total_games = 0.0
+
+    games.each do |game|
+      if opponent_team_id == game.away_team_id
+        total_games += 1
+        total_opponent_wins += 1 if game.home_goals < game.away_goals
+        total_opponent_losses += 1 if game.away_goals < game.home_goals
+      elsif opponent_team_id == game.home_team_id
+        total_games += 1
+        total_opponent_wins += 1 if game.away_goals < game.home_goals
+        total_opponent_losses += 1 if game.home_goals < game.away_goals
+      end
+    end
+    (total_opponent_wins / total_opponent_losses).round(3)
+  end
+
+  def all_team_average_wins_by_opponent(team_id)
+    team_id = team_id.to_i if team_id.class != Integer
+    games = all_games_by_team_id(team_id)
+
+    games.reduce({}) do |matchup_results, game|
+      if game.home_team_id == team_id
+        matchup_results[game.away_team_id] = win_percentage_against_opponent(team_id, game.away_team_id)
+      elsif game.away_team_id == team_id
+        matchup_results[game.home_team_id] = win_percentage_against_opponent(team_id, game.home_team_id)
+      end
+      matchup_results
+    end
+  end
+
+  def favorite_opponent(team_id)
+    team_id = team_id.to_i if team_id.class != Integer
+    team_averages = all_team_average_wins_by_opponent(team_id)
+    rival = team_averages.min_by { |_team_id, result| result }.first
+    get_team_name(rival)
+  end
+
+  def rival(team_id)
+    team_id = team_id.to_i if team_id.class != Integer
+    team_averages = all_team_average_wins_by_opponent(team_id)
+    rival = team_averages.max_by { |_team_id, result| result }.first
+    get_team_name(rival)
+  end
 end
