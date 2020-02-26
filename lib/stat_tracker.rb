@@ -114,7 +114,12 @@ class StatTracker
   end
 
   def lowest_scoring_visitor
-
+    games_played_by_team = @gtc.hoa_games_by_team('away')
+    scores_by_team = @gtc.hoa_goals_by_team('away')
+    average_score_game = games_played_by_team.merge(games_played_by_team) do |team, games|
+      games_played_by_team[team] = scores_by_team[team] / games.to_f
+    end
+    team_name_by_id(average_score_game.key(average_score_game.values.max))
   end
 
   def worst_fans
