@@ -50,12 +50,28 @@ class Team
 
       total_score = games.sum do |game|
         field == :home ? game.home_goals : game.away_goals
-      end 
+      end
       total_score.to_f / games.count
     end
     {highest: rankings.last.team_name, lowest: rankings.first.team_name}
   end
 
+  def self.winningest_team
+    winningest = Team.all.values.max_by do |team|
+      games_with_team = Game.games_played_by_team(team)
+      if !games_with_team.empty?
+        games_won = games_with_team.count do |game|
+          if game.home_team_id == team.team_id
+            game.home_goals > game.away_goals
+          else
+            game.away_goals > game.home_goals
+          end
+        end
+      end
+      games_won.to_f / games_with_team.count
+    end
+    winningest.team_name
+  end
 
   attr_reader :team_id,
               :franchise_id,

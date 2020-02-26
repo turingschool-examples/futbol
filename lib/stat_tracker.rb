@@ -104,21 +104,8 @@ class StatTracker
   end
 
   def winningest_team
-    winningest = Team.all.values.max_by do |team|
-      games_with_team = Game.games_played_by_team(team)
-      if !games_with_team.empty?
-        games_won = games_with_team.count do |game|
-          if game.home_team_id == team.team_id
-            game.home_goals > game.away_goals
-          else
-            game.away_goals > game.home_goals
-          end
-        end
-      end
-      games_won.to_f / games_with_team.count
-    end
-    winningest.team_name
-  end
+    Team.winningest_team
+  end   
 
   def best_fans
     biggest_home_away_diff = Team.all.values.max_by do |team|
