@@ -144,14 +144,52 @@ class StatTracker
 
   def best_offense
     league_stat = LeagueStat.new(@teams_file, @games_file)
+    league_stat.create_scoring_averages
     league_stat.best_offense
   end
 
   def worst_offense
     league_stat = LeagueStat.new(@teams_file, @games_file)
+    league_stat.create_scoring_averages
     league_stat.worst_offense
   end
-  #
+
+  def best_defense
+    league_stat = LeagueStat.new(@teams_file, @games_file)
+    league_stat.create_scoring_averages
+    league_stat.best_defense
+  end
+
+  def worst_defense
+    league_stat = LeagueStat.new(@teams_file, @games_file)
+    league_stat.create_scoring_averages
+    league_stat.worst_defense
+  end
+
+  def highest_scoring_visitor
+    league_stat = LeagueStat.new(@teams_file, @games_file)
+    league_stat.create_scoring_averages
+    league_stat.highest_scoring_visitor
+  end
+
+  def highest_scoring_home_team
+    league_stat = LeagueStat.new(@teams_file, @games_file)
+    league_stat.create_scoring_averages
+    league_stat.highest_scoring_home_team
+  end
+
+  def lowest_scoring_visitor
+    league_stat = LeagueStat.new(@teams_file, @games_file)
+    league_stat.create_scoring_averages
+    league_stat.lowest_scoring_visitor
+  end
+
+  def lowest_scoring_home_team
+    league_stat = LeagueStat.new(@teams_file, @games_file)
+    league_stat.create_scoring_averages
+    league_stat.lowest_scoring_home_team
+  end
+
   def percentage_home_wins
     @game_collection.create_pct_data
     @game_collection.percentage_home_wins
