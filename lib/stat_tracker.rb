@@ -190,6 +190,24 @@ class StatTracker
     league_stat.lowest_scoring_home_team
   end
 
+  def winningest_team
+    league_stat = LeagueStat.new(@teams_file, @games_file)
+    league_stat.create_scoring_averages
+    league_stat.winningest_team
+  end
+
+  def best_fans
+    league_stat = LeagueStat.new(@teams_file, @games_file)
+    league_stat.create_scoring_averages
+    league_stat.best_fans
+  end
+
+  def worst_fans
+    league_stat = LeagueStat.new(@teams_file, @games_file)
+    league_stat.create_scoring_averages
+    league_stat.worst_fans
+  end
+
   def percentage_home_wins
     @game_collection.create_pct_data
     @game_collection.percentage_home_wins

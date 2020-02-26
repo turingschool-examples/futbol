@@ -184,4 +184,16 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_home_team
   end
 
+  def test_it_returns_winningest_team
+    assert_equal "Reign FC", @stat_tracker.winningest_team
+  end
+
+  def test_it_returns_best_fans
+    assert_equal "San Jose Earthquakes", @stat_tracker.best_fans
+  end
+
+  def test_it_returns_worst_fans
+    assert_equal ["Houston Dynamo", "Utah Royals FC"], @stat_tracker.worst_fans
+  end
+
 end
