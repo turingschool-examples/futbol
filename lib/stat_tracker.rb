@@ -76,31 +76,13 @@ class StatTracker
   end
 
   def best_offense
-    game_teams_grouped_by_team_id = @gtc.game_teams.group_by do |game_team|
-      game_team.team_id
-    end
-    games_per_team = game_teams_grouped_by_team_id.each_pair do |team_id, games_by_team|
-      total_goals = games_by_team.map do |single_game|
-        single_game.goals
-      end
-      game_team_averages = (total_goals.sum.to_f / total_goals.length).round(2)
-      (game_teams_grouped_by_team_id[team_id] = game_team_averages)
-    end
-    team_name_by_id(games_per_team.key(games_per_team.values.max))
+    totals = @gtc.offense_rankings
+    retrieve_team(totals.key(totals.values.max)).teamname
   end
 
   def worst_offense
-    game_teams_grouped_by_team_id = @gtc.game_teams.group_by do |game_team|
-      game_team.team_id
-    end
-    games_per_team = game_teams_grouped_by_team_id.each_pair do |team_id, games_by_team|
-      total_goals = games_by_team.map do |single_game|
-        single_game.goals
-      end
-      game_team_averages = (total_goals.sum.to_f / total_goals.length).round(2)
-      (game_teams_grouped_by_team_id[team_id] = game_team_averages)
-    end
-    team_name_by_id(games_per_team.key(games_per_team.values.min))
+    totals = @gtc.offense_rankings
+    retrieve_team(totals.key(totals.values.min)).teamname
   end
 
   def best_defense
@@ -201,30 +183,15 @@ class StatTracker
 
   ###### Iteration 4 Methods - - - - - - - - - -- -- - - - - - -
   def most_tackles(season)
-    games = find_games_in_season(season)
-    totals = Hash.new(0)
-    games.each do |game|
-      totals[game.team_id] += game.tackles
-    end
-    team_name_by_id(totals.key(totals.values.max))
+    team_name_by_id(gtc.season_tackles(season).key(gtc.season_tackles(season).values.max))
   end
 
   def fewest_tackles(season)
-    games = find_games_in_season(season)
-    totals = Hash.new(0)
-    games.each do |game|
-      totals[game.team_id] += game.tackles
-    end
-    team_name_by_id(totals.key(totals.values.min))
+    team_name_by_id(gtc.season_tackles(season).key(gtc.season_tackles(season).values.min))
   end
 
 ###### Helpful IT4 methods
 
-def find_games_in_season(season)
-  gtc.game_teams.find_all do |game|
-    season[0..3] == game.game_id.to_s[0..3]
-  end
-end
 
   ######## it5 Methods - - - - - - - - - - -
 
@@ -266,6 +233,4 @@ end
       scores
     end
   end
-
-
 end

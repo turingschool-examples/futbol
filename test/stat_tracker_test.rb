@@ -114,7 +114,7 @@ def test_it_can_return_lowest_score
   #harness pass
 end
 
-  def test_count_of_teams
+def test_count_of_teams
   assert_equal 32, @stat_tracker.count_of_teams
 end
 
