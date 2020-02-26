@@ -80,14 +80,8 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal expected, @gtc.total_wins_by_team
   end
 
-  def test_it_can_show_total_loss
-    expected = {3=>2, 6=>0, 5=>0, 20=>1, 19=>0, 7=>1, 52=>0, 10=>1, 26=>0}
-    assert_equal expected, @gtc.total_loss_by_team
-  end
-
-  def test_it_can_show_total_ties
-    expected = {3=>1, 6=>0, 9=>1, 8=>1, 5=>2, 20=>0, 19=>0,
-      7=>0, 52=>0, 10=>0, 26=>0, 22=>1}
-    assert_equal expected, @gtc.total_tie_by_team
+  def test_average_scores_at_home
+    expected = {6=>3.0, 8=>2.0, 5=>1.75, 19=>2.0, 52=>2.0, 26=>2.0}
+    assert_equal expected, @gtc.scores_as_home_team
   end
 end
