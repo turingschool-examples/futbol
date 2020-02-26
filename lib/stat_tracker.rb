@@ -4,7 +4,6 @@ require_relative './game_collection'
 require_relative './team_collection'
 
 class StatTracker
-
   def self.from_csv(locations)
     raw_data = {}
     raw_data[:game_data] = CSV.read(locations[:games], headers: true, header_converters: :symbol)
@@ -72,34 +71,33 @@ class StatTracker
 
   def best_offense
     totals = @gtc.offense_rankings
-    retrieve_team(totals.key(totals.values.max)).teamname
+    @team_collection.retrieve_team(totals.key(totals.values.max)).teamname
   end
 
   def worst_offense
     totals = @gtc.offense_rankings
-    retrieve_team(totals.key(totals.values.min)).teamname
+    @team_collection.retrieve_team(totals.key(totals.values.min)).teamname
   end
 
   def best_defense
     totals = @game_collection.defense_rankings
-    retrieve_team(totals.key(totals.values.min)).teamname
+    @team_collection.retrieve_team(totals.key(totals.values.min)).teamname
   end
 
   def worst_defense
     totals = @game_collection.defense_rankings
-    retrieve_team(totals.key(totals.values.max)).teamname
+    @team_collection.retrieve_team(totals.key(totals.values.max)).teamname
   end
 
   def lowest_scoring_visitor
     totals = @gtc.scores_as_visitor
-    retrieve_team(totals.key(totals.values.min)).teamname
+    @team_collection.retrieve_team(totals.key(totals.values.min)).teamname
   end
 
   def worst_fans
-    teams = gtc.hoa_wins_by_team("away").select do |team, away_wins|
-      gtc.hoa_wins_by_team("home")[team] < away_wins
-    end.keys
-    teams.map { |team_id| team_name_by_id(team_id) }
+    @gtc.hoa_wins_by_team("away").select do |team, away_wins|
+      @gtc.hoa_wins_by_team("home")[team] < away_wins
+    end.keys.map { |team_id| team_name_by_id(team_id) }
   end
 
   def lowest_scoring_home_team
@@ -111,8 +109,6 @@ class StatTracker
   end
 
   def winningest_team
-    game_collection.total_games_by_team
-    gtc.total_wins_by_team
     winning_percentages = game_collection.total_games_by_team.merge(game_collection.total_games_by_team) do |team_id, total_games|
       gtc.total_wins_by_team[team_id] / total_games.to_f
     end
@@ -121,18 +117,16 @@ class StatTracker
 
   def highest_scoring_visitor
     totals = @gtc.scores_as_visitor
-    retrieve_team(totals.key(totals.values.max)).teamname
+    @team_collection.retrieve_team(totals.key(totals.values.max)).teamname
   end
 
   def best_fans
     home_percentage = @gtc.hoa_win_percentage('home')
     away_percentage = @gtc.hoa_win_percentage('away')
-
     differences = home_percentage.merge(home_percentage) do |team, percent|
       (percent - away_percentage[team])
     end
-    team_and_difference = differences.max_by { |team, difference| difference}
-    team_name_by_id(team_and_difference[0])
+    team_name_by_id(differences.max_by { |team, difference| difference}.first)
   end
 
   def team_name_by_id(team_id)
@@ -150,14 +144,7 @@ class StatTracker
   end
 
   def team_info(team_num)
-    info = {}
-    team_obj = retrieve_team(team_num.to_i)
-      info["team_id"] = team_obj.team_id.to_s
-      info["franchise_id"] = team_obj.franchiseid.to_s
-      info["team_name"] = team_obj.teamname
-      info["abbreviation"] = team_obj.abbreviation
-      info["link"] = team_obj.link
-      info
+    @team_collection.team_info(team_num)
   end
 
   def most_goals_scored(team_num)
@@ -166,10 +153,6 @@ class StatTracker
 
   def fewest_goals_scored(team_num)
     total_scores_by_team(team_num).min
-  end
-
-  def retrieve_team(team_num)
-    team_collection.teams.find { |team_obj| team_obj.team_id == team_num }
   end
 
   def total_scores_by_team(team_num)
