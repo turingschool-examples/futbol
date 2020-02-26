@@ -104,7 +104,7 @@ def test_it_knows_the_hightest_scoring_home_team
   #harness pass
 end
 
-def test_it_can_return_the_best_overall_defense
+def test_best_defense
   assert_equal "FC Dallas", @stat_tracker.best_defense
   #harness pass
 end
@@ -124,6 +124,10 @@ end
 
 def test_worst_offense
   assert_equal "Toronto FC", @stat_tracker.worst_offense
+end
+
+def test_worst_defense
+  assert_equal "Houston Dynamo", @stat_tracker.worst_defense
 end
 
 def test_highest_scoring_visitor

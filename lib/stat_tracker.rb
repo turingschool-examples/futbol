@@ -86,13 +86,13 @@ class StatTracker
   end
 
   def best_defense
-    allowed = game_collection.all_goals_allowed_by_team
-    games = game_collection.total_games_by_team
-    average_goals_allowed = {}
-    allowed.each do |team_id, goals_allowed|
-      average_goals_allowed[team_id] = goals_allowed / game_collection.total_games_by_team[team_id].to_f
-    end
-    team_name_by_id(average_goals_allowed.key(average_goals_allowed.values.min))
+    totals = @game_collection.defense_rankings
+    retrieve_team(totals.key(totals.values.min)).teamname
+  end
+  
+  def worst_defense
+    totals = @game_collection.defense_rankings
+    retrieve_team(totals.key(totals.values.max)).teamname
   end
 
   def lowest_scoring_visitor
