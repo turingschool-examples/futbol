@@ -32,8 +32,10 @@ class LeagueStat
     stats_by_team[game.away_team_id][:away_games] += 1
     if game.away_goals > game.home_goals
       stats_by_team[game.away_team_id][:away_wins] += 1
+      stats_by_team[game.away_team_id][:total_wins] += 1
     elsif game.away_goals < game.home_goals
       stats_by_team[game.away_team_id][:away_losses] += 1
+      stats_by_team[game.away_team_id][:total_losses] += 1
     end
   end
 
@@ -44,8 +46,10 @@ class LeagueStat
     stats_by_team[game.home_team_id][:home_games] += 1
     if game.away_goals > game.home_goals
       stats_by_team[game.home_team_id][:home_losses] += 1
+      stats_by_team[game.home_team_id][:total_losses] += 1
     elsif game.away_goals < game.home_goals
       stats_by_team[game.home_team_id][:home_wins] += 1
+      stats_by_team[game.home_team_id][:total_wins] += 1
     end
   end
 
@@ -95,6 +99,29 @@ class LeagueStat
 
   def lowest_scoring_home_team
     stats_by_team.min_by { |team_id| team_id[1][:home_scoring_avg]}[1][:team_name]
+  end
+
+  def winningest_team
+    stats_by_team.max_by do |team_id|
+      team_id[1][:total_wins] / team_id[1][:total_games].to_f
+    end[1][:team_name]
+  end
+
+  def best_fans
+    stats_by_team.max_by do |team_id|
+      home_win_pct = team_id[1][:home_wins] / team_id[1][:home_games].to_f
+      away_win_pct = team_id[1][:away_wins] / team_id[1][:away_games].to_f
+      home_win_pct - away_win_pct
+    end[1][:team_name]
+  end
+
+  def worst_fans
+    worst = stats_by_team.find_all do |team_id|
+      home_win_pct = team_id[1][:home_wins] / team_id[1][:home_games].to_f
+      away_win_pct = team_id[1][:away_wins] / team_id[1][:away_games].to_f
+      home_win_pct < away_win_pct
+    end
+    worst.map { |team| team[1][:team_name] }
   end
 
 end
