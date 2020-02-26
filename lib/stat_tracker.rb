@@ -125,16 +125,9 @@ class StatTracker
   end
 
   def best_fans
-    home_games_played = gtc.hoa_games_by_team("home")
-    home_games_won = gtc.hoa_wins_by_team("home")
-    away_games_played = gtc.hoa_games_by_team("away")
-    away_games_won = gtc.hoa_wins_by_team("away")
-    home_percentage = home_games_played.merge(home_games_played) do |team, home_game|
-      home_games_won[team] / home_game.to_f
-    end
-    away_percentage = away_games_played.merge(away_games_played) do |team, away_game|
-      away_games_won[team] / away_game.to_f
-    end
+    home_percentage = @gtc.hoa_win_percentage('home')
+    away_percentage = @gtc.hoa_win_percentage('away')
+
     differences = home_percentage.merge(home_percentage) do |team, percent|
       (percent - away_percentage[team])
     end
