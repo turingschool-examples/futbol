@@ -15,7 +15,7 @@ class StatTrackerTest < Minitest::Test
     # game_path = './data/games.csv'
     # team_path = './data/teams.csv'
     # game_teams_path = './data/game_teams.csv'
-
+    #
     locations = {
       games: game_path,
       teams: team_path,
@@ -205,7 +205,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_getting_the_teams_with_the_worst_fans
-    @stat_tracker.stubs(:away_win_percentage).returns(80)
+    # @stat_tracker.stubs(:away_win_percentage).returns(80)
     expected = ["Houston Dynamo", "Sporting Kansas City", "New England Revolution", "New York Red Bulls"]
     assert_equal expected, @stat_tracker.worst_fans
   end

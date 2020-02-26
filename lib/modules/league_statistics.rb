@@ -137,15 +137,15 @@ module LeagueStatistics
     home_wins = home_games(team_id).find_all do |game|
       game.result == "WIN"
     end
-    percent(home_wins.length, home_games(team_id).length.to_f)
+    percent = (home_wins.length / home_games(team_id).length.to_f) * 100
+    percent.round(2)
   end
 
   def away_win_percentage(team_id)
     away_wins = away_games(team_id).find_all do |game|
       game.result == "WIN"
     end
-    percent(away_wins.length, home_games(team_id).length.to_f)
-    percent = (away_wins.length / home_games(team_id).length.to_f) * 100
+    percent = (away_wins.length / away_games(team_id).length.to_f) * 100
     percent.round(2)
   end
 
