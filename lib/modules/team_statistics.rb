@@ -6,7 +6,6 @@ require_relative 'season_statistics'
 module TeamStatistics
   include Calculable
   include Hashable
-  include SeasonStatistics
 
   def team_info(team_id)
     @teams.reduce({}) do |team_info, team|

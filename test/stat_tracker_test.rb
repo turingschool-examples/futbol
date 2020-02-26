@@ -2,6 +2,7 @@ require_relative 'test_helper'
 require 'mocha/minitest'
 require './lib/stat_tracker'
 require './lib/stat_tracker'
+require './lib/game'
 require './lib/team'
 require './lib/game_team'
 
@@ -10,6 +11,11 @@ class StatTrackerTest < Minitest::Test
     game_path = './test/fixtures/games_truncated.csv'
     team_path = './test/fixtures/teams_truncated.csv'
     game_teams_path = './test/fixtures/game_teams_truncated.csv'
+
+    # game_path = './data/games.csv'
+    # team_path = './data/teams.csv'
+    # game_teams_path = './data/game_teams.csv'
+
     locations = {
       games: game_path,
       teams: team_path,
@@ -204,6 +210,111 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.worst_fans
   end
 
+  def test_it_can_get_game_teams_that_season
+      assert_kind_of Array, @stat_tracker.game_teams_that_season(8, 20122013)
+      assert_equal 4, @stat_tracker.game_teams_that_season(8, 20122013).length
+  end
+
+  def test_all_goals_that_season
+    expected = 0.23
+    assert_equal expected, @stat_tracker.goals_to_shots_ratio_that_season(8, 20122013)
+  end
+
+  def test_most_accurate_team
+     assert_equal "New York City FC", @stat_tracker.most_accurate_team(20122013)
+  end
+
+  def test_can_get_least_accurate_team
+    assert_equal "Sporting Kansas City", @stat_tracker.least_accurate_team(20122013)
+  end
+
+  def test_if_can_get_all_coaches
+    expected = ["John Tortorella", "Claude Julien", "Dan Bylsma",
+                "Mike Babcock", "Joel Quenneville", "Paul MacLean", "Michel Therrien"
+                ]
+    assert_equal expected, @stat_tracker.all_coaches
+  end
+
+  def test_it_can_get_games_by_coach_and_season
+    assert_kind_of Array, @stat_tracker.game_teams_that_season_by_coach("Mike Babcock", 20122013)
+    assert_equal 9, @stat_tracker.game_teams_that_season_by_coach("Claude Julien", 20122013).length
+  end
+
+  def test_it_can_create_hash_with_coaches_and_games
+    assert_kind_of Hash, @stat_tracker.create_hash_with_team_games_by_coach(20122013)
+    assert_equal 7, @stat_tracker.create_hash_with_team_games_by_coach(20122013).length
+  end
+
+  def test_find_all_wins_by_coach
+    expected = {"John Tortorella"=>0, "Claude Julien"=>9, "Dan Bylsma"=>0, "Mike Babcock"=>4, "Joel Quenneville"=>3, "Paul MacLean"=>1, "Michel Therrien"=>1}
+    assert_equal expected, @stat_tracker.finding_all_wins_by_coach(20122013)
+  end
+
+  def test_number_of_games_by_coach
+    expected = {"John Tortorella"=>5, "Claude Julien"=>9, "Dan Bylsma"=>4, "Mike Babcock"=>7, "Joel Quenneville"=>7, "Paul MacLean"=>3, "Michel Therrien"=>4}
+    assert_equal expected, @stat_tracker.number_of_games_by_coach(20122013)
+  end
+
+  def test_percent_wins_by_coach
+    expected = {"John Tortorella"=>0.0, "Claude Julien"=>1.0, "Dan Bylsma"=>0.0, "Mike Babcock"=>0.57, "Joel Quenneville"=>0.43, "Paul MacLean"=>0.33, "Michel Therrien"=>0.25}
+    assert_equal expected, @stat_tracker.percent_wins_by_coach(20122013)
+  end
+
+  def test_winningest_coach
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach(20122013)
+  end
+
+  def test_worst_coach
+    assert_equal "John Tortorella", @stat_tracker.worst_coach(20122013)
+  end
+
+  def test_it_can_get_game_id_by_team_id_and_season_type_hash
+    expected = {
+      :regular=>[2012020205, 2013021119],
+      :post=>[2012030121, 2012030122, 2012030123, 2012030124, 2012030125]
+    }
+    assert_equal expected, @stat_tracker.game_id_by_team_id_and_season_type[9]
+  end
+
+  def test_it_can_return_post_results
+    assert_equal ["TIE", "LOSS", "WIN"], @stat_tracker.game_team_postseason_results[9]
+  end
+
+  def test_it_can_return_regular_results
+    skip
+    @stat_tracker.stubs(:game_id_by_team_id_and_season_type).returns({9=>{
+      :regular=>[2012020205, 2013021119],
+      :post=>[2012030121, 2012030122, 2012030123, 2012030124, 2012030125]
+    }})
+
+    assert_equal ["LOSS", "WIN"], @stat_tracker.game_team_regular_season_results[9]
+  end
+
+  def test_it_can_return_percent_postseason_wins
+    assert_equal 0.33, @stat_tracker.percent_wins_postseason[9]
+  end
+
+  def test_it_can_return_percent_regular_wins
+    @stat_tracker.stubs(:game_team_regular_season_results).returns({
+      9=>["LOSS", "WIN"]
+    })
+    assert_equal 0.50, @stat_tracker.percent_wins_regular_season[9]
+  end
+
+  def test_it_can_tell_biggest_bust
+    @stat_tracker.stubs(:percent_wins_regular_season).returns({3=>0.66, 4=>0.75})
+    @stat_tracker.stubs(:percent_wins_postseason).returns({3=>0.33, 4=>0.25})
+
+    assert_equal "Chicago Fire", @stat_tracker.biggest_bust
+  end
+
+  def test_it_can_tell_biggest_surprise
+    @stat_tracker.stubs(:percent_wins_regular_season).returns({3=>0.66, 4=>0.75})
+    @stat_tracker.stubs(:percent_wins_postseason).returns({3=>0.33, 4=>0.25})
+
+    assert_equal "Houston Dynamo", @stat_tracker.biggest_surprise
+  end
+
   def test_find_games_in_season
     skip
     #not sure how to test this method but we may not need it
@@ -234,7 +345,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_find_win_average_in_season
-    assert_equal 20122013, @stat_tracker.find_win_average_in_seasons(17)
+    assert_equal ({20122013=>0.57, 20132014=>0}), @stat_tracker.find_win_average_in_seasons(17)
   end
 
   def test_best_season
