@@ -107,4 +107,15 @@ class GameCollection
     end
     average_goals_allowed
   end
+
+  def total_scores_by_team(team_num)
+    games.reduce([]) do |scores, game|
+      if team_num.to_i == game.home_team_id
+        scores << game.home_goals
+      elsif team_num.to_i == game.away_team_id
+        scores << game.away_goals
+      end
+      scores
+    end
+  end
 end
