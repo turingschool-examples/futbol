@@ -144,9 +144,9 @@ class StatTracker
 
   def winningest_team
     game_collection.total_games_by_team
-    total_wins_by_team
+    gtc.total_wins_by_team
     winning_percentages = game_collection.total_games_by_team.merge(game_collection.total_games_by_team) do |team_id, total_games|
-      total_wins_by_team[team_id] / total_games.to_f
+      gtc.total_wins_by_team[team_id] / total_games.to_f
     end
     team_name_by_id(winning_percentages.key(winning_percentages.values.max))
   end
@@ -197,44 +197,6 @@ class StatTracker
     team_collection.teams.find do |team|
       team.team_id == team_id
     end.teamname
-  end
-
-  def total_wins_by_team
-    total_wins = Hash.new(0)
-    gtc.game_teams.each do |game|
-      if game.result == "WIN"
-        total_wins[game.team_id] += 1
-      elsif game.result == "LOSS"
-        total_wins[game.team_id] =+ 0
-      end
-    end
-    total_wins
-  end
-
-  def total_loss_by_team
-    total_loss = Hash.new(0)
-    gtc.game_teams.each do |game|
-      if game.result == "LOSS"
-        total_loss[game.team_id] += 1
-      elsif game.result == "WIN"
-        total_loss[game.team_id] =+ 0
-      end
-    end
-    total_loss
-  end
-
-  def total_tie_by_team
-    total_loss = Hash.new(0)
-    gtc.game_teams.each do |game|
-      if game.result == "TIE"
-        total_loss[game.team_id] += 1
-      elsif game.result == "WIN"
-        total_loss[game.team_id] =+ 0
-      elsif game.result == "LOSS"
-        total_loss[game.team_id] += 0
-      end
-    end
-    total_loss
   end
 
   ###### Iteration 4 Methods - - - - - - - - - -- -- - - - - - -

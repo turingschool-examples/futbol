@@ -44,4 +44,42 @@ class GameTeamsCollection
     end
     hoa_wins_by_team
   end
+
+  def total_wins_by_team
+    total_wins = Hash.new(0)
+    game_teams.each do |game|
+      if game.result == "WIN"
+        total_wins[game.team_id] += 1
+      elsif game.result == "LOSS"
+        total_wins[game.team_id] =+ 0
+      end
+    end
+    total_wins
+  end
+
+  def total_loss_by_team
+    total_loss = Hash.new(0)
+    game_teams.each do |game|
+      if game.result == "LOSS"
+        total_loss[game.team_id] += 1
+      elsif game.result == "WIN"
+        total_loss[game.team_id] =+ 0
+      end
+    end
+    total_loss
+  end
+
+  def total_tie_by_team
+    total_loss = Hash.new(0)
+    game_teams.each do |game|
+      if game.result == "TIE"
+        total_loss[game.team_id] += 1
+      elsif game.result == "WIN"
+        total_loss[game.team_id] =+ 0
+      elsif game.result == "LOSS"
+        total_loss[game.team_id] += 0
+      end
+    end
+    total_loss
+  end
 end
