@@ -70,4 +70,24 @@ class GameCollectionTest < Minitest::Test
     assert_equal expected, @game_collection.average_goals_by_season
     #harness pass
   end
+
+  def test_it_can_count_total_games_by_team
+    expected = {3=>3, 6=>2, 9=>1, 8=>1, 5=>4, 20=>1, 19=>1,
+      7=>1, 52=>1, 10=>1, 26=>1, 22=>1}
+
+    assert_equal expected, @game_collection.total_games_by_team
+  end
+
+  def test_it_can_count_all_goals_scored_by_team
+    expected = {3=>6, 6=>6, 9=>2, 8=>2, 5=>7, 20=>1, 19=>2,
+    7=>1, 52=>2, 10=>1, 26=>2, 22=>2}
+    assert_equal expected, @game_collection.all_goals_scored_by_team
+  end
+
+  def test_it_can_count_goals_allowed_by_team
+    expected = {3=>8, 6=>2, 9=>2, 8=>2, 5=>9, 20=>2, 19=>1, 7=>2,
+      52=>1, 10=>2, 26=>1, 22=>2}
+
+    assert_equal expected, @game_collection.all_goals_allowed_by_team
+  end
 end
