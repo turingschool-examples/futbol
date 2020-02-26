@@ -17,9 +17,6 @@ class StatTracker
     @game_data = raw_data[:game_data]
     @team_data = raw_data[:team_data]
     @game_teams_data = raw_data[:game_teams_data]
-    @gtc = nil
-    @game_collection = nil
-    @team_collection = nil
     construct_collections
   end
 
@@ -130,17 +127,15 @@ class StatTracker
   end
 
   def team_name_by_id(team_id)
-    team_collection.teams.find do |team|
-      team.team_id == team_id
-    end.teamname
+    team_collection.teams.find { |team| team.team_id == team_id}.teamname
   end
 
   def most_tackles(season)
-    team_name_by_id(gtc.season_tackles(season).key(gtc.season_tackles(season).values.max))
+    team_name_by_id(@gtc.season_tackles(season).key(@gtc.season_tackles(season).values.max))
   end
 
   def fewest_tackles(season)
-    team_name_by_id(gtc.season_tackles(season).key(gtc.season_tackles(season).values.min))
+    team_name_by_id(@gtc.season_tackles(season).key(@gtc.season_tackles(season).values.min))
   end
 
   def team_info(team_num)
@@ -148,21 +143,10 @@ class StatTracker
   end
 
   def most_goals_scored(team_num)
-    total_scores_by_team(team_num).max
+    @game_collection.total_scores_by_team(team_num).max
   end
 
   def fewest_goals_scored(team_num)
-    total_scores_by_team(team_num).min
-  end
-
-  def total_scores_by_team(team_num)
-    game_collection.games.reduce([]) do |scores, game|
-      if team_num.to_i == game.home_team_id
-        scores << game.home_goals
-      elsif team_num.to_i == game.away_team_id
-        scores << game.away_goals
-      end
-      scores
-    end
+    @game_collection.total_scores_by_team(team_num).min
   end
 end
