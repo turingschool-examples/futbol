@@ -209,7 +209,6 @@ end
   end
 
   def test_lowest_scoring_visitor
-    skip
     assert_equal "FC Dallas", @stat_tracker.lowest_scoring_visitor
   end
 end
