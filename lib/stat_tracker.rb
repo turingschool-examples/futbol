@@ -104,11 +104,11 @@ class StatTracker
   end
 
   def best_defense
-    allowed = all_goals_allowed_by_team
-    games = total_games_by_team
+    allowed = game_collection.all_goals_allowed_by_team
+    games = game_collection.total_games_by_team
     average_goals_allowed = {}
     allowed.each do |team_id, goals_allowed|
-      average_goals_allowed[team_id] = goals_allowed / total_games_by_team[team_id].to_f
+      average_goals_allowed[team_id] = goals_allowed / game_collection.total_games_by_team[team_id].to_f
     end
     team_name_by_id(average_goals_allowed.key(average_goals_allowed.values.min))
   end
@@ -138,9 +138,9 @@ class StatTracker
   end
 
   def winningest_team
-    total_games_by_team
+    game_collection.total_games_by_team
     total_wins_by_team
-    winning_percentages = total_games_by_team.merge(total_games_by_team) do |team_id, total_games|
+    winning_percentages = game_collection.total_games_by_team.merge(game_collection.total_games_by_team) do |team_id, total_games|
       total_wins_by_team[team_id] / total_games.to_f
     end
     team_name_by_id(winning_percentages.key(winning_percentages.values.max))
@@ -194,15 +194,6 @@ class StatTracker
     end.teamname
   end
 
-  def total_games_by_team
-    games_by_team = Hash.new(0)
-    game_collection.games.each do |game|
-      games_by_team[game.away_team_id] += 1
-      games_by_team[game.home_team_id] += 1
-    end
-    games_by_team
-  end
-
   def total_wins_by_team
     total_wins = Hash.new(0)
     gtc.game_teams.each do |game|
@@ -240,26 +231,6 @@ class StatTracker
     end
     total_loss
   end
-
-  def all_goals_scored_by_team
-    goals_scored_by_team = Hash.new(0)
-    game_collection.games.each do |game|
-      goals_scored_by_team[game.away_team_id] += game.away_goals
-      goals_scored_by_team[game.home_team_id] += game.home_goals
-    end
-    goals_scored_by_team
-  end
-
-  def all_goals_allowed_by_team
-    goals_allowed_by_team = Hash.new(0)
-    game_collection.games.each do |game|
-      goals_allowed_by_team[game.away_team_id] += game.home_goals
-      goals_allowed_by_team[game.home_team_id] += game.away_goals
-    end
-    goals_allowed_by_team
-  end
-
-
 
   ###### Iteration 4 Methods - - - - - - - - - -- -- - - - - - -
   def most_tackles(season)
