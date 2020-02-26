@@ -2,8 +2,6 @@ require 'csv'
 require_relative 'season_win'
 require_relative 'season_stat'
 require_relative 'scored_goal_stat'
-require_relative 'season_stat_coach'
-require_relative 'season_stat_team'
 require_relative 'league_stat'
 require_relative 'team_stat'
 require_relative 'game_collection'
@@ -17,6 +15,10 @@ class StatTracker
     @game_collection = GameCollection.new(games_file)
     @game_team_collection = GameTeamCollection.new(game_teams_file)
     @team_collection = TeamCollection.new(teams_file)
+    @season = SeasonStat.new(@game_collection, @team_collection, @game_team_collection)
+    @season.get_all_seasons
+    @season.season_games_by_all_seasons
+    @season.season_game_teams_by_all_seasons
   end
 
   def self.from_csv(locations_params)
@@ -83,8 +85,7 @@ class StatTracker
   end
 
   def count_of_games_by_season
-    season = SeasonStat.new(@game_collection, @team_collection)
-    season.count_of_games_by_season
+    @season.count_of_games_by_season
   end
 
   def average_goals_per_game
@@ -93,48 +94,39 @@ class StatTracker
   end
 
   def average_goals_by_season
-    season = SeasonStat.new(@game_collection, @team_collection)
-    season.average_goals_by_season
+    @season.average_goals_by_season
   end
 
   def biggest_bust(season_param)
-    season = SeasonStat.new(@game_collection, @team_collection)
-    season.biggest_bust(season_param)
+    @season.biggest_bust(season_param)
   end
 
   def biggest_surprise(season_param)
-    season = SeasonStat.new(@game_collection, @team_collection)
-    season.biggest_surprise(season_param)
+    @season.biggest_surprise(season_param)
   end
 
   def winningest_coach(season_param)
-    season = SeasonStatCoach.new(@game_team_collection)
-    season.winningest_coach(season_param)
+    @season.winningest_coach(season_param)
   end
 
   def worst_coach(season_param)
-    season = SeasonStatCoach.new(@game_team_collection)
-    season.worst_coach(season_param)
+    @season.worst_coach(season_param)
   end
 
   def most_accurate_team(season_param)
-    season = SeasonStatTeam.new(@game_team_collection, @team_collection)
-    season.most_accurate_team(season_param)
+    @season.most_accurate_team(season_param)
   end
 
   def least_accurate_team(season_param)
-    season = SeasonStatTeam.new(@game_team_collection, @team_collection)
-    season.least_accurate_team(season_param)
+    @season.least_accurate_team(season_param)
   end
   #
   def most_tackles(season_param)
-    season = SeasonStatTeam.new(@game_team_collection, @team_collection)
-    season.most_tackles(season_param)
+    @season.most_tackles(season_param)
   end
   #
   def fewest_tackles(season_param)
-    season = SeasonStatTeam.new(@game_team_collection, @team_collection)
-    season.fewest_tackles(season_param)
+    @season.fewest_tackles(season_param)
   end
 
   def count_of_teams
