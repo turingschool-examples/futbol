@@ -214,22 +214,11 @@ end
     assert_equal 2, @stat_tracker.fewest_goals_scored("3")
     #harness pass
   end
-  #
-  # def test_it_knows_a_teams_worst_loss
-  #   skip
-  #   assert_equal 4, @stat_tracker.worst_loss("3")
-  # end
-  #
+  
   # ### it5 helpers ##
   def test_it_can_return_a_team
     assert_equal Team, @stat_tracker.retrieve_team(18).class
     assert_equal 18, @stat_tracker.retrieve_team(18).team_id
-  end
-
-  def test_it_knows_wins_by_season
-    skip
-    expected = {3=>0, 5=>1, 10=>0, 26=>1, 22=>0}
-    assert_equal expected, @stat_tracker.wins_in_season("20152016")
   end
 
   def test_count_of_teams
