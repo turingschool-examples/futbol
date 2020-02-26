@@ -82,4 +82,39 @@ class GameTeamsCollection
     end
     total_loss
   end
+
+  def find_games_in_season(season)
+    game_teams.find_all do |game|
+      season[0..3] == game.game_id.to_s[0..3]
+    end
+  end
+
+  def season_tackles(season)
+    totals = Hash.new(0)
+    find_games_in_season(season).each do |game|
+      totals[game.team_id] += game.tackles
+    end
+    totals
+  end
+
+  def offense_rankings
+    game_teams_grouped_by_team_id = game_teams.group_by do |game_team|
+      game_team.team_id
+    end
+    games_per_team = game_teams_grouped_by_team_id.each_pair do |team_id, games_by_team|
+      total_goals = games_by_team.map do |single_game|
+        single_game.goals
+      end
+      game_team_averages = (total_goals.sum.to_f / total_goals.length).round(2)
+      (game_teams_grouped_by_team_id[team_id] = game_team_averages)
+    end
+  end
+
+  def scores_as_visitor
+    games_played_by_team = hoa_games_by_team('away')
+    scores_by_team = hoa_goals_by_team('away')
+    average_score_game = games_played_by_team.merge(games_played_by_team) do |team, games|
+      games_played_by_team[team] = scores_by_team[team] / games.to_f
+    end
+  end
 end

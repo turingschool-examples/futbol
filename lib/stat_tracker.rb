@@ -76,50 +76,28 @@ class StatTracker
   end
 
   def best_offense
-    game_teams_grouped_by_team_id = @gtc.game_teams.group_by do |game_team|
-      game_team.team_id
-    end
-    games_per_team = game_teams_grouped_by_team_id.each_pair do |team_id, games_by_team|
-      total_goals = games_by_team.map do |single_game|
-        single_game.goals
-      end
-      game_team_averages = (total_goals.sum.to_f / total_goals.length).round(2)
-      (game_teams_grouped_by_team_id[team_id] = game_team_averages)
-    end
-    team_name_by_id(games_per_team.key(games_per_team.values.max))
+    totals = @gtc.offense_rankings
+    retrieve_team(totals.key(totals.values.max)).teamname
   end
 
   def worst_offense
-    game_teams_grouped_by_team_id = @gtc.game_teams.group_by do |game_team|
-      game_team.team_id
-    end
-    games_per_team = game_teams_grouped_by_team_id.each_pair do |team_id, games_by_team|
-      total_goals = games_by_team.map do |single_game|
-        single_game.goals
-      end
-      game_team_averages = (total_goals.sum.to_f / total_goals.length).round(2)
-      (game_teams_grouped_by_team_id[team_id] = game_team_averages)
-    end
-    team_name_by_id(games_per_team.key(games_per_team.values.min))
+    totals = @gtc.offense_rankings
+    retrieve_team(totals.key(totals.values.min)).teamname
   end
 
   def best_defense
-    allowed = game_collection.all_goals_allowed_by_team
-    games = game_collection.total_games_by_team
-    average_goals_allowed = {}
-    allowed.each do |team_id, goals_allowed|
-      average_goals_allowed[team_id] = goals_allowed / game_collection.total_games_by_team[team_id].to_f
-    end
-    team_name_by_id(average_goals_allowed.key(average_goals_allowed.values.min))
+    totals = @game_collection.defense_rankings
+    retrieve_team(totals.key(totals.values.min)).teamname
+  end
+
+  def worst_defense
+    totals = @game_collection.defense_rankings
+    retrieve_team(totals.key(totals.values.max)).teamname
   end
 
   def lowest_scoring_visitor
-    games_played_by_team = @gtc.hoa_games_by_team('away')
-    scores_by_team = @gtc.hoa_goals_by_team('away')
-    average_score_game = games_played_by_team.merge(games_played_by_team) do |team, games|
-      games_played_by_team[team] = scores_by_team[team] / games.to_f
-    end
-    team_name_by_id(average_score_game.key(average_score_game.values.max))
+    totals = @gtc.scores_as_visitor
+    retrieve_team(totals.key(totals.values.min)).teamname
   end
 
   def worst_fans
@@ -152,14 +130,8 @@ class StatTracker
   end
 
   def highest_scoring_visitor
-    away_games = gtc.hoa_games_by_team("away")
-    away_goals = gtc.hoa_goals_by_team("away")
-    away_goals_per_game = {}
-    away_goals.each do |team_id, total_away_goals|
-      next if total_away_goals == 0
-      away_goals_per_game[team_id] = total_away_goals / gtc.hoa_games_by_team("away")[team_id].to_f
-      end
-    team_name_by_id(away_goals_per_game.key(away_goals_per_game.values.max))
+    totals = @gtc.scores_as_visitor
+    retrieve_team(totals.key(totals.values.max)).teamname
   end
 
   def highest_scoring_home_team
@@ -201,30 +173,15 @@ class StatTracker
 
   ###### Iteration 4 Methods - - - - - - - - - -- -- - - - - - -
   def most_tackles(season)
-    games = find_games_in_season(season)
-    totals = Hash.new(0)
-    games.each do |game|
-      totals[game.team_id] += game.tackles
-    end
-    team_name_by_id(totals.key(totals.values.max))
+    team_name_by_id(gtc.season_tackles(season).key(gtc.season_tackles(season).values.max))
   end
 
   def fewest_tackles(season)
-    games = find_games_in_season(season)
-    totals = Hash.new(0)
-    games.each do |game|
-      totals[game.team_id] += game.tackles
-    end
-    team_name_by_id(totals.key(totals.values.min))
+    team_name_by_id(gtc.season_tackles(season).key(gtc.season_tackles(season).values.min))
   end
 
 ###### Helpful IT4 methods
 
-def find_games_in_season(season)
-  gtc.game_teams.find_all do |game|
-    season[0..3] == game.game_id.to_s[0..3]
-  end
-end
 
   ######## it5 Methods - - - - - - - - - - -
 
@@ -266,6 +223,4 @@ end
       scores
     end
   end
-
-
 end
