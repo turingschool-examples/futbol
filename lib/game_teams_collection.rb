@@ -91,4 +91,13 @@ class GameTeamsCollection
       games_played_by_team[team] = scores_by_team[team] / games.to_f
     end
   end
+
+  def scores_as_home_team
+    average_goals_home_game = {}
+      hoa_goals_by_team("home").each do |team_id, total_home_goals|
+      next if total_home_goals == 0
+      average_goals_home_game [team_id] = total_home_goals / hoa_games_by_team("home")[team_id].to_f
+    end
+    average_goals_home_game
+  end
 end
