@@ -89,19 +89,15 @@ class StatTracker
     totals = @game_collection.defense_rankings
     retrieve_team(totals.key(totals.values.min)).teamname
   end
-  
+
   def worst_defense
     totals = @game_collection.defense_rankings
     retrieve_team(totals.key(totals.values.max)).teamname
   end
 
   def lowest_scoring_visitor
-    games_played_by_team = @gtc.hoa_games_by_team('away')
-    scores_by_team = @gtc.hoa_goals_by_team('away')
-    average_score_game = games_played_by_team.merge(games_played_by_team) do |team, games|
-      games_played_by_team[team] = scores_by_team[team] / games.to_f
-    end
-    team_name_by_id(average_score_game.key(average_score_game.values.max))
+    totals = @gtc.scores_as_visitor
+    retrieve_team(totals.key(totals.values.min)).teamname
   end
 
   def worst_fans
@@ -134,14 +130,8 @@ class StatTracker
   end
 
   def highest_scoring_visitor
-    away_games = gtc.hoa_games_by_team("away")
-    away_goals = gtc.hoa_goals_by_team("away")
-    away_goals_per_game = {}
-    away_goals.each do |team_id, total_away_goals|
-      next if total_away_goals == 0
-      away_goals_per_game[team_id] = total_away_goals / gtc.hoa_games_by_team("away")[team_id].to_f
-      end
-    team_name_by_id(away_goals_per_game.key(away_goals_per_game.values.max))
+    totals = @gtc.scores_as_visitor
+    retrieve_team(totals.key(totals.values.max)).teamname
   end
 
   def highest_scoring_home_team

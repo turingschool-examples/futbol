@@ -109,4 +109,12 @@ class GameTeamsCollection
       (game_teams_grouped_by_team_id[team_id] = game_team_averages)
     end
   end
+
+  def scores_as_visitor
+    games_played_by_team = hoa_games_by_team('away')
+    scores_by_team = hoa_goals_by_team('away')
+    average_score_game = games_played_by_team.merge(games_played_by_team) do |team, games|
+      games_played_by_team[team] = scores_by_team[team] / games.to_f
+    end
+  end
 end

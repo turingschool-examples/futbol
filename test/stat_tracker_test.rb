@@ -198,6 +198,6 @@ end
   end
 
   def test_lowest_scoring_visitor
-    assert_equal "FC Dallas", @stat_tracker.lowest_scoring_visitor
+    assert_equal "Toronto FC", @stat_tracker.lowest_scoring_visitor
   end
 end
