@@ -364,4 +364,25 @@ class StatTrackerTest < Minitest::Test
     assert_equal ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @@stat_tracker.all_seasons
   end
 
+  def test_it_can_get_win_percentage_against_opponent
+    assert_equal 0.0, @@stat_tracker.win_percentage_against_opponent("18", "14")
+    assert_equal 1.5, @@stat_tracker.win_percentage_against_opponent("3", "6")
+  end
+
+  def test_it_can_get_all_team_average_wins_by_opponent
+    assert_equal 0.615, @@stat_tracker.all_team_average_wins_by_opponent("6")[14]
+    assert_equal 0.0, @@stat_tracker.all_team_average_wins_by_opponent("18")[14]
+  end
+
+  def test_it_can_get_favorite_opponent
+    assert_equal "Montreal Impact", @@stat_tracker.favorite_opponent("3")
+    assert_equal "Columbus Crew SC", @@stat_tracker.favorite_opponent("6")
+    assert_equal "DC United", @@stat_tracker.favorite_opponent("18")
+  end
+
+  def test_it_can_get_rival
+    assert_equal "San Jose Earthquakes", @@stat_tracker.rival("3")
+    assert_equal "Real Salt Lake", @@stat_tracker.rival("6")
+    assert_equal "Houston Dash", @@stat_tracker.rival("18")
+  end
 end
