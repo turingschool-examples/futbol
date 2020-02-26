@@ -1,4 +1,3 @@
-
 require 'csv'
 require_relative './game_teams_collection'
 require_relative './game_collection'
@@ -11,7 +10,6 @@ class StatTracker
     raw_data[:game_data] = CSV.read(locations[:games], headers: true, header_converters: :symbol)
     raw_data[:team_data] = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
     raw_data[:game_teams_data] = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
-
     StatTracker.new(raw_data)
   end
 
@@ -31,8 +29,6 @@ class StatTracker
     @game_collection = GameCollection.new(@game_data)
     @team_collection = TeamCollection.new(@team_data)
   end
-
-  ### Iteration 2 # - - - - - - - - - - - - - - - - - - -
 
   def highest_total_score
     game_collection.highest_total_score
@@ -70,7 +66,6 @@ class StatTracker
     game_collection.average_goals_by_season
   end
 
-  ## Iteration 3 # - - - - - - - - - - - - - - - - - - - - -
   def count_of_teams
     @team_collection.count_of_teams
   end
@@ -146,7 +141,6 @@ class StatTracker
   end
 
   def best_fans
-    #biggest diff between home win % and away win %
     home_games_played = gtc.hoa_games_by_team("home")
     home_games_won = gtc.hoa_wins_by_team("home")
     away_games_played = gtc.hoa_games_by_team("away")
@@ -164,14 +158,12 @@ class StatTracker
     team_name_by_id(team_and_difference[0])
   end
 
-  ###### Iterartion 2/3 Helpers - - - - - - - - - - - - - - - - - -
   def team_name_by_id(team_id)
     team_collection.teams.find do |team|
       team.team_id == team_id
     end.teamname
   end
 
-  ###### Iteration 4 Methods - - - - - - - - - -- -- - - - - - -
   def most_tackles(season)
     team_name_by_id(gtc.season_tackles(season).key(gtc.season_tackles(season).values.max))
   end
@@ -180,13 +172,7 @@ class StatTracker
     team_name_by_id(gtc.season_tackles(season).key(gtc.season_tackles(season).values.min))
   end
 
-###### Helpful IT4 methods
-
-
-  ######## it5 Methods - - - - - - - - - - -
-
   def team_info(team_num)
-    #tested to harness
     info = {}
     team_obj = retrieve_team(team_num.to_i)
       info["team_id"] = team_obj.team_id.to_s
@@ -198,17 +184,13 @@ class StatTracker
   end
 
   def most_goals_scored(team_num)
-    #tested to harness
     total_scores_by_team(team_num).max
   end
 
   def fewest_goals_scored(team_num)
-    #tested to harness
     total_scores_by_team(team_num).min
   end
 
-
-  ##### it5 Helpers
   def retrieve_team(team_num)
     team_collection.teams.find { |team_obj| team_obj.team_id == team_num }
   end
