@@ -660,4 +660,49 @@ class StatTracker
     rival = team_averages.max_by { |_team_id, result| result }.first
     get_team_name(rival)
   end
+
+  def average_wins_against_opponent(team_id, opponent_team_id)
+    team_id = team_id.to_i if team_id.class != Integer
+    opponent_team_id = opponent_team_id.to_i if opponent_team_id.class != Integer
+    games = all_games_by_team_id(team_id)
+    total_wins = 0.0
+    total_losses = 0.0
+
+    games.each do |game|
+      if team_id == game.home_team_id
+        total_wins += 1 if game.away_goals < game.home_goals
+        total_losses += 1 if game.home_goals < game.away_goals
+      elsif team_id == game.away_team_id
+        total_wins += 1 if game.home_goals < game.away_goals
+        total_losses += 1 if game.away_goals < game.home_goals
+      end
+    end
+    require 'pry'; binding.pry
+    (total_wins / total_losses).round(2)
+  end
+
+  def all_opponent_average_wins(team_id)
+    team_id = team_id.to_i if team_id.class != Integer
+    games = all_games_by_team_id(team_id)
+
+    games.reduce({}) do |matchup_results, game|
+      if game.home_team_id == team_id
+        matchup_results[game.away_team_id] = average_wins_against_opponent(team_id, game.away_team_id)
+      elsif game.away_team_id == team_id
+        matchup_results[game.home_team_id] = average_wins_against_opponent(team_id, game.home_team_id)
+      end
+      matchup_results
+    end
+  end
+
+  def head_to_head(team_id)
+    team_id = team_id.to_i if team_id.class != Integer
+    team_averages = all_opponent_average_wins(team_id)
+
+    test1 = team_averages.reduce({}) do |results, (opponent_id, average)|
+      results[get_team_name(opponent_id)] = average
+      results
+    end
+    require 'pry'; binding.pry
+  end
 end

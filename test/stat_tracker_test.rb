@@ -385,4 +385,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Real Salt Lake", @@stat_tracker.rival("6")
     assert_equal "Houston Dash", @@stat_tracker.rival("18")
   end
+
+  def test_it_can_get_head_to_head
+    require 'pry'; binding.pry
+    assert @@stat_tracker.head_to_head("18").length
+    assert @@stat_tracker.head_to_head("18")
+  end
 end
