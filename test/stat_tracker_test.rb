@@ -161,17 +161,7 @@ end
 
 ######### it5 ###############
 
-      def test_it_knows_team_info
-    expected = {
-     "team_id" => "3",
-     "franchise_id" => "10",
-     "team_name" => "Houston Dynamo",
-     "abbreviation" => "HOU",
-     "link" => "/api/v1/teams/3"
-   }
-   assert_equal expected, @stat_tracker.team_info("3")
-   #harness pass
-  end
+
 
   def test_it_knows_the_most_points_a_team_has_scored
     assert_equal 2, @stat_tracker.most_goals_scored("3")
@@ -184,10 +174,7 @@ end
   end
 
   # ### it5 helpers ##
-  def test_it_can_return_a_team
-    assert_equal Team, @stat_tracker.retrieve_team(18).class
-    assert_equal 18, @stat_tracker.retrieve_team(18).team_id
-  end
+  
 
   def test_count_of_teams
     assert_equal 32, @stat_tracker.count_of_teams
