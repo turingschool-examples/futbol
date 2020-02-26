@@ -45,6 +45,14 @@ class GameTeamsCollection
     hoa_wins_by_team
   end
 
+  def hoa_win_percentage(hoa)
+    hoa_games_played = hoa_games_by_team(hoa)
+    hoa_games_won = hoa_wins_by_team(hoa)
+    hoa_percentage = hoa_games_played.merge(hoa_games_played) do |team, hoa_game|
+      hoa_games_won[team] / hoa_game.to_f
+    end
+  end
+
   def total_wins_by_team
     total_wins = Hash.new(0)
     game_teams.each do |game|
