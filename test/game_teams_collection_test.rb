@@ -74,4 +74,20 @@ class GameTeamsCollectionTest < Minitest::Test
 
     assert_equal expected_away, @gtc.hoa_wins_by_team("away")
   end
+
+  def test_it_can_show_total_wins
+    expected = {3=>0, 6=>2, 5=>1, 20=>0, 19=>1, 7=>0, 52=>1, 10=>0, 26=>1}
+    assert_equal expected, @gtc.total_wins_by_team
+  end
+
+  def test_it_can_show_total_loss
+    expected = {3=>2, 6=>0, 5=>0, 20=>1, 19=>0, 7=>1, 52=>0, 10=>1, 26=>0}
+    assert_equal expected, @gtc.total_loss_by_team
+  end
+
+  def test_it_can_show_total_ties
+    expected = {3=>1, 6=>0, 9=>1, 8=>1, 5=>2, 20=>0, 19=>0,
+      7=>0, 52=>0, 10=>0, 26=>0, 22=>1}
+    assert_equal expected, @gtc.total_tie_by_team
+  end
 end

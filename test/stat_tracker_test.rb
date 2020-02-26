@@ -141,21 +141,6 @@ def test_it_can_return_team_names_by_id_number
   assert_equal "LA Galaxy", @stat_tracker.team_name_by_id(17)
 end
 
-def test_it_can_show_total_wins
-  expected = {3=>0, 6=>2, 5=>1, 20=>0, 19=>1, 7=>0, 52=>1, 10=>0, 26=>1}
-  assert_equal expected, @stat_tracker.total_wins_by_team
-end
-
-def test_it_can_show_total_loss
-  expected = {3=>2, 6=>0, 5=>0, 20=>1, 19=>0, 7=>1, 52=>0, 10=>1, 26=>0}
-  assert_equal expected, @stat_tracker.total_loss_by_team
-end
-
-def test_it_can_show_total_ties
-  expected = {3=>1, 6=>0, 9=>1, 8=>1, 5=>2, 20=>0, 19=>0,
-    7=>0, 52=>0, 10=>0, 26=>0, 22=>1}
-  assert_equal expected, @stat_tracker.total_tie_by_team
-end
 
 ####### It4 Methods #############
 def test_team_with_the_most_tackles_in_a_season
