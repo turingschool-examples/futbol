@@ -89,15 +89,6 @@ class GameCollection
     games_by_team
   end
 
-  def all_goals_scored_by_team
-    goals_scored_by_team = Hash.new(0)
-    @games.each do |game|
-      goals_scored_by_team[game.away_team_id] += game.away_goals
-      goals_scored_by_team[game.home_team_id] += game.home_goals
-    end
-    goals_scored_by_team
-  end
-
   def all_goals_allowed_by_team
     goals_allowed_by_team = Hash.new(0)
     @games.each do |game|
