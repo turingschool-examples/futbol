@@ -72,91 +72,35 @@ class StatTracker
   end
 
   def best_offense
-    best_team = Team.all.values.max_by do |team|
-      games_with_team = Game.games_played_by_team(team)
-      if !games_with_team.empty?
-        total_score = games_with_team.sum do |game|
-          game.home_team_id == team.team_id ? game.home_goals : game.away_goals
-        end
-        total_score.to_f / games_with_team.count
-      end
-    end
-    best_team.team_name
+    Team.performance_ranking(:offense)[:highest]
   end
 
   def worst_offense
-    worst_team = Team.all.values.min_by do |team|
-      games_with_team = Game.games_played_by_team(team)
-      if !games_with_team.empty?
-        total_score = games_with_team.sum do |game|
-          game.home_team_id == team.team_id ? game.home_goals : game.away_goals
-      end
-        total_score.to_f / games_with_team.count
-      end
-    end
-    worst_team.team_name
+    Team.performance_ranking(:offense)[:lowest]
   end
 
   def best_defense
-    best_team = Team.all.values.min_by do |team|
-      games_with_team = Game.games_played_by_team(team)
-      if !games_with_team.empty?
-        total_score = games_with_team.sum do |game|
-          game.home_team_id == team.team_id ? game.away_goals : game.home_goals
-      end
-        total_score.to_f / games_with_team.count
-      end
-    end
-    best_team.team_name
+    Team.performance_ranking(:defense)[:lowest]
   end
 
   def worst_defense
-    worst_team = Team.all.values.max_by do |team|
-      games_with_team = Game.games_played_by_team(team)
-      if !games_with_team.empty?
-        total_score = games_with_team.sum do |game|
-          game.home_team_id == team.team_id ? game.away_goals : game.home_goals
-      end
-        total_score.to_f / games_with_team.count
-      end
-    end
-    worst_team.team_name
+    Team.performance_ranking(:defense)[:highest]
   end
 
   def highest_scoring_visitor
-    highest_visitor = Team.all.values.max_by do |team|
-      games_visiting = Game.all.values.select { |game| game.away_team_id == team.team_id }
-      total_score = games_visiting.sum { |game| game.away_goals }
-      total_score.to_f / games_visiting.count
-    end
-    highest_visitor.team_name
+    Team.home_or_away_ranking(:away)[:highest]
   end
 
   def lowest_scoring_visitor
-    highest_visitor = Team.all.values.min_by do |team|
-      games_visiting = Game.all.values.select { |game| game.away_team_id == team.team_id }
-      total_score = games_visiting.sum { |game| game.away_goals }
-      total_score.to_f / games_visiting.count
-    end
-    highest_visitor.team_name
+    Team.home_or_away_ranking(:away)[:lowest]
   end
 
   def highest_scoring_home_team
-    highest_home = Team.all.values.max_by do |team|
-      games_visiting = Game.all.values.select { |game| game.home_team_id == team.team_id }
-      total_score = games_visiting.sum { |game| game.home_goals }
-      total_score.to_f / games_visiting.count
-    end
-    highest_home.team_name
+    Team.home_or_away_ranking(:home)[:highest]
   end
 
   def lowest_scoring_home_team
-    lowest_home = Team.all.values.min_by do |team|
-      games_visiting = Game.all.values.select { |game| game.home_team_id == team.team_id }
-      total_score = games_visiting.sum { |game| game.home_goals }
-      total_score.to_f / games_visiting.count
-    end
-    lowest_home.team_name
+    Team.home_or_away_ranking(:home)[:lowest]
   end
 
   def winningest_team
