@@ -703,6 +703,109 @@ class StatTracker
       results[get_team_name(opponent_id)] = average
       results
     end
-    require 'pry'; binding.pry
+  end
+
+  def seasonal_win_percentage(team_id, season_type)
+    team_id = team_id.to_i if team_id.class != Integer
+    games = all_games_by_team_id(team_id)
+    total_wins = 0.0
+    total_games = 0.0
+
+    season_type == :regular_season ? seasonal = "Regular Season" : seasonal = "Postseason"
+    games.each do |game|
+      next unless game.type == seasonal
+
+      if team_id == game.home_team_id
+        total_games += 1
+        total_wins += 1 if game.away_goals < game.home_goals
+      elsif team_id == game.away_team_id
+        total_games += 1
+        total_wins += 1 if game.home_goals < game.away_goals
+      end
+    end
+
+    return 0.0 if total_wins.zero? && total_losses.zero?
+    (total_wins / total_games).round(2)
+  end
+
+  def seasonal_total_goals_scored(team_id, season_type)
+    team_id = team_id.to_i if team_id.class != Integer
+    games = all_games_by_team_id(team_id)
+    total_goals = 0
+
+    season_type == :regular_season ? seasonal = "Regular Season" : seasonal = "Postseason"
+    games.each do |game|
+      next unless game.type == seasonal
+
+      if team_id == game.home_team_id
+        total_goals += game.home_goals
+      elsif team_id == game.away_team_id
+        total_goals += game.away_goals
+      end
+    end
+    total_goals
+  end
+
+  def seasonal_total_goals_against(team_id, season_type)
+    team_id = team_id.to_i if team_id.class != Integer
+    games = all_games_by_team_id(team_id)
+    total_goals = 0
+
+    season_type == :regular_season ? seasonal = "Regular Season" : seasonal = "Postseason"
+    games.each do |game|
+      next unless game.type == seasonal
+
+      if team_id == game.home_team_id
+        total_goals += game.away_goals
+      elsif team_id == game.away_team_id
+        total_goals += game.home_goals
+      end
+    end
+    total_goals
+  end
+
+  def seasonal_average_goals_scored(team_id, season_type)
+    team_id = team_id.to_i if team_id.class != Integer
+    games = all_games_by_team_id(team_id)
+    season_type == :regular_season ? seasonal = "Regular Season" : seasonal = "Postseason"
+    total_goals = seasonal_total_goals_scored(team_id, season_type)
+    total_games = games.select { |game| game.type == seasonal }.length
+    total_goals / total_games
+  end
+
+  def seasonal_average_goals_against(team_id, season_type)
+    team_id = team_id.to_i if team_id.class != Integer
+    games = all_games_by_team_id(team_id)
+    season_type == :regular_season ? seasonal = "Regular Season" : seasonal = "Postseason"
+    total_goals = seasonal_total_goals_against(team_id, season_type)
+    total_games = games.select { |game| game.type == seasonal }.length
+    total_goals / total_games
+  end
+
+  def seasonal_summary(team_id)
+    team_id = team_id.to_i if team_id.class != Integer
+    games = all_games_by_team_id(team_id)
+    seasonal_summary = Hash.new({})
+
+    games.each do |game|
+      unless seasonal_summary.key?(game.season)
+        seasonal_summary[game.season] = Hash.new({})
+
+        seasonal_summary[game.season][:regular_season] = Hash.new({})
+        seasonal_summary[game.season][:regular_season][:win_percentage] = seasonal_win_percentage(team_id, :regular_season)
+        seasonal_summary[game.season][:regular_season][:total_goals_scored] = seasonal_total_goals_scored(team_id, :regular_season)
+        seasonal_summary[game.season][:regular_season][:total_goals_against] = seasonal_total_goals_against(team_id, :regular_season)
+        seasonal_summary[game.season][:regular_season][:average_goals_scored] = seasonal_average_goals_scored(team_id, :regular_season)
+        seasonal_summary[game.season][:regular_season][:average_goals_against] = seasonal_average_goals_against(team_id, :regular_season)
+
+        seasonal_summary[game.season][:postseason] = Hash.new({})
+        seasonal_summary[game.season][:postseason][:win_percentage] = seasonal_win_percentage(team_id, :postseason)
+        seasonal_summary[game.season][:postseason][:total_goals_scored] = seasonal_total_goals_scored(team_id, :postseason)
+        seasonal_summary[game.season][:postseason][:total_goals_against] = seasonal_total_goals_against(team_id, :postseason)
+        seasonal_summary[game.season][:postseason][:average_goals_scored] = seasonal_average_goals_scored(team_id, :postseason)
+        seasonal_summary[game.season][:postseason][:average_goals_against] = seasonal_average_goals_against(team_id, :postseason)
+      end
+    end
+    seasonal_summary
   end
 end
