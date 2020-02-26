@@ -38,13 +38,3 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012030123,8,away,LOSS,REG,Michel Therrien,1,8,44,129,6,1,47.7,13,8
 2012030123,9,home,WIN,REG,Paul MacLean,4,7,47,107,11,3,52.3,8,6
 2012030124,8,away,LOSS,OT,Michel Therrien,2,7,46,6,1,0,44.3,6,3
-2017030174,26,home,LOSS,REG,John Stevens,0,7,41,2,2,0,54.7,10,4
-2017030211,6,away,WIN,REG,Bruce Cassidy,4,6,27,6,1,1,49,10,8
-2017030211,14,home,LOSS,REG,Jon Cooper,2,9,33,2,3,1,51,7,9
-2017030212,6,away,TIE,REG,Bruce Cassidy,2,5,24,14,3,0,43.1,13,6
-2017030212,14,home,TIE,REG,Jon Cooper,2,7,42,12,4,1,56.9,6,8
-2017030213,14,away,WIN,REG,Jon Cooper,2,9,26,19,5,1,54.4,17,11
-2017030213,6,home,LOSS,REG,Bruce Cassidy,1,7,36,27,1,1,45.6,14,5
-2017030214,14,away,LOSS,OT,Jon Cooper,2,7,33,8,4,1,37.9,15,8
-2017030214,6,home,WIN,OT,Bruce Cassidy,3,8,30,8,4,2,62.1,13,12
-2017030215,6,away,LOSS,REG,Bruce Cassidy,1,7,29,8,3,1,44.8,8,5
