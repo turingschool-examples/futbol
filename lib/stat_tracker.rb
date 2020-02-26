@@ -96,23 +96,18 @@ class StatTracker
   end
 
   def worst_fans
-    home_w = gtc.hoa_wins_by_team("home")
-    away_w = gtc.hoa_wins_by_team("away")
-    teams = away_w.select do |team, away_wins|
-      home_w[team] < away_wins
+    teams = gtc.hoa_wins_by_team("away").select do |team, away_wins|
+      gtc.hoa_wins_by_team("home")[team] < away_wins
     end.keys
     teams.map { |team_id| team_name_by_id(team_id) }
   end
 
   def lowest_scoring_home_team
-    home_games = gtc.hoa_games_by_team("home")
-    home_goals = gtc.hoa_goals_by_team("home")
-    home_goals_per_game = {}
-    home_goals.each do |team_id, total_home_goals|
-      next if total_home_goals == 0
-      home_goals_per_game[team_id] = total_home_goals / gtc.hoa_games_by_team("home")[team_id].to_f
-    end
-    team_name_by_id(home_goals_per_game.key(home_goals_per_game.values.min))
+    team_name_by_id(@gtc.scores_as_home_team.key(@gtc.scores_as_home_team.values.min))
+  end
+
+  def highest_scoring_home_team
+    team_name_by_id(@gtc.scores_as_home_team.key(@gtc.scores_as_home_team.values.max))
   end
 
   def winningest_team
@@ -127,17 +122,6 @@ class StatTracker
   def highest_scoring_visitor
     totals = @gtc.scores_as_visitor
     retrieve_team(totals.key(totals.values.max)).teamname
-  end
-
-  def highest_scoring_home_team
-    home_games = gtc.hoa_games_by_team("home")
-    home_goals = gtc.hoa_goals_by_team("home")
-    home_goals_per_game = {}
-    home_goals.each do |team_id, total_home_goals|
-      next if total_home_goals == 0
-      home_goals_per_game[team_id] = total_home_goals / gtc.hoa_games_by_team("home")[team_id].to_f
-    end
-    team_name_by_id(home_goals_per_game.key(home_goals_per_game.values.max))
   end
 
   def best_fans
