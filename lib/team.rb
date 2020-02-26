@@ -13,6 +13,14 @@ class Team
     @@teams = value
   end
 
+  def self.return_team_name(team_id)
+    @@teams.find do |_game_id, team|
+      if team.team_id == team_id
+        return team.team_name
+      end
+    end
+  end
+
   attr_reader :team_id,
               :franchise_id,
               :team_name,

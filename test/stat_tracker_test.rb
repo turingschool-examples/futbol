@@ -303,11 +303,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal 4.22, @@stat_tracker.average_goals_per_game
   end
 
-  def test_total_goals_per_games
-    games = Game.games_in_a_season("20122013")
-
-    assert_equal 3322.0, @@stat_tracker.total_goals_per_games(games)
-  end
+  # def test_total_goals_per_games
+  #   games = Game.games_in_a_season("20122013")
+  #
+  #   assert_equal 3322.0, @@stat_tracker.total_goals_per_games(games)
+  # end
 
   def test_average_goals_by_season
     expected =
@@ -330,39 +330,39 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Houston Dynamo", @@stat_tracker.return_team_name(tackles.accumulator)
   end
 
-  def test_most_tackles
-    game = Game.all.values.first
+#  def test_most_tackles
+#    game = Game.all.values.first
 
-    assert_equal "FC Cincinnati", @@stat_tracker.most_tackles(game.season)
-  end
+#    assert_equal "FC Cincinnati", @@stat_tracker.most_tackles(game.season)
+#  end
 
-  def test_fewest_tackles
-    game = Game.all.values.first
+  # def test_fewest_tackles
+  #   game = Game.all.values.first
+  #
+  #   assert_equal "Atlanta United", @@stat_tracker.fewest_tackles(game.season)
+  # end
+  #
+  # def test_games_in_season
+  #   game = Game.all.values.first
+  #
+  #   assert_equal 806, Game.games_in_a_season(game.season).length
+  # end
 
-    assert_equal "Atlanta United", @@stat_tracker.fewest_tackles(game.season)
-  end
+  # def test_most_accurate_team
+  #   game = Game.all.values.first
+  #
+  #   assert_equal "DC United", @@stat_tracker.most_accurate_team(game.season)
+  # end
+  # 
+  # def test_least_accurate_team
+  #   game = Game.all.values.first
+  #
+  #   assert_equal "New York City FC", @@stat_tracker.least_accurate_team(game.season)
+  # end
 
-  def test_games_in_season
-    game = Game.all.values.first
-
-    assert_equal 806, Game.games_in_a_season(game.season).length
-  end
-
-  def test_most_accurate_team
-    game = Game.all.values.first
-
-    assert_equal "DC United", @@stat_tracker.most_accurate_team(game.season)
-  end
-
-  def test_least_accurate_team
-    game = Game.all.values.first
-
-    assert_equal "New York City FC", @@stat_tracker.least_accurate_team(game.season)
-  end
-
-  def test_all_seasons
-    assert_equal ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @@stat_tracker.all_seasons
-  end
+  # def test_all_seasons
+  #   assert_equal ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @@stat_tracker.all_seasons
+  # end
 
   def test_it_can_get_win_percentage_against_opponent
     assert_equal 0.0, @@stat_tracker.win_percentage_against_opponent("18", "14")

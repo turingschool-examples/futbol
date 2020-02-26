@@ -10,14 +10,42 @@ class GameTeam
     @@game_teams
   end
 
-  def self.game_teams=(value)
-    @@game_teams = value
+  def self.season_games(games)
+      @@game_teams.select do |game_id, gameteam|
+        games.keys.include?(game_id)
+      end
   end
 
-  def self.season_games(games)
-    GameTeam.all.select do |game_id, gameteam|
+  def self.matching_games(games)
+    @@game_teams.select do |game_id, gameteam|
       games.keys.include?(game_id)
     end
+  end
+
+  def self.coaches_with_team_id(games)
+    gamesteams = GameTeam.matching_games(games)
+    coaches = {}
+    gamesteams.each_value do |gameteam|
+      gameteam.each_value do |team|
+        coaches[team.head_coach] = [] if !coaches.has_key?(team.head_coach)
+        coaches[team.head_coach] << team.result
+      end
+    end
+    coaches
+  end
+
+  def self.game_outcomes(season, rank = nil)
+    coaches = GameTeam.coaches_with_team_id(Game.games_in_a_season(season))
+    if rank == "worst"
+      results = coaches.min_by do |coach, game_results|
+        game_results.count("WIN") / game_results.count.to_f
+      end
+    else
+      results = coaches.max_by do |coach, game_results|
+        game_results.count("WIN") / game_results.count.to_f
+      end
+    end
+    results
   end
 
   attr_reader :game_id,

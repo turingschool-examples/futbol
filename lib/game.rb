@@ -13,13 +13,44 @@ class Game
     @@games = value
   end
 
+  def self.number_of_games
+    @@games.length
+  end
+
+  def self.all_seasons
+    seasons = @@games.values.reduce([]) do |acc, game|
+      acc << game.season
+    end
+    seasons.uniq
+  end
+
+  def self.games_in_a_season(season)
+    @@games.select do |_game_id, game|
+      game.season == season
+    end
+  end
+
+  def self.number_of_games_in_all_season
+    @@games.values.reduce(Hash.new(0)) do |games_by_season, game|
+      games_by_season[game.season.to_s] += 1
+      games_by_season
+    end
+  end
+
+  def self.total_goals_per_game(games = nil)
+    if games != nil
+      total_goals = games.values.sum { |game| game.total_goals }.to_f
+    else
+      total_goals = Game.all.sum { |_game_id, game| game.total_goals }.to_f
+    end
+  end
+
   def self.find_all_scores(function = "add")
-    total_scores = []
-    Game.all.each_value do |value|
+    total_scores = Game.all.values.reduce([]) do |acc, value|
       if function == "subtract"
-        total_scores << (value.home_goals - value.away_goals).abs
+        acc << (value.home_goals - value.away_goals).abs
       else
-        total_scores << value.home_goals + value.away_goals
+        acc << value.home_goals + value.away_goals
       end
     end
     total_scores.uniq.sort
@@ -28,22 +59,22 @@ class Game
   def self.games_outcome_percent(outcome = nil)
     games_count = 0.0
     Game.all.each_value do |value|
-      if outcome == "away" && value.home_goals < value.away_goals
-        games_count += 1
-      elsif outcome == "home" && value.home_goals > value.away_goals
-        games_count += 1
-      elsif outcome == "draw" && value.home_goals == value.away_goals
+      away = (outcome == "away" && value.home_goals < value.away_goals)
+      home = (outcome == "home" && value.home_goals > value.away_goals)
+      draw = (outcome == "draw" && value.home_goals == value.away_goals)
+      if away || home || draw
         games_count += 1
       end
     end
-    (games_count / Game.all.length).round(2)
+    (games_count / Game.number_of_games).round(2)
   end
 
-  def self.games_in_a_season(season)
-    Game.all.select do |game_id, game|
-      game.season == season
+  def self.games_played_by_team(team)
+    Game.all.values.select do |game|
+      game.home_team_id == team.team_id || game.away_team_id == team.team_id
     end
   end
+
 
   attr_reader :game_id,
               :season,
