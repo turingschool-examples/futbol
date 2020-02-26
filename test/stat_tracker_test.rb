@@ -114,69 +114,48 @@ def test_it_can_return_lowest_score
   #harness pass
 end
 
-    def test_count_of_teams
-    assert_equal 32, @stat_tracker.count_of_teams
-  end
+  def test_count_of_teams
+  assert_equal 32, @stat_tracker.count_of_teams
+end
 
-  def test_best_offense
-    assert_equal "FC Dallas", @stat_tracker.best_offense
-  end
+def test_best_offense
+  assert_equal "FC Dallas", @stat_tracker.best_offense
+end
 
-  def test_worst_offense
-    assert_equal "Toronto FC", @stat_tracker.worst_offense
-  end
+def test_worst_offense
+  assert_equal "Toronto FC", @stat_tracker.worst_offense
+end
 
-  def test_highest_scoring_visitor
+def test_highest_scoring_visitor
 
-    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
-  end
+  assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+end
 
-  def test_winningest_team
+def test_winningest_team
 
-    assert_equal "FC Dallas", @stat_tracker.winningest_team
-  end
+  assert_equal "FC Dallas", @stat_tracker.winningest_team
+end
 
+def test_it_can_return_team_names_by_id_number
+  assert_equal "Atlanta United", @stat_tracker.team_name_by_id(1)
+  assert_equal "LA Galaxy", @stat_tracker.team_name_by_id(17)
+end
 
-  def test_it_can_count_total_games_by_team
-    expected = {3=>3, 6=>2, 9=>1, 8=>1, 5=>4, 20=>1, 19=>1,
-      7=>1, 52=>1, 10=>1, 26=>1, 22=>1}
+def test_it_can_show_total_wins
+  expected = {3=>0, 6=>2, 5=>1, 20=>0, 19=>1, 7=>0, 52=>1, 10=>0, 26=>1}
+  assert_equal expected, @stat_tracker.total_wins_by_team
+end
 
-    assert_equal expected, @stat_tracker.total_games_by_team
-  end
+def test_it_can_show_total_loss
+  expected = {3=>2, 6=>0, 5=>0, 20=>1, 19=>0, 7=>1, 52=>0, 10=>1, 26=>0}
+  assert_equal expected, @stat_tracker.total_loss_by_team
+end
 
-  def test_it_can_count_all_goals_scored_by_team
-    expected = {3=>6, 6=>6, 9=>2, 8=>2, 5=>7, 20=>1, 19=>2,
-    7=>1, 52=>2, 10=>1, 26=>2, 22=>2}
-    assert_equal expected, @stat_tracker.all_goals_scored_by_team
-  end
-
-  def test_it_can_count_goals_allowed_by_team
-    expected = {3=>8, 6=>2, 9=>2, 8=>2, 5=>9, 20=>2, 19=>1, 7=>2,
-      52=>1, 10=>2, 26=>1, 22=>2}
-
-    assert_equal expected, @stat_tracker.all_goals_allowed_by_team
-  end
-
-  def test_it_can_return_team_names_by_id_number
-    assert_equal "Atlanta United", @stat_tracker.team_name_by_id(1)
-    assert_equal "LA Galaxy", @stat_tracker.team_name_by_id(17)
-  end
-
-  def test_it_can_show_total_wins
-    expected = {3=>0, 6=>2, 5=>1, 20=>0, 19=>1, 7=>0, 52=>1, 10=>0, 26=>1}
-    assert_equal expected, @stat_tracker.total_wins_by_team
-  end
-
-  def test_it_can_show_total_loss
-    expected = {3=>2, 6=>0, 5=>0, 20=>1, 19=>0, 7=>1, 52=>0, 10=>1, 26=>0}
-    assert_equal expected, @stat_tracker.total_loss_by_team
-  end
-
-  def test_it_can_show_total_ties
-    expected = {3=>1, 6=>0, 9=>1, 8=>1, 5=>2, 20=>0, 19=>0,
-      7=>0, 52=>0, 10=>0, 26=>0, 22=>1}
-    assert_equal expected, @stat_tracker.total_tie_by_team
-  end
+def test_it_can_show_total_ties
+  expected = {3=>1, 6=>0, 9=>1, 8=>1, 5=>2, 20=>0, 19=>0,
+    7=>0, 52=>0, 10=>0, 26=>0, 22=>1}
+  assert_equal expected, @stat_tracker.total_tie_by_team
+end
 
 ####### It4 Methods #############
 def test_team_with_the_most_tackles_in_a_season
@@ -214,7 +193,7 @@ end
     assert_equal 2, @stat_tracker.fewest_goals_scored("3")
     #harness pass
   end
-  
+
   # ### it5 helpers ##
   def test_it_can_return_a_team
     assert_equal Team, @stat_tracker.retrieve_team(18).class
