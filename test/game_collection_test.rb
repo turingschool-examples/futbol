@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative '../lib/game'
-require_relative '../lib/game_collection'
+require './lib/game'
+require './lib/game_collection'
 require 'csv'
 
 class GameCollectionTest < Minitest::Test
