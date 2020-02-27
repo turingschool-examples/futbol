@@ -1,5 +1,4 @@
-require 'csv'
-require_relative './game'
+require_relative 'game'
 require_relative '../modules/mathables'
 
 class GameCollection
