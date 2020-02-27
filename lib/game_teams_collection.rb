@@ -1,7 +1,11 @@
 require 'csv'
 require_relative './game_teams'
+require_relative '../modules/mathables.rb'
+
 
 class GameTeamsCollection
+  include Mathable
+  
   attr_reader :game_teams
   def initialize(game_teams_data)
     @game_teams = create_game_teams(game_teams_data)
@@ -87,8 +91,8 @@ class GameTeamsCollection
       total_goals = games_by_team.map do |single_game|
         single_game.goals
       end
-      game_team_averages = (total_goals.sum.to_f / total_goals.length).round(2)
-      (game_teams_grouped_by_team_id[team_id] = game_team_averages)
+      game_team_averages = divide(total_goals.sum, total_goals)
+        game_teams_grouped_by_team_id[team_id] = game_team_averages
     end
   end
 
