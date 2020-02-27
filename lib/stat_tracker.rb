@@ -2,8 +2,10 @@ require 'csv'
 require_relative './game_teams_collection'
 require_relative './game_collection'
 require_relative './team_collection'
-
+require_relative '../modules/nameable.rb'
 class StatTracker
+  include Nameable
+
   def self.from_csv(locations)
     raw_data = {}
     raw_data[:game_data] = CSV.read(locations[:games], headers: true, header_converters: :symbol)
@@ -98,23 +100,22 @@ class StatTracker
   end
 
   def lowest_scoring_home_team
-    team_name_by_id(@gtc.scores_as_home_team.key(@gtc.scores_as_home_team.values.min))
+    min_team_name(@gtc.scores_as_home_team)
   end
 
   def highest_scoring_home_team
-    team_name_by_id(@gtc.scores_as_home_team.key(@gtc.scores_as_home_team.values.max))
+    max_team_name(@gtc.scores_as_home_team)
   end
 
   def winningest_team
-    winning_percentages = game_collection.total_games_by_team.merge(game_collection.total_games_by_team) do |team_id, total_games|
-      gtc.total_wins_by_team[team_id] / total_games.to_f
+    win_ratio = @game_collection.total_games_by_team.merge(@game_collection.total_games_by_team) do |team_id, total_games|
+      @gtc.total_wins_by_team[team_id] / total_games.to_f
     end
-    team_name_by_id(winning_percentages.key(winning_percentages.values.max))
+    max_team_name(win_ratio)
   end
 
   def highest_scoring_visitor
-    totals = @gtc.scores_as_visitor
-    @team_collection.retrieve_team(totals.key(totals.values.max)).teamname
+    max_team_name(@gtc.scores_as_visitor)
   end
 
   def best_fans
@@ -131,11 +132,11 @@ class StatTracker
   end
 
   def most_tackles(season)
-    team_name_by_id(@gtc.season_tackles(season).key(@gtc.season_tackles(season).values.max))
+    max_team_name(@gtc.season_tackles(season))
   end
 
   def fewest_tackles(season)
-    team_name_by_id(@gtc.season_tackles(season).key(@gtc.season_tackles(season).values.min))
+    min_team_name(@gtc.season_tackles(season))
   end
 
   def team_info(team_num)
