@@ -1,7 +1,7 @@
 require 'csv'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative './game'
+require './lib/game'
 
 class GameTest < Minitest::Test
 
@@ -17,7 +17,7 @@ class GameTest < Minitest::Test
   end
 
   def test_it_contains_game_data
-    assert_equal 2012030221, @games.first.game_id
+    assert_equal "2012030221", @games.first.game_id
     assert_equal "20122013", @games.first.season
     assert_equal 3, @games.first.away_team_id
     assert_equal 6, @games.first.home_team_id
