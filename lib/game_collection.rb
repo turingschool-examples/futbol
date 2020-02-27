@@ -1,7 +1,9 @@
 require 'csv'
 require_relative './game'
+require_relative '../modules/mathables'
 
 class GameCollection
+  include Mathable
   attr_reader :games
   def initialize(game_data)
     @games = create_games(game_data)
@@ -35,21 +37,21 @@ class GameCollection
     home_wins = @games.find_all do |game|
       game.home_goals > game.away_goals
     end
-    (home_wins.length.to_f / @games.length).round(2)
+    divide(home_wins.length, @games)
   end
 
   def percentage_visitor_wins
     visitor_wins = @games.find_all do |game|
       game.away_goals > game.home_goals
     end
-    (visitor_wins.length.to_f / @games.length).round(2)
+    divide(visitor_wins.length, @games)
   end
 
   def percentage_ties
     ties = @games.find_all do |game|
       game.home_goals == game.away_goals
-    end.length
-    (ties / @games.length.to_f).round(2)
+    end
+    divide(ties.length, @games)
   end
 
   def count_of_games_by_season
@@ -64,19 +66,16 @@ class GameCollection
     total_goals_per_game = @games.map do |game|
       game.home_goals + game.away_goals
     end
-    (total_goals_per_game.sum.to_f / games.length).round(2)
+    divide(total_goals_per_game.sum, @games)
   end
 
   def average_goals_by_season
-    games_grouped_by_season = @games.group_by do |game|
-      game.season
-    end
+    games_grouped_by_season = @games.group_by { |game| game.season }
     games_grouped_by_season.each_pair do |season, games_by_season|
       total_goals = games_by_season.map do |single_game|
         single_game.home_goals + single_game.away_goals
       end
-    average = (total_goals.sum.to_f / total_goals.length).round(2)
-    games_grouped_by_season[season] = average
+    games_grouped_by_season[season] = divide(total_goals.sum, total_goals)
     end
   end
 
@@ -99,13 +98,11 @@ class GameCollection
   end
 
   def defense_rankings
-    allowed = all_goals_allowed_by_team
-    games = total_games_by_team
-    average_goals_allowed = {}
-    allowed.each do |team_id, goals_allowed|
-      average_goals_allowed[team_id] = goals_allowed / total_games_by_team[team_id].to_f
+    avg_goals_allowed = {}
+    all_goals_allowed_by_team.each do |team_id, goals_allowed|
+      avg_goals_allowed[team_id] = goals_allowed / total_games_by_team[team_id].to_f
     end
-    average_goals_allowed
+    avg_goals_allowed
   end
 
   def total_scores_by_team(team_num)
