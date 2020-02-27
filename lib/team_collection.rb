@@ -1,5 +1,4 @@
-require 'csv'
-require_relative './team'
+require_relative 'team'
 
 class TeamCollection
   attr_reader :teams
