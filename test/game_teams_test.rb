@@ -1,7 +1,7 @@
 require 'csv'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative './game_teams'
+require './lib/game_teams'
 
 class GameTeamsTest < Minitest::Test
 
@@ -23,7 +23,7 @@ class GameTeamsTest < Minitest::Test
     assert_equal "LOSS", @game_teams.first.result
     assert_equal "OT", @game_teams.first.settled_in
     assert_equal "John Tortorella", @game_teams.first.head_coach
-    assert_equal 2, @game_teams.first.goals
+    assert_equal 0, @game_teams.first.goals
     assert_equal 8, @game_teams.first.shots
     assert_equal 44, @game_teams.first.tackles
     assert_equal 8, @game_teams.first.pim
