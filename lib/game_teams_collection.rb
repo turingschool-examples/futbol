@@ -1,11 +1,10 @@
-require 'csv'
-require_relative './game_teams'
+require_relative 'game_teams'
 require_relative '../modules/mathables.rb'
 
 
 class GameTeamsCollection
   include Mathable
-  
+
   attr_reader :game_teams
   def initialize(game_teams_data)
     @game_teams = create_game_teams(game_teams_data)
