@@ -1,7 +1,7 @@
 require 'csv'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative './team'
+require './lib/team'
 
 class TeamTest < Minitest::Test
   def setup
