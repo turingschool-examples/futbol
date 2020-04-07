@@ -2,9 +2,8 @@ require_relative 'test_helper'
 
 class TeamCollectionTest < Minitest::Test
   def setup
-    @team_file_path =
-    @team_data = CSV.read('./data/teams.csv',headers: true, header_converters: :symbol)
-    @team_collection = TeamCollection.new(@team_data)
+    @team_collection = TeamCollection.new('./data/teams.csv')
+    @team = @team_collection.teams[2]
   end
 
   def test_it_exists
@@ -18,6 +17,6 @@ class TeamCollectionTest < Minitest::Test
 
   def test_it_can_create_teams_from_csv
     assert_instance_of Team, @team
+    
   end
-
 end
