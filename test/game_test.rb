@@ -78,11 +78,15 @@ class GameTest < Minitest::Test
 
   def test_games_per_season
     Game.from_csv('./data/fixtures/games_2_seasons.csv')
-    assert_equal [57, 4], Game.games_per_season
+    assert_equal [57, 4], Game.games_per(:season)
+  end
+  def test_goals_per_season
+    Game.from_csv('./data/fixtures/games_2_seasons.csv')
+    assert_equal [220, 19], Game.goals_per(:season)
   end
 
+
   def test_average_goals_by_season
-    skip
     Game.from_csv('./data/fixtures/games_2_seasons.csv')
     expected = [20122013, 20162017]
     assert_equal expected, Game.average_goals_by_season

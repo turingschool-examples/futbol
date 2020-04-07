@@ -17,42 +17,29 @@ class Game
     sum / @@all.length.to_f
   end
 
-  # def self.total_goals_by(header_value)
-  #   header = header_value.keys[0]
-  #   value = header_value.values[0]
-  #   range = @@all.find_all { |game| game.send(header) == value }
-  #   total_goals = range.sum { |game| game.away_goals + game.home_goals }
-  # end
-  #
-  def self.goals_by_season
-    total_goals_by_season = Hash.new { |hash, key| hash[key] =  0}
-    @@all.each do |game|
-      total_goals_by_season[game.season] += game.away_goals + game.home_goals
+  def self.games_per(header)
+    group_by_header = @@all.group_by { |game| game.send(header) }
+    group_by_header.values.map{ |games| games.length}
+  end
+
+  def self.goals_per(header)
+    group_by_header = @@all.group_by { |game| game.send(header) }
+    group_by_header.values.map do |games|
+      games.sum { |game| (game.away_goals + game.home_goals)}
     end
-    total_goals_by_season
-    binding.pry
-  end
-  #
-  # def self.games_by_season
-  #   total_games_by_season = Hash.new { |hash, key| hash[key] =  0}
-  #   @@all.each do |game|
-  #     total_games_by_season[game.season] += 1
-  #   end
-  #   total_games_by_season
-  # end
-  def self.games_per_season
-    games_by_season = @@all.group_by { |game| game.season }
-    games_per_season = games_by_season.values.map{ |games| games.length}
   end
 
-  def self.total_goals_per_season
-
+  def self.average_goals_per(header)
+    
   end
 
   def self.average_goals_by_season
     seasons = @@all.map { |game| game.season}.uniq
-
-    Game
+    avg_goals_per_season =
+    Game.goals_per(:season).zip(Game.games_per(:season)).map do |goals, games|
+      (goals.to_f/games.to_f).round(2)
+    end
+    Hash[seasons.zip(avg_goals_per_season)]
   end
 
 
