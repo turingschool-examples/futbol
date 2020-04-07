@@ -11,3 +11,5 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012030225,6,home,WIN,REG,Claude Julien,3,8,35,11,3,1,49.1,12,9
 2012030311,6,away,WIN,REG,Claude Julien,3,7,19,17,4,0,66.7,1,5
 2012030311,5,home,LOSS,REG,Dan Bylsma,0,7,34,28,4,0,33.3,8,9
+2012030121,9,away,TIE,REG,Paul MacLean,2,7,31,23,2,0,39.4,9,1
+2012030121,8,home,TIE,REG,Michel Therrien,2,12,24,6,5,1,60.6,11,10
