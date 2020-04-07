@@ -16,9 +16,53 @@ class Game
     @@all
   end
 
+  def self.all_scores
+    @@all.map { |game| game.away_goals + game.home_goals }
+  end
+
+  def self.highest_total_score
+    all_scores.max
+  end
+
+  def self.lowest_total_score
+    all_scores.min
+  end
+
+  def self.percentage_home_wins
+    home_wins = @@all.find_all { |game| game.home_goals > game.away_goals}.count
+    ( home_wins.to_f / @@all.length.to_f ).round(1) * 100
+  end
+
+  def self.percentage_visitor_wins
+    visitor_wins = @@all.find_all { |game| game.home_goals < game.away_goals}.count
+    ( visitor_wins.to_f / @@all.length.to_f ).round(1) * 100
+  end
+
+  def self.percentage_ties
+    ties = @@all.find_all { |game| game.home_goals == game.away_goals}.count
+    ( ties.to_f / @@all.length.to_f ).round(1) * 100
+  end
+
+  def self.count_of_games_by_season
+    games_by_season = @@all.group_by { |game| game.season }
+    games_by_season.transform_values { |games| games.length }
+  end
+
+  def self.average_goals_per_game
+    (all_scores.sum.to_f / @@all.length.to_f).round(2)
+  end
+
+  def self.average_goals_by_season
+    games_by_season = @@all.group_by { |game| game.season }
+    games_by_season.transform_values do |game|
+      game_scores = game.map { |game| game.away_goals + game.home_goals }
+      (game_scores.sum.to_f / game_scores.length.to_f).round(2)
+    end
+  end
+
   def initialize(game_details)
     @game_id = game_details[:game_id].to_i
-    @season = game_details[:season].to_i
+    @season = game_details[:season]
     @type = game_details[:type]
     @date_time = game_details[:date_time]
     @away_team_id = game_details[:away_team_id].to_i
