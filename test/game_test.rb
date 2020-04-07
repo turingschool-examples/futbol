@@ -48,6 +48,8 @@ class GameTest < Minitest::Test
     assert_equal "/api/v1/venues/null", @games[0].venue_link
   end
 
-
+  def test_it_can_return_highest_total_score
+    assert_equal 6, Game.highest_total_score
+  end
 
 end

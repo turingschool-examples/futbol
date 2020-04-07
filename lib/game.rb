@@ -16,6 +16,11 @@ class Game
     @@all
   end
 
+  def self.highest_total_score
+    highest_score = @@all.map { |game| game.away_goals + game.home_goals }
+    highest_score.max
+  end
+
   def initialize(game_details)
     @game_id = game_details[:game_id].to_i
     @season = game_details[:season].to_i
@@ -28,4 +33,5 @@ class Game
     @venue = game_details[:venue]
     @venue_link = game_details[:venue_link]
   end
+
 end
