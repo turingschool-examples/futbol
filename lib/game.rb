@@ -12,6 +12,11 @@ class Game
     @@all = csv.map { |row| Game.new(row) }
   end
 
+  def self.average_goals_per_game
+    sum = @@all.sum { |game| game.away_goals + game.home_goals}.to_f
+    sum / @@all.length.to_f
+  end
+
   attr_reader :game_id,
               :season,
               :type,

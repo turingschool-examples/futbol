@@ -59,4 +59,8 @@ class GameTest < Minitest::Test
     assert_equal 4, Game.all.length
     assert_instance_of Game, Game.all.first
   end
+
+  def test_it_returns_average_goals_per_game
+    assert_equal 4.5, Game.average_goals_per_game
+  end
 end
