@@ -1,5 +1,5 @@
 class GameTeam
-
+#
   @@all = nil
 
   def self.all
