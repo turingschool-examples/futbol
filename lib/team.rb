@@ -14,6 +14,13 @@ class Team
     @@all
   end
 
+  def self.find_name(id)
+    team_name = @@all.find do |team|
+      team.team_id == id
+    end
+    team_name.team_name
+  end
+  
   def initialize(team_details)
     @team_id = team_details[:team_id].to_i
     @franchise_id = team_details[:franchiseid].to_i
@@ -22,4 +29,5 @@ class Team
     @stadium = team_details[:stadium]
     @link = team_details[:link]
   end
+
 end
