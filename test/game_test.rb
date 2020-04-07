@@ -65,6 +65,12 @@ class GameTest < Minitest::Test
     assert_equal 0.44, Game.percentage_home_wins
   end
 
+  def test_percentage_visitor_wins
+    Game.from_csv("./data/games.csv")
+
+    assert_equal 0.36, Game.percentage_visitor_wins
+  end
+
 
 
 

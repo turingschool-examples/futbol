@@ -28,11 +28,20 @@ class Game
   def self.percentage_home_wins
     number_of_games = @@all_games.length
   home_wins =  @@all_games.select do |game|
-      #require 'pry'; binding.pry
       game.home_goals > game.away_goals
     end
     number_of_homewins = home_wins.length
     percent_home_wins = (number_of_homewins.to_f / number_of_games.to_f).round(2)
+  end
+
+  def self.percentage_visitor_wins
+    number_of_games = @@all_games.length
+  visitor_wins =  @@all_games.select do |game|
+      game.home_goals < game.away_goals
+    end
+    number_of_visitor = visitor_wins.length
+    percent_visitor_wins = (number_of_visitor.to_f / number_of_games.to_f).round(2)
+    #require 'pry'; binding.pry
   end
 
   def self.all_games
