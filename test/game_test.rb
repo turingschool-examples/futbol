@@ -64,18 +64,6 @@ class GameTest < Minitest::Test
     assert_equal 4.5, Game.average_goals_per_game
   end
 
-  # def test_it_returns_goals_by_season
-  #   Game.from_csv('./data/fixtures/games_2_seasons.csv')
-  #   expected = {20122013=>220, 20162017=>19}
-  #   assert_equal expected, Game.oals_by_season
-  # end
-  #
-  # def test_it_returns_total_games_by_season
-  #   Game.from_csv('./data/fixtures/games_2_seasons.csv')
-  #   expected = {20122013=>57, 20162017=>4}
-  #   assert_equal expected, Game.games_by_season
-  # end
-
   def test_games_per_season
     Game.from_csv('./data/fixtures/games_2_seasons.csv')
     assert_equal [57, 4], Game.games_per(:season)
@@ -89,7 +77,6 @@ class GameTest < Minitest::Test
     Game.from_csv('./data/fixtures/games_2_seasons.csv')
     assert_equal [3.86, 4.75], Game.average_goals_per(:season)
   end
-
 
   def test_average_goals_by_season
     Game.from_csv('./data/fixtures/games_2_seasons.csv')
