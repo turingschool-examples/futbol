@@ -38,4 +38,8 @@ class TeamTest < Minitest::Test
     assert_instance_of Array, @teams
     assert_equal 32, @teams.length
   end
+
+  def test_it_can_find_team_name_by_team_id
+    assert_equal "Chicago Fire", Team.find_name(4)
+  end
 end
