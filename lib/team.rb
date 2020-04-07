@@ -9,18 +9,19 @@ class Team
       csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
 
       @@all_teams = csv.map do |row|
-         # require"pry";binding.pry
-          Team.new(row)
-           # require"pry";binding.pry
+
+          # require"pry";binding.pry
+          team = Team.new(row)
+          
       end
     end
   #
   # CSV.read(./data/teams.csv)
-  attr_reader :team_id, :franchise_id, :team_name, :abbreviation, :stadium, :link
+  attr_reader :team_id, :franchiseid, :teamname, :abbreviation, :stadium, :link
   def initialize(info)
     @team_id = info[:team_id].to_i
-    @franchise_id = info[:franchise_id].to_i
-    @team_name = info[:team_name]
+    @franchiseid = info[:franchiseid].to_i
+    @teamname = info[:teamname]
     @abbreviation = info[:abbreviation]
     @stadium = info[:stadium]
     @link = info[:link]

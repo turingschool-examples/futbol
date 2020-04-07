@@ -7,15 +7,15 @@ class TeamTest < Minitest::Test
 
 
   def test_it_exists
-    team = Team.new({team_id: 123, franchiseId: 456, team_name: "Rockets", abbreviation: "RO", stadium: "Rocket Stadium", link: "link" })
+    team = Team.new({team_id: 123, franchiseid: 456, teamname: "Rockets", abbreviation: "RO", stadium: "Rocket Stadium", link: "link" })
     assert_instance_of Team, team
   end
 
   def test_it_has_attributes
-    team = Team.new({team_id: 123, franchiseId: 456, team_name: "Rockets", abbreviation: "RO", stadium: "Rocket Stadium", link: "link" })
+    team = Team.new({team_id: 123, franchiseid: 456, teamname: "Rockets", abbreviation: "RO", stadium: "Rocket Stadium", link: "link" })
     assert_equal 123, team.team_id
-    assert_equal 456, team.franchise_id
-    assert_equal "Rockets", team.team_name
+    assert_equal 456, team.franchiseid
+    assert_equal "Rockets", team.teamname
     assert_equal "RO", team.abbreviation
     assert_equal "Rocket Stadium", team.stadium
     assert_equal "link", team.link
@@ -27,10 +27,11 @@ class TeamTest < Minitest::Test
 
      # require"pry";binding.pry
     assert_equal 26,team.team_id
-    # assert_equal 14, team.franchise_id
-    assert_equal "FC Cincinnati", team.team_name
-
-
+    assert_equal 14, team.franchiseid
+    assert_equal "FC Cincinnati", team.teamname
+    assert_equal "CIN", team.abbreviation
+    assert_equal "Nippert Stadium", team.stadium
+    assert_equal "/api/v1/teams/26", team.link
     assert_instance_of Team, team
 
   end
