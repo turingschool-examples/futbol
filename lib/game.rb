@@ -16,9 +16,16 @@ class Game
     @@all
   end
 
+  def self.all_scores
+    @@all.map { |game| game.away_goals + game.home_goals }
+  end
+
   def self.highest_total_score
-    highest_score = @@all.map { |game| game.away_goals + game.home_goals }
-    highest_score.max
+    all_scores.max
+  end
+
+  def self.lowest_total_score
+    all_scores.min
   end
 
   def initialize(game_details)

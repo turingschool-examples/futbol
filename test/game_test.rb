@@ -48,8 +48,17 @@ class GameTest < Minitest::Test
     assert_equal "/api/v1/venues/null", @games[0].venue_link
   end
 
+  def test_it_can_return_all_scores
+    all_scores_array = [5, 5, 3, 5, 4, 3, 5, 3, 1, 3, 3, 4, 2, 3, 3, 5, 5, 6, 4, 3, 5, 5, 6, 4, 3, 6, 4, 1, 6, 3]
+    assert_equal all_scores_array, Game.all_scores
+  end
+
   def test_it_can_return_highest_total_score
     assert_equal 6, Game.highest_total_score
+  end
+
+  def test_it_can_return_lowest_total_score
+    assert_equal 1, Game.lowest_total_score
   end
 
 end
