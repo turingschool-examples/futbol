@@ -17,6 +17,46 @@ class Game
     sum / @@all.length.to_f
   end
 
+  # def self.total_goals_by(header_value)
+  #   header = header_value.keys[0]
+  #   value = header_value.values[0]
+  #   range = @@all.find_all { |game| game.send(header) == value }
+  #   total_goals = range.sum { |game| game.away_goals + game.home_goals }
+  # end
+  #
+  def self.goals_by_season
+    total_goals_by_season = Hash.new { |hash, key| hash[key] =  0}
+    @@all.each do |game|
+      total_goals_by_season[game.season] += game.away_goals + game.home_goals
+    end
+    total_goals_by_season
+    binding.pry
+  end
+  #
+  # def self.games_by_season
+  #   total_games_by_season = Hash.new { |hash, key| hash[key] =  0}
+  #   @@all.each do |game|
+  #     total_games_by_season[game.season] += 1
+  #   end
+  #   total_games_by_season
+  # end
+  def self.games_per_season
+    games_by_season = @@all.group_by { |game| game.season }
+    games_per_season = games_by_season.values.map{ |games| games.length}
+  end
+
+  def self.total_goals_per_season
+
+  end
+
+  def self.average_goals_by_season
+    seasons = @@all.map { |game| game.season}.uniq
+
+    Game
+  end
+
+
+
   attr_reader :game_id,
               :season,
               :type,
