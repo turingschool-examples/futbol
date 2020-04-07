@@ -43,10 +43,14 @@ class Game
     ( ties.to_f / @@all.length.to_f ).round(1) * 100
   end
 
+  def self.count_of_games_by_season
+    games_by_season = @@all.group_by { |game| game.season }
+    games_by_season.transform_values { |games| games.length }
+  end
 
   def initialize(game_details)
     @game_id = game_details[:game_id].to_i
-    @season = game_details[:season].to_i
+    @season = game_details[:season]
     @type = game_details[:type]
     @date_time = game_details[:date_time]
     @away_team_id = game_details[:away_team_id].to_i
