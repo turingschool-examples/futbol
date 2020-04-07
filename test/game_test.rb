@@ -56,7 +56,11 @@ class GameTest < Minitest::Test
 
   def test_it_has_all
     assert_instance_of Array, Game.all
-    assert_equal 20, Game.all.length
+    assert_equal 100, Game.all.length
     assert_instance_of Game, Game.all.first
+  end
+
+  def test_it_can_count_games_by_season
+    assert_equal ({20122013=>57, 20162017=>4, 20142015=>17, 20152016=>16, 20132014=>6}), Game.count_of_games_by_season
   end
 end
