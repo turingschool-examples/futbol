@@ -61,6 +61,6 @@ class GameTest < Minitest::Test
   end
 
   def test_it_can_calculate_highest_total_score
-    assert_equal 7, @game.highest_total_score
+    assert_equal 5, @game.highest_total_score
   end
 end

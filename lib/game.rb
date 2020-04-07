@@ -36,6 +36,8 @@ class Game
     @venue_link = game_stats[:venue_link]
   end
 
-  
+  def highest_total_score
+    @@all.map { |game| game.away_goals + game.home_goals}.max
+  end
 
 end
