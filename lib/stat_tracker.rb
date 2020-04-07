@@ -73,7 +73,9 @@ class StatTracker
   end
 
   def percentage_ties
-    	# Percentage of games that has resulted in a tie (rounded to the nearest 100th)
+    games_count = all_game_teams.count.to_f
+    ties_count = (all_game_teams.find_all { |gt| gt.result == "TIE"}).count.to_f
+    ((ties_count / games_count) * 100).round(2)
   end
 
   def count_of_games_by_season
