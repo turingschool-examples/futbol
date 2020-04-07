@@ -49,4 +49,35 @@ class StatTracker
   def all_teams
     Team.all
   end
+
+  def all_games
+    Games.all
+  end
+
+  def all_game_teams
+    GameTeam.all
+  end
+
+  def home_games
+    (all_game_teams.find_all {|gt| gt.hoa == "home" }).count.to_f
+  end
+
+  def percentage_home_wins
+    home_wins = (all_game_teams.find_all {|gt| gt.hoa == "home" && gt.result == "WIN" }).count.to_f
+    ((home_wins / home_games) * 100).round(2)
+  end
+
+  def percentage_visitor_wins
+    visitor_wins = (all_game_teams.find_all {|gt| gt.hoa == "home" && gt.result == "LOSS" }).count.to_f
+    ((visitor_wins / home_games) * 100).round(2)
+  end
+
+  def percentage_ties
+    	# Percentage of games that has resulted in a tie (rounded to the nearest 100th)
+  end
+
+  def count_of_games_by_season
+    # A hash with season names (e.g. 20122013) as keys and counts of games as values
+  end
+
 end
