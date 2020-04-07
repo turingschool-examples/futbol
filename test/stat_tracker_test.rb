@@ -65,4 +65,8 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_find_percentage_ties
     assert_equal 14.29, @stat_tracker.percentage_ties
   end
+
+  def test_it_can_count_games_in_a_season
+    assert_equal ({ 20122013 => 20 }), @stat_tracker.count_of_games_by_season
+  end 
 end
