@@ -39,7 +39,7 @@ class GameTeamTest < Minitest::Test
 
   def test_it_returns_list_of_game_teams
     assert_instance_of Array, GameTeam.all
-    assert_equal 3, GameTeam.all.length
+    assert_equal 12, GameTeam.all.length
     assert_instance_of GameTeam, GameTeam.all.first
   end
 
