@@ -8,6 +8,12 @@ class GameStats
       end
   end
 
+  def self.highest_total_score
+    require 'pry'; binding.pry
+
+
+  end
+
   def self.all_game_stats
     @@all_game_stats
   end
@@ -33,5 +39,7 @@ class GameStats
     @giveaways = stats[:giveaways].to_i
     @takeaways = stats[:takeaways].to_i
   end
+
+
 
 end
