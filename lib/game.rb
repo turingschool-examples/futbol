@@ -30,16 +30,14 @@ class Game
   end
 
   def self.average_goals_per(header)
-    
+    goals_per(header).each_with_index.map do |goals, index|
+      (goals.to_f/games_per(header)[index].to_f).round(2)
+    end
   end
 
   def self.average_goals_by_season
     seasons = @@all.map { |game| game.season}.uniq
-    avg_goals_per_season =
-    Game.goals_per(:season).zip(Game.games_per(:season)).map do |goals, games|
-      (goals.to_f/games.to_f).round(2)
-    end
-    Hash[seasons.zip(avg_goals_per_season)]
+    Hash[seasons.zip(Game.average_goals_per(:season))]
   end
 
 

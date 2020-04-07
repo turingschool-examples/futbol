@@ -85,10 +85,15 @@ class GameTest < Minitest::Test
     assert_equal [220, 19], Game.goals_per(:season)
   end
 
+  def test_average_goals_per_header
+    Game.from_csv('./data/fixtures/games_2_seasons.csv')
+    assert_equal [3.86, 4.75], Game.average_goals_per(:season)
+  end
+
 
   def test_average_goals_by_season
     Game.from_csv('./data/fixtures/games_2_seasons.csv')
-    expected = [20122013, 20162017]
+    expected = {20122013 => 3.86, 20162017 => 4.75}
     assert_equal expected, Game.average_goals_by_season
   end
 end
