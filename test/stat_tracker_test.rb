@@ -50,11 +50,6 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of GameTeam, @stat_tracker.game_teams[0]
   end
 
-  # def test_it_can_get_all_games_without_running_csv
-  #   assert_instance_of Array, @stat_tracker.all_games
-  #   assert_instance_of Game, @stat_tracker.all_games[0]
-  # end
-
   def test_it_can_find_number_of_home_games
     assert_equal 7.00, @stat_tracker.home_games
   end
