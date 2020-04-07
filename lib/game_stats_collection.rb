@@ -9,7 +9,6 @@ class GameStatsCollection
 
   def create_game_stats(file_path)
     game_stats_csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
-
     game_stats_csv.map { |row| GameStats.new(row)}
   end
 end
