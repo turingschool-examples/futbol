@@ -1,6 +1,7 @@
 require './test/test_helper'
 require './lib/stat_tracker'
 require './lib/game'
+require './lib/team'
 
 class StatTrackerTest < Minitest::Test
   def setup
@@ -31,5 +32,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal 7441, @stat_tracker.games.length
     assert_instance_of Game, @stat_tracker.games[0]
     assert_instance_of Game, @stat_tracker.games[-1]
+  end
+
+  def test_returns_count_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
   end
 end
