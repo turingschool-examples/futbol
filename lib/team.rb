@@ -1,6 +1,12 @@
 require 'csv'
 class Team
 
+  @@all = nil
+
+  def self.all
+    @@all
+  end
+
   def self.from_csv(csv_file_path)
     csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
     @@all = csv.map { |row| Team.new(row) }

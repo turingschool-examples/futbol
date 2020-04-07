@@ -27,6 +27,12 @@ class TeamTest < Minitest::Test
     assert_instance_of Team, @teams.first
   end
 
+  def test_it_returns_list_of_teams
+    assert_instance_of Array, Team.all
+    assert_equal 32, Team.all.length
+    assert_instance_of Team, Team.all.first
+  end
+
   def test_it_returns_attributes
     assert_equal 4 , @base_team.team_id
     # binding.pry
@@ -36,4 +42,5 @@ class TeamTest < Minitest::Test
     assert_equal "SeatGeek Stadium" , @base_team.stadium
     assert_equal "/api/v1/teams/4" , @base_team.link
   end
-end
+
+end #final
