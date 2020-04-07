@@ -47,22 +47,22 @@ class StatTracker
   end
 
   def home_games
-    (all_game_teams.find_all {|gt| gt.hoa == "home" }).count.to_f
+    (@game_teams.find_all {|gt| gt.hoa == "home" }).count.to_f
   end
 
   def percentage_home_wins
-    home_wins = (all_game_teams.find_all {|gt| gt.hoa == "home" && gt.result == "WIN" }).count.to_f
+    home_wins = (@game_teams.find_all {|gt| gt.hoa == "home" && gt.result == "WIN" }).count.to_f
     ((home_wins / home_games) * 100).round(2)
   end
 
   def percentage_visitor_wins
-    visitor_wins = (all_game_teams.find_all {|gt| gt.hoa == "home" && gt.result == "LOSS" }).count.to_f
+    visitor_wins = (@game_teams.find_all {|gt| gt.hoa == "home" && gt.result == "LOSS" }).count.to_f
     ((visitor_wins / home_games) * 100).round(2)
   end
 
   def percentage_ties
-    games_count = all_game_teams.count.to_f
-    ties_count = (all_game_teams.find_all { |gt| gt.result == "TIE"}).count.to_f
+    games_count = @game_teams.count.to_f
+    ties_count = (@game_teams.find_all { |gt| gt.result == "TIE"}).count.to_f
     ((ties_count / games_count) * 100).round(2)
   end
 
