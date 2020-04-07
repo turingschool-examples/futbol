@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require './lib/stat_tracker'
 
 class StatTrackerTest < Minitest::Test
@@ -18,9 +17,9 @@ class StatTrackerTest < Minitest::Test
   # end
 
   def test_it_exists
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_path = './data/games_fixture.csv'
+    team_path = './data/teams_fixture.csv'
+    game_teams_path = './data/game_teams_fixture.csv'
 
     locations = {
       games: game_path,
