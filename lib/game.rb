@@ -28,6 +28,22 @@ class Game
     all_scores.min
   end
 
+  def self.percentage_home_wins
+    home_wins = @@all.find_all { |game| game.home_goals > game.away_goals}.count
+    ( home_wins.to_f / @@all.length.to_f ).round(1) * 100
+  end
+
+  def self.percentage_visitor_wins
+    visitor_wins = @@all.find_all { |game| game.home_goals < game.away_goals}.count
+    ( visitor_wins.to_f / @@all.length.to_f ).round(1) * 100
+  end
+
+  def self.percentage_ties
+    ties = @@all.find_all { |game| game.home_goals == game.away_goals}.count
+    ( ties.to_f / @@all.length.to_f ).round(1) * 100
+  end
+
+
   def initialize(game_details)
     @game_id = game_details[:game_id].to_i
     @season = game_details[:season].to_i
