@@ -1,19 +1,15 @@
 require "csv"
-require "pry"
 
 class Game
-  @@all = []
+  @@all = nil
 
   def self.all
     @@all
   end
 
-  def self.from_csv(file_path)
-    csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
-
-    @@all = csv.map do |row|
-      Game.new(row)
-    end
+  def self.from_csv(csv_file_path)
+    csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
+    @@all = csv.map { |row| Game.new(row) }
   end
 
   attr_reader :game_id,
@@ -39,4 +35,5 @@ class Game
     @venue = game_stats[:venue]
     @venue_link = game_stats[:venue_link]
   end
+
 end
