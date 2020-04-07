@@ -13,7 +13,7 @@ class StatTrackerTest < Minitest::Test
   def setup
     @game_path = './test/fixtures/short_games.csv'
     @team_path = './data/teams.csv'
-    @game_teams_path = './data/game_teams.csv'
+    @game_teams_path = './test/fixtures/short_game_teams.csv'
 
     @locations = {
       games: @game_path,
@@ -29,7 +29,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal "./data/game_teams.csv", @stat_tracker.game_teams_path
+    assert_equal "./test/fixtures/short_game_teams.csv", @stat_tracker.game_teams_path
     assert_equal "./test/fixtures/short_games.csv", @stat_tracker.games_path
     assert_equal "./data/teams.csv", @stat_tracker.teams_path
   end
@@ -42,6 +42,11 @@ class StatTrackerTest < Minitest::Test
   def test_it_creates_teams
     assert_instance_of Array, @stat_tracker.teams
     assert_instance_of Team, @stat_tracker.teams[0]
+  end
+
+  def test_it_creates_game_teams
+    assert_instance_of Array, @stat_tracker.game_teams
+    assert_instance_of GameTeam, @stat_tracker.game_teams[0]
   end
 
 end

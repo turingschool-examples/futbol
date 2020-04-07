@@ -15,7 +15,8 @@ class StatTracker
               :games_path,
               :teams_path,
               :games,
-              :teams
+              :teams,
+              :game_teams
 
 
   def initialize(game_teams_path, games_path, teams_path)
@@ -24,6 +25,7 @@ class StatTracker
     @teams_path = teams_path
     create_games
     create_teams
+    create_game_teams
   end
 
   def create_games
@@ -32,5 +34,9 @@ class StatTracker
 
   def create_teams
     @teams = Team.from_csv(@teams_path)
+  end
+
+  def create_game_teams
+    @game_teams = GameTeam.from_csv(@game_teams_path)
   end
 end
