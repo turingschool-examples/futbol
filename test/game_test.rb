@@ -37,7 +37,7 @@ class GameTest < Minitest::Test
     assert_instance_of Game, Game.all.first
   end
 
-  def test_it_returns_attributes
+  def test_it_returns_attributes_from_base
     assert_equal 2012030222, @base_game.game_id
     assert_equal 20122013, @base_game.season
     assert_equal "Postseason", @base_game.type
@@ -63,7 +63,4 @@ class GameTest < Minitest::Test
     assert_equal "/api/v1/venues/null", @games[1].venue_link
   end
 
-
-
-
-end
+end #final

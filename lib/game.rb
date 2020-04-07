@@ -1,7 +1,7 @@
 require 'csv'
 
-
 class Game
+
   @@all = nil
 
   def self.all
