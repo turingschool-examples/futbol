@@ -1,4 +1,8 @@
 require 'csv'
+require './lib/game'
+require './lib/team'
+require './lib/game_team'
+
 
 class StatTracker
 
@@ -17,7 +21,6 @@ class StatTracker
               :games,
               :teams,
               :game_teams
-
 
   def initialize(game_teams_path, games_path, teams_path)
     @game_teams_path = game_teams_path
