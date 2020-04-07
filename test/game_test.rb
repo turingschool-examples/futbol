@@ -7,12 +7,16 @@ require './lib/game'
 class GameTest < Minitest::Test
 
   def test_it_exists
-    game = Game.new({game_id: 123, season: "20122013", type: "Postseason", date_time: "6/5/13", away_team_id: 1, home_team_id: 1, away_goals: 1, home_goals: 1, venue: "Toyta", venue_link: "link" })
+    game = Game.new({game_id: 123, season: "20122013", type: "Postseason",
+          date_time: "6/5/13", away_team_id: 1, home_team_id: 1, away_goals: 1,
+           home_goals: 1, venue: "Toyta", venue_link: "link" })
     assert_instance_of Game, game
   end
 
   def test_has_attributes
-    game = Game.new({game_id: 123, season: "20122013", type: "Postseason", date_time: "6/5/13", away_team_id: 1, home_team_id: 1, away_goals: 1, home_goals: 1, venue: "Toyta", venue_link: "link" })
+    game = Game.new({game_id: 123, season: "20122013", type: "Postseason",
+      date_time: "6/5/13", away_team_id: 1, home_team_id: 1, away_goals: 1,
+      home_goals: 1, venue: "Toyta", venue_link: "link" })
 
     assert_equal 123, game.game_id
     assert_equal "20122013", game.season

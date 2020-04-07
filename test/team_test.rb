@@ -7,12 +7,14 @@ class TeamTest < Minitest::Test
 
 
   def test_it_exists
-    team = Team.new({team_id: 123, franchiseid: 456, teamname: "Rockets", abbreviation: "RO", stadium: "Rocket Stadium", link: "link" })
+    team = Team.new({team_id: 123, franchiseid: 456, teamname: "Rockets",
+      abbreviation: "RO", stadium: "Rocket Stadium", link: "link" })
     assert_instance_of Team, team
   end
 
   def test_it_has_attributes
-    team = Team.new({team_id: 123, franchiseid: 456, teamname: "Rockets", abbreviation: "RO", stadium: "Rocket Stadium", link: "link" })
+    team = Team.new({team_id: 123, franchiseid: 456, teamname: "Rockets",
+      abbreviation: "RO", stadium: "Rocket Stadium", link: "link" })
     assert_equal 123, team.team_id
     assert_equal 456, team.franchiseid
     assert_equal "Rockets", team.teamname
