@@ -36,4 +36,6 @@ class Game
     @venue_link = game_stats[:venue_link]
   end
 
+  
+
 end
