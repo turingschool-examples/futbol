@@ -13,6 +13,12 @@ class Game
     @@all = csv.map { |row| Game.new(row) }
   end
 
+  def self.where(key_value)
+    key = key_value.keys[0]
+    value = key_value.values[0]
+    @@all.find_all { |game| game.send(key) == value }
+  end
+
   attr_reader :game_id,
               :season,
               :type,

@@ -63,4 +63,13 @@ class GameTest < Minitest::Test
     assert_equal "/api/v1/venues/null", @games[1].venue_link
   end
 
+  def test_it_returns_instances_of_game_given_key_value
+    expected = [@games[0], @games[1], @games[2], @games[3]]
+    assert_equal expected, Game.where({type: "Postseason"})
+    assert_equal [@games[0]], Game.where({game_id: 2012030221})
+    assert_equal [@games[0], @games[1], @games[2]], Game.where({away_goals: 2})
+    assert_equal [@games[2], @games[3]], Game.where({venue: "BBVA Stadium"})
+    assert_equal expected, Game.where({venue_link: "/api/v1/venues/null"})
+  end
+
 end #final
