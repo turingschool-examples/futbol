@@ -14,8 +14,16 @@ class Game
       #require 'pry'; binding.pry
       (game.away_goals + game.home_goals)
     end
-    require 'pry'; binding.pry
     sum = (highest_score.away_goals + highest_score.home_goals)
+  end
+
+  def self.lowest_total_score
+    lowest_score = @@all_games.min_by do |game|
+      #require 'pry'; binding.pry
+      (game.away_goals + game.home_goals)
+    end
+    sum = (lowest_score.away_goals + lowest_score.home_goals)
+
   end
 
   def self.all_games

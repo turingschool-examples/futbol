@@ -53,7 +53,11 @@ class GameTest < Minitest::Test
       assert_equal 11, Game.highest_total_score
   end
 
+  def test_lowest_total_score
+      Game.from_csv("./data/games.csv")
 
+      assert_equal 0, Game.lowest_total_score
+  end
 
 
 
