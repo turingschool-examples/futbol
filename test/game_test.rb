@@ -48,9 +48,9 @@ class GameTest < Minitest::Test
   end
 
   def test_highest_total_score
-      Game.from_csv("./data/game_teams.csv")
+      Game.from_csv("./data/games.csv")
 
-      assert_equal [], Game.highest_total_score
+      assert_equal 11, Game.highest_total_score
   end
 
 

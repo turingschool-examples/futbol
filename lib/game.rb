@@ -5,15 +5,17 @@ class Game
       @@all_games = csv.map do |row|
         #require 'pry'; binding.pry
         game = Game.new(row)
-        require 'pry'; binding.pry
+        #require 'pry'; binding.pry
       end
   end
 
   def self.highest_total_score
-    @@all_games.max_by do |game|
-      require 'pry'; binding.pry
+    highest_score = @@all_games.max_by do |game|
+      #require 'pry'; binding.pry
       (game.away_goals + game.home_goals)
     end
+    require 'pry'; binding.pry
+    sum = (highest_score.away_goals + highest_score.home_goals)
   end
 
   def self.all_games
