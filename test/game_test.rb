@@ -83,4 +83,12 @@ class GameTest < Minitest::Test
   def test_it_can_return_average_goals_per_game
     assert_equal 3.93, Game.average_goals_per_game
   end
+
+  def test_it_can_return_average_goal_by_season
+    expected_hash = {
+      "20122013" => 4.0,
+        "20132014" => 3.78
+    }
+    assert_equal expected_hash, Game.average_goals_by_season
+  end
 end

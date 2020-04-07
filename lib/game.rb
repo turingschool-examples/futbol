@@ -52,6 +52,14 @@ class Game
     (all_scores.sum.to_f / @@all.length.to_f).round(2)
   end
 
+  def self.average_goals_by_season
+    games_by_season = @@all.group_by { |game| game.season }
+    games_by_season.transform_values do |game|
+      game_scores = game.map { |game| game.away_goals + game.home_goals }
+      (game_scores.sum.to_f / game_scores.length.to_f).round(2)
+    end
+  end
+
   def initialize(game_details)
     @game_id = game_details[:game_id].to_i
     @season = game_details[:season]
