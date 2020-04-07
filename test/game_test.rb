@@ -74,9 +74,10 @@ class GameTest < Minitest::Test
   end
 
   def test_it_can_return_count_of_games_by_season
-    expected_hash = {"20122013" => 21,
-      "20132014" => 9
-    }
+    expected_hash = {
+                  "20122013" => 21,
+                  "20132014" => 9
+                  }
     assert_equal expected_hash, Game.count_of_games_by_season
   end
 
@@ -86,9 +87,9 @@ class GameTest < Minitest::Test
 
   def test_it_can_return_average_goal_by_season
     expected_hash = {
-      "20122013" => 4.0,
-        "20132014" => 3.78
-    }
+                  "20122013" => 4.0,
+                  "20132014" => 3.78
+                  }
     assert_equal expected_hash, Game.average_goals_by_season
   end
 end
