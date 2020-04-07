@@ -1,6 +1,6 @@
 require 'csv'
 # require_relative '../lib/game'
-require_relative '../lib/team'
+# require_relative '../lib/team'
 # require_relative '../lib/game_team'
 require_relative './game'
 require_relative './team'
@@ -46,18 +46,6 @@ class StatTracker
     @game_teams = GameTeam.from_csv(@game_teams_path)
   end
 
-  def all_teams
-    Team.all
-  end
-
-  def all_games
-    Games.all
-  end
-
-  def all_game_teams
-    GameTeam.all
-  end
-
   def home_games
     (all_game_teams.find_all {|gt| gt.hoa == "home" }).count.to_f
   end
@@ -79,6 +67,7 @@ class StatTracker
   end
 
   def count_of_games_by_season
+
     # A hash with season names (e.g. 20122013) as keys and counts of games as values
   end
 
