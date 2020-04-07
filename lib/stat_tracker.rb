@@ -17,4 +17,13 @@ class StatTracker
     Game.from_csv(@game_path)
     Game.all
   end
+
+  def games 
+    Team.from_csv(@game_path)
+    Team.all
+  end
+
+  def count_of_teams
+    Team.all.length
+  end
 end
