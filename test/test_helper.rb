@@ -3,3 +3,5 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'mocha/minitest'
+require './lib/game'
+require './lib/game_stats'
