@@ -50,4 +50,16 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of GameTeam, @stat_tracker.game_teams[0]
   end
 
+  # def test_it_can_get_all_games_without_running_csv
+  #   assert_instance_of Array, @stat_tracker.all_games
+  #   assert_instance_of Game, @stat_tracker.all_games[0]
+  # end
+
+  def test_it_can_find_percent_home_wins
+    assert_equal 50.00, @stat_tracker.percentage_home_wins
+  end
+
+  def test_it_can_find_percentage_visitor_wins
+    assert_equal 50.00, @stat_tracker.percentage_visitor_wins
+  end 
 end
