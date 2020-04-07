@@ -12,4 +12,5 @@ class StatTracker
     @teams_path = teams_path
     @game_teams_path = game_teams_path
   end
+
 end
