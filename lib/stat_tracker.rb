@@ -67,8 +67,13 @@ class StatTracker
   end
 
   def count_of_games_by_season
-
-    # A hash with season names (e.g. 20122013) as keys and counts of games as values
+    games_by_season = @games.group_by { |game| game.season }
+    number_of_games_in_season =
+    count = {}
+    games_by_season.keys.each do |key|
+      count[key] = @games.count { |game| game.season == key}
+    end
+    count
   end
 
 end
