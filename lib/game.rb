@@ -62,9 +62,35 @@ class Game
   def self.count_of_games_by_season
     games_by_season = {}
     @@all_games.each do |game|
-      require 'pry'; binding.pry
-      games_by_season[game.season] = season_game_count(game.season)
+    games_by_season[game.season] = season_game_count(game.season)
     end
+    games_by_season
+  end
+
+  def self.average_goals_per_game
+    total_goals = @@all_games.sum do |game|
+      (game.home_goals + game.away_goals)
+    end
+    (total_goals.to_f / @@all_games.length).round(2)
+  end
+
+  def self.goals_by_season(season)
+    season_goals = @@all_games.sum do |game|
+      #require 'pry'; binding.pry
+      if game.season == season
+        (game.home_goals + game.away_goals)
+      end
+
+    end
+    season_goals
+  end
+
+  def self.average_goals_by_season
+    goals_by_season = {}
+    @@all_games.each do |game|
+    goals_by_season[game.season] = goals_by_season(game.season)
+    end
+    goals_by_season
   end
 
   def self.all_games
