@@ -37,6 +37,12 @@ class GameTeamTest < Minitest::Test
     assert_instance_of GameTeam, @game_teams.first
   end
 
+  def test_it_returns_list_of_game_teams
+    assert_instance_of Array, GameTeam.all
+    assert_equal 3, GameTeam.all.length
+    assert_instance_of GameTeam, GameTeam.all.first
+  end
+
   def test_it_returns_attributes_of_base
     assert_equal 2012030221, @base_game_team.game_id
     assert_equal 3, @base_game_team.team_id

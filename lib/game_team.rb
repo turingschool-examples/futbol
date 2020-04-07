@@ -1,9 +1,14 @@
 class GameTeam
 
+  @@all = nil
+
+  def self.all
+    @@all
+  end
 
   def self.from_csv(csv_file_path)
     csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
-    csv.map { |row| GameTeam.new(row) }
+    @@all = csv.map { |row| GameTeam.new(row) }
   end
 
     attr_reader :game_id,
