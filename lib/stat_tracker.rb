@@ -1,7 +1,10 @@
 require 'csv'
-require './lib/game'
-require './lib/team'
-require './lib/game_team'
+# require_relative '../lib/game'
+# require_relative '../lib/team'
+# require_relative '../lib/game_team'
+require_relative './game'
+require_relative './team'
+require_relative './game_team'
 
 
 class StatTracker
@@ -41,5 +44,9 @@ class StatTracker
 
   def create_game_teams
     @game_teams = GameTeam.from_csv(@game_teams_path)
+  end
+
+  def all_teams
+    Team.all
   end
 end
