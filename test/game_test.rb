@@ -59,6 +59,11 @@ class GameTest < Minitest::Test
       assert_equal 0, Game.lowest_total_score
   end
 
+  def test_percentage_home_wins
+    Game.from_csv("./data/games.csv")
+
+    assert_equal 0.44, Game.percentage_home_wins
+  end
 
 
 

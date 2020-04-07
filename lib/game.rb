@@ -23,7 +23,16 @@ class Game
       (game.away_goals + game.home_goals)
     end
     sum = (lowest_score.away_goals + lowest_score.home_goals)
+  end
 
+  def self.percentage_home_wins
+    number_of_games = @@all_games.length
+  home_wins =  @@all_games.select do |game|
+      #require 'pry'; binding.pry
+      game.home_goals > game.away_goals
+    end
+    number_of_homewins = home_wins.length
+    percent_home_wins = (number_of_homewins.to_f / number_of_games.to_f).round(2)
   end
 
   def self.all_games
