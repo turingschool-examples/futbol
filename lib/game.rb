@@ -41,7 +41,15 @@ class Game
     end
     number_of_visitor = visitor_wins.length
     percent_visitor_wins = (number_of_visitor.to_f / number_of_games.to_f).round(2)
-    #require 'pry'; binding.pry
+  end
+
+  def self.percentage_ties
+    number_of_games = @@all_games.length
+  ties =  @@all_games.select do |game|
+      game.home_goals == game.away_goals
+    end
+    number_of_ties = ties.length
+    percent_ties = (number_of_ties.to_f / number_of_games.to_f).round(2)
   end
 
   def self.all_games
