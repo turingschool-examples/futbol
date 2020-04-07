@@ -77,7 +77,15 @@ class GameTest < Minitest::Test
     assert_equal 0.2, Game.percentage_ties
   end
 
+  def test_count_of_games_by_season
+    Game.from_csv("./data/games.csv")
+    assert_equal ({}), Game.count_of_games_by_season
+  end
 
+  def test_season_game_count
+    Game.from_csv("./data/games.csv")
+    assert_equal 806, Game.season_game_count("20122013")
+  end
 
 
 

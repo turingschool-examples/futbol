@@ -55,27 +55,4 @@ class GameStatsTest < Minitest::Test
     assert_equal 7, game_stats.takeaways
   end
 
-  def test_highest_total_score
-    GameStats.from_csv("./data/game_teams.csv")
-
-    assert_equals [], GameStats.highest_total_score
-  end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 end

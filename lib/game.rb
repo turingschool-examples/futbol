@@ -52,6 +52,21 @@ class Game
     percent_ties = (number_of_ties.to_f / number_of_games.to_f).round(2)
   end
 
+  def self.season_game_count(season)
+      season_games = @@all_games.select do |game|
+      game.season == season
+    end
+    season_games.length
+  end
+
+  def self.count_of_games_by_season
+    games_by_season = {}
+    @@all_games.each do |game|
+      require 'pry'; binding.pry
+      games_by_season[game.season] = season_game_count(game.season)
+    end
+  end
+
   def self.all_games
     @@all_games
   end
