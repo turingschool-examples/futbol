@@ -1,6 +1,6 @@
 require 'csv'
 # require_relative '../lib/game'
-# require_relative '../lib/team'
+require_relative '../lib/team'
 # require_relative '../lib/game_team'
 require_relative './game'
 require_relative './team'
