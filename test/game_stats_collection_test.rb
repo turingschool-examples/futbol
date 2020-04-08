@@ -1,31 +1,22 @@
 require_relative 'test_helper'
 
-class GameStatsTest < Minitest::Test
-
+class GameStatsCollectionTest < Minitest::Test
   def setup
-    @info = { :game_id => "2012030221",
-              :team_id => 3,
-              :hoa => "away",
-              :result => "LOSS",
-              :settled_in => "OT",
-              :head_coach => "John Tortorella",
-              :goals => 2,
-              :shots => 8,
-              :tackles => 44,
-              :pim => 8,
-              :powerplayopportunities => 3,
-              :powerplaygoals => 0,
-              :faceoffwinpercentage => 44.8,
-              :giveaways => 17,
-              :takeaways => 7}
-      @game_stats = GameStats.new(@info)
+    @game_stats_collection = GameStatsCollection.new("./test/fixtures/truncated_game_teams.csv")
+    @game_stats = @game_stats_collection.game_stats[0]
   end
 
   def test_it_exists
-    assert_instance_of GameStats, @game_stats
+    assert_instance_of GameStatsCollection, @game_stats_collection
   end
 
   def test_it_has_attributes
+    assert_instance_of Array, @game_stats_collection.game_stats
+    assert_equal 217, @game_stats_collection.game_stats.length
+  end
+
+  def test_it_can_create_game_stats_from_csv
+    assert_instance_of GameStats, @game_stats
     assert_equal 2012030221, @game_stats.game_id
     assert_equal 3, @game_stats.team_id
     assert_equal "away", @game_stats.home_away
@@ -42,4 +33,5 @@ class GameStatsTest < Minitest::Test
     assert_equal 17, @game_stats.giveaways
     assert_equal 7, @game_stats.takeaways
   end
+
 end
