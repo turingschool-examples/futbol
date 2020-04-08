@@ -11,20 +11,31 @@ class GameTeam
     @@all = csv.map { |row| GameTeam.new(row) }
   end
 
-  def self.average_away_goals_by_team_id
-    # away_games = @@all.find_all { |game| game.hoa == "away"}
-    # id_goals = Hash.new { |hash, key| hash[key] =  []}
-    # @@all.each do |game|
-    #   id_goals[game.team_id] << game.goals if game.hoa == "away"
-    # end
-    #
-    # id_goals.each do |id, goals|
-    away_team_ids = @@all.find_all { |game| game.team_id if game.hoa == "away"}
-    away_goals_by_id = @@all.find_all { |game| game.team_id if game.hoa == "away"}
-
-    binding.pry
+  def self.home_games
+    (@@all.find_all {|gt| gt.hoa == "home" }).count
   end
 
+  def self.percentage_home_wins
+    home_wins = (@@all.find_all {|gt| gt.hoa == "home" && gt.result == "WIN" }).count.to_f
+    ((home_wins / self.home_games) * 100).round(2)
+  end
+
+  def self.percentage_visitor_wins
+    visitor_wins = (@@all.find_all {|gt| gt.hoa == "home" && gt.result == "LOSS" }).count.to_f
+    ((visitor_wins / self.home_games) * 100).round(2)
+  end
+
+  def self.percentage_ties
+    games_count = @@all.count.to_f
+    ties_count = (@@all.find_all { |gt| gt.result == "TIE"}).count.to_f
+    ((ties_count / games_count) * 100).round(2)
+  end
+
+  def self.winningest_coach
+  end
+
+  def self.worst_coach
+  end
 
     attr_reader :game_id,
                 :team_id,

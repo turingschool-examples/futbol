@@ -95,6 +95,10 @@ class GameTest < Minitest::Test
     assert_equal expected, Game.average_goals_by_season
   end
 
+  def test_it_can_count_games_by_season
+    assert_equal ({20122013=>2, 20162017=>5, 20142015=>6, 20132014=>4, 20152016=>2, 20172018=>1}), Game.count_of_games_by_season
+  end
+
   def test_nth_scoring_visitor_or_home_by_id
     #team_ids
     Game.all.stubs(:map).returns([1, 2, 3, 4])

@@ -11,7 +11,17 @@ class Game
     csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
     @@all = csv.map { |row| Game.new(row) }
   end
-#one of THE METHODS
+
+  def self.count_of_games_by_season
+    games_by_season = @@all.group_by { |game| game.season }
+    count = {}
+    games_by_season.keys.each do |key|
+      count[key] = @@all.count { |game| game.season == key}
+    end
+    count
+  end
+
+#one of THE METHODS ross
   def self.average_goals_per_game
     sum = @@all.sum { |game| game.away_goals + game.home_goals}.to_f
     (sum / @@all.length.to_f).round(2)
@@ -39,7 +49,7 @@ class Game
       (goals.to_f / length_array[index].to_f ).round(2)
     end
   end
-#one of THE METHODS
+#one of THE METHODS ross
   def self.average_goals_by_season
     goals = home_away_goals_per(:season)
     season_length = games_per(:season)
@@ -47,7 +57,7 @@ class Game
     season_ids = @@all.map { |game| game.season}.uniq
     Hash[season_ids.zip(average_goals_per_season)]
   end
-#FOUR of THE METHODS
+#FOUR of THE METHODS ross
   def self.nth_scoring_team_id(max_min_by, hoa_team_id, hoa_goals)
     team_ids = @@all.map { |game| game.send(hoa_team_id) }.uniq
     goals = goals_per(hoa_team_id, hoa_goals)
