@@ -20,7 +20,7 @@ class GameTest < Minitest::Test
                 :venue => "Heaven",
                 :venue_link => "venue/link"})
 
-    Game.from_csv('./data/fixtures/short_games.csv')
+    Game.from_csv('./test/fixtures/games_20.csv')
     @game = Game.all[0]
   end
 
@@ -56,7 +56,7 @@ class GameTest < Minitest::Test
 
   def test_it_has_all
     assert_instance_of Array, Game.all
-    assert_equal 4, Game.all.length
+    assert_equal 20, Game.all.length
     assert_instance_of Game, Game.all.first
   end
 
@@ -64,17 +64,6 @@ class GameTest < Minitest::Test
     assert_equal 4.5, Game.average_goals_per_game
   end
 
-  # def test_it_returns_goals_by_season
-  #   Game.from_csv('./data/fixtures/games_2_seasons.csv')
-  #   expected = {20122013=>220, 20162017=>19}
-  #   assert_equal expected, Game.oals_by_season
-  # end
-  #
-  # def test_it_returns_total_games_by_season
-  #   Game.from_csv('./data/fixtures/games_2_seasons.csv')
-  #   expected = {20122013=>57, 20162017=>4}
-  #   assert_equal expected, Game.games_by_season
-  # end
 
   def test_games_per_season
     Game.from_csv('./data/fixtures/games_2_seasons.csv')
@@ -90,5 +79,9 @@ class GameTest < Minitest::Test
     Game.from_csv('./data/fixtures/games_2_seasons.csv')
     expected = [20122013, 20162017]
     assert_equal expected, Game.average_goals_by_season
+
+  def test_it_can_count_games_by_season
+    assert_equal ({20122013=>2, 20162017=>5, 20142015=>6, 20132014=>4, 20152016=>2, 20172018=>1}), Game.count_of_games_by_season
+
   end
 end

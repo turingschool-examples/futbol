@@ -30,7 +30,7 @@ class Game
   end
 
   def self.average_goals_per(header)
-    
+
   end
 
   def self.average_goals_by_season
@@ -43,6 +43,15 @@ class Game
   end
 
 
+  def self.count_of_games_by_season
+    games_by_season = @@all.group_by { |game| game.season }
+    number_of_games_in_season =
+    count = {}
+    games_by_season.keys.each do |key|
+      count[key] = @@all.count { |game| game.season == key}
+    end
+    count
+  end
 
   attr_reader :game_id,
               :season,

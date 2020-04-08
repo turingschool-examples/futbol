@@ -1,11 +1,7 @@
 require 'csv'
-# require_relative '../lib/game'
-require_relative '../lib/team'
-# require_relative '../lib/game_team'
 require_relative './game'
 require_relative './team'
 require_relative './game_team'
-#
 
 class StatTracker
 
@@ -15,7 +11,6 @@ class StatTracker
     teams_path = file_paths[:teams]
 
     self.new(game_teams_path, games_path, teams_path)
-
   end
 
   attr_reader :game_teams_path,
@@ -46,7 +41,24 @@ class StatTracker
     @game_teams = GameTeam.from_csv(@game_teams_path)
   end
 
-  def all_teams
-    Team.all
+  def home_games
+    GameTeam.home_games
   end
+
+  def percentage_home_wins
+    GameTeam.percentage_home_wins
+  end
+
+  def percentage_visitor_wins
+    GameTeam.percentage_visitor_wins
+  end
+
+  def percentage_ties
+    GameTeam.percentage_ties
+  end
+
+  def count_of_games_by_season
+    Game.count_of_games_by_season
+  end
+
 end
