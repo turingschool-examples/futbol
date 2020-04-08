@@ -24,7 +24,6 @@ class Game
   end
 
   def initialize(game_info)
-    @game_info = game_info
     @game_id = game_info[:game_id].to_i
     @season = game_info[:season].to_i
     @type = game_info[:type]
