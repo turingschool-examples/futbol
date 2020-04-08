@@ -5,12 +5,12 @@ require 'minitest/pride'
 require 'pry'
 require './lib/stat_tracker'
 require './lib/game_team'
+require 'mocha/minitest'
 #
 class GameTeamTest < Minitest::Test
 
   def setup
-    # file_path = "./data/games.csv"
-    file_path = "./test/fixtures/short_game_teams.csv"
+    file_path = "./test/fixtures/game_teams_40.csv"
     @game_teams = GameTeam.from_csv(file_path)
 
     @base_game_team = GameTeam.new({
@@ -39,7 +39,7 @@ class GameTeamTest < Minitest::Test
 
   def test_it_returns_list_of_game_teams
     assert_instance_of Array, GameTeam.all
-    assert_equal 3, GameTeam.all.length
+    assert_equal 40, GameTeam.all.length
     assert_instance_of GameTeam, GameTeam.all.first
   end
 
@@ -77,5 +77,28 @@ class GameTeamTest < Minitest::Test
     assert_equal 44.8, @game_teams[0].face_off_win_percentage
     assert_equal 17, @game_teams[0].giveaways
     assert_equal 7, @game_teams[0].takeaways
+  end
+
+  def test_it_can_find_number_of_home_games
+    assert_equal 20, GameTeam.home_games
+  end
+
+  def test_it_can_find_percent_home_wins
+    assert_equal 60.00, GameTeam.percentage_home_wins
+  end
+
+  def test_it_can_find_percentage_visitor_wins
+    assert_equal 20.00, GameTeam.percentage_visitor_wins
+  end
+
+  def test_it_can_find_percentage_ties
+    assert_equal 25.00, GameTeam.percentage_ties
+  end
+
+  def test_it_can_find_winninest_coach
+
+  end
+
+  def test_it_can_find_worst_coach
   end
 end

@@ -20,7 +20,7 @@ class GameTest < Minitest::Test
                 :venue => "Heaven",
                 :venue_link => "venue/link"})
 
-    Game.from_csv('./data/fixtures/short_games.csv')
+    Game.from_csv('./test/fixtures/games_20.csv')
     @game = Game.all[0]
   end
 
@@ -56,7 +56,11 @@ class GameTest < Minitest::Test
 
   def test_it_has_all
     assert_instance_of Array, Game.all
-    assert_equal 4, Game.all.length
+    assert_equal 20, Game.all.length
     assert_instance_of Game, Game.all.first
+  end
+
+  def test_it_can_count_games_by_season
+    assert_equal ({20122013=>2, 20162017=>5, 20142015=>6, 20132014=>4, 20152016=>2, 20172018=>1}), Game.count_of_games_by_season
   end
 end
