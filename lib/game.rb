@@ -12,6 +12,16 @@ class Game
     @@all = csv.map { |row| Game.new(row) }
   end
 
+  def self.count_of_games_by_season
+    games_by_season = @@all.group_by { |game| game.season }
+    number_of_games_in_season =
+    count = {}
+    games_by_season.keys.each do |key|
+      count[key] = @@all.count { |game| game.season == key}
+    end
+    count
+  end
+
   attr_reader :game_id,
               :season,
               :type,
@@ -43,5 +53,4 @@ class Game
   def lowest_total_score
     @@all.map { |game| game.away_goals + game.home_goals}.min
   end
-
 end
