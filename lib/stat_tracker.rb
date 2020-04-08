@@ -23,4 +23,10 @@ class StatTracker
     @game_teams = GameTeam.all
   end
 
+  def highest_total_score
+    highest_scoring_game = @games.max_by do |game| game.away_goals + game.home_goals
+    end
+    highest_scoring_game.away_goals + highest_scoring_game.home_goals 
+  end
+
 end

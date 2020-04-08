@@ -21,4 +21,12 @@ class StatTrackerTest < MiniTest::Test
     assert_instance_of GameTeam, @stat_tracker.game_teams.first
   end
 
+  def test_it_can_find_highest_scoring_game
+    assert_equal 6, @stat_tracker.highest_total_score
+  end
+
+  def test_it_can_find_lowest_scoring_game
+
+  end
+
 end
