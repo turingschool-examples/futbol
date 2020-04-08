@@ -1,11 +1,7 @@
 require 'csv'
-# require_relative '../lib/game'
-# require_relative '../lib/team'
-# require_relative '../lib/game_team'
 require_relative './game'
 require_relative './team'
 require_relative './game_team'
-#
 
 class StatTracker
 
@@ -15,7 +11,6 @@ class StatTracker
     teams_path = file_paths[:teams]
 
     self.new(game_teams_path, games_path, teams_path)
-
   end
 
   attr_reader :game_teams_path,
@@ -47,33 +42,23 @@ class StatTracker
   end
 
   def home_games
-    (@game_teams.find_all {|gt| gt.hoa == "home" }).count.to_f
+    GameTeam.home_games
   end
 
   def percentage_home_wins
-    home_wins = (@game_teams.find_all {|gt| gt.hoa == "home" && gt.result == "WIN" }).count.to_f
-    ((home_wins / home_games) * 100).round(2)
+    GameTeam.percentage_home_wins
   end
 
   def percentage_visitor_wins
-    visitor_wins = (@game_teams.find_all {|gt| gt.hoa == "home" && gt.result == "LOSS" }).count.to_f
-    ((visitor_wins / home_games) * 100).round(2)
+    GameTeam.percentage_visitor_wins
   end
 
   def percentage_ties
-    games_count = @game_teams.count.to_f
-    ties_count = (@game_teams.find_all { |gt| gt.result == "TIE"}).count.to_f
-    ((ties_count / games_count) * 100).round(2)
+    GameTeam.percentage_ties
   end
 
   def count_of_games_by_season
-    games_by_season = @games.group_by { |game| game.season }
-    number_of_games_in_season =
-    count = {}
-    games_by_season.keys.each do |key|
-      count[key] = @games.count { |game| game.season == key}
-    end
-    count
+    Game.count_of_games_by_season
   end
 
 end
