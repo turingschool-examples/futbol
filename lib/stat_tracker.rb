@@ -23,6 +23,41 @@ class StatTracker
     @game_teams = GameTeam.all
   end
 
+  def percentage_home_wins
+    home_wins = @games.find_all do |game|
+      game.home_goals > game.away_goals
+    end
+    ((home_wins.length.to_f / @games.length.to_f) * 100).round(2)
+  end
+
+  def percentage_away_wins
+    away_wins = @games.find_all do |game|
+      game.away_goals > game.home_goals
+    end
+    ((away_wins.length.to_f / @games.length.to_f) * 100).round(2)
+  end
+
+  def percentage_ties
+    ties = @game_teams.find_all {|gmteam| gmteam.result == "TIE"}
+    ((ties.length.to_f / @game_teams.length) * 100).round(2)
+  end
+
+  def count_of_games_by_season
+    games_by_season = @games.group_by {|game| game.season}
+    games_by_season.transform_values {|season| season.length}
+  end
+  def highest_total_score
+    highest_scoring_game = @games.max_by do |game| game.away_goals + game.home_goals
+    end
+    highest_scoring_game.away_goals + highest_scoring_game.home_goals
+  end
+
+  def lowest_total_score
+    lowest_scoring_game = @games.min_by do |game| game.away_goals + game.home_goals
+    end
+    lowest_scoring_game.away_goals + lowest_scoring_game.home_goals
+  end
+
   def sum_of_goals
     @games.sum do |game|
       game.home_goals + game.away_goals
