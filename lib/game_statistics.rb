@@ -20,4 +20,10 @@ class GameStatistics < Statistics
     total.min_by{|score| score}
   end
 
+  def percentage_home_wins
+
+  end 
+
+
+
 end
