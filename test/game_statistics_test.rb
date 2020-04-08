@@ -33,6 +33,8 @@ class GameStatisticsTest < Minitest::Test
 
 
   def test_highest_total_score
+    data.stubs(@csv_games).returns(5)
+
     assert_equal 5, @game_statistics.highest_total_score
   end
 
