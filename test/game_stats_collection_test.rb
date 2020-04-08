@@ -12,7 +12,7 @@ class GameStatsCollectionTest < Minitest::Test
 
   def test_it_has_attributes
     assert_instance_of Array, @game_stats_collection.game_stats
-    assert_equal 217, @game_stats_collection.game_stats.length
+    assert_equal 12, @game_stats_collection.game_stats.length
   end
 
   def test_it_can_create_game_stats_from_csv
@@ -32,6 +32,11 @@ class GameStatsCollectionTest < Minitest::Test
     assert_equal 44.8, @game_stats.face_off_win_percentage
     assert_equal 17, @game_stats.giveaways
     assert_equal 7, @game_stats.takeaways
+  end
+
+  def test_goals_by_team_id
+    result = {3 => [2, 2, 1, 2, 1], 6 => [3, 3, 2, 3, 3, 3], 5 => [0]}
+    assert_equal result, @game_stats_collection.goals_by_team_id
   end
 
 end
