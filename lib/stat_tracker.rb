@@ -22,4 +22,10 @@ class StatTracker
     @teams = Team.all
     @game_teams = GameTeam.all
   end
+
+  def sum_of_goals
+    @games.sum do |game|
+      game.home_goals + game.away_goals
+    end
+  end
 end

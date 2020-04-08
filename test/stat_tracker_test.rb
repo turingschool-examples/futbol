@@ -21,4 +21,12 @@ class StatTrackerTest < MiniTest::Test
     assert_instance_of Team, @stat_tracker.teams.first
     assert_instance_of GameTeam, @stat_tracker.game_teams.first
   end
+
+  def test_it_can_return_sum_of_games_goals
+    assert_equal 45, @stat_tracker.sum_of_goals
+  end
+
+  def test_it_can_find_average_goals
+    assert_equal 3.63 , @stat_tracker.average_goals_per_game
+  end
 end
