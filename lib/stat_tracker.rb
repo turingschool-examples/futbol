@@ -13,7 +13,6 @@ class StatTracker
     @games = game_path
     @teams = team_path
     @game_stats = game_teams_path
-    require "pry"; binding.pry
   end
 
 end
