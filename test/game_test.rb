@@ -21,6 +21,7 @@ class GameTest < Minitest::Test
                 :venue => "Heaven",
                 :venue_link => "venue/link"})
 
+    Game.from_csv('./test/fixtures/short_games.csv')
     Game.from_csv('./test/fixtures/games_20.csv')
     @game = Game.all[0]
   end
@@ -93,6 +94,14 @@ class GameTest < Minitest::Test
     Game.stubs(:average_goals).returns([3.33, 2.5])
     expected = {20122013 => 3.33, 20162017 => 2.5}
     assert_equal expected, Game.average_goals_by_season
+  end
+
+  def test_it_can_calculate_highest_total_score
+    assert_equal 5, @game.highest_total_score
+  end
+
+  def test_it_can_calculate_lowest_total_score
+    assert_equal 3, @game.lowest_total_score
   end
 
   def test_it_can_count_games_by_season
