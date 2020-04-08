@@ -30,4 +30,14 @@ class GameStatistics < Statistics
     (won_home_games.length.to_f / home_games.length) *100
   end
 
+  def percentage_visitor_wins
+    away_games = @csv_game_teams.find_all do |game|
+      game[:hoa] == "away"
+    end
+    won_away_games = away_games.find_all do |game|
+      game[:result]  == "WIN"
+    end
+    (won_away_games.length.to_f / away_games.length) *100
+  end
+
 end
