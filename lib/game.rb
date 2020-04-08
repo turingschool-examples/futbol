@@ -75,10 +75,12 @@ class Game
   end
 
   def self.goals_by_season(season)
-    season_goals = @@all_games.sum do |game|
-      #require 'pry'; binding.pry
+
+    season_goals = 0
+    @@all_games.each do |game|
+      # require 'pry'; binding.pry
       if game.season == season
-        (game.home_goals + game.away_goals)
+      season_goals +=  (game.home_goals + game.away_goals)
       end
 
     end

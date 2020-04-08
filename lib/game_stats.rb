@@ -18,6 +18,8 @@ class GameStats
     @@all_game_stats
   end
 
+
+
   attr_reader :game_id, :team_id, :hoa, :result, :settled_in, :head_coach,
               :goals, :shots, :tackles, :pim, :powerplayopportunities, :powerplaygoals,
               :faceoffwinpercentage, :giveaways, :takeaways
