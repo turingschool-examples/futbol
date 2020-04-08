@@ -51,22 +51,22 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_number_of_home_games
-    assert_equal 7.00, @stat_tracker.home_games
+    assert_equal 50.00, @stat_tracker.home_games
   end
 
   def test_it_can_find_percent_home_wins
-    assert_equal 42.86, @stat_tracker.percentage_home_wins
+    assert_equal 66.00, @stat_tracker.percentage_home_wins
   end
 
   def test_it_can_find_percentage_visitor_wins
-    assert_equal 42.86, @stat_tracker.percentage_visitor_wins
+    assert_equal 32.00, @stat_tracker.percentage_visitor_wins
   end
 
   def test_it_can_find_percentage_ties
-    assert_equal 14.29, @stat_tracker.percentage_ties
+    assert_equal 2.00, @stat_tracker.percentage_ties
   end
 
   def test_it_can_count_games_in_a_season
-    assert_equal ({ 20122013 => 20 }), @stat_tracker.count_of_games_by_season
-  end 
+    assert_equal ({20122013=>57, 20162017=>4, 20142015=>17, 20152016=>16, 20132014=>6}), @stat_tracker.count_of_games_by_season
+  end
 end
