@@ -1,9 +1,10 @@
 require 'csv'
-require './lib/game_team'
-require './lib/game'
-require './lib/team'
+require_relative 'game_team'
+require_relative 'game'
+require_relative 'team'
+
 class StatTracker
-  attr_reader :games_path, :teams_path, :game_teams_path
+  attr_reader :games, :teams, :game_teams
 
   def self.from_csv(locations)
     games_path = locations[:games]
@@ -13,9 +14,12 @@ class StatTracker
   end
 
   def initialize(games_path, teams_path, game_teams_path)
-    @games_path = games_path
-    @teams_path = teams_path
-    @game_teams_path = game_teams_path
+    Game.from_csv(games_path)
+    GameTeam.from_csv(game_teams_path)
+    Team.from_csv(teams_path)
 
+    @games = Game.all
+    @teams = Team.all
+    @game_teams = GameTeam.all
   end
 end
