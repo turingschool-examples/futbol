@@ -27,21 +27,21 @@ class Game
     (sum / @@all.length.to_f).round(2)
   end
 
-  def self.games_per(header)
-    group_by_header = @@all.group_by { |game| game.send(header) }
+  def self.games_per(csv_header)
+    group_by_header = @@all.group_by { |game| game.send(csv_header) }
     group_by_header.values.map{ |games| games.length}
   end
 
 
-  def self.goals_per(header, goals)
-    group_by_header = @@all.group_by { |game| game.send(header) }
+  def self.goals_per(csv_header, goals)
+    group_by_header = @@all.group_by { |game| game.send(csv_header) }
     group_by_header.values.map do |games|
       games.sum { |game| (game.send(goals))}
     end
   end
 
-  def self.home_away_goals_per(header)
-    goals_per(header, :away_goals) + goals_per(header, :home_goals)
+  def self.home_away_goals_per(csv_header)
+    goals_per(csv_header, :away_goals) + goals_per(csv_header, :home_goals)
   end
 
   def self.average_goals(sum_array, length_array)

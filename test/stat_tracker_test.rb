@@ -126,29 +126,4 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
   end
 
-
-  # def test_highest_scoring_visitor
-  #   #team_ids
-  #   Game.all.stubs(:map).returns([1, 2, 3, 4])
-  #   #away_goals
-  #   Game.stubs(:goals_per).returns([80, 60, 40, 20])
-  #   #games
-  #   Game.stubs(:games_per).returns([10, 10, 10, 10])
-  #
-  #   #highest_scoring_visitor_team_id
-  #   assert_equal 1, Game.nth_scoring_team_id(:max_by, :away_team_id, :away_goals)
-  #   #lowest_scoring_visitor_team_id
-  #   assert_equal 4, Game.nth_scoring_team_id(:min_by, :away_team_id, :away_goals)
-  #
-  #   #home_goals
-  #   Game.stubs(:goals_per).returns([60, 80, 20, 40])
-  #   #games
-  #   Game.stubs(:games_per).returns([10, 10, 10, 10])
-  #   #highest_scoring_home_team_id
-  #   assert_equal 2, Game.nth_scoring_team_id(:max_by, :away_team_id, :home_goals)
-  #   #lowest_scoring_home_team_id
-  #   assert_equal 3, Game.nth_scoring_team_id(:min_by, :away_team_id, :home_goals)
-  # end
-
-
 end
