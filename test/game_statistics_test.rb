@@ -48,4 +48,8 @@ class GameStatisticsTest < Minitest::Test
     assert_equal 40.00, @game_statistics.percentage_visitor_wins
   end
 
+  def test_it_can_calculate_percenatage_ties
+    assert_equal 0, @game_statistics.percentage_ties
+  end
+
 end

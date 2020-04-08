@@ -40,4 +40,12 @@ class GameStatistics < Statistics
     (won_away_games.length.to_f / away_games.length) *100
   end
 
+  def percentage_ties
+    tied_games = @csv_games.find_all do |game|
+      game[:away_goals] == game[:home_goals]
+    end
+    (tied_games.length.to_f / @csv_games.length) * 100
+  end
+
+  
 end
