@@ -21,4 +21,15 @@ class StatTrackerTest < MiniTest::Test
     assert_instance_of GameTeam, @stat_tracker.game_teams.first
   end
 
+  def test_percentage_ties
+    assert_equal ((1.0 / 11) * 100).round(2), @stat_tracker.percentage_ties
+  end
+
+  def test_count_of_games_by_season
+    expected = {20122013 => 3,
+                20132014 => 3,
+                20172018 => 5}
+    assert_equal expected, @stat_tracker.count_of_games_by_season
+  end
+
 end
