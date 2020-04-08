@@ -69,5 +69,4 @@ class GameTeam
     @giveaways = details[:giveaways].to_i
     @takeaways = details[:takeaways].to_i
   end
-
 end
