@@ -1,43 +1,26 @@
-# class SalesEngineTest < Minitest::Test
-#   def setup
-#     @sales_engine = SalesEngine.from_csv({
-#       :items     => "./data/items.csv",
-#       :merchants => "./data/merchants.csv",
-#     })
-#   end
 
-# class SalesEngine
-#   attr_reader :item_path, :merchant_path
-#
-#   def self.from_csv(file_paths)
-#     item_path = file_paths[:items]
-#     merchant_path = file_paths[:merchants]
-#
-#     SalesEngine.new(item_path, merchant_path)
-#   end
-#
-#   def initialize(item_path, merchant_path)
-#     @item_path = item_path
-#     @merchant_path = merchant_path
-#   end
 
 class StatTracker
 
-
+  # locations = {
+  #   games: game_path,
+  #   teams: team_path,
+  #   game_teams: game_teams_path
+  # }
 
 
   def self.from_csv(file_paths)
     team_path = file_paths[:teams]
     game_path = file_paths[:games]
-    stat_path = file_paths[:game_teams]
+    game_teams_path = file_paths[:game_teams]
 
-    StatTracker.new(team_path, game_path, stat_path)
+    StatTracker.new(team_path, game_path, game_teams_path)
   end
-    attr_reader :team_path, :game_path, :stat_path
-  def initialize(team_path, game_path, stat_path)
+    attr_reader :team_path, :game_path, :game_teams_path
+  def initialize(team_path, game_path, game_teams_path)
     @team_path = team_path
     @game_path = game_path
-    @stat_path = stat_path
+    @game_teams_path = game_teams_path
   end
 
   def teams(file_path)

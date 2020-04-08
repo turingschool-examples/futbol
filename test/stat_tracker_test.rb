@@ -9,13 +9,17 @@ require './lib/stat_tracker'
 
 class StatTrackerTest < Minitest::Test
 
-
+  # locations = {
+  #   games: game_path,
+  #   teams: team_path,
+  #   game_teams: game_teams_path
+  # }
 
   def setup
       @stat_tracker = StatTracker.from_csv({
-        :team     => "./data/teams.csv",
-        :game => "./data/games.csv",
-        :stats => "./data/game_teams.csv"
+        :teams     => "./data/teams.csv",
+        :games => "./data/games.csv",
+        :game_teams => "./data/game_teams.csv"
       })
     end
 
@@ -24,9 +28,10 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal "./data/teams.csv",@stat_tracker.team_path
+
+    assert_equal "./data/teams.csv", @stat_tracker.team_path
     assert_equal "./data/games.csv", @stat_tracker.game_path
-    assert_equal "./data/game_teams.csv", @stat_tracker.stat_path
+    assert_equal "./data/game_teams.csv", @stat_tracker.game_teams_path
 
   end
 
@@ -40,6 +45,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_game_stats
-    assert_equal 2012030222, @stat_tracker.game_stats(@stat_tracker.stat_path)[2].game_id
+    assert_equal 2012030222, @stat_tracker.game_stats(@stat_tracker.game_teams_path)[2].game_id
   end
 end
