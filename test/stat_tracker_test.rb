@@ -27,6 +27,6 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_find_average_goals
-    assert_equal 3.63 , @stat_tracker.average_goals_per_game
+    assert_equal 4.09 , @stat_tracker.average_goals_per_game
   end
 end

@@ -28,4 +28,8 @@ class StatTracker
       game.home_goals + game.away_goals
     end
   end
+
+  def average_goals_per_game
+    (sum_of_goals.to_f / @games.length).round(2)
+  end
 end
