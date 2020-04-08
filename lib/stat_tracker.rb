@@ -12,5 +12,5 @@ class StatTracker
   def self.from_csv(data_files)
       StatTracker.new(data_files)
   end
-
+  
 end

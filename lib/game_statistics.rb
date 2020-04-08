@@ -13,6 +13,11 @@ class GameStatistics < Statistics
     total.max_by{|score| score}
   end
 
-
+  def lowest_total_score
+    total = @csv_games.map do |row|
+      row[:home_goals].to_i + row[:away_goals].to_i
+    end
+    total.min_by{|score| score}
+  end
 
 end
