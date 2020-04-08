@@ -38,7 +38,7 @@ class GameTest < Minitest::Test
     assert_equal   '/api/v1/venues/null' , @game.venue_link
   end
 
-  def def_test_it_can_read_games_from_CSV
+  def test_it_can_read_games_from_CSV
      assert_equal 2012020122 , @game_2.game_id
      assert_equal 20122013 ,  @game_2.season
      assert_equal 'Regular Season' , @game_2.type
