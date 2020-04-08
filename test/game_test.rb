@@ -5,6 +5,7 @@ require "minitest/autorun"
 require "minitest/pride"
 require "./lib/game"
 require "pry"
+require "mocha/minitest"
 
 class GameTest < Minitest::Test
 
@@ -20,7 +21,7 @@ class GameTest < Minitest::Test
                 :venue => "Heaven",
                 :venue_link => "venue/link"})
 
-    Game.from_csv('./data/fixtures/short_games.csv')
+    Game.from_csv('./test/fixtures/games_20.csv')
     @game = Game.all[0]
   end
 
@@ -56,31 +57,33 @@ class GameTest < Minitest::Test
 
   def test_it_has_all
     assert_instance_of Array, Game.all
-    assert_equal 4, Game.all.length
+    assert_equal 20, Game.all.length
     assert_instance_of Game, Game.all.first
   end
 
   def test_it_returns_average_goals_per_game
-    assert_equal 4.5, Game.average_goals_per_game
+    assert_equal 4.4, Game.average_goals_per_game
   end
 
   def test_games_per_season
-    Game.from_csv('./data/fixtures/games_2_seasons.csv')
-    assert_equal [57, 4], Game.games_per(:season)
+    assert_equal [2, 5, 6, 4, 2, 1], Game.games_per(:season)
   end
+
   def test_goals_per_season
-    Game.from_csv('./data/fixtures/games_2_seasons.csv')
-    assert_equal [220, 19], Game.goals_per(:season)
+    assert_equal [10, 22, 24, 18, 9, 5], Game.goals_per(:season)
   end
 
   def test_average_goals_per_header
-    Game.from_csv('./data/fixtures/games_2_seasons.csv')
-    assert_equal [3.86, 4.75], Game.average_goals_per(:season)
+    Game.stubs(:goals_per).returns([10, 20])
+    Game.stubs(:games_per).returns([3, 8])
+    assert_equal [3.33, 2.5], Game.average_goals_per(:season)
   end
 
   def test_average_goals_by_season
-    Game.from_csv('./data/fixtures/games_2_seasons.csv')
-    expected = {20122013 => 3.86, 20162017 => 4.75}
+    seasons = mock
+    Game.all.stubs(:map).returns([20122013, 20162017])
+    Game.stubs(:average_goals_per).returns([3.33, 2.5])
+    expected = {20122013 => 3.33, 20162017 => 2.5}
     assert_equal expected, Game.average_goals_by_season
   end
 end
