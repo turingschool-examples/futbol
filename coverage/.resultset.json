@@ -1,41 +1,72 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/sagelee/turing/1module/projects/futbol/lib/stat_tracker.rb": {
+      "/Users/jackgould/Desktop/turing/mods/1mod/projects/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
           1,
-          null,
-          1,
-          1,
           1,
           1,
           null,
+          1,
+          4,
+          4,
+          4,
+          null,
+          null,
+          1,
+          4,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/jackgould/Desktop/turing/mods/1mod/projects/futbol/lib/game_statistics.rb": {
+        "lines": [
           null,
           1,
           1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          9,
+          null,
+          10,
+          null,
+          null,
+          1,
+          1,
+          9,
+          null,
+          10,
+          null,
           null,
           null,
           null,
           null
         ]
       },
-      "/Users/sagelee/turing/1module/projects/futbol/lib/game_statistics.rb": {
+      "/Users/jackgould/Desktop/turing/mods/1mod/projects/futbol/lib/statistics.rb": {
         "lines": [
+          1,
+          1,
           null,
           1,
+          1,
+          4,
+          4,
+          4,
+          4,
           null,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
           null,
           null
         ]
       }
     },
-    "timestamp": 1586293963
+    "timestamp": 1586382248
   }
 }
