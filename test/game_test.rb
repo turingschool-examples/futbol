@@ -38,7 +38,7 @@ class GameTest < Minitest::Test
     assert_equal   '/api/v1/venues/null' , @game.venue_link
   end
 
-  def test_it_can_read_games_from_CSV
+  def def_test_it_can_read_games_from_CSV
      assert_equal 2012020122 , @game_2.game_id
      assert_equal 20122013 ,  @game_2.season
      assert_equal 'Regular Season' , @game_2.type
@@ -47,7 +47,7 @@ class GameTest < Minitest::Test
      assert_equal 2 , @game_2.home_team_id
      assert_equal 3 , @game_2.away_goals
      assert_equal 0 , @game_2.home_goals
-     assert_equal 'Centruy Link Field' , @game_2.venue
-     assert_equal '/api/v1/venues/null',  @game_2.venue_link
+     assert_equal 'Centruy Link Field' , @game_2.game_id
+     assert_equal '/api/v1/venues/null',  @game_2.game_id
    end
  end

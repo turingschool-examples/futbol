@@ -1,5 +1,7 @@
 require 'csv'
-
+require './lib/game_team'
+require './lib/game'
+require './lib/team'
 class StatTracker
   attr_reader :games_path, :teams_path, :game_teams_path
 
@@ -16,5 +18,4 @@ class StatTracker
     @game_teams_path = game_teams_path
 
   end
-
 end

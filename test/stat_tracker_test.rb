@@ -1,6 +1,7 @@
 require './test/test_helper'
 require './lib/stat_tracker'
 
+
 class StatTrackerTest < MiniTest::Test
 
   def setup
@@ -20,5 +21,4 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "./data/teams.csv", @stat_tracker.teams_path
     assert_equal "./test/fixtures/games_teams_fixture.csv", @stat_tracker.game_teams_path
   end
-
 end
