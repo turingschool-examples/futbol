@@ -1,5 +1,21 @@
 game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
 2012030221,20122013,Postseason,5/16/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
 2012030222,20122013,Postseason,5/19/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
-2012030223,20122013,Postseason,5/21/13,6,3,2,1,BBVA Stadium,/api/v1/venues/null
-2012030224,20122013,Postseason,5/23/13,6,3,3,2,BBVA Stadium,/api/v1/venues/null
+2016030172,20162017,Postseason,4/16/17,20,24,2,3,Rio Tinto Stadium,/api/v1/venues/null
+2016030173,20162017,Postseason,4/18/17,24,20,3,2,BMO Field,/api/v1/venues/null
+2014030412,20142015,Postseason,6/6/15,16,14,3,2,Audi Field,/api/v1/venues/null
+2014030413,20142015,Postseason,6/9/15,14,16,3,2,Gillette Stadium,/api/v1/venues/null
+2014030131,20142015,Postseason,4/16/15,5,3,1,2,BBVA Stadium,/api/v1/venues/null
+2014030132,20142015,Postseason,4/19/15,5,3,2,3,BBVA Stadium,/api/v1/venues/null
+2014030133,20142015,Postseason,4/20/15,3,5,2,1,Children's Mercy Park,/api/v1/venues/null
+2014030134,20142015,Postseason,4/22/15,3,5,2,1,Children's Mercy Park,/api/v1/venues/null
+2013030174,20132014,Postseason,4/24/14,24,25,2,2,SeatGeek Stadium,/api/v1/venues/null
+2015030313,20152016,Postseason,5/19/16,5,14,2,2,Audi Field,/api/v1/venues/null
+2013020403,20132014,Regular Season,12/1/13,23,12,3,2,Yurcak Field,/api/v1/venues/null
+2013020197,20132014,Regular Season,11/2/13,21,25,3,2,SeatGeek Stadium,/api/v1/venues/null
+2013020918,20132014,Regular Season,3/3/14,19,27,2,2,Avaya Stadium,/api/v1/venues/null
+2016020885,20162017,Regular Season,2/22/17,52,10,2,3,WakeMed Soccer Park,/api/v1/venues/null
+2016020560,20162017,Regular Season,1/2/17,9,15,1,2,Providence Park,/api/v1/venues/null
+2016020986,20162017,Regular Season,3/10/17,4,10,2,2,WakeMed Soccer Park,/api/v1/venues/null
+2015020906,20152016,Regular Season,2/26/16,30,4,2,3,SeatGeek Stadium,/api/v1/venues/null
+2017020625,20172018,Regular Season,1/5/18,26,20,3,2,BMO Field,/api/v1/venues/null
