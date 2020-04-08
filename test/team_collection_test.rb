@@ -23,4 +23,8 @@ class TeamCollectionTest < Minitest::Test
     assert_equal 21, @team.team_id
     assert_equal "Vancouver Whitecaps FC", @team.teamname
   end
+
+  def test_count_of_teams
+    assert_equal 32, @team_collection.count_of_teams
+  end
 end

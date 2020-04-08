@@ -15,4 +15,8 @@ class TeamCollection
       Team.new(row)
     end
   end
+
+  def count_of_teams
+    @teams.length
+  end
 end
