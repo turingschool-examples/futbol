@@ -11,6 +11,21 @@ class GameTeam
     @@all = csv.map { |row| GameTeam.new(row) }
   end
 
+  def self.average_away_goals_by_team_id
+    # away_games = @@all.find_all { |game| game.hoa == "away"}
+    # id_goals = Hash.new { |hash, key| hash[key] =  []}
+    # @@all.each do |game|
+    #   id_goals[game.team_id] << game.goals if game.hoa == "away"
+    # end
+    #
+    # id_goals.each do |id, goals|
+    away_team_ids = @@all.find_all { |game| game.team_id if game.hoa == "away"}
+    away_goals_by_id = @@all.find_all { |game| game.team_id if game.hoa == "away"}
+
+    binding.pry
+  end
+
+
     attr_reader :game_id,
                 :team_id,
                 :hoa,

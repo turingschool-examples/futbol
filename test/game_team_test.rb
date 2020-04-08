@@ -39,7 +39,7 @@ class GameTeamTest < Minitest::Test
 
   def test_it_returns_list_of_game_teams
     assert_instance_of Array, GameTeam.all
-    assert_equal 3, GameTeam.all.length
+    assert_equal 20, GameTeam.all.length
     assert_instance_of GameTeam, GameTeam.all.first
   end
 
@@ -77,5 +77,9 @@ class GameTeamTest < Minitest::Test
     assert_equal 44.8, @game_teams[0].face_off_win_percentage
     assert_equal 17, @game_teams[0].giveaways
     assert_equal 7, @game_teams[0].takeaways
+  end
+
+  def test_it_returns_highest_scoring_visitor
+    GameTeam.average_away_goals_by_team_id
   end
 end
