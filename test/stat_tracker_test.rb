@@ -29,4 +29,25 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_find_average_goals
     assert_equal 4.09 , @stat_tracker.average_goals_per_game
   end
+
+  def test_it_can_find_season
+    assert_equal 20172018, @stat_tracker.by_season(20172018).first.season
+  end
+
+  def test_it_can_find_the_sum_of_goals_in_a_season
+    assert_equal 19, @stat_tracker.sum_of_goals_in_a_season(20172018)
+    assert_equal 14, @stat_tracker.sum_of_goals_in_a_season(20122013)
+    assert_equal 12, @stat_tracker.sum_of_goals_in_a_season(20132014)
+  end
+
+  def test_it_return_season_average_goals
+    assert_equal 3.8, @stat_tracker.average_of_goals_in_a_season(20172018)
+    assert_equal 4.67, @stat_tracker.average_of_goals_in_a_season(20122013)
+    assert_equal 4.0, @stat_tracker.average_of_goals_in_a_season(20132014)
+  end
+
+
+  def test_it_can_return_a_seaon_with_average_goals
+    assert_equal ({20172018 => 3.8, 20132014 => 4.0, 20122013 => 4.67}), @stat_tracker.average_goals_by_season
+  end
 end

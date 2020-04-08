@@ -32,4 +32,30 @@ class StatTracker
   def average_goals_per_game
     (sum_of_goals.to_f / @games.length).round(2)
   end
+
+  def by_season(season)
+    @games.find_all do |game|
+      game.season == season
+    end
+  end
+
+  def sum_of_goals_in_a_season(season)
+    full_season = by_season(season)
+    full_season.sum do |game|
+      game.home_goals + game.away_goals
+    end
+  end
+
+  def average_of_goals_in_a_season(season)
+    (sum_of_goals_in_a_season(season).to_f / by_season(season).length).round(2)
+  end
+
+  def average_goals_by_season
+    average_goals_by_season = @games.group_by do |game|
+      game.season
+    end
+    average_goals_by_season.transform_values do |season|
+      average_of_goals_in_a_season(season.first.season)
+    end
+  end
 end
