@@ -25,6 +25,10 @@ class GameStatsCollection
   end
 
   def total_goals_by_team_id
-
+    @team_id_total_goals = {}
+    goals_by_team_id.each do |team_id, goals|
+      @team_id_total_goals[team_id] = goals.sum
+    end
+    @team_id_total_goals
   end
 end

@@ -39,4 +39,9 @@ class GameStatsCollectionTest < Minitest::Test
     assert_equal result, @game_stats_collection.goals_by_team_id
   end
 
+  def test_total_goals_by_team_id
+    result = {3 => 8, 6 => 17, 5 => 0}
+    assert_equal result, @game_stats_collection.total_goals_by_team_id
+  end
+
 end
