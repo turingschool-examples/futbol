@@ -3,11 +3,11 @@ require_relative 'test_helper'
 class TeamTest < Minitest::Test
   def setup
     @team = Team.new({
-      :team_id => "1",
-      :franchiseId => "23",
-      :teamName => "Atlanta United",
+      :team_id => 1,
+      :franchiseId => 23,
+      :teamname => "Atlanta United",
       :abbreviation => "ATL",
-      :Stadium => "Mercedes-Benz Stadium",
+      :stadium => "Mercedes-Benz Stadium",
       :link => "/api/v1/teams/1"
     })
   end
@@ -17,8 +17,8 @@ class TeamTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal "1", @team.team_id
-    assert_equal "23", @team.franchiseid
+    assert_equal 1, @team.team_id
+    assert_equal 23, @team.franchiseid
     assert_equal "Atlanta United", @team.teamname
     assert_equal "ATL", @team.abbreviation
     assert_equal "Mercedes-Benz Stadium", @team.stadium
