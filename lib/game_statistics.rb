@@ -21,9 +21,13 @@ class GameStatistics < Statistics
   end
 
   def percentage_home_wins
-
-  end 
-
-
+    home_games = @csv_game_teams.find_all do |game|
+      game[:hoa] == "home"
+    end
+    won_home_games = home_games.find_all do |game|
+      game[:result]  == "WIN"
+    end
+    (won_home_games.length.to_f / home_games.length) *100
+  end
 
 end

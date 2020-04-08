@@ -41,7 +41,7 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_it_can_calculate_percentage_of_home_wins
-
-  end 
+    assert_equal 50.00, @game_statistics.percentage_home_wins
+  end
 
 end
