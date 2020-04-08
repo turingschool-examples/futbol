@@ -23,4 +23,14 @@ class StatTracker
     @game_teams = GameTeam.all
   end
 
+  def percentage_home_wins
+    home_wins = @games.find_all do |game|
+      game.home_goals > game.away_goals
+    end
+    ((home_wins.length.to_f / @games.length.to_f) * 100).round(2)
+  end
+
 end
+
+# percentage_home_wins	Percentage of games that a home team has won (rounded to the nearest 100th)	Float
+# percentage_visitor_wins	Percentage of games that a visitor has won (rounded to the nearest 100th)	Float
