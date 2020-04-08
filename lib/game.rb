@@ -22,112 +22,40 @@ class Game
     group_by_header.values.map{ |games| games.length}
   end
 
-  # def self.goals_per(header)
-  #   group_by_header = @@all.group_by { |game| game.send(header) }
-  #   group_by_header.values.map do |games|
-  #     games.sum { |game| (game.away_goals + game.home_goals)}
-  #   end
-  # end
-  #
-  # def self.away_goals_per(header)
-  #   group_by_header = @@all.group_by { |game| game.send(header) }
-  #   group_by_header.values.map do |games|
-  #     games.sum { |game| (game.away_goals)}
-  #   end
-  # end
-  #
-  # def self.home_goals_per(header)
-  #   group_by_header = @@all.group_by { |game| game.send(header) }
-  #   group_by_header.values.map do |games|
-  #     games.sum { |game| (game.home_goals)}
-  #   end
-  # end
 
-#new
   def self.goals_per(header, goals)
     group_by_header = @@all.group_by { |game| game.send(header) }
     group_by_header.values.map do |games|
       games.sum { |game| (game.send(goals))}
     end
   end
-#old but needed
+
   def self.home_away_goals_per(header)
     goals_per(header, :away_goals) + goals_per(header, :home_goals)
   end
-#new
+
   def self.average_goals(sum_array, length_array)
     sum_array.each_with_index.map do |goals, index|
       (goals.to_f / length_array[index].to_f ).round(2)
     end
   end
-
-
-  # def self.average_goals_per(header)
-  #   home_away_goals_per(header).each_with_index.map do |goals, index|
-  #     (goals.to_f/games_per(header)[index].to_f).round(2)
-  #   end
-  # end
+#one of THE METHODS
   def self.average_goals_by_season
-    goals =  Game.home_away_goals_per(:season)
-    season_length = Game.games_per(:season)
-    average_goals_per_season = Game.average_goals(goals, season_length)
-    seasons = @@all.map { |game| game.season}.uniq
-    Hash[seasons.zip(average_goals_per_season)]
+    goals = home_away_goals_per(:season)
+    season_length = games_per(:season)
+    average_goals_per_season = average_goals(goals, season_length)
+    season_ids = @@all.map { |game| game.season}.uniq
+    Hash[season_ids.zip(average_goals_per_season)]
   end
-
-#not used
-  def self.combine_to_hash(key_array, value_array)
-    Hash[key_array.zip(value_array)]
+#FOUR of THE METHODS
+  def self.nth_scoring_team_id(max_min_by, hoa_team_id, hoa_goals)
+    team_ids = @@all.map { |game| game.send(hoa_team_id) }.uniq
+    goals = goals_per(hoa_team_id, hoa_goals)
+    games_length = games_per(hoa_team_id)
+    avg_goals = average_goals(goals, games_length)
+    team_id_goals = Hash[team_ids.zip(avg_goals)]
+    team_id_goals.send(max_min_by){ |team_id, hoa_goals| hoa_goals}.first
   end
-
-  # def self.average_goals_by_season
-  #   seasons = @@all.map { |game| game.season}.uniq
-  #   Hash[seasons.zip(Game.average_goals_per(:season))]
-  # end
-  #very similar to average_home_goals_per
-  def self.average_away_goals_per(header)
-    away_goals_per(header).each_with_index.map do |goals, index|
-      (goals.to_f / games_per(header)[index].to_f).round(2)
-    end
-  end
-  #very similar to average_away_goals_per
-  def self.average_home_goals_per(header)
-    home_goals_per(header).each_with_index.map do |goals, index|
-      (goals.to_f / games_per(header)[index].to_f).round(2)
-    end
-  end
-########
-  def self.highest_scoring_visitor_team_id
-    away_teams = @@all.map { |game| game.away_team_id }.uniq
-    visitor_team_id_goals =
-    Hash[away_teams.zip(Game.average_away_goals_per(:away_team_id))]
-    # create hash of id => average_away_goals
-    visitor_team_id_goals.max_by{ |team_id, away_goals| away_goals}.first
-  end
-#id like to combine these two
-  def self.highest_scoring_home_team_id
-    home_teams = @@all.map { |game| game.home_team_id }.uniq
-    home_team_id_goals =
-    Hash[home_teams.zip(Game.average_home_goals_per(:away_team_id))]
-    # create hash of id => average_away_goals
-    home_team_id_goals.max_by{ |team_id, home_goals| home_goals}.first
-  end
-
-  def self.lowest_scoring_visitor_team_id
-    away_teams = @@all.map { |game| game.away_team_id }.uniq
-    visitor_team_id_goals =
-    Hash[away_teams.zip(Game.average_away_goals_per(:away_team_id))]
-    # create hash of id => average_away_goals
-    visitor_team_id_goals.min_by{ |team_id, away_goals| away_goals}.first
-  end
-#id like to combine these two
-  def self.lowest_scoring_home_team_id
-    home_teams = @@all.map { |game| game.home_team_id }.uniq
-    home_team_id_goals =
-    Hash[home_teams.zip(Game.average_home_goals_per(:away_team_id))]
-    home_team_id_goals.min_by{ |team_id, home_goals| home_goals}.first
-  end
-
 
 
   attr_reader :game_id,
