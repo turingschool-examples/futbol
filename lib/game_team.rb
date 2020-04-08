@@ -12,7 +12,7 @@ class GameTeam
   end
 
   def self.home_games
-    (@@all.find_all {|gt| gt.hoa == "home" }).count.to_f
+    (@@all.find_all {|gt| gt.hoa == "home" }).count
   end
 
   def self.percentage_home_wins
@@ -31,6 +31,11 @@ class GameTeam
     ((ties_count / games_count) * 100).round(2)
   end
 
+  def self.winningest_coach
+  end
+
+  def self.worst_coach
+  end
     attr_reader :game_id,
                 :team_id,
                 :hoa,
