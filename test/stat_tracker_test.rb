@@ -21,6 +21,14 @@ class StatTrackerTest < MiniTest::Test
     assert_instance_of GameTeam, @stat_tracker.game_teams.first
   end
 
+  def test_percentage_home_wins
+    assert_equal 63.64, @stat_tracker.percentage_home_wins
+  end
+
+  def test_percentage_home_wins
+    assert_equal 27.27, @stat_tracker.percentage_away_wins
+  end
+
   def test_percentage_ties
     assert_equal ((1.0 / 11) * 100).round(2), @stat_tracker.percentage_ties
   end

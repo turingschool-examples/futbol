@@ -23,6 +23,20 @@ class StatTracker
     @game_teams = GameTeam.all
   end
 
+  def percentage_home_wins
+    home_wins = @games.find_all do |game|
+      game.home_goals > game.away_goals
+    end
+    ((home_wins.length.to_f / @games.length.to_f) * 100).round(2)
+  end
+
+  def percentage_away_wins
+    away_wins = @games.find_all do |game|
+      game.away_goals > game.home_goals
+    end
+    ((away_wins.length.to_f / @games.length.to_f) * 100).round(2)
+  end
+
   def percentage_ties
     ties = @game_teams.find_all {|gmteam| gmteam.result == "TIE"}
     ((ties.length.to_f / @game_teams.length) * 100).round(2)
