@@ -20,6 +20,7 @@ class GameTest < Minitest::Test
                 :venue => "Heaven",
                 :venue_link => "venue/link"})
 
+    Game.from_csv('./test/fixtures/short_games.csv')
     Game.from_csv('./test/fixtures/games_20.csv')
     @game = Game.all[0]
   end
@@ -58,6 +59,14 @@ class GameTest < Minitest::Test
     assert_instance_of Array, Game.all
     assert_equal 20, Game.all.length
     assert_instance_of Game, Game.all.first
+  end
+
+  def test_it_can_calculate_highest_total_score
+    assert_equal 5, @game.highest_total_score
+  end
+
+  def test_it_can_calculate_lowest_total_score
+    assert_equal 3, @game.lowest_total_score
   end
 
   def test_it_can_count_games_by_season
