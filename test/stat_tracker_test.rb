@@ -26,7 +26,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_find_lowest_scoring_game
-
+    assert_equal 2, @stat_tracker.lowest_total_score
   end
 
 end
