@@ -74,21 +74,23 @@ class GameTest < Minitest::Test
     assert_equal [6, 12, 11, 8, 5, 2], Game.goals_per(:season, :home_goals)
   end
 
-  def test_average_away_goals_per_season
-    Game.stubs(:games_per).returns([2, 4])
-    Game.stubs(:away_goals_per).returns([4,10])
-    assert_equal [2.0, 2.5], Game.average_away_goals_per(:season)
+  def test_average_home_and_away_goals_per_season
+    away_goals = Game.goals_per(:season, :away_goals)
+    home_goals = Game.goals_per(:season, :home_goals)
+    games = Game.games_per(:season)
+    assert_equal [2.0, 2.0, 2.17, 2.5, 2.0, 3.0], Game.average_goals(away_goals, games)
+    assert_equal [3.0, 2.4, 1.83, 2.0, 2.5,2.0], Game.average_goals(home_goals, games)
   end
 
   # def test_home_goals_per_season
   #   assert_equal [6, 12, 11, 8, 5, 2], Game.home_goals_per(:season)
   # end
 
-  def test_average_home_goals_per_season
-    Game.stubs(:games_per).returns([2, 4])
-    Game.stubs(:home_goals_per).returns([6,11])
-    assert_equal [3.0, 2.75], Game.average_home_goals_per(:season)
-  end
+  # def test_average_home_goals_per_season
+  #   Game.stubs(:games_per).returns([2, 4])
+  #   Game.stubs(:home_goals_per).returns([6,11])
+  #   assert_equal [3.0, 2.75], Game.average_home_goals_per(:season)
+  # end
 
 
   def test_average_goals_per_header

@@ -11,7 +11,7 @@ class Game
     csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
     @@all = csv.map { |row| Game.new(row) }
   end
-
+#one of THE METHODS
   def self.average_goals_per_game
     sum = @@all.sum { |game| game.away_goals + game.home_goals}.to_f
     (sum / @@all.length.to_f).round(2)
