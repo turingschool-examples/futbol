@@ -1,6 +1,10 @@
-
+require_relative './team'
+require_relative './game'
+require_relative './game_stats'
+require 'CSV'
 
 class StatTracker
+
 
   # locations = {
   #   games: game_path,
@@ -38,16 +42,18 @@ end
     game_path = file_paths[:games]
     game_teams_path = file_paths[:game_teams]
 
-    StatTracker.new(team_path, game_path, game_teams_path)
+    StatTracker.new(file_paths)
   end
     attr_reader :team_path, :game_path, :game_teams_path
-  def initialize(team_path, game_path, game_teams_path)
-    @team_path = team_path
-    @game_path = game_path
-    @game_teams_path = game_teams_path
+  def initialize(locations)
+
+    @team_path = StatTracker.teams(locations[:teams])
+    @game_path = StatTracker.games(locations[:games])
+    @game_teams_path = StatTracker.game_stats(locations[:game_teams])
+    # require"pry";binding.pry
   end
 
-
+# @game_teams_path = game_teams_path
 
   #   def games(file_path)
   #     Game.from_csv(game_path)

@@ -5,8 +5,9 @@ class Game
       @@all_games = csv.map do |row|
         #require 'pry'; binding.pry
         game = Game.new(row)
-        #require 'pry'; binding.pry
+         # require 'pry'; binding.pry
       end
+      # require"pry";binding.pry
   end
 
   def self.highest_total_score
