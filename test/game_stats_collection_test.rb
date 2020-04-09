@@ -91,4 +91,12 @@ class GameStatsCollectionTest < Minitest::Test
     result = {6 => 3.00, 3 => 1.50, 5 => 0}
     assert_equal result, @game_stats_collection.average_home_goals_by_team_id
   end
+
+  def test_highest_scoring_home_team_id
+    assert_equal 6, @game_stats_collection.highest_scoring_home_team_id
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal "FC Dallas", @game_stats_collection.highest_scoring_home_team
+  end
 end
