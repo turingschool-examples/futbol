@@ -60,34 +60,35 @@ class StatTracker
   def count_of_games_by_season
     Game.count_of_games_by_season
   end
-  #ross
+
   def average_goals_per_game
     Game.average_goals_per_game
   end
-  #ross
+
   def average_goals_by_season
     Game.average_goals_by_season
   end
-  #ross
+
   def highest_scoring_visitor
     team_id = Game.highest_scoring_visitor_team_id
     Team.all.find { |team| team.team_id == team_id }.team_name
   end
-  #ross
+
   def highest_scoring_home_team
     team_id = Game.highest_scoring_home_team_id
     Team.all.find { |team| team.team_id == team_id }.team_name
   end
-  #ross
+
   def lowest_scoring_visitor
     team_id = Game.lowest_scoring_visitor_team_id
     Team.all.find { |team| team.team_id == team_id }.team_name
   end
-  #ross
+
   def lowest_scoring_home_team
     team_id = Game.lowest_scoring_home_team_id
     Team.all.find { |team| team.team_id == team_id }.team_name
   end
+
 
   def best_season(team_id)
     Game.best_season(team_id)
@@ -97,6 +98,12 @@ class StatTracker
     Game.worst_season(team_id)
   end
 
+  def best_offense
+    GameTeam.best_offense
+  end
 
+  def worst_offense
+    GameTeam.worst_offense
+  end
 
 end
