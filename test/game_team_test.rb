@@ -96,7 +96,6 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_find_winninest_coach
-
   end
 
   def test_it_can_find_worst_coach

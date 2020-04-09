@@ -60,5 +60,35 @@ class StatTracker
   def count_of_games_by_season
     Game.count_of_games_by_season
   end
+  #ross
+  def average_goals_per_game
+    Game.average_goals_per_game
+  end
+  #ross
+  def average_goals_by_season
+    Game.average_goals_by_season
+  end
+  #ross
+  def highest_scoring_visitor
+    team_id = Game.nth_scoring_team_id(:max_by, :away_team_id, :away_goals)
+    Team.all.find { |team| team.team_id == team_id }.team_name
+  end
+  #ross
+  def highest_scoring_home_team
+    team_id = Game.nth_scoring_team_id(:max_by, :home_team_id, :home_goals)
+    Team.all.find { |team| team.team_id == team_id }.team_name
+  end
+  #ross
+  def lowest_scoring_visitor
+    team_id = Game.nth_scoring_team_id(:min_by, :away_team_id, :away_goals)
+    Team.all.find { |team| team.team_id == team_id }.team_name
+  end
+  #ross
+  def lowest_scoring_home_team
+    team_id = Game.nth_scoring_team_id(:min_by, :home_team_id, :home_goals)
+    Team.all.find { |team| team.team_id == team_id }.team_name
+  end
+
+
 
 end

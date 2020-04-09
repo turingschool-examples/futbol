@@ -19,6 +19,8 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012030314,6,home,WIN,REG,Claude Julien,1,6,25,8,3,0,52.5,11,5
 2012030231,17,away,LOSS,REG,Mike Babcock,1,5,43,10,3,0,52.5,6,4
 2012030231,16,home,WIN,REG,Joel Quenneville,2,10,24,10,3,1,47.5,2,11
+<<<<<<< HEAD
+=======
 2012030232,17,away,WIN,REG,Mike Babcock,2,7,26,6,4,0,55.4,6,6
 2012030232,16,home,LOSS,REG,Joel Quenneville,1,5,36,10,2,0,44.6,7,9
 2012030233,16,away,LOSS,REG,Joel Quenneville,1,10,22,22,4,0,43.9,5,6
@@ -99,3 +101,4 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012030134,3,home,LOSS,REG,John Tortorella,2,8,38,4,4,1,64.2,4,8
 2012030135,3,away,LOSS,OT,John Tortorella,1,6,43,4,4,0,41.7,14,9
 2012030135,15,home,WIN,OT,Adam Oates,2,8,53,8,2,1,58.3,13,13
+>>>>>>> master

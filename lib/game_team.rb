@@ -36,6 +36,7 @@ class GameTeam
 
   def self.worst_coach
   end
+
     attr_reader :game_id,
                 :team_id,
                 :hoa,
