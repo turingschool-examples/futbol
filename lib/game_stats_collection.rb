@@ -35,14 +35,6 @@ class GameStatsCollection
     average_goals
   end
 
-  # def average_goals_by_team_id
-  #   team_id_average_goals = {}
-  #   goals_by_team_id.each do |team_id, goals|
-  #     team_id_average_goals[team_id] = (@team_id_total_goals[team_id].to_f / @team_id_goals[team_id].length).round(2)
-  #   end
-  #   team_id_average_goals
-  # end
-
   def best_offense_id
     (average_goals_by_team_id.max_by {|team_id, average_goals| average_goals})[0]
   end
@@ -53,6 +45,8 @@ class GameStatsCollection
   end
 
   def best_offense
+    goals_by_team_id
+    average_goals_by_team_id
     find_team_name_by_team_id(best_offense_id)
   end
 end

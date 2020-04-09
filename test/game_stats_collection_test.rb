@@ -57,8 +57,6 @@ class GameStatsCollectionTest < Minitest::Test
   end
 
   def test_best_offense
-    @game_stats_collection.goals_by_team_id
-    @game_stats_collection.average_goals_by_team_id
     assert_equal "FC Dallas", @game_stats_collection.best_offense
   end
 
