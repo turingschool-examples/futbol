@@ -1,10 +1,13 @@
+require './test/test_helper'
 require './lib/game_team'
+require 'CSV'
 require 'pry'
 
 class GameTeamTest < Minitest::Test
 
   def setup
-    @game_team = GameTeam.new(args)
+    @csv_game_teams = CSV.read('./data/game_teams_fixture.csv', headers: true, header_converters: :symbol)
+    @game_team = GameTeam.new(@csv_game_teams[0])
   end
 
   def test_it_exists
@@ -12,8 +15,8 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_has_readable_attributes
-    assert_equal 2012030221, @game_team.game_id
-    assert_equal 3, @game_team.team_id
+    assert_equal "2012030221", @game_team.game_id
+    assert_equal "3", @game_team.team_id
     assert_equal "away", @game_team.home_or_away
     assert_equal "LOSS", @game_team.result
     assert_equal "OT", @game_team.settled_in

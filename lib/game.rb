@@ -9,8 +9,8 @@ class Game
     @date_time = csv_row[:date_time]
     @away_team_id = csv_row[:away_team_id]
     @home_team_id = csv_row[:home_team_id]
-    @away_goals = csv_row[:away_goals]
-    @home_goals = csv_row[:home_goals]
+    @away_goals = csv_row[:away_goals].to_i
+    @home_goals = csv_row[:home_goals].to_i
     @venue = csv_row[:venue]
     @venue_link = csv_row[:venue_link]
   end

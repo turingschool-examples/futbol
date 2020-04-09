@@ -1,10 +1,13 @@
-require './lib/game'
+require './test/test_helper'
+require './lib/team'
+require 'CSV'
 require 'pry'
 
 class TeamTest < Minitest::Test
 
   def setup
-    @team = Team.new(args)
+    @csv_teams = CSV.read('./data/teams_fixture.csv', headers: true, header_converters: :symbol)
+    @team = Team.new(@csv_teams[0])
   end
 
   def test_it_exists
@@ -12,8 +15,8 @@ class TeamTest < Minitest::Test
   end
 
   def test_it_has_readable_attributes
-    assert_equal 1, @team.id
-    assert_equal 23, @team.franchise_id
+    assert_equal "1", @team.id
+    assert_equal "23", @team.franchise_id
     assert_equal "Atlanta United", @team.team_name
     assert_equal "ATL", @team.abbreviation
     assert_equal "Mercedes-Benz Stadium", @team.stadium

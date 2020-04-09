@@ -10,15 +10,19 @@ class LeagueStatistics < Statistics
 
   def best_offense
     max_average = average_goals_by_team.max_by{|team| team}
-
     best_offense = @csv_teams.find do |team|
       team[:team_id] == max_average[0]
     end
     best_offense[:teamname]
   end
+
   # Lowest average score all seasons
   def worst_offense
-
+    min_average = average_goals_by_team.min_by{|team| team[1]}
+    worst_offense = @csv_teams.find do |team|
+      team[:team_id] == min_average[0]
+    end
+    worst_offense[:teamname]
   end
 
   def games_played_by_team
@@ -52,4 +56,8 @@ class LeagueStatistics < Statistics
     team_average_goals
   end
 
+  # highest_scoring_visitor
+  # Name of the team with the highest average score per game across all seasons when they are away.
+
+  
 end

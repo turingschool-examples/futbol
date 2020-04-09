@@ -7,19 +7,19 @@ class GameTeam
   def initialize(csv_row)
     @game_id = csv_row[:game_id]
     @team_id = csv_row[:team_id]
-    @home_or_away = csv_row[:HoA]
+    @home_or_away = csv_row[:hoa]
     @result = csv_row[:result]
     @settled_in = csv_row[:settled_in]
     @head_coach = csv_row[:head_coach]
-    @goals = csv_row[:goals]
-    @shots = csv_row[:shots]
-    @tackles = csv_row[:tackles]
-    @pim = csv_row[:pim]
-    @power_play_opportunities = csv_row[:powerPlayOpportunities]
-    @power_play_goals = csv_row[:powerPlayGoals]
-    @face_off_win_percentage = csv_row[:faceOffWinPercentage]
-    @give_aways = csv_row[:give_aways]
-    @takeaways = csv_row[:takeaways]
+    @goals = csv_row[:goals].to_i
+    @shots = csv_row[:shots].to_i
+    @tackles = csv_row[:tackles].to_i
+    @pim = csv_row[:pim].to_i
+    @power_play_opportunities = csv_row[:powerplayopportunities].to_i
+    @power_play_goals = csv_row[:powerplaygoals].to_i
+    @face_off_win_percentage = csv_row[:faceoffwinpercentage].to_f
+    @give_aways = csv_row[:giveaways].to_i
+    @takeaways = csv_row[:takeaways].to_i
   end
 
 end
