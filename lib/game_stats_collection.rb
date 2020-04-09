@@ -49,4 +49,8 @@ class GameStatsCollection
     @team_collection = TeamCollection.new('./data/teams.csv')
     (@team_collection.teams.find { |team| team.team_id == team_id}).teamname
   end
+
+  def best_offense
+    find_team_name_by_team_id(best_offense_id)
+  end
 end
