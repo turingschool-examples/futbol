@@ -51,4 +51,21 @@ class League
       find_team_id(lowest_team_id)
   end
 
+  def highest_scoring_visitor
+    average_score_away = Hash.new
+    Game.all_games.each do |game|
+      if average_score_away[game.away_team_id] == nil
+        average_score_away[game.away_team_id] = 0
+        average_score_away[game.away_team_id] += game.away_goals
+      else
+        average_score_away[game.away_team_id] += game.away_goals
+      end
+    end
+    answer = average_score_away.max_by do |key, value|
+    average_score_away[key]
+      end
+      first_answer = answer.first
+      find_team_id(first_answer)
+  end
+
 end
