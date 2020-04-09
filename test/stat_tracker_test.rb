@@ -70,6 +70,14 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_find_least_accurate_team
-    assert_equal "Orlando City SC", @game_team.least_accurate_team(season)
+    assert_equal "Orlando City SC", @stat_tracker.least_accurate_team("20172018")
+  end
+
+  def test_count_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+
+  def test_most_accurate_team
+    assert_equal "Portland Thorns FC", @stat_tracker.most_accurate_team("20172018")
   end
 end

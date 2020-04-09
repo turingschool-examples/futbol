@@ -38,7 +38,7 @@ class StatTracker
   end
 
   def percentage_ties
-    ties = @game_teams.find_all {|gmteam| gmteam.result == "TIE"}
+    ties = @game_teams.find_all {|team| team.result == "TIE"}
     (ties.length.to_f / @game_teams.length).round(2)
   end
 
@@ -92,6 +92,28 @@ class StatTracker
   end
 
   def least_accurate_team(season)
+    season_games = @games.find_all{|game| game.season == season}
+    season_game_ids = season_games.map{|game| game.game_id}
+    team_performances = @game_teams.find_all{|team| season_game_ids.include?(team.game_id)}
+    performance_by_team = team_performances.group_by{|team| team.team_id}
+    team_accuracy = performance_by_team.transform_values do |team|
+      team.sum {|game| game.goals}.to_f / team.sum {|game| game.shots}
+    end
+    @teams.find {|team| team.team_id == team_accuracy.min[0]}.team_name
+  end
 
+  def count_of_teams
+    @teams.length
+  end
+
+  def most_accurate_team(season)
+    season_games = @games.find_all{|game| game.season == season}
+    season_game_ids = season_games.map{|game| game.game_id}
+    team_performances = @game_teams.find_all{|team| season_game_ids.include?(team.game_id)}
+    performance_by_team = team_performances.group_by{|team| team.team_id}
+    team_accuracy = performance_by_team.transform_values do |team|
+      team.sum {|game| game.goals}.to_f / team.sum {|game| game.shots}
+    end
+    @teams.find {|team| team.team_id == team_accuracy.max[0]}.team_name
   end
 end
