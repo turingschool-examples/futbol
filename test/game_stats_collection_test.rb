@@ -40,14 +40,11 @@ class GameStatsCollectionTest < Minitest::Test
   end
 
   def test_average_goals_by_team_id
-    @game_stats_collection.goals_by_team_id
     result = {3 => 1.60, 6 => 2.83, 5 => 0.00}
     assert_equal result, @game_stats_collection.average_goals_by_team_id
   end
 
   def test_best_offense_id
-    @game_stats_collection.goals_by_team_id
-    @game_stats_collection.average_goals_by_team_id
     assert_equal 6, @game_stats_collection.best_offense_id
   end
 
@@ -60,9 +57,6 @@ class GameStatsCollectionTest < Minitest::Test
   end
 
   def test_worst_offense_id
-    @game_stats_collection.goals_by_team_id
-    @game_stats_collection.average_goals_by_team_id
-
     assert_equal 5, @game_stats_collection.worst_offense_id
   end
 
@@ -78,5 +72,13 @@ class GameStatsCollectionTest < Minitest::Test
   def test_average_away_goals_by_team_id
     result = {3 => 1.67, 6 => 2.67}
     assert_equal result, @game_stats_collection.average_away_goals_by_team_id
+  end
+
+  def test_highest_scoring_visitor_id
+    assert_equal 6, @game_stats_collection.highest_scoring_visitor_id
+  end
+
+  def test_highest_scoring_visitor
+    assert_equal "FC Dallas", @game_stats_collection.highest_scoring_visitor
   end
 end
