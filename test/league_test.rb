@@ -47,4 +47,12 @@ class LeagueTest < Minitest::Test
     assert_equal "Sporting Kansas City", league.highest_scoring_visitor
   end
 
+  def test_lowest_scoring_visitor
+    league = League.new
+    GameStats.from_csv("./test/fixtures/game_teams_truncated.csv")
+    Team.from_csv("./data/teams.csv")
+    Game.from_csv("./test/fixtures/team_truncated.csv")
+    assert_equal "Atlanta United", league.lowest_scoring_visitor
+  end
+
 end
