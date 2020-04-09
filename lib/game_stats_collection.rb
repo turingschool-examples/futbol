@@ -25,21 +25,23 @@ class GameStatsCollection
     @team_id_goals
   end
 
-  def total_goals_by_team_id
-    @team_id_total_goals = {}
-    goals_by_team_id.each do |team_id, goals|
-      @team_id_total_goals[team_id] = goals.sum
+  def average_goals_by_team_id
+    @total_goals = {}
+    goals_by_team_id.each { |id, goals| @total_goals[id] = goals.sum}
+    average_goals = {}
+    @total_goals.each do |id, goals|
+      average_goals[id] = (@total_goals[id].to_f / @team_id_goals[id].length).round(2)
     end
-    @team_id_total_goals
+    average_goals
   end
 
-  def average_goals_by_team_id
-    team_id_average_goals = {}
-    goals_by_team_id.each do |team_id, goals|
-      team_id_average_goals[team_id] = (@team_id_total_goals[team_id].to_f / @team_id_goals[team_id].length).round(2)
-    end
-    team_id_average_goals
-  end
+  # def average_goals_by_team_id
+  #   team_id_average_goals = {}
+  #   goals_by_team_id.each do |team_id, goals|
+  #     team_id_average_goals[team_id] = (@team_id_total_goals[team_id].to_f / @team_id_goals[team_id].length).round(2)
+  #   end
+  #   team_id_average_goals
+  # end
 
   def best_offense_id
     (average_goals_by_team_id.max_by {|team_id, average_goals| average_goals})[0]
