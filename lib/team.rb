@@ -15,6 +15,10 @@ class Team
     end
   end
 
+  def self.count_of_teams
+    @@all.length
+  end
+
   attr_reader :team_id, :franchise_id, :team_name, :abbreviation, :stadium, :link
 
   def initialize(team_info)

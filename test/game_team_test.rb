@@ -176,4 +176,12 @@ class GameTeamTest < Minitest::Test
   def test_it_can_find_worst_coach
     assert_equal "Paul MacLean", GameTeam.worst_coach
   end
+
+  def test_it_can_return_best_offense_team_number
+    assert_equal 28, GameTeam.best_offense
+  end
+
+  def test_it_can_return_worst_offense_team_number
+    assert_equal 17, GameTeam.worst_offense
+  end
 end

@@ -79,6 +79,30 @@ class GameTeam
     all_coaches.min_by {|coach| ((wins_by_coach[coach].to_f / total_games_coached[coach].to_f) * 100).round(2)}
   end
 
+  def self.best_offense
+    #grouped by team_id with keys being the team_id and values is an array of games
+    grouped_team = @@all.group_by{|game| game.team_id}
+    #loop through the values (games) and set them equal to the average of goals
+    team_averaged_goals = grouped_team.map do |ids, games|
+      goals_per_game = games.map {|game| game.goals}
+      games = (goals_per_game.sum / goals_per_game.length)
+    end
+    total_goals_per_team= Hash[grouped_team.keys.zip(team_averaged_goals)]
+    total_goals_per_team.key(total_goals_per_team.values.max)
+  end
+
+  def self.worst_offense
+    #grouped by team_id with keys being the team_id and values is an array of games
+    grouped_team = @@all.group_by{|game| game.team_id}
+    #loop through the values (games) and set them equal to the average of goals
+    team_averaged_goals = grouped_team.map do |ids, games|
+      goals_per_game = games.map {|game| game.goals}
+      games = (goals_per_game.sum / goals_per_game.length)
+    end
+    total_goals_per_team= Hash[grouped_team.keys.zip(team_averaged_goals)]
+    total_goals_per_team.key(total_goals_per_team.values.min)
+  end
+
     attr_reader :game_id,
                 :team_id,
                 :hoa,
