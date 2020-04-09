@@ -127,4 +127,8 @@ class GameStatsCollection
   def highest_scoring_home_team
     find_team_name_by_team_id(highest_scoring_home_team_id)
   end
+
+  def lowest_scoring_home_team
+    find_team_name_by_team_id(lowest_scoring_home_team_id)
+  end
 end

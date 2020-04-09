@@ -111,4 +111,8 @@ class GameStatsCollectionTest < Minitest::Test
   def test_lowest_scoring_home_team_id
     assert_equal 5, @game_stats_collection.lowest_scoring_home_team_id
   end
+
+  def test_lowest_scoring_home_team
+    assert_equal "Sporting Kansas City", @game_stats_collection.lowest_scoring_home_team
+  end
 end
