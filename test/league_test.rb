@@ -20,8 +20,23 @@ class LeagueTest < Minitest::Test
 
   def test_best_offense
     league = League.new
+    Team.from_csv("./data/teams.csv")
     GameStats.from_csv("./test/fixtures/game_teams_truncated.csv")
-    assert_equal 0, league.best_offense
+    assert_equal "Orlando City SC", league.best_offense
+  end
+
+  def test_find_team_name
+    league = League.new
+    Team.from_csv("./data/teams.csv")
+    GameStats.from_csv("./test/fixtures/game_teams_truncated.csv")
+    assert_equal "Orlando City SC", league.find_team_id(30)
+  end
+
+  def test_worst_offense
+    league = League.new
+    Team.from_csv("./data/teams.csv")
+    GameStats.from_csv("./test/fixtures/game_teams_truncated.csv")
+    assert_equal "Washington Spirit FC", league.worst_offense
   end
 
 end
