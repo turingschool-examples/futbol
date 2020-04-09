@@ -73,5 +73,24 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 32, @stat_tracker.count_of_teams
   end
 
-  
+  def test_it_can_find_average_goals_by_team
+    assert_equal 2.4, @stat_tracker.average_goals_by_team(52)
+  end
+
+  def test_it_can_find_unique_team_id
+    assert_equal [30, 52, 19, 23, 24, 4, 29, 12, 6, 17, 1, 2], @stat_tracker.unique_team_ids
+  end
+
+  def test_best_offense
+    assert_equal 'FC Dallas', @stat_tracker.best_offense
+  end
+
+  def test_worst_offense
+    assert_equal 'Seattle Sounders FC', @stat_tracker.worst_offense
+  end
+
+  def test_find_team_by_id
+    assert_equal 'Reign FC', @stat_tracker.team_by_id(54).team_name
+  end
+
 end

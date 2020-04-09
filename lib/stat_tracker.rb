@@ -95,4 +95,34 @@ class StatTracker
     @teams.length
   end
 
+  def average_goals_by_team(team_id)
+    goals = 0
+    games = 0
+    @game_teams.each do |game_team|
+      if game_team.team_id == team_id
+        goals += game_team.goals
+        games += 1
+      end
+    end
+    goals/games.to_f
+  end
+
+  def unique_team_ids
+    @game_teams.uniq { |game_team| game_team.team_id }.map{ |game_team| game_team.team_id }
+  end
+
+  def team_by_id(team_id)
+    @teams.find { |team| team.team_id == team_id }
+  end
+
+  def best_offense
+    id = unique_team_ids.max_by { |team_id| average_goals_by_team(team_id)}
+    team_by_id(id).team_name
+  end
+
+  def worst_offense
+    id = unique_team_ids.min_by { |team_id| average_goals_by_team(team_id)}
+    team_by_id(id).team_name
+  end
+
 end
