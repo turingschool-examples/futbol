@@ -76,4 +76,12 @@ class StatTrackerTest < MiniTest::Test
   def test_most_accurate_team
     assert_equal "Portland Thorns FC", @stat_tracker.most_accurate_team("20172018")
   end
+
+  def test_winningest_coach
+    assert_equal "Paul Maurice", @stat_tracker.winningest_coach("20172018")
+  end
+
+  def test_worst_coach
+    assert_equal "Bruce Boudreau", @stat_tracker.worst_coach("20172018")
+  end
 end
