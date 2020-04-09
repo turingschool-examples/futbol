@@ -72,4 +72,8 @@ class StatTrackerTest < MiniTest::Test
   def test_count_of_teams
     assert_equal 32, @stat_tracker.count_of_teams
   end
+
+  def test_most_accurate_team
+    assert_equal "Portland Thorns FC", @stat_tracker.most_accurate_team("20172018")
+  end
 end
