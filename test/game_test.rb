@@ -49,5 +49,5 @@ class GameTest < Minitest::Test
      assert_equal 0 , @game_2.home_goals
      assert_equal 'Centruy Link Field' , @game_2.venue
      assert_equal '/api/v1/venues/null',  @game_2.venue_link
-   end
- end
+  end
+end
