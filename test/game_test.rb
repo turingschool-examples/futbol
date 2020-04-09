@@ -1,4 +1,3 @@
-require 'csv'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/game'
@@ -15,7 +14,6 @@ class GameTest < Minitest::Test
                       :home_goals => 3,
                       :venue => "Toyota Stadium",
                       :venue_link => "/api/v1/venues/null"})
-
   end
 
   def test_it_exists
