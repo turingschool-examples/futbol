@@ -96,16 +96,77 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_find_all_coaches
-    assert_equal Array, GameTeam.all_coaches.class
-    assert_equal 17, GameTeam.all_coaches.length
+    assert_equal ["John Tortorella",
+      "Claude Julien",
+      "Mike Babcock",
+      "Joel Quenneville",
+      "Paul MacLean",
+      "Michel Therrien",
+      "Darryl Sutter",
+      "Dave Hakstol",
+      "Barry Trotz",
+      "Lindy Ruff",
+      "Todd McLellan",
+      "Ralph Krueger",
+      "Willie Desjardins",
+      "Jack Capuano",
+      "Jared Bednar",
+      "Bruce Cassidy",
+      "Bruce Boudreau"], GameTeam.all_coaches
   end
 
-  def test_it
+  def test_it_can_find_game_results_by_coach
+    assert_equal ({"John Tortorella"=>["LOSS", "LOSS", "LOSS", "LOSS", "WIN"],
+      "Claude Julien"=>["WIN", "WIN", "WIN", "WIN"],
+      "Mike Babcock"=>["LOSS", "WIN", "TIE", "WIN"],
+      "Joel Quenneville"=>["WIN", "TIE", "WIN"],
+      "Paul MacLean"=>["TIE"],
+      "Michel Therrien"=>["TIE", "LOSS"],
+      "Darryl Sutter"=>["TIE", "WIN", "TIE", "WIN", "LOSS"],
+      "Dave Hakstol"=>["LOSS", "WIN"],
+      "Barry Trotz"=>["LOSS"],
+      "Lindy Ruff"=>["WIN", "TIE", "WIN", "WIN"],
+      "Todd McLellan"=>["WIN"],
+      "Ralph Krueger"=>["LOSS"],
+      "Willie Desjardins"=>["TIE", "TIE", "LOSS"],
+      "Jack Capuano"=>["WIN"],
+      "Jared Bednar"=>["TIE"],
+      "Bruce Cassidy"=>["WIN"],
+      "Bruce Boudreau"=>["WIN"]}), GameTeam.results_by_coach
+  end
 
+  def test_it_can_find_total_games_coached
+    assert_equal ({"John Tortorella"=>5,
+      "Claude Julien"=>4,
+      "Mike Babcock"=>4,
+      "Joel Quenneville"=>3,
+      "Paul MacLean"=>1,
+      "Michel Therrien"=>2,
+      "Darryl Sutter"=>5,
+      "Dave Hakstol"=>2,
+      "Barry Trotz"=>1,
+      "Lindy Ruff"=>4,
+      "Todd McLellan"=>1,
+      "Ralph Krueger"=>1,
+      "Willie Desjardins"=>3,
+      "Jack Capuano"=>1,
+      "Jared Bednar"=>1,
+      "Bruce Cassidy"=>1,
+      "Bruce Boudreau"=>1}), GameTeam.total_games_coached
+  end
 
-
-  def test_it_can_find_wins_by_coach
-    assert_equal
+  def test_it_can_count_wins_by_coach
+    assert_equal ({"John Tortorella"=>1,
+      "Claude Julien"=>4,
+      "Mike Babcock"=>2,
+      "Joel Quenneville"=>2,
+      "Darryl Sutter"=>2,
+      "Dave Hakstol"=>1,
+      "Lindy Ruff"=>3,
+      "Todd McLellan"=>1,
+      "Jack Capuano"=>1,
+      "Bruce Cassidy"=>1,
+      "Bruce Boudreau"=>1}), GameTeam.wins_by_coach
   end
 
   def test_it_can_find_winninest_coach
@@ -113,6 +174,6 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_find_worst_coach
-    assert_equal "John Tortorella", GameTeam.worst_coach
+    assert_equal "Paul MacLean", GameTeam.worst_coach
   end
 end
