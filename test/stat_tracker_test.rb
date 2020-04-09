@@ -80,4 +80,12 @@ class StatTrackerTest < MiniTest::Test
   def test_most_accurate_team
     assert_equal "Portland Thorns FC", @stat_tracker.most_accurate_team("20172018")
   end
+
+  def test_it_can_find_team_with_most_season_tackles
+    assert_equal "Portland Thorns FC", @stat_tracker.most_tackles("20172018")
+  end
+
+  def test_it_can_find_team_with_least_season_tackles
+    assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20172018")
+  end
 end
