@@ -2,6 +2,7 @@ require 'simplecov'
 SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'mocha/minitest'
 require 'pry'
 require './lib/stat_tracker'
 require './lib/game'
@@ -69,4 +70,60 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_count_games_in_a_season
     assert_equal ({20122013=>2, 20162017=>5, 20142015=>6, 20132014=>4, 20152016=>2, 20172018=>1}), @stat_tracker.count_of_games_by_season
   end
+
+  def test_it_returns_average_goals_per_game
+      assert_equal 4.4, @stat_tracker.average_goals_per_game
+  end
+
+  def test_it_returns_average_goals_by_season
+    Game.all.stubs(:map).returns([20122013, 20162017])
+    Game.stubs(:average_goals).returns([3.33, 2.5])
+    expected = {20122013 => 3.33, 20162017 => 2.5}
+    assert_equal expected, @stat_tracker.average_goals_by_season
+  end
+
+  def test_highest_scoring_visitor
+    #team_ids
+    Game.all.stubs(:map).returns([1, 2, 3, 4])
+    #away_goals
+    Game.stubs(:goals_per).returns([80, 60, 40, 20])
+    #games
+    Game.stubs(:games_per).returns([10, 10, 10, 10])
+    #highest_scoring_visitor_team
+    assert_equal "Atlanta United", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    #team_ids
+    Game.all.stubs(:map).returns([1, 2, 3, 4])
+    #home_goals
+    Game.stubs(:goals_per).returns([10, 60, 40, 20])
+    #games
+    Game.stubs(:games_per).returns([10, 10, 10, 10])
+    #highest_scoring_home_team
+    assert_equal "Seattle Sounders FC", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_lowest_scoring_home_team
+    #team_ids
+    Game.all.stubs(:map).returns([1, 2, 3, 4])
+    #home_goals
+    Game.stubs(:goals_per).returns([100, 60, 40, 20])
+    #games
+    Game.stubs(:games_per).returns([10, 10, 10, 10])
+    #lowest_scoring_visitor_team_
+    assert_equal "Chicago Fire", @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_lowest_scoring_visitor
+    #team_ids
+    Game.all.stubs(:map).returns([1, 2, 3, 4])
+    #home_goals
+    Game.stubs(:goals_per).returns([100, 60, 10, 20])
+    #games
+    Game.stubs(:games_per).returns([10, 10, 10, 10])
+    #lowest_scoring_visitor_team_
+    assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
+  end
+
 end
