@@ -21,7 +21,6 @@ class GameTest < Minitest::Test
                 :venue => "Heaven",
                 :venue_link => "venue/link"})
 
-    Game.from_csv('./test/fixtures/short_games.csv')
     Game.from_csv('./test/fixtures/games_20.csv')
     @game = Game.all[0]
   end
@@ -108,7 +107,37 @@ class GameTest < Minitest::Test
     assert_equal ({20122013=>2, 20162017=>5, 20142015=>6, 20132014=>4, 20152016=>2, 20172018=>1}), Game.count_of_games_by_season
   end
 
+  def test_highest_scoring_visitor_team_id
+    Game.all.stubs(:map).returns([1, 2, 3, 4])#team_ids
+    Game.stubs(:goals_per).returns([80, 60, 40, 20])#away_goals
+    Game.stubs(:games_per).returns([10, 10, 10, 10])#games
+    assert_equal 1, Game.highest_scoring_visitor_team_id
+    #lowe
+  end
+
+  def test_highest_scoring_home_team_id
+    Game.all.stubs(:map).returns([1, 2, 3, 4]) #team ids
+    Game.stubs(:goals_per).returns([60, 80, 20, 40]) #home_goals
+    Game.stubs(:games_per).returns([10, 10, 10, 10]) #games
+    assert_equal 2, Game.highest_scoring_home_team_id
+  end
+
+  def test_lowest_scoring_away_team_id
+    Game.all.stubs(:map).returns([1, 2, 3, 4])#team_ids
+    Game.stubs(:goals_per).returns([80, 60, 40, 20])#away_goals
+    Game.stubs(:games_per).returns([10, 10, 10, 10])#games
+    assert_equal 4, Game.lowest_scoring_visitor_team_id
+  end
+
+  def test_lowest_scoring_home_team_id
+    Game.all.stubs(:map).returns([1, 2, 3, 4]) #team ids
+    Game.stubs(:goals_per).returns([60, 80, 20, 40]) #home_goals
+    Game.stubs(:games_per).returns([10, 10, 10, 10]) #games
+    assert_equal 3, Game.lowest_scoring_visitor_team_id
+  end
+
   def test_nth_scoring_visitor_or_home_by_id
+    skip
     #team_ids
     Game.all.stubs(:map).returns([1, 2, 3, 4])
     #away_goals
@@ -128,7 +157,6 @@ class GameTest < Minitest::Test
     #highest_scoring_home_team_id
     assert_equal 2, Game.nth_scoring_team_id(:max_by, :away_team_id, :home_goals)
     #lowest_scoring_home_team_id
-    assert_equal 3, Game.nth_scoring_team_id(:min_by, :away_team_id, :home_goals)
   end
 
   def test_it_identifies_wins
@@ -136,6 +164,13 @@ class GameTest < Minitest::Test
     assert_equal true, Game.win?(26, 2017020625)
     assert_equal false, Game.win?(30, 2015020906)
     assert_equal false, Game.win?(19, 2013020918)
+  end
+
+  def test_it_returns_wins_per_team_id
+    assert_equal 4, Game.all_wins(3).length
+    assert_equal 2, Game.all_wins(6).length
+    assert_equal 1, Game.all_wins(16).length
+    assert_equal 0, Game.all_wins(20).length
   end
 
 
