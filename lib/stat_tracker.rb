@@ -27,25 +27,26 @@ class StatTracker
     home_wins = @games.find_all do |game|
       game.home_goals > game.away_goals
     end
-    ((home_wins.length.to_f / @games.length.to_f) * 100).round(2)
+    (home_wins.length.to_f / @games.length.to_f).round(2)
   end
 
-  def percentage_away_wins
+  def percentage_visitor_wins
     away_wins = @games.find_all do |game|
       game.away_goals > game.home_goals
     end
-    ((away_wins.length.to_f / @games.length.to_f) * 100).round(2)
+    (away_wins.length.to_f / @games.length.to_f).round(2)
   end
 
   def percentage_ties
     ties = @game_teams.find_all {|gmteam| gmteam.result == "TIE"}
-    ((ties.length.to_f / @game_teams.length) * 100).round(2)
+    (ties.length.to_f / @game_teams.length).round(2)
   end
 
   def count_of_games_by_season
     games_by_season = @games.group_by {|game| game.season}
     games_by_season.transform_values {|season| season.length}
   end
+
   def highest_total_score
     highest_scoring_game = @games.max_by do |game| game.away_goals + game.home_goals
     end
@@ -58,31 +59,27 @@ class StatTracker
     lowest_scoring_game.away_goals + lowest_scoring_game.home_goals
   end
 
-  def sum_of_goals
-    @games.sum do |game|
+  def average_goals_per_game
+    sum_of_goals = @games.sum do |game|
       game.home_goals + game.away_goals
     end
-  end
-
-  def average_goals_per_game
     (sum_of_goals.to_f / @games.length).round(2)
   end
 
-  def by_season(season)
-    @games.find_all do |game|
+  def sum_of_goals_in_a_season(season)
+    full_season = @games.find_all do |game|
       game.season == season
     end
-  end
-
-  def sum_of_goals_in_a_season(season)
-    full_season = by_season(season)
     full_season.sum do |game|
       game.home_goals + game.away_goals
     end
   end
 
   def average_of_goals_in_a_season(season)
-    (sum_of_goals_in_a_season(season).to_f / by_season(season).length).round(2)
+    by_season = @games.find_all do |game|
+      game.season == season
+    end
+    (sum_of_goals_in_a_season(season).to_f / by_season.length).round(2)
   end
 
   def average_goals_by_season

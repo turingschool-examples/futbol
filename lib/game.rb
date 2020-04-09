@@ -25,7 +25,7 @@ class Game
 
   def initialize(game_info)
     @game_id = game_info[:game_id].to_i
-    @season = game_info[:season].to_i
+    @season = game_info[:season]
     @type = game_info[:type]
     @date_time = game_info[:date_time]
     @away_team_id = game_info[:away_team_id].to_i
@@ -35,5 +35,5 @@ class Game
     @venue = game_info[:venue]
     @venue_link = game_info[:venue_link]
   end
-  
+
 end
