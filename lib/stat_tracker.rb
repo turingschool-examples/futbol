@@ -24,13 +24,16 @@ class StatTracker
     end
 
     CSV.foreach('./data/games.csv', headers: true, header_converters: :symbol) do |row|
-      #adapt symbols to wahtever is the header in games.csv
-      data = {team_id: row[:id],
-              franchiseid: row[:franchiseid],
-              teamname: row[:teamname],
-              abbreviation: row[:abbreviation],
-              stadium: row[:stadium],
-              link: row[:link]
+      data = {game_id: row[:game_id],
+              season: row[:season],
+              type: row[:type],
+              date_time: row[:date_time],
+              away_team_id: row[:away_team_id],
+              home_team_id: row[:home_team_id],
+              away_goals: row[:away_goals],
+              home_goals: row[:home_goals],
+              venue: row[:venue],
+              venue_link: row[:venue_link]
             }
       @games << Game.new(data)
     end
@@ -38,5 +41,9 @@ class StatTracker
 
   def count_of_teams
     @teams.size
+  end
+
+  def best_offense
+    @teams
   end
 end

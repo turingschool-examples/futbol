@@ -12,4 +12,9 @@ class StatTrackerTest < Minitest::Test
     stat_tracker = StatTracker.new
     assert_equal 32, stat_tracker.count_of_teams
   end
+
+  def test_best_offense
+    stat_tracker = StatTracker.new
+    assert_equal "Offense", stat_tracker.best_offense
+  end
 end

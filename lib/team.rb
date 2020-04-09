@@ -1,6 +1,8 @@
 class Team
 
   def initialize(data)
-    @data = data
+    @id = data[:team_id]
+    @franchise_id = data[:franchiseid]
+
   end
 end
