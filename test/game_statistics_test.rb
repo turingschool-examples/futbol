@@ -30,11 +30,8 @@ class GameStatisticsTest < Minitest::Test
     assert_equal'./data/game_teams_fixture.csv', @game_statistics.stat_tracker.game_teams
   end
 
-
-
   def test_highest_total_score
     data.stubs(@csv_games).returns(5)
-
     assert_equal 5, @game_statistics.highest_total_score
   end
 
