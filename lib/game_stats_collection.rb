@@ -99,6 +99,10 @@ class GameStatsCollection
     (average_home_goals_by_team_id.max_by {|team_id, average_goals| average_goals})[0]
   end
 
+  def lowest_scoring_home_team_id
+    (average_home_goals_by_team_id.min_by {|team_id, average_goals| average_goals})[0]
+  end
+
   def find_team_name_by_team_id(team_id)
     team_collection = TeamCollection.new('./data/teams.csv')
     (team_collection.teams.find { |team| team.team_id == team_id}).teamname
