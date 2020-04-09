@@ -90,4 +90,9 @@ class StatTracker
       average_of_goals_in_a_season(season.first.season)
     end
   end
+
+  def count_of_teams
+    @teams.length
+  end
+
 end
