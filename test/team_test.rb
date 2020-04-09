@@ -44,4 +44,8 @@ class TeamTest < Minitest::Test
     assert_equal "/api/v1/teams/4" , @base_team.link
   end
 
+  def test_count_of_teams
+    assert_equal 32, @teams.count_of_teams
+  end
+
 end #final
