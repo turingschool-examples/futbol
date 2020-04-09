@@ -70,4 +70,8 @@ class GameStatsCollectionTest < Minitest::Test
     assert_equal "Sporting Kansas City", @game_stats_collection.worst_offense
   end
 
+  def test_away_goals_by_team_id
+    result = {3 => [2, 2, 1], 6 => [2, 3, 3]}
+    assert_equal result, @game_stats_collection.away_goals_by_team_id
+  end
 end
