@@ -89,6 +89,14 @@ class StatTracker
     Team.all.find { |team| team.team_id == team_id }.team_name
   end
 
+  def best_offense
+    GameTeam.best_offense
+  end
+
+  def worst_offense
+    GameTeam.worst_offense
+  end
+
 
 
 end
