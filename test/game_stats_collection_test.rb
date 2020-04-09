@@ -48,8 +48,7 @@ class GameStatsCollectionTest < Minitest::Test
   def test_best_offense_id
     @game_stats_collection.goals_by_team_id
     @game_stats_collection.average_goals_by_team_id
-    result = 6
-    assert_equal result, @game_stats_collection.best_offense_id
+    assert_equal 6, @game_stats_collection.best_offense_id
   end
 
   def test_find_team_name_by_id
@@ -58,6 +57,13 @@ class GameStatsCollectionTest < Minitest::Test
 
   def test_best_offense
     assert_equal "FC Dallas", @game_stats_collection.best_offense
+  end
+
+  def test_worst_offense_id
+    @game_stats_collection.goals_by_team_id
+    @game_stats_collection.average_goals_by_team_id
+
+    assert_equal 5, @game_stats_collection.worst_offense_id
   end
 
 end

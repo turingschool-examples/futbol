@@ -39,6 +39,10 @@ class GameStatsCollection
     (average_goals_by_team_id.max_by {|team_id, average_goals| average_goals})[0]
   end
 
+  def worst_offense_id
+    (average_goals_by_team_id.min_by {|team_id, average_goals| average_goals})[0]
+  end
+
   def find_team_name_by_team_id(team_id)
     @team_collection = TeamCollection.new('./data/teams.csv')
     (@team_collection.teams.find { |team| team.team_id == team_id}).teamname
@@ -49,4 +53,6 @@ class GameStatsCollection
     average_goals_by_team_id
     find_team_name_by_team_id(best_offense_id)
   end
+
+
 end
