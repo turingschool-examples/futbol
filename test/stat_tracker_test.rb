@@ -68,4 +68,8 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_return_a_seaon_with_average_goals
     assert_equal ({"20172018" => 3.8, "20132014" => 4.0, "20122013" => 4.67}), @stat_tracker.average_goals_by_season
   end
+
+  def test_it_can_find_least_accurate_team
+    assert_equal "Orlando City SC", @game_team.least_accurate_team(season)
+  end
 end

@@ -90,4 +90,8 @@ class StatTracker
       average_of_goals_in_a_season(season.first.season)
     end
   end
+
+  def least_accurate_team(season)
+
+  end
 end
