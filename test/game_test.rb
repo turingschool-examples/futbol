@@ -168,7 +168,6 @@ class GameTest < Minitest::Test
   end
 #deliverable
   def test_it_returns_worst_season_given_team_id
-    Game.best_season(3)
     assert_equal "In the 20122013 season Team 3 won 0% of games", Game.worst_season(3)
     assert_equal "In the 20122013 season Team 6 won 100% of games", Game.worst_season(6)
     assert_equal "In the 20162017 season Team 20 won 0% of games", Game.worst_season(20)
