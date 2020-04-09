@@ -74,4 +74,9 @@ class GameStatsCollectionTest < Minitest::Test
     result = {3 => [2, 2, 1], 6 => [2, 3, 3]}
     assert_equal result, @game_stats_collection.away_goals_by_team_id
   end
+
+  def test_average_away_goals_by_team_id
+    result = {3 => 1.67, 6 => 2.67}
+    assert_equal result, @game_stats_collection.average_away_goals_by_team_id
+  end
 end

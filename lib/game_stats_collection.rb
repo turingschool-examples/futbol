@@ -42,9 +42,19 @@ class GameStatsCollection
     goals_by_team_id.each { |id, goals| @total_goals[id] = goals.sum}
     average_goals = {}
     @total_goals.each do |id, goals|
-      average_goals[id] = (@total_goals[id].to_f / @team_id_goals[id].length).round(2)
+      average_goals[id] = (@total_goals[id].to_f / goals_by_team_id[id].length).round(2)
     end
     average_goals
+  end
+
+  def average_away_goals_by_team_id
+    @total_away_goals = {}
+    away_goals_by_team_id.each { |id, goals| @total_away_goals[id] = goals.sum}
+    average_away_goals = {}
+    @total_away_goals.each do |id, goals|
+      average_away_goals[id] = (@total_away_goals[id].to_f / away_goals_by_team_id[id].length).round(2)
+    end
+    average_away_goals
   end
 
   def best_offense_id
