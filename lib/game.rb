@@ -89,13 +89,6 @@ class Game
     home_ids_n_goals.min_by{ |team_id, home_goals| home_goals}.first
   end
 
-  def self.win?(team_id, game_id)
-    game = @@all.find {|game| game.game_id == game_id}
-    away_win = team_id == game.away_team_id && game.away_goals > game.home_goals
-    home_win =  team_id == game.home_team_id && game.home_goals > game.away_goals
-    away_win || home_win
-  end
-
   def self.games_by_season(team_id)
     games_by_season = Hash.new { |hash, key| hash[key] = 0 }
     @@all.each do |game|
@@ -107,7 +100,7 @@ class Game
   def self.wins_by_season(team_id)
     season_wins = Hash.new { |hash, key| hash[key] = 0 }
     @@all.each do |game|
-      season_wins[game.season] += 1 if win?(team_id, game.game_id)
+      season_wins[game.season] += 1 if game.win?(team_id)
       season_wins[game.season] if game.away_team_id == team_id || game.home_team_id == team_id
     end
     season_wins
@@ -164,5 +157,11 @@ class Game
 
   def lowest_total_score
     @@all.map { |game| game.away_goals + game.home_goals}.min
+  end
+  
+  def win?(team_id)
+    away_win = team_id == @away_team_id && @away_goals > @home_goals
+    home_win =  team_id == @home_team_id && @home_goals > @away_goals
+    away_win || home_win
   end
 end

@@ -89,7 +89,7 @@ class GameTest < Minitest::Test
   end
 #deliverable
   def test_average_goals_by_season
-    Game.all.stubs(:map).returns([20122013, 20162017])
+    Game.all.stubs(:map).returns([20122013, 20162017]) #reconsider stubs map
     Game.stubs(:average_goals).returns([3.33, 2.5])
     expected = {20122013 => 3.33, 20162017 => 2.5}
     assert_equal expected, Game.average_goals_by_season
@@ -137,10 +137,11 @@ class GameTest < Minitest::Test
   end
 
   def test_it_identifies_wins_given_team_id_game_id
-    assert_equal true, Game.win?(16, 2014030412)
-    assert_equal true, Game.win?(26, 2017020625)
-    assert_equal false, Game.win?(30, 2015020906)
-    assert_equal false, Game.win?(19, 2013020918) #tie
+    assert_equal true, Game.all[0].win?(6)
+    assert_equal true, Game.all[2].win?(24)
+    assert_equal false, Game.all[4].win?(14)
+
+    assert_equal false, Game.all[17].win?(4)#tie
   end
 
   def test_it_returns_all_games_by_seasons_given_team_id
