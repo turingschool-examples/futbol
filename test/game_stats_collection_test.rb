@@ -86,4 +86,9 @@ class GameStatsCollectionTest < Minitest::Test
     result = {6 => [3, 3, 3], 3 => [1, 2], 5 => [0]}
     assert_equal result, @game_stats_collection.home_goals_by_team_id
   end
+
+  def test_average_home_goals_by_team_id
+    result = {6 => 3.00, 3 => 1.50, 5 => 0}
+    assert_equal result, @game_stats_collection.average_home_goals_by_team_id
+  end
 end

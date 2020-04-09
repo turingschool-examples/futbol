@@ -69,6 +69,16 @@ class GameStatsCollection
     average_away_goals
   end
 
+  def average_home_goals_by_team_id
+    @total_home_goals = {}
+    home_goals_by_team_id.each { |id, goals| @total_home_goals[id] = goals.sum}
+    average_home_goals = {}
+    @total_home_goals.each do |id, goals|
+      average_home_goals[id] = (@total_home_goals[id].to_f / home_goals_by_team_id[id].length).round(2)
+    end
+    average_home_goals
+  end
+
   def best_offense_id
     (average_goals_by_team_id.max_by {|team_id, average_goals| average_goals})[0]
   end
