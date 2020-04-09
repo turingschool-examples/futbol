@@ -37,6 +37,18 @@ class GameStatsCollection
     @away_goals
   end
 
+  def home_goals_by_team_id
+    @home_goals = {}
+    @game_stats.each do |row|
+      if @home_goals[row.team_id] == nil && row.home_away == "home"
+        @home_goals[row.team_id] = [row.goals]
+      elsif row.home_away == "home"
+        @home_goals[row.team_id] << row.goals
+      end
+    end
+    @home_goals
+  end
+
   def average_goals_by_team_id
     @total_goals = {}
     goals_by_team_id.each { |id, goals| @total_goals[id] = goals.sum}

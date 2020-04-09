@@ -81,4 +81,9 @@ class GameStatsCollectionTest < Minitest::Test
   def test_highest_scoring_visitor
     assert_equal "FC Dallas", @game_stats_collection.highest_scoring_visitor
   end
+
+  def test_home_goals_by_team_id
+    result = {6 => [3, 3, 3], 3 => [1, 2], 5 => [0]}
+    assert_equal result, @game_stats_collection.home_goals_by_team_id
+  end
 end
