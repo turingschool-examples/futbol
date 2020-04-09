@@ -106,6 +106,6 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_return_worst_offense_team_number
-    assert_equal 0, GameTeam.worst_offense
+    assert_equal 17, GameTeam.worst_offense
   end
 end
