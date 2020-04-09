@@ -95,9 +95,24 @@ class GameTeamTest < Minitest::Test
     assert_equal 25.00, GameTeam.percentage_ties
   end
 
+  def test_it_can_find_all_coaches
+    assert_equal Array, GameTeam.all_coaches.class
+    assert_equal 17, GameTeam.all_coaches.length
+  end
+
+  def test_it
+
+
+
+  def test_it_can_find_wins_by_coach
+    assert_equal
+  end
+
   def test_it_can_find_winninest_coach
+    assert_equal "Claude Julien", GameTeam.winningest_coach
   end
 
   def test_it_can_find_worst_coach
+    assert_equal "John Tortorella", GameTeam.worst_coach
   end
 end
