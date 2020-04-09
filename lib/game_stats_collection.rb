@@ -54,5 +54,11 @@ class GameStatsCollection
     find_team_name_by_team_id(best_offense_id)
   end
 
+  def worst_offense
+    goals_by_team_id
+    average_goals_by_team_id
+    find_team_name_by_team_id(worst_offense_id)
+  end
+
 
 end

@@ -66,4 +66,8 @@ class GameStatsCollectionTest < Minitest::Test
     assert_equal 5, @game_stats_collection.worst_offense_id
   end
 
+  def test_worst_offense
+    assert_equal "Sporting Kansas City", @game_stats_collection.worst_offense
+  end
+
 end
