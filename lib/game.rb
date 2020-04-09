@@ -67,6 +67,20 @@ class Game
     team_id_goals.send(max_min_by){ |team_id, hoa_goals| hoa_goals}.first
   end
 
+  ####
+  def self.win?(team_id, game_id)
+    game = @@all.find {|game| game.game_id == game_id}
+    away_win = team_id == game.away_team_id && game.away_goals > game.home_goals
+    home_win =  team_id == game.home_team_id && game.home_goals > game.away_goals
+    away_win || home_win
+  end
+
+  def self.wins_per_(team_id)
+    # @@all.find_all do |game|
+    #   game.team_id if win
+    # end
+  end
+
 
   attr_reader :game_id,
               :season,

@@ -131,5 +131,13 @@ class GameTest < Minitest::Test
     assert_equal 3, Game.nth_scoring_team_id(:min_by, :away_team_id, :home_goals)
   end
 
+  def test_it_identifies_wins
+    assert_equal true, Game.win?(16, 2014030412)
+    assert_equal true, Game.win?(26, 2017020625)
+    assert_equal false, Game.win?(30, 2015020906)
+    assert_equal false, Game.win?(19, 2013020918)
+  end
+
+
 
 end

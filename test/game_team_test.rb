@@ -100,4 +100,9 @@ class GameTeamTest < Minitest::Test
 
   def test_it_can_find_worst_coach
   end
+
+  def test_it_returns_best_season_given_team_id
+    GameTeam.wins_per_season
+  end
+
 end
