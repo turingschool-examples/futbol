@@ -99,4 +99,8 @@ class GameStatsCollectionTest < Minitest::Test
   def test_highest_scoring_home_team
     assert_equal "FC Dallas", @game_stats_collection.highest_scoring_home_team
   end
+
+  def test_lowest_scoring_visitor_id
+    assert_equal 3, @game_stats_collection.lowest_scoring_visitor_id
+  end
 end

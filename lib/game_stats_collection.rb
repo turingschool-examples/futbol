@@ -91,6 +91,10 @@ class GameStatsCollection
     (average_away_goals_by_team_id.max_by {|team_id, average_goals| average_goals})[0]
   end
 
+  def lowest_scoring_visitor_id
+    (average_away_goals_by_team_id.min_by {|team_id, average_goals| average_goals})[0]
+  end
+
   def highest_scoring_home_team_id
     (average_home_goals_by_team_id.max_by {|team_id, average_goals| average_goals})[0]
   end
