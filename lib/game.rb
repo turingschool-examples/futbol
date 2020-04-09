@@ -55,18 +55,8 @@ class Game
     season_ids = @@all.map { |game| game.season}.uniq
     Hash[season_ids.zip(avg_goals_per_season)]
   end
-#four deliverables * Warning * Unreadable
-  # def self.nth_scoring_team_id(max_min_by, hoa_team_id, hoa_goals)
-  #   team_ids = @@all.map { |game| game.send(hoa_team_id) }.uniq
-  #   goals = goals_per(hoa_team_id, hoa_goals)
-  #   games_length = games_per(hoa_team_id)
-  #   avg_goals = average_goals(goals, games_length)
-  #   team_id_goals = Hash[team_ids.zip(avg_goals)]
-  #   team_id_goals.send(max_min_by){ |team_id, hoa_goals| hoa_goals}.first
-  #   binding.pry
-  # end
 
-#deliverable (needs to access teams via stat_tracker)
+#deliverable (needs to access teams.csv via stat_tracker)
   def self.highest_scoring_visitor_team_id
     avg_away_goals = average_goals(goals_per(:away_team_id, :away_goals), games_per(:away_team_id))
     away_team_ids = @@all.map { |game| game.away_team_id }.uniq
@@ -74,7 +64,7 @@ class Game
     away_ids_n_goals = Hash[away_team_ids.zip(avg_away_goals)]
     away_ids_n_goals.max_by{ |team_id, away_goals| away_goals}.first
   end
-#deliverable (needs to access teams via stat_tracker)
+#deliverable (needs to access teams.csv via stat_tracker)
   def self.highest_scoring_home_team_id
     avg_home_goals = average_goals(goals_per(:home_team_id, :home_goals), games_per(:home_team_id))
     home_team_ids = @@all.map { |game| game.home_team_id }.uniq
@@ -82,7 +72,7 @@ class Game
     home_ids_n_goals = Hash[home_team_ids.zip(avg_home_goals)]
     home_ids_n_goals.max_by{ |team_id, home_goals| home_goals}.first
   end
-  #deliverable (needs to access teams via stat_tracker)
+  #deliverable (needs to access teams.csv via stat_tracker)
   def self.lowest_scoring_visitor_team_id
     avg_away_goals = average_goals(goals_per(:away_team_id, :away_goals), games_per(:away_team_id))
     away_team_ids = @@all.map { |game| game.away_team_id }.uniq
@@ -90,7 +80,7 @@ class Game
     away_ids_n_goals = Hash[away_team_ids.zip(avg_away_goals)]
     away_ids_n_goals.min_by{ |team_id, away_goals| away_goals}.first
   end
-  #deliverable (needs to access teams via stat_tracker)
+  #deliverable (needs to access teams.csv via stat_tracker)
   def self.lowest_scoring_home_team_id
     avg_home_goals = average_goals(goals_per(:home_team_id, :home_goals), games_per(:home_team_id))
     home_team_ids = @@all.map { |game| game.home_team_id }.uniq
@@ -99,8 +89,6 @@ class Game
     home_ids_n_goals.min_by{ |team_id, home_goals| home_goals}.first
   end
 
-
-  ####
   def self.win?(team_id, game_id)
     game = @@all.find {|game| game.game_id == game_id}
     away_win = team_id == game.away_team_id && game.away_goals > game.home_goals
@@ -108,15 +96,43 @@ class Game
     away_win || home_win
   end
 
-  def self.all_wins(team_id)
-    @@all.find_all do |game|
-      (game.away_team_id || game.home_team_id) if win?(team_id, game.game_id)
+  def self.games_by_season(team_id)
+    games_by_season = Hash.new { |hash, key| hash[key] = 0 }
+    @@all.each do |game|
+      games_by_season[game.season] += 1 if game.away_team_id == team_id || game.home_team_id == team_id
     end
+    games_by_season
   end
 
-  def self.wins_per_season
+  def self.wins_by_season(team_id)
+    season_wins = Hash.new { |hash, key| hash[key] = 0 }
+    @@all.each do |game|
+      season_wins[game.season] += 1 if win?(team_id, game.game_id)
+      season_wins[game.season] if game.away_team_id == team_id || game.home_team_id == team_id
+    end
+    season_wins
   end
 
+  def self.percent_by_season(team_id)
+    num_games = games_by_season(team_id).values
+    percent_per_season = wins_by_season(team_id).values.each_with_index.map do |wins, index|
+      ((wins.to_f / num_games[index].to_f)*100).to_i
+    end
+
+    Hash[games_by_season(team_id).keys.zip(percent_per_season)]
+  end
+
+#deliverable
+  def self.best_season(team_id)
+    best_season = percent_by_season(team_id).max_by { |season, percent| percent}
+    "In the #{best_season[0]} season Team #{team_id} won #{best_season[1]}% of games"
+  end
+
+  #deliverable
+  def self.worst_season(team_id)
+      worst_season = percent_by_season(team_id).min_by { |season, percent| percent}
+      "In the #{worst_season[0]} season Team #{team_id} won #{worst_season[1]}% of games"
+  end
 
   attr_reader :game_id,
               :season,
