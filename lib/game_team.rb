@@ -31,7 +31,47 @@ class GameTeam
     ((ties_count / games_count) * 100).round(2)
   end
 
+  def all_coaches
+    coaches = @@all.map {|gt| gt.head_coach }.uniq
+  end
+
+  def results_by_coach
+    results_by_coach = {}
+    all_coaches.each do |coach|
+      @@all.find_all do |gt|
+        if coach == gt.head_coach && results_by_coach[coach] == nil
+            results_by_coach[coach] = [gt.result]
+        elsif coach == gt.head_coach && results_by_coach[coach] != nil
+            results_by_coach[coach] << gt.result
+        end
+      end
+    end
+  end
+
+  def wins_by_coach
+    wins_by_coach = {}
+    all_coaches.each do |coach|
+      wins_by_coach[coach] = results_by_coach[coach].count
+    end
+    wins_by_coach
+  end
+
   def self.winningest_coach
+    # # total # of games coached
+    # # total # of games won by coach
+    # wins_by_coach = {}
+    # coaches = @@all.map {|gt| gt.head_coach }.uniq
+    # coaches.each do |coach|
+    #   @@all.find_all do |gt|
+    #     if coach == gt.head_coach
+    #       if wins_by_coach[coach] == nil
+    #         wins_by_coach[coach] = [gt.result]
+    #       elsif wins_by_coach[coach] != nil
+    #         wins_by_coach[coach] << gt.result
+    #       end
+    #     end
+    #   end
+    # end
   end
 
   def self.worst_coach
