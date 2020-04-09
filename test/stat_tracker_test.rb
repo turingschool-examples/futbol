@@ -49,17 +49,17 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 2, @stat_tracker.lowest_total_score
   end
 
-  def test_it_can_return_sum_of_games_goals
-    assert_equal 45, @stat_tracker.sum_of_goals
-  end
+  # def test_it_can_return_sum_of_games_goals
+  #   assert_equal 45, @stat_tracker.sum_of_goals
+  # end
 
   def test_it_can_find_average_goals
     assert_equal 4.09 , @stat_tracker.average_goals_per_game
   end
 
-  def test_it_can_find_season
-    assert_equal 20172018, @stat_tracker.by_season(20172018).first.season
-  end
+  # def test_it_can_find_season
+  #   assert_equal 20172018, @stat_tracker.by_season(20172018).first.season
+  # end
 
   def test_it_can_find_the_sum_of_goals_in_a_season
     assert_equal 19, @stat_tracker.sum_of_goals_in_a_season(20172018)

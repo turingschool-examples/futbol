@@ -58,24 +58,29 @@ class StatTracker
     lowest_scoring_game.away_goals + lowest_scoring_game.home_goals
   end
 
-  def sum_of_goals
-    @games.sum do |game|
-      game.home_goals + game.away_goals
-    end
-  end
+  # def sum_of_goals
+  #   sum_of_goals = @games.sum do |game|
+  #     game.home_goals + game.away_goals
+  #   end
+  # end
 
   def average_goals_per_game
+    sum_of_goals = @games.sum do |game|
+      game.home_goals + game.away_goals
+    end
     (sum_of_goals.to_f / @games.length).round(2)
   end
 
-  def by_season(season)
-    @games.find_all do |game|
-      game.season == season
-    end
-  end
+  # def by_season(season)
+  #   @games.find_all do |game|
+  #     game.season == season
+  #   end
+  # end
 
   def sum_of_goals_in_a_season(season)
-    full_season = by_season(season)
+    full_season = @games.find_all do |game|
+      game.season == season
+    end
     full_season.sum do |game|
       game.home_goals + game.away_goals
     end
