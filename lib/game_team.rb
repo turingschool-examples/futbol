@@ -31,11 +31,11 @@ class GameTeam
     ((ties_count / games_count) * 100).round(2)
   end
 
-  def all_coaches
+  def self.all_coaches
     coaches = @@all.map {|gt| gt.head_coach }.uniq
   end
 
-  def results_by_coach
+  def self.results_by_coach
     results_by_coach = {}
     all_coaches.each do |coach|
       @@all.find_all do |gt|
@@ -46,35 +46,37 @@ class GameTeam
         end
       end
     end
+    results_by_coach
   end
 
-  def wins_by_coach
+  def self.total_games_coached
+    total_games_coached = {}
+    all_coaches.each do |coach|
+      total_games_coached[coach] = results_by_coach[coach].count
+    end
+    total_games_coached
+  end
+
+  def self.wins_by_coach
     wins_by_coach = {}
     all_coaches.each do |coach|
-      wins_by_coach[coach] = results_by_coach[coach].count
+      results_by_coach[coach].each do |result|
+        if result == "WIN" && wins_by_coach[coach] == nil
+          wins_by_coach[coach] = 1
+        elsif result == "WIN" && wins_by_coach[coach] != nil
+          wins_by_coach[coach] += 1
+        end
+      end
     end
     wins_by_coach
   end
 
   def self.winningest_coach
-    # # total # of games coached
-    # # total # of games won by coach
-    # wins_by_coach = {}
-    # coaches = @@all.map {|gt| gt.head_coach }.uniq
-    # coaches.each do |coach|
-    #   @@all.find_all do |gt|
-    #     if coach == gt.head_coach
-    #       if wins_by_coach[coach] == nil
-    #         wins_by_coach[coach] = [gt.result]
-    #       elsif wins_by_coach[coach] != nil
-    #         wins_by_coach[coach] << gt.result
-    #       end
-    #     end
-    #   end
-    # end
+    all_coaches.max_by {|coach| ((wins_by_coach[coach].to_f / total_games_coached[coach].to_f) * 100).round(2)}
   end
 
   def self.worst_coach
+    all_coaches.min_by {|coach| ((wins_by_coach[coach].to_f / total_games_coached[coach].to_f) * 100).round(2)}
   end
 
     attr_reader :game_id,
