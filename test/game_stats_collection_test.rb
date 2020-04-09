@@ -103,4 +103,8 @@ class GameStatsCollectionTest < Minitest::Test
   def test_lowest_scoring_visitor_id
     assert_equal 3, @game_stats_collection.lowest_scoring_visitor_id
   end
+
+  def test_lowest_scoring_visitor
+    assert_equal "Houston Dynamo", @game_stats_collection.lowest_scoring_visitor
+  end
 end
