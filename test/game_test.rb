@@ -21,7 +21,6 @@ class GameTest < Minitest::Test
                 :venue => "Heaven",
                 :venue_link => "venue/link"})
 
-    Game.from_csv('./test/fixtures/short_games.csv')
     Game.from_csv('./test/fixtures/games_20.csv')
     @game = Game.all[0]
   end
