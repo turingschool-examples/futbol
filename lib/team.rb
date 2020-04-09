@@ -25,4 +25,13 @@ class Team
     @stadium = team_info[:stadium]
     @link = team_info[:link]
   end
+
+#Michelle start
+  def find_team_names(team_id)
+    match_team = @@all.find do |team|
+      team.team_id == team_id
+    end
+    match_team.team_name
+  end
+#Michelle end
 end

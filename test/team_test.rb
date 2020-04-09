@@ -44,4 +44,9 @@ class TeamTest < Minitest::Test
     assert_equal "/api/v1/teams/4" , @base_team.link
   end
 
+  #michelle start
+  def test_it_can_find_team_names_helper_method
+    assert_equal "FC Dallas", @base_team.find_team_names(6)
+  end
+  #michelle end 
 end #final

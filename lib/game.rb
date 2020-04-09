@@ -47,10 +47,10 @@ class Game
   end
 
   def highest_total_score
-    @@all.map { |game| game.away_goals + game.home_goals}.max
+    @@all.map { |game| game.away_goals + game.home_goals}.max_by
   end
 
   def lowest_total_score
-    @@all.map { |game| game.away_goals + game.home_goals}.min
+    @@all.map { |game| game.away_goals + game.home_goals}.min_by 
   end
 end
