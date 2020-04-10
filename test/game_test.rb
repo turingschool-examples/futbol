@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 require './lib/game'
 
 class GameTest < Minitest::Test
@@ -21,12 +20,12 @@ class GameTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal "2012030221", @game1.game_id
-    assert_equal "20122013", @game1.season
+    assert_equal 2012030221, @game1.game_id
+    assert_equal 20122013, @game1.season
     assert_equal "Postseason", @game1.type
     assert_equal "5/16/13", @game1.date_time
-    assert_equal "3", @game1.away_team_id
-    assert_equal "6", @game1.home_team_id
+    assert_equal 3, @game1.away_team_id
+    assert_equal 6, @game1.home_team_id
     assert_equal 2, @game1.away_goals
     assert_equal 3, @game1.home_goals
     assert_equal "Toyota Stadium", @game1.venue
