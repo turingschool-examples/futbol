@@ -21,9 +21,9 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_csv_files
-    assert_equal CSV.read(@game_path), @stat_tracker.games
-    assert_equal CSV.read(@team_path), @stat_tracker.teams
-    assert_equal CSV.read(@game_teams_path), @stat_tracker.game_stats
+    assert_equal CSV.read(@game_path, headers: true, header_converters: :symbol), @stat_tracker.games
+    assert_equal CSV.read(@team_path, headers: true, header_converters: :symbol), @stat_tracker.teams
+    assert_equal CSV.read(@game_teams_path, headers: true, header_converters: :symbol), @stat_tracker.game_stats
   end
 
 end
