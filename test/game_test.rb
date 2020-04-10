@@ -131,5 +131,10 @@ class GameTest < Minitest::Test
     assert_equal 3, Game.nth_scoring_team_id(:min_by, :away_team_id, :home_goals)
   end
 
+  def test_find_by_returns_array
+
+    assert_kind_of Array, Game.find_by(2012030221)
+  end
+
 
 end
