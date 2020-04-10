@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require 'CSV'
 require './lib/game_teams'
+require './lib/game_team'
 
 class GameTeamsTest < Minitest::Test
   def setup
@@ -13,8 +14,8 @@ class GameTeamsTest < Minitest::Test
   end
 
   def test_it_can_create_game_teams_from_csv
-    assert_instance_of GameTeam, @gameteam
-    assert_equal 3, @team.team_id
-    assert_equal "John Tortorella", @team.head_coach
+    assert_instance_of GameTeam, @game_team
+    assert_equal 3, @game_team.team_id
+    assert_equal "John Tortorella", @game_team.head_coach
   end
 end
