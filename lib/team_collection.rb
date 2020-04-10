@@ -19,4 +19,8 @@ class TeamCollection
   def count_of_teams
     @teams.length
   end
+
+  def find(team_id_number)
+    @teams.find {|team| team.team_id == team_id_number}
+  end
 end
