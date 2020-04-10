@@ -176,4 +176,5 @@ class Game
     home_win =  team_id == @home_team_id && @home_goals > @away_goals
     away_win || home_win
   end
+
 end
