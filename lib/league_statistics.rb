@@ -1,5 +1,6 @@
-require './lib/stat_tracker'
-require './lib/statistics'
+require_relative './stat_tracker'
+require_relative './statistics'
+
 require 'pry'
 
 class LeagueStatistics < Statistics
@@ -59,5 +60,5 @@ class LeagueStatistics < Statistics
   # highest_scoring_visitor
   # Name of the team with the highest average score per game across all seasons when they are away.
 
-  
+
 end
