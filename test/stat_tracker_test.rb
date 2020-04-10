@@ -68,4 +68,57 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_return_a_seaon_with_average_goals
     assert_equal ({"20172018" => 3.8, "20132014" => 4.0, "20122013" => 4.67}), @stat_tracker.average_goals_by_season
   end
+
+  def test_count_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+
+  def test_it_can_find_average_goals_by_team
+    assert_equal 2.4, @stat_tracker.average_goals_by_team(52)
+  end
+
+  def test_it_can_find_unique_team_id
+    assert_equal [30, 52, 19, 23, 24, 4, 29, 12, 6, 17, 1, 2], @stat_tracker.unique_team_ids
+  end
+
+  def test_find_team_by_id
+    assert_equal 'Reign FC', @stat_tracker.team_by_id(54).team_name
+  end
+
+  def test_best_offense
+    @stat_tracker.stubs(:average_goals_by_team).returns(1)
+    @stat_tracker.stubs(:average_goals_by_team).with(1).returns(2)
+    assert_equal 'Atlanta United', @stat_tracker.best_offense
+  end
+
+  def test_worst_offense
+    @stat_tracker.stubs(:average_goals_by_team).returns(2)
+    @stat_tracker.stubs(:average_goals_by_team).with(2).returns(1)
+    assert_equal 'Seattle Sounders FC', @stat_tracker.worst_offense
+  end
+
+  def test_highest_scoring_visitor
+    @stat_tracker.stubs(:average_goals_by_team).returns(1)
+    @stat_tracker.stubs(:average_goals_by_team).with(24, "away").returns(2)
+    assert_equal 'Real Salt Lake', @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    @stat_tracker.stubs(:average_goals_by_team).returns(1)
+    @stat_tracker.stubs(:average_goals_by_team).with(6, "home").returns(2)
+    assert_equal 'FC Dallas', @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_lowest_scoring_visitor
+    @stat_tracker.stubs(:average_goals_by_team).returns(2)
+    @stat_tracker.stubs(:average_goals_by_team).with(23, "away").returns(1)
+    assert_equal 'Montreal Impact', @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_lowest_scoring_home_team
+    @stat_tracker.stubs(:average_goals_by_team).returns(2)
+    @stat_tracker.stubs(:average_goals_by_team).with(19, "home").returns(1)
+    assert_equal 'Philadelphia Union', @stat_tracker.lowest_scoring_home_team
+  end
+
 end
