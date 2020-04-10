@@ -1,4 +1,5 @@
-require 'CSV'
+require 'csv'
+require_relative 'team_collection'
 class StatTracker
   attr_reader :games, :teams, :game_stats
 
@@ -13,6 +14,10 @@ class StatTracker
     @games = game_path
     @teams = team_path
     @game_stats = game_teams_path
+  end
+
+  def count_of_teams
+    @teams.length
   end
 
 end
