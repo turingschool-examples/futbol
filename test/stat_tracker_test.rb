@@ -126,4 +126,32 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
   end
 
+  def test_best_season
+    assert_equal "In the 20142015 season Team 3 won 100% of games", @stat_tracker.best_season(3)
+    assert_equal "In the 20122013 season Team 6 won 100% of games", @stat_tracker.best_season(6)
+    assert_equal "In the 20162017 season Team 20 won 0% of games", @stat_tracker.best_season(20)
+    stub_val = {
+                20122013 => 25,
+                20132014 => 66,
+                20142015 => 44,
+                20152016 => 35,
+                }
+    Game.stubs(:percent_by_season).returns(stub_val)
+    assert_equal "In the 20132014 season Team 3 won 66% of games", @stat_tracker.best_season(3)
+  end
+
+  def test_worst_season
+    assert_equal "In the 20122013 season Team 3 won 0% of games", @stat_tracker.worst_season(3)
+    assert_equal "In the 20122013 season Team 6 won 100% of games", @stat_tracker.worst_season(6)
+    assert_equal "In the 20162017 season Team 20 won 0% of games", @stat_tracker.worst_season(20)
+    stub_val = {
+                20122013 => 25,
+                20132014 => 66,
+                20142015 => 44,
+                20152016 => 35,
+                }
+    Game.stubs(:percent_by_season).returns(stub_val)
+    assert_equal "In the 20122013 season Team 3 won 25% of games", @stat_tracker.worst_season(3)
+  end
+
 end
