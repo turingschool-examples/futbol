@@ -138,4 +138,9 @@ class StatTracker
     team_by_id(id).team_name
   end
 
+  def highest_scoring_home_team
+    id = unique_team_ids.max_by { |team_id| average_goals_by_team(team_id, "home")}
+    team_by_id(id).team_name
+  end
+
 end

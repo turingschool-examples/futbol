@@ -86,7 +86,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_best_offense
-    assert_equal 'Real Salt Lake', @stat_tracker.best_offense
+    assert_equal 'FC Dallas', @stat_tracker.best_offense
   end
 
   def test_worst_offense
@@ -94,7 +94,11 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_highest_scoring_visitor
-    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+    assert_equal 'Real Salt Lake', @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal 'FC Dallas', @stat_tracker.highest_scoring_home_team
   end
 
 end
