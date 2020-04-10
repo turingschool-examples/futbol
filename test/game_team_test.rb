@@ -100,4 +100,8 @@ class GameTeamTest < Minitest::Test
 
   def test_it_can_find_worst_coach
   end
+
+  def test_find_by_returns_games
+    assert_kind_of Array, GameTeam.find_by(2012030221)
+  end
 end
