@@ -62,11 +62,11 @@ class GameTest < Minitest::Test
   end
 
   def test_it_can_calculate_highest_total_score
-    assert_equal 5, @game.highest_total_score
+    assert_equal 5, Game.highest_total_score
   end
 
   def test_it_can_calculate_lowest_total_score
-    assert_equal 3, @game.lowest_total_score
+    assert_equal 3, Game.lowest_total_score
   end
 
   def test_it_can_count_games_by_season

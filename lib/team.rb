@@ -33,5 +33,34 @@ class Team
     end
     match_team.team_name
   end
+
+
+  def all_teams_playing
+    @game_teams.map {|game_team| game_team.team_id}.uniq
+  end
+
+
+
+
+
+#   def most_tackles(season_id)
+#   team_id = all_teams_playing.max_by do |team|
+#     tackles_per_team_in_season(team, season_id)
+#   end
+#   find_team_names(team_id)
+# end
+#
+# def fewest_tackles(season_id)
+#   array = []
+#   all_teams_playing.each do |team|
+#     if tackles_per_team_in_season(team, season_id) != 0
+#       array << team
+#     end
+#   end
+#   team_id = array.min_by do |team|
+#     tackles_per_team_in_season(team, season_id)
+#   end
+#   find_team_names(team_id)
+# end
 #Michelle end
 end

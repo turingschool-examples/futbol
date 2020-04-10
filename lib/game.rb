@@ -12,6 +12,14 @@ class Game
     @@all = csv.map { |row| Game.new(row) }
   end
 
+  def self.highest_total_score
+    @@all.map { |game| game.away_goals + game.home_goals}.max 
+  end
+
+  def self.lowest_total_score
+    @@all.map { |game| game.away_goals + game.home_goals}.min
+  end
+
   def self.count_of_games_by_season
     games_by_season = @@all.group_by { |game| game.season }
     number_of_games_in_season =
@@ -44,13 +52,5 @@ class Game
     @home_goals = game_stats[:home_goals].to_i
     @venue = game_stats[:venue]
     @venue_link = game_stats[:venue_link]
-  end
-
-  def highest_total_score
-    @@all.map { |game| game.away_goals + game.home_goals}.max_by
-  end
-
-  def lowest_total_score
-    @@all.map { |game| game.away_goals + game.home_goals}.min_by 
   end
 end
