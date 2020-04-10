@@ -16,7 +16,7 @@ class LeagueRepository
 
   def best_offense
     team_goal_totals = {}
-    GameStats.all_game_stats.each do |game|
+    @game_team_collection.each do |game|
       if team_goal_totals[game.team_id] == nil
         team_goal_totals[game.team_id] = 0
       else
@@ -33,7 +33,7 @@ class LeagueRepository
   end
 
   def find_team_id(id)
-    found_team = Team.all_teams.find do |team|
+    found_team = @team_collection.find do |team|
       team.team_id == id
     end
     named_team = found_team.teamname
@@ -43,7 +43,7 @@ class LeagueRepository
 
   def worst_offense
     team_goal_totals = {}
-    GameStats.all_game_stats.each do |game|
+    @game_team_collection.each do |game|
       if team_goal_totals[game.team_id] == nil
         team_goal_totals[game.team_id] = 0
       else

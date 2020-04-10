@@ -9,6 +9,7 @@ class GameRepository
 
   end
 
+
   def highest_total_score
     highest_score = @games_collection.max_by do |game|
       #require 'pry'; binding.pry

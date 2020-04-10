@@ -32,5 +32,3 @@ class TeamRepository
 
 
 end
-
-# team_repository = TeamRepository.new(file_paths[:teams])

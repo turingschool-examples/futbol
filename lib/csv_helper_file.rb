@@ -32,7 +32,7 @@ def self.generate_team_array(file_path)
 
     end
     game_team_collection
-      
+
 end
 
 

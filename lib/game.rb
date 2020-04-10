@@ -1,5 +1,6 @@
 class Game
-
+#move these methods into game_repository, then delete when all functionialty is maintain
+#we only want game initize method here
 
   def self.highest_total_score
     highest_score = @@all_games.max_by do |game|

@@ -7,6 +7,8 @@ require './lib/team'
 require './lib/game_teams'
 
 class LeagueRepositoryTest < Minitest::Test
+
+  #update methods below to respond to new structure
   def test_it_exists
     league = LeagueRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
     assert_instance_of LeagueRepository, league
@@ -16,13 +18,11 @@ class LeagueRepositoryTest < Minitest::Test
     league = LeagueRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
     assert_equal 32, league.count_of_teams
   end
-#
-#   def test_best_offense
-#     league = League.new
-#     Team.from_csv("./data/teams.csv")
-#     GameStats.from_csv("./test/fixtures/game_teams_truncated.csv")
-#     assert_equal "Orlando City SC", league.best_offense
-#   end
+
+  def test_best_offense
+    league = LeagueRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+    assert_equal "Sporting Kansas City", league.best_offense
+  end
 #
 #   def test_find_team_name
 #     league = League.new

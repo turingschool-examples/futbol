@@ -1,25 +1,5 @@
 class GameTeams
 
-  @@all_game_stats = []
-  def self.from_csv(file_path)
-      csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
-      @@all_game_stats = csv.map do |row|
-        stats = GameTeams.new(row)
-      end
-  end
-
-  def self.highest_total_score
-    require 'pry'; binding.pry
-
-
-  end
-
-  def self.all_game_stats
-    @@all_game_stats
-  end
-
-
-
   attr_reader :game_id, :team_id, :hoa, :result, :settled_in, :head_coach,
               :goals, :shots, :tackles, :pim, :powerplayopportunities, :powerplaygoals,
               :faceoffwinpercentage, :giveaways, :takeaways

@@ -14,7 +14,7 @@ class StatTracker
 
 
 
-
+@stat_tracker.highest_total_score
 
 
   def self.from_csv(file_paths)
@@ -50,33 +50,7 @@ class StatTracker
     @game_repository.percentage_home_wins
   end
 
-# @game_teams_path = game_teams_path
 
-  #   def games(file_path)
-  #     Game.from_csv(game_path)
-  #     Game.all_games
-  # end
-
-  # def game_stats(file_path)
-  #   GameStats.from_csv(file_path)
-  #   game_stats = GameStats.all_game_stats
-  #
-  # end
-
-  # def team_info(id)
-  #   info_hash = Hash.new
-  #
-  #   Team.all_teams.each do |team|
-  #     if team.team_id == id
-  #     info_hash[:team_id] = team.team_id
-  #     info_hash[:franchise_id] = team.franchiseid
-  #     info_hash[:team_name] = team.teamname
-  #     info_hash[:abbreviation] = team.abbreviation
-  #     info_hash[:link] =  team.link
-  #     end
-  #   end
-  #     info_hash
-  # end
   def team_info(id)
     @team_repository.team_info(id)
   end
