@@ -58,9 +58,30 @@ class GameStatistics
   def count_of_games_by_season
     seasons = game_collection.group_by do |game|
       game.season
-      
     end
-    seasons.each do |key, value|
-      value.length
+    seasons.to_h do |key, value|
+      [key, value.length]
+    end
+  end
+
+  def average_goals(games)
+    total_goals = games.map do |game|
+      game.away_goals + game.home_goals
+    end
+    ave = (total_goals.sum / total_goals.length.to_f).round(2)
+    ave
+  end
+
+  def average_goals_per_game
+    average_goals(@game_collection)
+  end
+
+  def average_goals_by_season
+    seasons = game_collection.group_by do |game|
+    game.season
+  end
+  seasons.to_h do |key,value|
+    [key, average_goals(value)]
+    end
   end
 end

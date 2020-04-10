@@ -52,6 +52,14 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_count_of_games_by_season
-    assert_equal ({20122013 => 16, 20132014 => 3}), @game_statistics.count_of_games_by_season
+    assert_equal ({"20122013"=>12, "20132014"=>3, "20172018"=>3, "20162017"=>3, "20152016"=>1, "20142015"=>5}), @game_statistics.count_of_games_by_season
+  end
+
+  def test_average_number_of_goals_per_game
+    assert_equal 4.11,@game_statistics.average_goals_per_game
+  end
+
+  def test_average_goals_by_season
+    assert_equal ({"20122013"=>4.0, "20132014"=>4.0, "20172018"=>3.67, "20162017"=>4.33, "20152016"=>4.0, "20142015"=>4.6}), @game_statistics.average_goals_by_season
   end
 end

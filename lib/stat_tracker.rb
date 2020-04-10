@@ -38,4 +38,33 @@ class StatTracker
     csv_teams = CSV.read(@teams, headers: true, header_converters: :symbol)
     csv_teams.map { |row| Team.new(row) }
   end
+
+  def highest_total_score
+    @game_statistics.highest_total_score
+  end
+
+  def lowest_total_score
+    @game_statistics.lowest_total_score
+  end
+
+  def percentage_home_wins
+    @game_statistics.percentage_home_wins
+  end
+
+  def percentage_ties
+    @game_statistics.percentage_ties
+  end
+
+  def count_of_games_by_season
+    @game_statistics.count_of_games_by_season
+  end
+
+  def average_goals_per_game
+    @game_statistics.average_goals_per_game
+  end
+
+  def average_goals_by_season
+    @game_statistics.average_goals_by_season
+  end
+
 end
