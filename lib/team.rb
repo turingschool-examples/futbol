@@ -1,6 +1,6 @@
 class Team
 
-  attr_reader :id,
+  attr_reader :team_id,
               :franchise_id,
               :name,
               :abbreviation,
@@ -8,7 +8,7 @@ class Team
               :link
 
   def initialize(data)
-    @id = data[:team_id].to_i
+    @team_id = data[:team_id].to_i
     @franchise_id = data[:franchiseid].to_i
     @name = data[:teamname]
     @abbreviation = data[:abbreviation]
