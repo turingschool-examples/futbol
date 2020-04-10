@@ -8,3 +8,21 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2012030312,20122013,Postseason,6/4/13,6,5,4,1,Children's Mercy Park,/api/v1/venues/null
 2012030313,20122013,Postseason,6/6/13,5,6,1,2,Toyota Stadium,/api/v1/venues/null
 2012030314,20122013,Postseason,6/8/13,5,6,0,1,Toyota Stadium,/api/v1/venues/null
+2013020674,20132014,Regular Season,1/11/14,19,23,1,2,Saputo Stadium,/api/v1/venues/null
+2013020177,20132014,Regular Season,10/29/13,24,4,3,2,SeatGeek Stadium,/api/v1/venues/null
+2012020225,20122013,Regular Season,2/19/13,29,24,2,3,Rio Tinto Stadium,/api/v1/venues/null
+2012020577,20122013,Regular Season,4/8/13,12,6,2,4,Toyota Stadium,/api/v1/venues/null
+2013021085,20132014,Regular Season,3/25/14,17,29,2,2,Exploria Stadium,/api/v1/venues/null
+2012020122,20122013,Regular Season,2/3/13,1,2,3,0,Centruy Link Field,/api/v1/venues/null
+2017020626,20172018,Regular Season,1/5/18,24,22,1,1,Maryland SoccerPlex,/api/v1/venues/null
+2017020109,20172018,Regular Season,10/21/17,8,24,2,4,Rio Tinto Stadium,/api/v1/venues/null
+2017020883,20172018,Regular Season,2/16/18,17,14,1,2,Audi Field,/api/v1/venues/null
+2016020592,20162017,Regular Season,1/7/17,14,4,2,2,SeatGeek Stadium,/api/v1/venues/null
+2016021045,20162017,Regular Season,3/17/17,25,23,2,2,Saputo Stadium,/api/v1/venues/null
+2015020402,20152016,Regular Season,12/7/15,7,22,2,2,Maryland SoccerPlex,/api/v1/venues/null
+2016020479,20162017,Regular Season,12/20/16,22,19,3,2,Talen Energy Stadium,/api/v1/venues/null
+2014030322,20142015,Postseason,5/20/15,16,24,3,2,Rio Tinto Stadium,/api/v1/venues/null
+2014030323,20142015,Postseason,5/22/15,24,16,2,1,Gillette Stadium,/api/v1/venues/null
+2014030324,20142015,Postseason,5/24/15,24,16,2,3,Gillette Stadium,/api/v1/venues/null
+2014030325,20142015,Postseason,5/26/15,16,24,2,3,Rio Tinto Stadium,/api/v1/venues/null
+2014030326,20142015,Postseason,5/28/15,24,16,2,3,Gillette Stadium,/api/v1/venues/null
