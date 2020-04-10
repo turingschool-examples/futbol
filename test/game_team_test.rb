@@ -98,26 +98,26 @@ class GameTeamTest < Minitest::Test
   def test_it_can_find_coaches_in_season
     assert_equal ["Willie Desjardins", "Darryl Sutter", "Claude Julien", "Michel Therrien", "Joel Quenneville", "Jared Bednar", "Mike Babcock", "Bruce Cassidy", "Lindy Ruff"], GameTeam.coaches_in_season(2016030134)
   end
-  #
-  # def test_it_can_find_game_results_by_coach
-  #   assert_equal ({"John Tortorella"=>["LOSS", "LOSS", "LOSS", "LOSS", "WIN"],
-  #     "Claude Julien"=>["WIN", "WIN", "WIN", "WIN"],
-  #     "Mike Babcock"=>["LOSS", "WIN", "TIE", "WIN"],
-  #     "Joel Quenneville"=>["WIN", "TIE", "WIN"],
-  #     "Paul MacLean"=>["TIE"],
-  #     "Michel Therrien"=>["TIE", "LOSS"],
-  #     "Darryl Sutter"=>["TIE", "WIN", "TIE", "WIN", "LOSS"],
-  #     "Dave Hakstol"=>["LOSS", "WIN"],
-  #     "Barry Trotz"=>["LOSS"],
-  #     "Lindy Ruff"=>["WIN", "TIE", "WIN", "WIN"],
-  #     "Todd McLellan"=>["WIN"],
-  #     "Ralph Krueger"=>["LOSS"],
-  #     "Willie Desjardins"=>["TIE", "TIE", "LOSS"],
-  #     "Jack Capuano"=>["WIN"],
-  #     "Jared Bednar"=>["TIE"],
-  #     "Bruce Cassidy"=>["WIN"],
-  #     "Bruce Boudreau"=>["WIN"]}), GameTeam.results_by_coach
-  # end
+
+  def test_it_can_find_game_results_by_coach
+    assert_equal ({"John Tortorella"=>["LOSS", "LOSS", "LOSS", "LOSS", "WIN"],
+      "Claude Julien"=>["WIN", "WIN", "WIN", "WIN"],
+      "Mike Babcock"=>["LOSS", "WIN", "TIE", "WIN"],
+      "Joel Quenneville"=>["WIN", "TIE", "WIN"],
+      "Paul MacLean"=>["TIE"],
+      "Michel Therrien"=>["TIE", "LOSS"],
+      "Darryl Sutter"=>["TIE", "WIN", "TIE", "WIN", "LOSS"],
+      "Dave Hakstol"=>["LOSS", "WIN"],
+      "Barry Trotz"=>["LOSS"],
+      "Lindy Ruff"=>["WIN", "TIE", "WIN", "WIN"],
+      "Todd McLellan"=>["WIN"],
+      "Ralph Krueger"=>["LOSS"],
+      "Willie Desjardins"=>["TIE", "TIE", "LOSS"],
+      "Jack Capuano"=>["WIN"],
+      "Jared Bednar"=>["TIE"],
+      "Bruce Cassidy"=>["WIN"],
+      "Bruce Boudreau"=>["WIN"]}), GameTeam.results_by_coach
+  end
   #
   # def test_it_can_find_total_games_coached
   #   assert_equal ({"John Tortorella"=>5,
