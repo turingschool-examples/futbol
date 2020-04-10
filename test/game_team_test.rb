@@ -104,4 +104,10 @@ class GameTeamTest < Minitest::Test
   def test_find_by_returns_games
     assert_kind_of Array, GameTeam.find_by(2012030221)
   end
+
+  def test_game_team_shots_goals_count
+    Game.from_csv('./test/fixtures/games_20.csv')
+    arr_games = Game.all[0..2]
+    GameTeam.game_team_shots_goals_count(arr_games)
+  end
 end
