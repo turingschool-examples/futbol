@@ -1,6 +1,5 @@
 class Game
-
-  attr_reader :id,
+  attr_reader :game_id,
               :season,
               :type,
               :date_time,
@@ -12,10 +11,10 @@ class Game
               :venue_link
 
   def initialize(data)
-    @id = data[:game_id].to_i
-    @season = data[:season]
+    @game_id = data[:game_id].to_i
+    @season = data[:season].to_i
     @type = data[:type]
-    @date_time = data[:abbreviation]
+    @date_time = data[:date_time]
     @away_team_id = data[:away_team_id].to_i
     @home_team_id = data[:home_team_id].to_i
     @away_goals = data[:away_goals].to_i

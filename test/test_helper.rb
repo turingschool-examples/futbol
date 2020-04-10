@@ -1,4 +1,4 @@
-require 'simplecov'
-Simplecov.start
+require 'simpleCov'
+SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
