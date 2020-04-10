@@ -107,8 +107,17 @@ class GameTeamTest < Minitest::Test
 
   def test_game_team_shots_goals_count
     Game.from_csv('./test/fixtures/games_20.csv')
-    arr_games = Game.all[0..2]
-    assert_equal [] , GameTeam.game_team_shots_goals_count(arr_games)
+    # arr_games = Game.all[0..2]
+    game_team1 = mock
+    game_team2 = mock
+    game_team3 = mock
+    game_team4 = mock
+    game_team1.stubs(:game_id).returns(2016020527)
+    game_team2.stubs(:game_id).returns(123)
+    game_team3.stubs(:game_id).returns(456)
+    game_team4.stubs(:game_id).returns(456)
+    passed_array = [game_team1,game_team2,game_team3,game_team4]
+    assert_kind_of Array , GameTeam.game_team_shots_goals_count(passed_array)
   end
 
   def test_get_goal_shots_by_game_team
