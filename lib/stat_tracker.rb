@@ -1,7 +1,11 @@
+require './lib/game'
+require './lib/team'
+require './lib/game_team'
+require './lib/game_statistics'
 require 'CSV'
 require 'pry'
 class StatTracker
-  attr_reader :games, :teams, :game_teams,
+  attr_reader :games, :teams, :game_teams, :game_statistics
 
   def initialize(data_files)
     @games = data_files[:games]
@@ -13,7 +17,7 @@ class StatTracker
     @teams_collection = create_teams
 
     @game_statistics = GameStatistics.new(@game_collection, @game_teams_collection, @teams_collection)
-    @leagues_statistics = LeaguesStatistics.new(@game_collection, @game_teams_collection, @teams_collection)
+    #@leagues_statistics = LeaguesStatistics.new(@game_collection, @game_teams_collection, @teams_collection)
   end
 
   def self.from_csv(data_files)
