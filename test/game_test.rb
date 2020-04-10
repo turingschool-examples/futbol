@@ -136,5 +136,15 @@ class GameTest < Minitest::Test
     assert_kind_of Array, Game.find_by(2012030221)
   end
 
+  def test_grouped_season_returns_array_of_games_grouped_by_season
+
+    results = Game.grouped_by_season(20162017)
+
+    assert_kind_of Array, results
+    assert_kind_of Game, results.first
+    assert_equal 5, results.count
+    assert_equal 20, Game.all.count
+  end
+
 
 end
