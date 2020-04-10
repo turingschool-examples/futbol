@@ -1,6 +1,13 @@
 class Game
-#move these methods into game_repository, then delete when all functionialty is maintain
-#we only want game initize method here
+  @@all_games = []
+  def self.from_csv(file_path)
+      csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
+      @@all_games = csv.map do |row|
+        #require 'pry'; binding.pry
+        game = Game.new(row)
+        #require 'pry'; binding.pry
+      end
+  end
 
   def self.highest_total_score
     highest_score = @@all_games.max_by do |game|
@@ -92,6 +99,7 @@ class Game
     @@all_games
   end
 
+
   attr_reader :game_id, :season, :type, :date_time,
               :away_team_id, :home_team_id, :away_goals,
               :home_goals, :venue, :venue_link
@@ -108,5 +116,5 @@ class Game
     @venue = info[:venue]
     @venue_link = info[:venue_link]
   end
-
+ =
 end
