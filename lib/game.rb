@@ -7,11 +7,11 @@ class Game
     @@all
   end
 
-  def find_by(id)
+  def self.find_by(id)
    @@all.find_all{|game| game.game_id==id}
- end
+  end
 
- def self.grouped_by_season(passed_in_season)
+  def self.grouped_by_season(passed_in_season)
     @@all.select{|game| game.season == passed_in_season}
   end
 
@@ -116,7 +116,7 @@ class Game
 
     season_wins = Hash.new { |hash, key| hash[key] = 0 }
     @@all.each do |game|
-      #add 1 to season wins 
+      #add 1 to season wins
       season_wins[game.season] += 1 if game.win?(team_id)
       #returns true if a team was in a given game
       team_played_in_game = game.away_team_id == team_id || game.home_team_id == team_id
