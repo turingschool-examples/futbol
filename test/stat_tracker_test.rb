@@ -1,5 +1,7 @@
 require_relative 'test_helper'
 require './lib/stat_tracker'
+require './lib/game'
+require './lib/games_methods'
 
 class StatTrackerTest < Minitest::Test
   # attr_reader :stat_tracker
@@ -30,8 +32,9 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of Games, @sales_engine.games
   end
 
-  def test_it_can_create_a_merchant_collection
+  def test_it_can_create_teams
     assert_instance_of Teams, @sales_engine.teams
+    #need teams class
   end
 ########
   # def test_count_of_teams
