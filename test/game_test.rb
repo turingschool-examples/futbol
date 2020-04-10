@@ -21,7 +21,6 @@ class GameTest < Minitest::Test
                 :venue => "Heaven",
                 :venue_link => "venue/link"})
 
-    Game.from_csv('./test/fixtures/short_games.csv')
     Game.from_csv('./test/fixtures/games_20.csv')
     @game = Game.all[0]
   end
@@ -61,7 +60,7 @@ class GameTest < Minitest::Test
     assert_equal 20, Game.all.length
     assert_instance_of Game, Game.all.first
   end
-
+#deliverable
   def test_it_returns_average_goals_per_game
     assert_equal 4.4, Game.average_goals_per_game
   end
@@ -83,14 +82,14 @@ class GameTest < Minitest::Test
     assert_equal [3.0, 2.4, 1.83, 2.0, 2.5,2.0], Game.average_goals(home_goals, games)
   end
 
-  def test_average_goals_per_header
+  def test_average_goals_per_csv_header
     goals = [10, 20]
     season_lengths = [3, 8]
     assert_equal [3.33, 2.5], Game.average_goals(goals, season_lengths)
   end
-
+#deliverable
   def test_average_goals_by_season
-    Game.all.stubs(:map).returns([20122013, 20162017])
+    Game.all.stubs(:map).returns([20122013, 20162017]) #reconsider stubs map
     Game.stubs(:average_goals).returns([3.33, 2.5])
     expected = {20122013 => 3.33, 20162017 => 2.5}
     assert_equal expected, Game.average_goals_by_season
@@ -103,33 +102,83 @@ class GameTest < Minitest::Test
   def test_it_can_calculate_lowest_total_score
     assert_equal 3, @game.lowest_total_score
   end
-
+#deliverable
   def test_it_can_count_games_by_season
     assert_equal ({20122013=>2, 20162017=>5, 20142015=>6, 20132014=>4, 20152016=>2, 20172018=>1}), Game.count_of_games_by_season
   end
-
-  def test_nth_scoring_visitor_or_home_by_id
-    #team_ids
-    Game.all.stubs(:map).returns([1, 2, 3, 4])
-    #away_goals
-    Game.stubs(:goals_per).returns([80, 60, 40, 20])
-    #games
-    Game.stubs(:games_per).returns([10, 10, 10, 10])
-
-    #highest_scoring_visitor_team_id
-    assert_equal 1, Game.nth_scoring_team_id(:max_by, :away_team_id, :away_goals)
-    #lowest_scoring_visitor_team_id
-    assert_equal 4, Game.nth_scoring_team_id(:min_by, :away_team_id, :away_goals)
-
-    #home_goals
-    Game.stubs(:goals_per).returns([60, 80, 20, 40])
-    #games
-    Game.stubs(:games_per).returns([10, 10, 10, 10])
-    #highest_scoring_home_team_id
-    assert_equal 2, Game.nth_scoring_team_id(:max_by, :away_team_id, :home_goals)
-    #lowest_scoring_home_team_id
-    assert_equal 3, Game.nth_scoring_team_id(:min_by, :away_team_id, :home_goals)
+#deliverable
+  def test_highest_scoring_visitor_team_id
+    Game.all.stubs(:map).returns([1, 2, 3, 4])#team_ids
+    Game.stubs(:goals_per).returns([80, 60, 40, 20])#away_goals
+    Game.stubs(:games_per).returns([10, 10, 10, 10])#games
+    assert_equal 1, Game.highest_scoring_visitor_team_id
+    #lowe
+  end
+#deliverable
+  def test_highest_scoring_home_team_id
+    Game.all.stubs(:map).returns([1, 2, 3, 4]) #team ids
+    Game.stubs(:goals_per).returns([60, 80, 20, 40]) #home_goals
+    Game.stubs(:games_per).returns([10, 10, 10, 10]) #games
+    assert_equal 2, Game.highest_scoring_home_team_id
+  end
+#deliverable
+  def test_lowest_scoring_away_team_id
+    Game.all.stubs(:map).returns([1, 2, 3, 4])#team_ids
+    Game.stubs(:goals_per).returns([80, 60, 40, 20])#away_goals
+    Game.stubs(:games_per).returns([10, 10, 10, 10])#games
+    assert_equal 4, Game.lowest_scoring_visitor_team_id
+  end
+#deliverable
+  def test_lowest_scoring_home_team_id
+    Game.all.stubs(:map).returns([1, 2, 3, 4]) #team ids
+    Game.stubs(:goals_per).returns([60, 80, 20, 40]) #home_goals
+    Game.stubs(:games_per).returns([10, 10, 10, 10]) #games
+    assert_equal 3, Game.lowest_scoring_visitor_team_id
   end
 
+  def test_it_identifies_wins_given_team_id_game_id
+    assert_equal true, Game.all[0].win?(6)
+    assert_equal true, Game.all[2].win?(24)
+    assert_equal false, Game.all[4].win?(14)
 
+    assert_equal false, Game.all[17].win?(4)#tie
+  end
+
+  def test_it_returns_all_games_by_seasons_given_team_id
+    assert_equal ({20122013 => 2, 20142015 => 4}), Game.games_by_season(3)
+    assert_equal ({20122013 => 2}), Game.games_by_season(6)
+  end
+
+  def test_it_returns_wins_by_seasons_given_team_id
+    assert_equal ({20122013 => 0, 20142015 => 4}), Game.wins_by_season(3)
+    assert_equal ({20122013 => 2}), Game.wins_by_season(6)
+  end
+#deliverable
+  def test_it_returns_best_season_given_team_id
+    assert_equal "In the 20142015 season Team 3 won 100% of games", Game.best_season(3)
+    assert_equal "In the 20122013 season Team 6 won 100% of games", Game.best_season(6)
+    assert_equal "In the 20162017 season Team 20 won 0% of games", Game.best_season(20)
+    stub_val = {
+                20122013 => 25,
+                20132014 => 66,
+                20142015 => 44,
+                20152016 => 35,
+                }
+    Game.stubs(:percent_by_season).returns(stub_val)
+    assert_equal "In the 20132014 season Team 3 won 66% of games", Game.best_season(3)
+  end
+#deliverable
+  def test_it_returns_worst_season_given_team_id
+    assert_equal "In the 20122013 season Team 3 won 0% of games", Game.worst_season(3)
+    assert_equal "In the 20122013 season Team 6 won 100% of games", Game.worst_season(6)
+    assert_equal "In the 20162017 season Team 20 won 0% of games", Game.worst_season(20)
+    stub_val = {
+                20122013 => 25,
+                20132014 => 66,
+                20142015 => 44,
+                20152016 => 35,
+                }
+    Game.stubs(:percent_by_season).returns(stub_val)
+    assert_equal "In the 20122013 season Team 3 won 25% of games", Game.worst_season(3)
+  end
 end
