@@ -1,4 +1,17 @@
+# team_info (A hash with key/value pairs for the following attributes:
+# team_id, franchise_id, team_name,
+# abbreviation, and link)
+# best_season
+# worst_season
+# average_win_percentage
+# most_goals_scored
+# fewest_goals_scored
+# favorite_opponent
+# rival
+
 require_relative 'team'
+require 'csv'
+
 class Teams
   attr_reader :teams
 
