@@ -82,7 +82,6 @@ class GameTeam
     coaches_in_season(season_id).max_by {|coach| ((wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f) * 100).round(2)}
   end
 
-
   def self.worst_coach(season_id)
     coaches_in_season(season_id).min_by {|coach| ((wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f) * 100).round(2)}
   end
