@@ -21,7 +21,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_csv_files
-    require "pry"; binding.pry
     assert_equal CSV.read(@game_path), @stat_tracker.games
     assert_equal CSV.read(@team_path), @stat_tracker.teams
     assert_equal CSV.read(@game_teams_path), @stat_tracker.game_stats
