@@ -155,4 +155,12 @@ class GameTeamTest < Minitest::Test
     arr_games = Game.all[0..2]
     assert_equal 6, GameTeam.least_accurate_team(20122013)
   end
+
+  def test_it_can_return_best_offense_team_number
+    assert_equal 28, GameTeam.best_offense
+  end
+
+  def test_it_can_return_worst_offense_team_number
+    assert_equal 17, GameTeam.worst_offense
+    
 end
