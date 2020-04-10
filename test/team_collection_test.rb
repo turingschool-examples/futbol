@@ -31,4 +31,15 @@ class TeamCollectionTest < Minitest::Test
   def find(team_id_number)
     @teams.find {|team| team.team_id == team_id_number}
   end
+
+  def test_it_can_find_team_info_using_team_id
+    expected = {
+      :team_id => 1,
+      :franchiseid => 23,
+      :teamname => "Atlanta United",
+      :abbreviation => "ATL",
+      :link => "/api/v1/teams/1"
+    }
+    assert_equal expected, @team_collection.team_info(1)
+  end
 end
