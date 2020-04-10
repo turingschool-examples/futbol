@@ -1,17 +1,13 @@
 require 'csv'
+require_relative 'collection'
 require_relative 'team_collection'
 require_relative 'game_stats'
 
-class GameStatsCollection
+class GameStatsCollection < Collection
   attr_reader :game_stats
 
   def initialize(file_path)
-    @game_stats = create_game_stats(file_path)
-  end
-
-  def create_game_stats(file_path)
-    game_stats_csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
-    game_stats_csv.map { |row| GameStats.new(row)}
+    @game_stats = create_objects(file_path, GameStats)
   end
 
   def goals_by_team_id
