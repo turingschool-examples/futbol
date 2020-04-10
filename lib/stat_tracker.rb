@@ -2,6 +2,7 @@ require 'csv'
 require_relative 'game_team'
 require_relative 'game'
 require_relative 'team'
+require 'pry'
 
 class StatTracker
   attr_reader :games, :teams, :game_teams
@@ -38,7 +39,7 @@ class StatTracker
   end
 
   def percentage_ties
-    ties = @game_teams.find_all {|gmteam| gmteam.result == "TIE"}
+    ties = @game_teams.find_all {|team| team.result == "TIE"}
     (ties.length.to_f / @game_teams.length).round(2)
   end
 
@@ -151,4 +152,69 @@ class StatTracker
     team_by_id(id).team_name
   end
 
+  def most_accurate_team(season)
+    season_games = @games.find_all{|game| game.season == season}
+    season_game_ids = season_games.map{|game| game.game_id}
+    team_performances = @game_teams.find_all{|team| season_game_ids.include?(team.game_id)}
+    performance_by_team = team_performances.group_by{|team| team.team_id}
+    team_accuracy = performance_by_team.transform_values do |team|
+      team.sum {|game| game.goals}.to_f / team.sum {|game| game.shots}
+    end
+    @teams.find {|team| team.team_id == team_accuracy.max_by {|team, acc| acc}[0]}.team_name
+  end
+
+  def least_accurate_team(season)
+    season_games = @games.find_all{|game| game.season == season}
+    season_game_ids = season_games.map{|game| game.game_id}
+    team_performances = @game_teams.find_all{|team| season_game_ids.include?(team.game_id)}
+    performance_by_team = team_performances.group_by{|team| team.team_id}
+    team_accuracy = performance_by_team.transform_values do |team|
+      team.sum {|game| game.goals}.to_f / team.sum {|game| game.shots}
+    end
+    @teams.find {|team| team.team_id == team_accuracy.min_by {|team, acc| acc}[0]}.team_name
+  end
+
+  def winningest_coach(season)
+    season_games = @games.find_all{|game| game.season == season}
+    season_game_ids = season_games.map{|game| game.game_id}
+    team_performances = @game_teams.find_all{|team| season_game_ids.include?(team.game_id)}
+    games_by_coach = team_performances.group_by{|team| team.head_coach}
+    wins_by_coach = games_by_coach.transform_values do |team|
+      team.find_all {|game| game.result == "WIN"}.length
+    end
+    wins_by_coach.max_by {|coach, wins| wins}[0]
+  end
+
+  def worst_coach(season)
+    season_games = @games.find_all{|game| game.season == season}
+    season_game_ids = season_games.map{|game| game.game_id}
+    team_performances = @game_teams.find_all{|team| season_game_ids.include?(team.game_id)}
+    games_by_coach = team_performances.group_by{|team| team.head_coach}
+    wins_by_coach = games_by_coach.transform_values do |team|
+      team.find_all {|game| game.result == "WIN"}.length
+    end
+    wins_by_coach.min_by {|coach, wins| wins}[0]
+  end
+
+  def most_tackles(season)
+    season_games = @games.find_all{|game| game.season == season}
+    season_game_ids = season_games.map{|game| game.game_id}
+    team_performances = @game_teams.find_all{|team| season_game_ids.include?(team.game_id)}
+    performance_by_team = team_performances.group_by{|team| team.team_id}
+    team_tackles = performance_by_team.transform_values do |team|
+      team.sum {|game| game.tackles}
+    end
+    @teams.find {|team| team.team_id == team_tackles.max_by {|team, tack| tack}[0]}.team_name
+  end
+
+  def fewest_tackles(season)
+    season_games = @games.find_all{|game| game.season == season}
+    season_game_ids = season_games.map{|game| game.game_id}
+    team_performances = @game_teams.find_all{|team| season_game_ids.include?(team.game_id)}
+    performance_by_team = team_performances.group_by{|team| team.team_id}
+    team_tackles = performance_by_team.transform_values do |team|
+      team.sum {|game| game.tackles}
+    end
+    @teams.find {|team| team.team_id == team_tackles.min_by {|team, tack| tack}[0]}.team_name
+  end
 end

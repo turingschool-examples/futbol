@@ -13,7 +13,7 @@ class TeamTest < MiniTest::Test
       link: "/api/v1/teams/1"})
     Team.from_csv("./data/teams.csv")
     @csv_team = Team.all[-1]
-    end
+  end
 
   def test_existence
     assert_instance_of Team, @team
