@@ -1,8 +1,8 @@
-require './lib/game'
-require './lib/game_team'
-require './lib/team'
-require './lib/league_statistics'
-require './lib/game_statistics'
+require_relative './game'
+require_relative './team'
+require_relative './game_team'
+rrequire_relative './game_statistics'
+rrequire_relative './lib/league_statistics'
 require 'CSV'
 require 'pry'
 class StatTracker
