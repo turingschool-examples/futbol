@@ -6,6 +6,10 @@ class GameTeam
     @@all
   end
 
+  def self.find_by(id)
+    @@all.find_all{|game| game.game_id == id}
+  end
+
   def self.from_csv(csv_file_path)
     csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
     @@all = csv.map { |row| GameTeam.new(row) }
