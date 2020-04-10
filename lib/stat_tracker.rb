@@ -33,23 +33,24 @@ end
 def self.game_stats(file_path)
   GameStats.from_csv(file_path)
   game_stats = GameStats.all_game_stats
-
 end
 
 
   def self.from_csv(file_paths)
-    team_path = file_paths[:teams]
-    game_path = file_paths[:games]
-    game_teams_path = file_paths[:game_teams]
-
-    StatTracker.new(file_paths)
+    team_repository = TeamRepository.new(file_paths[:teams])
+    # game_repository = GameRepository.new(file_paths[:games])
+    # game_team_repository = GameTeamRepository.new(file_paths[:game_teams])
+    StatTracker.new(team_repository)
   end
-    attr_reader :team_path, :game_path, :game_teams_path
-  def initialize(locations)
+    attr_reader :team_repository
 
-    @team_path = StatTracker.teams(locations[:teams])
-    @game_path = StatTracker.games(locations[:games])
-    @game_teams_path = StatTracker.game_stats(locations[:game_teams])
+  def initialize(team_repository)
+    @team_repository = team_repository
+
+
+    # @team_path = StatTracker.teams(locations[:teams])
+    # @game_path = StatTracker.games(locations[:games])
+    # @game_teams_path = StatTracker.game_stats(locations[:game_teams])
     # require"pry";binding.pry
   end
 
@@ -66,19 +67,22 @@ end
   #
   # end
 
+  # def team_info(id)
+  #   info_hash = Hash.new
+  #
+  #   Team.all_teams.each do |team|
+  #     if team.team_id == id
+  #     info_hash[:team_id] = team.team_id
+  #     info_hash[:franchise_id] = team.franchiseid
+  #     info_hash[:team_name] = team.teamname
+  #     info_hash[:abbreviation] = team.abbreviation
+  #     info_hash[:link] =  team.link
+  #     end
+  #   end
+  #     info_hash
+  # end
   def team_info(id)
-    info_hash = Hash.new
-
-    Team.all_teams.each do |team|
-      if team.team_id == id
-      info_hash[:team_id] = team.team_id
-      info_hash[:franchise_id] = team.franchiseid
-      info_hash[:team_name] = team.teamname
-      info_hash[:abbreviation] = team.abbreviation
-      info_hash[:link] =  team.link
-      end
-    end
-      info_hash
+    @team_repository.team_info(id)
   end
 
   def highest_total_score(all_games)
@@ -167,7 +171,7 @@ end
   #   end
   #   win
   #   end
-  #
+  # =>
 
 
 
