@@ -101,11 +101,66 @@ class GameTeamTest < Minitest::Test
   def test_it_can_find_worst_coach
   end
 
+  def test_find_by_returns_games
+    assert_kind_of Array, GameTeam.find_by(2012030221)
+  end
+
+  def test_game_team_shots_goals_count
+    Game.from_csv('./test/fixtures/games_20.csv')
+    # arr_games = Game.all[0..2]
+    game_team1 = mock
+    game_team2 = mock
+    game_team3 = mock
+    game_team4 = mock
+    game_team1.stubs(:game_id).returns(2016020527)
+    game_team2.stubs(:game_id).returns(123)
+    game_team3.stubs(:game_id).returns(456)
+    game_team4.stubs(:game_id).returns(456)
+    passed_array = [game_team1,game_team2,game_team3,game_team4]
+    assert_kind_of Array , GameTeam.game_team_shots_goals_count(passed_array)
+  end
+
+  def test_get_goal_shots_by_game_team
+    game_team1 = mock
+    game_team2 = mock
+    game_team3 = mock
+    game_team4 = mock
+    game_team1.stubs(:team_id).returns(123)
+    game_team2.stubs(:team_id).returns(123)
+    game_team3.stubs(:team_id).returns(456)
+    game_team4.stubs(:team_id).returns(456)
+    game_team1.stubs(:goals).returns(3)
+    game_team2.stubs(:goals).returns(3)
+    game_team3.stubs(:goals).returns(2)
+    game_team4.stubs(:goals).returns(2)
+    game_team1.stubs(:shots).returns(6)
+    game_team2.stubs(:shots).returns(6)
+    game_team3.stubs(:shots).returns(4)
+    game_team4.stubs(:shots).returns(4)
+    passed_array = [game_team1,game_team2,game_team3,game_team4]
+
+    expected = {123=>{"shots"=>12, "goals"=>6}, 456=>{"shots"=>8, "goals"=>4}}
+
+    assert_equal expected, GameTeam.get_goal_shots_by_game_team(passed_array)
+  end
+
+  def test_most_accurate_team
+    Game.from_csv('./test/fixtures/games_20.csv')
+    arr_games = Game.all[0..2]
+    assert_equal 3, GameTeam.most_accurate_team(20122013)
+  end
+
+  def test_least_accurate_team
+    Game.from_csv('./test/fixtures/games_20.csv')
+    arr_games = Game.all[0..2]
+    assert_equal 6, GameTeam.least_accurate_team(20122013)
+  end
+
   def test_it_can_return_best_offense_team_number
     assert_equal 28, GameTeam.best_offense
   end
 
   def test_it_can_return_worst_offense_team_number
     assert_equal 17, GameTeam.worst_offense
-  end
+    
 end
