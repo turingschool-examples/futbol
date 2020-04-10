@@ -108,6 +108,30 @@ class GameTeamTest < Minitest::Test
   def test_game_team_shots_goals_count
     Game.from_csv('./test/fixtures/games_20.csv')
     arr_games = Game.all[0..2]
-    GameTeam.game_team_shots_goals_count(arr_games)
+    assert_equal [] , GameTeam.game_team_shots_goals_count(arr_games)
+  end
+
+  def test_get_goal_shots_by_game_team
+    game_team1 = mock
+    game_team2 = mock
+    game_team3 = mock
+    game_team4 = mock
+    game_team1.stubs(:team_id).returns(123)
+    game_team2.stubs(:team_id).returns(123)
+    game_team3.stubs(:team_id).returns(456)
+    game_team4.stubs(:team_id).returns(456)
+    game_team1.stubs(:goals).returns(3)
+    game_team2.stubs(:goals).returns(3)
+    game_team3.stubs(:goals).returns(2)
+    game_team4.stubs(:goals).returns(2)
+    game_team1.stubs(:shots).returns(6)
+    game_team2.stubs(:shots).returns(6)
+    game_team3.stubs(:shots).returns(4)
+    game_team4.stubs(:shots).returns(4)
+    passed_array = [game_team1,game_team2,game_team3,game_team4]
+
+    expected = {123=>{"shots"=>12, "goals"=>6}, 456=>{"shots"=>8, "goals"=>4}}
+
+    assert_equal expected, GameTeam.get_goal_shots_by_game_team(passed_array)
   end
 end
