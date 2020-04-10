@@ -1,7 +1,6 @@
 require_relative './csv_helper_file'
 
 
-
 class LeagueRepository
 
   def initialize(game_path, game_team_path, team_path)
@@ -59,7 +58,7 @@ class LeagueRepository
 
   def highest_scoring_visitor
     average_score_away = Hash.new
-    Game.all_games.each do |game|
+    @game_collection.each do |game|
       if average_score_away[game.away_team_id] == nil
         average_score_away[game.away_team_id] = 0
         average_score_away[game.away_team_id] += game.away_goals
@@ -74,9 +73,26 @@ class LeagueRepository
       find_team_id(first_answer)
   end
 
+  def highest_scoring_home
+    average_score_home = Hash.new
+    @game_collection.each do |game|
+      if average_score_home[game.home_team_id] == nil
+        average_score_home[game.home_team_id] = 0
+        average_score_home[game.home_team_id] += game.home_goals
+      else
+        average_score_home[game.home_team_id] += game.home_goals
+      end
+    end
+    answer = average_score_home.max_by do |key, value|
+    average_score_home[key]
+      end
+      first_answer = answer.first
+      find_team_id(first_answer)
+  end
+
   def lowest_scoring_visitor
     average_score_away = Hash.new
-    Game.all_games.each do |game|
+    @game_collection.each do |game|
       if average_score_away[game.away_team_id] == nil
         average_score_away[game.away_team_id] = 0
         average_score_away[game.away_team_id] += game.away_goals
@@ -86,6 +102,23 @@ class LeagueRepository
     end
     answer = average_score_away.min_by do |key, value|
     average_score_away[key]
+      end
+      first_answer = answer.first
+      find_team_id(first_answer)
+  end
+
+  def lowest_scoring_home
+    average_score_home = Hash.new
+    @game_collection.each do |game|
+      if average_score_home[game.home_team_id] == nil
+        average_score_home[game.home_team_id] = 0
+        average_score_home[game.home_team_id] += game.home_goals
+      else
+        average_score_home[game.home_team_id] += game.home_goals
+      end
+    end
+    answer = average_score_home.min_by do |key, value|
+    average_score_home[key]
       end
       first_answer = answer.first
       find_team_id(first_answer)
