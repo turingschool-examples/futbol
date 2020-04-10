@@ -67,4 +67,16 @@ class LeagueStatisticsTest < Minitest::Test
   def test_highest_scoring_visitor
     @league_statistics.highest_scoring_visitor
   end
+
+  def test_lowest_scoring_visitor
+    @league_statistics.lowest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    @league_statistics.highest_scoring_home_team
+  end
+
+  def test_lowest_scoring_home_team
+    @league_statistics.lowest_scoring_home_team
+  end
 end
