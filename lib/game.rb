@@ -93,7 +93,7 @@ class Game
   end
 
   def self.games_by_season(team_id)
-    #accumulator hash
+    #accumulator hash {season => games}
     games_by_season = Hash.new { |hash, key| hash[key] = 0 }
     all.each do |game|
       team_played_in_game = game.away_team_id == team_id || game.home_team_id == team_id
@@ -103,6 +103,7 @@ class Game
   end
 
   def self.wins_by_season(team_id)
+    #accumulator hash {season => wins}
     season_wins = Hash.new { |hash, key| hash[key] = 0 }
     all.each do |game|
       #add 1 to season wins
