@@ -244,16 +244,35 @@ class GameTest < Minitest::Test
     assert_equal 20, Game.all.count
   end
 
+  def test_returns_games_played_by_team_id
+    assert_equal 6, Game.games_played_by(3).length
+    assert_instance_of Game, Game.games_played_by(3)[0]
+    assert_equal 2, Game.games_played_by(6).length
+    assert_instance_of Game, Game.games_played_by(3).last
+  end
 
-  def test_it_returns_all_games_by_seasons_given_team_id
-    assert_equal ({20122013 => 2, 20142015 => 4}), Game.games_by_season(3)
-    assert_equal ({20122013 => 2}), Game.games_by_season(6)    
+  def test_it_returns_wins_and_games_by_season
+    expected = ({20122013 => {:wins => 0, :games_played => 2},
+                   20142015 => {:wins => 4, :games_played => 4}})
+    assert_equal expected, Game.games_and_wins_by_season(3)
+    expected = ({20122013 => {:wins => 2, :games_played => 2}})
+    assert_equal expected, Game.games_and_wins_by_season(6)
   end
 
 
-  def test_it_returns_wins_by_seasons_given_team_id
-    assert_equal ({20122013 => 0, 20142015 => 4}), Game.wins_by_season(3)
-    assert_equal ({20122013 => 2}), Game.wins_by_season(6)
+  def test_it_returns_percentage_of_wins_by_season_for_team_id
+      assert_equal ({20122013 => 0, 20142015 => 100}), Game.win_percent_by_season(3)
+      assert_equal ({20122013 => 100}), Game.win_percent_by_season(6)
+      game1 = mock
+      game2 = mock
+      game3 = mock
+      game4 = mock
+      game1.stubs(:home_team_id).returns(1)
+      game2.stubs(:home_team_id).returns(2)
+      game3.stubs(:home_team_id).returns(3)
+      game4.stubs(:home_team_id).returns(4)
+      game_array = [game1, game2, game3, game4]
+
   end
 #deliverable
   def test_it_returns_best_season_given_team_id
@@ -266,7 +285,7 @@ class GameTest < Minitest::Test
                 20142015 => 44,
                 20152016 => 35,
                 }
-    Game.stubs(:percent_by_season).returns(stub_val)
+    Game.stubs(:win_percent_by_season).returns(stub_val)
     assert_equal "In the 20132014 season Team 3 won 66% of games", Game.best_season(3)
   end
 #deliverable
@@ -280,7 +299,7 @@ class GameTest < Minitest::Test
                 20142015 => 44,
                 20152016 => 35,
                 }
-    Game.stubs(:percent_by_season).returns(stub_val)
+    Game.stubs(:win_percent_by_season).returns(stub_val)
     assert_equal "In the 20122013 season Team 3 won 25% of games", Game.worst_season(3)
   end
 end

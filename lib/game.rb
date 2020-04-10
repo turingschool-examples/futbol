@@ -100,51 +100,45 @@ class Game
     home_ids_n_goals.min_by{ |team_id, home_goals| home_goals}.first
   end
 
-  def self.games_by_season(team_id)
-    #accumulator hash {season => games}
-    games_by_season = Hash.new { |hash, key| hash[key] = 0 }
-    all.each do |game|
-      team_played_in_game = game.away_team_id == team_id || game.home_team_id == team_id
-      games_by_season[game.season] += 1 if team_played_in_game
+  def self.games_played_by(team_id)
+    #return all games that team played in
+    all.find_all do |game|
+      game.away_team_id == team_id || game.home_team_id == team_id
     end
-    games_by_season
   end
 
-  def self.wins_by_season(team_id)
-    #accumulator hash {season => wins}
-    season_wins = Hash.new { |hash, key| hash[key] = 0 }
-    all.each do |game|
-      #add 1 to season wins
-      season_wins[game.season] += 1 if game.win?(team_id)
-      team_played_in_game = game.away_team_id == team_id || game.home_team_id == team_id
-      #this below will populate a 0 if a team had no wins that season
-      season_wins[game.season] if team_played_in_game
+  def self.games_and_wins_by_season(team_id)
+    #accumulator hash {season1 => {"wins" => 10, "games => 20"}}
+    games_wins_by_season = Hash.new { |hash, key| hash[key] = {:wins => 0, :games_played => 0}}
+    games_played_by(team_id).each do |game|
+      games_wins_by_season[game.season][:wins] += 1 if game.win?(team_id)
+      games_wins_by_season[game.season][:games_played] += 1 #if team_played_in_game
     end
-    season_wins
+    games_wins_by_season
   end
 
-  def self.percent_by_season(team_id)
-    #this each_with_index can perform mult/div on arrays of the same size
-    # [1,2,3] * [11,12,13] = [11,24,39]
-    num_games = games_by_season(team_id).values
-    percent_per_season = wins_by_season(team_id).values.each_with_index.map do |wins, index|
-      ((wins.to_f / num_games[index].to_f)*100).to_i
+  def self.win_percent_by_season(team_id)
+    # accumulator hash {season => win%}
+    win_percent_by_season = Hash.new { |hash, key| hash[key] = 0 }
+    game_wins_avg_by_season = games_and_wins_by_season(team_id)
+    # divide 2 hashe values and send to new hash value
+    game_wins_avg_by_season.map do |key, value|
+      win_percent_by_season[key] = ((value[:wins] / value[:games_played].to_f)*100).to_i
     end
-
-    Hash[games_by_season(team_id).keys.zip(percent_per_season)]
+    win_percent_by_season
   end
 
 #deliverable
   def self.best_season(team_id)
     #return season with highest winning percentage
-    best_season = percent_by_season(team_id).max_by { |season, percent| percent}
+    best_season = win_percent_by_season(team_id).max_by { |season, percent| percent}
     "In the #{best_season[0]} season Team #{team_id} won #{best_season[1]}% of games"
   end
 
 #deliverable
   def self.worst_season(team_id)
     #return season with lowest winning percentage
-      worst_season = percent_by_season(team_id).min_by { |season, percent| percent}
+      worst_season = win_percent_by_season(team_id).min_by { |season, percent| percent}
       "In the #{worst_season[0]} season Team #{team_id} won #{worst_season[1]}% of games"
   end
 
