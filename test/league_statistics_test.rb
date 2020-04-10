@@ -1,6 +1,10 @@
 require './test/test_helper'
 require './lib/stat_tracker'
+# require './lib/game'
+# require './lib/game_team'
+# require './lib/team'
 require './lib/league_statistics'
+# require './lib/game'
 require 'pry'
 
 class LeagueStatisticsTest < Minitest::Test
@@ -15,12 +19,17 @@ class LeagueStatisticsTest < Minitest::Test
     teams: team_path,
     game_teams: game_teams_path
   }
+
   @stat_tracker = StatTracker.from_csv(locations)
-  @league_statistics = LeagueStatistics.new(@stat_tracker)
+  @league_statistics = @stat_tracker.league_statistics
   end
 
   def test_it_exists
     assert_instance_of LeagueStatistics, @league_statistics
+  end
+  #Come back to this one. Use a stub
+  def test_it_has_readable_attributes
+    skip
   end
 
   def test_count_of_teams
@@ -53,5 +62,9 @@ class LeagueStatisticsTest < Minitest::Test
   def test_average_goals_by_team
     expected = {"3"=>1.6, "6"=>2.6666666666666665, "5"=>0.5}
     assert_equal expected, @league_statistics.average_goals_by_team
+  end
+
+  def test_highest_scoring_visitor
+    @league_statistics.highest_scoring_visitor
   end
 end
