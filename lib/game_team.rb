@@ -68,7 +68,7 @@ class GameTeam
      value["average"]
    end
    team_hash_with_highest_average[0]
- end
+  end
 
  def self.most_accurate_team(season)
     seasonal_hash = gets_team_shots_goals_count(season)
@@ -148,5 +148,6 @@ class GameTeam
     @face_off_win_percentage = details[:faceoffwinpercentage].to_f.round(2)
     @giveaways = details[:giveaways].to_i
     @takeaways = details[:takeaways].to_i
+  end
   end
 end
