@@ -31,52 +31,60 @@ class GameTeam
     ((ties_count / games_count) * 100).round(2)
   end
 
-  def self.all_coaches
-    coaches = @@all.map {|gt| gt.head_coach }.uniq
+  def self.coaches_in_season(season_id)
+    search_term = season_id.to_s[0..3]
+    game_teams_in_season = @@all.find_all do |gt|
+      gt.game_id.to_s[0..3] == search_term
+    end
+    game_teams_in_season.map {|gameteam| gameteam.head_coach}.uniq
   end
 
-  def self.results_by_coach
-    results_by_coach = {}
-    all_coaches.each do |coach|
+  def self.results_by_coach(season_id)
+    search_term = season_id.to_s[0..3]
+    results_by_coach_by_season = {}
+    coaches_in_season(season_id).each do |coach|
       @@all.find_all do |gt|
-        if coach == gt.head_coach && results_by_coach[coach] == nil
-            results_by_coach[coach] = [gt.result]
-        elsif coach == gt.head_coach && results_by_coach[coach] != nil
-            results_by_coach[coach] << gt.result
+        if gt.game_id.to_s[0..3] == search_term
+          if coach == gt.head_coach &&    results_by_coach_by_season[coach] == nil
+            results_by_coach_by_season[coach] = [gt.result]
+          elsif coach == gt.head_coach &&   results_by_coach_by_season[coach] != nil
+            results_by_coach_by_season[coach] << gt.result
+          end
         end
       end
     end
-    results_by_coach
+    results_by_coach_by_season
   end
 
-  def self.total_games_coached
-    total_games_coached = {}
-    all_coaches.each do |coach|
-      total_games_coached[coach] = results_by_coach[coach].count
+  def self.total_games_coached(season_id)
+    total_games_coached_by_season = {}
+    coaches_in_season(season_id).each do |coach|
+      total_games_coached_by_season[coach] = results_by_coach(season_id)[coach].count
     end
-    total_games_coached
+    total_games_coached_by_season
   end
 
-  def self.wins_by_coach
-    wins_by_coach = {}
-    all_coaches.each do |coach|
-      results_by_coach[coach].each do |result|
-        if result == "WIN" && wins_by_coach[coach] == nil
-          wins_by_coach[coach] = 1
-        elsif result == "WIN" && wins_by_coach[coach] != nil
-          wins_by_coach[coach] += 1
+  def self.wins_by_coach(season_id)
+    wins_by_coach_by_season = {}
+    coaches_in_season(season_id).each do |coach|
+      results_by_coach(season_id)[coach].each do |result|
+        if result == "WIN" && wins_by_coach_by_season[coach] == nil
+          wins_by_coach_by_season[coach] = 1
+        elsif result == "WIN" && wins_by_coach_by_season[coach] != nil
+          wins_by_coach_by_season[coach] += 1
         end
       end
     end
-    wins_by_coach
+    wins_by_coach_by_season
   end
 
-  def self.winningest_coach
-    all_coaches.max_by {|coach| ((wins_by_coach[coach].to_f / total_games_coached[coach].to_f) * 100).round(2)}
+  def self.winningest_coach(season_id)
+    coaches_in_season(season_id).max_by {|coach| ((wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f) * 100).round(2)}
   end
 
-  def self.worst_coach
-    all_coaches.min_by {|coach| ((wins_by_coach[coach].to_f / total_games_coached[coach].to_f) * 100).round(2)}
+
+  def self.worst_coach(season_id)
+    coaches_in_season(season_id).min_by {|coach| ((wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f) * 100).round(2)}
   end
 
   def self.best_offense
