@@ -51,6 +51,15 @@ class StatTrackerTest < Minitest::Test
 
   def test_lowest_total_score
     assert_equal 0, @stat_tracker.lowest_total_score
+  end
+
+  def test_count_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+
+  def test_percentage_home_wins
+    assert_equal 0.44, @stat_tracker.percentage_home_wins
+  end
   #
   # def test_it_has_teams
   # expected = "Atlanta United"

@@ -1,11 +1,17 @@
-class League
+require_relative './csv_helper_file'
 
-  def initialize
 
+
+class LeagueRepository
+
+  def initialize(game_path, game_team_path, team_path)
+    @game_collection = CsvHelper.generate_game_array(game_path)
+    @game_team_collection = CsvHelper.generate_game_teams_array(game_team_path)
+    @team_collection = CsvHelper.generate_team_array(team_path)
   end
 
   def count_of_teams
-    Team.all_teams.count
+    @team_collection.count
   end
 
   def best_offense

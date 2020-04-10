@@ -6,6 +6,7 @@ class GameRepository
   attr_reader :games_collection
   def initialize(file_path)
     @games_collection = CsvHelper.generate_game_array(file_path)
+
   end
 
   def highest_total_score
@@ -14,6 +15,15 @@ class GameRepository
       (game.away_goals + game.home_goals)
     end
     sum = (highest_score.away_goals + highest_score.home_goals)
+  end
+
+  def percentage_home_wins
+    number_of_games = @games_collection.length
+  home_wins =  @games_collection.select do |game|
+      game.home_goals > game.away_goals
+    end
+    number_of_homewins = home_wins.length
+    percent_home_wins = (number_of_homewins.to_f / number_of_games.to_f).round(2)
   end
 
 

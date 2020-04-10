@@ -28,6 +28,10 @@ class GameRepositoryTest < Minitest::Test
     game_repository = GameRepository.new('./data/games.csv')
 
     assert_equal 0 , game_repository.lowest_total_score
+  end
 
+  def test_percentage_home_wins
+    game_repository = GameRepository.new('./data/games.csv')
+    assert_equal 0.44, game_repository.percentage_home_wins
   end
 end

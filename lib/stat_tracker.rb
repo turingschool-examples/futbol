@@ -4,8 +4,11 @@ require_relative './game_teams'
 require_relative './game_teams_repository'
 require_relative './team_repository'
 require_relative './game_repository'
+require_relative './league_repository'
 
 require 'CSV'
+
+
 
 class StatTracker
 
@@ -15,19 +18,20 @@ class StatTracker
 
 
   def self.from_csv(file_paths)
-
+    league_repository = LeagueRepository.new(file_paths[:games], file_paths[:game_teams], file_paths[:teams])
     team_repository = TeamRepository.new(file_paths[:teams])
     game_repository = GameRepository.new(file_paths[:games])
     game_team_repository = GameTeamsRepository.new(file_paths[:game_teams])
-    stat_tracker = StatTracker.new(team_repository, game_repository, game_team_repository)
+    stat_tracker = StatTracker.new(team_repository, game_repository, game_team_repository, league_repository)
 
   end
     attr_reader :team_repository, :game_repository, :game_team_repository
 
-  def initialize(team_repository, game_repository, game_team_repository)
+  def initialize(team_repository, game_repository, game_team_repository, league_repository)
     @team_repository = team_repository
     @game_repository = game_repository
     @game_team_repository = game_team_repository
+    @league_repository = league_repository
   end
 
   def highest_total_score
@@ -38,6 +42,13 @@ class StatTracker
     @game_repository.lowest_total_score
   end
 
+  def count_of_teams
+    @league_repository.count_of_teams
+  end
+
+  def percentage_home_wins
+    @game_repository.percentage_home_wins
+  end
 
 # @game_teams_path = game_teams_path
 
