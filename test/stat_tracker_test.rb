@@ -74,6 +74,9 @@ class StatTrackerTest < MiniTest::Test
   end
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d60a2afd351064fe6645e07a0f4d88aabc3c27fa
   def test_it_can_find_average_goals_by_team
     assert_equal 2.4, @stat_tracker.average_goals_by_team(52)
   end
@@ -122,7 +125,6 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 'Philadelphia Union', @stat_tracker.lowest_scoring_home_team
   end
 
-=======
   def test_most_accurate_team
     assert_equal "Portland Thorns FC", @stat_tracker.most_accurate_team("20172018")
   end
@@ -146,5 +148,4 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_find_team_with_least_season_tackles
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20172018")
   end
->>>>>>> season_stats
 end

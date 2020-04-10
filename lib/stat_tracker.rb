@@ -96,7 +96,6 @@ class StatTracker
     @teams.length
   end
 
-<<<<<<< HEAD
   def average_goals_by_team(team_id, hoa = nil)
     goals = 0
     games = 0
@@ -153,7 +152,6 @@ class StatTracker
     team_by_id(id).team_name
   end
 
-=======
   def most_accurate_team(season)
     season_games = @games.find_all{|game| game.season == season}
     season_game_ids = season_games.map{|game| game.game_id}
@@ -219,5 +217,4 @@ class StatTracker
     end
     @teams.find {|team| team.team_id == team_tackles.min_by {|team, tack| tack}[0]}.team_name
   end
->>>>>>> season_stats
 end
