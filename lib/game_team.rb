@@ -115,7 +115,7 @@ class GameTeam
     end
     total_goals_per_team= Hash[grouped_team.keys.zip(team_averaged_goals)]
     total_goals_per_team.key(total_goals_per_team.values.min)
-
+  end
     attr_reader :game_id,
                 :team_id,
                 :hoa,
