@@ -27,4 +27,8 @@ class TeamCollectionTest < Minitest::Test
   def test_count_of_teams
     assert_equal 32, @team_collection.count_of_teams
   end
+
+  def find(team_id_number)
+    @teams.find {|team| team.team_id == team_id_number}
+  end
 end
