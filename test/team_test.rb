@@ -23,19 +23,20 @@ class TeamTest < Minitest::Test
     assert_equal "link", team.link
   end
 #"./test/fixtures/items_truncated.csv"
-  def test_it_has_teams
-    Team.from_csv("./data/teams.csv")
-    team = Team.all_teams[2]
-
-     # require"pry";binding.pry
-    assert_equal 26,team.team_id
-    assert_equal 14, team.franchiseid
-    assert_equal "FC Cincinnati", team.teamname
-    assert_equal "CIN", team.abbreviation
-    assert_equal "Nippert Stadium", team.stadium
-    assert_equal "/api/v1/teams/26", team.link
-    assert_instance_of Team, team
-
-  end
+#move to team_repository
+  # def test_it_has_teams
+  #   Team.from_csv("./data/teams.csv")
+  #   team = Team.all_teams[2]
+  #
+  #    # require"pry";binding.pry
+  #   assert_equal 26,team.team_id
+  #   assert_equal 14, team.franchiseid
+  #   assert_equal "FC Cincinnati", team.teamname
+  #   assert_equal "CIN", team.abbreviation
+  #   assert_equal "Nippert Stadium", team.stadium
+  #   assert_equal "/api/v1/teams/26", team.link
+  #   assert_instance_of Team, team
+  #
+  # end
 #26,14,FC Cincinnati,CIN,Nippert Stadium,/api/v1/teams/26
 end

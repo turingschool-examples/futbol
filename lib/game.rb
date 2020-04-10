@@ -1,13 +1,6 @@
 class Game
-  @@all_games = []
-  def self.from_csv(file_path)
-      csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
-      @@all_games = csv.map do |row|
-        #require 'pry'; binding.pry
-        game = Game.new(row)
-        #require 'pry'; binding.pry
-      end
-  end
+#move these methods into game_repository, then delete when all functionialty is maintain
+#we only want game initize method here
 
   def self.highest_total_score
     highest_score = @@all_games.max_by do |game|

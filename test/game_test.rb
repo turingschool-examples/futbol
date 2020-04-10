@@ -5,7 +5,7 @@ require './lib/game'
 
 
 class GameTest < Minitest::Test
-
+#move all tests that are not initialze and test it exists into the game_repository_test
   def test_it_exists
     game = Game.new({game_id: 123, season: "20122013", type: "Postseason",
           date_time: "6/5/13", away_team_id: 1, home_team_id: 1, away_goals: 1,
