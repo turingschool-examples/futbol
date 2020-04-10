@@ -143,4 +143,14 @@ class StatTracker
     team_by_id(id).team_name
   end
 
+  def lowest_scoring_visitor
+    id = unique_team_ids.min_by { |team_id| average_goals_by_team(team_id, "away")}
+    team_by_id(id).team_name
+  end
+
+  def lowest_scoring_home_team
+    id = unique_team_ids.min_by { |team_id| average_goals_by_team(team_id, "home")}
+    team_by_id(id).team_name
+  end
+
 end

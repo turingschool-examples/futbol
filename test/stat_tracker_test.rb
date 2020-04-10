@@ -101,4 +101,12 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 'FC Dallas', @stat_tracker.highest_scoring_home_team
   end
 
+  def test_lowest_scoring_visitor
+    assert_equal 'Montreal Impact', @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_lowest_scoring_home_team
+    assert_equal 'Philadelphia Union', @stat_tracker.lowest_scoring_home_team
+  end
+
 end
