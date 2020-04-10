@@ -81,16 +81,20 @@ class StatTrackerTest < MiniTest::Test
     assert_equal [30, 52, 19, 23, 24, 4, 29, 12, 6, 17, 1, 2], @stat_tracker.unique_team_ids
   end
 
+  def test_find_team_by_id
+    assert_equal 'Reign FC', @stat_tracker.team_by_id(54).team_name
+  end
+
   def test_best_offense
-    assert_equal 'FC Dallas', @stat_tracker.best_offense
+    assert_equal 'Real Salt Lake', @stat_tracker.best_offense
   end
 
   def test_worst_offense
     assert_equal 'Seattle Sounders FC', @stat_tracker.worst_offense
   end
 
-  def test_find_team_by_id
-    assert_equal 'Reign FC', @stat_tracker.team_by_id(54).team_name
+  def test_highest_scoring_visitor
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
   end
 
 end

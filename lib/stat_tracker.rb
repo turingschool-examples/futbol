@@ -95,16 +95,24 @@ class StatTracker
     @teams.length
   end
 
-  def average_goals_by_team(team_id)
+  def average_goals_by_team(team_id, hoa = nil)
     goals = 0
     games = 0
     @game_teams.each do |game_team|
-      if game_team.team_id == team_id
-        goals += game_team.goals
-        games += 1
+      if hoa != nil
+        if game_team.team_id == team_id && game_team.hoa == hoa
+          goals += game_team.goals
+          games += 1
+        end
+      else
+        if game_team.team_id == team_id
+          goals += game_team.goals
+          games += 1
+        end
       end
     end
-    goals/games.to_f
+    return 0 if games == 0
+    (goals.to_f / games.to_f).round(2)
   end
 
   def unique_team_ids
@@ -122,6 +130,11 @@ class StatTracker
 
   def worst_offense
     id = unique_team_ids.min_by { |team_id| average_goals_by_team(team_id)}
+    team_by_id(id).team_name
+  end
+
+  def highest_scoring_visitor
+    id = unique_team_ids.max_by { |team_id| average_goals_by_team(team_id, "away")}
     team_by_id(id).team_name
   end
 
