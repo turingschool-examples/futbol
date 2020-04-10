@@ -25,15 +25,15 @@ class StatTrackerTest < Minitest::Test
   def test_it_has_attributes
     assert_equal "./data/games_truncated.csv", @stat_tracker.game_path
     assert_equal "./data/teams.csv", @stat_tracker.team_path
-    assert_equal "./data/game_teams.csv", @stat_tracker.game_team_path
+    assert_equal "./data/game_teams.csv", @stat_tracker.game_teams_path
   end
 
   def test_it_can_create_games
-    assert_instance_of Games, @sales_engine.games
+    assert_instance_of Games, @stat_tracker.games
   end
 
   def test_it_can_create_teams
-    assert_instance_of Teams, @sales_engine.teams
+    assert_instance_of Teams, @stat_tracker.teams
     #need teams class
   end
 ########
