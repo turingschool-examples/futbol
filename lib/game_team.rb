@@ -41,6 +41,11 @@ class GameTeam
   def self.worst_coach
   end
 
+  def self.game_team_shots_goals_count(arr_games)
+    season = arr_games.first.game_id
+    self.find_by(season)
+  end
+
     attr_reader :game_id,
                 :team_id,
                 :hoa,
