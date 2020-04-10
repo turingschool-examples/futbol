@@ -1,20 +1,20 @@
 class Team
-  @@all_teams= []
+  # @@all_teams= []
+  #
+  # def self.all_teams
+  #   @@all_teams
+  # end
 
-  def self.all_teams
-    @@all_teams
-  end
-
-  def self.from_csv(file_path)
-      csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
-
-      @@all_teams = csv.map do |row|
-
-          # require"pry";binding.pry
-          team = Team.new(row)
-          
-      end
-    end
+  # def self.from_csv(file_path)
+  #     csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
+  #
+  #     @@all_teams = csv.map do |row|
+  #
+  #         # require"pry";binding.pry
+  #         team = Team.new(row)
+  #
+  #     end
+  #   end
   #
   # CSV.read(./data/teams.csv)
   attr_reader :team_id, :franchiseid, :teamname, :abbreviation, :stadium, :link

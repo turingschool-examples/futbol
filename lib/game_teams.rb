@@ -1,10 +1,10 @@
-class GameStats
+class GameTeams
 
   @@all_game_stats = []
   def self.from_csv(file_path)
       csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
       @@all_game_stats = csv.map do |row|
-        stats = GameStats.new(row)
+        stats = GameTeams.new(row)
       end
   end
 

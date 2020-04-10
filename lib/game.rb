@@ -1,14 +1,5 @@
 class Game
-  @@all_games = []
-  def self.from_csv(file_path)
-      csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
-      @@all_games = csv.map do |row|
-        #require 'pry'; binding.pry
-        game = Game.new(row)
-         # require 'pry'; binding.pry
-      end
-      # require"pry";binding.pry
-  end
+
 
   def self.highest_total_score
     highest_score = @@all_games.max_by do |game|

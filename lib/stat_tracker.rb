@@ -1,58 +1,43 @@
 require_relative './team'
 require_relative './game'
-require_relative './game_stats'
+require_relative './game_teams'
+require_relative './game_teams_repository'
+require_relative './team_repository'
+require_relative './game_repository'
+
 require 'CSV'
 
 class StatTracker
 
 
-  # locations = {
-  #   games: game_path,
-  #   teams: team_path,
-  #   game_teams: game_teams_path
-  # }
-#   locations = {
-#     games: game_path,
-#     teams: team_path,
-#     game_teams: game_teams_path
-#   }
-#
-#   @stat_tracker = StatTracker.from_csv(locations)
-# end
 
-def self.teams(file_path)
-  Team.from_csv(file_path)
-  Team.all_teams
-end
 
-def self.games(file_path)
-  Game.from_csv(file_path)
-  Game.all_games
-end
-
-def self.game_stats(file_path)
-  GameStats.from_csv(file_path)
-  game_stats = GameStats.all_game_stats
-end
 
 
   def self.from_csv(file_paths)
+
     team_repository = TeamRepository.new(file_paths[:teams])
-    # game_repository = GameRepository.new(file_paths[:games])
-    # game_team_repository = GameTeamRepository.new(file_paths[:game_teams])
-    StatTracker.new(team_repository)
-  end
-    attr_reader :team_repository
+    game_repository = GameRepository.new(file_paths[:games])
+    game_team_repository = GameTeamsRepository.new(file_paths[:game_teams])
+    stat_tracker = StatTracker.new(team_repository, game_repository, game_team_repository)
 
-  def initialize(team_repository)
+  end
+    attr_reader :team_repository, :game_repository, :game_team_repository
+
+  def initialize(team_repository, game_repository, game_team_repository)
     @team_repository = team_repository
-
-
-    # @team_path = StatTracker.teams(locations[:teams])
-    # @game_path = StatTracker.games(locations[:games])
-    # @game_teams_path = StatTracker.game_stats(locations[:game_teams])
-    # require"pry";binding.pry
+    @game_repository = game_repository
+    @game_team_repository = game_team_repository
   end
+
+  def highest_total_score
+    @game_repository.highest_total_score
+  end
+
+  def lowest_total_score
+    @game_repository.lowest_total_score
+  end
+
 
 # @game_teams_path = game_teams_path
 
@@ -85,10 +70,7 @@ end
     @team_repository.team_info(id)
   end
 
-  def highest_total_score(all_games)
-    require"pry";binding.pry
-    Game.highest_total_score
-  end
+
 
 
 # Season with the highest win percentage for a team.
