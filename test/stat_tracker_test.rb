@@ -60,6 +60,18 @@ class StatTrackerTest < Minitest::Test
   def test_percentage_home_wins
     assert_equal 0.44, @stat_tracker.percentage_home_wins
   end
+
+  def test_it_can_report_most_goals_scored
+    assert_equal 7, @stat_tracker.most_goals_scored("18")
+  end
+
+  def test_it_can_report_fewest_goals_scored
+    assert_equal 0, @stat_tracker.fewest_goals_scored("6")
+  end
+
+  def test_best_offense
+    assert_equal "Sporting Kansas City", @stat_tracker.best_offense
+  end
   #
   # def test_it_has_teams
   # expected = "Atlanta United"
