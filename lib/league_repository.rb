@@ -73,7 +73,7 @@ class LeagueRepository
       find_team_id(first_answer)
   end
 
-  def highest_scoring_home
+  def highest_scoring_home_team
     average_score_home = Hash.new
     @game_collection.each do |game|
       if average_score_home[game.home_team_id] == nil
@@ -107,7 +107,7 @@ class LeagueRepository
       find_team_id(first_answer)
   end
 
-  def lowest_scoring_home
+  def lowest_scoring_home_team
     average_score_home = Hash.new
     @game_collection.each do |game|
       if average_score_home[game.home_team_id] == nil
