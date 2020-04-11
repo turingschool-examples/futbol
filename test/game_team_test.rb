@@ -100,59 +100,17 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_find_game_results_by_coach
-    assert_equal ({"John Tortorella"=>["LOSS", "LOSS", "LOSS", "LOSS", "WIN"],
-      "Claude Julien"=>["WIN", "WIN", "WIN", "WIN"],
-      "Mike Babcock"=>["LOSS", "WIN", "TIE", "WIN"],
-      "Joel Quenneville"=>["WIN", "TIE", "WIN"],
-      "Paul MacLean"=>["TIE"],
-      "Michel Therrien"=>["TIE", "LOSS"],
-      "Darryl Sutter"=>["TIE", "WIN", "TIE", "WIN", "LOSS"],
-      "Dave Hakstol"=>["LOSS", "WIN"],
-      "Barry Trotz"=>["LOSS"],
-      "Lindy Ruff"=>["WIN", "TIE", "WIN", "WIN"],
-      "Todd McLellan"=>["WIN"],
-      "Ralph Krueger"=>["LOSS"],
-      "Willie Desjardins"=>["TIE", "TIE", "LOSS"],
-      "Jack Capuano"=>["WIN"],
-      "Jared Bednar"=>["TIE"],
-      "Bruce Cassidy"=>["WIN"],
-      "Bruce Boudreau"=>["WIN"]}), GameTeam.results_by_coach
+    assert_equal ({"Willie Desjardins"=>["TIE", "TIE"], "Darryl Sutter"=>["TIE", "LOSS"], "Claude Julien"=>["WIN", "WIN"], "Michel Therrien"=>["LOSS"], "Joel Quenneville"=>["WIN"], "Jared Bednar"=>["TIE"], "Mike Babcock"=>["TIE", "WIN"], "Bruce Cassidy"=>["WIN"], "Lindy Ruff"=>["WIN", "WIN"]}), GameTeam.results_by_coach(2016030134)
   end
-  #
-  # def test_it_can_find_total_games_coached
-  #   assert_equal ({"John Tortorella"=>5,
-  #     "Claude Julien"=>4,
-  #     "Mike Babcock"=>4,
-  #     "Joel Quenneville"=>3,
-  #     "Paul MacLean"=>1,
-  #     "Michel Therrien"=>2,
-  #     "Darryl Sutter"=>5,
-  #     "Dave Hakstol"=>2,
-  #     "Barry Trotz"=>1,
-  #     "Lindy Ruff"=>4,
-  #     "Todd McLellan"=>1,
-  #     "Ralph Krueger"=>1,
-  #     "Willie Desjardins"=>3,
-  #     "Jack Capuano"=>1,
-  #     "Jared Bednar"=>1,
-  #     "Bruce Cassidy"=>1,
-  #     "Bruce Boudreau"=>1}), GameTeam.total_games_coached
-  # end
-  #
-  # def test_it_can_count_wins_by_coach
-  #   assert_equal ({"John Tortorella"=>1,
-  #     "Claude Julien"=>4,
-  #     "Mike Babcock"=>2,
-  #     "Joel Quenneville"=>2,
-  #     "Darryl Sutter"=>2,
-  #     "Dave Hakstol"=>1,
-  #     "Lindy Ruff"=>3,
-  #     "Todd McLellan"=>1,
-  #     "Jack Capuano"=>1,
-  #     "Bruce Cassidy"=>1,
-  #     "Bruce Boudreau"=>1}), GameTeam.wins_by_coach
-  # end
-  #
+
+  def test_it_can_find_total_games_coached
+    assert_equal ({"Willie Desjardins"=>2, "Darryl Sutter"=>2, "Claude Julien"=>2, "Michel Therrien"=>1, "Joel Quenneville"=>1, "Jared Bednar"=>1, "Mike Babcock"=>2, "Bruce Cassidy"=>1, "Lindy Ruff"=>2}), GameTeam.total_games_coached(2016030134)
+  end
+
+  def test_it_can_count_wins_by_coach
+    assert_equal ({"Claude Julien"=>2, "Joel Quenneville"=>1, "Mike Babcock"=>1, "Bruce Cassidy"=>1, "Lindy Ruff"=>2}), GameTeam.wins_by_coach(2016030134)
+  end
+
   def test_it_can_find_winninest_coach
     assert_equal "Claude Julien", GameTeam.winningest_coach(2016030134)
   end
@@ -222,5 +180,13 @@ class GameTeamTest < Minitest::Test
 
   def test_it_can_return_worst_offense_team_number
     assert_equal 17, GameTeam.worst_offense
-    
+  end
+
+  def test_it_can_find_favorite_opponent_id
+    assert_equal 2, GameTeam.favorite_opponent_id(4)
+  end
+  #
+  # def test_it_can_determine_rival_id
+  #   assert_equal 4, GameTeam.rival_id(6)
+  # end
 end
