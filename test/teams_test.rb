@@ -22,4 +22,8 @@ class TeamsTest < Minitest::Test
   def test_it_has_all
     assert_equal @teams.teams, @teams.all
   end
+
+  def test_find_by_team_id
+    assert_equal @team, @teams.find_by_team_id(@team.team_id)
+  end
 end
