@@ -224,4 +224,46 @@ class StatTracker
     # returns the number of that team's wins over the total games they have played rounded to the 2nd decimal place
    (team_total_wins.to_f /  team_total_games(team_id.to_i)).round(2)
   end
+  def favorite_opponent(team_id)
+    team_games = @game_teams.find_all {|team| team.team_id == team_id}
+    team_games.map! {|game| game.game_id}
+    opp_team_games = @game_teams.find_all {|game| team_games.include?(game.game_id) && game.team_id != team_id}
+    opp_teams = opp_team_games.group_by {|game| game.team_id}
+    opp_teams.each do |team, game|
+      wins = 0.0
+      num_games = 0
+      game.each do |match|
+        if match.result == "LOSS" #inverted logic, we're looking at the *opposing* team
+          wins += 1.0             #if they lost, the team we're actually looking for won
+        elsif match.result == "TIE"
+          wins += 0.5
+        end
+        num_games += 1
+      end
+      opp_teams[team] = wins / num_games
+    end
+    @teams.find {|team| team.team_id == opp_teams.max_by {|team, win_pct| win_pct}[0]}.team_name
+  end
+
+  def rival(team_id)
+    team_games = @game_teams.find_all {|team| team.team_id == team_id}
+    team_games.map! {|game| game.game_id}
+    opp_team_games = @game_teams.find_all {|game| team_games.include?(game.game_id) && game.team_id != team_id}
+    opp_teams = opp_team_games.group_by {|game| game.team_id}
+    opp_teams.each do |team, game|
+      wins = 0.0
+      num_games = 0
+      game.each do |match|
+        if match.result == "LOSS" #same as before
+          wins += 1.0
+        elsif match.result == "TIE"
+          wins += 0.5
+        end
+        num_games += 1
+      end
+      opp_teams[team] = wins / num_games
+    end
+    @teams.find {|team| team.team_id == opp_teams.min_by {|team, win_pct| win_pct}[0]}.team_name
+  end
+
 end
