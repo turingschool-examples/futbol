@@ -1,12 +1,3 @@
-
-# best_season
-# worst_season
-# average_win_percentage
-# most_goals_scored
-# fewest_goals_scored
-# favorite_opponent
-# rival
-
 require_relative 'team'
 require 'csv'
 
@@ -19,6 +10,7 @@ class TeamCollection
 
   def create_teams(csv_file_path)
     csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
+
     csv.map do |row|
       Team.new(row)
     end
@@ -33,6 +25,10 @@ class TeamCollection
       abbreviation: found_team.abbreviation,
       link: found_team.link
     }
+  end
+
+  def teamname_by_id(team_id)
+    @teams.find {|team| team.team_id == team_id}.teamname
   end
 
 end

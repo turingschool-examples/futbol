@@ -29,4 +29,8 @@ class TeamCollectionTest < Minitest::Test
                 :link => "/api/v1/teams/1"}
     assert_equal expected, @team_collection.team_info(1)
   end
+
+  def test_it_can_find_teamname_by_id
+    assert_equal "Atlanta United", @team_collection.teamname_by_id(1)
+  end
 end
