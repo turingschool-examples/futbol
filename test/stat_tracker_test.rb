@@ -167,7 +167,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_least_goals_scored_by_team_id
-    assert_equal 1, @stat_tracker.least_goals_scored(26)
+    assert_equal 2, @stat_tracker.least_goals_scored(26)
   end
 
 end
