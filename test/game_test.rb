@@ -195,14 +195,14 @@ class GameTest < Minitest::Test
     assert_equal 2, Game.lowest_scoring_visitor_team_id
   end
   #deliverable
-  def test_lowest_scoring_heam_team_id
+  def test_lowest_scoring_home_team_id
     assert_equal 5, Game.lowest_scoring_home_team_id
     games_goals = {1 => {:goals => 5, :games_played =>2},
                    2 => {:goals => 12, :games_played =>1},
-                   3 => {:goals => 5, :games_played =>1}}
+                   3 => {:goals => 4, :games_played =>3}}
     stub_expected = Game.divide_hash_values(:goals, :games_played, games_goals)
     Game.stubs(:average_goals_by).returns(stub_expected)
-    assert_equal 1, Game.lowest_scoring_home_team_id
+    assert_equal 3, Game.lowest_scoring_home_team_id
   end
 
   def test_it_identifies_wins_given_team_id_game_id
