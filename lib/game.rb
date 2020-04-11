@@ -10,4 +10,12 @@ class Game
     @away_goals= info[:away_goals].to_i
     @home_goals= info[:home_goals].to_i
   end
+
+  def home_team_win?
+    home_goals > away_goals
+  end
+
+  def visitor_team_win?
+    home_goals < away_goals
+  end
 end
