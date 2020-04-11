@@ -217,4 +217,16 @@ class StatTracker
     end
     @teams.find {|team| team.team_id == team_tackles.min_by {|team, tack| tack}[0]}.team_name
   end
+
+  def all_games_by_team(team_id)
+    @game_teams.find_all{|game_team| game_team.team_id == team_id.to_i}
+  end
+
+  def most_goals_scored(team_id)
+    all_games_by_team(team_id).max_by{|game| game.goals}.goals
+  end
+
+  def fewest_goals_scored(team_id)
+    all_games_by_team(team_id).min_by{|game| game.goals}.goals
+  end
 end
