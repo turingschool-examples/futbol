@@ -199,18 +199,29 @@ class StatTracker
   end
 
   def team_info(team_id)
+    # finds a specific team via their id
      team = team_by_id(team_id.to_i)
-      team_data = team.instance_variables.map { |key,value| ["#{key}".delete("@"), value = team.send("#{key}".delete("@").to_sym).to_s]}.to_h
+     # returns an array of the team object's instance variables, then iterates
+     # over that array, deletes the '@' from the front of the instance variable
+     # and assigns that as a key, then sets the value equal to the key by again
+     # removing the '@' and then passing that as a method call then returning it
+     # all as a hash
+      team_data = team.instance_variables.map { |key,value| ["#{key}".delete("@"), value = team.send("#{key}".delete("@").to_sym)]}.to_h
+      # searches the hash for a key, value pair whose key is "stadium" then deletes it.
       team_data.delete_if {|k,v| k == "stadium"}
   end
 
   def team_total_games(team_id)
+    # finds all the games that a specific team has played in
     total_games = @game_teams.find_all{|game| game.team_id == team_id}
+    # returns the number of games that team has played in
     total_games.length
   end
 
   def average_win_percentage(team_id)
+    # finds the number of games that a team both played in and won
     team_total_wins = @game_teams.find_all{|game| game.team_id == team_id.to_i && game.result == "WIN"}.length
+    # returns the number of that team's wins over the total games they have played rounded to the 2nd decimal place
    (team_total_wins.to_f /  team_total_games(team_id.to_i)).round(2)
   end
 end
