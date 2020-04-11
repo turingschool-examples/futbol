@@ -73,55 +73,51 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 32, @stat_tracker.count_of_teams
   end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> d60a2afd351064fe6645e07a0f4d88aabc3c27fa
   def test_it_can_find_average_goals_by_team
-    assert_equal 2.4, @stat_tracker.average_goals_by_team(52)
+    assert_equal 2.4, @stat_tracker.average_goals_by_team("52")
   end
 
   def test_it_can_find_unique_team_id
-    assert_equal [30, 52, 19, 23, 24, 4, 29, 12, 6, 17, 1, 2], @stat_tracker.unique_team_ids
+    assert_equal ["30", "52", "19", "23", "24", "4", "29", "12", "6", "17", "1", "2"], @stat_tracker.unique_team_ids
   end
 
   def test_find_team_by_id
-    assert_equal 'Reign FC', @stat_tracker.team_by_id(54).team_name
+    assert_equal 'Reign FC', @stat_tracker.team_by_id("54").team_name
   end
 
   def test_best_offense
     @stat_tracker.stubs(:average_goals_by_team).returns(1)
-    @stat_tracker.stubs(:average_goals_by_team).with(1).returns(2)
+    @stat_tracker.stubs(:average_goals_by_team).with("1").returns(2)
     assert_equal 'Atlanta United', @stat_tracker.best_offense
   end
 
   def test_worst_offense
     @stat_tracker.stubs(:average_goals_by_team).returns(2)
-    @stat_tracker.stubs(:average_goals_by_team).with(2).returns(1)
+    @stat_tracker.stubs(:average_goals_by_team).with("2").returns(1)
     assert_equal 'Seattle Sounders FC', @stat_tracker.worst_offense
   end
 
   def test_highest_scoring_visitor
     @stat_tracker.stubs(:average_goals_by_team).returns(1)
-    @stat_tracker.stubs(:average_goals_by_team).with(24, "away").returns(2)
+    @stat_tracker.stubs(:average_goals_by_team).with("24", "away").returns(2)
     assert_equal 'Real Salt Lake', @stat_tracker.highest_scoring_visitor
   end
 
   def test_highest_scoring_home_team
     @stat_tracker.stubs(:average_goals_by_team).returns(1)
-    @stat_tracker.stubs(:average_goals_by_team).with(6, "home").returns(2)
+    @stat_tracker.stubs(:average_goals_by_team).with("6", "home").returns(2)
     assert_equal 'FC Dallas', @stat_tracker.highest_scoring_home_team
   end
 
   def test_lowest_scoring_visitor
     @stat_tracker.stubs(:average_goals_by_team).returns(2)
-    @stat_tracker.stubs(:average_goals_by_team).with(23, "away").returns(1)
+    @stat_tracker.stubs(:average_goals_by_team).with("23", "away").returns(1)
     assert_equal 'Montreal Impact', @stat_tracker.lowest_scoring_visitor
   end
 
   def test_lowest_scoring_home_team
     @stat_tracker.stubs(:average_goals_by_team).returns(2)
-    @stat_tracker.stubs(:average_goals_by_team).with(19, "home").returns(1)
+    @stat_tracker.stubs(:average_goals_by_team).with("19", "home").returns(1)
     assert_equal 'Philadelphia Union', @stat_tracker.lowest_scoring_home_team
   end
 
@@ -147,5 +143,13 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_can_find_team_with_least_season_tackles
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20172018")
+  end
+
+  def test_find_favorite_opponent
+    assert_equal "LA Galaxy", @stat_tracker.favorite_opponent("29")
+  end
+
+  def test_find_rival
+    assert_equal "Real Salt Lake", @stat_tracker.rival("29")
   end
 end
