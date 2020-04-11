@@ -6,6 +6,10 @@ class GameTeam
     @@all
   end
 
+  def self.find_by_team(team_id)
+    all.find_all{|game| game.team_id == team_id}
+  end
+
   def self.find_by(id)
     @@all.find_all{|game| game.game_id == id}
   end
