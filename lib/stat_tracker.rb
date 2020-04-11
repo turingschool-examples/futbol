@@ -5,6 +5,7 @@ require_relative './game_teams_repository'
 require_relative './team_repository'
 require_relative './game_repository'
 require_relative './league_repository'
+require_relative './season_repository'
 
 require 'CSV'
 
@@ -22,6 +23,7 @@ class StatTracker
     team_repository = TeamRepository.new(file_paths[:teams])
     game_repository = GameRepository.new(file_paths[:games])
     game_team_repository = GameTeamsRepository.new(file_paths[:game_teams])
+    season_repository = SeasonRepository.new(file_paths[:games], file_paths[:game_teams], file_paths[:teams])
     stat_tracker = StatTracker.new(team_repository, game_repository, game_team_repository, league_repository)
 
   end

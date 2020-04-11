@@ -116,5 +116,5 @@ class Game
     @venue = info[:venue]
     @venue_link = info[:venue_link]
   end
- =
+ 
 end
