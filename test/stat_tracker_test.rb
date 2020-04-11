@@ -154,7 +154,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_find_all_of_the_teams_games
-    assert_equal  5 , @stat_tracker.team_total_games(30)
+    assert_equal  5 , @stat_tracker.team_total_games("30")
   end
 
   def test_it_can_find_the_average_winrate_for_a_team
@@ -166,4 +166,5 @@ class StatTrackerTest < MiniTest::Test
   def test_find_rival
     assert_equal "Real Salt Lake", @stat_tracker.rival("29")
   end
+end
 end

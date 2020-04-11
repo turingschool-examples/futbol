@@ -200,7 +200,7 @@ class StatTracker
 
   def team_info(team_id)
     # finds a specific team via their id
-     team = team_by_id(team_id.to_i)
+     team = team_by_id(team_id)
      # returns an array of the team object's instance variables, then iterates
      # over that array, deletes the '@' from the front of the instance variable
      # and assigns that as a key, then sets the value equal to the key by again
@@ -220,9 +220,9 @@ class StatTracker
 
   def average_win_percentage(team_id)
     # finds the number of games that a team both played in and won
-    team_total_wins = @game_teams.find_all{|game| game.team_id == team_id.to_i && game.result == "WIN"}.length
+    team_total_wins = @game_teams.find_all{|game| game.team_id == team_id && game.result == "WIN"}.length
     # returns the number of that team's wins over the total games they have played rounded to the 2nd decimal place
-   (team_total_wins.to_f /  team_total_games(team_id.to_i)).round(2)
+   (team_total_wins.to_f /  team_total_games(team_id)).round(2)
   end
   def favorite_opponent(team_id)
     team_games = @game_teams.find_all {|team| team.team_id == team_id}
