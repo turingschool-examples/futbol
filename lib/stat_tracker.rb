@@ -42,15 +42,14 @@ class StatTracker
   # {team_name: num_goals, team_name2: num_goals...}
 
   def highest_scoring_visitor
-    away_team_goals = @games.all.reduce({}) do |teams, game|
-      teams[game.away_team_id] = game.away_goals
+    away_team_goals = @games.all.reduce(Hash.new(0)) do |teams, game|
+      teams[game.away_team_id] += game.away_goals
       teams
     end
-    x = away_team_goals.max_by{|team_id, away_goals| away_goals}
+    away_team_id = away_team_goals.max_by{|team_id, away_goals| away_goals}.first
     # get key value pair where the value is the highest
     # find team that has the key
-    
-    require "pry"; binding.pry
+    @teams.find_by_team_id(away_team_id).team_name
   end
 
   def worst_offense
