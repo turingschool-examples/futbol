@@ -21,6 +21,29 @@ class StatTracker
     @game_teams = GameTeams.new(game_teams_path)
   end
 
+<<<<<<< HEAD
+
+
+  # def initialize(game_path, game_teams_path, teams_path)
+  #   @game_teams_collection = GameTeamsCollection.new(game_teams_path)
+  #   @game_collection = GameCollection.new(game_path)
+  #   @game_teams = GameTeamsStats.new(@game_teams_collection)
+  #   @game_stats = GameStats.new(@game_collection)
+  #   @team_collection = TeamCollection.new(teams_path)
+  #   @season_stats = SeasonStats.new(@game_stats, @game_teams_collection, @team_collection)
+  # end
+  # def games
+  #   Games.new(@game_path)
+  # end
+  #
+  # def teams
+  #   Teams.new(@team_path)
+  # end
+  #
+  # def game_teams
+  #   GameTeams.new(@game_teams_path)
+  # end
+=======
 #dont want a path as an instance varaible. ONly use path once
 #every time we call teams its initializing a new team every time
   # def games
@@ -120,6 +143,7 @@ class StatTracker
       end
     end
   end
+>>>>>>> 763ba73a60930a3ab63ab2a095f29853b876c5c6
 
   def best_offense
     # team with highest average goals per game
