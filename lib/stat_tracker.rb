@@ -224,6 +224,18 @@ class StatTracker
     # returns the number of that team's wins over the total games they have played rounded to the 2nd decimal place
    (team_total_wins.to_f /  team_total_games(team_id)).round(2)
   end
+  def all_games_by_team(team_id)
+    @game_teams.find_all{|game_team| game_team.team_id == team_id}
+  end
+
+  def most_goals_scored(team_id)
+    all_games_by_team(team_id).max_by{|game| game.goals}.goals
+  end
+
+  def fewest_goals_scored(team_id)
+    all_games_by_team(team_id).min_by{|game| game.goals}.goals
+  end
+
   def favorite_opponent(team_id)
     team_games = @game_teams.find_all {|team| team.team_id == team_id}
     team_games.map! {|game| game.game_id}

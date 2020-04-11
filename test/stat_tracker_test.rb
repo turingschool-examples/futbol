@@ -159,6 +159,20 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_can_find_the_average_winrate_for_a_team
      assert_equal  0.2 , @stat_tracker.average_win_percentage("30")
+  def test_all_games_by_team
+    assert_equal 5, @stat_tracker.all_games_by_team("30").length
+    assert_instance_of GameTeam, @stat_tracker.all_games_by_team("30").first
+    assert_instance_of GameTeam, @stat_tracker.all_games_by_team("30").last
+  end
+
+  def test_most_goals_scored
+    assert_equal 4, @stat_tracker.most_goals_scored("6")
+  end
+
+  def test_fewest_goals_scored
+    assert_equal 0, @stat_tracker.fewest_goals_scored("30")
+  end
+
   def test_find_favorite_opponent
     assert_equal "LA Galaxy", @stat_tracker.favorite_opponent("29")
   end
