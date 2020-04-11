@@ -35,5 +35,11 @@ class SeasonStatisticsTest < Minitest::Test
     assert_instance_of GameTeam, @season_statistics.current_season_game_teams("20122013").first
   end
 
+  def test_winningest_coach
+    assert_equal "Claude Julien", @season_statistics.coach_win_loss_results("20122013", "high")
+  end
 
+  def test_losingest_coach
+    assert_equal "John Tortorella", @season_statistics.coach_win_loss_results("20122013", "low")
+  end
 end
