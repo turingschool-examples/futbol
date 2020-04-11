@@ -23,35 +23,35 @@ class LeagueRepositoryTest < Minitest::Test
     league = LeagueRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
     assert_equal "Sporting Kansas City", league.best_offense
   end
-#
-#   def test_find_team_name
-#     league = League.new
-#     Team.from_csv("./data/teams.csv")
-#     GameStats.from_csv("./test/fixtures/game_teams_truncated.csv")
-#     assert_equal "Orlando City SC", league.find_team_id(30)
-#   end
-#
-#   def test_worst_offense
-#     league = League.new
-#     Team.from_csv("./data/teams.csv")
-#     GameStats.from_csv("./test/fixtures/game_teams_truncated.csv")
-#     assert_equal "Washington Spirit FC", league.worst_offense
-#   end
-#
-#   def test_highest_scoring_visitor
-#     league = League.new
-#     GameStats.from_csv("./test/fixtures/game_teams_truncated.csv")
-#     Team.from_csv("./data/teams.csv")
-#     Game.from_csv("./test/fixtures/team_truncated.csv")
-#     assert_equal "Sporting Kansas City", league.highest_scoring_visitor
-#   end
-#
-#   def test_lowest_scoring_visitor
-#     league = League.new
-#     GameStats.from_csv("./test/fixtures/game_teams_truncated.csv")
-#     Team.from_csv("./data/teams.csv")
-#     Game.from_csv("./test/fixtures/team_truncated.csv")
-#     assert_equal "Atlanta United", league.lowest_scoring_visitor
-#   end
-#
- end
+
+  def test_find_team_name
+    league = LeagueRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+    assert_equal "Orlando City SC", league.find_team_id(30)
+  end
+
+  def test_worst_offense
+    league = LeagueRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+    assert_equal "Reign FC", league.worst_offense
+  end
+
+  def test_highest_scoring_visitor
+    league = LeagueRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+    assert_equal "Sporting Kansas City", league.highest_scoring_visitor
+  end
+
+  def test_lowest_scoring_visitor
+    league = LeagueRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+    assert_equal "Reign FC", league.lowest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    league = LeagueRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+    assert_equal "Sporting Kansas City", league.highest_scoring_home_team
+  end
+
+  def test_lowest_scoring_home_team
+    league = LeagueRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+    assert_equal "Reign FC", league.lowest_scoring_home_team
+  end
+
+end
