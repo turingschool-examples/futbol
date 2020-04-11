@@ -117,9 +117,9 @@ class GameTeam
      value["average"]
    end
    team_hash_with_highest_average[0]
- end
+  end
 
- def self.most_accurate_team(season)
+  def self.most_accurate_team(season)
     seasonal_hash = gets_team_shots_goals_count(season)
     seasonal_hash.map do |key,value|
       value["average"] = (value["shots"]/ value["goals"].to_f).round(2)
@@ -164,6 +164,34 @@ class GameTeam
     end
     total_goals_per_team= Hash[grouped_team.keys.zip(team_averaged_goals)]
     total_goals_per_team.key(total_goals_per_team.values.min)
+  end
+
+  def self.favorite_opponent_id(team_id)
+    # return name of the opponent that has the lowest win percentage against the given team.
+    game_ids = []
+    all.find_all do |gt|
+      if gt.team_id == team_id
+        game_ids << gt.game_id
+      end
+    end
+    opponents = []
+    game_ids.each do |game_id|
+      all.find_all do |gt|
+        if gt.game_id == game_id && gt.team_id != team_id
+          opponents << gt.team_id
+        end
+      end
+    end
+# I think I actually want opponents to be a hash with each opponent as the key and "win" and "loss" gathered as the values if the game_id matches. This is basically results_by_coach.
+# Then I can use similar strategy as finding best and worst coach => total_by_coach and wins_by_coach
+  
+    # return the id of the team with the lowest percentage of wins
+    # in stat tracker use the id to get the team name
+  end
+
+  def self.rival_id(team_id)
+    # Name of the opponent that has the highest win percentage against the given team.
+  end
 
     attr_reader :game_id,
                 :team_id,
