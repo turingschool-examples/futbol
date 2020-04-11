@@ -35,18 +35,20 @@ class Game
     (sum / all.length.to_f).round(2)
   end
 
-#should be a module
-  def self.hash_of_hashes(collection, key1, key2, key3, value2, value3, arg2 = 0 )
-    #accumulator hash {season1 => {"goals" => 10, "games => 20"}}
+#MODULE!
+  def self.hash_of_hashes(collection, key1, key2, key3, value2, value3, arg2 = nil )
+    # {key1 => { key2 => value2, key3 => value3}} across collection. arg2 is ignored if not needed
+    # arg2 is optional if the passed method requires arguments
     hash_of_hashes = Hash.new { |hash, key| hash[key] = {key2 => 0, key3 => 0}}
     collection.each do |game|
-      hash_of_hashes[game.send(key1)][key2] += game.send(value2, arg2)
+      hash_of_hashes[game.send(key1)][key2] += game.send(value2) if arg2.nil?
+      hash_of_hashes[game.send(key1)][key2] += game.send(value2, arg2) if !arg2.nil?
       hash_of_hashes[game.send(key1)][key3] += value3
     end
     hash_of_hashes
   end
 
-#should be a module
+#MODULE!
   def self.divide_hash_values(key1, key2, og_hash)
     # accumulator hash {season => win%}
     hash_divided = Hash.new { |hash, key| hash[key] = 0 }
@@ -67,57 +69,30 @@ class Game
       divide_hash_values(:goals, :games_played, games_goals_by_season)
     end
 
-  def self.games_per(csv_header)
-    #returns number of games in a given (:season) or (:away_team_id)...
-    group_by_header = all.group_by { |game| game.send(csv_header) }
-    group_by_header.values.map{ |games| games.length}
-  end
-
-  def self.goals_per(csv_header, hoa_goals)
-    #returns number of goals (:home_goals) or (:away_goals) in a given csv_header
-    group_by_header = all.group_by { |game| game.send(csv_header) }
-    group_by_header.values.map do |games|
-      games.sum { |game| game.send(hoa_goals) }
+  def self.games_goals_by(hoa_team)
+    #{away_team_id => {goals => x, games_played => y}}
+    if hoa_team == :away_team
+      hash_of_hashes(all, :away_team_id, :goals, :games_played, :away_goals, 1)
+    elsif hoa_team == :home_team
+      hash_of_hashes(all, :home_team_id, :goals, :games_played, :home_goals, 1)
     end
   end
 
-  def self.average(sum_array, length_array)
-    sum_array.each_with_index.map do |goals, index|
-      (goals.to_f / length_array[index].to_f ).round(2)
-    end
+  def self.average_goals_by(hoa_team)
+      divide_hash_values(:goals, :games_played, games_goals_by(hoa_team))
   end
 
-#deliverable (needs to access teams.csv via stat_tracker)
   def self.highest_scoring_visitor_team_id
-    avg_away_goals = average(goals_per(:away_team_id, :away_goals), games_per(:away_team_id))
-    away_team_ids = all.map { |game| game.away_team_id }.uniq
-    # create hash of {team_ids => average goals}
-    away_ids_n_goals = Hash[away_team_ids.zip(avg_away_goals)]
-    away_ids_n_goals.max_by{ |team_id, away_goals| away_goals}.first
+    average_goals_by(:away_team).max_by{ |team_id, away_goals| away_goals}.first
   end
-#deliverable (needs to access teams.csv via stat_tracker)
   def self.highest_scoring_home_team_id
-    avg_home_goals = average(goals_per(:home_team_id, :home_goals), games_per(:home_team_id))
-    home_team_ids = all.map { |game| game.home_team_id }.uniq
-    # create hash of {team_ids => average goals}
-    home_ids_n_goals = Hash[home_team_ids.zip(avg_home_goals)]
-    home_ids_n_goals.max_by{ |team_id, home_goals| home_goals}.first
+    average_goals_by(:home_team).max_by{ |team_id, away_goals| away_goals}.first
   end
-#deliverable (needs to access teams.csv via stat_tracker)
   def self.lowest_scoring_visitor_team_id
-    avg_away_goals = average(goals_per(:away_team_id, :away_goals), games_per(:away_team_id))
-    away_team_ids = all.map { |game| game.away_team_id }.uniq
-    # create hash of {team_ids => average goals}
-    away_ids_n_goals = Hash[away_team_ids.zip(avg_away_goals)]
-    away_ids_n_goals.min_by{ |team_id, away_goals| away_goals}.first
+    average_goals_by(:away_team).min_by{ |team_id, away_goals| away_goals}.first
   end
-#deliverable (needs to access teams.csv via stat_tracker)
   def self.lowest_scoring_home_team_id
-    avg_home_goals = average(goals_per(:home_team_id, :home_goals), games_per(:home_team_id))
-    home_team_ids = all.map { |game| game.home_team_id }.uniq
-    # create hash of {team_ids => average goals}
-    home_ids_n_goals = Hash[home_team_ids.zip(avg_home_goals)]
-    home_ids_n_goals.min_by{ |team_id, home_goals| home_goals}.first
+    average_goals_by(:home_team).min_by{ |team_id, away_goals| away_goals}.first
   end
 
   def self.games_played_by(team_id)
@@ -128,25 +103,14 @@ class Game
   end
 
   def self.games_and_wins_by_season(team_id)
-    #accumulator hash {season1 => {"wins" => 10, "games => 20"}}
-    games_wins_by_season = Hash.new { |hash, key| hash[key] = {:wins => 0, :games_played => 0}}
-    games_played_by(team_id).each do |game|
-      games_wins_by_season[game.season][:wins] +=  game.win?(team_id)
-      games_wins_by_season[game.season][:games_played] += 1 #if team_played_in_game
-    end
-    games_wins_by_season
-  end
-
-
-  def self.games_and_wins_by_season(team_id)
       #{ season => {:wins => x, :games_played => y}}
     hash_of_hashes(games_played_by(team_id), :season, :wins, :games_played, :win?, 1, team_id)
   end
 
   def self.win_percent_by_season(team_id)
     # :wins / :games_played * 100
-    x = divide_hash_values(:wins, :games_played, games_and_wins_by_season(team_id))
-    x.transform_values { |v| (v * 100).to_i}
+    win_percent_by_season = divide_hash_values(:wins, :games_played, games_and_wins_by_season(team_id))
+    win_percent_by_season.transform_values { |v| (v * 100).to_i}
   end
 
 #deliverable
@@ -203,11 +167,5 @@ class Game
     return 1 if away_win || home_win
     0
   end
-
-  # def total_goals
-  #   @away_goals
-  # end
-
-
 
 end

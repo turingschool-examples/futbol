@@ -60,6 +60,14 @@ class GameTest < Minitest::Test
     assert_equal 20, Game.all.length
     assert_instance_of Game, Game.all.first
   end
+
+  def test_it_can_calculate_highest_total_score
+    assert_equal 5, @game.highest_total_score
+  end
+
+  def test_it_can_calculate_lowest_total_score
+    assert_equal 3, @game.lowest_total_score
+  end
 #deliverable
   def test_it_returns_average_goals_per_game
     assert_equal 4.4, Game.average_goals_per_game
@@ -77,56 +85,11 @@ class GameTest < Minitest::Test
     assert_equal 10, Game.average_goals_per_game
   end
 
-  def test_games_per_season
-    assert_equal [2, 5, 6, 4, 2, 1], Game.games_per(:season)
-    game1 = mock
-    game2 = mock
-    game3 = mock
-    game1.stubs(:season).returns(20132014)
-    game2.stubs(:season).returns(20132014)
-    game3.stubs(:season).returns(20152016)
-    game_array = [game1, game2, game3]
-    Game.stubs(:all).returns(game_array)
-    assert_equal [2, 1], Game.games_per(:season)
-  end
-
-  def test_home_and_away_goals_per_season
-    # assert_equal [4, 10, 13, 10, 4, 3], Game.goals_per(:season, :away_goals)
-    # assert_equal [6, 12, 11, 8, 5, 2], Game.goals_per(:season, :home_goals)
-    game1 = mock
-    game2 = mock
-    game3 = mock
-    game1.stubs(:away_goals).returns(3)
-    game2.stubs(:away_goals).returns(4)
-    game3.stubs(:away_goals).returns(5)
-    game1.stubs(:home_goals).returns(5)
-    game2.stubs(:home_goals).returns(6)
-    game3.stubs(:home_goals).returns(7)
-    game1.stubs(:season).returns(20132014)
-    game2.stubs(:season).returns(20132014)
-    game3.stubs(:season).returns(20152016)
-    game_array = [game1, game2, game3]
-    Game.stubs(:all).returns(game_array)
-    assert_equal [7, 5], Game.goals_per(:season, :away_goals)
-    assert_equal [11, 7], Game.goals_per(:season, :home_goals)
-
-  end
-#to be deleted
-  def test_average_home_and_away_goals_per_season
-    away_goals = Game.goals_per(:season, :away_goals)
-    home_goals = Game.goals_per(:season, :home_goals)
-    games = Game.games_per(:season)
-    assert_equal [2.0, 2.0, 2.17, 2.5, 2.0, 3.0], Game.average(away_goals, games)
-    assert_equal [3.0, 2.4, 1.83, 2.0, 2.5,2.0], Game.average(home_goals, games)
-    Game.stubs(:goals_per).returns(10)
-    # assert_equal 20, Game.total_goals_per(:season)
-  end
-
   def test_total_goals
     assert_equal 5, Game.all[0].total_goals
   end
 
-  def test_games_goals_by_season
+  def test_hash_of_hashes
     game1 = mock
     game2 = mock
     game3 = mock
@@ -150,7 +113,7 @@ class GameTest < Minitest::Test
   end
 
 #deliverable
-  def test_average_goals_by_season
+  def test_average_goals_by_season_and_divide_hash_values
     stub_games_goals = {
                         20122013 => {:goals => 10, :games_played => 3},
                         20162017 => {:goals => 10, :games_played => 4}
@@ -161,81 +124,85 @@ class GameTest < Minitest::Test
     assert_equal expected, Game.divide_hash_values(:goals, :games_played, Game.games_goals_by_season)
   end
 
-  def test_it_can_calculate_highest_total_score
-    assert_equal 5, @game.highest_total_score
-  end
-
-  def test_it_can_calculate_lowest_total_score
-    assert_equal 3, @game.lowest_total_score
-  end
 #deliverable
   def test_it_can_count_games_by_season
     assert_equal ({20122013=>2, 20162017=>5, 20142015=>6, 20132014=>4, 20152016=>2, 20172018=>1}), Game.count_of_games_by_season
   end
+
+  def test_it_returns_games_goals_by_hoa_team_id
+    game1 = mock
+    game2 = mock
+    game3 = mock
+    game4 = mock
+    game1.stubs(:away_team_id).returns(1)
+    game2.stubs(:away_team_id).returns(1)
+    game3.stubs(:away_team_id).returns(2)
+    game4.stubs(:away_team_id).returns(3)
+    game1.stubs(:home_team_id).returns(11)
+    game2.stubs(:home_team_id).returns(11)
+    game3.stubs(:home_team_id).returns(12)
+    game4.stubs(:home_team_id).returns(13)
+    game1.stubs(:away_goals).returns(1)
+    game2.stubs(:away_goals).returns(10)
+    game3.stubs(:away_goals).returns(2)
+    game4.stubs(:away_goals).returns(3)
+    game1.stubs(:home_goals).returns(5)
+    game2.stubs(:home_goals).returns(10)
+    game3.stubs(:home_goals).returns(7)
+    game4.stubs(:home_goals).returns(8)
+    game_array = [game1,game2,game3,game4]
+    away_hash_hash = Game.hash_of_hashes(game_array, :away_team_id, :goals, :games_played, :away_goals, 1)
+    home_hash_hash = Game.hash_of_hashes(game_array, :home_team_id, :goals, :games_played, :home_goals, 1)
+    Game.stubs(:hash_of_hashes).returns(away_hash_hash)
+    expected = {1 => {:goals => 11, :games_played =>2},
+                2 => {:goals => 2, :games_played =>1},
+                3 => {:goals => 3, :games_played =>1}}
+    assert_equal expected, Game.games_goals_by(:away_team)
+    Game.stubs(:hash_of_hashes).returns(home_hash_hash)
+    expected = {11 => {:goals => 15, :games_played =>2},
+                12 => {:goals => 7, :games_played =>1},
+                13 => {:goals => 8, :games_played =>1}}
+    assert_equal expected, Game.games_goals_by(:home_team)
+  end
 #deliverable
   def test_highest_scoring_visitor_team_id
-    game1 = mock
-    game2 = mock
-    game3 = mock
-    game4 = mock
-    game1.stubs(:away_team_id).returns(1)
-    game2.stubs(:away_team_id).returns(2)
-    game3.stubs(:away_team_id).returns(3)
-    game4.stubs(:away_team_id).returns(4)
-    game_array = [game1, game2, game3, game4]
-    Game.stubs(:all).returns(game_array)#team_ids
-    Game.stubs(:goals_per).returns([80, 60, 40, 20])#away_goals
-    Game.stubs(:games_per).returns([10, 10, 10, 10])#games
+    assert_equal 16, Game.highest_scoring_visitor_team_id
+    games_goals = {1 => {:goals => 11, :games_played =>2},
+                   2 => {:goals => 2, :games_played =>1},
+                   3 => {:goals => 3, :games_played =>1}}
+    stub_expected = Game.divide_hash_values(:goals, :games_played, games_goals)
+    Game.stubs(:average_goals_by).returns(stub_expected)
     assert_equal 1, Game.highest_scoring_visitor_team_id
-    #lowe
   end
-#deliverable
-  def test_highest_scoring_home_team_id
-    game1 = mock
-    game2 = mock
-    game3 = mock
-    game4 = mock
-    game1.stubs(:home_team_id).returns(1)
-    game2.stubs(:home_team_id).returns(2)
-    game3.stubs(:home_team_id).returns(3)
-    game4.stubs(:home_team_id).returns(4)
-    game_array = [game1, game2, game3, game4]
-    Game.stubs(:all).returns(game_array)#team_ids
-    Game.stubs(:goals_per).returns([60, 80, 20, 40]) #home_goals
-    Game.stubs(:games_per).returns([10, 10, 10, 10]) #games
+  #deliverable
+  def test_highest_scoring_heam_team_id
+    assert_equal 6, Game.highest_scoring_home_team_id
+    games_goals = {1 => {:goals => 1, :games_played =>2},
+                   2 => {:goals => 12, :games_played =>1},
+                   3 => {:goals => 3, :games_played =>1}}
+    stub_expected = Game.divide_hash_values(:goals, :games_played, games_goals)
+    Game.stubs(:average_goals_by).returns(stub_expected)
     assert_equal 2, Game.highest_scoring_home_team_id
   end
-#deliverable
-  def test_lowest_scoring_away_team_id
-    game1 = mock
-    game2 = mock
-    game3 = mock
-    game4 = mock
-    game1.stubs(:away_team_id).returns(1)
-    game2.stubs(:away_team_id).returns(2)
-    game3.stubs(:away_team_id).returns(3)
-    game4.stubs(:away_team_id).returns(4)
-    game_array = [game1, game2, game3, game4]
-    Game.stubs(:all).returns(game_array)#team_ids#team_ids
-    Game.stubs(:goals_per).returns([80, 60, 40, 20])#away_goals
-    Game.stubs(:games_per).returns([10, 10, 10, 10])#games
-    assert_equal 4, Game.lowest_scoring_visitor_team_id
+  #deliverable
+  def test_lowest_scoring_visitor_team_id
+    assert_equal 9, Game.lowest_scoring_visitor_team_id
+    games_goals = {1 => {:goals => 4, :games_played =>2},
+                   2 => {:goals => 12, :games_played =>10},
+                   3 => {:goals => 3, :games_played =>1}}
+    stub_expected = Game.divide_hash_values(:goals, :games_played, games_goals)
+    Game.stubs(:average_goals_by).returns(stub_expected)
+    assert_equal 2, Game.lowest_scoring_visitor_team_id
   end
-#deliverable
-  def test_lowest_scoring_home_team_id
-    game1 = mock
-    game2 = mock
-    game3 = mock
-    game4 = mock
-    game1.stubs(:home_team_id).returns(1)
-    game2.stubs(:home_team_id).returns(2)
-    game3.stubs(:home_team_id).returns(3)
-    game4.stubs(:home_team_id).returns(4)
-    game_array = [game1, game2, game3, game4]
-    Game.stubs(:all).returns(game_array)#team_ids#team ids
-    Game.stubs(:goals_per).returns([60, 80, 20, 40]) #home_goals
-    Game.stubs(:games_per).returns([10, 10, 10, 10]) #games
-    assert_equal 3, Game.lowest_scoring_home_team_id
+  #deliverable
+  def test_lowest_scoring_heam_team_id
+    assert_equal 5, Game.lowest_scoring_home_team_id
+    games_goals = {1 => {:goals => 5, :games_played =>2},
+                   2 => {:goals => 12, :games_played =>1},
+                   3 => {:goals => 5, :games_played =>1}}
+    stub_expected = Game.divide_hash_values(:goals, :games_played, games_goals)
+    Game.stubs(:average_goals_by).returns(stub_expected)
+    assert_equal 1, Game.lowest_scoring_home_team_id
   end
 
   def test_it_identifies_wins_given_team_id_game_id
