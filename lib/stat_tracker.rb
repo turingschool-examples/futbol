@@ -14,7 +14,7 @@ class StatTracker
 
 
 
-@stat_tracker.highest_total_score
+# @stat_tracker.highest_total_score
 
 
   def self.from_csv(file_paths)
@@ -140,7 +140,13 @@ class StatTracker
   #   end
   # =>
 
-
-
-
+  def most_goals_scored(id)
+    @game_team_repository.most_goals_scored(id)
   end
+
+  def fewest_goals_scored(id)
+    @game_team_repository.fewest_goals_scored(id)
+  end
+
+
+end
