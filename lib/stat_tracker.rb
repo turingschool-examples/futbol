@@ -199,7 +199,18 @@ class StatTracker
   end
 
   def team_info(team_id)
-     team = team_by_id(team_id)
-      team.
-    end
+     team = team_by_id(team_id.to_i)
+      team_data = team.instance_variables.map { |key,value| ["#{key}".delete("@"), value = team.send("#{key}".delete("@").to_sym).to_s]}.to_h
+      team_data.delete_if {|k,v| k == "stadium"}
   end
+
+  def team_total_games(team_id)
+    total_games = @game_teams.find_all{|game| game.team_id == team_id}
+    total_games.length
+  end
+
+  def average_win_percentage(team_id)
+    team_total_wins = @game_teams.find_all{|game| game.team_id == team_id.to_i && game.result == "WIN"}.length
+   (team_total_wins.to_f /  team_total_games(team_id.to_i)).round(2)
+  end
+end

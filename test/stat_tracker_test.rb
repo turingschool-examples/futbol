@@ -145,15 +145,19 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20172018")
   end
 
-  # def test_it_can_find
-  #
-  # end
-
   def test_it_can_return_a_teams_info
-     assert_equal ({team_id: 1,
-       franchiseid: 23,
-       teamname: "Atlanta United",
-       abbreviation: "ATL",
-       link:  "/api/v1/teams/1"}), @stat_tracker.team_info(1)
+     assert_equal ({"team_id" => "1",
+       "franchise_id" => "23",
+       "team_name" => "Atlanta United",
+       "abbreviation" => "ATL",
+       "link" => "/api/v1/teams/1"}), @stat_tracker.team_info("1")
+  end
+
+  def test_it_can_find_all_of_the_teams_games
+    assert_equal  5 , @stat_tracker.team_total_games(30)
+  end
+
+  def test_it_can_find_the_average_winrate_for_a_team
+     assert_equal  0.2 , @stat_tracker.average_win_percentage("30")
   end
 end
