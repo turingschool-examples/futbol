@@ -1,6 +1,11 @@
 require "csv"
+require "./lib/hashable"
+require 'pry'
 
 class Game
+
+  extend Hashable
+
   @@all = nil
 
   def self.all
@@ -35,30 +40,6 @@ class Game
     (sum / all.length.to_f).round(2)
   end
 
-#MODULE!
-  def self.hash_of_hashes(collection, key1, key2, key3, value2, value3, arg2 = nil )
-    # {key1 => { key2 => value2, key3 => value3}} across collection. arg2 is ignored if not needed
-    # arg2 is optional if the passed method requires arguments
-    hash_of_hashes = Hash.new { |hash, key| hash[key] = {key2 => 0, key3 => 0}}
-    collection.each do |game|
-      hash_of_hashes[game.send(key1)][key2] += game.send(value2) if arg2.nil?
-      hash_of_hashes[game.send(key1)][key2] += game.send(value2, arg2) if !arg2.nil?
-      hash_of_hashes[game.send(key1)][key3] += value3
-    end
-    hash_of_hashes
-  end
-
-#MODULE!
-  def self.divide_hash_values(key1, key2, og_hash)
-    # accumulator hash {season => win%}
-    hash_divided = Hash.new { |hash, key| hash[key] = 0 }
-    # divide 2 hashe values and send to new hash value
-    og_hash.map do |key, value|
-      hash_divided[key] = (value[key1] / value[key2].to_f).round(2)
-    end
-    hash_divided
-  end
-
   def self.games_goals_by_season
     hash_of_hashes(all, :season, :goals, :games_played, :total_goals, 1)
   end
@@ -77,20 +58,23 @@ class Game
       hash_of_hashes(all, :home_team_id, :goals, :games_played, :home_goals, 1)
     end
   end
-
+#deliverable
   def self.average_goals_by(hoa_team)
       divide_hash_values(:goals, :games_played, games_goals_by(hoa_team))
   end
-
+#deliverable
   def self.highest_scoring_visitor_team_id
     average_goals_by(:away_team).max_by{ |team_id, away_goals| away_goals}.first
   end
+#deliverable
   def self.highest_scoring_home_team_id
     average_goals_by(:home_team).max_by{ |team_id, away_goals| away_goals}.first
   end
+#deliverable
   def self.lowest_scoring_visitor_team_id
     average_goals_by(:away_team).min_by{ |team_id, away_goals| away_goals}.first
   end
+#deliverable
   def self.lowest_scoring_home_team_id
     average_goals_by(:home_team).min_by{ |team_id, away_goals| away_goals}.first
   end

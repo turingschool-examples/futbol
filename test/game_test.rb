@@ -282,4 +282,5 @@ class GameTest < Minitest::Test
     Game.stubs(:win_percent_by_season).returns(stub_val)
     assert_equal "In the 20122013 season Team 3 won 25% of games", Game.worst_season(3)
   end
+
 end
