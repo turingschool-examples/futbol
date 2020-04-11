@@ -137,11 +137,4 @@ class LeagueStatistics
     end
     lowest_scoring_home_team.team_name
   end
-
-
-
-  # highest_scoring_visitor
-  # Name of the team with the highest average score per game across all seasons when they are away.
-
-
 end
