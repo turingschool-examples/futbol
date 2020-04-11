@@ -8,7 +8,6 @@ require './lib/team'
 class TeamCollectionTest < Minitest::Test
   def setup
     @team_collection = TeamCollection.new("./data/teams.csv")
-    @team = @team_collection.first
   end
 
   def test_it_exists

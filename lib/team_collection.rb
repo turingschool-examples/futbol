@@ -1,6 +1,4 @@
-# team_info (A hash with key/value pairs for the following attributes:
-# team_id, franchise_id, team_name,
-# abbreviation, and link)
+
 # best_season
 # worst_season
 # average_win_percentage
@@ -17,7 +15,6 @@ class TeamCollection
 
   def initialize(csv_file_path)
     @team_collection = create_teams(csv_file_path)
-    require "pry"; binding.pry
   end
 
   def create_teams(csv_file_path)
