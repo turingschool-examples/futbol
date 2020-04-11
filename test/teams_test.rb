@@ -16,6 +16,10 @@ class TeamsTest < Minitest::Test
   def test_it_can_create_teams_from_csv
     assert_instance_of Team, @team
     assert_equal 1, @team.team_id
-    assert_equal "Atlanta United", @team.name
+    assert_equal "Atlanta United", @team.team_name
+  end
+
+  def test_it_has_all
+    assert_equal @teams.teams, @teams.all
   end
 end

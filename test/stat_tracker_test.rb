@@ -56,7 +56,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_worst_offense
-    assert_equal "Atlanta United", @stat_tracker.worst_offense 
+    assert_equal "Atlanta United", @stat_tracker.worst_offense
+  end
+
+  def test_highest_scoring_visitor
+    assert_equal "Team", @stat_tracker.highest_scoring_visitor 
   end
 
 end

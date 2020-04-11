@@ -37,6 +37,22 @@ class StatTracker
     @teams.all.size
   end
 
+  # Name of the team with the highest average
+  # score per game across all seasons when they are away.
+  # {team_name: num_goals, team_name2: num_goals...}
+
+  def highest_scoring_visitor
+    away_team_goals = @games.all.reduce({}) do |teams, game|
+      teams[game.away_team_id] = game.away_goals
+      teams
+    end
+    x = away_team_goals.max_by{|team_id, away_goals| away_goals}
+    # get key value pair where the value is the highest
+    # find team that has the key
+    
+    require "pry"; binding.pry
+  end
+
   def worst_offense
     average_goals_per_team = @teams.all.map do |team|
       total_goals = total_goals_per_team(team.team_id)

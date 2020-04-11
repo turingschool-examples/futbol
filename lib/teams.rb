@@ -16,4 +16,8 @@ class Teams
   def all
     @teams
   end
+
+  def find_by_team_id(team_id)
+    
+  end
 end
