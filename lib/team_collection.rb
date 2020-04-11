@@ -1,0 +1,41 @@
+# team_info (A hash with key/value pairs for the following attributes:
+# team_id, franchise_id, team_name,
+# abbreviation, and link)
+# best_season
+# worst_season
+# average_win_percentage
+# most_goals_scored
+# fewest_goals_scored
+# favorite_opponent
+# rival
+
+require_relative 'team'
+require 'csv'
+
+class TeamCollection
+  attr_reader :team_collection
+
+  def initialize(csv_file_path)
+    @team_collection = create_teams(csv_file_path)
+    require "pry"; binding.pry
+  end
+
+  def create_teams(csv_file_path)
+    csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
+    csv.map do |row|
+      Team.new(row)
+    end
+  end
+
+  def team_info(team_id)
+    found_team = @team_collection.find{|team| team.team_id == team_id}
+    {
+      team_id: found_team.team_id,
+      franchise_id: found_team.franchise_id,
+      team_name: found_team.name,
+      abbreviation: found_team.abbreviation,
+      link: found_team.link
+    }
+  end
+
+end
