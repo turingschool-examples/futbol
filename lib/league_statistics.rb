@@ -16,14 +16,14 @@ class LeagueStatistics
   end
 
   def best_offense
-    max_average = average_goals_by_team.max_by{|team| team}
+    max_average = average_goals_by_team.max_by{|team| team[1]}
     best_offense = @teams_collection.find do |team|
       team.id == max_average[0]
     end
     best_offense.team_name
   end
 
-  # Lowest average score all seasons
+
   def worst_offense
     min_average = average_goals_by_team.min_by{|team| team[1]}
     worst_offense = @teams_collection.find do |team|
@@ -57,12 +57,15 @@ class LeagueStatistics
   def average_goals_by_team
     team_average_goals = Hash.new(0)
     games_and_goals = games_played_by_team.merge(goals_scored_by_team) { |k, o, n| [o,n]}
+
     games_and_goals.each do |team|
+      # team[1][1] -> goals scored | team[1][0] -> games played
       team_average_goals[team[0]] = average_goals(team[1][1], team[1][0])
     end
     team_average_goals
   end
 
+  # The next 4 methods are all very similar and can be extracted into helper methods, or perhaps refactored into one method that takes an argument to determine its output.
   def highest_scoring_visitor
     goals_and_games_by_team_away = Hash.new { |h, k| h[k] = [0,0] }
     team_average_goals_away = Hash.new(0)
@@ -78,7 +81,7 @@ class LeagueStatistics
     highest_scoring_visitor = @teams_collection.find do |team|
       team.id == max_average[0]
     end
-    p highest_scoring_visitor.team_name
+    highest_scoring_visitor.team_name
   end
 
   def lowest_scoring_visitor
@@ -96,7 +99,7 @@ class LeagueStatistics
     lowest_scoring_visitor = @teams_collection.find do |team|
       team.id == min_average[0]
     end
-    p lowest_scoring_visitor.team_name
+    lowest_scoring_visitor.team_name
   end
 
 
@@ -115,7 +118,7 @@ class LeagueStatistics
     highest_scoring_home_team = @teams_collection.find do |team|
       team.id == max_average[0]
     end
-    p highest_scoring_home_team.team_name
+    highest_scoring_home_team.team_name
   end
 
   def lowest_scoring_home_team
@@ -133,7 +136,7 @@ class LeagueStatistics
     lowest_scoring_home_team = @teams_collection.find do |team|
       team.id == min_average[0]
     end
-    p lowest_scoring_home_team.team_name
+    lowest_scoring_home_team.team_name
   end
 
 

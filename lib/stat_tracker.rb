@@ -1,8 +1,8 @@
 require_relative './game'
 require_relative './team'
 require_relative './game_team'
-rrequire_relative './game_statistics'
-rrequire_relative './lib/league_statistics'
+require_relative './game_statistics'
+require_relative './league_statistics'
 require 'CSV'
 require 'pry'
 class StatTracker
@@ -66,6 +66,34 @@ class StatTracker
 
   def average_goals_by_season
     @game_statistics.average_goals_by_season
+  end
+
+  def count_of_teams
+    @league_statistics.count_of_teams
+  end
+
+  def best_offense
+    @league_statistics.best_offense
+  end
+
+  def worst_offense
+    @league_statistics.worst_offense
+  end
+
+  def highest_scoring_visitor
+    @league_statistics.highest_scoring_visitor
+  end
+
+  def lowest_scoring_visitor
+    @league_statistics.lowest_scoring_visitor
+  end
+
+  def highest_scoring_home_team
+    @league_statistics.highest_scoring_home_team
+  end
+
+  def lowest_scoring_home_team
+    @league_statistics.lowest_scoring_home_team
   end
 
 end
