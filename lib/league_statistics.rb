@@ -1,4 +1,3 @@
-require_relative './game'
 require 'pry'
 
 class LeagueStatistics
