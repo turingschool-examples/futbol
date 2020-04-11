@@ -7,11 +7,11 @@ class Game
     @@all
   end
 
-  def find_by(id)
+  def self.find_by(id)
    @@all.find_all{|game| game.game_id==id}
- end
+  end
 
- def self.grouped_by_season(passed_in_season)
+  def self.grouped_by_season(passed_in_season)
     @@all.select{|game| game.season == passed_in_season}
   end
 
