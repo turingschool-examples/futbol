@@ -29,40 +29,7 @@ class StatTracker
     GameTeams.new(@game_teams_path)
   end
 end
-#   def initialize
-#     @teams = []
-#     @games = []
-#   end
-#
-# # team_id,franchiseId,teamName,abbreviation,Stadium,link
-#
-#   def load_from_csv(root_path = "./data")
-#     CSV.foreach("#{root_path}/teams.csv", headers: true, header_converters: :symbol) do |row|
-#       data = {team_id: row[:team_id],
-#               franchiseid: row[:franchiseid],
-#               teamname: row[:teamname],
-#               abbreviation: row[:abbreviation],
-#               stadium: row[:stadium],
-#               link: row[:link]
-#             }
-#       @teams << Team.new(data)
-#     end
-#
-#     CSV.foreach("#{root_path}/games.csv", headers: true, header_converters: :symbol) do |row|
-#       data = {game_id: row[:game_id],
-#               season: row[:season],
-#               type: row[:type],
-#               date_time: row[:date_time],
-#               away_team_id: row[:away_team_id],
-#               home_team_id: row[:home_team_id],
-#               away_goals: row[:away_goals],
-#               home_goals: row[:home_goals],
-#               venue: row[:venue],
-#               venue_link: row[:venue_link]
-#             }
-#       @games << Game.new(data)
-#     end
-#   end
+
 #
 #   def count_of_teams
 #     @teams.size
