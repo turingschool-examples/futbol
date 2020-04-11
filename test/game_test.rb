@@ -111,7 +111,7 @@ class GameTest < Minitest::Test
     assert_equal [11, 7], Game.goals_per(:season, :home_goals)
 
   end
-
+#to be deleted
   def test_average_home_and_away_goals_per_season
     away_goals = Game.goals_per(:season, :away_goals)
     home_goals = Game.goals_per(:season, :home_goals)
@@ -119,30 +119,46 @@ class GameTest < Minitest::Test
     assert_equal [2.0, 2.0, 2.17, 2.5, 2.0, 3.0], Game.average(away_goals, games)
     assert_equal [3.0, 2.4, 1.83, 2.0, 2.5,2.0], Game.average(home_goals, games)
     Game.stubs(:goals_per).returns(10)
-    assert_equal 20, Game.total_goals_per(:season)
+    # assert_equal 20, Game.total_goals_per(:season)
   end
 
-  def test_average_goals_per_csv_header
-    goals = [10, 20]
-    season_lengths = [3, 8]
-    assert_equal [3.33, 2.5], Game.average(goals, season_lengths)
+  def test_total_goals
+    assert_equal 5, Game.all[0].total_goals
   end
-#deliverable
-  def test_average_goals_by_season
+
+  def test_games_goals_by_season
     game1 = mock
     game2 = mock
     game3 = mock
+    game4 = mock
+    game1.stubs(:total_goals).returns(2)
+    game2.stubs(:total_goals).returns(4)
+    game3.stubs(:total_goals).returns(1)
+    game4.stubs(:total_goals).returns(3)
     game1.stubs(:season).returns(20122013)
     game2.stubs(:season).returns(20122013)
     game3.stubs(:season).returns(20162017)
-    game_array = [game1, game2, game3]
-    Game.stubs(:all).returns(game_array)
-    #reconsider stubs map
-    # Game.stubs(:average).returns([3.33, 2.5])
-    Game.stubs(:total_goals_per).returns([10, 5])
-    Game.stubs(:games_per).returns([3, 2])
+    game4.stubs(:season).returns(20162017)
+    games_array = [game1, game2, game2, game3, game4, game4, game4]
+    Game.stubs(:all).returns(games_array)
+    expected = {
+                20122013 => {:goals => 10, :games_played => 3},
+                20162017 => {:goals => 10, :games_played => 4}
+                }
+    assert_equal expected, Game.games_goals_by_season
+    assert_equal expected, Game.hash_of_hashes(Game.all, :season, :goals, :games_played, :total_goals, 1)
+  end
+
+#deliverable
+  def test_average_goals_by_season
+    stub_games_goals = {
+                        20122013 => {:goals => 10, :games_played => 3},
+                        20162017 => {:goals => 10, :games_played => 4}
+                        }
+    Game.stubs(:games_goals_by_season).returns(stub_games_goals)
     expected = {20122013 => 3.33, 20162017 => 2.5}
     assert_equal expected, Game.average_goals_by_season
+    assert_equal expected, Game.divide_hash_values(:goals, :games_played, Game.games_goals_by_season)
   end
 
   def test_it_can_calculate_highest_total_score
@@ -223,14 +239,13 @@ class GameTest < Minitest::Test
   end
 
   def test_it_identifies_wins_given_team_id_game_id
-    assert_equal true, Game.all[0].win?(6)
-    assert_equal true, Game.all[2].win?(24)
-    assert_equal false, Game.all[4].win?(14)
-    assert_equal false, Game.all[17].win?(4)#tie
+    assert_equal 1, Game.all[0].win?(6)
+    assert_equal 1, Game.all[2].win?(24)
+    assert_equal 0, Game.all[4].win?(14)
+    assert_equal 0, Game.all[17].win?(4)#tie
   end
 
   def test_find_by_returns_array
-    #binding.pry
     assert_kind_of Array, Game.find_by(2012030221)
   end
 
