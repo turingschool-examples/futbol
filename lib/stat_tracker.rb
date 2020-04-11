@@ -5,7 +5,7 @@ require_relative 'game'
 require_relative 'games_methods'
 
 class StatTracker
-  attr_reader :game_path, :team_path, :game_teams_path
+  attr_reader :games, :teams, :game_teams
 
   def self.from_csv(file_paths)
     game_path = file_paths[:games]
@@ -16,22 +16,32 @@ class StatTracker
   end
 
   def initialize(game_path, team_path, game_teams_path)
-    @game_path = game_path
-    @team_path = team_path
-    @game_teams_path = game_teams_path
+    @games = Games.new(game_path)
+    @teams = Teams.new(team_path)
+    @game_teams = GameTeams.new(game_teams_path)
   end
 
-  def games
-    Games.new(@game_path)
-  end
 
-  def teams
-    Teams.new(@team_path)
-  end
 
-  def game_teams
-    GameTeams.new(@game_teams_path)
-  end
+  # def initialize(game_path, game_teams_path, teams_path)
+  #   @game_teams_collection = GameTeamsCollection.new(game_teams_path)
+  #   @game_collection = GameCollection.new(game_path)
+  #   @game_teams = GameTeamsStats.new(@game_teams_collection)
+  #   @game_stats = GameStats.new(@game_collection)
+  #   @team_collection = TeamCollection.new(teams_path)
+  #   @season_stats = SeasonStats.new(@game_stats, @game_teams_collection, @team_collection)
+  # end
+  # def games
+  #   Games.new(@game_path)
+  # end
+  #
+  # def teams
+  #   Teams.new(@team_path)
+  # end
+  #
+  # def game_teams
+  #   GameTeams.new(@game_teams_path)
+  # end
 
   def best_offense
     # team with highest average goals per game
