@@ -197,4 +197,9 @@ class StatTracker
     end
     @teams.find {|team| team.team_id == team_tackles.min_by {|team, tack| tack}[0]}.team_name
   end
-end
+
+  def team_info(team_id)
+     team = team_by_id(team_id)
+      team.
+    end
+  end

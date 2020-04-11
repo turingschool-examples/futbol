@@ -144,4 +144,16 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_find_team_with_least_season_tackles
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20172018")
   end
+
+  # def test_it_can_find
+  #
+  # end
+
+  def test_it_can_return_a_teams_info
+     assert_equal ({team_id: 1,
+       franchiseid: 23,
+       teamname: "Atlanta United",
+       abbreviation: "ATL",
+       link:  "/api/v1/teams/1"}), @stat_tracker.team_info(1)
+  end
 end
