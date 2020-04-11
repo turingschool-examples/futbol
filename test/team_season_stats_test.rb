@@ -1,11 +1,11 @@
 require_relative 'test_helper'
 
-class TeamStatsTest < Minitest::Test
+class TeamSeasonStatsTest < Minitest::Test
   def setup
-    @team_stats = TeamStats.new('./test/fixtures/truncated_games.csv')
+    @team_stats = TeamSeasonStats.new("./test/fixtures/truncated_games.csv")
   end
 
   def test_it_exists
-    assert_instance_of TeamStats, @team_stats
+    assert_instance_of TeamSeasonStats, @team_stats
   end
 end

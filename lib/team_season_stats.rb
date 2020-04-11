@@ -1,7 +1,7 @@
 require 'csv'
 require_relative 'collection'
 
-class TeamStats < Collection
+class TeamSeasonStats < Collection
   attr_reader :team_stats
 
   def initialize(file_path)
