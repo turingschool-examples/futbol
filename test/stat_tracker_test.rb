@@ -162,4 +162,12 @@ class StatTrackerTest < Minitest::Test
     assert_equal 6, @stat_tracker.least_accurate_team(20122013)
   end
 
+  def test_most_goals_scored_by_team_id
+    assert_equal 2, @stat_tracker.most_goals_scored(3)
+  end
+
+  def test_least_goals_scored_by_team_id
+    assert_equal 1, @stat_tracker.least_goals_scored(26)
+  end
+
 end
