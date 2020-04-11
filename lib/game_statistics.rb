@@ -1,6 +1,4 @@
-# require './lib/stat_tracker'
-
-require './lib/game'
+require_relative './game'
 require 'pry'
 
 
