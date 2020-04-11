@@ -132,4 +132,96 @@ class StatTrackerTest < Minitest::Test
   #   assert_equal expected, @stat_tracker.highest_total_score(all_games)
   #
   # end
+
+  def test_percentage_visitor_wins
+
+  end
+
+  def test_percentage_ties
+
+  end
+
+  def test_count_of_games_by_season
+
+  end
+  
+  def test_average_goals_per_game
+
+  end
+
+  def test_average_goals_by_season
+
+  end
+
+  def test_best_offense
+
+  end
+
+  def test_worst_offense
+
+  end
+
+  def test_highest_scoring_visitor
+
+  end
+
+  def test_highest_scoring_home_team
+
+  end
+
+  def test_lowest_scoring_visitor
+
+  end
+
+  def test_lowest_scoring_home_team
+
+  end
+
+  def test_team_info
+
+  end
+
+  def test_best_season
+
+  end
+
+  def test_worst_season
+
+  end
+
+  def test_average_win_percentage
+
+  end
+
+  def test_favorite_opponent
+
+  end
+
+  def test_rival
+
+  end
+
+  def test_winningest_coach
+
+  end
+
+  def test_worst_coach
+
+  end
+
+  def test_most_accurate_team
+
+  end
+
+  def test_least_accurate_team
+
+  end
+
+  def test_most_tackles
+
+  end
+
+  def test_fewest_tackles
+
+  end
 end
