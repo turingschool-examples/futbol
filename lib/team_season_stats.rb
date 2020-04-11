@@ -19,43 +19,23 @@ class TeamSeasonStats < Collection
     games_by_season
   end
 
-#count all of the games per season for team searched
-#take the allgamesbyseason hash
-#{season => [games]}
   def count_all_games_in_season(id)
+  def total_games_per_season(id)
     all_games_by_season(id).reduce({}) do |total, (season, games)|
-      total[season] = games.count
+      total[season] = games.length
       total
     end
   end
+
+  def wins_in_season(id)
+    all_games_by_season(id).reduce(Hash.new(0)) do |season_wins, (season, games)|
+      wins = games.count do |game|
+        home_wins = game.home_team_id == id && game.home_team_win?
+        away_wins = game.away_team_id == id && game.visitor_team_win?
+        home_wins || away_wins
+      end
+        season_wins[season] += wins
+        season_wins
+    end
+  end
 end
-#
-# def count_of_all_wins_by_season_for(id)
-#    all_games_by_season_for(id).reduce(Hash.new(0)) do |acc, (season, games)|
-#      wins = games.count do |game|
-#        (game.home_team_id == id && game.home_team_win?) ||
-#        (game.away_team_id == id && game.visitor_team_win?)
-#      end
-#      acc[season] += wins
-#      acc
-#    end
-#  end
-#
-#  def win_percentage_by_season_for(id)
-#    season_wins = count_of_all_wins_by_season_for(id)
-#    season_games = count_of_all_games_by_season_for(id)
-#    season_wins.merge(season_games) do |season, wins, games|
-#      (wins.to_f / games).round(2)
-#    end
-#  end
-#
-#  def highest_season_win_percentage_for(id)
-#    win_percentage_by_season_for(id).max_by do |season, percentage|
-#      percentage
-#    end.first
-#  end
-#
-#  def lowest_season_win_percentage_for(id)
-#    win_percentage_by_season_for(id).min_by do |season, percentage|
-#      percentage
-#    end.first
