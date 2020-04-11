@@ -245,16 +245,14 @@ class GameTest < Minitest::Test
   def test_it_returns_percentage_of_wins_by_season_for_team_id
       assert_equal ({20122013 => 0, 20142015 => 100}), Game.win_percent_by_season(3)
       assert_equal ({20122013 => 100}), Game.win_percent_by_season(6)
-      game1 = mock
-      game2 = mock
-      game3 = mock
-      game4 = mock
-      game1.stubs(:home_team_id).returns(1)
-      game2.stubs(:home_team_id).returns(2)
-      game3.stubs(:home_team_id).returns(3)
-      game4.stubs(:home_team_id).returns(4)
-      game_array = [game1, game2, game3, game4]
-
+      stub_expected = {20122013 => {:wins => 5, :games_played => 10},
+                      20132014 => {:wins => 6, :games_played => 9},
+                      20142015 => {:wins => 4, :games_played => 16}}
+      Game.stubs(:games_and_wins_by_season).returns(stub_expected)
+      expected = {20122013 => 50,
+                  20132014 => 67,
+                  20142015 => 25}
+      assert_equal expected, Game.win_percent_by_season(3)
   end
 #deliverable
   def test_it_returns_best_season_given_team_id
