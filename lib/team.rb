@@ -8,6 +8,11 @@ class Team
     @@all
   end
 
+  def self.find_team_info(id)
+    selected_team = @@all.select{|team| team.team_id==id}
+    selected_team.group_by{|group| group.team_id}
+  end
+
   def self.from_csv(file_path)
     csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
     @@all = csv.map do |row|
