@@ -21,12 +21,12 @@ class TeamCollectionTest < Minitest::Test
     assert_equal "Atlanta United", @team.teamname
   end
 
-  # def test_it_has_team_info
-  #   expected = {:team_id => 1,
-  #               :franchise_id => 23,
-  #               :team_name => "Atlanta United",
-  #               :abbreviation => "ATL",
-  #               :link => "/api/v1/teams/1"}
-  #   assert_equal expected, @teams.team_info(1)
-  # end
+  def test_it_has_team_info
+    expected = {:team_id => 1,
+                :franchise_id => 23,
+                :teamname => "Atlanta United",
+                :abbreviation => "ATL",
+                :link => "/api/v1/teams/1"}
+    assert_equal expected, @team_collection.team_info(1)
+  end
 end
