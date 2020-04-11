@@ -13,4 +13,7 @@ class Teams
     end
   end
 
+  def all
+    @teams
+  end
 end

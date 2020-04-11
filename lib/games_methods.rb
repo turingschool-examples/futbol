@@ -13,6 +13,10 @@ class Games
        Game.new(row)
     end
   end
+
+  def all
+    @games 
+  end
 end
 # Method	Description	Return Value
 ### highest_total_score	###Highest sum of the winning and losing teams’ scores	Integer
