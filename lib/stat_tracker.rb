@@ -156,6 +156,7 @@ end
   def count_of_games_by_season
 
   end
+
   def average_goals_per_game
 
   end
@@ -164,28 +165,24 @@ end
 
   end
 
-  def best_offense
-
-  end
-
   def worst_offense
-
+    @league_repository.worst_offense
   end
 
   def highest_scoring_visitor
-
+    @league_repository.highest_scoring_visitor
   end
 
   def highest_scoring_home_team
-
+    @league_repository.highest_scoring_home_team
   end
 
   def lowest_scoring_visitor
-
+    @league_repository.lowest_scoring_visitor
   end
 
   def lowest_scoring_home_team
-
+    @league_repository.lowest_scoring_home_team
   end
 
   def team_info
