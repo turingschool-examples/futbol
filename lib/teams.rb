@@ -12,4 +12,5 @@ class Teams
       Team.new(row)
     end
   end
+
 end
