@@ -114,4 +114,12 @@ class StatTracker
     GameTeam.least_accurate_team(season)
   end
 
+  def most_goals_scored(team_id)
+    GameTeam.most_goals_scored(team_id)
+  end
+
+  def least_goals_scored(team_id)
+    GameTeam.least_goals_scored(team_id)
+  end
+
 end
