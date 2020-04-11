@@ -21,3 +21,29 @@ class Statistics
     @csv_teams.map { |row| Team.new(row) }
   end
 end
+
+ def teams_hash
+   teams = Hash.new(0)
+   @teams_collection.each do |team|
+     teams[team.id] = 0
+   end
+   teams
+ end
+
+ def current_season_games(season)
+   @games_collection.find_all do |game|
+    if game.season == season
+      game.id
+    end
+  end
+ end
+
+ def most_tackles(season)
+   teams = teams_hash
+   games_of_season = current_season_games.each do |game|
+     @game_teams_collection.find_all {|game_team| game_team.game_id == game.game_id}
+
+
+
+
+    teams[game_team.team_id] +=

@@ -1,5 +1,5 @@
 # require './lib/stat_tracker'
-require './lib/statistics'
+
 require './lib/game'
 require 'pry'
 
