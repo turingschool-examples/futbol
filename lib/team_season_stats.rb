@@ -19,7 +19,6 @@ class TeamSeasonStats < Collection
     games_by_season
   end
 
-  def count_all_games_in_season(id)
   def total_games_per_season(id)
     all_games_by_season(id).reduce({}) do |total, (season, games)|
       total[season] = games.length
