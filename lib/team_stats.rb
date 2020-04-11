@@ -1,10 +1,11 @@
 require 'csv'
+require_relative 'collection'
 
-class TeamStats
+class TeamStats < Collection
   attr_reader :team_stats
 
   def initialize(file_path)
-    @team_stats = create_team_stats(file_path)
+    @team_stats = create_objects(file_path, GameStats)
   end
 
   def create_team_stats(file_path)
