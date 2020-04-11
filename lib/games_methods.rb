@@ -14,6 +14,7 @@ class Games
     end
   end
 
+
   def highest_total_score
     #sums winning team score and losing team score for every game,
     #compares these and returns highest
@@ -95,6 +96,9 @@ class Games
       hash[game.season] += 1
     end
     hash
+  end
+  def all
+    @games
   end
 end
 
