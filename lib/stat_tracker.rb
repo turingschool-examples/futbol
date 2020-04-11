@@ -26,6 +26,7 @@ class StatTracker
     @game_team_repository = game_team_repository
     @league_repository = league_repository
   end
+  
 
   def highest_total_score
     @game_repository.highest_total_score

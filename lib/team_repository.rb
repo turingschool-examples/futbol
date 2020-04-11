@@ -25,6 +25,7 @@ class TeamRepository
   end
 
   def most_goals_scored(id)
+    id = id.to_i
     most = 0
     @game_teams_collection.each do |game|
       if game.team_id == id
@@ -37,6 +38,7 @@ class TeamRepository
   end
 
   def fewest_goals_scored(id)
+    id = id.to_i
     fewest = 1000
     @game_teams_collection.each do |game|
       if game.team_id == id
