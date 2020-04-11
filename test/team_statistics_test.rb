@@ -41,8 +41,8 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_team_info
-    expected1 = {team_id: "1", franchise_id: "23", team_name: "Atlanta United", abbreviation: "ATL", link: "/api/v1/teams/1"}
-    expected2 = {team_id: "4", franchise_id: "16", team_name: "Chicago Fire", abbreviation: "CHI", link: "/api/v1/teams/4"}
+    expected1 = {"team_id" => "1", "franchise_id" => "23", "team_name" => "Atlanta United", "abbreviation" => "ATL", "link" => "/api/v1/teams/1"}
+    expected2 = {"team_id" => "4", "franchise_id" => "16", "team_name" => "Chicago Fire", "abbreviation" => "CHI", "link"=> "/api/v1/teams/4"}
 
     assert_equal expected1, @team_statistics.team_info("1")
     assert_equal expected2, @team_statistics.team_info("4")
@@ -56,18 +56,38 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_best_season
-    # Might need to stub this one. Maybe helper method that grabs all home and away games given a team_id
+      assert_equal "20132014", @team_statistics.best_season("24")
+  end
 
-    # game1 = mock
-    # game1.stubs(:game_id).returns(2012030221)
+  def test_worst_season
+    assert_equal "20142015", @team_statistics.worst_season("24")
   end
 
   def test_average_win_percentage
-    # team 22 3 games, 2 ties, 1 win
     assert_equal 0.33, @team_statistics.average_win_percentage("22")
     assert_equal 0, @team_statistics.average_win_percentage("3")
     assert_equal 1, @team_statistics.average_win_percentage("6")
   end
 
+  def test_most_goals_scored
+    assert_equal 1, @team_statistics.most_goals_scored("5")
+    assert_equal 2, @team_statistics.most_goals_scored("3")
+    assert_equal 4, @team_statistics.most_goals_scored("6")
+  end
 
+  def test_fewest_goals_scored
+    assert_equal 0, @team_statistics.fewest_goals_scored("5")
+    assert_equal 1, @team_statistics.fewest_goals_scored("3")
+    assert_equal 1, @team_statistics.fewest_goals_scored("6")
+  end
+
+  def test_favorite_opponent
+    assert_equal "Houston Dynamo", @team_statistics.favorite_opponent("6")
+    assert_equal "Philadelphia Union", @team_statistics.favorite_opponent("22")
+  end
+
+  def test_rival
+    assert_equal "Washington Spirit FC", @team_statistics.rival("24")
+    assert_equal "Orlando Pride", @team_statistics.rival("17")
+  end
 end
