@@ -42,4 +42,9 @@ class SeasonStatisticsTest < Minitest::Test
   def test_losingest_coach
     assert_equal "John Tortorella", @season_statistics.coach_win_loss_results("20122013", "low")
   end
+
+  def test_most_least_tackles
+    assert_equal "Houston Dynamo", @season_statistics.most_least_tackles("20122013", "high")
+    assert_equal "FC Dallas", @season_statistics.most_least_tackles("20122013", "low")
+  end
 end

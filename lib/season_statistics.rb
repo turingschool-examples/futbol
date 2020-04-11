@@ -19,19 +19,29 @@ attr_reader :stat_tracker, :game_collection, :game_teams_collection, :teams_coll
    current_games.compact
   end
 
-  def teams_hash
+  def teams_hash(season)
     teams = Hash.new(0)
+    season_teams = current_season_game_teams(season).map do |game|
+      game.team_id
+      end
     @teams_collection.each do |team|
-      teams[team.id] = 0
-    end
+        if season_teams.include?(team.id)
+          teams[team.id] = 0
+        end
+      end
     teams
   end
 
-  def coaches_hash
+  def coaches_hash(season)
     coaches = Hash.new(0)
+    season_coaches = current_season_game_teams(season).map do |game|
+      game.head_coach
+      end
     @game_teams_collection.each do |team|
-      coaches[team.head_coach] = 0
-    end
+        if season_coaches.include?(team.head_coach)
+          coaches[team.head_coach] = 0
+        end
+      end
     coaches
   end
 
@@ -42,8 +52,8 @@ attr_reader :stat_tracker, :game_collection, :game_teams_collection, :teams_coll
   end
 
   def coach_win_loss_results(season, high_low)
-    coaches_win = coaches_hash
-    coaches_lose = coaches_hash
+    coaches_win = coaches_hash(season)
+    coaches_lose = coaches_hash(season)
     current_season_game_teams(season).each do |game|
       if game.result == "WIN"
         coaches_win[game.head_coach] += 1
@@ -60,12 +70,22 @@ attr_reader :stat_tracker, :game_collection, :game_teams_collection, :teams_coll
     end
   end
 
+  def most_least_tackles(season, high_low)
+    teams = teams_hash(season)
+    current_season_game_teams(season).each do |game|
+      teams[game.team_id] += game.tackles
+    end
+    if high_low == "high"
+      most_tackles = teams.max_by {|team| team[1]}
+      highest_team = @teams_collection.find {|team| team.id == most_tackles[0]}
+      highest_team.team_name
+    elsif high_low == "low"
+      fewest_tackles = teams.min_by {|team| team[1]}
+      lowest_team = @teams_collection.find {|team| team.id == fewest_tackles[0]}
+      lowest_team.team_name
+    end
+  end
 
-  #
-  #
-  #   coaches = coaches_hash
-  #
-  #     coaches[head_coach] += 1
 
 
 
