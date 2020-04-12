@@ -108,7 +108,7 @@ class Game
   end
 #deliverable
   def self.highest_scoring_home_team_id
-    average_goals_by(:home_team).max_by{ |team_id, away_goals| away_goals}.first
+    average_goals_by(:home_team).max_by{ |team_id, home_goals| home_goals}.first
   end
 #deliverable
   def self.lowest_scoring_visitor_team_id
@@ -116,7 +116,7 @@ class Game
   end
 #deliverable
   def self.lowest_scoring_home_team_id
-    average_goals_by(:home_team).min_by{ |team_id, away_goals| away_goals}.first
+    average_goals_by(:home_team).min_by{ |team_id, home_goals| home_goals}.first
   end
 #MODULE!
   def self.games_played_by(team_id)

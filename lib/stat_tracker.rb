@@ -147,7 +147,7 @@ class StatTracker
 
   def favorite_opponent(team_id)
     team = Team.all.find do |team|
-      team.team_id == GameTeam.favorite_opponent_id(team_id)
+      team.team_id == GameTeam.ross(team_id)
     end
     team.team_name
   end
