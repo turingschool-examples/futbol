@@ -14,4 +14,12 @@ class TeamStats < Collection
     end
     games_played
   end
+
+  def most_goals_scored(team_id)
+    all_games_for(team_id).max_by {|team_stat| team_stat.goals}.goals
+  end
+
+  def fewest_goals_scored(team_id)
+    all_games_for(team_id).min_by {|team_stat| team_stat.goals}.goals
+  end
 end
