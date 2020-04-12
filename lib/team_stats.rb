@@ -22,4 +22,11 @@ class TeamStats < Collection
   def fewest_goals_scored(team_id)
     all_games_for(team_id).min_by {|team_stat| team_stat.goals}.goals
   end
+
+  def average_win_percentage(team_id)
+    total_games = all_games_for(team_id)
+    games_won = total_games.find_all {|game|game.result == "WIN"}
+    average_percentage = (games_won.length.to_f/total_games.length) * 100
+    average_percentage.round(2)
+  end
 end

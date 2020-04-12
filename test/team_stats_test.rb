@@ -14,10 +14,14 @@ class TeamStatsTest < Minitest::Test
   end
 
   def test_can_get_most_goals_by_team_id
-    assert_equal 4, @team_stats.most_goals_scored(6)
+    assert_equal 3, @team_stats.most_goals_scored(6)
   end
 
   def test_can_find_fewest_goals_by_team_id
     assert_equal 2, @team_stats.fewest_goals_scored(6)
+  end
+
+  def test_can_calculate_average_win_percentage
+    assert_equal 100.0, @team_stats.average_win_percentage(6)
   end
 end
