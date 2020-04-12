@@ -44,9 +44,9 @@ class GameRepository
     percent_visitor_wins = (number_of_visitor.to_f / number_of_games.to_f).round(2)
   end
 
-  def self.percentage_ties
-    number_of_games = @@all_games.length
-  ties =  @@all_games.select do |game|
+  def percentage_ties
+    number_of_games = @games_collection.length
+  ties =  @games_collection.select do |game|
       game.home_goals == game.away_goals
     end
     number_of_ties = ties.length
