@@ -10,4 +10,13 @@ class Game
     @away_goals= info[:away_goals].to_i
     @home_goals= info[:home_goals].to_i
   end
+
+  #created the two methods to help get the number of games won in a season for team stats
+  def home_team_win?
+    home_goals > away_goals
+  end
+
+  def visitor_team_win?
+    home_goals < away_goals
+  end
 end
