@@ -49,14 +49,20 @@ class StatTracker
 
 
 
-# lowest_scoring_visitor Name of the team with the lowest average score per game across all seasons when they are a visitor.	String
 # lowest_scoring_home_team Name of the team with the lowest average score per game across all seasons when they are at home.	String
 
   def count_of_teams
     @teams.all.size
   end
 
-  
+  def lowest_scoring_visitor
+    away_team_goals = @games.all.reduce(Hash.new(0)) do |teams, game|
+      teams[game.away_team_id] += game.away_goals
+      teams
+    end
+    away_team_id = away_team_goals.min_by{|team_id, away_goals| away_goals}.first
+    @teams.find_by_team_id(away_team_id).team_name
+  end
 
   def highest_scoring_home_team
     home_team_goals = @games.all.reduce(Hash.new(0)) do |teams, game|
