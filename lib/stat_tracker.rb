@@ -20,16 +20,17 @@ class StatTracker
     game_repository = GameRepository.new(file_paths[:games])
     game_team_repository = GameTeamsRepository.new(file_paths[:game_teams])
     season_repository = SeasonRepository.new(file_paths[:games], file_paths[:game_teams], file_paths[:teams])
-    stat_tracker = StatTracker.new(team_repository, game_repository, game_team_repository, league_repository)
+    stat_tracker = StatTracker.new(team_repository, game_repository, game_team_repository, league_repository, season_repository)
 
   end
-    attr_reader :team_repository, :game_repository, :game_team_repository
+    attr_reader :team_repository, :game_repository, :game_team_repository, :season_repository
 
-  def initialize(team_repository, game_repository, game_team_repository, league_repository)
+  def initialize(team_repository, game_repository, game_team_repository, league_repository, season_repository)
     @team_repository = team_repository
     @game_repository = game_repository
     @game_team_repository = game_team_repository
     @league_repository = league_repository
+    @season_repository = season_repository
   end
 
 
@@ -229,12 +230,12 @@ end
 
   end
 
-  def most_tackles
-
+  def most_tackles(season_id)
+     @season_repository.most_tackles(season_id)
   end
 
-  def fewest_tackles
-
+  def fewest_tackles(season_id)
+    @season_repository.fewest_tackles(season_id)
   end
 
 
