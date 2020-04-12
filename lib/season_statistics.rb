@@ -1,4 +1,3 @@
-require './lib/stat_tracker'
 require 'pry'
 
 class SeasonStatistics

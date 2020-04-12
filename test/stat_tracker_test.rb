@@ -137,4 +137,25 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Orlando Pride", @stat_tracker.team_statistics.rival("17")
   end
 
+  def test_winningest_coach
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20122013")
+  end
+
+  def test_losingest_coach
+    assert_equal "John Tortorella", @stat_tracker.worst_coach("20122013")
+  end
+
+  def test_most_least_tackles
+    assert_equal "Houston Dynamo", @stat_tracker.most_tackles("20122013")
+    assert_equal "FC Dallas", @stat_tracker.fewest_tackles("20122013")
+  end
+
+  def test_most_accurate_team
+    assert_equal "FC Dallas", @stat_tracker.most_accurate_team("20122013")
+  end
+
+  def test_least_accurate_team
+    assert_equal "Houston Dynamo", @stat_tracker.least_accurate_team("20122013")
+  end
+
 end

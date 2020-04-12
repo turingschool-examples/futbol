@@ -4,6 +4,7 @@ require_relative './game_team'
 require_relative './game_statistics'
 require_relative './league_statistics'
 require_relative './team_statistics'
+require_relative './season_statistics'
 require 'CSV'
 require 'pry'
 class StatTracker
@@ -132,5 +133,29 @@ class StatTracker
 
   def rival(team_id)
     @team_statistics.rival(team_id)
+  end
+
+  def winningest_coach(season)
+    @season_statistics.coach_win_loss_results(season, "high")
+  end
+
+  def worst_coach(season)
+    @season_statistics.coach_win_loss_results(season, "low")
+  end
+
+  def most_tackles(season)
+    @season_statistics.most_least_tackles(season, "high")
+  end
+
+  def fewest_tackles(season)
+    @season_statistics.most_least_tackles(season, "low")
+  end
+
+  def most_accurate_team(season)
+  @season_statistics.most_accurate_team(season)
+  end
+
+  def least_accurate_team(season)
+  @season_statistics.least_accurate_team(season)
   end
 end
