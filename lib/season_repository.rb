@@ -31,6 +31,7 @@ class SeasonRepository
   end
   coach_winner = coach_win_percentage.max_by{|key, value| coach_win_percentage[key]}
   coach_winner.first
+
   end
 
   def number_of_games(season, coach)
@@ -67,11 +68,10 @@ class SeasonRepository
       elsif ((team.game_id == id) && (team.result == "LOSS"))
         coach_loose_percentage[team.head_coach] += (1.to_f / (number_of_games(season, team.head_coach)))
       end
+     end
     end
-  end
-  require 'pry'; binding.pry
-  coach_looser = coach_loose_percentage.max_by{|key, value| coach_loose_percentage[key]}
-  coach_looser.first
+    coach_looser = coach_loose_percentage.max_by{|key, value| coach_loose_percentage[key]}
+    coach_looser.first
   end
 
   def number_of_games(season, coach)
@@ -90,5 +90,60 @@ class SeasonRepository
     end
     count
   end
+
+ def most_tackles(season_id)
+  games_in_the_season = []
+  highest_tackles = 0
+  highest_team_id = 0
+  @game_collection.each do |game|
+    if game.season == season_id
+      games_in_the_season << game.game_id
+    end
+  end
+  games_in_the_season.each do |season_game|
+    @game_team_collection.each do |game_team|
+      if game_team.game_id == season_game
+        if game_team.tackles > highest_tackles
+          highest_tackles = game_team.tackles
+          highest_team_id = game_team.team_id
+        end
+      end
+    end
+  end
+  find_team_id(highest_team_id)
+end
+
+def fewest_tackles(season_id)
+  games_in_the_season = []
+  lowest_tackles = 100
+  lowest_team_id = 100
+  @game_collection.each do |game|
+    if game.season == season_id
+      games_in_the_season << game.game_id
+    end
+  end
+  games_in_the_season.each do |season_game|
+    @game_team_collection.each do |game_team|
+      if game_team.game_id == season_game
+        if game_team.tackles < lowest_tackles
+          lowest_tackles = game_team.tackles
+          lowest_team_id = game_team.team_id
+        end
+      end
+    end
+  end
+  find_team_id(lowest_team_id)
+end
+
+def find_team_id(id)
+  found_team = @team_collection.find do |team|
+    team.team_id == id
+  end
+  named_team = found_team.teamname
+  named_team
+end
+
+  
+
 
 end

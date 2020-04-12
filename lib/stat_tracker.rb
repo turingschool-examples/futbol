@@ -24,16 +24,17 @@ class StatTracker
     game_repository = GameRepository.new(file_paths[:games])
     game_team_repository = GameTeamsRepository.new(file_paths[:game_teams])
     season_repository = SeasonRepository.new(file_paths[:games], file_paths[:game_teams], file_paths[:teams])
-    stat_tracker = StatTracker.new(team_repository, game_repository, game_team_repository, league_repository)
+    stat_tracker = StatTracker.new(team_repository, game_repository, game_team_repository, league_repository, season_repository)
 
   end
-    attr_reader :team_repository, :game_repository, :game_team_repository
+    attr_reader :team_repository, :game_repository, :game_team_repository, :season_repository
 
-  def initialize(team_repository, game_repository, game_team_repository, league_repository)
+  def initialize(team_repository, game_repository, game_team_repository, league_repository, season_repository)
     @team_repository = team_repository
     @game_repository = game_repository
     @game_team_repository = game_team_repository
     @league_repository = league_repository
+    @season_repository = season_repository
   end
 
 
@@ -132,19 +133,23 @@ end
 
   end
 
-  # average_win_percentage	Average win percentage of all games for a team.
 
-  # def average_win_percentage(id)
-  #   win_percent = 0
-  #   GameStats.all_game_stats.each do |game|
-  #     require"pry";binding.pry
-  #     if (game.team_id == id) && (game.result == win)
-  #       win_percent += (1)
-  #     end
-  #   end
-  #   win
-  #   end
-  # =>
+
+  def average_win_percentage(id)
+    win_percent = 0
+    total_game = 0
+    GameStats.all_game_stats.each do |game|
+      require"pry";binding.pry
+      if (game.team_id == id) && (game.result == win)
+        win_percent += 1
+      end
+      total_game += 1
+    end
+    win_percent
+    total_game
+    require "pry";binding.pry
+    end
+
 
   def most_goals_scored(id)
     @team_repository.most_goals_scored(id)
@@ -155,10 +160,12 @@ end
   end
 
   def percentage_visitor_wins
+    @team_repository.percentage_visitor_wins
 
   end
 
   def percentage_ties
+    @team_repository.percentage_ties
 
   end
 
@@ -218,11 +225,11 @@ end
   end
 
   def winningest_coach
-
+    @league_repository.winningest_coach(season)
   end
 
   def worst_coach
-
+    @league_repository.worst_coach(season)
   end
 
   def most_accurate_team
@@ -233,12 +240,12 @@ end
 
   end
 
-  def most_tackles
-
+  def most_tackles(season_id)
+     @season_repository.most_tackles(season_id)
   end
 
-  def fewest_tackles
-
+  def fewest_tackles(season_id)
+    @season_repository.fewest_tackles(season_id)
   end
 
 
