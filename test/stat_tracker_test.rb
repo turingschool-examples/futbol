@@ -187,4 +187,12 @@ class StatTrackerTest < Minitest::Test
     assert_equal "LA Galaxy", @stat_tracker.worst_offense
   end
 
+  def test_favorite_opponent
+    assert_equal "Houston Dynamo", @stat_tracker.favorite_opponent(6)
+  end
+
+  def test_rival
+    assert_equal "FC Dallas", @stat_tracker.rival(3)
+  end
+
 end
