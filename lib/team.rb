@@ -3,7 +3,7 @@ class Team
 
   def initialize(team_info)
     @team_id = team_info[:team_id].to_i
-    @franchiseid = team_info[:franchiseId].to_i
+    @franchiseid = team_info[:franchiseid].to_i
     @teamname = team_info[:teamname]
     @abbreviation = team_info[:abbreviation]
     @stadium = team_info[:stadium]
