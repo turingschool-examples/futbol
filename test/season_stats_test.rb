@@ -34,5 +34,7 @@ class SeasonStatsTest < Minitest::Test
     assert_equal "John Tortorella", @season_stats.worst_coach("20122013")
   end
 
-
+  def test_calc_season_shot_percentage
+    assert_equal 0.29, @season_stats.calc_season_shot_percentage("20122013", "6")
+  end
 end
