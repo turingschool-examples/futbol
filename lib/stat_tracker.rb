@@ -6,11 +6,6 @@ require_relative './team_repository'
 require_relative './game_repository'
 require_relative './league_repository'
 require_relative './season_repository'
-<<<<<<< HEAD
-require 'CSV'
-=======
-
->>>>>>> 13e22fa0f017922963bdd87df1906d0ece19c550
 
 
 require 'CSV'

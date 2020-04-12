@@ -53,4 +53,11 @@ class GameRepository
     percent_ties = (number_of_ties.to_f / number_of_games.to_f).round(2)
   end
 
+  def average_goals_per_game
+    total_goals = @games_collection.sum do |game|
+      (game.home_goals + game.away_goals)
+    end
+    (total_goals.to_f / @games_collection.length).round(2)
+  end
+
 end

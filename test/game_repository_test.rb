@@ -47,4 +47,9 @@ class GameRepositoryTest < Minitest::Test
     assert_equal 0.20, game_repository.percentage_ties
   end
 
+  def test_average_goals_per_game
+    game_repository = GameRepository.new('./data/games.csv')
+    assert_equal 4.22, game_repository.average_goals_per_game
+  end
+
 end
