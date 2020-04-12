@@ -17,4 +17,10 @@ class SeasonStatsTest < Minitest::Test
     assert_equal 12, @season_stats.get_games_of_season("20122013").length
   end
 
+  def test_find_num_games_played_won_in_season
+    result = {:games_played => 3, :games_won => 1}
+    assert_equal result, @season_stats.find_num_games_played_won_in_season("20122013", "16")
+  end
+
+
 end
