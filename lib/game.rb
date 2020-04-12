@@ -28,8 +28,8 @@ class Game
     @season = game_info[:season]
     @type = game_info[:type]
     @date_time = game_info[:date_time]
-    @away_team_id = game_info[:away_team_id].to_i
-    @home_team_id = game_info[:home_team_id].to_i
+    @away_team_id = game_info[:away_team_id]
+    @home_team_id = game_info[:home_team_id]
     @away_goals = game_info[:away_goals].to_i
     @home_goals = game_info[:home_goals].to_i
     @venue = game_info[:venue]
