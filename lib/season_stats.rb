@@ -1,0 +1,136 @@
+class SeasonStats
+  attr_reader :teams, :game_stats
+
+  def initialize(teams, game_stats)
+    @teams = teams
+    @game_stats = game_stats
+  end
+
+  def get_games_of_season(season)
+    @game_stats.game_stats.find_all do |game|
+      game.game_id.to_s[0..3] == season[0..3]
+    end
+  end
+
+  def find_num_games_played_won_in_season(season, team_id)
+    results_tracker = {:games_played => 0, :games_won => 0}
+    games = get_games_of_season(season)
+    games.each do |game|
+      if game.team_id == team_id.to_i && game.result == "WIN"
+        results_tracker[:games_played] += 1
+        results_tracker[:games_won] += 1
+      elsif game.team_id == team_id.to_i
+        results_tracker[:games_played] += 1
+      end
+    end
+    results_tracker
+  end
+
+  def calc_season_win_percentage(season, team_id)
+    season_results = find_num_games_played_won_in_season(season, team_id)
+    (season_results[:games_won].to_f / season_results[:games_played]).round(2)
+  end
+
+  def winningest_coach(season)
+    team_ids = []
+    games = get_games_of_season(season)
+
+    games.each do |game|
+      team_ids << game.team_id if team_ids.any?{|id| id == game.team_id} == false
+    end
+
+    percentage_tracker = -1
+    id_tracker = nil
+
+    team_ids.each do |id|
+      percentage = calc_season_win_percentage(season, id)
+      if percentage > percentage_tracker
+        percentage_tracker = percentage
+        id_tracker = id
+      end
+    end
+
+    winner = games.find{|x| x.team_id == id_tracker}
+    winner.head_coach
+  end
+
+  def worst_coach(season)
+    team_ids = []
+    games = get_games_of_season(season)
+
+    games.each do |game|
+      team_ids << game.team_id if team_ids.any?{|id| id == game.team_id} == false
+    end
+
+    percentage_tracker = 2
+    id_tracker = nil
+
+    team_ids.each do |id|
+      percentage = calc_season_win_percentage(season, id)
+      if percentage < percentage_tracker
+        percentage_tracker = percentage
+        id_tracker = id
+      end
+    end
+
+    worst = games.find{|x| x.team_id == id_tracker}
+    worst.head_coach
+  end
+
+  def calc_season_shot_percentage(season, team_id)
+    results_tracker = {:shots => 0, :goals => 0}
+    games = get_games_of_season(season)
+    games.each do |game|
+      if game.team_id == team_id.to_i
+        results_tracker[:shots] += game.shots
+        results_tracker[:goals] += game.goals
+      end
+    end
+    (results_tracker[:goals].to_f / results_tracker[:shots]).round(2)
+  end
+
+  def most_accurate_team(season)
+    team_ids = []
+    games = get_games_of_season(season)
+
+    games.each do |game|
+      team_ids << game.team_id if team_ids.any?{|id| id == game.team_id} == false
+    end
+
+    percentage_tracker = 0
+    id_tracker = nil
+
+    team_ids.each do |id|
+      percentage = calc_season_shot_percentage(season, id)
+      if percentage > percentage_tracker
+        percentage_tracker = percentage
+        id_tracker = id
+      end
+    end
+    team = @teams.teams.find{|team| team.team_id == id_tracker.to_i}
+    team.teamname
+  end
+
+  def least_accurate_team(season)
+    team_ids = []
+    games = get_games_of_season(season)
+
+    games.each do |game|
+      team_ids << game.team_id if team_ids.any?{|id| id == game.team_id} == false
+    end
+
+    percentage_tracker = 2
+    id_tracker = nil
+
+    team_ids.each do |id|
+      percentage = calc_season_shot_percentage(season, id)
+      if percentage < percentage_tracker
+        percentage_tracker = percentage
+        id_tracker = id
+      end
+    end
+    team = @teams.teams.find{|team| team.team_id == id_tracker.to_i}
+    team.teamname
+  end
+
+end
