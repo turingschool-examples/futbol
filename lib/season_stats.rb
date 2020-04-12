@@ -25,4 +25,10 @@ class SeasonStats
     end
     results_tracker
   end
+
+  def calc_season_win_percentage(season, team_id)
+    season_results = find_num_games_played_won_in_season(season, team_id)
+    (season_results[:games_won].to_f / season_results[:games_played]).round(2)
+  end
+
 end
