@@ -203,4 +203,61 @@ class StatTracker
     end
     @teams.find {|team| team.team_id == team_tackles.min_by {|team, tack| tack}[0]}.team_name
   end
+
+  def team_info(team_id)
+    # finds a specific team via their id
+     team = team_by_id(team_id)
+     # returns an array of the team object's instance variables, then iterates
+     # over that array, deletes the '@' from the front of the instance variable
+     # and assigns that as a key, then sets the value equal to the key by again
+     # removing the '@' and then passing that as a method call then returning it
+     # all as a hash
+      team_data = team.instance_variables.map { |key,value| ["#{key}".delete("@"), value = team.send("#{key}".delete("@").to_sym)]}.to_h
+      # searches the hash for a key, value pair whose key is "stadium" then deletes it.
+      team_data.delete_if {|k,v| k == "stadium"}
+  end
+
+  def average_win_percentage(team_id)
+    # finds the number of games that a team both played in and won
+    team_games = all_games_by_team(team_id)
+    calculate_win_percentage(team_games)
+    # returns the number of that team's wins over the total games they have played rounded to the 2nd decimal place
+  end
+
+  def all_games_by_team(team_id)
+    @game_teams.find_all{|game_team| game_team.team_id == team_id}
+  end
+
+  def most_goals_scored(team_id)
+    all_games_by_team(team_id).max_by{|game| game.goals}.goals
+  end
+
+  def fewest_goals_scored(team_id)
+    all_games_by_team(team_id).min_by{|game| game.goals}.goals
+  end
+
+  def favorite_opponent(team_id)
+    team_games = all_games_by_team(team_id)
+    team_games.map! {|game| game.game_id}
+    opp_team_games = @game_teams.find_all {|game| team_games.include?(game.game_id) && game.team_id != team_id}
+    opp_teams = opp_team_games.group_by {|game| game.team_id}
+    win_pct_against = opp_teams.transform_values{|game| 1 - calculate_win_percentage(game)}
+    @teams.find {|team| team.team_id == win_pct_against.max_by {|team, win_pct| win_pct}[0]}.team_name
+  end
+
+  def rival(team_id)
+    team_games = all_games_by_team(team_id)
+    team_games.map! {|game| game.game_id}
+    opp_team_games = @game_teams.find_all {|game| team_games.include?(game.game_id) && game.team_id != team_id}
+    opp_teams = opp_team_games.group_by {|game| game.team_id}
+    win_pct_against = opp_teams.transform_values{|game| 1 - calculate_win_percentage(game)}
+    @teams.find {|team| team.team_id == win_pct_against.min_by {|team, win_pct| win_pct}[0]}.team_name
+  end
+
+  def calculate_win_percentage(team_games)
+    wins = 0.0
+    team_games.each {|game| wins += 1.0 if game.result == "WIN"}
+    (wins / team_games.length).round(2)
+  end
+
 end
