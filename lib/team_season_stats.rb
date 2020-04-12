@@ -7,4 +7,10 @@ class TeamSeasonStats < Collection
   def initialize(file_path)
     @games = create_objects(file_path, Game)
   end
+
+  def all_games(id)
+    @games.find_all do |game|
+      (game.home_team_id == id) || (game.away_team_id == id)
+    end
+  end
 end
