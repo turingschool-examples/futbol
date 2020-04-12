@@ -30,25 +30,25 @@ class GameStatisticsTest < Minitest::Test
   #   assert_equal', @game_statistics.game_teams_collection
   #   assert_equal', @game_statistics.teams_collection
   # end
-  #
+
   def test_highest_total_score
-    assert_equal 6, @game_statistics.highest_total_score
+    assert_equal 6, @game_statistics.total_score("high")
   end
   #
   def test_lowest_total_score
-    assert_equal 1,  @game_statistics.lowest_total_score
+    assert_equal 1,  @game_statistics.total_score("low")
   end
   #
   def test_it_can_calculate_percentage_of_home_wins
-    assert_equal 62.50, @game_statistics.percentage_home_wins
+    assert_equal 0.63, @game_statistics.percentage_outcomes("home")
   end
   #
   def test_it_can_calculate_percentage_of_visitor_game_wins
-    assert_equal 25.00, @game_statistics.percentage_visitor_wins
+    assert_equal 0.25, @game_statistics.percentage_outcomes("away")
   end
   #
   def test_it_can_calculate_percenatage_ties
-    assert_equal 25.00, @game_statistics.percentage_ties
+    assert_equal 0.13, @game_statistics.percentage_outcomes("tie")
   end
 
   def test_count_of_games_by_season

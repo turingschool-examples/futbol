@@ -12,45 +12,36 @@ class GameStatistics
     @teams_collection = teams_collection
   end
 
-  def highest_total_score
+  def total_score(high_low)
     total = @game_collection.map do |game|
       game.away_goals + game.home_goals
     end
-    total.max_by {|score| score}
+      if high_low == "high"
+        total.max_by {|score| score}
+      elsif high_low == "low"
+      total.min_by {|score| score}
+      end
   end
 
-  def lowest_total_score
-    total = @game_collection.map do |game|
-      game.away_goals + game.home_goals
+  def percentage_outcomes(outcome)
+    if outcome == "home"
+      games = @game_teams_collection.find_all do |game|
+        game.home_or_away == "home"
+      end
+    elsif outcome == "away"
+        games = @game_teams_collection.find_all do |game|
+          game.home_or_away == "away"
+        end
+    elsif outcome == "tie"
+        tied_games = @game_teams_collection.find_all do |game|
+          game.result  == "TIE"
+        end
+      return ((tied_games.length.to_f/2) / (@game_teams_collection.length/2)).round(2)
     end
-    total.min_by {|score| score}
-  end
-
-  def percentage_home_wins
-    home_games = @game_teams_collection.find_all do |game|
-      game.home_or_away == "home"
-    end
-    won_home_games = home_games.find_all do |game|
-      game.result  == "WIN"
-    end
-    (won_home_games.length.to_f / home_games.length) *100
-  end
-
-  def percentage_visitor_wins
-    home_games = @game_teams_collection.find_all do |game|
-      game.home_or_away == "away"
-    end
-    won_home_games = home_games.find_all do |game|
-      game.result  == "WIN"
-    end
-    (won_home_games.length.to_f / home_games.length) *100
-  end
-
-  def percentage_ties
-    tied_games = @game_teams_collection.find_all do |game|
-    game.result  == "TIE"
-    end
-    (tied_games.length.to_f / (@game_teams_collection.length/2)) *100
+    won_games = games.find_all do |game|
+        game.result  == "WIN"
+      end
+    (won_games.length.to_f / games.length).round(2)
   end
 
   def count_of_games_by_season
