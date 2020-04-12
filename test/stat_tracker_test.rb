@@ -184,7 +184,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_returns_worst_offence
-    assert_equal "LA Galaxy", @stat_tracker.worst_offense
+    assert_equal "Portland Timbers", @stat_tracker.worst_offense
   end
 
   def test_favorite_opponent

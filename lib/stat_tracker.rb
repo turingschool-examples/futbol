@@ -144,7 +144,7 @@ class StatTracker
   def team_info(team_id)
     Team.find_team_info(team_id)
   end
-  
+
   def favorite_opponent(team_id)
     team = Team.all.find do |team|
       team.team_id == GameTeam.favorite_opponent_id(team_id)
@@ -157,5 +157,13 @@ class StatTracker
       team.team_id == GameTeam.rival_id(team_id)
     end
     team.team_name
+  end
+
+  def winningest_coach(season_id)
+    GameTeam.winningest_coach(season_id)
+  end
+
+  def worst_coach(season_id)
+    GameTeam.worst_coach(season_id)
   end
 end
