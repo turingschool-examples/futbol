@@ -156,10 +156,12 @@ end
   end
 
   def percentage_visitor_wins
+    @team_repository.percentage_visitor_wins
 
   end
 
   def percentage_ties
+    @team_repository.percentage_ties
 
   end
 
@@ -219,11 +221,11 @@ end
   end
 
   def winningest_coach
-
+    @league_repository.winningest_coach(season)
   end
 
   def worst_coach
-
+    @league_repository.worst_coach(season)
   end
 
   def most_accurate_team

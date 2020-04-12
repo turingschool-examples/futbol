@@ -18,6 +18,14 @@ class GameRepository
     sum = (highest_score.away_goals + highest_score.home_goals)
   end
 
+  def lowest_total_score
+    lowest_score = @games_collection.min_by do |game|
+      (game.away_goals + game.home_goals)
+    end
+      sum = (lowest_score.away_goals + lowest_score.home_goals)
+  end
+
+
   def percentage_home_wins
     number_of_games = @games_collection.length
   home_wins =  @games_collection.select do |game|
@@ -27,14 +35,22 @@ class GameRepository
     percent_home_wins = (number_of_homewins.to_f / number_of_games.to_f).round(2)
   end
 
-
-  def lowest_total_score
-    lowest_score = @games_collection.min_by do |game|
-      #require 'pry'; binding.pry
-      (game.away_goals + game.home_goals)
+  def percentage_visitor_wins
+    number_of_games = @@all_games.length
+  visitor_wins =  @@all_games.select do |game|
+      game.home_goals < game.away_goals
     end
-    sum = (lowest_score.away_goals + lowest_score.home_goals)
+    number_of_visitor = visitor_wins.length
+    percent_visitor_wins = (number_of_visitor.to_f / number_of_games.to_f).round(2)
   end
 
+  def self.percentage_ties
+    number_of_games = @@all_games.length
+  ties =  @@all_games.select do |game|
+      game.home_goals == game.away_goals
+    end
+    number_of_ties = ties.length
+    percent_ties = (number_of_ties.to_f / number_of_games.to_f).round(2)
+  end
 
 end
