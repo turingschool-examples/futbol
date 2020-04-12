@@ -115,7 +115,6 @@ class StatTracker
 
   def best_offense
     team_id = GameTeam.best_offense
-    binding.pry
     Team.all.find { |team| team.team_id == team_id }.team_name
   end
 
