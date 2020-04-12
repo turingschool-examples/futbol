@@ -54,4 +54,28 @@ class SeasonStats
     winner.head_coach
   end
 
+  def worst_coach(season)
+    team_ids = []
+    games = get_games_of_season(season)
+
+    games.each do |game|
+      team_ids << game.team_id if team_ids.any?{|id| id == game.team_id} == false
+    end
+
+    percentage_tracker = 2
+    id_tracker = nil
+
+    team_ids.each do |id|
+      percentage = calc_season_win_percentage(season, id)
+      if percentage < percentage_tracker
+        percentage_tracker = percentage
+        id_tracker = id
+      end
+    end
+
+    worst = games.find{|x| x.team_id == id_tracker}
+    worst.head_coach
+  end
+
+
 end
