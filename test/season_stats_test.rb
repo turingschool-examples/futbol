@@ -2,28 +2,20 @@ require_relative 'test_helper'
 
 class SeasonStatsTest < Minitest::Test
   def setup
-    @teams_col = TeamCollection.new('./data/teams.csv')
-    @game_stats_col = GameStatsCollection.new('./test/fixtures/truncated_game_stats2.csv')
-    @season_stats = SeasonStats.new(@teams_col, @game_stats_col)
+    @season_stats = SeasonStats.new('./data/teams.csv', './test/fixtures/truncated_game_stats2.csv')
   end
 
-  def test_initialization_with_attributes
+  def test_initialization
     assert_instance_of SeasonStats, @season_stats
-    assert_equal @game_stats_col, @season_stats.game_stats
-    assert_equal @teams_col, @season_stats.teams
   end
 
   def test_get_games_of_season
     assert_equal 12, @season_stats.get_games_of_season("20122013").length
   end
 
-  def test_find_num_games_played_won_in_season
-    result = {:games_played => 3, :games_won => 1}
-    assert_equal result, @season_stats.find_num_games_played_won_in_season("20122013", "16")
-  end
-
-  def test_calc_season_win_percentage
-    assert_equal 0.67, @season_stats.calc_season_win_percentage("20122013", "17")
+  def test_season_stat_percentage
+    assert_equal 0.67, @season_stats.season_stat_percentage("20122013", "Mike Babcock", :win).round(2)
+    assert_equal 0.22, @season_stats.season_stat_percentage("20122013", 3, :shot).round(2)
   end
 
   def test_winningest_coach
@@ -34,10 +26,6 @@ class SeasonStatsTest < Minitest::Test
     assert_equal "John Tortorella", @season_stats.worst_coach("20122013")
   end
 
-  def test_calc_season_shot_percentage
-    assert_equal 0.29, @season_stats.calc_season_shot_percentage("20122013", "6")
-  end
-
   def test_most_accurate_team
     assert_equal "LA Galaxy", @season_stats.most_accurate_team("20122013")
   end
@@ -46,4 +34,11 @@ class SeasonStatsTest < Minitest::Test
     assert_equal "New England Revolution", @season_stats.least_accurate_team("20122013")
   end
 
+  def test_most_tackles
+    assert_equal "FC Dallas", @season_stats.most_tackles("20122013")
+  end
+
+  def test_fewest_tackles
+    assert_equal "New England Revolution", @season_stats.fewest_tackles("20122013")
+  end
 end
