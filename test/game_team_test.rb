@@ -6,7 +6,7 @@ require 'pry'
 require './lib/stat_tracker'
 require './lib/game_team'
 require 'mocha/minitest'
-#
+
 class GameTeamTest < Minitest::Test
 
   def setup
@@ -162,5 +162,14 @@ class GameTeamTest < Minitest::Test
 
   def test_it_can_return_worst_offense_team_number
     assert_equal 17, GameTeam.worst_offense
-    
+  end
+
+  def test_most_goals_scored_by_team_id
+    assert_equal 2, GameTeam.most_goals_scored(3)
+  end
+
+  def test_least_goals_scored_by_team_id
+    assert_equal 2, GameTeam.least_goals_scored(26)
+  end
+
 end

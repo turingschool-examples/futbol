@@ -6,6 +6,10 @@ class GameTeam
     @@all
   end
 
+  def self.find_by_team(team_id)
+    all.find_all{|game| game.team_id == team_id}
+  end
+
   def self.find_by(id)
     @@all.find_all{|game| game.game_id == id}
   end
@@ -60,15 +64,15 @@ class GameTeam
   end
 
   def self.least_accurate_team(season)
-   seasonal_hash = gets_team_shots_goals_count(season)
-   seasonal_hash.map do |key,value|
-     value["average"] = (value["shots"]/ value["goals"].to_f).round(2)
-   end
-   team_hash_with_highest_average = seasonal_hash.min_by do |key,value|
-     value["average"]
-   end
-   team_hash_with_highest_average[0]
- end
+     seasonal_hash = gets_team_shots_goals_count(season)
+     seasonal_hash.map do |key,value|
+       value["average"] = (value["shots"]/ value["goals"].to_f).round(2)
+     end
+     team_hash_with_highest_average = seasonal_hash.min_by do |key,value|
+       value["average"]
+     end
+     team_hash_with_highest_average[0]
+  end
 
  def self.most_accurate_team(season)
     seasonal_hash = gets_team_shots_goals_count(season)
@@ -79,7 +83,7 @@ class GameTeam
       value["average"]
     end
     team_hash_with_highest_average[0]
-  end
+ end
 
   def self.gets_team_shots_goals_count(season)
     #passes in desired season, grabs the *games* for the season
@@ -116,6 +120,33 @@ class GameTeam
     total_goals_per_team= Hash[grouped_team.keys.zip(team_averaged_goals)]
     total_goals_per_team.key(total_goals_per_team.values.min)
   end
+
+
+  def self.most_goals_scored(team_id)
+  total_game_teams_per_team_id = find_by_team(team_id)
+  results = {}
+  total_game_teams_per_team_id.each do |game_team|
+    results[game_team.game_id] ||= {"team_id"=>0, "goals"=>0}
+    results[game_team.game_id]["team_id"] = game_team.team_id
+    results[game_team.game_id]["goals"] = game_team.goals
+  end
+  max_goals = results.max_by{|key,value| value["goals"]}
+  return max_goals[1]["goals"]
+  end
+
+  def self.least_goals_scored(team_id)
+    total_game_teams_per_team_id = find_by_team(team_id)
+    results = {}
+    total_game_teams_per_team_id.each do |game_team|
+      results[game_team.game_id] ||= {"team_id"=>0, "goals"=>0}
+      results[game_team.game_id]["team_id"] = game_team.team_id
+      results[game_team.game_id]["goals"] = game_team.goals
+      end
+    min_goals = results.min_by{|key,value| value["goals"]}
+    return min_goals[1]["goals"]
+  end
+
+
     attr_reader :game_id,
                 :team_id,
                 :hoa,
@@ -149,4 +180,5 @@ class GameTeam
     @giveaways = details[:giveaways].to_i
     @takeaways = details[:takeaways].to_i
   end
+
 end
