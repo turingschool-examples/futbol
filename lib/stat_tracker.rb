@@ -214,11 +214,11 @@ end
   end
 
   def winningest_coach
-
+    @league_repository.winningest_coach(season)
   end
 
   def worst_coach
-
+    @league_repository.worst_coach(season)
   end
 
   def most_accurate_team
