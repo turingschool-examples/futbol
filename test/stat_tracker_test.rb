@@ -3,8 +3,8 @@ require 'CSV'
 require './lib/stat_tracker'
 require './lib/game'
 require './lib/games_methods'
-require './lib/game_teams'
-require './lib/teams'
+require './lib/game_team'
+# require './lib/teams'
 require './lib/team'
 
 class StatTrackerTest < Minitest::Test
@@ -69,6 +69,6 @@ class StatTrackerTest < Minitest::Test
 
   def test_winningest_coach
     assert_equal "Claude Julien", @stat_tracker.winningest_coach
-  end 
+  end
 
 end

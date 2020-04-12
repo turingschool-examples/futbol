@@ -1,6 +1,6 @@
 require 'CSV'
 require_relative 'team'
-require_relative 'teams'
+# require_relative 'teams'
 require_relative 'game'
 require_relative 'games_methods'
 
@@ -162,8 +162,23 @@ class StatTracker
   end
 
   def winningest_coach(season_id)
-    
-    self.to_f / n.to_f * 100.0
+    require "pry";binding.pry
+    # whichever team using season id has the highest WIN result of the season
+    # either post season or regular season
+    # will return the value of the winningest_coach
+    # data needed: season_id, coach_name, result
+    # coach_name = season_id with highest result(win) percentage
+    # regular season
+    # season_id select method to return the value of the season_ids who have the "result" of WIN
+    # select the season_id with highest win percentage
+    # season_id i would use a method that would return the coach name.
+
+    # given the season id's last four digits, I would compare with game_id's first four digits
+    # last four digits of season_id are 1 more than the game_id's first four digits
+    #take last four integers(season_id) - first four integers(game_id)
+    # =
+  #   self.to_f / n.to_f * 100.0
+  # end
   end
 end
 
