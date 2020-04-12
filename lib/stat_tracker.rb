@@ -160,6 +160,11 @@ class StatTracker
       end
     end
   end
+
+  def winningest_coach(season_id)
+    
+    self.to_f / n.to_f * 100.0
+  end
 end
 
 #   def initialize

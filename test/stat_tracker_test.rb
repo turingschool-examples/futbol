@@ -43,11 +43,10 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of GameTeams, @stat_tracker.game_teams
   end
 
-<<<<<<< HEAD
   def test_best_offense
-    require "pry";binding.pry
     assert_equal "FC Dallas", @stat_tracker.best_offense
-=======
+  end
+
   def test_count_of_teams
     assert_equal 32, @stat_tracker.count_of_teams
   end
@@ -66,7 +65,10 @@ class StatTrackerTest < Minitest::Test
 
   def test_highest_scoring_visitor
     assert_equal "LA Galaxy", @stat_tracker.highest_scoring_visitor
->>>>>>> b3bdcc122fca460fe2c4f2ba0764cab563cd6c1a
   end
+
+  def test_winningest_coach
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach
+  end 
 
 end
