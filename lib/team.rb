@@ -9,6 +9,7 @@ class Team
   end
 
   def self.find_team_info(id)
+    id = id.to_i
     selected_team = @@all.select{|team| team.team_id==id}
     selected_team.group_by{|group| group.team_id}
   end
@@ -21,7 +22,7 @@ class Team
   end
 
   def self.count_of_teams
-    @@all.length
+    all.length
   end
 
   attr_reader :team_id, :franchise_id, :team_name, :abbreviation, :stadium, :link
