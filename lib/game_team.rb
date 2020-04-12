@@ -170,7 +170,7 @@ class GameTeam
   end
 
   def self.most_goals_scored(team_id)
-    # team_id = team_id.to_i
+  team_id = team_id.to_i
   total_game_teams_per_team_id = find_by_team(team_id)
   results = {}
   total_game_teams_per_team_id.each do |game_team|
@@ -183,7 +183,7 @@ class GameTeam
   end
 
   def self.fewest_goals_scored(team_id)
-    # team_id = team_id.to_i
+    team_id = team_id.to_i
     total_game_teams_per_team_id = find_by_team(team_id)
     results = {}
     total_game_teams_per_team_id.each do |game_team|
