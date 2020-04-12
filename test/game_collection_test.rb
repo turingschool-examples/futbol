@@ -44,15 +44,29 @@ class GameCollectionClass < Minitest::Test
   end
 
   def test_percentage_home_wins
-    assert_equal 21.1, @game_collection.percentage_home_wins
+    assert_equal 66.67, @game_collection.percentage_home_wins
   end
 
   def test_percentage_away_wins
-    skip
+    assert_equal 33.33, @game_collection.percentage_visitor_wins
   end
 
   def test_percentage_ties
+    assert_equal 0.0, @game_collection.percentage_ties
+  end
+
+  def test_count_of_games_by_season
     skip
   end
+
+  def test_average_goals_per_game
+    skip
+  end
+
+  def test_average_goals_by_season
+    skip
+  end
+
+
 
 end

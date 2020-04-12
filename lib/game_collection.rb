@@ -6,7 +6,6 @@ class GameCollection
 
   def initialize(file_path)
     @games_list = create_games(file_path)
-    @pct_data = Hash.new { |hash, key| hash[key] = 0 }
   end
 
   def create_games(file_path)
@@ -28,17 +27,26 @@ class GameCollection
   # percentage_home_wins Percentage of games that a home team has won (rounded to the nearest 100th)Float
 
   def percentage_home_wins
-    # find total of home wins
-    # take total of home wins and divide by total games played
-    # make percentage
-    home_wins
+  ((home_wins.to_f / @games_list.length.to_f) * 100).round(2)
   end
 
   def percentage_visitor_wins
-
+    ((away_wins.to_f / @games_list.length.to_f) * 100).round(2)
   end
 
   def percentage_ties
+    ((ties.to_f / @games_list.length.to_f) * 100).round(2)
+  end
+
+  def test_count_of_games_by_season
+
+  end
+
+  def average_goals_per_game
+
+  end
+
+  def test_average_goals_by_season
 
   end
 
@@ -61,13 +69,7 @@ end
 
 def ties
   @games_list.select { |game| game.home_goals == game.away_goals}.length
-
 end
-# percentage_visitor_wins Percentage of games that a visitor has won (rounded to the nearest 100th)Float
-#
-# percentage_ties Percentage of games that has resulted in a tie (rounded to the nearest 100th)Float
-#
-
 
 
 
