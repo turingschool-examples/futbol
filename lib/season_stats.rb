@@ -3,8 +3,13 @@ class SeasonStats
 
   def initialize(teams, game_stats)
     @teams = teams
-    # @games = games
     @game_stats = game_stats
+  end
+
+  def get_games_of_season(season)
+    @game_stats.game_stats.find_all do |game|
+      game.game_id.to_s[0..3] == season[0..3]
+    end
   end
 
 end
