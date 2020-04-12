@@ -5,13 +5,16 @@ require 'minitest/pride'
 require 'pry'
 require './lib/stat_tracker'
 require './lib/team'
-#
+require './lib/game'
+require './lib/game_team'
+
 
 class TeamTest < Minitest::Test
   def setup
     # file_path = "./data/games.csv"
     file_path = "./data/teams.csv"
     @teams = Team.from_csv(file_path)
+    @game_teams = GameTeam.from_csv("./test/fixtures/game_teams_40.csv")
 
     @base_team = Team.new({
       :team_id => 4,
@@ -36,17 +39,10 @@ class TeamTest < Minitest::Test
 
   def test_it_returns_attributes
     assert_equal 4 , @base_team.team_id
-    # binding.pry
     assert_equal 16 , @base_team.franchise_id
     assert_equal "Chicago Fire" , @base_team.team_name
     assert_equal "CHI" , @base_team.abbreviation
     assert_equal "SeatGeek Stadium" , @base_team.stadium
     assert_equal "/api/v1/teams/4" , @base_team.link
   end
-
-  #michelle start
-  def test_it_can_find_team_names_helper_method
-    assert_equal "FC Dallas", @base_team.find_team_names(6)
-  end
-  #michelle end 
-end #final
+end

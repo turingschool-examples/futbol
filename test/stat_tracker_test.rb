@@ -69,4 +69,23 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_count_games_in_a_season
     assert_equal ({20122013=>2, 20162017=>5, 20142015=>6, 20132014=>4, 20152016=>2, 20172018=>1}), @stat_tracker.count_of_games_by_season
   end
+
+#Michelle start
+
+  def test_it_can_find_highest_total_score
+    assert_equal 5, @stat_tracker.highest_total_score
+  end
+
+  def test_it_can_find_lowest_total_score
+    assert_equal 3, @stat_tracker.lowest_total_score
+  end
+
+  def test_it_can_return_team_name_with_most_tackles
+    assert_equal "FC Dallas", @stat_tracker.most_tackles(20122013)
+  end
+
+  def test_it_can_return_team_name_with_fewest_tackles
+    assert_equal "Washington Spirit FC", @stat_tracker.fewest_tackles(20122013)
+  end
+  #michelle end
 end
