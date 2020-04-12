@@ -3,6 +3,7 @@ require_relative './team'
 require_relative './game_team'
 require_relative './game_statistics'
 require_relative './league_statistics'
+require_relative './team_statistics'
 require 'CSV'
 require 'pry'
 class StatTracker
@@ -97,4 +98,35 @@ class StatTracker
     @league_statistics.lowest_scoring_home_team
   end
 
+  def team_info(team_id)
+    @team_statistics.team_info(team_id)
+  end
+
+  def best_season(team_id)
+    @team_statistics.best_season(team_id)
+  end
+
+  def worst_season(team_id)
+    @team_statistics.worst_season(team_id)
+  end
+
+  def average_win_percentage(team_id)
+    @team_statistics.average_win_percentage(team_id)
+  end
+
+  def most_goals_scored(team_id)
+    @team_statistics.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    @team_statistics.fewest_goals_scored(team_id)
+  end
+
+  def favorite_opponent(team_id)
+    @team_statistics.favorite_opponent(team_id)
+  end
+
+  def rival(team_id)
+    @team_statistics.rival(team_id)
+  end
 end
