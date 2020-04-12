@@ -182,11 +182,19 @@ class GameTeamTest < Minitest::Test
     assert_equal 17, GameTeam.worst_offense
   end
 
-  def test_it_can_find_favorite_opponent_id
-    assert_equal 2, GameTeam.favorite_opponent_id(4)
+  def test_it_can_find_opponents_records
+    assert_equal ({3=>["LOSS", "LOSS"], 8=>["LOSS"]}), GameTeam.opponents_records(6)
   end
-  #
-  # def test_it_can_determine_rival_id
-  #   assert_equal 4, GameTeam.rival_id(6)
-  # end
+
+  def test_it_can_find_opponents_wins
+    assert_equal ({6=>2}), GameTeam.opponents_wins(3)
+  end
+
+  def test_it_can_find_favorite_opponent_id
+    assert_equal 3, GameTeam.favorite_opponent_id(6)
+  end
+
+  def test_it_can_determine_rival_id
+    assert_equal 6, GameTeam.rival_id(3)
+  end
 end
