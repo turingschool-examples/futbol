@@ -26,16 +26,20 @@ class GameCollection
 
   # percentage_home_wins Percentage of games that a home team has won (rounded to the nearest 100th)Float
 
+  def percentage(arg)
+    (arg * 100).round(2)
+  end
+
   def percentage_home_wins
-  ((home_wins.to_f / @games_list.length.to_f) * 100).round(2)
+    percentage(home_wins.to_f / @games_list.length.to_f)
   end
 
   def percentage_visitor_wins
-    ((away_wins.to_f / @games_list.length.to_f) * 100).round(2)
+    percentage(away_wins.to_f / @games_list.length.to_f)
   end
 
   def percentage_ties
-    ((ties.to_f / @games_list.length.to_f) * 100).round(2)
+    percentage(ties.to_f / @games_list.length.to_f)
   end
 
   def test_count_of_games_by_season
@@ -43,7 +47,8 @@ class GameCollection
   end
 
   def average_goals_per_game
-
+    #all scores sum converted to float / games_list length
+    (total_scores.sum.to_f / @games_list.length.to_f).round(2)
   end
 
   def test_average_goals_by_season
@@ -95,10 +100,11 @@ end
 
 
 
+
+
   # count_of_games_by_season A hash with season names (e.g. 20122013) as keys and counts of games as valuesHash
   #
-  # average_goals_per_game Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)Float
-  #
+
   # average_goals_by_season Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average
   #
   # number of goals in a game for that season as values (rounded to the nearest 100th)Hash
