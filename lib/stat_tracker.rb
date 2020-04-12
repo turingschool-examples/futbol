@@ -217,6 +217,34 @@ class StatTracker
       team_data.delete_if {|k,v| k == "stadium"}
   end
 
+  def best_season(team_id)
+    seasons = @games.group_by {|game| game.season}
+    team_seasons = seasons.find_all { |season, games| games.any?{|game| game.home_team_id == team_id || game.away_team_id == team_id }}.to_h
+    game_teams_seasons = team_seasons.transform_values do |games|
+      games.map do |game|
+        @game_teams.find do |game_team|
+          game_team.game_id == game.game_id && (game_team.team_id == team_id)
+        end
+      end
+    end
+    game_teams_seasons.max_by { |season, games| calculate_win_percentage(games) }[0]
+  end
+
+  def worst_season(team_id)
+    seasons = @games.group_by {|game| game.season}
+    team_seasons = seasons.find_all { |season, games| games.any?{|game| game.home_team_id == team_id || game.away_team_id == team_id }}.to_h
+    game_teams_seasons = team_seasons.transform_values do |games|
+      games.map do |game|
+        @game_teams.find do |game_team|
+          game_team.game_id == game.game_id && (game_team.team_id == team_id)
+        end
+      end
+    end
+    game_teams_seasons.min_by { |season, games| calculate_win_percentage(games) }[0]
+  end
+
+
+
   def average_win_percentage(team_id)
     # finds the number of games that a team both played in and won
     team_games = all_games_by_team(team_id)

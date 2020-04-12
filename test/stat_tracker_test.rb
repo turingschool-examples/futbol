@@ -78,7 +78,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_total_games_and_goals_by_team
-    assert_equal [7, 5], @stat_tracker.total_games_and_goals_by_team(30, nil)
+    assert_equal [7, 5], @stat_tracker.total_games_and_goals_by_team('30', nil)
   end
 
   def test_add_goals_and_games
@@ -163,6 +163,14 @@ class StatTrackerTest < MiniTest::Test
        "team_name" => "Atlanta United",
        "abbreviation" => "ATL",
        "link" => "/api/v1/teams/1"}), @stat_tracker.team_info("1")
+  end
+
+  def test_it_can_find_teams_best_season
+    assert_equal '20172018', @stat_tracker.best_season('52')
+  end
+
+  def test_it_can_find_teams_best_season
+    assert_equal '20172018', @stat_tracker.worst_season('52')
   end
 
   def test_it_can_find_the_average_winrate_for_a_team
