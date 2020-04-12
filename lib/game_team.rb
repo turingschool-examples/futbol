@@ -45,15 +45,11 @@ class GameTeam
 
   def self.results_by_coach(season_id)
     search_term = season_id.to_s[0..3]
-    results_by_coach_by_season = {}
+    results_by_coach_by_season = Hash.new { |hash, key| hash[key] = [] }
     coaches_in_season(season_id).each do |coach|
       all.find_all do |gt|
-        if gt.game_id.to_s[0..3] == search_term
-          if coach == gt.head_coach && results_by_coach_by_season[coach] == nil
-            results_by_coach_by_season[coach] = [gt.result]
-          elsif coach == gt.head_coach && results_by_coach_by_season[coach] != nil
+        if gt.game_id.to_s[0..3] == search_term && coach == gt.head_coach
             results_by_coach_by_season[coach] << gt.result
-          end
         end
       end
     end
@@ -69,14 +65,10 @@ class GameTeam
   end
 
   def self.wins_by_coach(season_id)
-    wins_by_coach_by_season = {}
+    wins_by_coach_by_season = Hash.new { |hash, key| hash[key] = 0 }
     results_by_coach(season_id).each do |coach, results|
       results.each do |result|
-        if result == "WIN" && wins_by_coach_by_season[coach] == nil
-          wins_by_coach_by_season[coach] = 1
-        elsif result == "WIN" && wins_by_coach_by_season[coach] != nil
-          wins_by_coach_by_season[coach] += 1
-        end
+        wins_by_coach_by_season[coach] += 1 if result == "WIN"
       end
     end
     wins_by_coach_by_season
@@ -167,36 +159,21 @@ class GameTeam
   end
 
   def self.opponents_records(team_id)
-    game_ids = []
-    all.each do |gt|
-      if gt.team_id == team_id
-        game_ids << gt.game_id
-      end
-    end
-    opponents_records = {}
+    game_ids = all.map {|gt| gt.game_id if gt.team_id == team_id }.compact
+    opponents_records = Hash.new { |hash, key| hash[key] = [] }
     game_ids.each do |game_id|
       all.find_all do |gt|
-        if gt.game_id == game_id && gt.team_id != team_id
-          if opponents_records[gt.team_id] == nil
-            opponents_records[gt.team_id] = [gt.result]
-          else
-            opponents_records[gt.team_id] << gt.result
-          end
-        end
+        opponents_records[gt.team_id] << gt.result if gt.game_id == game_id && gt.team_id != team_id
       end
     end
     opponents_records
   end
 
   def self.opponents_wins(team_id)
-    opponent_wins = {}
+    opponent_wins = Hash.new { |hash, key| hash[key] = 0 }
     opponents_records(team_id).each do |team_id, record|
       record.each do |result|
-        if result == "WIN" && opponent_wins[team_id] == nil
-          opponent_wins[team_id] = 1
-        elsif result == "WIN" && opponent_wins[team_id] != nil
-          opponent_wins[team_id] += 1
-        end
+        opponent_wins[team_id] += 1 if result == "WIN" 
       end
     end
     opponent_wins
