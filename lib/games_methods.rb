@@ -97,6 +97,7 @@ class Games
     end
     hash
   end
+
   def all
     @games
   end
