@@ -226,6 +226,7 @@ class GameTest < Minitest::Test
     assert_equal 20, Game.all.count
   end
 
+# the code was changed and this test is no longer passing 
   def test_it_returns_all_games_by_seasons_given_team_id
     assert_equal ({20122013 => 2, 20142015 => 4}), Game.games_by_season(3)
     assert_equal ({20122013 => 2}), Game.games_by_season(6)
