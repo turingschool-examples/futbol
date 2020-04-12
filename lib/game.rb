@@ -11,25 +11,35 @@ class Game
     @@all
   end
 
-  def self.find_by(id)
-   @@all.find_all{|game| game.game_id==id}
-  end
-
-  def self.grouped_by_season(passed_in_season)
-    @@all.select{|game| game.season == passed_in_season}
-  end
-
   def self.from_csv(csv_file_path)
     csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
     @@all = csv.map { |row| Game.new(row) }
   end
+
+  def self.find_by(id)
+   all.find_all{|game| game.game_id==id}
+  end
+  #deliverable
+  def self.highest_total_score
+    all.map { |game| game.away_goals + game.home_goals}.max
+  end
+#deliverable
+  def self.lowest_total_score
+    all.map { |game| game.away_goals + game.home_goals}.min
+  end
+
+  def self.grouped_by_season(passed_in_season)
+    all.select{|game| game.season == passed_in_season}
+  end
+
+
 
   def self.count_of_games_by_season
     # this can be refactored to include ross' games_per(:season) method -sb
     games_by_season = @@all.group_by { |game| game.season }
     count = {}
     games_by_season.keys.each do |key|
-      count[key] = @@all.count { |game| game.season == key}
+      count[key.to_s] = @@all.count { |game| game.season == key}
     end
     count
   end
@@ -67,11 +77,17 @@ class Game
   def self.games_goals_by_season
     hash_of_hashes(all, :season, :goals, :games_played, :total_goals, 1)
   end
+#module
+  def self.keys_to_string(hash)
+    hash = hash.transform_keys { |key| key.to_s }
+  end
 
   #deliverable
     def self.average_goals_by_season
       # :goals / :games_played
-      divide_hash_values(:goals, :games_played, games_goals_by_season)
+      average_goals_by_season = divide_hash_values(:goals, :games_played, games_goals_by_season)
+      # average_goals_by_season.transform_keys {|key| key.to_s}
+      keys_to_string(average_goals_by_season)
     end
 
   def self.games_goals_by(hoa_team)
@@ -102,7 +118,7 @@ class Game
   def self.lowest_scoring_home_team_id
     average_goals_by(:home_team).min_by{ |team_id, away_goals| away_goals}.first
   end
-
+#MODULE!
   def self.games_played_by(team_id)
     #return all games that team played in
     all.find_all do |game|
@@ -123,16 +139,24 @@ class Game
 
 #deliverable
   def self.best_season(team_id)
+    team_id = team_id.to_i
     #return season with highest winning percentage
     best_season = win_percent_by_season(team_id).max_by { |season, percent| percent}
-    "In the #{best_season[0]} season Team #{team_id} won #{best_season[1]}% of games"
+    best_season[0].to_s
   end
 
 #deliverable
   def self.worst_season(team_id)
+    team_id = team_id.to_i
     #return season with lowest winning percentage
       worst_season = win_percent_by_season(team_id).min_by { |season, percent| percent}
-      "In the #{worst_season[0]} season Team #{team_id} won #{worst_season[1]}% of games"
+      worst_season[0].to_s
+  end
+#deliverable
+  def self.average_win_percentage(team_id)
+    team_id = team_id.to_i
+    wins = games_played_by(team_id).map { |game| game.win?(team_id)}.sum
+    avg = (wins / games_played_by(team_id).length.to_f).round(2)
   end
 
   attr_reader :game_id,
@@ -159,14 +183,6 @@ class Game
     @venue = game_stats[:venue]
     @venue_link = game_stats[:venue_link]
     @total_goals = @away_goals + @home_goals
-  end
-
-  def highest_total_score
-    @@all.map { |game| game.away_goals + game.home_goals}.max
-  end
-
-  def lowest_total_score
-    @@all.map { |game| game.away_goals + game.home_goals}.min
   end
 
   def win?(team_id)

@@ -45,6 +45,10 @@ class StatTracker
     GameTeam.home_games
   end
 
+  def count_of_teams
+    Team.count_of_teams
+  end
+
   def percentage_home_wins
     GameTeam.percentage_home_wins
   end
@@ -55,6 +59,14 @@ class StatTracker
 
   def percentage_ties
     GameTeam.percentage_ties
+  end
+
+  def highest_total_score
+    Game.highest_total_score
+  end
+
+  def lowest_total_score
+    Game.lowest_total_score
   end
 
   def count_of_games_by_season
@@ -97,30 +109,42 @@ class StatTracker
     Game.worst_season(team_id)
   end
 
+  def average_win_percentage(team_id)
+    Game.average_win_percentage(team_id)
+  end
+
   def best_offense
-    GameTeam.best_offense
+    team_id = GameTeam.best_offense
+    Team.all.find { |team| team.team_id == team_id }.team_name
   end
 
   def worst_offense
-    GameTeam.worst_offense
+    team_id = GameTeam.worst_offense
+    Team.all.find { |team| team.team_id == team_id }.team_name
   end
 
   def most_accurate_team(season)
-    GameTeam.most_accurate_team(season)
+    team_id = GameTeam.most_accurate_team(season)
+    Team.all.find { |team| team.team_id == team_id }.team_name
   end
 
   def least_accurate_team(season)
-    GameTeam.least_accurate_team(season)
+    team_id = GameTeam.least_accurate_team(season)
+    Team.all.find { |team| team.team_id == team_id }.team_name
   end
 
   def most_goals_scored(team_id)
     GameTeam.most_goals_scored(team_id)
   end
 
-  def least_goals_scored(team_id)
-    GameTeam.least_goals_scored(team_id)
+  def fewest_goals_scored(team_id)
+    GameTeam.fewest_goals_scored(team_id)
   end
-  
+
+  def team_info(team_id)
+    Team.find_team_info(team_id)
+  end
+
   def favorite_opponent(team_id)
     team = Team.all.find do |team|
       team.team_id == GameTeam.favorite_opponent_id(team_id)
@@ -133,5 +157,13 @@ class StatTracker
       team.team_id == GameTeam.rival_id(team_id)
     end
     team.team_name
+  end
+
+  def winningest_coach(season_id)
+    GameTeam.winningest_coach(season_id)
+  end
+
+  def worst_coach(season_id)
+    GameTeam.worst_coach(season_id)
   end
 end

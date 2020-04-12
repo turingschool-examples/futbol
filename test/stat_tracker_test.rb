@@ -56,19 +56,19 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_percent_home_wins
-    assert_equal 60.00, @stat_tracker.percentage_home_wins
+    assert_equal 0.60, @stat_tracker.percentage_home_wins
   end
 
   def test_it_can_find_percentage_visitor_wins
-    assert_equal 20.00, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.20, @stat_tracker.percentage_visitor_wins
   end
 
   def test_it_can_find_percentage_ties
-    assert_equal 25.00, @stat_tracker.percentage_ties
+    assert_equal 0.25, @stat_tracker.percentage_ties
   end
 
   def test_it_can_count_games_in_a_season
-    assert_equal ({20122013=>2, 20162017=>5, 20142015=>6, 20132014=>4, 20152016=>2, 20172018=>1}), @stat_tracker.count_of_games_by_season
+    assert_equal ({"20122013"=>2, "20162017"=>5, "20142015"=>6, "20132014"=>4, "20152016"=>2, "20172018"=>1}), @stat_tracker.count_of_games_by_season
   end
 
   def test_it_returns_average_goals_per_game
@@ -81,7 +81,7 @@ class StatTrackerTest < Minitest::Test
                         20162017 => {:goals => 10, :games_played => 4}
                         }
     Game.stubs(:games_goals_by_season).returns(stub_games_goals)
-    expected = {20122013 => 3.33, 20162017 => 2.5}
+    expected = {"20122013" => 3.33, "20162017" => 2.5}
     assert_equal expected, Game.average_goals_by_season
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
@@ -136,9 +136,9 @@ class StatTrackerTest < Minitest::Test
 
 
   def test_best_season
-    assert_equal "In the 20142015 season Team 3 won 100% of games", @stat_tracker.best_season(3)
-    assert_equal "In the 20122013 season Team 6 won 100% of games", @stat_tracker.best_season(6)
-    assert_equal "In the 20162017 season Team 20 won 0% of games", @stat_tracker.best_season(20)
+    assert_equal "20142015", @stat_tracker.best_season(3)
+    assert_equal "20122013", @stat_tracker.best_season(6)
+    assert_equal "20162017", @stat_tracker.best_season(20)
     stub_val = {
                 20122013 => 25,
                 20132014 => 66,
@@ -146,13 +146,13 @@ class StatTrackerTest < Minitest::Test
                 20152016 => 35,
                 }
     Game.stubs(:win_percent_by_season).returns(stub_val)
-    assert_equal "In the 20132014 season Team 3 won 66% of games", @stat_tracker.best_season(3)
+    assert_equal "20132014", @stat_tracker.best_season(3)
   end
 
   def test_worst_season
-    assert_equal "In the 20122013 season Team 3 won 0% of games", @stat_tracker.worst_season(3)
-    assert_equal "In the 20122013 season Team 6 won 100% of games", @stat_tracker.worst_season(6)
-    assert_equal "In the 20162017 season Team 20 won 0% of games", @stat_tracker.worst_season(20)
+    assert_equal "20122013", @stat_tracker.worst_season(3)
+    assert_equal "20122013", @stat_tracker.worst_season(6)
+    assert_equal "20162017", @stat_tracker.worst_season(20)
     stub_val = {
                 20122013 => 25,
                 20132014 => 66,
@@ -160,15 +160,15 @@ class StatTrackerTest < Minitest::Test
                 20152016 => 35,
                 }
     Game.stubs(:win_percent_by_season).returns(stub_val)
-    assert_equal "In the 20122013 season Team 3 won 25% of games", @stat_tracker.worst_season(3)
+    assert_equal "20122013", @stat_tracker.worst_season(3)
   end
 
   def test_most_accurate_team
-    assert_equal 3, @stat_tracker.most_accurate_team(20122013)
+    assert_equal "Houston Dynamo", @stat_tracker.most_accurate_team(20122013)
   end
 
   def test_least_accurate_team
-    assert_equal 6, @stat_tracker.least_accurate_team(20122013)
+    assert_equal "FC Dallas", @stat_tracker.least_accurate_team(20122013)
   end
 
   def test_most_goals_scored_by_team_id
@@ -176,7 +176,15 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_least_goals_scored_by_team_id
-    assert_equal 2, @stat_tracker.least_goals_scored(26)
+    assert_equal 2, @stat_tracker.fewest_goals_scored(26)
+  end
+
+  def test_it_returns_best_offence
+    assert_equal "Los Angeles FC", @stat_tracker.best_offense
+  end
+
+  def test_it_returns_worst_offence
+    assert_equal "Portland Timbers", @stat_tracker.worst_offense
   end
 
   def test_favorite_opponent

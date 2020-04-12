@@ -5,7 +5,7 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2016030173,20162017,Postseason,4/18/17,24,20,3,2,BMO Field,/api/v1/venues/null
 2014030412,20142015,Postseason,6/6/15,16,14,3,2,Audi Field,/api/v1/venues/null
 2014030413,20142015,Postseason,6/9/15,14,16,3,2,Gillette Stadium,/api/v1/venues/null
-2014030131,20142015x,Postseason,4/16/15,5,3,1,2,BBVA Stadium,/api/v1/venues/null
+2014030131,20142015,Postseason,4/16/15,5,3,1,2,BBVA Stadium,/api/v1/venues/null
 2014030132,20142015,Postseason,4/19/15,5,3,2,3,BBVA Stadium,/api/v1/venues/null
 2014030133,20142015,Postseason,4/20/15,3,5,2,1,Children's Mercy Park,/api/v1/venues/null
 2014030134,20142015,Postseason,4/22/15,3,5,2,1,Children's Mercy Park,/api/v1/venues/null

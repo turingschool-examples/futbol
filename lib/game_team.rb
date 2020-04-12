@@ -25,18 +25,18 @@ class GameTeam
 
   def self.percentage_home_wins
     home_wins = (all.find_all {|gt| gt.hoa == "home" && gt.result == "WIN" }).count.to_f
-    ((home_wins / self.home_games) * 100).round(2)
+    ((home_wins / self.home_games)).round(2)
   end
 
   def self.percentage_visitor_wins
     visitor_wins = (all.find_all {|gt| gt.hoa == "home" && gt.result == "LOSS" }).count.to_f
-    ((visitor_wins / self.home_games) * 100).round(2)
+    ((visitor_wins / self.home_games)).round(2)
   end
 
   def self.percentage_ties
     games_count = all.count.to_f
     ties_count = (all.find_all { |gt| gt.result == "TIE"}).count.to_f
-    ((ties_count / games_count) * 100).round(2)
+    ((ties_count / games_count)).round(2)
   end
 
   def self.coaches_in_season(season_id)
@@ -77,14 +77,18 @@ class GameTeam
     end
     wins_by_coach_by_season
   end
-
-  def self.winningest_coach(season_id)
-    coaches_in_season(season_id).max_by {|coach| (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)}
-  end
-
-  def self.worst_coach(season_id)
-    coaches_in_season(season_id).min_by {|coach| (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)}
-  end
+#TAKES 30 SECONDS
+  # def self.winningest_coach(season_id)
+  #   # season_id = season_id.to_i
+  #   coaches_in_season(season_id).max_by {|coach| (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)}
+  # end
+#TAKES 30 SECONDS
+  # def self.worst_coach(season_id)
+  #   # season_id = season_id.to_i
+  #   coaches_in_season(season_id).min_by do |coach|
+  #     (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)
+  #   end
+  # end
 
   def self.game_team_shots_goals_count(arr_games)
     season = arr_games.first.game_id
@@ -105,6 +109,7 @@ class GameTeam
   end
 
   def self.least_accurate_team(season)
+    season = season.to_i
      seasonal_hash = gets_team_shots_goals_count(season)
      seasonal_hash.map do |key,value|
        value["average"] = (value["shots"]/ value["goals"].to_f).round(2)
@@ -116,6 +121,7 @@ class GameTeam
   end
 
   def self.most_accurate_team(season)
+    season = season.to_i
     seasonal_hash = gets_team_shots_goals_count(season)
     seasonal_hash.map do |key,value|
       value["average"] = (value["shots"]/ value["goals"].to_f).round(2)
@@ -124,7 +130,7 @@ class GameTeam
       value["average"]
     end
     team_hash_with_highest_average[0]
- end
+  end
 
   def self.gets_team_shots_goals_count(season)
     #passes in desired season, grabs the *games* for the season
@@ -140,29 +146,31 @@ class GameTeam
 
   def self.best_offense
     #grouped by team_id with keys being the team_id and values is an array of games
-    grouped_team = @@all.group_by{|game| game.team_id}
+    grouped_team = all.group_by{|game| game.team_id}
     #loop through the values (games) and set them equal to the average of goals
     team_averaged_goals = grouped_team.map do |ids, games|
       goals_per_game = games.map {|game| game.goals}
-      games = (goals_per_game.sum / goals_per_game.length)
+      games = (goals_per_game.sum / goals_per_game.length.to_f)
     end
     total_goals_per_team= Hash[grouped_team.keys.zip(team_averaged_goals)]
     total_goals_per_team.key(total_goals_per_team.values.max)
   end
 
   def self.worst_offense
+
     #grouped by team_id with keys being the team_id and values is an array of games
-    grouped_team = @@all.group_by{|game| game.team_id}
+    grouped_team = all.group_by{|game| game.team_id}
     #loop through the values (games) and set them equal to the average of goals
     team_averaged_goals = grouped_team.map do |ids, games|
       goals_per_game = games.map {|game| game.goals}
-      games = (goals_per_game.sum / goals_per_game.length)
+      games = (goals_per_game.sum / goals_per_game.length.to_f)
     end
     total_goals_per_team= Hash[grouped_team.keys.zip(team_averaged_goals)]
     total_goals_per_team.key(total_goals_per_team.values.min)
   end
 
   def self.most_goals_scored(team_id)
+    # team_id = team_id.to_i
   total_game_teams_per_team_id = find_by_team(team_id)
   results = {}
   total_game_teams_per_team_id.each do |game_team|
@@ -174,7 +182,8 @@ class GameTeam
   return max_goals[1]["goals"]
   end
 
-  def self.least_goals_scored(team_id)
+  def self.fewest_goals_scored(team_id)
+    # team_id = team_id.to_i
     total_game_teams_per_team_id = find_by_team(team_id)
     results = {}
     total_game_teams_per_team_id.each do |game_team|
@@ -207,6 +216,7 @@ class GameTeam
     opponent_wins
   end
 
+  #THIS ONE FAILS AND CUASES RSPEC TO FREEZE UP
   def self.favorite_opponent_id(team_id)
     record_length = {}
     opponents_records(team_id).map do |team_id, record|
@@ -215,7 +225,7 @@ class GameTeam
     opponents = opponents_records(team_id).keys
     opponents.min_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
   end
-
+  #THIS ONE FAILS AND CUASES RSPEC TO FREEZE UP
   def self.rival_id(team_id)
     record_length = {}
     opponents_records(team_id).map do |team_id, record|
