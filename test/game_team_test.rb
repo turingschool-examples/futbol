@@ -191,10 +191,28 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_find_favorite_opponent_id
-    assert_equal 3, GameTeam.favorite_opponent_id(6)
+    game_team1 = mock
+    game_team2 = mock
+    game_team3 = mock
+    game_team4 = mock
+    game_team1.stubs(:team_id).returns(1)
+    game_team2.stubs(:team_id).returns(2)
+    game_team3.stubs(:team_id).returns(3)
+    game_team4.stubs(:team_id).returns(4)
+    GameTeam.stubs(:opponents_records).returns({2=>["LOSS", "WIN", "LOSS","LOSS"], 3=>["WIN", "WIN", "WIN"], 4=>["LOSS", "WIN"]})
+    assert_equal 2, GameTeam.favorite_opponent_id(1)
   end
 
   def test_it_can_determine_rival_id
-    assert_equal 6, GameTeam.rival_id(3)
+    game_team1 = mock
+    game_team2 = mock
+    game_team3 = mock
+    game_team4 = mock
+    game_team1.stubs(:team_id).returns(1)
+    game_team2.stubs(:team_id).returns(2)
+    game_team3.stubs(:team_id).returns(3)
+    game_team4.stubs(:team_id).returns(4)
+    GameTeam.stubs(:opponents_records).returns({2=>["LOSS", "WIN", "LOSS","LOSS"], 3=>["WIN", "WIN", "WIN"], 4=>["LOSS", "WIN"]})
+    assert_equal 3, GameTeam.rival_id(1)
   end
 end
