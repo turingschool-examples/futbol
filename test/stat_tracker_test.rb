@@ -154,4 +154,12 @@ class StatTrackerTest < Minitest::Test
     assert_equal "In the 20122013 season Team 3 won 25% of games", @stat_tracker.worst_season(3)
   end
 
+  def test_most_accurate_team
+    assert_equal 3, @stat_tracker.most_accurate_team(20122013)
+  end
+
+  def test_least_accurate_team
+    assert_equal 6, @stat_tracker.least_accurate_team(20122013)
+  end
+
 end
