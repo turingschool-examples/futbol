@@ -28,10 +28,6 @@ class TeamCollectionTest < Minitest::Test
     assert_equal 32, @team_collection.count_of_teams
   end
 
-  def find(team_id_number)
-    @teams.find {|team| team.team_id == team_id_number}
-  end
-
   def test_it_can_find_team_info_using_team_id
     expected = {
     :team_id => 1,
