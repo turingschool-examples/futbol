@@ -164,9 +164,10 @@ class StatTracker
   end
 
   def winningest_coach(season_id)
+
     head_coach_wins = {}
     @game_teams.all.each do |game_team|
-      if season_id.divmod(10000)[1] - 1 == game_team.game_id.divmod(1000000)[0]
+      if season_id.to_i.divmod(10000)[1] - 1 == game_team.game_id.divmod(1000000)[0]
         if game_team.result == "WIN"
           head_coach = game_team.head_coach
           if head_coach_wins.key?(head_coach)
@@ -183,7 +184,7 @@ class StatTracker
     end
     head_coach_wins.max_by{|k,v| v}[0]
   end
-  
+
 
     # whichever team using season id has the highest WIN result of the season
     # either post season or regular season
