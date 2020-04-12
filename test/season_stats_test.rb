@@ -37,4 +37,9 @@ class SeasonStatsTest < Minitest::Test
   def test_calc_season_shot_percentage
     assert_equal 0.29, @season_stats.calc_season_shot_percentage("20122013", "6")
   end
+
+  def test_most_accurate_team
+    assert_equal "LA Galaxy", @season_stats.most_accurate_team("20122013")
+  end
+
 end
