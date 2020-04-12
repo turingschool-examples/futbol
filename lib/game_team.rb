@@ -122,7 +122,7 @@ class GameTeam
   end
 
   def self.most_goals_scored(team_id)
-  total_game_teams_per_team_id = GameTeam.find_by_team(team_id)
+  total_game_teams_per_team_id = find_by_team(team_id)
   results = {}
   total_game_teams_per_team_id.each do |game_team|
     results[game_team.game_id] ||= {"team_id"=>0, "goals"=>0}
@@ -132,9 +132,9 @@ class GameTeam
   max_goals = results.max_by{|key,value| value["goals"]}
   return max_goals[1]["goals"]
   end
-  
+
   def self.least_goals_scored(team_id)
-    total_game_teams_per_team_id = GameTeam.find_by_team(team_id)
+    total_game_teams_per_team_id = find_by_team(team_id)
     results = {}
     total_game_teams_per_team_id.each do |game_team|
       results[game_team.game_id] ||= {"team_id"=>0, "goals"=>0}
