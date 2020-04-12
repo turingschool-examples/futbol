@@ -60,6 +60,107 @@ class StatTrackerTest < Minitest::Test
   def test_percentage_home_wins
     assert_equal 0.44, @stat_tracker.percentage_home_wins
   end
+
+  def test_it_can_report_most_goals_scored
+    assert_equal 7, @stat_tracker.most_goals_scored("18")
+  end
+
+  def test_it_can_report_fewest_goals_scored
+    assert_equal 0, @stat_tracker.fewest_goals_scored("6")
+  end
+
+  def test_best_offense
+    assert_equal "Sporting Kansas City", @stat_tracker.best_offense
+  end
+
+  # def test_percentage_visitor_wins
+  #
+  # end
+  #
+  # def test_percentage_ties
+  #
+  # end
+  #
+  # def test_count_of_games_by_season
+  #
+  # end
+  #
+  # def test_average_goals_per_game
+  #
+  # end
+  #
+  # def test_average_goals_by_season
+  #
+  # end
+
+  def test_worst_offense
+    assert_equal "Reign FC", @stat_tracker.worst_offense
+  end
+
+  def test_highest_scoring_visitor
+    assert_equal "Sporting Kansas City", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal "Sporting Kansas City", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_lowest_scoring_visitor
+    assert_equal "Reign FC", @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_lowest_scoring_home_team
+    assert_equal "Reign FC", @stat_tracker.lowest_scoring_home_team
+  end
+
+  # def test_team_info
+  #
+  # end
+  #
+  # def test_best_season
+  #
+  # end
+  #
+  # def test_worst_season
+  #
+  # end
+  #
+  # def test_average_win_percentage
+  #
+  # end
+  #
+  # def test_favorite_opponent
+  #
+  # end
+  #
+  # def test_rival
+  #
+  # end
+  #
+  # def test_winningest_coach
+  #
+  # end
+  #
+  # def test_worst_coach
+  #
+  # end
+  #
+  # def test_most_accurate_team
+  #
+  # end
+  #
+  # def test_least_accurate_team
+  #
+  # end
+  #
+  # def test_most_tackles
+  #
+  # end
+  #
+  # def test_fewest_tackles
+  #
+  # end
+
   #
   # def test_it_has_teams
   # expected = "Atlanta United"

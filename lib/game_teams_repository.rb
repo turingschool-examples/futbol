@@ -1,5 +1,5 @@
 require_relative './csv_helper_file'
-
+#potental for destroy later, if not found useful 
 class GameTeamsRepository
 
   attr_reader :game_teams_collection
