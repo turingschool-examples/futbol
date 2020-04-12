@@ -77,18 +77,18 @@ class GameTeam
     end
     wins_by_coach_by_season
   end
-#TAKES 30 SECONDS
-  # def self.winningest_coach(season_id)
-  #   # season_id = season_id.to_i
-  #   coaches_in_season(season_id).max_by {|coach| (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)}
-  # end
-#TAKES 30 SECONDS
-  # def self.worst_coach(season_id)
-  #   # season_id = season_id.to_i
-  #   coaches_in_season(season_id).min_by do |coach|
-  #     (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)
-  #   end
-  # end
+# # TAKES 30 SECONDS
+#   def self.winningest_coach(season_id)
+#     # season_id = season_id.to_i
+#     coaches_in_season(season_id).max_by {|coach| (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)}
+#   end
+# # TAKES 30 SECONDS
+#   def self.worst_coach(season_id)
+#     # season_id = season_id.to_i
+#     coaches_in_season(season_id).min_by do |coach|
+#       (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)
+#     end
+#   end
 
   def self.game_team_shots_goals_count(arr_games)
     season = arr_games.first.game_id
@@ -216,24 +216,24 @@ class GameTeam
     opponent_wins
   end
 
-  #THIS ONE FAILS AND CUASES RSPEC TO FREEZE UP
-  def self.favorite_opponent_id(team_id)
-    record_length = {}
-    opponents_records(team_id).map do |team_id, record|
-      record_length[team_id] = record.length
-    end
-    opponents = opponents_records(team_id).keys
-    opponents.min_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
-  end
-  #THIS ONE FAILS AND CUASES RSPEC TO FREEZE UP
-  def self.rival_id(team_id)
-    record_length = {}
-    opponents_records(team_id).map do |team_id, record|
-      record_length[team_id] = record.length
-    end
-    opponents = opponents_records(team_id).keys
-    opponents.max_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
-  end
+  # #THIS ONE FAILS AND CUASES RSPEC TO FREEZE UP
+  # def self.favorite_opponent_id(team_id)
+  #   record_length = {}
+  #   opponents_records(team_id).map do |team_id, record|
+  #     record_length[team_id] = record.length
+  #   end
+  #   opponents = opponents_records(team_id).keys
+  #   opponents.min_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
+  # end
+  # #THIS ONE FAILS AND CUASES RSPEC TO FREEZE UP
+  # def self.rival_id(team_id)
+  #   record_length = {}
+  #   opponents_records(team_id).map do |team_id, record|
+  #     record_length[team_id] = record.length
+  #   end
+  #   opponents = opponents_records(team_id).keys
+  #   opponents.max_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
+  # end
 
     attr_reader :game_id,
                 :team_id,
