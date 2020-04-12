@@ -32,7 +32,7 @@ class GameTeamTest < Minitest::Test
 
   def test_it_has_readable_attributes
     assert_equal 2012030221, @base_game_team.game_id
-    assert_equal 3, @base_game_team.team_id
+    assert_equal "3", @base_game_team.team_id
     assert_equal "away", @base_game_team.hoa
     assert_equal "LOSS", @base_game_team.result
     assert_equal "OT", @base_game_team.settled_in
@@ -50,7 +50,7 @@ class GameTeamTest < Minitest::Test
 
   def test_it_reads_game_teams_from_csv
     assert_equal 2012020122, @last_game_team.game_id
-    assert_equal 2, @last_game_team.team_id
+    assert_equal "2", @last_game_team.team_id
     assert_equal "home", @last_game_team.hoa
     assert_equal "LOSS", @last_game_team.result
     assert_equal "REG", @last_game_team.settled_in
