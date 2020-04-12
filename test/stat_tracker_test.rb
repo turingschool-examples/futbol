@@ -154,4 +154,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal "In the 20122013 season Team 3 won 25% of games", @stat_tracker.worst_season(3)
   end
 
+  def test_favorite_opponent
+    assert_equal "Houston Dynamo", @stat_tracker.favorite_opponent(6)
+  end
+
 end
