@@ -42,4 +42,8 @@ class SeasonStatsTest < Minitest::Test
     assert_equal "LA Galaxy", @season_stats.most_accurate_team("20122013")
   end
 
+  def test_least_accurate_team
+    assert_equal "New England Revolution", @season_stats.least_accurate_team("20122013")
+  end
+
 end
