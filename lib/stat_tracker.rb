@@ -129,19 +129,23 @@ end
 
   end
 
-  # average_win_percentage	Average win percentage of all games for a team.
 
-  # def average_win_percentage(id)
-  #   win_percent = 0
-  #   GameStats.all_game_stats.each do |game|
-  #     require"pry";binding.pry
-  #     if (game.team_id == id) && (game.result == win)
-  #       win_percent += (1)
-  #     end
-  #   end
-  #   win
-  #   end
-  # =>
+
+  def average_win_percentage(id)
+    win_percent = 0
+    total_game = 0
+    GameStats.all_game_stats.each do |game|
+      require"pry";binding.pry
+      if (game.team_id == id) && (game.result == win)
+        win_percent += 1
+      end
+      total_game += 1
+    end
+    win_percent
+    total_game
+    require "pry";binding.pry
+    end
+
 
   def most_goals_scored(id)
     @team_repository.most_goals_scored(id)
