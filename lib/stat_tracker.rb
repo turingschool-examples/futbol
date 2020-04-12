@@ -113,6 +113,14 @@ class StatTracker
     GameTeam.least_accurate_team(season)
   end
 
+  def most_goals_scored(team_id)
+    GameTeam.most_goals_scored(team_id)
+  end
+
+  def least_goals_scored(team_id)
+    GameTeam.least_goals_scored(team_id)
+  end
+  
   def favorite_opponent(team_id)
     team = Team.all.find do |team|
       team.team_id == GameTeam.favorite_opponent_id(team_id)
@@ -125,5 +133,5 @@ class StatTracker
       team.team_id == GameTeam.rival_id(team_id)
     end
     team.team_name
-  end 
+  end
 end

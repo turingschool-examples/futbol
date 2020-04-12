@@ -6,7 +6,7 @@ require 'pry'
 require './lib/stat_tracker'
 require './lib/game_team'
 require 'mocha/minitest'
-#
+
 class GameTeamTest < Minitest::Test
 
   def setup
@@ -215,4 +215,13 @@ class GameTeamTest < Minitest::Test
     GameTeam.stubs(:opponents_records).returns({2=>["LOSS", "WIN", "LOSS","LOSS"], 3=>["WIN", "WIN", "WIN"], 4=>["LOSS", "WIN"]})
     assert_equal 3, GameTeam.rival_id(1)
   end
+
+  def test_most_goals_scored_by_team_id
+    assert_equal 2, GameTeam.most_goals_scored(3)
+  end
+
+  def test_least_goals_scored_by_team_id
+    assert_equal 2, GameTeam.least_goals_scored(26)
+  end
+
 end
