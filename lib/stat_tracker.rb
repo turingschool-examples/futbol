@@ -7,6 +7,7 @@ require_relative './game_repository'
 require_relative './league_repository'
 require_relative './season_repository'
 
+
 require 'CSV'
 
 
@@ -107,6 +108,7 @@ class StatTracker
   end
 
   def average_goals_per_game
+    @team_repository.average_goals_per_game
 
   end
 

@@ -6,7 +6,7 @@ class GameRepository
   attr_reader :games_collection
   def initialize(file_path)
     @games_collection = CsvHelper.generate_game_array(file_path)
-
+    @game_team_collection = CsvHelper.generate_game_teams_array(file_path)
   end
 
 
@@ -36,21 +36,44 @@ class GameRepository
   end
 
   def percentage_visitor_wins
-    number_of_games = @@all_games.length
-  visitor_wins =  @@all_games.select do |game|
+    number_of_games = @games_collection.length
+  visitor_wins =  @games_collection.select do |game|
       game.home_goals < game.away_goals
     end
     number_of_visitor = visitor_wins.length
     percent_visitor_wins = (number_of_visitor.to_f / number_of_games.to_f).round(2)
   end
 
-  def self.percentage_ties
-    number_of_games = @@all_games.length
-  ties =  @@all_games.select do |game|
+  def percentage_ties
+    number_of_games = @games_collection.length
+  ties =  @games_collection.select do |game|
       game.home_goals == game.away_goals
     end
     number_of_ties = ties.length
     percent_ties = (number_of_ties.to_f / number_of_games.to_f).round(2)
+  end
+
+  def average_goals_per_game
+    total_goals = @games_collection.sum do |game|
+      (game.home_goals + game.away_goals)
+    end
+    (total_goals.to_f / @games_collection.length).round(2)
+  end
+
+  def average_goals_by_season
+    seasons = @games_collection.map do |game|
+      [game.game_id, game.season]
+      #require 'pry'; binding.pry
+      end
+      tally = 0
+    average = @game_team_collection.map do |game|
+      if seasons[1][0] == game.game_id
+        tally += game.goals
+        require 'pry'; binding.pry
+      end
+
+    end
+    goals_by_season
   end
 
 end
