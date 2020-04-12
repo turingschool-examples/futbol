@@ -62,11 +62,11 @@ class GameTest < Minitest::Test
   end
 
   def test_it_can_calculate_highest_total_score
-    assert_equal 5, @game.highest_total_score
+    assert_equal 5, Game.highest_total_score
   end
 
   def test_it_can_calculate_lowest_total_score
-    assert_equal 3, @game.lowest_total_score
+    assert_equal 3, Game.lowest_total_score
   end
 #deliverable
   def test_it_returns_average_goals_per_game
@@ -258,9 +258,9 @@ class GameTest < Minitest::Test
   end
 #deliverable
   def test_it_returns_best_season_given_team_id
-    assert_equal "In the 20142015 season Team 3 won 100% of games", Game.best_season(3)
-    assert_equal "In the 20122013 season Team 6 won 100% of games", Game.best_season(6)
-    assert_equal "In the 20162017 season Team 20 won 0% of games", Game.best_season(20)
+    assert_equal "20142015", Game.best_season(3)
+    assert_equal "20122013", Game.best_season(6)
+    assert_equal "20162017", Game.best_season(20)
     stub_val = {
                 20122013 => 25,
                 20132014 => 66,
@@ -268,13 +268,13 @@ class GameTest < Minitest::Test
                 20152016 => 35,
                 }
     Game.stubs(:win_percent_by_season).returns(stub_val)
-    assert_equal "In the 20132014 season Team 3 won 66% of games", Game.best_season(3)
+    assert_equal "20132014", Game.best_season(3)
   end
 #deliverable
   def test_it_returns_worst_season_given_team_id
-    assert_equal "In the 20122013 season Team 3 won 0% of games", Game.worst_season(3)
-    assert_equal "In the 20122013 season Team 6 won 100% of games", Game.worst_season(6)
-    assert_equal "In the 20162017 season Team 20 won 0% of games", Game.worst_season(20)
+    assert_equal "20122013", Game.worst_season(3)
+    assert_equal "20122013", Game.worst_season(6)
+    assert_equal "20162017", Game.worst_season(20)
     stub_val = {
                 20122013 => 25,
                 20132014 => 66,
@@ -282,7 +282,11 @@ class GameTest < Minitest::Test
                 20152016 => 35,
                 }
     Game.stubs(:win_percent_by_season).returns(stub_val)
-    assert_equal "In the 20122013 season Team 3 won 25% of games", Game.worst_season(3)
+    assert_equal "20122013", Game.worst_season(3)
+  end
+
+  def test_it_returns_average_win_percentage
+    assert_equal 0.67, Game.average_win_percentage(3)
   end
 
   def test_it_returns_wins_games_by_team_id

@@ -75,6 +75,7 @@ class GameTeam
   end
 
  def self.most_accurate_team(season)
+   season = season.to_i
     seasonal_hash = gets_team_shots_goals_count(season)
     seasonal_hash.map do |key,value|
       value["average"] = (value["shots"]/ value["goals"].to_f).round(2)
@@ -86,6 +87,7 @@ class GameTeam
  end
 
   def self.gets_team_shots_goals_count(season)
+    season = season.to_i
     #passes in desired season, grabs the *games* for the season
     season_games = Game.grouped_by_season(season)
     matches = []
@@ -123,6 +125,7 @@ class GameTeam
 
 
   def self.most_goals_scored(team_id)
+    team_id = team_id.to_i
   total_game_teams_per_team_id = find_by_team(team_id)
   results = {}
   total_game_teams_per_team_id.each do |game_team|
@@ -134,7 +137,8 @@ class GameTeam
   return max_goals[1]["goals"]
   end
 
-  def self.least_goals_scored(team_id)
+  def self.fewest_goals_scored(team_id)
+      team_id = team_id.to_i
     total_game_teams_per_team_id = find_by_team(team_id)
     results = {}
     total_game_teams_per_team_id.each do |game_team|

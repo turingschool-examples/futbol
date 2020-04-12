@@ -11,22 +11,28 @@ class Game
     @@all
   end
 
-  def self.season_string
-    @season.to_s
+  def self.from_csv(csv_file_path)
+    csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
+    @@all = csv.map { |row| Game.new(row) }
   end
 
   def self.find_by(id)
    all.find_all{|game| game.game_id==id}
   end
+  #deliverable
+  def self.highest_total_score
+    all.map { |game| game.away_goals + game.home_goals}.max
+  end
+#deliverable
+  def self.lowest_total_score
+    all.map { |game| game.away_goals + game.home_goals}.min
+  end
 
   def self.grouped_by_season(passed_in_season)
-    @@all.select{|game| game.season == passed_in_season}
+    all.select{|game| game.season == passed_in_season}
   end
 
-  def self.from_csv(csv_file_path)
-    csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
-    @@all = csv.map { |row| Game.new(row) }
-  end
+
 
   def self.count_of_games_by_season
     games_by_season = @@all.group_by { |game| game.season }
@@ -83,19 +89,6 @@ class Game
       keys_to_string(average_goals_by_season)
     end
 
-    def stringify_keys
-      h = self.map do |k,v|
-        v_str = if v.instance_of? Hash
-                  v.stringify_keys
-                else
-                  v
-                end
-
-        [k.to_s, v_str]
-      end
-      Hash[h]
-    end
-
   def self.games_goals_by(hoa_team)
     #{away_team_id => {goals => x, games_played => y}}
     if hoa_team == :away_team
@@ -145,21 +138,24 @@ class Game
 
 #deliverable
   def self.best_season(team_id)
+    team_id = team_id.to_i
     #return season with highest winning percentage
     best_season = win_percent_by_season(team_id).max_by { |season, percent| percent}
-    "In the #{best_season[0]} season Team #{team_id} won #{best_season[1]}% of games"
+    best_season[0].to_s
   end
 
 #deliverable
   def self.worst_season(team_id)
+    team_id = team_id.to_i
     #return season with lowest winning percentage
       worst_season = win_percent_by_season(team_id).min_by { |season, percent| percent}
-      "In the #{worst_season[0]} season Team #{team_id} won #{worst_season[1]}% of games"
+      worst_season[0].to_s
   end
-
+#deliverable
   def self.average_win_percentage(team_id)
+    team_id = team_id.to_i
     wins = games_played_by(team_id).map { |game| game.win?(team_id)}.sum
-    avg = ((wins / games_played_by(team_id).length.to_f)*100).round(1)
+    avg = (wins / games_played_by(team_id).length.to_f).round(2)
   end
 
   attr_reader :game_id,
@@ -187,18 +183,6 @@ class Game
     @venue_link = game_stats[:venue_link]
     @total_goals = @away_goals + @home_goals
   end
-
-  def highest_total_score
-    @@all.map { |game| game.away_goals + game.home_goals}.max
-  end
-
-  def lowest_total_score
-    @@all.map { |game| game.away_goals + game.home_goals}.min
-  end
-
-  # def season_string
-  #   @season.to_s
-  # end
 
   def win?(team_id)
     away_win = team_id == @away_team_id && @away_goals > @home_goals
