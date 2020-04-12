@@ -49,7 +49,7 @@ class TeamTest < Minitest::Test
   end
 
   def test_find_team_info_by_id
-    assert_kind_of Hash, Team.find_team_info(3)
+    assert_equal "Houston Dynamo", Team.find_team_info(3)
   end
 
 end #final
