@@ -169,7 +169,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal '20172018', @stat_tracker.best_season('52')
   end
 
-  def test_it_can_find_teams_best_season
+  def test_it_can_find_teams_worst_season
     assert_equal '20172018', @stat_tracker.worst_season('52')
   end
 
