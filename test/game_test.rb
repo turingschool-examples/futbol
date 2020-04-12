@@ -283,4 +283,8 @@ class GameTest < Minitest::Test
     assert_equal "In the 20122013 season Team 3 won 25% of games", Game.worst_season(3)
   end
 
+  def test_it_returns_wins_games_by_team_id
+    Game.average_win_percentage(3)
+  end
+
 end

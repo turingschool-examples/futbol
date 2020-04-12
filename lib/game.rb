@@ -12,7 +12,7 @@ class Game
   end
 
   def self.find_by(id)
-   @@all.find_all{|game| game.game_id==id}
+   all.find_all{|game| game.game_id==id}
   end
 
   def self.grouped_by_season(passed_in_season)
@@ -101,7 +101,7 @@ class Game
   def self.lowest_scoring_home_team_id
     average_goals_by(:home_team).min_by{ |team_id, away_goals| away_goals}.first
   end
-
+#MODULE!
   def self.games_played_by(team_id)
     #return all games that team played in
     all.find_all do |game|
@@ -132,6 +132,11 @@ class Game
     #return season with lowest winning percentage
       worst_season = win_percent_by_season(team_id).min_by { |season, percent| percent}
       "In the #{worst_season[0]} season Team #{team_id} won #{worst_season[1]}% of games"
+  end
+
+  def self.average_win_percentage(team_id)
+    wins = games_played_by(team_id).map { |game| game.win?(team_id)}.sum
+    avg = ((wins / games_played_by(team_id).length.to_f)*100).round(1)
   end
 
   attr_reader :game_id,
