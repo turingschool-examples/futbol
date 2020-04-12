@@ -60,15 +60,15 @@ class GameTeam
   end
 
   def self.least_accurate_team(season)
-   seasonal_hash = gets_team_shots_goals_count(season)
-   seasonal_hash.map do |key,value|
-     value["average"] = (value["shots"]/ value["goals"].to_f).round(2)
-   end
-   team_hash_with_highest_average = seasonal_hash.min_by do |key,value|
-     value["average"]
-   end
-   team_hash_with_highest_average[0]
- end
+     seasonal_hash = gets_team_shots_goals_count(season)
+     seasonal_hash.map do |key,value|
+       value["average"] = (value["shots"]/ value["goals"].to_f).round(2)
+     end
+     team_hash_with_highest_average = seasonal_hash.min_by do |key,value|
+       value["average"]
+     end
+     team_hash_with_highest_average[0]
+  end
 
  def self.most_accurate_team(season)
     seasonal_hash = gets_team_shots_goals_count(season)
@@ -79,7 +79,7 @@ class GameTeam
       value["average"]
     end
     team_hash_with_highest_average[0]
-  end
+ end
 
   def self.gets_team_shots_goals_count(season)
     #passes in desired season, grabs the *games* for the season
@@ -116,6 +116,7 @@ class GameTeam
     total_goals_per_team= Hash[grouped_team.keys.zip(team_averaged_goals)]
     total_goals_per_team.key(total_goals_per_team.values.min)
   end
+
     attr_reader :game_id,
                 :team_id,
                 :hoa,
@@ -149,4 +150,5 @@ class GameTeam
     @giveaways = details[:giveaways].to_i
     @takeaways = details[:takeaways].to_i
   end
+
 end
