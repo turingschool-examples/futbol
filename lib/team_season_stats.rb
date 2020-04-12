@@ -69,4 +69,11 @@ class TeamSeasonStats < Collection
     end
     opponent_hash
   end
+
+  def opponent_total_games_played(id)
+    opponent_stats(id).reduce({}) do |total, (id, games)|
+    total[id] = games.length
+    total
+    end
+  end
 end
