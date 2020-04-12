@@ -88,4 +88,12 @@ class TeamSeasonStats < Collection
       opponent_wins
     end
   end
+
+  def opponent_win_percentage(id)
+    wins = opponent_wins(id)
+    total = opponent_total_games_played(id)
+    wins.merge(total) do |id, wins, games|
+      (wins.to_f/games).round(2) * 100
+    end
+  end
 end
