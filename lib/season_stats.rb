@@ -111,4 +111,26 @@ class SeasonStats
     team.teamname
   end
 
+  def least_accurate_team(season)
+    team_ids = []
+    games = get_games_of_season(season)
+
+    games.each do |game|
+      team_ids << game.team_id if team_ids.any?{|id| id == game.team_id} == false
+    end
+
+    percentage_tracker = 2
+    id_tracker = nil
+
+    team_ids.each do |id|
+      percentage = calc_season_shot_percentage(season, id)
+      if percentage < percentage_tracker
+        percentage_tracker = percentage
+        id_tracker = id
+      end
+    end
+    team = @teams.teams.find{|team| team.team_id == id_tracker.to_i}
+    team.teamname
+  end
+
 end
