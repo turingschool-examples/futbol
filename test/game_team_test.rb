@@ -84,15 +84,15 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_find_percent_home_wins
-    assert_equal 60.00, GameTeam.percentage_home_wins
+    assert_equal 0.60, GameTeam.percentage_home_wins
   end
 
   def test_it_can_find_percentage_visitor_wins
-    assert_equal 20.00, GameTeam.percentage_visitor_wins
+    assert_equal 0.20, GameTeam.percentage_visitor_wins
   end
 
   def test_it_can_find_percentage_ties
-    assert_equal 25.00, GameTeam.percentage_ties
+    assert_equal 0.25, GameTeam.percentage_ties
   end
 
   def test_it_can_find_winninest_coach

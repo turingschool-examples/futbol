@@ -119,14 +119,16 @@ class GameTest < Minitest::Test
                         20162017 => {:goals => 10, :games_played => 4}
                         }
     Game.stubs(:games_goals_by_season).returns(stub_games_goals)
-    expected = {20122013 => 3.33, 20162017 => 2.5}
+    expected = {"20122013" => 3.33, "20162017" => 2.5}
     assert_equal expected, Game.average_goals_by_season
-    assert_equal expected, Game.divide_hash_values(:goals, :games_played, Game.games_goals_by_season)
+    actual = Game.divide_hash_values(:goals, :games_played, Game.games_goals_by_season)
+    actual = Game.keys_to_string(actual)
+    assert_equal expected, actual
   end
 
 #deliverable
   def test_it_can_count_games_by_season
-    assert_equal ({20122013=>2, 20162017=>5, 20142015=>6, 20132014=>4, 20152016=>2, 20172018=>1}), Game.count_of_games_by_season
+    assert_equal ({"20122013"=>2, "20162017"=>5, "20142015"=>6, "20132014"=>4, "20152016"=>2, "20172018"=>1}), Game.count_of_games_by_season
   end
 
   def test_it_returns_games_goals_by_hoa_team_id

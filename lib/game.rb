@@ -11,6 +11,10 @@ class Game
     @@all
   end
 
+  def self.season_string
+    @season.to_s
+  end
+
   def self.find_by(id)
    all.find_all{|game| game.game_id==id}
   end
@@ -28,7 +32,7 @@ class Game
     games_by_season = @@all.group_by { |game| game.season }
     count = {}
     games_by_season.keys.each do |key|
-      count[key] = @@all.count { |game| game.season == key}
+      count[key.to_s] = @@all.count { |game| game.season == key}
     end
     count
   end
@@ -66,11 +70,30 @@ class Game
   def self.games_goals_by_season
     hash_of_hashes(all, :season, :goals, :games_played, :total_goals, 1)
   end
+#module
+  def self.keys_to_string(hash)
+    hash = hash.transform_keys { |key| key.to_s }
+  end
 
   #deliverable
     def self.average_goals_by_season
       # :goals / :games_played
-      divide_hash_values(:goals, :games_played, games_goals_by_season)
+      average_goals_by_season = divide_hash_values(:goals, :games_played, games_goals_by_season)
+      # average_goals_by_season.transform_keys {|key| key.to_s}
+      keys_to_string(average_goals_by_season)
+    end
+
+    def stringify_keys
+      h = self.map do |k,v|
+        v_str = if v.instance_of? Hash
+                  v.stringify_keys
+                else
+                  v
+                end
+
+        [k.to_s, v_str]
+      end
+      Hash[h]
     end
 
   def self.games_goals_by(hoa_team)
@@ -172,6 +195,10 @@ class Game
   def lowest_total_score
     @@all.map { |game| game.away_goals + game.home_goals}.min
   end
+
+  # def season_string
+  #   @season.to_s
+  # end
 
   def win?(team_id)
     away_win = team_id == @away_team_id && @away_goals > @home_goals

@@ -25,18 +25,18 @@ class GameTeam
 
   def self.percentage_home_wins
     home_wins = (@@all.find_all {|gt| gt.hoa == "home" && gt.result == "WIN" }).count.to_f
-    ((home_wins / self.home_games) * 100).round(2)
+    (home_wins / self.home_games).round(2)
   end
 
   def self.percentage_visitor_wins
     visitor_wins = (@@all.find_all {|gt| gt.hoa == "home" && gt.result == "LOSS" }).count.to_f
-    ((visitor_wins / self.home_games) * 100).round(2)
+    (visitor_wins / self.home_games).round(2)
   end
 
   def self.percentage_ties
     games_count = @@all.count.to_f
     ties_count = (@@all.find_all { |gt| gt.result == "TIE"}).count.to_f
-    ((ties_count / games_count) * 100).round(2)
+    (ties_count / games_count).round(2)
   end
 
   def self.winningest_coach

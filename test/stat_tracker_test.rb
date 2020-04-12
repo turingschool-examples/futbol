@@ -56,19 +56,19 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_percent_home_wins
-    assert_equal 60.00, @stat_tracker.percentage_home_wins
+    assert_equal 0.60, @stat_tracker.percentage_home_wins
   end
 
   def test_it_can_find_percentage_visitor_wins
-    assert_equal 20.00, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.20, @stat_tracker.percentage_visitor_wins
   end
 
   def test_it_can_find_percentage_ties
-    assert_equal 25.00, @stat_tracker.percentage_ties
+    assert_equal 0.25, @stat_tracker.percentage_ties
   end
 
   def test_it_can_count_games_in_a_season
-    assert_equal ({20122013=>2, 20162017=>5, 20142015=>6, 20132014=>4, 20152016=>2, 20172018=>1}), @stat_tracker.count_of_games_by_season
+    assert_equal ({"20122013"=>2, "20162017"=>5, "20142015"=>6, "20132014"=>4, "20152016"=>2, "20172018"=>1}), @stat_tracker.count_of_games_by_season
   end
 
   def test_it_returns_average_goals_per_game
@@ -81,7 +81,7 @@ class StatTrackerTest < Minitest::Test
                         20162017 => {:goals => 10, :games_played => 4}
                         }
     Game.stubs(:games_goals_by_season).returns(stub_games_goals)
-    expected = {20122013 => 3.33, 20162017 => 2.5}
+    expected = {"20122013" => 3.33, "20162017" => 2.5}
     assert_equal expected, Game.average_goals_by_season
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
@@ -177,6 +177,14 @@ class StatTrackerTest < Minitest::Test
 
   def test_least_goals_scored_by_team_id
     assert_equal 2, @stat_tracker.least_goals_scored(26)
+  end
+
+  def test_it_returns_best_offence
+    assert_equal "Los Angeles FC", @stat_tracker.best_offense
+  end
+
+  def test_it_returns_worst_offence
+    assert_equal "LA Galaxy", @stat_tracker.worst_offense
   end
 
 end

@@ -99,11 +99,13 @@ class StatTracker
   end
 
   def best_offense
-    GameTeam.best_offense
+    team_id = GameTeam.best_offense
+    Team.all.find { |team| team.team_id == team_id }.team_name
   end
 
   def worst_offense
-    GameTeam.worst_offense
+    team_id = GameTeam.worst_offense
+    Team.all.find { |team| team.team_id == team_id }.team_name
   end
 
   def most_accurate_team(season)
