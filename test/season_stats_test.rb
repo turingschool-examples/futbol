@@ -13,5 +13,8 @@ class SeasonStatsTest < Minitest::Test
     assert_equal @teams_col, @season_stats.teams
   end
 
+  def test_get_games_of_season
+    assert_equal 12, @season_stats.get_games_of_season("20122013").length
+  end
 
 end
