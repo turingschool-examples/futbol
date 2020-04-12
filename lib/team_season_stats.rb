@@ -37,7 +37,7 @@ class TeamSeasonStats < Collection
         season_wins
     end
   end
-
+#h1.merge(h2) {|key, oldval, newval| newval - oldval}
   def win_percentage(id)
     wins = wins_in_season(id)
     total = total_games_per_season(id)
@@ -56,5 +56,39 @@ class TeamSeasonStats < Collection
     win_percentage(id).min_by do |season, percentage|
       percentage
     end.first
+  end
+
+  def opponent_stats(id)
+    total_games = all_games(id)
+    #h = Hash.new { |h, k| h[k] = [] }
+    opponent_hash = Hash.new{|id, games| id[games] = []}
+    total_games.each do |game|
+      opponent_hash[game.home_team_id] << game
+      opponent_hash[game.away_team_id] << game
+      opponent_hash.delete(id)
+    end
+    opponent_hash
+  end
+
+  def opponent_total_games_played(id)
+    opponent_stats(id).reduce({}) do |total, (id, games)|
+    total[id] = games.length
+    total
+    end
+  end
+
+  def opponent_wins(id)
+    opponent_stats(id).reduce(Hash.new(0)) do |opponent_wins, (id, games)|
+      wins = games.count do |game|
+        home_wins = game.home_team_id == id && game.home_team_win?
+        away_wins = game.away_team_id == id && game.visitor_team_win?
+        home_wins || away_wins
+      end
+      opponent_wins[id] += wins
+      opponent_wins
+    end
+  end
+
+  def opponent_win_percentage(id)
   end
 end
