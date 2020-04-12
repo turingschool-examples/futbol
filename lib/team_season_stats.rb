@@ -37,4 +37,24 @@ class TeamSeasonStats < Collection
         season_wins
     end
   end
+
+  def win_percentage(id)
+    wins = wins_in_season(id)
+    total = total_games_per_season(id)
+    wins.merge(total) do |season, wins, games|
+      (wins.to_f/games).round(2) * 100
+    end
+  end
+
+  def best_season(id)
+    win_percentage(id).max_by do |season, percentage|
+      percentage
+    end.first
+  end
+
+  def worst_season(id)
+    win_percentage(id).min_by do |season, percentage|
+      percentage
+    end.first
+  end
 end
