@@ -87,7 +87,7 @@ class Game
     season_goals
   end
 
-  def self.average_goals_by_season
+  def self.average_goals_per_season
     goals_by_season = {}
     @@all_games.each do |game|
     goals_by_season[game.season] = goals_by_season(game.season)
@@ -116,5 +116,5 @@ class Game
     @venue = info[:venue]
     @venue_link = info[:venue_link]
   end
- 
+
 end

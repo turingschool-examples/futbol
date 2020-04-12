@@ -185,6 +185,7 @@ class StatTracker
   end
 
   def average_goals_per_game
+    @team_repository.average_goals_per_game
 
   end
 

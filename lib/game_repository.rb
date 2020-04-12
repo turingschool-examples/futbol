@@ -6,7 +6,7 @@ class GameRepository
   attr_reader :games_collection
   def initialize(file_path)
     @games_collection = CsvHelper.generate_game_array(file_path)
-
+    @game_team_collection = CsvHelper.generate_game_teams_array(file_path)
   end
 
 
@@ -58,6 +58,22 @@ class GameRepository
       (game.home_goals + game.away_goals)
     end
     (total_goals.to_f / @games_collection.length).round(2)
+  end
+
+  def average_goals_by_season
+    seasons = @games_collection.map do |game|
+      [game.game_id, game.season]
+      #require 'pry'; binding.pry
+      end
+      tally = 0
+    average = @game_team_collection.map do |game|
+      if seasons[1][0] == game.game_id
+        tally += game.goals
+        require 'pry'; binding.pry
+      end
+
+    end
+    goals_by_season
   end
 
 end
