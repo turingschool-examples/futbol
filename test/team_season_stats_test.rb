@@ -68,4 +68,12 @@ class TeamSeasonStatsTest < Minitest::Test
     expected = {9=>40.0, 13=>100.0, 1=>100.0, 3=>63.0, 8=>0.0, 2=>50.0}
     assert_equal expected, @team_stats.opponent_win_percentage(5)
   end
+  
+  def test_can_get_favorite_opponent
+    assert_equal 8, @team_stats.favorite_opponent(5)
+  end
+
+  def test_can_get_rival
+    assert_equal 13, @team_stats.rival(5)
+  end
 end
