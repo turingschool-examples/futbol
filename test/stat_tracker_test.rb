@@ -3,8 +3,8 @@ require 'CSV'
 require './lib/stat_tracker'
 require './lib/game'
 require './lib/games_methods'
-require './lib/game_teams'
-require './lib/teams'
+require './lib/game_team_collection'
+require './lib/team_collection'
 require './lib/team'
 
 class StatTrackerTest < Minitest::Test
@@ -61,6 +61,18 @@ class StatTrackerTest < Minitest::Test
 
   def test_highest_scoring_visitor
     assert_equal "LA Galaxy", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal "New England Revolution", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_lowest_scoring_visitor
+    assert_equal "Seattle Sounders FC", @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_lowest_scoring_home_team
+    assert_equal "Orlando City SC", @stat_tracker.lowest_scoring_home_team
   end
 
 end
