@@ -76,4 +76,16 @@ class TeamSeasonStats < Collection
     total
     end
   end
+
+  def opponent_wins(id)
+    opponent_stats(id).reduce(Hash.new(0)) do |opponent_wins, (id, games)|
+      wins = games.count do |game|
+        home_wins = game.home_team_id == id && game.home_team_win?
+        away_wins = game.away_team_id == id && game.visitor_team_win?
+        home_wins || away_wins
+      end
+      opponent_wins[id] += wins
+      opponent_wins
+    end
+  end
 end

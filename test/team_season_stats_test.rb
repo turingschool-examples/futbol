@@ -58,4 +58,9 @@ class TeamSeasonStatsTest < Minitest::Test
     expected = {9=>5, 13=>1, 1=>1, 3=>8, 8=>1, 2=>2}
     assert_equal expected, @team_stats.opponent_total_games_played(5)
   end
+
+  def test_can_count_opponent_wins
+    expected = {9=>2, 13=>1, 1=>1, 3=>5, 8=>0, 2=>1}
+    assert_equal expected, @team_stats.opponent_wins(5)
+  end
 end
