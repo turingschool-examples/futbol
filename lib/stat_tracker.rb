@@ -152,10 +152,12 @@ end
   end
 
   def percentage_visitor_wins
+    @team_repository.percentage_visitor_wins
 
   end
 
   def percentage_ties
+    @team_repository.percentage_ties
 
   end
 
