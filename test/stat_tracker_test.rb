@@ -78,7 +78,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_total_games_and_goals_by_team
-    assert_equal [7, 5], @stat_tracker.total_games_and_goals_by_team(30, nil)
+    assert_equal [7, 5], @stat_tracker.total_games_and_goals_by_team("30", nil)
   end
 
   def test_add_goals_and_games
