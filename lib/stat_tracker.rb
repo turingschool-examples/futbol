@@ -66,8 +66,8 @@ class StatTracker
   end
 
 
-  def best_offense(id)
-    @league_repository.best_offense(id)
+  def best_offense
+    @league_repository.best_offense
   end
 
   def highest_scoring_home_team
@@ -96,11 +96,11 @@ class StatTracker
   end
 
   def percentage_visitor_wins
-    @team_repository.percentage_visitor_wins
+    @game_repository.percentage_visitor_wins
   end
 
   def percentage_ties
-    @team_repository.percentage_ties
+    @game_repository.percentage_ties
   end
 
   def count_of_games_by_season
@@ -108,7 +108,7 @@ class StatTracker
   end
 
   def average_goals_per_game
-    @team_repository.average_goals_per_game
+    @game_repository.average_goals_per_game
 
   end
 
@@ -117,8 +117,8 @@ class StatTracker
   end
 
 
-  def worst_offense(id)
-    @league_repository.worst_offense(id)
+  def worst_offense
+    @league_repository.worst_offense
   end
 
   def highest_scoring_visitor
@@ -139,6 +139,7 @@ class StatTracker
 
   def team_info(id)
     @team_repository.team_info(id)
+  end
 
   def best_season(id)
     @team_repository.best_season(id)
