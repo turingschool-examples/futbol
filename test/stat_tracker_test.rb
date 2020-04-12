@@ -24,12 +24,13 @@ class StatTrackerTest < Minitest::Test
   def test_it_exists
     assert_instance_of StatTracker, @stat_tracker
   end
-  def test_it_has_attributes
-    assert_equal "./data/games_truncated.csv", @stat_tracker.game_path
-    assert_equal "./data/teams.csv", @stat_tracker.team_path
-    assert_equal "./data/game_teams_truncated.csv", @stat_tracker.game_teams_path
-  end
 
+  # def test_it_has_attributes
+  #   assert_equal "./data/games_truncated.csv", @stat_tracker.game_path
+  #   assert_equal "./data/teams.csv", @stat_tracker.team_path
+  #   assert_equal "./data/game_teams_truncated.csv", @stat_tracker.game_teams_path
+  # end
+  #
   def test_it_can_create_games
     assert_instance_of Games, @stat_tracker.games
   end
@@ -42,9 +43,30 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of GameTeams, @stat_tracker.game_teams
   end
 
+<<<<<<< HEAD
   def test_best_offense
     require "pry";binding.pry
     assert_equal "FC Dallas", @stat_tracker.best_offense
+=======
+  def test_count_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+
+  def test_total_games_per_team
+    assert_equal 12, @stat_tracker.total_games_per_team(3)
+  end
+
+  def test_best_offense
+    assert_equal "Toronto FC", @stat_tracker.best_offense
+  end
+
+  def test_worst_offense
+    assert_equal "Atlanta United", @stat_tracker.worst_offense
+  end
+
+  def test_highest_scoring_visitor
+    assert_equal "LA Galaxy", @stat_tracker.highest_scoring_visitor
+>>>>>>> b3bdcc122fca460fe2c4f2ba0764cab563cd6c1a
   end
 
 end
