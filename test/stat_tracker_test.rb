@@ -71,4 +71,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Seattle Sounders FC", @stat_tracker.lowest_scoring_visitor
   end
 
+  def test_lowest_scoring_home_team
+    assert_equal "Orlando City SC", @stat_tracker.lowest_scoring_home_team
+  end
+
 end
