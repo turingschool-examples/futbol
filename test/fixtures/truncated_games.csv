@@ -7,7 +7,6 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2012020280,20122013,Regular Season,2/27/13,5,13,2,4,BBVA Stadium,/api/v1/venues/null
 2012020697,20122013,Regular Season,4/25/13,5,1,2,3,Mercedes-Benz Stadium,/api/v1/venues/null
 2012020538,20122013,Regular Season,4/3/13,5,3,1,4,BBVA Stadium,/api/v1/venues/null
-2012020081,20122013,Regular Season,1/30/13,52,8,3,2,Red Bull Arena,/api/v1/venues/null
 2012020480,20122013,Regular Season,3/26/13,8,5,0,1,Children's Mercy Park,/api/v1/venues/null
 2012030115,20122013,Postseason,5/9/13,2,5,0,2,Children's Mercy Park,/api/v1/venues/null
 2012030116,20122013,Postseason,5/11/13,5,2,2,3,Centruy Link Field,/api/v1/venues/null
