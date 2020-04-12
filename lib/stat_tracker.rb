@@ -27,7 +27,6 @@ class StatTracker
     @league_repository = league_repository
   end
 
-
   def highest_total_score
     @game_repository.highest_total_score
   end
@@ -36,24 +35,41 @@ class StatTracker
     @game_repository.lowest_total_score
   end
 
-  def count_of_teams
-    @league_repository.count_of_teams
-  end
-
   def percentage_home_wins
     @game_repository.percentage_home_wins
   end
-
 
   def team_info(id)
     @team_repository.team_info(id)
   end
 
-def best_offense
-  @league_repository.best_offense
-end
+  def count_of_teams
+    @league_repository.count_of_teams
+  end
 
+  def best_offense
+    @league_repository.best_offense
+  end
 
+  def worst_offense
+    @league_repository.worst_offense
+  end
+
+  def highest_scoring_visitor
+    @league_repository.highest_scoring_visitor
+  end
+
+  def highest_scoring_home_team
+    @league_repository.highest_scoring_home_team
+  end
+
+  def lowest_scoring_visitor
+    @league_repository.lowest_scoring_visitor
+  end
+
+  def lowest_scoring_home_team
+    @league_repository.lowest_scoring_home_team
+  end
 
 # Season with the highest win percentage for a team.
       # (win/total) *100
@@ -163,26 +179,6 @@ end
 
   def average_goals_by_season
 
-  end
-
-  def worst_offense
-    @league_repository.worst_offense
-  end
-
-  def highest_scoring_visitor
-    @league_repository.highest_scoring_visitor
-  end
-
-  def highest_scoring_home_team
-    @league_repository.highest_scoring_home_team
-  end
-
-  def lowest_scoring_visitor
-    @league_repository.lowest_scoring_visitor
-  end
-
-  def lowest_scoring_home_team
-    @league_repository.lowest_scoring_home_team
   end
 
   def team_info
