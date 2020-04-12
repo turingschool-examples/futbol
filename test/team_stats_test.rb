@@ -22,6 +22,6 @@ class TeamStatsTest < Minitest::Test
   end
 
   def test_can_calculate_average_win_percentage
-    assert_equal 100.0, @team_stats.average_win_percentage(6)
+    assert_equal 1.0, @team_stats.average_win_percentage(6)
   end
 end
