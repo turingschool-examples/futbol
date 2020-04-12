@@ -16,28 +16,28 @@ class GameTeam
   end
 
   def self.home_games
-    (@@all.find_all {|gt| gt.hoa == "home" }).count
+    (all.find_all {|gt| gt.hoa == "home" }).count
   end
 
   def self.percentage_home_wins
-    home_wins = (@@all.find_all {|gt| gt.hoa == "home" && gt.result == "WIN" }).count.to_f
+    home_wins = (all.find_all {|gt| gt.hoa == "home" && gt.result == "WIN" }).count.to_f
     ((home_wins / self.home_games) * 100).round(2)
   end
 
   def self.percentage_visitor_wins
-    visitor_wins = (@@all.find_all {|gt| gt.hoa == "home" && gt.result == "LOSS" }).count.to_f
+    visitor_wins = (all.find_all {|gt| gt.hoa == "home" && gt.result == "LOSS" }).count.to_f
     ((visitor_wins / self.home_games) * 100).round(2)
   end
 
   def self.percentage_ties
-    games_count = @@all.count.to_f
-    ties_count = (@@all.find_all { |gt| gt.result == "TIE"}).count.to_f
+    games_count = all.count.to_f
+    ties_count = (all.find_all { |gt| gt.result == "TIE"}).count.to_f
     ((ties_count / games_count) * 100).round(2)
   end
 
   def self.coaches_in_season(season_id)
     search_term = season_id.to_s[0..3]
-    game_teams_in_season = @@all.find_all do |gt|
+    game_teams_in_season = all.find_all do |gt|
       gt.game_id.to_s[0..3] == search_term
     end
     game_teams_in_season.map {|gameteam| gameteam.head_coach}.uniq
@@ -47,11 +47,11 @@ class GameTeam
     search_term = season_id.to_s[0..3]
     results_by_coach_by_season = {}
     coaches_in_season(season_id).each do |coach|
-      @@all.find_all do |gt|
+      all.find_all do |gt|
         if gt.game_id.to_s[0..3] == search_term
-          if coach == gt.head_coach &&    results_by_coach_by_season[coach] == nil
+          if coach == gt.head_coach && results_by_coach_by_season[coach] == nil
             results_by_coach_by_season[coach] = [gt.result]
-          elsif coach == gt.head_coach &&   results_by_coach_by_season[coach] != nil
+          elsif coach == gt.head_coach && results_by_coach_by_season[coach] != nil
             results_by_coach_by_season[coach] << gt.result
           end
         end
@@ -62,16 +62,16 @@ class GameTeam
 
   def self.total_games_coached(season_id)
     total_games_coached_by_season = {}
-    coaches_in_season(season_id).each do |coach|
-      total_games_coached_by_season[coach] = results_by_coach(season_id)[coach].count
+    results_by_coach(season_id).map do |coach, results|
+      total_games_coached_by_season[coach] = results.length
     end
     total_games_coached_by_season
   end
 
   def self.wins_by_coach(season_id)
     wins_by_coach_by_season = {}
-    coaches_in_season(season_id).each do |coach|
-      results_by_coach(season_id)[coach].each do |result|
+    results_by_coach(season_id).each do |coach, results|
+      results.each do |result|
         if result == "WIN" && wins_by_coach_by_season[coach] == nil
           wins_by_coach_by_season[coach] = 1
         elsif result == "WIN" && wins_by_coach_by_season[coach] != nil
@@ -166,31 +166,61 @@ class GameTeam
     total_goals_per_team.key(total_goals_per_team.values.min)
   end
 
-  def self.favorite_opponent_id(team_id)
-    # return name of the opponent that has the lowest win percentage against the given team.
+  def self.opponents_records(team_id)
     game_ids = []
-    all.find_all do |gt|
+    all.each do |gt|
       if gt.team_id == team_id
         game_ids << gt.game_id
       end
     end
-    opponents = []
+    opponents_records = {}
     game_ids.each do |game_id|
       all.find_all do |gt|
         if gt.game_id == game_id && gt.team_id != team_id
-          opponents << gt.team_id
+          if opponents_records[gt.team_id] == nil
+            opponents_records[gt.team_id] = [gt.result]
+          else
+            opponents_records[gt.team_id] << gt.result
+          end
         end
       end
     end
-# I think I actually want opponents to be a hash with each opponent as the key and "win" and "loss" gathered as the values if the game_id matches. This is basically results_by_coach.
-# Then I can use similar strategy as finding best and worst coach => total_by_coach and wins_by_coach
-  
-    # return the id of the team with the lowest percentage of wins
-    # in stat tracker use the id to get the team name
+    opponents_records
   end
 
+  def self.opponents_wins(team_id)
+    opponent_wins = {}
+    opponents_records(team_id).each do |team_id, record|
+      record.each do |result|
+        if result == "WIN" && opponent_wins[team_id] == nil
+          opponent_wins[team_id] = 1
+        elsif result == "WIN" && opponent_wins[team_id] != nil
+          opponent_wins[team_id] += 1
+        end
+      end
+    end
+    opponent_wins
+  end
+
+  def self.favorite_opponent_id(team_id)
+    record_length = {}
+    opponents_records(team_id).map do |team_id, record|
+      record_length[team_id] = record.length
+    end
+    opponents = opponents_records(team_id).keys
+    opponents.min_by {|opponent| ((opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f) * 100).round(2)}
+  end
+
+    # return the id of the team with the lowest percentage of wins
+    # in stat tracker use the id to get the team name
+
   def self.rival_id(team_id)
-    # Name of the opponent that has the highest win percentage against the given team.
+    record_length = {}
+    opponents_records(team_id).map do |team_id, record|
+      record_length[team_id] = record.length
+    end
+    opponents = opponents_records(team_id).keys
+    opponents.max_by {|opponent| ((opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f) * 100).round(2)}
   end
 
     attr_reader :game_id,
