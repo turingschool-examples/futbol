@@ -38,4 +38,12 @@ class TeamSeasonStatsTest < Minitest::Test
     expected = {"20122013"=>45.0, "20152016"=>100.0, "20142015"=>0.0}
     assert_equal expected, @team_stats.win_percentage(5)
   end
+
+  def test_can_find_best_season
+    assert_equal "20152016", @team_stats.best_season(5)
+  end
+
+  def test_can_find_worst_season
+    assert_equal "20142015", @team_stats.worst_season(5)
+  end
 end
