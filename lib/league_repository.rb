@@ -57,7 +57,16 @@ class LeagueRepository
   end
 
   def highest_scoring_visitor
+    total_away_games = Hash.new
     average_score_away = Hash.new
+    @game_collection.each do |game|
+      if total_away_games[game.away_team_id] == nil
+        total_away_games[game.away_team_id] = 0
+        total_away_games[game.away_team_id] += 1
+      else
+        total_away_games[game.away_team_id] += 1
+      end
+    end
     @game_collection.each do |game|
       if average_score_away[game.away_team_id] == nil
         average_score_away[game.away_team_id] = 0
@@ -66,15 +75,27 @@ class LeagueRepository
         average_score_away[game.away_team_id] += game.away_goals
       end
     end
-    answer = average_score_away.max_by do |key, value|
-    average_score_away[key]
+      average_score_away = average_score_away.map do |key, value|
+        {key => (average_score_away[key].to_f / total_away_games[key].to_f).round(2)}
       end
-      first_answer = answer.first
-      find_team_id(first_answer)
+
+      answer_hash = average_score_away.reduce Hash.new, :merge
+
+      answer = answer_hash.key(answer_hash.values.max)
+      find_team_id(answer)
   end
 
   def highest_scoring_home_team
+    total_home_games = Hash.new
     average_score_home = Hash.new
+    @game_collection.each do |game|
+      if total_home_games[game.home_team_id] == nil
+        total_home_games[game.home_team_id] = 0
+        total_home_games[game.home_team_id] += 1
+      else
+        total_home_games[game.home_team_id] += 1
+      end
+    end
     @game_collection.each do |game|
       if average_score_home[game.home_team_id] == nil
         average_score_home[game.home_team_id] = 0
@@ -83,15 +104,26 @@ class LeagueRepository
         average_score_home[game.home_team_id] += game.home_goals
       end
     end
-    answer = average_score_home.max_by do |key, value|
-    average_score_home[key]
+      average_score_home = average_score_home.map do |key, value|
+        {key => (average_score_home[key].to_f / total_home_games[key].to_f).round(2)}
       end
-      first_answer = answer.first
-      find_team_id(first_answer)
+
+      answer_hash = average_score_home.reduce Hash.new, :merge
+      answer = answer_hash.key(answer_hash.values.max)
+      find_team_id(answer)
   end
 
   def lowest_scoring_visitor
+    total_away_games = Hash.new
     average_score_away = Hash.new
+    @game_collection.each do |game|
+      if total_away_games[game.away_team_id] == nil
+        total_away_games[game.away_team_id] = 0
+        total_away_games[game.away_team_id] += 1
+      else
+        total_away_games[game.away_team_id] += 1
+      end
+    end
     @game_collection.each do |game|
       if average_score_away[game.away_team_id] == nil
         average_score_away[game.away_team_id] = 0
@@ -100,15 +132,27 @@ class LeagueRepository
         average_score_away[game.away_team_id] += game.away_goals
       end
     end
-    answer = average_score_away.min_by do |key, value|
-    average_score_away[key]
+      average_score_away = average_score_away.map do |key, value|
+        {key => (average_score_away[key].to_f / total_away_games[key].to_f).round(2)}
       end
-      first_answer = answer.first
-      find_team_id(first_answer)
+
+      answer_hash = average_score_away.reduce Hash.new, :merge
+
+      answer = answer_hash.key(answer_hash.values.min)
+      find_team_id(answer)
   end
 
   def lowest_scoring_home_team
+    total_home_games = Hash.new
     average_score_home = Hash.new
+    @game_collection.each do |game|
+      if total_home_games[game.home_team_id] == nil
+        total_home_games[game.home_team_id] = 0
+        total_home_games[game.home_team_id] += 1
+      else
+        total_home_games[game.home_team_id] += 1
+      end
+    end
     @game_collection.each do |game|
       if average_score_home[game.home_team_id] == nil
         average_score_home[game.home_team_id] = 0
@@ -117,11 +161,13 @@ class LeagueRepository
         average_score_home[game.home_team_id] += game.home_goals
       end
     end
-    answer = average_score_home.min_by do |key, value|
-    average_score_home[key]
+      average_score_home = average_score_home.map do |key, value|
+        {key => (average_score_home[key].to_f / total_home_games[key].to_f).round(2)}
       end
-      first_answer = answer.first
-      find_team_id(first_answer)
+
+      answer_hash = average_score_home.reduce Hash.new, :merge
+      answer = answer_hash.key(answer_hash.values.min)
+      find_team_id(answer)
   end
 
 end

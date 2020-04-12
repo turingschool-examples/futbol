@@ -36,22 +36,23 @@ class LeagueRepositoryTest < Minitest::Test
 
   def test_highest_scoring_visitor
     league = LeagueRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
-    assert_equal "Sporting Kansas City", league.highest_scoring_visitor
+    assert_equal "FC Dallas", league.highest_scoring_visitor
   end
 
   def test_lowest_scoring_visitor
     league = LeagueRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
-    assert_equal "Reign FC", league.lowest_scoring_visitor
+    assert_equal "San Jose Earthquakes", league.lowest_scoring_visitor
   end
 
   def test_highest_scoring_home_team
     league = LeagueRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
-    assert_equal "Sporting Kansas City", league.highest_scoring_home_team
+    assert_equal "Reign FC", league.highest_scoring_home_team
   end
 
   def test_lowest_scoring_home_team
     league = LeagueRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
-    assert_equal "Reign FC", league.lowest_scoring_home_team
+
+    assert_equal "Utah Royals FC", league.lowest_scoring_home_team
   end
 
 end
