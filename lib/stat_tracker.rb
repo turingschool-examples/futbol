@@ -7,7 +7,7 @@ require_relative './team_statistics'
 require 'CSV'
 require 'pry'
 class StatTracker
-  attr_reader :games, :teams, :game_teams, :league_statistics, :game_statistics, :team_statistics
+  attr_reader :games, :teams, :game_teams, :league_statistics, :game_statistics, :team_statistics, :season_statistics
   def initialize(data_files)
     @games = data_files[:games]
     @teams = data_files[:teams]
@@ -20,7 +20,7 @@ class StatTracker
     @league_statistics = LeagueStatistics.new(@game_collection, @game_teams_collection, @teams_collection)
     @game_statistics = GameStatistics.new(@game_collection, @game_teams_collection, @teams_collection)
     @team_statistics = TeamStatistics.new(@game_collection, @game_teams_collection, @teams_collection)
-
+    @season_statistics = SeasonStatistics.new(@game_collection, @game_teams_collection, @teams_collection)
   end
 
   def self.from_csv(data_files)

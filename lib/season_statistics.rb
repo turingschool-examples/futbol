@@ -86,8 +86,35 @@ attr_reader :stat_tracker, :game_collection, :game_teams_collection, :teams_coll
     end
   end
 
+    def most_accurate_team(season)
+      teams = current_season_game_teams(season).group_by do |game|
+      game.team_id
+      end
+      accuracy = teams.to_h do |key, value|
+        [key, value.map {|game| (game.goals / game.shots.to_f)}]
+        #this needs to be refactored so total accuracy isn't above 1.
+      end
+      final = accuracy.to_h do |key, value|
+        [key, value.sum {|team| team }]
+      end
+      most_accurate = final.max_by {|team| team}
+      most_accurate_name = @teams_collection.find {|team| team.id == most_accurate[0]}
+      most_accurate_name.team_name
+    end
 
-
-
-
-end
+    def least_accurate_team(season)
+      teams = current_season_game_teams(season).group_by do |game|
+      game.team_id
+      end
+      accuracy = teams.to_h do |key, value|
+        [key, value.map {|game| (game.goals / game.shots.to_f)}]
+        #this needs to be refactored so total accuracy isn't above 1.
+      end
+      final = accuracy.to_h do |key, value|
+        [key, value.sum {|team| team }]
+      end
+      least_accurate = final.min_by {|team| team}
+      least_accurate_name = @teams_collection.find {|team| team.id == least_accurate[0]}
+      least_accurate_name.team_name
+    end
+  end

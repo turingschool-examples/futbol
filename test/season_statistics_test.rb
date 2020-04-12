@@ -47,4 +47,12 @@ class SeasonStatisticsTest < Minitest::Test
     assert_equal "Houston Dynamo", @season_statistics.most_least_tackles("20122013", "high")
     assert_equal "FC Dallas", @season_statistics.most_least_tackles("20122013", "low")
   end
+
+  def test_most_accurate_team
+    assert_equal "FC Dallas", @season_statistics.most_accurate_team("20122013")
+  end
+
+  def test_least_accurate_team
+    assert_equal "Houston Dynamo", @season_statistics.least_accurate_team("20122013")
+  end
 end
