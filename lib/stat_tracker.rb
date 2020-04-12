@@ -5,7 +5,7 @@ require_relative 'game'
 require_relative 'games_methods'
 require_relative 'game_team_collection'
 
-
+    # game_teams.game_teams is equal to this ".all" method.
 class StatTracker
   attr_reader :games, :teams, :game_teams
 
@@ -164,7 +164,27 @@ class StatTracker
   end
 
   def winningest_coach(season_id)
-    require "pry";binding.pry
+    head_coach_wins = {}
+    @game_teams.all.each do |game_team|
+      if season_id.divmod(10000)[1] - 1 == game_team.game_id.divmod(1000000)[0]
+        if game_team.result == "WIN"
+          head_coach = game_team.head_coach
+          if head_coach_wins.key?(head_coach)
+            head_coach_wins[head_coach] += 1
+            #symbol return value was nil
+            # nil because the key didn't exist yet.
+            # which means that when we tried to add +=1, it didn't work bc of nil.
+            #we wanted to make it dynamic for every head coach name.
+          else
+            head_coach_wins[head_coach] = 1
+          end
+        end
+      end
+    end
+    head_coach_wins.max_by{|k,v| v}[0]
+  end
+  
+
     # whichever team using season id has the highest WIN result of the season
     # either post season or regular season
     # will return the value of the winningest_coach
@@ -181,7 +201,10 @@ class StatTracker
     # =
   #   self.to_f / n.to_f * 100.0
   # end
-  end
+  #step1: grab the data for the specific season
+  #step2: get rid of all the losses for that season
+  #step3: filter the data so it's wins per coach
+  #step4:
 end
 
 #   def initialize

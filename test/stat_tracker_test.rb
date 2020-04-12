@@ -44,6 +44,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_best_offense
+    skip
     assert_equal "FC Dallas", @stat_tracker.best_offense
   end
 
@@ -56,10 +57,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_best_offense
+    skip
     assert_equal "Toronto FC", @stat_tracker.best_offense
   end
 
   def test_worst_offense
+    skip
     assert_equal "Atlanta United", @stat_tracker.worst_offense
   end
 
