@@ -15,7 +15,7 @@ class GameCollectionClass < Minitest::Test
   def test_it_has_list_of_games
   assert_instance_of Array, @game_collection.games_list
   assert_instance_of Game, @game_collection.games_list.first
-  assert_equal 299, @game_collection.games_list.length
+  assert_equal 18, @game_collection.games_list.length
   end
 
 end
