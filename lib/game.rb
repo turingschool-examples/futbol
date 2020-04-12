@@ -25,6 +25,7 @@ class Game
   end
 
   def self.count_of_games_by_season
+    # this can be refactored to include ross' games_per(:season) method -sb
     games_by_season = @@all.group_by { |game| game.season }
     count = {}
     games_by_season.keys.each do |key|

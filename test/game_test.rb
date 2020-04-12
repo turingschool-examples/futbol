@@ -226,6 +226,12 @@ class GameTest < Minitest::Test
     assert_equal 20, Game.all.count
   end
 
+# the code was changed and this test is no longer passing 
+  def test_it_returns_all_games_by_seasons_given_team_id
+    assert_equal ({20122013 => 2, 20142015 => 4}), Game.games_by_season(3)
+    assert_equal ({20122013 => 2}), Game.games_by_season(6)
+  end
+
   def test_returns_games_played_by_team_id
     assert_equal 6, Game.games_played_by(3).length
     assert_instance_of Game, Game.games_played_by(3)[0]
@@ -240,7 +246,6 @@ class GameTest < Minitest::Test
     expected = ({20122013 => {:wins => 2, :games_played => 2}})
     assert_equal expected, Game.games_and_wins_by_season(6)
   end
-
 
   def test_it_returns_percentage_of_wins_by_season_for_team_id
       assert_equal ({20122013 => 0, 20142015 => 100}), Game.win_percent_by_season(3)

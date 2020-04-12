@@ -89,7 +89,6 @@ class StatTracker
     Team.all.find { |team| team.team_id == team_id }.team_name
   end
 
-
   def best_season(team_id)
     Game.best_season(team_id)
   end
@@ -121,5 +120,18 @@ class StatTracker
   def least_goals_scored(team_id)
     GameTeam.least_goals_scored(team_id)
   end
+  
+  def favorite_opponent(team_id)
+    team = Team.all.find do |team|
+      team.team_id == GameTeam.favorite_opponent_id(team_id)
+    end
+    team.team_name
+  end
 
+  def rival(team_id)
+    team = Team.all.find do |team|
+      team.team_id == GameTeam.rival_id(team_id)
+    end
+    team.team_name
+  end
 end
