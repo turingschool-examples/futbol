@@ -13,9 +13,11 @@ class Team
     selected_team = @@all.find{|team| team.team_id==id}
     team_info = {}
     team_info["abbreviation"]= selected_team.abbreviation
-    team_info["franchise_id"]= selected_team.franchise_id
+    team_info["franchise_id"]= selected_team.franchise_id.to_s
     team_info["link"]= selected_team.link
+    team_info["team_id"]= selected_team.team_id.to_s
     team_info["team_name"]= selected_team.team_name
+    team_info
   end
 
   def self.from_csv(file_path)
