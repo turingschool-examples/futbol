@@ -46,4 +46,11 @@ class TeamSeasonStatsTest < Minitest::Test
   def test_can_find_worst_season
     assert_equal "20142015", @team_stats.worst_season(5)
   end
+
+  # def test_can_get_opponent_stats
+#   skip
+#   #mocks and stubs
+#   #{id => [game], id => [games]}
+#   assert_equal 3, @team_stats.opponent_stats(5)
+# end
 end

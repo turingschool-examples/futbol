@@ -57,4 +57,16 @@ class TeamSeasonStats < Collection
       percentage
     end.first
   end
+
+  def opponent_stats(id)
+    total_games = all_games(id)
+    #h = Hash.new { |h, k| h[k] = [] }
+    opponent_hash = Hash.new{|id, games| id[games] = []}
+    total_games.each do |game|
+      opponent_hash[game.home_team_id] << game
+      opponent_hash[game.away_team_id] << game
+      opponent_hash.delete(id)
+    end
+    opponent_hash
+  end
 end
