@@ -6,21 +6,16 @@ require_relative './team_repository'
 require_relative './game_repository'
 require_relative './league_repository'
 require_relative './season_repository'
-<<<<<<< HEAD
-require 'CSV'
-=======
-
->>>>>>> 13e22fa0f017922963bdd87df1906d0ece19c550
-
 
 require 'CSV'
+
 
 class StatTracker
-# @stat_tracker.highest_total_score
+
 
   def self.from_csv(file_paths)
     league_repository = LeagueRepository.new(file_paths[:games], file_paths[:game_teams], file_paths[:teams])
-    team_repository = TeamRepository.new(file_paths[:game_teams], file_paths[:teams])
+    team_repository = TeamRepository.new(file_paths[:game_teams], file_paths[:teams], file_paths[:games])
     game_repository = GameRepository.new(file_paths[:games])
     game_team_repository = GameTeamsRepository.new(file_paths[:game_teams])
     season_repository = SeasonRepository.new(file_paths[:games], file_paths[:game_teams], file_paths[:teams])
@@ -59,97 +54,9 @@ class StatTracker
     @team_repository.team_info(id)
   end
 
-def best_offense
-  @league_repository.best_offense
-end
-
-
-
-# Season with the highest win percentage for a team.
-      # (win/total) *100
-
-  def best_season(id)
-
-    season_win_percent = Hash.new
-    count = 0
-    wins = Game.all_games.each do |game|
-
-      if game.away_team_id == id && (game.away_goals > game.home_goals) && (season_win_percent[game.season] == nil)
-         # && season_win_percent[game.season] == nil
-        season_win_percent[game.season] = 0
-        season_win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
-      elsif game.home_team_id == id && (game.home_goals > game.away_goals) && (season_win_percent[game.season] == nil)
-        season_win_percent[game.season] = 0
-        season_win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
-      elsif game.away_team_id == id && (game.away_goals > game.home_goals)
-        season_win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
-      elsif game.home_team_id == id && (game.home_goals > game.away_goals)
-        season_win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
-      end
-      # end
-    end
-    best_percent = season_win_percent.max_by do |key, value|
-      season_win_percent[key]
-    end
-      best_percent.first
-
-
+  def best_offense(id)
+    @league_repository.best_offense(id)
   end
-
-  def games_per_season(id, game_season)
-    games_per_season = 0
-    Game.all_games.each do |game|
-
-      if (game.away_team_id == id || (game.home_team_id == id)) && (game.season == game_season)
-        games_per_season += 1
-      end
-    end
-    games_per_season
-  end
-
-  def worst_season(id)
-    season_win_percent = Hash.new
-    count = 0
-    wins = Game.all_games.each do |game|
-
-      if game.away_team_id == id && (game.away_goals > game.home_goals) && (season_win_percent[game.season] == nil)
-         # && season_win_percent[game.season] == nil
-        season_win_percent[game.season] = 0
-        season_win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
-      elsif game.home_team_id == id && (game.home_goals > game.away_goals) && (season_win_percent[game.season] == nil)
-        season_win_percent[game.season] = 0
-        season_win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
-      elsif game.away_team_id == id && (game.away_goals > game.home_goals)
-        season_win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
-      elsif game.home_team_id == id && (game.home_goals > game.away_goals)
-        season_win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
-      end
-      # end
-    end
-    best_percent = season_win_percent.min_by do |key, value|
-      season_win_percent[key]
-    end
-      best_percent.first
-
-  end
-
-
-
-  def average_win_percentage(id)
-    win_percent = 0
-    total_game = 0
-    GameStats.all_game_stats.each do |game|
-      require"pry";binding.pry
-      if (game.team_id == id) && (game.result == win)
-        win_percent += 1
-      end
-      total_game += 1
-    end
-    win_percent
-    total_game
-    require "pry";binding.pry
-    end
-
 
   def most_goals_scored(id)
     @team_repository.most_goals_scored(id)
@@ -161,12 +68,10 @@ end
 
   def percentage_visitor_wins
     @team_repository.percentage_visitor_wins
-
   end
 
   def percentage_ties
     @team_repository.percentage_ties
-
   end
 
   def count_of_games_by_season
@@ -181,8 +86,8 @@ end
 
   end
 
-  def worst_offense
-    @league_repository.worst_offense
+  def worst_offense(id)
+    @league_repository.worst_offense(id)
   end
 
   def highest_scoring_visitor
@@ -201,23 +106,24 @@ end
     @league_repository.lowest_scoring_home_team
   end
 
-  def team_info
-
+  def team_info(id)
+    @team_repository.team_info(id)
   end
 
-  def best_season
-
-  end
-  def worst_season
-
+  def best_season(id)
+    @team_repository.best_season(id)
   end
 
-  def average_win_percentage
-
+  def worst_season(id)
+    @team_repository.worst_season(id)
   end
 
-  def favorite_opponent
+  def average_win_percentage(id)
+    @team_repository.average_win_percentage(id)
+  end
 
+  def favorite_opponent(id)
+    @team_repository.favorite_opponent(id)
   end
 
   def rival

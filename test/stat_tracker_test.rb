@@ -35,43 +35,43 @@ class StatTrackerTest < Minitest::Test
   def test_it_exists
     assert_instance_of StatTracker, @stat_tracker
   end
+  # #
+  # def test_it_has_attributes
   #
-  def test_it_has_attributes
-
-       # require"pry";binding.pry
-     assert_equal 2012030221, @stat_tracker.game_repository.games_collection[0].game_id
-    assert_equal 23, @stat_tracker.team_repository.teams_collection[0].franchiseid
-    assert_equal 2012030221, @stat_tracker.game_team_repository.game_teams_collection[0].game_id
-  end
-
-  def test_highest_total_score
-
-    assert_equal 11, @stat_tracker.highest_total_score
-  end
-
-  def test_lowest_total_score
-    assert_equal 0, @stat_tracker.lowest_total_score
-  end
-
-  def test_count_of_teams
-    assert_equal 32, @stat_tracker.count_of_teams
-  end
-
-  def test_percentage_home_wins
-    assert_equal 0.44, @stat_tracker.percentage_home_wins
-  end
-
-  def test_it_can_report_most_goals_scored
-    assert_equal 7, @stat_tracker.most_goals_scored("18")
-  end
-
-  def test_it_can_report_fewest_goals_scored
-    assert_equal 0, @stat_tracker.fewest_goals_scored("6")
-  end
-
-  def test_best_offense
-    assert_equal "Sporting Kansas City", @stat_tracker.best_offense
-  end
+  #      # require"pry";binding.pry
+  #    assert_equal 2012030221, @stat_tracker.game_repository.games_collection[0].game_id
+  #   assert_equal 23, @stat_tracker.team_repository.teams_collection[0].franchiseid
+  #   assert_equal 2012030221, @stat_tracker.game_team_repository.game_teams_collection[0].game_id
+  # end
+  #
+  # def test_highest_total_score
+  #
+  #   assert_equal 11, @stat_tracker.highest_total_score
+  # end
+  #
+  # def test_lowest_total_score
+  #   assert_equal 0, @stat_tracker.lowest_total_score
+  # end
+  #
+  # def test_count_of_teams
+  #   assert_equal 32, @stat_tracker.count_of_teams
+  # end
+  #
+  # def test_percentage_home_wins
+  #   assert_equal 0.44, @stat_tracker.percentage_home_wins
+  # end
+  #
+  # def test_it_can_report_most_goals_scored
+  #   assert_equal 7, @stat_tracker.most_goals_scored("18")
+  # end
+  #
+  # def test_it_can_report_fewest_goals_scored
+  #   assert_equal 0, @stat_tracker.fewest_goals_scored("6")
+  # end
+  #
+  # def test_best_offense
+  #   assert_equal "Sporting Kansas City", @stat_tracker.best_offense
+  # end
 
   # def test_percentage_visitor_wins
   #
@@ -93,41 +93,41 @@ class StatTrackerTest < Minitest::Test
   #
   # end
 
-  def test_worst_offense
-    assert_equal "Reign FC", @stat_tracker.worst_offense
-  end
-
-  def test_highest_scoring_visitor
-    assert_equal "Sporting Kansas City", @stat_tracker.highest_scoring_visitor
-  end
-
-  def test_highest_scoring_home_team
-    assert_equal "Sporting Kansas City", @stat_tracker.highest_scoring_home_team
-  end
-
-  def test_lowest_scoring_visitor
-    assert_equal "Reign FC", @stat_tracker.lowest_scoring_visitor
-  end
-
-  def test_lowest_scoring_home_team
-    assert_equal "Reign FC", @stat_tracker.lowest_scoring_home_team
-  end
+  # def test_worst_offense
+  #   assert_equal "Reign FC", @stat_tracker.worst_offense
+  # end
+  #
+  # def test_highest_scoring_visitor
+  #   assert_equal "Sporting Kansas City", @stat_tracker.highest_scoring_visitor
+  # end
+  #
+  # def test_highest_scoring_home_team
+  #   assert_equal "Sporting Kansas City", @stat_tracker.highest_scoring_home_team
+  # end
+  #
+  # def test_lowest_scoring_visitor
+  #   assert_equal "Reign FC", @stat_tracker.lowest_scoring_visitor
+  # end
+  #
+  # def test_lowest_scoring_home_team
+  #   assert_equal "Reign FC", @stat_tracker.lowest_scoring_home_team
+  # end
 
   # def test_team_info
   #
   # end
   #
-  # def test_best_season
-  #
-  # end
-  #
-  # def test_worst_season
-  #
-  # end
-  #
-  # def test_average_win_percentage
-  #
-  # end
+  def test_best_season
+  @stat_tracker.best_season("6")
+  end
+
+  def test_worst_season
+  @stat_tracker.best_season("6")
+  end
+
+  def test_average_win_percentage
+  @stat_tracker.average_win_percentage("6")
+  end
   #
   # def test_favorite_opponent
   #
@@ -153,17 +153,17 @@ class StatTrackerTest < Minitest::Test
   #
   # end
   #
-  def test_most_tackles
-    assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
-    assert_equal "Real Salt Lake", @stat_tracker.most_tackles("20142015")
-  end
+  # def test_most_tackles
+  #   assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
+  #   assert_equal "Real Salt Lake", @stat_tracker.most_tackles("20142015")
+  # end
+  # #
+  # def test_fewest_tackles
+  #    assert_equal "New England Revolution", @stat_tracker.fewest_tackles("20132014")
+  #    assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
+  # end
   #
-  def test_fewest_tackles
-     assert_equal "New England Revolution", @stat_tracker.fewest_tackles("20132014")
-     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
-  end
-
-  #
+  # #
   # def test_it_has_teams
   # expected = "Atlanta United"
   #

@@ -12,21 +12,90 @@ class TeamRepository
   end
 
   def team_info(id)
-    info_hash = Hash.new
 
+    info_hash = Hash.new
+    number_id = id.to_i
     @teams_collection.each do |team|
-      if team.team_id == id
-      info_hash[:team_id] = team.team_id
-      info_hash[:franchise_id] = team.franchiseid
-      info_hash[:team_name] = team.teamname
-      info_hash[:abbreviation] = team.abbreviation
-      info_hash[:link] =  team.link
+      if team.team_id == number_id
+      info_hash["team_id"] = team.team_id.to_s
+      info_hash["franchise_id"] = team.franchiseid.to_s
+      info_hash["team_name"] = team.teamname.to_s
+      info_hash["abbreviation"] = team.abbreviation.to_s
+      info_hash["link"] =  team.link.to_s
       end
     end
       info_hash
+
   end
 
-  def average_win_percentage(id)
+  def best_season(string_id)
+    id = string_id.to_i
+
+    season_win_percent = Hash.new
+    count = 0
+    wins = @game_collection.each do |game|
+
+      if game.away_team_id == id && (game.away_goals > game.home_goals) && (season_win_percent[game.season] == nil)
+         # && season_win_percent[game.season] == nil
+        season_win_percent[game.season] = 0
+        season_win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
+      elsif game.home_team_id == id && (game.home_goals > game.away_goals) && (season_win_percent[game.season] == nil)
+        season_win_percent[game.season] = 0
+        season_win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
+      elsif game.away_team_id == id && (game.away_goals > game.home_goals)
+        season_win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
+      elsif game.home_team_id == id && (game.home_goals > game.away_goals)
+        season_win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
+      end
+       end
+
+    best_percent = season_win_percent.max_by do |key, value|
+      season_win_percent[key]
+    end
+      best_percent.first
+  end
+
+  def games_per_season(id, game_season)
+    games_per_season = 0
+    @game_collection.each do |game|
+
+      if (game.away_team_id == id || (game.home_team_id == id)) && (game.season == game_season)
+        games_per_season += 1
+      end
+    end
+    games_per_season
+  end
+
+  def worst_season(string_id)
+    id = string_id.to_i
+    season_win_percent = Hash.new
+    count = 0
+    wins = @game_collection.each do |game|
+
+      if game.away_team_id == id && (game.away_goals > game.home_goals) && (season_win_percent[game.season] == nil)
+        season_win_percent[game.season] = 0
+        season_win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
+      elsif game.home_team_id == id && (game.home_goals > game.away_goals) && (season_win_percent[game.season] == nil)
+        season_win_percent[game.season] = 0
+        season_win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
+      elsif game.away_team_id == id && (game.away_goals > game.home_goals)
+        season_win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
+      elsif game.home_team_id == id && (game.home_goals > game.away_goals)
+        season_win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
+      end
+    end
+    best_percent = season_win_percent.min_by do |key, value|
+      season_win_percent[key]
+    end
+      best_percent.first
+
+  end
+
+
+
+
+  def average_win_percentage(string_id)
+    id = string_id.to_i
     win_percent = 0
     total_game = 0
     @game_teams_collection.each do |game|
@@ -70,7 +139,8 @@ class TeamRepository
     fewest
   end
 
-  def favorite_opponent(id)
+  def favorite_opponent(string_id)
+    id = string_id.to_i
     opponent_hash = Hash.new
     @game_collection.each do |game|
       # require"pry";binding.pry
@@ -97,7 +167,7 @@ class TeamRepository
   end
   team_name = eaisiest_team_name.teamname
   team_name
-  require "pry";binding.pry
+
 
 end
 
