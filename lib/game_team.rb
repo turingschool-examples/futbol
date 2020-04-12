@@ -24,32 +24,19 @@ class GameTeam
   end
 
   def self.percentage_home_wins
-    home_wins = (@@all.find_all {|gt| gt.hoa == "home" && gt.result == "WIN" }).count.to_f
-    (home_wins / self.home_games).round(2)
-  end
-
-  def self.percentage_visitor_wins
-    visitor_wins = (@@all.find_all {|gt| gt.hoa == "home" && gt.result == "LOSS" }).count.to_f
-    (visitor_wins / self.home_games).round(2)
-  end
-
-  def self.percentage_ties
-    games_count = @@all.count.to_f
-    ties_count = (@@all.find_all { |gt| gt.result == "TIE"}).count.to_f
-    (ties_count / games_count).round(2)
     home_wins = (all.find_all {|gt| gt.hoa == "home" && gt.result == "WIN" }).count.to_f
-    (home_wins / self.home_games).round(2)
+    ((home_wins / self.home_games)).round(2)
   end
 
   def self.percentage_visitor_wins
     visitor_wins = (all.find_all {|gt| gt.hoa == "home" && gt.result == "LOSS" }).count.to_f
-    (visitor_wins / self.home_games).round(2)
+    ((visitor_wins / self.home_games)).round(2)
   end
 
   def self.percentage_ties
     games_count = all.count.to_f
     ties_count = (all.find_all { |gt| gt.result == "TIE"}).count.to_f
-    (ties_count / games_count).round(2)
+    ((ties_count / games_count)).round(2)
   end
 
   def self.coaches_in_season(season_id)
@@ -129,7 +116,6 @@ class GameTeam
   end
 
   def self.most_accurate_team(season)
-    season = season.to_i
     seasonal_hash = gets_team_shots_goals_count(season)
     seasonal_hash.map do |key,value|
       value["average"] = (value["shots"]/ value["goals"].to_f).round(2)
@@ -138,10 +124,9 @@ class GameTeam
       value["average"]
     end
     team_hash_with_highest_average[0]
-  end
+ end
 
   def self.gets_team_shots_goals_count(season)
-    season = season.to_i
     #passes in desired season, grabs the *games* for the season
     season_games = Game.grouped_by_season(season)
     matches = []
@@ -191,7 +176,7 @@ class GameTeam
   end
 
   def self.fewest_goals_scored(team_id)
-      team_id = team_id.to_i
+    team_id = team_id.to_i
     total_game_teams_per_team_id = find_by_team(team_id)
     results = {}
     total_game_teams_per_team_id.each do |game_team|
@@ -225,6 +210,7 @@ class GameTeam
   end
 
   def self.favorite_opponent_id(team_id)
+    team_id = team_id.to_i
     record_length = {}
     opponents_records(team_id).map do |team_id, record|
       record_length[team_id] = record.length
