@@ -22,5 +22,8 @@ class SeasonStatsTest < Minitest::Test
     assert_equal result, @season_stats.find_num_games_played_won_in_season("20122013", "16")
   end
 
+  def test_calc_season_win_percentage
+    assert_equal 0.67, @season_stats.calc_season_win_percentage("20122013", "17")
+  end
 
 end
