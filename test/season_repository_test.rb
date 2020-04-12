@@ -6,13 +6,23 @@ require './lib/team'
 require './lib/game'
 require './lib/team_repository'
 require './lib/season_repository'
+require 'minitest/autorun'
+require 'minitest/pride'
+
+
 
 
 class SeasonRepositoryTest < Minitest::Test
-  # season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
-  #
-  # season_repository.winningst_coach("20122013")
-  # season_repository.number_of_games("20122013", "John Tortorella")
+
+  def test_winningest_coach
+    season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+    assert_equal "Claude Julien", season_repository.winningst_coach("20132014")
+  end
+
+  def test_worst_coach
+    season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+    assert_equal "Peter Laviolette", season_repository.worst_coach("20132014")
+  end
 
   def test_most_tackles
     season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
