@@ -36,8 +36,8 @@ class GameRepository
   end
 
   def percentage_visitor_wins
-    number_of_games = @@all_games.length
-  visitor_wins =  @@all_games.select do |game|
+    number_of_games = @games_collection.length
+  visitor_wins =  @games_collection.select do |game|
       game.home_goals < game.away_goals
     end
     number_of_visitor = visitor_wins.length

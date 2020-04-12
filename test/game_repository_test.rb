@@ -37,6 +37,11 @@ class GameRepositoryTest < Minitest::Test
     assert_equal 0.44, game_repository.percentage_home_wins
   end
 
+  def test_percentage_visitor_wins
+    game_repository = GameRepository.new('./data/games.csv')
+    assert_equal 0.36, game_repository.percentage_visitor_wins
+  end
+
   def test_percentage_ties
     game_repository = GameRepository.new('./data/games.csv')
     assert_equal 0.20, game_repository.percentage_ties
