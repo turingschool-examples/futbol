@@ -26,4 +26,9 @@ class SeasonStatsTest < Minitest::Test
     assert_equal 0.67, @season_stats.calc_season_win_percentage("20122013", "17")
   end
 
+  def test_winningest_coach
+    assert_equal "Claude Julien", @season_stats.winningest_coach("20122013")
+  end
+
+
 end
