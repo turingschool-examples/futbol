@@ -97,13 +97,13 @@ class TeamSeasonStats < Collection
     end
   end
 
-  def favorite_opponent(id)
+  def favorite_opponent_id(id)
     opponent_win_percentage(id).min_by do |id, percentage|
       percentage
     end.first
   end
 
-  def rival(id)
+  def rival_id(id)
     opponent_win_percentage(id).max_by do |id, percentage|
       percentage
     end.first
