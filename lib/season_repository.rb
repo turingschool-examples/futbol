@@ -143,7 +143,37 @@ def find_team_id(id)
   named_team
 end
 
-  
+def most_accurate_team(season_id)
+
+games_in_season = @game_collection.select do |game|
+
+    game.season == season_id
+  end
+  game_array = games_in_season.map do |game|
+    game.game_id
+  end
+    game_array
+
+    shot = Hash.new
+    goals = Hash.new
+
+    @game_team_collection.each do |game_team|
+
+      if game_array.include?(game_team.game_id)
+  # require"pry";binding.pry
+        if shot[game_team.team_id] == nil
+          # require"pry";binding.pry
+        shot[game_team.team_id] = 0
+        goals[game_team.team_id] = 0
+        end
+      shot[game_team.team_id] += game_team.shots
+      goals[game_team.team_id] += game_team.goals
+    end
+  end
+require"pry";binding.pry
+
+end
+
 
 
 end

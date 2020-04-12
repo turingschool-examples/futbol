@@ -14,21 +14,31 @@ class LeagueRepository
   end
 
   def best_offense
-    team_goal_totals = {}
+    average_team_goals = Hash.new
+    total_games = Hash.new
     @game_team_collection.each do |game|
-      if team_goal_totals[game.team_id] == nil
-        team_goal_totals[game.team_id] = 0
+      if total_games[game.team_id] == nil
+        total_games[game.team_id] = 0
+        total_games[game.team_id] += 1
       else
-        team_goal_totals[game.team_id] += game.goals
+        total_games[game.team_id] += 1
       end
     end
-    max_total = team_goal_totals.max_by do |keys, values|
-        team_goal_totals[keys]
+    @game_team_collection.each do |game|
+      if average_team_goals[game.team_id] == nil
+        average_team_goals[game.team_id] = 0
+      else
+        average_team_goals[game.team_id] += game.goals
       end
-      highest_team_id = max_total.first
-      # require "pry"; binding.pry
-      find_team_id(highest_team_id)
+    end
+    average_team_goals = average_team_goals.map do |key, value|
+      {key => (average_team_goals[key].to_f / total_games[key].to_f).round(3)}
+    end
 
+    answer_hash = average_team_goals.reduce Hash.new, :merge
+
+    answer_hash = answer_hash.key(answer_hash.values.max)
+    find_team_id(answer_hash)
   end
 
   def find_team_id(id)
@@ -41,19 +51,31 @@ class LeagueRepository
   end
 
   def worst_offense
-    team_goal_totals = {}
+    average_team_goals = Hash.new
+    total_games = Hash.new
     @game_team_collection.each do |game|
-      if team_goal_totals[game.team_id] == nil
-        team_goal_totals[game.team_id] = 0
+      if total_games[game.team_id] == nil
+        total_games[game.team_id] = 0
+        total_games[game.team_id] += 1
       else
-        team_goal_totals[game.team_id] += game.goals
+        total_games[game.team_id] += 1
       end
     end
-    min_total = team_goal_totals.min_by do |keys, values|
-        team_goal_totals[keys]
+    @game_team_collection.each do |game|
+      if average_team_goals[game.team_id] == nil
+        average_team_goals[game.team_id] = 0
+      else
+        average_team_goals[game.team_id] += game.goals
       end
-      lowest_team_id = min_total.first
-      find_team_id(lowest_team_id)
+    end
+    average_team_goals = average_team_goals.map do |key, value|
+      {key => (average_team_goals[key].to_f / total_games[key].to_f).round(3)}
+    end
+
+    answer_hash = average_team_goals.reduce Hash.new, :merge
+
+    answer_hash = answer_hash.key(answer_hash.values.min)
+    find_team_id(answer_hash)
   end
 
   def highest_scoring_visitor
