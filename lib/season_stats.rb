@@ -77,5 +77,17 @@ class SeasonStats
     worst.head_coach
   end
 
+  def calc_season_shot_percentage(season, team_id)
+    results_tracker = {:shots => 0, :goals => 0}
+    games = get_games_of_season(season)
+    games.each do |game|
+      if game.team_id == team_id.to_i
+        results_tracker[:shots] += game.shots
+        results_tracker[:goals] += game.goals
+      end
+    end
+    (results_tracker[:goals].to_f / results_tracker[:shots]).round(2)
+  end
+
 
 end
