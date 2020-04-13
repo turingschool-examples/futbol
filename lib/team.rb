@@ -27,15 +27,15 @@ class Team
     end
   end
 
-<<<<<<< HEAD
+
   attr_reader :game_teams, :team_id, :franchise_id, :team_name, :abbreviation, :stadium, :link
-=======
+
   def self.count_of_teams
     all.length
   end
 
   attr_reader :team_id, :franchise_id, :team_name, :abbreviation, :stadium, :link, :team_name
->>>>>>> master
+
 
   def initialize(team_info)
     @game_teams = game_teams

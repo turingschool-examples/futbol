@@ -24,16 +24,16 @@ class Game
     @@all = csv.map { |row| Game.new(row) }
   end
 
-<<<<<<< HEAD
+
   def self.highest_total_score
-    @@all.map { |game| game.away_goals + game.home_goals}.max 
+    @@all.map { |game| game.away_goals + game.home_goals}.max
   end
 
   def self.lowest_total_score
     @@all.map { |game| game.away_goals + game.home_goals}.min
   end
 
-=======
+
   def self.find_by(id)
    all.find_all{|game| game.game_id==id}
   end
@@ -52,7 +52,7 @@ class Game
 
 
 
->>>>>>> master
+
   def self.count_of_games_by_season
     # this can be refactored to include ross' games_per(:season) method -sb
     games_by_season = @@all.group_by { |game| game.season }
@@ -202,9 +202,8 @@ class Game
     @venue = game_stats[:venue]
     @venue_link = game_stats[:venue_link]
     @total_goals = @away_goals + @home_goals
-  end
-<<<<<<< HEAD
-=======
+  end 
+
 
   def win?(team_id)
     away_win = team_id == @away_team_id && @away_goals > @home_goals
@@ -212,6 +211,4 @@ class Game
     return 1 if away_win || home_win
     0
   end
-
->>>>>>> master
 end

@@ -183,7 +183,7 @@ class GameTeam
       fewest_tackles = tackles_by_team(season_id).max_by { |key, value| -value}
       fewest_tackles.first
     end
-    #Michelle end
+
 
   def self.best_offense
     #grouped by team_id with keys being the team_id and values is an array of games
