@@ -257,7 +257,7 @@ class GameTeam
     end
     opponent_wins
   end
-
+# 
 # ####1 MINUTE 15 SECONDS
 #   def self.favorite_opponent_id(team_id)
 #     team_id = team_id.to_i
