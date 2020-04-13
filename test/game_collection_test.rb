@@ -44,11 +44,11 @@ class GameCollectionClass < Minitest::Test
   end
 
   def test_percentage_home_wins
-    assert_equal 66.67, @game_collection.percentage_home_wins
+    assert_equal 0.67, @game_collection.percentage_home_wins
   end
 
   def test_percentage_away_wins
-    assert_equal 33.33, @game_collection.percentage_visitor_wins
+    assert_equal 0.33, @game_collection.percentage_visitor_wins
   end
 
   def test_percentage_ties
@@ -56,7 +56,7 @@ class GameCollectionClass < Minitest::Test
   end
 
   def test_count_of_games_by_season
-    skip
+    assert_equal ({"20122013"=>11, "20152016"=>3, "20142015"=>4}), @game_collection.count_of_games_by_season
   end
 
   def test_average_goals_per_game
@@ -64,7 +64,7 @@ class GameCollectionClass < Minitest::Test
   end
 
   def test_average_goals_by_season
-    skip
+    assert_equal ({"20122013"=>4.28, "20152016"=>4.28, "20142015"=>4.28}), @game_collection.average_goals_by_season
   end
 
 
