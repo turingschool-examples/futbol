@@ -10,22 +10,24 @@ class SeasonRepository
 
   end
 
-  def winningst_coach(season)
+  def winningest_coach(season)
     game_array =  @game_collection.select do |game|
       game.season == season
       end
     coach_win_percentage = Hash.new
-    #count = 0
-    game_id_array = game_array.map do |game| game.game_id
-      end
+    game_id_array = game_array.map {|game| game.game_id}
+
+    total_coach_games = coach_games(game_id_array)
 
     @game_team_collection.each do |team|
-      game_id_array.each do |id|
-      if ((team.game_id == id) && (team.result == "WIN")) && (coach_win_percentage[team.head_coach] == nil)
+      if game_id_array.include?(team.game_id)
+      # game_id_array.each do |id|
+      if (team.result == "WIN") && (coach_win_percentage[team.head_coach] == nil)
         coach_win_percentage[team.head_coach] = 0
-        coach_win_percentage[team.head_coach] += (1.to_f / (number_of_games(season, team.head_coach)))
-      elsif ((team.game_id == id) && (team.result == "WIN"))
-        coach_win_percentage[team.head_coach] += (1.to_f / (number_of_games(season, team.head_coach)))
+
+        coach_win_percentage[team.head_coach] += (1.to_f / (total_coach_games[team.head_coach]))
+      elsif (team.result == "WIN")
+        coach_win_percentage[team.head_coach] += (1.to_f / (total_coach_games[team.head_coach]))
       end
     end
   end
@@ -34,22 +36,20 @@ class SeasonRepository
 
   end
 
-  def number_of_games(season, coach)
-    game_array =  @game_collection.select do |game|
-
-      game.season == season
-    end
-    game_id_array = game_array.map do |game| game.game_id
-    end
-    count = 0
-
+  def coach_games(game_array)
+    coach_hash = Hash.new
     @game_team_collection.each do |game_team|
-      if  game_id_array.include?(game_team.game_id) && (game_team.head_coach == coach)
-        count += 1
+      if game_array.include?(game_team.game_id)
+        if coach_hash[game_team.head_coach] == nil
+          coach_hash[game_team.head_coach] = 0
+        end
+        coach_hash[game_team.head_coach] += 1
       end
     end
-    count
+    coach_hash
   end
+
+
 
   def worst_coach(season)
     game_array =  @game_collection.select do |game|
@@ -59,36 +59,20 @@ class SeasonRepository
     #count = 0
     game_id_array = game_array.map do |game| game.game_id
       end
-
+        total_coach_games = coach_games(game_id_array)
     @game_team_collection.each do |team|
       game_id_array.each do |id|
       if ((team.game_id == id) && (team.result == "LOSS")) && (coach_loose_percentage[team.head_coach] == nil)
         coach_loose_percentage[team.head_coach] = 0
-        coach_loose_percentage[team.head_coach] += (1.to_f / (number_of_games(season, team.head_coach)))
+        coach_loose_percentage[team.head_coach] += (1.to_f / (total_coach_games[team.head_coach]))
       elsif ((team.game_id == id) && (team.result == "LOSS"))
-        coach_loose_percentage[team.head_coach] += (1.to_f / (number_of_games(season, team.head_coach)))
+        coach_loose_percentage[team.head_coach] += (1.to_f / (total_coach_games[team.head_coach]))
       end
      end
     end
+    require"pry";binding.pry
     coach_looser = coach_loose_percentage.max_by{|key, value| coach_loose_percentage[key]}
     coach_looser.first
-  end
-
-  def number_of_games(season, coach)
-    game_array =  @game_collection.select do |game|
-
-      game.season == season
-    end
-    game_id_array = game_array.map do |game| game.game_id
-    end
-    count = 0
-
-    @game_team_collection.each do |game_team|
-      if  game_id_array.include?(game_team.game_id) && (game_team.head_coach == coach)
-        count += 1
-      end
-    end
-    count
   end
 
 
@@ -182,11 +166,13 @@ games_in_season = @game_collection.select do |game|
   most_accurate = goal.max_by do |key, value|
     goal[key]
   end
-  most_accurate.first
+  accurate_team = most_accurate.first
+  team_name_accurate = @team_collection.find do |team|
+    accurate_team == team.team_id
+  end
+    team_name = team_name_accurate.teamname
+    team_name
 
-end
 
-end
-
-
+  end
 end

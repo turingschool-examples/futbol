@@ -104,7 +104,7 @@ class StatTracker
   end
 
   def count_of_games_by_season
-
+    @game_repository.count_of_games_by_season
   end
 
   def average_goals_per_game
@@ -157,20 +157,20 @@ class StatTracker
     @team_repository.favorite_opponent(id)
   end
 
-  def rival
-
+  def rival(id)
+    @team_repository.rival(id)
   end
 
-  def winningest_coach
-    @league_repository.winningest_coach(season)
+  def winningest_coach(season)
+    @season_repository.winningest_coach(season)
   end
 
-  def worst_coach
-    @league_repository.worst_coach(season)
+  def worst_coach(season)
+    @season_repository.worst_coach(season)
   end
 
-  def most_accurate_team
-
+  def most_accurate_team(season)
+    @season_repository.most_accurate_team(season)
   end
 
   def least_accurate_team
