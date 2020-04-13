@@ -2,6 +2,7 @@ require 'csv'
 require_relative 'team_collection'
 require_relative 'game_stats_collection'
 require_relative 'game_collection'
+require_relative 'season_stats'
 
 class StatTracker
   attr_reader :games, :teams, :game_stats
@@ -20,6 +21,7 @@ class StatTracker
     @game_stats_collection = GameStatsCollection.new("./data/game_teams.csv")
     @team_collection = TeamCollection.new('./data/teams.csv')
     @game_collection = GameCollection.new('./data/games.csv')
+    @season_stats = SeasonStats.new("./data/teams.csv", "./data/game_teams.csv")
   end
 
   def count_of_teams
@@ -82,5 +84,28 @@ class StatTracker
   def rival(teamid)
     number = @game_collection.rival_id(teamid)
     team_info(number)["team_name"]
+
+  def winningest_coach(season)
+    @season_stats.winningest_coach(season)
+  end
+
+  def worst_coach(season)
+    @season_stats.worst_coach(season)
+  end
+
+  def most_accurate_team(season)
+    @season_stats.most_accurate_team(season)
+  end
+
+  def least_accurate_team(season)
+    @season_stats.least_accurate_team(season)
+  end
+
+  def most_tackles(season)
+    @season_stats.most_tackles(season)
+  end
+
+  def fewest_tackles(season)
+    @season_stats.fewest_tackles(season)
   end
 end
