@@ -4,9 +4,12 @@ require_relative 'teams'
 require_relative 'game'
 require_relative 'games_methods'
 require_relative 'game_team_collection'
+require_relative 'team_statistics'
 
     # game_teams.game_teams is equal to this ".all" method.
 class StatTracker
+include TeamStatistics
+
   attr_reader :games,
               :teams,
               :game_teams
