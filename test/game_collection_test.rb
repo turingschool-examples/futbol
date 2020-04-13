@@ -63,9 +63,9 @@ class GameCollectionClass < Minitest::Test
     assert_equal 4.28, @game_collection.average_goals_per_game
   end
 
-  # def test_average_goals_by_season
-  #   assert_equal ({"20122013"=>4.28, "20152016"=>4.28, "20142015"=>4.28}), @game_collection.average_goals_by_season
-  # end
+  def test_average_goals_by_season
+    assert_equal ({"20122013"=>4.45, "20152016"=>4.67, "20142015"=>3.5}), @game_collection.average_goals_by_season
+  end
 
   def test_can_find_games
     assert_equal 18, @game_collection.all_games(5).count
