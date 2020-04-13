@@ -4,10 +4,11 @@ require_relative './game_team'
 require_relative './game_statistics'
 require_relative './league_statistics'
 require_relative './team_statistics'
+require_relative './season_statistics'
 require 'CSV'
 require 'pry'
 class StatTracker
-  attr_reader :games, :teams, :game_teams, :league_statistics, :game_statistics, :team_statistics
+  attr_reader :games, :teams, :game_teams, :league_statistics, :game_statistics, :team_statistics, :season_statistics
   def initialize(data_files)
     @games = data_files[:games]
     @teams = data_files[:teams]
@@ -20,7 +21,7 @@ class StatTracker
     @league_statistics = LeagueStatistics.new(@game_collection, @game_teams_collection, @teams_collection)
     @game_statistics = GameStatistics.new(@game_collection, @game_teams_collection, @teams_collection)
     @team_statistics = TeamStatistics.new(@game_collection, @game_teams_collection, @teams_collection)
-
+    @season_statistics = SeasonStatistics.new(@game_collection, @game_teams_collection, @teams_collection)
   end
 
   def self.from_csv(data_files)
@@ -132,5 +133,29 @@ class StatTracker
 
   def rival(team_id)
     @team_statistics.rival(team_id)
+  end
+
+  def winningest_coach(season)
+    @season_statistics.coach_win_loss_results(season, "high")
+  end
+
+  def worst_coach(season)
+    @season_statistics.coach_win_loss_results(season, "low")
+  end
+
+  def most_tackles(season)
+    @season_statistics.most_least_tackles(season, "high")
+  end
+
+  def fewest_tackles(season)
+    @season_statistics.most_least_tackles(season, "low")
+  end
+
+  def most_accurate_team(season)
+  @season_statistics.team_accuracy(season,"high")
+  end
+
+  def least_accurate_team(season)
+  @season_statistics.team_accuracy(season, "low")
   end
 end

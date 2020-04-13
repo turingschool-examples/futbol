@@ -18,19 +18,16 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_exists
-<<<<<<< HEAD
-
-=======
->>>>>>> master
     assert_instance_of StatTracker, @stat_tracker
   end
 
   def test_has_attributes
-<<<<<<< HEAD
-
     assert_equal  './data/games_fixture.csv', @stat_tracker.games
     assert_equal  './data/teams.csv', @stat_tracker.teams
     assert_equal  './data/game_teams_fixture.csv', @stat_tracker.game_teams
+    assert_instance_of LeagueStatistics, @stat_tracker.league_statistics
+    assert_instance_of TeamStatistics, @stat_tracker.team_statistics
+    assert_instance_of GameStatistics, @stat_tracker.game_statistics
   end
 
   def test_highest_total_score
@@ -63,23 +60,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_average_goals_by_season
     assert_equal ({"20122013"=>4.0, "20132014"=>4.0, "20172018"=>3.67, "20162017"=>4.33, "20152016"=>4.0, "20142015"=>4.6}), @stat_tracker.average_goals_by_season
-=======
-    assert_equal  './data/games_fixture.csv', @stat_tracker.games
-    assert_equal  './data/teams.csv', @stat_tracker.teams
-    assert_equal  './data/game_teams_fixture.csv', @stat_tracker.game_teams
-    assert_instance_of LeagueStatistics, @stat_tracker.league_statistics
-    assert_instance_of TeamStatistics, @stat_tracker.team_statistics
-    assert_instance_of GameStatistics, @stat_tracker.game_statistics
   end
-
-  # def test_highest_total_score
-  #   stat_tracker.highest_total_score
-  #   stat_tracker.lowest_total_score
-  # end
-  #
-  # def test_lowest_total_score
-  #   stat_tracker.lowest_total_score
-  # end
 
   def test_count_of_teams
     assert_equal 32, @stat_tracker.league_statistics.count_of_teams
@@ -154,7 +135,27 @@ class StatTrackerTest < Minitest::Test
   def test_rival
     assert_equal "Washington Spirit FC", @stat_tracker.team_statistics.rival("24")
     assert_equal "Orlando Pride", @stat_tracker.team_statistics.rival("17")
->>>>>>> master
+  end
+
+  def test_winningest_coach
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20122013")
+  end
+
+  def test_losingest_coach
+    assert_equal "John Tortorella", @stat_tracker.worst_coach("20122013")
+  end
+
+  def test_most_least_tackles
+    assert_equal "Houston Dynamo", @stat_tracker.most_tackles("20122013")
+    assert_equal "FC Dallas", @stat_tracker.fewest_tackles("20122013")
+  end
+
+  def test_most_accurate_team
+    assert_equal "FC Dallas", @stat_tracker.most_accurate_team("20122013")
+  end
+
+  def test_least_accurate_team
+    assert_equal "Houston Dynamo", @stat_tracker.least_accurate_team("20122013")
   end
 
 end
