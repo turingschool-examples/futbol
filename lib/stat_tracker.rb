@@ -217,10 +217,34 @@ class StatTracker
       team_data.delete_if {|k,v| k == "stadium"}
   end
 
+  def best_season(team_id)
+    team_seasons = @games.find_all {|game| game.home_team_id  == team_id || game.away_team_id == team_id }
+    seasons = team_seasons.group_by {|game| game.season}
+    seasons.each do |season, season_games|
+      season_game_ids = season_games.map{|game| game.game_id}
+      team_games = @game_teams.find_all { |game| game.team_id == team_id && season_game_ids.include?(game.game_id)}
+      seasons[season] = calculate_win_percentage(team_games)
+    end
+    seasons.max_by { |season, win_pct|
+      win_pct }[0]
+  end
+
+  def worst_season(team_id)
+    team_seasons = @games.find_all {|game| game.home_team_id  == team_id || game.away_team_id == team_id }
+    seasons = team_seasons.group_by {|game| game.season}
+    seasons.each do |season, season_games|
+      season_game_ids = season_games.map{|game| game.game_id}
+      team_games = @game_teams.find_all { |game| game.team_id == team_id && season_game_ids.include?(game.game_id)}
+      seasons[season] = calculate_win_percentage(team_games)
+    end
+    seasons.min_by { |season, win_pct|
+      win_pct }[0]
+  end
+
   def average_win_percentage(team_id)
     # finds the number of games that a team both played in and won
     team_games = all_games_by_team(team_id)
-    calculate_win_percentage(team_games)
+    calculate_win_percentage(team_games).round(2)
     # returns the number of that team's wins over the total games they have played rounded to the 2nd decimal place
   end
 
@@ -257,7 +281,7 @@ class StatTracker
   def calculate_win_percentage(team_games)
     wins = 0.0
     team_games.each {|game| wins += 1.0 if game.result == "WIN"}
-    (wins / team_games.length).round(2)
+    (wins / team_games.length)
   end
 
 end

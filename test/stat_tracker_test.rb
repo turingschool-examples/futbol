@@ -165,6 +165,14 @@ class StatTrackerTest < MiniTest::Test
        "link" => "/api/v1/teams/1"}), @stat_tracker.team_info("1")
   end
 
+  def test_it_can_find_teams_best_season
+    assert_equal '20172018', @stat_tracker.best_season('52')
+  end
+
+  def test_it_can_find_teams_worst_season
+    assert_equal '20172018', @stat_tracker.worst_season('52')
+  end
+
   def test_it_can_find_the_average_winrate_for_a_team
      assert_equal  0.2 , @stat_tracker.average_win_percentage("30")
   end
