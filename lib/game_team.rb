@@ -109,7 +109,6 @@ class GameTeam
   end
 
   def self.least_accurate_team(season)
-    season = season.to_i
     games_by_season = Game.grouped_by_season(season)
     game_teams_by_season = []
     games_by_season.each do |game|
@@ -130,7 +129,6 @@ class GameTeam
   end
 
   def self.most_accurate_team(season)
-    season = season.to_i
     games_by_season = Game.grouped_by_season(season)
     game_teams_by_season = []
     games_by_season.each do |game|
@@ -189,8 +187,8 @@ class GameTeam
 
 #Michelle Start
   def self.games_ids_by_season(season_id)
-    game_id_first = season_id.to_s[0..3].to_i
-    all_games_by_id = all.find_all { |game| game.season_id == game_id_first }
+    game_id_first = season_id.to_s[0..3]
+    all_games_by_id = all.find_all {|game| game.season_id == game_id_first}
     all_games_by_id.map { |game| game.game_id }
   end
 
@@ -223,7 +221,7 @@ class GameTeam
   end
 #####45 Seconds
   def self.fewest_tackles(season_id)
-    fewest_tackles = tackles_by_team(season_id).max_by { |key, value| -value}
+    fewest_tackles = tackles_by_team(season_id).min_by { |key, value| value}
     fewest_tackles.first
   end
 
@@ -254,7 +252,6 @@ class GameTeam
   end
 
   def self.most_goals_scored(team_id)
-  team_id = team_id.to_i
   total_game_teams_per_team_id = find_by_team(team_id)
   results = {}
   total_game_teams_per_team_id.each do |game_team|
@@ -267,7 +264,6 @@ class GameTeam
   end
 
   def self.fewest_goals_scored(team_id)
-    team_id = team_id.to_i
     total_game_teams_per_team_id = find_by_team(team_id)
     results = {}
     total_game_teams_per_team_id.each do |game_team|
@@ -302,7 +298,7 @@ class GameTeam
 
 ####1:15 seconds
   def self.favorite_opponent_id(team_id)
-    team_id = team_id.to_i
+    team_id = team_id
     record_length = {}
     opponents_records(team_id).map do |team_id, record|
       record_length[team_id] = record.length
@@ -312,7 +308,7 @@ class GameTeam
   end
 ####2:30 seconds
   def self.rival_id(team_id)
-    team_id = team_id.to_i
+    team_id = team_id
     record_length = {}
     opponents_records(team_id).map do |team_id, record|
       record_length[team_id] = record.length
@@ -342,8 +338,8 @@ class GameTeam
                 :season_id
 
   def initialize(details)
-    @game_id = details[:game_id].to_i
-    @team_id = details[:team_id].to_i
+    @game_id = details[:game_id]
+    @team_id = details[:team_id]
     @hoa = details[:hoa]
     @result = details[:result]
     @settled_in = details[:settled_in]
@@ -357,7 +353,7 @@ class GameTeam
     @face_off_win_percentage = details[:faceoffwinpercentage].to_f.round(2)
     @giveaways = details[:giveaways].to_i
     @takeaways = details[:takeaways].to_i
-    @season_id = @game_id.to_s[0..3].to_i
+    @season_id = @game_id.to_s[0..3]
   end
 
   def win?

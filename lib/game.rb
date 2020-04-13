@@ -1,38 +1,24 @@
 require "csv"
-# require "./lib/hashable"
+require "./lib/hashable"
 
 class Game
 
-  # extend Hashable
+  extend Hashable
 
   @@all = nil
-
+#inheritance
   def self.all
     @@all
   end
-
-  def find_by(id)
-   @@all.find_all{|game| game.game_id==id}
-  end
-
-  def self.grouped_by_season(passed_in_season)
-    @@all.select{|game| game.season == passed_in_season}
-  end
-
+#inheritance
   def self.from_csv(csv_file_path)
     csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
     @@all = csv.map { |row| Game.new(row) }
   end
-
-
-  def self.highest_total_score
-    @@all.map { |game| game.away_goals + game.home_goals}.max
+#inheritance, more general? 2 arguments passed
+  def find_by(id)
+   all.find_all{|game| game.game_id==id}
   end
-
-  def self.lowest_total_score
-    @@all.map { |game| game.away_goals + game.home_goals}.min
-  end
-
 
   def self.find_by(id)
    all.find_all{|game| game.game_id==id}
@@ -50,9 +36,6 @@ class Game
     all.select{|game| game.season == passed_in_season}
   end
 
-
-
-
   def self.count_of_games_by_season
     # this can be refactored to include ross' games_per(:season) method -sb
     games_by_season = @@all.group_by { |game| game.season }
@@ -68,30 +51,6 @@ class Game
     sum = all.sum { |game| game.away_goals + game.home_goals}.to_f
     (sum / all.length.to_f).round(2)
   end
-
-  #MODULE!
-    def self.hash_of_hashes(collection, key1, key2, key3, value2, value3, arg2 = nil )
-      # {key1 => { key2 => value2, key3 => value3}} across collection. arg2 is ignored if not needed
-      # arg2 is optional if the passed method requires arguments
-      hash_of_hashes = Hash.new { |hash, key| hash[key] = {key2 => 0, key3 => 0}}
-      collection.each do |game|
-        hash_of_hashes[game.send(key1)][key2] += game.send(value2) if arg2.nil?
-        hash_of_hashes[game.send(key1)][key2] += game.send(value2, arg2) if !arg2.nil?
-        hash_of_hashes[game.send(key1)][key3] += value3
-      end
-      hash_of_hashes
-    end
-
-  #MODULE!
-    def self.divide_hash_values(key1, key2, og_hash)
-      # accumulator hash {season => win%}
-      hash_divided = Hash.new { |hash, key| hash[key] = 0 }
-      # divide 2 hashe values and send to new hash value
-      og_hash.map do |key, value|
-        hash_divided[key] = (value[key1] / value[key2].to_f).round(2)
-      end
-      hash_divided
-    end
 
   def self.games_goals_by_season
     hash_of_hashes(all, :season, :goals, :games_played, :total_goals, 1)
@@ -140,7 +99,8 @@ class Game
 #MODULE!
   def self.games_played_by(team_id)
     #return all games that team played in
-    all.find_all do |game|
+
+      all.find_all do |game|
       game.away_team_id == team_id || game.home_team_id == team_id
     end
   end
@@ -158,7 +118,6 @@ class Game
 
 #deliverable
   def self.best_season(team_id)
-    team_id = team_id.to_i
     #return season with highest winning percentage
     best_season = win_percent_by_season(team_id).max_by { |season, percent| percent}
     best_season[0].to_s
@@ -166,14 +125,12 @@ class Game
 
 #deliverable
   def self.worst_season(team_id)
-    team_id = team_id.to_i
     #return season with lowest winning percentage
       worst_season = win_percent_by_season(team_id).min_by { |season, percent| percent}
       worst_season[0].to_s
   end
 #deliverable
   def self.average_win_percentage(team_id)
-    team_id = team_id.to_i
     wins = games_played_by(team_id).map { |game| game.win?(team_id)}.sum
     avg = (wins / games_played_by(team_id).length.to_f).round(2)
   end
@@ -191,18 +148,18 @@ class Game
               :total_goals
 
   def initialize(game_stats)
-    @game_id = game_stats[:game_id].to_i
-    @season = game_stats[:season].to_i
+    @game_id = game_stats[:game_id]
+    @season = game_stats[:season]
     @type = game_stats[:type]
     @date_time = game_stats[:date_time]
-    @away_team_id = game_stats[:away_team_id].to_i
-    @home_team_id = game_stats[:home_team_id].to_i
+    @away_team_id = game_stats[:away_team_id]
+    @home_team_id = game_stats[:home_team_id]
     @away_goals = game_stats[:away_goals].to_i
     @home_goals = game_stats[:home_goals].to_i
     @venue = game_stats[:venue]
     @venue_link = game_stats[:venue_link]
     @total_goals = @away_goals + @home_goals
-  end 
+  end
 
 
   def win?(team_id)
