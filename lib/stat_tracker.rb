@@ -104,21 +104,25 @@ class StatTracker
 
   def highest_scoring_visitor
     team_id = Game.highest_scoring_visitor_team_id
+    team_id = team_id.to_i
     Team.all.find { |team| team.team_id == team_id }.team_name
   end
 
   def highest_scoring_home_team
     team_id = Game.highest_scoring_home_team_id
+    team_id = team_id.to_i
     Team.all.find { |team| team.team_id == team_id }.team_name
   end
 
   def lowest_scoring_visitor
     team_id = Game.lowest_scoring_visitor_team_id
+    team_id = team_id.to_i
     Team.all.find { |team| team.team_id == team_id }.team_name
   end
 
   def lowest_scoring_home_team
     team_id = Game.lowest_scoring_home_team_id
+    team_id = team_id.to_i
     Team.all.find { |team| team.team_id == team_id }.team_name
   end
 
