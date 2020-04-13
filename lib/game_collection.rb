@@ -1,8 +1,11 @@
 require 'csv'
 require_relative 'game'
 require_relative 'collection'
+require './lib/modules/mathable'
+
 
 class GameCollection < Collection
+  include Mathable
   attr_reader :games_list
 
   def initialize(file_path)
@@ -110,15 +113,15 @@ class GameCollection < Collection
   end
 
   def percentage_home_wins
-    percentage(home_wins.to_f / @games_list.length.to_f)
+    percentage(home_wins, @games_list)
   end
 
   def percentage_visitor_wins
-    percentage(away_wins.to_f / @games_list.length.to_f)
+    percentage(away_wins, @games_list)
   end
 
   def percentage_ties
-    percentage(ties.to_f / @games_list.length.to_f)
+    percentage(ties, @games_list)
   end
 
   def count_of_games_by_season
@@ -155,10 +158,6 @@ class GameCollection < Collection
   end
 
   # helper methods
-
-  def percentage(collection)
-    (collection).round(2)
-  end
 
   def average(collection)
     (collection.sum / collection.length.to_f).round(2)
