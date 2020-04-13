@@ -109,7 +109,6 @@ class GameTeam
   end
 
   def self.least_accurate_team(season)
-    season = season.to_i
     games_by_season = Game.grouped_by_season(season)
     game_teams_by_season = []
     games_by_season.each do |game|
@@ -130,7 +129,6 @@ class GameTeam
   end
 
   def self.most_accurate_team(season)
-    season = season.to_i
     games_by_season = Game.grouped_by_season(season)
     game_teams_by_season = []
     games_by_season.each do |game|
@@ -342,7 +340,7 @@ class GameTeam
                 :season_id
 
   def initialize(details)
-    @game_id = details[:game_id].to_i
+    @game_id = details[:game_id]
     @team_id = details[:team_id].to_i
     @hoa = details[:hoa]
     @result = details[:result]

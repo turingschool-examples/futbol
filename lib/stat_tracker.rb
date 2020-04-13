@@ -155,7 +155,7 @@ class StatTracker
 
   def least_accurate_team(season)
     team_id = GameTeam.least_accurate_team(season)
-    Team.all.find { |team| team.team_id == team_id }.team_name
+    Team.all.find { |team| team.team_id == team_id}.team_name
   end
 
   def most_goals_scored(team_id)
