@@ -97,24 +97,50 @@ attr_reader :stat_tracker, :game_collection, :game_teams_collection, :teams_coll
     end
   end
 
-  def most_accurate_team(season)
-    #hash of team id as keys and games they have played as values
-    teams = current_season_game_teams(season).group_by do |game|
-    game.team_id
+  def team_accuracy(season, high_low)
+    team_goals = teams_hash(season)
+    team_shots = teams_hash(season)
+    current_season_game_teams(season).each do |game|
+      team_goals[game.team_id] += game.goals
+      team_shots[game.team_id] += game.shots
     end
-    team_accuracy_hash = teams.to_h do |key,value|
-      total_goals = 0
-      total_shots = 0
-      value.each do |game|
-        total_goals += game.goals
-        total_shots += game.shots
+    if high_low == "high"
+      ratio_shots_goals = team_goals.to_h do |key, value|
+        [key, (value.to_f/team_shots[key])]
       end
-      [key,(total_goals / total_shots.to_f)]
+        ratio_team_id = ratio_shots_goals.max_by{|k,v| v}[0]
+        most_accurate = @teams_collection.find {|team| team.id == ratio_team_id[0]}
+
+        most_accurate.team_name
+    elsif high_low == "low"
+      ratio_shots_goals = team_goals.to_h do |key, value|
+        [key, (value.to_f/team_shots[key])]
+      end
+      ratio_team_id = ratio_shots_goals.min_by{|k,v| v}[0]
+      least_accurate = @teams_collection.find {|team| team.id == ratio_team_id[0]}
+
+      least_accurate.team_name
     end
-    most_accurate = team_accuracy_hash.max_by {|key, value| key}
-    most_accurate_name = @teams_collection.find {|team| team.id == most_accurate[0]}
-    most_accurate_name.team_name
   end
+end
+    #hash of team id as keys and games they have played as values
+
+  #   teams = current_season_game_teams(season).group_by do |game|
+  #   game.team_id
+  #   end
+  #   team_accuracy_hash = teams.to_h do |key,value|
+  #     total_goals = 0
+  #     total_shots = 0
+  #     value.each do |game|
+  #       total_goals += game.goals
+  #       total_shots += game.shots
+  #     end
+  #     [key,(total_goals / total_shots.to_f)]
+  #   end
+  #   most_accurate = team_accuracy_hash.max_by {|key, value| key}
+  #   most_accurate_name = @teams_collection.find {|team| team.id == most_accurate[0]}
+  #   most_accurate_name.team_name
+  # end
 
     # def most_accurate_team(season)
     #   teams = current_season_game_teams(season).group_by do |game|
@@ -132,24 +158,24 @@ attr_reader :stat_tracker, :game_collection, :game_teams_collection, :teams_coll
     #   most_accurate_name.team_name
     # end
 
-    def least_accurate_team(season)
-      #hash of team id as keys and games they have played as values
-      teams = current_season_game_teams(season).group_by do |game|
-      game.team_id
-      end
-      team_accuracy_hash = teams.to_h do |key,value|
-        total_goals = 0
-        total_shots = 0
-        value.each do |game|
-          total_goals += game.goals
-          total_shots += game.shots
-        end
-        [key,(total_goals / total_shots.to_f)]
-      end
-      least_accurate = team_accuracy_hash.min_by {|key, value| key}
-      least_accurate_name = @teams_collection.find {|team| team.id == least_accurate[0]}
-      least_accurate_name.team_name
-    end
+    # def least_accurate_team(season)
+    #   #hash of team id as keys and games they have played as values
+    #   teams = current_season_game_teams(season).group_by do |game|
+    #   game.team_id
+    #   end
+    #   team_accuracy_hash = teams.to_h do |key,value|
+    #     total_goals = 0
+    #     total_shots = 0
+    #     value.each do |game|
+    #       total_goals += game.goals
+    #       total_shots += game.shots
+    #     end
+    #     [key,(total_goals / total_shots.to_f)]
+    #   end
+    #   least_accurate = team_accuracy_hash.min_by {|key, value| key}
+    #   least_accurate_name = @teams_collection.find {|team| team.id == least_accurate[0]}
+    #   least_accurate_name.team_name
+    # end
 
     # def least_accurate_team(season)
     #   teams = current_season_game_teams(season).group_by do |game|
@@ -166,4 +192,3 @@ attr_reader :stat_tracker, :game_collection, :game_teams_collection, :teams_coll
     #   least_accurate_name = @teams_collection.find {|team| team.id == least_accurate[0]}
     #   least_accurate_name.team_name
     # end
-  end

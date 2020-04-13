@@ -152,10 +152,10 @@ class StatTracker
   end
 
   def most_accurate_team(season)
-  @season_statistics.most_accurate_team(season)
+  @season_statistics.team_accuracy(season,"high")
   end
 
   def least_accurate_team(season)
-  @season_statistics.least_accurate_team(season)
+  @season_statistics.team_accuracy(season, "low")
   end
 end
