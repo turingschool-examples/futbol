@@ -1,28 +1,21 @@
 require 'csv'
 require_relative 'team'
 
-class TeamCollection
+class TeamCollection < Collection
   attr_reader :teams
 
-  def initialize(csv_file_path)
-    @teams = create_teams(csv_file_path)
-  end
-
-  def create_teams(csv_file_path)
-    csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
-
-    csv.map do |row|
-      Team.new(row)
-    end
+  def initialize(file_path)
+    @teams = create_objects(file_path, Team)
   end
 
   def count_of_teams
     @teams.length
   end
 
-  def team_info(team_id)
+  def team_info(id)
+    number_id = id.to_i
     team_information = {}
-    team_object = @teams.find {|team| team.team_id == team_id_number}
+    team_object = @teams.find {|team| team.team_id == number_id}
     team_information[:team_id] = team_object.team_id
     team_information[:franchiseid] = team_object.franchiseid
     team_information[:teamname] = team_object.teamname
