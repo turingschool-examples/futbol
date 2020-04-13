@@ -2,9 +2,9 @@
 
 #### [Turing School](https://turing.io/) [Fútbol project](https://backend.turing.io/module1/projects/futbol/index)
 
-## _Overview_
+## Overview
 
-Build a system to analyze fútbol team performance data.
+_Build a system to analyze fútbol team performance data._
 
 ## Learning Goals
 - Build classes with single responsibilities
