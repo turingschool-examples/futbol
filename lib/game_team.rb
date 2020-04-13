@@ -78,16 +78,16 @@ class GameTeam
     wins_by_coach_by_season
   end
 
-#####30 Seconds
-  def self.winningest_coach(season_id)
-    coaches_in_season(season_id).max_by {|coach| (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)}
-  end
-#####30 Seconds
-  def self.worst_coach(season_id)
-    coaches_in_season(season_id).min_by do |coach|
-      (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)
-    end
-  end
+# #####30 Seconds
+#   def self.winningest_coach(season_id)
+#     coaches_in_season(season_id).max_by {|coach| (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)}
+#   end
+# #####30 Seconds
+#   def self.worst_coach(season_id)
+#     coaches_in_season(season_id).min_by do |coach|
+#       (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)
+#     end
+#   end
 
 
   def self.game_team_shots_goals_count(arr_games)
@@ -108,29 +108,29 @@ class GameTeam
     results
   end
 
-  def self.least_accurate_team(season)
-    season = season.to_i
-     seasonal_hash = gets_team_shots_goals_count(season)
-     seasonal_hash.map do |key,value|
-       value["average"] = (value["shots"]/ value["goals"].to_f).round(2)
-     end
-     team_hash_with_highest_average = seasonal_hash.min_by do |key,value|
-       value["average"]
-     end
-     team_hash_with_highest_average[0]
-  end
+  # def self.least_accurate_team(season)
+  #   season = season.to_i
+  #    seasonal_hash = gets_team_shots_goals_count(season)
+  #    seasonal_hash.map do |key,value|
+  #      value["average"] = (value["shots"]/ value["goals"].to_f).round(2)
+  #    end
+  #    team_hash_with_highest_average = seasonal_hash.min_by do |key,value|
+  #      value["average"]
+  #    end
+  #    team_hash_with_highest_average[0]
+  # end
 
-  def self.most_accurate_team(season)
-    season = season.to_i
-    seasonal_hash = gets_team_shots_goals_count(season)
-    seasonal_hash.map do |key,value|
-      value["average"] = (value["shots"]/ value["goals"].to_f).round(2)
-    end
-    team_hash_with_highest_average = seasonal_hash.max_by do |key,value|
-      value["average"]
-    end
-    team_hash_with_highest_average[0]
-  end
+  # def self.most_accurate_team(season)
+  #   season = season.to_i
+  #   seasonal_hash = gets_team_shots_goals_count(season)
+  #   seasonal_hash.map do |key,value|
+  #     value["average"] = (value["shots"]/ value["goals"].to_f).round(2)
+  #   end
+  #   team_hash_with_highest_average = seasonal_hash.max_by do |key,value|
+  #     value["average"]
+  #   end
+  #   team_hash_with_highest_average[0]
+  # end
 
   def self.gets_team_shots_goals_count(season)
     #passes in desired season, grabs the *games* for the season
@@ -173,16 +173,16 @@ class GameTeam
       end
       tackles_by_team
   end
-#####45 Seconds
-  def self.most_tackles(season_id)
-    most_tackles = tackles_by_team(season_id).max_by { |key, value| value}
-    most_tackles.first
-  end
-#####45 Seconds
-  def self.fewest_tackles(season_id)
-    fewest_tackles = tackles_by_team(season_id).max_by { |key, value| -value}
-    fewest_tackles.first
-  end
+# #####45 Seconds
+#   def self.most_tackles(season_id)
+#     most_tackles = tackles_by_team(season_id).max_by { |key, value| value}
+#     most_tackles.first
+#   end
+# #####45 Seconds
+#   def self.fewest_tackles(season_id)
+#     fewest_tackles = tackles_by_team(season_id).max_by { |key, value| -value}
+#     fewest_tackles.first
+#   end
 
 
   def self.best_offense
@@ -257,26 +257,87 @@ class GameTeam
     opponent_wins
   end
 
-####1:15 seconds
-  def self.favorite_opponent_id(team_id)
-    team_id = team_id.to_i
-    record_length = {}
-    opponents_records(team_id).map do |team_id, record|
-      record_length[team_id] = record.length
+# ####1:15 seconds
+#   def self.favorite_opponent_id(team_id)
+#     team_id = team_id.to_i
+#     record_length = {}
+#     opponents_records(team_id).map do |team_id, record|
+#       record_length[team_id] = record.length
+#     end
+#     opponents = opponents_records(team_id).keys
+#     opponents.min_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
+#   end
+# ####2:30 seconds
+#   def self.rival_id(team_id)
+#     team_id = team_id.to_i
+#     record_length = {}
+#     opponents_records(team_id).map do |team_id, record|
+#       record_length[team_id] = record.length
+#     end
+#     opponents = opponents_records(team_id).keys
+#     opponents.max_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
+#   end
+
+  #MODULE!
+    def self.hash_of_hashes(collection, key1, key2, key3, value2, value3, arg2 = nil )
+      # {key1 => { key2 => value2, key3 => value3}} across collection. arg2 is ignored if not needed
+      # arg2 is optional if the passed method requires arguments
+      hash_of_hashes = Hash.new { |hash, key| hash[key] = {key2 => 0, key3 => 0}}
+      collection.each do |game|
+        hash_of_hashes[game.send(key1)][key2] += game.send(value2) if arg2.nil?
+        hash_of_hashes[game.send(key1)][key2] += game.send(value2, arg2) if !arg2.nil?
+        hash_of_hashes[game.send(key1)][key3] += value3 if value3.class == Integer
+        hash_of_hashes[game.send(key1)][key3] += game.send(value3) if !value3.class == Integer
+      end
+      hash_of_hashes
     end
-    opponents = opponents_records(team_id).keys
-    opponents.min_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
-  end
-####2:30 seconds
-  def self.rival_id(team_id)
-    team_id = team_id.to_i
-    record_length = {}
-    opponents_records(team_id).map do |team_id, record|
-      record_length[team_id] = record.length
+
+  #MODULE!
+    def self.divide_hash_values(key1, key2, og_hash)
+      # accumulator hash {season => win%}
+      hash_divided = Hash.new { |hash, key| hash[key] = 0 }
+      # divide 2 hashe values and send to new hash value
+      og_hash.map do |key, value|
+        hash_divided[key] = (value[key1] / value[key2].to_f).round(2)
+      end
+      hash_divided
     end
-    opponents = opponents_records(team_id).keys
-    opponents.max_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
-  end
+
+    def self.most_accurate_team(season_id)
+      game_id_first = season_id.to_s[0..3].to_i
+      all_games_by_id = all.find_all { |game| game.season_id == game_id_first }
+      # all_games_by_id.map { |game| game.game_id }
+      # id_goals_shots = hash_of_hashes(all_games_by_id, :season_id, :goals, :goals, :shots, :shots)
+      # binding.pry
+
+      hash_of_hashes = Hash.new { |hash, key| hash[key] = {:goals => 0, :shots => 0}}
+      all_games_by_id.each do |game|
+        hash_of_hashes[game.team_id][:goals] += game.goals
+        hash_of_hashes[game.team_id][:shots] += game.shots
+      end
+      hash_of_hashes
+
+      goals_ratio_by_team = divide_hash_values(:goals, :shots, hash_of_hashes)
+      goals_ratio_by_team.max_by{|k,v| v}.first
+    end
+
+    def self.least_accurate_team(season_id)
+      game_id_first = season_id.to_s[0..3].to_i
+      all_games_by_id = all.find_all { |game| game.season_id == game_id_first }
+      # all_games_by_id.map { |game| game.game_id }
+      # id_goals_shots = hash_of_hashes(all_games_by_id, :season_id, :goals, :goals, :shots, :shots)
+      # binding.pry
+
+      hash_of_hashes = Hash.new { |hash, key| hash[key] = {:goals => 0, :shots => 0}}
+      all_games_by_id.each do |game|
+        hash_of_hashes[game.team_id][:goals] += game.goals
+        hash_of_hashes[game.team_id][:shots] += game.shots
+      end
+      hash_of_hashes
+
+      goals_ratio_by_team = divide_hash_values(:goals, :shots, hash_of_hashes)
+      goals_ratio_by_team.min_by{|k,v| v}.first
+    end
 #
 
 

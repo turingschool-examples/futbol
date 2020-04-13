@@ -207,4 +207,8 @@ class GameTeamTest < Minitest::Test
 
   def test_it_can_return_worst_offense_team_number
   end
+
+  def test_it_returns_most_accureate_team_id
+    GameTeam.most_accurate_team_ross(20122013)
+  end
 end
