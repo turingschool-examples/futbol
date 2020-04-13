@@ -115,4 +115,20 @@ class GameStatsCollectionTest < Minitest::Test
   def test_lowest_scoring_home_team
     assert_equal "Sporting Kansas City", @game_stats_collection.lowest_scoring_home_team
   end
+
+  def test_can_find_all_games_for
+    assert_equal 6, @game_stats_collection.all_games_for(6).count
+  end
+
+  def test_can_get_most_goals_by_team_id
+    assert_equal 3, @game_stats_collection.most_goals_scored(6)
+  end
+
+  def test_can_find_fewest_goals_by_team_id
+    assert_equal 2, @game_stats_collection.fewest_goals_scored(6)
+  end
+
+  def test_can_calculate_average_win_percentage
+    assert_equal 1.0, @game_stats_collection.average_win_percentage(6)
+  end
 end
