@@ -4,7 +4,7 @@ class TeamTest < Minitest::Test
   def setup
     @team = Team.new({
       :team_id => 1,
-      :franchiseId => 23,
+      :franchiseid => 23,
       :teamname => "Atlanta United",
       :abbreviation => "ATL",
       :stadium => "Mercedes-Benz Stadium",
