@@ -1,4 +1,3 @@
-# might not need anymore
 require_relative 'test_helper'
 require 'csv'
 require './lib/teams'

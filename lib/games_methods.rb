@@ -66,7 +66,7 @@ class Games
   end
 
   def count_of_games_by_season
-    hash = {}
+      hash = {}
     @games.each do |game|
       if hash[game.season] == nil
         hash[game.season] = 0
@@ -85,24 +85,28 @@ class Games
     (total_goals.to_f/@games.length).round(3)
   end
 
+
   def average_goals_by_season
     hash = {}
     @games.each do |game|
       if hash[game.season] == nil
         hash[game.season] = 0
       end
-      require "pry"; binding.pry
-      hash[game.season] = game.home_goals + game.away_goals
-      hash[game.season] += 1
+      hash[game.season] += (game.home_goals + game.away_goals)
+    end
+    hash
+    hash.keys.each do |goals_season_key|
+      count_of_games_by_season.keys.each do |games_season_key|
+        if goals_season_key == games_season_key
+          average = (hash[goals_season_key].to_f/count_of_games_by_season[games_season_key].to_f)
+          hash[goals_season_key] = average.round(2)
+        end
+      end
     end
     hash
   end
+
   def all
     @games
   end
 end
-
-
-### average_goals_by_season	### Average number of goals scored in a game organized
-# in a hash with season names (e.g. 20122013) as keys and a float representing
-#the average number of goals in a game for that season as a key (rounded to the nearest 100th)
