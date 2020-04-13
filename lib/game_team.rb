@@ -112,7 +112,7 @@ class GameTeam
     season = season.to_i
      seasonal_hash = gets_team_shots_goals_count(season)
      seasonal_hash.map do |key,value|
-       value["average"] = (value["shots"]/ value["goals"].to_f).round(2)
+       value["average"] = (value["goals"]/ value["shots"].to_f).round(2)
      end
      team_hash_with_highest_average = seasonal_hash.min_by do |key,value|
        value["average"]
@@ -124,7 +124,7 @@ class GameTeam
     season = season.to_i
     seasonal_hash = gets_team_shots_goals_count(season)
     seasonal_hash.map do |key,value|
-      value["average"] = (value["shots"]/ value["goals"].to_f).round(2)
+      value["average"] = (value["goals"]/ value["shots"].to_f).round(2)
     end
     team_hash_with_highest_average = seasonal_hash.max_by do |key,value|
       value["average"]

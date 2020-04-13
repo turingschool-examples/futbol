@@ -166,7 +166,7 @@ class GameTeamTest < Minitest::Test
   def test_most_accurate_team
     Game.from_csv('./test/fixtures/games_20.csv')
     arr_games = Game.all[0..2]
-    assert_equal 3, GameTeam.most_accurate_team(20122013)
+    assert_equal 6, GameTeam.most_accurate_team(20122013)
   end
 #Michelle Start
   def test_it_can_find_game_ids_by_season
@@ -198,7 +198,7 @@ class GameTeamTest < Minitest::Test
   def test_least_accurate_team
     Game.from_csv('./test/fixtures/games_20.csv')
     arr_games = Game.all[0..2]
-    assert_equal 6, GameTeam.least_accurate_team(20122013)
+    assert_equal 3, GameTeam.least_accurate_team(20122013)
   end
 
   def test_it_can_return_best_offense_team_number
