@@ -216,8 +216,8 @@ class GameTeam
     opponent_wins
   end
 
-  #THIS ONE FAILS AND CUASES RSPEC TO FREEZE UP
   def self.favorite_opponent_id(team_id)
+    team_id = team_id.to_i
     record_length = {}
     opponents_records(team_id).map do |team_id, record|
       record_length[team_id] = record.length
@@ -225,8 +225,9 @@ class GameTeam
     opponents = opponents_records(team_id).keys
     opponents.min_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
   end
-  #THIS ONE FAILS AND CUASES RSPEC TO FREEZE UP
+
   def self.rival_id(team_id)
+    team_id = team_id.to_i
     record_length = {}
     opponents_records(team_id).map do |team_id, record|
       record_length[team_id] = record.length
