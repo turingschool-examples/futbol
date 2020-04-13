@@ -95,8 +95,8 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_returns_average_goals_by_season
     stub_games_goals = {
-                        20122013 => {:goals => 10, :games_played => 3},
-                        20162017 => {:goals => 10, :games_played => 4}
+                        "20122013" => {:goals => 10, :games_played => 3},
+                        "20162017" => {:goals => 10, :games_played => 4}
                         }
     Game.stubs(:games_goals_by_season).returns(stub_games_goals)
     expected = {"20122013" => 3.33, "20162017" => 2.5}
@@ -105,48 +105,48 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_highest_scoring_visitor
-    assert_equal 16, Game.highest_scoring_visitor_team_id
-    games_goals = {1 => {:goals => 11, :games_played =>2},
-                   2 => {:goals => 2, :games_played =>1},
-                   3 => {:goals => 3, :games_played =>1}}
+    assert_equal "16", Game.highest_scoring_visitor_team_id
+    games_goals = {"1" => {:goals => 11, :games_played =>2},
+                   "2" => {:goals => 2, :games_played =>1},
+                   "3" => {:goals => 3, :games_played =>1}}
     stub_expected = Game.divide_hash_values(:goals, :games_played, games_goals)
     Game.stubs(:average_goals_by).returns(stub_expected)
-    assert_equal 1, Game.highest_scoring_visitor_team_id
+    assert_equal "1", Game.highest_scoring_visitor_team_id
     assert_equal "Atlanta United", @stat_tracker.highest_scoring_visitor
   end
 
   def test_highest_scoring_home_team
-    assert_equal 6, Game.highest_scoring_home_team_id
-    games_goals = {1 => {:goals => 1, :games_played =>2},
-                   2 => {:goals => 12, :games_played =>1},
-                   3 => {:goals => 3, :games_played =>1}}
+    assert_equal "6", Game.highest_scoring_home_team_id
+    games_goals = {"1" => {:goals => 1, :games_played =>2},
+                   "2" => {:goals => 12, :games_played =>1},
+                   "3" => {:goals => 3, :games_played =>1}}
     stub_expected = Game.divide_hash_values(:goals, :games_played, games_goals)
     Game.stubs(:average_goals_by).returns(stub_expected)
-    assert_equal 2, Game.highest_scoring_home_team_id
+    assert_equal "2", Game.highest_scoring_home_team_id
     #highest_scoring_home_team
     assert_equal "Seattle Sounders FC", @stat_tracker.highest_scoring_home_team
   end
 
   def test_lowest_scoring_visitor
-    assert_equal 9, Game.lowest_scoring_visitor_team_id
-    games_goals = {1 => {:goals => 4, :games_played =>2},
-                   2 => {:goals => 12, :games_played =>10},
-                   3 => {:goals => 3, :games_played =>1}}
+    assert_equal "9", Game.lowest_scoring_visitor_team_id
+    games_goals = {"1" => {:goals => 4, :games_played =>2},
+                   "2" => {:goals => 12, :games_played =>10},
+                   "3" => {:goals => 3, :games_played =>1}}
     stub_expected = Game.divide_hash_values(:goals, :games_played, games_goals)
     Game.stubs(:average_goals_by).returns(stub_expected)
-    assert_equal 2, Game.lowest_scoring_visitor_team_id
+    assert_equal "2", Game.lowest_scoring_visitor_team_id
       #lowest_scoring_visitor_team_
     assert_equal "Seattle Sounders FC", @stat_tracker.lowest_scoring_visitor
   end
 
   def test_lowest_scoring_home_team
-    assert_equal 5, Game.lowest_scoring_home_team_id
-    games_goals = {1 => {:goals => 5, :games_played =>2},
-                   2 => {:goals => 12, :games_played =>1},
-                   3 => {:goals => 4, :games_played =>3}}
+    assert_equal "5", Game.lowest_scoring_home_team_id
+    games_goals = {"1" => {:goals => 5, :games_played =>2},
+                   "2" => {:goals => 12, :games_played =>1},
+                   "3" => {:goals => 4, :games_played =>3}}
     stub_expected = Game.divide_hash_values(:goals, :games_played, games_goals)
     Game.stubs(:average_goals_by).returns(stub_expected)
-    assert_equal 3, Game.lowest_scoring_home_team_id
+    assert_equal "3", Game.lowest_scoring_home_team_id
     #lowest_scoring_home_team_
     assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_home_team
   end
@@ -154,31 +154,31 @@ class StatTrackerTest < Minitest::Test
 
 
   def test_best_season
-    assert_equal "20142015", @stat_tracker.best_season(3)
-    assert_equal "20122013", @stat_tracker.best_season(6)
-    assert_equal "20162017", @stat_tracker.best_season(20)
+    assert_equal "20142015", @stat_tracker.best_season("3")
+    assert_equal "20122013", @stat_tracker.best_season("6")
+    assert_equal "20162017", @stat_tracker.best_season("20")
     stub_val = {
-                20122013 => 25,
-                20132014 => 66,
-                20142015 => 44,
-                20152016 => 35,
+                "20122013" => 25,
+                "20132014" => 66,
+                "20142015" => 44,
+                "20152016" => 35,
                 }
     Game.stubs(:win_percent_by_season).returns(stub_val)
-    assert_equal "20132014", @stat_tracker.best_season(3)
+    assert_equal "20132014", @stat_tracker.best_season("3")
   end
 
   def test_worst_season
-    assert_equal "20122013", @stat_tracker.worst_season(3)
-    assert_equal "20122013", @stat_tracker.worst_season(6)
-    assert_equal "20162017", @stat_tracker.worst_season(20)
+    assert_equal "20122013", @stat_tracker.worst_season("3")
+    assert_equal "20122013", @stat_tracker.worst_season("6")
+    assert_equal "20162017", @stat_tracker.worst_season("20")
     stub_val = {
-                20122013 => 25,
-                20132014 => 66,
-                20142015 => 44,
-                20152016 => 35,
+                "20122013" => 25,
+                "20132014" => 66,
+                "20142015" => 44,
+                "20152016" => 35,
                 }
     Game.stubs(:win_percent_by_season).returns(stub_val)
-    assert_equal "20122013", @stat_tracker.worst_season(3)
+    assert_equal "20122013", @stat_tracker.worst_season("3")
   end
 
   def test_most_accurate_team
