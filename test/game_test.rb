@@ -241,6 +241,7 @@ class GameTest < Minitest::Test
   def test_it_returns_percentage_of_wins_by_season_for_team_id
       assert_equal ({"20122013" => 0, "20142015" => 100}), Game.win_percent_by_season("3")
       assert_equal ({"20122013" => 100}), Game.win_percent_by_season("6")
+
       stub_expected = {"20122013" => {:wins => 5, :games_played => 10},
                       "20132014" => {:wins => 6, :games_played => 9},
                       "20142015" => {:wins => 4, :games_played => 16}}

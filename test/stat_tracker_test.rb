@@ -182,19 +182,19 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_most_accurate_team
-    assert_equal "Houston Dynamo", @stat_tracker.most_accurate_team(20122013)
+    assert_equal "FC Dallas", @stat_tracker.most_accurate_team("20122013")
   end
 
   def test_least_accurate_team
-    assert_equal "FC Dallas", @stat_tracker.least_accurate_team(20122013)
+    assert_equal "Houston Dynamo", @stat_tracker.least_accurate_team("20122013")
   end
 
   def test_most_goals_scored_by_team_id
-    assert_equal 2, @stat_tracker.most_goals_scored(3)
+    assert_equal 2, @stat_tracker.most_goals_scored("3")
   end
 
   def test_least_goals_scored_by_team_id
-    assert_equal 2, @stat_tracker.fewest_goals_scored(26)
+    assert_equal 2, @stat_tracker.fewest_goals_scored("26")
   end
 
   def test_it_returns_best_offence
@@ -206,11 +206,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_favorite_opponent
-    assert_equal "Houston Dynamo", @stat_tracker.favorite_opponent(6)
+    assert_equal "Houston Dynamo", @stat_tracker.favorite_opponent("6")
   end
 
   def test_rival
-    assert_equal "FC Dallas", @stat_tracker.rival(3)
+    assert_equal "FC Dallas", @stat_tracker.rival("3")
   end
 
 end
