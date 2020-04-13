@@ -78,17 +78,17 @@ class GameTeam
     wins_by_coach_by_season
   end
 
-# #####30 SECONDS
-#   def self.winningest_coach(season_id)
-#     coaches_in_season(season_id).max_by {|coach| (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)}
-#   end
-# #####30 SECONDS
-#   def self.worst_coach(season_id)
-#     # season_id = season_id.to_i
-#     coaches_in_season(season_id).min_by do |coach|
-#       (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)
-#     end
-#   end
+#####30 SECONDS
+  def self.winningest_coach(season_id)
+    coaches_in_season(season_id).max_by {|coach| (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)}
+  end
+#####30 SECONDS
+  def self.worst_coach(season_id)
+    # season_id = season_id.to_i
+    coaches_in_season(season_id).min_by do |coach|
+      (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)
+    end
+  end
 
 
   def self.game_team_shots_goals_count(arr_games)
@@ -257,27 +257,27 @@ class GameTeam
     end
     opponent_wins
   end
-# 
-# ####1 MINUTE 15 SECONDS
-#   def self.favorite_opponent_id(team_id)
-#     team_id = team_id.to_i
-#     record_length = {}
-#     opponents_records(team_id).map do |team_id, record|
-#       record_length[team_id] = record.length
-#     end
-#     opponents = opponents_records(team_id).keys
-#     opponents.min_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
-#   end
-# ####2 MINUTES 30 SECONDS
-#   def self.rival_id(team_id)
-#     team_id = team_id.to_i
-#     record_length = {}
-#     opponents_records(team_id).map do |team_id, record|
-#       record_length[team_id] = record.length
-#     end
-#     opponents = opponents_records(team_id).keys
-#     opponents.max_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
-#   end
+
+####1 MINUTE 15 SECONDS
+  def self.favorite_opponent_id(team_id)
+    team_id = team_id.to_i
+    record_length = {}
+    opponents_records(team_id).map do |team_id, record|
+      record_length[team_id] = record.length
+    end
+    opponents = opponents_records(team_id).keys
+    opponents.min_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
+  end
+####2 MINUTES 30 SECONDS
+  def self.rival_id(team_id)
+    team_id = team_id.to_i
+    record_length = {}
+    opponents_records(team_id).map do |team_id, record|
+      record_length[team_id] = record.length
+    end
+    opponents = opponents_records(team_id).keys
+    opponents.max_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
+  end
 
 
 
