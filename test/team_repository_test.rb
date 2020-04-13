@@ -60,6 +60,7 @@ class TeamRepositoryTest < Minitest::Test
   end
 
   def test_rival
-
+    team_repository = TeamRepository.new('./data/game_teams.csv', './data/teams.csv', './data/games.csv')
+    assert_equal "Houston Dash", team_repository.rival("18")
   end
 end

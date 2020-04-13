@@ -63,17 +63,28 @@ class GameRepository
   def average_goals_by_season
     seasons = @games_collection.map do |game|
       [game.game_id, game.season]
-      #require 'pry'; binding.pry
-      end
+    end
       tally = 0
     average = @game_team_collection.map do |game|
       if seasons[1][0] == game.game_id
         tally += game.goals
-        require 'pry'; binding.pry
       end
 
     end
     goals_by_season
+  end
+
+  def count_of_games_by_season
+    games_by_season = Hash.new
+    total_games = 1
+    seasons = @games_collection.each do |game|
+      if games_by_season[game.season] == nil
+        games_by_season[game.season] = 1
+      else
+        games_by_season[game.season] += 1
+      end
+    end
+    games_by_season
   end
 
 end

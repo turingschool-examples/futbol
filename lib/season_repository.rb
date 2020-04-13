@@ -29,8 +29,8 @@ class SeasonRepository
       end
     end
   end
-  coach_winner = coach_win_percentage.max_by{|key, value| coach_win_percentage[key]}
-  coach_winner.first
+    coach_winner = coach_win_percentage.max_by{|key, value| coach_win_percentage[key]}
+    coach_winner.first
 
   end
 
@@ -91,10 +91,10 @@ class SeasonRepository
     count
   end
 
- def most_tackles(season_id)
+
+def most_tackles(season_id)
   games_in_the_season = []
-  highest_tackles = 0
-  highest_team_id = 0
+  tackles_team = {}
   @game_collection.each do |game|
     if game.season == season_id
       games_in_the_season << game.game_id
@@ -103,20 +103,21 @@ class SeasonRepository
   games_in_the_season.each do |season_game|
     @game_team_collection.each do |game_team|
       if game_team.game_id == season_game
-        if game_team.tackles > highest_tackles
-          highest_tackles = game_team.tackles
-          highest_team_id = game_team.team_id
+        if tackles_team.key?(game_team.team_id)
+          tackles_team[game_team.team_id] += game_team.tackles
+        else
+          tackles_team[game_team.team_id] = game_team.tackles
         end
       end
     end
   end
-  find_team_id(highest_team_id)
+  team_id_to_find = tackles_team.sort_by { |key, value| value }.last[0]
+  find_team_id(team_id_to_find)
 end
 
 def fewest_tackles(season_id)
   games_in_the_season = []
-  lowest_tackles = 100
-  lowest_team_id = 100
+  tackles_team = {}
   @game_collection.each do |game|
     if game.season == season_id
       games_in_the_season << game.game_id
@@ -125,14 +126,16 @@ def fewest_tackles(season_id)
   games_in_the_season.each do |season_game|
     @game_team_collection.each do |game_team|
       if game_team.game_id == season_game
-        if game_team.tackles < lowest_tackles
-          lowest_tackles = game_team.tackles
-          lowest_team_id = game_team.team_id
+        if tackles_team.key?(game_team.team_id)
+          tackles_team[game_team.team_id] += game_team.tackles
+        else
+          tackles_team[game_team.team_id] = game_team.tackles
         end
       end
     end
   end
-  find_team_id(lowest_team_id)
+  team_id_to_find = tackles_team.sort_by { |key, value| value }.first[0]
+  find_team_id(team_id_to_find)
 end
 
 def find_team_id(id)
@@ -142,6 +145,7 @@ def find_team_id(id)
   named_team = found_team.teamname
   named_team
 end
+
 
 def most_accurate_team(season_id)
 
@@ -179,17 +183,10 @@ games_in_season = @game_collection.select do |game|
     goal[key]
   end
   most_accurate.first
-require"pry";binding.pry
-end
 
 end
-def divide_two_array values
-  a = {a: 1, b: 2, c: 3}
-  b = {a: 2, c: 4, b: 3}
-  a.merge!(b) { |k, o, n| o + n }
-  a # => {:a=>3, :b=>5, :c=>7}
 
-
+end
 
 
 end

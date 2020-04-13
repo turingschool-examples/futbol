@@ -65,4 +65,19 @@ class GameRepositoryTest < Minitest::Test
     assert_equal expected, game_repository.average_goals_by_season
   end
 
+  def test_count_of_games_by_season
+    game_repository = GameRepository.new('./data/games.csv')
+      expected = {
+        "20122013"=>806,
+        "20162017"=>1317,
+        "20142015"=>1319,
+        "20152016"=>1321,
+        "20132014"=>1323,
+        "20172018"=>1355
+      }
+      require "pry"
+      binding.pry
+      assert_equal expected, game_repository.count_of_games_by_season
+  end
+
 end
