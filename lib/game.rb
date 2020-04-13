@@ -99,14 +99,15 @@ class Game
 #MODULE!
   def self.games_played_by(team_id)
     #return all games that team played in
-    all.find_all do |game|
-      game.away_team_id == team_id.to_i || game.home_team_id == team_id.to_i
+
+      all.find_all do |game|
+      game.away_team_id == team_id || game.home_team_id == team_id
     end
   end
 
   def self.games_and_wins_by_season(team_id)
       #{ season => {:wins => x, :games_played => y}}
-    hash_of_hashes(games_played_by(team_id), :season, :wins, :games_played, :win?, 1, team_id.to_i)
+    hash_of_hashes(games_played_by(team_id), :season, :wins, :games_played, :win?, 1, team_id)
   end
 
   def self.win_percent_by_season(team_id)

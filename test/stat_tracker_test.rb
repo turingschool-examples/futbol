@@ -82,11 +82,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_team_name_with_most_tackles
-    assert_equal "FC Dallas", @stat_tracker.most_tackles(20122013)
+    assert_equal "FC Dallas", @stat_tracker.most_tackles("20122013")
   end
 
   def test_it_can_return_team_name_with_fewest_tackles
-    assert_equal "Washington Spirit FC", @stat_tracker.fewest_tackles(20122013)
+    assert_equal "Washington Spirit FC", @stat_tracker.fewest_tackles("20122013")
   end
   #michelle end
   def test_it_returns_average_goals_per_game
