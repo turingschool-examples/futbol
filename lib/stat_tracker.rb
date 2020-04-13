@@ -3,7 +3,9 @@ require_relative 'team'
 require_relative 'team_collection'
 require_relative 'game'
 require_relative 'games_methods'
+require_relative 'game_team_collection'
 
+    # game_teams.game_teams is equal to this ".all" method.
 class StatTracker
   attr_reader :games, :teams, :game_teams
 
@@ -20,13 +22,6 @@ class StatTracker
     @teams = Teams.new(team_path)
     @game_teams = GameTeams.new(game_teams_path)
   end
-
-#dont want a path as an instance varaible. ONly use path once
-#every time we call teams its initializing a new team every time
-
-
-
-# lowest_scoring_home_team Name of the team with the lowest average score per game across all seasons when they are at home.	String
 
   def count_of_teams
     @teams.all.size
@@ -134,4 +129,47 @@ class StatTracker
       end
     end
   end
+
+
+
+  def winningest_coach(season_id)
+    head_coach_wins = {}
+    @game_teams.all.each do |game_team|
+      if season_id.to_i.divmod(10000)[1] - 1 == game_team.game_id.divmod(1000000)[0]
+        if game_team.result == "WIN"
+          head_coach = game_team.head_coach
+          if head_coach_wins.key?(head_coach)
+            head_coach_wins[head_coach] += 1
+            #symbol return value was nil
+            # nil because the key didn't exist yet.
+            # which means that when we tried to add +=1, it didn't work bc of nil.
+            #we wanted to make it dynamic for every head coach name.
+          else
+            head_coach_wins[head_coach] = 1
+          end
+        end
+      end
+    end
+    # require "pry";binding.pry
+    head_coach_wins.max_by{|k,v| v}[0]
+  end
+
+  def worst_coach(season_id)
+    head_coach_losses = {}
+    @game_teams.all.each do |game_team|
+      if season_id.to_i.divmod(10000)[1] - 1 == game_team.game_id.divmod(1000000)[0]
+        if game_team.result == "LOSS"
+          head_coach = game_team.head_coach
+          if head_coach_losses.key?(head_coach)
+            head_coach_losses[head_coach] += 1
+          else
+            head_coach_losses[head_coach] = 1
+          end
+        end
+      end
+    end
+    head_coach_losses.max_by{|k,v| v}[0]
+  end
+  
 end
+

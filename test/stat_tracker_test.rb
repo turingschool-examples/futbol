@@ -3,16 +3,12 @@ require 'CSV'
 require './lib/stat_tracker'
 require './lib/game'
 require './lib/games_methods'
+require './lib/game_team'
 require './lib/game_team_collection'
 require './lib/team_collection'
 require './lib/team'
 
 class StatTrackerTest < Minitest::Test
-  # attr_reader :stat_tracker
-  # def setup
-  #   @stat_tracker = StatTracker.new
-  #   stat_tracker.load_from_csv('./test/fixtures')
-  # end
   def setup
     @stat_tracker = StatTracker.from_csv({
       :games     => "./data/games_truncated.csv",
@@ -25,12 +21,6 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
-  # def test_it_has_attributes
-  #   assert_equal "./data/games_truncated.csv", @stat_tracker.game_path
-  #   assert_equal "./data/teams.csv", @stat_tracker.team_path
-  #   assert_equal "./data/game_teams_truncated.csv", @stat_tracker.game_teams_path
-  # end
-  #
   def test_it_can_create_games
     assert_instance_of Games, @stat_tracker.games
   end
@@ -63,6 +53,14 @@ class StatTrackerTest < Minitest::Test
     assert_equal "LA Galaxy", @stat_tracker.highest_scoring_visitor
   end
 
+  def test_winningest_coach
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20122013")
+  end
+
+  def test_worst_coach
+    assert_equal "John Tortorella", @stat_tracker.worst_coach("20122013")
+  end
+  
   def test_highest_scoring_home_team
     assert_equal "New England Revolution", @stat_tracker.highest_scoring_home_team
   end
