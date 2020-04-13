@@ -106,7 +106,6 @@ class Games
     hash
   end
 
-
   def all
     @games
   end
