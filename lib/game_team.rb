@@ -1,33 +1,25 @@
-require "csv"
+require_relative "loadable"
 
 class GameTeam
+  extend Loadable
 
   def self.from_csv(file_path)
-    csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
-    @@all_game_teams = csv.map do |row|
-      GameTeam.new(row)
-    end
+    @@all = []
+    load_csv(file_path, self)
   end
 
   def self.all
-    @@all_game_teams
+    @@all
   end
 
-  attr_reader :game_id,
-              :team_id,
-              :hoa,
-              :result,
-              :settled_in,
-              :head_coach,
-              :goals,
-              :shots,
-              :tackles,
-              :pim,
+  attr_reader :game_id, :team_id, :hoa, :result,
+              :settled_in, :head_coach, :goals,
+              :shots, :tackles, :pim,
               :powerplayopportunities,
               :powerplaygoals,
               :faceoffwinpercentage,
-              :giveaways,
-              :takeaways
+              :giveaways, :takeaways
+              
   def initialize(game_team_info)
     @game_id = game_team_info[:game_id].to_i
     @team_id = game_team_info[:team_id]

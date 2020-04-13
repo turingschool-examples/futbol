@@ -1,17 +1,15 @@
-require 'csv'
+require_relative 'loadable'
 
 class Team
+  extend Loadable
 
-  def self.from_csv(team_path)
-    csv = CSV.read("#{team_path}", headers: true, header_converters: :symbol)
-
-    @@all_teams = csv.map do |row|
-       Team.new(row)
-    end
-  end
+   def self.from_csv(file_path)
+     @@all = []
+     load_csv(file_path, self)
+   end
 
   def self.all
-    @@all_teams
+    @@all
   end
 
   attr_reader :team_id, :franchise_id,
