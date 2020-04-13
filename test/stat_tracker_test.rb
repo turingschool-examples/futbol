@@ -5,15 +5,15 @@ require './lib/game'
 require './lib/games_methods'
 require './lib/game_team'
 require './lib/game_team_collection'
-require './lib/team_collection'
+require './lib/teams'
 require './lib/team'
 
 class StatTrackerTest < Minitest::Test
   def setup
     @stat_tracker = StatTracker.from_csv({
-      :games     => "./data/games_truncated.csv",
+      :games => "./data/games_truncated.csv",
       :teams => "./data/teams.csv",
-      :game_teams => "./data/game_teams_truncated.csv",
+      :game_teams => "./data/game_teams_truncated.csv"
     })
   end
 
@@ -54,13 +54,13 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_winningest_coach
-    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20122013")
+   assert_equal "Claude Julien", @stat_tracker.winningest_coach("20122013")
   end
 
   def test_worst_coach
-    assert_equal "John Tortorella", @stat_tracker.worst_coach("20122013")
+   assert_equal "John Tortorella", @stat_tracker.worst_coach("20122013")
   end
-  
+
   def test_highest_scoring_home_team
     assert_equal "New England Revolution", @stat_tracker.highest_scoring_home_team
   end
@@ -72,5 +72,21 @@ class StatTrackerTest < Minitest::Test
   def test_lowest_scoring_home_team
     assert_equal "Orlando City SC", @stat_tracker.lowest_scoring_home_team
   end
+
+  # def test_best_season
+  #  assert_equal "20132014", @stat_tracker.best_season("6")
+  # end
+  # 
+  # def test_worst_season
+  #   assert_equal "20142015", @stat_tracker.worst_season("6")
+  # end
+  #
+  # def test_average_win_percentage
+  #   assert_equal 0.49, @stat_tracker.average_win_percentage("6")
+  # end
+  #
+  # def test_most_goals_scored
+  #   assert_equal 7, @stat_tracker.most_goals_scored("18")
+  # end
 
 end

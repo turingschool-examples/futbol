@@ -1,13 +1,18 @@
 require 'CSV'
 require_relative 'team'
-require_relative 'team_collection'
+require_relative 'teams'
 require_relative 'game'
 require_relative 'games_methods'
 require_relative 'game_team_collection'
+require_relative 'team_statistics'
 
     # game_teams.game_teams is equal to this ".all" method.
 class StatTracker
-  attr_reader :games, :teams, :game_teams
+include TeamStatistics
+
+  attr_reader :games,
+              :teams,
+              :game_teams
 
   def self.from_csv(file_paths)
     game_path = file_paths[:games]
@@ -82,7 +87,6 @@ class StatTracker
     average_goals_per_team.min do |statistic|
       statistic.values.first
     end.keys.first
-
   end
 
   def best_offense
@@ -170,6 +174,5 @@ class StatTracker
     end
     head_coach_losses.max_by{|k,v| v}[0]
   end
-  
-end
 
+end

@@ -1,22 +1,25 @@
+# may not need this anymore
+
+# require_relative 'test_helper'
+# require 'csv'
 # require 'minitest/autorun'
 # require 'minitest/pride'
-# require './lib/team_statistics'
+# require './lib/team_collection'
 # require './lib/team'
 #
-# class TeamStatisticsTest < Minitest::Test
-#
+# class TeamCollectionTest < Minitest::Test
 #   def setup
-#     @team_statistics = TeamStatistics.new("./data/teams.csv")
-#     @team = @team_statistics.teams.first
+#     @team_collection = TeamCollection.new("./data/teams.csv")
+#     @team = @team_collection.teams.first
 #   end
 #
 #   def test_it_exists
-#     assert_instance_of TeamStatistics, @team_statistics
+#     assert_instance_of TeamCollection, @team_collection
 #   end
 #
 #   def test_it_can_create_teams_from_csv
 #     assert_instance_of Team, @team
-#     assert_equal "1", @team.team_id
+#     assert_equal 1, @team.team_id
 #     assert_equal "Atlanta United", @team.team_name
 #   end
 #
@@ -26,6 +29,6 @@
 #                 :team_name => "Atlanta United",
 #                 :abbreviation => "ATL",
 #                 :link => "/api/v1/teams/1"}
-#     assert_equal expected, @team_statistics.team_info(1)
+#     assert_equal expected, @team_collection.team_info(1)
 #   end
 # end

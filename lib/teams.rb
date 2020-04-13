@@ -1,4 +1,5 @@
 require_relative 'team'
+
 class Teams
   attr_reader :teams
 
