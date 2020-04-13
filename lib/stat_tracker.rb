@@ -27,19 +27,19 @@ class StatTracker
     @game_teams = GameTeam.all
   end
 
-  def percentage_home_wins 
+  def percentage_home_wins
     home_wins = @games.find_all {|game| game.home_goals > game.away_goals}
     average(home_wins.length, @games.length)
   end
 
-  def percentage_visitor_wins # game
+  def percentage_visitor_wins #game
     away_wins = @games.find_all {|game| game.away_goals > game.home_goals}
-    (away_wins.length.to_f / @games.length.to_f).round(2) # percentage(module)
+    average(away_wins.length, @games.length)
   end
 
   def percentage_ties #game_teams
     ties = @game_teams.find_all {|team| team.result == "TIE"}
-    (ties.length.to_f / @game_teams.length).round(2) # percentage
+    average(ties.length, @game_teams.length)
   end
 
   def count_of_games_by_season # game
@@ -59,7 +59,7 @@ class StatTracker
 
   def average_goals_per_game # game
     sum_of_goals = @games.sum {|game| game.home_goals + game.away_goals}
-    (sum_of_goals.to_f / @games.length).round(2)  # average
+    average(sum_of_goals, @games.length)
   end
 
   def sum_of_goals_in_a_season(season) # game
@@ -69,7 +69,7 @@ class StatTracker
 
   def average_of_goals_in_a_season(season) # game
     by_season = @games.find_all {|game| game.season == season}
-    (sum_of_goals_in_a_season(season).to_f / by_season.length).round(2) # average
+    average(sum_of_goals_in_a_season(season), by_season.length)
   end
 
   def average_goals_by_season # game
