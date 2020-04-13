@@ -27,14 +27,3 @@ class TeamCollection
      }
   end
 end
-
-#   def all
-#     @teams
-#   end
-#
-#   def name_by_id(team_id)
-#     @teams.find do |team|
-#       team.team_id == team_id
-#     end
-#   end
-# end
