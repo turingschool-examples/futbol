@@ -35,7 +35,7 @@ attr_reader :stat_tracker, :game_collection, :game_teams_collection, :teams_coll
     coaches = Hash.new(0)
     season_coaches = current_season_game_teams(season).map do |game|
       game.head_coach
-      end
+    end
     @game_teams_collection.each do |team|
         if season_coaches.include?(team.head_coach)
           coaches[team.head_coach] = 0
