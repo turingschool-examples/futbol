@@ -133,7 +133,7 @@ class GameCollection < Collection
 
   def average_goals_per_game
     # (total_scores.sum.to_f / @games_list.length.to_f).round(2)
-    average2(total_scores, games_list)
+    average(total_scores, games_list)
   end
 
   def average_goals_by_season
@@ -155,16 +155,6 @@ class GameCollection < Collection
       results[season[0]] = (season[1].to_f / games_per_season[season[0]]).round(2)
     end
     results
-  end
-
-  # helper methods
-
-  def average(collection)
-    (collection.sum / collection.length.to_f).round(2)
-  end
-
-  def average2(collection1, collection2)
-    (collection1.sum / collection2.length.to_f).round(2)
   end
 
   def total_scores
