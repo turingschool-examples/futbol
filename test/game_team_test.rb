@@ -116,11 +116,11 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_find_worst_coach
-    assert_equal "Willie Desjardins", GameTeam.worst_coach(2016030134)
+    assert_equal "Willie Desjardins", GameTeam.worst_coach("2016030134")
   end
 
   def test_find_by_returns_games
-    assert_kind_of Array, GameTeam.find_by(2012030221)
+    assert_kind_of Array, GameTeam.find_by("2012030221")
   end
 
   def test_game_team_shots_goals_count
@@ -186,11 +186,11 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_most_tackles
-    assert_equal 6, GameTeam.most_tackles(20122013)
+    assert_equal 6, GameTeam.most_tackles("20122013")
   end
 
   def test_fewest_tackles
-    assert_equal 22, GameTeam.fewest_tackles(20122013)
+    assert_equal 22, GameTeam.fewest_tackles("20122013")
   end
   #Michelle end
 
@@ -205,6 +205,4 @@ class GameTeamTest < Minitest::Test
     assert_equal 28, GameTeam.best_offense
   end
 
-  def test_it_can_return_worst_offense_team_number
-  end
 end
