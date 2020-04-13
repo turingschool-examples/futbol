@@ -84,6 +84,7 @@ class GameTeam
   end
 #####30 SECONDS
   def self.worst_coach(season_id)
+    # season_id = season_id.to_i
     coaches_in_season(season_id).min_by do |coach|
       (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)
     end

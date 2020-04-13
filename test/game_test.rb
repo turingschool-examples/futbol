@@ -214,6 +214,7 @@ class GameTest < Minitest::Test
     assert_equal 0, Game.all[17].win?(4)#tie
   end
 
+
   def test_find_by_returns_array
     assert_kind_of Array, Game.find_by(2012030221)
   end

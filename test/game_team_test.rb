@@ -182,49 +182,5 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_return_worst_offense_team_number
-    assert_equal 15, GameTeam.worst_offense
-  end
-
-  def test_it_can_find_opponents_records
-    assert_equal ({3=>["LOSS", "LOSS"], 8=>["LOSS"]}), GameTeam.opponents_records(6)
-  end
-
-  def test_it_can_find_opponents_wins
-    assert_equal ({6=>2}), GameTeam.opponents_wins(3)
-  end
-
-  def test_it_can_find_favorite_opponent_id
-    game_team1 = mock
-    game_team2 = mock
-    game_team3 = mock
-    game_team4 = mock
-    game_team1.stubs(:team_id).returns(1)
-    game_team2.stubs(:team_id).returns(2)
-    game_team3.stubs(:team_id).returns(3)
-    game_team4.stubs(:team_id).returns(4)
-    GameTeam.stubs(:opponents_records).returns({2=>["LOSS", "WIN", "LOSS","LOSS"], 3=>["WIN", "WIN", "WIN"], 4=>["LOSS", "WIN"]})
-    assert_equal 2, GameTeam.favorite_opponent_id(1)
-  end
-
-  def test_it_can_determine_rival_id
-    game_team1 = mock
-    game_team2 = mock
-    game_team3 = mock
-    game_team4 = mock
-    game_team1.stubs(:team_id).returns(1)
-    game_team2.stubs(:team_id).returns(2)
-    game_team3.stubs(:team_id).returns(3)
-    game_team4.stubs(:team_id).returns(4)
-    GameTeam.stubs(:opponents_records).returns({2=>["LOSS", "WIN", "LOSS","LOSS"], 3=>["WIN", "WIN", "WIN"], 4=>["LOSS", "WIN"]})
-    assert_equal 3, GameTeam.rival_id(1)
-  end
-
-  def test_most_goals_scored_by_team_id
-    assert_equal 2, GameTeam.most_goals_scored(3)
-  end
-
-  def test_fewest_goals_scored_by_team_id
-    assert_equal 2, GameTeam.fewest_goals_scored(26)
-  end
-
+  end 
 end
