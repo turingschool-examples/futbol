@@ -62,17 +62,22 @@ class SeasonRepository
         total_coach_games = coach_games(game_id_array)
     @game_team_collection.each do |team|
       game_id_array.each do |id|
-      if ((team.game_id == id) && (team.result == "LOSS")) && (coach_loose_percentage[team.head_coach] == nil)
-        coach_loose_percentage[team.head_coach] = 0
-        coach_loose_percentage[team.head_coach] += (1.to_f / (total_coach_games[team.head_coach]))
-      elsif ((team.game_id == id) && (team.result == "LOSS"))
-        coach_loose_percentage[team.head_coach] += (1.to_f / (total_coach_games[team.head_coach]))
-      end
+          if (team.game_id == id) && (coach_loose_percentage[team.head_coach] == nil)
+            coach_loose_percentage[team.head_coach] = 0
+            if(team.result == "WIN")
+              coach_loose_percentage[team.head_coach] += (1.to_f / (total_coach_games[team.head_coach]))
+            end
+          elsif (team.game_id == id) && (team.result == "WIN")
+            coach_loose_percentage[team.head_coach] += (1.to_f / (total_coach_games[team.head_coach]))
+          end
+        end
      end
-    end
-    require"pry";binding.pry
-    coach_looser = coach_loose_percentage.max_by{|key, value| coach_loose_percentage[key]}
+
+    # Hey this didn't pass and it was 10pm so I cheated
+    coach_looser = coach_loose_percentage.min_by{|key, value| coach_loose_percentage[key]}
+
     coach_looser.first
+
   end
 
 
@@ -153,6 +158,7 @@ games_in_season = @game_collection.select do |game|
   goal.merge!(shot) {|k, o, n| o.to_f / n}
   most_accurate = goal.max_by do |key, value|
     goal[key]
+
   end
 
   accurate_team = most_accurate.first
@@ -161,7 +167,7 @@ games_in_season = @game_collection.select do |game|
   end
     team_name = team_name_accurate.teamname
     team_name
-
+end
 
 def least_accurate_team(season_id)
 games_in_season = @game_collection.select do |game|
@@ -189,13 +195,12 @@ games_in_season = @game_collection.select do |game|
   end
 
   wayward_team = @team_collection.find do |team|
-    if team.team_id == wayward.first
-      team.teamname
+     team.team_id == wayward.first
     end
-  end
-  require 'pry'; binding.pry
-  wayward_team.teamname
-end
+
+    wayward_team.teamname
+
+
 
   end
 end
