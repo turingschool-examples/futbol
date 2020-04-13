@@ -1,5 +1,6 @@
 require 'csv'
 require_relative 'team'
+require_relative 'collection'
 
 class TeamCollection < Collection
   attr_reader :teams
@@ -16,11 +17,11 @@ class TeamCollection < Collection
     number_id = id.to_i
     team_information = {}
     team_object = @teams.find {|team| team.team_id == number_id}
-    team_information[:team_id] = team_object.team_id
-    team_information[:franchiseid] = team_object.franchiseid
-    team_information[:teamname] = team_object.teamname
-    team_information[:abbreviation] = team_object.abbreviation
-    team_information[:link] = team_object.link
+    team_information["team_id"] = team_object.team_id.to_s
+    team_information["franchise_id"] = team_object.franchiseid.to_s
+    team_information["team_name"] = team_object.teamname
+    team_information["abbreviation"] = team_object.abbreviation
+    team_information["link"] = team_object.link
     team_information
   end
 end
