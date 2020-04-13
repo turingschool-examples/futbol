@@ -84,6 +84,7 @@ class StatTracker
   def rival(teamid)
     number = @game_collection.rival_id(teamid)
     team_info(number)["team_name"]
+  end
 
   def winningest_coach(season)
     @season_stats.winningest_coach(season)
