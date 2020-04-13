@@ -9,88 +9,88 @@ class SeasonRepository
     @team_collection = CsvHelper.generate_team_array(team_path)
 
   end
-#
-#   def winningst_coach(season)
-#     game_array =  @game_collection.select do |game|
-#       game.season == season
-#       end
-#     coach_win_percentage = Hash.new
-#     #count = 0
-#     game_id_array = game_array.map do |game| game.game_id
-#       end
-#
-#     @game_team_collection.each do |team|
-#       game_id_array.each do |id|
-#       if ((team.game_id == id) && (team.result == "WIN")) && (coach_win_percentage[team.head_coach] == nil)
-#         coach_win_percentage[team.head_coach] = 0
-#         coach_win_percentage[team.head_coach] += (1.to_f / (number_of_games(season, team.head_coach)))
-#       elsif ((team.game_id == id) && (team.result == "WIN"))
-#         coach_win_percentage[team.head_coach] += (1.to_f / (number_of_games(season, team.head_coach)))
-#       end
-#     end
-#   end
-#   coach_winner = coach_win_percentage.max_by{|key, value| coach_win_percentage[key]}
-#   coach_winner.first
-#
-#   end
-#
-#   def number_of_games(season, coach)
-#     game_array =  @game_collection.select do |game|
-#
-#       game.season == season
-#     end
-#     game_id_array = game_array.map do |game| game.game_id
-#     end
-#     count = 0
-#
-#     @game_team_collection.each do |game_team|
-#       if  game_id_array.include?(game_team.game_id) && (game_team.head_coach == coach)
-#         count += 1
-#       end
-#     end
-#     count
-#   end
-#
-#   def worst_coach(season)
-#     game_array =  @game_collection.select do |game|
-#       game.season == season
-#       end
-#     coach_loose_percentage = Hash.new
-#     #count = 0
-#     game_id_array = game_array.map do |game| game.game_id
-#       end
-#
-#     @game_team_collection.each do |team|
-#       game_id_array.each do |id|
-#       if ((team.game_id == id) && (team.result == "LOSS")) && (coach_loose_percentage[team.head_coach] == nil)
-#         coach_loose_percentage[team.head_coach] = 0
-#         coach_loose_percentage[team.head_coach] += (1.to_f / (number_of_games(season, team.head_coach)))
-#       elsif ((team.game_id == id) && (team.result == "LOSS"))
-#         coach_loose_percentage[team.head_coach] += (1.to_f / (number_of_games(season, team.head_coach)))
-#       end
-#      end
-#     end
-#     coach_looser = coach_loose_percentage.max_by{|key, value| coach_loose_percentage[key]}
-#     coach_looser.first
-#   end
-#
-#   def number_of_games(season, coach)
-#     game_array =  @game_collection.select do |game|
-#
-#       game.season == season
-#     end
-#     game_id_array = game_array.map do |game| game.game_id
-#     end
-#     count = 0
-#
-#     @game_team_collection.each do |game_team|
-#       if  game_id_array.include?(game_team.game_id) && (game_team.head_coach == coach)
-#         count += 1
-#       end
-#     end
-#     count
-#   end
-#
+
+  def winningst_coach(season)
+    game_array =  @game_collection.select do |game|
+      game.season == season
+      end
+    coach_win_percentage = Hash.new
+    #count = 0
+    game_id_array = game_array.map do |game| game.game_id
+      end
+
+    @game_team_collection.each do |team|
+      game_id_array.each do |id|
+      if ((team.game_id == id) && (team.result == "WIN")) && (coach_win_percentage[team.head_coach] == nil)
+        coach_win_percentage[team.head_coach] = 0
+        coach_win_percentage[team.head_coach] += (1.to_f / (number_of_games(season, team.head_coach)))
+      elsif ((team.game_id == id) && (team.result == "WIN"))
+        coach_win_percentage[team.head_coach] += (1.to_f / (number_of_games(season, team.head_coach)))
+      end
+    end
+  end
+    coach_winner = coach_win_percentage.max_by{|key, value| coach_win_percentage[key]}
+    coach_winner.first
+
+  end
+
+  def number_of_games(season, coach)
+    game_array =  @game_collection.select do |game|
+
+      game.season == season
+    end
+    game_id_array = game_array.map do |game| game.game_id
+    end
+    count = 0
+
+    @game_team_collection.each do |game_team|
+      if  game_id_array.include?(game_team.game_id) && (game_team.head_coach == coach)
+        count += 1
+      end
+    end
+    count
+  end
+
+  def worst_coach(season)
+    game_array =  @game_collection.select do |game|
+      game.season == season
+      end
+    coach_loose_percentage = Hash.new
+    #count = 0
+    game_id_array = game_array.map do |game| game.game_id
+      end
+
+    @game_team_collection.each do |team|
+      game_id_array.each do |id|
+      if ((team.game_id == id) && (team.result == "LOSS")) && (coach_loose_percentage[team.head_coach] == nil)
+        coach_loose_percentage[team.head_coach] = 0
+        coach_loose_percentage[team.head_coach] += (1.to_f / (number_of_games(season, team.head_coach)))
+      elsif ((team.game_id == id) && (team.result == "LOSS"))
+        coach_loose_percentage[team.head_coach] += (1.to_f / (number_of_games(season, team.head_coach)))
+      end
+     end
+    end
+    coach_looser = coach_loose_percentage.max_by{|key, value| coach_loose_percentage[key]}
+    coach_looser.first
+  end
+
+  def number_of_games(season, coach)
+    game_array =  @game_collection.select do |game|
+
+      game.season == season
+    end
+    game_id_array = game_array.map do |game| game.game_id
+    end
+    count = 0
+
+    @game_team_collection.each do |game_team|
+      if  game_id_array.include?(game_team.game_id) && (game_team.head_coach == coach)
+        count += 1
+      end
+    end
+    count
+  end
+
 
 def most_tackles(season_id)
   games_in_the_season = []
@@ -145,38 +145,6 @@ def find_team_id(id)
   named_team = found_team.teamname
   named_team
 end
-
-# def most_accurate_team(season_id)
-#
-#   # games_in_season = @game_collection.select do |game|
-#
-#     game.season == season_id
-#   end
-#   game_array = games_in_season.map do |game|
-#     game.game_id
-#   end
-#     game_array
-#
-#     shot = Hash.new
-#     goals = Hash.new
-#
-#     @game_team_collection.each do |game_team|
-#
-#       if game_array.include?(game_team.game_id)
-# #   # require"pry";binding.pry
-#         if shot[game_team.team_id] == nil
-#           # require"pry";binding.pry
-#         shot[game_team.team_id] = 0
-#         goals[game_team.team_id] = 0
-#         end
-#       shot[game_team.team_id] += game_team.shots
-#       goals[game_team.team_id] += game_team.goals
-#     end
-#   end
-# require"pry";binding.pry
-#
-# end
-
 
 
 end
