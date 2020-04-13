@@ -14,8 +14,8 @@ class GameTeamTest < Minitest::Test
     @game_teams = GameTeam.from_csv(file_path)
 
     @base_game_team = GameTeam.new({
-      :game_id => 2012030221,
-      :team_id => 3,
+      :game_id => "2012030221",
+      :team_id => "3",
       :hoa => "away",
       :result => "LOSS",
       :settled_in => "OT",
@@ -44,8 +44,8 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_returns_attributes_of_base
-    assert_equal 2012030221, @base_game_team.game_id
-    assert_equal 3, @base_game_team.team_id
+    assert_equal "2012030221", @base_game_team.game_id
+    assert_equal "3", @base_game_team.team_id
     assert_equal "away", @base_game_team.hoa
     assert_equal "LOSS", @base_game_team.result
     assert_equal "OT", @base_game_team.settled_in
@@ -112,7 +112,7 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_find_winninest_coach
-    assert_equal "Claude Julien", GameTeam.winningest_coach(2016030134)
+    assert_equal "Claude Julien", GameTeam.winningest_coach("2016030134")
   end
 
   def test_it_can_find_worst_coach
@@ -130,10 +130,10 @@ class GameTeamTest < Minitest::Test
     game_team2 = mock
     game_team3 = mock
     game_team4 = mock
-    game_team1.stubs(:game_id).returns(2016020527)
-    game_team2.stubs(:game_id).returns(123)
-    game_team3.stubs(:game_id).returns(456)
-    game_team4.stubs(:game_id).returns(456)
+    game_team1.stubs(:game_id).returns("2016020527")
+    game_team2.stubs(:game_id).returns("123")
+    game_team3.stubs(:game_id).returns("456")
+    game_team4.stubs(:game_id).returns("456")
     passed_array = [game_team1,game_team2,game_team3,game_team4]
     assert_kind_of Array , GameTeam.game_team_shots_goals_count(passed_array)
   end
@@ -143,10 +143,10 @@ class GameTeamTest < Minitest::Test
     game_team2 = mock
     game_team3 = mock
     game_team4 = mock
-    game_team1.stubs(:team_id).returns(123)
-    game_team2.stubs(:team_id).returns(123)
-    game_team3.stubs(:team_id).returns(456)
-    game_team4.stubs(:team_id).returns(456)
+    game_team1.stubs(:team_id).returns("123")
+    game_team2.stubs(:team_id).returns("123")
+    game_team3.stubs(:team_id).returns("456")
+    game_team4.stubs(:team_id).returns("456")
     game_team1.stubs(:goals).returns(3)
     game_team2.stubs(:goals).returns(3)
     game_team3.stubs(:goals).returns(2)
@@ -157,7 +157,7 @@ class GameTeamTest < Minitest::Test
     game_team4.stubs(:shots).returns(4)
     passed_array = [game_team1,game_team2,game_team3,game_team4]
 
-    expected = {123=>{"shots"=>12, "goals"=>6}, 456=>{"shots"=>8, "goals"=>4}}
+    expected = {"123"=>{"shots"=>12, "goals"=>6}, "456"=>{"shots"=>8, "goals"=>4}}
 
     assert_equal expected, GameTeam.get_goal_shots_by_game_team(passed_array)
   end
@@ -174,23 +174,23 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_find_games_by_season_id
-    assert_equal 12, GameTeam.games_by_season_id(20122013).length
+    assert_equal 12, GameTeam.games_by_season_id("20122013").length
   end
 
   def test_it_can_find_games_by_team_name
-      assert_equal Hash, GameTeam.games_by_team_name(20122013).class
+      assert_equal Hash, GameTeam.games_by_team_name("20122013").class
   end
 
   def test_it_can_find_tackles_by_team
-    result = ({"3"=>77, "6"=>87, "17"=>38, "16"=>72, "9"=>31, "8"=>24, "26"=>46, "28"=>13, "22"=>10})
-    assert_equal result, GameTeam.tackles_by_team("20122013")
+    expected = {"3"=>77, "6"=>87, "17"=>38, "16"=>72, "9"=>31, "8"=>24, "26"=>46, "28"=>13, "22"=>10}
+    assert_equal expected, GameTeam.tackles_by_team("20122013")
   end
 
-  def test_most_tackles
+  def test_team_with_most_tackles
     assert_equal "6", GameTeam.most_tackles("20122013")
   end
 
-  def test_fewest_tackles
+  def test_team_with_fewest_tackles
     assert_equal "22", GameTeam.fewest_tackles("20122013")
   end
   #Michelle end

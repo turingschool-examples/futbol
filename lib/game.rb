@@ -6,24 +6,19 @@ class Game
   extend Hashable
 
   @@all = nil
-
+#inheritance
   def self.all
     @@all
   end
-
+#inheritance
   def self.from_csv(csv_file_path)
     csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
     @@all = csv.map { |row| Game.new(row) }
   end
-
+#inheritance, more general? 2 arguments passed
   def find_by(id)
    all.find_all{|game| game.game_id==id}
   end
-
-  def self.grouped_by_season(passed_in_season)
-    all.select{|game| game.season == passed_in_season}
-  end
-
 
   def self.find_by(id)
    all.find_all{|game| game.game_id==id}
@@ -104,14 +99,15 @@ class Game
 #MODULE!
   def self.games_played_by(team_id)
     #return all games that team played in
-    all.find_all do |game|
-      game.away_team_id == team_id.to_i || game.home_team_id == team_id.to_i
+
+      all.find_all do |game|
+      game.away_team_id == team_id || game.home_team_id == team_id
     end
   end
 
   def self.games_and_wins_by_season(team_id)
       #{ season => {:wins => x, :games_played => y}}
-    hash_of_hashes(games_played_by(team_id), :season, :wins, :games_played, :win?, 1, team_id.to_i)
+    hash_of_hashes(games_played_by(team_id), :season, :wins, :games_played, :win?, 1, team_id)
   end
 
   def self.win_percent_by_season(team_id)
