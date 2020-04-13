@@ -40,6 +40,11 @@ class TeamCollectionTest < Minitest::Test
       :abbreviation => "ATL",
       :link => "/api/v1/teams/1"
     }
+  end
+
+  def test_it_can_find_team_info_using_team_id
+    expected = {"team_id"=>"1", "franchise_id"=>"23", "team_name"=>"Atlanta United", "abbreviation"=>"ATL", "link"=>"/api/v1/teams/1"}
+
     assert_equal expected, @team_collection.team_info(1)
   end
 end

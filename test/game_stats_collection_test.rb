@@ -35,12 +35,12 @@ class GameStatsCollectionTest < Minitest::Test
   end
 
   def test_goals_by_team_id
-    result = {3 => [2, 2, 1, 2, 1], 6 => [3, 3, 2, 3, 3, 3], 5 => [0]}
+    result = {3=>[2, 2, 1, 2, 1], 6=>[3, 2, 3, 3, 3, 4], 5=>[0]}
     assert_equal result, @game_stats_collection.goals_by_team_id
   end
 
   def test_average_goals_by_team_id
-    result = {3 => 1.60, 6 => 2.83, 5 => 0.00}
+    result = {3=>1.6, 6=>3.0, 5=>0.0}
     assert_equal result, @game_stats_collection.average_goals_by_team_id
   end
 
@@ -65,12 +65,12 @@ class GameStatsCollectionTest < Minitest::Test
   end
 
   def test_away_goals_by_team_id
-    result = {3 => [2, 2, 1], 6 => [2, 3, 3]}
+    result = {3=>[2, 2, 1], 6=>[2, 3, 3, 4]}
     assert_equal result, @game_stats_collection.away_goals_by_team_id
   end
 
   def test_average_away_goals_by_team_id
-    result = {3 => 1.67, 6 => 2.67}
+    result = {3=>1.67, 6=>3.0}
     assert_equal result, @game_stats_collection.average_away_goals_by_team_id
   end
 
@@ -83,7 +83,7 @@ class GameStatsCollectionTest < Minitest::Test
   end
 
   def test_home_goals_by_team_id
-    result = {6 => [3, 3, 3], 3 => [1, 2], 5 => [0]}
+    result = {6=>[3, 3], 3=>[1, 2], 5=>[0]}
     assert_equal result, @game_stats_collection.home_goals_by_team_id
   end
 
@@ -114,5 +114,21 @@ class GameStatsCollectionTest < Minitest::Test
 
   def test_lowest_scoring_home_team
     assert_equal "Sporting Kansas City", @game_stats_collection.lowest_scoring_home_team
+  end
+
+  def test_can_find_all_games_for
+    assert_equal 6, @game_stats_collection.all_games_for(6).count
+  end
+
+  def test_can_get_most_goals_by_team_id
+    assert_equal 4, @game_stats_collection.most_goals_scored(6)
+  end
+
+  def test_can_find_fewest_goals_by_team_id
+    assert_equal 2, @game_stats_collection.fewest_goals_scored(6)
+  end
+
+  def test_can_calculate_average_win_percentage
+    assert_equal 1.0, @game_stats_collection.average_win_percentage(6)
   end
 end
