@@ -33,7 +33,6 @@ The **first half** of the project focuses on building the base statistics functi
 - Group collaboration
 
 ## Project Group Members
-### (The Corona Kids)
 
 Kiera "Nightly" Allen - [Github](https://github.com/KieraAllen)
 
