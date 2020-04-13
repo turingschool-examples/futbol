@@ -128,4 +128,24 @@ class GameStatsCollection < Collection
   def lowest_scoring_home_team
     find_team_name_by_team_id(lowest_scoring_home_team_id)
   end
+
+  def all_games_for(id)
+    number_id = id.to_i
+    @game_stats.find_all {|game_stat| game_stat.team_id == number_id}
+  end
+
+  def most_goals_scored(team_id)
+    all_games_for(team_id).max_by {|game_stat| game_stat.goals}.goals
+  end
+
+  def fewest_goals_scored(team_id)
+    all_games_for(team_id).min_by {|game_stat| game_stat.goals}.goals
+  end
+
+  def average_win_percentage(team_id)
+    total_games = all_games_for(team_id)
+    games_won = total_games.find_all {|game|game.result == "WIN"}
+    average_percentage = (games_won.length.to_f/total_games.length)
+    average_percentage.round(2)
+  end
 end
