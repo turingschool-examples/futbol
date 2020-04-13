@@ -2,9 +2,12 @@ require 'csv'
 require_relative 'game_team'
 require_relative 'game'
 require_relative 'team'
+require_relative 'calculable'
 require 'pry'
 
 class StatTracker
+  include Calculable
+
   attr_reader :games, :teams, :game_teams
 
   def self.from_csv(locations)
@@ -24,9 +27,9 @@ class StatTracker
     @game_teams = GameTeam.all
   end
 
-  def percentage_home_wins # move down into game class(class method?)
+  def percentage_home_wins 
     home_wins = @games.find_all {|game| game.home_goals > game.away_goals}
-    (home_wins.length.to_f / @games.length.to_f).round(2) # percentage can be added to a module
+    average(home_wins.length, @games.length)
   end
 
   def percentage_visitor_wins # game
