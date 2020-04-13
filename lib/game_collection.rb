@@ -1,7 +1,7 @@
 require 'csv'
 require_relative 'game'
 require_relative 'collection'
-require './lib/modules/mathable'
+require_relative 'modules/mathable'
 
 
 class GameCollection < Collection
@@ -132,7 +132,6 @@ class GameCollection < Collection
   end
 
   def average_goals_per_game
-    # (total_scores.sum.to_f / @games_list.length.to_f).round(2)
     average(total_scores, games_list)
   end
 
