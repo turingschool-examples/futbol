@@ -53,20 +53,31 @@ attr_reader :stat_tracker, :game_collection, :game_teams_collection, :teams_coll
 
   def coach_win_loss_results(season, high_low)
     coaches_win = coaches_hash(season)
-    coaches_lose = coaches_hash(season)
+    coaches_total = coaches_hash(season)
     current_season_game_teams(season).each do |game|
       if game.result == "WIN"
         coaches_win[game.head_coach] += 1
+        coaches_total[game.head_coach] += 1
       elsif game.result == "LOSS"
-        coaches_lose[game.head_coach] += 1
+        coaches_total[game.head_coach] += 1
+      elsif game.result == "TIE"
+        coaches_total[game.head_coach] += 1
       end
     end
     if high_low == "high"
-      winning_coach = coaches_win.max_by {|coach| coach[1]}
-      winning_coach[0]
+      percentage_wins = coaches_win.to_h do |key, value|
+        [key, (value.to_f/coaches_total[key])]
+      end
+        percentage_wins.max_by{|k,v| v}[0]
+      # winning_coach = coaches_win.max_by {|coach| coach[1]}
+      # winning_coach[0]
     elsif high_low == "low"
-      losing_coach = coaches_lose.max_by {|coach| coach[1]}
-      losing_coach[0]
+      percentage_wins = coaches_win.to_h do |key, value|
+        [key, (value.to_f/coaches_total[key])]
+      end
+      percentage_wins.min_by{|k,v| v}[0]
+      # losing_coach = coaches_lose.max_by {|coach| coach[1]}
+      # losing_coach[0]
     end
   end
 
