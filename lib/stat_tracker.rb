@@ -198,11 +198,10 @@ class StatTracker
           end
         end
       end
-      require "pry";binding.pry
-      head_coach_losses.max_by{|k,v| v}[0]
     end
+    head_coach_losses.max_by{|k,v| v}[0]
   end
-
+  
 end
 
 #   def initialize
