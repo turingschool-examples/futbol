@@ -102,6 +102,92 @@ class GameCollection < Collection
     end.first
   end
 
+  def highest_total_score
+    total_scores.max
+  end
+
+  def lowest_total_score
+    total_scores.min
+  end
+
+  # percentage_home_wins Percentage of games that a home team has won (rounded to the nearest 100th)Float
+
+  def percentage_home_wins
+    percentage(home_wins.to_f / @games_list.length.to_f)
+  end
+
+  def percentage_visitor_wins
+    percentage(away_wins.to_f / @games_list.length.to_f)
+  end
+
+  def percentage_ties
+    percentage(ties.to_f / @games_list.length.to_f)
+  end
+
+  def count_of_games_by_season
+    @games_list.reduce(Hash.new(0)) do |games_by_season, game|
+      games_by_season[game.season] += 1
+      games_by_season
+    end
+  end
+
+  def average_goals_per_game
+    # (total_scores.sum.to_f / @games_list.length.to_f).round(2)
+    average2(total_scores, games_list)
+  end
+
+  def average_goals_by_season
+    games_per_season = count_of_games_by_season
+    goals_per_season = {}
+
+    games_per_season.each do |season|
+      @games_list.each do |game|
+        if game.season == season[0] && goals_per_season[season[0]] != nil
+          goals_per_season[season[0]] += game.away_goals + game.home_goals
+        elsif game.season == season[0]
+          goals_per_season[season[0]] = game.away_goals + game.home_goals
+        end
+      end
+    end
+
+    results = {}
+    goals_per_season.each do |season|
+      results[season[0]] = (season[1].to_f / games_per_season[season[0]]).round(2)
+    end
+    results
+  end
+
+  # helper methods
+
+  def percentage(collection)
+    (collection).round(2)
+  end
+
+  def average(collection)
+    (collection.sum / collection.length.to_f).round(2)
+  end
+
+  def average2(collection1, collection2)
+    (collection1.sum / collection2.length.to_f).round(2)
+  end
+
+  def total_scores
+    @games_list.map { |game| game.home_goals.to_i + game.away_goals.to_i }
+  end
+
+  def home_wins
+    # tying to find all the home wins
+    @games_list.select { |game| game.home_goals > game.away_goals}.length
+  end
+
+  def away_wins
+    @games_list.select { |game| game.home_goals < game.away_goals}.length
+  end
+
+  def ties
+    @games_list.select { |game| game.home_goals == game.away_goals}.length
+  end
+
   def rival_id(id)
     number_id = id.to_i
     opponent_win_percentage(number_id).max_by do |id, percentage|

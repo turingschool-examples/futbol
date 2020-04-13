@@ -19,6 +19,7 @@ class StatTracker
     @teams = team_path
     @game_stats = game_teams_path
     @game_stats_collection = GameStatsCollection.new("./data/game_teams.csv")
+    @games_list = GameCollection.new("./data/games.csv")
     @team_collection = TeamCollection.new('./data/teams.csv')
     @game_collection = GameCollection.new('./data/games.csv')
     @season_stats = SeasonStats.new("./data/teams.csv", "./data/game_teams.csv")
@@ -50,6 +51,38 @@ class StatTracker
 
   def lowest_scoring_home_team
     @game_stats_collection.lowest_scoring_home_team
+  end
+
+  def highest_total_score
+    @games_list.highest_total_score
+  end
+
+  def lowest_total_score
+    @games_list.lowest_total_score
+  end
+
+  def percentage_home_wins
+    @games_list.percentage_home_wins
+  end
+
+  def percentage_visitor_wins
+    @games_list.percentage_visitor_wins
+  end
+
+  def percentage_ties
+    @games_list.percentage_ties
+  end
+
+  def count_of_games_by_season
+    @games_list.count_of_games_by_season
+  end
+
+  def average_goals_per_game
+    @games_list.average_goals_per_game
+  end
+
+  def average_goals_by_season
+    @games_list.average_goals_by_season
   end
 
   def team_info(teamid)
@@ -109,4 +142,5 @@ class StatTracker
   def fewest_tackles(season)
     @season_stats.fewest_tackles(season)
   end
+
 end
