@@ -48,4 +48,9 @@ class TeamTest < Minitest::Test
     assert_equal 32, Team.count_of_teams
   end
 
+  def test_find_team_info_by_id
+    expected = {"abbreviation"=>"MIN", "franchise_id"=>"34", "link"=>"/api/v1/teams/18", "team_id"=>"18", "team_name"=>"Minnesota United FC"}
+    assert_equal expected, Team.find_team_info("18")
+  end
+
 end #final

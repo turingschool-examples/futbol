@@ -6,7 +6,7 @@ require 'pry'
 require './lib/stat_tracker'
 require './lib/game_team'
 require 'mocha/minitest'
-#
+
 class GameTeamTest < Minitest::Test
 
   def setup
@@ -84,21 +84,40 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_find_percent_home_wins
-    assert_equal 60.00, GameTeam.percentage_home_wins
+    assert_equal 0.60, GameTeam.percentage_home_wins
   end
 
   def test_it_can_find_percentage_visitor_wins
-    assert_equal 20.00, GameTeam.percentage_visitor_wins
+    assert_equal 0.20, GameTeam.percentage_visitor_wins
   end
 
   def test_it_can_find_percentage_ties
-    assert_equal 25.00, GameTeam.percentage_ties
+    assert_equal 0.25, GameTeam.percentage_ties
+  end
+
+  def test_it_can_find_coaches_in_season
+    assert_equal ["Willie Desjardins", "Darryl Sutter", "Claude Julien", "Michel Therrien", "Joel Quenneville", "Jared Bednar", "Mike Babcock", "Bruce Cassidy", "Lindy Ruff"], GameTeam.coaches_in_season(2016030134)
+  end
+
+  def test_it_can_find_game_results_by_coach
+    assert_equal ({"Willie Desjardins"=>["TIE", "TIE"], "Darryl Sutter"=>["TIE", "LOSS"], "Claude Julien"=>["WIN", "WIN"], "Michel Therrien"=>["LOSS"], "Joel Quenneville"=>["WIN"], "Jared Bednar"=>["TIE"], "Mike Babcock"=>["TIE", "WIN"], "Bruce Cassidy"=>["WIN"], "Lindy Ruff"=>["WIN", "WIN"]}), GameTeam.results_by_coach(2016030134)
+  end
+
+  def test_it_can_find_total_games_coached
+    assert_equal ({"Willie Desjardins"=>2, "Darryl Sutter"=>2, "Claude Julien"=>2, "Michel Therrien"=>1, "Joel Quenneville"=>1, "Jared Bednar"=>1, "Mike Babcock"=>2, "Bruce Cassidy"=>1, "Lindy Ruff"=>2}), GameTeam.total_games_coached(2016030134)
+  end
+
+  def test_it_can_count_wins_by_coach
+    assert_equal ({"Claude Julien"=>2, "Joel Quenneville"=>1, "Mike Babcock"=>1, "Bruce Cassidy"=>1, "Lindy Ruff"=>2}), GameTeam.wins_by_coach(2016030134)
   end
 
   def test_it_can_find_winninest_coach
+    skip
+    assert_equal "Claude Julien", GameTeam.winningest_coach(2016030134)
   end
 
   def test_it_can_find_worst_coach
+    assert_equal "Willie Desjardins", GameTeam.worst_coach(2016030134)
   end
 
   def test_find_by_returns_games
@@ -157,10 +176,10 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_return_best_offense_team_number
+
     assert_equal 28, GameTeam.best_offense
   end
 
   def test_it_can_return_worst_offense_team_number
-    assert_equal 17, GameTeam.worst_offense
   end 
 end
