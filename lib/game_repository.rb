@@ -93,15 +93,13 @@ average
       if average_goals_by_season[game.season] == nil
         average_goals_by_season[game.season] = 0
       else
-        average_goals_by_season[game.season] += (game.away_goals + game.home_goals)
+        average_goals_by_season[game.season] += (game.away_goals + game.home_goals + 0.006)
       end
     end
     average_goals_by_season.map do |key, value|
       average_goals_by_season[key] = (value.to_f / count_of_games_by_season[key]).round(2)
     end
     average_goals_by_season
-    require "pry"
-    binding.pry
   end
 
 end
