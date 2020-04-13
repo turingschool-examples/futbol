@@ -1,8 +1,11 @@
 require 'csv'
 require_relative 'game'
 require_relative 'collection'
+require_relative 'modules/mathable'
+
 
 class GameCollection < Collection
+  include Mathable
   attr_reader :games_list
 
   def initialize(file_path)
@@ -15,8 +18,7 @@ class GameCollection < Collection
   end
 
   def all_games_by_season(id)
-    number_id = id.to_i
-    games_by_season = all_games(id).group_by {|game| game.season}
+    all_games(id).group_by {|game| game.season}
   end
 
   def total_games_per_season(id)
@@ -110,18 +112,16 @@ class GameCollection < Collection
     total_scores.min
   end
 
-  # percentage_home_wins Percentage of games that a home team has won (rounded to the nearest 100th)Float
-
   def percentage_home_wins
-    percentage(home_wins.to_f / @games_list.length.to_f)
+    percentage(home_wins, @games_list)
   end
 
   def percentage_visitor_wins
-    percentage(away_wins.to_f / @games_list.length.to_f)
+    percentage(away_wins, @games_list)
   end
 
   def percentage_ties
-    percentage(ties.to_f / @games_list.length.to_f)
+    percentage(ties, @games_list)
   end
 
   def count_of_games_by_season
@@ -132,8 +132,7 @@ class GameCollection < Collection
   end
 
   def average_goals_per_game
-    # (total_scores.sum.to_f / @games_list.length.to_f).round(2)
-    average2(total_scores, games_list)
+    average(total_scores, games_list)
   end
 
   def average_goals_by_season
@@ -155,20 +154,6 @@ class GameCollection < Collection
       results[season[0]] = (season[1].to_f / games_per_season[season[0]]).round(2)
     end
     results
-  end
-
-  # helper methods
-
-  def percentage(collection)
-    (collection).round(2)
-  end
-
-  def average(collection)
-    (collection.sum / collection.length.to_f).round(2)
-  end
-
-  def average2(collection1, collection2)
-    (collection1.sum / collection2.length.to_f).round(2)
   end
 
   def total_scores

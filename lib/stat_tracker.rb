@@ -3,8 +3,10 @@ require_relative 'team_collection'
 require_relative 'game_stats_collection'
 require_relative 'game_collection'
 require_relative 'season_stats'
+require_relative 'modules/mathable'
 
 class StatTracker
+  include Mathable
   attr_reader :games, :teams, :game_stats
 
   def self.from_csv(csv_files)
