@@ -92,96 +92,122 @@ class TeamStatistics
 
   end
 
-  def most_goals_scored(team_id)
-    # Highest number of goals the team scored in a single game
-    # Find all home and away games for team_id
-    # Iterate through games and find game with highest goals scored
-    games_played_in = games_played(team_id)
-    home_games = games_played_in.find_all{|game| game.home_team_id == team_id}
-    away_games = games_played_in.find_all{|game| game.away_team_id == team_id}
+def goals_scored_high_and_low(team_id, high_or_low)
+  games_played_in = games_played(team_id)
+  home_games = games_played_in.find_all{|game| game.home_team_id == team_id}
+  away_games = games_played_in.find_all{|game| game.away_team_id == team_id}
 
-    highest_scoring_home_game = home_games.max_by{|game| game.home_goals}
-    highest_scoring_away_game = away_games.max_by{|game| game.away_goals}
+  highest_scoring_home_game = home_games.max_by{|game| game.home_goals}
+  highest_scoring_away_game = away_games.max_by{|game| game.away_goals}
 
+  lowest_scoring_home_game = home_games.min_by{|game| game.home_goals}
+  lowest_scoring_away_game = away_games.min_by{|game| game.away_goals}
+
+  if high_or_low == "high"
     if highest_scoring_home_game.home_goals >= highest_scoring_away_game.away_goals
         highest_scoring_home_game.home_goals
     else
         highest_scoring_away_game.away_goals
     end
-
-  end
-
-  def fewest_goals_scored(team_id)
-
-    # Lowest number of goals a team scored in a single game
-    #  Find all home and away games for team_id
-    # Iterate through games and find game with lowest scored goals
-    games_played_in = games_played(team_id)
-    home_games = games_played_in.find_all{|game| game.home_team_id == team_id}
-    away_games = games_played_in.find_all{|game| game.away_team_id == team_id}
-
-    lowest_scoring_home_game = home_games.min_by{|game| game.home_goals}
-    lowest_scoring_away_game = away_games.min_by{|game| game.away_goals}
-
+  elsif high_or_low == "low"
     if lowest_scoring_home_game.home_goals <= lowest_scoring_away_game.away_goals
         lowest_scoring_home_game.home_goals
     else
         lowest_scoring_away_game.away_goals
     end
   end
+end
 
-  def favorite_opponent(team_id)
-    # Name of the opponent that has the lowest win percentage against the given team
+  # def most_goals_scored(team_id)
+  #   # Highest number of goals the team scored in a single game
+  #   # Find all home and away games for team_id
+  #   # Iterate through games and find game with highest goals scored
+  #   games_played_in = games_played(team_id)
+  #   home_games = games_played_in.find_all{|game| game.home_team_id == team_id}
+  #   away_games = games_played_in.find_all{|game| game.away_team_id == team_id}
+  #
+  #   highest_scoring_home_game = home_games.max_by{|game| game.home_goals}
+  #   highest_scoring_away_game = away_games.max_by{|game| game.away_goals}
+  #
+  #   if highest_scoring_home_game.home_goals >= highest_scoring_away_game.away_goals
+  #       highest_scoring_home_game.home_goals
+  #   else
+  #       highest_scoring_away_game.away_goals
+  #   end
+  #
+  # end
+  #
+  # def fewest_goals_scored(team_id)
+  #
+  #   # Lowest number of goals a team scored in a single game
+  #   #  Find all home and away games for team_id
+  #   # Iterate through games and find game with lowest scored goals
+  #   games_played_in = games_played(team_id)
+  #   home_games = games_played_in.find_all{|game| game.home_team_id == team_id}
+  #   away_games = games_played_in.find_all{|game| game.away_team_id == team_id}
+  #
+  #   lowest_scoring_home_game = home_games.min_by{|game| game.home_goals}
+  #   lowest_scoring_away_game = away_games.min_by{|game| game.away_goals}
+  #
+  #   if lowest_scoring_home_game.home_goals <= lowest_scoring_away_game.away_goals
+  #       lowest_scoring_home_game.home_goals
+  #   else
+  #       lowest_scoring_away_game.away_goals
+  #   end
+  # end
+
+  def games_by_opponent_team_id(team_id)
     games_played_in = games_played(team_id)
-
     games_by_opponent_id = Hash.new { |h, k| h[k] = [] }
+
     games_played_in.each do |game|
       games_by_opponent_id[game.away_team_id] << game
       games_by_opponent_id[game.home_team_id] << game
     end
     games_by_opponent_id.delete(team_id)
-
-    win_percentage_by_opponent = games_by_opponent_id.transform_values do |games_played_against_opponent|
-      games_won = 0
-      games_played_against_opponent.each do |game|
-        if team_id == game.away_team_id && game.away_goals > game.home_goals
-          games_won += 1
-        elsif team_id == game.home_team_id && game.home_goals > game.away_goals
-          games_won += 1
-        end
-      end
-      (games_won/games_played_against_opponent.length.to_f).round(2)
-    end
-    # fav_opponent [0] -> team_id, [1] -> win percentage
-    fav_opponent = win_percentage_by_opponent.max_by {|opponent| opponent[1]}
-    team_info(fav_opponent[0])["team_name"]
+    games_by_opponent_id
   end
 
-  def rival(team_id)
-    # Name of the opponent that has the highest win percentage against the given team
-
-    games_played_in = games_played(team_id)
-
-    games_by_opponent_id = Hash.new { |h, k| h[k] = [] }
-    games_played_in.each do |game|
-      games_by_opponent_id[game.away_team_id] << game
-      games_by_opponent_id[game.home_team_id] << game
-    end
-    games_by_opponent_id.delete(team_id)
-
-    win_percentage_by_opponent = games_by_opponent_id.transform_values do |games_played_against_opponent|
-      games_won = 0
-      games_played_against_opponent.each do |game|
-        if team_id == game.away_team_id && game.away_goals > game.home_goals
-          games_won += 1
-        elsif team_id == game.home_team_id && game.home_goals > game.away_goals
-          games_won += 1
-        end
+  def count_wins(team_id, games_played)
+    wins = 0
+    games_played.each do |game|
+      if team_id == game.away_team_id && game.away_goals > game.home_goals
+        wins += 1
+      elsif team_id == game.home_team_id && game.home_goals > game.away_goals
+        wins += 1
       end
-      (games_won/games_played_against_opponent.length.to_f).round(2)
     end
-    # fav_opponent [0] -> team_id, [1] -> win percentage
-    fav_opponent = win_percentage_by_opponent.min_by {|opponent| opponent[1]}
-    team_info(fav_opponent[0])["team_name"]
+    wins
   end
+
+  def games_won_by_opponent(team_id)
+    games_by_opponent_id = games_by_opponent_team_id(team_id)
+
+    games_by_opponent_id.transform_values do |games_played_against_opponent|
+      games_won = count_wins(team_id, games_played_against_opponent)
+      games_played = games_played_against_opponent.length
+      [games_won,games_played]
+    end
+  end
+
+  def win_percentage_against_opponent(team_id)
+    games_won_by_opponent(team_id).transform_values do |opponent|
+      # opponent[0] -> games won, opponent[1] -> games played
+      opponent[0]/opponent[1]
+    end
+  end
+
+  def opponent_preference(team_id, high_or_low)
+    win_percentage_by_opponent = win_percentage_against_opponent(team_id)
+    if high_or_low == "high"
+      # fav_opponent [0] -> team_id, [1] -> win percentage
+      fav_opponent = win_percentage_by_opponent.max_by {|opponent| opponent[1]}
+      team_info(fav_opponent[0])["team_name"]
+    elsif high_or_low == "low"
+      # fav_opponent [0] -> team_id, [1] -> win percentage
+      fav_opponent = win_percentage_by_opponent.min_by {|opponent| opponent[1]}
+      team_info(fav_opponent[0])["team_name"]
+    end
+  end
+
 end
