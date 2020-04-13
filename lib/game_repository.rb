@@ -4,9 +4,9 @@ class GameRepository
 
 
   attr_reader :games_collection
-  def initialize(file_path)
-    @games_collection = CsvHelper.generate_game_array(file_path)
-    @game_team_collection = CsvHelper.generate_game_teams_array(file_path)
+  def initialize(game_path, game_team_path)
+    @games_collection = CsvHelper.generate_game_array(game_path)
+    @game_team_collection = CsvHelper.generate_game_teams_array(game_team_path)
   end
 
 
@@ -77,8 +77,7 @@ average
 
   def count_of_games_by_season
     games_by_season = Hash.new
-    total_games = 1
-    seasons = @games_collection.each do |game|
+    @games_collection.each do |game|
       if games_by_season[game.season] == nil
         games_by_season[game.season] = 1
       else
@@ -86,6 +85,23 @@ average
       end
     end
     games_by_season
+  end
+
+  def average_goals_by_season
+    average_goals_by_season = Hash.new
+    @games_collection.each do |game|
+      if average_goals_by_season[game.season] == nil
+        average_goals_by_season[game.season] = 0
+      else
+        average_goals_by_season[game.season] += (game.away_goals + game.home_goals)
+      end
+    end
+    average_goals_by_season.map do |key, value|
+      average_goals_by_season[key] = (value.to_f / count_of_games_by_season[key]).round(2)
+    end
+    average_goals_by_season
+    require "pry"
+    binding.pry
   end
 
 end

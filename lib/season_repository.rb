@@ -146,7 +146,6 @@ def find_team_id(id)
   named_team
 end
 
-
 def most_accurate_team(season_id)
 games_in_season = @game_collection.select do |game|
     game.season == season_id
