@@ -24,21 +24,21 @@ class SeasonRepositoryTest < Minitest::Test
   #   assert_equal "Peter Laviolette", season_repository.worst_coach("20132014")
   # end
   #
-  # def test_most_tackles
-  #   season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
-  #   assert_equal "FC Cincinnati", season_repository.most_tackles("20132014")
-  #   assert_equal "Real Salt Lake", season_repository.most_tackles("20142015")
-  # end
-  #
-  # def test_fewest_tackles
-  #   season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
-  #   assert_equal "New England Revolution", season_repository.fewest_tackles("20132014")
-  #   assert_equal "Orlando City SC", season_repository.fewest_tackles("20142015")
-  # end
-
-  def test_most_accurate_team
+  def test_most_tackles
     season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
-    assert_equal "Real Salt Lake", season_repository.most_accurate_team("20132014")
-    assert_equal "Toronto FC", season_repository.most_accurate_team("20142015")
+    assert_equal "FC Cincinnati", season_repository.most_tackles("20132014")
+    assert_equal "Seattle Sounders FC", season_repository.most_tackles("20142015")
   end
+
+  def test_fewest_tackles
+    season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+    assert_equal "Atlanta United", season_repository.fewest_tackles("20132014")
+    assert_equal "Orlando City SC", season_repository.fewest_tackles("20142015")
+  end
+
+  # def test_most_accurate_team
+  #   season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+  #   assert_equal "Real Salt Lake", season_repository.most_accurate_team("20132014")
+  #   assert_equal "Toronto FC", season_repository.most_accurate_team("20142015")
+  # end
 end
