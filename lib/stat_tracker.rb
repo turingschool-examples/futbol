@@ -1,6 +1,7 @@
 require 'csv'
 require_relative 'team_collection'
 require_relative 'game_stats_collection'
+require_relative 'season_stats'
 
 class StatTracker
   attr_reader :games, :teams, :game_stats
@@ -17,6 +18,7 @@ class StatTracker
     @teams = team_path
     @game_stats = game_teams_path
     @game_stats_collection = GameStatsCollection.new("./data/game_teams.csv")
+    @season_stats = SeasonStats.new("./data/teams.csv", "./data/game_teams.csv")
   end
 
   def count_of_teams
@@ -45,5 +47,29 @@ class StatTracker
 
   def lowest_scoring_home_team
     @game_stats_collection.lowest_scoring_home_team
+  end
+
+  def winningest_coach(season)
+    @season_stats.winningest_coach(season)
+  end
+
+  def worst_coach(season)
+    @season_stats.worst_coach(season)
+  end
+
+  def most_accurate_team(season)
+    @season_stats.most_accurate_team(season)
+  end
+
+  def least_accurate_team(season)
+    @season_stats.least_accurate_team(season)
+  end
+
+  def most_tackles(season)
+    @season_stats.most_tackles(season)
+  end
+
+  def fewest_tackles(season)
+    @season_stats.fewest_tackles(season)
   end
 end
