@@ -1,6 +1,6 @@
 require 'CSV'
 require_relative 'team'
-require_relative 'team_collection'
+require_relative 'teams'
 require_relative 'game'
 require_relative 'games_methods'
 require_relative 'game_team_collection'
