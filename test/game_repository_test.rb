@@ -62,6 +62,7 @@ class GameRepositoryTest < Minitest::Test
       "20132014"=>4.19,
       "20172018"=>4.44
     }
+    require 'pry'; binding.pry
     assert_equal expected, game_repository.average_goals_by_season
   end
 
@@ -75,8 +76,6 @@ class GameRepositoryTest < Minitest::Test
         "20132014"=>1323,
         "20172018"=>1355
       }
-      require "pry"
-      binding.pry
       assert_equal expected, game_repository.count_of_games_by_season
   end
 
