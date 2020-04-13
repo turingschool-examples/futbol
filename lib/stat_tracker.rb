@@ -14,7 +14,7 @@ class StatTracker
     StatTracker.new(games_path, teams_path, game_teams_path)
   end
 
-  def initialize(games_path, teams_path, game_teams_path)
+  def initialize(games_path, teams_path, game_teams_path) #parent class?
     Game.from_csv(games_path)
     GameTeam.from_csv(game_teams_path)
     Team.from_csv(teams_path)  # from_csv can be added to a module
