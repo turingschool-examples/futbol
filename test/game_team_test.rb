@@ -112,12 +112,10 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_find_winninest_coach
-    skip
     assert_equal "Claude Julien", GameTeam.winningest_coach(2016030134)
   end
 
   def test_it_can_find_worst_coach
-    skip
     assert_equal "Willie Desjardins", GameTeam.worst_coach(2016030134)
   end
 
