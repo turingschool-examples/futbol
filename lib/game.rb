@@ -24,6 +24,16 @@ class Game
     @@all = csv.map { |row| Game.new(row) }
   end
 
+
+  def self.highest_total_score
+    @@all.map { |game| game.away_goals + game.home_goals}.max
+  end
+
+  def self.lowest_total_score
+    @@all.map { |game| game.away_goals + game.home_goals}.min
+  end
+
+
   def self.find_by(id)
    all.find_all{|game| game.game_id==id}
   end
@@ -39,6 +49,7 @@ class Game
   def self.grouped_by_season(passed_in_season)
     all.select{|game| game.season == passed_in_season}
   end
+
 
 
 
@@ -191,7 +202,8 @@ class Game
     @venue = game_stats[:venue]
     @venue_link = game_stats[:venue_link]
     @total_goals = @away_goals + @home_goals
-  end
+  end 
+
 
   def win?(team_id)
     away_win = team_id == @away_team_id && @away_goals > @home_goals
@@ -199,5 +211,4 @@ class Game
     return 1 if away_win || home_win
     0
   end
-
 end

@@ -169,6 +169,32 @@ class GameTeamTest < Minitest::Test
     arr_games = Game.all[0..2]
     assert_equal 3, GameTeam.most_accurate_team(20122013)
   end
+#Michelle Start
+  def test_it_can_find_game_ids_by_season
+    expected = [2012030221, 2012030221, 2012030222, 2012030222, 2012030237, 2012030237, 2012030121, 2012030121, 2012030322, 2012030322, 2012020035, 2012020035]
+    assert_equal expected, GameTeam.games_ids_by_season(20122013)
+  end
+
+  def test_it_find_games_by_season_id
+    assert_equal 12, GameTeam.games_by_season_id(20122013).length
+  end
+
+  def test_it_can_find_games_by_team_name
+      assert_equal Hash, GameTeam.games_by_team_name(20122013).class
+  end
+
+  def test_it_can_find_tackles_by_team
+    assert_equal 77, GameTeam.tackles_by_team(20122013)[3]
+  end
+
+  def test_most_tackles
+    assert_equal 6, GameTeam.most_tackles(20122013)
+  end
+
+  def test_fewest_tackles
+    assert_equal 22, GameTeam.fewest_tackles(20122013)
+  end
+  #Michelle end
 
   def test_least_accurate_team
     Game.from_csv('./test/fixtures/games_20.csv')
@@ -182,5 +208,5 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_return_worst_offense_team_number
-  end 
+  end
 end
