@@ -78,16 +78,16 @@ class GameTeam
     wins_by_coach_by_season
   end
 
-# #####30 Seconds
-#   def self.winningest_coach(season_id)
-#     coaches_in_season(season_id).max_by {|coach| (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)}
-#   end
-# #####30 Seconds
-#   def self.worst_coach(season_id)
-#     coaches_in_season(season_id).min_by do |coach|
-#       (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)
-#     end
-#   end
+#####30 Seconds
+  def self.winningest_coach(season_id)
+    coaches_in_season(season_id).max_by {|coach| (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)}
+  end
+#####30 Seconds
+  def self.worst_coach(season_id)
+    coaches_in_season(season_id).min_by do |coach|
+      (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)
+    end
+  end
 
 
   def self.game_team_shots_goals_count(arr_games)
@@ -173,16 +173,16 @@ class GameTeam
       end
       tackles_by_team
   end
-# #####45 Seconds
-#   def self.most_tackles(season_id)
-#     most_tackles = tackles_by_team(season_id).max_by { |key, value| value}
-#     most_tackles.first
-#   end
-# #####45 Seconds
-#   def self.fewest_tackles(season_id)
-#     fewest_tackles = tackles_by_team(season_id).max_by { |key, value| -value}
-#     fewest_tackles.first
-#   end
+#####45 Seconds
+  def self.most_tackles(season_id)
+    most_tackles = tackles_by_team(season_id).max_by { |key, value| value}
+    most_tackles.first
+  end
+#####45 Seconds
+  def self.fewest_tackles(season_id)
+    fewest_tackles = tackles_by_team(season_id).max_by { |key, value| -value}
+    fewest_tackles.first
+  end
 
 
   def self.best_offense
@@ -257,26 +257,26 @@ class GameTeam
     opponent_wins
   end
 
-# ####1:15 seconds
-#   def self.favorite_opponent_id(team_id)
-#     team_id = team_id.to_i
-#     record_length = {}
-#     opponents_records(team_id).map do |team_id, record|
-#       record_length[team_id] = record.length
-#     end
-#     opponents = opponents_records(team_id).keys
-#     opponents.min_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
-#   end
-# ####2:30 seconds
-#   def self.rival_id(team_id)
-#     team_id = team_id.to_i
-#     record_length = {}
-#     opponents_records(team_id).map do |team_id, record|
-#       record_length[team_id] = record.length
-#     end
-#     opponents = opponents_records(team_id).keys
-#     opponents.max_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
-#   end
+####1:15 seconds
+  def self.favorite_opponent_id(team_id)
+    team_id = team_id.to_i
+    record_length = {}
+    opponents_records(team_id).map do |team_id, record|
+      record_length[team_id] = record.length
+    end
+    opponents = opponents_records(team_id).keys
+    opponents.min_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
+  end
+####2:30 seconds
+  def self.rival_id(team_id)
+    team_id = team_id.to_i
+    record_length = {}
+    opponents_records(team_id).map do |team_id, record|
+      record_length[team_id] = record.length
+    end
+    opponents = opponents_records(team_id).keys
+    opponents.max_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
+  end
 
   #MODULE!
     def self.hash_of_hashes(collection, key1, key2, key3, value2, value3, arg2 = nil )
@@ -317,8 +317,8 @@ class GameTeam
       end
       hash_of_hashes
 
-      goals_ratio_by_team = divide_hash_values(:goals, :shots, hash_of_hashes)
-      goals_ratio_by_team.max_by{|k,v| v}.first
+      goals_ratio_by_team = divide_hash_values(:shots, :goals, hash_of_hashes)
+      goals_ratio_by_team.min_by{|k,v| v}.first
     end
 
     def self.least_accurate_team(season_id)
@@ -335,8 +335,9 @@ class GameTeam
       end
       hash_of_hashes
 
-      goals_ratio_by_team = divide_hash_values(:goals, :shots, hash_of_hashes)
-      goals_ratio_by_team.min_by{|k,v| v}.first
+      goals_ratio_by_team = divide_hash_values(:shots, :goals, hash_of_hashes)
+      x = goals_ratio_by_team.max_by(2){|k,v| v}
+      y = x[0][0]
     end
 #
 
