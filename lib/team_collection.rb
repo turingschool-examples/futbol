@@ -13,6 +13,10 @@ class TeamCollection < Collection
     @teams.length
   end
 
+  def find(team_id_number)
+    @teams.find {|team| team.team_id == team_id_number}
+  end
+
   def team_info(id)
     number_id = id.to_i
     team_information = {}
@@ -22,6 +26,7 @@ class TeamCollection < Collection
     team_information["team_name"] = team_object.teamname
     team_information["abbreviation"] = team_object.abbreviation
     team_information["link"] = team_object.link
+
     team_information
   end
 end

@@ -29,4 +29,12 @@ class GameTest < Minitest::Test
     assert_equal 2, @game.away_goals
     assert_equal 3, @game.home_goals
   end
+
+  def test_can_return_value_for_home_team_win
+    assert_equal true, @game.home_team_win?
+  end
+
+  def test_can_return_value_for_visitor_team_win
+    assert_equal false, @game.visitor_team_win?
+  end
 end
