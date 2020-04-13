@@ -116,9 +116,9 @@ class GameStatsCollectionTest < Minitest::Test
     assert_equal "Sporting Kansas City", @game_stats_collection.lowest_scoring_home_team
   end
 
-  # def test_can_find_all_games_for
-  #   assert_equal 6, @game_stats_collection.all_games_for(6).count
-  # end
+  def test_can_find_all_games_for
+    assert_equal 6, @game_stats_collection.all_games_for(6).count
+  end
 
   def test_can_get_most_goals_by_team_id
     assert_equal 3, @game_stats_collection.most_goals_scored(6)
