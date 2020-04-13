@@ -20,7 +20,7 @@ class TeamCollection
     @teams.length
   end
 
-  def team_info(team_id_number)
+  def team_info(team_id)
     team_information = {}
     team_object = @teams.find {|team| team.team_id == team_id_number}
     team_information[:team_id] = team_object.team_id
