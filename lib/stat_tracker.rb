@@ -174,7 +174,7 @@ class StatTracker
   end
 
   def least_accurate_team
-
+    @season_repository.least_accurate_team(season)
   end
 
   def most_tackles(season_id)
