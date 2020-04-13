@@ -15,7 +15,7 @@ attr_reader :stat_tracker, :game_collection, :game_teams_collection, :teams_coll
        game.game_id
      end
    end
-   current_games.compact
+  current_games.compact
   end
 
   def teams_hash(season)
@@ -45,8 +45,9 @@ attr_reader :stat_tracker, :game_collection, :game_teams_collection, :teams_coll
   end
 
   def current_season_game_teams(season)
-    current = @game_teams_collection.find_all do |game|
-    current_season_games(season).include?(game.game_id)
+    season_games = current_season_games(season)
+    @game_teams_collection.find_all do |game|
+    season_games.include?(game.game_id)
     end
   end
 
@@ -61,11 +62,11 @@ attr_reader :stat_tracker, :game_collection, :game_teams_collection, :teams_coll
       end
     end
     if high_low == "high"
-    winning_coach = coaches_win.max_by {|coach| coach[1]}
-    winning_coach[0]
+      winning_coach = coaches_win.max_by {|coach| coach[1]}
+      winning_coach[0]
     elsif high_low == "low"
-    losing_coach = coaches_lose.max_by {|coach| coach[1]}
-    losing_coach[0]
+      losing_coach = coaches_lose.max_by {|coach| coach[1]}
+      losing_coach[0]
     end
   end
 
@@ -85,35 +86,73 @@ attr_reader :stat_tracker, :game_collection, :game_teams_collection, :teams_coll
     end
   end
 
-    def most_accurate_team(season)
-      teams = current_season_game_teams(season).group_by do |game|
-      game.team_id
-      end
-      accuracy = teams.to_h do |key, value|
-        [key, value.map {|game| (game.goals / game.shots.to_f)}]
-        #this needs to be refactored so total accuracy isn't above 1.
-      end
-      final = accuracy.to_h do |key, value|
-        [key, value.sum {|team| team }]
-      end
-      most_accurate = final.max_by {|team| team}
-      most_accurate_name = @teams_collection.find {|team| team.id == most_accurate[0]}
-      most_accurate_name.team_name
+  def most_accurate_team(season)
+    #hash of team id as keys and games they have played as values
+    teams = current_season_game_teams(season).group_by do |game|
+    game.team_id
     end
+    team_accuracy_hash = teams.to_h do |key,value|
+      total_goals = 0
+      total_shots = 0
+      value.each do |game|
+        total_goals += game.goals
+        total_shots += game.shots
+      end
+      [key,(total_goals / total_shots.to_f)]
+    end
+    most_accurate = team_accuracy_hash.max_by {|key, value| key}
+    most_accurate_name = @teams_collection.find {|team| team.id == most_accurate[0]}
+    most_accurate_name.team_name
+  end
+
+    # def most_accurate_team(season)
+    #   teams = current_season_game_teams(season).group_by do |game|
+    #   game.team_id
+    #   end
+    #   accuracy = teams.to_h do |key, value|
+    #     [key, value.map {|game| (game.goals / game.shots.to_f)}]
+    #     #this needs to be refactored so total accuracy isn't above 1.
+    #   end
+    #   final = accuracy.to_h do |key, value|
+    #     [key, value.sum {|team| team }]
+    #   end
+    #   most_accurate = final.max_by {|team| team}
+    #   most_accurate_name = @teams_collection.find {|team| team.id == most_accurate[0]}
+    #   most_accurate_name.team_name
+    # end
 
     def least_accurate_team(season)
+      #hash of team id as keys and games they have played as values
       teams = current_season_game_teams(season).group_by do |game|
       game.team_id
       end
-      accuracy = teams.to_h do |key, value|
-        [key, value.map {|game| (game.goals / game.shots.to_f)}]
-        #this needs to be refactored so total accuracy isn't above 1.
+      team_accuracy_hash = teams.to_h do |key,value|
+        total_goals = 0
+        total_shots = 0
+        value.each do |game|
+          total_goals += game.goals
+          total_shots += game.shots
+        end
+        [key,(total_goals / total_shots.to_f)]
       end
-      final = accuracy.to_h do |key, value|
-        [key, value.sum {|team| team }]
-      end
-      least_accurate = final.min_by {|team| team}
+      least_accurate = team_accuracy_hash.min_by {|key, value| key}
       least_accurate_name = @teams_collection.find {|team| team.id == least_accurate[0]}
       least_accurate_name.team_name
     end
+
+    # def least_accurate_team(season)
+    #   teams = current_season_game_teams(season).group_by do |game|
+    #   game.team_id
+    #   end
+    #   accuracy = teams.to_h do |key, value|
+    #     [key, value.map {|game| (game.goals / game.shots.to_f)}]
+    #     #this needs to be refactored so total accuracy isn't above 1.
+    #   end
+    #   final = accuracy.to_h do |key, value|
+    #     [key, value.sum {|team| team }]
+    #   end
+    #   least_accurate = final.min_by {|team| team}
+    #   least_accurate_name = @teams_collection.find {|team| team.id == least_accurate[0]}
+    #   least_accurate_name.team_name
+    # end
   end
