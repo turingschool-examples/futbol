@@ -1,8 +1,11 @@
 require 'csv'
 require_relative 'game'
 require_relative 'collection'
+require_relative 'modules/mathable'
+
 
 class GameCollection < Collection
+  include Mathable
   attr_reader :games_list
 
   def initialize(file_path)
@@ -15,8 +18,7 @@ class GameCollection < Collection
   end
 
   def all_games_by_season(id)
-    number_id = id.to_i
-    games_by_season = all_games(id).group_by {|game| game.season}
+    all_games(id).group_by {|game| game.season}
   end
 
   def total_games_per_season(id)
@@ -88,7 +90,6 @@ class GameCollection < Collection
     end
   end
 
-
   def opponent_win_percentage(id)
     number_id = id.to_i
     wins = opponent_wins(number_id)
@@ -111,18 +112,16 @@ class GameCollection < Collection
     total_scores.min
   end
 
-  # percentage_home_wins Percentage of games that a home team has won (rounded to the nearest 100th)Float
-
   def percentage_home_wins
-    percentage(home_wins.to_f / @games_list.length.to_f)
+    percentage(home_wins, @games_list)
   end
 
   def percentage_visitor_wins
-    percentage(away_wins.to_f / @games_list.length.to_f)
+    percentage(away_wins, @games_list)
   end
 
   def percentage_ties
-    percentage(ties.to_f / @games_list.length.to_f)
+    percentage(ties, @games_list)
   end
 
   def count_of_games_by_season
@@ -133,45 +132,28 @@ class GameCollection < Collection
   end
 
   def average_goals_per_game
-    # (total_scores.sum.to_f / @games_list.length.to_f).round(2)
-    average2(total_scores, games_list)
+    average(total_scores, games_list)
   end
 
-  # def average_goals_by_season
-  #   season_average = {}
-  #   count_of_games_by_season.each do |season|
-  #     season_average[season.first] = season[1]
-  #
-  #
-  #     season_goals = {}
-  #     @games_list.each do |row|
-  #       if season_goals[row.season] == nil
-  #         season_goals[row.season] = [row.away_goals + row.home_goals]
-  #       else
-  #         season_goals[row.season] << [row.away_goals + row.home_goals]
-  #       end
-  #
-  #     end
-  #
-  #     season_goals.values.first.flatten.sum
-  #
-  #       average(season_goals)
-  #   end
-  #
-  # end
+  def average_goals_by_season
+    games_per_season = count_of_games_by_season
+    goals_per_season = {}
 
-  # helper methods
+    games_per_season.each do |season|
+      @games_list.each do |game|
+        if game.season == season[0] && goals_per_season[season[0]] != nil
+          goals_per_season[season[0]] += game.away_goals + game.home_goals
+        elsif game.season == season[0]
+          goals_per_season[season[0]] = game.away_goals + game.home_goals
+        end
+      end
+    end
 
-  def percentage(collection)
-    (collection).round(2)
-  end
-
-  def average(collection)
-    (collection.sum / collection.length.to_f).round(2)
-  end
-
-  def average2(collection1, collection2)
-    (collection1.sum / collection2.length.to_f).round(2)
+    results = {}
+    goals_per_season.each do |season|
+      results[season[0]] = (season[1].to_f / games_per_season[season[0]]).round(2)
+    end
+    results
   end
 
   def total_scores
