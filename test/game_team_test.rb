@@ -63,7 +63,7 @@ class GameTeamTest < Minitest::Test
 
   def test_it_returns_attributes_from_collection
     assert_equal "2012030221", @game_teams[0].game_id
-    assert_equal 3, @game_teams[0].team_id
+    assert_equal "3", @game_teams[0].team_id
     assert_equal "away", @game_teams[0].hoa
     assert_equal "LOSS", @game_teams[0].result
     assert_equal "OT", @game_teams[0].settled_in
@@ -165,7 +165,7 @@ class GameTeamTest < Minitest::Test
   def test_most_accurate_team
     Game.from_csv('./test/fixtures/games_20.csv')
     arr_games = Game.all[0..2]
-    assert_equal 6, GameTeam.most_accurate_team("20122013")
+    assert_equal "6", GameTeam.most_accurate_team("20122013")
   end
 #Michelle Start
   def test_it_can_find_game_ids_by_season
@@ -182,27 +182,28 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_find_tackles_by_team
-    assert_equal 77, GameTeam.tackles_by_team(20122013)[3]
+    result = ({"3"=>77, "6"=>87, "17"=>38, "16"=>72, "9"=>31, "8"=>24, "26"=>46, "28"=>13, "22"=>10})
+    assert_equal result, GameTeam.tackles_by_team("20122013")
   end
 
   def test_most_tackles
-    assert_equal 6, GameTeam.most_tackles("20122013")
+    assert_equal "6", GameTeam.most_tackles("20122013")
   end
 
   def test_fewest_tackles
-    assert_equal 22, GameTeam.fewest_tackles("20122013")
+    assert_equal "22", GameTeam.fewest_tackles("20122013")
   end
   #Michelle end
 
   def test_least_accurate_team
     Game.from_csv('./test/fixtures/games_20.csv')
     arr_games = Game.all[0..2]
-    assert_equal 3, GameTeam.least_accurate_team("20122013")
+    assert_equal "3", GameTeam.least_accurate_team("20122013")
   end
 
   def test_it_can_return_best_offense_team_number
 
-    assert_equal 28, GameTeam.best_offense
+    assert_equal "28", GameTeam.best_offense
   end
 
 end
