@@ -73,6 +73,27 @@ class StatTracker
     Game.count_of_games_by_season
   end
 
+#Michelle start
+
+  def highest_total_score
+    Game.highest_total_score
+  end
+
+  def lowest_total_score
+    Game.lowest_total_score
+  end
+
+  def most_tackles(season_id)
+    team_id = GameTeam.most_tackles(season_id)
+    Team.all.find { |team| team_id == team.team_id }.team_name
+  end
+
+  def fewest_tackles(season_id)
+    team_id = GameTeam.fewest_tackles(season_id)
+    Team.all.find { |team| team_id == team.team_id }.team_name
+  end
+  #Michelle end Methods
+
   def average_goals_per_game
     Game.average_goals_per_game
   end

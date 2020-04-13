@@ -214,7 +214,6 @@ class GameTest < Minitest::Test
     assert_equal 0, Game.all[17].win?(4)#tie
   end
 
-
   def test_find_by_returns_array
     assert_kind_of Array, Game.find_by(2012030221)
   end
@@ -230,12 +229,6 @@ class GameTest < Minitest::Test
   end
 
 
-  def test_returns_games_played_by_team_id
-    assert_equal 6, Game.games_played_by(3).length
-    assert_instance_of Game, Game.games_played_by(3)[0]
-    assert_equal 2, Game.games_played_by(6).length
-    assert_instance_of Game, Game.games_played_by(3).last
-  end
 
   def test_it_returns_wins_and_games_by_season
     expected = ({20122013 => {:wins => 0, :games_played => 2},
