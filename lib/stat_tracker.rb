@@ -17,7 +17,7 @@ class StatTracker
   def self.from_csv(file_paths)
     league_repository = LeagueRepository.new(file_paths[:games], file_paths[:game_teams], file_paths[:teams])
     team_repository = TeamRepository.new(file_paths[:game_teams], file_paths[:teams], file_paths[:games])
-    game_repository = GameRepository.new(file_paths[:games])
+    game_repository = GameRepository.new(file_paths[:games], file_paths[:game_teams])
     game_team_repository = GameTeamsRepository.new(file_paths[:game_teams])
     season_repository = SeasonRepository.new(file_paths[:games], file_paths[:game_teams], file_paths[:teams])
     stat_tracker = StatTracker.new(team_repository, game_repository, game_team_repository, league_repository, season_repository)
@@ -113,7 +113,7 @@ class StatTracker
   end
 
   def average_goals_by_season
-
+    @game_repository.average_goals_by_season
   end
 
 
