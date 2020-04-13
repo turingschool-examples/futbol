@@ -15,8 +15,7 @@ class GameCollection < Collection
   end
 
   def all_games_by_season(id)
-    number_id = id.to_i
-    games_by_season = all_games(id).group_by {|game| game.season}
+    all_games(id).group_by {|game| game.season}
   end
 
   def total_games_per_season(id)
@@ -109,8 +108,6 @@ class GameCollection < Collection
   def lowest_total_score
     total_scores.min
   end
-
-  # percentage_home_wins Percentage of games that a home team has won (rounded to the nearest 100th)Float
 
   def percentage_home_wins
     percentage(home_wins.to_f / @games_list.length.to_f)
