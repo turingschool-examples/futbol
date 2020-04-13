@@ -15,7 +15,9 @@ class TeamCollection
   end
 
   def team_info(team_id)
-     found_team = @teams.fetch(team_id)
+     found_team = @teams.find do |team|
+       team.team_id == team_id
+     end
      {
        :team_id => found_team.team_id,
        :franchise_id => found_team.franchise_id,
