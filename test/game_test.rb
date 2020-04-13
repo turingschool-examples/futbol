@@ -287,4 +287,9 @@ class GameTest < Minitest::Test
     Game.average_win_percentage(3)
   end
 
+  def test_hash_of_hashes
+    skip
+    Game.away_home_id_by_game_id(20122013)
+  end
+
 end

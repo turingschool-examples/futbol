@@ -77,10 +77,31 @@ class Game
       collection.each do |game|
         hash_of_hashes[game.send(key1)][key2] += game.send(value2) if arg2.nil?
         hash_of_hashes[game.send(key1)][key2] += game.send(value2, arg2) if !arg2.nil?
-        hash_of_hashes[game.send(key1)][key3] += value3
+        hash_of_hashes[game.send(key1)][key3] += value3 if value3.is_a?(Numeric)
+        hash_of_hashes[game.send(key1)][key3] += game.send(value3) if !value3.is_a?(Numeric)
       end
       hash_of_hashes
     end
+
+    # def self.away_home_id_by_game_id(season_id)
+    #   collection = all
+    #   key1 = :game_id
+    #   key2 = :away_team_id
+    #   key3 = :home_team_id
+    #   value2 = :away_team_id
+    #   value3 = 1
+    #   arg2 = nil
+    #
+    #   hash_of_hashes = Hash.new { |hash, key| hash[key] = {key2 => 0, key3 => 0}}
+    #   collection.each do |game|
+    #     hash_of_hashes[game.send(key1)][key2] += game.send(value2) if arg2.nil?
+    #     hash_of_hashes[game.send(key1)][key2] += game.send(value2, arg2) if !arg2.nil?
+    #     hash_of_hashes[game.send(key1)][key3] += value3 if value3.is_a?(Numeric)
+    #     hash_of_hashes[game.send(key1)][key3] += game.send(value3) if !value3.is_a?(Numeric)
+    #   end
+    #   hash_of_hashes
+    #   binding.pry
+    # end
 
   #MODULE!
     def self.divide_hash_values(key1, key2, og_hash)
@@ -202,7 +223,7 @@ class Game
     @venue = game_stats[:venue]
     @venue_link = game_stats[:venue_link]
     @total_goals = @away_goals + @home_goals
-  end 
+  end
 
 
   def win?(team_id)
