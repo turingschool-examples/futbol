@@ -6,8 +6,6 @@ require './lib/team'
 require './lib/game'
 require './lib/team_repository'
 require './lib/season_repository'
-require 'minitest/autorun'
-require 'minitest/pride'
 
 
 
@@ -24,21 +22,33 @@ class SeasonRepositoryTest < Minitest::Test
   #   assert_equal "Peter Laviolette", season_repository.worst_coach("20132014")
   # end
   #
-  def test_most_tackles
+  #def test_most_tackles
+  #  season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+  #  assert_equal "FC Cincinnati", season_repository.most_tackles("20132014")
+  #  assert_equal "Seattle Sounders FC", season_repository.most_tackles("20142015")
+  #end
+
+  #def test_fewest_tackles
+  #  season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+  #  assert_equal "Atlanta United", season_repository.fewest_tackles("20132014")
+  #  assert_equal "Orlando City SC", season_repository.fewest_tackles("20142015")
+  #end
+
+  #it "#least_accurate_team" do
+  #  expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
+  #  expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
+  #end
+
+
+  def test_least_accurate_team
     season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
-    assert_equal "FC Cincinnati", season_repository.most_tackles("20132014")
-    assert_equal "Seattle Sounders FC", season_repository.most_tackles("20142015")
+require 'pry'; binding.pry
+    assert_equal "New York City FC", season_repository.least_accurate_team("20132014")
   end
 
-  def test_fewest_tackles
-    season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
-    assert_equal "Atlanta United", season_repository.fewest_tackles("20132014")
-    assert_equal "Orlando City SC", season_repository.fewest_tackles("20142015")
-  end
-
-  # def test_most_accurate_team
-  #   season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
-  #   assert_equal "Real Salt Lake", season_repository.most_accurate_team("20132014")
-  #   assert_equal "Toronto FC", season_repository.most_accurate_team("20142015")
-  # end
+   def test_most_accurate_team
+     season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+     require 'pry'; binding.pry
+     assert_equal "Real Salt Lake", season_repository.most_accurate_team("20132014")
+   end
 end
