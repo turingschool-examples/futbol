@@ -9,7 +9,6 @@ require './lib/team_collection'
 require './lib/team'
 
 class StatTrackerTest < Minitest::Test
-
   def setup
     @stat_tracker = StatTracker.from_csv({
       :games => "./data/games_truncated.csv",

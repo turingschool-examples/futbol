@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+require 'simplecov'
+Simplecov.start
+require 'minitest/autorun'
+require 'minitest/pride'
+require './lib/stat_tracker'
+require './lib/team'
+
+class TeamTest < Minitest::Test
+=======
 require_relative 'test_helper'
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -26,4 +36,5 @@ class TeamTest < Minitest::Test
     assert_equal "ATL", @team.abbreviation
     assert_equal "/api/v1/teams/1", @team.link
   end
+>>>>>>> b3bdcc122fca460fe2c4f2ba0764cab563cd6c1a
 end
