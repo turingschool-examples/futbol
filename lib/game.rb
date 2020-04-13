@@ -6,24 +6,19 @@ class Game
   extend Hashable
 
   @@all = nil
-
+#inheritance
   def self.all
     @@all
   end
-
+#inheritance
   def self.from_csv(csv_file_path)
     csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
     @@all = csv.map { |row| Game.new(row) }
   end
-
+#inheritance, more general? 2 arguments passed
   def find_by(id)
    all.find_all{|game| game.game_id==id}
   end
-
-  def self.grouped_by_season(passed_in_season)
-    all.select{|game| game.season == passed_in_season}
-  end
-
 
   def self.find_by(id)
    all.find_all{|game| game.game_id==id}
