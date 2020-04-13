@@ -173,7 +173,7 @@ class StatTracker
     @season_repository.most_accurate_team(season)
   end
 
-  def least_accurate_team
+  def least_accurate_team(season)
     @season_repository.least_accurate_team(season)
   end
 
