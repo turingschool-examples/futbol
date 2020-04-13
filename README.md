@@ -26,11 +26,11 @@ The **first half** of the project focuses on building the base statistics functi
 
 ## Objectives
 
-- Object Oriented Programming.
-- Single responsibilities for Classes.
-- Test Driven Development.
-- Writing organized and readable code.
-- Group collaboration.
+- Object Oriented Programming
+- Single responsibilities for Classes
+- Test Driven Development
+- Writing organized and readable code
+- Group collaboration
 
 ### Project Group Members
 #### (The Corona Kids)
