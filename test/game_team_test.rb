@@ -62,7 +62,7 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_returns_attributes_from_collection
-    assert_equal 2012030221, @game_teams[0].game_id
+    assert_equal "2012030221", @game_teams[0].game_id
     assert_equal 3, @game_teams[0].team_id
     assert_equal "away", @game_teams[0].hoa
     assert_equal "LOSS", @game_teams[0].result
@@ -165,12 +165,12 @@ class GameTeamTest < Minitest::Test
   def test_most_accurate_team
     Game.from_csv('./test/fixtures/games_20.csv')
     arr_games = Game.all[0..2]
-    assert_equal 6, GameTeam.most_accurate_team(20122013)
+    assert_equal 6, GameTeam.most_accurate_team("20122013")
   end
 #Michelle Start
   def test_it_can_find_game_ids_by_season
-    expected = [2012030221, 2012030221, 2012030222, 2012030222, 2012030237, 2012030237, 2012030121, 2012030121, 2012030322, 2012030322, 2012020035, 2012020035]
-    assert_equal expected, GameTeam.games_ids_by_season(20122013)
+    expected = ["2012030221", "2012030221", "2012030222", "2012030222", "2012030237", "2012030237", "2012030121", "2012030121", "2012030322", "2012030322", "2012020035", "2012020035"]
+    assert_equal expected, GameTeam.games_ids_by_season("20122013")
   end
 
   def test_it_find_games_by_season_id
@@ -197,7 +197,7 @@ class GameTeamTest < Minitest::Test
   def test_least_accurate_team
     Game.from_csv('./test/fixtures/games_20.csv')
     arr_games = Game.all[0..2]
-    assert_equal 3, GameTeam.least_accurate_team(20122013)
+    assert_equal 3, GameTeam.least_accurate_team("20122013")
   end
 
   def test_it_can_return_best_offense_team_number
