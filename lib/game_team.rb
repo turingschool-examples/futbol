@@ -11,7 +11,7 @@ class GameTeam
   end
 
   def self.find_by(id)
-    @@all.find_all{|game| game.game_id == id}
+    all.find_all{|game| game.game_id == id}
   end
 
   def self.from_csv(csv_file_path)
@@ -22,17 +22,17 @@ class GameTeam
   def self.home_games
     (all.find_all {|gt| gt.hoa == "home" }).count
   end
-
+#deliverable
   def self.percentage_home_wins
     home_wins = (all.find_all {|gt| gt.hoa == "home" && gt.result == "WIN" }).count.to_f
     ((home_wins / self.home_games)).round(2)
   end
-
+#deliverable
   def self.percentage_visitor_wins
     visitor_wins = (all.find_all {|gt| gt.hoa == "home" && gt.result == "LOSS" }).count.to_f
     ((visitor_wins / self.home_games)).round(2)
   end
-
+#deliverable
   def self.percentage_ties
     games_count = all.count.to_f
     ties_count = (all.find_all { |gt| gt.result == "TIE"}).count.to_f
@@ -67,7 +67,7 @@ class GameTeam
     end
     total_games_coached_by_season
   end
-
+#deliverbale
   def self.wins_by_coach(season_id)
     wins_by_coach_by_season = Hash.new { |hash, key| hash[key] = 0 }
     results_by_coach(season_id).each do |coach, results|
@@ -77,18 +77,18 @@ class GameTeam
     end
     wins_by_coach_by_season
   end
-# TAKES 30 SECONDS
+
+#####30 Seconds
   def self.winningest_coach(season_id)
-    # season_id = season_id.to_i
     coaches_in_season(season_id).max_by {|coach| (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)}
   end
-# TAKES 30 SECONDS
+#####30 Seconds
   def self.worst_coach(season_id)
-    # season_id = season_id.to_i
     coaches_in_season(season_id).min_by do |coach|
       (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)
     end
   end
+
 
   def self.game_team_shots_goals_count(arr_games)
     season = arr_games.first.game_id
@@ -173,16 +173,16 @@ class GameTeam
       end
       tackles_by_team
   end
-
-    def self.most_tackles(season_id)
-      most_tackles = tackles_by_team(season_id).max_by { |key, value| value}
-      most_tackles.first
-    end
-
-    def self.fewest_tackles(season_id)
-      fewest_tackles = tackles_by_team(season_id).max_by { |key, value| -value}
-      fewest_tackles.first
-    end
+#####45 Seconds
+  def self.most_tackles(season_id)
+    most_tackles = tackles_by_team(season_id).max_by { |key, value| value}
+    most_tackles.first
+  end
+#####45 Seconds
+  def self.fewest_tackles(season_id)
+    fewest_tackles = tackles_by_team(season_id).max_by { |key, value| -value}
+    fewest_tackles.first
+  end
 
 
   def self.best_offense
@@ -257,6 +257,7 @@ class GameTeam
     opponent_wins
   end
 
+####1:15 seconds
   def self.favorite_opponent_id(team_id)
     team_id = team_id.to_i
     record_length = {}
@@ -266,7 +267,7 @@ class GameTeam
     opponents = opponents_records(team_id).keys
     opponents.min_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
   end
-
+####2:30 seconds
   def self.rival_id(team_id)
     team_id = team_id.to_i
     record_length = {}
@@ -276,6 +277,9 @@ class GameTeam
     opponents = opponents_records(team_id).keys
     opponents.max_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
   end
+#
+
+
 
     attr_reader :game_id,
                 :team_id,
@@ -311,6 +315,11 @@ class GameTeam
     @giveaways = details[:giveaways].to_i
     @takeaways = details[:takeaways].to_i
     @season_id = @game_id.to_s[0..3].to_i
+  end
+
+  def win?
+    return 1 if @result == "WIN"
+    0
   end
 
 end
