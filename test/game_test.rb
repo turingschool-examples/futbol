@@ -43,8 +43,8 @@ class GameTest < Minitest::Test
   end
 
   def test_it_can_create_game_from_csv
-    assert_equal 2012030221, @game.game_id
-    assert_equal 20122013, @game.season
+    assert_equal "2012030221", @game.game_id
+    assert_equal "20122013", @game.season
     assert_equal "Postseason", @game.type
     assert_equal "5/16/13", @game.date_time
     assert_equal 3, @game.away_team_id
@@ -220,7 +220,7 @@ class GameTest < Minitest::Test
 
   def test_grouped_season_returns_array_of_games_grouped_by_season
 
-    results = Game.grouped_by_season(20162017)
+    results = Game.grouped_by_season("20162017")
 
     assert_kind_of Array, results
     assert_kind_of Game, results.first
@@ -231,16 +231,16 @@ class GameTest < Minitest::Test
 
 
   def test_it_returns_wins_and_games_by_season
-    expected = ({20122013 => {:wins => 0, :games_played => 2},
-                   20142015 => {:wins => 4, :games_played => 4}})
-    assert_equal expected, Game.games_and_wins_by_season(3)
-    expected = ({20122013 => {:wins => 2, :games_played => 2}})
-    assert_equal expected, Game.games_and_wins_by_season(6)
+    expected = ({"20122013" => {:wins => 0, :games_played => 2},
+                   "20142015" => {:wins => 4, :games_played => 4}})
+    assert_equal expected, Game.games_and_wins_by_season("3")
+    expected = ({"20122013" => {:wins => 2, :games_played => 2}})
+    assert_equal expected, Game.games_and_wins_by_season("6")
   end
 
   def test_it_returns_percentage_of_wins_by_season_for_team_id
-      assert_equal ({20122013 => 0, 20142015 => 100}), Game.win_percent_by_season(3)
-      assert_equal ({20122013 => 100}), Game.win_percent_by_season(6)
+      assert_equal ({"20122013" => 0, "20142015" => 100}), Game.win_percent_by_season("3")
+      assert_equal ({"20122013" => 100}), Game.win_percent_by_season("6")
       stub_expected = {20122013 => {:wins => 5, :games_played => 10},
                       20132014 => {:wins => 6, :games_played => 9},
                       20142015 => {:wins => 4, :games_played => 16}}
