@@ -191,8 +191,8 @@ class Game
               :total_goals
 
   def initialize(game_stats)
-    @game_id = game_stats[:game_id].to_i
-    @season = game_stats[:season].to_i
+    @game_id = game_stats[:game_id]
+    @season = game_stats[:season]
     @type = game_stats[:type]
     @date_time = game_stats[:date_time]
     @away_team_id = game_stats[:away_team_id].to_i
@@ -202,7 +202,7 @@ class Game
     @venue = game_stats[:venue]
     @venue_link = game_stats[:venue_link]
     @total_goals = @away_goals + @home_goals
-  end 
+  end
 
 
   def win?(team_id)
