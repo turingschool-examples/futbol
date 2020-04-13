@@ -155,7 +155,8 @@ games_in_season = @game_collection.select do |game|
     game_array
 
     shot = Hash.new
-    goals = Hash.new
+    goal = Hash.new
+
 
     @game_team_collection.each do |game_team|
 
@@ -164,15 +165,30 @@ games_in_season = @game_collection.select do |game|
         if shot[game_team.team_id] == nil
           # require"pry";binding.pry
         shot[game_team.team_id] = 0
-        goals[game_team.team_id] = 0
+        goal[game_team.team_id] = 0
         end
       shot[game_team.team_id] += game_team.shots
-      goals[game_team.team_id] += game_team.goals
+      goal[game_team.team_id] += game_team.goals
     end
   end
+  shot
+  goal
+  goal.merge!(shot) {|k, o, n| o.to_f / n}
+
+  most_accurate = goal.max_by do |key, value|
+    goal[key]
+  end
+  most_accurate.first
 require"pry";binding.pry
+end
 
 end
+def divide_two_array values
+  a = {a: 1, b: 2, c: 3}
+  b = {a: 2, c: 4, b: 3}
+  a.merge!(b) { |k, o, n| o + n }
+  a # => {:a=>3, :b=>5, :c=>7}
+
 
 
 
