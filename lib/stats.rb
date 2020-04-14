@@ -1,8 +1,10 @@
 require_relative 'game_team'
 require_relative 'game'
 require_relative 'team'
+require_relative 'calculable'
 
 class Stats
+  include Calculable
 
   attr_reader :games, :teams, :game_teams
   def self.from_csv(locations)
@@ -38,7 +40,7 @@ class Stats
     goals = total_games_and_goals_by_team(team_id, hoa)[0]
     games = total_games_and_goals_by_team(team_id, hoa)[1]
     return 0 if games == 0
-    (goals.to_f / games.to_f).round(2) # average
+    average(goals, games)
   end
 
   def total_games_and_goals_by_team(team_id, hoa)
