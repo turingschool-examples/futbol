@@ -101,6 +101,10 @@ class StatTracker
     @league_stats.worst_offense
   end
 
+  def team_by_id(team_id) # parent class
+    @teams.find{|team| team.team_id == team_id}
+  end
+
   def highest_scoring_visitor
     id = unique_team_ids.max_by {|team_id| average_goals_by_team(team_id, "away")}
     team_by_id(id).team_name
