@@ -1,10 +1,10 @@
 require_relative './csv_helper_file'
 require_relative './repository'
+require_relative './findable'
 
 class SeasonRepository < Repository
-
+  include Findable
   attr_reader :games_collection, :games_teams_collection, :teams_collection
-
 
   def winningest_coach(season)
     game_array =  @game_collection.select do |game|
@@ -25,11 +25,10 @@ class SeasonRepository < Repository
       elsif (team.result == "WIN")
         coach_win_percentage[team.head_coach] += (1.to_f / (total_coach_games[team.head_coach]))
       end
+      end
     end
-  end
     coach_winner = coach_win_percentage.max_by{|key, value| coach_win_percentage[key]}
     coach_winner.first
-
   end
 
   def coach_games(game_array)
@@ -44,8 +43,6 @@ class SeasonRepository < Repository
     end
     coach_hash
   end
-
-
 
   def worst_coach(season)
     game_array =  @game_collection.select do |game|
@@ -77,126 +74,115 @@ class SeasonRepository < Repository
   end
 
 
-def most_tackles(season_id)
-  games_in_the_season = []
-  tackles_team = {}
-  @game_collection.each do |game|
-    if game.season == season_id
-      games_in_the_season << game.game_id
+  def most_tackles(season_id)
+    games_in_the_season = []
+    tackles_team = {}
+    @game_collection.each do |game|
+      if game.season == season_id
+        games_in_the_season << game.game_id
+      end
     end
-  end
-  games_in_the_season.each do |season_game|
-    @game_team_collection.each do |game_team|
-      if game_team.game_id == season_game
-        if tackles_team.key?(game_team.team_id)
-          tackles_team[game_team.team_id] += game_team.tackles
-        else
-          tackles_team[game_team.team_id] = game_team.tackles
+    games_in_the_season.each do |season_game|
+      @game_team_collection.each do |game_team|
+        if game_team.game_id == season_game
+          if tackles_team.key?(game_team.team_id)
+            tackles_team[game_team.team_id] += game_team.tackles
+          else
+            tackles_team[game_team.team_id] = game_team.tackles
+          end
         end
       end
     end
+    team_id_to_find = tackles_team.sort_by { |key, value| value }.last[0]
+    find_team_id(team_id_to_find)
   end
-  team_id_to_find = tackles_team.sort_by { |key, value| value }.last[0]
-  find_team_id(team_id_to_find)
-end
 
-def fewest_tackles(season_id)
-  games_in_the_season = []
-  tackles_team = {}
-  @game_collection.each do |game|
-    if game.season == season_id
-      games_in_the_season << game.game_id
+  def fewest_tackles(season_id)
+    games_in_the_season = []
+    tackles_team = {}
+    @game_collection.each do |game|
+      if game.season == season_id
+        games_in_the_season << game.game_id
+      end
     end
-  end
-  games_in_the_season.each do |season_game|
-    @game_team_collection.each do |game_team|
-      if game_team.game_id == season_game
-        if tackles_team.key?(game_team.team_id)
-          tackles_team[game_team.team_id] += game_team.tackles
-        else
-          tackles_team[game_team.team_id] = game_team.tackles
+    games_in_the_season.each do |season_game|
+      @game_team_collection.each do |game_team|
+        if game_team.game_id == season_game
+          if tackles_team.key?(game_team.team_id)
+            tackles_team[game_team.team_id] += game_team.tackles
+          else
+            tackles_team[game_team.team_id] = game_team.tackles
+          end
         end
       end
     end
+    team_id_to_find = tackles_team.sort_by { |key, value| value }.first[0]
+    find_team_id(team_id_to_find)
   end
-  team_id_to_find = tackles_team.sort_by { |key, value| value }.first[0]
-  find_team_id(team_id_to_find)
-end
 
-def find_team_id(id)
-  found_team = @team_collection.find do |team|
-    team.team_id == id
-  end
-  named_team = found_team.teamname
-  named_team
-end
-
-def most_accurate_team(season_id)
-games_in_season = @game_collection.select do |game|
-    game.season == season_id
-  end
-  game_array = games_in_season.map do |game|
-    game.game_id
-  end
-    shot = Hash.new
-    goal = Hash.new
-    @game_team_collection.each do |game_team|
-      if game_array.include?(game_team.game_id)
-        if shot[game_team.team_id] == nil
-        shot[game_team.team_id] = 0
-        goal[game_team.team_id] = 0
+  def most_accurate_team(season_id)
+  games_in_season = @game_collection.select do |game|
+      game.season == season_id
+    end
+    game_array = games_in_season.map do |game|
+      game.game_id
+    end
+      shot = Hash.new
+      goal = Hash.new
+      @game_team_collection.each do |game_team|
+        if game_array.include?(game_team.game_id)
+          if shot[game_team.team_id] == nil
+          shot[game_team.team_id] = 0
+          goal[game_team.team_id] = 0
+          end
+        shot[game_team.team_id] += game_team.shots
+        goal[game_team.team_id] += game_team.goals
         end
-      shot[game_team.team_id] += game_team.shots
-      goal[game_team.team_id] += game_team.goals
-      end
-  end
-
-  goal.merge!(shot) {|k, o, n| o.to_f / n}
-  most_accurate = goal.max_by do |key, value|
-    goal[key]
-
-  end
-
-  accurate_team = most_accurate.first
-  team_name_accurate = @team_collection.find do |team|
-    accurate_team == team.team_id
-  end
-    team_name = team_name_accurate.teamname
-    team_name
-end
-
-def least_accurate_team(season_id)
-games_in_season = @game_collection.select do |game|
-    game.season == season_id
-  end
-  game_array = games_in_season.map do |game|
-    game.game_id
-  end
-    shot = Hash.new
-    goal = Hash.new
-    @game_team_collection.each do |game_team|
-      if game_array.include?(game_team.game_id)
-        if shot[game_team.team_id] == nil
-        shot[game_team.team_id] = 0
-        goal[game_team.team_id] = 0
-        end
-      shot[game_team.team_id] += game_team.shots
-      goal[game_team.team_id] += game_team.goals
-      end
-  end
-
-  goal.merge!(shot) {|k, o, n| o.to_f / n}
-  wayward = goal.min_by do |key, value|
-    goal[key]
-  end
-
-  wayward_team = @team_collection.find do |team|
-     team.team_id == wayward.first
     end
 
-    wayward_team.teamname
+    goal.merge!(shot) {|k, o, n| o.to_f / n}
+    most_accurate = goal.max_by do |key, value|
+      goal[key]
 
+    end
 
+    accurate_team = most_accurate.first
+    team_name_accurate = @team_collection.find do |team|
+      accurate_team == team.team_id
+    end
+      team_name = team_name_accurate.teamname
+      team_name
+  end
 
+  def least_accurate_team(season_id)
+  games_in_season = @game_collection.select do |game|
+      game.season == season_id
+    end
+    game_array = games_in_season.map do |game|
+      game.game_id
+    end
+      shot = Hash.new
+      goal = Hash.new
+      @game_team_collection.each do |game_team|
+        if game_array.include?(game_team.game_id)
+          if shot[game_team.team_id] == nil
+          shot[game_team.team_id] = 0
+          goal[game_team.team_id] = 0
+          end
+        shot[game_team.team_id] += game_team.shots
+        goal[game_team.team_id] += game_team.goals
+        end
+    end
+
+    goal.merge!(shot) {|k, o, n| o.to_f / n}
+    wayward = goal.min_by do |key, value|
+      goal[key]
+    end
+
+    wayward_team = @team_collection.find do |team|
+       team.team_id == wayward.first
+      end
+
+      wayward_team.teamname
   end
 end

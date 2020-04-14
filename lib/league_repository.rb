@@ -1,7 +1,11 @@
 require_relative './csv_helper_file'
+
 require_relative './repository'
+require_relative './findable'
 
 class LeagueRepository < Repository
+
+  include Findable
 
   def count_of_teams
     @team_collection.count
@@ -33,15 +37,6 @@ class LeagueRepository < Repository
 
     answer_hash = answer_hash.key(answer_hash.values.max)
     find_team_id(answer_hash)
-  end
-
-  def find_team_id(id)
-    found_team = @team_collection.find do |team|
-      team.team_id == id
-    end
-    named_team = found_team.teamname
-    named_team
-    # require "pry"; binding.pry
   end
 
   def worst_offense
