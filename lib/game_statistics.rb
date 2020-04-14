@@ -49,10 +49,6 @@ class GameStatistics
       tied_games = home_away_or_tie("TIE")
       return games_percent_calculation(tied_games, "TIE")
     end
-    # won_games = games.find_all do |game|
-    #     game.result  == "WIN"
-    #   end
-    # (won_games.length.to_f / games.length).round(2)
   end
 
   def games_percent_calculation(games, outcome)
@@ -77,8 +73,9 @@ class GameStatistics
     total_goals = games.map do |game|
       game.away_goals + game.home_goals
     end
-      average_goals = average(total_goals.sum, total_goals.length.to_f)
-    average_goals
+    average(total_goals.sum, total_goals.length.to_f)
+    #   average_goals = average(total_goals.sum, total_goals.length.to_f)
+    # average_goals
   end
 
   def average_goals_per_game
