@@ -67,6 +67,8 @@ attr_reader :game_collection
     coaches
   end
 
+#takes hash and high_low argument returns key associated with max/min value
+#should consider for parent class or module
   def high_low_key_return(given_hash, high_low)
     if high_low == "high"
       most = given_hash.max_by {|k,v| v}[0]
@@ -75,19 +77,6 @@ attr_reader :game_collection
       least = given_hash.min_by {|k,v| v}[0]
       team_name_hash[least]
     end
-  end
-#takes hash and returns key associated with max value
-#neccessary?
-#parent method?
-  def key_for_max_val(hash)
-      hash.max_by {|k,v| v}[0]
-  end
-
-#takes hash and returns key associated with min value
-#neccessary?
-#parent method?
-  def key_for_min_val(hash)
-      hash.min_by {|k,v| v}[0]
   end
 
 #returns hash of team id as keys and total tackles in season as value
@@ -128,13 +117,6 @@ attr_reader :game_collection
   def most_least_tackles(season, high_low)
     team_tackles = team_tackles_hash(season)
     high_low_key_return(team_tackles, high_low)
-    # if high_low == "high"
-    #   most_tackles = team_tackles.max_by {|k,v| v}[0]
-    #   team_name_hash[most_tackles]
-    # elsif high_low == "low"
-    #   fewest_tackles = team_tackles.min_by {|k,v| v}[0]
-    #   team_name_hash[fewest_tackles]
-    # end
   end
 
   def team_accuracy(season, high_low)
@@ -147,13 +129,6 @@ attr_reader :game_collection
     acc_hash = team_ids(season).to_h do |id|
       [id, (team_goals[id] / team_shots[id].to_f)]
     end
-    # if high_low == "high"
-    #   most_acc = acc_hash.max_by {|k,v| v}[0]
-    #   team_name_hash[most_acc]
-    # elsif high_low == "low"
-    #   least_acc = acc_hash.min_by {|k,v| v}[0]
-    #   team_name_hash[least_acc]
-    # end
     high_low_key_return(acc_hash, high_low)
   end
 end

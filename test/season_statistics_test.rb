@@ -39,8 +39,12 @@ class SeasonStatisticsTest < Minitest::Test
     assert_instance_of Array, @season_statistics.team_ids("20132014")
   end
 
-  def test_teams_hash
+  def test_team_ids_hash
     assert_instance_of Hash, @season_statistics.team_ids_hash("20132014")
+  end
+
+  def test_name_hash
+    assert_instance_of Hash, @season_statistics.team_name_hash
   end
 
   def test_coach_names
@@ -49,6 +53,15 @@ class SeasonStatisticsTest < Minitest::Test
 
   def test_coaches_hash
     assert_instance_of Hash, @season_statistics.coaches_hash("20132014")
+  end
+
+  def test_high_low_key_return
+    assert_instance_of String, @season_statistics.high_low_key_return({"6"=>139, "3"=>154},"low")
+    assert_instance_of String, @season_statistics.high_low_key_return({"6"=>139, "3"=>154},"high")
+  end
+
+  def tes_team_tackles_hash
+    assert_instance_of Hash, @season_statistics.team_tackles_hash("20132014")
   end
 
   def test_winningest_coach
