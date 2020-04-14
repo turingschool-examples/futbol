@@ -15,7 +15,7 @@ class Stats
   end
 
 
-  def average_goals_by_team(team_id, hoa = nil) # game_teams?
+  def average_goals_by_team(team_id, hoa = nil)
     goals = total_games_and_goals_by_team(team_id, hoa)[0]
     games = total_games_and_goals_by_team(team_id, hoa)[1]
     return 0 if games == 0

@@ -3,13 +3,16 @@ require_relative 'game_team'
 require_relative 'game'
 require_relative 'team'
 require_relative 'calculable'
+require_relative 'game_stats'
 require_relative 'league_stats'
+require_relative 'season_stats'
+require_relative 'team_stats'
 require 'pry'
 
 class StatTracker
   include Calculable
 
-  attr_reader :games, :teams, :game_teams, :league_stats
+  attr_reader :game_stats, :league_stats, :season_stats, :team_stats
 
   def self.from_csv(locations)
     games_path = locations[:games]
@@ -23,10 +26,10 @@ class StatTracker
     Team.from_csv(teams_path)
     GameTeam.from_csv(game_teams_path)
 
-    #@game_stats = GameStats.new(Game.all, Team.all, GameTeam.all)
+    @game_stats = GameStats.new(Game.all, Team.all, GameTeam.all)
     @league_stats = LeagueStats.new(Game.all, Team.all, GameTeam.all)
-    #@season_stats = SeasonStats.new(Game.all, Team.all, GameTeam.all)
-    #@team_stats = TeamStats.new(Game.all, Team.all, GameTeam.all)
+    @season_stats = SeasonStats.new(Game.all, Team.all, GameTeam.all)
+    @team_stats = TeamStats.new(Game.all, Team.all, GameTeam.all)
   end
 
   def percentage_home_wins
@@ -79,10 +82,6 @@ class StatTracker
     average_goals_by_season.transform_values do |season|
       average_of_goals_in_a_season(season.first.season)
     end
-  end
-
-  def team_by_id(team_id) # needed for team_info. delete once team info in in team_stats class
-    @teams.find{|team| team.team_id == team_id}
   end
 
   def count_of_teams

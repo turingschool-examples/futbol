@@ -1,5 +1,6 @@
 require './test/test_helper'
 require './lib/league_stats'
+require './lib/stat_tracker'
 require './lib/game'
 require './lib/game_team'
 require './lib/team'
