@@ -7,10 +7,12 @@ require './lib/team'
 class LeagueStatsTest < MiniTest::Test
 
   def setup
-    Game.from_csv("./test/fixtures/games_fixture.csv")
-    GameTeam.from_csv("./test/fixtures/games_teams_fixture.csv")
-    Team.from_csv("./data/teams.csv")
-    @league_stats = LeagueStats.new(Game.all, Team.all, GameTeam.all)
+    @stat_tracker = StatTracker.from_csv({
+      games: "./test/fixtures/games_fixture.csv",
+      teams: "./data/teams.csv",
+      game_teams: "./test/fixtures/games_teams_fixture.csv"
+      })
+    @league_stats = @stat_tracker.league_stats
   end
 
   def test_it_exists
