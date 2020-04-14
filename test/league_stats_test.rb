@@ -15,10 +15,10 @@ class LeagueStatsTest < MiniTest::Test
     assert_instance_of LeagueStats, @league_stats
   end
 
-  def test_has_attributes
-    assert_instance_of Game, LeagueStats.games.first
-    assert_instance_of Team, LeagueStats.teams.first
-    assert_instance_of GameTeam, LeagueStats.game_teams.first
+  def test_it_has_attributes
+    assert_instance_of Game, @league_stats.games.first
+    assert_instance_of Team, @league_stats.teams.first
+    assert_instance_of GameTeam, @league_stats.game_teams.first
   end
 
   def test_count_of_teams

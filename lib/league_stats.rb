@@ -2,12 +2,8 @@ require_relative "stats"
 
 class LeagueStats < Stats
 
-  def initialize(file_path)
-    Stats.from_csv(file_path)
-  end
-
   def count_of_teams
-    @@teams.length
+    @teams.length
   end
 
   def best_offense
