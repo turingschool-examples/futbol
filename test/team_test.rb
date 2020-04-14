@@ -9,10 +9,8 @@ require './lib/game'
 require './lib/game_team'
 require './lib/collection'
 
-
 class TeamTest < Minitest::Test
   def setup
-    # file_path = "./data/games.csv"
     file_path = "./data/teams.csv"
     @teams = Team.from_csv(file_path, Team)
 

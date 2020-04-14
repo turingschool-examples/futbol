@@ -1,13 +1,6 @@
-# require 'csv'
 require_relative 'collection'
 
 class Team < Collection
-
-  # @@all = nil
-  # #
-  # def self.all
-  #   @@all
-  # end
 
   def self.find_team_info(id)
     id = id
@@ -20,14 +13,6 @@ class Team < Collection
     team_info["team_name"]= selected_team.team_name
     team_info
   end
-
-
-  # def self.from_csv(file_path)
-  #   csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol)
-  #   @@all = csv.map do |row|
-  #     Team.new(row)
-  #   end
-  # end
 
   def self.count_of_teams
     all.length
