@@ -1,30 +1,30 @@
-require_relative 'collection'
+# require_relative 'collection'
 require_relative 'game'
 
-class GameTeam < Collection
+class GameTeam
 # #
-  # @@all = nil
-  #
-  # def self.all
-  #   @@all
-  # end
+  @@all = nil
+
+  def self.all
+    @@all
+  end
 
   def self.find_by_team(team_id)
     all.find_all{|game| game.team_id == team_id}
   end
 
-  # def self.find_by(id)
-  #   all.find_all{|game| game.game_id == id}
-  # end
-  #
-  # def self.from_csv(csv_file_path)
-  #   csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
-  #   @@all = csv.map { |row| GameTeam.new(row) }
-  # end
+  def self.find_by(id)
+    all.find_all{|game| game.game_id == id}
+  end
 
-  # def self.home_games
-  #   (all.find_all {|gt| gt.hoa == "home" }).count
-  # end
+  def self.from_csv(csv_file_path)
+    csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
+    @@all = csv.map { |row| GameTeam.new(row) }
+  end
+
+  def self.home_games
+    (all.find_all {|gt| gt.hoa == "home" }).count
+  end
 #deliverable
   def self.percentage_home_wins
     home_wins = (all.find_all {|gt| gt.hoa == "home" && gt.result == "WIN" }).count.to_f
@@ -279,6 +279,7 @@ class GameTeam < Collection
 
   def self.opponents_records(team_id)
     game_ids = all.map {|gt| gt.game_id if gt.team_id == team_id }.compact
+    binding.pry
     opponents_records = Hash.new { |hash, key| hash[key] = [] }
     game_ids.each do |game_id|
       all.find_all do |gt|
@@ -297,6 +298,9 @@ class GameTeam < Collection
     end
     opponent_wins
   end
+
+  # def self.favorite_opponent_id(team_id)
+  #   #
 
 ####1:15 seconds
   def self.favorite_opponent_id(team_id)

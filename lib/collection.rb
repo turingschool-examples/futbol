@@ -8,7 +8,6 @@ class Collection
     @all = csv.map do |row|
       class_name.new(row)
     end
-    binding.pry
   end
 
   def self.all

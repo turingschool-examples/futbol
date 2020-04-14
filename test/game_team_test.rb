@@ -6,7 +6,7 @@ require 'pry'
 require './lib/stat_tracker'
 require './lib/game_team'
 require 'mocha/minitest'
-require './lib/collection'
+# require './lib/collection'
 
 class GameTeamTest < Minitest::Test
 
