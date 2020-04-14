@@ -1,7 +1,8 @@
 require_relative './csv_helper_file'
-
+require './lib/findable'
 
 class LeagueRepository
+  include Findable
 
   def initialize(game_path, game_team_path, team_path)
     @game_collection = CsvHelper.generate_game_array(game_path)
@@ -39,15 +40,6 @@ class LeagueRepository
 
     answer_hash = answer_hash.key(answer_hash.values.max)
     find_team_id(answer_hash)
-  end
-
-  def find_team_id(id)
-    found_team = @team_collection.find do |team|
-      team.team_id == id
-    end
-    named_team = found_team.teamname
-    named_team
-    # require "pry"; binding.pry
   end
 
   def worst_offense
