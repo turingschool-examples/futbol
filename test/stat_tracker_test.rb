@@ -84,98 +84,69 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 32, @stat_tracker.count_of_teams
   end
 
-  def test_it_can_find_average_goals_by_team
-    skip
-    assert_equal 2.4, @stat_tracker.average_goals_by_team("52")
-  end
-
-  def test_total_games_and_goals_by_team
-    skip
-    assert_equal [7, 5], @stat_tracker.total_games_and_goals_by_team("30", nil)
-  end
-
-  def test_add_goals_and_games
-    skip
-    goals_games = [0, 0]
-    game_team = mock
-    game_team.stubs(:goals).returns(2)
-    @stat_tracker.add_goals_and_games(goals_games, game_team)
-    assert_equal [2, 1], goals_games
-  end
-
-  def test_it_can_find_unique_team_id
-    skip
-    assert_equal ["30", "52", "19", "23", "24", "4", "29", "12", "6", "17", "1", "2"], @stat_tracker.unique_team_ids
-  end
-
-  def test_find_team_by_id
-    skip
-    assert_equal 'Reign FC', @stat_tracker.team_by_id("54").team_name
-  end
-
   def test_best_offense
-    skip
-    @stat_tracker.stubs(:average_goals_by_team).returns(1)
-    @stat_tracker.stubs(:average_goals_by_team).with("1").returns(2)
+    @stat_tracker.league_stats.stubs(:average_goals_by_team).returns(1)
+    @stat_tracker.league_stats.stubs(:average_goals_by_team).with("1").returns(2)
     assert_equal 'Atlanta United', @stat_tracker.best_offense
   end
 
   def test_worst_offense
-    skip
-    @stat_tracker.stubs(:average_goals_by_team).returns(2)
-    @stat_tracker.stubs(:average_goals_by_team).with("2").returns(1)
+    @stat_tracker.league_stats.stubs(:average_goals_by_team).returns(2)
+    @stat_tracker.league_stats.stubs(:average_goals_by_team).with("2").returns(1)
     assert_equal 'Seattle Sounders FC', @stat_tracker.worst_offense
   end
 
   def test_highest_scoring_visitor
-    skip
-    @stat_tracker.stubs(:average_goals_by_team).returns(1)
-    @stat_tracker.stubs(:average_goals_by_team).with("24", "away").returns(2)
+    @stat_tracker.league_stats.stubs(:average_goals_by_team).returns(1)
+    @stat_tracker.league_stats.stubs(:average_goals_by_team).with("24", "away").returns(2)
     assert_equal 'Real Salt Lake', @stat_tracker.highest_scoring_visitor
   end
 
   def test_highest_scoring_home_team
-    skip
-    @stat_tracker.stubs(:average_goals_by_team).returns(1)
-    @stat_tracker.stubs(:average_goals_by_team).with("6", "home").returns(2)
+    @stat_tracker.league_stats.stubs(:average_goals_by_team).returns(1)
+    @stat_tracker.league_stats.stubs(:average_goals_by_team).with("6", "home").returns(2)
     assert_equal 'FC Dallas', @stat_tracker.highest_scoring_home_team
   end
 
   def test_lowest_scoring_visitor
-    skip
-    @stat_tracker.stubs(:average_goals_by_team).returns(2)
-    @stat_tracker.stubs(:average_goals_by_team).with("23", "away").returns(1)
+    @stat_tracker.league_stats.stubs(:average_goals_by_team).returns(2)
+    @stat_tracker.league_stats.stubs(:average_goals_by_team).with("23", "away").returns(1)
     assert_equal 'Montreal Impact', @stat_tracker.lowest_scoring_visitor
   end
 
   def test_lowest_scoring_home_team
-    skip
-    @stat_tracker.stubs(:average_goals_by_team).returns(2)
-    @stat_tracker.stubs(:average_goals_by_team).with("19", "home").returns(1)
+    @stat_tracker.league_stats.stubs(:average_goals_by_team).returns(2)
+    @stat_tracker.league_stats.stubs(:average_goals_by_team).with("19", "home").returns(1)
     assert_equal 'Philadelphia Union', @stat_tracker.lowest_scoring_home_team
   end
 
   def test_most_accurate_team
+    skip
     assert_equal "Portland Thorns FC", @stat_tracker.most_accurate_team("20172018")
   end
 
   def test_it_can_find_least_accurate_team
+    skip
     assert_equal "Orlando City SC", @stat_tracker.least_accurate_team("20172018")
   end
 
   def test_winningest_coach
+    skip
     assert_equal "Paul Maurice", @stat_tracker.winningest_coach("20172018")
   end
 
   def test_worst_coach
+    skip
     assert_equal "Bruce Boudreau", @stat_tracker.worst_coach("20172018")
   end
 
   def test_it_can_find_team_with_most_season_tackles
+    skip
     assert_equal "Portland Thorns FC", @stat_tracker.most_tackles("20172018")
   end
 
   def test_it_can_find_team_with_least_season_tackles
+    skip
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20172018")
   end
 
