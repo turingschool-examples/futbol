@@ -1,8 +1,11 @@
 require_relative './game'
+require_relative './mathable'
 require 'pry'
 
 
 class GameStatistics
+  include Mathable
+
   attr_reader :stat_tracker, :game_collection
 
   def initialize(game_collection, game_teams_collection, teams_collection)
@@ -23,31 +26,48 @@ class GameStatistics
       end
   end
 
+  def home_away_or_tie(home_or_away)
+    if home_or_away == "home" || home_or_away == "away"
+      @game_teams_collection.find_all do |game|
+       game.home_or_away == home_or_away
+     end
+    else
+      @game_teams_collection.find_all do |game|
+        game.result  == "TIE"
+      end
+    end
+  end
+
   def percentage_outcomes(outcome)
     if outcome == "home"
-      games = @game_teams_collection.find_all do |game|
-        game.home_or_away == "home"
-      end
+      games = home_away_or_tie("home")
+        return games_percent_calculation(games, "home")
     elsif outcome == "away"
-        games = @game_teams_collection.find_all do |game|
-          game.home_or_away == "away"
-        end
+      games = home_away_or_tie("away")
+        return games_percent_calculation(games, "away")
     elsif outcome == "tie"
-        tied_games = @game_teams_collection.find_all do |game|
-          game.result  == "TIE"
-        end
-      return ((tied_games.length.to_f/2) / (@game_teams_collection.length/2)).round(2)
+      tied_games = home_away_or_tie("TIE")
+      return games_percent_calculation(tied_games, "TIE")
     end
-    won_games = games.find_all do |game|
-        game.result  == "WIN"
-      end
-    (won_games.length.to_f / games.length).round(2)
+    # won_games = games.find_all do |game|
+    #     game.result  == "WIN"
+    #   end
+    # (won_games.length.to_f / games.length).round(2)
+  end
+
+  def games_percent_calculation(games, outcome)
+    if outcome == "TIE"
+      ((games.length.to_f/2) / (@game_teams_collection.length/2)).round(2)
+    else
+      won_games = games.find_all do |game|
+          game.result  == "WIN"
+        end
+      (won_games.length.to_f / games.length).round(2)
+    end
   end
 
   def count_of_games_by_season
-    seasons = game_collection.group_by do |game|
-      game.season
-    end
+      seasons = group_by_season
     seasons.to_h do |key, value|
       [key, value.length]
     end
@@ -57,8 +77,8 @@ class GameStatistics
     total_goals = games.map do |game|
       game.away_goals + game.home_goals
     end
-    ave = (total_goals.sum / total_goals.length.to_f).round(2)
-    ave
+      average_goals = average(total_goals.sum, total_goals.length.to_f)
+    average_goals
   end
 
   def average_goals_per_game
@@ -66,9 +86,7 @@ class GameStatistics
   end
 
   def average_goals_by_season
-    seasons = game_collection.group_by do |game|
-    game.season
-  end
+    seasons = group_by_season
   seasons.to_h do |key,value|
     [key, average_goals(value)]
     end
