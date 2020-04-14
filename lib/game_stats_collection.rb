@@ -15,11 +15,11 @@ class GameStatsCollection < Collection
     @game_stats.each do |row|
       if games == "all" && goals_by_id[row.team_id].nil?
         goals_by_id[row.team_id] = [row.goals]
-      elsif games != "all" && goals_by_id[row.team_id].nil? && row.home_away == games
-        goals_by_id[row.team_id] = [row.goals]
       elsif games == "all"
         goals_by_id[row.team_id] << row.goals
-      elsif games != "all" && row.home_away == games
+      elsif goals_by_id[row.team_id].nil? && row.home_away == games
+        goals_by_id[row.team_id] = [row.goals]
+      elsif row.home_away == games
         goals_by_id[row.team_id] << row.goals
       end
     end
