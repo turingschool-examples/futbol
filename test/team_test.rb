@@ -37,5 +37,4 @@ class TeamTest < MiniTest::Test
     assert_equal "Mapfre Stadium", @csv_team.stadium
     assert_equal "/api/v1/teams/53", @csv_team.link
   end
-
 end
