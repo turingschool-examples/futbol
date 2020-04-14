@@ -35,5 +35,4 @@ class LeagueStats < Stats
     id = unique_team_ids.min_by {|team_id| average_goals_by_team(team_id, "home")}
     team_by_id(id).team_name
   end
-
 end

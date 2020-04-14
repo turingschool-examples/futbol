@@ -46,5 +46,4 @@ class GameStats < Stats
       average_of_goals_in_a_season(season.first.season)
     end
   end
-
 end

@@ -51,5 +51,4 @@ class GameStatsTest < MiniTest::Test
   def test_it_can_return_a_seaon_with_average_goals
     assert_equal ({"20172018" => 3.8, "20132014" => 4.0, "20122013" => 4.67}), @game_stats.average_goals_by_season
   end
-
 end

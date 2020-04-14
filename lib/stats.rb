@@ -19,13 +19,10 @@ class Stats
     full_season.sum {|game| game.home_goals + game.away_goals}
   end
 
-
-
   def average_of_goals_in_a_season(season) # game
     by_season = @games.find_all {|game| game.season == season}
     average(sum_of_goals_in_a_season(season), by_season.length)
   end
-
 
   def average_goals_by_team(team_id, hoa = nil)
     goals = total_games_and_goals_by_team(team_id, hoa)[0]
@@ -65,4 +62,7 @@ class Stats
     @game_teams.find_all{|team| season_game_ids.include?(team.game_id)}
   end
 
+  def all_games_by_team(team_id)
+    @game_teams.find_all{|game_team| game_team.team_id == team_id}
+  end
 end

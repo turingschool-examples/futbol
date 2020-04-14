@@ -23,6 +23,16 @@ class StatsTest < MiniTest::Test
     assert_instance_of GameTeam, @stats.game_teams.first
   end
 
+  def test_find_team_by_id
+    assert_equal 'Reign FC', @stats.team_by_id("54").team_name
+  end
+
+  def test_all_games_by_team
+    assert_equal 5, @stats.all_games_by_team("30").length
+    assert_instance_of GameTeam, @stats.all_games_by_team("30").first
+    assert_instance_of GameTeam, @stats.all_games_by_team("30").last
+  end
+
   def test_it_return_season_average_goals
     assert_equal 3.8, @stats.average_of_goals_in_a_season("20172018")
     assert_equal 4.67, @stats.average_of_goals_in_a_season("20122013")
@@ -55,14 +65,15 @@ class StatsTest < MiniTest::Test
     assert_equal ["30", "52", "19", "23", "24", "4", "29", "12", "6", "17", "1", "2"], @stats.unique_team_ids
   end
 
-  def test_find_team_by_id
-    assert_equal 'Reign FC', @stats.team_by_id("54").team_name
-  end
-
   def test_games_by_season
     test_season = @stats.team_games_by_season("20172018")
     assert_equal 10, test_season.length
     assert_instance_of GameTeam, test_season.first
   end
 
+  def test_all_games_by_team
+    assert_equal 5, @stats.all_games_by_team("30").length
+    assert_instance_of GameTeam, @stats.all_games_by_team("30").first
+    assert_instance_of GameTeam, @stats.all_games_by_team("30").last
+  end
 end

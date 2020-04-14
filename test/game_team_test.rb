@@ -65,5 +65,4 @@ class GameTeamTest < Minitest::Test
     assert_equal 12, @last_game_team.giveaways
     assert_equal 6, @last_game_team.takeaways
   end
-
 end

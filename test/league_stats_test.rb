@@ -65,6 +65,4 @@ class LeagueStatsTest < MiniTest::Test
     @league_stats.stubs(:average_goals_by_team).with("19", "home").returns(1)
     assert_equal 'Philadelphia Union', @league_stats.lowest_scoring_home_team
   end
-
-
 end
