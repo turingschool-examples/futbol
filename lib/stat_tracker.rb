@@ -128,11 +128,11 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
-    @team_statistics.opponent_preference(team_id, "high")
+    @team_statistics.opponent_preference(team_id, "fav")
   end
 
   def rival(team_id)
-    @team_statistics.opponent_preference(team_id, "low")
+    @team_statistics.opponent_preference(team_id, "rival")
   end
 
   def winningest_coach(season)

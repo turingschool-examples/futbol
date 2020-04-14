@@ -28,10 +28,12 @@ class TeamStatistics
   def season_best_and_worst(team_id, best_or_worst)
     games_played_in = games_played(team_id)
     games_by_season = games_played_in.group_by {|game| game.season}
+
     win_percentage_by_season = games_by_season.transform_values do |season|
       games_won = count_wins(team_id, season)
       (games_won/season.length.to_f).round(2)
     end
+
     if best_or_worst == "best"
       best_season = win_percentage_by_season.max_by { |season| season[1]}
       best_season[0]
@@ -102,20 +104,20 @@ end
   def win_percentage_against_opponent(team_id)
     games_won_by_opponent(team_id).transform_values do |opponent|
       # opponent[0] -> games won, opponent[1] -> games played
-      opponent[0]/opponent[1]
+      opponent[0].to_f/opponent[1]
     end
   end
 
   def opponent_preference(team_id, high_or_low)
     win_percentage_by_opponent = win_percentage_against_opponent(team_id)
-    if high_or_low == "high"
+    if high_or_low == "fav"
       # fav_opponent [0] -> team_id, [1] -> win percentage
       fav_opponent = win_percentage_by_opponent.max_by {|opponent| opponent[1]}
       team_info(fav_opponent[0])["team_name"]
-    elsif high_or_low == "low"
-      # fav_opponent [0] -> team_id, [1] -> win percentage
-      fav_opponent = win_percentage_by_opponent.min_by {|opponent| opponent[1]}
-      team_info(fav_opponent[0])["team_name"]
+    elsif high_or_low == "rival"
+      # rival [0] -> team_id, [1] -> win percentage
+      rival = win_percentage_by_opponent.min_by {|opponent| opponent[1]}
+      team_info(rival[0])["team_name"]
     end
   end
 
