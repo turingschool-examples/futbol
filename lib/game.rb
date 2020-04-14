@@ -1,5 +1,5 @@
 require "csv"
-require "./lib/hashable"
+require_relative "hashable"
 
 class Game
 
