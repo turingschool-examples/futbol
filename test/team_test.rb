@@ -14,7 +14,7 @@ class TeamTest < Minitest::Test
   def setup
     # file_path = "./data/games.csv"
     file_path = "./data/teams.csv"
-    @teams = Collection.from_csv(file_path, Team)
+    @teams = Team.from_csv(file_path, Team)
 
     @base_team = Team.new({
       :team_id => 4,
