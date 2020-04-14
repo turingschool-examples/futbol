@@ -1,13 +1,13 @@
-require 'pry'
+require_relative './statistics'
 
-class SeasonStatistics
+class SeasonStatistics < Statistics
 attr_reader :game_collection
 
-  def initialize(game_collection, game_teams_collection, teams_collection)
-    @game_collection = game_collection
-    @game_teams_collection = game_teams_collection
-    @teams_collection = teams_collection
-  end
+  # def initialize(game_collection, game_teams_collection, teams_collection)
+  #   @game_collection = game_collection
+  #   @game_teams_collection = game_teams_collection
+  #   @teams_collection = teams_collection
+  # end
 
 
 #returns array of game ids for given season
@@ -23,12 +23,12 @@ attr_reader :game_collection
   #returns an array of game_team objects in given season
     def current_season_game_teams(season)
       season_games = current_season_game_ids(season)
-      @games_by_season ||=  @game_teams_collection.find_all do |game|
+      @game_teams_collection.find_all do |game|
         season_games.include?(game.game_id)
       end
     end
-    
-#returns an array of game_team objects in given season
+
+# returns an array of game_team objects in given season
   # def current_season_game_teams(season)
   #   season_game_ids = current_season_game_ids(season)
   #   @games_by_season ||= @game_collection.group_by {|game| game.season}
@@ -37,7 +37,6 @@ attr_reader :game_collection
   #     if v.map do |value|
   #       if value.game_id == @game_teams_collection.game_id
   #
-  # game_id
   # end
 
 #returns an array of all team ids within givin season

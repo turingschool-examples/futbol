@@ -6,41 +6,17 @@ require_relative './league_statistics'
 require_relative './team_statistics'
 require_relative './season_statistics'
 require 'CSV'
-require 'pry'
 class StatTracker
   attr_reader :games, :teams, :game_teams, :league_statistics, :game_statistics, :team_statistics, :season_statistics
   def initialize(data_files)
-    @games = data_files[:games]
-    @teams = data_files[:teams]
-    @game_teams = data_files[:game_teams]
-
-    @game_collection = create_games
-    @game_teams_collection = create_game_teams
-    @teams_collection = create_teams
-
-    @league_statistics = LeagueStatistics.new(@game_collection, @game_teams_collection, @teams_collection)
-    @game_statistics = GameStatistics.new(@game_collection, @game_teams_collection, @teams_collection)
-    @team_statistics = TeamStatistics.new(@game_collection, @game_teams_collection, @teams_collection)
-    @season_statistics = SeasonStatistics.new(@game_collection, @game_teams_collection, @teams_collection)
+    @league_statistics = LeagueStatistics.new(data_files)
+    @game_statistics = GameStatistics.new(data_files)
+    @team_statistics = TeamStatistics.new(data_files)
+    @season_statistics = SeasonStatistics.new(data_files)
   end
 
   def self.from_csv(data_files)
       StatTracker.new(data_files)
-  end
-
-  def create_games
-    csv_games = CSV.read(@games, headers: true, header_converters: :symbol)
-    csv_games.map { |row| Game.new(row) }
-  end
-
-  def create_game_teams
-    csv_game_teams = CSV.read(@game_teams, headers: true, header_converters: :symbol)
-    csv_game_teams.map { |row| GameTeam.new(row) }
-  end
-
-  def create_teams
-    csv_teams = CSV.read(@teams, headers: true, header_converters: :symbol)
-    csv_teams.map { |row| Team.new(row) }
   end
 
   def highest_total_score
@@ -135,27 +111,27 @@ class StatTracker
     @team_statistics.opponent_preference(team_id, "rival")
   end
 
-  # def winningest_coach(season)
-  #   @season_statistics.coach_win_loss_results(season, "high")
-  # end
-  #
-  # def worst_coach(season)
-  #   @season_statistics.coach_win_loss_results(season, "low")
-  # end
-  #
-  # def most_tackles(season)
-  #   @season_statistics.most_least_tackles(season, "high")
-  # end
-  #
-  # def fewest_tackles(season)
-  #   @season_statistics.most_least_tackles(season, "low")
-  # end
-  #
-  # def most_accurate_team(season)
-  # @season_statistics.team_accuracy(season,"high")
-  # end
-  #
-  # def least_accurate_team(season)
-  # @season_statistics.team_accuracy(season, "low")
-  # end
+  def winningest_coach(season)
+    @season_statistics.coach_win_loss_results(season, "high")
+  end
+
+  def worst_coach(season)
+    @season_statistics.coach_win_loss_results(season, "low")
+  end
+
+  def most_tackles(season)
+    @season_statistics.most_least_tackles(season, "high")
+  end
+
+  def fewest_tackles(season)
+    @season_statistics.most_least_tackles(season, "low")
+  end
+
+  def most_accurate_team(season)
+  @season_statistics.team_accuracy(season,"high")
+  end
+
+  def least_accurate_team(season)
+  @season_statistics.team_accuracy(season, "low")
+  end
 end

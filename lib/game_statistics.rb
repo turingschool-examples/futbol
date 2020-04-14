@@ -1,17 +1,18 @@
 require_relative './game'
 require_relative './mathable'
+require_relative './statistics'
 require 'pry'
 
-class GameStatistics
+class GameStatistics < Statistics
   include Mathable
 
   attr_reader :game_collection
 
-  def initialize(game_collection, game_teams_collection, teams_collection)
-    @game_collection = game_collection
-    @game_teams_collection = game_teams_collection
-    @teams_collection = teams_collection
-  end
+  # def initialize(game_collection, game_teams_collection, teams_collection)
+  #   @game_collection = game_collection
+  #   @game_teams_collection = game_teams_collection
+  #   @teams_collection = teams_collection
+  # end
 
   def total_score(high_low)
     total = @game_collection.map {|game| game.away_goals + game.home_goals}

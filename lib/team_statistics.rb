@@ -1,11 +1,12 @@
-class TeamStatistics
+require_relative './statistics'
+class TeamStatistics < Statistics
 
   attr_reader :game_collection, :game_teams_collection, :teams_collection
-  def initialize(game_collection, game_teams_collection, teams_collection)
-    @game_collection = game_collection
-    @game_teams_collection = game_teams_collection
-    @teams_collection = teams_collection
-  end
+  # def initialize(game_collection, game_teams_collection, teams_collection)
+  #   @game_collection = game_collection
+  #   @game_teams_collection = game_teams_collection
+  #   @teams_collection = teams_collection
+  # end
 
   def team_info(team_id)
     # A hash with key/value pairs for the following attributes: team_id, franchise_id, team_name, abbreviation, and link
