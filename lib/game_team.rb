@@ -1,7 +1,7 @@
 require_relative 'hashable'
 
 class GameTeam
-  extend hashable
+  extend Hashable
   @@all = nil
 
   def self.all
