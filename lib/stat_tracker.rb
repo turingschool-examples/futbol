@@ -80,11 +80,11 @@ class StatTracker
   end
 
   def best_offense
-    @league_statistics.best_offense
+    @league_statistics.best_worst_offense('high')
   end
 
   def worst_offense
-    @league_statistics.worst_offense
+    @league_statistics.best_worst_offense("low")
   end
 
   def highest_scoring_visitor
@@ -135,27 +135,27 @@ class StatTracker
     @team_statistics.opponent_preference(team_id, "rival")
   end
 
-  def winningest_coach(season)
-    @season_statistics.coach_win_loss_results(season, "high")
-  end
-
-  def worst_coach(season)
-    @season_statistics.coach_win_loss_results(season, "low")
-  end
-
-  def most_tackles(season)
-    @season_statistics.most_least_tackles(season, "high")
-  end
-
-  def fewest_tackles(season)
-    @season_statistics.most_least_tackles(season, "low")
-  end
-
-  def most_accurate_team(season)
-  @season_statistics.team_accuracy(season,"high")
-  end
-
-  def least_accurate_team(season)
-  @season_statistics.team_accuracy(season, "low")
-  end
+  # def winningest_coach(season)
+  #   @season_statistics.coach_win_loss_results(season, "high")
+  # end
+  #
+  # def worst_coach(season)
+  #   @season_statistics.coach_win_loss_results(season, "low")
+  # end
+  #
+  # def most_tackles(season)
+  #   @season_statistics.most_least_tackles(season, "high")
+  # end
+  #
+  # def fewest_tackles(season)
+  #   @season_statistics.most_least_tackles(season, "low")
+  # end
+  #
+  # def most_accurate_team(season)
+  # @season_statistics.team_accuracy(season,"high")
+  # end
+  #
+  # def least_accurate_team(season)
+  # @season_statistics.team_accuracy(season, "low")
+  # end
 end
