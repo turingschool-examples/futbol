@@ -125,7 +125,7 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_game_team_shots_goals_count
-    # Game.from_csv('./test/fixtures/games_20.csv')
+    Game.from_csv('./test/fixtures/games_20.csv', Game)
     # arr_games = Game.all[0..2]
     game_team1 = mock
     game_team2 = mock
@@ -197,7 +197,7 @@ class GameTeamTest < Minitest::Test
   #Michelle end
 
   def test_least_accurate_team
-    Collection.from_csv('./test/fixtures/games_20.csv', Game)
+    Game.from_csv('./test/fixtures/games_20.csv', Game)
     # arr_games = Game.all[0..2]
     assert_equal "3", GameTeam.least_accurate_team("20122013")
   end
