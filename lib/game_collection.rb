@@ -13,13 +13,6 @@ class GameCollection < Collection
     @games_list = create_objects(file_path, Game)
   end
 
-  def total_games_per_season(id)
-    all_games_by_season(id).reduce({}) do |total, (season, games)|
-      total[season] = games.length
-      total
-    end
-  end
-
   def wins_in_season(id)
     all_games_by_season(id).reduce(Hash.new(0)) do |season_wins, (season, games)|
       wins = games.count do |game|
@@ -31,9 +24,7 @@ class GameCollection < Collection
   end
 
   def win_percentage(id)
-    wins = wins_in_season(id)
-    total = total_games_per_season(id)
-    wins.merge(total) {|season, wins, games|(wins.to_f/games).round(2) * 100}
+    wins_in_season(id).merge(count_of_games_by_season) {|season, wins, games|(wins.to_f/games).round(2) * 100}
   end
 
   def best_season(id)
@@ -45,9 +36,8 @@ class GameCollection < Collection
   end
 
   def opponent_stats(id)
-    total_games = all_games(id.to_i)
     opponent_hash = Hash.new{|id, games| id[games] = []}
-    total_games.each do |game|
+    all_games(id.to_i).each do |game|
       opponent_hash[game.home_team_id] << game
       opponent_hash[game.away_team_id] << game
       opponent_hash.delete(id)
@@ -73,9 +63,7 @@ class GameCollection < Collection
   end
 
   def opponent_win_percentage(id)
-    wins = opponent_wins(id.to_i)
-    total = opponent_total_games_played(id.to_i)
-    wins.merge(total) {|id, wins, games|(wins.to_f/games).round(2) * 100}
+    opponent_wins(id.to_i).merge(opponent_total_games_played(id.to_i)) {|id, wins, games|(wins.to_f/games).round(2) * 100}
   end
 
   def favorite_opponent_id(id)
@@ -138,8 +126,7 @@ class GameCollection < Collection
     @games_list.map { |game| game.home_goals.to_i + game.away_goals.to_i }
   end
 
-  def home_wins
-    # tying to find all the home wins
+  def home_wins# tying to find all the home wins
     @games_list.select { |game| game.home_goals > game.away_goals}.length
   end
 
