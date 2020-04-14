@@ -283,9 +283,6 @@ class GameTeam < Collection
     opponent_wins
   end
 
-  # def self.favorite_opponent_id(team_id)
-  #   #
-
 ####1:15 seconds
   def self.favorite_opponent_id(team_id)
     team_id = team_id
