@@ -1,14 +1,16 @@
 require './test/test_helper'
 require './lib/league_stats'
+require './lib/game'
+require './lib/game_team'
+require './lib/team'
 
 class LeagueStatsTest < MiniTest::Test
 
   def setup
-    @league_stats = LeagueStats.new({
-      games: "./test/fixtures/games_fixture.csv",
-      teams: "./data/teams.csv",
-      game_teams: "./test/fixtures/games_teams_fixture.csv"
-      })
+    Game.from_csv("./test/fixtures/games_fixture.csv")
+    GameTeam.from_csv("./test/fixtures/games_teams_fixture.csv")
+    Team.from_csv("./data/teams.csv")
+    @league_stats = LeagueStats.new(Game.all, Team.all, GameTeam.all)
   end
 
   def test_it_exists

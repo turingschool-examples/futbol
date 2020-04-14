@@ -8,17 +8,10 @@ class Stats
 
   attr_reader :games, :teams, :game_teams
 
-  def initialize(locations)
-    games_path = locations[:games]
-    teams_path = locations[:teams]
-    game_teams_path = locations[:game_teams]
-    Game.from_csv(games_path)
-    GameTeam.from_csv(game_teams_path)
-    Team.from_csv(teams_path)
-
-    @games = Game.all
-    @teams = Team.all
-    @game_teams = GameTeam.all
+  def initialize(games, teams, game_teams)
+    @games = games
+    @teams = teams
+    @game_teams = game_teams
   end
 
 

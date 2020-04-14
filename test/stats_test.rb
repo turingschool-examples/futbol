@@ -4,11 +4,10 @@ require './lib/stats'
 class StatsTest < MiniTest::Test
 
   def setup
-    @stats = Stats.new({
-      games: "./test/fixtures/games_fixture.csv",
-      teams: "./data/teams.csv",
-      game_teams: "./test/fixtures/games_teams_fixture.csv"
-      })
+    Game.from_csv("./test/fixtures/games_fixture.csv")
+    Team.from_csv("./data/teams.csv")
+    GameTeam.from_csv("./test/fixtures/games_teams_fixture.csv")
+    @stats = Stats.new(Game.all, Team.all, GameTeam.all)
   end
 
   def test_it_exists

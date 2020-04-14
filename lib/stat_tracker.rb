@@ -20,17 +20,13 @@ class StatTracker
 
   def initialize(games_path, teams_path, game_teams_path)
     Game.from_csv(games_path)
+    Team.from_csv(teams_path)
     GameTeam.from_csv(game_teams_path)
-    Team.from_csv(teams_path)  # from_csv can be added to a module
 
-    @games = Game.all
-    @teams = Team.all
-    @game_teams = GameTeam.all
-    @league_stats = LeagueStats.new({
-     games: games_path,
-     teams: teams_path,
-     game_teams: game_teams_path
-     })
+    #@game_stats = GameStats.new(Game.all, Team.all, GameTeam.all)
+    @league_stats = LeagueStats.new(Game.all, Team.all, GameTeam.all)
+    #@season_stats = SeasonStats.new(Game.all, Team.all, GameTeam.all)
+    #@team_stats = TeamStats.new(Game.all, Team.all, GameTeam.all)
   end
 
   def percentage_home_wins
