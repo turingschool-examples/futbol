@@ -9,7 +9,7 @@ require 'pry'
 class StatTracker
   include Calculable
 
-  attr_reader :games, :teams, :game_teams
+  attr_reader :games, :teams, :game_teams, :league_stats
 
   def self.from_csv(locations)
     games_path = locations[:games]
@@ -27,9 +27,9 @@ class StatTracker
     @teams = Team.all
     @game_teams = GameTeam.all
     @league_stats = LeagueStats.new({
-     games: "./test/fixtures/games_fixture.csv",
-     teams: "./data/teams.csv",
-     game_teams: "./test/fixtures/games_teams_fixture.csv"
+     games: games_path,
+     teams: teams_path,
+     game_teams: game_teams_path
      })
   end
 
@@ -85,6 +85,10 @@ class StatTracker
     end
   end
 
+  def team_by_id(team_id) # needed for team_info. delete once team info in in team_stats class
+    @teams.find{|team| team.team_id == team_id}
+  end
+
   def count_of_teams
     @league_stats.count_of_teams
   end
@@ -101,28 +105,20 @@ class StatTracker
     @league_stats.worst_offense
   end
 
-  def team_by_id(team_id) # parent class
-    @teams.find{|team| team.team_id == team_id}
-  end
-
   def highest_scoring_visitor
-    id = unique_team_ids.max_by {|team_id| average_goals_by_team(team_id, "away")}
-    team_by_id(id).team_name
+    @league_stats.highest_scoring_visitor
   end
 
   def highest_scoring_home_team
-    id = unique_team_ids.max_by {|team_id| average_goals_by_team(team_id, "home")}
-    team_by_id(id).team_name
+    @league_stats.highest_scoring_home_team
   end
 
   def lowest_scoring_visitor
-    id = unique_team_ids.min_by {|team_id| average_goals_by_team(team_id, "away")}
-    team_by_id(id).team_name
+    @league_stats.lowest_scoring_visitor
   end
 
   def lowest_scoring_home_team
-    id = unique_team_ids.min_by {|team_id| average_goals_by_team(team_id, "home")}
-    team_by_id(id).team_name
+    @league_stats.lowest_scoring_home_team
   end
 
   def team_games_by_season(season) # test

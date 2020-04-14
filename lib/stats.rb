@@ -58,11 +58,11 @@ class Stats
     goals_games[1] += 1
   end
 
-  def unique_team_ids # parent?
+  def unique_team_ids
     @@game_teams.map{|game_team| game_team.team_id}.uniq
   end
 
-  def team_by_id(team_id) # parent class
+  def team_by_id(team_id)
     @@teams.find{|team| team.team_id == team_id}
   end
 

@@ -45,5 +45,4 @@ class StatsTest < MiniTest::Test
     assert_equal 'Reign FC', @stats.team_by_id("54").team_name
   end
 
-
 end
