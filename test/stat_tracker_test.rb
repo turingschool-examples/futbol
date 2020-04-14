@@ -16,10 +16,10 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_has_attributes
-    skip
-    assert_instance_of Game, @stat_tracker.games.first
-    assert_instance_of Team, @stat_tracker.teams.first
-    assert_instance_of GameTeam, @stat_tracker.game_teams.first
+    assert_instance_of GameStats, @stat_tracker.game_stats
+    assert_instance_of TeamStats, @stat_tracker.team_stats
+    assert_instance_of LeagueStats, @stat_tracker.league_stats
+    assert_instance_of SeasonStats, @stat_tracker.season_stats
   end
 
   def test_percentage_home_wins
