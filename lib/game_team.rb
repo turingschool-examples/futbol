@@ -1,25 +1,10 @@
-# require_relative 'collection'
+require_relative 'collection'
 require_relative 'game'
 
-class GameTeam
-# #
-  @@all = nil
-
-  def self.all
-    @@all
-  end
+class GameTeam < Collection
 
   def self.find_by_team(team_id)
     all.find_all{|game| game.team_id == team_id}
-  end
-
-  def self.find_by(id)
-    all.find_all{|game| game.game_id == id}
-  end
-
-  def self.from_csv(csv_file_path)
-    csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
-    @@all = csv.map { |row| GameTeam.new(row) }
   end
 
   def self.home_games
@@ -279,7 +264,6 @@ class GameTeam
 
   def self.opponents_records(team_id)
     game_ids = all.map {|gt| gt.game_id if gt.team_id == team_id }.compact
-    binding.pry
     opponents_records = Hash.new { |hash, key| hash[key] = [] }
     game_ids.each do |game_id|
       all.find_all do |gt|
@@ -322,9 +306,6 @@ class GameTeam
     opponents = opponents_records(team_id).keys
     opponents.max_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
   end
-#
-
-
 
     attr_reader :game_id,
                 :team_id,
@@ -361,10 +342,6 @@ class GameTeam
     @takeaways = details[:takeaways].to_i
     @season_id = @game_id.to_s[0..3]
   end
-
-  # def home_games
-  #   (self.find_all {|gt| gt.hoa == "home" }).count
-  # end
 
   def win?
     return 1 if @result == "WIN"
