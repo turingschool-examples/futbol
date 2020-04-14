@@ -34,12 +34,8 @@ class SeasonStats < Collection
   end
 
   def winningest_coach(season)
-    coach_names = []
     games = games_by_season(season, @game_stats)
-    games.each do |game|
-      coach_names << game.head_coach if coach_names.any?{|name| name == game.head_coach} == false
-    end
-
+    coach_names = info_by_season(games, :head_coach)
     percentage_tracker = -1
     name_tracker = nil
     coach_names.each do |name|
@@ -53,11 +49,8 @@ class SeasonStats < Collection
   end
 
   def worst_coach(season)
-    coach_names = []
     games = games_by_season(season, @game_stats)
-    games.each do |game|
-      coach_names << game.head_coach if coach_names.any?{|name| name == game.head_coach} == false
-    end
+    coach_names = info_by_season(games, :head_coach)
 
     percentage_tracker = 2
     name_tracker = nil
@@ -72,18 +65,16 @@ class SeasonStats < Collection
   end
 
   def most_accurate_team(season)
-    team_ids = []
     games = games_by_season(season, @game_stats)
-    games.each do |game|
-      team_ids << game.team_id if team_ids.any?{|id| id == game.team_id} == false
-    end
-
-    percentage_tracker = 0
+    team_ids = info_by_season(games, :team_id)
+    shots = info_by_season(games, :team_shots)
+    goals = info_by_season(games, :team_goals)
     id_tracker = nil
+    result_tracker = 0
     team_ids.each do |id|
-      percentage = season_stat_percentage(season, id, :shot)
-      if percentage > percentage_tracker
-        percentage_tracker = percentage
+      result = goals[id].to_f / shots[id]
+      if result > result_tracker
+        result_tracker = result
         id_tracker = id
       end
     end
@@ -91,11 +82,8 @@ class SeasonStats < Collection
   end
 
   def least_accurate_team(season)
-    team_ids = []
     games = games_by_season(season, @game_stats)
-    games.each do |game|
-      team_ids << game.team_id if team_ids.any?{|id| id == game.team_id} == false
-    end
+    team_ids = info_by_season(games, :team_id)
 
     percentage_tracker = 2
     id_tracker = nil
@@ -110,29 +98,15 @@ class SeasonStats < Collection
   end
 
   def most_tackles(season)
-    teams_tackles = {}
     games = games_by_season(season, @game_stats)
-    games.each do |game|
-      if teams_tackles.any?{teams_tackles[game.team_id]} == false
-        teams_tackles[game.team_id] = game.tackles
-      else
-        teams_tackles[game.team_id] += game.tackles
-      end
-    end
+    teams_tackles = info_by_season(games, :team_tackles)
     id = teams_tackles.sort_by {|id, tackles| tackles}.last[0]
     @teams.find{|team| team.team_id == id}.teamname
   end
 
   def fewest_tackles(season)
-    teams_tackles = {}
     games = games_by_season(season, @game_stats)
-    games.each do |game|
-      if teams_tackles.any?{teams_tackles[game.team_id]} == false
-        teams_tackles[game.team_id] = game.tackles
-      else
-        teams_tackles[game.team_id] += game.tackles
-      end
-    end
+    teams_tackles = info_by_season(games, :team_tackles)
     id = teams_tackles.sort_by {|id, tackles| tackles}.first[0]
     @teams.find{|team| team.team_id == id}.teamname
   end
