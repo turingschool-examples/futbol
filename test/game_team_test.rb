@@ -6,13 +6,13 @@ require 'pry'
 require './lib/stat_tracker'
 require './lib/game_team'
 require 'mocha/minitest'
-# require './lib/collection'
+require './lib/collection'
 
 class GameTeamTest < Minitest::Test
 
   def setup
     file_path = "./test/fixtures/game_teams_40.csv"
-    @game_teams = GameTeam.from_csv(file_path)
+    @game_teams = GameTeam.from_csv(file_path, GameTeam)
 
     @base_game_team = GameTeam.new({
       :game_id => "2012030221",
