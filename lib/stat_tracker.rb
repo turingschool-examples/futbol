@@ -1,4 +1,8 @@
 require 'csv'
+require './lib/game_stats.rb'
+require './lib/season_stats.rb'
+require './lib/league_stats.rb'
+require './lib/team_stats.rb'
 require_relative 'game_team'
 require_relative 'game'
 require_relative 'team'
@@ -6,9 +10,8 @@ require_relative 'calculable'
 require 'pry'
 
 class StatTracker
-  include Calculable
 
-  attr_reader :games, :teams, :game_teams
+  attr_reader :game_stats, :league_stats, :season_stats, :team_stats
 
   def self.from_csv(locations)
     games_path = locations[:games]
@@ -20,63 +23,44 @@ class StatTracker
   def initialize(games_path, teams_path, game_teams_path)
     Game.from_csv(games_path)
     GameTeam.from_csv(game_teams_path)
-    Team.from_csv(teams_path)  # from_csv can be added to a module
+    Team.from_csv(teams_path)
 
-    @games = Game.all
-    @teams = Team.all
-    @game_teams = GameTeam.all
+    @game_stats = GameStats.new(Game.all, Team.all, GameTeam.all)
+    @league_stats = LeagueStats.new(Game.all, Team.all, GameTeam.all)
+    @season_stats = SeasonStats.new(Game.all, Team.all, GameTeam.all)
+    @team_stats = TeamStats.new(Game.all, Team.all, GameTeam.all)
   end
 
   def percentage_home_wins
-    home_wins = @games.find_all {|game| game.home_goals > game.away_goals}
-    average(home_wins.length, @games.length)
+    @game_stats.percentage_home_wins
   end
 
-  def percentage_visitor_wins #game
-    away_wins = @games.find_all {|game| game.away_goals > game.home_goals}
-    average(away_wins.length, @games.length)
+  def percentage_visitor_wins
+    @game_stats.percentage_visitor_wins
   end
 
   def percentage_ties #game_teams
-    ties = @game_teams.find_all {|team| team.result == "TIE"}
-    average(ties.length, @game_teams.length)
+    @game_stats.percentage_ties
   end
 
   def count_of_games_by_season # game
-    games_by_season = @games.group_by {|game| game.season}
-    games_by_season.transform_values {|season| season.length}
+    @game_stats.count_of_games_by_season
   end
 
   def highest_total_score # game
-    highest_scoring_game = @games.max_by {|game| game.away_goals + game.home_goals}
-    highest_scoring_game.away_goals + highest_scoring_game.home_goals
+    @game_stats.highest_total_score
   end
 
   def lowest_total_score # game
-    lowest_scoring_game = @games.min_by {|game| game.away_goals + game.home_goals}
-    lowest_scoring_game.away_goals + lowest_scoring_game.home_goals
+    @game_stats.lowest_total_score
   end
 
   def average_goals_per_game # game
-    sum_of_goals = @games.sum {|game| game.home_goals + game.away_goals}
-    average(sum_of_goals, @games.length)
-  end
-
-  def sum_of_goals_in_a_season(season) # game
-    full_season = @games.find_all {|game| game.season == season}
-    full_season.sum {|game| game.home_goals + game.away_goals}
-  end
-
-  def average_of_goals_in_a_season(season) # game
-    by_season = @games.find_all {|game| game.season == season}
-    average(sum_of_goals_in_a_season(season), by_season.length)
+    @game_stats.average_goals_per_game
   end
 
   def average_goals_by_season # game
-    average_goals_by_season = @games.group_by {|game| game.season}
-    average_goals_by_season.transform_values do |season|
-      average_of_goals_in_a_season(season.first.season)
-    end
+    @game_stats.average_goals_by_team
   end
 
   def count_of_teams
