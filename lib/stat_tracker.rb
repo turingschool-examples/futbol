@@ -3,6 +3,7 @@ require_relative 'game_team'
 require_relative 'game'
 require_relative 'team'
 require_relative 'calculable'
+require_relative 'league_stats'
 require 'pry'
 
 class StatTracker
@@ -25,6 +26,11 @@ class StatTracker
     @games = Game.all
     @teams = Team.all
     @game_teams = GameTeam.all
+    @league_stats = LeagueStats.new({
+     games: "./test/fixtures/games_fixture.csv",
+     teams: "./data/teams.csv",
+     game_teams: "./test/fixtures/games_teams_fixture.csv"
+     })
   end
 
   def percentage_home_wins
@@ -80,49 +86,19 @@ class StatTracker
   end
 
   def count_of_teams
-    @teams.length
+    @league_stats.count_of_teams
   end
 
-  def average_goals_by_team(team_id, hoa = nil) # game_teams?
-    goals = total_games_and_goals_by_team(team_id, hoa)[0]
-    games = total_games_and_goals_by_team(team_id, hoa)[1]
-    return 0 if games == 0
-    (goals.to_f / games.to_f).round(2) # average
-  end
-
-  def total_games_and_goals_by_team(team_id, hoa)
-    goals_games = [0, 0]
-    @game_teams.each do |game_team|
-      if hoa && game_team.team_id == team_id && game_team.hoa == hoa
-        add_goals_and_games(goals_games, game_team)
-      elsif !hoa && game_team.team_id == team_id
-        add_goals_and_games(goals_games, game_team)
-      end
-    end
-    goals_games
-  end
-
-  def add_goals_and_games(goals_games, game_team)
-    goals_games[0] += game_team.goals
-    goals_games[1] += 1
-  end
-
-  def unique_team_ids # parent?
-    @game_teams.map{|game_team| game_team.team_id}.uniq
-  end
-
-  def team_by_id(team_id) # parent class
-    @teams.find{|team| team.team_id == team_id}
+  def average_goals_by_team(team_id, hoa = nil)
+    @league_stats.average_goals_by_team(team_id, hoa = nil)
   end
 
   def best_offense
-    id = unique_team_ids.max_by {|team_id| average_goals_by_team(team_id)}
-    team_by_id(id).team_name
+    @league_stats.best_offense
   end
 
   def worst_offense
-    id = unique_team_ids.min_by {|team_id| average_goals_by_team(team_id)}
-    team_by_id(id).team_name
+    @league_stats.worst_offense
   end
 
   def highest_scoring_visitor
