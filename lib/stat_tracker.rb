@@ -4,12 +4,15 @@ require_relative 'game'
 require_relative 'team'
 require_relative 'calculable'
 require_relative 'team_stats'
+require_relative 'game_stats'
+require_relative 'league_stats'
+require_relative 'season_stats'
 require 'pry'
 
 class StatTracker
   include Calculable
 
-  attr_reader :games, :teams, :game_teams
+  attr_reader :team_stats
 
   def self.from_csv(locations)
     games_path = locations[:games]
@@ -18,19 +21,29 @@ class StatTracker
     StatTracker.new(games_path, teams_path, game_teams_path)
   end
 
+  # def initialize(games_path, teams_path, game_teams_path)
+  #   Game.from_csv(games_path)
+  #   GameTeam.from_csv(game_teams_path)
+  #   Team.from_csv(teams_path)  # from_csv can be added to a module
+  #
+  #   @games = Game.all
+  #   @teams = Team.all
+  #   @game_teams = GameTeam.all
+  #   @team_stats = TeamStats.new({
+  #     games: "./test/fixtures/games_fixture.csv",
+  #     teams: "./data/teams.csv",
+  #     game_teams: "./test/fixtures/games_teams_fixture.csv"
+  #     })
+  # end
+
   def initialize(games_path, teams_path, game_teams_path)
     Game.from_csv(games_path)
     GameTeam.from_csv(game_teams_path)
-    Team.from_csv(teams_path)  # from_csv can be added to a module
-
-    @games = Game.all
-    @teams = Team.all
-    @game_teams = GameTeam.all
-    @team_stats = TeamStats.new({
-      games: "./test/fixtures/games_fixture.csv",
-      teams: "./data/teams.csv",
-      game_teams: "./test/fixtures/games_teams_fixture.csv"
-      })
+    Team.from_csv(teams_path)
+    @game_stats = GameStats.new(Game.all, Team.all, GameTeam.all)
+    @league_stats = LeagueStats.new(Game.all, Team.all, GameTeam.all)
+    @season_stats = SeasonStats.new(Game.all, Team.all, GameTeam.all)
+    @team_stats = TeamStats.new(Game.all, Team.all, GameTeam.all)
   end
 
   def percentage_home_wins
@@ -214,7 +227,7 @@ class StatTracker
   end
 
   def team_info(team_id)
-    TeamStats.team_info(team_id)
+    @team_stats.team_info(team_id)
      # finds a specific team via their id
       #team = team_by_id(team_id)
       # returns an array of the team object's instance variables, then iterates
@@ -228,7 +241,7 @@ class StatTracker
   end
 
   def best_season(team_id)
-    TeamStats.best_season
+    @team_stats.best_season(team_id)
     # team_seasons = @games.find_all {|game| game.home_team_id  == team_id || game.away_team_id == team_id }
     # seasons = team_seasons.group_by {|game| game.season}
     # seasons.each do |season, season_games|
@@ -240,7 +253,8 @@ class StatTracker
     #   win_pct }[0]
   end
 
-  # def worst_season(team_id)
+   def worst_season(team_id)
+     @team_stats.worst_season(team_id)
   #   team_seasons = @games.find_all {|game| game.home_team_id  == team_id || game.away_team_id == team_id }
   #   seasons = team_seasons.group_by {|game| game.season}
   #   seasons.each do |season, season_games|
@@ -250,43 +264,49 @@ class StatTracker
   #   end
   #   seasons.min_by { |season, win_pct|
   #     win_pct }[0]
-  # end
+   end
 
   def average_win_percentage(team_id)
+    @team_stats.average_win_percentage(team_id)
     # finds the number of games that a team both played in and won
-    team_games = all_games_by_team(team_id)
-    calculate_win_percentage(team_games).round(2)
+    #team_games = all_games_by_team(team_id)
+    #calculate_win_percentage(team_games).round(2)
     # returns the number of that team's wins over the total games they have played rounded to the 2nd decimal place
   end
 
   def all_games_by_team(team_id)
-    @game_teams.find_all{|game_team| game_team.team_id == team_id}
+    @team_stats.all_games_by_team(team_id)
+    #@game_teams.find_all{|game_team| game_team.team_id == team_id}
   end
 
   def most_goals_scored(team_id)
-    all_games_by_team(team_id).max_by{|game| game.goals}.goals
+    @team_stats.most_goals_scored(team_id)
+    #all_games_by_team(team_id).max_by{|game| game.goals}.goals
   end
 
   def fewest_goals_scored(team_id)
-    all_games_by_team(team_id).min_by{|game| game.goals}.goals
+    @team_stats.fewest_goals_scored(team_id)
+    #all_games_by_team(team_id).min_by{|game| game.goals}.goals
   end
 
   def favorite_opponent(team_id)
-    team_games = all_games_by_team(team_id)
-    team_games.map! {|game| game.game_id}
-    opp_team_games = @game_teams.find_all {|game| team_games.include?(game.game_id) && game.team_id != team_id}
-    opp_teams = opp_team_games.group_by {|game| game.team_id}
-    win_pct_against = opp_teams.transform_values{|game| 1 - calculate_win_percentage(game)}
-    @teams.find {|team| team.team_id == win_pct_against.max_by {|team, win_pct| win_pct}[0]}.team_name
+    @team_stats.favorite_opponent(team_id)
+    # team_games = all_games_by_team(team_id)
+    # team_games.map! {|game| game.game_id}
+    # opp_team_games = @game_teams.find_all {|game| team_games.include?(game.game_id) && game.team_id != team_id}
+    # opp_teams = opp_team_games.group_by {|game| game.team_id}
+    # win_pct_against = opp_teams.transform_values{|game| 1 - calculate_win_percentage(game)}
+    # @teams.find {|team| team.team_id == win_pct_against.max_by {|team, win_pct| win_pct}[0]}.team_name
   end
 
   def rival(team_id)
-    team_games = all_games_by_team(team_id)
-    team_games.map! {|game| game.game_id}
-    opp_team_games = @game_teams.find_all {|game| team_games.include?(game.game_id) && game.team_id != team_id}
-    opp_teams = opp_team_games.group_by {|game| game.team_id}
-    win_pct_against = opp_teams.transform_values{|game| 1 - calculate_win_percentage(game)}
-    @teams.find {|team| team.team_id == win_pct_against.min_by {|team, win_pct| win_pct}[0]}.team_name
+    @team_stats.rival(team_id)
+    # team_games = all_games_by_team(team_id)
+    # team_games.map! {|game| game.game_id}
+    # opp_team_games = @game_teams.find_all {|game| team_games.include?(game.game_id) && game.team_id != team_id}
+    # opp_teams = opp_team_games.group_by {|game| game.team_id}
+    # win_pct_against = opp_teams.transform_values{|game| 1 - calculate_win_percentage(game)}
+    # @teams.find {|team| team.team_id == win_pct_against.min_by {|team, win_pct| win_pct}[0]}.team_name
   end
 
   def calculate_win_percentage(team_games)
