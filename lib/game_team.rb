@@ -37,14 +37,6 @@ class GameTeam
     ties_count = (all.find_all { |gt| gt.result == "TIE"}).count.to_f
     ((ties_count / games_count)).round(2)
   end
-  #
-  # def self.coaches_in_season(season_id)
-  #   search_term = season_id.to_s[0..3]
-  #   game_teams_in_season = all.find_all do |gt|
-  #     gt.game_id.to_s[0..3] == search_term
-  #   end
-  #   game_teams_in_season.map {|gameteam| gameteam.head_coach}.uniq
-  # end
 
   def self.coach_record(season_id)
     game_teams_in_season = all.find_all do |gt|
@@ -57,46 +49,20 @@ class GameTeam
     end
     coach_record
   end
-#   def self.results_by_coach(season_id)
-#     search_term = season_id.to_s[0..3]
-#     results_by_coach_by_season = Hash.new { |hash, key| hash[key] = [] }
-#     coaches_in_season(season_id).each do |coach|
-#       all.find_all do |gt|
-#         if gt.game_id.to_s[0..3] == search_term && coach == gt.head_coach
-#             results_by_coach_by_season[coach] << gt.result
-#         end
-#       end
-#     end
-#     results_by_coach_by_season
-#   end
-#
-#   def self.total_games_coached(season_id)
-#     total_games_coached_by_season = {}
-#     results_by_coach(season_id).map do |coach, results|
-#       total_games_coached_by_season[coach] = results.length
-#     end
-#     total_games_coached_by_season
-#   end
-# #deliverbale
+
   def self.winningest_coach(season_id)
     wins_by_coach_by_season = Hash.new { |hash, key| hash[key] = 0 }
     coach_record(season_id).map do |coach, counts|
-      binding.pry
-      (counts[:wins].to_f / counts[:games_played].to_f).round(2)
+      wins_by_coach_by_season[coach] = (counts[:wins].to_f / counts[:games_played].to_f).round(2)
     end
     winningest = wins_by_coach_by_season.max_by {|coach, percent| percent}
     winningest[0]
   end
-#
-# #####30 Seconds
-#   def self.winningest_coach(season_id)
-#     coaches_in_season(season_id).max_by {|coach| (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)}
-#   end
-# #####30 Seconds
+
   def self.worst_coach(season_id)
     wins_by_coach_by_season = Hash.new { |hash, key| hash[key] = 0 }
     coach_record(season_id).map do |coach, counts|
-      (counts[:wins].to_f / counts[:games_played].to_f).round(2)
+      wins_by_coach_by_season[coach] = (counts[:wins].to_f / counts[:games_played].to_f).round(2)
     end
     worst = wins_by_coach_by_season.min_by {|coach, percent| percent}
     worst[0]
