@@ -2,10 +2,12 @@ require 'csv'
 require_relative 'collection'
 require_relative 'team_collection'
 require_relative 'game_stats'
+require_relative 'modules/mathable'
 require_relative 'modules/findable'
 
 class GameStatsCollection < Collection
   include Findable
+  include Mathable
 
   attr_reader :game_stats
 
@@ -142,7 +144,7 @@ class GameStatsCollection < Collection
 
   def average_win_percentage(team_id)
     total_games = all_games_for(team_id)
-    games_won = total_games.find_all {|game|game.result == "WIN"}
-    (games_won.length.to_f/total_games.length).round(2)
+    games_won = total_games.find_all {|game|game.result == "WIN"}.length
+    percentage(games_won, total_games)
   end
 end
