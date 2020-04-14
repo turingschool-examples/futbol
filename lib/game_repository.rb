@@ -68,7 +68,6 @@ class GameRepository
     average = @game_team_collection.map do |game|
       if seasons[1][0] == game.game_id
         tally += game.goals
-        require 'pry'; binding.pry
       end
 average
     end

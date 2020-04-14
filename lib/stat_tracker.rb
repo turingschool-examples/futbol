@@ -65,7 +65,6 @@ class StatTracker
     @league_repository.highest_scoring_visitor
   end
 
-
   def best_offense
     @league_repository.best_offense
   end
@@ -80,11 +79,6 @@ class StatTracker
 
   def lowest_scoring_home_team
     @league_repository.lowest_scoring_home_team
-  end
-
-
-  def best_season(id)
-
   end
 
   def most_goals_scored(id)
@@ -109,13 +103,11 @@ class StatTracker
 
   def average_goals_per_game
     @game_repository.average_goals_per_game
-
   end
 
   def average_goals_by_season
     @game_repository.average_goals_by_season
   end
-
 
   def worst_offense
     @league_repository.worst_offense
@@ -184,7 +176,4 @@ class StatTracker
   def fewest_tackles(season_id)
     @season_repository.fewest_tackles(season_id)
   end
-
-
-
 end
