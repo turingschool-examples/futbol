@@ -139,6 +139,7 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_get_goal_shots_by_game_team
+    skip
     game_team1 = mock
     game_team2 = mock
     game_team3 = mock

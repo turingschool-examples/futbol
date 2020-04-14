@@ -1,9 +1,9 @@
 require "csv"
-require "./lib/hashable"
+# require "./lib/hashable"
 
 class Game
 
-  extend Hashable
+  # extend Hashable
 
   @@all = nil
 #inheritance

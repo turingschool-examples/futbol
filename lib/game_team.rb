@@ -95,83 +95,95 @@ class GameTeam
     self.find_by(season)
   end
 
+  # def self.get_goal_shots_by_game_team(game_teams)
+  #   #passes in an array of games
+  #   results = {}
+  #   #each game, iterating through and adding the team_id as the key and
+  #   #getting the shots and goals count
+  #   game_teams.each do |game_team|
+  #     results[game_team.team_id] ||= {"shots"=>0,"goals"=>0}
+  #     results[game_team.team_id]["shots"] += game_team.shots
+  #     results[game_team.team_id]["goals"] += game_team.goals
+  #   end
+  #   results
+  # end
+
   def self.get_goal_shots_by_game_team(game_teams)
     #passes in an array of games
     results = {}
     #each game, iterating through and adding the team_id as the key and
     #getting the shots and goals count
-    game_teams.each do |game_team|
-      results[game_team.team_id] ||= {"shots"=>0,"goals"=>0}
-      results[game_team.team_id]["shots"] += game_team.shots
-      results[game_team.team_id]["goals"] += game_team.goals
+    grouped_season = game_teams.group_by{|group|group.team_id}
+    grouped_season.each do |team_id, game_team|
+      results[team_id] ||= {"shots"=>0,"goals"=>0}
+      results[team_id]["shots"] = game_team.sum(&:shots)
+      results[team_id]["goals"] = game_team.sum(&:goals)
     end
     results
   end
 
-  def self.least_accurate_team(season)
-    games_by_season = Game.grouped_by_season(season)
-    game_teams_by_season = []
-    games_by_season.each do |game|
-      game_teams_by_season << GameTeam.find_by(game.game_id)
-    end
-    game_teams_by_season.flatten!
-    least_accurate_team_id = nil
-    lowest_average = 5
-    grouped_game_teams_by_season = game_teams_by_season.group_by{|group|group.team_id}
-    grouped_game_teams_by_season.each do |team_id, team_games|
-      average = team_games.sum(&:goals) / team_games.sum(&:shots).to_f
-      if average < lowest_average
-        least_accurate_team_id = team_id
-        lowest_average = average
-      end
-    end
-    least_accurate_team_id
-  end
-
-  def self.most_accurate_team(season)
-    games_by_season = Game.grouped_by_season(season)
-    game_teams_by_season = []
-    games_by_season.each do |game|
-      game_teams_by_season << GameTeam.find_by(game.game_id)
-    end
-    game_teams_by_season.flatten!
-    most_accurate_team_id = nil
-    highest_average = 7
-    grouped_game_teams_by_season = game_teams_by_season.group_by{|group|group.team_id}
-    grouped_game_teams_by_season.each do |team_id, team_games|
-      average = team_games.sum(&:shots) / team_games.sum(&:goals).to_f
-      if average < highest_average
-        most_accurate_team_id = team_id
-        highest_average = average
-      end
-    end
-    most_accurate_team_id
-  end
-
-
   # def self.least_accurate_team(season)
-  #   season = season.to_i
-  #    seasonal_hash = gets_team_shots_goals_count(season)
-  #    seasonal_hash.map do |key,value|
-  #      value["average"] = (value["goals"]/ value["shots"].to_f).round(2)
-  #    end
-  #    team_hash_with_highest_average = seasonal_hash.min_by do |key,value|
-  #      value["average"]
-  #    end
-  #    team_hash_with_highest_average[0]
+  #   games_by_season = Game.grouped_by_season(season)
+  #   game_teams_by_season = []
+  #   games_by_season.each do |game|
+  #     game_teams_by_season << GameTeam.find_by(game.game_id)
+  #   end
+  #   game_teams_by_season.flatten!
+  #   least_accurate_team_id = nil
+  #   lowest_average = 5
+  #   grouped_game_teams_by_season = game_teams_by_season.group_by{|group|group.team_id}
+  #   grouped_game_teams_by_season.each do |team_id, team_games|
+  #     average = team_games.sum(&:goals) / team_games.sum(&:shots).to_f
+  #     if average < lowest_average
+  #       least_accurate_team_id = team_id
+  #       lowest_average = average
+  #     end
+  #   end
+  #   least_accurate_team_id
   # end
-  #
+
   # def self.most_accurate_team(season)
-  #   season = season.to_i
-  #   seasonal_hash = gets_team_shots_goals_count(season)
-  #   seasonal_hash.map do |key,value|
-  #     value["average"] = (value["goals"]/ value["shots"].to_f).round(2)
+  #   games_by_season = Game.grouped_by_season(season)
+  #   game_teams_by_season = []
+  #   games_by_season.each do |game|
+  #     game_teams_by_season << GameTeam.find_by(game.game_id)
   #   end
-  #   team_hash_with_highest_average = seasonal_hash.max_by do |key,value|
-  #     value["average"]
+  #   game_teams_by_season.flatten!
+  #   most_accurate_team_id = nil
+  #   highest_average = 7
+  #   grouped_game_teams_by_season = game_teams_by_season.group_by{|group|group.team_id}
+  #   grouped_game_teams_by_season.each do |team_id, team_games|
+  #     average = team_games.sum(&:shots) / team_games.sum(&:goals).to_f
+  #     if average < highest_average
+  #       most_accurate_team_id = team_id
+  #       highest_average = average
+  #     end
   #   end
-  #   team_hash_with_highest_average[0]
+  #   most_accurate_team_id
   # end
+
+
+  def self.least_accurate_team(season)
+     seasonal_hash = gets_team_shots_goals_count(season)
+     seasonal_hash.map do |key,value|
+       value["average"] = (value["goals"]/ value["shots"].to_f).round(2)
+     end
+     team_hash_with_highest_average = seasonal_hash.min_by do |key,value|
+       value["average"]
+     end
+     team_hash_with_highest_average[0]
+  end
+  #
+  def self.most_accurate_team(season)
+    seasonal_hash = gets_team_shots_goals_count(season)
+    seasonal_hash.map do |key,value|
+      value["average"] = (value["goals"]/ value["shots"].to_f).round(2)
+    end
+    team_hash_with_highest_average = seasonal_hash.max_by do |key,value|
+      value["average"]
+    end
+    team_hash_with_highest_average[0]
+  end
 
   def self.gets_team_shots_goals_count(season)
     #passes in desired season, grabs the *games* for the season
