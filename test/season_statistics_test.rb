@@ -27,32 +27,41 @@ class SeasonStatisticsTest < Minitest::Test
     assert_equal "2012030221", @season_statistics.game_collection[0].game_id
   end
 
-  def test_current_season_games
-    assert_equal ["2013020674", "2013020177", "2013021085"] , @season_statistics.current_season_games("20132014")
+  def test_current_season_game_ids
+    assert_equal ["2013020674", "2013020177", "2013021085"] , @season_statistics.current_season_game_ids("20132014")
   end
 
   def test_current_season_game_teams
     assert_instance_of GameTeam, @season_statistics.current_season_game_teams("20122013").first
   end
 
-  def test_winningest_coach
-    assert_equal "Claude Julien", @season_statistics.coach_win_loss_results("20122013", "high")
+  def test_team_ids
+    assert_instance_of Array, @season_statistics.team_ids("20132014")
   end
 
-  def test_losingest_coach
-    assert_equal "John Tortorella", @season_statistics.coach_win_loss_results("20122013", "low")
-  end
+  def test_teams_hash
 
-  def test_most_least_tackles
-    assert_equal "Houston Dynamo", @season_statistics.most_least_tackles("20122013", "high")
-    assert_equal "FC Dallas", @season_statistics.most_least_tackles("20122013", "low")
-  end
+    assert_instance_of Hash, @season_statistics.teams_hash("20132014")
+  end 
 
-  def test_most_accurate_team
-    assert_equal "FC Dallas", @season_statistics.team_accuracy("20122013", "high")
-  end
-
-  def test_least_accurate_team
-    assert_equal "Houston Dynamo", @season_statistics.team_accuracy("20122013","low")
-  end
+#   def test_winningest_coach
+#     assert_equal "Claude Julien", @season_statistics.coach_win_loss_results("20122013", "high")
+#   end
+#
+#   def test_losingest_coach
+#     assert_equal "John Tortorella", @season_statistics.coach_win_loss_results("20122013", "low")
+#   end
+#
+#   def test_most_least_tackles
+#     assert_equal "Houston Dynamo", @season_statistics.most_least_tackles("20122013", "high")
+#     assert_equal "FC Dallas", @season_statistics.most_least_tackles("20122013", "low")
+#   end
+#
+#   def test_most_accurate_team
+#     assert_equal "FC Dallas", @season_statistics.team_accuracy("20122013", "high")
+#   end
+#
+#   def test_least_accurate_team
+#     assert_equal "Houston Dynamo", @season_statistics.team_accuracy("20122013","low")
+#   end
 end

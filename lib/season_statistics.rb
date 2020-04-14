@@ -1,7 +1,7 @@
 require 'pry'
 
 class SeasonStatistics
-attr_reader :stat_tracker, :game_collection, :game_teams_collection, :teams_collection
+attr_reader :game_collection
 
   def initialize(game_collection, game_teams_collection, teams_collection)
     @game_collection = game_collection
@@ -9,27 +9,53 @@ attr_reader :stat_tracker, :game_collection, :game_teams_collection, :teams_coll
     @teams_collection = teams_collection
   end
 
-  def current_season_games(season)
-    current_games = @game_collection.map do |game|
-     if game.season == season
-       game.game_id
-     end
-   end
-  current_games.compact
+  def current_season_game_ids(season)
+    season_game_ids = @game_collection.map do |game|
+      game.game_id if game.season == season
+    end
+    season_game_ids.compact
+  end
+
+  def current_season_game_teams(season)
+    @game_teams_collection.find_all do |game|
+      current_season_game_ids(season).include?(game.game_id)
+    end
+  end
+
+  # def current_season_games(season)
+  #   current_games = @game_collection.map do |game|
+  #    if game.season == season
+  #      game.game_id
+  #    end
+  #  end
+  # current_games.compact
+  # end
+
+  def team_ids(season)
+    current_season_game_teams(season).map do |game|
+      game.team_id
+    end
   end
 
   def teams_hash(season)
-    teams = Hash.new(0)
-    season_teams = current_season_game_teams(season).map do |game|
-      game.team_id
-      end
+    season_team_ids = team_ids(season)
+    team_names = Hash.new(0)
     @teams_collection.each do |team|
-        if season_teams.include?(team.id)
-          teams[team.id] = 0
-        end
+      (teams_names[team.id] = 0) if season_team_ids.include?(team.id)
       end
-    teams
+    team_names
   end
+
+  # def teams_hash(season)
+  #   season_team_ids = team_ids (season)
+  #   team_names = Hash.new(0)
+  #   @teams_collection.each do |team|
+  #       if season_teams.include?(team.id)
+  #         teams[team.id] = 0
+  #       end
+  #     end
+  #   teams
+  # end
 
   def coaches_hash(season)
     coaches = Hash.new(0)
@@ -44,12 +70,12 @@ attr_reader :stat_tracker, :game_collection, :game_teams_collection, :teams_coll
     coaches
   end
 
-  def current_season_game_teams(season)
-    season_games = current_season_games(season)
-    @game_teams_collection.find_all do |game|
-    season_games.include?(game.game_id)
-    end
-  end
+  # def current_season_game_teams(season)
+  #   season_games = current_season_games(season)
+  #   @game_teams_collection.find_all do |game|
+  #   season_games.include?(game.game_id)
+  #   end
+  # end
 
   def coach_win_loss_results(season, high_low)
     coaches_win = coaches_hash(season)
