@@ -26,7 +26,7 @@ class StatTracker
     @games = Game.all
     @teams = Team.all
     @game_teams = GameTeam.all
-      TeamStats.new({
+    @team_stats = TeamStats.new({
       games: "./test/fixtures/games_fixture.csv",
       teams: "./data/teams.csv",
       game_teams: "./test/fixtures/games_teams_fixture.csv"
@@ -228,28 +228,29 @@ class StatTracker
   end
 
   def best_season(team_id)
-    team_seasons = @games.find_all {|game| game.home_team_id  == team_id || game.away_team_id == team_id }
-    seasons = team_seasons.group_by {|game| game.season}
-    seasons.each do |season, season_games|
-      season_game_ids = season_games.map{|game| game.game_id}
-      team_games = @game_teams.find_all { |game| game.team_id == team_id && season_game_ids.include?(game.game_id)}
-      seasons[season] = calculate_win_percentage(team_games)
-    end
-    seasons.max_by { |season, win_pct|
-      win_pct }[0]
+    TeamStats.best_season
+    # team_seasons = @games.find_all {|game| game.home_team_id  == team_id || game.away_team_id == team_id }
+    # seasons = team_seasons.group_by {|game| game.season}
+    # seasons.each do |season, season_games|
+    #   season_game_ids = season_games.map{|game| game.game_id}
+    #   team_games = @game_teams.find_all { |game| game.team_id == team_id && season_game_ids.include?(game.game_id)}
+    #   seasons[season] = calculate_win_percentage(team_games)
+    # end
+    # seasons.max_by { |season, win_pct|
+    #   win_pct }[0]
   end
 
-  def worst_season(team_id)
-    team_seasons = @games.find_all {|game| game.home_team_id  == team_id || game.away_team_id == team_id }
-    seasons = team_seasons.group_by {|game| game.season}
-    seasons.each do |season, season_games|
-      season_game_ids = season_games.map{|game| game.game_id}
-      team_games = @game_teams.find_all { |game| game.team_id == team_id && season_game_ids.include?(game.game_id)}
-      seasons[season] = calculate_win_percentage(team_games)
-    end
-    seasons.min_by { |season, win_pct|
-      win_pct }[0]
-  end
+  # def worst_season(team_id)
+  #   team_seasons = @games.find_all {|game| game.home_team_id  == team_id || game.away_team_id == team_id }
+  #   seasons = team_seasons.group_by {|game| game.season}
+  #   seasons.each do |season, season_games|
+  #     season_game_ids = season_games.map{|game| game.game_id}
+  #     team_games = @game_teams.find_all { |game| game.team_id == team_id && season_game_ids.include?(game.game_id)}
+  #     seasons[season] = calculate_win_percentage(team_games)
+  #   end
+  #   seasons.min_by { |season, win_pct|
+  #     win_pct }[0]
+  # end
 
   def average_win_percentage(team_id)
     # finds the number of games that a team both played in and won

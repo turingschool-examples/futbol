@@ -16,6 +16,15 @@ class TeamStatsTest < MiniTest::Test
       "franchise_id" => "23",
       "team_name" => "Atlanta United",
       "abbreviation" => "ATL",
-      "link" => "/api/v1/teams/1"}), TeamStats.team_info("1")
+      "link" => "/api/v1/teams/1"}), @team_stats.team_info("1")
   end
+
+  def test_it_can_find_teams_best_season
+    assert_equal '20172018', @team_stats.best_season('52')
+  end
+
+  def test_it_can_find_tams_worst_season
+    assert_equal '20172018', @team_stats.worst_season('52')
+  end
+
 end

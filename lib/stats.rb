@@ -25,5 +25,4 @@ class Stats
   def self.team_by_id(team_id) # parent class
     @@teams.find{|team| team.team_id == team_id}
   end
-
 end
