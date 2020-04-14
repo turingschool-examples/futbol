@@ -9,10 +9,6 @@ class SeasonStatsTest < Minitest::Test
     assert_instance_of SeasonStats, @season_stats
   end
 
-  def test_get_games_of_season
-    assert_equal 12, @season_stats.get_games_of_season("20122013").length
-  end
-
   def test_season_stat_percentage
     assert_equal 0.67, @season_stats.season_stat_percentage("20122013", "Mike Babcock", :win).round(2)
     assert_equal 0.22, @season_stats.season_stat_percentage("20122013", 3, :shot).round(2)
