@@ -1,27 +1,30 @@
-class GameTeam
-#
-  @@all = nil
+require_relative 'collection'
+require_relative 'game'
 
-  def self.all
-    @@all
-  end
+class GameTeam < Collection
+# #
+  # @@all = nil
+  #
+  # def self.all
+  #   @@all
+  # end
 
   def self.find_by_team(team_id)
     all.find_all{|game| game.team_id == team_id}
   end
 
-  def self.find_by(id)
-    all.find_all{|game| game.game_id == id}
-  end
+  # def self.find_by(id)
+  #   all.find_all{|game| game.game_id == id}
+  # end
+  #
+  # def self.from_csv(csv_file_path)
+  #   csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
+  #   @@all = csv.map { |row| GameTeam.new(row) }
+  # end
 
-  def self.from_csv(csv_file_path)
-    csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
-    @@all = csv.map { |row| GameTeam.new(row) }
-  end
-
-  def self.home_games
-    (all.find_all {|gt| gt.hoa == "home" }).count
-  end
+  # def self.home_games
+  #   (all.find_all {|gt| gt.hoa == "home" }).count
+  # end
 #deliverable
   def self.percentage_home_wins
     home_wins = (all.find_all {|gt| gt.hoa == "home" && gt.result == "WIN" }).count.to_f
@@ -88,7 +91,6 @@ class GameTeam
       (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)
     end
   end
-
 
   def self.game_team_shots_goals_count(arr_games)
     season = arr_games.first.game_id
@@ -355,6 +357,10 @@ class GameTeam
     @takeaways = details[:takeaways].to_i
     @season_id = @game_id.to_s[0..3]
   end
+
+  # def home_games
+  #   (self.find_all {|gt| gt.hoa == "home" }).count
+  # end
 
   def win?
     return 1 if @result == "WIN"

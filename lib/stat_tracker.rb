@@ -2,6 +2,7 @@ require 'csv'
 require_relative './game'
 require_relative './team'
 require_relative './game_team'
+require_relative './collection'
 
 class StatTracker
 
@@ -30,15 +31,15 @@ class StatTracker
   end
 
   def create_games
-    @games = Game.from_csv(@games_path)
+    @games = Collection.from_csv(@games_path, Game)
   end
 
   def create_teams
-    @teams = Team.from_csv(@teams_path)
+    @teams = Collection.from_csv(@teams_path, Team)
   end
 
   def create_game_teams
-    @game_teams = GameTeam.from_csv(@game_teams_path)
+    @game_teams = Collection.from_csv(@game_teams_path, GameTeam)
   end
 
   def home_games
@@ -46,6 +47,7 @@ class StatTracker
   end
 
   def count_of_teams
+    binding.pry
     Team.count_of_teams
   end
 
@@ -73,8 +75,6 @@ class StatTracker
     Game.count_of_games_by_season
   end
 
-#Michelle start
-
   def highest_total_score
     Game.highest_total_score
   end
@@ -92,7 +92,6 @@ class StatTracker
     team_id = GameTeam.fewest_tackles(season_id)
     Team.all.find { |team| team_id == team.team_id }.team_name
   end
-  #Michelle end Methods
 
   def average_goals_per_game
     Game.average_goals_per_game
@@ -151,7 +150,7 @@ class StatTracker
 
   def least_accurate_team(season)
     team_id = GameTeam.least_accurate_team(season)
-    Team.all.find { |team| team.team_id == team_id}.team_name
+    Team.all.find { |team| team.team_id == team_id }.team_name
   end
 
   def most_goals_scored(team_id)

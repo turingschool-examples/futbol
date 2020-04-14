@@ -7,14 +7,14 @@ require './lib/stat_tracker'
 require './lib/team'
 require './lib/game'
 require './lib/game_team'
+require './lib/collection'
 
 
 class TeamTest < Minitest::Test
   def setup
     # file_path = "./data/games.csv"
     file_path = "./data/teams.csv"
-    @teams = Team.from_csv(file_path)
-    @game_teams = GameTeam.from_csv("./test/fixtures/game_teams_40.csv")
+    @teams = Collection.from_csv(file_path, Team)
 
     @base_team = Team.new({
       :team_id => 4,

@@ -8,6 +8,7 @@ require './lib/stat_tracker'
 require './lib/game'
 require './lib/team'
 require './lib/game_team'
+require './lib/collection'
 #
 
 class StatTrackerTest < Minitest::Test
@@ -44,6 +45,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_creates_teams
     assert_instance_of Array, @stat_tracker.teams
     assert_instance_of Team, @stat_tracker.teams[0]
+
   end
 
   def test_it_creates_game_teams
@@ -55,14 +57,18 @@ class StatTrackerTest < Minitest::Test
     assert_equal 20, @stat_tracker.home_games
   end
 
+  def test_count_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+
   def test_it_can_find_percent_home_wins
     assert_equal 0.60, @stat_tracker.percentage_home_wins
   end
-
+#
   def test_it_can_find_percentage_visitor_wins
     assert_equal 0.20, @stat_tracker.percentage_visitor_wins
   end
-
+#
   def test_it_can_find_percentage_ties
     assert_equal 0.25, @stat_tracker.percentage_ties
   end

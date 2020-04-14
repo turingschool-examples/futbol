@@ -6,6 +6,7 @@ require 'pry'
 require './lib/stat_tracker'
 require './lib/game_team'
 require 'mocha/minitest'
+require './lib/collection'
 
 class GameTeamTest < Minitest::Test
 
@@ -124,7 +125,7 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_game_team_shots_goals_count
-    Game.from_csv('./test/fixtures/games_20.csv')
+    # Game.from_csv('./test/fixtures/games_20.csv')
     # arr_games = Game.all[0..2]
     game_team1 = mock
     game_team2 = mock
@@ -163,8 +164,8 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_most_accurate_team
-    Game.from_csv('./test/fixtures/games_20.csv')
-    arr_games = Game.all[0..2]
+    Game.from_csv('./test/fixtures/games_20.csv', Game)
+    # arr_games = Game.all[0..2]
     assert_equal "6", GameTeam.most_accurate_team("20122013")
   end
 #Michelle Start
@@ -196,8 +197,8 @@ class GameTeamTest < Minitest::Test
   #Michelle end
 
   def test_least_accurate_team
-    Game.from_csv('./test/fixtures/games_20.csv')
-    arr_games = Game.all[0..2]
+    Collection.from_csv('./test/fixtures/games_20.csv', Game)
+    # arr_games = Game.all[0..2]
     assert_equal "3", GameTeam.least_accurate_team("20122013")
   end
 

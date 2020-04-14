@@ -1,29 +1,30 @@
-require "csv"
+# require "csv"
 require "./lib/hashable"
+require_relative 'collection'
 
-class Game
+class Game < Collection
 
   extend Hashable
 
-  @@all = nil
-#inheritance
-  def self.all
-    @@all
-  end
-#inheritance
-  def self.from_csv(csv_file_path)
-    csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
-    @@all = csv.map { |row| Game.new(row) }
-  end
-#inheritance, more general? 2 arguments passed
-  def find_by(id)
-   all.find_all{|game| game.game_id==id}
-  end
-
-  def self.find_by(id)
-   all.find_all{|game| game.game_id==id}
-  end
-  #deliverable
+#   @@all = nil
+# #inheritance
+#   def self.all
+#     @@all
+#   end
+# # #inheritance
+#   def self.from_csv(csv_file_path)
+#     csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
+#     @@all = csv.map { |row| Game.new(row) }
+#   end
+# # inheritance, more general? 2 arguments passed
+#   def find_by(id)
+#    all.find_all{|game| game.game_id==id}
+#   end
+#
+#   def self.find_by(id)
+#    all.find_all{|game| game.game_id==id}
+#   end
+  # deliverable
   def self.highest_total_score
     all.map { |game| game.away_goals + game.home_goals}.max
   end
@@ -38,10 +39,10 @@ class Game
 
   def self.count_of_games_by_season
     # this can be refactored to include ross' games_per(:season) method -sb
-    games_by_season = @@all.group_by { |game| game.season }
+    games_by_season = all.group_by { |game| game.season }
     count = {}
     games_by_season.keys.each do |key|
-      count[key.to_s] = @@all.count { |game| game.season == key}
+      count[key.to_s] = all.count { |game| game.season == key}
     end
     count
   end
