@@ -95,26 +95,6 @@ class GameTeamTest < Minitest::Test
     assert_equal 0.25, GameTeam.percentage_ties
   end
 
-  # def test_it_can_find_coaches_in_season
-  #   assert_equal ["Willie Desjardins", "Darryl Sutter", "Claude Julien", "Michel Therrien", "Joel Quenneville", "Jared Bednar", "Mike Babcock", "Bruce Cassidy", "Lindy Ruff"], GameTeam.coaches_in_season(2016030134)
-  # end
-
-  # def test_it_can_find_coaches_in_season
-  #   assert_equal ["Willie Desjardins", "Darryl Sutter", "Claude Julien", "Michel Therrien", "Joel Quenneville", "Jared Bednar", "Mike Babcock", "Bruce Cassidy", "Lindy Ruff"], GameTeam.coaches_in_season(2016030134)
-  # end
-  #
-  # def test_it_can_find_game_results_by_coach
-  #   assert_equal ({"Willie Desjardins"=>["TIE", "TIE"], "Darryl Sutter"=>["TIE", "LOSS"], "Claude Julien"=>["WIN", "WIN"], "Michel Therrien"=>["LOSS"], "Joel Quenneville"=>["WIN"], "Jared Bednar"=>["TIE"], "Mike Babcock"=>["TIE", "WIN"], "Bruce Cassidy"=>["WIN"], "Lindy Ruff"=>["WIN", "WIN"]}), GameTeam.results_by_coach(2016030134)
-  # end
-  #
-  # def test_it_can_find_total_games_coached
-  #   assert_equal ({"Willie Desjardins"=>2, "Darryl Sutter"=>2, "Claude Julien"=>2, "Michel Therrien"=>1, "Joel Quenneville"=>1, "Jared Bednar"=>1, "Mike Babcock"=>2, "Bruce Cassidy"=>1, "Lindy Ruff"=>2}), GameTeam.total_games_coached(2016030134)
-  # end
-  #
-  # def test_it_can_count_wins_by_coach
-  #   assert_equal ({"Claude Julien"=>2, "Joel Quenneville"=>1, "Mike Babcock"=>1, "Bruce Cassidy"=>1, "Lindy Ruff"=>2}), GameTeam.wins_by_coach(2016030134)
-  # end
-
   def test_it_can_find_coach_record_by_season
     assert_equal ({"Willie Desjardins"=> {:wins => 0,:games_played => 2}, "Darryl Sutter"=> {:wins => 0,:games_played => 2}, "Claude Julien"=> {:wins => 2,:games_played => 2},
     "Michel Therrien"=> {:wins => 0,:games_played => 1}, "Joel Quenneville"=> {:wins => 1,:games_played => 1}, "Jared Bednar"=> {:wins => 0,:games_played => 1},"Mike Babcock"=> {:wins => 1,:games_played => 2}, "Bruce Cassidy"=> {:wins => 1,:games_played => 1}, "Lindy Ruff"=>{:wins => 2,:games_played => 2}}), GameTeam.coach_record(2016030134)
@@ -213,7 +193,7 @@ class GameTeamTest < Minitest::Test
     assert_equal "28", GameTeam.best_offense
   end
 
-  def test_it_can_game_teams_with_opponent
+  def test_it_can_find_game_teams_with_opponent
     assert_equal 3, GameTeam.game_teams_with_opponent("6").length
     assert_instance_of GameTeam, GameTeam.game_teams_with_opponent("6")[0]
   end
