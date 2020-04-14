@@ -22,7 +22,7 @@ class GameTest < Minitest::Test
                 :venue => "Heaven",
                 :venue_link => "venue/link"})
 
-    Collection.from_csv('./test/fixtures/games_20.csv', Game)
+    Game.from_csv('./test/fixtures/games_20.csv', Game)
     @game = Game.all[0]
   end
 
