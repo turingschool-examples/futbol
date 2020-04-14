@@ -71,11 +71,9 @@ attr_reader :game_collection
 #should consider for parent class or module
   def high_low_key_return(given_hash, high_low)
     if high_low == "high"
-      most = given_hash.max_by {|k,v| v}[0]
-      team_name_hash[most]
+      @chosen_key = given_hash.max_by {|k,v| v}[0]
     elsif high_low == "low"
-      least = given_hash.min_by {|k,v| v}[0]
-      team_name_hash[least]
+      @chosen_key = given_hash.min_by {|k,v| v}[0]
     end
   end
 
@@ -101,22 +99,16 @@ attr_reader :game_collection
         coach_totals[game.head_coach] += 1
       end
     end
-    if high_low == "high"
-      percentage_wins = coach_wins.to_h do |key, value|
-        [key, (value.to_f/coach_totals[key])]
-      end
-        percentage_wins.max_by{|k,v| v}[0]
-    elsif high_low == "low"
-      percentage_wins = coach_wins.to_h do |key, value|
-        [key, (value.to_f/coach_totals[key])]
-      end
-      percentage_wins.min_by{|k,v| v}[0]
+    percentage_wins = coach_wins.to_h do |key, value|
+      [key, (value.to_f/coach_totals[key])]
     end
+    high_low_key_return(percentage_wins, high_low)
   end
 
   def most_least_tackles(season, high_low)
     team_tackles = team_tackles_hash(season)
     high_low_key_return(team_tackles, high_low)
+    team_name_hash[@chosen_key]
   end
 
   def team_accuracy(season, high_low)
@@ -130,5 +122,6 @@ attr_reader :game_collection
       [id, (team_goals[id] / team_shots[id].to_f)]
     end
     high_low_key_return(acc_hash, high_low)
+    team_name_hash[@chosen_key]
   end
 end
