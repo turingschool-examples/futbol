@@ -1,5 +1,7 @@
+require_relative 'hashable'
+
 class GameTeam
-#
+  extend hashable
   @@all = nil
 
   def self.all
@@ -96,50 +98,25 @@ class GameTeam
   end
 
   def self.get_goal_shots_by_game_team(game_teams)
-    #passes in an array of games
-    results = {}
-    #each game, iterating through and adding the team_id as the key and
-    #getting the shots and goals count
-    grouped_season = game_teams.group_by{|group|group.team_id}
-    grouped_season.each do |team_id, game_teams|
-      results[team_id] ||= {"shots"=>0,"goals"=>0}
-      results[team_id]["shots"] = game_teams.sum(&:shots)
-      results[team_id]["goals"] = game_teams.sum(&:goals)
-    end
-    results
+    hash_of_hashes(game_teams,:team_id,:goals,:shots,:goals,:shots)
   end
 
   def self.least_accurate_team(season)
      seasonal_hash = gets_team_shots_goals_count(season)
-     seasonal_hash.map do |key,value|
-       value["average"] = (value["goals"]/ value["shots"].to_f).round(2)
-     end
-     team_hash_with_highest_average = seasonal_hash.min_by do |key,value|
-       value["average"]
-     end
-     team_hash_with_highest_average[0]
+     seasonal_hash.map{|key,value|value[:average] = (value[:goals]/ value[:shots].to_f).round(2)}
+     return seasonal_hash.min_by{|key,value| value[:average]}[0]
   end
-  #
+
   def self.most_accurate_team(season)
     seasonal_hash = gets_team_shots_goals_count(season)
-    seasonal_hash.map do |key,value|
-      value["average"] = (value["goals"]/ value["shots"].to_f).round(2)
-    end
-    team_hash_with_highest_average = seasonal_hash.max_by do |key,value|
-      value["average"]
-    end
-    team_hash_with_highest_average[0]
+    seasonal_hash.map{|key,value|value[:average] = (value[:goals]/ value[:shots].to_f).round(2)}
+    return seasonal_hash.max_by{|key,value| value[:average]}[0]
   end
 
   def self.gets_team_shots_goals_count(season)
-    #passes in desired season, grabs the *games* for the season
     season_games = Game.grouped_by_season(season)
     matches = []
-    #gets the game_teams associated with the season
-    season_games.each do |game|
-      matches.concat(GameTeam.find_by(game.game_id))
-    end
-    #takes the game_teams and runs them through the below method
+    season_games.each {|game|matches.concat(GameTeam.find_by(game.game_id))}
     stats_by_team = get_goal_shots_by_game_team(matches)
   end
 
