@@ -5,15 +5,10 @@ require './lib/stat_tracker'
 class StatTrackerTest < MiniTest::Test
 
    def setup
-  #   @stat_tracker = StatTracker.from_csv({
-  #     games: "./test/fixtures/games_fixture.csv",
-  #     teams: "./data/teams.csv",
-  #     game_teams: "./test/fixtures/games_teams_fixture.csv"
-  #     })
-    @stat_tracker = StatTracker.new({
-         games: "./test/fixtures/games_fixture.csv",
-         teams: "./data/teams.csv",
-         game_teams: "./test/fixtures/games_teams_fixture.csv"})
+     @stat_tracker = StatTracker.from_csv({
+       games: "./test/fixtures/games_fixture.csv",
+       teams: "./data/teams.csv",
+       game_teams: "./test/fixtures/games_teams_fixture.csv"})
    end
 
   def test_it_exists

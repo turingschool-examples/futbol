@@ -1,15 +1,16 @@
 require './test/test_helper'
+require './lib/stat_tracker'
 require './lib/stats'
 require './lib/season_stats'
 
 class SeasonStatsTest < Minitest::Test
 
   def setup
-    @season_stats = SeasonStats.new({
+    stat_tracker = StatTracker.from_csv({
       games: "./test/fixtures/games_fixture.csv",
       teams: "./data/teams.csv",
-      game_teams: "./test/fixtures/games_teams_fixture.csv"
-      })
+      game_teams: "./test/fixtures/games_teams_fixture.csv"})
+    @season_stats = stat_tracker.season_stats
   end
 
   def test_existence
@@ -17,9 +18,9 @@ class SeasonStatsTest < Minitest::Test
   end
 
   def test_attributes
-    assert_instance_of Game, SeasonStats.games.first
-    assert_instance_of Team, SeasonStats.teams.first
-    assert_instance_of GameTeam, SeasonStats.game_teams.first
+    assert_instance_of Game, @season_stats.games.first
+    assert_instance_of Team, @season_stats.teams.first
+    assert_instance_of GameTeam, @season_stats.game_teams.first
   end
 
   def test_most_accurate_team

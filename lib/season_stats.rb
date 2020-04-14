@@ -1,10 +1,12 @@
 require_relative "stats"
+require 'pry'
 
 class SeasonStats < Stats
 
-  def initialize(file_paths)
-    Stats.from_csv(file_paths)
-  end
+  #def initialize(file_paths)
+  #  from_csv(file_paths)
+  #  binding.pry
+  #end
 
   def most_accurate_team(season)
     team_performances = team_games_by_season(season)
@@ -12,7 +14,7 @@ class SeasonStats < Stats
     team_accuracy = performance_by_team.transform_values do |team|
       team.sum {|game| game.goals}.to_f / team.sum {|game| game.shots}
     end
-    @@teams.find {|team| team.team_id == team_accuracy.max_by {|team, acc| acc}[0]}.team_name
+    @teams.find {|team| team.team_id == team_accuracy.max_by {|team, acc| acc}[0]}.team_name
   end
 
   def least_accurate_team(season)
@@ -21,7 +23,7 @@ class SeasonStats < Stats
     team_accuracy = performance_by_team.transform_values do |team|
       team.sum {|game| game.goals}.to_f / team.sum {|game| game.shots}
     end
-    @@teams.find {|team| team.team_id == team_accuracy.min_by {|team, acc| acc}[0]}.team_name
+    @teams.find {|team| team.team_id == team_accuracy.min_by {|team, acc| acc}[0]}.team_name
   end
 
   def winningest_coach(season)
@@ -48,7 +50,7 @@ class SeasonStats < Stats
     team_tackles = performance_by_team.transform_values do |team|
       team.sum {|game| game.tackles}
     end
-    @@teams.find {|team| team.team_id == team_tackles.max_by {|team, tack| tack}[0]}.team_name
+    @teams.find {|team| team.team_id == team_tackles.max_by {|team, tack| tack}[0]}.team_name
   end
 
   def fewest_tackles(season)
@@ -57,7 +59,7 @@ class SeasonStats < Stats
     team_tackles = performance_by_team.transform_values do |team|
       team.sum {|game| game.tackles}
     end
-    @@teams.find {|team| team.team_id == team_tackles.min_by {|team, tack| tack}[0]}.team_name
+    @teams.find {|team| team.team_id == team_tackles.min_by {|team, tack| tack}[0]}.team_name
   end
 
 end
