@@ -143,7 +143,6 @@ class GameStatsCollection < Collection
   def average_win_percentage(team_id)
     total_games = all_games_for(team_id)
     games_won = total_games.find_all {|game|game.result == "WIN"}
-    average_percentage = (games_won.length.to_f/total_games.length)
-    average_percentage.round(2)
+    (games_won.length.to_f/total_games.length).round(2)
   end
 end
