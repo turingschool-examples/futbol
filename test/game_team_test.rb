@@ -157,7 +157,7 @@ class GameTeamTest < Minitest::Test
     game_team4.stubs(:shots).returns(4)
     passed_array = [game_team1,game_team2,game_team3,game_team4]
 
-    expected = {"123"=>{"shots"=>12, "goals"=>6}, "456"=>{"shots"=>8, "goals"=>4}}
+    expected = {"123"=>{:goals=>6, :shots=>12}, "456"=>{:goals=>4, :shots=>8}}
 
     assert_equal expected, GameTeam.get_goal_shots_by_game_team(passed_array)
   end
