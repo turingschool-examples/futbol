@@ -27,12 +27,41 @@ class SeasonStatisticsTest < Minitest::Test
     assert_equal "2012030221", @season_statistics.game_collection[0].game_id
   end
 
-  def test_current_season_games
-    assert_equal ["2013020674", "2013020177", "2013021085"] , @season_statistics.current_season_games("20132014")
+  def test_current_season_game_ids
+    assert_equal ["2013020674", "2013020177", "2013021085"] , @season_statistics.current_season_game_ids("20132014")
   end
 
   def test_current_season_game_teams
     assert_instance_of GameTeam, @season_statistics.current_season_game_teams("20122013").first
+  end
+
+  def test_team_ids
+    assert_instance_of Array, @season_statistics.team_ids("20132014")
+  end
+
+  def test_team_ids_hash
+    assert_instance_of Hash, @season_statistics.team_ids_hash("20132014")
+  end
+
+  def test_name_hash
+    assert_instance_of Hash, @season_statistics.team_name_hash
+  end
+
+  def test_coach_names
+    assert_instance_of Array, @season_statistics.coach_names("20132014")
+  end
+
+  def test_coaches_hash
+    assert_instance_of Hash, @season_statistics.coaches_hash("20132014")
+  end
+
+  def test_high_low_key_return
+    assert_instance_of String, @season_statistics.high_low_key_return({"6"=>139, "3"=>154},"low")
+    assert_instance_of String, @season_statistics.high_low_key_return({"6"=>139, "3"=>154},"high")
+  end
+
+  def tes_team_tackles_hash
+    assert_instance_of Hash, @season_statistics.team_tackles_hash("20132014")
   end
 
   def test_winningest_coach
