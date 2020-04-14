@@ -40,28 +40,35 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_teams_hash
+    assert_instance_of Hash, @season_statistics.team_ids_hash("20132014")
+  end
 
-    assert_instance_of Hash, @season_statistics.teams_hash("20132014")
-  end 
+  def test_coach_names
+    assert_instance_of Array, @season_statistics.coach_names("20132014")
+  end
 
-#   def test_winningest_coach
-#     assert_equal "Claude Julien", @season_statistics.coach_win_loss_results("20122013", "high")
-#   end
-#
-#   def test_losingest_coach
-#     assert_equal "John Tortorella", @season_statistics.coach_win_loss_results("20122013", "low")
-#   end
-#
-#   def test_most_least_tackles
-#     assert_equal "Houston Dynamo", @season_statistics.most_least_tackles("20122013", "high")
-#     assert_equal "FC Dallas", @season_statistics.most_least_tackles("20122013", "low")
-#   end
-#
-#   def test_most_accurate_team
-#     assert_equal "FC Dallas", @season_statistics.team_accuracy("20122013", "high")
-#   end
-#
-#   def test_least_accurate_team
-#     assert_equal "Houston Dynamo", @season_statistics.team_accuracy("20122013","low")
-#   end
+  def test_coaches_hash
+    assert_instance_of Hash, @season_statistics.coaches_hash("20132014")
+  end
+
+  def test_winningest_coach
+    assert_equal "Claude Julien", @season_statistics.coach_win_loss_results("20122013", "high")
+  end
+
+  def test_losingest_coach
+    assert_equal "John Tortorella", @season_statistics.coach_win_loss_results("20122013", "low")
+  end
+
+  def test_most_least_tackles
+    assert_equal "Houston Dynamo", @season_statistics.most_least_tackles("20122013", "high")
+    assert_equal "FC Dallas", @season_statistics.most_least_tackles("20122013", "low")
+  end
+
+  def test_most_accurate_team
+    assert_equal "FC Dallas", @season_statistics.team_accuracy("20122013", "high")
+  end
+
+  def test_least_accurate_team
+    assert_equal "Houston Dynamo", @season_statistics.team_accuracy("20122013","low")
+  end
 end
