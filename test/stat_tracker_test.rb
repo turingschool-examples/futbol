@@ -4,23 +4,22 @@ require './lib/stat_tracker'
 
 class StatTrackerTest < MiniTest::Test
 
-  def setup
-    @stat_tracker = StatTracker.from_csv({
-      games: "./test/fixtures/games_fixture.csv",
-      teams: "./data/teams.csv",
-      game_teams: "./test/fixtures/games_teams_fixture.csv"
-      })
-  end
+   def setup
+     @stat_tracker = StatTracker.from_csv({
+       games: "./test/fixtures/games_fixture.csv",
+       teams: "./data/teams.csv",
+       game_teams: "./test/fixtures/games_teams_fixture.csv"})
+   end
 
   def test_it_exists
     assert_instance_of StatTracker, @stat_tracker
   end
 
   def test_has_attributes
-    skip
-    assert_instance_of Game, @stat_tracker.games.first
-    assert_instance_of Team, @stat_tracker.teams.first
-    assert_instance_of GameTeam, @stat_tracker.game_teams.first
+    assert_instance_of GameStats, @stat_tracker.game_stats
+    assert_instance_of TeamStats, @stat_tracker.team_stats
+    assert_instance_of LeagueStats, @stat_tracker.league_stats
+    assert_instance_of SeasonStats, @stat_tracker.season_stats
   end
 
   def test_percentage_home_wins
@@ -81,6 +80,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_count_of_teams
+    skip
     assert_equal 32, @stat_tracker.count_of_teams
   end
 

@@ -1,5 +1,8 @@
 require './test/test_helper'
 require './lib/stats'
+require './lib/game'
+require './lib/team'
+require './lib/game_team'
 
 class StatsTest < MiniTest::Test
 
@@ -42,6 +45,12 @@ class StatsTest < MiniTest::Test
 
   def test_find_team_by_id
     assert_equal 'Reign FC', @stats.team_by_id("54").team_name
+  end
+
+  def test_games_by_season
+    test_season = @stats.team_games_by_season("20172018")
+    assert_equal 10, test_season.length
+    assert_instance_of GameTeam, test_season.first
   end
 
 end

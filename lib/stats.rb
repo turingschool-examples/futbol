@@ -47,4 +47,10 @@ class Stats
     @teams.find{|team| team.team_id == team_id}
   end
 
+  def team_games_by_season(season) # test
+    season_games = @games.find_all{|game| game.season == season}
+    season_game_ids = season_games.map{|game| game.game_id}
+    @game_teams.find_all{|team| season_game_ids.include?(team.game_id)}
+  end
+
 end
