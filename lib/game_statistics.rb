@@ -2,7 +2,6 @@ require_relative './game'
 require_relative './mathable'
 require 'pry'
 
-
 class GameStatistics
   include Mathable
 
@@ -38,6 +37,17 @@ class GameStatistics
     end
   end
 
+  def games_percent_calculation(games, outcome)
+    if outcome == "TIE"
+      ((games.length.to_f/2) / (@game_teams_collection.length/2)).round(2)
+    else
+      won_games = games.find_all do |game|
+        game.result  == "WIN"
+      end
+      (won_games.length.to_f / games.length).round(2)
+    end
+  end
+
   def percentage_outcomes(outcome)
     if outcome == "home"
       games = home_away_or_tie("home")
@@ -51,22 +61,17 @@ class GameStatistics
     end
   end
 
-  def games_percent_calculation(games, outcome)
-    if outcome == "TIE"
-      ((games.length.to_f/2) / (@game_teams_collection.length/2)).round(2)
-    else
-      won_games = games.find_all do |game|
-          game.result  == "WIN"
-        end
-      (won_games.length.to_f / games.length).round(2)
+  def group_by_season
+    game_collection.group_by do |game|
+      game.season
     end
   end
 
   def count_of_games_by_season
-      seasons = group_by_season
-    seasons.to_h do |key, value|
-      [key, value.length]
-    end
+    seasons = group_by_season
+      seasons.transform_values do |value|
+         value.length
+      end
   end
 
   def average_goals(games)
@@ -74,8 +79,6 @@ class GameStatistics
       game.away_goals + game.home_goals
     end
     average(total_goals.sum, total_goals.length.to_f)
-    #   average_goals = average(total_goals.sum, total_goals.length.to_f)
-    # average_goals
   end
 
   def average_goals_per_game
@@ -84,8 +87,8 @@ class GameStatistics
 
   def average_goals_by_season
     seasons = group_by_season
-  seasons.to_h do |key,value|
-    [key, average_goals(value)]
+      seasons.transform_values do |value|
+        average_goals(value)
     end
   end
 end
