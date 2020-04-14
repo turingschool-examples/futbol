@@ -3,7 +3,7 @@ require_relative 'game'
 require_relative 'team'
 
 class Stats
-  
+
   attr_reader :games, :teams, :game_teams
   def self.from_csv(locations)
     games_path = locations[:games]
@@ -17,9 +17,13 @@ class Stats
     GameTeam.from_csv(game_teams_path)
     Team.from_csv(teams_path)
 
-    @games = Game.all
-    @teams = Team.all
-    @game_teams = GameTeam.all
+    @@games = Game.all
+    @@teams = Team.all
+    @@game_teams = GameTeam.all
+  end
+
+  def self.team_by_id(team_id) # parent class
+    @@teams.find{|team| team.team_id == team_id}
   end
 
 end

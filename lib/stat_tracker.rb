@@ -3,6 +3,7 @@ require_relative 'game_team'
 require_relative 'game'
 require_relative 'team'
 require_relative 'calculable'
+require_relative 'team_stats'
 require 'pry'
 
 class StatTracker
@@ -25,6 +26,11 @@ class StatTracker
     @games = Game.all
     @teams = Team.all
     @game_teams = GameTeam.all
+      TeamStats.new({
+      games: "./test/fixtures/games_fixture.csv",
+      teams: "./data/teams.csv",
+      game_teams: "./test/fixtures/games_teams_fixture.csv"
+      })
   end
 
   def percentage_home_wins
@@ -208,16 +214,17 @@ class StatTracker
   end
 
   def team_info(team_id)
-    # finds a specific team via their id
-     team = team_by_id(team_id)
-     # returns an array of the team object's instance variables, then iterates
-     # over that array, deletes the '@' from the front of the instance variable
-     # and assigns that as a key, then sets the value equal to the key by again
-     # removing the '@' and then passing that as a method call then returning it
-     # all as a hash
-      team_data = team.instance_variables.map { |key,value| ["#{key}".delete("@"), value = team.send("#{key}".delete("@").to_sym)]}.to_h
+    TeamStats.team_info(team_id)
+     # finds a specific team via their id
+      #team = team_by_id(team_id)
+      # returns an array of the team object's instance variables, then iterates
+      # over that array, deletes the '@' from the front of the instance variable
+      # and assigns that as a key, then sets the value equal to the key by again
+      # removing the '@' and then passing that as a method call then returning it
+      # all as a hash
+      #team_data = team.instance_variables.map { |key,value| ["#{key}".delete("@"), value = team.send("#{key}".delete("@").to_sym)]}.to_h
       # searches the hash for a key, value pair whose key is "stadium" then deletes it.
-      team_data.delete_if {|k,v| k == "stadium"}
+      #team_data.delete_if {|k,v| k == "stadium"}
   end
 
   def best_season(team_id)
