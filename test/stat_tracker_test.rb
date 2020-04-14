@@ -23,22 +23,18 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_percentage_home_wins
-    skip
     assert_equal 0.64, @stat_tracker.percentage_home_wins
   end
 
   def test_percentage_visitor_wins
-    skip
     assert_equal 0.27, @stat_tracker.percentage_visitor_wins
   end
 
   def test_percentage_ties
-    skip
     assert_equal 0.09, @stat_tracker.percentage_ties
   end
 
   def test_count_of_games_by_season
-    skip
     expected = {"20122013" => 3,
                 "20132014" => 3,
                 "20172018" => 5}
@@ -46,41 +42,22 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_find_highest_scoring_game
-    skip
     assert_equal 6, @stat_tracker.highest_total_score
   end
 
   def test_it_can_find_lowest_scoring_game
-    skip
     assert_equal 2, @stat_tracker.lowest_total_score
   end
 
   def test_it_can_find_average_goals
-    skip
     assert_equal 4.09 , @stat_tracker.average_goals_per_game
   end
 
-  def test_it_can_find_the_sum_of_goals_in_a_season
-    skip
-    assert_equal 19, @stat_tracker.sum_of_goals_in_a_season("20172018")
-    assert_equal 14, @stat_tracker.sum_of_goals_in_a_season("20122013")
-    assert_equal 12, @stat_tracker.sum_of_goals_in_a_season("20132014")
-  end
-
-  def test_it_return_season_average_goals
-    skip
-    assert_equal 3.8, @stat_tracker.average_of_goals_in_a_season("20172018")
-    assert_equal 4.67, @stat_tracker.average_of_goals_in_a_season("20122013")
-    assert_equal 4.0, @stat_tracker.average_of_goals_in_a_season("20132014")
-  end
-
-  def test_it_can_return_a_seaon_with_average_goals
-    skip
+  def test_it_can_return_a_season_with_average_goals
     assert_equal ({"20172018" => 3.8, "20132014" => 4.0, "20122013" => 4.67}), @stat_tracker.average_goals_by_season
   end
 
   def test_count_of_teams
-    skip
     assert_equal 32, @stat_tracker.count_of_teams
   end
 
