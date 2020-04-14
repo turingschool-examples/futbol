@@ -19,8 +19,9 @@ attr_reader :game_collection
 
 #returns an array of game_team objects in given season
   def current_season_game_teams(season)
+    season_games = current_season_game_ids(season)
     @game_teams_collection.find_all do |game|
-      current_season_game_ids(season).include?(game.game_id)
+      season_games.include?(game.game_id)
     end
   end
 
@@ -66,6 +67,15 @@ attr_reader :game_collection
     coaches
   end
 
+  def high_low_key_return(given_hash, high_low)
+    if high_low == "high"
+      most = given_hash.max_by {|k,v| v}[0]
+      team_name_hash[most]
+    elsif high_low == "low"
+      least = given_hash.min_by {|k,v| v}[0]
+      team_name_hash[least]
+    end
+  end
 #takes hash and returns key associated with max value
 #neccessary?
 #parent method?
@@ -117,13 +127,14 @@ attr_reader :game_collection
 
   def most_least_tackles(season, high_low)
     team_tackles = team_tackles_hash(season)
-    if high_low == "high"
-      most_tackles = team_tackles.max_by {|k,v| v}[0]
-      team_name_hash[most_tackles]
-    elsif high_low == "low"
-      fewest_tackles = team_tackles.min_by {|k,v| v}[0]
-      team_name_hash[fewest_tackles]
-    end
+    high_low_key_return(team_tackles, high_low)
+    # if high_low == "high"
+    #   most_tackles = team_tackles.max_by {|k,v| v}[0]
+    #   team_name_hash[most_tackles]
+    # elsif high_low == "low"
+    #   fewest_tackles = team_tackles.min_by {|k,v| v}[0]
+    #   team_name_hash[fewest_tackles]
+    # end
   end
 
   def team_accuracy(season, high_low)
@@ -136,131 +147,13 @@ attr_reader :game_collection
     acc_hash = team_ids(season).to_h do |id|
       [id, (team_goals[id] / team_shots[id].to_f)]
     end
-    if high_low == "high"
-      most_acc = acc_hash.max_by {|k,v| v}[0]
-      team_name_hash[most_acc]
-    elsif high_low == "low"
-      least_acc = acc_hash.min_by {|k,v| v}[0]
-      team_name_hash[least_acc]
-    end
-  end
-end 
-
     # if high_low == "high"
-    #   ratio_shots_goals = team_goals.to_h do |key, value|
-    #     [key, (value.to_f/team_shots[key])]
-    #   end
-    #     ratio_team_id = ratio_shots_goals.max_by{|k,v| v}[0]
-    #     most_accurate = @teams_collection.find {|team| team.id == ratio_team_id[0]}
-    #
-    #     most_accurate.team_name
+    #   most_acc = acc_hash.max_by {|k,v| v}[0]
+    #   team_name_hash[most_acc]
     # elsif high_low == "low"
-    #   ratio_shots_goals = team_goals.to_h do |key, value|
-    #     [key, (value.to_f/team_shots[key])]
-    #   end
-    #   ratio_team_id = ratio_shots_goals.min_by{|k,v| v}[0]
-    #   least_accurate = @teams_collection.find {|team| team.id == ratio_team_id[0]}
-    #
-    #   least_accurate.team_name
+    #   least_acc = acc_hash.min_by {|k,v| v}[0]
+    #   team_name_hash[least_acc]
     # end
-#   end
-# end
-    #hash of team id as keys and games they have played as values
-
-  #   teams = current_season_game_teams(season).group_by do |game|
-  #   game.team_id
-  #   end
-  #   team_accuracy_hash = teams.to_h do |key,value|
-  #     total_goals = 0
-  #     total_shots = 0
-  #     value.each do |game|
-  #       total_goals += game.goals
-  #       total_shots += game.shots
-  #     end
-  #     [key,(total_goals / total_shots.to_f)]
-  #   end
-  #   most_accurate = team_accuracy_hash.max_by {|key, value| key}
-  #   most_accurate_name = @teams_collection.find {|team| team.id == most_accurate[0]}
-  #   most_accurate_name.team_name
-  # end
-
-    # def most_accurate_team(season)
-    #   teams = current_season_game_teams(season).group_by do |game|
-    #   game.team_id
-    #   end
-    #   accuracy = teams.to_h do |key, value|
-    #     [key, value.map {|game| (game.goals / game.shots.to_f)}]
-    #     #this needs to be refactored so total accuracy isn't above 1.
-    #   end
-    #   final = accuracy.to_h do |key, value|
-    #     [key, value.sum {|team| team }]
-    #   end
-    #   most_accurate = final.max_by {|team| team}
-    #   most_accurate_name = @teams_collection.find {|team| team.id == most_accurate[0]}
-    #   most_accurate_name.team_name
-    # end
-
-    # def least_accurate_team(season)
-    #   #hash of team id as keys and games they have played as values
-    #   teams = current_season_game_teams(season).group_by do |game|
-    #   game.team_id
-    #   end
-    #   team_accuracy_hash = teams.to_h do |key,value|
-    #     total_goals = 0
-    #     total_shots = 0
-    #     value.each do |game|
-    #       total_goals += game.goals
-    #       total_shots += game.shots
-    #     end
-    #     [key,(total_goals / total_shots.to_f)]
-    #   end
-    #   least_accurate = team_accuracy_hash.min_by {|key, value| key}
-    #   least_accurate_name = @teams_collection.find {|team| team.id == least_accurate[0]}
-    #   least_accurate_name.team_name
-    # end
-
-    # def least_accurate_team(season)
-    #   teams = current_season_game_teams(season).group_by do |game|
-    #   game.team_id
-    #   end
-    #   accuracy = teams.to_h do |key, value|
-    #     [key, value.map {|game| (game.goals / game.shots.to_f)}]
-    #     #this needs to be refactored so total accuracy isn't above 1.
-    #   end
-    #   final = accuracy.to_h do |key, value|
-    #     [key, value.sum {|team| team }]
-    #   end
-    #   least_accurate = final.min_by {|team| team}
-    #   least_accurate_name = @teams_collection.find {|team| team.id == least_accurate[0]}
-    #   least_accurate_name.team_name
-    # end
-
-
-
-
-    # def current_season_games(season)
-    #   current_games = @game_collection.map do |game|
-    #    if game.season == season
-    #      game.game_id
-    #    end
-    #  end
-    # current_games.compact
-    # end
-
-    # def teams_hash(season)
-    #   season_team_ids = team_ids (season)
-    #   team_names = Hash.new(0)
-    #   @teams_collection.each do |team|
-    #       if season_teams.include?(team.id)
-    #         teams[team.id] = 0
-    #       end
-    #     end
-    #   teams
-    # end
-
-    # def current_season_game_teams(season)
-    #   season_games = current_season_games(season)
-    #   @game_teams_collection.find_all do |game|
-    #   season_games.include?(game.game_id)
-    #   end
-    # end
+    high_low_key_return(acc_hash, high_low)
+  end
+end
