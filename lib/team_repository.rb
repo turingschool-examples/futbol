@@ -1,21 +1,13 @@
 require_relative './csv_helper_file'
+require_relative './repository'
+class TeamRepository < Repository
 
-class TeamRepository
-
-  # this is where team_stats will be held
-    attr_reader :teams_collection, :game_teams_collection, :game_collection
-  def initialize(game_teams_path, team_path, game_path)
-    @game_teams_collection = CsvHelper.generate_game_teams_array(game_teams_path)
-    @teams_collection = CsvHelper.generate_team_array(team_path)
-    @game_collection = CsvHelper.generate_game_array(game_path)
-
-  end
+  attr_reader :team_collection, :game_team_collection, :game_collection
 
   def team_info(id)
-
     info_hash = Hash.new
     number_id = id.to_i
-    @teams_collection.each do |team|
+    @team_collection.each do |team|
       if team.team_id == number_id
       info_hash["team_id"] = team.team_id.to_s
       info_hash["franchise_id"] = team.franchiseid.to_s
@@ -25,7 +17,6 @@ class TeamRepository
       end
     end
       info_hash
-
   end
 
   def best_season(string_id)
@@ -98,7 +89,7 @@ class TeamRepository
     id = string_id.to_i
     win_percent = 0
     total_game = 0
-    @game_teams_collection.each do |game|
+    @game_team_collection.each do |game|
 
       if (game.team_id == id) && (game.result == "WIN")
         win_percent += 1
@@ -116,7 +107,7 @@ class TeamRepository
   def most_goals_scored(id)
     id = id.to_i
     most = 0
-    @game_teams_collection.each do |game|
+    @game_team_collection.each do |game|
       if game.team_id == id
         if game.goals > most
           most = game.goals
@@ -129,7 +120,7 @@ class TeamRepository
   def fewest_goals_scored(id)
     id = id.to_i
     fewest = 1000
-    @game_teams_collection.each do |game|
+    @game_team_collection.each do |game|
       if game.team_id == id
         if game.goals < fewest
           fewest = game.goals
@@ -162,7 +153,7 @@ class TeamRepository
         opponent_hash[key]
       end
       eaisiest_team_number = eaisiest_win.first
-      eaisiest_team_name = @teams_collection.find do |team|
+      eaisiest_team_name = @team_collection.find do |team|
         team.team_id == eaisiest_team_number
       end
       team_name = eaisiest_team_name.teamname
@@ -208,7 +199,7 @@ class TeamRepository
           opponent_hash[key]
         end
         eaisiest_team_number = eaisiest_win.first
-        eaisiest_team_name = @teams_collection.find do |team|
+        eaisiest_team_name = @team_collection.find do |team|
           team.team_id == eaisiest_team_number
         end
         team_name = eaisiest_team_name.teamname

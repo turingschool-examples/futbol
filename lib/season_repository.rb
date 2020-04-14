@@ -1,15 +1,10 @@
 require_relative './csv_helper_file'
-require './lib/findable'
+require_relative './repository'
+require_relative './findable'
 
-class SeasonRepository
+class SeasonRepository < Repository
   include Findable
-
   attr_reader :games_collection, :games_teams_collection, :teams_collection
-  def initialize(game_path, game_team_path, team_path)
-    @game_collection = CsvHelper.generate_game_array(game_path)
-    @game_team_collection = CsvHelper.generate_game_teams_array(game_team_path)
-    @team_collection = CsvHelper.generate_team_array(team_path)
-  end
 
   def winningest_coach(season)
     game_array =  @game_collection.select do |game|
