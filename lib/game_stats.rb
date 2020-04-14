@@ -30,17 +30,17 @@ class GameStats < Stats
     average(ties.length, @game_teams.length)
   end
 
-  def count_of_games_by_season # game
+  def count_of_games_by_season
     games_by_season = @games.group_by {|game| game.season}
     games_by_season.transform_values {|season| season.length}
   end
 
-  def average_goals_per_game # game
+  def average_goals_per_game
     sum_of_goals = @games.sum {|game| game.home_goals + game.away_goals}
     average(sum_of_goals, @games.length)
   end
 
-  def average_goals_by_season # game
+  def average_goals_by_season
     average_goals_by_season = @games.group_by {|game| game.season}
     average_goals_by_season.transform_values do |season|
       average_of_goals_in_a_season(season.first.season)
