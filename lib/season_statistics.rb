@@ -10,6 +10,7 @@ attr_reader :game_collection
   end
 
 #returns array of game ids for given season
+#try using find all and then map as opposed to compact
   def current_season_game_ids(season)
     season_game_ids = @game_collection.map do |game|
       game.game_id if game.season == season
@@ -17,13 +18,26 @@ attr_reader :game_collection
     season_game_ids.compact
   end
 
-#returns an array of game_team objects in given season
-  def current_season_game_teams(season)
-    season_games = current_season_game_ids(season)
-    @game_teams_collection.find_all do |game|
-      season_games.include?(game.game_id)
+
+  #returns an array of game_team objects in given season
+    def current_season_game_teams(season)
+      season_games = current_season_game_ids(season)
+      @games_by_season ||=  @game_teams_collection.find_all do |game|
+        season_games.include?(game.game_id)
+      end
     end
-  end
+    
+#returns an array of game_team objects in given season
+  # def current_season_game_teams(season)
+  #   season_game_ids = current_season_game_ids(season)
+  #   @games_by_season ||= @game_collection.group_by {|game| game.season}
+  #
+  #   @games_by_season[season].map do |k,v|
+  #     if v.map do |value|
+  #       if value.game_id == @game_teams_collection.game_id
+  #
+  # game_id
+  # end
 
 #returns an array of all team ids within givin season
   def team_ids(season)
@@ -61,7 +75,7 @@ attr_reader :game_collection
   def coaches_hash(season)
     season_coaches = coach_names(season)
     coaches = Hash.new(0)
-    @game_teams_collection.each do |team|
+   current_season_game_teams(season).each do |team|
       (coaches[team.head_coach] = 0) if season_coaches.include?(team.head_coach)
     end
     coaches
