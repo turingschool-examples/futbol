@@ -1,6 +1,5 @@
 require './test/test_helper'
 require './lib/stat_tracker'
-require './lib/stats'
 require './lib/season_stats'
 
 class SeasonStatsTest < Minitest::Test

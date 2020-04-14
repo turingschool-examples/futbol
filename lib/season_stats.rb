@@ -3,11 +3,6 @@ require 'pry'
 
 class SeasonStats < Stats
 
-  #def initialize(file_paths)
-  #  from_csv(file_paths)
-  #  binding.pry
-  #end
-
   def most_accurate_team(season)
     team_performances = team_games_by_season(season)
     performance_by_team = team_performances.group_by{|team| team.team_id}

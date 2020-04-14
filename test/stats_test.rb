@@ -23,4 +23,10 @@ class StatsTest < MiniTest::Test
     assert_instance_of GameTeam, @stats.game_teams.first
   end
 
+  def test_games_by_season
+    test_season = @stats.team_games_by_season("20172018")
+    assert_equal 10, test_season.length
+    assert_instance_of GameTeam, test_season.first
+  end
+
 end
