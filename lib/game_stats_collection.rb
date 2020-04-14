@@ -2,8 +2,11 @@ require 'csv'
 require_relative 'collection'
 require_relative 'team_collection'
 require_relative 'game_stats'
+require_relative 'modules/findable'
 
 class GameStatsCollection < Collection
+  include Findable
+
   attr_reader :game_stats
 
   def initialize(file_path)
@@ -127,11 +130,6 @@ class GameStatsCollection < Collection
 
   def lowest_scoring_home_team
     find_team_name_by_team_id(lowest_scoring_home_team_id)
-  end
-
-  def all_games_for(id)
-    number_id = id.to_i
-    @game_stats.find_all {|game_stat| game_stat.team_id == number_id}
   end
 
   def most_goals_scored(team_id)
