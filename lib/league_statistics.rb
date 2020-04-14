@@ -1,13 +1,13 @@
-require 'pry'
+require_relative './statistics'
 
-class LeagueStatistics
+class LeagueStatistics < Statistics
 
   attr_reader :game_collection, :game_teams_collection, :teams_collection
-  def initialize(game_collection, game_teams_collection, teams_collection)
-    @game_collection = game_collection
-    @game_teams_collection = game_teams_collection
-    @teams_collection = teams_collection
-  end
+  # def initialize(game_collection, game_teams_collection, teams_collection)
+  #   @game_collection = game_collection
+  #   @game_teams_collection = game_teams_collection
+  #   @teams_collection = teams_collection
+  # end
 
 
   def count_of_teams
