@@ -101,10 +101,10 @@ class GameTeam
     #each game, iterating through and adding the team_id as the key and
     #getting the shots and goals count
     grouped_season = game_teams.group_by{|group|group.team_id}
-    grouped_season.each do |team_id, game_team|
+    grouped_season.each do |team_id, game_teams|
       results[team_id] ||= {"shots"=>0,"goals"=>0}
-      results[team_id]["shots"] = game_team.sum(&:shots)
-      results[team_id]["goals"] = game_team.sum(&:goals)
+      results[team_id]["shots"] = game_teams.sum(&:shots)
+      results[team_id]["goals"] = game_teams.sum(&:goals)
     end
     results
   end
