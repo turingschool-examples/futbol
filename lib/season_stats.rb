@@ -35,6 +35,7 @@ class SeasonStats < Collection
 
   def winningest_coach(season)
     games = games_by_season(season, @game_stats)
+    wins = info_by_season(games, :team_wins)
     coach_names = info_by_season(games, :head_coach)
     percentage_tracker = -1
     name_tracker = nil
@@ -70,11 +71,11 @@ class SeasonStats < Collection
     shots = info_by_season(games, :team_shots)
     goals = info_by_season(games, :team_goals)
     id_tracker = nil
-    result_tracker = 0
+    percent_tracker = 0
     team_ids.each do |id|
       result = goals[id].to_f / shots[id]
-      if result > result_tracker
-        result_tracker = result
+      if result > percent_tracker
+        percent_tracker = result
         id_tracker = id
       end
     end
@@ -84,11 +85,12 @@ class SeasonStats < Collection
   def least_accurate_team(season)
     games = games_by_season(season, @game_stats)
     team_ids = info_by_season(games, :team_id)
-
-    percentage_tracker = 2
+    shots = info_by_season(games, :team_shots)
+    goals = info_by_season(games, :team_goals)
     id_tracker = nil
+    percentage_tracker = 2
     team_ids.each do |id|
-      percentage = season_stat_percentage(season, id, :shot)
+      percentage = goals[id].to_f / shots[id]
       if percentage < percentage_tracker
         percentage_tracker = percentage
         id_tracker = id

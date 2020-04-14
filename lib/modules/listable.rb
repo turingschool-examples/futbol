@@ -40,6 +40,17 @@ module Listable
         end
       end
       teams_goals
+    elsif type == :team_wins
+      teams_wins = {}
+      season.each do |game|
+        if teams_wins.any?{teams_wins[game.team_id]} == false && game.result == "WIN"
+          teams_wins[game.team_id] = 1
+        elsif game.result == "WIN"
+          teams_wins[game.team_id] += 1
+        end
+      end
+      require "pry";binding.pry
+      teams_wins
     end
   end
 end
