@@ -77,8 +77,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal ({"20122013"=>2, "20162017"=>5, "20142015"=>6, "20132014"=>4, "20152016"=>2, "20172018"=>1}), @stat_tracker.count_of_games_by_season
   end
 
-#Michelle start
-
   def test_it_can_find_highest_total_score
     assert_equal 5, @stat_tracker.highest_total_score
   end
