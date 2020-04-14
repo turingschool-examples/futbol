@@ -10,49 +10,51 @@ class GameRepositoryTest < Minitest::Test
 
 
   def test_it_exists
-    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv')
+    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
     assert_instance_of GameRepository, game_repository
   end
 
   #we want to create tests for all the mehtods in game_repository here
 
   def test_it_has_attributes
-    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv')
-    assert_equal "20122013", game_repository.games_collection[0].season
+    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+    # require"pry";binding.pry
+    assert_equal "20122013", game_repository.game_collection[0].season
+
   end
 
   def test_highest_total_score
-    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv')
+    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
     assert_equal 11, game_repository.highest_total_score
   end
 
   def test_lowest_total_score
-    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv')
+    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
     assert_equal 0 , game_repository.lowest_total_score
   end
 
   def test_percentage_home_wins
-    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv')
+    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
     assert_equal 0.44, game_repository.percentage_home_wins
   end
 
   def test_percentage_visitor_wins
-    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv')
+    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
     assert_equal 0.36, game_repository.percentage_visitor_wins
   end
 
   def test_percentage_ties
-    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv')
+    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
     assert_equal 0.20, game_repository.percentage_ties
   end
 
   def test_average_goals_per_game
-    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv')
+    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
     assert_equal 4.22, game_repository.average_goals_per_game
   end
 
   def test_average_goals_by_season
-    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv')
+    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
         expected = {
       "20122013"=>4.12,
       "20162017"=>4.23,
@@ -65,7 +67,7 @@ class GameRepositoryTest < Minitest::Test
   end
 
   def test_count_of_games_by_season
-    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv')
+    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
           expected = {
         "20122013"=>806,
         "20162017"=>1317,
@@ -78,7 +80,7 @@ class GameRepositoryTest < Minitest::Test
   end
 
   def test_average_goals_by_season
-    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv')
+    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
           expected = {
         "20122013"=>4.12,
         "20162017"=>4.23,

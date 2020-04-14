@@ -1,34 +1,24 @@
-require_relative './team'
-require_relative './game'
-require_relative './game_teams'
-require_relative './game_teams_repository'
 require_relative './team_repository'
 require_relative './game_repository'
 require_relative './league_repository'
 require_relative './season_repository'
 
-
 require 'CSV'
-
 
 class StatTracker
 
-
   def self.from_csv(file_paths)
     league_repository = LeagueRepository.new(file_paths[:games], file_paths[:game_teams], file_paths[:teams])
-    team_repository = TeamRepository.new(file_paths[:game_teams], file_paths[:teams], file_paths[:games])
-    game_repository = GameRepository.new(file_paths[:games], file_paths[:game_teams])
-    game_team_repository = GameTeamsRepository.new(file_paths[:game_teams])
+    team_repository = TeamRepository.new(file_paths[:games], file_paths[:game_teams], file_paths[:teams])
+    game_repository = GameRepository.new(file_paths[:games], file_paths[:game_teams], file_paths[:teams])
     season_repository = SeasonRepository.new(file_paths[:games], file_paths[:game_teams], file_paths[:teams])
-    stat_tracker = StatTracker.new(team_repository, game_repository, game_team_repository, league_repository, season_repository)
-
+    stat_tracker = StatTracker.new(team_repository, game_repository, league_repository, season_repository)
   end
-    attr_reader :team_repository, :game_repository, :game_team_repository, :season_repository
+    attr_reader :team_repository, :game_repository, :league_repository, :season_repository
 
-  def initialize(team_repository, game_repository, game_team_repository, league_repository, season_repository)
+  def initialize(team_repository, game_repository, league_repository, season_repository)
     @team_repository = team_repository
     @game_repository = game_repository
-    @game_team_repository = game_team_repository
     @league_repository = league_repository
     @season_repository = season_repository
   end
