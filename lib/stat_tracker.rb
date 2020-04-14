@@ -31,15 +31,15 @@ class StatTracker
   end
 
   def create_games
-    @games = Collection.from_csv(@games_path, Game)
+    @games = Game.from_csv(@games_path, Game)
   end
 
   def create_teams
-    @teams = Collection.from_csv(@teams_path, Team)
+    @teams = Team.from_csv(@teams_path, Team)
   end
 
   def create_game_teams
-    @game_teams = Collection.from_csv(@game_teams_path, GameTeam)
+    @game_teams = GameTeam.from_csv(@game_teams_path, GameTeam)
   end
 
   def home_games
@@ -47,7 +47,6 @@ class StatTracker
   end
 
   def count_of_teams
-    binding.pry
     Team.count_of_teams
   end
 
