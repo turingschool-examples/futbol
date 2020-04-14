@@ -69,25 +69,23 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal 1, @team_statistics.average_win_percentage("6")
   end
 
-  def test_most_goals_scored
-    assert_equal 1, @team_statistics.most_goals_scored("5")
-    assert_equal 2, @team_statistics.most_goals_scored("3")
-    assert_equal 4, @team_statistics.most_goals_scored("6")
+  # Rewrite using info from game_teams fixture
+  def test_goals_scored_high_and_low
+    skip
+    assert_equal 1, @team_statistics.goals_scored_high_and_low("5", "high")
+    assert_equal 2, @team_statistics.goals_scored_high_and_low("3", "high")
+    assert_equal 4, @team_statistics.goals_scored_high_and_low("6", "high")
+
+    assert_equal 0, @team_statistics.goals_scored_high_and_low("5", "low")
+    assert_equal 1, @team_statistics.goals_scored_high_and_low("3", "low")
+    assert_equal 1, @team_statistics.goals_scored_high_and_low("6", "low")
   end
 
-  def test_fewest_goals_scored
-    assert_equal 0, @team_statistics.fewest_goals_scored("5")
-    assert_equal 1, @team_statistics.fewest_goals_scored("3")
-    assert_equal 1, @team_statistics.fewest_goals_scored("6")
+  def test_opponent_preference
+    assert_equal "Houston Dynamo", @team_statistics.opponent_preference("6", "high")
+    assert_equal "Philadelphia Union", @team_statistics.opponent_preference("22", "high")
+    assert_equal "Washington Spirit FC", @team_statistics.opponent_preference("24", "low")
+    assert_equal "Orlando Pride", @team_statistics.opponent_preference("17", "low")
   end
 
-  def test_favorite_opponent
-    assert_equal "Houston Dynamo", @team_statistics.favorite_opponent("6")
-    assert_equal "Philadelphia Union", @team_statistics.favorite_opponent("22")
-  end
-
-  def test_rival
-    assert_equal "Washington Spirit FC", @team_statistics.rival("24")
-    assert_equal "Orlando Pride", @team_statistics.rival("17")
-  end
 end
