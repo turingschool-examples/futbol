@@ -20,6 +20,7 @@ module Hashable
     og_hash.map do |key, value|
       hash_divided[key] = (value[key1] / value[key2].to_f).round(2)
     end
-    hash_divided 
+    hash_divided
   end
+  
 end
