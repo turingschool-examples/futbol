@@ -41,11 +41,8 @@ class GameTeam < Collection
   end
 
   def self.worst_coach(season_id)
-    wins_by_coach_by_season = Hash.new { |hash, key| hash[key] = 0 }
-    coach_record(season_id).map do |coach, counts|
-      wins_by_coach_by_season[coach] = (counts[:wins].to_f / counts[:games_played].to_f).round(2)
-    end
-    worst = wins_by_coach_by_season.min_by {|coach, percent| percent}
+    wins_by_coach = divide_hash_values(:wins, :games_played,coach_record(season_id))
+    worst = wins_by_coach.min_by {|coach, percent| percent}
     worst[0]
   end
 
