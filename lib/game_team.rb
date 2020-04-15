@@ -74,7 +74,6 @@ class GameTeam < Collection
     stats_by_team = get_goal_shots_by_game_team(matches)
   end
 
-
   def self.games_by_team_name(season_id)
     game_id_first = season_id.to_s[0..3]
     all_games_by_id = all.find_all {|game| game.season_id == game_id_first}

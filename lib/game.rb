@@ -10,7 +10,6 @@ class Game < Collection
   extend Hashable
   extend Gameable
 
-
   def self.highest_total_score
     all.map { |game| game.away_goals + game.home_goals}.max
   end
@@ -46,7 +45,7 @@ class Game < Collection
     # :goals / :games_played
     divide_hash_values(:goals, :games_played, games_goals_by_season)
   end
-  
+
 #deliverable
   def self.average_goals_by(hoa_team)
     divide_hash_values(:goals, :games_played, games_goals_by(hoa_team))
