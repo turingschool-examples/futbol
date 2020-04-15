@@ -55,4 +55,9 @@ class LeagueRepositoryTest < Minitest::Test
     assert_equal "Utah Royals FC", league.lowest_scoring_home_team
   end
 
+  def test_find_team_id
+    league = LeagueRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+    assert_equal "FC Cincinnati", league.find_team_id(26)
+  end
+
 end
