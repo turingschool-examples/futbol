@@ -4,14 +4,27 @@ require_relative './findable'
 
 class SeasonRepository < Repository
   include Findable
-  attr_reader :games_collection, :games_teams_collection, :teams_collection
+  attr_reader :games_collection, :games_teams_collection, :teams_collection,
+              :game_id_array
+  attr_accessor :games_by_season
+
+
+  # 
+  # def games_by_season
+  #   @games_by_season = Hash.new(0)
+  #   @game_team_collection.each do |team|
+  #
+  #     @games_by_season
+  #   end
+  # end
 
   def find_game_id(season)
     game_array =  @game_collection.select do |game|
       game.season == season
       end
-    game_id_array = game_array.map {|game| game.game_id}
+    @game_id_array = game_array.map {|game| game.game_id}
   end
+
 
   def winningest_coach(season)
     game_id_array = find_game_id(season)
@@ -27,6 +40,7 @@ class SeasonRepository < Repository
     coach_winner = coach_win_percentage.max_by{|key, value| coach_win_percentage[key]}
     coach_winner.first
   end
+
 
   def coach_games(game_array)
     coach_hash = Hash.new(0)
@@ -61,13 +75,8 @@ class SeasonRepository < Repository
 
 
   def most_tackles(season_id)
-    games_in_the_season = []
+    games_in_the_season = find_game_id(season_id)
     tackles_team = {}
-    @game_collection.each do |game|
-      if game.season == season_id
-        games_in_the_season << game.game_id
-      end
-    end
     games_in_the_season.each do |season_game|
       @game_team_collection.each do |game_team|
         if game_team.game_id == season_game
@@ -84,13 +93,8 @@ class SeasonRepository < Repository
   end
 
   def fewest_tackles(season_id)
-    games_in_the_season = []
+    games_in_the_season = find_game_id(season_id)
     tackles_team = {}
-    @game_collection.each do |game|
-      if game.season == season_id
-        games_in_the_season << game.game_id
-      end
-    end
     games_in_the_season.each do |season_game|
       @game_team_collection.each do |game_team|
         if game_team.game_id == season_game
@@ -148,7 +152,6 @@ class SeasonRepository < Repository
     wayward_team = @team_collection.find do |team|
        team.team_id == wayward.first
       end
-
       wayward_team.teamname
   end
 end
