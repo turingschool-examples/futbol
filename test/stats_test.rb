@@ -76,4 +76,9 @@ class StatsTest < MiniTest::Test
     assert_instance_of GameTeam, @stats.all_games_by_team("30").first
     assert_instance_of GameTeam, @stats.all_games_by_team("30").last
   end
+
+  def test_calculate_win_percentage_method
+    test_team_games = @stats.all_games_by_team('52')
+    assert_equal 0.8, @stats.calculate_win_percentage(test_team_games)
+  end
 end
