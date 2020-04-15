@@ -2,8 +2,13 @@ require 'csv'
 require_relative 'collection'
 require_relative 'team_collection'
 require_relative 'game_stats'
+require_relative 'modules/mathable'
+require_relative 'modules/findable'
 
 class GameStatsCollection < Collection
+  include Findable
+  include Mathable
+
   attr_reader :game_stats
 
   def initialize(file_path)
@@ -73,11 +78,6 @@ class GameStatsCollection < Collection
     find_team_name_by_team_id(find_team_id("home", "min"))
   end
 
-  def all_games_for(id)
-    number_id = id.to_i
-    @game_stats.find_all {|game_stat| game_stat.team_id == number_id}
-  end
-
   def most_goals_scored(team_id)
     all_games_for(team_id).max_by {|game_stat| game_stat.goals}.goals
   end
@@ -88,8 +88,7 @@ class GameStatsCollection < Collection
 
   def average_win_percentage(team_id)
     total_games = all_games_for(team_id)
-    games_won = total_games.find_all {|game|game.result == "WIN"}
-    average_percentage = (games_won.length.to_f/total_games.length)
-    average_percentage.round(2)
+    games_won = total_games.find_all {|game|game.result == "WIN"}.length
+    percentage(games_won, total_games)
   end
 end
