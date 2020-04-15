@@ -12,17 +12,17 @@ class GameTeam < Collection
   def self.home_games
     (all.find_all {|gt| gt.hoa == "home" }).count
   end
-#deliverable
+
   def self.percentage_home_wins
     home_wins = (all.find_all {|gt| gt.hoa == "home" && gt.result == "WIN" }).count.to_f
     ((home_wins / self.home_games)).round(2)
   end
-#deliverable
+
   def self.percentage_visitor_wins
     visitor_wins = (all.find_all {|gt| gt.hoa == "home" && gt.result == "LOSS" }).count.to_f
     ((visitor_wins / self.home_games)).round(2)
   end
-#deliverable
+
   def self.percentage_ties
     games_count = all.count.to_f
     ties_count = (all.find_all { |gt| gt.result == "TIE"}).count.to_f
@@ -57,7 +57,7 @@ class GameTeam < Collection
     end
     total_games_coached_by_season
   end
-#deliverbale
+
   def self.wins_by_coach(season_id)
     wins_by_coach_by_season = Hash.new { |hash, key| hash[key] = 0 }
     results_by_coach(season_id).each do |coach, results|
@@ -68,11 +68,10 @@ class GameTeam < Collection
     wins_by_coach_by_season
   end
 
-#####30 Seconds
   def self.winningest_coach(season_id)
     coaches_in_season(season_id).max_by {|coach| (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)}
   end
-#####30 Seconds
+
   def self.worst_coach(season_id)
     coaches_in_season(season_id).min_by do |coach|
       (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)
@@ -107,7 +106,6 @@ class GameTeam < Collection
     stats_by_team = get_goal_shots_by_game_team(matches)
   end
 
-#Michelle Start
   def self.games_ids_by_season(season_id)
     game_id_first = season_id.to_s[0..3]
     all_games_by_id = all.find_all {|game| game.season_id == game_id_first}
@@ -115,13 +113,13 @@ class GameTeam < Collection
   end
 
   def self.games_by_season_id(season_id)
-      games_by_id = []
-      all.each do |game|
-        if games_ids_by_season(season_id).any? { |id| id == game.game_id }
-          games_by_id << game
-        end
+    games_by_id = []
+    all.each do |game|
+      if games_ids_by_season(season_id).any? { |id| id == game.game_id }
+        games_by_id << game
       end
-      games_by_id
+    end
+    games_by_id
   end
 
   def self.games_by_team_name(season_id)
@@ -129,24 +127,23 @@ class GameTeam < Collection
   end
 
   def self.tackles_by_team(season_id)
-      tackles_by_team = {}
-      games_by_team_name(season_id).each do |key, value|
-        total_tackles = value.sum { |value| value.tackles}
-        tackles_by_team[key] = total_tackles
-      end
-      tackles_by_team
+    tackles_by_team = {}
+    games_by_team_name(season_id).each do |key, value|
+      total_tackles = value.sum { |value| value.tackles}
+      tackles_by_team[key] = total_tackles
+    end
+    tackles_by_team
   end
-#####45 Seconds
+
   def self.most_tackles(season_id)
     most_tackles = tackles_by_team(season_id).max_by { |key, value| value}
     most_tackles.first
   end
-#####45 Seconds
+
   def self.fewest_tackles(season_id)
     fewest_tackles = tackles_by_team(season_id).min_by { |key, value| value}
     fewest_tackles.first
   end
-
 
   def self.best_offense
     #grouped by team_id with keys being the team_id and values is an array of games
@@ -161,7 +158,6 @@ class GameTeam < Collection
   end
 
   def self.worst_offense
-
     #grouped by team_id with keys being the team_id and values is an array of games
     grouped_team = all.group_by{|game| game.team_id}
     #loop through the values (games) and set them equal to the average of goals
@@ -174,15 +170,15 @@ class GameTeam < Collection
   end
 
   def self.most_goals_scored(team_id)
-  total_game_teams_per_team_id = find_by_team(team_id)
-  results = {}
-  total_game_teams_per_team_id.each do |game_team|
-    results[game_team.game_id] ||= {"team_id"=>0, "goals"=>0}
-    results[game_team.game_id]["team_id"] = game_team.team_id
-    results[game_team.game_id]["goals"] = game_team.goals
-  end
-  max_goals = results.max_by{|key,value| value["goals"]}
-  return max_goals[1]["goals"]
+    total_game_teams_per_team_id = find_by_team(team_id)
+    results = {}
+    total_game_teams_per_team_id.each do |game_team|
+      results[game_team.game_id] ||= {"team_id"=>0, "goals"=>0}
+      results[game_team.game_id]["team_id"] = game_team.team_id
+      results[game_team.game_id]["goals"] = game_team.goals
+    end
+    max_goals = results.max_by{|key,value| value["goals"]}
+    return max_goals[1]["goals"]
   end
 
   def self.fewest_goals_scored(team_id)
@@ -218,7 +214,6 @@ class GameTeam < Collection
     opponent_wins
   end
 
-####1:15 seconds
   def self.favorite_opponent_id(team_id)
     team_id = team_id
     record_length = {}
@@ -228,7 +223,7 @@ class GameTeam < Collection
     opponents = opponents_records(team_id).keys
     opponents.min_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
   end
-####2:30 seconds
+
   def self.rival_id(team_id)
     team_id = team_id
     record_length = {}
