@@ -166,26 +166,14 @@ class GameTeam < Collection
 
   def self.most_goals_scored(team_id)
   total_game_teams_per_team_id = find_by_team(team_id)
-  results = {}
-  total_game_teams_per_team_id.each do |game_team|
-    results[game_team.game_id] ||= {"team_id"=>0, "goals"=>0}
-    results[game_team.game_id]["team_id"] = game_team.team_id
-    results[game_team.game_id]["goals"] = game_team.goals
-  end
-  max_goals = results.max_by{|key,value| value["goals"]}
-  return max_goals[1]["goals"]
+  game_team_with_max = total_game_teams_per_team_id.max{|game_team| game_team.goals}
+  return game_team_with_max.goals
   end
 
   def self.fewest_goals_scored(team_id)
     total_game_teams_per_team_id = find_by_team(team_id)
-    results = {}
-    total_game_teams_per_team_id.each do |game_team|
-      results[game_team.game_id] ||= {"team_id"=>0, "goals"=>0}
-      results[game_team.game_id]["team_id"] = game_team.team_id
-      results[game_team.game_id]["goals"] = game_team.goals
-      end
-    min_goals = results.min_by{|key,value| value["goals"]}
-    return min_goals[1]["goals"]
+    game_team_with_min = total_game_teams_per_team_id.min{|game_team| game_team.goals}
+    return game_team_with_min.goals
   end
 
   def self.opponents_records(team_id)
