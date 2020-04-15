@@ -45,7 +45,6 @@ class StatTrackerTest < Minitest::Test
   def test_it_creates_teams
     assert_instance_of Array, @stat_tracker.teams
     assert_instance_of Team, @stat_tracker.teams[0]
-
   end
 
   def test_it_creates_game_teams
@@ -92,7 +91,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_return_team_name_with_fewest_tackles
     assert_equal "Washington Spirit FC", @stat_tracker.fewest_tackles("20122013")
   end
-  #michelle end
+
   def test_it_returns_average_goals_per_game
       assert_equal 4.4, @stat_tracker.average_goals_per_game
   end
@@ -155,8 +154,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_home_team
   end
 
-
-
   def test_best_season
     assert_equal "20142015", @stat_tracker.best_season("3")
     assert_equal "20122013", @stat_tracker.best_season("6")
@@ -217,4 +214,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas", @stat_tracker.rival("3")
   end
 
+  def test_worst_coach
+    assert_equal "Willie Desjardins", @stat_tracker.worst_coach("2016030134")
+  end
+
+  def test_winningest_coach
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach("2016030134")
+  end
 end
