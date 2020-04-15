@@ -121,8 +121,10 @@ class StatTrackerTest < Minitest::Test
 
   def test_if_it_can_get_winningest_coach
     assert_equal "Dan Lacroix", @stat_tracker.winningest_coach("20122013")
-
   end
 
+  def test_if_it_can_get_worst_coach
+    assert_equal "Martin Raymond", @stat_tracker.worst_coach("20122013")
+  end
 
 end
