@@ -1,26 +1,19 @@
 require_relative './statistics'
+require_relative './keyable'
 class TeamStatistics < Statistics
-
-  attr_reader :game_collection, :game_teams_collection, :teams_collection
-  # def initialize(game_collection, game_teams_collection, teams_collection)
-  #   @game_collection = game_collection
-  #   @game_teams_collection = game_teams_collection
-  #   @teams_collection = teams_collection
-  # end
+  include Keyable
 
   def team_info(team_id)
-    # A hash with key/value pairs for the following attributes: team_id, franchise_id, team_name, abbreviation, and link
-
     team = @teams_collection.find{ |team| team.id == team_id}
     team_info = {"team_id" => team.id,
                  "franchise_id" => team.franchise_id,
                  "team_name" => team.team_name,
                  "abbreviation" => team.abbreviation,
-                 "link" => team.link}
+                 "link" => team.link
+               }
   end
 
   def games_played(team_id)
-    # This method can probably be combined in a module with games_played_by_team in league statistics
     @game_collection.find_all do |game|
       game.away_team_id == team_id || game.home_team_id == team_id
     end
@@ -34,14 +27,7 @@ class TeamStatistics < Statistics
       games_won = count_wins(team_id, season)
       (games_won/season.length.to_f).round(2)
     end
-
-    if best_or_worst == "best"
-      best_season = win_percentage_by_season.max_by { |season| season[1]}
-      best_season[0]
-    elsif best_or_worst == "worst"
-      worst_season = win_percentage_by_season.min_by { |season| season[1]}
-      worst_season[0]
-    end
+    high_low_key_return(win_percentage_by_season, best_or_worst)
   end
 
   def average_win_percentage(team_id)
@@ -53,20 +39,17 @@ class TeamStatistics < Statistics
     (games_won.length.to_f / games_played_in.length).round(2)
   end
 
-def goals_scored_high_and_low(team_id, high_or_low)
-  games_played_in = @game_teams_collection.find_all do |game|
-    team_id == game.team_id
-  end
+  def goals_scored_high_and_low(team_id, high_or_low)
+    games_played_in = @game_teams_collection.find_all do |game|
+      team_id == game.team_id
+    end
 
-  highest_scoring_game = games_played_in.max_by {|game| game.goals}
-  lowest_scoring_game = games_played_in.min_by {|game| game.goals}
+    highest_scoring_game = games_played_in.max_by {|game| game.goals}
+    lowest_scoring_game = games_played_in.min_by {|game| game.goals}
 
-  if high_or_low == "high"
-    highest_scoring_game.goals
-  elsif high_or_low == "low"
-    lowest_scoring_game.goals
+    return highest_scoring_game.goals if high_or_low == "high"
+    return lowest_scoring_game.goals if high_or_low == "low"
   end
-end
 
   def games_by_opponent_team_id(team_id)
     games_played_in = games_played(team_id)
@@ -121,5 +104,4 @@ end
       team_info(rival[0])["team_name"]
     end
   end
-
 end
