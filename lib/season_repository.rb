@@ -10,21 +10,16 @@ class SeasonRepository < Repository
     game_array =  @game_collection.select do |game|
       game.season == season
       end
-    coach_win_percentage = Hash.new
+    coach_win_percentage = Hash.new(0)
     game_id_array = game_array.map {|game| game.game_id}
 
     total_coach_games = coach_games(game_id_array)
 
     @game_team_collection.each do |team|
       if game_id_array.include?(team.game_id)
-      # game_id_array.each do |id|
-      if (team.result == "WIN") && (coach_win_percentage[team.head_coach] == nil)
-        coach_win_percentage[team.head_coach] = 0
-
-        coach_win_percentage[team.head_coach] += (1.to_f / (total_coach_games[team.head_coach]))
-      elsif (team.result == "WIN")
-        coach_win_percentage[team.head_coach] += (1.to_f / (total_coach_games[team.head_coach]))
-      end
+        if (team.result == "WIN")
+          coach_win_percentage[team.head_coach] += (1.to_f / (total_coach_games[team.head_coach]))
+        end
       end
     end
     coach_winner = coach_win_percentage.max_by{|key, value| coach_win_percentage[key]}
@@ -32,12 +27,9 @@ class SeasonRepository < Repository
   end
 
   def coach_games(game_array)
-    coach_hash = Hash.new
+    coach_hash = Hash.new(0)
     @game_team_collection.each do |game_team|
       if game_array.include?(game_team.game_id)
-        if coach_hash[game_team.head_coach] == nil
-          coach_hash[game_team.head_coach] = 0
-        end
         coach_hash[game_team.head_coach] += 1
       end
     end
@@ -49,7 +41,6 @@ class SeasonRepository < Repository
       game.season == season
       end
     coach_loose_percentage = Hash.new
-    #count = 0
     game_id_array = game_array.map do |game| game.game_id
       end
         total_coach_games = coach_games(game_id_array)
@@ -66,7 +57,6 @@ class SeasonRepository < Repository
         end
      end
 
-    # Hey this didn't pass and it was 10pm so I cheated
     coach_looser = coach_loose_percentage.min_by{|key, value| coach_loose_percentage[key]}
 
     coach_looser.first
