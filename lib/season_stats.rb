@@ -1,10 +1,10 @@
 require_relative 'collection'
 require_relative 'game_stats'
 require_relative 'team'
-require_relative 'modules/listable'
+require_relative 'modules/findable'
 
 class SeasonStats < Collection
-  include Listable
+  include Findable
   attr_reader :teams, :game_stats
 
   def initialize(teams_path, game_stats_path)
