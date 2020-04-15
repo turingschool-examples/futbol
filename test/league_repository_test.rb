@@ -10,7 +10,6 @@ require './lib/game_teams'
 
 class LeagueRepositoryTest < Minitest::Test
 
-  #update methods below to respond to new structure
   def test_it_exists
     league = LeagueRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
     assert_instance_of LeagueRepository, league
