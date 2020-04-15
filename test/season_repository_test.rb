@@ -44,4 +44,10 @@ class SeasonRepositoryTest < Minitest::Test
     assert_equal "Atlanta United", season_repository.fewest_tackles("20132014")
     assert_equal "Orlando City SC", season_repository.fewest_tackles("20142015")
   end
+
+  def test_find_team_id
+    season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+    assert_equal "FC Cincinnati", season_repository.find_team_id(26)
+  end
+  
 end
