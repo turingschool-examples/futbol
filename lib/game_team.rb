@@ -183,13 +183,7 @@ class GameTeam < Collection
   end
 
   def self.opponents_records(team_id)
-    # hash_of_hashes()
-    opponents_records = Hash.new { |hash, key| hash[key] = {:wins => 0, :games_played => 0}}
-    game_teams_with_opponent(team_id).each do |gt|
-      opponents_records[gt.team_id][:wins] += 1 if gt.result == "WIN"
-      opponents_records[gt.team_id][:games_played] += 1
-    end
-    opponents_records
+    hash_of_hashes(game_teams_with_opponent(team_id), :team_id, :wins, :games_played, :gt_win?, 1)
   end
 
   def self.favorite_opponent_id(team_id)
@@ -240,7 +234,7 @@ class GameTeam < Collection
     @season_id = @game_id.to_s[0..3]
   end
 
-  def win?
+  def gt_win?
     return 1 if @result == "WIN"
     0
   end
