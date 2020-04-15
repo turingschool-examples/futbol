@@ -11,5 +11,4 @@ module Mathable
       (collection.sum / collection2.length.to_f).round(2)
     end
   end
-
 end
