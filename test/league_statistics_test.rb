@@ -99,8 +99,8 @@ class LeagueStatisticsTest < Minitest::Test
     assert_equal expected, @league_statistics.goals_scored_by_team
   end
 
-  def test_average_goals
-    assert_equal 0.5, @league_statistics.average_goals(2,4)
+  def test_average #mathable
+    assert_equal 0.5, @league_statistics.average(2,4.to_f)
   end
 
   def test_average_goals_by_team
@@ -125,5 +125,13 @@ class LeagueStatisticsTest < Minitest::Test
 
   def test_lowest_scoring_home_team
     assert_equal "Seattle Sounders FC", @league_statistics.lowest_scoring_home_team
+  end
+
+  def test_away_home_team_scores_away
+    assert_equal ({"3"=>1.67, "6"=>3.0, "5"=>0.5, "19"=>1.0, "24"=>2.0, "29"=>2.0, "12"=>2.0, "17"=>1.5, "1"=>3.0, "8"=>2.0, "14"=>2.0, "25"=>2.0, "7"=>2.0, "22"=>3.0, "16"=>2.5}), @league_statistics.away_home_team_scores(:away)
+  end
+
+  def test_away_home_team_scores_home
+      assert_equal ({"6"=>2.67, "3"=>1.5, "5"=>0.5, "23"=>2.0, "4"=>2.0, "24"=>3.0, "29"=>2.0, "2"=>0.0, "22"=>1.5, "14"=>2.0, "19"=>2.0, "16"=>2.33}), @league_statistics.away_home_team_scores(:home)
   end
 end
