@@ -81,4 +81,8 @@ class StatsTest < MiniTest::Test
     test_team_games = @stats.all_games_by_team('52')
     assert_equal 0.8, @stats.calculate_win_percentage(test_team_games)
   end
+
+  def test_average_method
+    assert_equal 0.5, @stats.average(1,2)
+  end
 end
