@@ -18,7 +18,6 @@ class Game < Collection
   end
 
   def self.count_of_games_by_season
-    # this can be refactored to include ross' games_per(:season) method -sb
     games_by_season = all.group_by { |game| game.season }
     count = {}
     games_by_season.keys.each do |key|
@@ -42,12 +41,12 @@ class Game < Collection
   end
 
   #deliverable
-    def self.average_goals_by_season
-      # :goals / :games_played
-      average_goals_by_season = divide_hash_values(:goals, :games_played, games_goals_by_season)
-      # average_goals_by_season.transform_keys {|key| key.to_s}
-      keys_to_string(average_goals_by_season)
-    end
+  def self.average_goals_by_season
+    # :goals / :games_played
+    average_goals_by_season = divide_hash_values(:goals, :games_played, games_goals_by_season)
+    # average_goals_by_season.transform_keys {|key| key.to_s}
+    keys_to_string(average_goals_by_season)
+  end
 
   def self.games_goals_by(hoa_team)
     #{away_team_id => {goals => x, games_played => y}}
@@ -140,7 +139,6 @@ class Game < Collection
     @venue_link = game_stats[:venue_link]
     @total_goals = @away_goals + @home_goals
   end
-
 
   def win?(team_id)
     away_win = team_id == @away_team_id && @away_goals > @home_goals

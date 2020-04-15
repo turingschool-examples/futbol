@@ -235,7 +235,7 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_least_goals_scored_by_team_id
-    assert_equal 2, GameTeam.least_goals_scored(26)
+    assert_equal 2, GameTeam.fewest_goals_scored(26)
   end
 
 end
