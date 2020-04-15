@@ -1,9 +1,15 @@
-require "./lib/hashable"
+require_relative "hashable"
+require_relative "gameable"
+require_relative "winable"
+
 require_relative 'collection'
 
 class Game < Collection
 
+  include Winable
   extend Hashable
+  extend Gameable
+
 
   def self.highest_total_score
     all.map { |game| game.away_goals + game.home_goals}.max
@@ -35,26 +41,13 @@ class Game < Collection
     hash_of_hashes(all, :season, :goals, :games_played, :total_goals, 1)
   end
 
-  def self.keys_to_string(hash)
-    hash = hash.transform_keys { |key| key.to_s }
-  end
-
+#deliverable
   def self.average_goals_by_season
     # :goals / :games_played
-    average_goals_by_season = divide_hash_values(:goals, :games_played, games_goals_by_season)
-    # average_goals_by_season.transform_keys {|key| key.to_s}
-    keys_to_string(average_goals_by_season)
+    divide_hash_values(:goals, :games_played, games_goals_by_season)
   end
 
-  def self.games_goals_by(hoa_team)
-    #{away_team_id => {goals => x, games_played => y}}
-    if hoa_team == :away_team
-      hash_of_hashes(all, :away_team_id, :goals, :games_played, :away_goals, 1)
-    elsif hoa_team == :home_team
-      hash_of_hashes(all, :home_team_id, :goals, :games_played, :home_goals, 1)
-    end
-  end
-
+#deliverable
   def self.average_goals_by(hoa_team)
     divide_hash_values(:goals, :games_played, games_goals_by(hoa_team))
   end
@@ -73,24 +66,6 @@ class Game < Collection
 
   def self.lowest_scoring_home_team_id
     average_goals_by(:home_team).min_by{ |team_id, home_goals| home_goals}.first
-  end
-
-  def self.games_played_by(team_id)
-    #return all games that team played in
-    all.find_all do |game|
-      game.away_team_id == team_id || game.home_team_id == team_id
-    end
-  end
-
-  def self.games_and_wins_by_season(team_id)
-      #{ season => {:wins => x, :games_played => y}}
-    hash_of_hashes(games_played_by(team_id), :season, :wins, :games_played, :win?, 1, team_id)
-  end
-
-  def self.win_percent_by_season(team_id)
-    # :wins / :games_played * 100
-    win_percent_by_season = divide_hash_values(:wins, :games_played, games_and_wins_by_season(team_id))
-    win_percent_by_season.transform_values { |v| (v * 100).to_i}
   end
 
   def self.best_season(team_id)
@@ -136,10 +111,4 @@ class Game < Collection
     @total_goals = @away_goals + @home_goals
   end
 
-  def win?(team_id)
-    away_win = team_id == @away_team_id && @away_goals > @home_goals
-    home_win =  team_id == @home_team_id && @home_goals > @away_goals
-    return 1 if away_win || home_win
-    0
-  end
 end

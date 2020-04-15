@@ -79,10 +79,6 @@ class GameTest < Minitest::Test
     assert_equal 20, Game.all.count
   end
 
-  def test_it_can_count_games_by_season
-    assert_equal ({"20122013"=>2, "20162017"=>5, "20142015"=>6, "20132014"=>4, "20152016"=>2, "20172018"=>1}), Game.count_of_games_by_season
-  end
-
   def test_it_returns_average_goals_per_game
     assert_equal 4.4, Game.average_goals_per_game
     game1 = mock
@@ -128,15 +124,18 @@ class GameTest < Minitest::Test
 
   def test_average_goals_by_season_and_divide_hash_values
     stub_games_goals = {
-                        20122013 => {:goals => 10, :games_played => 3},
-                        20162017 => {:goals => 10, :games_played => 4}
+                        "20122013" => {:goals => 10, :games_played => 3},
+                        "20162017" => {:goals => 10, :games_played => 4}
                         }
     Game.stubs(:games_goals_by_season).returns(stub_games_goals)
     expected = {"20122013" => 3.33, "20162017" => 2.5}
     assert_equal expected, Game.average_goals_by_season
     actual = Game.divide_hash_values(:goals, :games_played, Game.games_goals_by_season)
-    actual = Game.keys_to_string(actual)
     assert_equal expected, actual
+  end
+
+  def test_it_can_count_games_by_season
+    assert_equal ({"20122013"=>2, "20162017"=>5, "20142015"=>6, "20132014"=>4, "20152016"=>2, "20172018"=>1}), Game.count_of_games_by_season
   end
 
   def test_it_returns_games_goals_by_hoa_team_id
@@ -174,7 +173,7 @@ class GameTest < Minitest::Test
                 "13" => {:goals => 8, :games_played =>1}}
     assert_equal expected, Game.games_goals_by(:home_team)
   end
-#deliverable
+
   def test_highest_scoring_visitor_team_id
     assert_equal "16", Game.highest_scoring_visitor_team_id
     games_goals = {"1" => {:goals => 11, :games_played =>2},
@@ -184,7 +183,7 @@ class GameTest < Minitest::Test
     Game.stubs(:average_goals_by).returns(stub_expected)
     assert_equal "1", Game.highest_scoring_visitor_team_id
   end
-  #deliverable
+
   def test_highest_scoring_heam_team_id
     assert_equal "6", Game.highest_scoring_home_team_id
     games_goals = {"1" => {:goals => 1, :games_played =>2},
@@ -194,7 +193,7 @@ class GameTest < Minitest::Test
     Game.stubs(:average_goals_by).returns(stub_expected)
     assert_equal "2", Game.highest_scoring_home_team_id
   end
-  #deliverable
+
   def test_lowest_scoring_visitor_team_id
     assert_equal "9", Game.lowest_scoring_visitor_team_id
     games_goals = {"1" => {:goals => 4, :games_played =>2},
@@ -204,7 +203,7 @@ class GameTest < Minitest::Test
     Game.stubs(:average_goals_by).returns(stub_expected)
     assert_equal "2", Game.lowest_scoring_visitor_team_id
   end
-  #deliverable
+
   def test_lowest_scoring_home_team_id
     assert_equal "5", Game.lowest_scoring_home_team_id
     games_goals = {"1" => {:goals => 5, :games_played =>2},
@@ -247,7 +246,7 @@ class GameTest < Minitest::Test
                   "20142015" => 25}
       assert_equal expected, Game.win_percent_by_season("3")
   end
-#deliverable
+
   def test_it_returns_best_season_given_team_id
     assert_equal "20142015", Game.best_season("3")
     assert_equal "20122013", Game.best_season("6")

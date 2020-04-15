@@ -94,13 +94,13 @@ class GameTeam < Collection
   end
 
   def self.games_by_season_id(season_id)
-      games_by_id = []
-      all.each do |game|
-        if games_ids_by_season(season_id).any? { |id| id == game.game_id }
-          games_by_id << game
-        end
+    games_by_id = []
+    all.each do |game|
+      if games_ids_by_season(season_id).any? { |id| id == game.game_id }
+        games_by_id << game
       end
-      games_by_id
+    end
+    games_by_id
   end
 
   def self.games_by_team_name(season_id)
@@ -108,19 +108,19 @@ class GameTeam < Collection
   end
 
   def self.tackles_by_team(season_id)
-      tackles_by_team = {}
-      games_by_team_name(season_id).each do |key, value|
-        total_tackles = value.sum { |value| value.tackles}
-        tackles_by_team[key] = total_tackles
-      end
-      tackles_by_team
+    tackles_by_team = {}
+    games_by_team_name(season_id).each do |key, value|
+      total_tackles = value.sum { |value| value.tackles}
+      tackles_by_team[key] = total_tackles
+    end
+    tackles_by_team
   end
-#####45 Seconds
+
   def self.most_tackles(season_id)
     most_tackles = tackles_by_team(season_id).max_by { |key, value| value}
     most_tackles.first
   end
-#####45 Seconds
+
   def self.fewest_tackles(season_id)
     fewest_tackles = tackles_by_team(season_id).min_by { |key, value| value}
     fewest_tackles.first
@@ -151,15 +151,15 @@ class GameTeam < Collection
   end
 
   def self.most_goals_scored(team_id)
-  total_game_teams_per_team_id = find_by_team(team_id)
-  results = {}
-  total_game_teams_per_team_id.each do |game_team|
-    results[game_team.game_id] ||= {"team_id"=>0, "goals"=>0}
-    results[game_team.game_id]["team_id"] = game_team.team_id
-    results[game_team.game_id]["goals"] = game_team.goals
-  end
-  max_goals = results.max_by{|key,value| value["goals"]}
-  return max_goals[1]["goals"]
+    total_game_teams_per_team_id = find_by_team(team_id)
+    results = {}
+    total_game_teams_per_team_id.each do |game_team|
+      results[game_team.game_id] ||= {"team_id"=>0, "goals"=>0}
+      results[game_team.game_id]["team_id"] = game_team.team_id
+      results[game_team.game_id]["goals"] = game_team.goals
+    end
+    max_goals = results.max_by{|key,value| value["goals"]}
+    return max_goals[1]["goals"]
   end
 
   def self.fewest_goals_scored(team_id)
