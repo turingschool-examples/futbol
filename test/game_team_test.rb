@@ -232,7 +232,7 @@ class GameTeamTest < Minitest::Test
     assert_equal 2, GameTeam.find_by_team("10").count
   end
 
-  def test_it_can_count_wins
+  def test_it_can_determine_wins
     assert_equal 0, @base_game_team.gt_win?
   end
 end
