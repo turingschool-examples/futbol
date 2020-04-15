@@ -1,5 +1,7 @@
+require_relative 'hashable'
+
 class GameTeam
-#
+  extend Hashable
   @@all = nil
 
   def self.all
@@ -20,21 +22,27 @@ class GameTeam
     ((home_wins / self.home_games) * 100).round(2)
   end
 
-  def self.percentage_visitor_wins
-    visitor_wins = (@@all.find_all {|gt| gt.hoa == "home" && gt.result == "LOSS" }).count.to_f
-    ((visitor_wins / self.home_games) * 100).round(2)
+  def self.get_goal_shots_by_game_team(game_teams)
+    hash_of_hashes(game_teams,:team_id,:goals,:shots,:goals,:shots)
   end
 
-  def self.percentage_ties
-    games_count = @@all.count.to_f
-    ties_count = (@@all.find_all { |gt| gt.result == "TIE"}).count.to_f
-    ((ties_count / games_count) * 100).round(2)
+  def self.least_accurate_team(season)
+     seasonal_hash = gets_team_shots_goals_count(season)
+     seasonal_hash.map{|key,value|value[:average] = (value[:goals]/ value[:shots].to_f).round(2)}
+     return seasonal_hash.min_by{|key,value| value[:average]}[0]
   end
 
-  def self.winningest_coach
+  def self.most_accurate_team(season)
+    seasonal_hash = gets_team_shots_goals_count(season)
+    seasonal_hash.map{|key,value|value[:average] = (value[:goals]/ value[:shots].to_f).round(2)}
+    return seasonal_hash.max_by{|key,value| value[:average]}[0]
   end
 
-  def self.worst_coach
+  def self.gets_team_shots_goals_count(season)
+    season_games = Game.grouped_by_season(season)
+    matches = []
+    season_games.each {|game|matches.concat(GameTeam.find_by(game.game_id))}
+    stats_by_team = get_goal_shots_by_game_team(matches)
   end
 
 #Michelle Start
