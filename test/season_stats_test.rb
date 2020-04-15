@@ -9,10 +9,6 @@ class SeasonStatsTest < Minitest::Test
     assert_instance_of SeasonStats, @season_stats
   end
 
-  def test_get_games_of_season
-    assert_equal 12, @season_stats.get_games_of_season("20122013").length
-  end
-
   def test_season_stat_percentage
     assert_equal 0.67, @season_stats.season_stat_percentage("20122013", "Mike Babcock", :win).round(2)
     assert_equal 0.22, @season_stats.season_stat_percentage("20122013", 3, :shot).round(2)
@@ -40,5 +36,22 @@ class SeasonStatsTest < Minitest::Test
 
   def test_fewest_tackles
     assert_equal "New England Revolution", @season_stats.fewest_tackles("20122013")
+  end
+
+  def test_info_by_season
+    names = ["John Tortorella", "Claude Julien", "Mike Babcock", "Joel Quenneville"]
+    ids = [3, 6, 17, 16]
+    tackles = {3=>114, 6=>115, 17=>97, 16=>82}
+    shots = {3=>23, 6=>28, 17=>19, 16=>25}
+    goals = {3=>5, 6=>8, 17=>6, 16=>4}
+    wins = {6=>3, 16=>1, 17=>2}
+    games = @season_stats.games_by_season("20122013", @season_stats.game_stats)
+
+    assert_equal names ,@season_stats.coaches_by_season(games)
+    assert_equal ids ,@season_stats.team_ids_by_season(games)
+    assert_equal tackles ,@season_stats.team_tackles_by_season(games)
+    assert_equal shots ,@season_stats.team_shots_by_season(games)
+    assert_equal goals ,@season_stats.team_goals_by_season(games)
+    assert_equal wins ,@season_stats.team_wins_by_season(games)
   end
 end
