@@ -107,12 +107,9 @@ class TeamRepository < Repository
 
   def favorite_opponent(string_id)
     id = string_id.to_i
-    opponent_hash = Hash.new
+    opponent_hash = Hash.new(0)
     @game_collection.each do |game|
-      if (game.away_team_id == id) && (opponent_hash[game.home_team_id] == nil) && (game.away_goals > game.home_goals)
-        opponent_hash[game.home_team_id] = 0
-        opponent_hash[game.home_team_id] += (1.to_f / total_matches(id, game.home_team_id))
-      elsif (game.away_team_id == id) && (game.away_goals > game.home_goals)
+      if (game.away_team_id == id) && (game.away_goals > game.home_goals)
           opponent_hash[game.home_team_id] += (1.to_f / total_matches(id, game.home_team_id))
       elsif (game.home_team_id == id) && (opponent_hash[game.away_team_id] == nil)  && (game.home_goals > game.away_goals)
           opponent_hash[game.away_team_id] = 0
