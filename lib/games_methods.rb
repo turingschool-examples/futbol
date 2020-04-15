@@ -16,8 +16,6 @@ class Games
 
 
   def highest_total_score
-    #sums winning team score and losing team score for every game,
-    #compares these and returns highest
     total_scores = []
     @games.each do |game|
       total_scores << (game.away_goals + game.home_goals)
@@ -26,8 +24,6 @@ class Games
   end
 
   def lowest_total_score
-    #sums winning team score and losing team score for every game,
-    #compares these and returns highest
     total_scores = []
     @games.each do |game|
       total_scores << (game.away_goals + game.home_goals)

@@ -6,7 +6,7 @@ require_relative 'games_methods'
 require_relative 'game_team_collection'
 require_relative 'team_statistics'
 
-    # game_teams.game_teams is equal to this ".all" method.
+
 class StatTracker
 include TeamStatistics
 
@@ -56,8 +56,6 @@ include TeamStatistics
       teams
     end
     home_team_id = home_team_goals.max_by{|team_id, home_goals| home_goals}.first
-    # get key value pair where the value is the highest
-    # find team that has the key
     @teams.find_by_team_id(home_team_id).team_name
   end
 
@@ -144,17 +142,12 @@ include TeamStatistics
           head_coach = game_team.head_coach
           if head_coach_wins.key?(head_coach)
             head_coach_wins[head_coach] += 1
-            #symbol return value was nil
-            # nil because the key didn't exist yet.
-            # which means that when we tried to add +=1, it didn't work bc of nil.
-            #we wanted to make it dynamic for every head coach name.
           else
             head_coach_wins[head_coach] = 1
           end
         end
       end
     end
-    # require "pry";binding.pry
     head_coach_wins.max_by{|k,v| v}[0]
   end
 

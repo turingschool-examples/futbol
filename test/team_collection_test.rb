@@ -20,6 +20,7 @@ class TeamCollectionTest < Minitest::Test
                 :abbreviation => "ATL",
                 :link => "/api/v1/teams/1"}
     assert_equal expected, @team_collection.team_info(1)
+    # require "pry";binding.pry
   end
 
   def test_it_can_create_teams_from_csv
