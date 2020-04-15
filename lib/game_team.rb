@@ -107,41 +107,27 @@ class GameTeam < Collection
     stats_by_team = get_goal_shots_by_game_team(matches)
   end
 
-#Michelle Start
-  def self.games_ids_by_season(season_id)
-    game_id_first = season_id.to_s[0..3]
-    all_games_by_id = all.find_all {|game| game.season_id == game_id_first}
-    all_games_by_id.map { |game| game.game_id }
-  end
-
-  def self.games_by_season_id(season_id)
-      games_by_id = []
-      all.each do |game|
-        if games_ids_by_season(season_id).any? { |id| id == game.game_id }
-          games_by_id << game
-        end
-      end
-      games_by_id
-  end
 
   def self.games_by_team_name(season_id)
-    games_by_id = games_by_season_id(season_id).group_by { |game| game.team_id }
+    game_id_first = season_id.to_s[0..3]
+    all_games_by_id = all.find_all {|game| game.season_id == game_id_first}
+    games_by_id = all_games_by_id.group_by { |game| game.team_id }
   end
 
   def self.tackles_by_team(season_id)
-      tackles_by_team = {}
-      games_by_team_name(season_id).each do |key, value|
-        total_tackles = value.sum { |value| value.tackles}
-        tackles_by_team[key] = total_tackles
-      end
+    tackles_by_team = {}
+    games_by_team_name(season_id).each do |key, value|
+      total_tackles = value.sum { |value| value.tackles}
+      tackles_by_team[key] = total_tackles
+    end
       tackles_by_team
   end
-#####45 Seconds
+
   def self.most_tackles(season_id)
     most_tackles = tackles_by_team(season_id).max_by { |key, value| value}
     most_tackles.first
   end
-#####45 Seconds
+
   def self.fewest_tackles(season_id)
     fewest_tackles = tackles_by_team(season_id).min_by { |key, value| value}
     fewest_tackles.first
