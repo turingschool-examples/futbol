@@ -6,12 +6,13 @@ require 'pry'
 require './lib/stat_tracker'
 require './lib/game_team'
 require 'mocha/minitest'
+require './lib/collection'
 
 class GameTeamTest < Minitest::Test
 
   def setup
     file_path = "./test/fixtures/game_teams_40.csv"
-    @game_teams = GameTeam.from_csv(file_path)
+    @game_teams = GameTeam.from_csv(file_path, GameTeam)
 
     @base_game_team = GameTeam.new({
       :game_id => "2012030221",
@@ -113,7 +114,7 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_game_team_shots_goals_count
-    Game.from_csv('./test/fixtures/games_20.csv')
+    Game.from_csv('./test/fixtures/games_20.csv', Game)
     # arr_games = Game.all[0..2]
     game_team1 = mock
     game_team2 = mock
@@ -146,13 +147,13 @@ class GameTeamTest < Minitest::Test
     game_team4.stubs(:shots).returns(4)
     passed_array = [game_team1,game_team2,game_team3,game_team4]
 
-    expected = {"123"=>{"shots"=>12, "goals"=>6}, "456"=>{"shots"=>8, "goals"=>4}}
+    expected = {"123"=>{:goals=>6, :shots=>12}, "456"=>{:goals=>4, :shots=>8}}
 
     assert_equal expected, GameTeam.get_goal_shots_by_game_team(passed_array)
   end
 
   def test_most_accurate_team
-    Game.from_csv('./test/fixtures/games_20.csv')
+    Game.from_csv('./test/fixtures/games_20.csv', Game)
     arr_games = Game.all[0..2]
     assert_equal "6", GameTeam.most_accurate_team("20122013")
   end
@@ -184,7 +185,7 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_least_accurate_team
-    Game.from_csv('./test/fixtures/games_20.csv')
+    Game.from_csv('./test/fixtures/games_20.csv', Game)
     arr_games = Game.all[0..2]
     assert_equal "3", GameTeam.least_accurate_team("20122013")
   end
