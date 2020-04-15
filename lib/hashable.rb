@@ -22,7 +22,4 @@ module Hashable
       end
       hash_divided
     end
-
-
-
 end

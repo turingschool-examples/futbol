@@ -195,4 +195,16 @@ class GameTeamTest < Minitest::Test
 
     assert_equal "28", GameTeam.best_offense
   end
+
+  def test_most_goals_scored_by_team_id
+    assert_equal 4, GameTeam.most_goals_scored("28")
+  end
+
+  def test_fewest_goals_scored_by_team_id
+    assert_equal 1, GameTeam.fewest_goals_scored("17")
+  end
+
+  def test_find_by_team
+    assert_equal 2, GameTeam.find_by_team("10").count
+  end
 end
