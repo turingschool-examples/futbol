@@ -51,4 +51,16 @@ class GameStatsTest < MiniTest::Test
   def test_it_can_return_a_seaon_with_average_goals
     assert_equal ({"20172018" => 3.8, "20132014" => 4.0, "20122013" => 4.67}), @game_stats.average_goals_by_season
   end
+
+  def test_it_return_season_average_goals
+    assert_equal 3.8, @game_stats.average_of_goals_in_a_season("20172018")
+    assert_equal 4.67, @game_stats.average_of_goals_in_a_season("20122013")
+    assert_equal 4.0, @game_stats.average_of_goals_in_a_season("20132014")
+  end
+
+  def test_it_can_find_the_sum_of_goals_in_a_season
+    assert_equal 19, @game_stats.sum_of_goals_in_a_season("20172018")
+    assert_equal 14, @game_stats.sum_of_goals_in_a_season("20122013")
+    assert_equal 12, @game_stats.sum_of_goals_in_a_season("20132014")
+  end
 end

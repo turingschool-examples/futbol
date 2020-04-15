@@ -46,4 +46,14 @@ class GameStats < Stats
       average_of_goals_in_a_season(season.first.season)
     end
   end
+
+  def sum_of_goals_in_a_season(season)
+    full_season = @games.find_all {|game| game.season == season}
+    full_season.sum {|game| game.home_goals + game.away_goals}
+  end
+
+  def average_of_goals_in_a_season(season)
+    by_season = @games.find_all {|game| game.season == season}
+    average(sum_of_goals_in_a_season(season), by_season.length)
+  end
 end
