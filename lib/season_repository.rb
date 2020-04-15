@@ -9,14 +9,14 @@ class SeasonRepository < Repository
   attr_accessor :games_by_season
 
 
-  # 
-  # def games_by_season
-  #   @games_by_season = Hash.new(0)
-  #   @game_team_collection.each do |team|
-  #
-  #     @games_by_season
-  #   end
-  # end
+
+  def games_by_season
+    @games_by_season = Hash.new(0)
+    @game_team_collection.each do |team|
+      require"pry";binding.pry
+      @games_by_season
+    end
+  end
 
   def find_game_id(season)
     game_array =  @game_collection.select do |game|
