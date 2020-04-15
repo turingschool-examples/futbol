@@ -30,15 +30,14 @@ class GameTeam < Collection
   end
 
   def self.coach_record(season_id)
-    game_teams_in_season = all.find_all do |gt|
-      gt.season_id == season_id.to_s[0..3]
-    end
-    coach_record = Hash.new { |hash, key| hash[key] = {:wins => 0, :games_played => 0}}
-    game_teams_in_season.each do |gt|
-      coach_record[gt.head_coach][:wins] += 1 if gt.result == "WIN"
-      coach_record[gt.head_coach][:games_played] += 1
-    end
-    coach_record
+    game_teams_in_season = all.find_all {|gt| gt.season_id == season_id.to_s[0..3]}
+    hash_of_hashes(game_teams_in_season, :head_coach, :wins, :games_played, :gt_win?, 1)
+  #   coach_record = Hash.new { |hash, key| hash[key] = {:wins => 0, :games_played => 0}}
+  #   game_teams_in_season.each do |gt|
+  #     coach_record[gt.head_coach][:wins] += 1 if gt.result == "WIN"
+  #     coach_record[gt.head_coach][:games_played] += 1
+  #   end
+  #   coach_record
   end
 
   def self.winningest_coach(season_id)
