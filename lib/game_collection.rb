@@ -13,6 +13,13 @@ class GameCollection < Collection
     @games_list = create_objects(file_path, Game)
   end
 
+  def total_games_per_season(id)
+    all_games_by_season(id).reduce({}) do |total, (season, games)|
+      total[season] = games.length
+      total
+    end
+  end
+
   def wins_in_season(id)
     all_games_by_season(id).reduce(Hash.new(0)) do |season_wins, (season, games)|
       wins = games.count do |game|
@@ -24,7 +31,7 @@ class GameCollection < Collection
   end
 
   def win_percentage(id)
-    wins_in_season(id).merge(count_of_games_by_season) {|season, wins, games|(wins.to_f/games).round(2) * 100}
+    wins_in_season(id).merge(total_games_per_season(id)) {|season, wins, games|(wins.to_f/games).round(2) * 100}
   end
 
   def best_season(id)
