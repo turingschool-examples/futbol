@@ -20,7 +20,6 @@ class Team < Collection
 
   attr_reader :team_id, :franchise_id, :team_name, :abbreviation, :stadium, :link, :team_name
 
-
   def initialize(team_info)
     @team_id = team_info[:team_id]
     @franchise_id = team_info[:franchiseid]
