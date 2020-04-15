@@ -1,24 +1,12 @@
+require_relative 'collection'
+require_relative 'game'
 require_relative 'hashable'
 
-class GameTeam
+class GameTeam < Collection
   extend Hashable
-  @@all = nil
-
-  def self.all
-    @@all
-  end
 
   def self.find_by_team(team_id)
     all.find_all{|game| game.team_id == team_id}
-  end
-
-  def self.find_by(id)
-    all.find_all{|game| game.game_id == id}
-  end
-
-  def self.from_csv(csv_file_path)
-    csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
-    @@all = csv.map { |row| GameTeam.new(row) }
   end
 
   def self.home_games
@@ -90,7 +78,6 @@ class GameTeam
       (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)
     end
   end
-
 
   def self.game_team_shots_goals_count(arr_games)
     season = arr_games.first.game_id
@@ -251,9 +238,6 @@ class GameTeam
     opponents = opponents_records(team_id).keys
     opponents.max_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
   end
-#
-
-
 
     attr_reader :game_id,
                 :team_id,

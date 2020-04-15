@@ -6,6 +6,7 @@ require "minitest/pride"
 require "./lib/game"
 require "pry"
 require "mocha/minitest"
+require './lib/collection'
 
 class GameTest < Minitest::Test
 
@@ -21,7 +22,7 @@ class GameTest < Minitest::Test
                 :venue => "Heaven",
                 :venue_link => "venue/link"})
 
-    Game.from_csv('./test/fixtures/games_20.csv')
+    Game.from_csv('./test/fixtures/games_20.csv', Game)
     @game = Game.all[0]
   end
 
