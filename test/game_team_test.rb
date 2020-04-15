@@ -101,7 +101,7 @@ class GameTeamTest < Minitest::Test
     "Michel Therrien"=> {:wins => 0,:games_played => 1}, "Joel Quenneville"=> {:wins => 1,:games_played => 1}, "Jared Bednar"=> {:wins => 0,:games_played => 1},"Mike Babcock"=> {:wins => 1,:games_played => 2}, "Bruce Cassidy"=> {:wins => 1,:games_played => 1}, "Lindy Ruff"=>{:wins => 2,:games_played => 2}}), GameTeam.coach_record(2016030134)
   end
 
-  def test_it_can_find_winninest_coach
+  def test_it_can_find_winningest_coach
     assert_equal "Claude Julien", GameTeam.winningest_coach("2016030134")
   end
 
@@ -235,6 +235,10 @@ class GameTeamTest < Minitest::Test
 
   def test_least_goals_scored_by_team_id
     assert_equal 2, GameTeam.fewest_goals_scored(26)
+  end
+
+  def test_it_can_count_wins
+    assert_equal 0, @base_game_team.gt_win?
   end
 
 end
