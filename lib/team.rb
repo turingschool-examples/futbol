@@ -3,14 +3,10 @@ require_relative 'collection'
 class Team < Collection
 
   def self.find_team_info(id)
-    id = id
     selected_team = all.find{|team| team.team_id==id}
+    required_data = ["abbreviation","franchise_id","link","team_id","team_name"]
     team_info = {}
-    team_info["abbreviation"]= selected_team.abbreviation
-    team_info["franchise_id"]= selected_team.franchise_id
-    team_info["link"]= selected_team.link
-    team_info["team_id"]= selected_team.team_id
-    team_info["team_name"]= selected_team.team_name
+    required_data.each{|data|team_info[data] = selected_team.send(data)}
     team_info
   end
 

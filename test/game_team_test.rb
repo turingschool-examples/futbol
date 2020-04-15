@@ -158,15 +158,6 @@ class GameTeamTest < Minitest::Test
     assert_equal "6", GameTeam.most_accurate_team("20122013")
   end
 
-  def test_it_can_find_game_ids_by_season
-    expected = ["2012030221", "2012030221", "2012030222", "2012030222", "2012030237", "2012030237", "2012030121", "2012030121", "2012030322", "2012030322", "2012020035", "2012020035"]
-    assert_equal expected, GameTeam.games_ids_by_season("20122013")
-  end
-
-  def test_it_find_games_by_season_id
-    assert_equal 12, GameTeam.games_by_season_id("20122013").length
-  end
-
   def test_it_can_find_games_by_team_name
     assert_equal Hash, GameTeam.games_by_team_name("20122013").class
   end
@@ -230,15 +221,18 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_most_goals_scored_by_team_id
-    assert_equal 2, GameTeam.most_goals_scored(3)
+    assert_equal 4, GameTeam.most_goals_scored("28")
   end
 
-  def test_least_goals_scored_by_team_id
-    assert_equal 2, GameTeam.fewest_goals_scored(26)
+  def test_fewest_goals_scored_by_team_id
+    assert_equal 1, GameTeam.fewest_goals_scored("17")
+  end
+
+  def test_find_by_team
+    assert_equal 2, GameTeam.find_by_team("10").count
   end
 
   def test_it_can_count_wins
     assert_equal 0, @base_game_team.gt_win?
   end
-
 end
