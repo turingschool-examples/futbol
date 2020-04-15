@@ -1,25 +1,11 @@
-# Futbol
-
-Starter repository for the [Turing School](https://turing.io/) Futbol project.
-
 ## Modules
-
 Plan is to make two separate modules, these will hold two separate functionalities. To make common calculations and to load the CSV files.
-
 ### Calculable
-
-4. This module will hold the functionalities for our commonly used calculations.
-
+1. This module will hold the functionalities for our commonly used calculations.
 ### Loadable
-
-1. This module will hold the functionalities for both reading and loading from the CSV files which hold our information.
-
+2. This module will hold the functionalities for both reading and loading from the CSV files which hold our information.
 ## Inheritance
-
-2.  Plan here is to make a 'Stats' class which will pass common behaviors to our game_team, game, and team classes.
-
-3. Initialize method for the 4 sub classes.
+3.  Plan here is to make a 'Stats' super class which will pass common attributes and behaviors to four subclasses called game_stats, team_stats, league_stats, and season_stats classes.
 
 ## Additional Classes
-
-5. Plan here is to implement classes specifically for our seasonal data and other functionalities. As well as finding more good use cases for our mocks and stubs.
+4. We considered putting in additional classes to separate out season data, but found it to be more efficient to pass the functionality down to the child classes of Stats.

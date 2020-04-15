@@ -8,5 +8,4 @@ module Loadable
       all << type.new(row)
     end
   end
-
 end
