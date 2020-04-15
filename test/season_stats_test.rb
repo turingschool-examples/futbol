@@ -47,11 +47,11 @@ class SeasonStatsTest < Minitest::Test
     wins = {6=>3, 16=>1, 17=>2}
     games = @season_stats.games_by_season("20122013", @season_stats.game_stats)
 
-    assert_equal names ,@season_stats.info_by_season(games, :head_coach)
-    assert_equal ids ,@season_stats.info_by_season(games, :team_id)
-    assert_equal tackles ,@season_stats.info_by_season(games, :team_tackles)
-    assert_equal shots ,@season_stats.info_by_season(games, :team_shots)
-    assert_equal goals ,@season_stats.info_by_season(games, :team_goals)
-    assert_equal wins ,@season_stats.info_by_season(games, :team_wins)
+    assert_equal names ,@season_stats.coaches_by_season(games)
+    assert_equal ids ,@season_stats.team_ids_by_season(games)
+    assert_equal tackles ,@season_stats.team_tackles_by_season(games)
+    assert_equal shots ,@season_stats.team_shots_by_season(games)
+    assert_equal goals ,@season_stats.team_goals_by_season(games)
+    assert_equal wins ,@season_stats.team_wins_by_season(games)
   end
 end

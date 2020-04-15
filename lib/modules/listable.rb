@@ -5,22 +5,6 @@ module Listable
     end
   end
 
-  def info_by_season(season, type)
-    if type == :head_coach
-      coaches_by_season(season)
-    elsif type == :team_id
-      team_ids_by_season(season)
-    elsif type == :team_tackles
-      team_tackles_by_season(season)
-    elsif type == :team_shots
-      team_shots_by_season(season)
-    elsif type == :team_goals
-      team_goals_by_season(season)
-    elsif type == :team_wins
-      team_wins_by_season(season)
-    end
-  end
-
   def coaches_by_season(season)
     season.map {|game| game.head_coach}.uniq
   end
