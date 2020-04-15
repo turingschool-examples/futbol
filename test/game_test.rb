@@ -69,7 +69,20 @@ class GameTest < Minitest::Test
   def test_it_can_calculate_lowest_total_score
     assert_equal 3, Game.lowest_total_score
   end
-#deliverable
+
+  def test_grouped_season_returns_array_of_games_grouped_by_season
+    results = Game.grouped_by_season("20162017")
+
+    assert_kind_of Array, results
+    assert_kind_of Game, results.first
+    assert_equal 5, results.count
+    assert_equal 20, Game.all.count
+  end
+
+  def test_it_can_count_games_by_season
+    assert_equal ({"20122013"=>2, "20162017"=>5, "20142015"=>6, "20132014"=>4, "20152016"=>2, "20172018"=>1}), Game.count_of_games_by_season
+  end
+
   def test_it_returns_average_goals_per_game
     assert_equal 4.4, Game.average_goals_per_game
     game1 = mock
@@ -113,7 +126,6 @@ class GameTest < Minitest::Test
     assert_equal expected, Game.hash_of_hashes(Game.all, :season, :goals, :games_played, :total_goals, 1)
   end
 
-#deliverable
   def test_average_goals_by_season_and_divide_hash_values
     stub_games_goals = {
                         20122013 => {:goals => 10, :games_played => 3},
@@ -125,11 +137,6 @@ class GameTest < Minitest::Test
     actual = Game.divide_hash_values(:goals, :games_played, Game.games_goals_by_season)
     actual = Game.keys_to_string(actual)
     assert_equal expected, actual
-  end
-
-#deliverable
-  def test_it_can_count_games_by_season
-    assert_equal ({"20122013"=>2, "20162017"=>5, "20142015"=>6, "20132014"=>4, "20152016"=>2, "20172018"=>1}), Game.count_of_games_by_season
   end
 
   def test_it_returns_games_goals_by_hoa_team_id
@@ -219,18 +226,6 @@ class GameTest < Minitest::Test
     assert_kind_of Array, Game.find_by("2012030221")
   end
 
-  def test_grouped_season_returns_array_of_games_grouped_by_season
-
-    results = Game.grouped_by_season("20162017")
-
-    assert_kind_of Array, results
-    assert_kind_of Game, results.first
-    assert_equal 5, results.count
-    assert_equal 20, Game.all.count
-  end
-
-
-
   def test_it_returns_wins_and_games_by_season
     expected = ({"20122013" => {:wins => 0, :games_played => 2},
                    "20142015" => {:wins => 4, :games_played => 4}})
@@ -266,7 +261,7 @@ class GameTest < Minitest::Test
     Game.stubs(:win_percent_by_season).returns(stub_val)
     assert_equal "20132014", Game.best_season("3")
   end
-#deliverable
+
   def test_it_returns_worst_season_given_team_id
     assert_equal "20122013", Game.worst_season("3")
     assert_equal "20122013", Game.worst_season("6")
