@@ -183,6 +183,7 @@ class GameTeam < Collection
   end
 
   def self.opponents_records(team_id)
+    # hash_of_hashes()
     opponents_records = Hash.new { |hash, key| hash[key] = {:wins => 0, :games_played => 0}}
     game_teams_with_opponent(team_id).each do |gt|
       opponents_records[gt.team_id][:wins] += 1 if gt.result == "WIN"
@@ -192,21 +193,15 @@ class GameTeam < Collection
   end
 
   def self.favorite_opponent_id(team_id)
-    opponents_win_percent = Hash.new { |hash, key| hash[key] = 0}
-    opponents_records(team_id).map do |opponent, counts|
-      opponents_win_percent[opponent] = (counts[:wins].to_f / counts[:games_played].to_f).round(2)
-    end
-    fave = opponents_win_percent.min_by {|opponent, percent| percent}
+    opponents = divide_hash_values(:wins, :games_played, opponents_records(team_id))
+    fave = opponents.min_by {|opponent, percent| percent}
     fave[0]
   end
 
   def self.rival_id(team_id)
-    opponents_win_percent = Hash.new { |hash, key| hash[key] = 0}
-    opponents_records(team_id).map do |opponent, counts|
-      opponents_win_percent[opponent] = (counts[:wins].to_f / counts[:games_played].to_f).round(2)
-    end
-    rival = opponents_win_percent.max_by {|opponent, percent| percent}
-    rival[0]
+    opponents = divide_hash_values(:wins, :games_played, opponents_records(team_id))
+    biggest_rival = opponents.max_by {|opponent, percent| percent}
+    biggest_rival[0]
   end
 
     attr_reader :game_id,
