@@ -1,7 +1,6 @@
 require_relative './csv_helper_file'
 require_relative './repository'
 class TeamRepository < Repository
-
   attr_reader :team_collection, :game_team_collection, :game_collection
 
   def team_info(id)
@@ -23,10 +22,7 @@ class TeamRepository < Repository
     id = string_id.to_i
     season_win_percent = Hash.new(0)
     @game_collection.each do |game|
-      if game.home_team_id == id && (game.home_goals > game.away_goals) && (season_win_percent[game.season] == nil)
-        season_win_percent[game.season] = 0
-        season_win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
-      elsif game.away_team_id == id && (game.away_goals > game.home_goals)
+      if game.away_team_id == id && (game.away_goals > game.home_goals)
         season_win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
       elsif game.home_team_id == id && (game.home_goals > game.away_goals)
         season_win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
@@ -69,12 +65,8 @@ class TeamRepository < Repository
     win_percent = 0
     total_game = 0
     @game_team_collection.each do |game|
-      if (game.team_id == id) && (game.result == "WIN")
-        win_percent += 1
-      end
-      if (game.team_id == id)
-      total_game += 1
-      end
+      win_percent += 1 if (game.team_id == id) && (game.result == "WIN")
+      total_game += 1 if (game.team_id == id)
     end
     (win_percent.to_f / total_game).round(2)
   end
