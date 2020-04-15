@@ -18,7 +18,7 @@ class LeagueStatistics < Statistics
       team.id == max_average[0]
       end
     best_offense.team_name
-  elsif high_low == :low
+    elsif high_low == :low
     worst_offense = @teams_collection.find do |team|
       team.id == min_average[0]
       end
@@ -71,28 +71,10 @@ class LeagueStatistics < Statistics
   end
 
   def away_home_team_scores(away_home)
-    goals_and_games_by_team_away = Hash.new { |h, k| h[k] = [0,0] }
-    team_average_goals_away = Hash.new(0)
-    goals_and_games_by_team_home = Hash.new { |h, k| h[k] = [0,0] }
-    team_average_goals_home = Hash.new(0)
     if away_home == :away
-    @game_collection.each do |game|
-      goals_and_games_by_team_away[game.away_team_id][0] += game.away_goals.to_i
-      goals_and_games_by_team_away[game.away_team_id][1] += 1
-      end
-    goals_and_games_by_team_away.each do |team|
-    team_average_goals_away[team[0]] = average(team[1][0], team[1][1].to_f)
-      end
-    team_average_goals_away
+      away_team_average_helper
     elsif away_home == :home
-    @game_collection.each do |game|
-      goals_and_games_by_team_home[game.home_team_id][0] += game.home_goals.to_i
-      goals_and_games_by_team_home[game.home_team_id][1] += 1
-      end
-    goals_and_games_by_team_home.each do |team|
-    team_average_goals_home[team[0]] = average(team[1][0], team[1][1].to_f)
-      end
-    team_average_goals_home
+      home_team_average_helper
     end
   end
 
@@ -111,5 +93,31 @@ class LeagueStatistics < Statistics
       team.id == min_average[0]
     end
     lowest_scoring_home_team.team_name
+  end
+
+  def away_team_average_helper
+    goals_and_games_by_team_away = Hash.new { |h, k| h[k] = [0,0] }
+    team_average_goals_away = Hash.new(0)
+    @game_collection.each do |game|
+      goals_and_games_by_team_away[game.away_team_id][0] += game.away_goals.to_i
+      goals_and_games_by_team_away[game.away_team_id][1] += 1
+      end
+    goals_and_games_by_team_away.each do |team|
+    team_average_goals_away[team[0]] = average(team[1][0], team[1][1].to_f)
+      end
+    team_average_goals_away
+  end
+
+  def home_team_average_helper
+    goals_and_games_by_team_home = Hash.new { |h, k| h[k] = [0,0] }
+    team_average_goals_home = Hash.new(0)
+    @game_collection.each do |game|
+      goals_and_games_by_team_home[game.home_team_id][0] += game.home_goals.to_i
+      goals_and_games_by_team_home[game.home_team_id][1] += 1
+      end
+    goals_and_games_by_team_home.each do |team|
+    team_average_goals_home[team[0]] = average(team[1][0], team[1][1].to_f)
+      end
+    team_average_goals_home
   end
 end

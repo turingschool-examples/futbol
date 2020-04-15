@@ -46,13 +46,13 @@ class LeagueStatisticsTest < Minitest::Test
 
   def test_best_offense
     @league_statistics.stubs(:average_goals_by_team).returns({"1" => 1, "6" => 2.5, "3" => 2.2})
-    assert_equal "FC Dallas", @league_statistics.best_worst_offense("high")
+    assert_equal "FC Dallas", @league_statistics.best_worst_offense(:high)
   end
 
   def test_worst_offense
       @league_statistics.stubs(:average_goals_by_team).returns({"1" => 2.5, "6" => 2, "3" => 1.3})
     expected = "Houston Dynamo"
-    assert_equal expected, @league_statistics.best_worst_offense("low")
+    assert_equal expected, @league_statistics.best_worst_offense(:low)
   end
 
   def test_games_played_by_team
@@ -133,5 +133,9 @@ class LeagueStatisticsTest < Minitest::Test
 
   def test_away_home_team_scores_home
       assert_equal ({"6"=>2.67, "3"=>1.5, "5"=>0.5, "23"=>2.0, "4"=>2.0, "24"=>3.0, "29"=>2.0, "2"=>0.0, "22"=>1.5, "14"=>2.0, "19"=>2.0, "16"=>2.33}), @league_statistics.away_home_team_scores(:home)
+  end
+
+  def test_away_team_average_helper
+    assert_equal ({"3"=>1.67, "6"=>3.0, "5"=>0.5, "19"=>1.0, "24"=>2.0, "29"=>2.0, "12"=>2.0, "17"=>1.5, "1"=>3.0, "8"=>2.0, "14"=>2.0, "25"=>2.0, "7"=>2.0, "22"=>3.0, "16"=>2.5}),  @league_statistics.away_team_average_helper
   end
 end
