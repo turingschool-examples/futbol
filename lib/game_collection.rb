@@ -111,7 +111,6 @@ class GameCollection < Collection
   def average_goals_by_season
     games_per_season = count_of_games_by_season
     goals_per_season = {}
-
     games_per_season.each do |season|
       @games_list.each do |game|
         if game.season == season[0] && goals_per_season[season[0]] != nil
