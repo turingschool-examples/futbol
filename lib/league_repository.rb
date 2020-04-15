@@ -13,12 +13,7 @@ class LeagueRepository < Repository
     average_team_goals = Hash.new(0)
     total_games = Hash.new(0)
     @game_team_collection.each do |game|
-      # if total_games[game.team_id] == nil
-      #   total_games[game.team_id] = 0
-      #   total_games[game.team_id] += 1
-      # else
         total_games[game.team_id] += 1
-      # end
     end
     @game_team_collection.each do |game|
       if average_team_goals[game.team_id] == nil
