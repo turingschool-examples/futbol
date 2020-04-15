@@ -1,25 +1,71 @@
+require_relative 'collection'
+require_relative 'game'
 require_relative 'hashable'
 
-class GameTeam
+class GameTeam < Collection
   extend Hashable
-  @@all = nil
 
-  def self.all
-    @@all
-  end
-
-  def self.from_csv(csv_file_path)
-    csv = CSV.read("#{csv_file_path}", headers: true, header_converters: :symbol)
-    @@all = csv.map { |row| GameTeam.new(row) }
+  def self.find_by_team(team_id)
+    all.find_all{|game| game.team_id == team_id}
   end
 
   def self.home_games
     (@@all.find_all {|gt| gt.hoa == "home" }).count
   end
 
-  def self.percentage_home_wins
-    home_wins = (@@all.find_all {|gt| gt.hoa == "home" && gt.result == "WIN" }).count.to_f
-    ((home_wins / self.home_games) * 100).round(2)
+  def self.coaches_in_season(season_id)
+    search_term = season_id.to_s[0..3]
+    game_teams_in_season = all.find_all do |gt|
+      gt.game_id.to_s[0..3] == search_term
+    end
+    game_teams_in_season.map {|gameteam| gameteam.head_coach}.uniq
+  end
+
+  def self.results_by_coach(season_id)
+    search_term = season_id.to_s[0..3]
+    results_by_coach_by_season = Hash.new { |hash, key| hash[key] = [] }
+    coaches_in_season(season_id).each do |coach|
+      all.find_all do |gt|
+        if gt.game_id.to_s[0..3] == search_term && coach == gt.head_coach
+            results_by_coach_by_season[coach] << gt.result
+        end
+      end
+    end
+    results_by_coach_by_season
+  end
+
+  def self.total_games_coached(season_id)
+    total_games_coached_by_season = {}
+    results_by_coach(season_id).map do |coach, results|
+      total_games_coached_by_season[coach] = results.length
+    end
+    total_games_coached_by_season
+  end
+#deliverbale
+  def self.wins_by_coach(season_id)
+    wins_by_coach_by_season = Hash.new { |hash, key| hash[key] = 0 }
+    results_by_coach(season_id).each do |coach, results|
+      results.each do |result|
+        wins_by_coach_by_season[coach] += 1 if result == "WIN"
+      end
+    end
+    wins_by_coach_by_season
+  end
+
+#####30 Seconds
+  def self.winningest_coach(season_id)
+    coaches_in_season(season_id).max_by {|coach| (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)}
+  end
+#####30 Seconds
+  def self.worst_coach(season_id)
+    coaches_in_season(season_id).min_by do |coach|
+      (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)
+    end
+  end
+
+  def self.game_team_shots_goals_count(arr_games)
+    season = arr_games.first.game_id
+    self.find_by(season)
   end
 
   def self.get_goal_shots_by_game_team(game_teams)
@@ -84,8 +130,19 @@ class GameTeam
       fewest_tackles = tackles_by_team(season_id).max_by { |key, value| -value}
       fewest_tackles.first
     end
-    #Michelle end
-
+    opponents = opponents_records(team_id).keys
+    opponents.min_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
+  end
+####2:30 seconds
+  def self.rival_id(team_id)
+    team_id = team_id
+    record_length = {}
+    opponents_records(team_id).map do |team_id, record|
+      record_length[team_id] = record.length
+    end
+    opponents = opponents_records(team_id).keys
+    opponents.max_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
+  end
 
     attr_reader :game_id,
                 :team_id,
@@ -121,5 +178,4 @@ class GameTeam
     @giveaways = details[:giveaways].to_i
     @takeaways = details[:takeaways].to_i
     @season_id = @game_id.to_s[0..3].to_i
-  end
-end
+  end 
