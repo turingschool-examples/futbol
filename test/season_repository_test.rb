@@ -16,9 +16,6 @@ class SeasonRepositoryTest < Minitest::Test
     assert_equal 1319, season_repository.find_game_id("20142015").length
   end
 
-   def test_add_games
-     season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
-     assert_equal 0, season_repository.games_by_season
   def test_winningest_coach
     season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
     assert_equal "Claude Julien", season_repository.winningest_coach("20132014")
