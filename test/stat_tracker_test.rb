@@ -119,5 +119,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal ({"20122013"=>4.12, "20162017"=>4.23, "20142015"=>4.14, "20152016"=>4.16, "20132014"=>4.19, "20172018"=>4.44}), @stat_tracker.average_goals_by_season
   end
 
+  def test_if_it_can_get_winningest_coach
+    assert_equal "Dan Lacroix", @stat_tracker.winningest_coach("20122013")
+
+  end
+
 
 end
