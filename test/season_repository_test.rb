@@ -11,10 +11,22 @@ require './lib/season_repository'
 
 class SeasonRepositoryTest < Minitest::Test
 
+  def test_find_game_id
+    season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+
+  end
+
   def test_winningest_coach
     season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
     assert_equal "Claude Julien", season_repository.winningest_coach("20132014")
     assert_equal "Alain Vigneault", season_repository.winningest_coach("20142015")
+  end
+
+  def test_coach_games
+    season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+    game_array = [2013030161, 2013030162, 2013030163, 2013030164]
+    expected = ({"Joel Quenneville"=>4, "Ken Hitchcock"=>4})
+    assert_equal expected ,season_repository.coach_games(game_array)
   end
 
   def test_worst_coach

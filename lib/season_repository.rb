@@ -6,15 +6,17 @@ class SeasonRepository < Repository
   include Findable
   attr_reader :games_collection, :games_teams_collection, :teams_collection
 
-  def winningest_coach(season)
+  def find_game_id(season)
     game_array =  @game_collection.select do |game|
       game.season == season
       end
-    coach_win_percentage = Hash.new(0)
     game_id_array = game_array.map {|game| game.game_id}
+  end
 
+  def winningest_coach(season)
+    game_id_array = find_game_id(season)
+    coach_win_percentage = Hash.new(0)
     total_coach_games = coach_games(game_id_array)
-
     @game_team_collection.each do |team|
       if game_id_array.include?(team.game_id)
         if (team.result == "WIN")
@@ -37,12 +39,8 @@ class SeasonRepository < Repository
   end
 
   def worst_coach(season)
-    game_array =  @game_collection.select do |game|
-      game.season == season
-      end
+    game_id_array = find_game_id(season)
     coach_loose_percentage = Hash.new
-    game_id_array = game_array.map do |game| game.game_id
-      end
         total_coach_games = coach_games(game_id_array)
     @game_team_collection.each do |team|
       game_id_array.each do |id|
@@ -58,9 +56,7 @@ class SeasonRepository < Repository
      end
 
     coach_looser = coach_loose_percentage.min_by{|key, value| coach_loose_percentage[key]}
-
     coach_looser.first
-
   end
 
 
@@ -111,20 +107,11 @@ class SeasonRepository < Repository
   end
 
   def most_accurate_team(season_id)
-  games_in_season = @game_collection.select do |game|
-      game.season == season_id
-    end
-    game_array = games_in_season.map do |game|
-      game.game_id
-    end
-      shot = Hash.new
-      goal = Hash.new
+  game_array = find_game_id(season_id)
+      shot = Hash.new(0)
+      goal = Hash.new(0)
       @game_team_collection.each do |game_team|
         if game_array.include?(game_team.game_id)
-          if shot[game_team.team_id] == nil
-          shot[game_team.team_id] = 0
-          goal[game_team.team_id] = 0
-          end
         shot[game_team.team_id] += game_team.shots
         goal[game_team.team_id] += game_team.goals
         end
@@ -133,9 +120,7 @@ class SeasonRepository < Repository
     goal.merge!(shot) {|k, o, n| o.to_f / n}
     most_accurate = goal.max_by do |key, value|
       goal[key]
-
     end
-
     accurate_team = most_accurate.first
     team_name_accurate = @team_collection.find do |team|
       accurate_team == team.team_id
@@ -145,20 +130,11 @@ class SeasonRepository < Repository
   end
 
   def least_accurate_team(season_id)
-  games_in_season = @game_collection.select do |game|
-      game.season == season_id
-    end
-    game_array = games_in_season.map do |game|
-      game.game_id
-    end
-      shot = Hash.new
-      goal = Hash.new
+  game_array = find_game_id(season_id)
+      shot = Hash.new(0)
+      goal = Hash.new(0)
       @game_team_collection.each do |game_team|
         if game_array.include?(game_team.game_id)
-          if shot[game_team.team_id] == nil
-          shot[game_team.team_id] = 0
-          goal[game_team.team_id] = 0
-          end
         shot[game_team.team_id] += game_team.shots
         goal[game_team.team_id] += game_team.goals
         end
