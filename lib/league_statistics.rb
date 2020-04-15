@@ -19,12 +19,12 @@ class LeagueStatistics < Statistics
   def best_worst_offense(high_low)
     max_average = average_goals_by_team.max_by{|team| team[1]}
     min_average = average_goals_by_team.min_by{|team| team[1]}
-    if high_low == "high"
+    if high_low == :high
     best_offense = @teams_collection.find do |team|
       team.id == max_average[0]
       end
     best_offense.team_name
-    elsif high_low == "low"
+  elsif high_low == :low
     worst_offense = @teams_collection.find do |team|
       team.id == min_average[0]
       end
@@ -60,17 +60,7 @@ class LeagueStatistics < Statistics
     team_average_goals
   end
 
-  # The next 4 methods are all very similar and can be extracted into helper methods, or perhaps refactored into one method that takes an argument to determine its output.
   def highest_scoring_visitor
-    # goals_and_games_by_team_away = Hash.new { |h, k| h[k] = [0,0] }
-    # team_average_goals_away = Hash.new(0)
-    # @game_collection.each do |game|
-    #   goals_and_games_by_team_away[game.away_team_id][0] += game.away_goals.to_i
-    #   goals_and_games_by_team_away[game.away_team_id][1] += 1
-    # end
-    # goals_and_games_by_team_away.each do |team|
-    # team_average_goals_away[team[0]] = average(team[1][0], team[1][1].to_f)
-    # end
     max_average = away_home_team_scores(:away).max_by{|team| team[1]}
     highest_scoring_visitor = @teams_collection.find do |team|
       team.id == max_average[0]
@@ -79,15 +69,6 @@ class LeagueStatistics < Statistics
   end
 
   def lowest_scoring_visitor
-    # goals_and_games_by_team_away = Hash.new { |h, k| h[k] = [0,0] }
-    # team_average_goals_away = Hash.new(0)
-    # @game_collection.each do |game|
-    #   goals_and_games_by_team_away[game.away_team_id][0] += game.away_goals.to_i
-    #   goals_and_games_by_team_away[game.away_team_id][1] += 1
-    # end
-    # goals_and_games_by_team_away.each do |team|
-    # team_average_goals_away[team[0]] = average(team[1][0], team[1][1].to_f)
-    # end
     min_average = away_home_team_scores(:away).min_by{|team| team[1]}
     lowest_scoring_visitor = @teams_collection.find do |team|
       team.id == min_average[0]
@@ -123,15 +104,6 @@ class LeagueStatistics < Statistics
 
 
   def highest_scoring_home_team
-    # goals_and_games_by_team_home = Hash.new { |h, k| h[k] = [0,0] }
-    # team_average_goals_home = Hash.new(0)
-    # @game_collection.each do |game|
-    #   goals_and_games_by_team_home[game.home_team_id][0] += game.home_goals.to_i
-    #   goals_and_games_by_team_home[game.home_team_id][1] += 1
-    # end
-    # goals_and_games_by_team_home.each do |team|
-    # team_average_goals_home[team[0]] = average(team[1][0], team[1][1].to_f)
-    # end
     max_average = away_home_team_scores(:home).max_by{|team| team[1]}
     highest_scoring_home_team = @teams_collection.find do |team|
       team.id == max_average[0]
@@ -140,16 +112,6 @@ class LeagueStatistics < Statistics
   end
 
   def lowest_scoring_home_team
-    # goals_and_games_by_team_home = Hash.new { |h, k| h[k] = [0,0] }
-    # team_average_goals_home = Hash.new(0)
-    # @game_collection.each do |game|
-    #   goals_and_games_by_team_home[game.home_team_id][0] += game.home_goals.to_i
-    #   goals_and_games_by_team_home[game.home_team_id][1] += 1
-    # end
-    # goals_and_games_by_team_home.each do |team|
-    #   # Figure out why this is different from the above method
-    # team_average_goals_home[team[0]] = average(team[1][0], team[1][1].to_f)
-    # end
     min_average = away_home_team_scores(:home).min_by{|team| team[1]}
     lowest_scoring_home_team = @teams_collection.find do |team|
       team.id == min_average[0]
