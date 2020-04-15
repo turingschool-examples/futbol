@@ -112,26 +112,26 @@ class StatTracker
   end
 
   def winningest_coach(season)
-    @season_statistics.coach_win_loss_results(season, "high")
+    @season_statistics.coach_win_loss_results(season, :high)
   end
 
   def worst_coach(season)
-    @season_statistics.coach_win_loss_results(season, "low")
+    @season_statistics.coach_win_loss_results(season, :low)
   end
 
   def most_tackles(season)
-    @season_statistics.most_least_tackles(season, "high")
+    @season_statistics.most_least_tackles(season, :high)
   end
 
   def fewest_tackles(season)
-    @season_statistics.most_least_tackles(season, "low")
+    @season_statistics.most_least_tackles(season, :low)
   end
 
   def most_accurate_team(season)
-  @season_statistics.team_accuracy(season,"high")
+  @season_statistics.team_accuracy(season,:high)
   end
 
   def least_accurate_team(season)
-  @season_statistics.team_accuracy(season, "low")
+  @season_statistics.team_accuracy(season, :low)
   end
 end

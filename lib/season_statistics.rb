@@ -13,9 +13,17 @@ include Keyable
     end
     season_game_ids.compact
   end
-
-
-  #returns an array of game_team objects in given season
+  #
+  #   @season_games ||= @game_collection.group_by do |game|
+  #     game.season
+  #   end
+  #   @season_games[season].map do |game|
+  #     game.game_id
+  #   end
+   #end
+  #
+  #
+  # #returns an array of game_team objects in given season
     def current_season_game_teams(season)
       season_games = current_season_game_ids(season)
       @game_teams_collection.find_all do |game|
@@ -23,12 +31,13 @@ include Keyable
       end
     end
 
-  #   def current_season_game_teams(season)
-  #     current_season_game_ids
-  #   bob ||= @game_teams_collection.find_all do |game|
-  #     games[season].include?(game.game_id)
+
+  #     def current_season_game_teams(season)
+  #       @season_games ||= @game_collection.group_by do |game|
+  #         game.season
+  #       end
+  #
   #     end
-  #     binding.pry
   # end
 
 
@@ -71,7 +80,7 @@ include Keyable
 
 #returns array of names for all the coaches within a given season
   def coach_names(season)
-    current_season_game_teams(season).map do |game|
+     current_season_game_teams(season).map do |game|
       game.head_coach
     end
   end
