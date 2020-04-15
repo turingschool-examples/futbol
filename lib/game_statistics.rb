@@ -6,14 +6,6 @@ require 'pry'
 class GameStatistics < Statistics
   include Mathable
 
-  attr_reader :game_collection
-
-  # def initialize(game_collection, game_teams_collection, teams_collection)
-  #   @game_collection = game_collection
-  #   @game_teams_collection = game_teams_collection
-  #   @teams_collection = teams_collection
-  # end
-
   def total_score(high_low)
     total = @game_collection.map {|game| game.away_goals + game.home_goals}
       if high_low == :high

@@ -3,6 +3,8 @@ require_relative './team'
 require_relative './game_team'
 
 class Statistics
+  attr_reader :game_collection, :game_teams_collection, :teams_collection
+
   def initialize(data_files)
     @games = data_files[:games]
     @teams = data_files[:teams]
