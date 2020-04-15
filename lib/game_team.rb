@@ -32,20 +32,11 @@ class GameTeam < Collection
   def self.coach_record(season_id)
     game_teams_in_season = all.find_all {|gt| gt.season_id == season_id.to_s[0..3]}
     hash_of_hashes(game_teams_in_season, :head_coach, :wins, :games_played, :gt_win?, 1)
-  #   coach_record = Hash.new { |hash, key| hash[key] = {:wins => 0, :games_played => 0}}
-  #   game_teams_in_season.each do |gt|
-  #     coach_record[gt.head_coach][:wins] += 1 if gt.result == "WIN"
-  #     coach_record[gt.head_coach][:games_played] += 1
-  #   end
-  #   coach_record
   end
 
   def self.winningest_coach(season_id)
-    wins_by_coach_by_season = Hash.new { |hash, key| hash[key] = 0 }
-    coach_record(season_id).map do |coach, counts|
-      wins_by_coach_by_season[coach] = (counts[:wins].to_f / counts[:games_played].to_f).round(2)
-    end
-    winningest = wins_by_coach_by_season.max_by {|coach, percent| percent}
+    wins_by_coach = divide_hash_values(:wins, :games_played,coach_record(season_id))
+    winningest = wins_by_coach.max_by {|coach, percent| percent}
     winningest[0]
   end
 
