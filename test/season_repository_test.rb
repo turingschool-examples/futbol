@@ -13,7 +13,7 @@ class SeasonRepositoryTest < Minitest::Test
 
   def test_find_game_id
     season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
-
+    assert_equal 0, find_game_id("20142015").length
   end
 
   def test_winningest_coach
