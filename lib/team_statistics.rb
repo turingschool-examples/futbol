@@ -47,8 +47,8 @@ class TeamStatistics < Statistics
     highest_scoring_game = games_played_in.max_by {|game| game.goals}
     lowest_scoring_game = games_played_in.min_by {|game| game.goals}
 
-    return highest_scoring_game.goals if high_or_low == "high"
-    return lowest_scoring_game.goals if high_or_low == "low"
+    return highest_scoring_game.goals if high_or_low == :high
+    return lowest_scoring_game.goals if high_or_low == :low
   end
 
   def games_by_opponent_team_id(team_id)
@@ -94,11 +94,11 @@ class TeamStatistics < Statistics
 
   def opponent_preference(team_id, high_or_low)
     win_percentage_by_opponent = win_percentage_against_opponent(team_id)
-    if high_or_low == "fav"
+    if high_or_low == :fav
       # fav_opponent [0] -> team_id, [1] -> win percentage
       fav_opponent = win_percentage_by_opponent.max_by {|opponent| opponent[1]}
       team_info(fav_opponent[0])["team_name"]
-    elsif high_or_low == "rival"
+    elsif high_or_low == :rival
       # rival [0] -> team_id, [1] -> win percentage
       rival = win_percentage_by_opponent.min_by {|opponent| opponent[1]}
       team_info(rival[0])["team_name"]
