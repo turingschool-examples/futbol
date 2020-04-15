@@ -8,12 +8,7 @@ require './lib/team'
 require './lib/game'
 require './lib/team_repository'
 
-
 class TeamRepositoryTest < Minitest::Test
-  # require "./lib/team_repository"
-#
-# team_repository =TeamRepository.new('./data/teams.csv')
-#move all Team Stats methods testing here
 
   def test_team_info
     team_repository = TeamRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')

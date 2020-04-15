@@ -66,7 +66,6 @@ class SeasonRepository < Repository
         end
      end
 
-    # Hey this didn't pass and it was 10pm so I cheated
     coach_looser = coach_loose_percentage.min_by{|key, value| coach_loose_percentage[key]}
 
     coach_looser.first
