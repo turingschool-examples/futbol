@@ -46,7 +46,7 @@ class Game < Collection
     # :goals / :games_played
     divide_hash_values(:goals, :games_played, games_goals_by_season)
   end
-
+  
 #deliverable
   def self.average_goals_by(hoa_team)
     divide_hash_values(:goals, :games_played, games_goals_by(hoa_team))
