@@ -86,4 +86,9 @@ class StatTrackerTest < Minitest::Test
   def test_can_get_lowest_scoring_home_team
     assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_home_team
   end
+
+  def test_it_can_get_highest_total_score
+    assert_equal 8, @stat_tracker.highest_total_score
+  end
+
 end
