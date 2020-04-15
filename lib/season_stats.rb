@@ -1,5 +1,4 @@
 require_relative "stats"
-require 'pry'
 
 class SeasonStats < Stats
 
@@ -55,6 +54,12 @@ class SeasonStats < Stats
       team.sum {|game| game.tackles}
     end
     @teams.find {|team| team.team_id == team_tackles.min_by {|team, tack| tack}[0]}.team_name
+  end
+
+  def team_games_by_season(season)
+    season_games = @games.find_all{|game| game.season == season}
+    season_game_ids = season_games.map{|game| game.game_id}
+    @game_teams.find_all{|team| season_game_ids.include?(team.game_id)}
   end
 
 end

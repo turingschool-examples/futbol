@@ -60,4 +60,8 @@ class LeagueStats < Stats
     goals_games[1] += 1
   end
 
+  def unique_team_ids
+    @game_teams.map{|game_team| game_team.team_id}.uniq
+  end
+
 end

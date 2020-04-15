@@ -48,4 +48,5 @@ class TeamStatsTest < MiniTest::Test
   def test_find_rival
     assert_equal "Real Salt Lake", @team_stats.rival("29")
   end
+
 end

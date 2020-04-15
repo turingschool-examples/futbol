@@ -45,4 +45,11 @@ class SeasonStatsTest < Minitest::Test
   def test_it_can_find_team_with_least_season_tackles
     assert_equal "Orlando City SC", @season_stats.fewest_tackles("20172018")
   end
+
+  def test_games_by_season
+    test_season = @season_stats.team_games_by_season("20172018")
+    assert_equal 10, test_season.length
+    assert_instance_of GameTeam, test_season.first
+  end
+
 end

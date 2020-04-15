@@ -33,16 +33,7 @@ class StatsTest < MiniTest::Test
     assert_instance_of GameTeam, @stats.all_games_by_team("30").last
   end
 
-  def test_it_can_find_unique_team_id
-    assert_equal ["30", "52", "19", "23", "24", "4", "29", "12", "6", "17", "1", "2"], @stats.unique_team_ids
-  end
-
-  def test_games_by_season
-    test_season = @stats.team_games_by_season("20172018")
-    assert_equal 10, test_season.length
-    assert_instance_of GameTeam, test_season.first
-  end
-
+  
   def test_all_games_by_team
     assert_equal 5, @stats.all_games_by_team("30").length
     assert_instance_of GameTeam, @stats.all_games_by_team("30").first

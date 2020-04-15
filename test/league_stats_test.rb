@@ -82,5 +82,9 @@ class LeagueStatsTest < MiniTest::Test
     assert_equal [2, 1], goals_games
   end
 
+  def test_it_can_find_unique_team_id
+    assert_equal ["30", "52", "19", "23", "24", "4", "29", "12", "6", "17", "1", "2"], @league_stats.unique_team_ids
+  end
+
 
 end
