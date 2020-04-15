@@ -71,20 +71,8 @@ class GameCollectionClass < Minitest::Test
     assert_equal 18, @game_collection.all_games(5).count
   end
 
-#   def test_can_sort_games_by_season
-#   skip
-#   game1 = mock('game 1')
-#   game2 = mock('game 2')
-#   game3 = mock('game 3')
-#
-#   @game_collection.stubs(:all_games).returns([game1, game2, game3])
-#   #{season => [game1, game2], season => [game2, game3]}
-#   assert_equal 2, @game_collection.all_games_by_season(5)
-# end
-
-  def test_can_count_games_by_season
-    expected = {"20122013"=>11, "20152016"=>3, "20142015"=>4}
-    assert_equal expected, @game_collection.total_games_per_season(5)
+  def test_can_sort_games_by_season
+    assert_equal 3, @game_collection.all_games_by_season(5).count
   end
 
   def test_can_count_all_wins_in_season
@@ -105,12 +93,9 @@ class GameCollectionClass < Minitest::Test
     assert_equal "20142015", @game_collection.worst_season(5)
   end
 
-  # def test_can_get_opponent_stats
-#   skip
-#   #mocks and stubs
-#   #{id => [game], id => [games]}
-#   assert_equal 3, @game_collection.opponent_stats(5)
-# end
+  def test_can_get_opponent_stats
+    assert_equal 6, @game_collection.opponent_stats(5).count
+  end
 
   def test_can_count_all_games_played_with_opponent
     expected = {9=>5, 13=>1, 1=>1, 3=>8, 8=>1, 2=>2}

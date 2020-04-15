@@ -5,6 +5,7 @@ class Game
     @game_id= info[:game_id].to_i
     @season= info[:season]
     @type= info[:type]
+    @home_goals= info[:home_goals]
     @away_team_id= info[:away_team_id].to_i
     @home_team_id= info[:home_team_id].to_i
     @away_goals= info[:away_goals].to_i

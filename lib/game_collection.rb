@@ -2,23 +2,15 @@ require 'csv'
 require_relative 'game'
 require_relative 'collection'
 require_relative 'modules/mathable'
-
+require_relative 'modules/findable'
 
 class GameCollection < Collection
   include Mathable
+  include Findable
   attr_reader :games_list
 
   def initialize(file_path)
     @games_list = create_objects(file_path, Game)
-  end
-
-  def all_games(id)
-    number_id = id.to_i
-    @games_list.find_all{|game|(game.home_team_id == id) || (game.away_team_id == number_id)}
-  end
-
-  def all_games_by_season(id)
-    all_games(id).group_by {|game| game.season}
   end
 
   def total_games_per_season(id)
@@ -29,41 +21,30 @@ class GameCollection < Collection
   end
 
   def wins_in_season(id)
-    number_id = id.to_i
     all_games_by_season(id).reduce(Hash.new(0)) do |season_wins, (season, games)|
       wins = games.count do |game|
-        (game.home_team_id == number_id && game.home_team_win?)||(game.away_team_id == number_id && game.visitor_team_win?)
+        (game.home_team_id == id && game.home_team_win?)||(game.away_team_id == id && game.visitor_team_win?)
       end
         season_wins[season] += wins
         season_wins
     end
   end
-#h1.merge(h2) {|key, oldval, newval| newval - oldval}
+
   def win_percentage(id)
-    number_id = id.to_i
-    wins = wins_in_season(number_id)
-    total = total_games_per_season(number_id)
-    wins.merge(total) {|season, wins, games|(wins.to_f/games).round(2) * 100}
+    wins_in_season(id).merge(total_games_per_season(id)) {|season, wins, games|(wins.to_f/games).round(2) * 100}
   end
 
   def best_season(id)
-    number_id = id.to_i
-    win_percentage(number_id).max_by do |season, percentage|
-      percentage
-    end.first
+    (win_percentage(id.to_i).max_by {|season, percentage|percentage}).first
   end
 
   def worst_season(id)
-    win_percentage(id).min_by do |season, percentage|
-      percentage
-    end.first
+    (win_percentage(id.to_i).min_by {|season, percentage|percentage}).first
   end
 
   def opponent_stats(id)
-    number_id = id.to_i
-    total_games = all_games(number_id)
     opponent_hash = Hash.new{|id, games| id[games] = []}
-    total_games.each do |game|
+    all_games(id.to_i).each do |game|
       opponent_hash[game.home_team_id] << game
       opponent_hash[game.away_team_id] << game
       opponent_hash.delete(id)
@@ -72,16 +53,14 @@ class GameCollection < Collection
   end
 
   def opponent_total_games_played(id)
-    number_id = id.to_i
-    opponent_stats(number_id).reduce({}) do |total, (id, games)|
+    opponent_stats(id).reduce({}) do |total, (id, games)|
     total[id] = games.length
     total
     end
   end
 
   def opponent_wins(id)
-    number_id = id.to_i
-    opponent_stats(number_id).reduce(Hash.new(0)) do |opponent_wins, (id, games)|
+    opponent_stats(id.to_i).reduce(Hash.new(0)) do |opponent_wins, (id, games)|
       wins = games.count do |game|
         (game.home_team_id == id && game.home_team_win?)||(game.away_team_id == id && game.visitor_team_win?)
       end
@@ -91,17 +70,11 @@ class GameCollection < Collection
   end
 
   def opponent_win_percentage(id)
-    number_id = id.to_i
-    wins = opponent_wins(number_id)
-    total = opponent_total_games_played(number_id)
-    wins.merge(total) {|id, wins, games|(wins.to_f/games).round(2) * 100}
+    opponent_wins(id.to_i).merge(opponent_total_games_played(id.to_i)) {|id, wins, games|(wins.to_f/games).round(2) * 100}
   end
 
   def favorite_opponent_id(id)
-    number_id = id.to_i
-    opponent_win_percentage(number_id).min_by do |id, percentage|
-      percentage
-    end.first
+    (opponent_win_percentage(id.to_i).min_by {|id, percentage| percentage}).first
   end
 
   def highest_total_score
@@ -160,8 +133,7 @@ class GameCollection < Collection
     @games_list.map { |game| game.home_goals.to_i + game.away_goals.to_i }
   end
 
-  def home_wins
-    # tying to find all the home wins
+  def home_wins# tying to find all the home wins
     @games_list.select { |game| game.home_goals > game.away_goals}.length
   end
 
@@ -174,9 +146,6 @@ class GameCollection < Collection
   end
 
   def rival_id(id)
-    number_id = id.to_i
-    opponent_win_percentage(number_id).max_by do |id, percentage|
-      percentage
-    end.first
+    (opponent_win_percentage(id.to_i).max_by {|id, percentage| percentage}).first
   end
 end

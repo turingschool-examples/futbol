@@ -5,8 +5,8 @@ require_relative 'collection'
 class TeamCollection < Collection
   attr_reader :teams
 
-  def initialize(file_path)
-    @teams = create_objects(file_path, Team)
+  def initialize(csv_file_path)
+    @teams = create_objects(csv_file_path, Team) 
   end
 
   def count_of_teams
