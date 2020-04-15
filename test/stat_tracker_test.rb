@@ -127,4 +127,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Martin Raymond", @stat_tracker.worst_coach("20122013")
   end
 
+  def test_if_it_can_get_most_accurate_team
+    assert_equal "DC United", @stat_tracker.most_accurate_team("20122013")
+  end
+
 end
