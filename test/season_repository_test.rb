@@ -36,7 +36,7 @@ class SeasonRepositoryTest < Minitest::Test
   def test_most_tackles
     season_repository = SeasonRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
     assert_equal "FC Cincinnati", season_repository.most_tackles("20132014")
-    assert_equal "Seattle Sounders FC", @stat_tracker.most_tackles("20142015")
+    assert_equal "Seattle Sounders FC", season_repository.most_tackles("20142015")
   end
 
   def test_fewest_tackles
