@@ -1,14 +1,9 @@
 require_relative './statistics'
+require_relative './keyable'
 
 class SeasonStatistics < Statistics
 attr_reader :game_collection
-
-  # def initialize(game_collection, game_teams_collection, teams_collection)
-  #   @game_collection = game_collection
-  #   @game_teams_collection = game_teams_collection
-  #   @teams_collection = teams_collection
-  # end
-
+include Keyable
 
 #returns array of game ids for given season
 #try using find all and then map as opposed to compact
@@ -28,7 +23,17 @@ attr_reader :game_collection
       end
     end
 
+  #   def current_season_game_teams(season)
+  #     current_season_game_ids
+  #   bob ||= @game_teams_collection.find_all do |game|
+  #     games[season].include?(game.game_id)
+  #     end
+  #     binding.pry
+  # end
+
+
 # returns an array of game_team objects in given season
+
   # def current_season_game_teams(season)
   #   season_game_ids = current_season_game_ids(season)
   #   @games_by_season ||= @game_collection.group_by {|game| game.season}
@@ -80,16 +85,6 @@ attr_reader :game_collection
       (coaches[team.head_coach] = 0) if season_coaches.include?(team.head_coach)
     end
     coaches
-  end
-
-#takes hash and high_low argument returns key associated with max/min value
-#should consider for parent class or module
-  def high_low_key_return(given_hash, high_low)
-    if high_low == "high"
-      @chosen_key = given_hash.max_by {|k,v| v}[0]
-    elsif high_low == "low"
-      @chosen_key = given_hash.min_by {|k,v| v}[0]
-    end
   end
 
 #returns hash of team id as keys and total tackles in season as value

@@ -1,7 +1,6 @@
 require './test/test_helper'
 require './lib/stat_tracker'
 require './lib/season_statistics'
-require './lib/statistics'
 require 'pry'
 
 class SeasonStatisticsTest < Minitest::Test
@@ -79,10 +78,10 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_most_accurate_team
-    assert_equal "FC Dallas", @season_statistics.most_accurate_team("20122013")
+    assert_equal "FC Dallas", @season_statistics.team_accuracy("20122013", "high")
   end
 
   def test_least_accurate_team
-    assert_equal "Houston Dynamo", @season_statistics.least_accurate_team("20122013")
+    assert_equal "Houston Dynamo", @season_statistics.team_accuracy("20122013","low")
   end
 end
