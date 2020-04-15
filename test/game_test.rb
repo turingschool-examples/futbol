@@ -116,14 +116,13 @@ class GameTest < Minitest::Test
 #deliverable
   def test_average_goals_by_season_and_divide_hash_values
     stub_games_goals = {
-                        20122013 => {:goals => 10, :games_played => 3},
-                        20162017 => {:goals => 10, :games_played => 4}
+                        "20122013" => {:goals => 10, :games_played => 3},
+                        "20162017" => {:goals => 10, :games_played => 4}
                         }
     Game.stubs(:games_goals_by_season).returns(stub_games_goals)
     expected = {"20122013" => 3.33, "20162017" => 2.5}
     assert_equal expected, Game.average_goals_by_season
     actual = Game.divide_hash_values(:goals, :games_played, Game.games_goals_by_season)
-    actual = Game.keys_to_string(actual)
     assert_equal expected, actual
   end
 
