@@ -16,8 +16,6 @@ class GameTeams
 
   def all
     @game_teams
-    #redundant.
-    # game_teams.game_teams is equal to this method. 
-
   end
+
 end

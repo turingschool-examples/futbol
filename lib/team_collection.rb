@@ -1,6 +1,7 @@
 require_relative 'team'
+require_relative 'team_collection'
 
-class Teams
+class TeamCollection
   attr_reader :teams
 
   def initialize(csv_file_path)
@@ -14,6 +15,19 @@ class Teams
     end
   end
 
+  def team_info(team_id)
+     found_team = @teams.find do |team|
+       team.team_id == team_id
+     end
+     {
+       :team_id => found_team.team_id,
+       :franchise_id => found_team.franchise_id,
+       :team_name => found_team.team_name,
+       :abbreviation => found_team.abbreviation,
+       :link => found_team.link
+     }
+  end
+
   def all
     @teams
   end
@@ -23,4 +37,5 @@ class Teams
       team.team_id == team_id
     end
   end
+
 end
