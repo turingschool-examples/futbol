@@ -28,6 +28,10 @@ attr_reader :game_collection
       end
     end
 
+
+#     def group_by_season
+#     @game_collection.group_by {|game| game.season}
+# end
 # returns an array of game_team objects in given season
   # def current_season_game_teams(season)
   #   season_game_ids = current_season_game_ids(season)

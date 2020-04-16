@@ -20,11 +20,11 @@ class StatTracker
   end
 
   def highest_total_score
-    @game_statistics.total_score("high")
+    @game_statistics.total_score(:high)
   end
 
   def lowest_total_score
-    @game_statistics.total_score("low")
+    @game_statistics.total_score(:low)
   end
 
   def percentage_home_wins
