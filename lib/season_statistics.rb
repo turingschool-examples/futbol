@@ -99,6 +99,7 @@ include Keyable
 #returns hash of team id as keys and total tackles in season as value
   def team_tackles_hash(season)
     team_tackles = team_ids_hash(season)
+
     current_season_game_teams(season).each do |game|
       team_tackles[game.team_id] += game.tackles
     end
@@ -126,8 +127,8 @@ include Keyable
 
   def most_least_tackles(season, high_low)
     team_tackles = team_tackles_hash(season)
-    high_low_key_return(team_tackles, high_low)
-    team_name_hash[@chosen_key]
+
+    team_name_hash[high_low_key_return(team_tackles, high_low)]
   end
 
   def team_accuracy(season, high_low)
@@ -140,7 +141,7 @@ include Keyable
     acc_hash = team_ids(season).to_h do |id|
       [id, (team_goals[id] / team_shots[id].to_f)]
     end
-    high_low_key_return(acc_hash, high_low)
-    team_name_hash[@chosen_key]
+
+    team_name_hash[high_low_key_return(acc_hash, high_low)]
   end
 end

@@ -33,6 +33,8 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_current_season_game_teams
+    games = @game_team_collection[1,7,11,12]
+    assert_equal []
     assert_instance_of GameTeam, @season_statistics.current_season_game_teams("20122013").first
   end
 
@@ -61,7 +63,12 @@ class SeasonStatisticsTest < Minitest::Test
     assert_instance_of String, @season_statistics.high_low_key_return({"6"=>139, "3"=>154},:high)
   end
 
-  def tes_team_tackles_hash
+  def test_team_tackles_hash
+    # game_team1 = GameTeam.new(2012030121,8,home,TIE,REG,Michel Therrien,2,12,24,6,5,1,60.6,11,10)
+    # game_team1 = GameTeam.new(2012030223,3,home,LOSS,REG,John Tortorella,1,6,37,2,2,0,38.2,7,9)
+    # game_team1 = GameTeam.new(2012030124,8,away,LOSS,OT,Michel Therrien,2,7,46,6,1,0,44.3,6,3)
+    # @season_statistics.stubs(:current_season_game_teams).returns([game_team1, game_team2, game_team3])
+    # assert_instance_of ({8 => 70, 3 => 37}) @season_statistics.team_tackles_hash("20132014")
     assert_instance_of Hash, @season_statistics.team_tackles_hash("20132014")
   end
 
