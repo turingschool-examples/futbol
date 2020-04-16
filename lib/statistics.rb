@@ -13,6 +13,8 @@ class Statistics
     @game_collection = create_games
     @game_teams_collection = create_game_teams
     @teams_collection = create_teams
+
+    @games_by_season = Hash.new { |h, k| h[k] = [] }
   end
 
   def create_games
