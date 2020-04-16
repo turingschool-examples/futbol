@@ -1,7 +1,5 @@
-require_relative './game'
 require_relative './mathable'
 require_relative './statistics'
-require 'pry'
 
 class GameStatistics < Statistics
   include Mathable
