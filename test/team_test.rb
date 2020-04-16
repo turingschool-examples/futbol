@@ -1,16 +1,9 @@
-<<<<<<< HEAD
-require 'simplecov'
 Simplecov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/stat_tracker'
 require './lib/team'
-
-class TeamTest < Minitest::Test
 require_relative 'test_helper'
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/team'
 
 class TeamTest < Minitest::Test
 
@@ -24,8 +17,6 @@ class TeamTest < Minitest::Test
     })
   end
 
-
-
   def test_it_exists
     assert_instance_of Team, @team
   end
@@ -37,5 +28,4 @@ class TeamTest < Minitest::Test
     assert_equal "ATL", @team.abbreviation
     assert_equal "/api/v1/teams/1", @team.link
   end
-
 end

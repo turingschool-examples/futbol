@@ -6,7 +6,6 @@ require_relative 'games_methods'
 require_relative 'game_team_collection'
 require_relative 'team_statistics'
 
-
 class StatTracker
 include TeamStatistics
 
@@ -131,8 +130,6 @@ include TeamStatistics
       end
     end
   end
-
-
 
   def winningest_coach(season_id)
     head_coach_wins = {}
