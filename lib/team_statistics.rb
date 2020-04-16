@@ -1,5 +1,6 @@
 require_relative './statistics'
 require_relative './keyable'
+
 class TeamStatistics < Statistics
   include Keyable
 

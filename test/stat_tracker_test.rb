@@ -22,12 +22,10 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_has_attributes
-    assert_equal  './data/games_fixture.csv', @stat_tracker.games
-    assert_equal  './data/teams.csv', @stat_tracker.teams
-    assert_equal  './data/game_teams_fixture.csv', @stat_tracker.game_teams
     assert_instance_of LeagueStatistics, @stat_tracker.league_statistics
     assert_instance_of TeamStatistics, @stat_tracker.team_statistics
     assert_instance_of GameStatistics, @stat_tracker.game_statistics
+    assert_instance_of SeasonStatistics, @stat_tracker.season_statistics
   end
 
   def test_highest_total_score
@@ -97,44 +95,47 @@ class StatTrackerTest < Minitest::Test
     expected1 = {"team_id" => "1", "franchise_id" => "23", "team_name" => "Atlanta United", "abbreviation" => "ATL", "link" => "/api/v1/teams/1"}
     expected2 = {"team_id" => "4", "franchise_id" => "16", "team_name" => "Chicago Fire", "abbreviation" => "CHI", "link"=> "/api/v1/teams/4"}
 
-    assert_equal expected1, @stat_tracker.team_statistics.team_info("1")
-    assert_equal expected2, @stat_tracker.team_statistics.team_info("4")
+    assert_equal expected1, @stat_tracker.team_info("1")
+    assert_equal expected2, @stat_tracker.team_info("4")
   end
 
   def test_best_season
-      assert_equal "20132014", @stat_tracker.team_statistics.best_season("24")
+      assert_equal "20132014", @stat_tracker.best_season("24")
   end
 
   def test_worst_season
-    assert_equal "20142015", @stat_tracker.team_statistics.worst_season("24")
+    assert_equal "20142015", @stat_tracker.worst_season("24")
   end
 
   def test_average_win_percentage
-    assert_equal 0.33, @stat_tracker.team_statistics.average_win_percentage("22")
-    assert_equal 0, @stat_tracker.team_statistics.average_win_percentage("3")
-    assert_equal 1, @stat_tracker.team_statistics.average_win_percentage("6")
+    assert_equal 0.0, @stat_tracker.average_win_percentage("3")
+    assert_equal 1.0, @stat_tracker.average_win_percentage("6")
+    assert_equal 0.5, @stat_tracker.average_win_percentage("9")
+    assert_equal 0.25, @stat_tracker.average_win_percentage("8")
   end
 
   def test_most_goals_scored
-    assert_equal 1, @stat_tracker.team_statistics.most_goals_scored("5")
-    assert_equal 2, @stat_tracker.team_statistics.most_goals_scored("3")
-    assert_equal 4, @stat_tracker.team_statistics.most_goals_scored("6")
+    assert_equal 3, @stat_tracker.most_goals_scored("6")
+    assert_equal 2, @stat_tracker.most_goals_scored("3")
+    assert_equal 3, @stat_tracker.most_goals_scored("8")
+    assert_equal 4, @stat_tracker.most_goals_scored("9")
   end
 
   def test_fewest_goals_scored
-    assert_equal 0, @stat_tracker.team_statistics.fewest_goals_scored("5")
-    assert_equal 1, @stat_tracker.team_statistics.fewest_goals_scored("3")
-    assert_equal 1, @stat_tracker.team_statistics.fewest_goals_scored("6")
+    assert_equal 2, @stat_tracker.fewest_goals_scored("6")
+    assert_equal 1, @stat_tracker.fewest_goals_scored("3")
+    assert_equal 1, @stat_tracker.fewest_goals_scored("8")
+    assert_equal 1, @stat_tracker.fewest_goals_scored("9")
   end
 
   def test_favorite_opponent
-    assert_equal "Houston Dynamo", @stat_tracker.team_statistics.favorite_opponent("6")
-    assert_equal "Philadelphia Union", @stat_tracker.team_statistics.favorite_opponent("22")
+    assert_equal "Chicago Fire", @stat_tracker.favorite_opponent("24")
+    assert_equal "Philadelphia Union", @stat_tracker.favorite_opponent("22")
   end
 
   def test_rival
-    assert_equal "Washington Spirit FC", @stat_tracker.team_statistics.rival("24")
-    assert_equal "Orlando Pride", @stat_tracker.team_statistics.rival("17")
+    assert_equal "Real Salt Lake", @stat_tracker.rival("22")
+    assert_equal "FC Dallas", @stat_tracker.rival("3")
   end
 
   def test_winningest_coach
