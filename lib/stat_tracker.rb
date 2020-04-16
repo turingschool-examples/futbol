@@ -56,11 +56,11 @@ class StatTracker
   end
 
   def best_offense
-    @league_statistics.best_worst_offense('high')
+    @league_statistics.best_worst_offense(:high)
   end
 
   def worst_offense
-    @league_statistics.best_worst_offense("low")
+    @league_statistics.best_worst_offense(:low)
   end
 
   def highest_scoring_visitor

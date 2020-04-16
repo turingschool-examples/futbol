@@ -68,13 +68,13 @@ class StatTrackerTest < Minitest::Test
 
   def test_best_offense
     @stat_tracker.league_statistics.stubs(:average_goals_by_team).returns({"1" => 1, "6" => 2.5, "3" => 2.2})
-    assert_equal "FC Dallas", @stat_tracker.league_statistics.best_offense
+    assert_equal "FC Dallas", @stat_tracker.league_statistics.best_worst_offense(:high)
   end
 
   def test_worst_offense
     @stat_tracker.league_statistics.stubs(:average_goals_by_team).returns({"1" => 2.5, "6" => 2, "3" => 1.3})
     expected = "Houston Dynamo"
-    assert_equal expected, @stat_tracker.league_statistics.worst_offense
+    assert_equal expected, @stat_tracker.league_statistics.best_worst_offense(:low)
   end
 
   def test_highest_scoring_visitor

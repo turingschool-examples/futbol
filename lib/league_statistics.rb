@@ -3,7 +3,6 @@ require_relative './mathable'
 
 class LeagueStatistics < Statistics
   include Mathable
-
   attr_reader :game_collection, :game_teams_collection, :teams_collection
 
   def count_of_teams
@@ -40,7 +39,6 @@ class LeagueStatistics < Statistics
     team_average_goals = Hash.new(0)
     games_and_goals = games_played_by_team.merge(goals_scored_by_team) { |k, o, n| [o,n]}
     games_and_goals.each do |team|
-      # team[1][1] -> goals scored | team[1][0] -> games played
       team_average_goals[team[0]] = average(team[1][1],team[1][0].to_f)
     end
     team_average_goals
@@ -69,7 +67,6 @@ class LeagueStatistics < Statistics
       home_team_average_helper
     end
   end
-
 
   def highest_scoring_home_team
     max_average = away_home_team_scores(:home).max_by{|team| team[1]}
@@ -128,5 +125,4 @@ class LeagueStatistics < Statistics
       end
     worst_offense.team_name
   end
-
 end
