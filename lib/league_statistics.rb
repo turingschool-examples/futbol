@@ -3,7 +3,7 @@ require_relative './mathable'
 
 class LeagueStatistics < Statistics
   include Mathable
-  
+
   def count_of_teams
     @teams_collection.length
   end
@@ -89,10 +89,10 @@ class LeagueStatistics < Statistics
     @game_collection.each do |game|
       goals_and_games_by_team_away[game.away_team_id][0] += game.away_goals.to_i
       goals_and_games_by_team_away[game.away_team_id][1] += 1
-      end
+    end
     goals_and_games_by_team_away.each do |team|
     team_average_goals_away[team[0]] = average(team[1][0], team[1][1].to_f)
-      end
+    end
     team_average_goals_away
   end
 
