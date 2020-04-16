@@ -37,5 +37,4 @@ class TeamCollection
       team.team_id == team_id
     end
   end
-
 end
