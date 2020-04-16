@@ -1,6 +1,6 @@
 module Gameteamable
 
-#used 3 times
+
   def find_by_team(team_id)
     all.find_all{|game| game.team_id == team_id}
   end
@@ -22,13 +22,13 @@ module Gameteamable
     season_games = Game.grouped_by_season(season)
     matches = []
     season_games.each {|game|matches.concat(GameTeam.find_by(game.game_id))}
-    stats_by_team = get_goal_shots_by_game_team(matches)
+    get_goal_shots_by_game_team(matches)
   end
 
   def games_by_team_name(season_id)
     game_id_first = season_id.to_s[0..3]
     all_games_by_id = all.find_all {|game| game.season_id == game_id_first}
-    games_by_id = all_games_by_id.group_by { |game| game.team_id }
+    all_games_by_id.group_by { |game| game.team_id }
   end
 
   def tackles_by_team(season_id)
