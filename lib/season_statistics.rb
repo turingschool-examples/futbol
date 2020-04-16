@@ -1,13 +1,7 @@
 require_relative './statistics'
 
 class SeasonStatistics < Statistics
-attr_reader :game_collection
 
-  # def initialize(game_collection, game_teams_collection, teams_collection)
-  #   @game_collection = game_collection
-  #   @game_teams_collection = game_teams_collection
-  #   @teams_collection = teams_collection
-  # end
 
 
 #returns array of game ids for given season

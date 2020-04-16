@@ -1,13 +1,10 @@
-require_relative './game'
-require_relative './team'
-require_relative './game_team'
 require_relative './game_statistics'
 require_relative './league_statistics'
 require_relative './team_statistics'
 require_relative './season_statistics'
 require 'CSV'
 class StatTracker
-  attr_reader :games, :teams, :game_teams, :league_statistics, :game_statistics, :team_statistics, :season_statistics
+  attr_reader :league_statistics, :game_statistics, :team_statistics, :season_statistics
   def initialize(data_files)
     @league_statistics = LeagueStatistics.new(data_files)
     @game_statistics = GameStatistics.new(data_files)
