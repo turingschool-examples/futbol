@@ -8,4 +8,9 @@ module Winable
     0
   end
 
+  def gt_win?
+    return 1 if @result == "WIN"
+    0
+  end
+
 end

@@ -10,11 +10,10 @@ class Game < Collection
   extend Hashable
   extend Gameable
 
-
   def self.highest_total_score
     all.map { |game| game.away_goals + game.home_goals}.max
   end
-#deliverable
+
   def self.lowest_total_score
     all.map { |game| game.away_goals + game.home_goals}.min
   end
@@ -32,7 +31,6 @@ class Game < Collection
     count
   end
 
-#deliverable
   def self.average_goals_per_game
     sum = all.sum { |game| game.away_goals + game.home_goals}.to_f
     (sum / all.length.to_f).round(2)
@@ -52,37 +50,35 @@ class Game < Collection
   def self.average_goals_by(hoa_team)
     divide_hash_values(:goals, :games_played, games_goals_by(hoa_team))
   end
-#deliverable
+
   def self.highest_scoring_visitor_team_id
     average_goals_by(:away_team).max_by{ |team_id, away_goals| away_goals}.first
   end
-#deliverable
+
   def self.highest_scoring_home_team_id
     average_goals_by(:home_team).max_by{ |team_id, home_goals| home_goals}.first
   end
-#deliverable
+
   def self.lowest_scoring_visitor_team_id
     average_goals_by(:away_team).min_by{ |team_id, away_goals| away_goals}.first
   end
-#deliverable
+
   def self.lowest_scoring_home_team_id
     average_goals_by(:home_team).min_by{ |team_id, home_goals| home_goals}.first
   end
 
-#deliverable
   def self.best_season(team_id)
     #return season with highest winning percentage
     best_season = win_percent_by_season(team_id).max_by { |season, percent| percent}
     best_season[0].to_s
   end
 
-#deliverable
   def self.worst_season(team_id)
     #return season with lowest winning percentage
-      worst_season = win_percent_by_season(team_id).min_by { |season, percent| percent}
+    worst_season = win_percent_by_season(team_id).min_by { |season, percent| percent}
       worst_season[0].to_s
   end
-#deliverable
+
   def self.average_win_percentage(team_id)
     wins = games_played_by(team_id).map { |game| game.win?(team_id)}.sum
     avg = (wins / games_played_by(team_id).length.to_f).round(2)

@@ -96,23 +96,12 @@ class GameTeamTest < Minitest::Test
     assert_equal 0.25, GameTeam.percentage_ties
   end
 
-  def test_it_can_find_coaches_in_season
-    assert_equal ["Willie Desjardins", "Darryl Sutter", "Claude Julien", "Michel Therrien", "Joel Quenneville", "Jared Bednar", "Mike Babcock", "Bruce Cassidy", "Lindy Ruff"], GameTeam.coaches_in_season(2016030134)
+  def test_it_can_find_coach_record_by_season
+    assert_equal ({"Willie Desjardins"=> {:wins => 0,:games_played => 2}, "Darryl Sutter"=> {:wins => 0,:games_played => 2}, "Claude Julien"=> {:wins => 2,:games_played => 2},
+    "Michel Therrien"=> {:wins => 0,:games_played => 1}, "Joel Quenneville"=> {:wins => 1,:games_played => 1}, "Jared Bednar"=> {:wins => 0,:games_played => 1},"Mike Babcock"=> {:wins => 1,:games_played => 2}, "Bruce Cassidy"=> {:wins => 1,:games_played => 1}, "Lindy Ruff"=>{:wins => 2,:games_played => 2}}), GameTeam.coach_record(2016030134)
   end
 
-  def test_it_can_find_game_results_by_coach
-    assert_equal ({"Willie Desjardins"=>["TIE", "TIE"], "Darryl Sutter"=>["TIE", "LOSS"], "Claude Julien"=>["WIN", "WIN"], "Michel Therrien"=>["LOSS"], "Joel Quenneville"=>["WIN"], "Jared Bednar"=>["TIE"], "Mike Babcock"=>["TIE", "WIN"], "Bruce Cassidy"=>["WIN"], "Lindy Ruff"=>["WIN", "WIN"]}), GameTeam.results_by_coach(2016030134)
-  end
-
-  def test_it_can_find_total_games_coached
-    assert_equal ({"Willie Desjardins"=>2, "Darryl Sutter"=>2, "Claude Julien"=>2, "Michel Therrien"=>1, "Joel Quenneville"=>1, "Jared Bednar"=>1, "Mike Babcock"=>2, "Bruce Cassidy"=>1, "Lindy Ruff"=>2}), GameTeam.total_games_coached(2016030134)
-  end
-
-  def test_it_can_count_wins_by_coach
-    assert_equal ({"Claude Julien"=>2, "Joel Quenneville"=>1, "Mike Babcock"=>1, "Bruce Cassidy"=>1, "Lindy Ruff"=>2}), GameTeam.wins_by_coach(2016030134)
-  end
-
-  def test_it_can_find_winninest_coach
+  def test_it_can_find_winningest_coach
     assert_equal "Claude Julien", GameTeam.winningest_coach("2016030134")
   end
 
@@ -168,18 +157,9 @@ class GameTeamTest < Minitest::Test
 
     assert_equal "6", GameTeam.most_accurate_team("20122013")
   end
-#Michelle Start
-  def test_it_can_find_game_ids_by_season
-    expected = ["2012030221", "2012030221", "2012030222", "2012030222", "2012030237", "2012030237", "2012030121", "2012030121", "2012030322", "2012030322", "2012020035", "2012020035"]
-    assert_equal expected, GameTeam.games_ids_by_season("20122013")
-  end
-
-  def test_it_find_games_by_season_id
-    assert_equal 12, GameTeam.games_by_season_id("20122013").length
-  end
 
   def test_it_can_find_games_by_team_name
-      assert_equal Hash, GameTeam.games_by_team_name("20122013").class
+    assert_equal Hash, GameTeam.games_by_team_name("20122013").class
   end
 
   def test_it_can_find_tackles_by_team
@@ -201,8 +181,58 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_return_best_offense_team_number
-
     assert_equal "28", GameTeam.best_offense
   end
 
+  def test_it_can_find_game_teams_with_opponent
+    assert_equal 3, GameTeam.game_teams_with_opponent("6").length
+    assert_instance_of GameTeam, GameTeam.game_teams_with_opponent("6")[0]
+  end
+
+  def test_it_can_find_opponents_records
+    assert_equal ({"3"=>{:wins => 0, :games_played => 2},
+      "8" => {:wins => 0, :games_played => 1}}), GameTeam.opponents_records("6")
+  end
+
+  def test_it_can_find_favorite_opponent_id
+    game_team1 = mock
+    game_team2 = mock
+    game_team3 = mock
+    game_team4 = mock
+    game_team1.stubs(:team_id).returns("1")
+    game_team2.stubs(:team_id).returns("2")
+    game_team3.stubs(:team_id).returns("3")
+    game_team4.stubs(:team_id).returns("4")
+    GameTeam.stubs(:opponents_records).returns({"2"=>{:wins => 1, :games_played => 4}, "3" => {:wins => 3, :games_played => 3}, "4"=>{:wins => 1, :games_played => 2}})
+    assert_equal "2", GameTeam.favorite_opponent_id("1")
+  end
+
+  def test_it_can_determine_rival_id
+    game_team1 = mock
+    game_team2 = mock
+    game_team3 = mock
+    game_team4 = mock
+    game_team1.stubs(:team_id).returns("1")
+    game_team2.stubs(:team_id).returns("2")
+    game_team3.stubs(:team_id).returns("3")
+    game_team4.stubs(:team_id).returns("4")
+    GameTeam.stubs(:opponents_records).returns({"2"=>{:wins => 1, :games_played => 4}, "3" => {:wins => 3, :games_played => 3}, "4"=>{:wins => 1, :games_played => 2}})
+    assert_equal "3", GameTeam.rival_id("1")
+  end
+
+  def test_most_goals_scored_by_team_id
+    assert_equal 4, GameTeam.most_goals_scored("28")
+  end
+
+  def test_fewest_goals_scored_by_team_id
+    assert_equal 1, GameTeam.fewest_goals_scored("17")
+  end
+
+  def test_find_by_team
+    assert_equal 2, GameTeam.find_by_team("10").count
+  end
+
+  def test_it_can_determine_wins
+    assert_equal 0, @base_game_team.gt_win?
+  end
 end
