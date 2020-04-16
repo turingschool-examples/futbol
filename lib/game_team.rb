@@ -57,13 +57,13 @@ class GameTeam < Collection
 
   def self.least_accurate_team(season)
      seasonal_hash = gets_team_shots_goals_count(season)
-     seasonal_hash.map{|key,value|value[:average] = (value[:goals]/ value[:shots].to_f).round(2)}
+     seasonal_hash.map{|key,value|value[:average] = (value[:goals]/ value[:shots].to_f)}
      return seasonal_hash.min_by{|key,value| value[:average]}[0]
   end
 
   def self.most_accurate_team(season)
     seasonal_hash = gets_team_shots_goals_count(season)
-    seasonal_hash.map{|key,value|value[:average] = (value[:goals]/ value[:shots].to_f).round(2)}
+    seasonal_hash.map{|key,value|value[:average] = (value[:goals]/ value[:shots].to_f)}
     return seasonal_hash.max_by{|key,value| value[:average]}[0]
   end
 
@@ -118,13 +118,13 @@ class GameTeam < Collection
 
   def self.most_goals_scored(team_id)
     total_game_teams_per_team_id = find_by_team(team_id)
-    game_team_with_max = total_game_teams_per_team_id.max{|game_team| game_team.goals}
+    game_team_with_max = total_game_teams_per_team_id.max_by{|game_team| game_team.goals}
     return game_team_with_max.goals
   end
 
   def self.fewest_goals_scored(team_id)
     total_game_teams_per_team_id = find_by_team(team_id)
-    game_team_with_min = total_game_teams_per_team_id.min{|game_team| game_team.goals}
+    game_team_with_min = total_game_teams_per_team_id.min_by{|game_team| game_team.goals}
     return game_team_with_min.goals
   end
 
