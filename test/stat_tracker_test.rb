@@ -61,34 +61,34 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_count_of_teams
-    assert_equal 32, @stat_tracker.league_statistics.count_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
   end
 
   def test_best_offense
     @stat_tracker.league_statistics.stubs(:average_goals_by_team).returns({"1" => 1, "6" => 2.5, "3" => 2.2})
-    assert_equal "FC Dallas", @stat_tracker.league_statistics.best_offense
+    assert_equal "FC Dallas", @stat_tracker.best_offense
   end
 
   def test_worst_offense
     @stat_tracker.league_statistics.stubs(:average_goals_by_team).returns({"1" => 2.5, "6" => 2, "3" => 1.3})
     expected = "Houston Dynamo"
-    assert_equal expected, @stat_tracker.league_statistics.worst_offense
+    assert_equal expected, @stat_tracker.worst_offense
   end
 
   def test_highest_scoring_visitor
-    assert_equal "FC Dallas", @stat_tracker.league_statistics.highest_scoring_visitor
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
   end
 
   def test_lowest_scoring_visitor
-    assert_equal "Sporting Kansas City", @stat_tracker.league_statistics.lowest_scoring_visitor
+    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_visitor
   end
 
   def test_highest_scoring_home_team
-    assert_equal "Real Salt Lake", @stat_tracker.league_statistics.highest_scoring_home_team
+    assert_equal "Real Salt Lake", @stat_tracker.highest_scoring_home_team
   end
 
   def test_lowest_scoring_home_team
-    assert_equal "Seattle Sounders FC", @stat_tracker.league_statistics.lowest_scoring_home_team
+    assert_equal "Seattle Sounders FC", @stat_tracker.lowest_scoring_home_team
   end
 
   def test_team_info
