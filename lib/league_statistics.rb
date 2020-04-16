@@ -11,18 +11,10 @@ class LeagueStatistics < Statistics
   end
 
   def best_worst_offense(high_low)
-    max_average = average_goals_by_team.max_by{|team| team[1]}
-    min_average = average_goals_by_team.min_by{|team| team[1]}
     if high_low == :high
-    best_offense = @teams_collection.find do |team|
-      team.id == max_average[0]
-      end
-    best_offense.team_name
+      best_offense_team_id
     elsif high_low == :low
-    worst_offense = @teams_collection.find do |team|
-      team.id == min_average[0]
-      end
-      worst_offense.team_name
+      worst_offense_team_id
     end
   end
 
@@ -120,4 +112,21 @@ class LeagueStatistics < Statistics
       end
     team_average_goals_home
   end
+
+  def best_offense_team_id
+    max_average = average_goals_by_team.max_by{|team| team[1]}
+    best_offense = @teams_collection.find do |team|
+      team.id == max_average[0]
+      end
+    best_offense.team_name
+  end
+
+  def worst_offense_team_id
+    min_average = average_goals_by_team.min_by{|team| team[1]}
+    worst_offense = @teams_collection.find do |team|
+      team.id == min_average[0]
+      end
+    worst_offense.team_name
+  end
+
 end

@@ -138,4 +138,12 @@ class LeagueStatisticsTest < Minitest::Test
   def test_away_team_average_helper
     assert_equal ({"3"=>1.67, "6"=>3.0, "5"=>0.5, "19"=>1.0, "24"=>2.0, "29"=>2.0, "12"=>2.0, "17"=>1.5, "1"=>3.0, "8"=>2.0, "14"=>2.0, "25"=>2.0, "7"=>2.0, "22"=>3.0, "16"=>2.5}),  @league_statistics.away_team_average_helper
   end
+
+  def test_best_offense_team_id
+    assert_equal "Atlanta United", @league_statistics.best_offense_team_id
+  end
+
+  def test_worst_offense_team_id
+    assert_equal "Seattle Sounders FC", @league_statistics.worst_offense_team_id
+  end
 end
