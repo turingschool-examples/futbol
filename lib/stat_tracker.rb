@@ -1,13 +1,10 @@
-require_relative './game'
-require_relative './team'
-require_relative './game_team'
 require_relative './game_statistics'
 require_relative './league_statistics'
 require_relative './team_statistics'
 require_relative './season_statistics'
 require 'CSV'
 class StatTracker
-  attr_reader :games, :teams, :game_teams, :league_statistics, :game_statistics, :team_statistics, :season_statistics
+  attr_reader :league_statistics, :game_statistics, :team_statistics, :season_statistics
   def initialize(data_files)
     @league_statistics = LeagueStatistics.new(data_files)
     @game_statistics = GameStatistics.new(data_files)
@@ -20,11 +17,11 @@ class StatTracker
   end
 
   def highest_total_score
-    @game_statistics.total_score("high")
+    @game_statistics.total_score(:high)
   end
 
   def lowest_total_score
-    @game_statistics.total_score("low")
+    @game_statistics.total_score(:low)
   end
 
   def percentage_home_wins
@@ -56,11 +53,11 @@ class StatTracker
   end
 
   def best_offense
-    @league_statistics.best_worst_offense('high')
+    @league_statistics.best_worst_offense(:high)
   end
 
   def worst_offense
-    @league_statistics.best_worst_offense("low")
+    @league_statistics.best_worst_offense(:low)
   end
 
   def highest_scoring_visitor
