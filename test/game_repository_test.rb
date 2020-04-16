@@ -14,11 +14,9 @@ class GameRepositoryTest < Minitest::Test
     assert_instance_of GameRepository, game_repository
   end
 
-  #we want to create tests for all the mehtods in game_repository here
 
   def test_it_has_attributes
     game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
-    # require"pry";binding.pry
     assert_equal "20122013", game_repository.game_collection[0].season
 
   end
