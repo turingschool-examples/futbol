@@ -11,23 +11,24 @@ class SeasonRepository < Repository
   def find_game_id(season)
     game_array =  @game_collection.select do |game|
       game.season == season
-      end
+    end
     @game_id_array = game_array.map {|game| game.game_id}
   end
 
 
   def winningest_coach(season)
     game_id_array = find_game_id(season)
-    coach_win_percentage = Hash.new(0)
+    win_percent = Hash.new(0)
     total_coach_games = coach_games(game_id_array)
     @game_team_collection.each do |team|
       if game_id_array.include?(team.game_id)
         if (team.result == "WIN")
-          coach_win_percentage[team.head_coach] += (1.to_f / (total_coach_games[team.head_coach]))
+          logic = (1.to_f / (total_coach_games[team.head_coach]))
+          win_percent[team.head_coach] += logic
         end
       end
     end
-    coach_winner = coach_win_percentage.max_by{|key, value| coach_win_percentage[key]}
+    coach_winner = win_percent.max_by{|key, value| win_percent[key]}
     coach_winner.first
   end
 
@@ -45,7 +46,7 @@ class SeasonRepository < Repository
   def worst_coach(season)
     game_id_array = find_game_id(season)
     loss_percentage = Hash.new
-        total_coach_games = coach_games(game_id_array)
+    total_coach_games = coach_games(game_id_array)
     @game_team_collection.each do |team|
       game_id_array.each do |id|
 
@@ -103,14 +104,14 @@ class SeasonRepository < Repository
   end
 
   def most_accurate_team(season_id)
-  game_array = find_game_id(season_id)
-      shot = Hash.new(0)
-      goal = Hash.new(0)
-      @game_team_collection.each do |game_team|
-        if game_array.include?(game_team.game_id)
+    game_array = find_game_id(season_id)
+    shot = Hash.new(0)
+    goal = Hash.new(0)
+    @game_team_collection.each do |game_team|
+      if game_array.include?(game_team.game_id)
         shot[game_team.team_id] += game_team.shots
         goal[game_team.team_id] += game_team.goals
-        end
+      end
     end
     goal.merge!(shot) {|k, o, n| o.to_f / n}
     most_accurate = goal.max_by do |key, value|
@@ -125,22 +126,22 @@ class SeasonRepository < Repository
   end
 
   def least_accurate_team(season_id)
-  game_array = find_game_id(season_id)
-      shot = Hash.new(0)
-      goal = Hash.new(0)
-      @game_team_collection.each do |game_team|
-        if game_array.include?(game_team.game_id)
+    game_array = find_game_id(season_id)
+    shot = Hash.new(0)
+    goal = Hash.new(0)
+    @game_team_collection.each do |game_team|
+      if game_array.include?(game_team.game_id)
         shot[game_team.team_id] += game_team.shots
         goal[game_team.team_id] += game_team.goals
-        end
+      end
     end
     goal.merge!(shot) {|k, o, n| o.to_f / n}
     wayward = goal.min_by do |key, value|
       goal[key]
     end
     wayward_team = @team_collection.find do |team|
-       team.team_id == wayward.first
-      end
+      team.team_id == wayward.first
+    end
       wayward_team.teamname
   end
 end

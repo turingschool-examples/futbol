@@ -30,7 +30,7 @@ class GameRepository < Repository
 
   def percentage_home_wins
     number_of_games = @game_collection.length
-  home_wins =  @game_collection.select do |game|
+    home_wins =  @game_collection.select do |game|
       game.home_goals > game.away_goals
     end
     number_of_homewins = home_wins.length
@@ -40,7 +40,7 @@ class GameRepository < Repository
 
   def percentage_visitor_wins
     number_of_games = @game_collection.length
-  visitor_wins =  @game_collection.select do |game|
+    visitor_wins =  @game_collection.select do |game|
       game.home_goals < game.away_goals
     end
     number_of_visitor = visitor_wins.length
@@ -50,7 +50,7 @@ class GameRepository < Repository
 
   def percentage_ties
     number_of_games = @game_collection.length
-  ties =  @game_collection.select do |game|
+    ties =  @game_collection.select do |game|
       game.home_goals == game.away_goals
     end
     number_of_ties = ties.length
@@ -68,12 +68,12 @@ class GameRepository < Repository
     seasons = @game_collection.map do |game|
       [game.game_id, game.season]
     end
-      tally = 0
+    tally = 0
     average = @game_team_collection.map do |game|
       if seasons[1][0] == game.game_id
         tally += game.goals
       end
-average
+      average
     end
     goals_by_season
   end

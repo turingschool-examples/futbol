@@ -8,14 +8,14 @@ class TeamRepository < Repository
     number_id = id.to_i
     @team_collection.each do |team|
       if team.team_id == number_id
-      info_hash["team_id"] = team.team_id.to_s
-      info_hash["franchise_id"] = team.franchiseid.to_s
-      info_hash["team_name"] = team.teamname.to_s
-      info_hash["abbreviation"] = team.abbreviation.to_s
-      info_hash["link"] =  team.link.to_s
+        info_hash["team_id"] = team.team_id.to_s
+        info_hash["franchise_id"] = team.franchiseid.to_s
+        info_hash["team_name"] = team.teamname.to_s
+        info_hash["abbreviation"] = team.abbreviation.to_s
+        info_hash["link"] =  team.link.to_s
       end
     end
-      info_hash
+    info_hash
   end
 
   def best_season(string_id)
@@ -27,7 +27,7 @@ class TeamRepository < Repository
       elsif game.home_team_id == id && (game.home_goals > game.away_goals)
         win_percent[game.season] += (1.to_f/(games_per_season(id, game.season)))
       end
-       end
+    end
     best_percent = win_percent.max_by do |key, value|
       win_percent[key]
     end
@@ -58,7 +58,7 @@ class TeamRepository < Repository
     best_percent = win_percent.min_by do |key, value|
       win_percent[key]
     end
-      best_percent.first
+    best_percent.first
   end
 
   def average_win_percentage(string_id)
@@ -77,7 +77,7 @@ class TeamRepository < Repository
     most = 0
     @game_team_collection.each do |game|
       if game.team_id == id && game.goals > most
-          most = game.goals
+        most = game.goals
       end
     end
     most
@@ -88,7 +88,7 @@ class TeamRepository < Repository
     fewest = 1000
     @game_team_collection.each do |game|
       if game.team_id == id && game.goals < fewest
-          fewest = game.goals
+        fewest = game.goals
       end
     end
     fewest

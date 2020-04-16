@@ -89,40 +89,40 @@ class LeagueRepository < Repository
   end
 
   def lowest_scoring_visitor
-    total_away_games = Hash.new(0)
+    away_games = Hash.new(0)
     average_score_away = Hash.new(0)
     @game_collection.each do |game|
-        total_away_games[game.away_team_id] += 1
+      away_games[game.away_team_id] += 1
     end
     @game_collection.each do |game|
         average_score_away[game.away_team_id] += game.away_goals
     end
-      average_score_away = average_score_away.map do |key, value|
-        {key => (average_score_away[key].to_f / total_away_games[key].to_f).round(2)}
-      end
+    average_score_away = average_score_away.map do |key, value|
+      {key => (average_score_away[key].to_f / away_games[key].to_f).round(2)}
+    end
 
-      answer_hash = average_score_away.reduce Hash.new, :merge
+    answer_hash = average_score_away.reduce Hash.new, :merge
 
-      answer = answer_hash.key(answer_hash.values.min)
-      find_team_id(answer)
+    answer = answer_hash.key(answer_hash.values.min)
+    find_team_id(answer)
   end
 
   def lowest_scoring_home_team
     total_home_games = Hash.new(0)
-    average_score_home = Hash.new(0)
+    average_score = Hash.new(0)
     @game_collection.each do |game|
         total_home_games[game.home_team_id] += 1
     end
     @game_collection.each do |game|
-        average_score_home[game.home_team_id] += game.home_goals
+        average_score[game.home_team_id] += game.home_goals
     end
-      average_score_home = average_score_home.map do |key, value|
-        {key => (average_score_home[key].to_f / total_home_games[key].to_f).round(2)}
-      end
+    average_score = average_score.map do |key, value|
+      {key => (average_score[key].to_f / total_home_games[key].to_f).round(2)}
+    end
 
-      answer_hash = average_score_home.reduce Hash.new, :merge
-      answer = answer_hash.key(answer_hash.values.min)
-      find_team_id(answer)
+    answer_hash = average_score.reduce Hash.new, :merge
+    answer = answer_hash.key(answer_hash.values.min)
+    find_team_id(answer)
   end
 
 end
