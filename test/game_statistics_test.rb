@@ -1,9 +1,11 @@
 require './test/test_helper'
 require './lib/stat_tracker'
 require './lib/game_statistics'
+require './lib/mathable'
 require 'pry'
 
 class GameStatisticsTest < Minitest::Test
+  include Mathable
 
   def setup
     game_path = './data/games_fixture.csv'
@@ -25,6 +27,7 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_has_readable_attributes
+
     assert_instance_of Array, @game_statistics .game_collection
     assert_instance_of Array, @game_statistics.game_teams_collection
     assert_instance_of Array, @game_statistics.teams_collection
@@ -67,6 +70,10 @@ class GameStatisticsTest < Minitest::Test
   def test_count_of_games_by_season
     count_by_season = {"20122013"=>12, "20132014"=>3, "20172018"=>3, "20162017"=>3, "20152016"=>1, "20142015"=>5}
     assert_equal count_by_season, @game_statistics.count_of_games_by_season
+  end
+
+  def test_it_can_average
+    assert_equal 2.0, average(10.00, 5.00)
   end
 
   def test_average_number_of_goals_per_game
