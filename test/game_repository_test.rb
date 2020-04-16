@@ -4,6 +4,7 @@ require "minitest/autorun"
 require "minitest/pride"
 require "csv"
 require "./lib/game_repository"
+require 'mocha/minitest'
 
 class GameRepositoryTest < Minitest::Test
 
@@ -18,12 +19,20 @@ class GameRepositoryTest < Minitest::Test
   def test_it_has_attributes
     game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
     assert_equal "20122013", game_repository.game_collection[0].season
+  end
 
+  def test_max_game_collection
+    game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
+    assert_equal 5, game_repository.max_game_collection.away_goals
   end
 
   def test_highest_total_score
     game_repository = GameRepository.new('./data/games.csv', './data/game_teams.csv', './data/teams.csv')
-    assert_equal 11, game_repository.highest_total_score
+    game = Game.new({game_id: 123, season: "20122013", type: "Postseason",
+          date_time: "6/5/13", away_team_id: 1, home_team_id: 1, away_goals: 1,
+           home_goals: 1, venue: "Toyta", venue_link: "link" })
+    game_repository.stubs(:max_game_collection).returns(game)
+    assert_equal 2, game_repository.highest_total_score
   end
 
   def test_lowest_total_score

@@ -7,11 +7,16 @@ class GameRepository < Repository
   attr_reader :game_collection, :game_team_collection, :team_collection
 
 
-  def highest_total_score
+  def max_game_collection
     highest_score = @game_collection.max_by do |game|
-      #require 'pry'; binding.pry
       (game.away_goals + game.home_goals)
     end
+    highest_score
+
+  end
+
+  def highest_total_score
+    highest_score = max_game_collection
     sum = (highest_score.away_goals + highest_score.home_goals)
   end
 
@@ -29,7 +34,8 @@ class GameRepository < Repository
       game.home_goals > game.away_goals
     end
     number_of_homewins = home_wins.length
-    percent_home_wins = (number_of_homewins.to_f / number_of_games.to_f).round(2)
+    math = (number_of_homewins.to_f / number_of_games.to_f).round(2)
+    percent_home_wins = math
   end
 
   def percentage_visitor_wins
@@ -38,7 +44,8 @@ class GameRepository < Repository
       game.home_goals < game.away_goals
     end
     number_of_visitor = visitor_wins.length
-    percent_visitor_wins = (number_of_visitor.to_f / number_of_games.to_f).round(2)
+    math = (number_of_visitor.to_f / number_of_games.to_f).round(2)
+    percent_visitor_wins = math
   end
 
   def percentage_ties
@@ -89,11 +96,13 @@ average
       if average_goals_by_season[game.season] == nil
         average_goals_by_season[game.season] = 0
       else
-        average_goals_by_season[game.season] += (game.away_goals + game.home_goals + 0.006)
+        logic = (game.away_goals + game.home_goals + 0.006)
+        average_goals_by_season[game.season] += logic
       end
     end
     average_goals_by_season.map do |key, value|
-      average_goals_by_season[key] = (value.to_f / count_of_games_by_season[key]).round(2)
+      math = (value.to_f / count_of_games_by_season[key]).round(2)
+      average_goals_by_season[key] = math
     end
     average_goals_by_season
   end

@@ -44,22 +44,24 @@ class SeasonRepository < Repository
 
   def worst_coach(season)
     game_id_array = find_game_id(season)
-    coach_loose_percentage = Hash.new
+    loss_percentage = Hash.new
         total_coach_games = coach_games(game_id_array)
     @game_team_collection.each do |team|
       game_id_array.each do |id|
-          if (team.game_id == id) && (coach_loose_percentage[team.head_coach] == nil)
-            coach_loose_percentage[team.head_coach] = 0
+
+          if (team.game_id == id) && (loss_percentage[team.head_coach] == nil)
+            loss_percentage[team.head_coach] = 0
             if(team.result == "WIN")
-              coach_loose_percentage[team.head_coach] += (1.to_f / (total_coach_games[team.head_coach]))
+              logic = (1.to_f / (total_coach_games[team.head_coach]))
+              loss_percentage[team.head_coach] += logic
             end
           elsif (team.game_id == id) && (team.result == "WIN")
-            coach_loose_percentage[team.head_coach] += (1.to_f / (total_coach_games[team.head_coach]))
+            logic = (1.to_f / (total_coach_games[team.head_coach]))
+            loss_percentage[team.head_coach] += logic
           end
         end
      end
-
-    coach_looser = coach_loose_percentage.min_by{|key, value| coach_loose_percentage[key]}
+    coach_looser = loss_percentage.min_by{|key, value| loss_percentage[key]}
     coach_looser.first
   end
 
@@ -110,7 +112,6 @@ class SeasonRepository < Repository
         goal[game_team.team_id] += game_team.goals
         end
     end
-
     goal.merge!(shot) {|k, o, n| o.to_f / n}
     most_accurate = goal.max_by do |key, value|
       goal[key]
@@ -133,12 +134,10 @@ class SeasonRepository < Repository
         goal[game_team.team_id] += game_team.goals
         end
     end
-
     goal.merge!(shot) {|k, o, n| o.to_f / n}
     wayward = goal.min_by do |key, value|
       goal[key]
     end
-
     wayward_team = @team_collection.find do |team|
        team.team_id == wayward.first
       end
