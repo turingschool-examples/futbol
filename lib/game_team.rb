@@ -12,71 +12,38 @@ class GameTeam < Collection
   def self.home_games
     (all.find_all {|gt| gt.hoa == "home" }).count
   end
-#deliverable
+
   def self.percentage_home_wins
     home_wins = (all.find_all {|gt| gt.hoa == "home" && gt.result == "WIN" }).count.to_f
     ((home_wins / self.home_games)).round(2)
   end
-#deliverable
+
   def self.percentage_visitor_wins
     visitor_wins = (all.find_all {|gt| gt.hoa == "home" && gt.result == "LOSS" }).count.to_f
     ((visitor_wins / self.home_games)).round(2)
   end
-#deliverable
+
   def self.percentage_ties
     games_count = all.count.to_f
     ties_count = (all.find_all { |gt| gt.result == "TIE"}).count.to_f
     ((ties_count / games_count)).round(2)
   end
 
-  def self.coaches_in_season(season_id)
-    search_term = season_id.to_s[0..3]
-    game_teams_in_season = all.find_all do |gt|
-      gt.game_id.to_s[0..3] == search_term
-    end
-    game_teams_in_season.map {|gameteam| gameteam.head_coach}.uniq
+  def self.coach_record(season_id)
+    game_teams_in_season = all.find_all {|gt| gt.season_id == season_id.to_s[0..3]}
+    hash_of_hashes(game_teams_in_season, :head_coach, :wins, :games_played, :gt_win?, 1)
   end
 
-  def self.results_by_coach(season_id)
-    search_term = season_id.to_s[0..3]
-    results_by_coach_by_season = Hash.new { |hash, key| hash[key] = [] }
-    coaches_in_season(season_id).each do |coach|
-      all.find_all do |gt|
-        if gt.game_id.to_s[0..3] == search_term && coach == gt.head_coach
-            results_by_coach_by_season[coach] << gt.result
-        end
-      end
-    end
-    results_by_coach_by_season
-  end
-
-  def self.total_games_coached(season_id)
-    total_games_coached_by_season = {}
-    results_by_coach(season_id).map do |coach, results|
-      total_games_coached_by_season[coach] = results.length
-    end
-    total_games_coached_by_season
-  end
-#deliverbale
-  def self.wins_by_coach(season_id)
-    wins_by_coach_by_season = Hash.new { |hash, key| hash[key] = 0 }
-    results_by_coach(season_id).each do |coach, results|
-      results.each do |result|
-        wins_by_coach_by_season[coach] += 1 if result == "WIN"
-      end
-    end
-    wins_by_coach_by_season
-  end
-
-#####30 Seconds
   def self.winningest_coach(season_id)
-    coaches_in_season(season_id).max_by {|coach| (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)}
+    wins_by_coach = divide_hash_values(:wins, :games_played,coach_record(season_id))
+    winningest = wins_by_coach.max_by {|coach, percent| percent}
+    winningest[0]
   end
-#####30 Seconds
+
   def self.worst_coach(season_id)
-    coaches_in_season(season_id).min_by do |coach|
-      (wins_by_coach(season_id)[coach].to_f / total_games_coached(season_id)[coach].to_f).round(2)
-    end
+    wins_by_coach = divide_hash_values(:wins, :games_played,coach_record(season_id))
+    worst = wins_by_coach.min_by {|coach, percent| percent}
+    worst[0]
   end
 
   def self.game_team_shots_goals_count(arr_games)
@@ -106,7 +73,6 @@ class GameTeam < Collection
     season_games.each {|game|matches.concat(GameTeam.find_by(game.game_id))}
     stats_by_team = get_goal_shots_by_game_team(matches)
   end
-
 
   def self.games_by_team_name(season_id)
     game_id_first = season_id.to_s[0..3]
@@ -151,9 +117,9 @@ class GameTeam < Collection
   end
 
   def self.most_goals_scored(team_id)
-  total_game_teams_per_team_id = find_by_team(team_id)
-  game_team_with_max = total_game_teams_per_team_id.max{|game_team| game_team.goals}
-  return game_team_with_max.goals
+    total_game_teams_per_team_id = find_by_team(team_id)
+    game_team_with_max = total_game_teams_per_team_id.max{|game_team| game_team.goals}
+    return game_team_with_max.goals
   end
 
   def self.fewest_goals_scored(team_id)
@@ -162,46 +128,28 @@ class GameTeam < Collection
     return game_team_with_min.goals
   end
 
-  def self.opponents_records(team_id)
+  def self.game_teams_with_opponent(team_id)
     game_ids = all.map {|gt| gt.game_id if gt.team_id == team_id }.compact
-    opponents_records = Hash.new { |hash, key| hash[key] = [] }
-    game_ids.each do |game_id|
-      all.find_all do |gt|
-        opponents_records[gt.team_id] << gt.result if gt.game_id == game_id && gt.team_id != team_id
-      end
+    game_teams_with_these_ids = all.find_all do |gt|
+      game_ids.include?(gt.game_id) && gt.team_id != team_id
     end
-    opponents_records
+    game_teams_with_these_ids
   end
 
-  def self.opponents_wins(team_id)
-    opponent_wins = Hash.new { |hash, key| hash[key] = 0 }
-    opponents_records(team_id).each do |team_id, record|
-      record.each do |result|
-        opponent_wins[team_id] += 1 if result == "WIN"
-      end
-    end
-    opponent_wins
+  def self.opponents_records(team_id)
+    hash_of_hashes(game_teams_with_opponent(team_id), :team_id, :wins, :games_played, :gt_win?, 1)
   end
 
-####1:15 seconds
   def self.favorite_opponent_id(team_id)
-    team_id = team_id
-    record_length = {}
-    opponents_records(team_id).map do |team_id, record|
-      record_length[team_id] = record.length
-    end
-    opponents = opponents_records(team_id).keys
-    opponents.min_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
+    opponents = divide_hash_values(:wins, :games_played, opponents_records(team_id))
+    fave = opponents.min_by {|opponent, percent| percent}
+    fave[0]
   end
-####2:30 seconds
+
   def self.rival_id(team_id)
-    team_id = team_id
-    record_length = {}
-    opponents_records(team_id).map do |team_id, record|
-      record_length[team_id] = record.length
-    end
-    opponents = opponents_records(team_id).keys
-    opponents.max_by {|opponent| (opponents_wins(team_id)[opponent].to_f / record_length[opponent].to_f).round(2)}
+    opponents = divide_hash_values(:wins, :games_played, opponents_records(team_id))
+    biggest_rival = opponents.max_by {|opponent, percent| percent}
+    biggest_rival[0]
   end
 
     attr_reader :game_id,
@@ -240,7 +188,7 @@ class GameTeam < Collection
     @season_id = @game_id.to_s[0..3]
   end
 
-  def win?
+  def gt_win?
     return 1 if @result == "WIN"
     0
   end
