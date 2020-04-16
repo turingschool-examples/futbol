@@ -2,7 +2,6 @@ require_relative './team_repository'
 require_relative './game_repository'
 require_relative './league_repository'
 require_relative './season_repository'
-
 require 'CSV'
 
 class StatTracker
@@ -35,10 +34,6 @@ class StatTracker
     @game_repository.percentage_home_wins
   end
 
-  def team_info(id)
-    @team_repository.team_info(id)
-  end
-
   def count_of_teams
     @league_repository.count_of_teams
   end
@@ -55,20 +50,12 @@ class StatTracker
     @league_repository.highest_scoring_visitor
   end
 
-  def best_offense
-    @league_repository.best_offense
-  end
-
   def highest_scoring_home_team
     @league_repository.highest_scoring_home_team
   end
 
   def lowest_scoring_visitor
     @league_repository.lowest_scoring_visitor
-  end
-
-  def lowest_scoring_home_team
-    @league_repository.lowest_scoring_home_team
   end
 
   def most_goals_scored(id)
@@ -97,22 +84,6 @@ class StatTracker
 
   def average_goals_by_season
     @game_repository.average_goals_by_season
-  end
-
-  def worst_offense
-    @league_repository.worst_offense
-  end
-
-  def highest_scoring_visitor
-    @league_repository.highest_scoring_visitor
-  end
-
-  def highest_scoring_home_team
-    @league_repository.highest_scoring_home_team
-  end
-
-  def lowest_scoring_visitor
-    @league_repository.lowest_scoring_visitor
   end
 
   def lowest_scoring_home_team
@@ -166,4 +137,5 @@ class StatTracker
   def fewest_tackles(season_id)
     @season_repository.fewest_tackles(season_id)
   end
+  
 end
