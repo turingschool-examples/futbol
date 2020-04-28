@@ -1,0 +1,14 @@
+{
+  "Unit Tests": {
+    "coverage": {
+      "/Users/joselopez/Desktop/ruby/Futbol/lib/game_statistics.rb": {
+        "lines": [
+          1,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1588113124
+  }
+}
