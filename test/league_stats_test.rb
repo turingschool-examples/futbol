@@ -65,4 +65,26 @@ class LeagueStatsTest < MiniTest::Test
     @league_stats.stubs(:average_goals_by_team).with("19", "home").returns(1)
     assert_equal 'Philadelphia Union', @league_stats.lowest_scoring_home_team
   end
+
+  def test_it_can_find_average_goals_by_team
+    assert_equal 2.4, @league_stats.average_goals_by_team("52")
+  end
+
+  def test_total_games_and_goals_by_team
+    assert_equal [7, 5], @league_stats.total_games_and_goals_by_team("30", nil)
+  end
+
+  def test_add_goals_and_games
+    goals_games = [0, 0]
+    game_team = mock
+    game_team.stubs(:goals).returns(2)
+    @league_stats.add_goals_and_games(goals_games, game_team)
+    assert_equal [2, 1], goals_games
+  end
+
+  def test_it_can_find_unique_team_id
+    assert_equal ["30", "52", "19", "23", "24", "4", "29", "12", "6", "17", "1", "2"], @league_stats.unique_team_ids
+  end
+
+
 end

@@ -61,4 +61,8 @@ class TeamStats < Stats
    win_pct_against = opp_teams.transform_values{|game| 1 - calculate_win_percentage(game)}
    @teams.find {|team| team.team_id == win_pct_against.min_by {|team, win_pct| win_pct}[0]}.team_name
  end
+
+ def all_games_by_team(team_id)
+   @game_teams.find_all{|game_team| game_team.team_id == team_id}
+ end
 end
