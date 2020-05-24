@@ -1,12 +1,17 @@
 require "csv"
 
 class StatTracker
+  attr_reader :games,
+              :teams,
+              :game_teams
 
-  def self.from_csv(locations_information)
-    @games = locations_information[:games]
-    @teams = locations_information[:teams]
-    @game_teams = locations_information[:game_teams]
-    self
+  def initialize(file_paths)
+    @games = file_paths[:games]
+    @teams = file_paths[:teams]
+    @game_teams = file_paths[:game_teams]
   end
 
+  def self.from_csv(file_path_locations)
+    self.new(file_path_locations)
+  end
 end
