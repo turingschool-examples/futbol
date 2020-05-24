@@ -5,21 +5,48 @@
         "lines": [
           1,
           1,
-          1,
-          1,
-          1,
+          2,
+          2,
+          2,
+          2,
+          null,
+          null,
           1,
           null,
           null,
           1,
+          2,
+          2,
+          2,
+          null,
+          null
+        ]
+      },
+      "/Users/danielhalverson/turing/1module/4week/futbol/lib/games.rb": {
+        "lines": [
           1,
+          null,
+          null
+        ]
+      },
+      "/Users/danielhalverson/turing/1module/4week/futbol/lib/teams.rb": {
+        "lines": [
           1,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/danielhalverson/turing/1module/4week/futbol/lib/game_teams.rb": {
+        "lines": [
           1,
+          null,
           null,
           null
         ]
       }
     },
-    "timestamp": 1590351401
+    "timestamp": 1590352951
   }
 }
