@@ -1,54 +1,37 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/nickedwin/turing/1module/big_futbol/futbol/lib/stat_tracker.rb": {
+      "/Users/nickedwin/turing/1module/big_futbol/futbol/lib/game.rb": {
         "lines": [
           1,
           1,
           null,
           null,
           null,
-          1,
-          4,
-          4,
-          4,
-          4,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           null,
           null,
           1,
-          4,
-          4,
-          4,
-          null,
-          null,
-          1,
-          0,
-          null,
-          0,
-          null,
-          null,
-          0,
-          0,
-          null,
-          null,
-          0,
-          null,
-          null,
-          1,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          null,
-          null,
-          0,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
           null,
           null
         ]
       }
     },
-    "timestamp": 1590430410
+    "timestamp": 1590431685
   }
 }
