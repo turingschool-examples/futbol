@@ -4,3 +4,4 @@ team_id,franchiseId,teamName,abbreviation,Stadium,link
 26,14,FC Cincinnati,CIN,Nippert Stadium,/api/v1/teams/26
 14,31,DC United,DC,Audi Field,/api/v1/teams/14
 6,6,FC Dallas,DAL,Toyota Stadium,/api/v1/teams/6
+3,10,Houston Dynamo,HOU,BBVA Stadium,/api/v1/teams/3
