@@ -16,6 +16,13 @@ class GameStats
   end
 
   def lowest_total_score
-    total_score.min 
+    total_score.min
+  end
+
+  def percentage_home_wins
+    home_wins = @games_collection.games.count do |game|
+      game.home_goals > game.away_goals
+    end
+    (home_wins.to_f / @games_collection.games.count * 100).round(2)
   end
 end
