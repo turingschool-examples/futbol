@@ -1,4 +1,5 @@
 class StatTracker
+  attr_reader :games, :teams, :game_teams
   def initialize(data)
     @games = data[:games]
     @teams = data[:teams]
@@ -6,6 +7,15 @@ class StatTracker
   end
 
   def self.from_csv(data)
-    self.new(data)
+    StatTracker.new(data)
   end
+
+  # GAME STATISTICS
+
+  # LEAGUE STATISTICS
+
+  # SEASON STATISTIC
+
+  # TEAM STATISTICS
+
 end
