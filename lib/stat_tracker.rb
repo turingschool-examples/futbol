@@ -4,9 +4,9 @@ class StatTracker
               :game_teams
 
   def self.from_csv(csv_files)
-    games = CSV.read(csv_files[:games], headers: true, header_converters: :symbol)
-    teams = CSV.read(csv_files[:teams], headers: true, header_converters: :symbol)
-    game_teams = CSV.read(csv_files[:game_teams], headers: true, header_converters: :symbol)
+    games = CSV.read(csv_files[:games], headers: true, header_converters: :symbol, converters: :numeric)
+    teams = CSV.read(csv_files[:teams], headers: true, header_converters: :symbol, converters: :numeric)
+    game_teams = CSV.read(csv_files[:game_teams], headers: true, header_converters: :symbol, converters: :numeric)
     StatTracker.new(games, teams, game_teams)
   end
 
@@ -17,16 +17,27 @@ class StatTracker
   end
 
   def highest_total_score
-    # game_totals = CSV.parse(File.read(@games), headers: true, converters: :numeric)
-    highest_total_home_score = games.by_col[6].sum do |number|
+    highest_total_home_score = games.by_col![6][7].max_by do |number|
       number
+      require'pry';binding.pry
     end
 
-    highest_total_away_score = games.by_col[7].sum do |number|
+    highest_total_away_score = games.by_col![7].max_by do |number|
       number
     end
 
     highest_total_score = highest_total_home_score + highest_total_away_score
   end
+
+  def lowest_total_score
+    highest_total_home_score = games.by_row[6][7].sum do |number|
+      number
+    end
+
+    highest_total_away_score = games.by_col[7].max do |number|
+      number
+    end
+
+    highest_total_score = highest_total_away_score - highest_total_home_score
+  end
 end
-#comment
