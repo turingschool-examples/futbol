@@ -20,9 +20,9 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
-  # def test_it_has_attributes
-  #   assert_equal './data/games.csv', @stat_tracker.games
-  #   assert_equal './data/teams.csv', @stat_tracker.teams
-  #   assert_equal './data/game_teams.csv', @stat_tracker.game_teams
-  # end
+  def test_it_has_attributes
+    assert_equal './data/games.csv', @stat_tracker.games
+    assert_equal './data/teams.csv', @stat_tracker.teams
+    assert_equal './data/game_teams.csv', @stat_tracker.game_teams
+  end
 end
