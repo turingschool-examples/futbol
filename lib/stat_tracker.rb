@@ -1,7 +1,7 @@
 require 'csv'
-# require 'games'
-# require 'teams'
-# require 'game_teams'
+require 'games'
+require 'teams'
+require 'game_teams'
 require 'pry'
 
 class StatTracker
@@ -18,17 +18,15 @@ class StatTracker
     StatTracker.new(games_path, teams_path, game_teams_path)
   end
 
+  def initialize
+    @games = Games.new(games_path)
+    @teams = Teams.new(teams_path)
+    @game_teams_path = GameTeams.new(game_teams_path)
+  end
+
 
 end
 
-
-#   def initialize
-#     @games = Games.new(games_path)
-#     @teams = Teams.new(teams_path)
-#     @game_teams_path = GameTeams.new(game_teams_path)
-#   end
-#
-# end
 
 # def self.from_csv(path)
 #   @games = CSV.read(path[:games])

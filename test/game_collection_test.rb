@@ -1,9 +1,10 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require './lib/game_collection'
 require './lib/game'
 require 'pry'
 
-class GameTest < Minitest::Test
+class GameCollectionTest < Minitest::Test
 
   def test_it_exists
     game = Game.new({
@@ -16,11 +17,12 @@ class GameTest < Minitest::Test
       :away_goals => 2,
       :home_goals => 3,
       :venue => "Toyota Stadium"})
-      assert_instance_of Game, game
+    game_collection = GameCollection.new([game])
+    assert_instance_of GameCollection, game_collection
   end
 
-  def test_it_can_read_info
-    game = Game.new({
+  def test_it_can_return_games
+    game1 = Game.new({
       :id => "2012030221",
       :season => "20122013",
       :type => "Postseason",
@@ -30,15 +32,18 @@ class GameTest < Minitest::Test
       :away_goals => 2,
       :home_goals => 3,
       :venue => "Toyota Stadium"})
-      assert_equal "2012030221", game.id
-      assert_equal "20122013", game.season
-      assert_equal "Postseason", game.type
-      assert_equal "5/16/13", game.date_time
-      assert_equal 3, game.away_team_id
-      assert_equal 6, game.home_team_id
-      assert_equal 2, game.away_goals
-      assert_equal 3, game.home_goals
-      assert_equal "Toyota Stadium", game.venue 
+    game2 = Game.new({
+      :id => "2012030222",
+      :season => "20122014",
+      :type => "Postseason",
+      :date_time => "5/17/13",
+      :away_team_id => 2,
+      :home_team_id => 4,
+      :away_goals => 1,
+      :home_goals => 2,
+      :venue => "Pepsi Stadium"})
+      game_collection = GameCollection.new([game1, game2])
+    assert_equal [game1, game2], game_collection.all
   end
 
 end
