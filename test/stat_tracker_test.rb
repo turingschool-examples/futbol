@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require './lib/game'
 require './lib/stat_tracker'
 
 class StatTrackerTest < Minitest::Test
@@ -22,8 +23,13 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_csv_paths
-    assert_equal './data/games_fixture.csv', @stat_tracker.games
-    assert_equal './data/teams_fixture.csv', @stat_tracker.teams
-    assert_equal './data/game_teams_fixture.csv', @stat_tracker.game_teams
+    assert_equal './data/games_fixture.csv', @stat_tracker.games_path
+    assert_equal './data/teams_fixture.csv', @stat_tracker.teams_path
+    assert_equal './data/game_teams_fixture.csv', @stat_tracker.game_teams_path
+  end
+
+  def test_it_has_games
+    assert_instance_of Game, @stat_tracker.games.first
+    # assert_equal expected, @stat_tracker.games.first
   end
 end
