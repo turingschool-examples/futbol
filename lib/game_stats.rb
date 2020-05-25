@@ -10,4 +10,8 @@ class GameStats
       game.away_goals + game.home_goals
     end
   end
+
+  def highest_total_score
+    total_score.max
+  end
 end

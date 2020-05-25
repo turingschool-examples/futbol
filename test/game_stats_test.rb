@@ -21,4 +21,8 @@ class GameStatsTest < Minitest::Test
   def test_it_has_total_score
     assert_instance_of Array , @game_stats.total_score
   end
+
+  def test_it_can_calculate_highest_total_score
+    assert_equal 8, @game_stats.highest_total_score
+  end
 end
