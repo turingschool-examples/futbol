@@ -32,4 +32,11 @@ class GameStats
     end
     (visitor_wins.to_f / @games_collection.games.count * 100).round(3)
   end
+
+  def percentage_ties
+    ties = @games_collection.games.count do |game|
+      game.home_goals == game.away_goals
+    end
+    (ties.to_f / @games_collection.games.count * 100).round(3)
+  end
 end
