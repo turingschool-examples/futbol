@@ -31,6 +31,10 @@ class GameStatsTest < Minitest::Test
   end
 
   def test_it_has_percentage_home_wins
-    assert_equal 50.0, @game_stats.percentage_home_wins
+    assert_equal 50.00, @game_stats.percentage_home_wins
+  end
+
+  def test_it_has_percentage_visitor_wins
+    assert_equal 33.75, @game_stats.percentage_visitor_wins
   end
 end

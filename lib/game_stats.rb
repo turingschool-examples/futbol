@@ -23,6 +23,13 @@ class GameStats
     home_wins = @games_collection.games.count do |game|
       game.home_goals > game.away_goals
     end
-    (home_wins.to_f / @games_collection.games.count * 100).round(2)
+    (home_wins.to_f / @games_collection.games.count * 100).round(3)
+  end
+
+  def percentage_visitor_wins
+    visitor_wins = @games_collection.games.count do |game|
+      game.home_goals < game.away_goals
+    end
+    (visitor_wins.to_f / @games_collection.games.count * 100).round(3)
   end
 end
