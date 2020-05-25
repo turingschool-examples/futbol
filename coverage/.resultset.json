@@ -1,52 +1,33 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/danielhalverson/turing/1module/4week/futbol/lib/stat_tracker.rb": {
-        "lines": [
-          1,
-          1,
-          2,
-          2,
-          2,
-          2,
-          null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          2,
-          2,
-          2,
-          null,
-          null
-        ]
-      },
-      "/Users/danielhalverson/turing/1module/4week/futbol/lib/games.rb": {
+      "/Users/cielo/Turing/Module1/Projects/futbol/lib/games.rb": {
         "lines": [
           1,
           null,
-          null
-        ]
-      },
-      "/Users/danielhalverson/turing/1module/4week/futbol/lib/teams.rb": {
-        "lines": [
           1,
           null,
           null,
           null,
-          null
-        ]
-      },
-      "/Users/danielhalverson/turing/1module/4week/futbol/lib/game_teams.rb": {
-        "lines": [
-          1,
           null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
           null,
           null
         ]
       }
     },
-    "timestamp": 1590352951
+    "timestamp": 1590431788
   }
 }

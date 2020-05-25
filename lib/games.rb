@@ -1,17 +1,22 @@
-class Games
+class Game
 
-  def initialize(args)
-    @game_id = args[:game_id]
-    @season = args[:season]
-    @type = args[:type]
-    @date_time = args[:date_time]
-    @away_team_id = args[:away_team_id]
-    @home_team_id = args[:home_team_id]
-    @away_goals = args[:away_goals]
-    @home_goals = args[:home_goals]
+  attr_reader :game_id,
+              :season,
+              :type,
+              :date_time,
+              :away_team_id,
+              :home_team_id,
+              :away_goals,
+              :home_goals
+
+  def initialize(game_info)
+    @game_id = game_info[:game_id]
+    @season = game_info[:season]
+    @type = game_info[:type]
+    @date_time = game_info[:date_time]
+    @away_team_id = game_info[:away_team_id]
+    @home_team_id = game_info[:home_team_id]
+    @away_goals = game_info[:away_goals]
+    @home_goals = game_info[:home_goals]
   end
-
-
-
-
 end
