@@ -1,7 +1,7 @@
 require './test/helper_test'
-require './lib/games'
+require './lib/game'
 
-class GamesTest < Minitest::Test
+class GameTest < Minitest::Test
   def setup
     game_info = {
       game_id: "2012020122",
