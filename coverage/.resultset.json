@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/nickedwin/turing/1module/big_futbol/futbol/lib/game.rb": {
+      "/Users/nickedwin/turing/1module/big_futbol/futbol/lib/team.rb": {
         "lines": [
           1,
           1,
@@ -11,16 +11,7 @@
           null,
           null,
           null,
-          null,
-          null,
-          null,
-          null,
-          null,
           1,
-          2,
-          2,
-          2,
-          2,
           2,
           2,
           2,
@@ -32,6 +23,6 @@
         ]
       }
     },
-    "timestamp": 1590431685
+    "timestamp": 1590432449
   }
 }
