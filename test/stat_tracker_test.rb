@@ -73,6 +73,10 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 5.26, @stat_tracker.percentage_ties
   end
 
+  def test_it_count_of_games_by_season
+
+  end
+
   # # difference in points for both teams
   # def test_it_can_find_difference_in_total_goals
   #   assert_equal 17, @stat_tracker.lowest_total_score
