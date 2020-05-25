@@ -2,6 +2,7 @@ require './test/helper_test'
 require './lib/game'
 require './lib/game_collection'
 require './lib/game_stats'
+require 'pry'
 
 class GameStatsTest < Minitest::Test
   def setup
@@ -15,5 +16,9 @@ class GameStatsTest < Minitest::Test
 
   def test_it_has_attributes
     assert_instance_of GameCollection, @game_stats.games_collection
+  end
+
+  def test_it_has_total_score
+    assert_instance_of Array , @game_stats.total_score
   end
 end
