@@ -1,6 +1,7 @@
 require 'csv'
 require_relative 'test_helper'
 require './lib/stat_tracker'
+require './lib/game'
 
 class StatTrackerTest < MiniTest::Test
 
@@ -25,20 +26,30 @@ class StatTrackerTest < MiniTest::Test
   def test_it_is_an_instance
     assert_instance_of StatTracker, @stat_tracker
   end
-  # more robust testing options
-  # def test_it_finds_games
-  #   games = @stat_tracker.games.first
-  #   assert_instance_of Game, games
-  #   assert_equal '20122013', games.season
-  # end
 
+  def test_it_finds_games
+    game = Game.new(@stat_tracker.games.first)
+    assert_instance_of Game, game
+    assert_equal 20122013, game.season
+    assert_equal "5/16/13", game.date_time
+    assert_equal "Toyota Stadium", game.venue
+  end
+
+
+def test_it_finds_teams
+  team = Team.new(@stat_tracker.teams.first)
+  assert_instance_of Team, team
+  assert_equal "Atlanta United", team.team_name
+  assert_equal "ATL", team.abbreviation
+  assert_equal 23, team.franchise_id
+end
   # start of game stat methods
   # total score for both teams
-  def test_it_can_find_total_goals_for_both_teams
-    skip
-    assert_equal 70, @stat_tracker.highest_total_score
-  end
-  # difference in points for both teams
+  # def test_it_can_find_total_goals_for_both_teams
+  #   skip
+  #   assert_equal 70, @stat_tracker.highest_total_score
+  # end
+  # # difference in points for both teams
   # def test_it_can_find_difference_in_total_goals
   #   assert_equal 17, @stat_tracker.lowest_total_score
   # end
