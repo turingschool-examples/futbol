@@ -38,6 +38,10 @@ class StatTracker
     sum_total_score.min
   end
 
+  def percentage_home_wins
+    
+  end
+
   #   highest_total_away_score = games.by_col![7].max_by do |number|
   #     number
   #   end
