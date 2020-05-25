@@ -41,4 +41,13 @@ class GameStatsTest < Minitest::Test
   def test_it_has_percentage_ties
     assert_equal 16.25, @game_stats.percentage_ties
   end
+
+  def test_it_has_games_by_season
+    assert_instance_of Hash, @game_stats.games_by_season
+  end
+
+  def test_it_has_count_of_games_by_season
+    expected = {"20122013"=>40, "20132014"=>40, "20142015"=>40, "20152016"=>40, "20162017"=>40, "20172018"=>40}
+    assert_equal expected, @game_stats.count_of_games_by_season
+  end
 end

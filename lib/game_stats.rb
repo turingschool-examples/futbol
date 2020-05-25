@@ -39,4 +39,20 @@ class GameStats
     end
     (ties.to_f / @games_collection.games.count * 100).round(3)
   end
+
+  def games_by_season
+    @games_collection.games.reduce({}) do |acc, game|
+      acc[game.season] << game if acc[game.season]
+      acc[game.season] = [game] if acc[game.season].nil?
+      acc
+    end
+  end
+
+  def count_of_games_by_season
+    hash_count = games_by_season
+    games_by_season.each do |season, games|
+      hash_count[season] = games.count
+    end
+    hash_count
+  end
 end
