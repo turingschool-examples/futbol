@@ -1,78 +1,29 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/cielo/Turing/Module1/Projects/futbol/lib/stat_tracker.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          1,
-          null,
-          1,
-          1,
-          null,
-          null,
-          null,
-          1,
-          1,
-          1,
-          1,
-          null,
-          1,
-          null,
-          null,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null
-        ]
-      },
-      "/Users/cielo/Turing/Module1/Projects/futbol/lib/games.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          null
-        ]
-      },
       "/Users/cielo/Turing/Module1/Projects/futbol/lib/teams.rb": {
         "lines": [
           1,
           null,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/cielo/Turing/Module1/Projects/futbol/lib/game_teams.rb": {
-        "lines": [
           1,
           null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
           null,
           null
         ]
       }
     },
-    "timestamp": 1590433212
+    "timestamp": 1590438846
   }
 }
