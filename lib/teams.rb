@@ -1,4 +1,4 @@
-class Teams
+class Team
 
 
 

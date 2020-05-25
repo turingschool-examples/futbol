@@ -18,12 +18,10 @@ class GamesTest < Minitest::Test
   end
 
   def test_it_exists
-
     assert_instance_of Game, @game
   end
 
   def test_it_has_game_info_attributes
-
     assert_equal "2012020122",@game.game_id
     assert_equal "20122013",@game.season
     assert_equal "Regular Season",@game.type

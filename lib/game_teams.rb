@@ -1,4 +1,4 @@
-class GameTeams
+class GameTeam
 
 
 end
