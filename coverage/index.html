@@ -14,7 +14,7 @@
       <img src="./assets/0.12.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2020-05-25T12:47:29-06:00">2020-05-25T12:47:29-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2020-05-25T13:04:10-06:00">2020-05-25T13:04:10-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -30,7 +30,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.67
+         1.83
        </span>
     </span> hits/line
     )
@@ -43,8 +43,8 @@
   </div>
 
   <div class="t-line-summary">
-    <b>9</b> relevant lines,
-    <span class="green"><b>9</b> lines covered</span> and
+    <b>18</b> relevant lines,
+    <span class="green"><b>18</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed. </span>
     (<span class="green">
   100.0%
@@ -71,13 +71,13 @@
       <tbody>
         
           <tr class="t-file">
-            <td class="strong t-file__name"><a href="#84979b531da787eadff071594e2ecada6ae47986" class="src_link" title="lib/team.rb">lib/team.rb</a></td>
+            <td class="strong t-file__name"><a href="#e9d776afaaa1d60e826dd00041795e1b44fce8a9" class="src_link" title="lib/game_teams.rb">lib/game_teams.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">17</td>
-            <td class="cell--number">9</td>
-            <td class="cell--number">9</td>
+            <td class="cell--number">35</td>
+            <td class="cell--number">18</td>
+            <td class="cell--number">18</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">1.67</td>
+            <td class="cell--number">1.83</td>
             
           </tr>
         
@@ -98,9 +98,9 @@
 
       <div class="source_files">
       
-        <div class="source_table" id="84979b531da787eadff071594e2ecada6ae47986">
+        <div class="source_table" id="e9d776afaaa1d60e826dd00041795e1b44fce8a9">
   <div class="header">
-    <h3>lib/team.rb</h3>
+    <h3>lib/game_teams.rb</h3>
     <h4>
       <span class="green">
   100.0%
@@ -112,8 +112,8 @@
     
 
     <div class="t-line-summary">
-      <b>9</b> relevant lines.
-      <span class="green"><b>9</b> lines covered</span> and
+      <b>18</b> relevant lines.
+      <span class="green"><b>18</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -131,7 +131,7 @@
 
             
 
-            <code class="ruby">class Team</code>
+            <code class="ruby">class GameTeams</code>
           </li>
         </div>
       
@@ -142,7 +142,7 @@
 
             
 
-            <code class="ruby">  attr_reader :team_id,</code>
+            <code class="ruby">  attr_reader :game_id,</code>
           </li>
         </div>
       
@@ -153,7 +153,7 @@
 
             
 
-            <code class="ruby">              :franchise_id,</code>
+            <code class="ruby">              :team_id,</code>
           </li>
         </div>
       
@@ -164,7 +164,7 @@
 
             
 
-            <code class="ruby">              :team_name,</code>
+            <code class="ruby">              :hoa,</code>
           </li>
         </div>
       
@@ -175,7 +175,7 @@
 
             
 
-            <code class="ruby">              :abbreviation,</code>
+            <code class="ruby">              :result,</code>
           </li>
         </div>
       
@@ -186,7 +186,7 @@
 
             
 
-            <code class="ruby">              :stadium,</code>
+            <code class="ruby">              :settled_in,</code>
           </li>
         </div>
       
@@ -197,7 +197,7 @@
 
             
 
-            <code class="ruby">              :link</code>
+            <code class="ruby">              :head_coach,</code>
           </li>
         </div>
       
@@ -208,84 +208,84 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">              :goals,</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="9">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="9">
+            
             
 
             
 
-            <code class="ruby">def initialize(team_info)</code>
+            <code class="ruby">              :shots,</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="10">
-            <span class="hits">2</span>
+          <li class="never" data-hits="" data-linenumber="10">
+            
             
 
             
 
-            <code class="ruby">  @team_id = team_info[:team_id]</code>
+            <code class="ruby">              :tackles,</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="11">
-            <span class="hits">2</span>
+          <li class="never" data-hits="" data-linenumber="11">
+            
             
 
             
 
-            <code class="ruby">  @franchise_id = team_info[:franchiseId]</code>
+            <code class="ruby">              :pim,</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="12">
-            <span class="hits">2</span>
+          <li class="never" data-hits="" data-linenumber="12">
+            
             
 
             
 
-            <code class="ruby">  @team_name = team_info[:teamName]</code>
+            <code class="ruby">              :power_play_opportunities,</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="13">
-            <span class="hits">2</span>
+          <li class="never" data-hits="" data-linenumber="13">
+            
             
 
             
 
-            <code class="ruby">  @abbreviation = team_info[:abbreviation]</code>
+            <code class="ruby">              :power_play_goals,</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="14">
-            <span class="hits">2</span>
+          <li class="never" data-hits="" data-linenumber="14">
+            
             
 
             
 
-            <code class="ruby">  @stadium = team_info[:Stadium]</code>
+            <code class="ruby">              :face_off_win_percentage,</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="15">
-            <span class="hits">2</span>
+          <li class="never" data-hits="" data-linenumber="15">
+            
             
 
             
 
-            <code class="ruby">  @link = team_info[:link]</code>
+            <code class="ruby">              :giveaways,</code>
           </li>
         </div>
       
@@ -296,12 +296,210 @@
 
             
 
-            <code class="ruby">end</code>
+            <code class="ruby">              :takeaways</code>
           </li>
         </div>
       
         <div>
           <li class="never" data-hits="" data-linenumber="17">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="18">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def initialize(game_teams_info)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="19">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @game_id = game_teams_info[:game_id]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="20">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @team_id = game_teams_info[:team_id]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="21">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @hoa = game_teams_info[:HoA]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="22">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @result = game_teams_info[:result]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="23">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @settled_in = game_teams_info[:settled_in]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="24">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @head_coach = game_teams_info[:head_coach]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="25">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @goals = game_teams_info[:goals]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="26">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @shots = game_teams_info[:shots]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="27">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @tackles = game_teams_info[:tackles]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="28">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @pim = game_teams_info[:pim]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="29">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @power_play_opportunities = game_teams_info[:powerPlayOpportunities]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="30">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @power_play_goals = game_teams_info[:powerPlayGoals]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="31">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @face_off_win_percentage = game_teams_info[:faceOffWinPercentage]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="32">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @giveaways = game_teams_info[:giveaways]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="33">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @takeaways = game_teams_info[:takeaways]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="34">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="35">
             
             
 
