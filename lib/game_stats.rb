@@ -14,4 +14,8 @@ class GameStats
   def highest_total_score
     total_score.max
   end
+
+  def lowest_total_score
+    total_score.min 
+  end
 end
