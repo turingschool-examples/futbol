@@ -62,7 +62,15 @@ class StatTrackerTest < MiniTest::Test
  #  end
 
   def test_it_percentage_home_wins
-    assert_equal 514, @stat_tracker.percentage_home_wins
+    assert_equal 68.42, @stat_tracker.percentage_home_wins
+  end
+
+  def test_it_percentage_visitor_wins
+    assert_equal 26.32, @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_it_percentage_ties
+    assert_equal 5.26, @stat_tracker.percentage_ties
   end
 
   # # difference in points for both teams

@@ -39,7 +39,30 @@ class StatTracker
   end
 
   def percentage_home_wins
-    
+    home_wins = []
+    games.by_row.each do |data|
+      home_wins << data if data[7] > data[6]
+    end
+    percentage_of_home_wins = (home_wins.count.to_f / games.count.to_f) * 100
+    percentage_of_home_wins.round(2)
+  end
+
+  def percentage_visitor_wins
+    visitor_wins = []
+    games.by_row.each do |data|
+      visitor_wins << data if data[7] < data[6]
+    end
+    percentage_of_visitor_wins = (visitor_wins.count.to_f / games.count.to_f) * 100
+    percentage_of_visitor_wins.round(2)
+  end
+
+  def percentage_ties
+    ties = []
+    games.by_row.each do |data|
+      ties << data if data[7] == data[6]
+    end
+    percentage_of_ties = (ties.count.to_f / games.count.to_f) * 100
+    percentage_of_ties.round(2)
   end
 
   #   highest_total_away_score = games.by_col![7].max_by do |number|
