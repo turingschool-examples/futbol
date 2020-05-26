@@ -6,9 +6,9 @@ require "./lib/stat_tracker"
 
 class StatTrackerTest < Minitest::Test
   def setup
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_path = './test/data/games.csv'
+    team_path = './test/data/teams.csv'
+    game_teams_path = './test/data/game_teams.csv'
 
     locations = {
       games: game_path,
@@ -21,5 +21,10 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_exists
     assert_instance_of StatTracker, @stat_tracker
+  end
+
+  def test_tracker_can_fetch_data
+    assert_equal 60, @stat_tracker.games.count
+    assert_instance_of Game, @stat_tracker.games.first
   end
 end
