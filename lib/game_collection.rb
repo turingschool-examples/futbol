@@ -1,3 +1,5 @@
+require ''
+
 class GameCollection
   attr_reader :all
 
