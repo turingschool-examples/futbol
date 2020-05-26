@@ -3,15 +3,18 @@ require_relative './team'
 require_relative './game_teams'	
 require 'csv'	
 
-class StatTracker	
-  attr_reader :games,	
-              :teams,	
-              :game_teams	
+class StatTracker
+  attr_reader :games,
+              :teams,
+              :game_teams
 
-  def initialize(games, teams, game_teams)	
-    @games = games	
-    @teams = teams	
-    @game_teams = game_teams	
-  end	
+  def initialize(info)
+    @games = info[:games]
+    @teams = info[:teams]
+    @game_teams = info[:game_teams]
+  end
 
+  def self.from_csv(info)
+    StatTracker.new(info)
+  end
 end
