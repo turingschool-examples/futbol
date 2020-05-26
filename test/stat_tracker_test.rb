@@ -1,7 +1,9 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/game'
+require './lib/team'
 require './lib/stat_tracker'
+require 'pry'
 
 class StatTrackerTest < Minitest::Test
   def setup
@@ -36,7 +38,12 @@ class StatTrackerTest < Minitest::Test
     assert_equal 6, @stat_tracker.games.first.home_team_id
   end
 
-  # def test_it_has_teams
-  #   assert_instance_of Team, @stat_tracker.teams.first
-  # end
+  def test_it_has_teams
+    assert_instance_of Team, @stat_tracker.teams.first
+    assert_equal 1, @stat_tracker.teams.first.team_id
+    assert_equal 23, @stat_tracker.teams.first.franchise_id
+    assert_equal "Atlanta United", @stat_tracker.teams.first.team_name
+    assert_equal "ATL", @stat_tracker.teams.first.abbreviation
+    assert_equal "/api/v1/teams/1", @stat_tracker.teams.first.link
+  end
 end
