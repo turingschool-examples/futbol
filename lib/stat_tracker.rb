@@ -66,7 +66,10 @@ class StatTracker
   end
 
   def count_of_games_by_season
-
+    games_by_season = Hash.new(0)
+    games.by_row.each do |data|
+      games_by_season[data[1]] = data
+    end
   end
 
   #   highest_total_away_score = games.by_col![7].max_by do |number|
