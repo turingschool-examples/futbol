@@ -25,7 +25,7 @@ class StatTracker
   def highest_total_score
     sum_total_score = []
     games.by_row.each do |data|
-        sum_total_score << data[6].to_i + data[7].to_i
+        sum_total_score << data[:away_goals].to_i + data[:home_goals].to_i
     end
     sum_total_score.max
   end
@@ -33,7 +33,7 @@ class StatTracker
   def lowest_total_score
     sum_total_score = []
     games.by_row.each do |data|
-        sum_total_score << data[6].to_i + data[7].to_i
+        sum_total_score << data[:away_goals].to_i + data[:home_goals].to_i
     end
     sum_total_score.min
   end
@@ -41,7 +41,7 @@ class StatTracker
   def percentage_home_wins
     home_wins = []
     games.by_row.each do |data|
-      home_wins << data if data[7] > data[6]
+      home_wins << data if data[:home_goals] > data[:away_goals]
     end
     percentage_of_home_wins = home_wins.count.to_f / games.count.to_f * 100
     percentage_of_home_wins.round(2)
@@ -50,7 +50,7 @@ class StatTracker
   def percentage_visitor_wins
     visitor_wins = []
     games.by_row.each do |data|
-      visitor_wins << data if data[7] < data[6]
+      visitor_wins << data if data[:home_goals] < data[:away_goals]
     end
     percentage_of_visitor_wins = visitor_wins.count.to_f / games.count.to_f * 100
     percentage_of_visitor_wins.round(2)
@@ -59,7 +59,7 @@ class StatTracker
   def percentage_ties
     ties = []
     games.by_row.each do |data|
-      ties << data if data[7] == data[6]
+      ties << data if data[:home_goals] == data[:away_goals]
     end
     percentage_of_ties = ties.count.to_f / games.count.to_f * 100
     percentage_of_ties.round(2)
@@ -68,7 +68,7 @@ class StatTracker
   def count_of_games_by_season
     games_by_season = Hash.new(0)
     games.by_row.each do |data|
-      games_by_season[data[1]] = data
+      games_by_season[data[:game_id]] = data
     end
   end
 
