@@ -2,7 +2,7 @@ require "csv"
 
 class GameCollection
   def initialize(games_csv)
-    @games_csv =games_csv
+    @games_csv = games_csv
   end
 
   def all
