@@ -27,7 +27,9 @@ class StatTrackerTest < MiniTest::Test
     assert_equal './data/game_teams_fixture.csv', @stat_tracker.game_teams
   end
 
-  def test_it_can_calculate_highest_total_score
-    
+  class GameStatisticsTest < StatTrackerTest
+    def test_it_can_calculate_highest_total_score
+      skip
+    end
   end
 end
