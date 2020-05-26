@@ -1,15 +1,16 @@
-require ''
+require 'csv'
+require './lib/game'
 
 class GameCollection
-  attr_reader :all
+  attr_reader :game_collection
 
   def initialize(game_collection)
-    @all = game_collection
+    @game_collection = game_collection
   end
 
-  def get_all
+  def all
     all_games = []
-    CSV.read(game_file, headers: true).each do |game|
+    CSV.read(game_collection, headers: true).each do |game|
       game_hash = {id: game["game_id"],
         season: game["season"],
         type: game["type"],
