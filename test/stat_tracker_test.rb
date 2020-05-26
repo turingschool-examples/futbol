@@ -22,12 +22,12 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_has_attributes
-    assert_equal './data/games.csv', @stat_tracker.games
-    assert_equal './data/teams.csv', @stat_tracker.teams
-    assert_equal './data/game_teams.csv', @stat_tracker.game_teams
+    assert_equal './data/games_fixture.csv', @stat_tracker.games
+    assert_equal './data/teams_fixture.csv', @stat_tracker.teams
+    assert_equal './data/game_teams_fixture.csv', @stat_tracker.game_teams
   end
 
   def test_it_can_calculate_highest_total_score
-
+    
   end
 end
