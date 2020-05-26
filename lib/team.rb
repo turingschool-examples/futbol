@@ -17,6 +17,4 @@ class Team
     @link         = info["link"]
   end
 
-  @@all_teams= []
-
 end
