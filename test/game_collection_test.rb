@@ -6,6 +6,12 @@ require 'pry'
 
 class GameCollectionTest < Minitest::Test
 
+  def setup
+    file = './data/games_fixture.csv'
+
+    @game_collection = GameCollection.new(file)
+  end
+
   def test_it_exists
     game = Game.new({
       :id => "2012030221",
