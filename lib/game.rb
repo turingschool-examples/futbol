@@ -21,5 +21,4 @@ class Game
     @home_goals   = info[:home_goals]
     @venue        = info[:venue]
   end
-
 end

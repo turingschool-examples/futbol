@@ -15,3 +15,4 @@ locations = {
 CSV.foreach(game_path) do |row|
   p row
 end
+
