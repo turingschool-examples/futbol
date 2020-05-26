@@ -1,7 +1,7 @@
-require_relative './game'	
-require_relative './team'	
-require_relative './game_teams'	
-require 'csv'	
+require_relative './game'
+require_relative './team'
+require_relative './game_teams'
+require 'csv'
 
 class StatTracker
   attr_reader :games,
@@ -17,4 +17,15 @@ class StatTracker
   def self.from_csv(info)
     StatTracker.new(info)
   end
+
+  # Game Statistic methods
+
+
+  # League Statistic methods
+
+
+  # Season Statistic methods
+
+
+  # Team Statistic methods
 end
