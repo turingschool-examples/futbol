@@ -4,9 +4,9 @@ require './lib/stat_tracker'
 
 class StatTrackerTest < MiniTest::Test
   def setup
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_path = './data/games_fixture.csv'
+    team_path = './data/teams_fixture.csv'
+    game_teams_path = './data/game_teams_fixture.csv'
 
     @locations = {
       games: game_path,
@@ -25,5 +25,9 @@ class StatTrackerTest < MiniTest::Test
     assert_equal './data/games.csv', @stat_tracker.games
     assert_equal './data/teams.csv', @stat_tracker.teams
     assert_equal './data/game_teams.csv', @stat_tracker.game_teams
+  end
+
+  def test_it_can_calculate_highest_total_score
+
   end
 end
