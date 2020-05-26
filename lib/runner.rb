@@ -1,4 +1,6 @@
-require './lib/stat_tracker'
+require 'CSV'
+require 'pry'
+
 
 game_path = './data/games.csv'
 team_path = './data/teams.csv'
@@ -10,6 +12,7 @@ locations = {
   game_teams: game_teams_path
 }
 
-# stat_tracker = StatTracker.from_csv(locations)
+CSV.foreach(game_path) do |row|
+  p row
+end
 
-require 'pry'; binding.pry

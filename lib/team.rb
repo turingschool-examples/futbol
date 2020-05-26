@@ -16,5 +16,4 @@ class Team
     @stadium      = info["stadium"]
     @link         = info["link"]
   end
-
 end
