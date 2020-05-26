@@ -14,11 +14,8 @@ class StatTracker
   end
 
   def games
-    rows = CSV.read(@games_path, headers: true, header_converters: :symbol)
-    rows.reduce([]) do |games, row|
-      games << Game.new(row)
-      games
-    end
+    game_collection = GameCollection.new(@games_path)
+    game_collection.all
   end
 
   def teams

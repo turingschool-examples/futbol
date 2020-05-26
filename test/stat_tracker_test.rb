@@ -3,13 +3,14 @@ require 'minitest/pride'
 require './lib/game'
 require './lib/team'
 require './lib/stat_tracker'
+require './lib/game_collection'
 require 'pry'
 
 class StatTrackerTest < Minitest::Test
   def setup
-    game_path = './data/games_fixture.csv'
-    team_path = './data/teams_fixture.csv'
-    game_teams_path = './data/game_teams_fixture.csv'
+    game_path = './fixtures/games_fixture.csv'
+    team_path = './fixtures/teams_fixture.csv'
+    game_teams_path = './fixtures/game_teams_fixture.csv'
 
     locations = {
       games: game_path,
@@ -25,9 +26,9 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_csv_paths
-    assert_equal './data/games_fixture.csv', @stat_tracker.games_path
-    assert_equal './data/teams_fixture.csv', @stat_tracker.teams_path
-    assert_equal './data/game_teams_fixture.csv', @stat_tracker.game_teams_path
+    assert_equal './fixtures/games_fixture.csv', @stat_tracker.games_path
+    assert_equal './fixtures/teams_fixture.csv', @stat_tracker.teams_path
+    assert_equal './fixtures/game_teams_fixture.csv', @stat_tracker.game_teams_path
   end
 
   def test_it_has_games
