@@ -2,6 +2,8 @@ require './test/test_helper'
 require './lib/stat_tracker'
 require './lib/game_collection'
 require './lib/game'
+require './lib/team_collection'
+require './lib/team'
 
 class StatTrackerTest < Minitest::Test
   def setup ## instantiate using the from_csv
@@ -28,13 +30,17 @@ class StatTrackerTest < Minitest::Test
     assert_equal './data/game_teams.csv', @stat_tracker.game_teams
   end
 
+  def test_it_can_have_game_collection
+    assert_instance_of GameCollection, @stat_tracker.game_collection
+  end
+
+  def test_it_can_have_team_collection
+    assert_instance_of TeamCollection, @stat_tracker.team_collection
+  end
+
   def test_it_can_get_highest_total_score
     skip
     assert_equal 11, @stat_tracker.highest_total_score
-  end
-
-  def test_it_can_have_game_collection
-    assert_instance_of GameCollection, @stat_tracker.game_collection
   end
 
 end
