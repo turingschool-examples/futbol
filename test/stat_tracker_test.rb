@@ -38,6 +38,24 @@ class StatTrackerTest < MiniTest::Test
   end
 
   class LeagueStatisticsTest < StatTrackerTest
+    def setup
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+
+      @locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+
+      @stat_tracker = StatTracker.from_csv(@locations)
+    end
+
+    def test_it_can_do_count_of_teams
+      # Total number of teams in the data.	should return an Integer
+      assert_equal 10, @stat_tracker.count_of_teams
+    end
   end
 
   class GameStatisticsTest < StatTrackerTest
