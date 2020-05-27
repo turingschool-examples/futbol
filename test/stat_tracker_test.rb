@@ -62,7 +62,7 @@ class StatTrackerTest < Minitest::Test
 
   # TEAM STATISTICS
 
-  def test_has_team_info
+  def test_can_get_team_info_hash
     result = @stat_tracker.team_info(1)
     assert_instance_of Hash, result
     assert_equal 1, result[:team_id]
