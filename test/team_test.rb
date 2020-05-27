@@ -28,7 +28,7 @@ class TeamTest < Minitest::Test
   end
 
   def test_it_has_info_hash
-    hash = @team.info
+    info_hash = @team.info
     assert_instance_of Hash, hash
     assert_equal 1, hash[:team_id]
     assert_equal "ATL", hash[:abbreviation]
