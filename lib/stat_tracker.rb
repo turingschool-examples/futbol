@@ -18,11 +18,11 @@ class StatTracker
     @@teams = teams_data.map do |row|
       Team.new(row)
     end
-    #
-    # game_teams_data = CSV.read(location[:game_teams], headers: true, header_converters: :symbol)
-    # @@games_team = games_team_data.map do |row|
-    #   GameTeam.new(row)
-    # end
+
+    game_teams_data = CSV.read(location[:game_teams], headers: true, header_converters: :symbol)
+    @@game_teams = game_teams_data.map do |row|
+      GameTeam.new(row)
+    end
 
     StatTracker.new
   end
@@ -33,5 +33,9 @@ class StatTracker
 
   def teams
     @@teams
+  end
+
+  def game_teams
+    @@game_teams
   end
 end
