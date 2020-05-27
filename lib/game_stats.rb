@@ -55,4 +55,15 @@ class GameStats
     end
     hash_count
   end
+
+  def average_goals_per_game
+    game_average = total_score.sum do |score|
+      score
+    end
+      (game_average.to_f / @games_collection.games.count).round(3)
+  end
+
+
+
+
 end
