@@ -13,8 +13,12 @@ class StatTracker
     StatTracker.new(data_files)
   end
 
+  def game_collection
+    GameCollection.new
+  end
+
   def highest_total_score
-    
+
   end
 
 end

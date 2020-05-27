@@ -27,7 +27,13 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_highest_total_score
+    skip
     assert_equal 11, @stat_tracker.highest_total_score
+  end
+
+  def test_it_can_have_game_collection
+    skip
+    assert_instance_of GameCollection, @stat_tracker.game_collection
   end
 
 end
