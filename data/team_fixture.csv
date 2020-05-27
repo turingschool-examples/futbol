@@ -1,0 +1,11 @@
+team_id,franchiseId,teamName,abbreviation,Stadium,link
+3,10,Houston Dynamo,HOU,BBVA Stadium,/api/v1/teams/3
+14,31,DC United,DC,Audi Field,/api/v1/teams/14
+21,27,Vancouver Whitecaps FC,VAN,BC Place,/api/v1/teams/21
+30,37,Orlando City SC,ORL,Exploria Stadium,/api/v1/teams/30
+19,18,Philadelphia Union,PHI,Talen Energy Stadium,/api/v1/teams/19
+26,14,FC Cincinnati,CIN,Nippert Stadium,/api/v1/teams/26
+24,32,Real Salt Lake,RSL,Rio Tinto Stadium,/api/v1/teams/24
+18,34,Minnesota United FC,MIN,Allianz Field,/api/v1/teams/18
+13,33,Houston Dash,HOD,BBVA Stadium,/api/v1/teams/13
+22,25,Washington Spirit FC,WAS,Maryland SoccerPlex,/api/v1/teams/22

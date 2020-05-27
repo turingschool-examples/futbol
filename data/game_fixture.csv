@@ -1,0 +1,10 @@
+game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
+2014030316,20142015,Postseason,5/27/15,3,14,5,3,Audi Field,/api/v1/venues/null
+2013030153,20132014,Postseason,4/21/14,21,30,0,1,Exploria Stadium,/api/v1/venues/null
+2014030151,20142015,Postseason,4/17/15,30,19,2,2,Talen Energy Stadium,/api/v1/venues/null
+2013030247,20132014,Postseason,5/17/14,26,24,4,2,Rio Tinto Stadium,/api/v1/venues/null
+2016030235,20162017,Postseason,5/6/17,18,19,1,2,Talen Energy Stadium,/api/v1/venues/null
+2012030183,20122013,Postseason,5/5/13,19,26,0,1,Nippert Stadium,/api/v1/venues/null
+2014030154,20142015,Postseason,4/23/15,19,30,4,1,Exploria Stadium,/api/v1/venues/null
+2012020705,20122013,Regular Season,4/27/13,22,30,4,1,Exploria Stadium,/api/v1/venues/null
+2013030156,20132014,Postseason,4/29/14,21,30,2,3,Exploria Stadium,/api/v1/venues/null
