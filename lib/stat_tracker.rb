@@ -100,6 +100,8 @@ class StatTracker
   ## start of league statistics
 
   def count_of_teams
+    teams.count
+  end
 
-  end 
+  
 end
