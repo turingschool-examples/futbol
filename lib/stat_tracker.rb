@@ -19,6 +19,13 @@ class StatTracker
   end
 
   # GAME STATISTICS
+  def highest_total_score
+    games.max_by { |game| game.total_goals }.total_goals
+  end
+
+  def lowest_total_score
+    games.min_by { |game| game.total_goals }.total_goals
+  end
 
   # LEAGUE STATISTICS
 

@@ -8,7 +8,9 @@ class GameTest < Minitest::Test
     game_params = {game_id: "2012030221",
                     season: "20122013",
                     away_team_id: "3",
-                    home_team_id: "6"}
+                    home_team_id: "6",
+                    away_goals: "2",
+                    home_goals: "3"}
     @game = Game.new(game_params)
   end
 
@@ -21,5 +23,8 @@ class GameTest < Minitest::Test
     assert_equal 20122013, @game.season
     assert_equal 3, @game.away_team_id
     assert_equal 6, @game.home_team_id
+    assert_equal 2, @game.away_goals
+    assert_equal 3, @game.home_goals
+    assert_equal 5, @game.total_goals
   end
 end
