@@ -12,4 +12,16 @@ class LeagueStats
     @teams_collection = file_path[:teams_collection]
     @game_teams_collection = file_path[:game_teams_collection]
   end
+
+  def count_of_teams
+    @teams_collection.teams.count
+  end
+
+  def best_offense
+
+  end
+
+  def worst_offense
+    
+  end
 end

@@ -32,4 +32,13 @@ class LeagueStatsTest < Minitest::Test
     assert_instance_of TeamCollection, @league_stats.teams_collection
     assert_instance_of GameTeamCollection, @league_stats.game_teams_collection
   end
+
+  def test_it_can_count_teams
+    assert_equal 32, @league_stats.count_of_teams
+  end
+
+  def test_it_can_find_best_offense_and_worst_offense
+    assert_equal "Atlanta United", @league_stats.best_offense
+    assert_equal "Utah Royals", @league_stats.worst_offense
+  end
 end
