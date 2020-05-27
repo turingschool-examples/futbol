@@ -40,4 +40,8 @@ class StatTracker
     @team_collection.find_by_id(id).info
   end
 
+  def most_goals_scored(team_id)
+    
+  end
+
 end

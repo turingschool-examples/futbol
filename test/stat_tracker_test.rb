@@ -69,4 +69,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal "ATL", result[:abbreviation]
   end
 
+  def test_most_goals_scored_for_given_team
+    assert_equal 3, @stat_tracker.most_goals_scored(6)
+  end
+
 end
