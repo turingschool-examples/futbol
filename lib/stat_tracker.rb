@@ -1,6 +1,3 @@
-require 'csv'
-require 'pry'
-
 class StatTracker
   attr_reader :games_path, :teams_path, :game_teams_path
   def initialize(stat_tracker_params)
@@ -14,16 +11,11 @@ class StatTracker
   end
 
   def games
-    game_collection = GameCollection.new(@games_path)
-    game_collection.all
+    GameCollection.new(@games_path).all
   end
 
   def teams
-    rows = CSV.read(@teams_path, headers: true, header_converters: :symbol)
-    rows.reduce([]) do |teams, row|
-      teams << Team.new(row)
-      teams
-    end
+    TeamCollection.new(@teams_path).all
   end
 
   # GAME STATISTICS
