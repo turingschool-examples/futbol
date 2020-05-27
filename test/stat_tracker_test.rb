@@ -8,7 +8,6 @@ require './lib/game_collection'
 require './lib/team_collection'
 require './lib/gt_collection'
 require './lib/stat_tracker'
-require 'pry'
 
 class StatTrackerTest < Minitest::Test
   def setup
@@ -64,6 +63,11 @@ class StatTrackerTest < Minitest::Test
 
   def test_lowest_total_score
     assert_equal 3, @stat_tracker.lowest_total_score
+  end
+
+  # LEAGUE STATISTICS
+  def test_it_can_count_teams
+    assert_equal 6, @stat_tracker.count_of_teams
   end
 
   # TEAM STATISTICS
