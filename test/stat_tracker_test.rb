@@ -4,6 +4,8 @@ require './lib/game_collection'
 require './lib/game'
 require './lib/team_collection'
 require './lib/team'
+require './lib/game_team_collection'
+require './lib/game_team'
 
 class StatTrackerTest < Minitest::Test
   def setup ## instantiate using the from_csv
@@ -36,6 +38,10 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_have_team_collection
     assert_instance_of TeamCollection, @stat_tracker.team_collection
+  end
+
+  def test_it_can_have_game_team_collection
+    assert_instance_of GameTeamCollection, @stat_tracker.game_team_collection
   end
 
   def test_it_can_get_highest_total_score
