@@ -35,7 +35,6 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Toyota Stadium", game.venue
   end
 
-
   def test_it_finds_teams
     team = Team.new(@stat_tracker.teams.first)
     assert_instance_of Team, team
@@ -50,6 +49,11 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "away", game_teams.hoa
     assert_equal "OT", game_teams.settled_in
     assert_equal "LOSS", game_teams.result
+  end
+
+  def test_it_finds_count_of_games_by_season
+    @stat_tracker.expects(:count_of_games_by_season).returns({"20122013"=>3, "20142015"=>4})
+    assert_equal ({"20122013"=>3, "20142015"=>4}), @stat_tracker.count_of_games_by_season
   end
  ##  start of game statistics
 
@@ -73,10 +77,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 5.56, @stat_tracker.percentage_ties
   end
 
-  def test_it_has_count_of_games_by_season
-    expected = {"20122013"=>19, "20162017"=>4, "20142015"=>6, "20152016"=>7}
-    assert_equal expected, @stat_tracker.count_of_games_by_season
-  end
+
 
 
 

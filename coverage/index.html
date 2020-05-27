@@ -14,7 +14,7 @@
       <img src="./assets/0.12.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2020-05-26T18:28:10-06:00">2020-05-26T18:28:10-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2020-05-27T11:38:58-06:00">2020-05-27T11:38:58-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="green">
-  100.0%
+  95.96%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         4.28
+         3.82
        </span>
     </span> hits/line
     )
@@ -39,15 +39,15 @@
   <a name="AllFiles"></a>
 
   <div>
-    <b>4</b> files in total.
+    <b>5</b> files in total.
   </div>
 
   <div class="t-line-summary">
-    <b>87</b> relevant lines,
-    <span class="green"><b>87</b> lines covered</span> and
-    <span class="red"><b>0</b> lines missed. </span>
+    <b>99</b> relevant lines,
+    <span class="green"><b>95</b> lines covered</span> and
+    <span class="red"><b>4</b> lines missed. </span>
     (<span class="green">
-  100.0%
+  95.96%
 </span>
 )
   </div>
@@ -71,7 +71,7 @@
       <tbody>
         
           <tr class="t-file">
-            <td class="strong t-file__name"><a href="#9eeef4f6773a632d3e238ab3def6bc14c2eff933" class="src_link" title="lib/game.rb">lib/game.rb</a></td>
+            <td class="strong t-file__name"><a href="#c71453bec6377d8d8cd6ed1ff14a916519dd6732" class="src_link" title="lib/game.rb">lib/game.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
             <td class="cell--number">25</td>
             <td class="cell--number">13</td>
@@ -82,7 +82,7 @@
           </tr>
         
           <tr class="t-file">
-            <td class="strong t-file__name"><a href="#03a562b120fdb457877ce25b8b4ad109fc9535cc" class="src_link" title="lib/game_teams.rb">lib/game_teams.rb</a></td>
+            <td class="strong t-file__name"><a href="#a4a1000c1929c73ffa460c864b0a8b3a2f921579" class="src_link" title="lib/game_teams.rb">lib/game_teams.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
             <td class="cell--number">35</td>
             <td class="cell--number">18</td>
@@ -93,24 +93,35 @@
           </tr>
         
           <tr class="t-file">
-            <td class="strong t-file__name"><a href="#bc083a62a6a475628c7f27dc65e68df2b1554830" class="src_link" title="lib/stat_tracker.rb">lib/stat_tracker.rb</a></td>
+            <td class="strong t-file__name"><a href="#f1a8f850a273954cc78f27ae21328dfe754d553c" class="src_link" title="lib/stat_tracker.rb">lib/stat_tracker.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">116</td>
-            <td class="cell--number">47</td>
-            <td class="cell--number">47</td>
+            <td class="cell--number">98</td>
+            <td class="cell--number">49</td>
+            <td class="cell--number">49</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">7.06</td>
+            <td class="cell--number">6.78</td>
             
           </tr>
         
           <tr class="t-file">
-            <td class="strong t-file__name"><a href="#1ce3bc6a7562fb801350331e2072a95c74bc8b00" class="src_link" title="lib/team.rb">lib/team.rb</a></td>
+            <td class="strong t-file__name"><a href="#54447bec75e08e45a980f194dc0ea1fef3286f7c" class="src_link" title="lib/team.rb">lib/team.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">18</td>
+            <td class="cell--number">17</td>
             <td class="cell--number">9</td>
             <td class="cell--number">9</td>
             <td class="cell--number">0</td>
             <td class="cell--number">1.00</td>
+            
+          </tr>
+        
+          <tr class="t-file">
+            <td class="strong t-file__name"><a href="#35c24348417349273c36b62eb1c31607bbe3ced2" class="src_link" title="lib/team_collection.rb">lib/team_collection.rb</a></td>
+            <td class="red strong cell--number t-file__coverage">60.00 %</td>
+            <td class="cell--number">18</td>
+            <td class="cell--number">10</td>
+            <td class="cell--number">6</td>
+            <td class="cell--number">4</td>
+            <td class="cell--number">0.60</td>
             
           </tr>
         
@@ -131,7 +142,7 @@
 
       <div class="source_files">
       
-        <div class="source_table" id="9eeef4f6773a632d3e238ab3def6bc14c2eff933">
+        <div class="source_table" id="c71453bec6377d8d8cd6ed1ff14a916519dd6732">
   <div class="header">
     <h3>lib/game.rb</h3>
     <h4>
@@ -373,7 +384,7 @@
 
             
 
-            <code class="ruby">    @away_goals = game_info[:away_goals].to_i</code>
+            <code class="ruby">    @away_goals = game_info[:away_goals]</code>
           </li>
         </div>
       
@@ -384,7 +395,7 @@
 
             
 
-            <code class="ruby">    @home_goals = game_info[:home_goals].to_i</code>
+            <code class="ruby">    @home_goals = game_info[:home_goals]</code>
           </li>
         </div>
       
@@ -437,7 +448,7 @@
 </div>
 
       
-        <div class="source_table" id="03a562b120fdb457877ce25b8b4ad109fc9535cc">
+        <div class="source_table" id="a4a1000c1929c73ffa460c864b0a8b3a2f921579">
   <div class="header">
     <h3>lib/game_teams.rb</h3>
     <h4>
@@ -853,7 +864,7 @@
 </div>
 
       
-        <div class="source_table" id="bc083a62a6a475628c7f27dc65e68df2b1554830">
+        <div class="source_table" id="f1a8f850a273954cc78f27ae21328dfe754d553c">
   <div class="header">
     <h3>lib/stat_tracker.rb</h3>
     <h4>
@@ -867,8 +878,8 @@
     
 
     <div class="t-line-summary">
-      <b>47</b> relevant lines.
-      <span class="green"><b>47</b> lines covered</span> and
+      <b>49</b> relevant lines.
+      <span class="green"><b>49</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -1639,24 +1650,24 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="37" data-linenumber="70">
-            <span class="hits">37</span>
+          <li class="covered" data-hits="1" data-linenumber="70">
+            <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">    games_by_season = @games.group_by { |game| game[:season] }</code>
+            <code class="ruby">    games_by_season = @games.group_by do |game|</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="5" data-linenumber="71">
-            <span class="hits">5</span>
+          <li class="covered" data-hits="36" data-linenumber="71">
+            <span class="hits">36</span>
             
 
             
 
-            <code class="ruby">    games_by_season.transform_values { |games| games.length }</code>
+            <code class="ruby">      game[:season]</code>
           </li>
         </div>
       
@@ -1667,29 +1678,29 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="73">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="73">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">  # def count_of_games_by_season</code>
+            
+
+            <code class="ruby">    games_by_season.transform_values do |game|</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="74">
-            
-            
-
+          <li class="covered" data-hits="4" data-linenumber="74">
+            <span class="hits">4</span>
             
 
-            <code class="ruby">  #   games_by_season = Hash.new(0)</code>
+            
+
+            <code class="ruby">      game.length</code>
           </li>
         </div>
       
@@ -1700,7 +1711,7 @@
 
             
 
-            <code class="ruby">  #   games.group_by do |game|</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
@@ -1711,7 +1722,7 @@
 
             
 
-            <code class="ruby">  #     games_by_season[game[:season]] = games_by_season.count { |k, _| k == [game[:season]]}</code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -1733,7 +1744,7 @@
 
             
 
-            <code class="ruby">  #   end</code>
+            <code class="ruby">  # your_hash.count { |k, _| k.to_s.include?(&#39;yes&#39;) }</code>
           </li>
         </div>
       
@@ -1744,7 +1755,7 @@
 
             
 
-            <code class="ruby">  #   binding.pry</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -1755,7 +1766,7 @@
 
             
 
-            <code class="ruby">  #   games_by_season.transform_values do |season|</code>
+            <code class="ruby">  #   highest_total_away_score = games.by_col![7].max_by do |number|</code>
           </li>
         </div>
       
@@ -1766,7 +1777,7 @@
 
             
 
-            <code class="ruby">  #     season.count</code>
+            <code class="ruby">  #     number</code>
           </li>
         </div>
       
@@ -1788,7 +1799,7 @@
 
             
 
-            <code class="ruby">  # end</code>
+            <code class="ruby">  #</code>
           </li>
         </div>
       
@@ -1799,7 +1810,7 @@
 
             
 
-            <code class="ruby">  # def count_of_games_by_season</code>
+            <code class="ruby">  #   highest_total_score = highest_total_home_score + highest_total_away_score</code>
           </li>
         </div>
       
@@ -1810,7 +1821,7 @@
 
             
 
-            <code class="ruby">  #   games_by_season = Hash.new(0)</code>
+            <code class="ruby">  # end</code>
           </li>
         </div>
       
@@ -1821,7 +1832,7 @@
 
             
 
-            <code class="ruby">  #   games.by_row.each do |data|</code>
+            <code class="ruby">  #</code>
           </li>
         </div>
       
@@ -1832,7 +1843,7 @@
 
             
 
-            <code class="ruby">  #     data.map do |dat|</code>
+            <code class="ruby">  # def lowest_total_score</code>
           </li>
         </div>
       
@@ -1843,7 +1854,7 @@
 
             
 
-            <code class="ruby">  #       binding.pry</code>
+            <code class="ruby">  #   highest_total_home_score = games.by_row[6][7].sum do |number|</code>
           </li>
         </div>
       
@@ -1854,7 +1865,7 @@
 
             
 
-            <code class="ruby">  #     games_by_season[:season] = data</code>
+            <code class="ruby">  #     number</code>
           </li>
         </div>
       
@@ -1876,7 +1887,7 @@
 
             
 
-            <code class="ruby">  #     binding.pry</code>
+            <code class="ruby">  #</code>
           </li>
         </div>
       
@@ -1887,7 +1898,7 @@
 
             
 
-            <code class="ruby">  #     data.count { |k, _| k.to_s.include?(&#39;20122013&#39;) }</code>
+            <code class="ruby">  #   highest_total_away_score = games.by_col[7].max do |number|</code>
           </li>
         </div>
       
@@ -1898,7 +1909,7 @@
 
             
 
-            <code class="ruby">  #   end</code>
+            <code class="ruby">  #     number</code>
           </li>
         </div>
       
@@ -1909,7 +1920,7 @@
 
             
 
-            <code class="ruby">  # end</code>
+            <code class="ruby">  #   end</code>
           </li>
         </div>
       
@@ -1920,7 +1931,7 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  #</code>
           </li>
         </div>
       
@@ -1931,7 +1942,7 @@
 
             
 
-            <code class="ruby">  # your_hash.count { |k, _| k.to_s.include?(&#39;yes&#39;) }</code>
+            <code class="ruby">  #   highest_total_score = highest_total_away_score - highest_total_home_score</code>
           </li>
         </div>
       
@@ -1942,210 +1953,12 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  # end</code>
           </li>
         </div>
       
         <div>
           <li class="never" data-hits="" data-linenumber="98">
-            
-            
-
-            
-
-            <code class="ruby">  #   highest_total_away_score = games.by_col![7].max_by do |number|</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="99">
-            
-            
-
-            
-
-            <code class="ruby">  #     number</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="100">
-            
-            
-
-            
-
-            <code class="ruby">  #   end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="101">
-            
-            
-
-            
-
-            <code class="ruby">  #</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="102">
-            
-            
-
-            
-
-            <code class="ruby">  #   highest_total_score = highest_total_home_score + highest_total_away_score</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="103">
-            
-            
-
-            
-
-            <code class="ruby">  # end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="104">
-            
-            
-
-            
-
-            <code class="ruby">  #</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="105">
-            
-            
-
-            
-
-            <code class="ruby">  # def lowest_total_score</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="106">
-            
-            
-
-            
-
-            <code class="ruby">  #   highest_total_home_score = games.by_row[6][7].sum do |number|</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="107">
-            
-            
-
-            
-
-            <code class="ruby">  #     number</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="108">
-            
-            
-
-            
-
-            <code class="ruby">  #   end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="109">
-            
-            
-
-            
-
-            <code class="ruby">  #</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="110">
-            
-            
-
-            
-
-            <code class="ruby">  #   highest_total_away_score = games.by_col[7].max do |number|</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="111">
-            
-            
-
-            
-
-            <code class="ruby">  #     number</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="112">
-            
-            
-
-            
-
-            <code class="ruby">  #   end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="113">
-            
-            
-
-            
-
-            <code class="ruby">  #</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="114">
-            
-            
-
-            
-
-            <code class="ruby">  #   highest_total_score = highest_total_away_score - highest_total_home_score</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="115">
-            
-            
-
-            
-
-            <code class="ruby">  # end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="116">
             
             
 
@@ -2160,7 +1973,7 @@
 </div>
 
       
-        <div class="source_table" id="1ce3bc6a7562fb801350331e2072a95c74bc8b00">
+        <div class="source_table" id="54447bec75e08e45a980f194dc0ea1fef3286f7c">
   <div class="header">
     <h3>lib/team.rb</h3>
     <h4>
@@ -2373,6 +2186,224 @@
           </li>
         </div>
       
+    </ol>
+  </pre>
+</div>
+
+      
+        <div class="source_table" id="35c24348417349273c36b62eb1c31607bbe3ced2">
+  <div class="header">
+    <h3>lib/team_collection.rb</h3>
+    <h4>
+      <span class="red">
+  60.0%
+</span>
+
+      lines covered
+    </h4>
+
+    
+
+    <div class="t-line-summary">
+      <b>10</b> relevant lines.
+      <span class="green"><b>6</b> lines covered</span> and
+      <span class="red"><b>4</b> lines missed.</span>
+    </div>
+
+    
+
+  </div>
+
+  <pre>
+    <ol>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="1">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">require &#39;csv&#39;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="2">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">require_relative &#39;team&#39;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="3">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="4">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">class TeamCollection</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="5">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  attr_reader :teams</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="6">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="7">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def initialize(csv_file_path)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="8">
+            
+            
+
+            
+
+            <code class="ruby">    @teams = create_teams(csv_file_path)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="9">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="10">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="11">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def create_teams(csv_file_path)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="12">
+            
+            
+
+            
+
+            <code class="ruby">    csv = CSV.read(&#39;./data/teams.csv&#39;, headers: true, header_converters: :symbol)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="13">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="14">
+            
+            
+
+            
+
+            <code class="ruby">    csv.map do |row|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="15">
+            
+            
+
+            
+
+            <code class="ruby">      Team.new(row)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="16">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="17">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
         <div>
           <li class="never" data-hits="" data-linenumber="18">
             
@@ -2380,7 +2411,7 @@
 
             
 
-            <code class="ruby"> ##</code>
+            <code class="ruby">end</code>
           </li>
         </div>
       
