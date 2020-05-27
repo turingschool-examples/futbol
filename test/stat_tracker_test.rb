@@ -52,7 +52,7 @@ class StatTrackerTest < MiniTest::Test
 
     def test_it_can_return_percentage_home_wins
       skip
-      
+      assert_equal 50.0, @stat_tracker.percentage_home_wins
     end
 
     def test_it_can_return_percentage_visitor_wins

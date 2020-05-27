@@ -33,4 +33,6 @@ class StatTracker
       game.away_goals.to_i + game.home_goals.to_i
     end.min
   end
+
+  
 end
