@@ -70,6 +70,36 @@ class StatTrackerTest < Minitest::Test
     assert_equal 6, @stat_tracker.count_of_teams
   end
 
+  def test_it_can_identify_best_offense
+    assert_equal "FC Dallas", @stat_tracker.best_offense
+  end
+
+# i'm still TTDing here! just helpful to see the number of tests ahead of me still needing to be written and to be able to pseudo code the solutions for all of them first to see how they relate...
+  def test_it_can_identify_worst_offense
+    skip
+    assert_equal "Houston Dynamo", @stat_tracker.worst_offense
+  end
+
+  def test_it_can_identify_highest_scoring_visitor
+    skip
+    assert_equal "", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_it_can_identify_highest_scoring_home_team
+    skip
+    assert_equal "", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_it_can_identify_lowest_scoring_visitor
+    skip
+    assert_equal "", @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_it_can_identify_lowest_scoring_home_team
+    skip
+    assert_equal "", @stat_tracker.lowest_scoring_home_team
+  end
+
   # TEAM STATISTICS
 
   def test_can_get_team_info_hash

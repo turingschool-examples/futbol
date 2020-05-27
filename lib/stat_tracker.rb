@@ -39,6 +39,40 @@ class StatTracker
   def count_of_teams
     @team_collection.all.count
   end
+
+  def best_offense
+    # group objects in game_teams file by team
+    # for each of those groups, identify their average number of goals
+    # identify team w highest average
+    # return team name
+  end
+
+  def worst_offense
+    # use same set up as above
+    # but then identify team w lowest average
+    # return team name
+  end
+
+  def highest_scoring_visitor
+    # identify all objects identified as away games in game_teams
+    # amongst the list of away games, group objects by team
+    # for each group, identify average number of goals
+    # identify team w highest average
+    # return team name
+  end
+
+  def highest_scoring_home_team
+    # same as above but w home games instead of away games
+  end
+
+  def lowest_scoring_visitor
+    # same as highest_scoring_visitor but find team w lowest average
+  end
+
+  def lowest_scoring_home_team
+    # same as above but w home games
+  end
+
   # SEASON STATISTIC
 
   # TEAM STATISTICS
@@ -62,5 +96,4 @@ class StatTracker
       scores
     end.min
   end
-
 end
