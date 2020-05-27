@@ -17,8 +17,16 @@ class StatTracker
     GameCollection.new
   end
 
+  def team_collection
+    TeamCollection.new
+  end
+
+  def game_team_collection
+    GameTeamCollection.new
+  end 
+
   def highest_total_score
-    
+
   end
 
 end
