@@ -51,4 +51,15 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_lowest_total_score
     assert_equal 1, @stat_tracker.lowest_total_score
   end
+
+  def test_it_can_get_team_info
+    expected = {
+                :team_id => "30",
+                :franchiseid => "37",
+                :teamname => "Orlando City SC",
+                :abbreviation => "ORL",
+                :link => "/api/v1/teams/30"
+                }
+    assert_equal expected, @stat_tracker.team_info(30)
+  end
 end

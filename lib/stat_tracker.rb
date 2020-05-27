@@ -44,4 +44,16 @@ class StatTracker
     end
     lowest_score
   end
+
+  def team_info(team_id)
+    acc = {}
+    CSV.foreach(@teams, headers: true, header_converters: :symbol) do |row|
+      if row[:team_id].to_i == team_id
+        row.delete(:stadium)
+        acc = row.to_h
+      end
+    end
+    acc
+  end
+
 end
