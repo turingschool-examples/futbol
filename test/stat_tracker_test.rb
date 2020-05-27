@@ -51,7 +51,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_highest_total_score
-    skip
-    assert_equal
+    assert_equal 5, @stat_tracker.highest_total_score
   end
 end
