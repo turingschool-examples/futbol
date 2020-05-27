@@ -27,4 +27,11 @@ class TeamTest < Minitest::Test
     assert_equal "/api/v1/teams/1", @team.link
   end
 
+  def test_it_has_info_hash
+    hash = @team.info
+    assert_instance_of Hash, hash
+    assert_equal 1, hash[:team_id]
+    assert_equal "ATL", hash[:abbreviation]
+  end
+
 end
