@@ -33,4 +33,9 @@ class StatTracker
 
   # TEAM STATISTICS
 
+  def team_info(team_id)
+    {}
+    # find_by_id(id)
+  end
+
 end

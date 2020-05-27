@@ -50,6 +50,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal "/api/v1/teams/1", @stat_tracker.teams.first.link
   end
 
+  # GAME STATISTICS
+
   def test_highest_total_score
     assert_equal 5, @stat_tracker.highest_total_score
   end
@@ -57,4 +59,11 @@ class StatTrackerTest < Minitest::Test
   def test_lowest_total_score
     assert_equal 3, @stat_tracker.lowest_total_score
   end
+
+  # TEAM STATISTICS
+
+  def test_has_team_info
+    assert_instance_of Hash, @stat_tracker.team_info(1)
+  end
+
 end
