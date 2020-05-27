@@ -21,10 +21,20 @@ class StatTracker
 
   # Game Statistics Methods
   def highest_total_score
-    games = GameCollection.new(@games)
-    return games.all
+    all_games = GameCollection.new(@games)
+    total_scores = []
+    all_games.all.each do |game|
+      total_scores << (game.away_goals.to_i + game.home_goals.to_i)
+    end
+    total_scores.max
   end
 
   def lowest_total_score
+    all_games = GameCollection.new(@games)
+    total_scores = []
+    all_games.all.each do |game|
+      total_scores << (game.away_goals.to_i + game.home_goals.to_i)
+    end
+    total_scores.min
   end
 end

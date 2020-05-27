@@ -43,12 +43,10 @@ class StatTrackerTest < MiniTest::Test
     end
 
     def test_it_can_return_highest_total_score
-      require "pry"; binding.pry
       assert_equal 6, @stat_tracker.highest_total_score
     end
 
     def test_it_can_return_lowest_total_score
-      skip
       assert_equal 3, @stat_tracker.lowest_total_score
     end
   end
