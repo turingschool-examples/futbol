@@ -18,7 +18,7 @@ class StatTracker
   end
 
   def highest_total_score
-
+    
   end
 
 end

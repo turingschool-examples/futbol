@@ -1,3 +1,4 @@
+require 'csv'
 class GameCollection
 
   @@game_path = './data/games.csv'

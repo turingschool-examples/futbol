@@ -1,5 +1,7 @@
 require './test/test_helper'
 require './lib/stat_tracker'
+require './lib/game_collection'
+require './lib/game'
 
 class StatTrackerTest < Minitest::Test
   def setup ## instantiate using the from_csv
@@ -32,7 +34,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_have_game_collection
-    skip
     assert_instance_of GameCollection, @stat_tracker.game_collection
   end
 

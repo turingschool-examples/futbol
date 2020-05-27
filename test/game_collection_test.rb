@@ -5,18 +5,16 @@ require './lib/game_collection'
 
 class GameCollectionTest < Minitest::Test
 
-def setup
-    @game_path = './data/games.csv'
-    @team_path = './data/teams.csv'
-    @game_teams_path = './data/game_teams.csv'
+  def setup
+    @game_collection = GameCollection.new
+  end
 
-    @locations = {
-      games: @game_path,
-      teams: @team_path,
-      game_teams: @game_teams_path
-    }
+  def test_it_exists
+    assert_instance_of GameCollection, @game_collection
+  end
 
-    @stat_tracker = StatTracker.from_csv(@locations)
+  def test_it_can_return_all_games
+    assert_instance_of Game, @game_collection.all[0]
   end
 
 end
