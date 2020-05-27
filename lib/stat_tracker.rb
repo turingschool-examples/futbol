@@ -1,13 +1,18 @@
+
+require "csv"
+require "./lib/game"
+
 class StatTracker
-
-  attr_reader :from_csv
-
-  def initialize(locations)
-    @locations = locations
+  @@games =[]
+  def self.from_csv(location)
+    games_data = CSV.read(location[:games], headers: true)
+    @@games = games_data.map do |row|
+       Game.new(row)
+     end
+    StatTracker.new
   end
 
-  def self.from_csv(locations)
-    StatTracker.new(locations)
+  def games
+    @@games
   end
-
 end
