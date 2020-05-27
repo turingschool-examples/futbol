@@ -19,4 +19,5 @@ class TeamCollectionTest < Minitest::Test
     assert_instance_of Team, @team_collection.all.first
     assert_equal 6, @team_collection.all.count
   end
+
 end

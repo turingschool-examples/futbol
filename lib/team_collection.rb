@@ -12,4 +12,5 @@ class TeamCollection
       teams
     end
   end
+
 end
