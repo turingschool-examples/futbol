@@ -9,9 +9,9 @@ require './lib/game_team'
 
 class StatTrackerTest < Minitest::Test
   def setup ## instantiate using the from_csv
-    @game_path = './data/games.csv'
-    @team_path = './data/teams.csv'
-    @game_teams_path = './data/game_teams.csv'
+    @game_path = './data/fixtures/game_fixture.csv'
+    @team_path = './data/fixtures/team_fixture.csv'
+    @game_teams_path = './data/fixtures/game_teams_fixture.csv'
 
     @locations = {
       games: @game_path,
@@ -27,9 +27,9 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal './data/games.csv', @stat_tracker.games
-    assert_equal './data/teams.csv', @stat_tracker.teams
-    assert_equal './data/game_teams.csv', @stat_tracker.game_teams
+    assert_equal './data/fixtures/game_fixture.csv', @stat_tracker.games
+    assert_equal './data/fixtures/team_fixture.csv', @stat_tracker.teams
+    assert_equal './data/fixtures/game_teams_fixture.csv', @stat_tracker.game_teams
   end
 
   def test_it_can_have_game_collection
@@ -45,7 +45,10 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_highest_total_score
-    skip
-    assert_equal 11, @stat_tracker.highest_total_score
+    assert_equal 8, @stat_tracker.highest_total_score
+  end
+
+  def test_it_can_get_lowest_total_score
+    assert_equal 1, @stat_tracker.lowest_total_score
   end
 end
