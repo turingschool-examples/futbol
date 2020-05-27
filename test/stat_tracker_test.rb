@@ -48,5 +48,4 @@ class StatTrackerTest < Minitest::Test
     skip
     assert_equal 11, @stat_tracker.highest_total_score
   end
-
 end
