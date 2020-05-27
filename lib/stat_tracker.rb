@@ -36,8 +36,8 @@ class StatTracker
 
   # TEAM STATISTICS
 
-  def team_info(team_id)
-    @team_collection.find_by_id(team_id).info
+  def team_info(id)
+    @team_collection.find_by_id(id).info
   end
 
 end
