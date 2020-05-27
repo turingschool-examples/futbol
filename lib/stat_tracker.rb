@@ -1,6 +1,7 @@
 require_relative './game'
 require_relative './team'
 require_relative './game_teams'
+require_relative './game_collection'
 require 'csv'
 
 class StatTracker
@@ -16,5 +17,14 @@ class StatTracker
 
   def self.from_csv(info)
     StatTracker.new(info)
+  end
+
+  # Game Statistics Methods
+  def highest_total_score
+    games = GameCollection.new(@games)
+    return games.all
+  end
+
+  def lowest_total_score
   end
 end
