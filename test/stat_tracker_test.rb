@@ -49,4 +49,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal "ATL", @stat_tracker.teams.first.abbreviation
     assert_equal "/api/v1/teams/1", @stat_tracker.teams.first.link
   end
+
+  def test_highest_total_score
+    skip
+    assert_equal
+  end
 end
