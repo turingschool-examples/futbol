@@ -5,11 +5,13 @@ require './lib/team'
 
 class TeamTest < Minitest::Test
   def setup
-    team_params = {team_id: "1",
-                  franchiseid: "23",
+    team_params = {
+                    team_id: "1",
+                    franchiseid: "23",
                     teamname: "Atlanta United",
                     abbreviation: "ATL",
-                    link: "/api/v1/teams/1"}
+                    link: "/api/v1/teams/1"
+                  }
     @team = Team.new(team_params)
   end
 
@@ -24,4 +26,5 @@ class TeamTest < Minitest::Test
     assert_equal "ATL", @team.abbreviation
     assert_equal "/api/v1/teams/1", @team.link
   end
+
 end
