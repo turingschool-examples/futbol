@@ -1,9 +1,8 @@
-
-
 require "simplecov"
 SimpleCov.start
 require "minitest/autorun"
 require "./lib/stat_tracker"
+require 'pry'
 
 class StatTrackerTest < Minitest::Test
   def setup
@@ -24,8 +23,12 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
-  def test_tracker_can_fetch_data
+  def test_tracker_can_fetch_game_data
     assert_equal 60, @stat_tracker.games.count
     assert_instance_of Game, @stat_tracker.games.first
+  end
+
+  def test_tracker_can_fetch_team_data
+    assert_equal 32, @stat_tracker.teams.count
   end
 end
