@@ -41,7 +41,8 @@ class StatTracker
   end
 
   def most_goals_scored(team_id)
-    
+    # find max out of array of goals scored per WIN for
+    # given team. Use game_teams csv.
   end
 
 end
