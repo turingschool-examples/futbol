@@ -65,7 +65,6 @@ class StatTracker
     percentage_of_ties.round(2)
   end
 
-
   def count_of_games_by_season
     games_by_season = @games.group_by do |game|
       game[:season]
@@ -74,25 +73,21 @@ class StatTracker
       game.length
     end
   end
-  #
-  # your_hash.count { |k, _| k.to_s.include?('yes') }
 
-  #   highest_total_away_score = games.by_col![7].max_by do |number|
-  #     number
-  #   end
-  #
-  #   highest_total_score = highest_total_home_score + highest_total_away_score
-  # end
-  #
-  # def lowest_total_score
-  #   highest_total_home_score = games.by_row[6][7].sum do |number|
-  #     number
-  #   end
-  #
-  #   highest_total_away_score = games.by_col[7].max do |number|
-  #     number
-  #   end
-  #
-  #   highest_total_score = highest_total_away_score - highest_total_home_score
-  # end
+  def average_goals_per_game
+    sum_total_score = 0
+    games.by_row.each do |data|
+        sum_total_score += data[:away_goals].to_i + data[:home_goals].to_i
+      end
+      average_goals_per_game = sum_total_score / (games.count * 2).to_f
+      average_goals_per_game.round(2)
+  end
+
+  def average_goals_by_season
+    games_by_season = @games.group_by do |game|
+      game[:season]
+    end
+    games_by_season.map do |_, game|
+    end
+  end
 end

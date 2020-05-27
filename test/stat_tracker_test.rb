@@ -50,11 +50,6 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "OT", game_teams.settled_in
     assert_equal "LOSS", game_teams.result
   end
-
-  def test_it_finds_count_of_games_by_season
-    @stat_tracker.expects(:count_of_games_by_season).returns({"20122013"=>3, "20142015"=>4})
-    assert_equal ({"20122013"=>3, "20142015"=>4}), @stat_tracker.count_of_games_by_season
-  end
  ##  start of game statistics
 
   def test_it_has_highest_total_score
@@ -77,12 +72,17 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 5.56, @stat_tracker.percentage_ties
   end
 
+  def test_it_finds_count_of_games_by_season
+    @stat_tracker.expects(:count_of_games_by_season).returns({"20122013"=>3, "20142015"=>4})
+    assert_equal ({"20122013"=>3, "20142015"=>4}), @stat_tracker.count_of_games_by_season
+  end
 
+  def test_it_can_find_average_goals_per_game
+    assert_equal 1.96, @stat_tracker.average_goals_per_game
+  end
 
-
-
-  # # difference in points for both teams
-  # def test_it_can_find_difference_in_total_goals
-  #   assert_equal 17, @stat_tracker.lowest_total_score
-  # end
+  def test_has_average_goals_by_season
+    # @stat_tracker.expects(:average_goals_by_season).returns({"20122013"=>3, "20142015"=>4})
+    assert_equal ({"20122013"=>3, "20142015"=>4}), @stat_tracker.average_goals_by_season
+  end
 end
