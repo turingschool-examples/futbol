@@ -63,7 +63,10 @@ class StatTrackerTest < Minitest::Test
   # TEAM STATISTICS
 
   def test_has_team_info
-    assert_instance_of Hash, @stat_tracker.team_info(1)
+    result = @stat_tracker.team_info(1)
+    assert_instance_of Hash, result
+    assert_equal 1, result[:team_id]
+    assert_equal "ATL", result[:abbreviation]
   end
 
 end

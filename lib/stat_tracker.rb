@@ -1,9 +1,12 @@
 class StatTracker
-  attr_reader :games_path, :teams_path, :game_teams_path
+  attr_reader :games_path, :teams_path, :game_teams_path, :game_collection, :team_collection
+
   def initialize(stat_tracker_params)
     @games_path = stat_tracker_params[:games]
     @teams_path = stat_tracker_params[:teams]
     @game_teams_path = stat_tracker_params[:game_teams]
+    @game_collection = GameCollection.new(@games_path)
+    @team_collection = TeamCollection.new(@teams_path)
   end
 
   def self.from_csv(stat_tracker_params)
@@ -11,11 +14,11 @@ class StatTracker
   end
 
   def games
-    GameCollection.new(@games_path).all
+    @game_collection.all
   end
 
   def teams
-    TeamCollection.new(@teams_path).all
+    @team_collection.all
   end
 
   # GAME STATISTICS
@@ -34,8 +37,7 @@ class StatTracker
   # TEAM STATISTICS
 
   def team_info(team_id)
-    {}
-    # find_by_id(id)
+    @team_collection.find_by_id(team_id).info
   end
 
 end
