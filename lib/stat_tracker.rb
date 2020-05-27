@@ -42,4 +42,13 @@ class StatTracker
     end
     ((home_wins.to_f / all_games.all.size)*100).round(2)
   end
+
+  def percentage_visitor_wins
+    all_games = GameCollection.new(@games)
+    visitor_wins = 0
+    all_games.all.each do |game|
+      visitor_wins += 1 if game.away_goals.to_i > game.home_goals.to_i
+    end
+    ((visitor_wins.to_f / all_games.all.size)*100).round(2)
+  end
 end
