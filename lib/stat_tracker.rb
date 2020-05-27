@@ -36,7 +36,10 @@ class StatTracker
   end
 
   # LEAGUE STATISTICS
-
+  def count_of_teams
+    require "pry"; binding.pry
+    @game_collection.all.count
+  end
   # SEASON STATISTIC
 
   # TEAM STATISTICS
