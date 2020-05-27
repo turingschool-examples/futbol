@@ -49,5 +49,29 @@ class StatTrackerTest < MiniTest::Test
     def test_it_can_return_lowest_total_score
       assert_equal 3, @stat_tracker.lowest_total_score
     end
+
+    def test_it_can_return_percentage_home_wins
+      skip
+    end
+
+    def test_it_can_return_percentage_visitor_wins
+      skip
+    end
+
+    def test_it_can_return_percentage_ties
+      skip
+    end
+
+    def test_it_can_return_count_of_games_by_season
+      skip
+    end
+
+    def test_it_can_return_average_goals_per_game
+      skip
+    end
+
+    def test_it_can_return_average_goals_by_season
+      skip
+    end
   end
 end
