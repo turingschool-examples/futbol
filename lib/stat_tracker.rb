@@ -7,6 +7,7 @@ class StatTracker
     @game_teams_path = stat_tracker_params[:game_teams]
     @game_collection = GameCollection.new(@games_path)
     @team_collection = TeamCollection.new(@teams_path)
+    @gt_collection = GameTeamCollection.new(@game_teams_path)
   end
 
   def self.from_csv(stat_tracker_params)
@@ -19,6 +20,10 @@ class StatTracker
 
   def teams
     @team_collection.all
+  end
+
+  def game_teams
+    @gt_collection.all
   end
 
   # GAME STATISTICS

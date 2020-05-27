@@ -3,8 +3,10 @@ require 'minitest/pride'
 require './test/setup'
 require './lib/game'
 require './lib/team'
+require './lib/game_team'
 require './lib/game_collection'
 require './lib/team_collection'
+require './lib/gt_collection'
 require './lib/stat_tracker'
 require 'pry'
 
@@ -50,6 +52,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal "/api/v1/teams/1", @stat_tracker.teams.first.link
   end
 
+  def test_it_has_game_teams
+    assert_instance_of GameTeam, @stat_tracker.game_teams.first
+  end
+
   # GAME STATISTICS
 
   def test_highest_total_score
@@ -70,6 +76,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_most_goals_scored_for_given_team
+    skip
     assert_equal 3, @stat_tracker.most_goals_scored(6)
   end
 
