@@ -53,30 +53,30 @@ class StatTrackerTest < MiniTest::Test
   end
  ##  start of game statistics
 
-  def test_it_highest_total_score
-    assert_equal 5, @stat_tracker.highest_total_score
+  def test_it_has_highest_total_score
+    assert_equal 7, @stat_tracker.highest_total_score
   end
 
-  def test_it_lowest_total_score
+  def test_it_has_lowest_total_score
     assert_equal 1, @stat_tracker.lowest_total_score
   end
 
-  def test_it_percentage_home_wins
-    assert_equal 68.42, @stat_tracker.percentage_home_wins
+  def test_it_has_percentage_home_wins
+    assert_equal 55.56, @stat_tracker.percentage_home_wins
   end
 
-  def test_it_percentage_visitor_wins
-    assert_equal 26.32, @stat_tracker.percentage_visitor_wins
+  def test_it_has_percentage_visitor_wins
+    assert_equal 38.89, @stat_tracker.percentage_visitor_wins
   end
 
-  def test_it_percentage_ties
-    assert_equal 5.26, @stat_tracker.percentage_ties
+  def test_it_has_percentage_ties
+    assert_equal 5.56, @stat_tracker.percentage_ties
   end
 
-  # def test_it_count_of_games_by_season
-  #   expected = {20122013: }
-  #   assert_equal expected, @stat_tracker.count_of_games_by_season
-  # end
+  def test_it_has_count_of_games_by_season
+    expected = {"20122013"=>19, "20162017"=>4, "20142015"=>6, "20152016"=>7}
+    assert_equal expected, @stat_tracker.count_of_games_by_season
+  end
 
 
 

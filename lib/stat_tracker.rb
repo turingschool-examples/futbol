@@ -65,12 +65,17 @@ class StatTracker
     percentage_of_ties.round(2)
   end
 
+
   def count_of_games_by_season
-    games_by_season = Hash.new(0)
-    games.by_row.each do |data|
-      games_by_season[data[:game_id]] = data
+    games_by_season = @games.group_by do |game|
+      game[:season]
+    end
+    games_by_season.transform_values do |games|
+      games.length
     end
   end
+  # 
+  # your_hash.count { |k, _| k.to_s.include?('yes') }
 
   #   highest_total_away_score = games.by_col![7].max_by do |number|
   #     number
