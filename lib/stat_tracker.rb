@@ -1,6 +1,7 @@
 require_relative './game'
 require_relative './team'
 require_relative './game_teams'
+require 'pry'
 require 'csv'
 
 class StatTracker
@@ -28,4 +29,12 @@ class StatTracker
 
 
   # Team Statistic methods
+  csv = CSV.read('./data/teams.csv', headers: true, header_converters: :symbol)
+  teams_collection = csv.map do |row|
+    binding.pry
+    Team.new(row)
+  end
+  puts csv
+
+
 end
