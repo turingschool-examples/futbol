@@ -20,11 +20,4 @@ class TeamCollectionTest < Minitest::Test
     assert_equal 6, @team_collection.all.count
   end
 
-  def test_it_can_find_by_id
-    result = @team_collection.find_by_id(1)
-    assert_instance_of Team, result
-    assert_equal 1, result.team_id
-    assert_equal "ATL", result.abbreviation
-  end
-  
 end

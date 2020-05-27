@@ -42,12 +42,23 @@ class StatTracker
   # TEAM STATISTICS
 
   def team_info(id)
-    @team_collection.find_by_id(id).info
+    teams.find do |team|
+      team.team_id == id
+    end.info
   end
 
   def most_goals_scored(team_id)
-    # find max out of array of goals scored per WIN for
-    # given team. Use game_teams csv.
+    game_teams.reduce([]) do |scores, game_team|
+      scores << game_team.goals if game_team.team_id == team_id
+      scores
+    end.max
+  end
+
+  def fewest_goals_scored(team_id)
+    game_teams.reduce([]) do |scores, game_team|
+      scores << game_team.goals if game_team.team_id == team_id
+      scores
+    end.min
   end
 
 end

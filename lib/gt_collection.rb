@@ -13,10 +13,4 @@ class GameTeamCollection
     end
   end
 
-  def find_all_by(id)
-    all.find_all do |game_team|
-      game_team.team_id == id || game_team.game_id == id
-    end
-  end
-
 end
