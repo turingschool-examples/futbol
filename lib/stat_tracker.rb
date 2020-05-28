@@ -1,6 +1,7 @@
 require_relative './game'
 require_relative './team'
 require_relative './game_teams'
+require_relative './team_collection'
 require 'csv'
 require 'pry'
 
@@ -9,23 +10,42 @@ class StatTracker
               :teams,
               :game_teams
 
+# def initialize(data)
+#   @teams = CSV.read(data[:teams], headers: true, header_converters: :symbol)
+#   require "pry"; binding.pry
+#   @games = CSV.read(data[:games], headers: true, header_converters: :symbol)
+#   @game_teams = CSV.read(data[:game_teams], headers: true, header_converters: :symbol)
+# end
+#
+# def from_csv(data)
+#   StatTracker.new(data)
+# end
+
   def self.from_csv(csv_files)
-    games = CSV.read(csv_files[:games], headers: true, header_converters: :symbol)
+    games = create_games(csv_files[:games])
     teams = CSV.read(csv_files[:teams], headers: true, header_converters: :symbol)
     game_teams = CSV.read(csv_files[:game_teams], headers: true, header_converters: :symbol)
     StatTracker.new(games, teams, game_teams)
   end
 
-  def initialize(game_path, team_path, game_teams_path)
-    @games = game_path
-    @teams = team_path
-    @game_teams = game_teams_path
+  def self.create_games(game_file)
+    games = []
+    CSV.foreach(game_file, headers: true, header_converters: :symbol) do |row|
+      games << Game.new(row)
+    end
+    games
+  end
+
+  def initialize(games, teams, game_teams)
+    @games = games
+    @teams = teams
+    @game_teams = game_teams
   end
 
   def highest_total_score
     sum_total_score = []
-    games.by_row.each do |data|
-        sum_total_score << data[:away_goals].to_i + data[:home_goals].to_i
+    games.each do |game|
+        sum_total_score << game.away_goals.to_i + game.home_goals.to_i
     end
     sum_total_score.max
   end
@@ -133,10 +153,12 @@ class StatTracker
     end
   end
 
-  # def highest_scoring_visitor
-  #   away_team_goals = @games.all.reduce(Hash.new(0)) do |teams, game|
-  #     teams[game.away_team_id] += game.away_goals
-  #     teams
-  #   end
-  # end
+  def highest_scoring_visitor
+    away_team_goals = games.all.reduce(Hash.new(0)) do |teams, game|
+      teams[game.away_team_id] += game.away_goals
+      teams
+    end
+    # require "pry"; binding.pry
+    # away_team_goals
+  end
 end
