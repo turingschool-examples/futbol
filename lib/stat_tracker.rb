@@ -44,15 +44,15 @@ class StatTracker
   def winningest_coach(season_id)
     coaches_stats = Hash.new(0)
 
-      game_team_collection.all.each do |game_team|
-        if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
-          if game_team.result == "LOSS"
-            coaches_stats[game_team.head_coach] -= 1
-          elsif game_team.result == "WIN"
-            coaches_stats[game_team.head_coach] += 1
-          elsif game_team.result == "TIE"
-            next
-          end
+    game_team_collection.all.each do |game_team|
+      if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
+        if game_team.result == "LOSS"
+          coaches_stats[game_team.head_coach] -= 1
+        elsif game_team.result == "WIN"
+          coaches_stats[game_team.head_coach] += 1
+        elsif game_team.result == "TIE"
+          next
+        end
       end
     end
     best_coach = coaches_stats.max_by do |coach, wins|
@@ -64,15 +64,15 @@ class StatTracker
   def worst_coach(season_id)
     coaches_stats = Hash.new(0)
 
-      game_team_collection.all.each do |game_team|
-        if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
-          if game_team.result == "LOSS"
-            coaches_stats[game_team.head_coach] -= 1
-          elsif game_team.result == "WIN"
-            coaches_stats[game_team.head_coach] += 1
-          elsif game_team.result == "TIE"
-            next
-          end
+    game_team_collection.all.each do |game_team|
+      if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
+        if game_team.result == "LOSS"
+          coaches_stats[game_team.head_coach] -= 1
+        elsif game_team.result == "WIN"
+          coaches_stats[game_team.head_coach] += 1
+        elsif game_team.result == "TIE"
+          next
+        end
       end
     end
     worst_coach = coaches_stats.min_by do |coach, wins|

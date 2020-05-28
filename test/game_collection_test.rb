@@ -18,8 +18,8 @@ class GameCollectionTest < Minitest::Test
     assert_instance_of Game, @game_collection.all[0]
   end
 
-  # def test_all
-  #
-  # end
+  def test_all
+    assert_equal Array, @game_collection.all.class
+  end
 
 end
