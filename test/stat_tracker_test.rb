@@ -71,8 +71,7 @@ class StatTrackerTest < MiniTest::Test
     end
 
     def test_it_can_return_average_goals_by_season
-      skip
-      
+      assert_equal ({"20122013" => 6, "20142015" => 4.33}), @stat_tracker.average_goals_by_season
     end
   end
 end
