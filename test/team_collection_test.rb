@@ -1,6 +1,5 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './test/setup'
 require './lib/team_collection'
 require './lib/team'
 
