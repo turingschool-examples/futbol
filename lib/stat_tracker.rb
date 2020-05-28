@@ -76,6 +76,25 @@ class StatTracker
     best_coach[0]
   end
 
+  def worst_coach(season_id)
+    coaches_stats = Hash.new(0)
+      CSV.foreach(@game_teams, headers: true, header_converters: :symbol) do |game_team|
+        if season_id.to_s.include?(game_team[:game_id].split(//).join[0..3])
+          if game_team[:result] == "LOSS"
+            coaches_stats[game_team[:head_coach]] -= 1
+          elsif game_team[:result] == "WIN"
+            coaches_stats[game_team[:head_coach]] += 1
+          elsif game_team[:result] == "TIE"
+            next
+          end
+      end
+    end
+    worst_coach = coaches_stats.min_by do |coach, wins|
+      wins
+    end
+    worst_coach[0]
+  end
+
   def most_accurate_team(season_id)
     best_ratio = 0
     best_team = nil
