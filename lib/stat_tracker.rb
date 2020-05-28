@@ -65,18 +65,17 @@ class StatTracker
     end.min
   end
 
-  # #helper method for best_season
-  # def game_winner(game_id)
-  # end
+  # --------------
 
-  # STUCK ON
   def best_season(team_id)
-    # array of game_team objects with matching team_id and WINs
-    # (this could be a GameTeamCollection find_by method!!)
+    # Create array of game_team objects with matching team_id and WINs
+    # (this could be a GameTeamCollection find_by method!!
+    # maybe split up the matching by team_id and matching by result)
     game_teams_won = game_teams.find_all do |game_team|
       game_team.team_id == team_id && game_team.result == "WIN"
     end
 
+    # Cross-reference game_teams with games:
     games_won = []
     game_teams_won.each do |game_team|
       games.each do |game|
@@ -84,15 +83,19 @@ class StatTracker
       end
     end
 
-    # hash with season as keys, won Game objects array as values
+    # Using cross-referenced game list, create hash with season as keys,
+    # and won [Game objects array] as values
     season_hash = games_won.group_by do |game|
       game.season
     end
 
+    # Count up the number of games for each season (remember these are "wins")
+    # For some reason, calling max_by on a hash returns an array.
     season_with_most_wins = season_hash.max_by do |season, games|
       games.count
     end
 
+    # so then I called the would-be key by using index 0 in the array
     season_with_most_wins[0].to_s
   end
 
