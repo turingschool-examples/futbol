@@ -52,22 +52,17 @@ class StatTrackerTest < Minitest::Test
     assert_equal 1, @stat_tracker.lowest_total_score
   end
 
-  # def test_it_can_determine_coach_off_of_game_id
-  #   assert_equal "Houston Dash", @stat_tracker.coach_based_off_team_id(13)
-  #   assert_nil nil, @stat_tracker.coach_based_off_team_id(5)
-  # end
+  def test_it_can_determine_the_winningest_coach
+    assert_equal "Darryl Sutter", @stat_tracker.winningest_coach(20122013)
+    assert_equal "Alain Vigneault", @stat_tracker.winningest_coach(20142015)
+    assert_equal "Mike Yeo", @stat_tracker.winningest_coach(20162017)
+  end
 
-  # def test_it_can_determine_the_winningest_coach #### NOT WORKING
-  #   assert_equal "Mike Yeo", @stat_tracker.winningest_coach(20122013)
-  #   assert_equal "Jon Cooper", @stat_tracker.winningest_coach(20142015)
-  #   assert_equal "Mike Yeo", @stat_tracker.winningest_coach(20162017)
-  # end
-
-  # def test_it_can_determine_the_worst_coach
-  #   assert_equal "Jon Cooper", @stat_tracker.worst_coach(20122013)
-  #   assert_equal "Jon Cooper", @stat_tracker.worst_coach(20142015)
-  #   assert_equal "Jon Cooper", @stat_tracker.worst_coach(20162017)
-  # end
+  def test_it_can_determine_the_worst_coach
+    assert_equal "Jon Cooper", @stat_tracker.worst_coach(20122013)
+    assert_equal "Jon Cooper", @stat_tracker.worst_coach(20142015)
+    assert_equal "Jon Cooper", @stat_tracker.worst_coach(20162017)
+  end
 
   def test_it_can_determine_the_most_accurate_team
     assert_equal "Washington Spirit FC", @stat_tracker.most_accurate_team(20122013)
