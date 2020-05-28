@@ -41,7 +41,7 @@ class StatTrackerTest < MiniTest::Test
     def setup
       game_path = './data/games.csv'
       team_path = './data/teams.csv'
-      game_teams_path = './data/game_teams.csv'
+      game_teams_path = './data/game_teams_fixture.csv'
 
       @locations = {
         games: game_path,
@@ -55,8 +55,11 @@ class StatTrackerTest < MiniTest::Test
     def test_it_can_do_count_of_teams
       assert_equal 32, @stat_tracker.count_of_teams
     end
+
+    def test_it_knows_best_offense
+      assert_equal "FC Dallas", @stat_tracker.best_offense
+    end
   end
-  # count_of_teams	Total number of teams in the data.	Integer
   # best_offense	Name of the team with the highest average number of goals scored per game across all seasons.	String
   # worst_offense	Name of the team with the lowest average number of goals scored per game across all seasons.	String
   # highest_scoring_visitor	Name of the team with the highest average score per game across all seasons when they are away.	String
