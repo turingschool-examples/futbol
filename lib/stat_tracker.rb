@@ -64,7 +64,19 @@ class StatTracker
     best_coach[0]
   end
 
-  def most_accurate_team
+  def most_accurate_team(season_id)
+    best_ratio = 0
+    best_team = nil
+    CSV.foreach(@game_teams, headers: true, header_converters: :symbol) do |game_team|
+      if season_id.to_s.include?(game_team[:game_id].split(//).join[0..3])
+        if game_team[:goals].to_f / game_team[:shots].to_f > best_ratio
+          best_ratio = game_team[:goals].to_f / game_team[:shots].to_f
+          best_team = game_team
+        end
+      end
+    end
+
+    team_name_based_off_of_team_id(best_team[:team_id].to_i)
 
     ## smthn smthn smthn goals/shots for ratio, highest float being the best
     ## then find the team_id and match it up to return the team name
