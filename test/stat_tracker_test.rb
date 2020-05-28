@@ -66,6 +66,15 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3, @stat_tracker.lowest_total_score
   end
 
+  # LEAGUE STATISTICS
+
+  # SEASON STATISTICS
+
+  def test_it_can_tell_winningest_coach
+    
+
+  end
+
   # TEAM STATISTICS
 
   def test_can_get_team_info_hash

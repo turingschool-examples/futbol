@@ -37,7 +37,23 @@ class StatTracker
 
   # LEAGUE STATISTICS
 
-  # SEASON STATISTIC
+  # SEASON STATISTICS
+
+  # winningest_coach	Name of the Coach with the best win percentage for the season	String
+  def winningest_coach(season_id)
+    #season_id will reference all games played in that season. This will start in game_collection, then use team_id to reference gt_collection and finally return the head_coach name as a string
+
+  end
+  # worst_coach	Name of the Coach with the worst win percentage for the season	String
+  #
+  # most_accurate_team	Name of the Team with the best ratio of shots to goals for the season	String
+  #
+  # least_accurate_team	Name of the Team with the worst ratio of shots to goals for the season	String
+  #
+  # most_tackles	Name of the Team with the most tackles in the season	String
+  #
+  # fewest_tackles	Name of the Team with the fewest tackles in the season	String
+  #
 
   # TEAM STATISTICS
 
