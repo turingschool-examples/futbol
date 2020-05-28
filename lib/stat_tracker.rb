@@ -10,20 +10,10 @@ class StatTracker
               :teams,
               :game_teams
 
-# def initialize(data)
-#   @teams = CSV.read(data[:teams], headers: true, header_converters: :symbol)
-#   require "pry"; binding.pry
-#   @games = CSV.read(data[:games], headers: true, header_converters: :symbol)
-#   @game_teams = CSV.read(data[:game_teams], headers: true, header_converters: :symbol)
-# end
-#
-# def from_csv(data)
-#   StatTracker.new(data)
-# end
 
   def self.from_csv(csv_files)
     games = create_games(csv_files[:games])
-    teams = CSV.read(csv_files[:teams], headers: true, header_converters: :symbol)
+    teams = create_teams(csv_files[:teams])
     game_teams = CSV.read(csv_files[:game_teams], headers: true, header_converters: :symbol)
     StatTracker.new(games, teams, game_teams)
   end
@@ -34,6 +24,14 @@ class StatTracker
       games << Game.new(row)
     end
     games
+  end
+
+  def self.create_teams(team_file)
+    teams = []
+    CSV.foreach(team_file, headers: true, header_converters: :symbol) do |row|
+      teams << Team.new(row)
+    end
+    teams
   end
 
   def initialize(games, teams, game_teams)
@@ -52,16 +50,16 @@ class StatTracker
 
   def lowest_total_score
     sum_total_score = []
-    games.by_row.each do |data|
-        sum_total_score << data[:away_goals].to_i + data[:home_goals].to_i
+    games.each do |game|
+        sum_total_score << game.away_goals.to_i + game.home_goals.to_i
     end
     sum_total_score.min
   end
 
   def percentage_home_wins
     home_wins = []
-    games.by_row.each do |data|
-      home_wins << data if data[:home_goals] > data[:away_goals]
+    games.each do |game|
+      home_wins << game if game.home_goals > game.away_goals
     end
     percentage_of_home_wins = home_wins.count.to_f / games.count.to_f * 100
     percentage_of_home_wins.round(2)
@@ -69,8 +67,8 @@ class StatTracker
 
   def percentage_visitor_wins
     visitor_wins = []
-    games.by_row.each do |data|
-      visitor_wins << data if data[:home_goals] < data[:away_goals]
+    games.each do |game|
+      visitor_wins << game if game.home_goals < game.away_goals
     end
     percentage_of_visitor_wins = visitor_wins.count.to_f / games.count.to_f * 100
     percentage_of_visitor_wins.round(2)
@@ -78,8 +76,8 @@ class StatTracker
 
   def percentage_ties
     ties = []
-    games.by_row.each do |data|
-      ties << data if data[:home_goals] == data[:away_goals]
+    games.each do |game|
+      ties << game if game.home_goals == game.away_goals
     end
     percentage_of_ties = ties.count.to_f / games.count.to_f * 100
     percentage_of_ties.round(2)
@@ -87,7 +85,7 @@ class StatTracker
 
   def count_of_games_by_season
     games_by_season = @games.group_by do |game|
-      game[:season]
+      game.season
     end
     games_by_season.transform_values do |game|
       game.length
@@ -96,8 +94,8 @@ class StatTracker
 
   def average_goals_per_game
     sum_total_score = 0
-    games.by_row.each do |data|
-        sum_total_score += data[:away_goals].to_i + data[:home_goals].to_i
+    games.each do |game|
+        sum_total_score += game.away_goals.to_i + game.home_goals.to_i
       end
       average_goals_per_game = sum_total_score / (games.count * 2).to_f
       average_goals_per_game.round(2)
@@ -105,12 +103,12 @@ class StatTracker
 
   def average_goals_by_season
     games_by_season = @games.group_by do |game|
-      game[:season]
+      game.season
     end
     games_by_season.transform_values do |game|
       sum_total_score = 0
-      game.each do |single|
-        sum_total_score += single[:away_goals].to_i + single[:home_goals].to_i
+      game.each do |game|
+        sum_total_score += game.away_goals.to_i + game.home_goals.to_i
       end
       average_goals_per_season = sum_total_score / (game.count * 2).to_f
       average_goals_per_season.round(2)
@@ -125,14 +123,14 @@ class StatTracker
 
   def best_offense
     id_score = Hash.new(0)
-    games.by_row.map do |data|
-      id_score[data[:away_team_id]] += data[:away_goals].to_i
-      id_score[data[:home_team_id]] += data[:home_goals].to_i
+    games.map do |game|
+      id_score[game.away_team_id] += game.away_goals.to_i
+      id_score[game.home_team_id] += game.home_goals.to_i
     end
       id = id_score.key(id_score.values.max)
       found = teams.find do |team|
-        if team[:team_id] == id
-           return team[:teamname]
+        if team.team_id == id
+           return team.team_name
         end
       found
     end
@@ -140,14 +138,14 @@ class StatTracker
 
   def worst_offense
     id_score = Hash.new(0)
-    games.by_row.map do |data|
-      id_score[data[:away_team_id]] += data[:away_goals].to_i
-      id_score[data[:home_team_id]] += data[:home_goals].to_i
+    games.map do |game|
+      id_score[game.away_team_id] += game.away_goals.to_i
+      id_score[game.home_team_id] += game.home_goals.to_i
     end
       id = id_score.key(id_score.values.min)
       found = teams.find do |team|
-        if team[:team_id] == id
-           return team[:teamname]
+        if team.team_id == id
+           return team.team_name
         end
       found
     end
