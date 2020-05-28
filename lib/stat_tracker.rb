@@ -41,6 +41,32 @@ class StatTracker
   end
 
   def best_offense
+    team_scores = game_teams.reduce({}) do |team_scores, game|
+      if team_scores[game.team_id].nil?
+        team_scores[game.team_id] = [game.goals]
+      else
+        team_scores[game.team_id] << game.goals
+      end
+      team_scores
+    end
+    # returns hash w team_id as key and array of each team's goals in each game as values
+    # => {3=>[2, 2, 1], 6=>[3, 3, 2]}
+
+      # ******find a way to turn the values into score averages
+
+    require "pry"; binding.pry
+
+    score_sums = team_scores.inject(0) do |score_sum, (team_id, scores_array)|
+      scores_array.sum / scores_array.count.to_f
+      score_sum
+    end
+    # ^ returns nil
+
+    score_sums
+    # games_by_team = game_teams.group_by do |game|
+    #   game.team_id
+    # end
+
     # group objects in game_teams file by team
     # for each of those groups, identify their average number of goals
     # identify team w highest average

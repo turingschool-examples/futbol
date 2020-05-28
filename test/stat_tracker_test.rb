@@ -1,6 +1,5 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './test/setup'
 require './lib/game'
 require './lib/team'
 require './lib/game_team'
@@ -74,12 +73,12 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas", @stat_tracker.best_offense
   end
 
-# i'm still TTDing here! just helpful to see the number of tests ahead of me still needing to be written and to be able to pseudo code the solutions for all of them first to see how they relate...
   def test_it_can_identify_worst_offense
     skip
     assert_equal "Houston Dynamo", @stat_tracker.worst_offense
   end
 
+  # i'm still TTDing here! just helpful to see the number of tests ahead of me still needing to be written and to be able to pseudo code the solutions for all of them first to see how they relate...
   def test_it_can_identify_highest_scoring_visitor
     skip
     assert_equal "", @stat_tracker.highest_scoring_visitor
@@ -116,5 +115,4 @@ class StatTrackerTest < Minitest::Test
   def test_fewest_goals_scored_for_given_team
     assert_equal 2, @stat_tracker.fewest_goals_scored(6)
   end
-
 end
