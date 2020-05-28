@@ -27,4 +27,8 @@ class TeamCollection
        :link => found_team.link
      }
   end
+
+  def all
+   @teams
+  end
 end

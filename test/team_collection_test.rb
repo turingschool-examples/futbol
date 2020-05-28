@@ -30,4 +30,8 @@ class TeamCollectionTest < Minitest::Test
    assert_equal "1", @team.team_id
    assert_equal "Atlanta United", @team.team_name
   end
+
+  def test_it_has_all
+    assert_equal @team_collection.teams, @team_collection.all
+  end
 end
