@@ -1,3 +1,7 @@
+require_relative "game"
+require_relative "team"
+require_relative "game_team"
+
 class StatTracker
   attr_reader :games_path, :teams_path, :game_teams_path
 
@@ -9,8 +13,16 @@ class StatTracker
   end
 
   def initialize(games_path, teams_path, game_teams_path)
-    @games_path = games_path
-    @teams_path = teams_path
-    @game_teams_path = game_teams_path
+    Game.from_csv(games_path)
+    Team.from_csv(teams_path)
+    GameTeam.from_csv(game_teams_path)
+
+    # @games_path = games_path
+    # @teams_path = teams_path
+    # @game_teams_path = game_teams_path
+  end
+
+  def count_of_teams
+    Team.accumulator.count
   end
 end
