@@ -61,4 +61,30 @@ class StatTracker
     end.min
   end
 
+  # #helper method for best_season
+  # def game_winner(game_id)
+  # end
+
+  # STUCK ON
+  def best_season(team_id)
+    games_for_team_id = game_teams.find_all do |game_team|
+      game_team.team_id == team_id
+    end
+    # get relevant games (per team id),
+    # extract season id for each of 'games_for_team_id' collection
+    # make new array of arrays, each sub array is a [season_id, win/loss/tie]
+    # make new hash object
+    # iterate through that collection of arrays, new hash key is season id,
+    # and value is another hash with win => #, loss => #
+
+
+    game_results = []
+    games_for_team_id.each do |game_team|
+      game_results = games.find_all do |game|
+        game_team.game_id == game.game_id
+        # return season?
+      end
+    end
+  end
+
 end
