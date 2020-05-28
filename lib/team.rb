@@ -1,5 +1,8 @@
+require_relative 'loadable'
 
 class Team
+  @@accumulator = []
+  extend Loadable
   attr_reader :team_id,
               :franchiseid,
               :teamname,
@@ -14,5 +17,13 @@ class Team
     @abbreviation = team_info[:abbreviation]
     @stadium = team_info[:stadium]
     @link = team_info[:link]
+  end
+
+  def self.from_csv(games_file_path)
+    load_csv(games_file_path, self)
+  end
+
+  def self.accumulator
+    @@accumulator
   end
 end
