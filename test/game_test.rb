@@ -28,7 +28,7 @@ class GameTest < Minitest::Test
     assert_equal "2/3/13",@game.date_time
     assert_equal "1",@game.away_team_id
     assert_equal "2",@game.home_team_id
-    assert_equal "3",@game.away_goals
-    assert_equal "0",@game.home_goals
+    assert_equal 3, @game.away_goals
+    assert_equal 0, @game.home_goals
   end
 end
