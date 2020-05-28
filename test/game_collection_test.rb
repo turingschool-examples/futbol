@@ -6,7 +6,8 @@ require './lib/game_collection'
 class GameCollectionTest < Minitest::Test
 
   def setup
-    @game_collection = GameCollection.new
+    @game_path = './data/games.csv'
+    @game_collection = GameCollection.new(@game_path)
   end
 
   def test_it_exists
