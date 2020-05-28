@@ -49,7 +49,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_lowest_total_score
-    skip
     assert_equal 1, @stat_tracker.lowest_total_score
   end
 

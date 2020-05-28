@@ -42,13 +42,22 @@ class StatTracker
   end
 
   def lowest_total_score
-    lowest_score = 1_000_000_000
-    CSV.foreach(@games, headers: true, header_converters: :symbol) do |game|
-      if game[:away_goals].to_i + game[:home_goals].to_i < lowest_score
-        lowest_score = game[:away_goals].to_i + game[:home_goals].to_i
-      end
+    total = game_collection.all.min_by do |game|
+      game.away_goals + game.home_goals
     end
-    lowest_score
+
+    total.home_goals + total.away_goals
+
+
+
+
+    # lowest_score = 1_000_000_000
+    # CSV.foreach(@games, headers: true, header_converters: :symbol) do |game|
+    #   if game[:away_goals].to_i + game[:home_goals].to_i < lowest_score
+    #     lowest_score = game[:away_goals].to_i + game[:home_goals].to_i
+    #   end
+    # end
+    # lowest_score
   end
 
   def winningest_coach(season_id) ## NOT WORKING ALWAYS RETURNS MIKE YEO
