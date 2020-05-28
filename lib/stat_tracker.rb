@@ -18,11 +18,11 @@ class StatTracker
   end
 
   def team_collection
-    TeamCollection.new
+    TeamCollection.new(@teams)
   end
 
   def game_team_collection
-    GameTeamCollection.new
+    GameTeamCollection.new(@game_teams)
   end
 
   def highest_total_score
@@ -47,9 +47,6 @@ class StatTracker
     end
 
     total.home_goals + total.away_goals
-
-
-
 
     # lowest_score = 1_000_000_000
     # CSV.foreach(@games, headers: true, header_converters: :symbol) do |game|

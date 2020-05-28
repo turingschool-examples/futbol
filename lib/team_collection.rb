@@ -1,10 +1,8 @@
 require 'csv'
 class TeamCollection
 
-  @@team_path = './data/teams.csv'
-
-  def initialize
-    rows = CSV.read(@@team_path, headers: true, header_converters: :symbol)
+  def initialize(team_data)
+    rows = CSV.read(team_data, headers: true, header_converters: :symbol)
     @teams = []
     rows.each do |row|
       @teams << Team.new(row)

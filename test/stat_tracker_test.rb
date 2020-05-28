@@ -70,34 +70,29 @@ class StatTrackerTest < Minitest::Test
   # end
 
   def test_it_can_determine_the_most_accurate_team
-    skip
     assert_equal "Washington Spirit FC", @stat_tracker.most_accurate_team(20122013)
     assert_equal "Philadelphia Union", @stat_tracker.most_accurate_team(20142015)
     assert_equal "Philadelphia Union", @stat_tracker.most_accurate_team(20152016)
   end
 
   def test_it_can_determine_the_least_accurate_team
-    skip
     assert_equal "Philadelphia Union", @stat_tracker.least_accurate_team(20122013)
     assert_equal "Orlando City SC", @stat_tracker.least_accurate_team(20142015)
     assert_equal "Minnesota United FC", @stat_tracker.least_accurate_team(20162017)
   end
 
   def test_it_can_return_team_name_based_off_of_team_id
-    skip
     assert_equal "Philadelphia Union", @stat_tracker.team_name_based_off_of_team_id(19)
     assert_nil nil, @stat_tracker.team_name_based_off_of_team_id(5)
   end
 
   def test_it_can_determine_the_team_with_the_most_tackles
-    skip
     assert_equal "FC Cincinnati", @stat_tracker.most_tackles(20122013)
     assert_equal "Houston Dynamo", @stat_tracker.most_tackles(20142015)
     assert_equal "Philadelphia Union", @stat_tracker.most_tackles(20162017)
   end
 
   def test_it_can_determine_the_team_with_the_fewest_tackles
-    skip
     assert_equal "Washington Spirit FC", @stat_tracker.fewest_tackles(20122013)
     assert_equal "Philadelphia Union", @stat_tracker.fewest_tackles(20142015)
     assert_equal "Minnesota United FC", @stat_tracker.fewest_tackles(20162017)
