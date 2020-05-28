@@ -1,3 +1,7 @@
+require_relative "./game_collection"
+require_relative "./team_collection"
+require_relative "./gt_collection"
+
 class StatTracker
   attr_reader :games_path, :teams_path, :game_teams_path, :game_collection, :team_collection
 
@@ -60,5 +64,6 @@ class StatTracker
       scores
     end.min
   end
+
 
 end

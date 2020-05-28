@@ -83,4 +83,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal 2, @stat_tracker.fewest_goals_scored(6)
   end
 
+
+
 end
