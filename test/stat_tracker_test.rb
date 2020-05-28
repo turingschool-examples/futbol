@@ -70,6 +70,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_return_team_name_based_off_of_team_id
     assert_equal "Philadelphia Union", @stat_tracker.team_name_based_off_of_team_id(19)
+    assert_nil nil, @stat_tracker.team_name_based_off_of_team_id(5)
   end
 
 end
