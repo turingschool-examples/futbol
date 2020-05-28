@@ -51,4 +51,36 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_lowest_total_score
     assert_equal 1, @stat_tracker.lowest_total_score
   end
+
+
+##################### Beginning of League section #####################
+
+  def test_it_can_get_count_of_teams
+
+  end
+
+  def test_it_can_get_best_offense
+
+  end
+
+  def test_it_can_get_worst_offense
+
+  end
+
+  def test_it_can_get_highest_scoring_visitor
+
+  end
+
+  def test_it_can_get_highest_scoring_home_team
+
+  end
+
+  def test_it_can_get_lowest_scoring_visitor
+
+  end
+
+  def test_it_can_get_lowest_scoring_home_team
+
+  end
+
 end
