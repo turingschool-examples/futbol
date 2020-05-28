@@ -1,4 +1,4 @@
-class GameTeam
+class GameTeam ### clean out data that is not necessary to store 
   attr_reader :game_id,
               :team_id,
               :hoa,

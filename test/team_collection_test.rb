@@ -18,4 +18,6 @@ class TeamCollectionTest < Minitest::Test
     assert_instance_of Team, @team_collection.all[0]
   end
 
+  # def test_all 
+  # end
 end

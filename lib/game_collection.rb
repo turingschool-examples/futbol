@@ -1,7 +1,5 @@
 require 'csv'
 class GameCollection
-  #
-  # @@game_path = './data/games.csv'
 
   def initialize(game_data)
     rows = CSV.read(game_data, headers: true, header_converters: :symbol)
