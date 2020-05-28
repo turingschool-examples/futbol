@@ -87,4 +87,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Philadelphia Union", @stat_tracker.most_tackles(20162017)
   end
 
+  def test_it_can_determine_the_team_with_the_fewest_tackles
+    assert_equal "Washington Spirit FC", @stat_tracker.fewest_tackles(20122013)
+    assert_equal "Philadelphia Union", @stat_tracker.fewest_tackles(20142015)
+    assert_equal "Minnesota United FC", @stat_tracker.fewest_tackles(20162017)
+  end
+
 end
