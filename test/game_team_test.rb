@@ -25,8 +25,8 @@ class GameTeamTest < Minitest::Test
       takeaways: 2
     })
     @game_team = GameTeam.new(expected)
-    @game_team_data = CSV.read('../test/fixtures/game_teams_fixture.csv', headers: true, header_converters: :symbol)
-    @game_team_2 = GameTeam.new(@game_team_data[1])
+    GameTeam.from_csv("./test/fixtures/game_teams_fixture.csv")
+    @game_team_2 = GameTeam.accumulator[5]
   end
 
   def test_it_exists
@@ -54,21 +54,21 @@ class GameTeamTest < Minitest::Test
   def test_it_can_read_from_csv
     assert_instance_of GameTeam, @game_team_2
 
-    assert_equal 2012020511, @game_team_2.game_id
-    assert_equal 7, @game_team_2.team_id
+    assert_equal 2013020885, @game_team_2.game_id
+    assert_equal 23, @game_team_2.team_id
     assert_equal "home", @game_team_2.hoa
-    assert_equal "TIE", @game_team_2.result
-    assert_equal "SO", @game_team_2.settled_in
-    assert_equal "Ron Rolston", @game_team_2.head_coach
-    assert_equal 3, @game_team_2.goals
-    assert_equal 5, @game_team_2.shots
-    assert_equal 33, @game_team_2.tackles
-    assert_equal 10, @game_team_2.pim
-    assert_equal 2, @game_team_2.powerplayopportunities
-    assert_equal 1, @game_team_2.powerplaygoals
-    assert_equal 47.5, @game_team_2.faceoffwinpercentage
-    assert_equal 4, @game_team_2.giveaways
-    assert_equal 13, @game_team_2.takeaways
+    assert_equal "WIN", @game_team_2.result
+    assert_equal "REG", @game_team_2.settled_in
+    assert_equal "John Tortorella", @game_team_2.head_coach
+    assert_equal 1, @game_team_2.goals
+    assert_equal 8, @game_team_2.shots
+    assert_equal 18, @game_team_2.tackles
+    assert_equal 6, @game_team_2.pim
+    assert_equal 4, @game_team_2.powerplayopportunities
+    assert_equal 0, @game_team_2.powerplaygoals
+    assert_equal 53.6, @game_team_2.faceoffwinpercentage
+    assert_equal 9, @game_team_2.giveaways
+    assert_equal 6, @game_team_2.takeaways
   end
-
+  
 end
