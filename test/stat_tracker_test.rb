@@ -51,15 +51,15 @@ class StatTrackerTest < MiniTest::Test
     end
 
     def test_it_can_return_percentage_home_wins
-      assert_equal 50.00, @stat_tracker.percentage_home_wins
+      assert_equal 0.50, @stat_tracker.percentage_home_wins
     end
 
     def test_it_can_return_percentage_visitor_wins
-      assert_equal 25.00, @stat_tracker.percentage_visitor_wins
+      assert_equal 0.25, @stat_tracker.percentage_visitor_wins
     end
 
     def test_it_can_return_percentage_ties
-      assert_equal 25.00, @stat_tracker.percentage_ties
+      assert_equal 0.25, @stat_tracker.percentage_ties
     end
 
     def test_it_can_return_count_of_games_by_season
@@ -72,7 +72,7 @@ class StatTrackerTest < MiniTest::Test
 
     def test_it_can_return_average_goals_by_season
       skip
-
+      
     end
   end
 end

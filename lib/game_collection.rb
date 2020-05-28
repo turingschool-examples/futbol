@@ -1,5 +1,5 @@
+require_relative './game'
 require 'csv'
-require './lib/game'
 
 class GameCollection
   attr_reader :game_collection
