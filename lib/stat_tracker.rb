@@ -44,4 +44,25 @@ class StatTracker
     end
     lowest_score
   end
+
+  def winningest_coach(season_id)
+    coaches_stats = Hash.new(0)
+    CSV.foreach(@games, headers: true, header_converters: :symbol) do |game|
+      if game[:season].to_i == season_id
+        CSV.foreach(@game_teams, headers: true, header_converters: :symbol) do |game_team|
+          if game_team[:result] == "LOSS"
+            coaches_stats[game_team[:head_coach]] -= 1
+          else
+            coaches_stats[game_team[:head_coach]] += 1
+          end
+        end
+      end
+    end
+    best_coach = coaches_stats.max_by do |coach, wins|
+      wins
+    end
+    best_coach[0]
+  end
+
+
 end
