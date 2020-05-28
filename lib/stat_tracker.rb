@@ -73,14 +73,14 @@ class StatTracker
     (average_goals.to_f / games.all.count).round(2)
   end
 
-  def average_goals_by_season
-    goals_by_season = Hash.new(0)
-    games.all.each do |game|
-      goals_by_season[game.season] += (game.away_goals.to_i.to_f + game.home_goals.to_i)
-    end
-    goals_by_season.each do |season, count|
-      average_goals = (count / count_of_games_by_season[season])
-      average_goals.round(2)
-    end
-  end
+  # def average_goals_by_season
+  #   goals_by_season = Hash.new(0)
+  #   games.all.each do |game|
+  #     goals_by_season[game.season] += (game.away_goals.to_i.to_f + game.home_goals.to_i)
+  #   end
+  #   goals_by_season.each do |season, count|
+  #     average_goals = (count / count_of_games_by_season[season])
+  #     average_goals.round(2)
+  #   end
+  # end
 end
