@@ -6,15 +6,9 @@ require "./lib/stat_tracker"
 # require './lib/game'
 require 'pry'
 
-class StatTrackerTest < Minitest::Test
-  # test_it_exists should not work
-  # need to revisit the setup
-  
-  def test_it_exists
-    assert_instance_of Game, @game
-  end
+class GameTest < Minitest::Test
 
-  def test_game_has_attributes
+  def setup
     @game = Game.new({
       :away_goals => 2,
       :away_team_id => 3,
@@ -27,6 +21,13 @@ class StatTrackerTest < Minitest::Test
       :venue => "Toyota Stadium",
       :venue_link => "/api/v1/venues/null"
       })
+  end
+
+  def test_it_exists
+    assert_instance_of Game, @game
+  end
+
+  def test_game_has_attributes
     assert_equal 2, @game.away_goals
     assert_equal 3, @game.away_team_id
     assert_equal "5/16/13", @game.date_time
