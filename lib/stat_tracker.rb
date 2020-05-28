@@ -82,9 +82,6 @@ class StatTracker
   end
 
   def most_accurate_team(season_id)
-    best_ratio = 0
-    best_team = nil
-
     goals_for_season_by_team = Hash.new(0)
     game_team_collection.all.each do |game_team|
       if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
@@ -116,18 +113,34 @@ class StatTracker
   end
 
   def least_accurate_team(season_id)
-    worst_ratio = 1.0
-    worst_team = nil
-    CSV.foreach(@game_teams, headers: true, header_converters: :symbol) do |game_team|
-      if season_id.to_s.include?(game_team[:game_id].split(//).join[0..3])
-        if game_team[:goals].to_f / game_team[:shots].to_f <= worst_ratio
-          worst_ratio = game_team[:goals].to_f / game_team[:shots].to_f
-          worst_team = game_team
+    goals_for_season_by_team = Hash.new(0)
+    game_team_collection.all.each do |game_team|
+      if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
+        goals_for_season_by_team[game_team.team_id] += game_team.goals
+      end
+    end
+
+    shots_for_season_by_team = Hash.new(0)
+    game_team_collection.all.each do |game_team|
+      if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
+        shots_for_season_by_team[game_team.team_id] += game_team.shots
+      end
+    end
+
+    ratio_of_g_to_s_for_season_by_team = Hash.new(0)
+    goals_for_season_by_team.each do |g_team_id, goals|
+      shots_for_season_by_team.each do |s_team_id, shots|
+        if s_team_id == g_team_id
+          ratio_of_g_to_s_for_season_by_team[s_team_id] = goals.to_f / shots.to_f
         end
       end
     end
 
-    team_name_based_off_of_team_id(worst_team[:team_id].to_i)
+    worst_team = ratio_of_g_to_s_for_season_by_team.min_by do |team_id, ratio|
+      ratio
+    end
+
+    team_name_based_off_of_team_id(worst_team[0])
   end
 
   def team_name_based_off_of_team_id(team_id)
@@ -139,32 +152,32 @@ class StatTracker
   end
 
   def most_tackles(season_id)
-    most_tackles = 0
-    team_most_tackles = nil
-    CSV.foreach(@game_teams, headers: true, header_converters: :symbol) do |game_team|
-      if season_id.to_s.include?(game_team[:game_id].split(//).join[0..3])
-        if game_team[:tackles].to_i > most_tackles
-          most_tackles = game_team[:tackles].to_i
-          team_most_tackles = game_team
-        end
+    tackles_for_season_by_team = Hash.new(0)
+    game_team_collection.all.each do |game_team|
+      if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
+        tackles_for_season_by_team[game_team.team_id] += game_team.tackles
       end
     end
 
-    team_name_based_off_of_team_id(team_most_tackles[:team_id].to_i)
+    best_team = tackles_for_season_by_team.max_by do |team_id, tackles|
+      tackles
+    end
+
+    team_name_based_off_of_team_id(best_team[0])
   end
 
   def fewest_tackles(season_id)
-    fewest_tackles = 1_000_000_000
-    team_fewest_tackles = nil
-    CSV.foreach(@game_teams, headers: true, header_converters: :symbol) do |game_team|
-      if season_id.to_s.include?(game_team[:game_id].split(//).join[0..3])
-        if game_team[:tackles].to_i < fewest_tackles
-          fewest_tackles = game_team[:tackles].to_i
-          team_fewest_tackles = game_team
-        end
+    tackles_for_season_by_team = Hash.new(0)
+    game_team_collection.all.each do |game_team|
+      if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
+        tackles_for_season_by_team[game_team.team_id] += game_team.tackles
       end
     end
 
-    team_name_based_off_of_team_id(team_fewest_tackles[:team_id].to_i)
+    worst_team = tackles_for_season_by_team.min_by do |team_id, tackles|
+      tackles
+    end
+
+    team_name_based_off_of_team_id(worst_team[0])
   end
 end
