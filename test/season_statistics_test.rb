@@ -24,4 +24,19 @@ class SeasonStatisticsTest < MiniTest::Test
     assert_equal './season_stats_fixtures/teams_fixtures.csv', @stat_tracker.teams
     assert_equal './season_stats_fixtures/game_teams_fixtures.csv', @stat_tracker.game_teams
   end
+
+  def test_for_winningest_coach
+    skip
+    #pause
+
+  end
+
+  def test_by_game_by_season
+    assert_equal 16, @stat_tracker.games_by_season("20142015").count
+    assert_equal 0, @stat_tracker.games_by_season("20202021").count
+  end
+
+  def test_wins_per_team
+
+  end
 end
