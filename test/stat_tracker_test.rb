@@ -15,8 +15,13 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_attributes
+    skip
     assert_equal "./test/fixtures/games_fixture.csv", @stat_tracker.games_path
     assert_equal "./data/teams.csv", @stat_tracker.teams_path
     assert_equal "./test/fixtures/game_teams_fixture.csv", @stat_tracker.game_teams_path
+  end
+
+  def test_it_can_count_teams
+    assert_equal 32, @stat_tracker.count_of_teams
   end
 end
