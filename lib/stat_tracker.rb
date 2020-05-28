@@ -117,7 +117,18 @@ class StatTracker
     team_name_based_off_of_team_id(team_most_tackles[:team_id].to_i)
   end
 
+  def fewest_tackles(season_id)
+    fewest_tackles = 1_000_000_000
+    team_fewest_tackles = nil
+    CSV.foreach(@game_teams, headers: true, header_converters: :symbol) do |game_team|
+      if season_id.to_s.include?(game_team[:game_id].split(//).join[0..3])
+        if game_team[:tackles].to_i < fewest_tackles
+          fewest_tackles = game_team[:tackles].to_i
+          team_fewest_tackles = game_team
+        end
+      end
+    end
 
-
-
+    team_name_based_off_of_team_id(team_fewest_tackles[:team_id].to_i)
+  end
 end
