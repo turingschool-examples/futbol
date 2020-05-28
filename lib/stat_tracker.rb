@@ -132,4 +132,11 @@ class StatTracker
       found
     end
   end
+
+  # def highest_scoring_visitor
+  #   away_team_goals = @games.all.reduce(Hash.new(0)) do |teams, game|
+  #     teams[game.away_team_id] += game.away_goals
+  #     teams
+  #   end
+  # end
 end
