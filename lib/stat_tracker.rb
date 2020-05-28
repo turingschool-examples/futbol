@@ -65,7 +65,6 @@ class StatTracker
     end.min
   end
 
-<<<<<<< HEAD
   # #helper method for best_season
   # def game_winner(game_id)
   # end
@@ -91,7 +90,6 @@ class StatTracker
       end
     end
   end
-=======
->>>>>>> master
+
 
 end
