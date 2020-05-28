@@ -38,4 +38,52 @@ class StatTracker
   def game_teams
     @@game_teams
   end
+
+  def team_info
+    #Hash
+    # A hash with key/value pairs for the following attributes: team_id,
+    # franchise_id, team_name, abbreviation, and link	Hash
+  end
+
+  def best_season
+    #String
+    # Season with the highest win percentage for a team.
+  end
+
+  def worst_season
+    #String
+    # Season with the lowest win percentage for a team.
+
+    @@teams.each do |team|
+      p team.stadium
+    end
+  end
+
+  def average_win_percentage
+    #Float
+    # Average win percentage of all games for a team.
+  end
+
+  def most_goals_scored
+    #Integer
+    # Highest number of goals a particular team has scored in a single game.
+  end
+
+  def fewest_goals_scored
+    #Integer
+    # Lowest numer of goals a particular team has scored in a single game.
+  end
+
+  def favorite_opponent
+    #String
+    # Name of the opponent that has the lowest win percentage against the given
+    # team.
+  end
+
+  def rival
+    #String
+    # Name of the opponent that has the highest win percentage against the
+    # given team.
+  end
+
 end
