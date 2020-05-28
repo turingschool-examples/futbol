@@ -1,6 +1,7 @@
 require_relative './game'
 require_relative './team'
 require_relative './game_teams'
+
 require_relative './game_collection'
 require 'csv'
 
@@ -10,6 +11,7 @@ class StatTracker
               :game_teams
 
   def initialize(info)
+
     @games = GameCollection.new(info[:games])
     @teams = info[:teams]
     @game_teams = info[:game_teams]
@@ -72,15 +74,26 @@ class StatTracker
     end
     (average_goals.to_f / games.all.count).round(2)
   end
+  
+  def initialize
+    @games = info[:games]
+    @teams = info[:teams]
+    @game_teams = info[:game_teams]
+  end
 
-  # def average_goals_by_season
-  #   goals_by_season = Hash.new(0)
-  #   games.all.each do |game|
-  #     goals_by_season[game.season] += (game.away_goals.to_i.to_f + game.home_goals.to_i)
-  #   end
-  #   goals_by_season.each do |season, count|
-  #     average_goals = (count / count_of_games_by_season[season])
-  #     average_goals.round(2)
-  #   end
-  # end
+  def self.from_csv(info)
+    StatTracker.new(info)
+  end
+
+  # Game Statistic methods
+
+
+  # League Statistic methods
+
+
+  # Season Statistic methods
+
+
+  # Team Statistic methods
+
 end
