@@ -1,5 +1,8 @@
-class GameTeam
+require_relative 'loadable'
 
+class GameTeam
+  @@accumulator = []
+  extend Loadable
   attr_reader :game_id, :team_id, :hoa, :result, :settled_in,
               :head_coach, :goals, :shots, :tackles, :pim,
               :powerplayopportunities, :powerplaygoals,
@@ -21,7 +24,15 @@ class GameTeam
     @faceoffwinpercentage = data[:faceoffwinpercentage].to_f
     @giveaways = data[:giveaways].to_i
     @takeaways = data[:takeaways].to_i
-   end
+  end
+
+ def self.from_csv(games_file_path)
+   load_csv(games_file_path, self)
+ end
+
+ def self.accumulator
+   @@accumulator
+ end
 
 
 end

@@ -12,7 +12,10 @@ class TeamTest < Minitest::Test
                 stadium: "Mercedes_Benz Stadium",
                 link: "/api/v1/teams/1"
               }
+
     @team = Team.new(team_data)
+    Team.from_csv('./data/teams.csv')
+    @team_1 = Team.accumulator[5]
   end
 
   def test_its_values
@@ -25,14 +28,11 @@ class TeamTest < Minitest::Test
   end
 
   def test_it_can_pull_from_csv
-    team_data_2 = CSV.read("./data/teams.csv", headers: true, header_converters: :symbol)
-    team_1 = Team.new(team_data_2[0])
-
-    assert_equal "1", team_1.team_id
-    assert_equal "23", team_1.franchiseid
-    assert_equal "Atlanta United", team_1.teamname
-    assert_equal "ATL", team_1.abbreviation
-    assert_equal "Mercedes-Benz Stadium", team_1.stadium
-    assert_equal "/api/v1/teams/1", team_1.link
+    assert_equal "3", @team_1.team_id
+    assert_equal "10", @team_1.franchiseid
+    assert_equal "Houston Dynamo", @team_1.teamname
+    assert_equal "HOU", @team_1.abbreviation
+    assert_equal "BBVA Stadium", @team_1.stadium
+    assert_equal "/api/v1/teams/3", @team_1.link
   end
 end
