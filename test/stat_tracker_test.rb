@@ -62,4 +62,9 @@ class StatTrackerTest < Minitest::Test
                 }
     assert_equal expected, @stat_tracker.team_info(30)
   end
+
+  def test_it_can_get_best_season
+    assert_equal 20162017, @stat_tracker.best_season(19)
+  end
+
 end

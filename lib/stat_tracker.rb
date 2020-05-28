@@ -14,46 +14,51 @@ class StatTracker
   end
 
   def game_collection
-    GameCollection.new
+    GameCollection.new(@games)
   end
 
   def team_collection
-    TeamCollection.new
+    TeamCollection.new(@teams)
   end
 
   def game_team_collection
-    GameTeamCollection.new
+    GameTeamCollection.new(@game_teams)
   end
 
   def highest_total_score
-    top_score = 0
-    CSV.foreach(@games, headers: true, header_converters: :symbol) do |game|
-      if game[:away_goals].to_i + game[:home_goals].to_i > top_score
-        top_score = game[:away_goals].to_i + game[:home_goals].to_i
-      end
+    total = game_collection.all.max_by do |game|
+      game.away_goals + game.home_goals
     end
-    top_score
+    total.home_goals + total.away_goals
   end
 
   def lowest_total_score
-    lowest_score = 1_000_000_000
-    CSV.foreach(@games, headers: true, header_converters: :symbol) do |game|
-      if game[:away_goals].to_i + game[:home_goals].to_i < lowest_score
-        lowest_score = game[:away_goals].to_i + game[:home_goals].to_i
-      end
+    total = game_collection.all.min_by do |game|
+      game.away_goals + game.home_goals
     end
-    lowest_score
+    total.home_goals + total.away_goals
   end
 
   def team_info(team_id)
-    acc = {}
-    CSV.foreach(@teams, headers: true, header_converters: :symbol) do |row|
-      if row[:team_id].to_i == team_id
-        row.delete(:stadium)
-        acc = row.to_h
-      end
+    teams.all.reduce({}) do |acc, team|
+      require "pry"; binding.pry
     end
-    acc
+    # acc = {}
+    # CSV.foreach(@teams, headers: true, header_converters: :symbol) do |row|
+    #   if row[:team_id].to_i == team_id
+    #     row.delete(:stadium)
+    #     acc = row.to_h
+    #   end
+    # end
+    # acc
+  end
+
+  def best_season(team_id)
+    acc = 0
+    rows = CSV.read(@games, headers: true, header_converters: :symbol)
+    filtered_rows = rows.find_all do |row|
+      row[:home_team_id].to_i == team_id || row[:home_team_id].to_i == team_id
+    end
   end
 
 end
