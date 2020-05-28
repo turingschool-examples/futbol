@@ -57,52 +57,24 @@ class StatTracker
     # lowest_score
   end
 
-  def winningest_coach(season_id) ## NOT WORKING ALWAYS RETURNS MIKE YEO
-    best_ratio = 0
-    best_coach = nil
-    number_of_wins = 0
-    total_games = 0
-    CSV.foreach(@game_teams, headers: true, header_converters: :symbol) do |game_team|
-      if season_id.to_s.include?(game_team[:game_id].split(//).join[0..3])
-        if game_team[:goals].to_f / game_team[:shots].to_f > best_ratio
-          best_ratio = game_team[:goals].to_f / game_team[:shots].to_f
-          best_team = game_team
-        end
+  def winningest_coach(season_id)
+    coaches_stats = Hash.new(0)
+      CSV.foreach(@game_teams, headers: true, header_converters: :symbol) do |game_team|
+        if season_id.to_s.include?(game_team[:game_id].split(//).join[0..3])
+          if game_team[:result] == "LOSS"
+            coaches_stats[game_team[:head_coach]] -= 1
+          elsif game_team[:result] == "WIN"
+            coaches_stats[game_team[:head_coach]] += 1
+          elsif game_team[:result] == "TIE"
+            next
+          end
       end
     end
-
-
-
-
-
+    best_coach = coaches_stats.max_by do |coach, wins|
+      wins
+    end
+    best_coach[0]
   end
-
-    # coaches_stats = Hash.new(0)
-    # CSV.foreach(@games, headers: true, header_converters: :symbol) do |game|
-    #   if game[:season].to_i == season_id
-    #     CSV.foreach(@game_teams, headers: true, header_converters: :symbol) do |game_team|
-    #       if game_team[:result] == "LOSS"
-    #         coaches_stats[game_team[:head_coach]] -= 1
-    #       else
-    #         coaches_stats[game_team[:head_coach]] += 1
-    #       end
-    #     end
-    #   end
-    # end
-    # best_coach = coaches_stats.max_by do |coach, wins|
-    #   wins
-    # end
-    # best_coach[0]
-
-
-  # def coach_based_off_team_id(team_id)
-  #   CSV.foreach(@teams, headers: true, header_converters: :symbol) do |team|
-  #     if team_id == team[:team_id].to_i
-  #       require "pry"; binding.pry
-  #       return team[:head_coach]
-  #     end
-  #   end
-  # end
 
   def most_accurate_team(season_id)
     best_ratio = 0
