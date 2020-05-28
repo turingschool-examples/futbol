@@ -34,4 +34,8 @@ class TeamCollectionTest < Minitest::Test
   def test_it_has_all
     assert_equal @team_collection.teams, @team_collection.all
   end
+
+  def test_it_can_find_by_team_id
+    assert_equal @team, @team_collection.find_by_team_id(@team.team_id)
+  end
 end
