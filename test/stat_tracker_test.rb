@@ -81,4 +81,10 @@ class StatTrackerTest < Minitest::Test
     assert_nil nil, @stat_tracker.team_name_based_off_of_team_id(5)
   end
 
+  def test_it_can_determine_the_team_with_the_most_tackles
+    assert_equal "FC Cincinnati", @stat_tracker.most_tackles(20122013)
+    assert_equal "Houston Dynamo", @stat_tracker.most_tackles(20142015)
+    assert_equal "Philadelphia Union", @stat_tracker.most_tackles(20162017)
+  end
+
 end
