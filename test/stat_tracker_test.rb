@@ -51,4 +51,8 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_lowest_total_score
     assert_equal 1, @stat_tracker.lowest_total_score
   end
+
+  def test_it_can_determine_the_winningest_coach
+    assert_equal "Mike Yeo", @stat_tracker.winningest_coach(20122013)
+  end 
 end
