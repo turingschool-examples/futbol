@@ -22,6 +22,10 @@ class StatTracker
 
 
   # League Statistic methods
+  def count_of_teams
+    teams = CSV.read(@teams, headers: true)
+    teams.count
+  end
 
 
   # Season Statistic methods
