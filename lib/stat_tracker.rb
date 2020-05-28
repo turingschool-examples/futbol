@@ -1,4 +1,3 @@
-
 require "csv"
 require "./lib/game"
 require "./lib/team"
@@ -43,6 +42,11 @@ class StatTracker
     #Hash
     # A hash with key/value pairs for the following attributes: team_id,
     # franchise_id, team_name, abbreviation, and link	Hash
+    myhash = {}
+
+    @@teams.map do |team|
+      p team.to_hash
+    end
   end
 
   def best_season
@@ -53,10 +57,6 @@ class StatTracker
   def worst_season
     #String
     # Season with the lowest win percentage for a team.
-
-    @@teams.each do |team|
-      p team.stadium
-    end
   end
 
   def average_win_percentage

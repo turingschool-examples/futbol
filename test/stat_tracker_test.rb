@@ -35,4 +35,10 @@ class StatTrackerTest < Minitest::Test
   def test_tracker_can_fetch_game_team_data
     assert_equal 52, @stat_tracker.game_teams.count
   end
+
+  def test_it_can_create_team_info_hash
+    # need to figure out this test
+    @stat_tracker.team_info
+  end
+
 end
