@@ -1,3 +1,7 @@
+require_relative "./game_collection"
+require_relative "./team_collection"
+require_relative "./gt_collection"
+
 class StatTracker
   attr_reader :games_path, :teams_path, :game_teams_path, :game_collection, :team_collection
 
@@ -61,6 +65,7 @@ class StatTracker
     end.min
   end
 
+<<<<<<< HEAD
   # #helper method for best_season
   # def game_winner(game_id)
   # end
@@ -86,5 +91,7 @@ class StatTracker
       end
     end
   end
+=======
+>>>>>>> master
 
 end

@@ -5,13 +5,13 @@ require './lib/team'
 
 class TeamTest < Minitest::Test
   def setup
-    team_params = {
+    team_params = ({
                     team_id: "1",
                     franchiseid: "23",
                     teamname: "Atlanta United",
                     abbreviation: "ATL",
                     link: "/api/v1/teams/1"
-                  }
+                  })
     @team = Team.new(team_params)
   end
 
@@ -29,9 +29,9 @@ class TeamTest < Minitest::Test
 
   def test_it_has_info_hash
     info_hash = @team.info
-    assert_instance_of Hash, hash
-    assert_equal 1, hash[:team_id]
-    assert_equal "ATL", hash[:abbreviation]
+    assert_instance_of Hash, info_hash
+    assert_equal 1, info_hash[:team_id]
+    assert_equal "ATL", info_hash[:abbreviation]
   end
 
 end
