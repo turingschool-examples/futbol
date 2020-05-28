@@ -102,6 +102,21 @@ class StatTracker
     end
   end
 
+  def most_tackles(season_id)
+    most_tackles = 0
+    team_most_tackles = nil
+    CSV.foreach(@game_teams, headers: true, header_converters: :symbol) do |game_team|
+      if season_id.to_s.include?(game_team[:game_id].split(//).join[0..3])
+        if game_team[:tackles].to_i > most_tackles
+          most_tackles = game_team[:tackles].to_i
+          team_most_tackles = game_team
+        end
+      end
+    end
+
+    team_name_based_off_of_team_id(team_most_tackles[:team_id].to_i)
+  end
+
 
 
 
