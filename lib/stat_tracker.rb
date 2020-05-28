@@ -45,7 +45,7 @@ class StatTracker
     lowest_score
   end
 
-  def winningest_coach(season_id)
+  def winningest_coach(season_id) ## NOT WORKING ALWAYS RETURNS MIKE YEO
     coaches_stats = Hash.new(0)
     CSV.foreach(@games, headers: true, header_converters: :symbol) do |game|
       if game[:season].to_i == season_id
@@ -63,6 +63,23 @@ class StatTracker
     end
     best_coach[0]
   end
+
+  def most_accurate_team
+
+    ## smthn smthn smthn goals/shots for ratio, highest float being the best
+    ## then find the team_id and match it up to return the team name
+
+  end
+
+  def team_name_based_off_of_team_id(team_id)
+    CSV.foreach(@teams, headers: true, header_converters: :symbol) do |team|
+      if team_id == team[:team_id].to_i
+        return team[:teamname]
+      end
+    end
+  end
+
+
 
 
 end
