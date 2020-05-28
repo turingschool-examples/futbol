@@ -59,9 +59,9 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_determine_the_worst_coach
-    assert_equal "Jon Cooper", @stat_tracker.worst_coach(20122013)
+    assert_equal "Patrick Roy", @stat_tracker.worst_coach(20122013)
     assert_equal "Jon Cooper", @stat_tracker.worst_coach(20142015)
-    assert_equal "Jon Cooper", @stat_tracker.worst_coach(20162017)
+    assert_equal "Peter Laviolette", @stat_tracker.worst_coach(20162017)
   end
 
   def test_it_can_determine_the_most_accurate_team
