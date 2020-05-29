@@ -47,4 +47,17 @@ class StatTracker
       game_team.head_coach
     end
   end
+
+  def coach_per_total_win(season_id)
+    coach_win_count = {}
+    games_by_head_coach(season_id).each do |coach, games|
+      winning_games = games.select{|game| game.result == "WIN"}
+      if winning_games.length.zero?
+         coach_win_count[coach] = 0
+      else
+        coach_win_count[coach] = winning_games.size
+      end
+    end
+    coach_win_count
+  end
 end
