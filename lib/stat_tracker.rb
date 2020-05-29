@@ -1,3 +1,10 @@
+require_relative './game'
+require_relative './game_collection'
+require_relative './team_collection'
+require_relative './team'
+require_relative './game_team_collection'
+require_relative './game_team'
+
 class StatTracker
   attr_reader :games,
               :teams,
@@ -42,43 +49,93 @@ class StatTracker
   end
 
   def winningest_coach(season_id)
-    coaches_stats = Hash.new(0)
-
+    coaches_wins = Hash.new(0)
     game_team_collection.all.each do |game_team|
       if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
-        if game_team.result == "LOSS"
-          coaches_stats[game_team.head_coach] -= 1
-        elsif game_team.result == "WIN"
-          coaches_stats[game_team.head_coach] += 1
+        if game_team.result == "WIN"
+          coaches_wins[game_team.head_coach] += 1
+        elsif game_team.result == "LOSS"
+          coaches_wins[game_team.head_coach] -= 1
         elsif game_team.result == "TIE"
           next
         end
       end
     end
-    best_coach = coaches_stats.max_by do |coach, wins|
-      wins
+
+    coaches_total_games = Hash.new(0)
+    game_team_collection.all.each do |game_team|
+      if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
+        coaches_total_games[game_team.head_coach] += 1
+      end
+    end
+
+    ratio_of_wins_to_games = Hash.new(0)
+    coaches_total_games.each do |total_games_coach, total_games|
+      coaches_wins.each do |wins_coach, total_wins|
+        if total_games_coach == wins_coach
+          ratio_of_wins_to_games[wins_coach] = total_wins.to_f / total_games.to_f
+        end
+      end
+    end
+
+    best_coach = ratio_of_wins_to_games.max_by do |coach, ratio|
+      ratio
     end
     best_coach[0]
   end
 
   def worst_coach(season_id)
-    coaches_stats = Hash.new(0)
-
+    coaches_wins = Hash.new(0)
     game_team_collection.all.each do |game_team|
       if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
-        if game_team.result == "LOSS"
-          coaches_stats[game_team.head_coach] -= 1
-        elsif game_team.result == "WIN"
-          coaches_stats[game_team.head_coach] += 1
+        if game_team.result == "WIN"
+          coaches_wins[game_team.head_coach] += 1
+        elsif game_team.result == "LOSS"
+          coaches_wins[game_team.head_coach] -= 1
         elsif game_team.result == "TIE"
           next
         end
       end
     end
-    worst_coach = coaches_stats.min_by do |coach, wins|
-      wins
+
+    coaches_total_games = Hash.new(0)
+    game_team_collection.all.each do |game_team|
+      if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
+        coaches_total_games[game_team.head_coach] += 1
+      end
+    end
+
+    ratio_of_wins_to_games = Hash.new(0)
+    coaches_total_games.each do |total_games_coach, total_games|
+      coaches_wins.each do |wins_coach, total_wins|
+        if total_games_coach == wins_coach
+          ratio_of_wins_to_games[wins_coach] = total_wins.to_f / total_games.to_f
+        end
+      end
+    end
+
+    worst_coach = ratio_of_wins_to_games.min_by do |coach, ratio|
+      ratio
     end
     worst_coach[0]
+
+    # coaches_stats = Hash.new(0)
+    #
+    # game_team_collection.all.each do |game_team|
+    #   if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
+    #     if game_team.result == "LOSS"
+    #       coaches_stats[game_team.head_coach] -= 1
+    #     elsif game_team.result == "WIN"
+    #       coaches_stats[game_team.head_coach] += 1
+    #     elsif game_team.result == "TIE"
+    #       next
+    #     end
+    #   end
+    # end
+    # worst_coach = coaches_stats.min_by do |coach, wins|
+    #   wins
+    # end
+    # worst_coach[0]
   end
 
   def most_accurate_team(season_id)
