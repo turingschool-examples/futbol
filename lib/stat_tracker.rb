@@ -151,12 +151,20 @@ class StatTracker
     end
   end
 
+  # create helper methof to he;lp highest scoreing visitor method
+  # create a has with the keys set to tems
+  # values set to each game the team has played
+
   def highest_scoring_visitor
-    away_team_goals = games.all.reduce(Hash.new(0)) do |teams, game|
-      teams[game.away_team_id] += game.away_goals
+    away_team_goals = games.reduce(Hash.new(0)) do |teams, game|
+      teams[game.away_team_id] += game.away_goals.to_i
       teams
     end
-    # require "pry"; binding.pry
-    # away_team_goals
+
+    away_team_goals.transform_values! do |score|
+      require "pry"; binding.pry
+      score = ((games.include?(teams).count).to_f / score).round(2)
+    end
+    away_team_goals
   end
 end
