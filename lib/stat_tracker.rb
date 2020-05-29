@@ -153,7 +153,29 @@ class StatTracker
   end
 
   def lowest_scoring_visitor
-    # same as highest_scoring_visitor but find team w lowest average
+    away_teams = @game_teams.find_all do |game_team|
+      game_team.hoa == "away"
+    end
+
+    sorted_away_teams = away_teams.reduce({}) do |team_scores, game|
+      if team_scores[game.team_id].nil?
+        team_scores[game.team_id] = [game.goals]
+      else
+        team_scores[game.team_id] << game.goals
+      end
+      team_scores
+    end
+
+    avgs_by_team = {}
+    sorted_away_teams.each do |visiting_team_id, scores_array|
+      avgs_by_team[visiting_team_id] = (scores_array.sum / scores_array.count.to_f)
+    end
+
+    lowest_scoring_visitor_id = avgs_by_team.min_by do |visiting_team_id, avg_score|
+      avg_score
+    end.first
+
+    find_team_by_id(lowest_scoring_visitor_id).team_name
   end
 
   def lowest_scoring_home_team

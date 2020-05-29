@@ -123,12 +123,26 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_identify_lowest_scoring_visitor
-    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_visitor
+    locations = {
+      games: './fixtures/games_fixture.csv',
+      teams: './fixtures/teams_league_stats_fixture.csv',
+      game_teams: './fixtures/game_teams_league_stats_fixture.csv'
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal "Sporting Kansas City", stat_tracker.lowest_scoring_visitor
   end
 
   def test_it_can_identify_lowest_scoring_home_team
     skip
-    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_home_team
+    locations = {
+      games: './fixtures/games_fixture.csv',
+      teams: './fixtures/teams_league_stats_fixture.csv',
+      game_teams: './fixtures/game_teams_league_stats_fixture.csv'
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+    
+    assert_equal "Sporting Kansas City", stat_tracker.lowest_scoring_home_team
   end
 
   # TEAM STATISTICS
