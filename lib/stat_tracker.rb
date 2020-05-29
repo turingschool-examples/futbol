@@ -26,10 +26,19 @@ class StatTracker
   def game_teams
     @game_teams.all
   end
+  ###################
+  ## SEASON METHODS##
+  ###################
 
   def all_games_per_season(season_id)
     games.select do |game|
       game.season.eql?(season_id)
+    end
+  end
+
+  def all_game_teams_per_season(season_id)
+    game_teams.select do |game_team|
+      all_games_per_season(season_id).any?{|game| game.game_id.eql?game_team.game_id}
     end
   end
 end
