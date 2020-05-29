@@ -55,12 +55,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_percentage_ties # 2 draws in test data
-    
+
     assert_equal 0.03, @stat_tracker.percentage_ties
   end
 
   def test_count_of_games_by_season
-    skip
+
     expected = expected = {
       "20122013"=>57,
       "20162017"=>3
@@ -69,8 +69,8 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_average_goals_per_game #235 goals in test data
-    skip
-    assert_equal 3.92, @stat_tracker.test_average_goals_per_game
+
+    assert_equal 3.92, @stat_tracker.average_goals_per_game
   end
 
   def test_average_goals_by_season
