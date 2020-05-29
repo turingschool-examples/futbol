@@ -53,13 +53,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_team_info
-    skip
     expected = {
-                :team_id => "30",
-                :franchise_id => "37",
-                :team_name => "Orlando City SC",
-                :abbreviation => "ORL",
-                :link => "/api/v1/teams/30"
+                "team_id" => "30",
+                "franchise_id" => "37",
+                "team_name" => "Orlando City SC",
+                "abbreviation" => "ORL",
+                "link" => "/api/v1/teams/30"
                 }
     assert_equal expected, @stat_tracker.team_info("30")
   end
@@ -102,9 +101,20 @@ class StatTrackerTest < Minitest::Test
     assert_equal "20162017", @stat_tracker.best_season("19")
   end
 
+  def test_it_can_get_number_of_home_losses_in_season
+    assert_equal true, @stat_tracker.season_home_losses("19").values.include?(-1.0)
+  end
+
+  def test_it_can_get_number_of_away_losses_in_season
+    assert_equal true, @stat_tracker.season_away_losses("19").values.include?(-1.0)
+  end
+
+  def test_it_can_get_total_losses_in_a_season
+    assert_equal true, @stat_tracker.loss_count_by_season("19").values.include?(1.0)
+  end
+
   def test_it_can_get_worst_season
-    skip
-    assert_equal "20142015", @stat_tracker.worst_season("19")
+    assert_equal "20122013", @stat_tracker.worst_season("19")
   end
 
 end
