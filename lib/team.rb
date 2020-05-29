@@ -16,7 +16,8 @@ attr_reader :team_id, :franchise_id, :team_name, :abbreviation,
 
   # to_hash is used in the team_info method within stat_tracker - garrett
   def to_hash
-    {team_id: @team_id, franchise_id: @franchise_id, team_name: @team_name, abbreviation: @abbreviation, link: @link}
+    {team_id: @team_id, franchise_id: @franchise_id, team_name: @team_name,
+     abbreviation: @abbreviation, link: @link}
   end
 
 end
