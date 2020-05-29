@@ -1,42 +1,30 @@
 
 require "csv"
-require "./lib/game"
-require "./lib/team"
-require "./lib/game_team"
+require "./lib/game_collection"
+require "./lib/team_collection"
+require "./lib/game_team_collection"
 
 class StatTracker
-  @@games = []
-  @@teams = []
-  @@game_teams = []
+
+  def initialize(location)
+    @games = GameCollection.new(location[:games])
+    @teams = TeamCollection.new(location[:teams])
+    @game_teams = GameTeamCollection.new(location[:game_teams])
+  end
   def self.from_csv(location)
-    games_data = CSV.read(location[:games], headers: true, header_converters: :symbol)
-    @@games = games_data.map do |row|
-      Game.new(row)
-     end
-
-    teams_data = CSV.read(location[:teams], headers: true, header_converters: :symbol)
-    @@teams = teams_data.map do |row|
-      Team.new(row)
-    end
-
-    game_teams_data = CSV.read(location[:game_teams], headers: true, header_converters: :symbol)
-    @@game_teams = game_teams_data.map do |row|
-      GameTeam.new(row)
-    end
-
-    StatTracker.new
+    StatTracker.new(location)
   end
 
   def games
-    @@games
+    @games.all
   end
 
   def teams
-    @@teams
+    @teams.all
   end
 
   def game_teams
-    @@game_teams
+    @game_teams.all
   end
 
 end
