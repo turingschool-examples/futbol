@@ -53,4 +53,32 @@ class StatTrackerTest < Minitest::Test
       assert_instance_of GameTeam, game_team
     end
   end
+
+  def test_tracker_has_all_games_by_head_coach
+     expected_list_of_coaches = ["John Tortorella",
+      "Claude Julien",
+      "Dan Bylsma",
+      "Mike Babcock",
+      "Joel Quenneville",
+      "Paul MacLean",
+      "Michel Therrien",
+      "Mike Yeo"
+    ]
+    assert_kind_of Hash, @stat_tracker.games_by_head_coach("20122013")
+    assert_equal expected_list_of_coaches, @stat_tracker.games_by_head_coach("20122013").keys
+  end
+
+  def test_tracker_can_group_coach_with_win_counts
+    expected = {
+        "John Tortorella"=>0,
+        "Claude Julien"=>9,
+        "Dan Bylsma"=>0,
+        "Mike Babcock"=>4,
+        "Joel Quenneville"=>7,
+        "Paul MacLean"=>3,
+        "Michel Therrien"=>1,
+        "Mike Yeo"=>1
+      }
+    assert_equal expected, @stat_tracker.coach_per_total_win("20122013")
+  end
 end
