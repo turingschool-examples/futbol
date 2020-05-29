@@ -34,9 +34,9 @@ class StatTracker
     end.total_goals
   end
 
-  # def lowest_total_score
-  #   games.min_by do |game|
-  #     game.total_goals
-  #   end.total_goals
-  # end
+  def lowest_total_score
+    games.min_by do |game|
+      game.total_goals
+    end.total_goals
+  end
 end
