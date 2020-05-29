@@ -70,8 +70,13 @@ class StatTrackerTest < Minitest::Test
 
   # SEASON STATISTICS
 
+  def test_it_can_find_games_by_season
+    skip
+  end
+
+
   def test_it_can_tell_winningest_coach
-    
+    skip
 
   end
 
