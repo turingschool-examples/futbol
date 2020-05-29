@@ -82,16 +82,17 @@ class StatTracker
   end
 
   def best_offense
-    highest_avg_score = average_scores_by_team.max_by do |team, average_score|
-      average_score
+    highest_avg_score = average_scores_by_team.max_by do |team, avg_score|
+      avg_score
     end
     find_team_by_id(highest_avg_score.first).team_name
   end
 
   def worst_offense
-    # use same set up as above
-    # but then identify team w lowest average
-    # return team name
+    lowest_avg_score = average_scores_by_team.min_by do |team, avg_score|
+      avg_score
+    end
+    find_team_by_id(lowest_avg_score.first).team_name
   end
 
   def highest_scoring_visitor
