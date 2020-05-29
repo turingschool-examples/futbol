@@ -82,18 +82,24 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas", @stat_tracker.find_team_by_id(6).team_name
   end
 
+  def test_it_can_organize_scores_by_team
+    team_scores = {3=>[2, 2, 1], 6=>[3, 3, 2]}
+    assert_equal team_scores, @stat_tracker.scores_by_team
+  end
+
+  def test_it_can_report_each_teams_avg_score
+    average_scores = {3=>1.6666666666666667, 6=>2.6666666666666665}
+    assert_equal average_scores, @stat_tracker.average_scores_by_team
+  end
+
   def test_it_can_identify_best_offense
     assert_equal "FC Dallas", @stat_tracker.best_offense
   end
 
   def test_it_can_identify_worst_offense
-    skip
     assert_equal "Houston Dynamo", @stat_tracker.worst_offense
   end
 
-  # i'm still TTDing here! just helpful to see the number of tests ahead of me still
-  # needing to be written and to be able to pseudo code the solutions for all of them
-  # first to see how they relate...
   def test_it_can_identify_highest_scoring_visitor
     skip
     assert_equal "", @stat_tracker.highest_scoring_visitor
