@@ -69,6 +69,15 @@ class StatTrackerTest < Minitest::Test
     assert_equal 66.67, @stat_tracker.percentage_home_wins
   end
 
+  def test_find_visitor_wins
+    assert_instance_of Array, @stat_tracker.find_visitor_wins
+    assert_equal 1, @stat_tracker.find_visitor_wins.count
+  end
+
+  def test_away_wins_percentage
+    assert_equal 33.33, @stat_tracker.percentage_visitor_wins
+  end
+
   # LEAGUE STATISTICS
 
   def test_it_can_count_teams
