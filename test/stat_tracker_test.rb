@@ -55,7 +55,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_percentage_ties # 2 draws in test data
-    skip
+    
     assert_equal 0.03, @stat_tracker.percentage_ties
   end
 
