@@ -38,7 +38,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_tracker_can_fetch_game_team_data
-    assert_equal 52, @stat_tracker.game_teams.count
+    assert_equal 14882, @stat_tracker.game_teams.count
   end
 
   def test_it_returns_team_info_hash
@@ -46,8 +46,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Reign FC", @stat_tracker.team_info(54)[:team_name]
   end
 
+  def test_it_returns_best_season_string
+    @stat_tracker.best_season(54)
+  end
 
 
-  
+
 
 end

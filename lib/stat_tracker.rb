@@ -28,26 +28,27 @@ class StatTracker
   end
 
   def team_info(team_id)
-    #Hash
-    # A hash with key/value pairs for the following attributes: team_id,
-    # franchise_id, team_name, abbreviation, and link	Hash
     return_hash = {}
-    @teams.all.map do |team|
+    @teams.all.each do |team|
       if team.team_id == team_id.to_s
-        # binding.pry
         return_hash = team.to_hash
-        # p team.to_h
       end
     end
     return_hash
   end
 
-  #
-  # def best_season
-  #   #String
-  #   # Season with the highest win percentage for a team.
-  # end
-  #
+  def best_season(team_id)
+    myhash = @game_teams.all.find_all do |game_team|
+      game_team.team_id == team_id.to_s
+    end
+    myhash.each do |item|
+      binding.pry
+      # hash[item[0]] = item[1]
+    end
+
+    p myhash
+  end
+
   # def worst_season
   #   #String
   #   # Season with the lowest win percentage for a team.
