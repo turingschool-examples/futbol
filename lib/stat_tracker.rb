@@ -28,8 +28,8 @@ class StatTracker
   def highest_total_score
     top_score = 0
     game_collection.all.each do |game|
-      if game.away_goals + game.home_goals > top_score
-        top_score = game.away_goals + game.home_goals
+      if game.away_goals.to_i + game.home_goals.to_i > top_score
+        top_score = game.away_goals.to_i + game.home_goals.to_i
       end
     end
     top_score
@@ -38,11 +38,39 @@ class StatTracker
   def lowest_total_score
     lowest_score = 1000000
     game_collection.all.each do |game|
-      if game.away_goals + game.home_goals < lowest_score
-        lowest_score = game.away_goals + game.home_goals
+      if game.away_goals.to_i + game.home_goals.to_i < lowest_score
+        lowest_score = game.away_goals.to_i + game.home_goals.to_i
       end
     end
     lowest_score
   end
+
+  def all_games
+    all_games = []
+    game_team_collection.all.flat_map do |game_team|
+      result = game_team.hoa
+        all_games << result
+      end
+    all_games.count
+  end
+
+  def home_games
+    home_games = []
+    game_team_collection.all.flat_map do |game_team|
+      result = game_team.hoa == "home"
+        home_games << result
+      end
+    home_games.count(true)
+  end
+
+  def percentage_home_wins
+    home_wins = []
+    game_team_collection.all.flat_map do |game_team|
+      result = game_team.hoa == "home" && game_team.result == "WIN"
+        home_wins << result
+    end
+    (home_wins.count(true) / home_games.to_f).round(2)
+  end
+
 
 end
