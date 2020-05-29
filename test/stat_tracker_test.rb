@@ -44,4 +44,13 @@ class StatTrackerTest < Minitest::Test
     assert_equal 1, expected.size
     assert_equal "20122013", expected.first
   end
+
+  def test_tracker_has_all_game_teams_per_season
+    game_teams_in_a_season = @stat_tracker.all_game_teams_per_season("20122013")
+    assert_equal 52, game_teams_in_a_season.count
+
+    game_teams_in_a_season.each do |game_team|
+      assert_instance_of GameTeam, game_team
+    end
+  end
 end
