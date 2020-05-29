@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/game'
+require './test/setup'
 
 class GameTest < Minitest::Test
   def setup
@@ -33,5 +34,5 @@ class GameTest < Minitest::Test
     assert_instance_of Array, games
     assert_equal 5, games.count
   end
-  
+
 end

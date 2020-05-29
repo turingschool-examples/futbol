@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/team'
+require './test/setup'
 
 class TeamTest < Minitest::Test
   def setup
