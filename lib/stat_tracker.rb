@@ -26,4 +26,6 @@ class StatTracker
   def game_teams
     @game_teams.all
   end
+
+  # Game statistics
 end
