@@ -1,18 +1,21 @@
+require_relative './readable'
 require_relative './game'
 require_relative './team'
 require_relative './game_team'
 
 class StatTracker
-  attr_reader :games_path, :teams_path, :game_teams_path, :games, :teams, :game_teams
+  include Readable
+
+  attr_reader :games, :teams, :game_teams
 
   def initialize(stat_tracker_params)
-    @games_path = stat_tracker_params[:games]
-    @teams_path = stat_tracker_params[:teams]
-    @game_teams_path = stat_tracker_params[:game_teams]
+    games_path = stat_tracker_params[:games]
+    teams_path = stat_tracker_params[:teams]
+    game_teams_path = stat_tracker_params[:game_teams]
 
-    @games = Game.all(@games_path)
-    @teams = Team.all(@teams_path)
-    @game_teams = GameTeam.all(@game_teams_path)
+    @games = from_csv(games_path, Game)
+    @teams = from_csv(teams_path, Team)
+    @game_teams = from_csv(game_teams_path, GameTeam)
   end
 
   def self.from_csv(stat_tracker_params)
@@ -62,8 +65,8 @@ class StatTracker
     end
   end
 
-  def best_offense
-    team_scores = game_teams.reduce({}) do |team_scores, game|
+  def scores_by_team
+    game_teams.reduce({}) do |team_scores, game|
       if team_scores[game.team_id].nil?
         team_scores[game.team_id] = [game.goals]
       else
@@ -71,24 +74,28 @@ class StatTracker
       end
       team_scores
     end
+  end
 
-    average_scores = {}
-    team_scores.each do |team, scores_array|
-      average_scores[team] = (scores_array.sum / scores_array.count.to_f)
+  def average_scores_by_team
+    avgs_by_team = {}
+    scores_by_team.each do |team, scores_array|
+      avgs_by_team[team] = (scores_array.sum / scores_array.count.to_f)
     end
+    avgs_by_team
+  end
 
-    highest_avg_score = average_scores.max_by do |team, average_score|
-      average_score
+  def best_offense
+    highest_avg_score = average_scores_by_team.max_by do |team, avg_score|
+      avg_score
     end
-
     find_team_by_id(highest_avg_score.first).team_name
-
   end
 
   def worst_offense
-    # use same set up as above
-    # but then identify team w lowest average
-    # return team name
+    lowest_avg_score = average_scores_by_team.min_by do |team, avg_score|
+      avg_score
+    end
+    find_team_by_id(lowest_avg_score.first).team_name
   end
 
   def highest_scoring_visitor

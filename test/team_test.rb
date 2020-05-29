@@ -32,11 +32,4 @@ class TeamTest < Minitest::Test
     assert_equal "ATL", info_hash[:abbreviation]
   end
 
-  def test_can_create_all_teams_from_csv
-    team_path = './fixtures/teams_fixture.csv'
-    teams = Team.all(team_path)
-    assert_instance_of Array, teams
-    assert_equal 6, teams.count
-  end
-
 end
