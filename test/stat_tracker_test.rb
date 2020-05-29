@@ -66,6 +66,19 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3, @stat_tracker.lowest_total_score
   end
 
+  def test_find_home_wins
+    assert_instance_of Array, @stat_tracker.find_home_wins
+    assert_equal 2, @stat_tracker.find_home_wins.count
+  end
+
+  def test_home_wins_percentage
+    assert_equal 66.67, @stat_tracker.percentage_home_wins
+  end
+
+  # write test for find home wins
+  # percentage_home_wins	Percentage of games that a home team has won
+  # (rounded to the nearest 100th)	Float
+
   # TEAM STATISTICS
 
   def test_can_get_team_info_hash
