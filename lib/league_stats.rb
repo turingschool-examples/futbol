@@ -132,6 +132,4 @@ class LeagueStats
       team.team_id == highest_scoring.keys.first
     end.teamname
   end
-
-
 end
