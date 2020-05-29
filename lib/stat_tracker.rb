@@ -31,16 +31,15 @@ class StatTracker
   ###################
 
   def all_games_per_season(season_id)
-    games.select do |game|
+    x = games.select do |game|
       game.season.eql?(season_id)
     end
   end
 
   def all_game_teams_per_season(season_id)
+    game_ids_per_season = all_games_per_season(season_id).group_by {|game| game.game_id}.keys
     game_teams.select do |game_team|
-      all_games_per_season(season_id).any? do |game|
-        game.game_id.eql?game_team.game_id
-       end
+      game_ids_per_season.include?(game_team.game_id)
     end
   end
 
@@ -77,41 +76,67 @@ class StatTracker
     lowest_coach.first
   end
 
-  def team_id_group(season_id)
-    x = all_game_teams_per_season(season_id).group_by do |game_team|
+  def team_id_group(season_id)#
+    all_game_teams_per_season(season_id).group_by do |game_team|
       game_team.team_id
     end
   end
 
-  def ratio_of_shots(season_id)
+  def ratio_of_shots(season_id)#
     hash ={}
-    team_id_group(season_id).each do |key, value|
-       hash[key] = (value.sum{|g| g.shots.to_f}/value.sum{|g| g.goals.to_f}).round(2)
+    team_id_group(season_id).each do |team_id, value|
+      total_shots = value.sum{|game| game.shots.to_f}
+      total_goals = value.sum{|game| game.goals.to_f}
+       hash[team_id] = (total_goals/total_shots *100).round(2)
     end
     hash
   end
 
-  def team_id_best(season_id)
+  def best_accurate_team_id(season_id)#
     max = ratio_of_shots(season_id).max_by{|team_id, ratio| ratio}
     max.first
   end
 
-  def team_id_worst(season_id)
+  def least_accurate_team_id(season_id)#
     min = ratio_of_shots(season_id).min_by{|team_id, ratio| ratio}
     min.first
   end
 
-  def find_team_by_id(team_id)
+  def find_team_by_id(team_id)#
     teams.find {|team| team.team_id == team_id}
   end
 
   def most_accurate_team(season_id)
-    team_f = find_team_by_id(team_id_best(season_id))
+    team_f = find_team_by_id(best_accurate_team_id(season_id))
     team_f.team_name
   end
 
   def least_accurate_team(season_id)
-    team_f = find_team_by_id(team_id_worst(season_id))
+    team_f = find_team_by_id(least_accurate_team_id(season_id))
+    team_f.team_name
+  end
+
+  def most_tackles(season_id)
+    hash = {}
+    team_id_group(season_id).each do |team_id, value|
+      hash[team_id] = value.sum{|g| g.tackles.to_i}
+    end
+    hash
+    max_id = hash.max_by {|key, value| value}.first
+
+    team_f = find_team_by_id(max_id)
+    team_f.team_name
+  end
+
+  def fewest_tackles(season_id)
+    hash = {}
+    team_id_group(season_id).each do |team_id, value|
+      hash[team_id] = value.sum{|g| g.tackles.to_i}
+    end
+    hash
+    min_id = hash.min_by {|key, value| value}.first
+
+    team_f = find_team_by_id(min_id)
     team_f.team_name
   end
 end
