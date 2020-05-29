@@ -7,6 +7,7 @@ require './lib/team'
 class TeamCollectionTest < Minitest::Test
   def setup
     @team_collection = TeamCollection.new("./fixtures/teams_fixture.csv")
+
   end
 
   def test_it_exists

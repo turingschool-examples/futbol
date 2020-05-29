@@ -29,4 +29,12 @@ class GameTeamTest < Minitest::Test
     assert_equal "John Tortorella", @game_team.head_coach
     assert_equal 2, @game_team.goals
   end
+
+  def test_can_create_all_game_teams_from_csv
+    game_team_path = './fixtures/teams_fixture.csv'
+    game_teams = GameTeam.all(game_team_path)
+    assert_instance_of Array, game_teams
+    assert_equal 6, game_teams.count
+  end
+
 end

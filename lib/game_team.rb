@@ -1,3 +1,5 @@
+require 'csv'
+
 class GameTeam
   attr_reader :game_id, :team_id, :hoa, :result, :settled_in, :head_coach, :goals
 
@@ -9,5 +11,13 @@ class GameTeam
     @settled_in = game_team_params[:settled_in]
     @head_coach = game_team_params[:head_coach]
     @goals = game_team_params[:goals].to_i
+  end
+
+  def self.all(game_teams_path)
+    rows = CSV.read(game_teams_path, headers: true, header_converters: :symbol)
+    rows.reduce([]) do |game_teams, row|
+      game_teams << GameTeam.new(row)
+      game_teams
+    end
   end
 end

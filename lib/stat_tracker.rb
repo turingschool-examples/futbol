@@ -3,34 +3,24 @@ require_relative "./team_collection"
 require_relative "./gt_collection"
 
 class StatTracker
-  attr_reader :games_path, :teams_path, :game_teams_path, :game_collection, :team_collection
+  attr_reader :games_path, :teams_path, :game_teams_path, :games, :teams, :game_teams
 
   def initialize(stat_tracker_params)
     @games_path = stat_tracker_params[:games]
     @teams_path = stat_tracker_params[:teams]
     @game_teams_path = stat_tracker_params[:game_teams]
-    @game_collection = GameCollection.new(@games_path)
-    @team_collection = TeamCollection.new(@teams_path)
-    @gt_collection = GameTeamCollection.new(@game_teams_path)
+
+    @games = Game.all(@games_path)
+    @teams = Team.all(@teams_path)
+    @game_teams = GameTeam.all(@game_teams_path)
   end
 
   def self.from_csv(stat_tracker_params)
     StatTracker.new(stat_tracker_params)
   end
 
-  def games
-    @game_collection.all
-  end
-
-  def teams
-    @team_collection.all
-  end
-
-  def game_teams
-    @gt_collection.all
-  end
-
   # GAME STATISTICS
+  
   def highest_total_score
     games.max_by { |game| game.total_goals }.total_goals
   end
@@ -55,6 +45,12 @@ class StatTracker
     teams.count
   end
 
+  def find_team_by_id(id)
+    teams.find do |team|
+      team.team_id == id
+    end
+  end
+
   def best_offense
     team_scores = game_teams.reduce({}) do |team_scores, game|
       if team_scores[game.team_id].nil?
@@ -64,7 +60,7 @@ class StatTracker
       end
       team_scores
     end
-    
+
     average_scores = {}
     team_scores.each do |team, scores_array|
       average_scores[team] = (scores_array.sum / scores_array.count.to_f)
@@ -74,8 +70,8 @@ class StatTracker
       average_score
     end
 
-    @team_collection.find_by_id(highest_avg_score.first).team_name
-    # after Gaby refactors collection files, change @team_collection to teams
+    find_team_by_id(highest_avg_score.first).team_name
+
   end
 
   def worst_offense
@@ -155,7 +151,7 @@ class StatTracker
     season_with_most_wins = season_hash.max_by do |season, games|
       games.count
     end
-    
+
     # so then I called the would-be key by using index 0 in the array
     season_with_most_wins[0].to_s
   end

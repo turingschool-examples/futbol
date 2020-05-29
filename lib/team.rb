@@ -1,3 +1,5 @@
+require 'csv'
+
 class Team
   attr_reader :team_id,
               :franchise_id,
@@ -11,6 +13,14 @@ class Team
     @team_name = team_params[:teamname]
     @abbreviation = team_params[:abbreviation]
     @link = team_params[:link]
+  end
+
+  def self.all(teams_path)
+    rows = CSV.read(teams_path, headers: true, header_converters: :symbol)
+    rows.reduce([]) do |teams, row|
+      teams << Team.new(row)
+      teams
+    end
   end
 
   def info
