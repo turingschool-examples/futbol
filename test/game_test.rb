@@ -26,4 +26,12 @@ class GameTest < Minitest::Test
     assert_equal 3, @game.home_goals
     assert_equal 5, @game.total_goals
   end
+
+  def test_can_create_all_games_from_csv
+    game_path = './fixtures/games_fixture.csv'
+    games = Game.all(game_path)
+    assert_instance_of Array, games
+    assert_equal 5, games.count
+  end
+  
 end
