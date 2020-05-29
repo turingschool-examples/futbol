@@ -1,8 +1,8 @@
 
 require "csv"
-require "./lib/game_collection"
-require "./lib/team_collection"
-require "./lib/game_team_collection"
+require_relative "./game_collection"
+require_relative "./team_collection"
+require_relative "./game_team_collection"
 
 class StatTracker
 
@@ -38,7 +38,9 @@ class StatTracker
 
   def all_game_teams_per_season(season_id)
     game_teams.select do |game_team|
-      all_games_per_season(season_id).any?{|game| game.game_id.eql?game_team.game_id}
+      all_games_per_season(season_id).any? do |game|
+        game.game_id.eql?game_team.game_id
+       end
     end
   end
 
@@ -73,5 +75,43 @@ class StatTracker
       total_winning_games
     end
     lowest_coach.first
+  end
+
+  def team_id_group(season_id)
+    x = all_game_teams_per_season(season_id).group_by do |game_team|
+      game_team.team_id
+    end
+  end
+
+  def ratio_of_shots(season_id)
+    hash ={}
+    team_id_group(season_id).each do |key, value|
+       hash[key] = (value.sum{|g| g.shots.to_f}/value.sum{|g| g.goals.to_f}).round(2)
+    end
+    hash
+  end
+
+  def team_id_best(season_id)
+    max = ratio_of_shots(season_id).max_by{|team_id, ratio| ratio}
+    max.first
+  end
+
+  def team_id_worst(season_id)
+    min = ratio_of_shots(season_id).min_by{|team_id, ratio| ratio}
+    min.first
+  end
+
+  def find_team_by_id(team_id)
+    teams.find {|team| team.team_id == team_id}
+  end
+
+  def most_accurate_team(season_id)
+    team_f = find_team_by_id(team_id_best(season_id))
+    team_f.team_name
+  end
+
+  def least_accurate_team(season_id)
+    team_f = find_team_by_id(team_id_worst(season_id))
+    team_f.team_name
   end
 end
