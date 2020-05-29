@@ -37,7 +37,7 @@ class StatTracker
 
   # LEAGUE STATISTICS
   def count_of_teams
-    @team_collection.all.count
+    teams.count
   end
 
   def best_offense
@@ -49,28 +49,18 @@ class StatTracker
       end
       team_scores
     end
-    # returns hash w team_id as key and array of each team's goals in each game as values
-    # => {3=>[2, 2, 1], 6=>[3, 3, 2]}
-
-      # ******find a way to turn the values into score averages
-
-    require "pry"; binding.pry
-
-    score_sums = team_scores.inject(0) do |score_sum, (team_id, scores_array)|
-      scores_array.sum / scores_array.count.to_f
-      score_sum
+    
+    average_scores = {}
+    team_scores.each do |team, scores_array|
+      average_scores[team] = (scores_array.sum / scores_array.count.to_f)
     end
-    # ^ returns nil
 
-    score_sums
-    # games_by_team = game_teams.group_by do |game|
-    #   game.team_id
-    # end
+    highest_avg_score = average_scores.max_by do |team, average_score|
+      average_score
+    end
 
-    # group objects in game_teams file by team
-    # for each of those groups, identify their average number of goals
-    # identify team w highest average
-    # return team name
+    @team_collection.find_by_id(highest_avg_score.first).team_name
+    # after Gaby refactors collection files, change @team_collection to teams
   end
 
   def worst_offense
