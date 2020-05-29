@@ -123,13 +123,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_identify_lowest_scoring_visitor
-    skip
-    assert_equal "", @stat_tracker.lowest_scoring_visitor
+    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_visitor
   end
 
   def test_it_can_identify_lowest_scoring_home_team
     skip
-    assert_equal "", @stat_tracker.lowest_scoring_home_team
+    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_home_team
   end
 
   # TEAM STATISTICS
