@@ -71,13 +71,13 @@ class StatTrackerTest < Minitest::Test
   # SEASON STATISTICS
 
   def test_it_can_find_games_by_season
-    skip
+    assert_instance_of Array, @stat_tracker.games_by_season(20122013)
+    assert_equal 5, @stat_tracker.games_by_season(20122013).count
   end
 
 
   def test_it_can_tell_winningest_coach
-    skip
-
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach(20122013)
   end
 
   # TEAM STATISTICS
