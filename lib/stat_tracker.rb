@@ -40,6 +40,17 @@ class StatTracker
     percentage.round(2)
   end
 
+  def find_visitor_wins
+    game_teams.find_all do |game_team|
+      game_team.hoa == "away" && game_team.result == "WIN"
+    end
+  end
+
+  def percentage_visitor_wins
+    percentage = find_visitor_wins.count.fdiv(game_teams.count / 2) * 100
+    percentage.round(2)
+  end
+
   # LEAGUE STATISTICS
   def count_of_teams
     teams.count
