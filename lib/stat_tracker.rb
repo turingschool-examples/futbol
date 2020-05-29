@@ -72,5 +72,22 @@ class StatTracker
     (home_wins.count(true) / home_games.to_f).round(2)
   end
 
+  def visitor_games
+    visitor_games = []
+    game_team_collection.all.flat_map do |game_team|
+      result = game_team.hoa == "away"
+      visitor_games << result
+    end
+    visitor_games.count(true)
+  end
+
+  def percentage_visitor_wins
+    visitor_wins = []
+    game_team_collection.all.flat_map do |game_team|
+      result = game_team.hoa == "away" && game_team.result == "WIN"
+        visitor_wins << result
+    end
+    (visitor_wins.count(true) / visitor_games.to_f).round(2)
+  end
 
 end
