@@ -91,7 +91,12 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_organize_scores_by_team
     team_scores = {3=>[2, 2, 1], 6=>[3, 3, 2]}
-    assert_equal team_scores, @stat_tracker.team_scores
+    assert_equal team_scores, @stat_tracker.scores_by_team
+  end
+
+  def test_it_can_report_each_teams_avg_score
+    average_scores = {3=>1.6666666666666667, 6=>2.6666666666666665}
+    assert_equal average_scores, @stat_tracker.average_scores_by_team
   end
 
   def test_it_can_identify_best_offense
