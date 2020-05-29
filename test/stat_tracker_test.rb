@@ -63,8 +63,18 @@ class StatTrackerTest < Minitest::Test
   def test_lowest_total_score
     assert_equal 3, @stat_tracker.lowest_total_score
   end
+  
+  def test_find_home_wins
+    assert_instance_of Array, @stat_tracker.find_home_wins
+    assert_equal 2, @stat_tracker.find_home_wins.count
+  end
+
+  def test_home_wins_percentage
+    assert_equal 66.67, @stat_tracker.percentage_home_wins
+  end
 
   # LEAGUE STATISTICS
+  
   def test_it_can_count_teams
     assert_equal 6, @stat_tracker.count_of_teams
   end
@@ -78,7 +88,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Houston Dynamo", @stat_tracker.worst_offense
   end
 
-  # i'm still TTDing here! just helpful to see the number of tests ahead of me still needing to be written and to be able to pseudo code the solutions for all of them first to see how they relate...
+  # i'm still TTDing here! just helpful to see the number of tests ahead of me still 
+  # needing to be written and to be able to pseudo code the solutions for all of them 
+  # first to see how they relate...
   def test_it_can_identify_highest_scoring_visitor
     skip
     assert_equal "", @stat_tracker.highest_scoring_visitor
@@ -115,4 +127,9 @@ class StatTrackerTest < Minitest::Test
   def test_fewest_goals_scored_for_given_team
     assert_equal 2, @stat_tracker.fewest_goals_scored(6)
   end
+
+  def test_best_season_per_given_team
+    assert_equal "20122013", @stat_tracker.best_season(6)
+  end
+
 end

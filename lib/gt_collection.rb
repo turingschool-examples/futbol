@@ -1,4 +1,5 @@
 require "csv"
+require_relative "./game_team"
 
 class GameTeamCollection
   def initialize(gt_csv)
