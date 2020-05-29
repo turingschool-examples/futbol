@@ -28,6 +28,7 @@ class StatTracker
   end
 
   def team_info(team_id)
+    # uses teams.csv
     return_hash = {}
     @teams.all.each do |team|
       if team.team_id == team_id.to_s
@@ -38,15 +39,42 @@ class StatTracker
   end
 
   def best_season(team_id)
-    myhash = @game_teams.all.find_all do |game_team|
-      game_team.team_id == team_id.to_s
+    # uses game_teams.csv and games.csv
+    game_teams_array = []
+    games_array = []
+    combined_array = []
+    combined = {}
+    counter = 0
+    @game_teams.all.each do |game_team|
+      if game_team.team_id == team_id.to_s
+        game_teams_array << game_team.to_hash
+      end
     end
-    myhash.each do |item|
-      binding.pry
-      # hash[item[0]] = item[1]
+    @games.all.each do |game|
+      if game.home_team_id == team_id.to_s || game.away_team_id == team_id.to_s
+        games_array << game.to_hash
+      end
     end
+    #combines arrays created from game_teams.csv and games.csv
+    games_array.each do |game|
 
-    p myhash
+      game_teams_array.each do |game_team|
+        p game_team[:game_id]
+        if game_team[:game_id] == game[:game_id]
+          p "game #{game[:game_id]}"
+          p "game team #{game_team[:game_id]} #{game_team[:result]}"
+          counter = counter + 1
+          combined[:number] = counter
+          combined[:game_id] = game[:game_id]
+          combined[:result] = game_team[:result]
+          combined[:season] = game[:season]
+        end
+
+      end
+      combined_array << combined
+      p combined_array
+      p combined
+    end
   end
 
   # def worst_season

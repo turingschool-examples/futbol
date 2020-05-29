@@ -29,7 +29,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_tracker_can_fetch_game_data
-    assert_equal 60, @stat_tracker.games.count
+    assert_equal 480, @stat_tracker.games.count
     assert_instance_of Game, @stat_tracker.games.first
   end
 
