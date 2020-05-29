@@ -1,6 +1,6 @@
-require_relative "./game_collection"
-require_relative "./team_collection"
-require_relative "./gt_collection"
+require_relative './game'
+require_relative './team'
+require_relative './game_team'
 
 class StatTracker
   attr_reader :games_path, :teams_path, :game_teams_path, :games, :teams, :game_teams
@@ -20,7 +20,7 @@ class StatTracker
   end
 
   # GAME STATISTICS
-  
+
   def highest_total_score
     games.max_by { |game| game.total_goals }.total_goals
   end
