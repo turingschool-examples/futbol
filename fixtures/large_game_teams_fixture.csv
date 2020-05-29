@@ -48,3 +48,4 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012030153,16,away,LOSS,OT,Joel Quenneville,2,6,13,8,2,0,44.4,3,2
 2012030153,30,home,WIN,OT,Mike Yeo,3,9,34,6,3,0,55.6,7,9
 2012030154,16,away,WIN,REG,Joel Quenneville,3,6,10,12,2,0,53.7,4,5
+2012030154,30,home,LOSS,REG,Mike Yeo,0,6,20,4,6,0,46.3,14,4
