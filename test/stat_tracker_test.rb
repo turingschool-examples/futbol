@@ -101,8 +101,14 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_identify_highest_scoring_visitor
-    skip
-    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+    locations = {
+      games: './fixtures/games_fixture.csv',
+      teams: './fixtures/teams_fixture.csv',
+      game_teams: './fixtures/game_teams_league_stats_fixture.csv'
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal "FC Dallas", stat_tracker.highest_scoring_visitor
   end
 
   def test_it_can_identify_highest_scoring_home_team
