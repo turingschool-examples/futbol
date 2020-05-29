@@ -13,7 +13,7 @@ class Game
 
   def initialize(details)
     @game_id = details[:game_id].to_i
-    @season = details[:season].to_i
+    @season = details[:season]
     @type = details[:type]
     @date_time = details[:date_time]
     @away_team_id = details[:away_team_id].to_i
@@ -22,6 +22,17 @@ class Game
     @home_goals = details[:home_goals].to_i
     @venue = details[:venue]
     @venue_link = details[:venue_link]
+    @outcome = outcome
+  end
+
+  def outcome
+    if @home_goals > @away_goals
+      :home_win
+    elsif @home_goals < @away_goals
+      :away_win
+    else
+      :tie
+    end
   end
 
 end

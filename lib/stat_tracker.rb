@@ -40,25 +40,109 @@ class StatTracker
   end
 
   def team_info(team_id)
-    teams.all.reduce({}) do |acc, team|
-      require "pry"; binding.pry
+    acc = {}
+    team_collection.all.each do |team|
+      if team.team_id == team_id
+        acc[:team_id] = team.team_id
+        acc[:franchiseid] = team.franchiseid
+        acc[:teamname] = team.teamname
+        acc[:abbreviation] = team.abbreviation
+        acc[:link] = team.link
+      end
     end
-    # acc = {}
-    # CSV.foreach(@teams, headers: true, header_converters: :symbol) do |row|
-    #   if row[:team_id].to_i == team_id
-    #     row.delete(:stadium)
-    #     acc = row.to_h
-    #   end
-    # end
-    # acc
+    acc
+  end
+
+  def home_games_filtered_by_team(team_id)
+    game_collection.all.find_all do |game|
+      game.home_team_id == team_id
+    end
+  end
+
+  def home_games_grouped_by_season(team_id)
+    winz = home_games_filtered_by_team(team_id).group_by do |game|
+      game.season
+    end
+  end
+
+  def season_home_wins(team_id)
+    wins = Hash.new(0)
+    home_games_grouped_by_season(team_id).each do |season, game|
+      game.each do |game|
+        if game.outcome == :home_win
+          wins[season] += 1
+        elsif game.outcome == :away_win
+          wins[season] -= 1
+        end
+      end
+    end
+    wins
+  end
+
+  def away_games_filtered_by_team(team_id)
+    game_collection.all.find_all do |game|
+      game.away_team_id == team_id
+    end
+  end
+
+  def away_games_grouped_by_season(team_id)
+    away_games_filtered_by_team(team_id).group_by do |game|
+      game.season
+    end
+  end
+
+  def season_away_wins(team_id)
+    wins = Hash.new(0)
+    away_games_grouped_by_season(team_id).each do |season, game|
+      game.each do |game|
+        if game.outcome == :away_win
+          wins[season] += 1
+        elsif game.outcome == :home_win
+          wins[season] -= 1
+        end
+      end
+    end
+    wins
   end
 
   def best_season(team_id)
-    acc = 0
-    rows = CSV.read(@games, headers: true, header_converters: :symbol)
-    filtered_rows = rows.find_all do |row|
-      row[:home_team_id].to_i == team_id || row[:home_team_id].to_i == team_id
+    season = season_away_wins(team_id).merge(season_home_wins(team_id)).max_by do |season, wins|
+      wins
+    end[0]
+  end
+
+  def season_home_losses(team_id)
+    losses = Hash.new(0)
+    home_games_grouped_by_season(team_id).each do |season, game|
+      game.each do |game|
+        if game.outcome == :away_win
+          losses[season] += 1
+        elsif game.outcome == :home_win
+          losses[season] -= 1
+        end
+      end
     end
+    losses
+  end
+
+  def season_away_losses(team_id)
+    losses = Hash.new(0)
+    home_games_grouped_by_season(team_id).each do |season, game|
+      game.each do |game|
+        if game.outcome == :home_win
+          losses[season] += 1
+        elsif game.outcome == :away_win
+          losses[season] -= 1
+        end
+      end
+    end
+    losses
+  end
+
+  def worst_season(team_id)
+    season = season_away_losses(team_id).merge(season_home_losses(team_id)).max_by do |season, losses|
+      losses
+    end[0]
   end
 
 end
