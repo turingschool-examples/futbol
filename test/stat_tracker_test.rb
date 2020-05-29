@@ -7,9 +7,9 @@ require 'pry'
 class StatTrackerTest < Minitest::Test
   def setup
 
-    game_path = './test/data/games.csv'
+    game_path = './data/games.csv'
     team_path = './test/data/teams.csv'
-    game_teams_path = './test/data/game_teams.csv'
+    game_teams_path = './data/game_teams.csv'
 
     @locations = {
       games: game_path,
@@ -29,7 +29,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_tracker_can_fetch_game_data
-    assert_equal 480, @stat_tracker.games.count
+    assert_equal 7441, @stat_tracker.games.count
     assert_instance_of Game, @stat_tracker.games.first
   end
 
@@ -42,15 +42,27 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_returns_team_info_hash
-    assert_equal 54, @stat_tracker.team_info(54)[:team_id].to_i
-    assert_equal "Reign FC", @stat_tracker.team_info(54)[:team_name]
+    expected = {
+                "team_id" => "54",
+                "franchise_id" => "38",
+                "team_name" => "Reign FC",
+                "abbreviation" => "RFC",
+                "link" => "/api/v1/teams/54"
+               }
+    assert_equal expected, @stat_tracker.team_info(54)
   end
 
   def test_it_returns_best_season_string
-    @stat_tracker.best_season(54)
+    assert_equal "20132014", @stat_tracker.best_season(6)
   end
 
+  def test_it_returns_worst_season_string
+    assert_equal "20142015", @stat_tracker.worst_season(6)
+  end
 
+  def test_it_returns_average_win_percentage_string
+    @stat_tracker.average_win_percentage(6)
+  end
 
 
 end
