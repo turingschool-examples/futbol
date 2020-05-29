@@ -53,13 +53,15 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_determine_the_winningest_coach
-    assert_equal "Darryl Sutter", @stat_tracker.winningest_coach(20122013)
+    expected = ["Darryl Sutter", "Ralph Krueger"]
+    assert_includes expected, @stat_tracker.winningest_coach(20122013)
     assert_equal "Alain Vigneault", @stat_tracker.winningest_coach(20142015)
     assert_equal "Mike Yeo", @stat_tracker.winningest_coach(20162017)
   end
 
   def test_it_can_determine_the_worst_coach
-    assert_equal "Patrick Roy", @stat_tracker.worst_coach(20122013)
+    expected = ["Patrick Roy", "Bruce Boudreau", "Ken Hitchcock"]
+    assert_includes expected, @stat_tracker.worst_coach(20122013)
     assert_equal "Jon Cooper", @stat_tracker.worst_coach(20142015)
     assert_equal "Peter Laviolette", @stat_tracker.worst_coach(20162017)
   end
