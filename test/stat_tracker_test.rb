@@ -35,4 +35,13 @@ class StatTrackerTest < Minitest::Test
   def test_tracker_can_fetch_game_team_data
     assert_equal 52, @stat_tracker.game_teams.count
   end
+
+  def test_tracker_has_all_games_per_season
+    assert_equal 57, @stat_tracker.all_games_per_season("20122013").count
+    assert_instance_of Game,  @stat_tracker.all_games_per_season("20122013").first
+
+    expected = @stat_tracker.all_games_per_season("20122013").map{|game| game.season}.uniq
+    assert_equal 1, expected.size
+    assert_equal "20122013", expected.first
+  end
 end
