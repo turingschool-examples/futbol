@@ -94,7 +94,7 @@ class StatTracker
     season_with_most_wins = season_hash.max_by do |season, games|
       games.count
     end
-
+    
     # so then I called the would-be key by using index 0 in the array
     season_with_most_wins[0].to_s
   end
