@@ -23,12 +23,6 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
-  def test_it_has_csv_paths
-    assert_equal './fixtures/games_fixture.csv', @stat_tracker.games_path
-    assert_equal './fixtures/teams_fixture.csv', @stat_tracker.teams_path
-    assert_equal './fixtures/game_teams_fixture.csv', @stat_tracker.game_teams_path
-  end
-
   def test_it_has_games
     assert_instance_of Game, @stat_tracker.games.first
     assert_equal 2012030221, @stat_tracker.games.first.game_id
@@ -85,7 +79,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_team_by_id
-    teams = @stat_tracker.teams
     assert_equal "FC Dallas", @stat_tracker.find_team_by_id(6).team_name
   end
 
