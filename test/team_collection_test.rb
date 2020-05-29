@@ -7,7 +7,6 @@ require './lib/team'
 class TeamCollectionTest < Minitest::Test
   def setup
     @team_collection = TeamCollection.new("./fixtures/teams_fixture.csv")
-
   end
 
   def test_it_exists
@@ -19,4 +18,7 @@ class TeamCollectionTest < Minitest::Test
     assert_equal 6, @team_collection.all.count
   end
 
+  def test_it_can_find_by_id
+    assert_equal "FC Dallas", @team_collection.find_by_id(6).team_name
+  end
 end
