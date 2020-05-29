@@ -37,8 +37,30 @@ class LeagueStatsTest < Minitest::Test
     assert_equal 32, @league_stats.count_of_teams
   end
 
-  def test_it_can_find_best_offense_and_worst_offense
-    assert_equal "Atlanta United", @league_stats.best_offense
-    assert_equal "Utah Royals", @league_stats.worst_offense
+  def test_it_can_find_unique_team_ids
+    assert_equal 32, @league_stats.unique_team_ids.count
+  end
+
+  def test_it_can_sort_games_by_team_id
+    assert_equal 16, @league_stats.games_sorted_by_team_id(52).count
+    assert_equal 7, @league_stats.games_sorted_by_team_id(22).count
+  end
+
+  def test_it_can_total_goals_by_team_id
+    assert_equal 33, @league_stats.total_goals_by_team_id(5)
+    assert_equal 12, @league_stats.total_goals_by_team_id(24)
+  end
+
+  def test_it_can_average_goals_by_team_id
+    assert_equal 1.86, @league_stats.average_goals_by_team_id(1)
+    assert_equal 1.93, @league_stats.average_goals_by_team_id(18)
+  end
+
+  def test_it_can_find_best_offense
+    assert_equal "DC United", @league_stats.best_offense
+  end
+
+  def test_it_can_find_worst_offense
+    assert_equal "Sky Blue FC", @league_stats.worst_offense
   end
 end
