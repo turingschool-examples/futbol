@@ -65,11 +65,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_filter_home_games_by_team
-    assert_equal 2, @stat_tracker.home_games_filtered_by_team("19").count
+    assert_equal 4, @stat_tracker.home_games_filtered_by_team("19").count
   end
 
   def test_it_can_filter_away_games_by_team
-    assert_equal 2, @stat_tracker.away_games_filtered_by_team("19").count
+    assert_equal 4, @stat_tracker.away_games_filtered_by_team("19").count
   end
 
   def test_it_can_group_home_games_by_season
@@ -87,16 +87,15 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_number_of_home_wins_in_season
-    assert_equal true, @stat_tracker.season_home_wins("19").values.include?(-0.5)
+    assert_equal true, @stat_tracker.season_home_wins("19").values.include?(2.0)
   end
 
   def test_it_can_get_number_of_away_wins_in_season
-    assert_equal true, @stat_tracker.season_away_wins("19").values.include?(-1.0)
     assert_equal true, @stat_tracker.season_away_wins("19").values.include?(1.0)
   end
 
   def test_it_can_get_total_wins_in_a_season
-    assert_equal true, @stat_tracker.win_count_by_season("19").values.include?(1.0)
+    assert_equal true, @stat_tracker.win_count_by_season("19").values.include?(-1.0)
   end
 
   def test_it_can_get_best_season

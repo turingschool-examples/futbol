@@ -81,7 +81,7 @@ class StatTracker
         elsif game.outcome == :away_win
           wins[season] -= 1.0
         else
-          wins[season] += 0.5
+          wins[season] -= 0.5
         end
       end
     end
@@ -109,7 +109,7 @@ class StatTracker
         elsif game.outcome == :home_win
           wins[season] -= 1.0
         else
-          wins[season] += 0.5
+          wins[season] -= 0.5
         end
       end
     end
