@@ -1,8 +1,11 @@
+require_relative './readable'
 require_relative './game'
 require_relative './team'
 require_relative './game_team'
 
 class StatTracker
+  include Readable
+
   attr_reader :games_path, :teams_path, :game_teams_path, :games, :teams, :game_teams
 
   def initialize(stat_tracker_params)
@@ -10,9 +13,9 @@ class StatTracker
     @teams_path = stat_tracker_params[:teams]
     @game_teams_path = stat_tracker_params[:game_teams]
 
-    @games = Game.all(@games_path)
-    @teams = Team.all(@teams_path)
-    @game_teams = GameTeam.all(@game_teams_path)
+    @games = from_csv(@games_path, Game)
+    @teams = from_csv(@teams_path, Team)
+    @game_teams = from_csv(@game_teams_path, GameTeam)
   end
 
   def self.from_csv(stat_tracker_params)
