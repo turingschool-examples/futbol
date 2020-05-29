@@ -1,0 +1,19 @@
+game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways
+2013030153,21,away,LOSS,OT,Patrick Roy,0,5,27,14,4,0,47.1,3,4
+2013030153,30,home,WIN,OT,Mike Yeo,1,11,33,16,3,0,52.9,3,11
+2014030151,30,away,TIE,REG,Mike Yeo,2,7,25,4,4,2,41.9,3,3
+2014030151,19,home,TIE,REG,Ken Hitchcock,2,5,22,18,2,0,58.1,7,6
+2013030247,26,away,WIN,REG,Darryl Sutter,4,7,32,8,5,2,60.9,14,7
+2013030247,24,home,LOSS,REG,Bruce Boudreau,2,6,38,14,3,0,39.1,14,3
+2016030235,18,away,LOSS,REG,Peter Laviolette,1,5,25,10,3,1,54.4,2,4
+2016030235,19,home,WIN,REG,Mike Yeo,2,8,31,6,5,0,45.6,2,6
+2012030183,19,away,LOSS,REG,Ken Hitchcock,0,7,39,10,4,0,50.9,13,2
+2012030183,26,home,WIN,REG,Darryl Sutter,1,5,53,10,4,0,49.1,17,9
+2014030316,3,away,WIN,REG,Alain Vigneault,5,8,27,8,3,1,53,8,9
+2014030316,14,home,LOSS,REG,Jon Cooper,3,9,22,8,3,1,47,11,7
+2014030154,19,away,WIN,REG,Ken Hitchcock,4,6,16,2,2,0,50,1,6
+2014030154,30,home,LOSS,REG,Mike Yeo,1,4,26,4,1,1,50,8,6
+2012020705,22,away,WIN,REG,Ralph Krueger,4,4,15,9,2,0,41.1,2,3
+2012020705,30,home,LOSS,REG,Mike Yeo,1,9,25,29,2,0,58.9,2,5
+2013030156,21,away,LOSS,REG,Patrick Roy,2,5,18,32,4,1,46.6,4,1
+2013030156,30,home,WIN,REG,Mike Yeo,3,5,32,34,3,1,53.4,6,9

@@ -14,19 +14,35 @@ class StatTracker
   end
 
   def game_collection
-    GameCollection.new
+    GameCollection.new(@games)
   end
 
   def team_collection
-    TeamCollection.new
+    TeamCollection.new(@teams)
   end
 
   def game_team_collection
-    GameTeamCollection.new
-  end 
+    GameTeamCollection.new(@game_teams)
+  end
 
   def highest_total_score
+    top_score = 0
+    game_collection.all.each do |game|
+      if game.away_goals + game.home_goals > top_score
+        top_score = game.away_goals + game.home_goals
+      end
+    end
+    top_score
+  end
 
+  def lowest_total_score
+    lowest_score = 1000000
+    game_collection.all.each do |game|
+      if game.away_goals + game.home_goals < lowest_score
+        lowest_score = game.away_goals + game.home_goals
+      end
+    end
+    lowest_score
   end
 
 end
