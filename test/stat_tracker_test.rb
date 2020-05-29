@@ -1,6 +1,5 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './test/setup'
 require './lib/game'
 require './lib/team'
 require './lib/game_team'
@@ -8,7 +7,6 @@ require './lib/game_collection'
 require './lib/team_collection'
 require './lib/gt_collection'
 require './lib/stat_tracker'
-require 'pry'
 
 class StatTrackerTest < Minitest::Test
   def setup
@@ -65,7 +63,7 @@ class StatTrackerTest < Minitest::Test
   def test_lowest_total_score
     assert_equal 3, @stat_tracker.lowest_total_score
   end
-
+  
   def test_find_home_wins
     assert_instance_of Array, @stat_tracker.find_home_wins
     assert_equal 2, @stat_tracker.find_home_wins.count
@@ -75,6 +73,43 @@ class StatTrackerTest < Minitest::Test
     assert_equal 66.67, @stat_tracker.percentage_home_wins
   end
 
+  # LEAGUE STATISTICS
+  
+  def test_it_can_count_teams
+    assert_equal 6, @stat_tracker.count_of_teams
+  end
+
+  def test_it_can_identify_best_offense
+    assert_equal "FC Dallas", @stat_tracker.best_offense
+  end
+
+  def test_it_can_identify_worst_offense
+    skip
+    assert_equal "Houston Dynamo", @stat_tracker.worst_offense
+  end
+
+  # i'm still TTDing here! just helpful to see the number of tests ahead of me still 
+  # needing to be written and to be able to pseudo code the solutions for all of them 
+  # first to see how they relate...
+  def test_it_can_identify_highest_scoring_visitor
+    skip
+    assert_equal "", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_it_can_identify_highest_scoring_home_team
+    skip
+    assert_equal "", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_it_can_identify_lowest_scoring_visitor
+    skip
+    assert_equal "", @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_it_can_identify_lowest_scoring_home_team
+    skip
+    assert_equal "", @stat_tracker.lowest_scoring_home_team
+  end
 
   # TEAM STATISTICS
 

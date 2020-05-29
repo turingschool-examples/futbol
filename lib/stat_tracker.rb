@@ -51,6 +51,58 @@ class StatTracker
   end
 
   # LEAGUE STATISTICS
+  def count_of_teams
+    teams.count
+  end
+
+  def best_offense
+    team_scores = game_teams.reduce({}) do |team_scores, game|
+      if team_scores[game.team_id].nil?
+        team_scores[game.team_id] = [game.goals]
+      else
+        team_scores[game.team_id] << game.goals
+      end
+      team_scores
+    end
+    
+    average_scores = {}
+    team_scores.each do |team, scores_array|
+      average_scores[team] = (scores_array.sum / scores_array.count.to_f)
+    end
+
+    highest_avg_score = average_scores.max_by do |team, average_score|
+      average_score
+    end
+
+    @team_collection.find_by_id(highest_avg_score.first).team_name
+    # after Gaby refactors collection files, change @team_collection to teams
+  end
+
+  def worst_offense
+    # use same set up as above
+    # but then identify team w lowest average
+    # return team name
+  end
+
+  def highest_scoring_visitor
+    # identify all objects identified as away games in game_teams
+    # amongst the list of away games, group objects by team
+    # for each group, identify average number of goals
+    # identify team w highest average
+    # return team name
+  end
+
+  def highest_scoring_home_team
+    # same as above but w home games instead of away games
+  end
+
+  def lowest_scoring_visitor
+    # same as highest_scoring_visitor but find team w lowest average
+  end
+
+  def lowest_scoring_home_team
+    # same as above but w home games
+  end
 
   # SEASON STATISTIC
 
@@ -75,8 +127,6 @@ class StatTracker
       scores
     end.min
   end
-
-  # --------------
 
   def best_season(team_id)
     # Create array of game_team objects with matching team_id and WINs
@@ -109,6 +159,5 @@ class StatTracker
     # so then I called the would-be key by using index 0 in the array
     season_with_most_wins[0].to_s
   end
-
 
 end
