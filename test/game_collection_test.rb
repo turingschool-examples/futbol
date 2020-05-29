@@ -18,4 +18,4 @@ class GameCollectionTest < Minitest::Test
   def test_it_can_create_games_objects
     assert_instance_of Game, @games_collection.games.first
   end
-end
+end 
