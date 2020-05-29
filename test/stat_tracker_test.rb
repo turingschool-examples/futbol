@@ -35,24 +35,22 @@ class StatTrackerTest < Minitest::Test
   def test_tracker_can_fetch_game_team_data
     assert_equal 52, @stat_tracker.game_teams.count
   end
-
+# start game stat tests
   def test_highest_total_score
-    skip
     assert_equal 6, @stat_tracker.highest_total_score
   end
 
   def test_lowest_total_score
-    skip
     assert_equal 1, @stat_tracker.lowest_total_score
   end
 
   def test_percentage_home_wins # 38 home wins in test data
-    skip
+
     assert_equal 0.63, @stat_tracker.percentage_home_wins
   end
 
   def test_percentage_visitor_wins # 20 away wins in test data
-    skip
+
     assert_equal 0.33, @stat_tracker.percentage_visitor_wins
   end
 
