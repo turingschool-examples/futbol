@@ -119,22 +119,38 @@ class StatTracker
   end
 
   # SEASON STATISTICS
-
-  # winningest_coach	Name of the Coach with the best win percentage for the season	String
-
   def games_by_season(season)
-    games.find_all do |game|
-      game.season == season
-    end
+    games.find_all { |game| game.season == season }
   end
 
   def winningest_coach(season)
-    games_by_season(season).
+    #season_games_by_id returns an array of just season game ids
+    season_game_ids = games_by_season(season).map do |game|
+      game.game_id
+    end
 
+    #then find all games in game_teams from the above season
+    season_games = game_teams.find_all do |game|
+    season_game_ids.include?(game.game_id)
+    end
 
-    #season_id will reference all games played in that season. This will start in game_collection, then use team_id to reference gt_collection and finally return the head_coach name as a string
+    # filter season games by wins
+    wins = season_games.find_all do |game|
+    game.result == "WIN"
+    end
 
+    # returns an array of coach name for each win
+    coach_wins = wins.map do |game|
+    game.head_coach
+    end
+
+    # creates a hash of number of season games won by coach
+    num_wins_by_coach = coach_wins.inject(Hash.new(0)) { |coach, count| coach[count] += 1; coach}
+
+    #return the winningest head_coach name as a string
+    coach_wins.max_by { |count| num_wins_by_coach[count] }
   end
+  
   # worst_coach	Name of the Coach with the worst win percentage for the season	String
   #
   # most_accurate_team	Name of the Team with the best ratio of shots to goals for the season	String
@@ -144,7 +160,7 @@ class StatTracker
   # most_tackles	Name of the Team with the most tackles in the season	String
   #
   # fewest_tackles	Name of the Team with the fewest tackles in the season	String
-  #
+
 
   # TEAM STATISTICS
 
