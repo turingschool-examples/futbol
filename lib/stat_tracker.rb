@@ -145,22 +145,23 @@ class StatTracker
     end
 
     # creates a hash of number of season games won by coach
-    num_wins_by_coach = coach_wins.inject(Hash.new(0)) { |coach, count| coach[count] += 1; coach}
+    wins_by_coach = coach_wins.inject(Hash.new(0)) do |wins_by_coach, coach|
+       wins_by_coach[coach] += 1; wins_by_coach
+     end
 
     #return the winningest head_coach name as a string
-    coach_wins.max_by { |count| num_wins_by_coach[count] }
+    coach_wins.max_by { |coach| wins_by_coach[coach] }
   end
-  
-  # worst_coach	Name of the Coach with the worst win percentage for the season	String
-  #
-  # most_accurate_team	Name of the Team with the best ratio of shots to goals for the season	String
-  #
-  # least_accurate_team	Name of the Team with the worst ratio of shots to goals for the season	String
-  #
-  # most_tackles	Name of the Team with the most tackles in the season	String
-  #
-  # fewest_tackles	Name of the Team with the fewest tackles in the season	String
 
+  # worst_coach
+
+  # most_accurate_team
+
+  # least_accurate_team
+
+  # most_tackles
+
+  # fewest_tackles
 
   # TEAM STATISTICS
 

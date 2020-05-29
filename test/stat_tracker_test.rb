@@ -128,11 +128,39 @@ class StatTrackerTest < Minitest::Test
   end
 
 
-  def test_it_can_tell_winningest_coach
+  def test_winningest_coach
+    #new setup
     assert_equal "Claude Julien", @stat_tracker.winningest_coach(20122013)
   end
 
+  def test_worst_coach
+    skip
+    #new setup
+    # Name of the Coach with the worst win percentage for the season	String
+    assert_equal "", @stat_tracker.worst_coach(season)
+  end
 
+  def test_most_accurate_team
+    skip
+    # Name of the Team with the best ratio of shots to goals for the season	String
+  end
+
+  def test_least_accurate_team
+    skip
+    # Name of the Team with the worst ratio of shots to goals for the season	String
+  end
+
+  def test_most_tackles
+    skip
+    # Name of the Team with the most tackles in the season	String
+  end
+
+  def test_fewest_tackles
+    skip
+    # Name of the Team with the fewest tackles in the season	String
+  end
+
+Name of the Team with the fewest tackles in the season	String
   # TEAM STATISTICS
 
   def test_can_get_team_info_hash
