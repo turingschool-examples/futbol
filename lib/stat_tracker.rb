@@ -34,24 +34,24 @@ class StatTracker
 
   def highest_total_score
     total = game_collection.all.max_by do |game|
-      game.away_goals + game.home_goals
+      game.away_goals.to_i + game.home_goals.to_i
     end
 
-    total.home_goals + total.away_goals
+    total.home_goals.to_i + total.away_goals.to_i
   end
 
   def lowest_total_score
     total = game_collection.all.min_by do |game|
-      game.away_goals + game.home_goals
+      game.away_goals.to_i + game.home_goals.to_i
     end
 
-    total.home_goals + total.away_goals
+    total.home_goals.to_i + total.away_goals.to_i
   end
 
   def winningest_coach(season_id)
     coaches_wins = Hash.new(0)
     game_team_collection.all.each do |game_team|
-      if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
+      if season_id.include?(game_team.game_id.split(//).join[0..3])
         if game_team.result == "WIN"
           coaches_wins[game_team.head_coach] += 1
         elsif game_team.result == "LOSS"
@@ -64,7 +64,7 @@ class StatTracker
 
     coaches_total_games = Hash.new(0)
     game_team_collection.all.each do |game_team|
-      if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
+      if season_id.include?(game_team.game_id.split(//).join[0..3])
         coaches_total_games[game_team.head_coach] += 1
       end
     end
@@ -87,7 +87,7 @@ class StatTracker
   def worst_coach(season_id)
     coaches_wins = Hash.new(0)
     game_team_collection.all.each do |game_team|
-      if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
+      if season_id.include?(game_team.game_id.split(//).join[0..3])
         if game_team.result == "WIN"
           coaches_wins[game_team.head_coach] += 1
         elsif game_team.result == "LOSS"
@@ -100,7 +100,7 @@ class StatTracker
 
     coaches_total_games = Hash.new(0)
     game_team_collection.all.each do |game_team|
-      if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
+      if season_id.include?(game_team.game_id.split(//).join[0..3])
         coaches_total_games[game_team.head_coach] += 1
       end
     end
@@ -141,15 +141,15 @@ class StatTracker
   def most_accurate_team(season_id)
     goals_for_season_by_team = Hash.new(0)
     game_team_collection.all.each do |game_team|
-      if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
-        goals_for_season_by_team[game_team.team_id] += game_team.goals
+      if season_id.include?(game_team.game_id.split(//).join[0..3])
+        goals_for_season_by_team[game_team.team_id] += game_team.goals.to_i
       end
     end
 
     shots_for_season_by_team = Hash.new(0)
     game_team_collection.all.each do |game_team|
-      if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
-        shots_for_season_by_team[game_team.team_id] += game_team.shots
+      if season_id.include?(game_team.game_id.split(//).join[0..3])
+        shots_for_season_by_team[game_team.team_id] += game_team.shots.to_i
       end
     end
 
@@ -172,15 +172,15 @@ class StatTracker
   def least_accurate_team(season_id)
     goals_for_season_by_team = Hash.new(0)
     game_team_collection.all.each do |game_team|
-      if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
-        goals_for_season_by_team[game_team.team_id] += game_team.goals
+      if season_id.include?(game_team.game_id.split(//).join[0..3])
+        goals_for_season_by_team[game_team.team_id] += game_team.goals.to_i
       end
     end
 
     shots_for_season_by_team = Hash.new(0)
     game_team_collection.all.each do |game_team|
-      if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
-        shots_for_season_by_team[game_team.team_id] += game_team.shots
+      if season_id.include?(game_team.game_id.split(//).join[0..3])
+        shots_for_season_by_team[game_team.team_id] += game_team.shots.to_i
       end
     end
 
@@ -201,18 +201,16 @@ class StatTracker
   end
 
   def team_name_based_off_of_team_id(team_id)
-    CSV.foreach(@teams, headers: true, header_converters: :symbol) do |team|
-      if team_id == team[:team_id].to_i
-        return team[:teamname]
-      end
+    team_collection.all.each do |team|
+      return team.team_name if team_id == team.team_id
     end
   end
 
   def most_tackles(season_id)
     tackles_for_season_by_team = Hash.new(0)
     game_team_collection.all.each do |game_team|
-      if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
-        tackles_for_season_by_team[game_team.team_id] += game_team.tackles
+      if season_id.include?(game_team.game_id.split(//).join[0..3])
+        tackles_for_season_by_team[game_team.team_id] += game_team.tackles.to_i
       end
     end
 
@@ -226,8 +224,8 @@ class StatTracker
   def fewest_tackles(season_id)
     tackles_for_season_by_team = Hash.new(0)
     game_team_collection.all.each do |game_team|
-      if season_id.to_s.include?(game_team.game_id.to_s.split(//).join[0..3])
-        tackles_for_season_by_team[game_team.team_id] += game_team.tackles
+      if season_id.include?(game_team.game_id.split(//).join[0..3])
+        tackles_for_season_by_team[game_team.team_id] += game_team.tackles.to_i
       end
     end
 
