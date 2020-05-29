@@ -75,9 +75,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal 66.67, @stat_tracker.percentage_home_wins
   end
 
-  # write test for find home wins
-  # percentage_home_wins	Percentage of games that a home team has won
-  # (rounded to the nearest 100th)	Float
 
   # TEAM STATISTICS
 
