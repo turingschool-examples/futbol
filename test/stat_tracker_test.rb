@@ -81,4 +81,12 @@ class StatTrackerTest < Minitest::Test
       }
     assert_equal expected, @stat_tracker.coach_per_total_win("20122013")
   end
+
+  def test_tracker_has_the_winnest_coach
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20122013")
+  end
+
+  def test_tracker_has_the_worst_coach
+    assert_equal "John Tortorella", @stat_tracker.worst_coach("20122013")
+  end
 end
