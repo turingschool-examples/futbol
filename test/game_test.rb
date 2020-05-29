@@ -30,4 +30,12 @@ class GameTest < MiniTest::Test
     assert_equal "Postseason", @game.type
     assert_equal "/api/v1/venues/null", @game.venue_link
   end
+
+  # def test_it_finds_games
+  #   game = Game.new(@stat_tracker.games.first)
+  #   assert_instance_of Game, game
+  #   assert_equal "20122013", game.season
+  #   assert_equal "5/16/13", game.date_time
+  #   assert_equal "Toyota Stadium", game.venue
+  # end
 end

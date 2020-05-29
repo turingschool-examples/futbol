@@ -151,20 +151,51 @@ class StatTracker
     end
   end
 
-  # create helper methof to he;lp highest scoreing visitor method
-  # create a has with the keys set to tems
-  # values set to each game the team has played
+
+
+  def number_of_games_played_away_team
+    games_played = games.reduce(Hash.new(0)) do |team, game|
+      team[game.away_team_id] += 1
+      team
+    end
+  end
+
+  def number_of_games_played_home_team
+    games_played = games.reduce(Hash.new(0)) do |team, game|
+      team[game.home_team_id] += 1
+      team
+    end
+  end
 
   def highest_scoring_visitor
-    away_team_goals = games.reduce(Hash.new(0)) do |teams, game|
-      teams[game.away_team_id] += game.away_goals.to_i
-      teams
+    away_team_goals = games.reduce(Hash.new(0)) do |team, game|
+      team[game.away_team_id] += game.away_goals.to_f
+      team
     end
+     away_team_goals.merge!(number_of_games_played_away_team) { |k, o, n| o / n }
+     away_team_goals
+     id = away_team_goals.key(away_team_goals.values.max)
+     found = teams.find do |team|
+       if team.team_id == id
+          return team.team_name
+       end
+     found
+   end
+  end
 
-    away_team_goals.transform_values! do |score|
-      require "pry"; binding.pry
-      score = ((games.include?(teams).count).to_f / score).round(2)
+  def highest_scoring_home_team
+    home_team_goals = games.reduce(Hash.new(0)) do |team, game|
+      team[game.home_team_id] += game.home_goals.to_f
+      team
     end
-    away_team_goals
+    home_team_goals.merge!(number_of_games_played_home_team) { |k, o, n| o / n }
+    home_team_goals
+    id = home_team_goals.key(home_team_goals.values.max)
+    found = teams.find do |team|
+      if team.team_id == id
+        return team.team_name
+        found
+      end
+    end
   end
 end
