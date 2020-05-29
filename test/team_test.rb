@@ -20,8 +20,8 @@ class TeamTest < Minitest::Test
 
   def test_it_has_attributes
     assert_equal 1, @team_1.team_id
-    assert_equal 23, @team_1.franchiseid
-    assert_equal "Atlanta United", @team_1.teamname
+    assert_equal 23, @team_1.franchise_id
+    assert_equal "Atlanta United", @team_1.team_name
     assert_equal "ATL", @team_1.abbreviation
     assert_equal "/api/v1/teams/1", @team_1.link
   end

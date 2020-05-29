@@ -53,34 +53,41 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_team_info
+    skip
     expected = {
-                :team_id => 30,
-                :franchiseid => 37,
-                :teamname => "Orlando City SC",
+                :team_id => "30",
+                :franchise_id => "37",
+                :team_name => "Orlando City SC",
                 :abbreviation => "ORL",
                 :link => "/api/v1/teams/30"
                 }
-    assert_equal expected, @stat_tracker.team_info(30)
+    assert_equal expected, @stat_tracker.team_info("30")
   end
 
   def test_it_can_filter_home_games_by_team
-    assert_equal 2, @stat_tracker.home_games_filtered_by_team(19).count
+    assert_equal 2, @stat_tracker.home_games_filtered_by_team("19").count
+  end
+
+  def test_it_can_filter_away_games_by_team
+    assert_equal 4, @stat_tracker.away_games_filtered_by_team("19").count
   end
 
   def test_filtered_home_games_can_be_grouped_by_season
-    assert_equal Hash, @stat_tracker.home_games_grouped_by_season(19).class
+    assert_equal Hash, @stat_tracker.home_games_grouped_by_season("19").class
   end
 
   def test_it_can_get_number_of_home_wins_in_season
-    assert_equal Hash, @stat_tracker.season_home_wins(19).class
+    assert_equal Hash, @stat_tracker.season_home_wins("19").class
   end
 
   def test_it_can_get_best_season
-    assert_equal "20162017", @stat_tracker.best_season(19)
+    skip
+    assert_equal "20162017", @stat_tracker.best_season("19")
   end
 
   def test_it_can_get_worst_season
-    assert_equal "20142015", @stat_tracker.worst_season(19)
+    skip
+    assert_equal "20142015", @stat_tracker.worst_season("19")
   end
 
 end
