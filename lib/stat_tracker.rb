@@ -85,7 +85,6 @@ class StatTracker
     highest_avg_score = average_scores_by_team.max_by do |team, average_score|
       average_score
     end
-
     find_team_by_id(highest_avg_score.first).team_name
   end
 

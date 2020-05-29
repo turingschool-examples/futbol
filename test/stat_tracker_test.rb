@@ -100,7 +100,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_identify_best_offense
-    skip
     assert_equal "FC Dallas", @stat_tracker.best_offense
   end
 
