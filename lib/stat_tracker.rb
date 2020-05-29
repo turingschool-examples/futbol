@@ -45,9 +45,15 @@ class StatTracker
     teams.count
   end
 
-  def find_team_by_id(id)
-    teams.find do |team|
-      team.team_id == id
+  # def find_team_by_id(id)
+  #   teams.find do |team|
+  #     team.team_id == id
+  #   end
+  # end
+
+  def find_team_by_id(array, id)
+    array.find do |obj|
+      obj.team_id == id
     end
   end
 
@@ -70,7 +76,7 @@ class StatTracker
       average_score
     end
 
-    find_team_by_id(highest_avg_score.first).team_name
+    find_team_by_id(@teams, highest_avg_score.first).team_name
 
   end
 

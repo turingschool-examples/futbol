@@ -76,6 +76,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal 6, @stat_tracker.count_of_teams
   end
 
+  def test_it_can_find_team_by_id
+    teams = @stat_tracker.teams
+    assert_equal "FC Dallas", @stat_tracker.find_team_by_id(teams, 6).team_name
+  end
+
   def test_it_can_identify_best_offense
     assert_equal "FC Dallas", @stat_tracker.best_offense
   end
