@@ -99,4 +99,39 @@ class LeagueStats
       team.team_id == highest_average.first
     end.teamname
   end
+
+  def lowest_scoring_visitor
+    away_teams = @game_teams_collection.game_teams.find_all do |team|
+      team.hoa == "away"
+    end
+    by_teams = away_teams.group_by do |team|
+      team.team_id
+    end
+    by_teams.each do |team_id, games|
+      by_teams[team_id] = (games.sum { |game| game.goals.to_i } / games.count.to_f )
+    end
+    lowest_scoring = by_teams.select { |_, v| v == by_teams.values.min}
+    @teams_collection.teams.find do |team|
+      team.team_id == lowest_scoring.keys.first
+    end.teamname
+  end
+
+  def lowest_scoring_home_team
+    home_teams = @game_teams_collection.game_teams.find_all do |team|
+      team.hoa == "home"
+    end
+    by_teams = home_teams.group_by do |team|
+      team.team_id
+    end
+    by_teams.each do |team_id, games|
+      by_teams[team_id] = (games.sum { |game| game.goals.to_i } / games.count.to_f )
+    end
+    highest_scoring = by_teams.select { |_, value| value == by_teams.values.max}
+    require "pry"; binding.pry
+    @teams_collection.teams.find do |team|
+      team.team_id == highest_scoring.keys.first
+    end.teamname
+  end
+
+
 end
