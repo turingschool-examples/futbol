@@ -62,8 +62,8 @@ class StatTracker
     end
   end
 
-  def best_offense
-    team_scores = game_teams.reduce({}) do |team_scores, game|
+  def team_scores
+    game_teams.reduce({}) do |team_scores, game|
       if team_scores[game.team_id].nil?
         team_scores[game.team_id] = [game.goals]
       else
@@ -71,6 +71,10 @@ class StatTracker
       end
       team_scores
     end
+  end
+
+  def best_offense
+
 
     average_scores = {}
     team_scores.each do |team, scores_array|
