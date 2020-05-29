@@ -1,7 +1,5 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/game'
 require './test/setup'
+require './lib/game'
 
 class GameTest < Minitest::Test
   def setup
