@@ -52,6 +52,9 @@ class StatTracker
   # end
 
   def find_team_by_id(array, id)
+    # I changed this method to take 2 args so we could
+    # use the same one for iterating over both @teams
+    # AND @game_teams
     array.find do |obj|
       obj.team_id == id
     end
