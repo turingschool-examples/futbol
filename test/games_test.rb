@@ -31,8 +31,8 @@ class GamesTest < MiniTest::Test
 		assert_equal "5/16/13", @games.date_time
 		assert_equal "3", @games.away_team_id
 		assert_equal "6", @games.home_team_id
-		assert_equal "2", @games.away_goals
-		assert_equal "3", @games.home_goals
+		assert_equal 2, @games.away_goals
+		assert_equal 3, @games.home_goals
 		assert_equal "Toyota Stadium", @games.venue
 		assert_equal "/api/v1/venues/null", @games.venue_link
 	end
