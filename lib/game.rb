@@ -16,4 +16,5 @@ class Game
     @home_goals = game_params[:home_goals].to_i
     @total_goals = @away_goals + @home_goals
   end
+
 end

@@ -1,5 +1,3 @@
-require 'minitest/autorun'
-require 'minitest/pride'
 require './test/setup'
 require './lib/game'
 
@@ -27,4 +25,5 @@ class GameTest < Minitest::Test
     assert_equal 3, @game.home_goals
     assert_equal 5, @game.total_goals
   end
+
 end

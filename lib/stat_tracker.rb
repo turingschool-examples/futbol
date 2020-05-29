@@ -1,32 +1,29 @@
+require_relative './readable'
+require_relative './game'
+require_relative './team'
+require_relative './game_team'
+
 class StatTracker
-  attr_reader :games_path, :teams_path, :game_teams_path, :game_collection, :team_collection
+  include Readable
+
+  attr_reader :games, :teams, :game_teams
 
   def initialize(stat_tracker_params)
-    @games_path = stat_tracker_params[:games]
-    @teams_path = stat_tracker_params[:teams]
-    @game_teams_path = stat_tracker_params[:game_teams]
-    @game_collection = GameCollection.new(@games_path)
-    @team_collection = TeamCollection.new(@teams_path)
-    @gt_collection = GameTeamCollection.new(@game_teams_path)
+    games_path = stat_tracker_params[:games]
+    teams_path = stat_tracker_params[:teams]
+    game_teams_path = stat_tracker_params[:game_teams]
+
+    @games = from_csv(games_path, Game)
+    @teams = from_csv(teams_path, Team)
+    @game_teams = from_csv(game_teams_path, GameTeam)
   end
 
   def self.from_csv(stat_tracker_params)
     StatTracker.new(stat_tracker_params)
   end
 
-  def games
-    @game_collection.all
-  end
-
-  def teams
-    @team_collection.all
-  end
-
-  def game_teams
-    @gt_collection.all
-  end
-
   # GAME STATISTICS
+
   def highest_total_score
     games.max_by { |game| game.total_goals }.total_goals
   end
@@ -35,7 +32,91 @@ class StatTracker
     games.min_by { |game| game.total_goals }.total_goals
   end
 
+  def find_home_wins
+    game_teams.find_all do |game_team|
+      game_team.hoa == "home" && game_team.result == "WIN"
+    end
+  end
+
+  def percentage_home_wins
+    percentage = find_home_wins.count.fdiv(game_teams.count / 2) * 100
+    percentage.round(2)
+  end
+
+  def find_visitor_wins
+    game_teams.find_all do |game_team|
+      game_team.hoa == "away" && game_team.result == "WIN"
+    end
+  end
+
+  def percentage_visitor_wins
+    percentage = find_visitor_wins.count.fdiv(game_teams.count / 2) * 100
+    percentage.round(2)
+  end
+
   # LEAGUE STATISTICS
+  def count_of_teams
+    teams.count
+  end
+
+  def find_team_by_id(id)
+    @teams.find do |team|
+      team.team_id == id
+    end
+  end
+
+  def scores_by_team
+    game_teams.reduce({}) do |team_scores, game|
+      if team_scores[game.team_id].nil?
+        team_scores[game.team_id] = [game.goals]
+      else
+        team_scores[game.team_id] << game.goals
+      end
+      team_scores
+    end
+  end
+
+  def average_scores_by_team
+    avgs_by_team = {}
+    scores_by_team.each do |team, scores_array|
+      avgs_by_team[team] = (scores_array.sum / scores_array.count.to_f)
+    end
+    avgs_by_team
+  end
+
+  def best_offense
+    highest_avg_score = average_scores_by_team.max_by do |team, avg_score|
+      avg_score
+    end
+    find_team_by_id(highest_avg_score.first).team_name
+  end
+
+  def worst_offense
+    lowest_avg_score = average_scores_by_team.min_by do |team, avg_score|
+      avg_score
+    end
+    find_team_by_id(lowest_avg_score.first).team_name
+  end
+
+  def highest_scoring_visitor
+    # identify all objects identified as away games in game_teams
+    # amongst the list of away games, group objects by team
+    # for each group, identify average number of goals
+    # identify team w highest average
+    # return team name
+  end
+
+  def highest_scoring_home_team
+    # same as above but w home games instead of away games
+  end
+
+  def lowest_scoring_visitor
+    # same as highest_scoring_visitor but find team w lowest average
+  end
+
+  def lowest_scoring_home_team
+    # same as above but w home games
+  end
 
   # SEASON STATISTICS
 
@@ -85,6 +166,38 @@ class StatTracker
       scores << game_team.goals if game_team.team_id == team_id
       scores
     end.min
+  end
+
+  def best_season(team_id)
+    # Create array of game_team objects with matching team_id and WINs
+    # (this could be a GameTeamCollection find_by method!!
+    # maybe split up the matching by team_id and matching by result)
+    game_teams_won = game_teams.find_all do |game_team|
+      game_team.team_id == team_id && game_team.result == "WIN"
+    end
+
+    # Cross-reference game_teams with games:
+    games_won = []
+    game_teams_won.each do |game_team|
+      games.each do |game|
+        games_won << game if game_team.game_id == game.game_id
+      end
+    end
+
+    # Using cross-referenced game list, create hash with season as keys,
+    # and won [Game objects array] as values
+    season_hash = games_won.group_by do |game|
+      game.season
+    end
+
+    # Count up the number of games for each season (remember these are "wins")
+    # For some reason, calling max_by on a hash returns an array.
+    season_with_most_wins = season_hash.max_by do |season, games|
+      games.count
+    end
+
+    # so then I called the would-be key by using index 0 in the array
+    season_with_most_wins[0].to_s
   end
 
 end

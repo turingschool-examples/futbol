@@ -10,4 +10,5 @@ class GameTeam
     @head_coach = game_team_params[:head_coach]
     @goals = game_team_params[:goals].to_i
   end
+
 end

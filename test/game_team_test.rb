@@ -1,5 +1,3 @@
-require 'minitest/autorun'
-require 'minitest/pride'
 require './test/setup'
 require './lib/game_team'
 
@@ -30,4 +28,5 @@ class GameTeamTest < Minitest::Test
     assert_equal "John Tortorella", @game_team.head_coach
     assert_equal 2, @game_team.goals
   end
+
 end
