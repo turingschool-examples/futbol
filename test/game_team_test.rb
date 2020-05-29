@@ -70,5 +70,9 @@ class GameTeamTest < Minitest::Test
     assert_equal 9, @game_team_2.giveaways
     assert_equal 6, @game_team_2.takeaways
   end
-  
+
+  def test_it_can_find_tie_percentage
+    assert_equal 43.75, @game_team.percentage_ties
+  end
+
 end

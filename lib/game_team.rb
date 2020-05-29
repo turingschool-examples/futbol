@@ -34,5 +34,13 @@ class GameTeam
    @@accumulator
  end
 
+ def percentage_ties
+   ties = @@accumulator.count do |team|
+     team.result == "TIE"
+   end
+   result = (ties.to_f / @@accumulator.count)*100
+   result.round(2)
+ end
+
 
 end

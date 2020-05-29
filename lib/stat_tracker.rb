@@ -3,7 +3,7 @@ require_relative "team"
 require_relative "game_team"
 
 class StatTracker
-  attr_reader :games_file_path, :teams_file_path, :game_teams_file_path
+  attr_reader :games, :teams, :game_teams
 
   def self.from_csv(locations)
     @games_file_path = locations[:games]
@@ -17,12 +17,16 @@ class StatTracker
     Team.from_csv(teams_path)
     GameTeam.from_csv(game_teams_path)
 
-    # @games_path = games_path
-    # @teams_path = teams_path
-    # @game_teams_path = game_teams_path
+    @games = Game.accumulator
+    @teams = Team.accumulator
+    @game_teams = GameTeam.accumulator
   end
 
   def count_of_teams
-    Team.accumulator.count
+    @teams.count
+  end
+
+  def percentage_ties
+    GameTeam.percentage_ties
   end
 end
