@@ -147,10 +147,18 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_finds_most_goals_scored
-    assert_equal 6, @stat_tracker.most_goals_scored(6)
+    assert_equal 8, @stat_tracker.most_goals_scored(8)
   end
 
   def test_it_finds_least_goals_scored
-    assert_equal 0, @stat_tracker.fewest_goals_scored(6)
+    assert_equal 0, @stat_tracker.fewest_goals_scored(8)
+  end
+
+  def test_it_finds_favorite_opponent
+    assert_equal "New England Revolution", @stat_tracker.favorite_opponent(8)
+  end
+
+  def test_it_finds_rival
+    assert_equal "New England Revolution", @stat_tracker.rival(18)
   end
 end

@@ -269,13 +269,13 @@ class StatTracker
   end
 
   def goals_scored(team_id)
-    highest_goals = []
+    all_goals_scored = []
       game_teams.map do |team|
         if team.team_id == team_id.to_s
-        highest_goals << team.goals.to_i
+        all_goals_scored << team.goals.to_i
       end
     end
-    highest_goals
+    all_goals_scored
   end
 
   def most_goals_scored(team_id)
@@ -284,5 +284,59 @@ class StatTracker
 
   def fewest_goals_scored(team_id)
     goals_scored(team_id).min
+  end
+
+
+  # def wins_vs_opponent(team_id)
+  #   games_won_vs_oppenent = Hash.new(0)
+  #   games.map do |team|
+  #     if team.home_team_id || team.away_team_id == team_id.to_s
+  #       if (team.home_team_id == team_id.to_s) && (team.home_goals > team.away_goals)
+  #         games_won_vs_oppenent[team.away_team_id] += 1
+  #       else (team.away_team_id == team_id.to_s) && (team.home_goals < team.away_goals)
+  #         games_won_vs_oppenent[team.home_team_id] += 1
+  #       end
+  #     end
+  #   end
+  # end
+
+  def favorite_opponent(team_id)
+    games_won_vs_oppenent = Hash.new(0)
+    games.map do |team|
+      if team.home_team_id || team.away_team_id == team_id.to_s
+        if (team.home_team_id == team_id.to_s) && (team.home_goals > team.away_goals)
+          games_won_vs_oppenent[team.away_team_id] += 1
+        else (team.away_team_id == team_id.to_s) && (team.home_goals < team.away_goals)
+          games_won_vs_oppenent[team.home_team_id] += 1
+        end
+      end
+    end
+    id = games_won_vs_oppenent.key(games_won_vs_oppenent.values.max)
+    found = teams.find do |team|
+      if team.team_id == id
+        return team.team_name
+      end
+      found
+    end
+  end
+
+  def rival(team_id)
+    games_lost_vs_oppenent = Hash.new(0)
+    games.map do |team|
+      if team.home_team_id || team.away_team_id == team_id.to_s
+        if (team.home_team_id == team_id.to_s) && (team.home_goals < team.away_goals)
+          games_lost_vs_oppenent[team.away_team_id] += 1
+        else (team.away_team_id == team_id.to_s) && (team.home_goals > team.away_goals)
+          games_lost_vs_oppenent[team.home_team_id] += 1
+        end
+      end
+    end
+    id = games_lost_vs_oppenent.key(games_lost_vs_oppenent.values.max)
+    found = teams.find do |team|
+      if team.team_id == id
+        return team.team_name
+      end
+      found
+    end
   end
 end
