@@ -63,4 +63,8 @@ class LeagueStatsTest < Minitest::Test
   def test_it_can_find_worst_offense
     assert_equal "Sky Blue FC", @league_stats.worst_offense
   end
+
+  def test_it_has_highest_scoring_visitor
+    assert_equal "San Jose Earthquakes", @league_stats.highest_scoring_visitor
+  end
 end
