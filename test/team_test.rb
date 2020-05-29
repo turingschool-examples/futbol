@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/setup'
 require './lib/team'
 
 class TeamTest < Minitest::Test
