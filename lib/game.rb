@@ -5,7 +5,8 @@ class Game
               :home_team_id,
               :away_goals,
               :home_goals,
-              :total_goals
+              :total_goals,
+              :percentage_home_wins
 
   def initialize(game_params)
     @game_id = game_params[:game_id].to_i

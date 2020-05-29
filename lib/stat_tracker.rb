@@ -39,6 +39,17 @@ class StatTracker
     games.min_by { |game| game.total_goals }.total_goals
   end
 
+  def find_home_wins
+    game_teams.find_all do |game_team|
+      game_team.hoa == "home" && game_team.result == "WIN"
+    end
+  end
+
+  def percentage_home_wins
+    percentage = find_home_wins.count.fdiv(game_teams.count / 2) * 100
+    percentage.round(2)
+  end
+
   # LEAGUE STATISTICS
 
   # SEASON STATISTIC
