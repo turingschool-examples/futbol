@@ -6,17 +6,22 @@ require 'pry'
 
 class StatTrackerTest < Minitest::Test
   def setup
+
     game_path = './test/data/games.csv'
     team_path = './test/data/teams.csv'
     game_teams_path = './test/data/game_teams.csv'
 
-    locations = {
+    @locations = {
       games: game_path,
       teams: team_path,
       game_teams: game_teams_path
     }
 
-    @stat_tracker = StatTracker.from_csv(locations)
+    @stat_tracker = StatTracker.from_csv(@locations)
+  end
+
+  def test_it_works
+    StatTracker.from_csv(@locations)
   end
 
   def test_it_exists
@@ -36,9 +41,13 @@ class StatTrackerTest < Minitest::Test
     assert_equal 52, @stat_tracker.game_teams.count
   end
 
-  def test_it_can_create_team_info_hash
-    # need to figure out this test
-    @stat_tracker.team_info
+  def test_it_returns_team_info_hash
+    assert_equal 54, @stat_tracker.team_info(54)[:team_id].to_i
+    assert_equal "Reign FC", @stat_tracker.team_info(54)[:team_name]
   end
+
+
+
+  
 
 end
