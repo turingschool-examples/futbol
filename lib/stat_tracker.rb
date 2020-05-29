@@ -98,12 +98,32 @@ class StatTracker
     find_team_by_id(lowest_avg_score.first).team_name
   end
 
-  def highest_scoring_visitor
-    # identify all objects identified as away games in game_teams
-    # amongst the list of away games, group objects by team
-    # for each group, identify average number of goals
-    # identify team w highest average
-    # return team name
+  def highest_scoring_visitor # reconsider local variable names in this method
+    # and how to better set up average_scores_by_team method to be able to be
+    # resued by multiple methods and take an argument of varying subsets of teams
+    away_teams = @game_teams.find_all do |game_team|
+      game_team.hoa == "away"
+    end
+
+    sorted_away_teams = away_teams.reduce({}) do |team_scores, game|
+      if team_scores[game.team_id].nil?
+        team_scores[game.team_id] = [game.goals]
+      else
+        team_scores[game.team_id] << game.goals
+      end
+      team_scores
+    end
+
+    avgs_by_team = {}
+    sorted_away_teams.each do |visiting_team_id, scores_array|
+      avgs_by_team[visiting_team_id] = (scores_array.sum / scores_array.count.to_f)
+    end
+
+    highest_scoring_visitor_id = avgs_by_team.max_by do |visiting_team_id, avg_score|
+      avg_score
+    end.first
+
+    find_team_by_id(highest_scoring_visitor_id).team_name
   end
 
   def highest_scoring_home_team
