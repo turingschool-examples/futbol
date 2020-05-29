@@ -51,12 +51,9 @@ class StatTracker
   #   end
   # end
 
-  def find_team_by_id(array, id)
-    # I changed this method to take 2 args so we could
-    # use the same one for iterating over both @teams
-    # AND @game_teams
-    array.find do |obj|
-      obj.team_id == id
+  def find_team_by_id(id)
+    @teams.find do |team|
+      team.team_id == id
     end
   end
 
@@ -79,7 +76,7 @@ class StatTracker
       average_score
     end
 
-    find_team_by_id(@teams, highest_avg_score.first).team_name
+    find_team_by_id(highest_avg_score.first).team_name
 
   end
 

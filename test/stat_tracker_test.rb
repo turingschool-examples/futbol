@@ -78,7 +78,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_find_team_by_id
     teams = @stat_tracker.teams
-    assert_equal "FC Dallas", @stat_tracker.find_team_by_id(teams, 6).team_name
+    assert_equal "FC Dallas", @stat_tracker.find_team_by_id(6).team_name
   end
 
   def test_it_can_identify_best_offense
