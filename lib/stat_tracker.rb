@@ -38,4 +38,5 @@ class StatTracker
   def game_teams
     @@game_teams
   end
+
 end
