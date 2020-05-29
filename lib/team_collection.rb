@@ -13,4 +13,9 @@ class TeamCollection
     end
   end
 
+  def find_by_id(id)
+    all.find do |team|
+      team.team_id == id
+    end
+  end
 end
