@@ -60,4 +60,11 @@ class StatTracker
     end.to_f
     (tie_total / games.count).round(2)
   end
+
+  def count_of_games_by_season
+    games.reduce(Hash.new(0)) do |hash, game|
+      hash[game.season] += 1
+      hash
+    end
+  end
 end
