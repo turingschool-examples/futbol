@@ -29,4 +29,11 @@ class StatTracker
   def percentage_ties
     GameTeam.percentage_ties
   end
+
+  def count_of_games_by_season
+    games_by_season = @games.group_by do |game|
+       game.season
+     end
+    games_by_season.transform_values { |season| season.length }
+  end
 end
