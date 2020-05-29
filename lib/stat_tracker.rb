@@ -47,5 +47,10 @@ class StatTracker
     (home_win_total / games.count).round(2)
   end
 
-  
+  def percentage_visitor_wins
+    away_win_total = games.find_all do |game|
+       game.away_goals > game.home_goals
+    end.count.to_f
+    (away_win_total / games.count).round(2)
+  end
 end
