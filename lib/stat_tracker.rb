@@ -60,4 +60,18 @@ class StatTracker
     end
     coach_win_count
   end
+
+  def winningest_coach(season_id)
+    highest_coach = coach_per_total_win(season_id).max_by do |coach, total_winning_games|
+      total_winning_games
+    end
+    highest_coach.first
+  end
+
+  def worst_coach(season_id)
+    lowest_coach = coach_per_total_win(season_id).min_by do |coach, total_winning_games|
+      total_winning_games
+    end
+    lowest_coach.first
+  end
 end
