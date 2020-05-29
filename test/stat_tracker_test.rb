@@ -61,7 +61,8 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_returns_average_win_percentage_string
-    @stat_tracker.average_win_percentage(6)
+    binding.pry
+    assert_equal 0.49, @stat_tracker.average_win_percentage(6)
   end
 
 
