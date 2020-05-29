@@ -74,11 +74,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_average_goals_by_season
-    skip
+
     expected = {
       "20122013"=>3.86, # 220 goals in test data
       "20162017"=>5 # 15 goals in test data
     }
-    assert_equal expected, @stat_tracker.average_goals_per_game
+    assert_equal expected, @stat_tracker.average_goals_by_season
   end
 end
