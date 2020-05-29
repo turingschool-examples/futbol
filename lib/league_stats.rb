@@ -79,4 +79,24 @@ class LeagueStats
       team.team_id == highest_average.first
     end.teamname
   end
+
+  def highest_scoring_home_team
+    home_teams = @game_teams_collection.game_teams.find_all do |team|
+      team.hoa == "home"
+    end
+    by_team = home_teams.group_by do |team|
+      team.team_id
+    end
+    average = by_team.transform_values do |games|
+      games.sum do |game|
+        (game.goals.to_f / games.length).round(2)
+      end
+    end
+    highest_average = average.max_by do |team_id, average|
+      average
+    end
+    @teams_collection.teams.find do |team|
+      team.team_id == highest_average.first
+    end.teamname
+  end
 end

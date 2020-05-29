@@ -67,4 +67,8 @@ class LeagueStatsTest < Minitest::Test
   def test_it_has_highest_scoring_visitor
     assert_equal "San Jose Earthquakes", @league_stats.highest_scoring_visitor
   end
+
+  def test_it_has_highest_scoring_home_team
+    assert_equal "DC United", @league_stats.highest_scoring_home_team
+  end
 end
