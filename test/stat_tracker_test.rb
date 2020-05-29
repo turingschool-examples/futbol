@@ -104,7 +104,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_identify_worst_offense
-    skip
     assert_equal "Houston Dynamo", @stat_tracker.worst_offense
   end
 
