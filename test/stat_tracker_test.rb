@@ -35,4 +35,52 @@ class StatTrackerTest < Minitest::Test
   def test_tracker_can_fetch_game_team_data
     assert_equal 52, @stat_tracker.game_teams.count
   end
+
+  def test_highest_total_score
+    skip
+    assert_equal 6, @stat_tracker.highest_total_score
+  end
+
+  def test_lowest_total_score
+    skip
+    assert_equal 1, @stat_tracker.lowest_total_score
+  end
+
+  def test_percentage_home_wins # 38 home wins in test data
+    skip
+    assert_equal 0.63, @stat_tracker.percentage_home_wins
+  end
+
+  def test_percentage_visitor_wins # 20 away wins in test data
+    skip
+    assert_equal 0.33, @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_percentage_ties # 2 draws in test data
+    skip
+    assert_equal 0.03, @stat_tracker.percentage_ties
+  end
+
+  def test_count_of_games_by_season
+    skip
+    expected = expected = {
+      "20122013"=>57,
+      "20162017"=>3
+    }
+    assert_equal expected, @stat_tracker.count_of_games_by_season
+  end
+
+  def test_average_goals_per_game #235 goals in test data
+    skip
+    assert_equal 3.92, @stat_tracker.test_average_goals_per_game
+  end
+
+  def test_average_goals_by_season
+    skip
+    expected = {
+      "20122013"=>3.86, # 220 goals in test data
+      "20162017"=>5 # 15 goals in test data
+    }
+    assert_equal expected, @stat_tracker.average_goals_per_game
+  end
 end
