@@ -14,7 +14,7 @@ class StatTracker
   def self.from_csv(csv_files)
     games = create_games(csv_files[:games])
     teams = create_teams(csv_files[:teams])
-    game_teams = CSV.read(csv_files[:game_teams], headers: true, header_converters: :symbol)
+    game_teams = create_game_teams(csv_files[:game_teams])
     StatTracker.new(games, teams, game_teams)
   end
 
@@ -32,6 +32,14 @@ class StatTracker
       teams << Team.new(row)
     end
     teams
+  end
+
+  def self.create_game_teams(game_teams_file)
+    game_teams = []
+    CSV.foreach(game_teams_file, headers: true, header_converters: :symbol) do |row|
+      game_teams << GameTeams.new(row)
+    end
+    game_teams
   end
 
   def initialize(games, teams, game_teams)
@@ -151,8 +159,6 @@ class StatTracker
     end
   end
 
-
-
   def number_of_games_played_away_team
     games_played = games.reduce(Hash.new(0)) do |team, game|
       team[game.away_team_id] += 1
@@ -197,5 +203,86 @@ class StatTracker
         found
       end
     end
+  end
+
+
+  ### Begin team stat methods
+
+  def team_info(team_id)
+    x = {}
+    teams.find_all do |team|
+      if team.team_id == team_id.to_s
+        x = team.instance_variables.each_with_object({}) { |var, hash| hash[var.to_s.delete("@")] = team.instance_variable_get(var) }
+        return x
+      end
+    end
+  end
+
+  def find_number_of_games_played_in_a_season(team_id)
+    games_played_that_season = Hash.new(0)
+    game_teams.find_all do |team|
+      if team.team_id == team_id.to_s
+        if team.result == "WIN" || "TIE" || "LOSS"
+          games_played_that_season[team.game_id.slice(0...4)] += 1.to_f
+        end
+      end
+    end
+    games_played_that_season
+  end
+
+  def best_season(team_id)
+    games_won_that_season = Hash.new(0)
+    game_teams.find_all do |team|
+      if team.team_id == team_id.to_s
+        if team.result == "WIN"
+          games_won_that_season[team.game_id.slice(0...4)] += 1.to_f
+        end
+      end
+    end
+    games_won_that_season.merge!(find_number_of_games_played_in_a_season(team_id)) { |k, o, n| o / n }
+    ((games_won_that_season.key(games_won_that_season.values.max) * 2).to_i + 1).to_s
+  end
+
+  def worst_season(team_id)
+    games_lost_that_season = Hash.new(0)
+    game_teams.find_all do |team|
+      if team.team_id == team_id.to_s
+        if team.result == "LOSS"
+          games_lost_that_season[team.game_id.slice(0...4)] += 1.to_f
+        end
+      end
+    end
+    games_lost_that_season.merge!(find_number_of_games_played_in_a_season(team_id)) { |k, o, n| o / n }
+    ((games_lost_that_season.key(games_lost_that_season.values.min) * 2).to_i + 1).to_s
+  end
+
+  def average_win_percentage(team_id)
+    games_won_that_season = Hash.new(0)
+    game_teams.find_all do |team|
+      if team.team_id == team_id.to_s
+        if team.result == "WIN"
+          games_won_that_season[team.game_id.slice(0...4)] += 1.to_f
+        end
+      end
+    end
+    (games_won_that_season.values.sum / find_number_of_games_played_in_a_season(team_id).values.sum * 100).round(2)
+  end
+
+  def goals_scored(team_id)
+    highest_goals = []
+      game_teams.map do |team|
+        if team.team_id == team_id.to_s
+        highest_goals << team.goals.to_i
+      end
+    end
+    highest_goals
+  end
+
+  def most_goals_scored(team_id)
+    goals_scored(team_id).max
+  end
+
+  def fewest_goals_scored(team_id)
+    goals_scored(team_id).min
   end
 end
