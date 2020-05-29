@@ -1,8 +1,11 @@
+
 require_relative './game'
 require_relative './team'
 require_relative './game_teams'
-require 'pry'
+require_relative './game_collection'
+require_relative './team_collection'
 require 'csv'
+require 'pry'
 
 class StatTracker
   attr_reader :games,
@@ -19,22 +22,79 @@ class StatTracker
     StatTracker.new(info)
   end
 
-  # Game Statistic methods
+  # Game Statistics Methods
+  def highest_total_score
+    all_games = GameCollection.new(@games)
+    all_games.all.map do |game|
+      game.away_goals.to_i + game.home_goals.to_i
+    end.max
+  end
 
+  def lowest_total_score
+    all_games = GameCollection.new(@games)
+    all_games.all.map do |game|
+      game.away_goals.to_i + game.home_goals.to_i
+    end.min
+  end
 
-  # League Statistic methods
+  def percentage_home_wins
+    all_games = GameCollection.new(@games)
+    home_wins = 0
+    all_games.all.each do |game|
+      home_wins += 1 if game.home_goals.to_i > game.away_goals.to_i
+    end
+    ((home_wins.to_f / all_games.all.size)*100).round(2)
+  end
 
+  def percentage_visitor_wins
+    all_games = GameCollection.new(@games)
+    visitor_wins = 0
+    all_games.all.each do |game|
+      visitor_wins += 1 if game.away_goals.to_i > game.home_goals.to_i
+    end
+    ((visitor_wins.to_f / all_games.all.size)*100).round(2)
+  end
 
-  # Season Statistic methods
+  def percentage_ties
+    all_games = GameCollection.new(@games)
+    ties = 0
+    all_games.all.each do |game|
+      ties += 1 if game.away_goals.to_i == game.home_goals.to_i
+    end
+    ((ties.to_f / all_games.all.size)*100).round(2)
+  end
 
+  def count_of_games_by_season
+    all_games = GameCollection.new(@games)
+    games_by_season = Hash.new(0)
+    all_games.all.each do |game|
+      games_by_season[game.season] += 1
+    end
+    games_by_season
+  end
+
+  def average_goals_per_game
+    all_games = GameCollection.new(@games)
+    average_goals = 0
+    all_games.all.each do |game|
+      average_goals += game.away_goals.to_i
+      average_goals += game.home_goals.to_i
+    end
+    average_goals.to_f / all_games.all.count
+  end
 
   # Team Statistic methods
-  csv = CSV.read('./data/teams.csv', headers: true, header_converters: :symbol)
-  teams_collection = csv.map do |row|
-    binding.pry
-    Team.new(row)
+  def team_info(id)
+    all_teams = TeamCollection.new(@teams)
+    team_info = all_teams.all.select do |team|
+      team.id.to_i == id
+    end
+    team_info
   end
-  puts csv
+
+
+
+
 
 
 end

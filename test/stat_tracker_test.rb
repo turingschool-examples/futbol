@@ -1,47 +1,102 @@
+
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/stat_tracker'
+require 'pry'
 
 class StatTrackerTest < MiniTest::Test
-  class BasicTest < StatTrackerTest
-    def setup
-      game_path = './data/games.csv'
-      team_path = './data/teams.csv'
-      game_teams_path = './data/game_teams.csv'
+  def setup
+    game_path = './data/games_fixture.csv'
+    team_path = './data/teams_fixture.csv'
+    game_teams_path = './data/game_teams_fixture.csv'
 
-      @locations = {
-        games: game_path,
-        teams: team_path,
-        game_teams: game_teams_path
-      }
+  @locations = {
+    games: game_path,
+    teams: team_path,
+    game_teams: game_teams_path
+  }
 
-      @stat_tracker = StatTracker.from_csv(@locations)
-    end
-
-    def test_it_exists
-      assert_instance_of StatTracker, @stat_tracker
-    end
-
-    def test_it_has_attributes
-      assert_equal './data/games.csv', @stat_tracker.games
-      assert_equal './data/teams.csv', @stat_tracker.teams
-      assert_equal './data/game_teams.csv', @stat_tracker.game_teams
-    end
+  @stat_tracker = StatTracker.from_csv(@locations)
   end
 
-  class TeamStatisticsTest < StatTrackerTest
-
+  def test_it_exists
+    assert_instance_of StatTracker, @stat_tracker
   end
 
-  class SeasonStatisticsTest < StatTrackerTest
-
-  end
-
-  class LeagueStatisticsTest < StatTrackerTest
+  def test_it_has_attributes
+    assert_equal './data/games_fixture.csv', @stat_tracker.games
+    assert_equal './data/teams_fixture.csv', @stat_tracker.teams
+    assert_equal './data/game_teams_fixture.csv', @stat_tracker.game_teams
   end
 
   class GameStatisticsTest < StatTrackerTest
+    def setup
+    game_path = './data/games_fixture.csv'
+    team_path = './data/teams_fixture.csv'
+    game_teams_path = './data/game_teams_fixture.csv'
+
+    @locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    @stat_tracker = StatTracker.from_csv(@locations)
+  end
+
+  def test_it_can_return_highest_total_score
+    assert_equal 6, @stat_tracker.highest_total_score
+  end
+
+  def test_it_can_return_lowest_total_score
+    assert_equal 3, @stat_tracker.lowest_total_score
+  end
+
+  def test_it_can_return_percentage_home_wins
+    assert_equal 50.00, @stat_tracker.percentage_home_wins
+  end
+
+  def test_it_can_return_percentage_visitor_wins
+    assert_equal 25.00, @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_it_can_return_percentage_ties
+    assert_equal 25.00, @stat_tracker.percentage_ties
+  end
+
+  def test_it_can_return_count_of_games_by_season
+    assert_equal ({"20122013" => 3, "20142015" => 1}), @stat_tracker.count_of_games_by_season
+  end
+
+  def test_it_can_return_average_goals_per_game
+    assert_equal 4.75, @stat_tracker.average_goals_per_game
+  end
+
+  def test_it_can_return_average_goals_by_season
+    skip
 
   end
 
+class TeamStatisticsTest < StatTrackerTest
+  def setup
+  game_path = './data/games_fixture.csv'
+  team_path = './data/teams_fixture.csv'
+  game_teams_path = './data/game_teams_fixture.csv'
+
+  @locations = {
+    games: game_path,
+    teams: team_path,
+    game_teams: game_teams_path
+  }
+
+  @stat_tracker = StatTracker.from_csv(@locations)
+  end
+
+  def test_it_can_return_team_attributes
+    binding.pry
+
+  assert_equal "1", @stat_tracker.team_info(1)
+  end
+end
+end
 end
