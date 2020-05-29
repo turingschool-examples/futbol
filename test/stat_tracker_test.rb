@@ -103,7 +103,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_identify_highest_scoring_visitor
     locations = {
       games: './fixtures/games_fixture.csv',
-      teams: './fixtures/teams_fixture.csv',
+      teams: './fixtures/teams_league_stats_fixture.csv',
       game_teams: './fixtures/game_teams_league_stats_fixture.csv'
     }
     stat_tracker = StatTracker.from_csv(locations)
@@ -114,12 +114,12 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_identify_highest_scoring_home_team
     locations = {
       games: './fixtures/games_fixture.csv',
-      teams: './fixtures/teams_fixture.csv',
+      teams: './fixtures/teams_league_stats_fixture.csv',
       game_teams: './fixtures/game_teams_league_stats_fixture.csv'
     }
     stat_tracker = StatTracker.from_csv(locations)
 
-    assert_equal "LA Galaxy", @stat_tracker.highest_scoring_home_team
+    assert_equal "LA Galaxy", stat_tracker.highest_scoring_home_team
   end
 
   def test_it_can_identify_lowest_scoring_visitor
