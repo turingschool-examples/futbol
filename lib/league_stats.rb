@@ -22,29 +22,41 @@ class LeagueStats
       game_team.team_id
     end
     ids.map do |game_team|
-      game_team.team_id
+      game_team.team_id.to_i
     end.uniq
   end
 
   def games_sorted_by_team_id(team_id)
-
-
+    @game_teams_collection.game_teams.find_all do |game_team|
+      game_team.team_id.to_i == team_id
+    end
   end
 
-  def average_goals_per_team_id(team_id)
-
-
+  def total_goals_by_team_id(team_id)
+    games_sorted_by_team_id(team_id).sum do |game_team|
+      game_team.goals.to_i
+    end
   end
 
-  # def best_offense
-  #   @game_teams_collection.game_teams.each do |team|
-  #     team.goals
-  #   end
+  def average_goals_by_team_id(team_id)
+      (total_goals_by_team_id(team_id).to_f / games_sorted_by_team_id(team_id).count).round(2)
+  end
 
-
-  # end
+  def best_offense
+    top_o = unique_team_ids.max_by do |team_id|
+      average_goals_by_team_id(team_id)
+    end
+    @teams_collection.teams.find do |team|
+      team.team_id == top_o.to_s
+    end.teamname
+  end
 
   def worst_offense
-
+    bad_o = unique_team_ids.min_by do |team_id|
+      average_goals_by_team_id(team_id)
+    end
+    @teams_collection.teams.find do |team|
+      team.team_id == bad_o.to_s
+    end.teamname
   end
 end
