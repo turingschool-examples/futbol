@@ -41,4 +41,10 @@ class StatTracker
       all_games_per_season(season_id).any?{|game| game.game_id.eql?game_team.game_id}
     end
   end
+
+  def games_by_head_coach(season_id)
+    all_game_teams_per_season(season_id).group_by do |game_team|
+      game_team.head_coach
+    end
+  end
 end
