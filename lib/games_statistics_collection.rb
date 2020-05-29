@@ -2,12 +2,12 @@ require "csv"
 require_relative "./games"
 
 class GameStatisticsCollection
-  attr_reader :collection,
-              :csv_location
+  attr_reader :csv_location,
+              :collection
 
   def initialize(csv_location)
-    @collection = []
     @csv_location = csv_location
+    @collection = []
   end
 
   def load_games
