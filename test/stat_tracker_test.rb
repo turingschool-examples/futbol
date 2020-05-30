@@ -16,6 +16,10 @@ class StatTrackerTest < Minitest::Test
       }
 
     @stat_tracker = StatTracker.from_csv(@locations)
+    @games_collection = GameCollection.new("./data/games.csv")
+    @game_stats = GameStats.new(@games_collection)
+    @game_teams_collection = GameTeamCollection.new("./data/game_teams.csv")
+    @league_stats = LeagueStats.new(@locations)
   end
 
   def test_it_exists
