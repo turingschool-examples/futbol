@@ -49,6 +49,7 @@ class StatTrackerTest < Minitest::Test
                 "abbreviation" => "RFC",
                 "link" => "/api/v1/teams/54"
                }
+               binding.pry
     assert_equal expected, @stat_tracker.team_info(54)
   end
 
@@ -61,9 +62,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_returns_average_win_percentage_string
-    binding.pry
     assert_equal 0.49, @stat_tracker.average_win_percentage(6)
   end
 
+  def test_it_can_return_most_goals_scored_integer
+    @stat_tracker.most_goals_scored(18)
+  end
 
 end

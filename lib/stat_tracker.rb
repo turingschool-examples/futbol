@@ -186,11 +186,27 @@ class StatTracker
     average = total.to_f / len
     average.round(2)
   end
-  #
-  # def most_goals_scored
-  #   #Integer
-  #   # Highest number of goals a particular team has scored in a single game.
-  # end
+
+  def most_goals_scored(team_id)
+    #Integer
+    # Highest number of goals a particular team has scored in a single game.
+    game_teams_array = []
+    games_array = []
+    combined_array = []
+    win_hash = Hash.new(0)
+    loss_hash = Hash.new(0)
+    tie_hash = Hash.new(0)
+    @game_teams.all.each do |game_team|
+      if game_team.team_id == team_id.to_s
+        game_teams_array << game_team.to_hash
+      end
+    end
+    @games.all.each do |game|
+      if game.home_team_id == team_id.to_s || game.away_team_id == team_id.to_s
+        games_array << game.to_hash
+      end
+    end
+  end
   #
   # def fewest_goals_scored
   #   #Integer
