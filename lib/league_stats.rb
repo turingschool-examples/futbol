@@ -1,7 +1,3 @@
-require_relative './game'
-require_relative './team'
-require_relative './game_team'
-
 class LeagueStats
   attr_reader :games_collection,
               :teams_collection,
