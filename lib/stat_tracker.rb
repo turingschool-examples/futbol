@@ -123,7 +123,7 @@ class StatTracker
       avg_score
     end.first
 
-    find_team_by_id(highest_scoring_visitor_id).team_name
+    find_team_by(highest_scoring_visitor_id).team_name
   end
 
   def highest_scoring_home_team
@@ -149,7 +149,7 @@ class StatTracker
       avg_score
     end.first
 
-    find_team_by_id(highest_scoring_home_id).team_name
+    find_team_by(highest_scoring_home_id).team_name
   end
 
   def lowest_scoring_visitor
@@ -175,7 +175,7 @@ class StatTracker
       avg_score
     end.first
 
-    find_team_by_id(lowest_scoring_visitor_id).team_name
+    find_team_by(lowest_scoring_visitor_id).team_name
   end
 
   def lowest_scoring_home_team
@@ -201,7 +201,7 @@ class StatTracker
       avg_score
     end.first
 
-    find_team_by_id(lowest_scoring_home_id).team_name
+    find_team_by(lowest_scoring_home_id).team_name
   end
 
   # SEASON STATISTICS
