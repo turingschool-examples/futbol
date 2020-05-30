@@ -70,7 +70,7 @@ class StatTracker
     teams.count
   end
 
-  def find_team_by(id)
+  def find_team_by_id(id)
     @teams.find do |team|
       team.team_id == id
     end
@@ -99,14 +99,14 @@ class StatTracker
     highest_avg_score = average_scores_by_team.max_by do |_team, avg_score|
       avg_score
     end
-    find_team_by(highest_avg_score.first).team_name
+    find_team_by_id(highest_avg_score.first).team_name
   end
 
   def worst_offense
     lowest_avg_score = average_scores_by_team.min_by do |_team, avg_score|
       avg_score
     end
-    find_team_by(lowest_avg_score.first).team_name
+    find_team_by_id(lowest_avg_score.first).team_name
   end
 
   def highest_scoring_visitor # reconsider local variable names in this method
@@ -134,7 +134,7 @@ class StatTracker
       avg_score
     end.first
 
-    find_team_by(highest_scoring_visitor_id).team_name
+    find_team_by_id(highest_scoring_visitor_id).team_name
   end
 
   def highest_scoring_home_team
@@ -160,7 +160,7 @@ class StatTracker
       avg_score
     end.first
 
-    find_team_by(highest_scoring_home_id).team_name
+    find_team_by_id(highest_scoring_home_id).team_name
   end
 
   def lowest_scoring_visitor
@@ -186,7 +186,7 @@ class StatTracker
       avg_score
     end.first
 
-    find_team_by(lowest_scoring_visitor_id).team_name
+    find_team_by_id(lowest_scoring_visitor_id).team_name
   end
 
   def lowest_scoring_home_team
@@ -212,7 +212,7 @@ class StatTracker
       avg_score
     end.first
 
-    find_team_by(lowest_scoring_home_id).team_name
+    find_team_by_id(lowest_scoring_home_id).team_name
   end
 
   # SEASON STATISTICS

@@ -103,7 +103,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_team_by_id
-    assert_equal "FC Dallas", @stat_tracker.find_team_by(6).team_name
+    assert_equal "FC Dallas", @stat_tracker.find_team_by_id(6).team_name
   end
 
   def test_it_can_organize_scores_by_team
