@@ -1,7 +1,3 @@
-require_relative './game'
-require_relative './team'
-require_relative './game_team'
-
 class LeagueStats
   attr_reader :games_collection,
               :teams_collection,
@@ -126,10 +122,9 @@ class LeagueStats
     by_teams.each do |team_id, games|
       by_teams[team_id] = (games.sum { |game| game.goals.to_i } / games.count.to_f )
     end
-    highest_scoring = by_teams.select { |_, value| value == by_teams.values.max}
-    require "pry"; binding.pry
+    lowest_scoring = by_teams.select { |_, value| value == by_teams.values.min}
     @teams_collection.teams.find do |team|
-      team.team_id == highest_scoring.keys.first
+      team.team_id == lowest_scoring.keys.first
     end.teamname
   end
 
