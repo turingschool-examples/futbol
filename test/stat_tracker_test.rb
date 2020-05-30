@@ -45,10 +45,13 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_filer_by_season_to_season_id
+    assert_equal 1, @stat_tracker.filter_by_season("20162017").count
+    assert_equal 2, @stat_tracker.filter_by_season("20122013").count
     assert_equal 3, @stat_tracker.filter_by_season("20132014").count
   end
 
   def test_it_can_find_games_by_season_in_game_teams
+    skip
     assert_equal 2, @stat_tracker.find_games_by_season_in_game_teams("20162017").count
     assert_equal 6, @stat_tracker.find_games_by_season_in_game_teams("20142015").count
     assert_equal 4, @stat_tracker.find_games_by_season_in_game_teams("20122013").count
@@ -75,6 +78,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_determine_the_worst_coach
+    skip
     expected = ["Patrick Roy", "Bruce Boudreau", "Ken Hitchcock"]
     assert_includes expected, @stat_tracker.worst_coach("20122013")
     assert_equal "Jon Cooper", @stat_tracker.worst_coach("20142015")
@@ -82,23 +86,27 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_determine_the_most_accurate_team
+    skip
     assert_equal "Washington Spirit FC", @stat_tracker.most_accurate_team("20122013")
     assert_equal "Houston Dynamo", @stat_tracker.most_accurate_team("20142015")
     assert_equal "Philadelphia Union", @stat_tracker.most_accurate_team("20152016")
   end
 
   def test_it_can_determine_the_least_accurate_team
+    skip
     assert_equal "Philadelphia Union", @stat_tracker.least_accurate_team("20122013")
     assert_equal "Orlando City SC", @stat_tracker.least_accurate_team("20142015")
     assert_equal "Minnesota United FC", @stat_tracker.least_accurate_team("20162017")
   end
 
   def test_it_can_return_team_name_based_off_of_team_id
+    skip
     assert_equal "Philadelphia Union", @stat_tracker.team_name_based_off_of_team_id("19")
     assert_nil nil, @stat_tracker.team_name_based_off_of_team_id("5")
   end
 
   def test_it_can_determine_the_team_with_the_most_tackles
+    skip
     # assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
 
     assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20122013")
@@ -107,6 +115,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_determine_the_team_with_the_fewest_tackles
+    skip
     # assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
     assert_equal "Washington Spirit FC", @stat_tracker.fewest_tackles("20122013")
     assert_equal "DC United", @stat_tracker.fewest_tackles("20142015")
