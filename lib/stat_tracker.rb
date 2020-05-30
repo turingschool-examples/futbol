@@ -45,15 +45,6 @@ class StatTracker
     lowest_score
   end
 
-  def all_games
-    all_games = []
-    game_team_collection.all.flat_map do |game_team|
-      result = game_team.hoa
-        all_games << result
-      end
-    all_games.count
-  end
-
   def home_games
     home_games = []
     game_team_collection.all.flat_map do |game_team|
@@ -88,6 +79,24 @@ class StatTracker
         visitor_wins << result
     end
     (visitor_wins.count(true) / visitor_games.to_f).round(2)
+  end
+
+  def all_games
+    all_games = []
+    game_team_collection.all.flat_map do |game_team|
+      result = game_team.hoa
+      all_games << result
+    end
+    all_games.count
+  end
+
+  def percentage_ties
+    ties = []
+    game_team_collection.all.flat_map do |game_team|
+      result =  game_team.result == "TIE"
+        ties << result
+    end
+    (ties.count(true) / all_games.to_f).round(2)
   end
 
 end

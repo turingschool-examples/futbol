@@ -8,7 +8,7 @@ require './lib/game_team_collection'
 require './lib/game_team'
 
 class StatTrackerTest < Minitest::Test
-  def setup ## instantiate using the from_csv
+  def setup
     @game_path = './data/games.csv'
     @team_path = './data/teams.csv'
     @game_teams_path = './data/game_teams.csv'
@@ -58,6 +58,10 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_get_percentage_of_visitor_wins
     assert_equal 0.36, @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_it_can_get_percentage_of_ties
+    assert_equal 0.20, @stat_tracker.percentage_ties
   end
 
 end
