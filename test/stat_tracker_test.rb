@@ -160,7 +160,6 @@ class StatTrackerTest < Minitest::Test
     # Name of the Team with the fewest tackles in the season	String
   end
 
-Name of the Team with the fewest tackles in the season	String
   # TEAM STATISTICS
 
   def test_can_get_team_info_hash
