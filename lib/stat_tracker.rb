@@ -217,12 +217,13 @@ class StatTracker
     end[:goals]
   end
 
-  # def favorite_opponent
-  #   #String
-  #   # Name of the opponent that has the lowest win percentage against the given
-  #   # team.
-  # end
-  #
+  def favorite_opponent(team_id)
+    #String
+    # Name of the opponent that has the lowest win percentage against the given
+    # team.
+    
+  end
+
   # def rival
   #   #String
   #   # Name of the opponent that has the highest win percentage against the

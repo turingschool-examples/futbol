@@ -69,7 +69,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_fewest_goals_scored_integer
-    p assert_equal "0", @stat_tracker.fewest_goals_scored(18)
+    assert_equal "0", @stat_tracker.fewest_goals_scored(18)
+  end
+
+  def test_it_can_return_favorite_opponent_string
+    assert_equal "DC United", @stat_tracker.favorite_opponent(18)
   end
 
 end
