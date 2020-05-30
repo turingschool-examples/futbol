@@ -26,7 +26,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_has_games
     assert_instance_of Game, @stat_tracker.games.first
     assert_equal 2012030221, @stat_tracker.games.first.game_id
-    assert_equal 20122013, @stat_tracker.games.first.season
+    assert_equal "20122013", @stat_tracker.games.first.season
     assert_equal 3, @stat_tracker.games.first.away_team_id
     assert_equal 6, @stat_tracker.games.first.home_team_id
   end
@@ -79,7 +79,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_team_by_id
-    assert_equal "FC Dallas", @stat_tracker.find_team_by_id(6).team_name
+    assert_equal "FC Dallas", @stat_tracker.find_team_by(6).team_name
   end
 
   def test_it_can_organize_scores_by_team
@@ -147,8 +147,8 @@ class StatTrackerTest < Minitest::Test
   # SEASON STATISTICS
 
   def test_it_can_find_games_by_season
-  assert_instance_of Array, @stat_tracker.games_by_season(20122013)
-  assert_equal 5, @stat_tracker.games_by_season(20122013).count
+  assert_instance_of Array, @stat_tracker.games_by_season("20122013")
+  assert_equal 5, @stat_tracker.games_by_season("20122013").count
   end
 
 
@@ -165,7 +165,7 @@ class StatTrackerTest < Minitest::Test
 
     stat_tracker = StatTracker.from_csv(locations)
 
-    assert_equal "Claude Julien", @stat_tracker.winningest_coach(20122013)
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20122013")
   end
 
   def test_worst_coach
@@ -182,13 +182,13 @@ class StatTrackerTest < Minitest::Test
     stat_tracker = StatTracker.from_csv(locations)
 
     # Name of the Coach with the worst win percentage for the season	String
-    assert_equal "John Tortorella", @stat_tracker.worst_coach(20122013)
+    assert_equal "John Tortorella", @stat_tracker.worst_coach("20122013")
   end
 
   def test_most_accurate_team
     skip
     # Name of the Team with the best ratio of shots to goals for the season	String
-    assert_equal "FC Dallas", @stat_tracker.most_accurate_team(20122013)
+    assert_equal "FC Dallas", @stat_tracker.most_accurate_team("20122013")
   end
 
   def test_least_accurate_team
@@ -223,8 +223,63 @@ class StatTrackerTest < Minitest::Test
     assert_equal 2, @stat_tracker.fewest_goals_scored(6)
   end
 
-  def test_best_season_per_given_team
+  def test_best_season_by_team_id
     assert_equal "20122013", @stat_tracker.best_season(6)
+  end
+
+  def test_worst_season_by_team_id
+    assert_equal "20122013", @stat_tracker.worst_season(3)
+  end
+
+  def test_worst_season_by_team_id_expanded
+    skip
+    # this is the only test that uses full csv, and
+    # it's noticeably slower.
+    locations = {
+      games: './data/games.csv',
+      teams: './data/teams.csv',
+      game_teams: './data/game_teams.csv'
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+    assert_equal "20142015", stat_tracker.worst_season(6)
+  end
+
+  # Helpers
+
+  def test_game_ids_by_team_and_result
+    assert_equal [2012030221, 2012030222, 2012030223], @stat_tracker.game_ids_by(6, "WIN")
+
+    assert_equal [2012030221, 2012030222, 2012030223], @stat_tracker.game_ids_by(3, "LOSS")
+  end
+
+  def test_games_by_id_array
+    game_id_array = @stat_tracker.game_ids_by(6, "WIN")
+    assert_equal 3, game_id_array.count
+  end
+
+  def test_games_won_by_team_id
+    game_id_array = @stat_tracker.game_ids_by(6, "WIN")
+    @stat_tracker.games_by(game_id_array).each do |game|
+      assert_instance_of Game, game
+    end
+  end
+
+  def test_games_lost_by_team_id
+    game_id_array = @stat_tracker.game_ids_by(3, "LOSS")
+    @stat_tracker.games_by(game_id_array).each do |game|
+      assert_instance_of Game, game
+    end
+  end
+
+  def test_games_won_by_season_per_team
+    assert_instance_of Hash, @stat_tracker.games_won_by_season(6)
+    assert_instance_of Game, @stat_tracker.games_won_by_season(6).values[0][0]
+  end
+
+  def test_games_lost_by_season_per_team
+    assert_instance_of Hash, @stat_tracker.games_lost_by_season(3)
+    assert_instance_of Game, @stat_tracker.games_lost_by_season(3).values[0][0]
   end
 
 end
