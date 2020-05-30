@@ -184,4 +184,24 @@ class StatTracker
     end[0]
   end
 
+  def combine_all_games_played(team_id)
+    home_games_filtered_by_team(team_id).push(away_games_filtered_by_team(team_id)).flatten
+  end
+
+  def find_total_wins_or_ties(team_id)
+    wins_and_ties = 0.0
+    total_games = combine_all_games_played(team_id).each do |game|
+      if team_id == game.home_team_id && game.outcome == :home_win
+        wins_and_ties += 1.0
+      elsif team_id == game.away_team_id && game.outcome == :away_win
+        wins_and_ties += 1.0
+      end
+    end
+    (wins_and_ties / total_games.count).round(2)
+  end
+
+  def average_win_percentage(team_id)
+    find_total_wins_or_ties(team_id)
+  end
+
 end

@@ -117,4 +117,16 @@ class StatTrackerTest < Minitest::Test
     assert_equal "20122013", @stat_tracker.worst_season("19")
   end
 
+  def test_it_can_get_all_games_played_by_a_team
+    assert_equal 8, @stat_tracker.combine_all_games_played("19").count
+  end
+
+  def test_it_can_total_wins_or_ties_for_a_team
+    assert_equal 0.63, @stat_tracker.find_total_wins_or_ties("19")
+  end
+
+  def test_it_can_get_average_win_percentage
+    assert_equal Float, @stat_tracker.average_win_percentage("19").class
+  end
+
 end
