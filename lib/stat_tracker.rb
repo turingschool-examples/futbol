@@ -115,4 +115,14 @@ class StatTracker
      games_per_season
   end
 
+  def sum_of_all_goals
+    game_team_collection.all.sum do |game_team|
+      game_team.goals.to_i
+    end
+  end
+
+  def average_goals_per_game
+    ((sum_of_all_goals / all_games.to_f) * 2).round(2)
+  end
+
 end
