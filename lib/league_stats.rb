@@ -68,9 +68,10 @@ class LeagueStats
       team.team_id
     end
     average = by_team.transform_values do |games|
-      games.sum do |game|
-        (game.goals.to_f / games.length).round(2)
+      sum_goals = games.sum do |game|
+        game.goals.to_f
       end
+      (sum_goals / games.length).round(2)
     end
     highest_average = average.max_by do |team_id, average|
       average
