@@ -244,4 +244,59 @@ class StatTracker
     end
   end
 
+  def most_wins_against_home_opponents(team_id)
+    counter = 0
+    acc = {}
+    home_games_filtered_by_team(team_id).each do |game|
+      if game.outcome == :home_win
+        counter += 1
+        acc[game.away_team_id] = counter
+      end
+    end
+    acc
+  end
+
+  def most_wins_against_away_opponents(team_id)
+    counter = 0
+    acc = {}
+    away_games_filtered_by_team(team_id).each do |game|
+      if game.outcome == :away_win
+        counter += 1
+        acc[game.home_team_id] = counter
+      end
+    end
+    acc
+  end
+
+  def most_won_against_away_opponent_id(team_id)
+    most_wins_against_away_opponents(team_id).max_by do |opponent_id, loss_count|
+      loss_count
+    end
+  end
+
+  def most_won_against_home_opponent_id(team_id)
+    most_wins_against_home_opponents(team_id).max_by do |opponent_id, loss_count|
+      loss_count
+    end
+  end
+
+  def merge_home_away_opponents(team_id)
+    acc = {}
+    acc[most_won_against_home_opponent_id(team_id)[0]] = most_won_against_home_opponent_id(team_id)[1]
+    acc[most_won_against_away_opponent_id(team_id)[0]] = most_won_against_away_opponent_id(team_id)[1]
+    acc
+  end
+
+  def most_won_against_opponent_id(team_id)
+    merge_home_away_opponents(team_id).max_by do |opponent_id, loss_count|
+      loss_count
+    end
+  end
+
+  def favorite_opponent(team_id)
+    team = team_collection.all.find do |opponent_id, opponent_name|
+      most_won_against_opponent_id(team_id)[0].to_i
+    end.team_name
+  end
+
 end

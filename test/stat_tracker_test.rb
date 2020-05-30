@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 require './test/test_helper'
 require './lib/stat_tracker'
 require './lib/game_collection'
@@ -151,6 +153,34 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_get_fewest_goals_scored
     assert_equal 0, @stat_tracker.fewest_goals_scored("19")
+  end
+
+  def test_it_can_get_most_won_against_home_opponents
+    assert_equal 2, @stat_tracker.most_wins_against_home_opponents("19").count
+  end
+
+  def test_it_can_get_most_won_against_away_opponents
+    assert_equal 1, @stat_tracker.most_wins_against_away_opponents("19").count
+  end
+
+  def test_it_can_filter_away_opponents_won_against
+    assert_equal 2, @stat_tracker.most_won_against_away_opponent_id("19").count
+  end
+
+  def test_it_can_filter_home_opponents_won_against
+    assert_equal 2, @stat_tracker.most_won_against_home_opponent_id("19").count
+  end
+
+  def test_it_can_merge_most_won_against_opponents
+    assert_equal 2, @stat_tracker.merge_home_away_opponents("19").count
+  end
+
+  def test_it_can_get_most_won_against_opponent_ids
+    assert_equal 3, @stat_tracker.most_won_against_opponent_id("19")[1]
+  end
+
+  def test_it_can_get_favorite_opponent
+    assert_equal "Houston Dynamo", @stat_tracker.favorite_opponent("19")
   end
 
 end
