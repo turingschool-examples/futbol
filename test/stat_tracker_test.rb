@@ -142,7 +142,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_worst_season_by_team_id
-    skip
+    assert_equal "20122013", @stat_tracker.worst_season(3)
   end
 
   # Helpers
@@ -165,9 +165,21 @@ class StatTrackerTest < Minitest::Test
     end
   end
 
+  def test_games_lost_by_team_id
+    game_id_array = @stat_tracker.game_ids_by(3, "LOSS")
+    @stat_tracker.games_by(game_id_array).each do |game|
+      assert_instance_of Game, game
+    end
+  end
+
   def test_games_won_by_season_per_team
     assert_instance_of Hash, @stat_tracker.games_won_by_season(6)
     assert_instance_of Game, @stat_tracker.games_won_by_season(6).values[0][0]
+  end
+
+  def test_games_lost_by_season_per_team
+    assert_instance_of Hash, @stat_tracker.games_lost_by_season(3)
+    assert_instance_of Game, @stat_tracker.games_lost_by_season(3).values[0][0]
   end
 
 end
