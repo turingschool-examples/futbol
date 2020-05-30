@@ -191,28 +191,32 @@ class StatTracker
     #Integer
     # Highest number of goals a particular team has scored in a single game.
     game_teams_array = []
-    games_array = []
-    combined_array = []
-    win_hash = Hash.new(0)
-    loss_hash = Hash.new(0)
-    tie_hash = Hash.new(0)
+    most_goals = 0
     @game_teams.all.each do |game_team|
       if game_team.team_id == team_id.to_s
         game_teams_array << game_team.to_hash
       end
     end
-    @games.all.each do |game|
-      if game.home_team_id == team_id.to_s || game.away_team_id == team_id.to_s
-        games_array << game.to_hash
+
+    most_goals = game_teams_array.max_by do |game|
+      game[:goals]
+    end[:goals]
+  end
+
+  def fewest_goals_scored(team_id)
+    #Integer
+    # Lowest numer of goals a particular team has scored in a single game.
+    game_teams_array = []
+    @game_teams.all.each do |game_team|
+      if game_team.team_id == team_id.to_s
+        game_teams_array << game_team.to_hash
       end
     end
+    game_teams_array.min_by do |game|
+      game[:goals]
+    end[:goals]
   end
-  #
-  # def fewest_goals_scored
-  #   #Integer
-  #   # Lowest numer of goals a particular team has scored in a single game.
-  # end
-  #
+
   # def favorite_opponent
   #   #String
   #   # Name of the opponent that has the lowest win percentage against the given
