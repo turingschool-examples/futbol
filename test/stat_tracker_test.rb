@@ -72,6 +72,30 @@ class StatTrackerTest < Minitest::Test
     assert_equal 33.33, @stat_tracker.percentage_visitor_wins
   end
 
+  def test_find_tied_games
+    locations = {
+      games: './fixtures/game_statistics_games_fixture.csv',
+      teams: './fixtures/teams_fixture.csv',
+      game_teams: './fixtures/game_teams_game_statistics_fixture.csv'
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
+    assert_instance_of Array, stat_tracker.find_tied_games
+    assert_equal 1, stat_tracker.find_tied_games.count
+  end
+
+  def test_percentage_ties
+    locations = {
+      games: './fixtures/game_statistics_games_fixture.csv',
+      teams: './fixtures/teams_fixture.csv',
+      game_teams: './fixtures/game_teams_game_statistics_fixture.csv'
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+    assert_equal 4.0, stat_tracker.percentage_ties
+  end
+
+
+
   # LEAGUE STATISTICS
 
   def test_it_can_count_teams
