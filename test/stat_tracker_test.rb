@@ -186,6 +186,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_worst_season_by_team_id_expanded
+    skip
     # this is the only test that uses full csv, and
     # it's noticeably slower.
     locations = {
@@ -195,7 +196,7 @@ class StatTrackerTest < Minitest::Test
     }
 
     stat_tracker = StatTracker.from_csv(locations)
-    assert_equal "20132014", stat_tracker.worst_season(3)
+    assert_equal "20142015", stat_tracker.worst_season(6)
   end
 
   # Helpers
