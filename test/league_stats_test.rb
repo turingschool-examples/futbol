@@ -77,6 +77,6 @@ class LeagueStatsTest < Minitest::Test
   end
 
   def test_it_can_find_lowest_scoring_home_team
-    assert_equal "DC United", @league_stats.lowest_scoring_home_team
+    assert_equal "New York City FC", @league_stats.lowest_scoring_home_team
   end
 end
