@@ -162,6 +162,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_most_accurate_team
+    skip
     # Name of the Team with the best ratio of shots to goals for the season	String
     assert_equal "FC Dallas", @stat_tracker.most_accurate_team(20122013)
   end
