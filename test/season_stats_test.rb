@@ -48,8 +48,4 @@ class SeasonStatsTest < Minitest::Test
   def test_it_can_get_winningest_coach
     assert_equal "Claude Noel", @season_stats.winningest_coach("20122013")
   end
-
-
-
-
 end
