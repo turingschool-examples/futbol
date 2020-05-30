@@ -54,6 +54,17 @@ class StatTracker
     percentage.round(2)
   end
 
+  def find_tied_games
+    games.find_all do |game|
+      game.away_goals == game.home_goals
+    end
+  end
+
+  def percentage_ties
+    percentage = find_tied_games.count.fdiv(games.count) * 100
+    percentage.round(2)
+  end
+
   # LEAGUE STATISTICS
   def count_of_teams
     teams.count
