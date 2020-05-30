@@ -11,7 +11,10 @@ require_relative 'league_stats'
 class StatTracker
   attr_reader :games,
               :teams,
-              :game_teams
+              :game_teams,
+              :game_stats,
+              :locations,
+              :league_stats
 
   def self.from_csv(locations)
     games = locations[:games]
