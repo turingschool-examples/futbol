@@ -10,7 +10,7 @@ class GameStatisticsCollection
     @collection = []
   end
 
-  def load_games
+  def load_csv
     CSV.foreach(@csv_location, :headers => true, :header_converters => :symbol) do |row|
         game_id = row[:game_id].to_i
         season = row[:season]
