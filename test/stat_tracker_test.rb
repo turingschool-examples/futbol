@@ -26,7 +26,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_has_games
     assert_instance_of Game, @stat_tracker.games.first
     assert_equal 2012030221, @stat_tracker.games.first.game_id
-    assert_equal 20122013, @stat_tracker.games.first.season
+    assert_equal "20122013", @stat_tracker.games.first.season
     assert_equal 3, @stat_tracker.games.first.away_team_id
     assert_equal 6, @stat_tracker.games.first.home_team_id
   end
@@ -123,14 +123,14 @@ class StatTrackerTest < Minitest::Test
   # SEASON STATISTICS
 
   def test_it_can_find_games_by_season
-  assert_instance_of Array, @stat_tracker.games_by_season(20122013)
-  assert_equal 5, @stat_tracker.games_by_season(20122013).count
+  assert_instance_of Array, @stat_tracker.games_by_season("20122013")
+  assert_equal 5, @stat_tracker.games_by_season("20122013").count
   end
 
 
   def test_winningest_coach
     #new setup
-    assert_equal "Claude Julien", @stat_tracker.winningest_coach(20122013)
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20122013")
   end
 
   def test_worst_coach
