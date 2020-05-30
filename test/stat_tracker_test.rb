@@ -80,7 +80,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal 4.22, @stat_tracker.average_goals_per_game
   end
 
-  def test_average_goals_per_game
+  def test_average_goals_by_season
     expected = {
       "20122013"=>4.12,
       "20162017"=>4.23,
