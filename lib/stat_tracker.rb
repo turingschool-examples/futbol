@@ -28,5 +28,15 @@ class StatTracker
     @games = games
     @teams = teams
     @game_teams = game_teams
+    @game_teams_collection = GameTeamCollection.new("./data/game_teams.csv")
+    @games_collection = GameCollection.new("./data/games.csv")
+    @teams_collection = TeamCollection.new("./data/teams.csv")
+    @game_stats = GameStats.new(@games_collection)
+    @locations = {
+      games_collection: @games_collection,
+      teams_collection: @teams_collection,
+      game_teams_collection: @game_teams_collection
+      }
+    @league_stats = LeagueStats.new(@locations)
   end
 end
