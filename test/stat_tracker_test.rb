@@ -79,7 +79,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_team_by_id
-    assert_equal "FC Dallas", @stat_tracker.find_team_by_id(6).team_name
+    assert_equal "FC Dallas", @stat_tracker.find_team_by(6).team_name
   end
 
   def test_it_can_organize_scores_by_team
@@ -137,8 +137,37 @@ class StatTrackerTest < Minitest::Test
     assert_equal 2, @stat_tracker.fewest_goals_scored(6)
   end
 
-  def test_best_season_per_given_team
+  def test_best_season_by_team_id
     assert_equal "20122013", @stat_tracker.best_season(6)
+  end
+
+  def test_worst_season_by_team_id
+    skip
+  end
+
+  # Helpers
+
+  def test_game_ids_by_team_and_result
+    assert_equal [2012030221, 2012030222, 2012030223], @stat_tracker.game_ids_by(6, "WIN")
+
+    assert_equal [2012030221, 2012030222, 2012030223], @stat_tracker.game_ids_by(3, "LOSS")
+  end
+
+  def test_games_by_id_array
+    game_id_array = @stat_tracker.game_ids_by(6, "WIN")
+    assert_equal 3, game_id_array.count
+  end
+
+  def test_games_won_by_team_id
+    game_id_array = @stat_tracker.game_ids_by(6, "WIN")
+    @stat_tracker.games_by(game_id_array).each do |game|
+      assert_instance_of Game, game
+    end
+  end
+
+  def test_games_won_by_season_per_team
+    assert_instance_of Hash, @stat_tracker.games_won_by_season(6)
+    assert_instance_of Game, @stat_tracker.games_won_by_season(6).values[0][0]
   end
 
 end
