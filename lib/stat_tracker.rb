@@ -224,5 +224,24 @@ class StatTracker
     end
   end
 
+  def fewest_home_goals_scored(team_id)
+    home_games_filtered_by_team(team_id).min_by do |game|
+      game.home_goals
+    end.away_goals.to_i
+  end
+
+  def fewest_away_goals_scored(team_id)
+    goals = away_games_filtered_by_team(team_id).min_by do |game|
+      game.away_goals
+    end.away_goals.to_i
+  end
+
+  def fewest_goals_scored(team_id)
+    if fewest_home_goals_scored(team_id) < fewest_away_goals_scored(team_id)
+      fewest_home_goals_scored(team_id)
+    else
+      fewest_away_goals_scored(team_id)
+    end
+  end
 
 end
