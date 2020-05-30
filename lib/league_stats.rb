@@ -129,7 +129,6 @@ class LeagueStats
       by_teams[team_id] = (games.sum { |game| game.goals.to_i } / games.count.to_f )
     end
     highest_scoring = by_teams.select { |_, value| value == by_teams.values.min}
-    require "pry"; binding.pry
     @teams_collection.teams.find do |team|
       team.team_id == highest_scoring.keys.first
     end.teamname
