@@ -129,4 +129,16 @@ class StatTrackerTest < Minitest::Test
     assert_equal Float, @stat_tracker.average_win_percentage("19").class
   end
 
+  def test_it_can_get_most_home_goals_scored
+    assert_equal 2, @stat_tracker.most_home_goals_scored("19")
+  end
+
+  def test_it_can_get_most_away_goals_scored
+    assert_equal 4, @stat_tracker.most_away_goals_scored("19")
+  end
+
+  def test_it_can_get_most_goals_scored
+    assert_equal 4, @stat_tracker.most_goals_scored("19")
+  end
+
 end

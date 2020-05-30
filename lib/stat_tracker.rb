@@ -204,4 +204,25 @@ class StatTracker
     find_total_wins_or_ties(team_id)
   end
 
+  def most_home_goals_scored(team_id)
+    home_games_filtered_by_team(team_id).max_by do |game|
+      game.home_goals
+    end.away_goals.to_i
+  end
+
+  def most_away_goals_scored(team_id)
+    goals = away_games_filtered_by_team(team_id).max_by do |game|
+      game.away_goals
+    end.away_goals.to_i
+  end
+
+  def most_goals_scored(team_id)
+    if most_home_goals_scored(team_id) > most_away_goals_scored(team_id)
+      most_home_goals_scored(team_id)
+    else
+      most_away_goals_scored(team_id)
+    end
+  end
+
+
 end
