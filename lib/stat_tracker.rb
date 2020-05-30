@@ -149,6 +149,9 @@ class StatTracker
   end
 
   def worst_season(team_id)
+    games_lost_by_season(team_id).max_by do |season, games|
+      games.count
+    end[0].to_s
   end
 
   # Helper Methods----------------------
@@ -173,8 +176,19 @@ class StatTracker
     games_by(game_ids)
   end
 
+  def games_lost_by(team_id)
+    game_ids = game_ids_by(team_id, "LOSS")
+    games_by(game_ids)
+  end
+
   def games_won_by_season(team_id)
     games_won_by(team_id).group_by do |game|
+      game.season
+    end
+  end
+
+  def games_lost_by_season(team_id)
+    games_lost_by(team_id).group_by do |game|
       game.season
     end
   end
