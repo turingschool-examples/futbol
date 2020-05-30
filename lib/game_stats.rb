@@ -23,21 +23,21 @@ class GameStats
     home_wins = @games_collection.games.count do |game|
       game.home_goals > game.away_goals
     end
-    (home_wins.to_f / @games_collection.games.count * 100).round(3)
+    (home_wins.to_f / @games_collection.games.count).round(2)
   end
 
   def percentage_visitor_wins
     visitor_wins = @games_collection.games.count do |game|
       game.home_goals < game.away_goals
     end
-    (visitor_wins.to_f / @games_collection.games.count * 100).round(3)
+    (visitor_wins.to_f / @games_collection.games.count).round(2)
   end
 
   def percentage_ties
     ties = @games_collection.games.count do |game|
       game.home_goals == game.away_goals
     end
-    (ties.to_f / @games_collection.games.count * 100).round(3)
+    (ties.to_f / @games_collection.games.count).round(2)
   end
 
   def games_by_season
@@ -60,14 +60,15 @@ class GameStats
     game_average = total_score.sum do |score|
       score
     end
-      (game_average.to_f / @games_collection.games.count).round(3)
+      (game_average.to_f / @games_collection.games.count).round(2)
   end
 
   def average_goals_by_season
     games_by_season.transform_values do |games|
-      games.sum do |game|
-        ((game.home_goals + game.away_goals).to_f / games.count).round(2)
+      average = games.sum do |game|
+        (game.home_goals + game.away_goals).to_f 
       end
+      (average / games.count).round(2)
     end
   end
 end

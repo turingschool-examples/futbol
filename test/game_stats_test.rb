@@ -1,8 +1,8 @@
-require './test/helper_test' 
+require './test/helper_test'
 require './lib/game'
 require './lib/game_collection'
 require './lib/game_stats'
-require 'pry'
+
 
 class GameStatsTest < Minitest::Test
   def setup
@@ -31,15 +31,15 @@ class GameStatsTest < Minitest::Test
   end
 
   def test_it_has_percentage_home_wins
-    assert_equal 50.00, @game_stats.percentage_home_wins
+    assert_equal 0.5, @game_stats.percentage_home_wins
   end
 
   def test_it_has_percentage_visitor_wins
-    assert_equal 33.75, @game_stats.percentage_visitor_wins
+    assert_equal 0.34, @game_stats.percentage_visitor_wins
   end
 
   def test_it_has_percentage_ties
-    assert_equal 16.25, @game_stats.percentage_ties
+    assert_equal 0.16, @game_stats.percentage_ties
   end
 
   def test_it_has_games_by_season
@@ -56,7 +56,7 @@ class GameStatsTest < Minitest::Test
   end
 
   def test_it_has_average_goals_by_season
-    expected = {"20122013"=>4.32, "20132014"=>4.17, "20142015"=>4.33, "20152016"=>4.18, "20162017"=>4.44, "20172018"=>4.53}
+    expected = {"20122013"=>4.18, "20132014"=>4.05, "20142015"=>4.23, "20152016"=>4.05, "20162017"=>4.3, "20172018"=>4.4}
     assert_equal expected, @game_stats.average_goals_by_season
   end
 end

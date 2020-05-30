@@ -1,7 +1,3 @@
-require_relative './game'
-require_relative './team'
-require_relative './game_team'
-
 class LeagueStats
   attr_reader :games_collection,
               :teams_collection,
@@ -68,9 +64,10 @@ class LeagueStats
       team.team_id
     end
     average = by_team.transform_values do |games|
-      games.sum do |game|
-        (game.goals.to_f / games.length).round(2)
+      sum_goals = games.sum do |game|
+        game.goals.to_f
       end
+      (sum_goals / games.length).round(2)
     end
     highest_average = average.max_by do |team_id, average|
       average
@@ -88,9 +85,10 @@ class LeagueStats
       team.team_id
     end
     average = by_team.transform_values do |games|
-      games.sum do |game|
-        (game.goals.to_f / games.length).round(2)
+      sum_goals = games.sum do |game|
+        game.goals.to_f
       end
+      (sum_goals / games.length).round(2)
     end
     highest_average = average.max_by do |team_id, average|
       average
@@ -126,12 +124,9 @@ class LeagueStats
     by_teams.each do |team_id, games|
       by_teams[team_id] = (games.sum { |game| game.goals.to_i } / games.count.to_f )
     end
-    highest_scoring = by_teams.select { |_, value| value == by_teams.values.max}
-    require "pry"; binding.pry
+    highest_scoring = by_teams.select { |_, value| value == by_teams.values.min}
     @teams_collection.teams.find do |team|
       team.team_id == highest_scoring.keys.first
     end.teamname
   end
-
-
 end
