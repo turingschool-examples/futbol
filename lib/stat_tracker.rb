@@ -39,7 +39,7 @@ class StatTracker
   end
 
   def percentage_home_wins
-    percentage = find_home_wins.count.fdiv(game_teams.count / 2) * 100
+    percentage = find_home_wins.count.fdiv(game_teams.count / 2)
     percentage.round(2)
   end
 
@@ -50,7 +50,7 @@ class StatTracker
   end
 
   def percentage_visitor_wins
-    percentage = find_visitor_wins.count.fdiv(game_teams.count / 2) * 100
+    percentage = find_visitor_wins.count.fdiv(game_teams.count / 2)
     percentage.round(2)
   end
 
@@ -61,7 +61,7 @@ class StatTracker
   end
 
   def percentage_ties
-    percentage = find_tied_games.count.fdiv(games.count) * 100
+    percentage = find_tied_games.count.fdiv(games.count)
     percentage.round(2)
   end
 
