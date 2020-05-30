@@ -239,15 +239,39 @@ class StatTracker
     coach_wins.max_by { |coach| wins_by_coach[coach] }
   end
 
-  # worst_coach
+  def worst_coach(season)
+    season_game_ids = games_by_season(season).map do |game|
+      game.game_id
+    end
 
-  # most_accurate_team
+    season_games = game_teams.find_all do |game|
+    season_game_ids.include?(game.game_id)
+    end
 
-  # least_accurate_team
+    losses = season_games.find_all do |game|
+    game.result == "LOSS"
+    end
 
-  # most_tackles
+    coach_losses = losses.map do |game|
+    game.head_coach
+    end
 
-  # fewest_tackles
+    losses_by_coach = coach_losses.inject(Hash.new(0)) do |losses_by_coach, coach|
+       losses_by_coach[coach] += 1; losses_by_coach
+     end
+
+    coach_losses.max_by { |coach| losses_by_coach[coach] }
+  end
+
+  # def most_accurate_team(season)
+  #
+  # end
+
+  # least_accurate_team(season)
+
+  # most_tackles(season)
+
+  # fewest_tackles(season)
 
   # TEAM STATISTICS
 

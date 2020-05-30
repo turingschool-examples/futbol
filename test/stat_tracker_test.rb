@@ -153,20 +153,42 @@ class StatTrackerTest < Minitest::Test
 
 
   def test_winningest_coach
-    #new setup
+    game_path = './fixtures/games_fixture.csv'
+    team_path = './fixtures/teams_fixture.csv'
+    game_teams_path = './fixtures/large_game_teams_fixture.csv'
+
+    locations = {
+    games: game_path,
+    teams: team_path,
+    game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+
     assert_equal "Claude Julien", @stat_tracker.winningest_coach("20122013")
   end
 
   def test_worst_coach
-    skip
-    #new setup
+    game_path = './fixtures/games_fixture.csv'
+    team_path = './fixtures/teams_fixture.csv'
+    game_teams_path = './fixtures/large_game_teams_fixture.csv'
+
+    locations = {
+    games: game_path,
+    teams: team_path,
+    game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+
     # Name of the Coach with the worst win percentage for the season	String
-    assert_equal "", @stat_tracker.worst_coach(season)
+    assert_equal "John Tortorella", @stat_tracker.worst_coach("20122013")
   end
 
   def test_most_accurate_team
     skip
     # Name of the Team with the best ratio of shots to goals for the season	String
+    assert_equal "FC Dallas", @stat_tracker.most_accurate_team(20122013)
   end
 
   def test_least_accurate_team
