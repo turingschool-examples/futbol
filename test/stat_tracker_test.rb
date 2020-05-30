@@ -90,12 +90,56 @@ class StatTrackerTest < Minitest::Test
     assert_equal "John Tortorella", @stat_tracker.worst_coach("20122013")
   end
 
+  def test_tracker_has_games_per_team_ids_for_a_season
+    assert_kind_of  Hash, @stat_tracker.team_id_group("20122013")
+  end
+
+  def test_tracker_has_ratio_of_shots_per_season
+    expected = {
+                 "3"=>21.05,
+                 "6"=>31.58,
+                 "5"=>6.25,
+                 "17"=>28.26,
+                 "16"=>23.23,
+                 "9"=>38.89,
+                 "8"=>20.93,
+                 "30"=>21.21
+               }
+
+    assert_equal expected, @stat_tracker.ratio_of_shots("20122013")
+    assert_equal "9", @stat_tracker.best_accurate_team_id("20122013")
+    assert_equal "5", @stat_tracker.least_accurate_team_id("20122013")
+  end
+
+  def test_tracker_can_find_team_by_id
+    assert_instance_of Team , @stat_tracker.find_team_by_id("5")
+     assert_equal "Sporting Kansas City", @stat_tracker.find_team_by_id("5").team_name
+  end
+
   def test_tracker_has_the_accurate_team
     assert_equal "New York City FC", @stat_tracker.most_accurate_team("20122013")
   end
 
   def test_tracker_has_the_accurate_team
     assert_equal "Sporting Kansas City", @stat_tracker.least_accurate_team("20122013")
+  end
+
+  def test_tracker_has_total_tackles_per_season
+    expected = {
+      "3"=>179,
+      "6"=>271,
+      "5"=>150,
+      "17"=>219,
+      "16"=>299,
+      "9"=>181,
+      "8"=>173,
+      "30"=>165
+    }
+    assert_equal expected, @stat_tracker.total_tackles_team_per_season("20122013")
+  end
+
+  def test_tracker_can_get_team_name_with_id
+    assert_equal "Sporting Kansas City", @stat_tracker.get_team_name_with_id("5")
   end
 
   def test_tracker_has_the_most_tackles
