@@ -24,8 +24,8 @@ class TeamsStatisticsCollectionTest < MiniTest::Test
     assert_equal [], @teams_statistics_collection.collection
   end
 
-  def test_it_can_load_teams
-    @teams_statistics_collection.load_teams
+  def test_it_can_load_csv
+    @teams_statistics_collection.load_csv
     assert_equal 32, @teams_statistics_collection.collection.count
     all_teams_object = @teams_statistics_collection.collection.all? do |object|
       object.is_a?(Teams)
