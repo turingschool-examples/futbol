@@ -118,7 +118,50 @@ class StatTracker
     # same as above but w home games
   end
 
-  # SEASON STATISTIC
+  # SEASON STATISTICS
+  def games_by_season(season)
+    games.find_all { |game| game.season == season }
+  end
+
+  def winningest_coach(season)
+    #season_games_by_id returns an array of just season game ids
+    season_game_ids = games_by_season(season).map do |game|
+      game.game_id
+    end
+
+    #then find all games in game_teams from the above season
+    season_games = game_teams.find_all do |game|
+    season_game_ids.include?(game.game_id)
+    end
+
+    # filter season games by wins
+    wins = season_games.find_all do |game|
+    game.result == "WIN"
+    end
+
+    # returns an array of coach name for each win
+    coach_wins = wins.map do |game|
+    game.head_coach
+    end
+
+    # creates a hash of number of season games won by coach
+    wins_by_coach = coach_wins.inject(Hash.new(0)) do |wins_by_coach, coach|
+       wins_by_coach[coach] += 1; wins_by_coach
+     end
+
+    #return the winningest head_coach name as a string
+    coach_wins.max_by { |coach| wins_by_coach[coach] }
+  end
+
+  # worst_coach
+
+  # most_accurate_team
+
+  # least_accurate_team
+
+  # most_tackles
+
+  # fewest_tackles
 
   # TEAM STATISTICS
 
