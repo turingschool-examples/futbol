@@ -59,7 +59,7 @@ class StatTracker
     teams.count
   end
 
-  def find_team_by_id(id)
+  def find_team_by(id)
     @teams.find do |team|
       team.team_id == id
     end
@@ -88,14 +88,14 @@ class StatTracker
     highest_avg_score = average_scores_by_team.max_by do |team, avg_score|
       avg_score
     end
-    find_team_by_id(highest_avg_score.first).team_name
+    find_team_by(highest_avg_score.first).team_name
   end
 
   def worst_offense
     lowest_avg_score = average_scores_by_team.min_by do |team, avg_score|
       avg_score
     end
-    find_team_by_id(lowest_avg_score.first).team_name
+    find_team_by(lowest_avg_score.first).team_name
   end
 
   def highest_scoring_visitor
@@ -143,35 +143,40 @@ class StatTracker
   end
 
   def best_season(team_id)
-    # Create array of game_team objects with matching team_id and WINs
-    # (this could be a GameTeamCollection find_by method!!
-    # maybe split up the matching by team_id and matching by result)
-    game_teams_won = game_teams.find_all do |game_team|
-      game_team.team_id == team_id && game_team.result == "WIN"
-    end
+    games_won_by_season(team_id).max_by do |season, games|
+      games.count
+    end[0].to_s
+  end
 
-    # Cross-reference game_teams with games:
-    games_won = []
-    game_teams_won.each do |game_team|
-      games.each do |game|
-        games_won << game if game_team.game_id == game.game_id
-      end
-    end
+  def worst_season(team_id)
+  end
 
-    # Using cross-referenced game list, create hash with season as keys,
-    # and won [Game objects array] as values
-    season_hash = games_won.group_by do |game|
+  # Helper Methods----------------------
+
+  def game_ids_by(team_id, result)
+    from_game_teams = @game_teams.find_all do |game_team|
+      game_team.team_id == team_id && game_team.result == result
+    end
+    from_game_teams.map do |game_team|
+      game_team.game_id
+    end
+  end
+
+  def games_by(game_ids_array)
+    @games.find_all do |game|
+      game_ids_array.include?(game.game_id)
+    end
+  end
+
+  def games_won_by(team_id)
+    game_ids = game_ids_by(team_id, "WIN")
+    games_by(game_ids)
+  end
+
+  def games_won_by_season(team_id)
+    games_won_by(team_id).group_by do |game|
       game.season
     end
-
-    # Count up the number of games for each season (remember these are "wins")
-    # For some reason, calling max_by on a hash returns an array.
-    season_with_most_wins = season_hash.max_by do |season, games|
-      games.count
-    end
-
-    # so then I called the would-be key by using index 0 in the array
-    season_with_most_wins[0].to_s
   end
 
 end
