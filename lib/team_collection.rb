@@ -1,4 +1,5 @@
-require './lib/team'
+require_relative './game'
+require_relative './team'
 require 'csv'
 require 'pry'
 
@@ -12,8 +13,8 @@ class TeamCollection
   def all
     all_teams = []
     CSV.read(team_collection, headers: true).each do |team|
-      team_hash = {team_id: team["team_id"],
-        franchiseid: team["franchiseId"],
+      team_hash = {team_id: team["team_id"].to_i,
+        franchiseid: team["franchiseId"].to_i,
         teamname: team["teamName"],
         abbreviation: team["abbreviation"],
         stadium: team["Stadium"],
@@ -22,5 +23,8 @@ class TeamCollection
       all_teams << Team.new(team_hash)
     end
     all_teams
-  end
+
+  #Team Stats Methods
+
+end
 end

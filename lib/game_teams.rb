@@ -1,3 +1,9 @@
+require_relative './game'
+require_relative './team'
+require_relative './game_teams'
+require 'csv'
+require 'pry'
+
 class GameTeams
 
   attr_reader :game_id,
