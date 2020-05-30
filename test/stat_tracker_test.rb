@@ -1,5 +1,10 @@
 require './test/helper_test'
 require './lib/stat_tracker'
+require './lib/game_stats'
+require './lib/game_collection'
+require './lib/game_team_collection'
+require './lib/team_collection'
+require './lib/league_stats'
 
 class StatTrackerTest < Minitest::Test
 
