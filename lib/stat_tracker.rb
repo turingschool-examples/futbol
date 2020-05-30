@@ -186,15 +186,17 @@ class StatTracker
   end
 
   def best_season(team_id)
-    games_won_by_season(team_id).max_by do |season, games|
+    season = games_won_by_season(team_id).max_by do |season, games|
       games.count
-    end[0].to_s
+    end
+    season[0].to_s
   end
 
   def worst_season(team_id)
-    games_lost_by_season(team_id).max_by do |season, games|
+    season = games_lost_by_season(team_id).max_by do |season, games|
       games.count
-    end[0].to_s
+    end
+    season[0].to_s
   end
 
   # Helper Methods----------------------

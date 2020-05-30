@@ -160,7 +160,6 @@ class StatTrackerTest < Minitest::Test
     # Name of the Team with the fewest tackles in the season	String
   end
 
-Name of the Team with the fewest tackles in the season	String
   # TEAM STATISTICS
 
   def test_can_get_team_info_hash
@@ -184,6 +183,19 @@ Name of the Team with the fewest tackles in the season	String
 
   def test_worst_season_by_team_id
     assert_equal "20122013", @stat_tracker.worst_season(3)
+  end
+
+  def test_worst_season_by_team_id_expanded
+    # this is the only test that uses full csv, and
+    # it's noticeably slower.
+    locations = {
+      games: './data/games.csv',
+      teams: './data/teams.csv',
+      game_teams: './data/game_teams.csv'
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+    assert_equal "20132014", stat_tracker.worst_season(3)
   end
 
   # Helpers
