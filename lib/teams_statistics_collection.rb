@@ -10,7 +10,7 @@ class TeamsStatisticsCollection
     @collection = []
   end
 
-  def load_teams
+  def load_csv
     CSV.foreach(@csv_location, :headers => true, :header_converters => :symbol) do |row|
       team_id = row[:team_id]
       franchiseid = row[:franchiseid]
