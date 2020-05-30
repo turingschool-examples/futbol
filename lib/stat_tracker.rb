@@ -99,4 +99,20 @@ class StatTracker
     (ties.count(true) / all_games.to_f).round(2)
   end
 
+  def seasons
+    seasons = []
+    game_collection.all.flat_map do |game|
+       seasons << game.season
+    end
+    seasons
+  end
+
+  def count_of_games_by_season
+    games_per_season = Hash.new(0)
+    seasons.each do |season|
+       games_per_season[season] += 1
+     end
+     games_per_season
+  end
+
 end
