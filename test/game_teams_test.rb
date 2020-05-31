@@ -6,7 +6,7 @@ class GameTeamsTest < MiniTest::Test
   def setup
     @game_teams = GameTeams.new({game_id: "2012030223",
                                 team_id: "6",
-                                HoA: "away",
+                                hoa: "away",
                                 result: "WIN",
                                 settled_in: "REG",
                                 head_coach: "Claude Julien",
@@ -14,9 +14,9 @@ class GameTeamsTest < MiniTest::Test
                                 shots: "8",
                                 tackles: "28",
                                 pim: "6",
-                                powerPlayOpportunities: "0",
-                                powerPlayGoals: "0",
-                                faceOffWinPercentage: "61.8",
+                                powerplayopportunities: "0",
+                                powerplaygoals: "0",
+                                faceoffwinpercentage: "61.8",
                                 giveaways: "10",
                                 takeaways: "7"
       })
