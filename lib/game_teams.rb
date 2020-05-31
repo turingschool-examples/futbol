@@ -32,3 +32,4 @@ class GameTeams
      @giveaways = game_teams_param[:giveaways].to_i
      @takeaways = game_teams_param[:takeaways].to_i
    end
+end
