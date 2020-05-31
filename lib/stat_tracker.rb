@@ -55,24 +55,41 @@ class StatTracker
     end
   end
 
-  def filter_by_season(season_id)
-    games_grouped_by_season[season_id]
-  end
+  # def filter_by_season(season_id)
+  #   games_grouped_by_season[season_id]
+  # end
 
-  def games_grouped_by_season
-    @games_grouped_by_season ||= game_collection.all.group_by do |game|
-      game.season
+  def games_for_season(season_id)
+   game_collection.all.select do |game|
+     season_id == game.season
+   end
+  end ###array of games in one season
+
+  def game_teams_for_season(season_id)
+    game_hash = games_for_season(season_id).group_by do |game|
+      game.game_id 
+    end
+
+    game_team_collection.all.select do |game_team|
+      game_hash.keys.include?(game_team.game_id)
     end
   end
 
+  # def games_grouped_by_season(season_id)
+  #   game_collection.all.group_by do |game|
+  #     game.season
+  #   end
+  # end  #  @games_grouped_by_season ||=
+
   def find_games_by_season_in_game_teams(season_id)
-    games_by_season = filter_by_season(season_id)
+    season_id_match_collection = filter_by_season(season_id).map do |game|
+      game.game_id
+    end
 
     game_team_season_collection = []
-
-    games_by_season.each do |season_game|
+    season_id_match_collection.each do |season_game_id|
       game_team_collection.all.each do |game_team|
-        if game_team.game_id == season_game.game_id
+        if game_team.game_id == season_game_id
           game_team_season_collection << game_team
         end
       end
@@ -80,11 +97,6 @@ class StatTracker
     game_team_season_collection
   end
 
-  # def group_by_head_coach(season_id)
-  #   hash = find_games_by_season_in_game_teams(season_id).group_by do |game_team|
-  #     game_team.head_coach
-  #   end
-  # end
 
   def winningest_coach(season_id)
     coaches_wins = Hash.new(0)

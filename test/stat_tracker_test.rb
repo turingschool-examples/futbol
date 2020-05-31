@@ -10,8 +10,11 @@ require './lib/game_team'
 class StatTrackerTest < Minitest::Test
   def setup ## instantiate using the from_csv
     @game_path = './data/fixtures/game_fixture.csv'
+    # @game_path = './data/games.csv'
     @team_path = './data/fixtures/team_fixture.csv'
+    # @team_path = './data/teams.csv'
     @game_teams_path = './data/fixtures/game_teams_fixture.csv'
+    # @game_teams_path = './data/game_teams.csv'
 
     @locations = {
       games: @game_path,
@@ -27,24 +30,29 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_attributes
+    skip
     assert_equal './data/fixtures/game_fixture.csv', @stat_tracker.games
     assert_equal './data/fixtures/team_fixture.csv', @stat_tracker.teams
     assert_equal './data/fixtures/game_teams_fixture.csv', @stat_tracker.game_teams
   end
 
   def test_it_can_have_game_collection
+    skip
     assert_instance_of GameCollection, @stat_tracker.game_collection
   end
 
   def test_it_can_have_team_collection
+    skip
     assert_instance_of TeamCollection, @stat_tracker.team_collection
   end
 
   def test_it_can_have_game_team_collection
+    skip
     assert_instance_of GameTeamCollection, @stat_tracker.game_team_collection
   end
 
   def test_it_can_filer_by_season_to_season_id
+    skip
     assert_equal 1, @stat_tracker.filter_by_season("20162017").count
     assert_equal 2, @stat_tracker.filter_by_season("20122013").count
     assert_equal 3, @stat_tracker.filter_by_season("20132014").count
@@ -63,10 +71,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_highest_total_score
+    skip
     assert_equal 8, @stat_tracker.highest_total_score
   end
 
   def test_it_can_get_lowest_total_score
+    skip
     assert_equal 1, @stat_tracker.lowest_total_score
   end
 
