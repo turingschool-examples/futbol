@@ -15,11 +15,6 @@ class TeamsCollectionTest < MiniTest::Test
 		assert_instance_of TeamsCollection, @teams_collection
 	end
 
-	def test_it_has_attributes
-    file_path = "./data/teams.csv"
-		assert_equal file_path, @teams_collection.csv_location
-	end
-
   def test_it_starts_empty_collection
     assert_equal [], @teams_collection.collection
   end
