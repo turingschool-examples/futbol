@@ -64,4 +64,13 @@ class SeasonStatsTest < Minitest::Test
     assert_instance_of Hash, @season_stats.accuracy_by_game_team("20132014")
     assert_equal 40, @season_stats.accuracy_by_game_team("20132014").count
   end
+
+  def test_most_accurate_team
+    assert_equal "Utah Royals FC", @season_stats.most_accurate_team("20122013")
+    assert_equal "Philadelphia Union", @season_stats.most_accurate_team("20132014")
+    assert_equal "Vancouver Whitecaps FC", @season_stats.most_accurate_team("20142015")
+    assert_equal "Washington Spirit FC", @season_stats.most_accurate_team("20152016")
+    assert_equal "New England Revolution", @season_stats.most_accurate_team("20162017")
+    assert_equal "North Carolina Courage", @season_stats.most_accurate_team("20172018")
+  end
 end
