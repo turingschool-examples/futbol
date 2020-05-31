@@ -8,35 +8,32 @@ class StatTracker
               :teams,
               :game_teams
 
-  def initialize
-    @games = @@games
-    @teams = @@teams
-    @game_teams = @@game_teams
+  def initialize(locations)
+    @games ||= collect_games(locations[:games])
+    @teams ||= collect_teams(locations[:teams])
+    @game_teams ||= collect_game_teams(locations[:game_teams])
   end
 
   def self.from_csv(locations)
-    collect_games(locations[:games])
-    collect_teams(locations[:teams])
-    collect_game_teams(locations[:game_teams])
-    self.new
+    self.new(locations)
   end
 
-  def self.collect_game_teams(location)
+  def collect_game_teams(location)
     game_teams = GameTeamsCollection.new(location)
     game_teams.load_csv
-    @@game_teams = game_teams.collection
+    game_teams.collection
   end
 
-  def self.collect_teams(location)
+  def collect_teams(location)
     teams = TeamsCollection.new(location)
     teams.load_csv
-    @@teams = teams.collection
+    teams.collection
   end
 
-  def self.collect_games(location)
+  def collect_games(location)
     games = GamesCollection.new(location)
     games.load_csv
-    @@games = games.collection
+    games.collection
   end
 
 end
