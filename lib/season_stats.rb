@@ -57,4 +57,34 @@ class SeasonStats
       team.team_id == least_accurate
     end.teamname
   end
+
+  def most_tackles(season)
+    year = season[0..3]
+    season_games = @game_teams_collection.game_teams.select do |game|
+      game.game_id.start_with?(year)
+    end
+    by_teams = season_games.group_by { |team| team.team_id }
+    by_teams.map do |team_id, games|
+      by_teams[team_id] = games.sum { |game| game.tackles.to_i }
+    end
+    tackles = by_teams.select { |_,value| value == by_teams.values.max}
+    @teams_collection.teams.find do |team|
+      team.team_id == tackles.keys[0]
+    end.teamname
+  end
+
+  def fewest_tackles(season)
+    year = season[0..3]
+    season_games = @game_teams_collection.game_teams.select do |game|
+      game.game_id.start_with?(year)
+    end
+    by_teams = season_games.group_by { |team| team.team_id }
+    by_teams.map do |team_id, games|
+      by_teams[team_id] = games.sum { |game| game.tackles.to_i }
+    end
+    tackles = by_teams.select { |_,value| value == by_teams.values.min}
+    @teams_collection.teams.find do |team|
+      team.team_id == tackles.keys[0]
+    end.teamname
+  end
 end

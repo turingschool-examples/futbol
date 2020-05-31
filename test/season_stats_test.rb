@@ -82,4 +82,23 @@ class SeasonStatsTest < Minitest::Test
     assert_equal "Chicago Red Stars", @season_stats.least_accurate_team("20162017")
     assert_equal "Sky Blue FC", @season_stats.least_accurate_team("20172018")
   end
+
+  def test_it_can_get_team_with_most_tackles
+    assert_equal "FC Dallas", @season_stats.most_tackles("20122013")
+    assert_equal "San Jose Earthquakes", @season_stats.most_tackles("20132014")
+    assert_equal "Real Salt Lake", @season_stats.most_tackles("20142015")
+    assert_equal "Orlando Pride", @season_stats.most_tackles("20152016")
+    assert_equal "New York City FC", @season_stats.most_tackles("20162017")
+    assert_equal "Reign FC", @season_stats.most_tackles("20172018")
+  end
+
+  def test_it_can_get_team_with_fewest_tackles
+    assert_equal "LA Galaxy", @season_stats.fewest_tackles("20122013")
+    assert_equal "Los Angeles FC", @season_stats.fewest_tackles("20132014")
+    assert_equal "New England Revolution", @season_stats.fewest_tackles("20142015")
+    assert_equal "Vancouver Whitecaps FC", @season_stats.fewest_tackles("20152016")
+    assert_equal "Atlanta United", @season_stats.fewest_tackles("20162017")
+    assert_equal "DC United", @season_stats.fewest_tackles("20172018")
+  end
+
 end
