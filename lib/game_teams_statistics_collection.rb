@@ -6,8 +6,9 @@ class GameTeamsStatisticsCollection
               :collection
 
   def initialize(game_teams_csv_location)
-    @game_teams_csv_location = game_teams_csv_location
     @collection = []
+    @game_teams_csv_location = game_teams_csv_location
+    load_csv
   end
 
   def load_csv
