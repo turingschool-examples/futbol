@@ -1,7 +1,7 @@
 require "csv"
-require_relative "./teams_statistics_collection"
-require_relative "./games_statistics_collection"
-require_relative "./game_teams_statistics_collection"
+require_relative "./teams_collection"
+require_relative "./games_collection"
+require_relative "./game_teams_collection"
 
 class StatTracker
   attr_reader :games,
@@ -9,15 +9,15 @@ class StatTracker
               :game_teams
 
   def initialize
-    @games = games_collection
-    @teams = teams_collection
-    @game_teams = game_teams_collection
+    @games = @@games
+    @teams = @@teams
+    @game_teams = @@game_teams
   end
 
   def self.from_csv(file_path_locations)
-    @games = GameStatisticsCollection.new(file_path_locations[:games]).collection
-    @teams = TeamsStatisticsCollection.new(file_path_locations[:teams]).collection
-    @game_teams = GameTeamsStatisticsCollection.new(file_path_locations[:game_teams]).collection
+    @@games = GamesCollection.new(file_path_locations[:games]).collection
+    @@teams = TeamsCollection.new(file_path_locations[:teams]).collection
+    @@game_teams = GameTeamsCollection.new(file_path_locations[:game_teams]).collection
     self.new
   end
 
