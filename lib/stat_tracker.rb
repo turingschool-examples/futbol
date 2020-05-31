@@ -16,22 +16,22 @@ class StatTracker
   end
 
   def games
-    @games.all
+    @g ||= @games.all
   end
 
   def teams
-    @teams.all
+    @t ||= @teams.all
   end
 
   def game_teams
-    @game_teams.all
+    @g_t ||= @game_teams.all
   end
   ###################
   ## SEASON METHODS##
   ###################
 
   def all_games_per_season(season_id)
-    x = games.select do |game|
+    games.select do |game|
       game.season.eql?(season_id)
     end
   end
@@ -50,12 +50,10 @@ class StatTracker
   end
 
   def coach_per_total_win(season_id)
-    coach_win_count = Hash.new { |coach, k| coach[k] = 0 }
-    games_by_head_coach(season_id).each do |coach, games|
+    games_by_head_coach(season_id).transform_values do |games|
       winning_games = games.select{|game| game.result == "WIN"}
-      coach_win_count[coach] = winning_games.size
+      winning_games.size
     end
-    coach_win_count
   end
 
   def winningest_coach(season_id)
@@ -79,13 +77,11 @@ class StatTracker
   end
 
   def ratio_of_shots(season_id)
-    hash ={}
-    team_id_group(season_id).each do |team_id, value|
-      total_shots = value.sum{|game| game.shots.to_f}
-      total_goals = value.sum{|game| game.goals.to_f}
-       hash[team_id] = (total_goals/total_shots *100).round(2)
+    team_id_group(season_id).transform_values do |games|
+      total_shots = games.sum{|game| game.shots.to_f}
+      total_goals = games.sum{|game| game.goals.to_f}
+       (total_goals/total_shots *100).round(2)
     end
-    hash
   end
 
   def best_accurate_team_id(season_id)
@@ -113,11 +109,9 @@ class StatTracker
   end
 
   def total_tackles_team_per_season(season_id)
-    hash = {}
-    team_id_group(season_id).each do |team_id, value|
-      hash[team_id] = value.sum{|game| game.tackles.to_i}
+    team_id_group(season_id).transform_values do |games|
+      games.sum{|game| game.tackles.to_i}
     end
-    hash
   end
 
   def get_team_name_with_id(id)
