@@ -93,7 +93,7 @@ class StatTracker
       "abbreviation" => found_team.abbreviation,
       "link" => found_team.link
     }
-    p team_info_hash
+    team_info_hash
   end
 
   def total_games_per_team(team_id)
@@ -106,13 +106,18 @@ class StatTracker
     else
       0
     end
+    total_games
   end
 
+  # def best_season
+  #
+  # end
 
 
 
 
-    #end
+
+
     #hard code - for each team, per season, take percentage of wins / count of games per season
     #return season
   #   all_game_teams = GameTeamsCollection.new(@game_teams)
@@ -130,19 +135,10 @@ class StatTracker
   #   all_game_teams.all.map do |game_team|
   #     win_team_id.count
   #   binding.pry
-  # end
 
 
 
 
-    # found_gt = all_game_teams.all.select do |game_team|
-    #   game_team if game_team.result == "WIN"
-    # end
-    # found_gt
 
-    all_teams = TeamCollection.new(@teams)
-    all_teams.all.each do |team|
-      binding.pry
-    end
   end
 end

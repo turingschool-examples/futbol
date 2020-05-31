@@ -23,7 +23,7 @@ class StatTrackerTest < MiniTest::Test
     def setup
       game_path = './data/games.csv'
       team_path = './data/teams.csv'
-      game_teams_path = './data/game_teams.csv'
+      game_teams_path = './data/game_teams_fixture.csv'
 
       @locations = {
         games: game_path,
@@ -38,30 +38,11 @@ class StatTrackerTest < MiniTest::Test
       assert_instance_of StatTracker, @stat_tracker
     end
 
-    def test_it_has_attributes
-      skip
-      assert_equal './data/games.csv', @stat_tracker.games
-      assert_equal './data/teams.csv', @stat_tracker.teams
-      assert_equal './data/game_teams.csv', @stat_tracker.game_teams
-    end
   end
-
-  # class TeamStatisticsTest < StatTrackerTest
-  #
-  # end
-  #
-  # class SeasonStatisticsTest < StatTrackerTest
-  #
-  # end
-  #
-  # class LeagueStatisticsTest < StatTrackerTest
-  #
-  # end
-
 
   def test_it_has_attributes
     assert_instance_of GameCollection, @stat_tracker.games
-    assert_equal './data/teams_fixture.csv', @stat_tracker.teams
+    assert_instance_of TeamCollection, @stat_tracker.teams
     assert_equal './data/game_teams_fixture.csv', @stat_tracker.game_teams
   end
 
@@ -131,11 +112,11 @@ class StatTrackerTest < MiniTest::Test
 
     def test_it_returns_team
 
-      assert @stat_tracker.team_info(1)
+      assert @stat_tracker.team_info("1")
     end
 
     def test_it_returns_total_games_per_team
-      assert_equal 4, @stat_tracker.total_games_per_team(3)
+      assert_equal 4, @stat_tracker.total_games_per_team("3")
     end
 
     # def test_it_can_return_team_games_per_season
