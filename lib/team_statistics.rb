@@ -1,6 +1,9 @@
-require_relative "./stat_tracker"
-require "csv"
+module TeamStatistics
 
-class TeamStatistics < StatTracker
+  def best_season(season)
+    @game_teams.find do |result|
 
+      require "pry"; binding.pry
+    end
+  end
 end

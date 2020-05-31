@@ -545,28 +545,32 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Atlanta United", stat_tracker.fewest_tackles("20132014")
     assert_equal "Orlando City SC", stat_tracker.fewest_tackles("20142015")
 
-  # def test_it_exists_with_attributes
-  #   assert_instance_of StatTracker, @stat_tracker
-  #   assert_equal './data/games.csv', @stat_tracker.games
-  #   assert_equal './data/teams.csv', @stat_tracker.teams
-  #   assert_equal './data/game_teams.csv', @stat_tracker.game_teams
-  # end
 
   # League Statistics count_of_teams method
   def test_count_of_teams
+    skip
     assert_equal 32, @stat_tracker.count_of_teams
   end
 
   def test_convert_team_id_to_name
+    skip
     assert_equal "FC Dallas", @stat_tracker.team_name("6")
   end
 
+
   def test_scores
+    skip
     assert_equal Hash, @stat_tracker.scores("away")
     assert_equal 32, @stat_tracker.scores("away").count
     assert_equal true, @stat_tracker.scores("away").all? do |team_id, scores|
       team_id.is_a?(String) && scores.is_a?(Array)
     end
+
+# Team Statistics best_season
+    skip
+  def test_it_can_find_best_season
+    assert_equal "6", @stat_tracker.best_season("20132014")
+
   end
 
 end
