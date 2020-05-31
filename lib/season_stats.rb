@@ -48,4 +48,13 @@ class SeasonStats
       team.team_id == most_accurate
     end.teamname
   end
+
+  def least_accurate_team(season)
+    least_accurate = accuracy_by_game_team(season).min_by do |game_team, accuracy|
+      accuracy
+    end.first.team_id
+    @teams_collection.teams.find do |team|
+      team.team_id == least_accurate
+    end.teamname
+  end
 end
