@@ -13,5 +13,14 @@ class TeamCollection
     load_from_csv(file_path, Team)
   end
 
+  def total_number_of_teams
+    @teams_array.length
 
+  end
+
+  def team_name_by_id(team_id)
+    @teams_array.find do |team|
+      team.team_id.to_i == team_id
+    end.team_name
+  end
 end

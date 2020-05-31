@@ -28,4 +28,8 @@ class TeamCollectionTest < Minitest::Test
     assert_equal 32, @team_collection.total_number_of_teams
   end
 
+  def test_it_can_find_team_name_by_id
+    assert_equal "Chicago Fire", @team_collection.team_name_by_id(4)
+  end
+
 end
