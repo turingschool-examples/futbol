@@ -5,9 +5,9 @@ require "minitest/pride"
 class StatTrackerTest < MiniTest::Test
 
   def setup
-    game_path = './fixtures/games_fixture.csv'
-    team_path = './fixtures/teams_fixture.csv'
-    game_teams_path = './fixtures/game_teams_fixture.csv'
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
 
     file_path_locations = {
       games: game_path,
@@ -20,9 +20,9 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_exists_with_attributes
     assert_instance_of StatTracker, @stat_tracker
-    assert_equal './fixtures/games_fixture.csv', @stat_tracker.games
-    assert_equal './fixtures/teams_fixture.csv', @stat_tracker.teams
-    assert_equal './fixtures/game_teams_fixture.csv', @stat_tracker.game_teams
+    assert_equal './data/games.csv', @stat_tracker.games
+    assert_equal './data/teams.csv', @stat_tracker.teams
+    assert_equal './data/game_teams.csv', @stat_tracker.game_teams
   end
 
 end
