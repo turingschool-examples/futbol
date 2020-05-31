@@ -216,46 +216,78 @@ class StatTracker
     end[:goals]
   end
 
-  def favorite_opponent(team_id)
-    #String
-    # Name of the opponent that has the lowest win percentage against the given
-    # team.
-    # Needs teams.csv for `franchise_id`
-    # Needs games.csv for `away_team_id`
-    # Needs game_teams.csv for `result`
-    game_teams_array = []
-    games_array = []
-    teams_array = []
-    max = []
-    combined_hash = Hash.new(0)
-    combined_array = []
-    opponents_array = []
-    opponents_hash = {}
-    win_counter_array = []
-    loss_counter_array = []
-    game_teams_array = @game_teams.all.find_all do |game_team|
-      game_team.team_id == team_id.to_s
-    end
-    @games.all.each do |game|
-      game_teams_array.each do |game_team|
-        if game.game_id == game_team.game_id
-          combined_hash[:game_id] = game.game_id
-          combined_hash[:result] = game_team.result
-          if game_team.to_hash[:hoa] == "away"
-            combined_hash[:opponent] = game.home_team_id
-          elsif game_team.to_hash[:hoa] == "home"
-            combined_hash[:opponent] = game.away_team_id
-          end
-          combined_array << [combined_hash[:game_id], combined_hash[:result], combined_hash[:opponent]]
-        end
-      end
-    end
-    temp = 0
-
-    combined_array.each do |item|
-
-    binding.pry
+  def find_team_by_id(team_id)
+    @teams.all.find {|team| team.team_id == team_id}
   end
+
+  def games_played_by_team(team_id)
+    game_teams.find_all {|game| game.team_id == team_id.to_s}
+  end
+
+  def games_by_opponent_team(team_id)
+    x = games_played_by_team(team_id).group_by{|game| game.game_id}
+    games = @game_teams.all.select do |game|
+       key = x.keys
+       key.include?(game.game_id) && !x.values.flatten.include?(game)
+    end
+    games.group_by{|game| game.team_id}
+  end
+
+  def opponent_percentage_wins(team_id)
+    x = games_by_opponent_team(team_id).transform_values do |games|
+      wins = games.select{|game| game.result == "WIN"}.length
+      (wins / games.size.to_f * 100).round(2)
+    end
+  end
+
+  def favorite_opponent(team_id)
+    id =opponent_percentage_wins(team_id).min_by{|k,v| v}.first
+    find_team_by_id(id).team_name
+  end
+
+  def rival(team_id)
+    id =opponent_percentage_wins(team_id).max_by{|k,v| v}.first
+    find_team_by_id(id).team_name
+  end
+
+end
+  # def favorite_opponent(team_id)
+  #   #String
+  #   # Name of the opponent that has the lowest win percentage against the given
+  #   # team.
+  #   # Needs teams.csv for `franchise_id`
+  #   # Needs games.csv for `away_team_id`
+  #   # Needs game_teams.csv for `result`
+  #   game_teams_array = []
+  #   games_array = []
+  #   teams_array = []
+  #   max = []
+  #   combined_hash = Hash.new(0)
+  #   combined_array = []
+  #   opponents_array = []
+  #   opponents_hash = {}
+  #   win_counter_array = []
+  #   loss_counter_array = []
+  #   game_teams_array = @game_teams.all.find_all do |game_team|
+  #     game_team.team_id == team_id.to_s
+  #   end
+  #   @games.all.each do |game|
+  #     game_teams_array.each do |game_team|
+  #       if game.game_id == game_team.game_id
+  #         combined_hash[:game_id] = game.game_id
+  #         combined_hash[:result] = game_team.result
+  #         if game_team.to_hash[:hoa] == "away"
+  #           combined_hash[:opponent] = game.home_team_id
+  #         elsif game_team.to_hash[:hoa] == "home"
+  #           combined_hash[:opponent] = game.away_team_id
+  #         end
+  #         combined_array << [combined_hash[:game_id], combined_hash[:result], combined_hash[:opponent]]
+  #       end
+  #     end
+  #   end
+  #
+  #
+  # end
 
   # def get_all_game_teams_by_id(team_id)
   #   @game_teams.all.find_all do ||
@@ -275,6 +307,3 @@ class StatTracker
   #   #String
   #   # Name of the opponent that has the highest win percentage against the
   #   # given team.
-  # end
-end
-end
