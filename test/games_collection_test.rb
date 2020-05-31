@@ -15,11 +15,6 @@ class GamesCollectionTest < MiniTest::Test
 		assert_instance_of GamesCollection, @games_collection
 	end
 
-	def test_it_has_attributes
-    file_path = "./data/games.csv"
-		assert_equal file_path, @games_collection.csv_location
-	end
-
   def test_it_starts_empty_collection
     assert_equal [], @games_collection.collection
   end

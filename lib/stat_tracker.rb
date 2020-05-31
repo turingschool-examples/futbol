@@ -9,14 +9,13 @@ class StatTracker
               :game_teams
 
   def initialize
-    # @games = @@games
+    @games = @@games
     @teams = @@teams
     @game_teams = @@game_teams
   end
 
   def self.from_csv(locations)
-    @@games = GamesCollection.new(locations[:games]).collection
-
+    collect_games(locations[:games])
     collect_teams(locations[:teams])
     collect_game_teams(locations[:game_teams])
     self.new
@@ -34,6 +33,10 @@ class StatTracker
     @@teams = teams.collection
   end
 
-
+  def self.collect_games(location)
+    games = GamesCollection.new(location)
+    games.load_csv
+    @@games = games.collection
+  end
 
 end
