@@ -19,4 +19,10 @@ class TeamCollectionTest < Minitest::Test
     assert_equal 32, @team_collection.teams_array.length
   end
 
+  def test_it_can_create_games_from_csv
+    assert_instance_of Team, @team
+    assert_equal "1", @team.team_id
+    assert_equal "Atlanta United", @team.team_name
+  end
+
 end
