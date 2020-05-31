@@ -20,4 +20,14 @@ class SeasonStats
       game.game_id
     end
   end
+
+  def game_teams_by_season(season)
+    game_teams = []
+    @game_teams_collection.game_teams.each do |game_team|
+      if game_ids_by_season(season).include?(game_team.game_id)
+        game_teams << game_team
+      end
+    end
+    game_teams
+  end
 end
