@@ -21,4 +21,14 @@ class Game
     @home_goals   = info[:home_goals]
     @venue        = info[:venue]
   end
+
+  def return_winner
+    if home_goals > away_goals
+     home_team_id
+    elsif away_goals > home_goals
+      away_team_id
+    elsif home_goals == away_goals
+      puts "tie"
+    end
+  end
 end

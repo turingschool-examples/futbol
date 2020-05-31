@@ -4,6 +4,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'CSV'
 require './lib/game_teams'
+require 'pry'
 
 class GameTeamsTest < Minitest::Test
 

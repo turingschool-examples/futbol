@@ -21,4 +21,16 @@ class GameTeamsCollection
     all_game_teams
   end
 
+  # def total_games_per_team(id)
+  #   @games.all.each do |game|
+  #       binding.pry
+  #     is_home_team = game.home_team_id == id
+  #     is_away_team = game.away_team_id == id
+  #    if is_home_team || is_away_team
+  #      1
+  #    else
+  #      0
+  #    end
+  #  end
+  # end
 end

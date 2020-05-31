@@ -14,7 +14,7 @@ class StatTracker
 
   def initialize(info)
     @games = GameCollection.new(info[:games])
-    @teams = info[:teams]
+    @teams = TeamCollection.new(info[:teams])
     @game_teams = info[:game_teams]
   end
 
@@ -83,31 +83,66 @@ class StatTracker
   end
 
   def team_info(id)
-    all_teams = TeamCollection.new(@teams)
-    found_team = all_teams.all.find do |team|
-      team.id.to_i == id
+    all_teams = @teams.all
+    found_team = all_teams.find do |team|
+      team.id == id
     end
-      {
-        :team_id => found_team.id,
-        :franchise_id => found_team.franchise_id,
-        :teamname => found_team.name,
-        :abbreviation => found_team.abbreviation,
-        :stadium => found_team.stadium,
-        :link => found_team.link
-      }
+    team_info_hash = {"team_id" => found_team.id,
+      "franchise_id" => found_team.franchise_id,
+      "team_name" => found_team.name,
+      "abbreviation" => found_team.abbreviation,
+      "link" => found_team.link
+    }
+    p team_info_hash
   end
 
-  def best_season
+  def total_games_per_team(team_id)
+    total_games = 0
+    games.all.count do |game|
+    is_home_team = game.home_team_id == team_id
+    is_away_team = game.away_team_id == team_id
+    if is_home_team || is_away_team
+       total_games += 1
+    else
+      0
+    end
+  end
+
+
+
+
+
+    #end
     #hard code - for each team, per season, take percentage of wins / count of games per season
     #return season
-    all_game_teams = GameTeamsCollection.new(@game_teams)
-    found_gt = all_game_teams.all.select do |game_team|
-      game_team if game_team.result == "WIN"
-    end
-    found_gt
+  #   all_game_teams = GameTeamsCollection.new(@game_teams)
+  #   win_team_id = []
+  #   loss_team_id = []
+  #   all_game_teams.all.each do |game_team|
+  #     win_team_id << game_team.team_id if game_team.result == "WIN"
+  #   win_team_id
+  #     loss_team_id << game_team.team_id if game_team.result == "LOSS"
+  #   end
+  #   loss_team_id
+  #
+  #
+  #   #wins = 0
+  #   all_game_teams.all.map do |game_team|
+  #     win_team_id.count
+  #   binding.pry
+  # end
+
+
+
+
+    # found_gt = all_game_teams.all.select do |game_team|
+    #   game_team if game_team.result == "WIN"
+    # end
+    # found_gt
+
     all_teams = TeamCollection.new(@teams)
-    all_game_teams
+    all_teams.all.each do |team|
       binding.pry
-      team.seasons
+    end
   end
 end
