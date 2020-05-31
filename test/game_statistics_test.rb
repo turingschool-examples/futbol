@@ -15,7 +15,7 @@ class GameStatisticsTest < MiniTest::Test
       game_teams: game_teams_path
     }
 
-    @stat_tracker = LeagueStatistics.from_csv(file_path_locations)
+    @stat_tracker = GameStatistics.from_csv(file_path_locations)
   end
 
   def test_it_gets_highest_total_score
@@ -23,22 +23,27 @@ class GameStatisticsTest < MiniTest::Test
   end
 
   def test_it_gets_lowest_total_score
+    skip
     assert_equal 0, @stat_tracker.lowest_total_score
   end
 
   def test_it_gets_percentage_home_wins
+    skip
     assert_equal 0.44, @stat_tracker.percentage_home_wins
   end
 
   def test_it_gets_percentage_visitor_wins
+    skip
     assert_equal 0.36, @stat_tracker.percentage_visitor_wins
   end
 
   def test_it_gets_percentage_ties
+    skip
     assert_equal 0.20, @stat_tracker.percentage_ties
   end
 
   def test_it_gets_count_of_games_by_season
+    skip
     expected = {
       "20122013"=>806,
       "20162017"=>1317,
@@ -52,10 +57,12 @@ class GameStatisticsTest < MiniTest::Test
   end
 
   def test_it_gets_average_goals_per_game
+    skip
     assert_equal 4.22, @stat_tracker.average_goals_per_game
   end
 
   def test_it_gets_average_goals_by_season
+    skip
     expected = {
       "20122013"=>4.12,
       "20162017"=>4.23,
