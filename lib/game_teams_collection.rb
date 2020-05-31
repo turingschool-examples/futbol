@@ -7,7 +7,6 @@ class GameTeamsCollection
   def initialize(csv_location)
     @collection = []
     @csv_location = csv_location
-    load_csv
   end
 
   def load_csv
