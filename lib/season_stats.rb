@@ -30,4 +30,13 @@ class SeasonStats
     end
     game_teams
   end
+
+  def accuracy_by_game_team(season)
+    accuracy_by_team = Hash.new(0)
+    game_teams_by_season(season).each do |game_team|
+      accuracy = (game_team.goals.to_f / game_team.shots.to_f).round(2)
+      accuracy_by_team[game_team] = accuracy
+    end
+    accuracy_by_team
+  end
 end
