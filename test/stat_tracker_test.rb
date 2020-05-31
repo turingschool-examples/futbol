@@ -25,7 +25,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_has_games
     assert_instance_of Game, @stat_tracker.games.first
-    assert_equal 2012030221, @stat_tracker.games.first.game_id
+    assert_equal "2012030221", @stat_tracker.games.first.game_id
     assert_equal "20122013", @stat_tracker.games.first.season
     assert_equal 3, @stat_tracker.games.first.away_team_id
     assert_equal 6, @stat_tracker.games.first.home_team_id
@@ -272,9 +272,8 @@ class StatTrackerTest < Minitest::Test
   # Helpers
 
   def test_game_ids_by_team_and_result
-    assert_equal [2012030221, 2012030222, 2012030223], @stat_tracker.game_ids_by(6, "WIN")
-
-    assert_equal [2012030221, 2012030222, 2012030223], @stat_tracker.game_ids_by(3, "LOSS")
+    assert_equal ["2012030221", "2012030222", "2012030223"], @stat_tracker.game_ids_by(6, "WIN")
+    assert_equal ["2012030221", "2012030222", "2012030223"], @stat_tracker.game_ids_by(3, "LOSS")
   end
 
   def test_games_by_id_array
