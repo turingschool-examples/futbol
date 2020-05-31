@@ -29,26 +29,8 @@ class SeasonStatsTest < Minitest::Test
     assert_equal "Claude Julien", @season_stats.winningest_coach(season_id)
   end
 
-  # def test_it_has_a_worst_coach
-  # end
-  #
-  # def test_it_has_a_most_accurate_team
-  # end
-  #
-  # def test_it_has_a_least_accurate_team
-  # end
-  #
-  # def test_it_has_most_tackles
-  # end
-  #
-  # def test_it_has_fewest_tackles
-  # end
-
-  def test_it_can_get_total_games_for_a_coach
-    assert_equal 4, @season_stats.total_games("John Tortorella")
-  end
-
-  def test_it_can_get_total_wins_for_a_coach
-    assert_equal 2, @season_stats.total_games("Paul MacLean")
+  def test_it_finds_worst_coach
+    season_id = "20122013"
+    assert_equal "John Tortorella", @season_stats.worst_coach(season_id)
   end
 end
