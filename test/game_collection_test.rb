@@ -21,5 +21,6 @@ class GameCollectionTest < Minitest::Test
   def test_it_can_create_games_from_csv
     assert_instance_of Game, @game
     assert_equal "2012030221", @game.game_id
+  
   end
 end

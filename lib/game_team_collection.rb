@@ -13,7 +13,7 @@ class GameTeamCollection
   def create_game_teams_array(file_path)
     load_from_csv(file_path, GameTeams)
     # eventually the class name GameTeams
-    # will need to be SINGULAR
+    # will need to be SINGULAR ^
   end
 
 end
