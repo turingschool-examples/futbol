@@ -222,9 +222,7 @@ class StatTracker
     games_played_that_season = Hash.new(0)
     game_teams.find_all do |team|
       if team.team_id == team_id.to_s
-        if team.result == "WIN" || "TIE" || "LOSS"
           games_played_that_season[team.game_id.slice(0...4)] += 1.to_f
-        end
       end
     end
     games_played_that_season
@@ -285,20 +283,6 @@ class StatTracker
   def fewest_goals_scored(team_id)
     goals_scored(team_id).min
   end
-
-
-  # def wins_vs_opponent(team_id)
-  #   games_won_vs_oppenent = Hash.new(0)
-  #   games.map do |team|
-  #     if team.home_team_id || team.away_team_id == team_id.to_s
-  #       if (team.home_team_id == team_id.to_s) && (team.home_goals > team.away_goals)
-  #         games_won_vs_oppenent[team.away_team_id] += 1
-  #       else (team.away_team_id == team_id.to_s) && (team.home_goals < team.away_goals)
-  #         games_won_vs_oppenent[team.home_team_id] += 1
-  #       end
-  #     end
-  #   end
-  # end
 
   def favorite_opponent(team_id)
     games_won_vs_oppenent = Hash.new(0)
