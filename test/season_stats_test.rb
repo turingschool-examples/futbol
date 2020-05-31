@@ -57,4 +57,11 @@ class SeasonStatsTest < Minitest::Test
     assert_equal 40, @season_stats.game_teams_by_season("20162017").count
     assert_equal 40, @season_stats.game_teams_by_season("20172018").count
   end
+
+  def test_accuracy_by_game_team
+    assert_instance_of Hash, @season_stats.accuracy_by_game_team("20122013")
+    assert_equal 40, @season_stats.accuracy_by_game_team("20122013").count
+    assert_instance_of Hash, @season_stats.accuracy_by_game_team("20132014")
+    assert_equal 40, @season_stats.accuracy_by_game_team("20132014").count
+  end
 end
