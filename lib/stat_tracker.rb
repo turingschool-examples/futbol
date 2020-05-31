@@ -191,7 +191,6 @@ class StatTracker
     #Integer
     # Highest number of goals a particular team has scored in a single game.
     game_teams_array = []
-    most_goals = 0
     @game_teams.all.each do |game_team|
       if game_team.team_id == team_id.to_s
         game_teams_array << game_team.to_hash
@@ -221,13 +220,61 @@ class StatTracker
     #String
     # Name of the opponent that has the lowest win percentage against the given
     # team.
-    
+    # Needs teams.csv for `franchise_id`
+    # Needs games.csv for `away_team_id`
+    # Needs game_teams.csv for `result`
+    game_teams_array = []
+    games_array = []
+    teams_array = []
+    max = []
+    combined_hash = Hash.new(0)
+    combined_array = []
+    opponents_array = []
+    opponents_hash = {}
+    win_counter_array = []
+    loss_counter_array = []
+    game_teams_array = @game_teams.all.find_all do |game_team|
+      game_team.team_id == team_id.to_s
+    end
+    @games.all.each do |game|
+      game_teams_array.each do |game_team|
+        if game.game_id == game_team.game_id
+          combined_hash[:game_id] = game.game_id
+          combined_hash[:result] = game_team.result
+          if game_team.to_hash[:hoa] == "away"
+            combined_hash[:opponent] = game.home_team_id
+          elsif game_team.to_hash[:hoa] == "home"
+            combined_hash[:opponent] = game.away_team_id
+          end
+          combined_array << [combined_hash[:game_id], combined_hash[:result], combined_hash[:opponent]]
+        end
+      end
+    end
+    temp = 0
+
+    combined_array.each do |item|
+
+    binding.pry
   end
+
+  # def get_all_game_teams_by_id(team_id)
+  #   @game_teams.all.find_all do ||
+  # end
+  #
+  # def opponent_counter(team_id)
+  #   hash = {}
+  #   @game_teams.all.each do |game_team|
+  #     selected_teams = favorite_opponent(game_team.team_id)
+  #     all_wins = selected_teams.select{|team| team.result == "WIN"}.count
+  #     all_loss = selected_teams.select{|team| team.result == "LOSS"}.count
+  #     hash[game_team.team_id] = all_wins / selected_teams
+  #   end
+  # end
 
   # def rival
   #   #String
   #   # Name of the opponent that has the highest win percentage against the
   #   # given team.
   # end
-
+end
 end
