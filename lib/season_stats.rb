@@ -39,4 +39,13 @@ class SeasonStats
     end
     accuracy_by_team
   end
+
+  def most_accurate_team(season)
+    most_accurate = accuracy_by_game_team(season).max_by do |game_team, accuracy|
+      accuracy
+    end.first.team_id
+    @teams_collection.teams.find do |team|
+      team.team_id == most_accurate
+    end.teamname
+  end
 end
