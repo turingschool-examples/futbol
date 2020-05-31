@@ -1,17 +1,39 @@
 require "csv"
+require_relative "./teams_collection"
+require_relative "./games_collection"
+require_relative "./game_teams_collection"
 
 class StatTracker
   attr_reader :games,
               :teams,
               :game_teams
 
-  def initialize(file_paths)
-    @games = file_paths[:games]
-    @teams = file_paths[:teams]
-    @game_teams = file_paths[:game_teams]
+  def initialize(locations)
+    @games ||= collect_games(locations[:games])
+    @teams ||= collect_teams(locations[:teams])
+    @game_teams ||= collect_game_teams(locations[:game_teams])
   end
 
-  def self.from_csv(file_path_locations)
-    self.new(file_path_locations)
+  def self.from_csv(locations)
+    self.new(locations)
   end
+
+  def collect_game_teams(location)
+    game_teams = GameTeamsCollection.new(location)
+    game_teams.load_csv
+    game_teams.collection
+  end
+
+  def collect_teams(location)
+    teams = TeamsCollection.new(location)
+    teams.load_csv
+    teams.collection
+  end
+
+  def collect_games(location)
+    games = GamesCollection.new(location)
+    games.load_csv
+    games.collection
+  end
+
 end
