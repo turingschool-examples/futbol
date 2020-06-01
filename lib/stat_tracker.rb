@@ -218,5 +218,5 @@ class StatTracker
     team_name_based_off_of_team_id(worst_team[0])
   end
 
-  #######################END of SEASON STATS 
+  ######################END of SEASON STATS####################
 end
