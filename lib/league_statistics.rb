@@ -38,6 +38,10 @@ module LeagueStatistics
     average_scores(team_scores)
   end
 
+  def average_visitor_scores
+    average_scores(visitor_scores)
+  end
+
   def average_scores(side_scores_hash)
     average_scores = Hash.new
     side_scores_hash.each do |team, scores|
