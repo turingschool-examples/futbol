@@ -76,6 +76,10 @@ module LeagueStatistics
     lowest_score(average_team_scores)
   end
 
+  def lowest_scoring_visitor
+    lowest_score(average_visitor_scores)
+  end
+
   def average_scores(side_scores_hash)
     average_scores = Hash.new
     side_scores_hash.each do |team, scores|
