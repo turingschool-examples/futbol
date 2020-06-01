@@ -10,6 +10,18 @@ module LeagueStatistics
     end
   end
 
+  def scores(side)
+    scores = Hash.new { |scores, team_id| scores[team_id] = [] }
+    @game_teams.each do |game_team|
+      if side == "home_and_away"
+        scores[game_team.team_id] << game_team.goals
+      elsif side == game_team.hoa
+        scores[game_team.team_id] << game_team.goals
+      end
+    end
+    scores
+  end
+
 # Team Statistics
   def team_info(team_id)
     @teams.reduce({}) do |info, team|
