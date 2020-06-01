@@ -84,11 +84,21 @@ class StatTracker
   def self.from_csv(info)
     StatTracker.new(info)
   end
-
-  # Game Statistic methods
-
-
   # League Statistic methods
+  def count_of_teams
+    teams = CSV.read(@teams, headers: true)
+    teams.count
+  end
+
+  def best_offense
+    game_stats = CSV.read(@game_teams, headers: true, header_converters: :symbol)
+    require 'pry'; binding.pry
+
+    # return id of highest average
+    # away_team_id => away_goals, home_team_id, => home_goals,
+    # return name (string) of team with highest average goals
+    # take id and query teams to find name of team
+  end
 
 
   # Season Statistic methods

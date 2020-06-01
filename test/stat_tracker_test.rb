@@ -16,7 +16,7 @@ class StatTrackerTest < MiniTest::Test
     }
 
     @stat_tracker = StatTracker.from_csv(@locations)
-
+  end
   class BasicTest < StatTrackerTest
     def setup
       game_path = './data/games.csv'
@@ -52,9 +52,34 @@ class StatTrackerTest < MiniTest::Test
   end
 
   class LeagueStatisticsTest < StatTrackerTest
+      def setup
+        game_path = './data/games.csv'
+        team_path = './data/teams.csv'
+        game_teams_path = './data/games_fixture.csv'
 
+        @locations = {
+          games: game_path,
+          teams: team_path,
+          game_teams: game_teams_path
+        }
+
+        @stat_tracker = StatTracker.from_csv(@locations)
+      end
+
+      def test_it_can_do_count_of_teams
+        assert_equal 32, @stat_tracker.count_of_teams
+      end
+
+      def test_it_knows_best_offense
+        assert_equal "FC Dallas", @stat_tracker.best_offense
+      end
+    # best_offense	Name of the team with the highest average number of goals scored per game across all seasons.	String
+    # worst_offense	Name of the team with the lowest average number of goals scored per game across all seasons.	String
+    # highest_scoring_visitor	Name of the team with the highest average score per game across all seasons when they are away.	String
+    # highest_scoring_home_team	Name of the team with the highest average score per game across all seasons when they are home.	String
+    # lowest_scoring_visitor	Name of the team with the lowest average score per game across all seasons when they are a visitor.	String
+    # lowest_scoring_home_team	Name of the team with the lowest average score per game across all seasons when they are at home.	String
   end
-
 
   def test_it_has_attributes
     assert_instance_of GameCollection, @stat_tracker.games
@@ -108,9 +133,5 @@ class StatTrackerTest < MiniTest::Test
     def test_it_can_return_average_goals_by_season
       assert_equal ({"20122013" => 4.33, "20142015" => 6}), @stat_tracker.average_goals_by_season
     end
-
-  class GameStatisticsTest < StatTrackerTest
-
   end
-
 end
