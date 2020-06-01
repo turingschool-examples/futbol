@@ -61,8 +61,8 @@ module LeagueStatistics
     highest_score(average_visitor_scores)
   end
 
-  def highest_scoring_visitor
-    highest_score(average_visitor_scores)
+  def highest_scoring_home_team
+    highest_score(average_home_team_scores)
   end
 
   def average_scores(side_scores_hash)
