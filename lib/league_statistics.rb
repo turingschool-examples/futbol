@@ -50,6 +50,13 @@ module LeagueStatistics
     highest_score(average_team_scores)
   end
 
+  def highest_score(average_side_scores)
+    highest_score = average_side_scores.max_by do |team, av_score|
+      av_score
+    end[0]
+    team_name(highest_score)
+  end
+
   def highest_scoring_visitor
     highest_score(average_visitor_scores)
   end
