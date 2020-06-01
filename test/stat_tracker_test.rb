@@ -291,6 +291,7 @@ class StatTrackerTest < MiniTest::Test
     end
   end
 
+    # League Statistics HELPER method
   def test_average_scores
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -342,6 +343,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, stat_tracker.average_scores(visitor_scores)
   end
 
+    # League Statistics HELPER method
   def test_average_visitor_scores
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -392,6 +394,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, stat_tracker.average_visitor_scores
   end
 
+    # League Statistics HELPER method
   def test_average_team_scores
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -442,6 +445,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, stat_tracker.average_team_scores
   end
 
+    # League Statistics HELPER method
   def test_average_home_team_scores
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -493,6 +497,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, stat_tracker.average_home_team_scores
   end
 
+    # League Statistics HELPER method
   def test_highest_score
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -509,6 +514,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "FC Dallas", stat_tracker.highest_score(average_visitor_scores)
   end
 
+    # League Statistics method
   def test_it_gets_best_offense
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -525,6 +531,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Reign FC", stat_tracker.best_offense
   end
 
+    # League Statistics method
   def test_it_gets_worst_offense
     game_path = './data/games.csv'
       team_path = './data/teams.csv'
@@ -541,6 +548,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Utah Royals FC", stat_tracker.worst_offense
   end
 
+    # League Statistics method
   def test_it_gets_highest_scoring_visitor
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -557,6 +565,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "FC Dallas", stat_tracker.highest_scoring_visitor
   end
 
+    # League Statistics method
   def test_it_gets_highest_scoring_home_team
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -573,6 +582,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Reign FC", stat_tracker.highest_scoring_home_team
   end
 
+    # League Statistics method
   def test_lowest_score
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -590,6 +600,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "San Jose Earthquakes", stat_tracker.lowest_score(average_visitor_scores)
   end
 
+    # League Statistics method
   def test_it_gets_lowest_scoring_visitor
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -606,6 +617,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "San Jose Earthquakes", stat_tracker.lowest_scoring_visitor
   end
 
+    # League Statistics method
   def test_it_gets_lowest_scoring_home_team
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -622,6 +634,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Utah Royals FC", stat_tracker.lowest_scoring_home_team
   end
 
+    # Team Statistics HELPER method
   def test_it_gets_team_info
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -731,6 +744,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 0, stat_tracker.fewest_goals_scored("18")
   end
 
+    # Team Statistics method
   def test_it_gets_favorite_opponent
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -747,6 +761,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "DC United", stat_tracker.favorite_opponent("18")
   end
 
+    # Team Statistics HELPER method
   def test_all_opponents_stats
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -767,6 +782,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal true, all_opponent
   end
 
+    # Team Statistics HELPER method
   def test_win_percentage_against
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -816,6 +832,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, stat_tracker.win_percentage_against("18")
   end
 
+    # Team Statistics method
   def test_it_gets_rival
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
