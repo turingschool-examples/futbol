@@ -16,4 +16,11 @@ class Game
     @venue_link = data[:venue_link]
     @total_goals = @away_goals + @home_goals
   end
+
+  def to_hash
+    {game_id: @game_id, away_goals: @away_goals, away_team_id: @away_team_id,
+      date_time: @date_time, home_goals: @home_goals, home_team_id:
+      @home_team_id, season: @season, type: @type, venue: @venue, venue_link:
+      @venue_link}
+  end
 end
