@@ -37,7 +37,7 @@ class SeasonStatsTest < Minitest::Test
   def test_it_has_most_accurate_team
     assert_equal "New York City FC", @season_stats.most_accurate_team("20122013")
   end
-  
+
   def test_it_has_least_accurate_team
     assert_equal "New York Red Bulls", @season_stats.least_accurate_team("20122013")
   end
@@ -49,6 +49,14 @@ class SeasonStatsTest < Minitest::Test
 
   def test_it_finds_team_with_least_tackles
     season_id = "20122013"
-    assert_equal "FC Dallas", @season_stats.least_taclkles(season_id)
+    assert_equal "FC Dallas", @season_stats.least_tackles(season_id)
+  end
+
+  def test_it_finds_favorite_opponent
+    assert_equal "FC Dallas", @season_stats.favorite_opponent(8)
+  end
+
+  def test_it_finds_rival
+    assert_equal "FC Dallas", @season_stats.rival(8)
   end
 end

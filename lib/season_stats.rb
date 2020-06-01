@@ -80,7 +80,7 @@ class SeasonStats
     @team_collection.team_name_by_id(id_number.to_i)
   end
 
-  def least_taclkles(season_id)
+  def least_tackles(season_id)
     coach_tackles = Hash.new(0)
     @game_team_collection.game_teams_array.sum do |game_team|
       if game_team.game_id.slice(0..3) == season_id.slice(0..3)
@@ -89,5 +89,45 @@ class SeasonStats
     end
     id_number = coach_tackles.key(coach_tackles.values.min)
     @team_collection.team_name_by_id(id_number.to_i)
+  end
+
+  def favorite_opponent(team_id)
+    games_won_vs_oppenent = Hash.new(0)
+    @game_collection.games_array.each do |team|
+      if team.home_team_id || team.away_team_id == team_id.to_s
+        if (team.home_team_id == team_id.to_s) && (team.home_goals > team.away_goals)
+          games_won_vs_oppenent[team.away_team_id] += 1
+        else (team.away_team_id == team_id.to_s) && (team.home_goals < team.away_goals)
+          games_won_vs_oppenent[team.home_team_id] += 1
+        end
+      end
+    end
+    id = games_won_vs_oppenent.key(games_won_vs_oppenent.values.max)
+    found = @team_collection.teams_array.find do |team|
+      if team.team_id == id
+        return team.team_name
+      end
+      found
+    end
+  end
+
+  def rival(team_id)
+    games_lost_vs_oppenent = Hash.new(0)
+    @game_collection.games_array.each do |team|
+      if team.home_team_id || team.away_team_id == team_id.to_s
+        if (team.home_team_id == team_id.to_s) && (team.home_goals < team.away_goals)
+          games_lost_vs_oppenent[team.away_team_id] += 1
+        else (team.away_team_id == team_id.to_s) && (team.home_goals > team.away_goals)
+          games_lost_vs_oppenent[team.home_team_id] += 1
+        end
+      end
+    end
+    id = games_lost_vs_oppenent.key(games_lost_vs_oppenent.values.max)
+    found = @team_collection.teams_array.find do |team|
+      if team.team_id == id
+        return team.team_name
+      end
+      found
+    end
   end
 end
