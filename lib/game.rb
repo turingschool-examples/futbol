@@ -25,6 +25,8 @@ class Game
     @outcome = outcome
   end
 
+  # The below is Dan's code (also including @outcome in initialize)
+
   def outcome
     if @home_goals > @away_goals
       :home_win
@@ -52,3 +54,5 @@ class Game
   end
 
 end
+
+# The above is Dan's code

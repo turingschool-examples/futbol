@@ -35,6 +35,8 @@ class GameTest < Minitest::Test
     assert_equal "/api/v1/venues/null", @game_1.venue_link
   end
 
+  # The below is Dan's code
+
   def test_it_can_get_outcome
     assert_equal :home_win, @game_1.outcome
   end
@@ -47,5 +49,6 @@ class GameTest < Minitest::Test
     assert_equal 3, @game_1.losing_team_id
   end
 
-
 end
+
+# The above is Dan's code

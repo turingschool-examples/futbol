@@ -52,6 +52,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal 1, @stat_tracker.lowest_total_score
   end
 
+  # The below is Dan's code
+
   def test_it_can_get_team_info
     expected = {
                 "team_id" => "30",
@@ -185,3 +187,5 @@ class StatTrackerTest < Minitest::Test
   end
 
 end
+
+# The above is Dan's code

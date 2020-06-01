@@ -8,6 +8,9 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2014030154,20142015,Postseason,4/23/15,19,30,4,1,Exploria Stadium,/api/v1/venues/null
 2012020705,20122013,Regular Season,4/27/13,22,30,4,1,Exploria Stadium,/api/v1/venues/null
 2013030156,20132014,Postseason,4/29/14,21,30,2,3,Exploria Stadium,/api/v1/venues/null
+
+  # The below was added by Dan
+
 2012030186,20122013,Postseason,5/11/13,19,26,1,2,Nippert Stadium,/api/v1/venues/null
 2016030231,20162017,Postseason,4/27/17,18,19,2,3,Talen Energy Stadium,/api/v1/venues/null
 2016030161,20162017,Postseason,4/13/17,19,30,2,1,Exploria Stadium,/api/v1/venues/null
@@ -16,3 +19,5 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2013020760,20132014,Regular Season,1/24/14,19,3,2,1,BBVA Stadium,/api/v1/venues/null
 2014020914,20142015,Regular Season,2/27/15,19,52,1,1,Providence Park,/api/v1/venues/null
 2013020153,20132014,Regular Season,10/26/13,23,19,3,2,Talen Energy Stadium,/api/v1/venues/null
+
+  # The above was added by Dan

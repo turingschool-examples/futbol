@@ -46,6 +46,8 @@ class StatTracker
     total.home_goals.to_i + total.away_goals.to_i
   end
 
+  # The below is all of Dan's code
+
   def team_info(team_id)
     acc = {}
     team_collection.all.each do |team|
@@ -311,6 +313,7 @@ class StatTracker
   def favorite_opponent(team_id)
     team_collection.all.find do |team|
       most_won_against_opponent(team_id) == team.team_id
+      
     end.team_name
   end
 
@@ -327,3 +330,5 @@ class StatTracker
   end
 
 end
+
+# The above is all of Dan's code
