@@ -1,9 +1,14 @@
 module LeagueStatistics
-  
+
   def count_of_teams
     @teams.count
   end
 
+  def team_name(id)
+    @teams.find do |team|
+      return team.teamname if team.team_id == id
+    end
+  end
 
 # Team Statistics
   def team_info(team_id)
