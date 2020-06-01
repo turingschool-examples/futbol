@@ -222,7 +222,6 @@ class StatTracker
 
   def games_played_by_team(team_id)
     game_teams.find_all {|game| game.team_id == team_id.to_s}
-  end
 
   def games_by_opponent_team(team_id)
     x = games_played_by_team(team_id).group_by{|game| game.game_id}
