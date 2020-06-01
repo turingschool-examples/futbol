@@ -17,4 +17,8 @@ class GameTeamCollectionTest < Minitest::Test
   def test_it_can_return_all_games
     assert_instance_of GameTeam, @game_team_collection.all[0]
   end
+
+  def test_all
+    assert_equal Array, @game_team_collection.all.class
+  end
 end

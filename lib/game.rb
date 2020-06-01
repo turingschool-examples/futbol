@@ -52,7 +52,6 @@ class Game
       @home_team_id
     end
   end
-
 end
 
 # The above is Dan's code

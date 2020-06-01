@@ -12,5 +12,4 @@ class GameTeamCollection
   def all
     @game_teams
   end
-
 end
