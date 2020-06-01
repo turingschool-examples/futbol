@@ -13,7 +13,7 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_game_collection_can_fetch_data
-    assert_equal 60, @games.all.count
+    assert_equal 480, @games.all.count
     assert_instance_of Game, @games.all.first
   end
 end
