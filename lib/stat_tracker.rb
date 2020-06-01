@@ -1,8 +1,5 @@
 
-require "csv"
-require "./lib/game_collection"
-require "./lib/team_collection"
-require "./lib/game_team_collection"
+require_relative "./helper"
 
 class StatTracker
 
@@ -126,7 +123,6 @@ class StatTracker
     highest_average_score = average_scores_by_home_team.max_by do |team, average_score|
       average_score
     end
-    # require "pry"; binding.pry
     find_team_by_id(highest_average_score.first).team_name
   end
 
