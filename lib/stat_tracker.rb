@@ -141,4 +141,13 @@ class StatTracker
     (sum_of_goals_per_season(season) / individual_season.count.to_f).round(2)
   end
 
+  def average_goals_by_season
+    avg_goals_by_season = game_collection.all.group_by do |game|
+      game.season
+    end
+    avg_goals_by_season.transform_values do |season|
+      average_goals_per_season(season[0].season)
+    end
+  end
+
 end
