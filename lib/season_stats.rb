@@ -9,6 +9,19 @@ class SeasonStats
     @team_collection = team_collection
   end
 
+  def best_offense
+    id_score = Hash.new(0)
+    game_collection.games_array.map do |game|
+      id_score[game.away_team_id] += game.away_goals.to_i
+      id_score[game.home_team_id] += game.home_goals.to_i
+    end
+    id = id_score.key(id_score.values.max)
+    found = team_collection.teams_array.find do |team|
+        team.team_id == id
+      end
+    found.team_name
+  end
+
   def winningest_coach(season_id)
     coach_number_games = Hash.new(0)
     @game_team_collection.game_teams_array.count do |game_team|

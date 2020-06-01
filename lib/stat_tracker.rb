@@ -125,24 +125,25 @@ class StatTracker
 
   ## start of league statistics
 
-  def count_of_teams
-    teams.count
-  end
+  # WAS THIS COUNT_OF_TEAMS AN OLD METHOD
+  # def count_of_teams
+  #   teams.count
+  # end
 
-  def best_offense
-    id_score = Hash.new(0)
-    games.map do |game|
-      id_score[game.away_team_id] += game.away_goals.to_i
-      id_score[game.home_team_id] += game.home_goals.to_i
-    end
-      id = id_score.key(id_score.values.max)
-      found = teams.find do |team|
-        if team.team_id == id
-           return team.team_name
-        end
-      found
-    end
-  end
+  # def best_offense
+  #   id_score = Hash.new(0)
+  #   games.map do |game|
+  #     id_score[game.away_team_id] += game.away_goals.to_i
+  #     id_score[game.home_team_id] += game.home_goals.to_i
+  #   end
+  #     id = id_score.key(id_score.values.max)
+  #     found = teams.find do |team|
+  #       if team.team_id == id
+  #          return team.team_name
+  #       end
+  #     found
+  #   end
+  # end
 
   def worst_offense
     id_score = Hash.new(0)

@@ -24,6 +24,10 @@ class SeasonStatsTest < Minitest::Test
     assert_equal @game_team_collection, @season_stats.game_team_collection
   end
 
+  def test_it_finds_best_offense
+    assert_equal "FC Dallas", @season_stats.best_offense
+  end
+
   def test_it_has_a_winningest_coach
     season_id = "20122013"
     assert_equal "Claude Julien", @season_stats.winningest_coach(season_id)
