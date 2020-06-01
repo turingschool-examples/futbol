@@ -32,19 +32,133 @@ class StatTracker
     GameTeamCollection.new(@game_teams)
   end
 
+# JUDITH START HERE
   def highest_total_score
-    total = game_collection.all.max_by do |game|
-      game.away_goals.to_i + game.home_goals.to_i
+    top_score = 0
+    game_collection.all.each do |game|
+      if game.away_goals.to_i + game.home_goals.to_i > top_score
+        top_score = game.away_goals.to_i + game.home_goals.to_i
+      end
     end
-    total.home_goals.to_i + total.away_goals.to_i
+    top_score
   end
 
   def lowest_total_score
-    total = game_collection.all.min_by do |game|
+    lowest_score = 1000000
+    game_collection.all.each do |game|
+      if game.away_goals.to_i + game.home_goals.to_i < lowest_score
+        lowest_score = game.away_goals.to_i + game.home_goals.to_i
+      end
+    end
+    lowest_score
+  end
+
+  def home_games
+    home_games = []
+    game_team_collection.all.flat_map do |game_team|
+      result = game_team.hoa == "home"
+        home_games << result
+      end
+    home_games.count(true)
+  end
+
+  def percentage_home_wins
+    home_wins = []
+    game_team_collection.all.flat_map do |game_team|
+      result = game_team.hoa == "home" && game_team.result == "WIN"
+        home_wins << result
+    end
+    (home_wins.count(true) / home_games.to_f).round(2)
+  end
+
+  def visitor_games
+    visitor_games = []
+    game_team_collection.all.flat_map do |game_team|
+      result = game_team.hoa == "away"
+      visitor_games << result
+    end
+    visitor_games.count(true)
+  end
+
+  def percentage_visitor_wins
+    visitor_wins = []
+    game_team_collection.all.flat_map do |game_team|
+      result = game_team.hoa == "away" && game_team.result == "WIN"
+        visitor_wins << result
+    end
+    (visitor_wins.count(true) / visitor_games.to_f).round(2)
+  end
+
+  def all_games
+    all_games = []
+    game_team_collection.all.flat_map do |game_team|
+      result = game_team.hoa
+      all_games << result
+    end
+    all_games.count
+  end
+
+  def percentage_ties
+    ties = []
+    game_team_collection.all.flat_map do |game_team|
+      result =  game_team.result == "TIE"
+        ties << result
+    end
+    (ties.count(true) / all_games.to_f).round(2)
+  end
+  
+  def seasons
+    seasons = []
+    game_collection.all.flat_map do |game|
+       seasons << game.season
+    end
+    seasons
+  end
+
+  def count_of_games_by_season
+    games_per_season = Hash.new(0)
+    seasons.each do |season|
+       games_per_season[season] += 1
+     end
+     games_per_season
+  end
+
+  def sum_of_all_goals
+    game_collection.all.sum do |game|
       game.away_goals.to_i + game.home_goals.to_i
     end
-    total.home_goals.to_i + total.away_goals.to_i
   end
+
+  def average_goals_per_game
+    ((sum_of_all_goals / all_games.to_f) * 2).round(2)
+  end
+
+  def sum_of_goals_per_season(season)
+    individual_season = game_collection.all.find_all do |game|
+      game.season == season
+    end
+     individual_season.sum do |game|
+       game.home_goals.to_i + game.away_goals.to_i
+     end
+  end
+
+  def average_goals_per_season(season)
+    individual_season = game_collection.all.find_all do |game|
+      game.season == season
+    end
+    (sum_of_goals_per_season(season) / individual_season.count.to_f).round(2)
+  end
+
+  def average_goals_by_season
+    avg_goals_by_season = game_collection.all.group_by do |game|
+      game.season
+    end
+    avg_goals_by_season.transform_values do |season|
+      average_goals_per_season(season[0].season)
+    end
+  end
+
+  # JUDITH END HERE
 
   # The below is all of Dan's code
 
@@ -327,8 +441,6 @@ class StatTracker
     acc = team_collection.all.find do |team|
       most_lost_against_opponent(team_id) == team.team_id
     end.team_name
-  end
-
+  end 
+  # End of Dan's code #
 end
-
-# The above is all of Dan's code

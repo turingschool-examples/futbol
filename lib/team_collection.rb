@@ -1,4 +1,5 @@
 require 'csv'
+
 class TeamCollection
 
   def initialize(team_data)

@@ -3,6 +3,7 @@ require './lib/stat_tracker'
 require './lib/game'
 
 class GameTest < Minitest::Test
+
   def setup
     @game_1 = Game.new({
     :game_id => 2012030221,
@@ -48,7 +49,6 @@ class GameTest < Minitest::Test
   def test_it_can_get_losing_team_id
     assert_equal 3, @game_1.losing_team_id
   end
-
 end
 
 # The above is Dan's code
