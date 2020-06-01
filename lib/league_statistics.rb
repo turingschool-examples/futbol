@@ -65,6 +65,13 @@ module LeagueStatistics
     highest_score(average_home_team_scores)
   end
 
+  def lowest_score(average_side_scores)
+    lowest_score = average_side_scores.min_by do |team, av_score|
+      av_score
+    end[0]
+    team_name(lowest_score)
+  end
+
   def average_scores(side_scores_hash)
     average_scores = Hash.new
     side_scores_hash.each do |team, scores|
