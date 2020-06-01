@@ -15,5 +15,5 @@ class GameTeamCollection
     # eventually the class name GameTeams
     # will need to be SINGULAR ^
   end
-
+  
 end
