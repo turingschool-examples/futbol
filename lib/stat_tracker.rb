@@ -145,20 +145,20 @@ class StatTracker
   #   end
   # end
 
-  def worst_offense
-    id_score = Hash.new(0)
-    games.map do |game|
-      id_score[game.away_team_id] += game.away_goals.to_i
-      id_score[game.home_team_id] += game.home_goals.to_i
-    end
-      id = id_score.key(id_score.values.min)
-      found = teams.find do |team|
-        if team.team_id == id
-           return team.team_name
-        end
-      found
-    end
-  end
+  # def worst_offense
+  #   id_score = Hash.new(0)
+  #   games.map do |game|
+  #     id_score[game.away_team_id] += game.away_goals.to_i
+  #     id_score[game.home_team_id] += game.home_goals.to_i
+  #   end
+  #     id = id_score.key(id_score.values.min)
+  #     found = teams.find do |team|
+  #       if team.team_id == id
+  #          return team.team_name
+  #       end
+  #     found
+  #   end
+  # end
 
   def number_of_games_played_away_team
     games_played = games.reduce(Hash.new(0)) do |team, game|

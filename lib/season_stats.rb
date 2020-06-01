@@ -17,8 +17,21 @@ class SeasonStats
     end
     id = id_score.key(id_score.values.max)
     found = team_collection.teams_array.find do |team|
-        team.team_id == id
-      end
+      team.team_id == id
+    end
+    found.team_name
+  end
+
+  def worst_offense
+    id_score = Hash.new(0)
+    game_collection.games_array.map do |game|
+      id_score[game.away_team_id] += game.away_goals.to_i
+      id_score[game.home_team_id] += game.home_goals.to_i
+    end
+    id = id_score.key(id_score.values.min)
+    found = team_collection.teams_array.find do |team|
+      team.team_id == id
+    end
     found.team_name
   end
 
