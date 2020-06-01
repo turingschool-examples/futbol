@@ -18,12 +18,12 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_has_csv_files
-    skip
     assert_instance_of Array, @stat_tracker.games
     assert_instance_of Game, @stat_tracker.games[0]
     assert_instance_of Array, @stat_tracker.teams
     assert_instance_of Team, @stat_tracker.teams[0]
-    assert_equal CSV.read(@game_teams_path, headers: true, header_converters: :symbol), @stat_tracker.game_teams
+    assert_instance_of Array, @stat_tracker.teams
+    assert_instance_of GameTeams, @stat_tracker.game_teams[0]
   end
 
   def test_it_is_an_instance
@@ -31,30 +31,21 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_finds_games
-    skip
-    game = Game.new(@stat_tracker.games.first)
-    assert_instance_of Game, game
-    assert_equal "20122013", game.season
-    assert_equal "5/16/13", game.date_time
-    assert_equal "Toyota Stadium", game.venue
+    assert_equal "20122013", @stat_tracker.games.first.season
+    assert_equal "5/16/13", @stat_tracker.games.first.date_time
+    assert_equal "Toyota Stadium", @stat_tracker.games.first.venue
   end
 
   def test_it_finds_teams
-    skip
-    team = Team.new(@stat_tracker.teams.first)
-    assert_instance_of Team, team
-    assert_equal "Atlanta United", team.team_name
-    assert_equal "ATL", team.abbreviation
-    assert_equal "23", team.franchise_id
+    assert_equal "Atlanta United", @stat_tracker.teams.first.team_name
+    assert_equal "ATL", @stat_tracker.teams.first.abbreviation
+    assert_equal "23", @stat_tracker.teams.first.franchise_id
   end
 
   def test_it_finds_game_teams
-    skip
-    game_teams = GameTeams.new(@stat_tracker.game_teams.first)
-    assert_instance_of GameTeams, game_teams
-    assert_equal "away", game_teams.hoa
-    assert_equal "OT", game_teams.settled_in
-    assert_equal "LOSS", game_teams.result
+    assert_equal "away", @stat_tracker.game_teams.first.hoa
+    assert_equal "OT", @stat_tracker.game_teams.first.settled_in
+    assert_equal "LOSS", @stat_tracker.game_teams.first.result
   end
  #  start of game statistics
 

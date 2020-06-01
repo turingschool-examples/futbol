@@ -46,4 +46,27 @@ class SeasonStats
     end
     coach_n_wins.key(coach_n_wins.values.max)
   end
+
+
+
+
+
+
+  def most_accurate_team(season_id)
+    team_id = @game_team_collection.game_teams_array.max_by do |game|
+      if season_id.slice(0..3) == game.game_id.slice(0..3)
+        game.goals.to_f / game.shots.to_f
+      end
+    end.team_id.to_i
+    @team_collection.team_name_by_id(team_id)
+  end
+
+  def least_accurate_team(season_id)
+    team_id = @game_team_collection.game_teams_array.min_by do |game|
+      if season_id.slice(0..3) == game.game_id.slice(0..3)
+        game.goals.to_f / game.shots.to_f
+      end
+    end.team_id.to_i
+    @team_collection.team_name_by_id(team_id)
+  end
 end

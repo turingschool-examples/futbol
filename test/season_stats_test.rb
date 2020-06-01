@@ -33,4 +33,16 @@ class SeasonStatsTest < Minitest::Test
     season_id = "20122013"
     assert_equal "John Tortorella", @season_stats.worst_coach(season_id)
   end
+
+
+
+
+
+  def test_it_has_most_accurate_team
+    assert_equal "New York City FC", @season_stats.most_accurate_team("20122013")
+  end
+
+  def test_it_has_least_accurate_team
+    assert_equal "New York Red Bulls", @season_stats.least_accurate_team("20122013")
+  end
 end
