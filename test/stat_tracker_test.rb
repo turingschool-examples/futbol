@@ -43,7 +43,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_have_game_team_collection
     assert_instance_of GameTeamCollection, @stat_tracker.game_team_collection
   end
-
+  # JUDITH START HERE 
   def test_it_can_get_highest_total_score
     assert_equal 11, @stat_tracker.highest_total_score
   end
@@ -99,5 +99,6 @@ class StatTrackerTest < Minitest::Test
                 }
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
+  # JUDITH END HERE
 
 end

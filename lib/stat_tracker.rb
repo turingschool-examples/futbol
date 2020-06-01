@@ -32,6 +32,7 @@ class StatTracker
     GameTeamCollection.new(@game_teams)
   end
 
+# JUDITH START HERE
   def highest_total_score
     top_score = 0
     game_collection.all.each do |game|
@@ -156,5 +157,7 @@ class StatTracker
       average_goals_per_season(season[0].season)
     end
   end
+
+  # JUDITH END HERE
 
 end
