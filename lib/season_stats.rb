@@ -35,6 +35,7 @@ class SeasonStats
     found.team_name
   end
 
+  # COULD PUT THESE HELPER METHODS v ON THE GAME_COLLECTION FILE
   def number_of_games_played_away_team
     game_collection.games_array.reduce(Hash.new(0)) do |team, game|
       team[game.away_team_id] += 1
@@ -50,6 +51,7 @@ class SeasonStats
   end
 
   def highest_scoring_visitor
+    # COULD ALSO BE ONLY ON GAME COLLECTION
     away_team_goals = game_collection.games_array.reduce(Hash.new(0)) do |team, game|
       team[game.away_team_id] += game.away_goals.to_f
       team
