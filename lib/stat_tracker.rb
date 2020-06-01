@@ -15,7 +15,7 @@ class StatTracker
   def initialize(info)
     @games = GameCollection.new(info[:games])
     @teams = TeamCollection.new(info[:teams])
-    @game_teams = info[:game_teams]
+    @game_teams = GameTeamsCollection.new(info[:game_teams])
   end
 
   def self.from_csv(info)
@@ -202,7 +202,40 @@ class StatTracker
     goals_scored = games.all.map do |game|
       game.home_goals || game.away_goals
     end
-    goals_scored.min
+    goals_scored.min.to_i
   end
+
+  def favorite_opponent(team_id)
+   game_lost_ids = []
+   game_teams.all.each do |game_team|
+      game_lost_ids << game_team.game_id if game_team.result == "LOSS"
+    end
+    game_lost_ids
+
+    opponent_wins = game_teams.all.find_all do |game_team|
+      game_lost_ids.include?(game_team.game_id) && game_team.team_id != team_id
+    end
+
+    opposite_wins_by_team = opponent_wins.group_by do |game_team|
+      game_team.team_id
+    end
+
+    opposite_team_win_count = opposite_wins_by_team.reduce({}) do |acc, (team, game_teams)|
+      total_games = total_games(team_id)
+      acc[team] = game_teams.count.fdiv(total_games)
+      acc
+    end
+
+    fav_opponent = opposite_team_win_count.min_by do |team, average_win_percentage|
+      average_win_percentage
+    end
+
+
+    teams.all.select do |team|
+      team.id == fav_opponent[0].to_s
+      return team.name
+    end
+  end
+
 
 end
