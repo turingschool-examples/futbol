@@ -1,5 +1,3 @@
-require 'simplecov'
-SimpleCov.start
 require './test/test_helper'
 require './lib/stat_tracker'
 require './lib/game_collection'
