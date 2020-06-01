@@ -83,14 +83,16 @@ class StatTrackerTest < MiniTest::Test
       end
 
       def test_it_can_determine_lowest_scoring_visitor
-        skip
         assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
       end
 
-    # highest_scoring_visitor	Name of the team with the highest average score per game across all seasons when they are away.	String
-    # highest_scoring_home_team	Name of the team with the highest average score per game across all seasons when they are home.	String
-    # lowest_scoring_visitor	Name of the team with the lowest average score per game across all seasons when they are a visitor.	String
-    # lowest_scoring_home_team	Name of the team with the lowest average score per game across all seasons when they are at home.	String
+      def test_it_can_determine_highest_scoring_home_team
+        assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+      end
+
+      def test_it_can_determine_lowest_scoring_home_team
+        assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
+      end
   end
 
   def test_it_has_attributes
