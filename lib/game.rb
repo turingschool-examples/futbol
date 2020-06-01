@@ -22,5 +22,36 @@ class Game
     @home_goals = details[:home_goals]
     @venue = details[:venue]
     @venue_link = details[:venue_link]
+    @outcome = outcome
+  end
+
+  # The below is Dan's code (also including @outcome in initialize)
+
+  def outcome
+    if @home_goals > @away_goals
+      :home_win
+    elsif @home_goals < @away_goals
+      :away_win
+    else
+      :tie
+    end
+  end
+
+  def winning_team_id
+    if outcome == :home_win
+      @home_team_id
+    elsif outcome == :away_win
+      @away_team_id
+    end
+  end
+
+  def losing_team_id
+    if outcome == :home_win
+      @away_team_id
+    elsif outcome == :away_win
+      @home_team_id
+    end
   end
 end
+
+# The above is Dan's code

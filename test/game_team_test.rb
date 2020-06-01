@@ -6,8 +6,6 @@ require './lib/game_team'
 
 class GameTeamTest < Minitest::Test
   def setup
-    #<CSV::Row "game_id":"2012030221" "team_id":"3" "HoA":"away" "result":"LOSS" "settled_in":"OT" "head_coach":"John Tortorella"
-    # "goals":"2" "shots":"8" "tackles":"44" "pim":"8" "powerPlayOpportunities":"3" "powerPlayGoals":"0" "faceOffWinPercentage":"44.8" "giveaways":"17" "takeaways":"7">
     @game_team = GameTeam.new({
       :game_id => "2012030221",
       :team_id => "3",
@@ -48,4 +46,5 @@ class GameTeamTest < Minitest::Test
     assert_equal "17", @game_team.giveaways
     assert_equal "7", @game_team.takeaways
   end
+
 end

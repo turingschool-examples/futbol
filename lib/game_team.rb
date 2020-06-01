@@ -9,9 +9,9 @@ class GameTeam ### clean out data that is not necessary to store
               :shots,
               :tackles,
               :pim,
-              :powerPlayOpportunities,
-              :powerPlayGoals,
-              :faceOffWinPercentage,
+              :power_play_opportunities,
+              :power_play_goals,
+              :face_off_win_percentage,
               :giveaways,
               :takeaways
 
@@ -26,9 +26,9 @@ class GameTeam ### clean out data that is not necessary to store
     @shots = game_teams_data[:shots]
     @tackles = game_teams_data[:tackles]
     @pim = game_teams_data[:pim]
-    @powerPlayOpportunities = game_teams_data[:powerPlayOpportunities]
-    @powerPlayGoals = game_teams_data[:powerPlayGoals]
-    @faceOffWinPercentage = game_teams_data[:faceOffWinPercentage]
+    @power_play_opportunities = game_teams_data[:power_play_opportunities]
+    @power_play_goals = game_teams_data[:power_play_goals]
+    @face_off_win_percentage = game_teams_data[:face_off_win_percentage]
     @giveaways = game_teams_data[:giveaways]
     @takeaways = game_teams_data[:takeaways]
   end

@@ -12,4 +12,5 @@ class Team
     @abbreviation = team_data[:abbreviation]
     @link = team_data[:link]
   end
+
 end
