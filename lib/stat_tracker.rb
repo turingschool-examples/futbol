@@ -173,43 +173,36 @@ class StatTracker
     percentage_wins_per_season(id).invert[lowest_win_percent]
   end
 
-  # def best_season(team_id)
-  #   games_played = total_games(team_id) #4
-  #
-  #
-  #   win_percentage_by_season = games_by_season.transform_values do |season|
-  #     games_won = count_wins(team_id, season)
-  #     (games_won/season.length.to_f).round(2)
-  #   end
-  #   win_percentage_by_season.max
-  # end
+  def average_win_percentage(team_id)
+    total = 0
+    games.all.each do |game|
+      game.home_team_id || game.away_team_id == team_id
+        total += 1
+    end
 
+    games_won = []
+    games.all.find_all do |game|
+      if team_id == game.away_team_id && game.away_goals > game.home_goals || team_id == game.home_team_id && game.home_goals > game.away_goals
+        games_won << game
+      end
+    end
 
+    average = games_won.count.to_f / total_games(team_id).to_f
+    return average.round(2)
+  end
 
+  def most_goals_scored(id)
+    goals_scored = games.all.map do |game|
+      game.home_goals || game.away_goals
+    end
+    goals_scored.max
+  end
 
+  def fewest_goals_scored(id)
+    goals_scored = games.all.map do |game|
+      game.home_goals || game.away_goals
+    end
+    goals_scored.min
+  end
 
 end
-
-
-
-
-
-
-
-    #hard code - for each team, per season, take percentage of wins / count of games per season
-    #return season
-  #   all_game_teams = GameTeamsCollection.new(@game_teams)
-  #   win_team_id = []
-  #   loss_team_id = []
-  #   all_game_teams.all.each do |game_team|
-  #     win_team_id << game_team.team_id if game_team.result == "WIN"
-  #   win_team_id
-  #     loss_team_id << game_team.team_id if game_team.result == "LOSS"
-  #   end
-  #   loss_team_id
-  #
-  #
-  #   #wins = 0
-  #   all_game_teams.all.map do |game_team|
-  #     win_team_id.count
-  #   binding.pry
