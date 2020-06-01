@@ -397,23 +397,21 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
-      team_collection.all.find do |team|
-        most_won_against_opponent(team_id) == team.team_id
+    team_collection.all.find do |team|
+      most_won_against_opponent(team_id) == team.team_id
     end.team_name
   end
 
-  # def most_lost_against_opponent_id(team_id)
-  #   acc = merge_home_away_opponents(team_id).min_by do |opponent_id, loss_count|
-  #     loss_count
-  #   end
-  #   acc
-  # end
-  #
-  # def rival(team_id)
-  #   team = team_collection.all.find do |team|
-  #     team.team_id == most_lost_against_opponent_id(team_id)[0]
-  #   end
-  #   team.team_name
-  # end
+  def most_lost_against_opponent(team_id)
+    opponent_win_percentages(team_id).max_by do |opponent_id, win_rate|
+      win_rate
+    end.first
+  end
+
+  def rival(team_id)
+    team_collection.all.find do |team|
+      most_lost_against_opponent(team_id) == team.team_id
+    end.team_name
+  end
 
 end
