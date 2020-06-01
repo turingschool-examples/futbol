@@ -190,21 +190,21 @@ class StatTracker
   #  end
   # end
 
-  def highest_scoring_home_team
-    home_team_goals = games.reduce(Hash.new(0)) do |team, game|
-      team[game.home_team_id] += game.home_goals.to_f
-      team
-    end
-    home_team_goals.merge!(number_of_games_played_home_team) { |k, o, n| o / n }
-    home_team_goals
-    id = home_team_goals.key(home_team_goals.values.max)
-    found = teams.find do |team|
-      if team.team_id == id
-        return team.team_name
-        found
-      end
-    end
-  end
+  # def highest_scoring_home_team
+  #   home_team_goals = games.reduce(Hash.new(0)) do |team, game|
+  #     team[game.home_team_id] += game.home_goals.to_f
+  #     team
+  #   end
+  #   home_team_goals.merge!(number_of_games_played_home_team) { |k, o, n| o / n }
+  #   home_team_goals
+  #   id = home_team_goals.key(home_team_goals.values.max)
+  #   found = teams.find do |team|
+  #     if team.team_id == id
+  #       return team.team_name
+  #       found
+  #     end
+  #   end
+  # end
 
 
   ### Begin team stat methods

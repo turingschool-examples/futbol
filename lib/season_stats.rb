@@ -62,6 +62,19 @@ class SeasonStats
     found.team_name
   end
 
+  def highest_scoring_home_team
+    home_team_goals = game_collection.games_array.reduce(Hash.new(0)) do |team, game|
+      team[game.home_team_id] += game.home_goals.to_f
+      team
+    end
+    home_team_goals.merge!(number_of_games_played_home_team) { |k, o, n| o / n }
+    id = home_team_goals.key(home_team_goals.values.max)
+    found = team_collection.teams_array.find do |team|
+      team.team_id == id
+    end
+    found.team_name
+  end
+
   def winningest_coach(season_id)
     coach_number_games = Hash.new(0)
     @game_team_collection.game_teams_array.count do |game_team|
