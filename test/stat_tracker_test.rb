@@ -155,32 +155,48 @@ class StatTrackerTest < Minitest::Test
     assert_equal 0, @stat_tracker.fewest_goals_scored("19")
   end
 
-  def test_it_can_get_most_won_against_home_opponents
-    assert_equal 2, @stat_tracker.most_wins_against_home_opponents("19").count
+  # def test_it_can_get_most_won_against_home_opponents
+  #   assert_equal 2, @stat_tracker.most_wins_against_home_opponents("19").count
+  # end
+  #
+  # def test_it_can_get_most_won_against_away_opponents
+  #   assert_equal 1, @stat_tracker.most_wins_against_away_opponents("19").count
+  # end
+  #
+  # def test_it_can_filter_away_opponents_won_against
+  #   assert_equal 2, @stat_tracker.most_won_against_away_opponent_id("19").count
+  # end
+  #
+  # def test_it_can_filter_home_opponents_won_against
+  #   assert_equal 2, @stat_tracker.most_won_against_home_opponent_id("19").count
+  # end
+  #
+  # def test_it_can_merge_most_won_against_opponents
+  #   assert_equal 2, @stat_tracker.merge_home_away_opponents("19").count
+  # end
+  #
+  # def test_it_can_get_most_won_against_opponent_ids
+  #   assert_equal 3, @stat_tracker.most_won_against_opponent_id("19")[1]
+  # end
+
+  def test_it_can_get_all_games_played_by_team
+    assert_equal Array, @stat_tracker.all_games_played_by_team("19").class
   end
 
-  def test_it_can_get_most_won_against_away_opponents
-    assert_equal 1, @stat_tracker.most_wins_against_away_opponents("19").count
+  def test_it_can_get_team_opponents
+    assert_equal Hash, @stat_tracker.opponents("19").class
   end
 
-  def test_it_can_filter_away_opponents_won_against
-    assert_equal 2, @stat_tracker.most_won_against_away_opponent_id("19").count
+  def test_it_can_get_opponent_win_percentages
+    assert_equal Hash, @stat_tracker.opponent_win_percentages("19").class
   end
 
-  def test_it_can_filter_home_opponents_won_against
-    assert_equal 2, @stat_tracker.most_won_against_home_opponent_id("19").count
-  end
-
-  def test_it_can_merge_most_won_against_opponents
-    assert_equal 2, @stat_tracker.merge_home_away_opponents("19").count
-  end
-
-  def test_it_can_get_most_won_against_opponent_ids
-    assert_equal 3, @stat_tracker.most_won_against_opponent_id("19")[1]
+  def test_it_can_get_most_won_against_opponent
+    assert_equal "30", @stat_tracker.find_most_won_against_opponent("19")
   end
 
   def test_it_can_get_favorite_opponent
-    assert_equal "Houston Dynamo", @stat_tracker.favorite_opponent("19")
+    assert_equal "Orlando City SC", @stat_tracker.favorite_opponent("19")
   end
 
 end

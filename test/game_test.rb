@@ -34,4 +34,18 @@ class GameTest < Minitest::Test
     assert_equal "Toyota Stadium", @game_1.venue
     assert_equal "/api/v1/venues/null", @game_1.venue_link
   end
+
+  def test_it_can_get_outcome
+    assert_equal :home_win, @game_1.outcome
+  end
+
+  def test_it_can_get_winning_team_id
+    assert_equal 6, @game_1.winning_team_id
+  end
+
+  def test_it_can_get_losing_team_id
+    assert_equal 3, @game_1.losing_team_id
+  end
+
+
 end

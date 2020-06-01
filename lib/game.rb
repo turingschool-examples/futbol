@@ -35,4 +35,20 @@ class Game
     end
   end
 
+  def winning_team_id
+    if outcome == :home_win
+      @home_team_id
+    elsif outcome == :away_win
+      @away_team_id
+    end
+  end
+
+  def losing_team_id
+    if outcome == :home_win
+      @away_team_id
+    elsif outcome == :away_win
+      @home_team_id
+    end
+  end
+
 end
