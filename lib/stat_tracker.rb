@@ -390,7 +390,7 @@ class StatTracker
     acc
   end
 
-  def find_most_won_against_opponent(team_id)
+  def most_won_against_opponent(team_id)
     opponent_win_percentages(team_id).min_by do |opponent_id, win_rate|
       win_rate
     end.first
@@ -398,7 +398,7 @@ class StatTracker
 
   def favorite_opponent(team_id)
       team_collection.all.find do |team|
-        find_most_won_against_opponent(team_id) == team.team_id
+        most_won_against_opponent(team_id) == team.team_id
     end.team_name
   end
 

@@ -192,7 +192,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_most_won_against_opponent
-    assert_equal "30", @stat_tracker.find_most_won_against_opponent("19")
+    assert_equal "30", @stat_tracker.most_won_against_opponent("19")
   end
 
   def test_it_can_get_favorite_opponent
