@@ -96,22 +96,100 @@ class StatTracker
     team_info_hash
   end
 
-  def total_games_per_team(team_id)
+  def total_games(team_id)
     total_games = 0
     games.all.count do |game|
-    is_home_team = game.home_team_id == team_id
-    is_away_team = game.away_team_id == team_id
-    if is_home_team || is_away_team
-       total_games += 1
-    else
-      0
+      is_home_team = game.home_team_id == team_id
+      is_away_team = game.away_team_id == team_id
+      if is_home_team || is_away_team
+         total_games += 1
+      else
+        next
+      end
     end
     total_games
   end
 
-  # def best_season
+
+    def team_count_of_games_by_season(id)
+      team_games_by_season = Hash.new(0)
+      games.all.each do |game|
+        team_games_by_season[game.season] += 1 if
+         game.home_team_id == id || game.away_team_id == id
+      end
+      team_games_by_season
+    end
+
+    def count_wins(team_id, total_games)
+      wins = 0
+      games.all.each do |game|
+        if team_id == game.away_team_id && game.away_goals > game.home_goals
+          wins += 1
+        elsif team_id == game.home_team_id && game.home_goals > game.away_goals
+          wins += 1
+        end
+      end
+      wins
+    end
+
+    def total_team_wins_per_season(id)
+    wins_by_season = Hash.new(0)
+    games.all.each do |game|
+      if game.home_team_id == id
+        wins_by_season[game.season] += 1 if game.home_goals > game.away_goals
+      elsif game.away_team_id == id
+        wins_by_season[game.season] += 1 if game.away_goals > game.home_goals
+      else
+        next
+      end
+    end
+    wins_by_season
+  end
+
+  def percentage_wins_per_season(id)
+    seasons = []
+    games.all.each do |game|
+      seasons << game.season
+    end
+    seasons.uniq!
+    percent_wins = Hash.new(0)
+    seasons.each do |season|
+      if team_count_of_games_by_season(id)[season] != 0
+        percent_wins[season] = (total_team_wins_per_season(id)[season].to_f / team_count_of_games_by_season(id)[season]).round(3)
+      else
+        next
+      end
+    end
+    percent_wins
+  end
+
+  def best_season(id)
+   highest_win_percent = percentage_wins_per_season(id).values.max
+   percentage_wins_per_season(id).invert[highest_win_percent]
+  end
+
+  def worst_season(id)
+    lowest_win_percent = percentage_wins_per_season(id).values.min
+    percentage_wins_per_season(id).invert[lowest_win_percent]
+  end
+
+  # def best_season(team_id)
+  #   games_played = total_games(team_id) #4
   #
+  #
+  #   win_percentage_by_season = games_by_season.transform_values do |season|
+  #     games_won = count_wins(team_id, season)
+  #     (games_won/season.length.to_f).round(2)
+  #   end
+  #   win_percentage_by_season.max
   # end
+
+
+
+
+
+end
+
 
 
 
@@ -135,10 +213,3 @@ class StatTracker
   #   all_game_teams.all.map do |game_team|
   #     win_team_id.count
   #   binding.pry
-
-
-
-
-
-  end
-end

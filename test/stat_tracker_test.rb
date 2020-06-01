@@ -115,17 +115,28 @@ class StatTrackerTest < MiniTest::Test
       assert @stat_tracker.team_info("1")
     end
 
-    def test_it_returns_total_games_per_team
-      assert_equal 4, @stat_tracker.total_games_per_team("3")
+    def test_it_returns_total_games
+      assert_equal 4, @stat_tracker.total_games("6")
     end
 
-    # def test_it_can_return_team_games_per_season
-    #   assert_equal ({"20122013" => 4.33, "20142015" => 6}), @stat_tracker.total_games_per_team_per_season(3)
-    # end
+    def test_it_counts_wins
+      assert_equal 3, @stat_tracker.count_wins("6", 4)
+    end
+
+    def test_it_returns_total_wins_per_season
+      assert_equal ({"20122013" => 3}), @stat_tracker.total_team_wins_per_season("6")
+    end
+
+    def test_it_returns_win_percentage_per_season
+      assert_equal ({"20122013"=>1.0, "20142015"=>0.0}), @stat_tracker.percentage_wins_per_season("6")
+    end
 
     def test_it_can_return_best_season
-      skip
-      assert_equal 20122013, @stat_tracker.best_season
+      assert_equal "20122013", @stat_tracker.best_season("6")
+    end
+
+    def test_it_can_return_worst_season
+      assert_equal "20142015", @stat_tracker.worst_season("6")
     end
 
   end
