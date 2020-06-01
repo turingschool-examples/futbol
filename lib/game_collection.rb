@@ -1,5 +1,5 @@
-require "csv"
-require_relative "./game"
+require_relative "./helper"
+
 class GameCollection
   def initialize(csv_loc)
     @game_path = csv_loc
