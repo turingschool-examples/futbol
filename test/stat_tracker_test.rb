@@ -83,6 +83,7 @@ class StatTrackerTest < MiniTest::Test
       end
 
       def test_it_can_determine_lowest_scoring_visitor
+        skip
         assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
       end
 
