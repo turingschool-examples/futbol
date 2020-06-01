@@ -72,7 +72,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.average_scores_by_team
   end
 
-
   def test_it_has_the_best_offense
     # skip
      assert_equal "New York City FC", @stat_tracker.best_offense
