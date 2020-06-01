@@ -64,11 +64,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_filter_home_games_by_team
-    assert_equal 4, @stat_tracker.home_games_filtered_by_team("19").count
+    assert_equal 5, @stat_tracker.home_games_filtered_by_team("19").count
   end
 
   def test_it_can_filter_away_games_by_team
-    assert_equal 4, @stat_tracker.away_games_filtered_by_team("19").count
+    assert_equal 7, @stat_tracker.away_games_filtered_by_team("19").count
   end
 
   def test_it_can_group_home_games_by_season
@@ -118,11 +118,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_all_games_played_by_a_team
-    assert_equal 8, @stat_tracker.combine_all_games_played("19").count
+    assert_equal 12, @stat_tracker.combine_all_games_played("19").count
   end
 
   def test_it_can_total_wins_or_ties_for_a_team
-    assert_equal 0.63, @stat_tracker.find_total_wins_or_ties("19")
+    assert_equal 0.5, @stat_tracker.find_total_wins_or_ties("19")
   end
 
   def test_it_can_get_average_win_percentage
@@ -130,7 +130,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_most_home_goals_scored
-    assert_equal 2, @stat_tracker.most_home_goals_scored("19")
+    assert_equal 3, @stat_tracker.most_home_goals_scored("19")
   end
 
   def test_it_can_get_most_away_goals_scored
@@ -139,10 +139,12 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_get_most_goals_scored
     assert_equal 4, @stat_tracker.most_goals_scored("19")
+    assert_equal 3, @stat_tracker.most_goals_scored("30")
+    assert_equal 4, @stat_tracker.most_goals_scored("26")
   end
 
   def test_it_can_get_fewest_home_goals_scored
-    assert_equal 2, @stat_tracker.most_home_goals_scored("19")
+    assert_equal 3, @stat_tracker.most_home_goals_scored("19")
   end
 
   def test_it_can_get_fewest_away_goals_scored
@@ -151,6 +153,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_get_fewest_goals_scored
     assert_equal 0, @stat_tracker.fewest_goals_scored("19")
+    assert_equal 0, @stat_tracker.fewest_goals_scored("30")
   end
 
   def test_it_can_get_all_games_played_by_team
@@ -174,11 +177,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_most_lost_against_opponent
-    assert_equal "26", @stat_tracker.most_lost_against_opponent("19")
+    assert_equal "23", @stat_tracker.most_lost_against_opponent("19")
   end
 
   def test_it_can_get_rival
-    assert_equal "FC Cincinnati", @stat_tracker.rival("19")
+    assert_equal "Montreal Impact", @stat_tracker.rival("19")
   end
 
 end

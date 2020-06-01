@@ -12,3 +12,7 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2016030231,20162017,Postseason,4/27/17,18,19,2,3,Talen Energy Stadium,/api/v1/venues/null
 2016030161,20162017,Postseason,4/13/17,19,30,2,1,Exploria Stadium,/api/v1/venues/null
 2012030181,20122013,Postseason,5/1/13,26,19,1,2,Talen Energy Stadium,/api/v1/venues/null
+2013020918,20132014,Regular Season,3/3/14,19,27,2,2,Avaya Stadium,/api/v1/venues/null
+2013020760,20132014,Regular Season,1/24/14,19,3,2,1,BBVA Stadium,/api/v1/venues/null
+2014020914,20142015,Regular Season,2/27/15,19,52,1,1,Providence Park,/api/v1/venues/null
+2013020153,20132014,Regular Season,10/26/13,23,19,3,2,Talen Energy Stadium,/api/v1/venues/null

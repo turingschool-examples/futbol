@@ -207,11 +207,11 @@ class StatTracker
   def most_home_goals_scored(team_id)
     home_games_filtered_by_team(team_id).max_by do |game|
       game.home_goals
-    end.away_goals.to_i
+    end.home_goals.to_i
   end
 
   def most_away_goals_scored(team_id)
-    goals = away_games_filtered_by_team(team_id).max_by do |game|
+    away_games_filtered_by_team(team_id).max_by do |game|
       game.away_goals
     end.away_goals.to_i
   end
@@ -231,7 +231,7 @@ class StatTracker
   end
 
   def fewest_away_goals_scored(team_id)
-    goals = away_games_filtered_by_team(team_id).min_by do |game|
+    away_games_filtered_by_team(team_id).min_by do |game|
       game.away_goals
     end.away_goals.to_i
   end
@@ -243,94 +243,6 @@ class StatTracker
       fewest_away_goals_scored(team_id)
     end
   end
-
-  def total_home_games_played_against(team_id)
-    acc = {}
-    count = 0
-    home_games_filtered_by_team(team_id).each do |game|
-      require "pry"; binding.pry
-    end
-  end
-
-  def most_wins_against_home_opponents(team_id)
-    total_home_games_played_against(team_id)
-
-    total_games = 0.0
-    counter = 0.0
-    acc = {}
-    home_games_filtered_by_team(team_id).each do |game|
-      if game.outcome == :away_win
-        total_games += 1
-        counter += 1.0
-        acc[game.away_team_id] = (counter/total_games).round(3)
-        require "pry"; binding.pry
-      elsif game.outcome == :home_win
-        total_games += 1
-        counter -= 1.0
-        acc[game.home_team_id] = (counter/total_games).round(3)
-      else
-        total_games += 1
-        counter += 0.5
-        acc[game.home_team_id] = (counter/total_games).round(3)
-      end
-    end
-    acc
-  end
-
-  def most_wins_against_away_opponents(team_id)
-    counter = 0.0
-    total_games = 0.0
-    acc = {}
-    away_games_filtered_by_team(team_id).each do |game|
-      if game.outcome == :home_win
-        counter += 1.0
-        total_games += 1
-        acc[game.home_team_id] = (counter/total_games).round(3)
-      elsif game.outcome == :away_win
-        counter -= 1.0
-        total_games += 1
-        acc[game.home_team_id] = (counter/total_games).round(3)
-      else
-        total_games += 1
-        counter += 0.5
-        acc[game.home_team_id] = (counter/total_games).round(3)
-      end
-    end
-    acc
-  end
-
-  # def most_won_against_away_opponent_id(team_id)
-  #   most_wins_against_away_opponents(team_id).max_by do |opponent_id, loss_count|
-  #     loss_count
-  #   end
-  # end
-  #
-  # def most_won_against_home_opponent_id(team_id)
-  #   acc = most_wins_against_home_opponents(team_id).max_by do |opponent_id, loss_count|
-  #     loss_count
-  #   end
-  # end
-
-  def merge_home_away_opponents(team_id)
-    acc = most_wins_against_home_opponents(team_id).merge(most_wins_against_away_opponents(team_id)) do |key, old_value, new_value|
-      old_value + new_value
-    end
-    acc
-    require "pry"; binding.pry
-  end
-
-  def most_won_against_opponent_id(team_id)
-    merge_home_away_opponents(team_id).max_by do |opponent_id, loss_count|
-      loss_count
-    end
-  end
-
-  # def favorite_opponent(team_id)
-  #   team = team_collection.all.find do |team|
-  #     team.team_id == most_won_against_opponent_id(team_id)[0]
-  #   end
-  #   team.team_name[20, 32, 15, 15].uniq
-  # end
 
   def all_games_played_by_team(team_id)
     game_collection.all.find_all do |game|
@@ -382,7 +294,7 @@ class StatTracker
   end
 
   def opponent_win_percentages(team_id)
-    # {"opponent_id" => win_percentage, "another_opponent_id" => their_win_percentage}
+    # We want: {"opponent_id" => win_percentage, "another_opponent_id" => their_win_percentage}
     acc = {}
     result = opponents(team_id).each do |opponent, data|
       acc[opponent] = data[:won]/data.values.sum.to_f
@@ -409,7 +321,7 @@ class StatTracker
   end
 
   def rival(team_id)
-    team_collection.all.find do |team|
+    acc = team_collection.all.find do |team|
       most_lost_against_opponent(team_id) == team.team_id
     end.team_name
   end
