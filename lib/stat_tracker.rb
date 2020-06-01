@@ -72,6 +72,8 @@ class StatTracker
     total.home_goals.to_i + total.away_goals.to_i
   end
 
+  #################START of SEASON STATS######################
+
   def team_name_based_off_of_team_id(team_id)
     team_collection_to_use.each do |team|
       return team.team_name if team_id == team.team_id
@@ -215,4 +217,6 @@ class StatTracker
 
     team_name_based_off_of_team_id(worst_team[0])
   end
+
+  #######################END of SEASON STATS 
 end
