@@ -35,6 +35,33 @@ class SeasonStats
     found.team_name
   end
 
+  def number_of_games_played_away_team
+    game_collection.games_array.reduce(Hash.new(0)) do |team, game|
+      team[game.away_team_id] += 1
+      team
+    end
+  end
+
+  def number_of_games_played_home_team
+    game_collection.games_array.reduce(Hash.new(0)) do |team, game|
+      team[game.home_team_id] += 1
+      team
+    end
+  end
+
+  def highest_scoring_visitor
+    away_team_goals = game_collection.games_array.reduce(Hash.new(0)) do |team, game|
+      team[game.away_team_id] += game.away_goals.to_f
+      team
+    end
+    away_team_goals.merge!(number_of_games_played_away_team) { |k, o, n| o / n }
+    id = away_team_goals.key(away_team_goals.values.max)
+    found = team_collection.teams_array.find do |team|
+      team.team_id == id
+    end
+    found.team_name
+  end
+
   def winningest_coach(season_id)
     coach_number_games = Hash.new(0)
     @game_team_collection.game_teams_array.count do |game_team|

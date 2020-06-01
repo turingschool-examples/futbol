@@ -32,6 +32,10 @@ class SeasonStatsTest < Minitest::Test
       assert_equal "Seattle Sounders FC", @season_stats.worst_offense
   end
 
+  def test_highest_scoring_visitor
+    assert_equal "FC Dallas", @season_stats.highest_scoring_visitor
+  end
+
   def test_it_has_a_winningest_coach
     season_id = "20122013"
     assert_equal "Claude Julien", @season_stats.winningest_coach(season_id)

@@ -160,35 +160,35 @@ class StatTracker
   #   end
   # end
 
-  def number_of_games_played_away_team
-    games_played = games.reduce(Hash.new(0)) do |team, game|
-      team[game.away_team_id] += 1
-      team
-    end
-  end
-
-  def number_of_games_played_home_team
-    games_played = games.reduce(Hash.new(0)) do |team, game|
-      team[game.home_team_id] += 1
-      team
-    end
-  end
-
-  def highest_scoring_visitor
-    away_team_goals = games.reduce(Hash.new(0)) do |team, game|
-      team[game.away_team_id] += game.away_goals.to_f
-      team
-    end
-     away_team_goals.merge!(number_of_games_played_away_team) { |k, o, n| o / n }
-     away_team_goals
-     id = away_team_goals.key(away_team_goals.values.max)
-     found = teams.find do |team|
-       if team.team_id == id
-          return team.team_name
-       end
-     found
-   end
-  end
+  # def number_of_games_played_away_team
+  #   games.reduce(Hash.new(0)) do |team, game|
+  #     team[game.away_team_id] += 1
+  #     team
+  #   end
+  # end
+  #
+  # def number_of_games_played_home_team
+  #   games.reduce(Hash.new(0)) do |team, game|
+  #     team[game.home_team_id] += 1
+  #     team
+  #   end
+  # end
+  #
+  # def highest_scoring_visitor
+  #   away_team_goals = games.reduce(Hash.new(0)) do |team, game|
+  #     team[game.away_team_id] += game.away_goals.to_f
+  #     team
+  #   end
+  #    away_team_goals.merge!(number_of_games_played_away_team) { |k, o, n| o / n }
+  #    away_team_goals
+  #    id = away_team_goals.key(away_team_goals.values.max)
+  #    found = teams.find do |team|
+  #      if team.team_id == id
+  #         return team.team_name
+  #      end
+  #    found
+  #  end
+  # end
 
   def highest_scoring_home_team
     home_team_goals = games.reduce(Hash.new(0)) do |team, game|
