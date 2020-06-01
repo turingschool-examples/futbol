@@ -50,6 +50,10 @@ module LeagueStatistics
     highest_score(average_team_scores)
   end
 
+  def highest_scoring_visitor
+    highest_score(average_visitor_scores)
+  end
+
   def average_scores(side_scores_hash)
     average_scores = Hash.new
     side_scores_hash.each do |team, scores|
