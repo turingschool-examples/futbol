@@ -47,6 +47,8 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of GameTeamCollection, @stat_tracker.game_team_collection
   end
 
+  #################### START SEASON STATISTIC TESTS #########################
+
   def test_it_can_select_games_based_on_season
     assert_equal 1, @stat_tracker.games_by_season("20162017").count
     assert_equal 2, @stat_tracker.games_by_season("20122013").count
@@ -154,4 +156,5 @@ class StatTrackerTest < Minitest::Test
     assert_equal Array, @stat_tracker.team_collection_to_use.class
     assert_equal Array, @stat_tracker.game_team_collection_to_use.class
   end
+  ########################## END SEASON STATISTICS #############################
 end
