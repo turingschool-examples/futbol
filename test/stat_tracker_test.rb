@@ -1,27 +1,19 @@
+require 'simplecov'
+SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/stat_tracker'
+require './lib/game'
+require './lib/team'
+require './lib/game_collection'
+require './lib/team_collection'
 
 class StatTrackerTest < MiniTest::Test
-
-  def setup
-    game_path = './data/games_fixture.csv'
-    team_path = './data/teams_fixture.csv'
-    game_teams_path = './data/game_teams_fixture.csv'
-
-    @locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-
-    @stat_tracker = StatTracker.from_csv(@locations)
-
   class BasicTest < StatTrackerTest
     def setup
-      game_path = './data/games.csv'
-      team_path = './data/teams.csv'
-      game_teams_path = './data/game_teams.csv'
+      game_path = './data/games_fixture.csv'
+      team_path = './data/teams_fixture.csv'
+      game_teams_path = './data/game_teams_fixture.csv'
 
       @locations = {
         games: game_path,
@@ -37,29 +29,10 @@ class StatTrackerTest < MiniTest::Test
     end
 
     def test_it_has_attributes
-      assert_equal './data/games.csv', @stat_tracker.games
-      assert_equal './data/teams.csv', @stat_tracker.teams
-      assert_equal './data/game_teams.csv', @stat_tracker.game_teams
+      assert_instance_of Array, @stat_tracker.games
+      assert_instance_of Array, @stat_tracker.teams
+      assert_equal './data/game_teams_fixture.csv', @stat_tracker.game_teams
     end
-  end
-
-  class TeamStatisticsTest < StatTrackerTest
-
-  end
-
-  class SeasonStatisticsTest < StatTrackerTest
-
-  end
-
-  class LeagueStatisticsTest < StatTrackerTest
-    
-  end
-
-
-  def test_it_has_attributes
-    assert_instance_of GameCollection, @stat_tracker.games
-    assert_equal './data/teams_fixture.csv', @stat_tracker.teams
-    assert_equal './data/game_teams_fixture.csv', @stat_tracker.game_teams
   end
 
   class GameStatisticsTest < StatTrackerTest
@@ -102,15 +75,11 @@ class StatTrackerTest < MiniTest::Test
     end
 
     def test_it_can_return_average_goals_per_game
-      assert_equal 4.75, @stat_tracker.average_goals_per_game
+      assert_equal 5, @stat_tracker.average_goals_per_game
     end
 
     def test_it_can_return_average_goals_by_season
-      assert_equal ({"20122013" => 4.33, "20142015" => 6}), @stat_tracker.average_goals_by_season
+      assert_equal ({"20122013" => 4.67, "20142015" => 6}), @stat_tracker.average_goals_by_season
     end
-
-  class GameStatisticsTest < StatTrackerTest
-
   end
-
 end
