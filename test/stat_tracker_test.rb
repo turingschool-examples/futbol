@@ -70,15 +70,22 @@ class StatTrackerTest < MiniTest::Test
         assert_equal 6, @stat_tracker.count_of_teams
       end
 
-      def test_it_knows_best_offense
+      def test_it_can_determine_best_offense
         assert_equal "FC Dallas", @stat_tracker.best_offense
       end
 
-      def test_it_knows_worst_offense
+      def test_it_can_determine_worst_offense
         assert_equal "Houston Dynamo", @stat_tracker.worst_offense
       end
 
-      
+      def test_it_can_determine_highest_scoring_visitor
+        assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+      end
+
+      def test_it_can_determine_lowest_scoring_visitor
+        assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
+      end
+
     # highest_scoring_visitor	Name of the team with the highest average score per game across all seasons when they are away.	String
     # highest_scoring_home_team	Name of the team with the highest average score per game across all seasons when they are home.	String
     # lowest_scoring_visitor	Name of the team with the lowest average score per game across all seasons when they are a visitor.	String
