@@ -21,7 +21,7 @@ class GameTeamCollection
         shots: game_team_collection["shots"],
         tackles: game_team_collection["tackles"],
       }
-      all_game_teams << GameTeam.new(game_hash)
+      all_game_teams << GameTeam.new(game_team_hash)
     end
     all_game_teams
   end

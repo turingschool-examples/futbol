@@ -14,13 +14,12 @@ class StatTracker
   def initialize(info)
     @games = GameCollection.all(info[:games])
     @teams = TeamCollection.all(info[:teams])
-    @game_teams = GameTeamCollection(info[:game_teams])
+    @game_teams = GameTeamCollection.all(info[:game_teams])
   end
 
   def self.from_csv(info)
     StatTracker.new(info)
   end
-
 
   # Game Statistics Methods
 
@@ -93,19 +92,15 @@ class StatTracker
   # League Statistics Methods
 
   def count_of_teams
-    teams = CSV.read(@teams, headers: true)
-    teams.count
+    @teams.count
   end
 
   def best_offense
-    game_stats = CSV.read(@game_teams, headers: true, header_converters: :symbol)
-
-    each_game = game_stats.map do |row|
+    each_game = @game_teams.map do |row|
       GameTeams.new(row)
     end
 
-    teams = CSV.read(@teams, headers: true, header_converters: :symbol)
-    each_team = teams.map do |row|
+    each_team = @teams.map do |row|
       Team.new(row)
     end
 
