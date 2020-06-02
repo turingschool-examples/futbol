@@ -34,3 +34,36 @@ class GameTeamsCollection
   #  end
   # end
 end
+
+
+# def favorite_opponent(team_id)
+#  game_lost_ids = []
+#  game_teams.all.each do |game_team|
+#     game_lost_ids << game_team.game_id if game_team.result == "LOSS"
+#   end
+#   game_lost_ids
+#
+#   opponent_wins = game_teams.all.find_all do |game_team|
+#     game_lost_ids.include?(game_team.game_id) && game_team.team_id != team_id
+#   end
+#
+#   opposite_wins_by_team = opponent_wins.group_by do |game_team|
+#     game_team.team_id
+#   end
+#
+#   opposite_team_win_count = opposite_wins_by_team.reduce({}) do |acc, (team, game_teams)|
+#     total_games = total_games(team_id)
+#     acc[team] = game_teams.count.fdiv(total_games)
+#     acc
+#   end
+#
+#   fav_opponent = opposite_team_win_count.min_by do |team, average_win_percentage|
+#     average_win_percentage
+#   end
+#   binding.pry
+#
+#   teams.all.select do |team|
+#     team.id == fav_opponent[0].to_s
+#     return team.name
+#   end
+# end

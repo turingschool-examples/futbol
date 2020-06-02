@@ -111,7 +111,7 @@ class StatTracker
   end
 
 
-    def team_count_of_games_by_season(id)
+  def team_count_of_games_by_season(id)
       team_games_by_season = Hash.new(0)
       games.all.each do |game|
         team_games_by_season[game.season] += 1 if
@@ -120,7 +120,7 @@ class StatTracker
       team_games_by_season
     end
 
-    def count_wins(team_id, total_games)
+  def count_wins(team_id, total_games)
       wins = 0
       games.all.each do |game|
         if team_id == game.away_team_id && game.away_goals > game.home_goals
@@ -132,7 +132,7 @@ class StatTracker
       wins
     end
 
-    def total_team_wins_per_season(id)
+  def total_team_wins_per_season(id)
     wins_by_season = Hash.new(0)
     games.all.each do |game|
       if game.home_team_id == id
@@ -192,10 +192,14 @@ class StatTracker
   end
 
   def most_goals_scored(id)
-    goals_scored = games.all.map do |game|
-      game.home_goals || game.away_goals
+    home_goals_scored = games.all.map do |game|
+      game.home_goals
     end
-    goals_scored.max
+    away_goals_scored = games.all.map do |game|
+      game.away_goals
+    end
+    home_goals_scored.max.to_i
+    away_goals_scored.max.to_i 
   end
 
   def fewest_goals_scored(id)
@@ -206,36 +210,27 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
-   game_lost_ids = []
-   game_teams.all.each do |game_team|
-      game_lost_ids << game_team.game_id if game_team.result == "LOSS"
+    games_won_against_opponent = Hash.new(0)
+    games.all.map do |team|
+      if team.home_team_id || team.away_team_id == team_id
+        if team.home_team_id == team_id && team.home_goals > team.away_goals
+          games_won_against_opponent[team.away_team_id] += 1
+        else team.away_team_id == team_id && team.away_goals > team.home_goals
+          games_won_against_opponent[team.home_team_id] += 1
+        end
+      end
     end
-    game_lost_ids
+    favorite_id = games_won_against_opponent.key(games_won_against_opponent.values.max)
 
-    opponent_wins = game_teams.all.find_all do |game_team|
-      game_lost_ids.include?(game_team.game_id) && game_team.team_id != team_id
-    end
-
-    opposite_wins_by_team = opponent_wins.group_by do |game_team|
-      game_team.team_id
-    end
-
-    opposite_team_win_count = opposite_wins_by_team.reduce({}) do |acc, (team, game_teams)|
-      total_games = total_games(team_id)
-      acc[team] = game_teams.count.fdiv(total_games)
-      acc
+    favorite_team = teams.all.find do |team|
+      if team.id == favorite_id
+        return team.name
+      end
     end
 
-    fav_opponent = opposite_team_win_count.min_by do |team, average_win_percentage|
-      average_win_percentage
-    end
-
-
-    teams.all.select do |team|
-      team.id == fav_opponent[0].to_s
-      return team.name
-    end
   end
+
+
 
 
 end
