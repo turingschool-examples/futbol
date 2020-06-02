@@ -20,9 +20,6 @@ class StatTracker
     StatTracker.new(info)
   end
 
-
-  # Game Statistics Methods
-
   # League Statistics Methods
   def count_of_teams
     teams = CSV.read(@teams, headers: true)
@@ -72,7 +69,6 @@ class StatTracker
         correct_team = team.name
       end
     end
-
     correct_team
   end
 
@@ -169,6 +165,7 @@ class StatTracker
 
     correct_team
   end
+
 
   def highest_scoring_visitor
     game_stats = CSV.read(@game_teams, headers: true, header_converters: :symbol)
