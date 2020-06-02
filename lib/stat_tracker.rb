@@ -22,7 +22,6 @@ class StatTracker
   end
 
   # Game Statistics Methods
-  # beep.
 
   def highest_total_score
     games.map do |game|
@@ -65,7 +64,7 @@ class StatTracker
     games.each do |game|
       games_by_season[game.season] += 1
     end
-    correct_team
+    games_by_season
   end
 
   def average_goals_per_game
