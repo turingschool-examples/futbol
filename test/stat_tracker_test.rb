@@ -34,7 +34,7 @@ class StatTrackerTest < MiniTest::Test
       assert_equal './data/game_teams_fixture.csv', @stat_tracker.game_teams
     end
   end
-  
+
   class TeamStatisticsTest < StatTrackerTest
 
   end
@@ -85,12 +85,6 @@ class StatTrackerTest < MiniTest::Test
     def test_it_can_determine_lowest_scoring_home_team
       assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
     end
-  end
-
-  def test_it_has_attributes
-    assert_instance_of GameCollection, @stat_tracker.games
-    assert_equal './data/teams_fixture.csv', @stat_tracker.teams
-    assert_equal './data/game_teams_fixture.csv', @stat_tracker.game_teams
   end
 
   class GameStatisticsTest < StatTrackerTest
