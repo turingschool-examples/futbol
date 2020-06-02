@@ -36,7 +36,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_have_game_collection
-    skip
+    skip 
     assert_instance_of GameCollection, @stat_tracker.game_collection
   end
 

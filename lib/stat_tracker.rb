@@ -33,7 +33,7 @@ class StatTracker
   end
 
   def game_collection_to_use
-    game_coll = instantiate_game_collection
+    instantiate_game_collection
   end
 
   def instantiate_game_collection
