@@ -22,6 +22,7 @@ class StatTracker
   end
 
   # Game Statistics Methods
+  # beep.
 
   def highest_total_score
     games.map do |game|
