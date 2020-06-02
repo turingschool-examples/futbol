@@ -14,7 +14,7 @@ class StatTracker
   def initialize(info)
     @games = GameCollection.all(info[:games])
     @teams = TeamCollection.all(info[:teams])
-    @game_teams = info[:game_teams]
+    @game_teams = GameTeamCollection(info[:game_teams])
   end
 
   def self.from_csv(info)
