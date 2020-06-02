@@ -51,37 +51,30 @@ class StatTrackerTest < MiniTest::Test
     end
 
     def test_it_can_do_count_of_teams
-      skip
       assert_equal 6, @stat_tracker.count_of_teams
     end
 
     def test_it_can_determine_best_offense
-      skip
       assert_equal "FC Dallas", @stat_tracker.best_offense
     end
 
     def test_it_can_determine_worst_offense
-      skip
       assert_equal "Houston Dynamo", @stat_tracker.worst_offense
     end
 
     def test_it_can_determine_highest_scoring_visitor
-      skip
       assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
     end
 
     def test_it_can_determine_lowest_scoring_visitor
-      skip
       assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
     end
 
     def test_it_can_determine_highest_scoring_home_team
-      skip
       assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
     end
 
     def test_it_can_determine_lowest_scoring_home_team
-      skip
       assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
     end
   end

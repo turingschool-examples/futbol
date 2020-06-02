@@ -5,7 +5,6 @@ require_relative './game_collection'
 require_relative './team_collection'
 require_relative './game_teams_collection'
 require 'csv'
-require 'pry'
 
 class StatTracker
   attr_reader :games,
@@ -22,7 +21,7 @@ class StatTracker
     StatTracker.new(info)
   end
 
-  #Game Statistics Methods
+  # Game Statistics Methods
 
   def highest_total_score
     games.map do |game|
@@ -460,25 +459,25 @@ class StatTracker
 
 
   def team_count_of_games_by_season(id)
-      team_games_by_season = Hash.new(0)
-      games.each do |game|
-        team_games_by_season[game.season] += 1 if
-         game.home_team_id == id || game.away_team_id == id
-      end
-      team_games_by_season
+    team_games_by_season = Hash.new(0)
+    games.each do |game|
+      team_games_by_season[game.season] += 1 if
+       game.home_team_id == id || game.away_team_id == id
     end
+    team_games_by_season
+  end
 
   def count_wins(team_id, total_games)
-      wins = 0
-      games.each do |game|
-        if team_id == game.away_team_id && game.away_goals > game.home_goals
-          wins += 1
-        elsif team_id == game.home_team_id && game.home_goals > game.away_goals
-          wins += 1
-        end
+    wins = 0
+    games.each do |game|
+      if team_id == game.away_team_id && game.away_goals > game.home_goals
+        wins += 1
+      elsif team_id == game.home_team_id && game.home_goals > game.away_goals
+        wins += 1
       end
-      wins
     end
+    wins
+  end
 
   def total_team_wins_per_season(id)
     wins_by_season = Hash.new(0)
@@ -570,7 +569,7 @@ class StatTracker
     end
     favorite_id = games_won_against_opponent.key(games_won_against_opponent.values.max)
 
-    favorite_team = teams.find do |team|
+    teams.find do |team|
       if team.id == favorite_id
         return team.name
       end
@@ -592,7 +591,7 @@ class StatTracker
       end
       rival_id = games_won_against_opponent.key(games_won_against_opponent.values.min)
 
-      rival = teams.find do |team|
+      teams.find do |team|
         if team.id == rival_id
           return team.name
         end
