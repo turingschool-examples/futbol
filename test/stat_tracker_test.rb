@@ -34,6 +34,64 @@ class StatTrackerTest < MiniTest::Test
       assert_equal './data/game_teams_fixture.csv', @stat_tracker.game_teams
     end
   end
+  
+  class TeamStatisticsTest < StatTrackerTest
+
+  end
+
+  class SeasonStatisticsTest < StatTrackerTest
+
+  end
+
+  class LeagueStatisticsTest < StatTrackerTest
+    def setup
+      game_path = './data/games.csv'
+      team_path = './data/teams_fixture.csv'
+      game_teams_path = './data/game_teams_fixture.csv'
+
+      @locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+
+      @stat_tracker = StatTracker.from_csv(@locations)
+    end
+
+    def test_it_can_do_count_of_teams
+      assert_equal 6, @stat_tracker.count_of_teams
+    end
+
+    def test_it_can_determine_best_offense
+      assert_equal "FC Dallas", @stat_tracker.best_offense
+    end
+
+    def test_it_can_determine_worst_offense
+      assert_equal "Houston Dynamo", @stat_tracker.worst_offense
+    end
+
+    def test_it_can_determine_highest_scoring_visitor
+      assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+    end
+
+    def test_it_can_determine_lowest_scoring_visitor
+      assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
+    end
+
+    def test_it_can_determine_highest_scoring_home_team
+      assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+    end
+
+    def test_it_can_determine_lowest_scoring_home_team
+      assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
+    end
+  end
+
+  def test_it_has_attributes
+    assert_instance_of GameCollection, @stat_tracker.games
+    assert_equal './data/teams_fixture.csv', @stat_tracker.teams
+    assert_equal './data/game_teams_fixture.csv', @stat_tracker.game_teams
+  end
 
   class GameStatisticsTest < StatTrackerTest
     def setup
