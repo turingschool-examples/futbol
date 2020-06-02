@@ -40,13 +40,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal 52, @stat_tracker.game_teams.count
   end
 
-  ####
-  def test_refactor
-    @stat_tracker.refactor(8)
-  end
-
   def test_it_returns_team_info_hash
-    # skip
     expected = {
                 "team_id" => "54",
                 "franchise_id" => "38",

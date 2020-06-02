@@ -301,7 +301,6 @@ class StatTracker
   end
 
   def team_info(team_id)
-    # uses teams.csv
     return_hash = {}
     teams.each do |team|
       if team.team_id == team_id.to_s
@@ -309,12 +308,6 @@ class StatTracker
       end
     end
     return_hash
-  end
-
-  def refactor(team_id)
-    game_teams_array(team_id)
-    games_array(team_id)
-    combine_arrays(team_id)
   end
 
   def game_teams_array(team_id)
@@ -354,12 +347,12 @@ class StatTracker
     win_hash_values = win_hash.values
     loss_hash_values = loss_hash.values
     tie_hash_values = tie_hash.values
-    team_best_season = []
+    team_season = []
     win_hash.size.times do |x|
-      team_best_season[x] = ((win_hash_values[x]).to_f / (win_hash_values[x] +
+      team_season[x] = ((win_hash_values[x]).to_f / (win_hash_values[x] +
         loss_hash_values[x] + tie_hash_values[x]))
     end
-    [win_hash, team_best_season]
+    [win_hash, team_season]
   end
 
   def best_season(team_id)
@@ -371,81 +364,21 @@ class StatTracker
   end
 
   def average_win_percentage(team_id)
-    #Float
-    # Average win percentage of all games for a team.
-    game_teams_array = []
-    games_array = []
-    combined_array = []
-    win_hash = Hash.new(0)
-    loss_hash = Hash.new(0)
-    tie_hash = Hash.new(0)
-    game_teams.each do |game_team|
-      if game_team.team_id == team_id.to_s
-        game_teams_array << game_team.to_hash
-      end
-    end
-    games.each do |game|
-      if game.home_team_id == team_id.to_s || game.away_team_id == team_id.to_s
-        games_array << game.to_hash
-      end
-    end
-    #combines arrays created from game_teams.csv and games.csv
-    games_array.each do |game|
-      game_teams_array.each do |game_team|
-        if game_team[:game_id] == game[:game_id]
-          combined_array << [game_team[:game_id], game_team[:result], game[:season]]
-        end
-      end
-    end
-    # binding.pry
-    combined_array.each do |array|
-      win_hash[array[2]] += 1 if array[1] == "WIN"
-      loss_hash[array[2]] += 1 if array[1] == "LOSS"
-      tie_hash[array[2]] += 1 if array[1] == "TIE"
-    end
-    win_hash = win_hash.sort.to_h
-    loss_hash = loss_hash.sort.to_h
-    tie_hash = tie_hash.sort.to_h
-    win_hash_values = win_hash.values
-    loss_hash_values = loss_hash.values
-    tie_hash_values = tie_hash.values
-    team_best_season = []
-
-    win_hash.size.times do |x|
-      team_best_season[x] = ((win_hash_values[x]).to_f / (win_hash_values[x] +
-                              loss_hash_values[x] + tie_hash_values[x]))
-    end
-    total = team_best_season.inject(:+)
-    len = team_best_season.length
-    average = total.to_f / len
-    average.round(2)
+    total = find_seasons(team_id)[1].inject(:+)
+    len = find_seasons(team_id)[1].length
+    average = (total.to_f / len).round(2)
   end
 
   def most_goals_scored(team_id)
-    #Returns Integer - Highest number of goals a particular team has scored in a single game.
-    game_teams_array = []
-    game_teams.each do |game_team|
-      if game_team.team_id == team_id.to_s
-        game_teams_array << game_team.to_hash
-      end
-    end
-
-    game_teams_array.max_by do |game|
-      game[:goals]
-    end[:goals].to_i
+    game_teams_array(team_id).max_by do |game|
+      game.goals
+    end.goals.to_i
   end
 
   def fewest_goals_scored(team_id)
-    #Returns Integer - Lowest numer of goals a particular team has scored in a single game.
-    game_teams_array = []
-    game_teams.each do |game_team|
-      if game_team.team_id == team_id.to_s
-        game_teams_array << game_team.to_hash
-      end
-    end
-    game_teams_array.min_by do |game|
-      game[:goals]
-    end[:goals].to_i
+    game_teams_array(team_id).min_by do |game|
+      game.goals
+    end.goals.to_i
   end
 
   def find_team_by_id(team_id)
