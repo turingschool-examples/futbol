@@ -161,7 +161,7 @@ class StatTracker
     end
     favorite_id = games_won_against_opponent.key(games_won_against_opponent.values.max)
 
-    favorite_team = teams.all.find do |team|
+    favorite_team = teams.find do |team|
       if team.id == favorite_id
         return team.name
       end
@@ -171,7 +171,7 @@ class StatTracker
 
   def rival(team_id)
     games_lost_against_opponent = Hash.new(0)
-    games.all.map do |team|
+    games.map do |team|
       if team.home_team_id || team.away_team_id == team_id
         if team.home_team_id == team_id && team.home_goals < team.away_goals
           games_lost_against_opponent[team.away_team_id] += 1
@@ -183,7 +183,7 @@ class StatTracker
     rival_id = games_lost_against_opponent.key(games_lost_against_opponent.values.max)
 
 
-    rival = teams.all.find do |team|
+    rival = teams.find do |team|
       if team.id == rival_id
         return team.name
       end
