@@ -435,11 +435,11 @@ class StatTracker
     found_team = teams.find do |team|
       team.id == id
     end
-    team_info_hash = {:team_id => found_team.id,
-      :franchise_id => found_team.franchise_id,
-      :team_name => found_team.name,
-      :abbreviation => found_team.abbreviation,
-      :link => found_team.link
+    team_info_hash = {"team_id" => found_team.id,
+      "franchise_id" => found_team.franchise_id,
+      "team_name" => found_team.name,
+      "abbreviation" => found_team.abbreviation,
+      "link" => found_team.link
     }
     team_info_hash
   end
