@@ -125,202 +125,202 @@ class StatTracker
 
   ## start of league statistics
 
-  def count_of_teams
-    teams.count
-  end
+  # def count_of_teams
+  #   teams.count
+  # end
 
-  def best_offense
-    id_score = Hash.new(0)
-    games.map do |game|
-      id_score[game.away_team_id] += game.away_goals.to_i
-      id_score[game.home_team_id] += game.home_goals.to_i
-    end
-      id = id_score.key(id_score.values.max)
-      found = teams.find do |team|
-        if team.team_id == id
-           return team.team_name
-        end
-      found
-    end
-  end
+  # def best_offense
+  #   id_score = Hash.new(0)
+  #   games.map do |game|
+  #     id_score[game.away_team_id] += game.away_goals.to_i
+  #     id_score[game.home_team_id] += game.home_goals.to_i
+  #   end
+  #     id = id_score.key(id_score.values.max)
+  #     found = teams.find do |team|
+  #       if team.team_id == id
+  #          return team.team_name
+  #       end
+  #     found
+  #   end
+  # end
 
-  def worst_offense
-    id_score = Hash.new(0)
-    games.map do |game|
-      id_score[game.away_team_id] += game.away_goals.to_i
-      id_score[game.home_team_id] += game.home_goals.to_i
-    end
-      id = id_score.key(id_score.values.min)
-      found = teams.find do |team|
-        if team.team_id == id
-           return team.team_name
-        end
-      found
-    end
-  end
+  # def worst_offense
+  #   id_score = Hash.new(0)
+  #   games.map do |game|
+  #     id_score[game.away_team_id] += game.away_goals.to_i
+  #     id_score[game.home_team_id] += game.home_goals.to_i
+  #   end
+  #     id = id_score.key(id_score.values.min)
+  #     found = teams.find do |team|
+  #       if team.team_id == id
+  #          return team.team_name
+  #       end
+  #     found
+  #   end
+  # end
 
-  def number_of_games_played_away_team
-    games_played = games.reduce(Hash.new(0)) do |team, game|
-      team[game.away_team_id] += 1
-      team
-    end
-  end
+  # def number_of_games_played_away_team
+  #   games.reduce(Hash.new(0)) do |team, game|
+  #     team[game.away_team_id] += 1
+  #     team
+  #   end
+  # end
+  #
+  # def number_of_games_played_home_team
+  #   games.reduce(Hash.new(0)) do |team, game|
+  #     team[game.home_team_id] += 1
+  #     team
+  #   end
+  # end
+  #
+  # def highest_scoring_visitor
+  #   away_team_goals = games.reduce(Hash.new(0)) do |team, game|
+  #     team[game.away_team_id] += game.away_goals.to_f
+  #     team
+  #   end
+  #    away_team_goals.merge!(number_of_games_played_away_team) { |k, o, n| o / n }
+  #    away_team_goals
+  #    id = away_team_goals.key(away_team_goals.values.max)
+  #    found = teams.find do |team|
+  #      if team.team_id == id
+  #         return team.team_name
+  #      end
+  #    found
+  #  end
+  # end
 
-  def number_of_games_played_home_team
-    games_played = games.reduce(Hash.new(0)) do |team, game|
-      team[game.home_team_id] += 1
-      team
-    end
-  end
-
-  def highest_scoring_visitor
-    away_team_goals = games.reduce(Hash.new(0)) do |team, game|
-      team[game.away_team_id] += game.away_goals.to_f
-      team
-    end
-     away_team_goals.merge!(number_of_games_played_away_team) { |k, o, n| o / n }
-     away_team_goals
-     id = away_team_goals.key(away_team_goals.values.max)
-     found = teams.find do |team|
-       if team.team_id == id
-          return team.team_name
-       end
-     found
-   end
-  end
-
-  def highest_scoring_home_team
-    home_team_goals = games.reduce(Hash.new(0)) do |team, game|
-      team[game.home_team_id] += game.home_goals.to_f
-      team
-    end
-    home_team_goals.merge!(number_of_games_played_home_team) { |k, o, n| o / n }
-    home_team_goals
-    id = home_team_goals.key(home_team_goals.values.max)
-    found = teams.find do |team|
-      if team.team_id == id
-        return team.team_name
-        found
-      end
-    end
-  end
+  # def highest_scoring_home_team
+  #   home_team_goals = games.reduce(Hash.new(0)) do |team, game|
+  #     team[game.home_team_id] += game.home_goals.to_f
+  #     team
+  #   end
+  #   home_team_goals.merge!(number_of_games_played_home_team) { |k, o, n| o / n }
+  #   home_team_goals
+  #   id = home_team_goals.key(home_team_goals.values.max)
+  #   found = teams.find do |team|
+  #     if team.team_id == id
+  #       return team.team_name
+  #       found
+  #     end
+  #   end
+  # end
 
 
   ### Begin team stat methods
 
-  def team_info(team_id)
-    x = {}
-    teams.find_all do |team|
-      if team.team_id == team_id.to_s
-        x = team.instance_variables.each_with_object({}) { |var, hash| hash[var.to_s.delete("@")] = team.instance_variable_get(var) }
-        return x
-      end
-    end
-  end
-
-  def find_number_of_games_played_in_a_season(team_id)
-    games_played_that_season = Hash.new(0)
-    game_teams.find_all do |team|
-      if team.team_id == team_id.to_s
-          games_played_that_season[team.game_id.slice(0...4)] += 1.to_f
-      end
-    end
-    games_played_that_season
-  end
-
-  def best_season(team_id)
-    games_won_that_season = Hash.new(0)
-    game_teams.find_all do |team|
-      if team.team_id == team_id.to_s
-        if team.result == "WIN"
-          games_won_that_season[team.game_id.slice(0...4)] += 1.to_f
-        end
-      end
-    end
-    games_won_that_season.merge!(find_number_of_games_played_in_a_season(team_id)) { |k, o, n| o / n }
-    ((games_won_that_season.key(games_won_that_season.values.max) * 2).to_i + 1).to_s
-  end
-
-  def worst_season(team_id)
-    games_lost_that_season = Hash.new(0)
-    game_teams.find_all do |team|
-      if team.team_id == team_id.to_s
-        if team.result == "LOSS"
-          games_lost_that_season[team.game_id.slice(0...4)] += 1.to_f
-        end
-      end
-    end
-    games_lost_that_season.merge!(find_number_of_games_played_in_a_season(team_id)) { |k, o, n| o / n }
-    ((games_lost_that_season.key(games_lost_that_season.values.min) * 2).to_i + 1).to_s
-  end
-
-  def average_win_percentage(team_id)
-    games_won_that_season = Hash.new(0)
-    game_teams.find_all do |team|
-      if team.team_id == team_id.to_s
-        if team.result == "WIN"
-          games_won_that_season[team.game_id.slice(0...4)] += 1.to_f
-        end
-      end
-    end
-    (games_won_that_season.values.sum / find_number_of_games_played_in_a_season(team_id).values.sum * 100).round(2)
-  end
-
-  def goals_scored(team_id)
-    all_goals_scored = []
-      game_teams.map do |team|
-        if team.team_id == team_id.to_s
-        all_goals_scored << team.goals.to_i
-      end
-    end
-    all_goals_scored
-  end
-
-  def most_goals_scored(team_id)
-    goals_scored(team_id).max
-  end
-
-  def fewest_goals_scored(team_id)
-    goals_scored(team_id).min
-  end
-
-  def favorite_opponent(team_id)
-    games_won_vs_oppenent = Hash.new(0)
-    games.map do |team|
-      if team.home_team_id || team.away_team_id == team_id.to_s
-        if (team.home_team_id == team_id.to_s) && (team.home_goals > team.away_goals)
-          games_won_vs_oppenent[team.away_team_id] += 1
-        else (team.away_team_id == team_id.to_s) && (team.home_goals < team.away_goals)
-          games_won_vs_oppenent[team.home_team_id] += 1
-        end
-      end
-    end
-    id = games_won_vs_oppenent.key(games_won_vs_oppenent.values.max)
-    found = teams.find do |team|
-      if team.team_id == id
-        return team.team_name
-      end
-      found
-    end
-  end
-
-  def rival(team_id)
-    games_lost_vs_oppenent = Hash.new(0)
-    games.map do |team|
-      if team.home_team_id || team.away_team_id == team_id.to_s
-        if (team.home_team_id == team_id.to_s) && (team.home_goals < team.away_goals)
-          games_lost_vs_oppenent[team.away_team_id] += 1
-        else (team.away_team_id == team_id.to_s) && (team.home_goals > team.away_goals)
-          games_lost_vs_oppenent[team.home_team_id] += 1
-        end
-      end
-    end
-    id = games_lost_vs_oppenent.key(games_lost_vs_oppenent.values.max)
-    found = teams.find do |team|
-      if team.team_id == id
-        return team.team_name
-      end
-      found
-    end
-  end
+  # def team_info(team_id)
+  #   x = {}
+  #   teams.find_all do |team|
+  #     if team.team_id == team_id.to_s
+  #       x = team.instance_variables.each_with_object({}) { |var, hash| hash[var.to_s.delete("@")] = team.instance_variable_get(var) }
+  #       return x
+  #     end
+  #   end
+  # end
+  #
+  # def find_number_of_games_played_in_a_season(team_id)
+  #   games_played_that_season = Hash.new(0)
+  #   game_teams.find_all do |team|
+  #     if team.team_id == team_id.to_s
+  #         games_played_that_season[team.game_id.slice(0...4)] += 1.to_f
+  #     end
+  #   end
+  #   games_played_that_season
+  # end
+  #
+  # def best_season(team_id)
+  #   games_won_that_season = Hash.new(0)
+  #   game_teams.find_all do |team|
+  #     if team.team_id == team_id.to_s
+  #       if team.result == "WIN"
+  #         games_won_that_season[team.game_id.slice(0...4)] += 1.to_f
+  #       end
+  #     end
+  #   end
+  #   games_won_that_season.merge!(find_number_of_games_played_in_a_season(team_id)) { |k, o, n| o / n }
+  #   ((games_won_that_season.key(games_won_that_season.values.max) * 2).to_i + 1).to_s
+  # end
+  #
+  # def worst_season(team_id)
+  #   games_lost_that_season = Hash.new(0)
+  #   game_teams.find_all do |team|
+  #     if team.team_id == team_id.to_s
+  #       if team.result == "LOSS"
+  #         games_lost_that_season[team.game_id.slice(0...4)] += 1.to_f
+  #       end
+  #     end
+  #   end
+  #   games_lost_that_season.merge!(find_number_of_games_played_in_a_season(team_id)) { |k, o, n| o / n }
+  #   ((games_lost_that_season.key(games_lost_that_season.values.min) * 2).to_i + 1).to_s
+  # end
+  #
+  # def average_win_percentage(team_id)
+  #   games_won_that_season = Hash.new(0)
+  #   game_teams.find_all do |team|
+  #     if team.team_id == team_id.to_s
+  #       if team.result == "WIN"
+  #         games_won_that_season[team.game_id.slice(0...4)] += 1.to_f
+  #       end
+  #     end
+  #   end
+  #   (games_won_that_season.values.sum / find_number_of_games_played_in_a_season(team_id).values.sum * 100).round(2)
+  # end
+  #
+  # def goals_scored(team_id)
+  #   all_goals_scored = []
+  #     game_teams.map do |team|
+  #       if team.team_id == team_id.to_s
+  #       all_goals_scored << team.goals.to_i
+  #     end
+  #   end
+  #   all_goals_scored
+  # end
+  #
+  # def most_goals_scored(team_id)
+  #   goals_scored(team_id).max
+  # end
+  #
+  # def fewest_goals_scored(team_id)
+  #   goals_scored(team_id).min
+  # end
+  #
+  # def favorite_opponent(team_id)
+  #   games_won_vs_oppenent = Hash.new(0)
+  #   games.map do |team|
+  #     if team.home_team_id || team.away_team_id == team_id.to_s
+  #       if (team.home_team_id == team_id.to_s) && (team.home_goals > team.away_goals)
+  #         games_won_vs_oppenent[team.away_team_id] += 1
+  #       else (team.away_team_id == team_id.to_s) && (team.home_goals < team.away_goals)
+  #         games_won_vs_oppenent[team.home_team_id] += 1
+  #       end
+  #     end
+  #   end
+  #   id = games_won_vs_oppenent.key(games_won_vs_oppenent.values.max)
+  #   found = teams.find do |team|
+  #     if team.team_id == id
+  #       return team.team_name
+  #     end
+  #     found
+  #   end
+  # end
+  #
+  # def rival(team_id)
+  #   games_lost_vs_oppenent = Hash.new(0)
+  #   games.map do |team|
+  #     if team.home_team_id || team.away_team_id == team_id.to_s
+  #       if (team.home_team_id == team_id.to_s) && (team.home_goals < team.away_goals)
+  #         games_lost_vs_oppenent[team.away_team_id] += 1
+  #       else (team.away_team_id == team_id.to_s) && (team.home_goals > team.away_goals)
+  #         games_lost_vs_oppenent[team.home_team_id] += 1
+  #       end
+  #     end
+  #   end
+  #   id = games_lost_vs_oppenent.key(games_lost_vs_oppenent.values.max)
+  #   found = teams.find do |team|
+  #     if team.team_id == id
+  #       return team.team_name
+  #     end
+  #     found
+  #   end
+  # end
 end

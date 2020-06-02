@@ -29,4 +29,14 @@ class TeamCollectionTest < Minitest::Test
     assert_equal "Chicago Fire", @team_collection.team_name_by_id(4)
   end
 
+  def test_it_finds_team_info
+    expected = {"team_id"=>"8",
+                "franchise_id"=>"1",
+                "team_name"=>"New York Red Bulls",
+                "abbreviation"=>"NY",
+                "stadium"=>"Red Bull Arena",
+                "link"=>"/api/v1/teams/8"
+              }
+    assert_equal expected, @team_collection.team_info(8)
+  end
 end

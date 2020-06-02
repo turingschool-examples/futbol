@@ -23,4 +23,14 @@ class TeamCollection
       team.team_id.to_i == team_id
     end.team_name
   end
+
+  def team_info(team_id)
+    x = {}
+    @teams_array.find_all do |team|
+      if team.team_id == team_id.to_s
+        x = team.instance_variables.each_with_object({}) { |var, hash| hash[var.to_s.delete("@")] = team.instance_variable_get(var) }
+    return x
+      end
+    end
+  end
 end

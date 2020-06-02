@@ -1,7 +1,11 @@
 {
   "Unit Tests": {
     "coverage": {
+<<<<<<< HEAD
       "/Users/ryn/turing/1module/projects/futbol_main/futbol/lib/team.rb": {
+=======
+      "/Users/kieraallen/turing/module1/projects/root_futbol/futbol/lib/team.rb": {
+>>>>>>> 9655aba669284e41a583d0a710488012e539f0df
         "lines": [
           1,
           1,
@@ -12,17 +16,30 @@
           null,
           null,
           1,
+<<<<<<< HEAD
           32,
           32,
           32,
           32,
           32,
           32,
+=======
+          448,
+          448,
+          448,
+          448,
+          448,
+          448,
+>>>>>>> 9655aba669284e41a583d0a710488012e539f0df
           null,
           null
         ]
       },
+<<<<<<< HEAD
       "/Users/ryn/turing/1module/projects/futbol_main/futbol/lib/game.rb": {
+=======
+      "/Users/kieraallen/turing/module1/projects/root_futbol/futbol/lib/game.rb": {
+>>>>>>> 9655aba669284e41a583d0a710488012e539f0df
         "lines": [
           1,
           1,
@@ -37,6 +54,7 @@
           null,
           null,
           1,
+<<<<<<< HEAD
           27,
           27,
           27,
@@ -47,11 +65,27 @@
           27,
           27,
           27,
+=======
+          378,
+          378,
+          378,
+          378,
+          378,
+          378,
+          378,
+          378,
+          378,
+          378,
+>>>>>>> 9655aba669284e41a583d0a710488012e539f0df
           null,
           null
         ]
       },
+<<<<<<< HEAD
       "/Users/ryn/turing/1module/projects/futbol_main/futbol/lib/team_collection.rb": {
+=======
+      "/Users/kieraallen/turing/module1/projects/root_futbol/futbol/lib/team_collection.rb": {
+>>>>>>> 9655aba669284e41a583d0a710488012e539f0df
         "lines": [
           1,
           1,
@@ -61,11 +95,19 @@
           1,
           null,
           1,
+<<<<<<< HEAD
           1,
           null,
           null,
           1,
           1,
+=======
+          14,
+          null,
+          null,
+          1,
+          14,
+>>>>>>> 9655aba669284e41a583d0a710488012e539f0df
           null,
           null,
           1,
@@ -74,26 +116,49 @@
           null,
           null,
           1,
+          4,
+          45,
           null,
+          null,
+          null,
+          1,
           0,
           0,
+          0,
+          0,
+          0,
+          null,
+          null,
           null,
           null
         ]
       },
+<<<<<<< HEAD
       "/Users/ryn/turing/1module/projects/futbol_main/futbol/lib/loadable.rb": {
+=======
+      "/Users/kieraallen/turing/module1/projects/root_futbol/futbol/lib/loadable.rb": {
+>>>>>>> 9655aba669284e41a583d0a710488012e539f0df
         "lines": [
           1,
           null,
           1,
           1,
+<<<<<<< HEAD
           3,
           78,
+=======
+          42,
+          1092,
+>>>>>>> 9655aba669284e41a583d0a710488012e539f0df
           null,
           null
         ]
       },
+<<<<<<< HEAD
       "/Users/ryn/turing/1module/projects/futbol_main/futbol/lib/game_stats.rb": {
+=======
+      "/Users/kieraallen/turing/module1/projects/root_futbol/futbol/lib/season_stats.rb": {
+>>>>>>> 9655aba669284e41a583d0a710488012e539f0df
         "lines": [
           1,
           1,
@@ -101,6 +166,7 @@
           null,
           null,
           1,
+<<<<<<< HEAD
           0,
           0,
           0,
@@ -157,33 +223,196 @@
           null,
           null,
           null,
+=======
+          14,
+          14,
+          14,
+          null,
+          null,
+          1,
+          1,
+          1,
+          27,
+          27,
+          null,
+          1,
+          1,
+          5,
+          null,
+          1,
+>>>>>>> 9655aba669284e41a583d0a710488012e539f0df
+          null,
+          null,
+          1,
+          1,
+          1,
+          27,
+          27,
+          null,
+          1,
+          1,
+          20,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          27,
+          27,
+          null,
+          null,
+          null,
+          1,
+          1,
+          27,
+          27,
+          null,
+          null,
+          null,
+          1,
+          1,
+          27,
+          27,
+          null,
+          16,
+          1,
+          1,
+          5,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          27,
+          27,
+          null,
+          13,
+          1,
+          1,
+          18,
+          null,
+          1,
+          null,
+          null,
+<<<<<<< HEAD
+=======
+          1,
+          1,
+          1,
+          16,
+          16,
+          null,
+>>>>>>> 9655aba669284e41a583d0a710488012e539f0df
           null,
           null,
           null,
           null,
           null,
           null,
+<<<<<<< HEAD
+=======
+          1,
+          1,
+          1,
+          16,
+          16,
+          null,
+>>>>>>> 9655aba669284e41a583d0a710488012e539f0df
           null,
           null,
           null,
           null,
           null,
           null,
+          1,
+          1,
+          16,
+          16,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          16,
+          16,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          16,
+          16,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          16,
+          16,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          27,
+          27,
+          0,
+          27,
+          27,
           null,
           null,
           null,
+          1,
+          1,
+          5,
+          1,
+          null,
+          4,
           null,
           null,
           null,
+          1,
+          1,
+          1,
+          27,
+          27,
+          0,
+          27,
+          27,
           null,
           null,
           null,
+          1,
+          1,
+          5,
+          1,
+          null,
+          4,
           null,
           null,
           null
         ]
       },
+<<<<<<< HEAD
       "/Users/ryn/turing/1module/projects/futbol_main/futbol/lib/game_collection.rb": {
+=======
+      "/Users/kieraallen/turing/module1/projects/root_futbol/futbol/lib/game_collection.rb": {
+>>>>>>> 9655aba669284e41a583d0a710488012e539f0df
         "lines": [
           1,
           1,
@@ -194,40 +423,129 @@
           1,
           null,
           1,
+<<<<<<< HEAD
           1,
           null,
           null,
           1,
           1,
+=======
+          14,
+          null,
+          null,
+          1,
+          14,
+>>>>>>> 9655aba669284e41a583d0a710488012e539f0df
           null,
           null,
           null
         ]
       },
+<<<<<<< HEAD
       "/Users/ryn/turing/1module/projects/futbol_main/futbol/lib/game_team_collection.rb": {
+=======
+      "/Users/kieraallen/turing/module1/projects/root_futbol/futbol/lib/game_team_collection.rb": {
+>>>>>>> 9655aba669284e41a583d0a710488012e539f0df
         "lines": [
           1,
           1,
-          null,
           1,
-          1,
-          null,
           1,
           null,
           1,
           1,
           null,
+          1,
+          null,
+          1,
+<<<<<<< HEAD
+          1,
+          null,
           null,
           1,
           1,
+=======
+          14,
+          null,
+          null,
+          1,
+          14,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+>>>>>>> 9655aba669284e41a583d0a710488012e539f0df
           null,
           null,
           null,
+          0,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          0,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
           null,
           null
         ]
       },
+<<<<<<< HEAD
       "/Users/ryn/turing/1module/projects/futbol_main/futbol/lib/game_teams.rb": {
+=======
+      "/Users/kieraallen/turing/module1/projects/root_futbol/futbol/lib/game_teams.rb": {
+>>>>>>> 9655aba669284e41a583d0a710488012e539f0df
         "lines": [
           1,
           1,
@@ -247,6 +565,7 @@
           null,
           null,
           1,
+<<<<<<< HEAD
           16,
           16,
           16,
@@ -262,11 +581,32 @@
           16,
           16,
           16,
+=======
+          224,
+          224,
+          224,
+          224,
+          224,
+          224,
+          224,
+          224,
+          224,
+          224,
+          224,
+          224,
+          224,
+          224,
+          224,
+>>>>>>> 9655aba669284e41a583d0a710488012e539f0df
           null,
           null
         ]
       }
     },
+<<<<<<< HEAD
     "timestamp": 1591041350
+=======
+    "timestamp": 1591055555
+>>>>>>> 9655aba669284e41a583d0a710488012e539f0df
   }
 }
