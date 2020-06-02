@@ -16,7 +16,7 @@ class TeamCollectionTest < Minitest::Test
   end
 
   def test_it_can_return_teams
-    assert_equal 4, @team_collection.all.count
+    assert_equal 5, @team_collection.all.count
   end
 
 end

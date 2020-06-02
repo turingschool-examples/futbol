@@ -71,19 +71,19 @@ class StatTrackerTest < MiniTest::Test
     end
 
     def test_it_can_return_percentage_home_wins
-      assert_equal 0.50, @stat_tracker.percentage_home_wins
+      assert_equal 0.6, @stat_tracker.percentage_home_wins
     end
 
     def test_it_can_return_percentage_visitor_wins
-      assert_equal 0.25, @stat_tracker.percentage_visitor_wins
+      assert_equal 0.2, @stat_tracker.percentage_visitor_wins
     end
 
     def test_it_can_return_percentage_ties
-      assert_equal 0.25, @stat_tracker.percentage_ties
+      assert_equal 0.2, @stat_tracker.percentage_ties
     end
 
     def test_it_can_return_count_of_games_by_season
-      assert_equal ({"20122013" => 3, "20142015" => 1}), @stat_tracker.count_of_games_by_season
+      assert_equal ({"20122013" => 3, "20142015" => 1, "20172018" => 1}), @stat_tracker.count_of_games_by_season
     end
 
     def test_it_can_return_average_goals_per_game
@@ -117,7 +117,7 @@ class StatTrackerTest < MiniTest::Test
     end
 
     def test_it_returns_total_games
-      assert_equal 4, @stat_tracker.total_games("6")
+      assert_equal 5, @stat_tracker.total_games("6")
     end
 
     def test_it_counts_wins
@@ -129,7 +129,7 @@ class StatTrackerTest < MiniTest::Test
     end
 
     def test_it_returns_win_percentage_per_season
-      assert_equal ({"20122013"=>1.0, "20142015"=>0.0}), @stat_tracker.percentage_wins_per_season("6")
+      assert_equal ({"20122013"=>1.0, "20142015"=>0.0, "20172018"=>0.0}), @stat_tracker.percentage_wins_per_season("6")
     end
 
     def test_it_can_return_best_season
@@ -137,15 +137,15 @@ class StatTrackerTest < MiniTest::Test
     end
 
     def test_it_can_return_worst_season
-      assert_equal "20142015", @stat_tracker.worst_season("6")
+      assert_equal "20172018", @stat_tracker.worst_season("6")
     end
 
     def test_it_returns_average_win_percentage
-      assert_equal 0.75, @stat_tracker.average_win_percentage("6")
+      assert_equal 0.6, @stat_tracker.average_win_percentage("6")
     end
 
     def test_it_returns_most_goals_scored
-      assert_equal "3", @stat_tracker.most_goals_scored("6")
+      assert_equal 3, @stat_tracker.most_goals_scored("6")
     end
 
     def test_it_returns_fewest_goals_scored
@@ -156,6 +156,9 @@ class StatTrackerTest < MiniTest::Test
       assert_equal "Houston Dynamo", @stat_tracker.favorite_opponent("6")
     end
 
+    def test_it_can_return_rival
+      assert_equal "North Carolina Courage", @stat_tracker.rival("6")
+    end
   end
 end
 end

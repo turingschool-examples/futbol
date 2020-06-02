@@ -199,7 +199,7 @@ class StatTracker
       game.away_goals
     end
     home_goals_scored.max.to_i
-    away_goals_scored.max.to_i 
+    away_goals_scored.max.to_i
   end
 
   def fewest_goals_scored(id)
@@ -230,6 +230,26 @@ class StatTracker
 
   end
 
+
+    def rival(team_id)
+      games_won_against_opponent = Hash.new(0)
+      games.all.map do |team|
+        if team.home_team_id || team.away_team_id == team_id
+          if team.home_team_id == team_id && team.home_goals > team.away_goals
+            games_won_against_opponent[team.away_team_id] += 1
+          else team.away_team_id == team_id && team.away_goals > team.home_goals
+            games_won_against_opponent[team.home_team_id] += 1
+          end
+        end
+      end
+      rival_id = games_won_against_opponent.key(games_won_against_opponent.values.min)
+
+      rival = teams.all.find do |team|
+        if team.id == rival_id
+          return team.name
+        end
+      end
+    end
 
 
 

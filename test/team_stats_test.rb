@@ -60,7 +60,7 @@ class StatTrackerTest < MiniTest::Test
     end
 
     def test_it_returns_total_games
-      assert_equal 4, @stat_tracker.total_games("6")
+      assert_equal 5, @stat_tracker.total_games("6")
     end
 
     def test_it_counts_wins
@@ -72,7 +72,7 @@ class StatTrackerTest < MiniTest::Test
     end
 
     def test_it_returns_win_percentage_per_season
-      assert_equal ({"20122013"=>1.0, "20142015"=>0.0}), @stat_tracker.percentage_wins_per_season("6")
+      assert_equal ({"20122013"=>1.0, "20142015"=>0.0, "20172018"=>0.0}), @stat_tracker.percentage_wins_per_season("6")
     end
 
     def test_it_can_return_best_season
@@ -80,11 +80,11 @@ class StatTrackerTest < MiniTest::Test
     end
 
     def test_it_can_return_worst_season
-      assert_equal "20142015", @stat_tracker.worst_season("6")
+      assert_equal "20172018", @stat_tracker.worst_season("6")
     end
 
     def test_it_returns_average_win_percentage
-      assert_equal 0.75, @stat_tracker.average_win_percentage("6")
+      assert_equal 0.6, @stat_tracker.average_win_percentage("6")
     end
 
     def test_it_returns_most_goals_scored
@@ -97,6 +97,10 @@ class StatTrackerTest < MiniTest::Test
 
     def test_it_returns_favorite_opponent
       assert_equal "Houston Dynamo", @stat_tracker.favorite_opponent("6")
+    end
+
+    def test_it_can_return_rival
+      assert_equal "North Carolina Courage", @stat_tracker.rival("6")
     end
   end
 end
