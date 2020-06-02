@@ -85,13 +85,12 @@ class GameCollection
   end
 
   def average_goals_by_season
-    games_by_season.transform_values do |value|
+    games_by_season.transform_values do |values|
       sum_total_score = 0
-      value.each do |game|
-        # require "pry"; binding.pry
+      values.each do |game|
         sum_total_score += game.away_goals.to_i + game.home_goals.to_i
-        average_goals_per_season = sum_total_score / (@games_array.count * 2).to_f
       end
+      average_goals_per_season = sum_total_score / (values.count * 2).to_f
       average_goals_per_season.round(2)
     end
   end

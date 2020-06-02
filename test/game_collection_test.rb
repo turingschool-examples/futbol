@@ -67,8 +67,8 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_it_can_categorize_games_by_season
-    expected =
-    assert_equal expected, @game_collection.games_by_season
+    expected = 12
+    assert_equal expected, @game_collection.games_by_season["20122013"].count
   end
 
   def test_it_finds_count_of_games_by_season
@@ -80,7 +80,7 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_has_average_goals_by_season
-    expected = {"20122013"=>2.06, "20132014"=>2.06, "20172018"=>2.06, "20162017"=>2.06, "20152016"=>2.06, "20142015"=>2.06}
+    expected = {"20122013"=>2.0, "20132014"=>2.0, "20172018"=>1.83, "20162017"=>2.17, "20152016"=>2.0, "20142015"=>2.3}
 
     assert_equal expected, @game_collection.average_goals_by_season
   end
