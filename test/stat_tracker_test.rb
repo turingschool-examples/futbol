@@ -6,10 +6,9 @@ require 'pry'
 
 class StatTrackerTest < Minitest::Test
   def setup
-
-    game_path = './data/games.csv'
+    game_path = './test/data/games.csv'
     team_path = './test/data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_teams_path = './test/data/game_teams.csv'
 
     @locations = {
       games: game_path,
@@ -29,7 +28,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_tracker_can_fetch_game_data
-    assert_equal 7441, @stat_tracker.games.count
+    assert_equal 60, @stat_tracker.games.count
     assert_instance_of Game, @stat_tracker.games.first
   end
 
@@ -38,10 +37,16 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_tracker_can_fetch_game_team_data
-    assert_equal 14882, @stat_tracker.game_teams.count
+    assert_equal 52, @stat_tracker.game_teams.count
+  end
+
+  ####
+  def test_refactor
+    @stat_tracker.refactor(8)
   end
 
   def test_it_returns_team_info_hash
+    # skip
     expected = {
                 "team_id" => "54",
                 "franchise_id" => "38",
@@ -53,20 +58,35 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_returns_best_season_string
-    assert_equal "20132014", @stat_tracker.best_season(6)
+    assert_equal "20122013", @stat_tracker.best_season(8)
   end
 
   def test_it_returns_worst_season_string
-    assert_equal "20142015", @stat_tracker.worst_season(6)
+    assert_equal "20122013", @stat_tracker.worst_season(8)
   end
 
+  def test_it_returns_average_win_percentage_string
+    assert_equal 0.2, @stat_tracker.average_win_percentage(8)
+  end
+
+  def test_it_can_return_most_goals_scored_integer
+    assert_equal 3, @stat_tracker.most_goals_scored(16)
+  end
+
+  def test_it_can_return_fewest_goals_scored_integer
+    assert_equal 0, @stat_tracker.fewest_goals_scored(16)
+  end
+
+  def test_it_can_return_favorite_opponent_string
+    assert_equal "New York City FC", @stat_tracker.favorite_opponent(8)
+  end
 
   def test_it_can_count_teams
     assert_equal 32, @stat_tracker.count_of_teams
   end
 
   def test_it_can_find_team_by_id
-    # skip
+    skip
     assert_equal "Toronto FC", @stat_tracker.find_team_by_id(20).team_name
   end
 
@@ -191,7 +211,7 @@ class StatTrackerTest < Minitest::Test
       }
     assert_equal expected, @stat_tracker.coach_per_total_win("20122013")
   end
-  
+
 # start game stat tests
   def test_highest_total_score
     assert_equal 6, @stat_tracker.highest_total_score
@@ -272,6 +292,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_tracker_has_the_accurate_team
+    skip
     assert_equal "Sporting Kansas City", @stat_tracker.least_accurate_team("20122013")
   end
 
@@ -300,20 +321,5 @@ class StatTrackerTest < Minitest::Test
   def test_tracker_has_the_least_tackles
     assert_equal "Sporting Kansas City", @stat_tracker.fewest_tackles("20122013")
   end
-  
-  def test_it_returns_average_win_percentage_string
-    assert_equal 0.49, @stat_tracker.average_win_percentage(6)
-  end
 
-  def test_it_can_return_most_goals_scored_integer
-    assert_equal "7", @stat_tracker.most_goals_scored(18)
-  end
-
-  def test_it_can_return_fewest_goals_scored_integer
-    assert_equal "0", @stat_tracker.fewest_goals_scored(18)
-  end
-
-  def test_it_can_return_favorite_opponent_string
-    assert_equal "DC United", @stat_tracker.favorite_opponent(18)
-  end
 end
