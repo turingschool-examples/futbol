@@ -6,13 +6,13 @@ require './lib/game'
 class StatTrackerTest < MiniTest::Test
 
   class StatTrackerTest < Minitest::Test
-  def setup
-    @stat_tracker = StatTracker.from_csv({
-      :games => "./data/games.csv",
-      :teams => "./data/teams.csv",
-      :game_teams => "./data/game_teams.csv"
-    })
-  end
+  # def setup
+  #   @stat_tracker = StatTracker.from_csv({
+  #     :games => "./data/games.csv",
+  #     :teams => "./data/teams.csv",
+  #     :game_teams => "./data/game_teams.csv"
+  #   })
+  # end
   def setup
     @game_path = "./data/games.csv"
     @team_path = "./data/teams.csv"
@@ -37,7 +37,7 @@ class StatTrackerTest < MiniTest::Test
   def test_it_is_an_instance
     assert_instance_of StatTracker, @stat_tracker
   end
-end
+
 
 #   def test_it_finds_games
 #     assert_equal "20122013", @stat_tracker.games.first.season
@@ -164,3 +164,5 @@ end
 #     assert_equal "New England Revolution", @stat_tracker.rival(18)
 #   end
 # end
+end
+end

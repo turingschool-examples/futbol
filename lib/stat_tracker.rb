@@ -11,9 +11,9 @@ require 'pry'
 class StatTracker
   include Loadable
 
-  attr_reader :game_collection,
-              :team_collection,
-              :game_team_collection
+  attr_reader :games_collection,
+              :teams_collection,
+              :game_teams_collection
 
 
   def self.from_csv(csv_files)
