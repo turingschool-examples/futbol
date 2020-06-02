@@ -425,7 +425,6 @@ class StatTracker
         correct_team = team.name
       end
     end
-
     correct_team
   end
 
