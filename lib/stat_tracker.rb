@@ -1,9 +1,6 @@
-
-
 require_relative "./helper"
 
 require "csv"
-
 require_relative "./game_collection"
 require_relative "./team_collection"
 require_relative "./game_team_collection"
@@ -96,12 +93,6 @@ class StatTracker
     min.first
   end
 
-  # DUPLICATE METHOD
-  # def find_team_by_id(team_id)
-  #   teams.find {|team| team.team_id == team_id}
-  # end
-
-  # Game statistics
   def highest_total_score
     games.max_by do |game|
       game.total_goals
