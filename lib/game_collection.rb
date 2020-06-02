@@ -8,7 +8,7 @@ class GameCollection
     @game_collection = game_collection
   end
 
-  def all
+  def self.all(game_collection)
     all_games = []
     CSV.read(game_collection, headers: true).each do |game|
       game_hash = {id: game["game_id"],

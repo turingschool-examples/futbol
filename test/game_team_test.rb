@@ -2,8 +2,12 @@ require 'simplecov'
 SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
-require 'CSV'
+require 'csv'
 require './lib/game_teams'
+require './lib/game'
+require './lib/team'
+require './lib/game_collection'
+require './lib/team_collection'
 
 class GameTeamsTest < Minitest::Test
 
