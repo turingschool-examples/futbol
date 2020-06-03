@@ -23,6 +23,7 @@ class GameTeamCollection
       }
       all_game_teams << GameTeams.new(game_team_hash)
     end
+    require 'pry'; binding.pry
     all_game_teams
   end
 end
