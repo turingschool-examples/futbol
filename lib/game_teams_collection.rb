@@ -1,29 +1,35 @@
-require_relative './game_team'
+require_relative './game_teams'
 require 'csv'
 
-class GameTeamCollection
-  attr_reader :game_team_collection
+class GameTeamsCollection
 
-  def initialize(game_team_collection)
-    @game_team_collection = game_team_collection
+  attr_reader :game_teams_coll
+
+  def initialize(game_teams_coll)
+    @game_teams_coll = game_teams_coll
   end
 
-  def self.all(game_team_collection)
-    all_game_teams = []
-    CSV.read(game_team_collection, headers: true).each do |game_team|
-      game_team_hash = {
-        game_id: game_team_collection["game_id"].to_i,
-        team_id: game_team_collection["team_id"].to_i,
-        hoa: game_team_collection["HoA"],
-        result: game_team_collection["result"],
-        head_coach: game_team_collection["head_coach"],
-        goals: game_team_collection["goals"].to_i,
-        shots: game_team_collection["shots"].to_i,
-        tackles: game_team_collection["tackles"],
-      }
-      all_game_teams << GameTeams.new(game_team_hash)
+  def self.all(game_teams_coll)
+    all_gameteams = []
+    CSV.foreach(game_teams_coll, headers: true) do |row|
+      game_teams_hash =  { game_id: row["game_id"],
+                          team_id: row["team_id"],
+                          hoa: row["HoA"],
+                          result: row["result"],
+                          settled_in: row["settled_in"],
+                          head_coach: row["head_coach"],
+                          goals: row["goals"],
+                          shots: row["shots"],
+                          tackles: row["tackles"],
+                          pim: row["pim"],
+                          powerplayqopportunities: row["powerPlayOpportunities"],
+                          powerplaygoals: row["powerPlayGoals"],
+                          faceoffwinpercentage: row["faceOffWinPercentage"],
+                          giveaways: row["giveaways"],
+                          takeaways: row["takeaways"] }
+      all_gameteams << GameTeams.new(game_teams_hash)
     end
-    require 'pry'; binding.pry
-    all_game_teams
+    all_gameteams
   end
+
 end
