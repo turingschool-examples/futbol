@@ -1,23 +1,38 @@
 
-class GameTeam
+class GameTeams
 
   attr_reader :game_id,
               :team_id,
               :hoa,
               :result,
+              :settled_in,
               :head_coach,
               :goals,
               :shots,
-              :tackles
+              :tackles,
+              :pim,
+              :powerplayopportunities,
+              :powerplaygoals,
+              :faceoffwinpercentage,
+              :giveaways,
+              :takeaways
 
-  def initialize(info)
-    @game_id    = info["game_id"]
-    @team_id    = info["team_id"]
-    @hoa        = info["HoA"]
-    @result     = info["result"]
-    @head_coach = info["head_coach"]
-    @goals      = info["goals"]
-    @shots      = info["shots"]
-    @tackles    = info["tackles"]
+  def initialize(stats)
+    @game_id                = stats[:game_id].to_i
+    @team_id                = stats[:team_id].to_i
+    @hoa                    = stats[:hoa]
+    @result                 = stats[:result]
+    @settled_in             = stats[:settled_in]
+    @head_coach             = stats[:head_coach]
+    @goals                  = stats[:goals].to_i
+    @shots                  = stats[:shots].to_i
+    @tackles                = stats[:tackles].to_i
+    @pim                    = stats[:pim].to_i
+    @powerplayopportunities = stats[:powerplayopportunities].to_i
+    @powerplaygoals         = stats[:powerplaygoals].to_i
+    @faceoffwinpercentage   = stats[:faceoffwinpercentage].to_f
+    @giveaways              = stats[:giveaways].to_i
+    @takeaways              = stats[:takeaways].to_i
   end
+
 end
