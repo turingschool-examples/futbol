@@ -35,7 +35,6 @@ class GameTeamCollection
         end
       end
     end
-    games_won_that_season.merge!(find_number_of_games_played_in_a_season(team_id)) { |k, o, n| o / n }
     ((games_won_that_season.key(games_won_that_season.values.max) * 2).to_i + 1).to_s
   end
 
@@ -43,13 +42,12 @@ class GameTeamCollection
     games_lost_that_season = Hash.new(0)
     @game_teams_array.find_all do |team|
       if team.team_id == team_id.to_s
-        if team.result == "LOSS"
+        if team.result == "LOSS" || team.result == "TIE"
           games_lost_that_season[team.game_id.slice(0...4)] += 1.to_f
         end
       end
     end
-    games_lost_that_season.merge!(find_number_of_games_played_in_a_season(team_id)) { |k, o, n| o / n }
-    ((games_lost_that_season.key(games_lost_that_season.values.min) * 2).to_i + 1).to_s
+    ((games_lost_that_season.key(games_lost_that_season.values.max) * 2).to_i + 1).to_s
   end
 
   def average_win_percentage(team_id)

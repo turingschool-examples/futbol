@@ -82,6 +82,14 @@ class StatTracker
     @season_stats.highest_scoring_home_team
   end
 
+  def lowest_scoring_visitor
+    @season_stats.lowest_scoring_visitor
+  end
+
+  def highest_scoring_home_team
+    @season_stats.highest_scoring_home_team
+  end
+
   def winningest_coach(season_id)
     @season_stats.winningest_coach(season_id)
   end
@@ -104,5 +112,37 @@ class StatTracker
 
   def least_tackles(season_id)
     @season_stats.least_tackles(season_id)
+  end
+
+  def team_info(team_id)
+    @teams_collection.team_info(team_id)
+  end
+
+  def best_season(team_id)
+    @game_teams_collection.best_season(team_id)
+  end
+
+  def worst_season(team_id)
+    @game_teams_collection.worst_season(team_id)
+  end
+
+  def average_win_percentage(team_id)
+    @game_teams_collection.average_win_percentage(team_id)
+  end
+
+  def most_goals_scored(team_id)
+    @game_teams_collection.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    @game_teams_collection.fewest_goals_scored(team_id)
+  end
+
+  def favorite_opponent(team_id)
+    @season_stats.favorite_opponent(team_id)
+  end
+
+  def rival(team_id)
+    @season_stats.rival(team_id)
   end
 end

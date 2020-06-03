@@ -32,22 +32,12 @@ class SeasonStatsTest < Minitest::Test
       assert_equal "Seattle Sounders FC", @season_stats.worst_offense
   end
 
-  def test_highest_scoring_visitor
-    assert_equal "FC Dallas", @season_stats.highest_scoring_visitor
-  end
-
-  def test_highest_scoring_home_team
-    assert_equal "Real Salt Lake", @season_stats.highest_scoring_home_team
-  end
-
   def test_it_has_a_winningest_coach
-    season_id = "20122013"
-    assert_equal "Claude Julien", @season_stats.winningest_coach(season_id)
+    assert_equal "Claude Julien", @season_stats.winningest_coach("20122013")
   end
 
   def test_it_finds_worst_coach
-    season_id = "20122013"
-    assert_equal "John Tortorella", @season_stats.worst_coach(season_id)
+    assert_equal "John Tortorella", @season_stats.worst_coach("20122013")
   end
 
   def test_it_has_most_accurate_team
@@ -66,11 +56,32 @@ class SeasonStatsTest < Minitest::Test
     assert_equal "FC Dallas", @season_stats.least_tackles("20122013")
   end
 
+  def test_it_finds_number_of_games_vs_opponent
+    @season_stats.expects(:number_of_games_vs_oppenent).returns({"5" => 200})
+    assert_equal ({"5" => 200}), @season_stats.number_of_games_vs_oppenent(6)
+
+  end
   def test_it_finds_favorite_opponent
     assert_equal "FC Dallas", @season_stats.favorite_opponent(8)
   end
 
   def test_it_finds_rival
     assert_equal "FC Dallas", @season_stats.rival(8)
+  end
+
+  def test_highest_scoring_visitor
+    assert_equal "FC Dallas", @season_stats.highest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal "Real Salt Lake", @season_stats.highest_scoring_home_team
+  end
+
+  def test_lowest_scoring_visitor
+    assert_equal "Sporting Kansas City", @season_stats.lowest_scoring_visitor
+  end
+
+  def test_lowest_scoring_visitor
+    assert_equal "Sporting Kansas City", @season_stats.lowest_scoring_visitor
   end
 end

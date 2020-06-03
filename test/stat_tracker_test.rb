@@ -84,22 +84,20 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
   end
 
-  # def test_it_finds_lowest_scoring_vister
-  #
-  # end
+  def test_lowest_scoring_visitor
+    assert_equal "San Jose Earthquakes", @stat_tracker.lowest_scoring_visitor
+  end
 
-  # def test_it_finds_lowest_scoring_home_team
-
-  # end
+  def test_lowest_scoring_home_team
+    assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
+  end
 
   def test_it_finds_a_winningest_coach
-    season_id = "20122013"
-    assert_equal "Dan Lacroix", @stat_tracker.winningest_coach(season_id)
+    assert_equal "Dan Lacroix", @stat_tracker.winningest_coach("20122013")
   end
 
   def test_it_finds_worst_coach
-    season_id = "20122013"
-    assert_equal "Martin Raymond", @stat_tracker.worst_coach(season_id)
+    assert_equal "Martin Raymond", @stat_tracker.worst_coach("20122013")
   end
 
   def test_it_finds_most_accurate_team
@@ -117,13 +115,43 @@ class StatTrackerTest < MiniTest::Test
   def test_it_finds_team_with_least_tackles
     assert_equal "Atlanta United", @stat_tracker.least_tackles("20122013")
   end
+
+  def test_it_finds_team_info
+    expected = {"team_id"=>"8",
+                "franchise_id"=>"1",
+                "team_name"=>"New York Red Bulls",
+                "abbreviation"=>"NY",
+                "stadium"=>"Red Bull Arena",
+                "link"=>"/api/v1/teams/8"
+              }
+    assert_equal expected, @stat_tracker.team_info(8)
+  end
+
+  def test_it_finds_best_season
+    assert_equal "20132014", @stat_tracker.best_season(6)
+  end
+
+  def test_it_finds_worst_season
+    assert_equal "20142015", @stat_tracker.worst_season(6)
+  end
+
+  def test_it_finds_average_win_percentage
+    assert_equal 49.22, @stat_tracker.average_win_percentage(6)
+  end
+
+  def test_it_finds_most_goals_scored
+    assert_equal 7, @stat_tracker.most_goals_scored(18)
+  end
+
+  def test_it_finds_least_goals_scored
+    assert_equal 0, @stat_tracker.fewest_goals_scored(18)
+  end
+
+  def test_it_finds_favorite_opponent
+    assert_equal "DC United", @stat_tracker.favorite_opponent(18)
+  end
+
+  def test_it_finds_rival
+    assert_equal "North Carolina Courage", @stat_tracker.rival(18)
+  end
 end
-
-
-  # def test_it_finds_favorite_opponent
-  #   assert_equal "FC Dallas", @stat_tracker.favorite_opponent(8)
-  # end
-  #
-  # def test_it_finds_rival
-  #   assert_equal "FC Dallas", @stat_tracker.rival(8)
-  # end

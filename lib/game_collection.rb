@@ -1,9 +1,9 @@
 require_relative 'loadable'
 require_relative 'game'
+require_relative 'team_collection'
 
 class GameCollection
   include Loadable
-
   attr_reader :games_array
 
   def initialize(file_path)
