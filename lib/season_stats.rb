@@ -71,7 +71,8 @@ class SeasonStats
     end
     coach_n_wins = Hash.new(0)
     @game_team_collection.game_teams_array.count do |game_team|
-      if game_team.result == "LOSS" && game_team.game_id.slice(0..3) == season_id.slice(0..3)
+      if (game_team.result == "LOSS" || game_team.result == "TIE") &&
+        (game_team.game_id.slice(0..3) == season_id.slice(0..3))
         coach_n_wins[game_team.head_coach] += 1.0
       end
     coach_n_wins
@@ -82,7 +83,6 @@ class SeasonStats
     end
     coach_n_wins.key(coach_n_wins.values.max)
   end
-
 
   def most_accurate_team(season_id)
     team_id = game_teams_in_season(season_id).max_by do |game|
