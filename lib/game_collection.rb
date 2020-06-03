@@ -53,17 +53,17 @@ class GameCollection
   end
 
   def percentage_home_wins
-    percent = home_wins.count.to_f / @games_array.count.to_f * 100
+    percent = home_wins.count.to_f / @games_array.count.to_f
     percent.round(2)
   end
 
   def percentage_visitor_wins
-    percent = away_wins.count.to_f / @games_array.count.to_f * 100
+    percent = away_wins.count.to_f / @games_array.count.to_f
     percent.round(2)
   end
 
   def percentage_ties
-    percentage = ties.count.to_f / @games_array.count.to_f * 100
+    percentage = ties.count.to_f / @games_array.count.to_f
     percentage.round(2)
   end
 
