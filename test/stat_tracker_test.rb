@@ -89,7 +89,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_lowest_scoring_home_team
-    assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
+    assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_home_team
   end
 
   def test_it_finds_a_winningest_coach
@@ -121,7 +121,6 @@ class StatTrackerTest < MiniTest::Test
                 "franchise_id"=>"1",
                 "team_name"=>"New York Red Bulls",
                 "abbreviation"=>"NY",
-                "stadium"=>"Red Bull Arena",
                 "link"=>"/api/v1/teams/8"
               }
     assert_equal expected, @stat_tracker.team_info(8)
@@ -136,7 +135,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_finds_average_win_percentage
-    assert_equal 49.22, @stat_tracker.average_win_percentage(6)
+    assert_equal 0.49, @stat_tracker.average_win_percentage(6)
   end
 
   def test_it_finds_most_goals_scored

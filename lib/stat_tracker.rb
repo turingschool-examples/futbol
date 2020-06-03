@@ -86,8 +86,8 @@ class StatTracker
     @season_stats.lowest_scoring_visitor
   end
 
-  def highest_scoring_home_team
-    @season_stats.highest_scoring_home_team
+  def lowest_scoring_home_team
+    @season_stats.lowest_scoring_home_team
   end
 
   def winningest_coach(season_id)

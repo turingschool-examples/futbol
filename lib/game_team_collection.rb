@@ -59,7 +59,7 @@ class GameTeamCollection
         end
       end
     end
-    (games_won_that_season.values.sum / find_number_of_games_played_in_a_season(team_id).values.sum * 100).round(2)
+    (games_won_that_season.values.sum / find_number_of_games_played_in_a_season(team_id).values.sum).round(2)
   end
 
   def goals_scored(team_id)
