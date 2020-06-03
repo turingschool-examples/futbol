@@ -103,21 +103,20 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_finds_most_accurate_team
-    skip
-    assert_equal "New York City FC", @stat_tracker.most_accurate_team("20122013")
+    assert_equal "Washington Spirit FC", @stat_tracker.most_accurate_team("20122013")
   end
 
-  # def test_it_finds_least_accurate_team
-  #   assert_equal "New York Red Bulls", @stat_tracker.least_accurate_team("20122013")
-  # end
+  def test_it_finds_least_accurate_team
+    assert_equal "Sporting Kansas City", @stat_tracker.least_accurate_team("20122013")
+  end
 
-  # # def test_it_finds_team_with_most_tackles
-  # #   assert_equal "New York City FC", @stat_tracker.most_tackles("20122013")
-  # # end
-  # #
-  # # def test_it_finds_team_with_least_tackles
-  # #   assert_equal "FC Dallas", @stat_tracker.least_tackles("20122013")
-  # # end
+  def test_it_finds_team_with_most_tackles
+    assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20122013")
+  end
+
+  def test_it_finds_team_with_least_tackles
+    assert_equal "Atlanta United", @stat_tracker.least_tackles("20122013")
+  end
 end
 
 

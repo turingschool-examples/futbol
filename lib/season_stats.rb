@@ -119,27 +119,30 @@ class SeasonStats
     coach_n_wins.key(coach_n_wins.values.max)
   end
 
+
   def most_accurate_team(season_id)
-    team_id = @game_team_collection.game_teams_array.max_by do |game|
-      if season_id.slice(0..3) == game.game_id.slice(0..3)
-        game.goals.to_f / game.shots.to_f
-      end
+    team_id = game_teams_in_season(season_id).max_by do |game|
+      game.goals.to_f / game.shots.to_f
     end.team_id.to_i
     @team_collection.team_name_by_id(team_id)
   end
 
+  def game_teams_in_season(season_id)
+    @game_team_collection.game_teams_array.find_all do |game_team|
+      season_id.slice(0..3) == game_team.game_id.slice(0..3)
+    end
+  end
+
   def least_accurate_team(season_id)
-    team_id = @game_team_collection.game_teams_array.min_by do |game|
-      if season_id.slice(0..3) == game.game_id.slice(0..3)
-        game.goals.to_f / game.shots.to_f
-      end
+    team_id = game_teams_in_season(season_id).min_by do |game|
+      game.goals.to_f / game.shots.to_f
     end.team_id.to_i
     @team_collection.team_name_by_id(team_id)
   end
 
   def most_tackles(season_id)
     coach_tackles = Hash.new(0)
-    @game_team_collection.game_teams_array.sum do |game_team|
+    @game_team_collection.game_teams_array.each do |game_team|
       if game_team.game_id.slice(0..3) == season_id.slice(0..3)
         coach_tackles[game_team.team_id] += game_team.tackles.to_i
       end
@@ -150,7 +153,7 @@ class SeasonStats
 
   def least_tackles(season_id)
     coach_tackles = Hash.new(0)
-    @game_team_collection.game_teams_array.sum do |game_team|
+    @game_team_collection.game_teams_array.each do |game_team|
       if game_team.game_id.slice(0..3) == season_id.slice(0..3)
         coach_tackles[game_team.team_id] += game_team.tackles.to_i
       end

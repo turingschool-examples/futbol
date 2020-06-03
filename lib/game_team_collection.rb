@@ -16,8 +16,6 @@ class GameTeamCollection
     load_from_csv(file_path, GameTeams)
   end
 
-  
-
   def find_number_of_games_played_in_a_season(team_id)
     games_played_that_season = Hash.new(0)
     @game_teams_array.find_all do |team|

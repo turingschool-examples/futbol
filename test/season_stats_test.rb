@@ -59,13 +59,11 @@ class SeasonStatsTest < Minitest::Test
   end
 
   def test_it_finds_team_with_most_tackles
-    season_id = "20122013"
-    assert_equal "New York City FC", @season_stats.most_tackles(season_id)
+    assert_equal "New York City FC", @season_stats.most_tackles("20122013")
   end
 
   def test_it_finds_team_with_least_tackles
-    season_id = "20122013"
-    assert_equal "FC Dallas", @season_stats.least_tackles(season_id)
+    assert_equal "FC Dallas", @season_stats.least_tackles("20122013")
   end
 
   def test_it_finds_favorite_opponent
