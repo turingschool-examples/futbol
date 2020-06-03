@@ -56,7 +56,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_find_average_goals_per_game
-    assert_equal 2.11, @stat_tracker.average_goals_per_game
+    assert_equal 4.22, @stat_tracker.average_goals_per_game
   end
 
   def test_has_average_goals_by_season
@@ -69,11 +69,11 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_finds_best_offense
-    assert_equal "Sporting Kansas City", @stat_tracker.best_offense
+    assert_equal "Reign FC", @stat_tracker.best_offense
   end
 
   def test_it_finds_worst_offense
-      assert_equal "Reign FC", @stat_tracker.worst_offense
+      assert_equal "Utah Royals FC", @stat_tracker.worst_offense
   end
 
   def test_it_finds_highest_scoring_visitor

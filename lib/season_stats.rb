@@ -9,12 +9,17 @@ class SeasonStats
     @team_collection = team_collection
   end
 
+  def total_number_games_played
+    number_of_games_played_home_team.merge!(number_of_games_played_away_team)  { |k, o, n| o + n }
+  end
+
   def best_offense
     id_score = Hash.new(0)
     game_collection.games_array.map do |game|
-      id_score[game.away_team_id] += game.away_goals.to_i
-      id_score[game.home_team_id] += game.home_goals.to_i
+      id_score[game.home_team_id] += game.home_goals.to_f
+      id_score[game.away_team_id] += game.away_goals.to_f
     end
+    id_score.merge!(total_number_games_played)  { |k, o, n| o / n }
     id = id_score.key(id_score.values.max)
     found = team_collection.teams_array.find do |team|
       team.team_id == id
@@ -28,6 +33,7 @@ class SeasonStats
       id_score[game.away_team_id] += game.away_goals.to_i
       id_score[game.home_team_id] += game.home_goals.to_i
     end
+    id_score.merge!(total_number_games_played)  { |k, o, n| o / n }
     id = id_score.key(id_score.values.min)
     found = team_collection.teams_array.find do |team|
       team.team_id == id
@@ -179,17 +185,16 @@ class SeasonStats
       found
     end
   end
-
   def number_of_games_played_home_team
     @game_collection.games_array.reduce(Hash.new(0)) do |team, game|
-      team[game.home_team_id] += 1
+      team[game.home_team_id] += 1.0
       team
     end
   end
 
   def number_of_games_played_away_team
     @game_collection.games_array.reduce(Hash.new(0)) do |team, game|
-      team[game.away_team_id] += 1
+      team[game.away_team_id] += 1.0
       team
     end
   end

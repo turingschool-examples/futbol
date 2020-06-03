@@ -24,8 +24,13 @@ class SeasonStatsTest < Minitest::Test
     assert_equal @game_team_collection, @season_stats.game_team_collection
   end
 
+  def test_it_finds_total_games_played_by_team
+    @season_stats.expects(:total_number_games_played).returns({"6" => 10})
+    assert_equal ({"6" => 10}), @season_stats.total_number_games_played
+  end
+
   def test_it_finds_best_offense
-    assert_equal "FC Dallas", @season_stats.best_offense
+    assert_equal "Atlanta United", @season_stats.best_offense
   end
 
   def test_it_finds_worst_offense

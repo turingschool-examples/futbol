@@ -80,7 +80,7 @@ class GameCollection
   end
 
   def average_goals_per_game
-    average = sum_of_game_goals_list.sum / (@games_array.count * 2).to_f
+    average = sum_of_game_goals_list.sum / (@games_array.count).to_f
     average.round(2)
   end
 
@@ -90,7 +90,7 @@ class GameCollection
       values.each do |game|
         sum_total_score += game.away_goals.to_i + game.home_goals.to_i
       end
-      average_goals_per_season = sum_total_score / (values.count * 2).to_f
+      average_goals_per_season = sum_total_score / (values.count).to_f
       average_goals_per_season.round(2)
     end
   end
