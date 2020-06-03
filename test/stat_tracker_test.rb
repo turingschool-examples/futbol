@@ -59,22 +59,27 @@ class StatTrackerTest < MiniTest::Test
     end
 
     def test_it_can_determine_worst_offense
+      skip
       assert_equal "Houston Dynamo", @stat_tracker.worst_offense
     end
 
     def test_it_can_determine_highest_scoring_visitor
+      skip
       assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
     end
 
     def test_it_can_determine_lowest_scoring_visitor
+      skip
       assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
     end
 
     def test_it_can_determine_highest_scoring_home_team
+      skip
       assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
     end
 
     def test_it_can_determine_lowest_scoring_home_team
+      skip
       assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_visitor
     end
   end
@@ -103,27 +108,27 @@ class StatTrackerTest < MiniTest::Test
     end
 
     def test_it_can_return_percentage_home_wins
-      assert_equal 0.50, @stat_tracker.percentage_home_wins
+      assert_equal 0.60, @stat_tracker.percentage_home_wins
     end
 
     def test_it_can_return_percentage_visitor_wins
-      assert_equal 0.25, @stat_tracker.percentage_visitor_wins
+      assert_equal 0.20, @stat_tracker.percentage_visitor_wins
     end
 
     def test_it_can_return_percentage_ties
-      assert_equal 0.25, @stat_tracker.percentage_ties
+      assert_equal 0.20, @stat_tracker.percentage_ties
     end
 
     def test_it_can_return_count_of_games_by_season
-      assert_equal ({"20122013" => 3, "20142015" => 1}), @stat_tracker.count_of_games_by_season
+      assert_equal ({"20122013"=>3, "20142015"=>1, "20172018"=>1}), @stat_tracker.count_of_games_by_season
     end
 
     def test_it_can_return_average_goals_per_game
-      assert_equal 5, @stat_tracker.average_goals_per_game
+      assert_equal 4.8, @stat_tracker.average_goals_per_game
     end
 
     def test_it_can_return_average_goals_by_season
-      assert_equal ({"20122013" => 4.67, "20142015" => 6}), @stat_tracker.average_goals_by_season
+      assert_equal ({"20122013"=>4.67, "20142015"=>6.0, "20172018"=>4.0}), @stat_tracker.average_goals_by_season
     end
   end
 
