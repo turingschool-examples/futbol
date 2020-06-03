@@ -107,7 +107,7 @@ class StatTrackerTest < MiniTest::Test
     end
 
     def test_it_can_return_percentage_visitor_wins
-      assert_equal 0.25, @stat_tracker.percentage_visitor_wins
+      assert_equal 0.20, @stat_tracker.percentage_visitor_wins
     end
 
     def test_it_can_return_percentage_ties
