@@ -113,7 +113,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_finds_team_with_least_tackles
-    assert_equal "Atlanta United", @stat_tracker.least_tackles("20122013")
+    assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20122013")
   end
 
   def test_it_finds_team_info

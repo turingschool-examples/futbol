@@ -58,7 +58,7 @@ class SeasonStatsTest < Minitest::Test
   end
 
   def test_it_finds_team_with_least_tackles
-    assert_equal "FC Dallas", @season_stats.least_tackles("20122013")
+    assert_equal "FC Dallas", @season_stats.fewest_tackles("20122013")
   end
 
   def test_it_finds_number_of_games_vs_opponent

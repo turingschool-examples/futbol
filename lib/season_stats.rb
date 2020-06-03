@@ -115,7 +115,7 @@ class SeasonStats
     @team_collection.team_name_by_id(id_number.to_i)
   end
 
-  def least_tackles(season_id)
+  def fewest_tackles(season_id)
     coach_tackles = Hash.new(0)
     @game_team_collection.game_teams_array.each do |game_team|
       if game_team.game_id.slice(0..3) == season_id.slice(0..3)
