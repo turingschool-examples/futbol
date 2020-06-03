@@ -119,7 +119,7 @@ class StatTrackerTest < MiniTest::Test
     end
 
     def test_it_can_return_average_goals_per_game
-      assert_equal 5, @stat_tracker.average_goals_per_game
+      assert_equal 4.8, @stat_tracker.average_goals_per_game
     end
 
     def test_it_can_return_average_goals_by_season
