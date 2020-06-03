@@ -149,79 +149,96 @@ class StatTrackerTest < MiniTest::Test
     end
 
     def test_it_returns_team
-
+      skip
       assert @stat_tracker.team_info("1")
     end
 
     def test_it_returns_total_games
+      skip
       assert_equal 5, @stat_tracker.total_games("6")
     end
 
     def test_it_counts_wins
+      skip
       assert_equal 3, @stat_tracker.count_wins("6", 4)
     end
 
     def test_it_returns_total_wins_per_season
+      skip
       assert_equal ({"20122013" => 3}), @stat_tracker.total_team_wins_per_season("6")
     end
 
     def test_it_returns_win_percentage_per_season
+      skip
       assert_equal ({"20122013"=>1.0, "20142015"=>0.0, "20172018"=>0.0}), @stat_tracker.percentage_wins_per_season("6")
     end
 
     def test_it_can_return_best_season
+      skip
       assert_equal "20122013", @stat_tracker.best_season("6")
     end
 
     def test_it_can_return_worst_season
+      skip
       assert_equal "20172018", @stat_tracker.worst_season("6")
     end
 
     def test_it_returns_average_win_percentage
+      skip
       assert_equal 0.6, @stat_tracker.average_win_percentage("6")
     end
 
     def test_it_returns_most_goals_scored
+      skip
       assert_equal 3, @stat_tracker.most_goals_scored("6")
     end
 
     def test_it_returns_fewest_goals_scored
+      skip
       assert_equal 1, @stat_tracker.fewest_goals_scored("6")
     end
 
     def test_it_returns_favorite_opponent
+      skip
       assert_equal "Houston Dynamo", @stat_tracker.favorite_opponent("6")
     end
 
     def test_it_can_return_rival
+      skip
       assert_equal "North Carolina Courage", @stat_tracker.rival("6")
     end
 
     def test_season_games
+      skip
       assert_equal 1323, @stat_tracker.season_games("20132014").count
       assert_equal 1319, @stat_tracker.season_games("20142015").count
     end
 
     def test_winningest_coach
+      skip
       assert_equal "Claude Julien", @stat_tracker.winningest_coach("20132014")
       assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
     end
 
     def test_worst_coach
+      skip
       assert_equal "Peter Laviolette", @stat_tracker.worst_coach("20132014")
     end
 
     def test_most_tackles
+      skip
       assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
       assert_equal "Seattle Sounders FC", @stat_tracker.most_tackles("20142015")
     end
 
     def test_fewest_tackles
+      skip
       assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
       assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
     end
 
     def test_most_accurate_team
+      skip
       assert_equal "Real Salt Lake", @stat_tracker.most_accurate_team("20132014")
       assert_equal "Toronto FC", @stat_tracker.most_accurate_team("20142015")
     end
