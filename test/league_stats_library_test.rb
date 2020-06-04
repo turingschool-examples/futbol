@@ -28,4 +28,37 @@ class LeagueStatsLibraryTest < MiniTest::Test
   def test_it_exists
     assert_instance_of LeagueStatsLibrary, @league_stats
   end
+
+  def test_it_can_do_count_of_teams
+    assert_equal 6, @league_stats.count_of_teams
+  end
+
+  def test_it_can_determine_best_offense
+    assert_equal "FC Dallas", @league_stats.best_offense
+  end
+
+  def test_it_can_determine_worst_offense
+    skip
+    assert_equal "Houston Dynamo", @league_stats.worst_offense
+  end
+
+  def test_it_can_determine_highest_scoring_visitor
+    skip
+    assert_equal "FC Dallas", @league_stats.highest_scoring_visitor
+  end
+
+  def test_it_can_determine_lowest_scoring_visitor
+    skip
+    assert_equal "Houston Dynamo", @league_stats.lowest_scoring_visitor
+  end
+
+  def test_it_can_determine_highest_scoring_home_team
+    skip
+    assert_equal "FC Dallas", @league_stats.highest_scoring_visitor
+  end
+
+  def test_it_can_determine_lowest_scoring_home_team
+    skip
+    assert_equal "Houston Dynamo", @league_stats.lowest_scoring_visitor
+  end
 end
