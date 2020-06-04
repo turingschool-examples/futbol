@@ -935,8 +935,15 @@
           null,
           null
         ]
+      },
+      "/Users/jejdelman/turing/module1/futbol/lib/game_stats_library.rb": {
+        "lines": [
+          1,
+          null,
+          null
+        ]
       }
     },
-    "timestamp": 1591273517
+    "timestamp": 1591274112
   }
 }

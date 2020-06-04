@@ -20,8 +20,8 @@ class StatisticsLibraryTest < MiniTest::Test
       teams: team_path,
       game_teams: game_teams_path
     }
-    stats_lib = StatisticsLibray.new(info)
+    stats_lib = StatisticsLibrary.new(info)
 
-    assert_instance_of StatisticsLibray, stats_lib
+    assert_instance_of StatisticsLibrary, stats_lib
   end
 end

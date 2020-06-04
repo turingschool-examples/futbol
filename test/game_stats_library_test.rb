@@ -8,7 +8,22 @@ require './lib/team'
 require './lib/game_collection'
 require './lib/team_collection'
 require './lib/statistics_library'
+require './lib/game_stats_library'
 
 class GameStatsLibraryTest < MiniTest::Test
-  
+  def test_it_exists
+    game_path = './data/games_fixture.csv'
+    team_path = './data/teams_fixture.csv'
+    game_teams_path = './data/game_teams_fixture.csv'
+
+    info = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    
+    game_stats = GameStatsLibrary.new(info)
+
+    assert_instance_of GameStatsLibrary, game_stats
+  end
 end
