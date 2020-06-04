@@ -46,9 +46,7 @@ class StatTracker
     end
 
     teams.find do |team|
-      if team.id.to_i == best_team[0]
-        team.name
-      end
+      team.id.to_i == best_team[0]
     end.name
   end
 end
