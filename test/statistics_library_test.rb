@@ -24,6 +24,4 @@ class StatisticsLibrayTest < MiniTest::Test
 
     assert_instance_of StatisticsLibray, stats_lib
   end
-
-
 end
