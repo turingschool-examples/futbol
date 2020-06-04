@@ -105,44 +105,35 @@ class StatTracker
     end.name
   end
 
+  def lowest_scoring_visitor
+    away_teams = game_teams.find_all do |game_by_team|
+      game_by_team.hoa == "away"
+    end
+    # away_teams is an array of GameTeam objects
+    teams_with_goals = {}
+    away_teams.each do |game_team|
+      teams_with_goals[game_team.team_id] = game_team.goals if teams_with_goals[game_team.team_id].nil?
+      teams_with_goals[game_team.team_id] += game_team.goals
+    end
+    duplicated_games = game_teams.count  {|game_by_team| game_by_team.game_id}
+    game_number = (duplicated_games - (duplicated_games%2)) / 2
 
+    teams_with_goals.update(teams_with_goals) do |team, goals|
+      goals.to_f / game_number
+    end
 
-  #  each_game = game_stats.map do |row|
+    lowest_visitor = teams_with_goals.each_pair.reduce do |result, key_value|
+      if key_value[1] < result[1]
+        key_value
+      else
+        result
+      end
+    end
 
-
-    # each_game = each_game.group_by do |game_team|
-    #   game_team.team_id
-    # end
-    #
-    # average_goals_per_team = {}
-    # each_game = each_game.each_value do |game_teams_array|
-    #   team_goals = game_teams_array.map do |game_team|
-    #     game_team.goals
-    #   end
-    #
-    #   game_number = team_goals.count
-    #   game_team = game_teams_array[0]
-    #   team_id = game_team.team_id
-    #   average_goals = (team_goals.sum.to_f)/game_number.to_f
-    #   average_goals_per_team[team_id] = average_goals
-    # end
-    #
-    # best_team = average_goals_per_team.each_pair.reduce do |memo, key_value|
-    #   if key_value[1] > memo[1]
-    #     key_value
-    #   else
-    #     memo
-    #   end
-    # end
-    #
-    # correct_team = nil
-    # each_team.find do |team|
-    #   if team.id.to_i == best_team[0]
-    #     correct_team = team.name
-    #   end
-    # end
-    #
-    # correct_team
+    teams.find do |team|
+      team.id.to_i == lowest_visitor[0]
+    end.name
+  end
 end
 
   # highest_scoring_visitor	Name of the team with the highest average score per game across all seasons when they are away.	String
