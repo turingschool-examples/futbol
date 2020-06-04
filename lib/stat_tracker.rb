@@ -49,6 +49,31 @@ class StatTracker
       team.id.to_i == best_team[0]
     end.name
   end
+
+  def worst_offense
+    teams_with_total_scores = Hash.new
+    game_teams.each do |game_by_team|
+      teams_with_total_scores[game_by_team.team_id] = game_by_team.goals if teams_with_total_scores[game_by_team.team_id].nil?
+      teams_with_total_scores[game_by_team.team_id] += game_by_team.goals
+    end
+    duplicated_games = game_teams.count  {|game_by_team| game_by_team.game_id}
+    game_number = (duplicated_games - (duplicated_games%2)) / 2
+    average_goals = teams_with_total_scores.each_value do |score|
+      score/game_number
+    end
+
+    worst_team = average_goals.each_pair.reduce do |result, key_value|
+      if key_value[1] < result[1]
+        key_value
+      else
+        result
+      end
+    end
+
+    teams.find do |team|
+      team.id.to_i == worst_team[0]
+    end.name
+  end
 end
 
 
