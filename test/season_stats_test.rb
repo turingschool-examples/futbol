@@ -45,6 +45,16 @@ class SeasonStatsTest < Minitest::Test
     assert_equal "John Tortorella", @season_stats.worst_coach("20122013")
   end
 
+  def test_it_has_team_shots_total
+    expected = ({"3"=>31.0, "6"=>38.0, "9"=>29.0, "8"=>35.0})
+    assert_equal expected, @season_stats.team_shots_total("20122013")
+  end
+
+  def test_it_has_team_goals_total
+    expected = ({"3"=>7.0, "6"=>11.0, "9"=>10.0, "8"=>8.0})
+    assert_equal expected, @season_stats.team_goals_total("20122013")
+  end
+
   def test_it_has_most_accurate_team
     assert_equal "Houston Dynamo", @season_stats.most_accurate_team("20122013")
   end
