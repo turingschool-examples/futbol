@@ -134,9 +134,64 @@ class StatTracker
       team.id.to_i == lowest_visitor[0]
     end.name
   end
-end
 
-  # highest_scoring_visitor	Name of the team with the highest average score per game across all seasons when they are away.	String
-  # highest_scoring_home_team	Name of the team with the highest average score per game across all seasons when they are home.	String
-  # lowest_scoring_visitor	Name of the team with the lowest average score per game across all seasons when they are a visitor.	String
-  # lowest_scoring_home_team	Name of the team with the lowest average score per game across all seasons when they are at home.	String
+  def highest_scoring_home_team
+    home_teams = game_teams.find_all do |game_by_team|
+      game_by_team.hoa == "home"
+    end
+    # away_teams is an array of GameTeam objects
+    teams_with_goals = {}
+    home_teams.each do |game_team|
+      teams_with_goals[game_team.team_id] = game_team.goals if teams_with_goals[game_team.team_id].nil?
+      teams_with_goals[game_team.team_id] += game_team.goals
+    end
+    duplicated_games = game_teams.count  {|game_by_team| game_by_team.game_id}
+    game_number = (duplicated_games - (duplicated_games%2)) / 2
+
+    teams_with_goals.update(teams_with_goals) do |team, goals|
+      goals.to_f / game_number
+    end
+
+    highest_home = teams_with_goals.each_pair.reduce do |result, key_value|
+      if key_value[1] > result[1]
+        key_value
+      else
+        result
+      end
+    end
+
+    teams.find do |team|
+      team.id.to_i == highest_home[0]
+    end.name
+  end
+
+  def lowest_scoring_home_team
+    home_teams = game_teams.find_all do |game_by_team|
+      game_by_team.hoa == "home"
+    end
+    # away_teams is an array of GameTeam objects
+    teams_with_goals = {}
+    home_teams.each do |game_team|
+      teams_with_goals[game_team.team_id] = game_team.goals if teams_with_goals[game_team.team_id].nil?
+      teams_with_goals[game_team.team_id] += game_team.goals
+    end
+    duplicated_games = game_teams.count  {|game_by_team| game_by_team.game_id}
+    game_number = (duplicated_games - (duplicated_games%2)) / 2
+
+    teams_with_goals.update(teams_with_goals) do |team, goals|
+      goals.to_f / game_number
+    end
+
+    lowest_home = teams_with_goals.each_pair.reduce do |result, key_value|
+      if key_value[1] > result[1]
+        key_value
+      else
+        result
+      end
+    end
+
+    teams.find do |team|
+      team.id.to_i == lowest_home[0]
+    end.name
+  end
+end
