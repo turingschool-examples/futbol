@@ -4,26 +4,14 @@ require_relative './game_teams'
 require_relative './game_collection'
 require_relative './team_collection'
 require_relative './game_teams_collection'
-require 'csv'
-require 'pry'
 
-class StatTracker
+class TeamStatisticsLibrary < StatisticsLibrary
   attr_reader :games,
               :teams,
               :game_teams
 
-  def initialize(info)
-    @games = GameCollection.new(info[:games])
-    @teams = TeamCollection.new(info[:teams])
-    @game_teams = GameTeamsCollection.new(info[:game_teams])
-  end
-
-  def self.from_csv(info)
-    StatTracker.new(info)
-  end
-
   def team_info(id)
-    all_teams = @teams.all
+    all_teams = @teams
     found_team = all_teams.find do |team|
       team.id == id
     end
