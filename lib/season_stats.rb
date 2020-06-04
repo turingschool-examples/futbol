@@ -88,6 +88,7 @@ class SeasonStats
     team_id = game_teams_in_season(season_id).max_by do |game|
       game.goals.to_f / game.shots.to_f
     end.team_id.to_i
+    require"pry"; binding.pry
     @team_collection.team_name_by_id(team_id)
   end
 
@@ -185,6 +186,7 @@ class SeasonStats
       found
     end
   end
+
   def number_of_games_played_home_team
     @game_collection.games_array.reduce(Hash.new(0)) do |team, game|
       team[game.home_team_id] += 1.0
