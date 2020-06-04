@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/nickedwin/turing/1module/futbol_main/futbol/lib/team.rb": {
+      "/Users/ryn/turing/1module/projects/futbol_main/futbol/lib/team.rb": {
         "lines": [
           1,
           1,
@@ -22,7 +22,7 @@
           null
         ]
       },
-      "/Users/nickedwin/turing/1module/futbol_main/futbol/lib/game.rb": {
+      "/Users/ryn/turing/1module/projects/futbol_main/futbol/lib/game.rb": {
         "lines": [
           1,
           1,
@@ -51,7 +51,7 @@
           null
         ]
       },
-      "/Users/nickedwin/turing/1module/futbol_main/futbol/lib/team_collection.rb": {
+      "/Users/ryn/turing/1module/projects/futbol_main/futbol/lib/team_collection.rb": {
         "lines": [
           1,
           1,
@@ -75,8 +75,8 @@
           null,
           1,
           null,
-          18,
-          2,
+          37,
+          4,
           null,
           null,
           1,
@@ -92,7 +92,7 @@
           null
         ]
       },
-      "/Users/nickedwin/turing/1module/futbol_main/futbol/lib/loadable.rb": {
+      "/Users/ryn/turing/1module/projects/futbol_main/futbol/lib/loadable.rb": {
         "lines": [
           1,
           null,
@@ -104,7 +104,7 @@
           null
         ]
       },
-      "/Users/nickedwin/turing/1module/futbol_main/futbol/lib/season_stats.rb": {
+      "/Users/ryn/turing/1module/projects/futbol_main/futbol/lib/season_stats.rb": {
         "lines": [
           1,
           1,
@@ -193,34 +193,41 @@
           null,
           null,
           1,
+          2,
+          2,
+          32,
+          32,
+          null,
+          2,
+          null,
+          null,
           1,
-          0,
+          2,
+          2,
+          32,
+          32,
+          null,
+          2,
           null,
           null,
+          1,
+          1,
+          1,
+          5,
+          1,
+          4,
+          null,
+          1,
           null,
           null,
+          1,
+          1,
+          1,
+          5,
+          1,
+          4,
           null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
+          1,
           null,
           null,
           1,
@@ -373,7 +380,7 @@
           null
         ]
       },
-      "/Users/nickedwin/turing/1module/futbol_main/futbol/lib/game_collection.rb": {
+      "/Users/ryn/turing/1module/projects/futbol_main/futbol/lib/game_collection.rb": {
         "lines": [
           1,
           1,
@@ -474,7 +481,7 @@
           null
         ]
       },
-      "/Users/nickedwin/turing/1module/futbol_main/futbol/lib/game_team_collection.rb": {
+      "/Users/ryn/turing/1module/projects/futbol_main/futbol/lib/game_team_collection.rb": {
         "lines": [
           1,
           1,
@@ -560,7 +567,7 @@
           null
         ]
       },
-      "/Users/nickedwin/turing/1module/futbol_main/futbol/lib/game_teams.rb": {
+      "/Users/ryn/turing/1module/projects/futbol_main/futbol/lib/game_teams.rb": {
         "lines": [
           1,
           1,
@@ -600,14 +607,6 @@
         ]
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "timestamp": 1591133836
-=======
-    "timestamp": 1591229560
->>>>>>> 5d551e93327aabcd9472a69e85a61c35da0b7263
-=======
-    "timestamp": 1591231989
->>>>>>> 438c2a2d2ffcad9129f43d490ab7a1fdc4208c0c
+    "timestamp": 1591278297
   }
 }

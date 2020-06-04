@@ -46,11 +46,11 @@ class SeasonStatsTest < Minitest::Test
   end
 
   def test_it_has_most_accurate_team
-    assert_equal "New York City FC", @season_stats.most_accurate_team("20122013")
+    assert_equal "Houston Dynamo", @season_stats.most_accurate_team("20122013")
   end
 
   def test_it_has_least_accurate_team
-    assert_equal "New York Red Bulls", @season_stats.least_accurate_team("20122013")
+    assert_equal "New York City FC", @season_stats.least_accurate_team("20122013")
   end
 
   def test_it_finds_team_with_most_tackles

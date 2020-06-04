@@ -84,36 +84,43 @@ class SeasonStats
     coach_n_wins.key(coach_n_wins.values.max)
   end
 
-  def most_accurate_team(season_id)
-    @game_collection.games_array.sum {|game| game.goals.to_f } /
-    @game_collection.games_array.sum {|game| game.shots }
-    # team_shots_total(season_id).merge!(team_goals_total(season_id))  { |k, o, n| o / n }
-    # team_shots_total.key(team_shots_total).values.max
+  def team_shots_total(season_id)
+    team_n_shots = Hash.new(0)
+    @game_team_collection.game_teams_array.find_all do |game_team|
+      season_id.slice(0..3) == game_team.game_id.slice(0..3)
+      team_n_shots[game_team.team_id] += game_team.shots.to_f
+    end
+    team_n_shots
   end
 
-  # def team_shots_total(season_id)
-  #   team_n_shots = Hash.new(0)
-  #   @game_team_collection.game_teams_array.find_all do |game_team|
-  #     season_id.slice(0..3) == game_team.game_id.slice(0..3)
-  #     team_n_shots[game_team.team_id] += game_team.shots.to_f
-  #   end
-  #   team_n_shots
-  # end
+  def team_goals_total(season_id)
+    team_n_goals = Hash.new(0)
+    @game_team_collection.game_teams_array.find_all do |game_team|
+      season_id.slice(0..3) == game_team.game_id.slice(0..3)
+      team_n_goals[game_team.team_id] += game_team.goals.to_f
+    end
+    team_n_goals
+  end
 
-  # def team_goals_total(season_id)
-  #   team_n_goals = Hash.new(0)
-  #   @game_team_collection.game_teams_array.find_all do |game_team|
-  #     season_id.slice(0..3) == game_team.game_id.slice(0..3)
-  #     team_n_goals[game_team.team_id] += game_team.goals.to_f
-  #   end
-  #   team_n_goals
-  # end
-  # def least_accurate_team(season_id)
-  #   team_id = game_teams_in_season(season_id).min_by do |game|
-  #     game.shots.to_f / game.goals.to_f
-  #   end.team_id.to_i
-  #   @team_collection.team_name_by_id(team_id)
-  # end
+  def most_accurate_team(season_id)
+    most_accurate_team = []
+    team_ratios = Hash.new(0)
+    team_ratios = team_shots_total(season_id).merge!(team_goals_total(season_id))  { |k, o, n| o / n}
+    most_accurate_team = team_ratios.max_by do |team, ratio|
+      ratio
+    end
+    @team_collection.team_name_by_id(most_accurate_team[0].to_i)
+  end
+
+  def least_accurate_team(season_id)
+    lease_accurate_team = []
+    team_ratios = Hash.new(0)
+    team_ratios = team_shots_total(season_id).merge!(team_goals_total(season_id))  { |k, o, n| o / n}
+    least_accurate_team = team_ratios.min_by do |team, ratio|
+      ratio
+    end
+    @team_collection.team_name_by_id(least_accurate_team[0].to_i)
+  end
 
   def most_tackles(season_id)
     coach_tackles = Hash.new(0)
