@@ -6,5 +6,3 @@ module Loadable
     csv.map { |row| class_constant.new(row) }
   end
 end
-
-## memoization

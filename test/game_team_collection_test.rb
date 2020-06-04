@@ -38,15 +38,15 @@ class GameTeamCollectionTest < Minitest::Test
   end
 
   def test_it_finds_best_season
-    assert_equal "20162017", @game_team_collection.best_season(8)
+    assert_equal "20142015", @game_team_collection.best_season(8)
   end
 
   def test_it_finds_worst_season
-    assert_equal "20142015", @game_team_collection.worst_season(8)
+    assert_equal "20172018", @game_team_collection.worst_season(8)
   end
 
   def test_it_finds_average_win_percentage
-    assert_equal 41.77, @game_team_collection.average_win_percentage(8)
+    assert_equal 0.42, @game_team_collection.average_win_percentage(8)
   end
 
   def test_it_finds_most_goals_scored

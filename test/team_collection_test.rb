@@ -34,7 +34,6 @@ class TeamCollectionTest < Minitest::Test
                 "franchise_id"=>"1",
                 "team_name"=>"New York Red Bulls",
                 "abbreviation"=>"NY",
-                "stadium"=>"Red Bull Arena",
                 "link"=>"/api/v1/teams/8"
               }
     assert_equal expected, @team_collection.team_info(8)

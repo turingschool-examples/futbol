@@ -25,12 +25,13 @@ class TeamCollection
   end
 
   def team_info(team_id)
-    x = {}
+    team_information = {}
     @teams_array.find_all do |team|
       if team.team_id == team_id.to_s
-        x = team.instance_variables.each_with_object({}) { |var, hash| hash[var.to_s.delete("@")] = team.instance_variable_get(var) }
-    return x
+        team_information = team.instance_variables.each_with_object({}) { |var, hash| hash[var.to_s.delete("@")] = team.instance_variable_get(var) }
+        team_information.delete("stadium")
       end
     end
+    team_information
   end
 end

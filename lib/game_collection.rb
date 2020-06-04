@@ -1,9 +1,9 @@
 require_relative 'loadable'
 require_relative 'game'
+require_relative 'team_collection'
 
 class GameCollection
   include Loadable
-
   attr_reader :games_array
 
   def initialize(file_path)
@@ -53,17 +53,17 @@ class GameCollection
   end
 
   def percentage_home_wins
-    percent = home_wins.count.to_f / @games_array.count.to_f * 100
+    percent = home_wins.count.to_f / @games_array.count.to_f
     percent.round(2)
   end
 
   def percentage_visitor_wins
-    percent = away_wins.count.to_f / @games_array.count.to_f * 100
+    percent = away_wins.count.to_f / @games_array.count.to_f
     percent.round(2)
   end
 
   def percentage_ties
-    percentage = ties.count.to_f / @games_array.count.to_f * 100
+    percentage = ties.count.to_f / @games_array.count.to_f
     percentage.round(2)
   end
 
@@ -80,7 +80,7 @@ class GameCollection
   end
 
   def average_goals_per_game
-    average = sum_of_game_goals_list.sum / (@games_array.count * 2).to_f
+    average = sum_of_game_goals_list.sum / (@games_array.count).to_f
     average.round(2)
   end
 
@@ -90,7 +90,7 @@ class GameCollection
       values.each do |game|
         sum_total_score += game.away_goals.to_i + game.home_goals.to_i
       end
-      average_goals_per_season = sum_total_score / (values.count * 2).to_f
+      average_goals_per_season = sum_total_score / (values.count).to_f
       average_goals_per_season.round(2)
     end
   end

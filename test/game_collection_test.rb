@@ -55,20 +55,19 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_it_has_percentage_home_wins
-    assert_equal 48.15, @game_collection.percentage_home_wins
+    assert_equal 0.48, @game_collection.percentage_home_wins
   end
 
   def test_it_has_percentage_visitor_wins
-    assert_equal 33.33, @game_collection.percentage_visitor_wins
+    assert_equal 0.33, @game_collection.percentage_visitor_wins
   end
 
   def test_it_has_percentage_ties
-    assert_equal 18.52, @game_collection.percentage_ties
+    assert_equal 0.19, @game_collection.percentage_ties
   end
 
   def test_it_can_categorize_games_by_season
-    expected = 12
-    assert_equal expected, @game_collection.games_by_season["20122013"].count
+    assert_equal 12, @game_collection.games_by_season["20122013"].count
   end
 
   def test_it_finds_count_of_games_by_season
@@ -76,12 +75,11 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_it_can_find_average_goals_per_game
-    assert_equal 2.06, @game_collection.average_goals_per_game
+    assert_equal 4.11, @game_collection.average_goals_per_game
   end
 
   def test_has_average_goals_by_season
-    expected = {"20122013"=>2.0, "20132014"=>2.0, "20172018"=>1.83, "20162017"=>2.17, "20152016"=>2.0, "20142015"=>2.3}
-
+    expected = {"20122013"=>4.0, "20132014"=>4.0, "20172018"=>3.67, "20162017"=>4.33, "20152016"=>4.0, "20142015"=>4.6}
     assert_equal expected, @game_collection.average_goals_by_season
   end
 end
