@@ -11,14 +11,19 @@ class StatTracker
               :teams,
               :game_teams
 
-  def initialize(info)
-    @games = GameCollection.all(info[:games])
-    @teams = TeamCollection.all(info[:teams])
-    @game_teams = GameTeamsCollection.all(info[:game_teams])
+  def self.from_csv(info)
+    LeagueStatisticsLibrary.new(info)
+    GameStatisticsLibrary.new(info)
+    TeamStatisticsLibrary.new(info)
+    SeasonStatisticsLibrary.new(info)
+    StatTracker.new(info)
   end
 
-  def self.from_csv(info)
-    StatTracker.new(info)
+  def initialize(team_stats, game_stats, league_stats, sesason_stats)
+    @team_stats = team_stats
+    @game_stats = game_stats
+    @league_stats = league_stats
+    @season_stats = season_stats
   end
 
   # Game Statistics Methods
