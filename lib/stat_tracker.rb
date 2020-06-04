@@ -620,7 +620,6 @@ class StatTracker
 
   def winningest_coach(season)
         season_game_array = season_games(season)
-        require "pry"
         binding.pry
         win_percent = Hash.new(0)
         total_coach_games = coach_games(season_game_array)
@@ -634,8 +633,6 @@ class StatTracker
         coach_winner = win_percent.max_by do |key, value|
         win_percent[key]
       end
-      require "pry"
-      binding.pry
       coach_winner.first
   end
 
