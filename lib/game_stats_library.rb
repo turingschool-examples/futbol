@@ -1,0 +1,2 @@
+class GameStatsLibrary < StatisticsLibrary
+end

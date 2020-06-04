@@ -9,7 +9,7 @@ require './lib/game_collection'
 require './lib/team_collection'
 require './lib/statistics_library'
 
-class StatisticsLibrayTest < MiniTest::Test
+class StatisticsLibraryTest < MiniTest::Test
   def test_it_exists
     game_path = './data/games_fixture.csv'
     team_path = './data/teams_fixture.csv'
