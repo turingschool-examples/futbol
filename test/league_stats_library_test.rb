@@ -38,27 +38,22 @@ class LeagueStatsLibraryTest < MiniTest::Test
   end
 
   def test_it_can_determine_worst_offense
-    skip
     assert_equal "Houston Dynamo", @league_stats.worst_offense
   end
 
   def test_it_can_determine_highest_scoring_visitor
-    skip
     assert_equal "FC Dallas", @league_stats.highest_scoring_visitor
   end
 
   def test_it_can_determine_lowest_scoring_visitor
-    skip
     assert_equal "Houston Dynamo", @league_stats.lowest_scoring_visitor
   end
 
   def test_it_can_determine_highest_scoring_home_team
-    skip
     assert_equal "FC Dallas", @league_stats.highest_scoring_visitor
   end
 
   def test_it_can_determine_lowest_scoring_home_team
-    skip
     assert_equal "Houston Dynamo", @league_stats.lowest_scoring_visitor
   end
 end
