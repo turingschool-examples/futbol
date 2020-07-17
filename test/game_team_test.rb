@@ -3,15 +3,32 @@ require 'minitest/pride'
 require './lib/game_team'
 
 class GameTeamTest < Minitest::Test
-  def test_it_exists
-    test1 = GameTeam.new('2012030221,3,away,LOSS,OT,John Tortorella,2,8,44,8,3,0,44.8,17,7')
 
+  def setup
+    test1 = GameTeam.new('
+      2012030221,
+      3,
+      away,
+      LOSS,
+      OT,
+      John Tortorella,
+      2,
+      8,
+      44,
+      8,
+      3,
+      0,
+      44.8,
+      17,
+      7
+    ')
+  end
+
+  def test_it_exists
     assert_instance_of GameTeam, test1
   end
 
   def test_has_attributes
-    test1 = GameTeam.new('2012030221,3,away,LOSS,OT,John Tortorella,2,8,44,8,3,0,44.8,17,7')
-
     assert_equal 2012030221, test1.game_id
     assert_equal 3, test1.team_id
     assert_equal 'away', test1.hOa
