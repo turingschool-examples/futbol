@@ -1,7 +1,11 @@
 class StatTracker
  #attr_reader
-  #def initialize(*arg)
+  def self.from_csv(locations)
+    StatTracker.new
+  end
 
-  #end
+  def initialize
+
+  end
 
 end
