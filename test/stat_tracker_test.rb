@@ -30,7 +30,18 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_dummy_data_is_parsed
-
+    stat_tracker = StatTracker.new(@locations)
+    expected = [
+                ["2012030221",
+                  "20122013",
+                  "Postseason",
+                  "5/16/13",
+                  "3","6","2","3",
+                  "Toyota Stadium",
+                  "/api/v1/venues/null"]
+              ]
+  
+    assert_equal expected, stat_tracker.data[:games].parse("2012030221","20122013","Postseason","5/16/13","3","6","2","3","Toyota Stadium","/api/v1/venues/null")
   end
 
 end
