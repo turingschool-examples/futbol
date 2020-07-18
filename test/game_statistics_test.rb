@@ -27,7 +27,7 @@ class GameStatisticsTest < MiniTest::Test
 
   def test_highest_total_score
     game_statistics = GameStatistics.new
-    require "pry"; binding.pry
+    new_hash = CreateHash.new()
     array_dummy = CSV.read(@locations[:games])
 
     assert_equal 5, game_statistics.highest_total_score
