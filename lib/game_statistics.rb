@@ -5,8 +5,8 @@ class GameStatistics
     @games_hash = games_hash
   end
 
-  def highest_total_score
-    total_scores.max
+  def data_size
+    @games_hash["game_id"].size
   end
 
   def total_scores
@@ -16,9 +16,11 @@ class GameStatistics
       acc << @games_hash["away_goals"][index].to_i + @games_hash["home_goals"][index].to_i
       index += 1
     end
+    acc
   end
 
-  def data_size
-    @games_hash["game_id"].size
+  def highest_total_score
+    total_scores.max
   end
+
 end
