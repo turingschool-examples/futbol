@@ -43,6 +43,16 @@ class StatTracker
     coach_wins
   end
 
-
+  def winning_percentage(season_id)
+    coach_winning_percentage = Hash.new(0)
+    games_won(season_id).each do |won_key, won_value|
+      games_coached(season_id).each do |coached_key, coached_value|
+        if won_key == coached_key
+          coach_winning_percentage[coached_key] = (won_value.to_f / coached_value).round(3)
+        end
+      end
+    end
+    coach_winning_percentage
+  end
 
 end
