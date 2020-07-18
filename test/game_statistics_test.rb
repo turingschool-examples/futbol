@@ -42,9 +42,13 @@ class GameStatisticsTest < MiniTest::Test
   end
 
   def test_read_csv_file
-    hash_dummy = CSV.read('./data/dummy_file_games.csv')
+    array_dummy = CSV.read('./data/dummy_file_games.csv')
     binding.pry
-  end
 
+  end
+  def test_create_hash
+
+    assert_equal 19, game_statistics.stat_hash["game_id"]
+  end
 
 end
