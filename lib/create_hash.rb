@@ -1,0 +1,3 @@
+class CreateHash
+
+end
