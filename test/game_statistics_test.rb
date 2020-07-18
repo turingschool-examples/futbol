@@ -24,7 +24,7 @@ class GameStatisticsTest < MiniTest::Test
   end
 
   def test_it_exists
-    game_statistics = GameStatistics.new
+    game_statistics = GameStatistics.new(@game_hash.stat_hash)
 
     assert_instance_of GameStatistics, game_statistics
   end
