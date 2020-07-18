@@ -7,5 +7,7 @@ class GameStatistics
     @stat_hash = game_stats[:stat_hash]
   end
 
-   
+  def create_stat_hash
+
+  end
 end
