@@ -26,10 +26,10 @@ class GameStatisticsTest < MiniTest::Test
   end
 
   def test_highest_total_score
-    game_statistics = GameStatistics.new
     new_hash = CreateHash.new()
     array_dummy = CSV.read(@locations[:games])
-    new_hash.create_stat_hash_keys(array_dummy)
+    games_hash = new_hash.create_stat_hash_keys(array_dummy)
+    game_statistics = GameStatistics.new(games_hash)
 
     assert_equal 5, game_statistics.highest_total_score
   end
