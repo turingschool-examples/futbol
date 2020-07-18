@@ -20,47 +20,12 @@ class GameStatisticsTest < MiniTest::Test
 
   def test_it_exists
     game_statistics = GameStatistics.new
+    
     assert_instance_of GameStatistics, game_statistics
   end
 
   def test_highest_total_score
     skip
     assert_equal 5, game_statistics.highest_total_score
-  end
-
-  def test_parse_games
-    expected = [
-                ["2012030221",
-                  "20122013",
-                  "Postseason",
-                  "5/16/13",
-                  "3","6","2","3",
-                  "Toyota Stadium",
-                  "/api/v1/venues/null"]
-              ]
-
-    assert_equal expected, CSV.parse("2012030221,20122013,Postseason,5/16/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null")
-  end
-
-  def test_read_csv_file
-    skip
-    array_dummy = CSV.read('./data/dummy_file_games.csv')
-
-  end
-
-  def test_create_hash_keys
-    array_dummy = CSV.read('./data/dummy_file_games.csv')
-    game_statistics = GameStatistics.new()
-    game_statistics.create_stat_hash_keys(array_dummy)
-
-    assert_equal 10, game_statistics.stat_hash.keys.size
-  end
-
-  def test_create_stat_hash_values
-    array_dummy = CSV.read('./data/dummy_file_games.csv')
-    game_statistics = GameStatistics.new()
-    game_statistics.create_stat_hash_keys(array_dummy)
-
-    assert_equal 19, game_statistics.stat_hash["game_id"].size
   end
 end
