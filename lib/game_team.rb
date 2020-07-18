@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+
+# GameTeam
 class GameTeam
   attr_reader :game_id,
               :team_id,
