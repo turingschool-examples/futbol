@@ -24,7 +24,21 @@ class GameStatisticsTest < MiniTest::Test
   end
 
   def test_highest_total_score
-    assert_equal 5, game_statistics.highest_total_score 
+    assert_equal 5, game_statistics.highest_total_score
+  end
+
+  def test_parse_games
+    expected = [
+                ["2012030221",
+                  "20122013",
+                  "Postseason",
+                  "5/16/13",
+                  "3","6","2","3",
+                  "Toyota Stadium",
+                  "/api/v1/venues/null"]
+              ]
+
+    assert_equal expected, CSV.parse("2012030221,20122013,Postseason,5/16/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null")
   end
 
 
