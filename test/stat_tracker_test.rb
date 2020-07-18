@@ -17,12 +17,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_exists
-    stat_tracker = StatTracker.new
+    stat_tracker = StatTracker.new(locations)
 
     assert_instance_of StatTracker, stat_tracker
   end
 
-  # def test_it_has_attributes
+  # def test_dummy_data_is_initialized
   # end
 
 end
