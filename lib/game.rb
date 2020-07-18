@@ -1,17 +1,42 @@
-class Game
-attr_reader :game_id, :season, :type, :date_time, :away_team_id,
-:home_team_id, :away_goals, :home_goals, :venue, :venue_link
+## Arique's set up
+class Games
+  attr_reader :game_id,
+              :season,
+              :type,
+              :date_time,
+              :away_team_id,
+              :home_team_id,
+              :away_goals,
+              :home_goals,
+              :venue,
+              :venue_link
 
-  def initialize(info)
-    @game_id = info[:game_id]
-    @season = info[:season]
-    @type = info[:type]
-    @date_time = info[:date_time]
-    @away_team_id = info[:away_team_id]
-    @home_team_id = info[:home_team_id]
-    @away_goals = info[:away_goals]
-    @home_goals = info[:home_goals]
-    @venue = info[:venue]
-    @venue_link = info[:venue_link]
-  end 
+  def initialize(params)
+    @game_id = params[:game_id]
+    @season = params[:season]
+    @type = params[:type]
+    @date_time = params[:date_time]
+    @away_team_id = params[:away_team_id]
+    @home_team_id = params[:home_team_id]
+    @away_goals = params[:away_goals].to_i
+    @home_goals = params[:home_goals].to_i
+    @venue = params[:venue]
+    @venue_link = params[:venue_link]
+  end
+
+  def total_game_score
+    @away_goals + @home_goals
+  end
 end
+
+# class Game
+#   # def initialize(data)
+#   #   @away_goals = data["away_goals"].to_i
+#   #   @home_goals = data["home_goals"].to_i
+
+#   # end
+
+#   def total_game_score
+#     @away_goals + @home_goals
+#   end
+# end
