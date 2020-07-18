@@ -24,6 +24,7 @@ class GameStatisticsTest < MiniTest::Test
   end
 
   def test_highest_total_score
+    skip
     assert_equal 5, game_statistics.highest_total_score
   end
 
@@ -42,16 +43,29 @@ class GameStatisticsTest < MiniTest::Test
   end
 
   def test_read_csv_file
+    skip
     array_dummy = CSV.read('./data/dummy_file_games.csv')
-    binding.pry
 
   end
+
   def test_create_hash
     array_dummy = CSV.read('./data/dummy_file_games.csv')
-    game_statistics = GameStatistics.new
+    game_statistics = GameStatistics.new()
     game_statistics.create_stat_hash(array_dummy)
+    expected = {
+                "game_id"=>0,
+                "season"=>0,
+                "type"=>0,
+                "date_time"=>0,
+                "away_team_id"=>0,
+                "home_team_id"=>0,
+                "away_goals"=>0,
+                "home_goals"=>0,
+                "venue"=>0,
+                "venue_link"=>0
+              }
 
-    assert_equal 19, game_statistics.stat_hash["game_id"]
+    assert_equal expected, game_statistics.stat_hash
   end
 
 end
