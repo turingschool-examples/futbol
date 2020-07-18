@@ -1,6 +1,19 @@
 class GameTeam
-
-  attr_reader :game_id, :team_id, :hOa, :result, :settled_in, :head_coach, :goals, :shots, :tackles, :pim, :powerPlayOpportunities, :powerPlayGoals, :faceOffWinPercentage, :giveaways, :takeaways
+  attr_reader :game_id,
+              :team_id,
+              :hOa,
+              :result,
+              :settled_in,
+              :head_coach,
+              :goals,
+              :shots,
+              :tackles,
+              :pim,
+              :powerPlayOpportunities,
+              :powerPlayGoals,
+              :faceOffWinPercentage,
+              :giveaways,
+              :takeaways
 
   def initialize(line)
     array = line.split(',')
@@ -21,5 +34,4 @@ class GameTeam
     @giveaways = array[13].to_i
     @takeaways = array[14].to_i
   end
-
 end
