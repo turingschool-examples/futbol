@@ -59,8 +59,18 @@ class StatTrackerTest < MiniTest::Test
       assert_equal 1, stat_tracker.games_won("20132014")["Peter Horachek"]
     end
 
+    def test_it_can_calculate_winning_percentage_per_coach
+      game_path = './data/fake_games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/fake_game_teams.csv'
 
-
-
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+        }
+      stat_tracker = StatTracker.from_csv(locations)
+      assert_equal 0.333, stat_tracker.winning_percentage("20132014")["Peter Horachek"]
+    end
 
   end
