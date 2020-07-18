@@ -12,29 +12,27 @@ class GameTeam
               :shots,
               :tackles,
               :pim,
-              :powerPlayOpportunities,
-              :powerPlayGoals,
-              :faceOffWinPercentage,
+              :power_play_opportunities,
+              :power_play_goals,
+              :face_off_win_percentage,
               :giveaways,
               :takeaways
 
-  def initialize(line)
-    array = line.split(',')
-
-    @game_id = array[0].to_i
-    @team_id = array[1].to_i
-    @hoa = array[2]
-    @result = array[3]
-    @settled_in = array[4]
-    @head_coach = array[5]
-    @goals = array[6].to_i
-    @shots = array[7].to_i
-    @tackles = array[8].to_i
-    @pim = array[9].to_i
-    @power_play_opportunities = array[10].to_i
-    @power_play_goals = array[11].to_i
-    @face_off_win_percentage = array[12].to_f
-    @giveaways = array[13].to_i
-    @takeaways = array[14].to_i
+  def initialize(game_team_data)
+    @game_id = game_team_data[:game_id].to_i
+    @team_id = game_team_data[:team_id].to_i
+    @hoa = game_team_data[:hoa]
+    @result = game_team_data[:result]
+    @settled_in = game_team_data[:settled_in]
+    @head_coach = game_team_data[:head_coach]
+    @goals = game_team_data[:goals].to_i
+    @shots = game_team_data[:shots].to_i
+    @tackles = game_team_data[:tackles].to_i
+    @pim = game_team_data[:pim].to_i
+    @power_play_opportunities = game_team_data[:powerplayopportunities].to_i
+    @power_play_goals = game_team_data[:powerplaygoals].to_i
+    @face_off_win_percentage = game_team_data[:faceoffwinpercentage].to_f
+    @giveaways = game_team_data[:giveaways].to_i
+    @takeaways = game_team_data[:takeaways].to_i
   end
 end
