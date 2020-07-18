@@ -1,7 +1,7 @@
-require 'CSV'
+require 'csv'
 
 class StatTracker
-  
+
   attr_reader :data
   def self.from_csv(data)
     StatTracker.new(data)
