@@ -6,4 +6,8 @@ require 'pry'
 
 class GameStatisticsTest < MiniTest::Test
 
-end 
+  def test_it_exists
+    
+  end
+
+end
