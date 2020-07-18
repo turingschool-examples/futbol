@@ -4,7 +4,7 @@
 class GameTeam
   attr_reader :game_id,
               :team_id,
-              :hOa,
+              :hoa,
               :result,
               :settled_in,
               :head_coach,
@@ -23,7 +23,7 @@ class GameTeam
 
     @game_id = array[0].to_i
     @team_id = array[1].to_i
-    @hOa = array[2]
+    @hoa = array[2]
     @result = array[3]
     @settled_in = array[4]
     @head_coach = array[5]
