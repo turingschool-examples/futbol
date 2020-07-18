@@ -29,4 +29,8 @@ class GameStatisticsTest < MiniTest::Test
     skip
     assert_equal 5, game_statistics.highest_total_score
   end
+
+  def test_lowest_total_score
+
+  end
 end
