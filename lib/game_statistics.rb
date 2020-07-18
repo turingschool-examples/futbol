@@ -7,11 +7,16 @@ class GameStatistics
     @stat_hash = {}
   end
 
-  def create_stat_keys(game_stats)
+  def create_stat_hash_keys(game_stats)
     index = 0
     game_stats[0].size.times do
       @stat_hash[game_stats[0][index]] = 0
       index += 1
     end
+
+  end
+
+  def create_stat_hash_values(stat_hash_keys)
+
   end
 end

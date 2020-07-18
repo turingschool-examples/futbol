@@ -48,10 +48,10 @@ class GameStatisticsTest < MiniTest::Test
 
   end
 
-  def test_create_keys
+  def test_create_hash_keys
     array_dummy = CSV.read('./data/dummy_file_games.csv')
     game_statistics = GameStatistics.new()
-    game_statistics.create_stat_keys(array_dummy)
+    game_statistics.create_stat_hash_keys(array_dummy)
     expected = {
                 "game_id"=>0,
                 "season"=>0,
@@ -68,7 +68,11 @@ class GameStatisticsTest < MiniTest::Test
     assert_equal expected, game_statistics.stat_hash
   end
 
-  def test_create_stat_hash_keys
+  def test_create_stat_hash_values
+    array_dummy = CSV.read('./data/dummy_file_games.csv')
+    game_statistics = GameStatistics.new()
+    game_statistics.create_stat_keys(array_dummy)
+    game_statistics.create_stat_hash_values(game_statistics.stat_hash)
 
     assert_equal 19, game_statistics.stat_hash["game_stats"]
   end
