@@ -17,10 +17,14 @@ class GameStatisticsTest < MiniTest::Test
       game_teams: game_teams_path
     }
   end
-  
+
   def test_it_exists
     game_statistics = GameStatistics.new
     assert_instance_of GameStatistics, game_statistics
+  end
+
+  def test_highest_total_score
+    
   end
 
 
