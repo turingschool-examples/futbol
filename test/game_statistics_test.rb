@@ -32,5 +32,6 @@ class GameStatisticsTest < MiniTest::Test
 
   def test_lowest_total_score
 
+    assert_equal 1, game_statistics.highest_total_score
   end
 end
