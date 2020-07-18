@@ -9,7 +9,7 @@ class StatTrackerTest < Minitest::Test
     team_path = './data/dummy_file_teams.csv'
     game_teams_path = './data/dummy_file_game_teams.csv'
 
-    locations = {
+    @locations = {
       games: game_path,
       teams: team_path,
       game_teams: game_teams_path
@@ -17,12 +17,14 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_exists
-    stat_tracker = StatTracker.new(locations)
+    stat_tracker = StatTracker.new(@locations)
 
     assert_instance_of StatTracker, stat_tracker
   end
 
-  # def test_dummy_data_is_initialized
-  # end
+  def test_dummy_data_is_initialized
+
+    assert_equal @locations, stat_tracker.locations
+  end
 
 end
