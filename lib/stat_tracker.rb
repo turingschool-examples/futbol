@@ -55,4 +55,9 @@ class StatTracker
     coach_winning_percentage
   end
 
+  def winningest_coach(season_id)
+    high_win_percentage = winning_percentage(season_id).max_by {|coach, percentage| percentage}
+    high_win_percentage[0]
+  end
+
 end
