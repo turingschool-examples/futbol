@@ -23,7 +23,8 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_dummy_data_is_initialized
-
+    stat_tracker = StatTracker.new(@locations)
+    
     assert_equal @locations, stat_tracker.locations
   end
 
