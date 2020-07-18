@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/game_team'
 
 class GameTeamTest < Minitest::Test
-
   def setup
     @test1 = GameTeam.new('
       2012030221,
@@ -29,7 +30,7 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_has_attributes
-    assert_equal 2012030221, @test1.game_id
+    assert_equal 2_012_030_221, @test1.game_id
     assert_equal 3, @test1.team_id
     assert_equal 'away', @test1.hOa
     assert_equal 'LOSS', @test1.result
