@@ -68,7 +68,8 @@ class GameStatisticsTest < MiniTest::Test
     assert_equal expected, game_statistics.stat_hash
   end
 
-  def test_create_stat_has_keys
+  def test_create_stat_hash_keys
 
+    assert_equal 19, game_statistics.stat_hash["game_stats"]
   end
 end
