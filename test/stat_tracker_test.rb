@@ -1,6 +1,6 @@
 require "minitest/autorun"
 require "minitest/pride"
-#require "./lib/<file_name>"
+require "./lib/stat_tracker"
 
 class ClassTest < Minitest::Test
 
