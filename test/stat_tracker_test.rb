@@ -1,6 +1,7 @@
 require "minitest/autorun"
 require "minitest/pride"
 require "./lib/stat_tracker"
+require 'csv'
 
 class StatTrackerTest < Minitest::Test
 
@@ -24,7 +25,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_dummy_data_is_initialized
     stat_tracker = StatTracker.new(@locations)
-
+    require "pry"; binding.pry
     assert_equal @locations, stat_tracker.data
   end
 
