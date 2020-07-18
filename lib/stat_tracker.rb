@@ -27,5 +27,22 @@ class StatTracker
     games_coached
   end
 
+  def games_won(season_id)
+    winning_coaches = []
+    season = CSV.read(@data[:games], headers: true, header_converters: :symbol).find_all {|row| row[:season] == season_id}
+    games = CSV.read(@data[:game_teams], headers: true, header_converters: :symbol)
+    season.each do |season|
+      games.each do |game|
+        if season[:game_id] == game[:game_id] && game[:result] == "WIN"
+          winning_coaches << game[:head_coach]
+        end
+      end
+    end
+    coach_wins = Hash.new(0)
+    winning_coaches.each {|coach| coach_wins[coach] += 1}
+    coach_wins
+  end
+
+
 
 end

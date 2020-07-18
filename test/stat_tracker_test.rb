@@ -56,6 +56,7 @@ class StatTrackerTest < MiniTest::Test
         game_teams: game_teams_path
         }
       stat_tracker = StatTracker.from_csv(locations)
+      assert_equal 1, stat_tracker.games_won("20132014")["Peter Horachek"]
     end
 
 
