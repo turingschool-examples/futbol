@@ -5,8 +5,8 @@ require 'pry'
 class TeamTest < MiniTest::Test
 
   def setup
-    team_param = {team_id: 1,
-                  franchise_id: 23,
+    team_param = {team_id: "1",
+                  franchise_id: "23",
                   team_name: "Atlanta United",
                   abbreviation: "ATL",
                   link: "/api/v1/teams/1"}
@@ -17,8 +17,15 @@ class TeamTest < MiniTest::Test
   end
 
   def test_team_exists
-    assert_instance_of Team, @team 
+    assert_instance_of Team, @team
+  end
 
+  def test_team_has_attributes
+    assert_equal "1", @team.team_id
+    assert_equal "23", @team.franchise_id
+    assert_equal "Atlanta United", @team.team_name
+    assert_equal "ATL", @team.abbreviation
+    assert_equal "/api/v1/teams/1", @team.link
   end
 
 end
