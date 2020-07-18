@@ -12,10 +12,13 @@ class GameStatistics
   def total_scores
     index = 0
     acc = []
-    @games_hash["away_goals"].size.times do
-      acc << (@games_hash["away_goals"][index] + @games_hash["home_goals"][index])
+    data_size.times do
+      acc << @games_hash["away_goals"][index].to_i + @games_hash["home_goals"][index].to_i
       index += 1
     end
-    require "pry"; binding.pry
+  end
+
+  def data_size
+    @games_hash["game_id"].size
   end
 end
