@@ -41,5 +41,10 @@ class GameStatisticsTest < MiniTest::Test
     assert_equal expected, CSV.parse("2012030221,20122013,Postseason,5/16/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null")
   end
 
+  def test_read_csv_file
+    hash_dummy = CSV.read('./data/dummy_file_games.csv')
+    binding.pry
+  end
+
 
 end
