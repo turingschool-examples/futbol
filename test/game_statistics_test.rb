@@ -18,9 +18,9 @@ class GameStatisticsTest < MiniTest::Test
       game_teams: game_teams_path
     }
 
-    @new_hash = CreateHash.new()
+    @game_hash = CreateHash.new()
     array_dummy = CSV.read(@locations[:games])
-    @new_hash.create_stat_hash_keys(array_dummy)
+    @game_hash.create_stat_hash_keys(array_dummy)
   end
 
   def test_it_exists
@@ -30,8 +30,7 @@ class GameStatisticsTest < MiniTest::Test
   end
 
   def test_highest_total_score
-    game_statistics = GameStatistics.new(@new_hash.stat_hash)
-    require "pry"; binding.pry
+    game_statistics = GameStatistics.new(@game_hash.stat_hash)
 
     assert_equal 5, game_statistics.highest_total_score
   end
