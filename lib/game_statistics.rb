@@ -13,7 +13,9 @@ class GameStatistics
     index = 0
     acc = []
     @games_hash["away_goals"].size.times do
-      acc << @games_hash["away_goals"][index] + @games_hash["away_goals"][index]
+      acc << (@games_hash["away_goals"][index] + @games_hash["home_goals"][index])
+      index += 1
     end
+    require "pry"; binding.pry
   end
 end
