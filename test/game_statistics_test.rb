@@ -47,6 +47,9 @@ class GameStatisticsTest < MiniTest::Test
 
   end
   def test_create_hash
+    array_dummy = CSV.read('./data/dummy_file_games.csv')
+    game_statistics = GameStatistics.new
+    game_statistics.create_stat_hash(array_dummy)
 
     assert_equal 19, game_statistics.stat_hash["game_id"]
   end
