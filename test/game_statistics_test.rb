@@ -48,6 +48,8 @@ class GameStatisticsTest < MiniTest::Test
   end
 
   def test_average_goals_per_game
+    game_statistics = GameStatistics.new(@game.stat_hash)
 
-  end 
+    assert_equal 3.68, game_statistics.average_goals_per_game
+  end
 end
