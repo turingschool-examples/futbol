@@ -36,6 +36,7 @@ class GameStatisticsTest < MiniTest::Test
   end
 
   def test_lowest_total_score
+    game_statistics = GameStatistics.new(@game.stat_hash)
     assert_equal 1, game_statistics.lowest_total_score
   end
 end
