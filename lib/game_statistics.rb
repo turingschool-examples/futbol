@@ -34,6 +34,6 @@ class GameStatistics
         index += 1
       end
     end
-    require "pry"; binding.pry
+    (home_wins.to_f * 100 / data_size).round(2)
   end
 end
