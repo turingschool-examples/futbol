@@ -29,6 +29,12 @@ class GameStatisticsTest < MiniTest::Test
     assert_instance_of GameStatistics, game_statistics
   end
 
+  def test_it_has_a_total_score
+    game_statistics = GameStatistics.new(@game.stat_hash)
+
+    assert_equal 3, game_statistics.total_goals[2]
+  end
+
   def test_highest_total_score
     game_statistics = GameStatistics.new(@game.stat_hash)
 
