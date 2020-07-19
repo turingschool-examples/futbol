@@ -12,9 +12,4 @@ class Team
     @abbreviation = args[:abbreviation]
     @link         = args[:link]
   end
-
-
-
-
-
 end
