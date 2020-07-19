@@ -56,7 +56,6 @@ class GameStatistics
       end
       index += 1
     end
-    require "pry"; binding.pry
     (tie_wins.to_f * 100 / data_size).round(2)
   end
 
