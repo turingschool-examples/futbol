@@ -46,4 +46,8 @@ class GameStatisticsTest < MiniTest::Test
 
     assert_equal ({"20122013" => 19}), game_statistics.count_games_by_season
   end
+
+  def test_average_games_by_season
+
+  end
 end
