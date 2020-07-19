@@ -23,4 +23,8 @@ class GameStatistics
     total_goals.max
   end
 
+  def lowest_total_score
+    total_goals.min
+  end 
+
 end
