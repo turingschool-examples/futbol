@@ -1,8 +1,9 @@
 require "CSV"
 require "./lib/games"
+require "./lib/game_teams"
 
 class StatTracker
-  attr_reader :games
+  attr_reader :games, :game_teams
 
   def self.from_csv(locations)
     StatTracker.new(locations)
