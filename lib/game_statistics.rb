@@ -39,6 +39,7 @@ class GameStatistics
     games_by_season
   end
 
+
 # Definitely needs refactored
   def average_goals_by_season
     goals_by_season = {}
@@ -60,4 +61,10 @@ class GameStatistics
     end
     goals_by_season
   end
+
+  def average_goals_per_game
+    (total_goals.sum.to_f / data_size).round(2)
+  end
+
+
 end
