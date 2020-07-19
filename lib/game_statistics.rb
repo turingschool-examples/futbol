@@ -51,13 +51,13 @@ class GameStatistics
       end
       index += 1
     end
+    calculate_average_for_season(goals_by_season)
+  end
+
+  def calculate_average_for_season(goals_by_season)
     goals_by_season.keys.each do |season|
       goals_by_season[season] = (goals_by_season[season].sum.to_f / goals_by_season[season].size).round(2)
     end
     goals_by_season
-  end
-
-  def calculate_average_for_season
-
   end
 end
