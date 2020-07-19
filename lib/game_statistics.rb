@@ -35,6 +35,10 @@ class GameStatistics
     (home_wins.to_f * 100 / data_size).round(2)
   end
 
+  def percentage_visitor_wins
+
+  end
+
   def lowest_total_score
     total_goals.min
   end
