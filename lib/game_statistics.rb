@@ -25,6 +25,10 @@ class GameStatistics
 
   def lowest_total_score
     total_goals.min
-  end 
+  end
+
+  def count_games_by_season
+    
+  end
 
 end
