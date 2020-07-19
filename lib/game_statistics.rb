@@ -39,4 +39,8 @@ class GameStatistics
     games_by_season
   end
 
+  def average_goals_per_game
+    (total_goals.sum.to_f / data_size).round(2)
+  end
+
 end
