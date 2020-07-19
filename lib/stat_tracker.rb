@@ -21,14 +21,13 @@ class StatTracker
     CSV.foreach(games_csv_data, headers: true, header_converters: :symbol) do |row|
       games_objects_collection << Games.new(row)
     end
+    games_objects_collection
   end
 
   def turn_teams_csv_data_into_teams_objects(teams_csv_data)
     teams_objects_collection = []
     CSV.foreach(teams_csv_data, headers: true, header_converters: :symbol) do |row|
       teams_objects_collection << Teams.new(row)
-
-      #require "pry"; binding.pry
     end
     teams_objects_collection
   end
