@@ -29,10 +29,8 @@ class GameStatistics
     data_size.times do
       if @games_hash["home_goals"][index] > @games_hash["away_goals"][index]
         home_wins += 1
-        index += 1
-      else
-        index += 1
       end
+      index += 1
     end
     (home_wins.to_f * 100 / data_size).round(2)
   end
