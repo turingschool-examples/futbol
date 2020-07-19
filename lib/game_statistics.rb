@@ -11,12 +11,12 @@ class GameStatistics
 
   def total_scores
     index = 0
-    acc = []
+    total_goals_by_game = []
     data_size.times do
-      acc << @games_hash["away_goals"][index].to_i + @games_hash["home_goals"][index].to_i
+      total_goals_by_game << @games_hash["away_goals"][index].to_i + @games_hash["home_goals"][index].to_i
       index += 1
     end
-    acc
+    total_goals_by_game
   end
 
   def highest_total_score
