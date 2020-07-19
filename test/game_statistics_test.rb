@@ -75,6 +75,7 @@ class GameStatisticsTest < MiniTest::Test
   end
 
   def test_it_can_determine_percentage_ties
+    game_statistics = GameStatistics.new(@game.stat_hash)
     assert_equal 5.26, game_statistics.percentage_ties
   end
 end
