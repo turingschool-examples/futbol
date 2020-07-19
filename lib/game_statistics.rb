@@ -9,7 +9,7 @@ class GameStatistics
     @games_hash["game_id"].size
   end
 
-  def total_scores
+  def total_goals
     index = 0
     total_goals_by_game = []
     data_size.times do
@@ -20,7 +20,7 @@ class GameStatistics
   end
 
   def highest_total_score
-    total_scores.max
+    total_goals.max
   end
 
 end
