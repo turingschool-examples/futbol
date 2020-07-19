@@ -6,4 +6,13 @@ class StatTracker
       object.add(object.new(row))
     end
   end
+
+  def self.remove_all
+   Team.remove_all
+   GameTeams.remove_all
+  end
+
+ def self.count_of_teams
+   Team.all.size
+ end
 end

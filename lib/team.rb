@@ -1,8 +1,6 @@
 class Team
   @@team = []
 
-  attr_reader :team_id, :teamname
-
   def initialize(info)
     @team_id = info[:team_id]
     @franchiseid = info[:franchiseid]
@@ -19,4 +17,8 @@ class Team
   def self.all
     @@team
   end
-end 
+
+  def self.remove_all
+   @@team = []
+  end
+end

@@ -1,6 +1,6 @@
 class GameTeams
   @@gameteams = []
-  attr_reader :team_id, :goals
+  
 
   def initialize(info)
     @game_id = info[:game_id]
@@ -26,9 +26,5 @@ class GameTeams
 
   def self.all
     @@gameteams
-  end
-
-  def self.remove_all
-    @@gameteams = []
   end
 end
