@@ -47,6 +47,18 @@ class GameStatistics
     (visitor_wins.to_f * 100 / data_size).round(2)
   end
 
+  def percentage_ties
+    index = 0
+    tie_wins = 0
+    data_size.times do
+      if @games_hash["away_goals"][index] == @games_hash["home_goals"][index]
+        tie_wins += 1
+      end
+      index += 1
+    end
+    (tie_wins.to_f * 100 / data_size).round(2)
+  end
+
   def lowest_total_score
     total_goals.min
   end
