@@ -12,5 +12,10 @@ class TeamsCollectionTest < Minitest::Test
     assert_instance_of TeamsCollection, teams_collection
   end
 
+  def test_it_has_attributes
+    teams_collection = TeamsCollection.new('./data/teams.csv')
+
+    assert_equal './data/teams.csv', teams_collection.path
+  end
 
 end
