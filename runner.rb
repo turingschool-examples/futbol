@@ -13,4 +13,5 @@ locations = {
 
 stat_tracker = StatTracker.from_csv(locations)
 
-# require 'pry'; binding.pry
+ require 'pry'; binding.pry
+#stat_tracker_team = StatTracker.from_csv(locations)
