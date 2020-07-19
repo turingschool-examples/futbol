@@ -1,6 +1,7 @@
 require "minitest/autorun"
 require "minitest/pride"
 require "./lib/game_statistics"
+require "./lib/create_hash"
 require 'csv'
 require 'pry'
 
@@ -16,16 +17,26 @@ class GameStatisticsTest < MiniTest::Test
       teams: team_path,
       game_teams: game_teams_path
     }
+
+    @game_hash = CreateHash.new()
+    array_dummy = CSV.read(@locations[:games])
+    @game_hash.create_stat_hash_keys(array_dummy)
   end
 
   def test_it_exists
-    game_statistics = GameStatistics.new
-    
+    game_statistics = GameStatistics.new(@game_hash.stat_hash)
+
     assert_instance_of GameStatistics, game_statistics
   end
 
   def test_highest_total_score
-    skip
+    game_statistics = GameStatistics.new(@game_hash.stat_hash)
+
     assert_equal 5, game_statistics.highest_total_score
+  end
+
+  def test_lowest_total_score
+    skip
+    assert_equal 1, game_statistics.lowest_total_score
   end
 end
