@@ -1,0 +1,3 @@
+#GameTeamsCollection
+class GameTeamsCollection
+end
