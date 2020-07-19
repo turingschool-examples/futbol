@@ -60,11 +60,17 @@ class GameStatisticsTest < MiniTest::Test
     game_statistics = GameStatistics.new(@game.stat_hash)
 
     assert_equal ({"20122013" => 3.68}), game_statistics.average_goals_by_season
+  end
 
   def test_average_goals_per_game
     game_statistics = GameStatistics.new(@game.stat_hash)
 
     assert_equal 3.68, game_statistics.average_goals_per_game
 
+  end
+
+  def test_it_can_determine_percentage_of_visitor_wins
+    game_statistics = GameStatistics.new(@game.stat_hash)
+    assert_equal 26.32, game_statistics.percentage_visitor_wins
   end
 end
