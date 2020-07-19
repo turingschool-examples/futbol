@@ -1,8 +1,9 @@
 require "CSV"
 require "./lib/game"
+require "./lib/teams"
 ## => Arique's set up
 class StatTracker
-  attr_reader :games
+  attr_reader :games, :teams
 
   def self.from_csv(locations)
     StatTracker.new(locations)
@@ -10,6 +11,7 @@ class StatTracker
 
   def initialize(locations)
     @games ||= turn_games_csv_data_into_games_objects(locations[:games])
+    @teams ||= turn_teams_csv_data_into_teams_objects(locations[:teams])
     # @teams = locations[:teams]
     # @game_teams = locations[:game_teams]
   end
@@ -19,9 +21,20 @@ class StatTracker
     CSV.foreach(games_csv_data, headers: true, header_converters: :symbol) do |row|
       games_objects_collection << Games.new(row)
     end
-    games_objects_collection
-    # require "pry"; binding.pry
   end
+
+  def turn_teams_csv_data_into_teams_objects(teams_csv_data)
+    teams_objects_collection = []
+    CSV.foreach(teams_csv_data, headers: true, header_converters: :symbol) do |row|
+      teams_objects_collection << Teams.new(row)
+
+      #require "pry"; binding.pry
+    end
+    teams_objects_collection
+  end
+
+
+
   def highest_total_score
     output = @games.max_by do |game|
       game.total_game_score
