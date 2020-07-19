@@ -39,7 +39,8 @@ class GameStatisticsTest < MiniTest::Test
   end
 
   def test_lowest_total_score
-    skip
+    game_statistics = GameStatistics.new(@game.stat_hash)
+
     assert_equal 1, game_statistics.lowest_total_score
   end
 
@@ -48,4 +49,22 @@ class GameStatisticsTest < MiniTest::Test
     assert_equal 68.42, game_statistics.percentage_home_wins
   end
 
+  def test_count_total_games_by_season
+    game_statistics = GameStatistics.new(@game.stat_hash)
+
+    assert_equal ({"20122013" => 19}), game_statistics.count_games_by_season
+  end
+
+
+  def test_average_goals_by_season
+    game_statistics = GameStatistics.new(@game.stat_hash)
+
+    assert_equal ({"20122013" => 3.68}), game_statistics.average_goals_by_season
+
+  def test_average_goals_per_game
+    game_statistics = GameStatistics.new(@game.stat_hash)
+
+    assert_equal 3.68, game_statistics.average_goals_per_game
+
+  end
 end
