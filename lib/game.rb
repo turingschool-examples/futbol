@@ -7,9 +7,9 @@ def initialize(game_params)
   @season = game_params[:season]
   @away_team_id = game_params[:away_team_id]
   @home_team_id = game_params[:home_team_id]
-  @away_goals = game_params[:away_goals]
-  @home_goals = game_params[:home_goals]
-  @total_goals = @away_goals.to_i + @home_goals.to_i
+  @away_goals = game_params[:away_goals].to_i
+  @home_goals = game_params[:home_goals].to_i
+  @total_goals = @away_goals + @home_goals
 end
 
 end
