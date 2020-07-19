@@ -37,7 +37,13 @@ class GameStatisticsTest < MiniTest::Test
 
   def test_lowest_total_score
     game_statistics = GameStatistics.new(@game.stat_hash)
-    
+
     assert_equal 1, game_statistics.lowest_total_score
+  end
+
+  def test_count_total_games_by_season
+    game_statistics = GameStatistics.new(@game.stat_hash)
+
+    assert_equal ({"20122013" => 19}), game_statistics.count_games_by_season
   end
 end
