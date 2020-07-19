@@ -18,4 +18,11 @@ class TeamsCollectionTest < Minitest::Test
     assert_equal './data/teams.csv', teams_collection.path
   end
 
+  def test_it_can_read
+    teams_collection = TeamsCollection.new('./data/teams.csv')
+    teams_collection.from_csv('./data/teams.csv')
+
+    assert_equal 32, teams_collection.all_teams.length
+    assert_equal Team, teams_collection.all_teams[0].class
+  end
 end
