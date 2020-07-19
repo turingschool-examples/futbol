@@ -17,23 +17,20 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_it_can_read
-    GameTeamsCollection.from_csv('./test/fixtures/game_teams.csv')
-    assert_equal GameTeamsCollection.all_game_teams.length, 240
-    assert_equal GameTeamsCollection.all_game_teams[0].class, GameTeam
+    gtc = GameTeamsCollection.new('./test/fixtures/game_teams.csv')
+    gtc.from_csv('./test/fixtures/game_teams.csv')
+    assert_equal 240, gtc.all_game_teams.length
+    assert_equal GameTeam, gtc.all_game_teams[0].class
   end
 
   def test_game_teams_empty
-    assert_equal [], GameTeamsCollection.all_game_teams
+    gtc = GameTeamsCollection.new('./test/fixtures/game_teams.csv')
+    assert_equal [], gtc.all_game_teams
   end
 
   def test_add_game_teams
-    GameTeamsCollection.add_game_team({})
-
-    assert_equal GameTeamsCollection.all_game_teams.length, 1
+    gtc = GameTeamsCollection.new('./test/fixtures/game_teams.csv')
+    gtc.add_game_team({})
+    assert_equal 1, gtc.all_game_teams.length
   end
-
-# from_csv
-# Input: game_team data file path
-# Output: Array of game_team objects
-# This method should call read_data and then instantiate_game_teams
 end
