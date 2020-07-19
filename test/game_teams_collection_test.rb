@@ -9,4 +9,8 @@ class GameTeamsCollectionTest < Minitest::Test
     gtc = GameTeamsCollection.new('./test/fixtures/game_teams.csv')
     assert_instance_of GameTeamsCollection, gtc
   end
+  def test_has_a_path
+    gtc = GameTeamsCollection.new('./test/fixtures/game_teams.csv')
+    assert_equal './test/fixtures/game_teams.csv', gtc.path
+  end
 end
