@@ -1,6 +1,8 @@
 class GameTeams
-  @@gameteams = []
+  attr_reader :team_id, :goals
   
+  @@gameteams = []
+
 
   def initialize(info)
     @game_id = info[:game_id]

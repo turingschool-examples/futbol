@@ -14,7 +14,7 @@
       <img src="./assets/0.12.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2020-07-19T11:15:16-06:00">2020-07-19T11:15:16-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2020-07-19T11:25:38-06:00">2020-07-19T11:25:38-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="yellow">
-  88.0%
+  89.29%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         10.8
+         18.93
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>25</b> relevant lines,
-    <span class="green"><b>22</b> lines covered</span> and
+    <b>28</b> relevant lines,
+    <span class="green"><b>25</b> lines covered</span> and
     <span class="red"><b>3</b> lines missed. </span>
     (<span class="yellow">
-  88.0%
+  89.29%
 </span>
 )
   </div>
@@ -72,23 +72,23 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#0c057fd1c7874cda5e5572f22142618a09a8fac6" class="src_link" title="lib/stat_tracker.rb">lib/stat_tracker.rb</a></td>
-            <td class="red strong cell--number t-file__coverage">80.00 %</td>
-            <td class="cell--number">18</td>
+            <td class="yellow strong cell--number t-file__coverage">83.33 %</td>
+            <td class="cell--number">22</td>
+            <td class="cell--number">12</td>
             <td class="cell--number">10</td>
-            <td class="cell--number">8</td>
             <td class="cell--number">2</td>
-            <td class="cell--number">3.90</td>
+            <td class="cell--number">6.17</td>
             
           </tr>
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#36df63c72a8d5966f11acf690fcb5ed668af371a" class="src_link" title="lib/team.rb">lib/team.rb</a></td>
-            <td class="green strong cell--number t-file__coverage">93.33 %</td>
-            <td class="cell--number">24</td>
+            <td class="green strong cell--number t-file__coverage">93.75 %</td>
+            <td class="cell--number">26</td>
+            <td class="cell--number">16</td>
             <td class="cell--number">15</td>
-            <td class="cell--number">14</td>
             <td class="cell--number">1</td>
-            <td class="cell--number">15.40</td>
+            <td class="cell--number">28.50</td>
             
           </tr>
         
@@ -113,8 +113,8 @@
   <div class="header">
     <h3>lib/stat_tracker.rb</h3>
     <h4>
-      <span class="red">
-  80.0%
+      <span class="yellow">
+  83.33%
 </span>
 
       lines covered
@@ -123,8 +123,8 @@
     
 
     <div class="t-line-summary">
-      <b>10</b> relevant lines.
-      <span class="green"><b>8</b> lines covered</span> and
+      <b>12</b> relevant lines.
+      <span class="green"><b>10</b> lines covered</span> and
       <span class="red"><b>2</b> lines missed.</span>
     </div>
 
@@ -180,8 +180,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="5">
-            <span class="hits">1</span>
+          <li class="covered" data-hits="2" data-linenumber="5">
+            <span class="hits">2</span>
             
 
             
@@ -191,8 +191,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="32" data-linenumber="6">
-            <span class="hits">32</span>
+          <li class="covered" data-hits="64" data-linenumber="6">
+            <span class="hits">64</span>
             
 
             
@@ -329,6 +329,50 @@
 
             
 
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="19">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby"> def self.best_offense</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="20">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  GameTeams.teams_sort_by_average_goal.last.teamname</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="21">
+            
+            
+
+            
+
+            <code class="ruby"> end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="22">
+            
+            
+
+            
+
             <code class="ruby">end</code>
           </li>
         </div>
@@ -343,7 +387,7 @@
     <h3>lib/team.rb</h3>
     <h4>
       <span class="green">
-  93.33%
+  93.75%
 </span>
 
       lines covered
@@ -352,8 +396,8 @@
     
 
     <div class="t-line-summary">
-      <b>15</b> relevant lines.
-      <span class="green"><b>14</b> lines covered</span> and
+      <b>16</b> relevant lines.
+      <span class="green"><b>15</b> lines covered</span> and
       <span class="red"><b>1</b> lines missed.</span>
     </div>
 
@@ -404,89 +448,12 @@
 
             
 
-            <code class="ruby">  def initialize(info)</code>
+            <code class="ruby">  attr_reader :team_id, :teamname</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="32" data-linenumber="5">
-            <span class="hits">32</span>
-            
-
-            
-
-            <code class="ruby">    @team_id = info[:team_id]</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="32" data-linenumber="6">
-            <span class="hits">32</span>
-            
-
-            
-
-            <code class="ruby">    @franchiseid = info[:franchiseid]</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="32" data-linenumber="7">
-            <span class="hits">32</span>
-            
-
-            
-
-            <code class="ruby">    @teamname = info[:teamname]</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="32" data-linenumber="8">
-            <span class="hits">32</span>
-            
-
-            
-
-            <code class="ruby">    @abbreviation = info[:abbreviation]</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="32" data-linenumber="9">
-            <span class="hits">32</span>
-            
-
-            
-
-            <code class="ruby">    @link = info[:link]</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="32" data-linenumber="10">
-            <span class="hits">32</span>
-            
-
-            
-
-            <code class="ruby">    @stadium = info[:stadium]</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="11">
-            
-            
-
-            
-
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="12">
+          <li class="never" data-hits="" data-linenumber="5">
             
             
 
@@ -497,7 +464,106 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="13">
+          <li class="covered" data-hits="1" data-linenumber="6">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def initialize(info)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="64" data-linenumber="7">
+            <span class="hits">64</span>
+            
+
+            
+
+            <code class="ruby">    @team_id = info[:team_id]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="64" data-linenumber="8">
+            <span class="hits">64</span>
+            
+
+            
+
+            <code class="ruby">    @franchiseid = info[:franchiseid]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="64" data-linenumber="9">
+            <span class="hits">64</span>
+            
+
+            
+
+            <code class="ruby">    @teamname = info[:teamname]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="64" data-linenumber="10">
+            <span class="hits">64</span>
+            
+
+            
+
+            <code class="ruby">    @abbreviation = info[:abbreviation]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="64" data-linenumber="11">
+            <span class="hits">64</span>
+            
+
+            
+
+            <code class="ruby">    @link = info[:link]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="64" data-linenumber="12">
+            <span class="hits">64</span>
+            
+
+            
+
+            <code class="ruby">    @stadium = info[:stadium]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="13">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="14">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="15">
             <span class="hits">1</span>
             
 
@@ -508,8 +574,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="32" data-linenumber="14">
-            <span class="hits">32</span>
+          <li class="covered" data-hits="64" data-linenumber="16">
+            <span class="hits">64</span>
             
 
             
@@ -519,7 +585,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="15">
+          <li class="never" data-hits="" data-linenumber="17">
             
             
 
@@ -530,7 +596,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="16">
+          <li class="never" data-hits="" data-linenumber="18">
             
             
 
@@ -541,7 +607,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="17">
+          <li class="covered" data-hits="1" data-linenumber="19">
             <span class="hits">1</span>
             
 
@@ -552,7 +618,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="18">
+          <li class="covered" data-hits="1" data-linenumber="20">
             <span class="hits">1</span>
             
 
@@ -563,7 +629,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="19">
+          <li class="never" data-hits="" data-linenumber="21">
             
             
 
@@ -574,7 +640,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="20">
+          <li class="never" data-hits="" data-linenumber="22">
             
             
 
@@ -585,7 +651,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="21">
+          <li class="covered" data-hits="1" data-linenumber="23">
             <span class="hits">1</span>
             
 
@@ -596,7 +662,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="22">
+          <li class="missed" data-hits="0" data-linenumber="24">
             
             
 
@@ -607,7 +673,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="23">
+          <li class="never" data-hits="" data-linenumber="25">
             
             
 
@@ -618,7 +684,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="24">
+          <li class="never" data-hits="" data-linenumber="26">
             
             
 
