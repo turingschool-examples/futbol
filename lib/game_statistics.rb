@@ -56,4 +56,8 @@ class GameStatistics
     end
     goals_by_season
   end
+
+  def calculate_average_for_season
+
+  end
 end
