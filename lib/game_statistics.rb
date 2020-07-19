@@ -23,4 +23,8 @@ class GameStatistics
     total_goals.max
   end
 
+  def percentage_home_wins
+      
+  end
+
 end
