@@ -23,6 +23,18 @@ class GameStatistics
     total_goals.max
   end
 
+  def percentage_home_wins
+    index = 0
+    home_wins = 0
+    data_size.times do
+      if @games_hash["home_goals"][index] > @games_hash["away_goals"][index]
+        home_wins += 1
+      end
+      index += 1
+    end
+    (home_wins.to_f * 100 / data_size).round(2)
+  end
+
   def lowest_total_score
     total_goals.min
   end
@@ -38,7 +50,6 @@ class GameStatistics
     end
     games_by_season
   end
-
 
 # Definitely needs refactored
   def average_goals_by_season
@@ -65,6 +76,5 @@ class GameStatistics
   def average_goals_per_game
     (total_goals.sum.to_f / data_size).round(2)
   end
-
 
 end

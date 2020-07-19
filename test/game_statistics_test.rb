@@ -25,13 +25,16 @@ class GameStatisticsTest < MiniTest::Test
 
   def test_it_exists
     game_statistics = GameStatistics.new(@game.stat_hash)
-
     assert_instance_of GameStatistics, game_statistics
+  end
+
+  def test_it_has_a_total_score
+    game_statistics = GameStatistics.new(@game.stat_hash)
+    assert_equal 3, game_statistics.total_goals[2]
   end
 
   def test_highest_total_score
     game_statistics = GameStatistics.new(@game.stat_hash)
-
     assert_equal 5, game_statistics.highest_total_score
   end
 
@@ -39,6 +42,11 @@ class GameStatisticsTest < MiniTest::Test
     game_statistics = GameStatistics.new(@game.stat_hash)
 
     assert_equal 1, game_statistics.lowest_total_score
+  end
+
+  def test_it_can_determine_percentage_of_home_wins
+    game_statistics = GameStatistics.new(@game.stat_hash)
+    assert_equal 68.42, game_statistics.percentage_home_wins
   end
 
   def test_count_total_games_by_season
