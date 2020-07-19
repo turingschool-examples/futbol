@@ -45,4 +45,14 @@ class GameStatisticsTest < MiniTest::Test
     skip
     assert_equal 1, game_statistics.lowest_total_score
   end
+
+  def test_it_can_determine_percentage_of_home_wins
+
+    #Percentage of games that a home team has won (rounded to the nearest 100th)
+    #Return a float
+    
+
+    assert_equal 100.0, game_statistics.percentage_home_wins
+  end
+
 end
