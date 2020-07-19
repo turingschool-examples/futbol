@@ -24,7 +24,16 @@ class GameStatistics
   end
 
   def percentage_home_wins
-      
+    index = 0
+    home_wins = 0
+    data_size.times do
+      if @games_hash["home_goals"][index] > @games_hash["away_goals"][index]
+        home_wins += 1
+        index += 1
+      else
+        index += 1
+      end
+    end
+    require "pry"; binding.pry
   end
-
 end
