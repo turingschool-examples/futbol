@@ -25,19 +25,16 @@ class GameStatisticsTest < MiniTest::Test
 
   def test_it_exists
     game_statistics = GameStatistics.new(@game.stat_hash)
-
     assert_instance_of GameStatistics, game_statistics
   end
 
   def test_it_has_a_total_score
     game_statistics = GameStatistics.new(@game.stat_hash)
-
     assert_equal 3, game_statistics.total_goals[2]
   end
 
   def test_highest_total_score
     game_statistics = GameStatistics.new(@game.stat_hash)
-
     assert_equal 5, game_statistics.highest_total_score
   end
 
@@ -47,13 +44,8 @@ class GameStatisticsTest < MiniTest::Test
   end
 
   def test_it_can_determine_percentage_of_home_wins
-
-    #Percentage of games that a home team has won (rounded to the nearest 100th)
-    #Return a float
     game_statistics = GameStatistics.new(@game.stat_hash)
-    
-
-    assert_equal 100.0, game_statistics.percentage_home_wins
+    assert_equal 68.42, game_statistics.percentage_home_wins
   end
 
 end
