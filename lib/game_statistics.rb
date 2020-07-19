@@ -47,6 +47,10 @@ class GameStatistics
     (visitor_wins.to_f * 100 / data_size).round(2)
   end
 
+  def percentage_ties
+
+  end
+
   def lowest_total_score
     total_goals.min
   end
