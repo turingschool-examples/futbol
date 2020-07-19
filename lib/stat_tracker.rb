@@ -1,14 +1,9 @@
 require 'CSV'
 
 class StatTracker
-  
-  attr_reader :data
-  def self.from_csv(data)
-    StatTracker.new(data)
+  def self.from_csv(object, path)
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
+      object.add(object.new(row))
+    end
   end
-
-  def initialize(data)
-    @data = data
-  end
-
 end
