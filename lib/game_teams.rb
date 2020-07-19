@@ -10,9 +10,9 @@ class GameTeams
               :shots,
               :tackles,
               :pim,
-              :powerPlayOpportunities,
-              :powerPlayGoals,
-              :faceOffWinPercentage,
+              :powerplayopportunities,
+              :powerplaygoals,
+              :faceoffwinpercentage,
               :giveaways,
               :takeaways
 
@@ -27,9 +27,9 @@ class GameTeams
     @shots = params[:shots].to_i
     @tackles = params[:tackles].to_i
     @pim = params[:pim].to_i
-    @powerPlayOpportunities = params[:powerPlayOpportunities].to_i
-    @powerPlayGoals = params[:powerPlayGoals].to_i
-    @faceOffWinPercentage = params[:faceOffWinPercentage].to_f
+    @powerplayopportunities = params[:powerplayopportunities].to_i
+    @powerplaygoals = params[:powerplaygoals].to_i
+    @faceoffwinpercentage = params[:faceoffwinpercentage].to_f
     @giveaways = params[:giveaways].to_i
     @takeaways = params[:takeaways].to_i
   end
