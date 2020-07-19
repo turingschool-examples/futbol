@@ -1,6 +1,6 @@
 require './test/test_helper'
 require "./lib/stat_tracker"
-require "./lib/game"
+require "./lib/games"
 require "pry"
 
 class StatTrackerTest < MiniTest::Test
@@ -28,6 +28,7 @@ class StatTrackerTest < MiniTest::Test
 
     assert_equal 11, @stat_tracker.highest_total_score
   end
+  
 end
 
 # game.find {|game| game["date_time"] == "5/16/13"; return game["venue"] }
