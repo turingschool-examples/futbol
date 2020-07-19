@@ -15,4 +15,8 @@ class StatTracker
  def self.count_of_teams
    Team.all.size
  end
+
+ def self.best_offense
+  GameTeams.teams_sort_by_average_goal.last.teamname
+ end
 end

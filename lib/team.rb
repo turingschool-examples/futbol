@@ -1,6 +1,8 @@
 class Team
   @@team = []
 
+  attr_reader :team_id, :teamname
+
   def initialize(info)
     @team_id = info[:team_id]
     @franchiseid = info[:franchiseid]
