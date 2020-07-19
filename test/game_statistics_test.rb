@@ -50,6 +50,7 @@ class GameStatisticsTest < MiniTest::Test
 
     #Percentage of games that a home team has won (rounded to the nearest 100th)
     #Return a float
+    game_statistics = GameStatistics.new(@game.stat_hash)
     
 
     assert_equal 100.0, game_statistics.percentage_home_wins
