@@ -11,7 +11,7 @@ class StatTracker
   def initialize(locations)
     @games ||= turn_games_csv_data_into_games_objects(locations[:games])
     # @teams = locations[:teams]
-    # @game_teams = locations[:game_teams]
+    @game_teams ||= turn_game_teams_csv_data_into_game_teams_objects(locations[:game_teams])
   end
 
   def turn_games_csv_data_into_games_objects(games_csv_data)
@@ -21,6 +21,14 @@ class StatTracker
     end
     games_objects_collection
     # require "pry"; binding.pry
+  end
+
+  def turn_game_teams_csv_data_into_game_teams_objects(game_teams_csv_data)
+    game_teams_objects_collection = []
+    CSV.foreach(game_teams_csv_data, headers: true, header_converters: :symbol) do |row|
+      game_teams_objects_collection << GameTeams.new(row)
+    end
+    game_teams_objects_collection
   end
 
   def highest_total_score
