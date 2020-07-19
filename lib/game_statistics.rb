@@ -36,6 +36,16 @@ class GameStatistics
   end
 
   def percentage_visitor_wins
+    index = 0
+    visitor_wins = 0
+    data_size.times do
+      if @games_hash["away_goals"][index] > @games_hash["home_goals"][index]
+        visitor_wins += 1
+      end
+      index += 1
+    end
+    require "pry"; binding.pry
+    (visitor_wins.to_f * 100 / data_size).round(2)
 
   end
 
