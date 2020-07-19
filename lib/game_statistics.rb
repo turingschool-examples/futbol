@@ -28,7 +28,15 @@ class GameStatistics
   end
 
   def count_games_by_season
-    
+    games_by_season = {}
+    @games_hash["season"].each do |season|
+      if games_by_season[season] == nil
+        games_by_season[season] = 1
+      else
+        games_by_season[season] += 1
+      end
+    end
+    games_by_season
   end
 
 end
