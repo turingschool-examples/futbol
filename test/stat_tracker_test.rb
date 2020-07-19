@@ -26,9 +26,9 @@ class StatTrackerTest < MiniTest::Test
       game_teams: game_teams_path
     }
     stat_tracker = StatTracker.from_csv(locations)
-    assert_equal "./data/games.csv", stat_tracker.data[:games]
-    assert_equal "./data/teams.csv", stat_tracker.data[:teams]
-    assert_equal "./data/game_teams.csv", stat_tracker.data[:game_teams]
+    require "pry"; binding.pry
+    assert_equal CSV::Table, stat_tracker.games.class
+    assert_equal CSV::Table, stat_tracker.seasons.class
   end
 
   def test_it_can_calculate_games_coached_per_coach

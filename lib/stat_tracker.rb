@@ -2,36 +2,37 @@ require 'csv'
 
 class StatTracker
 
-  attr_reader :data
+  attr_reader :seasons, :games
   def self.from_csv(data)
-    StatTracker.new(data)
+    seasons = CSV.read(data[:games], headers: true, header_converters: :symbol)
+    games = CSV.read(data[:game_teams], headers: true, header_converters: :symbol)
+    StatTracker.new(seasons, games)
   end
 
-  def initialize(data)
-    @data = data
+  def initialize(seasons, games)
+    @seasons = seasons
+    @games = games
   end
 
   def games_coached(season_id)
     coaches = []
-    season = CSV.read(@data[:games], headers: true, header_converters: :symbol).find_all {|row| row[:season] == season_id}
-    games = CSV.read(@data[:game_teams], headers: true, header_converters: :symbol)
-    season.each do |season|
-      games.each do |game|
+    new_season = @seasons.find_all {|row| row[:season] == season_id}
+    new_season.each do |season|
+      @games.each do |game|
         if season[:game_id] == game[:game_id]
           coaches << game[:head_coach]
         end
       end
     end
-    games_coached = Hash.new(0)
-    coaches.each {|coach| games_coached[coach] += 1}
-    games_coached
+    games_coached_hash = Hash.new(0)
+    coaches.each {|coach| games_coached_hash[coach] += 1}
+    games_coached_hash
   end
 
   def games_won(season_id)
     winning_coaches = []
-    season = CSV.read(@data[:games], headers: true, header_converters: :symbol).find_all {|row| row[:season] == season_id}
-    games = CSV.read(@data[:game_teams], headers: true, header_converters: :symbol)
-    season.each do |season|
+    new_season = @seasons.find_all {|row| row[:season] == season_id}
+    new_season.each do |season|
       games.each do |game|
         if season[:game_id] == game[:game_id] && game[:result] == "WIN"
           winning_coaches << game[:head_coach]
