@@ -5,7 +5,7 @@ require './lib/team'
 class TeamTest < Minitest::Test
 
   def setup
-    @atlanta = Teams.new({
+    @atlanta = Team.new({
       team_id: "1",
       franchiseid: "23",
       teamname: "Atlanta United",
