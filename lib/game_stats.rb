@@ -34,7 +34,7 @@ class GameStats < Stats
     tie_games = @game_teams.find_all do |game|
       game.result == "TIE"
     end.count / 2
-    (tie_games / unique_games)
+    (tie_games.to_f / unique_games).round(2)
   end
 
   def count_of_games_by_season
@@ -48,9 +48,9 @@ class GameStats < Stats
 
   def average_goals_per_game
     gpg = @game_teams.sum do |game|
-      game.goals.to_i
+      game.goals.to_f
     end
-    (gpg / unique_games)
+    (gpg / unique_games).round(2)
   end
 
   def average_goals_by_season
