@@ -1,9 +1,9 @@
 require "CSV"
-require "./lib/game"
-require "./lib/teams"
-## => Arique's set up
+require "./lib/games"
+require "./lib/game_teams"
+
 class StatTracker
-  attr_reader :games, :teams
+  attr_reader :games, :game_teams, :teams
 
   def self.from_csv(locations)
     StatTracker.new(locations)
@@ -12,8 +12,7 @@ class StatTracker
   def initialize(locations)
     @games ||= turn_games_csv_data_into_games_objects(locations[:games])
     @teams ||= turn_teams_csv_data_into_teams_objects(locations[:teams])
-    # @teams = locations[:teams]
-    # @game_teams = locations[:game_teams]
+    @game_teams ||= turn_game_teams_csv_data_into_game_teams_objects(locations[:game_teams])
   end
 
   def turn_games_csv_data_into_games_objects(games_csv_data)
@@ -32,7 +31,13 @@ class StatTracker
     teams_objects_collection
   end
 
-
+  def turn_game_teams_csv_data_into_game_teams_objects(game_teams_csv_data)
+    game_teams_objects_collection = []
+    CSV.foreach(game_teams_csv_data, headers: true, header_converters: :symbol) do |row|
+      game_teams_objects_collection << GameTeams.new(row)
+    end
+    game_teams_objects_collection
+  end
 
   def highest_total_score
     output = @games.max_by do |game|
@@ -41,30 +46,3 @@ class StatTracker
     output.total_game_score
   end
 end
-
-# require "CSV"
-# require_relative "./game"
-
-# class StatTracker
-#   ## This -below- is the class method (indicated by the self.)
-#   def self.from_csv(locations)   ##locations is a hash of the file paths.
-#     all_games = []
-#     games = CSV.foreach(locations[:games], :headers => true) do |row| ## this is our array of games
-#     all_games << Game.new(row)
-#     end
-#     StatTracker.new(all_games) ## this is creating an instance of the class
-#   end
-
-#   def initialize(games)
-#     @games = games.to_a
-#   end
-
-  # def highest_total_score
-  #   #  @games[0]["home_goals"].to_i + @games[0]["away_goals"].to_i
-  #   output = @games.max_by do |game|
-  #     game.total_game_score
-  #   end
-  #   output.total_game_score
-  # end
-
-# end
