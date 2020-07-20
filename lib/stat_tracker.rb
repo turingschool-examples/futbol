@@ -1,7 +1,7 @@
 require "CSV"
 require "./lib/games"
 require "./lib/game_teams"
-require "./lib/team"
+require "./lib/teams"
 
 class StatTracker
   attr_reader :games, :game_teams, :teams
@@ -40,10 +40,34 @@ class StatTracker
     game_teams_objects_collection
   end
 
-  def highest_total_score
-    output = @games.max_by do |game|
-      game.total_game_score
+
+  def total_games
+    games = []
+    @game_teams.map do |game|
+      games << game.result
     end
-    output.total_game_score
   end
+
+  def percentage_tie
+    game_ties = @game_teams.select do |game|
+      game.result == "TIE"
+    end
+    (game_ties.count / total_games.count.to_f).round(2)
+  end
+
+  def season_names
+    season_names = @stat_tracker.games.map do |game|
+      game.season
+    end.uniq
+  end
+
+
+  # def count_of_games_by_season(season_id)
+  #   amount_of_amounts = []
+  #    @games.select do |game|
+  #      game.season == season_id
+  #    end
+  #
+  # end
+
 end
