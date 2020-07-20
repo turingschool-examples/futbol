@@ -1,6 +1,7 @@
 require "CSV"
 require "./lib/games"
 require "./lib/game_teams"
+require "./lib/team"
 
 class StatTracker
   attr_reader :games, :game_teams, :teams
