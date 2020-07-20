@@ -32,7 +32,7 @@ class StatTrackerTest < MiniTest::Test
    end
 
    def test_count_games_by_season
-     binding.pry
+    @stat_tracker.season_names
      expected = {"20122013" => 806,
                  "20162017" => 1317,
                  "20142015" => 1319,
