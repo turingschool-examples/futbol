@@ -56,7 +56,13 @@ class StatTracker
     @game_stats.average_goals_by_season
   end
 #league stats
+  def best_offense
+    @game_stats.best_offense
+  end
 
+  def worst_offense
+    @game_stats.worst_offense
+  end
 #team stats
 
 #season stats
