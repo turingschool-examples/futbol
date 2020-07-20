@@ -21,4 +21,8 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_get_the_worst_team
    assert_equal "Utah Royals FC", StatTracker.worst_offense
   end
+
+  def test_it_can_get_highest_scoring_visitor_team
+    assert_equal "FC Dallas", StatTracker.highest_visitor 
+  end
 end
