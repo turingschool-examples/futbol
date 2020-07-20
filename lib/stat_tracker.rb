@@ -48,9 +48,10 @@ class StatTracker
   end
 
   def percentage_home_wins
-    total_home_wins = @game_teams.select do |game|
-      game.hoa == "home" && game.result == "WIN"
+    total_home_wins = @games.select do |game|
+      game.home_goals > game.away_goals
     end
     (total_home_wins.length.to_f / @games.length).round(2)
   end
+
 end
