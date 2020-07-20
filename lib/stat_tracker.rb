@@ -47,10 +47,25 @@ class StatTracker
     output.total_game_score
   end
 
+  def lowest_total_score
+    output = @games.min_by do |game|
+      game.total_game_score
+    end
+    output.total_game_score
+  end
+  
+  def percentage_home_wins
+    total_home_wins = @games.select do |game|
+      game.home_goals > game.away_goals
+    end
+    (total_home_wins.length.to_f / @games.length).round(2)
+  end
+
   def percentage_visitor_wins
     total_visitor_wins = @games.select do |game|
       game.away_goals > game.home_goals
     end
     (total_visitor_wins.length.to_f / @games.length).round(2)
   end
+
 end
