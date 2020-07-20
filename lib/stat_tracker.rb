@@ -1,5 +1,6 @@
 require "CSV"
 require "./lib/games"
+require "./lib/teams"
 require "./lib/game_teams"
 
 class StatTracker
@@ -44,5 +45,12 @@ class StatTracker
       game.total_game_score
     end
     output.total_game_score
+  end
+
+  def percentage_home_wins
+    total_home_wins = @game_teams.select do |game|
+      game.hoa == "home" && game.result == "WIN"
+    end
+    (total_home_wins.length.to_f / @games.length).round(2)
   end
 end
