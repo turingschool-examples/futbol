@@ -45,7 +45,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_get_percentage_ties
-    assert_equal 0.0, @stat_tracker.percentage_ties
+    assert_equal 0.2, @stat_tracker.percentage_ties
   end
 
   def test_it_can_get_count_of_games_by_season
@@ -62,7 +62,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_get_average_goals_per_game
-    assert_equal 4, @stat_tracker.average_goals_per_game
+    assert_equal 4.22, @stat_tracker.average_goals_per_game
   end
 
   def test_it_can_get_average_goals_by_season
