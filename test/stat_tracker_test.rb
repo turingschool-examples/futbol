@@ -23,15 +23,17 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_StatTracker_can_find_highest_total_score
-
     assert_equal 11, @stat_tracker.highest_total_score
   end
 
-  def test_it_can_find_percentage_home_wins
+  def test_it_can_calculate_the_lowest_total_score
+    assert_equal 0, @stat_tracker.lowest_total_score
+  end
 
+  def test_it_can_find_percentage_home_wins
     assert_equal 0.44, @stat_tracker.percentage_home_wins
   end
 
 end
 
-# game.find {|game| game["date_time"] == "5/16/13"; return game["venue"] }
+
