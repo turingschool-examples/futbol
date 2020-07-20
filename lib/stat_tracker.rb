@@ -2,6 +2,7 @@ require "CSV"
 require "./lib/games"
 require "./lib/teams"
 require "./lib/game_teams"
+require "./lib/teams"
 
 class StatTracker
   attr_reader :games, :game_teams, :teams
@@ -40,12 +41,12 @@ class StatTracker
     game_teams_objects_collection
   end
 
-  def highest_total_score
-    output = @games.max_by do |game|
-      game.total_game_score
-    end
-    output.total_game_score
-  end
+#   def total_games
+#     games = []
+#     @game_teams.map do |game|
+#       games << game.result
+#     end
+#   end
 
   def lowest_total_score
     output = @games.min_by do |game|
@@ -67,5 +68,18 @@ class StatTracker
     end
     (total_visitor_wins.length.to_f / @games.length).round(2)
   end
-
+    
+   def percentage_tie
+    game_ties = @game_teams.select do |game|
+      game.result == "TIE"
+    end
+    (game_ties.count / @game_teams.count.to_f).round(2)
+  end
+  
+   def count_of_games_by_season
+    games_by_season = @games.group_by {|game| game.season}
+    game_count_per_season = {}
+    games_by_season.map {|season, game| game_count_per_season[season] = game.count}
+    game_count_per_season
+   end
 end
