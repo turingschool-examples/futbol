@@ -45,4 +45,23 @@ class StatTracker
     end
     output.total_game_score
   end
+
+  def total_number_games_across_seasons
+    @games.count
+  end
+
+  def average_score_per_game(home_or_away_goals)
+    @games.reduce(0) do |counter, game|
+      counter += home_or_away_goals / total_game_score
+    end
+  end
+  def highest_scoring_visitor
+    # name of the team
+    average_score_per_game()
+    #
+    @games.reduce([]) do |game|
+      total_number_games_across_seasons
+    require "pry"; binding.pry
+    end
+  end
 end

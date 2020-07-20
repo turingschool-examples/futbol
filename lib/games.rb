@@ -28,4 +28,8 @@ class Games
     @away_goals + @home_goals
   end
 
+  def average_score
+    require "pry"; binding.pry
+  end
+
 end
