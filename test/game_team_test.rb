@@ -26,7 +26,7 @@ class GameTeamTest < MiniTest::Test
     assert_equal "away", @game_team.hoa
     assert_equal "OT", @game_team.settled_in
     assert_equal "John Tortorella", @game_team.head_coach
-    assert_equal "2", @game_team.goals
+    assert_equal 2, @game_team.goals
   end
 
 end
