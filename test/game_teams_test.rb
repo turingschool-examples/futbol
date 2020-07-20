@@ -3,10 +3,11 @@ require "minitest/pride"
 require "mocha/minitest"
 require "./test/test_helper"
 require "./lib/game_teams"
+require "./lib/stat_tracker"
 
 class GameTeamsTest < Minitest::Test
   def setup
-      info = {
+      row = {
         :game_id => "2012030221",
         :team_id => "3",
         :hoa => "away",
@@ -17,14 +18,24 @@ class GameTeamsTest < Minitest::Test
         :shots => 8,
         :tackles => 44,
         :pim => 8,
-        :powerPlayOpportunities => 3,
-        :powerPlayGoals => 0,
-        :faceOffWinPercentage => 44.8,
+        :powerplayopportunities => 3,
+        :powerplaygoals => 0,
+        :faceoffwinpercentage => 44.8,
         :giveaways => 17,
         :takeaways => 7
         }
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
 
-        @game_teams = GameTeams.new(info)
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+        stat_tracker = StatTracker.new(locations)
+        stat_tracker.game_teams
+        @game_teams = GameTeams.new(row)
     end
 
     def test_it_exists
@@ -44,9 +55,9 @@ class GameTeamsTest < Minitest::Test
       assert_equal 8, @game_teams.shots
       assert_equal 44, @game_teams.tackles
       assert_equal 8, @game_teams.pim
-      assert_equal 3, @game_teams.powerPlayOpportunities
-      assert_equal 0, @game_teams.powerPlayGoals
-      assert_equal 44.8, @game_teams.faceOffWinPercentage
+      assert_equal 3, @game_teams.powerplayopportunities
+      assert_equal 0, @game_teams.powerplaygoals
+      assert_equal 44.8, @game_teams.faceoffwinpercentage
       assert_equal 17, @game_teams.giveaways
       assert_equal 7, @game_teams.takeaways
     end
