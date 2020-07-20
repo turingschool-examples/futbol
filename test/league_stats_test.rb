@@ -31,4 +31,9 @@ class LeagueStatsTest < MiniTest::Test
     # skip
     assert_equal "Reign FC", @league_stats.best_offense
   end
+
+  def test_worst_offense
+    assert_equal "Utah Royals FC", @league_stats.worst_offense
+
+  end
 end
