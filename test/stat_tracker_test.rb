@@ -18,7 +18,6 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_exist
-
     assert_instance_of StatTracker, @stat_tracker
   end
 
@@ -33,6 +32,10 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_find_percentage_home_wins
     assert_equal 0.44, @stat_tracker.percentage_home_wins
   end
+    
+  def test_it_can_find_percentage_visitor_wins
+    assert_equal 0.36, @stat_tracker.percentage_visitor_wins
+  end 
 
 end
 
