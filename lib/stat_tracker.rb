@@ -19,4 +19,8 @@ class StatTracker
  def self.best_offense
   GameTeams.teams_sort_by_average_goal.last.teamname
  end
+
+ def self.worst_offense
+    GameTeams.teams_sort_by_average_goal.first.teamname
+  end
 end

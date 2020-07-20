@@ -1,6 +1,6 @@
 class GameTeams
   attr_reader :team_id, :goals
-  
+
   @@gameteams = []
 
 
@@ -28,5 +28,26 @@ class GameTeams
 
   def self.all
     @@gameteams
+  end
+
+  def self.remove_all
+    @@team = []
+  end
+
+  def self.team_average_goals(team_id)
+    teams_by_id = @@gameteams.find_all do |gameteam|
+      gameteam.team_id.to_i == team_id
+    end
+
+    total_goals = teams_by_id.sum do |teams|
+      teams.goals.to_i
+    end
+    (total_goals.to_f / teams_by_id.size).round(2)
+  end
+
+  def self.teams_sort_by_average_goal
+    Team.all.sort_by do |team|
+      team_average_goals(team.team_id.to_i)
+    end
   end
 end
