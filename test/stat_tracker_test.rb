@@ -1,11 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require "./lib/stat_tracker"
-require "./lib/games"
-require "./lib/game_teams"
-require "./lib/teams"
-require "pry"
-
+require './test/test_helper'
 
 class StatTrackerTest < MiniTest::Test
 
@@ -22,17 +15,16 @@ class StatTrackerTest < MiniTest::Test
 
     @stat_tracker = StatTracker.from_csv(locations)
   end
-  #
-  # def test_it_exist
-  #   assert_instance_of StatTracker, @stat_tracker
-  # end
+
+  def test_it_exist
+    assert_instance_of StatTracker, @stat_tracker
+  end
 
    def test_can_find_percentage_tie
      assert_equal 0.20, @stat_tracker.percentage_tie
    end
 
    def test_count_games_by_season
-    @stat_tracker.season_names
      expected = {"20122013" => 806,
                  "20162017" => 1317,
                  "20142015" => 1319,
@@ -43,7 +35,4 @@ class StatTrackerTest < MiniTest::Test
      assert_equal expected, @stat_tracker.count_of_games_by_season
    end
 
-
 end
-
-# game.find {|game| game["date_time"] == "5/16/13"; return game["venue"] }
