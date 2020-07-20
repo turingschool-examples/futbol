@@ -40,7 +40,7 @@ class GameStatsTest < Minitest::Test
   end
 
   def test_it_can_get_percentage_ties
-    assert_equal 0.0, @game_stats.percentage_ties
+    assert_equal 0.2, @game_stats.percentage_ties
   end
 
   def test_it_can_get_count_of_games_by_season
@@ -57,7 +57,7 @@ class GameStatsTest < Minitest::Test
   end
 
   def test_it_can_get_average_goals_per_game
-    assert_equal 4, @game_stats.average_goals_per_game
+    assert_equal 4.22, @game_stats.average_goals_per_game
   end
 
   def test_it_can_get_average_goals_by_season
