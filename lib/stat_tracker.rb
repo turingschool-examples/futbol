@@ -3,7 +3,7 @@ require "./lib/games"
 require "./lib/game_teams"
 
 class StatTracker
-  attr_reader :games, :game_teams
+  attr_reader :games, :game_teams, :teams
 
   def self.from_csv(locations)
     StatTracker.new(locations)
@@ -11,7 +11,7 @@ class StatTracker
 
   def initialize(locations)
     @games ||= turn_games_csv_data_into_games_objects(locations[:games])
-    # @teams = locations[:teams]
+    @teams ||= turn_teams_csv_data_into_teams_objects(locations[:teams])
     @game_teams ||= turn_game_teams_csv_data_into_game_teams_objects(locations[:game_teams])
   end
 
@@ -21,7 +21,14 @@ class StatTracker
       games_objects_collection << Games.new(row)
     end
     games_objects_collection
-    # require "pry"; binding.pry
+  end
+
+  def turn_teams_csv_data_into_teams_objects(teams_csv_data)
+    teams_objects_collection = []
+    CSV.foreach(teams_csv_data, headers: true, header_converters: :symbol) do |row|
+      teams_objects_collection << Teams.new(row)
+    end
+    teams_objects_collection
   end
 
   def turn_game_teams_csv_data_into_game_teams_objects(game_teams_csv_data)
