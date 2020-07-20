@@ -5,7 +5,8 @@ require './lib/team'
 require './lib/game_team'
 require './test/test_helper'
 require './lib/stat_tracker'
-# require './lib/game_stats'
+require './lib/game_stats'
+require './lib/league_stats'
 require 'pry'
 
 class StatTrackerTest < MiniTest::Test
@@ -22,12 +23,6 @@ class StatTrackerTest < MiniTest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
-  # def test_it_has_csv_paths
-  #   assert_equal "./fixtures/games_fixture.csv", @stat_tracker.games
-  #   assert_equal "./fixtures/game_teams_fixture.csv", @stat_tracker.game_team
-  #   assert_equal "./fixtures/teams_fixture.csv", @stat_tracker.teams
-  # end
-  # Game Stats Tests (all tests are from the data files)
   def test_it_can_get_highest_total_score
     assert_equal 11, @stat_tracker.highest_total_score
   end
