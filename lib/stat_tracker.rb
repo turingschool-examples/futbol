@@ -1,5 +1,6 @@
 require "CSV"
 require "./lib/games"
+require "./lib/teams"
 require "./lib/game_teams"
 
 class StatTracker
@@ -45,4 +46,13 @@ class StatTracker
     end
     output.total_game_score
   end
+
+  def lowest_total_score
+    output = @games.min_by do |game|
+      game.total_game_score
+    end
+    output.total_game_score
+  end
+
+
 end
