@@ -32,7 +32,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_average_goals_per_game
-  
+    # binding.pry
     assert_equal 4.22, @stat_tracker.average_goals_per_game
   end
 

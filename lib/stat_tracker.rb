@@ -54,5 +54,11 @@ class StatTracker
     output.total_game_score
   end
 
+  def average_goals_per_game
+    games_count = @games.count.to_f
+    sum_of_goals = (@games.map {|game| game.total_game_score}.to_a).sum
 
+    sum_of_goals_divided_by_game_count = (sum_of_goals / games_count).round(2)
+    sum_of_goals_divided_by_game_count
+  end
 end
