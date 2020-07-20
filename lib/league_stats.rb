@@ -40,6 +40,7 @@ class LeagueStats < Stats
 
     @teams.find{|team| team.team_id == best_away_team}.team_name
   end
+  
   def lowest_scoring_visitor
     worst_away_team = away_games_by_team_id.min_by do |team_id, game_teams|
       game_teams.sum{|game_team| game_team.goals} / game_teams.count.to_f
