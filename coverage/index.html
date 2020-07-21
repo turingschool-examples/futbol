@@ -14,7 +14,7 @@
       <img src="./assets/0.12.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2020-07-20T21:21:20-06:00">2020-07-20T21:21:20-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2020-07-20T21:48:57-06:00">2020-07-20T21:48:57-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -2382,7 +2382,7 @@
 
             
 
-            <code class="ruby">        goals.delete_if { |key, value| key.nil? || value.nil? }</code>
+            <code class="ruby">        goals.delete_if { |key, value| key.nil? || value.nil? } ## Nico. Added line here to remove nil ouput. Now passes test.It passes in Daniel&#39;s without delete_if. Question for Tim.</code>
           </li>
         </div>
       
@@ -2393,7 +2393,7 @@
 
             
 
-            <code class="ruby">        id = goals.min_by {|key, value| value}</code>
+            <code class="ruby">        id = goals.min_by {|team, num_of_goals| num_of_goals}</code>
           </li>
         </div>
       

@@ -133,8 +133,8 @@ class StatTracker
           average_goals = goal_count / games.count.to_f
           goals[team_id] = average_goals
         end
-        goals.delete_if { |key, value| key.nil? || value.nil? }
-        id = goals.min_by {|key, value| value}
+        goals.delete_if { |key, value| key.nil? || value.nil? } ## Nico. Added line here to remove nil ouput. Now passes test.It passes in Daniel's without delete_if. Question for Tim.
+        id = goals.min_by {|team, num_of_goals| num_of_goals}
         @teams.find {|team| team.team_id == id[0]}.teamname
      end
 end
