@@ -1,4 +1,5 @@
-require 'csv'
+require 'CSV'
+
 class GameTeam
 
   attr_reader :game_id,
@@ -16,22 +17,27 @@ class GameTeam
               :face_off_win_percentage,
               :giveaways,
               :takeaways
-  def initialize(info)
-    @game_id = info[:game_id]
-    @team_id = info[:team_id]
-    @hoa = info[:hoa]
-    @result = info[:result]
-    @settled_in = info[:settled_in]
-    @head_coach = info[:head_coach]
-    @goals = info[:goals]
-    @shots = info[:shots]
-    @tackles = info[:tackles]
-    @pim = info[:pim]
-    @power_play_opportunities = info[:powerplayopportunities]
-    @power_play_goals = info[:powerplaygoals]
-    @face_off_win_percentage = info[:faceoffwinpercentage]
-    @giveaways = info[:giveaways]
-    @takeaways = info[:takeaways]
+
+  def self.from_csv(data)
+    GameTeam.new(data)
+  end
+
+  def initialize(data)
+    @game_id = data[0]
+    @team_id = data[1]
+    @hoa = data[2]
+    @result = data[3]
+    @settled_in = data[4]
+    @head_coach = data[5]
+    @goals = data[6]
+    @shots = data[7]
+    @tackles = data[8]
+    @pim = data[9]
+    @power_play_opportunities = data[10]
+    @power_play_goals = data[11]
+    @face_off_win_percentage = data[12]
+    @giveaways = data[13]
+    @takeaways = data[14]
   end
 
 end

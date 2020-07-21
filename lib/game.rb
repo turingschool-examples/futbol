@@ -1,6 +1,6 @@
-require 'csv'
-class Game
+require 'CSV'
 
+class Game
   attr_reader :game_id,
               :season,
               :type,
@@ -11,17 +11,21 @@ class Game
               :home_goals,
               :venue,
               :venue_link
-  def initialize(info)
-    @game_id = info[:game_id]
-    @season = info[:season]
-    @type = info[:type]
-    @date_time = info[:date_time]
-    @away_team_id = info[:away_team_id]
-    @home_team_id = info[:home_team_id]
-    @away_goals = info[:away_goals]
-    @home_goals = info[:home_goals]
-    @venue = info[:venue]
-    @venue_link = info[:venue_link]
+
+  def self.from_csv(data)
+    Game.new(data)
   end
 
+  def initialize(data)
+    @game_id = data[0]
+    @season = data[1]
+    @type = data[2]
+    @date_time = data[3]
+    @away_team_id = data[4]
+    @home_team_id = data[5]
+    @away_goals = data[6]
+    @home_goals = data[7]
+    @venue = data[8]
+    @venue_link = data[9]
+  end
 end

@@ -1,4 +1,5 @@
-require 'csv'
+require 'CSV'
+
 class Team
 
   attr_reader :team_id,
@@ -7,13 +8,17 @@ class Team
               :abbreviation,
               :stadium,
               :link
-  def initialize(info)
-    @team_id = info[:team_id]
-    @franchise_id = info[:franchiseid]
-    @team_name = info[:teamname]
-    @abbreviation = info[:abbreviation]
-    @stadium = info[:stadium]
-    @link = info[:link]
+  def self.from_csv(data)
+    Team.new(data)
+  end
+
+  def initialize(data)
+    @team_id = data[0]
+    @franchise_id = data[1]
+    @team_name = data[2]
+    @abbreviation = data[3]
+    @stadium = data[4]
+    @link = data[5]
   end
 
 end
