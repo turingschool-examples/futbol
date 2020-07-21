@@ -1,6 +1,5 @@
 require './test/test_helper'
 
-
 class StatTrackerTest < MiniTest::Test
 
   def setup
@@ -18,7 +17,6 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_exist
-
     assert_instance_of StatTracker, @stat_tracker
   end
 
@@ -28,7 +26,6 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_can_calculate_the_lowest_total_score
     assert_equal 0, @stat_tracker.lowest_total_score
-
   end
 
   def test_average_goals_per_game
@@ -42,4 +39,27 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
 
+  def test_it_can_find_percentage_home_wins
+    assert_equal 0.44, @stat_tracker.percentage_home_wins
+  end
+    
+  def test_it_can_find_percentage_visitor_wins
+    assert_equal 0.36, @stat_tracker.percentage_visitor_wins
+  end 
+  
+  def test_can_find_percentage_tie
+     assert_equal 0.20, @stat_tracker.percentage_tie
+   end
+  
+  def test_count_games_by_season
+     expected = {"20122013" => 806,
+                 "20162017" => 1317,
+                 "20142015" => 1319,
+                 "20152016" => 1321,
+                 "20132014" => 1323,
+                 "20172018" => 1355
+                  }
+     assert_equal expected, @stat_tracker.count_of_games_by_season
+   end
 end
+
