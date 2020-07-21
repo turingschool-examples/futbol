@@ -14,7 +14,7 @@
       <img src="./assets/0.12.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2020-07-21T17:36:40-06:00">2020-07-21T17:36:40-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2020-07-21T17:52:34-06:00">2020-07-21T17:52:34-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -30,7 +30,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         50331.81
+         57654.6
        </span>
     </span> hits/line
     )
@@ -73,11 +73,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#c04c8437f36035fd0512ce35855c838174eccfe7" class="src_link" title="lib/game_teams.rb">lib/game_teams.rb</a></td>
             <td class="green strong cell--number t-file__coverage">98.28 %</td>
-            <td class="cell--number">102</td>
+            <td class="cell--number">112</td>
             <td class="cell--number">58</td>
             <td class="cell--number">57</td>
             <td class="cell--number">1</td>
-            <td class="cell--number">98536.91</td>
+            <td class="cell--number">114445.03</td>
             
           </tr>
         
@@ -565,8 +565,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="3809792" data-linenumber="38">
-            <span class="hits">3809792</span>
+          <li class="covered" data-hits="4762240" data-linenumber="38">
+            <span class="hits">4762240</span>
             
 
             
@@ -609,8 +609,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="119056" data-linenumber="42">
-            <span class="hits">119056</span>
+          <li class="covered" data-hits="148820" data-linenumber="42">
+            <span class="hits">148820</span>
             
 
             
@@ -752,8 +752,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="119056" data-linenumber="55">
-            <span class="hits">119056</span>
+          <li class="covered" data-hits="74410" data-linenumber="55">
+            <span class="hits">74410</span>
             
 
             
@@ -829,8 +829,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="59528" data-linenumber="62">
-            <span class="hits">59528</span>
+          <li class="covered" data-hits="37205" data-linenumber="62">
+            <span class="hits">37205</span>
             
 
             
@@ -967,7 +967,7 @@
 
             
 
-            <code class="ruby">  def self.find_all_home_teams</code>
+            <code class="ruby">  def self.lowest_visitor_team</code>
           </li>
         </div>
       
@@ -978,18 +978,18 @@
 
             
 
-            <code class="ruby">     @@gameteams.find_all do |gameteam|</code>
+            <code class="ruby">    worst_away_team = away_games_by_team_id.min_by do |team_id, gameteam|</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="59528" data-linenumber="76">
-            <span class="hits">59528</span>
+          <li class="covered" data-hits="22355" data-linenumber="76">
+            <span class="hits">22355</span>
             
 
             
 
-            <code class="ruby">      gameteam.hoa == &quot;home&quot;</code>
+            <code class="ruby">      gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f</code>
           </li>
         </div>
       
@@ -1000,7 +1000,7 @@
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">    end.first</code>
           </li>
         </div>
       
@@ -1011,29 +1011,29 @@
 
             
 
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="79">
-            
-            
-
-            
-
             <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="80">
-            <span class="hits">1</span>
+          <li class="covered" data-hits="20" data-linenumber="79">
+            <span class="hits">20</span>
             
 
             
 
-            <code class="ruby">  def self.home_games_by_team_id</code>
+            <code class="ruby">    Team.all.find{|team1| team1.team_id == worst_away_team}.teamname</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="80">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -1044,29 +1044,29 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  # def self.lowest_visitor_team</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="82">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="82">
+            
             
 
             
 
-            <code class="ruby">    find_all_home_teams.group_by do |game|</code>
+            <code class="ruby">  #   worst_away_team = away_games_by_team_id.min_by do |team_id, gameteam|</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="29764" data-linenumber="83">
-            <span class="hits">29764</span>
+          <li class="never" data-hits="" data-linenumber="83">
+            
             
 
             
 
-            <code class="ruby">      game.team_id</code>
+            <code class="ruby">  #     gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f</code>
           </li>
         </div>
       
@@ -1077,7 +1077,7 @@
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">  #     require &quot;pry&quot;; binding.pry</code>
           </li>
         </div>
       
@@ -1088,7 +1088,7 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">  #   end.last</code>
           </li>
         </div>
       
@@ -1099,56 +1099,34 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  #</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="87">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="87">
+            
             
 
             
 
-            <code class="ruby">  def self.highest_home_team</code>
+            <code class="ruby">  #   Team.all.find{|team1| team1.team_id == worst_away_team}.teamname</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="88">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="88">
+            
             
 
             
 
-            <code class="ruby">    best_home_team = home_games_by_team_id.max_by do |team_id, gameteam|</code>
+            <code class="ruby">  # end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="29796" data-linenumber="89">
-            <span class="hits">29796</span>
-            
-
-            
-
-            <code class="ruby">      gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="90">
-            
-            
-
-            
-
-            <code class="ruby">    end.first</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="91">
+          <li class="never" data-hits="" data-linenumber="89">
             
             
 
@@ -1159,13 +1137,35 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="29" data-linenumber="92">
-            <span class="hits">29</span>
+          <li class="covered" data-hits="1" data-linenumber="90">
+            <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">    Team.all.find{|team1| team1.team_id == best_home_team}.teamname</code>
+            <code class="ruby">  def self.find_all_home_teams</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="91">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">     @@gameteams.find_all do |gameteam|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="74410" data-linenumber="92">
+            <span class="hits">74410</span>
+            
+
+            
+
+            <code class="ruby">      gameteam.hoa == &quot;home&quot;</code>
           </li>
         </div>
       
@@ -1176,7 +1176,7 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
@@ -1187,18 +1187,18 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="95">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="95">
+            
             
 
             
 
-            <code class="ruby">  def self.lowest_visitor_team</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -1209,34 +1209,12 @@
 
             
 
-            <code class="ruby">    worst_away_team = away_games_by_team_id.min_by do |team_id, gameteam|</code>
+            <code class="ruby">  def self.home_games_by_team_id</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="44678" data-linenumber="97">
-            <span class="hits">44678</span>
-            
-
-            
-
-            <code class="ruby">      gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="98">
-            
-            
-
-            
-
-            <code class="ruby">    end.last</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="99">
+          <li class="never" data-hits="" data-linenumber="97">
             
             
 
@@ -1247,13 +1225,35 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="33" data-linenumber="100">
-            <span class="hits">33</span>
+          <li class="covered" data-hits="1" data-linenumber="98">
+            <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">    Team.all.find{|team1| team1.team_id == worst_away_team}.teamname</code>
+            <code class="ruby">    find_all_home_teams.group_by do |game|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="37205" data-linenumber="99">
+            <span class="hits">37205</span>
+            
+
+            
+
+            <code class="ruby">      game.team_id</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="100">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
           </li>
         </div>
       
@@ -1270,6 +1270,116 @@
       
         <div>
           <li class="never" data-hits="" data-linenumber="102">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="103">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def self.highest_home_team</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="104">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    best_home_team = home_games_by_team_id.max_by do |team_id, gameteam|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="37237" data-linenumber="105">
+            <span class="hits">37237</span>
+            
+
+            
+
+            <code class="ruby">      gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="106">
+            
+            
+
+            
+
+            <code class="ruby">    end.first</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="107">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="29" data-linenumber="108">
+            <span class="hits">29</span>
+            
+
+            
+
+            <code class="ruby">    Team.all.find{|team1| team1.team_id == best_home_team}.teamname</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="109">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="110">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="111">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="112">
             
             
 

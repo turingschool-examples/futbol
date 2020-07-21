@@ -71,6 +71,14 @@ class GameTeams
     Team.all.find{|team1| team1.team_id == best_away_team}.teamname
   end
 
+  def self.lowest_visitor_team
+    worst_away_team = away_games_by_team_id.min_by do |team_id, gameteam|
+      gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
+    end.first
+
+    Team.all.find{|team1| team1.team_id == worst_away_team}.teamname
+  end
+
   def self.find_all_home_teams
      @@gameteams.find_all do |gameteam|
       gameteam.hoa == "home"
