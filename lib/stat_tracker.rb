@@ -40,12 +40,6 @@ class StatTracker
     game_teams_objects_collection
   end
 
-  # def highest_total_score
-  #   output = @games.max_by do |game|
-  #     game.total_game_score
-  #   end
-  #   output.total_game_score
-  # end
 
   def lowest_total_score
     output = @games.min_by do |game|
