@@ -117,6 +117,6 @@ class StatTracker
     games_by_season = @games.group_by {|game| game.season}
     game_count_per_season = {}
     games_by_season.map {|season, game| game_count_per_season[season] = game.count}
-    game_count_per_season
+    game_count_per_season.delete_if { |key, value| key.nil? || value.nil? }
    end
 end
