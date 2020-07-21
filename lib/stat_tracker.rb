@@ -68,22 +68,28 @@ class StatTracker
     away_goals
   end
 
-  def highest_scoring_visitor
-    visiting_teams_by_game_id
-    total_goals_by_away_team
-
+  def away_teams_game_count_by_team_id
     games_by_team_id = @games.reduce(Hash.new { |h,k| h[k]=[] }) do |result, game|
-        result[game.away_team_id] << game.game_id
+      result[game.away_team_id] << game.game_id
       result
     end
-
     games_count_by_team_id = {}
     games_by_team_id.each do |team_id, games_array|
       games_count_by_team_id[team_id] = games_array.count
     end
+    games_count_by_team_id
+  end
 
-    highest_away_team = games_count_by_team_id.max_by do |team_id, game_count|
-      game_count
+
+
+  def highest_scoring_visitor
+    visiting_teams_by_game_id
+    total_goals_by_away_team
+    away_teams_game_count_by_team_id
+
+
+    highest_away_team = total_goals_by_away_team.max_by do |team_id, total_goals|
+      total_goals
     end
 
     @teams.find do |team|
