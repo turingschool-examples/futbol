@@ -8,6 +8,7 @@ class GamesCollection
   def initialize(path)
     @path      = path
     @all_games = []
+    from_csv(path)
   end
 
   def from_csv(path)
