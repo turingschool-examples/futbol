@@ -62,7 +62,7 @@ class StatTrackerTest < MiniTest::Test
    end
 
    def test_lowest_scoring_home_team
-    skip
+    
     assert_equal "Utah Royals FC" ,@stat_tracker.lowest_scoring_home_team
    end
 

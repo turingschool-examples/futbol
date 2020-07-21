@@ -119,4 +119,22 @@ class StatTracker
     games_by_season.map {|season, game| game_count_per_season[season] = game.count}
     game_count_per_season.delete_if { |key, value| key.nil? || value.nil? } ## Nico. Added line here to remove nil ouput. Now passes test.
    end
+
+   def lowest_scoring_home_team
+      home_team = @games.group_by do |game|
+        game.home_team_id
+      end
+      goals = {}
+      home_team.each do |team_id, games|
+        goal_count = 0
+        games.each do |game|
+            goal_count += game.home_goals
+          end
+          average_goals = goal_count / games.count.to_f
+          goals[team_id] = average_goals
+        end
+        goals.delete_if { |key, value| key.nil? || value.nil? }
+        id = goals.min_by {|key, value| value}
+        @teams.find {|team| team.team_id == id[0]}.teamname
+     end
 end

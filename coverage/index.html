@@ -14,7 +14,7 @@
       <img src="./assets/0.12.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2020-07-20T20:54:41-06:00">2020-07-20T20:54:41-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2020-07-20T21:21:20-06:00">2020-07-20T21:21:20-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -30,7 +30,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         30388.46
+         27349.02
        </span>
     </span> hits/line
     )
@@ -43,8 +43,8 @@
   </div>
 
   <div class="t-line-summary">
-    <b>112</b> relevant lines,
-    <span class="green"><b>112</b> lines covered</span> and
+    <b>125</b> relevant lines,
+    <span class="green"><b>125</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed. </span>
     (<span class="green">
   100.0%
@@ -95,11 +95,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#f52f1370274f776cd1bf40924773f4295f538647" class="src_link" title="lib/stat_tracker.rb">lib/stat_tracker.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">122</td>
-            <td class="cell--number">72</td>
-            <td class="cell--number">72</td>
+            <td class="cell--number">140</td>
+            <td class="cell--number">85</td>
+            <td class="cell--number">85</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">5902.47</td>
+            <td class="cell--number">5177.62</td>
             
           </tr>
         
@@ -878,8 +878,8 @@
     
 
     <div class="t-line-summary">
-      <b>72</b> relevant lines.
-      <span class="green"><b>72</b> lines covered</span> and
+      <b>85</b> relevant lines.
+      <span class="green"><b>85</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -1601,7 +1601,7 @@
 
             
 
-            <code class="ruby">    (home_wins.count / home_games.count.to_f).round(2)</code>
+            <code class="ruby">    (home_wins.count / home_games.count.to_f).round(2) ##Nico. Corrected code so it returns .44 as per spec harness instead of .43. Left original code commented below. </code>
           </li>
         </div>
       
@@ -1700,7 +1700,7 @@
 
             
 
-            <code class="ruby">    sum_of_goals = (@games.map {|game| game.home_goals + game.away_goals}.to_a).sum</code>
+            <code class="ruby">    sum_of_goals = (@games.map {|game| game.home_goals + game.away_goals}.to_a).sum ##Nico. Added game.home_goals + game.away_goals so test passes after we moved helper method from games.rb.</code>
           </li>
         </div>
       
@@ -2206,7 +2206,7 @@
 
             
 
-            <code class="ruby">    game_count_per_season.delete_if { |key, value| key.nil? || value.nil? }</code>
+            <code class="ruby">    game_count_per_season.delete_if { |key, value| key.nil? || value.nil? } ## Nico. Added line here to remove nil ouput. Now passes test.</code>
           </li>
         </div>
       
@@ -2223,6 +2223,204 @@
       
         <div>
           <li class="never" data-hits="" data-linenumber="122">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="123">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">   def lowest_scoring_home_team</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="124">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      home_team = @games.group_by do |game|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="7443" data-linenumber="125">
+            <span class="hits">7443</span>
+            
+
+            
+
+            <code class="ruby">        game.home_team_id</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="126">
+            
+            
+
+            
+
+            <code class="ruby">      end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="127">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      goals = {}</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="128">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      home_team.each do |team_id, games|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="33" data-linenumber="129">
+            <span class="hits">33</span>
+            
+
+            
+
+            <code class="ruby">        goal_count = 0</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="33" data-linenumber="130">
+            <span class="hits">33</span>
+            
+
+            
+
+            <code class="ruby">        games.each do |game|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="7443" data-linenumber="131">
+            <span class="hits">7443</span>
+            
+
+            
+
+            <code class="ruby">            goal_count += game.home_goals</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="132">
+            
+            
+
+            
+
+            <code class="ruby">          end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="33" data-linenumber="133">
+            <span class="hits">33</span>
+            
+
+            
+
+            <code class="ruby">          average_goals = goal_count / games.count.to_f</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="33" data-linenumber="134">
+            <span class="hits">33</span>
+            
+
+            
+
+            <code class="ruby">          goals[team_id] = average_goals</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="135">
+            
+            
+
+            
+
+            <code class="ruby">        end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="34" data-linenumber="136">
+            <span class="hits">34</span>
+            
+
+            
+
+            <code class="ruby">        goals.delete_if { |key, value| key.nil? || value.nil? }</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="33" data-linenumber="137">
+            <span class="hits">33</span>
+            
+
+            
+
+            <code class="ruby">        id = goals.min_by {|key, value| value}</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="31" data-linenumber="138">
+            <span class="hits">31</span>
+            
+
+            
+
+            <code class="ruby">        @teams.find {|team| team.team_id == id[0]}.teamname</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="139">
+            
+            
+
+            
+
+            <code class="ruby">     end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="140">
             
             
 
