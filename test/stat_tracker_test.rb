@@ -1,11 +1,11 @@
-require "./test/test_helper"
-# require 'minitest/autorun'
-# require 'minitest/pride'
-# require "./lib/stat_tracker"
-# require "./lib/games"
-# require "./lib/game_teams"
-# require "./lib/teams"
-# require "pry"
+#require "./test/test_helper"
+require 'minitest/autorun'
+require 'minitest/pride'
+require "./lib/stat_tracker"
+require "./lib/games"
+require "./lib/game_teams"
+require "./lib/teams"
+require "pry"
 
 
 class StatTrackerTest < MiniTest::Test
@@ -29,6 +29,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_StatTracker_can_find_highest_total_score
+
     assert_equal 11, @stat_tracker.highest_total_score
   end
 
@@ -66,4 +67,46 @@ class StatTrackerTest < MiniTest::Test
    def test_highest_scoring_home_team
      assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
    end
+
+
+
+  def test_it_can_create_visiting_teams_hash
+    assert_equal 7441, @stat_tracker.visiting_teams_by_game_id.count
+    assert_equal Hash, @stat_tracker.visiting_teams_by_game_id.class
+    assert_equal "16", @stat_tracker.visiting_teams_by_game_id["2012030236"]
+  end
+
+  def test_it_can_create_an_away_goals_and_team_id_hash
+    # skip
+    assert_equal 32, @stat_tracker.total_goals_by_away_team.count
+    assert_equal Hash, @stat_tracker.total_goals_by_away_team.class
+    assert_equal 458, @stat_tracker.total_goals_by_away_team["20"]
+
+  end
+
+  def test_it_can_create_hash_with_total_games_played_by_away_team
+    assert_equal 32, @stat_tracker.away_teams_game_count_by_team_id.count
+    assert_equal Hash, @stat_tracker.away_teams_game_count_by_team_id.class
+
+    assert_equal 266, @stat_tracker.away_teams_game_count_by_team_id["3"]
+
+    assert_nil @stat_tracker.away_teams_game_count_by_team_id["56"]
+  end
+
+  def test_it_can_find_highest_total_goals_by_away_team
+    assert_equal String, @stat_tracker.highest_total_goals_by_away_team[0].class
+    assert_equal Integer, @stat_tracker.highest_total_goals_by_away_team[1].class
+    assert_equal 2, @stat_tracker.highest_total_goals_by_away_team.count
+    assert_equal Array, @stat_tracker.highest_total_goals_by_away_team.class
+
+  end
+
+  def test_it_can_calculate_overal_average_by_team
+    assert_equal 32, @stat_tracker.overall_average_scores_by_away_team.count
+    assert_equal Hash, @stat_tracker.overall_average_scores_by_away_team.class
+    assert_equal 1, @stat_tracker.overall_average_scores_by_away_team["6"]
+
+  end
+
+
 end
