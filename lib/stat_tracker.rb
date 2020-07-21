@@ -39,13 +39,6 @@ class StatTracker
     game_teams_objects_collection
   end
 
-  def highest_total_score
-    output = @games.max_by do |game|
-      game.total_game_score
-    end
-    output.total_game_score
-  end
-
   def total_number_games_across_seasons
     @games.count
   end
@@ -80,20 +73,30 @@ class StatTracker
     games_count_by_team_id
   end
 
+  def highest_total_goals_by_away_team
+    total_goals_by_away_team.max_by do |team_id, total_goals|
+      total_goals
+    end
+  end
+
+  def overall_average_scores_by_away_team
+    over_all_average_by_team = {}
+    total_goals_by_away_team.each do |away_team_id, total_goals|
+      away_teams_game_count_by_team_id.each do |away_team_id, total_games_played|
+        over_all_average_by_team[away_team_id] = (total_goals / total_games_played)
+      end
+    end
+    over_all_average_by_team
+  end
+
 
 
   def highest_scoring_visitor
-    visiting_teams_by_game_id
-    total_goals_by_away_team
-    away_teams_game_count_by_team_id
-
-
-    highest_away_team = total_goals_by_away_team.max_by do |team_id, total_goals|
-      total_goals
+    best_team = overall_average_scores_by_away_team.max_by do |team_id, average_goals_per_game|
+      average_goals_per_game
     end
-
     @teams.find do |team|
-      team.team_id == highest_away_team[0]
+      team.team_id == best_team[0]
     end.teamname
   end
 
