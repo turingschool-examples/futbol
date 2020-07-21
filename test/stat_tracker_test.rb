@@ -29,7 +29,6 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_average_goals_per_game
-    # binding.pry
     assert_equal 4.22, @stat_tracker.average_goals_per_game
   end
 
@@ -61,5 +60,11 @@ class StatTrackerTest < MiniTest::Test
                   }
      assert_equal expected, @stat_tracker.count_of_games_by_season
    end
+
+   def test_lowest_scoring_home_team
+    skip
+    assert_equal "Utah Royals FC" ,@stat_tracker.lowest_scoring_home_team
+   end
+
 end
 

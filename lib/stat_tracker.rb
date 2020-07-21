@@ -56,15 +56,22 @@ class StatTracker
   end
   
   def percentage_home_wins
-    total_home_wins = @games.select do |game|
-      game.home_goals > game.away_goals
+    home_games = @game_teams.select do |game| 
+      game.hoa == "home"
     end
-    (total_home_wins.length.to_f / @games.length).round(2)
+    home_wins = @game_teams.select do |game| 
+      game.result == "WIN" && game.hoa == "home"
+    end
+    (home_wins.count / home_games.count.to_f).round(2)
+    # total_home_wins = @games.select do |game|
+    #   game.home_goals > game.away_goals
+    # end
+    # (total_home_wins.length.to_f / @games.length).round(2)
   end
 
   def average_goals_per_game
     games_count = @games.count.to_f
-    sum_of_goals = (@games.map {|game| game.total_game_score}.to_a).sum
+    sum_of_goals = (@games.map {|game| game.home_goals + game.away_goals}.to_a).sum
 
     sum_of_goals_divided_by_game_count = (sum_of_goals / games_count).round(2)
     sum_of_goals_divided_by_game_count
@@ -91,8 +98,6 @@ class StatTracker
     avg_goals_per_season
 
   end
-
-end
 
   def percentage_visitor_wins
     total_visitor_wins = @games.select do |game|
