@@ -11,8 +11,9 @@ class StatTrackerTest < MiniTest::Test
       teams: team_path,
       game_teams: game_teams_path
     }
-    stattracker1 = StatTracker.from_csv(locations)
-    assert_instance_of StatTracker, stattracker1
+
+    stat_tracker = StatTracker.from_csv(locations)
+    assert_instance_of StatTracker, stat_tracker
   end
 
   def test_it_has_attributes
@@ -25,65 +26,28 @@ class StatTrackerTest < MiniTest::Test
       teams: team_path,
       game_teams: game_teams_path
     }
+
     stat_tracker = StatTracker.from_csv(locations)
-    assert_equal CSV::Table, stat_tracker.games.class
-    assert_equal CSV::Table, stat_tracker.seasons.class
+    assert_equal './data/games.csv', stat_tracker.games_data
   end
 
-  def test_it_can_calculate_games_coached_per_coach
-    game_path = './data/fake_games.csv'
+  def test_it_can_generate_games
+    game_path = './data/games.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/fake_game_teams.csv'
+    game_teams_path = './data/game_teams.csv'
 
     locations = {
       games: game_path,
       teams: team_path,
       game_teams: game_teams_path
-      }
-      stat_tracker = StatTracker.from_csv(locations)
-      assert_equal 3, stat_tracker.games_coached("20132014")["Peter Horachek"]
-    end
+    }
 
-    def test_it_can_calculate_games_won_per_coach
-      game_path = './data/fake_games.csv'
-      team_path = './data/teams.csv'
-      game_teams_path = './data/fake_game_teams.csv'
-
-      locations = {
-        games: game_path,
-        teams: team_path,
-        game_teams: game_teams_path
-        }
-      stat_tracker = StatTracker.from_csv(locations)
-      assert_equal 1, stat_tracker.games_won("20132014")["Peter Horachek"]
-    end
-
-    def test_it_can_calculate_winning_percentage_per_coach
-      game_path = './data/fake_games.csv'
-      team_path = './data/teams.csv'
-      game_teams_path = './data/fake_game_teams.csv'
-
-      locations = {
-        games: game_path,
-        teams: team_path,
-        game_teams: game_teams_path
-        }
-      stat_tracker = StatTracker.from_csv(locations)
-      assert_equal 0.333, stat_tracker.winning_percentage("20132014")["Peter Horachek"]
-    end
-
-    def test_if_it_can_get_coach_with_highest_win_percent
-      game_path = './data/fake_games.csv'
-      team_path = './data/teams.csv'
-      game_teams_path = './data/fake_game_teams.csv'
-
-      locations = {
-        games: game_path,
-        teams: team_path,
-        game_teams: game_teams_path
-        }
-      stat_tracker = StatTracker.from_csv(locations)
-      assert_equal "Claude Noel", stat_tracker.winningest_coach("20132014")
-    end
-
+    stat_tracker = StatTracker.from_csv(locations)
+    stat_tracker.generate_games
+    assert_equal 7441, stat_tracker.games.count
+    require "pry"; binding.pry
   end
+
+
+
+end
