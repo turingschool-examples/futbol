@@ -52,7 +52,7 @@ class StatTracker
 
 #========================================= helper methods for highest_scoring_visitor
 #=========================================
-  def game_id_and_visiting_teams
+  def visiting_teams_by_game_id
     visiting_teams = {}
     @games.each do |game|
       visiting_teams[game.game_id] = game.away_team_id
@@ -61,7 +61,7 @@ class StatTracker
   end
 
   def highest_scoring_visitor
-    game_id_and_visiting_teams
+    visiting_teams_by_game_id
 
     away_goals = Hash.new{0}
     @games.sum do |game|
