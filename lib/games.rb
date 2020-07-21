@@ -24,8 +24,4 @@ class Games
     @venue_link = params[:venue_link]
   end
 
-  def total_game_score
-    @away_goals + @home_goals
-  end
-
 end
