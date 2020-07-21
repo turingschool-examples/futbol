@@ -69,6 +69,20 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 32, stat_tracker.teams.count
   end
 
+  def test_it_can_generate_game_stats
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
 
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+    stat_tracker.generate_game_stats
+    assert_equal 7441, stat_tracker.game_stats.count
+  end
 
 end
