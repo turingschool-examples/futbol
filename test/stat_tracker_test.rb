@@ -82,6 +82,7 @@ class StatTrackerTest < MiniTest::Test
 
     stat_tracker = StatTracker.from_csv(locations)
     stat_tracker.generate_game_stats
+    require "pry"; binding.pry
     assert_equal 7441, stat_tracker.game_stats.count
   end
 

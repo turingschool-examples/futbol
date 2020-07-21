@@ -34,8 +34,9 @@ class StatTracker
   end
 
   def generate_game_stats
-
-
+    CSV.foreach(@game_teams_data, headers: true, header_converters: :symbol) do |row|
+      @game_stats[row[:game_id]].store row[:result], GameTeam.new(row)
+    end
   end
 
 end
