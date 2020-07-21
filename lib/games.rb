@@ -23,5 +23,4 @@ class Games
     @venue = params[:venue]
     @venue_link = params[:venue_link]
   end
-
 end
