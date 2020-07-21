@@ -52,13 +52,34 @@ class StatTracker
 
 
   def highest_scoring_visitor
-    # name of the team
-    highest_away_score_game = @games.max_by do |game|
-      game.away_goals / game.total_game_score.to_f
+
+    visiting_teams = {}
+    @games.each do |game|
+      visiting_teams[game.game_id] = game.away_team_id
     end
+
+    away_goals = Hash.new{0}
+    @games.sum do |game|
+      away_goals[game.away_team_id] += game.away_goals
+    end
+
+    games_by_team_id = @games.reduce(Hash.new { |h,k| h[k]=[] }) do |result, game|
+        result[game.away_team_id] << game.game_id
+      result
+    end
+
+    games_count_by_team_id = {}
+    games_by_team_id.each do |team_id, games_array|
+      games_count_by_team_id[team_id] = games_array.count
+    end
+
+    highest_away_team = games_count_by_team_id.max_by do |team_id, game_count|
+      game_count
+    end
+
     @teams.find do |team|
-      require "pry"; binding.pry
-      highest_away_score_game.away_team_id == team.team_id
+      team.team_id == highest_away_team[0]
     end.teamname
   end
+  
 end
