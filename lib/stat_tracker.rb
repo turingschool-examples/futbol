@@ -66,18 +66,29 @@ class StatTracker
     games_by_season = @games.group_by {|game| game.season}
     game_count_per_season = {}
     games_by_season.map {|season, game| game_count_per_season[season] = game.count}
-    game_count_per_season
+    game_count_per_season.delete_if { |key, value| key.nil? || value.nil? } 
   end
   
 
   def average_goals_by_season
-    ## Average goals per each season: I need the total games by season. I need the total goals per season.
     games_by_season = @games.group_by {|game| game.season} ##hash of games by season
     games_by_season.delete_if { |key, value| key.nil? || value.nil? } 
 
     goals_per_season = {} ##hash of total goals by season
-    games_by_season.map {|season, games| goals_per_season[season] = [games.sum {|game| game.away_goals + game.home_goals}] }
-    
+    games_by_season.map do |season, games| 
+      goals_per_season[season] = games.sum do |game| 
+        game.away_goals + game.home_goals
+      end
+    end 
+
+    avg_goals_per_season = {}
+    goals_per_season.each do |season, goals| 
+      division = (goals.to_f / count_of_games_by_season[season] ).round(2)
+      avg_goals_per_season[season] = division
+    end
+
+    avg_goals_per_season
+
   end
 
 end
