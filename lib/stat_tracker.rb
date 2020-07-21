@@ -10,6 +10,7 @@ class StatTracker
   def self.remove_all
    Team.remove_all
    GameTeams.remove_all
+   Games.remove_all
   end
 
  def self.count_of_teams
@@ -22,5 +23,14 @@ class StatTracker
 
  def self.worst_offense
     GameTeams.teams_sort_by_average_goal.first.teamname
-  end
+ end
+
+ def self.team_average_goals(team_id)
+    GameTeams.team_average_goals(team_id)
+ end
+
+ def self.highest_visitor
+    GameTeams.highest_visitor
+ end
+
 end

@@ -1,5 +1,5 @@
 class GameTeams
-  attr_reader :team_id, :goals
+  attr_reader :team_id, :goals, :hoa, :teamname
 
   @@gameteams = []
 
@@ -7,7 +7,7 @@ class GameTeams
   def initialize(info)
     @game_id = info[:game_id]
     @team_id = info[:team_id]
-    @HoA = info[:hoa]
+    @hoa = info[:hoa]
     @result = info[:result]
     @settled_in = info[:settled_in]
     @head_coach = info[:head_coach]
@@ -49,5 +49,27 @@ class GameTeams
     Team.all.sort_by do |team|
       team_average_goals(team.team_id.to_i)
     end
+  end
+
+  def self.find_all_away_teams
+     @@gameteams.find_all do |gameteam|
+      gameteam.hoa == "away"
+    end
+  end
+
+  def self.away_games_by_team_id
+
+    find_all_away_teams.group_by do |game|
+      game.team_id
+    end
+  end
+
+  def self.highest_visitor
+    best_away_team = away_games_by_team_id.max_by do |team_id, gameteam|
+      gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
+
+    end.first
+
+    Team.all.find{|team1| team1.team_id == best_away_team}.teamname
   end
 end
