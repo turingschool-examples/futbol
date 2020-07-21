@@ -41,18 +41,11 @@ class StatTracker
     game_teams_objects_collection
   end
 
-#   def total_games
-#     games = []
-#     @game_teams.map do |game|
-#       games << game.result
-#     end
-#   end
-
   def lowest_total_score
     output = @games.min_by do |game|
-      game.total_game_score
+      game.away_goals + game.home_goals
     end
-    output.total_game_score
+    output.away_goals + output.home_goals
   end
   
   def percentage_home_wins
