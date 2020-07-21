@@ -28,8 +28,16 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_calculate_highest_scoring_visitor
-    assert_equal "", @stat_tracker.highest_scoring_visitor
+    # skip
+    assert_equal "Sporting Kansas City", @stat_tracker.highest_scoring_visitor
 
+  end
+
+  def test_it_can_create_visiting_teams_hash
+    assert_equal 7441, @stat_tracker.game_id_and_visiting_teams.count
+    assert_equal Hash, @stat_tracker.game_id_and_visiting_teams.class
+
+    assert_equal "16", @stat_tracker.game_id_and_visiting_teams["2012030236"]
   end
 
 end
