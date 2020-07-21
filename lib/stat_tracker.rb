@@ -35,5 +35,9 @@ class StatTracker
 
  def self.highest_home_team
    GameTeams.highest_home_team
- end 
+ end
+
+ def self.lowest_visitor_team
+   GameTeams.lowest_visitor_team
+ end
 end

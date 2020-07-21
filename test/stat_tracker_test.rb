@@ -31,4 +31,8 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_get_highest_scoring_home_team
     assert_equal "Reign FC", StatTracker.highest_home_team
   end
+
+  def test_it_can_get_lowest_scoring_visitor_team
+    assert_equal "San Jose Earthquakes", StatTracker.lowest_visitor_team
+  end
 end

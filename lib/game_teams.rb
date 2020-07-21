@@ -66,7 +66,6 @@ class GameTeams
   def self.highest_visitor_team
     best_away_team = away_games_by_team_id.max_by do |team_id, gameteam|
       gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
-
     end.first
 
     Team.all.find{|team1| team1.team_id == best_away_team}.teamname
@@ -88,9 +87,10 @@ class GameTeams
   def self.highest_home_team
     best_home_team = home_games_by_team_id.max_by do |team_id, gameteam|
       gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
-
     end.first
 
     Team.all.find{|team1| team1.team_id == best_home_team}.teamname
   end
+
+
 end
