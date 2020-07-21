@@ -29,8 +29,8 @@ class StatTracker
     GameTeams.team_average_goals(team_id)
  end
 
- def self.highest_visitor
-    GameTeams.highest_visitor
+ def self.highest_visitor_team
+    GameTeams.highest_visitor_team
  end
 
 end

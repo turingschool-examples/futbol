@@ -64,7 +64,7 @@ class GameTeams
     end
   end
 
-  def self.highest_visitor
+  def self.highest_visitor_team
     best_away_team = away_games_by_team_id.max_by do |team_id, gameteam|
       gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
 
