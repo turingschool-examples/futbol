@@ -22,7 +22,7 @@ class StatTrackerTest < MiniTest::Test
   def test_it_exists
     assert_instance_of StatTracker, @stat_tracker
   end
-
+#game stats
   def test_it_can_get_highest_total_score
     assert_equal 11, @stat_tracker.highest_total_score
   end
@@ -70,5 +70,33 @@ class StatTrackerTest < MiniTest::Test
       "20172018"=>4.44
     }
     assert_equal expected, @stat_tracker.average_goals_by_season
+  end
+  #league stats
+  def test_it_an_count_number_of_teams
+    assert_equal 32, @league_stats.count_of_teams
+  end
+
+  def test_best_offense
+    assert_equal "Reign FC", @league_stats.best_offense
+  end
+
+  def test_worst_offense
+    assert_equal "Utah Royals FC", @league_stats.worst_offense
+  end
+
+  def test_can_get_highest_scoring_visitor
+    assert_equal "FC Dallas", @league_stats.highest_scoring_visitor
+  end
+
+  def test_losest_scoring_visitor
+    assert_equal "San Jose Earthquakes", @league_stats.lowest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal "Reign FC", @league_stats.highest_scoring_home_team
+  end
+
+  def test_lowest_scoring_home_team
+    assert_equal "Utah Royals FC", @league_stats.lowest_scoring_home_team
   end
 end
