@@ -43,9 +43,9 @@ class StatTracker
     @games.count
   end
 
-#========================================= helper methods for highest_scoring_visitor
-#=========================================
   def visiting_teams_by_game_id
+    #======== helper method for highest_scoring_visitor
+
     visiting_teams = {}
     @games.each do |game|
       visiting_teams[game.game_id] = game.away_team_id
@@ -54,6 +54,8 @@ class StatTracker
   end
 
   def total_goals_by_away_team
+    #======== helper method for highest_scoring_visitor
+
     away_goals = Hash.new{0}
     @games.sum do |game|
       away_goals[game.away_team_id] += game.away_goals
@@ -62,6 +64,8 @@ class StatTracker
   end
 
   def away_teams_game_count_by_team_id
+    #======== helper method for highest_scoring_visitor
+
     games_by_team_id = @games.reduce(Hash.new { |h,k| h[k]=[] }) do |result, game|
       result[game.away_team_id] << game.game_id
       result
@@ -74,12 +78,16 @@ class StatTracker
   end
 
   def highest_total_goals_by_away_team
+    #======== helper method for highest_scoring_visitor
+
     total_goals_by_away_team.max_by do |team_id, total_goals|
       total_goals
     end
   end
 
   def overall_average_scores_by_away_team
+    #======== helper method for highest_scoring_visitor
+
     over_all_average_by_team = {}
     total_goals_by_away_team.each do |away_team_id, total_goals|
       away_teams_game_count_by_team_id.each do |away_team_id, total_games_played|
