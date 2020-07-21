@@ -3,7 +3,6 @@ class GameTeams
 
   @@gameteams = []
 
-
   def initialize(info)
     @game_id = info[:game_id]
     @team_id = info[:team_id]
@@ -71,5 +70,27 @@ class GameTeams
     end.first
 
     Team.all.find{|team1| team1.team_id == best_away_team}.teamname
+  end
+
+  def self.find_all_home_teams
+     @@gameteams.find_all do |gameteam|
+      gameteam.hoa == "home"
+    end
+  end
+
+  def self.home_games_by_team_id
+
+    find_all_home_teams.group_by do |game|
+      game.team_id
+    end
+  end
+
+  def self.highest_home_team
+    best_home_team = home_games_by_team_id.max_by do |team_id, gameteam|
+      gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
+
+    end.first
+
+    Team.all.find{|team1| team1.team_id == best_home_team}.teamname
   end
 end
