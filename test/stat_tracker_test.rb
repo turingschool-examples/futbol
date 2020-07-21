@@ -1,11 +1,11 @@
-require "./test/test_helper"
-# require 'minitest/autorun'
-# require 'minitest/pride'
-# require "./lib/stat_tracker"
-# require "./lib/games"
-# require "./lib/game_teams"
-# require "./lib/teams"
-# require "pry"
+#require "./test/test_helper"
+require 'minitest/autorun'
+require 'minitest/pride'
+require "./lib/stat_tracker"
+require "./lib/games"
+require "./lib/game_teams"
+require "./lib/teams"
+require "pry"
 
 
 class StatTrackerTest < MiniTest::Test
@@ -67,12 +67,3 @@ class StatTrackerTest < MiniTest::Test
      assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
    end
 end
-
-# highest_scoring_home_team	Name of the team with the highest
-# average score per game across all seasons when they are home.
-# String
-#
-#count_of_teams	Total number of teams in the data.
-#
-# lowest_scoring_home_team	Name of the team with the lowest average
-# score per game across all seasons when they are at home.	String
