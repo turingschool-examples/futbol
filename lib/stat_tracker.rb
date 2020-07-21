@@ -62,7 +62,7 @@ class StatTracker
     home_wins = @game_teams.select do |game| 
       game.result == "WIN" && game.hoa == "home"
     end
-    (home_wins.count / home_games.count.to_f).round(2)
+    (home_wins.count / home_games.count.to_f).round(2) ##Nico. Corrected code so it returns .44 as per spec harness instead of .43. Left original code commented below. 
     # total_home_wins = @games.select do |game|
     #   game.home_goals > game.away_goals
     # end
@@ -71,7 +71,7 @@ class StatTracker
 
   def average_goals_per_game
     games_count = @games.count.to_f
-    sum_of_goals = (@games.map {|game| game.home_goals + game.away_goals}.to_a).sum
+    sum_of_goals = (@games.map {|game| game.home_goals + game.away_goals}.to_a).sum ##Nico. Added game.home_goals + game.away_goals so test passes after we moved helper method from games.rb.
 
     sum_of_goals_divided_by_game_count = (sum_of_goals / games_count).round(2)
     sum_of_goals_divided_by_game_count
@@ -117,6 +117,6 @@ class StatTracker
     games_by_season = @games.group_by {|game| game.season}
     game_count_per_season = {}
     games_by_season.map {|season, game| game_count_per_season[season] = game.count}
-    game_count_per_season.delete_if { |key, value| key.nil? || value.nil? }
+    game_count_per_season.delete_if { |key, value| key.nil? || value.nil? } ## Nico. Added line here to remove nil ouput. Now passes test.
    end
 end
