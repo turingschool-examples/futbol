@@ -60,13 +60,17 @@ class StatTracker
     visiting_teams
   end
 
-  def highest_scoring_visitor
-    visiting_teams_by_game_id
-
+  def total_goals_by_away_team
     away_goals = Hash.new{0}
     @games.sum do |game|
       away_goals[game.away_team_id] += game.away_goals
     end
+    away_goals
+  end
+
+  def highest_scoring_visitor
+    visiting_teams_by_game_id
+    total_goals_by_away_team
 
     games_by_team_id = @games.reduce(Hash.new { |h,k| h[k]=[] }) do |result, game|
         result[game.away_team_id] << game.game_id

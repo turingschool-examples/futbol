@@ -41,8 +41,14 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_create_an_away_goals_and_team_id_hash
-    assert_equal "", @stat_tracker.games_by_team_id
+    skip
+    assert_equal 32, @stat_tracker.total_goals_by_away_team.count
+    assert_equal Hash, @stat_tracker.total_goals_by_away_team.class
+
+    assert_equal 458, @stat_tracker.total_goals_by_away_team["20"]
 
   end
+
+
 
 end
