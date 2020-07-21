@@ -4,6 +4,9 @@ require_relative 'team'
 require_relative 'game_team'
 require_relative 'stats'
 require_relative 'game_stats'
+require_relative 'league_stats'
+# require_relative 'team_stats'
+# require_relative 'season_stats'
 
 class StatTracker
   attr_reader :game_stats,
@@ -78,7 +81,7 @@ class StatTracker
 
   def highest_scoring_visitor
     @game_stats.highest_scoring_visitor
-  end 
+  end
 #team stats
 
 #season stats
