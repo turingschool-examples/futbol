@@ -62,6 +62,38 @@ class StatTracker
     (total_home_wins.length.to_f / @games.length).round(2)
   end
 
+  def average_goals_per_game
+    games_count = @games.count.to_f
+    sum_of_goals = (@games.map {|game| game.total_game_score}.to_a).sum
+
+    sum_of_goals_divided_by_game_count = (sum_of_goals / games_count).round(2)
+    sum_of_goals_divided_by_game_count
+  end
+  
+
+  def average_goals_by_season
+    games_by_season = @games.group_by {|game| game.season} ##hash of games by season
+    games_by_season.delete_if { |key, value| key.nil? || value.nil? } 
+
+    goals_per_season = {} ##hash of total goals by season
+    games_by_season.map do |season, games| 
+      goals_per_season[season] = games.sum do |game| 
+        game.away_goals + game.home_goals
+      end
+    end 
+
+    avg_goals_per_season = {}
+    goals_per_season.each do |season, goals| 
+      division = (goals.to_f / count_of_games_by_season[season] ).round(2)
+      avg_goals_per_season[season] = division
+    end
+
+    avg_goals_per_season
+
+  end
+
+end
+
   def percentage_visitor_wins
     total_visitor_wins = @games.select do |game|
       game.away_goals > game.home_goals
