@@ -29,6 +29,12 @@ class StatTrackerTest < MiniTest::Test
 
     stat_tracker = StatTracker.from_csv(locations)
     assert_equal './data/games.csv', stat_tracker.games_data
+    assert_equal './data/game_teams.csv', stat_tracker.game_teams_data
+    assert_equal './data/teams.csv', stat_tracker.teams_data
+    assert_equal Hash, stat_tracker.games.class
+    assert_equal Hash, stat_tracker.game_stats.class
+    assert_equal Hash, stat_tracker.teams.class
+
   end
 
   def test_it_can_generate_games

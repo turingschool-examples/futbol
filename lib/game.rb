@@ -25,20 +25,3 @@ class Game
   end
 
 end
-# 
-# game_path = './data/games.csv'
-#  team_path = './data/teams.csv'
-#  game_teams_path = './data/game_teams.csv'
-#
-#  locations = {
-#    games: game_path,
-#    teams: team_path,
-#    game_teams: game_teams_path
-#  }
-#
-# games_hash = {}
-#
-# CSV.foreach(locations[:games], headers: true, header_converters: :symbol) do |row|
-#   games_hash[row[:game_id]] = Game.new(row)
-# end
-# require "pry"; binding.pry
