@@ -16,5 +16,7 @@ class GameData
       @venue = venue
       @venue_link = venue_link
     end
-    
+
+    def create_attributes
+    end 
 end
