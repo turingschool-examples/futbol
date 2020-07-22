@@ -88,6 +88,12 @@ end
     (away + home).sort[-1]
   end
 
+  def fewest_goals_scored(id)
+    self.most_goals_scored(id)
+    away = @all_games.map{ |rows| rows.away_goals}
+    home = @all_games.map{ |rows| rows.home_goals}
+    (away + home).sort[0]
+  end
 end
 
 # game_path = './data/games.csv'
@@ -101,4 +107,4 @@ end
 # }
 #
 # stats = StatTracker.from_csv(locations)
-# p stats.most_goals_scored(18)
+# p stats.fewest_goals_scored(18)
