@@ -25,7 +25,15 @@ class GameDataTest < Minitest::Test
   end
 
   def test_it_can_create_many_objects
-    
+    line_index = 0
+    all_games = []
+    @table.size.times do
+      game_data = GameData.new
+      game_data.create_attributes(@table, line_index)
+      all_games << game_data
+      line_index += 1
+    end
+    assert_equal 7441, all_games.size
   end
 
 end
