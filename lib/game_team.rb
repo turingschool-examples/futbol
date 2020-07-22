@@ -43,7 +43,7 @@ class GameTeam
     end
   end
 
-  def self.game_sums
+  def self.game_goals
     # Returns a hash
     # keys are game ids
     # values are sum of goals in that game

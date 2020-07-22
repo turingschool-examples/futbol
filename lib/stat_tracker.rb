@@ -21,6 +21,6 @@ class StatTracker
   end
 
   def highest_total_score
-    GameTeam.game_sums.values.max
+    GameTeam.game_goals.values.max
   end
 end
