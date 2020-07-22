@@ -38,25 +38,26 @@ class StatTracker < GameManager
     end
   end
 
-  def goals_by_game_id
-    result = {}
-    @game_teams_array.each do |game|
-      result[game.game_id] = game.goals
-    end
-    result
-  end
-
-  def game_total_score
-    goals_by_game_id.transform_values! {|score| score.sum}
-  end
-
-##### Need to return team name
-  def highest_total_score
-    game_total_score.values.max
-  end
-
+#   def goals_by_game_id
+#     result = {}
+#     @game_teams_array.each do |game|
+#       result[game.game_id] = game.goals
+#     end
+#     result
+#     require "pry"; binding.pry
+#   end
 #
-#   ##### Need to return team name
+#   def game_total_score
+#     goals_by_game_id.transform_values! {|score| score.sum}
+#   end
+#
+# ##### Need to return team name
+#   def highest_total_score
+#     game_total_score.values.max
+#   end
+#
+# #
+# #   ##### Need to return team name
 #   def lowest_total_score
 #     game_total_score.values.min
 #   end
