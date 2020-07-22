@@ -11,6 +11,8 @@ class DataObjectCreatableTest < Minitest::Test
   end
 
   def test_instances_of_team
+    team_data = DataObjectCreatable.create_instances_of_team
+    assert_equal 19, team_data.size
   end
 
 end
