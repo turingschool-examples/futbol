@@ -24,4 +24,8 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 11, @stat_tracker.highest_total_score
   end
 
+  def test_lowest_scores
+    assert_equal 0, @stat_tracker.lowest_total_score
+  end
+
 end

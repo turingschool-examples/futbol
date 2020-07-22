@@ -39,19 +39,23 @@ class StatTracker < GameManager
   end
 
   def highest_total_score
-    all_goals = []
+    @all_goals_max = []
     @games_array.each do |game|
       total_goals = game.away_goals.to_i + game.home_goals.to_i
-      all_goals << total_goals
+      @all_goals_max << total_goals
     end
-    all_goals.max
+    @all_goals_max.max
   end
 
 #
-#   ##### Need to return team name
-#   def lowest_total_score
-#     game_total_score.values.min
-#   end
+  def lowest_total_score
+    @all_goals_min = []
+    @games_array.each do |game|
+      total_goals = game.away_goals.to_i + game.home_goals.to_i
+      @all_goals_min << total_goals
+    end
+    @all_goals_min.min
+  end
 #
 #   def find_team_id(team)
 #     results = @teams_file.find {|row| row[2] == team}
