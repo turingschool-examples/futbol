@@ -169,7 +169,7 @@ class StatTrackerTest < MiniTest::Test
     }
 
     stats = StatTracker.from_csv(locations)
-    assert_equal 7, stats.most_goals_scored(18)
+    assert_equal "7", stats.most_goals_scored(18)
   end
 
 end

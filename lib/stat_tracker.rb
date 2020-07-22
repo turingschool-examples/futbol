@@ -81,6 +81,13 @@ end
     (@all_wins.length.to_f/@all_games.length.to_f).round(2)
   end
 
+  def most_goals_scored(id)
+    self.best_season(id)
+    away = @all_games.map{ |rows| rows.away_goals}
+    home = @all_games.map{ |rows| rows.home_goals}
+    (away + home).sort[-1]
+  end
+
 end
 
 # game_path = './data/games.csv'
@@ -94,4 +101,4 @@ end
 # }
 #
 # stats = StatTracker.from_csv(locations)
-# p stats.average_win_percentage(6)
+# p stats.most_goals_scored(18)
