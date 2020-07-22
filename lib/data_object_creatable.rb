@@ -17,4 +17,8 @@ module DataObjectCreatable
     end
     all_game_data
   end
+
+  def create_instances_of_team
+
+  end
 end
