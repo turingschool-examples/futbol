@@ -23,7 +23,36 @@ class GameTeamData
   end
 
   def create_attributes(table, line_index)
-
+    index = 0
+      @game_id = table[line_index][index]
+      index += 1
+      @team_id = table[line_index][index]
+      index += 1
+      @hoa = table[line_index][index]
+      index += 1
+      @result = table[line_index][index]
+      index += 1
+      @settled_in = table[line_index][index]
+      index += 1
+      @head_coach = table[line_index][index]
+      index += 1
+      @goals = table[line_index][index]
+      index += 1
+      @shots = table[line_index][index]
+      index += 1
+      @tackles = table[line_index][index]
+      index += 1
+      @pim = table[line_index][index]
+      index += 1
+      @powerPlayOpportunities = table[line_index][index]
+      index += 1
+      @powerPlayGoals = table[line_index][index]
+      index += 1
+      @faceOffWinPercentage = table[line_index][index]
+      index += 1
+      @giveaways = table[line_index][index]
+      index += 1
+      @takeaways = table[line_index][index]
   end
 
 end
