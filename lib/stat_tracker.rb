@@ -1,20 +1,24 @@
 require_relative './game_teams_collection'
 require_relative './games_collection'
 require_relative './teams_collection'
+require_relative './game_statistics'
 
 class StatTracker
-  attr_reader :game_teams, :games, :teams
-  def initialize(game_teams, games, teams)
-    @game_teams = game_teams
-    @games = games
-    @teams = teams
+  include GameStatistics
+
+  def self.parse_csv path
+    CSV.read(path, headers: true, header_converters: :symbol)
   end
 
   def self.from_csv(locations)
-    game_teams = GameTeamsCollection.new(locations[:game_teams]).all_game_teams
-    games = GamesCollection.new(locations[:games]).all_games
-    teams = TeamsCollection.new(locations[:teams]).all_teams
+    game_teams_data = parse_csv(locations[:game_teams])
+    games_data = parse_csv(locations[:games])
+    teams_data = parse_csv(locations[:teams])
 
-    new(game_teams, games, teams)
+    GameTeam.create_game_teams(game_teams_data)
+    Game.create_games(games_data)
+    Team.create_teams(teams_data)
+
+    StatTracker.new()
   end
 end
