@@ -172,4 +172,19 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "7", stats.most_goals_scored(18)
   end
 
+  def test_it_can_display_least_goals_scored
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stats = StatTracker.from_csv(locations)
+    assert_equal "7", stats.least_goals_scored(18)
+  end
+
 end
