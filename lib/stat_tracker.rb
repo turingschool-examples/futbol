@@ -5,7 +5,7 @@ require './lib/game_teams_manager'
 
 class StatTracker < GameManager
 
-  attr_reader :games, :game_details, :teams
+  attr_reader :games, :game_details, :teams, :seasons
 
   game_path = './data/games.csv'
   team_path = './data/teams.csv'
@@ -41,6 +41,7 @@ class StatTracker < GameManager
 CSV.foreach(locations[:teams], headers: true, header_converters: :symbol) do |row|
   @team_hash[row[2]] = Team.new(row)
 end
+  @seasons = seasons
   end
 
   def team_info(id)
@@ -61,22 +62,29 @@ end
     end
     home_wins = all_games.select do |row| row.home_team_id == "#{id}" && row.away_goals < row.home_goals
     end
-    seasons = (away_wins + home_wins).map{ |x| x.season}
+    @seasons = (away_wins + home_wins).map{ |x| x.season}
     freq = seasons.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
     seasons.max_by { |v| freq[v] }
   end
 
+  def worst_season(id)
+    self.best_season(id)
+    @seasons
+    freq = seasons.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+    seasons.min_by { |v| freq[v] }
+  end
+
 end
 
-# game_path = './data/games.csv'
-# team_path = './data/teams.csv'
-# game_teams_path = './data/game_teams.csv'
-#
-# locations = {
-#   games: game_path,
-#   teams: team_path,
-#   game_teams: game_teams_path
-# }
-#
-# stats = StatTracker.from_csv(locations)
-# p stats.best_season(6)
+game_path = './data/games.csv'
+team_path = './data/teams.csv'
+game_teams_path = './data/game_teams.csv'
+
+locations = {
+  games: game_path,
+  teams: team_path,
+  game_teams: game_teams_path
+}
+
+stats = StatTracker.from_csv(locations)
+p stats.worst_season(6)

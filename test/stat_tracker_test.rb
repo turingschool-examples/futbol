@@ -139,7 +139,7 @@ class StatTrackerTest < MiniTest::Test
     }
 
     stats = StatTracker.from_csv(locations)
-    assert_equal "20132014", stats.worst_season(6)
+    assert_equal "20142015", stats.worst_season(6)
 
   end
 
