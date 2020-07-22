@@ -33,7 +33,7 @@ class GameDataTest < Minitest::Test
       all_games << game_data
       line_index += 1
     end
-    assert_equal 7441, all_games.size
+    assert_equal 19, all_games.size
   end
 
 end
