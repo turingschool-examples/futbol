@@ -1,4 +1,4 @@
-require './lib/team'
+require_relative './team'
 require 'csv'
 
 class TeamsCollection
