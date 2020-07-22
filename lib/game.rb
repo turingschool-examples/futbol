@@ -2,6 +2,8 @@
 
 # Game
 class Game
+  @@games = []
+
   attr_reader :game_id,
               :season,
               :type,
@@ -24,5 +26,11 @@ class Game
     @home_goals   = args[:home_goals]
     @venue        = args[:venue]
     @venue_link   = args[:venue_link]
+  end
+
+  def self.create_games games_data
+    games_data.each do |game|
+      @@games << Game.new(game)
+    end
   end
 end
