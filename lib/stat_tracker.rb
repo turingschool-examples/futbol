@@ -14,4 +14,8 @@ class StatTracker
 
     StatTracker.new()
   end
+
+  def highest_total_score
+    GameTeam.game_sums.values.max
+  end
 end
