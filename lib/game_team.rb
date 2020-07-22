@@ -42,4 +42,17 @@ class GameTeam
       @@game_teams << GameTeam.new(game_team)
     end
   end
+
+  def self.game_sums
+    # Returns a hash
+    # keys are game ids
+    # values are sum of goals in that game
+    @@game_teams.reduce({}) do |game_sums, game|
+      if !game_sums[game.game_id]
+        game_sums[game.game_id] = 0
+      end
+      game_sums[game.game_id] += game.goals
+      game_sums
+    end
+  end
 end
