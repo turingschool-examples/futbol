@@ -29,6 +29,9 @@ module DataObjectCreatable
       line_index += 1
     end
     all_team_data
+  end
+
+  def create_instances_of_team_game
 
   end
 end
