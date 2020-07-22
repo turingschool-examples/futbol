@@ -6,7 +6,18 @@ require "csv"
 class GameDataTest < Minitest::Test
 
   def setup
-    
+    game_path = './data/dummy_file_games.csv'
+    team_path = './data/dummy_file_teams.csv'
+    game_teams_path = './data/dummy_file_game_teams.csv'
+
+    @locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    @game_data = GameData.new
+    @table = CSV.parse(File.read('./data/dummy_file_games.csv'), headers: true)
   end
 
   def test_it_exists
