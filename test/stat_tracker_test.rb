@@ -154,7 +154,7 @@ class StatTrackerTest < MiniTest::Test
     }
 
     stats = StatTracker.from_csv(locations)
-    assert_equal "20142015", stats.average_win_percentage(6)
+    assert_equal 0.49, stats.average_win_percentage(6)
 
   end
 
