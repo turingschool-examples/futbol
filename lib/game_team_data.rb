@@ -22,4 +22,8 @@ class GameTeamData
     @takeaways = takeaways
   end
 
+  def create_attributes
+
+  end
+  
 end

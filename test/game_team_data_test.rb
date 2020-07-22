@@ -26,14 +26,14 @@ class GameTeamDataTest < Minitest::Test
 
   def test_it_can_create_many_objects
     line_index = 0
-    all_team_data = []
+    all_game_team_data = []
     @table.size.times do
-      team_data = TeamData.new
-      team_data.create_attributes(@table, line_index)
-      all_team_data << team_data
+      game_team_data = GameTeamData.new
+      game_team_data.create_attributes(@table, line_index)
+      all_game_team_data << game_team_data
       line_index += 1
     end
-    assert_equal 19, all_team_data.size
+    assert_equal 19, all_game_team_data.size
   end
 
 end
