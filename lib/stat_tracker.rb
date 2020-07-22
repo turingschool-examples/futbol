@@ -52,7 +52,6 @@ end
     hash["abbreviation"] = team.abbreviation
     hash["link"] = team.link
     hash
-
   end
 
 end
