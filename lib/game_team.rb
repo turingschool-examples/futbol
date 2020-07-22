@@ -2,6 +2,7 @@
 
 # GameTeam
 class GameTeam
+  @@game_teams = []
   attr_reader :game_id,
               :team_id,
               :hoa,
@@ -34,5 +35,11 @@ class GameTeam
     @face_off_win_percentage = game_team_data[:faceoffwinpercentage].to_f
     @giveaways = game_team_data[:giveaways].to_i
     @takeaways = game_team_data[:takeaways].to_i
+  end
+
+  def self.create_game_teams game_teams_data
+    game_teams_data.each do |game_team|
+      @@game_teams << GameTeam.new(game_team)
+    end
   end
 end
