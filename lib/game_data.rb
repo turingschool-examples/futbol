@@ -18,5 +18,25 @@ class GameData
     end
 
     def create_attributes(table, line_index)
+      index = 0
+      @game_id = table[line_index][index]
+      index += 1
+      @season = table[line_index][index]
+      index += 1
+      @type = table[line_index][index]
+      index += 1
+      @date_time = table[line_index][index]
+      index += 1
+      @away_team_id = table[line_index][index]
+      index += 1
+      @home_team_id = table[line_index][index]
+      index += 1
+      @away_goals = table[line_index][index]
+      index += 1
+      @home_goals = table[line_index][index]
+      index += 1
+      @venue = table[line_index][index]
+      index += 1
+      @venue_link = table[line_index][index]
     end
 end
