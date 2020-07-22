@@ -62,15 +62,15 @@
           null,
           null,
           1,
-          29768,
+          22326,
           null,
-          2044,
+          1533,
           null,
-          2044,
+          1533,
           null,
-          1008,
-          1008,
-          1008,
+          756,
+          756,
+          756,
           null,
           null,
           1,
@@ -81,25 +81,25 @@
           null,
           null,
           1,
-          2,
-          2,
-          2,
-          null,
-          null,
-          null,
-          null,
           1,
           1,
           1,
           null,
-          1,
           null,
           null,
           null,
           null,
           null,
-          1,
-          1
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
         ]
       },
       "/Users/travisgm/turing/1module/futbol/lib/game_manager.rb": {
@@ -274,6 +274,6 @@
         ]
       }
     },
-    "timestamp": 1595459515
+    "timestamp": 1595459676
   }
 }
