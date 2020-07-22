@@ -22,5 +22,4 @@ class GameTeamData
     @takeaways = takeaways
   end
 
-
 end
