@@ -54,8 +54,20 @@ end
     hash
   end
 
+  def best_season(id)
+    all_games = @games_array.select do |row| row.away_team_id == "#{id}" || row.home_team_id == "#{id}"
+    end
+    away_wins = all_games.select do |row| row.away_team_id == "#{id}" && row.away_goals > row.home_goals
+    end
+    home_wins = all_games.select do |row| row.home_team_id == "#{id}" && row.away_goals < row.home_goals
+    end
+    seasons = (away_wins + home_wins).map{ |x| x.season}
+    freq = seasons.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+    seasons.max_by { |v| freq[v] }
+  end
+
 end
-#
+
 # game_path = './data/games.csv'
 # team_path = './data/teams.csv'
 # game_teams_path = './data/game_teams.csv'
@@ -67,4 +79,4 @@ end
 # }
 #
 # stats = StatTracker.from_csv(locations)
-# p stats.test(18)
+# p stats.best_season(6)
