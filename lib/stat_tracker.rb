@@ -40,6 +40,6 @@ class StatTracker < GameManager
     @team_hash = {}
 CSV.foreach(locations[:teams], headers: true, header_converters: :symbol) do |row|
   @team_hash[row[2]] = Team.new(row)
-    end
+end
   end
 end

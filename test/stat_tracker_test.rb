@@ -9,6 +9,7 @@ class StatTrackerTest < MiniTest::Test
 
 
   def test_goals
+    skip
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams.csv'
@@ -93,5 +94,27 @@ class StatTrackerTest < MiniTest::Test
   #   require "pry"; binding.pry
   #   assert_equal 7441, stat_tracker.game_stats.count
   # end
+
+  def test_it_can_give_team_info
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    expected = {
+      "team_id" => "18",
+      "franchise_id" => "34",
+      "team_name" => "Minnesota United FC",
+      "abbreviation" => "MIN",
+      "link" => "/api/v1/teams/18"
+    }
+
+    stats = StatTracker.from_csv(locations)
+    assert_equal expected, stats.team_info(18)
+  end
 
 end
