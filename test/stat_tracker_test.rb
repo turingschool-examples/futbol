@@ -105,13 +105,7 @@ class StatTrackerTest < MiniTest::Test
       teams: team_path,
       game_teams: game_teams_path
     }
-    expected = {
-      "team_id" => "18",
-      "franchise_id" => "34",
-      "team_name" => "Minnesota United FC",
-      "abbreviation" => "MIN",
-      "link" => "/api/v1/teams/18"
-    }
+    expected = {"team id"=>"18", "franchise_id"=>"34", "team_name"=>"Minnesota United FC", "abbreviation"=>"MIN", "link"=>"/api/v1/teams/18"}
 
     stats = StatTracker.from_csv(locations)
     assert_equal expected, stats.team_info(18)
