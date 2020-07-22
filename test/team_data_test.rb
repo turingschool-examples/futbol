@@ -18,12 +18,22 @@ class TeamDataTest < Minitest::Test
 
     @table = CSV.parse(File.read(@locations[:teams]), headers: true)
   end
-  
+
   def test_it_exists
     team_data = TeamData.new
 
     assert_instance_of TeamData, team_data
   end
 
-
+  def test_it_can_create_many_objects
+    line_index = 0
+    all_team_data = []
+    @table.size.times do
+      team_data = TeamData.new
+      team_data.create_attributes(@table, line_index)
+      all_team_data << team_data
+      line_index += 1
+    end
+    assert_equal 19, all_team_data.size
+  end
 end
