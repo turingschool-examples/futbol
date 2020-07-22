@@ -1,5 +1,3 @@
-require 'CSV'
-
 class Game
   attr_reader :game_id,
               :season,
