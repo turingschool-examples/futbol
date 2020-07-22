@@ -1,5 +1,5 @@
 class Team
-
+  @@teams = []
   attr_reader :team_id,
               :franchiseid,
               :teamname,
@@ -11,5 +11,11 @@ class Team
     @teamname     = args[:teamname]
     @abbreviation = args[:abbreviation]
     @link         = args[:link]
+  end
+
+  def self.create_teams teams_data
+    teams_data.each do |team|
+      @@teams << Team.new(team)
+    end
   end
 end
