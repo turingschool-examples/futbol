@@ -5,11 +5,9 @@ include DataObjectCreatable
 
 class DataObjectCreatableTest < Minitest::Test
 
-  #def test_it_exists
-    #assert_instance_of <Class>,
-  #end
-
-  #def test_it_has_attributes
-  #end
+  def test_instances_of_game
+    game_data = DataObjectCreatable.create_instances_of_game
+    assert_equal 19, game_data.size
+  end
 
 end
