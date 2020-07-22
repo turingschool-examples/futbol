@@ -19,6 +19,16 @@ module DataObjectCreatable
   end
 
   def create_instances_of_team
+    table = CSV.parse(File.read('./data/dummy_file_teams.csv'), headers: true, converters: :numeric)
+    line_index = 0
+    all_team_data = []
+    table.size.times do
+      team_data = TeamData.new
+      team_data.create_attributes(table, line_index)
+      all_team_data << team_data
+      line_index += 1
+    end
+    all_team_data
 
   end
 end
