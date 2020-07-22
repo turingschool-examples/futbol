@@ -5,6 +5,10 @@ require "csv"
 
 class GameDataTest < Minitest::Test
 
+  def setup
+    
+  end
+
   def test_it_exists
     assert_instance_of GameData, @game_data
   end
