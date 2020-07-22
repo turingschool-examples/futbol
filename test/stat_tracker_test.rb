@@ -199,7 +199,7 @@ class StatTrackerTest < MiniTest::Test
     }
 
     stats = StatTracker.from_csv(locations)
-    assert_equal "0", stats.favorite_opponent(18)
+    assert_equal "DC United", stats.favorite_opponent(18)
   end
 
 end

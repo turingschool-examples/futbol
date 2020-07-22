@@ -94,6 +94,25 @@ end
     home = @all_games.map{ |rows| rows.home_goals}
     (away + home).sort[0]
   end
+
+  def favorite_opponent(id)
+    self.best_season(id)
+    teams = []
+    @all_games.select do |rows|
+      if rows.home_team_id == "#{id}"
+        if rows.away_goals > rows.home_goals
+          teams << rows.away_team_id
+        end
+      elsif rows.away_team_id == "#{id}"
+        if rows.away_goals == rows.home_goals
+          teams << rows.home_team_id
+        end
+      end
+    end
+    freq = teams.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+    numbs = teams.min_by { |v| freq[v] }
+    @teams_array.select{ |team| team.team_id == numbs}[0].team_name
+  end
 end
 
 # game_path = './data/games.csv'
@@ -107,4 +126,4 @@ end
 # }
 #
 # stats = StatTracker.from_csv(locations)
-# p stats.fewest_goals_scored(18)
+# p stats.favorite_opponent(18)
