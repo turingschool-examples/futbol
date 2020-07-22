@@ -22,8 +22,8 @@ class GameTeamData
     @takeaways = takeaways
   end
 
-  def create_attributes
+  def create_attributes(table, line_index)
 
   end
-  
+
 end
