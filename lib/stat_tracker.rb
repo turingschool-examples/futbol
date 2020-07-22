@@ -1,3 +1,8 @@
+require_relative './game_team'
+require_relative './game'
+require_relative './team'
+require 'csv'
+
 class StatTracker
   def self.parse_csv path
     CSV.read(path, headers: true, header_converters: :symbol)
