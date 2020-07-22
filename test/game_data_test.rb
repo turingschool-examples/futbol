@@ -24,7 +24,8 @@ class GameDataTest < Minitest::Test
     assert_instance_of GameData, @game_data
   end
 
-  #def test_it_has_attributes
-  #end
+  def test_it_can_create_many_objects
+    
+  end
 
 end
