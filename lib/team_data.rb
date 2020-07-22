@@ -11,5 +11,8 @@ class TeamData
     @stadium = stadium
     @link = link
   end
-  
+
+  def create_attributes
+
+  end
 end
