@@ -2,6 +2,7 @@ require 'CSV'
 require './lib/game_manager'
 require './lib/team_manager'
 require './lib/game_teams_manager'
+require './lib/modable'
 
 class StatTracker
 
@@ -50,42 +51,88 @@ class StatTracker
     hash["abbreviation"] = team.abbreviation
     hash["link"] = team.link
     hash
-
   end
 
-    def count_of_teams
-     @teams_array.size
-    end
+  def best_season(id)
+    self.season_games(id)
+    freq = @seasons.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+    @seasons.max_by { |v| freq[v] }
+  end
 
-    def best_offense
-      @game_teams_array.teams_sort_by_average_goal.last.team_name
-    end
+  def worst_season(id)
+    self.best_season(id)
+    @seasons
+    freq = seasons.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+    seasons.min_by { |v| freq[v] }
+  end
 
-    def worst_offense
-      @game_teams_array.teams_sort_by_average_goal.first.team_name
-    end
+  def average_win_percentage(id)
+    self.best_season(id)
+    @all_wins = (@away_wins + @home_wins)
+    (@all_wins.length.to_f/@all_games.length.to_f).round(2)
+  end
 
-    def team_average_goals(team_id)
-      @game_teams_array.team_average_goals(team_id)
-    end
+  def most_goals_scored(id)
+    self.best_season(id)
+    self.goals(id)
+    (@away + @home).sort[-1]
+  end
 
-    def highest_visitor_team
-      @game_teams_array.highest_visitor_team
-    end
+  def fewest_goals_scored(id)
+    self.most_goals_scored(id)
+    self.goals(id)
+    (@away + @home).sort[0]
+  end
 
-    def highest_home_team
-      @game_teams_array.highest_home_team
-    end
+  def favorite_opponent(id)
+    self.best_season(id)
+    self.fav_opp2(id)
+  end
 
-    def lowest_visitor_team
-      @game_teams_array.lowest_visitor_team
-    end
+  def rival(id)
+    self.rival1(id)
+    games_played_against = @teams2.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+    self.rival2(id)
+    games_won_against = @teams1.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+    hash1 = games_won_against.merge(games_played_against){ |k, a_value, b_value| a_value .to_f / b_value.to_f}
+    hash1.delete("14")
+    team_final = hash1.max_by{|k,v| v}[0]
+    @teams_array.select{ |row| row.team_id == team_final}[0].team_name
+  end
 
-    def lowest_home_team
-      @game_teams_array.lowest_home_team
-    end
+  def count_of_teams
+   @teams_array.size
+  end
+
+  def best_offense
+    @game_teams_array.teams_sort_by_average_goal.last.team_name
+  end
+
+  def worst_offense
+    @game_teams_array.teams_sort_by_average_goal.first.team_name
+  end
+
+  def team_average_goals(team_id)
+    @game_teams_array.team_average_goals(team_id)
+  end
+
+  def highest_visitor_team
+    @game_teams_array.highest_visitor_team
+  end
+
+  def highest_home_team
+    @game_teams_array.highest_home_team
+  end
+
+  def lowest_visitor_team
+    @game_teams_array.lowest_visitor_team
+  end
+
+  def lowest_home_team
+    @game_teams_array.lowest_home_team
+  end
 end
-#
+
 # game_path = './data/games.csv'
 # team_path = './data/teams.csv'
 # game_teams_path = './data/game_teams.csv'
@@ -97,4 +144,4 @@ end
 # }
 #
 # stats = StatTracker.from_csv(locations)
-# p stats.test(18)
+# p stats.rival(18)
