@@ -211,7 +211,7 @@ class StatTracker
     #1 ======= Create a <games_by_season> hash with a season => games pair, from games class.
     games_by_season = @games.group_by {|game| game.season}.delete_if { |key, value| key.nil? || value.nil? }
 
-    #1.5 ======= Create a <filter_seasons> hash from games_by_season, to filter season argument in winningest_coach. 
+    #2 ======= Create a <filter_seasons> hash from games_by_season, to filter season argument in winningest_coach. 
     filter_seasons = {}
     games_by_season.each do |season_key, games|
       if season_key == season
@@ -219,14 +219,14 @@ class StatTracker
       end
     end
     
-    #2 ======= Create a <game_ids_by_season> hash with season => game_id pairs from games_by_season so we can use it to talk to game_teams class. Source <filter_seasons>.
+    #3 ======= Create a <game_ids_by_season> hash with season => game_id pairs from games_by_season so we can use it to talk to game_teams class. Source <filter_seasons>.
     game_ids_by_season = {}
     filter_seasons.map do |season, games|
       game_id = games.map {|game| game.game_id}
       game_ids_by_season[season] = game_id
     end
 
-    #3 ======== Create a <team_games_by_season> hash with coach games per season. Source from <game_ids_by_season> and @game_teams
+    #4 ======== Create a <team_games_by_season> hash with coach games per season. Source from <game_ids_by_season> and @game_teams
     team_games_by_season = {}
     game_ids_by_season.map do |season, game_ids|
       season_games = @game_teams.map do |game|
@@ -237,17 +237,17 @@ class StatTracker
       team_games_by_season[season] = season_games
     end
 
-    # 3.1 ======= Create <season_games> array of coach's season games.
+    #5 ======= Create <season_games> array of coach's season games.
     season_games = team_games_by_season.map {|season, games| games}.flatten.compact
     
-    # 3.2 ======= Create <games_per_season_by_coach> hash with head_coach key and game instances.
+    #6 ======= Create <games_per_season_by_coach> hash with head_coach key and game instances.
     games_per_season_by_coach = season_games.group_by do |game| 
       unless game == nil
         game.head_coach
       end
     end
 
-    #3.5 ======= Create a <coach_name_and_results> hash with coach name => total coach's season games-results. Source <games_per_season_by_coach>.
+    #7 ======= Create a <coach_name_and_results> hash with coach name => total coach's season games-results. Source <games_per_season_by_coach>.
 
     coach_name_and_results = {}
 
@@ -265,7 +265,7 @@ class StatTracker
       end
     end
 
-    # 4 ======= Create <coach_results> hash calculating total games results sum, percentage of wins, storing total wins, loss, and ties. Source <coach_name_and_results>
+    #8 ======= Create <coach_results> hash calculating total games results sum, percentage of wins, storing total wins, loss, and ties. Source <coach_name_and_results>
 
     coach_results = {}
     
@@ -274,6 +274,12 @@ class StatTracker
       wins_percentage = (results[:win] * 100) / result_sum
       coach_results[coach] = {:results => results, :result_sum => result_sum, :win_percentage => wins_percentage}
     end
+
+    #9 ======= Find name of coach with highest percentage of wins.
+
+    coach_results.max_by do |coach, results|
+      results[:win_percentage] 
+    end.first
    end
 
    
