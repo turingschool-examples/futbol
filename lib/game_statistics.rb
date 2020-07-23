@@ -75,4 +75,7 @@ class GameStatistics
     decimal_average.round(2)
   end
 
+  def average_goals_per_season
+  
+  end
 end
