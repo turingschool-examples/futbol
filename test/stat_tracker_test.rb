@@ -70,6 +70,46 @@ class StatTrackerTest < MiniTest::Test
      assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
    end
 
+
+  def test_it_can_create_an_away_goals_and_team_id_hash
+    assert_equal 32, @stat_tracker.total_goals_by_away_team.count
+    assert_equal Hash, @stat_tracker.total_goals_by_away_team.class
+    assert_equal 458, @stat_tracker.total_goals_by_away_team["20"]
+  end
+
+  def test_it_can_create_hash_with_total_games_played_by_away_team
+    assert_equal 32, @stat_tracker.away_teams_game_count_by_team_id.count
+    assert_equal Hash, @stat_tracker.away_teams_game_count_by_team_id.class
+    assert_equal 266, @stat_tracker.away_teams_game_count_by_team_id["3"]
+    assert_nil @stat_tracker.away_teams_game_count_by_team_id["56"]
+  end
+
+  def test_it_can_find_highest_total_goals_by_away_team
+    assert_equal String, @stat_tracker.highest_total_goals_by_away_team[0].class
+    assert_equal Integer, @stat_tracker.highest_total_goals_by_away_team[1].class
+    assert_equal 2, @stat_tracker.highest_total_goals_by_away_team.count
+    assert_equal Array, @stat_tracker.highest_total_goals_by_away_team.class
+  end
+
+  def test_it_can_calculate_overal_average_by_team
+    assert_equal 32, @stat_tracker.overall_average_scores_by_away_team.count
+    assert_equal Hash, @stat_tracker.overall_average_scores_by_away_team.class
+    assert_equal 2.2450592885375493, @stat_tracker.overall_average_scores_by_away_team["6"]
+  end
+
+  def test_it_can_calculate_highest_scoring_visitor
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+  end
+  
+  def test_lowest_scoring_home_team  
+    assert_equal "Utah Royals FC" ,@stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_it_can_find_lowest_scoring_visitor
+    assert_equal "San Jose Earthquakes", @stat_tracker.lowest_scoring_visitor
+  end
+
+
    def test_lowest_scoring_home_team
 
     assert_equal "Utah Royals FC" ,@stat_tracker.lowest_scoring_home_team
@@ -95,6 +135,7 @@ class StatTrackerTest < MiniTest::Test
     assert "Craig MacTavish" || "Ted Nolan", @stat_tracker.worst_coach("20142015")
   end
   
+
   def test_it_can_retrieve_team_info_from_team_id
     expected = {"team_id" => "18", "franchise_id" => "34", "team_name" => "Minnesota United FC", "abbreviation" => "MIN", "link" => "/api/v1/teams/18" }
     

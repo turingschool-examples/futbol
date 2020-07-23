@@ -163,7 +163,53 @@ class StatTracker
       end
       id = goals.max_by {|key, value| value}
       @teams.find {|team| team.team_id == id[0]}.teamname
+  end
+
+  def total_goals_by_away_team
+  #======== helper method for highest_scoring_visitor
+
+  away_goals = Hash.new{0}
+    @games.sum do |game|
+      away_goals[game.away_team_id] += game.away_goals
     end
+    away_goals
+  end
+
+  def away_teams_game_count_by_team_id
+  #======== helper method for highest_scoring_visitor
+
+    games_by_team_id = @games.reduce(Hash.new { |h,k| h[k]=[] }) do |result, game|
+    result[game.away_team_id] << game.game_id
+    result
+    end
+    games_count_by_team_id = {}
+    games_by_team_id.each do |team_id, games_array|
+      games_count_by_team_id[team_id] = games_array.count
+    end
+    games_count_by_team_id
+  end
+
+  def highest_total_goals_by_away_team
+  #======== helper method for highest_scoring_visitor
+
+    total_goals_by_away_team.max_by do |team_id, total_goals|
+      total_goals
+    end
+  end
+
+  def overall_average_scores_by_away_team
+  #======== helper method for highest_scoring_visitor
+    team_id = total_goals_by_away_team.keys
+    total_away_goals = total_goals_by_away_team.values
+    total_away_games = away_teams_game_count_by_team_id.values
+
+    teams_away_goals_and_total_games = team_id.zip(total_away_goals, total_away_games)
+    over_all_average_by_team = {}
+    teams_away_goals_and_total_games.each do |team_id, total_away_goals, total_away_games|
+      over_all_average_by_team[team_id] = total_away_goals.to_f/total_away_games
+    end
+    over_all_average_by_team
+  end 
 
     def best_offense
       team_by_id = @game_teams.group_by do |team|
@@ -207,9 +253,11 @@ class StatTracker
      worst_offense
    end
 
+
    def winningest_coach(season)
     #1 ======= Create a <games_by_season> hash with a season => games pair, from games class.
     games_by_season = @games.group_by {|game| game.season}
+
 
     #2 ======= Create a <filter_seasons> hash from games_by_season, to filter season argument in winningest_coach. 
     filter_seasons = {}
@@ -282,6 +330,7 @@ class StatTracker
     #1 ======= Create a <games_by_season> hash with a season => games pair, from games class.
     games_by_season = @games.group_by {|game| game.season}
 
+
     #2 ======= Create a <filter_seasons> hash from games_by_season, to filter season argument in winningest_coach. 
     filter_seasons = {}
     games_by_season.each do |season_key, games|
@@ -312,11 +361,7 @@ class StatTracker
     season_games = team_games_by_season.map {|season, games| games}.flatten.compact
     
     #6 ======= Create <games_per_season_by_coach> hash with head_coach key and game instances.
-    games_per_season_by_coach = season_games.group_by do |game| 
-      unless game == nil
-        game.head_coach
-      end
-    end
+    games_per_season_by_coach = season_games.group_by { |game| game.head_coach }
 
     #7 ======= Create a <coach_name_and_results> hash with coach name => total coach's season games-results. Source <games_per_season_by_coach>.
 
@@ -391,6 +436,26 @@ class StatTracker
   def games_by_season
   games_by_season = @games.group_by {|game| game.season}
   end
-   
+
+  def highest_scoring_visitor
+    best_team = overall_average_scores_by_away_team.max_by do |team_id, average_goals|
+
+      average_goals
+    end
+    @teams.find do |team|
+      team.team_id == best_team[0]
+    end.teamname
+  end
+
+  def lowest_scoring_visitor
+    worst_team = overall_average_scores_by_away_team.min_by do |team_id, average_goals|
+      average_goals
+    end
+    @teams.find do |team|
+      team.team_id == worst_team[0]
+    end.teamname
+  end
+
+
 
 end
