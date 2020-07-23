@@ -49,6 +49,7 @@ class GameStatistics
   end
 
   def percentage_of_ties
+    ((@game_outcomes[:ties].to_f / all_games.size) * 100).round(2)
 
   end
 

@@ -28,6 +28,6 @@ class GameStatisticsTest < MiniTest::Test
     @game_statistics.win_data
     assert_equal 68.42, @game_statistics.percentage_of_home_wins
     assert_equal 26.32, @game_statistics.percentage_of_visitor_wins
-    assert_equal 40, @game_statistics.percentage_of_ties
+    assert_equal 5.26, @game_statistics.percentage_of_ties
   end
 end
