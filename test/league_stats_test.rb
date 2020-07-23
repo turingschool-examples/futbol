@@ -11,9 +11,9 @@ require 'pry'
 class LeagueStatsTest < MiniTest::Test
   def setup
     data = {
-      games:      './data/games.csv',
-      teams:      './data/teams.csv',
-      game_teams: './data/game_teams.csv'
+      games:      './fixtures/games_fixture.csv',
+      teams:      './fixtures/teams_fixture.csv',
+      game_teams: './fixtures/game_teams_fixture.csv'
     }
 
     @league_stats = LeagueStats.new(data)
@@ -28,11 +28,11 @@ class LeagueStatsTest < MiniTest::Test
   end
 
   def test_best_offense
-    assert_equal "Reign FC", @league_stats.best_offense
+    assert_equal "New York City FC", @league_stats.best_offense
   end
 
   def test_worst_offense
-    assert_equal "Utah Royals FC", @league_stats.worst_offense
+    assert_equal "Sporting Kansas City", @league_stats.worst_offense
   end
 
   def test_can_get_highest_scoring_visitor
@@ -40,15 +40,15 @@ class LeagueStatsTest < MiniTest::Test
   end
 
   def test_losest_scoring_visitor
-    assert_equal "San Jose Earthquakes", @league_stats.lowest_scoring_visitor
+    assert_equal "Sporting Kansas City", @league_stats.lowest_scoring_visitor
   end
 
   def test_highest_scoring_home_team
-    assert_equal "Reign FC", @league_stats.highest_scoring_home_team
+    assert_equal "New York City FC", @league_stats.highest_scoring_home_team
   end
 
   def test_lowest_scoring_home_team
-    assert_equal "Utah Royals FC", @league_stats.lowest_scoring_home_team
+    assert_equal "Sporting Kansas City", @league_stats.lowest_scoring_home_team
   end
 
 end
