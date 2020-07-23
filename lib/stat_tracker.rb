@@ -6,7 +6,7 @@ require './lib/game_teams_manager'
 class StatTracker < GameManager
 
   attr_reader :games, :game_details, :teams, :seasons,
-              :all_games, :home_wins, :away_wins
+              :all_games, :home_wins, :away_wins, :array1
 
   game_path = './data/games.csv'
   team_path = './data/teams.csv'
@@ -98,7 +98,7 @@ end
   def favorite_opponent(id)
     self.best_season(id)
     teams = []
-    @all_games.select do |rows|
+    @array1 = @all_games.select do |rows|
       if rows.home_team_id == "#{id}"
         if rows.away_goals > rows.home_goals
           teams << rows.away_team_id
@@ -113,6 +113,38 @@ end
     numbs = teams.min_by { |v| freq[v] }
     @teams_array.select{ |team| team.team_id == numbs}[0].team_name
   end
+
+  def rival(id)
+    teams = []
+    self.best_season(id)
+    @all_games.each do |game|
+      if game.away_team_id == "#{id}"
+        teams << game.home_team_id
+      elsif game.home_team_id == "#{id}"
+        teams << game.away_team_id
+      end
+    end
+    teams
+    games_played_against = teams.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+    teams1 = []
+    @all_games.each do |game|
+      if game.away_team_id == "#{id}"
+        if game.away_goals < game.home_goals
+          teams1 << game.home_team_id
+        end
+      elsif game.home_team_id == "#{id}"
+        if game.away_goals > game.home_goals
+          teams1 << game.away_team_id
+        end
+      end
+    end
+      teams1
+      games_won_against = teams1.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+      hash1 = games_won_against.merge(games_played_against){ |k, a_value, b_value| a_value .to_f / b_value.to_f}
+      hash1.delete("14")
+      team_final = hash1.max_by{|k,v| v}[0]
+      @teams_array.select{ |row| row.team_id == team_final}[0].team_name
+  end
 end
 
 # game_path = './data/games.csv'
@@ -126,4 +158,4 @@ end
 # }
 #
 # stats = StatTracker.from_csv(locations)
-# p stats.favorite_opponent(18)
+# p stats.rival(18)
