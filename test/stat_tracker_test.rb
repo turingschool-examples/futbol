@@ -28,21 +28,15 @@ class StatTrackerTest < MiniTest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
-
-
-    def test_find_the_most_tackles
-
-      assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
-      assert_equal "Seattle Sounders FC", @stat_tracker.most_tackles("“20142015")
-    end
-
     def test_find_the_fewest_tackles
-      skip
+      #skip
       assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
       assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
     end
 
-
-
-
+  def test_find_the_most_tackles
+    #skip
+    assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
+    assert_equal "Seattle Sounders FC", @stat_tracker.most_tackles("“20142015")
+  end
 end
