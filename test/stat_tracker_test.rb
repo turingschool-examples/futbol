@@ -77,6 +77,7 @@ class StatTrackerTest < MiniTest::Test
      assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
    end
 
+
   def test_it_can_create_an_away_goals_and_team_id_hash
     assert_equal 32, @stat_tracker.total_goals_by_away_team.count
     assert_equal Hash, @stat_tracker.total_goals_by_away_team.class
@@ -113,6 +114,22 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_can_find_lowest_scoring_visitor
     assert_equal "San Jose Earthquakes", @stat_tracker.lowest_scoring_visitor
+  end
+
+
+   def test_lowest_scoring_home_team
+
+    assert_equal "Utah Royals FC" ,@stat_tracker.lowest_scoring_home_team
+   end
+
+   def test_it_can_return_best_offense
+
+    assert_equal "Reign FC", @stat_tracker.best_offense
+  end
+
+  def test_it_can_return_worst_offense
+
+    assert_equal "Utah Royals FC", @stat_tracker.worst_offense
   end
 
 end
