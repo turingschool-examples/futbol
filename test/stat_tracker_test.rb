@@ -76,9 +76,14 @@ class StatTrackerTest < MiniTest::Test
    def test_highest_scoring_home_team
      assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
    end
-  
+
    def test_lowest_scoring_home_team
-    
+
     assert_equal "Utah Royals FC" ,@stat_tracker.lowest_scoring_home_team
    end
+
+   def test_it_can_return_best_offense
+
+    assert_equal "Reign FC", @stat_tracker.best_offense
+  end
 end
