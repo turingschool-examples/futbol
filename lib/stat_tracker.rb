@@ -83,7 +83,7 @@ class StatTracker
   def lowest_scoring_visitor
     @league_stats.lowest_scoring_visitor
   end
-
+  
   def lowest_scoring_home_team
     @league_stats.lowest_scoring_home_team
   end
@@ -91,5 +91,36 @@ class StatTracker
 
 #season stats
 
+  def gather_season_games(season_id)
+    @season_stats.gather_season_games(season_id)
+  end
 
+  def group_season_wins_by_coach(season_id)
+    @season_stats.group_season_wins_by_coach(season_id)
+  end
+
+  def winningest_coach(season_id)
+    @season_stats.winningest_coach(season_id)
+  end
+
+  def worst_coach(season_id)
+    @season_stats.worst_coach(season_id)
+  end
+
+  def most_accurate_team(season_id)
+    @season_stats.most_accurate_team(season_id)
+  end
+
+  def least_accurate_team(season_id)
+    @season_stats.least_accurate_team(season_id)
+  end
+
+  def most_tackles(season_id)
+    @season_stats.most_tackles(season_id)
+  end
+
+  def fewest_tackles(season_id)
+    @season_stats.fewest_tackles(season_id)
+  end
+  
 end
