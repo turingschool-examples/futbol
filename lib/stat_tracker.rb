@@ -191,4 +191,14 @@ class StatTracker
     over_all_average_by_team
   end
 
+  def highest_scoring_visitor
+    best_team = overall_average_scores_by_away_team.max_by do |team_id, average_goals_per_game|
+
+      average_goals_per_game
+    end
+    @teams.find do |team|
+      team.team_id == best_team[0]
+    end.teamname
+  end
+
 end
