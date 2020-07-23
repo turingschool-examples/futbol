@@ -5,38 +5,41 @@ class GameData
       :away_goals, :home_goals, :venue, :venue_link
 
     def initialize()
-      @game_id = game_id
-      @season = season
-      @type = type
-      @date_time = date_time
-      @away_team_id = away_team_id
-      @home_team_id = home_team_id
-      @away_goals = away_goals
-      @home_goals = home_goals
-      @venue = venue
-      @venue_link = venue_link
+      @game_id = nil
+      @season = nil
+      @type = nil
+      @date_time = nil
+      @away_team_id = nil
+      @home_team_id = nil
+      @away_goals = nil
+      @home_goals = nil
+      @venue = nil
+      @venue_link = nil
+    end
+
+    def self.create_objects
+      table = CSV.parse(File.read('./data/dummy_file_games.csv'), headers: true)
+      line_index = 0
+      all_games = []
+      table.size.times do
+        game_data = GameData.new
+        game_data.create_attributes(table, line_index)
+        all_games << game_data
+        line_index += 1
+      end
+      all_games
     end
 
     def create_attributes(table, line_index)
-      index = 0
-      @game_id = table[line_index][index]
-      index += 1
-      @season = table[line_index][index]
-      index += 1
-      @type = table[line_index][index]
-      index += 1
-      @date_time = table[line_index][index]
-      index += 1
-      @away_team_id = table[line_index][index]
-      index += 1
-      @home_team_id = table[line_index][index]
-      index += 1
-      @away_goals = table[line_index][index]
-      index += 1
-      @home_goals = table[line_index][index]
-      index += 1
-      @venue = table[line_index][index]
-      index += 1
-      @venue_link = table[line_index][index]
+      @game_id = table[line_index]["game_id"]
+      @season = table[line_index]["season"]
+      @type = table[line_index]["type"]
+      @date_time = table[line_index]["date_time"]
+      @away_team_id = table[line_index]["away_team_id"]
+      @home_team_id = table[line_index]["home_team_id"]
+      @away_goals = table[line_index]["away_goals"]
+      @home_goals = table[line_index]["home_goals"]
+      @venue = table[line_index]["venue"]
+      @venue_link = table[line_index]["venue_link"]
     end
 end
