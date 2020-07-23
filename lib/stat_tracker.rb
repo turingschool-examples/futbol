@@ -99,5 +99,9 @@ class StatTracker
     @season_stats.worst_coach(season_id)
   end
 
+  def most_accurate_team(season_id)
+    @season_stats.most_accurate_team(season_id)
+  end
+
   
 end
