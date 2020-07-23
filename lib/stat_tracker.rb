@@ -71,61 +71,6 @@ end
     @games.count
   end
 
-  def visiting_teams_by_game_id
-    #======== helper method for highest_scoring_visitor
-
-    visiting_teams = {}
-    @games.each do |game|
-      visiting_teams[game.game_id] = game.away_team_id
-    end
-    visiting_teams
-  end
-
-  def total_goals_by_away_team
-    #======== helper method for highest_scoring_visitor
-
-    away_goals = Hash.new{0}
-    @games.sum do |game|
-      away_goals[game.away_team_id] += game.away_goals
-    end
-    away_goals
-  end
-
-  def away_teams_game_count_by_team_id
-    #======== helper method for highest_scoring_visitor
-
-    games_by_team_id = @games.reduce(Hash.new { |h,k| h[k]=[] }) do |result, game|
-      result[game.away_team_id] << game.game_id
-      result
-    end
-    games_count_by_team_id = {}
-    games_by_team_id.each do |team_id, games_array|
-      games_count_by_team_id[team_id] = games_array.count
-    end
-    games_count_by_team_id
-  end
-
-  def highest_total_goals_by_away_team
-    #======== helper method for highest_scoring_visitor
-
-    total_goals_by_away_team.max_by do |team_id, total_goals|
-      total_goals
-    end
-  end
-
-  def overall_average_scores_by_away_team
-    #======== helper method for highest_scoring_visitor
-
-    over_all_average_by_team = {}
-    total_goals_by_away_team.each do |away_team_id, total_goals|
-      away_teams_game_count_by_team_id.each do |away_team_id, total_games_played|
-        over_all_average_by_team[away_team_id] = (total_goals / total_games_played)
-      end
-
-    end
-    over_all_average_by_team
-  end
-
 
   def percentage_home_wins
     total_home_wins = @games.select do |game|
@@ -159,12 +104,9 @@ end
       division = (goals.to_f / count_of_games_by_season[season] ).round(2)
       avg_goals_per_season[season] = division
     end
-
     avg_goals_per_season
-
   end
 
-end
 
   def percentage_visitor_wins
     total_visitor_wins = @games.select do |game|
@@ -206,7 +148,7 @@ end
   end
 
 
-    def highest_scoring_home_team
+  def highest_scoring_home_team
       home_team = @games.group_by do |game|
         game.home_team_id
       end
@@ -221,7 +163,48 @@ end
         end
         id = goals.max_by {|key, value| value}
         @teams.find {|team| team.team_id == id[0]}.teamname
+    end
+
+    def most_tackles(season)
+        season_hash = @games.group_by {|games| games.season}
+        season_hash.delete_if {|k, v| k.nil?}
+
+        game_ids_by_season = {}
+          season_hash.map do |season, games|
+            game_ids_by_season[season] = games.map {|game| game.game_id}
+          end
+
+
+        games_by_season = {}
+        game_ids_by_season.map do |season, game_ids|
+          season_games = @game_teams.map do |game|
+            if game_ids.include?(game.game_id)
+              game
+            end
+          end
+          games_by_season[season] = season_games
+        end
+
+      season_games = games_by_season.map {|season, games| games}.flatten.compact
+
+      new_hash = Hash.new([])
+      game_ids_by_season.each do |k, v|
+        v.each do |game|
+        new_hash[k] += season_games.select {|season_game| season_game.game_id == game}
+        end
       end
 
+      team_tackles = Hash.new(0)
+        new_hash[season].each do |game|
+          team_tackles[game.team_id] += game.tackles
+        end
+      team_tackles.delete_if {|k, v| k.nil?}
 
+      most = team_tackles.max_by {|k, v| v}
+      @teams.find {|team| team.team_id == most.first}.teamname
+      #binding.pry
+
+      # id = goals.max_by {|key, value| value}
+      # @teams.find {|team| team.team_id == id[0]}.teamname
+    end#tackle method
 end
