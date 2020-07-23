@@ -247,6 +247,23 @@ class StatTracker
       end
     end
 
+    #3.5 ======= Create a <coach_name_and_results> hash with coach name => total coach's season games-results. Source <games_per_season_by_coach>.
+
+    coach_name_and_results = {}
+
+    games_per_season_by_coach.map do |coach, games|
+      results_by_coach = {win: 0, loss: 0, tie: 0}
+      games.map do |game|
+        if game.result == "WIN"
+          results_by_coach[:win] = results_by_coach[:win] += 1
+        elsif game.result == "LOSS"
+          results_by_coach[:loss] = results_by_coach[:loss] += 1
+        elsif game.result == "TIE"
+            results_by_coach[:tie] = results_by_coach[:tie] += 1
+        end
+      coach_name_and_results[coach] = results_by_coach
+      end
+    end
 
    end
 
