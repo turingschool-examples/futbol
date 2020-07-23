@@ -34,12 +34,10 @@ class SeasonStatsTest < Minitest::Test
   end
 
   def test_it_can_get_most_accurate_team
-
     assert_equal "Real Salt Lake", @season_stats.most_accurate_team("20132014")
   end
 
   def test_it_can_get_least_accurate_team
-
     assert_equal "New York City FC", @season_stats.least_accurate_team("20132014")
   end
 
