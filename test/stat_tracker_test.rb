@@ -22,6 +22,7 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_count_teams
     assert_equal 32, @stat_tracker.count_of_teams
   end
+
 end
 
 # =======  JOHN'S CODE BEING WORKED ON  ==========
