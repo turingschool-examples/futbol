@@ -26,7 +26,6 @@ class SeasonStatsTest < Minitest::Test
 
   def test_cognizant_of_winningest_coach
     assert_equal "Claude Julien", @season_stats.winningest_coach("20122013")
-    assert_equal "Claude Julien", @season_stats.winningest_coach("20122013")
   end
 
   def test_it_can_get_worst_coach
