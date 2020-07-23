@@ -6,13 +6,13 @@ require_relative 'stats'
 require_relative 'game_stats'
 require_relative 'league_stats'
 # require_relative 'team_stats'
-# require_relative 'season_stats'
+require_relative 'season_stats'
 
 class StatTracker
   attr_reader :game_stats,
-              :league_stats
+              :league_stats,
               # :team_stats,
-              # :season_stats
+              :season_stats
 
   def self.from_csv(data)
     StatTracker.new(data)
@@ -22,7 +22,7 @@ class StatTracker
     @game_stats   = GameStats.new(data)
     # @team_stats   = TeamStats.new(data)
     @league_stats = LeagueStats.new(data)
-    # @season_stats = SeasonStats.new(data)
+    @season_stats = SeasonStats.new(data)
   end
 
 # game stats
@@ -83,7 +83,7 @@ class StatTracker
   def lowest_scoring_visitor
     @league_stats.lowest_scoring_visitor
   end
-  
+
   def lowest_scoring_home_team
     @league_stats.lowest_scoring_home_team
   end
@@ -122,5 +122,5 @@ class StatTracker
   def fewest_tackles(season_id)
     @season_stats.fewest_tackles(season_id)
   end
-  
+
 end
