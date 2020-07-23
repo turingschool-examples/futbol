@@ -84,4 +84,9 @@ class StatTrackerTest < MiniTest::Test
 
     assert_equal "Utah Royals FC", @stat_tracker.worst_offense
   end
+
+  def test_it_has_a_winningest_coach
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20132014")
+    assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
+  end
 end
