@@ -117,6 +117,11 @@ class StatTrackerTest < MiniTest::Test
   assert_equal 2.2450592885375493, @stat_tracker.overall_average_scores_by_away_team["6"]
   end
 
+  def test_it_can_calculate_highest_scoring_visitor
+  assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+
+  end
+
 
 
 end
