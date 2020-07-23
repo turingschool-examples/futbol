@@ -7,6 +7,7 @@ class GameStatistics
       :visitor_games_won => 0,
       :ties => 0
     }
+    @total_games = all_games.size
   end
 
   def all_games
@@ -37,20 +38,24 @@ class GameStatistics
         @game_outcomes[:ties] += 1
       end
     end
-
   end
 
   def percentage_of_home_wins
-    ((@game_outcomes[:home_games_won].to_f / all_games.size) * 100).round(2)
+    home_wins = @game_outcomes[:home_games_won]
+    decimal_home = home_wins.to_f / @total_games
+    (decimal_home * 100).round(2)
   end
 
   def percentage_of_visitor_wins
-    ((@game_outcomes[:visitor_games_won].to_f / all_games.size) * 100).round(2)
+    visitor_wins = @game_outcomes[:visitor_games_won]
+    decimal_visitor = visitor_wins.to_f / @total_games
+    (decimal_visitor * 100).round(2)
   end
 
   def percentage_of_ties
-    ((@game_outcomes[:ties].to_f / all_games.size) * 100).round(2)
-
+    total_ties = @game_outcomes[:ties]
+    decimal_ties = total_ties.to_f / @total_games
+    (decimal_ties * 100).round(2)
   end
 
 end
