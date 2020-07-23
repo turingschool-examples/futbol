@@ -12,9 +12,9 @@ class Game
               :venue,
               :venue_link
 
-  def self.from_csv(data)
-    Game.new(data)
-  end
+  # def self.from_csv(data)
+  #   Game.new(data)
+  # end
 
   def initialize(data)
     @game_id = data[0]
