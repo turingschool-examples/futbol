@@ -2,9 +2,6 @@ require 'CSV'
 require './lib/game_manager'
 require './lib/team_manager'
 require './lib/game_teams_manager'
-require './lib/game'
-require './lib/game_teams'
-require './lib/team'
 
 class StatTracker
 
@@ -50,7 +47,7 @@ class StatTracker
   def percentage_visitor_wins
     @game_teams_manager.percentage_visitor_wins
   end
-  
+
 
 
 
