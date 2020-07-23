@@ -35,11 +35,29 @@ class SeasonStats < Stats
   end
 
   def least_accurate_team(season_id)
-      games_within_season = gather_season_games(season_id)
-      team_id = games_within_season.group_by {|team| team.team_id}
-      goals = team_id.transform_values do |game_team|
-        game_team.sum {|game| (game.goals).to_f} / game_team.sum {|game| (game.shots)}
-      end
-      @teams.find {|team| team.team_id == goals.min_by {|_, ratio| ratio}.first}.team_name
+    games_within_season = gather_season_games(season_id)
+    team_id = games_within_season.group_by {|team| team.team_id}
+    goals = team_id.transform_values do |game_team|
+      game_team.sum {|game| (game.goals).to_f} / game_team.sum {|game| (game.shots)}
+    end
+    @teams.find {|team| team.team_id == goals.min_by {|_, ratio| ratio}.first}.team_name
+  end
+
+  def most_tackles(season_id)
+    games_within_season = gather_season_games(season_id)
+    team_id = games_within_season.group_by {|team| team.team_id}
+    tackles = team_id.transform_values do |game_team|
+      game_team.sum {|game| game.tackles}
+    end
+    @teams.find {|team| team.team_id == tackles.max_by {|_, ratio| ratio}.first}.team_name
+  end
+
+  def fewest_tackles(season_id)
+    games_within_season = gather_season_games(season_id)
+    team_id = games_within_season.group_by {|team| team.team_id}
+    tackles = team_id.transform_values do |game_team|
+      game_team.sum {|game| game.tackles}
+    end
+    @teams.find {|team| team.team_id == tackles.min_by {|_, ratio| ratio}.first}.team_name
   end
 end

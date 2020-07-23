@@ -44,12 +44,10 @@ class SeasonStatsTest < Minitest::Test
   end
 
   def test_it_can_get_most_tackles
-    skip
     assert_equal "FC Cincinnati", @season_stats.most_tackles("20132014")
   end
 
   def test_it_knows_fewest_tackles
-    skip
     assert_equal "Atlanta United", @season_stats.fewest_tackles("20132014")
   end
 
