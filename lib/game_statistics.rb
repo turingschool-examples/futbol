@@ -91,7 +91,7 @@ class GameStatistics
     average_goals_per_season = Hash.new
     total_goals_per_season.each do |season, goals|
       average = goals.to_f / count_of_games_by_season[season]
-      average_goals_per_season[season] = average
+      average_goals_per_season[season] = average.round(2)
     end
     average_goals_per_season
   end
