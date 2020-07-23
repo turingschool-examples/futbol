@@ -1,6 +1,7 @@
 require './lib/game'
 
 class GameManager
+
   attr_reader :games_array
 
   def initialize(game_path)
@@ -45,6 +46,23 @@ class GameManager
     #   require "pry"; binding.pry
     # end
     # season_count_hash
+
+# def away_team_average_goals(away_team_id)
+#     away_teams_by_id = @games.find_all do |game|
+#       game.away_team_id.to_i == away_team_id
+#    end
+
+#     total_away_goals = away_teams_by_id.sum do |away_teams|
+#       away_teams.away_goals.to_i
+#     end
+#     (total_away_goals.to_f / away_teams_by_id.size).round(2)
+#   end
+
+#     def away_teams_sort_by_average_goal
+#       Games.all.sort_by do |game|
+#         away_team_average_goals(game.away_team_id.to_i)
+#       end
+#     end
 
 
   end

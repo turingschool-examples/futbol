@@ -12,6 +12,10 @@ class Game
               :venue,
               :venue_link
 
+  def self.from_csv(data)
+    Game.new(data)
+  end
+
   def initialize(data)
     @game_id = data[0]
     @season = data[1]
@@ -24,5 +28,4 @@ class Game
     @venue = data[8]
     @venue_link = data[9]
   end
-
 end
