@@ -1,4 +1,12 @@
-require './test/test_helper'
+require "./test/test_helper"
+# require 'minitest/autorun'
+# require 'minitest/pride'
+# require "./lib/stat_tracker"
+# require "./lib/games"
+# require "./lib/game_teams"
+# require "./lib/teams"
+# require "pry"
+
 
 class StatTrackerTest < MiniTest::Test
 
@@ -42,15 +50,15 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_find_percentage_home_wins
     assert_equal 0.44, @stat_tracker.percentage_home_wins
   end
-    
+
   def test_it_can_find_percentage_visitor_wins
     assert_equal 0.36, @stat_tracker.percentage_visitor_wins
-  end 
-  
+  end
+
   def test_can_find_percentage_tie
      assert_equal 0.20, @stat_tracker.percentage_tie
    end
-  
+
   def test_count_games_by_season
      expected = {"20122013" => 806,
                  "20162017" => 1317,
@@ -61,5 +69,12 @@ class StatTrackerTest < MiniTest::Test
                   }
      assert_equal expected, @stat_tracker.count_of_games_by_season
    end
-end
 
+   def test_count_of_teams
+     assert_equal 32, @stat_tracker.count_of_teams
+   end
+
+   def test_highest_scoring_home_team
+     assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
+   end
+end
