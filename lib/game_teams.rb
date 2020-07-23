@@ -18,9 +18,9 @@ class GameTeam
               :giveaways,
               :takeaways
 
-  def self.from_csv(data)
-    GameTeam.new(data)
-  end
+  # def self.from_csv(data)
+  #   GameTeam.new(data)
+  # end
 
   def initialize(data)
     @game_id = data[0]
