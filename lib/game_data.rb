@@ -17,4 +17,16 @@ class GameData
       @venue_link = nil
     end
 
+    def self.create_objects
+      table = CSV.parse(File.read('./data/dummy_file_games.csv'), headers: true)
+      line_index = 0
+      all_games = []
+      table.size.times do
+        game_data = GameData.new
+        game_data.create_attributes(table, line_index)
+        all_games << game_data
+        line_index += 1
+      end
+      all_games
+    end
 end
