@@ -398,6 +398,39 @@ class StatTracker
     end.first
 
   end
+
+  def team_info(team_id)
+   
+    team_info = {}
+    team = @teams.find {|team| team.team_id == team_id}
+    franchise_id = team.franchiseid
+    team_name = team.teamname
+    abbreviation = team.abbreviation
+    link = team.link
+
+    team_info["team_id"] = team.team_id
+    team_info["franchise_id"] = team.franchiseid
+    team_info["team_name"] = team.teamname
+    team_info["abbreviation"] = team.abbreviation
+    team_info["link"] = team.link
+
+    team_info
+  end
+
+  
+  def average_win_percentage(team_id)
+  #========== Average win percentage of all games for a team from team id.
+    team_games = @game_teams.find_all {|team| team.team_id == team_id}
+    team_games_count = team_games.count
+    team_total_wins = team_games.find_all {|game| game.result == "WIN"}.count
+    team_average_win_percentage = (team_total_wins / team_games_count.to_f).round(2)
+    team_average_win_percentage
+  end
+
+
+
+
+
    #========== HELPER METHODS ==========
   #1 ======= Create a <games_by_season> hash with a season => games pair, from games class.
   def games_by_season
