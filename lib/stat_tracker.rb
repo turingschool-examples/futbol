@@ -207,5 +207,10 @@ class StatTracker
      worst_offense
    end
 
-   
+   def winningest_coach(season)
+    #1 ======= Create a games_by_season hash with a season => games pair, from games class.
+    games_by_season = @games.group_by {|game| game.season}.delete_if { |key, value| key.nil? || value.nil? }
+
+   end
+
   end
