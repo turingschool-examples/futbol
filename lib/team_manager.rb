@@ -1,16 +1,15 @@
 require './lib/team'
 
-
-
 class TeamManager
-  attr_reader :team_hash
+  attr_reader :teams_array
 
 def initialize(team_path)
-  @team_path = team_path
-  @team_hash = {} ######## can easily modify to array
-  CSV.foreach(team_path, headers: true) do |row|
-    team_hash[row[2]] = Team.new(row)
-  end
+  @teams_array = []
+    CSV.foreach(team_path, headers: true) do |row|
+      @teams_array << Team.new(row)
+    end
 end
+
+
 
 end
