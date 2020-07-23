@@ -96,8 +96,3 @@ class StatTrackerTest < MiniTest::Test
   end
   
 end
-
-    # assert_equal "Ted Nolan", @stat_tracker.winningest_coach("20142015")
-
-# expect(@stat_tracker.worst_coach("20132014")).to eq "Peter Laviolette"
-#     expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
