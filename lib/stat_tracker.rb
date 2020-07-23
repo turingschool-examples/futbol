@@ -372,6 +372,10 @@ class StatTracker
     team_info
   end
 
+  ##average_win_percentage	Average win percentage of all games for a team.
+  def average_win_percentage(team_id)
+  
+  end
 
 
 
