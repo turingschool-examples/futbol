@@ -16,6 +16,11 @@ class GameStatisticsTest < MiniTest::Test
   end
 
   def test_game_statistics_is_an_instance_of_game_data
-    assert_instance_of GameData, @game_statistics.all_games[0]
+    assert_instance_of GameData, @game_statistics.all_games[1]
+  end
+
+  def test_total_score
+    assert_equals [], @game_statistics.highest_total_score
+    assert_equals [], @game_statistics.lowest_total_score
   end
 end
