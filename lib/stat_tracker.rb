@@ -2,9 +2,6 @@ require 'CSV'
 require './lib/game_manager'
 require './lib/team_manager'
 require './lib/game_teams_manager'
-require './lib/game'
-require './lib/game_teams'
-require './lib/team'
 
 class StatTracker
 
@@ -34,14 +31,6 @@ class StatTracker
   def lowest_total_score
     @game_manager.lowest_total_score
   end
-  #
-  #   def find_team_id(team)
-  #     results = @teams_file.find {|row| row[2] == team}
-  #     results[0]
-  #   end
-  #
-  #
-  # #### Need to figure out how to un-chain method
 
   def percentage_home_wins
    @game_teams_manager.percentage_home_wins
@@ -50,9 +39,30 @@ class StatTracker
   def percentage_visitor_wins
     @game_teams_manager.percentage_visitor_wins
   end
-  
 
+  def team_info(id)
+    hash= {}
+    team = @team_hash.values.select{ |x| x.team_id == "#{id}"}[0]
+    hash["team id"] = team.team_id
+    hash["franchise_id"] = team.franchise_id
+    hash["team_name"] = team.team_name
+    hash["abbreviation"] = team.abbreviation
+    hash["link"] = team.link
+    hash
 
-
+  end
 
 end
+#
+# game_path = './data/games.csv'
+# team_path = './data/teams.csv'
+# game_teams_path = './data/game_teams.csv'
+#
+# locations = {
+#   games: game_path,
+#   teams: team_path,
+#   game_teams: game_teams_path
+# }
+#
+# stats = StatTracker.from_csv(locations)
+# p stats.test(18)

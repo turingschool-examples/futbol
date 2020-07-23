@@ -4,6 +4,7 @@ require './lib/stat_tracker'
 
 class StatTrackerTest < MiniTest::Test
 
+
   def setup
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -50,4 +51,5 @@ class StatTrackerTest < MiniTest::Test
                 }
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
+
 end
