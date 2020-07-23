@@ -37,6 +37,7 @@ class GameStatisticsTest < MiniTest::Test
   end
 
   def test_it_can_calc_avg_goals_per_game
+    skip
     assert_equal [], @game_statistics.average_goals_per_game
   end
 end
