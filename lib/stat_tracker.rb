@@ -51,7 +51,7 @@ class StatTracker
   end
 
   def worst_season(id)
-
+    @game_manager.worst_season(id)
   end
 
   def average_win_percentage(id)

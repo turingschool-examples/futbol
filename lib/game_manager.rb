@@ -41,6 +41,12 @@ class GameManager
     @seasons.max_by { |v| freq[v] }
   end
 
+  def worst_season(id)
+    self.best_season(id)
+    freq = @seasons.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+    @seasons.min_by { |v| freq[v] }
+  end
+
   #
   # def count_of_games_by_season
   #   @games_array.reduce(Hash.new{|hash, key| hash[key] = []}) do |result, game|
