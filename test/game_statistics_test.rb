@@ -23,4 +23,10 @@ class GameStatisticsTest < MiniTest::Test
     assert_equal 5, @game_statistics.highest_total_score
     assert_equal 1, @game_statistics.lowest_total_score
   end
+
+  def test_it_can_determine_percentages
+    assert_equal 40, @game_statistics.percentage_of_home_wins
+    assert_equal 40, @game_statistics.percentage_of_visitor_wins
+    assert_equal 40, @game_statistics.percentage_of_ties
+  end
 end
