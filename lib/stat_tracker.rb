@@ -111,5 +111,8 @@ class StatTracker
     @season_stats.most_tackles(season_id)
   end
 
+  def fewest_tackles(season_id)
+    @season_stats.fewest_tackles(season_id)
+  end
   
 end
