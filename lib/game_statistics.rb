@@ -70,4 +70,8 @@ class GameStatistics
     @games_per_season
   end
 
+  def average_goals_per_game
+
+  end
+
 end
