@@ -208,10 +208,10 @@ class StatTracker
    end
 
    def winningest_coach(season)
-    #1 ======= Create a games_by_season hash with a season => games pair, from games class.
+    #1 ======= Create a <games_by_season> hash with a season => games pair, from games class.
     games_by_season = @games.group_by {|game| game.season}.delete_if { |key, value| key.nil? || value.nil? }
 
-    #1.5 ======= Create a Filter_seasons hash from games_by_season, to filter season argument in winningest_coach. 
+    #1.5 ======= Create a <filter_seasons> hash from games_by_season, to filter season argument in winningest_coach. 
     filter_seasons = {}
     games_by_season.each do |season_key, games|
       if season_key == season
@@ -219,12 +219,26 @@ class StatTracker
       end
     end
     
-    #2 ======= Create a hash with season => game_id pairs from games_by_season so we can use it to talk to game_teams class.
+    #2 ======= Create a <game_ids_by_season> hash with season => game_id pairs from games_by_season so we can use it to talk to game_teams class. Source <filter_seasons>.
     game_ids_by_season = {}
     filter_seasons.map do |season, games|
       game_id = games.map {|game| game.game_id}
       game_ids_by_season[season] = game_id
     end
+
+    #3 ======== Create a <team_games_by_season> hash with coach games per season. Source from <game_ids_by_season> and @game_teams
+    team_games_by_season = {}
+    game_ids_by_season.map do |season, game_ids|
+      season_games = @game_teams.map do |game|
+        if game_ids.include?(game.game_id)
+          game
+        end
+      end
+      team_games_by_season[season] = season_games
+    end
+
+
+
    end
 
   end
