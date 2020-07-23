@@ -18,6 +18,7 @@ class StatTracker
     @games ||= turn_games_csv_data_into_games_objects(locations[:games])
     @teams ||= turn_teams_csv_data_into_teams_objects(locations[:teams])
     @game_teams ||= turn_game_teams_csv_data_into_game_teams_objects(locations[:game_teams])
+    require "pry"; binding.pry
   end
 
   def turn_games_csv_data_into_games_objects(games_csv_data)
@@ -47,7 +48,7 @@ class StatTracker
   def highest_total_score
     output = @games.max_by do |game|
     game.away_goals + game.home_goals
-  end
+    end
     output.away_goals + output.home_goals
   end
 
@@ -57,12 +58,6 @@ class StatTracker
 #       games << game.result
 #     end
 #   end
-
-    output = @games.max_by do |game|
-      game.away_goals + game.home_goals
-    end
-    output.away_goals + output.home_goals
-  end
 
   def lowest_total_score
     output = @games.min_by do |game|
@@ -78,35 +73,35 @@ class StatTracker
     sum_of_goals_divided_by_game_count = (sum_of_goals / games_count).round(2)
     sum_of_goals_divided_by_game_count
   end
-  
+
   def average_goals_by_season
     games_by_season = @games.group_by {|game| game.season} ##hash of games by season
-    games_by_season.delete_if { |key, value| key.nil? || value.nil? } 
+    games_by_season.delete_if { |key, value| key.nil? || value.nil? }
 
     goals_per_season = {} ##hash of total goals by season
-    games_by_season.map do |season, games| 
-      goals_per_season[season] = games.sum do |game| 
+    games_by_season.map do |season, games|
+      goals_per_season[season] = games.sum do |game|
         game.away_goals + game.home_goals
       end
-    end 
+    end
 
     avg_goals_per_season = {}
-    goals_per_season.each do |season, goals| 
+    goals_per_season.each do |season, goals|
       division = (goals.to_f / count_of_games_by_season[season] ).round(2)
       avg_goals_per_season[season] = division
     end
       avg_goals_per_season
-    end
   end
 
+
  def percentage_home_wins
-    home_games = @game_teams.select do |game| 
+    home_games = @game_teams.select do |game|
       game.hoa == "home"
     end
-    home_wins = @game_teams.select do |game| 
+    home_wins = @game_teams.select do |game|
       game.result == "WIN" && game.hoa == "home"
     end
-    (home_wins.count / home_games.count.to_f).round(2) ##Nico. Corrected code so it returns .44 as per spec harness instead of .43. Left original code commented below. 
+    (home_wins.count / home_games.count.to_f).round(2) ##Nico. Corrected code so it returns .44 as per spec harness instead of .43. Left original code commented below.
     # total_home_wins = @games.select do |game|
     #   game.home_goals > game.away_goals
     # end
@@ -151,7 +146,7 @@ class StatTracker
         goals.delete_if { |key, value| key.nil? || value.nil? } ## Nico. Added line here to remove nil ouput. Now passes test.It passes in Daniel's without delete_if. Question for Tim.
         id = goals.min_by {|team, num_of_goals| num_of_goals}
         @teams.find {|team| team.team_id == id[0]}.teamname
-     end
+
     game_count_per_season
   end
 
@@ -176,4 +171,3 @@ class StatTracker
       @teams.find {|team| team.team_id == id[0]}.teamname
     end
   end
-end
