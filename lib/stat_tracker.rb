@@ -219,7 +219,12 @@ class StatTracker
       end
     end
     
-    #2 ======= Create a hash with season => game_id pairs from games_by_season so we can use it to talk to game_teams class. 
+    #2 ======= Create a hash with season => game_id pairs from games_by_season so we can use it to talk to game_teams class.
+    game_ids_by_season = {}
+    filter_seasons.map do |season, games|
+      game_id = games.map {|game| game.game_id}
+      game_ids_by_season[season] = game_id
+    end
    end
 
   end
