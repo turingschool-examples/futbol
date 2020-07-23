@@ -95,5 +95,9 @@ class StatTracker
     @season_stats.winningest_coach(season_id)
   end
 
+  def worst_coach(season_id)
+    @season_stats.worst_coach(season_id)
+  end
+
   
 end
