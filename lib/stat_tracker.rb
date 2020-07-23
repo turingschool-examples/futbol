@@ -237,6 +237,10 @@ class StatTracker
       team_games_by_season[season] = season_games
     end
 
+    # 3.1 ======= Create <season_games> array of coach's season games.
+    season_games = team_games_by_season.map {|season, games| games}.flatten.compact
+
+    
 
 
    end
