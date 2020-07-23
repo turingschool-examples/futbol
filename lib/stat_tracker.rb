@@ -78,10 +78,13 @@ class StatTracker
 
   def highest_scoring_visitor
     @game_stats.highest_scoring_visitor
-  end 
+  end
 #team stats
 
 #season stats
 
+  def gather_season_games(season_id)
+    @season_stats.gather_season_games(season_id)
+  end
 
 end
