@@ -280,8 +280,23 @@ class StatTracker
     coach_results.max_by do |coach, results|
       results[:win_percentage] 
     end.first
-   end
+  end
 
+  def worst_coach(season)
+    #2 ======= Create a <filter_seasons> hash from games_by_season, to filter season argument in winningest_coach. 
+    filter_seasons = {}
+    games_by_season.each do |season_key, games|
+      if season_key == season
+      filter_seasons[season_key] = games
+      end
+    end
+
+  end
+   #========== HELPER METHODS ==========
+  #1 ======= Create a <games_by_season> hash with a season => games pair, from games class.
+  def games_by_season
+  games_by_season = @games.group_by {|game| game.season}.delete_if { |key, value| key.nil? || value.nil? }
+  end
    
 
 end
