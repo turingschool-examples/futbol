@@ -2,7 +2,7 @@ require 'CSV'
 require './lib/game_manager'
 require './lib/team_manager'
 require './lib/game_teams_manager'
-require './lib/modable.rb'
+require './lib/modable'
 
 class StatTracker < GameManager
   include Modable
