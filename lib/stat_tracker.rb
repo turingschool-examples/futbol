@@ -1,3 +1,7 @@
+require_relative './lib/game_data'
+require_relative './lib/game_team_data'
+require_relative '.lib/team_data'
+
 class StatTracker
 
   def self.from_csv(data)
