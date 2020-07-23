@@ -122,6 +122,10 @@ class StatTrackerTest < MiniTest::Test
 
   end
 
+  def test_it_can_find_lowest_scoring_visitor
+    assert_equal "San Jose Earthquakes", @stat_tracker.lowest_scoring_visitor
+  end
+
 
 
 end
