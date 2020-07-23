@@ -104,6 +104,13 @@ class StatTrackerTest < MiniTest::Test
   assert_nil @stat_tracker.away_teams_game_count_by_team_id["56"]
   end
 
+  def test_it_can_find_highest_total_goals_by_away_team
+  assert_equal String, @stat_tracker.highest_total_goals_by_away_team[0].class
+  assert_equal Integer, @stat_tracker.highest_total_goals_by_away_team[1].class
+  assert_equal 2, @stat_tracker.highest_total_goals_by_away_team.count
+  assert_equal Array, @stat_tracker.highest_total_goals_by_away_team.class
+  end
+
 
 
 end
