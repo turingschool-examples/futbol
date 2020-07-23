@@ -28,7 +28,6 @@ class LeagueStatsTest < MiniTest::Test
   end
 
   def test_best_offense
-    # skip
     assert_equal "Reign FC", @league_stats.best_offense
   end
 
@@ -50,6 +49,6 @@ class LeagueStatsTest < MiniTest::Test
 
   def test_lowest_scoring_home_team
     assert_equal "Utah Royals FC", @league_stats.lowest_scoring_home_team
-  end 
+  end
 
 end

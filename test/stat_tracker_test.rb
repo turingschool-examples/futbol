@@ -5,7 +5,8 @@ require './lib/team'
 require './lib/game_team'
 require './test/test_helper'
 require './lib/stat_tracker'
-# require './lib/game_stats'
+require './lib/game_stats'
+require './lib/league_stats'
 require 'pry'
 
 class StatTrackerTest < MiniTest::Test
@@ -21,13 +22,7 @@ class StatTrackerTest < MiniTest::Test
   def test_it_exists
     assert_instance_of StatTracker, @stat_tracker
   end
-
-  # def test_it_has_csv_paths
-  #   assert_equal "./fixtures/games_fixture.csv", @stat_tracker.games
-  #   assert_equal "./fixtures/game_teams_fixture.csv", @stat_tracker.game_team
-  #   assert_equal "./fixtures/teams_fixture.csv", @stat_tracker.teams
-  # end
-  # Game Stats Tests (all tests are from the data files)
+#game stats
   def test_it_can_get_highest_total_score
     assert_equal 11, @stat_tracker.highest_total_score
   end
@@ -75,5 +70,33 @@ class StatTrackerTest < MiniTest::Test
       "20172018"=>4.44
     }
     assert_equal expected, @stat_tracker.average_goals_by_season
+  end
+  #league stats
+  def test_it_an_count_number_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+
+  def test_best_offense
+    assert_equal "Reign FC", @stat_tracker.best_offense
+  end
+
+  def test_worst_offense
+    assert_equal "Utah Royals FC", @stat_tracker.worst_offense
+  end
+
+  def test_can_get_highest_scoring_visitor
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_losest_scoring_visitor
+    assert_equal "San Jose Earthquakes", @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_lowest_scoring_home_team
+    assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_home_team
   end
 end
