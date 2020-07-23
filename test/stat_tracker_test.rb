@@ -95,4 +95,9 @@ class StatTrackerTest < MiniTest::Test
     assert "Craig MacTavish" || "Ted Nolan", @stat_tracker.worst_coach("20142015")
   end
   
+  def test_it_can_retrieve_team_info_from_team_id
+    expected = {"team_id" => "18", "franchise_id" => "34", "team_name" => "Minnesota United FC", "abbreviation" => "MIN", "link" => "/api/v1/teams/18" }
+    
+    assert_equal expected, @stat_tracker.team_info("18")
+  end
 end

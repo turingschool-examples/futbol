@@ -353,6 +353,23 @@ class StatTracker
     end.first
 
   end
+
+  def team_info(team_id)
+    #### team_info create a hash with key/value pairs for the following attributes: team_id, franchise_id, team_name, abbreviation, and link
+    ## team_info #=> "team_id" => "18", "franchise_id" => "34", "team_name" => "Minnesota United FC","abbreviation" => "MIN", "link" => "/api/v1/teams/18"
+  
+  
+      
+      
+     
+
+  end
+
+
+
+
+
+
    #========== HELPER METHODS ==========
   #1 ======= Create a <games_by_season> hash with a season => games pair, from games class.
   def games_by_season
