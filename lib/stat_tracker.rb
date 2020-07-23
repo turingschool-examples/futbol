@@ -55,9 +55,7 @@ class StatTracker
   end
 
   def average_win_percentage(id)
-    self.best_season(id)
-    @all_wins = (@away_wins + @home_wins)
-    (@all_wins.length.to_f/@all_games.length.to_f).round(2)
+
   end
 
   def most_goals_scored(id)

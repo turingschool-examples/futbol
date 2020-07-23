@@ -113,19 +113,8 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_display_average_win_percentage
-    skip
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-
-    stats = StatTracker.from_csv(locations)
-    assert_equal 0.49, stats.average_win_percentage(6)
+    # skip
+    assert_equal 0.49, @stat_tracker.average_win_percentage(6)
   end
 
   def test_it_can_display_most_goals_scored
