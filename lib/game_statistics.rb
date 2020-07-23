@@ -58,4 +58,8 @@ class GameStatistics
     (decimal_ties * 100).round(2)
   end
 
+  def count_of_games_by_season
+
+  end
+
 end
