@@ -23,15 +23,4 @@ class TeamManager
     end
     hash
   end
-
-  def best_season(id)
-    self.season_games(id)
-    freq = @seasons.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
-    @seasons.max_by { |v| freq[v] }
-  end
-
-
-
-
-
 end

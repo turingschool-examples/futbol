@@ -47,9 +47,7 @@ class StatTracker
   end
 
   def best_season(id)
-    self.season_games(id)
-    freq = @seasons.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
-    @seasons.max_by { |v| freq[v] }
+    @game_manager.best_season(id)
   end
 
   def worst_season(id)
@@ -126,15 +124,15 @@ class StatTracker
   end
 end
 
-# game_path = './data/games.csv'
-# team_path = './data/teams.csv'
-# game_teams_path = './data/game_teams.csv'
-#
-# locations = {
-#   games: game_path,
-#   teams: team_path,
-#   game_teams: game_teams_path
-# }
-#
-# stats = StatTracker.from_csv(locations)
-# p stats.team_info(18)
+game_path = './data/games.csv'
+team_path = './data/teams.csv'
+game_teams_path = './data/game_teams.csv'
+
+locations = {
+  games: game_path,
+  teams: team_path,
+  game_teams: game_teams_path
+}
+
+stats = StatTracker.from_csv(locations)
+p stats.best_season(18)
