@@ -2,11 +2,14 @@ require 'CSV'
 require './lib/game_manager'
 require './lib/team_manager'
 require './lib/game_teams_manager'
+require './lib/modable.rb'
 
 class StatTracker < GameManager
+  include Modable
 
   attr_reader :games, :game_details, :teams, :seasons,
-              :all_games, :home_wins, :away_wins, :array1
+              :all_games, :home_wins, :away_wins, :array1,
+              :away_goals, :home_goals, :teams1, :teams2
 
   game_path = './data/games.csv'
   team_path = './data/teams.csv'
@@ -83,67 +86,68 @@ end
 
   def most_goals_scored(id)
     self.best_season(id)
-    away = @all_games.map{ |rows| rows.away_goals}
-    home = @all_games.map{ |rows| rows.home_goals}
-    (away + home).sort[-1]
+    self.goals(id)
+    (@away + @home).sort[-1]
   end
 
   def fewest_goals_scored(id)
     self.most_goals_scored(id)
-    away = @all_games.map{ |rows| rows.away_goals}
-    home = @all_games.map{ |rows| rows.home_goals}
-    (away + home).sort[0]
+    self.goals(id)
+    (@away + @home).sort[0]
   end
 
   def favorite_opponent(id)
     self.best_season(id)
-    teams = []
+    @teams1 = []
     @array1 = @all_games.select do |rows|
       if rows.home_team_id == "#{id}"
         if rows.away_goals > rows.home_goals
-          teams << rows.away_team_id
+          @teams1 << rows.away_team_id
         end
       elsif rows.away_team_id == "#{id}"
         if rows.away_goals == rows.home_goals
-          teams << rows.home_team_id
+          @teams1 << rows.home_team_id
         end
       end
     end
-    freq = teams.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
-    numbs = teams.min_by { |v| freq[v] }
-    @teams_array.select{ |team| team.team_id == numbs}[0].team_name
+    self.fav_opp(id)
   end
 
   def rival(id)
-    teams = []
+    @teams2 = []
     self.best_season(id)
     @all_games.each do |game|
       if game.away_team_id == "#{id}"
-        teams << game.home_team_id
+        @teams2 << game.home_team_id
       elsif game.home_team_id == "#{id}"
-        teams << game.away_team_id
+        @teams2 << game.away_team_id
       end
     end
-    teams
-    games_played_against = teams.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
-    teams1 = []
+    @teams2
+    games_played_against = @teams2.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+    @teams1 = []
     @all_games.each do |game|
       if game.away_team_id == "#{id}"
         if game.away_goals < game.home_goals
-          teams1 << game.home_team_id
+          @teams1 << game.home_team_id
         end
       elsif game.home_team_id == "#{id}"
         if game.away_goals > game.home_goals
-          teams1 << game.away_team_id
+          @teams1 << game.away_team_id
         end
       end
     end
-      teams1
-      games_won_against = teams1.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+      @teams1
+      games_won_against = @teams1.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
       hash1 = games_won_against.merge(games_played_against){ |k, a_value, b_value| a_value .to_f / b_value.to_f}
       hash1.delete("14")
       team_final = hash1.max_by{|k,v| v}[0]
       @teams_array.select{ |row| row.team_id == team_final}[0].team_name
+  end
+
+  def test
+    self.rival1
+
   end
 end
 
