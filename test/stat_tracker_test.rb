@@ -86,4 +86,9 @@ class StatTrackerTest < MiniTest::Test
 
     assert_equal "Reign FC", @stat_tracker.best_offense
   end
+
+  def test_it_can_return_worst_offense
+
+    assert_equal "Utah Royals FC", @stat_tracker.worst_offense
+  end
 end
