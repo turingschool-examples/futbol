@@ -1,9 +1,10 @@
 require "./test/test_helper.rb"
-require 'CSV'
+# require 'CSV'
 # require './lib/game_manager'
 # require './lib/team_manager'
 # require './lib/game_teams_manager'
 require './lib/stat_tracker'
+
 class StatTrackerTest < MiniTest::Test
 
   def setup

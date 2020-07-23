@@ -1,21 +1,14 @@
 require 'CSV'
-require './lib/game_manager'
-require './lib/team_manager'
-require './lib/game_teams_manager'
+# require './lib/game_manager'
+# require './lib/team_manager'
+# require './lib/game_teams_manager'
+require './lib/game'
+require './lib/game_teams'
+require './lib/team'
 
-class StatTracker < GameManager
+class StatTracker
 
   attr_reader :games, :game_details, :teams
-
-  game_path = './data/games.csv'
-  team_path = './data/teams.csv'
-  game_teams_path = './data/game_teams.csv'
-
-  locations = {
-    games: game_path,
-    teams: team_path,
-    game_teams: game_teams_path
-  }
 
   def self.from_csv(data)
     StatTracker.new(data)
@@ -63,28 +56,20 @@ class StatTracker < GameManager
   #   end
   #
   #
-  # #### Need to figure out how to un-chain methods
-  def count_home_games
+  # #### Need to figure out how to un-chain method
+
+  def percentage_home_wins
     home_games = []
     @game_teams_array.each do |game|
       if game.hoa.to_s == 'home'
         home_games << game
       end
     end
-    count_home_wins(home_games)
-  end
-  
-  def count_home_wins(home_games)
     home_wins = []
     home_games.each do |game|
       home_wins << game if game.result.to_s == 'WIN'
     end
-    home_wins
     (home_wins.count.to_f/home_games.count.to_f).round(2)
-  end
-
-  def percentage_home_wins
-    count_home_games
   end
   #
   #   def count_home_games_for_visitor_wins(team)
