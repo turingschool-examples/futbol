@@ -200,6 +200,15 @@ class StatTracker
       team.team_id == best_team[0]
     end.teamname
   end
-  
+
+  def lowest_scoring_visitor
+    worst_team = overall_average_scores_by_away_team.min_by do |team_id, average_goals|
+      average_goals
+    end
+    @teams.find do |team|
+      team.team_id == worst_team[0]
+    end.teamname
+  end
+
 
 end
