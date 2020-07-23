@@ -265,6 +265,15 @@ class StatTracker
       end
     end
 
+    # 4 ======= Create <coach_results> hash calculating total games results sum, percentage of wins, storing total wins, loss, and ties. Source <coach_name_and_results>
+
+    coach_results = {}
+    
+    coach_name_and_results.each do |coach, results|
+      result_sum =  results.values.sum
+      wins_percentage = (results[:win] * 100) / result_sum
+      coach_results[coach] = {:results => results, :result_sum => result_sum, :win_percentage => wins_percentage}
+    end
    end
 
-  end
+end
