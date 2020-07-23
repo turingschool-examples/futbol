@@ -1,8 +1,10 @@
 require_relative "game_data"
 class GameStatistics
-  attr_reader :all_games
 
   def initialize
+  end
+
+  def all_games
     @all_games = GameData.create_objects
   end
 
