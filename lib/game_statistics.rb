@@ -71,7 +71,8 @@ class GameStatistics
   end
 
   def average_goals_per_game
-
+    decimal_average = total_score.sum.to_f / @total_games
+    decimal_average.round(2)
   end
 
 end
