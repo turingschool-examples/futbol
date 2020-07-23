@@ -102,8 +102,26 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_home_team
   end
   #season stats tests
+  def test_it_can_gather_season_games
+    assert_equal 74, @stat_tracker.gather_season_games("20122013").count
+  end
+
+  def test_it_can_group_season_wins_by_coach
+    expected = {"John Tortorella"=>0,
+                "Claude Julien"=>9,
+                "Dan Bylsma"=>0,
+                "Mike Babcock"=>6,
+                "Joel Quenneville"=>7,
+                "Paul MacLean"=>3,
+                "Michel Therrien"=>1,
+                "Mike Yeo"=>1,
+                "Darryl Sutter"=>3,
+                "Ken Hitchcock"=>3,
+                "Bruce Boudreau"=>3}
+    assert_equal expected, @stat_tracker.group_season_wins_by_coach("20122013")
+  end
+
   def test_cognizant_of_winningest_coach
-    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20122013")
     assert_equal "Claude Julien", @stat_tracker.winningest_coach("20122013")
   end
 
