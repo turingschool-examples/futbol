@@ -87,4 +87,8 @@ class StatTracker
     @season_stats.gather_season_games(season_id)
   end
 
+  def group_season_wins_by_coach
+    @season_stats.group_season_wins_by_coach
+  end
+  
 end
