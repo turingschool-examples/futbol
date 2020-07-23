@@ -168,4 +168,12 @@ class StatTracker
     games_count_by_team_id
   end
 
+  def highest_total_goals_by_away_team
+  #======== helper method for highest_scoring_visitor
+
+    total_goals_by_away_team.max_by do |team_id, total_goals|
+      total_goals
+    end
+  end
+
 end
