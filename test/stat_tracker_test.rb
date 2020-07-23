@@ -108,19 +108,8 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_display_worst_season
-    skip
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-
-    stats = StatTracker.from_csv(locations)
-    assert_equal "20142015", stats.worst_season(6)
+    # skip
+    assert_equal "20142015", @stat_tracker.worst_season(6)
   end
 
   def test_it_can_display_average_win_percentage

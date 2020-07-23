@@ -51,10 +51,7 @@ class StatTracker
   end
 
   def worst_season(id)
-    self.best_season(id)
-    @seasons
-    freq = seasons.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
-    seasons.min_by { |v| freq[v] }
+
   end
 
   def average_win_percentage(id)
