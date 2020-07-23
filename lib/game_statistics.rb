@@ -45,7 +45,7 @@ class GameStatistics
   end
 
   def percentage_of_visitor_wins
-
+    ((@game_outcomes[:visitor_games_won].to_f / all_games.size) * 100).round(2)
   end
 
   def percentage_of_ties
