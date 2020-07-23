@@ -32,7 +32,7 @@ class GameStatisticsTest < MiniTest::Test
   end
 
   def test_it_can_count_games_by_season
-    expected = {}
+    expected = {20122013=>19}
     assert_equal expected, @game_statistics.count_of_games_by_season
   end
 end
