@@ -43,14 +43,7 @@ class StatTracker
   end
 
   def team_info(id)
-    hash= {}
-    team = @team_hash.values.select{ |x| x.team_id == "#{id}"}[0]
-    hash["team id"] = team.team_id
-    hash["franchise_id"] = team.franchise_id
-    hash["team_name"] = team.team_name
-    hash["abbreviation"] = team.abbreviation
-    hash["link"] = team.link
-    hash
+    @team_manager.team_info(id)
   end
 
   def best_season(id)
@@ -133,15 +126,15 @@ class StatTracker
   end
 end
 
-# game_path = './data/games.csv'
-# team_path = './data/teams.csv'
-# game_teams_path = './data/game_teams.csv'
-#
-# locations = {
-#   games: game_path,
-#   teams: team_path,
-#   game_teams: game_teams_path
-# }
-#
-# stats = StatTracker.from_csv(locations)
-# p stats.rival(18)
+game_path = './data/games.csv'
+team_path = './data/teams.csv'
+game_teams_path = './data/game_teams.csv'
+
+locations = {
+  games: game_path,
+  teams: team_path,
+  game_teams: game_teams_path
+}
+
+stats = StatTracker.from_csv(locations)
+p stats.team_info(18)
