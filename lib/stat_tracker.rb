@@ -3,9 +3,6 @@ require "./lib/games"
 require "./lib/teams"
 require "./lib/game_teams"
 require "./lib/teams"
-# require_relative "./games"
-# require_relative "./game_teams"
-# require_relative "./teams"
 
 class StatTracker
   attr_reader :games, :game_teams, :teams
@@ -209,4 +206,6 @@ class StatTracker
      worst_offense = @teams.find {|team| team.teamname if team.team_id == lowest[0]}.teamname
      worst_offense
    end
+
+   
   end
