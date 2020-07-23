@@ -9,6 +9,7 @@ class GameStatistics
     }
     @total_games = all_games.size
     @games_per_season = Hash.new{ |hash, key| hash[key] = 0 }
+    @total_goals_per_season = Hash.new{ |hash, key| hash[key] = 0 }
   end
 
   def all_games
@@ -75,7 +76,23 @@ class GameStatistics
     decimal_average.round(2)
   end
 
+  def total_goals_per_season
+    all_games.each do |game|
+      if @total_goals_per_season.include?(game.season)
+        @total_goals_per_season[game.season] += game.away_goals + game.home_goals
+      else
+        @total_goals_per_season[game.season] += game.away_goals + game.home_goals
+      end
+    end
+    @total_goals_per_season
+  end
+
   def average_goals_per_season
-  
+    bob = Hash.new
+    total_goals_per_season.map do |season, goals|
+      x = goals.to_f / count_of_games_by_season[season]
+      bob[season] = x
+      require "pry"; binding.pry
+    end
   end
 end
