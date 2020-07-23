@@ -71,31 +71,22 @@ class StatTracker
     end
     (home_wins.count.to_f/home_games.count.to_f).round(2)
   end
-  #
-  #   def count_home_games_for_visitor_wins(team)
-  #     home_games = []
-  #     team_id = find_team_id(team).to_i
-  #     @game_teams_file.each do |game|
-  #       if team_id == game[1].to_i && game[2].to_s == 'home'
-  #         home_games << game
-  #       end
-  #     end
-  #     count_visitor_wins(home_games)
-  #   end
-  #
-  #   def count_visitor_wins(home_games)
-  #     home_losses = []
-  #     home_games.each do |game|
-  #       home_wins << game if game[3].to_s == 'LOSS'
-  #     end
-  #     home_losses
-  #     ((home_losses.count.to_f/home_games.count.to_f)*100).round(2)
-  #   end
-  #
-  #   def percentage_visitor_wins(team)
-  #     count_visitor_wins(team)
-  #   end
-  #
+
+  def percentage_visitor_wins
+    home_games = []
+    @game_teams_array.each do |game|
+      if game.hoa.to_s == 'home'
+      home_games << game
+      end
+    end
+  home_losses = []
+  home_games.each do |game|
+    home_losses << game if game.result.to_s == 'LOSS'
+  end
+  (home_losses.count.to_f/home_games.count.to_f).round(2)
+end
+
+
 
 
 
