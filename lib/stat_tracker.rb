@@ -359,9 +359,7 @@ class StatTracker
     ## team_info #=> "team_id" => "18", "franchise_id" => "34", "team_name" => "Minnesota United FC","abbreviation" => "MIN", "link" => "/api/v1/teams/18"
   
   
-      
-      
-     
+    
 
   end
 
