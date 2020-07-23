@@ -239,8 +239,13 @@ class StatTracker
 
     # 3.1 ======= Create <season_games> array of coach's season games.
     season_games = team_games_by_season.map {|season, games| games}.flatten.compact
-
     
+    # 3.2 ======= Create <games_per_season_by_coach> hash with head_coach key and game instances.
+    games_per_season_by_coach = season_games.group_by do |game| 
+      unless game == nil
+        game.head_coach
+      end
+    end
 
 
    end
