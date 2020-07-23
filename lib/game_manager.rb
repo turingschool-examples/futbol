@@ -37,8 +37,8 @@ class GameManager
     home_wins = all_games.select do |row| row.home_team_id == "#{id}" && row.away_goals < row.home_goals
     end
     @seasons = (away_wins + home_wins).map{ |x| x.season}
-    freq = seasons.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
-    seasons.max_by { |v| freq[v] }
+    freq = @seasons.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+    @seasons.max_by { |v| freq[v] }
   end
 
   #

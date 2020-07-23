@@ -102,19 +102,8 @@ class StatTrackerTest < MiniTest::Test
 
 
   def test_it_can_display_best_season
-    skip
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-
-    stats = StatTracker.from_csv(locations)
-    assert_equal "20132014", stats.best_season(6)
+    # skip
+    assert_equal "20132014", @stat_tracker.best_season(6)
 
   end
 
