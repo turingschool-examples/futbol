@@ -211,6 +211,15 @@ class StatTracker
     #1 ======= Create a games_by_season hash with a season => games pair, from games class.
     games_by_season = @games.group_by {|game| game.season}.delete_if { |key, value| key.nil? || value.nil? }
 
+    #1.5 ======= Create a Filter_seasons hash from games_by_season, to filter season argument in winningest_coach. 
+    filter_seasons = {}
+    games_by_season.each do |season_key, games|
+      if season_key == season
+      filter_seasons[season_key] = games
+      end
+    end
+    
+    #2 ======= Create a hash with season => game_id pairs from games_by_season so we can use it to talk to game_teams class. 
    end
 
   end
