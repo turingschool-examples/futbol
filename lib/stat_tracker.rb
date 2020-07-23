@@ -18,7 +18,6 @@ class StatTracker
     @games ||= turn_games_csv_data_into_games_objects(locations[:games])
     @teams ||= turn_teams_csv_data_into_teams_objects(locations[:teams])
     @game_teams ||= turn_game_teams_csv_data_into_game_teams_objects(locations[:game_teams])
-    require "pry"; binding.pry
   end
 
   def turn_games_csv_data_into_games_objects(games_csv_data)
@@ -130,7 +129,7 @@ class StatTracker
     game_count_per_season.delete_if { |key, value| key.nil? || value.nil? } ## Nico. Added line here to remove nil ouput. Now passes test.
    end
 
-   def lowest_scoring_home_team
+    def lowest_scoring_home_team
       home_team = @games.group_by do |game|
         game.home_team_id
       end
@@ -146,9 +145,7 @@ class StatTracker
         goals.delete_if { |key, value| key.nil? || value.nil? } ## Nico. Added line here to remove nil ouput. Now passes test.It passes in Daniel's without delete_if. Question for Tim.
         id = goals.min_by {|team, num_of_goals| num_of_goals}
         @teams.find {|team| team.team_id == id[0]}.teamname
-
-    game_count_per_season
-  end
+      end
 
   def count_of_teams
     teams.count
@@ -170,4 +167,46 @@ class StatTracker
       id = goals.max_by {|key, value| value}
       @teams.find {|team| team.team_id == id[0]}.teamname
     end
+
+    def best_offense
+      team_by_id = @game_teams.group_by do |team|
+      team.team_id
+    end
+      total_games_by_id = {}
+      team_by_id.map { |id, games| total_games_by_id[id] = games.length}
+
+      total_goals_by_id = {}
+      team_by_id.map { |id, games| total_goals_by_id[id] = games.sum {|game| game.goals}}
+
+      average_goals_all_seasons_by_id = {}
+      total_goals_by_id.each do |id, goals|
+      average_goals_all_seasons_by_id[id] = (goals.to_f / total_games_by_id[id] ).round(2)
+    end
+
+      highest = average_goals_all_seasons_by_id.max_by {|id, avg| avg}
+
+      best_offense = @teams.find {|team| team.teamname if team.team_id == highest[0]}.teamname
+      best_offense
+    end
+
+    def worst_offense
+     team_by_id = @game_teams.group_by do |team|
+       team.team_id
+     end
+     total_games_by_id = {}
+     team_by_id.map { |id, games| total_games_by_id[id] = games.length}
+
+     total_goals_by_id = {}
+     team_by_id.map { |id, games| total_goals_by_id[id] = games.sum {|game| game.goals}}
+
+     average_goals_all_seasons_by_id = {}
+     total_goals_by_id.each do |id, goals|
+       average_goals_all_seasons_by_id[id] = (goals.to_f / total_games_by_id[id] ).round(2)
+     end
+
+     lowest = average_goals_all_seasons_by_id.min_by {|id, avg| avg}
+
+     worst_offense = @teams.find {|team| team.teamname if team.team_id == lowest[0]}.teamname
+     worst_offense
+   end
   end
