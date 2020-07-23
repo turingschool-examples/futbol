@@ -12,6 +12,7 @@ class StatTracker
   end
 
   def initialize(locations)
+
     game_path = locations[:games]
     team_path = locations[:teams]
     game_teams_path = locations[:game_teams]
@@ -52,6 +53,37 @@ class StatTracker
 
   end
 
+    def count_of_teams
+     @teams_array.size
+    end
+
+    def best_offense
+      @game_teams_array.teams_sort_by_average_goal.last.team_name
+    end
+
+    def worst_offense
+      @game_teams_array.teams_sort_by_average_goal.first.team_name
+    end
+
+    def team_average_goals(team_id)
+      @game_teams_array.team_average_goals(team_id)
+    end
+
+    def highest_visitor_team
+      @game_teams_array.highest_visitor_team
+    end
+
+    def highest_home_team
+      @game_teams_array.highest_home_team
+    end
+
+    def lowest_visitor_team
+      @game_teams_array.lowest_visitor_team
+    end
+
+    def lowest_home_team
+      @game_teams_array.lowest_home_team
+    end
 end
 #
 # game_path = './data/games.csv'
