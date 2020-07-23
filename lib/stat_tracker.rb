@@ -45,11 +45,11 @@ class StatTracker
   end
 
   def highest_total_score
-  output = @games.max_by do |game|
+    output = @games.max_by do |game|
     game.away_goals + game.home_goals
   end
-  output.away_goals + output.home_goals
-end
+    output.away_goals + output.home_goals
+  end
 
 #   def total_games
 #     games = []
@@ -58,11 +58,17 @@ end
 #     end
 #   end
 
+    output = @games.max_by do |game|
+      game.away_goals + game.home_goals
+    end
+    output.away_goals + output.home_goals
+  end
+
   def lowest_total_score
     output = @games.min_by do |game|
-      game.total_game_score
+      game.away_goals + game.home_goals
     end
-    output.total_game_score
+    output.away_goals + output.home_goals
   end
 
   def percentage_home_wins
@@ -71,6 +77,37 @@ end
     end
     (total_home_wins.length.to_f / @games.length).round(2)
   end
+
+  def average_goals_per_game
+    games_count = @games.count.to_f
+    sum_of_goals = (@games.map {|game| game.total_game_score}.to_a).sum
+
+    sum_of_goals_divided_by_game_count = (sum_of_goals / games_count).round(2)
+    sum_of_goals_divided_by_game_count
+  end
+  
+
+  def average_goals_by_season
+    games_by_season = @games.group_by {|game| game.season} ##hash of games by season
+    games_by_season.delete_if { |key, value| key.nil? || value.nil? } 
+
+    goals_per_season = {} ##hash of total goals by season
+    games_by_season.map do |season, games| 
+      goals_per_season[season] = games.sum do |game| 
+        game.away_goals + game.home_goals
+      end
+    end 
+
+    avg_goals_per_season = {}
+    goals_per_season.each do |season, goals| 
+      division = (goals.to_f / count_of_games_by_season[season] ).round(2)
+      avg_goals_per_season[season] = division
+    end
+
+    avg_goals_per_season
+
+  end
+end
 
   def percentage_visitor_wins
     total_visitor_wins = @games.select do |game|
@@ -94,12 +131,7 @@ end
   end
 
   def count_of_teams
-    @number_of_teams = []
-    @games.each do |game|
-      @number_of_teams << game.home_team_id
-    end
-    @number_of_teams = @number_of_teams.uniq
-    @number_of_teams.count
+    teams.count
   end
 
   def highest_scoring_home_team
@@ -118,5 +150,5 @@ end
       id = goals.max_by {|key, value| value}
       @teams.find {|team| team.team_id == id[0]}.teamname
     end
-
+  end
 end
