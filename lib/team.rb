@@ -1,26 +1,24 @@
+require 'CSV'
+
 class Team
-  @@team = []
 
-  attr_reader :team_id, :teamname
-
-  def initialize(info)
-    @team_id = info[:team_id]
-    @franchiseid = info[:franchiseid]
-    @teamname = info[:teamname]
-    @abbreviation = info[:abbreviation]
-    @link = info[:link]
-    @stadium = info[:stadium]
+  attr_reader :team_id,
+              :franchise_id,
+              :team_name,
+              :abbreviation,
+              :stadium,
+              :link
+  def self.from_csv(data)
+    Team.new(data)
   end
 
-  def self.add(team)
-    @@team << team
-  end
-
-  def self.all
-    @@team
-  end
-
-  def self.remove_all
-   @@team = []
+  def initialize(data)
+    @team_id = data[0]
+    @franchise_id = data[1]
+    @team_name = data[2]
+    @abbreviation = data[3]
+    @stadium = data[4]
+    @link = data[5]
+    @team = []
   end
 end
