@@ -110,12 +110,10 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_get_most_accurate_team
-
     assert_equal "Real Salt Lake", @stat_tracker.most_accurate_team("20132014")
   end
 
   def test_it_can_get_least_accurate_team
-
     assert_equal "New York City FC", @stat_tracker.least_accurate_team("20132014")
   end
 
