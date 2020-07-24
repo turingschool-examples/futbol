@@ -496,7 +496,9 @@ class StatTracker
   end
 
   def all_games_played_by(team_id)
-
+    @games.find_all do |game|
+      (game.away_team_id || game.home_team_id) == team_id
+    end
   end
 
   def find_team_name(team_id)
