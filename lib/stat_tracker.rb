@@ -72,7 +72,8 @@ class StatTracker
   end
 
   def rival(id)
-
+    number = @game_manager.rival(id)
+    @team_manager.teams_array.select{ |team| team.team_id == number}[0].team_name
   end
 
   def count_of_teams
@@ -119,4 +120,4 @@ end
 # }
 #
 # stats = StatTracker.from_csv(locations)
-# p stats.favorite_opponent(18)
+# p stats.rival(18)

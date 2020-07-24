@@ -102,6 +102,37 @@ class GameManager
    @numbs = teams.min_by { |v| freq[v] }
  end
 
+ def rival(id)
+   teams = []
+   self.best_season(id)
+   @all_games.each do |game|
+     if game.away_team_id == "#{id}"
+       teams << game.home_team_id
+     elsif game.home_team_id == "#{id}"
+       teams << game.away_team_id
+     end
+   end
+   teams
+   games_played_against = teams.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+   teams1 = []
+   @all_games.each do |game|
+     if game.away_team_id == "#{id}"
+       if game.away_goals < game.home_goals
+         teams1 << game.home_team_id
+       end
+     elsif game.home_team_id == "#{id}"
+       if game.away_goals > game.home_goals
+         teams1 << game.away_team_id
+       end
+     end
+   end
+     teams1
+     games_won_against = teams1.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+     hash1 = games_won_against.merge(games_played_against){ |k, a_value, b_value| a_value .to_f / b_value.to_f}
+     hash1.delete("14")
+     team_final = hash1.max_by{|k,v| v}[0]
+ end
+
   #
   # def count_of_games_by_season
   #   @games_array.reduce(Hash.new{|hash, key| hash[key] = []}) do |result, game|
