@@ -1,6 +1,7 @@
 require "minitest/autorun"
 require "minitest/pride"
 require "./lib/game_team_data"
+require "csv"
 
 class GameTeamDataTest < Minitest::Test
 
@@ -12,7 +13,7 @@ class GameTeamDataTest < Minitest::Test
   def test_it_can_create_many_objects
     game_team_data = GameTeamData.create_objects
 
-    assert_equal "away", game_team_data[0].hoa 
+    assert_equal "away", game_team_data[0].hoa
   end
 
 end
