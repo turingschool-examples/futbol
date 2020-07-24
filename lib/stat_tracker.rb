@@ -55,7 +55,7 @@ class StatTracker
   end
 
   def average_win_percentage(id)
-
+    @game_manager.average_win_percentage(id)
   end
 
   def most_goals_scored(id)
@@ -130,4 +130,4 @@ end
 # }
 #
 # stats = StatTracker.from_csv(locations)
-# p stats.best_season(18)
+# p stats.average_win_percentage(6)
