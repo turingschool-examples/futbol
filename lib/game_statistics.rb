@@ -31,7 +31,7 @@ class GameStatistics
   end
 
   def win_data
-    all_games.map do |games|
+    all_games.each do |games|
       if games.home_goals > games.away_goals
         @game_outcomes[:home_games_won] += 1
       elsif games.home_goals < games.away_goals

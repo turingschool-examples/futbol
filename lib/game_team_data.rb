@@ -1,58 +1,67 @@
 class GameTeamData
-  attr_reader :game_id, :team_id, :hoa, :result,
-  :settled_in, :head_coach, :goals, :shots, :tackles,
-  :pim, :powerPlayOpportunities, :powerPlayGoals,
-  :faceOffWinPercentage, :giveaways, :takeaways
+  attr_reader :game_id,
+              :team_id,
+              :hoa,
+              :result,
+              :settled_in,
+              :head_coach,
+              :goals,
+              :shots,
+              :tackles,
+              :pim,
+              :power_play_opportunites,
+              :power_play_goals,
+              :face_off_win_percentage,
+              :giveaways,
+              :takeaways
 
   def initialize()
-    @game_id = game_id
-    @team_id = team_id
-    @hoa = hoa
-    @result = result
-    @settled_in = settled_in
-    @head_coach = head_coach
-    @goals = goals
-    @shots = shots
-    @tackles = tackles
-    @pim = pim
-    @powerPlayOpportunities = powerPlayOpportunities
-    @powerPlayGoals = powerPlayGoals
-    @faceOffWinPercentage = faceOffWinPercentage
-    @giveaways = giveaways
-    @takeaways = takeaways
+    @game_id                 = nil
+    @team_id                 = nil
+    @hoa                     = nil
+    @result                  = nil
+    @settled_in              = nil
+    @head_coach              = nil
+    @goals                   = nil
+    @shots                   = nil
+    @tackles                 = nil
+    @pim                     = nil
+    @power_play_opportunites = nil
+    @power_play_goals        = nil
+    @face_off_win_percentage = nil
+    @giveaways               = nil
+    @takeaways               = nil
+  end
+
+  def self.create_objects
+    table = CSV.parse(File.read('./data/dummy_file_game_teams.csv'), headers: true, converters: :numeric)
+    line_index = 0
+    all_game_teams = []
+    table.size.times do
+      game_team_data = GameTeamData.new
+      game_team_data.create_attributes(table, line_index)
+      all_game_teams << game_team_data
+      line_index += 1
+    end
+    all_game_teams
   end
 
   def create_attributes(table, line_index)
-    index = 0
-      @game_id = table[line_index][index]
-      index += 1
-      @team_id = table[line_index][index]
-      index += 1
-      @hoa = table[line_index][index]
-      index += 1
-      @result = table[line_index][index]
-      index += 1
-      @settled_in = table[line_index][index]
-      index += 1
-      @head_coach = table[line_index][index]
-      index += 1
-      @goals = table[line_index][index]
-      index += 1
-      @shots = table[line_index][index]
-      index += 1
-      @tackles = table[line_index][index]
-      index += 1
-      @pim = table[line_index][index]
-      index += 1
-      @powerPlayOpportunities = table[line_index][index]
-      index += 1
-      @powerPlayGoals = table[line_index][index]
-      index += 1
-      @faceOffWinPercentage = table[line_index][index]
-      index += 1
-      @giveaways = table[line_index][index]
-      index += 1
-      @takeaways = table[line_index][index]
-  end
+    @game_id = table[line_index]["game_id"]
+    @team_id = table[line_index]["team_id"]
+    @hoa = table[line_index]["HoA"]
+    @result = table[line_index]["result"]
+    @settled_in = table[line_index]["settled_in"]
+    @head_coach = table[line_index]["head_coach"]
+    @goals = table[line_index]["goals"]
+    @shots = table[line_index]["shots"]
+    @tackles = table[line_index]["tackles"]
+    @pim = table[line_index]["pim"]
+    @power_play_opportunites = table[line_index]["powerPlayOpportunities"]
+    @power_play_goals = table[line_index]["powerPlayGoals"]
+    @face_off_win_percentage = table[line_index]["faceOffWinPercentage"]
+    @giveaways = table[line_index]["giveaways"]
+    @takeaways = table[line_index]["takeaways"]
 
+  end
 end
