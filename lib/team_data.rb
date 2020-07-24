@@ -15,4 +15,13 @@ class TeamData
     all_teams
   end
 
+  def create_attributes(table, line_index)
+    @team_id = table[line_index]["team_id"]
+    @franchiseId = table[line_index]["franchiseId"]
+    @teamName = table[line_index]["teamName"]
+    @abbreviation = table[line_index]["abbreviation"]
+    @Stadium = table[line_index]["Stadium"]
+    @link = table[line_index]["link"]
+  end
+
 end
