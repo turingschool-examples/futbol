@@ -52,4 +52,8 @@ class TeamStatsTest < Minitest::Test
   def test_it_can_most_goals_scored
     assert_equal 7, @team_stats.most_goals_scored("18")
   end
+
+  def test_it_can_get_fewest_goals_scored
+    assert_equal 0, @team_stats.fewest_goals_scored("18")
+  end
 end
