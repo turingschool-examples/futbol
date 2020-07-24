@@ -20,7 +20,6 @@ class LeagueStatisticTest < Minitest::Test
   end
 
   def test_find_best_and_worst_offense
-    skip
     assert_equal "FC Dallas", @league_statistics.best_offense
     assert_equal "Sporting Kansas City", @league_statistics.worst_offense
   end
@@ -68,6 +67,16 @@ class LeagueStatisticTest < Minitest::Test
                 17=>1
               }
     assert_equal expected, @league_statistics.games_by_id
+  end
+
+  def test_average_goals_by_id
+    expected = {
+                3=>1.6,
+                6=>2.67,
+                5=>0.5,
+                17=>1.0
+              }
+    assert_equal expected, @league_statistics.average_goals_by_id
   end
 
 end
