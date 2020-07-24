@@ -19,4 +19,9 @@ class LeagueStatisticTest < Minitest::Test
     assert_equal 19, @league_statistics.count_of_teams
   end
 
+  def test_find_best_and_worst_offense
+    assert_equal "FC Dallas", @league_statistics.best_offense
+    assert_equal "Sporting Kansas City", @league_statistics.worst_offense 
+  end
+
 end
