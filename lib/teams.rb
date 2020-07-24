@@ -1,5 +1,10 @@
 class Teams
-  attr_reader :team_id, :franchiseid, :teamname, :abbreviation, :stadium, :link
+  attr_reader :team_id,
+              :franchiseid,
+              :teamname,
+              :abbreviation,
+              :stadium,
+              :link
 
   def initialize(team_data)
     @team_id = team_data[:team_id]

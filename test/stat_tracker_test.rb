@@ -166,5 +166,13 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, @stat_tracker.opponents("18")
   end
 
+  def test_it_can_find_team_name
+
+    assert_equal "Minnesota United FC", @stat_tracker.find_team_name("18")
+
+    assert_equal "Reign FC", @stat_tracker.find_team_name("54")
+
+  end
+
 
 end

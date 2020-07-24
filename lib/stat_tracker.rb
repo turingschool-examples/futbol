@@ -495,14 +495,20 @@ class StatTracker
     opponents.uniq
   end
 
-  def favorite_opponent(team_id)
-   #  team_id_of_fav_opponent = opponents.uniq.min_by do |opponent|
-   #    average_win_percentage(opponent)
-   # end
-   # x = @teams.find do |team|
-   #   team.team_id == team_id_of_fav_opponent
-   # end.teamname
-  require "pry"; binding.pry
-  end
+
+  # def favorite_opponent(team_id)
+  #   # result = {}
+  #   opponents(team_id).group_by do |opponent|
+  #     @teams.eac
+  #     require "pry"; binding.pry
+  #
+  #   end
+  #  #  team_id_of_fav_opponent = opponents.uniq.min_by do |opponent|
+  #  #    average_win_percentage(opponent)
+  #  # end
+  #  # x = @teams.find do |team|
+  #  #   team.team_id == team_id_of_fav_opponent
+  #  # end.teamname
+  # end
 
 end
