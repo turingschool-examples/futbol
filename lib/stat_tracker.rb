@@ -8,16 +8,11 @@ require_relative 'league_stats'
 require_relative 'team_stats'
 require_relative 'season_stats'
 
-
-
-
 class StatTracker
   attr_reader :game_stats,
               :league_stats,
               :team_stats,
               :season_stats
-
-
 
   def self.from_csv(data)
     StatTracker.new(data)
