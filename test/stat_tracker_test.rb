@@ -65,12 +65,12 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_percentage_home_wins
-    # skip
+    skip
     assert_equal 0.44, @stat_tracker.percentage_home_wins
   end
 
   def test_percentage_visitor_wins
-    # skip
+    skip
     assert_equal 0.36, @stat_tracker.percentage_visitor_wins
   end
 
@@ -108,7 +108,6 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_display_best_season
     # skip
     assert_equal "20132014", @stat_tracker.best_season(6)
-
   end
 
   def test_it_can_display_worst_season
@@ -117,7 +116,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_display_average_win_percentage
-    # skip
+    skip
     assert_equal 0.49, @stat_tracker.average_win_percentage(6)
   end
 
@@ -152,5 +151,10 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Claude Julien", @stat_tracker.winningest_coach("20132014")
     assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
   end
-end
 
+  def test_it_can_display_worst_coach
+
+    assert_equal "Peter Laviolette", @stat_tracker.worst_coach("20132014")
+    # assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
+  end
+end

@@ -79,13 +79,12 @@ module Modable
     games_won_hash = games_won.group_by{ |game| game.head_coach}
     numb_games_won = games_won_hash.each{ |k,v| games_won_hash[k] = v.length}
     numbers = []
-    result = {}
+    @result = {}
     numb_games_won.each{ |k,v| games_played.each{ |k1,v1|
        if k == k1
-          result[k] = (v.to_f/v1.to_f).round(4)
+          @result[k] = (v.to_f/v1.to_f).round(4)
        end
        }}
-       result.max_by(&:last).first
   end
 
 end
