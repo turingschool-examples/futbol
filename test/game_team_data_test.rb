@@ -9,7 +9,10 @@ class GameTeamDataTest < Minitest::Test
     assert_instance_of GameTeamData, game_team_data
   end
 
-  #def test_it_has_attributes
-  #end
+  def test_it_can_create_many_objects
+    game_team_data = GameTeamData.create_objects
+
+    assert_equal "away", game_team_data[0].hoa 
+  end
 
 end
