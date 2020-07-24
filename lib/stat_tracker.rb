@@ -19,7 +19,7 @@ class StatTracker
 
   def turn_games_csv_data_into_games_objects(games_csv_data)
     games_objects_collection = []
-    CSV.foreach(games_csv_data, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(games_csv_data, headers: true, header_converters: :symbol, row_sep: :auto) do |row|
       games_objects_collection << Games.new(row)
     end
     games_objects_collection
@@ -27,7 +27,7 @@ class StatTracker
 
   def turn_teams_csv_data_into_teams_objects(teams_csv_data)
     teams_objects_collection = []
-    CSV.foreach(teams_csv_data, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(teams_csv_data, headers: true, header_converters: :symbol, row_sep: :auto) do |row|
       teams_objects_collection << Teams.new(row)
     end
     teams_objects_collection
@@ -35,7 +35,7 @@ class StatTracker
 
   def turn_game_teams_csv_data_into_game_teams_objects(game_teams_csv_data)
     game_teams_objects_collection = []
-    CSV.foreach(game_teams_csv_data, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(game_teams_csv_data, headers: true, header_converters: :symbol, row_sep: :auto) do |row|
       game_teams_objects_collection << GameTeams.new(row)
     end
     game_teams_objects_collection
@@ -179,8 +179,8 @@ class StatTracker
   #======== helper method for highest_scoring_visitor
 
     games_by_team_id = @games.reduce(Hash.new { |h,k| h[k]=[] }) do |result, game|
-    result[game.away_team_id] << game.game_id
-    result
+      result[game.away_team_id] << game.game_id
+      result
     end
     games_count_by_team_id = {}
     games_by_team_id.each do |team_id, games_array|
@@ -483,12 +483,26 @@ class StatTracker
     end.teamname
   end
 
+  def opponents(team_id)
 
+  end
 
   def favorite_opponent(team_id)
-    team_average = average_win_percentage(team_id)
-
-
+    opponents = []
+    @games.each do |game|
+      if game.away_team_id == team_id
+        opponents << game.home_team_id
+      else game.home_team_id == team_id
+        opponents << game.away_team_id
+      end
+    end
+   #  team_id_of_fav_opponent = opponents.uniq.min_by do |opponent|
+   #    average_win_percentage(opponent)
+   # end
+   # x = @teams.find do |team|
+   #   team.team_id == team_id_of_fav_opponent
+   # end.teamname
+  require "pry"; binding.pry
   end
 
 end
