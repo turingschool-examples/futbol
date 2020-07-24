@@ -7,6 +7,7 @@ class LeagueStatistics
     @goals_by_id = Hash.new{ |hash, key| hash[key] = 0 }
     @games_played_by_id = Hash.new{ |hash, key| hash[key] = 0 }
     @average_goals_by_id = Hash.new{}
+    @goals_by_away_id = Hash.new{ |hash, key| hash[key] = 0 }
 
   end
 
@@ -50,7 +51,7 @@ class LeagueStatistics
     goals_by_id
     games_by_id
   end
-  
+
   def average_goals_by_id
     by_id_suite
     @goals_by_id.each do |team_id, goal|
@@ -71,5 +72,14 @@ class LeagueStatistics
       @games_played_by_id[game_team.team_id] += 1
     end
     @games_played_by_id
+  end
+
+  def goals_by_away_id
+    all_game_teams.each do |game_team|
+      if game_team.hoa == "away"
+        @goals_by_away_id[game_team.team_id] += game_team.goals
+      end
+    end
+    @goals_by_away_id
   end
 end
