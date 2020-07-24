@@ -89,8 +89,17 @@ class LeagueStatisticTest < Minitest::Test
     assert_equal expected, @league_statistics.goals_by_away_id
   end
 
-  def test_highest_and_lowest_scoring_home_team
+  def test_test_goals_by_home_id
+    expected = {
+                6=>12,
+                3=>3,
+                5=>1
+                }
+    assert_equal expected, @league_statistics.goals_by_home_id
+  end
 
+  def test_highest_scoring_visitor
+    assert_equal "FC Dallas", @league_statistics.highest_scoring_visitor
   end
 
 end
