@@ -429,7 +429,20 @@ class StatTracker
 
 #========== Most Accurate Team ==========
   def most_accurate_team(season)
-    #Name of team with the best ratio of shots to goals for the season
+    # Name of team with the best ratio of shots to goals for the season
+    # Needs refactoring and can be helper methods
+    games_in_season = @games.select { |game| game.season == season }
+    game_ids_in_season = games_in_season.map do |game| ##Returns array of game ids in season
+       game.game_id
+     end
+
+     game_teams_in_season = @game_teams.select do |game_team| ##Returns array of game team objects
+       game_ids_in_season.include?(game_team.game_id)
+     end
+
+     games_per_season_per_team = game_teams_in_season.group_by do |game| ##Returns hash of team_id => game_teams
+       game.team_id
+     end
   end
 
 
