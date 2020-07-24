@@ -152,4 +152,10 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Real Salt Lake", @stat_tracker.most_accurate_team("20132014")
     assert_equal "Toronto FC", @stat_tracker.most_accurate_team("20142015")
   end
+
+  def test_it_can_identify_favorite_opponent
+
+  assert_equal "DC United", @stat_tracker.favorite_opponent
+
+  end
 end

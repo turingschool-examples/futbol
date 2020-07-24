@@ -400,7 +400,6 @@ class StatTracker
   end
 
   def team_info(team_id)
-
     team_info = {}
     team = @teams.find {|team| team.team_id == team_id}
     franchise_id = team.franchiseid
@@ -444,7 +443,7 @@ class StatTracker
        game.team_id
      end
 
-     team_accuracy = Hash.new(0)
+    team_accuracy = Hash.new(0)
       games_per_season_per_team.each do |team, games|
         shots = 0
         goals = 0
@@ -452,11 +451,11 @@ class StatTracker
         shots = games.sum {|game| game.shots}
         goals = games.sum {|game| game.goals}
       end
-        team_accuracy[team] = (goals.to_f / shots)
-      end
-      best_team = team_accuracy.max_by {|team_id, accuracy| accuracy}
-      @teams.find {|team| team.team_id == best_team[0]}.teamname
+      team_accuracy[team] = (goals.to_f / shots)
     end
+    best_team = team_accuracy.max_by {|team_id, accuracy| accuracy}
+      @teams.find {|team| team.team_id == best_team[0]}.teamname
+  end
 
 
    #========== HELPER METHODS ==========
