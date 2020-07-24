@@ -29,6 +29,61 @@ class GameManager
     @all_goals_min.min
   end
 
+  def best_season(id)
+    @all_games = @games_array.select do |row| row.away_team_id == "#{id}" || row.home_team_id == "#{id}"
+    end
+    @away_wins = @all_games.select do |row| row.away_team_id == "#{id}" && row.away_goals > row.home_goals
+    end
+    @home_wins = @all_games.select do |row| row.home_team_id == "#{id}" && row.away_goals < row.home_goals
+    end
+    @seasons = (@away_wins + @home_wins).map{ |x| x.season}
+    freq = @seasons.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+    @seasons.max_by { |v| freq[v] }
+  end
+
+  def worst_season(id)
+    self.best_season(id)
+    freq = @seasons.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+    @seasons.min_by { |v| freq[v] }
+  end
+
+  def average_win_percentage(id)
+    @all_games = @games_array.select do |row| row.away_team_id == "#{id}" || row.home_team_id == "#{id}"
+    end
+    @away_wins = @all_games.select do |row| row.away_team_id == "#{id}" && row.away_goals > row.home_goals
+    end
+    @home_wins = @all_games.select do |row| row.home_team_id == "#{id}" && row.away_goals < row.home_goals
+    end
+    @all_wins = (@away_wins + @home_wins)
+    (@all_wins.length.to_f/@all_games.length.to_f).round(2)
+  end
+
+  def most_goals_scored(id)
+    self.average_win_percentage(id)
+    @away = @away_wins.map do |game|
+      game.away_goals
+    end
+    @home = @home_wins.map do |game|
+      game.home_goals
+    end
+    (@away + @home).sort[-1]
+  end
+
+  def fewest_goals_scored(id)
+    self.average_win_percentage(id)
+    @all_games = @games_array.select do |row| row.away_team_id == "#{id}" || row.home_team_id == "#{id}"
+    end
+    goals = []
+    @all_games.each do |game|
+      if game.home_team_id == "#{id}"
+        goals << game.home_goals
+      elsif game.away_team_id == "#{id}"
+        goals << game.away_goals
+      end
+    end
+    goals.min
+  end
+
   #
   # def count_of_games_by_season
   #   @games_array.reduce(Hash.new{|hash, key| hash[key] = []}) do |result, game|

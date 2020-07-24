@@ -43,45 +43,27 @@ class StatTracker
   end
 
   def team_info(id)
-    hash= {}
-    team = @team_hash.values.select{ |x| x.team_id == "#{id}"}[0]
-    hash["team id"] = team.team_id
-    hash["franchise_id"] = team.franchise_id
-    hash["team_name"] = team.team_name
-    hash["abbreviation"] = team.abbreviation
-    hash["link"] = team.link
-    hash
+    @team_manager.team_info(id)
   end
 
   def best_season(id)
-    self.season_games(id)
-    freq = @seasons.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
-    @seasons.max_by { |v| freq[v] }
+    @game_manager.best_season(id)
   end
 
   def worst_season(id)
-    self.best_season(id)
-    @seasons
-    freq = seasons.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
-    seasons.min_by { |v| freq[v] }
+    @game_manager.worst_season(id)
   end
 
   def average_win_percentage(id)
-    self.best_season(id)
-    @all_wins = (@away_wins + @home_wins)
-    (@all_wins.length.to_f/@all_games.length.to_f).round(2)
+    @game_manager.average_win_percentage(id)
   end
 
   def most_goals_scored(id)
-    self.best_season(id)
-    self.goals(id)
-    (@away + @home).sort[-1]
+    @game_manager.most_goals_scored(id)
   end
 
   def fewest_goals_scored(id)
-    self.most_goals_scored(id)
-    self.goals(id)
-    (@away + @home).sort[0]
+    @game_manager.fewest_goals_scored(id)
   end
 
   def favorite_opponent(id)
@@ -144,4 +126,4 @@ end
 # }
 #
 # stats = StatTracker.from_csv(locations)
-# p stats.rival(18)
+# p stats.fewest_goals_scored(18)
