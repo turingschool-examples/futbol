@@ -131,7 +131,7 @@ end
   end
   worst = win_hash.min_by do |season, games|
     win_hash[season].first / win_hash[season].last.to_f
-end
+  end
 
   math = worst[0].to_i
   math += 1
