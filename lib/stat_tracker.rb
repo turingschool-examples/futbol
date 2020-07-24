@@ -48,13 +48,6 @@ class StatTracker
     output.away_goals + output.home_goals
   end
 
-#   def total_games
-#     games = []
-#     @game_teams.map do |game|
-#       games << game.result
-#     end
-#   end
-
   def lowest_total_score
     output = @games.min_by do |game|
       game.away_goals + game.home_goals
@@ -97,11 +90,7 @@ class StatTracker
     home_wins = @game_teams.select do |game|
       game.result == "WIN" && game.hoa == "home"
     end
-    (home_wins.count / home_games.count.to_f).round(2) ##Nico. Corrected code so it returns .44 as per spec harness instead of .43. Left original code commented below.
-    # total_home_wins = @games.select do |game|
-    #   game.home_goals > game.away_goals
-    # end
-    # (total_home_wins.length.to_f / @games.length).round(2)
+    (home_wins.count / home_games.count.to_f).round(2)
   end
 
   def percentage_visitor_wins
@@ -427,7 +416,7 @@ class StatTracker
     team_average_win_percentage
   end
 
-#========== Most Accurate Team ==========
+#========== Most & Least Accurate Team ==========
   def most_accurate_team(season)
     # Name of team with the best ratio of shots to goals for the season
     # Needs refactoring and can be helper methods
@@ -470,6 +459,45 @@ class StatTracker
       most_goals[0]
     end
 
+    #========== Fewest goals scored ==========
+    def fewest_goals_scored(team_id)
+      games_by_team = @game_teams.select do |game_team|
+        game_team.team_id == team_id
+      end
+      team_goals = games_by_team.group_by do |game_team|
+        game_team.goals
+      end
+      fewest_goals = team_goals.min_by {|goals, game_team| goals}
+      fewest_goals[0]
+    end
+
+    def least_accurate_team(season)
+      games_in_season = @games.select { |game| game.season == season }
+      game_ids_in_season = games_in_season.map do |game|
+         game.game_id
+       end
+
+       game_teams_in_season = @game_teams.select do |game_team|
+         game_ids_in_season.include?(game_team.game_id)
+       end
+
+       games_per_season_per_team = game_teams_in_season.group_by do |game|
+         game.team_id
+       end
+
+       team_accuracy = Hash.new(0)
+        games_per_season_per_team.each do |team, games|
+          shots = 0
+          goals = 0
+        games.each do |game|
+          shots = games.sum {|game| game.shots}
+          goals = games.sum {|game| game.goals}
+        end
+          team_accuracy[team] = (goals.to_f / shots)
+        end
+        worst_team = team_accuracy.min_by {|team_id, accuracy| accuracy}
+        @teams.find {|team| team.team_id == worst_team[0]}.teamname
+      end
 
    #========== HELPER METHODS ==========
   #1 ======= Create a <games_by_season> hash with a season => games pair, from games class.
@@ -495,7 +523,4 @@ class StatTracker
       team.team_id == worst_team[0]
     end.teamname
   end
-
-
-
 end
