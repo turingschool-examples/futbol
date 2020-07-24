@@ -25,6 +25,10 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_best_offense_team
+    assert_equal "Reign FC", @stat_tracker.best_offense
+  end
+
+  def test_it_can_best_offense_team
     skip
     assert_equal "Reign FC", @stat_tracker.best_offense
 
@@ -142,9 +146,11 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Utah Royals FC", @stat_tracker.lowest_home_team
   end
 
+
   def test_it_can_display_winningest_coach
 
     assert_equal "Claude Julien", @stat_tracker.winningest_coach("20132014")
     assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
   end
 end
+
