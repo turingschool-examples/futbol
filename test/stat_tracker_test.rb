@@ -100,8 +100,8 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_calculate_highest_scoring_visitor
     assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
   end
-  
-  def test_lowest_scoring_home_team  
+
+  def test_lowest_scoring_home_team
     assert_equal "Utah Royals FC" ,@stat_tracker.lowest_scoring_home_team
   end
 
@@ -134,16 +134,22 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Peter Laviolette", @stat_tracker.worst_coach("20132014")
     assert "Craig MacTavish" || "Ted Nolan", @stat_tracker.worst_coach("20142015")
   end
-  
+
 
   def test_it_can_retrieve_team_info_from_team_id
     expected = {"team_id" => "18", "franchise_id" => "34", "team_name" => "Minnesota United FC", "abbreviation" => "MIN", "link" => "/api/v1/teams/18" }
-    
+
     assert_equal expected, @stat_tracker.team_info("18")
   end
 
   def test_it_can_retrieve_team_average_win_percentage
-    
+
     assert_equal 0.49, @stat_tracker.average_win_percentage("6")
+  end
+
+  def test_it_can_find_most_accurate_team_by_season
+
+    assert_equal "Real Salt Lake", @stat_tracker.most_accurate_team("20132014")
+    assert_equal "Toronto FC", @stat_tracker.most_accurate_team("20142015")
   end
 end
