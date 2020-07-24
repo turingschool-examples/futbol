@@ -5,8 +5,12 @@ class TeamManager
 
   def initialize(team_path)
     @teams_array = []
-      CSV.foreach(team_path, headers: true) do |row|
-        @teams_array << Team.new(row)
-      end
+    CSV.foreach(team_path, headers: true) do |row|
+      @teams_array << Team.new(row)
+    end
+  end
+
+  def size
+    @teams_array.size 
   end
 end

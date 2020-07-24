@@ -52,6 +52,8 @@ end
 #     assert_equal "San Jose Earthquakes", @stat_tracker.lowest_visitor_team
 # =======  JOHN'S CODE BEING WORKED ON  ==========
 #
+
+
 #
 #   def test_highest_scores
 #     assert_equal 11, @stat_tracker.highest_total_score
