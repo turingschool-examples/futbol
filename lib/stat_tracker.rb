@@ -35,16 +35,26 @@ class StatTracker
   end
 
   def percentage_home_wins
-   @game_teams_manager.percentage_home_wins
+    home_games = @game_teams_manager.count_home_games
+    home_wins = @game_teams_manager.home_game_results(home_games)
+   @game_teams_manager.percentage_home_wins(home_games, home_wins[:wins])
   end
 
   def percentage_visitor_wins
-    @game_teams_manager.percentage_visitor_wins
+    home_games = @game_teams_manager.count_home_games
+    home_losses = @game_teams_manager.home_game_results(home_games)
+    @game_teams_manager.percentage_visitor_wins(home_games, home_losses[:losses])
   end
 
   def count_of_games_by_season
     games_by_season = @game_manager.create_games_by_season_array
     @game_manager.count_of_games_by_season(games_by_season)
+  end
+
+  def percentage_ties
+    home_games = @game_teams_manager.count_home_games
+   tie_games = @game_teams_manager.home_game_results(home_games)
+    @game_teams_manager.percentage_ties(home_games, tie_games[:ties])
   end
 
 
