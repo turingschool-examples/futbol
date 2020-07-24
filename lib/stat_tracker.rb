@@ -494,7 +494,4 @@ class StatTracker
       team.team_id == worst_team[0]
     end.teamname
   end
-
-
-
 end
