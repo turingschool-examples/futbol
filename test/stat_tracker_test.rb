@@ -144,4 +144,43 @@ class StatTrackerTest < MiniTest::Test
   def test_it_knows_fewest_tackles
     assert_equal "Sporting Kansas City", @stat_tracker.fewest_tackles("20122013")
   end
+  # team stats tests
+
+  def test_it_can_get_team_info
+    expected = {"team_id"=>"17",
+                "franchise_id"=>"12",
+                "team_name"=>"LA Galaxy",
+                "abbreviation"=>"LA",
+                "link"=>"/api/v1/teams/17"}
+
+    assert_equal expected, @stat_tracker.team_info("17")
+  end
+
+  def test_it_can_get_best_season
+    assert_equal "20122013", @stat_tracker.best_season("6")
+  end
+
+  def test_it_can_get_worst_season
+    assert_equal "20122013", @stat_tracker.worst_season("6")
+  end
+
+  def test_it_can_get_average_win_percentage
+    assert_equal 1.0, @stat_tracker.average_win_percentage("6")
+  end
+
+  def test_it_can_most_goals_scored
+    assert_equal 3, @stat_tracker.most_goals_scored("17")
+  end
+
+  def test_it_can_get_fewest_goals_scored
+    assert_equal 0, @stat_tracker.fewest_goals_scored("17")
+  end
+
+  def test_it_can_get_favorite_opponent
+    assert_equal "New England Revolution", @stat_tracker.favorite_opponent("17")
+  end
+
+  def test_it_can_get_rival
+    assert_equal "Real Salt Lake", @stat_tracker.rival("17")
+  end
 end

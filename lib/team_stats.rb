@@ -59,4 +59,34 @@ class TeamStats < Stats
     end
     x.goals
   end
+
+  def favorite_opponent(team_id)
+    find_by_given_team_id = @games.find_all {|game| game.home_team_id == team_id || game.away_team_id == team_id}
+    x = find_by_given_team_id.map {|game| game.game_id}
+    y = @game_teams.find_all {|game| x.include?(game.game_id) && game.team_id != team_id}
+    sorted_by_team_id = y.group_by {|game| game.team_id}
+    result = sorted_by_team_id.transform_values do |game|
+      w = game.find_all do |game|
+        (game.result == "WIN")
+      end.count
+      (w.to_f / game.count).round(2)
+    end
+    q = result.min_by {|_, ratio| ratio}.first
+    @teams.find {|team| team.team_id == q}.team_name
+  end
+
+  def rival(team_id)
+    find_by_given_team_id = @games.find_all {|game| game.home_team_id == team_id || game.away_team_id == team_id}
+    x = find_by_given_team_id.map {|game| game.game_id}
+    y = @game_teams.find_all {|game| x.include?(game.game_id) && game.team_id != team_id}
+    sorted_by_team_id = y.group_by {|game| game.team_id}
+    result = sorted_by_team_id.transform_values do |game|
+      w = game.find_all do |game|
+        (game.result == "WIN")
+      end.count
+      (w.to_f / game.count).round(2)
+    end
+    q = result.max_by {|_, ratio| ratio}.first
+    @teams.find {|team| team.team_id == q}.team_name
+  end
 end
