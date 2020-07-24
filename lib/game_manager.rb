@@ -154,6 +154,12 @@ class GameManager
   end.map{ |x| x.game_id}
  end
 
+ def worst_coach(season)
+   @games_array.select do |game|
+     game.season == season
+   end.map{ |x| x.game_id}
+ end
+
   #
   # def count_of_games_by_season
   #   @games_array.reduce(Hash.new{|hash, key| hash[key] = []}) do |result, game|
