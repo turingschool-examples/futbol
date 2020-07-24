@@ -209,7 +209,7 @@ class StatTracker
       over_all_average_by_team[team_id] = total_away_goals.to_f/total_away_games
     end
     over_all_average_by_team
-  end 
+  end
 
     def best_offense
       team_by_id = @game_teams.group_by do |team|
@@ -259,14 +259,14 @@ class StatTracker
     games_by_season = @games.group_by {|game| game.season}
 
 
-    #2 ======= Create a <filter_seasons> hash from games_by_season, to filter season argument in winningest_coach. 
+    #2 ======= Create a <filter_seasons> hash from games_by_season, to filter season argument in winningest_coach.
     filter_seasons = {}
     games_by_season.each do |season_key, games|
       if season_key == season
       filter_seasons[season_key] = games
       end
     end
-    
+
     #3 ======= Create a <game_ids_by_season> hash with season => game_id pairs from games_by_season so we can use it to talk to game_teams class. Source <filter_seasons>.
     game_ids_by_season = {}
     filter_seasons.map do |season, games|
@@ -287,7 +287,7 @@ class StatTracker
 
     #5 ======= Create <season_games> array of coach's season games.
     season_games = team_games_by_season.map {|season, games| games}.flatten.compact
-    
+
     #6 ======= Create <games_per_season_by_coach> hash with head_coach key and game instances.
     games_per_season_by_coach = season_games.group_by { |game| game.head_coach }
 
@@ -312,7 +312,7 @@ class StatTracker
     #8 ======= Create <coach_results> hash calculating total games results sum, percentage of wins, storing total wins, loss, and ties. Source <coach_name_and_results>
 
     coach_results = {}
-    
+
     coach_name_and_results.each do |coach, results|
       result_sum =  results.values.sum
       wins_percentage = (results[:win] * 100) / result_sum
@@ -322,7 +322,7 @@ class StatTracker
     #9 ======= Find name of coach with highest percentage of wins.
 
     coach_results.max_by do |coach, results|
-      results[:win_percentage] 
+      results[:win_percentage]
     end.first
   end
 
@@ -331,14 +331,14 @@ class StatTracker
     games_by_season = @games.group_by {|game| game.season}
 
 
-    #2 ======= Create a <filter_seasons> hash from games_by_season, to filter season argument in winningest_coach. 
+    #2 ======= Create a <filter_seasons> hash from games_by_season, to filter season argument in winningest_coach.
     filter_seasons = {}
     games_by_season.each do |season_key, games|
       if season_key == season
       filter_seasons[season_key] = games
       end
     end
-    
+
     #3 ======= Create a <game_ids_by_season> hash with season => game_id pairs from games_by_season so we can use it to talk to game_teams class. Source <filter_seasons>.
     game_ids_by_season = {}
     filter_seasons.map do |season, games|
@@ -359,7 +359,7 @@ class StatTracker
 
     #5 ======= Create <season_games> array of coach's season games.
     season_games = team_games_by_season.map {|season, games| games}.flatten.compact
-    
+
     #6 ======= Create <games_per_season_by_coach> hash with head_coach key and game instances.
     games_per_season_by_coach = season_games.group_by { |game| game.head_coach }
 
@@ -384,7 +384,7 @@ class StatTracker
     #8 ======= Create <coach_results> hash calculating total games results sum, percentage of wins, storing total wins, loss, and ties. Source <coach_name_and_results>
 
     coach_results = {}
-    
+
     coach_name_and_results.each do |coach, results|
       result_sum =  results.values.sum
       wins_percentage = (results[:win] * 100) / result_sum
@@ -394,13 +394,13 @@ class StatTracker
     #9 ======= Find name of coach with highest percentage of wins.
 
     coach_results.min_by do |coach, results|
-      results[:win_percentage] 
+      results[:win_percentage]
     end.first
 
   end
 
   def team_info(team_id)
-   
+
     team_info = {}
     team = @teams.find {|team| team.team_id == team_id}
     franchise_id = team.franchiseid
@@ -417,7 +417,7 @@ class StatTracker
     team_info
   end
 
-  
+
   def average_win_percentage(team_id)
   #========== Average win percentage of all games for a team from team id.
     team_games = @game_teams.find_all {|team| team.team_id == team_id}
@@ -427,8 +427,36 @@ class StatTracker
     team_average_win_percentage
   end
 
+#========== Most Accurate Team ==========
+  def most_accurate_team(season)
+    # Name of team with the best ratio of shots to goals for the season
+    # Needs refactoring and can be helper methods
+    games_in_season = @games.select { |game| game.season == season }
+    game_ids_in_season = games_in_season.map do |game| ##Returns array of game ids in season
+       game.game_id
+     end
 
+     game_teams_in_season = @game_teams.select do |game_team| ##Returns array of game team objects
+       game_ids_in_season.include?(game_team.game_id)
+     end
 
+     games_per_season_per_team = game_teams_in_season.group_by do |game| ##Returns hash of team_id => game_teams
+       game.team_id
+     end
+
+     team_accuracy = Hash.new(0)
+      games_per_season_per_team.each do |team, games|
+        shots = 0
+        goals = 0
+      games.each do |game|
+        shots = games.sum {|game| game.shots}
+        goals = games.sum {|game| game.goals}
+      end
+        team_accuracy[team] = (goals.to_f / shots)
+      end
+      best_team = team_accuracy.max_by {|team_id, accuracy| accuracy}
+      @teams.find {|team| team.team_id == best_team[0]}.teamname
+    end
 
 
    #========== HELPER METHODS ==========
