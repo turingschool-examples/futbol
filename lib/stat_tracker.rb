@@ -495,6 +495,11 @@ class StatTracker
     opponents.uniq
   end
 
+  def find_team_name(team_id)
+    @teams.find do |team|
+      team.team_id == team_id
+    end.teamname
+  end
 
   # def favorite_opponent(team_id)
   #   # result = {}
