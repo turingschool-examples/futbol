@@ -458,6 +458,18 @@ class StatTracker
       @teams.find {|team| team.team_id == best_team[0]}.teamname
     end
 
+    #========== Fewest goals scored ==========
+    def fewest_goals_scored(team_id)
+      games_by_team = @game_teams.select do |game_team|
+        game_team.team_id == team_id
+      end
+      team_goals = games_by_team.group_by do |game_team|
+        game_team.goals
+      end
+      fewest_goals = team_goals.min_by {|goals, game_team| goals}
+      fewest_goals[0]
+    end
+
     def least_accurate_team(season)
       games_in_season = @games.select { |game| game.season == season }
       game_ids_in_season = games_in_season.map do |game|
@@ -485,7 +497,6 @@ class StatTracker
         worst_team = team_accuracy.min_by {|team_id, accuracy| accuracy}
         @teams.find {|team| team.team_id == worst_team[0]}.teamname
       end
-
 
    #========== HELPER METHODS ==========
   #1 ======= Create a <games_by_season> hash with a season => games pair, from games class.
