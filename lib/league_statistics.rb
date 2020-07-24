@@ -104,4 +104,10 @@ class LeagueStatistics
     highest_scorer_away = @goals_by_away_id.invert.max[1]
     @team_name_by_id[highest_scorer_away]
   end
+
+  def lowest_scoring_visitor
+    goals_by_hoa_id_suite
+    lowest_scorer_away = @goals_by_away_id.invert.min[1]
+    @team_name_by_id[lowest_scorer_away]
+  end
 end
