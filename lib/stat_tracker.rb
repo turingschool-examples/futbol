@@ -5,6 +5,10 @@ require_relative 'game_team'
 require_relative 'stats'
 require_relative 'game_stats'
 require_relative 'league_stats'
+<<<<<<< HEAD
+=======
+require_relative 'team_stats'
+>>>>>>> 2d1a77183de7e20668638cfef37bfa9443dcc0c0
 require_relative 'season_stats'
 # require_relative 'team_stats'
 
@@ -13,6 +17,10 @@ require_relative 'season_stats'
 class StatTracker
   attr_reader :game_stats,
               :league_stats,
+<<<<<<< HEAD
+=======
+              :team_stats,
+>>>>>>> 2d1a77183de7e20668638cfef37bfa9443dcc0c0
               :season_stats
               # :team_stats,
 
@@ -23,7 +31,7 @@ class StatTracker
 
   def initialize(data)
     @game_stats   = GameStats.new(data)
-    # @team_stats   = TeamStats.new(data)
+    @team_stats   = TeamStats.new(data)
     @league_stats = LeagueStats.new(data)
     @season_stats = SeasonStats.new(data)
   end

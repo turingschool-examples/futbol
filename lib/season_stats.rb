@@ -31,7 +31,6 @@ class SeasonStats < Stats
     games_within_season = gather_season_games(season_id)
     team_id = games_within_season.group_by {|team| team.team_id} #make these into helper method
     goals = team_id.transform_values do |game_team|
-      # require "pry"; binding.pry
       game_team.sum {|game| game.goals.to_f} / game_team.sum {|game| game.shots}
     end
     @teams.find {|team| team.team_id == goals.max_by {|_, ratio| ratio}.first}.team_name
