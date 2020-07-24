@@ -16,5 +16,5 @@ class GameDataTest < Minitest::Test
 
     assert_equal "2012030221", all_games[0].game_id
   end
-  
+
 end
