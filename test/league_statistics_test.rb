@@ -102,4 +102,8 @@ class LeagueStatisticTest < Minitest::Test
     assert_equal "FC Dallas", @league_statistics.highest_scoring_visitor
   end
 
+  def test_lowest_scoring_visitor
+    assert_equal "LA Galaxy", @league_statistics.lowest_scoring_visitor
+  end
+
 end
