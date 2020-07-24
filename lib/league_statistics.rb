@@ -6,8 +6,12 @@ class LeagueStatistics
 
   end
 
-  def count_of_teams
+  def all_teams
+    TeamData.create_objects
+  end
 
-  end 
+  def count_of_teams
+    all_teams.size
+  end
 
 end
