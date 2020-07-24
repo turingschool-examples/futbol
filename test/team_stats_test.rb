@@ -44,4 +44,8 @@ class TeamStatsTest < Minitest::Test
   def test_it_can_get_worst_season
     assert_equal "20142015", @team_stats.worst_season("6")
   end
+
+  def test_it_can_get_average_win_percentage
+    assert_equal 0.49, @team_stats.average_win_percentage("6")
+  end
 end
