@@ -110,4 +110,8 @@ class LeagueStatisticTest < Minitest::Test
     assert_equal "FC Dallas", @league_statistics.highest_scoring_home_team
   end
 
+  def test_lowest_scoring_home_team
+    assert_equal "Sporting Kansas City", @league_statistics.lowest_scoring_home_team
+  end
+
 end
