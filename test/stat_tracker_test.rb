@@ -25,6 +25,10 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_best_offense_team
+    assert_equal "Reign FC", @stat_tracker.best_offense
+  end
+
+  def test_it_can_best_offense_team
     skip
     assert_equal "Reign FC", @stat_tracker.best_offense
 

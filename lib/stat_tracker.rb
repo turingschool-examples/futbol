@@ -164,12 +164,13 @@ class StatTracker
   def count_of_teams
     @team_manager.size
   end
+
+  def best_offense
+    @game_teams_manager.teams_sort_by_average_goal.last.team_name
+  end
 end
 
     # =======  JOHN'S CODE BEING WORKED ON  ==========
-    # def best_offense
-    #   @game_teams_array.teams_sort_by_average_goal.last.team_name
-    # end
     #
     # def worst_offense
     #   @game_teams_array.teams_sort_by_average_goal.first.team_name
