@@ -6,6 +6,7 @@ class LeagueStatistics
     @team_name_by_id = Hash.new{}
     @goals_by_id = Hash.new{ |hash, key| hash[key] = 0 }
     @games_played_by_id = Hash.new{ |hash, key| hash[key] = 0 }
+    @average_goals_by_id = Hash.new{}
 
   end
 
@@ -29,7 +30,20 @@ class LeagueStatistics
   end
 
   def best_offense
+    average_goals_by_id
+    get_team_name_by_id
+    best_offense_id = @average_goals_by_id.invert.max[1]
+    @team_name_by_id[best_offense_id]
+  end
+  # worst_offense_id = @average_goals_by_id.invert.min[1]
 
+  def average_goals_by_id
+    goals_by_id
+    games_by_id
+    @goals_by_id.each do |team_id, goal|
+      @average_goals_by_id[team_id] = (goal.to_f / @games_played_by_id[team_id]).round(2)
+    end
+    @average_goals_by_id
   end
 
   def goals_by_id
@@ -43,7 +57,6 @@ class LeagueStatistics
     all_game_teams.each do |game_team|
       @games_played_by_id[game_team.team_id] += 1
     end
-    require "pry"; binding.pry
     @games_played_by_id
   end
 
