@@ -158,4 +158,14 @@ class StatTrackerTest < MiniTest::Test
   assert_equal "DC United", @stat_tracker.favorite_opponent("18")
 
   end
+
+  def test_it_can_make_a_hash_with_all_teams_winning_percentage
+
+    expected = {
+      "18" => [52.05, "6"], 
+      "9" => [53, "18"]}
+
+    assert_equal expected, @stat_tracker.overall_winning_average
+  end
+
 end

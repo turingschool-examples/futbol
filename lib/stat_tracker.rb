@@ -483,8 +483,12 @@ class StatTracker
     end.teamname
   end
 
+
+
   def favorite_opponent(team_id)
-    
+    team_average = average_win_percentage(team_id)
+
+
   end
 
 end
