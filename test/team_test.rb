@@ -6,7 +6,7 @@ class TeamTest < MiniTest::Test
 
   def setup
     team_param = {team_id: "1",
-                  franchise_id: "23",
+                  franchiseid: "23",
                   teamname: "Atlanta United",
                   abbreviation: "ATL",
                   link: "/api/v1/teams/1"}
