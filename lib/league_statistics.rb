@@ -35,7 +35,13 @@ class LeagueStatistics
     best_offense_id = @average_goals_by_id.invert.max[1]
     @team_name_by_id[best_offense_id]
   end
-  # worst_offense_id = @average_goals_by_id.invert.min[1]
+
+  def worst_offense
+    average_goals_by_id
+    get_team_name_by_id
+    worst_offense_id = @average_goals_by_id.invert.min[1]
+    @team_name_by_id[worst_offense_id]
+  end
 
   def average_goals_by_id
     goals_by_id
