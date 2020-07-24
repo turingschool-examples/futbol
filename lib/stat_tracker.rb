@@ -63,9 +63,7 @@ class StatTracker
   end
 
   def fewest_goals_scored(id)
-    self.most_goals_scored(id)
-    self.goals(id)
-    (@away + @home).sort[0]
+
   end
 
   def favorite_opponent(id)
