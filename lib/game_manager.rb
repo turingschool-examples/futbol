@@ -43,7 +43,7 @@ class GameManager
   def count_of_games_by_season(games_by_season)
     games_by_season.each { |k, v| games_by_season[k] = v.count}
   end
-  
+
   def best_season(id)
     @all_games = @games_array.select do |row| row.away_team_id == "#{id}" || row.home_team_id == "#{id}"
     end
@@ -146,6 +146,12 @@ class GameManager
      hash1 = games_won_against.merge(games_played_against){ |k, a_value, b_value| a_value .to_f / b_value.to_f}
      hash1.delete("14")
      team_final = hash1.max_by{|k,v| v}[0]
+ end
+
+ def winningest_coach(season)
+   @games_array.select do |game|
+    game.season == season
+  end.map{ |x| x.game_id}
  end
 
   #

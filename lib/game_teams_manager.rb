@@ -40,7 +40,8 @@ def percentage_home_wins
     end
     (home_losses.count.to_f/home_games.count.to_f).round(2)
   end
-  
+
+
 #   def team_average_goals(team_id)
 #     teams_by_id = @game_teams_array.select do |gameteam|
 #       gameteam.team_id.to_i == team_id
