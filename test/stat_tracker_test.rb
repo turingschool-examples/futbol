@@ -180,4 +180,9 @@ class StatTrackerTest < MiniTest::Test
   def test_worst_season
     assert_equal "20142015", @stat_tracker.worst_season("6")
   end
+
+  def test_find_the_fewest_tackles
+   assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
+   assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
+ end
 end#class
