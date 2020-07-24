@@ -65,4 +65,27 @@ module Modable
     @seasons = (@away_wins + @home_wins).map{ |x| x.season}
   end
 
+  def winningest_coach1(id)
+    array = []
+    @game_teams_manager.game_teams_array.each do |game|
+      if @all_games.include?(game.game_id)
+        array << game
+      end
+    end
+    hash = array.group_by{ |game| game.head_coach}
+    games_played = hash.each{ |k,v| hash[k] = v.length}
+
+    games_won = array.select{ |game| game.result == "WIN"}
+    games_won_hash = games_won.group_by{ |game| game.head_coach}
+    numb_games_won = games_won_hash.each{ |k,v| games_won_hash[k] = v.length}
+    numbers = []
+    result = {}
+    numb_games_won.each{ |k,v| games_played.each{ |k1,v1|
+       if k == k1
+          result[k] = (v.to_f/v1.to_f).round(4)
+       end
+       }}
+       result.max_by(&:last).first
+  end
+
 end

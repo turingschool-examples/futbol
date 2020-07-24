@@ -5,6 +5,7 @@ require './lib/game_teams_manager'
 require './lib/modable'
 
 class StatTracker
+  include Modable
 
   attr_reader :game_manager, :game_teams_manager, :team_manager
 
@@ -46,6 +47,9 @@ class StatTracker
     games_by_season = @game_manager.create_games_by_season_array
     @game_manager.count_of_games_by_season(games_by_season)
   end
+
+  # team stats (Travis')
+
 
   #
   # def best_season(id)
@@ -302,15 +306,26 @@ end
   # end
 
 
+  def lowest_home_team
+    @game_teams_array.lowest_home_team
+  end
+  #season stats start here (Drew's)
+  def winningest_coach(season)
+    @all_games = @game_manager.winningest_coach(season)
+    self.winningest_coach1(season)
+  end
+end
+
+
 # game_path = './data/games.csv'
 # team_path = './data/teams.csv'
 # game_teams_path = './data/game_teams.csv'
-#
+
 # locations = {
 #   games: game_path,
 #   teams: team_path,
 #   game_teams: game_teams_path
 # }
-#
+
 # stats = StatTracker.from_csv(locations)
-# p stats.rival(18)
+# p stats.winningest_coach("20132014")

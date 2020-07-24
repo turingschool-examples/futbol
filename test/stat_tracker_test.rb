@@ -55,22 +55,22 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_highest_scores
-    skip
+    # skip
     assert_equal 11, @stat_tracker.highest_total_score
   end
 
   def test_lowest_scores
-    skip
+    # skip
     assert_equal 0, @stat_tracker.lowest_total_score
   end
 
   def test_percentage_home_wins
-    skip
+    # skip
     assert_equal 0.44, @stat_tracker.percentage_home_wins
   end
 
   def test_percentage_visitor_wins
-    skip
+    # skip
     assert_equal 0.36, @stat_tracker.percentage_visitor_wins
   end
 
@@ -92,7 +92,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_count_of_games_by_season
-    skip
+    # skip
     expected = {
                 "20122013"=>806,
                 "20162017"=>1317,
@@ -145,3 +145,12 @@ class StatTrackerTest < MiniTest::Test
     skip
     assert_equal "Utah Royals FC", @stat_tracker.lowest_home_team
   end
+
+
+  def test_it_can_display_winningest_coach
+
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20132014")
+    assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
+  end
+end
+
