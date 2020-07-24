@@ -36,4 +36,8 @@ class TeamStatsTest < Minitest::Test
     }
     assert_equal expected, @team_stats.team_info("18")
   end
+
+  def test_it_can_get_best_season
+    assert_equal "20132014", @team_stats.best_season("6")
+  end
 end
