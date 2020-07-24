@@ -69,6 +69,21 @@ class GameManager
     (@away + @home).sort[-1]
   end
 
+  def fewest_goals_scored(id)
+    self.average_win_percentage(id)
+    @all_games = @games_array.select do |row| row.away_team_id == "#{id}" || row.home_team_id == "#{id}"
+    end
+    goals = []
+    @all_games.each do |game|
+      if game.home_team_id == "#{id}"
+        goals << game.home_goals
+      elsif game.away_team_id == "#{id}"
+        goals << game.away_goals
+      end
+    end
+    goals.min
+  end
+
   #
   # def count_of_games_by_season
   #   @games_array.reduce(Hash.new{|hash, key| hash[key] = []}) do |result, game|

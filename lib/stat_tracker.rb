@@ -63,7 +63,7 @@ class StatTracker
   end
 
   def fewest_goals_scored(id)
-
+    @game_manager.fewest_goals_scored(id)
   end
 
   def favorite_opponent(id)
@@ -126,4 +126,4 @@ end
 # }
 #
 # stats = StatTracker.from_csv(locations)
-# p stats.average_win_percentage(6)
+# p stats.fewest_goals_scored(18)
