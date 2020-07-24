@@ -22,6 +22,11 @@ class LeagueStatistics
     all_teams.size
   end
 
+  def offense_suite
+    get_team_name_by_id
+    average_goals_by_id
+  end
+
   def get_team_name_by_id
     all_teams.each do |team|
       @team_name_by_id[team.team_id] = team.team_name
@@ -30,22 +35,24 @@ class LeagueStatistics
   end
 
   def best_offense
-    average_goals_by_id
-    get_team_name_by_id
+    offense_suite
     best_offense_id = @average_goals_by_id.invert.max[1]
     @team_name_by_id[best_offense_id]
   end
 
   def worst_offense
-    average_goals_by_id
-    get_team_name_by_id
+    offense_suite
     worst_offense_id = @average_goals_by_id.invert.min[1]
     @team_name_by_id[worst_offense_id]
   end
 
-  def average_goals_by_id
+  def by_id_suite
     goals_by_id
     games_by_id
+  end
+  
+  def average_goals_by_id
+    by_id_suite
     @goals_by_id.each do |team_id, goal|
       @average_goals_by_id[team_id] = (goal.to_f / @games_played_by_id[team_id]).round(2)
     end
@@ -65,5 +72,4 @@ class LeagueStatistics
     end
     @games_played_by_id
   end
-
 end
