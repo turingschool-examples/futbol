@@ -9,7 +9,8 @@ class TeamDataTest < Minitest::Test
     assert_instance_of TeamData, team_data
   end
 
-  #def test_it_has_attributes
-  #end
+  def test_it_can_create_many_objects
+    all_teams = TeamData.create_objects
+  end
 
 end
