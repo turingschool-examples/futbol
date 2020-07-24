@@ -454,7 +454,9 @@ class StatTracker
       end
         team_accuracy[team] = (goals.to_f / shots)
       end
-  end
+      best_team = team_accuracy.max_by {|team_id, accuracy| accuracy}
+      @teams.find {|team| team.team_id == best_team[0]}.teamname
+    end
 
 
 
