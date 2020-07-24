@@ -41,23 +41,25 @@ end
 #     (home_losses.count.to_f/home_games.count.to_f).round(2)
 #   end
 
-  #=========  JOHN'S CODE BEING WORKED ON  =============
-  def team_average_goals(team_id)
-    teams_by_id = @game_teams_array.select do |gameteam|
-      gameteam.team_id.to_i == team_id
-    end
 
-    total_goals = teams_by_id.sum do |team|
-      team.goals.to_i
-    end
-    (total_goals.to_f / teams_by_id.size).round(2)
-  end
 
-  def teams_sort_by_average_goal
-    @game_teams_array.sort_by do |team|
-      team_average_goals(team.team_id.to_i)
-    end
-  end
+#   def team_average_goals(team_id)
+#     teams_by_id = @game_teams_array.select do |gameteam|
+#       gameteam.team_id.to_i == team_id
+#     end
+
+#     total_goals = teams_by_id.sum do |team|
+#       team.goals.to_i
+#     end
+#     (total_goals.to_f / teams_by_id.size).round(2)
+#   end
+
+#   def teams_sort_by_average_goal
+#     @game_teams_array.sort_by do |team|
+#       team_average_goals(team.team_id.to_i)
+#     end
+#   end
+
 
 #   def find_all_away_teams
 #      @game_teams_array.find_all do |gameteam|
