@@ -116,4 +116,10 @@ class LeagueStatistics
     highest_scorer_at_home = @goals_by_home_id.invert.max[1]
     @team_name_by_id[highest_scorer_at_home]
   end
+
+  def lowest_scoring_home_team
+    goals_by_hoa_id_suite
+    lowest_scorer_at_home = @goals_by_home_id.invert.min[1]
+    @team_name_by_id[lowest_scorer_at_home]
+  end
 end
