@@ -79,4 +79,18 @@ class LeagueStatisticTest < Minitest::Test
     assert_equal expected, @league_statistics.average_goals_by_id
   end
 
+  def test_goals_by_away_id
+    expected = {
+                3=>5,
+                6=>12,
+                5=>1,
+                17=>1
+                }
+    assert_equal expected, @league_statistics.goals_by_away_id
+  end
+
+  def test_highest_and_lowest_scoring_home_team
+
+  end
+
 end
