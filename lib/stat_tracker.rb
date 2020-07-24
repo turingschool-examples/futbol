@@ -460,13 +460,13 @@ class StatTracker
 
     #========== Most goals scored ==========
     def most_goals_scored(team_id)
-      games_by_team = @game_teams.select do |game_team|
+      games_by_team = @game_teams.select do |game_team| #Returns Array of game teams for given team_id
         game_team.team_id == team_id
       end
-      team_goals = games_by_team.group_by do |game_team|
+      team_goals = games_by_team.group_by do |game_team| #Returns hash of {goals => game_teams}
         game_team.goals
       end
-      most_goals = team_goals.max_by {|goals, game_team| goals}
+      most_goals = team_goals.max_by {|goals, game_team| goals} #Sorts by highest goals
       most_goals[0]
     end
 
