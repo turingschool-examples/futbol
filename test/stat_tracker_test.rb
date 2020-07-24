@@ -155,6 +155,6 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_display_worst_coach
 
     assert_equal "Peter Laviolette", @stat_tracker.worst_coach("20132014")
-    # assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
+    assert_equal "Ted Nolan", @stat_tracker.worst_coach("20142015")
   end
 end

@@ -244,8 +244,9 @@ class StatTracker
   end
 
   def worst_coach(season)
-    self.winningest_coach(season)
-    @result
+    @all_games1 = @game_manager.worst_coach(season)
+    self.worst_coach1(season)
+    @result.sort_by { |key, value| value}[-1].first
   end
 
 end
