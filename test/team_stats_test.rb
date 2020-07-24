@@ -56,4 +56,14 @@ class TeamStatsTest < Minitest::Test
   def test_it_can_get_fewest_goals_scored
     assert_equal 0, @team_stats.fewest_goals_scored("18")
   end
+
+  def test_it_can_get_favorite_opponent
+    assert_equal "DC United", @team_stats.favorite_opponent("18")
+  end
+
+  def test_it_can_get_rival
+    skip
+    assert_equal "Houston Dash", @team_stats.rival("18")
+    assert_equal "LA Galaxy", @team_stats.rival("18")
+  end
 end
