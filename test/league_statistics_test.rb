@@ -20,13 +20,14 @@ class LeagueStatisticTest < Minitest::Test
   end
 
   def test_find_best_and_worst_offense
+    skip
     assert_equal "FC Dallas", @league_statistics.best_offense
     assert_equal "Sporting Kansas City", @league_statistics.worst_offense
   end
 
   def test_can_get_team_name_by_id
     expected = {
-                1=>"Atlanta United", 
+                1=>"Atlanta United",
                 4=>"Chicago Fire",
                 26=>"FC Cincinnati",
                 14=>"DC United",
@@ -47,6 +48,26 @@ class LeagueStatisticTest < Minitest::Test
                 27=>"San Jose Earthquakes"
               }
     assert_equal expected, @league_statistics.get_team_name_by_id
+  end
+
+  def test_goals_by_id
+      expected = {
+                  3=>8,
+                  6=>24,
+                  5=>2,
+                  17=>1
+                }
+      assert_equal expected, @league_statistics.goals_by_id
+  end
+
+  def test_games_by_id
+    expected = {
+                3=>5,
+                6=>9,
+                5=>4,
+                17=>1
+              }
+    assert_equal expected, @league_statistics.games_by_id
   end
 
 end
