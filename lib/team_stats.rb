@@ -51,4 +51,12 @@ class TeamStats < Stats
     end
     x.goals
   end
+
+  def fewest_goals_scored(team_id)
+    team = @game_teams.find_all {|game| game.team_id == team_id}
+    x = team.min_by do |game|
+      game.goals
+    end
+    x.goals
+  end
 end
