@@ -463,6 +463,9 @@ class StatTracker
       games_by_team = @game_teams.select do |game_team|
         game_team.team_id == team_id
       end
+      team_goals = games_by_team.group_by do |game_team|
+        game_team.goals
+      end
     end
 
 
