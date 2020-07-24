@@ -128,19 +128,8 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_display_favorite_opponent
-    skip
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-
-    stats = StatTracker.from_csv(locations)
-    assert_equal "DC United", stats.favorite_opponent(18)
+    # skip
+    assert_equal "DC United", @stat_tracker.favorite_opponent(18)
   end
 
   def test_it_can_display_rival
