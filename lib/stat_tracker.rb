@@ -483,9 +483,8 @@ class StatTracker
           team_accuracy[team] = (goals.to_f / shots)
         end
         worst_team = team_accuracy.min_by {|team_id, accuracy| accuracy}
-        
+        @teams.find {|team| team.team_id == worst_team[0]}.teamname
       end
-    end
 
 
    #========== HELPER METHODS ==========
@@ -512,7 +511,4 @@ class StatTracker
       team.team_id == worst_team[0]
     end.teamname
   end
-
-
-
 end
