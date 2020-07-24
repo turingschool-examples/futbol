@@ -8,6 +8,7 @@ class LeagueStatistics
     @games_played_by_id = Hash.new{ |hash, key| hash[key] = 0 }
     @average_goals_by_id = Hash.new{}
     @goals_by_away_id = Hash.new{ |hash, key| hash[key] = 0 }
+    @goals_by_home_id = Hash.new{ |hash, key| hash[key] = 0 }
 
   end
 
@@ -81,5 +82,26 @@ class LeagueStatistics
       end
     end
     @goals_by_away_id
+  end
+
+  def goals_by_home_id
+    all_game_teams.each do |game_team|
+      if game_team.hoa == "home"
+        @goals_by_home_id[game_team.team_id] += game_team.goals
+      end
+    end
+    @goals_by_home_id
+  end
+
+  def goals_by_hoa_id_suite
+    goals_by_home_id
+    goals_by_away_id
+    get_team_name_by_id
+  end
+
+  def highest_scoring_visitor
+    goals_by_hoa_id_suite
+    highest_scorer_away = @goals_by_away_id.invert.max[1]
+    @team_name_by_id[highest_scorer_away]
   end
 end
