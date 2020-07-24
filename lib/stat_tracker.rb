@@ -443,6 +443,17 @@ class StatTracker
      games_per_season_per_team = game_teams_in_season.group_by do |game| ##Returns hash of team_id => game_teams
        game.team_id
      end
+
+     team_accuracy = Hash.new(0)
+      games_per_season_per_team.each do |team, games|
+        shots = 0
+        goals = 0
+      games.each do |game|
+        shots = games.sum {|game| game.shots}
+        goals = games.sum {|game| game.goals}
+      end
+        team_accuracy[team] = (goals.to_f / shots)
+      end
   end
 
 
