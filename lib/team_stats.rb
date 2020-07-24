@@ -43,4 +43,12 @@ class TeamStats < Stats
     total_games = team_wins + team_losses + team_ties
     (team_wins.to_f / total_games).round(2)
   end
+
+  def most_goals_scored(team_id)
+    team = @game_teams.find_all {|game| game.team_id == team_id}
+    x = team.max_by do |game|
+      game.goals
+    end
+    x.goals
+  end
 end
