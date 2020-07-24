@@ -459,9 +459,6 @@ class StatTracker
     end
 
 
-
-
-
    #========== HELPER METHODS ==========
   #1 ======= Create a <games_by_season> hash with a season => games pair, from games class.
   def games_by_season
