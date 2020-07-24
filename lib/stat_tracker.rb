@@ -163,18 +163,13 @@ class StatTracker
   end
 
   def favorite_opponent(id)
-
+    number = @game_manager.favorite_opponent(id)
+    @team_manager.teams_array.select{ |team| team.team_id == number}[0].team_name
   end
 
   def rival(id)
-    self.rival1(id)
-    games_played_against = @teams2.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
-    self.rival2(id)
-    games_won_against = @teams1.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
-    hash1 = games_won_against.merge(games_played_against){ |k, a_value, b_value| a_value .to_f / b_value.to_f}
-    hash1.delete("14")
-    team_final = hash1.max_by{|k,v| v}[0]
-    @teams_array.select{ |row| row.team_id == team_final}[0].team_name
+    number = @game_manager.rival(id)
+    @team_manager.teams_array.select{ |team| team.team_id == number}[0].team_name
   end
 
   def count_of_teams
@@ -221,4 +216,4 @@ end
 # }
 #
 # stats = StatTracker.from_csv(locations)
-# p stats.fewest_goals_scored(18)
+# p stats.rival(18)

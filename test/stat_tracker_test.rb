@@ -133,19 +133,8 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_display_rival
-    skip
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-
-    stats = StatTracker.from_csv(locations)
-    assert_equal "LA Galaxy", stats.rival(18)
+    # skip
+    assert_equal "LA Galaxy", @stat_tracker.rival(18)
   end
 
   def test_it_can_get_lowest_scoring_home_team
