@@ -67,8 +67,7 @@ class StatTracker
   end
 
   def favorite_opponent(id)
-    self.best_season(id)
-    self.fav_opp2(id)
+
   end
 
   def rival(id)
