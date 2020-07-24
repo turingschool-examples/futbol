@@ -29,23 +29,20 @@ class GameManager
     @all_goals_min.min
   end
 
-  #
-  # def count_of_games_by_season
-  #   @games_array.reduce(Hash.new{|hash, key| hash[key] = []}) do |result, game|
-  #     game.each do |season|
-  #       result[game.season] << game
-  #     end
-  #     result
-  #   end
-  #   # @games_array.each do |game|
-    #   seasons[game.season] << game
-    # end
-    # season_count_hash = {}
-    # seasons.each do |season_item|
-    #   season_count_hash[season_item.season] = season_item.count
-    #   require "pry"; binding.pry
-    # end
-    # season_count_hash
+  def create_games_by_season_array
+    games_by_season = {}
+    @games_array.each do |game|
+      games_by_season[game.season] = []
+    end
+    @games_array.each do |game|
+      games_by_season[game.season]<< game.game_id
+    end
+    games_by_season
+  end
+
+  def count_of_games_by_season(games_by_season)
+    games_by_season.each { |k, v| games_by_season[k] = v.count}
+  end
 
 # def away_team_average_goals(away_team_id)
 #     away_teams_by_id = @games.find_all do |game|
