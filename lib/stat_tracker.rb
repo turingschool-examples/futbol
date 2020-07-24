@@ -468,7 +468,6 @@ class StatTracker
       end
       most_goals = team_goals.max_by {|goals, game_team| goals}
       most_goals[0]
-      end
     end
 
 
