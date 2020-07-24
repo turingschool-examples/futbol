@@ -35,4 +35,12 @@ class TeamStats < Stats
     end
     team_games_grouped_by_season.min_by {|_, win_percentage| win_percentage}.first
   end
+
+  def average_win_percentage(team_id)
+    team_wins = @game_teams.find_all {|game| game.team_id == team_id && game.result == "WIN"}.count
+    team_losses = @game_teams.find_all {|game| game.team_id == team_id && game.result == "LOSS"}.count
+    team_ties = @game_teams.find_all {|game| game.team_id == team_id && game.result == "TIE"}.count
+    total_games = team_wins + team_losses + team_ties
+    (team_wins.to_f / total_games).round(2)
+  end
 end
