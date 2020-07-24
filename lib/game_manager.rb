@@ -29,6 +29,21 @@ class GameManager
     @all_goals_min.min
   end
 
+  def create_games_by_season_array
+    games_by_season = {}
+    @games_array.each do |game|
+      games_by_season[game.season] = []
+    end
+    @games_array.each do |game|
+      games_by_season[game.season]<< game.game_id
+    end
+    games_by_season
+  end
+
+  def count_of_games_by_season(games_by_season)
+    games_by_season.each { |k, v| games_by_season[k] = v.count}
+  end
+  
   def best_season(id)
     @all_games = @games_array.select do |row| row.away_team_id == "#{id}" || row.home_team_id == "#{id}"
     end
