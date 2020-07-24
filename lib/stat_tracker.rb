@@ -495,6 +495,10 @@ class StatTracker
     opponents.uniq
   end
 
+  def all_games_played_by(team_id)
+
+  end
+
   def find_team_name(team_id)
     @teams.find do |team|
       team.team_id == team_id

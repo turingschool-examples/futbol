@@ -174,5 +174,11 @@ class StatTrackerTest < MiniTest::Test
 
   end
 
+  def test_it_can_find_all_games_played_by_team
+    assert_equal Array, @stat_tracker.all_games_played_by("18").class
+    assert_equal 45, @stat_tracker.all_games_played_by("18").count
+
+  end
+
 
 end
