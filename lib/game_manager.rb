@@ -30,11 +30,11 @@ class GameManager
   end
 
   def best_season(id)
-    all_games = @games_array.select do |row| row.away_team_id == "#{id}" || row.home_team_id == "#{id}"
+    @all_games = @games_array.select do |row| row.away_team_id == "#{id}" || row.home_team_id == "#{id}"
     end
-    @away_wins = all_games.select do |row| row.away_team_id == "#{id}" && row.away_goals > row.home_goals
+    @away_wins = @all_games.select do |row| row.away_team_id == "#{id}" && row.away_goals > row.home_goals
     end
-    @home_wins = all_games.select do |row| row.home_team_id == "#{id}" && row.away_goals < row.home_goals
+    @home_wins = @all_games.select do |row| row.home_team_id == "#{id}" && row.away_goals < row.home_goals
     end
     @seasons = (@away_wins + @home_wins).map{ |x| x.season}
     freq = @seasons.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
@@ -48,14 +48,25 @@ class GameManager
   end
 
   def average_win_percentage(id)
-    all_games = @games_array.select do |row| row.away_team_id == "#{id}" || row.home_team_id == "#{id}"
+    @all_games = @games_array.select do |row| row.away_team_id == "#{id}" || row.home_team_id == "#{id}"
     end
-    @away_wins = all_games.select do |row| row.away_team_id == "#{id}" && row.away_goals > row.home_goals
+    @away_wins = @all_games.select do |row| row.away_team_id == "#{id}" && row.away_goals > row.home_goals
     end
-    @home_wins = all_games.select do |row| row.home_team_id == "#{id}" && row.away_goals < row.home_goals
+    @home_wins = @all_games.select do |row| row.home_team_id == "#{id}" && row.away_goals < row.home_goals
     end
     @all_wins = (@away_wins + @home_wins)
-    (@all_wins.length.to_f/all_games.length.to_f).round(2)
+    (@all_wins.length.to_f/@all_games.length.to_f).round(2)
+  end
+
+  def most_goals_scored(id)
+    self.average_win_percentage(id)
+    @away = @away_wins.map do |game|
+      game.away_goals
+    end
+    @home = @home_wins.map do |game|
+      game.home_goals
+    end
+    (@away + @home).sort[-1]
   end
 
   #
