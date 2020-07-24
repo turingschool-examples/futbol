@@ -84,6 +84,24 @@ class GameManager
     goals.min
   end
 
+  def favorite_opponent(id)
+   self.best_season(id)
+   teams = []
+   @all_games.select do |rows|
+     if rows.home_team_id == "#{id}"
+       if rows.away_goals > rows.home_goals
+         teams << rows.away_team_id
+       end
+     elsif rows.away_team_id == "#{id}"
+       if rows.away_goals == rows.home_goals
+         teams << rows.home_team_id
+       end
+     end
+   end
+   freq = teams.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+   @numbs = teams.min_by { |v| freq[v] }
+ end
+
   #
   # def count_of_games_by_season
   #   @games_array.reduce(Hash.new{|hash, key| hash[key] = []}) do |result, game|
