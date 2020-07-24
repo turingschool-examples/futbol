@@ -48,13 +48,6 @@ class StatTracker
     output.away_goals + output.home_goals
   end
 
-#   def total_games
-#     games = []
-#     @game_teams.map do |game|
-#       games << game.result
-#     end
-#   end
-
   def lowest_total_score
     output = @games.min_by do |game|
       game.away_goals + game.home_goals
@@ -97,11 +90,7 @@ class StatTracker
     home_wins = @game_teams.select do |game|
       game.result == "WIN" && game.hoa == "home"
     end
-    (home_wins.count / home_games.count.to_f).round(2) ##Nico. Corrected code so it returns .44 as per spec harness instead of .43. Left original code commented below.
-    # total_home_wins = @games.select do |game|
-    #   game.home_goals > game.away_goals
-    # end
-    # (total_home_wins.length.to_f / @games.length).round(2)
+    (home_wins.count / home_games.count.to_f).round(2)
   end
 
   def percentage_visitor_wins
@@ -456,6 +445,18 @@ class StatTracker
       end
       best_team = team_accuracy.max_by {|team_id, accuracy| accuracy}
       @teams.find {|team| team.team_id == best_team[0]}.teamname
+    end
+
+    #========== Most goals scored ==========
+    def most_goals_scored(team_id)
+      games_by_team = @game_teams.select do |game_team| #Returns Array of game teams for given team_id
+        game_team.team_id == team_id
+      end
+      team_goals = games_by_team.group_by do |game_team| #Returns hash of {goals => game_teams}
+        game_team.goals
+      end
+      most_goals = team_goals.max_by {|goals, game_team| goals} #Sorts by highest goals
+      most_goals[0]
     end
 
     #========== Fewest goals scored ==========

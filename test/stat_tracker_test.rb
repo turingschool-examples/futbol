@@ -152,15 +152,19 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Real Salt Lake", @stat_tracker.most_accurate_team("20132014")
     assert_equal "Toronto FC", @stat_tracker.most_accurate_team("20142015")
   end
-
-  def test_it_can_find_fewest_goals_scored_for_team
-
-    assert_equal 0, @stat_tracker.fewest_goals_scored("18")
-  end
-
+  
   def test_it_can_find_least_accurate_team_by_season
 
     assert_equal "New York City FC", @stat_tracker.least_accurate_team("20132014")
     assert_equal "Columbus Crew SC", @stat_tracker.least_accurate_team("20142015")
+  end
+  
+  def test_it_can_find_most_goals_scored_for_team
+    
+    assert_equal 7, @stat_tracker.most_goals_scored("18")
+
+  def test_it_can_find_fewest_goals_scored_for_team
+
+    assert_equal 0, @stat_tracker.fewest_goals_scored("18")
   end
 end
