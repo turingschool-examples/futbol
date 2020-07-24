@@ -458,6 +458,13 @@ class StatTracker
       @teams.find {|team| team.team_id == best_team[0]}.teamname
     end
 
+    #========== Most goals scored ==========
+    def most_goals_scored(team_id)
+      games_by_team = @game_teams.select do |game_team|
+        game_team.team_id == team_id
+      end
+    end
+
 
    #========== HELPER METHODS ==========
   #1 ======= Create a <games_by_season> hash with a season => games pair, from games class.
