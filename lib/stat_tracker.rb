@@ -466,6 +466,9 @@ class StatTracker
       team_goals = games_by_team.group_by do |game_team|
         game_team.goals
       end
+      most_goals = team_goals.max_by {|goals, game_team| goals}
+      most_goals[0]
+      end
     end
 
 
