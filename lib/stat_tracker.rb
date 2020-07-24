@@ -482,6 +482,9 @@ class StatTracker
         end
           team_accuracy[team] = (goals.to_f / shots)
         end
+        worst_team = team_accuracy.min_by {|team_id, accuracy| accuracy}
+        
+      end
     end
 
 
