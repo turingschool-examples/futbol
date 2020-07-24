@@ -141,4 +141,3 @@ class StatTrackerTest < MiniTest::Test
     skip
     assert_equal "Utah Royals FC", @stat_tracker.lowest_home_team
   end
-end

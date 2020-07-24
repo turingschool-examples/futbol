@@ -10,6 +10,10 @@ class TeamManager
     end
   end
 
+  def size
+    @teams_array.size 
+  end
+  
   def team_info(id)
     hash = {}
     team = @teams_array.select do |team| team.team_id == "#{id}"
