@@ -88,7 +88,37 @@ class StatTracker
     @league_stats.lowest_scoring_home_team
   end
 #team stats
+  def team_info(team_id)
+    @team_stats.team_info(team_id)
+  end
 
+  def best_season(team_id)
+    @team_stats.best_season(team_id)
+  end
+
+  def worst_season(team_id)
+    @team_stats.worst_season(team_id)
+  end
+
+  def average_win_percentage(team_id)
+    @team_stats.average_win_percentage(team_id)
+  end
+
+  def most_goals_scored(team_id)
+    @team_stats.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    @team_stats.fewest_goals_scored(team_id)
+  end
+
+  def favorite_opponent(team_id)
+    @team_stats.favorite_opponent(team_id)
+  end
+
+  def rival(team_id)
+    @team_stats.rival(team_id)
+  end
 #season stats
 
   def gather_season_games(season_id)
