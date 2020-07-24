@@ -484,10 +484,6 @@ class StatTracker
   end
 
   def opponents(team_id)
-
-  end
-
-  def favorite_opponent(team_id)
     opponents = []
     @games.each do |game|
       if game.away_team_id == team_id
@@ -496,6 +492,10 @@ class StatTracker
         opponents << game.away_team_id
       end
     end
+    opponents.uniq
+  end
+
+  def favorite_opponent(team_id)
    #  team_id_of_fav_opponent = opponents.uniq.min_by do |opponent|
    #    average_win_percentage(opponent)
    # end

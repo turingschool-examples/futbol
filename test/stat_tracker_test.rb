@@ -161,7 +161,7 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_can_make_a_hash_with_opponents
 
-    expected = ["7"]
+    expected = ["3", "6", "5", "17", "16", "9", "8", "30", "26", "19", "24", "2", "15", "20", "14", "28", "4", "21", "25", "13", "10", "29", "52", "54", "1", "12", "23", "22", "7", "27", "53"]
 
     assert_equal expected, @stat_tracker.opponents("18")
   end
