@@ -483,6 +483,8 @@ class StatTracker
     end.teamname
   end
 
-
+  def favorite_opponent(team_id)
+    
+  end
 
 end

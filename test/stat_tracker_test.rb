@@ -155,7 +155,7 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_can_identify_favorite_opponent
 
-  assert_equal "DC United", @stat_tracker.favorite_opponent
+  assert_equal "DC United", @stat_tracker.favorite_opponent("18")
 
   end
 end
