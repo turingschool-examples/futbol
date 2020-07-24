@@ -118,19 +118,8 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_display_most_goals_scored
-    skip
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-
-    stats = StatTracker.from_csv(locations)
-    assert_equal "7", stats.most_goals_scored(18)
+    # skip
+    assert_equal "7", @stat_tracker.most_goals_scored(18)
   end
 
   def test_it_can_display_fewest_goals_scored
