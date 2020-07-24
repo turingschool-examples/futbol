@@ -43,6 +43,79 @@ class GameManager
   def count_of_games_by_season(games_by_season)
     games_by_season.each { |k, v| games_by_season[k] = v.count}
   end
+  
+  def best_season(id)
+    @all_games = @games_array.select do |row| row.away_team_id == "#{id}" || row.home_team_id == "#{id}"
+    end
+    @away_wins = @all_games.select do |row| row.away_team_id == "#{id}" && row.away_goals > row.home_goals
+    end
+    @home_wins = @all_games.select do |row| row.home_team_id == "#{id}" && row.away_goals < row.home_goals
+    end
+    @seasons = (@away_wins + @home_wins).map{ |x| x.season}
+    freq = @seasons.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+    @seasons.max_by { |v| freq[v] }
+  end
+
+  def worst_season(id)
+    self.best_season(id)
+    freq = @seasons.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+    @seasons.min_by { |v| freq[v] }
+  end
+
+  def average_win_percentage(id)
+    @all_games = @games_array.select do |row| row.away_team_id == "#{id}" || row.home_team_id == "#{id}"
+    end
+    @away_wins = @all_games.select do |row| row.away_team_id == "#{id}" && row.away_goals > row.home_goals
+    end
+    @home_wins = @all_games.select do |row| row.home_team_id == "#{id}" && row.away_goals < row.home_goals
+    end
+    @all_wins = (@away_wins + @home_wins)
+    (@all_wins.length.to_f/@all_games.length.to_f).round(2)
+  end
+
+  def most_goals_scored(id)
+    self.average_win_percentage(id)
+    @away = @away_wins.map do |game|
+      game.away_goals
+    end
+    @home = @home_wins.map do |game|
+      game.home_goals
+    end
+    (@away + @home).sort[-1]
+  end
+
+  def fewest_goals_scored(id)
+    self.average_win_percentage(id)
+    @all_games = @games_array.select do |row| row.away_team_id == "#{id}" || row.home_team_id == "#{id}"
+    end
+    goals = []
+    @all_games.each do |game|
+      if game.home_team_id == "#{id}"
+        goals << game.home_goals
+      elsif game.away_team_id == "#{id}"
+        goals << game.away_goals
+      end
+    end
+    goals.min
+  end
+
+  #
+  # def count_of_games_by_season
+  #   @games_array.reduce(Hash.new{|hash, key| hash[key] = []}) do |result, game|
+  #     game.each do |season|
+  #       result[game.season] << game
+  #     end
+  #     result
+  #   end
+  #   # @games_array.each do |game|
+    #   seasons[game.season] << game
+    # end
+    # season_count_hash = {}
+    # seasons.each do |season_item|
+    #   season_count_hash[season_item.season] = season_item.count
+    #   require "pry"; binding.pry
+    # end
+    # season_count_hash
 
 # def away_team_average_goals(away_team_id)
 #     away_teams_by_id = @games.find_all do |game|

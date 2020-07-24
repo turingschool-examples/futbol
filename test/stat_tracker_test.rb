@@ -20,10 +20,12 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_count_teams
+    skip
     assert_equal 32, @stat_tracker.count_of_teams
   end
 
   def test_it_can_best_offense_team
+    skip
     assert_equal "Reign FC", @stat_tracker.best_offense
 
   end
@@ -46,21 +48,25 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_get_lowest_scoring_visitor_team
     skip
     assert_equal "San Jose Earthquakes", @stat_tracker.lowest_visitor_team
-
+  end
 
   def test_highest_scores
+    skip
     assert_equal 11, @stat_tracker.highest_total_score
   end
 
   def test_lowest_scores
+    skip
     assert_equal 0, @stat_tracker.lowest_total_score
   end
 
   def test_percentage_home_wins
+    skip
     assert_equal 0.44, @stat_tracker.percentage_home_wins
   end
 
   def test_percentage_visitor_wins
+    skip
     assert_equal 0.36, @stat_tracker.percentage_visitor_wins
   end
 
@@ -69,7 +75,20 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 0.20, @stat_tracker.percentage_ties
   end
 
+  def test_it_can_display_team_info
+    expected = {
+      "team_id"=>"18",
+      "franchise_id"=>"34",
+      "team_name"=>"Minnesota United FC",
+      "abbreviation"=>"MIN",
+      "link"=>"/api/v1/teams/18"
+    }
+
+    assert_equal expected, @stat_tracker.team_info(18)
+  end
+
   def test_count_of_games_by_season
+    skip
     expected = {
                 "20122013"=>806,
                 "20162017"=>1317,
@@ -81,84 +100,35 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
-<<<<<<< HEAD
+
   def test_it_can_display_best_season
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-
-    stats = StatTracker.from_csv(locations)
-    assert_equal "20132014", stats.best_season(6)
+    # skip
+    assert_equal "20132014", @stat_tracker.best_season(6)
 
   end
 
   def test_it_can_display_worst_season
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-
-    stats = StatTracker.from_csv(locations)
-    assert_equal "20142015", stats.worst_season(6)
+    # skip
+    assert_equal "20142015", @stat_tracker.worst_season(6)
   end
 
   def test_it_can_display_average_win_percentage
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-
-    stats = StatTracker.from_csv(locations)
-    assert_equal 0.49, stats.average_win_percentage(6)
+    # skip
+    assert_equal 0.49, @stat_tracker.average_win_percentage(6)
   end
 
   def test_it_can_display_most_goals_scored
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-
-    stats = StatTracker.from_csv(locations)
-    assert_equal "7", stats.most_goals_scored(18)
+    # skip
+    assert_equal "7", @stat_tracker.most_goals_scored(18)
   end
 
   def test_it_can_display_fewest_goals_scored
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-
-    stats = StatTracker.from_csv(locations)
-    assert_equal "0", stats.fewest_goals_scored(18)
+    # skip
+    assert_equal "0", @stat_tracker.fewest_goals_scored(18)
   end
 
   def test_it_can_display_favorite_opponent
+    skip
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams.csv'
@@ -189,10 +159,8 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "LA Galaxy", stats.rival(18)
   end
 
-=======
   def test_it_can_get_lowest_scoring_home_team
     skip
     assert_equal "Utah Royals FC", @stat_tracker.lowest_home_team
   end
->>>>>>> 0956c1bba355c9acf379c7070f33ebd491e38f8f
 end
