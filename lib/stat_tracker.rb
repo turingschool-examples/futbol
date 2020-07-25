@@ -483,16 +483,14 @@ class StatTracker
     end.teamname
   end
 
+
   def opponents(team_id)
-    opponents = []
+    opponents = Hash.new {|h,k| h[k] = []}
     @games.each do |game|
-      if game.away_team_id == team_id
-        opponents << game.home_team_id
-      else game.home_team_id == team_id
-        opponents << game.away_team_id
-      end
+      opponents[game.home_team_id] << game if game.away_team_id == team_id
+      opponents[game.away_team_id] << game if game.home_team_id == team_id
     end
-    opponents.uniq
+    opponents
   end
 
   def all_games_played_by(team_id)
@@ -507,19 +505,26 @@ class StatTracker
     end.teamname
   end
 
-  # def favorite_opponent(team_id)
-  #   # result = {}
-  #   opponents(team_id).group_by do |opponent|
-  #     @teams.eac
-  #     require "pry"; binding.pry
-  #
-  #   end
-  #  #  team_id_of_fav_opponent = opponents.uniq.min_by do |opponent|
-  #  #    average_win_percentage(opponent)
-  #  # end
-  #  # x = @teams.find do |team|
-  #  #   team.team_id == team_id_of_fav_opponent
-  #  # end.teamname
-  # end
+  def favorite_opponent(team_id)
+    opps_hash = opponents(team_id)
+    total_games_played_by_team
+    # require "pry"; binding.pry
+    # all_games_played_by(team_id)
+    # .reduce(Hash.new {|h,k| h[k] = []}) do |result, game|
+    #     result[(game.home_team_id || game.away_team_id) != team_id] << game if (game.home_team_id || game.away_team_id == game.home_team_id ||
+    #       result[id] << game
+    #       result
+    #     end
+    #     result
+    #   end
+    # end
+    #How many times did I win against this opponent
+
+    # How many times did I play against this opponent
+
+
+  end
+
+
 
 end

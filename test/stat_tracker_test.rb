@@ -154,16 +154,17 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_identify_favorite_opponent
-    skip
+    # skip
   assert_equal "DC United", @stat_tracker.favorite_opponent("18")
 
   end
 
-  def test_it_can_make_a_hash_with_opponents
+  def test_it_can_find_all_opponents
+    assert_equal 31, @stat_tracker.opponents("18").count
+    assert_equal Hash, @stat_tracker.opponents("18").class
 
-    expected = ["3", "6", "5", "17", "16", "9", "8", "30", "26", "19", "24", "2", "15", "20", "14", "28", "4", "21", "25", "13", "10", "29", "52", "54", "1", "12", "23", "22", "7", "27", "53"]
-
-    assert_equal expected, @stat_tracker.opponents("18")
+    this_hash = @stat_tracker.opponents("18")
+    assert_equal Games, this_hash.values[0][0].class
   end
 
   def test_it_can_find_team_name
@@ -177,9 +178,13 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_find_all_games_played_by_team
     assert_equal Array, @stat_tracker.all_games_played_by("18").class
     assert_equal 257, @stat_tracker.all_games_played_by("18").count
+    assert_equal Games, @stat_tracker.all_games_played_by("18")[7].class
     assert_equal 253, @stat_tracker.all_games_played_by("6").count
     assert_equal Games, @stat_tracker.all_games_played_by("6")[0].class
+
   end
+
+
 
 
 end
