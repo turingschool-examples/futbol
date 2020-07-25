@@ -163,8 +163,14 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 31, @stat_tracker.opponents("18").count
     assert_equal Hash, @stat_tracker.opponents("18").class
 
-    this_hash = @stat_tracker.opponents("18")
-    assert_equal Games, this_hash.values[0][0].class
+    this_hash1 = @stat_tracker.opponents("18")
+    assert_equal Games, this_hash1.values[0][0].class
+
+    assert_equal 30, @stat_tracker.opponents("54").count
+    assert_equal Hash, @stat_tracker.opponents("54").class
+
+    this_hash2 = @stat_tracker.opponents("54")
+    assert_equal Games, this_hash2.values[0][0].class
   end
 
   def test_it_can_find_team_name

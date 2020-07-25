@@ -506,8 +506,7 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
-    opps_hash = opponents(team_id)
-    total_games_played_by_team
+
     # require "pry"; binding.pry
     # all_games_played_by(team_id)
     # .reduce(Hash.new {|h,k| h[k] = []}) do |result, game|
