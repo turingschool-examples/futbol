@@ -10,6 +10,4 @@ def initialize(team_path)
     end
 end
 
-
-
 end

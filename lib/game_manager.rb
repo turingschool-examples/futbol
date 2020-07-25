@@ -66,8 +66,8 @@ class GameManager
     @games_array.each do |game|
       season_goals[game.season] << game.home_goals.to_i
       season_goals[game.season] << game.away_goals.to_i
-      end
-      season_goals
+    end
+    season_goals
   end
 
   def average_goals_by_season(season_goals)
@@ -77,7 +77,4 @@ class GameManager
     season_goals
   end
 
-
-
-
-  end
+end
