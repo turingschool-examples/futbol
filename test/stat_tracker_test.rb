@@ -41,9 +41,9 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "San Jose Earthquakes", @stat_tracker.lowest_visitor_team
   end
 
-  # def test_it_can_get_highest_scoring_home_team
-  #   assert_equal "Reign FC", @stat_tracker.highest_home_team
-  # end
+  def test_it_can_get_highest_scoring_home_team
+    assert_equal "Reign FC", @stat_tracker.highest_home_team
+  end
 end
 
 # =======  JOHN'S CODE BEING WORKED ON  ==========

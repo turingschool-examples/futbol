@@ -79,10 +79,10 @@ class StatTracker
     @team_manager.find_by_id(team).team_name
   end
 
-  # def highest_home_team
-  #   team = @game_teams_manager.highest_home_team.first
-  #   @team_manager.find_by_id(team).team_name
-  # end
+  def highest_home_team
+    team = @game_teams_manager.highest_home_team.first
+    @team_manager.find_by_id(team).team_name
+  end
 end
 
     # =======  JOHN'S CODE BEING WORKED ON  ==========
