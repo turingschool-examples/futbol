@@ -1,4 +1,4 @@
-require './lib/game_teams'
+require_relative '../lib/game_teams'
 
 
 

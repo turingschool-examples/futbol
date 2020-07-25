@@ -1,4 +1,4 @@
-require './lib/team'
+require_relative '../lib/team'
 
 class TeamManager
   attr_reader :teams_array
