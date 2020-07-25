@@ -44,22 +44,18 @@ class GameManager
     games_by_season.each { |k, v| games_by_season[k] = v.count}
   end
 
-# def away_team_average_goals(away_team_id)
-#     away_teams_by_id = @games.find_all do |game|
-#       game.away_team_id.to_i == away_team_id
-#    end
+  def collect_all_goals
+    total_goals = []
+    @games_array.each do |game|
+      total_goals << game.away_goals.to_i
+      total_goals << game.home_goals.to_i
+    end
+    total_goals
+  end
 
-#     total_away_goals = away_teams_by_id.sum do |away_teams|
-#       away_teams.away_goals.to_i
-#     end
-#     (total_away_goals.to_f / away_teams_by_id.size).round(2)
-#   end
-
-#     def away_teams_sort_by_average_goal
-#       Games.all.sort_by do |game|
-#         away_team_average_goals(game.away_team_id.to_i)
-#       end
-#     end
+  def average_goals_per_game(total_goals)
+    (total_goals.sum.to_f/(total_goals.size/2)).round(2)
+  end
 
 
   end

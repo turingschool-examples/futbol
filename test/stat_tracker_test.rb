@@ -79,118 +79,23 @@ class StatTrackerTest < MiniTest::Test
       }
       assert_equal expected, @stat_tracker.count_of_games_by_season
     end
-    #
-    # def test_it_can_display_best_season
-    #   game_path = './data/games.csv'
-    #   team_path = './data/teams.csv'
-    #   game_teams_path = './data/game_teams.csv'
-    #
-    #   locations = {
-    #     games: game_path,
-    #     teams: team_path,
-    #     game_teams: game_teams_path
-    #   }
-    #
-    #   stats = StatTracker.from_csv(locations)
-    #   assert_equal "20132014", stats.best_season(6)
-    #
-    # end
-    #
-    # def test_it_can_display_worst_season
-    #   game_path = './data/games.csv'
-    #   team_path = './data/teams.csv'
-    #   game_teams_path = './data/game_teams.csv'
-    #
-    #   locations = {
-    #     games: game_path,
-    #     teams: team_path,
-    #     game_teams: game_teams_path
-    #   }
-    #
-    #   stats = StatTracker.from_csv(locations)
-    #   assert_equal "20142015", stats.worst_season(6)
-    # end
-    #
-    # def test_it_can_display_average_win_percentage
-    #   game_path = './data/games.csv'
-    #   team_path = './data/teams.csv'
-    #   game_teams_path = './data/game_teams.csv'
-    #
-    #   locations = {
-    #     games: game_path,
-    #     teams: team_path,
-    #     game_teams: game_teams_path
-    #   }
-    #
-    #   stats = StatTracker.from_csv(locations)
-    #   assert_equal 0.49, stats.average_win_percentage(6)
-    # end
-    #
-    # def test_it_can_display_most_goals_scored
-    #   game_path = './data/games.csv'
-    #   team_path = './data/teams.csv'
-    #   game_teams_path = './data/game_teams.csv'
-    #
-    #   locations = {
-    #     games: game_path,
-    #     teams: team_path,
-    #     game_teams: game_teams_path
-    #   }
-    #
-    #   stats = StatTracker.from_csv(locations)
-    #   assert_equal "7", stats.most_goals_scored(18)
-    # end
-    #
-    # def test_it_can_display_fewest_goals_scored
-    #   game_path = './data/games.csv'
-    #   team_path = './data/teams.csv'
-    #   game_teams_path = './data/game_teams.csv'
-    #
-    #   locations = {
-    #     games: game_path,
-    #     teams: team_path,
-    #     game_teams: game_teams_path
-    #   }
-    #
-    #   stats = StatTracker.from_csv(locations)
-    #   assert_equal "0", stats.fewest_goals_scored(18)
-    # end
-    #
-    # def test_it_can_display_favorite_opponent
-    #   game_path = './data/games.csv'
-    #   team_path = './data/teams.csv'
-    #   game_teams_path = './data/game_teams.csv'
-    #
-    #   locations = {
-    #     games: game_path,
-    #     teams: team_path,
-    #     game_teams: game_teams_path
-    #   }
-    #
-    #   stats = StatTracker.from_csv(locations)
-    #   assert_equal "DC United", stats.favorite_opponent(18)
-    # end
-    #
-    # def test_it_can_display_rival
-    #   skip
-    #   game_path = './data/games.csv'
-    #   team_path = './data/teams.csv'
-    #   game_teams_path = './data/game_teams.csv'
-    #
-    #   locations = {
-    #     games: game_path,
-    #     teams: team_path,
-    #     game_teams: game_teams_path
-    #   }
-    #
-    #   stats = StatTracker.from_csv(locations)
-    #   assert_equal "LA Galaxy", stats.rival(18)
-    # end
-    #
-    #
-    # def test_it_can_get_lowest_scoring_home_team
-    #   skip
-    #   assert_equal "Utah Royals FC", @stat_tracker.lowest_home_team
-    # end
-    #
+
+   def test_average_goals_per_game
+     assert_equal 4.22, @stat_tracker.average_goals_per_game
+   end
+
+   def test_average_goals_per_season
+     skip
+     expected = {
+       "20122013"=>4.12,
+       "20162017"=>4.23,
+       "20142015"=>4.14,
+       "20152016"=>4.16,
+       "20132014"=>4.19,
+       "20172018"=>4.44
+     }
+
+     assert_equal expected, @stat_tracker.average_goals_by_season
+   end
+
   end
