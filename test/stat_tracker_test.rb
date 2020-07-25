@@ -182,6 +182,4 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
   end
 
-
-
 end
