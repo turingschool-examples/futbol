@@ -36,4 +36,7 @@ class GameTeam
     @takeaways = data[14]
   end
 
+  def team_name
+    TeamManager.find_by_id(@team_id)
+  end
 end
