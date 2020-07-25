@@ -1,5 +1,11 @@
 require "./test/test_helper"
-
+# require 'minitest/autorun'
+# require 'minitest/pride'
+# require "./lib/stat_tracker"
+# require "./lib/games"
+# require "./lib/game_teams"
+# require "./lib/teams"
+# require "pry"
 
 class StatTrackerTest < MiniTest::Test
 
@@ -48,8 +54,8 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_can_find_percentage_tie
-     assert_equal 0.20, @stat_tracker.percentage_tie
-   end
+    assert_equal 0.20, @stat_tracker.percentage_tie
+  end
 
   def test_count_games_by_season
      expected = {"20122013" => 806,
@@ -59,16 +65,16 @@ class StatTrackerTest < MiniTest::Test
                  "20132014" => 1323,
                  "20172018" => 1355
                   }
-     assert_equal expected, @stat_tracker.count_of_games_by_season
-   end
+    assert_equal expected, @stat_tracker.count_of_games_by_season
+  end
 
-   def test_count_of_teams
-     assert_equal 32, @stat_tracker.count_of_teams
-   end
+  def test_count_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
 
-   def test_highest_scoring_home_team
-     assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
-   end
+  def test_highest_scoring_home_team
+    assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
+  end
 
 
   def test_it_can_create_an_away_goals_and_team_id_hash
@@ -109,13 +115,12 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "San Jose Earthquakes", @stat_tracker.lowest_scoring_visitor
   end
 
-
-   def test_lowest_scoring_home_team
+  def test_lowest_scoring_home_team
 
     assert_equal "Utah Royals FC" ,@stat_tracker.lowest_scoring_home_team
-   end
+  end
 
-   def test_it_can_return_best_offense
+  def test_it_can_return_best_offense
 
     assert_equal "Reign FC", @stat_tracker.best_offense
   end
@@ -166,5 +171,23 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_find_fewest_goals_scored_for_team
 
     assert_equal 0, @stat_tracker.fewest_goals_scored("18")
+  end
+  
+  def test_best_season
+    assert_equal "20132014", @stat_tracker.best_season("6")
+  end
+
+  def test_worst_season
+    assert_equal "20142015", @stat_tracker.worst_season("6")
+  end
+
+  def test_find_the_fewest_tackles
+   assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
+   assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
+ end
+
+  def test_find_the_most_tackles
+    assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
+    assert_equal "Seattle Sounders FC", @stat_tracker.most_tackles("20142015")
   end
 end
