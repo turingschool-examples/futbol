@@ -161,4 +161,20 @@ end
       end
     end.compact.join
   end
-end
+
+  def most_tackles1(season)
+    array = []
+    @game_teams_manager.game_teams_array.each do |game|
+      if @all_games.include?(game.game_id)
+        array << game
+      end
+    end
+    hash = array.group_by do |game|
+      game.team_id
+    end
+    @all_tackles = hash.each do |k,v| hash[k] = v.map do |game|
+      game.tackles.to_i
+        end.sum
+      end
+    end
+  end

@@ -268,6 +268,14 @@ class StatTracker
     self.most_accurate_team2(season)
   end
 
+  def most_tackles(season)
+    @all_games = @game_manager.winningest_coach(season)
+    self.most_tackles1(season)
+    @numb2 = @all_tackles.sort_by do |key, value| value
+    end[-1].first
+    self.most_accurate_team2(season)
+  end
+
 end
 
 
@@ -282,4 +290,5 @@ end
 # }
 #
 # stats = StatTracker.from_csv(locations)
-# p stats.least_accurate_team("20132014")
+# # "FC Cincinnati"
+# p stats.most_tackles("20132014")
