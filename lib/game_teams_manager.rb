@@ -64,7 +64,6 @@ class GameTeamsManager
   end
 
   def away_games_by_team_id
-
     find_all_away_teams.group_by do |game|
       game.team_id
     end
@@ -89,7 +88,6 @@ class GameTeamsManager
   end
 
   def home_games_by_team_id
-
     find_all_home_teams.group_by do |game|
       game.team_id
     end
