@@ -618,46 +618,61 @@ end
   math += 1
   math.to_s
   worst = worst.first + "#{math}"
+  #I know these last 4 lines look odd
+  #I needed to convert a 4digit season id to a 8 digit id
   end#method
 
+  def fewest_tackles(seasonID)
+   games_in_season = @games.select { |game| game.season == seasonID }
+   game_ids_in_season = games_in_season.map do |game|
+      game.game_id
+    end
 
-  def fewest_tackles(season)
-     season_hash = @games.group_by {|games| games.season}
-     season_hash.delete_if {|k, v| k.nil?}
+    game_teams_in_season = @game_teams.select do |game_team|
+      game_ids_in_season.include?(game_team.game_id)
+    end
 
-     game_ids_by_season = {}
-       season_hash.map do |season, games|
-         game_ids_by_season[season] = games.map {|game| game.game_id}
-       end
-
-
-     games_by_season = {}
-     game_ids_by_season.map do |season, game_ids|
-       season_games = @game_teams.map do |game|
-         if game_ids.include?(game.game_id)
-           game
-         end
-       end
-       games_by_season[season] = season_games
-     end
-
-   season_games = games_by_season.map {|season, games| games}.flatten.compact
-
-   new_hash = Hash.new([])
-   game_ids_by_season.each do |k, v|
-     v.each do |game|
-     new_hash[k] += season_games.select {|season_game| season_game.game_id == game}
-     end
-   end
+    games_per_season_per_team = game_teams_in_season.group_by do |game|
+      game.team_id
+    end
 
    team_tackles = Hash.new(0)
-     new_hash[season].each do |game|
-       team_tackles[game.team_id] += game.tackles
+     games_per_season_per_team.each do |team, games|
+       games.each do |game|
+         team_tackles[game.team_id] += game.tackles
+       end
      end
-   team_tackles.delete_if {|k, v| k.nil? || k.nil?}
 
    fewest = team_tackles.min_by {|k, v| v}
    @teams.find {|team| team.team_id == fewest.first}.teamname
  end#tackle method
+
+ def most_tackles(seasonID)
+  games_in_season = @games.select { |game| game.season == seasonID }
+  game_ids_in_season = games_in_season.map do |game|
+     game.game_id
+   end
+
+   game_teams_in_season = @game_teams.select do |game_team|
+     game_ids_in_season.include?(game_team.game_id)
+   end
+
+   games_per_season_per_team = game_teams_in_season.group_by do |game|
+     game.team_id
+   end
+
+  team_tackles = Hash.new(0)
+    games_per_season_per_team.each do |team, games|
+      games.each do |game|
+        team_tackles[game.team_id] += game.tackles
+      end
+    end
+
+  most = team_tackles.max_by {|k, v| v}
+  @teams.find {|team| team.team_id == most.first}.teamname
+end#tackle method
+
+
+
 
 end#class
