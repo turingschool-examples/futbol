@@ -18,5 +18,4 @@ class Team
     @link = data[5]
 
   end
-
 end
