@@ -59,27 +59,27 @@ class StatTracker
     @team_manager.size
   end
 
-  # def best_offense
-  #   game_team = @game_teams_manager.teams_sort_by_average_goal.last
-  #   @team_manager.find_by_id(game_team.team_id).team_name
-  # end
+  def best_offense
+    game_team = @game_teams_manager.teams_sort_by_average_goal.last
+    @team_manager.find_by_id(game_team.team_id).team_name
+  end
 
   def worst_offense
     game_team = @game_teams_manager.teams_sort_by_average_goal.first
     @team_manager.find_by_id(game_team.team_id).team_name
   end
+
+  def highest_visitor_team
+    team = @game_teams_manager.highest_visitor_team.first
+    @team_manager.find_by_id(team).team_name
+  end
+
 end
 
     # =======  JOHN'S CODE BEING WORKED ON  ==========
     #
     #
-    # def team_average_goals(team_id)
-    #   @game_teams_array.team_average_goals(team_id)
-    # end
     #
-    # def highest_visitor_team
-    #   @game_teams_array.highest_visitor_team
-    # end
     #
     # def highest_home_team
     #   @game_teams_array.highest_home_team

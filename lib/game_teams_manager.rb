@@ -56,28 +56,28 @@ class GameTeamsManager
       team_average_goals(team.team_id)
     end
   end
+
+  def find_all_away_teams
+     @game_teams_array.find_all do |gameteam|
+      gameteam.hoa == "away"
+    end
+  end
+
+  def away_games_by_team_id
+
+    find_all_away_teams.group_by do |game|
+      game.team_id
+    end
+  end
+
+  def highest_visitor_team
+    best_away_team = away_games_by_team_id.max_by do |team_id, gameteam|
+      gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
+    end
+  end
+  
 end
 
-#   def find_all_away_teams
-#      @game_teams_array.find_all do |gameteam|
-#       gameteam.hoa == "away"
-#     end
-#   end
-
-#   def away_games_by_team_id
-
-#     find_all_away_teams.group_by do |game|
-#       game.team_id
-#     end
-#   end
-
-#   def highest_visitor_team
-#     best_away_team = away_games_by_team_id.max_by do |team_id, gameteam|
-#       gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
-#     end.first
-
-#     Team.all.find{|team1| team1.team_id == best_away_team}.teamname
-#   end
 
 #   def lowest_visitor_team
 #     worst_away_team = away_games_by_team_id.min_by do |team_id, gameteam|
