@@ -127,18 +127,26 @@ class StatTracker
     self.most_accurate_team2(season)
   end
 
+  def least_accurate_team(season)
+    @all_games2 = @game_manager.winningest_coach(season)
+    self.most_accurate_team1(season)
+    @numb2 = @all_goals.sort_by do |key, value| value
+    end[0].first
+    self.most_accurate_team2(season)
+  end
+
 end
 
 
-game_path = './data/games.csv'
-team_path = './data/teams.csv'
-game_teams_path = './data/game_teams.csv'
-
-locations = {
-  games: game_path,
-  teams: team_path,
-  game_teams: game_teams_path
-}
-
-stats = StatTracker.from_csv(locations)
-p stats.most_accurate_team("20132014")
+# game_path = './data/games.csv'
+# team_path = './data/teams.csv'
+# game_teams_path = './data/game_teams.csv'
+#
+# locations = {
+#   games: game_path,
+#   teams: team_path,
+#   game_teams: game_teams_path
+# }
+#
+# stats = StatTracker.from_csv(locations)
+# p stats.least_accurate_team("20132014")
