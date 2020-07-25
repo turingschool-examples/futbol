@@ -22,18 +22,18 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_count_teams
     assert_equal 32, @stat_tracker.count_of_teams
   end
-end
 
-  def test_it_can_best_offense_team
-    assert_equal "Reign FC", @stat_tracker.best_offense
+  # def test_it_can_best_offense_team
+  #   assert_equal "Reign FC", @stat_tracker.best_offense
+  # end
+
+  def test_it_can_worst_offense_team
+    assert_equal "Utah Royals FC", @stat_tracker.worst_offense
   end
+end
 
 # =======  JOHN'S CODE BEING WORKED ON  ==========
 #
-#   def test_it_can_worst_offense_team
-#     skip
-#     assert_equal "Utah Royals FC", @stat_tracker.worst_offense
-#   end
 #
 #   def test_it_can_get_highest_scoring_vistor_team
 #     skip

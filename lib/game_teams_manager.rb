@@ -1,17 +1,16 @@
 require './lib/game_teams'
 
 
-
 class GameTeamsManager
 
   attr_reader :game_teams_array
 
-def initialize(game_teams_path)
-  @game_teams_array = []
-    CSV.foreach(game_teams_path, headers: true) do |row|
-      @game_teams_array << GameTeam.new(row)
-    end
-end
+  def initialize(game_teams_path)
+    @game_teams_array = []
+      CSV.foreach(game_teams_path, headers: true) do |row|
+        @game_teams_array << GameTeam.new(row)
+      end
+  end
 
 # def percentage_home_wins
 #     home_games = []
@@ -41,11 +40,10 @@ end
 #     (home_losses.count.to_f/home_games.count.to_f).round(2)
 #   end
 
-  #=========  JOHN'S CODE BEING WORKED ON  =============
   def team_average_goals(team_id)
-    teams_by_id = @game_teams_array.select do |gameteam|
-      gameteam.team_id.to_i == team_id
-    end
+    teams_by_id = @game_teams_array.find_all do |gameteam|
+      gameteam.team_id == team_id
+  end
 
     total_goals = teams_by_id.sum do |team|
       team.goals.to_i
@@ -54,10 +52,11 @@ end
   end
 
   def teams_sort_by_average_goal
-    @game_teams_array.sort_by do |team|
-      team_average_goals(team.team_id.to_i)
+    average = @game_teams_array.sort_by do |team|
+      team_average_goals(team.team_id)
     end
   end
+end
 
 #   def find_all_away_teams
 #      @game_teams_array.find_all do |gameteam|
@@ -115,6 +114,3 @@ end
 #     end.first
 
 #     Team.all.find{|team1| team1.team_id == worst_home_team}.teamname
-#   end
-
-end

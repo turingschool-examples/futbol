@@ -4,6 +4,7 @@ require './lib/team_manager'
 require './lib/game_teams_manager'
 require './lib/modable'
 
+
 class StatTracker
 
   attr_reader :game_manager, :game_teams_manager, :team_manager
@@ -58,12 +59,14 @@ class StatTracker
     @team_manager.size
   end
 
-  def best_offense
-    @game_teams_manager.teams_sort_by_average_goal.last.team_name
-  end
+  # def best_offense
+  #   game_team = @game_teams_manager.teams_sort_by_average_goal.last
+  #   @team_manager.find_by_id(game_team.team_id).team_name
+  # end
 
   def worst_offense
-    @game_teams_manager.teams_sort_by_average_goal.first.team_name
+    game_team = @game_teams_manager.teams_sort_by_average_goal.first
+    @team_manager.find_by_id(game_team.team_id).team_name
   end
 end
 
@@ -162,38 +165,7 @@ end
   #   team_final = hash1.max_by{|k,v| v}[0]
   #   @teams_array.select{ |row| row.team_id == team_final}[0].team_name
   # end
-  #
-  # def count_of_teams
-  #  @teams_array.size
-  # end
-  #
-  # def best_offense
-  #   @game_teams_array.teams_sort_by_average_goal.last.team_name
-  # end
-  #
-  # def worst_offense
-  #   @game_teams_array.teams_sort_by_average_goal.first.team_name
-  # end
-  #
-  # def team_average_goals(team_id)
-  #   @game_teams_array.team_average_goals(team_id)
-  # end
-  #
-  # def highest_visitor_team
-  #   @game_teams_array.highest_visitor_team
-  # end
-  #
-  # def highest_home_team
-  #   @game_teams_array.highest_home_team
-  # end
-  #
-  # def lowest_visitor_team
-  #   @game_teams_array.lowest_visitor_team
-  # end
-  #
-  # def lowest_home_team
-  #   @game_teams_array.lowest_home_team
-  # end
+
 
 
 # game_path = './data/games.csv'
