@@ -74,6 +74,15 @@ class StatTracker
     @team_manager.find_by_id(team).team_name
   end
 
+  def lowest_visitor_team
+    team = @game_teams_manager.lowest_visitor_team.first
+    @team_manager.find_by_id(team).team_name
+  end
+
+  # def highest_home_team
+  #   team = @game_teams_manager.highest_home_team.first
+  #   @team_manager.find_by_id(team).team_name
+  # end
 end
 
     # =======  JOHN'S CODE BEING WORKED ON  ==========
@@ -81,13 +90,7 @@ end
     #
     #
     #
-    # def highest_home_team
-    #   @game_teams_array.highest_home_team
-    # end
     #
-    # def lowest_visitor_team
-    #   @game_teams_array.lowest_visitor_team
-    # end
     #
     # def lowest_home_team
     #   @game_teams_array.lowest_home_team
