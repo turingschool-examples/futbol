@@ -44,6 +44,39 @@ class GameManager
     games_by_season.each { |k, v| games_by_season[k] = v.count}
   end
 
+  def collect_all_goals
+    total_goals = []
+    @games_array.each do |game|
+      total_goals << game.away_goals.to_i
+      total_goals << game.home_goals.to_i
+    end
+    total_goals
+  end
+  
+    def average_goals_per_game(total_goals)
+    (total_goals.sum.to_f/(total_goals.size/2)).round(2)
+  end
+
+  def collect_goals_by_season
+    season_goals = Hash.new { |hash, key| hash[key] = [] }
+    @games_array.each do |game|
+      season_goals[game.season] = []
+      season_goals[game.season] = []
+    end
+    @games_array.each do |game|
+      season_goals[game.season] << game.home_goals.to_i
+      season_goals[game.season] << game.away_goals.to_i
+    end
+    season_goals
+  end
+
+  def average_goals_by_season(season_goals)
+    season_goals.keys.each do |season|
+      season_goals[season] = (season_goals[season].sum.to_f/(season_goals[season].size)*2).round(2)
+    end
+    season_goals
+  end
+
   def best_season(id)
     @all_games = @games_array.select do |row|
       row.away_team_id == "#{id}" || row.home_team_id == "#{id}"
@@ -171,42 +204,6 @@ class GameManager
     game.season == season
   end.map do |game| game.game_id
       end
-  end
+ end
 
-  #
-  # def count_of_games_by_season
-  #   @games_array.reduce(Hash.new{|hash, key| hash[key] = []}) do |result, game|
-  #     game.each do |season|
-  #       result[game.season] << game
-  #     end
-  #     result
-  #   end
-  #   # @games_array.each do |game|
-    #   seasons[game.season] << game
-    # end
-    # season_count_hash = {}
-    # seasons.each do |season_item|
-    #   season_count_hash[season_item.season] = season_item.count
-    #   require "pry"; binding.pry
-    # end
-    # season_count_hash
-
-# def away_team_average_goals(away_team_id)
-#     away_teams_by_id = @games.find_all do |game|
-#       game.away_team_id.to_i == away_team_id
-#    end
-
-#     total_away_goals = away_teams_by_id.sum do |away_teams|
-#       away_teams.away_goals.to_i
-#     end
-#     (total_away_goals.to_f / away_teams_by_id.size).round(2)
-#   end
-
-#     def away_teams_sort_by_average_goal
-#       Games.all.sort_by do |game|
-#         away_team_average_goals(game.away_team_id.to_i)
-#       end
-#     end
-
-
-  end
+end

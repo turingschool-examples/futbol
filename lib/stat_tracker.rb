@@ -56,6 +56,16 @@ class StatTracker
     @game_teams_manager.percentage_ties(home_games, tie_games[:ties])
   end
 
+  def average_goals_per_game
+    total_goals = @game_manager.collect_all_goals
+    @game_manager.average_goals_per_game(total_goals)
+  end
+
+  def average_goals_by_season
+    season_goals = @game_manager.collect_goals_by_season
+    @game_manager.average_goals_by_season(season_goals)
+  end
+
   def team_info(id)
     @team_manager.team_info(id)
   end

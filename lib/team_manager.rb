@@ -8,7 +8,7 @@ class TeamManager
     CSV.foreach(team_path, headers: true) do |row|
         @teams_array << Team.new(row)
     end
-  end
+end
 
   def size
     @teams_array.size

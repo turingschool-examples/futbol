@@ -1,6 +1,5 @@
 require_relative '../lib/game_teams'
 
-
 class GameTeamsManager
 
   attr_reader :game_teams_array
@@ -85,16 +84,7 @@ class GameTeamsManager
       gameteam.hoa == "home"
     end
   end
-      
-  def percentage_home_wins(home_games, home_wins)
-    (home_wins.count.to_f/home_games.count.to_f).round(2)
-  end
-      
-    def percentage_visitor_wins(home_games, home_losses)
-      (home_losses.count.to_f/home_games.count.to_f).round(2)
-    end
-
-  def home_games_by_team_id
+        def home_games_by_team_id
     find_all_home_teams.group_by do |game|
       game.team_id
     end
@@ -112,8 +102,15 @@ class GameTeamsManager
     end
   end
       
-    def percentage_ties(home_games, tie_games)
-      (tie_games.count.to_f/home_games.count.to_f).round(2)
-    end
-end
+  def percentage_home_wins(home_games, home_wins)
+    (home_wins.count.to_f/home_games.count.to_f).round(2)
+  end
+  
+  def percentage_visitor_wins(home_games, home_losses)
+    (home_losses.count.to_f/home_games.count.to_f).round(2)
+  end
 
+  def percentage_ties(home_games, tie_games)
+    (tie_games.count.to_f/home_games.count.to_f).round(2)
+  end
+end
