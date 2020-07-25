@@ -126,12 +126,14 @@ class StatTracker
 
   def favorite_opponent(id)
     number = @game_manager.favorite_opponent(id)
-    @team_manager.teams_array.select{ |team| team.team_id == number}[0].team_name
+    @team_manager.teams_array.select do |team| team.team_id == number
+    end[0].team_name
   end
 
   def rival(id)
     number = @game_manager.rival(id)
-    @team_manager.teams_array.select{ |team| team.team_id == number}[0].team_name
+    @team_manager.teams_array.select do |team| team.team_id == number
+    end[0].team_name
   end
 
   def count_of_teams
@@ -246,21 +248,30 @@ class StatTracker
   def worst_coach(season)
     @all_games1 = @game_manager.worst_coach(season)
     self.worst_coach1(season)
-    @result.sort_by { |key, value| value}[-1].first
+    @result.sort_by do |key, value| value
+    end[-1].first
+  end
+
+  def most_accurate_team(season)
+    @all_games2 = @game_manager.winningest_coach(season)
+    self.most_accurate_team1(season)
+    @numb2 = @all_goals.sort_by do |key, value| value
+    end[-1].first
+    self.most_accurate_team2(season)
   end
 
 end
 
 
-# game_path = './data/games.csv'
-# team_path = './data/teams.csv'
-# game_teams_path = './data/game_teams.csv'
-#
-# locations = {
-#   games: game_path,
-#   teams: team_path,
-#   game_teams: game_teams_path
-# }
-#
-# stats = StatTracker.from_csv(locations)
-# p stats.worst_coach("20142015")
+game_path = './data/games.csv'
+team_path = './data/teams.csv'
+game_teams_path = './data/game_teams.csv'
+
+locations = {
+  games: game_path,
+  teams: team_path,
+  game_teams: game_teams_path
+}
+
+stats = StatTracker.from_csv(locations)
+p stats.most_accurate_team("20132014")

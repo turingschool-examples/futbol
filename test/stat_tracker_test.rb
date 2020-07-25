@@ -160,7 +160,7 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_can_display_most_accurate_team
 
-    assert_equal "Peter Laviolette", @stat_tracker.most_accurate_team("20132014")
-    # assert_equal "Ted Nolan", @stat_tracker.most_accurate_team("20142015")
+    assert_equal "Real Salt Lake", @stat_tracker.most_accurate_team("20132014")
+    assert_equal "Toronto FC", @stat_tracker.most_accurate_team("20142015")
   end
 end
