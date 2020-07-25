@@ -57,14 +57,16 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_best_offense_team
+    skip
     assert_equal "Reign FC", @stat_tracker.best_offense
   end
+
 
   def test_it_can_best_offense_team
     skip
     assert_equal "Reign FC", @stat_tracker.best_offense
-
   end
+
 
   def test_it_can_worst_offense_team
     skip
@@ -72,7 +74,6 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_get_highest_scoring_vistor_team
-    skip
     assert_equal "FC Dallas", @stat_tracker.highest_visitor_team
   end
 
@@ -213,6 +214,6 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
   end
-
 end
+
 

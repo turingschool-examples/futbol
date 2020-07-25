@@ -4,6 +4,7 @@ require_relative '../lib/team_manager'
 require_relative '../lib/game_teams_manager'
 require_relative '../lib/modable'
 
+
 class StatTracker
   include Modable
 
@@ -96,13 +97,21 @@ class StatTracker
   end
 
   def best_offense
-    @game_teams_manager.teams_sort_by_average_goal.last.team_name
+    game_team = @game_teams_manager.teams_sort_by_average_goal.last
+    @team_manager.find_by_id(game_team.team_id).team_name
   end
 
   def worst_offense
-    @game_teams_manager.teams_sort_by_average_goal.first.team_name
+    game_team = @game_teams_manager.teams_sort_by_average_goal.first
+    @team_manager.find_by_id(game_team.team_id).team_name
   end
 
+  def highest_visitor_team
+    team = @game_teams_manager.highest_visitor_team.first
+    @team_manager.find_by_id(team).team_name
+  end
+
+  
   def lowest_home_team
     @game_teams_array.lowest_home_team
   end
@@ -151,20 +160,7 @@ class StatTracker
     end[0].first
     self.most_accurate_team2(season)
   end
-
 end
 
 
-# game_path = './data/games.csv'
-# team_path = './data/teams.csv'
-# game_teams_path = './data/game_teams.csv'
-#
-# locations = {
-#   games: game_path,
-#   teams: team_path,
-#   game_teams: game_teams_path
-# }
-#
-# stats = StatTracker.from_csv(locations)
-# # "FC Cincinnati"
-# p stats.fewest_tackles("20142015")
+
