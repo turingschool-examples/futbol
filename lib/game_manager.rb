@@ -57,5 +57,27 @@ class GameManager
     (total_goals.sum.to_f/(total_goals.size/2)).round(2)
   end
 
+  def collect_goals_by_season
+    season_goals = Hash.new { |hash, key| hash[key] = [] }
+    @games_array.each do |game|
+      season_goals[game.season] = []
+      season_goals[game.season] = []
+    end
+    @games_array.each do |game|
+      season_goals[game.season] << game.home_goals.to_i
+      season_goals[game.season] << game.away_goals.to_i
+      end
+      season_goals
+  end
+
+  def average_goals_by_season(season_goals)
+    season_goals.keys.each do |season|
+      season_goals[season] = (season_goals[season].sum.to_f/(season_goals[season].size)*2).round(2)
+    end
+    season_goals
+  end
+
+
+
 
   end

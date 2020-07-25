@@ -62,6 +62,11 @@ class StatTracker
     @game_manager.average_goals_per_game(total_goals)
   end
 
+  def average_goals_by_season
+    season_goals = @game_manager.collect_goals_by_season
+    @game_manager.average_goals_by_season(season_goals)
+  end
+
 
 
 end
