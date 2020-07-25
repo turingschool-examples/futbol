@@ -83,19 +83,14 @@ class StatTracker
     team = @game_teams_manager.highest_home_team.first
     @team_manager.find_by_id(team).team_name
   end
+
+  def lowest_home_team
+    team = @game_teams_manager.lowest_home_team.first
+    @team_manager.find_by_id(team).team_name
+  end
 end
 
-    # =======  JOHN'S CODE BEING WORKED ON  ==========
-    #
-    #
-    #
-    #
-    #
-    #
-    # def lowest_home_team
-    #   @game_teams_array.lowest_home_team
-    # end
-    # =======  JOHN'S CODE BEING WORKED ON  ==========
+
 
 
 

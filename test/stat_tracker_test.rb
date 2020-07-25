@@ -24,12 +24,10 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_best_offense_team
-    skip
     assert_equal "Reign FC", @stat_tracker.best_offense
   end
 
   def test_it_can_worst_offense_team
-    skip
     assert_equal "Utah Royals FC", @stat_tracker.worst_offense
   end
 
@@ -44,14 +42,13 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_get_highest_scoring_home_team
     assert_equal "Reign FC", @stat_tracker.highest_home_team
   end
+
+  def test_it_can_get_lowest_scoring_home_team
+    assert_equal "Utah Royals FC", @stat_tracker.lowest_home_team
+  end
 end
 
-# =======  JOHN'S CODE BEING WORKED ON  ==========
-#
-#
-#
-#
-# =======  JOHN'S CODE BEING WORKED ON  ==========
+
 #
 
 
@@ -89,9 +86,5 @@ end
 #     assert_equal expected, @stat_tracker.count_of_games_by_season
 #   end
 #
-#   def test_it_can_get_lowest_scoring_home_team
-#     skip
-#     assert_equal "Utah Royals FC", @stat_tracker.lowest_home_team
-#   end
 #   end
 # end

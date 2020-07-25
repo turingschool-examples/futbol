@@ -71,13 +71,13 @@ class GameTeamsManager
   end
 
   def highest_visitor_team
-    best_away_team = away_games_by_team_id.max_by do |team_id, gameteam|
+    away_games_by_team_id.max_by do |team_id, gameteam|
       gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
     end
   end
 
   def lowest_visitor_team
-    worst_away_team = away_games_by_team_id.min_by do |team_id, gameteam|
+    away_games_by_team_id.min_by do |team_id, gameteam|
       gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
     end
   end
@@ -96,19 +96,14 @@ class GameTeamsManager
   end
 
   def highest_home_team
-    best_home_team = home_games_by_team_id.max_by do |team_id, gameteam|
+     home_games_by_team_id.max_by do |team_id, gameteam|
+       gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
+    end
+  end
+
+  def lowest_home_team
+    home_games_by_team_id.min_by do |team_id, gameteam|
       gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
     end
   end
 end
-
-
-
-
-
-#   def lowest_home_team
-#     worst_home_team = home_games_by_team_id.min_by do |team_id, gameteam|
-#       gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
-#     end.first
-
-#     Team.all.find{|team1| team1.team_id == worst_home_team}.teamname
