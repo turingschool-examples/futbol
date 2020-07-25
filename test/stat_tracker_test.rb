@@ -1,4 +1,3 @@
-
 require "./test/test_helper.rb"
 require './lib/stat_tracker'
 
@@ -55,12 +54,12 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_highest_scores
-    # skip
+    skip
     assert_equal 11, @stat_tracker.highest_total_score
   end
 
   def test_lowest_scores
-    # skip
+    skip
     assert_equal 0, @stat_tracker.lowest_total_score
   end
 
@@ -92,7 +91,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_count_of_games_by_season
-    # skip
+    skip
     expected = {
                 "20122013"=>806,
                 "20162017"=>1317,
@@ -122,12 +121,12 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_can_display_most_goals_scored
     # skip
-    assert_equal "7", @stat_tracker.most_goals_scored(18)
+    assert_equal 7, @stat_tracker.most_goals_scored(18)
   end
 
   def test_it_can_display_fewest_goals_scored
     # skip
-    assert_equal "0", @stat_tracker.fewest_goals_scored(18)
+    assert_equal 0, @stat_tracker.fewest_goals_scored(18)
   end
 
   def test_it_can_display_favorite_opponent

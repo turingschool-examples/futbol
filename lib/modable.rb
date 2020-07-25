@@ -54,20 +54,27 @@ module Modable
 
 
   def goals(id)
-    @away = @all_games.map do |rows| rows.away_goals
+    @away = @all_games.map do |rows|
+      rows.away_goals
     end
-    @home = @all_games.map do |rows| rows.home_goals
+    @home = @all_games.map do |rows|
+      rows.home_goals
     end
   end
 
   def season_games(id)
-    @all_games = @games_array.select do |row| row.away_team_id == "#{id}" || row.home_team_id == "#{id}"
+    @all_games = @games_array.select do |row|
+      row.away_team_id == "#{id}" || row.home_team_id == "#{id}"
     end
-    @away_wins = @all_games.select do |row| row.away_team_id == "#{id}" && row.away_goals > row.home_goals
+    @away_wins = @all_games.select do |row|
+      row.away_team_id == "#{id}" && row.away_goals > row.home_goals
     end
-    @home_wins = @all_games.select do |row| row.home_team_id == "#{id}" && row.away_goals < row.home_goals
+    @home_wins = @all_games.select do |row|
+      row.home_team_id == "#{id}" && row.away_goals < row.home_goals
     end
-    @seasons = (@away_wins + @home_wins).map{ |x| x.season}
+    @seasons = (@away_wins + @home_wins).map do |game|
+      game.season
+    end
   end
 
   def winningest_coach1(season)
@@ -110,11 +117,14 @@ module Modable
     games_played = hash.each do |k,v| hash[k] = v.length
     end
     array
-    games_lost = array.select do |game| game.result == "LOSS" || game.result == "TIE"
+    games_lost = array.select do |game|
+      game.result == "LOSS" || game.result == "TIE"
     end
-    games_lost_hash = games_lost.group_by do |game| game.head_coach
+    games_lost_hash = games_lost.group_by do |game|
+      game.head_coach
     end
-    numb_games_lost = games_lost_hash.each do |k,v| games_lost_hash[k] = v.length
+    numb_games_lost = games_lost_hash.each do |k,v|
+      games_lost_hash[k] = v.length
     end
     numbers = []
     @result = {}
@@ -139,10 +149,12 @@ module Modable
     hash1 = array.group_by do |game|
       game.team_id
     end
-    @all_goals = hash1.each do |k,v| hash1[k] = v.map do |game| game.goals.to_i
+    @all_goals = hash1.each do |k,v| hash1[k] = v.map do |game|
+      game.goals.to_i
     end.sum
   end
-    all_shots = hash.each do |k,v| hash[k] = v.map do |game| game.shots.to_i
+    all_shots = hash.each do |k,v| hash[k] = v.map do |game|
+      game.shots.to_i
     end.sum
   end
     all_shots.each do |k,v| @all_goals.each do |k1,v1|
