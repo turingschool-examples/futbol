@@ -111,6 +111,10 @@ class StatTracker
     @team_manager.find_by_id(team).team_name
   end
 
+  def lowest_visitor_team
+    team = @game_teams_manager.lowest_visitor_team.first
+    @team_manager.find_by_id(team).team_name
+  end
   
   def lowest_home_team
     @game_teams_array.lowest_home_team
@@ -161,6 +165,4 @@ class StatTracker
     self.most_accurate_team2(season)
   end
 end
-
-
 

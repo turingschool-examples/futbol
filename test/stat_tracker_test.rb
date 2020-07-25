@@ -77,6 +77,10 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "FC Dallas", @stat_tracker.highest_visitor_team
   end
 
+  def test_it_can_get_lowest_scoring_visitor_team
+    assert_equal "San Jose Earthquakes", @stat_tracker.lowest_visitor_team
+  end
+
   def test_it_can_get_highest_scoring_home_team
     skip
     assert_equal "Reign FC", @stat_tracker.highest_home_team
@@ -215,5 +219,4 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
   end
 end
-
 
