@@ -82,7 +82,6 @@ class StatTracker
       avg_goals_per_season
   end
 
-
  def percentage_home_wins
     home_games = @game_teams.select do |game|
       game.hoa == "home"
@@ -111,7 +110,6 @@ class StatTracker
     games_by_season = @games.group_by {|game| game.season}
     game_count_per_season = {}
     games_by_season.map {|season, game| game_count_per_season[season] = game.count}
-
     game_count_per_season
    end
 
@@ -131,7 +129,7 @@ class StatTracker
         goals
         id = goals.min_by {|team, num_of_goals| num_of_goals}
         @teams.find {|team| team.team_id == id[0]}.teamname
-      end
+     end
 
   def count_of_teams
     teams.count
@@ -198,8 +196,17 @@ class StatTracker
       over_all_average_by_team[team_id] = total_away_goals.to_f/total_away_games
     end
     over_all_average_by_team
+   end
+   
+  def highest_total_goals_by_away_team
+  #======== helper method for highest_scoring_visitor
+
+    total_goals_by_away_team.max_by do |team_id, total_goals|
+      total_goals
+    end
   end
 
+    #========== Best & Worst Offense ==========
     def best_offense
       team_by_id = @game_teams.group_by do |team|
       team.team_id
@@ -241,7 +248,6 @@ class StatTracker
      worst_offense = @teams.find {|team| team.teamname if team.team_id == lowest[0]}.teamname
      worst_offense
    end
-
 
    def winningest_coach(season)
     #1 ======= Create a <games_by_season> hash with a season => games pair, from games class.
@@ -406,7 +412,6 @@ class StatTracker
     team_info
   end
 
-
   def average_win_percentage(team_id)
   #========== Average win percentage of all games for a team from team id.
     team_games = @game_teams.find_all {|team| team.team_id == team_id}
@@ -447,31 +452,7 @@ class StatTracker
       @teams.find {|team| team.team_id == best_team[0]}.teamname
     end
 
-    #========== Most goals scored ==========
-    def most_goals_scored(team_id)
-      games_by_team = @game_teams.select do |game_team| #Returns Array of game teams for given team_id
-        game_team.team_id == team_id
-      end
-      team_goals = games_by_team.group_by do |game_team| #Returns hash of {goals => game_teams}
-        game_team.goals
-      end
-      most_goals = team_goals.max_by {|goals, game_team| goals} #Sorts by highest goals
-      most_goals[0]
-    end
-
-    #========== Fewest goals scored ==========
-    def fewest_goals_scored(team_id)
-      games_by_team = @game_teams.select do |game_team|
-        game_team.team_id == team_id
-      end
-      team_goals = games_by_team.group_by do |game_team|
-        game_team.goals
-      end
-      fewest_goals = team_goals.min_by {|goals, game_team| goals}
-      fewest_goals[0]
-    end
-
-    def least_accurate_team(season)
+  def least_accurate_team(season)
       games_in_season = @games.select { |game| game.season == season }
       game_ids_in_season = games_in_season.map do |game|
          game.game_id
@@ -498,6 +479,29 @@ class StatTracker
         worst_team = team_accuracy.min_by {|team_id, accuracy| accuracy}
         @teams.find {|team| team.team_id == worst_team[0]}.teamname
       end
+
+    #========== Most & Fewest goals scored ==========
+    def most_goals_scored(team_id)
+      games_by_team = @game_teams.select do |game_team| #Returns Array of game teams for given team_id
+        game_team.team_id == team_id
+      end
+      team_goals = games_by_team.group_by do |game_team| #Returns hash of {goals => game_teams}
+        game_team.goals
+      end
+      most_goals = team_goals.max_by {|goals, game_team| goals} #Sorts by highest goals
+      most_goals[0]
+    end
+
+    def fewest_goals_scored(team_id)
+      games_by_team = @game_teams.select do |game_team|
+        game_team.team_id == team_id
+      end
+      team_goals = games_by_team.group_by do |game_team|
+        game_team.goals
+      end
+      fewest_goals = team_goals.min_by {|goals, game_team| goals}
+      fewest_goals[0]
+    end
 
    #========== HELPER METHODS ==========
   #1 ======= Create a <games_by_season> hash with a season => games pair, from games class.
@@ -552,12 +556,11 @@ class StatTracker
       games_by_season
   end
 
-
   def season_games
     season_games = games_by_season.map {|season, games| games}.flatten.compact
   end
 
-
+  #========== Best & Worst season ==========
   def best_season(teamID)
     games_by_team = season_games.select {|team| team.team_id == teamID}
     #array of all games from teamID
@@ -577,11 +580,9 @@ class StatTracker
       win_hash[season] = [count, total]
         end
       end
-
-
-  best = win_hash.max_by do |season, games|
-    win_hash[season].first / win_hash[season].last.to_f
-end
+    best = win_hash.max_by do |season, games|
+     win_hash[season].first / win_hash[season].last.to_f
+    end
 
   math = best[0].to_i
   math += 1
@@ -589,7 +590,6 @@ end
 
   answer = best.first + "#{math}"
   end#method
-
 
   def worst_season(teamID)
     games_by_team = season_games.select {|team| team.team_id == teamID}
@@ -622,6 +622,7 @@ end
   #I needed to convert a 4digit season id to a 8 digit id
   end#method
 
+#========== Fewest & Most Tackles ==========
   def fewest_tackles(seasonID)
    games_in_season = @games.select { |game| game.season == seasonID }
    game_ids_in_season = games_in_season.map do |game|
@@ -670,9 +671,5 @@ end
 
   most = team_tackles.max_by {|k, v| v}
   @teams.find {|team| team.team_id == most.first}.teamname
-end#tackle method
-
-
-
-
+  end#tackle method
 end#class
