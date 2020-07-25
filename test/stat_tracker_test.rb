@@ -57,7 +57,6 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_best_offense_team
-    skip
     assert_equal "Reign FC", @stat_tracker.best_offense
   end
 
@@ -69,7 +68,6 @@ class StatTrackerTest < MiniTest::Test
 
 
   def test_it_can_worst_offense_team
-    skip
     assert_equal "Utah Royals FC", @stat_tracker.worst_offense
   end
 
@@ -82,8 +80,11 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_get_highest_scoring_home_team
-    skip
     assert_equal "Reign FC", @stat_tracker.highest_home_team
+  end
+
+  def test_it_can_get_lowest_scoring_home_team
+    assert_equal "Utah Royals FC", @stat_tracker.lowest_home_team
   end
 
   def test_it_can_get_lowest_scoring_visitor_team
@@ -219,4 +220,3 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
   end
 end
-

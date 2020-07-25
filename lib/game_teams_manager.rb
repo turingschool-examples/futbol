@@ -70,17 +70,23 @@ class GameTeamsManager
   end
 
   def highest_visitor_team
-    best_away_team = away_games_by_team_id.max_by do |team_id, gameteam|
+    away_games_by_team_id.max_by do |team_id, gameteam|
       gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
     end
   end
 
   def lowest_visitor_team
-    worst_away_team = away_games_by_team_id.min_by do |team_id, gameteam|
+    away_games_by_team_id.min_by do |team_id, gameteam|
       gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
     end
   end
 
+  def find_all_home_teams
+     @game_teams_array.find_all do |gameteam|
+      gameteam.hoa == "home"
+    end
+  end
+      
   def percentage_home_wins(home_games, home_wins)
     (home_wins.count.to_f/home_games.count.to_f).round(2)
   end
@@ -89,10 +95,26 @@ class GameTeamsManager
       (home_losses.count.to_f/home_games.count.to_f).round(2)
     end
 
+  def home_games_by_team_id
+    find_all_home_teams.group_by do |game|
+      game.team_id
+    end
+  end
 
+  def highest_home_team
+     home_games_by_team_id.max_by do |team_id, gameteam|
+       gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
+    end
+  end
+
+  def lowest_home_team
+    home_games_by_team_id.min_by do |team_id, gameteam|
+      gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
+    end
+  end
+      
     def percentage_ties(home_games, tie_games)
       (tie_games.count.to_f/home_games.count.to_f).round(2)
     end
 end
-
 

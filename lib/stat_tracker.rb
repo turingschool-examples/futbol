@@ -141,6 +141,17 @@ class StatTracker
     self.most_accurate_team2(season)
   end
 
+  def highest_home_team
+    team = @game_teams_manager.highest_home_team.first
+    @team_manager.find_by_id(team).team_name
+  end
+
+  def lowest_home_team
+    team = @game_teams_manager.lowest_home_team.first
+    @team_manager.find_by_id(team).team_name
+  end
+end
+
   def least_accurate_team(season)
     @all_games2 = @game_manager.games_by_season(season)
     self.most_accurate_team1(season)
@@ -165,4 +176,3 @@ class StatTracker
     self.most_accurate_team2(season)
   end
 end
-
