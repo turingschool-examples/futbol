@@ -1,7 +1,6 @@
 require_relative '../lib/game'
 require_relative '../lib/game_manager_helper'
 
-
 class GameManager
   include GameManagerHelper
 
