@@ -36,19 +36,37 @@ class SeasonStatistics
     end
     @by_season_game_objects
 
-    #Helper
+    #Helper for total wins by season
     @counter_wins_team_id = Hash.new{ |hash, key| hash[key] = 0 }
+    @games_played_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
+
     @by_season_game_objects.each do |season_game_object|
+      @games_played_by_team_id[season_game_object.away_team_id] += 1
+      @games_played_by_team_id[season_game_object.home_team_id] += 1
+
       if season_game_object.home_goals > season_game_object.away_goals
         @counter_wins_team_id[season_game_object.home_team_id] += 1
+        @counter_wins_team_id[season_game_object.away_team_id] += 0
       elsif season_game_object.away_goals > season_game_object.home_goals
         @counter_wins_team_id[season_game_object.away_team_id] += 1
+        @counter_wins_team_id[season_game_object.home_team_id] += 0
       end
     end
+    @games_played_by_team_id
     @counter_wins_team_id
 
-    
+    # Helper for win percentage
+    most_number_of_games_won = @counter_wins_team_id.invert.max[0].to_f
+    for_highest_total_games_played = @games_played_by_team_id[@counter_wins_team_id.invert.max[1]]
+    least_number_of_games_won = @counter_wins_team_id.invert.min[0].to_f
+    for_lowest_total_games_played = @games_played_by_team_id[@counter_wins_team_id.invert.min[1]]
+
+    winningest = (most_number_of_games_won / for_highest_total_games_played) * 100
+    worst = (least_number_of_games_won / for_lowest_total_games_played) * 100
+
+    # Pull id to head coach name
     require "pry"; binding.pry
+
   end
 
 
