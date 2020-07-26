@@ -230,4 +230,11 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
   end
+
+  def test_it_can_get_team_name # can't figure out how to get this to work (Travis)
+    skip
+    team = TeamManager.new(@locations)
+
+    assert_equal 3, team.find_by_id(3)
+  end
 end

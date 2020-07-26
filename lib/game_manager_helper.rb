@@ -49,5 +49,5 @@ module GameManagerHelper
    freq = teams.inject(Hash.new(0)){ |h,v| h[v] += 1; h}
    @numbs = teams.min_by{ |v| freq[v]}
  end
- 
+
 end

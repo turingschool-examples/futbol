@@ -1,52 +1,5 @@
 module Modable
 
-  def fav_opp(id)
-    freq = @teams1.inject(Hash.new(0)){ |h,v| h[v] += 1; h}
-    numbs = @teams1.min_by{ |v| freq[v]}
-    @teams_array.select{ |team| team.team_id == numbs}[0].team_name
-  end
-
-  def fav_opp2(id)
-    @teams1 = []
-    @array1 = @all_games.each do |rows|
-      if rows.home_team_id == "#{id}"
-        if rows.away_goals > rows.home_goals
-          @teams1 << rows.away_team_id
-        end
-      elsif rows.away_team_id == "#{id}"
-        if rows.away_goals == rows.home_goals
-          @teams1 << rows.home_team_id
-        end
-      end
-    end
-    self.fav_opp(id)
-  end
-
-  def rival2(id)
-    @teams1 = []
-    @all_games.each do |game|
-      if game.away_team_id == "#{id}"
-        if game.away_goals < game.home_goals
-          @teams1 << game.home_team_id
-        end
-      elsif game.home_team_id == "#{id}"
-        if game.away_goals > game.home_goals
-          @teams1 << game.away_team_id
-        end
-      end
-    end
-  end
-
-  def season_games(id)
-    @all_games = @games_array.select{ |row|
-      row.away_team_id == "#{id}" || row.home_team_id == "#{id}"}
-    @away_wins = @all_games.select{ |row|
-      row.away_team_id == "#{id}" && row.away_goals > row.home_goals}
-    @home_wins = @all_games.select{ |row|
-      row.home_team_id == "#{id}" && row.away_goals < row.home_goals}
-    @seasons = (@away_wins + @home_wins).map{ |game| game.season}
-  end
-
   def winningest_coach1(season)
     array = []
     @game_teams_manager.game_teams_array.each{ |game|
