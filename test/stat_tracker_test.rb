@@ -211,6 +211,16 @@ class StatTrackerTest < MiniTest::Test
 
   assert_equal [2, 3, 1, 0, 5, 4, 7], @stat_tracker.team_goals("18").keys
   end
+
+  def test_total_goals_by_id
+
+  assert_equal ["3", 1129], @stat_tracker.total_goals_by_id.first
+  end
+
+  def test_total_games_by_id
+
+  assert_equal ["3", 531], @stat_tracker.total_games_by_id.first
+  end
 end
 
 
