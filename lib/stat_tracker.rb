@@ -486,23 +486,25 @@ class StatTracker
       games_by_team
     end
 
-
+    def team_goals(team_id)
+      games_by_team(team_id)
+      team_goals = games_by_team(team_id).group_by do |game_team|
+        game_team.goals
+      end
+      team_goals
+    end
 
 
     def most_goals_scored(team_id)
       games_by_team(team_id)
-      team_goals = games_by_team.group_by do |game_team| #Returns hash of {goals => game_teams}
-        game_team.goals
-      end
+      team_goals(team_id)
       most_goals = team_goals.max_by {|goals, game_team| goals} #Sorts by highest goals
       most_goals[0]
     end
 
     def fewest_goals_scored(team_id)
       games_by_team(team_id)
-      team_goals = games_by_team.group_by do |game_team|
-        game_team.goals
-      end
+      team_goals(team_id)
       fewest_goals = team_goals.min_by {|goals, game_team| goals}
       fewest_goals[0]
     end
