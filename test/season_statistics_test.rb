@@ -11,7 +11,7 @@ class SeasonStatisticsTest < Minitest::Test
   def setup
     @season_statistics = SeasonStatistics.new
   end
-  
+
   def test_it_exists
     assert_instance_of SeasonStatistics, @season_statistics
   end
