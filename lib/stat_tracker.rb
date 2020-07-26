@@ -246,19 +246,10 @@ class StatTracker
     end
 
     def worst_offense
-     team_by_id = @game_teams.group_by do |team|
-       team.team_id
-     end
-     total_games_by_id = {}
-     team_by_id.map { |id, games| total_games_by_id[id] = games.length}
-
-     total_goals_by_id = {}
-     team_by_id.map { |id, games| total_goals_by_id[id] = games.sum {|game| game.goals}}
-
-     average_goals_all_seasons_by_id = {}
-     total_goals_by_id.each do |id, goals|
-       average_goals_all_seasons_by_id[id] = (goals.to_f / total_games_by_id[id] ).round(2)
-     end
+      team_by_id
+      total_games_by_id
+      total_goals_by_id
+      average_goals_all_seasons_by_id
 
      lowest = average_goals_all_seasons_by_id.min_by {|id, avg| avg}
 
