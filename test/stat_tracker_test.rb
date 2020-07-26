@@ -195,5 +195,13 @@ class StatTrackerTest < MiniTest::Test
 
   assert_equal "3", @stat_tracker.team_by_id.keys[0]
   assert_equal "6", @stat_tracker.team_by_id.keys[1]
+  end
+
+  def test_it_can_return_accuracy_for_each_team
+
+  assert_equal ["16", 0.3042362002567394], @stat_tracker.team_accuracy("20132014").first
+  end
 end
+
+
 end
