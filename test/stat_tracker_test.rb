@@ -252,6 +252,11 @@ class StatTrackerTest < MiniTest::Test
 
   end
 
+  def test_it_can_find_rival
+    assert_equal "Houston Dash", @stat_tracker.rival("18")
+
+  end
+
 
 
 

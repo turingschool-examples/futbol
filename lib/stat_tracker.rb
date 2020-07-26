@@ -532,4 +532,6 @@ class StatTracker
     find_team_name(fav_opp[0])
   end
 
+
+
 end
