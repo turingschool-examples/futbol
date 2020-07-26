@@ -100,12 +100,17 @@ class SeasonStatistics < LeagueStatistics
     worst_coach = @coach_by_team_id[min_team_id]
   end
 
-  def most_accurate_team(season)
+  def collect_game_team_objects_by_season(season)
     all_game_teams.each do |game_team_object|
       if season.to_s[0..3] == game_team_object.game_id.to_s[0..3]
         @by_season_game_team_objects << game_team_object
       end
     end
+  end
+
+
+  def most_accurate_team(season)
+    collect_game_team_objects_by_season(season)
     @shots_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
     @by_season_game_team_objects.each do |season_game_team_object|
       @shots_by_team_id[season_game_team_object.team_id] += season_game_team_object.shots
@@ -120,7 +125,6 @@ class SeasonStatistics < LeagueStatistics
         @shot_accuracy_by_team_id[key] = shot_accuracy
       end
       @team_name_by_id[@shot_accuracy_by_team_id.invert.max[1]]
-
   end
 
 end
