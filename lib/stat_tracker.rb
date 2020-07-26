@@ -532,6 +532,11 @@ class StatTracker
     find_team_name(fav_opp[0])
   end
 
-
+  def rival(team_id)
+    not_fav_opp = average_win_percentage_by_opponents_of(team_id).min_by do |opp_id, win_percent|
+      win_percent
+    end
+    find_team_name(not_fav_opp[0])
+  end
 
 end
