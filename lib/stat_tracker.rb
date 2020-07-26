@@ -444,21 +444,10 @@ class StatTracker
     #  NEEDS TEST
   end
 
-  def most_accurate_team(season)
+  def most_accurate_team(seasonID)
     # Name of team with the best ratio of shots to goals for the season
     # Needs refactoring and can be helper methods
-    games_in_season = @games.select { |game| game.season == season }
-    game_ids_in_season = games_in_season.map do |game| ##Returns array of game ids in season
-       game.game_id
-     end
-
-     game_teams_in_season = @game_teams.select do |game_team| ##Returns array of game team objects
-       game_ids_in_season.include?(game_team.game_id)
-     end
-
-     games_per_season_per_team = game_teams_in_season.group_by do |game| ##Returns hash of team_id => game_teams
-       game.team_id
-     end
+    games_per_season_per_team(seasonID)
 
      team_accuracy = Hash.new(0)
       games_per_season_per_team.each do |team, games|
@@ -474,19 +463,8 @@ class StatTracker
       @teams.find {|team| team.team_id == best_team[0]}.teamname
     end
 
-  def least_accurate_team(season)
-      games_in_season = @games.select { |game| game.season == season }
-      game_ids_in_season = games_in_season.map do |game|
-         game.game_id
-       end
-
-       game_teams_in_season = @game_teams.select do |game_team|
-         game_ids_in_season.include?(game_team.game_id)
-       end
-
-       games_per_season_per_team = game_teams_in_season.group_by do |game|
-         game.team_id
-       end
+  def least_accurate_team(seasonID)
+      games_per_season_per_team(seasonID)
 
        team_accuracy = Hash.new(0)
         games_per_season_per_team.each do |team, games|
