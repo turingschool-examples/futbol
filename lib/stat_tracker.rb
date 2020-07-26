@@ -213,13 +213,22 @@ class StatTracker
       end
     end
 
-    def best_offense
-      team_by_id
+    def total_games_by_id
       total_games_by_id = {}
       team_by_id.map { |id, games| total_games_by_id[id] = games.length}
+      total_games_by_id
+    end
 
+    def total_goals_by_id
       total_goals_by_id = {}
       team_by_id.map { |id, games| total_goals_by_id[id] = games.sum {|game| game.goals}}
+      total_goals_by_id
+    end
+
+    def best_offense
+      team_by_id
+      total_games_by_id
+      total_goals_by_id
 
       average_goals_all_seasons_by_id = {}
       total_goals_by_id.each do |id, goals|
