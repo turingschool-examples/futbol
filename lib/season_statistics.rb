@@ -21,13 +21,15 @@ class SeasonStatistics
     GameTeamData.create_objects
   end
 
-  def winningest_coach(season)
-    # Helper create_coach_by_team_id
+  def create_coach_by_team_id
     all_game_teams.each do |game_by_team|
       @coach_by_team_id[game_by_team.team_id] = game_by_team.head_coach
     end
     @coach_by_team_id
+  end
 
+  def winningest_coach(season)
+    create_coach_by_team_id
     # Helper for by-season collection
     all_games.each do |game_object|
       if season == game_object.season
@@ -69,7 +71,6 @@ class SeasonStatistics
     winningest_coach = @coach_by_team_id[max_team_id]
     min_team_id = @counter_wins_team_id.invert.min[1]
     worst_coach = @coach_by_team_id[min_team_id]
-    require "pry"; binding.pry
 
   end
 
