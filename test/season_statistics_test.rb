@@ -23,4 +23,9 @@ class SeasonStatisticsTest < Minitest::Test
     assert_equal "Dan Bylsma", @season_statistics.worst_coach(20122013)
   end
 
+  def test_can_find_most_and_least_accurate_teams_by_season
+    assert_equal "", @season_statistics.most_accurate_team(20122013)
+    assert_equal "", @season_statistics.least_accurate_team(20122013)
+  end
+
 end
