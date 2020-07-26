@@ -159,6 +159,8 @@ class StatTrackerTest < MiniTest::Test
 
   end
 
+
+
   def test_it_can_find_all_opponents
     assert_equal 31, @stat_tracker.opponents("18").count
     assert_equal Hash, @stat_tracker.opponents("18").class

@@ -127,22 +127,25 @@ class StatTracker
    end
 
     def lowest_scoring_home_team
+      #home_team
       home_team = @games.group_by do |game|
         game.home_team_id
       end
+
       goals = {}
       home_team.each do |team_id, games|
         goal_count = 0
         games.each do |game|
             goal_count += game.home_goals
-          end
+        end
           average_goals = goal_count / games.count.to_f
           goals[team_id] = average_goals
         end
+
         goals
         id = goals.min_by {|team, num_of_goals| num_of_goals}
         @teams.find {|team| team.team_id == id[0]}.teamname
-      end
+    end
 
   def count_of_teams
     teams.count
@@ -499,6 +502,10 @@ class StatTracker
     end
   end
 
+  def all_games_won_by(team_id)
+
+  end
+
   def find_team_name(team_id)
     @teams.find do |team|
       team.team_id == team_id
@@ -506,7 +513,15 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
+    opps_hash = opponents(team_id)
+    total_games_played_by_opponents = {}
 
+    opps_hash.each do |team_id, games_played|
+      total_games_played_by_opponents[team_id] = games_played.count
+    end
+
+    
+    require "pry"; binding.pry
     # require "pry"; binding.pry
     # all_games_played_by(team_id)
     # .reduce(Hash.new {|h,k| h[k] = []}) do |result, game|
