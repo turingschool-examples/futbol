@@ -15,6 +15,7 @@ class SeasonStatistics < LeagueStatistics
     @goals_by_id_by_season = Hash.new{ |hash, key| hash[key] = 0 }
     get_team_name_by_id
     @shot_accuracy_by_team_id = Hash.new
+    @tackles_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
   end
 
   def all_teams
@@ -147,4 +148,20 @@ class SeasonStatistics < LeagueStatistics
     @team_name_by_id[@shot_accuracy_by_team_id.invert.min[1]]
   end
 
+  def tackles_by_team_id_by_season(season)
+    collect_game_team_objects_by_season(season)
+    @by_season_game_team_objects.each do |season_game_team_object|
+      @tackles_by_team_id[season_game_team_object.team_id] += season_game_team_object.tackles
+    end
+  end
+
+  def most_tackles(season)
+    tackles_by_team_id_by_season(season)
+    @team_name_by_id[@tackles_by_team_id.invert.max[1]]
+  end
+
+  def fewest_tackles(season)
+    tackles_by_team_id_by_season(season)
+    @team_name_by_id[@tackles_by_team_id.invert.min[1]]
+  end
 end
