@@ -37,11 +37,7 @@ class SeasonStatistics
     @by_season_game_objects
   end
 
-  def winningest_coach(season)
-    create_coach_by_team_id
-    collect_game_objects_by_season
-    
-    #Helper for total wins by season
+  def total_wins_by_season
     @counter_wins_team_id = Hash.new{ |hash, key| hash[key] = 0 }
     @games_played_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
 
@@ -59,6 +55,13 @@ class SeasonStatistics
     end
     @games_played_by_team_id
     @counter_wins_team_id
+  end
+
+  def winningest_coach(season)
+    create_coach_by_team_id
+    collect_game_objects_by_season
+
+    #Helper for total wins by season
 
     # Helper for win percentage
     most_number_of_games_won = @counter_wins_team_id.invert.max[0].to_f
