@@ -28,16 +28,19 @@ class SeasonStatistics
     @coach_by_team_id
   end
 
-  def winningest_coach(season)
-    create_coach_by_team_id
-    # Helper for by-season collection
+  def collect_game_objects_by_season
     all_games.each do |game_object|
       if season == game_object.season
         @by_season_game_objects << game_object
       end
     end
     @by_season_game_objects
+  end
 
+  def winningest_coach(season)
+    create_coach_by_team_id
+    collect_game_objects_by_season
+    
     #Helper for total wins by season
     @counter_wins_team_id = Hash.new{ |hash, key| hash[key] = 0 }
     @games_played_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
