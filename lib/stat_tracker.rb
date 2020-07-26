@@ -473,16 +473,24 @@ class StatTracker
       games_per_season_per_team(seasonID)
 
       team_accuracy(seasonID)
-      
+
         worst_team = team_accuracy.min_by {|team_id, accuracy| accuracy}
         @teams.find {|team| team.team_id == worst_team[0]}.teamname
       end
 
     #========== Most & Fewest goals scored ==========
-    def most_goals_scored(team_id)
-      games_by_team = @game_teams.select do |game_team| #Returns Array of game teams for given team_id
+    def games_by_team(team_id)
+      games_by_team = @game_teams.select do |game_team|
         game_team.team_id == team_id
       end
+      games_by_team
+    end
+
+
+
+
+    def most_goals_scored(team_id)
+      games_by_team(team_id)
       team_goals = games_by_team.group_by do |game_team| #Returns hash of {goals => game_teams}
         game_team.goals
       end
@@ -491,9 +499,7 @@ class StatTracker
     end
 
     def fewest_goals_scored(team_id)
-      games_by_team = @game_teams.select do |game_team|
-        game_team.team_id == team_id
-      end
+      games_by_team(team_id)
       team_goals = games_by_team.group_by do |game_team|
         game_team.goals
       end
