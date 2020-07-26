@@ -142,4 +142,9 @@ class SeasonStatistics < LeagueStatistics
     @team_name_by_id[@shot_accuracy_by_team_id.invert.max[1]]
   end
 
+  def least_accurate_team(season)
+    shot_accuracy_suite(season)
+    @team_name_by_id[@shot_accuracy_by_team_id.invert.min[1]]
+  end
+
 end
