@@ -28,4 +28,9 @@ class SeasonStatisticsTest < Minitest::Test
     assert_equal "Sporting Kansas City", @season_statistics.least_accurate_team(20122013)
   end
 
+  def test_can_find_most_and_least_tackles_by_team_by_season
+    assert_equal "", @season_statistics.most_accurate_team(20122013)
+    assert_equal "", @season_statistics.least_accurate_team(20122013)
+  end
+
 end
