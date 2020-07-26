@@ -1,14 +1,16 @@
 require_relative "game_data"
 require_relative "team_data"
 require_relative "game_team_data"
+require_relative "league_statistics"
 
-class SeasonStatistics
+class SeasonStatistics < LeagueStatistics
 
   def initialize
     @coach_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
     @by_season_game_objects = []
     @counter_wins_team_id = Hash.new{ |hash, key| hash[key] = 0 }
     @games_played_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
+    @team_name_by_id = Hash.new{}
   end
 
   def all_teams
@@ -95,5 +97,5 @@ class SeasonStatistics
     worst_coach = @coach_by_team_id[min_team_id]
   end
 
-  
+
 end
