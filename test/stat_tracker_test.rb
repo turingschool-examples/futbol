@@ -201,6 +201,11 @@ class StatTrackerTest < MiniTest::Test
 
   assert_equal ["16", 0.3042362002567394], @stat_tracker.team_accuracy("20132014").first
   end
+
+  def test_games_by_team
+
+  assert_equal 8, @stat_tracker.games_by_team("18").first.shots
+  end
 end
 
 
