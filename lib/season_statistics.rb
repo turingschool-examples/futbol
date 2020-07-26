@@ -65,6 +65,10 @@ class SeasonStatistics
     worst = (least_number_of_games_won / for_lowest_total_games_played) * 100
 
     # Pull id to head coach name
+    max_team_id = @counter_wins_team_id.invert.max[1]
+    winningest_coach = @coach_by_team_id[max_team_id]
+    min_team_id = @counter_wins_team_id.invert.min[1]
+    worst_coach = @coach_by_team_id[min_team_id]
     require "pry"; binding.pry
 
   end
