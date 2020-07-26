@@ -34,8 +34,24 @@ class SeasonStatistics
         @by_season_game_objects << game_object
       end
     end
+    @by_season_game_objects
+
+    #Helper
+    @counter_wins_team_id = Hash.new{ |hash, key| hash[key] = 0 }
+    @by_season_game_objects.each do |season_game_object|
+      if season_game_object.home_goals > season_game_object.away_goals
+        @counter_wins_team_id[season_game_object.home_team_id] += 1
+      elsif season_game_object.away_goals > season_game_object.home_goals
+        @counter_wins_team_id[season_game_object.away_team_id] += 1
+      end
+    end
+    @counter_wins_team_id
+
+    
     require "pry"; binding.pry
   end
+
+
 
   def worst_coach(season)
 
