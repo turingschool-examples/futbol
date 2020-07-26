@@ -67,8 +67,6 @@ class StatTrackerTest < MiniTest::Test
      assert_equal expected, @stat_tracker.average_goals_by_season
    end
 
-  end
-
   def test_it_can_count_teams
     skip
     assert_equal 32, @stat_tracker.count_of_teams
@@ -159,7 +157,6 @@ class StatTrackerTest < MiniTest::Test
                 }
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
-
 
   def test_it_can_display_best_season
     # skip
