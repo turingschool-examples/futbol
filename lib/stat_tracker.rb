@@ -197,7 +197,7 @@ class StatTracker
     end
     over_all_average_by_team
    end
-   
+
   def highest_total_goals_by_away_team
   #======== helper method for highest_scoring_visitor
 
@@ -207,10 +207,14 @@ class StatTracker
   end
 
     #========== Best & Worst Offense ==========
-    def best_offense
-      team_by_id = @game_teams.group_by do |team|
-      team.team_id
+    def team_by_id
+        team_by_id = @game_teams.group_by do |team|
+        team.team_id
+      end
     end
+
+    def best_offense
+      team_by_id
       total_games_by_id = {}
       team_by_id.map { |id, games| total_games_by_id[id] = games.length}
 
