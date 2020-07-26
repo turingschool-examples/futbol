@@ -16,12 +16,11 @@ class SeasonStatisticsTest < Minitest::Test
     assert_instance_of SeasonStatistics, @season_statistics
   end
 
+  # Update tests for all new helpers excluding suite
+
   def test_it_can_print_best_and_worst_coach_by_season
     assert_equal "Claude Julien", @season_statistics.winningest_coach(20122013)
     assert_equal "Dan Bylsma", @season_statistics.worst_coach(20122013)
   end
-
-  #def test_it_has_attributes
-  #end
 
 end

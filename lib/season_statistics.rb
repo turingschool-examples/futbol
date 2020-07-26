@@ -7,6 +7,8 @@ class SeasonStatistics
   def initialize
     @coach_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
     @by_season_game_objects = []
+    @counter_wins_team_id = Hash.new{ |hash, key| hash[key] = 0 }
+    @games_played_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
   end
 
   def all_teams
@@ -25,7 +27,6 @@ class SeasonStatistics
     all_game_teams.each do |game_by_team|
       @coach_by_team_id[game_by_team.team_id] = game_by_team.head_coach
     end
-    @coach_by_team_id
   end
 
   def collect_game_objects_by_season(season)
@@ -34,36 +35,43 @@ class SeasonStatistics
         @by_season_game_objects << game_object
       end
     end
-    @by_season_game_objects
+  end
+
+  def total_games_played_by_season(game)
+    @games_played_by_team_id[game.away_team_id] += 1
+    @games_played_by_team_id[game.home_team_id] += 1
+  end
+
+  def total_wins_for_home(game)
+    @counter_wins_team_id[game.home_team_id] += 1
+    @counter_wins_team_id[game.away_team_id] += 0
+  end
+
+  def total_wins_for_away(game)
+    @counter_wins_team_id[game.away_team_id] += 1
+    @counter_wins_team_id[game.home_team_id] += 0
   end
 
   def total_wins_by_season
-    @counter_wins_team_id = Hash.new{ |hash, key| hash[key] = 0 }
-    @games_played_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
-
     @by_season_game_objects.each do |season_game_object|
-      @games_played_by_team_id[season_game_object.away_team_id] += 1
-      @games_played_by_team_id[season_game_object.home_team_id] += 1
-
+      total_games_played_by_season(season_game_object)
       if season_game_object.home_goals > season_game_object.away_goals
-        @counter_wins_team_id[season_game_object.home_team_id] += 1
-        @counter_wins_team_id[season_game_object.away_team_id] += 0
+        total_wins_for_home(season_game_object)
       elsif season_game_object.away_goals > season_game_object.home_goals
-        @counter_wins_team_id[season_game_object.away_team_id] += 1
-        @counter_wins_team_id[season_game_object.home_team_id] += 0
+        total_wins_for_away(season_game_object)
       end
     end
-    @games_played_by_team_id
-    @counter_wins_team_id
   end
 
-  def win_percentage_by_season
+  def best_win_percentage_by_season
     most_number_of_games_won = @counter_wins_team_id.invert.max[0].to_f
     for_highest_total_games_played = @games_played_by_team_id[@counter_wins_team_id.invert.max[1]]
+    winningest = (most_number_of_games_won / for_highest_total_games_played) * 100
+  end
+
+  def worst_win_percentage_by_season
     least_number_of_games_won = @counter_wins_team_id.invert.min[0].to_f
     for_lowest_total_games_played = @games_played_by_team_id[@counter_wins_team_id.invert.min[1]]
-
-    winningest = (most_number_of_games_won / for_highest_total_games_played) * 100
     worst = (least_number_of_games_won / for_lowest_total_games_played) * 100
   end
 
@@ -71,7 +79,8 @@ class SeasonStatistics
     create_coach_by_team_id
     collect_game_objects_by_season(season)
     total_wins_by_season
-    win_percentage_by_season
+    best_win_percentage_by_season
+    worst_win_percentage_by_season
   end
 
   def winningest_coach(season)
@@ -86,4 +95,5 @@ class SeasonStatistics
     worst_coach = @coach_by_team_id[min_team_id]
   end
 
+  
 end
