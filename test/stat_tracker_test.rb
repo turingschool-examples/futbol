@@ -172,7 +172,7 @@ class StatTrackerTest < MiniTest::Test
 
     assert_equal 0, @stat_tracker.fewest_goals_scored("18")
   end
-  
+
   def test_best_season
     assert_equal "20132014", @stat_tracker.best_season("6")
   end
@@ -190,4 +190,10 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
     assert_equal "Seattle Sounders FC", @stat_tracker.most_tackles("20142015")
   end
+
+  def test_it_can_group_team_id_with_game_teams_objects
+
+  assert_equal "3", @stat_tracker.team_by_id.keys[0]
+  assert_equal "6", @stat_tracker.team_by_id.keys[1]
+end
 end
