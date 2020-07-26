@@ -208,8 +208,8 @@ class StatTracker
 
     #========== Best & Worst Offense ==========
     def team_by_id
-        team_by_id = @game_teams.group_by do |team|
-        team.team_id
+      team_by_id = @game_teams.group_by do |team|
+      team.team_id
       end
     end
 
@@ -226,12 +226,12 @@ class StatTracker
     end
 
     def average_goals_all_seasons_by_id
-      average_goals_all_seasons_by_id = {}
-      total_goals_by_id.each do |id, goals|
-      average_goals_all_seasons_by_id[id] = (goals.to_f / total_games_by_id[id] ).round(2)
+       average_goals_all_seasons_by_id = {}
+       total_goals_by_id.each do |id, goals|
+       average_goals_all_seasons_by_id[id] = (goals.to_f / total_games_by_id[id] ).round(2)
+      end
+     average_goals_all_seasons_by_id
     end
-    average_goals_all_seasons_by_id
-  end
 
     def best_offense
       team_by_id
@@ -240,7 +240,6 @@ class StatTracker
       average_goals_all_seasons_by_id
 
       highest = average_goals_all_seasons_by_id.max_by {|id, avg| avg}
-
       best_offense = @teams.find {|team| team.teamname if team.team_id == highest[0]}.teamname
       best_offense
     end
@@ -252,7 +251,6 @@ class StatTracker
       average_goals_all_seasons_by_id
 
      lowest = average_goals_all_seasons_by_id.min_by {|id, avg| avg}
-
      worst_offense = @teams.find {|team| team.teamname if team.team_id == lowest[0]}.teamname
      worst_offense
    end
@@ -445,15 +443,15 @@ class StatTracker
   end
 
   def team_accuracy(seasonID)
-        team_accuracy = Hash.new(0)
-         games_per_season_per_team(seasonID).each do |team, games|
-           shots = 0
-           goals = 0
-         games.each do |game|
-           shots = games.sum {|game| game.shots}
-           goals = games.sum {|game| game.goals}
-         end
-           team_accuracy[team] = (goals.to_f / shots)
+      team_accuracy = Hash.new(0)
+        games_per_season_per_team(seasonID).each do |team, games|
+          shots = 0
+          goals = 0
+        games.each do |game|
+          shots = games.sum {|game| game.shots}
+          goals = games.sum {|game| game.goals}
+        end
+          team_accuracy[team] = (goals.to_f / shots)
         end
         team_accuracy
       end
@@ -464,17 +462,17 @@ class StatTracker
     games_per_season_per_team(seasonID)
     team_accuracy(seasonID)
 
-      best_team = team_accuracy(seasonID).max_by {|team_id, accuracy| accuracy}
-      @teams.find {|team| team.team_id == best_team[0]}.teamname
-    end
+    best_team = team_accuracy(seasonID).max_by {|team_id, accuracy| accuracy}
+    @teams.find {|team| team.team_id == best_team[0]}.teamname
+  end
 
   def least_accurate_team(seasonID)
-      games_per_season_per_team(seasonID)
-      team_accuracy(seasonID)
+    games_per_season_per_team(seasonID)
+    team_accuracy(seasonID)
 
-        worst_team = team_accuracy(seasonID).min_by {|team_id, accuracy| accuracy}
-        @teams.find {|team| team.team_id == worst_team[0]}.teamname
-      end
+    worst_team = team_accuracy(seasonID).min_by {|team_id, accuracy| accuracy}
+    @teams.find {|team| team.team_id == worst_team[0]}.teamname
+  end
 
     #========== Most & Fewest goals scored ==========
     def games_by_team(team_id)
