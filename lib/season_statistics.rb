@@ -28,7 +28,7 @@ class SeasonStatistics
     @coach_by_team_id
   end
 
-  def collect_game_objects_by_season
+  def collect_game_objects_by_season(season)
     all_games.each do |game_object|
       if season == game_object.season
         @by_season_game_objects << game_object
@@ -67,21 +67,21 @@ class SeasonStatistics
     worst = (least_number_of_games_won / for_lowest_total_games_played) * 100
   end
 
-  def winningest_and_worst_suite
+  def winningest_and_worst_suite(season)
     create_coach_by_team_id
-    collect_game_objects_by_season
+    collect_game_objects_by_season(season)
     total_wins_by_season
     win_percentage_by_season
   end
 
   def winningest_coach(season)
-    winningest_and_worst_suite
+    winningest_and_worst_suite(season)
     max_team_id = @counter_wins_team_id.invert.max[1]
     winningest_coach = @coach_by_team_id[max_team_id]
   end
 
   def worst_coach(season)
-    winningest_and_worst_suite
+    winningest_and_worst_suite(season)
     min_team_id = @counter_wins_team_id.invert.min[1]
     worst_coach = @coach_by_team_id[min_team_id]
   end
