@@ -24,7 +24,7 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_can_find_most_and_least_accurate_teams_by_season
-    assert_equal "", @season_statistics.most_accurate_team(20122013)
+    assert_equal "FC Dallas", @season_statistics.most_accurate_team(20122013)
     assert_equal "", @season_statistics.least_accurate_team(20122013)
   end
 
