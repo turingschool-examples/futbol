@@ -512,11 +512,9 @@ class StatTracker
   end
 
   def average_win_percentage_by_opponents_of(team_id)
-    all_games_played = opponents_of(team_id)
-    all_games_won = games_won_by_team(team_id)
     average_win_percentage = {}
-    all_games_won.each do |opp_team_id, games_won|
-      all_games_played.each do |opp_team_id2, games_played|
+    games_won_by_team(team_id).each do |opp_team_id, games_won|
+      opponents_of(team_id).each do |opp_team_id2, games_played|
         if opp_team_id == opp_team_id2
           average_win_percentage[opp_team_id] = games_won.to_f / games_played
         end
