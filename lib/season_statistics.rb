@@ -5,6 +5,8 @@ require_relative "game_team_data"
 class SeasonStatistics
 
   def initialize
+    @coach_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
+    @by_season_game_objects = []
   end
 
   def all_teams
@@ -20,7 +22,19 @@ class SeasonStatistics
   end
 
   def winningest_coach(season)
+    # Helper create_coach_by_team_id
+    all_game_teams.each do |game_by_team|
+      @coach_by_team_id[game_by_team.team_id] = game_by_team.head_coach
+    end
+    @coach_by_team_id
 
+    # Helper for by-season collection
+    all_games.each do |game_object|
+      if season == game_object.season
+        @by_season_game_objects << game_object
+      end
+    end
+    require "pry"; binding.pry
   end
 
   def worst_coach(season)
