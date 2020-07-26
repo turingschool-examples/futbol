@@ -515,30 +515,37 @@ class StatTracker
   def favorite_opponent(team_id)
     opps_hash = opponents(team_id)
     total_games_played_by_opponents = {}
-
+    all_games_won_by_our_team = Hash.new{|h,k| h[k] = []}
     opps_hash.each do |team_id, games_played|
       total_games_played_by_opponents[team_id] = games_played.count
     end
 
-    
-    require "pry"; binding.pry
-    # require "pry"; binding.pry
-    # all_games_played_by(team_id)
-    # .reduce(Hash.new {|h,k| h[k] = []}) do |result, game|
-    #     result[(game.home_team_id || game.away_team_id) != team_id] << game if (game.home_team_id || game.away_team_id == game.home_team_id ||
-    #       result[id] << game
-    #       result
-    #     end
-    #     result
-    #   end
-    # end
-    #How many times did I win against this opponent
+    # How many times did I win against this opponent
+    opps_hash.each do |opp_team_id, games_played|
+      games_played.find_all do |game|
+        @game_teams.each do |game_team|
+          if game.game_id == game_team.game_id
+            if game_team.team_id != opp_team_id && game_team.result == "WIN"
+            all_games_won_by_our_team[opp_team_id] << game
+            else game_team.team_id == opp_team_id && game_team.result == "LOSS"
+            all_games_won_by_our_team[opp_team_id] << game
+            end
+          end
+        end
+      end
+    end
 
-    # How many times did I play against this opponent
 
-
+    average_win_percentage = {}
+    total_games_played_by_opponents.each do |opp_team_id1, total_games_played|
+      all_games_won_by_our_team.each do |opp_team_2, our_wins|
+        average_win_percentage[opp_team_id1] = our_wins.count / total_games_played.to_f
+      end
+    end
+    fav_opp = average_win_percentage.max_by do |opp_team_id, win_percentage|
+      win_percentage
+    end
+    find_team_name(fav_opp[0])
   end
-
-
 
 end
