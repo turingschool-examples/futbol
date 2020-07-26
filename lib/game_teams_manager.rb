@@ -86,10 +86,11 @@ class GameTeamsManager
       gameteam.hoa == "home"
     end
   end
-        def home_games_by_team_id
-    find_all_home_teams.group_by do |game|
-      game.team_id
-    end
+
+  def home_games_by_team_id
+      find_all_home_teams.group_by do |game|
+        game.team_id
+      end
   end
 
   def highest_home_team
