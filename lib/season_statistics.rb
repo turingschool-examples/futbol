@@ -115,14 +115,18 @@ class SeasonStatistics < LeagueStatistics
     end
   end
 
-
-  def most_accurate_team(season)
-    collect_game_team_objects_by_season(season)
-    shots_by_team_id_by_season
+  def goals_by_team_id_by_season
     @goals_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
     @by_season_game_team_objects.each do |season_game_team_object|
       @goals_by_team_id[season_game_team_object.team_id] += season_game_team_object.goals
     end
+  end
+
+
+  def most_accurate_team(season)
+    collect_game_team_objects_by_season(season)
+    shots_by_team_id_by_season
+    goals_by_team_id_by_season
     @shot_accuracy_by_team_id = Hash.new
       @goals_by_team_id.keys.each do |key|
         shot_accuracy = @goals_by_team_id[key].to_f / @shots_by_team_id[key]
