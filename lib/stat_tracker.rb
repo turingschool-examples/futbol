@@ -207,25 +207,25 @@ class StatTracker
   end
 
     #========== Best & Worst Offense ==========
-    def team_by_id
+    def team_by_id #Returns a hash. Key is team_id and value are the game_teams objects.
       team_by_id = @game_teams.group_by do |team|
       team.team_id
       end
     end
 
-    def total_games_by_id
+    def total_games_by_id #Returns a hash. team_id is the key and the values are total # of games across all seasons
       total_games_by_id = {}
       team_by_id.map { |id, games| total_games_by_id[id] = games.length}
       total_games_by_id
     end
 
-    def total_goals_by_id
+    def total_goals_by_id #Returns a hash. team_id is the key and the values are total # of goals across all seasons
       total_goals_by_id = {}
       team_by_id.map { |id, games| total_goals_by_id[id] = games.sum {|game| game.goals}}
       total_goals_by_id
     end
 
-    def average_goals_all_seasons_by_id
+    def average_goals_all_seasons_by_id #Returns a hash. team_id is the key and the values are average goals per game for that team.
        average_goals_all_seasons_by_id = {}
        total_goals_by_id.each do |id, goals|
        average_goals_all_seasons_by_id[id] = (goals.to_f / total_games_by_id[id] ).round(2)
@@ -442,7 +442,7 @@ class StatTracker
     #  NEEDS TEST
   end
 
-  def team_accuracy(seasonID)
+  def team_accuracy(seasonID) # Returns a hash. Key is team_id and the value is accuracy
       team_accuracy = Hash.new(0)
         games_per_season_per_team(seasonID).each do |team, games|
           shots = 0
@@ -475,14 +475,14 @@ class StatTracker
   end
 
     #========== Most & Fewest goals scored ==========
-    def games_by_team(team_id)
+    def games_by_team(team_id) # Returns an array of game_teams instances for a particular team
       games_by_team = @game_teams.select do |game_team|
         game_team.team_id == team_id
       end
       games_by_team
     end
 
-    def team_goals(team_id)
+    def team_goals(team_id) # Returns a hash. # of goals is key and each game that number of goals was scored are the values
       games_by_team(team_id)
       team_goals = games_by_team(team_id).group_by do |game_team|
         game_team.goals
