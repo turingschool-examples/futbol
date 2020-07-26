@@ -444,21 +444,27 @@ class StatTracker
     #  NEEDS TEST
   end
 
+  def team_accuracy(seasonID)
+        team_accuracy = Hash.new(0)
+         games_per_season_per_team(seasonID).each do |team, games|
+           shots = 0
+           goals = 0
+         games.each do |game|
+           shots = games.sum {|game| game.shots}
+           goals = games.sum {|game| game.goals}
+         end
+           team_accuracy[team] = (goals.to_f / shots)
+        end
+        team_accuracy
+      end
+
   def most_accurate_team(seasonID)
     # Name of team with the best ratio of shots to goals for the season
     # Needs refactoring and can be helper methods
     games_per_season_per_team(seasonID)
 
-     team_accuracy = Hash.new(0)
-      games_per_season_per_team.each do |team, games|
-        shots = 0
-        goals = 0
-      games.each do |game|
-        shots = games.sum {|game| game.shots}
-        goals = games.sum {|game| game.goals}
-      end
-        team_accuracy[team] = (goals.to_f / shots)
-      end
+    team_accuracy(seasonID)
+
       best_team = team_accuracy.max_by {|team_id, accuracy| accuracy}
       @teams.find {|team| team.team_id == best_team[0]}.teamname
     end
@@ -466,16 +472,8 @@ class StatTracker
   def least_accurate_team(seasonID)
       games_per_season_per_team(seasonID)
 
-       team_accuracy = Hash.new(0)
-        games_per_season_per_team.each do |team, games|
-          shots = 0
-          goals = 0
-        games.each do |game|
-          shots = games.sum {|game| game.shots}
-          goals = games.sum {|game| game.goals}
-        end
-          team_accuracy[team] = (goals.to_f / shots)
-        end
+      team_accuracy(seasonID)
+      
         worst_team = team_accuracy.min_by {|team_id, accuracy| accuracy}
         @teams.find {|team| team.team_id == worst_team[0]}.teamname
       end
