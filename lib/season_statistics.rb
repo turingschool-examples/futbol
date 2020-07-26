@@ -130,11 +130,15 @@ class SeasonStatistics < LeagueStatistics
     end
   end
 
-  def most_accurate_team(season)
+  def shot_accuracy_suite(season)
     collect_game_team_objects_by_season(season)
     shots_by_team_id_by_season
     goals_by_team_id_by_season
     shot_accuracy_by_team_id_by_season
+  end
+
+  def most_accurate_team(season)
+    shot_accuracy_suite(season)
     @team_name_by_id[@shot_accuracy_by_team_id.invert.max[1]]
   end
 
