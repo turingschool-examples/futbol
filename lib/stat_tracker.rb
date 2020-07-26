@@ -486,24 +486,23 @@ class StatTracker
     end.teamname
   end
 
-
-  def opponents(team_id)
-    opponents = Hash.new {|h,k| h[k] = []}
+  def games_won_by_team(team_id)
+    games_won_against_opp = Hash.new(0)
     @games.each do |game|
-      opponents[game.home_team_id] << game if game.away_team_id == team_id
-      opponents[game.away_team_id] << game if game.home_team_id == team_id
+      games_won_against_opp[game.home_team_id] += 1 if ((game.away_team_id == team_id) && (game.away_goals > game.home_goals))
+      games_won_against_opp[game.away_team_id] +=1 if ((game.home_team_id == team_id) && (game.home_goals > game.away_goals))
+    end
+    games_won_against_opp
+  end
+
+
+  def opponents_of(team_id)
+    opponents = Hash.new(0)
+    @games.each do |game|
+      opponents[game.home_team_id] += 1 if game.away_team_id == team_id
+      opponents[game.away_team_id] += 1 if game.home_team_id == team_id
     end
     opponents
-  end
-
-  def all_games_played_by(team_id)
-    @games.find_all do |game|
-      (game.away_team_id || game.home_team_id) == team_id
-    end
-  end
-
-  def all_games_won_by(team_id)
-
   end
 
   def find_team_name(team_id)
@@ -512,38 +511,23 @@ class StatTracker
     end.teamname
   end
 
-  def favorite_opponent(team_id)
-    opps_hash = opponents(team_id)
-    total_games_played_by_opponents = {}
-    all_games_won_by_our_team = Hash.new{|h,k| h[k] = []}
-    opps_hash.each do |team_id, games_played|
-      total_games_played_by_opponents[team_id] = games_played.count
-    end
-
-    # How many times did I win against this opponent
-    opps_hash.each do |opp_team_id, games_played|
-      games_played.find_all do |game|
-        @game_teams.each do |game_team|
-          if game.game_id == game_team.game_id
-            if game_team.team_id != opp_team_id && game_team.result == "WIN"
-            all_games_won_by_our_team[opp_team_id] << game
-            else game_team.team_id == opp_team_id && game_team.result == "LOSS"
-            all_games_won_by_our_team[opp_team_id] << game
-            end
-          end
+  def average_win_percentage_by_opponents_of(team_id)
+    all_games_played = opponents_of(team_id)
+    all_games_won = games_won_by_team(team_id)
+    average_win_percentage = {}
+    all_games_won.each do |opp_team_id, games_won|
+      all_games_played.each do |opp_team_id2, games_played|
+        if opp_team_id == opp_team_id2
+          average_win_percentage[opp_team_id] = games_won.to_f / games_played
         end
       end
     end
+    average_win_percentage
+  end
 
-
-    average_win_percentage = {}
-    total_games_played_by_opponents.each do |opp_team_id1, total_games_played|
-      all_games_won_by_our_team.each do |opp_team_2, our_wins|
-        average_win_percentage[opp_team_id1] = our_wins.count / total_games_played.to_f
-      end
-    end
-    fav_opp = average_win_percentage.max_by do |opp_team_id, win_percentage|
-      win_percentage
+  def favorite_opponent(team_id)
+  fav_opp = average_win_percentage_by_opponents_of(team_id).max_by do |opp_id, win_percent|
+      win_percent
     end
     find_team_name(fav_opp[0])
   end
