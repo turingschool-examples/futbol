@@ -17,8 +17,8 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_it_can_print_best_and_worst_coach_by_season
-    assert_equal [], @season_statistics.winningest_coach(season)
-    assert_equal [], @season_statistics.worst_coach(season)
+    assert_equal [], @season_statistics.winningest_coach(20122013)
+    assert_equal [], @season_statistics.worst_coach(20122013)
   end
 
   #def test_it_has_attributes
