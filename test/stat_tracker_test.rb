@@ -207,7 +207,7 @@ class StatTrackerTest < MiniTest::Test
   assert_equal 8, @stat_tracker.games_by_team("18").first.shots
   end
 
-  def test_team_goals
+  def test_it_pair_goals_scored_with_each_instance
 
   assert_equal [2, 3, 1, 0, 5, 4, 7], @stat_tracker.team_goals("18").keys
   end
