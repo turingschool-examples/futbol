@@ -57,13 +57,7 @@ class SeasonStatistics
     @counter_wins_team_id
   end
 
-  def winningest_coach(season)
-    create_coach_by_team_id
-    collect_game_objects_by_season
-
-    #Helper for total wins by season
-
-    # Helper for win percentage
+  def win_percentage_by_season
     most_number_of_games_won = @counter_wins_team_id.invert.max[0].to_f
     for_highest_total_games_played = @games_played_by_team_id[@counter_wins_team_id.invert.max[1]]
     least_number_of_games_won = @counter_wins_team_id.invert.min[0].to_f
@@ -71,6 +65,15 @@ class SeasonStatistics
 
     winningest = (most_number_of_games_won / for_highest_total_games_played) * 100
     worst = (least_number_of_games_won / for_lowest_total_games_played) * 100
+  end
+
+  def winningest_coach(season)
+    create_coach_by_team_id
+    collect_game_objects_by_season
+    total_wins_by_season
+    win_percentage_by_season
+
+    # Helper for win percentage
 
     # Pull id to head coach name
     max_team_id = @counter_wins_team_id.invert.max[1]
