@@ -225,15 +225,19 @@ class StatTracker
       total_goals_by_id
     end
 
-    def best_offense
-      team_by_id
-      total_games_by_id
-      total_goals_by_id
-
+    def average_goals_all_seasons_by_id
       average_goals_all_seasons_by_id = {}
       total_goals_by_id.each do |id, goals|
       average_goals_all_seasons_by_id[id] = (goals.to_f / total_games_by_id[id] ).round(2)
     end
+    average_goals_all_seasons_by_id
+  end
+
+    def best_offense
+      team_by_id
+      total_games_by_id
+      total_goals_by_id
+      average_goals_all_seasons_by_id
 
       highest = average_goals_all_seasons_by_id.max_by {|id, avg| avg}
 
