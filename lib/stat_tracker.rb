@@ -257,13 +257,13 @@ class StatTracker
   end
   #Finds coach results for specific season
   def coach_name_and_results(season)
-      output = {}
-       games_teams_by_seasons_per_coach(season).map do |coach, game_teams|
-        game_teams.map do |game_team|
-          output[coach] ? output[coach] += [game_team.result] : output[coach] = [game_team.result]
-        end
+    output = {}
+    games_teams_by_seasons_per_coach(season).map do |coach, game_teams|
+      game_teams.map do |game_team|
+        output[coach] ? output[coach] += [game_team.result] : output[coach] = [game_team.result]
       end
-     output
+    end
+    output
   end
   #Finds highest percentage coach result name by flag (i.e. flag = "WIN" || "LOSS"). String (coach name)
   def coach_result_percentage(season, flag)
