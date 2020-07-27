@@ -224,22 +224,20 @@ class StatTracker
     total_games_by_id
     total_goals_by_id
     average_goals_all_seasons_by_id
-
     highest = average_goals_all_seasons_by_id.max_by {|id, avg| avg}
     best_offense = @teams.find {|team| team.teamname if team.team_id == highest[0]}.teamname
     best_offense
   end
 
-      def worst_offense
-        team_by_id
-        total_games_by_id
-        total_goals_by_id
-        average_goals_all_seasons_by_id
-
-       lowest = average_goals_all_seasons_by_id.min_by {|id, avg| avg}
-       worst_offense = @teams.find {|team| team.teamname if team.team_id == lowest[0]}.teamname
-       worst_offense
-     end
+  def worst_offense
+    team_by_id
+    total_games_by_id
+    total_goals_by_id
+    average_goals_all_seasons_by_id
+    lowest = average_goals_all_seasons_by_id.min_by {|id, avg| avg}
+    worst_offense = @teams.find {|team| team.teamname if team.team_id == lowest[0]}.teamname
+    worst_offense
+  end
 
 
 
