@@ -22,6 +22,11 @@ class StatTrackerTest < MiniTest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
+
+  def test_can_find_percentage_ties
+     assert_equal 0.20, @stat_tracker.percentage_ties
+   end
+
   def test_find_the_fewest_tackles
     assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
@@ -65,10 +70,36 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 32, @stat_tracker.count_of_teams
   end
 
+
+   def test_home_team_hash
+     assert_equal 32, @stat_tracker.home_team.keys.count
+     assert_equal Hash, @stat_tracker.home_team.class
+   end
+
   def test_highest_scoring_home_team
     assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
   end
 
+
+   def test_goals
+     assert_equal 32, @stat_tracker.goals.keys.count
+     assert_equal 2.1018867924528304, @stat_tracker.goals["3"]
+     assert_equal 2.3884892086330933, @stat_tracker.goals["5"]
+   end
+
+
+   def test_highest_scoring_home_team
+     assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
+   end
+
+   def test_lowest_scoring_home_team
+     assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_home_team
+   end
+
+   def test_season_hash
+     assert_equal 6, @stat_tracker.season_hash.keys.count
+     assert_equal ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @stat_tracker.season_hash.keys
+   end
 
   def test_it_can_create_an_away_goals_and_team_id_hash
     assert_equal 32, @stat_tracker.total_goals_by_away_team.count
@@ -139,45 +170,73 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, @stat_tracker.team_info("18")
   end
 
-  def test_it_can_retrieve_team_average_win_percentage
 
-    assert_equal 0.49, @stat_tracker.average_win_percentage("6")
+   def test_game_ids_by_season
+     assert_equal 6, @stat_tracker.game_ids_by_season.keys.count
+     assert_equal ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @stat_tracker.game_ids_by_season.keys
+     assert_equal 806, @stat_tracker.game_ids_by_season["20122013"].count
+   end
+
+   def test_games_by_season
+     assert_equal 6, @stat_tracker.games_by_season.count
+     assert_equal 2, @stat_tracker.games_by_season["20122013"].first.goals
+     assert_equal "3", @stat_tracker.games_by_season["20122013"].first.team_id
+     assert_equal "LOSS", @stat_tracker.games_by_season["20122013"].first.result
+   end
+
+   def test_season_games
+     assert_equal 14882, @stat_tracker.season_games.count
+     assert_equal "John Tortorella", @stat_tracker.season_games.first.head_coach
+     assert_equal "2012030221", @stat_tracker.season_games.first.game_id
+   end
+
+   def test_team_games_per_season
+     @stat_tracker.team_games_per_season("6")
+     assert_equal 70, @stat_tracker.team_games_per_season("6")["2012"].count
+     assert_equal 94, @stat_tracker.team_games_per_season("6")["2017"].count
+   end
+
+  def test_win_hash
+    result = {"2012"=>[38, 70],
+              "2016"=>[45, 88],
+              "2014"=>[31, 82],
+              "2015"=>[33, 82],
+              "2013"=>[54, 94],
+              "2017"=>[50, 94]}
+    assert_equal result, @stat_tracker.win_hash("6")
   end
 
-  def test_it_can_find_most_accurate_team_by_season
+   def test_best_season
+    assert_equal "20132014", @stat_tracker.best_season("6")
+   end
 
-    assert_equal "Real Salt Lake", @stat_tracker.most_accurate_team("20132014")
-    assert_equal "Toronto FC", @stat_tracker.most_accurate_team("20142015")
-  end
+   def test_worst_season
+     assert_equal "20142015", @stat_tracker.worst_season("6")
+   end
 
-  def test_it_can_find_least_accurate_team_by_season
 
-    assert_equal "New York City FC", @stat_tracker.least_accurate_team("20132014")
-    assert_equal "Columbus Crew SC", @stat_tracker.least_accurate_team("20142015")
-  end
-
-  def test_it_can_find_most_goals_scored_for_team
-
-    assert_equal 7, @stat_tracker.most_goals_scored("18")
-  end
-
-  def test_it_can_find_fewest_goals_scored_for_team
-
-    assert_equal 0, @stat_tracker.fewest_goals_scored("18")
+  def test_games_per_season_per_team
+    assert_equal 30, @stat_tracker.games_per_season_per_team("20132014").keys.count
+    assert_equal 89, @stat_tracker.games_per_season_per_team("20132014")["4"].count
+    assert_equal 2, @stat_tracker.games_per_season_per_team("20132014")["4"].first.goals
+    assert_equal 107, @stat_tracker.games_per_season_per_team("20132014")["3"].count
+    assert_equal 3, @stat_tracker.games_per_season_per_team("20132014")["3"].first.goals
   end
 
   def test_best_season
     assert_equal "20132014", @stat_tracker.best_season("6")
   end
 
-  def test_worst_season
-    assert_equal "20142015", @stat_tracker.worst_season("6")
+  def test_team_tackles
+    assert_equal 30, @stat_tracker.team_tackles("20132014").keys.count
+    assert_equal 1836, @stat_tracker.team_tackles("20132014")["16"]
+    assert_equal 2441, @stat_tracker.team_tackles("20132014")["6"]
   end
 
   def test_find_the_fewest_tackles
-   assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
-   assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
- end
+    assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
+    assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
+  end
 
   def test_find_the_most_tackles
     assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
@@ -272,7 +331,6 @@ class StatTrackerTest < MiniTest::Test
        "54"=>0.3333333333333333,
        "13"=>0.1}
     assert_equal expected, @stat_tracker.average_win_percentage_by_opponents_of("18")
-
   end
 
   def test_it_can_find_rival
@@ -287,12 +345,10 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_find_most_goals_scored_for_team
-
     assert_equal 7, @stat_tracker.most_goals_scored("18")
   end
 ######################################
   def test_it_can_find_fewest_goals_scored_for_team
-
     assert_equal 0, @stat_tracker.fewest_goals_scored("18")
   end
 
