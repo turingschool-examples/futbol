@@ -13,8 +13,13 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_create_team_hash_details
-    expected = {:team_id=>3, :franchise_id=>10, :team_name=>"Houston Dynamo", :abbreviation=>"HOU", :link=>"/api/v1/teams/3"}
+    expected = {:team_id=>3, :franchise_id=>10, :team_name=>"Houston Dynamo", :abbreviation=>"HOU", :link=>"/api/v1/teams/3"} # Update values to strings
     assert_equal expected, @team_stats.team_info("3")
+  end
+
+  def test_it_can_return_best_and_worst_season_by_team_id
+    assert_equal [], @team_stats.best_season("16")
+    assert_equal [], @team_stats.worst_season("17")
   end
 
 end
