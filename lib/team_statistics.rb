@@ -11,6 +11,7 @@ class TeamStatistics
     @total_games_by_season = Hash.new{ |hash, key| hash[key] = 0 }
     @total_wins_by_season = Hash.new{ |hash, key| hash[key] = 0 }
     @win_percentage_by_season = Hash.new
+    @games_won_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
   end
 
   def all_teams
@@ -91,12 +92,7 @@ class TeamStatistics
     @win_percentage_by_season.invert.min[1].to_s
   end
 
-  def average_win_percentage(passed_id)
-    collect_game_objects_by_team_id(passed_id)
-    total_games_played = @by_team_id_game_objects.size
-
-    @games_won_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
-
+  def sort_games_won_by_team_id(passed_id)
     @by_team_id_game_objects.each do |game|
       if passed_id == game.away_team_id.to_s && game.away_goals > game.home_goals
         @games_won_by_team_id[game.away_team_id.to_s] += 1
@@ -108,10 +104,18 @@ class TeamStatistics
         @games_won_by_team_id[game.home_team_id.to_s] += 0
       end
     end
+  end
 
-    x = @games_won_by_team_id.values[0].to_f
-    y = ((x / total_games_played) * 100).round(2)
+  def average_win_suite(passed_id)
+    collect_game_objects_by_team_id(passed_id)
+    @total_games_played = @by_team_id_game_objects.size
+    sort_games_won_by_team_id(passed_id)
+    @games_won_by_team = @games_won_by_team_id.values[0].to_f
+  end
 
+  def average_win_percentage(passed_id)
+    average_win_suite(passed_id)
+    (@games_won_by_team / @total_games_played).round(2)
   end
 
 
