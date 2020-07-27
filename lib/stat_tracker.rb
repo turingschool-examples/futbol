@@ -438,6 +438,7 @@ class StatTracker
   end#method
 
   def worst_season(teamID)
+    require "pry"; binding.pry
     win_hash(teamID)
     worst = @win_count.min_by do |season, games|
       @win_count[season].first / @win_count[season].last.to_f
@@ -492,9 +493,6 @@ class StatTracker
     find_team_name(fav_opp[0])
   end
 
-  def season_games
-    season_games = games_by_season.map {|season, games| games}.flatten.compact
-  end
 
   def team_tackles(seasonID)
     team_tackles = Hash.new(0)

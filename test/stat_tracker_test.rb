@@ -178,6 +178,7 @@ class StatTrackerTest < MiniTest::Test
    end
 
    def test_games_by_season
+     skip
      assert_equal 6, @stat_tracker.games_by_season.count
      assert_equal 2, @stat_tracker.games_by_season["20122013"].first.goals
      assert_equal "3", @stat_tracker.games_by_season["20122013"].first.team_id
@@ -185,18 +186,21 @@ class StatTrackerTest < MiniTest::Test
    end
 
    def test_season_games
+     skip
      assert_equal 14882, @stat_tracker.season_games.count
      assert_equal "John Tortorella", @stat_tracker.season_games.first.head_coach
      assert_equal "2012030221", @stat_tracker.season_games.first.game_id
    end
 
    def test_team_games_per_season
+     skip
      @stat_tracker.team_games_per_season("6")
      assert_equal 70, @stat_tracker.team_games_per_season("6")["2012"].count
      assert_equal 94, @stat_tracker.team_games_per_season("6")["2017"].count
    end
 
   def test_win_hash
+    skip
     result = {"2012"=>[38, 70],
               "2016"=>[45, 88],
               "2014"=>[31, 82],
@@ -248,6 +252,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_find_all_opponents
+    skip
     assert_equal 31, @stat_tracker.opponents_of("18").count
     assert_equal Hash, @stat_tracker.opponents_of("18").class
 
@@ -353,10 +358,12 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_best_season
+    skip
     assert_equal "20132014", @stat_tracker.best_season("6")
   end
 
   def test_worst_season
+    
     assert_equal "20142015", @stat_tracker.worst_season("6")
   end
 
