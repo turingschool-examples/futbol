@@ -38,7 +38,7 @@ class StatTracker
     self.percentage_home_wins1
   end
 
-  def percentage_visitor_wins
+  def percentage_visitor_wins #game_team_manager -> percentage_visitor_wins
     self.percentage_visitor_wins1
   end
 
