@@ -628,14 +628,12 @@ class StatTracker
     end
     best = win_hash.max_by do |season, games|
     win_hash[season].first / win_hash[season].last.to_f
-  end
-
+    end
     math = best[0].to_i
     math += 1
     math.to_s
-
     answer = best.first + "#{math}"
-    end#method
+  end#method
 
     def worst_season(teamID)
       games_by_team = season_games.select {|team| team.team_id == teamID}
