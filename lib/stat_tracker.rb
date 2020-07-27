@@ -34,7 +34,7 @@ class StatTracker
     @game_manager.lowest_total_score
   end
 
-  def percentage_home_wins
+  def percentage_home_wins #game_team_manager -> percentage_home_wins
     self.percentage_home_wins1
   end
 
