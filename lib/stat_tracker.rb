@@ -50,7 +50,7 @@ class StatTracker
     self.percentage_ties1
   end
 
-  def average_goals_per_game
+  def average_goals_per_game #game_manager -> average_goals_per_Game
     self.average_goals_per_game1
   end
 
