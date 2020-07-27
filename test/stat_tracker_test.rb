@@ -73,7 +73,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_best_offense_team
-    skip
+    # skip
     assert_equal "Reign FC", @stat_tracker.best_offense
   end
 
@@ -153,14 +153,11 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
-
   def test_it_can_display_best_season
-    # skip
     assert_equal "20132014", @stat_tracker.best_season(6)
   end
 
   def test_it_can_display_worst_season
-    # skip
     assert_equal "20142015", @stat_tracker.worst_season(6)
   end
 
@@ -170,22 +167,18 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_display_most_goals_scored
-    # skip
     assert_equal 7, @stat_tracker.most_goals_scored(18)
   end
 
   def test_it_can_display_fewest_goals_scored
-    # skip
     assert_equal 0, @stat_tracker.fewest_goals_scored(18)
   end
 
   def test_it_can_display_favorite_opponent
-    # skip
     assert_equal "DC United", @stat_tracker.favorite_opponent(18)
   end
 
   def test_it_can_display_rival
-    # skip
     assert_equal "LA Galaxy", @stat_tracker.rival(18)
   end
 
@@ -232,7 +225,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_get_team_name # can't figure out how to get this to work (Travis)
-    skip
+  skip
     team = TeamManager.new(@locations)
 
     assert_equal 3, team.find_by_id(3)
