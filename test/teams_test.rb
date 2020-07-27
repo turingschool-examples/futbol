@@ -1,13 +1,7 @@
-require "minitest/autorun"
-require "minitest/pride"
-require "./lib/stat_tracker"
-require "./lib/game"
-require "./lib/teams"
-require "pry"
+require "./test/test_helper"
 
 
-
-class StatTrackerTest < MiniTest::Test
+class TeamsTest < MiniTest::Test
   def setup
     row = {
 :team_id => 1,
