@@ -26,7 +26,7 @@ class StatTracker
   end
 
 
-  def highest_total_score
+  def highest_total_score #game_manager -> highest total score
     @game_manager.highest_total_score
   end
 

@@ -73,7 +73,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_best_offense_team
-    skip
+    # skip
     assert_equal "Reign FC", @stat_tracker.best_offense
   end
 
@@ -225,7 +225,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_get_team_name # can't figure out how to get this to work (Travis)
-    skip
+  skip
     team = TeamManager.new(@locations)
 
     assert_equal 3, team.find_by_id(3)
