@@ -570,12 +570,12 @@ class StatTracker
     average_win_percentage
   end
 
-    def favorite_opponent(team_id)
-    fav_opp = average_win_percentage_by_opponents_of(team_id).max_by do |opp_id, win_percent|
-        win_percent
-      end
-      find_team_name(fav_opp[0])
+  def favorite_opponent(team_id)
+  fav_opp = average_win_percentage_by_opponents_of(team_id).max_by do |opp_id, win_percent|
+      win_percent
     end
+    find_team_name(fav_opp[0])
+  end
   ###########################
 
     def season_hash
