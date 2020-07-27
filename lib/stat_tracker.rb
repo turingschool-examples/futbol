@@ -275,7 +275,7 @@ def coach_name_and_results(season)
     end
    output
 end
-#Finds highest percentage coach result by flag (i.e. flag = "WIN" || "LOSS"). String (coach name)
+#Finds highest percentage coach result name by flag (i.e. flag = "WIN" || "LOSS"). String (coach name)
 def coach_result_percentage(season, flag)
   coach_name_and_results(season).max_by do |coach, results|
     win_count = results.find_all { |result| result == flag}.size
