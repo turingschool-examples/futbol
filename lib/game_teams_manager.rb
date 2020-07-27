@@ -24,7 +24,7 @@ class GameTeamsManager
   end
 
   def teams_sort_by_average_goal
-    average = @game_teams_array.sort_by do |team|
+    @game_teams_array.sort_by do |team|
       team_average_goals(team.team_id)
     end
   end
@@ -82,12 +82,15 @@ class GameTeamsManager
   end
 
   def home_games_by_team_id
-    find_all_home_teams.group_by{|game| game.team_id}
+      find_all_home_teams.group_by do |game|
+        game.team_id
+    end
   end
 
   def highest_home_team
-     home_games_by_team_id.max_by{|team_id, gameteam|}
+     home_games_by_team_id.max_by do |team_id, gameteam|
        gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
+     end
   end
 
   def lowest_home_team
@@ -106,5 +109,6 @@ class GameTeamsManager
 
   def percentage_ties(home_games, tie_games)
     (tie_games.count.to_f / home_games.count.to_f).round(2)
+  end
   end
 end
