@@ -19,7 +19,7 @@ class StatTracker
 
   def turn_games_csv_data_into_games_objects(games_csv_data)
     games_objects_collection = []
-    CSV.foreach(games_csv_data, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(games_csv_data, headers: true, header_converters: :symbol, row_sep: :auto) do |row|
       games_objects_collection << Games.new(row)
     end
     games_objects_collection
@@ -27,7 +27,7 @@ class StatTracker
 
   def turn_teams_csv_data_into_teams_objects(teams_csv_data)
     teams_objects_collection = []
-    CSV.foreach(teams_csv_data, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(teams_csv_data, headers: true, header_converters: :symbol, row_sep: :auto) do |row|
       teams_objects_collection << Teams.new(row)
     end
     teams_objects_collection
@@ -35,7 +35,7 @@ class StatTracker
 
   def turn_game_teams_csv_data_into_game_teams_objects(game_teams_csv_data)
     game_teams_objects_collection = []
-    CSV.foreach(game_teams_csv_data, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(game_teams_csv_data, headers: true, header_converters: :symbol, row_sep: :auto) do |row|
       game_teams_objects_collection << GameTeams.new(row)
     end
     game_teams_objects_collection
@@ -99,7 +99,7 @@ class StatTracker
     (total_visitor_wins.length.to_f / @games.length).round(2)
   end
 
-   def percentage_tie
+   def percentage_ties
     game_ties = @game_teams.select do |game|
       game.result == "TIE"
     end
@@ -114,22 +114,26 @@ class StatTracker
    end
 
     def lowest_scoring_home_team
+      #home_team
       home_team = @games.group_by do |game|
         game.home_team_id
       end
+
       goals = {}
       home_team.each do |team_id, games|
         goal_count = 0
         games.each do |game|
             goal_count += game.home_goals
-          end
+        end
           average_goals = goal_count / games.count.to_f
           goals[team_id] = average_goals
         end
+
         goals
         id = goals.min_by {|team, num_of_goals| num_of_goals}
         @teams.find {|team| team.team_id == id[0]}.teamname
-     end
+    end
+
 
   def count_of_teams
     teams.count
@@ -166,8 +170,8 @@ class StatTracker
   #======== helper method for highest_scoring_visitor
 
     games_by_team_id = @games.reduce(Hash.new { |h,k| h[k]=[] }) do |result, game|
-    result[game.away_team_id] << game.game_id
-    result
+      result[game.away_team_id] << game.game_id
+      result
     end
     games_count_by_team_id = {}
     games_by_team_id.each do |team_id, games_array|
@@ -401,7 +405,6 @@ class StatTracker
   end
 
   def team_info(team_id)
-
     team_info = {}
     team = @teams.find {|team| team.team_id == team_id}
     franchise_id = team.franchiseid
@@ -428,6 +431,7 @@ class StatTracker
   end
 
 #========== Most & Least Accurate Team ==========
+
   def games_per_season_per_team(seasonID)
     games_in_season = @games.select { |game| game.season == seasonID }
     game_ids_in_season = games_in_season.map do |game|
@@ -441,6 +445,7 @@ class StatTracker
   end
     #  NEEDS TEST
   end
+
 
   def team_accuracy(seasonID) # Returns a hash. Key is team_id and the value is accuracy
       team_accuracy = Hash.new(0)
@@ -502,7 +507,12 @@ class StatTracker
       team_goals(team_id)
       fewest_goals = team_goals(team_id).min_by {|goals, game_team| goals}
       fewest_goals[0]
-    end
+      end
+       most = team_tackles.max_by {|k, v| v}
+        @teams.find {|team| team.team_id == most.first}.teamname
+    end#tackle method
+
+
 
    #========== HELPER METHODS ==========
   #1 ======= Create a <games_by_season> hash with a season => games pair, from games class.
@@ -529,6 +539,49 @@ class StatTracker
     end.teamname
   end
 
+  def games_won_by_team(team_id)
+    games_won_against_opp = Hash.new(0)
+    @games.each do |game|
+      games_won_against_opp[game.home_team_id] += 1 if ((game.away_team_id == team_id) && (game.away_goals > game.home_goals))
+      games_won_against_opp[game.away_team_id] +=1 if ((game.home_team_id == team_id) && (game.home_goals > game.away_goals))
+    end
+    games_won_against_opp
+  end
+
+
+  def opponents_of(team_id)
+    opponents = Hash.new(0)
+    @games.each do |game|
+      opponents[game.home_team_id] += 1 if game.away_team_id == team_id
+      opponents[game.away_team_id] += 1 if game.home_team_id == team_id
+    end
+    opponents
+  end
+
+  def find_team_name(team_id)
+    @teams.find do |team|
+      team.team_id == team_id
+    end.teamname
+  end
+
+  def average_win_percentage_by_opponents_of(team_id)
+    average_win_percentage = {}
+    games_won_by_team(team_id).each do |opp_team_id, games_won|
+      opponents_of(team_id).each do |opp_team_id2, games_played|
+        if opp_team_id == opp_team_id2
+          average_win_percentage[opp_team_id] = games_won.to_f / games_played
+        end
+      end
+    end
+    average_win_percentage
+  end
+
+  def favorite_opponent(team_id)
+  fav_opp = average_win_percentage_by_opponents_of(team_id).max_by do |opp_id, win_percent|
+      win_percent
+    end
+    find_team_name(fav_opp[0])
+  end
 ###########################
 
   def season_hash
@@ -670,7 +723,14 @@ class StatTracker
       end
     end
 
-  most = team_tackles.max_by {|k, v| v}
-  @teams.find {|team| team.team_id == most.first}.teamname
-  end#tackle method
-end#class
+
+  def rival(team_id)
+    not_fav_opp = average_win_percentage_by_opponents_of(team_id).min_by do |opp_id, win_percent|
+      win_percent
+    end
+    find_team_name(not_fav_opp[0])
+  end
+
+end
+
+ 
