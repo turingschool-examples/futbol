@@ -18,71 +18,72 @@ class StatTrackerTest < MiniTest::Test
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
-    def test_highest_scores
-      assert_equal 11, @stat_tracker.highest_total_score
-    end
-
-    def test_lowest_scores
-      assert_equal 0, @stat_tracker.lowest_total_score
-    end
-
-    def test_percentage_home_wins
-      assert_equal 0.44, @stat_tracker.percentage_home_wins
-    end
-
-    def test_percentage_visitor_wins
-      assert_equal 0.36, @stat_tracker.percentage_visitor_wins
-    end
-
-    def test_percentage_ties
-      assert_equal 0.20, @stat_tracker.percentage_ties
-    end
-
-    def test_count_of_games_by_season
-      expected = {
-        "20122013"=>806,
-        "20162017"=>1317,
-        "20142015"=>1319,
-        "20152016"=>1321,
-        "20132014"=>1323,
-        "20172018"=>1355
-      }
-      assert_equal expected, @stat_tracker.count_of_games_by_season
-    end
-
-   def test_average_goals_per_game
-     assert_equal 4.22, @stat_tracker.average_goals_per_game
-   end
-
-   def test_average_goals_by_season
-     expected = {
-       "20122013"=>4.12,
-       "20162017"=>4.23,
-       "20142015"=>4.14,
-       "20152016"=>4.16,
-       "20132014"=>4.19,
-       "20172018"=>4.44
-     }
-
-     assert_equal expected, @stat_tracker.average_goals_by_season
-   end
-
-  def test_it_can_count_teams
-    # skip
-    assert_equal 32, @stat_tracker.count_of_teams
-  end
-
+  #   def test_highest_scores
+  #     assert_equal 11, @stat_tracker.highest_total_score
+  #   end
+  #
+  #   def test_lowest_scores
+  #     assert_equal 0, @stat_tracker.lowest_total_score
+  #   end
+  #
+  #   def test_percentage_home_wins
+  #     assert_equal 0.44, @stat_tracker.percentage_home_wins
+  #   end
+  #
+  #   def test_percentage_visitor_wins
+  #     assert_equal 0.36, @stat_tracker.percentage_visitor_wins
+  #   end
+  #
+  #   def test_percentage_ties
+  #     assert_equal 0.20, @stat_tracker.percentage_ties
+  #   end
+  #
+  #   def test_count_of_games_by_season
+  #     expected = {
+  #       "20122013"=>806,
+  #       "20162017"=>1317,
+  #       "20142015"=>1319,
+  #       "20152016"=>1321,
+  #       "20132014"=>1323,
+  #       "20172018"=>1355
+  #     }
+  #     assert_equal expected, @stat_tracker.count_of_games_by_season
+  #   end
+  #
+  #  def test_average_goals_per_game
+  #    assert_equal 4.22, @stat_tracker.average_goals_per_game
+  #  end
+  #
+  #  def test_average_goals_by_season
+  #    expected = {
+  #      "20122013"=>4.12,
+  #      "20162017"=>4.23,
+  #      "20142015"=>4.14,
+  #      "20152016"=>4.16,
+  #      "20132014"=>4.19,
+  #      "20172018"=>4.44
+  #    }
+  #
+  #    assert_equal expected, @stat_tracker.average_goals_by_season
+  #  end
+  #
+  # def test_it_can_count_teams
+  #   # skip
+  #   assert_equal 32, @stat_tracker.count_of_teams
+  # end
+  #
   def test_it_can_best_offense_team
     # skip
     assert_equal "Reign FC", @stat_tracker.best_offense
   end
 
   def test_it_can_worst_offense_team
-    skip
+    # skip
     assert_equal "Utah Royals FC", @stat_tracker.worst_offense
   end
 
   def test_it_can_get_highest_scoring_vistor_team
+    # skip
     assert_equal "FC Dallas", @stat_tracker.highest_visitor_team
   end
 
@@ -143,13 +144,13 @@ class StatTrackerTest < MiniTest::Test
   def test_count_of_games_by_season
     # skip
     expected = {
-                "20122013"=>806,
-                "20162017"=>1317,
-                "20142015"=>1319,
-                "20152016"=>1321,
-                "20132014"=>1323,
-                "20172018"=>1355
-                }
+      "20122013"=>806,
+      "20162017"=>1317,
+      "20142015"=>1319,
+      "20152016"=>1321,
+      "20132014"=>1323,
+      "20172018"=>1355
+    }
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
@@ -222,12 +223,5 @@ class StatTrackerTest < MiniTest::Test
 
     assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
-  end
-
-  def test_it_can_get_team_name # can't figure out how to get this to work (Travis)
-  skip
-    team = TeamManager.new(@locations)
-
-    assert_equal 3, team.find_by_id(3)
   end
 end
