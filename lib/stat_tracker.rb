@@ -186,13 +186,11 @@ class StatTracker
     over_all_average_by_team
   end
 
-    def highest_total_goals_by_away_team
-    #======== helper method for highest_scoring_visitor
-
-      total_goals_by_away_team.max_by do |team_id, total_goals|
-        total_goals
-      end
+  def highest_total_goals_by_away_team
+    total_goals_by_away_team.max_by do |team_id, total_goals|
+      total_goals
     end
+  end
 
       #========== Best & Worst Offense ==========
       def team_by_id #Returns a hash. Key is team_id and value are the game_teams objects.
