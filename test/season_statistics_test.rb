@@ -19,18 +19,18 @@ class SeasonStatisticsTest < Minitest::Test
   # Update tests for all new helpers excluding suite
 
   def test_it_can_print_best_and_worst_coach_by_season
-    assert_equal "Claude Julien", @season_statistics.winningest_coach(20122013)
-    assert_equal "Dan Bylsma", @season_statistics.worst_coach(20122013)
+    assert_equal "Claude Julien", @season_statistics.winningest_coach("20122013")
+    assert_equal "Dan Bylsma", @season_statistics.worst_coach("20122013")
   end
 
   def test_can_find_most_and_least_accurate_teams_by_season
-    assert_equal "FC Dallas", @season_statistics.most_accurate_team(20122013)
-    assert_equal "Sporting Kansas City", @season_statistics.least_accurate_team(20122013)
+    assert_equal "FC Dallas", @season_statistics.most_accurate_team("20122013")
+    assert_equal "Sporting Kansas City", @season_statistics.least_accurate_team("20122013")
   end
 
   def test_can_find_most_and_least_tackles_by_team_by_season
-    assert_equal "FC Dallas", @season_statistics.most_tackles(20122013)
-    assert_equal "LA Galaxy", @season_statistics.fewest_tackles(20122013)
+    assert_equal "FC Dallas", @season_statistics.most_tackles("20122013")
+    assert_equal "LA Galaxy", @season_statistics.fewest_tackles("20122013")
   end
 
 end

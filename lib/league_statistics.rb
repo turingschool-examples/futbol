@@ -63,7 +63,7 @@ class LeagueStatistics
 
   def goals_by_id
     all_game_teams.each do |game_team|
-      @goals_by_id[game_team.team_id] += game_team.goals
+      @goals_by_id[game_team.team_id] += game_team.goals.to_i
     end
     @goals_by_id
   end
@@ -78,7 +78,7 @@ class LeagueStatistics
   def goals_by_away_id
     all_game_teams.each do |game_team|
       if game_team.hoa == "away"
-        @goals_by_away_id[game_team.team_id] += game_team.goals
+        @goals_by_away_id[game_team.team_id] += game_team.goals.to_i
       end
     end
     @goals_by_away_id
@@ -87,7 +87,7 @@ class LeagueStatistics
   def goals_by_home_id
     all_game_teams.each do |game_team|
       if game_team.hoa == "home"
-        @goals_by_home_id[game_team.team_id] += game_team.goals
+        @goals_by_home_id[game_team.team_id] += game_team.goals.to_i
       end
     end
     @goals_by_home_id
