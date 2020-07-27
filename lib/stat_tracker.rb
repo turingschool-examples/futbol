@@ -368,12 +368,12 @@ class StatTracker
     team_goals
   end
 
-      def most_goals_scored(team_id)
-        games_by_team(team_id)
-        team_goals(team_id)
-        most_goals = team_goals(team_id).max_by {|goals, game_team| goals} #Sorts by highest goals
-        most_goals[0]
-      end
+  def most_goals_scored(team_id)
+    games_by_team(team_id)
+    team_goals(team_id)
+    most_goals = team_goals(team_id).max_by {|goals, game_team| goals} #Sorts by highest goals
+    most_goals[0]
+  end
 
       def fewest_goals_scored(team_id)
         games_by_team(team_id)
