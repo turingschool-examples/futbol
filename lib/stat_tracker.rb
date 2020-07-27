@@ -353,12 +353,12 @@ class StatTracker
   end
 
       #========== Most & Fewest goals scored ==========
-      def games_by_team(team_id) # Returns an array of game_teams instances for a particular team
-        games_by_team = @game_teams.select do |game_team|
-          game_team.team_id == team_id
-        end
-        games_by_team
-      end
+  def games_by_team(team_id) # Returns an array of game_teams instances for a particular team
+    games_by_team = @game_teams.select do |game_team|
+      game_team.team_id == team_id
+    end
+    games_by_team
+  end
 
       def team_goals(team_id) # Returns a hash. # of goals is key and each game that number of goals was scored are the values
         games_by_team(team_id)
