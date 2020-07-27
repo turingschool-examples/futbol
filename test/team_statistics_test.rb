@@ -19,7 +19,7 @@ class TeamStatisticsTest < Minitest::Test
 
   def test_it_can_return_best_and_worst_season_by_team_id
     assert_equal "20122013", @team_stats.best_season("6")
-    # assert_equal [], @team_stats.worst_season("17")
+    assert_equal "20122013", @team_stats.worst_season("17")
   end
 
 end

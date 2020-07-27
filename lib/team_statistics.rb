@@ -84,7 +84,11 @@ class TeamStatistics
   def best_season(passed_id)
     best_and_worst_season_suite(passed_id)
     @win_percentage_by_season.invert.max[1].to_s
-    # worst_season_print = @win_percentage_by_season_by_team_id.invert.min[1].to_s
+  end
+
+  def worst_season(passed_id)
+    best_and_worst_season_suite(passed_id)
+    @win_percentage_by_season.invert.min[1].to_s
   end
 
 end
