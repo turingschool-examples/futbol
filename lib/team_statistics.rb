@@ -8,6 +8,8 @@ class TeamStatistics
   def initialize
     @team_info_by_id = Hash.new
     @by_team_id_game_objects = []
+    @total_games_by_season = Hash.new{ |hash, key| hash[key] = 0 }
+
   end
 
   def all_teams
@@ -45,16 +47,16 @@ class TeamStatistics
     end
   end
 
+  def total_games_by_season_by_team_id
+    @by_team_id_game_objects.each do |game|
+      @total_games_by_season[game.season] += 1
+    end
+  end
+
   def best_season(passed_id)
     collect_game_objects_by_team_id(passed_id)
-
-
-    # hash key:season value:size of games played that season
-    @total_games_by_season_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
-
-    @by_team_id_game_objects.each do |game|
-      @total_games_by_season_by_team_id[game.season] += 1
-    end
+    total_games_by_season_by_team_id
+    require "pry"; binding.pry
 
     # hash key:season value:wins that season
     @total_wins_by_season_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
@@ -73,10 +75,6 @@ class TeamStatistics
 
     # Hash key:season value:avg win
     @win_percentage_by_season_by_team_id = Hash.new
-
-    x = @total_games_by_season_by_team_id
-    y = @total_wins_by_season_by_team_id
-
 
     @total_wins_by_season_by_team_id.each do |season, total_win|
       @win_percentage_by_season_by_team_id[season] = ((total_win.to_f / @total_games_by_season_by_team_id[season]) * 100).round(2)
