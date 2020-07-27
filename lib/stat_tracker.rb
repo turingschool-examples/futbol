@@ -336,15 +336,14 @@ class StatTracker
     team_accuracy
   end
 
-    def most_accurate_team(seasonID)
+  def most_accurate_team(seasonID)
       # Name of team with the best ratio of shots to goals for the season
       # Needs refactoring and can be helper methods
-      games_per_season_per_team(seasonID)
-      team_accuracy(seasonID)
-
-      best_team = team_accuracy(seasonID).max_by {|team_id, accuracy| accuracy}
-      @teams.find {|team| team.team_id == best_team[0]}.teamname
-    end
+    games_per_season_per_team(seasonID)
+    team_accuracy(seasonID)
+    best_team = team_accuracy(seasonID).max_by {|team_id, accuracy| accuracy}
+    @teams.find {|team| team.team_id == best_team[0]}.teamname
+  end
 
     def least_accurate_team(seasonID)
       games_per_season_per_team(seasonID)
