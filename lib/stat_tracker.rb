@@ -412,13 +412,13 @@ class StatTracker
     season_hash.delete_if {|k, v| k.nil?}
   end
 
-    def game_ids_by_season
-        game_ids_by_season = {}
-          season_hash.map do |season, games|
-            game_ids_by_season[season] = games.map {|game| game.game_id}
-          end
-          game_ids_by_season
+  def game_ids_by_season
+    game_ids_by_season = {}
+    season_hash.map do |season, games|
+      game_ids_by_season[season] = games.map {|game| game.game_id}
     end
+    game_ids_by_season
+  end
 
     def games_by_season
         games_by_season = {}
