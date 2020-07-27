@@ -135,5 +135,11 @@ class TeamStatistics
     @goals_by_game.max
   end
 
+  def fewest_goals_scored(passed_id)
+    collect_game_objects_by_team_id(passed_id)
+    goals_by_game_by_team(passed_id)
+    @goals_by_game.min
+  end
+
 
 end
