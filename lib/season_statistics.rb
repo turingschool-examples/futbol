@@ -104,7 +104,7 @@ class SeasonStatistics < LeagueStatistics
 
   def collect_game_team_objects_by_season(season)
     all_game_teams.each do |game_team_object|
-      if season.to_s[0..3] == game_team_object.game_id.to_s[0..3]
+      if season[0..3] == game_team_object.game_id[0..3]
         @by_season_game_team_objects << game_team_object
       end
     end
@@ -113,14 +113,14 @@ class SeasonStatistics < LeagueStatistics
   def shots_by_team_id_by_season
     @shots_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
     @by_season_game_team_objects.each do |season_game_team_object|
-      @shots_by_team_id[season_game_team_object.team_id] += season_game_team_object.shots
+      @shots_by_team_id[season_game_team_object.team_id] += season_game_team_object.shots.to_i
     end
   end
 
   def goals_by_team_id_by_season
     @goals_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
     @by_season_game_team_objects.each do |season_game_team_object|
-      @goals_by_team_id[season_game_team_object.team_id] += season_game_team_object.goals
+      @goals_by_team_id[season_game_team_object.team_id] += season_game_team_object.goals.to_i
     end
   end
 
@@ -151,7 +151,7 @@ class SeasonStatistics < LeagueStatistics
   def tackles_by_team_id_by_season(season)
     collect_game_team_objects_by_season(season)
     @by_season_game_team_objects.each do |season_game_team_object|
-      @tackles_by_team_id[season_game_team_object.team_id] += season_game_team_object.tackles
+      @tackles_by_team_id[season_game_team_object.team_id] += season_game_team_object.tackles.to_i
     end
   end
 
