@@ -52,8 +52,8 @@ class StatTrackerTest < MiniTest::Test
   end
 
 
-  def test_can_find_percentage_tie
-    assert_equal 0.20, @stat_tracker.percentage_tie
+  def test_can_find_percentage_ties
+    assert_equal 0.20, @stat_tracker.percentage_ties
   end
 
   def test_count_games_by_season
@@ -156,6 +156,104 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Toronto FC", @stat_tracker.most_accurate_team("20142015")
   end
 
+  def test_it_can_identify_favorite_opponent
+  assert_equal "DC United", @stat_tracker.favorite_opponent("18")
+  end
+
+  def test_it_can_find_all_opponents
+    assert_equal 31, @stat_tracker.opponents_of("18").count
+    assert_equal Hash, @stat_tracker.opponents_of("18").class
+
+    assert_equal 30, @stat_tracker.opponents_of("54").count
+    assert_equal Hash, @stat_tracker.opponents_of("54").class
+  end
+
+  def test_it_can_find_team_name
+    assert_equal "Minnesota United FC", @stat_tracker.find_team_name("18")
+    assert_equal "Reign FC", @stat_tracker.find_team_name("54")
+  end
+
+  def test_it_can_count_games_won_against_opponents
+    expected = {
+     "19"=>15,
+     "52"=>14,
+     "21"=>14,
+     "16"=>18,
+     "1"=>5,
+     "29"=>7,
+     "8"=>4,
+     "23"=>6,
+     "15"=>3,
+     "25"=>13,
+     "20"=>6,
+     "28"=>11,
+     "24"=>13,
+     "5"=>4,
+     "2"=>5,
+     "7"=>6,
+     "14"=>8,
+     "22"=>12,
+     "3"=>4,
+     "10"=>2,
+     "9"=>6,
+     "26"=>7,
+     "6"=>4,
+     "12"=>3,
+     "30"=>10,
+     "27"=>2,
+     "17"=>4,
+     "53"=>6,
+     "4"=>3,
+     "54"=>1,
+     "13"=>1}
+    assert_equal expected, @stat_tracker.games_won_by_team("18")
+
+  end
+
+  def test_it_can_calculate_average_win_percentage
+    expected = {
+       "19"=>0.4411764705882353,
+       "52"=>0.45161290322580644,
+       "21"=>0.4375,
+       "16"=>0.47368421052631576,
+       "1"=>0.5,
+       "29"=>0.4666666666666667,
+       "8"=>0.4,
+       "23"=>0.3333333333333333,
+       "15"=>0.3,
+       "25"=>0.48148148148148145,
+       "20"=>0.3333333333333333,
+       "28"=>0.44,
+       "24"=>0.41935483870967744,
+       "5"=>0.25,
+       "2"=>0.5,
+       "7"=>0.6,
+       "14"=>0.8,
+       "22"=>0.6666666666666666,
+       "3"=>0.4,
+       "10"=>0.2,
+       "9"=>0.6,
+       "26"=>0.3888888888888889,
+       "6"=>0.4,
+       "12"=>0.3,
+       "30"=>0.37037037037037035,
+       "27"=>0.3333333333333333,
+       "17"=>0.2857142857142857,
+       "53"=>0.5,
+       "4"=>0.3,
+       "54"=>0.3333333333333333,
+       "13"=>0.1}
+    assert_equal expected, @stat_tracker.average_win_percentage_by_opponents_of("18")
+
+  end
+
+
+  def test_it_can_find_rival
+    assert_equal "Houston Dash", @stat_tracker.rival("18")
+
+  end
+
+
   def test_it_can_find_least_accurate_team_by_season
 
     assert_equal "New York City FC", @stat_tracker.least_accurate_team("20132014")
@@ -183,10 +281,11 @@ class StatTrackerTest < MiniTest::Test
   def test_find_the_fewest_tackles
    assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
    assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
- end
+  end
 
   def test_find_the_most_tackles
     assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
     assert_equal "Seattle Sounders FC", @stat_tracker.most_tackles("20142015")
   end
+
 end
