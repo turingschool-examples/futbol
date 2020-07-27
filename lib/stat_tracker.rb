@@ -543,14 +543,14 @@ class StatTracker
   end
 
 
-    def opponents_of(team_id)
-      opponents = Hash.new(0)
-      @games.each do |game|
-        opponents[game.home_team_id] += 1 if game.away_team_id == team_id
-        opponents[game.away_team_id] += 1 if game.home_team_id == team_id
-      end
-      opponents
+  def opponents_of(team_id)
+    opponents = Hash.new(0)
+    @games.each do |game|
+      opponents[game.home_team_id] += 1 if game.away_team_id == team_id
+      opponents[game.away_team_id] += 1 if game.home_team_id == team_id
     end
+    opponents
+  end
 
     def find_team_name(team_id)
       @teams.find do |team|
