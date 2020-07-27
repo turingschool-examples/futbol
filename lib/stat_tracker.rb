@@ -58,7 +58,7 @@ class StatTracker
     self.average_goals_by_season1
   end
 
-  def team_info(id)
+  def team_info(id) #team_manager -> team_info(id)
     @team_manager.team_info(id)
   end
 
