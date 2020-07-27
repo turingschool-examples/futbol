@@ -32,7 +32,7 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_return_favorite_opponent_or_rival_by_team
-    assert_equal "I am a Team Name", @team_stats.favorite_opponent("8")
+    assert_equal "I am a Team Name", @team_stats.favorite_opponent("3")
   end
 
 end
