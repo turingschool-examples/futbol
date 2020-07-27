@@ -578,10 +578,10 @@ class StatTracker
   end
   ###########################
 
-    def season_hash
-      season_hash = @games.group_by {|games| games.season}
-            season_hash.delete_if {|k, v| k.nil?}
-    end
+  def season_hash
+    season_hash = @games.group_by {|games| games.season}
+    season_hash.delete_if {|k, v| k.nil?}
+  end
 
     def game_ids_by_season
         game_ids_by_season = {}
