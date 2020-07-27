@@ -20,14 +20,14 @@ class GameTeamsManager
     total_goals = teams_by_id.sum do |team|
       team.goals.to_i
     end
-    (total_goals.to_f / teams_by_id.size).round(2)
+  (total_goals.to_f / teams_by_id.size).round(2)
   end
 
   def teams_sort_by_average_goal
     average = @game_teams_array.sort_by do |team|
       team_average_goals(team.team_id)
+    end
   end
-
 
   def count_home_games
     home_games = []
@@ -58,15 +58,11 @@ class GameTeamsManager
 
 
   def find_all_away_teams
-     @game_teams_array.find_all do |gameteam|
-      gameteam.hoa == "away"
-    end
+     @game_teams_array.find_all{|gameteam| gameteam.hoa == "away"}
   end
 
   def away_games_by_team_id
-    find_all_away_teams.group_by do |game|
-      game.team_id
-    end
+    find_all_away_teams.group_by{|game| game.team_id}
   end
 
   def highest_visitor_team
@@ -82,38 +78,33 @@ class GameTeamsManager
   end
 
   def find_all_home_teams
-     @game_teams_array.find_all do |gameteam|
-      gameteam.hoa == "home"
-    end
+     @game_teams_array.find_all{|gameteam| gameteam.hoa == "home"}
   end
 
   def home_games_by_team_id
-    find_all_home_teams.group_by do |game|
-      game.team_id
-    end
+    find_all_home_teams.group_by{|game| game.team_id}
   end
 
   def highest_home_team
-     home_games_by_team_id.max_by do |team_id, gameteam|
+     home_games_by_team_id.max_by{|team_id, gameteam|}
        gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
-    end
   end
 
   def lowest_home_team
     home_games_by_team_id.min_by do |team_id, gameteam|
       gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
-    end
   end
 
+
   def percentage_home_wins(home_games, home_wins)
-    (home_wins.count.to_f/home_games.count.to_f).round(2)
+    (home_wins.count.to_f / home_games.count.to_f).round(2)
   end
 
   def percentage_visitor_wins(home_games, home_losses)
-    (home_losses.count.to_f/home_games.count.to_f).round(2)
+    (home_losses.count.to_f / home_games.count.to_f).round(2)
   end
 
   def percentage_ties(home_games, tie_games)
-    (tie_games.count.to_f/home_games.count.to_f).round(2)
+    (tie_games.count.to_f / home_games.count.to_f).round(2)
   end
 end
