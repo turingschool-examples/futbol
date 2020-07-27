@@ -74,7 +74,7 @@ class StatTracker
     @game_manager.average_win_percentage(id)
   end
 
-  def most_goals_scored(id)
+  def most_goals_scored(id) #game_manager -> most_goals_scored(id)
     @game_manager.most_goals_scored(id)
   end
 
