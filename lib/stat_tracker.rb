@@ -174,19 +174,17 @@ class StatTracker
     end
   end
 
-    def overall_average_scores_by_away_team
-    #======== helper method for highest_scoring_visitor
-      team_id = total_goals_by_away_team.keys
-      total_away_goals = total_goals_by_away_team.values
-      total_away_games = away_teams_game_count_by_team_id.values
-
-      teams_away_goals_and_total_games = team_id.zip(total_away_goals, total_away_games)
-      over_all_average_by_team = {}
-      teams_away_goals_and_total_games.each do |team_id, total_away_goals, total_away_games|
-        over_all_average_by_team[team_id] = total_away_goals.to_f/total_away_games
-      end
-      over_all_average_by_team
-     end
+  def overall_average_scores_by_away_team
+    team_id = total_goals_by_away_team.keys
+    total_away_goals = total_goals_by_away_team.values
+    total_away_games = away_teams_game_count_by_team_id.values
+    teams_away_goals_and_total_games = team_id.zip(total_away_goals, total_away_games)
+    over_all_average_by_team = {}
+    teams_away_goals_and_total_games.each do |team_id, total_away_goals, total_away_games|
+      over_all_average_by_team[team_id] = total_away_goals.to_f/total_away_games
+    end
+    over_all_average_by_team
+  end
 
     def highest_total_goals_by_away_team
     #======== helper method for highest_scoring_visitor
