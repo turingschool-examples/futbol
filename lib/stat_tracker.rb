@@ -512,30 +512,26 @@ class StatTracker
       @teams.find {|team| team.team_id == fewest.first}.teamname
   end#tackle method
 
-   def most_tackles(seasonID)
+  def most_tackles(seasonID)
     games_in_season = @games.select { |game| game.season == seasonID }
     game_ids_in_season = games_in_season.map do |game|
-       game.game_id
-     end
-
-     game_teams_in_season = @game_teams.select do |game_team|
-       game_ids_in_season.include?(game_team.game_id)
-     end
-
-     games_per_season_per_team = game_teams_in_season.group_by do |game|
-       game.team_id
-     end
-
+        game.game_id
+    end
+    game_teams_in_season = @game_teams.select do |game_team|
+      game_ids_in_season.include?(game_team.game_id)
+    end
+    games_per_season_per_team = game_teams_in_season.group_by do |game|
+      game.team_id
+    end
     team_tackles = Hash.new(0)
-      games_per_season_per_team.each do |team, games|
-        games.each do |game|
-          team_tackles[game.team_id] += game.tackles
-        end
+    games_per_season_per_team.each do |team, games|
+      games.each do |game|
+        team_tackles[game.team_id] += game.tackles
       end
-
-      most = team_tackles.max_by {|k, v| v}
+    end
+    most = team_tackles.max_by {|k, v| v}
       @teams.find {|team| team.team_id == most.first}.teamname
-      end#tackle method
+  end#tackle method
 
     def games_won_by_team(team_id)
       games_won_against_opp = Hash.new(0)
