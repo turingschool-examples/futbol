@@ -27,8 +27,8 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_print_most_and_fewest_goals_scored_by_team_id
-    assert_equal 4, @team_stats.most_goals_scored("6")
-    assert_equal 1, @team_stats.fewest_goals_scored("6")
+    assert_equal "4", @team_stats.most_goals_scored("6")
+    assert_equal "1", @team_stats.fewest_goals_scored("6")
   end
 
   def test_it_can_return_favorite_opponent_or_rival_by_team
