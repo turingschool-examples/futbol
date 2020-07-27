@@ -345,13 +345,12 @@ class StatTracker
     @teams.find {|team| team.team_id == best_team[0]}.teamname
   end
 
-    def least_accurate_team(seasonID)
-      games_per_season_per_team(seasonID)
-      team_accuracy(seasonID)
-
-      worst_team = team_accuracy(seasonID).min_by {|team_id, accuracy| accuracy}
-      @teams.find {|team| team.team_id == worst_team[0]}.teamname
-    end
+  def least_accurate_team(seasonID)
+    games_per_season_per_team(seasonID)
+    team_accuracy(seasonID)
+    worst_team = team_accuracy(seasonID).min_by {|team_id, accuracy| accuracy}
+    @teams.find {|team| team.team_id == worst_team[0]}.teamname
+  end
 
       #========== Most & Fewest goals scored ==========
       def games_by_team(team_id) # Returns an array of game_teams instances for a particular team
