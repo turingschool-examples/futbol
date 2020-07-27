@@ -2,7 +2,6 @@ require "CSV"
 require "./lib/games"
 require "./lib/teams"
 require "./lib/game_teams"
-require "./lib/teams"
 
 class StatTracker
   attr_reader :games, :game_teams, :teams
@@ -99,7 +98,7 @@ class StatTracker
     (total_visitor_wins.length.to_f / @games.length).round(2)
   end
 
-   def percentage_tie
+   def percentage_ties
     game_ties = @game_teams.select do |game|
       game.result == "TIE"
     end
