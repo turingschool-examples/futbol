@@ -66,7 +66,7 @@ class StatTracker
     @game_manager.best_season(id)
   end
 
-  def worst_season(id)
+  def worst_season(id) #game_manager -> worst_season(id)
     @game_manager.worst_season(id)
   end
 
