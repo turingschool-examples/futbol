@@ -39,6 +39,8 @@ class StatTracker
     @total_games = @all_games.size
     @games_per_season = Hash.new{ |hash, key| hash[key] = 0 }
     @total_goals_per_season = Hash.new{ |hash, key| hash[key] = 0 }
+    @average_goals_per_season = Hash.new
+    average_goals_by_season
     # =====league_statistics=====
     @team_name_by_id = Hash.new{}
     @goals_by_id = Hash.new{ |hash, key| hash[key] = 0 }
@@ -58,6 +60,7 @@ class StatTracker
     get_team_name_by_id
     @shot_accuracy_by_team_id = Hash.new
     @tackles_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
+    win_data
   end
 
 # ============= helper methods =============
@@ -101,22 +104,22 @@ class StatTracker
     end
   end
 
-  def percentage_of_home_wins
+  def percentage_home_wins
     home_wins = @game_outcomes[:home_games_won]
     decimal_home = home_wins.to_f / @total_games
-    (decimal_home * 100).round(2)
+    decimal_home.round(2)
   end
 
-  def percentage_of_visitor_wins
+  def percentage_visitor_wins
     visitor_wins = @game_outcomes[:visitor_games_won]
     decimal_visitor = visitor_wins.to_f / @total_games
-    (decimal_visitor * 100).round(2)
+    decimal_visitor.round(2)
   end
 
-  def percentage_of_ties
+  def percentage_ties
     total_ties = @game_outcomes[:ties]
     decimal_ties = total_ties.to_f / @total_games
-    (decimal_ties * 100).round(2)
+    decimal_ties.round(2)
   end
 
   def count_of_games_by_season
@@ -146,13 +149,11 @@ class StatTracker
     @total_goals_per_season
   end
 
-  def average_goals_per_season
-    average_goals_per_season = Hash.new
+  def average_goals_by_season
     total_goals_per_season.each do |season, goals|
       average = goals.to_f / count_of_games_by_season[season]
-      average_goals_per_season[season] = average.round(2)
+      @average_goals_per_season[season] = average.round(2)
     end
-    average_goals_per_season
   end
 # ============= league_statistics methods =============
   def count_of_teams
