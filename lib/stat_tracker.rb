@@ -438,35 +438,31 @@ class StatTracker
   end
 
     #========== Best & Worst season ==========
-    def best_season(teamID)
-      games_by_team = season_games.select {|team| team.team_id == teamID}
-      #array of all games from teamID
-     team_games_per_season = games_by_team.group_by {|game| game.game_id[0..3]}
-      #hash organized with season keys and games per season as value
-      win_hash = Hash.new(0)
-      team_games_per_season. each do |season, games|
-        count = 0
-        total = 0
-        games.each do |game|
-            if game.result == "WIN"
-              count += 1
-              total += 1
-            else
-              total += 1
-            end
-        win_hash[season] = [count, total]
-          end
+  def best_season(teamID)
+    games_by_team = season_games.select {|team| team.team_id == teamID}
+    team_games_per_season = games_by_team.group_by {|game| game.game_id[0..3]}
+    win_hash = Hash.new(0)
+    team_games_per_season. each do |season, games|
+      count = 0
+      total = 0
+      games.each do |game|
+        if game.result == "WIN"
+          count += 1
+          total += 1
+        else
+          total += 1
         end
-      best = win_hash.max_by do |season, games|
-       win_hash[season].first / win_hash[season].last.to_f
+        win_hash[season] = [count, total]
       end
-
+    end
+    best = win_hash.max_by do |season, games|
+      win_hash[season].first / win_hash[season].last.to_f
+    end
     math = best[0].to_i
     math += 1
     math.to_s
-
     answer = best.first + "#{math}"
-    end#method
+  end#method
 
     def worst_season(teamID)
       games_by_team = season_games.select {|team| team.team_id == teamID}
