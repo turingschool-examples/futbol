@@ -576,7 +576,6 @@ class StatTracker
     end
     find_team_name(fav_opp[0])
   end
-  ###########################
 
   def season_hash
     season_hash = @games.group_by {|games| games.season}
@@ -710,4 +709,4 @@ class StatTracker
     find_team_name(not_fav_opp[0])
   end
 
-  end#class
+end#class
