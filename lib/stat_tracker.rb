@@ -148,15 +148,13 @@ class StatTracker
     @teams.find {|team| team.team_id == id[0]}.teamname
   end
 
-    def total_goals_by_away_team
-    #======== helper method for highest_scoring_visitor
-
+  def total_goals_by_away_team
     away_goals = Hash.new{0}
-      @games.sum do |game|
-        away_goals[game.away_team_id] += game.away_goals
-      end
-      away_goals
+    @games.sum do |game|
+      away_goals[game.away_team_id] += game.away_goals
     end
+    away_goals
+  end
 
     def away_teams_game_count_by_team_id
     #======== helper method for highest_scoring_visitor
