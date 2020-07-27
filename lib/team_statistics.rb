@@ -35,15 +35,7 @@ class TeamStatistics
     @team_info_by_id
   end
 
-  def best_season(passed_id)
-    # Return - season ID for a teams highest win percentage max season
-    # Input team id
-    # output season id with highest win %
-    # Collection: from passed_id, iterate through all_games and collect all objects
-
-    # Helper called collect_game_objects_by_team_id
-
-    # Array of game objects by team_id
+  def collect_game_objects_by_team_id(passed_id)
     all_games.each do |game_object|
       if game_object.home_team_id.to_s == passed_id
         @by_team_id_game_objects << game_object
@@ -51,6 +43,10 @@ class TeamStatistics
         @by_team_id_game_objects << game_object
       end
     end
+  end
+
+  def best_season(passed_id)
+    collect_game_objects_by_team_id(passed_id)
 
 
     # hash key:season value:size of games played that season
@@ -87,11 +83,7 @@ class TeamStatistics
     end
 
     best_season_print = @win_percentage_by_season_by_team_id.invert.max[1].to_s
-    worst_season_print = @win_percentage_by_season_by_team_id.invert.min[1].to_s
-
-    require "pry"; binding.pry
-
-
+    # worst_season_print = @win_percentage_by_season_by_team_id.invert.min[1].to_s
 
   end
 
