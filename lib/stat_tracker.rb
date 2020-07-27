@@ -127,9 +127,9 @@ class StatTracker
   end
 
 
-    def count_of_teams
-      teams.count
-    end
+  def count_of_teams
+    teams.count
+  end
 
     def highest_scoring_home_team
       home_team = @games.group_by do |game|
