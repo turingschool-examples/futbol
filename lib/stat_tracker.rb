@@ -308,19 +308,19 @@ class StatTracker
 
   #========== Most & Least Accurate Team ==========
 
-    def games_per_season_per_team(seasonID)
-      games_in_season = @games.select { |game| game.season == seasonID }
-      game_ids_in_season = games_in_season.map do |game|
-        game.game_id
+  def games_per_season_per_team(seasonID)
+    games_in_season = @games.select { |game| game.season == seasonID }
+    game_ids_in_season = games_in_season.map do |game|
+      game.game_id
     end
-     game_teams_in_season = @game_teams.select do |game_team|
-       game_ids_in_season.include?(game_team.game_id)
+    game_teams_in_season = @game_teams.select do |game_team|
+      game_ids_in_season.include?(game_team.game_id)
     end
-     games_per_season_per_team = game_teams_in_season.group_by do |game|
-       game.team_id
+    games_per_season_per_team = game_teams_in_season.group_by do |game|
+      game.team_id
     end
       #  NEEDS TEST
-    end
+  end
 
 
     def team_accuracy(seasonID) # Returns a hash. Key is team_id and the value is accuracy
