@@ -12,6 +12,7 @@ class TeamStatistics
     @total_wins_by_season = Hash.new{ |hash, key| hash[key] = 0 }
     @win_percentage_by_season = Hash.new
     @games_won_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
+    @goals_by_game = []
   end
 
   def all_teams
@@ -118,23 +119,20 @@ class TeamStatistics
     (@games_won_by_team / @total_games_played).round(2)
   end
 
-  def most_goals_scored(passed_id)
-    collect_game_objects_by_team_id(passed_id)
-    @goals_by_game_by_team = []
+  def goals_by_game_by_team(passed_id)
     @by_team_id_game_objects.each do |game|
       if passed_id == game.away_team_id.to_s
-        @goals_by_game_by_team << game.away_goals
+        @goals_by_game << game.away_goals
       elsif passed_id == game.home_team_id.to_s
-        @goals_by_game_by_team << game.home_goals
+        @goals_by_game << game.home_goals
       end
     end
+  end
 
-    x = @goals_by_game_by_team.max
-
-
-
-
-
+  def most_goals_scored(passed_id)
+    collect_game_objects_by_team_id(passed_id)
+    goals_by_game_by_team(passed_id)
+    @goals_by_game.max
   end
 
 
