@@ -13,7 +13,8 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_create_team_hash_details
-    assert_equal [], @team_stats.team_info("3")
+    expected = {:team_id=>3, :franchise_id=>10, :team_name=>"Houston Dynamo", :abbreviation=>"HOU", :link=>"/api/v1/teams/3"}
+    assert_equal expected, @team_stats.team_info("3")
   end
 
 end
