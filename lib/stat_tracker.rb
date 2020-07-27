@@ -26,11 +26,11 @@ class StatTracker
   end
 
 
-  def highest_total_score #game_manager -> highest total score
+  def highest_total_score #game_manager -> highest_total_score method
     @game_manager.highest_total_score
   end
 
-  def lowest_total_score
+  def lowest_total_score   #game_manager -> lowest_total_score method
     @game_manager.lowest_total_score
   end
 
