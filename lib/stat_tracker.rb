@@ -533,14 +533,14 @@ class StatTracker
       @teams.find {|team| team.team_id == most.first}.teamname
   end#tackle method
 
-    def games_won_by_team(team_id)
-      games_won_against_opp = Hash.new(0)
-      @games.each do |game|
-        games_won_against_opp[game.home_team_id] += 1 if ((game.away_team_id == team_id) && (game.away_goals > game.home_goals))
-        games_won_against_opp[game.away_team_id] +=1 if ((game.home_team_id == team_id) && (game.home_goals > game.away_goals))
-      end
-      games_won_against_opp
+  def games_won_by_team(team_id)
+    games_won_against_opp = Hash.new(0)
+    @games.each do |game|
+      games_won_against_opp[game.home_team_id] += 1 if ((game.away_team_id == team_id) && (game.away_goals > game.home_goals))
+      games_won_against_opp[game.away_team_id] +=1 if ((game.home_team_id == team_id) && (game.home_goals > game.away_goals))
     end
+    games_won_against_opp
+  end
 
 
     def opponents_of(team_id)
