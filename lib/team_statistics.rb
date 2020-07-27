@@ -1,9 +1,10 @@
 require_relative "game_data"
 require_relative "team_data"
 require_relative "game_team_data"
+require_relative "league_statistics"
 require "csv"
 
-class TeamStatistics
+class TeamStatistics < LeagueStatistics
 
   def initialize
     @team_info_by_id = Hash.new
@@ -13,6 +14,10 @@ class TeamStatistics
     @win_percentage_by_season = Hash.new
     @games_won_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
     @goals_by_game = []
+    @team_name_by_id = Hash.new{}
+    @games_played_by_opponent = Hash.new{ |hash, key| hash[key] = 0 }
+    @games_won_by_opponent = Hash.new{ |hash, key| hash[key] = 0 }
+    @win_ratio_by_opponent = Hash.new
   end
 
   def all_teams
@@ -141,50 +146,54 @@ class TeamStatistics
     @goals_by_game.min
   end
 
-  def favorite_opponent(passed_id)
+  def games_played_by_opponent_by_team(passed_id)
+    @by_team_id_game_objects.each do |game|
+      if passed_id == game.away_team_id.to_s
+        @games_played_by_opponent[game.home_team_id] += 1
+      elsif passed_id == game.home_team_id.to_s
+        @games_played_by_opponent[game.away_team_id] += 1
+      end
+    end
+  end
+
+  def games_won_by_opponent_by_team(passed_id)
+    @by_team_id_game_objects.each do |game|
+      if passed_id == game.away_team_id.to_s && game.away_goals > game.home_goals
+        @games_won_by_opponent[game.home_team_id] += 1
+      elsif passed_id == game.home_team_id.to_s && game.home_goals > game.away_goals
+        @games_won_by_opponent[game.away_team_id] += 1
+      elsif passed_id == game.away_team_id.to_s && game.away_goals < game.home_goals
+        @games_won_by_opponent[game.home_team_id] += 0
+      elsif passed_id == game.home_team_id.to_s && game.home_goals < game.away_goals
+        @games_won_by_opponent[game.away_team_id] += 0
+      end
+    end
+  end
+
+  def win_ratio_by_opponent_by_team
+    @games_won_by_opponent.each do |opponent, wins_against_opp|
+      @win_ratio_by_opponent[opponent] = (wins_against_opp.to_f / @games_played_by_opponent[opponent]).round(2)
+    end
+  end
+
+  def fav_opponent_and_rival_suite(passed_id)
     collect_game_objects_by_team_id(passed_id)
+    games_played_by_opponent_by_team(passed_id)
+    games_won_by_opponent_by_team(passed_id)
+    win_ratio_by_opponent_by_team
+    get_team_name_by_id
+  end
 
+  def favorite_opponent(passed_id)
+    fav_opponent_and_rival_suite(passed_id)
+    fav_opp = @win_ratio_by_opponent.invert.max[1]
+    @team_name_by_id[fav_opp]
+  end
 
-    # find_opponent_by_away_id hash
-      # has a counter - number of times you've played them
-      @games_played_by_opponent = Hash.new{ |hash, key| hash[key] = 0 }
-      @by_team_id_game_objects.each do |game|
-        if passed_id == game.away_team_id.to_s
-          @games_played_by_opponent[game.home_team_id] += 1
-        elsif passed_id == game.home_team_id.to_s
-          @games_played_by_opponent[game.away_team_id] += 1
-        end
-      end
-
-      @games_won_by_opponent = Hash.new{ |hash, key| hash[key] = 0 }
-      @by_team_id_game_objects.each do |game|
-        if passed_id == game.away_team_id.to_s && game.away_goals > game.home_goals
-          @games_won_by_opponent[game.home_team_id] += 1
-        elsif passed_id == game.home_team_id.to_s && game.home_goals > game.away_goals
-          @games_won_by_opponent[game.away_team_id] += 1
-        elsif passed_id == game.away_team_id.to_s && game.away_goals < game.home_goals
-          @games_won_by_opponent[game.home_team_id] += 0
-        elsif passed_id == game.home_team_id.to_s && game.home_goals < game.away_goals
-          @games_won_by_opponent[game.away_team_id] += 0
-        end
-      end
-
-      @blarg = Hash.new
-      @games_won_by_opponent.each do |opponent, wins_against_opp|
-        @blarg[opponent] = (wins_against_opp.to_f / @games_played_by_opponent[opponent]).round(2)
-      end
-
-      # rival = min
-      # fav = max
-      require "pry"; binding.pry
-
-
-    # find_opponent_by_home_id hash
-      # has a counter - number of times you've played them
-
-    # Hash wins_by_away_team_per_opponent
-    # Hash wins_by_home_team_per_opponent
-
+  def rival(passed_id)
+    fav_opponent_and_rival_suite(passed_id)
+    rival = @win_ratio_by_opponent.invert.min[1]
+    @team_name_by_id[rival]
   end
 
 
