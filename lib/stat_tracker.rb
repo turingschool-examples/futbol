@@ -211,13 +211,13 @@ class StatTracker
     total_goals_by_id
   end
 
-      def average_goals_all_seasons_by_id #Returns a hash. team_id is the key and the values are average goals per game for that team.
-         average_goals_all_seasons_by_id = {}
-         total_goals_by_id.each do |id, goals|
-         average_goals_all_seasons_by_id[id] = (goals.to_f / total_games_by_id[id] ).round(2)
-        end
-       average_goals_all_seasons_by_id
-      end
+  def average_goals_all_seasons_by_id #Returns a hash. team_id is the key and the values are average goals per game for that team.
+    average_goals_all_seasons_by_id = {}
+    total_goals_by_id.each do |id, goals|
+      average_goals_all_seasons_by_id[id] = (goals.to_f / total_games_by_id[id] ).round(2)
+    end
+    average_goals_all_seasons_by_id
+  end
 
       def best_offense
         team_by_id
