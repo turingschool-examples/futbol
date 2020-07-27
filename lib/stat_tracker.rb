@@ -197,7 +197,7 @@ class StatTracker
     end
     over_all_average_by_team
    end
-   
+
   def highest_total_goals_by_away_team
   #======== helper method for highest_scoring_visitor
 

@@ -1,11 +1,11 @@
-require "./test/test_helper"
-# require 'minitest/autorun'
-# require 'minitest/pride'
-# require "./lib/stat_tracker"
-# require "./lib/games"
-# require "./lib/game_teams"
-# require "./lib/teams"
-# require "pry"
+#require "./test/test_helper"
+require 'minitest/autorun'
+require 'minitest/pride'
+require "./lib/stat_tracker"
+require "./lib/games"
+require "./lib/game_teams"
+require "./lib/teams"
+require "pry"
 
 class StatTrackerTest < MiniTest::Test
 
@@ -27,8 +27,10 @@ class StatTrackerTest < MiniTest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
-  def test_StatTracker_can_find_highest_total_score
-    assert_equal 11, @stat_tracker.highest_total_score
+  def test_find_the_fewest_tackles
+    #skip
+    assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
+    assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
   end
 
   def test_it_can_calculate_the_lowest_total_score
@@ -49,9 +51,6 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 0.44, @stat_tracker.percentage_home_wins
   end
 
-  def test_it_can_find_percentage_visitor_wins
-    assert_equal 0.36, @stat_tracker.percentage_visitor_wins
-  end
 
   def test_can_find_percentage_tie
     assert_equal 0.20, @stat_tracker.percentage_tie
@@ -172,7 +171,7 @@ class StatTrackerTest < MiniTest::Test
 
     assert_equal 0, @stat_tracker.fewest_goals_scored("18")
   end
-  
+
   def test_best_season
     assert_equal "20132014", @stat_tracker.best_season("6")
   end
