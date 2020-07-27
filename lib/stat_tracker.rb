@@ -42,8 +42,10 @@ class StatTracker
     @average_goals_per_season = Hash.new
     total_goals_per_season
     average_goals_by_season
+    win_data
     # =====league_statistics=====
     @team_name_by_id = Hash.new{}
+
     @goals_by_id = Hash.new{ |hash, key| hash[key] = 0 }
     @games_played_by_id = Hash.new{ |hash, key| hash[key] = 0 }
     @average_goals_by_id = Hash.new{}
@@ -55,13 +57,10 @@ class StatTracker
     @by_season_game_objects = []
     @counter_wins_team_id = Hash.new{ |hash, key| hash[key] = 0 }
     @games_played_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
-    @team_name_by_id = Hash.new{}
     @by_season_game_team_objects = []
     @goals_by_id_by_season = Hash.new{ |hash, key| hash[key] = 0 }
-    get_team_name_by_id
-    @shot_accuracy_by_team_id = Hash.new
+    @shot_accuracy_by_team_id = Hash.new{}
     @tackles_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
-    win_data
   end
 
 # ============= helper methods =============
@@ -330,8 +329,9 @@ class StatTracker
   end
 
   def collect_game_team_objects_by_season(season)
+    @by_season_game_team_objects = []
     @all_game_teams.each do |game_team_object|
-      if season[0..3] == game_team_object.game_id[0..3]
+      if season.to_s[0..3] == game_team_object.game_id[0..3]
         @by_season_game_team_objects << game_team_object
       end
     end
@@ -376,7 +376,7 @@ class StatTracker
   end
 
   def tackles_by_team_id_by_season(season)
-    collect_game_team_objects_by_season(season)
+    shot_accuracy_suite(season)
     @by_season_game_team_objects.each do |season_game_team_object|
       @tackles_by_team_id[season_game_team_object.team_id] += season_game_team_object.tackles.to_i
     end
