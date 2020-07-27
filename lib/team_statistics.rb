@@ -34,12 +34,12 @@ class TeamStatistics < LeagueStatistics
 
   def team_info(passed_id)
     all_teams.each do |team|
-      if passed_id == team.team_id.to_s # Remove .to_s when spec harness info updates
-        @team_info_by_id[:team_id] = team.team_id
-        @team_info_by_id[:franchise_id] = team.franchise_id
-        @team_info_by_id[:team_name] = team.team_name
-        @team_info_by_id[:abbreviation] = team.abbreviation
-        @team_info_by_id[:link] = team.link
+      if passed_id == team.team_id # Remove  when spec harness info updates
+        @team_info_by_id["team_id"] = team.team_id
+        @team_info_by_id["franchise_id"] = team.franchise_id
+        @team_info_by_id["team_name"] = team.team_name
+        @team_info_by_id["abbreviation"] = team.abbreviation
+        @team_info_by_id["link"] = team.link
       end
     end
     @team_info_by_id
@@ -47,9 +47,9 @@ class TeamStatistics < LeagueStatistics
 
   def collect_game_objects_by_team_id(passed_id)
     all_games.each do |game_object|
-      if game_object.home_team_id.to_s == passed_id
+      if game_object.home_team_id == passed_id
         @by_team_id_game_objects << game_object
-      elsif game_object.away_team_id.to_s == passed_id
+      elsif game_object.away_team_id == passed_id
         @by_team_id_game_objects << game_object
       end
     end
@@ -63,13 +63,13 @@ class TeamStatistics < LeagueStatistics
 
   def total_wins_by_season_by_team_id(passed_id)
     @by_team_id_game_objects.each do |game|
-      if passed_id == game.away_team_id.to_s && game.away_goals > game.home_goals
+      if passed_id == game.away_team_id && game.away_goals > game.home_goals
         @total_wins_by_season[game.season] += 1
-      elsif passed_id == game.home_team_id.to_s && game.home_goals > game.away_goals
+      elsif passed_id == game.home_team_id && game.home_goals > game.away_goals
         @total_wins_by_season[game.season] += 1
-      elsif passed_id == game.away_team_id.to_s && game.away_goals < game.home_goals
+      elsif passed_id == game.away_team_id && game.away_goals < game.home_goals
         @total_wins_by_season[game.season] += 0
-      elsif passed_id == game.home_team_id.to_s && game.home_goals < game.away_goals
+      elsif passed_id == game.home_team_id && game.home_goals < game.away_goals
         @total_wins_by_season[game.season] += 0
       end
     end
@@ -90,24 +90,24 @@ class TeamStatistics < LeagueStatistics
 
   def best_season(passed_id)
     best_and_worst_season_suite(passed_id)
-    @win_percentage_by_season.invert.max[1].to_s
+    @win_percentage_by_season.invert.max[1]
   end
 
   def worst_season(passed_id)
     best_and_worst_season_suite(passed_id)
-    @win_percentage_by_season.invert.min[1].to_s
+    @win_percentage_by_season.invert.min[1]
   end
 
   def sort_games_won_by_team_id(passed_id)
     @by_team_id_game_objects.each do |game|
-      if passed_id == game.away_team_id.to_s && game.away_goals > game.home_goals
-        @games_won_by_team_id[game.away_team_id.to_s] += 1
-      elsif passed_id == game.home_team_id.to_s && game.home_goals > game.away_goals
-        @games_won_by_team_id[game.home_team_id.to_s] += 1
-      elsif passed_id == game.away_team_id.to_s && game.away_goals < game.home_goals
-        @games_won_by_team_id[game.away_team_id.to_s] += 0
-      elsif passed_id == game.home_team_id.to_s && game.home_goals < game.away_goals
-        @games_won_by_team_id[game.home_team_id.to_s] += 0
+      if passed_id == game.away_team_id && game.away_goals > game.home_goals
+        @games_won_by_team_id[game.away_team_id] += 1
+      elsif passed_id == game.home_team_id && game.home_goals > game.away_goals
+        @games_won_by_team_id[game.home_team_id] += 1
+      elsif passed_id == game.away_team_id && game.away_goals < game.home_goals
+        @games_won_by_team_id[game.away_team_id] += 0
+      elsif passed_id == game.home_team_id && game.home_goals < game.away_goals
+        @games_won_by_team_id[game.home_team_id] += 0
       end
     end
   end
@@ -126,9 +126,9 @@ class TeamStatistics < LeagueStatistics
 
   def goals_by_game_by_team(passed_id)
     @by_team_id_game_objects.each do |game|
-      if passed_id == game.away_team_id.to_s
+      if passed_id == game.away_team_id
         @goals_by_game << game.away_goals
-      elsif passed_id == game.home_team_id.to_s
+      elsif passed_id == game.home_team_id
         @goals_by_game << game.home_goals
       end
     end
@@ -137,20 +137,20 @@ class TeamStatistics < LeagueStatistics
   def most_goals_scored(passed_id)
     collect_game_objects_by_team_id(passed_id)
     goals_by_game_by_team(passed_id)
-    @goals_by_game.max
+    @goals_by_game.max.to_i
   end
 
   def fewest_goals_scored(passed_id)
     collect_game_objects_by_team_id(passed_id)
     goals_by_game_by_team(passed_id)
-    @goals_by_game.min
+    @goals_by_game.min.to_i
   end
 
   def games_played_by_opponent_by_team(passed_id)
     @by_team_id_game_objects.each do |game|
-      if passed_id == game.away_team_id.to_s
+      if passed_id == game.away_team_id
         @games_played_by_opponent[game.home_team_id] += 1
-      elsif passed_id == game.home_team_id.to_s
+      elsif passed_id == game.home_team_id
         @games_played_by_opponent[game.away_team_id] += 1
       end
     end
@@ -158,13 +158,13 @@ class TeamStatistics < LeagueStatistics
 
   def games_won_by_opponent_by_team(passed_id)
     @by_team_id_game_objects.each do |game|
-      if passed_id == game.away_team_id.to_s && game.away_goals > game.home_goals
+      if passed_id == game.away_team_id && game.away_goals > game.home_goals
         @games_won_by_opponent[game.home_team_id] += 1
-      elsif passed_id == game.home_team_id.to_s && game.home_goals > game.away_goals
+      elsif passed_id == game.home_team_id && game.home_goals > game.away_goals
         @games_won_by_opponent[game.away_team_id] += 1
-      elsif passed_id == game.away_team_id.to_s && game.away_goals < game.home_goals
+      elsif passed_id == game.away_team_id && game.away_goals < game.home_goals
         @games_won_by_opponent[game.home_team_id] += 0
-      elsif passed_id == game.home_team_id.to_s && game.home_goals < game.away_goals
+      elsif passed_id == game.home_team_id && game.home_goals < game.away_goals
         @games_won_by_opponent[game.away_team_id] += 0
       end
     end
