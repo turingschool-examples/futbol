@@ -23,19 +23,16 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_find_the_fewest_tackles
-    skip
-    #skip
+    #registers as skipped
     assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
   end
 
   def test_it_can_calculate_the_lowest_total_score
-    skip
     assert_equal 0, @stat_tracker.lowest_total_score
   end
 
   def test_average_goals_per_game
-    skip
     assert_equal 4.22, @stat_tracker.average_goals_per_game
   end
 
