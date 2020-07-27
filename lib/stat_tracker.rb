@@ -552,11 +552,11 @@ class StatTracker
     opponents
   end
 
-    def find_team_name(team_id)
-      @teams.find do |team|
-        team.team_id == team_id
-      end.teamname
-    end
+  def find_team_name(team_id)
+    @teams.find do |team|
+      team.team_id == team_id
+    end.teamname
+  end
 
     def average_win_percentage_by_opponents_of(team_id)
       average_win_percentage = {}
