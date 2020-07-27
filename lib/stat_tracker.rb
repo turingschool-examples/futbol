@@ -62,7 +62,7 @@ class StatTracker
     @team_manager.team_info(id)
   end
 
-  def best_season(id)
+  def best_season(id) #game_manager -> best_season(id)
     @game_manager.best_season(id)
   end
 
