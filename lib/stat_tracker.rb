@@ -248,13 +248,13 @@ class StatTracker
   end
 
     # Filters Game Teams By Game IDS in a season #=> {}
-    def games_teams_by_seasons_per_coach(season_id)
-      scoped_season_games(season_id).map do |game|
-       @game_teams.find_all do |game_team|
-         game_team.game_id == game.game_id
-       end
-      end.flatten.group_by(&:head_coach)
-    end
+  def games_teams_by_seasons_per_coach(season_id)
+    scoped_season_games(season_id).map do |game|
+      @game_teams.find_all do |game_team|
+        game_team.game_id == game.game_id
+      end
+    end.flatten.group_by(&:head_coach)
+  end
   #Finds coach results for specific season
   def coach_name_and_results(season)
       output = {}
