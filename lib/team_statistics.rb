@@ -118,6 +118,9 @@ class TeamStatistics
     (@games_won_by_team / @total_games_played).round(2)
   end
 
+  def most_goals_scored(passed_id)
+
+  end
 
 
 end
