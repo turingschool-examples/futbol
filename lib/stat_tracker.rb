@@ -558,17 +558,17 @@ class StatTracker
     end.teamname
   end
 
-    def average_win_percentage_by_opponents_of(team_id)
-      average_win_percentage = {}
-      games_won_by_team(team_id).each do |opp_team_id, games_won|
-        opponents_of(team_id).each do |opp_team_id2, games_played|
-          if opp_team_id == opp_team_id2
-            average_win_percentage[opp_team_id] = games_won.to_f / games_played
-          end
+  def average_win_percentage_by_opponents_of(team_id)
+    average_win_percentage = {}
+    games_won_by_team(team_id).each do |opp_team_id, games_won|
+      opponents_of(team_id).each do |opp_team_id2, games_played|
+        if opp_team_id == opp_team_id2
+          average_win_percentage[opp_team_id] = games_won.to_f / games_played
         end
       end
-      average_win_percentage
     end
+    average_win_percentage
+  end
 
     def favorite_opponent(team_id)
     fav_opp = average_win_percentage_by_opponents_of(team_id).max_by do |opp_id, win_percent|
