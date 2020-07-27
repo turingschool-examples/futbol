@@ -1,11 +1,11 @@
-#require "./test/test_helper"
-require 'minitest/autorun'
-require 'minitest/pride'
-require "./lib/stat_tracker"
-require "./lib/games"
-require "./lib/game_teams"
-require "./lib/teams"
-require "pry"
+require "./test/test_helper"
+# require 'minitest/autorun'
+# require 'minitest/pride'
+# require "./lib/stat_tracker"
+# require "./lib/games"
+# require "./lib/game_teams"
+# require "./lib/teams"
+# require "pry"
 
 class StatTrackerTest < MiniTest::Test
 
@@ -52,8 +52,8 @@ class StatTrackerTest < MiniTest::Test
   end
 
 
-  def test_can_find_percentage_tie
-    assert_equal 0.20, @stat_tracker.percentage_tie
+  def test_can_find_percentage_ties
+    assert_equal 0.20, @stat_tracker.percentage_ties
   end
 
   def test_count_games_by_season
