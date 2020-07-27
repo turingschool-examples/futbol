@@ -119,6 +119,21 @@ class TeamStatistics
   end
 
   def most_goals_scored(passed_id)
+    collect_game_objects_by_team_id(passed_id)
+    @goals_by_game_by_team = []
+    @by_team_id_game_objects.each do |game|
+      if passed_id == game.away_team_id.to_s
+        @goals_by_game_by_team << game.away_goals
+      elsif passed_id == game.home_team_id.to_s
+        @goals_by_game_by_team << game.home_goals
+      end
+    end
+
+    x = @goals_by_game_by_team.max
+
+
+
+
 
   end
 
