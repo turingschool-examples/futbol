@@ -243,9 +243,9 @@ class StatTracker
 
     ##### Helper methods for winningest coach
     #  scopes games by season  #=> Array
-    def scoped_season_games(season)
-      @games.find_all {|game| game.season == season}
-    end
+  def scoped_season_games(season)
+    @games.find_all {|game| game.season == season}
+  end
 
     # Filters Game Teams By Game IDS in a season #=> {}
     def games_teams_by_seasons_per_coach(season_id)
