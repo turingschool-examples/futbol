@@ -94,12 +94,12 @@ class StatTracker
     (total_visitor_wins.length.to_f / @games.length).round(2)
   end
 
-     def percentage_ties
-      game_ties = @game_teams.select do |game|
+  def percentage_ties
+    game_ties = @game_teams.select do |game|
         game.result == "TIE"
-      end
-      (game_ties.count / @game_teams.count.to_f).round(2)
     end
+    (game_ties.count / @game_teams.count.to_f).round(2)
+  end
 
      def count_of_games_by_season
       games_by_season = @games.group_by {|game| game.season}
