@@ -490,49 +490,6 @@ class StatTracker
     worst = worst.first + "#{math}"
   end#method
 
-  #========== Fewest & Most Tackles ==========
-  def fewest_tackles(seasonID)
-    games_in_season = @games.select { |game| game.season == seasonID }
-    game_ids_in_season = games_in_season.map do |game|
-      game.game_id
-    end
-    game_teams_in_season = @game_teams.select do |game_team|
-      game_ids_in_season.include?(game_team.game_id)
-    end
-    games_per_season_per_team = game_teams_in_season.group_by do |game|
-      game.team_id
-    end
-    team_tackles = Hash.new(0)
-      games_per_season_per_team.each do |team, games|
-        games.each do |game|
-            team_tackles[game.team_id] += game.tackles
-        end
-      end
-    fewest = team_tackles.min_by {|k, v| v}
-      @teams.find {|team| team.team_id == fewest.first}.teamname
-  end#tackle method
-
-  def most_tackles(seasonID)
-    games_in_season = @games.select { |game| game.season == seasonID }
-    game_ids_in_season = games_in_season.map do |game|
-        game.game_id
-    end
-    game_teams_in_season = @game_teams.select do |game_team|
-      game_ids_in_season.include?(game_team.game_id)
-    end
-    games_per_season_per_team = game_teams_in_season.group_by do |game|
-      game.team_id
-    end
-    team_tackles = Hash.new(0)
-    games_per_season_per_team.each do |team, games|
-      games.each do |game|
-        team_tackles[game.team_id] += game.tackles
-      end
-    end
-    most = team_tackles.max_by {|k, v| v}
-      @teams.find {|team| team.team_id == most.first}.teamname
-  end#tackle method
-
   def games_won_by_team(team_id)
     games_won_against_opp = Hash.new(0)
     @games.each do |game|
@@ -541,7 +498,6 @@ class StatTracker
     end
     games_won_against_opp
   end
-
 
   def opponents_of(team_id)
     opponents = Hash.new(0)
@@ -661,10 +617,12 @@ class StatTracker
   end#method
 
   #========== Fewest & Most Tackles ==========
-  def fewest_tackles(seasonID)
+
+
+  def games_per_season_per_team(seasonID)
     games_in_season = @games.select { |game| game.season == seasonID }
     game_ids_in_season = games_in_season.map do |game|
-      game.game_id
+       game.game_id
     end
     game_teams_in_season = @game_teams.select do |game_team|
       game_ids_in_season.include?(game_team.game_id)
@@ -672,35 +630,31 @@ class StatTracker
     games_per_season_per_team = game_teams_in_season.group_by do |game|
       game.team_id
     end
+  end
+
+  def team_tackles(seasonID)
     team_tackles = Hash.new(0)
-    games_per_season_per_team.each do |team, games|
+    games_per_season_per_team(seasonID).each do |team, games|
       games.each do |game|
         team_tackles[game.team_id] += game.tackles
       end
     end
-    fewest = team_tackles.min_by {|k, v| v}
+    team_tackles
+  end
+
+  def fewest_tackles(seasonID)
+    games_per_season_per_team(seasonID)
+    team_tackles(seasonID)
+    fewest = team_tackles(seasonID).min_by {|k, v| v}
     @teams.find {|team| team.team_id == fewest.first}.teamname
   end#tackle method
 
   def most_tackles(seasonID)
-    games_in_season = @games.select { |game| game.season == seasonID }
-    game_ids_in_season = games_in_season.map do |game|
-      game.game_id
-    end
-    game_teams_in_season = @game_teams.select do |game_team|
-      game_ids_in_season.include?(game_team.game_id)
-    end
-    games_per_season_per_team = game_teams_in_season.group_by do |game|
-      game.team_id
-    end
-    team_tackles = Hash.new(0)
-    games_per_season_per_team.each do |team, games|
-      games.each do |game|
-        team_tackles[game.team_id] += game.tackles
-      end
-    end
-  end
-
+    games_per_season_per_team(seasonID)
+    team_tackles(seasonID)
+    most = team_tackles(seasonID).max_by {|k, v| v}
+    @teams.find {|team| team.team_id == most.first}.teamname
+  end#tackle method
 
   def rival(team_id)
     not_fav_opp = average_win_percentage_by_opponents_of(team_id).min_by do |opp_id, win_percent|
