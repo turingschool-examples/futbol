@@ -12,7 +12,8 @@ class TeamStatisticsTest < Minitest::Test
     assert_instance_of TeamStatistics, @team_stats
   end
 
-  #def test_it_has_attributes
-  #end
+  def test_it_can_create_team_hash_details
+    assert_equal [], @team_stats.team_info("3")
+  end
 
 end
