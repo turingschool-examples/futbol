@@ -42,7 +42,7 @@ class StatTracker
     self.percentage_visitor_wins1
   end
 
-  def count_of_games_by_season
+  def count_of_games_by_season #game_manager -> count_of_games_by_season
     self.count_of_games_by_season1
   end
 
