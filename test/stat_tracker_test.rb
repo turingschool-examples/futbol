@@ -288,4 +288,39 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Seattle Sounders FC", @stat_tracker.most_tackles("20142015")
   end
 
+  def test_it_can_group_team_id_with_game_teams_objects
+
+  assert_equal "3", @stat_tracker.team_by_id.keys[0]
+  assert_equal "6", @stat_tracker.team_by_id.keys[1]
+  end
+
+  def test_it_can_return_accuracy_for_each_team
+
+  assert_equal ["16", 0.3042362002567394], @stat_tracker.team_accuracy("20132014").first
+  end
+
+  def test_games_by_team
+
+  assert_equal 8, @stat_tracker.games_by_team("18").first.shots
+  end
+
+  def test_it_pair_goals_scored_with_each_instance
+
+  assert_equal [2, 3, 1, 0, 5, 4, 7], @stat_tracker.team_goals("18").keys
+  end
+
+  def test_total_goals_by_id
+
+  assert_equal ["3", 1129], @stat_tracker.total_goals_by_id.first
+  end
+
+  def test_total_games_by_id
+
+  assert_equal ["3", 531], @stat_tracker.total_games_by_id.first
+  end
+
+  def test_average_goals_all_seasons_by_id
+
+  assert_equal ["3", 2.13], @stat_tracker.average_goals_all_seasons_by_id.first
+  end
 end
