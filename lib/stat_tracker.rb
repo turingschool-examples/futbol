@@ -54,7 +54,7 @@ class StatTracker
     self.average_goals_per_game1
   end
 
-  def average_goals_by_season
+  def average_goals_by_season #game_manager -> average_goals_by_season
     self.average_goals_by_season1
   end
 
