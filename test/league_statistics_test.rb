@@ -81,10 +81,10 @@ class LeagueStatisticTest < Minitest::Test
 
   def test_goals_by_away_id
     expected = {
-                3=>5,
-                6=>12,
-                5=>1,
-                17=>1
+                "3"=>5,
+                "6"=>12,
+                "5"=>1,
+                "17"=>1
                 }
     assert_equal expected, @league_statistics.goals_by_away_id
   end
