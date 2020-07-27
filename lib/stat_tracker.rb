@@ -375,12 +375,12 @@ class StatTracker
     most_goals[0]
   end
 
-      def fewest_goals_scored(team_id)
-        games_by_team(team_id)
-        team_goals(team_id)
-        fewest_goals = team_goals(team_id).min_by {|goals, game_team| goals}
-        fewest_goals[0]
-      end
+  def fewest_goals_scored(team_id)
+    games_by_team(team_id)
+    team_goals(team_id)
+    fewest_goals = team_goals(team_id).min_by {|goals, game_team| goals}
+    fewest_goals[0]
+  end
 
 
      #========== HELPER METHODS ==========
