@@ -360,13 +360,13 @@ class StatTracker
     games_by_team
   end
 
-      def team_goals(team_id) # Returns a hash. # of goals is key and each game that number of goals was scored are the values
-        games_by_team(team_id)
-        team_goals = games_by_team(team_id).group_by do |game_team|
-          game_team.goals
-        end
-        team_goals
-      end
+  def team_goals(team_id) # Returns a hash. # of goals is key and each game that number of goals was scored are the values
+    games_by_team(team_id)
+    team_goals = games_by_team(team_id).group_by do |game_team|
+      game_team.goals
+    end
+    team_goals
+  end
 
       def most_goals_scored(team_id)
         games_by_team(team_id)
