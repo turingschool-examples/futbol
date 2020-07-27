@@ -99,7 +99,7 @@ class StatTracker
     (total_visitor_wins.length.to_f / @games.length).round(2)
   end
 
-   def percentage_tie
+   def percentage_ties
     game_ties = @game_teams.select do |game|
       game.result == "TIE"
     end
@@ -504,7 +504,12 @@ class StatTracker
       end
       fewest_goals = team_goals.min_by {|goals, game_team| goals}
       fewest_goals[0]
-    end
+      end
+       most = team_tackles.max_by {|k, v| v}
+        @teams.find {|team| team.team_id == most.first}.teamname
+    end#tackle method
+
+
 
    #========== HELPER METHODS ==========
   #1 ======= Create a <games_by_season> hash with a season => games pair, from games class.
@@ -557,11 +562,9 @@ class StatTracker
   end
 
   def average_win_percentage_by_opponents_of(team_id)
-    all_games_played = opponents_of(team_id)
-    all_games_won = games_won_by_team(team_id)
     average_win_percentage = {}
-    all_games_won.each do |opp_team_id, games_won|
-      all_games_played.each do |opp_team_id2, games_played|
+    games_won_by_team(team_id).each do |opp_team_id, games_won|
+      opponents_of(team_id).each do |opp_team_id2, games_played|
         if opp_team_id == opp_team_id2
           average_win_percentage[opp_team_id] = games_won.to_f / games_played
         end
@@ -717,7 +720,14 @@ class StatTracker
       end
     end
 
-  most = team_tackles.max_by {|k, v| v}
-  @teams.find {|team| team.team_id == most.first}.teamname
-  end#tackle method
-end#class
+
+  def rival(team_id)
+    not_fav_opp = average_win_percentage_by_opponents_of(team_id).min_by do |opp_id, win_percent|
+      win_percent
+    end
+    find_team_name(not_fav_opp[0])
+  end
+
+end
+
+ 

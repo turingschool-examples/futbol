@@ -53,8 +53,8 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 0.36, @stat_tracker.percentage_visitor_wins
   end
 
-  def test_can_find_percentage_tie
-    assert_equal 0.20, @stat_tracker.percentage_tie
+  def test_can_find_percentage_ties
+    assert_equal 0.20, @stat_tracker.percentage_ties
   end
 
   def test_count_games_by_season
@@ -247,6 +247,13 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, @stat_tracker.average_win_percentage_by_opponents_of("18")
 
   end
+
+
+  def test_it_can_find_rival
+    assert_equal "Houston Dash", @stat_tracker.rival("18")
+
+  end
+
 
   def test_it_can_find_least_accurate_team_by_season
 
