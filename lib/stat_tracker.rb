@@ -385,9 +385,9 @@ class StatTracker
 
      #========== HELPER METHODS ==========
     #1 ======= Create a <games_by_season> hash with a season => games pair, from games class.
-    def games_by_season
+  def games_by_season
     games_by_season = @games.group_by {|game| game.season}
-    end
+  end
 
     def highest_scoring_visitor
       best_team = overall_average_scores_by_away_team.max_by do |team_id, average_goals|
