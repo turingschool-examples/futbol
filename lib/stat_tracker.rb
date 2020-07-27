@@ -322,20 +322,19 @@ class StatTracker
       #  NEEDS TEST
   end
 
-
-    def team_accuracy(seasonID) # Returns a hash. Key is team_id and the value is accuracy
-        team_accuracy = Hash.new(0)
-          games_per_season_per_team(seasonID).each do |team, games|
-            shots = 0
-            goals = 0
-          games.each do |game|
-            shots = games.sum {|game| game.shots}
-            goals = games.sum {|game| game.goals}
-          end
-            team_accuracy[team] = (goals.to_f / shots)
-          end
-          team_accuracy
-        end
+  def team_accuracy(seasonID) # Returns a hash. Key is team_id and the value is accuracy
+    team_accuracy = Hash.new(0)
+    games_per_season_per_team(seasonID).each do |team, games|
+      shots = 0
+      goals = 0
+      games.each do |game|
+        shots = games.sum {|game| game.shots}
+        goals = games.sum {|game| game.goals}
+      end
+    team_accuracy[team] = (goals.to_f / shots)
+    end
+    team_accuracy
+  end
 
     def most_accurate_team(seasonID)
       # Name of team with the best ratio of shots to goals for the season
