@@ -1,11 +1,6 @@
 require "./test/test_helper"
 # require 'minitest/autorun'
-# require 'minitest/pride'
-# require "./lib/stat_tracker"
-# require "./lib/games"
-# require "./lib/game_teams"
-# require "./lib/teams"
-# require "pry"
+
 
 class StatTrackerTest < MiniTest::Test
 
@@ -191,12 +186,8 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_identify_favorite_opponent
-    # skip
   assert_equal "DC United", @stat_tracker.favorite_opponent("18")
-
   end
-
-
 
   def test_it_can_find_all_opponents
     assert_equal 31, @stat_tracker.opponents_of("18").count
@@ -204,15 +195,11 @@ class StatTrackerTest < MiniTest::Test
 
     assert_equal 30, @stat_tracker.opponents_of("54").count
     assert_equal Hash, @stat_tracker.opponents_of("54").class
-
   end
 
   def test_it_can_find_team_name
-
     assert_equal "Minnesota United FC", @stat_tracker.find_team_name("18")
-
     assert_equal "Reign FC", @stat_tracker.find_team_name("54")
-
   end
 
   def test_it_can_count_games_won_against_opponents
@@ -294,5 +281,38 @@ class StatTrackerTest < MiniTest::Test
 
   end
 
+  def test_it_can_find_least_accurate_team_by_season
+
+    assert_equal "New York City FC", @stat_tracker.least_accurate_team("20132014")
+    assert_equal "Columbus Crew SC", @stat_tracker.least_accurate_team("20142015")
+  end
+
+  def test_it_can_find_most_goals_scored_for_team
+
+    assert_equal 7, @stat_tracker.most_goals_scored("18")
+  end
+
+  def test_it_can_find_fewest_goals_scored_for_team
+
+    assert_equal 0, @stat_tracker.fewest_goals_scored("18")
+  end
+
+  def test_best_season
+    assert_equal "20132014", @stat_tracker.best_season("6")
+  end
+
+  def test_worst_season
+    assert_equal "20142015", @stat_tracker.worst_season("6")
+  end
+
+  def test_find_the_fewest_tackles
+   assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
+   assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
+  end
+
+  def test_find_the_most_tackles
+    assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
+    assert_equal "Seattle Sounders FC", @stat_tracker.most_tackles("20142015")
+  end
 
 end
