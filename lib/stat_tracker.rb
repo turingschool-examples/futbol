@@ -604,9 +604,9 @@ class StatTracker
     games_by_season
   end
 
-    def season_games
-      season_games = games_by_season.map {|season, games| games}.flatten.compact
-    end
+  def season_games
+    season_games = games_by_season.map {|season, games| games}.flatten.compact
+  end
 
     #========== Best & Worst season ==========
     def best_season(teamID)
