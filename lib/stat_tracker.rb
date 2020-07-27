@@ -265,7 +265,7 @@ class StatTracker
      end
     end.flatten.group_by(&:head_coach)
   end
-
+#Finds coach results for specific season
 def coach_name_and_results(season)
     output = {}
      games_teams_by_seasons_per_coach(season).map do |coach, game_teams|
@@ -279,7 +279,7 @@ def coach_name_and_results(season)
     end
    output
 end
-
+#Finds highest percentage coach result by flag (i.e. flag = "WIN" || "LOSS"). String (coach name)
 def coach_result_percentage(season, flag)
   coach_name_and_results(season).max_by do |coach, results|
     win_count = results.find_all { |result| result == flag}.size
