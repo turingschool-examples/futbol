@@ -270,11 +270,7 @@ def coach_name_and_results(season)
     output = {}
      games_teams_by_seasons_per_coach(season).map do |coach, game_teams|
       game_teams.map do |game_team|
-        if output[coach] 
-          output[coach] += [game_team.result]
-        else
-          output[coach] = [game_team.result]
-        end
+        output[coach] ? output[coach] += [game_team.result] : output[coach] = [game_team.result]
       end
     end
    output
