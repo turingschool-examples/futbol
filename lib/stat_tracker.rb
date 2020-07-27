@@ -205,11 +205,11 @@ class StatTracker
     total_games_by_id
   end
 
-      def total_goals_by_id #Returns a hash. team_id is the key and the values are total # of goals across all seasons
-        total_goals_by_id = {}
-        team_by_id.map { |id, games| total_goals_by_id[id] = games.sum {|game| game.goals}}
-        total_goals_by_id
-      end
+  def total_goals_by_id #Returns a hash. team_id is the key and the values are total # of goals across all seasons
+    total_goals_by_id = {}
+    team_by_id.map { |id, games| total_goals_by_id[id] = games.sum {|game| game.goals}}
+    total_goals_by_id
+  end
 
       def average_goals_all_seasons_by_id #Returns a hash. team_id is the key and the values are average goals per game for that team.
          average_goals_all_seasons_by_id = {}
