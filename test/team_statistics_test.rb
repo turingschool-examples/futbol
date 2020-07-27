@@ -23,7 +23,7 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_calc_win_percentage_by_team_id
-    assert_equal 34.6, @team_stats.average_win_percentage("3")
+    assert_equal 34.6, @team_stats.average_win_percentage("17")
   end
 
 end

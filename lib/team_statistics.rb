@@ -92,11 +92,25 @@ class TeamStatistics
   end
 
   def average_win_percentage(passed_id)
-    # Collect game_objects_by_team_id (ln 41-49)
-    # @by_team_id_game_objects
-    # Counter for total games = @by_team_id_game_objects.size?
-    # Hash? Counter for total wins (mimic lines 57-69)
-    # Calc percentage
+    collect_game_objects_by_team_id(passed_id)
+    total_games_played = @by_team_id_game_objects.size
+
+    @games_won_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
+
+    @by_team_id_game_objects.each do |game|
+      if passed_id == game.away_team_id.to_s && game.away_goals > game.home_goals
+        @games_won_by_team_id[game.away_team_id.to_s] += 1
+      elsif passed_id == game.home_team_id.to_s && game.home_goals > game.away_goals
+        @games_won_by_team_id[game.home_team_id.to_s] += 1
+      elsif passed_id == game.away_team_id.to_s && game.away_goals < game.home_goals
+        @games_won_by_team_id[game.away_team_id.to_s] += 0
+      elsif passed_id == game.home_team_id.to_s && game.home_goals < game.away_goals
+        @games_won_by_team_id[game.home_team_id.to_s] += 0
+      end
+    end
+
+    x = @games_won_by_team_id.values[0].to_f
+    y = ((x / total_games_played) * 100).round(2)
 
   end
 
