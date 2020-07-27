@@ -282,22 +282,20 @@ class StatTracker
     coach_result_percentage(season, "LOSS")
   end
 
-    def team_info(team_id)
-      team_info = {}
-      team = @teams.find {|team| team.team_id == team_id}
-      franchise_id = team.franchiseid
-      team_name = team.teamname
-      abbreviation = team.abbreviation
-      link = team.link
-
-      team_info["team_id"] = team.team_id
-      team_info["franchise_id"] = team.franchiseid
-      team_info["team_name"] = team.teamname
-      team_info["abbreviation"] = team.abbreviation
-      team_info["link"] = team.link
-
-      team_info
-    end
+  def team_info(team_id)
+    team_info = {}
+    team = @teams.find {|team| team.team_id == team_id}
+    franchise_id = team.franchiseid
+    team_name = team.teamname
+    abbreviation = team.abbreviation
+    link = team.link
+    team_info["team_id"] = team.team_id
+    team_info["franchise_id"] = team.franchiseid
+    team_info["team_name"] = team.teamname
+    team_info["abbreviation"] = team.abbreviation
+    team_info["link"] = team.link
+    team_info
+  end
 
     def average_win_percentage(team_id)
     #========== Average win percentage of all games for a team from team id.
