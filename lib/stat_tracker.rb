@@ -40,6 +40,7 @@ class StatTracker
     @games_per_season = Hash.new{ |hash, key| hash[key] = 0 }
     @total_goals_per_season = Hash.new{ |hash, key| hash[key] = 0 }
     @average_goals_per_season = Hash.new
+    total_goals_per_season
     average_goals_by_season
     # =====league_statistics=====
     @team_name_by_id = Hash.new{}
@@ -150,10 +151,11 @@ class StatTracker
   end
 
   def average_goals_by_season
-    total_goals_per_season.each do |season, goals|
-      average = goals.to_f / count_of_games_by_season[season]
+    @total_goals_per_season.each do |season, goals|
+      average = goals.to_f / @games_per_season[season]
       @average_goals_per_season[season] = average.round(2)
     end
+    @average_goals_per_season
   end
 # ============= league_statistics methods =============
   def count_of_teams
