@@ -91,11 +91,15 @@ class TeamStatistics
     @win_percentage_by_season.invert.min[1].to_s
   end
 
-  # Collect game_objects_by_team_id (ln 41-49)
-  # @by_team_id_game_objects
-  # Counter for total games = @by_team_id_game_objects.size?
-  # Hash? Counter for total wins (mimic lines 57-69)
-  # Calc percentage
+  def average_win_percentage(passed_id)
+    # Collect game_objects_by_team_id (ln 41-49)
+    # @by_team_id_game_objects
+    # Counter for total games = @by_team_id_game_objects.size?
+    # Hash? Counter for total wins (mimic lines 57-69)
+    # Calc percentage
+
+  end
+
 
 
 end
