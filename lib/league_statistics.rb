@@ -63,7 +63,7 @@ class LeagueStatistics
 
   def goals_by_id
     all_game_teams.each do |game_team|
-      @goals_by_id[game_team.team_id] += game_team.goals
+      @goals_by_id[game_team.team_id] += game_team.goals.to_i
     end
     @goals_by_id
   end
