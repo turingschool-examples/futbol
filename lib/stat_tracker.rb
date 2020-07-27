@@ -274,9 +274,9 @@ class StatTracker
     end.first
   end
 
-    def winningest_coach(season)
-      coach_result_percentage(season, "WIN")
-    end
+  def winningest_coach(season)
+    coach_result_percentage(season, "WIN")
+  end
 
     def worst_coach(season)
        coach_result_percentage(season, "LOSS")
