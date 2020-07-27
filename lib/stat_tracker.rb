@@ -192,12 +192,12 @@ class StatTracker
     end
   end
 
-      #========== Best & Worst Offense ==========
-      def team_by_id #Returns a hash. Key is team_id and value are the game_teams objects.
-        team_by_id = @game_teams.group_by do |team|
-        team.team_id
-        end
-      end
+#========== Best & Worst Offense ==========
+  def team_by_id #Returns a hash. Key is team_id and value are the game_teams objects.
+    team_by_id = @game_teams.group_by do |team|
+      team.team_id
+    end
+  end
 
       def total_games_by_id #Returns a hash. team_id is the key and the values are total # of games across all seasons
         total_games_by_id = {}
