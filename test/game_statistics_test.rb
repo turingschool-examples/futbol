@@ -1,6 +1,7 @@
 require "minitest/autorun"
 require "minitest/pride"
 require "./lib/game_statistics"
+require 'mocha/minitest'
 
 class GameStatisticsTest < MiniTest::Test
 
@@ -9,17 +10,18 @@ class GameStatisticsTest < MiniTest::Test
   end
 
   def test_it_exists
-    require "pry"; binding.pry
     assert_instance_of GameStatistics, @game_statistics
   end
 
-  def test_game_statistics_is_an_instance_of_game_data
-    skip
-    assert_instance_of GameData, @game_statistics.all_games_creation[1]
+  def test_game_statistics_can_inherit_game_array
+    @game_statistics.stubs(:object_creation).returns("game array")
+    assert_equal "game array", @game_statistics.object_creation
   end
 
   def test_total_score
-    skip
+    # skip
+    @game_statistics.object_creation
+    
     assert_equal 11, @game_statistics.highest_total_score
     assert_equal 0, @game_statistics.lowest_total_score
   end
