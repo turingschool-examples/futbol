@@ -249,36 +249,21 @@ class StatTracker
     output
   end
 
-  def coach_result_max_percentage(season, flag)
-    coach_name_and_results(season).max_by do |coach, results|
-      win_count = results.find_all { |result| result == flag}.size
-      result_sum =  results.size
-      (win_count * 100) / result_sum
-    end.first
-  end
-
-def coach_result_min_percentage(season, flag)
-    coach_name_and_results(season).min_by do |coach, results|
-      win_count = results.find_all { |result| result == flag}.size
-      result_sum =  results.size
-      (win_count * 100) / result_sum
-    end.first
-  end
-
   def winningest_coach(season)
-    coach_result_max_percentage(season, "WIN")
+    coach_name_and_results(season).max_by do |coach, results|
+      win_count = results.find_all { |result| result == "WIN"}.size
+      result_sum =  results.size
+      (win_count * 100) / result_sum
+    end.first
   end
 
-
-
-######################
   def worst_coach(season)
-    coach_result_min_percentage(season, "WIN")
+    coach_name_and_results(season).min_by do |coach, results|
+      win_count = results.find_all { |result| result == "WIN"}.size
+      result_sum =  results.size
+      (win_count * 100) / result_sum
+    end.first
   end
-
-
-
-
 
   def team_info(team_id)
     team_info = {}
