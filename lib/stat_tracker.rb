@@ -78,7 +78,7 @@ class StatTracker
     @game_manager.most_goals_scored(id)
   end
 
-  def fewest_goals_scored(id)
+  def fewest_goals_scored(id) #game_manager -> fewest_goals_scored(id)
     @game_manager.fewest_goals_scored(id)
   end
 
