@@ -130,7 +130,7 @@ class StatTracker
     self.highest_home_team1
   end
 
-  def lowest_home_team
+  def lowest_home_team #game_teams_manager -> lowest_home_team
     team = @game_teams_manager.lowest_home_team.first
     @team_manager.find_by_id(team).team_name
   end
