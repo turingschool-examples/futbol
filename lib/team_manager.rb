@@ -18,8 +18,8 @@ end
       @teams_array.find do |team|
         team.team_id == team_id
    end
-  end 
-    
+  end
+
   def team_info(id)
     hash = {}
     team = @teams_array.select do |team| team.team_id == "#{id}"
