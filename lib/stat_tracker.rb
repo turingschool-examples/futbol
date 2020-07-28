@@ -1,7 +1,7 @@
 require "CSV"
-require "./lib/games"
-require "./lib/teams"
-require "./lib/game_teams"
+require_relative "./games"
+require_relative "./teams"
+require_relative "./game_teams"
 
 class StatTracker
   attr_reader :games, :game_teams, :teams
@@ -249,20 +249,20 @@ class StatTracker
     output
   end
 
-  def coach_result_percentage(season, flag)
+  def winningest_coach(season)
     coach_name_and_results(season).max_by do |coach, results|
-      win_count = results.find_all { |result| result == flag}.size
+      win_count = results.find_all { |result| result == "WIN"}.size
       result_sum =  results.size
       (win_count * 100) / result_sum
     end.first
   end
 
-  def winningest_coach(season)
-    coach_result_percentage(season, "WIN")
-  end
-
   def worst_coach(season)
-    coach_result_percentage(season, "LOSS")
+    coach_name_and_results(season).min_by do |coach, results|
+      win_count = results.find_all { |result| result == "WIN"}.size
+      result_sum =  results.size
+      (win_count * 100) / result_sum
+    end.first
   end
 
   def team_info(team_id)
