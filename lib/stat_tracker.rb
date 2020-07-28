@@ -90,7 +90,7 @@ class StatTracker
     self.rival3(id)
   end
 
-  def count_of_teams
+  def count_of_teams #team_manager -> count_of_teams
     @team_manager.size
   end
 
