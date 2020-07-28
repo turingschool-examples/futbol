@@ -37,7 +37,6 @@ module Modable
     games_lost_hash = games_lost.group_by{ |game| game.head_coach}
     numb_games_lost = games_lost_hash.each{ |k,v|
       games_lost_hash[k] = v.length}
-    numbers = []
     @result = {}
     numb_games_lost.each{ |k,v| games_played.each{ |k1,v1|
        if k == k1
@@ -45,7 +44,7 @@ module Modable
        end
      }
    }
-   @result.sort_by{ |key, value| value}[-1].first
+   @result.max_by{ |key, value| value}.first
   end
 
   def most_accurate_team2(season)
@@ -67,7 +66,7 @@ module Modable
     @all_tackles = hash.each{ |k,v| hash[k] = v.map{ |game|
       game.tackles.to_i}.sum
     }
-      @numb2 = @all_tackles.sort_by{ |key, value| value}[-1].first
+      @numb2 = @all_tackles.max_by{ |key, value| value}.first
       self.most_accurate_team2(season)
     end
   end
