@@ -1,8 +1,6 @@
 require "csv"
 class FutbolData
 
-  attr_reader :teams, :games, :game_teams
-
   def initialize(passed)
     @passed = passed
     @data_location = nil
@@ -12,9 +10,21 @@ class FutbolData
     create_objects
   end
 
+  def games
+    @games
+  end
+
+  def teams
+    @teams
+  end
+
+  def game_teams
+    @game_teams
+  end
+
   def create_objects
     chosen_data_set
-    if @passed == 'team'
+    if @passed == 'teams'
       case_is_team
     elsif @passed == 'games'
       case_is_game
@@ -25,7 +35,7 @@ class FutbolData
 
   def chosen_data_set
     case @passed
-      when "team"
+    when "teams"
         @data_location = './data/teams.csv'
       when "games"
         @data_location = './data/games.csv'

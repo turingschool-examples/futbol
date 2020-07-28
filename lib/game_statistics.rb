@@ -1,25 +1,25 @@
-require_relative "game_data"
 require_relative "futbol_data"
-include FutbolData
-class GameStatistics
+
+class GameStatistics < FutbolData
 
   def initialize
-    @all_games = all_games_creation
-    @game_outcomes = {
-      :home_games_won => 0,
-      :visitor_games_won => 0,
-      :ties => 0
-    }
-    @total_games = @all_games.size
-    @games_per_season = Hash.new{ |hash, key| hash[key] = 0 }
-    @total_goals_per_season = Hash.new{ |hash, key| hash[key] = 0 }
-    @average_goals_per_season = Hash.new
-    total_goals_per_season
-    win_data
+    # @all_games = all_games_creation
+    # @game_outcomes = {
+    #   :home_games_won => 0,
+    #   :visitor_games_won => 0,
+    #   :ties => 0
+    # }
+    # @total_games = @all_games.size
+    # @games_per_season = Hash.new{ |hash, key| hash[key] = 0 }
+    # @total_goals_per_season = Hash.new{ |hash, key| hash[key] = 0 }
+    # @average_goals_per_season = Hash.new
+    # total_goals_per_season
+    # win_data
+    # require "pry"; binding.pry
   end
 
-  def all_games_creation
-    GameData.create_objects
+  def object_creation
+    FutbolData.new("games")
   end
 
   def total_score
