@@ -80,10 +80,10 @@ class LeagueStatistics < FutbolData
 
   def goals_by_away_id
     @games_by_away_id = Hash.new{ |hash, key| hash[key] = 0 }
-    all_game_teams.each do |game_team|
-      if game_team.hoa == "away"
-        @goals_by_away_id[game_team.team_id] += game_team.goals.to_i
-        @games_by_away_id[game_team.team_id] += 1
+    @all_game_teams.each do |game_team|
+      if game_team["HoA"] == "away"
+        @goals_by_away_id[game_team["team_id"]] += game_team["goals"].to_i
+        @games_by_away_id[game_team["team_id"]] += 1
       end
     end
     @goals_by_away_id
@@ -91,10 +91,10 @@ class LeagueStatistics < FutbolData
 
   def goals_by_home_id
     @games_by_home_id = Hash.new{ |hash, key| hash[key] = 0 }
-    all_game_teams.each do |game_team|
-      if game_team.hoa == "home"
-        @goals_by_home_id[game_team.team_id] += game_team.goals.to_i
-        @games_by_home_id[game_team.team_id] += 1
+    @all_game_teams.each do |game_team|
+      if game_team["HoA"] == "home"
+        @goals_by_home_id[game_team["team_id"]] += game_team["goals"].to_i
+        @games_by_home_id[game_team["team_id"]] += 1
       end
     end
     @goals_by_home_id
