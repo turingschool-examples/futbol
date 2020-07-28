@@ -106,7 +106,7 @@ class StatTracker
     self.highest_visitor_team1
   end
 
-  def lowest_visitor_team
+  def lowest_visitor_team #game_teams_manager -> lowest_visitor_team
     self.lowest_visitor_team1
   end
 
