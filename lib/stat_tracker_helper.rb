@@ -3,21 +3,21 @@ module StatTrackerHelper
   def fewest_tackles1(season)
     @all_games = @game_manager.games_by_season(season)
     self.most_tackles1(season)
-    @numb2 = @all_tackles.min_by{ |key, value| value}.first
+    @numb2 = @all_tackles.sort_by{ |key, value| value}[0].first
     self.most_accurate_team2(season)
   end
 
   def least_accurate_team1(season)
     @all_games2 = @game_manager.games_by_season(season)
     self.most_accurate_team1(season)
-    @numb2 = @all_goals.min_by{ |key, value| value}.first
+    @numb2 = @all_goals.sort_by{ |key, value| value}[0].first
     self.most_accurate_team2(season)
   end
 
   def most_accurate_team3(season)
     @all_games2 = @game_manager.games_by_season(season)
     self.most_accurate_team1(season)
-    @numb2 = @all_goals.max_by{ |key, value| value}.first
+    @numb2 = @all_goals.sort_by{ |key, value| value}[-1].first
     self.most_accurate_team2(season)
   end
 
