@@ -94,7 +94,7 @@ class StatTracker
     @team_manager.size
   end
 
-  def best_offense
+  def best_offense #game_teams_manager -> best_offense
     self.best_offense1
   end
 
