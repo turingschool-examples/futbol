@@ -135,7 +135,11 @@ class LeagueStatistics
 
   def lowest_scoring_home_team
     goals_by_hoa_id_suite
-    lowest_scorer_at_home = @goals_by_home_id.invert.min[1]
+    @average_score_per_home_game = {}
+    @goals_by_home_id.each do |home_team_id, goals|
+      @average_score_per_home_game[home_team_id] = (goals.to_f / @games_by_home_id[home_team_id]).round(3)
+    end
+    lowest_scorer_at_home = @average_score_per_home_game.invert.min[1]
     @team_name_by_id[lowest_scorer_at_home]
   end
 end
