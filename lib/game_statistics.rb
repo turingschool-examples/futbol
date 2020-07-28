@@ -26,9 +26,8 @@ class GameStatistics < FutbolData
   end
 
   def total_score
-    require "pry"; binding.pry
     @all_games.map do |games|
-      games.home_goals.to_i + games.away_goals.to_i
+      games["home_goals"].to_i + games["away_goals"].to_i
     end
   end
 
