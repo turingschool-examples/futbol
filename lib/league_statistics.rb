@@ -107,7 +107,7 @@ class LeagueStatistics
     goals_by_hoa_id_suite
     @average_score_per_away_game = {}
     @goals_by_away_id.each do |away_team_id, goals|
-      @average_score_per_away_game[away_team_id] = (goals.to_f / @games_by_away_id[away_team_id]).round(2)
+      @average_score_per_away_game[away_team_id] = (goals.to_f / @games_by_away_id[away_team_id]).round(3)
     end
     highest_scorer_away = @average_score_per_away_game.invert.max[1]
     @team_name_by_id[highest_scorer_away]
@@ -115,7 +115,11 @@ class LeagueStatistics
 
   def lowest_scoring_visitor
     goals_by_hoa_id_suite
-    lowest_scorer_away = @goals_by_away_id.invert.min[1]
+    @average_score_per_away_game = {}
+    @goals_by_away_id.each do |away_team_id, goals|
+      @average_score_per_away_game[away_team_id] = (goals.to_f / @games_by_away_id[away_team_id]).round(3)
+    end
+    lowest_scorer_away = @average_score_per_away_game.invert.min[1]
     @team_name_by_id[lowest_scorer_away]
   end
 
