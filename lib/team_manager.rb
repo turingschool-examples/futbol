@@ -8,25 +8,18 @@ class TeamManager
     CSV.foreach(team_path, headers: true) do |row|
         @teams_array << Team.new(row)
     end
-  end
+end
 
   def size
     @teams_array.size
   end
 
-  # def find_by_id(team_number)
-  #     @teams_array.find do |team|
-  #       team.team_id == team_number
-  #  end
-  # end
-
-  def find_by_id1(team_number)
+  def find_by_id(team_id)
       @teams_array.find do |team|
-      team_name = team.name if team.team_id == team_number
-      end
-      team_name
-    end
-
+        team.team_id == team_id
+   end
+  end 
+    
   def team_info(id)
     hash = {}
     team = @teams_array.select do |team| team.team_id == "#{id}"
