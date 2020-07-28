@@ -1,8 +1,9 @@
-require_relative "team_data"
-require_relative "game_team_data"
-class LeagueStatistics
+require_relative "futbol_data"
+class LeagueStatistics < FutbolData
 
   def initialize
+    @all_teams       = object_creation_teams
+    @all_game_teams  = object_creation_game_teams
     @team_name_by_id = Hash.new{}
     @goals_by_id = Hash.new{ |hash, key| hash[key] = 0 }
     @games_played_by_id = Hash.new{ |hash, key| hash[key] = 0 }
@@ -12,16 +13,18 @@ class LeagueStatistics
 
   end
 
-  def all_teams
-    TeamData.create_objects
+  def object_creation_teams
+    team_array = FutbolData.new("teams")
+    team_array.teams
   end
 
-  def all_game_teams
-    GameTeamData.create_objects
+  def object_creation_game_teams
+    game_teams_array = FutbolData.new("game_teams")
+    game_teams_array.game_teams
   end
 
   def count_of_teams
-    all_teams.size
+    @all_teams.size
   end
 
   def offense_suite
@@ -30,8 +33,8 @@ class LeagueStatistics
   end
 
   def get_team_name_by_id
-    all_teams.each do |team|
-      @team_name_by_id[team.team_id] = team.team_name
+    @all_teams.each do |team|
+      @team_name_by_id[team["team_id"]] = team["teamName"]
     end
     @team_name_by_id
   end
@@ -62,15 +65,15 @@ class LeagueStatistics
   end
 
   def goals_by_id
-    all_game_teams.each do |game_team|
-      @goals_by_id[game_team.team_id] += game_team.goals.to_i
+    @all_game_teams.each do |game_team|
+      @goals_by_id[game_team["team_id"]] += game_team["goals"].to_i
     end
     @goals_by_id
   end
 
   def games_by_id
-    all_game_teams.each do |game_team|
-      @games_played_by_id[game_team.team_id] += 1
+    @all_game_teams.each do |game_team|
+      @games_played_by_id[game_team["team_id"]] += 1
     end
     @games_played_by_id
   end
