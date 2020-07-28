@@ -86,7 +86,7 @@ class StatTracker
     self.favorite_opponent1(id)
   end
 
-  def rival(id)
+  def rival(id) #game_manager -> rival
     self.rival3(id)
   end
 
