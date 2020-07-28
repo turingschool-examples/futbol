@@ -98,20 +98,21 @@ class GameTeamsManager
         gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f}
       end
 
-    def lowest_home_team
-      home_games_by_team_id.min_by{ |team_id, gameteam|
-        gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f}
-    end
+      def lowest_home_team
+        home_games_by_team_id.min_by{ |team_id, gameteam|
+          gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f}
+        end
 
-    def percentage_home_wins(home_games, home_wins)
-      (home_wins.count.to_f / home_games.count.to_f).round(2)
-    end
 
-    def percentage_visitor_wins(home_games, home_losses)
-      (home_losses.count.to_f / home_games.count.to_f).round(2)
-    end
+        def percentage_home_wins(home_games, home_wins)
+          (home_wins.count.to_f / home_games.count.to_f).round(2)
+        end
 
-    def percentage_ties(home_games, tie_games)
-      (tie_games.count.to_f / home_games.count.to_f).round(2)
-    end
-  end
+        def percentage_visitor_wins(home_games, home_losses)
+          (home_losses.count.to_f / home_games.count.to_f).round(2)
+        end
+
+        def percentage_ties(home_games, tie_games)
+          (tie_games.count.to_f / home_games.count.to_f).round(2)
+        end
+      end
