@@ -3,20 +3,19 @@ require_relative '../lib/game_manager'
 require_relative '../lib/team_manager'
 require_relative '../lib/game_teams_manager'
 require_relative '../lib/modable'
-require_relative '../lib/season_stats'
-require_relative '../lib/stat_tracker_helper'
-
 
 
 class StatTracker
-  include Modable, SeasonStats, StatTrackerHelper
+  include Modable
 
   attr_reader :game_manager, :game_teams_manager, :team_manager
+
   def self.from_csv(data)
     StatTracker.new(data)
   end
 
   def initialize(locations)
+
     game_path = locations[:games]
     team_path = locations[:teams]
     game_teams_path = locations[:game_teams]
@@ -35,27 +34,36 @@ class StatTracker
   end
 
   def percentage_home_wins
-    self.percentage_home_wins1
+    home_games = @game_teams_manager.count_home_games
+    home_wins = @game_teams_manager.home_game_results(home_games)
+   @game_teams_manager.percentage_home_wins(home_games, home_wins[:wins])
   end
 
   def percentage_visitor_wins
-    self.percentage_visitor_wins1
+    home_games = @game_teams_manager.count_home_games
+    home_losses = @game_teams_manager.home_game_results(home_games)
+    @game_teams_manager.percentage_visitor_wins(home_games, home_losses[:losses])
   end
 
   def count_of_games_by_season
-    self.count_of_games_by_season1
+    games_by_season = @game_manager.create_games_by_season_array
+    @game_manager.count_of_games_by_season(games_by_season)
   end
 
   def percentage_ties
-    self.percentage_ties1
+    home_games = @game_teams_manager.count_home_games
+   tie_games = @game_teams_manager.home_game_results(home_games)
+    @game_teams_manager.percentage_ties(home_games, tie_games[:ties])
   end
 
   def average_goals_per_game
-    self.average_goals_per_game1
+    total_goals = @game_manager.collect_all_goals
+    @game_manager.average_goals_per_game(total_goals)
   end
 
   def average_goals_by_season
-    self.average_goals_by_season1
+    season_goals = @game_manager.collect_goals_by_season
+    @game_manager.average_goals_by_season(season_goals)
   end
 
   def team_info(id)
@@ -83,11 +91,15 @@ class StatTracker
   end
 
   def favorite_opponent(id)
-    self.favorite_opponent1(id)
+    number = @game_manager.favorite_opponent(id)
+    @team_manager.teams_array.select do |team| team.team_id == number
+    end[0].team_name
   end
 
   def rival(id)
-    self.rival3(id)
+    number = @game_manager.rival(id)
+    @team_manager.teams_array.select do |team| team.team_id == number
+    end[0].team_name
   end
 
   def count_of_teams
@@ -95,19 +107,23 @@ class StatTracker
   end
 
   def best_offense
-    self.best_offense1
+    game_team = @game_teams_manager.teams_sort_by_average_goal.last
+    @team_manager.find_by_id(game_team.team_id).team_name
   end
 
   def worst_offense
-    self.worst_offense1
+    game_team = @game_teams_manager.teams_sort_by_average_goal.first
+    @team_manager.find_by_id(game_team.team_id).team_name
   end
 
   def highest_visitor_team
-    self.highest_visitor_team1
+    team = @game_teams_manager.highest_visitor_team.first
+    @team_manager.find_by_id(team).team_name
   end
 
   def lowest_visitor_team
-    self.lowest_visitor_team1
+    team = @game_teams_manager.lowest_visitor_team.first
+    @team_manager.find_by_id(team).team_name
   end
 
   def lowest_home_team
@@ -115,19 +131,29 @@ class StatTracker
   end
   #season stats start here (Drew's)
   def winningest_coach(season)
-    self.winningest_coach2(season)
+    @all_games = @game_manager.games_by_season(season)
+    self.winningest_coach1(season)
+    @result.max_by(&:last).first
   end
 
   def worst_coach(season)
-    self.worst_coach2(season)
+    @all_games1 = @game_manager.games_by_season(season)
+    self.worst_coach1(season)
+    @result.sort_by do |key, value| value
+    end[-1].first
   end
 
   def most_accurate_team(season)
-    self.most_accurate_team3(season)
+    @all_games2 = @game_manager.games_by_season(season)
+    self.most_accurate_team1(season)
+    @numb2 = @all_goals.sort_by do |key, value| value
+    end[-1].first
+    self.most_accurate_team2(season)
   end
 
   def highest_home_team
-    self.highest_home_team1
+    team = @game_teams_manager.highest_home_team.first
+    @team_manager.find_by_id(team).team_name
   end
 
   def lowest_home_team
@@ -136,15 +162,26 @@ class StatTracker
   end
 
   def least_accurate_team(season)
-    self.least_accurate_team1(season)
+    @all_games2 = @game_manager.games_by_season(season)
+    self.most_accurate_team1(season)
+    @numb2 = @all_goals.sort_by do |key, value| value
+    end[0].first
+    self.most_accurate_team2(season)
   end
 
   def most_tackles(season)
     @all_games = @game_manager.games_by_season(season)
     self.most_tackles1(season)
+    @numb2 = @all_tackles.sort_by do |key, value| value
+    end[-1].first
+    self.most_accurate_team2(season)
   end
 
   def fewest_tackles(season)
-    self.fewest_tackles1(season)
+    @all_games = @game_manager.games_by_season(season)
+    self.most_tackles1(season)
+    @numb2 = @all_tackles.sort_by do |key, value| value
+    end[0].first
+    self.most_accurate_team2(season)
   end
 end
