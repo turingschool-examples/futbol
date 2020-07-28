@@ -1,6 +1,4 @@
 require "./test/test_helper"
-# require 'minitest/autorun'
-
 
 class SeasonStatisticsTest < MiniTest::Test
 
