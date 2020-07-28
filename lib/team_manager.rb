@@ -14,17 +14,16 @@ class TeamManager
     @teams_array.size
   end
 
-  # def find_by_id(team_number)
-  #     @teams_array.find do |team|
-  #       team.team_id == team_number
-  #  end
-  # end
+  def find_by_id(team_number)
+      @teams_array.find do |team|
+        team.team_id == team_number
+   end
+  end
 
   def find_by_id1(team_number)
-      @teams_array.find do |team|
-      team_name = team.name if team.team_id == team_number
-      end
-      team_name
+      @teams_array.select do |team|
+        team.team_id == team_number
+      end[0]
     end
 
   def team_info(id)

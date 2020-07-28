@@ -68,12 +68,14 @@ module StatTrackerHelper
     team_goals1 = @game_teams_manager.assign_goals_by_team_hash
     team_goals = @game_teams_manager.average_goals_by_team(team_goals1)
     @team_number1 = @game_teams_manager.teams_max_by_average_goal(team_goals)
-    @team_manager.find_by_id1(@team_number1)
+    @team_manager.find_by_id1(@team_number1).team_name
   end
 
   def worst_offense1
-    game_team = @game_teams_manager.teams_min_by_average_goal
-    @team_manager.find_by_id(game_team.team_id).team_name
+    team_goals1 = @game_teams_manager.assign_goals_by_team_hash
+    team_goals = @game_teams_manager.average_goals_by_team(team_goals1)
+    @team_number1 = @game_teams_manager.teams_min_by_average_goal(team_goals)
+    @team_manager.find_by_id1(@team_number1).team_name
   end
 
   def highest_visitor_team1
