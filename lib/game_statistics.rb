@@ -13,7 +13,6 @@ class GameStatistics
     @total_goals_per_season = Hash.new{ |hash, key| hash[key] = 0 }
     @average_goals_per_season = Hash.new
     total_goals_per_season
-    average_goals_by_season
     win_data
   end
 
@@ -67,11 +66,7 @@ class GameStatistics
 
   def count_of_games_by_season
     @all_games.each do |game|
-      if @games_per_season.include?(game.season)
-        @games_per_season[game.season] += 1
-      else
-        @games_per_season[game.season] = 1
-      end
+      @games_per_season[game.season] += 1
     end
     @games_per_season
   end
@@ -93,6 +88,7 @@ class GameStatistics
   end
 
   def average_goals_by_season
+    count_of_games_by_season
     @total_goals_per_season.each do |season, goals|
       average = goals.to_f / @games_per_season[season]
       @average_goals_per_season[season] = average.round(2)
