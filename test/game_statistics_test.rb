@@ -6,10 +6,10 @@ class GameStatisticsTest < MiniTest::Test
 
   def setup
     @game_statistics = GameStatistics.new
-    require "pry"; binding.pry
   end
 
   def test_it_exists
+    require "pry"; binding.pry
     assert_instance_of GameStatistics, @game_statistics
   end
 

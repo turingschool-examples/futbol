@@ -16,6 +16,7 @@ class GameStatistics < FutbolData
     # total_goals_per_season
     # win_data
     # require "pry"; binding.pry
+    object_creation
   end
 
   def object_creation
