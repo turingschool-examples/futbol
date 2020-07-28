@@ -1,24 +1,26 @@
 require "minitest/autorun"
 require "minitest/pride"
 require "./lib/futbol_data"
+require 'mocha/minitest'
 
 class FutbolDataTest < Minitest::Test
 
   def test_create_chosen_data_set_for_team
     futbol = FutbolData.new("team")
-    futbol.all_teams
+    futbol.stubs(:teams).returns("team data array")
+    assert_equal "team data array", futbol.teams
   end
 
   def test_create_chosen_data_set_for_game
-    skip
-    futbol = FutbolData.new("game")
-    assert_equal "", futbol.create_objects
+    futbol2 = FutbolData.new("game")
+    futbol2.stubs(:games).returns("game data array")
+    assert_equal "game data array", futbol2.games
   end
 
   def test_create_chosen_data_set_for_game_team
-    skip
-    futbol = FutbolData.new("game_team")
-    assert_equal "", futbol.create_objects
+    futbol3 = FutbolData.new("game_teams")
+    futbol3.stubs(:game_teams).returns("game_teams data array")
+    assert_equal "game_teams data array", futbol3.game_teams
   end
 
 end
