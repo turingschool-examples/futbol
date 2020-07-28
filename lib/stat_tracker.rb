@@ -31,6 +31,7 @@ class StatTracker
     @all_game_teams = all_game_teams_creation
     @all_teams = all_teams_creation
 # =====game_statistics=====
+    @all_games = all_games_creation
     @game_outcomes = {
       :home_games_won => 0,
       :visitor_games_won => 0,
@@ -41,7 +42,6 @@ class StatTracker
     @total_goals_per_season = Hash.new{ |hash, key| hash[key] = 0 }
     @average_goals_per_season = Hash.new
     total_goals_per_season
-    average_goals_by_season
     win_data
     # =====league_statistics=====
     @team_name_by_id = Hash.new{}
@@ -72,7 +72,6 @@ class StatTracker
     @games_won_by_opponent = Hash.new{ |hash, key| hash[key] = 0 }
     @win_ratio_by_opponent = Hash.new
   end
-
 # ============= helper methods =============
   def all_games_creation
     GameData.create_objects
@@ -85,87 +84,77 @@ class StatTracker
   def all_teams_creation
     TeamData.create_objects
   end
-
-
 # ============= game_statistics methods =============
-  def total_score
-    @all_games.map do |games|
-      games.home_goals.to_i + games.away_goals.to_i
+def total_score
+  @all_games.map do |games|
+    games.home_goals.to_i + games.away_goals.to_i
+  end
+end
+
+def highest_total_score
+  total_score.max
+end
+
+def lowest_total_score
+  total_score.min
+end
+
+def win_data
+  @all_games.each do |games|
+    if games.home_goals > games.away_goals
+      @game_outcomes[:home_games_won] += 1
+    elsif games.home_goals < games.away_goals
+      @game_outcomes[:visitor_games_won] += 1
+    else
+      @game_outcomes[:ties] += 1
     end
   end
+end
 
-  def highest_total_score
-    total_score.max
-  end
+def percentage_home_wins
+  home_wins = @game_outcomes[:home_games_won]
+  decimal_home = home_wins.to_f / @total_games
+  decimal_home.round(2)
+end
 
-  def lowest_total_score
-    total_score.min
-  end
+def percentage_visitor_wins
+  visitor_wins = @game_outcomes[:visitor_games_won]
+  decimal_visitor = visitor_wins.to_f / @total_games
+  decimal_visitor.round(2)
+end
 
-  def win_data
-    @all_games.each do |games|
-      if games.home_goals > games.away_goals
-        @game_outcomes[:home_games_won] += 1
-      elsif games.home_goals < games.away_goals
-        @game_outcomes[:visitor_games_won] += 1
-      else
-        @game_outcomes[:ties] += 1
-      end
-    end
-  end
+def percentage_ties
+  total_ties = @game_outcomes[:ties]
+  decimal_ties = total_ties.to_f / @total_games
+  decimal_ties.round(2)
+end
 
-  def percentage_home_wins
-    home_wins = @game_outcomes[:home_games_won]
-    decimal_home = home_wins.to_f / @total_games
-    decimal_home.round(2)
+def count_of_games_by_season
+  @all_games.each do |game|
+    @games_per_season[game.season] += 1
   end
+  @games_per_season
+end
 
-  def percentage_visitor_wins
-    visitor_wins = @game_outcomes[:visitor_games_won]
-    decimal_visitor = visitor_wins.to_f / @total_games
-    decimal_visitor.round(2)
-  end
+def average_goals_per_game
+  decimal_average = total_score.sum.to_f / @total_games
+  decimal_average.round(2)
+end
 
-  def percentage_ties
-    total_ties = @game_outcomes[:ties]
-    decimal_ties = total_ties.to_f / @total_games
-    decimal_ties.round(2)
+def total_goals_per_season
+  @all_games.each do |game|
+    @total_goals_per_season[game.season] += game.away_goals.to_i + game.home_goals.to_i
   end
+  @total_goals_per_season
+end
 
-  def count_of_games_by_season
-    @all_games.each do |game|
-      if @games_per_season.include?(game.season)
-        @games_per_season[game.season] += 1
-      else
-        @games_per_season[game.season] = 1
-      end
-    end
-    @games_per_season
+def average_goals_by_season
+  @total_goals_per_season.each do |season, goals|
+    average = goals.to_f / @games_per_season[season]
+    @average_goals_per_season[season] = average.round(2)
   end
-
-  def average_goals_per_game
-    decimal_average = total_score.sum.to_f / @total_games
-    decimal_average.round(2)
-  end
-
-  def total_goals_per_season
-    @all_games.each do |game|
-      if @total_goals_per_season.include?(game.season)
-        @total_goals_per_season[game.season] += game.away_goals.to_i + game.home_goals.to_i
-      else
-        @total_goals_per_season[game.season] += game.away_goals.to_i + game.home_goals.to_i
-      end
-    end
-    @total_goals_per_season
-  end
-
-  def average_goals_by_season
-    @total_goals_per_season.each do |season, goals|
-      average = goals.to_f / @games_per_season[season]
-      @average_goals_per_season[season] = average.round(2)
-    end
-    @average_goals_per_season
-  end
+  @average_goals_per_season
+end
 # ============= league_statistics methods =============
   def count_of_teams
     @all_teams.size
