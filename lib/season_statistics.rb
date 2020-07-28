@@ -6,16 +6,17 @@ require_relative "league_statistics"
 class SeasonStatistics < LeagueStatistics
 
   def initialize
+    @team_name_by_id = Hash.new{}
+    get_team_name_by_id
     @coach_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
     @by_season_game_objects = []
     @counter_wins_team_id = Hash.new{ |hash, key| hash[key] = 0 }
     @games_played_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
-    @team_name_by_id = Hash.new{}
     @by_season_game_team_objects = []
     @goals_by_id_by_season = Hash.new{ |hash, key| hash[key] = 0 }
-    get_team_name_by_id
     @shot_accuracy_by_team_id = Hash.new
     @tackles_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
+    @win_percentage = {}
   end
 
   def all_teams
@@ -70,35 +71,28 @@ class SeasonStatistics < LeagueStatistics
     end
   end
 
-  def best_win_percentage_by_season
-    most_number_of_games_won = @counter_wins_team_id.invert.max[0].to_f
-    for_highest_total_games_played = @games_played_by_team_id[@counter_wins_team_id.invert.max[1]]
-    winningest = (most_number_of_games_won / for_highest_total_games_played) * 100
-  end
-
-  def worst_win_percentage_by_season
-    least_number_of_games_won = @counter_wins_team_id.invert.min[0].to_f
-    for_lowest_total_games_played = @games_played_by_team_id[@counter_wins_team_id.invert.min[1]]
-    worst = (least_number_of_games_won / for_lowest_total_games_played) * 100
+  def win_percentage_by_season
+    @games_played_by_team_id.each do |id, total_games|
+      @win_percentage[id] = (@counter_wins_team_id[id].to_f / total_games).round(3)
+    end
   end
 
   def winningest_and_worst_suite(season)
     create_coach_by_team_id
     collect_game_objects_by_season(season)
     total_wins_by_season
-    best_win_percentage_by_season
-    worst_win_percentage_by_season
+    win_percentage_by_season
   end
 
   def winningest_coach(season)
     winningest_and_worst_suite(season)
-    max_team_id = @counter_wins_team_id.invert.max[1]
+    max_team_id = @win_percentage.invert.max[1]
     winningest_coach = @coach_by_team_id[max_team_id]
   end
 
   def worst_coach(season)
     winningest_and_worst_suite(season)
-    min_team_id = @counter_wins_team_id.invert.min[1]
+    min_team_id = @win_percentage.invert.min[1]
     worst_coach = @coach_by_team_id[min_team_id]
   end
 
