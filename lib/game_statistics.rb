@@ -1,4 +1,6 @@
 require_relative "game_data"
+require_relative "futbol_data"
+include FutbolData
 class GameStatistics
 
   def initialize
