@@ -19,9 +19,6 @@ class GameStatisticsTest < MiniTest::Test
   end
 
   def test_total_score
-    # skip
-    @game_statistics.object_creation
-    
     assert_equal 11, @game_statistics.highest_total_score
     assert_equal 0, @game_statistics.lowest_total_score
   end
