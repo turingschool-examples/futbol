@@ -1,10 +1,7 @@
 require "minitest/autorun"
 require "minitest/pride"
 require "./lib/season_statistics"
-require "./lib/team_data"
-require "./lib/game_data"
-require "./lib/game_team_data"
-require 'csv'
+require 'mocha/minitest'
 
 class SeasonStatisticsTest < Minitest::Test
 
@@ -18,8 +15,11 @@ class SeasonStatisticsTest < Minitest::Test
 
   # Update tests for all new helpers excluding suite
 
-  def test_it_can_print_best_and_worst_coach_by_season
+  def test_it_can_print_best_coach_by_season
     assert_equal "Claude Julien", @season_statistics.winningest_coach("20132014")
+  end
+
+  def test_it_can_print_worst_coach_by_season
     assert_equal "Alain Vigneault", @season_statistics.worst_coach("20142015")
   end
 
