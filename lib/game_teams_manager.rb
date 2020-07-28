@@ -12,46 +12,22 @@ class GameTeamsManager
     end
   end
 
-  def assign_goals_by_team_hash
-      team_goals = Hash.new { |hash, key| hash[key] = [] }
-      @game_teams_array.each do |gameteam|
-        team_goals[gameteam.team_id] = []
-      end
-      @game_teams_array.each do |gameteam|
-        team_goals[gameteam.team_id] << gameteam.goals.to_i
-      end
-      team_goals
+  def team_average_goals(team_id)
+    teams_by_id = @game_teams_array.find_all do |gameteam|
+      gameteam.team_id == team_id
+    end
+
+    total_goals = teams_by_id.sum do |team|
+      team.goals.to_i
+    end
+    (total_goals.to_f / teams_by_id.size).round(2)
   end
 
-    def average_goals_by_team(team_goals)
-      team_goals.keys.each{|team|
-        team_goals[team] = (team_goals[team].sum.to_f/(team_goals[team].size)).round(2)}
-      team_goals
+  def teams_sort_by_average_goal
+    average = @game_teams_array.sort_by do |team|
+      team_average_goals(team.team_id)
     end
-
-    def teams_max_by_average_goal(team_goals)
-      team_goals.values.max_by {|team| team}
-    end
-
-    def teams_min_by_average_goal(team_goals)
-      team_goals.values.min_by {|team| team}
-    end
-  # def team_average_goals(team_id)
-  #   teams_by_id = @game_teams_array.find_all do |gameteam|
-  #     gameteam.team_id == team_id
-  #   end
-  #
-  #   total_goals = teams_by_id.sum do |team|
-  #     team.goals.to_i
-  #   end
-  # (total_goals.to_f / teams_by_id.size).round(2)
-  # end
-  #
-  # def teams_sort_by_average_goal
-  #   @game_teams_array.sort_by do |team|
-  #     team_average_goals(team.team_id)
-  #   end
-  # end
+  end
 
   def count_home_games
     home_games = []
@@ -82,11 +58,15 @@ class GameTeamsManager
 
 
   def find_all_away_teams
-     @game_teams_array.find_all{|gameteam| gameteam.hoa == "away"}
+     @game_teams_array.find_all do |gameteam|
+      gameteam.hoa == "away"
+    end
   end
 
   def away_games_by_team_id
-    find_all_away_teams.group_by{|game| game.team_id}
+    find_all_away_teams.group_by do |game|
+      game.team_id
+    end
   end
 
   def highest_visitor_team
@@ -119,16 +99,15 @@ class GameTeamsManager
       gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f}
   end
 
-
   def percentage_home_wins(home_games, home_wins)
-    (home_wins.count.to_f / home_games.count.to_f).round(2)
+    (home_wins.count.to_f/home_games.count.to_f).round(2)
   end
 
   def percentage_visitor_wins(home_games, home_losses)
-    (home_losses.count.to_f / home_games.count.to_f).round(2)
+    (home_losses.count.to_f/home_games.count.to_f).round(2)
   end
 
   def percentage_ties(home_games, tie_games)
-    (tie_games.count.to_f / home_games.count.to_f).round(2)
+    (tie_games.count.to_f/home_games.count.to_f).round(2)
   end
-  end
+end
