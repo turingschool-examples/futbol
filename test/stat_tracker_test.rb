@@ -95,30 +95,6 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Utah Royals FC", @stat_tracker.lowest_home_team
   end
 
-  def test_it_can_get_lowest_scoring_visitor_team
-    assert_equal "San Jose Earthquakes", @stat_tracker.lowest_visitor_team
-  end
-
-  def test_highest_scores
-    assert_equal 11, @stat_tracker.highest_total_score
-  end
-
-  def test_lowest_scores
-    assert_equal 0, @stat_tracker.lowest_total_score
-  end
-
-  def test_percentage_home_wins
-    assert_equal 0.44, @stat_tracker.percentage_home_wins
-  end
-
-  def test_percentage_visitor_wins
-    assert_equal 0.36, @stat_tracker.percentage_visitor_wins
-  end
-
-  def test_percentage_ties
-    assert_equal 0.20, @stat_tracker.percentage_ties
-  end
-
   def test_it_can_display_team_info
     expected = {
       "team_id"=>"18",
@@ -171,11 +147,6 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_display_rival
     assert_equal "LA Galaxy", @stat_tracker.rival(18)
   end
-
-  def test_it_can_get_lowest_scoring_home_team
-    assert_equal "Utah Royals FC", @stat_tracker.lowest_home_team
-  end
-
 
   def test_it_can_display_winningest_coach
 
