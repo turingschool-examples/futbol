@@ -126,7 +126,7 @@ class StatTracker
     self.most_accurate_team3(season)
   end
 
-  def highest_home_team
+  def highest_home_team #game_teams_manager -> highest_home_team
     self.highest_home_team1
   end
 
