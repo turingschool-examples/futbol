@@ -110,9 +110,9 @@ class StatTracker
     self.lowest_visitor_team1
   end
 
-  # def lowest_home_team
-  #   @game_teams_array.lowest_home_team
-  # end
+  def lowest_home_team
+    @game_teams_array.lowest_home_team
+  end
   #season stats start here (Drew's)
   def winningest_coach(season)
     self.winningest_coach2(season)
