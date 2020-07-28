@@ -82,7 +82,7 @@ class StatTracker
     @game_manager.fewest_goals_scored(id)
   end
 
-  def favorite_opponent(id)
+  def favorite_opponent(id) #game_manager -> favorite_opponent(id)
     self.favorite_opponent1(id)
   end
 

@@ -36,22 +36,6 @@ class GameTeamsManager
     def teams_min_by_average_goal(team_goals)
       team_goals.values.min_by {|team| team}
     end
-  # def team_average_goals(team_id)
-  #   teams_by_id = @game_teams_array.find_all do |gameteam|
-  #     gameteam.team_id == team_id
-  #   end
-  #
-  #   total_goals = teams_by_id.sum do |team|
-  #     team.goals.to_i
-  #   end
-  # (total_goals.to_f / teams_by_id.size).round(2)
-  # end
-  #
-  # def teams_sort_by_average_goal
-  #   @game_teams_array.sort_by do |team|
-  #     team_average_goals(team.team_id)
-  #   end
-  # end
 
   def count_home_games
     home_games = []
