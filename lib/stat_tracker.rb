@@ -34,15 +34,11 @@ class StatTracker
   end
 
   def percentage_home_wins
-    home_games = @game_teams_manager.count_home_games
-    home_wins = @game_teams_manager.home_game_results(home_games)
-    @game_teams_manager.percentage_home_wins(home_games, home_wins[:wins])
+    @game_teams_manager.percentage_home_wins
   end
 
   def percentage_visitor_wins
-    home_games = @game_teams_manager.count_home_games
-    home_losses = @game_teams_manager.home_game_results(home_games)
-    @game_teams_manager.percentage_visitor_wins(home_games, home_losses[:losses])
+    @game_teams_manager.percentage_visitor_wins
   end
 
   def count_of_games_by_season
@@ -51,9 +47,7 @@ class StatTracker
   end
 
   def percentage_ties
-    home_games = @game_teams_manager.count_home_games
-    tie_games = @game_teams_manager.home_game_results(home_games)
-    @game_teams_manager.percentage_ties(home_games, tie_games[:ties])
+    @game_teams_manager.percentage_ties
   end
 
   def average_goals_per_game

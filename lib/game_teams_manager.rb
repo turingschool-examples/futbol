@@ -29,7 +29,7 @@ class GameTeamsManager
     end
   end
 
-  def count_home_games
+  def collect_home_games
     home_games = []
     @game_teams_array.each do |game|
       if game.hoa.to_s == 'home'
@@ -39,12 +39,12 @@ class GameTeamsManager
     home_games
   end
 
-  def home_game_results(home_games)
+  def home_game_results
     home_wins = []
     home_losses = []
     tie_games = []
     results = {}
-    home_games.each do |game|
+    collect_home_games.each do |game|
       home_wins << game.game_id if game.result.to_s == 'WIN'
       home_losses << game.game_id if game.result.to_s == 'LOSS'
       tie_games << game.game_id if game.result.to_s == 'TIE'
@@ -57,14 +57,14 @@ class GameTeamsManager
   end
 
 
-  def find_all_away_teams
+  def find_all_away_games
     @game_teams_array.find_all do |gameteam|
       gameteam.hoa == "away"
     end
   end
 
   def away_games_by_team_id
-    find_all_away_teams.group_by do |game|
+    find_all_away_games.group_by do |game|
       game.team_id
     end
   end
@@ -81,13 +81,14 @@ class GameTeamsManager
     end
   end
 
-  def find_all_home_teams
+  def find_all_home_games
     @game_teams_array.find_all do |gameteam|
       gameteam.hoa == "home"
     end
   end
+
   def home_games_by_team_id
-    find_all_home_teams.group_by do |game|
+    find_all_home_games.group_by do |game|
       game.team_id
     end
   end
@@ -104,15 +105,15 @@ class GameTeamsManager
     end
   end
 
-  def percentage_home_wins(home_games, home_wins)
-    (home_wins.count.to_f/home_games.count.to_f).round(2)
-  end
-  
-  def percentage_visitor_wins(home_games, home_losses)
-    (home_losses.count.to_f/home_games.count.to_f).round(2)
+  def percentage_home_wins
+    (home_game_results[:wins].count.to_f/collect_home_games.count.to_f).round(2)
   end
 
-  def percentage_ties(home_games, tie_games)
-    (tie_games.count.to_f/home_games.count.to_f).round(2)
+  def percentage_visitor_wins
+    (home_game_results[:losses].count.to_f/collect_home_games.count.to_f).round(2)
+  end
+
+  def percentage_ties
+    (home_game_results[:ties].count.to_f/collect_home_games.count.to_f).round(2)
   end
 end
