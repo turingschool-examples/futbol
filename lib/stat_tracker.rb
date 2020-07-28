@@ -36,7 +36,7 @@ class StatTracker
   def percentage_home_wins
     home_games = @game_teams_manager.count_home_games
     home_wins = @game_teams_manager.home_game_results(home_games)
-   @game_teams_manager.percentage_home_wins(home_games, home_wins[:wins])
+    @game_teams_manager.percentage_home_wins(home_games, home_wins[:wins])
   end
 
   def percentage_visitor_wins
@@ -52,7 +52,7 @@ class StatTracker
 
   def percentage_ties
     home_games = @game_teams_manager.count_home_games
-   tie_games = @game_teams_manager.home_game_results(home_games)
+    tie_games = @game_teams_manager.home_game_results(home_games)
     @game_teams_manager.percentage_ties(home_games, tie_games[:ties])
   end
 
@@ -125,7 +125,7 @@ class StatTracker
     team = @game_teams_manager.lowest_visitor_team.first
     @team_manager.find_by_id(team).team_name
   end
-  
+
   def lowest_home_team
     @game_teams_array.lowest_home_team
   end
@@ -160,29 +160,29 @@ class StatTracker
     team = @game_teams_manager.lowest_home_team.first
     @team_manager.find_by_id(team).team_name
   end
+
+
+def least_accurate_team(season)
+  @all_games2 = @game_manager.games_by_season(season)
+  self.most_accurate_team1(season)
+  @numb2 = @all_goals.sort_by do |key, value| value
+  end[0].first
+  self.most_accurate_team2(season)
 end
 
-  def least_accurate_team(season)
-    @all_games2 = @game_manager.games_by_season(season)
-    self.most_accurate_team1(season)
-    @numb2 = @all_goals.sort_by do |key, value| value
-    end[0].first
-    self.most_accurate_team2(season)
-  end
+def most_tackles(season)
+  @all_games = @game_manager.games_by_season(season)
+  self.most_tackles1(season)
+  @numb2 = @all_tackles.sort_by do |key, value| value
+  end[-1].first
+  self.most_accurate_team2(season)
+end
 
-  def most_tackles(season)
-    @all_games = @game_manager.games_by_season(season)
-    self.most_tackles1(season)
-    @numb2 = @all_tackles.sort_by do |key, value| value
-    end[-1].first
-    self.most_accurate_team2(season)
-  end
-
-  def fewest_tackles(season)
-    @all_games = @game_manager.games_by_season(season)
-    self.most_tackles1(season)
-    @numb2 = @all_tackles.sort_by do |key, value| value
-    end[0].first
-    self.most_accurate_team2(season)
-  end
+def fewest_tackles(season)
+  @all_games = @game_manager.games_by_season(season)
+  self.most_tackles1(season)
+  @numb2 = @all_tackles.sort_by do |key, value| value
+  end[0].first
+  self.most_accurate_team2(season)
+end
 end

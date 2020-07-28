@@ -6,7 +6,7 @@ class GameTeamsManager
 
   def initialize(game_teams_path)
     @game_teams_array = []
-    
+
     CSV.foreach(game_teams_path, headers: true) do |row|
       @game_teams_array << GameTeam.new(row)
     end
@@ -15,7 +15,7 @@ class GameTeamsManager
   def team_average_goals(team_id)
     teams_by_id = @game_teams_array.find_all do |gameteam|
       gameteam.team_id == team_id
-  end
+    end
 
     total_goals = teams_by_id.sum do |team|
       team.goals.to_i
@@ -26,6 +26,8 @@ class GameTeamsManager
   def teams_sort_by_average_goal
     average = @game_teams_array.sort_by do |team|
       team_average_goals(team.team_id)
+    end
+  end
 
   def count_home_games
     home_games = []
@@ -56,7 +58,7 @@ class GameTeamsManager
 
 
   def find_all_away_teams
-     @game_teams_array.find_all do |gameteam|
+    @game_teams_array.find_all do |gameteam|
       gameteam.hoa == "away"
     end
   end
@@ -80,19 +82,19 @@ class GameTeamsManager
   end
 
   def find_all_home_teams
-     @game_teams_array.find_all do |gameteam|
+    @game_teams_array.find_all do |gameteam|
       gameteam.hoa == "home"
     end
   end
-        def home_games_by_team_id
+  def home_games_by_team_id
     find_all_home_teams.group_by do |game|
       game.team_id
     end
   end
 
   def highest_home_team
-     home_games_by_team_id.max_by do |team_id, gameteam|
-       gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
+    home_games_by_team_id.max_by do |team_id, gameteam|
+      gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
     end
   end
 
@@ -101,7 +103,7 @@ class GameTeamsManager
       gameteam.sum{|game1| game1.goals.to_i} / gameteam.count.to_f
     end
   end
-      
+
   def percentage_home_wins(home_games, home_wins)
     (home_wins.count.to_f/home_games.count.to_f).round(2)
   end
