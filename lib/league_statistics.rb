@@ -125,7 +125,11 @@ class LeagueStatistics
 
   def highest_scoring_home_team
     goals_by_hoa_id_suite
-    highest_scorer_at_home = @goals_by_home_id.invert.max[1]
+    @average_score_per_home_game = {}
+    @goals_by_home_id.each do |home_team_id, goals|
+      @average_score_per_home_game[home_team_id] = (goals.to_f / @games_by_home_id[home_team_id]).round(3)
+    end
+    highest_scorer_at_home = @average_score_per_home_game.invert.max[1]
     @team_name_by_id[highest_scorer_at_home]
   end
 
