@@ -4,6 +4,9 @@ class FutbolData
   def initialize(passed)
     @passed = passed
     @data_location = nil
+    @teams = []
+    @games = []
+    @game_teams = []
     # @collection_name = nil
   end
 
@@ -16,21 +19,32 @@ class FutbolData
         @data_location = './data/teams.csv'
       when "game"
         @data_location = './data/games.csv'
-        @collection_name = game_data
       when "game_team"
         @data_location = './data/game_teams.csv'
-        @collection_name = game_teams_data
     end
   end
 
   def create_objects
     chosen_data_set
-    all_teams = []
-    csv_data = CSV.read(@data_location, headers: true)
-      csv_data.each do |x|
-        all_teams << x
+    if @passed == 'team'
+      csv_data = CSV.read(@data_location, headers: true)
+        csv_data.each do |x|
+          @teams << x
+        end
+    elsif @passed == 'game'
+      csv_data = CSV.read(@data_location, headers: true)
+        csv_data.each do |x|
+          @games << x
+        end
+    elsif @passed == 'game_team'
+      csv_data = CSV.read(@data_location, headers: true)
+        csv_data.each do |x|
+          @game_teams << x
+        end
     end
-    require "pry"; binding.pry
+  end
+
+
 
 
 
@@ -49,16 +63,4 @@ class FutbolData
     #     line_index += 1
     # end
     # all_data
-  end
-
-
-
-  def create_attributes(table, line_index)
-    team_id      = table[line_index]["team_id"]
-    franchise_id  = table[line_index]["franchiseId"]
-    team_name     = table[line_index]["teamName"]
-    abbreviation = table[line_index]["abbreviation"]
-    stadium      = table[line_index]["Stadium"]
-    link         = table[line_index]["link"]
-  end
 end
