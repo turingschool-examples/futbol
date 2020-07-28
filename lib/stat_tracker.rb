@@ -102,7 +102,7 @@ class StatTracker
     self.worst_offense1
   end
 
-  def highest_visitor_team
+  def highest_visitor_team #game_teams_manager -> highest_visitor_team
     self.highest_visitor_team1
   end
 
