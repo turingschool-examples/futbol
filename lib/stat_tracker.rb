@@ -98,7 +98,7 @@ class StatTracker
     self.best_offense1
   end
 
-  def worst_offense
+  def worst_offense #game_teams_manager -> worst_offense
     self.worst_offense1
   end
 
