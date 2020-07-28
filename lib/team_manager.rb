@@ -15,28 +15,25 @@ class TeamManager
   end
 
   def find_by_id(team_number)
-      @teams_array.find do |team|
-        team.team_id == team_number
-   end
+      @teams_array.find{ |team|
+        team.team_id == team_number}
   end
 
   def find_by_id1(team_number)
-      @teams_array.select do |team|
-        team.team_id == team_number
-      end[0]
-    end
+      @teams_array.select{ |team|
+        team.team_id == team_number}[0]
+  end
 
   def team_info(id)
     hash = {}
-    team = @teams_array.select do |team| team.team_id == "#{id}"
-    end
-    team.each do |team|
+    team = @teams_array.select{ |team| team.team_id == "#{id}"}
+    team.each{ |team|
       hash["team_id"] = team.team_id
       hash["franchise_id"] = team.franchise_id
       hash["team_name"] = team.team_name
       hash["abbreviation"] = team.abbreviation
       hash["link"] = team.link
-    end
+    }
     hash
   end
 end
