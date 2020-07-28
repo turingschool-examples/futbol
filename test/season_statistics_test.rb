@@ -1,4 +1,10 @@
-require "./test/test_helper"
+#require "./test/test_helper"
+require 'minitest/autorun'
+require 'minitest/pride'
+require "./lib/collections"
+require "./lib/season_statistics"
+
+
 
 class SeasonStatisticsTest < MiniTest::Test
 
@@ -13,7 +19,8 @@ class SeasonStatisticsTest < MiniTest::Test
       game_teams: game_teams_path
     }
 
-    @season_statistics = SeasonStatistics.new(locations)
+    @stat_tracker = StatTracker.new(locations)
+    @season_statistics = SeasonStatistics.new
   end
 
   #need the following tests
