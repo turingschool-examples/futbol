@@ -359,7 +359,16 @@ class StatTracker
   end
 
   def games_by_season
-    games_by_season = @games.group_by {|game| game.season}
+      games_by_season = {}
+      game_ids_by_season.map do |season, game_ids|
+        season_games = @game_teams.map do |game|
+          if game_ids.include?(game.game_id)
+            game
+          end
+        end
+        games_by_season[season] = season_games
+      end
+      games_by_season
   end
 
   def highest_scoring_visitor
@@ -399,7 +408,7 @@ class StatTracker
   end
 
   def season_games
-    season_games = games_by_season.map {|season, games| games}.flatten.compact
+    games_by_season.map {|season, games| games}.flatten.compact
   end
 
  #========== Best & Worst season ==========
@@ -422,8 +431,8 @@ class StatTracker
           end
       @win_count[season] = [count, total]
       end
-      @win_count
     end
+    @win_count
   end
 
   def best_season(teamID)
@@ -438,7 +447,6 @@ class StatTracker
   end#method
 
   def worst_season(teamID)
-    require "pry"; binding.pry
     win_hash(teamID)
     worst = @win_count.min_by do |season, games|
       @win_count[season].first / @win_count[season].last.to_f
