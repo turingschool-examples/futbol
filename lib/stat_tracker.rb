@@ -1,7 +1,7 @@
 require "CSV"
-require "./lib/games"
-require "./lib/teams"
-require "./lib/game_teams"
+require_relative "./games"
+require_relative "./teams"
+require_relative "./game_teams"
 
 class StatTracker
   attr_reader :games, :game_teams, :teams
@@ -358,17 +358,21 @@ class StatTracker
     fewest_goals[0]
   end
 
+  # def games_by_season
+  #   games_by_season = @games.group_by {|game| game.season}
+  # end
+
   def games_by_season
-      games_by_season = {}
-      game_ids_by_season.map do |season, game_ids|
-        season_games = @game_teams.map do |game|
-          if game_ids.include?(game.game_id)
-            game
-          end
+    games_by_season1 = {}
+    game_ids_by_season.map do |season, game_ids|
+      season_games = @game_teams.map do |game|
+        if game_ids.include?(game.game_id)
+          game
         end
-        games_by_season[season] = season_games
       end
-      games_by_season
+      games_by_season1[season] = season_games
+    end
+    games_by_season1
   end
 
   def highest_scoring_visitor
