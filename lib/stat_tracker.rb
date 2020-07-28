@@ -107,17 +107,13 @@ class StatTracker
   end
 
   def best_offense
-   goals = @game_teams_manager.assign_goals_by_team_hash
-   team_goals = @game_teams_manager.average_goals_by_team(goals)
-   @team_number = @game_teams_manager.teams_max_by_average_goal(team_goals)
-   @team_manager.find_by_id(@team_number).team_name
+   team_number = @game_teams_manager.teams_max_by_average_goal
+   @team_manager.find_by_id(team_number).team_name
   end
 
   def worst_offense
-    goals = @game_teams_manager.assign_goals_by_team_hash
-    team_goals = @game_teams_manager.average_goals_by_team(goals)
-    @team_number = @game_teams_manager.teams_min_by_average_goal(team_goals)
-    @team_manager.find_by_id(@team_number).team_name
+    team_number = @game_teams_manager.teams_min_by_average_goal
+    @team_manager.find_by_id(team_number).team_name
   end
 
   def highest_visitor_team

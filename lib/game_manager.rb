@@ -203,7 +203,6 @@ class GameManager
    @games_array.select do |game|
     game.season == season
   end.map do |game| game.game_id
-      end
+  end
  end
-
 end

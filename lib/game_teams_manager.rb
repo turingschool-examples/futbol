@@ -12,7 +12,7 @@ class GameTeamsManager
     end
   end
 
-  def assign_goals_by_team_hash
+  def assign_goals_by_team
     team_goals = Hash.new { |hash, key| hash[key] = [] }
     @game_teams_array.each do |gameteam|
       team_goals[gameteam.team_id] = []
@@ -23,21 +23,22 @@ class GameTeamsManager
     team_goals
   end
 
-  def average_goals_by_team(team_goals)
+  def average_goals_by_team
+    team_goals = assign_goals_by_team
     team_goals.keys.each{|team|
       team_goals[team] = (team_goals[team].sum.to_f/(team_goals[team].size)).round(2)}
       team_goals
   end
 
-  def teams_max_by_average_goal(team_goals)
-    team_goals.max_by {|k,v| v}.first
+  def teams_max_by_average_goal
+    average_goals_by_team.max_by {|k,v| v}.first
   end
 
-  def teams_min_by_average_goal(team_goals)
-    team_goals.min_by{|k,v| v}.first
+  def teams_min_by_average_goal
+    average_goals_by_team.min_by{|k,v| v}.first
   end
 
-  def count_home_games
+  def collect_home_games
     home_games = []
     @game_teams_array.each do |game|
       if game.hoa.to_s == 'home'
