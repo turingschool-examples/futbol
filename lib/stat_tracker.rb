@@ -114,15 +114,15 @@ class StatTracker
     @game_teams_array.lowest_home_team
   end
   #season stats start here (Drew's)
-  def winningest_coach(season)
+  def winningest_coach(season) #game_manager -> winningest coach
     self.winningest_coach2(season)
   end
 
-  def worst_coach(season)
+  def worst_coach(season) #game_manager -> worst_coach
     self.worst_coach2(season)
   end
 
-  def most_accurate_team(season)
+  def most_accurate_team(season) #game_manager -> most_accurate_team
     self.most_accurate_team3(season)
   end
 
@@ -135,16 +135,15 @@ class StatTracker
     @team_manager.find_by_id(team).team_name
   end
 
-  def least_accurate_team(season)
+  def least_accurate_team(season) #game_manager -> least_accurate_team
     self.least_accurate_team1(season)
   end
 
-  def most_tackles(season)
+  def most_tackles(season) #game_manager -> most_tackles
     @all_games = @game_manager.games_by_season(season)
     self.most_tackles1(season)
   end
 
-  def fewest_tackles(season)
-    self.fewest_tackles1(season)
+  def fewest_tackles(season) #game_manager -> fewest_tackles
   end
 end
