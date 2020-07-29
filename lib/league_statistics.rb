@@ -1,9 +1,12 @@
 require_relative "futbol_data"
+require_relative "futbol_creatable"
+include FutbolCreatable
+
 class LeagueStatistics < FutbolData
 
   def initialize
-    @all_teams       = object_creation_teams
-    @all_game_teams  = object_creation_game_teams
+    @all_teams       = FutbolCreatable.object_creation("teams")
+    @all_game_teams  = FutbolCreatable.object_creation("game_teams")
     @team_name_by_id = Hash.new{}
     @goals_by_id = Hash.new{ |hash, key| hash[key] = 0 }
     @games_played_by_id = Hash.new{ |hash, key| hash[key] = 0 }
@@ -11,16 +14,6 @@ class LeagueStatistics < FutbolData
     @goals_by_away_id = Hash.new{ |hash, key| hash[key] = 0 }
     @goals_by_home_id = Hash.new{ |hash, key| hash[key] = 0 }
 
-  end
-
-  def object_creation_teams
-    team_array = FutbolData.new("teams")
-    team_array.teams
-  end
-
-  def object_creation_game_teams
-    game_teams_array = FutbolData.new("game_teams")
-    game_teams_array.game_teams
   end
 
   def count_of_teams
