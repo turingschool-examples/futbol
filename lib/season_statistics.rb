@@ -1,11 +1,12 @@
-require "./lib/collections"
-require "./lib/games"
-require "./lib/game_teams"
-require "./lib/teams"
+require_relative "./stat_tracker"
 
+class SeasonStatistics
 
-class SeasonStatistics < Collections
-  attr_reader :games, :teams, :game_teams
+  def initialize(game_teams, games, teams)
+    @game_teams = game_teams
+    @games = games
+    @teams = teams
+  end
 
   def scoped_season_games(season)
     @games.find_all {|game| game.season == season}
