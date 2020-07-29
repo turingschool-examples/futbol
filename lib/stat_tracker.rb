@@ -1,15 +1,9 @@
-# require_relative "./csv_data"
-# require_relative './games'
-# require_relative './teams'
-# require_relative './game_teams'
-# require_relative './season_statistics'
 require "./lib/csv_data"
 require './lib/games'
 require './lib/teams'
 require './lib/game_teams'
 require './lib/season_statistics'
 class StatTracker
-  # attr_reader :games, :game_teams, :teams
 
   def self.from_csv(locations)
     StatTracker.new(locations)
@@ -20,8 +14,6 @@ class StatTracker
   #  @team_statistics = csv_data.team_statistics
     @season_statistics = csv_data.season_statistics
   end
-
-
 
   def winningest_coach(season)
     @season_statistics.winningest_coach(season)
@@ -46,6 +38,5 @@ class StatTracker
   def most_tackles(seasonID)
     @season_statistics.most_tackles(seasonID)
   end
-
 
 end#class
