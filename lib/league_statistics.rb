@@ -1,6 +1,8 @@
 require_relative "futbol_data"
 require_relative "futbol_creatable"
 include FutbolCreatable
+require_relative "helpable"
+include Helpable
 
 class LeagueStatistics < FutbolData
 
@@ -23,13 +25,6 @@ class LeagueStatistics < FutbolData
   def offense_suite
     get_team_name_by_id
     average_goals_by_id
-  end
-
-  def get_team_name_by_id
-    @all_teams.each do |team|
-      @team_name_by_id[team["team_id"]] = team["teamName"]
-    end
-    @team_name_by_id
   end
 
   def best_offense

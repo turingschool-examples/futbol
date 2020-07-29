@@ -1,5 +1,7 @@
 require_relative "futbol_data"
 require_relative "futbol_creatable"
+require_relative "helpable"
+include Helpable
 include FutbolCreatable
 
 class TeamStatistics < FutbolData
@@ -9,14 +11,6 @@ class TeamStatistics < FutbolData
     @all_teams       = FutbolCreatable.object_creation("teams")
     @all_game_teams  = FutbolCreatable.object_creation("game_teams")
     get_team_name_by_id
-  end
-
-  def get_team_name_by_id
-    @team_name_by_id = Hash.new{}
-    @all_teams.each do |team|
-      @team_name_by_id[team["team_id"]] = team["teamName"]
-    end
-    @team_name_by_id
   end
 
   def team_info(passed_id)
