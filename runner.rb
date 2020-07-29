@@ -11,8 +11,7 @@ locations = {
   game_teams: game_teams_path
 }
 
-@stat_tracker = StatTracker.from_csv(locations)
-#@season_statistics = SeasonStatistics.new(@game_teams, @games, @teams)
+stat_tracker = StatTracker.from_csv(locations)
 
 
 
