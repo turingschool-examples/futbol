@@ -50,7 +50,8 @@ class GameManager
     total_goals
   end
 
-    def average_goals_per_game(total_goals)
+    def average_goals_per_game
+      total_goals = collect_all_goals
     (total_goals.sum.to_f/(total_goals.size/2)).round(2)
   end
 
@@ -67,7 +68,8 @@ class GameManager
     season_goals
   end
 
-  def average_goals_by_season(season_goals)
+  def average_goals_by_season
+    season_goals = @game_manager.collect_goals_by_season
     season_goals.keys.each do |season|
       season_goals[season] = (season_goals[season].sum.to_f/(season_goals[season].size)*2).round(2)
     end

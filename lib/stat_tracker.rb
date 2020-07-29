@@ -50,13 +50,11 @@ class StatTracker
   end
 
   def average_goals_per_game
-    total_goals = @game_manager.collect_all_goals
-    @game_manager.average_goals_per_game(total_goals)
+    @game_manager.average_goals_per_game
   end
 
   def average_goals_by_season
-    season_goals = @game_manager.collect_goals_by_season
-    @game_manager.average_goals_by_season(season_goals)
+    @game_manager.average_goals_by_season
   end
 
   def team_info(id)
