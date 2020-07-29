@@ -36,7 +36,8 @@ class GameManager
     games_by_season
   end
 
-  def count_of_games_by_season(games_by_season)
+  def count_of_games_by_season
+    games_by_season = create_games_by_season_array
     games_by_season.each { |k, v| games_by_season[k] = v.count}
   end
 

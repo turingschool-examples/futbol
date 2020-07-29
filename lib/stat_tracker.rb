@@ -42,8 +42,7 @@ class StatTracker
   end
 
   def count_of_games_by_season
-    games_by_season = @game_manager.create_games_by_season_array
-    @game_manager.count_of_games_by_season(games_by_season)
+    @game_manager.count_of_games_by_season
   end
 
   def percentage_ties
