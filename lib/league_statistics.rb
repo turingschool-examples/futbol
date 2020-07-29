@@ -1,8 +1,9 @@
-require_relative "team_data"
-require_relative "game_team_data"
-class LeagueStatistics
+require_relative "futbol_data"
+class LeagueStatistics < FutbolData
 
   def initialize
+    @all_teams       = object_creation_teams
+    @all_game_teams  = object_creation_game_teams
     @team_name_by_id = Hash.new{}
     @goals_by_id = Hash.new{ |hash, key| hash[key] = 0 }
     @games_played_by_id = Hash.new{ |hash, key| hash[key] = 0 }
@@ -12,16 +13,18 @@ class LeagueStatistics
 
   end
 
-  def all_teams
-    TeamData.create_objects
+  def object_creation_teams
+    team_array = FutbolData.new("teams")
+    team_array.teams
   end
 
-  def all_game_teams
-    GameTeamData.create_objects
+  def object_creation_game_teams
+    game_teams_array = FutbolData.new("game_teams")
+    game_teams_array.game_teams
   end
 
   def count_of_teams
-    all_teams.size
+    @all_teams.size
   end
 
   def offense_suite
@@ -30,8 +33,8 @@ class LeagueStatistics
   end
 
   def get_team_name_by_id
-    all_teams.each do |team|
-      @team_name_by_id[team.team_id] = team.team_name
+    @all_teams.each do |team|
+      @team_name_by_id[team["team_id"]] = team["teamName"]
     end
     @team_name_by_id
   end
@@ -62,32 +65,36 @@ class LeagueStatistics
   end
 
   def goals_by_id
-    all_game_teams.each do |game_team|
-      @goals_by_id[game_team.team_id] += game_team.goals.to_i
+    @all_game_teams.each do |game_team|
+      @goals_by_id[game_team["team_id"]] += game_team["goals"].to_i
     end
     @goals_by_id
   end
 
   def games_by_id
-    all_game_teams.each do |game_team|
-      @games_played_by_id[game_team.team_id] += 1
+    @all_game_teams.each do |game_team|
+      @games_played_by_id[game_team["team_id"]] += 1
     end
     @games_played_by_id
   end
 
   def goals_by_away_id
-    all_game_teams.each do |game_team|
-      if game_team.hoa == "away"
-        @goals_by_away_id[game_team.team_id] += game_team.goals.to_i
+    @games_by_away_id = Hash.new{ |hash, key| hash[key] = 0 }
+    @all_game_teams.each do |game_team|
+      if game_team["HoA"] == "away"
+        @goals_by_away_id[game_team["team_id"]] += game_team["goals"].to_i
+        @games_by_away_id[game_team["team_id"]] += 1
       end
     end
     @goals_by_away_id
   end
 
   def goals_by_home_id
-    all_game_teams.each do |game_team|
-      if game_team.hoa == "home"
-        @goals_by_home_id[game_team.team_id] += game_team.goals.to_i
+    @games_by_home_id = Hash.new{ |hash, key| hash[key] = 0 }
+    @all_game_teams.each do |game_team|
+      if game_team["HoA"] == "home"
+        @goals_by_home_id[game_team["team_id"]] += game_team["goals"].to_i
+        @games_by_home_id[game_team["team_id"]] += 1
       end
     end
     @goals_by_home_id
@@ -101,25 +108,41 @@ class LeagueStatistics
 
   def highest_scoring_visitor
     goals_by_hoa_id_suite
-    highest_scorer_away = @goals_by_away_id.invert.max[1]
+    @average_score_per_away_game = {}
+    @goals_by_away_id.each do |away_team_id, goals|
+      @average_score_per_away_game[away_team_id] = (goals.to_f / @games_by_away_id[away_team_id]).round(3)
+    end
+    highest_scorer_away = @average_score_per_away_game.invert.max[1]
     @team_name_by_id[highest_scorer_away]
   end
 
   def lowest_scoring_visitor
     goals_by_hoa_id_suite
-    lowest_scorer_away = @goals_by_away_id.invert.min[1]
+    @average_score_per_away_game = {}
+    @goals_by_away_id.each do |away_team_id, goals|
+      @average_score_per_away_game[away_team_id] = (goals.to_f / @games_by_away_id[away_team_id]).round(3)
+    end
+    lowest_scorer_away = @average_score_per_away_game.invert.min[1]
     @team_name_by_id[lowest_scorer_away]
   end
 
   def highest_scoring_home_team
     goals_by_hoa_id_suite
-    highest_scorer_at_home = @goals_by_home_id.invert.max[1]
+    @average_score_per_home_game = {}
+    @goals_by_home_id.each do |home_team_id, goals|
+      @average_score_per_home_game[home_team_id] = (goals.to_f / @games_by_home_id[home_team_id]).round(3)
+    end
+    highest_scorer_at_home = @average_score_per_home_game.invert.max[1]
     @team_name_by_id[highest_scorer_at_home]
   end
 
   def lowest_scoring_home_team
     goals_by_hoa_id_suite
-    lowest_scorer_at_home = @goals_by_home_id.invert.min[1]
+    @average_score_per_home_game = {}
+    @goals_by_home_id.each do |home_team_id, goals|
+      @average_score_per_home_game[home_team_id] = (goals.to_f / @games_by_home_id[home_team_id]).round(3)
+    end
+    lowest_scorer_at_home = @average_score_per_home_game.invert.min[1]
     @team_name_by_id[lowest_scorer_at_home]
   end
 end

@@ -31,6 +31,7 @@ class StatTracker
     @all_game_teams = all_game_teams_creation
     @all_teams = all_teams_creation
 # =====game_statistics=====
+    @all_games = all_games_creation
     @game_outcomes = {
       :home_games_won => 0,
       :visitor_games_won => 0,
@@ -41,11 +42,9 @@ class StatTracker
     @total_goals_per_season = Hash.new{ |hash, key| hash[key] = 0 }
     @average_goals_per_season = Hash.new
     total_goals_per_season
-    average_goals_by_season
     win_data
     # =====league_statistics=====
     @team_name_by_id = Hash.new{}
-
     @goals_by_id = Hash.new{ |hash, key| hash[key] = 0 }
     @games_played_by_id = Hash.new{ |hash, key| hash[key] = 0 }
     @average_goals_by_id = Hash.new{}
@@ -61,8 +60,18 @@ class StatTracker
     @goals_by_id_by_season = Hash.new{ |hash, key| hash[key] = 0 }
     @shot_accuracy_by_team_id = Hash.new{}
     @tackles_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
+    # =====team_statistics=====
+    @team_info_by_id = Hash.new
+    @by_team_id_game_objects = []
+    @total_games_by_season = Hash.new{ |hash, key| hash[key] = 0 }
+    @total_wins_by_season = Hash.new{ |hash, key| hash[key] = 0 }
+    @win_percentage_by_season = Hash.new
+    @games_won_by_team_id = Hash.new{ |hash, key| hash[key] = 0 }
+    @goals_by_game = []
+    @games_played_by_opponent = Hash.new{ |hash, key| hash[key] = 0 }
+    @games_won_by_opponent = Hash.new{ |hash, key| hash[key] = 0 }
+    @win_ratio_by_opponent = Hash.new
   end
-
 # ============= helper methods =============
   def all_games_creation
     GameData.create_objects
@@ -75,186 +84,200 @@ class StatTracker
   def all_teams_creation
     TeamData.create_objects
   end
-
-
 # ============= game_statistics methods =============
-  def total_score
-    @all_games.map do |games|
-      games.home_goals.to_i + games.away_goals.to_i
+def total_score
+  @all_games.map do |games|
+    games.home_goals.to_i + games.away_goals.to_i
+  end
+end
+
+def highest_total_score
+  total_score.max
+end
+
+def lowest_total_score
+  total_score.min
+end
+
+def win_data
+  @all_games.each do |games|
+    if games.home_goals > games.away_goals
+      @game_outcomes[:home_games_won] += 1
+    elsif games.home_goals < games.away_goals
+      @game_outcomes[:visitor_games_won] += 1
+    else
+      @game_outcomes[:ties] += 1
     end
   end
+end
 
-  def highest_total_score
-    total_score.max
-  end
+def percentage_home_wins
+  home_wins = @game_outcomes[:home_games_won]
+  decimal_home = home_wins.to_f / @total_games
+  decimal_home.round(2)
+end
 
-  def lowest_total_score
-    total_score.min
-  end
+def percentage_visitor_wins
+  visitor_wins = @game_outcomes[:visitor_games_won]
+  decimal_visitor = visitor_wins.to_f / @total_games
+  decimal_visitor.round(2)
+end
 
-  def win_data
-    @all_games.each do |games|
-      if games.home_goals > games.away_goals
-        @game_outcomes[:home_games_won] += 1
-      elsif games.home_goals < games.away_goals
-        @game_outcomes[:visitor_games_won] += 1
-      else
-        @game_outcomes[:ties] += 1
-      end
-    end
-  end
+def percentage_ties
+  total_ties = @game_outcomes[:ties]
+  decimal_ties = total_ties.to_f / @total_games
+  decimal_ties.round(2)
+end
 
-  def percentage_home_wins
-    home_wins = @game_outcomes[:home_games_won]
-    decimal_home = home_wins.to_f / @total_games
-    decimal_home.round(2)
+def count_of_games_by_season
+  @all_games.each do |game|
+    @games_per_season[game.season] += 1
   end
+  @games_per_season
+end
 
-  def percentage_visitor_wins
-    visitor_wins = @game_outcomes[:visitor_games_won]
-    decimal_visitor = visitor_wins.to_f / @total_games
-    decimal_visitor.round(2)
-  end
+def average_goals_per_game
+  decimal_average = total_score.sum.to_f / @total_games
+  decimal_average.round(2)
+end
 
-  def percentage_ties
-    total_ties = @game_outcomes[:ties]
-    decimal_ties = total_ties.to_f / @total_games
-    decimal_ties.round(2)
+def total_goals_per_season
+  @all_games.each do |game|
+    @total_goals_per_season[game.season] += game.away_goals.to_i + game.home_goals.to_i
   end
+  @total_goals_per_season
+end
 
-  def count_of_games_by_season
-    @all_games.each do |game|
-      if @games_per_season.include?(game.season)
-        @games_per_season[game.season] += 1
-      else
-        @games_per_season[game.season] = 1
-      end
-    end
-    @games_per_season
+def average_goals_by_season
+  @total_goals_per_season.each do |season, goals|
+    average = goals.to_f / @games_per_season[season]
+    @average_goals_per_season[season] = average.round(2)
   end
-
-  def average_goals_per_game
-    decimal_average = total_score.sum.to_f / @total_games
-    decimal_average.round(2)
-  end
-
-  def total_goals_per_season
-    @all_games.each do |game|
-      if @total_goals_per_season.include?(game.season)
-        @total_goals_per_season[game.season] += game.away_goals.to_i + game.home_goals.to_i
-      else
-        @total_goals_per_season[game.season] += game.away_goals.to_i + game.home_goals.to_i
-      end
-    end
-    @total_goals_per_season
-  end
-
-  def average_goals_by_season
-    @total_goals_per_season.each do |season, goals|
-      average = goals.to_f / @games_per_season[season]
-      @average_goals_per_season[season] = average.round(2)
-    end
-    @average_goals_per_season
-  end
+  @average_goals_per_season
+end
 # ============= league_statistics methods =============
-  def count_of_teams
-    @all_teams.size
-  end
+def count_of_teams
+  @all_teams.size
+end
 
-  def offense_suite
-    get_team_name_by_id
-    average_goals_by_id
-  end
+def offense_suite
+  get_team_name_by_id
+  average_goals_by_id
+end
 
-  def get_team_name_by_id
-    @all_teams.each do |team|
-      @team_name_by_id[team.team_id] = team.team_name
+def get_team_name_by_id
+  @all_teams.each do |team|
+    @team_name_by_id[team.team_id] = team.team_name
+  end
+  @team_name_by_id
+end
+
+def best_offense
+  offense_suite
+  best_offense_id = @average_goals_by_id.invert.max[1]
+  @team_name_by_id[best_offense_id]
+end
+
+def worst_offense
+  offense_suite
+  worst_offense_id = @average_goals_by_id.invert.min[1]
+  @team_name_by_id[worst_offense_id]
+end
+
+def by_id_suite
+  goals_by_id
+  games_by_id
+end
+
+def average_goals_by_id
+  by_id_suite
+  @goals_by_id.each do |team_id, goal|
+    @average_goals_by_id[team_id] = (goal.to_f / @games_played_by_id[team_id]).round(2)
+  end
+  @average_goals_by_id
+end
+
+def goals_by_id
+  @all_game_teams.each do |game_team|
+    @goals_by_id[game_team.team_id] += game_team.goals.to_i
+  end
+  @goals_by_id
+end
+
+def games_by_id
+  @all_game_teams.each do |game_team|
+    @games_played_by_id[game_team.team_id] += 1
+  end
+  @games_played_by_id
+end
+
+def goals_by_away_id
+  @games_by_away_id = Hash.new{ |hash, key| hash[key] = 0 }
+  @all_game_teams.each do |game_team|
+    if game_team.hoa == "away"
+      @goals_by_away_id[game_team.team_id] += game_team.goals.to_i
+      @games_by_away_id[game_team.team_id] += 1
     end
-    @team_name_by_id
   end
+  @goals_by_away_id
+end
 
-  def best_offense
-    offense_suite
-    best_offense_id = @average_goals_by_id.invert.max[1]
-    @team_name_by_id[best_offense_id]
-  end
-
-  def worst_offense
-    offense_suite
-    worst_offense_id = @average_goals_by_id.invert.min[1]
-    @team_name_by_id[worst_offense_id]
-  end
-
-  def by_id_suite
-    goals_by_id
-    games_by_id
-  end
-
-  def average_goals_by_id
-    by_id_suite
-    @goals_by_id.each do |team_id, goal|
-      @average_goals_by_id[team_id] = (goal.to_f / @games_played_by_id[team_id]).round(2)
+def goals_by_home_id
+  @games_by_home_id = Hash.new{ |hash, key| hash[key] = 0 }
+  @all_game_teams.each do |game_team|
+    if game_team.hoa == "home"
+      @goals_by_home_id[game_team.team_id] += game_team.goals.to_i
+      @games_by_home_id[game_team.team_id] += 1
     end
-    @average_goals_by_id
   end
+  @goals_by_home_id
+end
 
-  def goals_by_id
-    @all_game_teams.each do |game_team|
-      @goals_by_id[game_team.team_id] += game_team.goals.to_i
-    end
-    @goals_by_id
-  end
+def goals_by_hoa_id_suite
+  goals_by_home_id
+  goals_by_away_id
+  get_team_name_by_id
+end
 
-  def games_by_id
-    @all_game_teams.each do |game_team|
-      @games_played_by_id[game_team.team_id] += 1
-    end
-    @games_played_by_id
+def highest_scoring_visitor
+  goals_by_hoa_id_suite
+  @average_score_per_away_game = {}
+  @goals_by_away_id.each do |away_team_id, goals|
+    @average_score_per_away_game[away_team_id] = (goals.to_f / @games_by_away_id[away_team_id]).round(3)
   end
+  highest_scorer_away = @average_score_per_away_game.invert.max[1]
+  @team_name_by_id[highest_scorer_away]
+end
 
-  def goals_per_away_id
-    @all_game_teams.each do |game_team|
-      if game_team.hoa == "away"
-        @goals_by_away_id[game_team.team_id] += game_team.goals.to_i
-      end
-    end
-    @goals_by_away_id
+def lowest_scoring_visitor
+  goals_by_hoa_id_suite
+  @average_score_per_away_game = {}
+  @goals_by_away_id.each do |away_team_id, goals|
+    @average_score_per_away_game[away_team_id] = (goals.to_f / @games_by_away_id[away_team_id]).round(3)
   end
+  lowest_scorer_away = @average_score_per_away_game.invert.min[1]
+  @team_name_by_id[lowest_scorer_away]
+end
 
-  def goals_by_home_id
-    @all_game_teams.each do |game_team|
-      if game_team.hoa == "home"
-        @goals_by_home_id[game_team.team_id] += game_team.goals.to_i
-      end
-    end
-    @goals_by_home_id
+def highest_scoring_home_team
+  goals_by_hoa_id_suite
+  @average_score_per_home_game = {}
+  @goals_by_home_id.each do |home_team_id, goals|
+    @average_score_per_home_game[home_team_id] = (goals.to_f / @games_by_home_id[home_team_id]).round(3)
   end
+  highest_scorer_at_home = @average_score_per_home_game.invert.max[1]
+  @team_name_by_id[highest_scorer_at_home]
+end
 
-  def goals_by_hoa_id_suite
-    goals_by_home_id
-    goals_per_away_id
-    get_team_name_by_id
+def lowest_scoring_home_team
+  goals_by_hoa_id_suite
+  @average_score_per_home_game = {}
+  @goals_by_home_id.each do |home_team_id, goals|
+    @average_score_per_home_game[home_team_id] = (goals.to_f / @games_by_home_id[home_team_id]).round(3)
   end
-
-  def highest_scoring_visitor
-    highest_scorer_away = @goals_by_away_id.invert.max[1]
-    @team_name_by_id[highest_scorer_away]
-  end
-
-  def lowest_scoring_visitor
-    lowest_scorer_away = @goals_by_away_id.invert.min[1]
-    @team_name_by_id[lowest_scorer_away]
-  end
-
-  def highest_scoring_home_team
-    highest_scorer_at_home = @goals_by_home_id.invert.max[1]
-    @team_name_by_id[highest_scorer_at_home]
-  end
-
-  def lowest_scoring_home_team
-    lowest_scorer_at_home = @goals_by_home_id.invert.min[1]
-    @team_name_by_id[lowest_scorer_at_home]
-  end
+  lowest_scorer_at_home = @average_score_per_home_game.invert.min[1]
+  @team_name_by_id[lowest_scorer_at_home]
+end
 # ============= season_statistics methods =============
   def create_coach_by_team_id
     @all_game_teams.each do |game_by_team|
@@ -394,4 +417,168 @@ class StatTracker
 
 
 # ============= team_statistics methods =============
+  def team_info(passed_id)
+    @all_teams.each do |team|
+      if passed_id == team.team_id # Remove  when spec harness info updates
+        @team_info_by_id["team_id"] = team.team_id
+        @team_info_by_id["franchise_id"] = team.franchise_id
+        @team_info_by_id["team_name"] = team.team_name
+        @team_info_by_id["abbreviation"] = team.abbreviation
+        @team_info_by_id["link"] = team.link
+      end
+    end
+    @team_info_by_id
+  end
+
+  def collect_game_objects_by_team_id(passed_id)
+    @all_games.each do |game_object|
+      if game_object.home_team_id == passed_id
+        @by_team_id_game_objects << game_object
+      elsif game_object.away_team_id == passed_id
+        @by_team_id_game_objects << game_object
+      end
+    end
+  end
+
+  def total_games_by_season_by_team_id
+    @by_team_id_game_objects.each do |game|
+      @total_games_by_season[game.season] += 1
+    end
+  end
+
+  def total_wins_by_season_by_team_id(passed_id)
+    @by_team_id_game_objects.each do |game|
+      if passed_id == game.away_team_id && game.away_goals > game.home_goals
+        @total_wins_by_season[game.season] += 1
+      elsif passed_id == game.home_team_id && game.home_goals > game.away_goals
+        @total_wins_by_season[game.season] += 1
+      elsif passed_id == game.away_team_id && game.away_goals < game.home_goals
+        @total_wins_by_season[game.season] += 0
+      elsif passed_id == game.home_team_id && game.home_goals < game.away_goals
+        @total_wins_by_season[game.season] += 0
+      end
+    end
+  end
+
+  def win_percentage_by_season_by_team_id
+    @total_wins_by_season.each do |season, total_win|
+      @win_percentage_by_season[season] = ((total_win.to_f / @total_games_by_season[season]) * 100).round(2)
+    end
+  end
+
+  def best_and_worst_season_suite(passed_id)
+    collect_game_objects_by_team_id(passed_id)
+    total_games_by_season_by_team_id
+    total_wins_by_season_by_team_id(passed_id)
+    win_percentage_by_season_by_team_id
+  end
+
+  def best_season(passed_id)
+    best_and_worst_season_suite(passed_id)
+    @win_percentage_by_season.invert.max[1]
+  end
+
+  def worst_season(passed_id)
+    best_and_worst_season_suite(passed_id)
+    @win_percentage_by_season.invert.min[1]
+  end
+
+  def sort_games_won_by_team_id(passed_id)
+    @by_team_id_game_objects.each do |game|
+      if passed_id == game.away_team_id && game.away_goals > game.home_goals
+        @games_won_by_team_id[game.away_team_id] += 1
+      elsif passed_id == game.home_team_id && game.home_goals > game.away_goals
+        @games_won_by_team_id[game.home_team_id] += 1
+      elsif passed_id == game.away_team_id && game.away_goals < game.home_goals
+        @games_won_by_team_id[game.away_team_id] += 0
+      elsif passed_id == game.home_team_id && game.home_goals < game.away_goals
+        @games_won_by_team_id[game.home_team_id] += 0
+      end
+    end
+  end
+
+  def average_win_suite(passed_id)
+    collect_game_objects_by_team_id(passed_id)
+    @total_games_played = @by_team_id_game_objects.size
+    sort_games_won_by_team_id(passed_id)
+    @games_won_by_team = @games_won_by_team_id.values[0].to_f
+  end
+
+  def average_win_percentage(passed_id)
+    average_win_suite(passed_id)
+    (@games_won_by_team / @total_games_played).round(2)
+  end
+
+  def goals_by_game_by_team(passed_id)
+    @by_team_id_game_objects.each do |game|
+      if passed_id == game.away_team_id
+        @goals_by_game << game.away_goals
+      elsif passed_id == game.home_team_id
+        @goals_by_game << game.home_goals
+      end
+    end
+  end
+
+  def most_goals_scored(passed_id)
+    collect_game_objects_by_team_id(passed_id)
+    goals_by_game_by_team(passed_id)
+    @goals_by_game.max.to_i
+  end
+
+  def fewest_goals_scored(passed_id)
+    collect_game_objects_by_team_id(passed_id)
+    goals_by_game_by_team(passed_id)
+    @goals_by_game.min.to_i
+  end
+
+  def games_played_by_opponent_by_team(passed_id)
+    @by_team_id_game_objects.each do |game|
+      if passed_id == game.away_team_id
+        @games_played_by_opponent[game.home_team_id] += 1
+      elsif passed_id == game.home_team_id
+        @games_played_by_opponent[game.away_team_id] += 1
+      end
+    end
+  end
+
+  def games_won_by_opponent_by_team(passed_id)
+    @by_team_id_game_objects.each do |game|
+      if passed_id == game.away_team_id && game.away_goals > game.home_goals
+        @games_won_by_opponent[game.home_team_id] += 1
+      elsif passed_id == game.home_team_id && game.home_goals > game.away_goals
+        @games_won_by_opponent[game.away_team_id] += 1
+      elsif passed_id == game.away_team_id && game.away_goals < game.home_goals
+        @games_won_by_opponent[game.home_team_id] += 0
+      elsif passed_id == game.home_team_id && game.home_goals < game.away_goals
+        @games_won_by_opponent[game.away_team_id] += 0
+      end
+    end
+  end
+
+  def win_ratio_by_opponent_by_team
+    @games_won_by_opponent.each do |opponent, wins_against_opp|
+      @win_ratio_by_opponent[opponent] = (wins_against_opp.to_f / @games_played_by_opponent[opponent]).round(2)
+    end
+  end
+
+  def fav_opponent_and_rival_suite(passed_id)
+    collect_game_objects_by_team_id(passed_id)
+    games_played_by_opponent_by_team(passed_id)
+    games_won_by_opponent_by_team(passed_id)
+    win_ratio_by_opponent_by_team
+    get_team_name_by_id
+  end
+
+  def favorite_opponent(passed_id)
+    fav_opponent_and_rival_suite(passed_id)
+    fav_opp = @win_ratio_by_opponent.invert.max[1]
+    @team_name_by_id[fav_opp]
+  end
+
+  def rival(passed_id)
+    fav_opponent_and_rival_suite(passed_id)
+    rival = @win_ratio_by_opponent.invert.min[1]
+    @team_name_by_id[rival]
+  end
+
 end
