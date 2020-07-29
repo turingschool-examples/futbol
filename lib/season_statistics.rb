@@ -1,11 +1,12 @@
-require_relative "./stat_tracker"
+#require_relative "./stat_tracker"
+require "./lib/stat_tracker"
 
 class SeasonStatistics
 
-  def initialize(game_teams, games, teams)
-    @game_teams = game_teams
+  def initialize(games, teams, game_teams)
     @games = games
     @teams = teams
+    @game_teams = game_teams
   end
 
   def scoped_season_games(season)
