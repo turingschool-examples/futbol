@@ -29,22 +29,12 @@ class GameTeamsManager
     end
   end
 
-  def collect_home_games
-    home_games = []
-    @game_teams_array.each do |game|
-      if game.hoa.to_s == 'home'
-        home_games << game
-      end
-    end
-    home_games
-  end
-
   def home_game_results
     home_wins = []
     home_losses = []
     tie_games = []
     results = {}
-    collect_home_games.each do |game|
+    find_all_home_games.each do |game|
       home_wins << game.game_id if game.result.to_s == 'WIN'
       home_losses << game.game_id if game.result.to_s == 'LOSS'
       tie_games << game.game_id if game.result.to_s == 'TIE'
@@ -106,14 +96,14 @@ class GameTeamsManager
   end
 
   def percentage_home_wins
-    (home_game_results[:wins].count.to_f/collect_home_games.count.to_f).round(2)
+    (home_game_results[:wins].count.to_f/find_all_home_games.count.to_f).round(2)
   end
 
   def percentage_visitor_wins
-    (home_game_results[:losses].count.to_f/collect_home_games.count.to_f).round(2)
+    (home_game_results[:losses].count.to_f/find_all_home_games.count.to_f).round(2)
   end
 
   def percentage_ties
-    (home_game_results[:ties].count.to_f/collect_home_games.count.to_f).round(2)
+    (home_game_results[:ties].count.to_f/find_all_home_games.count.to_f).round(2)
   end
 end

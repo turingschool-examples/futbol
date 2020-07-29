@@ -9,24 +9,20 @@ class GameManager
     CSV.foreach(game_path, headers: true) do |row|
       @games_array << Game.new(row)
     end
+
   end
 
+  def collect_goals_by_game
+    @games_array.map { |game| (game.away_goals + game.home_goals) }
+  end
+
+
   def highest_total_score
-    @all_goals_max = []
-    @games_array.each do |game|
-      total_goals = game.away_goals.to_i + game.home_goals.to_i
-      @all_goals_max << total_goals
-    end
-    @all_goals_max.max
+    collect_goals_by_game.max
   end
 
   def lowest_total_score
-    @all_goals_min = []
-    @games_array.each do |game|
-      total_goals = game.away_goals.to_i + game.home_goals.to_i
-      @all_goals_min << total_goals
-    end
-    @all_goals_min.min
+    collect_goals_by_game.min
   end
 
   def create_games_by_season_array
@@ -52,7 +48,7 @@ class GameManager
     end
     total_goals
   end
-  
+
     def average_goals_per_game(total_goals)
     (total_goals.sum.to_f/(total_goals.size/2)).round(2)
   end
