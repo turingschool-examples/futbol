@@ -1,9 +1,5 @@
-#require "./test/test_helper"
-require 'minitest/autorun'
-require 'minitest/pride'
-require "./lib/collections"
-require "./lib/season_statistics"
-
+require "./test/test_helper"
+# require 'minitest/autorun'
 
 
 class SeasonStatisticsTest < MiniTest::Test
@@ -18,15 +14,23 @@ class SeasonStatisticsTest < MiniTest::Test
       teams: team_path,
       game_teams: game_teams_path
     }
-
-    @stat_tracker = StatTracker.new(locations)
-    @season_statistics = SeasonStatistics.new
+    @stat_tracker = StatTracker.from_csv(locations)
+    @season_statistics = SeasonStatistics.new(@game_teams, @games, @teams)
   end
 
-  #need the following tests
-  #scoped_season_games
-  #games_teams_by_seasons_per_coach
-  #coach_name_and_results`
+  def test_scoped_season_games
+    assert_equal 1319, @season_statistics.scoped_season_games("20142015").count
+    assert_equal 1323, @season_statistics.scoped_season_games("20132014").count
+  end
+
+  def test_games_teams_by_seasons_per_coach
+    assert_equal "Joel Quenneville", @season_statistics.games_teams_by_seasons_per_coach("20142015").keys.first
+  end
+
+  def test_coach_name_and_results
+    assert_equal ["TIE", "LOSS", "LOSS", "WIN", "LOSS"], @season_statistics.coach_name_and_results("20142015")["Craig MacTavish"]
+  end
+
   def test_it_has_a_winningest_coach
     assert_equal "Claude Julien", @season_statistics.winningest_coach("20132014")
     assert_equal "Alain Vigneault", @season_statistics.winningest_coach("20142015")
