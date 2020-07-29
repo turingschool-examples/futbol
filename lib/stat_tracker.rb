@@ -1,48 +1,27 @@
-require "CSV"
-require_relative "./games"
-require_relative "./teams"
-require_relative "./game_teams"
-require_relative "./season_statistics"
-#require "./test/test_helper"
-
-
+# require_relative "./csv_data"
+# require_relative './games'
+# require_relative './teams'
+# require_relative './game_teams'
+# require_relative './season_statistics'
+require "./lib/csv_data"
+require './lib/games'
+require './lib/teams'
+require './lib/game_teams'
+require './lib/season_statistics'
 class StatTracker
-  attr_reader :games, :game_teams, :teams, :season_statistics
+  # attr_reader :games, :game_teams, :teams
 
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
 
   def initialize(locations)
-    @games ||= turn_games_csv_data_into_games_objects(locations[:games])
-    @teams ||= turn_teams_csv_data_into_teams_objects(locations[:teams])
-    @game_teams ||= turn_game_teams_csv_data_into_game_teams_objects(locations[:game_teams])
-    @season_statistics = SeasonStatistics.new(@game_teams, @games, @teams)
+    csv_data = CSVData.new(locations)
+  #  @team_statistics = csv_data.team_statistics
+    @season_statistics = csv_data.season_statistics
   end
 
-  def turn_games_csv_data_into_games_objects(games_csv_data)
-    games_objects_collection = []
-    CSV.foreach(games_csv_data, headers: true, header_converters: :symbol, row_sep: :auto) do |row|
-      games_objects_collection << Games.new(row)
-    end
-    games_objects_collection
-  end
 
-  def turn_teams_csv_data_into_teams_objects(teams_csv_data)
-    teams_objects_collection = []
-    CSV.foreach(teams_csv_data, headers: true, header_converters: :symbol, row_sep: :auto) do |row|
-      teams_objects_collection << Teams.new(row)
-    end
-    teams_objects_collection
-  end
-
-  def turn_game_teams_csv_data_into_game_teams_objects(game_teams_csv_data)
-    game_teams_objects_collection = []
-    CSV.foreach(game_teams_csv_data, headers: true, header_converters: :symbol, row_sep: :auto) do |row|
-      game_teams_objects_collection << GameTeams.new(row)
-    end
-    game_teams_objects_collection
-  end
 
   def winningest_coach(season)
     @season_statistics.winningest_coach(season)
