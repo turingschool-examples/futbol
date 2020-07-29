@@ -154,15 +154,6 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Utah Royals FC", @stat_tracker.worst_offense
   end
 
-  # def test_it_has_a_winningest_coach
-  #   assert_equal "Claude Julien", @stat_tracker.winningest_coach("20132014")
-  #   assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
-  # end
-  #
-  # def test_it_has_a_worst_coach
-  #   assert_equal "Peter Laviolette", @stat_tracker.worst_coach("20132014")
-  #   assert "Craig MacTavish" || "Ted Nolan", @stat_tracker.worst_coach("20142015")
-  # end
 
   def test_it_can_retrieve_team_info_from_team_id
     expected = {"team_id" => "18", "franchise_id" => "34", "team_name" => "Minnesota United FC", "abbreviation" => "MIN", "link" => "/api/v1/teams/18" }
@@ -214,34 +205,9 @@ class StatTrackerTest < MiniTest::Test
      assert_equal "20142015", @stat_tracker.worst_season("6")
    end
 
-
-  # def test_games_per_season_per_team
-  #   assert_equal 30, @stat_tracker.games_per_season_per_team("20132014").keys.count
-  #   assert_equal 89, @stat_tracker.games_per_season_per_team("20132014")["4"].count
-  #   assert_equal 2, @stat_tracker.games_per_season_per_team("20132014")["4"].first.goals
-  #   assert_equal 107, @stat_tracker.games_per_season_per_team("20132014")["3"].count
-  #   assert_equal 3, @stat_tracker.games_per_season_per_team("20132014")["3"].first.goals
-  # end
-
   def test_best_season
     assert_equal "20132014", @stat_tracker.best_season("6")
   end
-
-  # def test_team_tackles
-  #   assert_equal 30, @stat_tracker.team_tackles("20132014").keys.count
-  #   assert_equal 1836, @stat_tracker.team_tackles("20132014")["16"]
-  #   assert_equal 2441, @stat_tracker.team_tackles("20132014")["6"]
-  # end
-
-  # def test_find_the_fewest_tackles
-  #   assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
-  #   assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
-  # end
-  #
-  # def test_find_the_most_tackles
-  #   assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
-  #   assert_equal "Seattle Sounders FC", @stat_tracker.most_tackles("20142015")
-  # end
 
   def test_it_can_identify_favorite_opponent
   assert_equal "DC United", @stat_tracker.favorite_opponent("18")
@@ -338,11 +304,6 @@ class StatTrackerTest < MiniTest::Test
 
   end
 
-  # def test_it_can_find_least_accurate_team_by_season
-  #   assert_equal "New York City FC", @stat_tracker.least_accurate_team("20132014")
-  #   assert_equal "Columbus Crew SC", @stat_tracker.least_accurate_team("20142015")
-  # end
-
   def test_it_can_find_most_goals_scored_for_team
     assert_equal 7, @stat_tracker.most_goals_scored("18")
   end
@@ -375,10 +336,6 @@ class StatTrackerTest < MiniTest::Test
   assert_equal "3", @stat_tracker.team_by_id.keys[0]
   assert_equal "6", @stat_tracker.team_by_id.keys[1]
   end
-
-  # def test_it_can_return_accuracy_for_each_team
-  # assert_equal ["16", 0.3042362002567394], @stat_tracker.team_accuracy("20132014").first
-  # end
 
   def test_games_by_team
 
