@@ -11,8 +11,9 @@ locations = {
   game_teams: game_teams_path
 }
 
-stat_tracker = StatTracker.from_csv(locations)
+@stat_tracker = StatTracker.from_csv(locations)
+#@season_statistics = SeasonStatistics.new(@game_teams, @games, @teams)
+
 
 
  require 'pry'; binding.pry
-#stat_tracker_team = StatTracker.from_csv(locations)
