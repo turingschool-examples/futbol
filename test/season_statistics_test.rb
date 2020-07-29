@@ -5,18 +5,18 @@ require "./test/test_helper"
 class SeasonStatisticsTest < MiniTest::Test
 
   def setup
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    @stat_tracker = StatTracker.from_csv(locations)
-    @season_statistics = SeasonStatistics.new(@game_teams, @games, @teams)
-  end
+   game_path = './data/games.csv'
+   team_path = './data/teams.csv'
+   game_teams_path = './data/game_teams.csv'
+   locations = {
+     games: game_path,
+     teams: team_path,
+     game_teams: game_teams_path
+   }
+   @stat_tracker = StatTracker.from_csv(locations)
+   @csv_data = CSVData.new(locations)
+   @season_statistics = @csv_data.season_statistics
+ end
 
   def test_scoped_season_games
     assert_equal 1319, @season_statistics.scoped_season_games("20142015").count
