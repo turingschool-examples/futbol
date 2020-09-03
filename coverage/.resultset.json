@@ -1,0 +1,21 @@
+{
+  "Unit Tests": {
+    "coverage": {
+      "/Users/joselopez/Desktop/futbol/futbol/lib/dog.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1599177045
+  }
+}
