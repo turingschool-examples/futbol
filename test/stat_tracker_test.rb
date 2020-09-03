@@ -1,20 +1,11 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/stat_tracker'
+require "csv"
 
 
 
 class TestStatTracker <Minitest::Test
-
-
-
-  def test_stat_tracker_has_attributes
-    stat_tracker = StatTracker.new
-
-    assert_equal nil, stat_tracker.game
-    assert_equal nil, stat_tracker.teams
-    assert_equal nil, stat_tracker.game_teams
-  end
 
   def test_stat_tracker_can_pull_file_locations
     game_path = './data/games.csv'
@@ -28,7 +19,7 @@ class TestStatTracker <Minitest::Test
 
     stat_tracker = StatTracker.from_csv(locations)
 
-    assert_equal game_path, stat_tracker.games
+    assert_equal 7441, stat_tracker.games.length
     assert_equal team_path, stat_tracker.teams
     assert_equal game_teams_path, stat_tracker.game_teams
   end
