@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative './game_methods'
+
 # Stat tracker class
 class StatTracker
   attr_reader :games_path, :teams_path, :game_teams_path

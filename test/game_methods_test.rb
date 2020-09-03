@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './test/.test_helper'
+require './test/test_helper'
 
 class GameMethodsTest < Minitest::Test
   def test_it_exists

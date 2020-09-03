@@ -19,20 +19,20 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_attributes
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
+    games_path = './data/games.csv'
+    teams_path = './data/teams.csv'
     game_teams_path = './data/game_teams.csv'
 
     locations = {
-      games: game_path,
-      teams: team_path,
+      games: games_path,
+      teams: teams_path,
       game_teams: game_teams_path
     }
 
     stat_tracker = StatTracker.new(locations)
 
-    assert_equal game_path, stat_tracker.game_path
-    assert_equal team_path, stat_tracker.team_path
+    assert_equal games_path, stat_tracker.games_path
+    assert_equal teams_path, stat_tracker.teams_path
     assert_equal game_teams_path, stat_tracker.game_teams_path
   end
 
