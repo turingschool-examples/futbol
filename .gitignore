@@ -1,2 +1,3 @@
 # SimpleCov reports
 coverage/
+.DS_store
