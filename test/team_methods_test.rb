@@ -23,4 +23,12 @@ class TeamMethodsTest < Minitest::Test
 
     assert_equal expected, game_methods.table
   end
+
+  def test_it_can_count_teams
+    file_loc = './data/teams.csv'
+
+    team_methods = TeamMethods.new(file_loc)
+
+    assert_equal 32, team_methods.count_of_teams
+  end
 end
