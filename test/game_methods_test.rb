@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require './test/test_helper'
+require './lib/game_methods'
 
 class GameMethodsTest < Minitest::Test
   def test_it_exists
@@ -21,5 +22,13 @@ class GameMethodsTest < Minitest::Test
     assert_equal expected, game_methods.create_table
 
     assert_equal expected, game_methods.table
+  end
+
+  def test_highest_total_score
+    file_loc = './data/games.csv'
+
+    game_methods = GameMethods.new(file_loc)
+
+    assert_equal 11, game_methods.highest_total_score
   end
 end
