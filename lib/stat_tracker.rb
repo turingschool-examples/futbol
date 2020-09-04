@@ -16,27 +16,15 @@ class StatTracker
   CSV::Converters[:symbol] = ->(value) {value.to_sym rescue value}
 
   def read_teams_from_csv(path)
-    teams = []
-    CSV.foreach(path, {headers: true, converters: :symbol}) do |row|
-      teams << row
-    end
-    teams
+    CSV.parse(File.read(path), {headers: true, header_converters: :symbol})
   end
 
   def read_games_from_csv(path)
-    games = []
-    CSV.foreach(path, {headers: true, converters: :symbol}) do |row|
-      games << row
-    end
-    games
+    CSV.parse(File.read(path), {headers: true, header_converters: :symbol})
   end
 
   def read_game_teams_from_csv(path)
-    game_teams = []
-    CSV.foreach(path, {headers: true, converters: :symbol}) do |row|
-      game_teams << row
-    end
-    game_teams
+    CSV.parse(File.read(path), {headers: true, header_converters: :symbol})
   end
 
 end
