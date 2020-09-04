@@ -6,4 +6,7 @@ class StatTracker
     @teams = teams
     @game_teams = game_teams
   end
+
+  private
+  
 end
