@@ -1,7 +1,7 @@
 require 'csv'
 require_relative 'game'
 require_relative 'game_teams'
-# require_relative 'team'
+require_relative 'team'
 
 class StatTracker
   attr_reader :games, :teams, :game_teams
@@ -37,7 +37,7 @@ class StatTracker
   def self.generate_game_teams(location)
     array = []
     CSV.foreach(location, headers: true) do |row|
-      array << GameTeam.new(row.to_hash)
+      array << GameTeams.new(row.to_hash)
     end
     array
   end
