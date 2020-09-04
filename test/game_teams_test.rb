@@ -3,7 +3,7 @@ require 'minitest/pride'
 require './lib/game_teams'
 
 
-class GamesTeamsTest <Minitest::Test
+class GameTeamsTest < Minitest::Test
 
   def setup
     @row = {game_id: '2012030221', team_id: '3',HoA: 'away',
