@@ -1,3 +1,5 @@
+require 'csv'
+
 class StatTracker
   attr_reader :games, :teams, :game_teams
 
@@ -12,6 +14,24 @@ class StatTracker
     teams = locations[:teams]
     game_teams = locations[:game_teams]
     stat_tracker = self.new(games, teams, game_teams)
+  end
+
+  def read_from_games_file
+    file_open = CSV.open(@games)
+
+    file_open.read
+  end
+
+  def read_from_teams_file
+    file_open = CSV.open(@teams)
+
+    file_open.read
+  end
+
+  def read_from_game_teams_file
+    file_open = CSV.open(@game_teams)
+    
+    file_open.read
   end
 
 end
