@@ -2,8 +2,7 @@ require "csv"
 
 class StatTracker
 
-  def initialize(stuff)
-    @data = stuff
+  def initialize
   end
 
   game_path = './data/games.csv'
