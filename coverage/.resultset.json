@@ -1,0 +1,17 @@
+{
+  "Unit Tests": {
+    "coverage": {
+      "/Users/hannadavis/Documents/turing/1module/projects/futbol/lib/test.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          0,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1599238485
+  }
+}
