@@ -13,7 +13,7 @@ class GameTeams
               :powerPlayGoals,
               :faceOffWinPercentage,
               :giveaways,
-              :takeaways,
+              :takeaways
   def initialize(row)
     row.each do |k, v|
       instance_variable_set("@#{k}" , v)
@@ -22,8 +22,8 @@ class GameTeams
     @giveaways = @giveaways.to_i
     @goals = @goals.to_i
     @pim = @pim.to_i
-    @powerPlayGoals = @powerPlayGoals.to_i
     @powerPlayOpportunities = @powerPlayOpportunities.to_i
+    @powerPlayGoals = @powerPlayGoals.to_i
     @shots = @shots.to_i
     @tackles = @tackles.to_i
     @takeaways = @takeaways.to_i

@@ -9,7 +9,7 @@ class GameTeamsTest < Minitest::Test
     @row = {game_id: '2012030221', team_id: '3',HoA: 'away',
            result: 'LOSS',settled_in: 'OT', head_coach: 'John Tortorella',
            goals: '2',shots: '8',tackles: '44',pim: '8',
-           powerPlayOpportunites: '3', powerPlayGoals: '0',
+           powerPlayOpportunities: '3', powerPlayGoals: '0',
            faceOffWinPercentage: '44.8', giveaways: '17', takeaways:'7'}
   end
 
