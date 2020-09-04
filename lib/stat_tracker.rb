@@ -23,8 +23,4 @@ class StatTracker
     CSV.parse(File.read(path), {headers: true, header_converters: :symbol})
   end
 
-  def read_game_teams_from_csv(path)
-    CSV.parse(File.read(path), {headers: true, header_converters: :symbol})
-  end
-
 end
