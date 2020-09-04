@@ -3,7 +3,14 @@ require './lib/team'
 
 class TeamTest < Minitest::Test
   def setup
-    @row = ["1", "23", "Atlanta United", "ATL", "Mercedes-Benz Stadium", "/api/v1/teams/1"]
+    @row = {
+           team_id: "1",
+      franchise_id: "23",
+         team_name: "Atlanta United",
+      abbreviation: "ATL",
+           stadium: "Mercedes-Benz Stadium",
+              link: "/api/v1/teams/1"
+    }
     @team = Team.new(@row)
   end
 
