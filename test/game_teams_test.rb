@@ -6,7 +6,7 @@ require './lib/game_teams'
 class GamesTeamsTest <Minitest::Test
 
   def setup
-    row = {game_id: '2012030221', team_id: '3',HoA: 'away',
+    @row = {game_id: '2012030221', team_id: '3',HoA: 'away',
            result: 'LOSS',settled_in: 'OT', head_coach: 'John Tortorella',
            goals: '2',shots: '8',tackles: '44',pim: '8',
            powerPlayOpportunites: '3', powerPlayGoals: '0',
@@ -14,8 +14,8 @@ class GamesTeamsTest <Minitest::Test
   end
 
   def test_has_attributes
-    game = GameTeams.new(row)
-    assert_equal '20122030221', game.game_id
+    game = GameTeams.new(@row)
+    assert_equal '2012030221', game.game_id
     assert_equal '3', game.team_id
     assert_equal 'away', game.HoA
     assert_equal 'LOSS', game.result
@@ -25,7 +25,7 @@ class GamesTeamsTest <Minitest::Test
     assert_equal 8, game.shots
     assert_equal 44, game.tackles
     assert_equal 8, game.pim
-    assert_equal 3, game.powerPlayOpportunites
+    assert_equal 3, game.powerPlayOpportunities
     assert_equal 0, game.powerPlayGoals
     assert_equal 44.8, game.faceOffWinPercentage
     assert_equal 17, game.giveaways
