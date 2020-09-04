@@ -16,6 +16,7 @@ class TestStatTracker <Minitest::Test
     }
 
     stat_tracker = StatTracker.from_csv(locations)
+    require "pry"; binding.pry
 
     assert_equal 7441, stat_tracker.games.length
     assert_equal 32, stat_tracker.teams.length
