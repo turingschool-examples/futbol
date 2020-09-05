@@ -15,15 +15,18 @@ class GameTest < Minitest::Test
   end
 
   def test_it_exists
-    stat_tracker = StatTracker.new(@locations)
+    stat_tracker = StatTracker.from_csv(@locations)
     game = Game.new(stat_tracker.games)
 
     assert_instance_of Game, game
   end
 
   def test_it_has_attributes
-    stat_tracker = StatTracker.new(@locations)
+    stat_tracker = StatTracker.new
+    assert_equal false, stat_tracker.games.include?("2012030221")
+    stat_tracker = StatTracker.from_csv(@locations)
     actual = stat_tracker.games["2012030221"]
+
 
     assert_equal 2012030221, actual.game_id
     assert_equal "20122013", actual.season
