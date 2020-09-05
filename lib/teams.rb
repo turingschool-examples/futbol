@@ -3,10 +3,17 @@ require "csv"
 class Teams
   @@all_teams = []
 
+  attr_reader :team_id,
+              :franchise_id,
+              :team_name,
+              :abbreviation,
+              :stadium,
+              :link
+
   def initialize(data)
     @team_id = data[:team_id]
-    @franchiseid = data[:franchise_id]
-    @teamname = data[:teamname]
+    @franchise_id = data[:franchiseid]
+    @team_name = data[:teamname]
     @abbreviation = data[:abbreviation]
     @stadium = data[:stadium]
     @link = data[:link]
@@ -14,7 +21,7 @@ class Teams
 
   def self.from_csv(path = "./data/teams_test.csv")
     teams = []
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(path, headers: true, converters: :numeric, header_converters: :symbol) do |row|
       teams << self.new(row)
     end
     @@all_teams = teams
