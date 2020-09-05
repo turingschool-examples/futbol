@@ -15,14 +15,16 @@ class TeamTest < Minitest::Test
   end
 
   def test_it_exists
-    stat_tracker = StatTracker.new(@locations)
+    stat_tracker = StatTracker.from_csv(@locations)
     team = Team.new(stat_tracker.teams)
 
     assert_instance_of Team, team
   end
 
   def test_it_has_attributes
-    stat_tracker = StatTracker.new(@locations)
+    stat_tracker = StatTracker.new
+    assert_equal false, stat_tracker.teams.include?("14")
+    stat_tracker = StatTracker.from_csv(@locations)
     actual = stat_tracker.teams["14"]
 
     assert_equal "Audi Field", actual.stadium
