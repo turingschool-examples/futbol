@@ -2,9 +2,9 @@ class StatTracker
   attr_reader :games, :teams, :game_teams
 
   def initialize(games, teams, game_teams)
-    @games = games
-    @teams = teams
-    @game_teams = game_teams
+    @games = transform_games(games)
+    @teams = transform_teams(teams)
+    @game_teams = transform_game_teams(game_teams)
   end
 
   private
@@ -33,7 +33,7 @@ class StatTracker
                         :face_off_win_percentage, :giveaways, :takeaways)
   def transform_game_teams(game_teams)
     game_teams.map do |game_team|
-      GameTeam.new(game_teams[0], game_teams[1], game_teams[2], game_teams[3],
+      GameTeams.new(game_teams[0], game_teams[1], game_teams[2], game_teams[3],
                     game_teams[4], game_teams[5], game_teams[6], game_teams[7],
                     game_teams[8], game_teams[9], game_teams[10], game_teams[11],
                     game_teams[12], game_teams[13], game_teams[14])
