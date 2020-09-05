@@ -12,7 +12,7 @@ class StatTracker
     @game_teams = game_teams
   end
 
-  def self.from_csv(locations = {games: './data/games.csv', teams: './data/teams_test.csv', game_teams: './data/game_teams_test.csv'})
+  def self.from_csv(locations = {games: './data/games_test.csv', teams: './data/teams_test.csv', game_teams: './data/game_teams_test.csv'})
     Games.from_csv(locations[:games])
     Teams.from_csv(locations[:teams])
     GameTeams.from_csv(locations[:game_teams])
