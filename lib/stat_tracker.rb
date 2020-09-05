@@ -55,6 +55,15 @@ class StatTracker
     winner[0]
   end
 
+  def worst_coach
+    loser = @coach_hash.min_by do |key, w_l|
+      wins = w_l.count("WIN")
+      losses = w_l.count("LOSS").to_f
+      (wins) / (wins + losses)
+    end
+    loser[0]
+  end
+
 
 
   private
