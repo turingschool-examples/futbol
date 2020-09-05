@@ -62,4 +62,33 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.match_data_with_header(:@teams)
   end
 
+  def test_get_data_by_spec
+    expected = [["Atlanta United", "1", "23", "ATL", "Mercedes-Benz Stadium",
+    "/api/v1/teams/1"],
+    ["Chicago Fire", "4", "16", "CHI", "SeatGeek Stadium",
+    "/api/v1/teams/4"]]
+
+    assert_equal expected, @stat_tracker.match_data_by_spec(:@teams, 2)
+  end
+
+  def test_get_hash_with_header_as_key
+    expected = {"team_id"=>["1", "4"],
+                "franchiseId"=>["23", "16"],
+                "teamName"=>["Atlanta United", "Chicago Fire"],
+                "abbreviation"=>["ATL", "CHI"],
+                "Stadium"=>["Mercedes-Benz Stadium", "SeatGeek Stadium"],
+                "link"=>["/api/v1/teams/1", "/api/v1/teams/4"]}
+
+    data_with_header_as_first_element = @stat_tracker.match_data_with_header(:@teams)
+    assert_equal expected, @stat_tracker.group_by(data_with_header_as_first_element)
+  end
+
+  def test_get_hash_with_spec_as_key
+    expected = {"Atlanta United" => ["1", "23", "ATL", "Mercedes-Benz Stadium", "/api/v1/teams/1"],
+                "Chicago Fire" => ["4", "16", "CHI", "SeatGeek Stadium", "/api/v1/teams/4"]}
+
+    data_with_team_name_as_first_element = @stat_tracker.match_data_by_spec(:@teams, 2)
+    assert_equal expected, @stat_tracker.group_by(data_with_team_name_as_first_element)
+  end
+
 end
