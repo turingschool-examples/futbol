@@ -1,7 +1,8 @@
 require 'CSV'
-# Stat Tracker class
+
 class StatTracker
   attr_reader :games, :teams, :game_teams
+
   def initialize(locations)
     @games = locations[:games]
     @teams = locations[:teams]
@@ -12,10 +13,8 @@ class StatTracker
     StatTracker.new(locations)
   end
 
-  def self.game_stats
-    data = {:game_id => [], :season => [], :type => [], :date_time => [], :away_team_id => [], :home_team_id => [], :away_goals => [], :home_goals => []}
+  def game_stats(data)
     CSV.read(@games, headers: true, header_converters: :symbol).map do |row|
-
       data[:game_id] << row[:game_id]
       data[:season] << row[:season]
       data[:type] << row[:type]
@@ -28,6 +27,5 @@ class StatTracker
       game_stats = GameStatistics.new(data)
     end
     data
-    # require "pry"; binding.pry
   end
 end

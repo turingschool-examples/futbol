@@ -46,7 +46,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_game_stats
-
+    data = {:game_id => [], :season => [], :type => [], :date_time => [], :away_team_id => [], :home_team_id => [], :away_goals => [], :home_goals => []}
     locations = {
       games: './data/games.csv',
       teams: './data/teams.csv',
@@ -55,7 +55,7 @@ class StatTrackerTest < Minitest::Test
 
     stat_tracker = StatTracker.new(locations)
 
-    assert_equal 8, stat_tracker.game_stats.count
+    assert_equal 8, stat_tracker.game_stats(data).count
   end
 
 end
