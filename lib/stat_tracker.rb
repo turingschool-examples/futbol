@@ -17,6 +17,19 @@ class StatTracker
     new(games, teams, game_teams)
   end
 
+#------------GameStatistics
+
+  def highest_total_score
+    result = games.max_by do |game|
+      game.away_goals.to_i + game.home_goals.to_i
+    end
+    result.away_goals.to_i + result.home_goals.to_i
+  end
+
+
+
+
+#------------LeagueStatistics
   private
 
   Game = Struct.new(:game_id, :season, :type, :date_time, :away_team_id,
