@@ -1,23 +1,23 @@
 require './test/test_helper'
 require './lib/league_stats'
+require './lib/stat_tracker'
 
-class TeamStatsTest <Minitest::Test
-
+class LeagueStatsTest <Minitest::Test
   def setup
-    game_path = './fixtures/_game_teams.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './fixtures/games.csv'
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
+    @game_path = './fixtures/fixture_games.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './fixtures/fixture_game_teams.csv'
+    @locations = {
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
     }
-
-    @stat_tracker = StatTracker.from_csv(locations)
+    @stat_tracker = StatTracker.from_csv(@locations)
+    @stat_tracker.extend(LeagueStats)
+    require "pry"; binding.pry
   end
 
-  def test_gather_team_info
-    @stat_tracker.extend(LeagueStats)
-    assert_equal 23, stat_tracker.count_of_teams
+  def test_count_of_teams
+    assert_equal 26, @stat_tracker.count_of_teams
   end
 end
