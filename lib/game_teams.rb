@@ -38,9 +38,11 @@ class GameTeams
   end
 
   def self.from_csv(path = "./data/game_teams_test.csv")
+    game_teams = []
     CSV.foreach(path, headers: true, converters: :numeric, header_converters: :symbol) do |row|
-      @@all_game_teams << self.new(row)
+      game_teams << self.new(row)
     end
+    @@all_game_teams = game_teams
   end
 
   def self.all_game_teams
