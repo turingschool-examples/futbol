@@ -12,20 +12,22 @@ class StatTracker
     StatTracker.new(locations)
   end
 
-  def game_stats
-    game_stats = []
-    CSV.foreach(@games, headers: true, header_converters: :symbol) do |row|
-      game_id = row[:game_id]
-      season = row[:season]
-      type = row[:type]
-      date_time = row[:date_time]
-      away_team_id = row[:away_team_id]
-      home_team_id = row[:home_team_id]
-      away_goals = row[:away_goals].to_i
-      home_goals = row[:home_goals].to_i
+  def self.game_stats
+    data = {:game_id => [], :season => [], :type => [], :date_time => [], :away_team_id => [], :home_team_id => [], :away_goals => [], :home_goals => []}
+    CSV.read(@games, headers: true, header_converters: :symbol).map do |row|
 
-      game_stats << GameStatistics.new(game_id, season, type, date_time, away_team_id, home_team_id, away_goals, home_goals)
+      data[:game_id] << row[:game_id]
+      data[:season] << row[:season]
+      data[:type] << row[:type]
+      data[:date_time] << row[:date_time]
+      data[:away_team_id] << row[:away_team_id]
+      data[:home_team_id] << row[:home_team_id]
+      data[:away_goals] << row[:away_goals].to_i
+      data[:home_goals] << row[:home_goals].to_i
+
+      game_stats = GameStatistics.new(data)
     end
-    game_stats
+    data
+    # require "pry"; binding.pry
   end
 end

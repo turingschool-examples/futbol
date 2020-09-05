@@ -55,7 +55,7 @@ class StatTrackerTest < Minitest::Test
 
     stat_tracker = StatTracker.new(locations)
 
-    assert_equal 7441, stat_tracker.game_stats.count
+    assert_equal 8, stat_tracker.game_stats.count
   end
 
 end

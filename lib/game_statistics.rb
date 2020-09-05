@@ -2,15 +2,30 @@
 class GameStatistics
   attr_reader :game_id, :season, :type, :date_time, :away_team_id, :home_team_id, :away_goals, :home_goals
 
-  def initialize(game_id, season, type, date_time, away_team_id, home_team_id, away_goals, home_goals)
-    @game_id = game_id
-    @season = season
-    @type = type
-    @date_time = date_time
-    @away_team_id = away_team_id
-    @home_team_id = home_team_id
-    @away_goals = away_goals.to_i
-    @home_goals = home_goals.to_i
+  def initialize(data)
+    @game_id = data[:game_id]
+    @season = data[:season]
+    @type = data[:type]
+    @date_time = data[:date_time]
+    @away_team_id = data[:away_team_id]
+    @home_team_id = data[:home_team_id]
+    @away_goals = data[:away_goals]
+    @home_goals = data[:home_goals]
+    # require "pry"; binding.pry
+  end
+
+  def game_total_score
+    # total_score = []
+    stat_tracker = StatTracker.game_stats
+
+    stat_tracker
+    # total_score << (@home_goals + @away_goals)
+    require "pry"; binding.pry
+  end
+
+  def highest_total_score
+    # require "pry"; binding.pry
+
   end
 
 end
