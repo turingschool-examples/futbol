@@ -33,7 +33,21 @@ class StatTracker
     result.away_goals.to_i + result.home_goals.to_i
   end
 
-#------------LeagueStatistics
+#------------TeamStatistics
+
+  def team_info
+    result = { }
+    teams.each do |team|
+      (result[:team_id] ||= []) << team.team_id
+      (result[:franchise_id] ||= []) << team.franchise_id
+      (result[:team_name] ||= []) << team.team_name
+      (result[:abbreviation] ||= []) << team.abbreviation
+      (result[:link] ||= []) << team.link
+    end
+    result
+  end
+
+#---------------------------
   private
 
   Game = Struct.new(:game_id, :season, :type, :date_time, :away_team_id,

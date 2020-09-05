@@ -33,6 +33,8 @@ class StatTrackerTest < Minitest::Test
     # assert_equal [], stat_tracker.game_teams
   end
 
+
+#---------GameStatisticsTests
   def test_it_can_find_highest_total_score
     game_path = './data/games_dummy.csv'
     team_path = './data/teams_dummy.csv'
@@ -60,4 +62,31 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal 3, stat_tracker.lowest_total_score
   end
+
+#---------TeamStatisticsTests
+  def test_it_can_get_team_info
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams_dummy.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+    expected = {
+      team_id: ["1", "4"],
+      franchise_id: ["23", "16"],
+      team_name: ["Atlanta United", "Chicago Fire"],
+      abbreviation: ["ATL", "CHI"],
+      link: ["/api/v1/teams/1", "/api/v1/teams/4"]
+    }
+
+    assert_equal expected, stat_tracker.team_info
+  end
+
+
+
+#----------------------------
+
 end
