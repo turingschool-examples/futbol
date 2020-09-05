@@ -28,4 +28,9 @@ class StatTracker
     best_array = @game_teams_methods.best_offense_team_id_average_goal
     @team_methods.find_by_id(best_array.first)
   end
+
+  def worst_offense
+    worst_array = @game_teams_methods.worst_offense_team_id_average_goal
+    @team_methods.find_by_id(worst_array.first)
+  end
 end
