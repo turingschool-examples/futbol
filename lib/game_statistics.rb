@@ -20,4 +20,15 @@ module GameStatistics
       game.away_goals + game.home_goals
     end
   end
+
+  def percentage_home_wins
+    percent_wins = percent_home_win_helper
+    (percent_wins.to_f / @games.length.to_f) * 100
+  end
+
+  def percent_home_win_helper
+    @games.count do |game|
+      game.home_goals > game.away_goals
+    end
+  end
 end
