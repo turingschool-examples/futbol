@@ -14,7 +14,9 @@ class GameStatistics
   end
 
   def highest_total_score
-
+    away_goals = @csv_game_table
+      require "pry"; binding.pry
+    
   end
 
 end
