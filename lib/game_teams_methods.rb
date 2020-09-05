@@ -51,6 +51,13 @@ attr_reader :game_teams, :game_teams_table
     team_goals
   end
 
+  def highest_scoring_visitor_team_id_average_goals
+    away_team_averages = average_goals_by_away_team
+    away_team_averages.max_by do |key, value|
+      value
+    end
+  end
+
   def average_goals_by_away_team
     away_team_goals = assign_goals_by_away_teams
 
