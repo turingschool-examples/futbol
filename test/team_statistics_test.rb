@@ -18,5 +18,5 @@ class TeamStatisticsTest < Minitest::Test
     actual = @stat_tracker.team_info(1)
 
     assert_equal expected, actual
-  end 
+  end
 end
