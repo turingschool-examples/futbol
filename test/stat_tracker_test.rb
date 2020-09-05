@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require './lib/stat_tracker'
+require './lib/game_statistics'
 
 class StatTrackerTest < Minitest::Test
   def test_it_exists
@@ -43,4 +44,18 @@ class StatTrackerTest < Minitest::Test
     assert_equal './data/teams.csv', stat_tracker.teams
     assert_equal './data/game_teams.csv', stat_tracker.game_teams
   end
+
+  def test_game_stats
+
+    locations = {
+      games: './data/games.csv',
+      teams: './data/teams.csv',
+      game_teams: './data/game_teams.csv'
+    }
+
+    stat_tracker = StatTracker.new(locations)
+
+    assert_equal 7441, stat_tracker.game_stats.count
+  end
+
 end
