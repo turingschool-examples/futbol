@@ -1,4 +1,4 @@
-#Futbol DTR  
+# Futbol DTR
 
 **Group Member Names:** Carson Jardine, Hanna Davis, Kevin David Cuadros, Shaun James  
 
