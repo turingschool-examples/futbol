@@ -23,7 +23,6 @@ class TeamTest < Minitest::Test
 
   def test_it_has_attributes
     stat_tracker = StatTracker.new(@locations)
-    # require "pry"; binding.pry
     actual = stat_tracker.teams["14"]
 
     assert_equal "Audi Field", actual.stadium
