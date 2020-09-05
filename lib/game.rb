@@ -22,4 +22,5 @@ class Game
     @venue_link = data[:venue_link]
   end
 
+
 end
