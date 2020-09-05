@@ -65,6 +65,6 @@ class GameTeamsMethodsTest < Minitest::Test
     game_teams = './data/game_teams.csv'
     game_teams_methods = GameTeamsMethods.new(game_teams)
 
-    assert_equal ["27", 2.25], game_teams_methods.lowest_scoring_visitor_team_id_average_goals
+    assert_equal ["27", 1.85], game_teams_methods.lowest_scoring_visitor_team_id_average_goals
   end
 end
