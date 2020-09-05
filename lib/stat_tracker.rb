@@ -22,4 +22,27 @@ class StatTracker
     file_open.read
   end
 
+  def match_data_with_header(file)
+    self.instance_variable_get(file).transpose
+  end
+
+  def match_data_by_spec(file, column)
+    self.instance_variable_get(file).shift
+    self.instance_variable_get(file).map do |line|
+       line.unshift(line[column])
+    end
+  end
+
+  def group_by(data)
+    hash = {}
+    data.each do |thing|
+      hash[thing.shift] = thing.flatten
+    end
+    hash
+  end
+
+  def count_of_teams
+    group_by(match_data_with_header(:@teams))["teamName"].count
+  end
+
 end
