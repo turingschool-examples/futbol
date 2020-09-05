@@ -5,8 +5,8 @@ class TeamTest < Minitest::Test
   def setup
     @row = {
            "team_id" => "1",
-      "franchiseId" => "23",
-         "teamName" => "Atlanta United",
+       "franchiseId" => "23",
+          "teamName" => "Atlanta United",
       "abbreviation" => "ATL",
            "Stadium" => "Mercedes-Benz Stadium",
               "link" => "/api/v1/teams/1"
