@@ -8,4 +8,9 @@ class Game
       @away_goals = @away_goals.to_i
       @home_goals = @home_goals.to_i
   end
+
+  def self.games_with_high_goal
+    goals > 5
+  end
+
 end
