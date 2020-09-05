@@ -34,6 +34,29 @@ class StatTracker
   end
 
 #------------LeagueStatistics
+
+
+#------------SeasonStatistics
+
+  def coach_list_wins_losses
+    @coach_hash = Hash.new
+    game_teams.each do |gt|
+      (@coach_hash[gt.head_coach] ||= []) << gt.result
+    end
+    @coach_hash
+  end
+
+  def winningest_coach
+    winner = @coach_hash.max_by do |key, w_l|
+      wins = w_l.count("WIN")
+      losses = w_l.count("LOSS").to_f
+      (wins) / (wins + losses)
+    end
+    winner[0]
+  end
+
+
+
   private
 
   Game = Struct.new(:game_id, :season, :type, :date_time, :away_team_id,
