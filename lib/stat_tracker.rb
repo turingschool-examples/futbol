@@ -22,6 +22,8 @@ class StatTracker
     file_open.read
   end
 
+# ************* LeagueStatistics *************
+
   def match_data_with_header(file)
     self.instance_variable_get(file).transpose
   end
@@ -29,7 +31,7 @@ class StatTracker
   def match_data_by_spec(file, column)
     self.instance_variable_get(file).shift
     self.instance_variable_get(file).map do |line|
-       line.unshift(line[column])
+       line.unshift(line.delete(line[column]))
     end
   end
 

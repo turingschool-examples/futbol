@@ -49,4 +49,17 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.game_teams
   end
 
+  # ************* LeagueStatistics Tests *************
+
+  def test_get_data_by_column
+    expected = [["team_id", "1", "4"],
+    ["franchiseId", "23", "16"],
+    ["teamName", "Atlanta United", "Chicago Fire"],
+    ["abbreviation", "ATL", "CHI"],
+    ["Stadium", "Mercedes-Benz Stadium", "SeatGeek Stadium"],
+    ["link", "/api/v1/teams/1", "/api/v1/teams/4"]]
+
+    assert_equal expected, @stat_tracker.match_data_with_header(:@teams)
+  end
+
 end
