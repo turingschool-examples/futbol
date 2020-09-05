@@ -52,7 +52,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_find_lowest_total_score
     game_path = './data/games_dummy.csv'
     team_path = './data/teams_dummy.csv'
-    game_teams_path = './data/game_teams_dummy.csv'
+    game_teams_path = './data/game_teams.csv'
     locations = {
       games: game_path,
       teams: team_path,
@@ -63,17 +63,36 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3, stat_tracker.lowest_total_score
   end
 
-#--------------SeasonStatisticsTests
-  def test_it_can_find_winningest_coach
-    game_path = './data/games_dummy.csv'
+#---------------LeagueStatisticsTests
+
+  def test_it_can_count_of_teams
+    game_path = './data/games_count_teams.csv'
     team_path = './data/teams_dummy.csv'
-    game_teams_path = './data/game_teams_dummy.csv'
+    game_teams_path = './data/game_teams.csv'
+
     locations = {
       games: game_path,
       teams: team_path,
       game_teams: game_teams_path
     }
     stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal 8, stat_tracker.count_of_teams
+  end
+
+  #--------------SeasonStatisticsTests
+  def test_it_can_find_winningest_coach
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams_dummy.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
     assert_equal "Claude Julien", stat_tracker.winningest_coach
   end
 
@@ -90,7 +109,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal "John Tortorella", stat_tracker.worst_coach
   end
 
-#--------------------------------
 
 #---------TeamStatisticsTests
   def test_it_can_get_team_info
