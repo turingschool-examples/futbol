@@ -12,23 +12,22 @@ class GameStatistcsTest < Minitest::Test
       teams: team_path,
       game_teams: game_teams_path
     }
+    @instances = StatTracker.new
   end
 
   def test_it_exists
-    stat_tracker = StatTracker.new(@locations)
+    stat_tracker = StatTracker.from_csv(@locations)
     game_statistics = GameStatistics.new
 
     assert_instance_of GameStatistics, game_statistics
   end
 
   def test_highest_total_score
-    stat_tracker = StatTracker.new(@locations)
+    stat_tracker = StatTracker.from_csv(@locations)
     game_statistics = GameStatistics.new
-# require "pry"; binding.pry
     game_statistics.highest_total_score
-    # assert_instance_of GameStatistics, game_statistics
 
-    assert_equal 45, game_statistics.highest_total_score
+    assert_equal 11, game_statistics.stat_tracker_copy.highest_total_score_stat
   end
 
 end
