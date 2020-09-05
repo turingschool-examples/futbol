@@ -47,5 +47,4 @@ class GameMethodsTest < Minitest::Test
 
     assert_equal 0.44, game_methods.percentage_home_wins
   end
-
 end
