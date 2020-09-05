@@ -23,7 +23,6 @@ class GameTeamTest < Minitest::Test
 
   def test_it_has_attributes
     stat_tracker = StatTracker.new(@locations)
-    # require "pry"; binding.pry
     actual = stat_tracker.game_teams["2012030222"]
 
     assert_equal "home", actual.hoa

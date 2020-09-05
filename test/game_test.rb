@@ -21,7 +21,7 @@ class GameTest < Minitest::Test
     assert_instance_of Game, game
   end
 
-  def test_game_attributes
+  def test_it_has_attributes
     stat_tracker = StatTracker.new(@locations)
     actual = stat_tracker.games["2012030221"]
 
