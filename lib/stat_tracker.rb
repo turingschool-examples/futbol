@@ -14,22 +14,24 @@ class StatTracker
     teams = CSV.read(locations[:teams])
     game_teams = CSV.read(locations[:game_teams])
 
-    self.new(games, teams, game_teams)
+    new(games, teams, game_teams)
   end
 
   private
 
   Game = Struct.new(:game_id, :season, :type, :date_time, :away_team_id,
-              :home_team_id, :away_goals, :home_goals, :venue, :venue_link)
+                    :home_team_id, :away_goals, :home_goals, :venue, :venue_link)
+
   def transform_games(games)
     games.map do |cell|
       Game.new(cell[0], cell[1], cell[2], cell[3], cell[4], cell[5],
-                cell[6], cell[7], cell[8], cell[9])
+               cell[6], cell[7], cell[8], cell[9])
     end
   end
 
   Team = Struct.new(:team_id, :franchise_id, :team_name, :abbreviation,
-                      :stadium, :link)
+                    :stadium, :link)
+
   def transform_teams(teams)
     teams.map do |cell|
       Team.new(cell[0], cell[1], cell[2], cell[3], cell[4], cell[5])
@@ -37,14 +39,14 @@ class StatTracker
   end
 
   GameTeams = Struct.new(:game_id, :team_id, :hoa, :result, :settled_in,
-                        :head_coach, :goals, :shots, :tackles, :pim,
-                        :power_play_opportunities, :power_play_goals,
-                        :face_off_win_percentage, :giveaways, :takeaways)
+                         :head_coach, :goals, :shots, :tackles, :pim,
+                         :power_play_opportunities, :power_play_goals,
+                         :face_off_win_percentage, :giveaways, :takeaways)
+
   def transform_game_teams(game_teams)
     game_teams.map do |cell|
-      GameTeams.new(cell[0], cell[1], cell[2], cell[3],
-                    cell[4], cell[5], cell[6], cell[7],
-                    cell[8], cell[9], cell[10], cell[11],
+      GameTeams.new(cell[0], cell[1], cell[2], cell[3], cell[4], cell[5],
+                    cell[6], cell[7], cell[8], cell[9], cell[10], cell[11],
                     cell[12], cell[13], cell[14])
     end
   end
