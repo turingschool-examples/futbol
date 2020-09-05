@@ -1,4 +1,7 @@
 require "csv"
+require "./lib/teams"
+require "./lib/games"
+require "./lib/game_teams"
 
 class StatTracker
   attr_reader :teams, :games, :game_teams
@@ -12,8 +15,6 @@ class StatTracker
   def self.from_csv(locations)
     self.new(locations[:teams], locations[:games], locations[:game_teams])
   end
-
-  CSV::Converters[:symbol] = ->(value) {value.to_sym rescue value}
 
   def read_teams_from_csv(path)
     CSV.parse(File.read(path), {headers: true, header_converters: :symbol})
