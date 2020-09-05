@@ -11,7 +11,14 @@ attr_reader :game_teams, :game_teams_table
 
   def best_offense_team_id_average_goal
     team_averages = average_goals_by_team
-    team_id = team_averages.max_by do |key, value|
+    team_averages.max_by do |key, value|
+      value
+    end
+  end
+
+  def worst_offense_team_id_average_goal
+    team_averages = average_goals_by_team
+    team_averages.min_by do |key, value|
       value
     end
   end

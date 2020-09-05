@@ -67,4 +67,20 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal 'Reign FC', stat_tracker.best_offense
   end
+
+  def test_worst_offense
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal 'Utah Royals FC', stat_tracker.worst_offense
+  end
 end

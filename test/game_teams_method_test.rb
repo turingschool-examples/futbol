@@ -46,4 +46,11 @@ class GameTeamsMethodsTest < Minitest::Test
 
     assert_instance_of Hash, game_teams_methods.average_goals_by_team
   end
+
+  def test_it_can_return_worst_offense_team_id_average_goal
+    game_teams = './data/game_teams.csv'
+    game_teams_methods = GameTeamsMethods.new(game_teams)
+
+    assert_equal ["7", 1.84], game_teams_methods.worst_offense_team_id_average_goal
+  end
 end
