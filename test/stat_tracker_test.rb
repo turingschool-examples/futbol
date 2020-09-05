@@ -71,7 +71,6 @@ class StatTrackerTest < Minitest::Test
       game_teams: game_teams_path
     }
     stat_tracker = StatTracker.from_csv(locations)
-    stat_tracker.coach_list_wins_losses
     assert_equal "Claude Julien", stat_tracker.winningest_coach
   end
 
@@ -85,7 +84,6 @@ class StatTrackerTest < Minitest::Test
       game_teams: game_teams_path
     }
     stat_tracker = StatTracker.from_csv(locations)
-    stat_tracker.coach_list_wins_losses
     assert_equal "John Tortorella", stat_tracker.worst_coach
   end
 end
