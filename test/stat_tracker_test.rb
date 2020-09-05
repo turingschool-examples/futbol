@@ -62,7 +62,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_count_of_teams
-    game_path = './data/games.csv'
+    game_path = './data/games_count_teams.csv'
     team_path = './data/teams_dummy.csv'
     game_teams_path = './data/game_teams.csv'
     locations = {
@@ -72,6 +72,6 @@ class StatTrackerTest < Minitest::Test
     }
     stat_tracker = StatTracker.from_csv(locations)
 
-    assert_equal 32, stat_tracker.count_of_teams
+    assert_equal 8, stat_tracker.count_of_teams
   end
 end

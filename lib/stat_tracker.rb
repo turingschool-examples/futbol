@@ -36,8 +36,7 @@ class StatTracker
 #------------LeagueStatistics
   def count_of_teams
     teams = games.flat_map do |game|
-      game.away_team_id
-      game.home_team_id
+      [game.away_team_id, game.home_team_id]
     end
 
     teams.uniq.count
