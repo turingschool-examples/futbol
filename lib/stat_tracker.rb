@@ -33,6 +33,39 @@ class StatTracker
     result.away_goals.to_i + result.home_goals.to_i
   end
 
+#------------LeagueStatistics
+
+
+#------------SeasonStatistics
+
+  def coach_list_wins_losses
+    coach_hash = Hash.new
+    game_teams.each do |gt|
+      (coach_hash[gt.head_coach] ||= []) << gt.result
+    end
+    coach_hash
+  end
+
+  def winningest_coach
+    winner = coach_list_wins_losses.max_by do |key, w_l|
+      wins = w_l.count("WIN")
+      losses = w_l.count("LOSS").to_f
+      (wins) / (wins + losses)
+    end
+    winner[0]
+  end
+
+  def worst_coach
+    loser = coach_list_wins_losses.min_by do |key, w_l|
+      wins = w_l.count("WIN")
+      losses = w_l.count("LOSS").to_f
+      (wins) / (wins + losses)
+    end
+    loser[0]
+  end
+
+
+
 #------------TeamStatistics
 
   def team_info
