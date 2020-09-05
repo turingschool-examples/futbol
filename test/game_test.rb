@@ -19,6 +19,7 @@ class GameTest < Minitest::Test
     game = Game.new(stat_tracker.games)
 
     assert_instance_of Game, game
+    # require "pry"; binding.pry
   end
 
 end

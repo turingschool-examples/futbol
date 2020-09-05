@@ -23,8 +23,15 @@ class StatTrackerTest < Minitest::Test
   def test_from_csv
     stat_tracker = StatTracker.new(@locations)
 
-    # require "pry"; binding.pry
     assert stat_tracker.games
+  end
+
+  def test_games_has_game_data
+    stat_tracker = StatTracker.new(@locations)
+
+    assert stat_tracker.games.include?("2012030221")
+    assert stat_tracker.games.include?("2017030317")
+    assert stat_tracker.games.include?("2012030213")
   end
 
 end
