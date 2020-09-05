@@ -38,4 +38,12 @@ class GameTeamsMethodsTest < Minitest::Test
     assert_equal true, game_teams_methods.assign_goals_by_teams.keys.include?("3")
     assert_equal true, game_teams_methods.assign_goals_by_teams.keys.include?("6")
   end
+
+  def test_it_can_return_a_hash_of_teams_and_average_goal
+    game_teams = './data/game_teams.csv'
+
+    game_teams_methods = GameTeamsMethods.new(game_teams)
+
+    assert_instance_of Hash, game_teams_methods.average_goals_by_team
+  end
 end
