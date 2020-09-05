@@ -38,11 +38,11 @@ class StatTracker
   def team_info
     result = { }
     teams.each do |team|
-      (result[:team_id]||=[]) << team.team_id
-      (result[:franchise_id]||=[]) << team.franchise_id
-      (result[:team_name]||=[]) << team.team_name
-      (result[:abbreviation]||=[]) << team.abbreviation
-      (result[:link]||=[]) << team.link
+      (result[:team_id] ||= []) << team.team_id
+      (result[:franchise_id] ||= []) << team.franchise_id
+      (result[:team_name] ||= []) << team.team_name
+      (result[:abbreviation] ||= []) << team.abbreviation
+      (result[:link] ||= []) << team.link
     end
     result
   end
