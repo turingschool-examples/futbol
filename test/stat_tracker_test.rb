@@ -66,7 +66,7 @@ class StatTrackerTest < Minitest::Test
 #---------TeamStatisticsTests
   def test_it_can_get_team_info
     game_path = './data/games_dummy.csv'
-    team_path = './data/teams.csv'
+    team_path = './data/teams_dummy.csv'
     game_teams_path = './data/game_teams_dummy.csv'
     locations = {
       games: game_path,
