@@ -39,15 +39,15 @@ class StatTracker
 #------------SeasonStatistics
 
   def coach_list_wins_losses
-    @coach_hash = Hash.new
+    coach_hash = Hash.new
     game_teams.each do |gt|
-      (@coach_hash[gt.head_coach] ||= []) << gt.result
+      (coach_hash[gt.head_coach] ||= []) << gt.result
     end
-    @coach_hash
+    coach_hash
   end
 
   def winningest_coach
-    winner = @coach_hash.max_by do |key, w_l|
+    winner = coach_list_wins_losses.max_by do |key, w_l|
       wins = w_l.count("WIN")
       losses = w_l.count("LOSS").to_f
       (wins) / (wins + losses)
@@ -56,7 +56,7 @@ class StatTracker
   end
 
   def worst_coach
-    loser = @coach_hash.min_by do |key, w_l|
+    loser = coach_list_wins_losses.min_by do |key, w_l|
       wins = w_l.count("WIN")
       losses = w_l.count("LOSS").to_f
       (wins) / (wins + losses)
