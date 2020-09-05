@@ -50,4 +50,10 @@ attr_reader :game_teams, :game_teams_table
     end
     team_goals
   end
+
+  def find_all_away_games
+    @game_teams_table.find_all do |gameteam|
+        gameteam["HoA"] == "away"
+    end
+  end
 end
