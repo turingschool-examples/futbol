@@ -21,9 +21,9 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_from_csv
-    stat_tracker = StatTracker.new(@locations)
+    stat_tracker = StatTracker.from_csv(@locations)
 
-    assert stat_tracker.games
+    assert_instance_of StatTracker, stat_tracker
   end
 
   def test_games_has_game_data
