@@ -34,6 +34,15 @@ class StatTracker
   end
 
 #------------LeagueStatistics
+  def count_of_teams
+    teams = []
+    games.each do |game|
+      teams << game.away_team_id unless teams.include? game.away_team_id
+      teams << game.home_team_id unless teams.include? game.home_team_id
+    end
+    teams.count
+  end
+
   private
 
   Game = Struct.new(:game_id, :season, :type, :date_time, :away_team_id,
