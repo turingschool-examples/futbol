@@ -51,6 +51,21 @@ attr_reader :game_teams, :game_teams_table
     team_goals
   end
 
+  def average_goals_by_away_team
+    away_team_goals = assign_goals_by_away_teams
+
+    away_team_goals.values.each do |goals|
+      average_goals = 0
+      total = 0
+      goals.each do |goal|
+        total += goal.to_f
+      end
+      average_goals = (total / goals.size).round(2)
+      away_team_goals[away_team_goals.key(goals)] = average_goals
+    end
+    away_team_goals
+  end
+
   def assign_goals_by_away_teams
     team = find_all_away_games.map do |row|
       row['team_id']
