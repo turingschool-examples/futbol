@@ -18,6 +18,6 @@ class StatTracker
   end
 
   def highest_total_score
-    @highest_total_score ||= @games_path.highest_total_score
+    @highest_total_score ||= @games_methods.highest_total_score
   end
 end
