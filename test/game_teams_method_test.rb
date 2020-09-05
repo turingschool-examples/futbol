@@ -21,4 +21,11 @@ class GameTeamsMethodsTest < Minitest::Test
 
     assert_equal expected, game_teams_methods.game_teams_table
   end
+
+  def test_it_can_return_best_offense_team_id_average_goal
+    game_teams = './data/game_teams.csv'
+    game_teams_methods = GameTeamsMethods.new(game_teams)
+
+    assert_equal ["54", 2.34], game_teams_methods.best_offense_team_id_average_goal
+  end
 end
