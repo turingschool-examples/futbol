@@ -1,8 +1,17 @@
-require 'csv'
-require './lib/stat_tracker'
+require_relative './lib/stat_tracker'
 
-teams = CSV.read("./data/teams.csv")
-games = CSV.read("./data/games.csv")
-games_teams = CSV.read("./data/games.csv")
+game_path = './data/games.csv'
+team_path = './data/teams.csv'
+game_teams_path = './data/game_teams.csv'
 
-stat_tracker = StatTracker.new(games, teams, games_teams)
+locations = {
+  games: game_path,
+  teams: team_path,
+  game_teams: game_teams_path
+}
+
+stat_tracker = StatTracker.from_csv(locations)
+
+require 'pry'; binding.pry
+
+x = 1
