@@ -51,6 +51,24 @@ attr_reader :game_teams, :game_teams_table
     team_goals
   end
 
+  def assign_goals_by_away_teams
+    team = find_all_away_games.map do |row|
+      row['team_id']
+    end
+    goals = find_all_away_games.map do |row|
+      row['goals']
+    end
+    away_team_goals = Hash.new
+    team.each.with_index do |id, idx|
+      if away_team_goals.has_key?(id)
+        away_team_goals[id] << goals[idx]
+      else
+        away_team_goals[id] = [goals[idx]]
+      end
+    end
+    away_team_goals
+  end
+
   def find_all_away_games
     @game_teams_table.find_all do |gameteam|
         gameteam["HoA"] == "away"
