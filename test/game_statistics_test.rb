@@ -29,5 +29,4 @@ class GameStatistcsTest < Minitest::Test
 
     assert_equal 11, game_statistics.stat_tracker_copy.highest_total_score_stat
   end
-
 end
