@@ -10,8 +10,11 @@ class StatTracker
     # @games = CSV.read(locations[:games], headers: true)
     # @teams = {}
     # CSV.foreach(locations[:teams], headers: true) do |row|
-    #   @game_teams = CSV.read(locations[:game_teams])
+    #   @teams["teams_data"] = Team.new
     # end
+
+    # @game_teams = CSV.read(locations[:game_teams])
+    end
   end
 
   # def from_csv(locations)
@@ -20,4 +23,4 @@ class StatTracker
   #   @game_teams = CSV.read(locations[:game_teams])
   # end
 
-end
+# end
