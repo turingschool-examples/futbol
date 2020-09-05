@@ -1,5 +1,3 @@
-# frozen_relative_string
-
 require_relative 'test_helper'
 require './lib/stat_tracker'
 

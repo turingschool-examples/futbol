@@ -1,5 +1,3 @@
-# frozen_literal_string: true
-
 require 'CSV'
 # Stat Tracker class
 class StatTracker
