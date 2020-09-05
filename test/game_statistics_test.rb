@@ -37,5 +37,5 @@ class GameStatistcsTest < Minitest::Test
 
     assert_equal 0, game_statistics.stat_tracker_copy.lowest_total_score_stat
   end
-  
+
 end
