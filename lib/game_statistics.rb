@@ -1,3 +1,11 @@
+class GameStatistics
+
+  def initialize
+
+  end
+
+end
+
 #highest_total_score:
 #games.csv
 #game with highest total score
