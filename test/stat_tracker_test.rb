@@ -91,4 +91,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.group_by(data_with_team_name_as_first_element)
   end
 
+  def test_get_number_of_teams
+    assert_equal 2, @stat_tracker.count_of_teams
+  end
+
 end
