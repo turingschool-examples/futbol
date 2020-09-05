@@ -37,10 +37,10 @@ class StatTracker
   def count_of_teams
     teams = []
     games.each do |game|
-      teams << game.away_team_id unless teams.include? game.away_team_id
-      teams << game.home_team_id unless teams.include? game.home_team_id
+      teams << game.away_team_id
+      teams << game.home_team_id
     end
-    teams.count
+    teams.uniq.count
   end
 
   private
