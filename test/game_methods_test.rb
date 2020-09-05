@@ -39,4 +39,13 @@ class GameMethodsTest < Minitest::Test
 
     assert_equal 0, game_methods.lowest_total_score
   end
+
+  def test_percentage_home_wins
+    file_loc = './data/games.csv'
+
+    game_methods = GameMethods.new(file_loc)
+
+    assert_equal 0.44, game_methods.percentage_home_wins
+  end
+
 end
