@@ -35,4 +35,8 @@ class GameStatisticsTest < Minitest::Test
   def test_it_can_get_all_scores_by_game_id
     assert_equal 7441, @game_statistics.get_all_scores_by_game_id.length
   end
+
+  def test_it_can_find_highest_total_score
+    assert_equal 11, @game_statistics.highest_total_score
+  end
 end
