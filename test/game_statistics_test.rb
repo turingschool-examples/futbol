@@ -31,4 +31,8 @@ class GameStatisticsTest < Minitest::Test
   def test_it_has_attributes
     assert_equal 7441, @game_statistics.game_id.length
   end
+
+  def test_it_can_get_all_scores_by_game_id
+    assert_equal 7441, @game_statistics.get_all_scores_by_game_id.length
+  end
 end
