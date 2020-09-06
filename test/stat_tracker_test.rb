@@ -23,30 +23,28 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_read_from_games_file
-    expected = [["game_id","team_id","HoA","result","settled_in","head_coach","goals","shots",
-    "tackles","pim","powerPlayOpportunities","powerPlayGoals","faceOffWinPercentage","giveaways","takeaways"],
-    ["2012030221","3","away","LOSS","OT","John Tortorella","2","8","44","8","3","0","44.8","17","7"],
-    ["2012030221","6","home","WIN","OT","Claude Julien","3","12","51","6","4","1","55.2","4","5"]]
-
-    assert_equal expected, @stat_tracker.games
+    assert_equal "Postseason", @stat_tracker.games[0]["type"]
+    assert_equal "Toyota Stadium", @stat_tracker.games[1]["venue"]
   end
 
   def test_read_from_teams_file
-    expected = [["team_id","franchiseId","teamName","abbreviation","Stadium","link"],
-    ["1","23","Atlanta United","ATL","Mercedes-Benz Stadium","/api/v1/teams/1"],
-    ["4","16","Chicago Fire","CHI","SeatGeek Stadium","/api/v1/teams/4"]]
-
-    assert_equal expected, @stat_tracker.teams
+    assert_equal "Atlanta United", @stat_tracker.teams[0]["teamName"]
+    assert_equal "SeatGeek Stadium", @stat_tracker.teams[1]["Stadium"]
   end
 
   def test_read_from_game_teams_file
-    expected = [["game_id","team_id","HoA","result","settled_in","head_coach",
-    "goals","shots","tackles","pim","powerPlayOpportunities","powerPlayGoals",
-    "faceOffWinPercentage","giveaways","takeaways"],
-    ["2012030221","3","away","LOSS","OT","John Tortorella","2","8","44","8","3","0","44.8","17","7"],
-    ["2012030221","6","home","WIN","OT","Claude Julien","3","12","51","6","4","1","55.2","4","5"]]
+    assert_equal "8", @stat_tracker.game_teams[0]["shots"]
+    assert_equal "55.2", @stat_tracker.game_teams[1]["faceOffWinPercentage"]
+  end
 
-    assert_equal expected, @stat_tracker.game_teams
+  # ************* LeagueStatistics Tests *************
+
+  def test_get_number_of_teams
+    assert_equal 3, @stat_tracker.count_of_teams
+  end
+
+  def test_get_best_offense
+    assert_equal "FC Dallas", @stat_tracker.best_offense
   end
 
 end

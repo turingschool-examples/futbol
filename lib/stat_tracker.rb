@@ -17,9 +17,33 @@ class StatTracker
   end
 
   def self.read_from_file(file)
-    file_open = CSV.open(file)
+    CSV.parse(File.read(file), headers: true)
+  end
 
-    file_open.read
+# ************* LeagueStatistics *************
+
+  def group_by(data, key, value)
+    hash = {}
+    data = self.instance_variable_get(data)
+    data.each do |row|
+      if hash[row[key]]
+        hash[row[key]] << row[value]
+      else
+        hash[row[key]] = [row[value]]
+      end
+    end
+    hash
+  end
+
+  def count_of_teams
+    @teams["teamName"].count
+  end
+
+  def best_offense
+    team_id = group_by(:@game_teams, "team_id", "goals").max_by do |team_id, goals_in_game|
+      goals_in_game.map(&:to_i).sum / (goals_in_game.length)
+    end.first
+    @teams.find {|row| row["team_id"] == team_id}["teamName"]
   end
 
 end
