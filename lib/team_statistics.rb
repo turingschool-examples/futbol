@@ -3,7 +3,6 @@ module TeamStatistics
     team = teams.find do |team|  # Could refactor loop as find_team(team_id)
       team.team_id == team_id
     end
-
     team_hash = Hash.new
     team_hash[:team_id] = team.team_id
     team_hash[:franchise_id] = team.franchise_id
@@ -32,5 +31,11 @@ module TeamStatistics
     end
 
     season_hash
+  end
+
+  def game_stats_by_team_id(team_id)
+    game_teams.select do |game_team|
+      game_team.team_id.to_i == team_id
+    end
   end
 end
