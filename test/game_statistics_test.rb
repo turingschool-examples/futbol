@@ -19,7 +19,8 @@ class GameStatisticsTest < Minitest::Test
 
     @stat_tracker_location = StatTracker.from_csv(locations)
     @stat_tracker = @stat_tracker_location.game_stats
-    @game_statistics = GameStatistics.new(@stat_tracker)
+    @stat_game_teams_tracker = @stat_tracker_location.game_teams_stats
+    @game_statistics = GameStatistics.new(@stat_tracker, @stat_game_teams_tracker)
   end
 
   def test_it_exists
@@ -27,7 +28,7 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal 7441, @game_statistics.game_id.length
+    assert_equal 7441, @game_statistics.game_data.length
   end
 
   def test_it_can_get_all_scores_by_game_id
@@ -40,6 +41,10 @@ class GameStatisticsTest < Minitest::Test
 
   def test_it_can_find_lowest_total_score
     assert_equal 0, @game_statistics.lowest_total_score
+  end
+
+  def test_knows_all_home_wins
+    assert_equal 3237, @game_statistics.all_home_wins.length
   end
 
   def test_it_knows_percentage_home_wins
