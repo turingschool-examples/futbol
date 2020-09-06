@@ -4,8 +4,12 @@ require_relative 'game'
 require_relative 'team'
 
 class StatTracker
-  attr_reader :games, :teams, :game_teams, :locations
-  attr_accessor :highest_total_score_stat
+  attr_reader :games,
+              :teams,
+              :game_teams,
+              :locations
+  attr_accessor :highest_total_score_stat,
+                :lowest_total_score_stat
   def initialize(locations = nil)
     @locations = locations
     @games = {}
@@ -15,6 +19,7 @@ class StatTracker
     csv_team_files
     csv_game_team_files
     @highest_total_score_stat = nil
+    @lowest_total_score       = nil
   end
 
   def self.from_csv(locations)

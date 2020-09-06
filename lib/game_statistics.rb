@@ -17,7 +17,7 @@ class GameStatistics
 
   def highest_total_score
     highest_total = 0
-    away_goals = @csv_game_table.games.each do |key, value|
+    @csv_game_table.games.each do |key, value|
       total = value.away_goals + value.home_goals
       if total > highest_total
         highest_total = total
@@ -26,4 +26,14 @@ class GameStatistics
     @stat_tracker_copy.highest_total_score_stat = highest_total
   end
 
+  def lowest_total_score
+    lowest_total = 11
+    @csv_game_table.games.each do |key, value|
+      total = value.away_goals + value.home_goals
+      if lowest_total > total
+        lowest_total = total
+      end
+    end
+    @stat_tracker_copy.lowest_total_score_stat = lowest_total
+  end
 end
