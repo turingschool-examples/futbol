@@ -70,11 +70,15 @@ class TeamStatisticsTest < Minitest::Test
     team_stats = @stat_tracker.game_teams
     expected = [team_stats[0], team_stats[2], team_stats[5], team_stats[7], team_stats[8], team_stats[11], team_stats[12]]
 
-    assert_equal expected, @stat_tracker.game_stats_by_team_id('17')
+    assert_equal expected, @stat_tracker.game_stats_by_team_id("17")
   end
 
   def test_it_can_find_most_goals_scored_by_team
-    assert_equal 3, @stat_tracker.most_goals_scored('17')
+    assert_equal 3, @stat_tracker.most_goals_scored("17")
+  end
+
+  def test_it_can_find_fewest_goals_scores_by_team
+    assert_equal 0, @stat_tracker.fewest_goals_scored("17")
   end
 
   def test_it_can_count_total_games_wins_losses_and_ties_for_a_team
@@ -87,9 +91,14 @@ class TeamStatisticsTest < Minitest::Test
     actual = @stat_tracker.result_counts_by_team_id("26")
 
     assert_equal expected, actual
+    # What if one or multiple of the categories is 0?
   end
 
-  # def test_it_can_calculate_average_win_percentage_for_a_team
-  #
+  # def test_it_can_count_total_games_wins_losses_and_ties_for_a_team_for_a_subset_of_games
   # end
+
+  def test_it_can_calculate_average_win_percentage_for_a_team
+    assert_equal 0.56, @stat_tracker.average_win_percentage("26")
+    assert_equal 0.45, @stat_tracker.average_win_percentage("24")
+  end
 end
