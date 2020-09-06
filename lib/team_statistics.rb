@@ -8,7 +8,6 @@ module TeamStatistics
     team_hash["franchise_id"] = team.franchise_id
     team_hash["team_name"] = team.team_name
     team_hash["abbreviation"] = team.abbreviation
-    # team_hash["stadium"] = team.stadium
     team_hash["link"] = team.link
 
     team_hash
@@ -31,6 +30,22 @@ module TeamStatistics
     end
 
     season_hash
+  end
+
+  def result_counts_by_team_id(team_id)
+    results_hash = {}
+    results_hash[:total] = game_stats_by_team_id(team_id).length
+    results_hash[:wins] = game_stats_by_team_id(team_id).select do |game|
+      game.result == "WIN"
+    end.length
+    results_hash[:ties] = game_stats_by_team_id(team_id).select do |game|
+      game.result == "TIE"
+    end.length
+    results_hash[:losses] = game_stats_by_team_id(team_id).select do |game|
+      game.result == "LOSS"
+    end.length
+
+    results_hash
   end
 
   def game_stats_by_team_id(team_id)
