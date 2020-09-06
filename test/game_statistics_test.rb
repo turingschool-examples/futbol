@@ -1,8 +1,6 @@
 require_relative 'test_helper'
 require "./lib/game_statistics"
 require './lib/stat_tracker'
-require 'mocha/minitest'
-
 
 class GameStatisticsTest < Minitest::Test
   #Data Used:
@@ -38,5 +36,9 @@ class GameStatisticsTest < Minitest::Test
 
   def test_it_can_find_highest_total_score
     assert_equal 11, @game_statistics.highest_total_score
+  end
+
+  def test_it_can_find_lowest_total_score
+    assert_equal 0, @game_statistics.lowest_total_score
   end
 end
