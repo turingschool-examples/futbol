@@ -67,4 +67,14 @@ class TeamStatisticsTest < Minitest::Test
 
     assert_equal expected, actual
   end
+
+  def test_it_can_find_game_stats_by_team_id
+    team_stats = @stat_tracker.game_teams
+    expected = [team_stats[0], team_stats[2], team_stats[5], team_stats[7], team_stats[8], team_stats[11], team_stats[12]]
+
+    assert_equal expected, @stat_tracker.game_stats_by_team_id(17)
+  end
+
+  # def test_it_can_find_most_goals_scored_by_team
+  # end
 end
