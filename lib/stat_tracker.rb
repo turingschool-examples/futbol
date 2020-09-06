@@ -54,4 +54,15 @@ class StatTracker
     (tie_games.to_f / games.length).round(2)
   end
 
+  def count_of_games_by_season # look into group_by
+    games_by_season = {}
+    @games.each do |game|
+      if games_by_season.keys.include?(game["season"])
+        games_by_season[game["season"]] += 1
+      else
+        games_by_season[game["season"]] = 1
+      end
+    end
+    games_by_season
+  end
 end
