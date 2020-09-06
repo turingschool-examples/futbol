@@ -1,17 +1,17 @@
 require "./test/test_helper"
-require "./lib/teams"
+require "./lib/team"
 
-class TeamsTest < Minitest::Test
+class TeamTest < Minitest::Test
   def setup
-    Teams.from_csv
+    Team.from_csv
   end
 
   def test_it_can_read_from_CSV
-    assert_equal 5, Teams.all_teams.count
+    assert_equal 5, Team.all_teams.count
   end
 
   def test_it_can_have_attributes
-    team1 = Teams.all_teams[0]
+    team1 = Team.all_teams[0]
 
     assert_equal 1, team1.team_id
     assert_equal 23, team1.franchise_id

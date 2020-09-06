@@ -1,17 +1,17 @@
-require "./lib/game_teams"
+require "./lib/game_team"
 require "./test/test_helper"
 
-class GameTeamsTest < Minitest::Test
+class GameTeamTest < Minitest::Test
   def setup
-    GameTeams.from_csv
+    GameTeam.from_csv
   end
 
   def test_it_can_read_from_csv
-    assert_equal 12, GameTeams.all_game_teams.count
+    assert_equal 12, GameTeam.all_game_teams.count
   end
 
   def test_it_has_attributes
-    gt_1 = GameTeams.all_game_teams[0]
+    gt_1 = GameTeam.all_game_teams[0]
 
     assert_equal 2014020006, gt_1.game_id
     assert_equal 1, gt_1.team_id

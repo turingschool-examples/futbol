@@ -1,6 +1,6 @@
 require "csv"
 
-class Teams
+class Team
   @@all_teams = []
 
   attr_reader :team_id,

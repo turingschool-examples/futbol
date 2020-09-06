@@ -1,6 +1,6 @@
 require "csv"
 
-class Games
+class Game
   @@all_games = []
 
   attr_reader :game_id,

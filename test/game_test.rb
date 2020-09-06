@@ -1,16 +1,16 @@
 require "./test/test_helper"
-require "./lib/games"
+require "./lib/game"
 
-class GamesTest < Minitest::Test
+class GameTest < Minitest::Test
   def setup
-    Games.from_csv 
+    Game.from_csv
   end
   def test_it_can_read_from_csv
-    assert_equal 6, Games.all_games.count
+    assert_equal 6, Game.all_games.count
   end
 
   def test_it_can_have_attributes
-    game1 = Games.all_games[0]
+    game1 = Game.all_games[0]
 
     assert_equal 2014020006, game1.game_id
     assert_equal "20142015", game1.season
