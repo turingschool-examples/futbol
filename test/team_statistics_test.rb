@@ -14,14 +14,14 @@ class TeamStatisticsTest < Minitest::Test
 
   def test_team_info
     expected ={
-           team_id: 1,
-      franchise_id: 23,
-         team_name: "Atlanta United",
-      abbreviation: "ATL",
-           stadium: "Mercedes-Benz Stadium",
-              link: "/api/v1/teams/1"
+           "team_id" => "1",
+      "franchise_id" => "23",
+         "team_name" => "Atlanta United",
+      "abbreviation" => "ATL",
+           # "stadium" => "Mercedes-Benz Stadium",
+              "link" => "/api/v1/teams/1"
     }
-    actual = @stat_tracker.team_info(1)
+    actual = @stat_tracker.team_info('1')
 
     assert_equal expected, actual
   end
@@ -31,12 +31,12 @@ class TeamStatisticsTest < Minitest::Test
     expected = [games[11], games[12], games[13], games[14], games[15], games[16], games[17], games[28], games[45]]
     # actual = @stat_tracker.games_by_team_id(26)
 
-    assert_equal expected, @stat_tracker.games_by_team_id(26)
+    assert_equal expected, @stat_tracker.games_by_team_id('26')
 
     different_games = [games[0], games[1], games[28], games[2], games[3], games[13], games[4], games[5]]
     expected = [games[28], games[13]]
 
-    assert_equal expected, @stat_tracker.games_by_team_id(26, different_games)
+    assert_equal expected, @stat_tracker.games_by_team_id('26', different_games)
   end
 
   def test_it_can_separate_games_by_season_id
@@ -72,10 +72,10 @@ class TeamStatisticsTest < Minitest::Test
     team_stats = @stat_tracker.game_teams
     expected = [team_stats[0], team_stats[2], team_stats[5], team_stats[7], team_stats[8], team_stats[11], team_stats[12]]
 
-    assert_equal expected, @stat_tracker.game_stats_by_team_id(17)
+    assert_equal expected, @stat_tracker.game_stats_by_team_id('17')
   end
 
   def test_it_can_find_most_goals_scored_by_team
-    assert_equal 3, @stat_tracker.most_goals_scored(17)
+    assert_equal 3, @stat_tracker.most_goals_scored('17')
   end
 end
