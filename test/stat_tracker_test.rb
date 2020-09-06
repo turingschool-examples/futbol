@@ -87,7 +87,7 @@ class StatTrackerTest < Minitest::Test
 
     stat_tracker = StatTracker.from_csv(locations)
 
-    assert_equal 0.75, stat_tracker.percentage_home_wins
+    assert_equal 0.60, stat_tracker.percentage_home_wins
   end
 
   def test_it_can_calculate_percentage_visitor_wins
@@ -102,7 +102,21 @@ class StatTrackerTest < Minitest::Test
 
     stat_tracker = StatTracker.from_csv(locations)
 
-    assert_equal 0.25, stat_tracker.percentage_visitor_wins
+    assert_equal 0.20, stat_tracker.percentage_visitor_wins
   end
 
+  def test_it_can_calculate_percentage_ties
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams_dummy.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal 0.20, stat_tracker.percentage_ties
+  end
 end
