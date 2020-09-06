@@ -10,4 +10,8 @@ class GameStatistics
       game[:away_goals] + game[:home_goals]
     end
   end
+
+  def highest_total_score
+    get_all_scores_by_game_id.max
+  end
 end
