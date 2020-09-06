@@ -19,7 +19,7 @@ class Teams
     @link = data[:link]
   end
 
-  def self.from_csv(path = "./data/teams_test.csv")
+  def self.from_csv(path = "./data/teams_sample.csv")
     teams = []
     CSV.foreach(path, headers: true, converters: :numeric, header_converters: :symbol) do |row|
       teams << self.new(row)

@@ -11,6 +11,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_access_to_other_classes
+    require "pry"; binding.pry
     assert_instance_of Games, @stats.games[0]
     assert_equal 6, @stats.games.count
     assert_instance_of Teams, @stats.teams[0]

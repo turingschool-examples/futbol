@@ -27,7 +27,7 @@ class Games
     @venue_link = data[:venue_link]
   end
 
-  def self.from_csv(path = "./data/games_test.csv")
+  def self.from_csv(path = "./data/games_sample.csv")
     games = []
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
       games << self.new(row)
