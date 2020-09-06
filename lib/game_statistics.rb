@@ -22,7 +22,7 @@ class GameStatistics
   end
 
   def percentage_home_wins
-
+    (all_home_wins.count.to_f / @game_data.count).round(2)
   end
 
   def all_home_wins
