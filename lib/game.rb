@@ -4,8 +4,8 @@ class Game
   def initialize(row)
     row.each do |k, v|
         instance_variable_set("@#{k}", v)
-      end
-      @away_goals = @away_goals.to_i
-      @home_goals = @home_goals.to_i
+    end
+    @away_goals = @away_goals.to_i
+    @home_goals = @home_goals.to_i
   end
 end

@@ -14,4 +14,10 @@ module TeamStatistics
 
     team_hash
   end
+
+  def games_by_team_id(team_id)
+    @games.select do |game|
+      game.home_team_id.to_i == team_id || game.away_team_id.to_i == team_id
+    end
+  end
 end
