@@ -72,4 +72,19 @@ class StatTracker
     end
     (average_goals.to_f / games.length).round(2)
   end
+
+  def average_goals_by_season
+    average_goals_season = {}
+    games_by_season = count_of_games_by_season
+    @games.each do |game|
+      if average_goals_season.keys.include?(game["season"])
+        average_goals_season[game["season"]] += (game["home_goals"].to_i + game["away_goals"].to_i)
+      else
+        average_goals_season[game["season"]] = (game["home_goals"].to_i + game["away_goals"].to_i)
+      end
+    end
+    average_goals_season.map do |season, goals|
+      [season, (goals.to_f / games_by_season[season].to_f).round(2)]
+    end.to_h
+  end
 end
