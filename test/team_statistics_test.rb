@@ -39,7 +39,32 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal expected, @stat_tracker.games_by_team_id(26, different_games)
   end
 
-  # def test_it_can_separate_games_by_season_id
-  #   # ["20122013", "20162017", "20132014"]
-  # end
+  def test_it_can_separate_games_by_season_id
+    season_20122013 = @stat_tracker.games.select do |game|
+      game.season == "20122013"
+    end
+    season_20162017 = @stat_tracker.games.select do |game|
+      game.season == "20162017"
+    end
+    season_20132014 = @stat_tracker.games.select do |game|
+      game.season == "20132014"
+    end
+    expected = {
+      "20122013" => season_20122013,
+      "20162017" => season_20162017,
+      "20132014" => season_20132014
+    }
+    actual = @stat_tracker.separate_games_by_season_id
+
+    assert_equal expected, actual
+
+    games = @stat_tracker.games[0..10]
+    expected = {
+      "20122013" => games[0..6],
+      "20162017" => games[7..-1]
+    }
+    actual = @stat_tracker.separate_games_by_season_id(games)
+
+    assert_equal expected, actual
+  end
 end

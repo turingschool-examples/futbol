@@ -1,6 +1,6 @@
 module TeamStatistics
   def team_info(team_id)
-    team = @teams.find do |team|  # Could refactor loop as find_team(team_id)
+    team = teams.find do |team|  # Could refactor loop as find_team(team_id)
       team.team_id == team_id
     end
 
@@ -16,9 +16,21 @@ module TeamStatistics
   end
 
   def games_by_team_id(team_id, games_array = games)
-    require 'pry' ; binding.pry
     games_array.select do |game|
       game.home_team_id.to_i == team_id || game.away_team_id.to_i == team_id
     end
+  end
+
+  def separate_games_by_season_id(games_array = games)
+    season_hash = {}
+    games_array.each do |game|
+      if season_hash[game.season] == nil
+        season_hash[game.season] = [game]
+      else
+        season_hash[game.season] << game
+      end
+    end
+
+    season_hash
   end
 end
