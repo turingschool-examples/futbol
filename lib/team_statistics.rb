@@ -38,4 +38,10 @@ module TeamStatistics
       game_team.team_id.to_i == team_id
     end
   end
+
+  def most_goals_scored(team_id)
+    game_stats_by_team_id(team_id).max_by do |game|
+      game.goals
+    end.goals
+  end
 end
