@@ -12,6 +12,7 @@ class StatTracker
         # require "pry"; binding.pry
         grouping[name] = read_stats(data)
       end
+      grouping
     end
 
     def read_stats(data)
