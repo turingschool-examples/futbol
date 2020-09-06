@@ -1,12 +1,14 @@
 class GameStatistics
-  attr_reader :game_id
+  attr_reader :game_data,
+              :game_teams_data
 
-  def initialize(hashed_game_data)
-    @game_id = hashed_game_data
+  def initialize(array_game_data, array_game_teams_data)
+    @game_data = array_game_data
+    @game_teams_data = array_game_teams_data
   end
 
   def get_all_scores_by_game_id
-    game_id.flat_map do |game|
+    game_data.flat_map do |game|
       game[:away_goals] + game[:home_goals]
     end
   end
@@ -17,5 +19,15 @@ class GameStatistics
 
   def lowest_total_score
     get_all_scores_by_game_id.min
-  end 
+  end
+
+  def percentage_home_wins
+
+  end
+
+  def all_home_wins
+    @game_teams_data.select do |game|
+      game[:hoa] == "home" && game[:result] == "WIN"
+    end
+  end
 end
