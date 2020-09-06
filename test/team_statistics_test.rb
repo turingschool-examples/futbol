@@ -18,7 +18,6 @@ class TeamStatisticsTest < Minitest::Test
       "franchise_id" => "23",
          "team_name" => "Atlanta United",
       "abbreviation" => "ATL",
-           # "stadium" => "Mercedes-Benz Stadium",
               "link" => "/api/v1/teams/1"
     }
     actual = @stat_tracker.team_info('1')
@@ -29,7 +28,6 @@ class TeamStatisticsTest < Minitest::Test
   def test_it_can_find_games_by_team_id
     games = @stat_tracker.games
     expected = [games[11], games[12], games[13], games[14], games[15], games[16], games[17], games[28], games[45]]
-    # actual = @stat_tracker.games_by_team_id(26)
 
     assert_equal expected, @stat_tracker.games_by_team_id('26')
 
@@ -78,4 +76,20 @@ class TeamStatisticsTest < Minitest::Test
   def test_it_can_find_most_goals_scored_by_team
     assert_equal 3, @stat_tracker.most_goals_scored('17')
   end
+
+  def test_it_can_count_total_games_wins_losses_and_ties_for_a_team
+    expected = {
+      total: 9,
+      wins: 5,
+      ties: 1,
+      losses: 3
+    }
+    actual = @stat_tracker.result_counts_by_team_id("26")
+
+    assert_equal expected, actual
+  end
+
+  # def test_it_can_calculate_average_win_percentage_for_a_team
+  #
+  # end
 end
