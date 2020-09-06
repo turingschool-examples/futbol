@@ -9,7 +9,6 @@ class StatTracker
     def from_csv(locations)
       grouping = {}
       locations.each do |name, data|
-        # require "pry"; binding.pry
         grouping[name] = read_stats(data)
       end
       grouping
