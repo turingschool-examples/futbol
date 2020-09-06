@@ -60,5 +60,18 @@ class StatTrackerTest < Minitest::Test
     assert_equal 6, stat_tracker.highest_total_score
   end
 
-  
+  def test_it_can_calculate_lowest_total_score
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams_dummy.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal 3, stat_tracker.lowest_total_score
+  end
 end
