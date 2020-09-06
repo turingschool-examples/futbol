@@ -1,14 +1,21 @@
+require 'csv'
+
 class StatTracker
 
-  attr_reader :from_csv
+  attr_reader :games, :teams, :game_teams
 
   class << self
     self # => #<Class:StatTracker>
 
     def from_csv(locations)
-      StatTracker.new(locations[:games])
-      StatTracker.new(locations[:teams])
-      StatTracker.new(locations[:game_teams])
+      @games = StatTracker.new(locations[:games])
+      @teams = StatTracker.new(locations[:teams])
+      @game_teams = StatTracker.new(locations[:game_teams])
     end
+  end
+
+  def initialize(data)
+    # table = CSV.new
+    table = CSV.parse(File.read(data), headers: true)
   end
 end
