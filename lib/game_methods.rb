@@ -9,6 +9,8 @@ class GameMethods
   def initialize(file_loc)
     @file_loc = file_loc
     @table = create_table
+    @seasons = @table['season']
+    @game_ids = @table['game_id']
   end
 
   def create_table
@@ -31,5 +33,20 @@ class GameMethods
     end
 
     game_totals.min
+  end
+
+  def games_by_season
+    @game_ids.group_by.with_index do |id, idx|
+      @seasons[idx]
+    end
+  end
+
+  def count_of_games_by_season
+    output_hash = {}
+    season_games = games_by_season
+    season_games.keys.each do |season|
+      output_hash[season] = season_games[season].length
+    end
+    output_hash
   end
 end
