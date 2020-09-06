@@ -39,4 +39,12 @@ class GameMethodsTest < Minitest::Test
 
     assert_equal 0, game_methods.lowest_total_score
   end
+
+  def test_average_goals_per_game
+    file_loc = './data/games.csv'
+
+    game_methods = GameMethods.new(file_loc)
+
+    assert_equal 4.22, game_methods.average_goals_per_game
+  end
 end
