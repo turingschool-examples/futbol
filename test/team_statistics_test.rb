@@ -77,7 +77,7 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal 3, @stat_tracker.most_goals_scored("17")
   end
 
-  def test_it_can_find_fewest_goals_scores_by_team
+  def test_it_can_find_fewest_goals_scored_by_team
     assert_equal 0, @stat_tracker.fewest_goals_scored("17")
   end
 

@@ -38,6 +38,8 @@ module TeamStatistics
     results_hash[:wins] = game_stats_by_team_id(team_id).select do |game|
       game.result == "WIN"
     end.length
+    # maybe instead:
+    # results_hash[:wins] = game_stats_by_team_id(team_id).map(&:result).count("WIN")
     results_hash[:ties] = game_stats_by_team_id(team_id).select do |game|
       game.result == "TIE"
     end.length
@@ -58,5 +60,15 @@ module TeamStatistics
     game_stats_by_team_id(team_id).max_by do |game|
       game.goals
     end.goals
+  end
+
+  def fewest_goals_scored(team_id)
+    game_stats_by_team_id(team_id).min_by do |game|
+      game.goals
+    end.goals
+  end
+
+  def average_win_percentage(team_id)
+    (result_counts_by_team_id(team_id)[:wins].to_f / result_counts_by_team_id(team_id)[:total].to_f).round(2)
   end
 end
