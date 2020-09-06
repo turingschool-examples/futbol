@@ -47,4 +47,16 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas", @stat_tracker.best_offense
   end
 
+  def total_games_played_by_coach_helper
+
+    expected = {"John Tortorella"=>3, "Claude Julien"=>5}
+
+
+    assert_equal expected, @stat_tracker.all_coaches_helper
+  end
+
+  def test_all_coaches_total_games_helper
+skip
+    assert_equal 3, @stat_tracker.all_coaches_total_games_helper
+  end
 end

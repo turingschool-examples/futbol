@@ -45,5 +45,17 @@ class StatTracker
     end.first
     @teams.find {|row| row["team_id"] == team_id}["teamName"]
   end
+# ************* Season Statistics *************
+  def total_games_played_by_coach_helper
+    games_coached_hash =  @game_teams["head_coach"].group_by(&:itself)
+      games_coached_hash.map{|key, value| [key, value.length]}.to_h
+      end
+  def total_games_won_by_coach_helper
 
-end
+
+      end
+  end
+#   def all_coaches_total_games_helper
+#     all_coaches_helper.group_by(&:itself)
+#   end
+# end
