@@ -18,4 +18,18 @@ class StatTracker
     GameTeam.from_csv(locations[:game_teams])
     self.new(Team.all_teams, Game.all_games, GameTeam.all_game_teams)
   end
+
+  def season_group
+    @games.group_by do |row|
+      row.season
+    end
+  end
+
+  def count_of_games_by_season
+    count_of_games_by_season = {}
+    self.season_group.each do |group|
+      count_of_games_by_season[group[0]] = group[1].count
+    end
+    count_of_games_by_season
+  end
 end

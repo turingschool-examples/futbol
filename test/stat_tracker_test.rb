@@ -19,6 +19,12 @@ class StatTrackerTest < Minitest::Test
     assert_equal 12, @stats.game_teams.count
   end
 
+  def test_it_can_see_count_of_games_by_season
+    expected = {"20142015" => 5, "20172018" => 1}
+
+    assert_equal expected, @stats.count_of_games_by_season
+  end
+
 
 
 
