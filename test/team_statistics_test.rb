@@ -75,6 +75,7 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal expected, @stat_tracker.game_stats_by_team_id(17)
   end
 
-  # def test_it_can_find_most_goals_scored_by_team
-  # end
+  def test_it_can_find_most_goals_scored_by_team
+    assert_equal 3, @stat_tracker.most_goals_scored(17)
+  end
 end
