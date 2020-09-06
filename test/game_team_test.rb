@@ -7,7 +7,7 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_read_from_csv
-    assert_equal 12, GameTeam.all_game_teams.count
+    assert_equal 106, GameTeam.all_game_teams.count
   end
 
   def test_it_has_attributes
