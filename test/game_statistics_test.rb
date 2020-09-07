@@ -32,4 +32,9 @@ class GameStatisticsTest <Minitest::Test
     assert_equal 27.5, @stat_tracker.percentage_visitor_wins
     assert_equal 11, @stat_tracker.percentage_visitor_win_helper
   end
+  
+  def test_it_can_find_percentage_ties
+    assert_equal 22.5, @stat_tracker.percentage_ties
+    assert_equal 9, @stat_tracker.percentage_ties_helper
+  end
 end
