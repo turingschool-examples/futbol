@@ -18,4 +18,18 @@ class StatTracker
     GameTeam.from_csv(locations[:game_teams])
     self.new(Team.all_teams, Game.all_games, GameTeam.all_game_teams)
   end
+
+# ~~~ HELPER METHODS~~~
+  def total_games
+    @games.count
+  end
+
+# ~~~ GAME METHODS~~~
+
+# ~~~ LEAGUE METHODS~~~
+
+# ~~~ SEASON METHODS~~~
+
+# ~~~ TEAM METHODS~~~
+
 end

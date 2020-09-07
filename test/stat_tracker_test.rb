@@ -18,4 +18,20 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of GameTeam, @stats.game_teams[0]
     assert_equal 12, @stats.game_teams.count
   end
+
+# ~~~ HELPER METHOD TESTS~~~
+  def test_it_can_find_total_games
+    assert_equal 6, @stats.total_games
+  end
+
+# ~~~ GAME METHOD TESTS~~~
+
+
+# ~~~ LEAGUE METHOD TESTS~~~
+
+
+# ~~~ SEASON METHOD TESTS~~~
+
+
+# ~~~ TEAM METHOD TESTS~~~
 end
