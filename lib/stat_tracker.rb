@@ -33,6 +33,29 @@ class StatTracker
     end
     result['away_goals'].to_i + result['home_goals'].to_i
   end
+
+  def home_win_percentage
+    average = all_home_game_wins/all_home_games.count.to_f
+    average.round(2)
+  end
+
+  def all_home_games
+    game_teams.find_all do |game|
+      game['HoA'] == "home"
+    end
+  end
+
+  def all_home_game_wins
+    all_home_games.find_all do |game|
+      game['result'] == "WIN"
+    end.count
+  end
+
+  def all_home_game_losses
+    all_home_games.find_all do |game|
+      game['result'] == "LOSS"
+    end.count
+  end
 #
 #------------LeagueStatistics
   def count_of_teams
