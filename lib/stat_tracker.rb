@@ -24,20 +24,24 @@ class StatTracker
     @games.count
   end
 
+  def percent_wins_or_ties(numerator)
+    (numerator.count / total_games.to_f * 100).round(2)
+  end
+
 # ~~~ GAME METHODS~~~
   def percentage_away_wins
     wins = @games.find_all { |game| game.away_goals > game.home_goals}
-    (wins.count / total_games.to_f * 100).round(2)
+    percent_wins_or_ties(wins)
   end
 
   def percentage_ties
     ties = @games.find_all { |game| game.away_goals == game.home_goals}
-    (ties.count / total_games.to_f * 100).round(2)
+    percent_wins_or_ties(ties)
   end
 
   def percentage_home_wins
     wins = @games.find_all { |game| game.away_goals < game.home_goals}
-    (wins.count / total_games.to_f * 100).round(2)
+    percent_wins_or_ties(wins)
   end
 
 # ~~~ LEAGUE METHODS~~~
