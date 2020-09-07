@@ -32,4 +32,15 @@ class GameMethods
 
     game_totals.min
   end
+
+  def average_goals_by_season
+    rows = @table.group_by {|row| row['season']}
+    output_hash = {}
+    rows.each do |season, games|
+      output_hash[season] = (games.sum do |row|
+        row['away_goals'].to_i + row['home_goals'].to_i
+      end.to_f / games.length).round(2)
+    end
+    output_hash
+  end
 end
