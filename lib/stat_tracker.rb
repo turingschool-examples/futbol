@@ -56,6 +56,23 @@ class StatTracker
       game['result'] == "LOSS"
     end.count
   end
+
+  def visitor_win_percentage
+    average = all_away_game_wins/all_away_games.count.to_f
+    average.round(2)
+  end
+
+  def all_away_games
+    game_teams.find_all do |game|
+      game['HoA'] == "away"
+    end
+  end
+
+  def all_away_game_wins
+    all_away_games.find_all do |game|
+      game['result'] == "WIN"
+    end.count
+  end
 #
 #------------LeagueStatistics
   def count_of_teams

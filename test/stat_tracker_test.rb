@@ -77,6 +77,20 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal 0.67, stat_tracker.home_win_percentage
   end
+
+  def test_it_knows_visitor_win_percentage
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams_dummy.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal 0.33, stat_tracker.visitor_win_percentage
+  end
 #
 #---------------LeagueStatisticsTests
 
