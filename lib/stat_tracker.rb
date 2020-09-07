@@ -43,4 +43,9 @@ class StatTracker
     highest_visitor = @game_teams_methods.highest_scoring_team_id_average_goals("home")
     @team_methods.find_by_id(highest_visitor.first)
   end
+
+  def lowest_scoring_visitor_team
+    lowest_visitor = @game_teams_methods.lowest_scoring_visitor_team_id_average_goals
+    @team_methods.find_by_id(lowest_visitor.first)
+  end
 end

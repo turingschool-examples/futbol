@@ -100,6 +100,21 @@ class StatTrackerTest < Minitest::Test
     assert_equal 'FC Dallas', stat_tracker.highest_scoring_visitor_team
   end
 
+  def test_lowest_scoring_visitor_team
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+    assert_equal 'San Jose Earthquakes', stat_tracker.lowest_scoring_visitor_team
+  end
+
   def test_highest_scoring_home_team
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -113,6 +128,6 @@ class StatTrackerTest < Minitest::Test
 
     stat_tracker = StatTracker.from_csv(locations)
 
-    assert_equal 'Reign FC', stat_tracker.highest_scoring_home_team
+  assert_equal 'Reign FC', stat_tracker.highest_scoring_home_team
   end
 end
