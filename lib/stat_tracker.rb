@@ -87,7 +87,7 @@ class StatTracker
       [season, (goals.to_f / games_by_season[season].to_f).round(2)]
     end.to_h
   end
-  
+
   def count_of_teams
     @teams.count
   end
@@ -133,12 +133,12 @@ class StatTracker
     end
     worst_offense["teamName"]
   end
-  
+
   def highest_scoring_visitor
     team_game_count = {}
     away_points = {}
     @games.each do |game|
-      if away_points.key?(game["away_team_id"]) 
+      if away_points.key?(game["away_team_id"])
         away_points[game["away_team_id"]] += game["away_goals"].to_i
         team_game_count[game["away_team_id"]] += 1
       else
@@ -153,5 +153,26 @@ class StatTracker
       team["team_id"] == highest_scoring_visitor[0]
     end
     best_away_scorer["teamName"]
+  end
+
+  def highest_scoring_home_team
+    team_game_count = {}
+    home_points = {}
+    @games.each do |game|
+      if home_points.key?[games["home_team_id"]]
+        home_points[game["home_team_id"]] += game["home_goals"].to_i
+        team_game_count[game["home_team_id"]] += 1
+      else
+        home_points[game["home_team_id"]] = [game["home_goals"]].to_i
+        team_game_count[game["home_team_id"]] = 1
+      end
+    end
+    highest_scoring_home_team = home_points.max_by do |team, score|
+        score.to_f / team_game_count[team]
+    end
+    best_home_scorer = @teams.find do |team|
+      team["team_id"] == highest_scoring_home_team[0]
+    end
+    best_home_scorer["teamName"]
   end
 end
