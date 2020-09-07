@@ -1,4 +1,5 @@
 require "./test/test_helper"
+require "mocha/minitest"
 require "./lib/stat_tracker"
 
 class StatTrackerTest < Minitest::Test
@@ -34,6 +35,15 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_determine_highest_and_lowest_game_score
     assert_equal 2, @stats.lowest_total_score
     assert_equal 6, @stats.highest_total_score
+  end
+
+  def test_it_can_count_total_number_of_wins_per_season
+    assert_equal 1, @stats.total_wins(1)
+  end
+
+  def test_it_can_determine_season_win_percentage
+    skip
+    assert_equal 33.33, @stats.season_win_percentage(team_id)
   end
 
 

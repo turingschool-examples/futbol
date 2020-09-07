@@ -41,4 +41,11 @@ class StatTracker
     end.last
   end
 
+  def total_wins(team_id)
+  end
+
+  def season_win_percentage(team_id)
+
+  end
+
 end
