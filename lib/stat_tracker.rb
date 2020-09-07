@@ -49,17 +49,24 @@ class StatTracker
     end.last
   end
 
-  def total_team_home_wins(team_id)
+  def team_wins_as_home(team_id, season)
+    @games.find_all do |game|
+      game.home_team_id == team_id && game.home_goals > game.away_goals && game.season == season
+    end.count
   end
 
-  def total_team_away_wins(team_id)
+  def team_wins_as_away(team_id, season)
+    @games.find_all do |game|
+      game.away_team_id == team_id && game.away_goals > game.home_goals
+    end.count
   end
 
-  def total_team_wins(team_id)
+  def total_team_wins(team_id, season)
+    team_wins_as_home(team_id, season) + team_wins_as_away(team_id, season)
   end
 
-  def season_win_percentage(team_id)
-
+  def season_win_percentage(team_id, season)
+    find_percent(total_team_wins, count_of_games_by_season.count)
   end
 
   def percentage_away_wins

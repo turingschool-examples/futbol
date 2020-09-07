@@ -43,28 +43,32 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_count_total_home_wins
-    assert_equal 0, @stats.home_team_wins(1)
-    assert_equal 0, @stats.home_team_wins(4)
-    assert_equal 1, @stats.home_team_wins(6)
+    assert_equal 0, @stats.team_wins_as_home(1, "20142015")
+    assert_equal 0, @stats.team_wins_as_home(4, "20142015")
+    assert_equal 1, @stats.team_wins_as_home(6, "20142015")
+    assert_equal 0, @stats.team_wins_as_home(26, "20142015")
   end
 
   def test_it_can_count_total_away_wins
-    assert_equal 1, @stats.away_team_wins(1)
-    assert_equal 0, @stats.away_team_wins(4)
-    assert_equal 1, @stats.away_team_wins(6)
+    assert_equal 1, @stats.team_wins_as_away(1, "20142015")
+    assert_equal 0, @stats.team_wins_as_away(4, "20142015")
+    assert_equal 1, @stats.team_wins_as_away(6, "20142015")
+    assert_equal 0, @stats.team_wins_as_away(26, "20142015")
   end
 
   def test_it_can_count_total_number_of_wins_per_season
-    assert_equal 1, @stats.total_team_wins(1)
-    assert_equal 0, @stats.total_team_wins(4)
-    assert_equal 2, @stats.total_team_wins(6)
+    assert_equal 1, @stats.total_team_wins(1, "20142015")
+    assert_equal 0, @stats.total_team_wins(4, "20142015")
+    assert_equal 2, @stats.total_team_wins(6, "20142015")
+    assert_equal 0, @stats.total_team_wins(26, "20142015")
   end
 
   def test_it_can_determine_season_win_percentage
     skip
-    assert_equal 33.33, @stats.season_win_percentage(1)
-    assert_equal 0, @stats.season_win_percentage(4)
-    assert_equal 66.67, @stats.season_win_percentage(6)
+    assert_equal 33.33, @stats.season_win_percentage(1, "20142015")
+    assert_equal 0, @stats.season_win_percentage(4, "20142015")
+    assert_equal 66.67, @stats.season_win_percentage(6, "20142015")
+    assert_equal 0, @stats.season_win_percentage(26, "20142015")
   end
 
 # ~~~ GAME METHOD TESTS~~~
