@@ -56,10 +56,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_determine_season_win_percentage
-    skip
-    assert_equal 33.33, @stats.season_win_percentage(1, "20142015")
+    skip 
+    expected = {"20142015" => 4}
+    @stats.stubs(:count_of_games_by_season).returns(expected)
+    assert_equal 25, @stats.season_win_percentage(1, "20142015")
     assert_equal 0, @stats.season_win_percentage(4, "20142015")
-    assert_equal 66.67, @stats.season_win_percentage(6, "20142015")
+    assert_equal 50, @stats.season_win_percentage(6, "20142015")
     assert_equal 0, @stats.season_win_percentage(26, "20142015")
   end
 
