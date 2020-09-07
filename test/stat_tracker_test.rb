@@ -79,6 +79,10 @@ class StatTrackerTest < Minitest::Test
   end
   
   def test_it_can_count_total_number_of_teams
-    assert_equal 4, @stat_tracker.count_of_teams
+    assert_equal 6, @stat_tracker.count_of_teams
+  end
+
+  def test_it_can_get_name_of_team_with_best_offense
+    assert_equal "FC Dallas", @stat_tracker.best_offense
   end
 end
