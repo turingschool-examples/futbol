@@ -26,7 +26,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_find_percentage
     wins = ["game1", "game2", "game3"]
-    assert_equal 50.00, @stats.percent_wins_or_ties(wins)
+    assert_equal 50.00, @stats.find_percent(wins, 6)
   end
 
 # ~~~ GAME METHOD TESTS~~~
