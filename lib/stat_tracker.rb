@@ -204,5 +204,20 @@ end
 
   def team_id_with_most_tackles_helper
 
+    team_id_with_total_tackles = total_number_tackles_by_team_id_helper.find_all do |key, value|
+      value == total_number_tackles_by_team_id_helper.values.max
+    end
+    team_id_variable = []
+  team_id_with_total_tackles.each do |id_and_ratio|
+  team_id_variable << id_and_ratio[0]
+    end
+    team_id_variable
+  end
+
+  def name_of_team_most_tackles
+    team_name = @teams.find do |row|
+      row[0] == team_id_with_most_tackles_helper[0]
+    end
+    team_name[2]
   end
 end

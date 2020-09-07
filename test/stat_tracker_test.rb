@@ -148,4 +148,14 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal expected, @stat_tracker.total_number_tackles_by_team_id_helper
   end
+
+  def test_team_id_with_most_tackles_helper
+
+    assert_equal ["6"], @stat_tracker.team_id_with_most_tackles_helper
+  end
+
+  def test_name_of_team_most_tackles
+
+    assert_equal "FC Dallas", @stat_tracker.name_of_team_most_tackles
+  end
 end
