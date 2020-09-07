@@ -53,6 +53,16 @@ class StatTracker
     end['teamName']
   end
 
+  def worst_offense
+    worst_offense = get_goals.min_by do |team, stats|
+      stats[:total_goals] / stats[:total_games].to_f
+    end
+
+    teams.find do |team|
+      team['team_id'] == worst_offense[0]
+    end['teamName']
+  end
+
   def get_goals
     team_id_hash = {}
 
