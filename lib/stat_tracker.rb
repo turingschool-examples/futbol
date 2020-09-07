@@ -27,12 +27,12 @@ class StatTracker
     result['away_goals'].to_i + result['home_goals'].to_i
   end
 #
-#   def lowest_total_score
-#     result = games.min_by do |game|
-#       game.away_goals.to_i + game.home_goals.to_i
-#     end
-#     result.away_goals.to_i + result.home_goals.to_i
-#   end
+  def lowest_total_score
+    result = games.min_by do |game|
+      game['away_goals'].to_i + game['home_goals'].to_i
+    end
+    result['away_goals'].to_i + result['home_goals'].to_i
+  end
 #
 #------------LeagueStatistics
   def count_of_teams
