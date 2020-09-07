@@ -5,6 +5,7 @@ class SeasonStatistics
   def initialize(stat_tracker)
     @csv_game_teams_table = stat_tracker.game_teams
     @csv_games_table = stat_tracker.games
+    @csv_teams_table = stat_tracker.teams
     @stat_tracker_copy = stat_tracker
     @season_coach_hash = coach_game_results
   end
@@ -67,6 +68,7 @@ class SeasonStatistics
         elsif game_result == "TIE"
           total_ties += 1
         else
+          p "Unexpected game result: #{game_result}"
         end
       end
       # p " #{key} +  #{(total_wins.to_f / total_games).round(5)}"
@@ -96,6 +98,8 @@ class SeasonStatistics
           total_losses += 1
         elsif game_result == "TIE"
           total_ties += 1
+        else
+          p "Unexpected game result: #{game_result}"
         end
       end
       # p " #{key} +  #{(total_wins.to_f / total_games).round(5)}"
@@ -106,5 +110,40 @@ class SeasonStatistics
     end
     @stat_tracker_copy.worst_coach = worst_coach_name
   end
+
+  def most_accurate_team(season)
+    seasons = find_all_seasons
+    season_game_id_hash = map_season_to_game_ids
+    team_shots_and_goals_hash ={}
+    best_shots_percentage = 0
+    best_shots_team = nil
+    @csv_game_teams_table.each do |game_id, game_team|
+      team_shots_and_goals_hash[game_id] = [game_team.shots, game_team.goals]
+    end
+    shots = 0
+    goals = 0
+    team_shots_and_goals_hash.each do |game_id, shots_and_goals|
+      if season_game_id_hash[game_id] == season
+        shots += shots_and_goals[0]
+        goals += shots_and_goals[1]
+      end
+      if goals.to_f/shots.to_f > best_shots_percentage
+        best_shots_percentage = goals.to_f/shots.to_f
+        best_shots_team = game_id
+      end
+    end
+    best_shots_team
+  end
+
+  # def get_team_name_from_game_id
+  #   most_accurate_team(season)
+  #   @csv_games_table.each do |game_id, game|
+  #     # if game.type = "Regular Season"
+  #       season_game_id_hash[game_id] = game.season
+  #     # end
+  #   end
+  #
+  #   @csv_teams_table
+  # end
 
 end
