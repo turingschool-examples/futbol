@@ -25,7 +25,7 @@ class StatTracker
   end
 
   def find_percent(numerator, denominator)
-    (numerator.count / denominator.to_f * 100).round(2)
+    (numerator / denominator.to_f * 100).round(2)
   end
 
   def sum_game_goals
@@ -71,17 +71,17 @@ class StatTracker
 
   def percentage_away_wins
     wins = @games.find_all { |game| game.away_goals > game.home_goals}
-    find_percent(wins, total_games)
+    find_percent(wins.count, total_games)
   end
 
   def percentage_ties
     ties = @games.find_all { |game| game.away_goals == game.home_goals}
-    find_percent(ties, total_games)
+    find_percent(ties.count, total_games)
   end
 
   def percentage_home_wins
     wins = @games.find_all { |game| game.away_goals < game.home_goals}
-    find_percent(wins, total_games)
+    find_percent(wins.count, total_games)
   end
 
 # ~~~ LEAGUE METHODS~~~
