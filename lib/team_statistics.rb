@@ -71,4 +71,30 @@ module TeamStatistics
   def average_win_percentage(team_id)
     (result_counts_by_team_id(team_id)[:wins].to_f / result_counts_by_team_id(team_id)[:total].to_f).round(2)
   end
+
+  def best_season(team_id)
+    all_results = game_stats_by_team_id(team_id)
+    results_by_season = {}
+    separate_games_by_season_id(games_by_team_id(team_id)).each do |season, games|
+      results_by_season[season] = []
+      games.each do |game|
+        results_by_season[season] << all_results.find do |game_data|
+          game.game_id == game_data.game_id
+        end
+      end
+    end
+    totals_by_season = {}
+    results_by_season.each do |season, games|
+      totals_by_season[season] = {}
+      totals_by_season[season][:total] = games.length
+      totals_by_season[season][:wins] = games.select do |game|
+        game.result == "WIN"
+      end.length
+      totals_by_season[season][:average] = (totals_by_season[season][:wins].to_f / totals_by_season[season][:total].to_f).round(2)
+    end
+
+    totals_by_season.keys.max_by do |season|
+      totals_by_season[season][:average]
+    end
+  end
 end
