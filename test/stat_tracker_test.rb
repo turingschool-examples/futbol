@@ -77,7 +77,7 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal ({'20132014' => 4.0, '20122013' => 6.0}), @stat_tracker.average_goals_by_season
   end
-  
+
   def test_it_can_count_total_number_of_teams
     assert_equal 7, @stat_tracker.count_of_teams
   end
@@ -89,8 +89,12 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_name_of_team_with_worst_offense
     assert_equal "Houston Dynamo", @stat_tracker.worst_offense
   end
-  
+
   def test_can_find_highest_scoring_visitor
     assert_equal "Real Salt Lake", @stat_tracker.highest_scoring_visitor
   end
+
+    def highest_scoring_home_team
+      require "pry"; binding.pry
+      assert_equal "FC Dallas", @stat_tracker.highest_scoring_home_team
 end
