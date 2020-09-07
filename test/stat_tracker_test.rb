@@ -68,11 +68,22 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.games_won_into_hash_helper
   end
 
-  def test_coaches_winning_percentage
+  def test_coaches_with_games_played_and_won_array_helper
+
+    assert_equal ["Claude Julien"], @stat_tracker.coaches_with_games_played_and_won_array_helper
+
+  end
+
+  def test_coaches_winning_percentage_hash_helper
 
     expected = {"Claude Julien"=>100}
 
-    assert_equal expected , @stat_tracker.coaches_winning_percentage
+    assert_equal expected , @stat_tracker.coaches_winning_percentage_hash_helper
+  end
+
+  def test_name_of_coach_with_highest_win_percentage
+
+    assert_equal ["Claude Julien"], @stat_tracker.coach_with_highest_win_percentage
 
   end
 end

@@ -66,20 +66,31 @@ class StatTracker
     games_won_hash.map{|key, value| [key, value.length]}.to_h
   end
 
-  def coaches_with_games_played_and_won_array
+  def coaches_with_games_played_and_won_array_helper
       coaches_with_games_played_array = total_games_played_by_coach_helper.keys
       coaches_with_games_won_array = games_won_into_hash_helper.keys
       coaches_with_games_won_and_played_array = coaches_with_games_played_array & coaches_with_games_won_array
       coaches_with_games_won_and_played_array
   end
 
-  def coaches_winning_percentage
-    coaches_winning_percentage_variable = {}
-    coaches_with_games_played_and_won_array.each do |coach|
+  def coaches_winning_percentage_hash_helper
+    coaches_winning_percentage_hash = {}
+    coaches_with_games_played_and_won_array_helper.each do |coach|
 
-      coaches_winning_percentage_variable[coach] = ((games_won_into_hash_helper[coach] / total_games_played_by_coach_helper[coach] * 100))
+      coaches_winning_percentage_hash[coach] = ((games_won_into_hash_helper[coach] / total_games_played_by_coach_helper[coach] * 100))
     end
-    coaches_winning_percentage_variable
+    coaches_winning_percentage_hash
+  end
+
+  def coach_with_highest_win_percentage
+    name_of_coach_with_number_variable = coaches_winning_percentage_hash_helper.find_all do |key, value|
+      value == coaches_winning_percentage_hash_helper.values.max
+    end
+    name_of_coach_array_variable = []
+  name_of_coach_with_number_variable.each do |name_and_number|
+  name_of_coach_array_variable << name_and_number[0]
+    end
+    name_of_coach_array_variable
   end
 end
 #   def all_coaches_total_games_helper
