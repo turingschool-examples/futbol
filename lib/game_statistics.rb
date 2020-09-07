@@ -47,4 +47,10 @@ module GameStatistics
     percent_ties = percentage_ties_helper
     ((percent_ties.to_f / @games.length.to_f) * 100).round(2)
   end
+
+  def percentage_ties_helper
+    @games.count do |game|
+      game.home_goals == game.away_goals
+    end
+  end
 end
