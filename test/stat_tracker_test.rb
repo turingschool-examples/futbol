@@ -25,7 +25,12 @@ class StatTrackerTest < Minitest::Test
   end
 
 # ~~~ GAME METHOD TESTS~~~
-
+  def test_it_can_get_percentage_away_games_won
+    assert_equal 33.33, @stats.percentage_away_wins
+  end
+  #   assert_equal 17.67, @stats.percentage_ties
+  #   assert_equal 50.00, @stats.percentage_home_wins
+  # end
 
 # ~~~ LEAGUE METHOD TESTS~~~
 
