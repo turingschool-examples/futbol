@@ -116,7 +116,7 @@ class StatTracker
   def worst_offense # Theres so much we can do to refactor this
     team_ids = {}
     team_game_count = {}
-    @game_teams.each do |game_team|
+    @game_teams.each do |game_team| # Refector this into a helper method
       if team_ids.keys.include?(game_team["team_id"])
         team_ids[game_team["team_id"]] += game_team["goals"].to_i
         team_game_count[game_team["team_id"]] += 1

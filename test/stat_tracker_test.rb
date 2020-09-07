@@ -40,7 +40,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_calculate_highest_total_score
 
-    assert_equal 6, @stat_tracker.highest_total_score
+    assert_equal 7, @stat_tracker.highest_total_score
   end
 
   def test_it_can_calculate_lowest_total_score
@@ -50,36 +50,36 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_calculate_percentage_home_wins
 
-    assert_equal 0.60, @stat_tracker.percentage_home_wins
+    assert_equal 0.50, @stat_tracker.percentage_home_wins
   end
 
   def test_it_can_calculate_percentage_visitor_wins
 
-    assert_equal 0.20, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.33, @stat_tracker.percentage_visitor_wins
   end
 
   def test_it_can_calculate_percentage_ties
 
-    assert_equal 0.20, @stat_tracker.percentage_ties
+    assert_equal 0.17, @stat_tracker.percentage_ties
   end
 
   def test_it_can_count_games_by_season
 
-    assert_equal ({'20132014' => 2, '20122013' => 3}), @stat_tracker.count_of_games_by_season
+    assert_equal ({"20132014"=>2, "20122013"=>4}), @stat_tracker.count_of_games_by_season
   end
 
   def test_it_can_average_goals_per_game
 
-    assert_equal 5.00, @stat_tracker.average_goals_per_game
+    assert_equal 5.33, @stat_tracker.average_goals_per_game
   end
 
   def test_it_can_average_goals_by_season
 
-    assert_equal ({'20132014' => 4, '20122013' => 5.67}), @stat_tracker.average_goals_by_season
+    assert_equal ({'20132014' => 4.0, '20122013' => 6.0}), @stat_tracker.average_goals_by_season
   end
   
   def test_it_can_count_total_number_of_teams
-    assert_equal 6, @stat_tracker.count_of_teams
+    assert_equal 7, @stat_tracker.count_of_teams
   end
 
   def test_it_can_get_name_of_team_with_best_offense
@@ -88,5 +88,9 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_name_of_team_with_worst_offense
     assert_equal "Houston Dynamo", @stat_tracker.worst_offense
+  end
+  
+  def test_can_find_highest_scoring_visitor
+    assert_equal "Real Salt Lake", @stat_tracker.highest_scoring_visitor
   end
 end
