@@ -19,7 +19,7 @@ class StatTracker
     self.new(Team.all_teams, Game.all_games, GameTeam.all_game_teams)
   end
 
-# ~~~ HELPER METHODS~~~
+# ~~~ Helper Methods ~~~~
   def total_games
     @games.count
   end
@@ -28,7 +28,27 @@ class StatTracker
     (numerator.count / denominator.to_f * 100).round(2)
   end
 
-# ~~~ GAME METHODS~~~
+  def sum_game_goals
+    game_goals_hash = {}
+    @games.each do |game|
+      game_goals_hash[game.game_id] = (game.away_goals + game.home_goals)
+    end
+    game_goals_hash
+  end
+
+# ~~~ Game Methods ~~~
+  def lowest_total_score
+    sum_game_goals.min_by do |game_id, score|
+      score
+    end.last
+  end
+
+  def highest_total_score
+    sum_game_goals.max_by do |game_id, score|
+      score
+    end.last
+  end
+
   def percentage_away_wins
     wins = @games.find_all { |game| game.away_goals > game.home_goals}
     find_percent(wins, total_games)
