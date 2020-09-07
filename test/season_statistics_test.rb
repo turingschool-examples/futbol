@@ -12,29 +12,28 @@ class SeasonStatistcsTest < Minitest::Test
       teams: team_path,
       game_teams: game_teams_path
     }
-    @stat = StatTracker.new
+    @stat = StatTracker.from_csv(@locations)
 
   end
 
   def test_it_exists
-    stat_tracker = StatTracker.from_csv(@locations)
-    season_statistics = SeasonStatistics.new(stat_tracker, @stat)
+    season_statistics = SeasonStatistics.new(@stat)
 
     assert_instance_of SeasonStatistics, season_statistics
   end
 
   def test_coach_game_results
-    stat_tracker = StatTracker.from_csv(@locations)
-    season_statistics = SeasonStatistics.new(stat_tracker, @stat)
+    season_statistics = SeasonStatistics.new(@stat)
 
+    assert_equal 60, season_statistics.coach_game_results.count
     assert_equal 60, season_statistics.coach_game_results.count
   end
 
   def test_winningest_coach
-    stat_tracker = StatTracker.from_csv(@locations)
-    season_statistics = SeasonStatistics.new(stat_tracker, @stat)
+    season_statistics = SeasonStatistics.new(@stat)
 
-    assert_equal "Dan Lacroix", season_statistics.winningest_coach
+    assert_equal "Claude Julien", season_statistics.winningest_coach("20132014")
+    assert_equal "Alain Vigneault", season_statistics.winningest_coach("20142015")
   end
 
 end

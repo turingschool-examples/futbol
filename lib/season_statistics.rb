@@ -2,28 +2,56 @@ require_relative "stat_tracker"
 
 class SeasonStatistics
   attr_reader :stat_tracker_copy
-  def initialize(csv_files, stat_tracker)
-    @csv_game_teams_table = csv_files.game_teams
+  def initialize(stat_tracker)
+    @csv_game_teams_table = stat_tracker.game_teams
+    @csv_games_table = stat_tracker.games
     @stat_tracker_copy = stat_tracker
-    @coach_hash = coach_game_results
+    @season_coach_hash = coach_game_results
+  end
+
+  def map_season_to_game_ids
+    season_game_id_hash = {}
+    @csv_games_table.each do |game_id, game|
+      season_game_id_hash[game_id] = game.season
+    end
+    season_game_id_hash
+  end
+
+  def find_all_seasons
+    seasons = []
+    @csv_games_table.each do |game_id, game|
+      if !seasons.include?(game.season)
+        seasons << game.season
+      end
+    end
+    seasons
   end
 
   def coach_game_results
-    coach_hash = {}
-    @csv_game_teams_table.each do |key, value|
-      if coach_hash[value.head_coach]
-        coach_hash[value.head_coach] << value.result
-      else
-        coach_hash[value.head_coach] = [value.result]
+    seasons = find_all_seasons
+    season_game_id_hash = map_season_to_game_ids
+    season_coach_hash = {}
+
+    seasons.each do |season|
+      coach_results_hash = {}
+      @csv_game_teams_table.each do |game_id, game_team|
+        if season_game_id_hash[game_id] == season
+          if coach_results_hash[game_team.head_coach]
+            coach_results_hash[game_team.head_coach] << game_team.result
+          else
+            coach_results_hash[game_team.head_coach] = [game_team.result]
+          end
+        end
       end
+      season_coach_hash[season] = coach_results_hash
     end
-    coach_hash
+    season_coach_hash
   end
 
-  def winningest_coach
+  def winningest_coach(season)
     winningest_coach_name = nil
     highest_percentage = 0
-    @coach_hash.each do |key, value|
+    @season_coach_hash[season].each do |key, value|
       total_games = 0
       total_wins = 0
       total_losses = 0
@@ -45,7 +73,7 @@ class SeasonStatistics
         # require "pry"; binding.pry/
       end
     end
-    winningest_coach_name
+    @stat_tracker_copy.winningest_coach = winningest_coach_name
   end
 
 end
