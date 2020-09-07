@@ -39,4 +39,20 @@ class GameMethodsTest < Minitest::Test
 
     assert_equal 0, game_methods.lowest_total_score
   end
+
+  def test_average_goals_by_season
+    file_loc = './data/games.csv'
+
+    game_methods = GameMethods.new(file_loc)
+
+    expected = {
+          "20122013"=>4.12,
+          "20162017"=>4.23,
+          "20142015"=>4.14,
+          "20152016"=>4.16,
+          "20132014"=>4.19,
+          "20172018"=>4.44
+        }
+    assert_equal expected, game_methods.average_goals_by_season
+  end
 end
