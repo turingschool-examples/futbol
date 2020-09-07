@@ -20,15 +20,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal 12, @stats.game_teams.count
   end
 
-# ~~~ HELPER METHOD TESTS~~~
-  def test_it_can_find_total_games
-    assert_equal 6, @stats.total_games
-  end
-
-  def test_it_can_find_percentage
-    wins = ["game1", "game2", "game3"]
-    assert_equal 50.00, @stats.find_percent(wins.count, 6)
-  end
+  # ~~~ HELPER METHOD TESTS~~~
 
   def test_it_can_sum_goals_per_game
     expected = {
@@ -96,10 +88,4 @@ class StatTrackerTest < Minitest::Test
 
 
 # ~~~ TEAM METHOD TESTS~~~
-
-
-
-
-
-
 end
