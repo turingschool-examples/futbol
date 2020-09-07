@@ -25,6 +25,11 @@ class GameStatisticsTest <Minitest::Test
 
   def test_it_can_find_percentage_home_wins
     assert_equal 50.0, @stat_tracker.percentage_home_wins
-    assert_equal 20, @stat_tracker.percent_home_win_helper
+    assert_equal 20, @stat_tracker.percentage_home_win_helper
+  end
+
+  def test_it_can_find_percentage_away_wins
+    assert_equal 27.5, @stat_tracker.percentage_away_wins
+    assert_equal 11, @stat_tracker.percentage_away_win_helper
   end
 end
