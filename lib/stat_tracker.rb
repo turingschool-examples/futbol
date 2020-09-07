@@ -36,6 +36,9 @@ class StatTracker
     game_goals_hash
   end
 
+  def filter_by_season
+  end
+
 # ~~~ Game Methods ~~~
   def lowest_total_score
     sum_game_goals.min_by do |game_id, score|
@@ -66,7 +69,7 @@ class StatTracker
   end
 
   def season_win_percentage(team_id, season)
-    find_percent(total_team_wins, count_of_games_by_season.count)
+    find_percent(total_team_wins, count_of_games_by_season[season])
   end
 
   def percentage_away_wins

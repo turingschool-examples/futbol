@@ -34,6 +34,12 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.sum_game_goals
   end
 
+  def test_it_can_filter_games_by_season
+    @stats.games.delete_at(-1)
+    expected = @stats.games
+    assert_equal expected, @stats.filter_by_season
+  end
+
   def test_it_can_count_total_home_wins
     assert_equal 0, @stats.team_wins_as_home(1, "20142015")
     assert_equal 0, @stats.team_wins_as_home(4, "20142015")
@@ -56,7 +62,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_determine_season_win_percentage
-    skip 
+    skip
     expected = {"20142015" => 4}
     @stats.stubs(:count_of_games_by_season).returns(expected)
     assert_equal 25, @stats.season_win_percentage(1, "20142015")
