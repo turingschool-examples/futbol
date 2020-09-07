@@ -27,7 +27,7 @@ class TestStatTracker <Minitest::Test
   end
 
   def test_it_has_data
-binding.pry
+
     assert_equal "20122013", @stat_tracker.games[5].season
     assert_equal "Columbus Crew SC", @stat_tracker.teams[31].team_name
     assert_equal 41.5, @stat_tracker.game_teams[14028].faceOffWinPercentage
