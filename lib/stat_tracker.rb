@@ -197,5 +197,25 @@ class StatTracker
     worst_home_scorer["teamName"]
   end
 
+  def lowest_scoring_home_team
+    team_game_count = {}
+    home_points = {}
+    @games.each do |game|
+      if home_points.key?(game["home_team_id"])
+        home_points[game["home_team_id"]] += game["home_goals"].to_i
+        team_game_count[game["home_team_id"]] += 1
+      else
+        home_points[game["home_team_id"]] = game["home_goals"].to_i
+        team_game_count[game["home_team_id"]] = 1
+      end
+    end
+    highest_scoring_home_team = home_points.min_by do |team, score|
+        score.to_f / team_game_count[team]
+    end
+    best_home_scorer = @teams.find do |team|
+      team["team_id"] == highest_scoring_home_team[0]
+    end
+    best_home_scorer["teamName"]
+  end
 
 end
