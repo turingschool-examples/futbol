@@ -91,4 +91,25 @@ class StatTracker
   def count_of_teams
     @teams.count
   end
+
+  def best_offense # Theres so much we can do to refactor this
+    team_ids = {}
+    team_game_count = {}
+    @game_teams.each do |game_team|
+      if team_ids.keys.include?(game_team["team_id"])
+        team_ids[game_team["team_id"]] += game_team["goals"].to_i
+        team_game_count[game_team["team_id"]] += 1
+      else
+        team_ids[game_team["team_id"]] =  game_team["goals"].to_i
+        team_game_count[game_team["team_id"]] = 1
+      end
+    end
+    highest_scoring_team = team_ids.max_by do |team, score|
+      score / team_game_count[team]
+    end
+    best_offense = @teams.find do |team|
+      team["team_id"] == highest_scoring_team[0]
+    end
+    best_offense["teamName"]
+  end
 end
