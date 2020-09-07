@@ -83,7 +83,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_name_of_coach_with_highest_win_percentage
 
-    assert_equal ["Claude Julien"], @stat_tracker.coach_with_highest_win_percentage
+    assert_equal ["Claude Julien"], @stat_tracker.name_of_coach_with_highest_win_percentage
 
   end
 end
