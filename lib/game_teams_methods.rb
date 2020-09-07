@@ -36,48 +36,11 @@ attr_reader :game_teams, :game_teams_table
     team_goals
   end
 
-  def average_goals_by_team
-    team_goals = assign_goals_by_teams
-
-    team_goals.values.each do |goals|
-      average_goals = 0
-      total = 0
-      goals.each do |goal|
-        total += goal.to_f
-      end
-      average_goals = (total / goals.size).round(2)
-      team_goals[team_goals.key(goals)] = average_goals
-    end
-    team_goals
-  end
-
-  def highest_scoring_visitor_team_id_average_goals
-    away_team_averages = average_goals_by_away_team
-    away_team_averages.max_by do |key, value|
-      value
-    end
-  end
-
-  def average_goals_by_away_team
-    away_team_goals = assign_goals_by_away_teams
-
-    away_team_goals.values.each do |goals|
-      average_goals = 0
-      total = 0
-      goals.each do |goal|
-        total += goal.to_f
-      end
-      average_goals = (total / goals.size).round(2)
-      away_team_goals[away_team_goals.key(goals)] = average_goals
-    end
-    away_team_goals
-  end
-
-  def assign_goals_by_away_teams
-    team = find_all_away_games.map do |row|
+  def assign_goals_by_home_or_away_teams(home_away)
+    team = find_all_games(home_away).map do |row|
       row['team_id']
     end
-    goals = find_all_away_games.map do |row|
+    goals = find_all_games(home_away).map do |row|
       row['goals']
     end
     away_team_goals = Hash.new
@@ -91,9 +54,51 @@ attr_reader :game_teams, :game_teams_table
     away_team_goals
   end
 
-  def find_all_away_games
+  def average_goals_by_team
+    team_goals = assign_goals_by_teams
+    team_goals.values.each do |goals|
+      average_goals = 0
+      total = 0
+      goals.each do |goal|
+        total += goal.to_f
+      end
+      average_goals = (total / goals.size).round(2)
+      team_goals[team_goals.key(goals)] = average_goals
+    end
+    team_goals
+  end
+
+  def highest_scoring_team_id_average_goals(home_away)
+    away_team_averages = average_goals_by_home_or_away_team(home_away)
+    away_team_averages.max_by do |key, value|
+      value
+    end
+  end
+
+  def lowest_scoring_team_id_average_goals(home_away)
+    away_team_averages = average_goals_by_home_or_away_team(home_away)
+    away_team_averages.min_by do |key, value|
+      value
+    end
+  end
+
+  def average_goals_by_home_or_away_team(home_away)
+    away_team_goals = assign_goals_by_home_or_away_teams(home_away)
+    away_team_goals.values.each do |goals|
+      average_goals = 0
+      total = 0
+      goals.each do |goal|
+        total += goal.to_f
+      end
+      average_goals = (total / goals.size).round(2)
+      away_team_goals[away_team_goals.key(goals)] = average_goals
+    end
+    away_team_goals
+  end
+
+  def find_all_games(home_away)
     @game_teams_table.find_all do |gameteam|
-        gameteam["HoA"] == "away"
+        gameteam["HoA"] == home_away
     end
   end
 end
