@@ -9,7 +9,13 @@ class GameTeam
               :head_coach,
               :goals,
               :shots,
-              :tackles
+              :tackles,
+              :pim,
+              :ppo,
+              :ppg,
+              :fowp,
+              :giveaways,
+              :takeaways
 
   @@all_game_teams = []
 
@@ -23,7 +29,12 @@ class GameTeam
     @goals = data[:goals]
     @shots = data[:shots]
     @tackles = data[:tackles]
-
+    @pim = data[:pim]
+    @ppo = data[:powerplayopportunities]
+    @ppg = data[:powerplaygoals]
+    @fowp = data[:faceoffwinpercentage]
+    @giveaways = data[:giveaways]
+    @takeaways = data[:takeaways]
   end
 
   def self.from_csv(path = "./data/game_teams_sample.csv")
