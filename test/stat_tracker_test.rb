@@ -20,6 +20,16 @@ class StatTrackerTest < Minitest::Test
     assert_equal 12, @stats.game_teams.count
   end
 
+# ~~~ HELPER METHOD TESTS~~~
+  def test_it_can_find_total_games
+    assert_equal 6, @stats.total_games
+  end
+
+  def test_it_can_find_percentage
+    wins = ["game1", "game2", "game3"]
+    assert_equal 50.00, @stats.find_percent(wins, 6)
+  end
+
   def test_it_can_sum_goals_per_game
     expected = {
       2014020006 => 6,
@@ -32,19 +42,60 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.sum_game_goals
   end
 
+  def test_it_can_count_total_home_wins
+    assert_equal 0, @stats.home_team_wins(1)
+    assert_equal 0, @stats.home_team_wins(4)
+    assert_equal 1, @stats.home_team_wins(6)
+  end
+
+  def test_it_can_count_total_away_wins
+    assert_equal 1, @stats.away_team_wins(1)
+    assert_equal 0, @stats.away_team_wins(4)
+    assert_equal 1, @stats.away_team_wins(6)
+  end
+
+  def test_it_can_count_total_number_of_wins_per_season
+    assert_equal 1, @stats.total_team_wins(1)
+    assert_equal 0, @stats.total_team_wins(4)
+    assert_equal 2, @stats.total_team_wins(6)
+  end
+
+  def test_it_can_determine_season_win_percentage
+    skip
+    assert_equal 33.33, @stats.season_win_percentage(1)
+    assert_equal 0, @stats.season_win_percentage(4)
+    assert_equal 66.67, @stats.season_win_percentage(6)
+  end
+
+# ~~~ GAME METHOD TESTS~~~
+  def test_it_can_get_percentage_away_games_won
+    assert_equal 33.33, @stats.percentage_away_wins
+  end
+
+  def test_it_can_get_percentage_ties
+    assert_equal 33.33, @stats.percentage_ties
+  end
+
+  def test_it_can_get_percentage_home_wins
+    assert_equal 33.33, @stats.percentage_home_wins
+  end
+
   def test_it_can_determine_highest_and_lowest_game_score
     assert_equal 2, @stats.lowest_total_score
     assert_equal 6, @stats.highest_total_score
   end
 
-  def test_it_can_count_total_number_of_wins_per_season
-    assert_equal 1, @stats.total_wins(1)
-  end
+# ~~~ LEAGUE METHOD TESTS~~~
 
-  def test_it_can_determine_season_win_percentage
-    skip
-    assert_equal 33.33, @stats.season_win_percentage(team_id)
-  end
+
+# ~~~ SEASON METHOD TESTS~~~
+
+
+# ~~~ TEAM METHOD TESTS~~~
+
+
+
+
 
 
 end
