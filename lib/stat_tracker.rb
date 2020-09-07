@@ -43,6 +43,30 @@ class StatTracker
     teams.uniq.count
   end
 
+  def best_offense
+    best_offense = get_goals.max_by do |team, stats|
+      stats[:total_goals] / stats[:total_games].to_f
+    end
+  end
+
+  def get_goals
+    team_id_hash = {}
+
+    teams.each do |team|
+      team_id_hash[team['team_id']] = {total_games: 0, total_goals: 0}
+    end
+
+    team_id_hash.each do |team_id, games_goals|
+      games.each do |game|
+        if team_id == game['away_team_id'] || team_id == game['home_team_id']
+          games_goals[:total_games] += 1
+          games_goals[:total_goals] += game['away_goals'].to_i if team_id == game['away_team_id']
+          games_goals[:total_goals] += game['home_goals'].to_i if team_id == game['home_team_id']
+        end
+      end
+    end
+  end
+
 # #------------SeasonStatistics
 #
 #   def winningest_coach
