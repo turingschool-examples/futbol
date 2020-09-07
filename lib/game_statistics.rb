@@ -30,4 +30,14 @@ class GameStatistics
       game[:hoa] == "home" && game[:result] == "WIN"
     end
   end
+
+  def percentage_visitor_wins
+    (all_visitor_wins.count.to_f / @game_data.count).round(2)
+  end
+
+  def all_visitor_wins
+    @game_teams_data.select do |game|
+      game[:hoa] == "away" && game[:result] == "WIN"
+    end
+  end
 end
