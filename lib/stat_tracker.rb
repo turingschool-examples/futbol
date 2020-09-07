@@ -191,10 +191,10 @@ class StatTracker
     lowest_scoring_visitor = away_points.min_by do |team, score|
         score.to_f / team_game_count[team]
     end
-    worst_home_scorer = @teams.find do |team|
+    worst_away_scorer = @teams.find do |team|
       team["team_id"] == lowest_scoring_visitor[0]
     end
-    worst_home_scorer["teamName"]
+    worst_away_scorer["teamName"]
   end
 
   def lowest_scoring_home_team
@@ -209,13 +209,13 @@ class StatTracker
         team_game_count[game["home_team_id"]] = 1
       end
     end
-    highest_scoring_home_team = home_points.min_by do |team, score|
+    lowest_scoring_home_team = home_points.min_by do |team, score|
         score.to_f / team_game_count[team]
     end
-    best_home_scorer = @teams.find do |team|
-      team["team_id"] == highest_scoring_home_team[0]
+    worst_home_scorer = @teams.find do |team|
+      team["team_id"] == lowest_scoring_home_team[0]
     end
-    best_home_scorer["teamName"]
+    worst_home_scorer["teamName"]
   end
 
 end
