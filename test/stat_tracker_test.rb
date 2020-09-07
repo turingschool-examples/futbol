@@ -47,16 +47,32 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas", @stat_tracker.best_offense
   end
 
-  def total_games_played_by_coach_helper
+  # ************* SeasonStatistics Tests *************
 
-    expected = {"John Tortorella"=>3, "Claude Julien"=>5}
+  def test_total_games_played_by_coach_helper
+
+    expected = {"John Tortorella"=>5, "Claude Julien"=>9, "Dan Bylsma"=>4, "Mike Babcock"=>1}
 
 
-    assert_equal expected, @stat_tracker.all_coaches_helper
+    assert_equal expected, @stat_tracker.total_games_played_by_coach_helper
   end
 
-  def test_all_coaches_total_games_helper
-skip
-    assert_equal 3, @stat_tracker.all_coaches_total_games_helper
+  def test_total_games_won_by_coach_array_helper
+    assert_equal ["Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien",], @stat_tracker.total_games_won_by_coach_array_helper
+  end
+
+  def test_games_won_into_hash_helper
+
+    expected = {"Claude Julien"=>9}
+
+    assert_equal expected, @stat_tracker.games_won_into_hash_helper
+  end
+
+  def test_coaches_winning_percentage
+
+    expected = {"Claude Julien"=>100}
+
+    assert_equal expected , @stat_tracker.coaches_winning_percentage
+
   end
 end

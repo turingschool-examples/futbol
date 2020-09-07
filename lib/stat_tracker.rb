@@ -48,13 +48,40 @@ class StatTracker
 # ************* Season Statistics *************
   def total_games_played_by_coach_helper
     games_coached_hash =  @game_teams["head_coach"].group_by(&:itself)
-      games_coached_hash.map{|key, value| [key, value.length]}.to_h
+        games_coached_hash.map{|key, value| [key, value.length]}.to_h
       end
-  def total_games_won_by_coach_helper
 
-
+  def total_games_won_by_coach_array_helper
+    games_won_array = []
+    @game_teams.each do |row|
+      if row[3] == "WIN"
+        games_won_array << row[5]
       end
+    end
+    games_won_array
   end
+
+  def games_won_into_hash_helper
+  games_won_hash = total_games_won_by_coach_array_helper.group_by(&:itself)
+    games_won_hash.map{|key, value| [key, value.length]}.to_h
+  end
+
+  def coaches_with_games_played_and_won_array
+      coaches_with_games_played_array = total_games_played_by_coach_helper.keys
+      coaches_with_games_won_array = games_won_into_hash_helper.keys
+      coaches_with_games_won_and_played_array = coaches_with_games_played_array & coaches_with_games_won_array
+      coaches_with_games_won_and_played_array
+  end
+
+  def coaches_winning_percentage
+    coaches_winning_percentage_variable = {}
+    coaches_with_games_played_and_won_array.each do |coach|
+
+      coaches_winning_percentage_variable[coach] = ((games_won_into_hash_helper[coach] / total_games_played_by_coach_helper[coach] * 100))
+    end
+    coaches_winning_percentage_variable
+  end
+end
 #   def all_coaches_total_games_helper
 #     all_coaches_helper.group_by(&:itself)
 #   end
