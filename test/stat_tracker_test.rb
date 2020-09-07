@@ -94,7 +94,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Real Salt Lake", @stat_tracker.highest_scoring_visitor
   end
 
-    def highest_scoring_home_team
-      require "pry"; binding.pry
-      assert_equal "FC Dallas", @stat_tracker.highest_scoring_home_team
+  def test_can_find_highest_scoring_home_team
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_can_test_lowest_scoring_visitor
+    assert_equal "Real Salt Lake", @stat_tracker.lowest_scoring_visitor
+  end
 end
