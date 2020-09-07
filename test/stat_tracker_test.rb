@@ -19,6 +19,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal 12, @stats.game_teams.count
   end
 
+  # ~~~ HELPER METHOD TESTS~~~
+
   def test_it_can_sum_goals_per_game
     expected = {
       2014020006 => 6,
@@ -36,8 +38,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal 6, @stats.highest_total_score
   end
 
-
-# ~~~ HELPER METHOD TESTS~~~
   def test_it_can_find_total_games
     assert_equal 6, @stats.total_games
   end
