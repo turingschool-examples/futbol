@@ -37,4 +37,34 @@ class StatTrackerTest < Minitest::Test
   end
 
 
+# ~~~ HELPER METHOD TESTS~~~
+  def test_it_can_find_total_games
+    assert_equal 6, @stats.total_games
+  end
+
+  def test_it_can_find_percentage
+    wins = ["game1", "game2", "game3"]
+    assert_equal 50.00, @stats.find_percent(wins, 6)
+  end
+
+# ~~~ GAME METHOD TESTS~~~
+  def test_it_can_get_percentage_away_games_won
+    assert_equal 33.33, @stats.percentage_away_wins
+  end
+
+  def test_it_can_get_percentage_ties
+    assert_equal 33.33, @stats.percentage_ties
+  end
+
+  def test_it_can_get_percentage_home_wins
+    assert_equal 33.33, @stats.percentage_home_wins
+  end
+
+# ~~~ LEAGUE METHOD TESTS~~~
+
+
+# ~~~ SEASON METHOD TESTS~~~
+
+
+# ~~~ TEAM METHOD TESTS~~~
 end
