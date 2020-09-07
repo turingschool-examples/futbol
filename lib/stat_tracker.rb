@@ -11,7 +11,7 @@ class StatTracker
   attr_accessor :highest_total_score,
                 :lowest_total_score,
                 :percentage_home_wins,
-                :percentage_visitor_stat,
+                :percentage_visitor_wins,
                 :percentage_ties,
                 :count_of_games_by_season,
                 :average_goals_per_game,

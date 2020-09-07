@@ -51,6 +51,6 @@ class GameStatistcsTest < Minitest::Test
     game_statistics = GameStatistics.new(stat_tracker,@stat)
     game_statistics.percentage_visitor_wins
 
-    assert_equal 0.68, @stat.percentage_visitor_wins
+    assert_equal 0.36, @stat.percentage_visitor_wins
   end
 end

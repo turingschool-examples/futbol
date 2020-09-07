@@ -36,13 +36,26 @@ class GameStatistics
       if value.home_goals > value.away_goals
         home_wins += 1
         total_games += 1
-      elsif value.home_goals < value.away_goals
-        total_games += 1
-      elsif value.home_goals == value.away_goals
+      elsif value.home_goals <= value.away_goals
         total_games += 1
       end
     end
     percentage_wins = (home_wins.to_f/total_games.to_f).round(2)
     @stat_tracker.percentage_home_wins = percentage_wins
+  end
+
+  def percentage_visitor_wins
+    visitor_wins = 0
+    total_games = 0
+    @game_files.each do |key, value|
+      if value.away_goals > value.home_goals
+        visitor_wins += 1
+        total_games += 1
+      elsif value.away_goals <= value.home_goals
+        total_games += 1
+      end
+    end
+    percentage_wins = (visitor_wins.to_f/total_games.to_f).round(2)
+    @stat_tracker.percentage_visitor_wins = percentage_wins
   end
 end
