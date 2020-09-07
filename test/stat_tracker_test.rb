@@ -79,7 +79,21 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal 8, stat_tracker.count_of_teams
   end
-#
+  
+  def test_it_can_find_the_best_offense
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal "Reign FC", stat_tracker.best_offense
+  end
 #   #--------------SeasonStatisticsTests
 #   def test_it_can_find_winningest_coach
 #     game_path = './data/games_dummy.csv'
