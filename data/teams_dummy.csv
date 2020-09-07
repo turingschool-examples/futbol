@@ -9,3 +9,5 @@ team_id,franchiseId,teamName,abbreviation,Stadium,link
 19,18,Philadelphia Union,PHI,Talen Energy Stadium,/api/v1/teams/19
 12,26,Sky Blue FC,SBL,Yurcak Field,/api/v1/teams/12
 29,36,Orlando Pride,FLP,Exploria Stadium,/api/v1/teams/29
+23,20,Montreal Impact,MTL,Saputo Stadium,/api/v1/teams/23
+30,37,Orlando City SC,ORL,Exploria Stadium,/api/v1/teams/30
