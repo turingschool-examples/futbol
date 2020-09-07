@@ -73,6 +73,23 @@ class StatTracker
       game['result'] == "WIN"
     end.count
   end
+
+  def tie_percentage
+    average = all_tie_games / all_games.to_f
+    average.round(2)
+  end
+
+  def all_games
+    game_teams.find_all do |game|
+      game['HoA'] == "away" || game['HoA'] == "home"
+    end.count
+  end
+
+  def all_tie_games
+    all_away_games.find_all do |game|
+      game['result'] == "TIE"
+    end.count
+  end
 #
 #------------LeagueStatistics
   def count_of_teams
