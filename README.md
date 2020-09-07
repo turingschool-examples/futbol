@@ -1,3 +1,5 @@
 # Futbol
 
-Starter repository for the [Turing School](https://turing.io/) Futbol project.
+Contributors: Brian Liu, Nick King, Todd Estes, and Eugene Theriault  
+
+![Alt Text](https://media.giphy.com/media/pdAiipxDMCHni/giphy.gif)
