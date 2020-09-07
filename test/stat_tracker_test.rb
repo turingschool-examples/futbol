@@ -77,4 +77,8 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal ({'20132014' => 4, '20122013' => 5.67}), @stat_tracker.average_goals_by_season
   end
+  
+  def test_it_can_count_total_number_of_teams
+    assert_equal 4, @stat_tracker.count_of_teams
+  end
 end
