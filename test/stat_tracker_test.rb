@@ -68,4 +68,15 @@ class StatTrackerTest < Minitest::Test
     stat_tracker = StatTracker.new(locations)
     assert_equal 14_882, stat_tracker.game_teams_stats.count
   end
+
+  def test_team_stats
+    locations = {
+      games: './data/games.csv',
+      teams: './data/teams.csv',
+      game_teams: './data/game_teams.csv'
+    }
+
+    stat_tracker = StatTracker.new(locations)
+    assert_equal 32, stat_tracker.teams_stats.count
+  end
 end
