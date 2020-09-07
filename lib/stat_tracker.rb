@@ -45,7 +45,12 @@ class StatTracker
   end
 
   def lowest_scoring_visitor_team
-    lowest_visitor = @game_teams_methods.lowest_scoring_visitor_team_id_average_goals
+    lowest_visitor = @game_teams_methods.lowest_scoring_team_id_average_goals("away")
+    @team_methods.find_by_id(lowest_visitor.first)
+  end
+
+  def lowest_scoring_home_team
+    lowest_visitor = @game_teams_methods.lowest_scoring_team_id_average_goals("home")
     @team_methods.find_by_id(lowest_visitor.first)
   end
 end
