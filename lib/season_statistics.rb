@@ -5,6 +5,7 @@ class SeasonStatistics
   def initialize(csv_files, stat_tracker)
     @csv_game_teams_table = csv_files.game_teams
     @stat_tracker_copy = stat_tracker
+    @coach_hash = coach_game_results
   end
 
   def coach_game_results
@@ -20,14 +21,13 @@ class SeasonStatistics
   end
 
   def winningest_coach
-    coach_game_results.each do |key, value|
-      winningest_coach_name = nil
-      highest_percentage = 0
+    winningest_coach_name = nil
+    highest_percentage = 0
+    @coach_hash.each do |key, value|
       total_games = 0
       total_wins = 0
       total_losses = 0
       total_ties = 0
-      # require "pry"; binding.pry
       value.each do |game_result|
         total_games += 1
         if game_result == "WIN"
@@ -38,11 +38,11 @@ class SeasonStatistics
           total_ties += 1
         end
       end
-      p " #{key} +  #{(total_wins.to_f / total_games).round(2)}"
+      # p " #{key} +  #{(total_wins.to_f / total_games).round(2)}"
       if (total_wins.to_f / total_games) > highest_percentage
         highest_percentage = (total_wins.to_f / total_games)
         winningest_coach_name = key
-        require "pry"; binding.pry
+        # require "pry"; binding.pry/
       end
     end
     winningest_coach_name
