@@ -19,6 +19,12 @@ module SeasonStatistics
     end
   end
 
+  def game_teams_data_for_season(season_id)
+    @game_teams.find_all do |game_team|
+      game_team.game_id.include?(season_id[0..4])
+    end
+  end
+
   # def find_game_teams_data_for_season(season_id)
   #   game_teams.
   # end

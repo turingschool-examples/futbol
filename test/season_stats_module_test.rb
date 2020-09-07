@@ -36,5 +36,28 @@ class SeasonStatisticsTest <Minitest::Test
     assert_equal expected, @stat_tracker.find_all_games_from_season("20122013")[0]
   end
 
+  def test_array_of_game_id_from_season
+#should add more tests here
+    assert_equal "2012030221", @stat_tracker.array_of_game_id_from_season("20122013")[0]
+  end
 
+  def test_find_game_teams_data_for_season
+    # expected = <GameTeams:0x00007f898640b318
+    #           @HoA="away",
+    #           @faceOffWinPercentage=44.8,
+    #           @game_id="2012030221",
+    #           @giveaways=17,
+    #           @goals=2,
+    #           @head_coach="John Tortorella",
+    #           @pim=8,
+    #           @powerPlayGoals=0,
+    #           @powerPlayOpportunities=3,
+    #           @result="LOSS",
+    #           @settled_in="OT",
+    #           @shots=8,
+    #           @tackles=44,
+    #           @takeaways=7,
+    #           @team_id="3">
+    assert_equal [], @stat_tracker.game_teams_data_for_season("20122013")[0]
+  end
 end
