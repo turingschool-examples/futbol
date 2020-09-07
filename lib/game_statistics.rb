@@ -28,4 +28,19 @@ class GameStatistics
     end
     @stat_tracker.lowest_total_score_stat = lowest_total
   end
+
+  def percentage_home_wins
+    home_wins = 0
+    total_games = 0
+    @game_files.each do |key, value|
+      if value.home_goals > value.away_goals
+        home_wins += 1
+        total_games += 1
+      elsif value.home_goals < value.away_goals
+        total_games += 1
+      end
+    end
+    percentage_wins = (home_wins.to_f/total_games.to_f).round(2)
+    @stat_tracker.percentage_home_wins_stat = percentage_wins
+  end
 end
