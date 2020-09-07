@@ -12,7 +12,9 @@ class SeasonStatistics
   def map_season_to_game_ids
     season_game_id_hash = {}
     @csv_games_table.each do |game_id, game|
-      season_game_id_hash[game_id] = game.season
+      # if game.type = "Regular Season"
+        season_game_id_hash[game_id] = game.season
+      # end
     end
     season_game_id_hash
   end
@@ -64,16 +66,45 @@ class SeasonStatistics
           total_losses += 1
         elsif game_result == "TIE"
           total_ties += 1
+        else
         end
       end
-      # p " #{key} +  #{(total_wins.to_f / total_games).round(2)}"
+      # p " #{key} +  #{(total_wins.to_f / total_games).round(5)}"
+      # p " #{key} +  wins: #{total_wins}, losses:#{total_losses}, ties:#{total_ties}, total games:#{total_games}"
       if (total_wins.to_f / total_games) > highest_percentage
-        highest_percentage = (total_wins.to_f / total_games)
+        highest_percentage = (total_wins.to_f ) / total_games
         winningest_coach_name = key
-        # require "pry"; binding.pry/
       end
     end
+    # require "pry"; binding.pry
     @stat_tracker_copy.winningest_coach = winningest_coach_name
+  end
+
+  def worst_coach(season)
+    worst_coach_name = nil
+    lowest_percentage = 0
+    @season_coach_hash[season].each do |key, value|
+      total_games = 0
+      total_wins = 0
+      total_losses = 0
+      total_ties = 0
+      value.each do |game_result|
+        total_games += 1
+        if game_result == "WIN"
+          total_wins += 1
+        elsif game_result == "LOSS"
+          total_losses += 1
+        elsif game_result == "TIE"
+          total_ties += 1
+        end
+      end
+      # p " #{key} +  #{(total_wins.to_f / total_games).round(5)}"
+      if (total_wins.to_f / total_games) <= lowest_percentage
+        lowest_percentage = (total_wins.to_f / total_games)
+        worst_coach_name = key
+      end
+    end
+    @stat_tracker_copy.worst_coach = worst_coach_name
   end
 
 end

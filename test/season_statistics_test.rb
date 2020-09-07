@@ -22,11 +22,22 @@ class SeasonStatistcsTest < Minitest::Test
     assert_instance_of SeasonStatistics, season_statistics
   end
 
+  def test_map_season_to_game_ids
+    season_statistics = SeasonStatistics.new(@stat)
+
+    assert_equal 7441, season_statistics.map_season_to_game_ids.count
+  end
+
+  def test_find_all_seasons
+    season_statistics = SeasonStatistics.new(@stat)
+
+    assert_equal ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], season_statistics.find_all_seasons
+  end
+
   def test_coach_game_results
     season_statistics = SeasonStatistics.new(@stat)
 
-    assert_equal 60, season_statistics.coach_game_results.count
-    assert_equal 60, season_statistics.coach_game_results.count
+    assert_equal 6, season_statistics.coach_game_results.count
   end
 
   def test_winningest_coach
@@ -34,6 +45,13 @@ class SeasonStatistcsTest < Minitest::Test
 
     assert_equal "Claude Julien", season_statistics.winningest_coach("20132014")
     assert_equal "Alain Vigneault", season_statistics.winningest_coach("20142015")
+  end
+
+  def test_worst_coach
+    season_statistics = SeasonStatistics.new(@stat)
+
+    assert_equal "Peter Laviolette", season_statistics.worst_coach("20132014")
+    assert_equal "Craig MacTavish", season_statistics.worst_coach("20142015")
   end
 
 end
