@@ -30,4 +30,8 @@ class LeagueStatisticsTest < Minitest::Test
   def test_attributes
     assert_equal 32, @league_stats.teams_data.length
   end
+
+  def test_count_of_teams
+    assert_equal 32, @league_stats.count_of_teams
+  end
 end
