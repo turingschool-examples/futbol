@@ -19,6 +19,7 @@ class StatTracker
     self.new(Team.all_teams, Game.all_games, GameTeam.all_game_teams)
   end
 
+# ~~~ Helper Methods ~~~~
   def sum_game_goals
     game_goals_hash = {}
     @games.each do |game|
@@ -27,6 +28,7 @@ class StatTracker
     game_goals_hash
   end
 
+# ~~~ Game Methods ~~~
   def lowest_total_score
     sum_game_goals.min_by do |game_id, score|
       score
