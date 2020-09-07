@@ -220,7 +220,7 @@ class StatTracker
 
   def winningest_coach(season)
     coach_game_count = Hash.new(0)
-    coach_wins = Hash.new(0)
+    coach_wins = Hash.new(0.0)
     games_in_season = @games.select do |game|
       game["season"] == season
     end
@@ -238,11 +238,29 @@ class StatTracker
     best_coach = coach_wins.max_by do |coach, win|
       win / coach_game_count[coach]
     end[0]
-    # require "pry"; binding.pry
-
   end
 
-
+  def worst_coach(season)
+    coach_game_count = Hash.new(0)
+    coach_losses = Hash.new(0.0)
+    games_in_season = @games.select do |game|
+      game["season"] == season
+    end
+    game_ids = games_in_season.map do |game|
+      game["game_id"]
+    end
+    @game_teams.each do |game|
+      if game_ids.include?(game["game_id"])
+        coach_game_count[game["head_coach"]] += 1
+        if game["result"] == "LOSS" || game["result"] == "TIE"
+          coach_losses[game["head_coach"]] += 1
+        end
+      end
+    end
+    worst_coach = coach_losses.max_by do |coach, loss|
+      loss / coach_game_count[coach]
+    end[0]
+  end
 
     # game_results = @game_teams.select do |game_team|
     #   game_team[]
