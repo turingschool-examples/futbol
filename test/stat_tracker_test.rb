@@ -18,4 +18,23 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of GameTeam, @stats.game_teams[0]
     assert_equal 12, @stats.game_teams.count
   end
+
+  def test_it_can_sum_goals_per_game
+    expected = {
+      2014020006 => 6,
+      2014021002 => 4,
+      2014020598 => 3,
+      2014020917 => 5,
+      2014020774 => 4,
+      2017020012 => 2
+    }
+    assert_equal expected, @stats.sum_game_goals
+  end
+
+  def test_it_can_determine_highest_and_lowest_game_score
+    assert_equal 2, @stats.lowest_total_score
+    assert_equal 6, @stats.highest_total_score
+  end
+
+
 end

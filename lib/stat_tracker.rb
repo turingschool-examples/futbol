@@ -18,4 +18,25 @@ class StatTracker
     GameTeam.from_csv(locations[:game_teams])
     self.new(Team.all_teams, Game.all_games, GameTeam.all_game_teams)
   end
+
+  def sum_game_goals
+    game_goals_hash = {}
+    @games.each do |game|
+      game_goals_hash[game.game_id] = (game.away_goals + game.home_goals)
+    end
+    game_goals_hash
+  end
+
+  def lowest_total_score
+    sum_game_goals.min_by do |game_id, score|
+      score
+    end.last
+  end
+
+  def highest_total_score
+    sum_game_goals.max_by do |game_id, score|
+      score
+    end.last
+  end
+
 end
