@@ -218,4 +218,33 @@ class StatTracker
     worst_home_scorer["teamName"]
   end
 
+  def winningest_coach(season)
+    coach_game_count = Hash.new(0)
+    coach_wins = Hash.new(0)
+    games_in_season = @games.select do |game|
+      game["season"] == season
+    end
+    game_ids = games_in_season.map do |game|
+      game["game_id"]
+    end
+
+    @game_teams.each do |game|
+      if game_ids.include?(game["game_id"])
+        coach_game_count[game["head_coach"]] += 1
+        if game["result"] == "WIN"
+          coach_wins[game["head_coach"]] += 1
+        end
+      # else
+      #   coach_game_count[game["head_coach"]] = 1
+      #   coach_wins[game["head_coach"]] = 1
+      end
+    end
+    require "pry"; binding.pry
+  end
+
+
+
+    # game_results = @game_teams.select do |game_team|
+    #   game_team[]
+
 end
