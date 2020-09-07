@@ -87,4 +87,8 @@ class StatTracker
       [season, (goals.to_f / games_by_season[season].to_f).round(2)]
     end.to_h
   end
+  
+  def count_of_teams
+    @teams.count
+  end
 end
