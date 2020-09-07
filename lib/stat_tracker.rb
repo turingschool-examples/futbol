@@ -47,6 +47,10 @@ class StatTracker
     best_offense = get_goals.max_by do |team, stats|
       stats[:total_goals] / stats[:total_games].to_f
     end
+
+    teams.find do |team|
+      team['team_id'] == best_offense[0]
+    end['teamName']
   end
 
   def get_goals
