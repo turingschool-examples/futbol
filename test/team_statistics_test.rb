@@ -75,10 +75,12 @@ class TeamStatisticsTest < Minitest::Test
 
   def test_it_can_find_most_goals_scored_by_team
     assert_equal 3, @stat_tracker.most_goals_scored("17")
+    # Add more assertions?
   end
 
   def test_it_can_find_fewest_goals_scored_by_team
     assert_equal 0, @stat_tracker.fewest_goals_scored("17")
+    # Add more assertions?
   end
 
   def test_it_can_count_total_games_wins_losses_and_ties_for_a_team
@@ -105,6 +107,12 @@ class TeamStatisticsTest < Minitest::Test
 
   def test_it_can_find_a_teams_best_season
     assert_equal "20122013", @stat_tracker.best_season("24")
+    # Add more assertions?
+  end
+
+  def test_it_can_find_a_teams_worst_season
+    assert_equal "20132014", @stat_tracker.worst_season("24")
+    # Add more assertions?
   end
 end
 
