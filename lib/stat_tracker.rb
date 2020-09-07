@@ -20,12 +20,12 @@ class StatTracker
 #
 # #------------GameStatistics
 #
-#   def highest_total_score
-#     result = games.max_by do |game|
-#       game.away_goals.to_i + game.home_goals.to_i
-#     end
-#     result.away_goals.to_i + result.home_goals.to_i
-#   end
+  def highest_total_score
+    result = games.max_by do |game|
+      game['away_goals'].to_i + game['home_goals'].to_i
+    end
+    result['away_goals'].to_i + result['home_goals'].to_i
+  end
 #
 #   def lowest_total_score
 #     result = games.min_by do |game|
@@ -88,5 +88,5 @@ class StatTracker
       (coach_hash[gt.head_coach] ||= []) << gt.result
     end
     coach_hash
-  end  
+  end
 end
