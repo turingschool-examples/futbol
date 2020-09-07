@@ -69,4 +69,8 @@ class GameStatistics
     end
     hash
   end
+
+  def average_goals_per_game
+    (get_all_scores_by_game_id.sum / total_games.to_f).round(2)
+  end
 end
