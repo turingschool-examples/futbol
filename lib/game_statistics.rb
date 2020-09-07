@@ -73,4 +73,15 @@ class GameStatistics
   def average_goals_per_game
     (get_all_scores_by_game_id.sum / total_games.to_f).round(2)
   end
+
+  def average_goals_by_season
+    hash = {}
+    hash_of_seasons.each do |key, value|
+      x = value.map do |game|
+        game[:home_goals] + game[:away_goals]
+      end
+      hash[key.to_s] = (x.sum / value.count.to_f).round(2)
+    end
+    hash
+  end
 end
