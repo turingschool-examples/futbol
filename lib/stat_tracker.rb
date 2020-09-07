@@ -35,6 +35,11 @@ class StatTracker
     (ties.count / total_games.to_f * 100).round(2)
   end
 
+  def percentage_home_wins
+    wins = @games.find_all { |game| game.away_goals < game.home_goals}
+    (wins.count / total_games.to_f * 100).round(2)
+  end
+
 # ~~~ LEAGUE METHODS~~~
 
 # ~~~ SEASON METHODS~~~

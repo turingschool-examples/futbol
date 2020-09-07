@@ -32,8 +32,10 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_percentage_ties
     assert_equal 33.33, @stats.percentage_ties
   end
-  #   assert_equal 33.33, @stats.percentage_home_wins
-  # end
+
+  def test_it_can_get_percentage_home_wins
+    assert_equal 33.33, @stats.percentage_home_wins
+  end
 
 # ~~~ LEAGUE METHOD TESTS~~~
 
