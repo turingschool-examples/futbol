@@ -169,4 +169,40 @@ end
     end
     team_name[2]
   end
+
+  def lowest_win_percentage_by_team_id_helper
+
+    team_id_with_ratio_of_shot = ratio_of_shots_to_goals_by_team_id_helper.find_all do |key, value|
+      value == ratio_of_shots_to_goals_by_team_id_helper.values.min
+    end
+    team_id_variable = []
+  team_id_with_ratio_of_shot.each do |id_and_ratio|
+  team_id_variable << id_and_ratio[0]
+    end
+    team_id_variable
+  end
+
+  def name_of_least_accurate_team
+    team_name = @teams.find do |row|
+      row[0] == lowest_win_percentage_by_team_id_helper[0]
+    end
+    team_name[2]
+  end
+
+  def total_number_tackles_by_team_id_helper
+
+      total_tackles_by_team_hash = {}
+      @game_teams.each do |row|
+        if total_tackles_by_team_hash.include?(row[1])
+          total_tackles_by_team_hash[row[1]] += row[8].to_i
+        else
+          total_tackles_by_team_hash[row[1]] = row[8].to_i
+        end
+      end
+   total_tackles_by_team_hash
+  end
+
+  def team_id_with_most_tackles_helper
+
+  end
 end

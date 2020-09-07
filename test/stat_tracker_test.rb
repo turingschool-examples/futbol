@@ -40,7 +40,7 @@ class StatTrackerTest < Minitest::Test
   # ************* LeagueStatistics Tests *************
 
   def test_get_number_of_teams
-    assert_equal 3, @stat_tracker.count_of_teams
+    assert_equal 6, @stat_tracker.count_of_teams
   end
 
   def test_get_best_offense
@@ -115,7 +115,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.total_shots_by_team_id_hash_helper
   end
 
-  def test_ratio_of_shots_to_goals_by_team_helper
+  def test_ratio_of_shots_to_goals_by_team_id_helper
 
     expected = {"3"=>0.21, "6"=>0.32, "5"=>0.06, "17"=>0.2}
 
@@ -130,5 +130,22 @@ class StatTrackerTest < Minitest::Test
   def test_name_of_team_with_best_shots_to_goal
 
     assert_equal "FC Dallas", @stat_tracker.name_of_most_accurate_team
+  end
+
+  def test_lowest_win_percentage_by_team_id_helper
+
+    assert_equal ["5"], @stat_tracker.lowest_win_percentage_by_team_id_helper
+  end
+
+  def test_name_of_least_accurate_team
+
+    assert_equal "Sporting Kansas City", @stat_tracker.name_of_least_accurate_team
+  end
+
+  def test_total_number_tackles_by_team_helper
+
+    expected = {"3"=>179, "6"=>271, "5"=>150, "17"=>43}
+
+    assert_equal expected, @stat_tracker.total_number_tackles_by_team_id_helper
   end
 end
