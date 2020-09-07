@@ -37,8 +37,8 @@ class StatTracker
   end
 
   def teams_stats
-    game_teams_data = CSV.read(@teams, {encoding: "UTF-8", headers: true, header_converters: :symbol, converters: :all})
-    hashed_teams_data = game_teams_data.map { |row| row.to_hash }
+    teams_data = CSV.read(@teams, {encoding: "UTF-8", headers: true, header_converters: :symbol, converters: :all})
+    hashed_teams_data = teams_data.map { |row| row.to_hash }
     hashed_teams_data.each do |row|
       row.delete(:staduim)
     end
