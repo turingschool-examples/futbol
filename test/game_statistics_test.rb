@@ -30,6 +30,9 @@ class GameStatisticsTest < Minitest::Test
   def test_it_has_attributes
     assert_equal 7441, @game_statistics.game_data.length
   end
+  def test_knows_total_games_count
+    assert_equal 7441, @game_statistics.total_games
+  end
 
   def test_it_can_get_all_scores_by_game_id
     assert_equal 7441, @game_statistics.get_all_scores_by_game_id.length
@@ -59,4 +62,12 @@ class GameStatisticsTest < Minitest::Test
     assert_equal 0.36, @game_statistics.percentage_visitor_wins
   end
 
+  def test_it_knows_count_of_ties
+    assert_equal 1517, @game_statistics.count_of_ties
+  end
+
+  def test_it_knows_percentage_ties
+    @game_statistics.count_of_ties
+    assert_equal 0.20, @game_statistics.percentage_ties
+  end
 end

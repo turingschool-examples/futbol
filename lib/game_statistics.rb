@@ -7,6 +7,10 @@ class GameStatistics
     @game_teams_data = array_game_teams_data
   end
 
+  def total_games
+    @game_data.count
+  end
+
   def get_all_scores_by_game_id
     game_data.flat_map do |game|
       game[:away_goals] + game[:home_goals]
@@ -22,7 +26,7 @@ class GameStatistics
   end
 
   def percentage_home_wins
-    (all_home_wins.count.to_f / @game_data.count).round(2)
+    (all_home_wins.count.to_f / total_games).round(2)
   end
 
   def all_home_wins
@@ -32,12 +36,23 @@ class GameStatistics
   end
 
   def percentage_visitor_wins
-    (all_visitor_wins.count.to_f / @game_data.count).round(2)
+    (all_visitor_wins.count.to_f / total_games).round(2)
   end
 
   def all_visitor_wins
     @game_teams_data.select do |game|
       game[:hoa] == "away" && game[:result] == "WIN"
     end
+  end
+
+  def count_of_ties
+    double_ties = @game_teams_data.find_all do |game|
+      game[:result] == "TIE"
+    end
+    double_ties.count / 2
+  end
+
+  def percentage_ties
+    (count_of_ties.to_f / total_games).round(2)
   end
 end
