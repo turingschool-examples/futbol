@@ -12,7 +12,6 @@ class GameStatistcsTest < Minitest::Test
       teams: team_path,
       game_teams: game_teams_path
     }
-    @instances = StatTracker.new
   end
 
   def test_it_exists

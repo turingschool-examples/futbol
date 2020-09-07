@@ -29,7 +29,7 @@ class StatTracker
                 :least_accurate_team,
                 :most_tackles,
                 :fewest_tackles,
-                :team_info,
+                :team_info_stat,
                 :best_season,
                 :worst_season,
                 :average_win_percentage,
@@ -67,7 +67,7 @@ class StatTracker
     @least_accurate_team       = nil
     @most_tackles              = nil
     @fewest_tackles            = nil
-    @team_info                 = nil
+    @team_info_stat            = nil
     @best_season               = nil
     @worst_season              = nil
     @average_win_percentage    = nil
