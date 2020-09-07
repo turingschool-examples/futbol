@@ -53,4 +53,16 @@ module GameStatistics
       game.home_goals == game.away_goals
     end
   end
+
+  def count_of_games_by_season
+    seasons = []
+    seasons_hash = Hash.new
+    @games.each do |game|
+      seasons << game.season unless seasons.include? game.season
+    end
+    seasons.each do |season|
+      seasons_hash[season] = @games.count { |game| game.season == season }
+    end
+    seasons_hash
+  end
 end

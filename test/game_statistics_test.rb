@@ -6,7 +6,7 @@ class GameStatisticsTest <Minitest::Test
   def setup
     @game_path = './fixtures/fixture_games.csv'
     @team_path = './data/teams.csv'
-    @game_teams_path = './data/game_teams.csv'
+    @game_teams_path = './fixtures/fixture_game_teams.csv'
     @locations = {
       games: @game_path,
       teams: @team_path,
