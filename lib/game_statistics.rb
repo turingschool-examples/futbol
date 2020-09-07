@@ -55,4 +55,18 @@ class GameStatistics
   def percentage_ties
     (count_of_ties.to_f / total_games).round(2)
   end
+
+  def hash_of_seasons
+    @game_data.group_by do |game|
+      game[:season]
+    end
+  end
+
+  def count_of_games_by_season
+    hash = {}
+    hash_of_seasons.each do |key, value|
+      hash[key.to_s] = value.count
+    end
+    hash
+  end
 end
