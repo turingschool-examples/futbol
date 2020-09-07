@@ -15,7 +15,7 @@ class GameStatistics
         highest_total = total
       end
     end
-    @stat_tracker.highest_total_score_stat = highest_total
+    @stat_tracker.highest_total_score = highest_total
   end
 
   def lowest_total_score
@@ -26,7 +26,7 @@ class GameStatistics
         lowest_total = total
       end
     end
-    @stat_tracker.lowest_total_score_stat = lowest_total
+    @stat_tracker.lowest_total_score = lowest_total
   end
 
   def percentage_home_wins
@@ -38,9 +38,11 @@ class GameStatistics
         total_games += 1
       elsif value.home_goals < value.away_goals
         total_games += 1
+      elsif value.home_goals == value.away_goals
+        total_games += 1
       end
     end
     percentage_wins = (home_wins.to_f/total_games.to_f).round(2)
-    @stat_tracker.percentage_home_wins_stat = percentage_wins
+    @stat_tracker.percentage_home_wins = percentage_wins
   end
 end
