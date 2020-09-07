@@ -42,18 +42,8 @@ class StatTracker
 
     teams.uniq.count
   end
-#
-#
-#
+
 # #------------SeasonStatistics
-#
-#   def coach_list_wins_losses
-#     coach_hash = Hash.new
-#     game_teams.each do |gt|
-#       (coach_hash[gt.head_coach] ||= []) << gt.result
-#     end
-#     coach_hash
-#   end
 #
 #   def winningest_coach
 #     winner = coach_list_wins_losses.max_by do |key, w_l|
@@ -89,38 +79,14 @@ class StatTracker
     result
   end
 
-# #---------------------------
-#   private
-#
-#   Game = Struct.new(:game_id, :season, :type, :date_time, :away_team_id,
-#                     :home_team_id, :away_goals, :home_goals, :venue, :venue_link)
-#
-#   def transform_games(games)
-#     games.map do |cell|
-#       Game.new(cell[0], cell[1], cell[2], cell[3], cell[4], cell[5],
-#                cell[6], cell[7], cell[8], cell[9])
-#     end
-#   end
-#
-#   Team = Struct.new(:team_id, :franchise_id, :team_name, :abbreviation,
-#                     :stadium, :link)
-#
-#   def transform_teams(teams)
-#     teams.map do |cell|
-#       Team.new(cell[0], cell[1], cell[2], cell[3], cell[4], cell[5])
-#     end
-#   end
-#
-#   GameTeams = Struct.new(:game_id, :team_id, :hoa, :result, :settled_in,
-#                          :head_coach, :goals, :shots, :tackles, :pim,
-#                          :power_play_opportunities, :power_play_goals,
-#                          :face_off_win_percentage, :giveaways, :takeaways)
-#
-#   def transform_game_teams(game_teams)
-#     game_teams.map do |cell|
-#       GameTeams.new(cell[0], cell[1], cell[2], cell[3], cell[4], cell[5],
-#                     cell[6], cell[7], cell[8], cell[9], cell[10], cell[11],
-#                     cell[12], cell[13], cell[14])
-#     end
-#   end
+#---------------------------
+  private
+
+  def coach_list_wins_losses
+    coach_hash = Hash.new
+    game_teams.each do |gt|
+      (coach_hash[gt.head_coach] ||= []) << gt.result
+    end
+    coach_hash
+  end  
 end
