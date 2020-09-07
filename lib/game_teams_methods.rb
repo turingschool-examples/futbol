@@ -75,8 +75,8 @@ attr_reader :game_teams, :game_teams_table
     end
   end
 
-  def lowest_scoring_visitor_team_id_average_goals
-    away_team_averages = average_goals_by_home_or_away_team("away")
+  def lowest_scoring_team_id_average_goals(home_away)
+    away_team_averages = average_goals_by_home_or_away_team(home_away)
     away_team_averages.min_by do |key, value|
       value
     end
