@@ -32,4 +32,8 @@ class StatTracker
     end
     count_of_games_by_season
   end
+
+  def count_of_teams
+    @teams.count
+  end
 end

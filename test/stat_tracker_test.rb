@@ -25,7 +25,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.count_of_games_by_season
   end
 
-
+  def test_it_can_count_teams
+    assert_equal 5, @stats.count_of_teams
+  end
 
 
 
