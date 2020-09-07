@@ -227,19 +227,19 @@ class StatTracker
     game_ids = games_in_season.map do |game|
       game["game_id"]
     end
-
     @game_teams.each do |game|
       if game_ids.include?(game["game_id"])
         coach_game_count[game["head_coach"]] += 1
         if game["result"] == "WIN"
           coach_wins[game["head_coach"]] += 1
         end
-      # else
-      #   coach_game_count[game["head_coach"]] = 1
-      #   coach_wins[game["head_coach"]] = 1
       end
     end
-    require "pry"; binding.pry
+    best_coach = coach_wins.max_by do |coach, win|
+      win / coach_game_count[coach]
+    end[0]
+    # require "pry"; binding.pry
+
   end
 
 
