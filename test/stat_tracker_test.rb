@@ -84,6 +84,34 @@ class StatTrackerTest < Minitest::Test
   def test_name_of_coach_with_highest_win_percentage
 
     assert_equal ["Claude Julien"], @stat_tracker.name_of_coach_with_highest_win_percentage
+  end
 
+  def test_worst_coach_if_someone_doesnt_have_any_wins_helper
+
+    assert_equal ["John Tortorella", "Dan Bylsma", "Mike Babcock"], @stat_tracker.worst_coach_if_someone_doesnt_have_any_wins_helper
+  end
+
+  def test_worst_coach_if_everyone_has_a_win_helper
+
+    assert_equal ["Claude Julien"], @stat_tracker.worst_coach_if_everyone_has_a_win_helper
+  end
+
+  def test_worst_coach
+
+    assert_equal ["John Tortorella", "Dan Bylsma", "Mike Babcock"], @stat_tracker.worst_coach
+  end
+
+  def test_total_goals_by_team
+
+    expected = {"3"=>8, "6"=>24, "5"=>2, "17"=>1}
+
+    assert_equal expected, @stat_tracker.total_goals_by_team_id_hash
+  end
+
+  def test_total_shots_by_team_id_hash
+
+    expected = {"3"=>38, "6"=>76, "5"=>32, "17"=>5}
+
+    assert_equal expected, @stat_tracker.total_shots_by_team_id_hash
   end
 end

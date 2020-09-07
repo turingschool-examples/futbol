@@ -92,4 +92,63 @@ class StatTracker
     end
     name_of_coach_array_variable
   end
+
+  def worst_coach_if_someone_doesnt_have_any_wins_helper
+    worst_coach_array = []
+    total_games_played_by_coach_helper.keys.each do |coach|
+      if !games_won_into_hash_helper.keys.include?(coach)
+        worst_coach_array << coach
+      end
+    end
+    worst_coach_array
+  end
+
+  def worst_coach_if_everyone_has_a_win_helper
+
+    name_of_coach_with_number_variable =
+      coaches_winning_percentage_hash_helper.find_all do |key, value| value == coaches_winning_percentage_hash_helper.values.min
+    end
+    name_of_coach_array_variables = []
+    name_of_coach_with_number_variable.each do |name_and_number|
+    name_of_coach_array_variables << name_and_number[0]
+    end
+  name_of_coach_array_variables
+ end
+
+ def worst_coach
+
+  if worst_coach_if_someone_doesnt_have_any_wins_helper.length == 0
+     worst_coach_if_everyone_has_a_win_helper
+  else
+     worst_coach_if_someone_doesnt_have_any_wins_helper
+  end
+end
+
+  def total_goals_by_team_id_hash
+    total_goals_by_team_hash = {}
+    @game_teams.each do |row|
+      if total_goals_by_team_hash.include?(row[1])
+        total_goals_by_team_hash[row[1]] += row[6].to_i
+      else
+        total_goals_by_team_hash[row[1]] = row[6].to_i
+      end
+    end
+ total_goals_by_team_hash
+  end
+
+  def total_shots_by_team_id_hash
+    total_shots_by_team_hash = {}
+    @game_teams.each do |row|
+      if total_shots_by_team_hash.include?(row[1])
+        total_shots_by_team_hash[row[1]] += row[7].to_i
+      else
+        total_shots_by_team_hash[row[1]] = row[7].to_i
+      end
+    end
+ total_shots_by_team_hash
+  end
+
+  def ratio_of_shots_to_goals_by_team
+
+  end
 end
