@@ -44,7 +44,7 @@ class StatTracker
   end
 
   def best_offense
-    best_offense = get_goals.max_by do |team, stats|
+    best_offense = goals_and_games_per_teams.max_by do |team, stats|
       stats[:total_goals] / stats[:total_games].to_f
     end
 
@@ -54,7 +54,7 @@ class StatTracker
   end
 
   def worst_offense
-    worst_offense = get_goals.min_by do |team, stats|
+    worst_offense = goals_and_games_per_teams.min_by do |team, stats|
       stats[:total_goals] / stats[:total_games].to_f
     end
 
@@ -62,15 +62,20 @@ class StatTracker
       team['team_id'] == worst_offense[0]
     end['teamName']
   end
-
-  def get_goals
-    team_id_hash = {}
+  
+  # LeagueStatistics Help Methods
+  def create_team_stats_hash
+    team_stats_hash = {}
 
     teams.each do |team|
-      team_id_hash[team['team_id']] = {total_games: 0, total_goals: 0}
+      team_stats_hash[team['team_id']] = {total_games: 0, total_goals: 0}
     end
 
-    team_id_hash.each do |team_id, games_goals|
+    team_stats_hash
+  end
+
+  def goals_and_games_per_teams
+    create_team_stats_hash.each do |team_id, games_goals|
       games.each do |game|
         if team_id == game['away_team_id'] || team_id == game['home_team_id']
           games_goals[:total_games] += 1
@@ -80,6 +85,7 @@ class StatTracker
       end
     end
   end
+
 
 # #------------SeasonStatistics
 #
