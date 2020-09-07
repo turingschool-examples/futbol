@@ -90,7 +90,7 @@ class StatTracker
   name_of_coach_with_number_variable.each do |name_and_number|
   name_of_coach_array_variable << name_and_number[0]
     end
-    name_of_coach_array_variable
+    name_of_coach_array_variable.join(", ")
   end
 
   def worst_coach_if_someone_doesnt_have_any_wins_helper
@@ -118,13 +118,13 @@ class StatTracker
  def worst_coach
 
   if worst_coach_if_someone_doesnt_have_any_wins_helper.length == 0
-     worst_coach_if_everyone_has_a_win_helper
+     worst_coach_if_everyone_has_a_win_helper.join(", ")
   else
-     worst_coach_if_someone_doesnt_have_any_wins_helper
+     worst_coach_if_someone_doesnt_have_any_wins_helper.join(", ")
   end
 end
 
-  def total_goals_by_team_id_hash
+  def total_goals_by_team_id_hash_helper
     total_goals_by_team_hash = {}
     @game_teams.each do |row|
       if total_goals_by_team_hash.include?(row[1])
@@ -136,7 +136,7 @@ end
  total_goals_by_team_hash
   end
 
-  def total_shots_by_team_id_hash
+  def total_shots_by_team_id_hash_helper
     total_shots_by_team_hash = {}
     @game_teams.each do |row|
       if total_shots_by_team_hash.include?(row[1])
@@ -148,7 +148,25 @@ end
  total_shots_by_team_hash
   end
 
-  def ratio_of_shots_to_goals_by_team
+  def ratio_of_shots_to_goals_by_team_id_helper
+    total_goals_by_team_id_hash_helper.merge!(total_shots_by_team_id_hash_helper) {|key, value1, value2| (value1.to_f / value2.to_f).round(2)}
+  end
 
+  def highest_win_percentage_by_team_id_helper
+    team_id_with_ratio_of_shot = ratio_of_shots_to_goals_by_team_id_helper.find_all do |key, value|
+      value == ratio_of_shots_to_goals_by_team_id_helper.values.max
+    end
+    team_id_variable = []
+  team_id_with_ratio_of_shot.each do |id_and_ratio|
+  team_id_variable << id_and_ratio[0]
+    end
+    team_id_variable
+  end
+
+  def name_of_most_accurate_team
+    team_name = @teams.find do |row|
+      row[0] == highest_win_percentage_by_team_id_helper[0]
+    end
+    team_name[2]
   end
 end

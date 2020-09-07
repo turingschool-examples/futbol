@@ -83,7 +83,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_name_of_coach_with_highest_win_percentage
 
-    assert_equal ["Claude Julien"], @stat_tracker.name_of_coach_with_highest_win_percentage
+    assert_equal "Claude Julien", @stat_tracker.name_of_coach_with_highest_win_percentage
   end
 
   def test_worst_coach_if_someone_doesnt_have_any_wins_helper
@@ -98,20 +98,37 @@ class StatTrackerTest < Minitest::Test
 
   def test_worst_coach
 
-    assert_equal ["John Tortorella", "Dan Bylsma", "Mike Babcock"], @stat_tracker.worst_coach
+    assert_equal "John Tortorella, Dan Bylsma, Mike Babcock", @stat_tracker.worst_coach
   end
 
-  def test_total_goals_by_team
+  def test_total_goals_by_team_helper
 
     expected = {"3"=>8, "6"=>24, "5"=>2, "17"=>1}
 
-    assert_equal expected, @stat_tracker.total_goals_by_team_id_hash
+    assert_equal expected, @stat_tracker.total_goals_by_team_id_hash_helper
   end
 
-  def test_total_shots_by_team_id_hash
+  def test_total_shots_by_team_id_hash_helper
 
     expected = {"3"=>38, "6"=>76, "5"=>32, "17"=>5}
 
-    assert_equal expected, @stat_tracker.total_shots_by_team_id_hash
+    assert_equal expected, @stat_tracker.total_shots_by_team_id_hash_helper
+  end
+
+  def test_ratio_of_shots_to_goals_by_team_helper
+
+    expected = {"3"=>0.21, "6"=>0.32, "5"=>0.06, "17"=>0.2}
+
+    assert_equal expected, @stat_tracker.ratio_of_shots_to_goals_by_team_id_helper
+  end
+
+  def test_highest_win_percentage_by_team_id_helper
+
+    assert_equal ["6"], @stat_tracker.highest_win_percentage_by_team_id_helper
+  end
+
+  def test_name_of_team_with_best_shots_to_goal
+
+    assert_equal "FC Dallas", @stat_tracker.name_of_most_accurate_team
   end
 end
