@@ -3,14 +3,19 @@ require "./lib/stat_tracker"
 
 class StatTrackerTest < Minitest::Test
   def setup
-    @team_path = './data/teams_test.csv'
-    @game_path = './data/games_test.csv'
-    @game_teams_path = './data/game_teams_test.csv'
+    @stats = StatTracker.from_csv
   end
 
   def test_it_is_a_stat_tracker
-    stats = StatTracker.new(@team_path, @game_path, @game_teams_path)
+    assert_instance_of StatTracker, @stats
+  end
 
-    assert_instance_of StatTracker, stats
+  def test_it_has_access_to_other_classes
+    assert_instance_of Game, @stats.games[0]
+    assert_equal 6, @stats.games.count
+    assert_instance_of Team, @stats.teams[0]
+    assert_equal 5, @stats.teams.count
+    assert_instance_of GameTeam, @stats.game_teams[0]
+    assert_equal 12, @stats.game_teams.count
   end
 end
