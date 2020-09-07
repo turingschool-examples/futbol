@@ -35,7 +35,12 @@ class StatTracker
   end
 
   def highest_scoring_visitor_team
-    highest_visitor = @game_teams_methods.highest_scoring_visitor_team_id_average_goals
+    highest_visitor = @game_teams_methods.highest_scoring_team_id_average_goals("away")
+    @team_methods.find_by_id(highest_visitor.first)
+  end
+
+  def highest_scoring_home_team
+    highest_visitor = @game_teams_methods.highest_scoring_team_id_average_goals("home")
     @team_methods.find_by_id(highest_visitor.first)
   end
 end
