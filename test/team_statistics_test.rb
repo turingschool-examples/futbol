@@ -95,10 +95,17 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   # def test_it_can_count_total_games_wins_losses_and_ties_for_a_team_for_a_subset_of_games
+  #
   # end
 
   def test_it_can_calculate_average_win_percentage_for_a_team
     assert_equal 0.56, @stat_tracker.average_win_percentage("26")
     assert_equal 0.45, @stat_tracker.average_win_percentage("24")
   end
+
+  def test_it_can_find_a_teams_best_season
+    assert_equal "20122013", @stat_tracker.best_season("24")
+  end
 end
+
+# Maybe a games_to_game_teams method would help DRY up the code?
