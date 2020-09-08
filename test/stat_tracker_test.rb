@@ -61,13 +61,17 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_determine_season_win_percentage
-    skip
-    expected = {"20142015" => 4}
-    @stats.stubs(:count_of_games_by_season).returns(expected)
+    @stats.stubs(:count_of_games_by_season).returns(4)
     assert_equal 25, @stats.season_win_percentage(1, "20142015")
     assert_equal 0, @stats.season_win_percentage(4, "20142015")
     assert_equal 50, @stats.season_win_percentage(6, "20142015")
     assert_equal 0, @stats.season_win_percentage(26, "20142015")
+  end
+
+  def test_it_can_organize_season_win_percentage_for_teams
+    expected {}
+
+    assert_equal expected, @stats.season_percent_wins
   end
 
 # ~~~ GAME METHOD TESTS~~~
@@ -86,6 +90,11 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_determine_highest_and_lowest_game_score
     assert_equal 3, @stats.lowest_total_score("20142015")
     assert_equal 6, @stats.highest_total_score("20142015")
+  end
+
+
+  def test_it_can_list_winningest_coach_by_season
+    skip
   end
 
 # ~~~ LEAGUE METHOD TESTS~~~

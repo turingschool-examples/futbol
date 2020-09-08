@@ -38,7 +38,7 @@ class StatTracker
   end
 
   def filter_by_season(season)
-    season = @games.find_all do |game|
+    @games.find_all do |game|
       game.season == season
     end
   end
@@ -73,7 +73,7 @@ class StatTracker
   end
 
   def season_win_percentage(team_id, season)
-    find_percent(total_team_wins, count_of_games_by_season[season])
+    find_percent(total_team_wins(team_id, season), count_of_games_by_season)
   end
 
   def percentage_away_wins
