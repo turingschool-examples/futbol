@@ -43,7 +43,19 @@ class LeagueStatisticsTest < Minitest::Test
     assert_equal 32, @league_stats.team_id_and_average_goals.count
   end
 
+  def test_best_offense_stats
+    assert_equal 54, @league_stats.best_offense_stats
+  end
+
+  def test_worst_offense_stats
+    assert_equal 7, @league_stats.worst_offense_stats
+  end
+
   def test_team_with_best_offense
     assert_equal 'Reign FC', @league_stats.best_offense
+  end
+
+  def test_worst_offense
+    assert_equal 'Utah Royals FC', @league_stats.worst_offense
   end
 end
