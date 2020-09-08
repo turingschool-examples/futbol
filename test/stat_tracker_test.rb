@@ -70,10 +70,16 @@ class StatTrackerTest < Minitest::Test
     assert_equal 33.33, @stats.percentage_home_wins
   end
 
-  def test_it_can_get_average_season_goals
+  def test_it_can_get_average_goals_by_season
     expected = {"20142015"=>4.4, "20172018"=>2.0}
-    assert_equal expected , @stats.avg_score_by_season
+    assert_equal expected , @stats.avg_goals_by_season
   end
+
+  def test_it_can_get_avg_goals_per_game
+    assert_equal 4.0, @stats.avg_goals_per_game
+  end
+
+
 
 # ~~~ LEAGUE METHOD TESTS~~~
 

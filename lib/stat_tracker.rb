@@ -71,24 +71,29 @@ class StatTracker
 # ~~~ TEAM METHODS~~~
 
 
-def seasonal_game_data
-  seasonal_game_data = @games.group_by do |row|
-    row.season
-  end
-  seasonal_game_data
-end
-
-def avg_score_by_season
-  avg_score_by_season = {}
-  seasonal_game_data.each do |season, details|
-    game_count = 0
-    season_goals = 0
-    details.each do |row|
-      game_count += 1
-      season_goals += row.home_goals + row.away_goals
+  def seasonal_game_data
+    seasonal_game_data = @games.group_by do |row|
+      row.season
     end
-    avg_score_by_season[season] = (season_goals / game_count.to_f).round(2)
+    seasonal_game_data
   end
-  avg_score_by_season
-end
+
+  def avg_goals_by_season
+    avg_goals_by_season = {}
+    seasonal_game_data.each do |season, details|
+      game_count = 0
+      season_goals = 0
+      details.each do |row|
+        game_count += 1
+        season_goals += row.home_goals + row.away_goals
+      end
+      avg_goals_by_season[season] = (season_goals / game_count.to_f).round(2)
+    end
+    avg_goals_by_season
+  end
+
+  def avg_goals_per_game
+    (sum_game_goals.values.sum / total_games.to_f).round(2)
+  end
+
 end
