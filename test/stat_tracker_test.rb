@@ -68,7 +68,14 @@ class StatTrackerTest < Minitest::Test
     assert_equal 0, @stats.season_win_percentage(26, "20142015")
   end
 
+  def test_it_can_create_array_of_all_team_ids
+    expected = [1, 4, 6, 14, 26]
+    assert_equal expected, @stats.team_ids 
+  end
+
+
   def test_it_can_organize_season_win_percentage_for_each_team
+    skip
     expected = {
       1 => 25,
       4 => 0,
