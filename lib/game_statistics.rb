@@ -75,24 +75,20 @@ module GameStatistics
     total.round(2)
   end
 
+  def group_by_season
+    @games.group_by do |game|
+      game.season
+    end.uniq
+  end
+
   def average_goals_per_season
-    seasons = []
     seasons_hash = {}
-    @games.each do |game|
-      seasons << game.season unless seasons.include? game.season
-    end
-    seasons.each do |season|
-      season_games = []
-      average_goals = 0
-      @games.each do |game|
-        if game.season == season
-          season_games << game
-        end
+    group_by_season.each do |season|
+      total = 0
+      season[1].each do |game|
+        total += game.away_goals + game.home_goals
       end
-      season_games.each do |game| 
-        average_goals += (game.away_goals + game.home_goals) / season_games.length.to_f
-      end
-      seasons_hash[season] = average_goals.round(2)
+      seasons_hash[season[0]] = (total/season[1].length.to_f).round(2)
     end
     seasons_hash
   end

@@ -54,5 +54,6 @@ class GameStatisticsTest < Minitest::Test
                 '20132014' => 3.81,
                 '20122013' => 5.0 }
     assert_equal expected, @stat_tracker.average_goals_per_season
+    #require 'pry'; binding.pry
   end
 end
