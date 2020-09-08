@@ -19,10 +19,55 @@ class StatTracker
     self.new(Team.all_teams, Game.all_games, GameTeam.all_game_teams)
   end
 
+# ~~~ Helper Methods ~~~~
+  def total_games
+    @games.count
+  end
+
+  def find_percent(numerator, denominator)
+    (numerator.count / denominator.to_f * 100).round(2)
+  end
+
+  def sum_game_goals
+    game_goals_hash = {}
+    @games.each do |game|
+      game_goals_hash[game.game_id] = (game.away_goals + game.home_goals)
+    end
+    game_goals_hash
+  end
+
   def season_group
     @games.group_by do |row|
       row.season
     end
+  end
+
+# ~~~ Game Methods ~~~
+  def lowest_total_score
+    sum_game_goals.min_by do |game_id, score|
+      score
+    end.last
+  end
+
+  def highest_total_score
+    sum_game_goals.max_by do |game_id, score|
+      score
+    end.last
+  end
+
+  def percentage_away_wins
+    wins = @games.find_all { |game| game.away_goals > game.home_goals}
+    find_percent(wins, total_games)
+  end
+
+  def percentage_ties
+    ties = @games.find_all { |game| game.away_goals == game.home_goals}
+    find_percent(ties, total_games)
+  end
+
+  def percentage_home_wins
+    wins = @games.find_all { |game| game.away_goals < game.home_goals}
+    find_percent(wins, total_games)
   end
 
   def count_of_games_by_season
@@ -33,26 +78,32 @@ class StatTracker
     count_of_games_by_season
   end
 
-  def count_of_teams
-    @teams.count
+# ~~~ LEAGUE METHODS~~~
+def count_of_teams
+  @teams.count
+end
+
+def avg_team_score_as_visitor(team)
+  array = @games.group_by do |row|
+    row.away_team_id
   end
+  require "pry"; binding.pry
+end
 
-  def avg_team_score_as_visitor(team)
-    array = @games.group_by do |row|
-      row.away_team_id
-    end
-    require "pry"; binding.pry
-  end
+def avg_team_score_at_home(team_id)
 
-  def avg_team_score_at_home(team_id)
+end
 
-  end
+def highest_scoring_visitor
 
-  def highest_scoring_visitor
+end
 
-  end
+def highest_scoring_home_team
 
-  def highest_scoring_home_team
+end
 
-  end
+# ~~~ SEASON METHODS~~~
+
+# ~~~ TEAM METHODS~~~
+
 end
