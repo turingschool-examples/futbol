@@ -20,6 +20,8 @@ class LeagueStatsTest <Minitest::Test
     assert_equal 26, @stat_tracker.count_of_teams
   end
 
-
+  def test_with_best_offence
+    assert_equal "Atlanta United", @stat_tracker.best_offence
+  end
 
 end
