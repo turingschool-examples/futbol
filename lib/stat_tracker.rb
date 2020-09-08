@@ -111,7 +111,7 @@ def game_team_results_by_season(season)
   def coaches_records_start
     @coach_record_hash = {}
     @games_results_per_season.each do |gr|
-      @coach_record_hash[gr['head_coach']] = {wins: 0, losses: 0}
+      @coach_record_hash[gr['head_coach']] = {wins: 0, losses: 0, ties:0}
     end
     @coach_record_hash
   end
@@ -122,22 +122,22 @@ def game_team_results_by_season(season)
         @coach_record_hash[gr['head_coach']][:wins] += 1
       elsif gr['result'] == "LOSS"
         @coach_record_hash[gr['head_coach']][:losses] += 1
+      elsif gr['result'] == "TIE"
+        @coach_record_hash[gr['head_coach']][:ties] += 1
       end
     end
     @coach_record_hash
   end
 
   def determine_winningest_coach
-    winningest = @coach_record_hash.max_by do |coach, w_l|
-      (w_l[:wins] / (w_l[:wins] + w_l[:losses])) * 100
-    end
-    winningest[0]
+    @coach_record_hash.max_by do |coach, w_l|
+      w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
+    end[0]
   end
 
   def determine_worst_coach
-    worst = @coach_record_hash.max_by do |coach, w_l|
-      (w_l[:losses] / (w_l[:wins] + w_l[:losses])) * 100
-    end
-    worst[0]
+    @coach_record_hash.min_by do |coach, w_l|
+      w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
+    end[0]
   end
 end
