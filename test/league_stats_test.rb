@@ -40,4 +40,8 @@ class LeagueStatsTest <Minitest::Test
     assert_equal "Philadelphia Union", @stat_tracker.lowest_scoring_visitor
   end
 
+  def test_lowest_scoring_home_team
+    assert_equal "Vancouver Whitecaps FC", @stat_tracker.lowest_scoring_home_team
+  end
+
 end
