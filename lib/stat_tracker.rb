@@ -28,7 +28,7 @@ class StatTracker
     (numerator / denominator.to_f * 100).round(2)
   end
 
-  def sum_game_goals(season)
+  def sum_game_goals(season = nil)
     game_goals_hash = {}
     season_games = filter_by_season(season)
     season_games.each do |game|
