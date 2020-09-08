@@ -51,6 +51,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Chicago Fire", @stats.team_names_by_team_id(4)
   end
 
+  def test_it_can_get_total_scores_by_team
+    expected = {"1"=>6, "4"=>2, "14"=>4, "6"=>8, "26"=>4}
+    assert_equal expected, @stats.total_scores_by_team
+  end
+
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won
     assert_equal 33.33, @stats.percentage_away_wins
