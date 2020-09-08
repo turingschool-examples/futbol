@@ -353,7 +353,14 @@ class StatTracker
     end
     fewest_tackles_team_name["teamName"]
   end
-    # game_results = @game_teams.select do |game_team|
-    #   game_team[]
-
+  
+  def team_info(team_id)
+    team_table = @teams.find do |team|
+      team_id == team["team_id"]
+    end
+    info_hash = team_table.to_h.slice("team_id", "franchiseId", "teamName", "abbreviation", "link")
+    info_hash["franchise_id"] = info_hash.delete("franchiseId")
+    info_hash["team_name"] = info_hash.delete("teamName")
+    info_hash
+  end
 end
