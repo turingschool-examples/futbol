@@ -59,25 +59,6 @@ class StatTracker
     determine_worst_coach
   end
 
-#   def winningest_coach
-#     winner = coach_list_wins_losses.max_by do |key, w_l|
-#       wins = w_l.count("WIN")
-#       losses = w_l.count("LOSS").to_f
-#       (wins) / (wins + losses)
-#     end
-#     winner[0]
-#   end
-#
-#   def worst_coach
-#     loser = coach_list_wins_losses.min_by do |key, w_l|
-#       wins = w_l.count("WIN")
-#       losses = w_l.count("LOSS").to_f
-#       (wins) / (wins + losses)
-#     end
-#     loser[0]
-#   end
-#
-
 
 #------------TeamStatistics
 
@@ -94,7 +75,9 @@ class StatTracker
   end
 
 #---------------------------
-  # private
+  private
+
+  # -----------------SeasonStatistics
 
 def game_team_results_by_season(season)
     games_of_season = games.find_all do |game|
@@ -130,13 +113,13 @@ def game_team_results_by_season(season)
   end
 
   def determine_winningest_coach
-    @coach_record_hash.max_by do |coach, w_l|
+    add_wins_losses.max_by do |coach, w_l|
       w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
     end[0]
   end
 
   def determine_worst_coach
-    @coach_record_hash.min_by do |coach, w_l|
+    add_wins_losses.min_by do |coach, w_l|
       w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
     end[0]
   end
