@@ -365,26 +365,31 @@ class StatTracker
   end
 
   def best_season(team_id)
-    wins_by_season = Hash.new(0)
+    wins_by_season = Hash.new(0.0)
     total_games_by_season = Hash.new(0)
-    games_by_season = Hash.new { |key, value| key[value] = [] }
+    games_by_season = Hash.new { |hash, key| hash[key] = [] }
     @games.each do |game|
       if game["home_team_id"] == team_id || game["away_team_id"] == team_id
-        games_by_season[game["season"]] << game["game_id"]
+        games_by_season[game["season"]] << game
       end
     end
     games_by_season.each do |season, games|
-      total_games_by_season[season] = games.length
       games.each do |game|
-        if game["result"] == "WIN"
+        if game["home_team_id"] == team_id && game["home_goals"].to_i > game["away_goals"].to_i
           wins_by_season[season] += 1
+        elsif game["away_team_id"] == team_id && game["away_goals"].to_i > game["home_goals"].to_i
+          wins_by_season[season] += 1
+        elsif game["away_goals"].to_i == game["home_goals"].to_i
+          wins_by_season[season] += 0.5
         end
       end
     end
-    require "pry";binding.pry 
+    best_season = games_by_season.max_by do |season, games|
+      wins_by_season[season] / games.length && games.length
+    end
+    best_season[0]
     #game_ids = all_games.map do |game|
     #  game["game_id"]
     #end
-
   end
 end
