@@ -44,7 +44,7 @@ class StatTracker
   end
 
   def best_offense
-    best_offense = goals_and_games_per_teams.max_by do |team, stats|
+    best_offense = team_stats.max_by do |team, stats|
       stats[:total_goals] / stats[:total_games].to_f
     end
 
@@ -54,12 +54,32 @@ class StatTracker
   end
 
   def worst_offense
-    worst_offense = goals_and_games_per_teams.min_by do |team, stats|
+    worst_offense = team_stats.min_by do |team, stats|
       stats[:total_goals] / stats[:total_games].to_f
     end
 
     teams.find do |team|
       team['team_id'] == worst_offense[0]
+    end['teamName']
+  end
+
+  def highest_scoring_visitor
+    highest_scoring_visitor = team_stats.max_by do |team, stats|
+      stats[:away_goals] / stats[:away_games].to_f
+    end
+
+    teams.find do |team|
+      team['team_id'] == highest_scoring_visitor[0]
+    end['teamName']
+  end
+
+  def highest_scoring_home_team
+    highest_scoring_home_team = team_stats.max_by do |team, stats|
+      stats[:home_goals] / stats[:home_games].to_f
+    end
+
+    teams.find do |team|
+      team['team_id'] == highest_scoring_home_team[0]
     end['teamName']
   end
   
@@ -68,21 +88,26 @@ class StatTracker
     team_stats_hash = {}
 
     teams.each do |team|
-      team_stats_hash[team['team_id']] = {total_games: 0, total_goals: 0}
+      team_stats_hash[team['team_id']] = { total_games: 0, total_goals: 0,
+                                           away_games: 0, home_games: 0,
+                                           away_goals: 0, home_goals: 0 }
     end
 
     team_stats_hash
   end
 
-  def goals_and_games_per_teams
+  def team_stats
     create_team_stats_hash.each do |team_id, games_goals|
       games.each do |game|
         if team_id == game['away_team_id'] || team_id == game['home_team_id']
-          games_goals[:total_games] += 1
-          games_goals[:total_goals] += game['away_goals'].to_i if team_id == game['away_team_id']
-          games_goals[:total_goals] += game['home_goals'].to_i if team_id == game['home_team_id']
+          games_goals[:away_games] += 1 if team_id == game['away_team_id']
+          games_goals[:home_games] += 1 if team_id == game['home_team_id']
+          games_goals[:away_goals] += game['away_goals'].to_i if team_id == game['away_team_id']
+          games_goals[:home_goals] += game['home_goals'].to_i if team_id == game['home_team_id']
         end
       end
+      games_goals[:total_games] = games_goals[:away_games] + games_goals[:home_games]
+      games_goals[:total_goals] = games_goals[:away_goals] + games_goals[:home_goals]
     end
   end
 
