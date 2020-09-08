@@ -74,4 +74,8 @@ module GameStatistics
     end
     total.round(2)
   end
+
+  def average_goals_per_season
+    
+  end
 end
