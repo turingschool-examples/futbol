@@ -7,10 +7,6 @@ module SeasonStatistics
   end
 #above returns an array
 
-
-#maybe go back and try to just complare id in games
-#with id in game_teams
-
   def array_of_game_id_from_season(season_id)
     find_all_games_from_season(season_id).map do |game|
       game.game_id
@@ -30,10 +26,17 @@ module SeasonStatistics
   end
 
   def winningest_coach(season_id)
-    coach_hash = Hash.new
 
-    game_teams_data_for_season(season_id).each do |game|
-      coach = game.head_coach
+# create hash with coaches as keys
+    # coach_hash = Hash.new
+    # season_coaches(season_id).each do |coach|
+    #   coach_hash[coach] = nil
+    # end
+
+
+    season_coaches(season_id).max_by do |coaches|
+       coach = coaches
+
     #This would give total games for coach
       total_games = game_teams_data_for_season(season_id).find_all do |game|
         game.head_coach == coach
@@ -42,6 +45,8 @@ module SeasonStatistics
       total_wins = game_teams_data_for_season(season_id).find_all do |game|
         game.head_coach == coach && game.result == "WIN"
       end.length
+
+      (total_wins.to_f/total_games.to_f) * 100
     end
   end
 
