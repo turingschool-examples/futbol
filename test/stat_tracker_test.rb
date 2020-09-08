@@ -68,10 +68,19 @@ class StatTrackerTest < Minitest::Test
     assert_equal 0, @stats.season_win_percentage(26, "20142015")
   end
 
-  def test_it_can_organize_season_win_percentage_for_teams
-    expected {}
+  def test_it_can_organize_season_win_percentage_for_each_team
+    expected = {
+      1 => 25,
+      4 => 0,
+      6 => 50,
+      26 => 0
+    }
+    assert_equal expected, @stats.all_teams_win_percentage("20142015")
+  end
 
-    assert_equal expected, @stats.season_percent_wins
+  def test_it_can_determine_winningest_team
+    skip
+    assert_equal 6, @stats.winningest_team("20142015")
   end
 
 # ~~~ GAME METHOD TESTS~~~
