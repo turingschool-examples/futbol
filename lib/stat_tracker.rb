@@ -83,6 +83,12 @@ class StatTracker
     end.first
   end
 
+  def worst_team(season)
+    all_teams_win_percentage(season).min_by do |team_id, win_percentage|
+      win_percentage
+    end.first
+  end
+
 # ~~~ Game Methods ~~~
   def lowest_total_score(season)
     sum_game_goals(season).min_by do |game_id, score|
@@ -118,7 +124,13 @@ class StatTracker
   def winningest_coach(season)
     @game_teams.find do |game_team|
       game_team.team_id == winningest_team(season)
-    end.head_coach 
+    end.head_coach
+  end
+
+  def worst_coach(season)
+    @game_teams.find do |game_team|
+      game_team.team_id == worst_team(season)
+    end.head_coach
   end
 
 # ~~~ TEAM METHODS~~~

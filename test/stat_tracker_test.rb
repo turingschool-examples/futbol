@@ -90,6 +90,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal 6, @stats.winningest_team("20142015")
   end
 
+  def test_it_can_determine_team_with_worst_winning_percentage
+    @stats.stubs(:count_of_games_by_season).returns(4)
+    assert_equal 4, @stats.worst_team("20142015")
+  end
+
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won
     assert_equal 33.33, @stats.percentage_away_wins
@@ -117,6 +122,11 @@ class StatTrackerTest < Minitest::Test
 def test_it_can_list_winningest_coach_by_season
   @stats.stubs(:count_of_games_by_season).returns(4)
   assert_equal "Claude Julien", @stats.winningest_coach("20142015")
+end
+
+def test_it_can_determine_the_worst_coach_by_season
+  @stats.stubs(:count_of_games_by_season).returns(4)
+  assert_equal "Craig Berube", @stats.worst_coach("20142015")
 end
 
 # ~~~ TEAM METHOD TESTS~~~
