@@ -115,6 +115,12 @@ class StatTracker
 
 # ~~~ SEASON METHODS~~~
 
+  def winningest_coach(season)
+    @game_teams.find do |game_team|
+      game_team.team_id == winningest_team(season)
+    end.head_coach 
+  end
+
 # ~~~ TEAM METHODS~~~
 
 end

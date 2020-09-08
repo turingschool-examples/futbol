@@ -108,16 +108,16 @@ class StatTrackerTest < Minitest::Test
     assert_equal 6, @stats.highest_total_score("20142015")
   end
 
-  def test_it_can_list_winningest_coach_by_season
-    @stats.stubs(:count_of_games_by_season).returns(4)
-    assert_equal "Claude Julien", @stats.winningest_coach 
-  end
 
 # ~~~ LEAGUE METHOD TESTS~~~
 
 
 # ~~~ SEASON METHOD TESTS~~~
 
+def test_it_can_list_winningest_coach_by_season
+  @stats.stubs(:count_of_games_by_season).returns(4)
+  assert_equal "Claude Julien", @stats.winningest_coach("20142015")
+end
 
 # ~~~ TEAM METHOD TESTS~~~
 end
