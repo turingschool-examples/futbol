@@ -24,8 +24,9 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_sum_goals_per_game ###
     expected = {
-      2014020006=>6, 2014021002=>4, 2014020598=>3, 2014020917=>5, 2014020774=>4, 2017020012=>2, 2014020142=>5, 2015020007=>5, 2013021198=>4, 2013020371=>4, 2013020203=>1, 2014020981=>5, 2013020649=>5, 2012020030=>3, 2012020389=>5, 2013021160=>5, 2014020970=>5, 2012020355=>3, 2014020002=>3, 2014020391=>3, 2014020423=>3, 2016020952=>5, 2016020019=>5, 2017020898=>5, 2014020643=>6, 2013020334=>3, 2013021221=>5, 2015020608=>3, 2015020727=>5, 2015020643=>5, 2016020747=>5, 2017030211=>6, 2013020667=>4, 2014020371=>2, 2016020116=>4, 2017030114=>4, 2016020592=>4, 2012020133=>3, 2017030213=>3, 2017030214=>5, 2014020845=>5, 2013020321=>5, 2013020285=>2, 2014021083=>4, 2017020156=>3, 2013020739=>5, 2013020088=>4, 2016020797=>3, 2017020467=>4, 2015020836=>1, 2016020715=>4
-    }
+      2014020006=>6, 2014021002=>4, 2014020598=>3, 2014020917=>5, 2014020774=>4,
+      2014020142=>5, 2014020981=>5, 2014020970=>5, 2014020002=>3, 2014020391=>3,
+      2014020423=>3, 2014020643=>6, 2014020371=>2, 2014020845=>5, 2014021083=>4}
     assert_equal expected, @stats.sum_game_goals("20142015")
   end
 
@@ -39,13 +40,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_determine_season_win_percentage
-    skip
-    expected = {"20142015" => 4}
-    @stats.stubs(:count_of_games_by_season).returns(expected)
-    assert_equal 25, @stats.season_win_percentage(1, "20142015")
-    assert_equal 0, @stats.season_win_percentage(4, "20142015")
-    assert_equal 50, @stats.season_win_percentage(6, "20142015")
-    assert_equal 0, @stats.season_win_percentage(26, "20142015")
+    # expected = {"20142015" => 4}
+    # @stats.stubs(:count_of_games_by_season).returns(expected)
+    assert_equal 18.75, @stats.season_win_percentage(1, "20142015")
+    assert_equal 31.25, @stats.season_win_percentage(4, "20142015")
+    assert_equal 43.75, @stats.season_win_percentage(6, "20142015")
+    assert_equal 37.5, @stats.season_win_percentage(26, "20142015")
   end
 
 # ~~~ GAME METHOD TESTS~~~
@@ -68,7 +68,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_determine_highest_and_lowest_game_score
-    assert_equal 3, @stats.lowest_total_score("20142015")
+    assert_equal 2, @stats.lowest_total_score("20142015")
     assert_equal 6, @stats.highest_total_score("20142015")
   end
 
