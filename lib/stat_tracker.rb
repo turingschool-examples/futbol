@@ -47,6 +47,13 @@ class StatTracker
     (numerator.to_f / denominator).round(2)
   end
 
+  def seasonal_game_data
+    seasonal_game_data = @games.group_by do |game|
+      game.season
+    end
+    seasonal_game_data
+  end
+
 # ~~~ Game Methods ~~~
   def lowest_total_score
     sum_game_goals.min_by do |game_id, score|
@@ -75,20 +82,6 @@ class StatTracker
     find_percent(wins, total_games)
   end
 
-# ~~~ LEAGUE METHODS~~~
-
-# ~~~ SEASON METHODS~~~
-
-# ~~~ TEAM METHODS~~~
-
-
-  def seasonal_game_data
-    seasonal_game_data = @games.group_by do |row|
-      row.season
-    end
-    seasonal_game_data
-  end
-
   def avg_goals_by_season
     avg_goals_by_season = {}
     seasonal_game_data.each do |season, details|
@@ -100,5 +93,14 @@ class StatTracker
   def avg_goals_per_game
     ratio(wd_total_goals, total_games)
   end
+
+
+# ~~~ LEAGUE METHODS~~~
+
+# ~~~ SEASON METHODS~~~
+
+# ~~~ TEAM METHODS~~~
+
+
 
 end
