@@ -64,6 +64,17 @@ class StatTracker
     find_percent(wins, total_games)
   end
 
+  def average_scores_by_team
+  end
+
+  def team_names_by_team_id(id)
+    team_id_hash = {}
+    @teams.each do |team|
+      team_id_hash[team.team_id.to_s] = team.team_name
+    end
+    team_id_hash[id.to_s]
+  end
+
 # ~~~ LEAGUE METHODS~~~
 
 # ~~~ SEASON METHODS~~~

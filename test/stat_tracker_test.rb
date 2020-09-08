@@ -47,6 +47,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal 50.00, @stats.find_percent(wins, 6)
   end
 
+  def test_it_can_get_team_name_from_team_id
+    assert_equal "Chicago Fire", @stats.team_names_by_team_id(4)
+  end
+
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won
     assert_equal 33.33, @stats.percentage_away_wins
