@@ -51,10 +51,11 @@ class StatTracker
   end
 
   def games_containing_team
-
-    @games_teams.each do |game|
-      result[game.team_id.to_s] += 1
+    games_by_team = Hash.new(0)
+    @game_teams.each do |game|
+      games_by_team[game.team_id.to_s] += 1
     end
+    games_by_team
   end
 
   def team_names_by_team_id(id)

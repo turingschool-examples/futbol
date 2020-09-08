@@ -56,6 +56,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.total_scores_by_team
   end
 
+  def test_it_can_get_number_of_games_by_team
+    expected = {"1"=>3, "4"=>2, "14"=>2, "6"=>3, "26"=>2}
+    assert_equal expected, @stats.games_containing_team
+  end
+
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won
     assert_equal 33.33, @stats.percentage_away_wins
