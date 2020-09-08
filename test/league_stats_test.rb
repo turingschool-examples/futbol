@@ -32,4 +32,8 @@ class LeagueStatsTest <Minitest::Test
     assert_equal "Minnesota United FC", @stat_tracker.highest_scoring_visitor
   end
 
+  def test_highest_scoring_home_team
+    assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
+  end
+
 end
