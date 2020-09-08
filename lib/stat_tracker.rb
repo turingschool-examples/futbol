@@ -363,4 +363,28 @@ class StatTracker
     info_hash["team_name"] = info_hash.delete("teamName")
     info_hash
   end
+
+  def best_season(team_id)
+    wins_by_season = Hash.new(0)
+    total_games_by_season = Hash.new(0)
+    games_by_season = Hash.new { |key, value| key[value] = [] }
+    @games.each do |game|
+      if game["home_team_id"] == team_id || game["away_team_id"] == team_id
+        games_by_season[game["season"]] << game["game_id"]
+      end
+    end
+    games_by_season.each do |season, games|
+      total_games_by_season[season] = games.length
+      games.each do |game|
+        if game["result"] == "WIN"
+          wins_by_season[season] += 1
+        end
+      end
+    end
+    require "pry";binding.pry 
+    #game_ids = all_games.map do |game|
+    #  game["game_id"]
+    #end
+
+  end
 end
