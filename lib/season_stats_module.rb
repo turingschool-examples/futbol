@@ -27,8 +27,7 @@ module SeasonStatistics
 
   def winningest_coach(season_id)
     coaches_hash = Hash.new
-    season_coaches(season_id).find_all do |all_coaches|
-       coach = all_coaches
+    season_coaches(season_id).find_all do |coach|
 
       total_games = game_teams_data_for_season(season_id).count do |game|
         game.head_coach == coach
@@ -38,16 +37,16 @@ module SeasonStatistics
         game.head_coach == coach && game.result == "WIN"
       end
       coaches_hash[coach] = ((total_wins.to_f/total_games.to_f) * 100).round(2)
-
     end
-    coaches_hash.values.max
+
+    best_coach = coaches_hash.max_by do |coach, win_percentage|
+      win_percentage
+    end[0]
   end
 
   def worst_coach(season_id)
     coaches_hash = Hash.new
-    season_coaches(season_id).find_all do |all_coaches|
-      coach = all_coaches
-
+    season_coaches(season_id).find_all do |coach|
       total_games = game_teams_data_for_season(season_id).count do |game|
         game.head_coach == coach
       end
@@ -56,16 +55,17 @@ module SeasonStatistics
         game.head_coach == coach && game.result == "WIN"
       end
       coaches_hash[coach] = ((total_wins.to_f/total_games.to_f) * 100).round(2)
-    end
-    coaches_hash.values.min
-  end
 
-#could make a helper method and simplify winningest and worst coaches
+    end
+
+    worst_coach = coaches_hash.min_by do |coach, win_percentage|
+      win_percentage
+    end[0]
+  end
 
   def most_accurate_team(season_id)
     team_hash = Hash.new
     season_teams(season_id).each do |team|
-
       total_shots = game_teams_data_for_season(season_id).sum do |game|
         if game.team_id == team
           game.shots
@@ -94,6 +94,33 @@ module SeasonStatistics
     game_teams_data_for_season(season_id).map do |game|
       game.team_id
     end.uniq
+  end
+
+  def least_accurate_team(season_id)
+    team_hash = Hash.new
+    season_teams(season_id).each do |team|
+      total_shots = game_teams_data_for_season(season_id).sum do |game|
+        if game.team_id == team
+          game.shots
+        end
+      end
+
+      total_goals = game_teams_data_for_season(season_id).sum do |game|
+        if game.team_id == team
+          game.goals
+        end
+      end
+
+      team_hash[team] = (team_goals.to_f / team_shots.to_f).round(2)
+    end
+
+    not_accurate_team = team_hash.min_by do |team, shot_percentage|
+      shot_percentage
+    end[0]
+
+    @teams.find do |team|
+      team.team_id == not_accurate_team
+    end.teamName
   end
 
   # def most_tackles(season_id)

@@ -6,8 +6,8 @@ require 'pry'
 class SeasonStatisticsTest <Minitest::Test
 
   def setup
-    @game_path = './fixtures/fixture_games_teams.csv'
-    @team_path = './fixtures/fixture_games.csv'
+    @game_path = './data/games.csv'
+    @team_path = './data/teams.csv'
     @game_teams_path = './data/game_teams.csv'
     @locations = {
       games: @game_path,
@@ -41,27 +41,27 @@ class SeasonStatisticsTest <Minitest::Test
 
   def test_winningest_coach
 
-    assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20132014")
   end
 
   def test_worst_coach
 
-    assert_equal "Ted Nolan", @stat_tracker.winningest_coach("20122013")
+    assert_equal "Peter Laviolette", @stat_tracker.worst_coach("20132014")
   end
 
   def test_season_teams
 
-    assert_equal 30, @stat_tracker.season_teams("20142015").length
+    assert_equal 30, @stat_tracker.season_teams("20132014").length
   end
 
   def test_most_accurate_team
 
-    assert_equal "", @stat_tracker.most_accurate_team("20122013")
+    assert_equal "Real Salt Lake", @stat_tracker.most_accurate_team("20132014")
   end
 
   def test_least_accurate_team
 
-    assert_equal "", @stat_tracker.least_accurate_team("20122013")
+    assert_equal "New York City FC", @stat_tracker.least_accurate_team("20132014")
   end
 
   # def test_most_tackles
