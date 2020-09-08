@@ -125,4 +125,8 @@ class StatTrackerTest < Minitest::Test
   def test_can_find_team_with_most_tackles
     assert_equal "Toronto FC", @stat_tracker.most_tackles("20162017")
   end
+
+  def test_can_find_team_with_least_tackles
+    assert_equal "Real Salt Lake", @stat_tracker.least_tackles("20162017")
+  end
 end
