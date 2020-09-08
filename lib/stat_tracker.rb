@@ -36,6 +36,12 @@ class StatTracker
     game_goals_hash
   end
 
+  def season_group
+    @games.group_by do |row|
+      row.season
+    end
+  end
+
 # ~~~ Game Methods ~~~
   def lowest_total_score
     sum_game_goals.min_by do |game_id, score|
@@ -62,6 +68,14 @@ class StatTracker
   def percentage_home_wins
     wins = @games.find_all { |game| game.away_goals < game.home_goals}
     find_percent(wins, total_games)
+  end
+
+  def count_of_games_by_season
+    count_of_games_by_season = {}
+    self.season_group.each do |group|
+      count_of_games_by_season[group[0]] = group[1].count
+    end
+    count_of_games_by_season
   end
 
 # ~~~ LEAGUE METHODS~~~
