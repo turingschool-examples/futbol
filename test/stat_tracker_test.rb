@@ -70,23 +70,23 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_create_array_of_all_team_ids
     expected = [1, 4, 6, 14, 26]
-    assert_equal expected, @stats.team_ids 
+    assert_equal expected, @stats.team_ids
   end
 
-
   def test_it_can_organize_season_win_percentage_for_each_team
-    skip
     expected = {
-      1 => 25,
-      4 => 0,
-      6 => 50,
-      26 => 0
+      1 => 25.0,
+      4 => 0.0,
+      6 => 50.0,
+      14 => 0.0,
+      26 => 0.0
     }
+    @stats.stubs(:count_of_games_by_season).returns(4)
     assert_equal expected, @stats.all_teams_win_percentage("20142015")
   end
 
   def test_it_can_determine_winningest_team
-    skip
+    @stats.stubs(:count_of_games_by_season).returns(4)
     assert_equal 6, @stats.winningest_team("20142015")
   end
 
@@ -108,9 +108,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal 6, @stats.highest_total_score("20142015")
   end
 
-
   def test_it_can_list_winningest_coach_by_season
-    skip
+    @stats.stubs(:count_of_games_by_season).returns(4)
+    assert_equal "Claude Julien", @stats.winningest_coach 
   end
 
 # ~~~ LEAGUE METHOD TESTS~~~
