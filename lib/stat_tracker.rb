@@ -8,8 +8,8 @@ class StatTracker
                 :teams,
                 :game_teams,
                 :locations
-  attr_accessor :highest_total_score_stat,
-                :lowest_total_score_stat,
+  attr_accessor :highest_total_score,
+                :lowest_total_score,
                 :percentage_home_wins,
                 :percentage_visitor_wins,
                 :percentage_ties,
@@ -46,10 +46,10 @@ class StatTracker
     csv_game_files
     csv_team_files
     csv_game_team_files
-    @highest_total_score_stat  = nil
-    @lowest_total_score        = nil
-    @percentage_home_wins      = nil
-    @percentage_visitor_wins   = nil
+    @highest_total_score     = nil
+    @lowest_total_score      = nil
+    @percentage_home_wins    = nil
+    @percentage_visitor_wins = nil
     @percentage_ties           = nil
     @count_of_games_by_season  = nil
     @average_goals_per_game    = nil

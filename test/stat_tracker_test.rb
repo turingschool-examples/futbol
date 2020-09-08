@@ -37,18 +37,16 @@ class StatTrackerTest < Minitest::Test
   def test_teams_has_game_data
     stat = StatTracker.new
     assert_equal false, stat.teams.include?("4")
-    assert stat.teams.include?("26")
     stat = StatTracker.from_csv(@locations)
+    assert stat.teams.include?("26")
     assert stat.teams.include?("14")
   end
 
-  def test_teams_has_game_data
+  def test_game_teams_has_game_data
     stat = StatTracker.new
     assert_equal false, stat.game_teams.include?("2012030221")
     stat = StatTracker.from_csv(@locations)
     assert stat.game_teams.include?("2012030222")
     assert stat.game_teams.include?("2012030224")
   end
-
-
 end
