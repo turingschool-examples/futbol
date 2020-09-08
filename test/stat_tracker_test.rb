@@ -12,11 +12,52 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_has_access_to_other_classes
     assert_instance_of Game, @stats.games[0]
-    assert_equal 6, @stats.games.count
+    assert_equal 53, @stats.games.count
     assert_instance_of Team, @stats.teams[0]
     assert_equal 5, @stats.teams.count
     assert_instance_of GameTeam, @stats.game_teams[0]
-    assert_equal 12, @stats.game_teams.count
+    assert_equal 106, @stats.game_teams.count
+  end
+
+  # ~~~ HELPER METHOD TESTS~~~
+
+  def test_it_can_sum_goals_per_game
+    expected = {
+      2014020006 => 6,
+      2014021002 => 4,
+      2014020598 => 3,
+      2014020917 => 5,
+      2014020774 => 4,
+      2017020012 => 2
+    }
+    assert_equal expected, @stats.sum_game_goals
+  end
+
+  def test_it_can_determine_highest_and_lowest_game_score
+    assert_equal 2, @stats.lowest_total_score
+    assert_equal 6, @stats.highest_total_score
+  end
+
+  def test_it_can_find_total_games
+    assert_equal 6, @stats.total_games
+  end
+
+  def test_it_can_find_percentage
+    wins = ["game1", "game2", "game3"]
+    assert_equal 50.00, @stats.find_percent(wins, 6)
+  end
+
+# ~~~ GAME METHOD TESTS~~~
+  def test_it_can_get_percentage_away_games_won
+    assert_equal 33.33, @stats.percentage_away_wins
+  end
+
+  def test_it_can_get_percentage_ties
+    assert_equal 33.33, @stats.percentage_ties
+  end
+
+  def test_it_can_get_percentage_home_wins
+    assert_equal 33.33, @stats.percentage_home_wins
   end
 
   def test_it_can_see_count_of_games_by_season
@@ -25,8 +66,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.count_of_games_by_season
   end
 
+# ~~~ LEAGUE METHOD TESTS~~~
 
 
+# ~~~ SEASON METHOD TESTS~~~
 
 
+# ~~~ TEAM METHOD TESTS~~~
 end
