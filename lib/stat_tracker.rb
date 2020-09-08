@@ -220,7 +220,7 @@ class StatTracker
 
   def winningest_coach(season)
     coach_game_count = Hash.new(0)
-    coach_wins = Hash.new(0)
+    coach_wins = Hash.new(0.0)
     games_in_season = @games.select do |game|
       game["season"] == season
     end
@@ -238,12 +238,121 @@ class StatTracker
     best_coach = coach_wins.max_by do |coach, win|
       win / coach_game_count[coach]
     end[0]
-    # require "pry"; binding.pry
-
   end
 
+  def worst_coach(season)
+    coach_game_count = Hash.new(0)
+    coach_losses = Hash.new(0.0)
+    games_in_season = @games.select do |game|
+      game["season"] == season
+    end
+    game_ids = games_in_season.map do |game|
+      game["game_id"]
+    end
+    @game_teams.each do |game|
+      if game_ids.include?(game["game_id"])
+        coach_game_count[game["head_coach"]] += 1
+        if game["result"] == "LOSS" || game["result"] == "TIE"
+          coach_losses[game["head_coach"]] += 1
+        end
+      end
+    end
+    worst_coach = coach_losses.max_by do |coach, loss|
+      loss / coach_game_count[coach]
+    end[0]
+  end
 
+  def most_accurate_team(season)
+    total_shots_by_team = Hash.new(0.0)
+    total_goals_by_team = Hash.new(0.0)
+    games_in_season = @games.select do |game|
+      game["season"] == season
+    end
+    game_ids = games_in_season.map do |game|
+      game["game_id"]
+    end
+    @game_teams.each do |game|
+      if game_ids.include?(game["game_id"])
+        total_shots_by_team[game["team_id"]] += game["shots"].to_f
+        total_goals_by_team[game["team_id"]] += game["goals"].to_f
+      end
+    end
+    most_accurate_team = total_goals_by_team.max_by do |team, goal|
+      goal / total_shots_by_team[team]
+    end[0]
+    most_accurate_team_name = @teams.find do |team|
+      team["team_id"] == most_accurate_team
+    end
+    most_accurate_team_name["teamName"]
+  end
 
+  def least_accurate_team(season)
+    total_shots_by_team = Hash.new(0.0)
+    total_goals_by_team = Hash.new(0.0)
+    games_in_season = @games.select do |game|
+      game["season"] == season
+    end
+    game_ids = games_in_season.map do |game|
+      game["game_id"]
+    end
+    @game_teams.each do |game|
+      if game_ids.include?(game["game_id"])
+        total_shots_by_team[game["team_id"]] += game["shots"].to_f
+        total_goals_by_team[game["team_id"]] += game["goals"].to_f
+      end
+    end
+    least_accurate_team = total_goals_by_team.min_by do |team, goal|
+      goal / total_shots_by_team[team]
+    end[0]
+    least_accurate_team_name = @teams.find do |team|
+      team["team_id"] == least_accurate_team
+    end
+    least_accurate_team_name["teamName"]
+  end
+
+  def most_tackles(season)
+    team_tackles = Hash.new(0)
+    games_in_season = @games.select do |game|
+      game["season"] == season
+    end
+    game_ids = games_in_season.map do |game|
+      game["game_id"]
+    end
+    @game_teams.each do |game|
+      if game_ids.include?(game["game_id"])
+        team_tackles[game["team_id"]] += game["tackles"].to_i
+      end
+    end
+    most_tackles_team = team_tackles.max_by do |team, tackles|
+      tackles
+    end[0]
+    most_tackles_team_name = @teams.find do |team|
+      team["team_id"] == most_tackles_team
+    end
+    most_tackles_team_name["teamName"]
+  end
+
+  def fewest_tackles(season)
+    team_tackles = Hash.new(0)
+    games_in_season = @games.select do |game|
+      game["season"] == season
+    end
+    game_ids = games_in_season.map do |game|
+      game["game_id"]
+    end
+    @game_teams.each do |game|
+      if game_ids.include?(game["game_id"])
+        team_tackles[game["team_id"]] += game["tackles"].to_i
+      end
+    end
+    fewest_tackles_team = team_tackles.min_by do |team, tackles|
+      tackles
+    end[0]
+    fewest_tackles_team_name = @teams.find do |team|
+      team["team_id"] == fewest_tackles_team
+    end
+    fewest_tackles_team_name["teamName"]
+  end
     # game_results = @game_teams.select do |game_team|
     #   game_team[]
 

@@ -11,3 +11,4 @@ team_id,franchiseId,teamName,abbreviation,Stadium,link
 29,36,Orlando Pride,FLP,Exploria Stadium,/api/v1/teams/29
 23,20,Montreal Impact,MTL,Saputo Stadium,/api/v1/teams/23
 30,37,Orlando City SC,ORL,Exploria Stadium,/api/v1/teams/30
+20,21,Toronto FC,TOR,BMO Field,/api/v1/teams/20

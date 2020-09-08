@@ -109,4 +109,24 @@ class StatTrackerTest < Minitest::Test
   def test_can_find_winningest_coach
     assert_equal "Bruce Boudreau", @stat_tracker.winningest_coach("20122013")
   end
+
+  def test_can_find_worst_coach
+    assert_equal "Glen Gulutzan", @stat_tracker.worst_coach("20162017")
+  end
+
+  def test_can_find_most_accurate_team
+    assert_equal "Real Salt Lake", @stat_tracker.most_accurate_team("20162017")
+  end
+
+  def test_can_find_least_accurate_team
+    assert_equal "Toronto FC", @stat_tracker.least_accurate_team("20162017")
+  end
+
+  def test_can_find_team_with_most_tackles
+    assert_equal "Toronto FC", @stat_tracker.most_tackles("20162017")
+  end
+
+  def test_can_find_team_with_fewest_tackles
+    assert_equal "Real Salt Lake", @stat_tracker.fewest_tackles("20162017")
+  end
 end
