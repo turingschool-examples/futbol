@@ -40,7 +40,6 @@ class StatTracker
     base = Hash.new(0)
     @game_teams.each do |game|
       key = game.team_id.to_s
-      # require "pry"; binding.pry
       base[key] += game.goals
     end
     base
@@ -97,8 +96,13 @@ class StatTracker
 
 # ~~~ LEAGUE METHODS~~~
   def worst_offense
-    loser = average_scores_by_team.min_by {|id, average| average}
-    team_names_by_team_id(loser[0])
+    worst = average_scores_by_team.min_by {|id, average| average}
+    team_names_by_team_id(worst[0])
+  end
+
+  def best_offense
+    best = average_scores_by_team.max_by {|id, average| average}
+    team_names_by_team_id(best[0])
   end
 
 # ~~~ SEASON METHODS~~~

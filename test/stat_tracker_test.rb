@@ -84,6 +84,10 @@ def test_worst_offense
   assert_equal "Chicago Fire", @stats.worst_offense
 end
 
+def test_best_offense
+  assert_equal "FC Dallas", @stats.best_offense
+end
+
 
 # ~~~ SEASON METHOD TESTS~~~
 
