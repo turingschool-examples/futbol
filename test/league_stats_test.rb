@@ -44,9 +44,6 @@ class LeagueStatisticsTest < Minitest::Test
   end
 
   def test_team_with_best_offense
-    skip
-    @game_statistics
-
     assert_equal 'Reign FC', @league_stats.best_offense
   end
 end
