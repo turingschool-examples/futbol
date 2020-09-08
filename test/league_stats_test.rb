@@ -14,10 +14,12 @@ class LeagueStatsTest <Minitest::Test
     }
     @stat_tracker = StatTracker.from_csv(@locations)
     @stat_tracker.extend(LeagueStats)
-    require "pry"; binding.pry
   end
 
   def test_count_of_teams
     assert_equal 26, @stat_tracker.count_of_teams
   end
+
+
+
 end
