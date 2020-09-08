@@ -1,16 +1,16 @@
-game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles
-2014020006,1,away,WIN,REG,Peter DeBoer,4,6,36
-2014020006,4,home,LOSS,REG,Craig Berube,2,9,30
-2014021002,14,away,TIE,SO,Jon Cooper,2,9,27
-2014021002,6,home,TIE,SO,Claude Julien,2,7,25
-2014020598,1,away,LOSS,REG,Adam Oates,0,3,19
-2014020598,6,home,WIN,REG,Claude Julien,3,10,23
-2014020917,6,away,WIN,OT,Claude Julien,3,8,30
-2014020917,1,home,LOSS,OT,Adam Oates,2,7,31
-2014020774,26,away,TIE,REG,Darryl Sutter,2,7,27
-2014020774,14,home,TIE,REG,Jon Cooper,2,7,22
-2017020012,4,away,LOSS,REG,Dave Hakstol,0,8,19
-2017020012,26,home,WIN,REG,John Stevens,2,6,21
+game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways
+2014020006,1,away,WIN,REG,Peter DeBoer,4,6,36,10,3,0,42.9,4,5
+2014020006,4,home,LOSS,REG,Craig Berube,2,9,30,6,5,2,57.1,6,5
+2014021002,14,away,TIE,SO,Jon Cooper,2,9,27,20,2,0,53.3,3,11
+2014021002,6,home,TIE,SO,Claude Julien,2,7,25,6,4,0,46.7,12,7
+2014020598,1,away,LOSS,REG,Adam Oates,0,3,19,11,1,0,38.2,9,3
+2014020598,6,home,WIN,REG,Claude Julien,3,10,23,7,3,1,61.8,11,5
+2014020917,6,away,WIN,OT,Claude Julien,3,8,30,4,2,0,55.6,5,6
+2014020917,1,home,LOSS,OT,Adam Oates,2,7,31,4,2,1,44.4,8,8
+2014020774,26,away,TIE,REG,Darryl Sutter,2,7,27,10,2,0,42.9,3,8
+2014020774,14,home,TIE,REG,Jon Cooper,2,7,22,10,2,0,57.1,6,6
+2017020012,4,away,LOSS,REG,Dave Hakstol,0,8,19,10,5,0,47.9,10,4
+2017020012,26,home,WIN,REG,John Stevens,2,6,21,10,5,0,52.1,8,7
 2014020142,4,away,WIN,REG,Craig Berube,3,6,22,14,2,0,50,6,8
 2014020142,14,home,LOSS,REG,Jon Cooper,2,8,24,8,5,2,50,8,9
 2015020007,4,away,LOSS,OT,Dave Hakstol,2,6,26,6,3,1,50.8,8,6
