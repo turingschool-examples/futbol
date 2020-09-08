@@ -36,6 +36,12 @@ class StatTracker
     game_goals_hash
   end
 
+  def season_group
+    @games.group_by do |row|
+      row.season
+    end
+  end
+
   def total_scores_by_team
     base = Hash.new(0)
     @game_teams.each do |game|
