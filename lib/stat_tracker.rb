@@ -99,6 +99,14 @@ class StatTracker
     find_percent(wins, total_games)
   end
 
+  def count_of_games_by_season
+    count = {}
+    season_group.each do |season, games|
+      count[season] = games.count
+    end
+    count
+  end
+
 
 # ~~~ LEAGUE METHODS~~~
   def worst_offense
