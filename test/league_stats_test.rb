@@ -20,7 +20,7 @@ class LeagueStatisticsTest < Minitest::Test
     @stat_tracker = @stat_tracker_location.game_stats
     @stat_game_teams_tracker = @stat_tracker_location.game_teams_stats
     @game_statistics = GameStatistics.new(@stat_tracker, @stat_game_teams_tracker)
-    @league_stats = LeagueStatistics.new(@teams_stats)
+    @league_stats = LeagueStatistics.new(@teams_stats, @game_statistics)
   end
 
   def test_it_exits
@@ -33,5 +33,20 @@ class LeagueStatisticsTest < Minitest::Test
 
   def test_count_of_teams
     assert_equal 32, @league_stats.count_of_teams
+  end
+
+  def test_group_by_team_id
+    assert_equal 32, @league_stats.group_by_team_id.keys.count
+  end
+
+  def test_team_id_and_average_goals
+    assert_equal 32, @league_stats.team_id_and_average_goals.count
+  end
+
+  def test_team_with_best_offense
+    skip
+    @game_statistics
+
+    assert_equal 'Reign FC', @league_stats.best_offense
   end
 end
