@@ -36,4 +36,8 @@ class LeagueStatsTest <Minitest::Test
     assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
   end
 
+  def test_lowest_scoring_visitor
+    assert_equal "Philadelphia Union", @stat_tracker.lowest_scoring_visitor
+  end
+
 end
