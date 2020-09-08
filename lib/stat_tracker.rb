@@ -286,6 +286,30 @@ class StatTracker
     most_accurate_team_name["teamName"]
   end
 
+  def least_accurate_team(season)
+    total_shots_by_team = Hash.new(0.0)
+    total_goals_by_team = Hash.new(0.0)
+    games_in_season = @games.select do |game|
+      game["season"] == season
+    end
+    game_ids = games_in_season.map do |game|
+      game["game_id"]
+    end
+    @game_teams.each do |game|
+      if game_ids.include?(game["game_id"])
+        total_shots_by_team[game["team_id"]] += game["shots"].to_f
+        total_goals_by_team[game["team_id"]] += game["goals"].to_f
+      end
+    end
+    least_accurate_team = total_goals_by_team.min_by do |team, goal|
+      goal / total_shots_by_team[team]
+    end[0]
+    least_accurate_team_name = @teams.find do |team|
+      team["team_id"] == least_accurate_team
+    end
+    least_accurate_team_name["teamName"]
+  end
+
     # game_results = @game_teams.select do |game_team|
     #   game_team[]
 
