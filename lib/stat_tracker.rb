@@ -164,6 +164,18 @@ class StatTracker
     determine_worst_coach
   end
 
+  def most_accurate_team(season)
+    # Resulting array is game_teams all results by game_id in specified season
+    game_team_results_by_season(season)
+    total_shots_per_team_in_season
+  end
+
+  def total_shots_per_team_in_season
+    shots_per_team = {}
+    @games_results_per_season.each do |team_result|
+
+  end
+
 
 #------------TeamStatistics
 
@@ -180,7 +192,7 @@ class StatTracker
   end
 
 #---------------------------
-  private
+  # private
 
   # -----------------GameStatistics
 
@@ -200,20 +212,20 @@ def game_team_results_by_season(season)
 
   def coaches_records_start
     @coach_record_hash = {}
-    @games_results_per_season.each do |gr|
-      @coach_record_hash[gr['head_coach']] = {wins: 0, losses: 0, ties:0}
+    @games_results_per_season.each do |team_result|
+      @coach_record_hash[team_result['head_coach']] = {wins: 0, losses: 0, ties:0}
     end
     @coach_record_hash
   end
 
   def add_wins_losses
-    @games_results_per_season.each do |gr|
-      if gr['result'] == "WIN"
-        @coach_record_hash[gr['head_coach']][:wins] += 1
-      elsif gr['result'] == "LOSS"
-        @coach_record_hash[gr['head_coach']][:losses] += 1
-      elsif gr['result'] == "TIE"
-        @coach_record_hash[gr['head_coach']][:ties] += 1
+    @games_results_per_season.each do |team_result|
+      if team_result['result'] == "WIN"
+        @coach_record_hash[team_result['head_coach']][:wins] += 1
+      elsif team_result['result'] == "LOSS"
+        @coach_record_hash[team_result['head_coach']][:losses] += 1
+      elsif team_result['result'] == "TIE"
+        @coach_record_hash[team_result['head_coach']][:ties] += 1
       end
     end
     @coach_record_hash
