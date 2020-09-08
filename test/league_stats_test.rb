@@ -58,4 +58,16 @@ class LeagueStatisticsTest < Minitest::Test
   def test_worst_offense
     assert_equal 'Utah Royals FC', @league_stats.worst_offense
   end
+
+  def test_id_and_average_away_goals
+    assert_equal 32, @league_stats.team_id_and_average_away_goals.count
+  end
+
+  def test_team_away_goals
+    assert_equal 6, @league_stats.team_away_goals
+  end
+
+  def test_highest_scoring_visitor
+    assert_equal 'FC Dallas', @league_stats.highest_scoring_visitor
+  end
 end
