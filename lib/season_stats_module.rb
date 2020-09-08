@@ -61,10 +61,32 @@ module SeasonStatistics
 
 #could make a helper method and simplify winningest and worst coaches
 
-  # def most_accurate_team
-  #   team_hash = Hash.new
-  #
-  # end
+  def most_accurate_team(season_id)
+    team_hash = Hash.new
+    season_teams(season_id).find_all do |all_teams|
+      team = all_teams
+
+      total_shots = game_teams_data_for_season(season_id).each do |game|
+        team_shots = 0
+        if game.team_id == team
+          team_shots += game.shots
+        end
+        return team_shots
+      end
+
+      total_goals = game_teams_data_for_season(season_id).each do |game|
+        team_goals = 0
+        if game.team_id == team
+          team_goals += game.goals
+        end
+        return team_goals
+      end
+
+      shot_ratio = (total_goals.to_f / total_shots.to_f).round(2)
+      team_hash[team] = shot_ratio
+    end
+
+  end
 
   def season_teams(season_id)
     game_teams_data_for_season(season_id).map do |game|

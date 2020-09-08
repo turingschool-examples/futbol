@@ -54,6 +54,11 @@ class SeasonStatisticsTest <Minitest::Test
     assert_equal 30, @stat_tracker.season_teams("20142015").length
   end
 
+  def test_most_accurate_team
+
+    assert_equal "", @stat_tracker.most_accurate_team("20122013")
+  end
+
 
 
 end
