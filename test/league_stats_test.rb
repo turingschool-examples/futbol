@@ -28,4 +28,8 @@ class LeagueStatsTest <Minitest::Test
     assert_equal "Vancouver Whitecaps FC", @stat_tracker.worst_offence
   end
 
+  def test_highest_scoring_visitor
+    assert_equal "Minnesota United FC", @stat_tracker.highest_scoring_visitor
+  end
+
 end
