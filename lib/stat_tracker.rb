@@ -44,7 +44,19 @@ class StatTracker
   end
 
 # #------------SeasonStatistics
-#
+
+  def winningest_coach(season)
+    game_team_results_by_season(season)
+    coaches_records_start
+
+    # coaches_record_per_season(season)
+
+    # coach_record_hash = {}
+    # games_in_season(season).each do |game|
+
+    # end
+  end
+
 #   def winningest_coach
 #     winner = coach_list_wins_losses.max_by do |key, w_l|
 #       wins = w_l.count("WIN")
@@ -80,13 +92,33 @@ class StatTracker
   end
 
 #---------------------------
-  private
+  # private
 
-  def coach_list_wins_losses
-    coach_hash = Hash.new
-    game_teams.each do |gt|
-      (coach_hash[gt.head_coach] ||= []) << gt.result
+def game_team_results_by_season(season)
+    games_of_season = games.find_all do |game|
+      game['season'] == season
     end
-    coach_hash
-  end  
+    game_ids_in_season = games_of_season.map do |game|
+      game['game_id']
+    end
+    @games_results_per_season = game_teams.find_all do |gt|
+      game_ids_in_season.include? gt['game_id']
+    end
+  end
+
+  def coaches_records_start
+    coach_record_hash = {}
+    @games_results_per_season.each do |gr|
+      coach_record_hash[gr['head_coach']] = {wins: 0, losses: 0}
+    end
+    coach_record_hash
+  end
+
+  def add_wins_losses
+    @games_results_per_season.each do |gr|
+      if gr['result'] == "WIN"
+        coach_record_hash[gr['head_coach']][:wins] += 1
+      end
+    end
+  end
 end
