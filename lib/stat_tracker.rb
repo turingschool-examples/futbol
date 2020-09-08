@@ -43,6 +43,22 @@ class StatTracker
     end
   end
 
+  def team_ids
+    @teams.map do |team|
+      team.team_id
+    end.sort 
+  end
+
+  def all_teams_win_percentage(season)
+    percent_wins = {}
+
+    require "pry"; binding.pry
+  end
+
+  def winningest_team(season)
+    # require "pry"; binding.pry
+  end
+
 # ~~~ Game Methods ~~~
   def lowest_total_score(season)
     sum_game_goals(season).min_by do |game_id, score|
