@@ -14,10 +14,10 @@ class GameStatisticsTest < Minitest::Test
       game_teams: game_teams_path
     }
 
-    @stat_tracker_location = StatTracker.from_csv(locations)
-    @stat_tracker = @stat_tracker_location.game_stats
-    @stat_game_teams_tracker = @stat_tracker_location.game_teams_stats
-    @game_statistics = GameStatistics.new(@stat_tracker, @stat_game_teams_tracker)
+    @stat_tracker = StatTracker.from_csv(locations)
+    @raw_game_stats = @stat_tracker.game_stats
+    @raw_game_teams_stats = @stat_tracker.game_teams_stats
+    @game_statistics = GameStatistics.new(@raw_game_stats, @raw_game_teams_stats)
   end
 
   def test_it_exists
