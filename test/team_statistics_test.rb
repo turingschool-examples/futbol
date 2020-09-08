@@ -73,6 +73,13 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal expected, @stat_tracker.game_stats_by_team_id("17")
   end
 
+  def test_it_can_generate_an_array_of_game_ids_from_an_array_of_games
+    games = @stat_tracker.games_by_team_id("17")
+    expected = ["2012030161", "2012030162", "2012030163", "2012030164", "2012030165", "2012030166", "2012030167"]
+
+    assert_equal expected, @stat_tracker.games_to_game_ids(games)
+  end
+
   def test_it_can_find_most_goals_scored_by_team
     assert_equal 3, @stat_tracker.most_goals_scored("17")
     # Add more assertions?
@@ -96,10 +103,6 @@ class TeamStatisticsTest < Minitest::Test
     # What if one or multiple of the categories is 0?
   end
 
-  # def test_it_can_count_total_games_wins_losses_and_ties_for_a_team_for_a_subset_of_games
-  #
-  # end
-
   def test_it_can_calculate_average_win_percentage_for_a_team
     assert_equal 0.56, @stat_tracker.average_win_percentage("26")
     assert_equal 0.45, @stat_tracker.average_win_percentage("24")
@@ -117,3 +120,26 @@ class TeamStatisticsTest < Minitest::Test
 end
 
 # Maybe a games_to_game_teams method would help DRY up the code?
+
+
+  # def test_it_can_find_game_stats_by_team_id_for_a_subset_of_games
+  #   games = @stat_tracker.games_by_team_id("17") + @stat_tracker.games_by_team_id("26")
+  #   games.delete_at(2)
+  #   game_teams = @stat_tracker.game_teams
+  #   expected = [game_teams[0], game_teams[2], game_teams[7], game_teams[8], game_teams[11], game_teams[12]]
+  #
+  #   assert_equal expected, @stat_tracker.game_stats_by_team_id("24", games)
+  # end
+  #
+
+  # def test_it_can_count_total_games_wins_losses_and_ties_for_a_team_for_a_subset_of_games
+  #   game_ids = @stat_tracker.games_by_team_id("26").map(&:game_id)
+  #   expected = {
+  #     total: 9,
+  #     wins: 3,
+  #     losses: 5,
+  #     ties: 1
+  #   }
+  #
+  #   assert_equal expected, @stat_tracker.result_counts_by_team_id("24", game_ids)
+  # end
