@@ -19,6 +19,12 @@ module TeamStatistics
     end
   end
 
+  def games_to_game_ids(games_array)
+    games_array.map do |game|
+      game.game_id
+    end
+  end
+
   def separate_games_by_season_id(games_array = games)
     season_hash = {}
     games_array.each do |game|
@@ -32,7 +38,7 @@ module TeamStatistics
     season_hash
   end
 
-  def result_counts_by_team_id(team_id)
+  def result_counts_by_team_id(team_id)  # Refactor to take game_ids as an arg
     results_hash = {}
     results_hash[:total] = game_stats_by_team_id(team_id).length
     results_hash[:wins] = game_stats_by_team_id(team_id).select do |game|
