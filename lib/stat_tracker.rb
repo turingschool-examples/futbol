@@ -97,7 +97,8 @@ class StatTracker
 
 # ~~~ LEAGUE METHODS~~~
   def worst_offense
-    #could use something like a map to iterate on average_scores_by_team, then invert the hash and call team_names_by_team_id
+    loser = average_scores_by_team.min_by {|id, average| average}
+    team_names_by_team_id(loser[0])
   end
 
 # ~~~ SEASON METHODS~~~

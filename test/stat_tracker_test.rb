@@ -80,6 +80,9 @@ class StatTrackerTest < Minitest::Test
   end
 
 # ~~~ LEAGUE METHOD TESTS~~~
+def test_worst_offense
+  assert_equal "Chicago Fire", @stats.worst_offense
+end
 
 
 # ~~~ SEASON METHOD TESTS~~~
