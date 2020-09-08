@@ -34,8 +34,8 @@ class StatTracker
     result['away_goals'].to_i + result['home_goals'].to_i
   end
 
-  def home_win_percentage
-    average = all_home_game_wins/all_home_games.count.to_f
+  def percentage_home_wins
+    average = all_home_game_wins.count / all_home_games.count.to_f
     average.round(2)
   end
 
@@ -48,17 +48,17 @@ class StatTracker
   def all_home_game_wins
     all_home_games.find_all do |game|
       game['result'] == "WIN"
-    end.count
+    end
   end
 
   def all_home_game_losses
     all_home_games.find_all do |game|
       game['result'] == "LOSS"
-    end.count
+    end
   end
 
-  def visitor_win_percentage
-    average = all_away_game_wins/all_away_games.count.to_f
+  def percentage_visitor_wins
+    average = all_away_game_wins.count / all_away_games.count.to_f
     average.round(2)
   end
 
@@ -71,24 +71,24 @@ class StatTracker
   def all_away_game_wins
     all_away_games.find_all do |game|
       game['result'] == "WIN"
-    end.count
+    end
   end
 
-  def tie_percentage
-    average = all_tie_games / all_games.to_f
+  def percentage_ties
+    average = all_tie_games.count / all_games.count.to_f
     average.round(2)
   end
 
   def all_games
     game_teams.find_all do |game|
       game['HoA'] == "away" || game['HoA'] == "home"
-    end.count
+    end
   end
 
   def all_tie_games
-    all_away_games.find_all do |game|
+    all_games.find_all do |game|
       game['result'] == "TIE"
-    end.count
+    end
   end
 #
 #------------LeagueStatistics
@@ -181,6 +181,8 @@ class StatTracker
 
 #---------------------------
   private
+
+  # -----------------GameStatistics
 
   # -----------------SeasonStatistics
 
