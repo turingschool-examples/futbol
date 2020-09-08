@@ -24,4 +24,8 @@ class LeagueStatsTest <Minitest::Test
     assert_equal "Atlanta United", @stat_tracker.best_offence
   end
 
+  def test_with_worst_offence
+    assert_equal "Vancouver Whitecaps FC", @stat_tracker.worst_offence
+  end
+
 end
