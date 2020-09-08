@@ -7,11 +7,11 @@ module SeasonStatistics
     end
   end
 
-  def array_of_game_id_from_season(season_id)
-    find_all_games_from_season(season_id).map do |game|
-      game.game_id
-    end
-  end
+  # def array_of_game_id_from_season(season_id)
+  #   find_all_games_from_season(season_id).map do |game|
+  #     game.game_id
+  #   end
+  # end
 
   def game_teams_data_for_season(season_id)
     @game_teams.find_all do |game|
@@ -69,16 +69,20 @@ module SeasonStatistics
       total_shots = game_teams_data_for_season(season_id).sum do |game|
         if game.team_id == team
           game.shots
+        else
+          0
         end
       end
 
       total_goals = game_teams_data_for_season(season_id).sum do |game|
         if game.team_id == team
           game.goals
+        else
+          0
         end
       end
 
-      team_hash[team] = (team_goals.to_f / team_shots.to_f).round(2)
+      team_hash[team] = (total_goals.to_f / total_shots.to_f).round(2)
     end
 
     accurate_team = team_hash.max_by do |team, shot_percentage|
@@ -87,7 +91,7 @@ module SeasonStatistics
 
     @teams.find do |team|
       team.team_id == accurate_team
-    end.teamName
+    end.team_name
   end
 
   def season_teams(season_id)
@@ -102,16 +106,20 @@ module SeasonStatistics
       total_shots = game_teams_data_for_season(season_id).sum do |game|
         if game.team_id == team
           game.shots
+        else
+          0
         end
       end
 
       total_goals = game_teams_data_for_season(season_id).sum do |game|
         if game.team_id == team
           game.goals
+        else
+          0
         end
       end
 
-      team_hash[team] = (team_goals.to_f / team_shots.to_f).round(2)
+      team_hash[team] = (total_goals.to_f / total_shots.to_f).round(2)
     end
 
     not_accurate_team = team_hash.min_by do |team, shot_percentage|
@@ -120,7 +128,7 @@ module SeasonStatistics
 
     @teams.find do |team|
       team.team_id == not_accurate_team
-    end.teamName
+    end.team_name
   end
 
   # def most_tackles(season_id)
