@@ -30,9 +30,30 @@ class LeagueStatistics
   end
 
   def best_offense
-    best_offense = @teams_data.find do |team|
-      team[:teamname] if team_id_and_average_goals.max[0] == team[:team_id]
+    best_attack = @teams_data.find do |team|
+      team[:teamname] if best_offense_stats == team[:team_id]
     end
-    best_offense[:teamname]
+    best_attack[:teamname]
+  end
+
+  def worst_offense
+    worst_attack = @teams_data.find do |team|
+      team[:teamname] if worst_offense_stats == team[:team_id]
+    end
+    worst_attack[:teamname]
+  end
+
+  def best_offense_stats
+    stats = team_id_and_average_goals.sort_by do |key, value|
+      value
+    end
+    stats[-1][0]
+  end
+
+  def worst_offense_stats
+    stats = team_id_and_average_goals.sort_by do |key, value|
+      value
+    end
+    stats[0][0]
   end
 end
