@@ -28,26 +28,30 @@ class StatTracker
     (numerator / denominator.to_f * 100).round(2)
   end
 
-  def sum_game_goals
+  def sum_game_goals(season)
     game_goals_hash = {}
-    @games.each do |game|
+    season_games = filter_by_season(season)
+    season_games.each do |game|
       game_goals_hash[game.game_id] = (game.away_goals + game.home_goals)
     end
     game_goals_hash
   end
 
-  def filter_by_season
+  def filter_by_season(season)
+    season = @games.find_all do |game|
+      game.season == season
+    end
   end
 
 # ~~~ Game Methods ~~~
-  def lowest_total_score
-    sum_game_goals.min_by do |game_id, score|
+  def lowest_total_score(season)
+    sum_game_goals(season).min_by do |game_id, score|
       score
     end.last
   end
 
-  def highest_total_score
-    sum_game_goals.max_by do |game_id, score|
+  def highest_total_score(season)
+    sum_game_goals(season).max_by do |game_id, score|
       score
     end.last
   end

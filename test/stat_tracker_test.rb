@@ -28,16 +28,15 @@ class StatTrackerTest < Minitest::Test
       2014021002 => 4,
       2014020598 => 3,
       2014020917 => 5,
-      2014020774 => 4,
-      2017020012 => 2
+      2014020774 => 4
     }
-    assert_equal expected, @stats.sum_game_goals
+    assert_equal expected, @stats.sum_game_goals("20142015")
   end
 
   def test_it_can_filter_games_by_season
     @stats.games.delete_at(-1)
     expected = @stats.games
-    assert_equal expected, @stats.filter_by_season
+    assert_equal expected, @stats.filter_by_season("20142015")
   end
 
   def test_it_can_count_total_home_wins
@@ -85,8 +84,8 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_determine_highest_and_lowest_game_score
-    assert_equal 2, @stats.lowest_total_score
-    assert_equal 6, @stats.highest_total_score
+    assert_equal 3, @stats.lowest_total_score("20142015")
+    assert_equal 6, @stats.highest_total_score("20142015")
   end
 
 # ~~~ LEAGUE METHOD TESTS~~~
