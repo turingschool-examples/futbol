@@ -40,12 +40,76 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_determine_season_win_percentage
-    # expected = {"20142015" => 4}
-    # @stats.stubs(:count_of_games_by_season).returns(expected)
     assert_equal 18.75, @stats.season_win_percentage(1, "20142015")
     assert_equal 31.25, @stats.season_win_percentage(4, "20142015")
     assert_equal 43.75, @stats.season_win_percentage(6, "20142015")
     assert_equal 37.5, @stats.season_win_percentage(26, "20142015")
+  end
+
+  def test_it_can_filter_games_by_season
+    expected_games_1 = @stats.filter_by_season("20122013")
+    expected_games_2 = @stats.filter_by_season("20152016")
+    expected_games_3 = @stats.filter_by_season("20142015")
+    result_1 = expected_games_1.none? do |game|
+      game.season == "20132014" && game.season == "20142015" && game.season == "20162017"
+    end
+    assert result_1
+    assert_equal 4, expected_games_1.count
+    result_2 = expected_games_2.any? do |game|
+      game.season == "20122013" && game.season == "20132014" && game.season == "20162017"
+    end
+    assert_equal false, result_2
+    assert_equal 5, expected_games_2.count
+    result_3 = expected_games_3.any? do |game|
+      game.season == "20142015"
+    end
+    assert result_3
+    assert_equal 16, expected_games_3.count
+  end
+
+  def test_it_can_count_total_home_wins
+    assert_equal 1, @stats.team_wins_as_home(1, "20142015")
+    assert_equal 1, @stats.team_wins_as_home(4, "20142015")
+    assert_equal 3, @stats.team_wins_as_home(6, "20142015")
+    assert_equal 2, @stats.team_wins_as_home(26, "20142015")
+  end
+
+  def test_it_can_count_total_away_wins
+    assert_equal 2, @stats.team_wins_as_away(1, "20142015")
+    assert_equal 4, @stats.team_wins_as_away(4, "20142015")
+    assert_equal 4, @stats.team_wins_as_away(6, "20142015")
+    assert_equal 4, @stats.team_wins_as_away(26, "20142015")
+  end
+
+  def test_it_can_count_total_number_of_wins_per_season ###
+    assert_equal 3, @stats.total_team_wins(1, "20142015")
+    assert_equal 5, @stats.total_team_wins(4, "20142015")
+    assert_equal 7, @stats.total_team_wins(6, "20142015")
+    assert_equal 6, @stats.total_team_wins(26, "20142015")
+  end
+
+  def test_it_can_create_array_of_all_team_ids
+    expected = [1, 4, 6, 14, 26]
+    assert_equal expected, @stats.team_ids
+  end
+
+  def test_it_can_organize_season_win_percentage_for_each_team ###
+    expected = {
+      1 => 18.75,
+      4 => 31.25,
+      6 => 43.75,
+      14 => 12.5,
+      26 => 37.5
+    }
+    assert_equal expected, @stats.all_teams_win_percentage("20142015")
+  end
+
+  def test_it_can_determine_winningest_team
+    assert_equal 6, @stats.winningest_team("20142015")
+  end
+
+  def test_it_can_determine_team_with_worst_winning_percentage
+    assert_equal 14, @stats.worst_team("20142015")
   end
 
 # ~~~ GAME METHOD TESTS~~~
@@ -63,7 +127,6 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_see_count_of_games_by_season ###
     expected = {"20142015"=>16, "20172018"=>9, "20152016"=>5, "20132014"=>12, "20122013"=>4, "20162017"=>7}
-
     assert_equal expected, @stats.count_of_games_by_season
   end
 
