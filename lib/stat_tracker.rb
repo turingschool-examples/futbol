@@ -49,7 +49,7 @@ class StatTracker
     end
   end
 
-  def ratio (numerator, denominator)
+  def ratio(numerator, denominator)
     (numerator.to_f / denominator).round(2)
   end
 

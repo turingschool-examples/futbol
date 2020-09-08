@@ -43,7 +43,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_group_games_by_season
-    assert_equal ["20142015", "20172018"], @stats.seasonal_game_data.keys
+    assert_equal ["20142015", "20172018", "20152016", "20132014", "20122013", "20162017"], @stats.seasonal_game_data.keys
 
     @stats.seasonal_game_data.values.each do |games|
       games.each do |game|
@@ -53,9 +53,9 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_sum_game_goals
-    assert_equal 24, @stats.wd_total_goals
+    assert_equal 211, @stats.total_goals_by_int
     season_1415 = @stats.seasonal_game_data["20142015"]
-    assert_equal 22, @stats.wd_total_goals(season_1415)
+    assert_equal 67, @stats.total_goals_by_int(season_1415)
   end
 
 
@@ -84,12 +84,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_average_goals_by_season
-    expected = {"20142015"=>4.4, "20172018"=>2.0}
+    expected = {"20142015"=>4.19, "20172018"=>3.78, "20152016"=>3.8, "20132014"=>3.92, "20122013"=>3.5, "20162017"=>4.29}
     assert_equal expected , @stats.avg_goals_by_season
   end
 
   def test_it_can_get_avg_goals_per_game
-    assert_equal 4.0, @stats.avg_goals_per_game
+    assert_equal 3.98, @stats.avg_goals_per_game
   end
 
 
