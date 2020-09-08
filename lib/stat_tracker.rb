@@ -37,9 +37,9 @@ class StatTracker
     game_goals_hash
   end
 
-  def filter_by_season(season)
-    season = @games.find_all do |game|
-      game.season == season
+  def season_group
+    @games.group_by do |row|
+      row.season
     end
   end
 
@@ -89,6 +89,14 @@ class StatTracker
   def percentage_home_wins
     wins = @games.find_all { |game| game.away_goals < game.home_goals}
     find_percent(wins.count, total_games)
+  end
+
+  def count_of_games_by_season
+    count_of_games_by_season = {}
+    self.season_group.each do |group|
+      count_of_games_by_season[group[0]] = group[1].count
+    end
+    count_of_games_by_season
   end
 
 # ~~~ LEAGUE METHODS~~~
