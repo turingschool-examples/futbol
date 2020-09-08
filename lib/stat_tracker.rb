@@ -37,7 +37,13 @@ class StatTracker
     game_goals_hash
   end
 
-  def wd_total_goals(filtered_games = @games)
+  def season_group
+    @games.group_by do |row|
+      row.season
+    end
+  end
+
+  def total_goals_by_int(filtered_games = @games)
     filtered_games.reduce(0) do |sum, game|
       sum += (game.home_goals + game.away_goals)
     end
@@ -82,18 +88,25 @@ class StatTracker
     find_percent(wins, total_games)
   end
 
+  def count_of_games_by_season
+    count_of_games_by_season = {}
+    self.season_group.each do |group|
+      count_of_games_by_season[group[0]] = group[1].count
+    end
+    count_of_games_by_season
+  end
+
   def avg_goals_by_season
     avg_goals_by_season = {}
     seasonal_game_data.each do |season, details|
-      avg_goals_by_season[season] = ratio(wd_total_goals(details), total_games(details))
+      avg_goals_by_season[season] = ratio(total_goals_by_int(details), total_games(details))
     end
     avg_goals_by_season
   end
 
   def avg_goals_per_game
-    ratio(wd_total_goals, total_games)
+    ratio(total_goals_by_int, total_games)
   end
-
 
 # ~~~ LEAGUE METHODS~~~
 

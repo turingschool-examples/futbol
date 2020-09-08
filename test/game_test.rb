@@ -6,7 +6,7 @@ class GameTest < Minitest::Test
     Game.from_csv
   end
   def test_it_can_read_from_csv
-    assert_equal 6, Game.all_games.count
+    assert_equal 53, Game.all_games.count
   end
 
   def test_it_can_have_attributes
