@@ -43,35 +43,6 @@ class StatTracker
     end
   end
 
-  def team_ids
-    @teams.map do |team|
-      team.team_id
-    end.sort 
-  end
-
-  def all_teams_win_percentage(season)
-    percent_wins = {}
-
-    require "pry"; binding.pry
-  end
-
-  def winningest_team(season)
-    # require "pry"; binding.pry
-  end
-
-# ~~~ Game Methods ~~~
-  def lowest_total_score(season)
-    sum_game_goals(season).min_by do |game_id, score|
-      score
-    end.last
-  end
-
-  def highest_total_score(season)
-    sum_game_goals(season).max_by do |game_id, score|
-      score
-    end.last
-  end
-
   def team_wins_as_home(team_id, season)
     @games.find_all do |game|
       game.home_team_id == team_id && game.home_goals > game.away_goals && game.season == season
@@ -90,6 +61,37 @@ class StatTracker
 
   def season_win_percentage(team_id, season)
     find_percent(total_team_wins(team_id, season), count_of_games_by_season)
+  end
+
+  def team_ids
+    @teams.map do |team|
+      team.team_id
+    end.sort
+  end
+
+  def all_teams_win_percentage(season)
+    percent_wins = {}
+    team_ids.each do |team_id|
+      percent_wins[team_id] = season_win_percentage(team_id, season)
+    end
+    percent_wins
+  end
+
+  def winningest_team(season)
+    # require "pry"; binding.pry
+  end
+
+# ~~~ Game Methods ~~~
+  def lowest_total_score(season)
+    sum_game_goals(season).min_by do |game_id, score|
+      score
+    end.last
+  end
+
+  def highest_total_score(season)
+    sum_game_goals(season).max_by do |game_id, score|
+      score
+    end.last
   end
 
   def percentage_away_wins
