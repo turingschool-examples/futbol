@@ -81,33 +81,33 @@ class StatTrackerTest < Minitest::Test
   end
 #
 #   #--------------SeasonStatisticsTests
-#   def test_it_can_find_winningest_coach
-#     game_path = './data/games_dummy.csv'
-#     team_path = './data/teams_dummy.csv'
-#     game_teams_path = './data/game_teams_dummy.csv'
+  def test_it_can_find_winningest_coach
+    game_path = './fixture/games_dummy.csv'
+    team_path = './fixture/teams_dummy.csv'
+    game_teams_path = './fixture/game_teams_dummy.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal "Claude Julien", stat_tracker.winningest_coach('20122013')
+  end
 #
-#     locations = {
-#       games: game_path,
-#       teams: team_path,
-#       game_teams: game_teams_path
-#     }
-#     stat_tracker = StatTracker.from_csv(locations)
-#
-#     assert_equal "Claude Julien", stat_tracker.winningest_coach
-#   end
-#
-#   def test_it_can_find_worst_coach
-#     game_path = './data/games_dummy.csv'
-#     team_path = './data/teams_dummy.csv'
-#     game_teams_path = './data/game_teams_dummy.csv'
-#     locations = {
-#       games: game_path,
-#       teams: team_path,
-#       game_teams: game_teams_path
-#     }
-#     stat_tracker = StatTracker.from_csv(locations)
-#     assert_equal "John Tortorella", stat_tracker.worst_coach
-#   end
+  def test_it_can_find_worst_coach
+    game_path = './fixture/games_dummy.csv'
+    team_path = './fixture/teams_dummy.csv'
+    game_teams_path = './fixture/game_teams_dummy.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+    assert_equal "John Tortorella", stat_tracker.worst_coach('20122013')
+  end
 
 
 #---------TeamStatisticsTests
