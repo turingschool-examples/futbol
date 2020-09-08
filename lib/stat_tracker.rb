@@ -310,6 +310,27 @@ class StatTracker
     least_accurate_team_name["teamName"]
   end
 
+  def most_tackles(season)
+    team_tackles = Hash.new(0)
+    games_in_season = @games.select do |game|
+      game["season"] == season
+    end
+    game_ids = games_in_season.map do |game|
+      game["game_id"]
+    end
+    @game_teams.each do |game|
+      if game_ids.include?(game["game_id"])
+        team_tackles[game["team_id"]] += game["tackles"].to_i
+      end
+    end
+    most_tackles_team = team_tackles.max_by do |team, tackles|
+      tackles
+    end[0]
+    most_tackles_team_name = @teams.find do |team|
+      team["team_id"] == most_tackles_team
+    end
+    most_tackles_team_name["teamName"]
+  end
     # game_results = @game_teams.select do |game_team|
     #   game_team[]
 
