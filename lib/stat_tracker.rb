@@ -92,6 +92,16 @@ class StatTracker
       team['team_id'] == lowest_scoring_visitor[0]
     end['teamName']
   end
+
+  def lowest_scoring_home_team
+    lowest_scoring_home_team = team_stats.min_by do |team, stats|
+      stats[:home_goals] / stats[:home_games].to_f
+    end
+
+    teams.find do |team|
+      team['team_id'] == lowest_scoring_home_team[0]
+    end['teamName']
+  end
   
   # LeagueStatistics Help Methods
   def create_team_stats_hash
