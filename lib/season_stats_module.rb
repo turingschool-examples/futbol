@@ -1,4 +1,5 @@
 module SeasonStatistics
+  require 'pry'
 
   def find_all_games_from_season(season_id)
     @games.find_all do |game|
@@ -45,7 +46,7 @@ module SeasonStatistics
   def worst_coach(season_id)
     coaches_hash = Hash.new
     season_coaches(season_id).find_all do |all_coaches|
-       coach = all_coaches
+      coach = all_coaches
 
       total_games = game_teams_data_for_season(season_id).count do |game|
         game.head_coach == coach
@@ -63,29 +64,30 @@ module SeasonStatistics
 
   def most_accurate_team(season_id)
     team_hash = Hash.new
-    season_teams(season_id).find_all do |all_teams|
-      team = all_teams
+    season_teams(season_id).each do |team|
 
-      total_shots = game_teams_data_for_season(season_id).each do |game|
-        team_shots = 0
+      total_shots = game_teams_data_for_season(season_id).sum do |game|
         if game.team_id == team
-          team_shots += game.shots
+          game.shots
         end
-        return team_shots
       end
 
-      total_goals = game_teams_data_for_season(season_id).each do |game|
-        team_goals = 0
+      total_goals = game_teams_data_for_season(season_id).sum do |game|
         if game.team_id == team
-          team_goals += game.goals
+          game.goals
         end
-        return team_goals
       end
 
-      shot_ratio = (total_goals.to_f / total_shots.to_f).round(2)
-      team_hash[team] = shot_ratio
+      team_hash[team] = (team_goals.to_f / team_shots.to_f).round(2)
     end
 
+    accurate_team = team_hash.max_by do |team, shot_percentage|
+      shot_percentage
+    end[0]
+
+    @teams.find do |team|
+      team.team_id == accurate_team
+    end.teamName
   end
 
   def season_teams(season_id)
@@ -94,6 +96,15 @@ module SeasonStatistics
     end.uniq
   end
 
+  # def most_tackles(season_id)
+  #   season_teams(season_id).max do |team|
+  #     game_teams_data_for_season(season_id).each do |game|
+  # binding.pry
+  #
+  #       game.tackles
+  #     end
+  #   end
+  # end
 
 
 end

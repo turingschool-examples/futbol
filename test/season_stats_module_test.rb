@@ -6,8 +6,8 @@ require 'pry'
 class SeasonStatisticsTest <Minitest::Test
 
   def setup
-    @game_path = './data/games.csv'
-    @team_path = './data/teams.csv'
+    @game_path = './fixtures/fixture_games_teams.csv'
+    @team_path = './fixtures/fixture_games.csv'
     @game_teams_path = './data/game_teams.csv'
     @locations = {
       games: @game_path,
@@ -59,6 +59,14 @@ class SeasonStatisticsTest <Minitest::Test
     assert_equal "", @stat_tracker.most_accurate_team("20122013")
   end
 
+  def test_least_accurate_team
 
+    assert_equal "", @stat_tracker.least_accurate_team("20122013")
+  end
+
+  # def test_most_tackles
+  #
+  #   assert_equal [], @stat_tracker.most_tackles("20122013")
+  # end
 
 end
