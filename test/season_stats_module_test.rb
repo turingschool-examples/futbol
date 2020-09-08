@@ -42,7 +42,7 @@ class SeasonStatisticsTest <Minitest::Test
   def test_winningest_coach
 
 
-    assert_equal [], @stat_tracker.winningest_coach("20122013")
+    assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
   end
 
 end

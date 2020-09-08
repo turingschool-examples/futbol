@@ -26,28 +26,23 @@ module SeasonStatistics
   end
 
   def winningest_coach(season_id)
-
-# create hash with coaches as keys
-    # coach_hash = Hash.new
-    # season_coaches(season_id).each do |coach|
-    #   coach_hash[coach] = nil
-    # end
-
-
-    season_coaches(season_id).max_by do |coaches|
-       coach = coaches
+    coaches_hash = Hash.new
+    season_coaches(season_id).find_all do |all_coaches|
+       coach = all_coaches
 
     #This would give total games for coach
-      total_games = game_teams_data_for_season(season_id).find_all do |game|
+      total_games = game_teams_data_for_season(season_id).count do |game|
         game.head_coach == coach
-      end.length
-  #this would give total number of wins for coach.
-      total_wins = game_teams_data_for_season(season_id).find_all do |game|
-        game.head_coach == coach && game.result == "WIN"
-      end.length
+      end
 
-      (total_wins.to_f/total_games.to_f) * 100
+  #this would give total number of wins for coach.
+      total_wins = game_teams_data_for_season(season_id).count do |game|
+        game.head_coach == coach && game.result == "WIN"
+      end
+      coaches_hash[coach] = ((total_wins.to_f/total_games.to_f) * 100).round(2)
+
     end
+    coaches_hash.values.max
   end
 
 
