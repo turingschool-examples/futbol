@@ -2,7 +2,7 @@ require './test/test_helper'
 require './lib/game_statistics'
 require './lib/stat_tracker'
 
-class GameStatisticsTest <Minitest::Test
+class GameStatisticsTest < Minitest::Test
   def setup
     @game_path = './fixtures/fixture_games.csv'
     @team_path = './data/teams.csv'
@@ -32,16 +32,20 @@ class GameStatisticsTest <Minitest::Test
     assert_equal 27.5, @stat_tracker.percentage_visitor_wins
     assert_equal 11, @stat_tracker.percentage_visitor_win_helper
   end
-  
+
   def test_it_can_find_percentage_ties
     assert_equal 22.5, @stat_tracker.percentage_ties
     assert_equal 9, @stat_tracker.percentage_ties_helper
   end
 
   def test_it_can_count_games_by_season
-    expected = {"20172018" => 17,
-                "20132014" => 16,
-                "20122013" => 7}
+    expected = { '20172018' => 17,
+                 '20132014' => 16,
+                 '20122013' => 7 }
     assert_equal expected, @stat_tracker.count_of_games_by_season
+  end
+
+  def test_it_can_find_average_goals_per_game
+    assert_equal 4.28, @stat_tracker.average_goals_per_game
   end
 end

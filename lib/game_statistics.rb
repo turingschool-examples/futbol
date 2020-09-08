@@ -23,7 +23,7 @@ module GameStatistics
 
   def percentage_home_wins
     percent_wins = percentage_home_win_helper
-    ((percent_wins.to_f / @games.length.to_f) * 100).round(2)
+    ((percent_wins / @games.length.to_f) * 100).round(2)
   end
 
   def percentage_home_win_helper
@@ -34,7 +34,7 @@ module GameStatistics
 
   def percentage_visitor_wins
     percent_wins = percentage_visitor_win_helper
-    ((percent_wins.to_f / @games.length.to_f) * 100).round(2)
+    ((percent_wins / @games.length.to_f) * 100).round(2)
   end
 
   def percentage_visitor_win_helper
@@ -45,7 +45,7 @@ module GameStatistics
 
   def percentage_ties
     percent_ties = percentage_ties_helper
-    ((percent_ties.to_f / @games.length.to_f) * 100).round(2)
+    ((percent_ties / @games.length.to_f) * 100).round(2)
   end
 
   def percentage_ties_helper
@@ -56,7 +56,7 @@ module GameStatistics
 
   def count_of_games_by_season
     seasons = []
-    seasons_hash = Hash.new
+    seasons_hash = {}
     @games.each do |game|
       seasons << game.season unless seasons.include? game.season
     end
@@ -64,5 +64,14 @@ module GameStatistics
       seasons_hash[season] = @games.count { |game| game.season == season }
     end
     seasons_hash
+  end
+
+  def average_goals_per_game
+    total = 0
+    @games.each do |game|
+      average_goals = (game.away_goals + game.home_goals) / @games.length.to_f
+      total += average_goals
+    end
+    total.round(2)
   end
 end
