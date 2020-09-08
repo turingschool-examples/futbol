@@ -78,7 +78,9 @@ class StatTracker
   end
 
   def winningest_team(season)
-    # require "pry"; binding.pry
+    all_teams_win_percentage(season).max_by do |team_id, win_percentage|
+      win_percentage
+    end.first
   end
 
 # ~~~ Game Methods ~~~
