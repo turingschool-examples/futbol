@@ -48,9 +48,7 @@ class StatTracker
       stats[:total_goals] / stats[:total_games].to_f
     end
 
-    teams.find do |team|
-      team['team_id'] == best_offense[0]
-    end['teamName']
+    find_team_by_team_id(best_offense[0])
   end
 
   def worst_offense
@@ -58,9 +56,7 @@ class StatTracker
       stats[:total_goals] / stats[:total_games].to_f
     end
 
-    teams.find do |team|
-      team['team_id'] == worst_offense[0]
-    end['teamName']
+    find_team_by_team_id(worst_offense[0])
   end
 
   def highest_scoring_visitor
@@ -68,9 +64,7 @@ class StatTracker
       stats[:away_goals] / stats[:away_games].to_f
     end
 
-    teams.find do |team|
-      team['team_id'] == highest_scoring_visitor[0]
-    end['teamName']
+    find_team_by_team_id(highest_scoring_visitor[0])
   end
 
   def highest_scoring_home_team
@@ -78,9 +72,7 @@ class StatTracker
       stats[:home_goals] / stats[:home_games].to_f
     end
 
-    teams.find do |team|
-      team['team_id'] == highest_scoring_home_team[0]
-    end['teamName']
+    find_team_by_team_id(highest_scoring_home_team[0])
   end
 
   def lowest_scoring_visitor
@@ -88,9 +80,7 @@ class StatTracker
       stats[:away_goals] / stats[:away_games].to_f
     end
 
-    teams.find do |team|
-      team['team_id'] == lowest_scoring_visitor[0]
-    end['teamName']
+    find_team_by_team_id(lowest_scoring_visitor[0])
   end
 
   def lowest_scoring_home_team
@@ -98,12 +88,16 @@ class StatTracker
       stats[:home_goals] / stats[:home_games].to_f
     end
 
-    teams.find do |team|
-      team['team_id'] == lowest_scoring_home_team[0]
-    end['teamName']
+    find_team_by_team_id(lowest_scoring_home_team[0])
   end
   
   # LeagueStatistics Help Methods
+  def find_team_by_team_id(id)
+    teams.find do |team|
+      team['team_id'] == id
+    end['teamName']
+  end
+
   def create_team_stats_hash
     team_stats_hash = {}
 
