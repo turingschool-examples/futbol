@@ -34,11 +34,11 @@ class SeasonStatisticsTest <Minitest::Test
     assert_equal 1612, @stat_tracker.game_teams_data_for_season("20122013").length
   end
 
-  # def test_list_of_coaches_by_season
-  #
-  #   assert_equal "bob", @stat_tracker.list_of_coaches_by_season("20122013")
-  # end
-  #
+  def test_season_coaches
+
+    assert_equal 34, @stat_tracker.season_coaches("20122013").length
+  end
+
   def test_winningest_coach
 
     # assert_equal [], @stat_tracker.winningest_coach("20122013")

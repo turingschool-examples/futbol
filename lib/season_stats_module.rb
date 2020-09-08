@@ -21,31 +21,28 @@ module SeasonStatistics
     @game_teams.find_all do |game|
       game.game_id[0..3] == season_id[0..3]
     end
-  end 
+  end
 
-  # def list_of_coaches_by_season(season_id)
-  #   coaches_by_season = {}
-  #   game_teams_data_for_season(season_id).sort_by do |key, value|
-  #     coaches_by_season[key.head_coach] = value
-  #   end
-  # end
+  def season_coaches(season_id)
+    game_teams_data_for_season(season_id).map do |game|
+      game.head_coach
+    end.uniq
+  end
 
   def winningest_coach(season_id)
-    # win_count = game_teams_data_for_season(season_id).find do |season|
-    #   (season.head_coach && (season.result == WIN))
-    # end
+    coach_hash = Hash.new
 
-    coach_results = {}
-    game_teams_data_for_season(season_id).each do |season, game|
-      coach_results[season.head_coach] = []
-      game.each do |game|
-        coach_results[season.head_coach] << season.find do |data|
-          data == WIN
-        end
-      end
+    game_teams_data_for_season(season_id).each do |game|
+      coach = game.head_coach
+    #This would give total games for coach
+      total_games = game_teams_data_for_season(season_id).find_all do |game|
+        game.head_coach == coach
+      end.length
+  #this would give total number of wins for coach.
+      total_wins = game_teams_data_for_season(season_id).find_all do |game|
+        game.head_coach == coach && game.result == "WIN"
+      end.length
     end
-
-
   end
 
 
