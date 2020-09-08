@@ -47,6 +47,16 @@ class StatTrackerTest < Minitest::Test
     assert_equal 50.00, @stats.find_percent(wins, 6)
   end
 
+  def test_it_can_group_games_by_season
+    assert_equal ["20142015", "20172018"], @stats.seasonal_game_data.keys
+
+    @stats.seasonal_game_data.values.each do |games|
+      games.each do |game|
+        assert_instance_of Game, game
+      end
+    end
+  end
+
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won
     assert_equal 33.33, @stats.percentage_away_wins
@@ -58,6 +68,11 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_get_percentage_home_wins
     assert_equal 33.33, @stats.percentage_home_wins
+  end
+
+  def test_it_can_get_average_season_goals
+    expected = {"20142015"=>4.4, "20172018"=>2.0}
+    assert_equal expected , @stats.avg_score_by_season
   end
 
 # ~~~ LEAGUE METHOD TESTS~~~
