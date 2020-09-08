@@ -43,7 +43,7 @@ class StatTracker
     end
   end
 
-  def total_goals_by_int(filtered_games = @games)
+  def total_goals(filtered_games = @games)
     filtered_games.reduce(0) do |sum, game|
       sum += (game.home_goals + game.away_goals)
     end
@@ -99,13 +99,13 @@ class StatTracker
   def avg_goals_by_season
     avg_goals_by_season = {}
     seasonal_game_data.each do |season, details|
-      avg_goals_by_season[season] = ratio(total_goals_by_int(details), total_games(details))
+      avg_goals_by_season[season] = ratio(total_goals(details), total_games(details))
     end
     avg_goals_by_season
   end
 
   def avg_goals_per_game
-    ratio(total_goals_by_int, total_games)
+    ratio(total_goals, total_games)
   end
 
 # ~~~ LEAGUE METHODS~~~

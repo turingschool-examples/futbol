@@ -53,9 +53,9 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_sum_game_goals
-    assert_equal 211, @stats.total_goals_by_int
+    assert_equal 211, @stats.total_goals
     season_1415 = @stats.seasonal_game_data["20142015"]
-    assert_equal 67, @stats.total_goals_by_int(season_1415)
+    assert_equal 67, @stats.total_goals(season_1415)
   end
 
 
