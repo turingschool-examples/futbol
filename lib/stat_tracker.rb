@@ -82,6 +82,16 @@ class StatTracker
       team['team_id'] == highest_scoring_home_team[0]
     end['teamName']
   end
+
+  def lowest_scoring_visitor
+    lowest_scoring_visitor = team_stats.min_by do |team, stats|
+      stats[:away_goals] / stats[:away_games].to_f
+    end
+
+    teams.find do |team|
+      team['team_id'] == lowest_scoring_visitor[0]
+    end['teamName']
+  end
   
   # LeagueStatistics Help Methods
   def create_team_stats_hash
