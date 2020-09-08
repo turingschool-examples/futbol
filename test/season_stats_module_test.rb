@@ -49,4 +49,11 @@ class SeasonStatisticsTest <Minitest::Test
     assert_equal "Ted Nolan", @stat_tracker.winningest_coach("20122013")
   end
 
+  def test_season_teams
+
+    assert_equal 30, @stat_tracker.season_teams("20142015").length
+  end
+
+
+
 end
