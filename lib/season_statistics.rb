@@ -111,6 +111,18 @@ class SeasonStatistics
     @stat_tracker_copy.worst_coach = worst_coach_name
   end
 
+  def team_shots_and_goals_hash
+    team_shots_and_goals ={}
+    hash_by_team_id = {}
+    @csv_game_teams_table.each do |game_id, game_team|
+      team_shots_and_goals[game_id] = {}
+      team_shots_and_goals[game_id][game_team.team_id] = [game_team.shots, game_team.goals]
+
+      hash_by_team_id[game_team.team_id] = [game_team.shots, game_team.goals]
+    end
+  end
+
+
   def most_accurate_team(season)
     seasons = find_all_seasons
     season_game_id_hash = map_season_to_game_ids
@@ -133,17 +145,20 @@ class SeasonStatistics
       end
     end
     best_shots_team
+    end
+    @stat_tracker_copy.most_accurate_team = get_team_name_from_game_id(best_shots_team)
   end
 
-  # def get_team_name_from_game_id
-  #   most_accurate_team(season)
-  #   @csv_games_table.each do |game_id, game|
-  #     # if game.type = "Regular Season"
-  #       season_game_id_hash[game_id] = game.season
-  #     # end
-  #   end
-  #
-  #   @csv_teams_table
-  # end
+  def get_team_name_from_game_id(game_id)
+    @csv_game_teams_table.find do |game_id, game_info|
+      if game_info.game_id == game_id
+         game_info.team_id
+       end
+         require "pry"; binding.pry
+        @csv_teams_table.find do |team_id, info|
+          name = info.team_name
+        end
+
+  end
 
 end

@@ -57,6 +57,8 @@ class SeasonStatistcsTest < Minitest::Test
   def test_most_accurate_team
     season_statistics = SeasonStatistics.new(@stat)
 
+    assert_equal "Real Salt Lake", season_statistics.get_team_name_from_game_id
+
     assert_equal "Real Salt Lake", season_statistics.most_accurate_team("20132014")
     assert_equal "Toronto FC", season_statistics.most_accurate_team("20142015")
   end
