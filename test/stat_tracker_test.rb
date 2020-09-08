@@ -29,6 +29,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal 5, @stats.count_of_teams
   end
 
-
+  def test_it_can_see_teams_average_score_as_visitor
+    assert_equal 0, @stats.avg_team_score_as_visitor(1)
+  end
 
 end

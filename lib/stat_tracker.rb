@@ -36,4 +36,23 @@ class StatTracker
   def count_of_teams
     @teams.count
   end
+
+  def avg_team_score_as_visitor(team)
+    array = @games.group_by do |row|
+      row.away_team_id
+    end
+    require "pry"; binding.pry
+  end
+
+  def avg_team_score_at_home(team_id)
+
+  end
+
+  def highest_scoring_visitor
+
+  end
+
+  def highest_scoring_home_team
+
+  end
 end
