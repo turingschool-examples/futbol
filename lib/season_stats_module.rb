@@ -82,7 +82,7 @@ module SeasonStatistics
         end
       end
 
-      team_hash[team] = (total_goals.to_f / total_shots.to_f).round(2)
+      team_hash[team] = (total_goals.to_f / total_shots.to_f)
     end
 
     accurate_team = team_hash.max_by do |team, shot_percentage|
@@ -119,7 +119,7 @@ module SeasonStatistics
         end
       end
 
-      team_hash[team] = (total_goals.to_f / total_shots.to_f).round(2)
+      team_hash[team] = (total_goals.to_f / total_shots.to_f)
     end
 
     not_accurate_team = team_hash.min_by do |team, shot_percentage|
