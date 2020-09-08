@@ -41,8 +41,12 @@ class SeasonStatisticsTest <Minitest::Test
 
   def test_winningest_coach
 
-
     assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
+  end
+
+  def test_worst_coach
+
+    assert_equal "Ted Nolan", @stat_tracker.winningest_coach("20122013")
   end
 
 end
