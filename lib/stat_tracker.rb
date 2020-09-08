@@ -90,41 +90,6 @@ class StatTracker
 
     find_team_by_team_id(lowest_scoring_home_team[0])
   end
-  
-  # LeagueStatistics Help Methods
-  def find_team_by_team_id(id)
-    teams.find do |team|
-      team['team_id'] == id
-    end['teamName']
-  end
-
-  def create_team_stats_hash
-    team_stats_hash = {}
-
-    teams.each do |team|
-      team_stats_hash[team['team_id']] = { total_games: 0, total_goals: 0,
-                                           away_games: 0, home_games: 0,
-                                           away_goals: 0, home_goals: 0 }
-    end
-
-    team_stats_hash
-  end
-
-  def team_stats
-    create_team_stats_hash.each do |team_id, games_goals|
-      games.each do |game|
-        if team_id == game['away_team_id'] || team_id == game['home_team_id']
-          games_goals[:away_games] += 1 if team_id == game['away_team_id']
-          games_goals[:home_games] += 1 if team_id == game['home_team_id']
-          games_goals[:away_goals] += game['away_goals'].to_i if team_id == game['away_team_id']
-          games_goals[:home_goals] += game['home_goals'].to_i if team_id == game['home_team_id']
-        end
-      end
-      games_goals[:total_games] = games_goals[:away_games] + games_goals[:home_games]
-      games_goals[:total_goals] = games_goals[:away_goals] + games_goals[:home_goals]
-    end
-  end
-
 
 # #------------SeasonStatistics
 #
@@ -171,5 +136,39 @@ class StatTracker
       (coach_hash[gt.head_coach] ||= []) << gt.result
     end
     coach_hash
-  end  
+  end
+#------------LeagueStatistics Helper Methods
+  def find_team_by_team_id(id)
+    teams.find do |team|
+      team['team_id'] == id
+    end['teamName']
+  end
+
+  def create_team_stats_hash
+    team_stats_hash = {}
+
+    teams.each do |team|
+      team_stats_hash[team['team_id']] = { total_games: 0, total_goals: 0,
+                                           away_games: 0, home_games: 0,
+                                           away_goals: 0, home_goals: 0 }
+    end
+
+    team_stats_hash
+  end
+
+  def team_stats
+    create_team_stats_hash.each do |team_id, games_goals|
+      games.each do |game|
+        if team_id == game['away_team_id'] || team_id == game['home_team_id']
+          games_goals[:away_games] += 1 if team_id == game['away_team_id']
+          games_goals[:home_games] += 1 if team_id == game['home_team_id']
+          games_goals[:away_goals] += game['away_goals'].to_i if team_id == game['away_team_id']
+          games_goals[:home_goals] += game['home_goals'].to_i if team_id == game['home_team_id']
+        end
+      end
+      games_goals[:total_games] = games_goals[:away_games] + games_goals[:home_games]
+      games_goals[:total_goals] = games_goals[:away_goals] + games_goals[:home_goals]
+    end
+  end
+
 end
