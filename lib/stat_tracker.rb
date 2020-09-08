@@ -20,8 +20,9 @@ class StatTracker
   end
 
 # ~~~ Helper Methods ~~~~
-  def total_games
-    @games.count
+
+  def total_games(filtered_games = @games)
+    filtered_games.count
   end
 
   def find_percent(numerator, denominator)
@@ -34,6 +35,16 @@ class StatTracker
       game_goals_hash[game.game_id] = (game.away_goals + game.home_goals)
     end
     game_goals_hash
+  end
+
+  def wd_total_goals(filtered_games = @games)
+    filtered_games.reduce(0) do |sum, game|
+      sum += (game.home_goals + game.away_goals)
+    end
+  end
+
+  def ratio (numerator, denominator)
+    (numerator.to_f / denominator).round(2)
   end
 
 # ~~~ Game Methods ~~~
@@ -81,19 +92,13 @@ class StatTracker
   def avg_goals_by_season
     avg_goals_by_season = {}
     seasonal_game_data.each do |season, details|
-      game_count = 0
-      season_goals = 0
-      details.each do |row|
-        game_count += 1
-        season_goals += row.home_goals + row.away_goals
-      end
-      avg_goals_by_season[season] = (season_goals / game_count.to_f).round(2)
+      avg_goals_by_season[season] = ratio(wd_total_goals(details), total_games(details))
     end
     avg_goals_by_season
   end
 
   def avg_goals_per_game
-    (sum_game_goals.values.sum / total_games.to_f).round(2)
+    ratio(wd_total_goals, total_games)
   end
 
 end

@@ -57,6 +57,18 @@ class StatTrackerTest < Minitest::Test
     end
   end
 
+  def test_it_can_sum_game_goals
+    assert_equal 24, @stats.wd_total_goals
+    season_1415 = @stats.seasonal_game_data["20142015"]
+    assert_equal 22, @stats.wd_total_goals(season_1415)
+  end
+
+
+  def test_it_can_calc_a_ratio
+    expected = 0.67
+    assert_equal expected, @stats.ratio(2,3)
+  end
+
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won
     assert_equal 33.33, @stats.percentage_away_wins
