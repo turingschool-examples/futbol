@@ -2,39 +2,23 @@ require_relative 'test_helper'
 
 class GameStatistcsTest < Minitest::Test
 
+#||= memoization, avoid calling method when method has already been ran.
+# saves time and computing power.
   def setup
     game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
 
-    @locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
+    @stat_tracker ||= StatTracker.from_csv({games: game_path})
   end
 
   def test_it_exists
-    stat_tracker = StatTracker.from_csv(@locations)
-    game_statistics = GameStatistics.new
-
-    assert_instance_of GameStatistics, game_statistics
+    assert_instance_of StatTracker, @stat_tracker
   end
 
   def test_highest_total_score
-    stat_tracker = StatTracker.from_csv(@locations)
-    game_statistics = GameStatistics.new
-    game_statistics.highest_total_score
-
-    assert_equal 11, game_statistics.stat_tracker_copy.highest_total_score_stat
+    assert_equal 11, @stat_tracker.highest_total_score
   end
 
   def test_lowest_total_score
-    stat_tracker = StatTracker.from_csv(@locations)
-    game_statistics = GameStatistics.new
-    game_statistics.lowest_total_score
-
-    assert_equal 0, game_statistics.stat_tracker_copy.lowest_total_score_stat
+    assert_equal 0, @stat_tracker.lowest_total_score
   end
-
 end

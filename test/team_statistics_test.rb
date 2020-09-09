@@ -38,4 +38,10 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal 60, team_statistics.total_games_played_per_season_by_team["20122013"][3]
   end
 
+  def test_how_many_games_each_team_won_per_season
+    stat_tracker = StatTracker.from_csv(@locations)
+    team_statistics = TeamStatistics.new(stat_tracker, @stat)
+    
+  end
+
 end

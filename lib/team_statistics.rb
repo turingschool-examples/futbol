@@ -17,7 +17,6 @@ class TeamStatistics
           team[1].link, team[1].team_id, team[1].team_name]
       end
       @stat_tracker_copy.team_info_stat = hash
-      # require "pry"; binding.pry
     end
   end
 
@@ -26,7 +25,6 @@ class TeamStatistics
     @csv_games_table.each do |game|
       if hash[game[1].season].nil?
           hash[game[1].season] = [game[1].home_team_id, game[1].away_team_id]
-          #require "pry"; binding.pry
       else
         hash[game[1].season] << [game[1].home_team_id, game[1].away_team_id]
       end
@@ -36,9 +34,8 @@ class TeamStatistics
     end
     games_played_per_season = total_games_per_season(hash)
     games_played_per_season
-    # require "pry"; binding.pry
   end
-
+# refactored to increase efficiency, 2x iterations.
   def total_games_per_season(input)
     season_hash = {}
     new_hash = {}
@@ -53,8 +50,11 @@ class TeamStatistics
     end
     season_hash
   end
+
+  
+
 end
 
-# method: looks througb all the games, dtermine who has the biggest win %
-# add agove to an array, including all seasons
+# method: looks througb all the games, determine who has the biggest win %
+# add above to an array, including all seasons
 # then for best season, .max & worst season .min
