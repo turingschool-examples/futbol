@@ -64,4 +64,17 @@ class GameStatistics
   def percentage_ties
     (count_of_result("tie").to_f / winners.length * 100).round(2)
   end
+
+  def count_of_games_by_season
+    games_per_season = stat_tracker[:games]["season"]
+    seasonal_counts = {}
+    games_per_season.each do |season|
+      if seasonal_counts[season]
+        seasonal_counts[season] += 1
+      else
+        seasonal_counts[season] = 1
+      end
+    end
+    seasonal_counts
+  end
 end

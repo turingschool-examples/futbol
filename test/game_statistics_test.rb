@@ -27,7 +27,6 @@ class GameStatisticsTest < Minitest::Test
   def test_highest_total_score
 
     assert_equal 5, @game_statistics.highest_total_score
-
   end
 
   def test_lowest_total_score
@@ -48,5 +47,15 @@ class GameStatisticsTest < Minitest::Test
   def test_tie_percentage
 
     assert_equal 16.67, @game_statistics.percentage_ties
+  end
+
+  def test_count_of_games_by_season
+    expected = {
+      "20122013" => 2,
+      "20162017" => 2,
+      "20142015" => 2
+    }
+    assert_equal expected, @game_statistics.count_of_games_by_season
+
   end
 end
