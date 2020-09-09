@@ -251,7 +251,6 @@ class StatTrackerTest < Minitest::Test
       game_teams: game_teams_path
     }
     stat_tracker = StatTracker.from_csv(locations)
-    require "pry"; binding.pry
     assert_equal "FC Dallas", stat_tracker.most_accurate_team('20122013')
   end
 
