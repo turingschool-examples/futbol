@@ -56,6 +56,19 @@ class GameStatisticsTest < Minitest::Test
       "20142015" => 2
     }
     assert_equal expected, @game_statistics.count_of_games_by_season
+  end
 
+  def test_average_goals_per_game
+
+    assert_equal 4.67, @game_statistics.average_goals_per_game
+  end
+
+  def test_average_goals_by_season
+    expected = {
+      "20122013" => 5.0,
+      "20162017" => 4.0,
+      "20142015" => 5.0
+    }
+    assert_equal expected, @game_statistics.average_goals_by_season
   end
 end

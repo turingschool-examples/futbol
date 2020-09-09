@@ -77,4 +77,47 @@ class GameStatistics
     end
     seasonal_counts
   end
+
+  def goals_per_game_data_set
+    stat_tracker[:games]["game_id"].zip(home_away_data_set)
+  end
+
+  def total_goals_per_game
+    goals_per_game_data_set.map do |game|
+      game[1].map do |score|
+        score[0].to_i + score[1].to_i
+      end
+    end
+  end
+
+  def count_of_total_goals
+    total_goals_per_game.reduce(0) do |total, game|
+      total += (game[0] + game[1])
+    end
+  end
+
+  def average_goals_per_game
+    (count_of_total_goals.to_f / stat_tracker[:games]["game_id"].count).round(2)
+  end
+
+  def total_goals_per_season
+    goals_per_season = {}
+    seasons = stat_tracker[:games]["season"].zip(home_away_data_set)
+    seasons.map do |season|
+      if goals_per_season[season[0]].nil?
+         goals_per_season[season[0]] = (season[1][0].to_f + season[1][1].to_f)
+      else
+         goals_per_season[season[0]] += (season[1][0].to_f + season[1][1].to_f)
+      end
+    end
+    goals_per_season
+  end
+
+  def average_goals_by_season
+    average = {}
+    total_goals_per_season.map do |season_id, total_goals|
+      average[season_id] = (total_goals / count_of_games_by_season[season_id])
+    end
+    average
+  end
 end
