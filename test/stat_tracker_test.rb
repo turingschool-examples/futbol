@@ -144,4 +144,8 @@ class StatTrackerTest < Minitest::Test
   def test_can_get_team_with_best_season
     assert_equal "20132014", @stat_tracker.best_season("24")
   end
+
+  def test_can_get_worst_season_for_team
+    assert_equal "20122013", @stat_tracker.worst_season("24")
+  end
 end
