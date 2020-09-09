@@ -135,7 +135,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_determine_team_with_worst_winning_percentage
     assert_equal 14, @stats.worst_team("20142015")
   end
-  
+
   def test_it_can_get_team_name_from_team_id
     assert_equal "Chicago Fire", @stats.team_names_by_team_id(4)
   end
@@ -171,10 +171,33 @@ class StatTrackerTest < Minitest::Test
     assert_equal 67, @stats.total_goals(season_1415)
   end
 
-
   def test_it_can_calc_a_ratio
     expected = 0.67
     assert_equal expected, @stats.ratio(2,3)
+  end
+
+  def test_it_can_return_array_of_game_ids_per_season
+    expected = [2012020030, 2012020133, 2012020355, 2012020389]
+    assert_equal expected, @stats.game_ids_by_season("20122013")
+  end
+
+  def test_it_can_show_total_tackles_per_team_per_season ###
+    expected = {
+      1 => 30,
+      4 => 108,
+      6 => 31,
+      14 => 17
+      # 26 => 0
+    }
+    assert_equal expected, @stats.team_tackles("20122013")
+  end
+
+  def test_team_identifier_can_return_team_string
+    assert_equal "Atlanta United", @stats.team_identifier(1)
+    assert_equal "Chicago Fire", @stats.team_identifier(4)
+    assert_equal "FC Cincinnati", @stats.team_identifier(26)
+    assert_equal "DC United", @stats.team_identifier(14)
+    assert_equal "FC Dallas", @stats.team_identifier(6)
   end
 
 # ~~~ GAME METHOD TESTS~~~
@@ -204,8 +227,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3.98, @stats.avg_goals_per_game
   end
 
-
-
   def test_it_can_determine_highest_and_lowest_game_score
     assert_equal 2, @stats.lowest_total_score("20142015")
     assert_equal 6, @stats.highest_total_score("20142015")
@@ -230,6 +251,14 @@ end
 
 def test_it_can_determine_the_worst_coach_by_season
   assert_equal "Jon Cooper", @stats.worst_coach("20142015")
+end
+
+def test_it_can_determine_team_with_most_season_tackles
+  assert_equal "Chicago Fire", @stats.most_tackles("20122013")
+end
+
+def test_it_can_determine_team_with_fewest_season_tackles
+  assert_equal "DC United", @stats.fewest_tackles("20122013")
 end
 
 # ~~~ TEAM METHOD TESTS~~~
