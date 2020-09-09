@@ -27,7 +27,7 @@
     - Weekends mostly open
     - Friday 4pm mentor meeting
 
-  - Cyndee: Up with the sun but tries to take the time in the morning for her.
+  - Cydnee: Up with the sun but tries to take the time in the morning for her.
     - Breaks after class are appreciated
     - Generally flexible
     - Friday 5pm mentor
@@ -83,7 +83,7 @@
 
 ## Day 1 Agenda:
   - Tools additions to our setups
-  - Rakefile 
+  - Rakefile
 
 ## Additional Notes:
   -
