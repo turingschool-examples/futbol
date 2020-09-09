@@ -153,7 +153,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal 0.88,@stat_tracker.average_win_percentage("6")
   end
 
-  def test_it_can_test_most_gaols_scored
+  def test_it_can_test_most_goals_scored
     assert_equal 4, @stat_tracker.most_goals_scored("6")
   end
 end
