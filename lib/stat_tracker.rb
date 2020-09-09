@@ -175,7 +175,7 @@ class StatTracker
       else
         team_season_tackles[game.team_id] = game.tackles
       end
-    end 
+    end
     team_season_tackles
   end
 

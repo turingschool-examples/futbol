@@ -245,5 +245,9 @@ def test_it_can_determine_the_worst_coach_by_season
   assert_equal "Jon Cooper", @stats.worst_coach("20142015")
 end
 
+def test_it_can_determine_team_with_most_season_tackles
+  assert_equal "Chicago Fire", @stats.most_tackles 
+end
+
 # ~~~ TEAM METHOD TESTS~~~
 end
