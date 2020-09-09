@@ -198,6 +198,35 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas", @stats.team_identifier(6)
   end
 
+  def test_it_can_get_team_name_from_team_id
+    assert_equal "Chicago Fire", @stats.team_names_by_team_id(4)
+  end
+
+  def test_it_can_get_total_scores_by_team
+    expected = {"1"=>43, "4"=>37, "14"=>47, "6"=>47, "26"=>37}
+    assert_equal expected, @stats.total_scores_by_team
+  end
+
+  def test_it_can_get_number_of_games_by_team
+    expected = {"1"=>23, "4"=>22, "14"=>21, "6"=>20, "26"=>20}
+    assert_equal expected, @stats.games_containing_team
+  end
+
+  def test_it_can_get_average_scores_per_team
+    expected = {"1"=>1.87, "4"=>1.68, "14"=>2.24, "6"=>2.35, "26"=>1.85}
+    assert_equal expected, @stats.average_scores_by_team
+  end
+
+  def test_it_can_group_games_by_season
+    assert_equal ["20142015", "20172018", "20152016", "20132014", "20122013", "20162017"], @stats.seasonal_game_data.keys
+
+    @stats.seasonal_game_data.values.each do |games|
+      games.each do |game|
+        assert_instance_of Game, game
+      end
+    end
+  end
+
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won ###
     assert_equal 30.19, @stats.percentage_away_wins
@@ -252,23 +281,31 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas",   @stats.highest_scoring_visitor
   end
 
+  def test_it_knows_lowest_scoring_home_team
+    assert_equal "Atlanta United", @stats.lowest_scoring_home_team
+  end
+
+  def test_it_knows_lowest_scoring_visitor_team
+    assert_equal "Chicago Fire", @stats.lowest_scoring_visitor_team
+  end
+
 # ~~~ SEASON METHOD TESTS~~~
 
-def test_it_can_list_winningest_coach_by_season
-  assert_equal "Claude Julien", @stats.winningest_coach("20142015")
-end
+  def test_it_can_list_winningest_coach_by_season
+    assert_equal "Claude Julien", @stats.winningest_coach("20142015")
+  end
 
-def test_it_can_determine_the_worst_coach_by_season
-  assert_equal "Jon Cooper", @stats.worst_coach("20142015")
-end
+  def test_it_can_determine_the_worst_coach_by_season
+    assert_equal "Jon Cooper", @stats.worst_coach("20142015")
+  end
 
-def test_it_can_determine_team_with_most_season_tackles
-  assert_equal "Chicago Fire", @stats.most_tackles("20122013")
-end
+  def test_it_can_determine_team_with_most_season_tackles
+    assert_equal "Chicago Fire", @stats.most_tackles("20122013")
+  end
 
-def test_it_can_determine_team_with_fewest_season_tackles
-  assert_equal "DC United", @stats.fewest_tackles("20122013")
-end
+  def test_it_can_determine_team_with_fewest_season_tackles
+    assert_equal "DC United", @stats.fewest_tackles("20122013")
+  end
 
 # ~~~ TEAM METHOD TESTS~~~
 end

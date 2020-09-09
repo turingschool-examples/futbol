@@ -188,6 +188,31 @@ class StatTracker
     end
   end
 
+  def home_or_away_games(where = "home")
+    @game_teams.select do |game|
+      game.hoa == where
+    end
+  end
+
+  def hoa_games_by_team_id(hoa)
+    home_or_away_games(hoa).group_by do |game_team|
+      game_team.team_id
+    end
+  end
+
+  def lowest_scoring_team_id(hoa)
+    hoa_games_by_team_id(hoa).min_by do |team_id, details|
+      avg_score(details)
+    end[0]
+  end
+
+  def team_id_to_team_name(id)
+    @teams.each do |team|
+      return team.team_name if team.team_id == id
+    end
+  end
+
+
 # ~~~ Game Methods ~~~
   def lowest_total_score(season)
     sum_game_goals(season).min_by do |game_id, score|
@@ -319,6 +344,14 @@ class StatTracker
       avg_score(details)
     end[0]
     team_id_to_team_name(highest_scoring_visitor)
+  end
+
+  def lowest_scoring_visitor_team
+    team_id_to_team_name(lowest_scoring_team_id("away"))
+  end
+
+  def lowest_scoring_home_team
+    team_id_to_team_name(lowest_scoring_team_id("home"))
   end
 
 # ~~~ SEASON METHODS~~~
