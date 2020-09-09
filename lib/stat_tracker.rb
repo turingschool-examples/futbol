@@ -9,7 +9,7 @@ class StatTracker
     @games = locations[:games]
     @teams = locations[:teams]
     @game_teams = locations[:game_teams]
-    @game_statistics = GameStatistics.new(game_stats, game_teams_stats)
+    # @game_statistics = GameStatistics.new(game_stats)
     @league_statistics = LeagueStatistics.new(teams_stats, @game_statistics)
   end
 
@@ -18,12 +18,18 @@ class StatTracker
   end
 
   def game_stats
-    game_data = CSV.read(@games, { encoding: 'UTF-8', headers: true, header_converters: :symbol, converters: :all })
-    hashed_game_data = game_data.map { |row| row.to_hash }
-    hashed_game_data.each do |row|
-      row.delete(:venue)
-      row.delete(:venue_link)
+    rows = CSV.read(@games, { encoding: 'UTF-8', headers: true, header_converters: :symbol})
+    result = []
+    game_data = rows.find_all do |row|
+      row[:game_id]
     end
+    game_data.each do |game|
+      game.delete(:venue)
+      game.delete(:venue_link)
+      result << GameStatistics.new(game)
+    end
+    result
+    require "pry"; binding.pry
   end
 
   def game_teams_stats
