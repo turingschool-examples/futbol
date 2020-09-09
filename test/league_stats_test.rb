@@ -90,4 +90,12 @@ class LeagueStatisticsTest < Minitest::Test
   def test_highest_scoring_home_team
     assert_equal 'Reign FC', @league_stats.highest_scoring_home_team
   end
+
+  def test_team_lowest_home_goals
+    assert_equal 7, @league_stats.team_lowest_home_goals
+  end
+
+  def test_lowest_scoring_home_team
+    assert_equal 'Utah Royals FC', @league_stats.lowest_scoring_home_team
+  end
 end
