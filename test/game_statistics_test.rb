@@ -21,4 +21,13 @@ class GameStatistcsTest < Minitest::Test
   def test_lowest_total_score
     assert_equal 0, @stat_tracker.lowest_total_score
   end
+
+  def test_percentage_home_wins
+    assert_equal 0.44, @stat_tracker.percentage_home_wins
+  end
+
+  def test_percentage_visitor_wins
+    assert_equal 0.36, @stat_tracker.percentage_visitor_wins
+  end
+  #percentage_ties	Percentage of games that has resulted in a tie (rounded to the nearest 100th), float
 end
