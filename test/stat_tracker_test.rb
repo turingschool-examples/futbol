@@ -181,7 +181,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.game_ids_by_season("20122013")
   end
 
-  def test_it_can_show_total_tackles_per_team_per_season
+  def test_it_can_show_total_tackles_per_team_per_season ###
     expected = {
       1 => 30,
       4 => 108,
@@ -255,6 +255,10 @@ end
 
 def test_it_can_determine_team_with_most_season_tackles
   assert_equal "Chicago Fire", @stats.most_tackles("20122013")
+end
+
+def test_it_can_determine_team_with_fewest_season_tackles
+  assert_equal "DC United", @stats.fewest_tackles("20122013")
 end
 
 # ~~~ TEAM METHOD TESTS~~~

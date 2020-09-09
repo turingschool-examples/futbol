@@ -264,7 +264,11 @@ class StatTracker
     end.first)
   end
 
-  
+  def fewest_tackles(season)
+    team_identifier(team_tackles(season).min_by do |team|
+      team.last
+    end.first)
+  end
 
 # ~~~ TEAM METHODS~~~
 end
