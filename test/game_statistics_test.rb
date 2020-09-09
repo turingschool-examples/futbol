@@ -27,6 +27,7 @@ class GameStatisticsTest < Minitest::Test
   def test_it_has_attributes
     assert_equal 7441, @game_statistics.game_data.length
   end
+
   def test_knows_total_games_count
     assert_equal 7441, @game_statistics.total_games
   end

@@ -25,7 +25,22 @@ class SeasonStatisticsTest < Minitest::Test
     @season_statistics = SeasonStatistics.new(@raw_game_stats, @raw_game_teams_stats, @raw_teams_stats)
   end
 
-  def test_it_exists
-    assert_instance_of SeasonStatistics, @season_statistics
+  # def test_it_exists
+  #   assert_instance_of SeasonStatistics, @season_statistics
+  # end
+  #
+  # def test_it_has_attributes
+  #   assert_equal 7441, @season_statistics.game_data.length
+  #   assert_equal 32, @season_statistics.teams_data.length
+  #   assert_equal 14882, @season_statistics.game_teams_data.length
+  # end
+
+  def test_winningest_coach
+    assert_equal "Kevin", @season_statistics.winningest_coach("20122013")
+    assert_equal "Claude Julien", @season_statistics.winningest_coach("20132014")
+    assert_equal "Alain Vigneault", @season_statistics.winningest_coach("20142015")
+    assert_equal "Carson", @season_statistics.winningest_coach("20152016")
+    assert_equal "Shaun", @season_statistics.winningest_coach("20162017")
+    assert_equal "Hanna", @season_statistics.winningest_coach("20172018")
   end
 end
