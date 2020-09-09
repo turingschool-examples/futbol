@@ -56,4 +56,28 @@ class LeagueStatistics
     end
     stats[0][0]
   end
+
+  def team_id_and_average_away_goals
+    away_team_goals = {}
+    group_by_team_id.each do |team, games|
+      away_games = games.find_all { |game| game[:hoa] == 'away' }
+      away_goals = away_games.sum { |game| game[:goals] }
+      away_team_goals[team] = (away_goals.to_f / away_games.count).round(2)
+    end
+    away_team_goals
+  end
+
+  def team_away_goals
+    away_goals = team_id_and_average_away_goals.sort_by do |team, goals|
+      goals
+    end
+    away_goals[-1][0]
+  end
+
+  def highest_scoring_visitor
+    visitor = @teams_data.find do |team|
+      team[:teamname] if team_away_goals == team[:team_id]
+    end
+    visitor[:teamname]
+  end
 end
