@@ -131,7 +131,6 @@ module LeagueStats
       avghash[team] = sum.to_f/(home_team_ids.count(team))
     end
     hash2 = Hash[teamnum.zip team_names]
-    require "pry"; binding.pry
     hash2[avghash.key(avghash.values.min).to_i]
   end
 
