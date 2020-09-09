@@ -156,4 +156,9 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_test_most_goals_scored
     assert_equal 4, @stat_tracker.most_goals_scored("6")
   end
+
+  def test_it_can_test_fewest_goals_scored
+    assert_equal 0, @stat_tracker.fewest_goals_scored("5")
+  end
+
 end
