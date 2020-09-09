@@ -148,4 +148,8 @@ class StatTrackerTest < Minitest::Test
   def test_can_get_worst_season_for_team
     assert_equal "20122013", @stat_tracker.worst_season("24")
   end
+
+  def test_it_can_test_for_alltime_winning_pct
+    assert_equal 0.875,@stat_tracker.average_win_percentage("6")
+  end
 end
