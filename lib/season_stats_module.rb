@@ -81,7 +81,6 @@ module SeasonStatistics
           0
         end
       end
-
       team_hash[team] = (total_goals.to_f / total_shots.to_f)
     end
 
@@ -131,15 +130,16 @@ module SeasonStatistics
     end.team_name
   end
 
-  # def most_tackles(season_id)
-  #   season_teams(season_id).max do |team|
-  #     game_teams_data_for_season(season_id).each do |game|
-  # binding.pry
-  #
-  #       game.tackles
-  #     end
-  #   end
-  # end
+  def most_tackles(season_id)
+    # season_teams(season_id).max do |team|
+    #   game_teams_data_for_season(season_id).each do |game|
+    #
+    #     game.tackles
+    #   end
+    # end
+  end
 
+  def fewest_tackles
 
+  end
 end
