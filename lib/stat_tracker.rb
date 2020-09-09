@@ -113,7 +113,7 @@ class StatTracker
   end
 
   def season_win_percentage(team_id, season)
-    find_percent(total_team_wins(team_id, season), count_of_games_by_season)
+    find_percent(total_team_wins(team_id, season), count_of_games_by_season[season])
   end
 
   def team_ids
@@ -142,19 +142,6 @@ class StatTracker
     end.first
   end
 
-# ~~~ Game Methods ~~~
-  def lowest_total_score(season)
-    sum_game_goals(season).min_by do |game_id, score|
-      score
-    end.last
-  end
-
-  def highest_total_score(season)
-    sum_game_goals(season).max_by do |game_id, score|
-      score
-    end.last
-  end
-
   def team_wins_as_home(team_id, season)
     @games.find_all do |game|
       game.home_team_id == team_id && game.home_goals > game.away_goals && game.season == season
@@ -171,8 +158,17 @@ class StatTracker
     team_wins_as_home(team_id, season) + team_wins_as_away(team_id, season)
   end
 
-  def season_win_percentage(team_id, season)
-    find_percent(total_team_wins(team_id, season), count_of_games_by_season[season])
+# ~~~ Game Methods ~~~
+  def lowest_total_score(season)
+    sum_game_goals(season).min_by do |game_id, score|
+      score
+    end.last
+  end
+
+  def highest_total_score(season)
+    sum_game_goals(season).max_by do |game_id, score|
+      score
+    end.last
   end
 
   def percentage_away_wins
@@ -222,6 +218,18 @@ class StatTracker
   end
 
 # ~~~ SEASON METHODS~~~
+
+  def winningest_coach(season)
+    @game_teams.find do |game_team|
+      game_team.team_id == winningest_team(season)
+    end.head_coach
+  end
+
+  def worst_coach(season)
+    @game_teams.find do |game_team|
+      game_team.team_id == worst_team(season)
+    end.head_coach
+  end
 
 # ~~~ TEAM METHODS~~~
 end
