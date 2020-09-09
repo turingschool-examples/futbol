@@ -118,4 +118,18 @@ class LeagueStatistics
     end
     home[:teamname]
   end
+
+  def team_lowest_home_goals
+    home_goals = team_id_and_average_home_goals.sort_by do |team, goals|
+      goals
+    end
+    home_goals[0][0]
+  end
+
+  def lowest_scoring_home_team
+    home = @teams_data.find do |team|
+      team[:teamname] if team_lowest_home_goals == team[:team_id]
+    end
+    home[:teamname]
+  end
 end
