@@ -179,6 +179,12 @@ class StatTracker
     team_season_tackles
   end
 
+  def team_identifier(team_id)
+    @teams.find do |team|
+      team.team_id == team_id
+    end.team_name 
+  end
+
 # ~~~ Game Methods ~~~
   def lowest_total_score(season)
     sum_game_goals(season).min_by do |game_id, score|
@@ -250,6 +256,11 @@ class StatTracker
     @game_teams.find do |game_team|
       game_team.team_id == worst_team(season)
     end.head_coach
+  end
+
+  def most_tackles(season)
+    team_tackles(season).max_by do |team|
+    end
   end
 
 # ~~~ TEAM METHODS~~~

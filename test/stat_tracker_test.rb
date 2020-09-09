@@ -192,6 +192,14 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.team_tackles("20122013")
   end
 
+  def test_team_identifier_can_return_team_string
+    assert_equal "Atlanta United", @stats.team_identifier(1)
+    assert_equal "Chicago Fire", @stats.team_identifier(4)
+    assert_equal "FC Cincinnati", @stats.team_identifier(26)
+    assert_equal "DC United", @stats.team_identifier(14)
+    assert_equal "FC Dallas", @stats.team_identifier(6)
+  end
+
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won ###
     assert_equal 30.19, @stats.percentage_away_wins
@@ -246,7 +254,7 @@ def test_it_can_determine_the_worst_coach_by_season
 end
 
 def test_it_can_determine_team_with_most_season_tackles
-  assert_equal "Chicago Fire", @stats.most_tackles 
+  assert_equal "Chicago Fire", @stats.most_tackles("20122013")
 end
 
 # ~~~ TEAM METHOD TESTS~~~
