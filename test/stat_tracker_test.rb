@@ -112,6 +112,30 @@ class StatTrackerTest < Minitest::Test
     assert_equal 14, @stats.worst_team("20142015")
   end
 
+  def test_it_can_create_array_of_all_team_ids
+    expected = [1, 4, 6, 14, 26]
+    assert_equal expected, @stats.team_ids
+  end
+
+  def test_it_can_organize_season_win_percentage_for_each_team ###
+    expected = {
+      1 => 18.75,
+      4 => 31.25,
+      6 => 43.75,
+      14 => 12.5,
+      26 => 37.5
+    }
+    assert_equal expected, @stats.all_teams_win_percentage("20142015")
+  end
+
+  def test_it_can_determine_winningest_team
+    assert_equal 6, @stats.winningest_team("20142015")
+  end
+
+  def test_it_can_determine_team_with_worst_winning_percentage
+    assert_equal 14, @stats.worst_team("20142015")
+  end
+
   def test_it_can_get_team_name_from_team_id
     assert_equal "Chicago Fire", @stats.team_names_by_team_id(4)
   end
@@ -152,6 +176,30 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.ratio(2,3)
   end
 
+  def test_it_can_return_array_of_game_ids_per_season
+    expected = [2012020030, 2012020133, 2012020355, 2012020389]
+    assert_equal expected, @stats.game_ids_by_season("20122013")
+  end
+
+  def test_it_can_show_total_tackles_per_team_per_season ###
+    expected = {
+      1 => 30,
+      4 => 108,
+      6 => 31,
+      14 => 17
+      # 26 => 0
+    }
+    assert_equal expected, @stats.team_tackles("20122013")
+  end
+
+  def test_team_identifier_can_return_team_string
+    assert_equal "Atlanta United", @stats.team_identifier(1)
+    assert_equal "Chicago Fire", @stats.team_identifier(4)
+    assert_equal "FC Cincinnati", @stats.team_identifier(26)
+    assert_equal "DC United", @stats.team_identifier(14)
+    assert_equal "FC Dallas", @stats.team_identifier(6)
+  end
+
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won ###
     assert_equal 30.19, @stats.percentage_away_wins
@@ -184,6 +232,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal 6, @stats.highest_total_score("20142015")
   end
 
+
 # ~~~ LEAGUE METHOD TESTS~~~
   def test_worst_offense
     assert_equal "Chicago Fire", @stats.worst_offense
@@ -207,6 +256,21 @@ class StatTrackerTest < Minitest::Test
 
 # ~~~ SEASON METHOD TESTS~~~
 
+def test_it_can_list_winningest_coach_by_season
+  assert_equal "Claude Julien", @stats.winningest_coach("20142015")
+end
+
+def test_it_can_determine_the_worst_coach_by_season
+  assert_equal "Jon Cooper", @stats.worst_coach("20142015")
+end
+
+def test_it_can_determine_team_with_most_season_tackles
+  assert_equal "Chicago Fire", @stats.most_tackles("20122013")
+end
+
+def test_it_can_determine_team_with_fewest_season_tackles
+  assert_equal "DC United", @stats.fewest_tackles("20122013")
+end
 
 # ~~~ TEAM METHOD TESTS~~~
 end
