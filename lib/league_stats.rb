@@ -4,7 +4,7 @@ module LeagueStats
     team_ids.uniq.count
   end
 
-  def best_offence
+  def best_offense
     away_team_ids = @games.map(&:away_team_id)
     home_team_ids = @games.map(&:home_team_id)
     teams_array = (away_team_ids + home_team_ids).uniq
@@ -27,7 +27,7 @@ module LeagueStats
     hash2[avghash.key(avghash.values.max).to_i]
   end
 
-  def worst_offence
+  def worst_offense
     away_team_ids = @games.map(&:away_team_id)
     home_team_ids = @games.map(&:home_team_id)
     teams_array = (away_team_ids + home_team_ids).uniq
