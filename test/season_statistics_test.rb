@@ -26,37 +26,37 @@ class SeasonStatisticsTest < Minitest::Test
   def test_returning_winningest_coach
     skip
 
-    assert_equal , @season_statistics.winningest_coach
+    assert_equal "Claude Julien", @season_statistics.winningest_coach
   end
 
   def test_returing_worst_coach
     skip
 
-    assert_equal , @season_statistics.worst_coach
+    assert_equal "John Tortorella", @season_statistics.worst_coach
   end
 
   def test_returning_most_accurate_team
     skip
 
-    assert_equal , @season_statistics.most_accurate_team
+    assert_equal "FC Dallas", @season_statistics.most_accurate_team
   end
 
   def test_returning_least_accurate_team
     skip
 
-    assert_equal , @season_statistics.least_accurate_team
+    assert_equal "Houston Dynamo", @season_statistics.least_accurate_team
   end
 
   def test_returning_team_with_most_tackles
     skip
 
-    assert_equal , @season_statistics.most_tackles
+    assert_equal "FC Dallas", @season_statistics.most_tackles
   end
 
   def test_returning_team_with_least_tackles
     skip
 
-    assert_equal , @season_statistics.fewest_tackles
+    assert_equal "Houston Dynamo", @season_statistics.fewest_tackles
   end
 
 end
