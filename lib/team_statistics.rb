@@ -39,21 +39,21 @@ module TeamStatistics
   end
 
   def result_counts_by_team_id(team_id)  # Refactor to take game_ids as an arg
-    results_hash = {}
-    results_hash[:total] = game_stats_by_team_id(team_id).length
-    results_hash[:wins] = game_stats_by_team_id(team_id).select do |game|
+    results = {}
+    results[:total] = game_stats_by_team_id(team_id).length
+    results[:wins] = game_stats_by_team_id(team_id).select do |game|
       game.result == "WIN"
     end.length
     # maybe instead:
-    # results_hash[:wins] = game_stats_by_team_id(team_id).map(&:result).count("WIN")
-    results_hash[:ties] = game_stats_by_team_id(team_id).select do |game|
+    # results[:wins] = game_stats_by_team_id(team_id).map(&:result).count("WIN")
+    results[:ties] = game_stats_by_team_id(team_id).select do |game|
       game.result == "TIE"
     end.length
-    results_hash[:losses] = game_stats_by_team_id(team_id).select do |game|
+    results[:losses] = game_stats_by_team_id(team_id).select do |game|
       game.result == "LOSS"
     end.length
 
-    results_hash
+    results
   end
 
   def game_stats_by_team_id(team_id)
@@ -128,5 +128,32 @@ module TeamStatistics
     totals_by_season.keys.min_by do |season|
       totals_by_season[season][:average]
     end
+  end
+
+  def favorite_opponent(team_id)
+    game_ids = games_to_game_ids(games_by_team_id(team_id))
+    opponent_games = {}
+    teams.each do |team|
+      if (team.team_id != team_id)
+        opponent_games[team.team_id] = {}
+        opponent_games[team.team_id][:game_data] = game_teams.select do |single_game_stats|
+          ((single_game_stats.team_id == team.team_id) && (game_ids.include?(single_game_stats.game_id)))
+        end
+      end
+    end
+
+    opponent_games.each do |team_id, team_data|
+      opponent_games[team_id][:total] = team_data[:game_data].length
+      opponent_games[team_id][:wins] = team_data[:game_data].select do |game|
+        game.result == "WIN"
+      end.length
+      opponent_games[team_id][:win_percent] = (opponent_games[team_id][:wins]/opponent_games[team_id][:total].to_f).round(2)
+    end
+
+    favorite_id = opponent_games.keys.min_by do |team_id|
+      opponent_games[team_id][:win_percent]
+    end
+
+    team_info(favorite_id)["team_name"]
   end
 end
