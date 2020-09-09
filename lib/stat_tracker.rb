@@ -142,6 +142,65 @@ class StatTracker
     end.first
   end
 
+
+  def total_game_teams(filtered_game_teams = @game_teams)
+    filtered_game_teams.count
+  end
+
+  def avg_score(filtered_game_teams = @game_teams)
+    ratio(total_score(filtered_game_teams), total_game_teams(filtered_game_teams))
+  end
+
+  def team_id_to_team_name(id)
+    team_obj = @teams.select do |team|
+      team.team_id == id
+    end
+    team_obj[0].team_name
+  end
+
+  def total_score(filtered_game_teams = @game_teams)
+    total_score = filtered_game_teams.reduce(0) do |sum, game_team|
+      sum += game_team.goals
+    end
+  end
+
+  def home_games
+    @game_teams.select do |game|
+      game.hoa == "home"
+    end
+  end
+
+  def away_games
+    @game_teams.select do |game_team|
+      game_team.hoa == "away"
+    end
+  end
+
+  def home_games_by_team
+    home_games.group_by do |game_team|
+      game_team.team_id
+    end
+  end
+
+  def away_games_by_team
+    away_games.group_by do |game_team|
+      game_team.team_id
+    end
+  end
+
+# ~~~ Game Methods ~~~
+  def lowest_total_score(season)
+    sum_game_goals(season).min_by do |game_id, score|
+      score
+    end.last
+  end
+
+  def highest_total_score(season)
+    sum_game_goals(season).max_by do |game_id, score|
+      score
+    end.last
+  end
+
   def team_wins_as_home(team_id, season)
     @games.find_all do |game|
       game.home_team_id == team_id && game.home_goals > game.away_goals && game.season == season
@@ -242,6 +301,24 @@ class StatTracker
   def best_offense
     best = average_scores_by_team.max_by {|id, average| average}
     team_names_by_team_id(best[0])
+  end
+
+  def count_of_teams
+    @teams.count
+  end
+
+  def highest_scoring_home_team
+    highest_scoring_home_team = home_games_by_team.max_by do |team_id, details|
+      avg_score(details)
+    end[0]
+    team_id_to_team_name(highest_scoring_home_team)
+  end
+
+  def highest_scoring_visitor
+    highest_scoring_visitor = away_games_by_team.max_by do |team_id, details|
+      avg_score(details)
+    end[0]
+    team_id_to_team_name(highest_scoring_visitor)
   end
 
 # ~~~ SEASON METHODS~~~

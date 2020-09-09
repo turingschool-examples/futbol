@@ -242,6 +242,17 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas", @stats.best_offense
   end
 
+  def test_it_can_count_teams
+    assert_equal 5, @stats.count_of_teams
+  end
+
+  def test_it_can_see_highest_scoring_home_team
+    assert_equal "DC United", @stats.highest_scoring_home_team
+  end
+
+  def test_it_can_see_highest_scoring_visitor
+    assert_equal "FC Dallas",   @stats.highest_scoring_visitor
+  end
 
 # ~~~ SEASON METHOD TESTS~~~
 
