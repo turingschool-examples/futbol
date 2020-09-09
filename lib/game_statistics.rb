@@ -120,4 +120,8 @@ class GameStatistics
     end
     average
   end
+
+  def count_of_teams
+    stat_tracker[:teams]["team_id"].count
+  end
 end
