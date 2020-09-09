@@ -156,4 +156,31 @@ module TeamStatistics
 
     team_info(favorite_id)["team_name"]
   end
+
+  def rival(team_id)
+    game_ids = games_to_game_ids(games_by_team_id(team_id))
+    opponent_games = {}
+    teams.each do |team|
+      if (team.team_id != team_id)
+        opponent_games[team.team_id] = {}
+        opponent_games[team.team_id][:game_data] = game_teams.select do |single_game_stats|
+          ((single_game_stats.team_id == team.team_id) && (game_ids.include?(single_game_stats.game_id)))
+        end
+      end
+    end
+
+    opponent_games.each do |team_id, team_data|
+      opponent_games[team_id][:total] = team_data[:game_data].length
+      opponent_games[team_id][:wins] = team_data[:game_data].select do |game|
+        game.result == "WIN"
+      end.length
+      opponent_games[team_id][:win_percent] = (opponent_games[team_id][:wins]/opponent_games[team_id][:total].to_f).round(2)
+    end
+
+    rival_id = opponent_games.keys.max_by do |team_id|
+      opponent_games[team_id][:win_percent]
+    end
+
+    team_info(rival_id)["team_name"]
+  end
 end
