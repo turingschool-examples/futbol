@@ -112,6 +112,25 @@ class StatTrackerTest < Minitest::Test
     assert_equal 14, @stats.worst_team("20142015")
   end
 
+  def test_it_can_get_team_name_from_team_id
+    assert_equal "Chicago Fire", @stats.team_names_by_team_id(4)
+  end
+
+  def test_it_can_get_total_scores_by_team
+    expected = {"1"=>43, "4"=>37, "14"=>47, "6"=>47, "26"=>37}
+    assert_equal expected, @stats.total_scores_by_team
+  end
+
+  def test_it_can_get_number_of_games_by_team
+    expected = {"1"=>23, "4"=>22, "14"=>21, "6"=>20, "26"=>20}
+    assert_equal expected, @stats.games_containing_team
+  end
+
+  def test_it_can_get_average_scores_per_team
+    expected = {"1"=>1.87, "4"=>1.68, "14"=>2.24, "6"=>2.35, "26"=>1.85}
+    assert_equal expected, @stats.average_scores_by_team
+  end
+
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won ###
     assert_equal 30.19, @stats.percentage_away_wins
@@ -136,6 +155,13 @@ class StatTrackerTest < Minitest::Test
   end
 
 # ~~~ LEAGUE METHOD TESTS~~~
+  def test_worst_offense
+    assert_equal "Chicago Fire", @stats.worst_offense
+  end
+
+  def test_best_offense
+    assert_equal "FC Dallas", @stats.best_offense
+  end
 
 
 # ~~~ SEASON METHOD TESTS~~~
