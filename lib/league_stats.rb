@@ -17,14 +17,14 @@ module LeagueStats
     teams_array.each do |team|
       sum = 0
        score_array.each do |pair|
-        if pair[0]==team
+        if pair[0] == team
           sum += pair[1]
         end
       end
-      avghash[team] = sum.to_f/(away_team_ids.count(team)+home_team_ids.count(team))
+      avghash[team] = sum.to_f / (away_team_ids.count(team) + home_team_ids.count(team))
     end
     hash2 = Hash[teamnum.zip team_names]
-    hash2[avghash.key(avghash.values.max).to_i]
+    hash2[avghash.key(avghash.values.max)]
   end
 
   def worst_offense
@@ -36,7 +36,7 @@ module LeagueStats
     score_array = (away_team_ids.zip away_goals) + (home_team_ids.zip home_goals)
     teamnum = @teams.map(&:team_id)
     team_names = @teams.map(&:team_name)
-    avghash ={}
+    avghash = {}
     teams_array.each do |team|
       sum = 0
        score_array.each do |pair|
@@ -47,7 +47,7 @@ module LeagueStats
       avghash[team] = sum.to_f/(away_team_ids.count(team)+home_team_ids.count(team))
     end
     hash2 = Hash[teamnum.zip team_names]
-    hash2[avghash.key(avghash.values.min).to_i]
+    hash2[avghash.key(avghash.values.min)]
   end
 
   def highest_scoring_visitor
@@ -68,7 +68,7 @@ module LeagueStats
       avghash[team] = sum.to_f/(away_team_ids.count(team))
     end
     hash2 = Hash[teamnum.zip team_names]
-    hash2[avghash.key(avghash.values.max).to_i]
+    hash2[avghash.key(avghash.values.max)]
   end
 
   def highest_scoring_home_team
@@ -89,7 +89,7 @@ module LeagueStats
       avghash[team] = sum.to_f/(home_team_ids.count(team))
     end
     hash2 = Hash[teamnum.zip team_names]
-    hash2[avghash.key(avghash.values.max).to_i]
+    hash2[avghash.key(avghash.values.max)]
   end
 
   def lowest_scoring_visitor
@@ -110,7 +110,7 @@ module LeagueStats
       avghash[team] = sum.to_f/(away_team_ids.count(team))
     end
     hash2 = Hash[teamnum.zip team_names]
-    hash2[avghash.key(avghash.values.min).to_i]
+    hash2[avghash.key(avghash.values.min)]
   end
 
   def lowest_scoring_home_team
@@ -131,7 +131,7 @@ module LeagueStats
       avghash[team] = sum.to_f/(home_team_ids.count(team))
     end
     hash2 = Hash[teamnum.zip team_names]
-    hash2[avghash.key(avghash.values.min).to_i]
+    hash2[avghash.key(avghash.values.min)]
   end
 
 end
