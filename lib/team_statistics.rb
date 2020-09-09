@@ -78,19 +78,24 @@ module TeamStatistics
     (result_counts_by_team_id(team_id)[:wins].to_f / result_counts_by_team_id(team_id)[:total].to_f).round(2)
   end
 
-  def best_season(team_id) # Needs to be broken up into helpers with unit tests
-    all_results = game_stats_by_team_id(team_id)
+  def results_by_season(team_id)
+    game_teams_array = game_stats_by_team_id(team_id)
     results_by_season = {}
     separate_games_by_season_id(games_by_team_id(team_id)).each do |season, games|
       results_by_season[season] = []
       games.each do |game|
-        results_by_season[season] << all_results.find do |game_data|
+        results_by_season[season] << game_teams_array.find do |game_data|
           game.game_id == game_data.game_id
         end
       end
     end
+
+    results_by_season
+  end
+
+  def best_season(team_id) # Needs to be broken up into helpers with unit tests
     totals_by_season = {}
-    results_by_season.each do |season, games|
+    results_by_season(team_id).each do |season, games|
       totals_by_season[season] = {}
       totals_by_season[season][:total] = games.length
       totals_by_season[season][:wins] = games.select do |game|
@@ -104,19 +109,9 @@ module TeamStatistics
     end
   end
 
-  def worst_season(team_id) # Needs to be broken up into helpers with unit tests
-    all_results = game_stats_by_team_id(team_id)
-    results_by_season = {}
-    separate_games_by_season_id(games_by_team_id(team_id)).each do |season, games|
-      results_by_season[season] = []
-      games.each do |game|
-        results_by_season[season] << all_results.find do |game_data|
-          game.game_id == game_data.game_id
-        end
-      end
-    end
+  def worst_season(team_id)
     totals_by_season = {}
-    results_by_season.each do |season, games|
+    results_by_season(team_id).each do |season, games|
       totals_by_season[season] = {}
       totals_by_season[season][:total] = games.length
       totals_by_season[season][:wins] = games.select do |game|
