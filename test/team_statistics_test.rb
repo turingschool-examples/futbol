@@ -117,6 +117,19 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal "20132014", @stat_tracker.worst_season("24")
     # Add more assertions?
   end
+
+  def test_it_can_find_a_teams_favorite_opponent
+    locations2 = {
+      games: './data/games.csv',
+      game_teams: './data/game_teams.csv',
+      teams: './data/teams.csv'
+    }
+    stats = StatTracker.from_csv(locations2)
+
+    actual = stats.favorite_opponent("18")
+    require 'pry' ; binding.pry
+    assert ((actual == "Houston Dash") || (actual == "LA Galaxy"))
+  end
 end
 
 # Maybe a games_to_game_teams method would help DRY up the code?
