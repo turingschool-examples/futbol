@@ -1,38 +1,22 @@
-require_relative "stat_tracker"
-
-class GameStatistics
-  attr_reader :stat_tracker
-  def initialize(csv_files,stat_tracker)
-    @game_files = csv_files.games
-    @stat_tracker = stat_tracker
-  end
-
+module GameStatistics
   def highest_total_score
-    highest_total = 0
-    @game_files.each do |key, value|
-      total = value.away_goals + value.home_goals
-      if total > highest_total
-        highest_total = total
-      end
+    game ||= @game_table.values.max_by do |game|
+      game.away_goals + game.home_goals
     end
-    @stat_tracker.highest_total_score = highest_total
+    return game.away_goals + game.home_goals
   end
 
   def lowest_total_score
-    lowest_total = 11
-    @game_files.each do |key, value|
-      total = value.away_goals + value.home_goals
-      if lowest_total > total
-        lowest_total = total
-      end
+    game ||= @game_table.values.min_by do |game|
+      game.away_goals + game.home_goals
     end
-    @stat_tracker.lowest_total_score = lowest_total
+    return game.away_goals + game.home_goals
   end
 
   def percentage_home_wins
     home_wins = 0
     total_games = 0
-    @game_files.each do |key, value|
+    @game_table.each do |key, value|
       if value.home_goals > value.away_goals
         home_wins += 1
         total_games += 1
@@ -40,14 +24,13 @@ class GameStatistics
         total_games += 1
       end
     end
-    percentage_wins = (home_wins.to_f/total_games.to_f).round(2)
-    @stat_tracker.percentage_home_wins = percentage_wins
+    (home_wins.to_f/total_games.to_f).round(2)
   end
 
   def percentage_visitor_wins
     visitor_wins = 0
     total_games = 0
-    @game_files.each do |key, value|
+    @game_table.each do |key, value|
       if value.away_goals > value.home_goals
         visitor_wins += 1
         total_games += 1
@@ -55,7 +38,6 @@ class GameStatistics
         total_games += 1
       end
     end
-    percentage_wins = (visitor_wins.to_f/total_games.to_f).round(2)
-    @stat_tracker.percentage_visitor_wins = percentage_wins
+    (visitor_wins.to_f/total_games.to_f).round(2)
   end
 end
