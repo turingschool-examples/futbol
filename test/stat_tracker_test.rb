@@ -129,4 +129,23 @@ class StatTrackerTest < Minitest::Test
   def test_can_find_team_with_fewest_tackles
     assert_equal "Real Salt Lake", @stat_tracker.fewest_tackles("20162017")
   end
+
+  def test_it_can_get_team_info
+    expected = {
+                "team_id" => "24",
+                "franchise_id" => "32",
+                "team_name" => "Real Salt Lake",
+                "abbreviation" => "RSL",
+                "link" => "/api/v1/teams/24"
+    }
+    assert_equal expected, @stat_tracker.team_info("24")
+  end
+
+  def test_can_get_team_with_best_season
+    assert_equal "20132014", @stat_tracker.best_season("24")
+  end
+
+  def test_can_get_worst_season_for_team
+    assert_equal "20122013", @stat_tracker.worst_season("24")
+  end
 end
