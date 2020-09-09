@@ -20,12 +20,12 @@ class LeagueStatsTest <Minitest::Test
     assert_equal 26, @stat_tracker.count_of_teams
   end
 
-  def test_with_best_offence
-    assert_equal "Atlanta United", @stat_tracker.best_offence
+  def test_with_best_offense
+    assert_equal "Atlanta United", @stat_tracker.best_offense
   end
 
-  def test_with_worst_offence
-    assert_equal "Vancouver Whitecaps FC", @stat_tracker.worst_offence
+  def test_with_worst_offense
+    assert_equal "Vancouver Whitecaps FC", @stat_tracker.worst_offense
   end
 
   def test_highest_scoring_visitor
