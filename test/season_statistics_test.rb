@@ -24,39 +24,39 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_returning_winningest_coach
-    skip
-
-    assert_equal "Claude Julien", @season_statistics.winningest_coach
+    # skip
+    season = "20112012"
+    assert_equal "Claude Julien", @season_statistics.winningest_coach(season)
   end
 
   def test_returing_worst_coach
     skip
-
-    assert_equal "John Tortorella", @season_statistics.worst_coach
+    season = "20112012"
+    assert_equal "John Tortorella", @season_statistics.worst_coach(season)
   end
 
   def test_returning_most_accurate_team
     skip
-
-    assert_equal "FC Dallas", @season_statistics.most_accurate_team
+    season = "20112012"
+    assert_equal "FC Dallas", @season_statistics.most_accurate_team(season)
   end
 
   def test_returning_least_accurate_team
     skip
-
-    assert_equal "Houston Dynamo", @season_statistics.least_accurate_team
+    season = "20112012"
+    assert_equal "Houston Dynamo", @season_statistics.least_accurate_team(season)
   end
 
   def test_returning_team_with_most_tackles
     skip
-
-    assert_equal "FC Dallas", @season_statistics.most_tackles
+    season = "20112012"
+    assert_equal "FC Dallas", @season_statistics.most_tackles(season)
   end
 
   def test_returning_team_with_least_tackles
     skip
-
-    assert_equal "Houston Dynamo", @season_statistics.fewest_tackles
+    season = "20112012"
+    assert_equal "Houston Dynamo", @season_statistics.fewest_tackles(season)
   end
 
 end
