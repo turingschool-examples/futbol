@@ -2,8 +2,6 @@ require_relative 'test_helper'
 
 class GameStatistcsTest < Minitest::Test
 
-#||= memoization, avoid calling method when method has already been ran.
-# saves time and computing power.
   def setup
     game_path = './data/games.csv'
 

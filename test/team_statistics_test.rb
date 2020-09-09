@@ -24,21 +24,5 @@ class TeamStatisticsTest < Minitest::Test
     @stat.collect_seasons("1")
   end
 
-  # def test_collect_seasons
-  #   assert_equal 2015020086, @stat.collect_seasons("18")["20152016"][0].game_id
-  #   assert_equal "Allianz Field", @stat.collect_seasons("18")["20152016"][0].venue
-    # actual_2 = @stat.collect_seasons("18")["20152016"].include?(2015020086)
-    # actual = actual_1 + actual_2
-    # assert @stat.collect_seasons("18")["20152016"].include?(2015020086)
-  # end
-
-  # def test_total_games_played_per_season
-  #
-  #   assert_equal 60, @stat.total_games_played_per_season_by_team["20122013"][3]
-  # end
-
-  # def test_how_many_games_each_team_won_per_season
-  #
-  # end
 
 end
