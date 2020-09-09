@@ -131,6 +131,28 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.average_scores_by_team
   end
 
+  def test_it_can_group_games_by_season
+    assert_equal ["20142015", "20172018", "20152016", "20132014", "20122013", "20162017"], @stats.seasonal_game_data.keys
+
+    @stats.seasonal_game_data.values.each do |games|
+      games.each do |game|
+        assert_instance_of Game, game
+      end
+    end
+  end
+
+  def test_it_can_sum_game_goals
+    assert_equal 211, @stats.total_goals
+    season_1415 = @stats.seasonal_game_data["20142015"]
+    assert_equal 67, @stats.total_goals(season_1415)
+  end
+
+
+  def test_it_can_calc_a_ratio
+    expected = 0.67
+    assert_equal expected, @stats.ratio(2,3)
+  end
+
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won ###
     assert_equal 30.19, @stats.percentage_away_wins
@@ -148,6 +170,17 @@ class StatTrackerTest < Minitest::Test
     expected = {"20142015"=>16, "20172018"=>9, "20152016"=>5, "20132014"=>12, "20122013"=>4, "20162017"=>7}
     assert_equal expected, @stats.count_of_games_by_season
   end
+
+  def test_it_can_get_average_goals_by_season
+    expected = {"20142015"=>4.19, "20172018"=>3.78, "20152016"=>3.8, "20132014"=>3.92, "20122013"=>3.5, "20162017"=>4.29}
+    assert_equal expected , @stats.avg_goals_by_season
+  end
+
+  def test_it_can_get_avg_goals_per_game
+    assert_equal 3.98, @stats.avg_goals_per_game
+  end
+
+
 
   def test_it_can_determine_highest_and_lowest_game_score
     assert_equal 2, @stats.lowest_total_score("20142015")

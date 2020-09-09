@@ -20,8 +20,9 @@ class StatTracker
   end
 
 # ~~~ Helper Methods ~~~~
-  def total_games
-    @games.count
+
+  def total_games(filtered_games = @games)
+    filtered_games.count
   end
 
   def find_percent(numerator, denominator)
@@ -41,6 +42,23 @@ class StatTracker
     @games.group_by do |row|
       row.season
     end
+  end
+
+  def total_goals(filtered_games = @games)
+    filtered_games.reduce(0) do |sum, game|
+      sum += (game.home_goals + game.away_goals)
+    end
+  end
+
+  def ratio(numerator, denominator)
+    (numerator.to_f / denominator).round(2)
+  end
+
+  def seasonal_game_data
+    seasonal_game_data = @games.group_by do |game|
+      game.season
+    end
+    seasonal_game_data
   end
 
   def total_scores_by_team
@@ -71,7 +89,7 @@ class StatTracker
     end
     team_id_hash[id.to_s]
   end
-  
+
   def filter_by_season(season)
     @games.find_all do |game|
       game.season == season
@@ -180,6 +198,17 @@ class StatTracker
     count
   end
 
+  def avg_goals_by_season
+    avg_goals_by_season = {}
+    seasonal_game_data.each do |season, details|
+      avg_goals_by_season[season] = ratio(total_goals(details), total_games(details))
+    end
+    avg_goals_by_season
+  end
+
+  def avg_goals_per_game
+    ratio(total_goals, total_games)
+  end
 
 # ~~~ LEAGUE METHODS~~~
   def worst_offense
@@ -195,5 +224,4 @@ class StatTracker
 # ~~~ SEASON METHODS~~~
 
 # ~~~ TEAM METHODS~~~
-
 end
