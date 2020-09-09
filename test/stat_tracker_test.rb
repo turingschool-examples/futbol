@@ -182,13 +182,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_show_total_tackles_per_team_per_season
-    skip
     expected = {
       1 => 30,
       4 => 108,
       6 => 31,
-      14 => 17,
-      26 => 0
+      14 => 17
+      # 26 => 0
     }
     assert_equal expected, @stats.team_tackles("20122013")
   end

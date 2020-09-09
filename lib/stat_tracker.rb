@@ -161,11 +161,22 @@ class StatTracker
   def game_ids_by_season(season)
     filter_by_season(season).map do |game|
       game.game_id
-    end.sort 
+    end.sort
   end
 
   def team_tackles(season)
-    require "pry"; binding.pry
+    team_season_tackles = {}
+    games = @game_teams.find_all do |game|
+      game_ids_by_season(season).include?(game.game_id)
+    end
+    games.each do |game|
+      if team_season_tackles[game.team_id]
+        team_season_tackles[game.team_id] += game.tackles
+      else
+        team_season_tackles[game.team_id] = game.tackles
+      end
+    end 
+    team_season_tackles
   end
 
 # ~~~ Game Methods ~~~
