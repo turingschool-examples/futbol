@@ -269,6 +269,18 @@ class StatTracker
     end.team_name
   end
 
+  def games_by_team(team_id)
+    @game_teams.select do |game|
+      game.team_id == team_id
+    end
+  end
+
+  def team_goals_by_game(team_id)
+    games_by_team(team_id).map do |game|
+      game.goals
+    end
+  end
+
 # ~~~ Game Methods ~~~
   def lowest_total_score(season)
     sum_game_goals(season).min_by do |game_id, score|
@@ -397,19 +409,6 @@ class StatTracker
     end
     team_string
   end
-
-  def games_by_team(team_id)
-    @game_teams.select do |game|
-      game.team_id == team_id
-    end
-  end
-
-  def team_goals_by_game(team_id)
-    games_by_team(team_id).map do |game|
-      game.goals
-    end
-  end
-
 
   def most_goals_scored(team_id)
     team_goals_by_game(team_id).max
