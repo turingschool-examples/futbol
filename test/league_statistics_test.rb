@@ -38,6 +38,6 @@ class LeagueStatisticsTest < Minitest::Test
 
   def test_it_can_find_worst_offense
 
-    assert_equal "FC Dallas", @league_statistics.worst_offense
+    assert_equal "Houston Dynamo", @league_statistics.worst_offense
   end
 end
