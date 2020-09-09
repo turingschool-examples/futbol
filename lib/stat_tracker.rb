@@ -378,8 +378,6 @@ class StatTracker
           wins_by_season[season] += 1
         elsif game["away_team_id"] == team_id && game["away_goals"].to_i > game["home_goals"].to_i
           wins_by_season[season] += 1
-        elsif game["away_goals"].to_i == game["home_goals"].to_i
-          wins_by_season[season] += 0.5
         end
       end
     end
