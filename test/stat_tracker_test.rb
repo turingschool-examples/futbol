@@ -135,7 +135,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_determine_team_with_worst_winning_percentage
     assert_equal 14, @stats.worst_team("20142015")
   end
-  
+
   def test_it_can_get_team_name_from_team_id
     assert_equal "Chicago Fire", @stats.team_names_by_team_id(4)
   end
@@ -224,13 +224,36 @@ class StatTrackerTest < Minitest::Test
 
 # ~~~ SEASON METHOD TESTS~~~
 
-def test_it_can_list_winningest_coach_by_season
-  assert_equal "Claude Julien", @stats.winningest_coach("20142015")
-end
+  def test_it_can_list_winningest_coach_by_season
+    assert_equal "Claude Julien",   @stats.winningest_coach("20142015")
+  end
 
-def test_it_can_determine_the_worst_coach_by_season
-  assert_equal "Jon Cooper", @stats.worst_coach("20142015")
-end
+  def test_it_can_determine_the_worst_coach_by_season
+    assert_equal "Jon Cooper", @stats.worst_coach("20142015")
+  end
 
 # ~~~ TEAM METHOD TESTS~~~
+
+  def test_it_can_see_team_info
+    expected1 = {
+      :team_id=>1,
+      :franchise_id=>23,
+      :team_name=>"Atlanta United",
+      :abbreviation=>"ATL",
+      :stadium=>"Mercedes-Benz Stadium",
+      :link=>"/api/v1/teams/1"
+    }
+    expected2 = {
+      :team_id=>14,
+      :franchise_id=>31,
+      :team_name=>"DC United",
+      :abbreviation=>"DC",
+      :stadium=>"Audi Field",
+      :link=>"/api/v1/teams/14"
+    }
+
+    assert_equal expected1, @stats.team_info(1)
+    assert_equal expected2, @stats.team_info(14)
+  end
+
 end
