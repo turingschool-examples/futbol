@@ -135,6 +135,47 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_determine_team_with_worst_winning_percentage
     assert_equal 14, @stats.worst_team("20142015")
   end
+  
+  def test_it_can_get_team_name_from_team_id
+    assert_equal "Chicago Fire", @stats.team_names_by_team_id(4)
+  end
+
+  def test_it_can_get_total_scores_by_team
+    expected = {"1"=>43, "4"=>37, "14"=>47, "6"=>47, "26"=>37}
+    assert_equal expected, @stats.total_scores_by_team
+  end
+
+  def test_it_can_get_number_of_games_by_team
+    expected = {"1"=>23, "4"=>22, "14"=>21, "6"=>20, "26"=>20}
+    assert_equal expected, @stats.games_containing_team
+  end
+
+  def test_it_can_get_average_scores_per_team
+    expected = {"1"=>1.87, "4"=>1.68, "14"=>2.24, "6"=>2.35, "26"=>1.85}
+    assert_equal expected, @stats.average_scores_by_team
+  end
+
+  def test_it_can_group_games_by_season
+    assert_equal ["20142015", "20172018", "20152016", "20132014", "20122013", "20162017"], @stats.seasonal_game_data.keys
+
+    @stats.seasonal_game_data.values.each do |games|
+      games.each do |game|
+        assert_instance_of Game, game
+      end
+    end
+  end
+
+  def test_it_can_sum_game_goals
+    assert_equal 211, @stats.total_goals
+    season_1415 = @stats.seasonal_game_data["20142015"]
+    assert_equal 67, @stats.total_goals(season_1415)
+  end
+
+
+  def test_it_can_calc_a_ratio
+    expected = 0.67
+    assert_equal expected, @stats.ratio(2,3)
+  end
 
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won ###
@@ -154,6 +195,17 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.count_of_games_by_season
   end
 
+  def test_it_can_get_average_goals_by_season
+    expected = {"20142015"=>4.19, "20172018"=>3.78, "20152016"=>3.8, "20132014"=>3.92, "20122013"=>3.5, "20162017"=>4.29}
+    assert_equal expected , @stats.avg_goals_by_season
+  end
+
+  def test_it_can_get_avg_goals_per_game
+    assert_equal 3.98, @stats.avg_goals_per_game
+  end
+
+
+
   def test_it_can_determine_highest_and_lowest_game_score
     assert_equal 2, @stats.lowest_total_score("20142015")
     assert_equal 6, @stats.highest_total_score("20142015")
@@ -161,6 +213,13 @@ class StatTrackerTest < Minitest::Test
 
 
 # ~~~ LEAGUE METHOD TESTS~~~
+  def test_worst_offense
+    assert_equal "Chicago Fire", @stats.worst_offense
+  end
+
+  def test_best_offense
+    assert_equal "FC Dallas", @stats.best_offense
+  end
 
 
 # ~~~ SEASON METHOD TESTS~~~
