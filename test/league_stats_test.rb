@@ -78,4 +78,16 @@ class LeagueStatisticsTest < Minitest::Test
   def test_lowest_scoring_visitor
     assert_equal 'San Jose Earthquakes', @league_stats.lowest_scoring_visitor
   end
+
+  def test_id_and_average_home_goals
+    assert_equal 32, @league_stats.team_id_and_average_home_goals.count
+  end
+
+  def test_team_highest_home_goals
+    assert_equal 54, @league_stats.team_highest_home_goals
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal 'Reign FC', @league_stats.highest_scoring_home_team
+  end
 end
