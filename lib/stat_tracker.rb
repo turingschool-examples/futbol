@@ -142,6 +142,90 @@ class StatTracker
     end.first
   end
 
+
+  def total_game_teams(filtered_game_teams = @game_teams)
+    filtered_game_teams.count
+  end
+
+  def avg_score(filtered_game_teams = @game_teams)
+    ratio(total_score(filtered_game_teams), total_game_teams(filtered_game_teams))
+  end
+
+  def team_id_to_team_name(id)
+    team_obj = @teams.select do |team|
+      team.team_id == id
+    end
+    team_obj[0].team_name
+  end
+
+  def total_score(filtered_game_teams = @game_teams)
+    total_score = filtered_game_teams.reduce(0) do |sum, game_team|
+      sum += game_team.goals
+    end
+  end
+
+  def home_games
+    @game_teams.select do |game|
+      game.hoa == "home"
+    end
+  end
+
+  def away_games
+    @game_teams.select do |game_team|
+      game_team.hoa == "away"
+    end
+  end
+
+  def home_games_by_team
+    home_games.group_by do |game_team|
+      game_team.team_id
+    end
+  end
+
+  def away_games_by_team
+    away_games.group_by do |game_team|
+      game_team.team_id
+    end
+  end
+
+  def home_or_away_games(where = "home")
+    @game_teams.select do |game|
+      game.hoa == where
+    end
+  end
+
+  def hoa_games_by_team_id(hoa)
+    home_or_away_games(hoa).group_by do |game_team|
+      game_team.team_id
+    end
+  end
+
+  def lowest_scoring_team_id(hoa)
+    hoa_games_by_team_id(hoa).min_by do |team_id, details|
+      avg_score(details)
+    end[0]
+  end
+
+  def team_id_to_team_name(id)
+    @teams.each do |team|
+      return team.team_name if team.team_id == id
+    end
+  end
+
+
+# ~~~ Game Methods ~~~
+  def lowest_total_score(season)
+    sum_game_goals(season).min_by do |game_id, score|
+      score
+    end.last
+  end
+
+  def highest_total_score(season)
+    sum_game_goals(season).max_by do |game_id, score|
+      score
+    end.last
+  end
+
   def team_wins_as_home(team_id, season)
     @games.find_all do |game|
       game.home_team_id == team_id && game.home_goals > game.away_goals && game.season == season
@@ -156,6 +240,33 @@ class StatTracker
 
   def total_team_wins(team_id, season)
     team_wins_as_home(team_id, season) + team_wins_as_away(team_id, season)
+  end
+
+  def game_ids_by_season(season)
+    filter_by_season(season).map do |game|
+      game.game_id
+    end.sort
+  end
+
+  def team_tackles(season)
+    team_season_tackles = {}
+    games = @game_teams.find_all do |game|
+      game_ids_by_season(season).include?(game.game_id)
+    end
+    games.each do |game|
+      if team_season_tackles[game.team_id]
+        team_season_tackles[game.team_id] += game.tackles
+      else
+        team_season_tackles[game.team_id] = game.tackles
+      end
+    end
+    team_season_tackles
+  end
+
+  def team_identifier(team_id)
+    @teams.find do |team|
+      team.team_id == team_id
+    end.team_name
   end
 
 # ~~~ Game Methods ~~~
@@ -217,6 +328,32 @@ class StatTracker
     team_names_by_team_id(best[0])
   end
 
+  def count_of_teams
+    @teams.count
+  end
+
+  def highest_scoring_home_team
+    highest_scoring_home_team = home_games_by_team.max_by do |team_id, details|
+      avg_score(details)
+    end[0]
+    team_id_to_team_name(highest_scoring_home_team)
+  end
+
+  def highest_scoring_visitor
+    highest_scoring_visitor = away_games_by_team.max_by do |team_id, details|
+      avg_score(details)
+    end[0]
+    team_id_to_team_name(highest_scoring_visitor)
+  end
+
+  def lowest_scoring_visitor_team
+    team_id_to_team_name(lowest_scoring_team_id("away"))
+  end
+
+  def lowest_scoring_home_team
+    team_id_to_team_name(lowest_scoring_team_id("home"))
+  end
+
 # ~~~ SEASON METHODS~~~
 
   def winningest_coach(season)
@@ -229,6 +366,18 @@ class StatTracker
     @game_teams.find do |game_team|
       game_team.team_id == worst_team(season)
     end.head_coach
+  end
+
+  def most_tackles(season)
+    team_identifier(team_tackles(season).max_by do |team|
+      team.last
+    end.first)
+  end
+
+  def fewest_tackles(season)
+    team_identifier(team_tackles(season).min_by do |team|
+      team.last
+    end.first)
   end
 
 # ~~~ TEAM METHODS~~~
