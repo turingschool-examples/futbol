@@ -94,4 +94,28 @@ class LeagueStatistics
     end
     visitor[:teamname]
   end
+
+  def team_id_and_average_home_goals
+    home_team_goals = {}
+    group_by_team_id.each do |team, games|
+      home_games = games.find_all { |game| game[:hoa] == 'home' }
+      home_goals = home_games.sum { |game| game[:goals] }
+      home_team_goals[team] = (home_goals.to_f / home_games.count).round(3)
+    end
+    home_team_goals
+  end
+
+  def team_highest_home_goals
+    home_goals = team_id_and_average_home_goals.sort_by do |team, goals|
+      goals
+    end
+    home_goals[-1][0]
+  end
+
+  def highest_scoring_home_team
+    home = @teams_data.find do |team|
+      team[:teamname] if team_highest_home_goals == team[:team_id]
+    end
+    home[:teamname]
+  end
 end
