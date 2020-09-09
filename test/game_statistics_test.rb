@@ -32,7 +32,7 @@ class GameStatisticsTest < Minitest::Test
 
   def test_lowest_total_score
 
-    assert_equal 3, @game_statistics.lowest_total_score
+    assert_equal 2, @game_statistics.lowest_total_score
   end
 
   def test_home_team_winning_percentage
