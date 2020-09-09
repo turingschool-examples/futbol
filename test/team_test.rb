@@ -5,8 +5,8 @@ class TeamTest < Minitest::Test
   def setup
     @row = {
            "team_id" => "1",
-      "franchiseId" => "23",
-         "teamName" => "Atlanta United",
+       "franchiseId" => "23",
+          "teamName" => "Atlanta United",
       "abbreviation" => "ATL",
            "Stadium" => "Mercedes-Benz Stadium",
               "link" => "/api/v1/teams/1"
@@ -15,6 +15,9 @@ class TeamTest < Minitest::Test
   end
 
   def test_it_has_attributes
+
+    assert_equal '1', @team.team_id
+    assert_equal '23', @team.franchise_id
     assert_equal "1", @team.team_id
     assert_equal "23", @team.franchise_id
     assert_equal 'Atlanta United', @team.team_name
