@@ -2,15 +2,17 @@ require 'csv'
 require_relative 'game'
 require_relative 'game_teams'
 require_relative 'team'
+require_relative 'team_statistics'
 require_relative 'season_stats_module'
 
 class StatTracker
-<<<<<<< HEAD
   include SeasonStatistics
-=======
   include GameStatistics
->>>>>>> e30c7cef16f6349c60dde311d8c95835de9a6012
+  include TeamStatistics
+  include LeagueStats
+
   attr_reader :games, :teams, :game_teams
+
   def initialize(games, teams, game_teams)
     @games = games
     @teams = teams
