@@ -335,4 +335,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal 4, @stats.most_goals_scored(1)
   end
 
+  def test_it_can_see_lowest_number_of_goals_by_team_in_a_game
+    assert_equal 1, @stats.fewest_goals_scored(14)
+  end
+
 end
