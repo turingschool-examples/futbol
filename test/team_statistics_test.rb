@@ -126,33 +126,19 @@ class TeamStatisticsTest < Minitest::Test
     }
     stats = StatTracker.from_csv(locations2)
 
-    actual = stats.favorite_opponent("18")
-    require 'pry' ; binding.pry
-    assert ((actual == "Houston Dash") || (actual == "LA Galaxy"))
+    assert_equal "DC United", stats.favorite_opponent("18")
+  end
+
+  def test_it_can_find_a_teams_rival
+    locations2 = {
+      games: './data/games.csv',
+      game_teams: './data/game_teams.csv',
+      teams: './data/teams.csv'
+    }
+    stats = StatTracker.from_csv(locations2)
+
+    actual = stats.rival("18")
+
+    assert (actual == "Houston Dash" || actual == "LA Galaxy")
   end
 end
-
-# Maybe a games_to_game_teams method would help DRY up the code?
-
-
-  # def test_it_can_find_game_stats_by_team_id_for_a_subset_of_games
-  #   games = @stat_tracker.games_by_team_id("17") + @stat_tracker.games_by_team_id("26")
-  #   games.delete_at(2)
-  #   game_teams = @stat_tracker.game_teams
-  #   expected = [game_teams[0], game_teams[2], game_teams[7], game_teams[8], game_teams[11], game_teams[12]]
-  #
-  #   assert_equal expected, @stat_tracker.game_stats_by_team_id("24", games)
-  # end
-  #
-
-  # def test_it_can_count_total_games_wins_losses_and_ties_for_a_team_for_a_subset_of_games
-  #   game_ids = @stat_tracker.games_by_team_id("26").map(&:game_id)
-  #   expected = {
-  #     total: 9,
-  #     wins: 3,
-  #     losses: 5,
-  #     ties: 1
-  #   }
-  #
-  #   assert_equal expected, @stat_tracker.result_counts_by_team_id("24", game_ids)
-  # end
