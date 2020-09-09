@@ -32,46 +32,53 @@ class GameStatistics
   end
 
   def percentage_home_wins
-  # home_games = stat_tracker[:games]["home_team_id"].zip(stat_tracker[:games]["home_goals"])
-  # away_games = stat_tracker[:games]["away_team_id"].zip(stat_tracker[:games]["away_goals"])
-game_pairs = stat_tracker[:games]["home_goals"].zip(stat_tracker[:games]["away_goals"])
-winners = game_pairs.map do |pair|
-  if pair[0].to_i - pair[1].to_i > 0
-    "home"
-  elsif pair[0].to_i - pair[1].to_i < 0
-    "away"
-  else
-    "tie"
+    game_pairs = stat_tracker[:games]["home_goals"].zip(stat_tracker[:games]["away_goals"])
+    winners = game_pairs.map do |pair|
+      if pair[0].to_i - pair[1].to_i > 0
+        "home"
+      elsif pair[0].to_i - pair[1].to_i < 0
+        "away"
+      else
+        "tie"
+      end
+    end
+    winners_number = winners.count do |winner|
+      winner == "home"
+    end
+    (winners_number.to_f / winners.length * 100).round(2)
   end
-end
-winners_number = winners.count do |winner|
-  winner == "home"
-end
-(winners_number.to_f / winners.length * 100).round(2)
 
-    # data_set = @stat_tracker[:game_teams]["HoA"].zip(@stat_tracker[:game_teams]["result"])
-    #   grouping = {}
-    #   something_else = {}
-    #   data_set.map do |pair|
-    #     if grouping[pair[0]].nil?
-    #       grouping[pair[0]] = {
-    #         if something_else[pair[1]].nil?
-    #           something_else[pair[1]] = 1
-    #         else
-    #           something_else[pair[1]] += 1
-    #         end
-    #       }
-    #     else
-    #       grouping[pair[0]] += 1.0
-    #     end
-    #   end
-      # something_else = {}
-      # data_set.map do |pair|
-      #   if something_else[pair[1]].nil?
-      #     something_else[pair[1]] = 1.0
-      #   else
-      #     something_else[pair[1]] += 1.0
-      #   end
-# end
+  def percentage_visitor_wins
+  game_pairs = stat_tracker[:games]["home_goals"].zip(stat_tracker[:games]["away_goals"])
+    winners = game_pairs.map do |pair|
+      if pair[0].to_i - pair[1].to_i > 0
+        "home"
+      elsif pair[0].to_i - pair[1].to_i < 0
+        "away"
+      else
+        "tie"
+      end
+    end
+    winners_number = winners.count do |winner|
+      winner == "away"
+    end
+    (winners_number.to_f / winners.length * 100).round(2)
+  end
+
+  def percentage_ties
+    game_pairs = stat_tracker[:games]["home_goals"].zip(stat_tracker[:games]["away_goals"])
+    winners = game_pairs.map do |pair|
+      if pair[0].to_i - pair[1].to_i > 0
+        "home"
+      elsif pair[0].to_i - pair[1].to_i < 0
+        "away"
+      else
+        "tie"
+      end
+    end
+    winners_number = winners.count do |winner|
+      winner == "tie"
+    end
+    (winners_number.to_f / winners.length * 100).round(2)
   end
 end
