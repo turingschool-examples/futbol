@@ -131,15 +131,45 @@ module SeasonStatistics
   end
 
   def most_tackles(season_id)
-    # season_teams(season_id).max do |team|
-    #   game_teams_data_for_season(season_id).each do |game|
-    #
-    #     game.tackles
-    #   end
-    # end
-  end
+    most_tackles_hash = Hash.new
+    season_teams(season_id).each do |team|
+      total_tackles = game_teams_data_for_season(season_id).sum do |game|
+        if game.team_id == team
+          game.tackles
+        else
+          0
+        end
+      end
+      most_tackles_hash[team] = total_tackles
+    end
+    most_tackles_team = most_tackles_hash.max_by do |team, tackles|
+      tackles
+    end[0]
 
-  def fewest_tackles
-
+    @teams.find do |team|
+      team.team_id == most_tackles_team
+    end.team_name
   end
+#I may need to look into what to do if there is a tie
+#for most or fewest tackles
+  # def fewest_tackles(season_id)
+  #   fewest_tackles_hash = Hash.new
+  #   season_teams(season_id).each do |team|
+  #     total_tackles = game_teams_data_for_season(season_id).sum do |game|
+  #       if game.team_id == team
+  #         game.tackles
+  #       else
+  #         0
+  #       end
+  #     end
+  #     fewest_tackles_hash[team] = total_tackles
+  #   end
+  #   fewest_tackles_team = fewest_tackles_hash.min_by do |team, tackles|
+  #     tackles
+  #   end[0]
+  #
+  #   @teams.find do |team|
+  #     team.team_id == fewest_tackles_team
+  #   end.team_name
+  # end
 end
