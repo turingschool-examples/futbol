@@ -5,9 +5,24 @@ class SeasonStatistics
     @stat_tracker = stat_tracker
   end
 
+  def games_teams_data(row)
+    @stat_tracker[:game_teams][row]
+  end
+
   def game_id_to_season_id
     # first 4 characters in game_id is the last four in season
     # take those 4, change into an integer, duplicate and subtract one, then concatenate
+    games_teams_data("game_id").map do |game_id|
+      last_year = games_teams_data("game_id")[1..4]
+      (last_year.to_i - 1).to_s + last_year
+    end
+  end
+
+  def head_coaches_and_result_data_set
+    game_id_to_season_id.zip(games_teams_data("head_coach"),games_teams_data("result"))
+  end
+
+  def method_name
 
   end
 
@@ -16,7 +31,7 @@ class SeasonStatistics
   #List of coaches (games_teams)
   #Find win percentage by counting number of games they had and dividing that
   # with the number of those that are wins
-  # Dataset is hash with coach as key, value is another hash of season as key
+  # Dataset is hash with season as key, value is another hash of coach as key
   # values as hash of wins key, losses key, total games key
   # data_set = {
     # "20122013" => {
