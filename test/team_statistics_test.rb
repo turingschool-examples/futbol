@@ -26,13 +26,16 @@ class TeamStatisticsTest < Minitest::Test
   # your instance of StatTracker will provide statistics for a specific team.
 
   def test_it_has_attributes
-    # A hash with key/value pairs for the following attributes: team_id,
-    # franchise_id, team_name, abbreviation, and link
+  # A hash with key/value pairs for the following attributes: team_id,
+  # franchise_id, team_name, abbreviation, and link
 
-    expected = {
-      team_info => {}
+     team_data = {"team_id"      => 1,
+                  "franchiseId"  => 23,
+                  "teamName"     => "Atlanta United",
+                  "abbreviation" => "ATL",
+                  "link"         => "/api/v1/teams/1"
     }
     assert_instance_of TeamStatistics, @team_statistics
-    assert_equal expected, @team_statistics.team_info(team_id)
+    assert_equal team_data, @team_statistics.team_info(1)
   end
 end
