@@ -5,3 +5,50 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2014020917,20142015,Regular Season,2/28/15,6,1,3,2,Mercedes-Benz Stadium,/api/v1/venues/null
 2014020774,20142015,Regular Season,2/7/15,26,14,2,2,Audi Field,/api/v1/venues/null
 2017020012,20172018,Regular Season,10/6/17,4,26,0,2,Nippert Stadium,/api/v1/venues/null
+2014020142,20142015,Regular Season,10/30/14,4,14,3,2,Audi Field,/api/v1/venues/null
+2015020007,20152016,Regular Season,10/8/15,4,14,2,3,Audi Field,/api/v1/venues/null
+2013021198,20132014,Regular Season,4/10/14,4,14,2,2,Audi Field,/api/v1/venues/null
+2013020371,20132014,Regular Season,11/28/13,4,14,2,2,Audi Field,/api/v1/venues/null
+2013020203,20132014,Regular Season,11/2/13,4,1,1,0,Mercedes-Benz Stadium,/api/v1/venues/null
+2014020981,20142015,Regular Season,3/8/15,4,1,2,3,Mercedes-Benz Stadium,/api/v1/venues/null
+2013020649,20132014,Regular Season,1/8/14,4,1,3,2,Mercedes-Benz Stadium,/api/v1/venues/null
+2012020030,20122013,Regular Season,1/23/13,4,1,0,3,Mercedes-Benz Stadium,/api/v1/venues/null
+2012020389,20122013,Regular Season,3/13/13,4,1,2,3,Mercedes-Benz Stadium,/api/v1/venues/null
+2013021160,20132014,Regular Season,4/5/14,4,6,2,3,Toyota Stadium,/api/v1/venues/null
+2014020970,20142015,Regular Season,3/7/15,4,6,2,3,Toyota Stadium,/api/v1/venues/null
+2012020355,20122013,Regular Season,3/9/13,4,6,0,3,Toyota Stadium,/api/v1/venues/null
+2014020002,20142015,Regular Season,10/8/14,4,6,1,2,Toyota Stadium,/api/v1/venues/null
+2014020391,20142015,Regular Season,12/6/14,4,26,2,1,Nippert Stadium,/api/v1/venues/null
+2017020012,20172018,Regular Season,10/6/17,4,26,0,2,Nippert Stadium,/api/v1/venues/null
+2014020423,20142015,Regular Season,12/12/14,1,4,1,2,SeatGeek Stadium,/api/v1/venues/null
+2016020952,20162017,Regular Season,3/5/17,1,6,2,3,Toyota Stadium,/api/v1/venues/null
+2016020019,20162017,Regular Season,10/15/16,1,14,2,3,Audi Field,/api/v1/venues/null
+2017020898,20172018,Regular Season,2/18/18,1,14,2,3,Audi Field,/api/v1/venues/null
+2014020643,20142015,Regular Season,1/15/15,1,26,3,3,Nippert Stadium,/api/v1/venues/null
+2013020334,20132014,Regular Season,11/22/13,1,26,2,1,Nippert Stadium,/api/v1/venues/null
+2013021221,20132014,Regular Season,4/13/14,6,1,2,3,Mercedes-Benz Stadium,/api/v1/venues/null
+2015020608,20152016,Regular Season,1/9/16,6,1,2,1,Mercedes-Benz Stadium,/api/v1/venues/null
+2015020727,20152016,Regular Season,1/26/16,6,4,3,2,SeatGeek Stadium,/api/v1/venues/null
+2015020643,20152016,Regular Season,1/14/16,6,4,2,3,SeatGeek Stadium,/api/v1/venues/null
+2016020747,20162017,Regular Season,2/1/17,6,14,2,3,Audi Field,/api/v1/venues/null
+2017030211,20172018,Postseason,4/28/18,6,14,4,2,Audi Field,/api/v1/venues/null
+2013020667,20132014,Regular Season,1/10/14,6,26,2,2,Nippert Stadium,/api/v1/venues/null
+2014020371,20142015,Regular Season,12/3/14,6,26,0,2,Nippert Stadium,/api/v1/venues/null
+2016020116,20162017,Regular Season,10/29/16,14,1,1,3,Mercedes-Benz Stadium,/api/v1/venues/null
+2017030114,20172018,Postseason,4/18/18,14,1,3,1,Mercedes-Benz Stadium,/api/v1/venues/null
+2016020592,20162017,Regular Season,1/7/17,14,4,2,2,SeatGeek Stadium,/api/v1/venues/null
+2012020133,20122013,Regular Season,2/6/13,14,4,1,2,SeatGeek Stadium,/api/v1/venues/null
+2017030213,20172018,Postseason,5/2/18,14,6,2,1,Toyota Stadium,/api/v1/venues/null
+2017030214,20172018,Postseason,5/4/18,14,6,2,3,Toyota Stadium,/api/v1/venues/null
+2014020845,20142015,Regular Season,2/17/15,14,26,2,3,Nippert Stadium,/api/v1/venues/null
+2013020321,20132014,Regular Season,11/20/13,14,26,2,3,Nippert Stadium,/api/v1/venues/null
+2013020285,20132014,Regular Season,11/16/13,26,1,2,0,Mercedes-Benz Stadium,/api/v1/venues/null
+2014021083,20142015,Regular Season,3/23/15,26,1,3,1,Mercedes-Benz Stadium,/api/v1/venues/null
+2017020156,20172018,Regular Season,10/28/17,26,6,2,1,Toyota Stadium,/api/v1/venues/null
+2013020739,20132014,Regular Season,1/20/14,26,6,2,3,Toyota Stadium,/api/v1/venues/null
+2014020774,20142015,Regular Season,2/7/15,26,14,2,2,Audi Field,/api/v1/venues/null
+2013020088,20132014,Regular Season,10/15/13,26,14,1,3,Audi Field,/api/v1/venues/null
+2016020797,20162017,Regular Season,2/8/17,26,14,0,3,Audi Field,/api/v1/venues/null
+2017020467,20172018,Regular Season,12/13/17,26,1,1,3,Mercedes-Benz Stadium,/api/v1/venues/null
+2015020836,20152016,Regular Season,2/14/16,26,1,0,1,Mercedes-Benz Stadium,/api/v1/venues/null
+2016020715,20162017,Regular Season,1/25/17,26,1,3,1,Mercedes-Benz Stadium,/api/v1/venues/null

@@ -37,6 +37,12 @@ class StatTracker
     game_goals_hash
   end
 
+  def season_group
+    @games.group_by do |row|
+      row.season
+    end
+  end
+
   def filter_by_season(season)
     @games.find_all do |game|
       game.season == season
@@ -60,7 +66,7 @@ class StatTracker
   end
 
   def season_win_percentage(team_id, season)
-    find_percent(total_team_wins(team_id, season), count_of_games_by_season)
+    find_percent(total_team_wins(team_id, season), count_of_games_by_season[season])
   end
 
   def team_ids
@@ -89,6 +95,22 @@ class StatTracker
     end.first
   end
 
+  def team_wins_as_home(team_id, season)
+    @games.find_all do |game|
+      game.home_team_id == team_id && game.home_goals > game.away_goals && game.season == season
+    end.count
+  end
+
+  def team_wins_as_away(team_id, season)
+    @games.find_all do |game|
+      game.away_team_id == team_id && game.away_goals > game.home_goals
+    end.count
+  end
+
+  def total_team_wins(team_id, season)
+    team_wins_as_home(team_id, season) + team_wins_as_away(team_id, season)
+  end
+
 # ~~~ Game Methods ~~~
   def lowest_total_score(season)
     sum_game_goals(season).min_by do |game_id, score|
@@ -115,6 +137,14 @@ class StatTracker
   def percentage_home_wins
     wins = @games.find_all { |game| game.away_goals < game.home_goals}
     find_percent(wins.count, total_games)
+  end
+
+  def count_of_games_by_season
+    count_of_games_by_season = {}
+    self.season_group.each do |group|
+      count_of_games_by_season[group[0]] = group[1].count
+    end
+    count_of_games_by_season
   end
 
 # ~~~ LEAGUE METHODS~~~
