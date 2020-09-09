@@ -4,7 +4,6 @@ class GameStatistcsTest < Minitest::Test
 
   def setup
     game_path = './data/games.csv'
-
     @stat_tracker ||= StatTracker.from_csv({games: game_path})
   end
 
@@ -27,5 +26,4 @@ class GameStatistcsTest < Minitest::Test
   def test_percentage_visitor_wins
     assert_equal 0.36, @stat_tracker.percentage_visitor_wins
   end
-
 end

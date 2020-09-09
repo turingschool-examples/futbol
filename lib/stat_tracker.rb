@@ -12,7 +12,6 @@ class StatTracker
                 :team_table,
                 :game_team_table,
                 :locations
-
   def initialize(locations = nil)
     @locations = locations
     @game_table = {}
@@ -26,5 +25,4 @@ class StatTracker
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
-
 end

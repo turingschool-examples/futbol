@@ -1,5 +1,4 @@
 module GameStatistics
-
   def highest_total_score
     game ||= @game_table.values.max_by do |game|
       game.away_goals + game.home_goals
@@ -41,6 +40,4 @@ module GameStatistics
     end
     (visitor_wins.to_f/total_games.to_f).round(2)
   end
-
-
 end
