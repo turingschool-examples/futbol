@@ -79,31 +79,113 @@ class StatTracker
   end
 
 # ~~~ LEAGUE METHODS~~~
-def count_of_teams
-  @teams.count
-end
-
-def avg_team_score_as_visitor(team)
-  array = @games.group_by do |row|
-    row.away_team_id
+  def count_of_teams
+    @teams.count
   end
-  require "pry"; binding.pry
-end
 
-def avg_team_score_at_home(team_id)
+  # def avg_team_score_as_visitor
+  #   # hash = @games.group_by do |row|
+  #   #   row.away_team_id
+  #   # end
+  #   # hash.each do |team_id, games|
+  #   #   require "pry"; binding.pry
+  #   # end
+  #   hash = Hash.new(0)
+  #   @games.each do |game|
+  #     key = game.away_team_id
+  #     hash[key] += game.away_goals
+  #     hash.each do |key, value|
+  #       require "pry"; binding.pry
+  #       hash[key] = value/game.away_team_id.count
+  #     end
+  #   end
+  #   # hash.each do |key, value|
+  #   #   key =
+  # end
 
-end
+  # def total_scores_by_team
+  #   base = Hash.new(0)
+  #   @game_teams.each do |game|
+  #     key = game.team_id.to_s
+  #     base[key] += game.goals
+  #   end
+  #   require "pry"; binding.pry
+  #   base
+  # end
 
-def highest_scoring_visitor
+# def avg_team_score_as_visitor
+#   @games. do |game|
+#     require "pry"; binding.pry
+#   end
+# end
+  def ratio(numerator, denominator)
+    (numerator.to_f / denominator).round(2)
+  end
 
-end
+  def away_games
+    @game_teams.select do |game_team|
+      game_team.hoa == "away"
+    end
+  end
 
-def highest_scoring_home_team
+  def away_games_by_team
+    away_games.group_by do |game_team|
+      game_team.team_id
+    end
+  end
 
-end
+  def highest_scoring_visitor
+    highest_scoring_visitor = away_games_by_team.max_by do |team_id, details|
+      # require "pry"; binding.pry
+      avg_score(details)
+    end[0]
+    team = (team_id_to_team_name(highest_scoring_visitor))
+    team[0].team_name
+  end
+
+  #Wills methods
+  def home_games_by_team
+    home_games.group_by do |game_team|
+      game_team.team_id
+    end
+  end
+
+  def highest_scoring_home_team
+    home_games_by_team.max_by do |team_id, details|
+      avg_score(details)
+    end[0]
+  end
+
+  def team_id_to_team_name(id)
+    return @teams.select do |team|
+      team.team_id == id
+    end
+  end
+
+  def avg_score(filtered_game_teams = @game_teams)
+    ratio(total_score(filtered_game_teams), total_game_teams(filtered_game_teams))
+  end
+
+  def total_score(filtered_game_teams = @game_teams)
+    total_score = filtered_game_teams.reduce(0) do |sum, game_team|
+      sum += game_team.goals
+    end
+  end
+
+  def total_game_teams(filtered_game_teams = @game_teams)
+    filtered_game_teams.count
+  end
+
+  def home_games
+    home_games = @game_teams.select do |game|
+      game.hoa == "home"
+    end
+    home_games
+  end
 
 # ~~~ SEASON METHODS~~~
 
 # ~~~ TEAM METHODS~~~
+
 
 end

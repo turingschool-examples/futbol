@@ -67,7 +67,13 @@ def test_it_can_count_teams
 end
 
 def test_it_can_see_teams_average_score_as_visitor
-  assert_equal 0, @stats.avg_team_score_as_visitor(1)
+  # assert_equal 0, @stats.avg_team_score_as_visitor
+  # @stats.highest_scoring_visitor
+  # @stats.total_scores_by_team
+end
+
+def test_it_can_see_highest_scoring_visitor
+  assert_equal "FC Dallas", @stats.highest_scoring_visitor
 end
 
 
