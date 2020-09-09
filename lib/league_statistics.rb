@@ -20,6 +20,21 @@ class LeagueStatistics
     end.to_a
   end
 
+  def find_worst_offense
+    percentages = offense_list.select do |team_id, avg_goals_per_game|
+      avg_goals_per_game != 0.0
+    end.to_a.min 
+  end
+
+  def worst_offense
+    name = team_id_team_name_data_set.find do |set|
+      if set[0] == find_worst_offense[0] && (games_per_team[set[0]] >= 0)
+        team_id_team_name_data_set
+      end
+    end
+    name[1]
+  end
+
   def best_offense
     name = team_id_team_name_data_set.find do |set|
       if set[0] == find_best_offense[0]
@@ -59,7 +74,6 @@ class LeagueStatistics
       else
         grouping[array[0]] += array[1].to_i
       end
-      # require 'pry';binding.pry
     end
     grouping
   end
