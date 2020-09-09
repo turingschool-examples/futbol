@@ -8,7 +8,7 @@ require "pry";
 class TeamStatisticsTest < Minitest::Test
   def setup
     game_path = './data/dummy_game.csv'
-    team_path = './data/dummy_teams.csv'
+    team_path = './data/teams.csv'
     game_teams_path = './data/dummy_game_teams.csv'
 
     locations = {
@@ -29,19 +29,19 @@ class TeamStatisticsTest < Minitest::Test
     # A hash with key/value pairs for the following attributes: team_id,
     # franchise_id, team_name, abbreviation, and link
 
-      team_data_1 = {1  =>     {"team_id"      => "1",
-                                "franchiseId"  => "23",
-                                "teamName"     => "Atlanta United",
-                                "abbreviation" => "ATL",
-                                "link"         => "/api/v1/teams/1"
-    }}
+      team_data_1 =  {"team_id"      => "1",
+                      "franchiseId"  => "23",
+                      "teamName"     => "Atlanta United",
+                      "abbreviation" => "ATL",
+                      "link"         => "/api/v1/teams/1"
+                    }
 
-      team_data_2 = {12 =>      {"team_id"      => "12",
-                                 "franchiseId"  => "26",
-                                 "teamName"     => "Sky Blue FC",
-                                 "abbreviation" => "SBL",
-                                 "link"         => "/api/v1/teams/12"
-     }}
+      team_data_2 =  {"team_id"      => "12",
+                      "franchiseId"  => "26",
+                      "teamName"     => "Sky Blue FC",
+                      "abbreviation" => "SBL",
+                      "link"         => "/api/v1/teams/12"
+                    }
     assert_instance_of TeamStatistics, @team_statistics
     assert_equal team_data_1, @team_statistics.team_info("1")
     assert_equal team_data_2, @team_statistics.team_info("12")
