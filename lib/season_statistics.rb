@@ -5,16 +5,14 @@ class SeasonStatistics
     @stat_tracker = stat_tracker
   end
 
-  def games_teams_data(row)
-    @stat_tracker[:game_teams][row]
+  def games_teams_data(column)
+    @stat_tracker[:game_teams][column]
   end
 
   def game_id_to_season_id
-    # first 4 characters in game_id is the last four in season
-    # take those 4, change into an integer, duplicate and subtract one, then concatenate
     games_teams_data("game_id").map do |game_id|
-      last_year = games_teams_data("game_id")[1..4]
-      (last_year.to_i - 1).to_s + last_year
+      last_year = game_id[0..3]
+      (last_year.to_i - 1).to_s.concat(last_year)
     end
   end
 
@@ -22,7 +20,16 @@ class SeasonStatistics
     game_id_to_season_id.zip(games_teams_data("head_coach"),games_teams_data("result"))
   end
 
-  def method_name
+  def coaches_results_by_season_data
+    head_coaches_and_result_data_set[1..2]
+
+    grouped_by_season = head_coaches_and_result_data_set.group_by(&:first)
+    grouped_by_season.each do |season_id, data|
+      require "pry"; binding.pry
+      grouped_by_season[season_id] = data.map do |full_data|
+        full_data.last(2).group_by 
+      end
+    end
 
   end
 
@@ -45,12 +52,12 @@ class SeasonStatistics
     #}
 
 
-  def winningest_coach
+  def winningest_coach(season)
     # winningest_coach 	Name of the Coach with the best win percentage for the season 	String
-
+    coaches_results_by_season_data[season]
   end
 
-  def worst_coach
+  def worst_coach(season)
     # worst_coach 	Name of the Coach with the worst win percentage for the season 	String
 
   end
@@ -75,22 +82,22 @@ class SeasonStatistics
   #   stat_tracker[:teams][data_string_to_name_id]["teamName"]
   # end
 
-  def most_accurate_team
+  def most_accurate_team(season)
     # most_accurate_team 	Name of the Team with the best ratio of shots to goals for the season 	String
 
   end
 
-  def least_accurate_team
+  def least_accurate_team(season)
     # least_accurate_team 	Name of the Team with the worst ratio of shots to goals for the season 	String
 
   end
 
-  def most_tackles
+  def most_tackles(season)
     # most_tackles 	Name of the Team with the most tackles in the season 	String
 
   end
 
-  def fewest_tackles
+  def fewest_tackles(season)
     # fewest_tackles 	Name of the Team with the fewest tackles in the season 	String
 
   end
