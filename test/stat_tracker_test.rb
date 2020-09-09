@@ -15,22 +15,10 @@ class TestStatTracker <Minitest::Test
       teams: @team_path,
       game_teams: @game_teams_path
     }
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-=======
->>>>>>> b2b313102b0931c625261811d806fbdda10e5010
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
   def test_stat_tracker_can_pull_file_locations
-<<<<<<< HEAD
-=======
-    stat_tracker = StatTracker.from_csv(locations)
->>>>>>> e30c7cef16f6349c60dde311d8c95835de9a6012
-=======
-    @stat_tracker = StatTracker.from_csv(locations)
->>>>>>> b2b313102b0931c625261811d806fbdda10e5010
 
     assert_equal 7441, @stat_tracker.games.length
     assert_equal 32, @stat_tracker.teams.length

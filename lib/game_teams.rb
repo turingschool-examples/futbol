@@ -28,6 +28,6 @@ class GameTeams
     @shots = @shots.to_i
     @tackles = @tackles.to_i
     @takeaways = @takeaways.to_i
-    @team_id = @team_id.to_i
+    @team_id = @team_id
   end
 end
