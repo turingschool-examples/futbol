@@ -92,4 +92,24 @@ class StatTracker
     @league_statistics.worst_offense_stats
     @league_statistics.worst_offense
   end
+
+  def highest_scoring_visitor
+    @league_statistics.team_highest_away_goals
+    @league_statistics.highest_scoring_visitor
+  end
+
+  def highest_scoring_home_team
+    @league_statistics.team_highest_home_goals
+    @league_statistics.highest_scoring_home_team
+  end
+
+  def lowest_scoring_visitor
+    @league_statistics.team_lowest_away_goals
+    @league_statistics.lowest_scoring_visitor
+  end
+
+  def lowest_scoring_home_team
+    @league_statistics.team_lowest_home_goals
+    @league_statistics.lowest_scoring_home_team
+  end
 end

@@ -16,17 +16,13 @@ class LeagueStatistics
   end
 
   def team_id_and_average_goals
-    hash = {}
+    average_goals_by_team = {}
     group_by_team_id.each do |team, games|
-      total_games = games.map do |game|
-        game[:game_id]
-      end
-      total_goals = games.sum do |game|
-        game[:goals]
-      end
-      hash[team] = (total_goals.to_f / total_games.count).round(2)
+      total_games = games.map { |game| game[:game_id] }
+      total_goals = games.sum { |game| game[:goals] }
+      average_goals_by_team[team] = (total_goals.to_f / total_games.count).round(2)
     end
-    hash
+    average_goals_by_team
   end
 
   def best_offense
