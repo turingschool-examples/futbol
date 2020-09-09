@@ -150,6 +150,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_test_for_alltime_winning_pct
-    assert_equal 0.875,@stat_tracker.average_win_percentage("6")
+    assert_equal 0.88,@stat_tracker.average_win_percentage("6")
   end
 end
