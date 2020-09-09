@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/stat_tracker'
-require './lib/game_statistics'
 require './lib/season_statistics'
 
 class SeasonStatisticsTest < Minitest::Test
@@ -22,6 +21,42 @@ class SeasonStatisticsTest < Minitest::Test
 
   def test_it_exists
     assert_instance_of SeasonStatistics, @season_statistics
+  end
+
+  def test_returning_winningest_coach
+    skip
+
+    assert_equal , @season_statistics.winningest_coach
+  end
+
+  def test_returing_worst_coach
+    skip
+
+    assert_equal , @season_statistics.worst_coach
+  end
+
+  def test_returning_most_accurate_team
+    skip
+
+    assert_equal , @season_statistics.most_accurate_team
+  end
+
+  def test_returning_least_accurate_team
+    skip
+
+    assert_equal , @season_statistics.least_accurate_team
+  end
+
+  def test_returning_team_with_most_tackles
+    skip
+
+    assert_equal , @season_statistics.most_tackles
+  end
+
+  def test_returning_team_with_least_tackles
+    skip
+
+    assert_equal , @season_statistics.fewest_tackles
   end
 
 end
