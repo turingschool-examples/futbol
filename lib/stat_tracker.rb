@@ -158,6 +158,16 @@ class StatTracker
     team_wins_as_home(team_id, season) + team_wins_as_away(team_id, season)
   end
 
+  def game_ids_by_season(season)
+    filter_by_season(season).map do |game|
+      game.game_id
+    end.sort 
+  end
+
+  def team_tackles(season)
+    require "pry"; binding.pry
+  end
+
 # ~~~ Game Methods ~~~
   def lowest_total_score(season)
     sum_game_goals(season).min_by do |game_id, score|

@@ -176,7 +176,13 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.ratio(2,3)
   end
 
+  def test_it_can_return_array_of_game_ids_per_season
+    expected = [2012020030, 2012020133, 2012020355, 2012020389]
+    assert_equal expected, @stats.game_ids_by_season("20122013")
+  end
+
   def test_it_can_show_total_tackles_per_team_per_season
+    skip
     expected = {
       1 => 30,
       4 => 108,
