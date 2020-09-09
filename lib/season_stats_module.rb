@@ -7,12 +7,6 @@ module SeasonStatistics
     end
   end
 
-  # def array_of_game_id_from_season(season_id)
-  #   find_all_games_from_season(season_id).map do |game|
-  #     game.game_id
-  #   end
-  # end
-
   def game_teams_data_for_season(season_id)
     @game_teams.find_all do |game|
       game.game_id[0..3] == season_id[0..3]
@@ -152,6 +146,7 @@ module SeasonStatistics
   end
 #I may need to look into what to do if there is a tie
 #for most or fewest tackles
+
   def fewest_tackles(season_id)
     fewest_tackles_hash = Hash.new
     season_teams(season_id).each do |team|

@@ -24,11 +24,6 @@ class SeasonStatisticsTest <Minitest::Test
     assert_equal "5/16/13", @stat_tracker.find_all_games_from_season("20122013")[0].date_time
   end
 
-  # def test_array_of_game_id_from_season
-  #
-  #   assert_equal 806, @stat_tracker.array_of_game_id_from_season("20122013").length
-  # end
-
   def test_game_teams_data_for_season
 
     assert_equal 1612, @stat_tracker.game_teams_data_for_season("20122013").length
