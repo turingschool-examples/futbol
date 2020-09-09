@@ -135,7 +135,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_determine_team_with_worst_winning_percentage
     assert_equal 14, @stats.worst_team("20142015")
   end
-  
+
   def test_it_can_get_team_name_from_team_id
     assert_equal "Chicago Fire", @stats.team_names_by_team_id(4)
   end
@@ -171,10 +171,20 @@ class StatTrackerTest < Minitest::Test
     assert_equal 67, @stats.total_goals(season_1415)
   end
 
-
   def test_it_can_calc_a_ratio
     expected = 0.67
     assert_equal expected, @stats.ratio(2,3)
+  end
+
+  def test_it_can_show_total_tackles_per_team_per_season
+    expected = {
+      1 => 30,
+      4 => 108,
+      6 => 31,
+      14 => 17,
+      26 => 0
+    }
+    assert_equal expected, @stats.team_tackles("20122013")
   end
 
 # ~~~ GAME METHOD TESTS~~~
@@ -203,8 +213,6 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_avg_goals_per_game
     assert_equal 3.98, @stats.avg_goals_per_game
   end
-
-
 
   def test_it_can_determine_highest_and_lowest_game_score
     assert_equal 2, @stats.lowest_total_score("20142015")
