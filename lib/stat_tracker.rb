@@ -235,7 +235,7 @@ class StatTracker
         end
       end
     end
-    best_coach = coach_wins.max_by do |coach, win|
+    coach_wins.max_by do |coach, win|
       win / coach_game_count[coach]
     end[0]
   end
@@ -257,7 +257,7 @@ class StatTracker
         end
       end
     end
-    worst_coach = coach_losses.max_by do |coach, loss|
+    coach_losses.max_by do |coach, loss|
       loss / coach_game_count[coach]
     end[0]
   end
@@ -366,7 +366,6 @@ class StatTracker
 
   def best_season(team_id)
     wins_by_season = Hash.new(0.0)
-    total_games_by_season = Hash.new(0)
     games_by_season = Hash.new { |hash, key| hash[key] = [] }
     @games.each do |game|
       if game["home_team_id"] == team_id || game["away_team_id"] == team_id
@@ -384,12 +383,8 @@ class StatTracker
         end
       end
     end
-    best_season = games_by_season.max_by do |season, games|
-      wins_by_season[season] / games.length && games.length
-    end
-    best_season[0]
-    #game_ids = all_games.map do |game|
-    #  game["game_id"]
-    #end
+    games_by_season.max_by do |season, games|
+      wins_by_season[season] / games.length
+    end[0]
   end
 end
