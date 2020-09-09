@@ -182,7 +182,7 @@ class StatTracker
   def team_identifier(team_id)
     @teams.find do |team|
       team.team_id == team_id
-    end.team_name 
+    end.team_name
   end
 
 # ~~~ Game Methods ~~~
@@ -259,9 +259,12 @@ class StatTracker
   end
 
   def most_tackles(season)
-    team_tackles(season).max_by do |team|
-    end
+    team_identifier(team_tackles(season).max_by do |team|
+      team.last
+    end.first)
   end
+
+  
 
 # ~~~ TEAM METHODS~~~
 end
