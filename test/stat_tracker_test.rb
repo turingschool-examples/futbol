@@ -321,10 +321,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal 31.82, @stats.average_win_percentage(4)
   end
 
-  def test_it_can_calc_fav_opponent
-    @stats.favorite_opponent(6)
-  end
-
   def test_it_can_see_team_info
     expected1 = {
       :team_id=>1,
@@ -373,6 +369,19 @@ class StatTrackerTest < Minitest::Test
     assert_equal 5, @stats.game_teams_by_opponent(6)[1].size
     assert_equal 6, @stats.game_teams_by_opponent(6)[4].size
     assert_equal 4, @stats.game_teams_by_opponent(6)[26].size
+  end
+
+  def test_it_can_calc_avg_win_perc_by_opp
+    expected = {14=>40.0, 1=>80.0, 4=>83.33, 26=>25.0}
+    assert_equal expected, @stats.avg_win_perc_by_opp(6)
+  end
+
+  def test_it_can_get_fave_opp_id
+    assert_equal 4, @stats.fave_opponent_id(6)
+  end
+
+  def test_it_can_get_fave_rival_id
+    assert_equal 26, @stats.rival_id(6)
   end
 
 

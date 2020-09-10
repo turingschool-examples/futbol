@@ -407,12 +407,31 @@ class StatTracker
 
 # ~~~ TEAM METHODS~~~
 
-  def average_win_percentage(id)
-    find_percent(total_wins(filter_by_teamid(id)), total_game_teams(filter_by_teamid(id)))
+  def average_win_percentage(teamid)
+    find_percent(total_wins(filter_by_teamid(teamid)), total_game_teams(filter_by_teamid(teamid)))
   end
 
-  def favorite_opponent(id)
 
+
+
+  def avg_win_perc_by_opp(teamid)
+    awp_by_opp = {}
+    game_teams_by_opponent(teamid).each do |opponent, gameteams|
+      awp_by_opp[opponent] = find_percent(total_wins(gameteams), total_game_teams(gameteams))
+    end
+    awp_by_opp
+  end
+
+  def fave_opponent_id(teamid)
+    avg_win_perc_by_opp(teamid).max_by do |opponent, win_perc|
+      win_perc
+    end[0]
+  end
+
+  def rival_id(teamid)
+    avg_win_perc_by_opp(teamid).min_by do |opponent, win_perc|
+      win_perc
+    end[0]
   end
 
   def game_teams_by_opponent(teamid)
