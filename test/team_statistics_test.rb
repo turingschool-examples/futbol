@@ -53,6 +53,12 @@ class TeamStatisticsTest < Minitest::Test
   #   assert_equal "20162017", @team_statistics.best_season("3")
   # end
 
+  # def test_teams_worst_season_percentage #games
+  #   #	Season with the lowest win percentage for a team.
+  #   assert_equal "", @team_statistics.worst_season("6")
+  #   assert_equal "", @team_statistics.worst_season("3")
+  # end
+
   def test_average_win_percentage #game_teams
   # Average win percentage of all games for a team.
     assert_equal "83.33", @team_statistics.average_win_percentage("6")
@@ -72,19 +78,17 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal 0, @team_statistics.fewest_goals_scored("5")
   end
 
-  def test_favorite_opponent
+  def test_favorite_opponent #teams and games
   # Name of the opponent that has the lowest win percentage against the given team.
-    assert_equal "Sports Kansas City", @team_statistics.favorit_opponent("6")
-    assert_equal "Houston Dynamo", @team_statistics.favorit_opponent("3")
-    assert_equal "Sports Kansas City", @team_statistics.favorit_opponent("5")
+    assert_equal "Sports Kansas City", @team_statistics.favorite_opponent("6")
+    assert_equal "Houston Dynamo", @team_statistics.favorite_opponent("3")
+    assert_equal "Sports Kansas City", @team_statistics.favorite_opponent("5")
   end
 
-  def test_rival_opponent
+  def test_rival_opponent #teams and games
   # Name of the opponent that has the highest win percentage against the given team.
     assert_equal "Sports Kansas City", @team_statistics.rival("6")
     assert_equal "Houston Dynamo", @team_statistics.rival("3")
     assert_equal "Sports Kansas City", @team_statistics.rival("5")
   end
-
-
 end

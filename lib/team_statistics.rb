@@ -79,6 +79,10 @@ class TeamStatistics
   #     end
   #   end
   #   highest_wins_per_season
+  
+  # def worst_season
+  #
+  # end
 
   def season_win_data_set
     @stat_tracker[:game_teams]["game_id"].zip(@stat_tracker[:game_teams]["team_id"], @stat_tracker[:game_teams]["result"])
@@ -116,9 +120,17 @@ class TeamStatistics
     end[1].to_i
   end
 
+  def team_and_wins_data_set
+    @stat_tracker[:teams]["team_id"].zip(@stat_tracker[:game_teams]["team_id"], @stat_tracker[:game_teams]["result"])
+  end
+
   def fewest_goals_scored(team_id)
     team_per_game(team_id).min_by do |goal|
       goal[1]
     end[1].to_i
+  end
+
+  def favorite_opponent
+
   end
 end
