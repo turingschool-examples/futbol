@@ -324,7 +324,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_calc_fav_opponent
     @stats.favorite_opponent(6)
   end
-  
+
   def test_it_can_see_team_info
     expected1 = {
       :team_id=>1,
@@ -353,6 +353,10 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_see_lowest_number_of_goals_by_team_in_a_game
     assert_equal 1, @stats.fewest_goals_scored(14)
+  end
+
+  def test_it_can_get_a_game
+    assert_equal 2014021002, @stats.get_game(2014021002).game_id
   end
 
 end

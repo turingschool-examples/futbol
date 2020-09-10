@@ -222,7 +222,6 @@ class StatTracker
     test = @game_teams.select do |game_team|
       game_team.team_id == id
     end
-    require "pry"; binding.pry
   end
 
 
@@ -414,6 +413,12 @@ class StatTracker
 
   def favorite_opponent(id)
     filter_by_teamid(id)
+  end
+
+  def get_game(gameid)
+    @games.find do |game|
+      game.game_id == gameid
+    end
   end
 
   def team_info(team_id)
