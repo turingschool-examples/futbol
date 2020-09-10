@@ -26,16 +26,11 @@ module TeamStatistics
   end
 
   def separate_games_by_season_id(games_array = games)
-    season_hash = {}
-    games_array.each do |game|
-      if season_hash[game.season] == nil
-        season_hash[game.season] = [game]
-      else
-        season_hash[game.season] << game
-      end
+    games_array.reduce({}) do |seasons, game|
+      seasons[game.season] = [] if seasons[game.season] == nil
+      seasons[game.season] << game
+      seasons
     end
-
-    season_hash
   end
 
   def result_counts_by_team_id(team_id)  # Refactor to take game_ids as an arg
