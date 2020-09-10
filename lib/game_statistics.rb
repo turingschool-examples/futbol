@@ -1,39 +1,43 @@
-require_relative "stat_tracker"
-
-class GameStatistics
-  attr_reader :stat_tracker_copy
-  def initialize
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-    locations = {
-    games: game_path,
-    teams: team_path,
-    game_teams: game_teams_path
-    }
-    @csv_game_table = StatTracker.from_csv(locations)
-    @stat_tracker_copy = StatTracker.new
-  end
-
+module GameStatistics
   def highest_total_score
-    highest_total = 0
-    @csv_game_table.games.each do |key, value|
-      total = value.away_goals + value.home_goals
-      if total > highest_total
-        highest_total = total
-      end
+    game ||= @game_table.values.max_by do |game|
+      game.away_goals + game.home_goals
     end
-    @stat_tracker_copy.highest_total_score_stat = highest_total
+    return game.away_goals + game.home_goals
   end
 
   def lowest_total_score
-    lowest_total = 11
-    @csv_game_table.games.each do |key, value|
-      total = value.away_goals + value.home_goals
-      if lowest_total > total
-        lowest_total = total
+    game ||= @game_table.values.min_by do |game|
+      game.away_goals + game.home_goals
+    end
+    return game.away_goals + game.home_goals
+  end
+
+  def percentage_home_wins
+    home_wins = 0
+    total_games = 0
+    @game_table.each do |key, value|
+      if value.home_goals > value.away_goals
+        home_wins += 1
+        total_games += 1
+      elsif value.home_goals <= value.away_goals
+        total_games += 1
       end
     end
-    @stat_tracker_copy.lowest_total_score_stat = lowest_total
+    (home_wins.to_f/total_games.to_f).round(2)
+  end
+
+  def percentage_visitor_wins
+    visitor_wins = 0
+    total_games = 0
+    @game_table.each do |key, value|
+      if value.away_goals > value.home_goals
+        visitor_wins += 1
+        total_games += 1
+      elsif value.away_goals <= value.home_goals
+        total_games += 1
+      end
+    end
+    (visitor_wins.to_f/total_games.to_f).round(2)
   end
 end
