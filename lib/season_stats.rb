@@ -68,4 +68,16 @@ class SeasonStatistics
     end
     total_goals
   end
+
+  def find_least_accurate_team(season)
+    least_accurate = goals_to_shots_ratio_per_season(season).sort_by {|team_id, goals| goals}
+    least_accurate[0][0]
+  end
+
+  def least_accurate_team(season)
+    not_accurate = @teams_data.find do |team|
+      team[:teamname] if find_least_accurate_team(season) == team[:team_id]
+    end
+    not_accurate[:teamname]
+  end
 end
