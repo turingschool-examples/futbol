@@ -188,6 +188,35 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas", @stats.team_identifier(6)
   end
 
+  def test_it_can_get_team_name_from_team_id
+    assert_equal "Chicago Fire", @stats.team_names_by_team_id(4)
+  end
+
+  def test_it_can_get_total_scores_by_team
+    expected = {"1"=>43, "4"=>37, "14"=>47, "6"=>47, "26"=>37}
+    assert_equal expected, @stats.total_scores_by_team
+  end
+
+  def test_it_can_get_number_of_games_by_team
+    expected = {"1"=>23, "4"=>22, "14"=>21, "6"=>20, "26"=>20}
+    assert_equal expected, @stats.games_containing_team
+  end
+
+  def test_it_can_get_average_scores_per_team
+    expected = {"1"=>1.87, "4"=>1.68, "14"=>2.24, "6"=>2.35, "26"=>1.85}
+    assert_equal expected, @stats.average_scores_by_team
+  end
+
+  def test_it_can_group_games_by_season
+    assert_equal ["20142015", "20172018", "20152016", "20132014", "20122013", "20162017"], @stats.seasonal_game_data.keys
+
+    @stats.seasonal_game_data.values.each do |games|
+      games.each do |game|
+        assert_instance_of Game, game
+      end
+    end
+  end
+
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won ###
     assert_equal 30.19, @stats.percentage_away_wins
@@ -240,6 +269,14 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_see_highest_scoring_visitor
     assert_equal "FC Dallas",   @stats.highest_scoring_visitor
+  end
+
+  def test_it_knows_lowest_scoring_home_team
+    assert_equal "Atlanta United", @stats.lowest_scoring_home_team
+  end
+
+  def test_it_knows_lowest_scoring_visitor_team
+    assert_equal "Chicago Fire", @stats.lowest_scoring_visitor_team
   end
 
 # ~~~ SEASON METHOD TESTS~~~
@@ -328,6 +365,36 @@ class StatTrackerTest < Minitest::Test
     assert_equal "20132014", @stats.worst_season(6)
     assert_equal "20122013", @stats.worst_season(14)
     assert_equal "20122013", @stats.worst_season(26)
+  end
+
+  def test_it_can_see_team_info
+    expected1 = {
+      :team_id=>1,
+      :franchise_id=>23,
+      :team_name=>"Atlanta United",
+      :abbreviation=>"ATL",
+      :stadium=>"Mercedes-Benz Stadium",
+      :link=>"/api/v1/teams/1"
+    }
+    expected2 = {
+      :team_id=>14,
+      :franchise_id=>31,
+      :team_name=>"DC United",
+      :abbreviation=>"DC",
+      :stadium=>"Audi Field",
+      :link=>"/api/v1/teams/14"
+    }
+
+    assert_equal expected1, @stats.team_info(1)
+    assert_equal expected2, @stats.team_info(14)
+  end
+
+  def test_it_can_see_highest_number_of_goals_by_team_in_a_game
+    assert_equal 4, @stats.most_goals_scored(1)
+  end
+
+  def test_it_can_see_lowest_number_of_goals_by_team_in_a_game
+    assert_equal 1, @stats.fewest_goals_scored(14)
   end
 
 end

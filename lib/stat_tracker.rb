@@ -221,6 +221,31 @@ class StatTracker
     win_percentages_by_season
   end
 
+  def home_or_away_games(where = "home")
+    @game_teams.select do |game|
+      game.hoa == where
+    end
+  end
+
+  def hoa_games_by_team_id(hoa)
+    home_or_away_games(hoa).group_by do |game_team|
+      game_team.team_id
+    end
+  end
+
+  def lowest_scoring_team_id(hoa)
+    hoa_games_by_team_id(hoa).min_by do |team_id, details|
+      avg_score(details)
+    end[0]
+  end
+
+  def team_id_to_team_name(id)
+    @teams.each do |team|
+      return team.team_name if team.team_id == id
+    end
+  end
+
+
 # ~~~ Game Methods ~~~
   def lowest_total_score(season)
     sum_game_goals(season).min_by do |game_id, score|
@@ -259,6 +284,18 @@ class StatTracker
     @teams.find do |team|
       team.team_id == team_id
     end.team_name
+  end
+
+  def games_by_team(team_id)
+    @game_teams.select do |game|
+      game.team_id == team_id
+    end
+  end
+
+  def team_goals_by_game(team_id)
+    games_by_team(team_id).map do |game|
+      game.goals
+    end
   end
 
 # ~~~ Game Methods ~~~
@@ -338,6 +375,14 @@ class StatTracker
     team_id_to_team_name(highest_scoring_visitor)
   end
 
+  def lowest_scoring_visitor_team
+    team_id_to_team_name(lowest_scoring_team_id("away"))
+  end
+
+  def lowest_scoring_home_team
+    team_id_to_team_name(lowest_scoring_team_id("home"))
+  end
+
 # ~~~ SEASON METHODS~~~
 
   def winningest_coach(season)
@@ -385,4 +430,29 @@ class StatTracker
       end
     end.compact.first
   end
+
+  def team_info(team_id)
+    team_string = team_id.to_s
+    team_string = {}
+    @teams.each do |team|
+      if team.team_id == team_id
+        team_string[:team_id] = team.team_id
+        team_string[:franchise_id] = team.franchise_id
+        team_string[:team_name] = team.team_name
+        team_string[:abbreviation] = team.abbreviation
+        team_string[:stadium] = team.stadium
+        team_string[:link] = team.link
+      end
+    end
+    team_string
+  end
+
+  def most_goals_scored(team_id)
+    team_goals_by_game(team_id).max
+  end
+
+  def fewest_goals_scored(team_id)
+    team_goals_by_game(team_id).min
+  end
+
 end
