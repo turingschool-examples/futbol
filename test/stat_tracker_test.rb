@@ -148,4 +148,28 @@ class StatTrackerTest < Minitest::Test
   def test_can_get_worst_season_for_team
     assert_equal "20122013", @stat_tracker.worst_season("24")
   end
+
+  def test_it_can_test_for_alltime_winning_pct
+    assert_equal 0.88,@stat_tracker.average_win_percentage("6")
+  end
+
+  def test_it_can_test_most_goals_scored
+    assert_equal 4, @stat_tracker.most_goals_scored("6")
+  end
+
+  def test_it_can_test_fewest_goals_scored
+    assert_equal 0, @stat_tracker.fewest_goals_scored("5")
+  end
+
+  def test_it_has_a_favorite_team_to_beat
+    assert_equal "Houston Dynamo", @stat_tracker.favorite_opponent("6")
+  end
+
+  def test_it_has_a_favorite_team_to_beat
+    assert_equal "Houston Dynamo", @stat_tracker.favorite_opponent("6")
+  end
+
+  def test_it_has_a_team_it_hates
+    assert_equal "FC Dallas", @stat_tracker.rival("3")
+  end
 end

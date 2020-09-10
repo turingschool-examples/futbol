@@ -353,7 +353,7 @@ class StatTracker
     end
     fewest_tackles_team_name["teamName"]
   end
-  
+
   def team_info(team_id)
     team_table = @teams.find do |team|
       team_id == team["team_id"]
@@ -407,4 +407,95 @@ class StatTracker
       wins_by_season[season] / games.length
     end[0]
   end
-end
+
+  def average_win_percentage(team_id)
+    team_game_count = Hash.new(0)
+    team_wins = Hash.new(0)
+    @game_teams.each do |game|
+      if game["team_id"] == team_id
+        team_game_count[game["team_id"]] += 1
+        if game["result"] == "WIN"
+          team_wins[game["team_id"]] += 1
+        end
+      end
+    end
+  (team_wins[team_id].to_f / team_game_count[team_id]).round(2)
+  end
+
+  def most_goals_scored(team_id)
+    max_goals = @game_teams.find_all do |game|
+      game["team_id"] == team_id
+    end
+    high_goals = max_goals.max_by do |game|
+      game["goals"]
+    end
+    high_goals["goals"].to_i
+  end
+
+  def fewest_goals_scored(team_id)
+    min_goals = @game_teams.find_all do |game|
+      game["team_id"] == team_id
+    end
+    low_goals = min_goals.min_by do |game|
+      game["goals"]
+    end
+    low_goals["goals"].to_i
+  end
+
+  def favorite_opponent(team_id)
+    games = @game_teams.find_all do |game|
+      game["team_id"] == team_id
+    end
+    game_ids = games.map do |game|
+      game["game_id"]
+    end
+    total_games = Hash.new(0)
+    loser_loses = Hash.new(0)
+    @game_teams.each do |game|
+      if game_ids.include?(game["game_id"]) && game["team_id"] != team_id
+        total_games[game["team_id"]]  += 1
+        if game["result"] == "LOSS"
+          loser_loses[game["team_id"]] += 1
+        end
+      end
+    end
+    biggest_loser = loser_loses.max_by do |loser, losses|
+      losses.to_f / total_games[loser]
+    end
+    biggest_loser_name = @teams.find do |team|
+      biggest_loser[0] == team["team_id"]
+    end
+    biggest_loser_name["teamName"]
+  end
+
+  def rival(team_id)
+    games = @game_teams.find_all do |game|
+      game["team_id"] == team_id
+    end
+    game_ids = games.map do |game|
+      game["game_id"]
+    end
+    total_games = Hash.new(0)
+    winner_wins = Hash.new(0)
+    @game_teams.each do |game|
+      if game_ids.include?(game["game_id"]) && game["team_id"] != team_id
+        total_games[game["team_id"]]  += 1
+        if game["result"] == "WIN"
+          winner_wins[game["team_id"]] += 1
+        end
+      end
+    end
+    biggest_winner = winner_wins.max_by do |winner, wins|
+      wins.to_f / total_games[winner]
+    end
+    biggest_winner_name = @teams.find do |team|
+      biggest_winner[0] == team["team_id"]
+    end
+    biggest_winner_name["teamName"]
+  end
+
+
+
+
+
+  end
