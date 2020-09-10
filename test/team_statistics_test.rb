@@ -57,4 +57,11 @@ class TeamStatisticsTest < Minitest::Test
     # Average win percentage of all games for a team.
     assert_equal "83.33", @team_statistics.average_win_percentage("6")
   end
+
+  def test_most_goals_scored #game_teams
+    # Highest number of goals a particular team has scored in a single game.
+    assert_equal 4, @team_statistics.most_goals_scored("6")
+    assert_equal 2, @team_statistics.most_goals_scored("3")
+    assert_equal 1, @team_statistics.most_goals_scored("5")
+  end
 end

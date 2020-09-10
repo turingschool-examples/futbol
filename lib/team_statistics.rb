@@ -99,4 +99,21 @@ class TeamStatistics
   def average_win_percentage(team_id)
     "#{(winning_games(team_id)/total_games(team_id) * 100).round(2)}"
   end
+
+  def score_data_set
+    @stat_tracker[:game_teams]["team_id"].zip(@stat_tracker[:game_teams]["goals"])
+  end
+
+  def goals_by_team_per_game(team_id)
+    score_data_set.find_all do |team|
+      team[0] == team_id
+    end
+  end
+
+  def most_goals_scored(team_id)
+    goals_by_team_per_game(team_id).max_by do |goal|
+      goal[1]
+    end[1].to_i
+    # binding.pry
+  end
 end
