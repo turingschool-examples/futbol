@@ -1,28 +1,8 @@
-require_relative "stat_tracker"
-
-class SeasonStatistics
-  attr_reader :stat_tracker_copy
-  def initialize(stat_tracker)
-    @csv_game_teams_table = stat_tracker.game_teams
-    @csv_games_table = stat_tracker.games
-    @csv_teams_table = stat_tracker.teams
-    @stat_tracker_copy = stat_tracker
-    @season_coach_hash = coach_game_results
-  end
-
-  def map_season_to_game_ids
-    season_game_id_hash = {}
-    @csv_games_table.each do |game_id, game|
-      # if game.type = "Regular Season"
-        season_game_id_hash[game_id] = game.season
-      # end
-    end
-    season_game_id_hash
-  end
+module SeasonStatistics
 
   def find_all_seasons
     seasons = []
-    @csv_games_table.each do |game_id, game|
+    @game_table.each do |game_id, game|
       if !seasons.include?(game.season)
         seasons << game.season
       end
@@ -30,32 +10,28 @@ class SeasonStatistics
     seasons
   end
 
-  def coach_game_results
-    seasons = find_all_seasons
-    season_game_id_hash = map_season_to_game_ids
-    season_coach_hash = {}
-
+  def coaches_per_season(seasons)
+    coaches_per_season = {}
     seasons.each do |season|
-      coach_results_hash = {}
-      @csv_game_teams_table.each do |game_id, game_team|
-        require "pry"; binding.pry
-        if season_game_id_hash[game_id] == season
-          if coach_results_hash[game_team.head_coach]
-            coach_results_hash[game_team.head_coach] << game_team.result
-          else
-            coach_results_hash[game_team.head_coach] = [game_team.result]
-          end
+      @game_team_table.each do |game|
+        if coaches_per_season[season].nil?
+          coaches_per_season[season] = {game.head_coach => [game.result]}
+        elsif coaches_per_season[season][game.head_coach]
+          coaches_per_season[season][game.head_coach] << game.result
+        else
+          coaches_per_season[season][game.head_coach] = [game.result]
         end
       end
-      season_coach_hash[season] = coach_results_hash
     end
-    season_coach_hash
+    require "pry"; binding.pry
+    coaches_per_season
   end
 
   def winningest_coach(season)
+    season_coach_hash = coaches_per_season(find_all_seasons)
     winningest_coach_name = nil
     highest_percentage = 0
-    @season_coach_hash[season].each do |key, value|
+    season_coach_hash[season].each do |key, value|
       total_games = 0
       total_wins = 0
       total_losses = 0
@@ -68,61 +44,59 @@ class SeasonStatistics
           total_losses += 1
         elsif game_result == "TIE"
           total_ties += 1
-        else
-          p "Unexpected game result: #{game_result}"
         end
       end
-      # p " #{key} +  #{(total_wins.to_f / total_games).round(5)}"
+      # p " #{key} +  #{(total_wins.to_f / total_games).round(2)}"
       # p " #{key} +  wins: #{total_wins}, losses:#{total_losses}, ties:#{total_ties}, total games:#{total_games}"
-      if (total_wins.to_f / total_games) > highest_percentage
+      if (total_wins.to_f / total_games) > highest_percentage && total_games > 5
         highest_percentage = (total_wins.to_f ) / total_games
         winningest_coach_name = key
+        # require "pry"; binding.pry
       end
     end
-    # require "pry"; binding.pry
-    @stat_tracker_copy.winningest_coach = winningest_coach_name
+    winningest_coach_name
   end
 
-  def worst_coach(season)
-    worst_coach_name = nil
-    lowest_percentage = 0
-    @season_coach_hash[season].each do |key, value|
-      total_games = 0
-      total_wins = 0
-      total_losses = 0
-      total_ties = 0
-      value.each do |game_result|
-        total_games += 1
-        if game_result == "WIN"
-          total_wins += 1
-        elsif game_result == "LOSS"
-          total_losses += 1
-        elsif game_result == "TIE"
-          total_ties += 1
-        else
-          p "Unexpected game result: #{game_result}"
-        end
-      end
-      # p " #{key} +  #{(total_wins.to_f / total_games).round(5)}"
-      if (total_wins.to_f / total_games) <= lowest_percentage
-        lowest_percentage = (total_wins.to_f / total_games)
-        worst_coach_name = key
-      end
-    end
-    @stat_tracker_copy.worst_coach = worst_coach_name
-  end
-
-  def team_shots_and_goals_hash
-    team_shots_and_goals ={}
-    hash_by_team_id = {}
-    @csv_game_teams_table.each do |game_id, game_team|
-      team_shots_and_goals[game_id] = {}
-      team_shots_and_goals[game_id][game_team.team_id] = [game_team.shots, game_team.goals]
-
-      hash_by_team_id[game_team.team_id] = [game_team.shots, game_team.goals]
-    end
-  end
-
+  # def worst_coach(season)
+  #   worst_coach_name = nil
+  #   lowest_percentage = 0
+  #   @season_coach_hash[season].each do |key, value|
+  #     total_games = 0
+  #     total_wins = 0
+  #     total_losses = 0
+  #     total_ties = 0
+  #     value.each do |game_result|
+  #       total_games += 1
+  #       if game_result == "WIN"
+  #         total_wins += 1
+  #       elsif game_result == "LOSS"
+  #         total_losses += 1
+  #       elsif game_result == "TIE"
+  #         total_ties += 1
+  #       else
+  #         p "Unexpected game result: #{game_result}"
+  #       end
+  #     end
+  #     # p " #{key} +  #{(total_wins.to_f / total_games).round(5)}"
+  #     if (total_wins.to_f / total_games) <= lowest_percentage
+  #       lowest_percentage = (total_wins.to_f / total_games)
+  #       worst_coach_name = key
+  #     end
+  #   end
+  #   @stat_tracker_copy.worst_coach = worst_coach_name
+  # end
+  #
+  # def team_shots_and_goals_hash
+  #   team_shots_and_goals ={}
+  #   hash_by_team_id = {}
+  #   @csv_game_teams_table.each do |game_id, game_team|
+  #     team_shots_and_goals[game_id] = {}
+  #     team_shots_and_goals[game_id][game_team.team_id] = [game_team.shots, game_team.goals]
+  #
+  #     hash_by_team_id[game_team.team_id] = [game_team.shots, game_team.goals]
+  #   end
+  # end
+  #
 
   # def most_accurate_team(season)
   #   seasons = find_all_seasons
