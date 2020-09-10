@@ -19,19 +19,20 @@ class SeasonStatisticsTest <Minitest::Test
 
   end
 
-  def test_find_all_games_from_season
-
-    assert_equal "5/16/13", @stat_tracker.find_all_games_from_season("20122013")[0].date_time
-  end
-
   def test_game_teams_data_for_season
 
     assert_equal 1612, @stat_tracker.game_teams_data_for_season("20122013").length
+    assert_equal "2012030221", @stat_tracker.game_teams_data_for_season("20122013")[0].game_id
+    assert_equal "Todd McLellan", @stat_tracker.game_teams_data_for_season("20122013")[-1].head_coach
   end
 
   def test_season_coaches
+    expected_1 = ["John Tortorella", "Claude Julien", "Dan Bylsma"]
+    expected_2 = ["Jon Cooper", "Martin Raymond", "Dan Lacroix"]
 
     assert_equal 34, @stat_tracker.season_coaches("20122013").length
+    assert_equal expected_1, @stat_tracker.season_coaches("20122013")[0..2]
+    assert_equal expected_2, @stat_tracker.season_coaches("20122013")[-3..-1]
   end
 
   def test_winningest_coach
@@ -45,9 +46,11 @@ class SeasonStatisticsTest <Minitest::Test
   end
 
   def test_season_teams
-
+    expected = ["16", "19", "30", "21", "26", "24", "25", "23",
+                "4", "17", "29", "15", "20", "18", "6", "8", "5", "2", "52",
+                "14", "13", "28", "7", "10", "27", "1", "9", "22", "3", "12"]
     assert_equal 30, @stat_tracker.season_teams("20132014").length
-    # assert_equal [], @stat_tracker.season_teams("20132014")
+    assert_equal expected, @stat_tracker.season_teams("20132014")
   end
 
   def test_most_accurate_team

@@ -1,12 +1,6 @@
 module SeasonStatistics
   require 'pry'
 
-  def find_all_games_from_season(season_id)
-    @games.find_all do |game|
-      game.season == season_id
-    end
-  end
-
   def game_teams_data_for_season(season_id)
     @game_teams.find_all do |game|
       game.game_id[0..3] == season_id[0..3]
