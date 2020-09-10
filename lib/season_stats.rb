@@ -16,9 +16,7 @@ class SeasonStatistics
   end
 
   def group_by_coach(season)
-    hash_of_seasons(season).group_by do |game|
-      game[:head_coach]
-    end
+    hash_of_seasons(season).group_by {|game| game[:head_coach]}
   end
 
   def coach_wins(season)
@@ -36,16 +34,38 @@ class SeasonStatistics
   end
 
   def winningest_coach(season)
-   best_coach =  coach_wins(season).max_by do |coach, win|
-      win
-    end
+   best_coach =  coach_wins(season).max_by {|coach, win| win}
     best_coach[0]
   end
 
   def worst_coach(season)
-   worst_coach =  coach_wins(season).min_by do |coach, win|
-      win
-    end
+   worst_coach =  coach_wins(season).min_by {|coach, win| win}
     worst_coach[0]
+  end
+
+  def find_by_team_id(season)
+    hash_of_seasons(season).group_by {|team| team[:team_id]}
+  end
+
+  def most_accurate_team(season)
+    accurate = @teams_data.find do |team|
+      team[:teamname] if find_most_accurate_team(season) == team[:team_id]
+    end
+    accurate[:teamname]
+  end
+
+  def find_most_accurate_team(season)
+    most_accurate = goals_to_shots_ratio_per_season(season).sort_by {|team_id, goals| goals}
+    most_accurate[-1][0]
+  end
+
+  def goals_to_shots_ratio_per_season(season)
+    total_goals = {}
+    find_by_team_id(season).each do |team_id, rows|
+      sum_goals = rows.sum {|row| row[:goals]}
+      sum_shots = rows.sum {|row| row[:shots]}
+      total_goals[team_id] = (sum_goals.to_f / sum_shots).round(3) * 100
+    end
+    total_goals
   end
 end
