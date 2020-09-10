@@ -188,6 +188,21 @@ class StatTracker
     end
   end
 
+  def all_seasons
+    unique_seasons = []
+    @games.each do |game|
+      if !unique_seasons.include?(game.season)
+        unique_seasons << game.season
+      end
+    end
+    unique_seasons.sort
+  end
+
+  def all_teams_all_seasons_win_percentages
+    win_percentages_by_season = {}
+
+  end
+
 # ~~~ Game Methods ~~~
   def lowest_total_score(season)
     sum_game_goals(season).min_by do |game_id, score|

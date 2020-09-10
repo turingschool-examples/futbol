@@ -254,21 +254,87 @@ class StatTrackerTest < Minitest::Test
 
 # ~~~ SEASON METHOD TESTS~~~
 
-def test_it_can_list_winningest_coach_by_season
-  assert_equal "Claude Julien", @stats.winningest_coach("20142015")
-end
+  def test_it_can_list_winningest_coach_by_season
+    assert_equal "Claude Julien", @stats.winningest_coach("20142015")
+  end
 
-def test_it_can_determine_the_worst_coach_by_season
-  assert_equal "Jon Cooper", @stats.worst_coach("20142015")
-end
+  def test_it_can_determine_the_worst_coach_by_season
+    assert_equal "Jon Cooper", @stats.worst_coach("20142015")
+  end
 
-def test_it_can_determine_team_with_most_season_tackles
-  assert_equal "Chicago Fire", @stats.most_tackles("20122013")
-end
+  def test_it_can_determine_team_with_most_season_tackles
+    assert_equal "Chicago Fire", @stats.most_tackles("20122013")
+  end
 
-def test_it_can_determine_team_with_fewest_season_tackles
-  assert_equal "DC United", @stats.fewest_tackles("20122013")
-end
+  def test_it_can_determine_team_with_fewest_season_tackles
+    assert_equal "DC United", @stats.fewest_tackles("20122013")
+  end
 
 # ~~~ TEAM METHOD TESTS~~~
+
+  #Calculate total win percentage for a team for each season
+    # For each team, count the total number of games for each season
+      # count_of_games_by_season
+    # For each team, count the total number of wins for each season
+      # total_team_wins
+      # season_win_percentage
+    # Calculate percent wins for each season
+      # all_teams_win_percentage
+  #Select the highest and lowest win percentage across seasons for each team
+    #Have a collection (hash?) of win percentage and season
+
+    #Select the highest win percentage and return season (string)
+    #Select the lowest win percentage and return season (string)
+
+  def test_it_can_return_array_of_seasons
+    expected = ["20122013", "20132014", "20142015", "20152016", "20162017", "20172018"]
+    assert_equal expected, @stats.all_seasons
+  end
+
+  def test_it_can_return_a_nested_hash_with_all_teams_season_win_percentages
+    skip 
+    expected = {
+      1 => {
+        "20122013" => 100,
+        "20132014" => 25,
+        "20142015" => 28.57,
+        "20152016" => 50,
+        "20162017" => 25,
+        "20172018" => 33.33
+      },
+      4 => {
+        "20122013" => 25,
+        "20132014" => 40,
+        "20142015" => 42.86,
+        "20152016" => 33.33,
+        "20162017" => 0,
+        "20172018" => 0
+      },
+      6 => {
+        "20122013" => 100,
+        "20132014" => 50,
+        "20142015" => 66.67,
+        "20152016" => 66.67,
+        "20162017" => 50,
+        "20172018" => 50
+      },
+      14 => {
+        "20122013" => 0,
+        "20132014" => 25,
+        "20142015" => 0,
+        "20152016" => 100,
+        "20162017" => 60,
+        "20172018" => 60
+      },
+      26 => {
+        "20122013" => 0,
+        "20132014" => 33.33,
+        "20142015" => 42.86,
+        "20152016" => 0,
+        "20162017" => 50,
+        "20172018" => 75
+      },
+    }
+    assert_equal expected, @stats.all_teams_all_seasons_win_percentages
+  end
 end
