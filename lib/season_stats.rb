@@ -9,12 +9,12 @@ class SeasonStatistics
     @teams_data = array_teams_data
   end
 
-  def hash_of_seasons #refactor: move to module
-    @game_teams_data.group_by do |game|
-      game[:result] == "WIN"
+  def hash_of_seasons(season) #refactor: move to module
+    @game_teams_data.find_all do |game_team|
+      game_team[:game_id].to_s.split("")[0..3].join.to_i == season.split("")[0..3].join.to_i
     end
   end
-
+    
   def winningest_coach(season)
     require "pry"; binding.pry
   end
