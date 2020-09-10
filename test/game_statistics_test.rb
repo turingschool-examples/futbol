@@ -16,14 +16,26 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_it_can_find_highest_total_score
-    assert_equal 7, @stat_tracker.highest_total_score
+    assert_equal 9, @stat_tracker.highest_total_score
   end
 
   def test_it_can_find_lowest_score
-    assert_equal 1, @stat_tracker.lowest_total_score
+    assert_equal 0, @stat_tracker.lowest_total_score
   end
 
   def test_it_can_find_percentage_home_wins
+    assert_equal 0.43, @stat_tracker.percentage_home_wins
+    assert_equal 213, @stat_tracker.percentage_home_win_helper
+  end
+
+  def test_it_can_find_percentage_visitor_wins
+    assert_equal 0.36, @stat_tracker.percentage_visitor_wins
+    assert_equal 178, @stat_tracker.percentage_visitor_win_helper
+  end
+
+  def test_it_can_find_percentage_ties
+    assert_equal 0.21, @stat_tracker.percentage_ties
+    assert_equal 105, @stat_tracker.percentage_ties_helper
     assert_equal 0.5, @stat_tracker.percentage_home_wins
     assert_equal 20, @stat_tracker.percentage_home_win_helper
   end
@@ -33,26 +45,28 @@ class GameStatisticsTest < Minitest::Test
     assert_equal 11, @stat_tracker.percentage_visitor_win_helper
   end
 
-  def test_it_can_find_percentage_ties
-    assert_equal 0.23, @stat_tracker.percentage_ties
-    assert_equal 9, @stat_tracker.percentage_ties_helper
-  end
-
   def test_it_can_count_games_by_season
-    expected = { '20172018' => 17,
-                 '20132014' => 16,
-                 '20122013' => 7 }
+    expected = {"20122013"=>92,
+                "20142015"=>109,
+                "20152016"=>118,
+                "20132014"=>75,
+                "20162017"=>74,
+                "20172018"=>28}
     assert_equal expected, @stat_tracker.count_of_games_by_season
+    assert_equal 496, @stat_tracker.count_of_games_by_season.values.sum
   end
 
   def test_it_can_find_average_goals_per_game
-    assert_equal 4.28, @stat_tracker.average_goals_per_game
+    assert_equal 4.21, @stat_tracker.average_goals_per_game
   end
 
-  def test_it_can_find_average_goals_by_season
-    expected = {'20172018' => 4.41,
-                '20132014' => 3.81,
-                '20122013' => 5.0 }
+  def test_it_can_find_average_goals_per_season
+    expected = expected = {"20122013"=>4.17,
+                          "20142015"=>4.06,
+                          "20152016"=>4.22,
+                          "20132014"=>4.37,
+                          "20162017"=>4.19,
+                          "20172018"=>4.46}
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
 end
