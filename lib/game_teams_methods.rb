@@ -1,26 +1,29 @@
+require 'CSV'
+
 class GameTeamsMethods
 attr_reader :game_teams, :game_teams_table
   def initialize(game_teams)
     @game_teams = game_teams
     @game_teams_table = create_table(@game_teams)
+
   end
 
   def create_table(file)
     CSV.parse(File.read(file), headers: true)
   end
 
-  def best_offense_team_id_average_goal
+  def best_offense_team
     team_averages = average_goals_by_team
     team_averages.max_by do |key, value|
       value
-    end
+    end.first
   end
 
-  def worst_offense_team_id_average_goal
+  def worst_offense_team
     team_averages = average_goals_by_team
     team_averages.min_by do |key, value|
       value
-    end
+    end.first
   end
 
   def assign_goals_by_teams
@@ -43,6 +46,10 @@ attr_reader :game_teams, :game_teams_table
     goals = find_all_games(home_away).map do |row|
       row['goals']
     end
+    team_id_goal_array(team, goals)
+  end
+
+  def team_id_goal_array(team, goals)
     away_team_goals = Hash.new
     team.each.with_index do |id, idx|
       if away_team_goals.has_key?(id)
@@ -68,18 +75,18 @@ attr_reader :game_teams, :game_teams_table
     team_goals
   end
 
-  def highest_scoring_team_id_average_goals(home_away)
+  def highest_scoring_team(home_away)
     away_team_averages = average_goals_by_home_or_away_team(home_away)
     away_team_averages.max_by do |key, value|
       value
-    end
+    end.first
   end
 
-  def lowest_scoring_team_id_average_goals(home_away)
+  def lowest_scoring_team(home_away)
     away_team_averages = average_goals_by_home_or_away_team(home_away)
     away_team_averages.min_by do |key, value|
       value
-    end
+    end.first
   end
 
   def average_goals_by_home_or_away_team(home_away)
