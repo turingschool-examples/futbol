@@ -1,15 +1,16 @@
 class TeamStatistics
+  attr_reader :stat_tracker
 
   def initialize(stat_tracker)
     @stat_tracker = stat_tracker
   end
-
+# [x] 1. Team Info
   def team_data_set
     @stat_tracker[:teams]["team_id"].zip(@stat_tracker[:teams]["franchiseId"], @stat_tracker[:teams]["teamName"], @stat_tracker[:teams]["abbreviation"], @stat_tracker[:teams]["link"])
   end
 
   def match_team_id(team_id)
-    team_data_set.map do |info| #represents the nested array
+    team_data_set.map do |info|
       return info if info[0] == team_id
     end
     #returns ["1", "23", "Atlanta United", "ATL", "/api/v1/teams/1"]
@@ -26,59 +27,46 @@ class TeamStatistics
     # returns {"team_id"=>"1", "franchiseId"=>"23", "teamName"=>"Atlanta United", "abbreviation"=>"ATL", "link"=>"/api/v1/teams/1"}
   end
 
-  # def count_of_total_wins(team_id)
-  #   seasons.find_all do |season|
-  #     season[1] == team_id && season[2] == "WIN"
-  #   end.count
+#[ ] 2/3 Best and Worst Season
+  # def season_data_set
+  #   @stat_tracker[:games]["season"].zip(@stat_tracker[:games]["away_team_id"], @stat_tracker[:games]["home_team_id"], @stat_tracker[:games]["away_goals"], @stat_tracker[:games]["home_goals"])
+  # require "pry"; binding.pry
   # end
-#
-#   def average_wins_per_season
-#     (count_of_total_wins.to_s / stat_tracker[:games]["game_id"].count).round(2)
-#   end
-  def season_data_set
-    @stat_tracker[:games]["season"].zip(@stat_tracker[:games]["away_goals"], @stat_tracker[:games]["home_team_id"], @stat_tracker[:games]["away_goals"], @stat_tracker[:games]["home_goals"])
-  end
+  # def season_data_set
+  #   @stat_tracker[:game_teams]["game_id"].zip(@stat_tracker[:game_teams]["team_id"], @stat_tracker[:game_teams]["result"])
+  # end
+  #
+  # def game_id_to_season_id
+  #   games_teams_data("game_id").map do |game_id|
+  #     last_year = game_id[0..3]
+  #     (last_year.to_i - 1).to_s.concat(last_year)
+  #   end
+  # end
 
-#   def find_season
-#     season_data_set.map do |season
-#   end
-#
-#   def best_season(team_id)
-#     season_data = {}
-#     titles = ["season", "away_team_id", "home_team_id", "away_goals", "home_goals"]
-#
-#     titles.each_with_index do |title, index|
-# binding.pry
-#       season_data[title] = season_data_set[index]
-#     end
-    # highest_wins_per_season = {}
-    #
-    # season_data_set.find_all do |season|
-    #   # season[0] == season[0]
-    #   season[1] == team_id && season[2] == "WIN"
-    # end.count
-    # # returns [["2012030221", "6", "WIN"], ["2016030222", "6", "WIN"]]
-    # season_data_set.map do |season|
-    #   if season[0].eql?(season[0])
-    #     season.find_all do |team|
-    #       team[1] == team_id && team[2] == "WIN"
-    #     end
-    #   end
-    # end
-    # binding.pry
-  #   seasons.map do |season|
-  #     if highest_wins_per_season[season[0]].nil?
-  #        highest_wins_per_season[season[0]] = (season[1][0].to_f + season[1][1].to_f)
-  #     else
-  #        highest_wins_per_season[season[0]] += (season[1][0].to_f + season[1][1].to_f)
+  # def find_team_id_away_or_home(team_id)
+  #   @season_data_set.find_all |id|
+  #     id.away_team_id == team_id || id.home_team_id == team_id
+  #   end
+  # end
+  #
+  # def find_winner(team_id)
+  #   winner = @season_data_set.map do |season|
+  #     if season.away_goals - season.home_goals > 0
+  #       winner = "away"
+  #     elsif season.away_goals - season.home_goals < 0
+  #       winner = "home"
   #     end
   #   end
-  #   highest_wins_per_season
 
-  # def worst_season
-  #
+  # def best_season(team_id)
+  #   @season_data_set
   # end
 
+  # def worst_season(team_id)
+  #   @season_data_set
+  # end
+
+# [x] 4. Average Win Percentage
   def season_win_data_set
     @stat_tracker[:game_teams]["game_id"].zip(@stat_tracker[:game_teams]["team_id"], @stat_tracker[:game_teams]["result"])
   end
@@ -99,6 +87,7 @@ class TeamStatistics
     "#{(winning_games(team_id)/total_games(team_id) * 100).round(2)}"
   end
 
+# [x] 5/6 Most and Fewest Goals Scored
   def score_data_set
     @stat_tracker[:game_teams]["team_id"].zip(@stat_tracker[:game_teams]["goals"])
   end
@@ -115,21 +104,22 @@ class TeamStatistics
     end[1].to_i
   end
 
-  def team_and_wins_data_set
-    @stat_tracker[:teams]["team_id"].zip(@stat_tracker[:game_teams]["team_id"], @stat_tracker[:game_teams]["result"])
-  end
-
   def fewest_goals_scored(team_id)
     team_per_game(team_id).min_by do |goal|
       goal[1]
     end[1].to_i
   end
 
-  def favorite_opponent
-
+# [ ] 7/8 Favorite and Rival Opponent
+  def favorite_opponent(team_id)
+    !find_winner(team_id)
+    average_win_percentage(team_id)
+    team_info(team_id).teamName
   end
-
-  def rival 
-
-  end
+  #
+  # def rival(team_id)
+  #   find_winner(team_id)
+  #   average_win_percentage(team_id) #of the opponent
+  #   team_info(team_id).teamName
+  # end
 end
