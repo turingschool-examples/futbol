@@ -72,5 +72,19 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal 0, @team_statistics.fewest_goals_scored("5")
   end
 
+  def test_favorite_opponent
+  # Name of the opponent that has the lowest win percentage against the given team.
+    assert_equal "Sports Kansas City", @team_statistics.favorit_opponent("6")
+    assert_equal "Houston Dynamo", @team_statistics.favorit_opponent("3")
+    assert_equal "Sports Kansas City", @team_statistics.favorit_opponent("5")
+  end
+
+  def test_rival_opponent
+  # Name of the opponent that has the highest win percentage against the given team.
+    assert_equal "Sports Kansas City", @team_statistics.rival("6")
+    assert_equal "Houston Dynamo", @team_statistics.rival("3")
+    assert_equal "Sports Kansas City", @team_statistics.rival("5")
+  end
+
 
 end
