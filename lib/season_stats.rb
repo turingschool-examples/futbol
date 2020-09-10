@@ -30,7 +30,7 @@ class SeasonStatistics
         total_wins += 1 if game[:result] == 'WIN'
         total_games += 1
       end
-      hash[coach] = (total_wins.to_f / total_games).round(3) * 100
+      hash[coach] = (total_wins.to_f / total_games).round(3)
     end
     hash
   end
@@ -40,5 +40,12 @@ class SeasonStatistics
       win
     end
     best_coach[0]
+  end
+
+  def worst_coach(season)
+   worst_coach =  coach_wins(season).min_by do |coach, win|
+      win
+    end
+    worst_coach[0]
   end
 end

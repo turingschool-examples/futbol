@@ -35,8 +35,33 @@ class SeasonStatisticsTest < Minitest::Test
     assert_equal 14882, @season_statistics.game_teams_data.length
   end
 
+  def test_can_get_hash_of_seasons
+    assert_equal 1612, @season_statistics.hash_of_seasons("20122013").count
+  end
+
+  def test_group_by_coach
+    assert_equal 34, @season_statistics.group_by_coach("20122013").keys.count
+  end
+
+  def test_coach_wins
+    assert_equal 34, @season_statistics.coach_wins("20122013").keys.count
+  end
+
   def test_winningest_coach
+    assert_equal "Dan Lacroix", @season_statistics.winningest_coach("20122013")
     assert_equal "Claude Julien", @season_statistics.winningest_coach("20132014")
     assert_equal "Alain Vigneault", @season_statistics.winningest_coach("20142015")
+    assert_equal "Barry Trotz", @season_statistics.winningest_coach("20152016")
+    assert_equal "Bruce Cassidy", @season_statistics.winningest_coach("20162017")
+    assert_equal "Bruce Cassidy", @season_statistics.winningest_coach("20172018")
+  end
+
+  def test_worst_coach
+    assert_equal "Martin Raymond", @season_statistics.worst_coach("20122013")
+    assert_equal "Peter Laviolette", @season_statistics.worst_coach("20132014")
+    assert_equal "Ted Nolan", @season_statistics.worst_coach("20142015")
+    assert_equal "Todd Richards", @season_statistics.worst_coach("20152016")
+    assert_equal "Dave Tippett", @season_statistics.worst_coach("20162017")
+    assert_equal "Phil Housley", @season_statistics.worst_coach("20172018")
   end
 end
