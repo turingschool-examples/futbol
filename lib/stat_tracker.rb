@@ -104,6 +104,7 @@ class StatTracker
 
   def team_wins_as_away(team_id, season)
     season_group[season].find_all do |game|
+      require "pry"; binding.pry
       game.away_team_id == team_id && game.away_goals > game.home_goals
     end.count
   end
@@ -119,6 +120,7 @@ class StatTracker
   end
 
   def season_win_percentage(team_id, season)
+    # require "pry"; binding.pry
     find_percent(total_team_wins(team_id, season), total_team_games_per_season(team_id, season))
   end
 
@@ -222,16 +224,6 @@ class StatTracker
     sum_game_goals(season).max_by do |game_id, score|
       score
     end.last
-  end
-
-  def team_wins_as_away(team_id, season)
-    @games.find_all do |game|
-      game.away_team_id == team_id && game.away_goals > game.home_goals
-    end.count
-  end
-
-  def total_team_wins(team_id, season)
-    team_wins_as_home(team_id, season) + team_wins_as_away(team_id, season)
   end
 
   def game_ids_by_season(season)
