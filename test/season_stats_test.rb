@@ -64,4 +64,21 @@ class SeasonStatisticsTest < Minitest::Test
     assert_equal "Dave Tippett", @season_statistics.worst_coach("20162017")
     assert_equal "Phil Housley", @season_statistics.worst_coach("20172018")
   end
+
+  def test_it_can_group_by_team_id
+    assert_equal 30, @season_statistics.find_by_team_id("20132014").count
+  end
+
+  def test_it_can_calculate_goals_to_shots_ratio
+    assert_equal 30, @season_statistics.goals_to_shots_ratio_per_season("20122013").count
+  end
+
+  def test_it_can_find_the_most_accurate_team
+    assert_equal 24, @season_statistics.find_most_accurate_team("20132014")
+  end
+
+  def test_it_can_find_most_accurate_team_name
+    assert_equal "Real Salt Lake", @season_statistics.most_accurate_team("20132014")
+    assert_equal "Toronto FC", @season_statistics.most_accurate_team("20142015")
+  end
 end
