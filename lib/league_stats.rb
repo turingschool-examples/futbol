@@ -1,137 +1,69 @@
 module LeagueStats
   def count_of_teams
-    team_ids = @game_teams.map(&:team_id)
+    team_ids = @teams.map(&:team_id)
     team_ids.uniq.count
   end
 
   def best_offense
-    away_team_ids = @games.map(&:away_team_id)
-    home_team_ids = @games.map(&:home_team_id)
-    teams_array = (away_team_ids + home_team_ids).uniq
-    away_goals = @games.map(&:away_goals)
-    home_goals = @games.map(&:home_goals)
-    score_array = (away_team_ids.zip away_goals) + (home_team_ids.zip home_goals)
-    teamnum = @teams.map(&:team_id)
-    team_names = @teams.map(&:team_name)
-    avghash ={}
-    teams_array.each do |team|
-      sum = 0
-       score_array.each do |pair|
-        if pair[0] == team
-          sum += pair[1]
-        end
-      end
-      avghash[team] = sum.to_f / (away_team_ids.count(team) + home_team_ids.count(team))
-    end
-    hash2 = Hash[teamnum.zip team_names]
-    hash2[avghash.key(avghash.values.max)]
+    score_array = data_away + data_home
+    team_names_data
+    avg = return_average_goals_per_game(team_names_data, score_array)
+    team_names_data[avg.key(avg.values.max)]
   end
 
   def worst_offense
-    away_team_ids = @games.map(&:away_team_id)
-    home_team_ids = @games.map(&:home_team_id)
-    teams_array = (away_team_ids + home_team_ids).uniq
-    away_goals = @games.map(&:away_goals)
-    home_goals = @games.map(&:home_goals)
-    score_array = (away_team_ids.zip away_goals) + (home_team_ids.zip home_goals)
-    teamnum = @teams.map(&:team_id)
-    team_names = @teams.map(&:team_name)
-    avghash = {}
-    teams_array.each do |team|
-      sum = 0
-       score_array.each do |pair|
-        if pair[0]==team
-          sum += pair[1]
-        end
-      end
-      avghash[team] = sum.to_f/(away_team_ids.count(team)+home_team_ids.count(team))
-    end
-    hash2 = Hash[teamnum.zip team_names]
-    hash2[avghash.key(avghash.values.min)]
+    score_array = data_away + data_home
+    avg = return_average_goals_per_game(team_names_data, score_array)
+    team_names_data[avg.key(avg.values.min)]
   end
 
   def highest_scoring_visitor
-    away_team_ids = @games.map(&:away_team_id)
-    teams_array = away_team_ids.uniq
-    away_goals = @games.map(&:away_goals)
-    score_array = (away_team_ids.zip away_goals)
-    teamnum = @teams.map(&:team_id)
-    team_names = @teams.map(&:team_name)
-    avghash ={}
-    teams_array.each do |team|
-      sum = 0
-       score_array.each do |pair|
-        if pair[0]==team
-          sum += pair[1]
-        end
-      end
-      avghash[team] = sum.to_f/(away_team_ids.count(team))
-    end
-    hash2 = Hash[teamnum.zip team_names]
-    hash2[avghash.key(avghash.values.max)]
+    score_array = data_away
+    avg = return_average_goals_per_game(team_names_data, score_array)
+    team_names_data[avg.key(avg.values.max)]
   end
 
   def highest_scoring_home_team
-    home_team_ids = @games.map(&:home_team_id)
-    teams_array = (home_team_ids).uniq
-    home_goals = @games.map(&:home_goals)
-    score_array = (home_team_ids.zip home_goals)
-    teamnum = @teams.map(&:team_id)
-    team_names = @teams.map(&:team_name)
-    avghash ={}
-    teams_array.each do |team|
-      sum = 0
-       score_array.each do |pair|
-        if pair[0]==team
-          sum += pair[1]
-        end
-      end
-      avghash[team] = sum.to_f/(home_team_ids.count(team))
-    end
-    hash2 = Hash[teamnum.zip team_names]
-    hash2[avghash.key(avghash.values.max)]
+    score_array = data_home
+    avg = return_average_goals_per_game(team_names_data, score_array)
+    team_names_data[avg.key(avg.values.max)]
   end
 
   def lowest_scoring_visitor
-    away_team_ids = @games.map(&:away_team_id)
-    teams_array = away_team_ids.uniq
-    away_goals = @games.map(&:away_goals)
-    score_array = (away_team_ids.zip away_goals)
-    teamnum = @teams.map(&:team_id)
-    team_names = @teams.map(&:team_name)
-    avghash ={}
-    teams_array.each do |team|
-      sum = 0
-       score_array.each do |pair|
-        if pair[0]==team
-          sum += pair[1]
-        end
-      end
-      avghash[team] = sum.to_f/(away_team_ids.count(team))
-    end
-    hash2 = Hash[teamnum.zip team_names]
-    hash2[avghash.key(avghash.values.min)]
+    score_array = data_away
+    avg = return_average_goals_per_game(team_names_data, score_array)
+    team_names_data[avg.key(avg.values.min)]
   end
 
   def lowest_scoring_home_team
-    home_team_ids = @games.map(&:home_team_id)
-    teams_array = (home_team_ids).uniq
-    home_goals = @games.map(&:home_goals)
-    score_array = (home_team_ids.zip home_goals)
-    teamnum = @teams.map(&:team_id)
-    team_names = @teams.map(&:team_name)
-    avghash ={}
-    teams_array.each do |team|
-      sum = 0
-       score_array.each do |pair|
-        if pair[0]==team
-          sum += pair[1]
-        end
-      end
-      avghash[team] = sum.to_f/(home_team_ids.count(team))
-    end
-    hash2 = Hash[teamnum.zip team_names]
-    hash2[avghash.key(avghash.values.min)]
+    score_array = data_home
+    avg = return_average_goals_per_game(team_names_data, score_array)
+    team_names_data[avg.key(avg.values.min)]
   end
 
+  def return_average_goals_per_game(teamdata, scoredata)
+    avghash ={}
+    teamdata.keys.each do |team|
+      goals = 0
+      scoredata.each do |score|
+        if score[0] == team
+          goals += score[1]
+        end
+      end
+      avghash[team] = (goals.to_f / (scoredata.flatten.count(team))).round(4)
+    end
+    avghash
+  end
+
+  def data_home
+    @games.map {|game| [game.home_team_id, game.home_goals]}
+  end
+
+  def data_away
+    @games.map {|game| [game.away_team_id, game.away_goals]}
+  end
+
+  def team_names_data
+    @teams.map{|team| [team.team_id,team.team_name]}.to_h
+  end
 end
