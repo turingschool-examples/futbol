@@ -335,4 +335,13 @@ class StatTrackerTest < Minitest::Test
     assert_equal "20172018", @stats.best_season(26)
   end
 
+  #Took the first season in examples were there were multiple options
+  def test_it_can_return_a_teams_worst_season
+    assert_equal "20162017", @stats.worst_season(1)
+    assert_equal "20162017", @stats.worst_season(4)
+    assert_equal "20132014", @stats.worst_season(6)
+    assert_equal "20122013", @stats.worst_season(14)
+    assert_equal "20122013", @stats.worst_season(26)
+  end
+
 end
