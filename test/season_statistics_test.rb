@@ -36,27 +36,27 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_returning_most_accurate_team
-    skip
+    # skip
     season = "20112012"
     assert_equal "FC Dallas", @season_statistics.most_accurate_team(season)
   end
 
   def test_returning_least_accurate_team
-    skip
+    # skip
     season = "20112012"
     assert_equal "Houston Dynamo", @season_statistics.least_accurate_team(season)
   end
 
   def test_returning_team_with_most_tackles
-    skip
+    # skip
     season = "20112012"
-    assert_equal "FC Dallas", @season_statistics.most_tackles(season)
+    assert_equal "Houston Dynamo", @season_statistics.most_tackles(season)
   end
 
   def test_returning_team_with_least_tackles
-    skip
+    # skip
     season = "20112012"
-    assert_equal "Houston Dynamo", @season_statistics.fewest_tackles(season)
+    assert_equal "FC Dallas", @season_statistics.fewest_tackles(season)
   end
 
 end
