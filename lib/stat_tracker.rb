@@ -97,9 +97,13 @@ class StatTracker
   end
 
   def team_wins_as_home(team_id, season)
-    @games.find_all do |game|
-      game.home_team_id == team_id && game.home_goals > game.away_goals && game.season == season
-    end.count
+    @game_teams.find_all do |game_team|
+      require "pry"; binding.pry
+    end
+
+    # @games.find_all do |game|
+    #   game.home_team_id == team_id && game.home_goals > game.away_goals && game.season == season
+    # end.count
   end
 
   def team_wins_as_away(team_id, season)
@@ -222,12 +226,6 @@ class StatTracker
     sum_game_goals(season).max_by do |game_id, score|
       score
     end.last
-  end
-
-  def team_wins_as_home(team_id, season)
-    @games.find_all do |game|
-      game.home_team_id == team_id && game.home_goals > game.away_goals && game.season == season
-    end.count
   end
 
   def team_wins_as_away(team_id, season)
