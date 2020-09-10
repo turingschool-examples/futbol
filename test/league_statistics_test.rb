@@ -52,8 +52,8 @@ class LeagueStatisticsTest < Minitest::Test
   end
 
   def test_it_can_find_lowest_scoring_visitor
-    skip
-    assert_equal "FC Dallas", @league_statistics.lowest_scoring_visitor
+    # skip
+    assert_equal "Houston Dynamo", @league_statistics.lowest_scoring_visitor
   end
 
   def test_it_can_find_lowest_scoring_home_team
