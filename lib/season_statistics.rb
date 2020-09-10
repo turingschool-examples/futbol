@@ -12,18 +12,20 @@ module SeasonStatistics
 
   def coaches_per_season(seasons)
     coaches_per_season = {}
+    game_table = @game_table
     seasons.each do |season|
       @game_team_table.each do |game|
-        if coaches_per_season[season].nil?
-          coaches_per_season[season] = {game.head_coach => [game.result]}
-        elsif coaches_per_season[season][game.head_coach]
-          coaches_per_season[season][game.head_coach] << game.result
-        else
-          coaches_per_season[season][game.head_coach] = [game.result]
+        if game_table[(game.game_id).to_s].season == season
+          if coaches_per_season[season].nil?
+            coaches_per_season[season] = {game.head_coach => [game.result]}
+          elsif coaches_per_season[season][game.head_coach]
+            coaches_per_season[season][game.head_coach] << game.result
+          else
+            coaches_per_season[season][game.head_coach] = [game.result]
+          end
         end
       end
     end
-    require "pry"; binding.pry
     coaches_per_season
   end
 
@@ -46,12 +48,12 @@ module SeasonStatistics
           total_ties += 1
         end
       end
+      # require "pry"; binding.pry
       # p " #{key} +  #{(total_wins.to_f / total_games).round(2)}"
       # p " #{key} +  wins: #{total_wins}, losses:#{total_losses}, ties:#{total_ties}, total games:#{total_games}"
       if (total_wins.to_f / total_games) > highest_percentage && total_games > 5
         highest_percentage = (total_wins.to_f ) / total_games
         winningest_coach_name = key
-        # require "pry"; binding.pry
       end
     end
     winningest_coach_name

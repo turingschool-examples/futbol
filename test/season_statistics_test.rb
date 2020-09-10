@@ -17,10 +17,7 @@ class SeasonStatistcsTest < Minitest::Test
   end
 #
   def test_it_exists
-
     @stat.coaches_per_season(@stat.find_all_seasons)
-    # require "pry"; binding.pry
-
   end
 #
 #   def test_map_season_to_game_ids
@@ -44,7 +41,7 @@ class SeasonStatistcsTest < Minitest::Test
   def test_winningest_coach
 
     assert_equal "Claude Julien", @stat.winningest_coach("20132014")
-    # assert_equal "Alain Vigneault", @stat.winningest_coach("20142015")
+    assert_equal "Alain Vigneault", @stat.winningest_coach("20142015")
   end
 #
 #   def test_worst_coach
