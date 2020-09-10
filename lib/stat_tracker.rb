@@ -224,6 +224,48 @@ class StatTracker
     end
   end
 
+  def avg_win_perc_by_opp(teamid)
+    awp_by_opp = {}
+    game_teams_by_opponent(teamid).each do |opponent, gameteams|
+      awp_by_opp[opponent] = find_percent(total_wins(gameteams), total_game_teams(gameteams))
+    end
+    awp_by_opp
+  end
+
+  def fave_opponent_id(teamid)
+    avg_win_perc_by_opp(teamid).max_by do |opponent, win_perc|
+      win_perc
+    end[0]
+  end
+
+  def rival_id(teamid)
+    avg_win_perc_by_opp(teamid).min_by do |opponent, win_perc|
+      win_perc
+    end[0]
+  end
+
+  def game_teams_by_opponent(teamid)
+    gt_by_opp = {}
+    filter_by_teamid(teamid).each do |gameteam|
+      if gt_by_opp[get_opponent_id(get_game(gameteam.game_id), teamid)]
+        gt_by_opp[get_opponent_id(get_game(gameteam.game_id), teamid)] << gameteam
+      else
+        gt_by_opp[get_opponent_id(get_game(gameteam.game_id), teamid)] = [gameteam]
+      end
+    end
+    gt_by_opp
+  end
+
+  def get_game(gameid)
+    @games.find do |game|
+      game.game_id == gameid
+    end
+  end
+
+  def get_opponent_id(game, teamid)
+    game.away_team_id == teamid ? game.home_team_id : game.away_team_id
+  end
+
 
 # ~~~ Game Methods ~~~
   def lowest_total_score(season)
@@ -411,50 +453,19 @@ class StatTracker
     find_percent(total_wins(filter_by_teamid(teamid)), total_game_teams(filter_by_teamid(teamid)))
   end
 
-
-
-
-  def avg_win_perc_by_opp(teamid)
-    awp_by_opp = {}
-    game_teams_by_opponent(teamid).each do |opponent, gameteams|
-      awp_by_opp[opponent] = find_percent(total_wins(gameteams), total_game_teams(gameteams))
-    end
-    awp_by_opp
+  def favorite_opponent(teamid)
+    team_id_to_team_name(fave_opponent_id(teamid))
   end
 
-  def fave_opponent_id(teamid)
-    avg_win_perc_by_opp(teamid).max_by do |opponent, win_perc|
-      win_perc
-    end[0]
+  def rival(teamid)
+    team_id_to_team_name(rival_id(teamid))
   end
 
-  def rival_id(teamid)
-    avg_win_perc_by_opp(teamid).min_by do |opponent, win_perc|
-      win_perc
-    end[0]
-  end
 
-  def game_teams_by_opponent(teamid)
-    gt_by_opp = {}
-    filter_by_teamid(teamid).each do |gameteam|
-      if gt_by_opp[get_opponent_id(get_game(gameteam.game_id), teamid)]
-        gt_by_opp[get_opponent_id(get_game(gameteam.game_id), teamid)] << gameteam
-      else
-        gt_by_opp[get_opponent_id(get_game(gameteam.game_id), teamid)] = [gameteam]
-      end
-    end
-    gt_by_opp
-  end
 
-  def get_game(gameid)
-    @games.find do |game|
-      game.game_id == gameid
-    end
-  end
 
-  def get_opponent_id(game, teamid)
-    game.away_team_id == teamid ? game.home_team_id : game.away_team_id
-  end
+
+
 
 
   def team_info(team_id)

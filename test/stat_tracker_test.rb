@@ -235,6 +235,40 @@ class StatTrackerTest < Minitest::Test
     assert @stats.filter_by_teamid(6).all? {|gameteam| gameteam.team_id == 6}
   end
 
+  def test_it_can_get_a_game
+    assert_equal 2014021002, @stats.get_game(2014021002).game_id
+  end
+
+  def test_it_can_get_opponent_id
+    game = @stats.get_game(2014021002)
+    assert_equal 14, @stats.get_opponent_id(game,6)
+
+    game = @stats.get_game(2014020371)
+    assert_equal 26, @stats.get_opponent_id(game,6)
+  end
+
+  def test_it_can_create_gameteams_by_opponent
+    assert_equal [14, 1, 4, 26], @stats.game_teams_by_opponent(6).keys
+    assert_equal 5, @stats.game_teams_by_opponent(6)[14].size
+    assert_equal 5, @stats.game_teams_by_opponent(6)[1].size
+    assert_equal 6, @stats.game_teams_by_opponent(6)[4].size
+    assert_equal 4, @stats.game_teams_by_opponent(6)[26].size
+  end
+
+  def test_it_can_calc_avg_win_perc_by_opp
+    expected = {14=>40.0, 1=>80.0, 4=>83.33, 26=>25.0}
+    assert_equal expected, @stats.avg_win_perc_by_opp(6)
+  end
+
+  def test_it_can_get_fave_opp_id
+    assert_equal 4, @stats.fave_opponent_id(6)
+  end
+
+  def test_it_can_get_fave_rival_id
+    assert_equal 26, @stats.rival_id(6)
+  end
+
+
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won ###
     assert_equal 30.19, @stats.percentage_away_wins
@@ -351,37 +385,12 @@ class StatTrackerTest < Minitest::Test
     assert_equal 1, @stats.fewest_goals_scored(14)
   end
 
-  def test_it_can_get_a_game
-    assert_equal 2014021002, @stats.get_game(2014021002).game_id
+  def test_it_can_calc_favorite_opponent
+    assert_equal "Chicago Fire", @stats.favorite_opponent(6)
   end
 
-  def test_it_can_get_opponent_id
-    game = @stats.get_game(2014021002)
-    assert_equal 14, @stats.get_opponent_id(game,6)
-
-    game = @stats.get_game(2014020371)
-    assert_equal 26, @stats.get_opponent_id(game,6)
-  end
-
-  def test_it_can_create_gameteams_by_opponent
-    assert_equal [14, 1, 4, 26], @stats.game_teams_by_opponent(6).keys
-    assert_equal 5, @stats.game_teams_by_opponent(6)[14].size
-    assert_equal 5, @stats.game_teams_by_opponent(6)[1].size
-    assert_equal 6, @stats.game_teams_by_opponent(6)[4].size
-    assert_equal 4, @stats.game_teams_by_opponent(6)[26].size
-  end
-
-  def test_it_can_calc_avg_win_perc_by_opp
-    expected = {14=>40.0, 1=>80.0, 4=>83.33, 26=>25.0}
-    assert_equal expected, @stats.avg_win_perc_by_opp(6)
-  end
-
-  def test_it_can_get_fave_opp_id
-    assert_equal 4, @stats.fave_opponent_id(6)
-  end
-
-  def test_it_can_get_fave_rival_id
-    assert_equal 26, @stats.rival_id(6)
+  def test_it_can_calc_rival
+    assert_equal "FC Cincinnati", @stats.rival(6)
   end
 
 
