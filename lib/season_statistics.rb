@@ -1,12 +1,15 @@
 class SeasonStatistics
   attr_reader :stat_tracker
 
-  def initialize(stat_tracker)
-    @stat_tracker = stat_tracker
-  end
-
-  def games_teams_data(column)
-    @stat_tracker[:game_teams][column]
+  def initialize(data)
+    @game_id = row[:game_id]
+    @season_id = ""
+    @team_id = row[:team_id]
+    @result = row[:result]
+    @head_coach = row[:head_coach]
+    @goals = row[:goals]
+    @shots = row[:shots]
+    @tackles = row[:tackles]
   end
 
   def game_id_to_season_id
@@ -20,17 +23,51 @@ class SeasonStatistics
     game_id_to_season_id.zip(games_teams_data("head_coach"),games_teams_data("result"))
   end
 
-  def coaches_results_by_season_data
-    head_coaches_and_result_data_set[1..2]
+  def grouped_by_season
+    head_coaches_and_result_data_set.group_by(&:first)
+  end
 
-    grouped_by_season = head_coaches_and_result_data_set.group_by(&:first)
+  def starter_hash_for_coach
+    starter = {}
     grouped_by_season.each do |season_id, data|
-      require "pry"; binding.pry
-      grouped_by_season[season_id] = data.map do |full_data|
-        full_data.last(2).group_by 
+      starter[season_id] = data.map do |full_data|
+        full_data.last(2)
+      end.to_h
+    end
+    starter
+  end
+
+  def game_result_hash
+    game_results = {}
+      array[1] = game_results
+      data.each do |array|
+        result = array[2]
+        if game_results[result.downcase].nil? && game_results["total_games"].nil?
+          game_results[result.downcase] = 1
+          game_results["total_games"] = 1
+        elsif game_results[result.downcase].nil?
+          game_results[result.downcase] = 1
+          game_results["total_games"] += 1
+        else
+          game_results[result.downcase] += 1
+          game_results["total_games"] += 1
+        end
       end
     end
 
+
+  end
+
+  def coaches_results_by_season_data
+    final_hash = starter_hash_for_coach
+    grouped_by_season.each do |season_id, data|
+      data.each do |array|
+        game_results = {}
+        final_hash[season_id][array[1]] =
+      end
+    end
+
+    final_hash
   end
 
   #data set for coaches
@@ -54,7 +91,10 @@ class SeasonStatistics
 
   def winningest_coach(season)
     # winningest_coach 	Name of the Coach with the best win percentage for the season 	String
-    coaches_results_by_season_data[season]
+    coach_hash = coaches_results_by_season_data[season].max_by do |coach, data|
+      data[:wins] / data[:total]
+    end
+    coach_hash.last
   end
 
   def worst_coach(season)
