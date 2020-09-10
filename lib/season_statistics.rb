@@ -31,13 +31,13 @@ class SeasonStatistics
       if game_results[array[1]].nil?
         game_results[array[1]] = { :total => 1, result => 1 }
       else
-      if game_results.fetch(array[1])[result].nil?
-        game_results.fetch(array[1])[result] = 1
-        game_results.fetch(array[1])[:total] += 1
-      else
-        game_results.fetch(array[1])[result] += 1
-        game_results.fetch(array[1])[:total] += 1
-      end
+        if game_results.fetch(array[1])[result].nil?
+          game_results.fetch(array[1])[result] = 1
+          game_results.fetch(array[1])[:total] += 1
+        else
+          game_results.fetch(array[1])[result] += 1
+          game_results.fetch(array[1])[:total] += 1
+        end
       end
     end
     game_results
