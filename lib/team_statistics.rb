@@ -128,4 +128,8 @@ class TeamStatistics
   def favorite_opponent
 
   end
+
+  def rival 
+
+  end
 end
