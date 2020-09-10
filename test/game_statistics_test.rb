@@ -23,11 +23,6 @@ class GameStatisticsTest < Minitest::Test
     assert_equal 0, @stat_tracker.lowest_total_score
   end
 
-  def test_it_can_find_percentage_home_wins
-    assert_equal 0.43, @stat_tracker.percentage_home_wins
-    assert_equal 213, @stat_tracker.percentage_home_win_helper
-  end
-
   def test_it_can_find_percentage_visitor_wins
     assert_equal 0.36, @stat_tracker.percentage_visitor_wins
     assert_equal 178, @stat_tracker.percentage_visitor_win_helper
@@ -36,13 +31,8 @@ class GameStatisticsTest < Minitest::Test
   def test_it_can_find_percentage_ties
     assert_equal 0.21, @stat_tracker.percentage_ties
     assert_equal 105, @stat_tracker.percentage_ties_helper
-    assert_equal 0.5, @stat_tracker.percentage_home_wins
-    assert_equal 20, @stat_tracker.percentage_home_win_helper
-  end
-
-  def test_it_can_find_percentage_visitor_wins
-    assert_equal 0.28, @stat_tracker.percentage_visitor_wins
-    assert_equal 11, @stat_tracker.percentage_visitor_win_helper
+    assert_equal 0.43, @stat_tracker.percentage_home_wins
+    assert_equal 213, @stat_tracker.percentage_home_win_helper
   end
 
   def test_it_can_count_games_by_season
