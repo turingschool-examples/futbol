@@ -15,7 +15,7 @@ class GameTeamsTest < Minitest::Test
   def test_has_attributes
     game = GameTeams.new(@row)
     assert_equal '2012030221', game.game_id
-    assert_equal 3, game.team_id
+    assert_equal '3', game.team_id
     assert_equal 'away', game.HoA
     assert_equal 'LOSS', game.result
     assert_equal 'OT', game.settled_in

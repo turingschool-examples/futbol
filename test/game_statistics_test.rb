@@ -24,17 +24,17 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_it_can_find_percentage_home_wins
-    assert_equal 50.0, @stat_tracker.percentage_home_wins
+    assert_equal 0.5, @stat_tracker.percentage_home_wins
     assert_equal 20, @stat_tracker.percentage_home_win_helper
   end
 
   def test_it_can_find_percentage_visitor_wins
-    assert_equal 27.5, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.28, @stat_tracker.percentage_visitor_wins
     assert_equal 11, @stat_tracker.percentage_visitor_win_helper
   end
 
   def test_it_can_find_percentage_ties
-    assert_equal 22.5, @stat_tracker.percentage_ties
+    assert_equal 0.23, @stat_tracker.percentage_ties
     assert_equal 9, @stat_tracker.percentage_ties_helper
   end
 
@@ -49,10 +49,10 @@ class GameStatisticsTest < Minitest::Test
     assert_equal 4.28, @stat_tracker.average_goals_per_game
   end
 
-  def test_it_can_find_average_goals_per_season
+  def test_it_can_find_average_goals_by_season
     expected = {'20172018' => 4.41,
                 '20132014' => 3.81,
                 '20122013' => 5.0 }
-    assert_equal expected, @stat_tracker.average_goals_per_season
+    assert_equal expected, @stat_tracker.average_goals_by_season
   end
 end
