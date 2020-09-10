@@ -41,7 +41,7 @@ class TeamStatistics
 #     (count_of_total_wins.to_s / stat_tracker[:games]["game_id"].count).round(2)
 #   end
   def season_data_set
-    @stat_tracker[:game_teams]["game_id"].zip(@stat_tracker[:game_teams]["team_id"], @stat_tracker[:game_teams]["result"])
+    @stat_tracker[:game]["season"].zip(@stat_tracker[:game]["away_goals"], @stat_tracker[:game]["home_team_id"], @stat_tracker[:game]["away_goals"], @stat_tracker[:game]["home_goals"])
   end
 
   # def same_season
@@ -52,7 +52,7 @@ class TeamStatistics
     highest_wins_per_season = {}
 
     season_data_set.find_all do |season|
-      season[0] == season[0]
+      # season[0] == season[0]
       season[1] == team_id && season[2] == "WIN"
     end.count
     # returns [["2012030221", "6", "WIN"], ["2016030222", "6", "WIN"]]
@@ -73,4 +73,14 @@ class TeamStatistics
   #   end
   #   highest_wins_per_season
   end
+
+  # def season_win_data_set
+  #   @stat_tracker[:game_teams]["game_id"].zip(@stat_tracker[:game_teams]["team_id"], @stat_tracker[:game_teams]["result"])
+  # end
+  #
+  # def average_win_percentage
+  #   season_data_set.find_all do |team|
+  #     team[1] == team_id && team[2] == "WIN"
+  #
+  # end
 end
