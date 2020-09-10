@@ -87,6 +87,14 @@ class StatTrackerTest < Minitest::Test
     assert_equal 6, @stats.total_team_wins(26, "20142015")
   end
 
+  def test_it_can_count_total_games_for_team_in_season
+    assert_equal 7, @stats.total_team_games_per_season(1, "20142015")
+    assert_equal 7, @stats.total_team_games_per_season(4, "20142015")
+    assert_equal 6, @stats.total_team_games_per_season(6, "20142015")
+    assert_equal 5, @stats.total_team_games_per_season(14, "20142015")
+    assert_equal 7, @stats.total_team_games_per_season(26, "20142015")
+  end
+
   def test_it_can_create_array_of_all_team_ids
     expected = [1, 4, 6, 14, 26]
     assert_equal expected, @stats.team_ids

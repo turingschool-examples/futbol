@@ -112,6 +112,9 @@ class StatTracker
     team_wins_as_home(team_id, season) + team_wins_as_away(team_id, season)
   end
 
+  def total_team_games_per_season(team_id, season)
+  end
+
   def season_win_percentage(team_id, season)
     find_percent(total_team_wins(team_id, season), count_of_games_by_season[season])
   end
@@ -199,8 +202,10 @@ class StatTracker
   end
 
   def all_teams_all_seasons_win_percentages
-    win_percentages_by_season = {}
-
+    # win_percentages_by_season = {}
+    all_seasons.map do |season|
+      all_teams_win_percentage(season)
+    end
   end
 
 # ~~~ Game Methods ~~~
