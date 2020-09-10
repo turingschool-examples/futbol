@@ -1,6 +1,6 @@
 module TeamStatistics
   def team_info(team_id)
-    team = teams.find do |team|  # Could refactor loop as find_team(team_id)
+    team = teams.find do |team|
       team.team_id == team_id
     end
     team_hash = Hash.new
@@ -44,8 +44,6 @@ module TeamStatistics
     results[:wins] = game_stats_by_team_id(team_id).select do |game|
       game.result == "WIN"
     end.length
-    # maybe instead:
-    # results[:wins] = game_stats_by_team_id(team_id).map(&:result).count("WIN")
     results[:ties] = game_stats_by_team_id(team_id).select do |game|
       game.result == "TIE"
     end.length
@@ -132,7 +130,6 @@ module TeamStatistics
         end
       end
     end
-
     opponent_games.each do |team_id, team_data|
       opponent_games[team_id][:total] = team_data[:game_data].length
       opponent_games[team_id][:wins] = team_data[:game_data].select do |game|
@@ -140,7 +137,6 @@ module TeamStatistics
       end.length
       opponent_games[team_id][:win_percent] = (opponent_games[team_id][:wins]/opponent_games[team_id][:total].to_f).round(2)
     end
-
     favorite_id = opponent_games.keys.min_by do |team_id|
       opponent_games[team_id][:win_percent]
     end
@@ -159,7 +155,6 @@ module TeamStatistics
         end
       end
     end
-
     opponent_games.each do |team_id, team_data|
       opponent_games[team_id][:total] = team_data[:game_data].length
       opponent_games[team_id][:wins] = team_data[:game_data].select do |game|
@@ -167,7 +162,6 @@ module TeamStatistics
       end.length
       opponent_games[team_id][:win_percent] = (opponent_games[team_id][:wins]/opponent_games[team_id][:total].to_f).round(2)
     end
-
     rival_id = opponent_games.keys.max_by do |team_id|
       opponent_games[team_id][:win_percent]
     end
