@@ -359,4 +359,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal 2014021002, @stats.get_game(2014021002).game_id
   end
 
+  def test_it_can_get_opponent_id
+    assert_equal 4, @stats.get_opponent_id
+  end
+
 end
