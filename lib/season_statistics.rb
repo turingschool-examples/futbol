@@ -44,7 +44,6 @@ class SeasonStatistics
   end
 
   def winningest_coach(season_id)
-    # winningest_coach 	Name of the Coach with the best win percentage for the season 	String
     compare = {}
     game_result_hash(season_id).each do |coach, data|
       compare[coach] = ((data[:win].to_f / data[:total])*100)
@@ -53,7 +52,6 @@ class SeasonStatistics
   end
 
   def worst_coach(season_id)
-    # worst_coach 	Name of the Coach with the worst win percentage for the season 	String
     compare = {}
     game_result_hash(season_id).each do |coach, data|
       compare[coach] = ((data[:win].to_f / data[:total])*100)
@@ -91,7 +89,6 @@ class SeasonStatistics
   end
 
   def most_accurate_team(season_id)
-    # most_accurate_team 	Name of the Team with the best ratio of shots to goals for the season 	String
     teams = {}
     shots_and_goals_hash(season_id).each do |team, data|
       teams[team] = ((data[:goals] / data[:shots].to_f) * 100)
@@ -100,7 +97,6 @@ class SeasonStatistics
   end
 
   def least_accurate_team(season_id)
-    # least_accurate_team 	Name of the Team with the worst ratio of shots to goals for the season 	String
     teams = {}
     shots_and_goals_hash(season_id).each do |team, data|
       teams[team] = ((data[:goals] / data[:shots].to_f) * 100)
@@ -109,17 +105,14 @@ class SeasonStatistics
   end
 
   def most_tackles(season_id)
-    # most_tackles 	Name of the Team with the most tackles in the season 	String
     team = shots_and_goals_hash(season_id).max_by do |team, data|
       data[:tackles]
     end
     team_id_to_team_name(team[0])
-
   end
 
   def fewest_tackles(season_id)
-    # fewest_tackles 	Name of the Team with the fewest tackles in the season 	String
-    team = shots_and_goals_hash(season_id).min_by do |team, data|
+    team = shots_and_goals_hash(season_id).min_by do |_team, data|
       data[:tackles]
     end
     team_id_to_team_name(team[0])
