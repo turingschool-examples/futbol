@@ -47,8 +47,8 @@ class LeagueStatisticsTest < Minitest::Test
   end
 
   def test_it_can_find_highest_scoring_home_team
-    skip
-    assert_equal "FC Dallas", @league_statistics.highest_scoring_visitor
+    # skip
+    assert_equal "FC Dallas", @league_statistics.highest_scoring_home_team
   end
 
   def test_it_can_find_lowest_scoring_visitor
@@ -57,7 +57,7 @@ class LeagueStatisticsTest < Minitest::Test
   end
 
   def test_it_can_find_lowest_scoring_home_team
-    skip
+    # skip
     assert_equal "Houston Dynamo", @league_statistics.lowest_scoring_home_team
   end
 end
