@@ -47,8 +47,8 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal team_data_2, @team_statistics.team_info("12")
   end
 
-  # def test_teams_best_season
-  #   #	Season with the highest win percentage for a team
-  #     assert_equal @team_statistics.best_season(3)
-  # end
+  def test_teams_best_season_percentage
+    #	Season with the highest win percentage for a team
+    assert_equal @team_statistics.best_season("6")
+  end
 end
