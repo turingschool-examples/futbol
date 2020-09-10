@@ -1,11 +1,9 @@
 require_relative 'test_helper'
 
 class TeamStatisticsTest < Minitest::Test
-
   def setup
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
-
     @stat ||= StatTracker.new({games: game_path, teams: team_path})
   end
 
@@ -23,6 +21,4 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal expected, @stat.team_info("18")
     @stat.collect_seasons("1")
   end
-
-
 end

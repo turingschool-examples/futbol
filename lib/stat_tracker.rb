@@ -12,7 +12,7 @@ class StatTracker
                 :team_table,
                 :game_team_table,
                 :locations
-  def initialize(locations = nil)
+  def initialize(locations = {})
     @locations = locations
     @game_table = {}
     @team_table = {}

@@ -32,7 +32,6 @@ module TeamStatistics
           wins += 1
         end
       end
-      require "pry"; binding.pry
     end
   end
 
