@@ -321,4 +321,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal 31.82, @stats.avg_win_perc(4)
   end
 
+  def test_it_can_calc_fav_opponent
+    @stats.favorite_opponent(6)
+  end
+
 end

@@ -219,9 +219,10 @@ class StatTracker
   end
 
   def filter_by_teamid(id)
-    @game_teams.select do |game_team|
+    test = @game_teams.select do |game_team|
       game_team.team_id == id
     end
+    require "pry"; binding.pry
   end
 
 
@@ -399,6 +400,12 @@ class StatTracker
   def avg_win_perc(id)
     find_percent(total_wins(filter_by_teamid(id)), total_game_teams(filter_by_teamid(id)))
   end
+
+  def favorite_opponent(id)
+    filter_by_teamid(id)
+  end
+
+
 
 
 
