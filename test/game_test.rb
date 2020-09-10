@@ -4,29 +4,18 @@ class GameTest < Minitest::Test
 
   def setup
     game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
 
-    @locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
+    @stat_tracker ||= StatTracker.new({games: game_path})
   end
 
   def test_it_exists
-    stat_tracker = StatTracker.from_csv(@locations)
-    game = Game.new(stat_tracker.games)
-
-    assert_instance_of Game, game
+    assert_instance_of StatTracker, @stat_tracker
   end
 
   def test_it_has_attributes
-    stat_tracker = StatTracker.new
-    assert_equal false, stat_tracker.games.include?("2012030221")
-    stat_tracker = StatTracker.from_csv(@locations)
-    actual = stat_tracker.games["2012030221"]
-
+    stat = StatTracker.new
+    assert_equal false, stat.game_table.include?("2012030221")
+    actual = @stat_tracker.game_table["2012030221"]
 
     assert_equal 2012030221, actual.game_id
     assert_equal "20122013", actual.season
@@ -39,5 +28,4 @@ class GameTest < Minitest::Test
     assert_equal "Toyota Stadium", actual.venue
     assert_equal "/api/v1/venues/null", actual.venue_link
   end
-
 end
