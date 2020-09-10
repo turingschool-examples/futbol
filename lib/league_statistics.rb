@@ -23,7 +23,7 @@ class LeagueStatistics
   def find_worst_offense
     percentages = offense_list.select do |team_id, avg_goals_per_game|
       avg_goals_per_game != 0.0
-    end.to_a.min 
+    end.to_a.min
   end
 
   def worst_offense
@@ -50,6 +50,7 @@ class LeagueStatistics
       offense_list[team_id] = total_points_by_team[team_id].to_f / number_games
     end
     offense_list
+    # returns a hash with team_id as the key and average goals a game
   end
 
   def games_per_team #team_id => total_games_in_a_season
@@ -68,27 +69,48 @@ class LeagueStatistics
 
   def total_points_by_team
     grouping = {}
-    team_goals_data_set.each do |array|
-      if grouping[array[0]].nil?
-        grouping[array[0]] = array[1].to_i
+    team_goals_data_set.each do |total_goals|
+      if grouping[total_goals[0]].nil?
+        grouping[total_goals[0]] = total_goals[1].to_i
       else
-        grouping[array[0]] += array[1].to_i
+        grouping[total_goals[0]] += total_goals[1].to_i
       end
     end
     grouping
+    # returns a hash with team_id as key and total_goals
   end
-# def total_goals_per_team
-#   team_goals = {}
-#   stat_tracker[:game_teams]["team_id"].each do |team_id|
-#     team_goals[team_id] = stat_tracker[:game_teams]["goals"].each do |goal|
-#       if team_goals[team_id]
-#         # require 'pry';binding.pry
-#         team_goals[team_id] += goal.to_i
-#       else
-#         team_goals[team_id] = goal.to_i
-#       end
-#     end
-#   end
-#   team_goals
-# end
+
+  def away_team_goals_data_set
+    stat_tracker[:games]["away_team_id"].zip(stat_tracker[:games]["away_goals"])
+  end
+
+  def find_average_home
+
+  end
+
+  def find_visitor_goals
+    groupings = {}
+    away_team_goals_data_set.each do |set|
+      if groupings[set[0]].nil?
+        groupings[set[0]] = set[1].to_f
+      else
+        groupings[set[0]] += set[1].to_f
+      end
+    end
+    groupings
+    require 'pry';binding.pry
+  end
+
+  def average_visitor_goals
+    average_goals_per_team = {}
+    find_visitor_goals.each do |team_id, number_goals|
+      average_goals_per_team[team_id]
+  end
+
+  def highest_scoring_visitor
+    total_points_by_team
+    home_or_aways = {}
+    find_visitor_goals
+    # away_team_goals_data_set
+  end
 end
