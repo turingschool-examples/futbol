@@ -81,4 +81,13 @@ class SeasonStatisticsTest < Minitest::Test
     assert_equal "Real Salt Lake", @season_statistics.most_accurate_team("20132014")
     assert_equal "Toronto FC", @season_statistics.most_accurate_team("20142015")
   end
+
+  def test_it_can_find_least_accurate_team_name
+    assert_equal "New York City FC", @season_statistics.least_accurate_team("20132014")
+    assert_equal "Columbus Crew SC", @season_statistics.least_accurate_team("20142015")
+  end
+
+  def test_it_can_find_the_least_accurate_team
+    assert_equal 9, @season_statistics.find_least_accurate_team("20132014")
+  end
 end
