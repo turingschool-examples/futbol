@@ -38,7 +38,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_determine_season_win_percentage
-    skip
     assert_equal 28.57, @stats.season_win_percentage(1, "20142015")
     assert_equal 42.86, @stats.season_win_percentage(4, "20142015")
     assert_equal 66.67, @stats.season_win_percentage(6, "20142015")

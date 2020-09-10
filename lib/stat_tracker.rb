@@ -113,10 +113,13 @@ class StatTracker
   end
 
   def total_team_games_per_season(team_id, season)
+    season_group[season].select do |game|
+      game.away_team_id == team_id || game.home_team_id == team_id
+    end.count
   end
 
   def season_win_percentage(team_id, season)
-    find_percent(total_team_wins(team_id, season), count_of_games_by_season[season])
+    find_percent(total_team_wins(team_id, season), total_team_games_per_season(team_id, season))
   end
 
   def team_ids
