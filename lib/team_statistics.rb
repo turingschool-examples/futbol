@@ -93,9 +93,9 @@ module TeamStatistics
     results_by_season
   end
 
-  def best_season(team_id) # Needs to be broken up into helpers with unit tests
+  def season_totals(game_teams_by_season)
     totals_by_season = {}
-    results_by_season(team_id).each do |season, games|
+    game_teams_by_season.each do |season, games|
       totals_by_season[season] = {}
       totals_by_season[season][:total] = games.length
       totals_by_season[season][:wins] = games.select do |game|
@@ -104,24 +104,20 @@ module TeamStatistics
       totals_by_season[season][:average] = (totals_by_season[season][:wins].to_f / totals_by_season[season][:total].to_f).round(2)
     end
 
-    totals_by_season.keys.max_by do |season|
-      totals_by_season[season][:average]
+    totals_by_season
+  end
+
+  def best_season(team_id)
+    totals = season_totals(results_by_season(team_id))
+    totals.keys.max_by do |season|
+      totals[season][:average]
     end
   end
 
   def worst_season(team_id)
-    totals_by_season = {}
-    results_by_season(team_id).each do |season, games|
-      totals_by_season[season] = {}
-      totals_by_season[season][:total] = games.length
-      totals_by_season[season][:wins] = games.select do |game|
-        game.result == "WIN"
-      end.length
-      totals_by_season[season][:average] = (totals_by_season[season][:wins].to_f / totals_by_season[season][:total].to_f).round(2)
-    end
-
-    totals_by_season.keys.min_by do |season|
-      totals_by_season[season][:average]
+    totals = season_totals(results_by_season(team_id))
+    totals.keys.min_by do |season|
+      totals[season][:average]
     end
   end
 
