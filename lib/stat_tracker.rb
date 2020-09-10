@@ -212,6 +212,18 @@ class StatTracker
     end
   end
 
+  def total_wins(game_teams_filtered = @game_teams)
+    game_teams_filtered.count do |gameteam|
+      gameteam.result == "WIN"
+    end
+  end
+
+  def filter_by_teamid(id)
+    @game_teams.select do |game_team|
+      game_team.team_id == id
+    end
+  end
+
 
 # ~~~ Game Methods ~~~
   def lowest_total_score(season)
@@ -280,6 +292,7 @@ class StatTracker
       game.goals
     end
   end
+
 
 # ~~~ Game Methods ~~~
   def lowest_total_score(season)
@@ -393,6 +406,10 @@ class StatTracker
   end
 
 # ~~~ TEAM METHODS~~~
+
+  def average_win_percentage(id)
+    find_percent(total_wins(filter_by_teamid(id)), total_game_teams(filter_by_teamid(id)))
+  end
 
   def team_info(team_id)
     team_string = team_id.to_s
