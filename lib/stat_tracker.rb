@@ -412,7 +412,19 @@ class StatTracker
   end
 
   def favorite_opponent(id)
-    filter_by_teamid(id)
+
+  end
+
+  def game_teams_by_opponent(teamid)
+    gt_by_opp = {}
+    filter_by_teamid(teamid).each do |gameteam|
+      if gt_by_opp[get_opponent_id(get_game(gameteam.game_id), teamid)]
+        gt_by_opp[get_opponent_id(get_game(gameteam.game_id), teamid)] << gameteam
+      else
+        gt_by_opp[get_opponent_id(get_game(gameteam.game_id), teamid)] = [gameteam]
+      end
+    end
+    gt_by_opp
   end
 
   def get_game(gameid)
@@ -420,6 +432,11 @@ class StatTracker
       game.game_id == gameid
     end
   end
+
+  def get_opponent_id(game, teamid)
+    game.away_team_id == teamid ? game.home_team_id : game.away_team_id
+  end
+
 
   def team_info(team_id)
     team_string = team_id.to_s

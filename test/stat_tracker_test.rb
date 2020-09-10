@@ -360,7 +360,20 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_opponent_id
-    assert_equal 4, @stats.get_opponent_id
+    game = @stats.get_game(2014021002)
+    assert_equal 14, @stats.get_opponent_id(game,6)
+
+    game = @stats.get_game(2014020371)
+    assert_equal 26, @stats.get_opponent_id(game,6)
   end
+
+  def test_it_can_create_gameteams_by_opponent
+    assert_equal [14, 1, 4, 26], @stats.game_teams_by_opponent(6).keys
+    assert_equal 5, @stats.game_teams_by_opponent(6)[14].size
+    assert_equal 5, @stats.game_teams_by_opponent(6)[1].size
+    assert_equal 6, @stats.game_teams_by_opponent(6)[4].size
+    assert_equal 4, @stats.game_teams_by_opponent(6)[26].size
+  end
+
 
 end
