@@ -43,7 +43,7 @@ class LeagueStatisticsTest < Minitest::Test
 
   def test_it_can_find_highest_scoring_visitor
     # skip
-    assert_equal "Houston Dynamo", @league_statistics.highest_scoring_visitor
+    assert_equal "FC Dallas", @league_statistics.highest_scoring_visitor
   end
 
   def test_it_can_find_highest_scoring_home_team
