@@ -64,7 +64,6 @@ class SeasonStatisticsTest <Minitest::Test
   end
 
   def test_most_tackles
-
     assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
   end
 
