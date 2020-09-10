@@ -346,9 +346,9 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_see_lowest_number_of_goals_by_team_in_a_game
     assert_equal 1, @stats.fewest_goals_scored(14)
   end
-  
+
   def test_it_can_calc_avg_win_percentage
-    assert_equal 31.82, @stats.avg_win_perc(4)
+    assert_equal 31.82, @stats.average_win_percentage(4)
   end
 
 end
