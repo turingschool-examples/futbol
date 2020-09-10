@@ -40,25 +40,23 @@ module SeasonStatistics
   end
 
   def total_shots_by_team(season_id, team)
-    total_shots = game_teams_data_for_season(season_id).sum do |game|
+    game_teams_data_for_season(season_id).sum do |game|
       if game.team_id == team
         game.shots
       else
         0
       end
     end
-    total_shots
   end
 
   def total_goals_by_team(season_id, team)
-    total_goals = game_teams_data_for_season(season_id).sum do |game|
+    game_teams_data_for_season(season_id).sum do |game|
       if game.team_id == team
         game.goals
       else
         0
       end
     end
-    total_goals
   end
 
   def team_accuracy(season_id)
