@@ -108,6 +108,22 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal 0.45, @stat_tracker.average_win_percentage("24")
   end
 
+  def test_it_can_find_team_results_by_season
+    game_teams = @stat_tracker.game_teams
+    actual = @stat_tracker.results_by_season("20")
+    expected = {
+      "20162017" => [game_teams[14], game_teams[16], game_teams[19], game_teams[21]]
+    }
+    assert_equal expected, actual
+  end
+
+  def test_it_can_find_season_totals
+    expected = {"20122013"=>{:total=>10, :wins=>5, :average=>0.5}, "20162017"=>{:total=>18, :wins=>8, :average=>0.44}, "20132014"=>{:total=>23, :wins=>10, :average=>0.43}}
+    actual = @stat_tracker.season_totals(@stat_tracker.results_by_season("24"))
+
+    assert_equal expected, actual
+  end
+
   def test_it_can_find_a_teams_best_season
     assert_equal "20122013", @stat_tracker.best_season("24")
     # Add more assertions?
