@@ -26,6 +26,7 @@ class StatTracker
   end
 
   def find_percent(numerator, denominator)
+    return nil if denominator == 0
     (numerator / denominator.to_f * 100).round(2)
   end
 
