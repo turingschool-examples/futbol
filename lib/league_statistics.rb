@@ -125,9 +125,27 @@ class LeagueStatistics
     end.to_a
   end
 
-  def highest_scoring_visitor #pulled from 
+  def highest_scoring_visitor #pulled from
     save = nil
     find_highest_scoring_visitor.find do |team_id|
+      team_id_team_name_data_set.find do |pair|
+        if team_id == pair[0]
+          save = pair[1]
+        end
+      end
+    end
+    save
+  end
+
+  def find_lowest_scoring_visitor
+    average_visitor_goals.min_by do |team_id, average_visitor_goals|
+      average_visitor_goals
+    end.to_a
+  end
+
+  def lowest_scoring_visitor
+    save = nil
+    find_lowest_scoring_visitor.find do |team_id|
       team_id_team_name_data_set.find do |pair|
         if team_id == pair[0]
           save = pair[1]
