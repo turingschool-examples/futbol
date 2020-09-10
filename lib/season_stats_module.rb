@@ -19,40 +19,28 @@ module SeasonStatistics
     end.uniq
   end
 
-  def winningest_coach(season_id)
+  def coaches_by_win_percentage(season_id)
     coaches_hash = Hash.new
     season_coaches(season_id).find_all do |coach|
-
       total_games = game_teams_data_for_season(season_id).count do |game|
         game.head_coach == coach
       end
-
       total_wins = game_teams_data_for_season(season_id).count do |game|
         game.head_coach == coach && game.result == "WIN"
       end
       coaches_hash[coach] = ((total_wins.to_f/total_games.to_f) * 100).round(2)
     end
+    coaches_hash
+  end
 
-    best_coach = coaches_hash.max_by do |coach, win_percentage|
+  def winningest_coach(season_id)
+    coaches_by_win_percentage(season_id).max_by do |coach, win_percentage|
       win_percentage
     end[0]
   end
 
   def worst_coach(season_id)
-    coaches_hash = Hash.new
-    season_coaches(season_id).find_all do |coach|
-      total_games = game_teams_data_for_season(season_id).count do |game|
-        game.head_coach == coach
-      end
-
-      total_wins = game_teams_data_for_season(season_id).count do |game|
-        game.head_coach == coach && game.result == "WIN"
-      end
-      coaches_hash[coach] = ((total_wins.to_f/total_games.to_f) * 100).round(2)
-
-    end
-
-    worst_coach = coaches_hash.min_by do |coach, win_percentage|
+    coaches_by_win_percentage(season_id).min_by do |coach, win_percentage|
       win_percentage
     end[0]
   end

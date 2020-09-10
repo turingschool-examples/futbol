@@ -47,6 +47,7 @@ class SeasonStatisticsTest <Minitest::Test
   def test_season_teams
 
     assert_equal 30, @stat_tracker.season_teams("20132014").length
+    # assert_equal [], @stat_tracker.season_teams("20132014")
   end
 
   def test_most_accurate_team
@@ -67,5 +68,11 @@ class SeasonStatisticsTest <Minitest::Test
   def test_fewest_tackles
 
     assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
+  end
+
+  def test_coaches_by_win_percentage
+
+    assert_equal 34, @stat_tracker.coaches_by_win_percentage("20132014").length
+    assert_equal 48.42, @stat_tracker.coaches_by_win_percentage("20132014")["Dan Bylsma"]
   end
 end
