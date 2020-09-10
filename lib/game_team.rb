@@ -17,13 +17,13 @@ class GameTeam
   def initialize(data)
     @game_id = data[:game_id].to_i
     @team_id = data[:team_id].to_i
-    @hoa = data[:hoa].to_s
-    @result = data[:result].to_s
-    @settled_in = data[:settled_in].to_s
-    @head_coach = data[:head_coach].to_s
+    @hoa = data[:hoa]
+    @result = data[:result]
+    @settled_in = data[:settled_in]
+    @head_coach = data[:head_coach]
     @goals = data[:goals].to_i
     @shots = data[:shots].to_i
-    @tackles = data[:venue].to_i
+    @tackles = data[:tackles].to_i
     @pim = data[:pim].to_i
     @powerPlayOpportunities = data[:powerPlayOpportunities].to_i
     @powerPlayGoals = data[:powerPlayGoals].to_i
