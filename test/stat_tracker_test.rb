@@ -262,20 +262,6 @@ class StatTrackerTest < Minitest::Test
 
 # ~~~ TEAM METHOD TESTS~~~
 
-  #Calculate total win percentage for a team for each season
-    # For each team, count the total number of games for each season
-      # count_of_games_by_season
-    # For each team, count the total number of wins for each season
-      # total_team_wins
-      # season_win_percentage
-    # Calculate percent wins for each season
-      # all_teams_win_percentage
-  #Select the highest and lowest win percentage across seasons for each team
-    #Have a collection (hash?) of win percentage and season
-
-    #Select the highest win percentage and return season (string)
-    #Select the lowest win percentage and return season (string)
-
   def test_it_can_return_array_of_seasons
     expected = ["20122013", "20132014", "20142015", "20152016", "20162017", "20172018"]
     assert_equal expected, @stats.all_seasons
