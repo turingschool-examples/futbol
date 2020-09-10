@@ -80,7 +80,7 @@ class LeagueStatistics
     # returns a hash with team_id as key and total_goals
   end
 
-  def away_team_goals_data_set
+  def visitor_team_goals_data_set
     stat_tracker[:games]["away_team_id"].zip(stat_tracker[:games]["away_goals"])
   end
 
@@ -89,7 +89,7 @@ class LeagueStatistics
   end
   def find_visitor_goals
     groupings = {}
-    away_team_goals_data_set.each do |set|
+    visitor_team_goals_data_set.each do |set|
       if groupings[set[0]].nil?
         groupings[set[0]] = set[1].to_f
       else
@@ -99,7 +99,7 @@ class LeagueStatistics
     groupings
   end
 
-  def count_games_played
+  def count_visitor_games_played
     count_games = {}
     stat_tracker[:games]["away_team_id"].each do |game_number|
       count_games[game_number] = stat_tracker[:games]["away_team_id"].count do |game_id|
@@ -113,7 +113,7 @@ class LeagueStatistics
     average_goals_per_team = {}
     find_visitor_goals.each do |team_id, number_goals|
       # require 'pry';binding.pry
-      average_goals_per_team[team_id] = (number_goals.to_f / count_games_played[team_id]).round(2)
+      average_goals_per_team[team_id] = (number_goals.to_f / count_visitor_games_played[team_id]).round(2)
     end
     average_goals_per_team
   end
@@ -124,7 +124,7 @@ class LeagueStatistics
     end.to_a
   end
 
-  def highest_scoring_visitor #pulled from
+  def highest_scoring_visitor 
     save = nil
     find_highest_scoring_visitor.find do |team_id|
       team_id_team_name_data_set.find do |pair|
