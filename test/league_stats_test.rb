@@ -23,7 +23,7 @@ class LeagueStatsTest <Minitest::Test
   def test_with_best_offence
     assert_equal "Minnesota United FC", @stat_tracker.best_offense
   end
-  
+
   def test_with_worst_offense
     assert_equal "Columbus Crew SC", @stat_tracker.worst_offense
   end
@@ -57,6 +57,10 @@ class LeagueStatsTest <Minitest::Test
     scoredata = [["1", 1], ["1",0], ["1",1], ["2",2], ["2",4],["2",2] ,["3",3], ["3",3], ["3",3]]
     expected = {"1" => 0.6667,"2" => 2.6667,"3" => 3}
     assert_equal expected, @stat_tracker.return_average_goals_per_game(teamdata, scoredata)
+  end
+
+  def test_teams_names_data_pull
+    assert_equal 32, @stat_tracker.team_names_data.count
   end
 
 end

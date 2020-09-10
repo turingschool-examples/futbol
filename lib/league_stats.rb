@@ -5,39 +5,32 @@ module LeagueStats
   end
 
   def best_offense
-    score_array = data_away + data_home
-    team_names_data
-    avg = return_average_goals_per_game(team_names_data, score_array)
+    avg = return_average_goals_per_game(team_names_data, data_away + data_home)
     team_names_data[avg.key(avg.values.max)]
   end
 
   def worst_offense
-    score_array = data_away + data_home
-    avg = return_average_goals_per_game(team_names_data, score_array)
+    avg = return_average_goals_per_game(team_names_data, data_away + data_home)
     team_names_data[avg.key(avg.values.min)]
   end
 
   def highest_scoring_visitor
-    score_array = data_away
-    avg = return_average_goals_per_game(team_names_data, score_array)
+    avg = return_average_goals_per_game(team_names_data, data_away)
     team_names_data[avg.key(avg.values.max)]
   end
 
   def highest_scoring_home_team
-    score_array = data_home
-    avg = return_average_goals_per_game(team_names_data, score_array)
+    avg = return_average_goals_per_game(team_names_data, data_home)
     team_names_data[avg.key(avg.values.max)]
   end
 
   def lowest_scoring_visitor
-    score_array = data_away
-    avg = return_average_goals_per_game(team_names_data, score_array)
+    avg = return_average_goals_per_game(team_names_data, data_away)
     team_names_data[avg.key(avg.values.min)]
   end
 
   def lowest_scoring_home_team
-    score_array = data_home
-    avg = return_average_goals_per_game(team_names_data, score_array)
+    avg = return_average_goals_per_game(team_names_data, data_home)
     team_names_data[avg.key(avg.values.min)]
   end
 
