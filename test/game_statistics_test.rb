@@ -73,7 +73,14 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_it_can_count_teams
-
+    # skip
     assert_equal 32, @game_statistics.count_of_teams
   end
+
+  def test_it_can_find_best_offense
+    # skip
+    assert_equal "FC Dallas", @game_statistics.best_offense
+  end
+
+
 end
