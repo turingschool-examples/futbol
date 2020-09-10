@@ -1,14 +1,14 @@
 module TeamStatistics
   def team_info(team_id)
-    team = teams.find do |team|
-      team.team_id == team_id
+    team = teams.find do |team_obj|
+      team_obj.team_id == team_id
     end
-    team_hash = Hash.new
-    team_hash["team_id"] = team.team_id
-    team_hash["franchise_id"] = team.franchise_id
-    team_hash["team_name"] = team.team_name
-    team_hash["abbreviation"] = team.abbreviation
-    team_hash["link"] = team.link
+    team_hash = {}
+    team_hash['team_id'] = team.team_id
+    team_hash['franchise_id'] = team.franchise_id
+    team_hash['team_name'] = team.team_name
+    team_hash['abbreviation'] = team.abbreviation
+    team_hash['link'] = team.link
 
     team_hash
   end
@@ -20,14 +20,12 @@ module TeamStatistics
   end
 
   def games_to_game_ids(games_array)
-    games_array.map do |game|
-      game.game_id
-    end
+    games_array.map(&:game_id)
   end
 
   def separate_games_by_season_id(games_array = games)
     games_array.reduce({}) do |seasons, game|
-      seasons[game.season] = [] if seasons[game.season] == nil
+      seasons[game.season] = [] if seasons[game.season].nil?
       seasons[game.season] << game
       seasons
     end
@@ -37,13 +35,13 @@ module TeamStatistics
     results = {}
     results[:total] = game_stats_by_team_id(team_id).length
     results[:wins] = game_stats_by_team_id(team_id).select do |game|
-      game.result == "WIN"
+      game.result == 'WIN'
     end.length
     results[:ties] = game_stats_by_team_id(team_id).select do |game|
-      game.result == "TIE"
+      game.result == 'TIE'
     end.length
     results[:losses] = game_stats_by_team_id(team_id).select do |game|
-      game.result == "LOSS"
+      game.result == 'LOSS'
     end.length
 
     results
@@ -56,19 +54,15 @@ module TeamStatistics
   end
 
   def most_goals_scored(team_id)
-    game_stats_by_team_id(team_id).max_by do |game|
-      game.goals
-    end.goals
+    game_stats_by_team_id(team_id).max_by(&:goals).goals
   end
 
   def fewest_goals_scored(team_id)
-    game_stats_by_team_id(team_id).min_by do |game|
-      game.goals
-    end.goals
+    game_stats_by_team_id(team_id).min_by(&:goals).goals
   end
 
   def average_win_percentage(team_id)
-    (result_counts_by_team_id(team_id)[:wins].to_f / result_counts_by_team_id(team_id)[:total].to_f).round(2)
+    (result_counts_by_team_id(team_id)[:wins] / result_counts_by_team_id(team_id)[:total].to_f).round(2)
   end
 
   def results_by_season(team_id)
@@ -87,17 +81,17 @@ module TeamStatistics
   end
 
   def season_totals(game_teams_by_season)
-    totals_by_season = {}
+    totals = {}
     game_teams_by_season.each do |season, games|
-      totals_by_season[season] = {}
-      totals_by_season[season][:total] = games.length
-      totals_by_season[season][:wins] = games.select do |game|
-        game.result == "WIN"
+      totals[season] = {}
+      totals[season][:total] = games.length
+      totals[season][:wins] = games.select do |game|
+        game.result == 'WIN'
       end.length
-      totals_by_season[season][:average] = (totals_by_season[season][:wins].to_f / totals_by_season[season][:total].to_f).round(2)
+      totals[season][:average] = (totals[season][:wins] / totals[season][:total].to_f).round(2)
     end
 
-    totals_by_season
+    totals
   end
 
   def best_season(team_id)
@@ -118,49 +112,49 @@ module TeamStatistics
     game_ids = games_to_game_ids(games_by_team_id(team_id))
     opponent_games = {}
     teams.each do |team|
-      if (team.team_id != team_id)
-        opponent_games[team.team_id] = {}
-        opponent_games[team.team_id][:game_data] = game_teams.select do |single_game_stats|
-          ((single_game_stats.team_id == team.team_id) && (game_ids.include?(single_game_stats.game_id)))
-        end
+      next if team.team_id == team_id
+
+      opponent_games[team.team_id] = {}
+      opponent_games[team.team_id][:game_data] = game_teams.select do |single_game_stats|
+        ((single_game_stats.team_id == team.team_id) && game_ids.include?(single_game_stats.game_id))
       end
     end
     opponent_games.each do |team_id, team_data|
       opponent_games[team_id][:total] = team_data[:game_data].length
       opponent_games[team_id][:wins] = team_data[:game_data].select do |game|
-        game.result == "WIN"
+        game.result == 'WIN'
       end.length
-      opponent_games[team_id][:win_percent] = (opponent_games[team_id][:wins]/opponent_games[team_id][:total].to_f).round(2)
+      opponent_games[team_id][:win_percent] = (opponent_games[team_id][:wins] / opponent_games[team_id][:total].to_f).round(2)
     end
     favorite_id = opponent_games.keys.min_by do |team_id|
       opponent_games[team_id][:win_percent]
     end
 
-    team_info(favorite_id)["team_name"]
+    team_info(favorite_id)['team_name']
   end
 
   def rival(team_id)
     game_ids = games_to_game_ids(games_by_team_id(team_id))
     opponent_games = {}
     teams.each do |team|
-      if (team.team_id != team_id)
-        opponent_games[team.team_id] = {}
-        opponent_games[team.team_id][:game_data] = game_teams.select do |single_game_stats|
-          ((single_game_stats.team_id == team.team_id) && (game_ids.include?(single_game_stats.game_id)))
-        end
+      next if team.team_id == team_id
+
+      opponent_games[team.team_id] = {}
+      opponent_games[team.team_id][:game_data] = game_teams.select do |single_game_stats|
+        ((single_game_stats.team_id == team.team_id) && game_ids.include?(single_game_stats.game_id))
       end
     end
     opponent_games.each do |team_id, team_data|
       opponent_games[team_id][:total] = team_data[:game_data].length
       opponent_games[team_id][:wins] = team_data[:game_data].select do |game|
-        game.result == "WIN"
+        game.result == 'WIN'
       end.length
-      opponent_games[team_id][:win_percent] = (opponent_games[team_id][:wins]/opponent_games[team_id][:total].to_f).round(2)
+      opponent_games[team_id][:win_percent] = (opponent_games[team_id][:wins] / opponent_games[team_id][:total].to_f).round(2)
     end
     rival_id = opponent_games.keys.max_by do |team_id|
       opponent_games[team_id][:win_percent]
     end
 
-    team_info(rival_id)["team_name"]
+    team_info(rival_id)['team_name']
   end
 end
