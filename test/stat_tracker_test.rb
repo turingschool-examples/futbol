@@ -227,6 +227,14 @@ class StatTrackerTest < Minitest::Test
     end
   end
 
+  def test_it_can_count_wins
+    assert_equal 45, @stats.total_wins
+  end
+
+  def test_it_can_filter_gameteams_by_teamid
+    assert @stats.filter_by_teamid(6).all? {|gameteam| gameteam.team_id == 6}
+  end
+
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won ###
     assert_equal 30.19, @stats.percentage_away_wins
@@ -308,4 +316,9 @@ class StatTrackerTest < Minitest::Test
   end
 
 # ~~~ TEAM METHOD TESTS~~~
+
+  def test_it_can_calc_avg_win_percentage
+    assert_equal 31.82, @stats.avg_win_perc(4)
+  end
+
 end
