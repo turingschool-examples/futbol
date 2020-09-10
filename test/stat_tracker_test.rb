@@ -316,7 +316,7 @@ class StatTrackerTest < Minitest::Test
         "20172018" => 60.0
       },
       26 => {
-        "20122013" => nil,
+        "20122013" => 0.0,
         "20132014" => 33.33,
         "20142015" => 42.86,
         "20152016" => 0.0,
@@ -326,4 +326,13 @@ class StatTrackerTest < Minitest::Test
     }
     assert_equal expected, @stats.all_teams_all_seasons_win_percentages
   end
+
+  def test_it_can_return_a_teams_best_season
+    assert_equal "20122013", @stats.best_season(1)
+    assert_equal "20142015", @stats.best_season(4)
+    assert_equal "20122013", @stats.best_season(6)
+    assert_equal "20152016", @stats.best_season(14)
+    assert_equal "20172018", @stats.best_season(26)
+  end
+
 end
