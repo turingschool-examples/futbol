@@ -29,15 +29,15 @@ class SeasonStatistics
     grouped_by_season(head_coaches_and_result_data_set)[season_id].each do |array|
       result = array[2].downcase.to_sym
       if game_results[array[1]].nil?
-        game_results[array[1]] = {:total => 1, result => 1}
+        game_results[array[1]] = { :total => 1, result => 1 }
       else
-        if game_results.fetch(array[1])[result].nil?
-          game_results.fetch(array[1])[result] = 1
-          game_results.fetch(array[1])[:total] += 1
-        else
-          game_results.fetch(array[1])[result] += 1
-          game_results.fetch(array[1])[:total] += 1
-        end
+      if game_results.fetch(array[1])[result].nil?
+        game_results.fetch(array[1])[result] = 1
+        game_results.fetch(array[1])[:total] += 1
+      else
+        game_results.fetch(array[1])[result] += 1
+        game_results.fetch(array[1])[:total] += 1
+      end
       end
     end
     game_results
@@ -46,17 +46,17 @@ class SeasonStatistics
   def winningest_coach(season_id)
     compare = {}
     game_result_hash(season_id).each do |coach, data|
-      compare[coach] = ((data[:win].to_f / data[:total])*100)
+      compare[coach] = ((data[:win].to_f / data[:total]) * 100)
     end
-    compare.max_by { |coach, percent| percent }[0]
+    compare.max_by { |_coach, percent| percent }[0]
   end
 
   def worst_coach(season_id)
     compare = {}
     game_result_hash(season_id).each do |coach, data|
-      compare[coach] = ((data[:win].to_f / data[:total])*100)
+      compare[coach] = ((data[:win].to_f / data[:total]) * 100)
     end
-    compare.min_by { |coach, percent| percent }[0]
+    compare.min_by { |_coach, percent| percent }[0]
   end
 
   def team_id_to_team_name(team_id)
@@ -65,7 +65,7 @@ class SeasonStatistics
   end
 
   def team_important_data_set
-    game_id_to_season_id.zip(games_teams_data("team_id"),games_teams_data("shots"),games_teams_data("goals"),games_teams_data("tackles"))
+    game_id_to_season_id.zip(games_teams_data("team_id"), games_teams_data("shots"), games_teams_data("goals"), games_teams_data("tackles"))
   end
 
   def shots_and_goals_hash(season_id)
@@ -75,7 +75,7 @@ class SeasonStatistics
       goals = array[3].to_i
       tackles = array[4].to_i
       if team_results[array[1]].nil?
-        team_results[array[1]] = {goals: 0, shots: 0, tackles: 0}
+        team_results[array[1]] = { goals: 0, shots: 0, tackles: 0 }
         team_results.fetch(array[1])[:shots] = shots
         team_results.fetch(array[1])[:goals] = goals
         team_results.fetch(array[1])[:tackles] = tackles
@@ -93,7 +93,7 @@ class SeasonStatistics
     shots_and_goals_hash(season_id).each do |team, data|
       teams[team] = ((data[:goals] / data[:shots].to_f) * 100)
     end
-    team_id_to_team_name(teams.max_by { |team, percent| percent }[0])
+    team_id_to_team_name(teams.max_by { |_team, percent| percent }[0])
   end
 
   def least_accurate_team(season_id)
@@ -101,11 +101,11 @@ class SeasonStatistics
     shots_and_goals_hash(season_id).each do |team, data|
       teams[team] = ((data[:goals] / data[:shots].to_f) * 100)
     end
-    team_id_to_team_name(teams.min_by { |team, percent| percent }[0])
+    team_id_to_team_name(teams.min_by { |_team, percent| percent }[0])
   end
 
   def most_tackles(season_id)
-    team = shots_and_goals_hash(season_id).max_by do |team, data|
+    team = shots_and_goals_hash(season_id).max_by do |_team, data|
       data[:tackles]
     end
     team_id_to_team_name(team[0])
