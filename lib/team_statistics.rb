@@ -115,4 +115,10 @@ class TeamStatistics
       goal[1]
     end[1].to_i
   end
+
+  def fewest_goals_scored(team_id)
+    team_per_game(team_id).min_by do |goal|
+      goal[1]
+    end[1].to_i
+  end
 end

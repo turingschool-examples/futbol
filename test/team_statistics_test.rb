@@ -26,8 +26,8 @@ class TeamStatisticsTest < Minitest::Test
   # your instance of StatTracker will provide statistics for a specific team.
 
   def test_it_has_attributes
-    # A hash with key/value pairs for the following attributes: team_id,
-    # franchise_id, team_name, abbreviation, and link
+  # A hash with key/value pairs for the following attributes: team_id,
+  # franchise_id, team_name, abbreviation, and link
 
       team_data_1 =  {"team_id"      => "1",
                       "franchiseId"  => "23",
@@ -54,14 +54,23 @@ class TeamStatisticsTest < Minitest::Test
   # end
 
   def test_average_win_percentage #game_teams
-    # Average win percentage of all games for a team.
+  # Average win percentage of all games for a team.
     assert_equal "83.33", @team_statistics.average_win_percentage("6")
   end
 
   def test_most_goals_scored #game_teams
-    # Highest number of goals a particular team has scored in a single game.
+  # Highest number of goals a particular team has scored in a single game.
     assert_equal 4, @team_statistics.most_goals_scored("6")
     assert_equal 2, @team_statistics.most_goals_scored("3")
     assert_equal 1, @team_statistics.most_goals_scored("5")
   end
+
+  def test_fewest_goals_scored #game_teams
+  # Lowest numer of goals a particular team has scored in a single game
+    assert_equal 1, @team_statistics.fewest_goals_scored("6")
+    assert_equal 1, @team_statistics.fewest_goals_scored("3")
+    assert_equal 0, @team_statistics.fewest_goals_scored("5")
+  end
+
+
 end
