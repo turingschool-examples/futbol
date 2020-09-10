@@ -2,11 +2,6 @@ class TeamStatistics
 
   def initialize(stat_tracker)
     @stat_tracker = stat_tracker
-    # @team_id      = team_id["team_id"]
-    # @franchise_id = team_id["franchiseId"]
-    # @team_name    = team_id["teamName"]
-    # @abbreviation = team_id["abbreviation"]
-    # @link         = team_id["link"]
   end
 
   def team_data_set
@@ -79,7 +74,7 @@ class TeamStatistics
   #     end
   #   end
   #   highest_wins_per_season
-  
+
   # def worst_season
   #
   # end
