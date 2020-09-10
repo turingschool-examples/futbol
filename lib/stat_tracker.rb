@@ -407,7 +407,7 @@ class StatTracker
 
 # ~~~ TEAM METHODS~~~
 
-  def avg_win_perc(id)
+  def average_win_percentage(id)
     find_percent(total_wins(filter_by_teamid(id)), total_game_teams(filter_by_teamid(id)))
   end
 

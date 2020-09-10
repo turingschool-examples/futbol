@@ -318,7 +318,7 @@ class StatTrackerTest < Minitest::Test
 # ~~~ TEAM METHOD TESTS~~~
 
   def test_it_can_calc_avg_win_percentage
-    assert_equal 31.82, @stats.avg_win_perc(4)
+    assert_equal 31.82, @stats.average_win_percentage(4)
   end
 
   def test_it_can_calc_fav_opponent
