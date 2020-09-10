@@ -308,4 +308,35 @@ class StatTrackerTest < Minitest::Test
   end
 
 # ~~~ TEAM METHOD TESTS~~~
+
+  def test_it_can_see_team_info
+    expected1 = {
+      :team_id=>1,
+      :franchise_id=>23,
+      :team_name=>"Atlanta United",
+      :abbreviation=>"ATL",
+      :stadium=>"Mercedes-Benz Stadium",
+      :link=>"/api/v1/teams/1"
+    }
+    expected2 = {
+      :team_id=>14,
+      :franchise_id=>31,
+      :team_name=>"DC United",
+      :abbreviation=>"DC",
+      :stadium=>"Audi Field",
+      :link=>"/api/v1/teams/14"
+    }
+
+    assert_equal expected1, @stats.team_info(1)
+    assert_equal expected2, @stats.team_info(14)
+  end
+
+  def test_it_can_see_highest_number_of_goals_by_team_in_a_game
+    assert_equal 4, @stats.most_goals_scored(1)
+  end
+
+  def test_it_can_see_lowest_number_of_goals_by_team_in_a_game
+    assert_equal 1, @stats.fewest_goals_scored(14)
+  end
+
 end
