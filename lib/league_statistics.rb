@@ -84,10 +84,9 @@ class LeagueStatistics
     stat_tracker[:games]["away_team_id"].zip(stat_tracker[:games]["away_goals"])
   end
 
-  def find_average_home
-
+  def home_team_goals_data_set
+    stat_tracker[:games]["home_team_id"].zip(stat_tracker[:games]["home_goals"])
   end
-
   def find_visitor_goals
     groupings = {}
     away_team_goals_data_set.each do |set|
@@ -146,6 +145,73 @@ class LeagueStatistics
   def lowest_scoring_visitor
     save = nil
     find_lowest_scoring_visitor.find do |team_id|
+      team_id_team_name_data_set.find do |pair|
+        if team_id == pair[0]
+          save = pair[1]
+        end
+      end
+    end
+    save
+  end
+
+  def highest_scoring_home_team
+    save = nil
+    find_highest_scoring_home.find do |team_id|
+      team_id_team_name_data_set.find do |pair|
+        if team_id == pair[0]
+          save = pair[1]
+        end
+      end
+    end
+    save
+  end
+
+  def find_home_goals
+    groupings = {}
+    home_team_goals_data_set.each do |set|
+      if groupings[set[0]].nil?
+        groupings[set[0]] = set[1].to_f
+      else
+        groupings[set[0]] += set[1].to_f
+      end
+    end
+    groupings
+    # a hash with team_id as key and total_goals as the value
+  end
+
+  def count_home_games_played
+    count_games = {}
+    stat_tracker[:games]["home_team_id"].each do |game_number|
+      count_games[game_number] = stat_tracker[:games]["home_team_id"].count do |game_id|
+        game_id == game_number
+      end
+    end
+    count_games
+  end
+
+  def find_highest_scoring_home
+    average_home_goals.max_by do |team_id, average_home_goals|
+      average_home_goals
+    end.to_a
+  end
+
+  def average_home_goals
+    average_goals_per_team = {}
+    find_home_goals.each do |team_id, number_goals|
+      average_goals_per_team[team_id] = (number_goals / count_home_games_played[team_id]).round(2)
+    end
+    average_goals_per_team
+  end
+
+  def find_lowest_scoring_home
+    average_home_goals.min_by do |team_id, average_home_goals|
+      average_home_goals
+    end.to_a
+  end
+
+  def lowest_scoring_home_team
+    save = nil
+    find_lowest_scoring_home.find do |team_id|
       team_id_team_name_data_set.find do |pair|
         if team_id == pair[0]
           save = pair[1]
