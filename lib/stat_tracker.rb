@@ -98,14 +98,13 @@ class StatTracker
 
   def team_wins_as_home(team_id, season)
     season_group[season].find_all do |game|
-      game.home_team_id == team_id && game.home_goals > game.away_goals
+      (game.home_team_id == team_id) && (game.home_goals > game.away_goals)
     end.count
   end
 
   def team_wins_as_away(team_id, season)
     season_group[season].find_all do |game|
-      require "pry"; binding.pry
-      game.away_team_id == team_id && game.away_goals > game.home_goals
+      (game.away_team_id == team_id )&& (game.away_goals > game.home_goals)
     end.count
   end
 

@@ -75,17 +75,17 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_count_total_away_wins
-    assert_equal 2, @stats.team_wins_as_away(1, "20142015")
-    assert_equal 4, @stats.team_wins_as_away(4, "20142015")
-    assert_equal 4, @stats.team_wins_as_away(6, "20142015")
-    assert_equal 4, @stats.team_wins_as_away(26, "20142015")
+    assert_equal 1, @stats.team_wins_as_away(1, "20142015")
+    assert_equal 2, @stats.team_wins_as_away(4, "20142015")
+    assert_equal 1, @stats.team_wins_as_away(6, "20142015")
+    assert_equal 1, @stats.team_wins_as_away(26, "20142015")
   end
 
   def test_it_can_count_total_number_of_wins_per_season ###
-    assert_equal 3, @stats.total_team_wins(1, "20142015")
-    assert_equal 5, @stats.total_team_wins(4, "20142015")
-    assert_equal 7, @stats.total_team_wins(6, "20142015")
-    assert_equal 6, @stats.total_team_wins(26, "20142015")
+    assert_equal 2, @stats.total_team_wins(1, "20142015")
+    assert_equal 3, @stats.total_team_wins(4, "20142015")
+    assert_equal 4, @stats.total_team_wins(6, "20142015")
+    assert_equal 3, @stats.total_team_wins(26, "20142015")
   end
 
   def test_it_can_count_total_games_for_team_in_season
