@@ -5,18 +5,10 @@ require './lib/season_statistics'
 
 class SeasonStatisticsTest < Minitest::Test
   def setup
-    game_path = './data/dummy_game.csv'
-    team_path = './data/teams.csv'
     game_teams_path = './data/dummy_game_teams.csv'
+    rows = CSV.read(game_teams_path, headers: true)
 
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-
-    @stat_tracker = StatTracker.from_csv(locations)
-    @season_statistics = SeasonStatistics.new(@stat_tracker)
+    @season_statistics = SeasonStatistics.new(rows)
   end
 
   def test_it_exists
@@ -24,7 +16,7 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_returning_winningest_coach
-    # skip
+    skip
     season = "20112012"
     assert_equal "Claude Julien", @season_statistics.winningest_coach(season)
   end
