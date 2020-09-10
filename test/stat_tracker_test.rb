@@ -38,7 +38,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_determine_season_win_percentage
-    skip
     assert_equal 28.57, @stats.season_win_percentage(1, "20142015")
     assert_equal 42.86, @stats.season_win_percentage(4, "20142015")
     assert_equal 66.67, @stats.season_win_percentage(6, "20142015")
@@ -102,10 +101,9 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_organize_season_win_percentage_for_each_team ###
-    skip
     expected = {
       1 => 28.57,
-      4 => 42.87,
+      4 => 42.86,
       6 => 66.67,
       14 => 0,
       26 => 42.86
@@ -279,53 +277,51 @@ class StatTrackerTest < Minitest::Test
     #Select the lowest win percentage and return season (string)
 
   def test_it_can_return_array_of_seasons
-    skip
     expected = ["20122013", "20132014", "20142015", "20152016", "20162017", "20172018"]
     assert_equal expected, @stats.all_seasons
   end
 
   def test_it_can_return_a_nested_hash_with_all_teams_season_win_percentages
-    skip
     expected = {
       1 => {
-        "20122013" => 100,
-        "20132014" => 25,
+        "20122013" => 100.0,
+        "20132014" => 25.0,
         "20142015" => 28.57,
-        "20152016" => 50,
-        "20162017" => 25,
+        "20152016" => 50.0,
+        "20162017" => 25.0,
         "20172018" => 33.33
       },
       4 => {
-        "20122013" => 25,
-        "20132014" => 40,
+        "20122013" => 25.0,
+        "20132014" => 40.0,
         "20142015" => 42.86,
         "20152016" => 33.33,
-        "20162017" => 0,
-        "20172018" => 0
+        "20162017" => 0.0,
+        "20172018" => 0.0
       },
       6 => {
-        "20122013" => 100,
-        "20132014" => 50,
+        "20122013" => 100.0,
+        "20132014" => 50.0,
         "20142015" => 66.67,
         "20152016" => 66.67,
-        "20162017" => 50,
-        "20172018" => 50
+        "20162017" => 50.0,
+        "20172018" => 50.0
       },
       14 => {
-        "20122013" => 0,
-        "20132014" => 25,
-        "20142015" => 0,
-        "20152016" => 100,
-        "20162017" => 60,
-        "20172018" => 60
+        "20122013" => 0.0,
+        "20132014" => 25.0,
+        "20142015" => 0.0,
+        "20152016" => 100.0,
+        "20162017" => 60.0,
+        "20172018" => 60.0
       },
       26 => {
         "20122013" => 0,
         "20132014" => 33.33,
         "20142015" => 42.86,
-        "20152016" => 0,
-        "20162017" => 50,
-        "20172018" => 75
+        "20152016" => 0.0,
+        "20162017" => 50.0,
+        "20172018" => 75.0
       },
     }
     assert_equal expected, @stats.all_teams_all_seasons_win_percentages
