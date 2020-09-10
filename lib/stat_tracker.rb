@@ -252,7 +252,7 @@ class StatTracker
   end
 
   def filter_by_teamid(id)
-    test = @game_teams.select do |game_team|
+    @game_teams.select do |game_team|
       game_team.team_id == id
     end
   end
