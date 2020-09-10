@@ -39,17 +39,14 @@ class SeasonStatistcsTest < Minitest::Test
 #   end
 #
   def test_winningest_coach
-
     assert_equal "Claude Julien", @stat.winningest_coach("20132014")
     assert_equal "Alain Vigneault", @stat.winningest_coach("20142015")
   end
-#
-#   def test_worst_coach
-#     season_statistics = SeasonStatistics.new(@stat)
-#
-#     assert_equal "Peter Laviolette", season_statistics.worst_coach("20132014")
-#     assert_equal "Craig MacTavish", season_statistics.worst_coach("20142015")
-#   end
+
+  def test_worst_coach
+    assert_equal "Peter Laviolette", @stat.worst_coach("20132014")
+    assert_includes ["Craig MacTavish", "Ted Nolan"], @stat.worst_coach("20142015")
+  end
 #
 #   def test_most_accurate_team
 #     season_statistics = SeasonStatistics.new(@stat)

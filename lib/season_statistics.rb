@@ -59,34 +59,34 @@ module SeasonStatistics
     winningest_coach_name
   end
 
-  # def worst_coach(season)
-  #   worst_coach_name = nil
-  #   lowest_percentage = 0
-  #   @season_coach_hash[season].each do |key, value|
-  #     total_games = 0
-  #     total_wins = 0
-  #     total_losses = 0
-  #     total_ties = 0
-  #     value.each do |game_result|
-  #       total_games += 1
-  #       if game_result == "WIN"
-  #         total_wins += 1
-  #       elsif game_result == "LOSS"
-  #         total_losses += 1
-  #       elsif game_result == "TIE"
-  #         total_ties += 1
-  #       else
-  #         p "Unexpected game result: #{game_result}"
-  #       end
-  #     end
-  #     # p " #{key} +  #{(total_wins.to_f / total_games).round(5)}"
-  #     if (total_wins.to_f / total_games) <= lowest_percentage
-  #       lowest_percentage = (total_wins.to_f / total_games)
-  #       worst_coach_name = key
-  #     end
-  #   end
-  #   @stat_tracker_copy.worst_coach = worst_coach_name
-  # end
+  def worst_coach(season)
+    season_coach_hash = coaches_per_season(find_all_seasons)
+    worst_coach_name = nil
+    lowest_percentage = 1
+    season_coach_hash[season].each do |key, value|
+      # require "pry"; binding.pry
+      total_games = 0
+      total_wins = 0
+      total_losses = 0
+      total_ties = 0
+      value.each do |game_result|
+        total_games += 1
+        if game_result == "WIN"
+          total_wins += 1
+        elsif game_result == "LOSS"
+          total_losses += 1
+        elsif game_result == "TIE"
+          total_ties += 1
+        end
+      end
+      # p " #{key} +  #{(total_wins.to_f / total_games).round(2)}"
+      if (total_wins.to_f / total_games) <= lowest_percentage
+        lowest_percentage = (total_wins.to_f / total_games)
+        worst_coach_name = key
+      end
+    end
+    worst_coach_name
+  end
   #
   # def team_shots_and_goals_hash
   #   team_shots_and_goals ={}
