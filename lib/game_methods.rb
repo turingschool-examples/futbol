@@ -50,5 +50,26 @@ end
       :tie == determine_winner(game - 1)
     end
     (ties.to_f / @away_goals.length).round(2)
+    if @home_goals[index] > @away_goals[index]
+      :home
+    elsif @home_goals[index] < @away_goals[index]
+      :away
+    else
+      :tie
+    end
+  end
+
+  def percentage_visitor_wins
+    away_wins = (1..@away_goals.length).count do |game|
+      :away == determine_winner(game - 1)
+    end
+    (away_wins.to_f / @away_goals.length).round(2)
+  end
+
+  def percentage_home_wins
+    home_wins = (1..@home_goals.length).count do |game|
+      :home == determine_winner(game - 1)
+    end
+    (home_wins.to_f / @home_goals.length).round(2)
   end
 end
