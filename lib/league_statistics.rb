@@ -1,0 +1,3 @@
+class LeagueStatistics
+  
+end
