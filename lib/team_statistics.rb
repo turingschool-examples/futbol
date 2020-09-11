@@ -44,17 +44,101 @@ class TeamStatistics
     end.count.to_f
   end
 
-  def best_season(team_id)
-    season_win_data_set.find_all do |info|
-       info[2] == "WIN" && info[1] == team_id
-        return info[0]  
-    end
-binding.pry
-    #   result[]
+  def total_games_by_season(team_id)
+    total_season_games = {}
+    season_win_data_set.find_all do |game|
+      if game[0].start_with?("2012") && game[1] == team_id
+        total_season_games[total_2012] = game
+      elsif game[0].start_with?("2013") && game[1] == team_id
+          total_season_games[total_2013] = game
+      elsif game[0].start_with?("2014") && game[1] == team_id
+            total_season_games[total_2014] = game
+      elsif game[0].start_with?("2015") && game[1] == team_id
+        total_season_games[total_2015] = game
+      elsif game[0].start_with?("2016") && game[1] == team_id
+          total_season_games[total_2016] = game
+        end
+    end.count
+    # total_2013 = season_win_data_set.find_all do |game|
+    # elsif game[0].start_with?("2013") && game[1] == team_id
+    #     total_2013 = game
+    #   end
+    # end.count
+    # total_2014 = season_win_data_set.find_all do |game|
+    #   if game[0].start_with?("2014") && game[1] == team_id
+    #     total_2014 = game
+    #   end
+    # end.count
+    # total_2015 = season_win_data_set.find_all do |game|
+    #   if game[0].start_with?("2015") && game[1] == team_id
+    #     total_2015 = game
+    #   end
+    # end.count
+    # total_2016 = season_win_data_set.find_all do |game|
+    #   if game[0].start_with?("2016") && game[1] == team_id
+    #     total_2016 = game
+    #   end
+    # end.count
   end
 
+  def win_results(team_id)
+    winning_games_by_season = {}
+
+    win_results_2012 = season_win_data_set.find_all do |game|
+      game[0].start_with?("2012") && game[1] == team_id && game[2] == "WIN"
+      end.count
+      season_win_data_set.map do |game|
+        if game[0].start_with?("2012")
+            winning_games_by_season["20122013"] = win_results_2012
+        end
+      end
+    win_results_2013 = season_win_data_set.find_all do |game|
+      game[0].start_with?("2013") && game[1] == team_id && game[2] == "WIN"
+      end.count
+    season_win_data_set.map do |game|
+      if game[0].start_with?("2013")
+          winning_games_by_season["20132014"] = win_results_2013
+      end
+    end
+    win_results_2014 = season_win_data_set.find_all do |game|
+      game[0].start_with?("2014") && game[1] == team_id && game[2] == "WIN"
+      end.count
+    season_win_data_set.map do |game|
+      if game[0].start_with?("2014")
+          winning_games_by_season["20142015"] = win_results_2014
+      end
+    end
+    win_results_2015 = season_win_data_set.find_all do |game|
+      game[0].start_with?("2015") && game[1] == team_id && game[2] == "WIN"
+      end.count
+    season_win_data_set.map do |game|
+      if game[0].start_with?("2015")
+          winning_games_by_season["20152016"] = win_results_2015
+      end
+    end
+    win_results_2016 = season_win_data_set.find_all do |game|
+      game[0].start_with?("2016") && game[1] == team_id && game[2] == "WIN"
+      end.count
+    season_win_data_set.map do |game|
+      if game[0].start_with?("2016")
+          winning_games_by_season["20162017"] = win_results_2016
+      end
+    end
+  end
+
+  def best_season(team_id)
+    binding.pry
+  end
+
+  # def loss_results(team_id)
+  #   season_win_data_set.find_all do |game|
+  #     game[1] == team_id && game[2] == "LOSS"
+  #   end
+  # end
   # def worst_season(team_id)
-  #   season_data_set
+  #   season_win_data_set.find_all do |info|
+  #   info[2] == "LOSS" && info[1] == team_id
+  #    return info[0]
   # end
 
 # [x] 4. Average Win Percentage
@@ -97,5 +181,5 @@ binding.pry
   #   average_win_percentage(team_id) #of the opponent
   #   team_info(team_id).teamName
   # end
-  # end
+   # end
 end
