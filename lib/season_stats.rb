@@ -80,4 +80,25 @@ class SeasonStatistics
     end
     not_accurate[:teamname]
   end
+
+  def most_tackles(season)
+    most_tackles = @teams_data.find do |team|
+      team[:teamname] if find_team_with_most_tackles(season) == team[:team_id]
+    end
+    most_tackles[:teamname]
+  end
+
+  def find_team_with_most_tackles(season)
+    team = total_tackles(season).sort_by {|team_id, tackles| tackles}
+    team[-1][0]
+  end
+
+  def total_tackles(season)
+    total_tackles = {}
+    find_by_team_id(season).each do |team_id, rows|
+      sum_tackles = rows.sum {|row| row[:tackles]}
+      total_tackles[team_id] = sum_tackles
+    end
+    total_tackles
+  end
 end
