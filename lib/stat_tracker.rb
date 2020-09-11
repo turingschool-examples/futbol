@@ -226,8 +226,8 @@ class StatTracker
   end
 
   def shots_per_goal_per_season(season)
-    season_goals.merge(team_shots_from_game_ids(game_ids_per_season(season))) do |team_id, goals, shots|
-      (goals / shots.to_f).round(3)
+    season_goals(season).merge(shots_per_team_id(season)) do |team_id, goals, shots|
+      (shots.to_f / goals).round(2)
     end
 
     # NAME OF TEAM with best ratio of shots-to-goals for SPECIFIC SEASON
@@ -236,7 +236,7 @@ class StatTracker
   def most_accurate_team(season)
   end
 
-  def least_accurate_team
+  def least_accurate_team(season)
     # NAME OF TEAM with worst ratio of shots-to-goals for SPECIFIC SEASON
   end
 

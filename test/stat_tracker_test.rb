@@ -186,6 +186,11 @@ def test_it_can_find_goals_per_season
   assert_equal expected, @stats.season_goals("20132014")
 end
 
+def test_shots_per_goal_per_season_for_given_season
+  expected = {"4"=>3.20, "14"=>2.89, "1"=>3.86, "6"=>2.40, "26"=>3.64}
+  assert_equal expected, @stats.shots_per_goal_per_season("20132014")
+end
+
 
 # ~~~ TEAM METHOD TESTS~~~
 end
