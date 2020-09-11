@@ -1,7 +1,7 @@
 require "csv"
-require "./lib/team"
-require "./lib/game"
-require "./lib/game_team"
+require_relative "./team"
+require_relative "./game"
+require_relative "./game_team"
 
 class StatTracker
   attr_reader :teams, :games, :game_teams
@@ -71,7 +71,7 @@ class StatTracker
     end
     team_id_hash[id.to_s]
   end
-  
+
   def filter_by_season(season)
     @games.find_all do |game|
       game.season == season
@@ -193,6 +193,52 @@ class StatTracker
   end
 
 # ~~~ SEASON METHODS~~~
+  def game_ids_per_season(season)
+    specific_season = season_group[season]
+    specific_season.map do |games|
+      games.game_id
+    end
+  end
+
+  def find_game_teams(game_ids)
+    game_ids.flat_map do |game_id|
+      @game_teams.find_all do |game|
+        game_id == game.game_id
+      end
+    end
+  end
+
+  def shots_per_team_id(season)
+    game_search = find_game_teams(game_ids_per_season(season))
+    game_search.reduce(Hash.new(0)) do |results, game|
+      results[game.team_id.to_s] += game.shots
+      results
+    end
+  end
+
+  def season_goals(season)
+    specific_season = season_group[season]
+    specific_season.reduce(Hash.new(0)) do |season_goals, game|
+      season_goals[game.away_team_id.to_s] += game.away_goals
+      season_goals[game.home_team_id.to_s] += game.home_goals
+      season_goals
+    end
+  end
+
+  def shots_per_goal_per_season(season)
+    season_goals.merge(team_shots_from_game_ids(game_ids_per_season(season))) do |team_id, goals, shots|
+      (goals / shots.to_f).round(3)
+    end
+
+    # NAME OF TEAM with best ratio of shots-to-goals for SPECIFIC SEASON
+  end
+
+  def most_accurate_team(season)
+  end
+
+  def least_accurate_team
+    # NAME OF TEAM with worst ratio of shots-to-goals for SPECIFIC SEASON
+  end
 
 # ~~~ TEAM METHODS~~~
 
