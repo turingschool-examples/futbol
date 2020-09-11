@@ -41,17 +41,18 @@ class TeamStatisticsTest < Minitest::Test
                       "teamName"     => "Sky Blue FC",
                       "abbreviation" => "SBL",
                       "link"         => "/api/v1/teams/12"
-                    }
+                     }
+                     
     assert_instance_of TeamStatistics, @team_statistics
     assert_equal team_data_1, @team_statistics.team_info("1")
     assert_equal team_data_2, @team_statistics.team_info("12")
   end
 
-  # def test_teams_best_season_percentage #games
-  # #	Season with the highest win percentage for a team
-  #   assert_equal "20122013", @team_statistics.best_season("6")
-  #   assert_equal "20162017", @team_statistics.best_season("3")
-  # end
+  def test_teams_best_season_percentage #games
+  #	Season with the highest win percentage for a team
+    assert_equal "20122013", @team_statistics.best_season("6")
+    assert_equal "20162017", @team_statistics.best_season("3")
+  end
   #
   # def test_teams_worst_season_percentage #games
   # #	Season with the lowest win percentage for a team.
@@ -78,12 +79,12 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal 0, @team_statistics.fewest_goals_scored("5")
   end
 
-  def test_favorite_opponent #teams and games
-  # Name of the opponent that has the lowest win percentage against the given team.
-    assert_equal "Sports Kansas City", @team_statistics.favorite_opponent("6")
-    assert_equal "Houston Dynamo", @team_statistics.favorite_opponent("3")
-    assert_equal "Sports Kansas City", @team_statistics.favorite_opponent("5")
-  end
+  # def test_favorite_opponent #teams and games
+  # # Name of the opponent that has the lowest win percentage against the given team.
+  #   assert_equal "Sports Kansas City", @team_statistics.favorite_opponent("6")
+  #   assert_equal "Houston Dynamo", @team_statistics.favorite_opponent("3")
+  #   assert_equal "Sports Kansas City", @team_statistics.favorite_opponent("5")
+  # end
 
   # def test_rival_opponent #teams and games
   # # Name of the opponent that has the highest win percentage against the given team.

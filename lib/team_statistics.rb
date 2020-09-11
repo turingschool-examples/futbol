@@ -28,45 +28,6 @@ class TeamStatistics
   end
 
 #[ ] 2/3 Best and Worst Season
-  # def season_data_set
-  #   @stat_tracker[:games]["season"].zip(@stat_tracker[:games]["away_team_id"], @stat_tracker[:games]["home_team_id"], @stat_tracker[:games]["away_goals"], @stat_tracker[:games]["home_goals"])
-  # require "pry"; binding.pry
-  # end
-  # def season_data_set
-  #   @stat_tracker[:game_teams]["game_id"].zip(@stat_tracker[:game_teams]["team_id"], @stat_tracker[:game_teams]["result"])
-  # end
-  #
-  # def game_id_to_season_id
-  #   games_teams_data("game_id").map do |game_id|
-  #     last_year = game_id[0..3]
-  #     (last_year.to_i - 1).to_s.concat(last_year)
-  #   end
-  # end
-
-  # def find_team_id_away_or_home(team_id)
-  #   @season_data_set.find_all |id|
-  #     id.away_team_id == team_id || id.home_team_id == team_id
-  #   end
-  # end
-  #
-  # def find_winner(team_id)
-  #   winner = @season_data_set.map do |season|
-  #     if season.away_goals - season.home_goals > 0
-  #       winner = "away"
-  #     elsif season.away_goals - season.home_goals < 0
-  #       winner = "home"
-  #     end
-  #   end
-
-  # def best_season(team_id)
-  #   @season_data_set
-  # end
-
-  # def worst_season(team_id)
-  #   @season_data_set
-  # end
-
-# [x] 4. Average Win Percentage
   def season_win_data_set
     @stat_tracker[:game_teams]["game_id"].zip(@stat_tracker[:game_teams]["team_id"], @stat_tracker[:game_teams]["result"])
   end
@@ -83,6 +44,20 @@ class TeamStatistics
     end.count.to_f
   end
 
+  def best_season(team_id)
+    season_win_data_set.find_all do |info|
+       info[2] == "WIN" && info[1] == team_id
+        return info[0]  
+    end
+binding.pry
+    #   result[]
+  end
+
+  # def worst_season(team_id)
+  #   season_data_set
+  # end
+
+# [x] 4. Average Win Percentage
   def average_win_percentage(team_id)
     "#{(winning_games(team_id)/total_games(team_id) * 100).round(2)}"
   end
@@ -111,15 +86,16 @@ class TeamStatistics
   end
 
 # [ ] 7/8 Favorite and Rival Opponent
-  def favorite_opponent(team_id)
-    !find_winner(team_id)
-    average_win_percentage(team_id)
-    team_info(team_id).teamName
-  end
+  # def favorite_opponent(team_id)
+  #   !find_winner(team_id)
+  #   average_win_percentage(team_id)
+  #   team_info(team_id).teamName
+  # end
   #
   # def rival(team_id)
   #   find_winner(team_id)
   #   average_win_percentage(team_id) #of the opponent
   #   team_info(team_id).teamName
+  # end
   # end
 end
