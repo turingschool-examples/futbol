@@ -58,7 +58,7 @@ class GameManagerTest < Minitest::Test
   def test_it_knows_count_of_ties
     assert_equal 1517, @game_manager.count_of_ties
   end
-  
+
   def test_it_knows_percentage_ties
     assert_equal 0.20, @game_manager.percentage_ties
   end

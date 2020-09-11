@@ -1,4 +1,4 @@
-class LeagueStatistics
+class LeagueManager
   attr_reader :teams_data, :game_stats
   def initialize(array_teams_data, game_stats)
     @teams_data = array_teams_data
