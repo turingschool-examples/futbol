@@ -11,11 +11,10 @@ class GameMethods
     @table = create_table
     @home_goals = @table['home_goals']
     @away_goals = @table['away_goals']
-<<<<<<< HEAD
-=======
+
     @seasons = @table['season']
     @game_ids = @table['game_id']
->>>>>>> b3e23eaa64892fe04f59e7322df71817ee4d3521
+
   end
 
   def create_table
