@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'Pry'
+require './lib/team'
 require './lib/team_manager'
 
 class TeamManagerTest < MiniTest::Test
@@ -15,6 +16,8 @@ class TeamManagerTest < MiniTest::Test
     team_path = './data/teams_dummy.csv'
     team_manager = TeamManager.new(team_path, "tracker")
 
-    assert_includes Team, team_manager.teams
+    team_manager.teams.each do |team|
+      assert_instance_of Team, team
+    end
   end
 end
