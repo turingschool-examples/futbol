@@ -39,33 +39,41 @@ module SeasonStatistics
     end[0]
   end
 
-  def most_accurate_team(season_id)
-    team_hash = {}
-    season_teams(season_id).each do |team|
-      total_shots = game_teams_data_for_season(season_id).sum do |game|
-        if game.team_id == team
-          game.shots
-        else
-          0
-        end
+  def total_shots_by_team(season_id, team)
+    game_teams_data_for_season(season_id).sum do |game|
+      if game.team_id == team
+        game.shots
+      else
+        0
       end
-
-      total_goals = game_teams_data_for_season(season_id).sum do |game|
-        if game.team_id == team
-          game.goals
-        else
-          0
-        end
-      end
-      team_hash[team] = (total_goals.to_f / total_shots.to_f)
     end
+  end
 
-    accurate_team = team_hash.max_by do |_team, shot_percentage|
-      shot_percentage
+  def total_goals_by_team(season_id, team)
+    game_teams_data_for_season(season_id).sum do |game|
+      if game.team_id == team
+        game.goals
+      else
+        0
+      end
+    end
+  end
+
+  def team_accuracy(season_id)
+    team_hash = Hash.new
+    season_teams(season_id).each do |team|
+      ratio = total_goals_by_team(season_id, team).to_f/total_shots_by_team(season_id, team).to_f
+      team_hash[team] = ratio.round(6)
+    end
+    team_hash
+  end
+
+  def most_accurate_team(season_id)
+    most_accurate = team_accuracy(season_id).max_by do |team, accuracy|
+      accuracy
     end[0]
-
     @teams.find do |team|
-      team.team_id == accurate_team
+      team.team_id == most_accurate
     end.team_name
   end
 
@@ -76,33 +84,11 @@ module SeasonStatistics
   end
 
   def least_accurate_team(season_id)
-    team_hash = {}
-    season_teams(season_id).each do |team|
-      total_shots = game_teams_data_for_season(season_id).sum do |game|
-        if game.team_id == team
-          game.shots
-        else
-          0
-        end
-      end
-
-      total_goals = game_teams_data_for_season(season_id).sum do |game|
-        if game.team_id == team
-          game.goals
-        else
-          0
-        end
-      end
-
-      team_hash[team] = (total_goals.to_f / total_shots.to_f)
-    end
-
-    not_accurate_team = team_hash.min_by do |_team, shot_percentage|
-      shot_percentage
+    least_accurate = team_accuracy(season_id).min_by do |team, accuracy|
+      accuracy
     end[0]
-
     @teams.find do |team|
-      team.team_id == not_accurate_team
+      team.team_id == least_accurate
     end.team_name
   end
 
