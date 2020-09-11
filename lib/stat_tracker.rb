@@ -1,4 +1,3 @@
-
 require 'csv'
 
 class StatTracker
@@ -20,21 +19,21 @@ class StatTracker
     new(games, teams, game_teams)
   end
 
-  def highest_total_score
+  def highest_total_score # runs through game_manager.rb
     highest_score = @games.max_by do |game|
       game["away_goals"].to_i + game["home_goals"].to_i
     end
     highest_score["away_goals"].to_i + highest_score["home_goals"].to_i
   end
 
-  def lowest_total_score
+  def lowest_total_score # game_manager.rb
     lowest_score = @games.min_by do |game|
       game["away_goals"].to_i + game["home_goals"].to_i
     end
     lowest_score["away_goals"].to_i + lowest_score["home_goals"].to_i
   end
 
-  def percentage_home_wins
+  def percentage_home_wins # game_manager.rb
     home_wins = @games.count do |game|
       game["home_goals"].to_i > game["away_goals"].to_i
     end
@@ -70,7 +69,7 @@ class StatTracker
     (average_goals.to_f / games.length).round(2)
   end
 
-  def average_goals_by_season
+  def average_goals_by_season # game_manager.rb
     average_goals_season = Hash.new(0)
     games_by_season = count_of_games_by_season
     @games.each do |game|
@@ -81,21 +80,21 @@ class StatTracker
     end.to_h
   end
 
-  def count_of_teams
+  def count_of_teams # team_manager.rb
     @teams.count
   end
 
   def best_offense # Theres so much we can do to refactor this
     team_ids = Hash.new(0)
     team_game_count = Hash.new(0)
-    @game_teams.each do |game_team|
+    @game_teams.each do |game_team| # game_teams_manager.rb
       team_ids[game_team["team_id"]] += game_team["goals"].to_i
       team_game_count[game_team["team_id"]] += 1
     end
     highest_scoring_team = team_ids.max_by do |team, score|
       score.to_f / team_game_count[team]
     end
-    best_offense = @teams.find do |team| # Create find_team_name method?
+    best_offense = @teams.find do |team| # Create find_team_name method? # team_manager.rb
       team["team_id"] == highest_scoring_team[0] # Would accept this as argument
     end
     best_offense["teamName"]
@@ -104,14 +103,14 @@ class StatTracker
   def worst_offense # Theres so much we can do to refactor this
     team_ids = Hash.new(0)
     team_game_count = Hash.new(0)
-    @game_teams.each do |game_team| # Refector this into a helper method
+    @game_teams.each do |game_team| # Refector this into a helper method # game_team_manager.rb
       team_ids[game_team["team_id"]] += game_team["goals"].to_i
       team_game_count[game_team["team_id"]] += 1
     end
     lowest_scoring_team = team_ids.min_by do |team, score|
       score.to_f / team_game_count[team]
     end
-    worst_offense = @teams.find do |team|
+    worst_offense = @teams.find do |team| # team_manager.rb
       team["team_id"] == lowest_scoring_team[0]
     end
     worst_offense["teamName"]
