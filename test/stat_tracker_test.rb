@@ -1,27 +1,24 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'Pry'
-require './lib/stat_tracker'
+require './test/test_helper.rb'
 
 class StatTrackerTest < Minitest::Test
   def setup
     game_path = './data/games_dummy.csv'
     team_path = './data/teams_dummy.csv'
     game_teams_path = './data/game_teams_dummy.csv'
-    locations = {
+    @locations = {
       games: game_path,
       teams: team_path,
       game_teams: game_teams_path
     }
 
-    @stat_tracker = StatTracker.from_csv(locations)
+    @stat_tracker = StatTracker.from_csv(@locations)
   end
 
   def test_it_exists
     games = "games"
     teams = "teams"
     game_teams = "game_teams"
-    stat_tracker = StatTracker.new(games, teams, game_teams)
+    stat_tracker = StatTracker.new(games, teams, game_teams, @locations)
 
     assert_instance_of StatTracker, stat_tracker
   end
