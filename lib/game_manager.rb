@@ -44,27 +44,22 @@ class GameManager
     @tracker.game_teams_stats.all_home_wins
   end
 
-  # def percentage_visitor_wins
-  #   (all_visitor_wins.count.to_f / total_games).round(2)
-  # end
-  #
-  # def all_visitor_wins
-  #   @game_teams_data.select do |game|
-  #     game[:hoa] == "away" && game[:result] == "WIN"
-  #   end
-  # end
-  #
-  # def count_of_ties
-  #   double_ties = @game_teams_data.find_all do |game|
-  #     game[:result] == "TIE"
-  #   end
-  #   double_ties.count / 2
-  # end
-  #
-  # def percentage_ties
-  #   (count_of_ties.to_f / total_games).round(2)
-  # end
-  #
+  def all_visitor_wins
+    @tracker.game_teams_stats.all_visitor_wins
+  end
+
+  def percentage_visitor_wins
+    (all_visitor_wins.count.to_f / total_games).round(2)
+  end
+
+  def count_of_ties
+    @tracker.game_teams_stats.count_of_ties
+  end
+
+  def percentage_ties
+    (count_of_ties.to_f / total_games).round(2)
+  end
+
   def hash_of_seasons
     @game_data.group_by {|game| game.season}
   end

@@ -43,26 +43,26 @@ class GameManagerTest < Minitest::Test
     assert_equal 3237, @game_manager.all_home_wins.length
   end
 
-  # def test_it_knows_percentage_home_wins
-  #   assert_equal 0.44, @game_manager.percentage_home_wins
-  # end
+  def test_it_knows_all_visitor_wins
+    assert_equal 2687, @game_manager.all_visitor_wins.length
+  end
 
-  # def test_it_knows_all_visitor_wins
-  #   assert_equal 2687, @game_manager.all_visitor_wins.length
-  # end
-  #
-  # def test_it_knows_percentage_visitor_wins
-  #   assert_equal 0.36, @game_manager.percentage_visitor_wins
-  # end
-  #
-  # def test_it_knows_count_of_ties
-  #   assert_equal 1517, @game_manager.count_of_ties
-  # end
-  #
-  # def test_it_knows_percentage_ties
-  #   assert_equal 0.20, @game_manager.percentage_ties
-  # end
-  #
+  def test_it_knows_percentage_home_wins
+    assert_equal 0.44, @game_manager.percentage_home_wins
+  end
+
+  def test_it_knows_percentage_visitor_wins
+    assert_equal 0.36, @game_manager.percentage_visitor_wins
+  end
+
+  def test_it_knows_count_of_ties
+    assert_equal 1517, @game_manager.count_of_ties
+  end
+  
+  def test_it_knows_percentage_ties
+    assert_equal 0.20, @game_manager.percentage_ties
+  end
+
   def test_can_get_hash_of_seasons
     assert_equal 6, @game_manager.hash_of_seasons.keys.count
   end
