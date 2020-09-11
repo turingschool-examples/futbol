@@ -20,4 +20,11 @@ class TeamManagerTest < MiniTest::Test
       assert_instance_of Team, team
     end
   end
+
+  def test_it_can_count_teams
+    team_path = './data/teams_dummy.csv'
+    team_manager = TeamManager.new(team_path, "tracker")
+
+    assert_equal 13, team_manager.count_of_teams
+  end
 end
