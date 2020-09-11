@@ -378,6 +378,48 @@ class StatTracker
     end
   end
 
+  def get_opponent_id(game, teamid)
+    game.away_team_id == teamid ? game.home_team_id : game.away_team_id
+  end
+
+  def game_ids_per_season(season)
+    specific_season = season_group[season]
+    specific_season.map do |games|
+      games.game_id
+    end
+  end
+
+  def find_game_teams(game_ids)
+    game_ids.flat_map do |game_id|
+      @game_teams.find_all do |game|
+        game_id == game.game_id
+      end
+    end
+  end
+
+  def shots_per_team_id(season)
+    game_search = find_game_teams(game_ids_per_season(season))
+    game_search.reduce(Hash.new(0)) do |results, game|
+      results[game.team_id.to_s] += game.shots
+      results
+    end
+  end
+
+  def season_goals(season)
+    specific_season = season_group[season]
+    specific_season.reduce(Hash.new(0)) do |season_goals, game|
+      season_goals[game.away_team_id.to_s] += game.away_goals
+      season_goals[game.home_team_id.to_s] += game.home_goals
+      season_goals
+    end
+  end
+
+  def shots_per_goal_per_season(season)
+    season_goals(season).merge(shots_per_team_id(season)) do |team_id, goals, shots|
+      (shots.to_f / goals).round(2)
+    end
+  end
+
   # Move to GamesManager
   def get_opponent_id(game, teamid)
     game.away_team_id == teamid ? game.home_team_id : game.away_team_id
@@ -529,6 +571,16 @@ class StatTracker
     team_identifier(team_tackles(season).min_by do |team|
       team.last
     end.first)
+  end
+
+  def most_accurate_team(season)
+    most_accurate = shots_per_goal_per_season(season).min_by { |team, avg| avg}
+    team_names_by_team_id(most_accurate[0])
+  end
+
+  def least_accurate_team(season)
+    least_accurate = shots_per_goal_per_season(season).max_by { |team, avg| avg}
+    team_names_by_team_id(least_accurate[0])
   end
 
 # ~~~ TEAM METHODS~~~
