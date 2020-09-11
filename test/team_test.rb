@@ -13,6 +13,4 @@ class TeamTest < Minitest::Test
     assert_instance_of Team, team
     assert_instance_of CSV::Table, data
   end
-
-
 end
