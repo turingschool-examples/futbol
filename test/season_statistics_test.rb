@@ -13,7 +13,7 @@ class SeasonStatistcsTest < Minitest::Test
       teams: team_path,
       game_teams: game_teams_path
     }
-    @stat = StatTracker.new(@locations)
+    @stat ||= StatTracker.new(@locations)
 
   end
 
