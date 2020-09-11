@@ -24,11 +24,13 @@ class TeamStatsTest < Minitest::Test
     @team_stats = TeamStats.new(@season_stats)
   end
 
-  def test_it_exists
-    assert_instance_of TeamStats, @team_stats
-  end
-
-  # def test_in_can_find_team_info
-  #   assert_equal 45, @team_stats.team_info(54)
+  # def test_it_exists
+  #   assert_instance_of TeamStats, @team_stats
   # end
+
+  def test_in_can_find_team_info
+    expected = {"team_id"=>"54", "franchiseid"=>"38", "teamname"=>"Reign FC",
+      "abbreviation"=>"RFC", "stadium"=>"Cheney Stadium", "link"=>"/api/v1/teams/54"}
+    assert_equal expected, @team_stats.team_info(54)
+  end
 end
