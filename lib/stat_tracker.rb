@@ -20,16 +20,20 @@ class StatTracker
   end
 
 # ~~~ Helper Methods ~~~~
-
+  # move to GameManager
   def total_games(filtered_games = @games)
     filtered_games.count
   end
 
+  # potential module (math?)
   def find_percent(numerator, denominator)
     return 0.0 if denominator == 0
     (numerator / denominator.to_f * 100).round(2)
   end
 
+  # move to GameManager call on score sum for each game
+  # maybe remove season filter?
+  # add method in game class that sums total game score
   def sum_game_goals(season = nil)
     game_goals_hash = {}
     season_games = filter_by_season(season)
@@ -39,22 +43,26 @@ class StatTracker
     game_goals_hash
   end
 
+  # potential module, perhaps GameTeams
   def season_group
     @games.group_by do |row|
       row.season
     end
   end
 
+  # move to GameManager
   def total_goals(filtered_games = @games)
     filtered_games.reduce(0) do |sum, game|
       sum += (game.home_goals + game.away_goals)
     end
   end
 
+  # potential module (math?)
   def ratio(numerator, denominator)
     (numerator.to_f / denominator).round(2)
   end
 
+  # Move to GameManager
   def seasonal_game_data
     seasonal_game_data = @games.group_by do |game|
       game.season
@@ -62,6 +70,7 @@ class StatTracker
     seasonal_game_data
   end
 
+  # Move to GameTeamsManager
   def total_scores_by_team
     base = Hash.new(0)
     @game_teams.each do |game|
@@ -71,10 +80,13 @@ class StatTracker
     base
   end
 
+  # Move to GameTeamsManager
+  # I don't think this method is doing what it is supposed to be doing
   def average_scores_by_team
     total_scores_by_team.merge(games_containing_team){|team_id, scores, games_played| (scores.to_f / games_played).round(2)}
   end
 
+  # Move to GameTeamsManager
   def games_containing_team
     games_by_team = Hash.new(0)
     @game_teams.each do |game|
@@ -83,6 +95,8 @@ class StatTracker
     games_by_team
   end
 
+  # Move to TeamsManager
+  # This method has a duplicate (team_id_to_team_name)
   def team_names_by_team_id(id)
     team_id_hash = {}
     @teams.each do |team|
@@ -91,44 +105,53 @@ class StatTracker
     team_id_hash[id.to_s]
   end
 
+  # Move to GamesManager
   def filter_by_season(season)
     @games.find_all do |game|
       game.season == season
     end
   end
 
+  # Move to GameTeamsManager
   def team_wins_as_home(team_id, season)
     season_group[season].find_all do |game|
       (game.home_team_id == team_id) && (game.home_goals > game.away_goals)
     end.count
   end
 
+  # Move to GameManager
   def team_wins_as_away(team_id, season)
     season_group[season].find_all do |game|
       (game.away_team_id == team_id) && (game.away_goals > game.home_goals)
     end.count
   end
 
+  # Move to GameManager
   def total_team_wins(team_id, season)
     team_wins_as_home(team_id, season) + team_wins_as_away(team_id, season)
   end
 
+  # Move to GamesManager
   def total_team_games_per_season(team_id, season)
     season_group[season].select do |game|
       game.away_team_id == team_id || game.home_team_id == team_id
     end.count
   end
 
+  # Move to GamesManager
   def season_win_percentage(team_id, season)
     find_percent(total_team_wins(team_id, season), total_team_games_per_season(team_id, season))
   end
 
+  # Move to Team
   def team_ids
     @teams.map do |team|
       team.team_id
     end.sort
   end
 
+  # Move to GameTeamsManager for team_id purposes
+  # season is pulled from Game, however
   def all_teams_win_percentage(season)
     percent_wins = {}
     team_ids.each do |team_id|
@@ -137,27 +160,34 @@ class StatTracker
     percent_wins
   end
 
+  # Move to GamesManager
   def winningest_team(season)
     all_teams_win_percentage(season).max_by do |team_id, win_percentage|
       win_percentage
     end.first
   end
 
+  # Move to GamesManager
   def worst_team(season)
     all_teams_win_percentage(season).min_by do |team_id, win_percentage|
       win_percentage
     end.first
   end
 
-
+  # Move to GameTeamsManager
+  # Doesn't have a test
   def total_game_teams(filtered_game_teams = @game_teams)
     filtered_game_teams.count
   end
 
+  # Move to GameTeamsManager
+  # Doesn't have a test
   def avg_score(filtered_game_teams = @game_teams)
     ratio(total_score(filtered_game_teams), total_game_teams(filtered_game_teams))
   end
 
+  # Move to TeamManager
+  # This method has duplicates (team_names_by_team_id, team_id_to_team_name)
   def team_id_to_team_name(id)
     team_obj = @teams.select do |team|
       team.team_id == id
@@ -165,36 +195,54 @@ class StatTracker
     team_obj[0].team_name
   end
 
+  # This could potentially be replaced by sum_game_goals or vise versa
+  # Doesn't have test
   def total_score(filtered_game_teams = @game_teams)
     total_score = filtered_game_teams.reduce(0) do |sum, game_team|
       sum += game_team.goals
     end
   end
 
+  # Move to GameTeamsManager
+  # THIS METHOD PENDING DELETION
+  # using instead: home_or_away_games
   def home_games
     @game_teams.select do |game|
       game.hoa == "home"
     end
   end
 
+  # Move to GameTeamsManager
+  # THIS METHOD PENDING DELETION
+  # using instead: home_or_away_games
   def away_games
     @game_teams.select do |game_team|
       game_team.hoa == "away"
     end
   end
 
+  #Move to GameTeamsManager
+  #Need a vertical call up for Team_ID
+  # home_games method used inside will be changed to: home_or_away_games
   def home_games_by_team
     home_games.group_by do |game_team|
       game_team.team_id
     end
   end
 
+  #Move to GameTeamsManager
+  #Need a vertical call up for Team_ID
+  # away_games method used inside will be changed to: home_or_away_games
   def away_games_by_team
     away_games.group_by do |game_team|
       game_team.team_id
     end
   end
 
+  # This should be refactored fo sho  (takes a long time to run)
+  # Currently it cycles through all games just to return an arrray
+  # of unique seasons
+  # But, should be moved to GamesManger
   def all_seasons
     unique_seasons = []
     @games.each do |game|
@@ -205,6 +253,9 @@ class StatTracker
     unique_seasons.sort
   end
 
+  # Also needs refactored - maybe don't need to return hash?
+  # Or use reduce?
+  # Move to GamesManager
   def all_teams_all_seasons_win_percentages
     win_percentages_by_season = {}
     all_seasons.each do |season|
@@ -221,42 +272,55 @@ class StatTracker
     win_percentages_by_season
   end
 
+  # This looks like it combines home_games and away_games - keep this one?
+  # Move to GameTeams Manager
+  # Doesn't have a test
   def home_or_away_games(where = "home")
     @game_teams.select do |game|
       game.hoa == where
     end
   end
 
+  # Move to GamesTeamsManager
   def hoa_games_by_team_id(hoa)
     home_or_away_games(hoa).group_by do |game_team|
       game_team.team_id
     end
   end
 
+  # Move to GameTeamsManager
   def lowest_scoring_team_id(hoa)
     hoa_games_by_team_id(hoa).min_by do |team_id, details|
       avg_score(details)
     end[0]
   end
 
+  # Move to TeamsManager
+  # This method has duplicates (team_names_by_team_id, team_id_to_team_name)
   def team_id_to_team_name(id)
     @teams.each do |team|
       return team.team_name if team.team_id == id
     end
   end
 
+  # Move to GameTeamsManager
   def total_wins(game_teams_filtered = @game_teams)
     game_teams_filtered.count do |gameteam|
       gameteam.result == "WIN"
     end
   end
 
+  # Move to GameTeamsManager
+  # Duplicate method to get_game method except pulls from GameTeams instead of
+  # Games
   def filter_by_teamid(id)
     @game_teams.select do |game_team|
       game_team.team_id == id
     end
   end
 
+  # Move to GameTeamsManager
+  # Need to convert to common naming convention
   def avg_win_perc_by_opp(teamid)
     awp_by_opp = {}
     game_teams_by_opponent(teamid).each do |opponent, gameteams|
@@ -265,18 +329,21 @@ class StatTracker
     awp_by_opp
   end
 
+  # Move to GameTeamsManager
   def fave_opponent_id(teamid)
     avg_win_perc_by_opp(teamid).max_by do |opponent, win_perc|
       win_perc
     end[0]
   end
 
+  # Move to GameTeamsManager
   def rival_id(teamid)
     avg_win_perc_by_opp(teamid).min_by do |opponent, win_perc|
       win_perc
     end[0]
   end
 
+  # Move to GameTeamsManager
   def game_teams_by_opponent(teamid)
     gt_by_opp = {}
     filter_by_teamid(teamid).each do |gameteam|
@@ -289,28 +356,26 @@ class StatTracker
     gt_by_opp
   end
 
+  # Move to GamesManger
+  # This is a duplicate method to filter_by_teamid except pulls from games
+  # instead of GameTeams
   def get_game(gameid)
     @games.find do |game|
       game.game_id == gameid
     end
   end
 
+  # Move to GameTeamsManager
+  #Duplicate method to filter_by_teamid
+  def games_by_team(team_id)
+    @game_teams.select do |game|
+      game.team_id == team_id
+    end
+  end
+
+  # Move to GamesManager
   def get_opponent_id(game, teamid)
     game.away_team_id == teamid ? game.home_team_id : game.away_team_id
-  end
-
-
-# ~~~ Game Methods ~~~
-  def lowest_total_score(season)
-    sum_game_goals(season).min_by do |game_id, score|
-      score
-    end.last
-  end
-
-  def highest_total_score(season)
-    sum_game_goals(season).max_by do |game_id, score|
-      score
-    end.last
   end
 
   def game_ids_by_season(season)
@@ -319,6 +384,7 @@ class StatTracker
     end.sort
   end
 
+  # Move to GameTeamsManager
   def team_tackles(season)
     team_season_tackles = {}
     games = @game_teams.find_all do |game|
@@ -334,18 +400,14 @@ class StatTracker
     team_season_tackles
   end
 
+  # Move to Teams Manager
   def team_identifier(team_id)
     @teams.find do |team|
       team.team_id == team_id
     end.team_name
   end
 
-  def games_by_team(team_id)
-    @game_teams.select do |game|
-      game.team_id == team_id
-    end
-  end
-
+  # Move to GameTeamsManager
   def team_goals_by_game(team_id)
     games_by_team(team_id).map do |game|
       game.goals
@@ -365,6 +427,7 @@ class StatTracker
     end.last
   end
 
+  #Rename to percentage_visitor_wins
   def percentage_away_wins
     wins = @games.find_all { |game| game.away_goals > game.home_goals}
     find_percent(wins.count, total_games)
@@ -475,6 +538,7 @@ class StatTracker
     end.compact.first
   end
 
+  # This is a duplicate method as average_win_percentage(id)
   def average_win_percentage(teamid)
     find_percent(total_wins(filter_by_teamid(teamid)), total_game_teams(filter_by_teamid(teamid)))
   end
@@ -497,6 +561,7 @@ class StatTracker
     end.compact.first
   end
 
+  # This is a duplicate method as average_win_percentage(teamid)
   def average_win_percentage(id)
     find_percent(total_wins(filter_by_teamid(id)), total_game_teams(filter_by_teamid(id)))
   end

@@ -138,6 +138,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.games_containing_team
   end
 
+  # Check validity of test - are the expected values accurate?
   def test_it_can_get_average_scores_per_team
     expected = {"1"=>1.87, "4"=>1.68, "14"=>2.24, "6"=>2.35, "26"=>1.85}
     assert_equal expected, @stats.average_scores_by_team
