@@ -131,6 +131,32 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.average_scores_by_team
   end
 
+  def test_it_can_get_game_ids_in_season
+    expected = [2013021198, 2013020371, 2013020203, 2013020649, 2013021160, 2013020334, 2013021221, 2013020667, 2013020321, 2013020285, 2013020739, 2013020088]
+    assert_equal expected, @stats.game_ids_per_season("20132014")
+  end
+
+  def test_it_can_get_games_from_season_game_ids
+    season_game_ids = @stats.game_ids_per_season("20132014")
+    assert_equal GameTeam, @stats.find_game_teams(season_game_ids)[0].class
+    assert_equal (season_game_ids.count * 2), @stats.find_game_teams(season_game_ids).count
+  end
+
+  def test_it_can_get_shots_per_team
+    expected = {"4"=>32, "14"=>26, "1"=>27, "6"=>24, "26"=>40}
+    assert_equal expected, @stats.shots_per_team_id("20132014")
+  end
+
+  def test_it_can_find_goals_per_season
+    expected = {"4"=>10, "14"=>9, "1"=>7, "6"=>10, "26"=>11}
+    assert_equal expected, @stats.season_goals("20132014")
+  end
+
+  def test_shots_per_goal_per_season_for_given_season
+    expected = {"4"=>3.20, "14"=>2.89, "1"=>3.86, "6"=>2.40, "26"=>3.64}
+    assert_equal expected, @stats.shots_per_goal_per_season("20132014")
+  end
+
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won ###
     assert_equal 30.19, @stats.percentage_away_wins
@@ -154,22 +180,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal 6, @stats.highest_total_score("20142015")
   end
 
-  def test_it_can_get_game_ids_in_season
-    expected = [2013021198, 2013020371, 2013020203, 2013020649, 2013021160, 2013020334, 2013021221, 2013020667, 2013020321, 2013020285, 2013020739, 2013020088]
-    assert_equal expected, @stats.game_ids_per_season("20132014")
-  end
-
-  def test_it_can_get_games_from_season_game_ids
-    season_game_ids = @stats.game_ids_per_season("20132014")
-    assert_equal GameTeam, @stats.find_game_teams(season_game_ids)[0].class
-    assert_equal (season_game_ids.count * 2), @stats.find_game_teams(season_game_ids).count
-  end
-
-  def test_it_can_get_shots_per_team
-    expected = {"4"=>32, "14"=>26, "1"=>27, "6"=>24, "26"=>40}
-    assert_equal expected, @stats.shots_per_team_id("20132014")
-  end
-
 # ~~~ LEAGUE METHOD TESTS~~~
   def test_worst_offense
     assert_equal "Chicago Fire", @stats.worst_offense
@@ -181,20 +191,14 @@ class StatTrackerTest < Minitest::Test
 
 
 # ~~~ SEASON METHOD TESTS~~~
-def test_it_can_find_goals_per_season
-  expected = {"4"=>10, "14"=>9, "1"=>7, "6"=>10, "26"=>11}
-  assert_equal expected, @stats.season_goals("20132014")
-end
 
-def test_shots_per_goal_per_season_for_given_season
-  expected = {"4"=>3.20, "14"=>2.89, "1"=>3.86, "6"=>2.40, "26"=>3.64}
-  assert_equal expected, @stats.shots_per_goal_per_season("20132014")
-end
-
-def test_it_can_get_most_accurate_team
+def test_it_can_get_most_accurate_team_for_season
   assert_equal "FC Dallas", @stats.most_accurate_team("20132014")
 end
 
+def test_it_can_get_least_accurate_team_for_season
+  assert_equal "Atlanta United", @stats.least_accurate_team("20132014")
+end
 
 # ~~~ TEAM METHOD TESTS~~~
 end
