@@ -4,7 +4,9 @@ Group Member Names: Jake Heft, Joshua Carey, Hope Gochnour, Will Dunlap
 
 Goals and Expectations for the Project (What does each group member hope to get out of this project? What do we want to achieve as a team? How will we know that we're successful?):
 
-- Jake: Get better at planning a project (grow in project organization skills) and refine GH workflow.
+- Minimum of 3 on project.  Explore iteration 4 for sake of learning, but not critical to get full 4.
+
+Jake: Get better at planning a project (grow in project organization skills) and refine GH workflow.
 - Hope: Get better at handling how files are read from and how to work in a group.
 - Joshua: Get better at approaching project with big picture in mind.
 - Will: Learn effective ways of how to break up the project that saves time and makes coding more efficient. Growing in articulating thoughts/ideas before execution.
@@ -21,12 +23,19 @@ Team strengths & collaboration styles (consider discussing your Pairin qualities
 <!-- How we can use our strengths to overcome obstacles: -->
 Schedule Expectations (When are we available to work together and individually? What constraints do we have? Make sure to discuss the remote questions above in regards to this section):
 
+- Weekend of 12-13 schedule
+  - Jake: availability Fri until 8, Sunday: after 8am
+  - Joshua: avail after 8am on Sat, Sunday: until 10am
+  - Hope: Fri: until 9pm, Sat: after 9am, Sunday: 10am - 9pm
+  - Will: Fri: until 7pm, Sat: avail after 8am, Sun: after 12pm
+
 - Hope: Friday night commitments and Sunday night commitments.
 - Jake: 1st and 2nd Saturday commitments. Ideally finish around 8 and 9, but week is open.
 - Joshua: 1st weekend gone and open 2nd except Sundays 4 to 8 pm.
 - Will: Flexible weekend commitments. Tuesdays (4-6 commitment but flexible)
 - During weeK: Stop around 9 or 10 pm each night.
-- Keep 5 to 7pm open for a zoom-like study hall.
+- Standing 5 to 7pm open for a zoom-like study hall - expectation is that we will attend, but understand it may not always work, in which case expectation is you'll let team know when you will be able to check-in next.
+- Pull request need to be approved by at least two team members (other than submitter) before merge to main.  Submitter can mandate all team members review pull request before approval if desired.
 - Have at least one zoom check-in per day (usually during )
 
 Communication Expectations (How and often will we communicate? How do we keep lines of communication open? How will we make decisions as a team? How will we communicate about our emotional and mental well-being with each other?):
