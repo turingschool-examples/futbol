@@ -47,4 +47,42 @@ class GameMethodsTest < Minitest::Test
 
     assert_equal 4.22, game_methods.average_goals_per_game
   end
+
+  def test_count_of_games_by_season
+    file_loc = './data/games.csv'
+
+    game_methods = GameMethods.new(file_loc)
+
+    expected = {
+      "20122013"=>806,
+      "20162017"=>1317,
+      "20142015"=>1319,
+      "20152016"=>1321,
+      "20132014"=>1323,
+      "20172018"=>1355
+    }
+
+    assert_equal expected, game_methods.count_of_games_by_season
+  end
+
+  def test_percentage_ties
+    file_loc = './data/games.csv'
+    game_methods = GameMethods.new(file_loc)
+
+    assert_equal 0.20, game_methods.percentage_ties
+  end
+
+  def test_percentage_visitor_wins
+    file_loc = './data/games.csv'
+    game_methods = GameMethods.new(file_loc)
+
+    assert_equal 0.36, game_methods.percentage_visitor_wins
+  end
+
+  def test_percentage_home_wins
+    file_loc = './data/games.csv'
+    game_methods = GameMethods.new(file_loc)
+
+    assert_equal 0.44, game_methods.percentage_home_wins
+  end
 end
