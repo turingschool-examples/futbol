@@ -79,4 +79,11 @@ class TeamStats
       game[:result] == "WIN"
     end
   end
+
+  def most_goals_scored(team_id)
+    most = all_team_games(team_id).max_by do |game|
+      game[:goals]
+    end
+    most[:goals]
+  end
 end
