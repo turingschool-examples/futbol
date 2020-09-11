@@ -36,17 +36,17 @@ class StatTracker
     (numerator / denominator.to_f * 100).round(2)
   end
 
-  # move to GameManager call on score sum for each game
-  # maybe remove season filter?
-  # add method in game class that sums total game score
-  def sum_game_goals(season = nil)
-    game_goals_hash = {}
-    season_games = filter_by_season(season)
-    season_games.each do |game|
-      game_goals_hash[game.game_id] = (game.away_goals + game.home_goals)
-    end
-    game_goals_hash
-  end
+  # # move to GameManager call on score sum for each game
+  # # maybe remove season filter?
+  # # add method in game class that sums total game score
+  # def sum_game_goals(season = nil)
+  #   game_goals_hash = {}
+  #   season_games = filter_by_season(season)
+  #   season_games.each do |game|
+  #     game_goals_hash[game.game_id] = (game.away_goals + game.home_goals)
+  #   end
+  #   game_goals_hash
+  # end
 
   # potential module, perhaps GameTeams
   def season_group
@@ -462,10 +462,8 @@ class StatTracker
   end
 
 # ~~~ Game Methods ~~~
-  def lowest_total_score(season)
-    sum_game_goals(season).min_by do |game_id, score|
-      score
-    end.last
+  def lowest_total_score
+    @games_manager.lowest_total_score
   end
 
   def highest_total_score(season)

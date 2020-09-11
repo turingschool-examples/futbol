@@ -21,11 +21,11 @@ class StatTrackerTest < Minitest::Test
 
   # ~~~ HELPER METHOD TESTS~~~
 
-  def test_it_can_sum_goals_per_game ###
-    expected = {
-      2014020006=>6, 2014021002=>4, 2014020598=>3, 2014020917=>5, 2014020774=>4, 2014020142=>5, 2014020981=>5, 2014020970=>5, 2014020002=>3, 2014020391=>3, 2014020423=>3, 2014020643=>6, 2014020371=>2, 2014020845=>5, 2014021083=>4, 2014020775=>4}
-    assert_equal expected, @stats.sum_game_goals("20142015")
-  end
+  # def test_it_can_sum_goals_per_game ###
+  #   expected = {
+  #     2014020006=>6, 2014021002=>4, 2014020598=>3, 2014020917=>5, 2014020774=>4, 2014020142=>5, 2014020981=>5, 2014020970=>5, 2014020002=>3, 2014020391=>3, 2014020423=>3, 2014020643=>6, 2014020371=>2, 2014020845=>5, 2014021083=>4, 2014020775=>4}
+  #   assert_equal expected, @stats.sum_game_goals("20142015")
+  # end
 
   def test_it_can_determine_highest_and_lowest_game_score ###
     assert_equal 1, @stats.lowest_total_score

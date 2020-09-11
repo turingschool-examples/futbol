@@ -13,8 +13,7 @@ class Game
               :venue,
               :venue_link
 
-  def initialize(data, games_manager)
-    @games_manager = games_manager
+  def initialize(data)
     @game_id = data[:game_id].to_i
     @season = data[:season]
     @type = data[:type]
@@ -26,5 +25,11 @@ class Game
     @venue = data[:venue]
     @venue_link = data[:venue_link]
   end
+
+  def sum_score
+    @away_goals + @home_goals 
+  end
+
+
 
 end
