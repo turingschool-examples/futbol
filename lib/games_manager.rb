@@ -16,13 +16,4 @@ class GamesManager
     end
   end
 
-
-  # def self.from_csv(path = "./data/games_sample.csv")
-  #   games = []
-    # CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
-    #   games << self.new(row)
-  #   end
-  #   @@all_games = games
-  # end
-
 end

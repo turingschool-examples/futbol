@@ -11,7 +11,6 @@ class TeamsManager
   end
 
   def create_teams(teams_table)
-    # teams_path = CSV.read(path)
     @teams = teams_table.map do |data|
       Team.new(data, self)
     end
