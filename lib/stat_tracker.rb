@@ -466,11 +466,9 @@ class StatTracker
     @games_manager.lowest_total_score
   end
 
-  def highest_total_score(season)
-    sum_game_goals(season).max_by do |game_id, score|
-      score
-    end.last
-  end
+  def highest_total_score
+    @games_manager.highest_total_score
+  end 
 
   #Rename to percentage_visitor_wins
   def percentage_away_wins
