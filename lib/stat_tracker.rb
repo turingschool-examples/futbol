@@ -5,21 +5,21 @@ class StatTracker
               :teams,
               :game_teams
 
-  def initialize(games, teams, game_teams, team_manager)
+  def initialize(games, teams, game_teams, locations)
     @games = games
     @teams = teams
     @game_teams = game_teams
+    @game_manager = GameManager.new(locations[:games], self)
+    @game_team_manager = GameTeamManager.new(locations[:game_teams], self)
+    @team_manager = TeamManager.new(locations[:teams], self)
   end
 
   def self.from_csv(locations)
     games = CSV.read(locations[:games], headers:true)
     teams = CSV.read(locations[:teams], headers:true)
     game_teams = CSV.read(locations[:game_teams], headers:true)
-    @game_manager = GameManager.new(locations[:games], self)
-    @game_team_manager = GameTeamManager.new(locations[:game_teams], self)
-    @team_manager = TeamManager.new(locations[:teams], self)
 
-    new(games, teams, game_teams)
+    new(games, teams, game_teams, locations)
   end
 
   def highest_total_score # runs through game_manager.rb
@@ -84,7 +84,7 @@ class StatTracker
   end
 
   def count_of_teams # team_manager.rb
-    @teams.count
+    @team_manager.count_of_teams
   end
 
   def best_offense # Theres so much we can do to refactor this
