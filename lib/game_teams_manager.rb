@@ -23,8 +23,21 @@ class GameTeamsStats
   end
 
   def all_home_wins
-  @game_teams_data.select do |game|
-    game.hoa == "home" && game.result == "WIN"
+  @game_teams_data.select do |game_team|
+    game_team.hoa == "home" && game_team.result == "WIN"
     end
+  end
+
+  def all_visitor_wins
+    @game_teams_data.select do |game_team|
+      game_team.hoa == "away" && game_team.result == "WIN"
+    end
+  end
+
+  def count_of_ties
+    double_ties = @game_teams_data.find_all do |game_team|
+      game_team.result == "TIE"
+    end
+    double_ties.count / 2
   end
 end
