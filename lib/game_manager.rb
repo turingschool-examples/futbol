@@ -1,4 +1,4 @@
-class GameStatistics
+class GameManager
   attr_reader :game_data,
               :tracker
 

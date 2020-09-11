@@ -3,8 +3,10 @@ SimpleCov.start
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
-require "./lib/game_statistics"
+require './lib/game_manager'
+require './lib/league_manager'
+require './lib/season_manager'
+require './lib/game_teams_manager'
 require './lib/stat_tracker'
 require './lib/game'
-require './lib/game_teams_stats'
 require './lib/game_teams'
