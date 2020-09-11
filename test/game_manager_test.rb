@@ -6,9 +6,9 @@ require './lib/stat_tracker'
 
 class GameManagerTest < Minitest::Test
   def setup
-    @game_path = './data/games.csv'
-    @team_path = './data/teams.csv'
-    @game_teams_path = './data/game_teams.csv'
+    @game_path = './fixture/games_dummy.csv'
+    @team_path = './fixture/teams_dummy.csv'
+    @game_teams_path = './fixture/game_teams_dummy.csv'
 
     @locations = {
       games: @game_path,
@@ -34,5 +34,9 @@ class GameManagerTest < Minitest::Test
     assert_equal '3', @stat_tracker.game_manager.games[0].home_goals
     assert_equal 'Toyota Stadium', @stat_tracker.game_manager.games[0].venue
     assert_equal '/api/v1/venues/null', @stat_tracker.game_manager.games[0].venue_link
+  end
+
+  def test_it_finds_game_of_season
+    assert_equal [], @stat_tracker.game_manager.games_of_season('20122013')
   end
 end
