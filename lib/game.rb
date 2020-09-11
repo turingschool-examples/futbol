@@ -8,5 +8,4 @@ class Game
     @away_goals = @away_goals.to_i
     @home_goals = @home_goals.to_i
   end
-
 end

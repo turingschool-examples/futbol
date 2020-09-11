@@ -1,53 +1,25 @@
-require 'csv'
-require_relative 'game'
-require_relative 'game_teams'
-require_relative 'team'
-require_relative 'team_statistics'
-require_relative 'season_stats_module'
-require_relative 'game_statistics'
-require_relative 'league_stats'
+require_relative 'game_manager'
+require_relative 'game_team_manager'
+require_relative 'team_manager'
+
 
 class StatTracker
-  include SeasonStatistics
-  include GameStatistics
-  include TeamStatistics
-  include LeagueStats
-  attr_reader :games, :teams, :game_teams
-
-  def initialize(games, teams, game_teams)
-    @games = games
-    @teams = teams
-    @game_teams = game_teams
-  end
-
+  attr_reader :game_teams_manager, :game_manager, :team_manager
   def self.from_csv(locations)
-    games = generate_games(locations[:games])
-    teams = generate_teams(locations[:teams])
-    game_teams = generate_game_teams(locations[:game_teams])
-    self.new(games, teams, game_teams)
+    StatTracker.new(locations)
   end
 
-  def self.generate_games(location)
-    array = []
-    CSV.foreach(location, headers: true) do |row|
-      array << Game.new(row.to_hash)
-    end
-    array
+  def initialize(locations)
+    load_managers(locations)
   end
 
-  def self.generate_teams(location)
-    array = []
-    CSV.foreach(location, headers: true) do |row|
-      array << Team.new(row.to_hash)
-    end
-    array
+  def load_managers(locations)
+    @game_manager = GameManager.new(locations, self)
+    @team_manager = TeamManager.new(locations, self)
+    @game_teams_manager = GameTeamManager.new(locations, self)
   end
 
-  def self.generate_game_teams(location)
-    array = []
-    CSV.foreach(location, headers: true) do |row|
-      array << GameTeams.new(row.to_hash)
-    end
-    array
+  def team_info(team_id)
+    @team_manager.team_info(team_id)
   end
 end
