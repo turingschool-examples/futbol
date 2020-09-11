@@ -11,6 +11,8 @@ class GameMethods
     @table = create_table
     @home_goals = @table['home_goals']
     @away_goals = @table['away_goals']
+    @seasons = @table['season']
+    @game_ids = @table['game_id']
   end
 
   def create_table
@@ -35,15 +37,30 @@ class GameMethods
     game_totals.min
   end
 
-  def determine_winner(index)
-  if @home_goals[index] > @away_goals[index]
-    :home
-  elsif @home_goals[index] < @away_goals[index]
-    :away
-  else
-    :tie
+  def games_by_season
+    @game_ids.group_by.with_index do |id, idx|
+      @seasons[idx]
+    end
   end
-end
+
+  def count_of_games_by_season
+    output_hash = {}
+    season_games = games_by_season
+    season_games.keys.each do |season|
+      output_hash[season] = season_games[season].length
+    end
+    output_hash
+  end
+
+  def determine_winner(index)
+    if @home_goals[index] > @away_goals[index]
+      :home
+    elsif @home_goals[index] < @away_goals[index]
+      :away
+    else
+      :tie
+    end
+  end
 
   def percentage_ties
     ties = (1..@away_goals.length).count do |game|
