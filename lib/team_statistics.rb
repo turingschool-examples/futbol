@@ -15,16 +15,16 @@ module TeamStatistics
       @game_table.each do |game_id, game|
         if  season_game_id_hash[game.season].nil? && (team_id.to_i == game.away_team_id || team_id.to_i == game.home_team_id)
            season_game_id_hash[game.season] = [game]
-         elsif team_id == game.away_team_id || team_id.to_i == game.home_team_id
+         elsif (team_id.to_i == game.away_team_id) || (team_id.to_i == game.home_team_id)
            season_game_id_hash[game.season] << game
          end
       end
     season_game_id_hash
   end
-  
-  def collect_wins_per_season(team_id, season_game_id_hash)
+
+  def collect_wins_per_season(team_id)
     season_wins = {}
-    season_game_id_hash.each do |season, info|
+    collect_seasons(team_id).each do |season, info|
       wins = 0
       info.each do |game|
         if (team_id.to_i) == game.away_team_id && (game.away_goals > game.home_goals)
@@ -40,12 +40,38 @@ module TeamStatistics
 
   def best_season(team_id)
     season_games = collect_seasons(team_id)
-    season_wins_hash = collect_wins_per_season(team_id, season_games)
-    games_played_per_season = {}
+    season_wins_hash = collect_wins_per_season(team_id)
+    winning_percentage_per_season = {}
     season_wins_hash.each do |season, wins|
-      games_played_per_season[season] = (wins.to_f/season_games.length).round(2)
+      winning_percentage_per_season[season] = (wins.to_f/season_games.length).round(2)
     end
-    games_played_per_season.key(games_played_per_season.values.max)
+    winning_percentage_per_season.key(winning_percentage_per_season.values.max)
+  end
+
+  def collect_losses_per_season(team_id)
+    season_losses = {}
+    collect_seasons(team_id).each do |season, info|
+      losses = 0
+      info.each do |game|
+        if (team_id.to_i) == game.away_team_id && (game.away_goals < game.home_goals)
+          losses += 1
+        elsif (team_id.to_i) == game.home_team_id && (game.away_goals > game.home_goals)
+          losses += 1
+        end
+      end
+      season_losses[season] = losses
+    end
+    season_losses
+  end
+
+  def worst_season(team_id)
+    season_games = collect_seasons(team_id)
+    season_losses_hash = collect_losses_per_season(team_id)
+    losing_percentage_per_season = {}
+    season_losses_hash.each do |season, losses|
+      losing_percentage_per_season[season] = (losses.to_f/season_games[season].length).round(2)
+    end
+    losing_percentage_per_season.key(losing_percentage_per_season.values.max)
   end
 
 end
