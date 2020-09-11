@@ -187,10 +187,10 @@ class StatTracker
 # #------------SeasonStatistics
 
   def winningest_coach(season)
-    gt_results = game_team_results_by_season(season)
-    coach_record_start = initialize_coaches_records(gt_results)
-    total_record = add_wins_losses(gt_results, coach_record_start)
-    determine_winningest_coach(total_record)
+  #   gt_results = game_team_results_by_season(season)
+  #   coach_record_start = initialize_coaches_records(gt_results)
+  #   total_record = add_wins_losses(gt_results, coach_record_start)
+  #   determine_winningest_coach(total_record)
   end
 
   def worst_coach(season)
@@ -227,6 +227,111 @@ class StatTracker
     total_tackles = add_tackles(gt_results, tackles_start)
     determine_team_with_least_tackles(total_tackles)
   end
+
+  # def game_team_results_by_season(season)
+  #     games_of_season = games.find_all do |game|
+  #       game['season'] == season
+  #     end
+  #     game_ids_in_season = games_of_season.map do |game|
+  #       game['game_id']
+  #     end
+  #     games_results_per_season = game_teams.find_all do |team_result|
+  #       game_ids_in_season.include? team_result['game_id']
+  #     end
+  #     games_results_per_season
+  #   end
+
+    def initialize_coaches_records(gt_results)
+      coach_record_hash = {}
+      gt_results.each do |team_result|
+        coach_record_hash[team_result['head_coach']] = {wins: 0, losses: 0, ties:0}
+      end
+      coach_record_hash
+    end
+
+    def add_wins_losses(gt_results, coach_record_start)
+      gt_results.each do |team_result|
+        if team_result['result'] == "WIN"
+          coach_record_start[team_result['head_coach']][:wins] += 1
+        elsif team_result['result'] == "LOSS"
+          coach_record_start[team_result['head_coach']][:losses] += 1
+        elsif team_result['result'] == "TIE"
+          coach_record_start[team_result['head_coach']][:ties] += 1
+        end
+      end
+      coach_record_start
+    end
+
+    def determine_winningest_coach(totaled_record)
+      totaled_record.max_by do |coach, w_l|
+        w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
+      end[0]
+    end
+
+    def determine_worst_coach(totaled_record)
+      totaled_record.min_by do |coach, w_l|
+        w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
+      end[0]
+    end
+
+    def initialize_shots_and_goals_per_team(gt_results)
+      total_shots_goals = {}
+      gt_results.each do |team_result|
+        total_shots_goals[team_result['team_id']] = {shots: 0, goals: 0}
+      end
+      total_shots_goals
+    end
+
+    def add_shots_and_goals(gt_results, shots_goals_start)
+      gt_results.each do |team_result|
+        shots_goals_start[team_result['team_id']][:shots] += team_result['shots'].to_i
+        shots_goals_start[team_result['team_id']][:goals] += team_result['goals'].to_i
+      end
+      shots_goals_start
+    end
+
+    def determine_team_with_best_accuracy(total_shots_goals)
+      result_id = total_shots_goals.max_by do |id, s_g|
+        s_g[:goals].to_f / s_g[:shots]
+      end[0]
+      find_team_by_team_id(result_id)
+    end
+
+    def determine_team_with_worst_accuracy(total_shots_goals)
+      result_id = total_shots_goals.min_by do |id, s_g|
+        s_g[:goals].to_f / s_g[:shots]
+      end[0]
+      find_team_by_team_id(result_id)
+    end
+
+    def initialize_tackles_per_team(gt_results)
+      tackles_per_team = {}
+      gt_results.each do |team_result|
+        tackles_per_team[team_result['team_id']] = 0
+      end
+      tackles_per_team
+    end
+
+    def add_tackles(gt_results, tackles_start)
+      gt_results.each do |team_result|
+        tackles_start[team_result['team_id']] += team_result['tackles'].to_i
+      end
+      tackles_start
+    end
+
+    def determine_team_with_most_tackles(total_tackles)
+      result_id = total_tackles.max_by do |id, tackle_count|
+        tackle_count
+      end[0]
+      find_team_by_team_id(result_id)
+    end
+
+    def determine_team_with_least_tackles(total_tackles)
+      result_id = total_tackles.min_by do |id, tackle_count|
+        tackle_count
+      end[0]
+      find_team_by_team_id(result_id)
+    end
 
 
 #------------TeamStatistics
@@ -372,110 +477,7 @@ class StatTracker
     end
   # -----------------SeasonStatistics
 
-def game_team_results_by_season(season)
-    games_of_season = games.find_all do |game|
-      game['season'] == season
-    end
-    game_ids_in_season = games_of_season.map do |game|
-      game['game_id']
-    end
-    games_results_per_season = game_teams.find_all do |team_result|
-      game_ids_in_season.include? team_result['game_id']
-    end
-    games_results_per_season
-  end
 
-  def initialize_coaches_records(gt_results)
-    coach_record_hash = {}
-    gt_results.each do |team_result|
-      coach_record_hash[team_result['head_coach']] = {wins: 0, losses: 0, ties:0}
-    end
-    coach_record_hash
-  end
-
-  def add_wins_losses(gt_results, coach_record_start)
-    gt_results.each do |team_result|
-      if team_result['result'] == "WIN"
-        coach_record_start[team_result['head_coach']][:wins] += 1
-      elsif team_result['result'] == "LOSS"
-        coach_record_start[team_result['head_coach']][:losses] += 1
-      elsif team_result['result'] == "TIE"
-        coach_record_start[team_result['head_coach']][:ties] += 1
-      end
-    end
-    coach_record_start
-  end
-
-  def determine_winningest_coach(totaled_record)
-    totaled_record.max_by do |coach, w_l|
-      w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
-    end[0]
-  end
-
-  def determine_worst_coach(totaled_record)
-    totaled_record.min_by do |coach, w_l|
-      w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
-    end[0]
-  end
-
-  def initialize_shots_and_goals_per_team(gt_results)
-    total_shots_goals = {}
-    gt_results.each do |team_result|
-      total_shots_goals[team_result['team_id']] = {shots: 0, goals: 0}
-    end
-    total_shots_goals
-  end
-
-  def add_shots_and_goals(gt_results, shots_goals_start)
-    gt_results.each do |team_result|
-      shots_goals_start[team_result['team_id']][:shots] += team_result['shots'].to_i
-      shots_goals_start[team_result['team_id']][:goals] += team_result['goals'].to_i
-    end
-    shots_goals_start
-  end
-
-  def determine_team_with_best_accuracy(total_shots_goals)
-    result_id = total_shots_goals.max_by do |id, s_g|
-      s_g[:goals].to_f / s_g[:shots]
-    end[0]
-    find_team_by_team_id(result_id)
-  end
-
-  def determine_team_with_worst_accuracy(total_shots_goals)
-    result_id = total_shots_goals.min_by do |id, s_g|
-      s_g[:goals].to_f / s_g[:shots]
-    end[0]
-    find_team_by_team_id(result_id)
-  end
-
-  def initialize_tackles_per_team(gt_results)
-    tackles_per_team = {}
-    gt_results.each do |team_result|
-      tackles_per_team[team_result['team_id']] = 0
-    end
-    tackles_per_team
-  end
-
-  def add_tackles(gt_results, tackles_start)
-    gt_results.each do |team_result|
-      tackles_start[team_result['team_id']] += team_result['tackles'].to_i
-    end
-    tackles_start
-  end
-
-  def determine_team_with_most_tackles(total_tackles)
-    result_id = total_tackles.max_by do |id, tackle_count|
-      tackle_count
-    end[0]
-    find_team_by_team_id(result_id)
-  end
-
-  def determine_team_with_least_tackles(total_tackles)
-    result_id = total_tackles.min_by do |id, tackle_count|
-      tackle_count
-    end[0]
-    find_team_by_team_id(result_id)
-  end
 
 #------------LeagueStatistics Helper Methods
   def find_team_by_team_id(id)
