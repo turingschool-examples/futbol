@@ -5,20 +5,33 @@ class GameStatistics
     @stat_tracker = stat_tracker
   end
 
+  # def initialize(data, games_manager)
+  #   @data =
+  #   @games_manager = games_manager
+  # end
+
   def sum_team_scores
     grouping = {}
-    total_score_data_set.map do |array|
-      if grouping[array[0]].nil?
-        grouping[array[0]] = array[1].to_i
+    total_score_data_set.map do |set|
+      if grouping[set[0]].nil?
+        grouping[set[0]] = set[1].to_i
       else
-        grouping[array[0]] += array[1].to_i
+        grouping[set[0]] += set[1].to_i
       end
     end
     grouping
   end
 
+  def adding_goals_per_game
+    home_away_data_set.map do |numbers|
+      numbers.sum do |number|
+        number.to_i
+      end
+    end
+  end
+
   def total_score_data_set
-    @stat_tracker[:game_teams]["game_id"].zip(@stat_tracker[:game_teams]["goals"])
+    @stat_tracker[:games]["game_id"].zip(adding_goals_per_game)
   end
 
   def highest_total_score
