@@ -52,4 +52,18 @@ module GameStatistics
     end
     (tie_games.to_f/total_games.to_f).round(2)
   end
+
+  def count_of_games_by_season
+    total_games_per_season = {}
+    @game_table.each do |game_id, game|
+      if total_games_per_season[game.season].nil?
+        total_games_per_season[game.season] = [game]
+      else
+        total_games_per_season[game.season] << game
+      end
+    end
+    total_games_per_season.each do |key, value|
+      total_games_per_season[key] = value.length
+    end
+  end
 end
