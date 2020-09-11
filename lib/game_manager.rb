@@ -1,15 +1,17 @@
 class GameManager
   attr_reader :games, :tracker #do we need attr_reader?
-  def initialize(path, tracker)
+
+  def initialize(file_path, tracker)
     @games = []
     @tracker = tracker
-    create_games(path)
+    create_games(file_path)
   end
 
-  def create_games(path)
-    games_data = CSV.read(path, headers:true) #may need to change .read to .load
-    @games = games_data.map do |data|
-      Game.new(data, self)
+  def create_games(file_path)
+    games_data = CSV.read(file_path, headers:true) #may need to change .read to .load
+
+    games_data.each do |data|
+      games << Game.new()
     end
   end
 end
