@@ -1,5 +1,5 @@
 require "csv"
-require "./lib/game_teams_manager"
+require_relative "./game_teams_manager"
 
 class GameTeam
   attr_reader :game_id,

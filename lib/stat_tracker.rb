@@ -1,7 +1,7 @@
 require "csv"
-require "./lib/teams_manager"
-require "./lib/games_manager"
-require "./lib/game_teams_manager"
+require_relative "./teams_manager"
+require_relative "./games_manager"
+require_relative "./game_teams_manager"
 
 class StatTracker
   attr_reader :teams_manager, :games_manager, :game_teams_manager

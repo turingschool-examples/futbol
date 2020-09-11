@@ -1,10 +1,10 @@
 require 'csv'
-require './lib/stat_tracker'
-require './lib/game'
+require_relative './stat_tracker'
+require_relative './game'
 
 class GamesManager
 
-  attr_reader :stat_tracker, :games 
+  attr_reader :stat_tracker, :games
 
   def initialize(path, stat_tracker)
     @stat_tracker = stat_tracker

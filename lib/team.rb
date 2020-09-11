@@ -1,5 +1,5 @@
 require "csv"
-require "./lib/teams_manager"
+require_relative "./teams_manager"
 
 class Team
   # @@all_teams = []
