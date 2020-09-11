@@ -1,16 +1,15 @@
 require 'CSV'
-require_relative 'game_statistics'
-require_relative 'league_stats'
+# require_relative 'game_statistics'
+# require_relative 'league_stats'
 
 class StatTracker
   attr_reader :game_statistics,
-              :game_team_stats 
+              :game_teams_stats
 
   def initialize(locations)
-    @teams = locations[:teams]
-    @game_teams_statistics = GameTeamStatsistics.new(locations[:game_teams], self)
     @game_statistics = GameStatistics.new(locations[:games], self)
-    @league_statistics = LeagueStatistics.new(teams_stats, @game_statistics)
+    @game_teams_stats = GameTeamsStats.new(locations[:game_teams], self)
+    # @league_statistics = LeagueStatistics.new()
   end
 
   def self.from_csv(locations)
@@ -18,19 +17,6 @@ class StatTracker
   end
 
 
-
-  def game_teams_stats
-    game_teams_data = CSV.read(@game_teams, { encoding: 'UTF-8', headers: true, header_converters: :symbol, converters: :all })
-    hashed_game_teams_data = game_teams_data.map { |row| row.to_hash }
-    hashed_game_teams_data.each do |row|
-      row.delete(:pim)
-      row.delete(:powerPlayOpportunities)
-      row.delete(:powerPlayGoals)
-      row.delete(:faceOffWinPercentage)
-      row.delete(:giveaways)
-      row.delete(:takeaways)
-    end
-  end
 
   def teams_stats
     teams_data = CSV.read(@teams, { encoding: 'UTF-8', headers: true, header_converters: :symbol, converters: :all })
