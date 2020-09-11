@@ -21,4 +21,10 @@ class GameTeamsStats
     end
     result
   end
+
+  def all_home_wins
+  @game_teams_data.select do |game|
+    game.hoa == "home" && game.result == "WIN"
+    end
+  end
 end

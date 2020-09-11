@@ -41,10 +41,7 @@ class GameStatistics
   end
 
   def all_home_wins
-    require "pry"; binding.pry
-    # @tracker.select do |game|
-    #   game[:hoa] == "home" && game[:result] == "WIN"
-    # end
+    @tracker.game_teams_stats.all_home_wins
   end
 
   # def percentage_visitor_wins
