@@ -141,7 +141,25 @@ class TeamStatisticsTest < Minitest::Test
     expected = {
       "24" => { game_data: [@stat_tracker.game_teams[4]] }
     }
-    actual = @stat_tracker.opponent_game_teams("17")
+    actual = @stat_tracker.opponent_game_teams('17')
+
+    assert_equal expected, actual
+  end
+
+  def test_it_can_generate_opponent_win_stats
+    value = {
+      "24" => { game_data: [@stat_tracker.game_teams[4]] }
+    }
+    @stat_tracker.stubs(:opponent_game_teams).returns(value)
+    expected = {
+      "24" => {
+        game_data: [@stat_tracker.game_teams[4]],
+        total: 1,
+        wins:  1,
+        win_percent: 1
+      }
+    }
+    actual = @stat_tracker.opponent_win_stats('17')
 
     assert_equal expected, actual
   end
