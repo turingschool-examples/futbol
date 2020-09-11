@@ -12,4 +12,8 @@ class LeagueStatisticsTest < Minitest::Test
     assert_equal 32, @stat_tracker.count_of_teams
   end
 
+  def test_best_offense
+    assert_equal "Reign FC", @stat_tracker.best_offense
+  end
+
 end
