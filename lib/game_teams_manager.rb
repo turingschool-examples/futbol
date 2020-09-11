@@ -12,4 +12,13 @@ class GameTeamsManager
       GameTeams.new(data, self)
     end
   end
+
+  # -------SeasonStats
+
+  def winningest_coach(season)
+    gt_results = game_team_results_by_season(season)
+    coach_record_start = initialize_coaches_records(gt_results)
+    total_record = add_wins_losses(gt_results, coach_record_start)
+    determine_winningest_coach(total_record)
+  end
 end
