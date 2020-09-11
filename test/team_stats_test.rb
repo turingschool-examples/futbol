@@ -24,39 +24,47 @@ class TeamStatsTest < Minitest::Test
     @team_stats = TeamStats.new(@season_stats)
   end
 
-  # def test_it_exists
-  #   assert_instance_of TeamStats, @team_stats
-  # end
-  #
-  # def test_in_can_find_team_info
-  #   expected = {"team_id"=>"18",
-  #               "franchiseid"=>"34",
-  #               "teamname"=>"Minnesota United FC",
-  #               "abbreviation"=>"MIN",
-  #               "link"=>"/api/v1/teams/18"
-  #   }
-  #   assert_equal expected, @team_stats.team_info("18")
-  # end
-  #
-  # def test_all_team_games
-  #   assert_equal 510, @team_stats.all_team_games("6").count
-  # end
-  #
-  # def test_it_can_group_by_season
-  #   assert_equal 6, @team_stats.group_by_season("6").keys.count
-  # end
-  #
-  # def test_it_can_find_percent_wins_by_season
-  #   expected = {"2012"=>0.543, "2017"=>0.532, "2013"=>0.574, "2014"=>0.378, "2015"=>0.402, "2016"=>0.511}
-  #
-  #   assert_equal expected, @team_stats.percent_wins_by_season("6")
-  # end
-  #
-  # def test_it_can_find_best_season
-  #   assert_equal "20132014", @team_stats.best_season("6")
-  # end
+  def test_it_exists
+    assert_instance_of TeamStats, @team_stats
+  end
+
+  def test_in_can_find_team_info
+    expected = {"team_id"=>"18",
+                "franchiseid"=>"34",
+                "teamname"=>"Minnesota United FC",
+                "abbreviation"=>"MIN",
+                "link"=>"/api/v1/teams/18"
+    }
+    assert_equal expected, @team_stats.team_info("18")
+  end
+
+  def test_all_team_games
+    assert_equal 510, @team_stats.all_team_games("6").count
+  end
+
+  def test_it_can_group_by_season
+    assert_equal 6, @team_stats.group_by_season("6").keys.count
+  end
+
+  def test_it_can_find_percent_wins_by_season
+    expected = {"2012"=>0.543, "2017"=>0.532, "2013"=>0.574, "2014"=>0.378, "2015"=>0.402, "2016"=>0.511}
+
+    assert_equal expected, @team_stats.percent_wins_by_season("6")
+  end
+
+  def test_it_can_find_best_season
+    assert_equal "20132014", @team_stats.best_season("6")
+  end
 
   def test_it_can_find_worst_season
     assert_equal "20142015", @team_stats.worst_season("6")
+  end
+
+  def test_it_can_find_total_wins
+    assert_equal 251, @team_stats.total_wins("6").count
+  end
+
+  def test_it_can_find_avg_win_percentage
+    assert_equal 0.49, @team_stats.average_win_percentage("6")
   end
 end
