@@ -109,18 +109,17 @@ module TeamStatistics
   end
 
   def opponent_game_teams(team_id)
-    game_ids = games_to_game_ids(games_by_team_id(team_id)) # ids involving team of interest
-    opponent_games = {}
-    teams.each do |team|
-      next if team.team_id == team_id
-
-      opponent_games[team.team_id] = {}
-      opponent_games[team.team_id][:game_data] = game_teams.select do |single_game_stats|
-        (single_game_stats.team_id == team.team_id) && game_ids.include?(single_game_stats.game_id)
+    game_ids = games_to_game_ids(games_by_team_id(team_id))
+    opponent_ids = teams.reject do |team|
+      team.team_id == team_id
+    end.map(&:team_id)
+    opponent_ids.reduce({}) do |collector, id|
+      collector[id] = {}
+      collector[id][:game_data] = game_teams.select do |game_team|
+        game_team.team_id == id && game_ids.include?(game_team.game_id)
       end
+      collector
     end
-
-    opponent_games
   end
 
   def favorite_opponent(team_id)
