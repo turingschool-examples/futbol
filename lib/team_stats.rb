@@ -86,4 +86,11 @@ class TeamStats
     end
     most[:goals]
   end
+
+  def fewest_goals_scored(team_id)
+    fewest = all_team_games(team_id).min_by do |game|
+      game[:goals]
+    end
+    fewest[:goals]
+  end
 end
