@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'Pry'
-#require './data/teams_dummy'
 require './lib/team'
 
 class TeamTest < Minitest::Test
