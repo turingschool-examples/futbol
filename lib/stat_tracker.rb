@@ -20,11 +20,13 @@ class StatTracker
   end
 
 # ~~~ Helper Methods ~~~~
-  def total_games
-    @games.count
+
+  def total_games(filtered_games = @games)
+    filtered_games.count
   end
 
   def find_percent(numerator, denominator)
+    return 0.0 if denominator == 0
     (numerator / denominator.to_f * 100).round(2)
   end
 
@@ -41,6 +43,23 @@ class StatTracker
     @games.group_by do |row|
       row.season
     end
+  end
+
+  def total_goals(filtered_games = @games)
+    filtered_games.reduce(0) do |sum, game|
+      sum += (game.home_goals + game.away_goals)
+    end
+  end
+
+  def ratio(numerator, denominator)
+    (numerator.to_f / denominator).round(2)
+  end
+
+  def seasonal_game_data
+    seasonal_game_data = @games.group_by do |game|
+      game.season
+    end
+    seasonal_game_data
   end
 
   def total_scores_by_team
@@ -79,14 +98,14 @@ class StatTracker
   end
 
   def team_wins_as_home(team_id, season)
-    @games.find_all do |game|
-      game.home_team_id == team_id && game.home_goals > game.away_goals && game.season == season
+    season_group[season].find_all do |game|
+      (game.home_team_id == team_id) && (game.home_goals > game.away_goals)
     end.count
   end
 
   def team_wins_as_away(team_id, season)
-    @games.find_all do |game|
-      game.away_team_id == team_id && game.away_goals > game.home_goals
+    season_group[season].find_all do |game|
+      (game.away_team_id == team_id) && (game.away_goals > game.home_goals)
     end.count
   end
 
@@ -94,8 +113,14 @@ class StatTracker
     team_wins_as_home(team_id, season) + team_wins_as_away(team_id, season)
   end
 
+  def total_team_games_per_season(team_id, season)
+    season_group[season].select do |game|
+      game.away_team_id == team_id || game.home_team_id == team_id
+    end.count
+  end
+
   def season_win_percentage(team_id, season)
-    find_percent(total_team_wins(team_id, season), count_of_games_by_season)
+    find_percent(total_team_wins(team_id, season), total_team_games_per_season(team_id, season))
   end
 
   def team_ids
@@ -123,6 +148,156 @@ class StatTracker
       win_percentage
     end.first
   end
+
+  def total_game_teams(filtered_game_teams = @game_teams)
+    filtered_game_teams.count
+  end
+
+  def avg_score(filtered_game_teams = @game_teams)
+    ratio(total_score(filtered_game_teams), total_game_teams(filtered_game_teams))
+  end
+
+  def team_id_to_team_name(id)
+    team_obj = @teams.select do |team|
+      team.team_id == id
+    end
+    team_obj[0].team_name
+  end
+
+  def total_score(filtered_game_teams = @game_teams)
+    total_score = filtered_game_teams.reduce(0) do |sum, game_team|
+      sum += game_team.goals
+    end
+  end
+
+  def home_games
+    @game_teams.select do |game|
+      game.hoa == "home"
+    end
+  end
+
+  def away_games
+    @game_teams.select do |game_team|
+      game_team.hoa == "away"
+    end
+  end
+
+  def home_games_by_team
+    home_games.group_by do |game_team|
+      game_team.team_id
+    end
+  end
+
+  def away_games_by_team
+    away_games.group_by do |game_team|
+      game_team.team_id
+    end
+  end
+
+  def all_seasons
+    unique_seasons = []
+    @games.each do |game|
+      if !unique_seasons.include?(game.season)
+        unique_seasons << game.season
+      end
+    end
+    unique_seasons.sort
+  end
+
+  def all_teams_all_seasons_win_percentages
+    win_percentages_by_season = {}
+    all_seasons.each do |season|
+      team_ids.each do |team_id|
+        if win_percentages_by_season[team_id] == nil
+          win_percentages_by_season[team_id] = {season =>
+            season_win_percentage(team_id, season)}
+        else
+          win_percentages_by_season[team_id][season] =
+          season_win_percentage(team_id, season)
+        end
+      end
+    end
+    win_percentages_by_season
+  end
+
+  def home_or_away_games(where = "home")
+    @game_teams.select do |game|
+      game.hoa == where
+    end
+  end
+
+  def hoa_games_by_team_id(hoa)
+    home_or_away_games(hoa).group_by do |game_team|
+      game_team.team_id
+    end
+  end
+
+  def lowest_scoring_team_id(hoa)
+    hoa_games_by_team_id(hoa).min_by do |team_id, details|
+      avg_score(details)
+    end[0]
+  end
+
+  def team_id_to_team_name(id)
+    @teams.each do |team|
+      return team.team_name if team.team_id == id
+    end
+  end
+
+  def total_wins(game_teams_filtered = @game_teams)
+    game_teams_filtered.count do |gameteam|
+      gameteam.result == "WIN"
+    end
+  end
+
+  def filter_by_teamid(id)
+    @game_teams.select do |game_team|
+      game_team.team_id == id
+    end
+  end
+
+  def avg_win_perc_by_opp(teamid)
+    awp_by_opp = {}
+    game_teams_by_opponent(teamid).each do |opponent, gameteams|
+      awp_by_opp[opponent] = find_percent(total_wins(gameteams), total_game_teams(gameteams))
+    end
+    awp_by_opp
+  end
+
+  def fave_opponent_id(teamid)
+    avg_win_perc_by_opp(teamid).max_by do |opponent, win_perc|
+      win_perc
+    end[0]
+  end
+
+  def rival_id(teamid)
+    avg_win_perc_by_opp(teamid).min_by do |opponent, win_perc|
+      win_perc
+    end[0]
+  end
+
+  def game_teams_by_opponent(teamid)
+    gt_by_opp = {}
+    filter_by_teamid(teamid).each do |gameteam|
+      if gt_by_opp[get_opponent_id(get_game(gameteam.game_id), teamid)]
+        gt_by_opp[get_opponent_id(get_game(gameteam.game_id), teamid)] << gameteam
+      else
+        gt_by_opp[get_opponent_id(get_game(gameteam.game_id), teamid)] = [gameteam]
+      end
+    end
+    gt_by_opp
+  end
+
+  def get_game(gameid)
+    @games.find do |game|
+      game.game_id == gameid
+    end
+  end
+
+  def get_opponent_id(game, teamid)
+    game.away_team_id == teamid ? game.home_team_id : game.away_team_id
+  end
+
 
   def game_ids_per_season(season)
     specific_season = season_group[season]
@@ -161,6 +336,7 @@ class StatTracker
       (shots.to_f / goals).round(2)
     end
   end
+
 # ~~~ Game Methods ~~~
   def lowest_total_score(season)
     sum_game_goals(season).min_by do |game_id, score|
@@ -174,24 +350,56 @@ class StatTracker
     end.last
   end
 
-  def team_wins_as_home(team_id, season)
-    @games.find_all do |game|
-      game.home_team_id == team_id && game.home_goals > game.away_goals && game.season == season
-    end.count
+  def game_ids_by_season(season)
+    filter_by_season(season).map do |game|
+      game.game_id
+    end.sort
   end
 
-  def team_wins_as_away(team_id, season)
-    @games.find_all do |game|
-      game.away_team_id == team_id && game.away_goals > game.home_goals
-    end.count
+  def team_tackles(season)
+    team_season_tackles = {}
+    games = @game_teams.find_all do |game|
+      game_ids_by_season(season).include?(game.game_id)
+    end
+    games.each do |game|
+      if team_season_tackles[game.team_id]
+        team_season_tackles[game.team_id] += game.tackles
+      else
+        team_season_tackles[game.team_id] = game.tackles
+      end
+    end
+    team_season_tackles
   end
 
-  def total_team_wins(team_id, season)
-    team_wins_as_home(team_id, season) + team_wins_as_away(team_id, season)
+  def team_identifier(team_id)
+    @teams.find do |team|
+      team.team_id == team_id
+    end.team_name
   end
 
-  def season_win_percentage(team_id, season)
-    find_percent(total_team_wins(team_id, season), count_of_games_by_season[season])
+  def games_by_team(team_id)
+    @game_teams.select do |game|
+      game.team_id == team_id
+    end
+  end
+
+  def team_goals_by_game(team_id)
+    games_by_team(team_id).map do |game|
+      game.goals
+    end
+  end
+
+# ~~~ Game Methods ~~~
+  def lowest_total_score(season)
+    sum_game_goals(season).min_by do |game_id, score|
+      score
+    end.last
+  end
+
+  def highest_total_score(season)
+    sum_game_goals(season).max_by do |game_id, score|
+      score
+    end.last
   end
 
   def percentage_away_wins
@@ -217,6 +425,18 @@ class StatTracker
     count
   end
 
+  def avg_goals_by_season
+    avg_goals_by_season = {}
+    seasonal_game_data.each do |season, details|
+      avg_goals_by_season[season] = ratio(total_goals(details), total_games(details))
+    end
+    avg_goals_by_season
+  end
+
+  def avg_goals_per_game
+    ratio(total_goals, total_games)
+  end
+
 # ~~~ LEAGUE METHODS~~~
   def worst_offense
     worst = average_scores_by_team.min_by {|id, average| average}
@@ -228,7 +448,57 @@ class StatTracker
     team_names_by_team_id(best[0])
   end
 
+  def count_of_teams
+    @teams.count
+  end
+
+  def highest_scoring_home_team
+    highest_scoring_home_team = home_games_by_team.max_by do |team_id, details|
+      avg_score(details)
+    end[0]
+    team_id_to_team_name(highest_scoring_home_team)
+  end
+
+  def highest_scoring_visitor
+    highest_scoring_visitor = away_games_by_team.max_by do |team_id, details|
+      avg_score(details)
+    end[0]
+    team_id_to_team_name(highest_scoring_visitor)
+  end
+
+  def lowest_scoring_visitor_team
+    team_id_to_team_name(lowest_scoring_team_id("away"))
+  end
+
+  def lowest_scoring_home_team
+    team_id_to_team_name(lowest_scoring_team_id("home"))
+  end
+
 # ~~~ SEASON METHODS~~~
+
+  def winningest_coach(season)
+    @game_teams.find do |game_team|
+      game_team.team_id == winningest_team(season)
+    end.head_coach
+  end
+
+  def worst_coach(season)
+    @game_teams.find do |game_team|
+      game_team.team_id == worst_team(season)
+    end.head_coach
+  end
+
+  def most_tackles(season)
+    team_identifier(team_tackles(season).max_by do |team|
+      team.last
+    end.first)
+  end
+
+  def fewest_tackles(season)
+    team_identifier(team_tackles(season).min_by do |team|
+      team.last
+    end.first)
+  end
 
   def most_accurate_team(season)
     most_accurate = shots_per_goal_per_season(season).min_by { |team, avg| avg}
@@ -242,4 +512,63 @@ class StatTracker
 
 # ~~~ TEAM METHODS~~~
 
+  def best_season(team_id)
+    all_teams_all_seasons_win_percentages.flat_map do |team, seasons|
+      if team == team_id
+        seasons.max_by do |season|
+          season.last
+        end
+      end
+    end.compact.first
+  end
+
+  def average_win_percentage(teamid)
+    find_percent(total_wins(filter_by_teamid(teamid)), total_game_teams(filter_by_teamid(teamid)))
+  end
+
+  def favorite_opponent(teamid)
+    team_id_to_team_name(fave_opponent_id(teamid))
+  end
+
+  def rival(teamid)
+    team_id_to_team_name(rival_id(teamid))
+  end
+
+  def worst_season(team_id)
+    all_teams_all_seasons_win_percentages.flat_map do |team, seasons|
+      if team == team_id
+        seasons.min_by do |season|
+          season.last
+        end
+      end
+    end.compact.first
+  end
+
+  def average_win_percentage(id)
+    find_percent(total_wins(filter_by_teamid(id)), total_game_teams(filter_by_teamid(id)))
+  end
+
+  def team_info(team_id)
+    team_string = team_id.to_s
+    team_string = {}
+    @teams.each do |team|
+      if team.team_id == team_id
+        team_string[:team_id] = team.team_id
+        team_string[:franchise_id] = team.franchise_id
+        team_string[:team_name] = team.team_name
+        team_string[:abbreviation] = team.abbreviation
+        team_string[:stadium] = team.stadium
+        team_string[:link] = team.link
+      end
+    end
+    team_string
+  end
+
+  def most_goals_scored(team_id)
+    team_goals_by_game(team_id).max
+  end
+
+  def fewest_goals_scored(team_id)
+    team_goals_by_game(team_id).min
+  end
 end
