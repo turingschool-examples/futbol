@@ -4,6 +4,6 @@ require 'mocha/minitest'
 require './lib/stat_tracker'
 require './lib/game_teams_manager'
 
-class GameTeamsMangerTest < Minitest::Test
+class GameTeamsManagerTest < Minitest::Test
 
 end
