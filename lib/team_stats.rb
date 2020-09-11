@@ -62,4 +62,11 @@ class TeamStats
     result = "#{best_year}201#{best_year.digits[0] + 1}"
   end
 
+  def worst_season(team_id)
+    worst = percent_wins_by_season(team_id).min_by do |season, percent_wins|
+      percent_wins
+    end
+    worst_year = worst[0].to_i
+    result = "#{worst_year}201#{worst_year.digits[0] + 1}"
+  end
 end
