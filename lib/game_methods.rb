@@ -45,6 +45,13 @@ class GameMethods
     end
   end
 
+  def percentage_visitor_wins
+    away_wins = (1..@away_goals.length).count do |game|
+      :away == determine_winner(game - 1)
+    end
+    (away_wins.to_f / @away_goals.length).round(2)
+  end
+
   def percentage_home_wins
     home_wins = (1..@home_goals.length).count do |game|
       :home == determine_winner(game - 1)
