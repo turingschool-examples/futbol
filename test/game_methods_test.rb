@@ -40,6 +40,14 @@ class GameMethodsTest < Minitest::Test
     assert_equal 0, game_methods.lowest_total_score
   end
 
+  def test_average_goals_per_game
+    file_loc = './data/games.csv'
+
+    game_methods = GameMethods.new(file_loc)
+
+    assert_equal 4.22, game_methods.average_goals_per_game
+  end
+
   def test_count_of_games_by_season
     file_loc = './data/games.csv'
 
@@ -56,7 +64,7 @@ class GameMethodsTest < Minitest::Test
 
     assert_equal expected, game_methods.count_of_games_by_season
   end
-  
+
   def test_percentage_ties
     file_loc = './data/games.csv'
     game_methods = GameMethods.new(file_loc)
