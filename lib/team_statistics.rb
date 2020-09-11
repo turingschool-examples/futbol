@@ -116,7 +116,7 @@ module TeamStatistics
     opponent_ids.reduce({}) do |collector, id|
       collector[id] = {}
       collector[id][:game_data] = game_teams.select do |game_team|
-        game_team.team_id == id && game_ids.include?(game_team.game_id)
+        game_ids.include?(game_team.game_id) && game_team.team_id == id
       end
       collector
     end
@@ -124,12 +124,12 @@ module TeamStatistics
 
   def favorite_opponent(team_id)
     opponent_data = opponent_game_teams(team_id)
-    opponent_data.each do |team_id, team_data|
-      opponent_data[team_id][:total] = team_data[:game_data].length
-      opponent_data[team_id][:wins] = team_data[:game_data].select do |game|
+    opponent_data.each do |opponent_id, team_data|
+      opponent_data[opponent_id][:total] = team_data[:game_data].length
+      opponent_data[opponent_id][:wins] = team_data[:game_data].select do |game|
         game.result == 'WIN'
       end.length
-      opponent_data[team_id][:win_percent] = (opponent_data[team_id][:wins] / opponent_data[team_id][:total].to_f).round(2)
+      opponent_data[opponent_id][:win_percent] = (opponent_data[opponent_id][:wins] / opponent_data[opponent_id][:total].to_f).round(2)
     end
     favorite_id = opponent_data.keys.min_by do |opponent_id|
       opponent_data[opponent_id][:win_percent]
