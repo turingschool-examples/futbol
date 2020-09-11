@@ -21,7 +21,7 @@ module TeamStatistics
       end
     season_game_id_hash
   end
-
+  
   def collect_wins_per_season(team_id, season_game_id_hash)
     season_wins = {}
     season_game_id_hash.each do |season, info|
