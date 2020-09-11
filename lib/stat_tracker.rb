@@ -1,22 +1,35 @@
 require "csv"
-require "./lib/teams"
-require "./lib/games"
-require "./lib/game_teams"
+require "./lib/teams_manager"
+require "./lib/games_manager"
+require "./lib/game_teams_manager"
 
 class StatTracker
-  attr_reader :teams, :games, :game_teams
+  attr_reader :teams_manager, :games_manager, :game_teams_manager
 
-  def initialize(teams, games, game_teams)
-    @teams = teams
-    @games = games
-    @game_teams = game_teams
+  def initialize(locations)
+    # @teams = teams
+    # @games = games
+    # @game_teams = game_teams
+    load_managers(locations)
   end
 
   def self.from_csv(locations = {games: './data/games_sample.csv', teams: './data/teams_sample.csv', game_teams: './data/game_teams_sample.csv'})
-    Game.from_csv(locations[:games])
-    Team.from_csv(locations[:teams])
-    GameTeam.from_csv(locations[:game_teams])
-    self.new(Team.all_teams, Game.all_games, GameTeam.all_game_teams)
+    # Game.from_csv(locations[:games])
+    # Team.from_csv(locations[:teams])
+    # GameTeam.from_csv(locations[:game_teams])
+    # StatTracker.new(Team.all_teams, Game.all_games, GameTeam.all_game_teams)
+    StatTracker.new(locations)
+  end
+
+  def load_managers(locations)
+    @teams_manager = TeamsManager.new(load_csv(locations[:teams]), self)
+    @games_manager = GamesManager.new(load_csv(locations[:games]), self)
+    @game_teams_manager = GameTeamsManager.new(load_csv(locations[:game_teams]), self)
+  end
+
+  def load_csv(path)
+    CSV.read(path, headers: true, header_converters: :symbol)
+    # require "pry"; binding.pry
   end
 
 # ~~~ Helper Methods ~~~~

@@ -1,7 +1,8 @@
 require "csv"
+require "./lib/games_manager"
 
 class Game
-  @@all_games = []
+  # @@all_games = []
 
   attr_reader :game_id,
               :season,
@@ -14,7 +15,8 @@ class Game
               :venue,
               :venue_link
 
-  def initialize(data)
+  def initialize(data, games_manager)
+    @games_manager = games_manager
     @game_id = data[:game_id].to_i
     @season = data[:season]
     @type = data[:type]
@@ -27,15 +29,15 @@ class Game
     @venue_link = data[:venue_link]
   end
 
-  def self.from_csv(path = "./data/games_sample.csv")
-    games = []
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
-      games << self.new(row)
-    end
-    @@all_games = games
-  end
-
-  def self.all_games
-    @@all_games
-  end
+  # def self.from_csv(path = "./data/games_sample.csv")
+  #   games = []
+  #   CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
+  #     games << self.new(row)
+  #   end
+  #   @@all_games = games
+  # end
+  #
+  # def self.all_games
+  #   @@all_games
+  # end
 end

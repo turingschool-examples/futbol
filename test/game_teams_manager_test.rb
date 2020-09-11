@@ -3,4 +3,4 @@ require "./lib/game_teams_manager"
 
 class GameTeamsManagerTest < Minitest::Test
 
-end 
+end
