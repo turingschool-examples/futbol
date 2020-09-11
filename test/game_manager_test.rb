@@ -51,4 +51,24 @@ class GameManagerTest < Minitest::Test
     game_manager.games[2].stubs(:season).returns('20132014')
     assert_equal [game_1, game_2], game_manager.games_of_season('20122013')
   end
+
+  def test_find_game_ids_per_season
+    path = './fixture/game_blank.csv'
+    game_manager = GameManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_manager.games << game_1
+    game_manager.games << game_2
+    game_manager.games << game_3
+
+    game_manager.games[0].stubs(:season).returns('20122013')
+    game_manager.games[1].stubs(:season).returns('20122013')
+    game_manager.games[2].stubs(:season).returns('20132014')
+    game_manager.games[0].stubs(:game_id).returns('123')
+    game_manager.games[1].stubs(:game_id).returns('456')
+    game_manager.games[2].stubs(:game_id).returns('789')
+
+    assert_equal ["123", "456"], game_manager.find_game_ids_for_season('20122013')
+  end
 end
