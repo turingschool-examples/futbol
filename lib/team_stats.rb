@@ -69,4 +69,14 @@ class TeamStats
     worst_year = worst[0].to_i
     result = "#{worst_year}201#{worst_year.digits[0] + 1}"
   end
+
+  def average_win_percentage(team_id)
+  (total_wins(team_id).count.to_f / all_team_games(team_id).count).round(2)
+  end
+
+  def total_wins(team_id)
+    all_team_games(team_id).find_all do |game|
+      game[:result] == "WIN"
+    end
+  end
 end
