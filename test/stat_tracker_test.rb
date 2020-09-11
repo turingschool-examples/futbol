@@ -189,7 +189,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas", @stats.best_offense
   end
 
-
 # ~~~ SEASON METHOD TESTS~~~
 
 def test_it_can_get_most_accurate_team_for_season

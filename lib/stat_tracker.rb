@@ -217,7 +217,6 @@ class StatTracker
     count
   end
 
-
 # ~~~ LEAGUE METHODS~~~
   def worst_offense
     worst = average_scores_by_team.min_by {|id, average| average}
