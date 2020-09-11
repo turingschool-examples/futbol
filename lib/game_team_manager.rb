@@ -26,6 +26,12 @@ class GameTeamManager
     end
   end
 
+  # def group_by_season
+  #   @games.group_by do |game|
+  #     game.season
+  #   end.uniq
+  # end
+
   def season_coaches(season_id)
     game_teams_data_for_season(season_id).map do |game|
       game.head_coach
@@ -145,8 +151,6 @@ class GameTeamManager
     fewest_tackles_team = total_tackles(season_id).min_by do |_team, tackles|
       tackles
     end[0]
-    @teams.find do |team|
-      team.team_id == fewest_tackles_team
-    end.team_name
+    team_by_id(fewest_tackles_team)
   end
 end

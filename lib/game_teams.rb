@@ -30,4 +30,8 @@ class GameTeams
     @takeaways = @takeaways.to_i
     @game_team_manager = game_team_manager
   end
+
+  # def team_name
+  #   @game_team_manager.team_by_id(team_id)
+  # end
 end
