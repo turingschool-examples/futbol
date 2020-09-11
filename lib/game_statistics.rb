@@ -40,4 +40,16 @@ module GameStatistics
     end
     (visitor_wins.to_f/total_games.to_f).round(2)
   end
+
+  def percentage_ties
+    tie_games = 0
+    total_games = 0
+    @game_table.each do |key, value|
+      total_games += 1
+      if value.away_goals == value.home_goals
+        tie_games += 1
+      end
+    end
+    (tie_games.to_f/total_games.to_f).round(2)
+  end
 end
