@@ -103,4 +103,13 @@ class SeasonStatisticsTest < Minitest::Test
     assert_equal 'FC Cincinnati', @season_statistics.most_tackles("20132014")
     assert_equal 'Seattle Sounders FC', @season_statistics.most_tackles("20142015")
   end
+
+  def test_it_can_find_the_team_with_fewest_tackles
+    assert_equal 1, @season_statistics.find_team_with_fewest_tackles("20132014")
+  end
+
+  def test_can_find_team_name_with_fewest_tackles_in_season
+    assert_equal 'Atlanta United', @season_statistics.fewest_tackles("20132014")
+    assert_equal 'Orlando City SC', @season_statistics.fewest_tackles("20142015")
+  end
 end
