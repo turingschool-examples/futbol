@@ -2,8 +2,6 @@ require "csv"
 require "./lib/games_manager"
 
 class Game
-  # @@all_games = []
-
   attr_reader :game_id,
               :season,
               :type,

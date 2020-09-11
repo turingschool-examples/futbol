@@ -3,6 +3,7 @@ require './lib/stat_tracker'
 require './lib/game_team'
 
 class GameTeamsManager
+  attr_reader :stat_tracker, :game_teams 
 
   def initialize(path, stat_tracker)
     @stat_tracker = stat_tracker

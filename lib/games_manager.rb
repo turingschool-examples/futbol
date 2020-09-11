@@ -4,6 +4,8 @@ require './lib/game'
 
 class GamesManager
 
+  attr_reader :stat_tracker, :games 
+
   def initialize(path, stat_tracker)
     @stat_tracker = stat_tracker
     @games = []
