@@ -15,4 +15,15 @@ class GameTeamManager
     end
     array
   end
+
+  def team_by_id(team_id)
+    @stat_tracker.team_info(team_id).name
+  end
+
+  def game_teams_data_for_season(season_id)
+    @game_teams.find_all do |game|
+      game.game_id[0..3] == season_id[0..3]
+    end
+  end
+
 end

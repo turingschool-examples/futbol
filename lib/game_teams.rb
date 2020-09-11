@@ -1,5 +1,4 @@
 class GameTeams
-
   attr_reader :game_id,
               :team_id,
               :HoA,
@@ -16,6 +15,7 @@ class GameTeams
               :giveaways,
               :takeaways
   def initialize(row)
+    @game_team_manager = game_team_manager
     row.each do |k, v|
       instance_variable_set("@#{k}" , v)
     end
