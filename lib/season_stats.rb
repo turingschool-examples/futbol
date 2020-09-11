@@ -101,4 +101,16 @@ class SeasonStatistics
     end
     total_tackles
   end
+
+  def find_team_with_fewest_tackles(season)
+    team = total_tackles(season).sort_by {|team_id, tackles| tackles}
+    team[0][0]
+  end
+
+  def fewest_tackles(season)
+    fewest_tackles = @teams_data.find do |team|
+      team[:teamname] if find_team_with_fewest_tackles(season) == team[:team_id]
+    end
+    fewest_tackles[:teamname]
+  end
 end
