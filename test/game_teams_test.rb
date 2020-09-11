@@ -1,5 +1,6 @@
 require './test/test_helper'
 require './lib/game_teams'
+require 'pry'
 
 
 class GameTeamsTest < Minitest::Test
@@ -30,6 +31,4 @@ class GameTeamsTest < Minitest::Test
     assert_equal 17, game.giveaways
     assert_equal 7, game.takeaways
   end
-
-
 end
