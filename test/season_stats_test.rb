@@ -90,4 +90,17 @@ class SeasonStatisticsTest < Minitest::Test
   def test_it_can_find_the_least_accurate_team
     assert_equal 9, @season_statistics.find_least_accurate_team("20132014")
   end
+
+  def test_it_can_calculate_total_tackles
+    assert_equal 30, @season_statistics.total_tackles("20132014").count
+  end
+
+  def test_it_can_find_the_team_with_most_tackles
+    assert_equal 26, @season_statistics.find_team_with_most_tackles("20132014")
+  end
+
+  def test_can_find_team_name_with_most_tackles_in_season
+    assert_equal 'FC Cincinnati', @season_statistics.most_tackles("20132014")
+    assert_equal 'Seattle Sounders FC', @season_statistics.most_tackles("20142015")
+  end
 end
