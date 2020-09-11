@@ -191,6 +191,10 @@ def test_shots_per_goal_per_season_for_given_season
   assert_equal expected, @stats.shots_per_goal_per_season("20132014")
 end
 
+def test_it_can_get_most_accurate_team
+  assert_equal "FC Dallas", @stats.most_accurate_team("20132014")
+end
+
 
 # ~~~ TEAM METHOD TESTS~~~
 end

@@ -234,6 +234,8 @@ class StatTracker
   end
 
   def most_accurate_team(season)
+    most_accurate = shots_per_goal_per_season(season).min_by { |team, avg| avg}
+    team_names_by_team_id(most_accurate[0])
   end
 
   def least_accurate_team(season)
