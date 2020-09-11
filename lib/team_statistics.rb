@@ -10,7 +10,6 @@ class TeamStatistics
   end
 
   def match_team_id(team_id)
-    #returns ["1", "23", "Atlanta United", "ATL", "/api/v1/teams/1"]
     team_data_set.map do |info|
       return info if info[0] == team_id
     end
@@ -18,7 +17,6 @@ class TeamStatistics
 
   def team_info(team_id)
     team_data = {}
-    # returns {"team_id"=>"1", "franchiseId"=>"23", "teamName"=>"Atlanta United", "abbreviation"=>"ATL", "link"=>"/api/v1/teams/1"}
     headers = ["team_id", "franchiseId", "teamName", "abbreviation", "link"]
 
     headers.each_with_index do |header, index|
@@ -31,7 +29,6 @@ class TeamStatistics
   def season_win_data_set
     @stat_tracker[:game_teams]["game_id"].zip(@stat_tracker[:game_teams]["team_id"], @stat_tracker[:game_teams]["result"])
   end
-
 
   def total_games_by_season(team_id)
     total_season_games = {}
@@ -231,8 +228,16 @@ class TeamStatistics
   end
 
 # [ ] 7/8 Favorite and Rival Opponent **change name of 'season_win_data_set'
+  def team_id_to_team_name(team_id)
+    team_name_lookup = stat_tracker[:teams]["team_id"].zip(stat_tracker[:teams]["teamName"]).to_h
+    team_name_lookup[team_id]
+  end
+
   def favorite_opponent(team_id)
     #evaluate all teams that given team has played and won
+    papa_bear = {}
+    mama_bear ={}
+
     games_won = season_win_data_set.find_all do |game_id|
       team_id == game_id[1] && game_id[2] == "WIN"
     end
@@ -240,17 +245,66 @@ class TeamStatistics
       set.first
     end
     opposing_teams = winning_game_ids.map do |game_id|
-       season_win_data_set.find_all do |array|
-         game_id == array[0] unless array[1] == team_id
-       end
-     end
-  binding.pry
+      season_win_data_set.find_all do |array|
+        game_id == array[0] unless array[1] == team_id
+      end.flatten
+    end
+    unique_opp_teams = opposing_teams.map do |set|
+      set[1]
+    end.uniq
+    unique_opp_teams.map do |opp_team_id|
+      papa_bear[opp_team_id] ||= []
+      papa_bear[opp_team_id] = season_win_data_set.count do |set|
+        set[1] == opp_team_id
+      end
+    end
+    unique_opp_teams.map do |opp_team_id|
+      mama_bear[opp_team_id] ||= []
+      mama_bear[opp_team_id] = opposing_teams.count do |set|
+        set[1] == opp_team_id
+      end
+    end
+    mama_bear.map do |opp_team_id, wins|
+      mama_bear[opp_team_id] = (wins.to_f/papa_bear[opp_team_id])
+    end
+    teeny_bear = mama_bear.max_by {|opp_team_id, win_percentage| win_percentage}[0]
+    team_id_to_team_name(teeny_bear)
   end
 
-  # def rival(team_id)
-  #   find_winner(team_id)
-  #   average_win_percentage(team_id) #of the opponent
-  #   team_info(team_id).teamName
-  # end
-   # end
+  def rival(team_id)
+    papa_bear = {}
+    mama_bear = {}
+
+    games_won = season_win_data_set.find_all do |game_id|
+      team_id == game_id[1] && game_id[2] == "WIN"
+    end
+    winning_game_ids = games_won.map do |set|
+      set.first
+    end
+    opposing_teams = winning_game_ids.map do |game_id|
+      season_win_data_set.find_all do |array|
+        game_id == array[0] unless array[1] == team_id
+      end.flatten
+    end
+    unique_opp_teams = opposing_teams.map do |set|
+      set[1]
+    end.uniq
+    unique_opp_teams.map do |opp_team_id|
+      papa_bear[opp_team_id] ||= []
+      papa_bear[opp_team_id] = season_win_data_set.count do |set|
+        set[1] == opp_team_id
+      end
+    end
+    unique_opp_teams.map do |opp_team_id|
+      mama_bear[opp_team_id] ||= []
+      mama_bear[opp_team_id] = opposing_teams.count do |set|
+        set[1] == opp_team_id
+      end
+    end
+    mama_bear.map do |opp_team_id, wins|
+      mama_bear[opp_team_id] = (wins.to_f/papa_bear[opp_team_id])
+    end
+    teeny_bear = mama_bear.min_by {|opp_team_id, win_percentage| win_percentage}[0]
+    team_id_to_team_name(teeny_bear)
+  end
 end
