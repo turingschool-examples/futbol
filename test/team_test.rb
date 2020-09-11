@@ -25,4 +25,17 @@ class TeamTest < Minitest::Test
     assert_equal 'Mercedes-Benz Stadium', @team.stadium
     assert_equal '/api/v1/teams/1', @team.link
   end
+
+  def test_it_can_generate_team_info
+    expected ={
+           "team_id" => "1",
+      "franchise_id" => "23",
+         "team_name" => "Atlanta United",
+      "abbreviation" => "ATL",
+              "link" => "/api/v1/teams/1"
+    }
+    actual = @team.team_info
+
+    assert_equal expected, actual
+  end
 end
