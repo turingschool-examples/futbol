@@ -3,13 +3,13 @@ require_relative 'game_statistics'
 require_relative 'league_stats'
 
 class StatTracker
-  attr_reader :games, :teams, :game_teams
+  attr_reader :game_statistics,
+              :game_team_stats 
 
   def initialize(locations)
-    @games = locations[:games]
     @teams = locations[:teams]
-    @game_teams = locations[:game_teams]
-    # @game_statistics = GameStatistics.new(game_stats)
+    @game_teams_statistics = GameTeamStatsistics.new(locations[:game_teams], self)
+    @game_statistics = GameStatistics.new(locations[:games], self)
     @league_statistics = LeagueStatistics.new(teams_stats, @game_statistics)
   end
 
@@ -17,20 +17,7 @@ class StatTracker
     StatTracker.new(locations)
   end
 
-  def game_stats
-    rows = CSV.read(@games, { encoding: 'UTF-8', headers: true, header_converters: :symbol})
-    result = []
-    game_data = rows.find_all do |row|
-      row[:game_id]
-    end
-    game_data.each do |game|
-      game.delete(:venue)
-      game.delete(:venue_link)
-      result << GameStatistics.new(game)
-    end
-    result
-    require "pry"; binding.pry
-  end
+
 
   def game_teams_stats
     game_teams_data = CSV.read(@game_teams, { encoding: 'UTF-8', headers: true, header_converters: :symbol, converters: :all })
