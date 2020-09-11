@@ -30,6 +30,10 @@ class Game
     @away_goals + @home_goals
   end
 
+  def home_is_winner
+    @away_goals < @home_goals
+  end
+
 
 
 end

@@ -468,10 +468,10 @@ class StatTracker
 
   def highest_total_score
     @games_manager.highest_total_score
-  end 
+  end
 
   #Rename to percentage_visitor_wins
-  def percentage_away_wins
+  def percentage_visitor_wins
     wins = @games.find_all { |game| game.away_goals > game.home_goals}
     find_percent(wins.count, total_games)
   end
