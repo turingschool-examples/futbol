@@ -9,6 +9,8 @@ class GameMethods
   def initialize(file_loc)
     @file_loc = file_loc
     @table = create_table
+    @home_goals = @table['home_goals']
+    @away_goals = @table['away_goals']
     @seasons = @table['season']
     @game_ids = @table['game_id']
   end
@@ -48,5 +50,43 @@ class GameMethods
       output_hash[season] = season_games[season].length
     end
     output_hash
+  end
+
+  def determine_winner(index)
+    if @home_goals[index] > @away_goals[index]
+      :home
+    elsif @home_goals[index] < @away_goals[index]
+      :away
+    else
+      :tie
+    end
+  end
+
+  def percentage_ties
+    ties = (1..@away_goals.length).count do |game|
+      :tie == determine_winner(game - 1)
+    end
+    (ties.to_f / @away_goals.length).round(2)
+    if @home_goals[index] > @away_goals[index]
+      :home
+    elsif @home_goals[index] < @away_goals[index]
+      :away
+    else
+      :tie
+    end
+  end
+
+  def percentage_visitor_wins
+    away_wins = (1..@away_goals.length).count do |game|
+      :away == determine_winner(game - 1)
+    end
+    (away_wins.to_f / @away_goals.length).round(2)
+  end
+
+  def percentage_home_wins
+    home_wins = (1..@home_goals.length).count do |game|
+      :home == determine_winner(game - 1)
+    end
+    (home_wins.to_f / @home_goals.length).round(2)
   end
 end
