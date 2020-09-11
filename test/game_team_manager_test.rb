@@ -6,7 +6,7 @@ require './lib/game_team_manager'
 
 class GameTeamManagerTest < MiniTest::Test
   def test_it_exists
-    game_path = './data/game_teams_dummy.csv'
+    game_team_path = './data/game_teams_dummy.csv'
     game_team_manager = GameTeamManager.new(game_team_path, "tracker")
 
     assert_instance_of GameTeamManager, game_team_manager
