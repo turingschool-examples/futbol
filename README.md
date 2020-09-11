@@ -1,12 +1,12 @@
 # Futbol
 
 ## Table of Contents
-  * [Introduction] (#introduction)
+  * [Introduction](#introduction)
   * [Learning Goals](#learning-goals)
   * [Technologies](#technologies)
   * [Setup](#setup)
   * [Contributors](#contributors)
-  * [Images] (#images)
+  * [Images](#images)
 
 ## Introduction
 
