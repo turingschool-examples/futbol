@@ -249,30 +249,30 @@ class StatTracker
     #   coach_record_hash
     # end
 
-    def add_wins_losses(gt_results, coach_record_start)
-      gt_results.each do |team_result|
-        if team_result['result'] == "WIN"
-          coach_record_start[team_result['head_coach']][:wins] += 1
-        elsif team_result['result'] == "LOSS"
-          coach_record_start[team_result['head_coach']][:losses] += 1
-        elsif team_result['result'] == "TIE"
-          coach_record_start[team_result['head_coach']][:ties] += 1
-        end
-      end
-      coach_record_start
-    end
+    # def add_wins_losses(gt_results, coach_record_start)
+    #   gt_results.each do |team_result|
+    #     if team_result['result'] == "WIN"
+    #       coach_record_start[team_result['head_coach']][:wins] += 1
+    #     elsif team_result['result'] == "LOSS"
+    #       coach_record_start[team_result['head_coach']][:losses] += 1
+    #     elsif team_result['result'] == "TIE"
+    #       coach_record_start[team_result['head_coach']][:ties] += 1
+    #     end
+    #   end
+    #   coach_record_start
+    # end
 
-    def determine_winningest_coach(totaled_record)
-      totaled_record.max_by do |coach, w_l|
-        w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
-      end[0]
-    end
+    # def determine_winningest_coach(totaled_record)
+    #   totaled_record.max_by do |coach, w_l|
+    #     w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
+    #   end[0]
+    # end
 
-    def determine_worst_coach(totaled_record)
-      totaled_record.min_by do |coach, w_l|
-        w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
-      end[0]
-    end
+    # def determine_worst_coach(totaled_record)
+    #   totaled_record.min_by do |coach, w_l|
+    #     w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
+    #   end[0]
+    # end
 
     def initialize_shots_and_goals_per_team(gt_results)
       total_shots_goals = {}
