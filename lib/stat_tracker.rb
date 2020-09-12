@@ -35,7 +35,11 @@ class StatTracker
     @games_manager.season_win_percentage(team_id, season)
   end
 
-  # Use seaon_group with count to filter game count 
+  def fetch_team_identifier(team_id)
+    @teams_manager.team_identifier(team_id)
+  end
+
+  # Use seaon_group with count to filter game count
   # move to GameManager
   def total_games(filtered_games = @games)
     filtered_games.count

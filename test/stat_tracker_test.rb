@@ -121,13 +121,13 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.team_tackles("20122013")
   end
 
-  def test_team_identifier_can_return_team_string
-    assert_equal "Atlanta United", @stats.team_identifier(1)
-    assert_equal "Chicago Fire", @stats.team_identifier(4)
-    assert_equal "FC Cincinnati", @stats.team_identifier(26)
-    assert_equal "DC United", @stats.team_identifier(14)
-    assert_equal "FC Dallas", @stats.team_identifier(6)
-  end
+  # def test_team_identifier_can_return_team_string
+  #   assert_equal "Atlanta United", @stats.team_identifier(1)
+  #   assert_equal "Chicago Fire", @stats.team_identifier(4)
+  #   assert_equal "FC Cincinnati", @stats.team_identifier(26)
+  #   assert_equal "DC United", @stats.team_identifier(14)
+  #   assert_equal "FC Dallas", @stats.team_identifier(6)
+  # end
 
   def test_it_can_get_team_name_from_team_id
     assert_equal "Chicago Fire", @stats.team_names_by_team_id(4)

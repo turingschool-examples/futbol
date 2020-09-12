@@ -19,4 +19,13 @@ class TeamsManagerTest < Minitest::Test
     expected = ["1", "4", "26", "14", "6"]
     assert_equal expected, @teams_manager.all_team_ids
   end
+
+  def test_team_identifier_can_return_team_string
+    assert_equal "Atlanta United", @teams_manager.team_identifier("1")
+    assert_equal "Chicago Fire", @teams_manager.team_identifier("4")
+    assert_equal "FC Cincinnati", @teams_manager.team_identifier("26")
+    assert_equal "DC United", @teams_manager.team_identifier("14")
+    assert_equal "FC Dallas", @teams_manager.team_identifier("6")
+  end
+
 end

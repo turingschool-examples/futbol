@@ -27,4 +27,11 @@ class TeamsManager
     end
   end
 
+  # Move to Teams Manager
+  def team_identifier(team_id)
+    @teams.find do |team|
+      team.team_id == team_id
+    end.team_name
+  end
+
 end
