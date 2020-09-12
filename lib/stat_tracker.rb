@@ -25,8 +25,13 @@ class StatTracker
   end
 
 # ~~~ Helper Methods ~~~~
+
+#~~~ Fetcher Methods ~~~~
   def fetch_all_team_ids
     @teams_manager.all_team_ids
+  end
+
+  def fetch_season_win_percentage
   end
 
 
@@ -116,42 +121,12 @@ class StatTracker
     team_id_hash[id.to_s]
   end
 
+  # Redundant
   # Move to GamesManager
   def filter_by_season(season)
     @games.find_all do |game|
       game.season == season
     end
-  end
-
-  # # Move to GameTeamsManager
-  # def team_wins_as_home(team_id, season)
-  #   season_group[season].find_all do |game|
-  #     (game.home_team_id == team_id) && (game.home_goals > game.away_goals)
-  #   end.count
-  # end
-  #
-  # # Move to GameManager
-  # def team_wins_as_away(team_id, season)
-  #   season_group[season].find_all do |game|
-  #     (game.away_team_id == team_id) && (game.away_goals > game.home_goals)
-  #   end.count
-  # end
-
-  # Move to GameManager
-  # def total_team_wins(team_id, season)
-  #   team_wins_as_home(team_id, season) + team_wins_as_away(team_id, season)
-  # end
-
-  # Move to GamesManager
-  def total_team_games_per_season(team_id, season)
-    season_group[season].select do |game|
-      game.away_team_id == team_id || game.home_team_id == team_id
-    end.count
-  end
-
-  # Move to GamesManager
-  def season_win_percentage(team_id, season)
-    find_percent(total_team_wins(team_id, season), total_team_games_per_season(team_id, season))
   end
 
   # Move to Team

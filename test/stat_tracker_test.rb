@@ -64,51 +64,51 @@ class StatTrackerTest < Minitest::Test
     assert_equal 16, expected_games_3.count
   end
 
-  def test_it_can_count_total_home_wins
-    assert_equal 1, @stats.team_wins_as_home(1, "20142015")
-    assert_equal 1, @stats.team_wins_as_home(4, "20142015")
-    assert_equal 3, @stats.team_wins_as_home(6, "20142015")
-    assert_equal 0, @stats.team_wins_as_home(14, "20142015")
-    assert_equal 2, @stats.team_wins_as_home(26, "20142015")
-  end
-
-  def test_it_can_count_total_away_wins
-    assert_equal 1, @stats.team_wins_as_away(1, "20142015")
-    assert_equal 2, @stats.team_wins_as_away(4, "20142015")
-    assert_equal 1, @stats.team_wins_as_away(6, "20142015")
-    assert_equal 1, @stats.team_wins_as_away(26, "20142015")
-  end
-
-  def test_it_can_count_total_number_of_wins_per_season ###
-    assert_equal 2, @stats.total_team_wins(1, "20142015")
-    assert_equal 3, @stats.total_team_wins(4, "20142015")
-    assert_equal 4, @stats.total_team_wins(6, "20142015")
-    assert_equal 3, @stats.total_team_wins(26, "20142015")
-  end
-
-  def test_it_can_count_total_games_for_team_in_season
-    assert_equal 7, @stats.total_team_games_per_season(1, "20142015")
-    assert_equal 7, @stats.total_team_games_per_season(4, "20142015")
-    assert_equal 6, @stats.total_team_games_per_season(6, "20142015")
-    assert_equal 5, @stats.total_team_games_per_season(14, "20142015")
-    assert_equal 7, @stats.total_team_games_per_season(26, "20142015")
-  end
+  # def test_it_can_count_total_home_wins
+  #   assert_equal 1, @stats.team_wins_as_home(1, "20142015")
+  #   assert_equal 1, @stats.team_wins_as_home(4, "20142015")
+  #   assert_equal 3, @stats.team_wins_as_home(6, "20142015")
+  #   assert_equal 0, @stats.team_wins_as_home(14, "20142015")
+  #   assert_equal 2, @stats.team_wins_as_home(26, "20142015")
+  # end
+  #
+  # def test_it_can_count_total_away_wins
+  #   assert_equal 1, @stats.team_wins_as_away(1, "20142015")
+  #   assert_equal 2, @stats.team_wins_as_away(4, "20142015")
+  #   assert_equal 1, @stats.team_wins_as_away(6, "20142015")
+  #   assert_equal 1, @stats.team_wins_as_away(26, "20142015")
+  # end
+  #
+  # def test_it_can_count_total_number_of_wins_per_season ###
+  #   assert_equal 2, @stats.total_team_wins(1, "20142015")
+  #   assert_equal 3, @stats.total_team_wins(4, "20142015")
+  #   assert_equal 4, @stats.total_team_wins(6, "20142015")
+  #   assert_equal 3, @stats.total_team_wins(26, "20142015")
+  # end
+  #
+  # def test_it_can_count_total_games_for_team_in_season
+  #   assert_equal 7, @stats.total_team_games_per_season(1, "20142015")
+  #   assert_equal 7, @stats.total_team_games_per_season(4, "20142015")
+  #   assert_equal 6, @stats.total_team_games_per_season(6, "20142015")
+  #   assert_equal 5, @stats.total_team_games_per_season(14, "20142015")
+  #   assert_equal 7, @stats.total_team_games_per_season(26, "20142015")
+  # end
 
   def test_it_can_create_array_of_all_team_ids
     expected = [1, 4, 6, 14, 26]
     assert_equal expected, @stats.team_ids
   end
 
-  def test_it_can_organize_season_win_percentage_for_each_team ###
-    expected = {
-      1 => 28.57,
-      4 => 42.86,
-      6 => 66.67,
-      14 => 0,
-      26 => 42.86
-    }
-    assert_equal expected, @stats.all_teams_win_percentage("20142015")
-  end
+  # def test_it_can_organize_season_win_percentage_for_each_team ###
+  #   expected = {
+  #     1 => 28.57,
+  #     4 => 42.86,
+  #     6 => 66.67,
+  #     14 => 0,
+  #     26 => 42.86
+  #   }
+  #   assert_equal expected, @stats.all_teams_win_percentage("20142015")
+  # end
 
   def test_it_can_create_array_of_all_team_ids
     expected = [1, 4, 6, 14, 26]
