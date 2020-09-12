@@ -43,7 +43,7 @@ class StatTracker
     teams_data = CSV.read(@teams, { encoding: 'UTF-8', headers: true, header_converters: :symbol, converters: :all })
     hashed_teams_data = teams_data.map { |row| row.to_hash }
     hashed_teams_data.each do |row|
-      row.delete(:staduim)
+      row.delete(:stadium)
     end
   end
 
