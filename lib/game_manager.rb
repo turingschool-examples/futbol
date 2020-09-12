@@ -14,4 +14,10 @@ class GamesManager
       Game.new(data, self)
     end
   end
+
+  def highest_total_score
+    # highest_game = sum_team_scores.max_by { |game_id, score| score }
+    # highest_game[1]
+  end
+
 end
