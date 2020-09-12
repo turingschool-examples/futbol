@@ -87,4 +87,8 @@ class TeamStatsTest < Minitest::Test
   def test_it_can_make_a_hash_by_opponent_id
     assert_equal 513, @team_stats.hash_by_opponent_id("18").count
   end
+
+  def test_it_can_sort_games_against_rival
+    assert_equal 513, @team_stats.sort_games_against_rival("18").count
+  end
 end
