@@ -402,13 +402,6 @@ class StatTracker
     team_season_tackles
   end
 
-  # Move to Teams Manager
-  def team_identifier(team_id)
-    @teams.find do |team|
-      team.team_id == team_id
-    end.team_name
-  end
-
   # Move to GameTeamsManager
   def team_goals_by_game(team_id)
     games_by_team(team_id).map do |game|
