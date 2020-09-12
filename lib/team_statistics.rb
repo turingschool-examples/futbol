@@ -85,4 +85,18 @@ module TeamStatistics
     end
     (total_average_win_percentage.to_f/total_games).round(2)
   end
+
+  def most_goals_scored(team_id)
+    most_goals = 0
+    collect_seasons(team_id).each do |key, value|
+      value.each do |game|
+        if team_id.to_i == game.away_team_id && game.away_goals > game.home_goals
+          most_goals = game.away_goals if game.away_goals > most_goals
+        elsif team_id.to_i == game.home_team_id && game.home_goals > game.away_goals
+          most_goals = game.home_goals if game.home_goals > most_goals
+        end
+      end
+    end
+    most_goals
+  end
 end
