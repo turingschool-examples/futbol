@@ -46,5 +46,4 @@ class GameTeamsManager
       team.team_id
     end
   end
-
 end
