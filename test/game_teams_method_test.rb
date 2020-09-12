@@ -12,15 +12,13 @@ class GameTeamsMethodsTest < Minitest::Test
     assert_equal './data/game_teams.csv', game_teams_methods.game_teams
   end
 
-  def test_generates_table
+  def test_it_can_generate_array_of_game_teams_objects
     game_teams = './data/game_teams.csv'
     game_teams_methods = GameTeamsMethods.new(game_teams)
 
-    expected = CSV.parse(File.read(game_teams), headers: true)
-
-    assert_equal expected, game_teams_methods.create_table(game_teams)
-
-    assert_equal expected, game_teams_methods.game_teams_table
+    assert_instance_of Array, game_teams_methods.create_array(game_teams)
+    assert_instance_of GameTeams, game_teams_methods.all_game_teams[0]
+    assert_instance_of GameTeams, game_teams_methods.all_game_teams[999]
   end
 
   def test_it_can_return_best_offense_team
