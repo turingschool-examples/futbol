@@ -79,4 +79,8 @@ class TeamStatsTest < Minitest::Test
   def test_it_can_find_all_game_ids_by_team
     assert_equal 513, @team_stats.find_all_game_ids_by_team("18").count
   end
+
+  def test_it_can_find_opponent_id
+    assert_equal 513, @team_stats.find_opponent_id("18").count
+  end
 end
