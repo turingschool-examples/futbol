@@ -28,6 +28,10 @@ class StatTracker
   def winningest_coach(season)
     @game_teams_manager.winningest_coach(season)
   end
+
+  def find_game_ids_for_season(season)
+    @game_manager.find_game_ids_for_season(season)
+  end
 end
 
     # game_manager = CSV.read(locations[:games], headers:true)
