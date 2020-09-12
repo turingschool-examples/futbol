@@ -11,4 +11,8 @@ class Game
     @venue = data["venue"]
     @venue_link = data["venue_link"]
   end
+
+  def total_score
+    @away_goals.to_i + @home_goals.to_i
+  end
 end
