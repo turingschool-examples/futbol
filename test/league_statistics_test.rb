@@ -17,7 +17,7 @@ class LeagueStatisticsTest < Minitest::Test
   end
 
   def test_worst_offense
-    assert_equal "Utah Royals FC", @stat_tracker.best_offense
+    assert_equal "Utah Royals FC", @stat_tracker.worst_offense
   end
 
 end
