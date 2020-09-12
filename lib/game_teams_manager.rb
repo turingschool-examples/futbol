@@ -14,4 +14,5 @@ class GameTeamsManager
       GameTeam.new(data, self)
     end
   end
+
 end
