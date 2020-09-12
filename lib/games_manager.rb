@@ -46,18 +46,6 @@ class GamesManager
     ratio(wins, total_games)
   end
 
-  def total_team_wins
-    games = @games.group_by do |game|
-      game.winner_id
-    end
-    total_team_wins = {}
-    games.each do |team_id, game|
-      if team_id != 'tie'
-        total_team_wins[team_id] = game.count
-      end
-    end
-    total_team_wins
-  end
 
   def total_team_wins_by_season
     @games.reduce(Hash.new) do |hash, game|

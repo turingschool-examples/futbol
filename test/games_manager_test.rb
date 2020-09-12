@@ -28,18 +28,6 @@ class GamesManagerTest < Minitest::Test
     assert_equal 0.30, @games_manager.percentage_visitor_wins
   end
 
-  def test_it_can_count_total_team_wins
-    skip
-    expected = {
-      "1" => 9,
-      "4" => 7,
-      "6" => 12,
-      "14" => 8,
-      "26" => 9
-    }
-    assert_equal expected, @games_manager.total_team_wins
-  end
-
   def test_it_can_count_total_of_team_wins_by_season
     # skip
     expected = {

@@ -61,7 +61,7 @@ class GameTeamsManagerTest < Minitest::Test
         "20172018" => 3
       }
     }
-    assert_equal expected, @game_teams.manager.total_team_wins_by_season
+    assert_equal expected, @game_teams_manager.total_team_wins_by_season
   end
 
 end
