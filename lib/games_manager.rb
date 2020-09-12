@@ -20,14 +20,14 @@ class GamesManager
 
   def lowest_total_score
     @games.min_by do |game|
-      game.sum_score
-    end.sum_score
+      game.total_game_score
+    end.total_game_score
   end
 
   def highest_total_score
     @games.max_by do |game|
-      game.sum_score
-    end.sum_score
+      game.total_game_score
+    end.total_game_score
   end
 
 end

@@ -18,8 +18,8 @@ class GameTest < Minitest::Test
     @game_1 = Game.new(data)
   end
 
-  def test_it_can_sum_a_game_total_score_aaa
-    assert_equal 6, @game_1.sum_score
+  def test_it_can_sum_a_game_total_score
+    assert_equal 6, @game_1.total_game_score
   end
 
 end
