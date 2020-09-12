@@ -472,8 +472,7 @@ class StatTracker
 
   #Rename to percentage_visitor_wins
   def percentage_visitor_wins
-    wins = @games.find_all { |game| game.away_goals > game.home_goals}
-    find_percent(wins.count, total_games)
+    @games_manager.percentage_visitor_wins
   end
 
   def percentage_ties
@@ -482,12 +481,11 @@ class StatTracker
   end
 
   def percentage_home_wins
-    wins = @games.find_all { |game| game.away_goals < game.home_goals}
-    find_percent(wins.count, total_games)
+    @games_manager.percentage_home_wins
   end
 
   def count_of_games_by_season
-    @games.count_of_games_by_season
+    @games_manager.count_of_games_by_season
   end
 
   def avg_goals_by_season
@@ -514,7 +512,7 @@ class StatTracker
   end
 
   def count_of_teams
-    @teams.count
+    @teams_manager.count
   end
 
   def highest_scoring_home_team
