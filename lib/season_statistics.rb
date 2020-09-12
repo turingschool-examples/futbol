@@ -136,4 +136,13 @@ module SeasonStatistics
     most_accurate_team_for_season.key(most_accurate_team_for_season.values.max)
   end
 
+  def least_accurate_team(season)
+    least_accurate_team_for_season = {}
+    shots_per_season = collect_shots_per_season(season)
+    collect_goals_per_team(season).each do |team, goals|
+      least_accurate_team_for_season[team] = (goals / shots_per_season[team].to_f)
+    end
+    least_accurate_team_for_season.key(least_accurate_team_for_season.values.min)
+  end
+
 end
