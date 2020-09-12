@@ -181,4 +181,11 @@ class TeamStats
     end
     opponent_name[:teamname]
   end
+
+  def rival_opponent_id(team_id)
+    rival_opponent = find_percent_of_winning_games_against_rival(team_id).min_by do |rival_id, wins|
+      wins
+    end
+    rival_opponent[0]
+  end
 end

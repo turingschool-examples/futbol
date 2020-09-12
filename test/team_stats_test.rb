@@ -104,7 +104,11 @@ class TeamStatsTest < Minitest::Test
   #   assert_equal 14, @team_stats.favorite_opponent_id("18")
   # end
 
-  def test_it_can_find_favorite
-    assert_equal "DC United", @team_stats.favorite_opponent("18")
+  # def test_it_can_find_favorite
+  #   assert_equal "DC United", @team_stats.favorite_opponent("18")
+  # end
+
+  def test_it_can_find_rival_opponent_id
+    assert_includes [13, 17], @team_stats.rival_opponent_id("18")
   end
 end
