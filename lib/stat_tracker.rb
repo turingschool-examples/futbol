@@ -123,24 +123,24 @@ class StatTracker
     end
   end
 
-  # Move to GameTeamsManager
-  def team_wins_as_home(team_id, season)
-    season_group[season].find_all do |game|
-      (game.home_team_id == team_id) && (game.home_goals > game.away_goals)
-    end.count
-  end
+  # # Move to GameTeamsManager
+  # def team_wins_as_home(team_id, season)
+  #   season_group[season].find_all do |game|
+  #     (game.home_team_id == team_id) && (game.home_goals > game.away_goals)
+  #   end.count
+  # end
+  #
+  # # Move to GameManager
+  # def team_wins_as_away(team_id, season)
+  #   season_group[season].find_all do |game|
+  #     (game.away_team_id == team_id) && (game.away_goals > game.home_goals)
+  #   end.count
+  # end
 
   # Move to GameManager
-  def team_wins_as_away(team_id, season)
-    season_group[season].find_all do |game|
-      (game.away_team_id == team_id) && (game.away_goals > game.home_goals)
-    end.count
-  end
-
-  # Move to GameManager
-  def total_team_wins(team_id, season)
-    team_wins_as_home(team_id, season) + team_wins_as_away(team_id, season)
-  end
+  # def total_team_wins(team_id, season)
+  #   team_wins_as_home(team_id, season) + team_wins_as_away(team_id, season)
+  # end
 
   # Move to GamesManager
   def total_team_games_per_season(team_id, season)
