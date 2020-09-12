@@ -120,7 +120,7 @@ class StatTracker
     team_id_hash[id.to_s]
   end
 
-  # Redundant
+  # Redundant (use season_group instead)
   # Move to GamesManager
   def filter_by_season(season)
     @games.find_all do |game|
@@ -135,29 +135,19 @@ class StatTracker
     end.sort
   end
 
-  # Move to GameTeamsManager for team_id purposes
-  # season is pulled from Game, however
-  def all_teams_win_percentage(season)
-    percent_wins = {}
-    team_ids.each do |team_id|
-      percent_wins[team_id] = season_win_percentage(team_id, season)
-    end
-    percent_wins
-  end
-
-  # Move to GamesManager
-  def winningest_team(season)
-    all_teams_win_percentage(season).max_by do |team_id, win_percentage|
-      win_percentage
-    end.first
-  end
-
-  # Move to GamesManager
-  def worst_team(season)
-    all_teams_win_percentage(season).min_by do |team_id, win_percentage|
-      win_percentage
-    end.first
-  end
+  # # Move to GamesManager
+  # def winningest_team(season)
+  #   all_teams_win_percentage(season).max_by do |team_id, win_percentage|
+  #     win_percentage
+  #   end.first
+  # end
+  #
+  # # Move to GamesManager
+  # def worst_team(season)
+  #   all_teams_win_percentage(season).min_by do |team_id, win_percentage|
+  #     win_percentage
+  #   end.first
+  # end
 
   # Move to GameTeamsManager
   # Doesn't have a test

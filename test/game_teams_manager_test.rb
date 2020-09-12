@@ -29,4 +29,12 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal expected, @game_teams_manager.all_teams_win_percentage("20142015")
   end
 
+  def test_it_can_determine_winningest_team
+    assert_equal "6", @game_teams_manager.winningest_team("20142015")
+  end
+
+  def test_it_can_determine_team_with_worst_winning_percentage
+    assert_equal "14", @game_teams_manager.worst_team("20142015")
+  end
+
 end

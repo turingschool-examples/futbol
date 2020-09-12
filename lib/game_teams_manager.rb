@@ -67,4 +67,16 @@ class GameTeamsManager
     percent_wins
   end
 
+  def winningest_team(season)
+    all_teams_win_percentage(season).max_by do |team_id, win_percentage|
+      win_percentage
+    end.first
+  end
+
+  def worst_team(season)
+    all_teams_win_percentage(season).min_by do |team_id, win_percentage|
+      win_percentage
+    end.first
+  end
+
 end
