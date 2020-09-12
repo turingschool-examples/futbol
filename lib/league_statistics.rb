@@ -1,7 +1,9 @@
 
 class LeagueStatistics
-  attr_reader :stat_tracker
+  attr_reader :stat_tracker, :game_manager
 
+  # def initialize(data, game_manager)
+  #   @game_manager = game_manager
   def initialize(stat_tracker)
     @stat_tracker = stat_tracker
   end
@@ -124,7 +126,7 @@ class LeagueStatistics
     end.to_a
   end
 
-  def highest_scoring_visitor 
+  def highest_scoring_visitor
     save = nil
     find_highest_scoring_visitor.find do |team_id|
       team_id_team_name_data_set.find do |pair|

@@ -26,12 +26,12 @@ class GameStatisticsTest < Minitest::Test
 
   def test_highest_total_score
 
-    assert_equal 5, @game_statistics.highest_total_score
+    assert_equal 6, @game_statistics.highest_total_score
   end
 
   def test_lowest_total_score
 
-    assert_equal 2, @game_statistics.lowest_total_score
+    assert_equal 3, @game_statistics.lowest_total_score
   end
 
   def test_home_team_winning_percentage
@@ -60,12 +60,12 @@ class GameStatisticsTest < Minitest::Test
 
   def test_average_goals_per_game
 
-    assert_equal 4.67, @game_statistics.average_goals_per_game
+    assert_equal 4.83, @game_statistics.average_goals_per_game
   end
 
   def test_average_goals_by_season
     expected = {
-      "20122013" => 5.0,
+      "20122013" => 5.5,
       "20162017" => 4.0,
       "20142015" => 5.0
     }
