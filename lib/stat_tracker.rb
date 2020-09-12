@@ -62,7 +62,7 @@ class StatTracker
     @game_manager.lowest_scoring_home_team
   end
 
-  def create_team_stats_hash
-    team_manager.create_team_stats_hash
+  def initialize_team_stats_hash
+    team_manager.initialize_team_stats_hash
   end
 end

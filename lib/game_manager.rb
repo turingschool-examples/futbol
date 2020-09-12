@@ -32,7 +32,7 @@ class GameManager
 
   #------------LeagueStats
   def team_stats
-    tracker.create_team_stats_hash.each do |team_id, games_goals|
+    tracker.initialize_team_stats_hash.each do |team_id, games_goals|
       games.each do |game|
         if team_id == game.away_team_id || team_id == game.home_team_id
           games_goals[:away_games] += 1 if team_id == game.away_team_id

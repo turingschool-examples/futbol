@@ -46,6 +46,6 @@ class TeamManagerTest < Minitest::Test
                 away_goals: 0, home_goals: 0 }
     }
 
-    assert_equal expected, team_manager.create_team_stats_hash
+    assert_equal expected, team_manager.initialize_team_stats_hash
   end
 end

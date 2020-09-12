@@ -63,7 +63,7 @@ class StatTrackerTest < Minitest::Test
                 away_goals: 0, home_goals: 0 }
     }
 
-    assert_equal expected, tracker.create_team_stats_hash
+    assert_equal expected, tracker.initialize_team_stats_hash
   end
 
   def test_it_can_count_teams
