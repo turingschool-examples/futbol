@@ -4,11 +4,11 @@ class TeamStatisticsTest < Minitest::Test
   def setup
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
-    @stat ||= StatTracker.new({games: game_path, teams: team_path})
+    @stat_tracker ||= StatTracker.new({games: game_path, teams: team_path})
   end
 
   def test_it_exists
-    assert_instance_of StatTracker, @stat
+    assert_instance_of StatTracker, @stat_tracker
   end
 
   def test_team_info
@@ -18,16 +18,27 @@ class TeamStatisticsTest < Minitest::Test
                     "abbreviation" => "MIN",
                     "link" => "/api/v1/teams/18"
                   }
-    assert_equal expected, @stat.team_info("18")
-    @stat.collect_seasons("1")
+    assert_equal expected, @stat_tracker.team_info("18")
+    @stat_tracker.collect_seasons("1")
   end
 
   def test_best_season
-    assert_equal "20132014", @stat.best_season("6")
+    assert_equal "20132014", @stat_tracker.best_season("6")
   end
 
   def test_worst_season
-    assert_equal "20142015", @stat.worst_season("6")
+    assert_equal "20142015", @stat_tracker.worst_season("6")
   end
 
+  def test_average_win_percentage
+    assert_equal  0.49, @stat_tracker.average_win_percentage("6")
+  end
+
+  def test_most_goals_scored
+    assert_equal 7, @stat_tracker.most_goals_scored("18")
+  end
+
+  def test_fewest_goals_scored
+     assert_equal 0, @stat_tracker.fewest_goals_scored("18")
+  end
 end

@@ -53,9 +53,9 @@ module TeamStatistics
     collect_seasons(team_id).each do |season, info|
       losses = 0
       info.each do |game|
-        if (team_id.to_i) == game.away_team_id && (game.away_goals < game.home_goals)
+        if (team_id.to_i) == game.away_team_id && (game.away_goals < game.home_goals || game.away_goals == game.home_goals)
           losses += 1
-        elsif (team_id.to_i) == game.home_team_id && (game.away_goals > game.home_goals)
+        elsif (team_id.to_i) == game.home_team_id && (game.away_goals > game.home_goals || game.away_goals == game.home_goals)
           losses += 1
         end
       end
@@ -74,4 +74,43 @@ module TeamStatistics
     losing_percentage_per_season.key(losing_percentage_per_season.values.max)
   end
 
+  def average_win_percentage(team_id)
+    total_average_win_percentage = 0
+    total_games = 0
+    collect_seasons(team_id).each do |key, value|
+      total_games += value.length
+    end
+    collect_wins_per_season(team_id).each do |key, value|
+      total_average_win_percentage += value
+    end
+    (total_average_win_percentage.to_f/total_games).round(2)
+  end
+
+  def most_goals_scored(team_id)
+    most_goals = 0
+    collect_seasons(team_id).each do |key, value|
+      value.each do |game|
+        if team_id.to_i == game.away_team_id
+          most_goals = game.away_goals if game.away_goals > most_goals
+        elsif team_id.to_i == game.home_team_id
+          most_goals = game.home_goals if game.home_goals > most_goals
+        end
+      end
+    end
+    most_goals
+  end
+
+  def fewest_goals_scored(team_id)
+    fewest_goals = 5
+    collect_seasons(team_id).each do |key, value|
+      value.each do |game|
+        if team_id.to_i == game.away_team_id
+          fewest_goals = game.away_goals if game.away_goals < fewest_goals
+        elsif team_id.to_i == game.home_team_id
+          fewest_goals = game.home_goals if game.home_goals < fewest_goals
+        end
+      end
+    end
+    fewest_goals
+  end
 end
