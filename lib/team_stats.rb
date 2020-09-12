@@ -167,51 +167,10 @@ class TeamStats
     hash
   end
 
-  def favorite_opponent(team_id)
-    #we want to group all given team id games by opponent id
-    find_all_game_ids_by_team(team_id)
-    find_opponent_id(team_id)
-    #opponent_id => all games played against given team id
-    #determine if given team is home_team_id or away_team_id
-    hash_by_opponent_id(team_id)
-    sort_games_against_rival(team_id)
-    #find total games each opponent vs given team
-    find_count_of_games_against_rival(team_id)
-    # away/home goals > home/away goals
-    #find total given team wins
-    find_count_of_winning_games_against_rival(team_id)
-    #find win percentage and sort
-    #find max for fav opponent and min for rival
+  def favorite_opponent_id(team_id)
+    fav_opponent = find_percent_of_winning_games_against_rival(team_id).max_by do |rival_id, wins|
+      wins
+    end
+    fav_opponent[0]
   end
 end
-  # #
-  # def hellllllppppp(team_id)
-  #   x = favorite_opponent(team_id).find_all do |key, value|
-  #     key == [1, 2] || key == [2, 1]
-  #   end
-  # end
-  # #
-
-  # def favorite_opponent(team_id)
-  #   hash = {}
-  #   find_all_game_ids_by_team(team_id).each do |row|
-  #     x = []
-  #     if row[:home_team_id] != team_id
-  #       x << row[:home_team_id]
-  #     else
-  #       x << row[:away_team_id]
-  #     end
-  #     y = row
-  #     hash[x] = y
-  #   end
-  #   hash
-  # end
-
-
-
-
-  # def given_team_wins(team_id)
-  #   find_all_game_ids_by_team(team_id).map do |game|
-  #     game[:game_id]
-  #   end
-  # end
