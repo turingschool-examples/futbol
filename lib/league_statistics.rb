@@ -56,7 +56,6 @@ module LeagueStatistics
     team_best_season_average.key(team_best_season_average.values.min)
   end
 
-# Name of the team with the highest average score per game across all seasons when they are away.
   def highest_scoring_visitor
     team_best_away_average = {}
     team_name_ids.each do |team_name, team_id|
