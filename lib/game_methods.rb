@@ -84,13 +84,6 @@ class GameMethods
       :tie == determine_winner(game - 1)
     end
     (ties.to_f / @away_goals.length).round(2)
-    if @home_goals[index] > @away_goals[index]
-      :home
-    elsif @home_goals[index] < @away_goals[index]
-      :away
-    else
-      :tie
-    end
   end
 
   def percentage_visitor_wins
