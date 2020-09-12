@@ -1,6 +1,4 @@
 require_relative 'test_helper'
-require './lib/stat_tracker'
-require './lib/game_statistics'
 
 class StatTrackerTest < Minitest::Test
   def test_it_exists
