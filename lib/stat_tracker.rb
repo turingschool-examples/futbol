@@ -1,13 +1,20 @@
 require 'CSV'
+require_relative 'game_manager'
+require_relative 'team_manager'
+require_relative 'game_teams_manager'
+require_relative 'game'
+require_relative 'game_teams'
+require_relative 'team'
 
 class StatTracker
   attr_reader :game_manager,
-              :game_teams_stats
+              :game_teams_manager,
+              :team_manager
 
   def initialize(locations)
     @game_manager = GameManager.new(locations[:games], self)
-    @game_teams_stats = GameTeamsStats.new(locations[:game_teams], self)
-    @team_stats = TeamManager.new(locations[:teams], self)
+    @game_teams_manager = GameTeamsManager.new(locations[:game_teams], self)
+    @team_manager = TeamManager.new(locations[:teams], self)
   end
 
   def self.from_csv(locations)
