@@ -35,8 +35,12 @@ class GameManagerTest < MiniTest::Test
   def test_game_manager_can_calculate_percentage_visitor_wins
     assert_equal 0.41, @game_manager.percentage_visitor_wins
   end
-    
+
   def test_game_manager_can_calculate_percentage_ties
     assert_equal 0.06, @game_manager.percentage_ties
+  end
+
+  def test_it_finds_highest_scoring_visitor
+    assert_equal "FC Cincinnati", @game_manager.highest_scoring_visitor
   end
 end
