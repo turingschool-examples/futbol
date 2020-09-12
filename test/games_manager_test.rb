@@ -38,7 +38,7 @@ class GamesManagerTest < Minitest::Test
   end
 
   def test_it_can_return_all_game_ids_for_season
-    expected = [2012020030, 2012020133, 2012020355, 2012020389]
+    expected = ["2012020030", "2012020133", "2012020355", "2012020389"]
     assert_equal expected, @games_manager.game_ids_by_season("20122013")
   end
 

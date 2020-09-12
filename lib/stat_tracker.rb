@@ -39,6 +39,10 @@ class StatTracker
     @teams_manager.team_identifier(team_id)
   end
 
+  def fetch_game_ids_by_season(season)
+    @games_manager.game_ids_by_season(season)
+  end 
+
   # Use seaon_group with count to filter game count
   # move to GameManager
   def total_games(filtered_games = @games)

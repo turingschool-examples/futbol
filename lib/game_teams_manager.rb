@@ -91,13 +91,16 @@ class GameTeamsManager
     end.head_coach
   end
 
+  def game_teams_by_season(season)
+    game_ids = @stat_tracker.fetch_game_ids_by_season(season)
+    @game_teams.find_all do |game|
+      game_ids.include?(game.game_id)
+    end
+  end
+
   def team_tackles(season)
     team_season_tackles = {}
-    games = @game_teams.find_all do |game|
-      season.slice(0..3).include?(game.game_id.slice(0..3))
-    end
-    require "pry"; binding.pry
-    games.each do |game|
+    game_teams_by_season(season).each do |game|
       if team_season_tackles[game.team_id]
         team_season_tackles[game.team_id] += game.tackles
       else
