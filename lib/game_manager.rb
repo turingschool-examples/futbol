@@ -24,4 +24,10 @@ class GameManager
   def find_game_ids_for_season(season)
     games_of_season(season).map {|game| game.game_id }
   end
+
+  def games_by_team(team_id)
+    @games.select do |game|
+      game.home_team_id == team_id || game.away_team_id == team_id
+    end
+  end
 end
