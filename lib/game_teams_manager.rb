@@ -15,14 +15,20 @@ class GameTeamsManager
     end
   end
 
-  def average_number_of_goals_scored_by_team(team_id)
-    games_played = @game_teams.find_all do |game_team|
+  def games_played(team_id)
+    @game_teams.find_all do |game_team|
       game_team.team_id == team_id
     end
-    total_goals = games_played.sum do |game|
+  end
+
+  def total_goals(team_id)
+    games_played(team_id).sum do |game|
       game.goals
     end
-    total_goals.to_f/games_played.count
+  end
+
+  def average_number_of_goals_scored_by_team(team_id)
+    (total_goals(team_id).to_f / games_played(team_id).count).round(2)
   end
 
 end
