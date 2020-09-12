@@ -59,4 +59,12 @@ class GameTeamsManager
     end
     coach_record_start
   end
+
+#-------------TeamStats
+  def game_info_by_team(team_id)
+    @game_teams.select do |game_team|
+      game_team.team_id == team_id
+    end
+  end
+
 end
