@@ -153,11 +153,18 @@ class GamesManagerTest < Minitest::Test
   end
 
   def test_it_can_count_total_games_for_team_in_season
-    assert_equal 7, @stats.total_team_games_per_season("1", "20142015")
-    assert_equal 7, @stats.total_team_games_per_season("4", "20142015")
-    assert_equal 6, @stats.total_team_games_per_season("6", "20142015")
-    assert_equal 5, @stats.total_team_games_per_season("14", "20142015")
-    assert_equal 7, @stats.total_team_games_per_season("26", "20142015")
+    assert_equal 7, @games_manager.total_team_games_per_season("1", "20142015")
+    assert_equal 7, @games_manager.total_team_games_per_season("4", "20142015")
+    assert_equal 6, @games_manager.total_team_games_per_season("6", "20142015")
+    assert_equal 5, @games_manager.total_team_games_per_season("14", "20142015")
+    assert_equal 7, @games_manager.total_team_games_per_season("26", "20142015")
+  end
+
+  def test_it_can_determine_season_win_percentage
+    assert_equal 28.57, @games_manager.season_win_percentage("1", "20142015")
+    assert_equal 42.86, @games_manager.season_win_percentage("4", "20142015")
+    assert_equal 66.67, @games_manager.season_win_percentage("6", "20142015")
+    assert_equal 42.86, @games_manager.season_win_percentage("26", "20142015")
   end
 
 
