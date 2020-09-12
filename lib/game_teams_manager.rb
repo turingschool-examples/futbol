@@ -59,4 +59,64 @@ class GameTeamsManager
     end
     coach_record_start
   end
+
+  #-------------GameStatistics
+
+  def percentage_home_wins
+    average = all_home_game_wins.count / all_home_games.count.to_f
+    average.round(2)
+  end
+
+  def all_home_games
+    @game_teams.find_all do |game|
+      game['HoA'] == "home"
+    end
+  end
+
+  def all_home_game_wins
+    all_home_games.find_all do |game|
+      game['result'] == "WIN"
+    end
+  end
+
+  def percentage_visitor_wins
+    average = all_away_game_wins.count / all_away_games.count.to_f
+    average.round(2)
+  end
+
+  def all_away_games
+    @game_teams.find_all do |game|
+      game['HoA'] == "away"
+    end
+  end
+
+  def all_away_game_wins
+    all_away_games.find_all do |game|
+      game['result'] == "WIN"
+    end
+  end
+
+  def percentage_ties
+    average = all_tie_games.count / all_games.count.to_f
+    average.round(2)
+  end
+
+  def all_games
+    @game_teams.find_all do |game|
+      game['HoA'] == "away" || game['HoA'] == "home"
+    end
+  end
+
+  def all_tie_games
+    all_games.find_all do |game|
+      game['result'] == "TIE"
+    end
+  end
+
+  # def all_home_game_losses
+  #   all_home_games.find_all do |game|
+  #     game['result'] == "LOSS"
+  #   end
+  # end
+
 end

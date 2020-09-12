@@ -86,4 +86,46 @@ class GameTeamsManagerTest < Minitest::Test
     total_record = @stat_tracker.game_teams_manager.add_wins_losses(results, coach_record_start)
     assert_equal "John Tortorella", @stat_tracker.game_teams_manager.worst_coach('20122013')
   end
+
+  def test_it_knows_home_win_percentage
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal 0.44, stat_tracker.percentage_home_wins
+  end
+
+  def test_it_knows_visitor_win_percentage
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal 0.36, stat_tracker.percentage_visitor_wins
+  end
+
+  def test_it_knows_tie_percentage
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal 0.20, stat_tracker.percentage_ties
+  end
 end
