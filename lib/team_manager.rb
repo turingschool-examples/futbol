@@ -28,16 +28,16 @@ class TeamManager
 #-------------TeamStats
 
   def team_info(team_id)
-    result = { }
+    team_info = { }
     @teams.each do |team|
       if team_id == team.team_id
-        result['team_id'] = team.team_id
-        result['franchise_id'] = team.franchise_id
-        result['team_name'] = team.team_name
-        result['abbreviation'] = team.abbreviation
-        result['link'] = team.link
+        team_info['team_id'] = team.team_id
+        team_info['franchise_id'] = team.franchise_id
+        team_info['team_name'] = team.team_name
+        team_info['abbreviation'] = team.abbreviation
+        team_info['link'] = team.link
       end
     end
-    result
+    team_info
   end
 end
