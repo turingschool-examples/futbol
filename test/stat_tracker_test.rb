@@ -27,20 +27,8 @@ class StatTrackerTest < Minitest::Test
   #   assert_equal expected, @stats.sum_game_goals("20142015")
   # end
 
-  def test_it_can_determine_highest_and_lowest_game_score ###
-    assert_equal 1, @stats.lowest_total_score
-    assert_equal 6, @stats.highest_total_score
-  end
-
   def test_it_can_find_total_games ###
     assert_equal 53, @stats.total_games
-  end
-
-  def test_it_can_determine_season_win_percentage
-    assert_equal 28.57, @stats.season_win_percentage(1, "20142015")
-    assert_equal 42.86, @stats.season_win_percentage(4, "20142015")
-    assert_equal 66.67, @stats.season_win_percentage(6, "20142015")
-    assert_equal 42.86, @stats.season_win_percentage(26, "20142015")
   end
 
   def test_it_can_filter_games_by_season
@@ -62,11 +50,6 @@ class StatTrackerTest < Minitest::Test
     end
     assert result_3
     assert_equal 16, expected_games_3.count
-  end
-
-  def test_it_can_create_array_of_all_team_ids
-    expected = [1, 4, 6, 14, 26]
-    assert_equal expected, @stats.team_ids
   end
 
   def test_it_can_create_array_of_all_team_ids
