@@ -73,5 +73,17 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal expected, @stat_tracker.game_teams_manager.add_wins_losses(results, coach_record_start)
   end
 
-  
+  def test_winningest_coach
+    results = @stat_tracker.game_teams_manager.game_team_results_by_season('20122013')
+    coach_record_start = @stat_tracker.game_teams_manager.initialize_coaches_records(results)
+    total_record = @stat_tracker.game_teams_manager.add_wins_losses(results, coach_record_start)
+    assert_equal "Claude Julien", @stat_tracker.game_teams_manager.winningest_coach('20122013')
+  end
+
+  def test_worst_coach
+    results = @stat_tracker.game_teams_manager.game_team_results_by_season('20122013')
+    coach_record_start = @stat_tracker.game_teams_manager.initialize_coaches_records(results)
+    total_record = @stat_tracker.game_teams_manager.add_wins_losses(results, coach_record_start)
+    assert_equal "John Tortorella", @stat_tracker.game_teams_manager.worst_coach('20122013')
+  end
 end
