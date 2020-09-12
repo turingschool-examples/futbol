@@ -147,7 +147,6 @@ module TeamStatistics
     opponents.each do |team, wins|
       win_percentages[team] = wins / game_count[team].to_f
     end
-    require "pry"; binding.pry
     favorite_team_id = win_percentages.key(win_percentages.values.min)
     favorite_team = @team_table.find do |team_id, info|
       team_id.to_i == favorite_team_id
