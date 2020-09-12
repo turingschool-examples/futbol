@@ -8,9 +8,18 @@ require 'mocha/minitest'
 
 class TeamManagerTest < Minitest::Test
   def setup
-    tracker = mock('stat_tracker')
-    teams_path = './data/teams.csv'
-    @team_manager = TeamsManager.new(teams_path, tracker)
+    game_path = './data/dummy_game.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/dummy_game_teams.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+    @team_manager = TeamsManager.new(team_path, stat_tracker)
   end
 
   def test_it_can_count_teams
@@ -20,5 +29,9 @@ class TeamManagerTest < Minitest::Test
   def test_it_can_find_a_name
     team_number = '23'
     assert_equal 'Montreal Impact', @team_manager.find_team_name(team_number)
+  end
+
+  def test_average_number_of_goals_scored_by_team
+    assert_equal 1.75, @team_manager.average_number_of_goals_scored_by_team('3')
   end
 end

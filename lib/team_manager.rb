@@ -23,4 +23,8 @@ class TeamsManager
       team.team_id == team_number
     end.team_name
   end
+
+  def average_number_of_goals_scored_by_team(team_id)
+    @tracker.average_number_of_goals_scored_by_team(team_id)
+  end
 end
