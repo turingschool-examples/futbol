@@ -74,4 +74,15 @@ module TeamStatistics
     losing_percentage_per_season.key(losing_percentage_per_season.values.max)
   end
 
+  def average_win_percentage(team_id)
+    total_average_win_percentage = 0
+    total_games = 0
+    collect_seasons(team_id).each do |key, value|
+      total_games += value.length
+    end
+    collect_wins_per_season(team_id).each do |key, value|
+      total_average_win_percentage += value
+    end
+    (total_average_win_percentage.to_f/total_games).round(2)
+  end
 end
