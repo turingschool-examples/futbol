@@ -65,4 +65,109 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal expected, tracker.create_team_stats_hash
   end
+
+  def test_it_can_count_teams
+    game_path = './fixture/games_count_teams.csv'
+    team_path = './fixture/team_blank.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal 8, stat_tracker.count_of_teams
+  end
+
+  def test_it_can_find_best_offense
+    game_path = './fixture/game_league_stats_dummy.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal "FC Dallas", stat_tracker.best_offense
+  end
+
+  def test_it_can_find_the_worst_offense
+    game_path = './fixture/game_league_stats_dummy.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal "Houston Dash", stat_tracker.worst_offense
+  end
+
+  def test_it_can_find_the_highest_scoring_visitor
+    game_path = './fixture/game_league_stats_dummy.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal "Washington Spirit FC", stat_tracker.highest_scoring_visitor
+  end
+
+  def test_it_can_find_the_highest_scoring_home_team
+    game_path = './fixture/game_league_stats_dummy.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal "FC Dallas", stat_tracker.highest_scoring_home_team
+  end
+
+  def test_it_can_find_the_lowest_scoring_visitor
+    game_path = './fixture/game_league_stats_dummy.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal "Toronto FC", stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_it_can_find_the_lowest_scoring_home_team
+    game_path = './fixture/game_league_stats_dummy.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal "New York City FC", stat_tracker.lowest_scoring_home_team
+  end
 end

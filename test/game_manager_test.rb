@@ -120,41 +120,4 @@ class GameManagerTest < Minitest::Test
 
     assert_equal expected, @blank_tracker.game_manager.team_stats
   end
-
-  def test_it_can_count_teams
-    path = './fixture/games_count_teams.csv'
-    game_manager = GameManager.new(path, nil)
-
-    assert_equal 8, game_manager.count_of_teams
-  end
-
-  def test_it_can_find_best_offense
-    game_path = './fixture/game_league_stats_dummy.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './fixture/game_teams_blank.csv'
-
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    stat_tracker = StatTracker.from_csv(locations)
-
-    assert_equal "FC Dallas", stat_tracker.game_manager.best_offense
-  end
-
-  def test_it_can_find_the_worst_offense
-    game_path = './fixture/game_league_stats_dummy.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './fixture/game_teams_blank.csv'
-
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    stat_tracker = StatTracker.from_csv(locations)
-
-    assert_equal "Houston Dash", stat_tracker.game_manager.worst_offense
-  end
 end
