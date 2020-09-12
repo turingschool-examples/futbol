@@ -313,10 +313,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal 31.82, @stats.average_win_percentage(4)
   end
 
-  def test_it_can_return_array_of_seasons
-    expected = ["20122013", "20132014", "20142015", "20152016", "20162017", "20172018"]
-    assert_equal expected, @stats.all_seasons
-  end
+  # def test_it_can_return_array_of_seasons
+  #   expected = ["20122013", "20132014", "20142015", "20152016", "20162017", "20172018"]
+  #   assert_equal expected, @stats.all_seasons
+  # end
 
   def test_it_can_return_a_nested_hash_with_all_teams_season_win_percentages
     expected = {

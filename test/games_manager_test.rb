@@ -79,5 +79,10 @@ class GamesManagerTest < Minitest::Test
     assert_equal 42.86, @games_manager.season_win_percentage("26", "20142015")
   end
 
+  def test_it_can_return_array_of_seasons
+    expected = ["20122013", "20132014", "20142015", "20152016", "20162017", "20172018"]
+    assert_equal expected, @games_manager.all_seasons
+  end
+
 
 end

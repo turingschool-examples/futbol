@@ -96,5 +96,19 @@ class GamesManager
     find_percent(total_team_wins(team_id, season), total_team_games_per_season(team_id, season))
   end
 
+  # This should be refactored fo sho  (takes a long time to run)
+  # Currently it cycles through all games just to return an arrray
+  # of unique seasons
+  # But, should be moved to GamesManger
+  def all_seasons
+    unique_seasons = []
+    @games.each do |game|
+      if !unique_seasons.include?(game.season)
+        unique_seasons << game.season
+      end
+    end
+    unique_seasons.sort
+  end
+
 
 end
