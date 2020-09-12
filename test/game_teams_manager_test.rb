@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-class GameTeamsStatsTest < Minitest::Test
+class GameTeamsManagerTest < Minitest::Test
   def setup
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -12,15 +12,11 @@ class GameTeamsStatsTest < Minitest::Test
       game_teams: game_teams_path
     }
   @stat_tracker = StatTracker.from_csv(locations)
-  @game_statistics = GameTeamsStats.new('./data/game_teams.csv', @stat_tracker)
+  @game_statistics = GameTeamsManager.new('./data/game_teams.csv', @stat_tracker)
   end
 
   def test_it_exists
-    assert_instance_of GameTeamsStats, @game_statistics
-  end
-
-  def test_it_exits
-    assert_instance_of LeagueManager, @league_manager
+    assert_instance_of GameTeamsManager, @game_statistics
   end
 
   def test_attributes
