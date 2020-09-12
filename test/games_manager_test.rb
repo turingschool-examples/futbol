@@ -29,7 +29,6 @@ class GamesManagerTest < Minitest::Test
   end
 
   def test_it_can_count_total_team_wins
-    skip
     expected = {
       "1" => 9,
       "4" => 7,
@@ -41,6 +40,7 @@ class GamesManagerTest < Minitest::Test
   end
 
   def test_it_can_count_total_of_team_wins_by_season
+    skip 
     expected = {
       "1" => {
         "20122013" => 2,
