@@ -1,63 +1,30 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'mocha/minitest'
 require './lib/stat_tracker'
 
 class StatTrackerTest < Minitest::Test
-  def test_it_exists
-    game_path = './data/games_dummy.csv'
-    team_path = './data/teams_dummy.csv'
-    game_teams_path = './data/game_teams_dummy.csv'
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    stat_tracker = StatTracker.from_csv(locations)
+  def test_find_team_results_by_season
+    game_path = './fixture/game_blank.csv'
+    team_path = './fixture/team_blank.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
 
-    assert_instance_of StatTracker, stat_tracker
-  end
+    tracker = StatTracker.new(game_path, team_path, game_teams_path)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
 
-  def test_it_can_read_csv_data
-    game_path = './data/games_dummy.csv'
-    team_path = './data/teams_dummy.csv'
-    game_teams_path = './data/game_teams_dummy.csv'
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    stat_tracker = StatTracker.from_csv(locations)
+    tracker.game_manager.games << game_1
+    tracker.game_manager.games << game_2
+    tracker.game_manager.games << game_3
 
-    assert_equal "2012030221", stat_tracker.games[0].game_id
-    # assert_equal [], stat_tracker.teams
-    # assert_equal [], stat_tracker.game_teams
-  end
+    game_1.stubs(:season).returns('20122013')
+    game_2.stubs(:season).returns('20122013')
+    game_3.stubs(:season).returns('20132014')
+    game_1.stubs(:game_id).returns('123')
+    game_2.stubs(:game_id).returns('456')
+    game_3.stubs(:game_id).returns('789')
 
-  def test_it_can_find_highest_total_score
-    game_path = './data/games_dummy.csv'
-    team_path = './data/teams_dummy.csv'
-    game_teams_path = './data/game_teams_dummy.csv'
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    stat_tracker = StatTracker.from_csv(locations)
-
-    assert_equal 6, stat_tracker.highest_total_score
-  end
-
-  def test_it_can_find_lowest_total_score
-    game_path = './data/games_dummy.csv'
-    team_path = './data/teams_dummy.csv'
-    game_teams_path = './data/game_teams_dummy.csv'
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    stat_tracker = StatTracker.from_csv(locations)
-
-    assert_equal 3, stat_tracker.lowest_total_score
+    assert_equal ["123", "456"], tracker.find_game_ids_for_season('20122013')
   end
 end
