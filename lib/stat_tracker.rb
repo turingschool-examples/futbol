@@ -320,13 +320,7 @@ class StatTracker
   end
 
   def team_info(team_id)
-    team_table = @teams.find do |team|
-      team_id == team["team_id"]
-    end
-    info_hash = team_table.to_h.slice("team_id", "franchiseId", "teamName", "abbreviation", "link")
-    info_hash["franchise_id"] = info_hash.delete("franchiseId")
-    info_hash["team_name"] = info_hash.delete("teamName")
-    info_hash
+    @team_manager.team_info(team_id)
   end
 
   def best_season(team_id)
