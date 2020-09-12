@@ -27,4 +27,8 @@ class GameManagerTest < MiniTest::Test
   def test_it_can_calculate_lowest_total_score
     assert_equal 1, @game_manager.lowest_total_score
   end
+
+  def test_it_can_calculate_percentage_home_wins
+   assert_equal 0.53, @game_manager.percentage_home_wins
+  end
 end
