@@ -27,4 +27,9 @@ class GameTest < Minitest::Test
     assert @game_1.visitor_is_winner?
   end
 
+  def test_it_can_determine_winner_id
+    assert_equal "1", @game_1.winner_id
+    refute_equal "4", @game_1.winner_id
+  end
+
 end

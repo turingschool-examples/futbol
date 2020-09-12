@@ -4,7 +4,7 @@ require_relative './game'
 require './lib/manageable'
 
 class GamesManager
-  include Manageable 
+  include Manageable
 
   attr_reader :stat_tracker, :games
 
