@@ -29,4 +29,16 @@ class GameTeamManager
     end
     (team_wins[team_id].to_f / team_game_count[team_id]).round(2)
   end
+
+  def best_offense
+    team_ids = Hash.new(0)
+    team_game_count = Hash.new(0)
+    @game_teams.each do |game_team|
+      team_ids[game_team.team_id] += game_team.goals
+      team_game_count[game_team.team_id] += 1
+    end
+    highest_scoring_team = team_ids.max_by do |team, score|
+      score.to_f / team_game_count[team]
+    end[0]
+  end
 end
