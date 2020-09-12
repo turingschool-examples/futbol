@@ -2,6 +2,23 @@ require './test/test_helper'
 require './lib/team_manager'
 
 class TeamManagerTest < Minitest::Test
+  def test_it_can_generate_team_objects
+    stat_tracker = mock('A totally legit stat_tracker')
+    team_manager = TeamManager.new('./fixtures/teams_init_test.csv', stat_tracker)
+    counter = 1
+
+    team_manager.teams.each do |team|
+      assert_instance_of Team, team
+      assert_equal "t#{counter}", team.team_id
+      assert_equal "f#{counter}", team.franchise_id
+      assert_equal "n#{counter}", team.team_name
+      assert_equal "a#{counter}", team.abbreviation
+      assert_equal "s#{counter}", team.stadium
+      assert_equal "l#{counter}", team.link
+      counter += 1
+    end
+  end
+
   def test_it_has_attributes
     stat_tracker = mock('A totally legit stat_tracker')
     CSV.stubs(:foreach).returns(nil)  # This causes generate_teams to return []
@@ -32,20 +49,12 @@ class TeamManagerTest < Minitest::Test
     assert_equal team3.team_info, team_manager.team_info('3')
   end
 
-  def test_it_can_generate_team_objects
+  def test_it_can_fetch_game_ids_for_a_team
     stat_tracker = mock('A totally legit stat_tracker')
-    team_manager = TeamManager.new('./fixtures/teams_init_test.csv', stat_tracker)
-    counter = 1
+    stat_tracker.stubs(:games_by_team).returns('An array of game ids')
+    CSV.stubs(:foreach).returns(nil)
+    team_manager = TeamManager.new('A totally legit path', stat_tracker)
 
-    team_manager.teams.each do |team|
-      assert_instance_of Team, team
-      assert_equal "t#{counter}", team.team_id
-      assert_equal "f#{counter}", team.franchise_id
-      assert_equal "n#{counter}", team.team_name
-      assert_equal "a#{counter}", team.abbreviation
-      assert_equal "s#{counter}", team.stadium
-      assert_equal "l#{counter}", team.link
-      counter += 1
-    end
+    assert_equal 'An array of game ids', team_manager.game_ids_by_team('1')
   end
 end

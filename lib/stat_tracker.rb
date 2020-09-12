@@ -19,7 +19,7 @@ class StatTracker
     @game_teams_manager = GameTeamManager.new(locations, self)
   end
 
-  def team_info(team_id)
-    @team_manager.team_info(team_id)
+  def team_info(id)
+    @team_manager.team_info(id)
   end
 end
