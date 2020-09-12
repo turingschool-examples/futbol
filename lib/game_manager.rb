@@ -63,4 +63,36 @@ class GamesManager
     end
     games_per_season
   end
+
+  def total_goals
+    @games.sum do |game|
+      game.total_score
+    end
+  end
+
+  def average_goals_per_game
+    (total_goals.to_f / @games.count).round(2)
+  end
+
+  def total_goals_by_season(season)
+    @games.sum do |game|
+      if game.season == season
+        game.total_score
+      else
+        0
+      end
+    end
+  end
+
+  def average_goals_by_season_data(season)
+    (total_goals_by_season(season) / count_games_by_season[season].to_f).round(2)
+  end
+
+  def average_goals_by_season
+    average_goals_by_season = {}
+    list_of_seasons.each do |season|
+      average_goals_by_season[season] = average_goals_by_season_data(season)
+    end
+    average_goals_by_season
+  end
 end
