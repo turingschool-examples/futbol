@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'mocha/minitest'
 require 'Pry'
 require './lib/game_team'
 require './lib/game_team_manager'
@@ -24,6 +25,7 @@ class GameTeamManagerTest < MiniTest::Test
   end
 
   def test_it_can_get_team_with_best_offense
-    assert_equal "24", @game_team_manager.best_offense
+    @game_team_manager.tracker.stubs(:get_team_name).returns("Real Salt Lake")
+    assert_equal "Real Salt Lake", @game_team_manager.best_offense
   end
 end

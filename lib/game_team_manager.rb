@@ -40,5 +40,6 @@ class GameTeamManager
     highest_scoring_team = team_ids.max_by do |team, score|
       score.to_f / team_game_count[team]
     end[0]
+    @tracker.get_team_name(highest_scoring_team)
   end
 end

@@ -87,20 +87,12 @@ class StatTracker
     @team_manager.count_of_teams
   end
 
-  def best_offense # Theres so much we can do to refactor this
-    team_ids = Hash.new(0)
-    team_game_count = Hash.new(0)
-    @game_teams.each do |game_team| # game_teams_manager.rb
-      team_ids[game_team["team_id"]] += game_team["goals"].to_i
-      team_game_count[game_team["team_id"]] += 1
-    end
-    highest_scoring_team = team_ids.max_by do |team, score|
-      score.to_f / team_game_count[team]
-    end
-    best_offense = @teams.find do |team| # Create find_team_name method? # team_manager.rb
-      team["team_id"] == highest_scoring_team[0] # Would accept this as argument
-    end
-    best_offense["teamName"]
+  def best_offense
+    @game_team_manager.best_offense
+  end
+
+  def get_team_name(team_id)
+    @team_manager.get_team_name(team_id)
   end
 
   def worst_offense # Theres so much we can do to refactor this
