@@ -46,9 +46,9 @@ class GameManagerTest < Minitest::Test
     game_manager.games << game_2
     game_manager.games << game_3
 
-    game_manager.games[0].stubs(:season).returns('20122013')
-    game_manager.games[1].stubs(:season).returns('20122013')
-    game_manager.games[2].stubs(:season).returns('20132014')
+    game_1.stubs(:season).returns('20122013')
+    game_2.stubs(:season).returns('20122013')
+    game_3.stubs(:season).returns('20132014')
     assert_equal [game_1, game_2], game_manager.games_of_season('20122013')
   end
 
@@ -62,12 +62,12 @@ class GameManagerTest < Minitest::Test
     game_manager.games << game_2
     game_manager.games << game_3
 
-    game_manager.games[0].stubs(:season).returns('20122013')
-    game_manager.games[1].stubs(:season).returns('20122013')
-    game_manager.games[2].stubs(:season).returns('20132014')
-    game_manager.games[0].stubs(:game_id).returns('123')
-    game_manager.games[1].stubs(:game_id).returns('456')
-    game_manager.games[2].stubs(:game_id).returns('789')
+    game_1.stubs(:season).returns('20122013')
+    game_2.stubs(:season).returns('20122013')
+    game_3.stubs(:season).returns('20132014')
+    game_1.stubs(:game_id).returns('123')
+    game_2.stubs(:game_id).returns('456')
+    game_3.stubs(:game_id).returns('789')
 
     assert_equal ["123", "456"], game_manager.find_game_ids_for_season('20122013')
   end
