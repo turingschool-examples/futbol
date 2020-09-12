@@ -91,4 +91,31 @@ class GameManagerTest < Minitest::Test
     game_3.stubs(:away_team_id).returns('2')
     assert_equal [game_1, game_2], game_manager.games_by_team('1')
   end
+
+  def test_it_can_find_team_games_by_season
+    path = './fixture/game_blank.csv'
+    game_manager = GameManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_manager.games << game_1
+    game_manager.games << game_2
+    game_manager.games << game_3
+
+    games = []
+    games << game_1
+    games << game_2
+    game_1.stubs(:home_team_id).returns('1')
+    game_1.stubs(:away_team_id).returns('2')
+    game_2.stubs(:away_team_id).returns('1')
+    game_2.stubs(:home_team_id).returns('2')
+    game_3.stubs(:home_team_id).returns('3')
+    game_3.stubs(:away_team_id).returns('2')
+    game_1.stubs(:season).returns('20122013')
+    game_2.stubs(:season).returns('20142015')
+    game_3.stubs(:season).returns('20122013')
+    expected = {'20122013'=>[game_1], '20142015'=>[game_2]}
+    assert_equal expected, game_manager.team_games_by_season(games)
+  end
+
 end
