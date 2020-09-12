@@ -4,7 +4,9 @@ class Team
               :team_name,
               :abbreviation,
               :stadium,
-              :link
+              :link,
+              :manager,
+              :average_goals
 
   def initialize(data, manager)
     @team_id = data["team_id"]
@@ -13,5 +15,12 @@ class Team
     @abbreviation = data["abbreviation"]
     @stadium = data["Stadium"]
     @link = data["link"]
+    @manager = manager
+    @average_goals = team_average_goals(@team_id)
+  end
+
+  def team_average_goals(team_id)
+# binding.pry
+    @manager.average_number_of_goals_scored_by_team(team_id)
   end
 end
