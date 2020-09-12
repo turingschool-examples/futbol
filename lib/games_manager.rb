@@ -50,4 +50,18 @@ include Manageable
     @games.count
   end
 
+  def season_group
+    @games.group_by do |row|
+      row.season
+    end
+  end
+
+  def count_of_games_by_season
+    count = {}
+    season_group.each do |season, games|
+      count[season] = games.count
+    end
+    count
+  end
+
 end
