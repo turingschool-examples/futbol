@@ -90,13 +90,27 @@ module TeamStatistics
     most_goals = 0
     collect_seasons(team_id).each do |key, value|
       value.each do |game|
-        if team_id.to_i == game.away_team_id && game.away_goals > game.home_goals
+        if team_id.to_i == game.away_team_id
           most_goals = game.away_goals if game.away_goals > most_goals
-        elsif team_id.to_i == game.home_team_id && game.home_goals > game.away_goals
+        elsif team_id.to_i == game.home_team_id
           most_goals = game.home_goals if game.home_goals > most_goals
         end
       end
     end
     most_goals
+  end
+
+  def fewest_goals_scored(team_id)
+    fewest_goals = 5
+    collect_seasons(team_id).each do |key, value|
+      value.each do |game|
+        if team_id.to_i == game.away_team_id
+          fewest_goals = game.away_goals if game.away_goals < fewest_goals
+        elsif team_id.to_i == game.home_team_id
+          fewest_goals = game.home_goals if game.home_goals < fewest_goals
+        end
+      end
+    end
+    fewest_goals
   end
 end
