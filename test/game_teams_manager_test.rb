@@ -55,4 +55,23 @@ class GameTeamsManagerTest < Minitest::Test
 
     assert_equal [game_teams_1], tracker.game_teams_manager.game_team_results_by_season('20122013')
   end
+
+  def test_initialize_coaches_records
+    results = @stat_tracker.game_teams_manager.game_team_results_by_season('20122013')
+    expected = {"John Tortorella"=>{:wins=>0, :losses=>0, :ties=>0},
+              "Claude Julien"=>{:wins=>0, :losses=>0, :ties=>0}, "Dan Bylsma"=>{:wins=>0, :losses=>0, :ties=>0},
+              "Mike Babcock"=>{:wins=>0, :losses=>0, :ties=>0}, "Joel Quenneville"=>{:wins=>0, :losses=>0, :ties=>0}}
+    assert_equal expected, @stat_tracker.game_teams_manager.initialize_coaches_records(results)
+  end
+
+  def test_add_wins_losses
+    results = @stat_tracker.game_teams_manager.game_team_results_by_season('20122013')
+    coach_record_start = @stat_tracker.game_teams_manager.initialize_coaches_records(results)
+    expected = {"John Tortorella"=>{:wins=>0, :losses=>5, :ties=>0}, "Claude Julien"=>{:wins=>9, :losses=>0, :ties=>0},
+                "Dan Bylsma"=>{:wins=>0, :losses=>4, :ties=>0}, "Mike Babcock"=>{:wins=>4, :losses=>3, :ties=>0},
+                "Joel Quenneville"=>{:wins=>3, :losses=>4, :ties=>0}}
+    assert_equal expected, @stat_tracker.game_teams_manager.add_wins_losses(results, coach_record_start)
+  end
+
+  
 end
