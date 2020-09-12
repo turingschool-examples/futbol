@@ -33,15 +33,6 @@ class TeamManagerTest < Minitest::Test
   end
 
   def test_it_can_find_team_info
-      game_path = './fixture/games_dummy.csv'
-      team_path = './fixture/teams_dummy.csv'
-      game_teams_path = './fixture/game_teams_dummy.csv'
-      locations = {
-        games: game_path,
-        teams: team_path,
-        game_teams: game_teams_path
-      }
-      stat_tracker = StatTracker.from_csv(locations)
       expected = {
         'team_id'=> "4",
         'franchise_id'=>  "16",
