@@ -53,9 +53,9 @@ module TeamStatistics
     collect_seasons(team_id).each do |season, info|
       losses = 0
       info.each do |game|
-        if (team_id.to_i) == game.away_team_id && (game.away_goals < game.home_goals)
+        if (team_id.to_i) == game.away_team_id && (game.away_goals < game.home_goals || game.away_goals == game.home_goals)
           losses += 1
-        elsif (team_id.to_i) == game.home_team_id && (game.away_goals > game.home_goals)
+        elsif (team_id.to_i) == game.home_team_id && (game.away_goals > game.home_goals || game.away_goals == game.home_goals)
           losses += 1
         end
       end

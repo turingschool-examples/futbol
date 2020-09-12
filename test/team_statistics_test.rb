@@ -27,7 +27,6 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_worst_season
-    skip
     assert_equal "20142015", @stat_tracker.worst_season("6")
   end
 
