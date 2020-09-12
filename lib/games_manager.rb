@@ -34,14 +34,14 @@ include Manageable
 
   def percentage_home_wins
     wins = @games.count do |game|
-      game.home_is_winner
+      game.home_is_winner?
     end
     ratio(wins, total_games)
   end
 
   def percentage_visitor_wins
     wins = @games.count do |game|
-      game.visitor_is_winner
+      game.visitor_is_winner?
     end
     ratio(wins, total_games)
   end
