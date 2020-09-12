@@ -31,6 +31,13 @@ class StatTrackerTest < Minitest::Test
     assert_equal 53, @stats.total_games
   end
 
+  def test_it_can_fetch_season_win_percentage
+    assert_equal 28.57, @stats.fetch_season_win_percentage("1", "20142015")
+    assert_equal 42.86, @stats.fetch_season_win_percentage("4", "20142015")
+    assert_equal 66.67, @stats.fetch_season_win_percentage("6", "20142015")
+    assert_equal 42.86, @stats.fetch_season_win_percentage("26", "20142015")
+  end
+
   def test_it_can_filter_games_by_season
     expected_games_1 = @stats.filter_by_season("20122013")
     expected_games_2 = @stats.filter_by_season("20152016")

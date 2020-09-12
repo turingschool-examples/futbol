@@ -37,6 +37,7 @@ class GameTeamsManager
     @game_teams.select do |game|
       game.hoa == where
     end
+    require "pry"; binding.pry
   end
 
   def away_games
@@ -56,6 +57,14 @@ class GameTeamsManager
       avg_score(details)
     end[0]
     team_id_to_team_name(highest_scoring_visitor)
+  end
+
+  def all_teams_win_percentage(season)
+    percent_wins = {}
+    @stat_tracker.fetch_all_team_ids.each do |team_id|
+      percent_wins[team_id] = @stat_tracker.fetch_season_win_percentage(team_id, season)
+    end
+    percent_wins
   end
 
 end

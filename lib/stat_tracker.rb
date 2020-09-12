@@ -31,10 +31,9 @@ class StatTracker
     @teams_manager.all_team_ids
   end
 
-  def fetch_season_win_percentage
+  def fetch_season_win_percentage(team_id, season)
+    @games_manager.season_win_percentage(team_id, season)
   end
-
-
 
   # move to GameManager
   def total_games(filtered_games = @games)
