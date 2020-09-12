@@ -173,4 +173,12 @@ class TeamStats
     end
     fav_opponent[0]
   end
+
+  def favorite_opponent(team_id)
+    opponent_id = favorite_opponent_id(team_id)
+    opponent_name = @teams_data.find do |team|
+      team[:teamname] if opponent_id == team[:team_id]
+    end
+    opponent_name[:teamname]
+  end
 end

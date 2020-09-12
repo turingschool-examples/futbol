@@ -100,7 +100,11 @@ class TeamStatsTest < Minitest::Test
   #   assert_equal 31, @team_stats.find_percent_of_winning_games_against_rival("18").count
   # end
 
-  def test_it_can_find_favorite_opponent_id
-    assert_equal 14, @team_stats.favorite_opponent_id("18")
+  # def test_it_can_find_favorite_opponent_id
+  #   assert_equal 14, @team_stats.favorite_opponent_id("18")
+  # end
+
+  def test_it_can_find_favorite
+    assert_equal "DC United", @team_stats.favorite_opponent("18")
   end
 end
