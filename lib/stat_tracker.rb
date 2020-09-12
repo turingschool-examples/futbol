@@ -1,27 +1,24 @@
 require 'CSV'
+require_relative 'game_manager'
+require_relative 'team_manager'
+require_relative 'game_teams_manager'
+require_relative 'game'
+require_relative 'game_teams'
+require_relative 'team'
 
 class StatTracker
   attr_reader :game_manager,
-              :game_teams_stats
+              :game_teams_manager,
+              :team_manager
 
   def initialize(locations)
     @game_manager = GameManager.new(locations[:games], self)
-    @game_teams_stats = GameTeamsStats.new(locations[:game_teams], self)
-    # @league_stats = LeagueStats.new()
+    @game_teams_manager = GameTeamsManager.new(locations[:game_teams], self)
+    @team_manager = TeamManager.new(locations[:teams], self)
   end
 
   def self.from_csv(locations)
     StatTracker.new(locations)
-  end
-
-
-
-  def teams_stats
-    teams_data = CSV.read(@teams, { encoding: 'UTF-8', headers: true, header_converters: :symbol, converters: :all })
-    hashed_teams_data = teams_data.map { |row| row.to_hash }
-    hashed_teams_data.each do |row|
-      row.delete(:staduim)
-    end
   end
 
   def highest_total_score

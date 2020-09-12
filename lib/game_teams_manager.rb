@@ -1,5 +1,5 @@
-class GameTeamsStats
-  attr_reader :game_data,
+class GameTeamsManager
+  attr_reader :game_teams_data,
               :tracker
 
   def initialize(location, tracker)
@@ -23,8 +23,8 @@ class GameTeamsStats
   end
 
   def all_home_wins
-  @game_teams_data.select do |game_team|
-    game_team.hoa == "home" && game_team.result == "WIN"
+    @game_teams_data.select do |game_team|
+      game_team.hoa == "home" && game_team.result == "WIN"
     end
   end
 
@@ -39,5 +39,11 @@ class GameTeamsStats
       game_team.result == "TIE"
     end
     double_ties.count / 2
+  end
+
+  def group_by_team_id
+    @game_teams_data.group_by do |team|
+      team.team_id
+    end
   end
 end

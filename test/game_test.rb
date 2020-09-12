@@ -1,26 +1,18 @@
 require_relative 'test_helper'
 
 class GameTest < Minitest::Test
+  def setup
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
 
-  def test_it_exists_with_attributes
-    game = Game.new({game_id: 1,
-                     season: "2012",
-                     type: "OT",
-                     date_time: "9/1/20",
-                     away_team_id: "7",
-                     home_team_id: "3",
-                     away_goals: 5,
-                     home_goals: 1}, "manager")
-
-    assert_instance_of Game, game
-    assert_equal 1, game.game_id
-    assert_equal "2012", game.season
-    assert_equal "OT", game.type
-    assert_equal "9/1/20", game.date_time
-    assert_equal "3", game.home_team_id
-    assert_equal "7", game.away_team_id
-    assert_equal 5, game.away_goals
-    assert_equal 1, game.home_goals
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    @stat_tracker = StatTracker.from_csv(locations)
+    @game_manager = GameManager.new('./data/games.csv', @stat_tracker)
+    @game         = Game.new(locations, @game_manager)
   end
-
 end

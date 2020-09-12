@@ -41,11 +41,11 @@ class GameManager
   end
 
   def all_home_wins
-    @tracker.game_teams_stats.all_home_wins
+    @tracker.game_teams_manager.all_home_wins
   end
 
   def all_visitor_wins
-    @tracker.game_teams_stats.all_visitor_wins
+    @tracker.game_teams_manager.all_visitor_wins
   end
 
   def percentage_visitor_wins
@@ -53,7 +53,7 @@ class GameManager
   end
 
   def count_of_ties
-    @tracker.game_teams_stats.count_of_ties
+    @tracker.game_teams_manager.count_of_ties
   end
 
   def percentage_ties
