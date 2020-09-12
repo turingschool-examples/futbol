@@ -12,16 +12,14 @@ class GameMethodsTest < Minitest::Test
     assert_equal './test/csv_test.csv', game_methods.file_loc
   end
 
-  def test_generates_table
+  def test_generates_games
     file_loc = './test/csv_test.csv'
 
     game_methods = GameMethods.new(file_loc)
 
-    expected = CSV.parse(File.read(file_loc), headers: true)
-
-    assert_equal expected, game_methods.create_table
-
-    assert_equal expected, game_methods.table
+    game_methods.games.each do |game|
+      assert_instance_of Game, game
+    end
   end
 
   def test_highest_total_score

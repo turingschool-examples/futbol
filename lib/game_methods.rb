@@ -1,62 +1,58 @@
 # frozen_string_literal: true
 
 require 'CSV'
+require_relative './game'
 
 # Holds methods that get data out of a CSV file
 class GameMethods
-  attr_reader :file_loc, :table, :home_goals, :away_goals
+  attr_reader :file_loc, :games, :home_goals, :away_goals
 
   def initialize(file_loc)
     @file_loc = file_loc
-    @table = create_table
-    @home_goals = @table['home_goals']
-    @away_goals = @table['away_goals']
-
-    @seasons = @table['season']
-    @game_ids = @table['game_id']
-
+    @games = create_games
   end
 
-  def create_table
-    CSV.parse(File.read(@file_loc), headers: true)
+  def create_games
+    CSV.parse(File.read(@file_loc), headers: true).map do |row|
+      Game.new(row)
+    end
   end
 
   def highest_total_score
-    home_goals = @table['home_goals']
-    game_totals = @table['away_goals'].map.with_index do |away, idx|
-      away.to_i + home_goals[idx].to_i
+    game_totals = @games.map do |game|
+      game.home_goals.to_i + game.away_goals.to_i
     end
 
     game_totals.max
   end
 
   def lowest_total_score
-    home_goals = @table['home_goals']
-    game_totals = @table['away_goals'].map.with_index do |away, idx|
-      away.to_i + home_goals[idx].to_i
+    game_totals = @games.map do |game|
+      game.home_goals.to_i + game.away_goals.to_i
     end
 
     game_totals.min
   end
 
   def average_goals_by_season
-    rows = @table.group_by {|row| row['season']}
     output_hash = {}
-    rows.each do |season, games|
-      output_hash[season] = (games.sum do |row|
-        row['away_goals'].to_i + row['home_goals'].to_i
+    games_by_season.each do |season, games|
+      output_hash[season] = (games.sum do |game|
+        game.away_goals.to_i + game.home_goals.to_i
       end.to_f / games.length).round(2)
     end
     output_hash
   end
+
   def average_goals_per_game
-    total_goals = @away_goals.map(&:to_i).sum + @home_goals.map(&:to_i).sum
-    (total_goals.to_f / @away_goals.length).round(2)
+    (@games.sum do |game|
+      game.home_goals.to_i + game.away_goals.to_i
+    end.to_f / @games.length).round(2)
   end
 
   def games_by_season
-    @game_ids.group_by.with_index do |id, idx|
-      @seasons[idx]
+    @games.group_by do |game|
+      game.season
     end
   end
 
@@ -69,10 +65,10 @@ class GameMethods
     output_hash
   end
 
-  def determine_winner(index)
-    if @home_goals[index] > @away_goals[index]
+  def determine_winner(game)
+    if game.home_goals.to_i > game.away_goals.to_i
       :home
-    elsif @home_goals[index] < @away_goals[index]
+    elsif game.home_goals.to_i < game.away_goals.to_i
       :away
     else
       :tie
@@ -80,23 +76,23 @@ class GameMethods
   end
 
   def percentage_ties
-    ties = (1..@away_goals.length).count do |game|
-      :tie == determine_winner(game - 1)
+    ties = @games.count do |game|
+      :tie == determine_winner(game)
     end
-    (ties.to_f / @away_goals.length).round(2)
+    (ties.to_f / @games.length).round(2)
   end
 
   def percentage_visitor_wins
-    away_wins = (1..@away_goals.length).count do |game|
-      :away == determine_winner(game - 1)
+    away_wins = @games.count do |game|
+      :away == determine_winner(game)
     end
-    (away_wins.to_f / @away_goals.length).round(2)
+    (away_wins.to_f / @games.length).round(2)
   end
 
   def percentage_home_wins
-    home_wins = (1..@home_goals.length).count do |game|
-      :home == determine_winner(game - 1)
+    home_wins = @games.count do |game|
+      :home == determine_winner(game)
     end
-    (home_wins.to_f / @home_goals.length).round(2)
+    (home_wins.to_f / @games.length).round(2)
   end
 end
