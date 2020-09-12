@@ -25,6 +25,12 @@ class StatTracker
   end
 
 # ~~~ Helper Methods ~~~~
+  def fetch_all_team_ids
+    @teams_manager.all_team_ids
+  end
+
+
+
   # move to GameManager
   def total_games(filtered_games = @games)
     filtered_games.count
