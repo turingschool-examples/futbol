@@ -32,8 +32,6 @@ class GamesManager
     end.total_game_score
   end
 
-
-
   def percentage_home_wins
      wins = @games.count do |game|
        game.home_is_winner?
@@ -49,13 +47,17 @@ class GamesManager
   end
 
   def total_team_wins
-    @games.group_by do |game|
+    games = @games.group_by do |game|
       game.winner_id
-    end.map do |team_id, game|
-      require "pry"; binding.pry
-    end 
+    end
+    total_team_wins = {}
+    games.each do |team_id, game|
+      if team_id != 'tie'
+        total_team_wins[team_id] = game.count
+      end
+    end
+    total_team_wins
   end
-
 
   def total_team_wins_by_season
     @games.reduce(Hash.new) do |hash, game|
@@ -66,6 +68,7 @@ class GamesManager
           hash[game.winner_id] = {game.season => 1}
         end
       end
+      hash
     end
   end
 
