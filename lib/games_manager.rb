@@ -1,11 +1,11 @@
 require 'csv'
-require_relative './manageable'
 require_relative './stat_tracker'
 require_relative './game'
-
+require './lib/manageable'
 
 class GamesManager
-include Manageable
+  include Manageable 
+
   attr_reader :stat_tracker, :games
 
   def initialize(path, stat_tracker)
@@ -33,13 +33,13 @@ include Manageable
   end
 
   def percentage_home_wins
-    wins = @games.count do |game|
-      game.home_is_winner?
-    end
-    ratio(wins, total_games)
-  end
+     wins = @games.count do |game|
+       game.home_is_winner?
+     end
+     ratio(wins, total_games)
+   end
 
-  def percentage_visitor_wins
+   def percentage_visitor_wins
     wins = @games.count do |game|
       game.visitor_is_winner?
     end

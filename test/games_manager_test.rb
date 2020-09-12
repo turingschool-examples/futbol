@@ -21,7 +21,7 @@ class GamesManagerTest < Minitest::Test
   end
 
   def test_it_can_get_percentage_home_wins
-    assert_equal 0.55, @games_manager.percentage_home_wins
+      assert_equal 0.55, @games_manager.percentage_home_wins
   end
 
   def test_it_can_get_percentage_visitor_games_won

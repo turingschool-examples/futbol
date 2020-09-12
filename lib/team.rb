@@ -2,8 +2,6 @@ require "csv"
 require_relative "./teams_manager"
 
 class Team
-  # @@all_teams = []
-
   attr_reader :team_id,
               :franchise_id,
               :team_name,
