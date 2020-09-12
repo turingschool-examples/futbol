@@ -41,7 +41,7 @@ class StatTracker
 
   def fetch_game_ids_by_season(season)
     @games_manager.game_ids_by_season(season)
-  end 
+  end
 
   # Use seaon_group with count to filter game count
   # move to GameManager
@@ -500,15 +500,11 @@ class StatTracker
   end
 
   def most_tackles(season)
-    team_identifier(team_tackles(season).max_by do |team|
-      team.last
-    end.first)
+    @game_teams_manager.most_tackles(season)
   end
 
   def fewest_tackles(season)
-    team_identifier(team_tackles(season).min_by do |team|
-      team.last
-    end.first)
+    @game_teams_manager.fewest_tackles(season)
   end
 
   def most_accurate_team(season)
