@@ -13,7 +13,7 @@ class TeamsManager
 
   def create_teams(teams_table)
     @teams = teams_table.map do |data|
-      Team.new(data, self)
+      Team.new(data)
     end
   end
 

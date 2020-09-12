@@ -14,7 +14,7 @@ class GameTeamsManager
 
   def create_game_teams(path)
     @game_teams = path.map do |data|
-      GameTeam.new(data, self)
+      GameTeam.new(data)
     end
   end
 

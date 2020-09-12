@@ -11,8 +11,7 @@ class Team
               :stadium,
               :link
 
-  def initialize(data, teams_manager)
-    @teams_manager = teams_manager
+  def initialize(data)
     @team_id = data[:team_id]
     @franchise_id = data[:franchiseid]
     @team_name = data[:teamname]
