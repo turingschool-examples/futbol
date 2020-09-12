@@ -1,4 +1,7 @@
+require_relative '../lib/findable'
+
 class GameManager
+  include Findable
   attr_reader :games, :tracker #do we need attr_reader?
 
   def initialize(path, tracker)
@@ -23,6 +26,28 @@ class GameManager
 
   def find_game_ids_for_season(season)
     games_of_season(season).map {|game| game.game_id }
+  end
+
+  #------------LeagueStats
+  def count_of_teams
+    teams = games.flat_map do |game|
+      [game.away_team_id, game.home_team_id]
+    end
+    teams.uniq.count
+  end
+
+  def best_offense
+    best_offense = team_stats.max_by do |team, stats|
+      stats[:total_goals] / stats[:total_games].to_f
+    end
+    find_team_by_team_id(best_offense[0])
+  end
+
+  def worst_offense
+    worst_offense = team_stats.min_by do |team, stats|
+      stats[:total_goals] / stats[:total_games].to_f
+    end
+    find_team_by_team_id(worst_offense[0])
   end
 
   def team_stats
