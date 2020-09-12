@@ -93,12 +93,6 @@ class TeamStats
     end
     fewest[:goals]
   end
-  #
-  # def find_team_id(team_id)
-  #   @game_teams_data.group_by do |game|
-  #     game[:game_id]
-  #   end
-  # end
 
   def find_all_game_ids_by_team(team_id)
     @game_data.find_all do |game|
