@@ -32,9 +32,7 @@ class StatTracker
   end
 
   def average_number_of_goals_scored_by_team(team_id)
+binding.pry
     @game_teams_manager.average_number_of_goals_scored_by_team(team_id)
   end
-
-
-
 end
