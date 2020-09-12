@@ -27,20 +27,15 @@ class StatTrackerTest < Minitest::Test
   #   assert_equal expected, @stats.sum_game_goals("20142015")
   # end
 
-  def test_it_can_determine_highest_and_lowest_game_score ###
-    assert_equal 1, @stats.lowest_total_score
-    assert_equal 6, @stats.highest_total_score
-  end
-
   def test_it_can_find_total_games ###
     assert_equal 53, @stats.total_games
   end
 
-  def test_it_can_determine_season_win_percentage
-    assert_equal 28.57, @stats.season_win_percentage(1, "20142015")
-    assert_equal 42.86, @stats.season_win_percentage(4, "20142015")
-    assert_equal 66.67, @stats.season_win_percentage(6, "20142015")
-    assert_equal 42.86, @stats.season_win_percentage(26, "20142015")
+  def test_it_can_fetch_season_win_percentage
+    assert_equal 28.57, @stats.fetch_season_win_percentage("1", "20142015")
+    assert_equal 42.86, @stats.fetch_season_win_percentage("4", "20142015")
+    assert_equal 66.67, @stats.fetch_season_win_percentage("6", "20142015")
+    assert_equal 42.86, @stats.fetch_season_win_percentage("26", "20142015")
   end
 
   def test_it_can_filter_games_by_season
@@ -64,63 +59,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal 16, expected_games_3.count
   end
 
-  def test_it_can_count_total_home_wins
-    assert_equal 1, @stats.team_wins_as_home(1, "20142015")
-    assert_equal 1, @stats.team_wins_as_home(4, "20142015")
-    assert_equal 3, @stats.team_wins_as_home(6, "20142015")
-    assert_equal 0, @stats.team_wins_as_home(14, "20142015")
-    assert_equal 2, @stats.team_wins_as_home(26, "20142015")
-  end
-
-  def test_it_can_count_total_away_wins
-    assert_equal 1, @stats.team_wins_as_away(1, "20142015")
-    assert_equal 2, @stats.team_wins_as_away(4, "20142015")
-    assert_equal 1, @stats.team_wins_as_away(6, "20142015")
-    assert_equal 1, @stats.team_wins_as_away(26, "20142015")
-  end
-
-  def test_it_can_count_total_number_of_wins_per_season ###
-    assert_equal 2, @stats.total_team_wins(1, "20142015")
-    assert_equal 3, @stats.total_team_wins(4, "20142015")
-    assert_equal 4, @stats.total_team_wins(6, "20142015")
-    assert_equal 3, @stats.total_team_wins(26, "20142015")
-  end
-
-  def test_it_can_count_total_games_for_team_in_season
-    assert_equal 7, @stats.total_team_games_per_season(1, "20142015")
-    assert_equal 7, @stats.total_team_games_per_season(4, "20142015")
-    assert_equal 6, @stats.total_team_games_per_season(6, "20142015")
-    assert_equal 5, @stats.total_team_games_per_season(14, "20142015")
-    assert_equal 7, @stats.total_team_games_per_season(26, "20142015")
-  end
-
   def test_it_can_create_array_of_all_team_ids
     expected = [1, 4, 6, 14, 26]
     assert_equal expected, @stats.team_ids
-  end
-
-  def test_it_can_organize_season_win_percentage_for_each_team ###
-    expected = {
-      1 => 28.57,
-      4 => 42.86,
-      6 => 66.67,
-      14 => 0,
-      26 => 42.86
-    }
-    assert_equal expected, @stats.all_teams_win_percentage("20142015")
-  end
-
-  def test_it_can_create_array_of_all_team_ids
-    expected = [1, 4, 6, 14, 26]
-    assert_equal expected, @stats.team_ids
-  end
-
-  def test_it_can_determine_winningest_team
-    assert_equal 6, @stats.winningest_team("20142015")
-  end
-
-  def test_it_can_determine_team_with_worst_winning_percentage
-    assert_equal 14, @stats.worst_team("20142015")
   end
 
   def test_it_can_get_team_name_from_team_id
@@ -348,13 +289,13 @@ class StatTrackerTest < Minitest::Test
 
 # ~~~ SEASON METHOD TESTS~~~
 
-  def test_it_can_list_winningest_coach_by_season
-    assert_equal "Claude Julien", @stats.winningest_coach("20142015")
-  end
-
-  def test_it_can_determine_the_worst_coach_by_season
-    assert_equal "Jon Cooper", @stats.worst_coach("20142015")
-  end
+  # def test_it_can_list_winningest_coach_by_season
+  #   assert_equal "Claude Julien", @stats.winningest_coach("20142015")
+  # end
+  #
+  # def test_it_can_determine_the_worst_coach_by_season
+  #   assert_equal "Jon Cooper", @stats.worst_coach("20142015")
+  # end
 
   def test_it_can_determine_team_with_most_season_tackles
     assert_equal "Chicago Fire", @stats.most_tackles("20122013")

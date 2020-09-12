@@ -1,11 +1,11 @@
 require 'csv'
-require_relative './manageable'
 require_relative './stat_tracker'
 require_relative './game'
-
+require './lib/manageable'
 
 class GamesManager
-include Manageable
+  include Manageable
+
   attr_reader :stat_tracker, :games
 
   def initialize(path, stat_tracker)
@@ -22,24 +22,24 @@ include Manageable
 
   def lowest_total_score
     @games.min_by do |game|
-      game.sum_score
-    end.sum_score
+      game.total_game_score
+    end.total_game_score
   end
 
   def highest_total_score
     @games.max_by do |game|
-      game.sum_score
-    end.sum_score
+      game.total_game_score
+    end.total_game_score
   end
 
   def percentage_home_wins
-    wins = @games.count do |game|
-      game.home_is_winner?
-    end
-    ratio(wins, total_games)
-  end
+     wins = @games.count do |game|
+       game.home_is_winner?
+     end
+     ratio(wins, total_games)
+   end
 
-  def percentage_visitor_wins
+   def percentage_visitor_wins
     wins = @games.count do |game|
       game.visitor_is_winner?
     end
@@ -49,5 +49,46 @@ include Manageable
   def total_games
     @games.count
   end
+
+  def season_group
+    @games.group_by do |row|
+      row.season
+    end
+  end
+
+  def count_of_games_by_season
+    count = {}
+    season_group.each do |season, games|
+      count[season] = games.count
+    end
+    count
+  end
+
+  def team_wins_as_home(team_id, season)
+    season_group[season].find_all do |game|
+      (game.home_team_id == team_id) && (game.home_is_winner?)
+    end.count
+  end
+
+  def team_wins_as_away(team_id, season)
+    season_group[season].find_all do |game|
+      (game.away_team_id == team_id) && (game.visitor_is_winner?)
+    end.count
+  end
+
+  def total_team_wins(team_id, season)
+    team_wins_as_home(team_id, season) + team_wins_as_away(team_id, season)
+  end
+
+  def total_team_games_per_season(team_id, season)
+    season_group[season].find_all do |game|
+      game.away_team_id == team_id || game.home_team_id == team_id
+    end.count
+  end
+
+  def season_win_percentage(team_id, season)
+    find_percent(total_team_wins(team_id, season), total_team_games_per_season(team_id, season))
+  end
+
 
 end
