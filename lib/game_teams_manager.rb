@@ -15,4 +15,14 @@ class GameTeamsManager
     end
   end
 
+  def average_number_of_goals_scored_by_team(team_id)
+    games_played = @game_teams.find_all do |game_team|
+      game_team.team_id == team_id
+    end
+    total_goals = games_played.sum do |game|
+      game.goals
+    end
+    total_goals.to_f/games_played.count
+  end
+
 end
