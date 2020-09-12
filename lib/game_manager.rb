@@ -36,4 +36,11 @@ class GameManager
     end
     (home_wins.to_f / games.length).round(2)
   end
+
+  def percentage_visitor_wins
+    visitor_wins = @games.count do |game|
+      game.away_goals > game.home_goals
+    end
+    (visitor_wins.to_f / games.length).round(2)
+  end
 end
