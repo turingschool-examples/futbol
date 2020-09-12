@@ -22,4 +22,9 @@ class GameTest < Minitest::Test
     assert_equal 6, @game_1.total_game_score
   end
 
+  def test_it_can_see_who_is_winner
+    assert_equal false, @game_1.home_is_winner?
+    assert @game_1.visitor_is_winner?
+  end
+
 end
