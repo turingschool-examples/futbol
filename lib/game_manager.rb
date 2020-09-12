@@ -25,9 +25,20 @@ class GameManager
     games_of_season(season).map {|game| game.game_id }
   end
 
+
+#---------------TeamStats
   def games_by_team(team_id)
     @games.select do |game|
       game.home_team_id == team_id || game.away_team_id == team_id
     end
   end
+
+  def team_games_by_season(all_games = games)
+    result = {}
+    all_games.each do |game|
+      (result[game.season] ||= []) << game
+    end
+    result
+  end
+
 end
