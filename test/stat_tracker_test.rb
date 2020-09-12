@@ -8,7 +8,7 @@ require 'pry';
 
 class StatTrackerTest < Minitest::Test
   def setup
-    game_path = './data/dummy_games.csv'
+    game_path = './data/dummy_game.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/dummy_game_teams.csv'
 
@@ -33,4 +33,6 @@ class StatTrackerTest < Minitest::Test
     team_number = '25'
     assert_equal 'Chicago Red Stars', @stat_tracker.find_team_name(team_number)
   end
+
+  
 end

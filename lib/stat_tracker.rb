@@ -28,8 +28,9 @@ class StatTracker
   end
 
   def find_team_name(team_number)
-# binding.pry
     @teams_manager.find_team_name(team_number)
   end
+
+
 
 end
