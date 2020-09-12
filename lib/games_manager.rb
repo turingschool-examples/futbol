@@ -110,5 +110,24 @@ class GamesManager
     unique_seasons.sort
   end
 
+  # Also needs refactored - maybe don't need to return hash?
+  # Or use reduce?
+  # Move to GamesManager
+  def all_teams_all_seasons_win_percentages
+    win_percentages_by_season = {}
+    all_seasons.each do |season|
+      @stat_tracker.fetch_all_team_ids.each do |team_id|
+        if win_percentages_by_season[team_id] == nil
+          win_percentages_by_season[team_id] = {season =>
+            season_win_percentage(team_id, season)}
+        else
+          win_percentages_by_season[team_id][season] =
+          season_win_percentage(team_id, season)
+        end
+      end
+    end
+    win_percentages_by_season
+  end
+
 
 end
