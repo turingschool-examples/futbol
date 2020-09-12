@@ -28,4 +28,10 @@ class GameTeamManagerTest < MiniTest::Test
     @game_team_manager.tracker.stubs(:get_team_name).returns("Real Salt Lake")
     assert_equal "Real Salt Lake", @game_team_manager.best_offense
   end
+
+  def test_it_can_get_team_with_worst_offense
+    @game_team_manager.tracker.stubs(:get_team_name).returns("Atlanta United")
+    assert_equal "Atlanta United", @game_team_manager.worst_offense
+  end
+
 end
