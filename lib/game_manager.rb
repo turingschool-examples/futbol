@@ -34,11 +34,11 @@ class GameManager
   end
 
   def team_games_by_season(all_games = games)
-    result = {}
+    team_games_by_season = {}
     all_games.each do |game|
-      (result[game.season] ||= []) << game
+      (team_games_by_season[game.season] ||= []) << game
     end
-    result
+    team_games_by_season
   end
 
 end
