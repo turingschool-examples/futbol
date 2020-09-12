@@ -2,6 +2,7 @@ require './test/test_helper'
 require './lib/game_teams_methods'
 
 class GameTeamsMethodsTest < Minitest::Test
+
   def test_it_exists
     game_teams = './data/game_teams.csv'
     game_teams_methods = GameTeamsMethods.new(game_teams)
@@ -22,11 +23,11 @@ class GameTeamsMethodsTest < Minitest::Test
     assert_equal expected, game_teams_methods.game_teams_table
   end
 
-  def test_it_can_return_best_offense_team_id_average_goal
+  def test_it_can_return_best_offense_team
     game_teams = './data/game_teams.csv'
     game_teams_methods = GameTeamsMethods.new(game_teams)
 
-    assert_equal ["54", 2.34], game_teams_methods.best_offense_team_id_average_goal
+    assert_equal "54", game_teams_methods.best_offense_team
   end
 
   def test_it_will_make_a_hash_of_team_id_and_goal_array
@@ -47,38 +48,38 @@ class GameTeamsMethodsTest < Minitest::Test
     assert_instance_of Hash, game_teams_methods.average_goals_by_team
   end
 
-  def test_it_can_return_worst_offense_team_id_average_goal
+  def test_it_can_return_worst_offense_team
     game_teams = './data/game_teams.csv'
     game_teams_methods = GameTeamsMethods.new(game_teams)
 
-    assert_equal ["7", 1.84], game_teams_methods.worst_offense_team_id_average_goal
+    assert_equal "7", game_teams_methods.worst_offense_team
   end
 
-  def test_it_can_get_highest_scoring_visitor_team_id_average_goal
+  def test_it_can_get_highest_scoring_visitor_team
     game_teams = './data/game_teams.csv'
     game_teams_methods = GameTeamsMethods.new(game_teams)
 
-    assert_equal ["6", 2.25], game_teams_methods.highest_scoring_team_id_average_goals("away")
+    assert_equal "6", game_teams_methods.highest_scoring_team("away")
   end
 
-  def test_it_can_get_highest_scoring_home_team_id_average_goal
+  def test_it_can_get_highest_scoring_home_team
     game_teams = './data/game_teams.csv'
     game_teams_methods = GameTeamsMethods.new(game_teams)
 
-    assert_equal ["54", 2.59], game_teams_methods.highest_scoring_team_id_average_goals("home")
+    assert_equal "54", game_teams_methods.highest_scoring_team("home")
   end
 
-  def test_it_can_get_lowest_scoring_visitor_team_id_average_goal
+  def test_it_can_get_lowest_scoring_visitor_team
     game_teams = './data/game_teams.csv'
     game_teams_methods = GameTeamsMethods.new(game_teams)
 
-    assert_equal ["27", 1.85], game_teams_methods.lowest_scoring_team_id_average_goals("away")
+    assert_equal "27", game_teams_methods.lowest_scoring_team("away")
   end
 
-  def test_it_can_get_lowest_scoring_home_team_id_average_goal
+  def test_it_can_get_lowest_scoring_home_team
     game_teams = './data/game_teams.csv'
     game_teams_methods = GameTeamsMethods.new(game_teams)
 
-    assert_equal ["7", 1.79], game_teams_methods.lowest_scoring_team_id_average_goals("home")
+    assert_equal "7", game_teams_methods.lowest_scoring_team("home")
   end
 end

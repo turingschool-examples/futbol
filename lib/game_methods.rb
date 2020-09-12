@@ -20,7 +20,6 @@ class GameMethods
     game_totals = @table['away_goals'].map.with_index do |away, idx|
       away.to_i + home_goals[idx].to_i
     end
-
     game_totals.max
   end
 end
