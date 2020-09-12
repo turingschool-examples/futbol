@@ -7,21 +7,11 @@ class StatTracker
   def initialize(locations)
     @game_manager = GameManager.new(locations[:games], self)
     @game_teams_stats = GameTeamsStats.new(locations[:game_teams], self)
-    # @league_stats = LeagueStats.new()
+    @team_stats = TeamManager.new(locations[:teams], self)
   end
 
   def self.from_csv(locations)
     StatTracker.new(locations)
-  end
-
-
-
-  def teams_stats
-    teams_data = CSV.read(@teams, { encoding: 'UTF-8', headers: true, header_converters: :symbol, converters: :all })
-    hashed_teams_data = teams_data.map { |row| row.to_hash }
-    hashed_teams_data.each do |row|
-      row.delete(:staduim)
-    end
   end
 
   def highest_total_score

@@ -113,11 +113,4 @@ class SeasonStatistics
     end
     fewest_tackles[:teamname]
   end
-
-  def fuuuuck(team_id)
-    x = @game_data.find_all do |row|
-      if home_team = team_id || away_team = team_id
-    end
-
-    
 end
