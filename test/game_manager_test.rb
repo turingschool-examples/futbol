@@ -37,4 +37,18 @@ class GamesManagerTest < Minitest::Test
   def test_it_can_find_percentage_ties
     assert_equal 16.67, @games_manager.percentage_ties
   end
+
+  def test_it_can_count_games_by_season
+    expected = {
+      "20122013" => 2,
+      "20162017" => 2,
+      "20142015" => 2
+    }
+    assert_equal expected, @games_manager.count_games_by_season
+  end
+
+  def test_it_can_populate_a_list_of_seasons
+    expected = ["20122013","20162017","20142015"]
+    assert_equal expected, @games_manager.list_of_seasons
+  end
 end
