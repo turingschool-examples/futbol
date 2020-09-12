@@ -16,8 +16,14 @@ class GamesManager
   end
 
   def highest_total_score
-    # highest_game = sum_team_scores.max_by { |game_id, score| score }
-    # highest_game[1]
+    @games.max_by do |game|
+      game.total_score
+    end.total_score
   end
 
+  def lowest_total_score
+    @games.min_by do |game|
+      game.total_score
+    end.total_score
+  end
 end
