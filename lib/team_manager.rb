@@ -2,7 +2,7 @@ require_relative 'team'
 require 'csv'
 
 class TeamManager
-  attr_reader :teams
+  attr_reader :teams, :stat_tracker
   def initialize(location, stat_tracker)
     @stat_tracker = stat_tracker
     @teams = generate_teams(location)

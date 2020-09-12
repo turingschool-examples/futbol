@@ -2,8 +2,14 @@ require './test/test_helper'
 require './lib/team_manager'
 
 class TeamManagerTest < Minitest::Test
-  # def test_it_has_attributes
-  # end
+  def test_it_has_attributes
+    stat_tracker = mock('A totally legit stat_tracker')
+    CSV.stubs(:foreach).returns(nil)  # This causes generate_teams to return []
+    team_manager = TeamManager.new('A totally legit path', stat_tracker)
+
+    assert_equal stat_tracker, team_manager.stat_tracker
+    assert_equal [], team_manager.teams
+  end
 
   def test_it_can_find_a_team_and_get_its_info
     team1 = mock('team 1')
@@ -15,13 +21,14 @@ class TeamManagerTest < Minitest::Test
     team3 = mock('team 3')
     team3.stubs(:team_id).returns('3')
     team3.stubs(:team_info).returns('team3 info hash')
+    stat_tracker = mock('A totally legit stat_tracker')
     team_array = [team1, team2, team3]
     CSV.stubs(:foreach).returns(nil)
-    team_manager = TeamManager.new("A totally legit path", "A totally legit stat_tracker")
+    team_manager = TeamManager.new('A totally legit path', stat_tracker)
     team_manager.stubs(:teams).returns(team_array)
 
     assert_equal team1.team_info, team_manager.team_info('1')
     assert_equal team2.team_info, team_manager.team_info('2')
-    assert_equal team3.team_info, team_manager.team_info('3')    
+    assert_equal team3.team_info, team_manager.team_info('3')
   end
 end
