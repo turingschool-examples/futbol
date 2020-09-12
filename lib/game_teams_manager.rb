@@ -30,5 +30,4 @@ class GameTeamsManager
   def average_number_of_goals_scored_by_team(team_id)
     (total_goals(team_id).to_f / games_played(team_id).count).round(2)
   end
-
 end
