@@ -54,36 +54,36 @@ class StatTracker
   end
 
   def count_of_teams
-    @league_stats.count_of_teams
+    @team_manager.count_of_teams
   end
 
   def best_offense
-    @league_stats.best_offense_stats
-    @league_stats.best_offense
+    @team_manager.best_offense_stats
+    @team_manager.best_offense
   end
 
   def worst_offense
-    @league_stats.worst_offense_stats
-    @league_stats.worst_offense
+    @team_manager.worst_offense_stats
+    @team_manager.worst_offense
   end
 
   def highest_scoring_visitor
-    @league_stats.team_highest_away_goals
-    @league_stats.highest_scoring_visitor
+    @team_manager.team_highest_away_goals
+    @team_manager.highest_scoring_visitor
   end
 
   def highest_scoring_home_team
-    @league_stats.team_highest_home_goals
-    @league_stats.highest_scoring_home_team
+    @team_manager.team_highest_home_goals
+    @team_manager.highest_scoring_home_team
   end
 
   def lowest_scoring_visitor
-    @league_stats.team_lowest_away_goals
-    @league_stats.lowest_scoring_visitor
+    @team_manager.team_lowest_away_goals
+    @team_manager.lowest_scoring_visitor
   end
 
   def lowest_scoring_home_team
-    @league_stats.team_lowest_home_goals
-    @league_stats.lowest_scoring_home_team
+    @team_manager.team_lowest_home_goals
+    @team_manager.lowest_scoring_home_team
   end
 end

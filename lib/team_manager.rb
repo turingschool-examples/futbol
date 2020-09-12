@@ -138,4 +138,32 @@ class TeamManager
     end
     home.teamname
   end
+
+  def most_accurate_team(season)
+    accurate = @team_data.find do |team|
+      team.teamname if @tracker.game_teams_manager.find_most_accurate_team(season) == team.team_id
+    end
+    accurate.teamname
+  end
+
+  def least_accurate_team(season)
+    not_accurate = @team_data.find do |team|
+      team.teamname if @tracker.game_teams_manager.find_least_accurate_team(season) == team.team_id
+    end
+    not_accurate.teamname
+  end
+
+  def most_tackles(season)
+    most_tackles = @team_data.find do |team|
+      team.teamname if @tracker.game_teams_manager.find_team_with_most_tackles(season) == team.team_id
+    end
+    most_tackles.teamname
+  end
+
+  def fewest_tackles(season)
+    fewest_tackles = @team_data.find do |team|
+      team.teamname if @tracker.game_teams_manager.find_team_with_fewest_tackles(season) == team.team_id
+    end
+    fewest_tackles.teamname
+  end
 end
