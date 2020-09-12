@@ -16,4 +16,6 @@ class GameTeam
     @giveaways = data["giveaways"]
     @takeaways = data["takeaways"]
   end
+
+  
 end
