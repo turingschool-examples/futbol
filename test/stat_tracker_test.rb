@@ -34,5 +34,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal 'Chicago Red Stars', @stat_tracker.find_team_name(team_number)
   end
 
-  
+  def test_average_number_of_goals_scored_by_team
+    assert_equal 1.75, @stat_tracker.average_number_of_goals_scored_by_team('3')
+  end
 end

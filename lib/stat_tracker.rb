@@ -31,6 +31,10 @@ class StatTracker
     @teams_manager.find_team_name(team_number)
   end
 
+  def average_number_of_goals_scored_by_team(team_id)
+    @game_teams_manager.average_number_of_goals_scored_by_team(team_id)
+  end
+
 
 
 end
