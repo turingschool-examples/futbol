@@ -110,4 +110,16 @@ class GameTeamsManager
     team_season_tackles
   end
 
+  def most_tackles(season)
+    @stat_tracker.fetch_team_identifier(team_tackles(season).max_by do |team|
+      team.last
+    end.first)
+  end
+
+  def fewest_tackles(season)
+    @stat_tracker.fetch_team_identifier(team_tackles(season).min_by do |team|
+      team.last
+    end.first)
+  end
+
 end

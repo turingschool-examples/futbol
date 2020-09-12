@@ -289,13 +289,13 @@ class StatTrackerTest < Minitest::Test
   #   assert_equal "Jon Cooper", @stats.worst_coach("20142015")
   # end
 
-  def test_it_can_determine_team_with_most_season_tackles
-    assert_equal "Chicago Fire", @stats.most_tackles("20122013")
-  end
-
-  def test_it_can_determine_team_with_fewest_season_tackles
-    assert_equal "DC United", @stats.fewest_tackles("20122013")
-  end
+  # def test_it_can_determine_team_with_most_season_tackles
+  #   assert_equal "Chicago Fire", @stats.most_tackles("20122013")
+  # end
+  #
+  # def test_it_can_determine_team_with_fewest_season_tackles
+  #   assert_equal "DC United", @stats.fewest_tackles("20122013")
+  # end
 # ~~~ SEASON METHOD TESTS~~~
 
   def test_it_can_get_most_accurate_team_for_season
