@@ -13,12 +13,12 @@ class GameTeamManagerTest < Minitest::Test
     game_team3.stubs(:game_id).returns('3')
     game_team3.stubs(:team_id).returns('2')
     stat_tracker = mock('A totally legit stat_tracker')
-    team_array = [team1, team2, team3]
+    game_team_array = [game_team1, game_team2, game_team3]
     CSV.stubs(:foreach).returns(nil)
-    team_manager = TeamManager.new('A totally legit path', stat_tracker)
-    team_manager.stubs(:teams).returns(team_array)
+    game_team_manager = GameTeamManager.new('A totally legit path', stat_tracker)
+    game_team_manager.stubs(:game_teams).returns(game_team_array)
 
-    assert_equal ['1', '2'], team_manager.game_ids_by_team('1')
-    assert_equal ['3'], team_manager.game_ids_by_team('2')
+    assert_equal ['1', '2'], game_team_manager.game_ids_by_team('1')
+    assert_equal ['3'], game_team_manager.game_ids_by_team('2')
   end
 end
