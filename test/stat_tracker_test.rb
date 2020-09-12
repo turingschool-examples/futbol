@@ -2,53 +2,65 @@ require './test/test_helper'
 require './lib/stat_tracker'
 
 class StatTrackerTest < Minitest::Test
-  def test_it_exists
-    games_path = './data/games.csv'
-    teams_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+
+  def setup
+    @games_path = './data/games.csv'
+    @teams_path = './data/teams.csv'
+    @game_teams_path = './data/game_teams.csv'
 
     locations = {
-      games: games_path,
-      teams: teams_path,
-      game_teams: game_teams_path
+      games: @games_path,
+      teams: @teams_path,
+      game_teams: @game_teams_path
     }
 
-    stat_tracker = StatTracker.new(locations)
+    @stat_tracker = StatTracker.new(locations)
+  end
 
-    assert_instance_of StatTracker, stat_tracker
+  def test_it_exists
+    assert_instance_of StatTracker, @stat_tracker
   end
 
   def test_attributes
-    games_path = './data/games.csv'
-    teams_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-
-    locations = {
-      games: games_path,
-      teams: teams_path,
-      game_teams: game_teams_path
-    }
-
-    stat_tracker = StatTracker.new(locations)
-
-    assert_equal games_path, stat_tracker.games_path
-    assert_equal teams_path, stat_tracker.teams_path
-    assert_equal game_teams_path, stat_tracker.game_teams_path
+    assert_equal @games_path, @stat_tracker.games_path
+    assert_equal @teams_path, @stat_tracker.teams_path
+    assert_equal @game_teams_path, @stat_tracker.game_teams_path
   end
 
   def test_from_csv
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    assert_instance_of StatTracker, @stat_tracker
+  end
 
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
+  def test_highest_total_score
+    mock_game_methods = mock
+    mock_game_methods.stubs(:highest_total_score).returns(8, nil)
+    @stat_tracker.game_methods = mock_game_methods
 
-    stat_tracker = StatTracker.from_csv(locations)
+    assert_equal 8, @stat_tracker.highest_total_score
+    assert_equal 8, @stat_tracker.highest_total_score
+  end
 
-    assert_instance_of StatTracker, stat_tracker
+  def test_best_offense_team
+    assert_equal 'Reign FC', @stat_tracker.best_offense
+  end
+
+  def test_worst_offense_team
+    assert_equal 'Utah Royals FC', @stat_tracker.worst_offense
+  end
+
+  def test_highest_scoring_visitor_team
+    assert_equal 'FC Dallas', @stat_tracker.highest_scoring_visitor_team
+  end
+
+  def test_lowest_scoring_visitor_team
+    assert_equal 'San Jose Earthquakes', @stat_tracker.lowest_scoring_visitor_team
+  end
+
+  def test_lowest_scoring_home_team
+    assert_equal 'Utah Royals FC', @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal 'Reign FC', @stat_tracker.highest_scoring_home_team
   end
 end
