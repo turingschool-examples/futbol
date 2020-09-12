@@ -31,4 +31,23 @@ class TestStatTracker <Minitest::Test
     assert_equal "Columbus Crew SC", @stat_tracker.teams[31].team_name
     assert_equal 41.5, @stat_tracker.game_teams[14028].faceOffWinPercentage
   end
+
+  def test_it_can_get_team_data
+    locations =  {
+      games: './fixtures/fixture_games.csv',
+      teams: './fixtures/teams_init_test.csv',
+      game_teams: './fixtures/fixture_game_teams.csv'
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+    expected ={
+           "team_id" => "t1",
+      "franchise_id" => "f1",
+         "team_name" => "n1",
+      "abbreviation" => "a1",
+              "link" => "l1"
+    }
+    actual = stat_tracker.team_info('t1')
+
+    assert_equal expected, actual
+  end
 end
