@@ -86,4 +86,26 @@ class GameTeamsManagerTest < Minitest::Test
     total_record = @stat_tracker.game_teams_manager.add_wins_losses(results, coach_record_start)
     assert_equal "John Tortorella", @stat_tracker.game_teams_manager.worst_coach('20122013')
   end
+
+#------------TeamStatsTests
+
+  def test_it_can_find_game_info_by_team
+    game_path = './fixture/game_blank.csv'
+    team_path = './fixture/team_blank.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    tracker = StatTracker.new(game_path, team_path, game_teams_path)
+    game_teams_1 = mock("Game Team Object 1")
+    game_teams_2 = mock("Game Team Object 2")
+    game_teams_3 = mock("Game Team Object 3")
+    tracker.game_teams_manager.game_teams << game_teams_1
+    tracker.game_teams_manager.game_teams << game_teams_2
+    tracker.game_teams_manager.game_teams << game_teams_3
+    game_teams_1.stubs(:team_id).returns('123')
+    game_teams_2.stubs(:team_id).returns('987')
+    game_teams_3.stubs(:team_id).returns('123')
+
+    assert_equal [game_teams_1, game_teams_3], tracker.game_teams_manager.game_info_by_team('123')
+  end
+
 end
