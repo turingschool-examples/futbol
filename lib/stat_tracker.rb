@@ -5,12 +5,8 @@ require_relative '../lib/game_teams_manager'
 require_relative '../lib/game'
 require_relative '../lib/team'
 require_relative '../lib/game_teams'
-require_relative '../lib/findable'
-require_relative '../lib/league_stats'
 
 class StatTracker
-  include Findable
-  include LeagueStats
   attr_reader :game_manager, :team_manager, :game_teams_manager
 
   def initialize(game_path, team_path, game_teams_path)
@@ -39,31 +35,31 @@ class StatTracker
 
   # ----------LeaugeStats
   def count_of_teams
-    total_number_of_teams
+    @game_manager.count_of_teams
   end
 
   def best_offense
-    calculate_best_offense
+    @game_manager.best_offense
   end
 
   def worst_offense
-    calculate_worst_offense
+    @game_manager.worst_offense
   end
 
   def highest_scoring_visitor
-    calculate_highest_scoring_visitor
+    @game_manager.highest_scoring_visitor
   end
 
   def highest_scoring_home_team
-    calculate_highest_scoring_home_team
+    @game_manager.highest_scoring_home_team
   end
 
   def lowest_scoring_visitor
-    calculate_lowest_scoring_visitor
+    @game_manager.lowest_scoring_visitor
   end
 
   def lowest_scoring_home_team
-    calculate_lowest_scoring_home_team
+    @game_manager.lowest_scoring_home_team
   end
 
   def create_team_stats_hash

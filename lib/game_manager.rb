@@ -1,4 +1,9 @@
+require_relative '../lib/findable'
+require_relative '../lib/league_statistics'
+
 class GameManager
+  include Findable
+  include LeagueStatistics
   attr_reader :games, :tracker #do we need attr_reader?
 
   def initialize(path, tracker)
