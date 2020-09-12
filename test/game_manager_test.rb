@@ -71,4 +71,48 @@ class GameManagerTest < Minitest::Test
 
     assert_equal ["123", "456"], game_manager.find_game_ids_for_season('20122013')
   end
+
+
+#----------GameStatistics
+
+  def test_it_can_find_highest_total_score
+    path = './fixture/game_blank.csv'
+    game_manager = GameManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_manager.games << game_1
+    game_manager.games << game_2
+    game_manager.games << game_3
+
+    game_1.stubs(:away_goals).returns(6)
+    game_1.stubs(:home_goals).returns(5)
+    game_2.stubs(:away_goals).returns(3)
+    game_2.stubs(:home_goals).returns(2)
+    game_3.stubs(:away_goals).returns(0)
+    game_3.stubs(:home_goals).returns(0)
+
+    assert_equal 11, game_manager.highest_total_score
+  end
+
+  def test_it_can_find_lowest_total_score
+    path = './fixture/game_blank.csv'
+    game_manager = GameManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_manager.games << game_1
+    game_manager.games << game_2
+    game_manager.games << game_3
+
+    game_1.stubs(:away_goals).returns(6)
+    game_1.stubs(:home_goals).returns(5)
+    game_2.stubs(:away_goals).returns(7)
+    game_2.stubs(:home_goals).returns(7)
+    game_3.stubs(:away_goals).returns(0)
+    game_3.stubs(:home_goals).returns(0)
+
+    assert_equal 0, game_manager.lowest_total_score
+
+  end
 end
