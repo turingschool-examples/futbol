@@ -188,4 +188,12 @@ class TeamStats
     end
     rival_opponent[0]
   end
+
+  def rival(team_id)
+    opponent_id = rival_opponent_id(team_id)
+    opponent_name = @teams_data.find do |team|
+      team[:teamname] if opponent_id == team[:team_id]
+    end
+    opponent_name[:teamname]
+  end
 end
