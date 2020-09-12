@@ -83,14 +83,23 @@ class GameManager
   end
 
   def average_goals_by_season
-    seasons_hash = {}
-    group_by_season.each do |season|
-      total = 0
-      season[1].each do |game|
-        total += game.away_goals + game.home_goals
-      end
-      seasons_hash[season[0]] = (total/season[1].length.to_f).round(2)
+    # seasons_hash = {}
+    # group_by_season.each do |season|
+    #   total = 0
+    #   season[1].each do |game|
+    #     total += game.away_goals + game.home_goals
+    #   end
+    #   seasons_hash[season[0]] = (total/season[1].length.to_f).round(2)
+    # end
+    # seasons_hash
+    group_by_season.reduce({}) do |season_hash, season|
+      season_hash[season[0]] = (season[1].sum { |game| game.away_goals + game.home_goals} / season[1].length.to_f).round(2))
     end
-    seasons_hash
   end
+end
+
+
+users = []
+users.reduce({}) do |hash, user|
+  hash[user.name] = user.age
 end
