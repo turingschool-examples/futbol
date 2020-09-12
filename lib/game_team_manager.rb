@@ -15,4 +15,18 @@ class GameTeamManager
       GameTeam.new(data, self)
     end
   end
+
+  def average_win_percentage(team_id)
+    team_game_count = Hash.new(0)
+    team_wins = Hash.new(0)
+    @game_teams.each do |game|
+      if game.team_id == team_id
+        team_game_count[game.team_id] += 1
+        if game.result == "WIN"
+          team_wins[game.team_id] += 1
+        end
+      end
+    end
+    (team_wins[team_id].to_f / team_game_count[team_id]).round(2)
+  end
 end
