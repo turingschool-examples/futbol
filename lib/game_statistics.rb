@@ -34,10 +34,10 @@ class GameStatistics
     @stat_tracker[:games]["game_id"].zip(adding_goals_per_game)
   end
 
-  def highest_total_score
-    highest_game = sum_team_scores.max_by { |game_id, score| score }
-    highest_game[1]
-  end
+  # def highest_total_score
+  #   highest_game = sum_team_scores.max_by { |game_id, score| score }
+  #   highest_game[1]
+  # end
 
   def lowest_total_score
     lowest_game = sum_team_scores.min_by { |game_id, score| score }
