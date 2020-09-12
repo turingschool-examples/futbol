@@ -45,4 +45,19 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "Jon Cooper", @game_teams_manager.worst_coach("20142015")
   end
 
+  def test_it_can_get_game_ids_for_season
+    skip
+  end
+
+  def test_it_can_show_total_tackles_per_team_per_season ###
+    expected = {
+      1 => 30,
+      4 => 108,
+      6 => 31,
+      14 => 17
+      # 26 => 0
+    }
+    assert_equal expected, @game_teams_manager.team_tackles("20122013")
+  end
+
 end

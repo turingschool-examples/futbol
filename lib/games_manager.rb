@@ -56,6 +56,12 @@ class GamesManager
     end
   end
 
+  def game_ids_by_season(season)
+    season_group[season].map do |game|
+      game.game_id
+    end.sort
+  end
+
   def count_of_games_by_season
     count = {}
     season_group.each do |season, games|

@@ -37,6 +37,11 @@ class GamesManagerTest < Minitest::Test
     assert_equal expected, @games_manager.count_of_games_by_season
   end
 
+  def test_it_can_return_all_game_ids_for_season
+    expected = [2012020030, 2012020133, 2012020355, 2012020389]
+    assert_equal expected, @games_manager.game_ids_by_season("20122013")
+  end
+
   def test_it_can_count_total_home_wins
     assert_equal 1, @games_manager.team_wins_as_home("1", "20142015")
     assert_equal 1, @games_manager.team_wins_as_home("4", "20142015")
