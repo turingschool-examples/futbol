@@ -46,24 +46,6 @@ class GamesManager
     ratio(wins, total_games)
   end
 
-
-  # def total_team_wins_by_season
-  #   @games.reduce(Hash.new) do |hash, game|
-  #     if game.winner_id
-  #       if hash[game.winner_id][game.season]
-  #         hash[game.winner_id][game.season] += 1
-  #       else
-  #         hash[game.winner_id] = {game.season => 1}
-  #       end
-  #     end
-  #     hash
-  #   end
-  # end
-
-
-  def percentage_wins_by_season
-  end
-
   def total_games
     @games.count
   end
@@ -96,6 +78,16 @@ class GamesManager
 
   def total_team_wins(team_id, season)
     team_wins_as_home(team_id, season) + team_wins_as_away(team_id, season)
+  end
+
+  def total_team_games_per_season(team_id, season)
+    season_group[season].find_all do |game|
+      game.away_team_id == team_id || game.home_team_id == team_id
+    end.count
+  end
+
+  def season_win_percentage(team_id, season)
+    find_percent(total_team_wins(team_id, season), total_team_games_per_season(team_id, season))
   end
 
 
