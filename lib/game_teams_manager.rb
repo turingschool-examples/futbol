@@ -21,4 +21,10 @@ class GameTeamsManager
     total_record = add_wins_losses(gt_results, coach_record_start)
     determine_winningest_coach(total_record)
   end
+
+  def game_team_results_by_season(season)
+    game_teams.find_all do |team_result|
+      @tracker.find_game_ids_for_season(season).include? team_result.game_id
+    end
+  end
 end
