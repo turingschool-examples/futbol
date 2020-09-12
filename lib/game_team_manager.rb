@@ -1,11 +1,13 @@
 require_relative 'game_teams'
 require 'csv'
+require 'pry'
 
 class GameTeamManager
-  attr_reader :game_teams
+  attr_reader :game_teams,
+              :stat_tracker
   def initialize(locations, stat_tracker)
     @stat_tracker = stat_tracker
-    @game_teams = generate_game_teams(locations[:game_teams])
+    @game_teams = generate_game_teams(locations)
   end
 
   def generate_game_teams(location)
@@ -17,7 +19,7 @@ class GameTeamManager
   end
 
   def team_by_id(team_id)
-    @stat_tracker.team_info(team_id).name
+    @stat_tracker.team_info(team_id)[:name]
   end
 
   def game_teams_data_for_season(season_id)
