@@ -4,6 +4,20 @@ require 'mocha/minitest'
 require './lib/stat_tracker'
 
 class StatTrackerTest < Minitest::Test
+  def setup
+    @game_path = './fixture/games_dummy.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './fixture/game_teams_dummy.csv'
+
+    @locations = {
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
+    }
+
+    @stat_tracker = StatTracker.from_csv(@locations)
+  end
+
   def test_find_team_results_by_season
     game_path = './fixture/game_blank.csv'
     team_path = './fixture/team_blank.csv'
@@ -26,5 +40,16 @@ class StatTrackerTest < Minitest::Test
     game_3.stubs(:game_id).returns('789')
 
     assert_equal ["123", "456"], tracker.find_game_ids_for_season('20122013')
+  end
+
+  def test_it_can_find_team_info
+    expected = {
+      'team_id'=> "4",
+      'franchise_id'=>  "16",
+      'team_name'=>  "Chicago Fire",
+      'abbreviation'=>  "CHI",
+      'link'=>  "/api/v1/teams/4"
+    }
+    assert_equal expected, @stat_tracker.team_info("4")
   end
 end
