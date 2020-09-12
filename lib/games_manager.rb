@@ -129,5 +129,25 @@ class GamesManager
     win_percentages_by_season
   end
 
+  def best_season(team_id)
+    all_teams_all_seasons_win_percentages.flat_map do |team, seasons|
+      if team == team_id
+        seasons.max_by do |season|
+          season.last
+        end
+      end
+    end.compact.first
+  end
+
+  def worst_season(team_id)
+    all_teams_all_seasons_win_percentages.flat_map do |team, seasons|
+      if team == team_id
+        seasons.min_by do |season|
+          season.last
+        end
+      end
+    end.compact.first
+  end
+
 
 end

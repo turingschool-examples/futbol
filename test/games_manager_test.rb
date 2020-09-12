@@ -130,5 +130,21 @@ class GamesManagerTest < Minitest::Test
     assert_equal expected, @games_manager.all_teams_all_seasons_win_percentages
   end
 
+  def test_it_can_return_a_teams_best_season
+    assert_equal "20122013", @games_manager.best_season("1")
+    assert_equal "20142015", @games_manager.best_season("4")
+    assert_equal "20122013", @games_manager.best_season("6")
+    assert_equal "20152016", @games_manager.best_season("14")
+    assert_equal "20172018", @games_manager.best_season("26")
+  end
+
+  def test_it_can_return_a_teams_worst_season
+    assert_equal "20162017", @games_manager.worst_season("1")
+    assert_equal "20162017", @games_manager.worst_season("4")
+    assert_equal "20132014", @games_manager.worst_season("6")
+    assert_equal "20122013", @games_manager.worst_season("14")
+    assert_equal "20122013", @games_manager.worst_season("26")
+  end
+
 
 end

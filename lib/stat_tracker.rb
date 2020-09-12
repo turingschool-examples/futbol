@@ -203,25 +203,6 @@ class StatTracker
     end
   end
 
-  # # Also needs refactored - maybe don't need to return hash?
-  # # Or use reduce?
-  # # Move to GamesManager
-  # def all_teams_all_seasons_win_percentages
-  #   win_percentages_by_season = {}
-  #   all_seasons.each do |season|
-  #     team_ids.each do |team_id|
-  #       if win_percentages_by_season[team_id] == nil
-  #         win_percentages_by_season[team_id] = {season =>
-  #           season_win_percentage(team_id, season)}
-  #       else
-  #         win_percentages_by_season[team_id][season] =
-  #         season_win_percentage(team_id, season)
-  #       end
-  #     end
-  #   end
-  #   win_percentages_by_season
-  # end
-
   # This looks like it combines home_games and away_games - keep this one?
   # Move to GameTeams Manager
   # Doesn't have a test
@@ -506,13 +487,7 @@ class StatTracker
 # ~~~ TEAM METHODS~~~
 
   def best_season(team_id)
-    all_teams_all_seasons_win_percentages.flat_map do |team, seasons|
-      if team == team_id
-        seasons.max_by do |season|
-          season.last
-        end
-      end
-    end.compact.first
+    @games_manager.best_season(team_id)
   end
 
   # This is a duplicate method as average_win_percentage(id)
@@ -529,13 +504,7 @@ class StatTracker
   end
 
   def worst_season(team_id)
-    all_teams_all_seasons_win_percentages.flat_map do |team, seasons|
-      if team == team_id
-        seasons.min_by do |season|
-          season.last
-        end
-      end
-    end.compact.first
+    @games_manager.worst_season(team_id)
   end
 
   # This is a duplicate method as average_win_percentage(teamid)
