@@ -27,4 +27,25 @@ class GameTeamsManager
       @tracker.find_game_ids_for_season(season).include? team_result.game_id
     end
   end
+
+  def initialize_coaches_records(gt_results)
+    coach_record_hash = {}
+    gt_results.each do |team_result|
+      coach_record_hash[team_result.head_coach] = {wins: 0, losses: 0, ties:0}
+    end
+    coach_record_hash
+  end
+
+  def add_wins_losses(gt_results, coach_record_start)
+    gt_results.each do |team_result|
+      if team_result.result == "WIN"
+        coach_record_start[team_result.head_coach][:wins] += 1
+      elsif team_result.result == "LOSS"
+        coach_record_start[team_result.head_coach][:losses] += 1
+      elsif team_result.result == "TIE"
+        coach_record_start[team_result.head_coach][:ties] += 1
+      end
+    end
+    coach_record_start
+  end
 end
