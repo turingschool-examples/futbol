@@ -19,7 +19,7 @@ class GameTeamManagerTest < MiniTest::Test
     end
   end
 
-  def test_it_can_test_for_alltime_winning_pct
+  def test_it_can_find_average_win_percentage
     assert_equal 0.88, @game_team_manager.average_win_percentage("6")
   end
 end
