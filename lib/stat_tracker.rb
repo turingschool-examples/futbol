@@ -22,4 +22,8 @@ class StatTracker
   def team_info(id)
     @team_manager.team_info(id)
   end
+
+  def game_ids_by_team(id)
+    @game_teams_manager.game_ids_by_team(id)
+  end
 end
