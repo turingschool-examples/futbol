@@ -16,9 +16,13 @@ class TeamManager
     array
   end
 
-  def team_info(team_id)
-    teams.find do |team_obj|
-      team_obj.team_id == team_id
+  def team_info(id)
+    teams.find do |team|
+      team.team_id == id
     end.team_info
+  end
+
+  def game_ids_by_team(id)
+    stat_tracker.games_by_team(id)
   end
 end
