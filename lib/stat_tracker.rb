@@ -8,4 +8,5 @@ class StatTracker
     @game_teams_manager = GameTeamsManager.new(locations[:game_teams], self)
     StatTracker.new
   end
+
 end
