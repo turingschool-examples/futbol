@@ -38,4 +38,10 @@ class SeasonStatistcsTest < Minitest::Test
     assert_equal "Peter Laviolette", @stat.worst_coach("20132014")
     assert_includes ["Craig MacTavish", "Ted Nolan"], @stat.worst_coach("20142015")
   end
+
+  def test_most_tackles_by_season
+   assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
+   assert_equal "Seattle Sounders FC", @stat_tracker.most_tackles("20142015")
+  end
+  #most_tackles	Name of the Team with the most tackles in the season	String
 end
