@@ -46,6 +46,29 @@ class GamesManager
     ratio(wins, total_games)
   end
 
+  def total_team_wins
+    @games.reduce(Hash.new) do |hash, game|
+      # require "pry"; binding.pry
+    end
+  end
+
+
+  def total_team_wins_by_season
+    @games.reduce(Hash.new) do |hash, game|
+      if game.winner_id
+        if hash[game.winner_id][game.season]
+          hash[game.winner_id][game.season] += 1
+        else
+          hash[game.winner_id] = {game.season => 1}
+        end
+      end
+    end
+  end
+
+
+  def percentage_wins_by_season
+  end
+
   def total_games
     @games.count
   end
@@ -63,5 +86,6 @@ class GamesManager
     end
     count
   end
+
 
 end

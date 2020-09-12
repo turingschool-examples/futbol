@@ -12,9 +12,9 @@ class GameTeamsManager
     create_game_teams(path)
   end
 
-  def create_game_teams(path)
-    @game_teams = path.map do |data|
-      GameTeam.new(data)
+  def create_game_teams(game_teams_table)
+    @game_teams = game_teams_table.map do |row|
+      GameTeam.new(row)
     end
   end
 
