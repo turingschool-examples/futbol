@@ -5,5 +5,30 @@ require './lib/stat_tracker'
 require './lib/team_manager'
 
 class TeamManagerTest < Minitest::Test
+  def setup
+    @game_path = './fixture/games_dummy.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './fixture/game_teams_dummy.csv'
 
+    @locations = {
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
+    }
+
+    @stat_tracker = StatTracker.from_csv(@locations)
+  end
+
+  def test_it_exists
+    assert_instance_of TeamManager, @stat_tracker.team_manager
+  end
+
+  def test_it_can_read_csv_data
+    assert_equal '1', @stat_tracker.team_manager.teams[0].team_id
+    assert_equal '23', @stat_tracker.team_manager.teams[0].franchise_id
+    assert_equal 'Atlanta United', @stat_tracker.team_manager.teams[0].team_name
+    assert_equal 'ATL', @stat_tracker.team_manager.teams[0].abbreviation
+    assert_equal 'Mercedes-Benz Stadium', @stat_tracker.team_manager.teams[0].stadium
+    assert_equal '/api/v1/teams/1', @stat_tracker.team_manager.teams[0].link
+  end
 end
