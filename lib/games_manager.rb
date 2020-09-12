@@ -39,6 +39,13 @@ include Manageable
     ratio(wins, total_games)
   end
 
+  def percentage_visitor_wins
+    wins = @games.count do |game|
+      game.visitor_is_winner
+    end
+    ratio(wins, total_games)
+  end
+
   def total_games
     @games.count
   end
