@@ -33,5 +33,4 @@ class GameTest < Minitest::Test
     assert_equal 4, @game.total_score
   end
 
-
 end
