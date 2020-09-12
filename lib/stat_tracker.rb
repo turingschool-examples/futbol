@@ -35,15 +35,10 @@ class StatTracker
     @games_manager.season_win_percentage(team_id, season)
   end
 
+  # Use seaon_group with count to filter game count 
   # move to GameManager
   def total_games(filtered_games = @games)
     filtered_games.count
-  end
-
-  # potential module (math?)
-  def find_percent(numerator, denominator)
-    return 0.0 if denominator == 0
-    (numerator / denominator.to_f * 100).round(2)
   end
 
   # # move to GameManager call on score sum for each game
