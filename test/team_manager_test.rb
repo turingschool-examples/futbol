@@ -31,4 +31,21 @@ class TeamManagerTest < Minitest::Test
     assert_equal team2.team_info, team_manager.team_info('2')
     assert_equal team3.team_info, team_manager.team_info('3')
   end
+
+  def test_it_can_generate_team_objects
+    stat_tracker = mock('A totally legit stat_tracker')
+    team_manager = TeamManager.new('./fixtures/teams_init_test.csv', stat_tracker)
+    counter = 1
+
+    team_manager.teams.each do |team|
+      assert_instance_of Team, team
+      assert_equal "t#{counter}", team.team_id
+      assert_equal "f#{counter}", team.franchise_id
+      assert_equal "n#{counter}", team.team_name
+      assert_equal "a#{counter}", team.abbreviation
+      assert_equal "s#{counter}", team.stadium
+      assert_equal "l#{counter}", team.link
+      counter += 1
+    end
+  end
 end
