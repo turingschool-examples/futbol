@@ -19,7 +19,7 @@ class TeamManager
   def count_of_teams
     @teams.count
   end
-  
+
   def team_info(team_id)
     found_team = @teams.find do |team|
       team_id == team.team_id
@@ -32,4 +32,11 @@ class TeamManager
                       "link" => found_team.link
                       }
   end
+
+  def get_team_name(team_id)
+    @teams.find do |team| # Create find_team_name method? # team_manager.rb
+      team.team_id == team_id # Would accept this as argument
+    end.team_name
+end
+
 end
