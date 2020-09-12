@@ -15,11 +15,22 @@ class GameTeamsManager
 
   # -------SeasonStats
 
-  def winningest_coach(season)
+  def coaches_records(season)
     gt_results = game_team_results_by_season(season)
     coach_record_start = initialize_coaches_records(gt_results)
     total_record = add_wins_losses(gt_results, coach_record_start)
-    determine_winningest_coach(total_record)
+  end
+
+  def winningest_coach(season)
+    coaches_records(season).max_by do |coach, w_l|
+      w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
+    end[0]
+  end
+
+  def worst_coach(season)
+    coaches_records(season).min_by do |coach, w_l|
+      w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
+    end[0]
   end
 
   def game_team_results_by_season(season)
