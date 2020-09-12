@@ -37,4 +37,12 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "14", @game_teams_manager.worst_team("20142015")
   end
 
+  def test_it_can_list_winningest_coach_by_season
+    assert_equal "Claude Julien", @game_teams_manager.winningest_coach("20142015")
+  end
+
+  def test_it_can_determine_the_worst_coach_by_season
+    assert_equal "Jon Cooper", @game_teams_manager.worst_coach("20142015")
+  end
+
 end

@@ -64,14 +64,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.team_ids
   end
 
-  def test_it_can_determine_winningest_team
-    assert_equal 6, @stats.winningest_team("20142015")
-  end
-
-  def test_it_can_determine_team_with_worst_winning_percentage
-    assert_equal 14, @stats.worst_team("20142015")
-  end
-
   def test_it_can_get_team_name_from_team_id
     assert_equal "Chicago Fire", @stats.team_names_by_team_id(4)
   end
@@ -297,13 +289,13 @@ class StatTrackerTest < Minitest::Test
 
 # ~~~ SEASON METHOD TESTS~~~
 
-  def test_it_can_list_winningest_coach_by_season
-    assert_equal "Claude Julien", @stats.winningest_coach("20142015")
-  end
-
-  def test_it_can_determine_the_worst_coach_by_season
-    assert_equal "Jon Cooper", @stats.worst_coach("20142015")
-  end
+  # def test_it_can_list_winningest_coach_by_season
+  #   assert_equal "Claude Julien", @stats.winningest_coach("20142015")
+  # end
+  #
+  # def test_it_can_determine_the_worst_coach_by_season
+  #   assert_equal "Jon Cooper", @stats.worst_coach("20142015")
+  # end
 
   def test_it_can_determine_team_with_most_season_tackles
     assert_equal "Chicago Fire", @stats.most_tackles("20122013")

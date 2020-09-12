@@ -79,4 +79,16 @@ class GameTeamsManager
     end.first
   end
 
+  def winningest_coach(season)
+    @game_teams.find do |game_team|
+      game_team.team_id == winningest_team(season)
+    end.head_coach
+  end
+
+  def worst_coach(season)
+    @game_teams.find do |game_team|
+      game_team.team_id == worst_team(season)
+    end.head_coach
+  end
+
 end

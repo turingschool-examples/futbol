@@ -135,20 +135,6 @@ class StatTracker
     end.sort
   end
 
-  # # Move to GamesManager
-  # def winningest_team(season)
-  #   all_teams_win_percentage(season).max_by do |team_id, win_percentage|
-  #     win_percentage
-  #   end.first
-  # end
-  #
-  # # Move to GamesManager
-  # def worst_team(season)
-  #   all_teams_win_percentage(season).min_by do |team_id, win_percentage|
-  #     win_percentage
-  #   end.first
-  # end
-
   # Move to GameTeamsManager
   # Doesn't have a test
   def total_game_teams(filtered_game_teams = @game_teams)
@@ -510,15 +496,11 @@ class StatTracker
 # ~~~ SEASON METHODS~~~
 
   def winningest_coach(season)
-    @game_teams.find do |game_team|
-      game_team.team_id == winningest_team(season)
-    end.head_coach
+    @game_teams_manager.winningest_coach(season)
   end
 
   def worst_coach(season)
-    @game_teams.find do |game_team|
-      game_team.team_id == worst_team(season)
-    end.head_coach
+    @game_teams_manager.worst_coach(season)
   end
 
   def most_tackles(season)
