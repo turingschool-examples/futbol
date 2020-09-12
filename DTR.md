@@ -51,23 +51,23 @@
 
 ## Workload Expectations (What features do we each want to work on?):
 ### Iteration 1
-  -
+  - Together
 
 ### Iteration 2
-  -
+  - Game stats together, break up after
 
 ### Iteration 3
-  -
+  - Together
 
 ### Iteration 4
-  -
+  - Unplanned
 
 ## Workflow Expectations (Git workflow/Tools/Code Review/Reviewing Pull Requests/Debugging and Problem-solving Techniques):
 
   - Never close and merge your own pull request
   - As you are reviewing pull requests, make comments on items that need to be changed/edited and only making those changes when approved by both parties
   - Follow best practices
-  - Never say yes to the first pull request
+  - Never say yes to the first pull request unless we all worked on it together
 
 ## Pomodoro Break Schedule:
   - As needed
