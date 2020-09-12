@@ -35,25 +35,44 @@ module LeagueStatistics
   end
 
   def worst_offense
-    team_worst_season_average = {}
+    team_best_season_average = {}
     team_name_ids.each do |team_name, team_id|
       game_count = 0
       @game_table.each do |game_id, game|
-        if team_id.to_i == game.away_team_id && team_worst_season_average[team_name].nil?
-          team_worst_season_average[team_name] = game.away_goals
+        if team_id.to_i == game.away_team_id && team_best_season_average[team_name].nil?
+          team_best_season_average[team_name] = game.away_goals
           game_count += 1
-        elsif team_id.to_i == game.home_team_id && team_worst_season_average[team_name].nil?
-          team_worst_season_average[team_name] = game.home_goals
+        elsif team_id.to_i == game.home_team_id && team_best_season_average[team_name].nil?
+          team_best_season_average[team_name] = game.home_goals
           game_count += 1
         elsif team_id.to_i == game.home_team_id || team_id.to_i == game.away_team_id
           game_count += 1
-          team_worst_season_average[team_name] += game.away_goals if team_id.to_i == game.away_team_id
-          team_worst_season_average[team_name] += game.home_goals if team_id.to_i == game.home_team_id
+          team_best_season_average[team_name] += game.away_goals if team_id.to_i == game.away_team_id
+          team_best_season_average[team_name] += game.home_goals if team_id.to_i == game.home_team_id
         end
       end
-      team_worst_season_average[team_name] = team_worst_season_average[team_name]/game_count.to_f
+      team_best_season_average[team_name] = team_best_season_average[team_name]/game_count.to_f
     end
-    team_worst_season_average.key(team_worst_season_average.values.min)
+    team_best_season_average.key(team_best_season_average.values.min)
+  end
+
+# Name of the team with the highest average score per game across all seasons when they are away.
+  def highest_scoring_visitor
+    team_best_away_average = {}
+    team_name_ids.each do |team_name, team_id|
+      game_count = 0
+      @game_table.each do |game_id, game|
+        if team_id.to_i == game.away_team_id && team_best_away_average[team_name].nil?
+           team_best_away_average[team_name] = game.away_goals
+           game_count += 1
+        elsif team_id.to_i == game.away_team_id
+          team_best_away_average[team_name] += game.away_goals
+          game_count += 1
+        end
+      end
+      team_best_away_average[team_name] = team_best_away_average[team_name]/game_count.to_f
+    end
+    team_best_away_average.key(team_best_away_average.values.max)
   end
 
 end
