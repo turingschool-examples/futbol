@@ -51,4 +51,31 @@ class GamesManagerTest < Minitest::Test
     expected = ["20122013","20162017","20142015"]
     assert_equal expected, @games_manager.list_of_seasons
   end
+
+  def test_it_can_find_total_goals
+    assert_equal 29, @games_manager.total_goals
+  end
+
+  def test_it_find_average_goals_per_game
+    assert_equal 4.83, @games_manager.average_goals_per_game
+  end
+
+  def test_it_can_find_average_goals_by_season
+    expected = {
+      "20122013" => 5.5,
+      "20162017" => 4.0,
+      "20142015" => 5.0
+    }
+    assert_equal expected, @games_manager.average_goals_by_season
+  end
+
+  def test_it_can_find_total_goals_by_season
+    season = '20122013'
+    assert_equal 11, @games_manager.total_goals_by_season(season)
+  end
+
+  def test_it_can_find_average_data_of_goals_by_season
+    season = '20122013'
+    assert_equal 5.5, @games_manager.average_goals_by_season_data(season)
+  end
 end
