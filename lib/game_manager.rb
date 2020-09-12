@@ -47,4 +47,20 @@ class GamesManager
     end
     ((ties.to_f / @games.count) * 100).round(2)
   end
+
+  def list_of_seasons
+    @games.map do |game|
+      game.season
+    end.uniq
+  end
+
+  def count_games_by_season
+    games_per_season = {}
+    list_of_seasons.each do |season|
+      games_per_season[season] = @games.count do |game|
+        game.season == season
+      end
+    end
+    games_per_season
+  end
 end
