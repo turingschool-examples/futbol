@@ -8,9 +8,9 @@ require 'pry';
 
 class StatTrackerTest < Minitest::Test
   def setup
-    game_path = './data/games.csv'
+    game_path = './data/dummy_games.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_teams_path = './data/dummy_game_teams.csv'
 
     locations = {
       games: game_path,
@@ -25,12 +25,12 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
+  def test_it_can_return_a_count_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+
   def test_it_can_find_a_name
     team_number = '25'
     assert_equal 'Chicago Red Stars', @stat_tracker.find_team_name(team_number)
   end
-
-  # def test_it_can_access_data
-  #   assert_equal '4', @stat_tracker[:teams]['team_id'][1]
-  # end
 end
