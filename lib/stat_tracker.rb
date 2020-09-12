@@ -378,7 +378,7 @@ class StatTracker
         end
       end
     end
-  (team_wins[team_id].to_f / team_game_count[team_id]).round(2)
+    (team_wins[team_id].to_f / team_game_count[team_id]).round(2)
   end
 
   def most_goals_scored(team_id)
