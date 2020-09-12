@@ -32,8 +32,14 @@ class StatTracker
   def find_game_ids_for_season(season)
     @game_manager.find_game_ids_for_season(season)
   end
-end
 
     # game_manager = CSV.read(locations[:games], headers:true)
     # team_manager = CSV.read(locations[:teams], headers:true)
     # game_teams_manager = CSV.read(locations[:game_teams], headers:true)
+
+#-------------TeamStats
+  def team_info(team_id)
+    @team_manager.team_info(team_id)
+  end
+
+end #this is the end of the class
