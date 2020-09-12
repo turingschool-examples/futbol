@@ -91,76 +91,76 @@ class StatTrackerTest < Minitest::Test
     assert_equal '7', stat_tracker.game_teams[0]['takeaways']
   end
 
-#---------GameStatisticsTests
-  def test_it_can_find_highest_total_score
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    stat_tracker = StatTracker.from_csv(locations)
+# #---------GameStatisticsTests
+#   def test_it_can_find_highest_total_score
+#     game_path = './data/games.csv'
+#     team_path = './data/teams.csv'
+#     game_teams_path = './data/game_teams.csv'
+#     locations = {
+#       games: game_path,
+#       teams: team_path,
+#       game_teams: game_teams_path
+#     }
+#     stat_tracker = StatTracker.from_csv(locations)
+#
+#     assert_equal 11, stat_tracker.highest_total_score
+#   end
+#
+#   def test_it_can_find_lowest_total_score
+#     game_path = './data/games.csv'
+#     team_path = './data/teams.csv'
+#     game_teams_path = './data/game_teams.csv'
+#     locations = {
+#       games: game_path,
+#       teams: team_path,
+#       game_teams: game_teams_path
+#     }
+#     stat_tracker = StatTracker.from_csv(locations)
+#
+#     assert_equal 0, stat_tracker.lowest_total_score
+#   end
 
-    assert_equal 11, stat_tracker.highest_total_score
-  end
-
-  def test_it_can_find_lowest_total_score
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    stat_tracker = StatTracker.from_csv(locations)
-
-    assert_equal 0, stat_tracker.lowest_total_score
-  end
-
-  def test_it_knows_home_win_percentage
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    stat_tracker = StatTracker.from_csv(locations)
-
-    assert_equal 0.44, stat_tracker.percentage_home_wins
-  end
-
-  def test_it_knows_visitor_win_percentage
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    stat_tracker = StatTracker.from_csv(locations)
-
-    assert_equal 0.36, stat_tracker.percentage_visitor_wins
-  end
-
-  def test_it_knows_tie_percentage
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    stat_tracker = StatTracker.from_csv(locations)
-
-    assert_equal 0.20, stat_tracker.percentage_ties
-  end
+  # def test_it_knows_home_win_percentage
+  #   game_path = './data/games.csv'
+  #   team_path = './data/teams.csv'
+  #   game_teams_path = './data/game_teams.csv'
+  #   locations = {
+  #     games: game_path,
+  #     teams: team_path,
+  #     game_teams: game_teams_path
+  #   }
+  #   stat_tracker = StatTracker.from_csv(locations)
+  #
+  #   assert_equal 0.44, stat_tracker.percentage_home_wins
+  # end
+  #
+  # def test_it_knows_visitor_win_percentage
+  #   game_path = './data/games.csv'
+  #   team_path = './data/teams.csv'
+  #   game_teams_path = './data/game_teams.csv'
+  #   locations = {
+  #     games: game_path,
+  #     teams: team_path,
+  #     game_teams: game_teams_path
+  #   }
+  #   stat_tracker = StatTracker.from_csv(locations)
+  #
+  #   assert_equal 0.36, stat_tracker.percentage_visitor_wins
+  # end
+  #
+  # def test_it_knows_tie_percentage
+  #   game_path = './data/games.csv'
+  #   team_path = './data/teams.csv'
+  #   game_teams_path = './data/game_teams.csv'
+  #   locations = {
+  #     games: game_path,
+  #     teams: team_path,
+  #     game_teams: game_teams_path
+  #   }
+  #   stat_tracker = StatTracker.from_csv(locations)
+  #
+  #   assert_equal 0.20, stat_tracker.percentage_ties
+  # end
 
   def test_it_can_count_games_by_season
     game_path = './data/games.csv'
