@@ -93,12 +93,12 @@ class TeamStats
     end
     fewest[:goals]
   end
-
-  def find_team_id(team_id)
-    @game_teams_data.group_by do |game|
-      game[:game_id]
-    end
-  end
+  #
+  # def find_team_id(team_id)
+  #   @game_teams_data.group_by do |game|
+  #     game[:game_id]
+  #   end
+  # end
 
   def find_all_game_ids_by_team(team_id)
     @game_data.find_all do |game|
@@ -106,23 +106,59 @@ class TeamStats
     end
   end
 
-  #we want to group all given team id games by opponent id
-  #opponent_id => all games played against given team id
-  #determine if given team is home_team_id or away_team_id
-  #find total games each opponent vs given team
-  # away/home goals > home/away goals
-  #find total given team wins
-  #find win percentage and sort
-  #find max for fav opponent and min for rival 
-
   def find_opponent_id(team_id)
-    find_all_game_ids_by_team.map do |game|
-      if game[:home_team_id] == team_id
+    find_all_game_ids_by_team(team_id).map do |game|
+      if game[:home_team_id] == team_id.to_i
         game[:away_team_id]
       else
         game[:home_team_id]
       end
     end
+  end
+
+  def hash_by_opponent_id(team_id)
+    hash = {}
+    find_opponent_id(team_id).each do |game|
+      hash[game] = find_all_game_ids_by_team(team_id)
+    end
+    hash
+  end
+
+  def sort_games_against_rival(team_id)
+    hash = {}
+    hash_by_opponent_id(team_id).each do |rival, games|
+      rival_games = games.find_all do |game|
+        rival == game[:away_team_id] || rival == game[:home_team_id]
+      end
+      hash[rival] = rival_games
+    end
+    hash
+  end
+
+  def find_count_of_games_against_rival(team_id)
+    hash = {}
+    sort_games_against_rival(team_id).each do |rival_id, rival_games|
+      game_count = rival_games.count
+      hash[rival_id] = game_count
+    end
+    hash
+  end
+
+
+  def favorite_opponent(team_id)
+    #we want to group all given team id games by opponent id
+    find_all_game_ids_by_team(team_id)
+    find_opponent_id(team_id)
+    #opponent_id => all games played against given team id
+    #determine if given team is home_team_id or away_team_id
+    hash_by_opponent_id(team_id)
+    sort_games_against_rival(team_id)
+    #find total games each opponent vs given team
+    find_count_of_games_against_rival(team_id)
+    # away/home goals > home/away goals
+    #find total given team wins
+    #find win percentage and sort
+    #find max for fav opponent and min for rival
   end
 end
   # #

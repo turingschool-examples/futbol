@@ -76,8 +76,7 @@ class TeamStatsTest < Minitest::Test
   #     assert_equal 0, @team_stats.fewest_goals_scored("18")
   # end
 
-  def test_it_can_find_fav_opponent
-
-    assert_equal "DC United", @team_stats.find_all_game_ids_by_team("18")
+  def test_it_can_find_all_game_ids_by_team
+    assert_equal 513, @team_stats.find_all_game_ids_by_team("18").count
   end
 end
