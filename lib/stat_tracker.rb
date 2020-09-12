@@ -22,39 +22,24 @@ class StatTracker
     new(games, teams, game_teams, locations)
   end
 
-  def highest_total_score # runs through game_manager.rb
-    highest_score = @games.max_by do |game|
-      game["away_goals"].to_i + game["home_goals"].to_i
-    end
-    highest_score["away_goals"].to_i + highest_score["home_goals"].to_i
+  def highest_total_score
+    @game_manager.highest_total_score
   end
 
   def lowest_total_score # game_manager.rb
-    lowest_score = @games.min_by do |game|
-      game["away_goals"].to_i + game["home_goals"].to_i
-    end
-    lowest_score["away_goals"].to_i + lowest_score["home_goals"].to_i
+    @game_manager.lowest_total_score
   end
 
   def percentage_home_wins # game_manager.rb
-    home_wins = @games.count do |game|
-      game["home_goals"].to_i > game["away_goals"].to_i
-    end
-    (home_wins.to_f / games.length).round(2)
+    @game_manager.percentage_home_wins
   end
 
   def percentage_visitor_wins
-    visitor_wins = @games.count do |game|
-      game["away_goals"].to_i > game["home_goals"].to_i
-    end
-    (visitor_wins.to_f / games.length).round(2)
+    @game_manager.percentage_visitor_wins
   end
 
   def percentage_ties
-    tie_games = @games.count do |game|
-      game["away_goals"].to_i == game["home_goals"].to_i
-    end
-    (tie_games.to_f / games.length).round(2)
+    @game_manager.percentage_ties
   end
 
   def count_of_games_by_season # look into group_by
@@ -98,6 +83,7 @@ class StatTracker
   def worst_offense
     @game_team_manager.worst_offense
   end
+
 
   def highest_scoring_visitor
     team_game_count = Hash.new(0)
