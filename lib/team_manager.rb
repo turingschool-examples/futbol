@@ -13,4 +13,14 @@ class TeamsManager
       Team.new(data, self)
     end
   end
+
+  def count_of_teams
+    @teams.count
+  end
+
+  def find_team_name(team_number)
+    @teams.find do |team|
+      team.team_id == team_number
+    end.team_name
+  end
 end

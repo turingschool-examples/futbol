@@ -4,6 +4,7 @@ require './lib/stat_tracker'
 require './lib/game_manager'
 require './lib/game_teams_manager'
 require './lib/team_manager'
+require 'pry';
 
 class StatTrackerTest < Minitest::Test
   def setup
@@ -21,8 +22,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_exists
-
     assert_instance_of StatTracker, @stat_tracker
+  end
+
+  def test_it_can_find_a_name
+    team_number = '25'
+    assert_equal 'Chicago Red Stars', @stat_tracker.find_team_name(team_number)
   end
 
   # def test_it_can_access_data
