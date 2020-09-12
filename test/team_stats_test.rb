@@ -76,19 +76,27 @@ class TeamStatsTest < Minitest::Test
   #     assert_equal 0, @team_stats.fewest_goals_scored("18")
   # end
 
-  def test_it_can_find_all_game_ids_by_team
-    assert_equal 513, @team_stats.find_all_game_ids_by_team("18").count
-  end
+  # def test_it_can_find_all_game_ids_by_team
+  #   assert_equal 513, @team_stats.find_all_game_ids_by_team("18").count
+  # end
+  #
+  # def test_it_can_find_opponent_id
+  #   assert_equal 513, @team_stats.find_opponent_id("18").count
+  # end
+  #
+  # def test_it_can_make_a_hash_by_opponent_id
+  #   assert_equal 31, @team_stats.hash_by_opponent_id("18").count
+  # end
+  #
+  # def test_it_can_sort_games_against_rival
+  #   assert_equal 31, @team_stats.sort_games_against_rival("18").count
+  # end
+  #
+  # def test_it_can_find_count_of_games_against_rival
+  #   assert_equal 31, @team_stats.find_count_of_games_against_rival("18").count
+  # end
 
-  def test_it_can_find_opponent_id
-    assert_equal 513, @team_stats.find_opponent_id("18").count
-  end
-
-  def test_it_can_make_a_hash_by_opponent_id
-    assert_equal 513, @team_stats.hash_by_opponent_id("18").count
-  end
-
-  def test_it_can_sort_games_against_rival
-    assert_equal 513, @team_stats.sort_games_against_rival("18").count
+  def test_it_can_find_count_of_games_against_rival
+    assert_equal 31, @team_stats.find_percent_of_winning_games_against_rival("18").count
   end
 end

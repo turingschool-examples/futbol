@@ -144,6 +144,28 @@ class TeamStats
     hash
   end
 
+  def find_percent_of_winning_games_against_rival(team_id)
+    hash = {}
+    sort_games_against_rival(team_id).each do |rival_id, rival_games|
+      given_team_win_count = 0
+      total_games = 0
+      rival_games.each do |game|
+        if rival_id == game[:away_team_id]
+          total_games += 1
+          if game[:away_goals] < game[:home_goals]
+            given_team_win_count += 1
+          end
+        else
+          total_games += 1
+          if game[:home_goals] < game[:away_goals]
+            given_team_win_count += 1
+          end
+        end
+      end
+      hash[rival_id] = (given_team_win_count.to_f / total_games).round(3) * 100
+    end
+    hash
+  end
 
   def favorite_opponent(team_id)
     #we want to group all given team id games by opponent id
@@ -157,6 +179,7 @@ class TeamStats
     find_count_of_games_against_rival(team_id)
     # away/home goals > home/away goals
     #find total given team wins
+    find_count_of_winning_games_against_rival(team_id)
     #find win percentage and sort
     #find max for fav opponent and min for rival
   end
