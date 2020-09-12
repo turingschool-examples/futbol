@@ -1,17 +1,17 @@
 module TeamStatistics
-  def team_info(team_id)
-    team = teams.find do |team_obj|
-      team_obj.team_id == team_id
-    end
-    team_hash = {}
-    team_hash['team_id'] = team.team_id
-    team_hash['franchise_id'] = team.franchise_id
-    team_hash['team_name'] = team.team_name
-    team_hash['abbreviation'] = team.abbreviation
-    team_hash['link'] = team.link
-
-    team_hash
-  end
+  # def team_info(team_id)
+  #   team = teams.find do |team_obj|
+  #     team_obj.team_id == team_id
+  #   end
+  #   team_hash = {}
+  #   team_hash['team_id'] = team.team_id
+  #   team_hash['franchise_id'] = team.franchise_id
+  #   team_hash['team_name'] = team.team_name
+  #   team_hash['abbreviation'] = team.abbreviation
+  #   team_hash['link'] = team.link
+  #
+  #   team_hash
+  # end
 
   def games_by_team_id(team_id, games_array = games)
     games_array.select do |game|
