@@ -14,4 +14,9 @@ class TeamsManagerTest < Minitest::Test
   def test_it_can_count_teams
     assert_equal 5, @teams_manager.count_of_teams
   end
+
+  def test_it_can_return_array_of_all_team_ids
+    expected = ["1", "4", "26", "14", "6"]
+    assert_equal expected, @teams_manager.all_team_ids
+  end
 end

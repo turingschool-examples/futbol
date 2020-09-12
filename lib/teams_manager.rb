@@ -21,4 +21,10 @@ class TeamsManager
     @teams.count
   end
 
+  def all_team_ids
+    @teams.map do |team|
+      team.team_id
+    end
+  end
+
 end

@@ -6,7 +6,7 @@ class Team
               :franchise_id,
               :team_name,
               :abbreviation,
-              :stadium,
+              :stadium
               :link
 
   def initialize(data)
