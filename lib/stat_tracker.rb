@@ -29,9 +29,9 @@ class StatTracker
 
   # ----------SeasonStats
 
-  # def winningest_coach(season)
-  #   @game_teams_manager.winningest_coach(season)
-  # end
+  def winningest_coach(season)
+    @game_teams_manager.winningest_coach(season)
+  end
 
   def find_game_ids_for_season(season)
     @game_manager.find_game_ids_for_season(season)
