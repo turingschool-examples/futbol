@@ -487,11 +487,7 @@ class StatTracker
   end
 
   def count_of_games_by_season
-    count = {}
-    season_group.each do |season, games|
-      count[season] = games.count
-    end
-    count
+    @games.count_of_games_by_season
   end
 
   def avg_goals_by_season

@@ -32,5 +32,10 @@ class GamesManagerTest < Minitest::Test
     assert_equal 53, @games_manager.total_games
   end
 
+  def test_it_can_show_count_of_games_by_season
+    expected = {"20142015"=>16, "20172018"=>9, "20152016"=>5, "20132014"=>12, "20122013"=>4, "20162017"=>7}
+    assert_equal expected, @games_manager.count_of_games_by_season
+  end
+
 
 end
