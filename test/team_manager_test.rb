@@ -31,4 +31,25 @@ class TeamManagerTest < Minitest::Test
     assert_equal 'Mercedes-Benz Stadium', @stat_tracker.team_manager.teams[0].stadium
     assert_equal '/api/v1/teams/1', @stat_tracker.team_manager.teams[0].link
   end
+
+  def test_it_can_find_team_info
+      game_path = './fixture/games_dummy.csv'
+      team_path = './fixture/teams_dummy.csv'
+      game_teams_path = './fixture/game_teams_dummy.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expected = {
+        'team_id'=> "4",
+        'franchise_id'=>  "16",
+        'team_name'=>  "Chicago Fire",
+        'abbreviation'=>  "CHI",
+        'link'=>  "/api/v1/teams/4"
+      }
+      assert_equal expected, @stat_tracker.team_manager.team_info("4")
+  end
+
 end
