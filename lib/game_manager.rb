@@ -29,4 +29,11 @@ class GameManager
     end
     lowest_score.away_goals + lowest_score.home_goals
   end
+
+  def percentage_home_wins # game_manager.rb
+    home_wins = @games.count do |game|
+      game.home_goals > game.away_goals
+    end
+    (home_wins.to_f / games.length).round(2)
+  end
 end
