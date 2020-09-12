@@ -39,10 +39,10 @@ class GameStatistics
   #   highest_game[1]
   # end
 
-  def lowest_total_score
-    lowest_game = sum_team_scores.min_by { |game_id, score| score }
-    lowest_game[1]
-  end
+  # def lowest_total_score
+  #   lowest_game = sum_team_scores.min_by { |game_id, score| score }
+  #   lowest_game[1]
+  # end
 
   def home_away_data_set
     stat_tracker[:games]["home_goals"].zip(stat_tracker[:games]["away_goals"])
