@@ -46,4 +46,8 @@ class TeamStatisticsTest < Minitest::Test
   def test_favorite_opponent
     assert_equal "DC United", @stat_tracker.favorite_opponent("18")
   end
+
+  def test_rival
+    assert_includes ["Houston Dash","LA Galaxy"], @stat_tracker.rival("18")
+  end
 end
