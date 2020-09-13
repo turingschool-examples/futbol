@@ -179,8 +179,8 @@ class TeamManager
     @team_data.each do |team|
       if team_id == team.team_id.to_s
         hash['team_id'] = team.team_id.to_s
-        hash['franchiseid'] =  team.franchiseid.to_s
-        hash['teamname'] = team.teamname
+        hash['franchise_id'] =  team.franchiseid.to_s
+        hash['team_name'] = team.teamname
         hash['abbreviation'] = team.abbreviation
         hash['link'] = team.link
       end
