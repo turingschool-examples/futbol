@@ -76,4 +76,45 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "DC United", @game_teams_manager.fewest_tackles("20122013")
   end
 
+  def test_it_can_see_highest_scoring_visitor
+    skip
+    assert_equal "FC Dallas", @game_teams_manager.highest_scoring_visitor
+  end
+
+  def test_it_can_filter_gameteams_by_teamid
+    assert @game_teams_manager.filter_by_teamid("6").all? {|gameteam| gameteam.team_id == "6"}
+  end
+
+  def test_it_can_create_gameteams_by_opponent
+    assert_equal ["6", "26", "4", "1"], @game_teams_manager.game_teams_by_opponent("14").keys
+    assert_equal 5, @game_teams_manager.game_teams_by_opponent("14")["6"].size
+    assert_equal 4, @game_teams_manager.game_teams_by_opponent("14")["1"].size
+    assert_equal 6, @game_teams_manager.game_teams_by_opponent("14")["4"].size
+    assert_equal 6, @game_teams_manager.game_teams_by_opponent("14")["26"].size
+  end
+
+  def test_it_can_get_most_accurate_team_for_season
+    assert_equal "FC Dallas", @game_teams_manager.most_accurate_team("20132014")
+  end
+
+  def test_it_can_get_least_accurate_team_for_season
+    assert_equal "Atlanta United", @game_teams_manager.least_accurate_team("20132014")
+  end
+
+  def test_it_can_get_games_from_season_game_ids
+    season_game_ids = @game_teams_manager.game_ids_per_season("20132014")
+    assert_equal GameTeam, @game_teams_manager.find_game_teams(season_game_ids)[0].class
+    assert_equal (season_game_ids.count * 2), @game_teams_manager.find_game_teams(season_game_ids).count
+  end
+
+  def test_it_can_get_shots_per_team
+    expected = {"4"=>32, "14"=>26, "1"=>27, "6"=>24, "26"=>40}
+    assert_equal expected, @game_teams_manager.shots_per_team_id("20132014")
+  end
+
+  def test_shots_per_goal_per_season_for_given_season
+    expected = {"4"=>3.20, "14"=>2.89, "1"=>3.86, "6"=>2.40, "26"=>3.64}
+    assert_equal expected, @game_teams_manager.shots_per_goal_per_season("20132014")
+  end
+
 end

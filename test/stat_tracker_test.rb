@@ -84,16 +84,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.average_scores_by_team
   end
 
-  def test_it_can_group_games_by_season
-    assert_equal ["20142015", "20172018", "20152016", "20132014", "20122013", "20162017"], @stats.seasonal_game_data.keys
-
-    @stats.seasonal_game_data.values.each do |games|
-      games.each do |game|
-        assert_instance_of Game, game
-      end
-    end
-  end
-
   def test_it_can_sum_game_goals
     assert_equal 211, @stats.total_goals
     season_1415 = @stats.seasonal_game_data["20142015"]
@@ -164,10 +154,10 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_get_opponent_id
     game = @stats.get_game(2014021002)
-    assert_equal 14, @stats.get_opponent_id(game,6)
+    assert_equal 14, @stats.get_opponent_id(game,"6")
 
     game = @stats.get_game(2014020371)
-    assert_equal 26, @stats.get_opponent_id(game,6)
+    assert_equal 26, @stats.get_opponent_id(game,"6")
   end
 
   def test_it_can_create_gameteams_by_opponent
@@ -190,7 +180,6 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_fave_rival_id
     assert_equal 26, @stats.rival_id(6)
   end
-
 
   def test_it_can_get_game_ids_in_season
     expected = [2013021198, 2013020371, 2013020203, 2013020649, 2013021160, 2013020334, 2013021221, 2013020667, 2013020321, 2013020285, 2013020739, 2013020088]
@@ -383,24 +372,22 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_see_team_info
     expected1 = {
-      :team_id=>1,
-      :franchise_id=>23,
-      :team_name=>"Atlanta United",
-      :abbreviation=>"ATL",
-      :stadium=>"Mercedes-Benz Stadium",
-      :link=>"/api/v1/teams/1"
+      "team_id"=>"1",
+      "franchise_id"=>"23",
+      "team_name"=>"Atlanta United",
+      "abbreviation"=>"ATL",
+      "link"=>"/api/v1/teams/1"
     }
     expected2 = {
-      :team_id=>14,
-      :franchise_id=>31,
-      :team_name=>"DC United",
-      :abbreviation=>"DC",
-      :stadium=>"Audi Field",
-      :link=>"/api/v1/teams/14"
+      "team_id"=>"14",
+      "franchise_id"=>"31",
+      "team_name"=>"DC United",
+      "abbreviation"=>"DC",
+      "link"=>"/api/v1/teams/14"
     }
 
-    assert_equal expected1, @stats.team_info(1)
-    assert_equal expected2, @stats.team_info(14)
+    assert_equal expected1, @stats.team_info("1")
+    assert_equal expected2, @stats.team_info("14")
   end
 
   def test_it_can_see_highest_number_of_goals_by_team_in_a_game
