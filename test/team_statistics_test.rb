@@ -25,17 +25,17 @@ class TeamStatisticsTest < Minitest::Test
   #   assert_equal expected, actual
   # end
 
-  def test_it_can_find_games_by_team_id
-    games = @stat_tracker.games
-    expected = [games[11], games[12], games[13], games[14], games[15], games[16], games[17], games[28], games[45]]
-
-    assert_equal expected, @stat_tracker.games_by_team_id('26')
-
-    different_games = [games[0], games[1], games[28], games[2], games[3], games[13], games[4], games[5]]
-    expected = [games[28], games[13]]
-
-    assert_equal expected, @stat_tracker.games_by_team_id('26', different_games)
-  end
+  # def test_it_can_find_games_by_team_id
+  #   games = @stat_tracker.games
+  #   expected = [games[11], games[12], games[13], games[14], games[15], games[16], games[17], games[28], games[45]]
+  #
+  #   assert_equal expected, @stat_tracker.games_by_team_id('26')
+  #
+  #   different_games = [games[0], games[1], games[28], games[2], games[3], games[13], games[4], games[5]]
+  #   expected = [games[28], games[13]]
+  #
+  #   assert_equal expected, @stat_tracker.games_by_team_id('26', different_games)
+  # end
 
   def test_it_can_separate_games_by_season_id
     season_20122013 = @stat_tracker.games.select do |game|
@@ -66,29 +66,29 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_it_can_find_game_stats_by_team_id
-    team_stats = @stat_tracker.game_teams
-    expected = [team_stats[0], team_stats[2], team_stats[5], team_stats[7], team_stats[8], team_stats[11], team_stats[12]]
+  # def test_it_can_find_game_stats_by_team_id
+  #   team_stats = @stat_tracker.game_teams
+  #   expected = [team_stats[0], team_stats[2], team_stats[5], team_stats[7], team_stats[8], team_stats[11], team_stats[12]]
+  #
+  #   assert_equal expected, @stat_tracker.game_stats_by_team_id("17")
+  # end
 
-    assert_equal expected, @stat_tracker.game_stats_by_team_id("17")
-  end
+  # def test_it_can_generate_an_array_of_game_ids_from_an_array_of_games
+  #   games = @stat_tracker.games_by_team_id("17")
+  #   expected = ["2012030161", "2012030162", "2012030163", "2012030164", "2012030165", "2012030166", "2012030167"]
+  #
+  #   assert_equal expected, @stat_tracker.games_to_game_ids(games)
+  # end
 
-  def test_it_can_generate_an_array_of_game_ids_from_an_array_of_games
-    games = @stat_tracker.games_by_team_id("17")
-    expected = ["2012030161", "2012030162", "2012030163", "2012030164", "2012030165", "2012030166", "2012030167"]
-
-    assert_equal expected, @stat_tracker.games_to_game_ids(games)
-  end
-
-  def test_it_can_find_most_goals_scored_by_team
-    assert_equal 3, @stat_tracker.most_goals_scored("17")
-    # Add more assertions?
-  end
-
-  def test_it_can_find_fewest_goals_scored_by_team
-    assert_equal 0, @stat_tracker.fewest_goals_scored("17")
-    # Add more assertions?
-  end
+  # def test_it_can_find_most_goals_scored_by_team
+  #   assert_equal 3, @stat_tracker.most_goals_scored("17")
+  #   # Add more assertions?
+  # end
+  #
+  # def test_it_can_find_fewest_goals_scored_by_team
+  #   assert_equal 0, @stat_tracker.fewest_goals_scored("17")
+  #   # Add more assertions?
+  # end
 
   def test_it_can_count_total_games_wins_losses_and_ties_for_a_team
     expected = {
