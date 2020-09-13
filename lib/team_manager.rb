@@ -34,9 +34,15 @@ class TeamManager
     stat_tracker.game_info(game_id)
   end
 
-  def gather_game_team_info(team_id)
-    game_ids_by_team(team_id).map do |game_id|
+  def gather_game_team_info(id)
+    game_ids_by_team(id).map do |game_id|
       game_team_info(game_id)
     end
+  end
+
+  def most_goals_scored(id)
+    gather_game_team_info(id).map do |game|
+      game[id][:goals]
+    end.max
   end
 end

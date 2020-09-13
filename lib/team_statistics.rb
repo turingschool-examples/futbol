@@ -47,19 +47,19 @@ module TeamStatistics
     results
   end
 
-  def game_stats_by_team_id(team_id)
-    game_teams.select do |game_team|
-      game_team.team_id == team_id
-    end
-  end
-
-  def most_goals_scored(team_id)
-    game_stats_by_team_id(team_id).max_by(&:goals).goals
-  end
-
-  def fewest_goals_scored(team_id)
-    game_stats_by_team_id(team_id).min_by(&:goals).goals
-  end
+  # def game_stats_by_team_id(team_id)
+  #   game_teams.select do |game_team|
+  #     game_team.team_id == team_id
+  #   end
+  # end
+  #
+  # def most_goals_scored(team_id)
+  #   game_stats_by_team_id(team_id).max_by(&:goals).goals
+  # end
+  #
+  # def fewest_goals_scored(team_id)
+  #   game_stats_by_team_id(team_id).min_by(&:goals).goals
+  # end
 
   def average_win_percentage(team_id)
     (result_counts_by_team_id(team_id)[:wins] / result_counts_by_team_id(team_id)[:total].to_f).round(2)
