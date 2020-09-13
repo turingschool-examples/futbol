@@ -85,7 +85,7 @@ class GameTeamManager
     end
   end
 
-  def favorite_opponent(team_id)
+  def favorite_opponent_id(team_id)
     total_games = Hash.new(0)
     loser_loses = Hash.new(0)
     @game_teams.each do |game|
@@ -98,11 +98,9 @@ class GameTeamManager
     end
     biggest_loser = loser_loses.max_by do |loser, losses|
       losses.to_f / total_games[loser]
-    end
-    # biggest_loser_name = @teams.find do |team|
-    #   biggest_loser[0] == team.team_id
-    # end
-    # biggest_loser_name.teamName
+    end[0]
   end
+
+  
 
 end

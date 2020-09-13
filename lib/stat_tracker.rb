@@ -320,29 +320,11 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
-    games = @game_teams.find_all do |game|
-      game["team_id"] == team_id
-    end
-    game_ids = games.map do |game|
-      game["game_id"]
-    end
-    total_games = Hash.new(0)
-    loser_loses = Hash.new(0)
-    @game_teams.each do |game|
-      if game_ids.include?(game["game_id"]) && game["team_id"] != team_id
-        total_games[game["team_id"]]  += 1
-        if game["result"] == "LOSS"
-          loser_loses[game["team_id"]] += 1
-        end
-      end
-    end
-    biggest_loser = loser_loses.max_by do |loser, losses|
-      losses.to_f / total_games[loser]
-    end
-    biggest_loser_name = @teams.find do |team|
-      biggest_loser[0] == team["team_id"]
-    end
-    biggest_loser_name["teamName"]
+    @team_manager.winner_or_loser_name(team_id)
+  end
+
+  def favorite_opponent_id(team_id)
+    @game_team_manager.favorite_opponent_id(team_id)
   end
 
   def rival(team_id)

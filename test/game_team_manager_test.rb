@@ -47,12 +47,17 @@ class GameTeamManagerTest < MiniTest::Test
     assert_equal 0, @game_team_manager.fewest_goals_scored("5")
   end
 
-  def test_it_can_find_favorite_opponent
-    skip
-    assert_equal "Houston Dynamo", @game_team_manager.favorite_opponent("6")
+  def test_it_can_find_favorite_opponent_id
+    assert_equal "3", @game_team_manager.favorite_opponent_id("6")
+  end
+
+  def test_it_can_find_rival_id
+    assert_equal "6", @game_team_manager.rival_id("3")
   end
 
   def test_it_can_find_game_ids
     assert_equal ["2012030221", "2012030222", "2012020577", "2012030224", "2012030311", "2012030312", "2012030313", "2012030314"], @game_team_manager.find_game_ids("6")
   end
+
+
 end

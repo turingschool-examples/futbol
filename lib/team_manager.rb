@@ -39,4 +39,12 @@ class TeamManager
     end.team_name
   end
 
+  def winner_or_loser_name(team_id)
+    @teams.find do |team|
+      @tracker.favorite_opponent_id(team_id) == team.team_id
+    end.team_name
+
+  end
+
+
 end
