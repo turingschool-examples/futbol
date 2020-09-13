@@ -34,4 +34,7 @@ class GameTeamManagerTest < MiniTest::Test
     assert_equal "Atlanta United", @game_team_manager.worst_offense
   end
 
+  def test_can_find_most_accurate_team
+    assert_equal "Real Salt Lake", @stat_tracker.most_accurate_team("20162017")
+  end
 end
