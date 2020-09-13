@@ -50,4 +50,8 @@ class GameTeamManagerTest < MiniTest::Test
   def test_it_can_find_favorite_opponent
     assert_equal "Houston Dynamo", @game_team_manager.favorite_opponent("6")
   end
+
+  def test_it_can_find_game_ids
+    assert_equal ["2012030221", "2012030222", "2012020577", "2012030224", "2012030311", "2012030312", "2012030313", "2012030314"], @game_team_manager.find_game_ids("6")
+  end
 end
