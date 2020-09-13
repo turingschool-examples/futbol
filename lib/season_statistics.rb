@@ -82,4 +82,37 @@ module SeasonStatistics
     end
     worst_coach_name
   end
+
+  def season_games(season)
+    games = []
+    @game_table.each do |game_id, game|
+      games << game if season == game.season
+    end
+    games
+  end
+
+  def team_tackles_by_season(games)
+    tackles = {}
+    games.each do |game|
+      game_teams_array = @game_team_table.find_all do |game_info|
+        game.game_id == game_info.game_id
+      end
+      game_teams_array.each do |team|
+        if tackles[team.team_id].nil?
+          tackles[team.team_id] = team.tackles
+        else
+          tackles[team.team_id] += team.tackles
+        end
+      end
+    end
+    tackles
+  end
+
+  def most_tackles(season)
+    season_games = season_games(season)
+    team_tackles = team_tackles_by_season(season_games)
+    team_id = team_tackles.key(team_tackles.values.max)
+    @team_table[team_id.to_s].team_name
+  end
+
 end
