@@ -13,7 +13,7 @@ module Csv
       CSV.foreach(@locations[:teams], headers: true) do |row|
         @team_table[row["team_id"]] = Team.new({team_id: row["team_id"],
                                        franchiseId: row["franchiseId"],
-                                         team_name: row["team_name"],
+                                         team_name: row["teamName"],
                                       abbreviation: row["abbreviation"],
                                            stadium: row["stadium"],
                                               link: row["link"]})
