@@ -38,4 +38,20 @@ class StatTracker
   def average_number_of_goals_scored_by_team_by_type(team_id, home_away)
     @game_teams_manager.average_number_of_goals_scored_by_team_by_type(team_id, home_away)
   end
+
+  def highest_scoring_visitor
+    @teams_manager.highest_scoring_visitor
+  end
+
+  def lowest_scoring_visitor
+    @teams_manager.lowest_scoring_visitor
+  end
+
+  def highest_scoring_home_team
+    @teams_manager.highest_scoring_home
+  end
+
+  def lowest_scoring_home_team
+    @teams_manager.lowest_scoring_home
+  end
 end

@@ -9,7 +9,7 @@ require 'pry';
 class StatTrackerTest < Minitest::Test
   def setup
     game_path = './data/dummy_game.csv'
-    team_path = './data/teams.csv'
+    team_path = './data/dummy_teams.csv'
     game_teams_path = './data/dummy_game_teams.csv'
 
     locations = {
@@ -26,20 +26,36 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_a_count_teams
-    assert_equal 32, @stat_tracker.count_of_teams
+    assert_equal 3, @stat_tracker.count_of_teams
   end
 
   def test_it_can_find_a_name
-    team_number = '25'
-    assert_equal 'Chicago Red Stars', @stat_tracker.find_team_name(team_number)
+    team_number = '5'
+    assert_equal 'Sporting Kansas City', @stat_tracker.find_team_name(team_number)
   end
 
   def test_average_number_of_goals_scored_by_team
-    assert_equal 1.75, @stat_tracker.average_number_of_goals_scored_by_team('3')
+    assert_equal 1.6, @stat_tracker.average_number_of_goals_scored_by_team('3')
   end
 
   def test_average_number_of_goals_scored_by_team_by_type
     assert_equal 2.00, @stat_tracker.average_number_of_goals_scored_by_team_by_type('3', 'away')
-    assert_equal 1.50, @stat_tracker.average_number_of_goals_scored_by_team_by_type('3', 'home')
+    assert_equal 1.33, @stat_tracker.average_number_of_goals_scored_by_team_by_type('3', 'home')
+  end
+
+  def test_it_can_find_highest_scoring_visitor
+    assert_equal 'Sporting Kansas City', @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_it_can_find_lowest_scoring_visitor
+    assert_equal 'Houston Dynamo', @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_it_can_find_highest_scoring_home
+    assert_equal 'FC Dallas', @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_it_can_lowest_scoring_home
+    assert_equal 'Sporting Kansas City', @stat_tracker.lowest_scoring_home_team
   end
 end

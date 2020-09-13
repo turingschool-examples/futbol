@@ -51,7 +51,7 @@ class TeamManagerTest < Minitest::Test
     assert_equal 'Sporting Kansas City', @team_manager.highest_scoring_visitor
   end
 
-  def test_it_can_lowest_scoring_visitor
+  def test_it_can_find_lowest_scoring_visitor
     assert_equal 'Houston Dynamo', @team_manager.lowest_scoring_visitor
   end
 
