@@ -94,7 +94,7 @@ class GameManager
     games_in_season = @games.select do |game|
       game.season == season
     end
-    game_ids = games_in_season.map do |game|
+    games_in_season.map do |game|
       game.game_id
     end
   end
