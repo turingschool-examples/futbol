@@ -282,27 +282,27 @@ class StatTracker
     #   total_shots_goals
     # end
 
-    def add_shots_and_goals(gt_results, shots_goals_start)
-      gt_results.each do |team_result|
-        shots_goals_start[team_result['team_id']][:shots] += team_result['shots'].to_i
-        shots_goals_start[team_result['team_id']][:goals] += team_result['goals'].to_i
-      end
-      shots_goals_start
-    end
+    # def add_shots_and_goals(gt_results, shots_goals_start)
+    #   gt_results.each do |team_result|
+    #     shots_goals_start[team_result['team_id']][:shots] += team_result['shots'].to_i
+    #     shots_goals_start[team_result['team_id']][:goals] += team_result['goals'].to_i
+    #   end
+    #   shots_goals_start
+    # end
 
-    def determine_team_with_best_accuracy(total_shots_goals)
-      result_id = total_shots_goals.max_by do |id, s_g|
-        s_g[:goals].to_f / s_g[:shots]
-      end[0]
-      find_team_by_team_id(result_id)
-    end
+    # def determine_team_with_best_accuracy(total_shots_goals)
+    #   result_id = total_shots_goals.max_by do |id, s_g|
+    #     s_g[:goals].to_f / s_g[:shots]
+    #   end[0]
+    #   find_team_by_team_id(result_id)
+    # end
 
-    def determine_team_with_worst_accuracy(total_shots_goals)
-      result_id = total_shots_goals.min_by do |id, s_g|
-        s_g[:goals].to_f / s_g[:shots]
-      end[0]
-      find_team_by_team_id(result_id)
-    end
+    # def determine_team_with_worst_accuracy(total_shots_goals)
+    #   result_id = total_shots_goals.min_by do |id, s_g|
+    #     s_g[:goals].to_f / s_g[:shots]
+    #   end[0]
+    #   find_team_by_team_id(result_id)
+    # end
 
     def initialize_tackles_per_team(gt_results)
       tackles_per_team = {}
