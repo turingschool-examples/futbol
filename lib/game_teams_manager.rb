@@ -134,4 +134,10 @@ class GameTeamsManager
       goals_ratio
     end.to_a[0]
   end
+
+  def least_accurate_team(season_id)
+    teams_hash_w_ratio_shots_goals(season_id).min_by do |team, goals_ratio|
+      goals_ratio
+    end.to_a[0]
+  end
 end
