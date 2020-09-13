@@ -70,9 +70,8 @@ class TestStatTracker <Minitest::Test
       game_teams: './fixtures/fixture_game_teams.csv'
     }
     stat_tracker = StatTracker.new(locations)
-    info16 = stat_tracker.game_team_manager.game_teams[19].game_team_info
-    info17 = stat_tracker.game_team_manager.game_teams[18].game_team_info
-    require 'pry' ; binding.pry
+    info16 = stat_tracker.game_teams_manager.game_teams[19].game_team_info
+    info17 = stat_tracker.game_teams_manager.game_teams[18].game_team_info
     expected = {
       '16' => info16,
       '17' => info17
