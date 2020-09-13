@@ -89,4 +89,22 @@ class GameManager
     end[0]
     @tracker.get_team_name(lowest_scoring_visitor)
   end
+
+  def get_season_game_ids(season)
+    games_in_season = @games.select do |game|
+      game.season == season
+    end
+    game_ids = games_in_season.map do |game|
+      game.game_id
+    end
+  end
+
+  def winningest_coach(season)
+    game_ids = get_season_game_ids(season)
+    @tracker.find_winningest_coach(game_ids, "WIN")
+  end
+
+  def worst_coach(season)
+    game_ids = get_season_game_ids(season)
+  end
 end

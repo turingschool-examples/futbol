@@ -87,4 +87,20 @@ class GameTeamManager
     end[0]
     @tracker.get_team_name(least_accurate_team)
   end
+  
+  def find_winningest_coach(game_ids, expected_result)
+    coach_game_count = Hash.new(0)
+    coach_wins = Hash.new(0.0)
+    @game_teams.each do |game|
+      if game_ids.include?(game.game_id)
+        coach_game_count[game.head_coach] += 1
+        if game.result == expected_result
+          coach_wins[game.head_coach] += 1
+        end
+      end
+    end
+    coach_wins.max_by do |coach, win| # Perhaps a get_max_of(coach_wins)
+      win / coach_game_count[coach]
+    end[0]
+  end
 end
