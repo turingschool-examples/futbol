@@ -1,8 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'mocha/minitest'
-require './lib/stat_tracker'
-require './lib/game_teams_manager'
+require './test/test_helper'
 
 class GameTeamsManagerTest < Minitest::Test
   def setup
@@ -88,44 +84,64 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_it_knows_home_win_percentage
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    stat_tracker = StatTracker.from_csv(locations)
+    path = './fixture/game_teams_blank.csv'
+    game_teams_manager = GameTeamsManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_teams_manager.game_teams << game_1
+    game_teams_manager.game_teams << game_2
+    game_teams_manager.game_teams << game_3
 
-    assert_equal 0.44, stat_tracker.percentage_home_wins
+    game_1.stubs(:HoA).returns("home")
+    game_1.stubs(:home_goals).returns(5)
+    game_2.stubs(:away_goals).returns(7)
+    game_2.stubs(:home_goals).returns(7)
+    game_3.stubs(:away_goals).returns(0)
+    game_3.stubs(:home_goals).returns(0)
+
+    assert_equal 0.44, game_teams_manager.percentage_home_wins
   end
 
   def test_it_knows_visitor_win_percentage
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    stat_tracker = StatTracker.from_csv(locations)
+    skip
+    path = './fixture/game_teams_blank.csv'
+    game_teams_manager = GameTeamsManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_teams_manager.game_teams << game_1
+    game_teams_manager.game_teams << game_2
+    game_teams_manager.game_teams << game_3
 
-    assert_equal 0.36, stat_tracker.percentage_visitor_wins
+    game_1.stubs(:HoA).returns(6)
+    game_1.stubs(:home_goals).returns(5)
+    game_2.stubs(:away_goals).returns(7)
+    game_2.stubs(:home_goals).returns(7)
+    game_3.stubs(:away_goals).returns(0)
+    game_3.stubs(:home_goals).returns(0)
+
+    assert_equal 0.36, game_teams_manager.percentage_visitor_wins
   end
 
   def test_it_knows_tie_percentage
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    stat_tracker = StatTracker.from_csv(locations)
+    skip
+    path = './fixture/game_teams_blank.csv'
+    game_teams_manager = GameTeamsManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_teams_manager.game_teams << game_1
+    game_teams_manager.game_teams << game_2
+    game_teams_manager.game_teams << game_3
 
-    assert_equal 0.20, stat_tracker.percentage_ties
+    game_1.stubs(:away_goals).returns(6)
+    game_1.stubs(:home_goals).returns(5)
+    game_2.stubs(:away_goals).returns(7)
+    game_2.stubs(:home_goals).returns(7)
+    game_3.stubs(:away_goals).returns(0)
+    game_3.stubs(:home_goals).returns(0)
+
+    assert_equal 0.20, game_teams_manager.percentage_ties
   end
 end
