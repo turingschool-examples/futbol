@@ -140,4 +140,36 @@ class GameTeamsManager
       goals_ratio
     end.to_a[0]
   end
+
+  def tackles_by_team(season_id, team_num)
+    selected_season_game_teams(season_id).sum do |game_team|
+      if game_team.team_id == team_num
+        game_team.tackles
+      else
+        0
+      end
+    end
+  end
+
+  def teams_hash_w_tackles(season_id)
+    tackles_by_team = {}
+    selected_season_game_teams(season_id).each do |game_team|
+      team_num = game_team.team_id
+      tackles_by_team[team_num] ||= []
+      tackles_by_team[team_num] = tackles_by_team(season_id, team_num)
+    end
+    tackles_by_team
+  end
+
+  def most_tackles(season_id)
+    teams_hash_w_tackles(season_id).max_by do |team, tackles|
+      tackles
+    end.to_a[0]
+  end
+
+  def fewest_tackles(season_id)
+    teams_hash_w_tackles(season_id).min_by do |team, tackles|
+      tackles
+    end.to_a[0]
+  end
 end
