@@ -60,10 +60,10 @@ class TeamManagerTest < Minitest::Test
 
   def test_it_can_fetch_game_team_info
     stat_tracker = mock('A totally legit stat_tracker')
-    stat_tracker.stubs(:games_by_team).returns('A hash of game teams')
+    stat_tracker.stubs(:game_team_info).returns('A hash of game teams')
     CSV.stubs(:foreach).returns(nil)
     team_manager = TeamManager.new('A totally legit path', stat_tracker)
 
-    assert_equal 'An array of game ids', team_manager.game_team_info('123')
+    assert_equal 'A hash of game teams', team_manager.game_team_info('123')
   end
 end
