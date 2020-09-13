@@ -99,10 +99,10 @@ class GameTeamManager
     biggest_loser = loser_loses.max_by do |loser, losses|
       losses.to_f / total_games[loser]
     end
-    biggest_loser_name = @teams.find do |team|
-      biggest_loser[0] == team.team_id
-    end
-    biggest_loser_name.teamName
+    # biggest_loser_name = @teams.find do |team|
+    #   biggest_loser[0] == team.team_id
+    # end
+    # biggest_loser_name.teamName
   end
 
 end
