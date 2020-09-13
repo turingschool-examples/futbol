@@ -108,6 +108,12 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal 8, @game_teams_manager.goals_by_team(season_id, team_num)
   end
 
+  def test_shot_goal_ratio
+    season_id = '20122013'
+    team_num = '3'
+    assert_equal 0.21, @game_teams_manager.shot_goal_ratio(season_id, team_num)
+  end
+
   def test_most_accurate_team
     season_id = '20122013'
     assert_equal '6', @game_teams_manager.most_accurate_team(season_id)
