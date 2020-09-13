@@ -91,5 +91,13 @@ class GameTeamsManagerTest < Minitest::Test
   def test_it_can_see_highest_scoring_visitor
     assert_equal "FC Dallas",   @game_teams_manager.highest_scoring_visitor
   end
-  
+
+  def test_it_knows_lowest_scoring_home_team
+    assert_equal "Atlanta United", @game_teams_manager.lowest_scoring_home_team
+  end
+
+  def test_it_knows_lowest_scoring_visitor_team
+    assert_equal "Chicago Fire", @game_teams_manager.lowest_scoring_visitor
+  end
+
 end

@@ -143,4 +143,17 @@ class GameTeamsManager
     @stat_tracker.fetch_team_identifier(highest_scoring_visitor)
   end
 
+  def lowest_scoring_home_team
+    lowest_scoring_home_team = hoa_games_by_team_id("home").min_by do |team_id, details|
+      avg_score(details)
+    end[0]
+    @stat_tracker.fetch_team_identifier(lowest_scoring_home_team)
+  end
+
+  def lowest_scoring_visitor
+    lowest_scoring_visitor = hoa_games_by_team_id("away").min_by do |team_id, details|
+      avg_score(details)
+    end[0]
+    @stat_tracker.fetch_team_identifier(lowest_scoring_visitor)
+  end
 end

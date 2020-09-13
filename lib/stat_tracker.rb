@@ -220,6 +220,7 @@ class StatTracker
   end
 
   # Move to GameTeamsManager
+  # I don't know if this method is necessary anymore
   def lowest_scoring_team_id(hoa)
     hoa_games_by_team_id(hoa).min_by do |team_id, details|
       avg_score(details)
@@ -443,12 +444,12 @@ class StatTracker
 
   end
 
-  def lowest_scoring_visitor_team
-    team_id_to_team_name(lowest_scoring_team_id("away"))
+  def lowest_scoring_visitor
+    @game_teams_manager.lowest_scoring_visitor
   end
 
   def lowest_scoring_home_team
-    team_id_to_team_name(lowest_scoring_team_id("home"))
+    @game_teams_manager.lowest_scoring_home_team
   end
 
 # ~~~ SEASON METHODS~~~
