@@ -167,13 +167,6 @@ class TeamManager
     fewest_tackles.teamname
   end
 
-  # def group_teams_data
-  #   @team_data.find_all do |row|
-  #     require "pry"; binding.pry
-  #     row.team_id
-  #   end
-  # end
-
   def team_info(team_id)
     hash = {}
     @team_data.each do |team|
