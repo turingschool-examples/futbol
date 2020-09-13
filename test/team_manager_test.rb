@@ -255,6 +255,52 @@ class TeamManagerTest < Minitest::Test
     assert_equal (3 / 5.0).round(2), team_manager.average_win_percentage('5')
   end
 
+  def test_it_can_count_games_against_an_opponent
+    stat_tracker = mock('A totally legit stat_tracker')
+    CSV.stubs(:foreach).returns(nil)
+    team_manager = TeamManager.new('A totally legit path', stat_tracker)
+    game1 = {
+      '5' => {result: 'LOSS'},
+      '6' => {result: 'WIN'}
+    }
+    game2 = {
+      '8' => {result: 'TIE'},
+      '5' => {result: 'TIE'}
+    }
+    game3 = {
+      '5' => {result: 'WIN'},
+      '12' => {result: 'LOSS'}
+    }
+    game4 = {
+      '5' => {result: 'WIN'},
+      '2' => {result: 'LOSS'}
+    }
+    game5 = {
+      '5' => {result: 'WIN'},
+      '7' => {result: 'LOSS'}
+    }
+    game6 = {
+      '5' => {result: 'LOSS'},
+      '6' => {result: 'WIN'}
+    }
+    game7 = {
+      '5' => {result: 'WIN'},
+      '6' => {result: 'LOSS'}
+    }
+    game8 = {
+      '5' => {result: 'LOSS'},
+      '6' => {result: 'WIN'}
+    }
+    game_teams_info = [game1, game2, game3, game4, game5, game6, game7, game8]
+    team_manager.stubs(:gather_game_team_info).returns(game_teams_info)
+
+    assert_equal 4, team_manager.opponent_game_count('5', '6')
+    assert_equal 1, team_manager.opponent_game_count('5', '8')
+    assert_equal 1, team_manager.opponent_game_count('5', '7')
+    assert_equal 1, team_manager.opponent_game_count('5', '12')
+    assert_equal 1, team_manager.opponent_game_count('5', '2')
+  end
+
   def test_it_can_calculate_average_win_percentage_for_an_opponent
     stat_tracker = mock('A totally legit stat_tracker')
     CSV.stubs(:foreach).returns(nil)
@@ -291,7 +337,7 @@ class TeamManagerTest < Minitest::Test
       '5' => {result: 'LOSS'},
       '6' => {result: 'WIN'}
     }
-    game_teams_info = [game1, game2, game3, game4, game5]
+    game_teams_info = [game1, game2, game3, game4, game5, game6, game7, game8]
     team_manager.stubs(:gather_game_team_info).returns(game_teams_info)
 
     assert_equal (3 / 4.0).round(2), team_manager.average_win_percentage('5', '6')
