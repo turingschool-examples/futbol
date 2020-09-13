@@ -90,7 +90,7 @@ class GameTeamManager
     loser_loses = Hash.new(0)
     @game_teams.each do |game|
       if find_game_ids(team_id).include?(game.game_id) && game.team_id != team_id
-        total_games[game.team_id]  += 1
+        total_games[game.team_id] += 1
         if game.result == "LOSS"
           loser_loses[game.team_id] += 1
         end
@@ -101,6 +101,20 @@ class GameTeamManager
     end[0]
   end
 
-  
+  def rival_id(team_id)
+    total_games = Hash.new(0)
+    winner_wins = Hash.new(0)
+    @game_teams.each do |game|
+      if find_game_ids(team_id).include?(game.game_id) && game.team_id !=team_id
+        total_games[game.team_id] += 1
+        if game.result == "WIN"
+          winner_wins[game.team_id] += 1
+        end
+      end
+    end
+    biggest_winner = winner_wins.max_by do |winner, wins|
+      wins.to_f / total_games[winner]
+    end[0]
+  end
 
 end
