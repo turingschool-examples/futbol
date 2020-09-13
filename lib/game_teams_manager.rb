@@ -15,4 +15,35 @@ class GameTeamsManager
     end
   end
 
+  def games_played(team_id)
+    @game_teams.find_all do |game_team|
+      game_team.team_id == team_id
+    end
+  end
+
+  def total_goals(team_id)
+    games_played(team_id).sum do |game|
+      game.goals
+    end
+  end
+
+  def average_number_of_goals_scored_by_team(team_id)
+    (total_goals(team_id).to_f / games_played(team_id).count).round(2)
+  end
+
+  def games_played_by_type(team_id, home_away)
+    @game_teams.find_all do |game_team|
+      game_team.team_id == team_id && game_team.home_away == home_away
+    end
+  end
+
+  def total_goals_by_type(team_id, home_away)
+    games_played_by_type(team_id, home_away).sum do |game|
+      game.goals
+    end
+  end
+
+  def average_number_of_goals_scored_by_team_by_type(team_id, home_away)
+    (total_goals_by_type(team_id, home_away).to_f / games_played_by_type(team_id, home_away).count).round(2)
+  end
 end
