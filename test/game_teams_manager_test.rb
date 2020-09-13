@@ -142,4 +142,32 @@ class GameTeamsManagerTest < Minitest::Test
   def test_it_can_find_worst_season
     assert_equal "20122013", @stat_tracker.game_teams_manager.worst_season("6")
   end
+
+  def test_it_can_find_all_game_results
+    game_path = './fixture/game_blank.csv'
+    team_path = './fixture/team_blank.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    tracker = StatTracker.new(game_path, team_path, game_teams_path)
+    game_teams_1 = mock("Game Team Object 1")
+    game_teams_2 = mock("Game Team Object 2")
+    game_teams_3 = mock("Game Team Object 3")
+    game_teams_4 = mock("Game Team Object 4")
+    tracker.game_teams_manager.game_teams << game_teams_1
+    tracker.game_teams_manager.game_teams << game_teams_2
+    tracker.game_teams_manager.game_teams << game_teams_3
+    tracker.game_teams_manager.game_teams << game_teams_4
+    game_teams_1.stubs(:team_id).returns('123')
+    game_teams_2.stubs(:team_id).returns('123')
+    game_teams_3.stubs(:team_id).returns('123')
+    game_teams_4.stubs(:team_id).returns('987')
+    game_teams_1.stubs(:result).returns('WIN')
+    game_teams_2.stubs(:result).returns('LOSS')
+    game_teams_3.stubs(:result).returns('WIN')
+    game_teams_4.stubs(:result).returns('TIE')
+
+    assert_equal [game_teams_1, game_teams_3], tracker.game_teams_manager.find_all_game_results('123', 'WIN')
+    assert_equal [game_teams_2], tracker.game_teams_manager.find_all_game_results('123', 'LOSS')
+    assert_equal [game_teams_4], tracker.game_teams_manager.find_all_game_results('987', 'TIE')
+  end
 end
