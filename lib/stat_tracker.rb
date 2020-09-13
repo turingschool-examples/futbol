@@ -26,6 +26,10 @@ class StatTracker
     @game_team_manager.find_winningest_coach(game_ids, expected_result)
   end
 
+  def find_worst_coach(game_ids)
+    @game_team_manager.find_worst_coach(game_ids)
+  end
+
   def highest_total_score
     @game_manager.highest_total_score
   end
@@ -122,25 +126,7 @@ class StatTracker
   end
 
   def worst_coach(season)
-    coach_game_count = Hash.new(0)
-    coach_losses = Hash.new(0.0)
-    games_in_season = @games.select do |game|
-      game["season"] == season
-    end
-    game_ids = games_in_season.map do |game|
-      game["game_id"]
-    end
-    @game_teams.each do |game|
-      if game_ids.include?(game["game_id"])
-        coach_game_count[game["head_coach"]] += 1
-        if game["result"] == "LOSS" || game["result"] == "TIE"
-          coach_losses[game["head_coach"]] += 1
-        end
-      end
-    end
-    coach_losses.max_by do |coach, loss|
-      loss / coach_game_count[coach]
-    end[0]
+    @game_manager.worst_coach(season)
   end
 
   def most_accurate_team(season)
