@@ -35,7 +35,6 @@ class GameTeamsManager
 
   def away_games_by_team
     away_games.group_by do |game_team|
-      # require "pry";binding.pry
       game_team.goals
     end
   end
@@ -60,7 +59,6 @@ class GameTeamsManager
   end
 
   def highest_scoring_visitor
-    # require "pry";binding.pry
     high = away_games_by_team.max_by do |team_id, details|
       avg_score(details)
     end[0]
@@ -128,6 +126,19 @@ class GameTeamsManager
     @stat_tracker.fetch_team_identifier(team_tackles(season).min_by do |team|
       team.last
     end.first)
+  end
+
+  def filter_by_teamid(id)
+    @game_teams.select do |game_team|
+      game_team.team_id == id
+    end
+  end
+
+  def game_teams_by_opponent(teamid)
+    filter_by_teamid(teamid).reduce(Hash.new([])) do |gt_by_opp, gameteam|
+      gt_by_opp[get_opponent_id(get_game(gameteam.game_id), teamid)] << gameteam
+      gt_by_opp
+    end
   end
 
 end

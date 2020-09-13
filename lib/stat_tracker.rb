@@ -75,11 +75,6 @@ class StatTracker
     end
   end
 
-  # potential module (math?)
-  def ratio(numerator, denominator)
-    (numerator.to_f / denominator).round(2)
-  end
-
   # Move to GameManager
   def seasonal_game_data
     seasonal_game_data = @games.group_by do |game|
@@ -121,21 +116,6 @@ class StatTracker
       team_id_hash[team.team_id.to_s] = team.team_name
     end
     team_id_hash[id.to_s]
-  end
-
-  # Redundant (use season_group instead)
-  # Move to GamesManager
-  def filter_by_season(season)
-    @games.find_all do |game|
-      game.season == season
-    end
-  end
-
-  # Move to Team
-  def team_ids
-    @teams.map do |team|
-      team.team_id
-    end.sort
   end
 
   # Move to GameTeamsManager
@@ -230,20 +210,15 @@ class StatTracker
     end
   end
 
-  # Move to GameTeamsManager
-  # Duplicate method to get_game method except pulls from GameTeams instead of
-  # Games
   def filter_by_teamid(id)
-    @game_teams.select do |game_team|
-      game_team.team_id == id
-    end
+    @game_teams_manager.filter_by_teamid(id)
   end
 
   # Move to GameTeamsManager
   # Need to convert to common naming convention
   def avg_win_perc_by_opp(teamid)
     awp_by_opp = {}
-    game_teams_by_opponent(teamid).each do |opponent, gameteams|
+    @game_teams_manager.game_teams_by_opponent(teamid).each do |opponent, gameteams|
       awp_by_opp[opponent] = find_percent(total_wins(gameteams), total_game_teams(gameteams))
     end
     awp_by_opp
@@ -263,26 +238,12 @@ class StatTracker
     end[0]
   end
 
-  # Move to GameTeamsManager
   def game_teams_by_opponent(teamid)
-    gt_by_opp = {}
-    filter_by_teamid(teamid).each do |gameteam|
-      if gt_by_opp[get_opponent_id(get_game(gameteam.game_id), teamid)]
-        gt_by_opp[get_opponent_id(get_game(gameteam.game_id), teamid)] << gameteam
-      else
-        gt_by_opp[get_opponent_id(get_game(gameteam.game_id), teamid)] = [gameteam]
-      end
-    end
-    gt_by_opp
+    @game_teams_manager.game_teams_by_opponent(teamid)
   end
 
-  # Move to GamesManger
-  # This is a duplicate method to filter_by_teamid except pulls from games
-  # instead of GameTeams
   def get_game(gameid)
-    @games.find do |game|
-      game.game_id == gameid
-    end
+    @games_manager.get_game(gameid)
   end
 
   # Move to GameTeamsManager
@@ -294,7 +255,7 @@ class StatTracker
   end
 
   def get_opponent_id(game, teamid)
-    game.away_team_id == teamid ? game.home_team_id : game.away_team_id
+    @games_manager.get_opponent_id(game, teamid)
   end
 
   def game_ids_per_season(season)

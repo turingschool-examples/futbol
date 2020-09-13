@@ -155,4 +155,14 @@ class GamesManager
       end
     end.compact.first
   end
+
+  def get_game(gameid)
+    @games.find do |game|
+      game.game_id == gameid
+    end
+  end
+
+  def get_opponent_id(game, teamid)
+    game.away_team_id == teamid ? game.home_team_id : game.away_team_id
+  end
 end

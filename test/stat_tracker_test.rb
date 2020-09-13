@@ -164,10 +164,10 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_get_opponent_id
     game = @stats.get_game(2014021002)
-    assert_equal 14, @stats.get_opponent_id(game,6)
+    assert_equal 14, @stats.get_opponent_id(game,"6")
 
     game = @stats.get_game(2014020371)
-    assert_equal 26, @stats.get_opponent_id(game,6)
+    assert_equal 26, @stats.get_opponent_id(game,"6")
   end
 
   def test_it_can_create_gameteams_by_opponent
