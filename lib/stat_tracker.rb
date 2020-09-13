@@ -435,17 +435,12 @@ class StatTracker
   end
 
   def highest_scoring_home_team
-    highest_scoring_home_team = home_games_by_team.max_by do |team_id, details|
-      avg_score(details)
-    end[0]
-    team_id_to_team_name(highest_scoring_home_team)
+    @game_teams_manager.highest_scoring_home_team
   end
 
   def highest_scoring_visitor
-    highest_scoring_visitor = away_games_by_team.max_by do |team_id, details|
-      avg_score(details)
-    end[0]
-    team_id_to_team_name(highest_scoring_visitor)
+    @game_teams_manager.highest_scoring_visitor
+
   end
 
   def lowest_scoring_visitor_team

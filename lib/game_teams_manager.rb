@@ -4,6 +4,7 @@ require_relative './game_team'
 require './lib/manageable'
 
 class GameTeamsManager
+  include Manageable
   attr_reader :stat_tracker, :game_teams
 
   def initialize(path, stat_tracker)
@@ -26,37 +27,10 @@ class GameTeamsManager
     filtered_game_teams.count
   end
 
-  def away_games_by_team
-    away_games.group_by do |game_team|
-      game_team.team_id
-    end
-  end
-
-  # USE THIS OR INDIVIDUAL ONES?
-  def home_or_away_games(where = "home")
+  def home_or_away_games(hoa)
     @game_teams.select do |game|
-      game.hoa == where
+      game.hoa == hoa
     end
-    require "pry"; binding.pry
-  end
-
-  def away_games
-    @game_teams.select do |game_team|
-      game_team.hoa == "away"
-    end
-  end
-
-  def home_games_by_team
-    home_games.group_by do |game_team|
-      game_team.team_id
-    end
-  end
-
-  def highest_scoring_visitor
-    highest_scoring_visitor = away_games_by_team.max_by do |team_id, details|
-      avg_score(details)
-    end[0]
-    team_id_to_team_name(highest_scoring_visitor)
   end
 
   def all_teams_win_percentage(season)
@@ -124,7 +98,7 @@ class GameTeamsManager
 
   # This is a duplicate method to filter_by_teamid except pulls from games
   def games_by_team(team_id)
-    test = @game_teams.select do |game|
+    @game_teams.select do |game|
       game.team_id == team_id.to_s
     end
   end
@@ -141,6 +115,32 @@ class GameTeamsManager
 
   def fewest_goals_scored(team_id)
     team_goals_by_game(team_id).min.to_i
+  end
+
+  def hoa_games_by_team_id(hoa)
+    home_or_away_games(hoa).group_by do |game_team|
+      game_team.team_id
+    end
+  end
+
+  def total_score(filtered_game_teams = @game_teams)
+    total_score = filtered_game_teams.reduce(0) do |sum, game_team|
+      sum += game_team.goals
+    end
+  end
+
+  def highest_scoring_home_team
+    highest_scoring_home_team = hoa_games_by_team_id("home").max_by do |team_id, details|
+      avg_score(details)
+    end[0]
+    @stat_tracker.fetch_team_identifier(highest_scoring_home_team)
+  end
+
+  def highest_scoring_visitor
+    highest_scoring_visitor = hoa_games_by_team_id("away").max_by do |team_id, details|
+      avg_score(details)
+    end[0]
+    @stat_tracker.fetch_team_identifier(highest_scoring_visitor)
   end
 
 end
