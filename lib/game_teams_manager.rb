@@ -45,8 +45,15 @@ class GameTeamsManager
     find_team_by_team_id(least_accurate_team_id)
   end
 
+  def most_tackles(season)
+    result_id = team_tackles(season).max_by {|id, tackle_count| tackle_count}
+    find_team_by_team_id(result_id[0])
+  end
 
-
+  def fewest_tackles(season)
+    result_id = team_tackles(season).min_by {|id, tackle_count| tackle_count}
+    find_team_by_team_id(result_id[0])
+  end
 
   def game_teams_results_by_season(season)
     game_teams.find_all do |team_result|
@@ -54,6 +61,7 @@ class GameTeamsManager
     end
   end
 
+# Need to test the following 3 methods?
   def coaches_records(season)
     gt_results = game_teams_results_by_season(season)
     coach_record_start = initialize_coaches_records(gt_results)
@@ -64,6 +72,12 @@ class GameTeamsManager
     gt_results = game_teams_results_by_season(season)
     teams_shots_to_goals_start = initialize_shots_and_goals_per_team(gt_results)
     total_shot_goals_record = add_shots_and_goals(gt_results, teams_shots_to_goals_start)
+  end
+
+  def team_tackles(season)
+    gt_results = game_teams_results_by_season(season)
+    tackles_start = initialize_tackles_per_team(gt_results)
+    total_tackles = add_tackles(gt_results, tackles_start)
   end
 
   def initialize_coaches_records(gt_results)
@@ -101,5 +115,20 @@ class GameTeamsManager
       teams_shots_to_goals_start[team_result.team_id][:goals] += team_result.goals.to_i
     end
     teams_shots_to_goals_start
+  end
+
+  def initialize_tackles_per_team(gt_results)
+    tackles_per_team = {}
+    gt_results.each do |team_result|
+      tackles_per_team[team_result.team_id] = 0
+    end
+    tackles_per_team
+  end
+
+  def add_tackles(gt_results, tackles_start)
+    gt_results.each do |team_result|
+      tackles_start[team_result.team_id] += team_result.tackles.to_i
+    end
+    tackles_start
   end
 end
