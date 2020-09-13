@@ -27,6 +27,21 @@ class GameTeamsManager
     end[0]
   end
 
+  def most_accurate_team(season)
+    result_id = teams_shots_to_goals(season).max_by do |id, s_g|
+      s_g[:goals].to_f / s_g[:shots]
+    end[0]
+    # find_team_by_team_id(result_id)
+  end
+
+  def least_accurate_team(season)
+    result_id = teams_shots_to_goals(season).min_by do |id, s_g|
+      s_g[:goals].to_f / s_g[:shots]
+    end[0]
+    # find_team_by_team_id(result_id)
+  end
+
+
 
 
   def game_teams_results_by_season(season)
@@ -39,6 +54,12 @@ class GameTeamsManager
     gt_results = game_teams_results_by_season(season)
     coach_record_start = initialize_coaches_records(gt_results)
     total_record = add_wins_losses(gt_results, coach_record_start)
+  end
+
+  def teams_shots_to_goals(season)
+    gt_results = game_teams_results_by_season(season)
+    teams_shots_to_goals_start = initialize_shots_and_goals_per_team(gt_results)
+    total_shot_goals_record = add_shots_and_goals(gt_results, teams_shots_to_goals_start)
   end
 
   def initialize_coaches_records(gt_results)
@@ -65,8 +86,16 @@ class GameTeamsManager
   def initialize_shots_and_goals_per_team(gt_results)
     total_shots_goals = {}
     gt_results.each do |team_result|
-      total_shots_goals[team_result['team_id']] = {shots: 0, goals: 0}
+      total_shots_goals[team_result.team_id] = {shots: 0, goals: 0}
     end
     total_shots_goals
+  end
+
+  def add_shots_and_goals(gt_results, teams_shots_to_goals_start)
+    gt_results.each do |team_result|
+      teams_shots_to_goals_start[team_result.team_id][:shots] += team_result.shots.to_i
+      teams_shots_to_goals_start[team_result.team_id][:goals] += team_result.goals.to_i
+    end
+    teams_shots_to_goals_start
   end
 end
