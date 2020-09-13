@@ -86,4 +86,10 @@ class GameManager
     end
     hash
   end
+
+  def find_all_game_ids_by_team(team_id)
+    @game_data.find_all do |game|
+      game.home_team_id == team_id || game.away_team_id == team_id
+    end
+  end
 end
