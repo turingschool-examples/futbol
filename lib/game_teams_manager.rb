@@ -94,4 +94,44 @@ class GameTeamsManager
       avg_win_perc
     end.to_a[0]
   end
+
+  def shots_by_team(season_id, team_num)
+    selected_season_game_teams(season_id).sum do |game_team|
+      if game_team.team_id == team_num
+        game_team.shots
+      else
+        0
+      end
+    end
+  end
+
+  def goals_by_team(season_id, team_num)
+    selected_season_game_teams(season_id).sum do |game_team|
+      if game_team.team_id == team_num
+        game_team.goals
+      else
+        0
+      end
+    end
+  end
+
+  def shot_goal_ratio(season_id, team_num)
+    (goals_by_team(season_id, team_num).to_f / shots_by_team(season_id, team_num)).round(2)
+  end
+
+  def teams_hash_w_ratio_shots_goals(season_id)
+    by_team_goals_ratio = {}
+    selected_season_game_teams(season_id).each do |game_team|
+      team_num = game_team.team_id
+      by_team_goals_ratio[team_num] ||= []
+      by_team_goals_ratio[team_num] = shot_goal_ratio(season_id, team_num)
+    end
+    by_team_goals_ratio
+  end
+
+  def most_accurate_team(season_id)
+    teams_hash_w_ratio_shots_goals(season_id).max_by do |team, goals_ratio|
+      goals_ratio
+    end.to_a[0]
+  end
 end
