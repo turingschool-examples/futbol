@@ -42,6 +42,10 @@ class GameManagerTest < MiniTest::Test
     assert_equal 0.06, @game_manager.percentage_ties
   end
 
+  def test_it_can_average_goals_by_season
+    assert_equal ({'20132014' => 4.0, '20122013' => 4.36, "20162017" => 4.75}), @game_manager.average_goals_by_season
+  end
+
   def test_it_finds_highest_scoring_visitor
     @game_manager.tracker.stubs(:get_team_name).returns("FC Cincinnati")
     assert_equal "FC Cincinnati", @game_manager.highest_scoring_visitor
