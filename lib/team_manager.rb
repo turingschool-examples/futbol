@@ -51,4 +51,11 @@ class TeamManager
       game[id][:goals]
     end.min
   end
+
+  def total_wins(id, id2 = id)
+    gather_game_team_info(id).count do |pair|
+      next if pair[id2].nil?
+      pair[id2][:result] == 'WIN'
+    end
+  end
 end
