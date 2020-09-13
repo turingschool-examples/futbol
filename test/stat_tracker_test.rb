@@ -61,4 +61,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal "20122013", @stat_tracker.worst_season("6")
   end
 
+  def test_it_can_find_average_win_percentage
+    assert_equal 1.0, @stat_tracker.average_win_percentage("6")
+    assert_equal 0.43, @stat_tracker.average_win_percentage('16')
+  end
+
 end
