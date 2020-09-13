@@ -316,13 +316,7 @@ class StatTracker
   end
 
   def fewest_goals_scored(team_id)
-    min_goals = @game_teams.find_all do |game|
-      game["team_id"] == team_id
-    end
-    low_goals = min_goals.min_by do |game|
-      game["goals"]
-    end
-    low_goals["goals"].to_i
+    @game_team_manager.fewest_goals_scored(team_id)
   end
 
   def favorite_opponent(team_id)
