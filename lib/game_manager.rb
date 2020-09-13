@@ -106,5 +106,6 @@ class GameManager
 
   def worst_coach(season)
     game_ids = get_season_game_ids(season)
+    @tracker.find_worst_coach(game_ids)
   end
 end
