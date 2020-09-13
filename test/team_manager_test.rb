@@ -88,11 +88,54 @@ class TeamManagerTest < Minitest::Test
     assert_equal expected, team_manager.gather_game_team_info('1')
   end
 
-  # def test_it_can_find_most_goals_scored_by_team
-  #   stat_tracker = mock('A totally legit stat_tracker')
-  #   stat_tracker.stubs().returns()
-  #   CSV.stubs(:foreach).returns(nil)
-  #   team_manager = TeamManager.new('A totally legit path', stat_tracker)
-  #
-  # end
+  def test_it_can_find_most_goals_scored_by_team
+    stat_tracker = mock('A totally legit stat_tracker')
+    CSV.stubs(:foreach).returns(nil)
+    team_manager = TeamManager.new('A totally legit path', stat_tracker)
+    game_team1 = {
+      game_id: '2012030221',
+      team_id: '3',
+      hoa: 'away',
+      result: 'LOSS',
+      head_coach: 'John Tortorella',
+      goals: 2
+    }
+    game_team2 = {
+      game_id: '2012030221',
+      team_id: '5',
+      hoa: 'home',
+      result: 'WIN',
+      head_coach: 'A hamster',
+      goals: 3
+    }
+    game_team3 = {
+      game_id: '2012030275',
+      team_id: '3',
+      hoa: 'away',
+      result: 'WIN',
+      head_coach: 'John Tortorella',
+      goals: 5
+    }
+    game_team4 = {
+      game_id: '2012030275',
+      team_id: '35',
+      hoa: 'home',
+      result: 'LOSS',
+      head_coach: 'Martha Stewart',
+      goals: 2
+    }
+    game_team_info1 = {
+      '3' => game_team1,
+      '5' => game_team2
+
+    }
+    game_team_info2 = {
+      '3' => game_team3,
+      '35' => game_team4
+    }
+    game_team_info = [game_team_info1, game_team_info2]
+    team_manager.stubs(:gather_game_team_info).results(game_team_info)
+
+    assert_equal 5, team_manager.most_goals_scored('3')
+  end
 end
