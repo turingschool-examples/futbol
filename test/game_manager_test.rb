@@ -42,12 +42,12 @@ class GameManagerTest < MiniTest::Test
     assert_equal 0.06, @game_manager.percentage_ties
   end
 
-  def test_it_finds_highest_scoring_visitor
+  def test_game_manager_finds_highest_scoring_visitor
     @game_manager.tracker.stubs(:get_team_name).returns("FC Cincinnati")
     assert_equal "FC Cincinnati", @game_manager.highest_scoring_visitor
   end
 
-  def test_it_finds_highest_scoring_home_team
+  def test_game_manager_finds_highest_scoring_home_team
     @game_manager.tracker.stubs(:get_team_name).returns("Chicago Fire")
     assert_equal "Chicago Fire", @game_manager.highest_scoring_home_team
   end
@@ -57,15 +57,15 @@ class GameManagerTest < MiniTest::Test
     assert_equal "Atlanta United", @game_manager.lowest_scoring_visitor
   end
 
-  def test_it_can_get_ids_of_games_in_season
+  def test_game_manager_can_get_ids_of_games_in_season
     assert_equal ["2013020674", "2013020177"], @game_manager.get_season_game_ids("20132014")
   end
 
-  def test_it_can_count_games_by_season
+  def test_game_manager_can_count_games_by_season
     assert_equal ({"20132014"=>2, "20122013"=>11, "20162017" => 4}), @game_manager.count_of_games_by_season
   end
   
-  def test_it_can_average_goals_per_game
+  def test_game_manager_can_average_goals_per_game
     assert_equal 4.41, @game_manager.average_goals_per_game
   end
 end
