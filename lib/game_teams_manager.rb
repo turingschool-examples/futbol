@@ -1,5 +1,9 @@
+require_relative '../lib/findable'
 class GameTeamsManager
-  attr_reader :game_teams, :tracker #do we need attr_reader?
+  include Findable
+
+  attr_reader :game_teams, :tracker
+  
   def initialize(path, tracker)
     @game_teams = []
     @tracker = tracker
@@ -7,7 +11,7 @@ class GameTeamsManager
   end
 
   def create_game_teams(path)
-    game_teams_data = CSV.read(path, headers:true) #may need to change .read to .load
+    game_teams_data = CSV.read(path, headers:true)
     @game_teams = game_teams_data.map do |data|
       GameTeams.new(data, self)
     end
@@ -31,14 +35,14 @@ class GameTeamsManager
     result_id = teams_shots_to_goals(season).max_by do |id, s_g|
       s_g[:goals].to_f / s_g[:shots]
     end[0]
-    # find_team_by_team_id(result_id)
+    find_team_by_team_id(result_id)
   end
 
   def least_accurate_team(season)
     result_id = teams_shots_to_goals(season).min_by do |id, s_g|
       s_g[:goals].to_f / s_g[:shots]
     end[0]
-    # find_team_by_team_id(result_id)
+    find_team_by_team_id(result_id)
   end
 
 
