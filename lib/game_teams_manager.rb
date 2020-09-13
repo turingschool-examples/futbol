@@ -114,7 +114,7 @@ class GameTeamsManager
       total_games = 0
       total_wins = 0
       games.each do |game|
-       total_wins +- 1 if game.result == 'WIN'
+       total_wins += 1 if game.result == 'WIN'
        total_games += 1
         end
         wins[season] = (total_wins.to_f / total_games).round(3)
