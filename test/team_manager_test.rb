@@ -303,7 +303,6 @@ class TeamManagerTest < Minitest::Test
   end
 
   def test_it_can_calculate_average_win_percentage_for_an_opponent
-    skip
     stat_tracker = mock('A totally legit stat_tracker')
     CSV.stubs(:foreach).returns(nil)
     team_manager = TeamManager.new('A totally legit path', stat_tracker)
@@ -342,6 +341,6 @@ class TeamManagerTest < Minitest::Test
     game_teams_info = [game1, game2, game3, game4, game5, game6, game7, game8]
     team_manager.stubs(:gather_game_team_info).returns(game_teams_info)
 
-    assert_equal (3 / 4.0).round(2), team_manager.average_win_percentage('5', '6')
+    assert_equal (3 / 4.0).round(2), team_manager.opponent_win_percentage('5', '6')
   end
 end
