@@ -56,17 +56,17 @@ class GameTeamManager
     @tracker.get_team_name(lowest_scoring_team)
   end
 
-  # def find_all_teams(team_id)
-  #   @game_teams.find_all do |game|
-  #     game.team_id == team_id
-  #   end
-  # end
-
-  def most_goals_scored(team_id)
-    max_goals = @game_teams.find_all do |game|
+  def find_all_teams(team_id)
+    @game_teams.find_all do |game|
       game.team_id == team_id
     end
-    high_goals = max_goals.max_by do |game|
+  end
+
+  def most_goals_scored(team_id)
+    # max_goals = @game_teams.find_all do |game|
+    #   game.team_id == team_id
+    # end
+    high_goals = find_all_teams(team_id).max_by do |game|
       game.goals
     end
     high_goals.goals

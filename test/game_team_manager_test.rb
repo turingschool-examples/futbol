@@ -34,12 +34,15 @@ class GameTeamManagerTest < MiniTest::Test
     assert_equal "Atlanta United", @game_team_manager.worst_offense
   end
 
-  def test_it_can_find_all_game_teams
+  def test_it_can_find_all_game_teams #### How do we test for this lol
     skip
     assert_equal "Real Salt Lake", @game_team_manager.find_all_teams("24")
   end
 
-  def test_it_can_find_most_goals_scored
+  def test_it_can_find_most_goals_scored ### Need to stub
     assert_equal 4, @game_team_manager.most_goals_scored("6")
   end
+
+  def test_it_can_find_fewest_goals_scored ### Need to stub
+    assert_equal 0, @stat_tracker.fewest_goals_scored("5")
 end
