@@ -4,7 +4,8 @@ class TeamStatisticsTest < Minitest::Test
   def setup
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
-    @stat_tracker ||= StatTracker.new({games: game_path, teams: team_path})
+    game_teams_path = './data/game_teams.csv'
+    @stat_tracker ||= StatTracker.new({games: game_path, teams: team_path, game_teams: game_teams_path})
   end
 
   def test_it_exists
