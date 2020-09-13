@@ -60,4 +60,8 @@ class GameManagerTest < MiniTest::Test
   def test_it_can_get_ids_of_games_in_season
     assert_equal ["2013020674", "2013020177"], @game_manager.get_season_game_ids("20132014")
   end
+
+  def test_it_can_count_games_by_season
+    assert_equal ({"20132014"=>2, "20122013"=>11, "20162017" => 4}), @game_manager.count_of_games_by_season
+  end
 end
