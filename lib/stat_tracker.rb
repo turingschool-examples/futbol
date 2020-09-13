@@ -27,7 +27,7 @@ class StatTracker
 
     new(games, teams, game_teams, locations)
   end
-
+  #-------traffic cop methods-------#
   def find_winningest_coach(game_ids, expected_result)
     @game_team_manager.find_winningest_coach(game_ids, expected_result)
   end
@@ -35,7 +35,7 @@ class StatTracker
   def find_worst_coach(game_ids)
     @game_team_manager.find_worst_coach(game_ids)
   end
-
+  #-----end traffic cop methods-----#
   def highest_total_score
     @game_manager.highest_total_score
   end
@@ -57,11 +57,7 @@ class StatTracker
   end
 
   def count_of_games_by_season # look into group_by
-    games_by_season = Hash.new(0)
-    @games.each do |game|
-      games_by_season[game["season"]] += 1
-    end
-    games_by_season
+    @game_manager.count_of_games_by_season
   end
 
   def average_goals_per_game
