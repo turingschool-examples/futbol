@@ -186,5 +186,4 @@ class GameTeamsManager
     least_accurate = shots_per_goal_per_season(season).max_by { |team, avg| avg}
     @stat_tracker.fetch_team_identifier(least_accurate[0])
   end
-
 end

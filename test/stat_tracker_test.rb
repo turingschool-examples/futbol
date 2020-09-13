@@ -299,7 +299,7 @@ class StatTrackerTest < Minitest::Test
 # ~~~ TEAM METHOD TESTS~~~
 
   def test_it_can_calc_avg_win_percentage
-    assert_equal 31.82, @stats.average_win_percentage(4)
+    assert_equal 0.33, @stats.average_win_percentage(4)
   end
 
   # def test_it_can_return_array_of_seasons
@@ -396,10 +396,6 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_see_lowest_number_of_goals_by_team_in_a_game
     assert_equal 1, @stats.fewest_goals_scored(14)
-  end
-
-  def test_it_can_calc_avg_win_percentage
-    assert_equal 31.82, @stats.average_win_percentage(4)
   end
 
   def test_it_can_calc_favorite_opponent
