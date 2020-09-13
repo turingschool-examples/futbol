@@ -46,4 +46,9 @@ class GameManagerTest < MiniTest::Test
     @game_manager.tracker.stubs(:get_team_name).returns("FC Cincinnati")
     assert_equal "FC Cincinnati", @game_manager.highest_scoring_visitor
   end
+
+  def test_it_finds_highest_scoring_home_team
+    @game_manager.tracker.stubs(:get_team_name).returns("Chicago Fire")
+    assert_equal "Chicago Fire", @game_manager.highest_scoring_home_team
+  end
 end
