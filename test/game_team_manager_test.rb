@@ -44,5 +44,6 @@ class GameTeamManagerTest < MiniTest::Test
   end
 
   def test_it_can_find_fewest_goals_scored ### Need to stub
-    assert_equal 0, @stat_tracker.fewest_goals_scored("5")
+    assert_equal 0, @game_team_manager.fewest_goals_scored("5")
+  end
 end
