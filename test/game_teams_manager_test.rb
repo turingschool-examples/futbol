@@ -87,10 +87,10 @@ class GameTeamsManagerTest < Minitest::Test
 
   def test_it_can_create_gameteams_by_opponent
     assert_equal ["6", "26", "4", "1"], @game_teams_manager.game_teams_by_opponent("14").keys
-    # assert_equal 5, @game_teams_manager.game_teams_by_opponent("14")[14].size
-    # assert_equal 5, @game_teams_manager.game_teams_by_opponent("14")[1].size
-    # assert_equal 6, @game_teams_manager.game_teams_by_opponent("14")[4].size
-    # assert_equal 4, @game_teams_manager.game_teams_by_opponent("14")[26].size
+    assert_equal 5, @game_teams_manager.game_teams_by_opponent("14")["6"].size
+    assert_equal 4, @game_teams_manager.game_teams_by_opponent("14")["1"].size
+    assert_equal 6, @game_teams_manager.game_teams_by_opponent("14")["4"].size
+    assert_equal 6, @game_teams_manager.game_teams_by_opponent("14")["26"].size
   end
 
 end
