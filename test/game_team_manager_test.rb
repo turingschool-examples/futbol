@@ -33,12 +33,4 @@ class GameTeamManagerTest < MiniTest::Test
     @game_team_manager.tracker.stubs(:get_team_name).returns("Atlanta United")
     assert_equal "Atlanta United", @game_team_manager.worst_offense
   end
-
-  def test_can_find_most_accurate_team
-    assert_equal "Real Salt Lake", @game_team_manager.most_accurate_team("20162017")
-  end
-
-  def test_can_find_least_accurate_team
-    assert_equal "Toronto FC", @game_team_manager.least_accurate_team("20162017")
-  end
 end
