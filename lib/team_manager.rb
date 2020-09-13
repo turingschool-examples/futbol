@@ -59,7 +59,13 @@ class TeamManager
     end
   end
 
+  def opponent_game_count(id, id2)
+    gather_game_team_info(id).count do |pair|
+      pair[id2]
+    end
+  end
+
   def average_win_percentage(id)
-    (total_wins(id) / gather_game_team_info(id).length.to_f).round(2)
+    (total_wins(id) / gather_game_team_info(id).count.to_f).round(2)
   end
 end
