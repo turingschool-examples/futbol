@@ -29,4 +29,12 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of TeamManager, @stat_tracker.team_manager
     assert_instance_of GameTeamsManager, @stat_tracker.game_teams_manager
   end
+
+  def test_the_highest_score
+    assert_equal 11, @stat_tracker.highest_total_score
+  end
+
+  def test_it_can_find_lowest_total_score
+    assert_equal 0, @stat_tracker.lowest_total_score
+  end
 end
