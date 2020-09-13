@@ -3,9 +3,9 @@ require 'csv'
 
 class GameManager
   attr_reader :games
-  def initialize(locations, stat_tracker)
+  def initialize(location, stat_tracker)
     @stat_tracker = stat_tracker
-    @games = generate_games(locations[:games])
+    @games = generate_games(location)
   end
 
   def generate_games(location)
@@ -20,5 +20,11 @@ class GameManager
     @games.group_by do |game|
       game.season
     end.uniq
+  end
+
+  def game_info(game_id)
+    games.find do |game|
+      game.game_id == game_id
+    end.game_info
   end
 end
