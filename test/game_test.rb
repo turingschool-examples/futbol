@@ -28,4 +28,5 @@ class GameTest < Minitest::Test
     assert_equal "Toyota Stadium", actual.venue
     assert_equal "/api/v1/venues/null", actual.venue_link
   end
+  
 end

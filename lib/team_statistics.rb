@@ -74,8 +74,6 @@ module TeamStatistics
     losing_percentage_per_season.key(losing_percentage_per_season.values.max)
   end
 
-<<<<<<< HEAD
-=======
   def average_win_percentage(team_id)
     total_average_win_percentage = 0
     total_games = 0
@@ -183,5 +181,4 @@ module TeamStatistics
     end
     favorite_team[1].team_name
   end
->>>>>>> f4940fa0be769c42a8d53caf7d68fcd34f9d779e
 end

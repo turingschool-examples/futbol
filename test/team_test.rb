@@ -22,4 +22,5 @@ class TeamTest < Minitest::Test
     assert_equal "DC United", actual.team_name
     assert_equal "14", actual.team_id
   end
+  
 end

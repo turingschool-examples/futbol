@@ -19,9 +19,9 @@ class GameTeamTest < Minitest::Test
               shots: 15,
             tackles: 20,
                 pim: 9,
-powerPlayOpportunities: 3,
+  powerPlayOpportunities: 3,
       powerPlayGoals: 3,
-faceOffWinPercentage: 7,
+  faceOffWinPercentage: 7,
           giveaways: 2,
             takeaways: 0}
     gameteam = GameTeam.new(hash)
@@ -48,4 +48,5 @@ faceOffWinPercentage: 7,
     assert_equal 7, actual.takeaways
     assert_equal 3, actual.team_id
   end
+  
 end

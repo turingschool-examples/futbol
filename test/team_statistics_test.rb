@@ -50,4 +50,5 @@ class TeamStatisticsTest < Minitest::Test
   def test_rival
     assert_includes ["Houston Dash","LA Galaxy"], @stat_tracker.rival("18")
   end
+  
 end
