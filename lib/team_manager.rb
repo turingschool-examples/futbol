@@ -28,14 +28,14 @@ class TeamManager < CsvReader
   end
 
   def best_offense
-    best_attack = @team_data.find do |team|
+    best_attack = @teams_stats_data.find do |team|
       team.teamname if best_offense_stats == team.team_id
     end
     best_attack.teamname
   end
 
   def worst_offense
-    worst_attack = @team_data.find do |team|
+    worst_attack = @teams_stats_data.find do |team|
       team.teamname if worst_offense_stats == team.team_id
     end
     worst_attack.teamname
@@ -73,7 +73,7 @@ class TeamManager < CsvReader
   end
 
   def highest_scoring_visitor
-    visitor = @team_data.find do |team|
+    visitor = @teams_stats_data.find do |team|
       team.teamname if team_highest_away_goals == team.team_id
     end
     visitor.teamname
@@ -87,7 +87,7 @@ class TeamManager < CsvReader
   end
 
   def lowest_scoring_visitor
-    visitor = @team_data.find do |team|
+    visitor = @teams_stats_data.find do |team|
       team.teamname if team_lowest_away_goals == team.team_id
     end
     visitor.teamname
