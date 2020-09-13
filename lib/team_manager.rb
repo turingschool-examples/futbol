@@ -72,4 +72,17 @@ class TeamManager
   def opponent_win_percentage(id, id2)
     (total_wins(id, id2) / opponent_game_count(id, id2).to_f).round(2)
   end
+
+  def opponent_ids(id)
+    opponents = gather_game_team_info(id).flat_map(&:keys).uniq
+    opponents.delete(id)
+    opponents.sort_by do |id|
+      id.to_i
+    end
+  end
+
+  # def favorite_opponent(id)
+  #   opponents.delete(id)
+  #   require 'pry' ; binding.pry
+  # end
 end
