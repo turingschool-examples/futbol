@@ -76,4 +76,19 @@ class GameManager
     end[0]
     @tracker.get_team_name(highest_scoring_home_team)
   end
+
+  def lowest_scoring_visitor
+    team_game_count = Hash.new(0)
+    away_points = Hash.new(0)
+    @games.each do |game|
+      away_points[game.away_team_id] += game.away_goals
+      team_game_count[game.away_team_id] += 1
+    end
+    lowest_scoring_visitor = away_points.min_by do |team, score|
+        score.to_f / team_game_count[team]
+    end[0]
+    @tracker.get_team_name(lowest_scoring_visitor)
+  end
+
+
 end

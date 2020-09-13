@@ -94,19 +94,7 @@ class StatTracker
   end
 
   def lowest_scoring_visitor
-    team_game_count = Hash.new(0)
-    away_points = Hash.new(0)
-    @games.each do |game|
-      away_points[game["away_team_id"]] += game["away_goals"].to_i
-      team_game_count[game["away_team_id"]] += 1
-    end
-    lowest_scoring_visitor = away_points.min_by do |team, score|
-        score.to_f / team_game_count[team]
-    end
-    worst_away_scorer = @teams.find do |team|
-      team["team_id"] == lowest_scoring_visitor[0]
-    end
-    worst_away_scorer["teamName"]
+    @game_manager.lowest_scoring_visitor
   end
 
   def lowest_scoring_home_team
