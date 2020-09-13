@@ -60,7 +60,7 @@ class GameManager
     average_goals_season.map do |season, goals|
       [season, (goals.to_f / games_by_season[season].to_f).round(2)]
     end.to_h
-end
+  end
 
   def highest_scoring_visitor
     team_game_count = Hash.new(0)
@@ -109,7 +109,7 @@ end
       game.game_id
     end
   end
-  
+
   def lowest_scoring_home_team
     team_game_count = Hash.new(0)
     home_points = Hash.new(0)
