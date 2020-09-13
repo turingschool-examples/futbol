@@ -91,4 +91,35 @@ class GameTeamsManager
     end.head_coach
   end
 
+  def game_teams_by_season(season)
+    game_ids = @stat_tracker.fetch_game_ids_by_season(season)
+    @game_teams.find_all do |game|
+      game_ids.include?(game.game_id)
+    end
+  end
+
+  def team_tackles(season)
+    team_season_tackles = {}
+    game_teams_by_season(season).each do |game|
+      if team_season_tackles[game.team_id]
+        team_season_tackles[game.team_id] += game.tackles
+      else
+        team_season_tackles[game.team_id] = game.tackles
+      end
+    end
+    team_season_tackles
+  end
+
+  def most_tackles(season)
+    @stat_tracker.fetch_team_identifier(team_tackles(season).max_by do |team|
+      team.last
+    end.first)
+  end
+
+  def fewest_tackles(season)
+    @stat_tracker.fetch_team_identifier(team_tackles(season).min_by do |team|
+      team.last
+    end.first)
+  end
+
 end

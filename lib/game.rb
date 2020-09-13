@@ -14,7 +14,7 @@ class Game
               # :venue_link
 
   def initialize(data)
-    @game_id = data[:game_id].to_i
+    @game_id = data[:game_id]
     @season = data[:season]
     @type = data[:type]
     @date_time = data[:date_time]
@@ -38,7 +38,7 @@ class Game
     @away_goals > @home_goals
   end
 
-  #this method will return 'tie' if tie 
+  #this method will return 'tie' if tie
   def winner_id
     return @home_team_id if home_is_winner?
     return @away_team_id if visitor_is_winner?

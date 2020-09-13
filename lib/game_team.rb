@@ -27,7 +27,7 @@ class GameTeam
     @head_coach = data[:head_coach]
     @goals = data[:goals]
     @shots = data[:shots]
-    @tackles = data[:tackles]
+    @tackles = data[:tackles].to_i 
     @pim = data[:pim]
     @ppo = data[:powerplayopportunities]
     @ppg = data[:powerplaygoals]

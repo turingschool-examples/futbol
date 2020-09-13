@@ -45,4 +45,35 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "Jon Cooper", @game_teams_manager.worst_coach("20142015")
   end
 
+  def test_it_can_get_game_teams_by_season
+    @game_teams_manager.game_teams_by_season("20142015").each do |game|
+      assert_instance_of GameTeam, game
+    end
+    assert_equal 8, @game_teams_manager.game_teams_by_season("20122013").count
+    assert_equal 24, @game_teams_manager.game_teams_by_season("20132014").count
+    assert_equal 32, @game_teams_manager.game_teams_by_season("20142015").count
+    assert_equal 10, @game_teams_manager.game_teams_by_season("20152016").count
+    assert_equal 14, @game_teams_manager.game_teams_by_season("20162017").count
+    assert_equal 18, @game_teams_manager.game_teams_by_season("20172018").count
+  end
+
+  def test_it_can_show_total_tackles_per_team_per_season
+    expected = {
+      "1" => 30,
+      "4" => 108,
+      "6" => 31,
+      "14" => 17
+      # "26" => 0 (26 doesn't have any games this season)
+    }
+    assert_equal expected, @game_teams_manager.team_tackles("20122013")
+  end
+
+  def test_it_can_determine_team_with_most_season_tackles
+    assert_equal "Chicago Fire", @game_teams_manager.most_tackles("20122013")
+  end
+
+  def test_it_can_determine_team_with_fewest_season_tackles
+    assert_equal "DC United", @game_teams_manager.fewest_tackles("20122013")
+  end
+
 end

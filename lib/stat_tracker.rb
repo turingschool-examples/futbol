@@ -35,15 +35,18 @@ class StatTracker
     @games_manager.season_win_percentage(team_id, season)
   end
 
+  def fetch_team_identifier(team_id)
+    @teams_manager.team_identifier(team_id)
+  end
+
+  def fetch_game_ids_by_season(season)
+    @games_manager.game_ids_by_season(season)
+  end
+
+  # Use seaon_group with count to filter game count
   # move to GameManager
   def total_games(filtered_games = @games)
     filtered_games.count
-  end
-
-  # potential module (math?)
-  def find_percent(numerator, denominator)
-    return 0.0 if denominator == 0
-    (numerator / denominator.to_f * 100).round(2)
   end
 
   # # move to GameManager call on score sum for each game
@@ -198,39 +201,6 @@ class StatTracker
     away_games.group_by do |game_team|
       game_team.team_id
     end
-  end
-
-  # This should be refactored fo sho  (takes a long time to run)
-  # Currently it cycles through all games just to return an arrray
-  # of unique seasons
-  # But, should be moved to GamesManger
-  def all_seasons
-    unique_seasons = []
-    @games.each do |game|
-      if !unique_seasons.include?(game.season)
-        unique_seasons << game.season
-      end
-    end
-    unique_seasons.sort
-  end
-
-  # Also needs refactored - maybe don't need to return hash?
-  # Or use reduce?
-  # Move to GamesManager
-  def all_teams_all_seasons_win_percentages
-    win_percentages_by_season = {}
-    all_seasons.each do |season|
-      team_ids.each do |team_id|
-        if win_percentages_by_season[team_id] == nil
-          win_percentages_by_season[team_id] = {season =>
-            season_win_percentage(team_id, season)}
-        else
-          win_percentages_by_season[team_id][season] =
-          season_win_percentage(team_id, season)
-        end
-      end
-    end
-    win_percentages_by_season
   end
 
   # This looks like it combines home_games and away_games - keep this one?
@@ -403,13 +373,6 @@ class StatTracker
     team_season_tackles
   end
 
-  # Move to Teams Manager
-  def team_identifier(team_id)
-    @teams.find do |team|
-      team.team_id == team_id
-    end.team_name
-  end
-
   # Move to GameTeamsManager
   def team_goals_by_game(team_id)
     games_by_team(team_id).map do |game|
@@ -504,15 +467,11 @@ class StatTracker
   end
 
   def most_tackles(season)
-    team_identifier(team_tackles(season).max_by do |team|
-      team.last
-    end.first)
+    @game_teams_manager.most_tackles(season)
   end
 
   def fewest_tackles(season)
-    team_identifier(team_tackles(season).min_by do |team|
-      team.last
-    end.first)
+    @game_teams_manager.fewest_tackles(season)
   end
 
   def most_accurate_team(season)
@@ -528,13 +487,7 @@ class StatTracker
 # ~~~ TEAM METHODS~~~
 
   def best_season(team_id)
-    all_teams_all_seasons_win_percentages.flat_map do |team, seasons|
-      if team == team_id
-        seasons.max_by do |season|
-          season.last
-        end
-      end
-    end.compact.first
+    @games_manager.best_season(team_id)
   end
 
   # This is a duplicate method as average_win_percentage(id)
@@ -551,13 +504,7 @@ class StatTracker
   end
 
   def worst_season(team_id)
-    all_teams_all_seasons_win_percentages.flat_map do |team, seasons|
-      if team == team_id
-        seasons.min_by do |season|
-          season.last
-        end
-      end
-    end.compact.first
+    @games_manager.worst_season(team_id)
   end
 
   # This is a duplicate method as average_win_percentage(teamid)
