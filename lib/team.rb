@@ -20,7 +20,6 @@ class Team
   end
 
   def team_average_goals(team_id)
-# binding.pry
     @manager.average_number_of_goals_scored_by_team(team_id)
   end
 end

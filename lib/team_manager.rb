@@ -27,4 +27,10 @@ class TeamsManager
   def average_number_of_goals_scored_by_team(team_id)
     @tracker.average_number_of_goals_scored_by_team(team_id)
   end
+
+  def best_offense
+    @teams.max_by do |team|
+      team.average_goals
+    end.team_name
+  end
 end

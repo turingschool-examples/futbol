@@ -36,7 +36,6 @@ class TeamTest < Minitest::Test
   end
 
   def test_it_can_find_average_goals
-binding.pry
     assert_equal 2.0, @team.average_goals
   end
 end
