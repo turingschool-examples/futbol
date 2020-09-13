@@ -37,12 +37,11 @@ class TeamsManager
   def team_info(team_id)
     @teams.reduce({}) do |collector, team|
       if team.team_id == team_id
-        collector[:team_id] = team.team_id
-        collector[:franchise_id] = team.franchise_id
-        collector[:team_name] = team.team_name
-        collector[:abbreviation] = team.abbreviation
-        collector[:stadium] = team.stadium
-        collector[:link] = team.link
+        collector["team_id"] = team.team_id
+        collector["franchise_id"] = team.franchise_id
+        collector["team_name"] = team.team_name
+        collector["abbreviation"] = team.abbreviation
+        collector["link"] = team.link
       end
       collector
     end
