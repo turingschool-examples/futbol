@@ -58,7 +58,8 @@ class GameManagerTest < MiniTest::Test
   end
 
   def test_can_find_lowest_scoring_home_team
-    assert_equal "Atlanta United", @stat_tracker.lowest_scoring_home_team
+    @game_manager.tracker.stubs(:get_team_name).returns("Atlanta United")
+    assert_equal "Atlanta United", @game_manager.lowest_scoring_home_team
   end
 
   def test_can_get_team_with_best_season
