@@ -55,4 +55,36 @@ class GameTeamManager
     end[0]
     @tracker.get_team_name(lowest_scoring_team)
   end
+
+  def most_accurate_team(season)
+    game_ids = @tracker.get_season_game_ids(season)
+    total_shots_by_team = Hash.new(0.0)
+    total_goals_by_team = Hash.new(0.0)
+    @game_teams.each do |game|
+      if game_ids.include?(game.game_id)
+        total_shots_by_team[game.team_id] += game.shots.to_f
+        total_goals_by_team[game.team_id] += game.goals.to_f
+      end
+    end
+    most_accurate_team = total_goals_by_team.max_by do |team, goal|
+      goal / total_shots_by_team[team]
+    end[0]
+    @tracker.get_team_name(most_accurate_team)
+  end
+
+  def least_accurate_team(season)
+    game_ids = @tracker.get_season_game_ids(season)
+    total_shots_by_team = Hash.new(0.0)
+    total_goals_by_team = Hash.new(0.0)
+    @game_teams.each do |game|
+      if game_ids.include?(game.game_id)
+        total_shots_by_team[game.team_id] += game.shots.to_f
+        total_goals_by_team[game.team_id] += game.goals.to_f
+      end
+    end
+    least_accurate_team = total_goals_by_team.min_by do |team, goal|
+      goal / total_shots_by_team[team]
+    end[0]
+    @tracker.get_team_name(least_accurate_team)
+  end
 end
