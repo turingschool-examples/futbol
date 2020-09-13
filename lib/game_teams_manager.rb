@@ -46,4 +46,8 @@ class GameTeamsManager
   def average_number_of_goals_scored_by_team_by_type(team_id, home_away)
     (total_goals_by_type(team_id, home_away).to_f / games_played_by_type(team_id, home_away).count).round(2)
   end
+
+  def find_season_id(game_id)
+    @tracker.find_season_id(game_id)
+  end
 end
