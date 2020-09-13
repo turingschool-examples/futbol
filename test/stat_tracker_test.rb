@@ -92,8 +92,8 @@ class TestStatTracker <Minitest::Test
       game_id: '2014021174',
       home_team_id: '3',
       away_team_id: '1',
-      home_goals: '4',
-      away_goals: '1'
+      home_goals: 4,
+      away_goals: 1
     }
 
     assert_equal expected, stat_tracker.game_info('2014021174')

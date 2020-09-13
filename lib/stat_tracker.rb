@@ -30,4 +30,8 @@ class StatTracker
   def game_team_info(game_id)
     game_teams_manager.game_team_info(game_id)
   end
+
+  def game_info(game_id)
+    game_manager.game_info(game_id)
+  end
 end
