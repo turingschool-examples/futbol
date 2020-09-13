@@ -48,6 +48,7 @@ class GameTeamManagerTest < MiniTest::Test
   end
 
   def test_it_can_find_favorite_opponent
+    skip
     assert_equal "Houston Dynamo", @game_team_manager.favorite_opponent("6")
   end
 

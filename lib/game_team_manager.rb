@@ -79,14 +79,17 @@ class GameTeamManager
     low_goals.goals
   end
 
-  def favorite_opponent(team_id)
-    game_ids = find_all_teams(team_id).map do |game|
+  def find_game_ids(team_id)
+    find_all_teams(team_id).map do |game|
       game.game_id
     end
+  end
+
+  def favorite_opponent(team_id)
     total_games = Hash.new(0)
     loser_loses = Hash.new(0)
     @game_teams.each do |game|
-      if game_ids.include?(game.game_id) && game.team_id != team_id
+      if find_game_ids(team_id).include?(game.game_id) && game.team_id != team_id
         total_games[game.team_id]  += 1
         if game.result == "LOSS"
           loser_loses[game.team_id] += 1
