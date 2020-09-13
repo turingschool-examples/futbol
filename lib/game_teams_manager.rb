@@ -1,9 +1,10 @@
 require 'csv'
 require_relative './stat_tracker'
 require_relative './game_team'
-require './lib/manageable'
+require_relative './manageable'
 
 class GameTeamsManager
+  include Manageable
   attr_reader :stat_tracker, :game_teams
 
   def initialize(path, stat_tracker)
@@ -18,6 +19,12 @@ class GameTeamsManager
     end
   end
 
+  def total_score(filtered_game_teams = @game_teams)
+    filtered_game_teams.count do |game_team|
+      game_team.goals
+    end
+  end
+
   def avg_score(filtered_game_teams = @game_teams)
     ratio(total_score(filtered_game_teams), total_game_teams(filtered_game_teams))
   end
@@ -28,7 +35,8 @@ class GameTeamsManager
 
   def away_games_by_team
     away_games.group_by do |game_team|
-      game_team.team_id
+      # require "pry";binding.pry
+      game_team.goals
     end
   end
 
@@ -37,7 +45,6 @@ class GameTeamsManager
     @game_teams.select do |game|
       game.hoa == where
     end
-    require "pry"; binding.pry
   end
 
   def away_games
@@ -53,10 +60,11 @@ class GameTeamsManager
   end
 
   def highest_scoring_visitor
-    highest_scoring_visitor = away_games_by_team.max_by do |team_id, details|
+    # require "pry";binding.pry
+    high = away_games_by_team.max_by do |team_id, details|
       avg_score(details)
     end[0]
-    team_id_to_team_name(highest_scoring_visitor)
+    @stat_tracker.team_id_to_team_name(high)
   end
 
   def all_teams_win_percentage(season)

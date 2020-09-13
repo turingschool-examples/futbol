@@ -1,7 +1,7 @@
 require 'csv'
 require_relative './stat_tracker'
 require_relative './game'
-require './lib/manageable'
+require_relative './manageable'
 
 class GamesManager
   include Manageable
@@ -32,14 +32,21 @@ class GamesManager
     end.total_game_score
   end
 
-  def percentage_home_wins
-     wins = @games.count do |game|
-       game.home_is_winner?
-     end
-     ratio(wins, total_games)
-   end
+  def percentage_ties
+    ties = @games.count do |game|
+      !game.home_is_winner? && !game.visitor_is_winner?
+    end
+    ratio(ties, total_games)
+  end
 
-   def percentage_visitor_wins
+  def percentage_home_wins
+    wins = @games.count do |game|
+      game.home_is_winner?
+    end
+    ratio(wins, total_games)
+  end
+
+  def percentage_visitor_wins
     wins = @games.count do |game|
       game.visitor_is_winner?
     end
@@ -148,6 +155,4 @@ class GamesManager
       end
     end.compact.first
   end
-
-
 end

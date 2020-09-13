@@ -191,7 +191,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal 26, @stats.rival_id(6)
   end
 
-
   def test_it_can_get_game_ids_in_season
     expected = [2013021198, 2013020371, 2013020203, 2013020649, 2013021160, 2013020334, 2013021221, 2013020667, 2013020321, 2013020285, 2013020739, 2013020088]
     assert_equal expected, @stats.game_ids_per_season("20132014")
@@ -383,24 +382,22 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_see_team_info
     expected1 = {
-      :team_id=>1,
-      :franchise_id=>23,
-      :team_name=>"Atlanta United",
-      :abbreviation=>"ATL",
-      :stadium=>"Mercedes-Benz Stadium",
-      :link=>"/api/v1/teams/1"
+      "team_id"=>"1",
+      "franchise_id"=>"23",
+      "team_name"=>"Atlanta United",
+      "abbreviation"=>"ATL",
+      "link"=>"/api/v1/teams/1"
     }
     expected2 = {
-      :team_id=>14,
-      :franchise_id=>31,
-      :team_name=>"DC United",
-      :abbreviation=>"DC",
-      :stadium=>"Audi Field",
-      :link=>"/api/v1/teams/14"
+      "team_id"=>"14",
+      "franchise_id"=>"31",
+      "team_name"=>"DC United",
+      "abbreviation"=>"DC",
+      "link"=>"/api/v1/teams/14"
     }
 
-    assert_equal expected1, @stats.team_info(1)
-    assert_equal expected2, @stats.team_info(14)
+    assert_equal expected1, @stats.team_info("1")
+    assert_equal expected2, @stats.team_info("14")
   end
 
   def test_it_can_see_highest_number_of_goals_by_team_in_a_game

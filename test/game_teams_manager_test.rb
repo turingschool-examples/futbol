@@ -76,4 +76,8 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "DC United", @game_teams_manager.fewest_tackles("20122013")
   end
 
+  def test_it_can_see_highest_scoring_visitor
+    assert_equal "FC Dallas", @game_teams_manager.highest_scoring_visitor
+  end
+
 end

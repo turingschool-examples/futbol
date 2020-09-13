@@ -45,6 +45,4 @@ class Game
     'tie'
   end
 
-
-
 end

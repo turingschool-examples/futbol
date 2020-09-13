@@ -147,16 +147,13 @@ class StatTracker
   # Move to GameTeamsManager
   # Doesn't have a test
   def avg_score(filtered_game_teams = @game_teams)
-    ratio(total_score(filtered_game_teams), total_game_teams(filtered_game_teams))
+    @game_teams_manager.avg_score(filtered_game_teams)
   end
 
   # Move to TeamManager
   # This method has duplicates (team_names_by_team_id, team_id_to_team_name)
   def team_id_to_team_name(id)
-    team_obj = @teams.select do |team|
-      team.team_id == id
-    end
-    team_obj[0].team_name
+    @teams_manager.team_identifier(id)
   end
 
   # This could potentially be replaced by sum_game_goals or vise versa
@@ -224,14 +221,6 @@ class StatTracker
     hoa_games_by_team_id(hoa).min_by do |team_id, details|
       avg_score(details)
     end[0]
-  end
-
-  # Move to TeamsManager
-  # This method has duplicates (team_names_by_team_id, team_id_to_team_name)
-  def team_id_to_team_name(id)
-    @teams.each do |team|
-      return team.team_name if team.team_id == id
-    end
   end
 
   # Move to GameTeamsManager
@@ -395,8 +384,7 @@ class StatTracker
   end
 
   def percentage_ties
-    ties = @games.find_all { |game| game.away_goals == game.home_goals}
-    find_percent(ties.count, total_games)
+   @games_manager.percentage_ties
   end
 
   def percentage_home_wins
@@ -431,21 +419,15 @@ class StatTracker
   end
 
   def count_of_teams
-    @teams_manager.count
+    @teams_manager.count_of_teams
   end
 
   def highest_scoring_home_team
-    highest_scoring_home_team = home_games_by_team.max_by do |team_id, details|
-      avg_score(details)
-    end[0]
-    team_id_to_team_name(highest_scoring_home_team)
+    @game_teams_manager.highest_scoring_home_team
   end
 
   def highest_scoring_visitor
-    highest_scoring_visitor = away_games_by_team.max_by do |team_id, details|
-      avg_score(details)
-    end[0]
-    team_id_to_team_name(highest_scoring_visitor)
+    @game_teams_manager.highest_scoring_visitor
   end
 
   def lowest_scoring_visitor_team
@@ -513,19 +495,7 @@ class StatTracker
   end
 
   def team_info(team_id)
-    team_string = team_id.to_s
-    team_string = {}
-    @teams.each do |team|
-      if team.team_id == team_id
-        team_string[:team_id] = team.team_id
-        team_string[:franchise_id] = team.franchise_id
-        team_string[:team_name] = team.team_name
-        team_string[:abbreviation] = team.abbreviation
-        team_string[:stadium] = team.stadium
-        team_string[:link] = team.link
-      end
-    end
-    team_string
+    @teams_manager.team_info(team_id)
   end
 
   def most_goals_scored(team_id)

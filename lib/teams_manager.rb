@@ -27,11 +27,23 @@ class TeamsManager
     end
   end
 
-  # Move to Teams Manager
   def team_identifier(team_id)
     @teams.find do |team|
       team.team_id == team_id
     end.team_name
+  end
+
+  def team_info(team_id)
+    @teams.reduce({}) do |info, team|
+      if team.team_id == team_id
+        info["team_id"] = team.team_id
+        info["franchise_id"] = team.franchise_id
+        info["team_name"] = team.team_name
+        info["abbreviation"] = team.abbreviation
+        info["link"] = team.link
+      end
+      info
+    end
   end
 
 end

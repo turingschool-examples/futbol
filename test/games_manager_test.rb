@@ -20,8 +20,12 @@ class GamesManagerTest < Minitest::Test
     assert_equal 6, @games_manager.highest_total_score
   end
 
+  def test_it_can_get_percentage_ties
+    assert_equal 0.15, @games_manager.percentage_ties
+  end
+
   def test_it_can_get_percentage_home_wins
-      assert_equal 0.55, @games_manager.percentage_home_wins
+    assert_equal 0.55, @games_manager.percentage_home_wins
   end
 
   def test_it_can_get_percentage_visitor_games_won
