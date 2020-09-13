@@ -13,15 +13,15 @@ module TeamStatistics
   #   team_hash
   # end
 
-  def games_by_team_id(team_id, games_array = games)
-    games_array.select do |game|
-      game.home_team_id == team_id || game.away_team_id == team_id
-    end
-  end
+  # def games_by_team_id(team_id, games_array = games)
+  #   games_array.select do |game|
+  #     game.home_team_id == team_id || game.away_team_id == team_id
+  #   end
+  # end
 
-  def games_to_game_ids(games_array)
-    games_array.map(&:game_id)
-  end
+  # def games_to_game_ids(games_array)
+  #   games_array.map(&:game_id)
+  # end
 
   def separate_games_by_season_id(games_array = games)
     games_array.reduce({}) do |seasons, game|
