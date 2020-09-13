@@ -106,6 +106,22 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal '5', @game_teams_manager.least_accurate_team(season_id)
   end
 
+  def test_tackles_by_team
+    season_id = '20122013'
+    team_num = '3'
+    assert_equal 179, @game_teams_manager.tackles_by_team(season_id, team_num)
+  end
+
+  def test_teams_hash_w_tackles
+    season_id = '20122013'
+    expected = {
+                  '3' => 179,
+                  '6' => 212,
+                  '5' => 71
+    }
+    assert_equal expected, @game_teams_manager.teams_hash_w_tackles(season_id)
+  end
+
   def test_most_tackles
     season_id = '20122013'
     assert_equal '6', @game_teams_manager.most_tackles(season_id)
