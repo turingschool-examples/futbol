@@ -33,5 +33,9 @@ class GameTeamManagerTest < MiniTest::Test
     @game_team_manager.tracker.stubs(:get_team_name).returns("Atlanta United")
     assert_equal "Atlanta United", @game_team_manager.worst_offense
   end
-
+  
+  def test_can_find_winningest_coach
+    game_ids = ["2012020225", "2012020577", "2012020510", "2012020511", "2012030223", "2012030224", "2012030225", "2012030311", "2012030312", "2012030313", "2012030314"]
+    assert_equal "Bruce Boudreau", @game_team_manager.find_winningest_coach(game_ids, "WIN")
+  end
 end
