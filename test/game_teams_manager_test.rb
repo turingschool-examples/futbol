@@ -134,4 +134,8 @@ class GameTeamsManagerTest < Minitest::Test
   def test_it_can_find_wins_percentage_by_season
     assert_equal ({"2012" => 0.0}), @stat_tracker.game_teams_manager.win_percentage_by_season('6')
   end
+
+  def test_it_can_find_best_season
+    assert_equal "20122013", @stat_tracker.game_teams_manager.best_season("6")
+  end
 end
