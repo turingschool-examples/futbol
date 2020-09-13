@@ -77,6 +77,25 @@ class TestStatTracker <Minitest::Test
       '17' => info17
     }
 
-    assert_equal expected, @stat_tracker.game_team_info('2012030231')
+    assert_equal expected, stat_tracker.game_team_info('2012030231')
+  end
+
+  def test_it_can_fetch_game_info
+    locations =  {
+      games: './fixtures/fixture_games.csv',
+      teams: './fixtures/teams_init_test.csv',
+      game_teams: './fixtures/fixture_game_teams.csv'
+    }
+    stat_tracker = StatTracker.new(locations)
+    expected = {
+      season_id: '20142015',
+      game_id: '2014021174',
+      home_team_id: '3',
+      away_team_id: '1',
+      home_goals: '4',
+      away_goals: '1'
+    }
+
+    assert_equal expected, stat_tracker.game_info('2014021174')
   end
 end
