@@ -106,4 +106,9 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal '5', @game_teams_manager.least_accurate_team(season_id)
   end
 
+  def test_most_tackles
+    season_id = '20122013'
+    assert_equal '5', @game_teams_manager.most_tackles(season_id)
+  end
+
 end
