@@ -1,7 +1,7 @@
-require './lib/hashable'
+require './lib/groupable'
 
 class GameManager
-  include Hashable
+  include Groupable
   attr_reader :game_data,
               :tracker
 

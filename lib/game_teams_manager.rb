@@ -1,7 +1,10 @@
 require './lib/hashable'
+require './lib/groupable'
+
 
 class GameTeamsManager
   include Hashable
+  include Groupable
   attr_reader :game_teams_data,
               :tracker
 
@@ -44,7 +47,7 @@ class GameTeamsManager
     double_ties.count / 2
   end
 
-  def games_from_season(season) 
+  def games_from_season(season)
     @game_teams_data.find_all do |game_team|
       game_team.game_id.to_s.split('')[0..3].join.to_i == season.split('')[0..3].join.to_i
     end

@@ -1,7 +1,9 @@
 require './lib/hashable'
+require './lib/groupable'
 
 class TeamManager
   include Hashable
+  include Groupable
   attr_reader :team_data,
               :tracker
 

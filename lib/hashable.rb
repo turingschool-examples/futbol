@@ -1,14 +1,5 @@
 module Hashable
-  #game_manager
-  def hash_of_seasons
-    @game_data.group_by {|game| game.season}
-  end
-
   #game_teams_manager
-  def group_by_coach(season)
-    games_from_season(season).group_by {|game| game.head_coach}
-  end
-
   def coach_wins(season)
     hash = {}
     group_by_coach(season).map do |coach, games|
@@ -21,10 +12,6 @@ module Hashable
       hash[coach] = (total_wins.to_f / total_games).round(3)
     end
     hash
-  end
-
-  def find_by_team_id(season)
-    games_from_season(season).group_by {|team| team.team_id}
   end
 
   def goals_to_shots_ratio_per_season(season)
@@ -47,12 +34,6 @@ module Hashable
   end
 
   #team_manager
-  def group_by_team_id
-    @game_teams_data.group_by do |team|
-      team.team_id
-    end
-  end
-
   def team_id_and_average_goals
     average_goals_by_team = {}
     group_by_team_id.each do |team, games|
@@ -81,12 +62,6 @@ module Hashable
       home_team_goals[team] = (home_goals.to_f / home_games.count).round(3)
     end
     home_team_goals
-  end
-
-  def group_by_season(team_id)
-    all_team_games(team_id).group_by do |game|
-      game.game_id.to_s[0..3]
-    end
   end
 
   def percent_wins_by_season(team_id)
