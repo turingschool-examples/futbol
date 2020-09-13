@@ -69,7 +69,9 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_average_win_percentage
-
+    season_id = '20152016'
+    head_coach = 'Mike Sullivan'
+    assert_equal 100.0, @game_teams_manager.average_win_percentage(season_id, head_coach)
   end
 
   def test_games_for_coach
