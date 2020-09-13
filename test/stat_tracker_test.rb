@@ -58,7 +58,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_most_accurate_team
     game_path = './fixture/games_dummy.csv'
-    team_path = './fixture/teams_dummy.csv'
+    team_path = './data/teams.csv'
     game_teams_path = './fixture/game_teams_dummy.csv'
     locations = {
       games: game_path,
@@ -71,7 +71,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_least_accurate_team
     game_path = './fixture/games_dummy.csv'
-    team_path = './fixture/teams_dummy.csv'
+    team_path = './data/teams.csv'
     game_teams_path = './fixture/game_teams_dummy.csv'
     locations = {
       games: game_path,
