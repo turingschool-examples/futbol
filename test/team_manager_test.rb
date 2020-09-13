@@ -344,6 +344,49 @@ class TeamManagerTest < Minitest::Test
     assert_equal (3 / 4.0).round(2), team_manager.opponent_win_percentage('5', '6')
   end
 
+  def test_it_can_find_all_opponent_ids
+    stat_tracker = mock('A totally legit stat_tracker')
+    CSV.stubs(:foreach).returns(nil)
+    team_manager = TeamManager.new('A totally legit path', stat_tracker)
+    game1 = {
+      '5' => {result: 'LOSS'},
+      '6' => {result: 'WIN'}
+    }
+    game2 = {
+      '8' => {result: 'TIE'},
+      '5' => {result: 'TIE'}
+    }
+    game3 = {
+      '5' => {result: 'WIN'},
+      '12' => {result: 'LOSS'}
+    }
+    game4 = {
+      '5' => {result: 'WIN'},
+      '2' => {result: 'LOSS'}
+    }
+    game5 = {
+      '5' => {result: 'WIN'},
+      '7' => {result: 'LOSS'}
+    }
+    game6 = {
+      '5' => {result: 'LOSS'},
+      '6' => {result: 'WIN'}
+    }
+    game7 = {
+      '5' => {result: 'WIN'},
+      '6' => {result: 'LOSS'}
+    }
+    game8 = {
+      '5' => {result: 'LOSS'},
+      '6' => {result: 'WIN'}
+    }
+    game_teams_info = [game1, game2, game3, game4, game5, game6, game7, game8]
+    team_manager.stubs(:gather_game_team_info).returns(game_teams_info)
+    expected = ['2', '6', '7', '8', '12']
+
+    assert_equal expected, team_manager.opponent_ids('5')
+  end
+
   def test_it_can_find_a_teams_favorite_opponent
     stat_tracker = mock('A totally legit stat_tracker')
     team5 = mock('team 5')
@@ -402,6 +445,6 @@ class TeamManagerTest < Minitest::Test
     }
     game_teams_info = [game1, game2, game3, game4, game5, game6, game7, game8]
     team_manager.stubs(:gather_game_team_info).returns(game_teams_info)
-    assert_equal 'The Twos', team_manager.favorite_opponent('5')
+    assert_equal 'The Eights', team_manager.favorite_opponent('5')
   end
 end
