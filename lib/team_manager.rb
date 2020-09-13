@@ -33,4 +33,10 @@ class TeamsManager
       team.average_goals
     end.team_name
   end
+
+  def worst_offense
+    @teams.min_by do |team|
+      team.average_goals
+    end.team_name
+  end
 end

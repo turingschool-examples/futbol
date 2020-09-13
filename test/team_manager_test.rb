@@ -37,4 +37,8 @@ class TeamManagerTest < Minitest::Test
   def test_find_best_offense
     assert_equal 'FC Dallas', @team_manager.best_offense
   end
+
+  def test_find_worst_offense
+    assert_equal 'Sporting Kansas City', @team_manager.worst_offense
+  end
 end
