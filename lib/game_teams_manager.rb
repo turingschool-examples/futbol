@@ -3,7 +3,7 @@ class GameTeamsManager
   include Findable
 
   attr_reader :game_teams, :tracker
-  
+
   def initialize(path, tracker)
     @game_teams = []
     @tracker = tracker
@@ -32,17 +32,17 @@ class GameTeamsManager
   end
 
   def most_accurate_team(season)
-    result_id = teams_shots_to_goals(season).max_by do |id, s_g|
+    most_accurate_team_id = teams_shots_to_goals(season).max_by do |id, s_g|
       s_g[:goals].to_f / s_g[:shots]
     end[0]
-    find_team_by_team_id(result_id)
+    find_team_by_team_id(most_accurate_team_id)
   end
 
   def least_accurate_team(season)
-    result_id = teams_shots_to_goals(season).min_by do |id, s_g|
+    least_accurate_team_id = teams_shots_to_goals(season).min_by do |id, s_g|
       s_g[:goals].to_f / s_g[:shots]
     end[0]
-    find_team_by_team_id(result_id)
+    find_team_by_team_id(least_accurate_team_id)
   end
 
 
