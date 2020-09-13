@@ -28,4 +28,35 @@ class TeamsManagerTest < Minitest::Test
     assert_equal "FC Dallas", @teams_manager.team_identifier("6")
   end
 
+  def test_it_can_see_team_info
+    expected1 = {
+      :team_id=>"1",
+      :franchise_id=>"23",
+      :team_name=>"Atlanta United",
+      :abbreviation=>"ATL",
+      :stadium=>"Mercedes-Benz Stadium",
+      :link=>"/api/v1/teams/1"
+    }
+    expected2 = {
+      :team_id=>"14",
+      :franchise_id=>"31",
+      :team_name=>"DC United",
+      :abbreviation=>"DC",
+      :stadium=>"Audi Field",
+      :link=>"/api/v1/teams/14"
+    }
+    expected3 = {
+      :team_id=>"6",
+      :franchise_id=>"6",
+      :team_name=>"FC Dallas",
+      :abbreviation=>"DAL",
+      :stadium=>"Toyota Stadium",
+      :link=>"/api/v1/teams/6"
+    }
+
+    assert_equal expected1, @teams_manager.team_info(1)
+    assert_equal expected2, @teams_manager.team_info(14)
+    assert_equal expected3, @teams_manager.team_info(6)
+  end
+
 end

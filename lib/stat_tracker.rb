@@ -513,19 +513,7 @@ class StatTracker
   end
 
   def team_info(team_id)
-    team_string = team_id.to_s
-    team_string = {}
-    @teams.each do |team|
-      if team.team_id == team_id
-        team_string[:team_id] = team.team_id
-        team_string[:franchise_id] = team.franchise_id
-        team_string[:team_name] = team.team_name
-        team_string[:abbreviation] = team.abbreviation
-        team_string[:stadium] = team.stadium
-        team_string[:link] = team.link
-      end
-    end
-    team_string
+    @teams_manager.team_info(team_id)
   end
 
   def most_goals_scored(team_id)
