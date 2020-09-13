@@ -50,4 +50,16 @@ class TeamManagerTest < Minitest::Test
   def test_it_can_find_highest_scoring_visitor
     assert_equal 'Sporting Kansas City', @team_manager.highest_scoring_visitor
   end
+
+  def test_it_can_lowest_scoring_visitor
+    assert_equal 'Houston Dynamo', @team_manager.lowest_scoring_visitor
+  end
+
+  def test_it_can_find_highest_scoring_home
+    assert_equal 'FC Dallas', @team_manager.highest_scoring_home
+  end
+
+  def test_it_can_lowest_scoring_home
+    assert_equal 'Sporting Kansas City', @team_manager.lowest_scoring_home
+  end
 end

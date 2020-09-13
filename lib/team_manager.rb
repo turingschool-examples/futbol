@@ -49,4 +49,22 @@ class TeamsManager
       team.avg_goals_visitor
     end.team_name
   end
+
+  def lowest_scoring_visitor
+    @teams.min_by do |team|
+      team.avg_goals_visitor
+    end.team_name
+  end
+
+  def highest_scoring_home
+    @teams.max_by do |team|
+      team.avg_goals_home
+    end.team_name
+  end
+
+  def lowest_scoring_home
+    @teams.min_by do |team|
+      team.avg_goals_home
+    end.team_name
+  end
 end
