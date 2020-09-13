@@ -116,4 +116,30 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "Sporting Kansas City", @stat_tracker.game_teams_manager.least_accurate_team('20122013')
   end
 
+  def test_initialize_tackles_per_team
+    results = @stat_tracker.game_teams_manager.game_teams_results_by_season('20122013')
+    expected = {"3"=>0, "6"=>0, "5"=>0, "17"=>0, "16"=>0}
+    assert_equal expected, @stat_tracker.game_teams_manager.initialize_tackles_per_team(results)
+  end
+
+  def test_add_tackles
+    results = @stat_tracker.game_teams_manager.game_teams_results_by_season('20122013')
+    tackles_start = @stat_tracker.game_teams_manager.initialize_tackles_per_team(results)
+    expected = {"3"=>179, "6"=>271, "5"=>150, "17"=>219, "16"=>178}
+    assert_equal expected, @stat_tracker.game_teams_manager.add_tackles(results, tackles_start)
+  end
+
+  def test_team_with_most_tackles
+    results = @stat_tracker.game_teams_manager.game_teams_results_by_season('20122013')
+    tackles_start = @stat_tracker.game_teams_manager.initialize_tackles_per_team(results)
+    added_tackles = @stat_tracker.game_teams_manager.add_tackles(results, tackles_start)
+    assert_equal "FC Dallas", @stat_tracker.game_teams_manager.most_tackles('20122013')
+  end
+
+  def test_team_with_fewest_tackles
+    results = @stat_tracker.game_teams_manager.game_teams_results_by_season('20122013')
+    tackles_start = @stat_tracker.game_teams_manager.initialize_tackles_per_team(results)
+    added_tackles = @stat_tracker.game_teams_manager.add_tackles(results, tackles_start)
+    assert_equal "Sporting Kansas City", @stat_tracker.game_teams_manager.fewest_tackles('20122013')
+  end
 end
