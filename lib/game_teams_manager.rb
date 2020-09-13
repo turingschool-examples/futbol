@@ -78,7 +78,7 @@ class GameTeamsManager
     selected_season_game_teams(season_id).each do |game_team|
       head_coach = game_team.head_coach
       by_coach_wins[head_coach] ||= []
-      by_coach_wins[head_coach] << average_win_percentage(season_id, head_coach)
+      by_coach_wins[head_coach] = average_win_percentage(season_id, head_coach)
     end
     by_coach_wins
   end
