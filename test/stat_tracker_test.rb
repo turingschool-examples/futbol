@@ -30,51 +30,23 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_attributes
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+    
     locations = {
-      games: './data/games.csv',
-      teams: './data/teams.csv',
-      game_teams: './data/game_teams.csv'
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
     }
 
     stat_tracker = StatTracker.new(locations)
+    @game_manager = GameManager.new(locations[:games], self)
+    @game_teams_manager = GameTeamsManager.new(locations[:game_teams], self)
+    @team_manager = TeamManager.new(locations[:teams], self)
 
-    assert_equal './data/games.csv', stat_tracker.games
-    assert_equal './data/teams.csv', stat_tracker.teams
-    assert_equal './data/game_teams.csv', stat_tracker.game_teams
-  end
-
-  def test_game_stats
-
-    locations = {
-      games: './data/games.csv',
-      teams: './data/teams.csv',
-      game_teams: './data/game_teams.csv'
-    }
-
-    stat_tracker = StatTracker.new(locations)
-    assert_equal 7441, stat_tracker.game_stats.count
-  end
-
-  def test_game_teams_stats
-
-    locations = {
-      games: './data/games.csv',
-      teams: './data/teams.csv',
-      game_teams: './data/game_teams.csv'
-    }
-
-    stat_tracker = StatTracker.new(locations)
-    assert_equal 14_882, stat_tracker.game_teams_stats.count
-  end
-
-  def test_team_stats
-    locations = {
-      games: './data/games.csv',
-      teams: './data/teams.csv',
-      game_teams: './data/game_teams.csv'
-    }
-
-    stat_tracker = StatTracker.new(locations)
-    assert_equal 32, stat_tracker.teams_stats.count
+    assert_instance_of GameManager, stat_tracker.game_manager
+    assert_instance_of TeamManager, stat_tracker.team_manager
+    assert_instance_of GameTeamsManager, stat_tracker.game_teams_manager
   end
 end

@@ -139,4 +139,10 @@ class GameTeamsManager
   def fewest_tackles(season)
     @tracker.team_manager.fewest_tackles(season)
   end
+
+  def all_team_games(team_id)
+    @game_teams_data.find_all do |game_team|
+      game_team.team_id == team_id.to_i
+    end
+  end
 end
