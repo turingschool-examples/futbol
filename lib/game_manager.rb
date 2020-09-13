@@ -98,4 +98,13 @@ class GameManager
       game.game_id
     end
   end
+
+  def winningest_coach(season)
+    game_ids = get_season_game_ids(season)
+    @tracker.find_winningest_coach(game_ids, "WIN")
+  end
+
+  def worst_coach(season)
+    game_ids = get_season_game_ids(season)
+  end
 end
