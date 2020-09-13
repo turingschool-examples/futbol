@@ -42,4 +42,11 @@ class StatTracker
     @team_manager.team_info(team_id)
   end
 
+  def best_season(team_id)
+    @game_teams_manager.best_season(team_id)
+  end
+
+  
+#------------TeamStatsHelpers
+
 end #this is the end of the class
