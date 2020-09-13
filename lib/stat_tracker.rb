@@ -29,6 +29,10 @@ class StatTracker
     @game_teams_manager.winningest_coach(season)
   end
 
+  def worst_coach(season)
+    @game_teams_manager.worst_coach(season)
+  end
+
   def find_game_ids_for_season(season)
     @game_manager.find_game_ids_for_season(season)
   end
