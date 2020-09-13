@@ -83,6 +83,68 @@ module SeasonStatistics
     worst_coach_name
   end
 
+  def collects_season_with_games
+   season_games = {}
+   @game_table.each do |game_id, game|
+      if season_games[game.season].nil?
+       season_games[game.season] = [game]
+      elsif
+       season_games[game.season] << game
+      end
+    end
+    season_games
+  end
+
+  def collect_shots_per_season(season)
+    shots_per_team = {}
+    collects_season_with_games[season].each do |game|
+      games = @game_team_table.find_all do |game_info|
+        game.game_id == game_info.game_id
+      end
+      games.each do |game|
+        if shots_per_team[@team_table[game.team_id.to_s].team_name].nil?
+          shots_per_team[@team_table[game.team_id.to_s].team_name] = game.shots
+        else
+          shots_per_team[@team_table[game.team_id.to_s].team_name] += game.shots
+        end
+      end
+    end
+    shots_per_team
+  end
+
+  def collect_goals_per_team(season)
+    goals_per_team  = {}
+    collects_season_with_games[season].each do |game|
+      if goals_per_team[@team_table[game.away_team_id.to_s].team_name].nil? && season == game.season
+        goals_per_team[@team_table[game.away_team_id.to_s].team_name] = game.away_goals
+      elsif goals_per_team[@team_table[game.home_team_id.to_s].team_name].nil? && season == game.season
+        goals_per_team[@team_table[game.home_team_id.to_s].team_name] = game.home_goals
+      elsif season == game.season
+        goals_per_team[@team_table[game.away_team_id.to_s].team_name] += game.away_goals
+        goals_per_team[@team_table[game.home_team_id.to_s].team_name] += game.home_goals
+      end
+    end
+    goals_per_team
+  end
+
+  def most_accurate_team(season)
+    most_accurate_team_for_season = {}
+    shots_per_season = collect_shots_per_season(season)
+    collect_goals_per_team(season).each do |team, goals|
+      most_accurate_team_for_season[team] = (goals / shots_per_season[team].to_f)
+    end
+    most_accurate_team_for_season.key(most_accurate_team_for_season.values.max)
+  end
+
+  def least_accurate_team(season)
+    least_accurate_team_for_season = {}
+    shots_per_season = collect_shots_per_season(season)
+    collect_goals_per_team(season).each do |team, goals|
+      least_accurate_team_for_season[team] = (goals / shots_per_season[team].to_f)
+    end
+    least_accurate_team_for_season.key(least_accurate_team_for_season.values.min)
+  end
+
   def season_games(season)
     games = []
     @game_table.each do |game_id, game|
