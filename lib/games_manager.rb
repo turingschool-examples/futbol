@@ -57,8 +57,8 @@ class GamesManager
     games.count
   end
 
-  def total_goals(filtered_games = @games)
-    filtered_games.sum do |game|
+  def total_goals(games = @games)
+    games.sum do |game|
       (game.home_goals + game.away_goals)
     end
   end
