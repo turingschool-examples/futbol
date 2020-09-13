@@ -40,11 +40,11 @@ class StatTracker
     @game_manager.highest_total_score
   end
 
-  def lowest_total_score # game_manager.rb
+  def lowest_total_score
     @game_manager.lowest_total_score
   end
 
-  def percentage_home_wins # game_manager.rb
+  def percentage_home_wins
     @game_manager.percentage_home_wins
   end
 
@@ -56,7 +56,7 @@ class StatTracker
     @game_manager.percentage_ties
   end
 
-  def count_of_games_by_season # look into group_by
+  def count_of_games_by_season
     @game_manager.count_of_games_by_season
   end
 
@@ -64,18 +64,11 @@ class StatTracker
     @game_manager.average_goals_per_game
   end
 
-  def average_goals_by_season # game_manager.rb
-    average_goals_season = Hash.new(0)
-    games_by_season = count_of_games_by_season
-    @games.each do |game|
-      average_goals_season[game["season"]] += (game["home_goals"].to_i + game["away_goals"].to_i)
-    end
-    average_goals_season.map do |season, goals|
-      [season, (goals.to_f / games_by_season[season].to_f).round(2)]
-    end.to_h
+  def average_goals_by_season
+    @game_manager.average_goals_by_season
   end
 
-  def count_of_teams # team_manager.rb
+  def count_of_teams
     @team_manager.count_of_teams
   end
 
@@ -90,7 +83,6 @@ class StatTracker
   def worst_offense
     @game_team_manager.worst_offense
   end
-
 
   def highest_scoring_visitor
     @game_manager.highest_scoring_visitor
