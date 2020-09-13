@@ -34,4 +34,7 @@ class GameTeamManagerTest < MiniTest::Test
     assert_equal "Atlanta United", @game_team_manager.worst_offense
   end
 
+  def test_it_can_find_all_game_teams
+    assert_equal "Real Salt Lake", @game_team_manager.find_all_teams
+  end
 end

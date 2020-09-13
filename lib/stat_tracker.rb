@@ -315,6 +315,7 @@ class StatTracker
     max_goals = @game_teams.find_all do |game|
       game["team_id"] == team_id
     end
+    require 'Pry';binding.pry
     high_goals = max_goals.max_by do |game|
       game["goals"]
     end
