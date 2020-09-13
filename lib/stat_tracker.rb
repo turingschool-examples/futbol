@@ -431,7 +431,7 @@ class StatTracker
   end
 
   def count_of_teams
-    @teams_manager.count
+    @teams_manager.count_of_teams
   end
 
   def highest_scoring_home_team
