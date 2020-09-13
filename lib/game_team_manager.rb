@@ -63,9 +63,6 @@ class GameTeamManager
   end
 
   def most_goals_scored(team_id)
-    # max_goals = @game_teams.find_all do |game|
-    #   game.team_id == team_id
-    # end
     high_goals = find_all_teams(team_id).max_by do |game|
       game.goals
     end
@@ -116,7 +113,6 @@ class GameTeamManager
     biggest_winner = winner_wins.max_by do |winner, wins|
       wins.to_f / total_games[winner]
     end[0]
-    @tracker.get_team_name(biggest_loser)
+    @tracker.get_team_name(biggest_winner)
   end
-
 end

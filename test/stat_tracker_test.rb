@@ -158,7 +158,6 @@ class StatTrackerTest < Minitest::Test
   # end
 
   def test_it_has_a_team_it_hates
-    skip
     assert_equal "FC Dallas", @stat_tracker.rival("3")
   end
 end

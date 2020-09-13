@@ -39,11 +39,11 @@ class GameTeamManagerTest < MiniTest::Test
     assert_equal "Real Salt Lake", @game_team_manager.find_all_teams("24")
   end
 
-  def test_it_can_find_most_goals_scored ### Need to stub
+  def test_it_can_find_most_goals_scored
     assert_equal 4, @game_team_manager.most_goals_scored("6")
   end
 
-  def test_it_can_find_fewest_goals_scored ### Need to stub
+  def test_it_can_find_fewest_goals_scored
     assert_equal 0, @game_team_manager.fewest_goals_scored("5")
   end
 
@@ -57,6 +57,10 @@ class GameTeamManagerTest < MiniTest::Test
   end
 
   def test_it_has_a_team_it_hates
-    assert_equal "FC Dallas", @stat_tracker.rival("3")
+    @game_team_manager.tracker.stubs(:get_team_name).returns("FC Dallas")
+    assert_equal "FC Dallas", @game_team_manager.rival("3")
   end
+
+
+
 end
