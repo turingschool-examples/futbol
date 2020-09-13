@@ -1,4 +1,5 @@
 module GameStatistics
+
   def highest_total_score
     game ||= @game_table.values.max_by do |game|
       game.away_goals + game.home_goals
@@ -79,7 +80,6 @@ module GameStatistics
 
   def average_goals_by_season
     average_goals_per_season = {}
-    game_count = 0
     total_game_count = count_of_games_by_season
 
     @game_table.each do |game_id, game|
@@ -93,4 +93,5 @@ module GameStatistics
       average_goals_per_season[key] = (value.to_f / total_game_count[key]).round(2)
     end
   end
+
 end

@@ -35,7 +35,8 @@ class StatTrackerTest < Minitest::Test
     stat = StatTracker.new
     assert_equal false, stat.game_team_table.include?("2012030221")
     @stat_tracker.game_team_table.find do |game|
-      assert_equal true, game.game_id == 2012030221
+    assert_equal true, game.game_id == 2012030221
     end
   end
+  
 end
