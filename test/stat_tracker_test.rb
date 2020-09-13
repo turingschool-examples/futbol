@@ -12,37 +12,41 @@ class StatTrackerTest < Minitest::Test
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
-  def test_it_exists
-   assert_instance_of StatTracker, @stat_tracker
-  end
+  # def test_it_exists
+  #  assert_instance_of StatTracker, @stat_tracker
+  # end
 
-  def test_from_csv
-    assert_instance_of StatTracker, @stat_tracker
-  end
+  # def test_from_csv
+  #   assert_instance_of StatTracker, @stat_tracker
+  # end
 
-  def test_it_has_attributes
-    @game_manager = GameManager.new(@locations[:games], self)
-    @game_teams_manager = GameTeamsManager.new(@locations[:game_teams], self)
-    @team_manager = TeamManager.new(@locations[:teams], self)
+  # def test_it_has_attributes
+  #   @game_manager = GameManager.new(@locations[:games], self)
+  #   @game_teams_manager = GameTeamsManager.new(@locations[:game_teams], self)
+  #   @team_manager = TeamManager.new(@locations[:teams], self)
 
-    assert_instance_of GameManager, @stat_tracker.game_manager
-    assert_instance_of TeamManager, @stat_tracker.team_manager
-    assert_instance_of GameTeamsManager, @stat_tracker.game_teams_manager
-  end
+  #   assert_instance_of GameManager, @stat_tracker.game_manager
+  #   assert_instance_of TeamManager, @stat_tracker.team_manager
+  #   assert_instance_of GameTeamsManager, @stat_tracker.game_teams_manager
+  # end
 
-  def test_the_highest_score
-    assert_equal 11, @stat_tracker.highest_total_score
-  end
+  # def test_the_highest_score
+  #   assert_equal 11, @stat_tracker.highest_total_score
+  # end
 
-  def test_it_can_find_lowest_total_score
-    assert_equal 0, @stat_tracker.lowest_total_score
-  end
+  # def test_it_can_find_lowest_total_score
+  #   assert_equal 0, @stat_tracker.lowest_total_score
+  # end
 
-  def test_it_knows_percentage_home_wins
-    assert_equal 0.44, @stat_tracker.percentage_home_wins
-  end
+  # def test_it_knows_percentage_home_wins
+  #   assert_equal 0.44, @stat_tracker.percentage_home_wins
+  # end
 
-  def test_it_knows_percentage_visitor_wins
-    assert_equal 0.36, @stat_tracker.percentage_visitor_wins
+  # def test_it_knows_percentage_visitor_wins
+  #   assert_equal 0.36, @stat_tracker.percentage_visitor_wins
+  #
+
+  def test_it_knows_percentage_ties
+    assert_equal 0.20, @stat_tracker.percentage_ties
   end
 end
