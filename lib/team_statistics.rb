@@ -61,9 +61,9 @@ module TeamStatistics
   #   game_stats_by_team_id(team_id).min_by(&:goals).goals
   # end
 
-  def average_win_percentage(team_id)
-    (result_counts_by_team_id(team_id)[:wins] / result_counts_by_team_id(team_id)[:total].to_f).round(2)
-  end
+  # def average_win_percentage(team_id)
+  #   (result_counts_by_team_id(team_id)[:wins] / result_counts_by_team_id(team_id)[:total].to_f).round(2)
+  # end
 
   def results_by_season(team_id)
     game_teams_array = game_stats_by_team_id(team_id)
