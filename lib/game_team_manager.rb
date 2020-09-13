@@ -72,4 +72,10 @@ class GameTeamManager
     high_goals.goals
   end
 
+  def fewest_goals_scored(team_id)
+    low_goals = find_all_teams(team_id).min_by do |game|
+      game.goals
+    end
+    low_goals.goals
+  end
 end
