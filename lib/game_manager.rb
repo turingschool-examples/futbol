@@ -108,4 +108,11 @@ class GameManager
     game_ids = get_season_game_ids(season)
     @tracker.find_worst_coach(game_ids)
   end
+  
+  def count_of_games_by_season
+    @games.reduce(Hash.new(0)) do |collector, game|
+      collector[game.season] += 1
+      collector
+    end
+  end
 end
