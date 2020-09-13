@@ -408,12 +408,12 @@ class StatTracker
     @games_manager.count_of_games_by_season
   end
 
-  def avg_goals_by_season
-    avg_goals_by_season = {}
+  def avergage_goals_by_season
+    avergage_goals_by_season = {}
     seasonal_game_data.each do |season, details|
-      avg_goals_by_season[season] = ratio(total_goals(details), total_games(details))
+      avergage_goals_by_season[season] = ratio(total_goals(details), total_games(details))
     end
-    avg_goals_by_season
+    avergage_goals_by_season
   end
 
   def avg_goals_per_game

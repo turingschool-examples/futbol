@@ -146,5 +146,9 @@ class GamesManagerTest < Minitest::Test
     assert_equal "20122013", @games_manager.worst_season("26")
   end
 
+  def test_it_can_pull_all_seasons
+      @games_manager.all_seasons
+  end
+
 
 end
