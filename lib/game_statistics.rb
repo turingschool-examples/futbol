@@ -1,14 +1,17 @@
-module GameStatistics
+class GameStatistics
+  def initialize(game)
+    @game ||= game
+  end
 
   def highest_total_score
-    game ||= @game_table.values.max_by do |game|
+    game ||= @game.values.max_by do |game|
       game.away_goals + game.home_goals
     end
     return game.away_goals + game.home_goals
   end
 
   def lowest_total_score
-    game ||= @game_table.values.min_by do |game|
+    game ||= @game.values.min_by do |game|
       game.away_goals + game.home_goals
     end
     return game.away_goals + game.home_goals
@@ -17,7 +20,7 @@ module GameStatistics
   def percentage_home_wins
     home_wins = 0
     total_games = 0
-    @game_table.each do |key, value|
+    @game.each do |key, value|
       if value.home_goals > value.away_goals
         home_wins += 1
         total_games += 1
@@ -31,7 +34,7 @@ module GameStatistics
   def percentage_visitor_wins
     visitor_wins = 0
     total_games = 0
-    @game_table.each do |key, value|
+    @game.each do |key, value|
       if value.away_goals > value.home_goals
         visitor_wins += 1
         total_games += 1
@@ -45,7 +48,7 @@ module GameStatistics
   def percentage_ties
     tie_games = 0
     total_games = 0
-    @game_table.each do |key, value|
+    @game.each do |key, value|
       total_games += 1
       if value.away_goals == value.home_goals
         tie_games += 1
@@ -56,7 +59,7 @@ module GameStatistics
 
   def count_of_games_by_season
     total_games_per_season = {}
-    @game_table.each do |game_id, game|
+    @game.each do |game_id, game|
       if total_games_per_season[game.season].nil?
         total_games_per_season[game.season] = [game]
       else
@@ -71,7 +74,7 @@ module GameStatistics
   def average_goals_per_game
     game_goals_total = 0
     game_count = 0
-    @game_table.each do |game_id, game|
+    @game.each do |game_id, game|
       game_count += 1
       game_goals_total += (game.home_goals + game.away_goals)
     end
@@ -82,7 +85,7 @@ module GameStatistics
     average_goals_per_season = {}
     total_game_count = count_of_games_by_season
 
-    @game_table.each do |game_id, game|
+    @game.each do |game_id, game|
       if average_goals_per_season[game.season].nil?
         average_goals_per_season[game.season] = (game.away_goals + game.home_goals)
       else
