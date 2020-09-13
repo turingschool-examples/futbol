@@ -28,13 +28,11 @@ class TeamTest < Minitest::Test
     game_path = './data/dummy_game.csv'
     team_path = './data/dummy_teams.csv'
     game_teams_path = './data/dummy_game_teams.csv'
-
     locations = {
       games: game_path,
       teams: team_path,
       game_teams: game_teams_path
     }
-
     stat_tracker = StatTracker.from_csv(locations)
     manager = GameTeamsManager.new(game_teams_path, stat_tracker)
     @game_team = GameTeam.new(data, manager)
@@ -47,5 +45,4 @@ class TeamTest < Minitest::Test
   def test_it_can_find_season_id
     assert_equal '20122013', @game_team.season_id
   end
-
 end

@@ -36,11 +36,11 @@ class TeamTest < Minitest::Test
   end
 
   def test_it_can_find_average_goals
-    assert_equal 2.50, @team.average_goals
+    assert_equal 2.86, @team.average_goals
   end
 
   def test_it_can_find_average_goals_by_type
-    assert_equal 2.25, @team.avg_goals_visitor
+    assert_equal 2.75, @team.avg_goals_visitor
     assert_equal 3.00, @team.avg_goals_home
   end
 end
