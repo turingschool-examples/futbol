@@ -37,4 +37,9 @@ class StatTrackerTest < Minitest::Test
   def test_average_number_of_goals_scored_by_team
     assert_equal 1.75, @stat_tracker.average_number_of_goals_scored_by_team('3')
   end
+
+  def test_average_number_of_goals_scored_by_team_by_type
+    assert_equal 2.00, @stat_tracker.average_number_of_goals_scored_by_team_by_type('3', 'away')
+    assert_equal 1.50, @stat_tracker.average_number_of_goals_scored_by_team_by_type('3', 'home')
+  end
 end

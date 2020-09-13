@@ -28,4 +28,20 @@ class GameTeamsManagerTest < Minitest::Test
   def test_average_number_of_goals_scored_by_team
     assert_equal 2.5, @game_teams_manager.average_number_of_goals_scored_by_team('6')
   end
+
+  def test_return_games_played_by_type
+    assert_equal 2, @game_teams_manager.games_played_by_type('3', 'away').count
+    assert_equal 2, @game_teams_manager.games_played_by_type('3', 'home').count
+  end
+
+  def test_return_total_goals_by_type
+    assert_equal 4, @game_teams_manager.total_goals_by_type('3', 'away')
+    assert_equal 3, @game_teams_manager.total_goals_by_type('3', 'home')
+  end
+
+  def test_average_number_of_goals_scored_by_team_by_type
+    assert_equal 2.00, @game_teams_manager.average_number_of_goals_scored_by_team_by_type('3', 'away')
+    assert_equal 1.50, @game_teams_manager.average_number_of_goals_scored_by_team_by_type('3', 'home')
+  end
+
 end
