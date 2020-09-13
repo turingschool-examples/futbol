@@ -93,7 +93,7 @@ class GameTeamsManagerTest < Minitest::Test
 
   def test_it_can_find_worst_coach
     season_id = '20122013'
-    assert_equal 'Dan Bylsma', @game_teams_manager.worst_coach(season_id)
+    assert_equal 'John Tortorella', @game_teams_manager.worst_coach(season_id)
   end
 
 end

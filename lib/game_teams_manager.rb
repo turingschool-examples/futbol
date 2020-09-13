@@ -88,4 +88,10 @@ class GameTeamsManager
       avg_win_perc
     end.to_a[0]
   end
+
+  def worst_coach(season_id)
+    coaches_hash_w_avg_win_percentage(season_id).min_by do |coach, avg_win_perc|
+      avg_win_perc
+    end.to_a[0]
+  end
 end
