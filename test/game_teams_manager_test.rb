@@ -117,4 +117,14 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal expected, @game_teams_manager.shots_per_goal_per_season("20132014")
   end
 
+  def test_it_can_calculate_total_wins
+    assert_equal 45, @game_teams_manager.total_wins
+  end
+
+  def test_it_can_calculate_average_win_percentage
+    assert_equal 3, @game_teams_manager.average_win_percentage("6")
+  end
+
+
+
 end
