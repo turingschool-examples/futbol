@@ -51,6 +51,17 @@ class GameManager
     (tie_games.to_f / games.length).round(2)
   end
 
+  def average_goals_by_season
+    average_goals_season = Hash.new(0)
+    games_by_season = count_of_games_by_season
+    @games.each do |game|
+      average_goals_season[game.season] += (game.home_goals + game.away_goals)
+    end
+    average_goals_season.map do |season, goals|
+      [season, (goals.to_f / games_by_season[season].to_f).round(2)]
+    end.to_h
+end
+
   def highest_scoring_visitor
     team_game_count = Hash.new(0)
     away_points = Hash.new(0)
