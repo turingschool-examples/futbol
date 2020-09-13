@@ -34,4 +34,8 @@ class GameTeamManagerTest < MiniTest::Test
     assert_equal "Atlanta United", @game_team_manager.worst_offense
   end
 
+  def test_can_get_team_with_best_season
+    assert_equal "20132014", @game_team_manager.best_season("24")
+  end
+
 end
