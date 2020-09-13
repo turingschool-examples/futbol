@@ -194,35 +194,35 @@ class StatTracker
   end
 
   def worst_coach(season)
-    gt_results = game_team_results_by_season(season)
+    gt_results = game_teams_results_by_season(season)
     coach_record_start = initialize_coaches_records(gt_results)
     total_record = add_wins_losses(gt_results, coach_record_start)
     determine_worst_coach(total_record)
   end
 
   def most_accurate_team(season)
-    gt_results = game_team_results_by_season(season)
+    gt_results = game_teams_results_by_season(season)
     shots_goals_start = initialize_shots_and_goals_per_team(gt_results)
     total_shots_goals = add_shots_and_goals(gt_results, shots_goals_start)
     determine_team_with_best_accuracy(total_shots_goals)
   end
 
   def least_accurate_team(season)
-    gt_results = game_team_results_by_season(season)
+    gt_results = game_teams_results_by_season(season)
     shots_goals_start = initialize_shots_and_goals_per_team(gt_results)
     total_shots_goals = add_shots_and_goals(gt_results, shots_goals_start)
     determine_team_with_worst_accuracy(total_shots_goals)
   end
 
   def most_tackles(season)
-    gt_results = game_team_results_by_season(season)
+    gt_results = game_teams_results_by_season(season)
     tackles_start = initialize_tackles_per_team(gt_results)
     total_tackles = add_tackles(gt_results, tackles_start)
     determine_team_with_most_tackles(total_tackles)
   end
 
   def fewest_tackles(season)
-    gt_results = game_team_results_by_season(season)
+    gt_results = game_teams_results_by_season(season)
     tackles_start = initialize_tackles_per_team(gt_results)
     total_tackles = add_tackles(gt_results, tackles_start)
     determine_team_with_least_tackles(total_tackles)
@@ -274,13 +274,13 @@ class StatTracker
     #   end[0]
     # end
 
-    def initialize_shots_and_goals_per_team(gt_results)
-      total_shots_goals = {}
-      gt_results.each do |team_result|
-        total_shots_goals[team_result['team_id']] = {shots: 0, goals: 0}
-      end
-      total_shots_goals
-    end
+    # def initialize_shots_and_goals_per_team(gt_results)
+    #   total_shots_goals = {}
+    #   gt_results.each do |team_result|
+    #     total_shots_goals[team_result['team_id']] = {shots: 0, goals: 0}
+    #   end
+    #   total_shots_goals
+    # end
 
     def add_shots_and_goals(gt_results, shots_goals_start)
       gt_results.each do |team_result|
