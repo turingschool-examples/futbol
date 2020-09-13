@@ -57,6 +57,22 @@ class GamesManager
     @games.count
   end
 
+  def total_goals(filtered_games = @games)
+    filtered_games.sum do |game|
+      (game.home_goals + game.away_goals)
+    end
+  end
+
+  def average_goals_per_game
+    ratio(total_goals, total_games)
+  end
+
+  def seasonal_game_data
+    @games.group_by do |game|
+      game.season
+    end
+  end
+
   def season_group
     @games.group_by do |row|
       row.season

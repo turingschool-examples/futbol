@@ -5,7 +5,7 @@ module Manageable
     (numerator / denominator.to_f * 100).round(2)
   end
 
-  def ratio(numerator, denominator)
-    (numerator.to_f / denominator).round(2)
+  def ratio(numerator, denominator, rounding = 2)
+    (numerator.to_f / denominator).round(rounding)
   end
 end
