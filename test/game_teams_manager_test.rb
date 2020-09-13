@@ -75,11 +75,15 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_games_for_coach
-
+    season_id = '20152016'
+    head_coach = 'Mike Sullivan'
+    assert_equal 1, @game_teams_manager.games_for_coach(season_id, head_coach)
   end
 
   def test_wins_for_coach
-
+    season_id = '20152016'
+    head_coach = 'Mike Sullivan'
+    assert_equal 1, @game_teams_manager.wins_for_coach(season_id, head_coach)
   end
 
   def test_selected_season_game_teams
