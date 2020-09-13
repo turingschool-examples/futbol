@@ -108,4 +108,30 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal [game_teams_1, game_teams_3], tracker.game_teams_manager.game_info_by_team('123')
   end
 
+  def test_it_can_find_team_games_by_season
+    game_path = './fixture/game_blank.csv'
+    team_path = './fixture/team_blank.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    tracker = StatTracker.new(game_path, team_path, game_teams_path)
+    game_teams_1 = mock("Game Team Object 1")
+    game_teams_2 = mock("Game Team Object 2")
+    game_teams_3 = mock("Game Team Object 3")
+    tracker.game_teams_manager.game_teams << game_teams_1
+    tracker.game_teams_manager.game_teams << game_teams_2
+    tracker.game_teams_manager.game_teams << game_teams_3
+    game_teams_1.stubs(:team_id).returns('123')
+    game_teams_2.stubs(:team_id).returns('987')
+    game_teams_3.stubs(:team_id).returns('123')
+    game_teams_1.stubs(:season).returns('2012030221')
+    game_teams_2.stubs(:season).returns('2012030221')
+    game_teams_3.stubs(:season).returns('2013030221')
+    expected = {"2012030221"=>[game_teams_1], "2013030221" => [game_teams_3]}
+
+    assert_equal expected, tracker.game_teams_manager.team_games_by_season('123')
+  end
+
+  def test_it_can_find_wins_percentage_by_season
+    assert_equal ({"2012" => 0.0}), @stat_tracker.game_teams_manager.win_percentage_by_season('6')
+  end
 end
