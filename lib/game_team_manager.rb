@@ -131,4 +131,20 @@ class GameTeamManager
       win / coach_game_count[coach]
     end[0]
   end
+
+  def find_worst_coach(game_ids)
+    coach_game_count = Hash.new(0)
+    coach_losses = Hash.new(0.0)
+    @game_teams.each do |game|
+      if game_ids.include?(game.game_id)
+        coach_game_count[game.head_coach] += 1
+        if game.result == "LOSS" || game.result == "TIE"
+          coach_losses[game.head_coach] += 1
+        end
+      end
+    end
+    coach_losses.max_by do |coach, loss|
+      loss / coach_game_count[coach]
+    end[0]
+  end
 end
