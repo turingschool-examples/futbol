@@ -84,16 +84,16 @@ class GameTeamManager
 
   def favorite_opponent(team_id)
     total_games = Hash.new(0)
-    loser_loses = Hash.new(0)
+    result_no = Hash.new(0)
     @game_teams.each do |game|
       if find_game_ids(team_id).include?(game.game_id) && game.team_id != team_id
         total_games[game.team_id] += 1
         if game.result == "LOSS"
-          loser_loses[game.team_id] += 1
+          result_no[game.team_id] += 1
         end
       end
     end
-    biggest_loser = loser_loses.max_by do |loser, losses|
+    biggest_loser = result_no.max_by do |loser, losses|
       losses.to_f / total_games[loser]
     end[0]
     @tracker.get_team_name(biggest_loser)
@@ -101,18 +101,52 @@ class GameTeamManager
 
   def rival(team_id)
     total_games = Hash.new(0)
-    winner_wins = Hash.new(0)
+    result_no = Hash.new(0)
     @game_teams.each do |game|
       if find_game_ids(team_id).include?(game.game_id) && game.team_id !=team_id
         total_games[game.team_id] += 1
         if game.result == "WIN"
-          winner_wins[game.team_id] += 1
+          result_no[game.team_id] += 1
         end
       end
     end
-    biggest_winner = winner_wins.max_by do |winner, wins|
+    biggest_winner = result_no.max_by do |winner, wins|
       wins.to_f / total_games[winner]
     end[0]
     @tracker.get_team_name(biggest_winner)
   end
+
+  # def favorite_opponent(team_id)
+  #   total_games = Hash.new(0)
+  #   loser_loses = Hash.new(0)
+  #   @game_teams.each do |game|
+  #     if find_game_ids(team_id).include?(game.game_id) && game.team_id != team_id
+  #       total_games[game.team_id] += 1
+  #       if game.result == "LOSS"
+  #         loser_loses[game.team_id] += 1
+  #       end
+  #     end
+  #   end
+  #   biggest_loser = loser_loses.max_by do |loser, losses|
+  #     losses.to_f / total_games[loser]
+  #   end[0]
+  #   @tracker.get_team_name(biggest_loser)
+  # end
+  #
+  # def rival(team_id)
+  #   total_games = Hash.new(0)
+  #   winner_wins = Hash.new(0)
+  #   @game_teams.each do |game|
+  #     if find_game_ids(team_id).include?(game.game_id) && game.team_id !=team_id
+  #       total_games[game.team_id] += 1
+  #       if game.result == "WIN"
+  #         winner_wins[game.team_id] += 1
+  #       end
+  #     end
+  #   end
+  #   biggest_winner = winner_wins.max_by do |winner, wins|
+  #     wins.to_f / total_games[winner]
+  #   end[0]
+  #   @tracker.get_team_name(biggest_winner)
+  # end
 end

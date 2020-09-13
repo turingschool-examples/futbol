@@ -61,6 +61,8 @@ class GameTeamManagerTest < MiniTest::Test
     assert_equal "FC Dallas", @game_team_manager.rival("3")
   end
 
-
+  def test_it_can_find_winner_or_loser_game_id
+    assert_equal "3", @game_team_manager.winner_or_loser_game_id("6")
+  end
 
 end
