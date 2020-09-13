@@ -1,4 +1,4 @@
-require './lib/groupable'
+require_relative 'groupable'
 
 class GameManager
   include Groupable

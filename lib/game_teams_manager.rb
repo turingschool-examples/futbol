@@ -1,6 +1,5 @@
-require './lib/hashable'
-require './lib/groupable'
-
+require_relative 'hashable'
+require_relative 'groupable'
 
 class GameTeamsManager
   include Hashable
