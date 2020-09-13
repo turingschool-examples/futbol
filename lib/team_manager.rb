@@ -1,24 +1,16 @@
-class TeamManager
+require './lib/csv_reader'
+
+class TeamManager < CsvReader
   attr_reader :team_data,
               :tracker
 
   def initialize(location, tracker)
-    @team_data = teams_stats(location)
     @tracker = tracker
-  end
-
-  def teams_stats(location)
-    teams_data = CSV.read(location, { encoding: 'UTF-8', headers: true, header_converters: :symbol, converters: :all })
-    result = []
-    teams_data.each do |team|
-      team.delete(:stadium)
-      result << Team.new(team, self)
-    end
-    result
+    super(game_stats_data, game_teams_stats_data, teams_stats_data)
   end
 
   def count_of_teams
-    @team_data.length
+    @teams_stats_data.length
   end
 
   def group_by_team_id
