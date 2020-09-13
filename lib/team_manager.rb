@@ -68,4 +68,8 @@ class TeamManager
   def average_win_percentage(id)
     (total_wins(id) / gather_game_team_info(id).count.to_f).round(2)
   end
+
+  def opponent_win_percentage(id, id2)
+    (total_wins(id, id2) / opponent_game_count(id, id2).to_f).round(2)
+  end
 end
