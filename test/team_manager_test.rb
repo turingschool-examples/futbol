@@ -76,7 +76,7 @@ class TeamManagerTest < Minitest::Test
     assert_equal 'A hash of game info', team_manager.game_info('123')
   end
 
-  def test_it_can_gather_all_game_team_info_for_a_team_id
+  def test_it_can_gather_all_game_team_info_for_a_team_id  # This is possibly a shitty test
     stat_tracker = mock('A totally legit stat_tracker')
     CSV.stubs(:foreach).returns(nil)
     team_manager = TeamManager.new('A totally legit path', stat_tracker)
@@ -87,10 +87,12 @@ class TeamManagerTest < Minitest::Test
 
     assert_equal expected, team_manager.gather_game_team_info('1')
   end
+
   # def test_it_can_find_most_goals_scored_by_team
   #   stat_tracker = mock('A totally legit stat_tracker')
   #   stat_tracker.stubs().returns()
   #   CSV.stubs(:foreach).returns(nil)
   #   team_manager = TeamManager.new('A totally legit path', stat_tracker)
+  #
   # end
 end

@@ -33,4 +33,10 @@ class TeamManager
   def game_info(game_id)
     stat_tracker.game_info(game_id)
   end
+
+  def gather_game_team_info(team_id)
+    game_ids_by_team(team_id).map do |game_id|
+      game_team_info(game_id)
+    end
+  end
 end
