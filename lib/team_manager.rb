@@ -45,4 +45,10 @@ class TeamManager
       game[id][:goals]
     end.max
   end
+
+  def fewest_goals_scored(id)
+    gather_game_team_info(id).map do |game|
+      game[id][:goals]
+    end.min
+  end
 end
