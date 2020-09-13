@@ -15,7 +15,7 @@ class GameManager
       Game.new(data, self)
     end
   end
-  
+
   def highest_total_score
     highest_score = @games.max_by do |game|
       game.away_goals + game.home_goals
@@ -49,5 +49,18 @@ class GameManager
       game.away_goals == game.home_goals
     end
     (tie_games.to_f / games.length).round(2)
+  end
+
+  def highest_scoring_visitor
+    team_game_count = Hash.new(0)
+    away_points = Hash.new(0)
+    @games.each do |game|
+      away_points[game.away_team_id] += game.away_goals
+      team_game_count[game.away_team_id] += 1
+    end
+    highest_scoring_visitor = away_points.max_by do |team, score|
+      score.to_f / team_game_count[team]
+    end[0]
+    @tracker.get_team_name(highest_scoring_visitor)
   end
 end

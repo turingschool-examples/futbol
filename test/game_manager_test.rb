@@ -1,5 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'mocha/minitest'
+require 'mocha/minitest'
 require 'Pry'
 require './lib/game'
 require './lib/game_manager'
@@ -41,6 +43,7 @@ class GameManagerTest < MiniTest::Test
   end
 
   def test_it_finds_highest_scoring_visitor
+    @game_manager.tracker.stubs(:get_team_name).returns("FC Cincinnati")
     assert_equal "FC Cincinnati", @game_manager.highest_scoring_visitor
   end
 end
