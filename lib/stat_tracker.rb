@@ -61,10 +61,7 @@ class StatTracker
   end
 
   def average_goals_per_game
-    average_goals = @games.sum do |game|
-      game["home_goals"].to_i + game["away_goals"].to_i
-    end
-    (average_goals.to_f / games.length).round(2)
+    @game_manager.average_goals_per_game
   end
 
   def average_goals_by_season # game_manager.rb
