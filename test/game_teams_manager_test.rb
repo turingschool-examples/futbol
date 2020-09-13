@@ -76,4 +76,12 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "DC United", @game_teams_manager.fewest_tackles("20122013")
   end
 
+  def test_it_can_see_highest_number_of_goals_by_team_in_a_game
+    assert_equal 4, @game_teams_manager.most_goals_scored(1)
+  end
+
+  def test_it_can_see_lowest_number_of_goals_by_team_in_a_game
+    assert_equal 1, @game_teams_manager.fewest_goals_scored(14)
+  end
+
 end

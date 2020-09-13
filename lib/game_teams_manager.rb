@@ -122,4 +122,25 @@ class GameTeamsManager
     end.first)
   end
 
+  # This is a duplicate method to filter_by_teamid except pulls from games
+  def games_by_team(team_id)
+    test = @game_teams.select do |game|
+      game.team_id == team_id.to_s
+    end
+  end
+
+  def team_goals_by_game(team_id)
+    games_by_team(team_id).map do |game|
+      game.goals
+    end
+  end
+
+  def most_goals_scored(team_id)
+    team_goals_by_game(team_id).max.to_i
+  end
+
+  def fewest_goals_scored(team_id)
+    team_goals_by_game(team_id).min.to_i
+  end
+
 end
