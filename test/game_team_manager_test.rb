@@ -35,6 +35,11 @@ class GameTeamManagerTest < MiniTest::Test
   end
 
   def test_it_can_find_all_game_teams
-    assert_equal "Real Salt Lake", @game_team_manager.find_all_teams
+    skip
+    assert_equal "Real Salt Lake", @game_team_manager.find_all_teams("24")
+  end
+
+  def test_it_can_find_most_goals_scored
+    assert_equal 4, @stat_tracker.most_goals_scored("6")
   end
 end

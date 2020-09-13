@@ -56,5 +56,12 @@ class GameTeamManager
     @tracker.get_team_name(lowest_scoring_team)
   end
 
+  # def find_all_teams(team_id)
+  #   @game_teams.find_all do |game|
+  #     game.team_id == team_id
+  #   end
+  # end
+
   
+
 end

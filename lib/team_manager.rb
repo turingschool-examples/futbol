@@ -37,6 +37,6 @@ class TeamManager
     @teams.find do |team| # Create find_team_name method? # team_manager.rb
       team.team_id == team_id # Would accept this as argument
     end.team_name
-end
+  end
 
 end
