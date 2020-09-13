@@ -58,4 +58,8 @@ class TeamManager
       pair[id2][:result] == 'WIN'
     end
   end
+
+  def average_win_percentage(id)
+    (total_wins(id) / gather_game_team_info(id).length.to_f).round(2)
+  end
 end

@@ -252,6 +252,6 @@ class TeamManagerTest < Minitest::Test
     game_teams_info = [game1, game2, game3, game4, game5]
     team_manager.stubs(:gather_game_team_info).returns(game_teams_info)
 
-    assert_equal (3 / 5).round(2), team_manager.average_win_percentage('5')
+    assert_equal (3 / 5.0).round(2), team_manager.average_win_percentage('5')
   end
 end
