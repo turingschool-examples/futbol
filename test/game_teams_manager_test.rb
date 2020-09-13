@@ -93,18 +93,17 @@ class GameTeamsManagerTest < Minitest::Test
     game_teams_manager.game_teams << game_2
     game_teams_manager.game_teams << game_3
 
-    game_1.stubs(:HoA).returns("home")
-    game_1.stubs(:home_goals).returns(5)
-    game_2.stubs(:away_goals).returns(7)
-    game_2.stubs(:home_goals).returns(7)
-    game_3.stubs(:away_goals).returns(0)
-    game_3.stubs(:home_goals).returns(0)
+    game_1.stubs(:hoa).returns("home")
+    game_1.stubs(:result).returns("WIN")
+    game_2.stubs(:hoa).returns("away")
+    game_2.stubs(:result).returns("WIN")
+    game_3.stubs(:hoa).returns("away")
+    game_3.stubs(:result).returns("LOSS")
 
-    assert_equal 0.44, game_teams_manager.percentage_home_wins
+    assert_equal 1.0, game_teams_manager.percentage_home_wins
   end
 
   def test_it_knows_visitor_win_percentage
-    skip
     path = './fixture/game_teams_blank.csv'
     game_teams_manager = GameTeamsManager.new(path, nil)
     game_1 = mock("Season Game 1")
@@ -114,18 +113,18 @@ class GameTeamsManagerTest < Minitest::Test
     game_teams_manager.game_teams << game_2
     game_teams_manager.game_teams << game_3
 
-    game_1.stubs(:HoA).returns(6)
-    game_1.stubs(:home_goals).returns(5)
-    game_2.stubs(:away_goals).returns(7)
-    game_2.stubs(:home_goals).returns(7)
-    game_3.stubs(:away_goals).returns(0)
-    game_3.stubs(:home_goals).returns(0)
+    game_1.stubs(:hoa).returns(6)
+    game_1.stubs(:result).returns("WIN")
+    game_2.stubs(:hoa).returns("away")
+    game_2.stubs(:result).returns("WIN")
+    game_3.stubs(:hoa).returns("away")
+    game_3.stubs(:result).returns("LOSS")
 
-    assert_equal 0.36, game_teams_manager.percentage_visitor_wins
+    assert_equal 0.5, game_teams_manager.percentage_visitor_wins
   end
 
   def test_it_knows_tie_percentage
-    skip
+    # skip
     path = './fixture/game_teams_blank.csv'
     game_teams_manager = GameTeamsManager.new(path, nil)
     game_1 = mock("Season Game 1")
@@ -135,13 +134,13 @@ class GameTeamsManagerTest < Minitest::Test
     game_teams_manager.game_teams << game_2
     game_teams_manager.game_teams << game_3
 
-    game_1.stubs(:away_goals).returns(6)
-    game_1.stubs(:home_goals).returns(5)
-    game_2.stubs(:away_goals).returns(7)
-    game_2.stubs(:home_goals).returns(7)
-    game_3.stubs(:away_goals).returns(0)
-    game_3.stubs(:home_goals).returns(0)
+    game_1.stubs(:hoa).returns("home")
+    game_1.stubs(:result).returns("WIN")
+    game_2.stubs(:hoa).returns("away")
+    game_2.stubs(:result).returns("WIN")
+    game_3.stubs(:hoa).returns("away")
+    game_3.stubs(:result).returns("LOSS")
 
-    assert_equal 0.20, game_teams_manager.percentage_ties
+    assert_equal 0.0, game_teams_manager.percentage_ties
   end
 end

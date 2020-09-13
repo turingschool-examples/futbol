@@ -69,8 +69,7 @@ class GameTeamsManager
 
   def all_home_games
     @game_teams.find_all do |game|
-      # require "pry"; binding.pry
-      game.HoA == "home"
+      game.hoa == "home"
     end
   end
 
@@ -87,7 +86,7 @@ class GameTeamsManager
 
   def all_away_games
     @game_teams.find_all do |game|
-      game.HoA == "away"
+      game.hoa == "away"
     end
   end
 
@@ -104,7 +103,7 @@ class GameTeamsManager
 
   def all_games
     @game_teams.find_all do |game|
-      game.HoA == "away" || game.HoA == "home"
+      game.hoa == "away" || game.hoa == "home"
     end
   end
 
@@ -113,11 +112,5 @@ class GameTeamsManager
       game.result == "TIE"
     end
   end
-
-  # def all_home_game_losses
-  #   all_home_games.find_all do |game|
-  #     game.result == "LOSS"
-  #   end
-  # end
 
 end
