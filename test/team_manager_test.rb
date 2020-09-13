@@ -31,7 +31,7 @@ class TeamManagerTest < Minitest::Test
   end
 
   def test_average_number_of_goals_scored_by_team
-    assert_equal 1.75, @team_manager.average_number_of_goals_scored_by_team('3')
+    assert_equal 1.6, @team_manager.average_number_of_goals_scored_by_team('3')
   end
 
   def test_find_best_offense
@@ -44,10 +44,10 @@ class TeamManagerTest < Minitest::Test
 
   def test_average_number_of_goals_scored_by_team_by_type
     assert_equal 2.00, @team_manager.average_number_of_goals_scored_by_team_by_type('3', 'away')
-    assert_equal 1.50, @team_manager.average_number_of_goals_scored_by_team_by_type('3', 'home')
+    assert_equal 1.33, @team_manager.average_number_of_goals_scored_by_team_by_type('3', 'home')
   end
 
-  # def test_it_can_find_highest_scoring_visitor
-  #   assert_equal 'FC Dallas', @team_manager.highest_scoring_visitor
-  # end
+  def test_it_can_find_highest_scoring_visitor
+    assert_equal 'Sporting Kansas City', @team_manager.highest_scoring_visitor
+  end
 end

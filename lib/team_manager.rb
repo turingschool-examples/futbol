@@ -43,7 +43,10 @@ class TeamsManager
   def average_number_of_goals_scored_by_team_by_type(team_id, home_away)
     @tracker.average_number_of_goals_scored_by_team_by_type(team_id, home_away)
   end
-  # def highest_scoring_visitor
-  #
-  # end
+
+  def highest_scoring_visitor
+    @teams.max_by do |team|
+      team.avg_goals_visitor
+    end.team_name
+  end
 end
