@@ -154,4 +154,31 @@ module TeamStatistics
     favorite_team[1].team_name
   end
 
+  def rival(team_id)
+    games = games_for_team_id(team_id)
+    opponents = {}
+    game_count = {}
+    games.each do |game|
+      if team_id.to_i != game.team_id && opponents[game.team_id].nil?
+        game_count[game.team_id] = 1
+        if game.result == "WIN"
+          opponents[game.team_id] = 1
+        else
+          opponents[game.team_id] = 0
+        end
+      elsif team_id.to_i != game.team_id
+        opponents[game.team_id] += 1 if game.result == "WIN"
+        game_count[game.team_id] += 1
+      end
+    end
+    win_percentages = {}
+    opponents.each do |team, wins|
+      win_percentages[team] = wins / game_count[team].to_f
+    end
+    favorite_team_id = win_percentages.key(win_percentages.values.max)
+    favorite_team = @team_table.find do |team_id, info|
+      team_id.to_i == favorite_team_id
+    end
+    favorite_team[1].team_name
+  end
 end
