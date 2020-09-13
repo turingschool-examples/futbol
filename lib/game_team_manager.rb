@@ -102,6 +102,20 @@ class GameTeamManager
     @tracker.get_team_name(most_tackles_team)
   end
 
+  def fewest_tackles(season)
+    game_ids = @tracker.get_season_game_ids(season)
+    team_tackles = Hash.new(0)
+    @game_teams.each do |game|
+      if game_ids.include?(game.game_id)
+        team_tackles[game.team_id] += game.tackles.to_i
+      end
+    end
+    most_tackles_team = team_tackles.min_by do |team, tackles|
+      tackles
+    end[0]
+    @tracker.get_team_name(most_tackles_team)
+  end
+
   def find_winningest_coach(game_ids, expected_result)
     coach_game_count = Hash.new(0)
     coach_wins = Hash.new(0.0)
