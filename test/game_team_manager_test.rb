@@ -52,6 +52,12 @@ class GameTeamManagerTest < MiniTest::Test
     assert_equal "Toronto FC", @game_team_manager.most_tackles("20162017")
   end
 
+  def test_can_find_team_with_fewest_tackles
+    @game_team_manager.tracker.stubs(:get_season_game_ids).returns(["2016030171", "2016030172", "2016030173", "2016030174"])
+    @game_team_manager.tracker.stubs(:get_team_name).returns("Real Salt Lake")
+    assert_equal "Real Salt Lake", @game_team_manager.fewest_tackles("20162017")
+  end
+
   def test_can_find_winningest_coach
     game_ids = ["2012020225", "2012020577", "2012020510", "2012020511", "2012030223", "2012030224", "2012030225", "2012030311", "2012030312", "2012030313", "2012030314"]
     assert_equal "Bruce Boudreau", @game_team_manager.find_winningest_coach(game_ids, "WIN")
