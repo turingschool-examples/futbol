@@ -96,6 +96,12 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal 'John Tortorella', @game_teams_manager.worst_coach(season_id)
   end
 
+  def test_shots_by_team
+    season_id = '20122013'
+    team_num = '3'
+    assert_equal 38, @game_teams_manager.shots_by_team(season_id, team_num)
+  end
+
   def test_most_accurate_team
     season_id = '20122013'
     assert_equal '6', @game_teams_manager.most_accurate_team(season_id)
