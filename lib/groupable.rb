@@ -15,14 +15,10 @@ module Groupable
 
   #team_manager
   def group_by_team_id
-    @game_teams_data.group_by do |team|
-      team.team_id
-    end
+    @game_teams_data.group_by {|team| team.team_id}
   end
 
   def group_by_season(team_id)
-    all_team_games(team_id).group_by do |game|
-      game.game_id.to_s[0..3]
-    end
+    all_team_games(team_id).group_by {|game| game.game_id.to_s[0..3]}
   end
 end
