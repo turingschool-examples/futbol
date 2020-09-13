@@ -44,6 +44,14 @@ class StatTracker
   def least_accurate_team(season)
     @game_teams_manager.least_accurate_team(season)
   end
+
+  def most_tackles(season)
+    @game_teams_manager.most_tackles(season)
+  end
+
+  def fewest_tackles(season)
+    @game_teams_manager.fewest_tackles(season)
+  end
 end
 
     # game_manager = CSV.read(locations[:games], headers:true)
