@@ -190,7 +190,7 @@ class TeamManagerTest < Minitest::Test
     assert_equal 2, team_manager.fewest_goals_scored('3')
   end
 
-  def test_it_can_count_total_wins_for_a_team
+  def test_it_can_count_total_wins_for_a_team_or_opponent
     stat_tracker = mock('A totally legit stat_tracker')
     CSV.stubs(:foreach).returns(nil)
     team_manager = TeamManager.new('A totally legit path', stat_tracker)
@@ -218,6 +218,10 @@ class TeamManagerTest < Minitest::Test
     team_manager.stubs(:gather_game_team_info).returns(game_teams_info)
 
     assert_equal 3, team_manager.total_wins('5')
+    assert_equal 1, team_manager.total_wins('6')
+    assert_equal 0, team_manager.total_wins('5', '7')
+    assert_equal 0, team_manager.total_wins('5', '8')
+    assert_equal 1, team_manager.total_wins('5', '6')
+    assert_equal 0, team_manager.total_wins('5', '2')
   end
-
 end
