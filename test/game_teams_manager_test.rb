@@ -77,27 +77,19 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_it_can_see_highest_number_of_goals_by_team_in_a_game
-    assert_equal 4, @game_teams_manager.most_goals_scored(1)
+    assert_equal 4, @game_teams_manager.most_goals_scored("1")
   end
 
   def test_it_can_see_lowest_number_of_goals_by_team_in_a_game
-    assert_equal 1, @game_teams_manager.fewest_goals_scored(14)
+    assert_equal 1, @game_teams_manager.fewest_goals_scored("14")
   end
 
-  # def test_it_can_see_highest_scoring_home_team
-  #   assert_equal "DC United", @game_teams_manager.highest_scoring_home_team
-  # end
+  def test_it_can_see_highest_scoring_home_team
+    assert_equal "DC United", @game_teams_manager.highest_scoring_home_team
+  end
 
   def test_it_can_see_highest_scoring_visitor
     assert_equal "FC Dallas",   @game_teams_manager.highest_scoring_visitor
   end
-
-  # def test_it_knows_lowest_scoring_home_team
-  #   assert_equal "Atlanta United", @game_teams_manager.lowest_scoring_home_team
-  # end
-  #
-  # def test_it_knows_lowest_scoring_visitor_team
-  #   assert_equal "Chicago Fire", @game_teams_manager.lowest_scoring_visitor_team
-  # end
-
+  
 end

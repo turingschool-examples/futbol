@@ -1,7 +1,7 @@
 require 'csv'
 require_relative './stat_tracker'
 require_relative './game'
-require './lib/manageable'
+require_relative './manageable'
 
 class GamesManager
   include Manageable
