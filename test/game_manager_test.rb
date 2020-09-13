@@ -56,4 +56,14 @@ class GameManagerTest < MiniTest::Test
     @game_manager.tracker.stubs(:get_team_name).returns("Atlanta United")
     assert_equal "Atlanta United", @stat_tracker.lowest_scoring_visitor
   end
+
+  def test_can_find_most_accurate_team
+    @game_team_manager.tracker.stubs(:get_team_name).returns("Real Salt Lake")
+    assert_equal "Real Salt Lake", @game_team_manager.most_accurate_team("20162017")
+  end
+
+  def test_can_find_least_accurate_team
+    skip
+    assert_equal "Toronto FC", @game_team_manager.least_accurate_team("20162017")
+  end
 end
