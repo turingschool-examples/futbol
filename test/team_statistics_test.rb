@@ -20,7 +20,6 @@ class TeamStatisticsTest < Minitest::Test
                     "link" => "/api/v1/teams/18"
                   }
     assert_equal expected, @stat_tracker.team_info("18")
-    @stat_tracker.collect_seasons("1")
   end
 
   def test_best_season
@@ -50,5 +49,5 @@ class TeamStatisticsTest < Minitest::Test
   def test_rival
     assert_includes ["Houston Dash","LA Galaxy"], @stat_tracker.rival("18")
   end
-  
+
 end

@@ -1,41 +1,20 @@
-module TeamStatistics
+require_relative 'team_stat_helper'
+
+class TeamStatistics < TeamStatHelper
+  def initialize(game, team, game_team)
+    @game ||= game
+    @team ||= team
+    @game_team ||= game_team
+  end
 
   def team_info(team_id)
     team_info = {}
-    team = @team_table.fetch(team_id)
+    team = @team.fetch(team_id)
     team.instance_variables.each do |instance_variable|
       team_info[instance_variable.to_s.delete(":@")] = team.instance_variable_get(instance_variable)
     end
     team_info.delete("stadium")
     team_info
-  end
-
-  def collect_seasons(team_id)
-    season_game_id_hash = {}
-      @game_table.each do |game_id, game|
-        if  season_game_id_hash[game.season].nil? && (team_id.to_i == game.away_team_id || team_id.to_i == game.home_team_id)
-           season_game_id_hash[game.season] = [game]
-         elsif (team_id.to_i == game.away_team_id) || (team_id.to_i == game.home_team_id)
-           season_game_id_hash[game.season] << game
-         end
-      end
-    season_game_id_hash
-  end
-
-  def collect_wins_per_season(team_id)
-    season_wins = {}
-    collect_seasons(team_id).each do |season, info|
-      wins = 0
-      info.each do |game|
-        if (team_id.to_i) == game.away_team_id && (game.away_goals > game.home_goals)
-          wins += 1
-        elsif (team_id.to_i) == game.home_team_id && (game.away_goals < game.home_goals)
-          wins += 1
-        end
-      end
-      season_wins[season] = wins
-    end
-    season_wins
   end
 
   def best_season(team_id)
@@ -46,22 +25,6 @@ module TeamStatistics
       winning_percentage_per_season[season] = (wins.to_f/season_games.length).round(2)
     end
     winning_percentage_per_season.key(winning_percentage_per_season.values.max)
-  end
-
-  def collect_losses_per_season(team_id)
-    season_losses = {}
-    collect_seasons(team_id).each do |season, info|
-      losses = 0
-      info.each do |game|
-        if (team_id.to_i) == game.away_team_id && (game.away_goals < game.home_goals || game.away_goals == game.home_goals)
-          losses += 1
-        elsif (team_id.to_i) == game.home_team_id && (game.away_goals > game.home_goals || game.away_goals == game.home_goals)
-          losses += 1
-        end
-      end
-      season_losses[season] = losses
-    end
-    season_losses
   end
 
   def worst_season(team_id)
@@ -114,18 +77,6 @@ module TeamStatistics
     fewest_goals
   end
 
-  def games_for_team_id(team_id)
-    games = []
-      @game_table.each do |game_id, game_info|
-        if game_info.away_team_id == team_id.to_i || game_info.home_team_id == team_id.to_i
-          games << game_info.game_id
-        end
-      end
-    @game_team_table.find_all do |game|
-      games.include?(game.game_id)
-    end
-  end
-
   def favorite_opponent(team_id)
     games = games_for_team_id(team_id)
     opponents = {}
@@ -148,7 +99,7 @@ module TeamStatistics
       win_percentages[team] = wins / game_count[team].to_f
     end
     favorite_team_id = win_percentages.key(win_percentages.values.min)
-    favorite_team = @team_table.find do |team_id, info|
+    favorite_team = @team.find do |team_id, info|
       team_id.to_i == favorite_team_id
     end
     favorite_team[1].team_name
@@ -176,7 +127,7 @@ module TeamStatistics
       win_percentages[team] = wins / game_count[team].to_f
     end
     favorite_team_id = win_percentages.key(win_percentages.values.max)
-    favorite_team = @team_table.find do |team_id, info|
+    favorite_team = @team.find do |team_id, info|
       team_id.to_i == favorite_team_id
     end
     favorite_team[1].team_name
