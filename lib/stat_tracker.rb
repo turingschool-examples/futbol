@@ -14,12 +14,36 @@ class StatTracker
   end
 
   def load_managers(locations)
-    @game_manager = GameManager.new(locations, self)
     @team_manager = TeamManager.new(locations, self)
+    @game_manager = GameManager.new(locations, self)
     @game_teams_manager = GameTeamManager.new(locations, self)
   end
 
   def team_info(team_id)
     @team_manager.team_info(team_id)
+  end
+
+  def best_offense
+    @game_manager.best_offense
+  end
+
+  def worst_offense
+    @game_manager.worst_offense
+  end
+
+  def highest_scoring_visitor
+    @game_manager.highest_scoring_visitor
+  end
+
+  def highest_scoring_home_team
+    @game_manager.highest_scoring_home_team
+  end
+
+  def lowest_scoring_visitor
+    @game_manager.lowest_scoring_visitor
+  end
+
+  def lowest_scoring_home_team
+    @game_manager.lowest_scoring_home_team
   end
 end
