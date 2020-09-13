@@ -88,6 +88,9 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_initialize_shots_and_goals_per_team
-    results = @stat_tracker.game_teams_manager.game_team_results_by_season
+    results = @stat_tracker.game_teams_manager.game_teams_results_by_season('20122013')
+    expected = {"3"=>{:shots=>0, :goals=>0}, "6"=>{:shots=>0, :goals=>0}, "5"=>{:shots=>0, :goals=>0},
+                "17"=>{:shots=>0, :goals=>0}, "16"=>{:shots=>0, :goals=>0}}
+    assert_equal expected, @stat_tracker.game_teams_manager.initialize_shots_and_goals_per_team(results)
   end
 end
