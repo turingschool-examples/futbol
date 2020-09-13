@@ -90,19 +90,7 @@ class StatTracker
   end
 
   def highest_scoring_home_team
-    team_game_count = Hash.new(0)
-    home_points = Hash.new(0)
-    @games.each do |game|
-      home_points[game["home_team_id"]] += game["home_goals"].to_i
-      team_game_count[game["home_team_id"]] += 1
-    end
-    highest_scoring_home_team = home_points.max_by do |team, score|
-        score.to_f / team_game_count[team]
-    end
-    best_home_scorer = @teams.find do |team|
-      team["team_id"] == highest_scoring_home_team[0]
-    end
-    best_home_scorer["teamName"]
+    @game_manager.highest_scoring_home_team
   end
 
   def lowest_scoring_visitor
