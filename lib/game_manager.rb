@@ -1,4 +1,7 @@
+require './lib/hashable'
+
 class GameManager
+  include Hashable
   attr_reader :game_data,
               :tracker
 
@@ -58,10 +61,6 @@ class GameManager
 
   def percentage_ties
     (count_of_ties.to_f / total_games).round(2)
-  end
-
-  def hash_of_seasons
-    @game_data.group_by {|game| game.season}
   end
 
   def count_of_games_by_season

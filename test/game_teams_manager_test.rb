@@ -19,8 +19,8 @@ class GameTeamsManagerTest < Minitest::Test
     assert_instance_of GameTeamsManager, @game_statistics
   end
 
-  def test_can_get_hash_of_seasons
-    assert_equal 1612, @game_statistics.hash_of_seasons("20122013").count
+  def test_can_find_games_from_season
+    assert_equal 1612, @game_statistics.games_from_season("20122013").count
   end
 
   def test_group_by_coach
