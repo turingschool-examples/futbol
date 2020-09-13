@@ -7,7 +7,7 @@ require './lib/game_teams_manager'
 class GameTeamsManagerTest < Minitest::Test
   def setup
     @game_path = './fixture/games_dummy.csv'
-    @team_path = './fixture/teams_dummy.csv'
+    @team_path = './data/teams.csv'
     @game_teams_path = './fixture/game_teams_dummy.csv'
 
     @locations = {
@@ -102,7 +102,6 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal expected, @stat_tracker.game_teams_manager.add_shots_and_goals(results, teams_shots_to_goals_start)
   end
 
-  # Need the find_team_by_team_id method to make these accuracy tests pass
   def test_most_accurate_team
     results = @stat_tracker.game_teams_manager.game_teams_results_by_season('20122013')
     teams_shots_to_goals_start = @stat_tracker.game_teams_manager.initialize_shots_and_goals_per_team(results)
