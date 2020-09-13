@@ -177,4 +177,11 @@ module SeasonStatistics
     @team_table[team_id.to_s].team_name
   end
 
+  def fewest_tackles(season)
+    season_games = season_games(season)
+    team_tackles = team_tackles_by_season(season_games)
+    team_id = team_tackles.key(team_tackles.values.min)
+    @team_table[team_id.to_s].team_name
+  end
+
 end
