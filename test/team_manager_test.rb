@@ -134,7 +134,7 @@ class TeamManagerTest < Minitest::Test
       '35' => game_team4
     }
     game_team_info = [game_team_info1, game_team_info2]
-    team_manager.stubs(:gather_game_team_info).results(game_team_info)
+    team_manager.stubs(:gather_game_team_info).returns(game_team_info)
 
     assert_equal 5, team_manager.most_goals_scored('3')
   end
