@@ -62,4 +62,22 @@ class TestStatTracker <Minitest::Test
 
     assert_equal expected, stat_tracker.game_ids_by_team('17')
   end
+
+  def test_it_can_fetch_game_team_info
+    locations =  {
+      games: './fixtures/fixture_games.csv',
+      teams: './fixtures/teams_init_test.csv',
+      game_teams: './fixtures/fixture_game_teams.csv'
+    }
+    stat_tracker = StatTracker.new(locations)
+    info16 = stat_tracker.game_team_manager.game_teams[19].game_team_info
+    info17 = stat_tracker.game_team_manager.game_teams[18].game_team_info
+    require 'pry' ; binding.pry
+    expected = {
+      '16' => info16,
+      '17' => info17
+    }
+
+    assert_equal expected, @stat_tracker.game_team_info('2012030231')
+  end
 end
