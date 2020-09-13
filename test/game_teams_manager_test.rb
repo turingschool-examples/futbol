@@ -122,7 +122,7 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_it_can_calculate_average_win_percentage
-    assert_equal 3, @game_teams_manager.average_win_percentage("6")
+    assert_equal 0.32, @game_teams_manager.average_win_percentage("4")
   end
 
 
