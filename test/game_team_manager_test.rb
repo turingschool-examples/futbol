@@ -40,6 +40,6 @@ class GameTeamManagerTest < MiniTest::Test
   end
 
   def test_it_can_find_most_goals_scored
-    assert_equal 4, @stat_tracker.most_goals_scored("6")
+    assert_equal 4, @game_team_manager.most_goals_scored("6")
   end
 end

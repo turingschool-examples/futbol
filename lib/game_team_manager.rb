@@ -62,6 +62,14 @@ class GameTeamManager
   #   end
   # end
 
-  
+  def most_goals_scored(team_id)
+    max_goals = @game_teams.find_all do |game|
+      game.team_id == team_id
+    end
+    high_goals = max_goals.max_by do |game|
+      game.goals
+    end
+    high_goals.goals
+  end
 
 end

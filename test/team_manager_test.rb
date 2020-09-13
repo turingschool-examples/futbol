@@ -38,5 +38,4 @@ class TeamManagerTest < MiniTest::Test
   def test_it_can_find_best_team_name
   assert_equal "Real Salt Lake", @team_manager.get_team_name("24")
   end
-
 end
