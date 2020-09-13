@@ -123,11 +123,11 @@ class GameTeamsManagerTest < Minitest::Test
     game_teams_1.stubs(:team_id).returns('123')
     game_teams_2.stubs(:team_id).returns('987')
     game_teams_3.stubs(:team_id).returns('123')
-    game_teams_1.stubs(:season).returns('2012030221')
-    game_teams_2.stubs(:season).returns('2012030221')
-    game_teams_3.stubs(:season).returns('2013030221')
-    expected = {"2012030221"=>[game_teams_1], "2013030221" => [game_teams_3]}
+    game_teams_1.stubs(:game_id).returns('2012030221')
+    game_teams_2.stubs(:game_id).returns('2012030221')
+    game_teams_3.stubs(:game_id).returns('2013030221')
 
+    expected = {"2012"=>[game_teams_1], "2013" => [game_teams_3]}
     assert_equal expected, tracker.game_teams_manager.team_games_by_season('123')
   end
 
@@ -137,5 +137,9 @@ class GameTeamsManagerTest < Minitest::Test
 
   def test_it_can_find_best_season
     assert_equal "20122013", @stat_tracker.game_teams_manager.best_season("6")
+  end
+
+  def test_it_can_find_worst_season
+    assert_equal "20122013", @stat_tracker.game_teams_manager.worst_season("6")
   end
 end
