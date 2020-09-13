@@ -46,4 +46,8 @@ class GameTeamManagerTest < MiniTest::Test
   def test_it_can_find_fewest_goals_scored ### Need to stub
     assert_equal 0, @game_team_manager.fewest_goals_scored("5")
   end
+
+  def test_it_can_find_favorite_opponent
+    assert_equal "Houston Dynamo", @game_team_manager.favorite_opponent("6")
+  end
 end
