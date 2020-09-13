@@ -67,4 +67,31 @@ class GameTeamsManager
     end
   end
 
+   def group_by_season(team_id)
+     game_info_by_team(team_id).group_by do |game|
+       game.game_id.to_s[0..3]
+     end
+   end
+
+  def team_games_by_season(team_id)
+    team_games_by_season = {}
+    game_info_by_team(team_id).each do |game|
+      (team_games_by_season[game.season] ||= []) << game
+    end
+    team_games_by_season
+  end
+
+  def win_percentage_by_season(team_id)
+    wins = {}
+    group_by_season(team_id).each do |season, games|
+      total_games = 0
+      total_wins = 0
+      games.each do |game|
+       total_wins +- 1 if game.result == 'WIN'
+       total_games += 1
+        end
+        wins[season] = (total_wins.to_f / total_games).round(3)
+      end
+    wins
+  end
 end
