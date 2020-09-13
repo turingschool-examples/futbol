@@ -53,14 +53,33 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_it_can_find_winningest_coach
-    skip
-    season_id = '20142015'
+    season_id = '20152016'
     assert_equal 'Mike Sullivan', @game_teams_manager.winningest_coach(season_id)
   end
 
   def test_it_can_find_season_id
     game_id = '2012030221'
     assert_equal '20122013', @game_teams_manager.find_season_id(game_id)
+  end
+
+  def test_coaches_hash_w_avg_win_percentage
+
+  end
+
+  def test_average_win_percentage
+
+  end
+
+  def test_games_for_coach
+
+  end
+
+  def test_wins_for_coach
+
+  end
+
+  def test_selected_season_game_teams
+
   end
 
 end
