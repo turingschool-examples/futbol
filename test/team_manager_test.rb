@@ -31,7 +31,7 @@ class TeamManagerTest < Minitest::Test
   end
 
   def test_average_number_of_goals_scored_by_team
-    assert_equal 1.6, @team_manager.average_number_of_goals_scored_by_team('3')
+    assert_equal 1.5, @team_manager.average_number_of_goals_scored_by_team('3')
   end
 
   def test_find_best_offense
@@ -43,7 +43,7 @@ class TeamManagerTest < Minitest::Test
   end
 
   def test_average_number_of_goals_scored_by_team_by_type
-    assert_equal 2.00, @team_manager.average_number_of_goals_scored_by_team_by_type('3', 'away')
+    assert_equal 1.67, @team_manager.average_number_of_goals_scored_by_team_by_type('3', 'away')
     assert_equal 1.33, @team_manager.average_number_of_goals_scored_by_team_by_type('3', 'home')
   end
 
