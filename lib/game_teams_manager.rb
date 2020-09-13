@@ -113,9 +113,9 @@ class GameTeamsManager
   def result_totals_by_team(team_id)
     result = {}
     result[:total]  = game_info_by_team(team_id).length
-    result[:wins]   = (result_totals_helper(team_id, "WIN")).length
-    result[:ties]   = (result_totals_helper(team_id, "TIE")).length
-    result[:losses] = (result_totals_helper(team_id, "LOSS")).length
+    result[:wins]   = (find_all_game_results(team_id, "WIN")).length
+    result[:ties]   = (find_all_game_results(team_id, "TIE")).length
+    result[:losses] = (find_all_game_results(team_id, "LOSS")).length
     result
   end
 
