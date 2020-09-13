@@ -61,6 +61,23 @@ class GameTeamsManager
   end
 
 #-------------TeamStats
+  def best_season(team_id)
+    best_season = win_percentage_by_season(team_id).max_by do |season, wins_percent|
+        wins_percent
+      end
+      best_year = best_season[0].to_i
+      "#{best_year}201#{best_year.digits[0] + 1}"
+    end
+
+  def worst_season(team_id)
+    worst_season = win_percentage_by_season(team_id).max_by do |season, wins_percent|
+        wins_percent
+      end
+      worst_year = worst_season[0].to_i
+      "#{worst_year}201#{worst_year.digits[0] + 1}"
+  end
+
+#-------------TeamStatsHelpers
   def game_info_by_team(team_id)
     @game_teams.select do |game_team|
       game_team.team_id == team_id
