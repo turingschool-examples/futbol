@@ -70,7 +70,7 @@ class GameTeamsManager
     end
 
   def worst_season(team_id)
-    worst_season = win_percentage_by_season(team_id).max_by do |season, wins_percent|
+    worst_season = win_percentage_by_season(team_id).min_by do |season, wins_percent|
         wins_percent
       end
       worst_year = worst_season[0].to_i
@@ -84,23 +84,17 @@ class GameTeamsManager
     end
   end
 
-   def group_by_season(team_id)
-     game_info_by_team(team_id).group_by do |game|
-       game.game_id.to_s[0..3]
-     end
-   end
-
   def team_games_by_season(team_id)
     team_games_by_season = {}
     game_info_by_team(team_id).each do |game|
-      (team_games_by_season[game.season] ||= []) << game
+      (team_games_by_season[game.game_id.to_s[0..3]] ||= []) << game
     end
     team_games_by_season
   end
 
   def win_percentage_by_season(team_id)
     wins = {}
-    group_by_season(team_id).each do |season, games|
+    team_games_by_season(team_id).each do |season, games|
       total_games = 0
       total_wins = 0
       games.each do |game|
