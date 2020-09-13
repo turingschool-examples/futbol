@@ -18,9 +18,9 @@ class StatTracker
   end
 
   def load_managers(locations)
+    @game_teams_manager = GameTeamsManager.new(locations[:game_teams], self)
     @games_manager = GamesManager.new(locations[:games], self)
     @teams_manager = TeamsManager.new(locations[:teams], self)
-    @game_teams_manager = GameTeamsManager.new(locations[:game_teams], self)
   end
 
   def count_of_teams
@@ -32,7 +32,6 @@ class StatTracker
   end
 
   def average_number_of_goals_scored_by_team(team_id)
-binding.pry
     @game_teams_manager.average_number_of_goals_scored_by_team(team_id)
   end
 end
