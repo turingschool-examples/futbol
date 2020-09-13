@@ -77,6 +77,10 @@ class GameTeamsManager
       "#{worst_year}201#{worst_year.digits[0] + 1}"
   end
 
+  def average_win_percentage(team_id)
+    (result_totals_by_team(team_id)[:wins].to_f / result_totals_by_team(team_id)[:total].to_f).round(2)
+  end
+
 #-------------TeamStatsHelpers
   def game_info_by_team(team_id)
     @game_teams.select do |game_team|
@@ -105,4 +109,21 @@ class GameTeamsManager
       end
     wins
   end
+
+  def result_totals_by_team(team_id)
+    result = {}
+    result[:total]  = game_info_by_team(team_id).length
+    result[:wins]   = (result_totals_helper(team_id, "WIN")).length
+    result[:ties]   = (result_totals_helper(team_id, "TIE")).length
+    result[:losses] = (result_totals_helper(team_id, "LOSS")).length
+    result
+  end
+
+  def find_all_game_results(team_id, result)
+    game_info_by_team(team_id).select do |game|
+      game.result == result
+    end
+  end
+
+
 end
