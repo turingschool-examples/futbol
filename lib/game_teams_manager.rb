@@ -105,15 +105,10 @@ class GameTeamsManager
   end
 
   def team_tackles(season)
-    team_season_tackles = {}
-    game_teams_by_season(season).each do |game|
-      if team_season_tackles[game.team_id]
-        team_season_tackles[game.team_id] += game.tackles
-      else
-        team_season_tackles[game.team_id] = game.tackles
-      end
+    game_teams_by_season(season).reduce(Hash.new(0)) do |team_season_tackles, game|
+      team_season_tackles[game.team_id] += game.tackles
+      team_season_tackles
     end
-    team_season_tackles
   end
 
   def most_tackles(season)
@@ -135,9 +130,13 @@ class GameTeamsManager
   end
 
   def game_teams_by_opponent(teamid)
-    filter_by_teamid(teamid).reduce(Hash.new([])) do |gt_by_opp, gameteam|
-      gt_by_opp[get_opponent_id(get_game(gameteam.game_id), teamid)] << gameteam
-      gt_by_opp
+    filter_by_teamid(teamid).inject({}) do |result, gameteam|
+      if result[@stat_tracker.get_opponent_id(@stat_tracker.get_game(gameteam.game_id), teamid)] == nil
+        result[@stat_tracker.get_opponent_id(@stat_tracker.get_game(gameteam.game_id), teamid)] = [gameteam]
+      else
+        result[@stat_tracker.get_opponent_id(@stat_tracker.get_game(gameteam.game_id), teamid)] << gameteam
+      end
+      result
     end
   end
 

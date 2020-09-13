@@ -152,10 +152,10 @@ class GamesManagerTest < Minitest::Test
 
   def test_it_can_get_opponent_id
     game = @games_manager.get_game("2014021002")
-    assert_equal 14, @games_manager.get_opponent_id(game,"6")
+    assert_equal "14", @games_manager.get_opponent_id(game,"6")
 
     game = @games_manager.get_game("2014020371")
-    assert_equal 26, @games_manager.get_opponent_id(game,"6")
+    assert_equal "26", @games_manager.get_opponent_id(game,"6")
   end
 
 end

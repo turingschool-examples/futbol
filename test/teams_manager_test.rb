@@ -44,8 +44,8 @@ class TeamsManagerTest < Minitest::Test
       "link"=>"/api/v1/teams/14"
     }
 
-    assert_equal expected1, @stats.team_info(1)
-    assert_equal expected2, @stats.team_info(14)
+    assert_equal expected1, @teams_manager.team_info("1")
+    assert_equal expected2, @teams_manager.team_info("14")
   end
 
 end
