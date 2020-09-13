@@ -53,11 +53,11 @@ class GameTeamsManagerTest < Minitest::Test
     game_teams_2.stubs(:game_id).returns('987')
     game_teams_3.stubs(:game_id).returns('555')
 
-    assert_equal [game_teams_1], tracker.game_teams_manager.game_team_results_by_season('20122013')
+    assert_equal [game_teams_1], tracker.game_teams_manager.game_teams_results_by_season('20122013')
   end
 
   def test_initialize_coaches_records
-    results = @stat_tracker.game_teams_manager.game_team_results_by_season('20122013')
+    results = @stat_tracker.game_teams_manager.game_teams_results_by_season('20122013')
     expected = {"John Tortorella"=>{:wins=>0, :losses=>0, :ties=>0},
               "Claude Julien"=>{:wins=>0, :losses=>0, :ties=>0}, "Dan Bylsma"=>{:wins=>0, :losses=>0, :ties=>0},
               "Mike Babcock"=>{:wins=>0, :losses=>0, :ties=>0}, "Joel Quenneville"=>{:wins=>0, :losses=>0, :ties=>0}}
@@ -65,7 +65,7 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_add_wins_losses
-    results = @stat_tracker.game_teams_manager.game_team_results_by_season('20122013')
+    results = @stat_tracker.game_teams_manager.game_teams_results_by_season('20122013')
     coach_record_start = @stat_tracker.game_teams_manager.initialize_coaches_records(results)
     expected = {"John Tortorella"=>{:wins=>0, :losses=>5, :ties=>0}, "Claude Julien"=>{:wins=>9, :losses=>0, :ties=>0},
                 "Dan Bylsma"=>{:wins=>0, :losses=>4, :ties=>0}, "Mike Babcock"=>{:wins=>4, :losses=>3, :ties=>0},
@@ -74,16 +74,20 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_winningest_coach
-    results = @stat_tracker.game_teams_manager.game_team_results_by_season('20122013')
+    results = @stat_tracker.game_teams_manager.game_teams_results_by_season('20122013')
     coach_record_start = @stat_tracker.game_teams_manager.initialize_coaches_records(results)
     total_record = @stat_tracker.game_teams_manager.add_wins_losses(results, coach_record_start)
     assert_equal "Claude Julien", @stat_tracker.game_teams_manager.winningest_coach('20122013')
   end
 
   def test_worst_coach
-    results = @stat_tracker.game_teams_manager.game_team_results_by_season('20122013')
+    results = @stat_tracker.game_teams_manager.game_teams_results_by_season('20122013')
     coach_record_start = @stat_tracker.game_teams_manager.initialize_coaches_records(results)
     total_record = @stat_tracker.game_teams_manager.add_wins_losses(results, coach_record_start)
     assert_equal "John Tortorella", @stat_tracker.game_teams_manager.worst_coach('20122013')
+  end
+
+  def test_initialize_shots_and_goals_per_team
+    results = @stat_tracker.game_teams_manager.game_team_results_by_season
   end
 end

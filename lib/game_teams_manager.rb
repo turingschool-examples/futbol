@@ -15,12 +15,6 @@ class GameTeamsManager
 
   # -------SeasonStats
 
-  def coaches_records(season)
-    gt_results = game_team_results_by_season(season)
-    coach_record_start = initialize_coaches_records(gt_results)
-    total_record = add_wins_losses(gt_results, coach_record_start)
-  end
-
   def winningest_coach(season)
     coaches_records(season).max_by do |coach, w_l|
       w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
@@ -33,10 +27,18 @@ class GameTeamsManager
     end[0]
   end
 
-  def game_team_results_by_season(season)
+
+
+  def game_teams_results_by_season(season)
     game_teams.find_all do |team_result|
       @tracker.find_game_ids_for_season(season).include? team_result.game_id
     end
+  end
+
+  def coaches_records(season)
+    gt_results = game_teams_results_by_season(season)
+    coach_record_start = initialize_coaches_records(gt_results)
+    total_record = add_wins_losses(gt_results, coach_record_start)
   end
 
   def initialize_coaches_records(gt_results)
@@ -58,5 +60,13 @@ class GameTeamsManager
       end
     end
     coach_record_start
+  end
+
+  def initialize_shots_and_goals_per_team(gt_results)
+    total_shots_goals = {}
+    gt_results.each do |team_result|
+      total_shots_goals[team_result['team_id']] = {shots: 0, goals: 0}
+    end
+    total_shots_goals
   end
 end
