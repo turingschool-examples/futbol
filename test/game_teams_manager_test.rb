@@ -93,4 +93,28 @@ class GameTeamsManagerTest < Minitest::Test
                 "17"=>{:shots=>0, :goals=>0}, "16"=>{:shots=>0, :goals=>0}}
     assert_equal expected, @stat_tracker.game_teams_manager.initialize_shots_and_goals_per_team(results)
   end
+
+  def test_add_shots_and_goals
+    results = @stat_tracker.game_teams_manager.game_teams_results_by_season('20122013')
+    teams_shots_to_goals_start = @stat_tracker.game_teams_manager.initialize_shots_and_goals_per_team(results)
+    expected = {"3"=>{:shots=>38, :goals=>8}, "6"=>{:shots=>76, :goals=>24}, "5"=>{:shots=>32, :goals=>2},
+                "17"=>{:shots=>46, :goals=>13}, "16"=>{:shots=>58, :goals=>10}}
+    assert_equal expected, @stat_tracker.game_teams_manager.add_shots_and_goals(results, teams_shots_to_goals_start)
+  end
+
+  # Need the find_team_by_team_id method to make these accuracy tests pass
+  def test_most_accurate_team
+    results = @stat_tracker.game_teams_manager.game_teams_results_by_season('20122013')
+    teams_shots_to_goals_start = @stat_tracker.game_teams_manager.initialize_shots_and_goals_per_team(results)
+    total_shot_goals_record = @stat_tracker.game_teams_manager.add_shots_and_goals(results, teams_shots_to_goals_start)
+    assert_equal "FC Dallas", @stat_tracker.game_teams_manager.most_accurate_team('20122013')
+  end
+
+  def test_most_accurate_team
+    results = @stat_tracker.game_teams_manager.game_teams_results_by_season('20122013')
+    teams_shots_to_goals_start = @stat_tracker.game_teams_manager.initialize_shots_and_goals_per_team(results)
+    total_shot_goals_record = @stat_tracker.game_teams_manager.add_shots_and_goals(results, teams_shots_to_goals_start)
+    assert_equal "Sporting Kansas City", @stat_tracker.game_teams_manager.least_accurate_team('20122013')
+  end
+
 end
