@@ -30,12 +30,13 @@ attr_reader :game_teams, :all_game_teams
   end
 
   def assign_goals_by_teams
-    team_goals = Hash.new { |hash, key| hash[key] = []}
+    team_goals = Hash.new
     @all_game_teams.each do |gameteam|
-      team_goals[gameteam.team_id] = []
-    end
-    @all_game_teams.each do |gameteam|
-      team_goals[gameteam.team_id] << gameteam.goals.to_i
+      if team_goals.has_key?(gameteam.team_id)
+        team_goals[gameteam.team_id] << gameteam.goals.to_i
+      else
+        team_goals[gameteam.team_id] = [gameteam.goals.to_i]
+      end
     end
     team_goals
   end
