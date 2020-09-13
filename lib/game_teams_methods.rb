@@ -1,15 +1,18 @@
 require 'CSV'
+require './test/test_helper'
+require './lib/game_teams'
 
 class GameTeamsMethods
-attr_reader :game_teams, :game_teams_table
+attr_reader :game_teams, :all_game_teams
   def initialize(game_teams)
     @game_teams = game_teams
-    @game_teams_table = create_table(@game_teams)
-
+    @all_game_teams = create_array(@game_teams)
   end
 
-  def create_table(file)
-    CSV.parse(File.read(file), headers: true)
+  def create_array(file)
+    CSV.foreach(file, headers: true).map do |row|
+      GameTeams.new(row)
+    end
   end
 
   def best_offense_team
@@ -27,13 +30,12 @@ attr_reader :game_teams, :game_teams_table
   end
 
   def assign_goals_by_teams
-    goals = @game_teams_table['goals']
     team_goals = Hash.new
-    @game_teams_table['team_id'].each.with_index do |id, idx|
-      if team_goals.has_key?(id)
-        team_goals[id] << goals[idx]
+    @all_game_teams.each do |gameteam|
+      if team_goals.has_key?(gameteam.team_id)
+        team_goals[gameteam.team_id] << gameteam.goals.to_i
       else
-        team_goals[id] = [goals[idx]]
+        team_goals[gameteam.team_id] = [gameteam.goals.to_i]
       end
     end
     team_goals
@@ -41,10 +43,10 @@ attr_reader :game_teams, :game_teams_table
 
   def assign_goals_by_home_or_away_teams(home_away)
     team = find_all_games(home_away).map do |row|
-      row['team_id']
+      row.team_id
     end
     goals = find_all_games(home_away).map do |row|
-      row['goals']
+      row.goals
     end
     team_id_goal_array(team, goals)
   end
@@ -104,8 +106,8 @@ attr_reader :game_teams, :game_teams_table
   end
 
   def find_all_games(home_away)
-    @game_teams_table.find_all do |gameteam|
-        gameteam["HoA"] == home_away
+    @all_game_teams.find_all do |gameteam|
+        gameteam.hoa == home_away
     end
   end
 end
