@@ -87,7 +87,8 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_selected_season_game_teams
-
+    season_id = '20152016'
+    assert_equal 2, @game_teams_manager.selected_season_game_teams(season_id).count
   end
 
 end
