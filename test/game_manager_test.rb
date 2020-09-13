@@ -64,4 +64,8 @@ class GameManagerTest < MiniTest::Test
   def test_it_can_count_games_by_season
     assert_equal ({"20132014"=>2, "20122013"=>11, "20162017" => 4}), @game_manager.count_of_games_by_season
   end
+  
+  def test_it_can_average_goals_per_game
+    assert_equal 4.41, @game_manager.average_goals_per_game
+  end
 end
