@@ -193,12 +193,12 @@ class StatTracker
   #   determine_winningest_coach(total_record)
   end
 
-  def worst_coach(season)
-    gt_results = game_teams_results_by_season(season)
-    coach_record_start = initialize_coaches_records(gt_results)
-    total_record = add_wins_losses(gt_results, coach_record_start)
-    determine_worst_coach(total_record)
-  end
+  # def worst_coach(season)
+  #   gt_results = game_teams_results_by_season(season)
+  #   coach_record_start = initialize_coaches_records(gt_results)
+  #   total_record = add_wins_losses(gt_results, coach_record_start)
+  #   determine_worst_coach(total_record)
+  # end
 
   def most_accurate_team(season)
     gt_results = game_teams_results_by_season(season)
