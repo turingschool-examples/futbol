@@ -1,15 +1,11 @@
 require 'CSV'
-require_relative 'game_manager'
-require_relative 'team_manager'
-require_relative 'game_teams_manager'
-require_relative 'game'
-require_relative 'game_teams'
-require_relative 'team'
+require_relative 'relative_helper'
 
 class StatTracker
-  attr_reader :game_manager,
-              :game_teams_manager,
-              :team_manager
+  include Calculatable
+  include Hashable
+  include Groupable
+  attr_reader :game_manager, :game_teams_manager, :team_manager
 
   def initialize(locations)
     @game_manager = GameManager.new(locations[:games], self)
@@ -19,42 +15,6 @@ class StatTracker
 
   def self.from_csv(locations)
     StatTracker.new(locations)
-  end
-
-  def highest_total_score
-    @game_manager.highest_total_score
-  end
-
-  def lowest_total_score
-    @game_manager.lowest_total_score
-  end
-
-  def percentage_home_wins
-    @game_manager.percentage_home_wins
-  end
-
-  def percentage_visitor_wins
-    @game_manager.percentage_visitor_wins
-  end
-
-  def percentage_ties
-    @game_manager.percentage_ties
-  end
-
-  def count_of_games_by_season
-    @game_manager.count_of_games_by_season
-  end
-
-  def average_goals_per_game
-    @game_manager.average_goals_per_game
-  end
-
-  def average_goals_by_season
-    @game_manager.average_goals_by_season
-  end
-
-  def count_of_teams
-    @team_manager.count_of_teams
   end
 
   def best_offense
@@ -88,21 +48,21 @@ class StatTracker
   end
 
   def winningest_coach(season)
-    @game_teams_manager.hash_of_seasons(season)
+    @game_teams_manager.games_from_season(season)
     @game_teams_manager.group_by_coach(season)
     @game_teams_manager.coach_wins(season)
     @game_teams_manager.winningest_coach(season)
   end
 
   def worst_coach(season)
-    @game_teams_manager.hash_of_seasons(season)
+    @game_teams_manager.games_from_season(season)
     @game_teams_manager.group_by_coach(season)
     @game_teams_manager.coach_wins(season)
     @game_teams_manager.worst_coach(season)
   end
 
   def most_accurate_team(season)
-    @game_teams_manager.hash_of_seasons(season)
+    @game_teams_manager.games_from_season(season)
     @game_teams_manager.find_by_team_id(season)
     @game_teams_manager.goals_to_shots_ratio_per_season(season)
     @game_teams_manager.find_most_accurate_team(season)
@@ -110,7 +70,7 @@ class StatTracker
   end
 
   def least_accurate_team(season)
-    @game_teams_manager.hash_of_seasons(season)
+    @game_teams_manager.games_from_season(season)
     @game_teams_manager.find_by_team_id(season)
     @game_teams_manager.goals_to_shots_ratio_per_season(season)
     @game_teams_manager.find_least_accurate_team(season)
@@ -118,7 +78,7 @@ class StatTracker
   end
 
   def most_tackles(season)
-    @game_teams_manager.hash_of_seasons(season)
+    @game_teams_manager.games_from_season(season)
     @game_teams_manager.find_by_team_id(season)
     @game_teams_manager.total_tackles(season)
     @game_teams_manager.find_team_with_most_tackles(season)
@@ -126,7 +86,7 @@ class StatTracker
   end
 
   def fewest_tackles(season)
-    @game_teams_manager.hash_of_seasons(season)
+    @game_teams_manager.games_from_season(season)
     @game_teams_manager.find_by_team_id(season)
     @game_teams_manager.total_tackles(season)
     @game_teams_manager.find_team_with_fewest_tackles(season)
@@ -149,12 +109,6 @@ class StatTracker
     @team_manager.group_by_season(team_id)
     @team_manager.percent_wins_by_season(team_id)
     @team_manager.worst_season(team_id)
-  end
-
-  def average_win_percentage(team_id)
-    @team_manager.all_team_games(team_id)
-    @team_manager.total_wins(team_id)
-    @team_manager.average_win_percentage(team_id)
   end
 
   def most_goals_scored(team_id)
