@@ -105,19 +105,7 @@ class StatTracker
   end
 
   def lowest_scoring_home_team
-    team_game_count = Hash.new(0)
-    home_points = Hash.new(0)
-    @games.each do |game|
-      home_points[game["home_team_id"]] += game["home_goals"].to_i
-      team_game_count[game["home_team_id"]] += 1
-    end
-    lowest_scoring_home_team = home_points.min_by do |team, score|
-        score.to_f / team_game_count[team]
-    end
-    worst_home_scorer = @teams.find do |team|
-      team["team_id"] == lowest_scoring_home_team[0]
-    end
-    worst_home_scorer["teamName"]
+    @game_manager.lowest_scoring_home_team
   end
 
   def winningest_coach(season)
@@ -153,47 +141,11 @@ class StatTracker
   end
 
   def best_season(team_id)
-    wins_by_season = Hash.new(0.0)
-    games_by_season = Hash.new { |hash, key| hash[key] = [] }
-    @games.each do |game|
-      if game["home_team_id"] == team_id || game["away_team_id"] == team_id
-        games_by_season[game["season"]] << game
-      end
-    end
-    games_by_season.each do |season, games|
-      games.each do |game|
-        if game["home_team_id"] == team_id && game["home_goals"].to_i > game["away_goals"].to_i
-          wins_by_season[season] += 1
-        elsif game["away_team_id"] == team_id && game["away_goals"].to_i > game["home_goals"].to_i
-          wins_by_season[season] += 1
-        end
-      end
-    end
-    games_by_season.max_by do |season, games|
-      wins_by_season[season] / games.length
-    end[0]
+    @game_manager.best_season(team_id)
   end
 
   def worst_season(team_id)
-    wins_by_season = Hash.new(0.0)
-    games_by_season = Hash.new { |hash, key| hash[key] = [] }
-    @games.each do |game|
-      if game["home_team_id"] == team_id || game["away_team_id"] == team_id
-        games_by_season[game["season"]] << game
-      end
-    end
-    games_by_season.each do |season, games|
-      games.each do |game|
-        if game["home_team_id"] == team_id && game["home_goals"].to_i > game["away_goals"].to_i
-          wins_by_season[season] += 1
-        elsif game["away_team_id"] == team_id && game["away_goals"].to_i > game["home_goals"].to_i
-          wins_by_season[season] += 1
-        end
-      end
-    end
-    games_by_season.min_by do |season, games|
-      wins_by_season[season] / games.length
-    end[0]
+    @game_manager.worst_season(team_id)
   end
 
   def average_win_percentage(team_id)
