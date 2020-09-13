@@ -81,6 +81,18 @@ class GameTeamsManager
     (result_totals_by_team(team_id)[:wins].to_f / result_totals_by_team(team_id)[:total].to_f).round(2)
   end
 
+  def most_goals_scored(team_id)
+    game_info_by_team(team_id).max_by do |game|
+      (game.goals).to_i
+    end.goals.to_i
+  end
+
+  def fewest_goals_scored(team_id)
+    game_info_by_team(team_id).min_by do |game|
+      (game.goals).to_i
+    end.goals.to_i
+  end
+
 #-------------TeamStatsHelpers
   def game_info_by_team(team_id)
     @game_teams.select do |game_team|
