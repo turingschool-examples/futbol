@@ -115,4 +115,11 @@ class GameManager
       collector
     end
   end
+
+  def average_goals_per_game
+    average_goals = @games.sum do |game|
+      game.home_goals + game.away_goals
+    end
+    (average_goals.to_f / games.length).round(2)
+  end
 end
