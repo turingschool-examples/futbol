@@ -32,6 +32,12 @@ class StatTracker
   def find_game_ids_for_season(season)
     @game_manager.find_game_ids_for_season(season)
   end
+
+  #-----------GameStatistics
+
+  def percentage_home_wins
+    @game_teams_manager.percentage_home_wins
+  end
 end
 
     # game_manager = CSV.read(locations[:games], headers:true)
