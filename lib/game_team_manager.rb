@@ -85,7 +85,7 @@ class GameTeamManager
     end
   end
 
-  def favorite_opponent_id(team_id)
+  def favorite_opponent(team_id)
     total_games = Hash.new(0)
     loser_loses = Hash.new(0)
     @game_teams.each do |game|
@@ -99,9 +99,10 @@ class GameTeamManager
     biggest_loser = loser_loses.max_by do |loser, losses|
       losses.to_f / total_games[loser]
     end[0]
+    @tracker.get_team_name(biggest_loser)
   end
 
-  def rival_id(team_id)
+  def rival(team_id)
     total_games = Hash.new(0)
     winner_wins = Hash.new(0)
     @game_teams.each do |game|
@@ -115,6 +116,7 @@ class GameTeamManager
     biggest_winner = winner_wins.max_by do |winner, wins|
       wins.to_f / total_games[winner]
     end[0]
+    @tracker.get_team_name(biggest_loser)
   end
 
 end

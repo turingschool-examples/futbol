@@ -43,7 +43,6 @@ class TeamManager
     @teams.find do |team|
       @tracker.favorite_opponent_id(team_id) == team.team_id
     end.team_name
-
   end
 
 
