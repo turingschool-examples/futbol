@@ -93,8 +93,8 @@ class TeamManagerTest < Minitest::Test
 
     def test_in_can_find_team_info
       expected = {"team_id"=>"18",
-                  "franchiseid"=>"34",
-                  "teamname"=>"Minnesota United FC",
+                  "franchise_id"=>"34",
+                  "team_name"=>"Minnesota United FC",
                   "abbreviation"=>"MIN",
                   "link"=>"/api/v1/teams/18"
       }
@@ -150,7 +150,7 @@ class TeamManagerTest < Minitest::Test
     def test_it_can_make_a_hash_by_opponent_id
       assert_equal 31, @team_manager.hash_by_opponent_id("18").count
     end
-    #
+
     def test_it_can_sort_games_against_rival
       assert_equal 31, @team_manager.sort_games_against_rival("18").count
     end
