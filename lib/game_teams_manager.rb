@@ -172,4 +172,42 @@ class GameTeamsManager
       tackles
     end.to_a[0]
   end
+
+  def selected_team_game_teams(team_id)
+    @game_teams.find_all do |game_team|
+      game_team.team_id == team_id
+    end
+  end
+
+  def total_wins_team(season, team_id)
+    selected_team_game_teams(team_id).count do |game_team|
+      game_team.result == 'WIN' if game_team.team_id == team_id
+    end
+  end
+
+  def total_games_team(season, team_id)
+    selected_team_game_teams(team_id).count do |game_team|
+      game_team.team_id == team_id
+    end
+  end
+
+  def avg_win_pct_season(season, team_id)
+    (total_wins_team(season, team_id).to_f / total_games_team(season, team_id)).round(2)
+  end
+
+  def season_win_percentage_hash(team_id)
+    season_hash = {}
+    selected_team_game_teams(team_id).each do |game_team|
+      season = game_team.season_id
+      season_hash[season] ||= []
+      season_hash[season] = avg_win_pct_season(season, team_id)
+    end
+    season_hash
+  end
+
+  def get_best_season(team_id)
+    season_win_percentage_hash(team_id).max_by do |season, win_percent|
+      win_percent
+    end.to_a[0]
+  end
 end

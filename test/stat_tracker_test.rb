@@ -141,4 +141,9 @@ class StatTrackerTest < Minitest::Test
     season_id = '20122013'
     assert_equal 'Sporting Kansas City', @stat_tracker.fewest_tackles(season_id)
   end
+
+  def test_it_can_find_best_season_for_team
+    team_id = '6'
+    assert_equal '20122013', @stat_tracker.get_best_season(team_id)
+  end
 end

@@ -130,4 +130,8 @@ class StatTracker
   def average_number_of_goals_scored_by_team_by_type(team_id, home_away)
     @game_teams_manager.average_number_of_goals_scored_by_team_by_type(team_id, home_away)
   end
+
+  def get_best_season(team_id)
+    @game_teams_manager.get_best_season(team_id)
+  end
 end

@@ -84,4 +84,12 @@ class TeamsManager
       'link' => team.link
     }
   end
+
+  def best_season(team_id)
+    find_a_team(team_id).best_season
+  end
+
+  def get_best_season(team_id)
+    @tracker.get_best_season(team_id)
+  end
 end

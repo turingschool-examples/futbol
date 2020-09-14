@@ -80,4 +80,14 @@ class TeamManagerTest < Minitest::Test
     }
     assert_equal expected, @team_manager.team_info(team_id)
   end
+
+  def test_it_can_find_best_season
+    team_id = '3'
+    assert_equal '20122013', @team_manager.best_season(team_id)
+  end
+
+  def test_it_can_find_best_season_for_team
+    team_id = '6'
+    assert_equal '20122013', @team_manager.get_best_season(team_id)
+  end
 end

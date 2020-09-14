@@ -43,4 +43,8 @@ class TeamTest < Minitest::Test
     assert_equal 2.75, @team.avg_goals_visitor
     assert_equal 3.00, @team.avg_goals_home
   end
+
+  def test_it_can_find_best_season
+    assert_equal '20122013', @team.best_season
+  end
 end

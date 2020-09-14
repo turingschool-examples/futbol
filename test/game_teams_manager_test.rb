@@ -160,4 +160,8 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal '5', @game_teams_manager.fewest_tackles(season_id)
   end
 
+  def test_it_can_find_best_season_for_team
+    team_id = '6'
+    assert_equal '20122013', @game_teams_manager.get_best_season(team_id)
+  end
 end
