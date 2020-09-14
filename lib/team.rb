@@ -16,7 +16,6 @@ class Team
     team_hash['team_name'] = team_name
     team_hash['abbreviation'] = abbreviation
     team_hash['link'] = link
-
     team_hash
   end
 end

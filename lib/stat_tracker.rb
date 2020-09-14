@@ -56,6 +56,30 @@ class StatTracker
     @team_manager.team_info(team_id)
   end
 
+  def best_offense
+    @game_manager.best_offense
+  end
+
+  def worst_offense
+    @game_manager.worst_offense
+  end
+
+  def highest_scoring_visitor
+    @game_manager.highest_scoring_visitor
+  end
+
+  def highest_scoring_home_team
+    @game_manager.highest_scoring_home_team
+  end
+
+  def lowest_scoring_visitor
+    @game_manager.lowest_scoring_visitor
+  end
+
+  def lowest_scoring_home_team
+    @game_manager.lowest_scoring_home_team
+  end
+  
 # Season Statistics
   def winningest_coach(season_id)
     @game_team_manager.winningest_coach(season_id)
