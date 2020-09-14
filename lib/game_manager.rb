@@ -6,6 +6,7 @@ class GameManager
   def initialize(locations, stat_tracker)
     @stat_tracker = stat_tracker
     @games = generate_games(locations[:games])
+    @av = {}
   end
 
   def generate_games(location)
@@ -53,7 +54,6 @@ class GameManager
   end
 
   def return_average_goals_per_game(scoredata)
-    avghash = {}
     team_data.keys.each do |team|
       goals = 0
       scoredata.each do |score|
@@ -64,10 +64,12 @@ class GameManager
       avghash[team] = (goals.to_f / (scoredata.flatten.count(team))).round(4)
     end
     avghash
+
   end
 
   def data_home
-    @games.map {|game| [game.home_team_id, game.home_goals]}
+    @games.map {|game| [game.home_team_id, game.home_goals]}.to_h
+    require "pry"; binding.pry
   end
 
   def data_away
@@ -85,6 +87,7 @@ class GameManager
   def return_min(hash)
     hash.key(hash.values.min)
   end
+
 
 
 end
