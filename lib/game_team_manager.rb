@@ -110,10 +110,17 @@ class GameTeamManager
         end
       end
     end
+    require 'Pry';binding.pry
     biggest_winner = result_no.max_by do |winner, wins|
       wins.to_f / total_games[winner]
     end[0]
     @tracker.get_team_name(biggest_winner)
+  end
+
+  def winner_or_loser_game_id
+    result_no.max_by do |winner, wins|
+      wins.to_f / total_games[winner]
+    end[0]
   end
 
   # def favorite_opponent(team_id)

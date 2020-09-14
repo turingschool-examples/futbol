@@ -65,4 +65,12 @@ class GameTeamManagerTest < MiniTest::Test
     assert_equal "3", @game_team_manager.winner_or_loser_game_id("6")
   end
 
+  def test_it_can_create_winner_hash(team_id)
+    assert_equal ({"6"=>3}), @game_team_manager.winner_hash(team_id)
+  end
+
+  def test_it_can_create_loser_hash(team_id)
+    assert_equal ({"3"=>6}), @game_team_manager.loser_hash(team_id)
+  end
+
 end
