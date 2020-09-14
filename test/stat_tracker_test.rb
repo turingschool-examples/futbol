@@ -6,7 +6,7 @@ require './lib/stat_tracker'
 class StatTrackerTest < Minitest::Test
   def setup
     @game_path = './fixture/games_dummy.csv'
-    @team_path = './fixture/teams_dummy.csv'
+    @team_path = './data/teams.csv'
     @game_teams_path = './fixture/game_teams_dummy.csv'
 
     @locations = {
