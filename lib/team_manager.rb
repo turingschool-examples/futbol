@@ -14,7 +14,7 @@ class TeamManager < Stats
   end
 
   def group_by_team_id
-    @tracker.game_teams_manager.group_by_team_id
+    @tracker.game_teams_stats.group_by_team_id
   end
 
   def team_id_and_average_goals
@@ -133,28 +133,28 @@ class TeamManager < Stats
 
   def most_accurate_team(season)
     accurate = @teams_stats_data.find do |team|
-      team.teamname if @tracker.game_teams_manager.find_most_accurate_team(season) == team.team_id
+      team.teamname if @tracker.game_teams_stats.find_most_accurate_team(season) == team.team_id
     end
     accurate.teamname
   end
 
   def least_accurate_team(season)
     not_accurate = @teams_stats_data.find do |team|
-      team.teamname if @tracker.game_teams_manager.find_least_accurate_team(season) == team.team_id
+      team.teamname if @tracker.game_teams_stats.find_least_accurate_team(season) == team.team_id
     end
     not_accurate.teamname
   end
 
   def most_tackles(season)
     most_tackles = @teams_stats_data.find do |team|
-      team.teamname if @tracker.game_teams_manager.find_team_with_most_tackles(season) == team.team_id
+      team.teamname if @tracker.game_teams_stats.find_team_with_most_tackles(season) == team.team_id
     end
     most_tackles.teamname
   end
 
   def fewest_tackles(season)
     fewest_tackles = @teams_stats_data.find do |team|
-      team.teamname if @tracker.game_teams_manager.find_team_with_fewest_tackles(season) == team.team_id
+      team.teamname if @tracker.game_teams_stats.find_team_with_fewest_tackles(season) == team.team_id
     end
     fewest_tackles.teamname
   end
@@ -174,7 +174,7 @@ class TeamManager < Stats
   end
 
   def all_team_games(team_id)
-    @tracker.game_teams_manager.all_team_games(team_id)
+    @tracker.game_teams_stats.all_team_games(team_id)
   end
 
   def group_by_season(team_id)
