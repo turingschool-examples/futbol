@@ -566,10 +566,7 @@ class TeamManagerTest < Minitest::Test
     stat_tracker = mock('A totally legit stat_tracker')
     CSV.stubs(:foreach).returns(nil)
     team_manager = TeamManager.new('A totally legit path', stat_tracker)
-    game1 = {
-      '5' => {result: 'LOSS'},
-      '6' => {result: 'WIN'}
-    }
+    game1 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
     game2 = {'8' => {result: 'TIE'}, '5' => {result: 'TIE'}}
     game3 = {'5' => {result: 'WIN'}, '12' => {result: 'LOSS'}}
     game4 = {'5' => {result: 'WIN'}, '2' => {result: 'LOSS'}}
@@ -582,8 +579,8 @@ class TeamManagerTest < Minitest::Test
       '20132014' => [game3, game7],
       '20142015' => [game4, game8]
     }
-    
-    assert_equal 2, team_manager.count_season_wins('5', gt_by_season['20122013'])
+
+    assert_equal 1, team_manager.count_season_wins('5', gt_by_season['20122013'])
     assert_equal 2, team_manager.count_season_wins('5', gt_by_season['20132014'])
     assert_equal 1, team_manager.count_season_wins('5', gt_by_season['20142015'])
   end

@@ -121,4 +121,10 @@ class TeamManager
 
     seasons
   end
+
+  def count_season_wins(id, season)
+    season.count do |pair|
+      pair[id][:result] == 'WIN'
+    end
+  end
 end
