@@ -27,5 +27,9 @@ class TeamManager
 
   def count_of_teams
     teams_data.count
+    team = @teams.find do |team_obj|
+      team_obj.team_id == team_id
+    end
+    team.team_info
   end
 end

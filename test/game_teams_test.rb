@@ -1,7 +1,6 @@
 require './test/test_helper'
 require './lib/game_teams'
 
-
 class GameTeamsTest < Minitest::Test
 
   def setup
@@ -30,6 +29,4 @@ class GameTeamsTest < Minitest::Test
     assert_equal 17, game.giveaways
     assert_equal 7, game.takeaways
   end
-
-
 end
