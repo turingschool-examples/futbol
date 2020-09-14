@@ -541,4 +541,24 @@ class TeamManagerTest < Minitest::Test
 
     assert_equal expected, team_manager.game_ids_by_season('a team_id')
   end
+
+  def test_it_can_generate_game_teams_by_season
+    stat_tracker = mock('A totally legit stat_tracker')
+    CSV.stubs(:foreach).returns(nil)
+    team_manager = TeamManager.new('A totally legit path', stat_tracker)
+    seasons = {
+      '20122013' => [1, 2],
+      '20132014' => [3],
+      '20142015' => [4]
+    }
+    team_manager.stubs(:game_ids_by_season).returns(seasons)
+    team_manager.stubs(:game_team_info).returns('game_team info')
+    expected = {
+      '20122013' => ['game_team info', 'game_team info'],
+      '20132014' => ['game_team info'],
+      '20142015' => ['game_team info']
+    }
+
+    assert_equal expected, team_manager.game_teams_by_season('1')
+  end
 end
