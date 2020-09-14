@@ -210,4 +210,32 @@ class GameTeamsManager
       win_percent
     end.to_a[0]
   end
+
+  def total_not_wins_team(season, team_id)
+    selected_team_game_teams(team_id).count do |game_team|
+      if game_team.team_id == team_id
+        game_team.result == 'LOSS' || game_team.result == 'TIE'
+      end
+    end
+  end
+
+  def avg_not_win_pct_season(season, team_id)
+    (total_not_wins_team(season, team_id).to_f / total_games_team(season, team_id)).round(2)
+  end
+
+  def season_not_win_percentage_hash(team_id)
+    season_hash = {}
+    selected_team_game_teams(team_id).each do |game_team|
+      season = game_team.season_id
+      season_hash[season] ||= []
+      season_hash[season] = avg_not_win_pct_season(season, team_id)
+    end
+    season_hash
+  end
+
+  def get_worst_season(team_id)
+    season_not_win_percentage_hash(team_id).max_by do |season, not_win_percent|
+      not_win_percent
+    end.to_a[0]
+  end
 end

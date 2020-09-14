@@ -164,4 +164,9 @@ class GameTeamsManagerTest < Minitest::Test
     team_id = '6'
     assert_equal '20122013', @game_teams_manager.get_best_season(team_id)
   end
+
+  def test_it_can_find_worst_season_for_team
+    team_id = '6'
+    assert_equal '20122013', @game_teams_manager.get_worst_season(team_id)
+  end
 end
