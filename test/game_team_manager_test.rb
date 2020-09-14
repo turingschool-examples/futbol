@@ -1,5 +1,6 @@
 require './test/test_helper'
 require './lib/game_team_manager'
+require 'pry'
 
 class GameTeamManagerTest < Minitest::Test
   def setup
@@ -77,32 +78,47 @@ class GameTeamManagerTest < Minitest::Test
 
   def test_team_accuracy
 
-    assert_equal 0.342105, @game_team_manager.team_accuracy("20132014")['16']
-    assert_equal 0.209302, @game_team_manager.team_accuracy("20132014")['19']
+    assert_equal 0.342105, @game_team_manager.team_accuracy('20132014')['16']
+    assert_equal 0.209302, @game_team_manager.team_accuracy('20132014')['19']
   end
 
   def test_most_accurate_team
-
-    assert_equal 'Real Salt Lake', @game_team_manager.most_accurate_team('20132014')
+    
+    game_team_manager = GameTeamManager.new(@locations, @stat_tracker)
+    team_1 = mock('team_1')
+    game_team_manager.stubs(:team_by_id).returns('This team')
+    assert_equal 'This team', game_team_manager.most_accurate_team('20132014')
   end
 
   def test_least_accurate_team
 
-    assert_equal 'New York City FC', @game_team_manager.least_accurate_team('20132014')
+    game_team_manager = GameTeamManager.new(@locations, @stat_tracker)
+    team_1 = mock('team_1')
+    game_team_manager.stubs(:team_by_id).returns('This team')
+    assert_equal 'This team', game_team_manager.least_accurate_team('20132014')
   end
 
   def test_most_tackles
 
-    assert_equal 'FC Cincinnati', @game_team_manager.most_tackles('20132014')
+    game_team_manager = GameTeamManager.new(@locations, @stat_tracker)
+    team_1 = mock('team_1')
+    game_team_manager.stubs(:team_by_id).returns('This team')
+    assert_equal 'This team', game_team_manager.most_tackles('20132014')
   end
 
   def test_fewest_tackles
 
-    assert_equal 'Atlanta United', @game_team_manager.fewest_tackles('20132014')
+    game_team_manager = GameTeamManager.new(@locations, @stat_tracker)
+    team_1 = mock('team_1')
+    game_team_manager.stubs(:team_by_id).returns('This team')
+    assert_equal 'This team', game_team_manager.fewest_tackles('20132014')
   end
 
   def test_team_by_id
 
-    assert_equal ["Atlanta"], @game_team_manager.team_by_id("1")
+    game_team_manager = GameTeamManager.new(@locations, @stat_tracker)
+    team_1 = mock('team_1')
+    game_team_manager.stubs(:team_by_id).returns('This team')
+    assert_equal 'This team', game_team_manager.team_by_id(team_1)
   end
 end
