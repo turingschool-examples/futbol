@@ -50,4 +50,8 @@ class StatTracker
   def most_goals_scored(team_id)
     team_manager.most_goals_scored(team_id)
   end
+
+  def fewest_goals_scored(team_id)
+    team_manager.fewest_goals_scored(team_id)
+  end
 end
