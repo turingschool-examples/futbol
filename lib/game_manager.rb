@@ -45,6 +45,7 @@ class GameManager
   def count_of_games_by_season
     games_by_season_index = {}
     games_by_season.each do |season, games|
+      # require "pry"; binding.pry
       games_by_season_index[season] = games.length
     end
     games_by_season_index
