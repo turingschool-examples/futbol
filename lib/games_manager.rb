@@ -53,18 +53,26 @@ class GamesManager
     ratio(wins, total_games)
   end
 
-  def total_games
-    @games.count
+  def total_games(games = @games)
+    games.count
   end
 
-  def total_goals(filtered_games = @games)
-    filtered_games.sum do |game|
+  def total_goals(games = @games)
+    games.sum do |game|
       (game.home_goals + game.away_goals)
     end
   end
 
   def average_goals_per_game
     ratio(total_goals, total_games)
+  end
+
+  def average_goals_by_season
+    avg_goals_by_season = {}
+    seasonal_game_data.each do |season, details|
+      avg_goals_by_season[season] = ratio(total_goals(details), total_games(details))
+    end
+    avg_goals_by_season
   end
 
   def seasonal_game_data
@@ -119,37 +127,18 @@ class GamesManager
     find_percent(total_team_wins(team_id, season), total_team_games_per_season(team_id, season))
   end
 
-  # This should be refactored fo sho  (takes a long time to run)
-  # Currently it cycles through all games just to return an arrray
-  # of unique seasons
-  # But, should be moved to GamesManger
   def all_seasons
-    unique_seasons = []
-    @games.each do |game|
-      if !unique_seasons.include?(game.season)
-        unique_seasons << game.season
-      end
-    end
-    unique_seasons.sort
+    season_group.keys.sort
   end
 
-  # Also needs refactored - maybe don't need to return hash?
-  # Or use reduce?
-  # Move to GamesManager
   def all_teams_all_seasons_win_percentages
-    win_percentages_by_season = {}
-    all_seasons.each do |season|
-      @stat_tracker.fetch_all_team_ids.each do |team_id|
-        if win_percentages_by_season[team_id] == nil
-          win_percentages_by_season[team_id] = {season =>
-            season_win_percentage(team_id, season)}
-        else
-          win_percentages_by_season[team_id][season] =
-          season_win_percentage(team_id, season)
-        end
+    @stat_tracker.fetch_all_team_ids.reduce({}) do |data, team_id|
+      data[team_id] = all_seasons.reduce({}) do |collector, season|
+        collector[season] = season_win_percentage(team_id, season)
+        collector
       end
+      data
     end
-    win_percentages_by_season
   end
 
   def best_season(team_id)
@@ -181,4 +170,5 @@ class GamesManager
   def get_opponent_id(game, teamid)
     game.away_team_id == teamid ? game.home_team_id : game.away_team_id
   end
+
 end
