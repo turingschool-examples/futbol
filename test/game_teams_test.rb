@@ -1,7 +1,5 @@
 require './test/test_helper'
 require './lib/game_teams'
-require 'pry'
-
 
 class GameTeamsTest < Minitest::Test
 

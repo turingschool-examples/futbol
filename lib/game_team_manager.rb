@@ -1,6 +1,5 @@
 require_relative 'game_teams'
 require 'csv'
-require 'pry'
 
 class GameTeamManager
   attr_reader :game_teams
@@ -26,12 +25,6 @@ class GameTeamManager
       game.game_id[0..3] == season_id[0..3]
     end
   end
-
-  # def group_by_season
-  #   @games.group_by do |game|
-  #     game.season
-  #   end.uniq
-  # end
 
   def season_coaches(season_id)
     game_teams_data_for_season(season_id).map do |game|
