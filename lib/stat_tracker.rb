@@ -2,7 +2,6 @@ require_relative 'game_manager'
 require_relative 'game_team_manager'
 require_relative 'team_manager'
 
-
 class StatTracker
   attr_reader :game_team_manager, :game_manager, :team_manager
   def self.from_csv(locations)
@@ -17,9 +16,9 @@ class StatTracker
     @team_manager = TeamManager.new(locations, self)
     @game_team_manager = GameTeamManager.new(locations, self)
     @game_manager = GameManager.new(locations, self)
-
   end
 
+  #Game Stats
   def highest_total_score
     @game_manager.highest_total_score
   end
@@ -56,6 +55,12 @@ class StatTracker
     @team_manager.team_info(team_id)
   end
 
+  #League Stats
+
+  def count_of_teams
+    @team_manager.count_of_teams
+  end
+
   def best_offense
     @game_manager.best_offense
   end
@@ -79,8 +84,8 @@ class StatTracker
   def lowest_scoring_home_team
     @game_manager.lowest_scoring_home_team
   end
-  
-# Season Statistics
+
+  # Season Statistics
   def winningest_coach(season_id)
     @game_team_manager.winningest_coach(season_id)
   end

@@ -17,7 +17,7 @@ class GameTeamManager
   end
 
   def team_by_id(team_id)
-    @stat_tracker.team_info(team_id)["team_name"]
+    @stat_tracker.team_info(team_id)['team_name']
   end
 
   def game_teams_data_for_season(season_id)
@@ -85,23 +85,23 @@ class GameTeamManager
   end
 
   def team_accuracy(season_id)
-    team_hash = Hash.new
+    team_hash = {}
     season_teams(season_id).each do |team|
-      ratio = total_goals_by_team(season_id, team).to_f/total_shots_by_team(season_id, team).to_f
+      ratio = total_goals_by_team(season_id, team).to_f / total_shots_by_team(season_id, team).to_f
       team_hash[team] = ratio.round(6)
     end
     team_hash
   end
 
   def most_accurate_team(season_id)
-    most_accurate = team_accuracy(season_id).max_by do |team, accuracy|
+    most_accurate = team_accuracy(season_id).max_by do |_team, accuracy|
       accuracy
     end[0]
     team_by_id(most_accurate)
   end
 
   def least_accurate_team(season_id)
-    least_accurate = team_accuracy(season_id).min_by do |team, accuracy|
+    least_accurate = team_accuracy(season_id).min_by do |_team, accuracy|
       accuracy
     end[0]
     team_by_id(least_accurate)
