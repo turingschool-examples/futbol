@@ -67,7 +67,7 @@ class GameTeamsManager
       end
       best_year = best_season[0].to_i
       "#{best_year}201#{best_year.digits[0] + 1}"
-    end
+  end
 
   def worst_season(team_id)
     worst_season = win_percentage_by_season(team_id).min_by do |season, wins_percent|
