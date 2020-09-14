@@ -7,17 +7,6 @@ class LeagueStatHelperTest < Minitest::Test
     team_path = './data/teams.csv'
     @stat_tracker ||= StatTracker.from_csv({games: game_path, teams: team_path})
     @league_stat_helper ||= LeagueStatHelper.new(@stat_tracker.game_table, @stat_tracker.team_table)
-    # <Game:0x00007fcd112ffbf8
-       # @away_goals=2,
-       # @away_team_id=3,
-       # @date_time="5/16/13",
-       # @game_id=2012030221,
-       # @home_goals=3,
-       # @home_team_id=6,
-       # @season="20122013",
-       # @type="Postseason",
-       # @venue="Toyota Stadium",
-       # @venue_link="/api/v1/venues/null">
   end
 
   def test_team_name_ids

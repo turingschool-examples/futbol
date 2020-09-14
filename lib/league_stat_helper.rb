@@ -1,4 +1,5 @@
 class LeagueStatHelper
+
   def initialize(game, team)
     @game ||= game
     @team ||= team
