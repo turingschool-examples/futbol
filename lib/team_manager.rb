@@ -111,7 +111,7 @@ class TeamManager < CsvReader
   end
 
   def highest_scoring_home_team
-    home = @team_data.find do |team|
+    home = @teams_stats_data.find do |team|
       team.teamname if team_highest_home_goals == team.team_id
     end
     home.teamname
@@ -125,35 +125,35 @@ class TeamManager < CsvReader
   end
 
   def lowest_scoring_home_team
-    home = @team_data.find do |team|
+    home = @teams_stats_data.find do |team|
       team.teamname if team_lowest_home_goals == team.team_id
     end
     home.teamname
   end
 
   def most_accurate_team(season)
-    accurate = @team_data.find do |team|
+    accurate = @teams_stats_data.find do |team|
       team.teamname if @tracker.game_teams_manager.find_most_accurate_team(season) == team.team_id
     end
     accurate.teamname
   end
 
   def least_accurate_team(season)
-    not_accurate = @team_data.find do |team|
+    not_accurate = @teams_stats_data.find do |team|
       team.teamname if @tracker.game_teams_manager.find_least_accurate_team(season) == team.team_id
     end
     not_accurate.teamname
   end
 
   def most_tackles(season)
-    most_tackles = @team_data.find do |team|
+    most_tackles = @teams_stats_data.find do |team|
       team.teamname if @tracker.game_teams_manager.find_team_with_most_tackles(season) == team.team_id
     end
     most_tackles.teamname
   end
 
   def fewest_tackles(season)
-    fewest_tackles = @team_data.find do |team|
+    fewest_tackles = @teams_stats_data.find do |team|
       team.teamname if @tracker.game_teams_manager.find_team_with_fewest_tackles(season) == team.team_id
     end
     fewest_tackles.teamname
@@ -161,7 +161,7 @@ class TeamManager < CsvReader
 
   def team_info(team_id)
     hash = {}
-    @team_data.each do |team|
+    @teams_stats_data.each do |team|
       if team_id == team.team_id.to_s
         hash['team_id'] = team.team_id.to_s
         hash['franchise_id'] =  team.franchiseid.to_s
@@ -311,7 +311,7 @@ class TeamManager < CsvReader
 
   def favorite_opponent(team_id)
     opponent_id = favorite_opponent_id(team_id)
-    opponent_name = @team_data.find do |team|
+    opponent_name = @teams_stats_data.find do |team|
       team.teamname if opponent_id == team.team_id.to_s
     end
     opponent_name.teamname
@@ -326,7 +326,7 @@ class TeamManager < CsvReader
 
   def rival(team_id)
     opponent_id = rival_opponent_id(team_id)
-    opponent_name = @team_data.find do |team|
+    opponent_name = @teams_stats_data.find do |team|
       team.teamname if opponent_id == team.team_id.to_s
     end
     opponent_name.teamname
