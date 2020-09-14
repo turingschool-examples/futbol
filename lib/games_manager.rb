@@ -162,4 +162,5 @@ class GamesManager
   def get_opponent_id(game, teamid)
     game.away_team_id == teamid ? game.home_team_id : game.away_team_id
   end
+
 end
