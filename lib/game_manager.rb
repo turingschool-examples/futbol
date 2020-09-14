@@ -81,7 +81,7 @@ class GameManager
   end
 
   def team_data
-    @stat_tracker.team_manager.teams_data
+    @stat_tracker.team_data
   end
 
   def return_max(hash)

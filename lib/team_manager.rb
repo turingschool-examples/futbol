@@ -155,10 +155,10 @@ class TeamManager
   # def team_info(team_id)
   #   teams_data[team_id]
   # end
-  #
-  # def team_data_by_id
-  #   @teams.map{|team| [team.team_id, team.team_info]}.to_h
-  # end
+  
+  def team_data_by_id
+    @teams.map{|team| [team.team_id, team.team_info]}.to_h
+  end
 
   def count_of_teams
     # @teams_data.count

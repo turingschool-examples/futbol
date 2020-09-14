@@ -14,8 +14,8 @@ class GameManagerTest < Minitest::Test
     }
     @real_stat_tracker = StatTracker.from_csv(@locations)
     @mock_stat_tracker = mock('stat tracker object')
-    @real_game_manager = GameManager.new(@locations, @real_stat_tracker)
-    @mocked_game_manager = GameManager.new(@locations, @mock_stat_tracker)
+    @real_game_manager = GameManager.new(@locations[:games], @real_stat_tracker)
+    @mocked_game_manager = GameManager.new(@locations[:games], @mock_stat_tracker)
   end
 
   def test_it_can_fetch_game_info
@@ -65,19 +65,19 @@ class GameManagerTest < Minitest::Test
 
   def test_home_team_data_collection
     stat_tracker = mock('stat tracker object')
-    game_manager = GameManager.new(@locations, stat_tracker)
+    game_manager = GameManager.new(@locations[:games], stat_tracker)
     assert_equal 496, game_manager.data_home.count
   end
 
   def test_away_team_data_collection
     stat_tracker = mock('stat tracker object')
-    game_manager = GameManager.new(@locations, stat_tracker)
+    game_manager = GameManager.new(@locations[:games], stat_tracker)
     assert_equal 496, game_manager.data_away.count
   end
 
   def test_average_goals_per_game
     stat_tracker = mock('stat tracker object')
-    game_manager = GameManager.new(@locations, stat_tracker)
+    game_manager = GameManager.new(@locations[:games], stat_tracker)
     team_data_hash = { '1' => 'I made a big mistake', '2' => 'This is not a real team name', '3' => 'For testing purposes only' }
     scoredata = [['1', 1], ['1', 0], ['1', 1], ['2', 2], ['2', 4], ['2', 2], ['3', 3], ['3', 3], ['3', 3]]
     expected = { '1' => 0.6667, '2' => 2.6667, '3' => 3 }
