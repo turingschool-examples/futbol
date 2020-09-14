@@ -35,15 +35,15 @@ class GamesManagerTest < Minitest::Test
   end
 
   def test_it_can_find_percentage_home_wins
-    assert_equal 37.5, @games_manager.percentage_home_wins
+    assert_equal 0.38, @games_manager.percentage_home_wins
   end
 
   def test_it_can_find_percentage_visitor_wins
-    assert_equal 50.0, @games_manager.percentage_visitor_wins
+    assert_equal 0.50, @games_manager.percentage_visitor_wins
   end
 
   def test_it_can_find_percentage_ties
-    assert_equal 12.5, @games_manager.percentage_ties
+    assert_equal 0.13, @games_manager.percentage_ties
   end
 
   def test_it_can_count_games_by_season

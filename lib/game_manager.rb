@@ -31,21 +31,21 @@ class GamesManager
     home_games_won = @games.count do |game|
       game.home_goals > game.away_goals
     end
-    ((home_games_won.to_f / @games.count) * 100).round(2)
+    (home_games_won.to_f / @games.count).round(2)
   end
 
   def percentage_visitor_wins
     visitor_games_won = @games.count do |game|
       game.home_goals < game.away_goals
     end
-    ((visitor_games_won.to_f / @games.count) * 100).round(2)
+    (visitor_games_won.to_f / @games.count).round(2)
   end
 
   def percentage_ties
     ties = @games.count do |game|
       game.home_goals == game.away_goals
     end
-    ((ties.to_f / @games.count) * 100).round(2)
+    (ties.to_f / @games.count).round(2)
   end
 
   def list_of_seasons
