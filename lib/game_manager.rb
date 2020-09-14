@@ -45,7 +45,6 @@ class GameManager
   def count_of_games_by_season
     games_by_season_index = {}
     games_by_season.each do |season, games|
-      # require "pry"; binding.pry
       games_by_season_index[season] = games.length
     end
     games_by_season_index
@@ -85,36 +84,32 @@ class GameManager
   end
 
   def average_goals_by_season
-    season_hash = get_total_goals
-    season_hash.each do |season, goals|
-      count_of_games_by_season.each do |season_games, games|
-        if season_games == season
-          average = goals.to_f / games.to_f
-          season_hash[season] = (average).round(2)
-        end
-      end
+    goals_by_season_average = {}
+    season_information.each do |season, goals|
+      goals_by_season_average[season] = (goals[:total_goals].to_f / goals[:total_games]).round(2)
     end
+    goals_by_season_average
   end
 
-  def get_total_goals
-    season_hash_with_goals = Hash.new
-    season_hash_with_goals = games_by_season.each do |season, total_goals|
-      @games.each do |game|
+  def initialize_season_information_hash
+    season_info = {}
+    games.each do |game|
+      season_info[game.season] = {total_goals: 0, away_goals: 0, home_goals: 0, total_games: 0}
+    end
+    season_info
+  end
+
+  def season_information
+    initialize_season_information_hash.each do |season, goals|
+      games.each do |game|
         if game.season == season
-          total_goals += game.away_goals.to_i
-          total_goals += game.home_goals.to_i
+          goals[:total_games] += 1
+          goals[:away_goals] += game.away_goals.to_i
+          goals[:home_goals] += game.home_goals.to_i
         end
       end
-      season_hash_with_goals[season] = total_goals
+      goals[:total_goals] = goals[:away_goals] + goals[:home_goals]
     end
-  end
-
-  def games_by_season
-    season_hash = Hash.new {|h,k| h[k] = 0}
-    @games.each do |game|
-      season_hash[game.season] = 0
-    end
-    season_hash
   end
 
 end

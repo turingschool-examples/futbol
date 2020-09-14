@@ -155,28 +155,19 @@ class GameManagerTest < Minitest::Test
   end
 
   def test_it_knows_average_goals_by_season
-    path = './fixture/game_blank.csv'
-    game_manager = GameManager.new(path, nil)
-    game_1 = mock("Season Game 1")
-    game_2 = mock("Season Game 2")
-    game_3 = mock("Season Game 3")
-    game_manager.games << game_1
-    game_manager.games << game_2
-    game_manager.games << game_3
+      game_path = './fixture/games_dummy.csv'
+      team_path = './fixture/teams_dummy.csv'
+      game_teams_path = './fixture/game_teams_dummy.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
 
-    game_1.stubs(:season).returns('20122013')
-    game_2.stubs(:season).returns('20122013')
-    game_3.stubs(:season).returns('20132014')
-    game_1.stubs(:away_goals).returns(6)
-    game_1.stubs(:home_goals).returns(5)
-    game_2.stubs(:away_goals).returns(7)
-    game_2.stubs(:home_goals).returns(7)
-    game_3.stubs(:away_goals).returns(0)
-    game_3.stubs(:home_goals).returns(0)
+      expected = {"20122013"=>3.56}
 
-      expected = {"20122013"=>0.0, "20132014"=>0.0}
-
-    assert_equal expected, game_manager.average_goals_by_season
+    assert_equal expected, stat_tracker.game_manager.average_goals_by_season
   end
 
 end
