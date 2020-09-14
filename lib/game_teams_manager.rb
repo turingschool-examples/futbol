@@ -85,6 +85,9 @@ class GameTeamsManager
     end.first
   end
 
+  def coaches_by_season(team_id, season)
+  end
+
   def winningest_coach(season)
     @game_teams.find do |game_team|
       game_team.team_id == winningest_team(season)

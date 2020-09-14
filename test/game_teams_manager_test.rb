@@ -37,8 +37,17 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "14", @game_teams_manager.worst_team("20142015")
   end
 
+  def test_it_can_return_coaches_by_season
+    assert_equal "Claude Julien", @game_teams_manager.coaches_by_season("6", "20142015")
+    assert_equal "Bruce Cassidy", @game_teams_manager.coaches_by_season("6", "20162017")
+    assert_equal "Darryl Sutter", @game_teams_manager.coaches_by_season("26", "20132014")
+    assert_equal "Darryl Sutter", @game_teams_manager.coaches_by_season("26", "20142015")
+    assert_equal "John Stevens", @game_teams_manager.coaches_by_season("26", "20172018")
+    assert_equal "Adam Oates", @game_teams_manager.coaches_by_season("1", "20142015")
+  end
+
   def test_it_can_list_winningest_coach_by_season
-    assert_equal "Adam Oates", @game_teams_manager.winningest_coach("20122013")
+    assert_equal "Peter DeBoer", @game_teams_manager.winningest_coach("20122013")
     assert_equal "Claude Julien", @game_teams_manager.winningest_coach("20132014")
     assert_equal "Claude Julien", @game_teams_manager.winningest_coach("20142015")
     assert_equal "Claude Julien", @game_teams_manager.winningest_coach("20152016")
@@ -52,8 +61,8 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "Jon Cooper", @game_teams_manager.worst_coach("20132014")
     assert_equal "Jon Cooper", @game_teams_manager.worst_coach("20142015")
     assert_equal "Darryl Sutter", @game_teams_manager.worst_coach("20152016")
-    assert_equal "Craig Berube", @game_teams_manager.worst_coach("20162017")
-    assert_equal "Craig Berube", @game_teams_manager.worst_coach("20172018")
+    assert_equal "Dave Hakstol", @game_teams_manager.worst_coach("20162017")
+    assert_equal "Dave Hakstol", @game_teams_manager.worst_coach("20172018")
   end
 
   def test_it_can_get_game_teams_by_season
