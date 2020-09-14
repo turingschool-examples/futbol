@@ -40,6 +40,10 @@ class StatTracker
     @games_manager.percentage_visitor_wins
   end
 
+  def percentage_ties
+    @games_manager.percentage_ties
+  end
+
 # League Statistics
   def count_of_teams
     @teams_manager.count_of_teams
