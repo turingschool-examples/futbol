@@ -1,6 +1,9 @@
 require 'csv'
+require_relative './mathable'
+
 
 class GameTeamManager
+  include Mathable
   attr_reader :game_teams,
               :tracker
   def initialize(path, tracker)
@@ -31,29 +34,25 @@ class GameTeamManager
   end
 
   def best_offense
-    team_ids = Hash.new(0)
+    team_goals = Hash.new(0)
     team_game_count = Hash.new(0)
     @game_teams.each do |game_team|
-      team_ids[game_team.team_id] += game_team.goals
+      team_goals[game_team.team_id] += game_team.goals
       team_game_count[game_team.team_id] += 1
     end
-    highest_scoring_team = team_ids.max_by do |team, score|
-      score.to_f / team_game_count[team]
-    end[0]
-    @tracker.get_team_name(highest_scoring_team)
+    best_offense = sort_percentages(team_goals, team_game_count)
+    @tracker.get_team_name(best_offense.last[0])
   end
 
   def worst_offense
-    team_ids = Hash.new(0)
+    team_goals = Hash.new(0)
     team_game_count = Hash.new(0)
     @game_teams.each do |game_team|
-      team_ids[game_team.team_id] += game_team.goals
+      team_goals[game_team.team_id] += game_team.goals
       team_game_count[game_team.team_id] += 1
     end
-    lowest_scoring_team = team_ids.min_by do |team, score|
-      score.to_f / team_game_count[team]
-    end[0]
-    @tracker.get_team_name(lowest_scoring_team)
+    worst_offense = sort_percentages(team_goals, team_game_count)
+    @tracker.get_team_name(worst_offense.first[0])
   end
 
   def most_accurate_team(season)
@@ -66,10 +65,8 @@ class GameTeamManager
         total_goals_by_team[game.team_id] += game.goals.to_f
       end
     end
-    most_accurate_team = total_goals_by_team.max_by do |team, goal|
-      goal / total_shots_by_team[team]
-    end[0]
-    @tracker.get_team_name(most_accurate_team)
+    most_accurate_team = sort_percentages(total_goals_by_team, total_shots_by_team)
+    @tracker.get_team_name(most_accurate_team.last[0])
   end
 
   def least_accurate_team(season)
@@ -82,10 +79,8 @@ class GameTeamManager
         total_goals_by_team[game.team_id] += game.goals.to_f
       end
     end
-    least_accurate_team = total_goals_by_team.min_by do |team, goal|
-      goal / total_shots_by_team[team]
-    end[0]
-    @tracker.get_team_name(least_accurate_team)
+    least_accurate_team = sort_percentages(total_goals_by_team, total_shots_by_team)
+    @tracker.get_team_name(least_accurate_team.first[0])
   end
 
   def most_tackles(season)
