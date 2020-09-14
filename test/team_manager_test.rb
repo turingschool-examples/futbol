@@ -108,70 +108,70 @@ class TeamManagerTest < Minitest::Test
     def test_it_can_group_by_season
       assert_equal 6, @team_manager.group_by_season("6").keys.count
     end
-    
-    # def test_it_can_find_percent_wins_by_season
-    #   expected = {"2012"=>0.543, "2017"=>0.532, "2013"=>0.574, "2014"=>0.378, "2015"=>0.402, "2016"=>0.511}
+
+    def test_it_can_find_percent_wins_by_season
+      expected = {"2012"=>0.543, "2017"=>0.532, "2013"=>0.574, "2014"=>0.378, "2015"=>0.402, "2016"=>0.511}
+
+      assert_equal expected, @team_manager.percent_wins_by_season("6")
+    end
+
+    def test_it_can_find_best_season
+      assert_equal "20132014", @team_manager.best_season("6")
+    end
+
+    def test_it_can_find_worst_season
+      assert_equal "20142015", @team_manager.worst_season("6")
+    end
+
+    def test_it_can_find_total_wins
+      assert_equal 251, @team_manager.total_wins("6").count
+    end
+
+    def test_it_can_find_avg_win_percentage
+      assert_equal 0.49, @team_manager.average_win_percentage("6")
+    end
+
+    def test_it_can_find_most_goals_scored
+      assert_equal 7, @team_manager.most_goals_scored("18")
+    end
+
+    def test_it_can_find_fewest_goals_scored
+        assert_equal 0, @team_manager.fewest_goals_scored("18")
+    end
+
+    def test_it_can_find_all_game_ids_by_team
+      assert_equal 513, @team_manager.find_all_game_ids_by_team("18").count
+    end
+
+    def test_it_can_find_opponent_id
+      assert_equal 513, @team_manager.find_opponent_id("18").count
+    end
+
+    def test_it_can_make_a_hash_by_opponent_id
+      assert_equal 31, @team_manager.hash_by_opponent_id("18").count
+    end
     #
-    #   assert_equal expected, @team_manager.percent_wins_by_season("6")
-    # end
-    #
-    # def test_it_can_find_best_season
-    #   assert_equal "20132014", @team_manager.best_season("6")
-    # end
-    #
-    # def test_it_can_find_worst_season
-    #   assert_equal "20142015", @team_manager.worst_season("6")
-    # end
-    #
-    # def test_it_can_find_total_wins
-    #   assert_equal 251, @team_manager.total_wins("6").count
-    # end
-    #
-    # def test_it_can_find_avg_win_percentage
-    #   assert_equal 0.49, @team_manager.average_win_percentage("6")
-    # end
-    #
-    # def test_it_can_find_most_goals_scored
-    #   assert_equal 7, @team_manager.most_goals_scored("18")
-    # end
-    #
-    # def test_it_can_find_fewest_goals_scored
-    #     assert_equal 0, @team_manager.fewest_goals_scored("18")
-    # end
-    #
-    # def test_it_can_find_all_game_ids_by_team
-    #   assert_equal 513, @team_manager.find_all_game_ids_by_team("18").count
-    # end
-    #
-    # def test_it_can_find_opponent_id
-    #   assert_equal 513, @team_manager.find_opponent_id("18").count
-    # end
-    #
-    # def test_it_can_make_a_hash_by_opponent_id
-    #   assert_equal 31, @team_manager.hash_by_opponent_id("18").count
-    # end
-    # #
-    # def test_it_can_sort_games_against_rival
-    #   assert_equal 31, @team_manager.sort_games_against_rival("18").count
-    # end
-    #
-    # def test_it_can_find_count_of_games_against_rival
-    #   assert_equal 31, @team_manager.find_count_of_games_against_rival("18").count
-    # end
-    #
-    # def test_it_can_find_favorite_opponent_id
-    #   assert_equal "14", @team_manager.favorite_opponent_id("18")
-    # end
-    #
-    # def test_it_can_find_favorite
-    #   assert_equal "DC United", @team_manager.favorite_opponent("18")
-    # end
-    #
-    # def test_it_can_find_rival_opponent_id
-    #   assert_includes ["13", "17"], @team_manager.rival_opponent_id("18")
-    # end
-    #
-    # def test_it_can_find_rival
-    #   assert_includes ["Houston Dash", "LA Galaxy"], @team_manager.rival("18")
-    # end
+    def test_it_can_sort_games_against_rival
+      assert_equal 31, @team_manager.sort_games_against_rival("18").count
+    end
+
+    def test_it_can_find_count_of_games_against_rival
+      assert_equal 31, @team_manager.find_count_of_games_against_rival("18").count
+    end
+
+    def test_it_can_find_favorite_opponent_id
+      assert_equal "14", @team_manager.favorite_opponent_id("18")
+    end
+
+    def test_it_can_find_favorite
+      assert_equal "DC United", @team_manager.favorite_opponent("18")
+    end
+
+    def test_it_can_find_rival_opponent_id
+      assert_includes ["13", "17"], @team_manager.rival_opponent_id("18")
+    end
+
+    def test_it_can_find_rival
+      assert_includes ["Houston Dash", "LA Galaxy"], @team_manager.rival("18")
+    end
 end
