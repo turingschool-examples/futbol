@@ -180,13 +180,13 @@ class GamesManager
     end.compact.first
   end
 
-  def get_game(gameid)
+  def get_game(game_id)
     @games.find do |game|
-      game.game_id == gameid
+      game.game_id == game_id
     end
   end
 
-  def get_opponent_id(game, teamid)
-    game.away_team_id == teamid ? game.home_team_id : game.away_team_id
+  def get_opponent_id(game_id, teamid)
+    get_game(game_id).get_opponent_id(teamid)
   end
 end

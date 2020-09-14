@@ -32,4 +32,9 @@ class GameTest < Minitest::Test
     refute_equal "4", @game_1.winner_id
   end
 
+  def test_it_can_get_opponent_id
+    assert_equal "1", @game_1.get_opponent_id("4")
+    assert_equal "4", @game_1.get_opponent_id("1")
+  end
+
 end

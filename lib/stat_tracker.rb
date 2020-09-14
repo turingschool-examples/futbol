@@ -185,7 +185,9 @@ class StatTracker
 
   # Move to GameTeamsManager
   # Need to convert to common naming convention
-  
+  def favorite_opponent(teamid)
+    team_id_to_team_name(fave_opponent_id(teamid))
+  end
 
   # Move to GameTeamsManager
 
@@ -213,8 +215,8 @@ class StatTracker
     end
   end
 
-  def get_opponent_id(game, teamid)
-    @games_manager.get_opponent_id(game, teamid)
+  def get_opponent_id(gameid, teamid)
+    @games_manager.get_opponent_id(gameid, teamid)
   end
 
   def game_ids_per_season(season)
@@ -243,9 +245,6 @@ class StatTracker
   end
 
   # Move to GamesManager
-  def get_opponent_id(game, teamid)
-    game.away_team_id == teamid ? game.home_team_id : game.away_team_id
-  end
 
   def game_ids_by_season(season)
     filter_by_season(season).map do |game|

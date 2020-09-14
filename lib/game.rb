@@ -45,4 +45,8 @@ class Game
     'tie'
   end
 
+  def get_opponent_id(teamid)
+    teamid == @away_team_id ? @home_team_id : @away_team_id
+  end
+
 end
