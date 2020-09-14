@@ -177,8 +177,9 @@ class GameTeamManager
   def favorite_opponent(team_id)
     total_games = Hash.new(0)
     loser_loses = Hash.new(0)
+    game_id_array = find_game_ids(team_id)
     @game_teams.each do |game|
-      if find_game_ids(team_id).include?(game.game_id) && game.team_id != team_id
+      if game_id_array.include?(game.game_id) && game.team_id != team_id
         total_games[game.team_id] += 1
         if game.result == "LOSS"
           loser_loses[game.team_id] += 1
@@ -194,8 +195,9 @@ class GameTeamManager
   def rival(team_id)
     total_games = Hash.new(0)
     winner_wins = Hash.new(0)
+    game_id_array = find_game_ids(team_id)
     @game_teams.each do |game|
-      if find_game_ids(team_id).include?(game.game_id) && game.team_id !=team_id
+      if game_id_array.include?(game.game_id) && game.team_id !=team_id
         total_games[game.team_id] += 1
         if game.result == "WIN"
           winner_wins[game.team_id] += 1

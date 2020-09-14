@@ -68,8 +68,11 @@ class GameTeamManagerTest < MiniTest::Test
     assert_equal "Glen Gulutzan", @game_team_manager.find_worst_coach(game_ids)
   end
 
-  def test_it_can_find_all_games #### How do we test for this lol
-    assert_equal "2012020225", @game_team_manager.find_all_games("24")[0].game_id
+  def test_it_can_find_all_games 
+    @game_team_manager.find_all_games("24").each do |game|
+      assert_instance_of GameTeam, game
+    end
+    assert_equal 5, @game_team_manager.find_all_games("24").length
   end
 
   def test_it_can_find_most_goals_scored
