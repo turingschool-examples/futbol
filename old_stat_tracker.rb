@@ -186,47 +186,47 @@ class StatTracker
 
 # #------------SeasonStatistics
 
-  def winningest_coach(season)
+  # def winningest_coach(season)
   #   gt_results = game_team_results_by_season(season)
   #   coach_record_start = initialize_coaches_records(gt_results)
   #   total_record = add_wins_losses(gt_results, coach_record_start)
   #   determine_winningest_coach(total_record)
-  end
+  # end
 
-  def worst_coach(season)
-    gt_results = game_team_results_by_season(season)
-    coach_record_start = initialize_coaches_records(gt_results)
-    total_record = add_wins_losses(gt_results, coach_record_start)
-    determine_worst_coach(total_record)
-  end
+  # def worst_coach(season)
+  #   gt_results = game_teams_results_by_season(season)
+  #   coach_record_start = initialize_coaches_records(gt_results)
+  #   total_record = add_wins_losses(gt_results, coach_record_start)
+  #   determine_worst_coach(total_record)
+  # end
 
-  def most_accurate_team(season)
-    gt_results = game_team_results_by_season(season)
-    shots_goals_start = initialize_shots_and_goals_per_team(gt_results)
-    total_shots_goals = add_shots_and_goals(gt_results, shots_goals_start)
-    determine_team_with_best_accuracy(total_shots_goals)
-  end
-
-  def least_accurate_team(season)
-    gt_results = game_team_results_by_season(season)
-    shots_goals_start = initialize_shots_and_goals_per_team(gt_results)
-    total_shots_goals = add_shots_and_goals(gt_results, shots_goals_start)
-    determine_team_with_worst_accuracy(total_shots_goals)
-  end
-
-  def most_tackles(season)
-    gt_results = game_team_results_by_season(season)
-    tackles_start = initialize_tackles_per_team(gt_results)
-    total_tackles = add_tackles(gt_results, tackles_start)
-    determine_team_with_most_tackles(total_tackles)
-  end
-
-  def fewest_tackles(season)
-    gt_results = game_team_results_by_season(season)
-    tackles_start = initialize_tackles_per_team(gt_results)
-    total_tackles = add_tackles(gt_results, tackles_start)
-    determine_team_with_least_tackles(total_tackles)
-  end
+  # def most_accurate_team(season)
+  #   gt_results = game_teams_results_by_season(season)
+  #   shots_goals_start = initialize_shots_and_goals_per_team(gt_results)
+  #   total_shots_goals = add_shots_and_goals(gt_results, shots_goals_start)
+  #   determine_team_with_best_accuracy(total_shots_goals)
+  # end
+  #
+  # def least_accurate_team(season)
+  #   gt_results = game_teams_results_by_season(season)
+  #   shots_goals_start = initialize_shots_and_goals_per_team(gt_results)
+  #   total_shots_goals = add_shots_and_goals(gt_results, shots_goals_start)
+  #   determine_team_with_worst_accuracy(total_shots_goals)
+  # end
+  #
+  # def most_tackles(season)
+  #   gt_results = game_teams_results_by_season(season)
+  #   tackles_start = initialize_tackles_per_team(gt_results)
+  #   total_tackles = add_tackles(gt_results, tackles_start)
+  #   determine_team_with_most_tackles(total_tackles)
+  # end
+  #
+  # def fewest_tackles(season)
+  #   gt_results = game_teams_results_by_season(season)
+  #   tackles_start = initialize_tackles_per_team(gt_results)
+  #   total_tackles = add_tackles(gt_results, tackles_start)
+  #   determine_team_with_least_tackles(total_tackles)
+  # end
 
   # def game_team_results_by_season(season)
   #     games_of_season = games.find_all do |game|
@@ -274,64 +274,64 @@ class StatTracker
     #   end[0]
     # end
 
-    def initialize_shots_and_goals_per_team(gt_results)
-      total_shots_goals = {}
-      gt_results.each do |team_result|
-        total_shots_goals[team_result['team_id']] = {shots: 0, goals: 0}
-      end
-      total_shots_goals
-    end
+    # def initialize_shots_and_goals_per_team(gt_results)
+    #   total_shots_goals = {}
+    #   gt_results.each do |team_result|
+    #     total_shots_goals[team_result['team_id']] = {shots: 0, goals: 0}
+    #   end
+    #   total_shots_goals
+    # end
 
-    def add_shots_and_goals(gt_results, shots_goals_start)
-      gt_results.each do |team_result|
-        shots_goals_start[team_result['team_id']][:shots] += team_result['shots'].to_i
-        shots_goals_start[team_result['team_id']][:goals] += team_result['goals'].to_i
-      end
-      shots_goals_start
-    end
+    # def add_shots_and_goals(gt_results, shots_goals_start)
+    #   gt_results.each do |team_result|
+    #     shots_goals_start[team_result['team_id']][:shots] += team_result['shots'].to_i
+    #     shots_goals_start[team_result['team_id']][:goals] += team_result['goals'].to_i
+    #   end
+    #   shots_goals_start
+    # end
 
-    def determine_team_with_best_accuracy(total_shots_goals)
-      result_id = total_shots_goals.max_by do |id, s_g|
-        s_g[:goals].to_f / s_g[:shots]
-      end[0]
-      find_team_by_team_id(result_id)
-    end
+    # def determine_team_with_best_accuracy(total_shots_goals)
+    #   result_id = total_shots_goals.max_by do |id, s_g|
+    #     s_g[:goals].to_f / s_g[:shots]
+    #   end[0]
+    #   find_team_by_team_id(result_id)
+    # end
 
-    def determine_team_with_worst_accuracy(total_shots_goals)
-      result_id = total_shots_goals.min_by do |id, s_g|
-        s_g[:goals].to_f / s_g[:shots]
-      end[0]
-      find_team_by_team_id(result_id)
-    end
+    # def determine_team_with_worst_accuracy(total_shots_goals)
+    #   result_id = total_shots_goals.min_by do |id, s_g|
+    #     s_g[:goals].to_f / s_g[:shots]
+    #   end[0]
+    #   find_team_by_team_id(result_id)
+    # end
 
-    def initialize_tackles_per_team(gt_results)
-      tackles_per_team = {}
-      gt_results.each do |team_result|
-        tackles_per_team[team_result['team_id']] = 0
-      end
-      tackles_per_team
-    end
+    # def initialize_tackles_per_team(gt_results)
+    #   tackles_per_team = {}
+    #   gt_results.each do |team_result|
+    #     tackles_per_team[team_result['team_id']] = 0
+    #   end
+    #   tackles_per_team
+    # end
 
-    def add_tackles(gt_results, tackles_start)
-      gt_results.each do |team_result|
-        tackles_start[team_result['team_id']] += team_result['tackles'].to_i
-      end
-      tackles_start
-    end
+    # def add_tackles(gt_results, tackles_start)
+    #   gt_results.each do |team_result|
+    #     tackles_start[team_result['team_id']] += team_result['tackles'].to_i
+    #   end
+    #   tackles_start
+    # end
 
-    def determine_team_with_most_tackles(total_tackles)
-      result_id = total_tackles.max_by do |id, tackle_count|
-        tackle_count
-      end[0]
-      find_team_by_team_id(result_id)
-    end
-
-    def determine_team_with_least_tackles(total_tackles)
-      result_id = total_tackles.min_by do |id, tackle_count|
-        tackle_count
-      end[0]
-      find_team_by_team_id(result_id)
-    end
+    # def determine_team_with_most_tackles(total_tackles)
+    #   result_id = total_tackles.max_by do |id, tackle_count|
+    #     tackle_count
+    #   end[0]
+    #   find_team_by_team_id(result_id)
+    # end
+    #
+    # def determine_team_with_least_tackles(total_tackles)
+      # result_id = total_tackles.min_by do |id, tackle_count|
+      #   tackle_count
+      # end[0]
+      # find_team_by_team_id(result_id)
+    # end
 
 
 #------------TeamStatistics

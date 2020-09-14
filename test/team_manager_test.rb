@@ -32,6 +32,23 @@ class TeamManagerTest < Minitest::Test
     assert_equal '/api/v1/teams/1', @stat_tracker.team_manager.teams[0].link
   end
 
+  def test_it_can_return_team_stats_hash
+    path = './fixture/team_blank.csv'
+    team_manager = TeamManager.new(path, nil)
+
+    team = mock('Team Object')
+    team_manager.teams << team
+
+    team.stubs(:team_id).returns('45')
+
+    expected = {
+      '45' => { total_games: 0, total_goals: 0, away_games: 0, home_games: 0,
+                away_goals: 0, home_goals: 0 }
+    }
+
+    assert_equal expected, team_manager.initialize_team_stats_hash
+  end
+
   def test_it_can_find_team_info
       expected = {
         'team_id'=> "4",
@@ -42,5 +59,4 @@ class TeamManagerTest < Minitest::Test
       }
       assert_equal expected, @stat_tracker.team_manager.team_info("4")
   end
-
 end

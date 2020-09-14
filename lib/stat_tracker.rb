@@ -29,13 +29,62 @@ class StatTracker
     @game_teams_manager.winningest_coach(season)
   end
 
+  def worst_coach(season)
+    @game_teams_manager.worst_coach(season)
+  end
+
+  def most_accurate_team(season)
+    @game_teams_manager.most_accurate_team(season)
+  end
+
+  def least_accurate_team(season)
+    @game_teams_manager.least_accurate_team(season)
+  end
+
+  def most_tackles(season)
+    @game_teams_manager.most_tackles(season)
+  end
+
+  def fewest_tackles(season)
+    @game_teams_manager.fewest_tackles(season)
+  end
+
   def find_game_ids_for_season(season)
     @game_manager.find_game_ids_for_season(season)
   end
 
-    # game_manager = CSV.read(locations[:games], headers:true)
-    # team_manager = CSV.read(locations[:teams], headers:true)
-    # game_teams_manager = CSV.read(locations[:game_teams], headers:true)
+  # ----------LeaugeStats
+  def count_of_teams
+    @game_manager.count_of_teams
+  end
+
+  def best_offense
+    @game_manager.best_offense
+  end
+
+  def worst_offense
+    @game_manager.worst_offense
+  end
+
+  def highest_scoring_visitor
+    @game_manager.highest_scoring_visitor
+  end
+
+  def highest_scoring_home_team
+    @game_manager.highest_scoring_home_team
+  end
+
+  def lowest_scoring_visitor
+    @game_manager.lowest_scoring_visitor
+  end
+
+  def lowest_scoring_home_team
+    @game_manager.lowest_scoring_home_team
+  end
+
+  def initialize_team_stats_hash
+    @team_manager.initialize_team_stats_hash
+  end
 
 #-------------TeamStats
   def team_info(team_id)
@@ -69,5 +118,4 @@ class StatTracker
   def rival(team_id)
     @game_teams_manager.favorite_opponent(team_id)
   end
-
 end
