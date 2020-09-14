@@ -129,27 +129,27 @@ class StatTracker
 
   # Season Statistics
   def winningest_coach(season_id)
-    @game_team_manager.winningest_coach(season_id)
+    @game_teams_manager.winningest_coach(season_id)
   end
 
   def worst_coach(season_id)
-    @game_team_manager.worst_coach(season_id)
+    @game_teams_manager.worst_coach(season_id)
   end
 
   def most_accurate_team(season_id)
-    @game_team_manager.most_accurate_team(season_id)
+    @game_teams_manager.most_accurate_team(season_id)
   end
 
   def least_accurate_team(season_id)
-    @game_team_manager.least_accurate_team(season_id)
+    @game_teams_manager.least_accurate_team(season_id)
   end
 
   def most_tackles(season_id)
-    @game_team_manager.most_tackles(season_id)
+    @game_teams_manager.most_tackles(season_id)
   end
 
   def fewest_tackles(season_id)
-    @game_team_manager.fewest_tackles(season_id)
+    @game_teams_manager.fewest_tackles(season_id)
   end
 
   def team_data # I need a test
