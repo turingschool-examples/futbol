@@ -82,10 +82,8 @@ class GameManager
       home_points[game.home_team_id] += game.home_goals
       team_game_count[game.home_team_id] += 1
     end
-    highest_scoring_home_team = home_points.max_by do |team, score|
-      score.to_f / team_game_count[team]
-    end[0]
-    @tracker.get_team_name(highest_scoring_home_team)
+    highest_scoring_home_team = sort_percentages(home_points, team_game_count)
+    @tracker.get_team_name(highest_scoring_home_team.last[0])
   end
 
   def lowest_scoring_visitor
@@ -95,10 +93,8 @@ class GameManager
       away_points[game.away_team_id] += game.away_goals
       team_game_count[game.away_team_id] += 1
     end
-    lowest_scoring_visitor = away_points.min_by do |team, score|
-        score.to_f / team_game_count[team]
-    end[0]
-    @tracker.get_team_name(lowest_scoring_visitor)
+    lowest_scoring_visitor = sort_percentages(away_points, team_game_count)
+    @tracker.get_team_name(lowest_scoring_visitor.first[0])
   end
 
   def get_season_game_ids(season)
@@ -117,10 +113,8 @@ class GameManager
       home_points[game.home_team_id] += game.home_goals
       team_game_count[game.home_team_id] += 1
     end
-    lowest_scoring_home_team = home_points.min_by do |team, score|
-        score.to_f / team_game_count[team]
-    end[0]
-    @tracker.get_team_name(lowest_scoring_home_team)
+    lowest_scoring_home_team = sort_percentages(home_points, team_game_count)
+    @tracker.get_team_name(lowest_scoring_home_team.first[0])
   end
 
 
