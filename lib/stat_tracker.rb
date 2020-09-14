@@ -383,8 +383,8 @@ class StatTracker
     @games_manager.best_season(team_id)
   end
 
-  def average_win_percentage(teamid)
-    @game_teams_manager.average_win_percentage(teamid)
+  def average_win_percentage(team_id)
+    @game_teams_manager.average_win_percentage(team_id)
   end
 
   def favorite_opponent(team_id)
