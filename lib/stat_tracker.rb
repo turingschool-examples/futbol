@@ -53,6 +53,10 @@ class StatTracker
 
   def percentage_ties
     @game_teams_manager.percentage_ties
+  end
+
+  def count_of_games_by_season
+    @game_manager.count_of_games_by_season
   end 
 end
 
