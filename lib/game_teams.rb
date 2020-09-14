@@ -31,4 +31,15 @@ class GameTeams
     @takeaways = @takeaways.to_i
 
   end
+
+  def game_team_info
+    {
+      game_id: game_id,
+      team_id: team_id,
+      hoa: @HoA,
+      result: result,
+      head_coach: head_coach,
+      goals: goals
+    }
+  end
 end

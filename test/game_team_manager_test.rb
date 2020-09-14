@@ -12,7 +12,7 @@ class GameTeamManagerTest < Minitest::Test
       game_teams: @game_teams_path
     }
     @stat_tracker = mock('stat tracker')
-    @game_team_manager = GameTeamManager.new(@locations, @stat_tracker)
+    @game_team_manager = GameTeamManager.new(@locations[:game_teams], @stat_tracker)
   end
 
   def test_it_exists
@@ -83,7 +83,7 @@ class GameTeamManagerTest < Minitest::Test
 
   def test_most_accurate_team
 
-    game_team_manager = GameTeamManager.new(@locations, @stat_tracker)
+    game_team_manager = GameTeamManager.new(@locations[:game_teams], @stat_tracker)
     team_1 = mock('team_1')
     game_team_manager.stubs(:team_by_id).returns('This team')
     assert_equal 'This team', game_team_manager.most_accurate_team('20132014')
@@ -91,7 +91,7 @@ class GameTeamManagerTest < Minitest::Test
 
   def test_least_accurate_team
 
-    game_team_manager = GameTeamManager.new(@locations, @stat_tracker)
+    game_team_manager = GameTeamManager.new(@locations[:game_teams], @stat_tracker)
     team_1 = mock('team_1')
     game_team_manager.stubs(:team_by_id).returns('This team')
     assert_equal 'This team', game_team_manager.least_accurate_team('20132014')
@@ -99,7 +99,7 @@ class GameTeamManagerTest < Minitest::Test
 
   def test_most_tackles
 
-    game_team_manager = GameTeamManager.new(@locations, @stat_tracker)
+    game_team_manager = GameTeamManager.new(@locations[:game_teams], @stat_tracker)
     team_1 = mock('team_1')
     game_team_manager.stubs(:team_by_id).returns('This team')
     assert_equal 'This team', game_team_manager.most_tackles('20132014')
@@ -107,7 +107,7 @@ class GameTeamManagerTest < Minitest::Test
 
   def test_fewest_tackles
 
-    game_team_manager = GameTeamManager.new(@locations, @stat_tracker)
+    game_team_manager = GameTeamManager.new(@locations[:game_teams], @stat_tracker)
     team_1 = mock('team_1')
     game_team_manager.stubs(:team_by_id).returns('This team')
     assert_equal 'This team', game_team_manager.fewest_tackles('20132014')
@@ -115,9 +115,57 @@ class GameTeamManagerTest < Minitest::Test
 
   def test_team_by_id
 
-    game_team_manager = GameTeamManager.new(@locations, @stat_tracker)
+    game_team_manager = GameTeamManager.new(@locations[:game_teams], @stat_tracker)
     team_1 = mock('team_1')
     game_team_manager.stubs(:team_by_id).returns('This team')
     assert_equal 'This team', game_team_manager.team_by_id(team_1)
+  end
+
+  def test_it_can_fetch_game_ids_for_a_team
+    game_team1 = mock('game_team 1')
+    game_team1.stubs(:game_id).returns('1')
+    game_team1.stubs(:team_id).returns('1')
+    game_team2 = mock('game_team 2')
+    game_team2.stubs(:game_id).returns('2')
+    game_team2.stubs(:team_id).returns('1')
+    game_team3 = mock('game_team 3')
+    game_team3.stubs(:game_id).returns('3')
+    game_team3.stubs(:team_id).returns('2')
+    stat_tracker = mock('A totally legit stat_tracker')
+    game_team_array = [game_team1, game_team2, game_team3]
+    CSV.stubs(:foreach).returns(nil)
+    game_team_manager = GameTeamManager.new('A totally legit path', stat_tracker)
+    game_team_manager.stubs(:game_teams).returns(game_team_array)
+
+    assert_equal ['1', '2'], game_team_manager.game_ids_by_team('1')
+    assert_equal ['3'], game_team_manager.game_ids_by_team('2')
+  end
+
+  def test_it_can_fetch_game_team_info
+    game_team1 = mock('game_team 1')
+    game_team1.stubs(:game_id).returns('1')
+    game_team1.stubs(:team_id).returns('1')
+    game_team1.stubs(:game_team_info).returns('game_team1 info')
+    game_team2 = mock('game_team 2')
+    game_team2.stubs(:game_id).returns('2')
+    game_team2.stubs(:team_id).returns('1')
+    game_team3 = mock('game_team 3')
+    game_team3.stubs(:game_id).returns('3')
+    game_team3.stubs(:team_id).returns('2')
+    game_team4 = mock('game_team 4')
+    game_team4.stubs(:game_id).returns('1')
+    game_team4.stubs(:game_team_info).returns('game_team4 info')
+    game_team4.stubs(:team_id).returns('2')
+    stat_tracker = mock('A totally legit stat_tracker')
+    game_team_array = [game_team1, game_team2, game_team3, game_team4]
+    CSV.stubs(:foreach).returns(nil)
+    game_team_manager = GameTeamManager.new('A totally legit path', stat_tracker)
+    game_team_manager.stubs(:game_teams).returns(game_team_array)
+
+    expected = {
+        '1' => 'game_team1 info',
+        '2' => 'game_team4 info'
+    }
+    assert_equal expected, game_team_manager.game_team_info('1')
   end
 end

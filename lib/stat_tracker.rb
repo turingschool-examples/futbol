@@ -3,19 +3,19 @@ require_relative 'game_team_manager'
 require_relative 'team_manager'
 
 class StatTracker
-  attr_reader :game_team_manager, :game_manager, :team_manager
-  def self.from_csv(locations)
+  attr_reader :game_teams_manager, :game_manager, :team_manager
+  def self.from_csv(locations) # I need a test
     StatTracker.new(locations)
   end
 
-  def initialize(locations)
+  def initialize(locations) # I maybe need a test?
     load_managers(locations)
   end
 
   def load_managers(locations)
-    @team_manager = TeamManager.new(locations, self)
-    @game_team_manager = GameTeamManager.new(locations, self)
-    @game_manager = GameManager.new(locations, self)
+    @team_manager = TeamManager.new(locations[:teams], self)
+    @game_teams_manager = GameTeamManager.new(locations[:game_teams], self)
+    @game_manager = GameManager.new(locations[:games], self)
   end
 
   #Game Stats
@@ -51,8 +51,50 @@ class StatTracker
     @game_manager.average_goals_by_season
   end
 
+  # Team Stats
+
   def team_info(team_id)
-    @team_manager.team_info(team_id)
+    team_manager.team_info(team_id)
+  end
+
+  def game_ids_by_team(team_id)
+    game_teams_manager.game_ids_by_team(team_id)
+  end
+
+  def game_team_info(game_id)
+    game_teams_manager.game_team_info(game_id)
+  end
+
+  def game_info(game_id)
+    game_manager.game_info(game_id)
+  end
+
+  def average_win_percentage(team_id)
+    team_manager.average_win_percentage(team_id)
+  end
+
+  def favorite_opponent(team_id)
+    team_manager.favorite_opponent(team_id)
+  end
+
+  def rival(team_id)
+    team_manager.rival(team_id)
+  end
+
+  def most_goals_scored(team_id)
+    team_manager.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    team_manager.fewest_goals_scored(team_id)
+  end
+
+  def best_season(team_id)
+    team_manager.best_season(team_id)
+  end
+
+  def worst_season(team_id)
+    team_manager.worst_season(team_id)
   end
 
   #League Stats
@@ -87,26 +129,30 @@ class StatTracker
 
   # Season Statistics
   def winningest_coach(season_id)
-    @game_team_manager.winningest_coach(season_id)
+    @game_teams_manager.winningest_coach(season_id)
   end
 
   def worst_coach(season_id)
-    @game_team_manager.worst_coach(season_id)
+    @game_teams_manager.worst_coach(season_id)
   end
 
   def most_accurate_team(season_id)
-    @game_team_manager.most_accurate_team(season_id)
+    @game_teams_manager.most_accurate_team(season_id)
   end
 
   def least_accurate_team(season_id)
-    @game_team_manager.least_accurate_team(season_id)
+    @game_teams_manager.least_accurate_team(season_id)
   end
 
   def most_tackles(season_id)
-    @game_team_manager.most_tackles(season_id)
+    @game_teams_manager.most_tackles(season_id)
   end
 
   def fewest_tackles(season_id)
-    @game_team_manager.fewest_tackles(season_id)
+    @game_teams_manager.fewest_tackles(season_id)
+  end
+
+  def team_data # I need a test
+    team_manager.team_data_by_id
   end
 end
