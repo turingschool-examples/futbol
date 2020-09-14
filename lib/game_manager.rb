@@ -1,29 +1,20 @@
-class GameManager
+require './lib/csv_reader'
+
+class GameManager < CsvReader
   attr_reader :game_data,
               :tracker
 
   def initialize(location, tracker)
-    @game_data = game_stats(location)
     @tracker = tracker
-  end
-
-  def game_stats(location)
-    rows = CSV.read(location, { encoding: 'UTF-8', headers: true, header_converters: :symbol})
-    result = []
-    rows.each do |game|
-      game.delete(:venue)
-      game.delete(:venue_link)
-      result << Game.new(game, self)
-    end
-    result
+    super(game_stats_data, game_teams_stats_data, teams_stats_data)
   end
 
   def total_games
-    @game_data.count
+    @game_stats_data.count
   end
 
   def get_all_scores_by_game_id
-    game_data.map do |game|
+    @game_stats_data.map do |game|
       game.away_goals + game.home_goals
     end
   end
@@ -61,7 +52,7 @@ class GameManager
   end
 
   def hash_of_seasons
-    @game_data.group_by {|game| game.season}
+    @game_stats_data.group_by {|game| game.season}
   end
 
   def count_of_games_by_season
@@ -88,7 +79,7 @@ class GameManager
   end
 
   def find_all_game_ids_by_team(team_id)
-    @game_data.find_all do |game|
+    @game_stats_data.find_all do |game|
       game.home_team_id == team_id || game.away_team_id == team_id
     end
   end
