@@ -35,6 +35,10 @@ class StatTracker
 
   #-----------GameStatistics
 
+  def highest_total_score
+    @game_manager.highest_total_score
+  end 
+
   def percentage_home_wins
     @game_teams_manager.percentage_home_wins
   end
