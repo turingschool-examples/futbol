@@ -100,6 +100,12 @@ class GameTeamsManager
     find_team_name(opponent)
   end
 
+  def rival(team_id)
+    opponent = find_opponent_win_percentage(team_id).max_by do |team_id, percentage|
+      percentage
+    end.first
+    find_team_name(opponent)
+  end
 
 #-------------TeamStatsHelpers
   def game_info_by_team(team_id)
