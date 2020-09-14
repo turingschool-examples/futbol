@@ -40,7 +40,6 @@ class GameManager
       game.away_goals.to_i + game.home_goals.to_i
     end
       result.away_goals.to_i + result.home_goals.to_i
-    end
   end
 
   def count_of_games_by_season
@@ -62,3 +61,58 @@ class GameManager
     end
     result
   end
+
+  def average_goals_per_game
+    (total_goals.to_f / total_number_of_games).round(2)
+  end
+
+  def total_goals
+    goal_count = 0
+    games.each do |game|
+      goal_count += game.home_goals.to_i
+      goal_count += game.away_goals.to_i
+    end
+    return goal_count
+  end
+
+  def total_number_of_games
+    game_count = 0
+    games.each do |game|
+      game_count += 1
+    end
+    return game_count
+  end
+
+  def average_goals_by_season
+    season_hash = get_total_goals
+    season_hash.each do |season, goals|
+      count_of_games_by_season.each do |season_games, games|
+        if season_games == season
+          average = goals.to_f / games.to_f
+          season_hash[season] = (average).round(2)
+        end
+      end
+    end
+  end
+
+  def get_total_goals
+    season_hash = create_season_hash
+    season_hash_with_goals = season_hash.each do |season, total_goals|
+      @games.each do |game|
+        if game.season == season
+          total_goals += game.away_goals.to_i
+          total_goals += game.home_goals.to_i
+        end
+      end
+      season_hash_with_goals[season] = total_goals
+    end
+  end
+
+  def create_season_hash
+    season_hash = @games.each do |game|
+      season_hash[game.season] = 0
+    end
+    season_hash
+  end
+
+end

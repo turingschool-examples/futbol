@@ -122,19 +122,68 @@ class GameManagerTest < Minitest::Test
     game_1 = mock("Season Game 1")
     game_2 = mock("Season Game 2")
     game_3 = mock("Season Game 3")
+    game_manager.games << game_1
+    game_manager.games << game_2
+    game_manager.games << game_3
 
     game_1.stubs(:season).returns('20122013')
     game_2.stubs(:season).returns('20122013')
     game_3.stubs(:season).returns('20132014')
 
-    expected = {
-      "20122013"=>806,
-      "20162017"=>1317,
-      "20142015"=>1319,
-      "20152016"=>1321,
-      "20132014"=>1323,
-      "20172018"=>1355
-    }
+    expected = {"20122013"=>2, "20132014"=>1}
     assert_equal expected, game_manager.count_of_games_by_season
   end
+
+  def test_it_knows_average_goals_per_game
+    path = './fixture/game_blank.csv'
+    game_manager = GameManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_manager.games << game_1
+    game_manager.games << game_2
+    game_manager.games << game_3
+
+    game_1.stubs(:away_goals).returns(6)
+    game_1.stubs(:home_goals).returns(5)
+    game_2.stubs(:away_goals).returns(7)
+    game_2.stubs(:home_goals).returns(7)
+    game_3.stubs(:away_goals).returns(0)
+    game_3.stubs(:home_goals).returns(0)
+
+    assert_equal 8.33, game_manager.average_goals_per_game
+  end
+
+  def test_it_knows_average_goals_by_season
+    path = './fixture/game_blank.csv'
+    game_manager = GameManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_manager.games << game_1
+    game_manager.games << game_2
+    game_manager.games << game_3
+
+    game_1.stubs(:season).returns('20122013')
+    game_2.stubs(:season).returns('20122013')
+    game_3.stubs(:season).returns('20132014')
+    game_1.stubs(:away_goals).returns(6)
+    game_1.stubs(:home_goals).returns(5)
+    game_2.stubs(:away_goals).returns(7)
+    game_2.stubs(:home_goals).returns(7)
+    game_3.stubs(:away_goals).returns(0)
+    game_3.stubs(:home_goals).returns(0)
+
+      expected = {
+      "20122013"=>4.12,
+      "20162017"=>4.23,
+      "20142015"=>4.14,
+      "20152016"=>4.16,
+      "20132014"=>4.19,
+      "20172018"=>4.44
+    }
+
+    assert_equal expected, game_manager.average_goals_by_season
+  end
+
 end
