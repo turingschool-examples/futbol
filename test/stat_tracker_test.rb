@@ -279,14 +279,30 @@ class StatTrackerTest < Minitest::Test
 
 # --------TeamStats
   def test_it_can_find_team_info
-   expected = {
-     'team_id'=> "4",
-     'franchise_id'=>  "16",
-     'team_name'=>  "Chicago Fire",
-     'abbreviation'=>  "CHI",
-     'link'=>  "/api/v1/teams/4"
-   }
-   assert_equal expected, @stat_tracker.team_info("4")
+    game_path = './fixture/game_blank.csv'
+    team_path = './fixture/team_blank.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    tracker = StatTracker.new(game_path, team_path, game_teams_path)
+    team_1 = mock("Team 1")
+
+    tracker.team_manager.teams << team_1
+
+    team_1.stubs(:team_id).returns('7')
+    team_1.stubs(:franchise_id).returns('12')
+    team_1.stubs(:team_name).returns('The Best')
+    team_1.stubs(:abbreviation).returns('BES')
+    team_1.stubs(:link).returns('linkgoeshere')
+
+    expected = {
+      'team_id'=> "7",
+      'franchise_id'=>  "12",
+      'team_name'=>  "The Best",
+      'abbreviation'=>  "BES",
+      'link'=>  "linkgoeshere"
+    }
+
+   assert_equal expected, tracker.team_info("7")
  end
 
  def test_it_can_find_best_season
