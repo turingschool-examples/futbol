@@ -98,4 +98,16 @@ class TestStatTracker <Minitest::Test
 
     assert_equal expected, stat_tracker.game_info('2014021174')
   end
+
+  def test_it_can_calculate_average_win_percentage_for_a_team
+    locations =  {
+      games: './fixtures/team_stats_fixture_games.csv',
+      teams: './data/teams.csv',
+      game_teams: './fixtures/team_stats_fixture_game_teams.csv'
+    }
+    stat_tracker = StatTracker.new(locations)
+
+    assert_equal 0.56, stat_tracker.average_win_percentage('26')
+    assert_equal 0.45, stat_tracker.average_win_percentage('24')
+  end
 end
