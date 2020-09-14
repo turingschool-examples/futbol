@@ -94,6 +94,10 @@ class StatTracker
     @game_teams_manager.worst_coach(season_id)
   end
 
+  def most_accurate_team(season_id)
+    @game_teams_manager.most_accurate_team(season_id)
+  end
+
   # Helpers
   def find_season_id(game_id)
     @games_manager.find_season_id(game_id)
