@@ -38,4 +38,8 @@ class StatTracker
   def average_win_percentage(team_id)
     team_manager.average_win_percentage(team_id)
   end
+
+  def favorite_opponent(team_id)
+    team_manager.favorite_opponent(team_id)
+  end
 end
