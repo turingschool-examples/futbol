@@ -20,6 +20,8 @@ class TeamStatHelperTest < Minitest::Test
   def test_collect_wins_per_season
     expected = ["20152016", "20172018", "20132014", "20122013", "20142015", "20162017"]
     assert_equal expected, @team_stat_helper.collect_wins_per_season("28").keys
+    assert_equal 19, @team_stat_helper.collect_wins_per_season("53")["20142015"]
+    assert_equal 26, @team_stat_helper.collect_wins_per_season("22")["20152016"]
   end
 
 end
