@@ -25,9 +25,9 @@ class StatTracker
 
 # Game Statistics
 
-  # def method_name
-  #
-  # end
+  def highest_total_score
+    @games_manager.highest_total_score
+  end
 
 # League Statistics
   def count_of_teams
