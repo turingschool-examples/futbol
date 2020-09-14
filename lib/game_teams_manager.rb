@@ -19,12 +19,6 @@ class GameTeamsManager
     end
   end
 
-  # def total_score(filtered_game_teams = @game_teams)
-  #   filtered_game_teams.count do |game_team|
-  #     game_team.goals
-  #   end
-  # end
-
   def avg_score(filtered_game_teams = @game_teams)
     ratio(total_score(filtered_game_teams), total_game_teams(filtered_game_teams))
   end
@@ -97,7 +91,6 @@ class GameTeamsManager
     end.first)
   end
 
-  # This is a duplicate method to filter_by_team_id except pulls from games
   def games_by_team(team_id)
     @game_teams.select do |game|
       game.team_id == team_id
@@ -157,12 +150,6 @@ class GameTeamsManager
     end[0]
     @stat_tracker.fetch_team_identifier(lowest_scoring_visitor)
   end
-
-  # def filter_by_team_id(team_id)
-  #   @game_teams.select do |game_team|
-  #     game_team.team_id == team_id
-  #   end
-  # end
 
   def game_teams_by_opponent(team_id)
     games_by_team(team_id).inject({}) do |result, gameteam|
