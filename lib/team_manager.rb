@@ -103,5 +103,11 @@ class TeamManager
     team_info(rival_id)['team_name']
   end
 
-  # def game_teams_by_season(id)
+  def games_by_season(id)
+    gather_game_info(id).reduce({}) do |collector, game|
+      collector[game[:season_id]] = [] if collector[game[:season_id]].nil?
+      collector[game[:season_id]] << game
+      collector
+    end
+  end
 end
