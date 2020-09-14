@@ -10,7 +10,8 @@ class Team
               :avg_goals_home,
               :avg_goals_visitor,
               :best_season,
-              :worst_season
+              :worst_season,
+              :avg_win_pct
 
   def initialize(data, manager)
     @team_id = data["team_id"]
@@ -25,6 +26,7 @@ class Team
     @avg_goals_home = average_goals_by_type(@team_id, 'home')
     @best_season = get_best_season(@team_id)
     @worst_season = get_worst_season(@team_id)
+    @avg_win_pct = get_average_win_percentage(@team_id)
   end
 
   def team_average_goals(team_id)
@@ -41,5 +43,9 @@ class Team
 
   def get_worst_season(team_id)
     @manager.get_worst_season(team_id)
+  end
+
+  def get_average_win_percentage(team_id)
+    @manager.get_average_win_percentage(team_id)
   end
 end

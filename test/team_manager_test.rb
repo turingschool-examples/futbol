@@ -100,4 +100,9 @@ class TeamManagerTest < Minitest::Test
     team_id = '6'
     assert_equal '20122013', @team_manager.get_worst_season(team_id)
   end
+
+  def test_it_can_find_average_win_percentage_for_team
+    team_id = '6'
+    assert_equal 0.86, @team_manager.get_average_win_percentage(team_id)
+  end
 end
