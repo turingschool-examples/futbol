@@ -32,6 +32,5 @@ class GameManager
       game.home_team_id == team_id || game.away_team_id == team_id
     end
   end
-
-
+  
 end #this is the end of class
