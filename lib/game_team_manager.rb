@@ -122,9 +122,7 @@ class GameTeamManager
         end
       end
     end
-    coach_wins.max_by do |coach, win| # Perhaps a get_max_of(coach_wins)
-      win / coach_game_count[coach]
-    end[0]
+    sort_percentages(coach_wins, coach_game_count).last[0]
   end
 
   def find_worst_coach(game_ids)
@@ -138,9 +136,7 @@ class GameTeamManager
         end
       end
     end
-    coach_losses.max_by do |coach, loss|
-      loss / coach_game_count[coach]
-    end[0]
+    sort_percentages(coach_losses, coach_game_count).last[0]
   end
 
   def find_all_games(team_id)
