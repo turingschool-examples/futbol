@@ -1,5 +1,5 @@
 require 'CSV'
-require_relative 'game_manager'
+require_relative 'game_stats'
 require_relative 'team_manager'
 require_relative 'game_teams_manager'
 require_relative 'game'
@@ -7,12 +7,12 @@ require_relative 'game_teams'
 require_relative 'team'
 
 class StatTracker
-  attr_reader :game_manager,
+  attr_reader :game_stats,
               :game_teams_manager,
               :team_manager
 
   def initialize(locations)
-    @game_manager = GameManager.new(locations[:games], self)
+    @game_stats = GameStats.new(locations[:games], self)
     @game_teams_manager = GameTeamsManager.new(locations[:game_teams], self)
     @team_manager = TeamManager.new(locations[:teams], self)
   end
@@ -22,35 +22,35 @@ class StatTracker
   end
 
   def highest_total_score
-    @game_manager.highest_total_score
+    @game_stats.highest_total_score
   end
 
   def lowest_total_score
-    @game_manager.lowest_total_score
+    @game_stats.lowest_total_score
   end
 
   def percentage_home_wins
-    @game_manager.percentage_home_wins
+    @game_stats.percentage_home_wins
   end
 
   def percentage_visitor_wins
-    @game_manager.percentage_visitor_wins
+    @game_stats.percentage_visitor_wins
   end
 
   def percentage_ties
-    @game_manager.percentage_ties
+    @game_stats.percentage_ties
   end
 
   def count_of_games_by_season
-    @game_manager.count_of_games_by_season
+    @game_stats.count_of_games_by_season
   end
 
   def average_goals_per_game
-    @game_manager.average_goals_per_game
+    @game_stats.average_goals_per_game
   end
 
   def average_goals_by_season
-    @game_manager.average_goals_by_season
+    @game_stats.average_goals_by_season
   end
 
   def count_of_teams
