@@ -19,12 +19,12 @@ class StatTracker
     @game_teams_manager = GameTeamManager.new(locations[:game_teams], self)
   end
 
-  def team_info(id)
-    @team_manager.team_info(id)
+  def team_info(team_id)
+    @team_manager.team_info(team_id)
   end
 
-  def game_ids_by_team(id)
-    @game_teams_manager.game_ids_by_team(id)
+  def game_ids_by_team(team_id)
+    @game_teams_manager.game_ids_by_team(team_id)
   end
 
   def game_team_info(game_id)
@@ -33,5 +33,9 @@ class StatTracker
 
   def game_info(game_id)
     game_manager.game_info(game_id)
+  end
+
+  def average_win_percentage(team_id)
+    team_manager.average_win_percentage(team_id)
   end
 end

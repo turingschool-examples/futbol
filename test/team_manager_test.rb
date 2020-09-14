@@ -51,7 +51,7 @@ class TeamManagerTest < Minitest::Test
 
   def test_it_can_fetch_game_ids_for_a_team
     stat_tracker = mock('A totally legit stat_tracker')
-    stat_tracker.stubs(:games_by_team).returns('An array of game ids')
+    stat_tracker.stubs(:game_ids_by_team).returns('An array of game ids')
     CSV.stubs(:foreach).returns(nil)
     team_manager = TeamManager.new('A totally legit path', stat_tracker)
 

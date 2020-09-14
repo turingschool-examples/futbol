@@ -23,7 +23,7 @@ class TeamManager
   end
 
   def game_ids_by_team(id)
-    stat_tracker.games_by_team(id)
+    stat_tracker.game_ids_by_team(id)
   end
 
   def game_team_info(game_id)
