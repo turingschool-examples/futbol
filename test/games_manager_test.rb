@@ -182,16 +182,12 @@ class GamesManagerTest < Minitest::Test
     assert_equal "20122013", @games_manager.worst_season("26")
   end
 
-  def test_it_can_pull_all_seasons
-      @games_manager.all_seasons
+  def test_it_can_get_game
+    assert_equal "2014021002", @games_manager.get_game("2014021002").game_id
   end
 
   def test_it_can_get_opponent_id
-    game = @games_manager.get_game("2014021002")
-    assert_equal "14", @games_manager.get_opponent_id(game,"6")
-
-    game = @games_manager.get_game("2014020371")
-    assert_equal "26", @games_manager.get_opponent_id(game,"6")
+    assert_equal "14", @games_manager.get_opponent_id("2014021002","6")
   end
 
 end
