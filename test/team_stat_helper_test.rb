@@ -34,6 +34,8 @@ class TeamStatHelperTest < Minitest::Test
 
   def test_games_for_team_id
     assert_equal 1014, @team_stat_helper.games_for_team_id("19").length
+    assert_equal 926, @team_stat_helper.games_for_team_id("1").length
+    assert_equal 656, @team_stat_helper.games_for_team_id("53").length
   end
 
 end

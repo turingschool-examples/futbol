@@ -1,4 +1,11 @@
 class TeamStatHelper
+
+  def initialize(game, team, game_team)
+    @game ||= game
+    @team ||= team
+    @game_team ||= game_team
+  end
+
   def collect_seasons(team_id)
     season_game_id_hash = {}
       @game.each do |game_id, game|
@@ -6,9 +13,9 @@ class TeamStatHelper
            season_game_id_hash[game.season] = [game]
          elsif (team_id.to_i == game.away_team_id) || (team_id.to_i == game.home_team_id)
            season_game_id_hash[game.season] << game
-         end
+        end
       end
-    season_game_id_hash
+     season_game_id_hash
   end
 
   def collect_wins_per_season(team_id)
@@ -50,7 +57,7 @@ class TeamStatHelper
           games << game_info.game_id
         end
       end
-    @game_team.find_all do |game|
+     @game_team.find_all do |game|
       games.include?(game.game_id)
     end
   end

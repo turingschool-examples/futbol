@@ -1,11 +1,6 @@
 require_relative 'team_stat_helper'
 
 class TeamStatistics < TeamStatHelper
-  def initialize(game, team, game_team)
-    @game ||= game
-    @team ||= team
-    @game_team ||= game_team
-  end
 
   def team_info(team_id)
     team_info = {}
