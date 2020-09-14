@@ -48,4 +48,10 @@ class LeagueStatHelperTest < Minitest::Test
     assert_equal 2.02, results["Sky Blue FC"].round(2)
   end
 
+  def test_team_home_average
+    results = @league_stat_helper.team_home_average
+    assert_equal 2.22, results["Portland Timbers"].round(2)
+    assert_equal 2.39, results["Sporting Kansas City"].round(2)
+  end
+
 end
