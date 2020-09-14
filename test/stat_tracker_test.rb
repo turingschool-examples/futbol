@@ -89,10 +89,17 @@ class StatTrackerTest < Minitest::Test
     game_teams_3.stubs(:goals).returns('2')
     game_teams_4.stubs(:goals).returns('2')
 
-    assert_equal 3, @stat_tracker.most_goals_scored('123')
-    assert_equal 2, @stat_tracker.most_goals_scored('987')
-    assert_equal 1, @stat_tracker.fewest_goals_scored('123')
-    assert_equal 2, @stat_tracker.fewest_goals_scored('987')
+    assert_equal 3, tracker.most_goals_scored('123')
+    assert_equal 2, tracker.most_goals_scored('987')
+    assert_equal 1, tracker.fewest_goals_scored('123')
+    assert_equal 2, tracker.fewest_goals_scored('987')
   end
 
+  def test_it_can_find_favorite_opponent
+    assert_equal 'LA Galaxy', @stat_tracker.favorite_opponent('16')
+  end
+
+  def test_it_can_find_rival
+    assert_equal 'FC Dallas', @stat_tracker.rival('3')
+  end
 end
