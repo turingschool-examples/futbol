@@ -116,4 +116,9 @@ class StatTrackerTest < Minitest::Test
     season_id = '20152016'
     assert_equal 'Mike Sullivan', @stat_tracker.winningest_coach(season_id)
   end
+
+  def test_it_can_find_worst_coach
+    season_id = '20122013'
+    assert_equal 'John Tortorella', @stat_tracker.worst_coach(season_id)
+  end
 end
