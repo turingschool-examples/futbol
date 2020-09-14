@@ -209,6 +209,22 @@ class GameTeamsManager
     @stat_tracker.fetch_team_identifier(least_accurate[0])
   end
 
+  def average_win_percentage(team_id)
+    ratio(total_wins(filter_by_team_id(team_id)), total_game_teams(filter_by_team_id(team_id)))
+  end
+
+  def total_wins(game_teams)
+    game_teams.count do |gameteam|
+      gameteam.result == "WIN"
+    end
+  end
+
+  def filter_by_team_id(team_id)
+    @game_teams.select do |gameteam|
+      team_id == gameteam.team_id
+    end
+  end
+  
   def games_containing_team
     @game_teams.reduce(Hash.new(0)) do |games_by_team, game|
       games_by_team[game.team_id.to_s] += 1

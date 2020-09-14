@@ -284,8 +284,8 @@ class StatTrackerTest < Minitest::Test
 
 # ~~~ TEAM METHOD TESTS~~~
 
-  def test_it_can_calc_avg_win_percentage
-    assert_equal 31.82, @stats.average_win_percentage("4")
+  def test_it_can_calc_average_win_percentage
+    assert_equal 0.32, @stats.average_win_percentage("4")
   end
 
   # def test_it_can_return_array_of_seasons
