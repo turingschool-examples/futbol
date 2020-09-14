@@ -129,14 +129,9 @@ class GameTeamsManager
     end
   end
 
-  def game_teams_by_opponent(teamid)
-    filter_by_teamid(teamid).inject({}) do |result, gameteam|
-      if result[@stat_tracker.get_opponent_id(gameteam.game_id,teamid)] == nil
-        result[@stat_tracker.get_opponent_id(gameteam.game_id,teamid)] = [gameteam]
-      else
-        result[@stat_tracker.get_opponent_id(gameteam.game_id,teamid)] << gameteam
-      end
-      result
+  def game_teams_by_opponent(team_id)
+    filter_by_teamid(team_id).group_by do |gameteam|
+      @stat_tracker.get_opponent_id(gameteam.game_id,team_id)
     end
   end
 
