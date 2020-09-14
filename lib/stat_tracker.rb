@@ -50,6 +50,10 @@ class StatTracker
   def percentage_visitor_wins
     @game_teams_manager.percentage_visitor_wins
   end
+
+  def percentage_ties
+    @game_teams_manager.percentage_ties
+  end 
 end
 
     # game_manager = CSV.read(locations[:games], headers:true)
