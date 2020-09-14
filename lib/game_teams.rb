@@ -1,5 +1,4 @@
 class GameTeams
-
   attr_reader :game_id,
               :team_id,
               :HoA,
@@ -14,8 +13,10 @@ class GameTeams
               :powerPlayGoals,
               :faceOffWinPercentage,
               :giveaways,
-              :takeaways
+              :takeaways,
+              :game_team_manager
   def initialize(row)
+    @game_team_manager = game_team_manager
     row.each do |k, v|
       instance_variable_set("@#{k}" , v)
     end
@@ -28,5 +29,17 @@ class GameTeams
     @shots = @shots.to_i
     @tackles = @tackles.to_i
     @takeaways = @takeaways.to_i
+
+  end
+
+  def game_team_info
+    {
+      game_id: game_id,
+      team_id: team_id,
+      hoa: @HoA,
+      result: result,
+      head_coach: head_coach,
+      goals: goals
+    }
   end
 end

@@ -1,7 +1,6 @@
 require './test/test_helper'
 require './lib/game_teams'
 
-
 class GameTeamsTest < Minitest::Test
 
   def setup
@@ -31,5 +30,17 @@ class GameTeamsTest < Minitest::Test
     assert_equal 7, game.takeaways
   end
 
+  def test_it_can_get_game_team_info
+    game_team = GameTeams.new(@row)
+    expected = {
+      game_id: '2012030221',
+      team_id: '3',
+      hoa: 'away',
+      result: 'LOSS',
+      head_coach: 'John Tortorella',
+      goals: 2
+    }
 
+    assert_equal expected, game_team.game_team_info
+  end
 end

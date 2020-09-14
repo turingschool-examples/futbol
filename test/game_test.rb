@@ -22,4 +22,18 @@ class GameTest <Minitest::Test
     assert_equal 'Toyota Stadium', game.venue
     assert_equal '/api/v1/venues/null', game.venue_link
   end
+
+  def test_it_can_generate_game_info
+    game = Game.new(@row)
+    expected = {
+      season_id: '20122013',
+      game_id: '2012030221',
+      home_team_id: '6',
+      away_team_id: '3',
+      home_goals: 3,
+      away_goals: 2
+    }
+
+    assert_equal expected, game.game_info
+  end
 end
