@@ -7,7 +7,7 @@ require './lib/game_teams_manager'
 class GameTeamsManagerTest < Minitest::Test
   def setup
     @game_path = './fixture/games_dummy.csv'
-    @team_path = './fixture/teams_dummy.csv'
+    @team_path = './data/teams.csv'
     @game_teams_path = './fixture/game_teams_dummy.csv'
 
     @locations = {
@@ -329,5 +329,9 @@ class GameTeamsManagerTest < Minitest::Test
     game_teams_6.stubs(:result).returns('LOSS')
 
     assert_equal ({'456'=>1.0, '987'=>1.0}), tracker.game_teams_manager.find_opponent_win_percentage('123')
+  end
+
+  def test_it_finds_favorite_opponend
+    assert_equal 'Houston Dynamo', @stat_tracker.game_teams_manager.favorite_opponent('6')
   end
 end
