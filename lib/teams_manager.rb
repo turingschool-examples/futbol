@@ -27,7 +27,6 @@ class TeamsManager
     end
   end
 
-  # Move to Teams Manager
   def team_identifier(team_id)
     @teams.find do |team|
       team.team_id == team_id
@@ -35,15 +34,15 @@ class TeamsManager
   end
 
   def team_info(team_id)
-    @teams.reduce({}) do |collector, team|
+    @teams.reduce({}) do |info, team|
       if team.team_id == team_id
-        collector["team_id"] = team.team_id
-        collector["franchise_id"] = team.franchise_id
-        collector["team_name"] = team.team_name
-        collector["abbreviation"] = team.abbreviation
-        collector["link"] = team.link
+        info["team_id"] = team.team_id
+        info["franchise_id"] = team.franchise_id
+        info["team_name"] = team.team_name
+        info["abbreviation"] = team.abbreviation
+        info["link"] = team.link
       end
-      collector
+      info
     end
   end
 

@@ -32,14 +32,21 @@ class GamesManager
     end.total_game_score
   end
 
-  def percentage_home_wins
-     wins = @games.count do |game|
-       game.home_is_winner?
-     end
-     ratio(wins, total_games)
-   end
+  def percentage_ties
+    ties = @games.count do |game|
+      !game.home_is_winner? && !game.visitor_is_winner?
+    end
+    ratio(ties, total_games)
+  end
 
-   def percentage_visitor_wins
+  def percentage_home_wins
+    wins = @games.count do |game|
+      game.home_is_winner?
+    end
+    ratio(wins, total_games)
+  end
+
+  def percentage_visitor_wins
     wins = @games.count do |game|
       game.visitor_is_winner?
     end
@@ -48,6 +55,22 @@ class GamesManager
 
   def total_games
     @games.count
+  end
+
+  def total_goals(filtered_games = @games)
+    filtered_games.sum do |game|
+      (game.home_goals + game.away_goals)
+    end
+  end
+
+  def average_goals_per_game
+    ratio(total_goals, total_games)
+  end
+
+  def seasonal_game_data
+    @games.group_by do |game|
+      game.season
+    end
   end
 
   def season_group
@@ -130,5 +153,13 @@ class GamesManager
     end.compact.first
   end
 
+  def get_game(gameid)
+    @games.find do |game|
+      game.game_id == gameid
+    end
+  end
 
+  def get_opponent_id(game, teamid)
+    game.away_team_id == teamid ? game.home_team_id : game.away_team_id
+  end
 end

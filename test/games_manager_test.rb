@@ -20,8 +20,12 @@ class GamesManagerTest < Minitest::Test
     assert_equal 6, @games_manager.highest_total_score
   end
 
+  def test_it_can_get_percentage_ties
+    assert_equal 0.15, @games_manager.percentage_ties
+  end
+
   def test_it_can_get_percentage_home_wins
-      assert_equal 0.55, @games_manager.percentage_home_wins
+    assert_equal 0.55, @games_manager.percentage_home_wins
   end
 
   def test_it_can_get_percentage_visitor_games_won
@@ -30,6 +34,26 @@ class GamesManagerTest < Minitest::Test
 
   def test_it_can_count_total_games
     assert_equal 53, @games_manager.total_games
+  end
+
+  def test_it_can_group_games_by_season
+    assert_equal ["20142015", "20172018", "20152016", "20132014", "20122013", "20162017"], @games_manager.seasonal_game_data.keys
+
+    @games_manager.seasonal_game_data.values.each do |games|
+      games.each do |game|
+        assert_instance_of Game, game
+      end
+    end
+  end
+
+  def test_it_can_sum_game_goals
+    assert_equal 211, @games_manager.total_goals
+    season_1415 = @games_manager.seasonal_game_data["20142015"]
+    assert_equal 67, @games_manager.total_goals(season_1415)
+  end
+
+  def test_it_can_get_avg_goals_per_game
+    assert_equal 3.98, @games_manager.average_goals_per_game
   end
 
   def test_it_can_show_count_of_games_by_season
@@ -150,5 +174,12 @@ class GamesManagerTest < Minitest::Test
       @games_manager.all_seasons
   end
 
+  def test_it_can_get_opponent_id
+    game = @games_manager.get_game("2014021002")
+    assert_equal "14", @games_manager.get_opponent_id(game,"6")
+
+    game = @games_manager.get_game("2014020371")
+    assert_equal "26", @games_manager.get_opponent_id(game,"6")
+  end
 
 end
