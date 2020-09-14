@@ -19,11 +19,11 @@ class GameTeamsManagerTest < Minitest::Test
 
   def test_it_can_organize_season_win_percentage_for_each_team
     expected = {
-      "1" => 28.57,
-      "4" => 42.86,
-      "6" => 66.67,
-      "14" => 0,
-      "26" => 42.86
+      "1" => 28.571,
+      "4" => 42.857,
+      "6" => 66.667,
+      "14" => 0.0,
+      "26" => 42.857
     }
     assert_equal expected, @game_teams_manager.all_teams_win_percentage("20142015")
   end
