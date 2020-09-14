@@ -119,6 +119,17 @@ class TestStatTracker <Minitest::Test
     }
     stat_tracker = StatTracker.new(locations)
 
-    assert_equal "Chicago Fire", stat_tracker.favorite_opponent('24')
+    assert_equal 'Chicago Fire', stat_tracker.favorite_opponent('24')
+  end
+
+  def test_it_can_find_a_teams_rival
+    locations =  {
+      games: './fixtures/team_stats_fixture_games.csv',
+      teams: './data/teams.csv',
+      game_teams: './fixtures/team_stats_fixture_game_teams.csv'
+    }
+    stat_tracker = StatTracker.new(locations)
+
+    assert_equal 'North Carolina Courage', stat_tracker.rival('24')
   end
 end
