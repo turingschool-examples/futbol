@@ -33,25 +33,25 @@ class GameTeamsManager
     end
   end
 
-  def all_teams_win_percentage(season)
-    percent_wins = {}
-    @stat_tracker.fetch_all_team_ids.each do |team_id|
-      percent_wins[team_id] = @stat_tracker.fetch_season_win_percentage(team_id, season)
-    end
-    percent_wins
-  end
+  # def all_teams_win_percentage(season)
+  #   percent_wins = {}
+  #   @stat_tracker.fetch_all_team_ids.each do |team_id|
+  #     percent_wins[team_id] = @stat_tracker.fetch_season_win_percentage(team_id, season)
+  #   end
+  #   percent_wins
+  # end
 
-  def winningest_team(season)
-    all_teams_win_percentage(season).max_by do |team_id, win_percentage|
-      win_percentage
-    end.first
-  end
-
-  def worst_team(season)
-    worst = all_teams_win_percentage(season).min_by do |team_id, win_percentage|
-    win_percentage
-    end.first
-  end
+  # def winningest_team(season)
+  #   all_teams_win_percentage(season).max_by do |team_id, win_percentage|
+  #     win_percentage
+  #   end.first
+  # end
+  #
+  # def worst_team(season)
+  #   worst = all_teams_win_percentage(season).min_by do |team_id, win_percentage|
+  #   win_percentage
+  #   end.first
+  # end
 
   def coach_by_season(team_id, season)
     game_teams_by_season(season).find do |game_team|
@@ -64,11 +64,10 @@ class GameTeamsManager
       game_team.head_coach
     end
     #use total_wins and total_games to reset values to equal average percent
-    #use min_by/max_by to select coach 
+    #use min_by/max_by to select coach
   end
 
   def winningest_coach(season)
-    require "pry"; binding.pry
     coach_by_season(winningest_team(season), season)
   end
 
