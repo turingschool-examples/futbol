@@ -160,7 +160,7 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_it_can_return_rival_id
-    assert_equal "4", @game_teams_manager.rival_id("6")
+    assert_equal "26", @game_teams_manager.rival_id("6")
   end
 
   def test_it_can_get_number_of_games_by_team
