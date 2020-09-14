@@ -119,37 +119,18 @@ class GamesManager
     find_percent(total_team_wins(team_id, season), total_team_games_per_season(team_id, season))
   end
 
-  # This should be refactored fo sho  (takes a long time to run)
-  # Currently it cycles through all games just to return an arrray
-  # of unique seasons
-  # But, should be moved to GamesManger
   def all_seasons
-    unique_seasons = []
-    @games.each do |game|
-      if !unique_seasons.include?(game.season)
-        unique_seasons << game.season
-      end
-    end
-    unique_seasons.sort
+    season_group.keys.sort
   end
 
-  # Also needs refactored - maybe don't need to return hash?
-  # Or use reduce?
-  # Move to GamesManager
   def all_teams_all_seasons_win_percentages
-    win_percentages_by_season = {}
-    all_seasons.each do |season|
-      @stat_tracker.fetch_all_team_ids.each do |team_id|
-        if win_percentages_by_season[team_id] == nil
-          win_percentages_by_season[team_id] = {season =>
-            season_win_percentage(team_id, season)}
-        else
-          win_percentages_by_season[team_id][season] =
-          season_win_percentage(team_id, season)
-        end
+    @stat_tracker.fetch_all_team_ids.reduce({}) do |data, team_id|
+      data[team_id] = all_seasons.reduce({}) do |collector, season|
+        collector[season] = season_win_percentage(team_id, season)
+        collector
       end
+      data
     end
-    win_percentages_by_season
   end
 
   def best_season(team_id)
