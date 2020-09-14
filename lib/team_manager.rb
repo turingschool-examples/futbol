@@ -110,4 +110,15 @@ class TeamManager
       collector
     end
   end
+
+  def game_teams_by_season(id)
+    seasons = game_ids_by_season(id)
+    seasons.each do |season, game_ids|
+      seasons[season] = game_ids.map do |game_id|
+        game_team_info(game_id)
+      end
+    end
+
+    seasons
+  end
 end
