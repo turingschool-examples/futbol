@@ -7,7 +7,7 @@ class GameTeamManager
               :stat_tracker
   def initialize(locations, stat_tracker)
     @stat_tracker = stat_tracker
-    @game_teams = generate_game_teams(locations)
+    @game_teams = generate_game_teams(locations[:game_teams])
   end
 
   def generate_game_teams(location)
@@ -146,13 +146,13 @@ class GameTeamManager
       team.team_id == most_tackles_team
     end.team_name
   end
-  # I may need to look into what to do if there is a tie
-  # for most or fewest tackles
 
   def fewest_tackles(season_id)
     fewest_tackles_team = total_tackles(season_id).min_by do |_team, tackles|
       tackles
     end[0]
-    team_by_id(fewest_tackles_team)
+    @teams.find do |team|
+      team.team_id == fewest_tackles_team
+    end.team_name
   end
 end

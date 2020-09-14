@@ -14,9 +14,9 @@ class StatTracker
   end
 
   def load_managers(locations)
-    @game_manager = GameManager.new(locations[:games], self)
-    @team_manager = TeamManager.new(locations[:teams], self)
-    @game_teams_manager = GameTeamManager.new(locations[:game_teams], self)
+    @game_manager = GameManager.new(locations, self)
+    @team_manager = TeamManager.new(locations, self)
+    @game_teams_manager = GameTeamManager.new(locations, self)
   end
 
   def team_info(team_id)

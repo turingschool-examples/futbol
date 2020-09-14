@@ -16,6 +16,7 @@ class GameTeams
               :takeaways,
               :game_team_manager
   def initialize(row)
+    @game_team_manager = game_team_manager
     row.each do |k, v|
       instance_variable_set("@#{k}" , v)
     end
@@ -28,10 +29,6 @@ class GameTeams
     @shots = @shots.to_i
     @tackles = @tackles.to_i
     @takeaways = @takeaways.to_i
-    @game_team_manager = game_team_manager
-  end
 
-  # def team_name
-  #   @game_team_manager.team_by_id(team_id)
-  # end
+  end
 end
