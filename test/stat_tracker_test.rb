@@ -11,12 +11,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_access_to_other_classes
-    assert_instance_of Game, @stats.games[0]
-    assert_equal 53, @stats.games.count
-    assert_instance_of Team, @stats.teams[0]
-    assert_equal 5, @stats.teams.count
-    assert_instance_of GameTeam, @stats.game_teams[0]
-    assert_equal 106, @stats.game_teams.count
+    assert_instance_of Game, @stats.games_manager.games[0]
+    assert_equal 53, @stats.games_manager.total_games
+    assert_instance_of Team, @stats.teams_manager.teams[0]
+    assert_equal 5, @stats.teams_manager.teams.count
+    assert_instance_of GameTeam, @stats.game_teams_manager.game_teams[0]
+    assert_equal 106, @stats.game_teams_manager.game_teams.count
   end
 
   # ~~~ HELPER METHOD TESTS~~~

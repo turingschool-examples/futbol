@@ -75,11 +75,7 @@ class StatTracker
 
   # Move to GameTeamsManager
   def games_containing_team
-    games_by_team = Hash.new(0)
-    @game_teams.each do |game|
-      games_by_team[game.team_id.to_s] += 1
-    end
-    games_by_team
+    @game_teams_manager.games_containing_team
   end
 
   # Move to GameTeamsManager
