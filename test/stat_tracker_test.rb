@@ -173,4 +173,9 @@ class StatTrackerTest < Minitest::Test
     team_id = '3'
     assert_equal '20122013', @stat_tracker.worst_season(team_id)
   end
+
+  def test_it_can_find_average_win_percentage_for_team
+    team_id = '6'
+    assert_equal 0.86, @stat_tracker.get_average_win_percentage(team_id)
+  end
 end

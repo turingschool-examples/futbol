@@ -152,4 +152,8 @@ class StatTracker
   def get_worst_season(team_id)
     @game_teams_manager.get_worst_season(team_id)
   end
+
+  def get_average_win_percentage(team_id)
+    @game_teams_manager.get_average_win_percentage(team_id)
+  end
 end
