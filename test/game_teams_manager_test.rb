@@ -12,7 +12,6 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_it_can_create_a_table_of_games
-    skip
     @game_teams_manager.game_teams.all? do |game|
       assert_instance_of GameTeam, game
     end
@@ -135,6 +134,45 @@ class GameTeamsManagerTest < Minitest::Test
   def test_shots_per_goal_per_season_for_given_season
     expected = {"4"=>3.20, "14"=>2.889, "1"=>3.857, "6"=>2.40, "26"=>3.636}
     assert_equal expected, @game_teams_manager.shots_per_goal_per_season("20132014")
+  end
+
+  def test_it_can_calculate_total_wins
+    assert_equal 45, @game_teams_manager.total_wins(@game_teams_manager.game_teams)
+  end
+
+  def test_it_can_calculate_average_win_percentage
+    assert_equal 0.32, @game_teams_manager.average_win_percentage("4")
+  end
+
+  def test_it_can_filter_by_team_id
+    assert @game_teams_manager.filter_by_team_id("4").all? do |gameteam|
+      gameteam.team_id == "4"
+    end
+  end
+
+
+  def test_it_can_get_number_of_games_by_team
+    expected = {"1"=>23, "4"=>22, "14"=>21, "6"=>20, "26"=>20}
+    assert_equal expected, @game_teams_manager.games_containing_team
+  end
+
+  def test_it_can_get_total_scores_by_team
+    expected = {"1"=>43, "4"=>37, "14"=>47, "6"=>47, "26"=>37}
+    assert_equal expected, @game_teams_manager.total_scores_by_team
+  end
+
+  # Check validity of test - are the expected values accurate?
+  def test_it_can_get_average_scores_per_team
+    expected = {"1"=>1.87, "4"=>1.682, "14"=>2.238, "6"=>2.35, "26"=>1.85}
+    assert_equal expected, @game_teams_manager.average_scores_by_team
+  end
+
+  def test_worst_offense
+    assert_equal "Chicago Fire", @game_teams_manager.worst_offense
+  end
+
+  def test_best_offense
+    assert_equal "FC Dallas", @game_teams_manager.best_offense
   end
 
 end

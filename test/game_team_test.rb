@@ -4,7 +4,7 @@ require "./test/test_helper"
 class GameTeamTest < Minitest::Test
 
   def setup
-    data = {
+    @game_team_1 = GameTeam.new({
       game_id: "2014020006",
       team_id: "1",
       hoa: "away",
@@ -20,17 +20,10 @@ class GameTeamTest < Minitest::Test
       tackles: 36,
       giveaways: 4,
       takeaways: 5,
-    }
-    @game_team_1 = GameTeam.new(data)
+    })
   end
 
   def test_it_exists
     assert_instance_of GameTeam, @game_team_1
   end
-
-  def test_it_knows_a_home_and_away_game
-    assert_equal false, @game_team_1.home_game?
-    assert @game_team_1.away_game?
-  end
-
 end

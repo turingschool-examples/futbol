@@ -118,7 +118,7 @@ class GameTeamsManager
   end
 
   def total_score(filtered_game_teams = @game_teams)
-    total_score = filtered_game_teams.reduce(0) do |sum, game_team|
+    filtered_game_teams.reduce(0) do |sum, game_team|
       sum += game_team.goals
     end
   end
@@ -207,6 +207,50 @@ class GameTeamsManager
   def least_accurate_team(season)
     least_accurate = shots_per_goal_per_season(season).max_by { |team, avg| avg}
     @stat_tracker.fetch_team_identifier(least_accurate[0])
+  end
+
+  def average_win_percentage(team_id)
+    ratio(total_wins(filter_by_team_id(team_id)), total_game_teams(filter_by_team_id(team_id)))
+  end
+
+  def total_wins(game_teams)
+    game_teams.count do |gameteam|
+      gameteam.result == "WIN"
+    end
+  end
+
+  def filter_by_team_id(team_id)
+    @game_teams.select do |gameteam|
+      team_id == gameteam.team_id
+    end
+  end
+  
+  def games_containing_team
+    @game_teams.reduce(Hash.new(0)) do |games_by_team, game|
+      games_by_team[game.team_id.to_s] += 1
+      games_by_team
+    end
+  end
+
+  def total_scores_by_team
+    @game_teams.reduce(Hash.new(0)) do |base, game|
+      base[game.team_id] += game.goals
+      base
+    end
+  end
+
+  def average_scores_by_team
+    total_scores_by_team.merge(games_containing_team){|team_id, scores, games_played| ratio(scores, games_played, 3)}
+  end
+
+  def worst_offense
+    worst = average_scores_by_team.min_by {|id, average| average}
+    @stat_tracker.fetch_team_identifier(worst[0])
+  end
+
+  def best_offense
+    best = average_scores_by_team.max_by {|id, average| average}
+    @stat_tracker.fetch_team_identifier(best[0])
   end
 
 end
