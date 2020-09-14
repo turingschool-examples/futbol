@@ -58,18 +58,21 @@ class LeagueStatHelper
     team_away_average
   end
 
+  def add_goals_to_home_average(team_home_average, team_name, team_id, game)
+    if team_id.to_i == game.home_team_id && team_home_average[team_name].nil?
+       team_home_average[team_name] = game.home_goals
+    elsif team_id.to_i == game.home_team_id
+      team_home_average[team_name] += game.home_goals
+    end
+  end
+
   def team_home_average
     team_home_average = {}
     team_name_ids.each do |team_name, team_id|
       game_count = 0
       @game.each do |game_id, game|
-        if team_id.to_i == game.home_team_id && team_home_average[team_name].nil?
-           team_home_average[team_name] = game.home_goals
-           game_count += 1
-        elsif team_id.to_i == game.home_team_id
-          team_home_average[team_name] += game.home_goals
-          game_count += 1
-        end
+        game_count += 1 if team_id.to_i == game.home_team_id
+        add_goals_to_home_average(team_home_average, team_name, team_id, game)
       end
       team_home_average[team_name] = team_home_average[team_name]/game_count.to_f
     end
