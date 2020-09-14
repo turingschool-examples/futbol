@@ -626,6 +626,6 @@ class TeamManagerTest < Minitest::Test
     }
     team_manager.stubs(:game_teams_by_season).returns(gt_by_season)
 
-    assert_equal '20132014', team_manager.worst_season('5')
+    assert_equal '20142015', team_manager.worst_season('5')
   end
 end

@@ -139,4 +139,16 @@ class TeamManager
       (wins[season] / seasons[season].length.to_f).round(2)
     end
   end
+
+  def worst_season(id)
+    seasons = game_teams_by_season(id)
+    wins = {}
+    seasons.each do |season, games|
+      wins[season] = count_season_wins(id, games)
+    end
+
+    seasons.keys.min_by do |season|
+      (wins[season] / seasons[season].length.to_f).round(2)
+    end
+  end
 end
