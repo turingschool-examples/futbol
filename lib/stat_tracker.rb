@@ -25,10 +25,6 @@ class StatTracker
 
   # ----------SeasonStats
 
-  def find_game_ids_for_season(season)
-    @game_manager.find_game_ids_for_season(season)
-  end
-
   def winningest_coach(season)
     @game_teams_manager.winningest_coach(season)
   end
@@ -51,6 +47,10 @@ class StatTracker
 
   def fewest_tackles(season)
     @game_teams_manager.fewest_tackles(season)
+  end
+
+  def find_game_ids_for_season(season)
+    @game_manager.find_game_ids_for_season(season)
   end
 end
 
