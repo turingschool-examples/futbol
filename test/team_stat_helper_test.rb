@@ -32,5 +32,8 @@ class TeamStatHelperTest < Minitest::Test
     assert_equal 43, @team_stat_helper.collect_losses_per_season("8")["20162017"]
   end
 
+  def test_games_for_team_id
+    assert_equal 1014, @team_stat_helper.games_for_team_id("19").length
+  end
 
 end
