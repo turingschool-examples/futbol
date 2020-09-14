@@ -32,6 +32,10 @@ class StatTracker
     @games_manager.lowest_total_score
   end
 
+  def percentage_home_wins
+    @games_manager.percentage_home_wins
+  end
+
 # League Statistics
   def count_of_teams
     @teams_manager.count_of_teams

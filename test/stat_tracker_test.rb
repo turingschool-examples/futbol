@@ -33,6 +33,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3, @stat_tracker.lowest_total_score
   end
 
+  def test_it_can_find_percentage_home_wins
+    assert_equal 37.5, @stat_tracker.percentage_home_wins
+  end
+
   def test_it_can_return_a_count_teams
     assert_equal 3, @stat_tracker.count_of_teams
   end
