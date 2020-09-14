@@ -36,4 +36,10 @@ class LeagueStatHelperTest < Minitest::Test
     assert_equal 5, input_hash["LA Galaxy"]
   end
 
+  def test_team_season_average
+    results = @league_stat_helper.team_season_average
+    assert_equal 2.06, results["LA Galaxy"].round(2)
+    assert_equal 2.21, results["Portland Timbers"].round(2)
+  end
+
 end
