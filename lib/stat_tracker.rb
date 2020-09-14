@@ -64,27 +64,16 @@ class StatTracker
 
   # Move to GameTeamsManager
   def total_scores_by_team
-    base = Hash.new(0)
-    @game_teams.each do |game|
-      key = game.team_id
-      base[key] += game.goals
-    end
-    base
+    @game_teams_manager.total_scores_by_team
   end
 
-  # Move to GameTeamsManager
-  # I don't think this method is doing what it is supposed to be doing
   def average_scores_by_team
-    total_scores_by_team.merge(games_containing_team){|team_id, scores, games_played| (scores.to_f / games_played).round(2)}
+    @game_teams_manager.average_scores_by_team
   end
 
   # Move to GameTeamsManager
   def games_containing_team
-    games_by_team = Hash.new(0)
-    @game_teams.each do |game|
-      games_by_team[game.team_id.to_s] += 1
-    end
-    games_by_team
+    @game_teams_manager.games_containing_team
   end
 
   # Move to GameTeamsManager
@@ -325,13 +314,11 @@ class StatTracker
 
 # ~~~ LEAGUE METHODS~~~
   def worst_offense
-    worst = average_scores_by_team.min_by {|id, average| average}
-    team_names_by_team_id(worst[0])
+    @game_teams_manager.worst_offense
   end
 
   def best_offense
-    best = average_scores_by_team.max_by {|id, average| average}
-    team_names_by_team_id(best[0])
+    @game_teams_manager.best_offense
   end
 
   def count_of_teams

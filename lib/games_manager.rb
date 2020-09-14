@@ -170,4 +170,5 @@ class GamesManager
   def get_opponent_id(game_id, teamid)
     get_game(game_id).get_opponent_id(teamid)
   end
+
 end
