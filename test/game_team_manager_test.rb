@@ -3,32 +3,27 @@ require './lib/game_team_manager'
 require 'pry'
 
 class GameTeamManagerTest < Minitest::Test
-  # def setup
-  #   @game_path = './data/games.csv'
-  #   @team_path = './data/teams.csv'
-  #   @game_teams_path = './data/game_teams.csv'
-  #   @locations = {
-  #     games: @game_path,
-  #     teams: @team_path,
-  #     game_teams: @game_teams_path
-  #   }
-  #   @game_team_manager = GameTeamManager.new(@locations, @stat_tracker)
-  #   @game_team_manager.generate_game_teams(@locations[:game_teams])
-  # end
+  def setup
+    @game_path = './data/games.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './fixtures/fixture_game_teams.csv'
+    @locations = {
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
+    }
+    @stat_tracker = mock('stat tracker')
+    @game_team_manager = GameTeamManager.new(@locations, @stat_tracker)
+  end
 
-  def test_can_get_game_team_info_for_season
-    season_1 = mock('season_1')
-    season_1.stubs(:game_id).returns('1')
-    season_1.stubs(:game_teams_data_for_season).returns('season_1 info')
-    season_2 = mock('season_2')
-    season_2.stubs(:game_id).returns('2')
-    season_2.stubs(:game_teams_data_for_season).returns('season_2 info')
-    season_array = [season_1, season_2]
-    CSV.stubs(:for_each).returns(nil)
-    game_team_manager = GameTeamManager.new('Pull it', 'stat_tracker')
-    game_team_manager.stubs(:game_teams).returns(season_array)
+  def test_it_exists
 
-    binding.pry
+    assert_instance_of GameTeamManager, @game_team_manager
+  end
+
+  def test_can_get_game_team_info
+
+    assert_equal 80, @game_team_manager.game_teams.count
   end
 
   # def test_game_teams_data_for_season

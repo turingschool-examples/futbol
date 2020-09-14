@@ -3,8 +3,7 @@ require 'csv'
 require 'pry'
 
 class GameTeamManager
-  attr_reader :game_teams,
-              :stat_tracker
+  attr_reader :game_teams
   def initialize(locations, stat_tracker)
     @stat_tracker = stat_tracker
     @game_teams = generate_game_teams(locations[:game_teams])
@@ -19,7 +18,7 @@ class GameTeamManager
   end
 
   def team_by_id(team_id)
-    @stat_tracker.team_info(team_id)[:name]
+    @stat_tracker.team_info(team_id)["team_name"]
   end
 
   def game_teams_data_for_season(season_id)
@@ -105,18 +104,14 @@ class GameTeamManager
     most_accurate = team_accuracy(season_id).max_by do |team, accuracy|
       accuracy
     end[0]
-    @teams.find do |team|
-      team.team_id == most_accurate
-    end.team_name
+    team_by_id(most_accurate)
   end
 
   def least_accurate_team(season_id)
     least_accurate = team_accuracy(season_id).min_by do |team, accuracy|
       accuracy
     end[0]
-    @teams.find do |team|
-      team.team_id == least_accurate
-    end.team_name
+    team_by_id(least_accurate)
   end
 
   def total_tackles(season_id)
@@ -142,17 +137,13 @@ class GameTeamManager
     most_tackles_team = total_tackles(season_id).max_by do |_team, tackles|
       tackles
     end[0]
-    @teams.find do |team|
-      team.team_id == most_tackles_team
-    end.team_name
+    team_by_id(most_tackles_team)
   end
 
   def fewest_tackles(season_id)
     fewest_tackles_team = total_tackles(season_id).min_by do |_team, tackles|
       tackles
     end[0]
-    @teams.find do |team|
-      team.team_id == fewest_tackles_team
-    end.team_name
+    team_by_id(fewest_tackles_team)
   end
 end

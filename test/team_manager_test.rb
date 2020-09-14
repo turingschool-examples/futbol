@@ -16,8 +16,8 @@ class TeamManagerTest < Minitest::Test
     @team_manager.generate_teams(@locations[:teams])
   end
 
-  def test_team_info
-
-    assert_equal "New England Revolution", @team_manager.team_info("16")["team_name"]
-  end
+  # def test_team_info
+  #
+  #   assert_equal "New England Revolution", @team_manager.team_info("16")["team_name"]
+  # end
 end
