@@ -105,4 +105,9 @@ class TeamManagerTest < Minitest::Test
     team_id = '6'
     assert_equal 0.86, @team_manager.get_average_win_percentage(team_id)
   end
+
+  def test_average_win_percentage
+    team_id = '6'
+    assert_equal 0.86, @team_manager.average_win_percentage(team_id)
+  end
 end

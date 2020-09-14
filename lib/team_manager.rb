@@ -104,4 +104,8 @@ class TeamsManager
   def get_average_win_percentage(team_id)
     @tracker.get_average_win_percentage(team_id)
   end
+
+  def average_win_percentage(team_id)
+    find_a_team(team_id).avg_win_pct
+  end
 end
