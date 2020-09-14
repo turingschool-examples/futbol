@@ -90,25 +90,25 @@ class TeamManagerTest < Minitest::Test
     def test_lowest_scoring_home_team
       assert_equal 'Utah Royals FC', @team_manager.lowest_scoring_home_team
     end
+
+    def test_in_can_find_team_info
+      expected = {"team_id"=>"18",
+                  "franchise_id"=>"34",
+                  "team_name"=>"Minnesota United FC",
+                  "abbreviation"=>"MIN",
+                  "link"=>"/api/v1/teams/18"
+      }
+      assert_equal expected, @team_manager.team_info("18")
+    end
+
+    def test_all_team_games
+      assert_equal 510, @team_manager.all_team_games("6").count
+    end
+
+    def test_it_can_group_by_season
+      assert_equal 6, @team_manager.group_by_season("6").keys.count
+    end
     
-    # def test_in_can_find_team_info
-    #   expected = {"team_id"=>"18",
-    #               "franchise_id"=>"34",
-    #               "team_name"=>"Minnesota United FC",
-    #               "abbreviation"=>"MIN",
-    #               "link"=>"/api/v1/teams/18"
-    #   }
-    #   assert_equal expected, @team_manager.team_info("18")
-    # end
-    #
-    # def test_all_team_games
-    #   assert_equal 510, @team_manager.all_team_games("6").count
-    # end
-    #
-    # def test_it_can_group_by_season
-    #   assert_equal 6, @team_manager.group_by_season("6").keys.count
-    # end
-    #
     # def test_it_can_find_percent_wins_by_season
     #   expected = {"2012"=>0.543, "2017"=>0.532, "2013"=>0.574, "2014"=>0.378, "2015"=>0.402, "2016"=>0.511}
     #
