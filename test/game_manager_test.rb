@@ -84,6 +84,7 @@ class GameManagerTest < Minitest::Test
     assert_equal ["123", "456"], game_manager.find_game_ids_for_season('20122013')
   end
 
+#---------------LeagueStatisticsTests
   def test_it_can_return_team_stats
     team_1 = mock('Team Object 1')
     team_2 = mock('Team Object 2')
