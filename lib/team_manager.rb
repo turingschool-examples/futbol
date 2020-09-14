@@ -40,6 +40,12 @@ class TeamManager
     end
   end
 
+  def gather_game_info(id)
+    game_ids_by_team(id).map do |game_id|
+      game_info(game_id)
+    end
+  end
+
   def most_goals_scored(id)
     gather_game_team_info(id).map do |game|
       game[id][:goals]
@@ -96,4 +102,6 @@ class TeamManager
 
     team_info(rival_id)['team_name']
   end
+
+  # def game_teams_by_season(id)
 end
