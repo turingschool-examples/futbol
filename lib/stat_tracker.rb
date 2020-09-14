@@ -101,8 +101,8 @@ class StatTracker
 
   # Move to TeamManager
   # This method has duplicates (team_names_by_team_id, team_id_to_team_name)
-  def team_id_to_team_name(id)
-    @teams_manager.team_identifier(id)
+  def team_id_to_team_name(team_id)
+    @teams_manager.team_identifier(team_id)
   end
 
   # This could potentially be replaced by sum_game_goals or vise versa
@@ -166,6 +166,7 @@ class StatTracker
   end
 
   # Move to GameTeamsManager
+  # I don't know if this method is necessary anymore
   def lowest_scoring_team_id(hoa)
     hoa_games_by_team_id(hoa).min_by do |team_id, details|
       avg_score(details)
@@ -179,8 +180,8 @@ class StatTracker
     end
   end
 
-  def filter_by_teamid(id)
-    @game_teams_manager.filter_by_teamid(id)
+  def filter_by_team_id(team_id)
+    @game_teams_manager.filter_by_team_id(team_id)
   end
 
   def average_win_percentage(teamid)
@@ -190,30 +191,30 @@ class StatTracker
 
   # Move to GameTeamsManager
   # Need to convert to common naming convention
-  def avg_win_perc_by_opp(teamid)
+  def avg_win_perc_by_opp(team_id)
     awp_by_opp = {}
-    @game_teams_manager.game_teams_by_opponent(teamid).each do |opponent, gameteams|
+    @game_teams_manager.game_teams_by_opponent(team_id).each do |opponent, gameteams|
       awp_by_opp[opponent] = find_percent(total_wins(gameteams), total_game_teams(gameteams))
     end
     awp_by_opp
   end
 
   # Move to GameTeamsManager
-  def fave_opponent_id(teamid)
-    avg_win_perc_by_opp(teamid).max_by do |opponent, win_perc|
+  def fave_opponent_id(team_id)
+    avg_win_perc_by_opp(team_id).max_by do |opponent, win_perc|
       win_perc
     end[0]
   end
 
   # Move to GameTeamsManager
-  def rival_id(teamid)
-    avg_win_perc_by_opp(teamid).min_by do |opponent, win_perc|
+  def rival_id(team_id)
+    avg_win_perc_by_opp(team_id).min_by do |opponent, win_perc|
       win_perc
     end[0]
   end
 
-  def game_teams_by_opponent(teamid)
-    @game_teams_manager.game_teams_by_opponent(teamid)
+  def game_teams_by_opponent(team_id)
+    @game_teams_manager.game_teams_by_opponent(team_id)
   end
 
   def get_game(gameid)
@@ -221,15 +222,15 @@ class StatTracker
   end
 
   # Move to GameTeamsManager
-  #Duplicate method to filter_by_teamid
+  #Duplicate method to filter_by_team_id
   def games_by_team(team_id)
     @game_teams.select do |game|
       game.team_id == team_id
     end
   end
 
-  def get_opponent_id(game, teamid)
-    @games_manager.get_opponent_id(game, teamid)
+  def get_opponent_id(game, team_id)
+    @games_manager.get_opponent_id(game, team_id)
   end
 
   def game_ids_per_season(season)
@@ -258,8 +259,8 @@ class StatTracker
   end
 
   # Move to GamesManager
-  def get_opponent_id(game, teamid)
-    game.away_team_id == teamid ? game.home_team_id : game.away_team_id
+  def get_opponent_id(game, team_id)
+    game.away_team_id == team_id ? game.home_team_id : game.away_team_id
   end
 
   def game_ids_by_season(season)
@@ -348,11 +349,11 @@ class StatTracker
   end
 
   def lowest_scoring_visitor
-    team_id_to_team_name(lowest_scoring_team_id("away"))
+    @game_teams_manager.lowest_scoring_visitor
   end
 
   def lowest_scoring_home_team
-    team_id_to_team_name(lowest_scoring_team_id("home"))
+    @game_teams_manager.lowest_scoring_home_team
   end
 
 # ~~~ SEASON METHODS~~~
@@ -391,12 +392,12 @@ class StatTracker
     @game_teams_manager.average_win_percentage(teamid)
   end
 
-  def favorite_opponent(teamid)
-    team_id_to_team_name(fave_opponent_id(teamid))
+  def favorite_opponent(team_id)
+    team_id_to_team_name(fave_opponent_id(team_id))
   end
 
-  def rival(teamid)
-    team_id_to_team_name(rival_id(teamid))
+  def rival(team_id)
+    team_id_to_team_name(rival_id(team_id))
   end
 
   def worst_season(team_id)
@@ -408,10 +409,10 @@ class StatTracker
   end
 
   def most_goals_scored(team_id)
-    team_goals_by_game(team_id).max
+    @game_teams_manager.most_goals_scored(team_id)
   end
 
   def fewest_goals_scored(team_id)
-    team_goals_by_game(team_id).min
+    @game_teams_manager.fewest_goals_scored(team_id)
   end
 end
