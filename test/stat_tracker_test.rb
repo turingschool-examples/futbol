@@ -4,6 +4,9 @@ require 'mocha/minitest'
 require './lib/stat_tracker'
 
 class StatTrackerTest < Minitest::Test
+
+  # ---------SeasonStats
+  
   def test_find_team_results_by_season
     game_path = './fixture/game_blank.csv'
     team_path = './fixture/team_blank.csv'

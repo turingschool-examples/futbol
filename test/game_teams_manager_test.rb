@@ -56,6 +56,8 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal [game_teams_1], tracker.game_teams_manager.game_teams_results_by_season('20122013')
   end
 
+  # -----------SeasonStats
+
   def test_initialize_coaches_records
     results = @stat_tracker.game_teams_manager.game_teams_results_by_season('20122013')
     expected = {"John Tortorella"=>{:wins=>0, :losses=>0, :ties=>0},
