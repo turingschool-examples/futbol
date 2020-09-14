@@ -62,4 +62,16 @@ class TeamManagerTest < Minitest::Test
   def test_it_can_lowest_scoring_home
     assert_equal 'Sporting Kansas City', @team_manager.lowest_scoring_home
   end
+
+  def test_it_can_get_team_info
+    team_id = '5'
+    expected = {
+                'team_id' => '5',
+                'franchise_id' => '17',
+                'team_name' => 'Sporting Kansas City',
+                'abbreviation' => 'SKC',
+                'link' => '/api/v1/teams/5'
+    }
+    assert_equal expected, @team_manager.team_info(team_id)
+  end
 end
