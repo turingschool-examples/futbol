@@ -37,6 +37,10 @@ class StatTracker
 
   def highest_total_score
     @game_manager.highest_total_score
+  end
+
+  def lowest_total_score
+    @game_manager.lowest_total_score
   end 
 
   def percentage_home_wins
