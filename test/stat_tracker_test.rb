@@ -50,7 +50,7 @@ class StatTrackerTest < Minitest::Test
       "20122013" => 7,
       "20152016" => 1
     }
-    assert_equal expected, @stat_tracker.count_games_by_season
+    assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
   def test_it_find_average_goals_per_game
@@ -145,5 +145,10 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_find_best_season_for_team
     team_id = '6'
     assert_equal '20122013', @stat_tracker.get_best_season(team_id)
+  end
+
+  def test_it_can_find_worst_season_for_team
+    team_id = '6'
+    assert_equal '20122013', @stat_tracker.get_worst_season(team_id)
   end
 end

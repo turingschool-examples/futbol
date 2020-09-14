@@ -134,4 +134,8 @@ class StatTracker
   def get_best_season(team_id)
     @game_teams_manager.get_best_season(team_id)
   end
+
+  def get_worst_season(team_id)
+    @game_teams_manager.get_worst_season(team_id)
+  end
 end
