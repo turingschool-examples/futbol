@@ -54,6 +54,16 @@ class GameTeamsManagerTest < Minitest::Test
     end
   end
 
+  def test_it_can_calculate_coach_game_teams_average_wins
+    expected = {
+      "Claude Julien" => 1.0,
+      "Guy Boucher" => 0.0,
+      "Peter DeBoer" => 1.0,
+      "Peter Laviolette" => 0.25
+    }
+    assert_equal expected, @game_teams_manager.coach_game_teams_average_wins("20122013")
+  end
+
   def test_it_can_list_winningest_coach_by_season
     skip
     assert_equal "Peter DeBoer", @game_teams_manager.winningest_coach("20122013")

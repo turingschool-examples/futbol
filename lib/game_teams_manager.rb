@@ -59,19 +59,20 @@ class GameTeamsManager
     end.head_coach
   end
 
-  def new_winningest_coach_method
-    game_teams_by_season(season).group_by do |game_team|
-      game_team.head_coach
-    end
-    #use total_wins and total_games to reset values to equal average percent
-    #use min_by/max_by to select coach
-  end
-
   def coach_game_teams(season)
     game_teams_by_season(season).group_by do |game_team|
       game_team.head_coach
     end
   end
+
+  def coach_game_teams_average_wins(season)
+  end
+
+  # def average_win_percentage_by_opponent(team_id)
+  #   game_teams_by_opponent(team_id).map do |opponent, gameteams|
+  #     [opponent, ratio(total_wins(gameteams), total_game_teams(gameteams))]
+  #   end.to_h
+  # end
 
   def winningest_coach(season)
     coach_by_season(winningest_team(season), season)
