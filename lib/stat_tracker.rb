@@ -177,8 +177,8 @@ class StatTracker
     @game_teams_manager.game_teams_by_opponent(team_id)
   end
 
-  def get_game(gameid)
-    @games_manager.get_game(gameid)
+  def get_game(game_id)
+    @games_manager.get_game(game_id)
   end
 
   # Move to GameTeamsManager
@@ -189,8 +189,8 @@ class StatTracker
     end
   end
 
-  def get_opponent_id(gameid, teamid)
-    @games_manager.get_opponent_id(gameid, teamid)
+  def get_opponent_id(game_id, team_id)
+    @games_manager.get_opponent_id(game_id, team_id)
   end
 
   def game_ids_per_season(season)
