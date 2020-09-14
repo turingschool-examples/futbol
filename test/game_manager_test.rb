@@ -48,10 +48,12 @@ class GameManagerTest < Minitest::Test
   end
 
   def test_it_knows_percentage_home_wins
+    @game_manager.stubs(:total_games).returns(7441)
     assert_equal 0.44, @game_manager.percentage_home_wins
   end
 
   def test_it_knows_percentage_visitor_wins
+    @game_manager.stubs(:total_games).returns(7441)
     assert_equal 0.36, @game_manager.percentage_visitor_wins
   end
 
@@ -60,6 +62,7 @@ class GameManagerTest < Minitest::Test
   end
 
   def test_it_knows_percentage_ties
+        @game_manager.stubs(:total_games).returns(7441)
     assert_equal 0.20, @game_manager.percentage_ties
   end
 
@@ -80,6 +83,7 @@ class GameManagerTest < Minitest::Test
   end
 
   def test_knows_average_goals_per_game
+    @game_manager.stubs(:total_games).returns(7441)
     assert_equal 4.22, @game_manager.average_goals_per_game
   end
 
