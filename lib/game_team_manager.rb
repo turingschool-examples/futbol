@@ -172,15 +172,14 @@ class GameTeamManager
     @game_teams.each do |game|
       if game_id_array.include?(game.game_id) && game.team_id != team_id
         total_games[game.team_id] += 1
-        if game.result == "LOSS"
+        if game.result == "WIN"
           loser_loses[game.team_id] += 1
         end
       end
     end
-    biggest_loser = loser_loses.max_by do |loser, losses|
-      losses.to_f / total_games[loser]
-    end[0]
-    @tracker.get_team_name(biggest_loser)
+    # fix me !!
+    biggest_loser = sort_percentages(loser_loses, total_games)
+    @tracker.get_team_name(biggest_loser.last[0])
   end
 
   def rival(team_id)
@@ -195,9 +194,7 @@ class GameTeamManager
         end
       end
     end
-    biggest_winner = winner_wins.max_by do |winner, wins|
-      wins.to_f / total_games[winner]
-    end[0]
-    @tracker.get_team_name(biggest_winner)
+    biggest_winner = sort_percentages(winner_wins, total_games)
+    @tracker.get_team_name(biggest_winner.last[0])
   end
 end
