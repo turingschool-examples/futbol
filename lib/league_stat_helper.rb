@@ -37,18 +37,21 @@ class LeagueStatHelper
     season_average
   end
 
+  def add_goals_to_away_average(team_away_average, team_name, team_id, game)
+    if team_id.to_i == game.away_team_id && team_away_average[team_name].nil?
+       team_away_average[team_name] = game.away_goals
+    elsif team_id.to_i == game.away_team_id
+      team_away_average[team_name] += game.away_goals
+    end
+  end
+
   def team_away_average
     team_away_average = {}
     team_name_ids.each do |team_name, team_id|
       game_count = 0
       @game.each do |game_id, game|
-        if team_id.to_i == game.away_team_id && team_away_average[team_name].nil?
-           team_away_average[team_name] = game.away_goals
-           game_count += 1
-        elsif team_id.to_i == game.away_team_id
-          team_away_average[team_name] += game.away_goals
-          game_count += 1
-        end
+        game_count += 1 if team_id.to_i == game.away_team_id
+        add_goals_to_away_average(team_away_average, team_name, team_id, game)
       end
       team_away_average[team_name] = team_away_average[team_name]/game_count.to_f
     end
