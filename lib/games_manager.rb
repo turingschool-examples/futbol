@@ -167,8 +167,8 @@ class GamesManager
     end
   end
 
-  def get_opponent_id(game_id, teamid)
-    get_game(game_id).get_opponent_id(teamid)
+  def get_opponent_id(game_id, team_id)
+    get_game(game_id).get_opponent_id(team_id)
   end
 
 end
