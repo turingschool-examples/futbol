@@ -20,7 +20,7 @@ class GameManagerTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal 7441, @game_manager.game_data.length
+    assert_equal 7441, @game_manager.game_stats_data.length
   end
 
   def test_knows_total_games_count
