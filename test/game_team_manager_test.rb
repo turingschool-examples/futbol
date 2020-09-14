@@ -60,17 +60,4 @@ class GameTeamManagerTest < MiniTest::Test
     @game_team_manager.tracker.stubs(:get_team_name).returns("FC Dallas")
     assert_equal "FC Dallas", @game_team_manager.rival("3")
   end
-
-  def test_it_can_find_winner_or_loser_game_id
-    assert_equal "3", @game_team_manager.winner_or_loser_game_id("6")
-  end
-
-  def test_it_can_create_winner_hash(team_id)
-    assert_equal ({"6"=>3}), @game_team_manager.winner_hash(team_id)
-  end
-
-  def test_it_can_create_loser_hash(team_id)
-    assert_equal ({"3"=>6}), @game_team_manager.loser_hash(team_id)
-  end
-
 end
