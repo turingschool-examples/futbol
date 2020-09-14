@@ -253,4 +253,40 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal 1, tracker.game_teams_manager.fewest_goals_scored('123')
     assert_equal 2, tracker.game_teams_manager.fewest_goals_scored('987')
   end
+
+  def test_it_can_find_opponent_games
+    game_path = './fixture/game_blank.csv'
+    team_path = './fixture/team_blank.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    tracker = StatTracker.new(game_path, team_path, game_teams_path)
+    game_teams_1 = mock("Game Team Object 1")
+    game_teams_2 = mock("Game Team Object 2")
+    game_teams_3 = mock("Game Team Object 3")
+    game_teams_4 = mock("Game Team Object 4")
+    game_teams_5 = mock("Game Team Object 5")
+    game_teams_6 = mock("Game Team Object 6")
+    tracker.game_teams_manager.game_teams << game_teams_1
+    tracker.game_teams_manager.game_teams << game_teams_2
+    tracker.game_teams_manager.game_teams << game_teams_3
+    tracker.game_teams_manager.game_teams << game_teams_4
+    tracker.game_teams_manager.game_teams << game_teams_5
+    tracker.game_teams_manager.game_teams << game_teams_6
+
+    game_teams_1.stubs(:team_id).returns('123')
+    game_teams_2.stubs(:team_id).returns('123')
+    game_teams_3.stubs(:team_id).returns('456')
+    game_teams_4.stubs(:team_id).returns('987')
+    game_teams_5.stubs(:team_id).returns('456')
+    game_teams_6.stubs(:team_id).returns('123')
+    game_teams_1.stubs(:game_id).returns('2012030221')
+    game_teams_2.stubs(:game_id).returns('2012030222')
+    game_teams_3.stubs(:game_id).returns('2012030221')
+    game_teams_4.stubs(:game_id).returns('2012030222')
+    game_teams_5.stubs(:game_id).returns('2012030223')
+    game_teams_6.stubs(:game_id).returns('2012030224')
+
+    expected = [game_teams_3, game_teams_4]
+    assert_equal expected, tracker.game_teams_manager.find_opponent_games('123')
+  end
 end
