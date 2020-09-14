@@ -522,4 +522,23 @@ class TeamManagerTest < Minitest::Test
 
     assert_equal 'The Sixes', team_manager.rival('5')
   end
+
+  def test_it_can_separate_game_info_by_season_id
+    stat_tracker = mock('A totally legit stat_tracker')
+    CSV.stubs(:foreach).returns(nil)
+    team_manager = TeamManager.new('A totally legit path', stat_tracker)
+    game1 = {season_id: '20122013', game_id: 1}
+    game2 = {season_id: '20122013', game_id: 2}
+    game3 = {season_id: '20132014', game_id: 3}
+    game4 = {season_id: '20142015', game_id: 4}
+    game_info = [game1, game2, game3, game4]
+    team_manager.stubs(:gather_game_info).returns(game_info)
+    expected = {
+      '20122013' => [game1, game2],
+      '20132014' => [game3],
+      '20142015' => [game4]
+    }
+
+    assert_equal expected, team_manager.games_by_season('a team_id')
+  end
 end
