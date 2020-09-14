@@ -394,4 +394,8 @@ class StatTracker
   def fewest_goals_scored(team_id)
     team_goals_by_game(team_id).min
   end
+
+  def favorite_opponent(team_id)
+    fetch_team_identifier(@game_teams_manager.favorite_opponent_id(team_id))
+  end
 end

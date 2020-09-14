@@ -399,11 +399,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_calc_favorite_opponent
-    assert_equal "Chicago Fire", @stats.favorite_opponent(6)
+    require "pry"; binding.pry
+    assert_equal "Chicago Fire", @stats.favorite_opponent("6")
   end
 
   def test_it_can_calc_rival
-    assert_equal "FC Cincinnati", @stats.rival(6)
+    assert_equal "FC Cincinnati", @stats.rival("6")
   end
 
 
