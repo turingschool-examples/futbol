@@ -67,6 +67,12 @@ class GameTeamsManager
     #use min_by/max_by to select coach
   end
 
+  def coach_game_teams(season)
+    game_teams_by_season(season).group_by do |game_team|
+      game_team.head_coach
+    end
+  end
+
   def winningest_coach(season)
     coach_by_season(winningest_team(season), season)
   end

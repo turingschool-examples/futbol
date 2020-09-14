@@ -45,6 +45,15 @@ class GameTeamsManagerTest < Minitest::Test
   #   assert_equal "Peter DeBoer", @game_teams_manager.coach_by_season("1", "20142015")
   # end
 
+  def test_it_can_list_game_teams_per_coach
+    expected = ["Claude Julien", "Guy Boucher", "Peter DeBoer", "Peter Laviolette"]
+    @game_teams_manager.coach_game_teams("20122013").each do |coach, game_teams|
+      game_teams.each do |game_team|
+        assert expected.include?(game_team.head_coach)
+      end
+    end
+  end
+
   def test_it_can_list_winningest_coach_by_season
     skip
     assert_equal "Peter DeBoer", @game_teams_manager.winningest_coach("20122013")
