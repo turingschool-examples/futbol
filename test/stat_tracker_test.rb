@@ -181,5 +181,13 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_find_rival
     assert_includes ["Houston Dash", "LA Galaxy"], @stat_tracker.rival("18")
+    stat_tracker = StatTracker.new(locations)
+    @game_stats = GameStats.new(locations[:games], self)
+    @game_teams_stats = GameTeamsStats.new(locations[:game_teams], self)
+    @team_stats = TeamStats.new(locations[:teams], self)
+
+    assert_instance_of GameStats, stat_tracker.game_stats
+    assert_instance_of TeamStats, stat_tracker.team_stats
+    assert_instance_of GameTeamsStats, stat_tracker.game_teams_stats
   end
 end

@@ -1,44 +1,31 @@
-require_relative 'hashable'
-require_relative 'groupable'
+require './lib/stats'
 
-class TeamManager
-  include Hashable
-  include Groupable
+class TeamStats < Stats
   attr_reader :team_data,
               :tracker
 
   def initialize(location, tracker)
-    @team_data = teams_stats(location)
     @tracker = tracker
-  end
-
-  def teams_stats(location)
-    teams_data = CSV.read(location, { encoding: 'UTF-8', headers: true, header_converters: :symbol, converters: :all })
-    result = []
-    teams_data.each do |team|
-      team.delete(:stadium)
-      result << Team.new(team, self)
-    end
-    result
+    super(game_stats_data, game_teams_stats_data, teams_stats_data)
   end
 
   def count_of_teams
-    @team_data.length
+    @teams_stats_data.length
   end
 
   def group_by_team_id
-    @tracker.game_teams_manager.group_by_team_id
+    @tracker.game_teams_stats.group_by_team_id
   end
 
   def best_offense
-    best_attack = @team_data.find do |team|
+    best_attack = @teams_stats_data.find do |team|
       team.teamname if best_offense_stats == team.team_id
     end
     best_attack.teamname
   end
 
   def worst_offense
-    worst_attack = @team_data.find do |team|
+    worst_attack = @teams_stats_data.find do |team|
       team.teamname if worst_offense_stats == team.team_id
     end
     worst_attack.teamname
@@ -66,7 +53,7 @@ class TeamManager
   end
 
   def highest_scoring_visitor
-    visitor = @team_data.find do |team|
+    visitor = @teams_stats_data.find do |team|
       team.teamname if team_highest_away_goals == team.team_id
     end
     visitor.teamname
@@ -80,7 +67,7 @@ class TeamManager
   end
 
   def lowest_scoring_visitor
-    visitor = @team_data.find do |team|
+    visitor = @teams_stats_data.find do |team|
       team.teamname if team_lowest_away_goals == team.team_id
     end
     visitor.teamname
@@ -94,7 +81,7 @@ class TeamManager
   end
 
   def highest_scoring_home_team
-    home = @team_data.find do |team|
+    home = @teams_stats_data.find do |team|
       team.teamname if team_highest_home_goals == team.team_id
     end
     home.teamname
@@ -108,43 +95,43 @@ class TeamManager
   end
 
   def lowest_scoring_home_team
-    home = @team_data.find do |team|
+    home = @teams_stats_data.find do |team|
       team.teamname if team_lowest_home_goals == team.team_id
     end
     home.teamname
   end
 
   def most_accurate_team(season)
-    accurate = @team_data.find do |team|
-      team.teamname if @tracker.game_teams_manager.find_most_accurate_team(season) == team.team_id
+    accurate = @teams_stats_data.find do |team|
+      team.teamname if @tracker.game_teams_stats.find_most_accurate_team(season) == team.team_id
     end
     accurate.teamname
   end
 
   def least_accurate_team(season)
-    not_accurate = @team_data.find do |team|
-      team.teamname if @tracker.game_teams_manager.find_least_accurate_team(season) == team.team_id
+    not_accurate = @teams_stats_data.find do |team|
+      team.teamname if @tracker.game_teams_stats.find_least_accurate_team(season) == team.team_id
     end
     not_accurate.teamname
   end
 
   def most_tackles(season)
-    most_tackles = @team_data.find do |team|
-      team.teamname if @tracker.game_teams_manager.find_team_with_most_tackles(season) == team.team_id
+    most_tackles = @teams_stats_data.find do |team|
+      team.teamname if @tracker.game_teams_stats.find_team_with_most_tackles(season) == team.team_id
     end
     most_tackles.teamname
   end
 
   def fewest_tackles(season)
-    fewest_tackles = @team_data.find do |team|
-      team.teamname if @tracker.game_teams_manager.find_team_with_fewest_tackles(season) == team.team_id
+    fewest_tackles = @teams_stats_data.find do |team|
+      team.teamname if @tracker.game_teams_stats.find_team_with_fewest_tackles(season) == team.team_id
     end
     fewest_tackles.teamname
   end
 
   def team_info(team_id)
     hash = {}
-    @team_data.each do |team|
+    @teams_stats_data.each do |team|
       if team_id == team.team_id.to_s
         hash['team_id'] = team.team_id.to_s
         hash['franchise_id'] =  team.franchiseid.to_s
@@ -157,7 +144,7 @@ class TeamManager
   end
 
   def all_team_games(team_id)
-    @tracker.game_teams_manager.all_team_games(team_id)
+    @tracker.game_teams_stats.all_team_games(team_id)
   end
 
   def best_season(team_id)
@@ -201,7 +188,7 @@ class TeamManager
   end
 
   def find_all_game_ids_by_team(team_id)
-    @tracker.game_manager.find_all_game_ids_by_team(team_id)
+    @tracker.game_stats.find_all_game_ids_by_team(team_id)
   end
 
   def find_opponent_id(team_id)
@@ -223,7 +210,7 @@ class TeamManager
 
   def favorite_opponent(team_id)
     opponent_id = favorite_opponent_id(team_id)
-    opponent_name = @team_data.find do |team|
+    opponent_name = @teams_stats_data.find do |team|
       team.teamname if opponent_id == team.team_id.to_s
     end
     opponent_name.teamname
@@ -238,7 +225,7 @@ class TeamManager
 
   def rival(team_id)
     opponent_id = rival_opponent_id(team_id)
-    opponent_name = @team_data.find do |team|
+    opponent_name = @teams_stats_data.find do |team|
       team.teamname if opponent_id == team.team_id.to_s
     end
     opponent_name.teamname
