@@ -173,6 +173,11 @@ class StatTracker
     @game_teams_manager.filter_by_team_id(team_id)
   end
 
+  def average_win_percentage(teamid)
+    find_percent(total_wins(filter_by_teamid(teamid)), total_game_teams(filter_by_teamid(teamid)))
+  end
+
+
   # Move to GameTeamsManager
   # Need to convert to common naming convention
   def avg_win_perc_by_opp(team_id)
@@ -302,11 +307,7 @@ class StatTracker
   end
 
   def average_goals_by_season
-    average_goals_by_season = {}
-    seasonal_game_data.each do |season, details|
-      average_goals_by_season[season] = ratio(total_goals(details), total_games(details))
-    end
-    average_goals_by_season
+    @games_manager.average_goals_by_season
   end
 
   def average_goals_per_game
@@ -374,9 +375,8 @@ class StatTracker
     @games_manager.best_season(team_id)
   end
 
-  # This is a duplicate method as average_win_percentage(id)
-  def average_win_percentage(team_id)
-    find_percent(total_wins(filter_by_team_id(team_id)), total_game_teams(filter_by_team_id(team_id)))
+  def average_win_percentage(teamid)
+    @game_teams_manager.average_win_percentage(teamid)
   end
 
   def favorite_opponent(team_id)

@@ -213,7 +213,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_get_average_goals_by_season
     expected = {"20142015"=>4.19, "20172018"=>3.78, "20152016"=>3.8, "20132014"=>3.92, "20122013"=>3.5, "20162017"=>4.29}
-    assert_equal expected , @stats.avg_goals_by_season
+    assert_equal expected , @stats.average_goals_by_season
   end
 
   def test_it_can_get_avg_goals_per_game
@@ -384,10 +384,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal 1, @stats.fewest_goals_scored("14")
   end
 
-  def test_it_can_calc_avg_win_percentage
-    assert_equal 31.82, @stats.average_win_percentage("4")
-  end
-
   def test_it_can_calc_favorite_opponent
     assert_equal "Chicago Fire", @stats.favorite_opponent("6")
   end
@@ -395,6 +391,5 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_calc_rival
     assert_equal "FC Cincinnati", @stats.rival("6")
   end
-
 
 end

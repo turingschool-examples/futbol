@@ -56,6 +56,18 @@ class GamesManagerTest < Minitest::Test
     assert_equal 3.98, @games_manager.average_goals_per_game
   end
 
+  def test_it_can_get_average_goals_by_season
+    expected = {
+      "20142015"=>4.19,
+      "20172018"=>3.78,
+      "20152016"=>3.8,
+      "20132014"=>3.92,
+      "20122013"=>3.5,
+      "20162017"=>4.29
+    }
+    assert_equal expected, @games_manager.average_goals_by_season
+  end
+
   def test_it_can_show_count_of_games_by_season
     expected = {"20142015"=>16, "20172018"=>9, "20152016"=>5, "20132014"=>12, "20122013"=>4, "20162017"=>7}
     assert_equal expected, @games_manager.count_of_games_by_season
