@@ -39,6 +39,26 @@ class GameManager
     result = @games.min_by do |game|
       game.away_goals.to_i + game.home_goals.to_i
     end
-    result.away_goals.to_i + result.home_goals.to_i
+      result.away_goals.to_i + result.home_goals.to_i
+    end
   end
-end
+
+  def count_of_games_by_season
+    games_by_season_index = {}
+    games_by_season.each do |season, games|
+      games_by_season_index[season] = games.length
+    end
+    games_by_season_index
+  end
+
+  def games_by_season
+    result = {}
+    games.each do |game|
+      if result[game.season] == nil
+        result[game.season] = [game]
+      else
+        result[game.season] << game
+      end
+    end
+    result
+  end

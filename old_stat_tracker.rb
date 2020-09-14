@@ -20,54 +20,54 @@ class StatTracker
 #
 # #------------GameStatistics
 #
-  def highest_total_score
-    result = games.max_by do |game|
-      game['away_goals'].to_i + game['home_goals'].to_i
-    end
-    result['away_goals'].to_i + result['home_goals'].to_i
-  end
+  # def highest_total_score
+  #   result = games.max_by do |game|
+  #     game['away_goals'].to_i + game['home_goals'].to_i
+  #   end
+  #   result['away_goals'].to_i + result['home_goals'].to_i
+  # end
+  #
+  # def lowest_total_score
+  #   result = games.min_by do |game|
+  #     game['away_goals'].to_i + game['home_goals'].to_i
+  #   end
+  #   result['away_goals'].to_i + result['home_goals'].to_i
+  # end
 
-  def lowest_total_score
-    result = games.min_by do |game|
-      game['away_goals'].to_i + game['home_goals'].to_i
-    end
-    result['away_goals'].to_i + result['home_goals'].to_i
-  end
+  # def percentage_home_wins
+  #   average = all_home_game_wins.count / all_home_games.count.to_f
+  #   average.round(2)
+  # end
+  #
+  # def percentage_visitor_wins
+  #   average = all_away_game_wins.count / all_away_games.count.to_f
+  #   average.round(2)
+  # end
+  #
+  # def percentage_ties
+  #   average = all_tie_games.count / all_games.count.to_f
+  #   average.round(2)
+  # end
 
-  def percentage_home_wins
-    average = all_home_game_wins.count / all_home_games.count.to_f
-    average.round(2)
-  end
-
-  def percentage_visitor_wins
-    average = all_away_game_wins.count / all_away_games.count.to_f
-    average.round(2)
-  end
-
-  def percentage_ties
-    average = all_tie_games.count / all_games.count.to_f
-    average.round(2)
-  end
-
-  def count_of_games_by_season
-    games_by_season_index = {}
-    games_by_season.each do |season, games|
-      games_by_season_index[season] = games.length
-    end
-    games_by_season_index
-  end
-
-  def games_by_season
-    result = { }
-    games.each do |game|
-      if result[game['season']] == nil
-        result[game['season']] = [game]
-      else
-        result[game['season']] << game
-      end
-    end
-    result
-  end
+  # def count_of_games_by_season
+  #   games_by_season_index = {}
+  #   games_by_season.each do |season, games|
+  #     games_by_season_index[season] = games.length
+  #   end
+  #   games_by_season_index
+  # end
+  #
+  # def games_by_season
+  #   result = { }
+  #   games.each do |game|
+  #     if result[game['season']] == nil
+  #       result[game['season']] = [game]
+  #     else
+  #       result[game['season']] << game
+  #     end
+  #   end
+  #   result
+  # end
 
   def average_goals_per_game
     (total_goals.to_f / total_number_of_games).round(2)

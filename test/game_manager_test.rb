@@ -115,4 +115,26 @@ class GameManagerTest < Minitest::Test
     assert_equal 0, game_manager.lowest_total_score
 
   end
+
+  def test_it_can_count_games_by_season
+    path = './fixture/game_blank.csv'
+    game_manager = GameManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+
+    game_1.stubs(:season).returns('20122013')
+    game_2.stubs(:season).returns('20122013')
+    game_3.stubs(:season).returns('20132014')
+
+    expected = {
+      "20122013"=>806,
+      "20162017"=>1317,
+      "20142015"=>1319,
+      "20152016"=>1321,
+      "20132014"=>1323,
+      "20172018"=>1355
+    }
+    assert_equal expected, game_manager.count_of_games_by_season
+  end
 end
