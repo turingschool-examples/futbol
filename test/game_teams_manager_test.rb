@@ -338,4 +338,8 @@ class GameTeamsManagerTest < Minitest::Test
   def test_it_finds_favorite_opponent
     assert_equal 'Houston Dynamo', @stat_tracker.game_teams_manager.favorite_opponent('6')
   end
+
+  def test_it_finds_rival
+    assert_equal 'Houston Dynamo', @stat_tracker.game_teams_manager.rival('6')
+  end
 end
