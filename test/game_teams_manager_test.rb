@@ -126,8 +126,8 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_it_can_calculate_average_win_percentage_by_opponent
-    require "pry"; binding.pry
-    assert_equal 0.34, @game_teams_manager.avg_win_perc_by_opp("6")
+    expected = {"14"=>0.4, "1"=>0.8, "4"=>0.83, "26"=>0.25}
+    assert_equal expected, @game_teams_manager.average_win_percentage_by_opponent("6")
   end
 
 end

@@ -145,12 +145,12 @@ class GameTeamsManager
   end
 
   def fave_opponent_id(teamid)
-    avg_win_perc_by_opp(teamid).max_by do |opponent, win_perc|
+    average_win_percentage_by_opponent(teamid).max_by do |opponent, win_perc|
       win_perc
     end[0]
   end
 
-  def avg_win_perc_by_opp(teamid)
+  def average_win_percentage_by_opponent(teamid)
     game_teams_by_opponent(teamid).map do |opponent, gameteams|
       [opponent, ratio(total_wins(gameteams), total_game_teams(gameteams))]
     end.to_h
