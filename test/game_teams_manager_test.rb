@@ -158,7 +158,11 @@ class GameTeamsManagerTest < Minitest::Test
   def test_it_can_return_favorite_opponent_id
     assert_equal "4", @game_teams_manager.favorite_opponent_id("6")
   end
-  
+
+  def test_it_can_return_rival_id
+    assert_equal "4", @game_teams_manager.rival_id("6")
+  end
+
   def test_it_can_get_number_of_games_by_team
     expected = {"1"=>23, "4"=>22, "14"=>21, "6"=>20, "26"=>20}
     assert_equal expected, @game_teams_manager.games_containing_team

@@ -163,6 +163,12 @@ class GameTeamsManager
     end[0]
   end
 
+  def rival_id(teamid)
+    average_win_percentage_by_opponent(teamid).min_by do |opponent, win_perc|
+      win_perc
+    end[0]
+  end
+
   def average_win_percentage_by_opponent(teamid)
     game_teams_by_opponent(teamid).map do |opponent, gameteams|
       [opponent, ratio(total_wins(gameteams), total_game_teams(gameteams))]
@@ -231,7 +237,7 @@ class GameTeamsManager
       team_id == gameteam.team_id
     end
   end
-  
+
   def games_containing_team
     @game_teams.reduce(Hash.new(0)) do |games_by_team, game|
       games_by_team[game.team_id.to_s] += 1
