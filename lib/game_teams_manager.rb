@@ -52,11 +52,12 @@ class GameTeamsManager
     end
   end
 
-  def home_games_by_team
-    home_games.group_by do |game_team|
-      game_team.team_id
-    end
-  end
+  # Does this have a method?
+  # def home_games_by_team
+  #   home_games.group_by do |game_team|
+  #     game_team.team_id
+  #   end
+  # end
 
   def highest_scoring_visitor
     high = away_games_by_team.max_by do |team_id, details|
@@ -86,6 +87,8 @@ class GameTeamsManager
   end
 
   def coaches_by_season(team_id, season)
+    require "pry"; binding.pry
+    #fetch_game_ids_by_season (returns array with all game_ids for season)
   end
 
   def winningest_coach(season)

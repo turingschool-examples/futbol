@@ -37,7 +37,7 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "14", @game_teams_manager.worst_team("20142015")
   end
 
-  def test_it_can_return_coaches_by_season
+  def test_it_can_return_coaches_by_season_aaa
     assert_equal "Claude Julien", @game_teams_manager.coaches_by_season("6", "20142015")
     assert_equal "Bruce Cassidy", @game_teams_manager.coaches_by_season("6", "20162017")
     assert_equal "Darryl Sutter", @game_teams_manager.coaches_by_season("26", "20132014")
