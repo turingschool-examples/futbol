@@ -208,4 +208,21 @@ class GameTeamsManager
     least_accurate = shots_per_goal_per_season(season).max_by { |team, avg| avg}
     @stat_tracker.fetch_team_identifier(least_accurate[0])
   end
+
+  def average_win_percentage(team_id)
+    ratio(total_wins(filter_by_team_id(team_id)), total_game_teams(filter_by_team_id(team_id)))
+  end
+
+  def total_wins(game_teams)
+    game_teams.count do |gameteam|
+      gameteam.result == "WIN"
+    end
+  end
+
+  def filter_by_team_id(team_id)
+    @game_teams.select do |gameteam|
+      team_id == gameteam.team_id
+    end
+  end
+
 end

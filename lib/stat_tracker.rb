@@ -184,11 +184,6 @@ class StatTracker
     @game_teams_manager.filter_by_team_id(team_id)
   end
 
-  def average_win_percentage(teamid)
-    find_percent(total_wins(filter_by_teamid(teamid)), total_game_teams(filter_by_teamid(teamid)))
-  end
-
-
   # Move to GameTeamsManager
   # Need to convert to common naming convention
   def avg_win_perc_by_opp(team_id)
@@ -388,8 +383,8 @@ class StatTracker
     @games_manager.best_season(team_id)
   end
 
-  def average_win_percentage(teamid)
-    @game_teams_manager.average_win_percentage(teamid)
+  def average_win_percentage(team_id)
+    @game_teams_manager.average_win_percentage(team_id)
   end
 
   def favorite_opponent(team_id)
