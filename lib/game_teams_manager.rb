@@ -61,26 +61,25 @@ class GameTeamsManager
     end
   end
 
-# Need to test the following 3 methods?
   def coaches_records(season)
     gt_results = game_teams_results_by_season(season)
-    coach_record_start = initialize_coaches_records(gt_results)
-    total_record = add_wins_losses(gt_results, coach_record_start)
+    coach_record_start = start_coaches_records(gt_results)
+    add_wins_losses(gt_results, coach_record_start)
   end
 
   def teams_shots_to_goals(season)
     gt_results = game_teams_results_by_season(season)
-    teams_shots_to_goals_start = initialize_shots_and_goals_per_team(gt_results)
-    total_shot_goals_record = add_shots_and_goals(gt_results, teams_shots_to_goals_start)
+    teams_shots_to_goals_start = start_shots_and_goals_per_team(gt_results)
+    add_shots_and_goals(gt_results, teams_shots_to_goals_start)
   end
 
   def team_tackles(season)
     gt_results = game_teams_results_by_season(season)
-    tackles_start = initialize_tackles_per_team(gt_results)
-    total_tackles = add_tackles(gt_results, tackles_start)
+    tackles_start = start_tackles_per_team(gt_results)
+    add_tackles(gt_results, tackles_start)
   end
 
-  def initialize_coaches_records(gt_results)
+  def start_coaches_records(gt_results)
     coach_record_hash = {}
     gt_results.each do |team_result|
       coach_record_hash[team_result.head_coach] = {wins: 0, losses: 0, ties:0}
@@ -101,7 +100,7 @@ class GameTeamsManager
     coach_record_start
   end
 
-  def initialize_shots_and_goals_per_team(gt_results)
+  def start_shots_and_goals_per_team(gt_results)
     total_shots_goals = {}
     gt_results.each do |team_result|
       total_shots_goals[team_result.team_id] = {shots: 0, goals: 0}
@@ -117,7 +116,7 @@ class GameTeamsManager
     teams_shots_to_goals_start
   end
 
-  def initialize_tackles_per_team(gt_results)
+  def start_tackles_per_team(gt_results)
     tackles_per_team = {}
     gt_results.each do |team_result|
       tackles_per_team[team_result.team_id] = 0
