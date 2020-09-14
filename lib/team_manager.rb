@@ -88,4 +88,12 @@ class TeamManager
 
     team_info(favorite_id)['team_name']
   end
+
+  def rival(id)
+    rival_id = opponent_ids(id).max_by do |opponent_id|
+      opponent_win_percentage(id, opponent_id)
+    end
+
+    team_info(rival_id)['team_name']
+  end
 end
