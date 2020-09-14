@@ -67,10 +67,8 @@ class StatTracker
     @game_teams_manager.total_scores_by_team
   end
 
-  # Move to GameTeamsManager
-  # I don't think this method is doing what it is supposed to be doing
   def average_scores_by_team
-    @average_scores_by_team
+    @game_teams_manager.average_scores_by_team
   end
 
   # Move to GameTeamsManager
