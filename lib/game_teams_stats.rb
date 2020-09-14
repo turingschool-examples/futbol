@@ -72,7 +72,7 @@ class GameTeamsStats < Stats
   end
 
   def most_accurate_team(season)
-    @tracker.team_manager.most_accurate_team(season)
+    @tracker.team_stats.most_accurate_team(season)
   end
 
   def find_most_accurate_team(season)
@@ -96,11 +96,11 @@ class GameTeamsStats < Stats
   end
 
   def least_accurate_team(season)
-    @tracker.team_manager.least_accurate_team(season)
+    @tracker.team_stats.least_accurate_team(season)
   end
 
   def most_tackles(season)
-    @tracker.team_manager.most_tackles(season)
+    @tracker.team_stats.most_tackles(season)
   end
 
   def find_team_with_most_tackles(season)
@@ -123,7 +123,7 @@ class GameTeamsStats < Stats
   end
 
   def fewest_tackles(season)
-    @tracker.team_manager.fewest_tackles(season)
+    @tracker.team_stats.fewest_tackles(season)
   end
 
   def all_team_games(team_id)

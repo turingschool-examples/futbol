@@ -1,6 +1,6 @@
 require './lib/stats'
 
-class TeamManager < Stats
+class TeamStats < Stats
   attr_reader :team_data,
               :tracker
 
