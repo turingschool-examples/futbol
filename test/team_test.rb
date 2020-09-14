@@ -47,4 +47,8 @@ class TeamTest < Minitest::Test
   def test_it_can_find_best_season
     assert_equal '20122013', @team.best_season
   end
+
+  def test_it_can_find_worst_season
+    assert_equal '20122013', @team.worst_season
+  end
 end
