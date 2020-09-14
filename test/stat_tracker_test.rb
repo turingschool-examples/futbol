@@ -178,4 +178,9 @@ class StatTrackerTest < Minitest::Test
     team_id = '6'
     assert_equal 0.86, @stat_tracker.get_average_win_percentage(team_id)
   end
+
+  def test_average_win_percentage
+    team_id = '3'
+    assert_equal 0.0, @stat_tracker.average_win_percentage(team_id)
+  end
 end
