@@ -163,28 +163,28 @@ class TeamStatisticsTest < Minitest::Test
   #
   #   assert_equal expected, actual
   # end
-
-  def test_it_can_find_a_teams_favorite_opponent
-    locations2 = {
-      games: './data/games.csv',
-      game_teams: './data/game_teams.csv',
-      teams: './data/teams.csv'
-    }
-    stats = StatTracker.from_csv(locations2)
-
-    assert_equal "DC United", stats.favorite_opponent("18")
-  end
-
-  def test_it_can_find_a_teams_rival
-    locations2 = {
-      games: './data/games.csv',
-      game_teams: './data/game_teams.csv',
-      teams: './data/teams.csv'
-    }
-    stats = StatTracker.from_csv(locations2)
-
-    actual = stats.rival("18")
-
-    assert (actual == "Houston Dash" || actual == "LA Galaxy")
-  end
+  #
+  # def test_it_can_find_a_teams_favorite_opponent
+  #   locations2 = {
+  #     games: './data/games.csv',
+  #     game_teams: './data/game_teams.csv',
+  #     teams: './data/teams.csv'
+  #   }
+  #   stats = StatTracker.from_csv(locations2)
+  #
+  #   assert_equal "DC United", stats.favorite_opponent("18")
+  # end
+  #
+  # def test_it_can_find_a_teams_rival
+  #   locations2 = {
+  #     games: './data/games.csv',
+  #     game_teams: './data/game_teams.csv',
+  #     teams: './data/teams.csv'
+  #   }
+  #   stats = StatTracker.from_csv(locations2)
+  #
+  #   actual = stats.rival("18")
+  #
+  #   assert (actual == "Houston Dash" || actual == "LA Galaxy")
+  # end
 end
