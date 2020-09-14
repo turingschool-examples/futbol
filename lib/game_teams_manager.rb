@@ -48,18 +48,27 @@ class GameTeamsManager
   end
 
   def worst_team(season)
-    all_teams_win_percentage(season).min_by do |team_id, win_percentage|
-      win_percentage
+    worst = all_teams_win_percentage(season).min_by do |team_id, win_percentage|
+    win_percentage
     end.first
   end
 
   def coach_by_season(team_id, season)
-    coach = game_teams_by_season(season).find do |game_team|
+    game_teams_by_season(season).find do |game_team|
       game_team.team_id == team_id
     end.head_coach
   end
 
+  def new_winningest_coach_method
+    game_teams_by_season(season).group_by do |game_team|
+      game_team.head_coach
+    end
+    #use total_wins and total_games to reset values to equal average percent
+    #use min_by/max_by to select coach 
+  end
+
   def winningest_coach(season)
+    require "pry"; binding.pry
     coach_by_season(winningest_team(season), season)
   end
 
