@@ -32,6 +32,7 @@ class TeamManagerTest < Minitest::Test
     assert_equal '/api/v1/teams/1', @stat_tracker.team_manager.teams[0].link
   end
 
+#---------------LeagueStatisticsTests
   def test_it_can_return_team_stats_hash
     path = './fixture/team_blank.csv'
     team_manager = TeamManager.new(path, nil)
