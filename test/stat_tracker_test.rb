@@ -18,19 +18,13 @@ class StatTrackerTest < Minitest::Test
     games = "games"
     teams = "teams"
     game_teams = "game_teams"
-    stat_tracker = StatTracker.new(games, teams, game_teams, @locations)
+    stat_tracker = StatTracker.new(@locations)
 
     assert_instance_of StatTracker, stat_tracker
   end
 
   def test_it_initializes_with_from_csv
     assert_instance_of StatTracker, @stat_tracker
-  end
-
-  def test_it_can_inherit_csv_data
-    assert_instance_of CSV::Table, @stat_tracker.games
-    assert_instance_of CSV::Table, @stat_tracker.teams
-    assert_instance_of CSV::Table, @stat_tracker.game_teams
   end
 
   def test_it_can_calculate_highest_total_score
