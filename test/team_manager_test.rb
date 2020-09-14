@@ -76,7 +76,7 @@ class TeamManagerTest < Minitest::Test
     assert_equal 'A hash of game info', team_manager.game_info('123')
   end
 
-  def test_it_can_gather_all_game_team_info_for_a_team_id  # This is possibly a shitty test
+  def test_it_can_gather_all_game_team_info_for_a_team_id
     stat_tracker = mock('A totally legit stat_tracker')
     CSV.stubs(:foreach).returns(nil)
     team_manager = TeamManager.new('A totally legit path', stat_tracker)
@@ -136,15 +136,8 @@ class TeamManagerTest < Minitest::Test
       head_coach: 'Martha Stewart',
       goals: 2
     }
-    game_team_info1 = {
-      '3' => game_team1,
-      '5' => game_team2
-
-    }
-    game_team_info2 = {
-      '3' => game_team3,
-      '35' => game_team4
-    }
+    game_team_info1 = { '3' => game_team1, '5' => game_team2 }
+    game_team_info2 = { '3' => game_team3, '35' => game_team4 }
     game_team_info = [game_team_info1, game_team_info2]
     team_manager.stubs(:gather_game_team_info).returns(game_team_info)
 
@@ -187,15 +180,8 @@ class TeamManagerTest < Minitest::Test
       head_coach: 'Martha Stewart',
       goals: 2
     }
-    game_team_info1 = {
-      '3' => game_team1,
-      '5' => game_team2
-
-    }
-    game_team_info2 = {
-      '3' => game_team3,
-      '35' => game_team4
-    }
+    game_team_info1 = { '3' => game_team1, '5' => game_team2 }
+    game_team_info2 = { '3' => game_team3, '35' => game_team4 }
     game_team_info = [game_team_info1, game_team_info2]
     team_manager.stubs(:gather_game_team_info).returns(game_team_info)
 
@@ -206,11 +192,11 @@ class TeamManagerTest < Minitest::Test
     stat_tracker = mock('A totally legit stat_tracker')
     CSV.stubs(:foreach).returns(nil)
     team_manager = TeamManager.new('A totally legit path', stat_tracker)
-    game1 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
-    game2 = {'8' => {result: 'TIE'}, '5' => {result: 'TIE'}}
-    game3 = {'5' => {result: 'WIN'}, '12' => {result: 'LOSS'}}
-    game4 = {'5' => {result: 'WIN'}, '2' => {result: 'LOSS'}}
-    game5 = {'5' => {result: 'WIN'}, '7' => {result: 'LOSS'}}
+    game1 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
+    game2 = { '8' => { result: 'TIE' }, '5' => { result: 'TIE' } }
+    game3 = { '5' => { result: 'WIN' }, '12' => { result: 'LOSS' } }
+    game4 = { '5' => { result: 'WIN' }, '2' => { result: 'LOSS' } }
+    game5 = { '5' => { result: 'WIN' }, '7' => { result: 'LOSS' } }
     game_teams_info = [game1, game2, game3, game4, game5]
     team_manager.stubs(:gather_game_team_info).returns(game_teams_info)
 
@@ -226,11 +212,11 @@ class TeamManagerTest < Minitest::Test
     stat_tracker = mock('A totally legit stat_tracker')
     CSV.stubs(:foreach).returns(nil)
     team_manager = TeamManager.new('A totally legit path', stat_tracker)
-    game1 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
-    game2 = {'8' => {result: 'TIE'}, '5' => {result: 'TIE'}}
-    game3 = {'5' => {result: 'WIN'}, '12' => {result: 'LOSS'}}
-    game4 = {'5' => {result: 'WIN'}, '2' => {result: 'LOSS'}}
-    game5 = {'5' => {result: 'WIN'}, '7' => {result: 'LOSS'}}
+    game1 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
+    game2 = { '8' => { result: 'TIE' }, '5' => { result: 'TIE' } }
+    game3 = { '5' => { result: 'WIN' }, '12' => { result: 'LOSS' } }
+    game4 = { '5' => { result: 'WIN' }, '2' => { result: 'LOSS' } }
+    game5 = { '5' => { result: 'WIN' }, '7' => { result: 'LOSS' } }
     game_teams_info = [game1, game2, game3, game4, game5]
     team_manager.stubs(:gather_game_team_info).returns(game_teams_info)
 
@@ -241,14 +227,14 @@ class TeamManagerTest < Minitest::Test
     stat_tracker = mock('A totally legit stat_tracker')
     CSV.stubs(:foreach).returns(nil)
     team_manager = TeamManager.new('A totally legit path', stat_tracker)
-    game1 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
-    game2 = {'8' => {result: 'TIE'}, '5' => {result: 'TIE'}}
-    game3 = {'5' => {result: 'WIN'}, '12' => {result: 'LOSS'}}
-    game4 = {'5' => {result: 'WIN'}, '2' => {result: 'LOSS'}}
-    game5 = {'5' => {result: 'WIN'}, '7' => {result: 'LOSS'}}
-    game6 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
-    game7 = {'5' => {result: 'WIN'}, '6' => {result: 'LOSS'}}
-    game8 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
+    game1 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
+    game2 = { '8' => { result: 'TIE' }, '5' => { result: 'TIE' } }
+    game3 = { '5' => { result: 'WIN' }, '12' => { result: 'LOSS' } }
+    game4 = { '5' => { result: 'WIN' }, '2' => { result: 'LOSS' } }
+    game5 = { '5' => { result: 'WIN' }, '7' => { result: 'LOSS' } }
+    game6 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
+    game7 = { '5' => { result: 'WIN' }, '6' => { result: 'LOSS' } }
+    game8 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
     game_teams_info = [game1, game2, game3, game4, game5, game6, game7, game8]
     team_manager.stubs(:gather_game_team_info).returns(game_teams_info)
 
@@ -264,14 +250,14 @@ class TeamManagerTest < Minitest::Test
     stat_tracker = mock('A totally legit stat_tracker')
     CSV.stubs(:foreach).returns(nil)
     team_manager = TeamManager.new('A totally legit path', stat_tracker)
-    game1 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
-    game2 = {'8' => {result: 'TIE'}, '5' => {result: 'TIE'}}
-    game3 = {'5' => {result: 'WIN'}, '12' => {result: 'LOSS'}}
-    game4 = {'5' => {result: 'WIN'}, '2' => {result: 'LOSS'}}
-    game5 = {'5' => {result: 'WIN'}, '7' => {result: 'LOSS'}}
-    game6 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
-    game7 = {'5' => {result: 'WIN'}, '6' => {result: 'LOSS'}}
-    game8 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
+    game1 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
+    game2 = { '8' => { result: 'TIE' }, '5' => { result: 'TIE' } }
+    game3 = { '5' => { result: 'WIN' }, '12' => { result: 'LOSS' } }
+    game4 = { '5' => { result: 'WIN' }, '2' => { result: 'LOSS' } }
+    game5 = { '5' => { result: 'WIN' }, '7' => { result: 'LOSS' } }
+    game6 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
+    game7 = { '5' => { result: 'WIN' }, '6' => { result: 'LOSS' } }
+    game8 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
     game_teams_info = [game1, game2, game3, game4, game5, game6, game7, game8]
     team_manager.stubs(:gather_game_team_info).returns(game_teams_info)
 
@@ -282,14 +268,14 @@ class TeamManagerTest < Minitest::Test
     stat_tracker = mock('A totally legit stat_tracker')
     CSV.stubs(:foreach).returns(nil)
     team_manager = TeamManager.new('A totally legit path', stat_tracker)
-    game1 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
-    game2 = {'8' => {result: 'TIE'}, '5' => {result: 'TIE'}}
-    game3 = {'5' => {result: 'WIN'}, '12' => {result: 'LOSS'}}
-    game4 = {'5' => {result: 'WIN'}, '2' => {result: 'LOSS'}}
-    game5 = {'5' => {result: 'WIN'}, '7' => {result: 'LOSS'}}
-    game6 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
-    game7 = {'5' => {result: 'WIN'}, '6' => {result: 'LOSS'}}
-    game8 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
+    game1 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
+    game2 = { '8' => { result: 'TIE' }, '5' => { result: 'TIE' } }
+    game3 = { '5' => { result: 'WIN' }, '12' => { result: 'LOSS' } }
+    game4 = { '5' => { result: 'WIN' }, '2' => { result: 'LOSS' } }
+    game5 = { '5' => { result: 'WIN' }, '7' => { result: 'LOSS' } }
+    game6 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
+    game7 = { '5' => { result: 'WIN' }, '6' => { result: 'LOSS' } }
+    game8 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
     game_teams_info = [game1, game2, game3, game4, game5, game6, game7, game8]
     team_manager.stubs(:gather_game_team_info).returns(game_teams_info)
     expected = ['2', '6', '7', '8', '12']
@@ -301,34 +287,34 @@ class TeamManagerTest < Minitest::Test
     stat_tracker = mock('A totally legit stat_tracker')
     team5 = mock('team 5')
     team5.stubs(:team_id).returns('5')
-    team5.stubs(:team_info).returns({'team_name' => 'The Fives'})
+    team5.stubs(:team_info).returns({ 'team_name' => 'The Fives' })
     team2 = mock('team 2')
     team2.stubs(:team_id).returns('2')
-    team2.stubs(:team_info).returns({'team_name' => 'The Twos'})
+    team2.stubs(:team_info).returns({ 'team_name' => 'The Twos' })
     team6 = mock('team 6')
     team6.stubs(:team_id).returns('6')
-    team6.stubs(:team_info).returns({'team_name' => 'The Sixes'})
+    team6.stubs(:team_info).returns({ 'team_name' => 'The Sixes' })
     team7 = mock('team 7')
     team7.stubs(:team_id).returns('7')
-    team7.stubs(:team_info).returns({'team_name' => 'The Sevens'})
+    team7.stubs(:team_info).returns({ 'team_name' => 'The Sevens' })
     team8 = mock('team 8')
     team8.stubs(:team_id).returns('8')
-    team8.stubs(:team_info).returns({'team_name' => 'The Ochos'})
+    team8.stubs(:team_info).returns({ 'team_name' => 'The Ochos' })
     team12 = mock('team 12')
     team12.stubs(:team_id).returns('12')
-    team12.stubs(:team_info).returns({'team_name' => 'The Twelves'})
+    team12.stubs(:team_info).returns({ 'team_name' => 'The Twelves' })
     CSV.stubs(:foreach).returns(nil)
     team_manager = TeamManager.new('A totally legit path', stat_tracker)
     teams = [team2, team5, team6, team7, team8, team12]
     team_manager.stubs(:teams).returns(teams)
-    game1 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
-    game2 = {'8' => {result: 'TIE'}, '5' => {result: 'TIE'}}
-    game3 = {'5' => {result: 'WIN'}, '12' => {result: 'LOSS'}}
-    game4 = {'5' => {result: 'WIN'}, '2' => {result: 'LOSS'}}
-    game5 = {'5' => {result: 'WIN'}, '7' => {result: 'LOSS'}}
-    game6 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
-    game7 = {'5' => {result: 'WIN'}, '6' => {result: 'LOSS'}}
-    game8 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
+    game1 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
+    game2 = { '8' => { result: 'TIE' }, '5' => { result: 'TIE' } }
+    game3 = { '5' => { result: 'WIN' }, '12' => { result: 'LOSS' } }
+    game4 = { '5' => { result: 'WIN' }, '2' => { result: 'LOSS' } }
+    game5 = { '5' => { result: 'WIN' }, '7' => { result: 'LOSS' } }
+    game6 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
+    game7 = { '5' => { result: 'WIN' }, '6' => { result: 'LOSS' } }
+    game8 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
     game_teams_info = [game1, game2, game3, game4, game5, game6, game7, game8]
     team_manager.stubs(:gather_game_team_info).returns(game_teams_info)
 
@@ -339,34 +325,34 @@ class TeamManagerTest < Minitest::Test
     stat_tracker = mock('A totally legit stat_tracker')
     team5 = mock('team 5')
     team5.stubs(:team_id).returns('5')
-    team5.stubs(:team_info).returns({'team_name' => 'The Fives'})
+    team5.stubs(:team_info).returns({ 'team_name' => 'The Fives' })
     team2 = mock('team 2')
     team2.stubs(:team_id).returns('2')
-    team2.stubs(:team_info).returns({'team_name' => 'The Twos'})
+    team2.stubs(:team_info).returns({ 'team_name' => 'The Twos' })
     team6 = mock('team 6')
     team6.stubs(:team_id).returns('6')
-    team6.stubs(:team_info).returns({'team_name' => 'The Sixes'})
+    team6.stubs(:team_info).returns({ 'team_name' => 'The Sixes' })
     team7 = mock('team 7')
     team7.stubs(:team_id).returns('7')
-    team7.stubs(:team_info).returns({'team_name' => 'The Sevens'})
+    team7.stubs(:team_info).returns({ 'team_name' => 'The Sevens' })
     team8 = mock('team 8')
     team8.stubs(:team_id).returns('8')
-    team8.stubs(:team_info).returns({'team_name' => 'The Ochos'})
+    team8.stubs(:team_info).returns({ 'team_name' => 'The Ochos' })
     team12 = mock('team 12')
     team12.stubs(:team_id).returns('12')
-    team12.stubs(:team_info).returns({'team_name' => 'The Twelves'})
+    team12.stubs(:team_info).returns({ 'team_name' => 'The Twelves' })
     CSV.stubs(:foreach).returns(nil)
     team_manager = TeamManager.new('A totally legit path', stat_tracker)
     teams = [team2, team5, team6, team7, team8, team12]
     team_manager.stubs(:teams).returns(teams)
-    game1 = {'5' => {result: 'LOSS'},'6' => {result: 'WIN'}}
-    game2 = {'8' => {result: 'TIE'},'5' => {result: 'TIE'}}
-    game3 = {'5' => {result: 'WIN'}, '12' => {result: 'LOSS'}}
-    game4 = {'5' => {result: 'WIN'}, '2' => {result: 'LOSS'}}
-    game5 = {'5' => {result: 'WIN'}, '7' => {result: 'LOSS'}}
-    game6 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
-    game7 = {'5' => {result: 'WIN'}, '6' => {result: 'LOSS'}}
-    game8 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
+    game1 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
+    game2 = { '8' => { result: 'TIE' }, '5' => { result: 'TIE' } }
+    game3 = { '5' => { result: 'WIN' }, '12' => { result: 'LOSS' } }
+    game4 = { '5' => { result: 'WIN' }, '2' => { result: 'LOSS' } }
+    game5 = { '5' => { result: 'WIN' }, '7' => { result: 'LOSS' } }
+    game6 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
+    game7 = { '5' => { result: 'WIN' }, '6' => { result: 'LOSS' } }
+    game8 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
     game_teams_info = [game1, game2, game3, game4, game5, game6, game7, game8]
     team_manager.stubs(:gather_game_team_info).returns(game_teams_info)
 
@@ -377,10 +363,10 @@ class TeamManagerTest < Minitest::Test
     stat_tracker = mock('A totally legit stat_tracker')
     CSV.stubs(:foreach).returns(nil)
     team_manager = TeamManager.new('A totally legit path', stat_tracker)
-    game1 = {season_id: '20122013', game_id: 1}
-    game2 = {season_id: '20122013', game_id: 2}
-    game3 = {season_id: '20132014', game_id: 3}
-    game4 = {season_id: '20142015', game_id: 4}
+    game1 = { season_id: '20122013', game_id: 1 }
+    game2 = { season_id: '20122013', game_id: 2 }
+    game3 = { season_id: '20132014', game_id: 3 }
+    game4 = { season_id: '20142015', game_id: 4 }
     game_info = [game1, game2, game3, game4]
     team_manager.stubs(:gather_game_info).returns(game_info)
     expected = {
@@ -416,14 +402,14 @@ class TeamManagerTest < Minitest::Test
     stat_tracker = mock('A totally legit stat_tracker')
     CSV.stubs(:foreach).returns(nil)
     team_manager = TeamManager.new('A totally legit path', stat_tracker)
-    game1 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
-    game2 = {'8' => {result: 'TIE'}, '5' => {result: 'TIE'}}
-    game3 = {'5' => {result: 'WIN'}, '12' => {result: 'LOSS'}}
-    game4 = {'5' => {result: 'WIN'}, '2' => {result: 'LOSS'}}
-    game5 = {'5' => {result: 'WIN'}, '7' => {result: 'LOSS'}}
-    game6 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
-    game7 = {'5' => {result: 'WIN'}, '6' => {result: 'LOSS'}}
-    game8 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
+    game1 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
+    game2 = { '8' => { result: 'TIE' }, '5' => { result: 'TIE' } }
+    game3 = { '5' => { result: 'WIN' }, '12' => { result: 'LOSS' } }
+    game4 = { '5' => { result: 'WIN' }, '2' => { result: 'LOSS' } }
+    game5 = { '5' => { result: 'WIN' }, '7' => { result: 'LOSS' } }
+    game6 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
+    game7 = { '5' => { result: 'WIN' }, '6' => { result: 'LOSS' } }
+    game8 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
     gt_by_season = {
       '20122013' => [game1, game2, game5, game6],
       '20132014' => [game3, game7],
@@ -439,14 +425,14 @@ class TeamManagerTest < Minitest::Test
     stat_tracker = mock('A totally legit stat_tracker')
     CSV.stubs(:foreach).returns(nil)
     team_manager = TeamManager.new('A totally legit path', stat_tracker)
-    game1 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
-    game2 = {'8' => {result: 'TIE'}, '5' => {result: 'TIE'}}
-    game3 = {'5' => {result: 'WIN'}, '12' => {result: 'LOSS'}}
-    game4 = {'5' => {result: 'WIN'}, '2' => {result: 'LOSS'}}
-    game5 = {'5' => {result: 'WIN'}, '7' => {result: 'LOSS'}}
-    game6 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
-    game7 = {'5' => {result: 'WIN'}, '6' => {result: 'LOSS'}}
-    game8 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
+    game1 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
+    game2 = { '8' => { result: 'TIE' }, '5' => { result: 'TIE' } }
+    game3 = { '5' => { result: 'WIN' }, '12' => { result: 'LOSS' } }
+    game4 = { '5' => { result: 'WIN' }, '2' => { result: 'LOSS' } }
+    game5 = { '5' => { result: 'WIN' }, '7' => { result: 'LOSS' } }
+    game6 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
+    game7 = { '5' => { result: 'WIN' }, '6' => { result: 'LOSS' } }
+    game8 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
     gt_by_season = {
       '20122013' => [game1, game2, game5, game6],
       '20132014' => [game3, game7],
@@ -461,14 +447,14 @@ class TeamManagerTest < Minitest::Test
     stat_tracker = mock('A totally legit stat_tracker')
     CSV.stubs(:foreach).returns(nil)
     team_manager = TeamManager.new('A totally legit path', stat_tracker)
-    game1 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
-    game2 = {'8' => {result: 'TIE'}, '5' => {result: 'TIE'}}
-    game3 = {'5' => {result: 'WIN'}, '12' => {result: 'LOSS'}}
-    game4 = {'5' => {result: 'LOSS'}, '2' => {result: 'WIN'}}
-    game5 = {'5' => {result: 'WIN'}, '7' => {result: 'LOSS'}}
-    game6 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
-    game7 = {'5' => {result: 'WIN'}, '6' => {result: 'LOSS'}}
-    game8 = {'5' => {result: 'LOSS'}, '6' => {result: 'WIN'}}
+    game1 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
+    game2 = { '8' => { result: 'TIE' }, '5' => { result: 'TIE' } }
+    game3 = { '5' => { result: 'WIN' }, '12' => { result: 'LOSS' } }
+    game4 = { '5' => { result: 'LOSS' }, '2' => { result: 'WIN' } }
+    game5 = { '5' => { result: 'WIN' }, '7' => { result: 'LOSS' } }
+    game6 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
+    game7 = { '5' => { result: 'WIN' }, '6' => { result: 'LOSS' } }
+    game8 = { '5' => { result: 'LOSS' }, '6' => { result: 'WIN' } }
     gt_by_season = {
       '20122013' => [game1, game2, game5, game6],
       '20132014' => [game3, game7],
