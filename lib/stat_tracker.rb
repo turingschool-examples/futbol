@@ -114,6 +114,12 @@ class StatTracker
     @teams_manager.find_team_name(team_number)
   end
 
+  #Team Statistics
+
+  def team_info(team_id)
+    @teams_manager.team_info(team_id)
+  end
+
   # Helpers
   def find_season_id(game_id)
     @games_manager.find_season_id(game_id)

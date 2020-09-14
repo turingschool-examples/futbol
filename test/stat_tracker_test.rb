@@ -151,4 +151,16 @@ class StatTrackerTest < Minitest::Test
     team_id = '6'
     assert_equal '20122013', @stat_tracker.get_worst_season(team_id)
   end
+
+  def test_it_can_find_team_info
+    team_id = '5'
+    expected = {
+                'team_id' => '5',
+                'franchise_id' => '17',
+                'team_name' => 'Sporting Kansas City',
+                'abbreviation' => 'SKC',
+                'link' => '/api/v1/teams/5'
+    }
+    assert_equal expected, @stat_tracker.team_info(team_id)
+  end
 end
