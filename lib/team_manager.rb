@@ -81,8 +81,11 @@ class TeamManager
     end
   end
 
-  # def favorite_opponent(id)
-  #   opponents.delete(id)
-  #   require 'pry' ; binding.pry
-  # end
+  def favorite_opponent(id)
+    favorite_id = opponent_ids(id).min_by do |opponent_id|
+      opponent_win_percentage(id, opponent_id)
+    end
+
+    team_info(favorite_id)['team_name']
+  end
 end
