@@ -68,10 +68,10 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal expected, @game_teams_manager.coaches_hash_w_avg_win_percentage(season_id)
   end
 
-  def test_average_win_percentage
+  def test_average_win_percentage_by_season
     season_id = '20152016'
     head_coach = 'Mike Sullivan'
-    assert_equal 100.0, @game_teams_manager.average_win_percentage(season_id, head_coach)
+    assert_equal 100.0, @game_teams_manager.average_win_percentage_by_season(season_id, head_coach)
   end
 
   def test_games_for_coach
@@ -168,5 +168,10 @@ class GameTeamsManagerTest < Minitest::Test
   def test_it_can_find_worst_season_for_team
     team_id = '6'
     assert_equal '20122013', @game_teams_manager.get_worst_season(team_id)
+  end
+
+  def test_it_can_find_average_win_percentage_for_team
+    team_id = '6'
+    assert_equal 0.86, @game_teams_manager.get_average_win_percentage(team_id)
   end
 end

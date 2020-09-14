@@ -69,7 +69,7 @@ class GameTeamsManager
     end
   end
 
-  def average_win_percentage(season_id, head_coach)
+  def average_win_percentage_by_season(season_id, head_coach)
     ((wins_for_coach(season_id, head_coach).to_f / games_for_coach(season_id, head_coach)) * 100).round(2)
   end
 
@@ -78,7 +78,7 @@ class GameTeamsManager
     selected_season_game_teams(season_id).each do |game_team|
       head_coach = game_team.head_coach
       by_coach_wins[head_coach] ||= []
-      by_coach_wins[head_coach] = average_win_percentage(season_id, head_coach)
+      by_coach_wins[head_coach] = average_win_percentage_by_season(season_id, head_coach)
     end
     by_coach_wins
   end
@@ -237,5 +237,21 @@ class GameTeamsManager
     season_not_win_percentage_hash(team_id).max_by do |season, not_win_percent|
       not_win_percent
     end.to_a[0]
+  end
+
+  def total_wins_team_all_seasons(team_id)
+    @game_teams.count do |game_team|
+      game_team.result == 'WIN' if game_team.team_id == team_id
+    end
+  end
+
+  def total_games_team_all_seasons(team_id)
+    @game_teams.count do |game_team|
+      game_team.team_id == team_id
+    end
+  end
+
+  def get_average_win_percentage(team_id)
+    (total_wins_team_all_seasons(team_id).to_f / total_games_team_all_seasons(team_id)).round(2)
   end
 end
