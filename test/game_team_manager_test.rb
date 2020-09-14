@@ -26,7 +26,27 @@ class GameTeamManagerTest < Minitest::Test
     assert_equal expected, game_teams_manager.goal_avg_per_team('5', 'away')
   end
 
-  def test_can_find_best_offense
-    assert_equal 'DC United', @stat_tracker.game_teams_manager.best_offense
+  def test_with_best_offense
+    assert_equal "DC United", @stat_tracker.best_offense
+  end
+
+  def test_with_worst_offense
+    assert_equal "Houston Dash", @stat_tracker.worst_offense
+  end
+
+  def test_highest_scoring_visitor
+    assert_equal "New England Revolution", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal "DC United", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_lowest_scoring_visitor
+    assert_equal "New York City FC", @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_lowest_scoring_home_team
+    assert_equal "Seattle Sounders FC", @stat_tracker.lowest_scoring_home_team
   end
 end

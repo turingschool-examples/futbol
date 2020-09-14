@@ -32,6 +32,26 @@ class GameTeamManager
     team_data.max_by{|team| goal_avg_per_team(team.team_id, '')}.team_name
   end
 
+  def worst_offense
+    team_data.min_by{|team| goal_avg_per_team(team.team_id, '')}.team_name
+  end
+
+  def highest_scoring_visitor
+    team_data.max_by{|team| goal_avg_per_team(team.team_id, 'away')}.team_name
+  end
+
+  def highest_scoring_home_team
+    team_data.max_by{|team| goal_avg_per_team(team.team_id, 'home')}.team_name
+  end
+
+  def lowest_scoring_visitor
+    team_data.min_by{|team| goal_avg_per_team(team.team_id, 'away')}.team_name
+  end
+
+  def lowest_scoring_home_team
+    team_data.min_by{|team| goal_avg_per_team(team.team_id, 'home')}.team_name
+  end
+
   def team_data
     @stat_tracker.team_manager.teams
   end

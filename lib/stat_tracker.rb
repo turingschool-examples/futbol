@@ -24,26 +24,26 @@ class StatTracker
   end
 
   def best_offense
-    @game_manager.best_offense
+    @game_teams_manager.best_offense
   end
 
   def worst_offense
-    @game_manager.worst_offense
+    @game_teams_manager.worst_offense
   end
 
   def highest_scoring_visitor
-    @game_manager.highest_scoring_visitor
+    @game_teams_manager.highest_scoring_visitor
   end
 
   def highest_scoring_home_team
-    @game_manager.highest_scoring_home_team
+    @game_teams_manager.highest_scoring_home_team
   end
 
   def lowest_scoring_visitor
-    @game_manager.lowest_scoring_visitor
+    @game_teams_manager.lowest_scoring_visitor
   end
 
   def lowest_scoring_home_team
-    @game_manager.lowest_scoring_home_team
+    @game_teams_manager.lowest_scoring_home_team
   end
 end
