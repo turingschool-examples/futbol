@@ -53,9 +53,10 @@ class GameTeamsManager
     end.first
   end
 
-  def coaches_by_season(team_id, season)
-    require "pry"; binding.pry
-    #fetch_game_ids_by_season (returns array with all game_ids for season)
+  def coach_by_season(team_id, season)
+    coach = game_teams_by_season(season).find do |game_team|
+      game_team.team_id == team_id
+    end.head_coach
   end
 
   def winningest_coach(season)
