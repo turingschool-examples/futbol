@@ -163,6 +163,7 @@ class GameTeamsManagerTest < Minitest::Test
   def test_team_tackles
     expected = {"3"=>179, "6"=>271, "5"=>150, "17"=>219, "16"=>178}
     assert_equal expected, @stat_tracker.game_teams_manager.team_tackles('20122013')
+  end
 #------------TeamStatsTests
 
   def test_it_can_find_game_info_by_team
