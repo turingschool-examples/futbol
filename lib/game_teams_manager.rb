@@ -1,4 +1,5 @@
-class GameTeamsManager < CsvReader
+require './lib/stats'
+class GameTeamsManager < Stats
   attr_reader :game_teams_data,
               :tracker
 

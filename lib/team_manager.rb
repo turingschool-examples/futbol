@@ -1,6 +1,6 @@
-require './lib/csv_reader'
+require './lib/stats'
 
-class TeamManager < CsvReader
+class TeamManager < Stats
   attr_reader :team_data,
               :tracker
 
