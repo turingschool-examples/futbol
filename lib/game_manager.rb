@@ -95,4 +95,10 @@ class GamesManager
     end
     average_goals_by_season
   end
+
+  def find_season_id(game_id)
+    @games.find do |game|
+      game.game_id == game_id
+    end.season
+  end
 end

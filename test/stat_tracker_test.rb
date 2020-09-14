@@ -35,11 +35,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_average_number_of_goals_scored_by_team
-    assert_equal 1.6, @stat_tracker.average_number_of_goals_scored_by_team('3')
+    assert_equal 1.5, @stat_tracker.average_number_of_goals_scored_by_team('3')
   end
 
   def test_average_number_of_goals_scored_by_team_by_type
-    assert_equal 2.00, @stat_tracker.average_number_of_goals_scored_by_team_by_type('3', 'away')
+    assert_equal 1.67, @stat_tracker.average_number_of_goals_scored_by_team_by_type('3', 'away')
     assert_equal 1.33, @stat_tracker.average_number_of_goals_scored_by_team_by_type('3', 'home')
   end
 
@@ -57,5 +57,10 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_lowest_scoring_home
     assert_equal 'Sporting Kansas City', @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_it_can_find_season_id
+    game_id = '2012030221'
+    assert_equal '20122013', @stat_tracker.find_season_id(game_id)
   end
 end
