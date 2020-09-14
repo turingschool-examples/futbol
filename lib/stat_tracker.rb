@@ -364,10 +364,10 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
-    fetch_team_identifier(@game_teams_manager.favorite_opponent_id(team_id))
+    fetch_team_identifier(@game_teams_manager.highest_win_percentage(team_id))
   end
 
   def rival(team_id)
-    fetch_team_identifier(@game_teams_manager.rival_id(team_id))
+    fetch_team_identifier(@game_teams_manager.highest_win_percentage(team_id))
   end
 end

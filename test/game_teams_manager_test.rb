@@ -150,17 +150,17 @@ class GameTeamsManagerTest < Minitest::Test
     end
   end
 
-  def test_it_can_calculate_average_win_percentage_by_opponent
+  def test_it_can_calculate_average_win_percentage_by_a_group
     expected = {"14"=>0.4, "1"=>0.8, "4"=>0.83, "26"=>0.25}
-    assert_equal expected, @game_teams_manager.average_win_percentage_by_opponent("6")
+    assert_equal expected, @game_teams_manager.average_win_percentage_by("6")
   end
 
-  def test_it_can_return_favorite_opponent_id
-    assert_equal "4", @game_teams_manager.favorite_opponent_id("6")
+  def test_it_can_return_highest_win_percentage_for_a_group
+    assert_equal "4", @game_teams_manager.highest_win_percentage("6")
   end
 
-  def test_it_can_return_rival_id
-    assert_equal "26", @game_teams_manager.rival_id("6")
+  def test_it_can_return_lowest_win_percentage_for_a_group
+    assert_equal "26", @game_teams_manager.lowest_win_percentage("6")
   end
 
   def test_it_can_get_number_of_games_by_team

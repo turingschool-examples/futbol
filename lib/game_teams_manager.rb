@@ -157,22 +157,22 @@ class GameTeamsManager
     @stat_tracker.fetch_team_identifier(lowest_scoring_visitor)
   end
 
-  def favorite_opponent_id(team_id)
-    average_win_percentage_by_opponent(team_id).max_by do |opponent, win_perc|
-      win_perc
-    end[0]
-  end
-
-  def rival_id(team_id)
-    average_win_percentage_by_opponent(team_id).min_by do |opponent, win_perc|
-      win_perc
-    end[0]
-  end
-
-  def average_win_percentage_by_opponent(team_id)
-    game_teams_by_opponent(team_id).map do |opponent, gameteams|
+  def average_win_percentage_by(group)
+    game_teams_by_opponent(group).map do |opponent, gameteams|
       [opponent, ratio(total_wins(gameteams), total_game_teams(gameteams))]
     end.to_h
+  end
+
+  def highest_win_percentage(group)
+    average_win_percentage_by(group).max_by do |group, win_perc|
+      win_perc
+    end[0]
+  end
+
+  def lowest_win_percentage(group)
+    average_win_percentage_by(group).min_by do |group, win_perc|
+      win_perc
+    end[0]
   end
 
   def game_ids_per_season(season)
