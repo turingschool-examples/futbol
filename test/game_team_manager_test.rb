@@ -68,7 +68,7 @@ class GameTeamManagerTest < MiniTest::Test
     assert_equal "Glen Gulutzan", @game_team_manager.find_worst_coach(game_ids)
   end
 
-  def test_it_can_find_all_games 
+  def test_it_can_find_all_games
     @game_team_manager.find_all_games("24").each do |game|
       assert_instance_of GameTeam, game
     end
@@ -88,8 +88,8 @@ class GameTeamManagerTest < MiniTest::Test
   end
 
   def test_it_has_a_favorite_team_to_beat
-    @game_team_manager.tracker.stubs(:get_team_name).returns("Houston Dynamo")
-    assert_equal "Houston Dynamo", @game_team_manager.favorite_opponent("6")
+    @game_team_manager.tracker.stubs(:get_team_name).returns("Sky Blue FC")
+    assert_equal "Sky Blue FC", @game_team_manager.favorite_opponent("6")
   end
 
   def test_it_has_a_team_it_hates

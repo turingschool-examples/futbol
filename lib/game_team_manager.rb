@@ -172,13 +172,13 @@ class GameTeamManager
     @game_teams.each do |game|
       if game_id_array.include?(game.game_id) && game.team_id != team_id
         total_games[game.team_id] += 1
-        if game.result == "WIN"
+        if game.result == "LOSS"
           loser_loses[game.team_id] += 1
         end
       end
     end
-    # fix me !!
     biggest_loser = sort_percentages(loser_loses, total_games)
+    # require "pry"; binding.pry
     @tracker.get_team_name(biggest_loser.last[0])
   end
 

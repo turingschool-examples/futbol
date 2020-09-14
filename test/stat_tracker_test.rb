@@ -143,7 +143,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_a_favorite_team_to_beat
-    assert_equal "Houston Dynamo", @stat_tracker.favorite_opponent("6")
+    assert_equal "Sky Blue FC", @stat_tracker.favorite_opponent("6")
   end
 
   def test_it_has_a_team_it_hates
