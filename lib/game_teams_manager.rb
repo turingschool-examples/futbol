@@ -107,6 +107,12 @@ class GameTeamsManager
     team_goals_by_game(team_id).max.to_i
   end
 
+  def game_teams_by_opponent(team_id)
+    filter_by_team_id(team_id).group_by do |gameteam|
+      @stat_tracker.get_opponent_id(gameteam.game_id,team_id)
+    end
+  end
+
   def fewest_goals_scored(team_id)
     team_goals_by_game(team_id).min.to_i
   end
@@ -151,15 +157,22 @@ class GameTeamsManager
     @stat_tracker.fetch_team_identifier(lowest_scoring_visitor)
   end
 
-  def game_teams_by_opponent(team_id)
-    games_by_team(team_id).inject({}) do |result, gameteam|
-      if result[@stat_tracker.get_opponent_id(@stat_tracker.get_game(gameteam.game_id), team_id)] == nil
-        result[@stat_tracker.get_opponent_id(@stat_tracker.get_game(gameteam.game_id), team_id)] = [gameteam]
-      else
-        result[@stat_tracker.get_opponent_id(@stat_tracker.get_game(gameteam.game_id), team_id)] << gameteam
-      end
-      result
-    end
+  def favorite_opponent_id(team_id)
+    average_win_percentage_by_opponent(team_id).max_by do |opponent, win_perc|
+      win_perc
+    end[0]
+  end
+
+  def rival_id(team_id)
+    average_win_percentage_by_opponent(team_id).min_by do |opponent, win_perc|
+      win_perc
+    end[0]
+  end
+
+  def average_win_percentage_by_opponent(team_id)
+    game_teams_by_opponent(team_id).map do |opponent, gameteams|
+      [opponent, ratio(total_wins(gameteams), total_game_teams(gameteams))]
+    end.to_h
   end
 
   def game_ids_per_season(season)
@@ -224,7 +237,7 @@ class GameTeamsManager
       team_id == gameteam.team_id
     end
   end
-  
+
   def games_containing_team
     @game_teams.reduce(Hash.new(0)) do |games_by_team, game|
       games_by_team[game.team_id.to_s] += 1
