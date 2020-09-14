@@ -130,4 +130,8 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal expected, @game_teams_manager.average_win_percentage_by_opponent("6")
   end
 
+  def test_it_can_return_favorite_opponent_id
+    assert_equal "4", @game_teams_manager.favorite_opponent_id("6")
+  end
+
 end
