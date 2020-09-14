@@ -174,4 +174,14 @@ class GameTeamsManagerTest < Minitest::Test
     team_id = '6'
     assert_equal 0.86, @game_teams_manager.get_average_win_percentage(team_id)
   end
+
+  def test_it_can_get_most_goals_scored_for_team
+    team_id = '6'
+    assert_equal 4, @game_teams_manager.get_most_goals_scored_for_team(team_id)
+  end
+
+  def test_it_can_get_fewest_goals_scored_for_team
+    team_id = '6'
+    assert_equal 1, @game_teams_manager.get_fewest_goals_scored_for_team(team_id)
+  end
 end

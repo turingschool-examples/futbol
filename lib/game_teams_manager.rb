@@ -254,4 +254,16 @@ class GameTeamsManager
   def get_average_win_percentage(team_id)
     (total_wins_team_all_seasons(team_id).to_f / total_games_team_all_seasons(team_id)).round(2)
   end
+
+  def get_most_goals_scored_for_team(team_id)
+    selected_team_game_teams(team_id).max_by do |game_team|
+      game_team.goals
+    end.goals
+  end
+
+  def get_fewest_goals_scored_for_team(team_id)
+    selected_team_game_teams(team_id).min_by do |game_team|
+      game_team.goals
+    end.goals
+  end
 end
