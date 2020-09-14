@@ -1,10 +1,6 @@
 require_relative 'league_stat_helper'
 
 class LeagueStatistics < LeagueStatHelper
-  def initialize(game, team)
-    @game ||= game
-    @team ||= team
-  end
 
   def count_of_teams
     @team.length
