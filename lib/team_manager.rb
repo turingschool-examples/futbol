@@ -92,4 +92,8 @@ class TeamsManager
   def get_best_season(team_id)
     @tracker.get_best_season(team_id)
   end
+
+  def get_worst_season(team_id)
+    @tracker.get_worst_season(team_id)
+  end
 end
