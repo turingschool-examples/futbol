@@ -136,4 +136,9 @@ class StatTrackerTest < Minitest::Test
     season_id = '20122013'
     assert_equal '6', @stat_tracker.most_tackles(season_id)
   end
+
+  def test_fewest_tackles
+    season_id = '20122013'
+    assert_equal '5', @stat_tracker.fewest_tackles(season_id)
+  end
 end
