@@ -1,6 +1,8 @@
 require 'csv'
+require_relative './mathable'
 
 class GameManager
+  include Mathable
   attr_reader :games,
               :tracker
   def initialize(path, tracker)
@@ -69,10 +71,8 @@ class GameManager
       away_points[game.away_team_id] += game.away_goals
       team_game_count[game.away_team_id] += 1
     end
-    highest_scoring_visitor = away_points.max_by do |team, score|
-      score.to_f / team_game_count[team]
-    end[0]
-    @tracker.get_team_name(highest_scoring_visitor)
+    highest_scoring_visitor = sort_percentages(away_points, team_game_count)
+    @tracker.get_team_name(highest_scoring_visitor.last[0])
   end
 
   def highest_scoring_home_team
