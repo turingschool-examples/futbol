@@ -238,7 +238,7 @@ class TeamManager < Stats
   end
 
   def find_all_game_ids_by_team(team_id)
-    @tracker.game_manager.find_all_game_ids_by_team(team_id)
+    @tracker.game_stats.find_all_game_ids_by_team(team_id)
   end
 
   def find_opponent_id(team_id)
