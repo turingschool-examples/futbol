@@ -63,6 +63,12 @@ class TeamManagerTest < Minitest::Test
     assert_equal 'Sporting Kansas City', @team_manager.lowest_scoring_home
   end
 
+  def test_finding_a_team
+    team_id = mock('5')
+    @team_manager.stubs(:find_a_team).returns('team_5_object')
+    assert_equal 'team_5_object', @team_manager.find_a_team(team_id)
+  end
+
   def test_it_can_get_team_info
     team_id = '5'
     expected = {

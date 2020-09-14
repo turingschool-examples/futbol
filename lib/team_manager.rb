@@ -68,11 +68,14 @@ class TeamsManager
     end.team_name
   end
 
-  def team_info(team_id)
-    team = @teams.find do |team|
+  def find_a_team(team_id)
+    @teams.find do |team|
       team.team_id == team_id
     end
-    team
+  end
+
+  def team_info(team_id)
+    team = find_a_team(team_id)
     team_info = {
       'team_id' => team.team_id,
       'franchise_id' => team.franchise_id,
