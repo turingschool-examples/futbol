@@ -23,29 +23,29 @@ module TeamStatistics
   #   games_array.map(&:game_id)
   # end
 
-  def separate_games_by_season_id(games_array = games)
-    games_array.reduce({}) do |seasons, game|
-      seasons[game.season] = [] if seasons[game.season].nil?
-      seasons[game.season] << game
-      seasons
-    end
-  end
+  # def separate_games_by_season_id(games_array = games)
+  #   games_array.reduce({}) do |seasons, game|
+  #     seasons[game.season] = [] if seasons[game.season].nil?
+  #     seasons[game.season] << game
+  #     seasons
+  #   end
+  # end
 
-  def result_counts_by_team_id(team_id)  # Refactor to take game_ids as an arg
-    results = {}
-    results[:total] = game_stats_by_team_id(team_id).length
-    results[:wins] = game_stats_by_team_id(team_id).select do |game|
-      game.result == 'WIN'
-    end.length
-    results[:ties] = game_stats_by_team_id(team_id).select do |game|
-      game.result == 'TIE'
-    end.length
-    results[:losses] = game_stats_by_team_id(team_id).select do |game|
-      game.result == 'LOSS'
-    end.length
-
-    results
-  end
+  # def result_counts_by_team_id(team_id)  # Refactor to take game_ids as an arg
+  #   results = {}
+  #   results[:total] = game_stats_by_team_id(team_id).length
+  #   results[:wins] = game_stats_by_team_id(team_id).select do |game|
+  #     game.result == 'WIN'
+  #   end.length
+  #   results[:ties] = game_stats_by_team_id(team_id).select do |game|
+  #     game.result == 'TIE'
+  #   end.length
+  #   results[:losses] = game_stats_by_team_id(team_id).select do |game|
+  #     game.result == 'LOSS'
+  #   end.length
+  #
+  #   results
+  # end
 
   # def game_stats_by_team_id(team_id)
   #   game_teams.select do |game_team|
@@ -108,46 +108,46 @@ module TeamStatistics
     end
   end
 
-  def opponent_game_teams(team_id)
-    game_ids = games_to_game_ids(games_by_team_id(team_id))
-    opponent_ids = teams.reject do |team|
-      team.team_id == team_id
-    end.map(&:team_id)
-    opponent_ids.reduce({}) do |collector, id|
-      collector[id] = {}
-      collector[id][:game_data] = game_teams.select do |game_team|
-        game_ids.include?(game_team.game_id) && game_team.team_id == id
-      end
-      collector
-    end
-  end
+  # def opponent_game_teams(team_id)
+  #   game_ids = games_to_game_ids(games_by_team_id(team_id))
+  #   opponent_ids = teams.reject do |team|
+  #     team.team_id == team_id
+  #   end.map(&:team_id)
+  #   opponent_ids.reduce({}) do |collector, id|
+  #     collector[id] = {}
+  #     collector[id][:game_data] = game_teams.select do |game_team|
+  #       game_ids.include?(game_team.game_id) && game_team.team_id == id
+  #     end
+  #     collector
+  #   end
+  # end
 
-  def opponent_win_stats(team_id)
-    game_teams_hash = opponent_game_teams(team_id)
-    game_teams_hash.each do |id, data|
-      game_teams_hash[id][:total] = data[:game_data].length
-      game_teams_hash[id][:wins] = data[:game_data].select do |game|
-        game.result == 'WIN'
-      end.length
-      game_teams_hash[id][:win_percent] = (game_teams_hash[id][:wins] / game_teams_hash[id][:total].to_f).round(2)
-    end
-
-    game_teams_hash
-  end
-
-  def favorite_opponent(team_id)
-    favorite_id = opponent_win_stats(team_id).min_by do |id, data|
-      data[:win_percent]
-    end.first
-
-    team_info(favorite_id)['team_name']
-  end
-
-  def rival(team_id)
-    rival_id = opponent_win_stats(team_id).max_by do |id, data|
-      data[:win_percent]
-    end.first
-
-    team_info(rival_id)['team_name']
-  end
+  # def opponent_win_stats(team_id)
+  #   game_teams_hash = opponent_game_teams(team_id)
+  #   game_teams_hash.each do |id, data|
+  #     game_teams_hash[id][:total] = data[:game_data].length
+  #     game_teams_hash[id][:wins] = data[:game_data].select do |game|
+  #       game.result == 'WIN'
+  #     end.length
+  #     game_teams_hash[id][:win_percent] = (game_teams_hash[id][:wins] / game_teams_hash[id][:total].to_f).round(2)
+  #   end
+  #
+  #   game_teams_hash
+  # end
+  #
+  # def favorite_opponent(team_id)
+  #   favorite_id = opponent_win_stats(team_id).min_by do |id, data|
+  #     data[:win_percent]
+  #   end.first
+  #
+  #   team_info(favorite_id)['team_name']
+  # end
+  #
+  # def rival(team_id)
+  #   rival_id = opponent_win_stats(team_id).max_by do |id, data|
+  #     data[:win_percent]
+  #   end.first
+  #
+  #   team_info(rival_id)['team_name']
+  # end
 end

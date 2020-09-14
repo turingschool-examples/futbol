@@ -90,23 +90,23 @@ class TeamStatisticsTest < Minitest::Test
   #   # Add more assertions?
   # end
 
-  def test_it_can_count_total_games_wins_losses_and_ties_for_a_team
-    expected = {
-      total: 9,
-      wins: 5,
-      ties: 1,
-      losses: 3
-    }
-    actual = @stat_tracker.result_counts_by_team_id("26")
+  # def test_it_can_count_total_games_wins_losses_and_ties_for_a_team
+  #   expected = {
+  #     total: 9,
+  #     wins: 5,
+  #     ties: 1,
+  #     losses: 3
+  #   }
+  #   actual = @stat_tracker.result_counts_by_team_id("26")
+  #
+  #   assert_equal expected, actual
+  #   # What if one or multiple of the categories is 0?
+  # end
 
-    assert_equal expected, actual
-    # What if one or multiple of the categories is 0?
-  end
-
-  def test_it_can_calculate_average_win_percentage_for_a_team
-    assert_equal 0.56, @stat_tracker.average_win_percentage("26")
-    assert_equal 0.45, @stat_tracker.average_win_percentage("24")
-  end
+  # def test_it_can_calculate_average_win_percentage_for_a_team
+  #   assert_equal 0.56, @stat_tracker.average_win_percentage("26")
+  #   assert_equal 0.45, @stat_tracker.average_win_percentage("24")
+  # end
 
   def test_it_can_find_team_results_by_season
     game_teams = @stat_tracker.game_teams
@@ -134,35 +134,35 @@ class TeamStatisticsTest < Minitest::Test
     # Add more assertions?
   end
 
-  def test_it_can_generate_a_hash_of_opponent_game_teams
-    teams = @stat_tracker.teams
-    @stat_tracker.stubs(:games_to_game_ids).returns("2012030163")
-    @stat_tracker.stubs(:teams).returns([teams[7], teams[17]])
-    expected = {
-      "24" => { game_data: [@stat_tracker.game_teams[4]] }
-    }
-    actual = @stat_tracker.opponent_game_teams('17')
+  # def test_it_can_generate_a_hash_of_opponent_game_teams
+  #   teams = @stat_tracker.teams
+  #   @stat_tracker.stubs(:games_to_game_ids).returns("2012030163")
+  #   @stat_tracker.stubs(:teams).returns([teams[7], teams[17]])
+  #   expected = {
+  #     "24" => { game_data: [@stat_tracker.game_teams[4]] }
+  #   }
+  #   actual = @stat_tracker.opponent_game_teams('17')
+  #
+  #   assert_equal expected, actual
+  # end
 
-    assert_equal expected, actual
-  end
-
-  def test_it_can_generate_opponent_win_stats
-    value = {
-      "24" => { game_data: [@stat_tracker.game_teams[4]] }
-    }
-    @stat_tracker.stubs(:opponent_game_teams).returns(value)
-    expected = {
-      "24" => {
-        game_data: [@stat_tracker.game_teams[4]],
-        total: 1,
-        wins:  1,
-        win_percent: 1
-      }
-    }
-    actual = @stat_tracker.opponent_win_stats('17')
-
-    assert_equal expected, actual
-  end
+  # def test_it_can_generate_opponent_win_stats
+  #   value = {
+  #     "24" => { game_data: [@stat_tracker.game_teams[4]] }
+  #   }
+  #   @stat_tracker.stubs(:opponent_game_teams).returns(value)
+  #   expected = {
+  #     "24" => {
+  #       game_data: [@stat_tracker.game_teams[4]],
+  #       total: 1,
+  #       wins:  1,
+  #       win_percent: 1
+  #     }
+  #   }
+  #   actual = @stat_tracker.opponent_win_stats('17')
+  #
+  #   assert_equal expected, actual
+  # end
 
   def test_it_can_find_a_teams_favorite_opponent
     locations2 = {
