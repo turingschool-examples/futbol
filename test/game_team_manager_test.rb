@@ -1,6 +1,5 @@
 require './test/test_helper'
 require './lib/game_team_manager'
-require 'pry'
 
 class GameTeamManagerTest < Minitest::Test
   def setup
@@ -83,7 +82,7 @@ class GameTeamManagerTest < Minitest::Test
   end
 
   def test_most_accurate_team
-    
+
     game_team_manager = GameTeamManager.new(@locations, @stat_tracker)
     team_1 = mock('team_1')
     game_team_manager.stubs(:team_by_id).returns('This team')
