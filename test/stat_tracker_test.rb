@@ -143,4 +143,15 @@ class TestStatTracker <Minitest::Test
 
     assert_equal 4, stat_tracker.most_goals_scored('24')
   end
+
+  def test_it_can_find_fewest_goals_scored_by_team
+    locations =  {
+      games: './fixtures/team_stats_fixture_games.csv',
+      teams: './data/teams.csv',
+      game_teams: './fixtures/team_stats_fixture_game_teams.csv'
+    }
+    stat_tracker = StatTracker.new(locations)
+
+    assert_equal 0, stat_tracker.fewest_goals_scored('24')
+  end
 end
