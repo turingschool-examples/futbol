@@ -23,32 +23,32 @@ class StatTracker
     new(game_path, team_path, game_teams_path)
   end
 
-  # ----------SeasonStats
-
+  # # ----------SeasonStats
+  #
   def winningest_coach(season)
     @game_teams_manager.winningest_coach(season)
   end
-
+  #
   def worst_coach(season)
     @game_teams_manager.worst_coach(season)
   end
-
+  #
   def most_accurate_team(season)
     @game_teams_manager.most_accurate_team(season)
   end
-
+  #
   def least_accurate_team(season)
     @game_teams_manager.least_accurate_team(season)
   end
-
+  #
   def most_tackles(season)
     @game_teams_manager.most_tackles(season)
   end
-
+  #
   def fewest_tackles(season)
     @game_teams_manager.fewest_tackles(season)
   end
-
+  #
   def find_game_ids_for_season(season)
     @game_manager.find_game_ids_for_season(season)
   end
@@ -96,7 +96,7 @@ class StatTracker
   end
 
   def worst_season(team_id)
-    @game_teams_manager.best_season(team_id)
+    @game_teams_manager.worst_season(team_id)
   end
 
   def average_win_percentage(team_id)

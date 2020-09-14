@@ -130,7 +130,7 @@ class GameTeamsManager
     end
     tackles_start
   end
-  
+
 #-------------TeamStats
   def best_season(team_id)
     best_season = win_percentage_by_season(team_id).max_by do |season, wins_percent|
