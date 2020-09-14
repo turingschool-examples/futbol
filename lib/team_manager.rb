@@ -61,6 +61,7 @@ class TeamManager
   def total_wins(id, id2 = id)
     gather_game_team_info(id).count do |pair|
       next if pair[id2].nil?
+
       pair[id2][:result] == 'WIN'
     end
   end
@@ -82,9 +83,7 @@ class TeamManager
   def opponent_ids(id)
     opponents = gather_game_team_info(id).flat_map(&:keys).uniq
     opponents.delete(id)
-    opponents.sort_by do |id|
-      id.to_i
-    end
+    opponents.sort_by(&:to_i)
   end
 
   def favorite_opponent(id)
