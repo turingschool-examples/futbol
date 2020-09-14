@@ -34,9 +34,8 @@ class GameTeamManagerTest < MiniTest::Test
     assert_equal "Atlanta United", @game_team_manager.worst_offense
   end
 
-  def test_it_can_find_all_game_teams #### How do we test for this lol
-    skip
-    assert_equal "Real Salt Lake", @game_team_manager.find_all_teams("24")
+  def test_it_can_find_all_games #### How do we test for this lol
+    assert_equal "2012020225", @game_team_manager.find_all_games("24")[0].game_id
   end
 
   def test_it_can_find_most_goals_scored

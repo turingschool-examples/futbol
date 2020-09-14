@@ -89,6 +89,4 @@ class GameManager
     end[0]
     @tracker.get_team_name(lowest_scoring_visitor)
   end
-
-
 end

@@ -38,12 +38,4 @@ class TeamManager
       team.team_id == team_id # Would accept this as argument
     end.team_name
   end
-
-  def winner_or_loser_name(team_id)
-    @teams.find do |team|
-      @tracker.favorite_opponent_id(team_id) == team.team_id
-    end.team_name
-  end
-
-
 end
