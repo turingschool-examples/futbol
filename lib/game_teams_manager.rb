@@ -140,6 +140,22 @@ class GameTeamsManager
     end
   end
 
+  def favorite_opponent(teamid)
+    team_id_to_team_name(fave_opponent_id(teamid))
+  end
+
+  def fave_opponent_id(teamid)
+    avg_win_perc_by_opp(teamid).max_by do |opponent, win_perc|
+      win_perc
+    end[0]
+  end
+
+  def avg_win_perc_by_opp(teamid)
+    game_teams_by_opponent(teamid).map do |opponent, gameteams|
+      [opponent, ratio(total_wins(gameteams), total_game_teams(gameteams))]
+    end.to_h
+  end
+
   def game_ids_per_season(season)
     @stat_tracker.seasonal_game_data[season].map do |games|
       games.game_id

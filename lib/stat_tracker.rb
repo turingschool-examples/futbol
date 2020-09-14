@@ -185,20 +185,10 @@ class StatTracker
 
   # Move to GameTeamsManager
   # Need to convert to common naming convention
-  def avg_win_perc_by_opp(teamid)
-    awp_by_opp = {}
-    @game_teams_manager.game_teams_by_opponent(teamid).each do |opponent, gameteams|
-      awp_by_opp[opponent] = find_percent(total_wins(gameteams), total_game_teams(gameteams))
-    end
-    awp_by_opp
-  end
+  
 
   # Move to GameTeamsManager
-  def fave_opponent_id(teamid)
-    avg_win_perc_by_opp(teamid).max_by do |opponent, win_perc|
-      win_perc
-    end[0]
-  end
+
 
   # Move to GameTeamsManager
   def rival_id(teamid)
@@ -384,10 +374,6 @@ class StatTracker
 
   def average_win_percentage(teamid)
     @game_teams_manager.average_win_percentage(teamid)
-  end
-
-  def favorite_opponent(teamid)
-    team_id_to_team_name(fave_opponent_id(teamid))
   end
 
   def rival(teamid)
