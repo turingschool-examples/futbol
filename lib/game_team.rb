@@ -25,7 +25,7 @@ class GameTeam
     @result = data[:result]
     @settled_in = data[:settled_in]
     @head_coach = data[:head_coach]
-    @goals = data[:goals]
+    @goals = data[:goals].to_i
     @shots = data[:shots].to_i
     @tackles = data[:tackles].to_i
     @pim = data[:pim]
@@ -35,5 +35,6 @@ class GameTeam
     @giveaways = data[:giveaways]
     @takeaways = data[:takeaways]
   end
+
 
 end
