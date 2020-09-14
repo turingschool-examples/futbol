@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'mocha/minitest'
 require './lib/stat_tracker'
+require './test/test_helper'
 
 
 class GameManagerTest < Minitest::Test
@@ -120,7 +121,7 @@ class GameManagerTest < Minitest::Test
 
     assert_equal expected, @blank_tracker.game_manager.team_stats
   end
-  
+
 #------------TeamStatsTests
   def test_it_can_find_games_by_team
     path = './fixture/game_blank.csv'

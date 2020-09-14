@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'mocha/minitest'
 require './lib/stat_tracker'
+require './test/test_helper'
 
 class StatTrackerTest < Minitest::Test
   def setup
