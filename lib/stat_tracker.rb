@@ -102,24 +102,6 @@ class StatTracker
     end
   end
 
-  # Move to GameTeamsManager
-  # THIS METHOD PENDING DELETION
-  # using instead: home_or_away_games
-  def home_games
-    @game_teams.select do |game|
-      game.hoa == "home"
-    end
-  end
-
-  # Move to GameTeamsManager
-  # THIS METHOD PENDING DELETION
-  # using instead: home_or_away_games
-  def away_games
-    @game_teams.select do |game_team|
-      game_team.hoa == "away"
-    end
-  end
-
   #Move to GameTeamsManager
   #Need a vertical call up for Team_ID
   # home_games method used inside will be changed to: home_or_away_games

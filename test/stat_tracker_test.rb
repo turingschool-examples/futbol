@@ -251,7 +251,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_knows_lowest_scoring_visitor_team
-    assert_equal "Chicago Fire", @stats.lowest_scoring_visitor_team
+    assert_equal "Chicago Fire", @stats.lowest_scoring_visitor
   end
 
 # ~~~ SEASON METHOD TESTS~~~
