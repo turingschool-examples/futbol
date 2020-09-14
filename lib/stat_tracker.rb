@@ -48,6 +48,10 @@ class StatTracker
     @games_manager.count_games_by_season
   end
 
+  def average_goals_per_game
+    @games_manager.average_goals_per_game
+  end
+
 # League Statistics
   def count_of_teams
     @teams_manager.count_of_teams
