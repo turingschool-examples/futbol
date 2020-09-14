@@ -93,6 +93,14 @@ class GameTeamsManager
     end.goals.to_i
   end
 
+  def favorite_opponent(team_id)
+    opponent = find_opponent_win_percentage(team_id).min_by do |team_id, percentage|
+      percentage
+    end.first
+    find_team_name(opponent)
+  end
+
+
 #-------------TeamStatsHelpers
   def game_info_by_team(team_id)
     @game_teams.select do |game_team|
@@ -153,5 +161,9 @@ class GameTeamsManager
       win_percentage[team_id] = total += (opponent_wins.to_f / game_teams.length).round(2)
     end
     win_percentage
+  end
+
+  def find_team_name(team_id)
+    @tracker.team_info(team_id)['team_name']
   end
 end
