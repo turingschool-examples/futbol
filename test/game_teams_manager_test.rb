@@ -163,5 +163,259 @@ class GameTeamsManagerTest < Minitest::Test
   def test_team_tackles
     expected = {"3"=>179, "6"=>271, "5"=>150, "17"=>219, "16"=>178}
     assert_equal expected, @stat_tracker.game_teams_manager.team_tackles('20122013')
+#------------TeamStatsTests
+
+  def test_it_can_find_game_info_by_team
+    game_path = './fixture/game_blank.csv'
+    team_path = './fixture/team_blank.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    tracker = StatTracker.new(game_path, team_path, game_teams_path)
+    game_teams_1 = mock("Game Team Object 1")
+    game_teams_2 = mock("Game Team Object 2")
+    game_teams_3 = mock("Game Team Object 3")
+    tracker.game_teams_manager.game_teams << game_teams_1
+    tracker.game_teams_manager.game_teams << game_teams_2
+    tracker.game_teams_manager.game_teams << game_teams_3
+    game_teams_1.stubs(:team_id).returns('123')
+    game_teams_2.stubs(:team_id).returns('987')
+    game_teams_3.stubs(:team_id).returns('123')
+
+    assert_equal [game_teams_1, game_teams_3], tracker.game_teams_manager.game_info_by_team('123')
+  end
+
+  def test_it_can_find_team_games_by_season
+    game_path = './fixture/game_blank.csv'
+    team_path = './fixture/team_blank.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    tracker = StatTracker.new(game_path, team_path, game_teams_path)
+    game_teams_1 = mock("Game Team Object 1")
+    game_teams_2 = mock("Game Team Object 2")
+    game_teams_3 = mock("Game Team Object 3")
+    tracker.game_teams_manager.game_teams << game_teams_1
+    tracker.game_teams_manager.game_teams << game_teams_2
+    tracker.game_teams_manager.game_teams << game_teams_3
+    game_teams_1.stubs(:team_id).returns('123')
+    game_teams_2.stubs(:team_id).returns('987')
+    game_teams_3.stubs(:team_id).returns('123')
+    game_teams_1.stubs(:game_id).returns('2012030221')
+    game_teams_2.stubs(:game_id).returns('2012030221')
+    game_teams_3.stubs(:game_id).returns('2013030221')
+
+    expected = {"2012"=>[game_teams_1], "2013" => [game_teams_3]}
+    assert_equal expected, tracker.game_teams_manager.team_games_by_season('123')
+  end
+
+  def test_it_can_find_wins_percentage_by_season
+    assert_equal ({"2012" => 1.0}), @stat_tracker.game_teams_manager.win_percentage_by_season('6')
+  end
+
+  def test_it_can_find_best_season
+    assert_equal "20122013", @stat_tracker.game_teams_manager.best_season("6")
+  end
+
+  def test_it_can_find_worst_season
+    assert_equal "20122013", @stat_tracker.game_teams_manager.worst_season("6")
+  end
+
+  def test_it_can_find_all_game_results
+    game_path = './fixture/game_blank.csv'
+    team_path = './fixture/team_blank.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    tracker = StatTracker.new(game_path, team_path, game_teams_path)
+    game_teams_1 = mock("Game Team Object 1")
+    game_teams_2 = mock("Game Team Object 2")
+    game_teams_3 = mock("Game Team Object 3")
+    game_teams_4 = mock("Game Team Object 4")
+    tracker.game_teams_manager.game_teams << game_teams_1
+    tracker.game_teams_manager.game_teams << game_teams_2
+    tracker.game_teams_manager.game_teams << game_teams_3
+    tracker.game_teams_manager.game_teams << game_teams_4
+    game_teams_1.stubs(:team_id).returns('123')
+    game_teams_2.stubs(:team_id).returns('123')
+    game_teams_3.stubs(:team_id).returns('123')
+    game_teams_4.stubs(:team_id).returns('987')
+    game_teams_1.stubs(:result).returns('WIN')
+    game_teams_2.stubs(:result).returns('LOSS')
+    game_teams_3.stubs(:result).returns('WIN')
+    game_teams_4.stubs(:result).returns('TIE')
+
+    assert_equal [game_teams_1, game_teams_3], tracker.game_teams_manager.find_all_game_results('123', 'WIN')
+    assert_equal [game_teams_2], tracker.game_teams_manager.find_all_game_results('123', 'LOSS')
+    assert_equal [game_teams_4], tracker.game_teams_manager.find_all_game_results('987', 'TIE')
+  end
+
+  def test_it_can_find_result_totals_by_team
+    game_path = './fixture/game_blank.csv'
+    team_path = './fixture/team_blank.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    tracker = StatTracker.new(game_path, team_path, game_teams_path)
+    game_teams_1 = mock("Game Team Object 1")
+    game_teams_2 = mock("Game Team Object 2")
+    game_teams_3 = mock("Game Team Object 3")
+    game_teams_4 = mock("Game Team Object 4")
+    tracker.game_teams_manager.game_teams << game_teams_1
+    tracker.game_teams_manager.game_teams << game_teams_2
+    tracker.game_teams_manager.game_teams << game_teams_3
+    tracker.game_teams_manager.game_teams << game_teams_4
+    game_teams_1.stubs(:team_id).returns('123')
+    game_teams_2.stubs(:team_id).returns('123')
+    game_teams_3.stubs(:team_id).returns('123')
+    game_teams_4.stubs(:team_id).returns('987')
+    game_teams_1.stubs(:result).returns('WIN')
+    game_teams_2.stubs(:result).returns('LOSS')
+    game_teams_3.stubs(:result).returns('WIN')
+    game_teams_4.stubs(:result).returns('TIE')
+
+    assert_equal ({:total => 3, :wins => 2, :ties => 0, :losses => 1}), tracker.game_teams_manager.result_totals_by_team('123')
+    assert_equal ({:total => 1, :wins => 0, :ties => 1, :losses => 0}), tracker.game_teams_manager.result_totals_by_team('987')
+  end
+
+  def test_it_can_find_average_win_percentage
+    game_path = './fixture/game_blank.csv'
+    team_path = './fixture/team_blank.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    tracker = StatTracker.new(game_path, team_path, game_teams_path)
+    game_teams_1 = mock("Game Team Object 1")
+    game_teams_2 = mock("Game Team Object 2")
+    game_teams_3 = mock("Game Team Object 3")
+    game_teams_4 = mock("Game Team Object 4")
+    tracker.game_teams_manager.game_teams << game_teams_1
+    tracker.game_teams_manager.game_teams << game_teams_2
+    tracker.game_teams_manager.game_teams << game_teams_3
+    tracker.game_teams_manager.game_teams << game_teams_4
+    game_teams_1.stubs(:team_id).returns('123')
+    game_teams_2.stubs(:team_id).returns('123')
+    game_teams_3.stubs(:team_id).returns('123')
+    game_teams_4.stubs(:team_id).returns('987')
+    game_teams_1.stubs(:result).returns('WIN')
+    game_teams_2.stubs(:result).returns('LOSS')
+    game_teams_3.stubs(:result).returns('WIN')
+    game_teams_4.stubs(:result).returns('TIE')
+
+    assert_equal 0.67, tracker.game_teams_manager.average_win_percentage('123')
+    assert_equal 0.0, tracker.game_teams_manager.average_win_percentage('987')
+  end
+
+  def test_it_can_find_most_and_fewest_goals_scored
+    game_path = './fixture/game_blank.csv'
+    team_path = './fixture/team_blank.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    tracker = StatTracker.new(game_path, team_path, game_teams_path)
+    game_teams_1 = mock("Game Team Object 1")
+    game_teams_2 = mock("Game Team Object 2")
+    game_teams_3 = mock("Game Team Object 3")
+    game_teams_4 = mock("Game Team Object 4")
+    tracker.game_teams_manager.game_teams << game_teams_1
+    tracker.game_teams_manager.game_teams << game_teams_2
+    tracker.game_teams_manager.game_teams << game_teams_3
+    tracker.game_teams_manager.game_teams << game_teams_4
+    game_teams_1.stubs(:team_id).returns('123')
+    game_teams_2.stubs(:team_id).returns('123')
+    game_teams_3.stubs(:team_id).returns('123')
+    game_teams_4.stubs(:team_id).returns('987')
+    game_teams_1.stubs(:goals).returns('3')
+    game_teams_2.stubs(:goals).returns('1')
+    game_teams_3.stubs(:goals).returns('2')
+    game_teams_4.stubs(:goals).returns('2')
+
+    assert_equal 3, tracker.game_teams_manager.most_goals_scored('123')
+    assert_equal 2, tracker.game_teams_manager.most_goals_scored('987')
+    assert_equal 1, tracker.game_teams_manager.fewest_goals_scored('123')
+    assert_equal 2, tracker.game_teams_manager.fewest_goals_scored('987')
+  end
+
+  def test_it_can_find_opponent_games
+    game_path = './fixture/game_blank.csv'
+    team_path = './fixture/team_blank.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    tracker = StatTracker.new(game_path, team_path, game_teams_path)
+    game_teams_1 = mock("Game Team Object 1")
+    game_teams_2 = mock("Game Team Object 2")
+    game_teams_3 = mock("Game Team Object 3")
+    game_teams_4 = mock("Game Team Object 4")
+    game_teams_5 = mock("Game Team Object 5")
+    game_teams_6 = mock("Game Team Object 6")
+    tracker.game_teams_manager.game_teams << game_teams_1
+    tracker.game_teams_manager.game_teams << game_teams_2
+    tracker.game_teams_manager.game_teams << game_teams_3
+    tracker.game_teams_manager.game_teams << game_teams_4
+    tracker.game_teams_manager.game_teams << game_teams_5
+    tracker.game_teams_manager.game_teams << game_teams_6
+
+    game_teams_1.stubs(:team_id).returns('123')
+    game_teams_2.stubs(:team_id).returns('123')
+    game_teams_3.stubs(:team_id).returns('456')
+    game_teams_4.stubs(:team_id).returns('987')
+    game_teams_5.stubs(:team_id).returns('456')
+    game_teams_6.stubs(:team_id).returns('123')
+    game_teams_1.stubs(:game_id).returns('2012030221')
+    game_teams_2.stubs(:game_id).returns('2012030222')
+    game_teams_3.stubs(:game_id).returns('2012030221')
+    game_teams_4.stubs(:game_id).returns('2012030222')
+    game_teams_5.stubs(:game_id).returns('2012030223')
+    game_teams_6.stubs(:game_id).returns('2012030224')
+
+    expected = [game_teams_3, game_teams_4]
+    assert_equal expected, tracker.game_teams_manager.find_opponent_games('123')
+  end
+
+  def test_it_can_find_opponent_win_percentage
+    game_path = './fixture/game_blank.csv'
+    team_path = './fixture/team_blank.csv'
+    game_teams_path = './fixture/game_teams_blank.csv'
+
+    tracker = StatTracker.new(game_path, team_path, game_teams_path)
+    game_teams_1 = mock("Game Team Object 1")
+    game_teams_2 = mock("Game Team Object 2")
+    game_teams_3 = mock("Game Team Object 3")
+    game_teams_4 = mock("Game Team Object 4")
+    game_teams_5 = mock("Game Team Object 5")
+    game_teams_6 = mock("Game Team Object 6")
+    tracker.game_teams_manager.game_teams << game_teams_1
+    tracker.game_teams_manager.game_teams << game_teams_2
+    tracker.game_teams_manager.game_teams << game_teams_3
+    tracker.game_teams_manager.game_teams << game_teams_4
+    tracker.game_teams_manager.game_teams << game_teams_5
+    tracker.game_teams_manager.game_teams << game_teams_6
+
+    game_teams_1.stubs(:team_id).returns('123')
+    game_teams_2.stubs(:team_id).returns('123')
+    game_teams_3.stubs(:team_id).returns('456')
+    game_teams_4.stubs(:team_id).returns('987')
+    game_teams_5.stubs(:team_id).returns('456')
+    game_teams_6.stubs(:team_id).returns('123')
+    game_teams_1.stubs(:game_id).returns('2012030221')
+    game_teams_2.stubs(:game_id).returns('2012030222')
+    game_teams_3.stubs(:game_id).returns('2012030221')
+    game_teams_4.stubs(:game_id).returns('2012030222')
+    game_teams_5.stubs(:game_id).returns('2012030224')
+    game_teams_6.stubs(:game_id).returns('2012030224')
+    game_teams_1.stubs(:result).returns('LOSS')
+    game_teams_2.stubs(:result).returns('LOSS')
+    game_teams_3.stubs(:result).returns('WIN')
+    game_teams_4.stubs(:result).returns('WIN')
+    game_teams_5.stubs(:result).returns('WIN')
+    game_teams_6.stubs(:result).returns('LOSS')
+
+    assert_equal ({'456'=>1.0, '987'=>1.0}), tracker.game_teams_manager.find_opponent_win_percentage('123')
+  end
+
+  def test_it_finds_team_name
+    assert_equal 'Houston Dynamo', @stat_tracker.game_teams_manager.find_team_name('3')
+  end
+
+  def test_it_finds_favorite_opponent
+    assert_equal 'Houston Dynamo', @stat_tracker.game_teams_manager.favorite_opponent('6')
+  end
+
+  def test_it_finds_rival
+    assert_equal 'Houston Dynamo', @stat_tracker.game_teams_manager.rival('6')
   end
 end

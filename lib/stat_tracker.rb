@@ -83,6 +83,39 @@ class StatTracker
   end
 
   def initialize_team_stats_hash
-    team_manager.initialize_team_stats_hash
+    @team_manager.initialize_team_stats_hash
+  end
+
+#-------------TeamStats
+  def team_info(team_id)
+    @team_manager.team_info(team_id)
+  end
+
+  def best_season(team_id)
+    @game_teams_manager.best_season(team_id)
+  end
+
+  def worst_season(team_id)
+    @game_teams_manager.best_season(team_id)
+  end
+
+  def average_win_percentage(team_id)
+    @game_teams_manager.average_win_percentage(team_id)
+  end
+
+  def most_goals_scored(team_id)
+    @game_teams_manager.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    @game_teams_manager.fewest_goals_scored(team_id)
+  end
+
+  def favorite_opponent(team_id)
+    @game_teams_manager.favorite_opponent(team_id)
+  end
+
+  def rival(team_id)
+    @game_teams_manager.favorite_opponent(team_id)
   end
 end

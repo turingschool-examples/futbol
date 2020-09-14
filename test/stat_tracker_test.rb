@@ -276,4 +276,66 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal "New York City FC", stat_tracker.lowest_scoring_home_team
   end
+
+# --------TeamStats
+  def test_it_can_find_team_info
+   expected = {
+     'team_id'=> "4",
+     'franchise_id'=>  "16",
+     'team_name'=>  "Chicago Fire",
+     'abbreviation'=>  "CHI",
+     'link'=>  "/api/v1/teams/4"
+   }
+   assert_equal expected, @stat_tracker.team_info("4")
+ end
+
+ def test_it_can_find_best_season
+   assert_equal "20122013", @stat_tracker.best_season("6")
+ end
+
+ def test_it_can_find_worst_season
+   assert_equal "20122013", @stat_tracker.worst_season("6")
+ end
+
+ def test_it_can_find_average_win_percentage
+   assert_equal 1.0, @stat_tracker.average_win_percentage("6")
+   assert_equal 0.43, @stat_tracker.average_win_percentage('16')
+ end
+
+ def test_it_can_find_most_and_fewest_goals_scored
+   game_path = './fixture/game_blank.csv'
+   team_path = './fixture/team_blank.csv'
+   game_teams_path = './fixture/game_teams_blank.csv'
+
+   tracker = StatTracker.new(game_path, team_path, game_teams_path)
+   game_teams_1 = mock("Game Team Object 1")
+   game_teams_2 = mock("Game Team Object 2")
+   game_teams_3 = mock("Game Team Object 3")
+   game_teams_4 = mock("Game Team Object 4")
+   tracker.game_teams_manager.game_teams << game_teams_1
+   tracker.game_teams_manager.game_teams << game_teams_2
+   tracker.game_teams_manager.game_teams << game_teams_3
+   tracker.game_teams_manager.game_teams << game_teams_4
+   game_teams_1.stubs(:team_id).returns('123')
+   game_teams_2.stubs(:team_id).returns('123')
+   game_teams_3.stubs(:team_id).returns('123')
+   game_teams_4.stubs(:team_id).returns('987')
+   game_teams_1.stubs(:goals).returns('3')
+   game_teams_2.stubs(:goals).returns('1')
+   game_teams_3.stubs(:goals).returns('2')
+   game_teams_4.stubs(:goals).returns('2')
+
+   assert_equal 3, tracker.most_goals_scored('123')
+   assert_equal 2, tracker.most_goals_scored('987')
+   assert_equal 1, tracker.fewest_goals_scored('123')
+   assert_equal 2, tracker.fewest_goals_scored('987')
+ end
+
+ def test_it_can_find_favorite_opponent
+   assert_equal 'LA Galaxy', @stat_tracker.favorite_opponent('16')
+ end
+
+ def test_it_can_find_rival
+   assert_equal 'FC Dallas', @stat_tracker.rival('3')
+ end
 end

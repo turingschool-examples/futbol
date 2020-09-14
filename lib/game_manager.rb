@@ -30,6 +30,13 @@ class GameManager
     games_of_season(season).map {|game| game.game_id }
   end
 
+#---------------TeamStats
+  def games_by_team(team_id)
+    @games.select do |game|
+      game.home_team_id == team_id || game.away_team_id == team_id
+    end
+  end
+
   #------------LeagueStats
   def team_stats
     tracker.initialize_team_stats_hash.each do |team_id, games_goals|

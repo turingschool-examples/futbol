@@ -111,13 +111,33 @@ class GameManagerTest < Minitest::Test
     game_2.stubs(:home_goals).returns('2')
 
     expected = {
-      "45"=> {:total_games=>2, :total_goals=>6, :away_games=>1, :home_games=>1, 
+      "45"=> {:total_games=>2, :total_goals=>6, :away_games=>1, :home_games=>1,
               :away_goals=>4, :home_goals=>2},
 
-      "91"=> {:total_games=>2, :total_goals=>4, :away_games=>1, :home_games=>1, 
+      "91"=> {:total_games=>2, :total_goals=>4, :away_games=>1, :home_games=>1,
               :away_goals=>3, :home_goals=>1}
     }
 
     assert_equal expected, @blank_tracker.game_manager.team_stats
+  end
+  
+#------------TeamStatsTests
+  def test_it_can_find_games_by_team
+    path = './fixture/game_blank.csv'
+    game_manager = GameManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_manager.games << game_1
+    game_manager.games << game_2
+    game_manager.games << game_3
+
+    game_1.stubs(:home_team_id).returns('1')
+    game_1.stubs(:away_team_id).returns('2')
+    game_2.stubs(:away_team_id).returns('1')
+    game_2.stubs(:home_team_id).returns('2')
+    game_3.stubs(:home_team_id).returns('3')
+    game_3.stubs(:away_team_id).returns('2')
+    assert_equal [game_1, game_2], game_manager.games_by_team('1')
   end
 end

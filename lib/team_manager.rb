@@ -24,4 +24,20 @@ class TeamManager
     end
     team_stats_hash
   end
+
+#-------------TeamStats
+
+  def team_info(team_id)
+    team_info = { }
+    @teams.each do |team|
+      if team_id == team.team_id
+        team_info['team_id'] = team.team_id
+        team_info['franchise_id'] = team.franchise_id
+        team_info['team_name'] = team.team_name
+        team_info['abbreviation'] = team.abbreviation
+        team_info['link'] = team.link
+      end
+    end
+    team_info
+  end
 end
