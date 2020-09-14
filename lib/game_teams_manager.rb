@@ -144,7 +144,7 @@ class GameTeamsManager
     team_id_to_team_name(fave_opponent_id(teamid))
   end
 
-  def fave_opponent_id(teamid)
+  def favorite_opponent_id(teamid)
     average_win_percentage_by_opponent(teamid).max_by do |opponent, win_perc|
       win_perc
     end[0]
