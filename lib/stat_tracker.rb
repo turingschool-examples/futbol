@@ -23,9 +23,7 @@ class StatTracker
     @teams_manager = TeamsManager.new(locations[:teams], self)
   end
 
-  def count_of_teams
-    @teams_manager.count_of_teams
-  end
+
 
   def find_season_id(game_id)
     @games_manager.find_season_id(game_id)
@@ -41,6 +39,19 @@ class StatTracker
 
   def average_number_of_goals_scored_by_team_by_type(team_id, home_away)
     @game_teams_manager.average_number_of_goals_scored_by_team_by_type(team_id, home_away)
+  end
+
+# League Statistics
+  def count_of_teams
+    @teams_manager.count_of_teams
+  end
+
+  def best_offense
+    @teams_manager.best_offense
+  end
+
+  def worst_offense
+    @teams_manager.worst_offense
   end
 
   def highest_scoring_visitor

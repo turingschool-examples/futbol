@@ -43,6 +43,14 @@ class StatTrackerTest < Minitest::Test
     assert_equal 1.33, @stat_tracker.average_number_of_goals_scored_by_team_by_type('3', 'home')
   end
 
+  def test_find_best_offense
+    assert_equal 'FC Dallas', @stat_tracker.best_offense
+  end
+
+  def test_find_worst_offense
+    assert_equal 'Sporting Kansas City', @stat_tracker.worst_offense
+  end
+
   def test_it_can_find_highest_scoring_visitor
     assert_equal 'Sporting Kansas City', @stat_tracker.highest_scoring_visitor
   end
