@@ -173,39 +173,12 @@ class StatTracker
     @game_teams_manager.filter_by_team_id(team_id)
   end
 
-  # Move to GameTeamsManager
-  # Need to convert to common naming convention
-  # Is this method used anymore?
-  def avg_win_perc_by_opp(team_id)
-    awp_by_opp = {}
-    @game_teams_manager.game_teams_by_opponent(team_id).each do |opponent, gameteams|
-      awp_by_opp[opponent] = find_percent(total_wins(gameteams), total_game_teams(gameteams))
-    end
-    awp_by_opp
-  end
-
-  # Move to GameTeamsManager
-  # Is this method used anymore?
-  def fave_opponent_id(team_id)
-    avg_win_perc_by_opp(team_id).max_by do |opponent, win_perc|
-      win_perc
-    end[0]
-  end
-
-  # Move to GameTeamsManager
-  # Is this method used anymore?
-  def rival_id(team_id)
-    avg_win_perc_by_opp(team_id).min_by do |opponent, win_perc|
-      win_perc
-    end[0]
-  end
-
   def game_teams_by_opponent(team_id)
     @game_teams_manager.game_teams_by_opponent(team_id)
   end
 
-  def get_game(gameid)
-    @games_manager.get_game(gameid)
+  def get_game(game_id)
+    @games_manager.get_game(game_id)
   end
 
   # Move to GameTeamsManager
@@ -216,8 +189,8 @@ class StatTracker
     end
   end
 
-  def get_opponent_id(game, team_id)
-    @games_manager.get_opponent_id(game, team_id)
+  def get_opponent_id(game_id, team_id)
+    @games_manager.get_opponent_id(game_id, team_id)
   end
 
   def game_ids_per_season(season)
@@ -244,6 +217,8 @@ class StatTracker
   def shots_per_goal_per_season(season)
     @game_teams_manager.shots_per_goal_per_season(season)
   end
+
+  # Move to GamesManager
 
   def game_ids_by_season(season)
     filter_by_season(season).map do |game|
@@ -372,14 +347,6 @@ class StatTracker
     @game_teams_manager.average_win_percentage(team_id)
   end
 
-  def favorite_opponent(team_id)
-    team_id_to_team_name(fave_opponent_id(team_id))
-  end
-
-  def rival(team_id)
-    team_id_to_team_name(rival_id(team_id))
-  end
-
   def worst_season(team_id)
     @games_manager.worst_season(team_id)
   end
@@ -394,5 +361,13 @@ class StatTracker
 
   def fewest_goals_scored(team_id)
     @game_teams_manager.fewest_goals_scored(team_id)
+  end
+
+  def favorite_opponent(team_id)
+    fetch_team_identifier(@game_teams_manager.favorite_opponent_id(team_id))
+  end
+
+  def rival(team_id)
+    fetch_team_identifier(@game_teams_manager.rival_id(team_id))
   end
 end

@@ -154,19 +154,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal 4, @stats.game_teams_by_opponent("6")["26"].size
   end
 
-  def test_it_can_calc_avg_win_perc_by_opp
-    expected = {"14"=>40.0, "1"=>80.0, "4"=>83.33, "26"=>25.0}
-    assert_equal expected, @stats.avg_win_perc_by_opp("6")
-  end
-
-  def test_it_can_get_fave_opp_id
-    assert_equal "4", @stats.fave_opponent_id("6")
-  end
-
-  def test_it_can_get_fave_rival_id
-    assert_equal "26", @stats.rival_id("6")
-  end
-
   def test_it_can_get_game_ids_in_season
     expected = ["2013021198", "2013020371", "2013020203", "2013020649", "2013021160", "2013020334", "2013021221", "2013020667", "2013020321", "2013020285", "2013020739", "2013020088"]
     assert_equal expected, @stats.game_ids_per_season("20132014")
