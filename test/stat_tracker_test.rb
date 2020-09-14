@@ -152,11 +152,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Houston Dynamo", @stat_tracker.favorite_opponent("6")
   end
 
-# duplicate
-  # def test_it_has_a_favorite_team_to_beat
-  #   assert_equal "Houston Dynamo", @stat_tracker.favorite_opponent("6")
-  # end
-
   def test_it_has_a_team_it_hates
     assert_equal "FC Dallas", @stat_tracker.rival("3")
   end

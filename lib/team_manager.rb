@@ -24,18 +24,18 @@ class TeamManager
     found_team = @teams.find do |team|
       team_id == team.team_id
     end
-    found_team_info = {
-                      "team_id" => found_team.team_id,
-                      "franchise_id" => found_team.franchise_id,
-                      "team_name" => found_team.team_name,
-                      "abbreviation" => found_team.abbreviation,
-                      "link" => found_team.link
-                      }
+    {
+    "team_id" => found_team.team_id,
+    "franchise_id" => found_team.franchise_id,
+    "team_name" => found_team.team_name,
+    "abbreviation" => found_team.abbreviation,
+    "link" => found_team.link
+    }
   end
 
   def get_team_name(team_id)
-    @teams.find do |team| # Create find_team_name method? # team_manager.rb
-      team.team_id == team_id # Would accept this as argument
+    @teams.find do |team|
+      team.team_id == team_id
     end.team_name
   end
 end
