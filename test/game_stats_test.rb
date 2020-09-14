@@ -12,7 +12,7 @@ class GameStatsTest < Minitest::Test
       game_teams: game_teams_path
     }
   @stat_tracker = StatTracker.from_csv(locations)
-  @game_stats = GameStats.new('./data/games.csv', @stat_tracker)
+  @game_stats = GameStats.new(@stat_tracker)
   end
 
   def test_it_exists
@@ -43,13 +43,13 @@ class GameStatsTest < Minitest::Test
     assert_equal 3237, @game_stats.all_home_wins.length
   end
 
-  def test_it_knows_all_visitor_wins
-    assert_equal 2687, @game_stats.all_visitor_wins.length
-  end
-
   def test_it_knows_percentage_home_wins
     @game_stats.stubs(:total_games).returns(7441)
     assert_equal 0.44, @game_stats.percentage_home_wins
+  end
+
+  def test_it_knows_all_visitor_wins
+    assert_equal 2687, @game_stats.all_visitor_wins.length
   end
 
   def test_it_knows_percentage_visitor_wins
@@ -62,7 +62,7 @@ class GameStatsTest < Minitest::Test
   end
 
   def test_it_knows_percentage_ties
-        @game_stats.stubs(:total_games).returns(7441)
+    @game_stats.stubs(:total_games).returns(7441)
     assert_equal 0.20, @game_stats.percentage_ties
   end
 

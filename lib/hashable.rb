@@ -1,5 +1,4 @@
 module Hashable
-  #game_teams_manager
   def coach_wins(season)
     wins = {}
     group_by_coach(season).map do |coach, games|
@@ -33,7 +32,6 @@ module Hashable
     total_tackles
   end
 
-  #team_manager
   def team_id_and_average_goals
     average_goals_by_team = {}
     group_by_team_id.each do |team, games|

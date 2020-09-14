@@ -1,10 +1,8 @@
 module Groupable
-  #game_manager
   def hash_of_seasons
     @game_data.group_by {|game| game.season}
   end
 
-  #game_teams_manager
   def group_by_coach(season)
     games_from_season(season).group_by {|game| game.head_coach}
   end
@@ -13,7 +11,6 @@ module Groupable
     games_from_season(season).group_by {|team| team.team_id}
   end
 
-  #team_manager
   def group_by_team_id
     @game_teams_data.group_by {|team| team.team_id}
   end

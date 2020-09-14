@@ -8,7 +8,7 @@ class Game
               :away_goals,
               :home_goals
 
-  def initialize(game_data, manager)
+  def initialize(game_data)
     @game_id      = game_data[:game_id].to_i
     @season       = game_data[:season].to_s
     @type         = game_data[:type]

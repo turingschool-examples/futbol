@@ -1,11 +1,13 @@
 require './lib/stats'
+require_relative 'hashable'
+require_relative 'groupable'
 
 class TeamStats < Stats
-  attr_reader :team_data,
-              :tracker
+  include Hashable
+  include Groupable
+  attr_reader :tracker
 
-  def initialize(location, tracker)
-    @tracker = tracker
+  def initialize(tracker)
     super(game_stats_data, game_teams_stats_data, teams_stats_data)
   end
 
@@ -14,117 +16,33 @@ class TeamStats < Stats
   end
 
   def group_by_team_id
-    @tracker.game_teams_stats.group_by_team_id
-  end
-
-  def best_offense
-    best_attack = @teams_stats_data.find do |team|
-      team.teamname if best_offense_stats == team.team_id
-    end
-    best_attack.teamname
-  end
-
-  def worst_offense
-    worst_attack = @teams_stats_data.find do |team|
-      team.teamname if worst_offense_stats == team.team_id
-    end
-    worst_attack.teamname
-  end
-
-  def best_offense_stats
-    stats = team_id_and_average_goals.sort_by do |key, value|
-      value
-    end
-    stats[-1][0]
-  end
-
-  def worst_offense_stats
-    stats = team_id_and_average_goals.sort_by do |key, value|
-      value
-    end
-    stats[0][0]
-  end
-
-  def team_highest_away_goals
-    away_goals = team_id_and_average_away_goals.sort_by do |team, goals|
-      goals
-    end
-    away_goals[-1][0]
-  end
-
-  def highest_scoring_visitor
-    visitor = @teams_stats_data.find do |team|
-      team.teamname if team_highest_away_goals == team.team_id
-    end
-    visitor.teamname
-  end
-
-  def team_lowest_away_goals
-    away_goals = team_id_and_average_away_goals.sort_by do |team, goals|
-      goals
-    end
-    away_goals[0][0]
-  end
-
-  def lowest_scoring_visitor
-    visitor = @teams_stats_data.find do |team|
-      team.teamname if team_lowest_away_goals == team.team_id
-    end
-    visitor.teamname
-  end
-
-  def team_highest_home_goals
-    home_goals = team_id_and_average_home_goals.sort_by do |team, goals|
-      goals
-    end
-    home_goals[-1][0]
-  end
-
-  def highest_scoring_home_team
-    home = @teams_stats_data.find do |team|
-      team.teamname if team_highest_home_goals == team.team_id
-    end
-    home.teamname
-  end
-
-  def team_lowest_home_goals
-    home_goals = team_id_and_average_home_goals.sort_by do |team, goals|
-      goals
-    end
-    home_goals[0][0]
-  end
-
-  def lowest_scoring_home_team
-    home = @teams_stats_data.find do |team|
-      team.teamname if team_lowest_home_goals == team.team_id
-    end
-    home.teamname
+    @tracker.league_stats.group_by_team_id
   end
 
   def most_accurate_team(season)
     accurate = @teams_stats_data.find do |team|
-      team.teamname if @tracker.game_teams_stats.find_most_accurate_team(season) == team.team_id
+      team.teamname if @tracker.season_stats.find_most_accurate_team(season) == team.team_id
     end
     accurate.teamname
   end
 
   def least_accurate_team(season)
     not_accurate = @teams_stats_data.find do |team|
-      team.teamname if @tracker.game_teams_stats.find_least_accurate_team(season) == team.team_id
+      team.teamname if @tracker.season_stats.find_least_accurate_team(season) == team.team_id
     end
     not_accurate.teamname
   end
 
   def most_tackles(season)
     most_tackles = @teams_stats_data.find do |team|
-      team.teamname if @tracker.game_teams_stats.find_team_with_most_tackles(season) == team.team_id
+      team.teamname if @tracker.season_stats.find_team_with_most_tackles(season) == team.team_id
     end
     most_tackles.teamname
   end
 
   def fewest_tackles(season)
     fewest_tackles = @teams_stats_data.find do |team|
-      team.teamname if @tracker.game_teams_stats.find_team_with_fewest_tackles(season) == team.team_id
+      team.teamname if @tracker.season_stats.find_team_with_fewest_tackles(season) == team.team_id
     end
     fewest_tackles.teamname
   end
@@ -144,7 +62,7 @@ class TeamStats < Stats
   end
 
   def all_team_games(team_id)
-    @tracker.game_teams_stats.all_team_games(team_id)
+    @tracker.league_stats.all_team_games(team_id)
   end
 
   def best_season(team_id)

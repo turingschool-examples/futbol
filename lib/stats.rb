@@ -1,4 +1,5 @@
 require 'CSV'
+
 class Stats
   attr_reader :game_stats_data,
               :game_teams_stats_data,
@@ -16,7 +17,7 @@ class Stats
     rows.each do |game|
       game.delete(:venue)
       game.delete(:venue_link)
-      result << Game.new(game, self)
+      result << Game.new(game)
     end
     result
   end
@@ -31,7 +32,7 @@ class Stats
       gameteam.delete(:faceOffWinPercentage)
       gameteam.delete(:giveaways)
       gameteam.delete(:takeaways)
-      result << GameTeams.new(gameteam, self)
+      result << GameTeams.new(gameteam)
     end
     result
   end
@@ -41,7 +42,7 @@ class Stats
     result = []
     teams_data.each do |team|
       team.delete(:stadium)
-      result << Team.new(team, self)
+      result << Team.new(team)
     end
     result
   end

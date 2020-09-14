@@ -9,7 +9,7 @@ class GameTeams
               :shots,
               :tackles
 
-  def initialize(game_teams_data, manager)
+  def initialize(game_teams_data)
     @game_id    = game_teams_data[:game_id].to_i
     @team_id    = game_teams_data[:team_id].to_i
     @hoa        = game_teams_data[:hoa]

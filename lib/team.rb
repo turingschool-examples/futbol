@@ -5,13 +5,11 @@ class Team
               :abbreviation,
               :link
 
-  def initialize(team_data, manager)
+  def initialize(team_data)
     @team_id      = team_data[:team_id]
     @franchiseid  = team_data[:franchiseid]
     @teamname     = team_data[:teamname]
     @abbreviation = team_data[:abbreviation]
     @link         = team_data[:link]
   end
-
-
 end

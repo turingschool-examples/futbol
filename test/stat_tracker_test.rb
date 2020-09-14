@@ -21,13 +21,13 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    @game_manager = GameManager.new(@locations[:games], self)
-    @game_teams_manager = GameTeamsManager.new(@locations[:game_teams], self)
-    @team_manager = TeamManager.new(@locations[:teams], self)
+    @game_stats = GameStats.new(@locations[:games], self)
+    @game_teams_stats = GameTeamsStats.new(@locations[:game_teams], self)
+    @team_stats = TeamStats.new(@locations[:teams], self)
 
-    assert_instance_of GameManager, @stat_tracker.game_manager
-    assert_instance_of TeamManager, @stat_tracker.team_manager
-    assert_instance_of GameTeamsManager, @stat_tracker.game_teams_manager
+    assert_instance_of GameStats, @stat_tracker.game_stats
+    assert_instance_of TeamStats, @stat_tracker.team_stats
+    assert_instance_of GameTeamsStats, @stat_tracker.game_teams_stats
   end
 
   def test_the_highest_score

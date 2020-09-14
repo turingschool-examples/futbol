@@ -12,7 +12,7 @@ class GameTest < Minitest::Test
       game_teams: game_teams_path
     }
     @stat_tracker = StatTracker.from_csv(locations)
-    @game_manager = GameManager.new('./data/games.csv', @stat_tracker)
-    @game         = Game.new(locations, @game_manager)
+    @game_stats   = GameStats.new('./data/games.csv', @stat_tracker)
+    @game         = Game.new(locations, @game_stats)
   end
 end

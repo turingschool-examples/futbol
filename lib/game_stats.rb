@@ -1,10 +1,11 @@
 require './lib/stats'
+require_relative 'groupable'
 
 class GameStats < Stats
-  attr_reader :game_data,
-              :tracker
+  include Groupable
+  attr_reader :tracker
 
-  def initialize(location, tracker)
+  def initialize(tracker)
     @tracker = tracker
     super(game_stats_data, game_teams_stats_data, teams_stats_data)
   end
@@ -27,16 +28,16 @@ class GameStats < Stats
     get_all_scores_by_game_id.min
   end
 
+  def all_home_wins
+    @tracker.league_stats.all_home_wins
+  end
+
   def percentage_home_wins
     (all_home_wins.count.to_f / total_games).round(2)
   end
 
-  def all_home_wins
-    @tracker.game_teams_stats.all_home_wins
-  end
-
   def all_visitor_wins
-    @tracker.game_teams_stats.all_visitor_wins
+    @tracker.league_stats.all_visitor_wins
   end
 
   def percentage_visitor_wins
@@ -44,7 +45,7 @@ class GameStats < Stats
   end
 
   def count_of_ties
-    @tracker.game_teams_stats.count_of_ties
+    @tracker.league_stats.count_of_ties
   end
 
   def percentage_ties

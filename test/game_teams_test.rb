@@ -10,7 +10,7 @@ class GameTeamsTest < Minitest::Test
                      away_team_id: "7",
                      home_team_id: "3",
                      away_goals: 5,
-                     home_goals: 1}, "manager")
+                     home_goals: 1})
 
     assert_instance_of GameTeams, game_team
   end
