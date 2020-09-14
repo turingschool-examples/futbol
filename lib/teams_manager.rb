@@ -7,8 +7,7 @@ class TeamsManager
 
   def initialize(path, stat_tracker)
     @stat_tracker = stat_tracker
-    @teams = []
-    create_teams(path)
+    @teams = create_teams(path)
   end
 
   def create_teams(teams_table)

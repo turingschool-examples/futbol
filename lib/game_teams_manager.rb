@@ -9,8 +9,7 @@ class GameTeamsManager
 
   def initialize(path, stat_tracker)
     @stat_tracker = stat_tracker
-    @game_teams = []
-    create_game_teams(path)
+    @game_teams = create_game_teams(path)
   end
 
   def create_game_teams(game_teams_table)
@@ -224,7 +223,7 @@ class GameTeamsManager
       team_id == gameteam.team_id
     end
   end
-  
+
   def games_containing_team
     @game_teams.reduce(Hash.new(0)) do |games_by_team, game|
       games_by_team[game.team_id.to_s] += 1
