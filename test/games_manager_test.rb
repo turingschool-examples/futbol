@@ -108,50 +108,53 @@ class GamesManagerTest < Minitest::Test
     assert_equal expected, @games_manager.all_seasons
   end
 
-  def test_it_can_return_a_nested_hash_with_all_teams_season_win_percentages
-    expected = {
-      "1" => {
+  def test_it_can_return_a_hash_with_teams_season_win_percentages
+    expected1 = {
         "20122013" => 100.0,
         "20132014" => 40.0,
         "20142015" => 28.57,
         "20152016" => 50.0,
         "20162017" => 25.0,
         "20172018" => 33.33
-      },
-      "4" => {
+      }
+    expected2 = {
         "20122013" => 25.0,
         "20132014" => 40.0,
         "20142015" => 42.86,
         "20152016" => 33.33,
         "20162017" => 0.0,
         "20172018" => 0.0
-      },
-      "6" => {
+      }
+    expected3 = {
         "20122013" => 100.0,
         "20132014" => 50.0,
         "20142015" => 66.67,
         "20152016" => 66.67,
         "20162017" => 50.0,
         "20172018" => 50.0
-      },
-      "14" => {
+      }
+    expected4 = {
         "20122013" => 0.0,
         "20132014" => 25.0,
         "20142015" => 0.0,
         "20152016" => 100.0,
         "20162017" => 60.0,
         "20172018" => 60.0
-      },
-      "26" => {
+      }
+    expected5 = {
         "20122013" => 0.0,
         "20132014" => 33.33,
         "20142015" => 42.86,
         "20152016" => 0.0,
         "20162017" => 50.0,
         "20172018" => 75.0
-      },
-    }
-    assert_equal expected, @games_manager.all_teams_all_seasons_win_percentages
+      }
+    assert_equal expected1, @games_manager.seasons_win_percentages_by_team("1")
+    assert_equal expected2, @games_manager.seasons_win_percentages_by_team("4")
+    assert_equal expected3, @games_manager.seasons_win_percentages_by_team("6")
+    assert_equal expected4, @games_manager.seasons_win_percentages_by_team("14")
+    assert_equal expected5, @games_manager.seasons_win_percentages_by_team("26")
+
   end
 
   def test_it_can_return_a_teams_best_season
