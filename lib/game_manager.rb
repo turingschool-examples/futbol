@@ -97,7 +97,7 @@ class GameManager
 
   def get_total_goals
     season_hash_with_goals = Hash.new
-    season_hash_with_goals = create_season_hash.each do |season, total_goals|
+    season_hash_with_goals = games_by_season.each do |season, total_goals|
       @games.each do |game|
         if game.season == season
           total_goals += game.away_goals.to_i
@@ -108,7 +108,7 @@ class GameManager
     end
   end
 
-  def create_season_hash
+  def games_by_season
     season_hash = Hash.new {|h,k| h[k] = 0}
     @games.each do |game|
       season_hash[game.season] = 0
