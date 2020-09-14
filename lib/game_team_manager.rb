@@ -29,4 +29,184 @@ class GameTeamManager
     end
     (team_wins[team_id].to_f / team_game_count[team_id]).round(2)
   end
+
+  def best_offense
+    team_ids = Hash.new(0)
+    team_game_count = Hash.new(0)
+    @game_teams.each do |game_team|
+      team_ids[game_team.team_id] += game_team.goals
+      team_game_count[game_team.team_id] += 1
+    end
+    highest_scoring_team = team_ids.max_by do |team, score|
+      score.to_f / team_game_count[team]
+    end[0]
+    @tracker.get_team_name(highest_scoring_team)
+  end
+
+  def worst_offense
+    team_ids = Hash.new(0)
+    team_game_count = Hash.new(0)
+    @game_teams.each do |game_team|
+      team_ids[game_team.team_id] += game_team.goals
+      team_game_count[game_team.team_id] += 1
+    end
+    lowest_scoring_team = team_ids.min_by do |team, score|
+      score.to_f / team_game_count[team]
+    end[0]
+    @tracker.get_team_name(lowest_scoring_team)
+  end
+
+  def most_accurate_team(season)
+    game_ids = @tracker.get_season_game_ids(season)
+    total_shots_by_team = Hash.new(0.0)
+    total_goals_by_team = Hash.new(0.0)
+    @game_teams.each do |game|
+      if game_ids.include?(game.game_id)
+        total_shots_by_team[game.team_id] += game.shots.to_f
+        total_goals_by_team[game.team_id] += game.goals.to_f
+      end
+    end
+    most_accurate_team = total_goals_by_team.max_by do |team, goal|
+      goal / total_shots_by_team[team]
+    end[0]
+    @tracker.get_team_name(most_accurate_team)
+  end
+
+  def least_accurate_team(season)
+    game_ids = @tracker.get_season_game_ids(season)
+    total_shots_by_team = Hash.new(0.0)
+    total_goals_by_team = Hash.new(0.0)
+    @game_teams.each do |game|
+      if game_ids.include?(game.game_id)
+        total_shots_by_team[game.team_id] += game.shots.to_f
+        total_goals_by_team[game.team_id] += game.goals.to_f
+      end
+    end
+    least_accurate_team = total_goals_by_team.min_by do |team, goal|
+      goal / total_shots_by_team[team]
+    end[0]
+    @tracker.get_team_name(least_accurate_team)
+  end
+
+  def most_tackles(season)
+    game_ids = @tracker.get_season_game_ids(season)
+    team_tackles = Hash.new(0)
+    @game_teams.each do |game|
+      if game_ids.include?(game.game_id)
+        team_tackles[game.team_id] += game.tackles.to_i
+      end
+    end
+    most_tackles_team = team_tackles.max_by do |team, tackles|
+      tackles
+    end[0]
+    @tracker.get_team_name(most_tackles_team)
+  end
+
+  def fewest_tackles(season)
+    game_ids = @tracker.get_season_game_ids(season)
+    team_tackles = Hash.new(0)
+    @game_teams.each do |game|
+      if game_ids.include?(game.game_id)
+        team_tackles[game.team_id] += game.tackles.to_i
+      end
+    end
+    most_tackles_team = team_tackles.min_by do |team, tackles|
+      tackles
+    end[0]
+    @tracker.get_team_name(most_tackles_team)
+  end
+
+  def find_winningest_coach(game_ids, expected_result)
+    coach_game_count = Hash.new(0)
+    coach_wins = Hash.new(0.0)
+    @game_teams.each do |game|
+      if game_ids.include?(game.game_id)
+        coach_game_count[game.head_coach] += 1
+        if game.result == expected_result
+          coach_wins[game.head_coach] += 1
+        end
+      end
+    end
+    coach_wins.max_by do |coach, win| # Perhaps a get_max_of(coach_wins)
+      win / coach_game_count[coach]
+    end[0]
+  end
+
+  def find_worst_coach(game_ids)
+    coach_game_count = Hash.new(0)
+    coach_losses = Hash.new(0.0)
+    @game_teams.each do |game|
+      if game_ids.include?(game.game_id)
+        coach_game_count[game.head_coach] += 1
+        if game.result == "LOSS" || game.result == "TIE"
+          coach_losses[game.head_coach] += 1
+        end
+      end
+    end
+    coach_losses.max_by do |coach, loss|
+      loss / coach_game_count[coach]
+    end[0]
+  end
+
+  def find_all_games(team_id)
+    @game_teams.find_all do |game|
+      game.team_id == team_id
+    end
+  end
+
+  def most_goals_scored(team_id)
+    high_goals = find_all_games(team_id).max_by do |game|
+      game.goals
+    end
+    high_goals.goals
+  end
+
+  def fewest_goals_scored(team_id)
+    low_goals = find_all_games(team_id).min_by do |game|
+      game.goals
+    end
+    low_goals.goals
+  end
+
+  def find_game_ids(team_id)
+    find_all_games(team_id).map do |game|
+      game.game_id
+    end
+  end
+
+  def favorite_opponent(team_id)
+    total_games = Hash.new(0)
+    loser_loses = Hash.new(0)
+    game_id_array = find_game_ids(team_id)
+    @game_teams.each do |game|
+      if game_id_array.include?(game.game_id) && game.team_id != team_id
+        total_games[game.team_id] += 1
+        if game.result == "LOSS"
+          loser_loses[game.team_id] += 1
+        end
+      end
+    end
+    biggest_loser = loser_loses.max_by do |loser, losses|
+      losses.to_f / total_games[loser]
+    end[0]
+    @tracker.get_team_name(biggest_loser)
+  end
+
+  def rival(team_id)
+    total_games = Hash.new(0)
+    winner_wins = Hash.new(0)
+    game_id_array = find_game_ids(team_id)
+    @game_teams.each do |game|
+      if game_id_array.include?(game.game_id) && game.team_id !=team_id
+        total_games[game.team_id] += 1
+        if game.result == "WIN"
+          winner_wins[game.team_id] += 1
+        end
+      end
+    end
+    biggest_winner = winner_wins.max_by do |winner, wins|
+      wins.to_f / total_games[winner]
+    end[0]
+    @tracker.get_team_name(biggest_winner)
+  end
 end
