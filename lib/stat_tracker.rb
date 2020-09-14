@@ -54,4 +54,8 @@ class StatTracker
   def fewest_goals_scored(team_id)
     team_manager.fewest_goals_scored(team_id)
   end
+
+  def best_season(team_id)
+    team_manager.best_season(team_id)
+  end
 end

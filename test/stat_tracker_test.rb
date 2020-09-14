@@ -163,6 +163,6 @@ class TestStatTracker <Minitest::Test
     }
     stat_tracker = StatTracker.new(locations)
 
-    assert_equal "20132014", stat_tracker.best_season('24')
+    assert_equal "20122013", stat_tracker.best_season('24')
   end
 end
