@@ -175,6 +175,7 @@ class StatTracker
 
   # Move to GameTeamsManager
   # Need to convert to common naming convention
+  # Is this method used anymore?
   def avg_win_perc_by_opp(team_id)
     awp_by_opp = {}
     @game_teams_manager.game_teams_by_opponent(team_id).each do |opponent, gameteams|
@@ -184,6 +185,7 @@ class StatTracker
   end
 
   # Move to GameTeamsManager
+  # Is this method used anymore?
   def fave_opponent_id(team_id)
     avg_win_perc_by_opp(team_id).max_by do |opponent, win_perc|
       win_perc
@@ -191,6 +193,7 @@ class StatTracker
   end
 
   # Move to GameTeamsManager
+  # Is this method used anymore?
   def rival_id(team_id)
     avg_win_perc_by_opp(team_id).min_by do |opponent, win_perc|
       win_perc
@@ -240,11 +243,6 @@ class StatTracker
 
   def shots_per_goal_per_season(season)
     @game_teams_manager.shots_per_goal_per_season(season)
-  end
-
-  # Move to GamesManager
-  def get_opponent_id(game, team_id)
-    game.away_team_id == team_id ? game.home_team_id : game.away_team_id
   end
 
   def game_ids_by_season(season)

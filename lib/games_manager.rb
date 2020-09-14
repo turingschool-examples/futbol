@@ -156,8 +156,9 @@ class GamesManager
     end
   end
 
-  def get_opponent_id(game, teamid)
-    game.away_team_id == teamid ? game.home_team_id : game.away_team_id
+  #This method exists
+  def get_opponent_id(game, team_id)
+    game.away_team_id == team_id ? game.home_team_id : game.away_team_id
   end
 
 end
