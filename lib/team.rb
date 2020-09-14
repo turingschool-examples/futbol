@@ -11,11 +11,11 @@ class Team
 
   def team_info
     team_hash = {}
-    team_hash['team_id'] = team.team_id
-    team_hash['franchise_id'] = team.franchise_id
-    team_hash['team_name'] = team.team_name
-    team_hash['abbreviation'] = team.abbreviation
-    team_hash['link'] = team.link
+    team_hash['team_id'] = team_id
+    team_hash['franchise_id'] = franchise_id
+    team_hash['team_name'] = team_name
+    team_hash['abbreviation'] = abbreviation
+    team_hash['link'] = link
 
     team_hash
   end

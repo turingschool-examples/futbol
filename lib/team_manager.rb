@@ -17,7 +17,7 @@ class TeamManager
   end
 
   def team_info(team_id)
-    team = teams.find do |team_obj|
+    team = @teams.find do |team_obj|
       team_obj.team_id == team_id
     end
     team.team_info
