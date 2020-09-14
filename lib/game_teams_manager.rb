@@ -137,5 +137,11 @@ class GameTeamsManager
     end
   end
 
+  def find_opponent_games(team_id)
+    game_ids = game_info_by_team(team_id).map(&:game_id)
+    @game_teams.select do |game_team|
+      game_ids.include?(game_team.game_id) && game_team.team_id != team_id
+    end
+  end
 
 end
