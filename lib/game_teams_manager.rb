@@ -107,12 +107,6 @@ class GameTeamsManager
     team_goals_by_game(team_id).max.to_i
   end
 
-  def game_teams_by_opponent(team_id)
-    filter_by_team_id(team_id).group_by do |gameteam|
-      @stat_tracker.get_opponent_id(gameteam.game_id,team_id)
-    end
-  end
-
   def fewest_goals_scored(team_id)
     team_goals_by_game(team_id).min.to_i
   end
@@ -157,20 +151,26 @@ class GameTeamsManager
     @stat_tracker.fetch_team_identifier(lowest_scoring_visitor)
   end
 
-  def average_win_percentage_by(group)
-    game_teams_by_opponent(group).map do |opponent, gameteams|
-      [opponent, ratio(total_wins(gameteams), total_game_teams(gameteams))]
+  def game_teams_by_opponent(team_id)
+    filter_by_team_id(team_id).group_by do |gameteam|
+      @stat_tracker.get_opponent_id(gameteam.game_id,team_id)
+    end
+  end
+
+  def average_win_percentage_by(game_teams_hash)
+    game_teams_hash.map do |group_value, gameteams|
+      [group_value, ratio(total_wins(gameteams), total_game_teams(gameteams))]
     end.to_h
   end
 
-  def highest_win_percentage(group)
-    average_win_percentage_by(group).max_by do |group, win_perc|
+  def highest_win_percentage(game_teams_hash)
+    average_win_percentage_by(game_teams_hash).max_by do |group, win_perc|
       win_perc
     end[0]
   end
 
-  def lowest_win_percentage(group)
-    average_win_percentage_by(group).min_by do |group, win_perc|
+  def lowest_win_percentage(game_teams_hash)
+    average_win_percentage_by(game_teams_hash).min_by do |group, win_perc|
       win_perc
     end[0]
   end
@@ -220,10 +220,6 @@ class GameTeamsManager
   def least_accurate_team(season)
     least_accurate = shots_per_goal_per_season(season).max_by { |team, avg| avg}
     @stat_tracker.fetch_team_identifier(least_accurate[0])
-  end
-
-  def average_win_percentage(team_id)
-    ratio(total_wins(filter_by_team_id(team_id)), total_game_teams(filter_by_team_id(team_id)))
   end
 
   def total_wins(game_teams)
