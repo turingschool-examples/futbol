@@ -107,15 +107,15 @@ class StatTracker
   end
 
   def lowest_total_score
-    @games_manager.lowest_total_score
+    @games_manager.total_score(:min_by)
   end
 
   def highest_total_score
-    @games_manager.highest_total_score
+    @games_manager.total_score(:max_by)
   end
 
   def percentage_visitor_wins
-    @games_manager.percentage_visitor_wins
+    @games_manager.percentage_wins(:visitor_is_winner?)
   end
 
   def percentage_ties
@@ -123,7 +123,7 @@ class StatTracker
   end
 
   def percentage_home_wins
-    @games_manager.percentage_home_wins
+    @games_manager.percentage_wins(:home_is_winner?)
   end
 
   def count_of_games_by_season
@@ -191,7 +191,7 @@ class StatTracker
   end
 
   def best_season(team_id)
-    @games_manager.best_season(team_id)
+    @games_manager.worst_or_best_season(team_id, :max_by)
   end
 
   def average_win_percentage(team_id)
@@ -199,7 +199,7 @@ class StatTracker
   end
 
   def worst_season(team_id)
-    @games_manager.worst_season(team_id)
+    @games_manager.worst_or_best_season(team_id, :min_by)
   end
 
   def team_info(team_id)
