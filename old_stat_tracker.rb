@@ -100,38 +100,38 @@ class StatTracker
   #   return game_count
   # end
 
-  def average_goals_by_season
-
-    season_hash = get_total_goals
-    season_hash.each do |season, goals|
-      count_of_games_by_season.each do |season_games, games|
-        if season_games == season
-          average = goals.to_f / games.to_f
-          season_hash[season] = (average).round(2)
-        end
-      end
-    end
-  end
-
-  def get_total_goals
-    season_hash = create_season_hash
-    season_hash_with_goals = season_hash.each do |season, total_goals|
-      games.each do |game|
-        if game['season'] == season
-          total_goals += game['away_goals'].to_i
-          total_goals += game['home_goals'].to_i
-        end
-      end
-      season_hash_with_goals[season] = total_goals
-    end
-  end
-
-  def create_season_hash
-    season_hash = games.each do |game|
-      season_hash[game['season']] = 0
-    end
-    season_hash
-  end
+  # def average_goals_by_season
+  #
+  #   season_hash = get_total_goals
+  #   season_hash.each do |season, goals|
+  #     count_of_games_by_season.each do |season_games, games|
+  #       if season_games == season
+  #         average = goals.to_f / games.to_f
+  #         season_hash[season] = (average).round(2)
+  #       end
+  #     end
+  #   end
+  # end
+  #
+  # def get_total_goals
+  #   season_hash = create_season_hash
+  #   season_hash_with_goals = season_hash.each do |season, total_goals|
+  #     games.each do |game|
+  #       if game['season'] == season
+  #         total_goals += game['away_goals'].to_i
+  #         total_goals += game['home_goals'].to_i
+  #       end
+  #     end
+  #     season_hash_with_goals[season] = total_goals
+  #   end
+  # end
+  #
+  # def create_season_hash
+  #   season_hash = games.each do |game|
+  #     season_hash[game['season']] = 0
+  #   end
+  #   season_hash
+  # end
 
 
 #
