@@ -91,7 +91,7 @@ class GameManager
     goals_by_season_average
   end
 
-  def initialize_season_information_hash
+  def initialize_season_information
     season_info = {}
     games.each do |game|
       season_info[game.season] = {total_goals: 0, away_goals: 0, home_goals: 0, total_games: 0}
@@ -100,7 +100,7 @@ class GameManager
   end
 
   def season_information
-    initialize_season_information_hash.each do |season, goals|
+    initialize_season_information.each do |season, goals|
       games.each do |game|
         if game.season == season
           goals[:total_games] += 1
