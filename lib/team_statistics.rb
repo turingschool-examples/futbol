@@ -74,6 +74,7 @@ class TeamStatistics < TeamStatHelper
 
   def favorite_opponent(team_id)
     games = games_for_team_id(team_id)
+    require "pry"; binding.pry
     opponents = {}
     game_count = {}
     games.each do |game|
