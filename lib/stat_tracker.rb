@@ -121,23 +121,31 @@ class StatTracker
   end
 
   def best_season(team_id)
-    @teams_manager.best_season(team_id)
+    @game_teams_manager.get_best_season(team_id)
   end
 
   def worst_season(team_id)
-    @teams_manager.worst_season(team_id)
+    @game_teams_manager.get_worst_season(team_id)
   end
 
   def average_win_percentage(team_id)
-    @teams_manager.average_win_percentage(team_id)
+    @game_teams_manager.get_average_win_percentage(team_id)
+  end
+
+  def most_goals_scored(team_id)
+      @game_teams_manager.get_most_goals_scored_for_team(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+      @game_teams_manager.get_fewest_goals_scored_for_team(team_id)
   end
 
   def favorite_opponent(team_id)
-    @teams_manager.favorite_opponent(team_id)
+    find_team_name(@game_teams_manager.get_favorite_opponent(team_id))
   end
 
   def rival(team_id)
-    @teams_manager.rival(team_id)
+    find_team_name(@game_teams_manager.get_rival(team_id))
   end
 
   # Helpers
@@ -157,23 +165,23 @@ class StatTracker
     @game_teams_manager.average_number_of_goals_scored_by_team_by_type(team_id, home_away)
   end
 
-  def get_best_season(team_id)
-    @game_teams_manager.get_best_season(team_id)
-  end
-
-  def get_worst_season(team_id)
-    @game_teams_manager.get_worst_season(team_id)
-  end
-
-  def get_average_win_percentage(team_id)
-    @game_teams_manager.get_average_win_percentage(team_id)
-  end
-
-  def get_favorite_opponent(team_id)
-    @game_teams_manager.get_favorite_opponent(team_id)
-  end
-
-  def get_rival(team_id)
-    @game_teams_manager.get_rival(team_id)
-  end
+  # def get_best_season(team_id)
+  #   @game_teams_manager.get_best_season(team_id)
+  # end
+  #
+  # def get_worst_season(team_id)
+  #   @game_teams_manager.get_worst_season(team_id)
+  # end
+  #
+  # def get_average_win_percentage(team_id)
+  #   @game_teams_manager.get_average_win_percentage(team_id)
+  # end
+  #
+  # def get_favorite_opponent(team_id)
+  #   @game_teams_manager.get_favorite_opponent(team_id)
+  # end
+  #
+  # def get_rival(team_id)
+  #   @game_teams_manager.get_rival(team_id)
+  # end
 end

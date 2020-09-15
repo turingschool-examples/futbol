@@ -52,7 +52,7 @@ class GameTeamsManager
   end
 
   def selected_season_game_teams(season_id)
-    @game_teams.find_all do |game_team|
+    @game_teams.select do |game_team|
       game_team.season_id == season_id
     end
   end
@@ -95,23 +95,21 @@ class GameTeamsManager
     end.to_a[0]
   end
 
+  def list_game_teams_season_team(season_id, team_num)
+    selected_season_game_teams(season_id).select do |game_team|
+      game_team.team_id == team_num
+    end
+  end
+
   def shots_by_team(season_id, team_num)
-    selected_season_game_teams(season_id).sum do |game_team|
-      if game_team.team_id == team_num
+    list_game_teams_season_team(season_id, team_num).sum do |game_team|
         game_team.shots
-      else
-        0
-      end
     end
   end
 
   def goals_by_team(season_id, team_num)
-    selected_season_game_teams(season_id).sum do |game_team|
-      if game_team.team_id == team_num
+    list_game_teams_season_team(season_id, team_num).sum do |game_team|
         game_team.goals
-      else
-        0
-      end
     end
   end
 
@@ -142,12 +140,8 @@ class GameTeamsManager
   end
 
   def tackles_by_team(season_id, team_num)
-    selected_season_game_teams(season_id).sum do |game_team|
-      if game_team.team_id == team_num
+    list_game_teams_season_team(season_id, team_num).sum do |game_team|
         game_team.tackles
-      else
-        0
-      end
     end
   end
 
@@ -181,18 +175,19 @@ class GameTeamsManager
 
   def total_wins_team(season, team_id)
     selected_team_game_teams(team_id).count do |game_team|
-      game_team.result == 'WIN' if game_team.team_id == team_id
+      game_team.result == 'WIN'
+      #if game_team.team_id == team_id
     end
   end
 
-  def total_games_team(season, team_id)
-    selected_team_game_teams(team_id).count do |game_team|
-      game_team.team_id == team_id
-    end
-  end
+  # def total_games_team(season, team_id)
+  #   selected_team_game_teams(team_id).count do |game_team|
+  #     game_team.team_id == team_id
+  #   end
+  # end
 
   def avg_win_pct_season(season, team_id)
-    (total_wins_team(season, team_id).to_f / total_games_team(season, team_id)).round(2)
+    (total_wins_team(season, team_id).to_f / selected_team_game_teams(team_id).count).round(2)
   end
 
   def season_win_percentage_hash(team_id)
@@ -211,31 +206,37 @@ class GameTeamsManager
     end.to_a[0]
   end
 
-  def total_not_wins_team(season, team_id)
-    selected_team_game_teams(team_id).count do |game_team|
-      if game_team.team_id == team_id
-        game_team.result == 'LOSS' || game_team.result == 'TIE'
-      end
-    end
-  end
+  # def total_not_wins_team(season, team_id)
+  #   selected_team_game_teams(team_id).count do |game_team|
+  #     if game_team.team_id == team_id
+  #       game_team.result == 'LOSS' || game_team.result == 'TIE'
+  #     end
+  #   end
+  # end
+  #
+  # def avg_not_win_pct_season(season, team_id)
+  #   (total_not_wins_team(season, team_id).to_f / selected_team_game_teams(team_id).count).round(2)
+  # end
+  #
+  # def season_not_win_percentage_hash(team_id)
+  #   season_hash = {}
+  #   selected_team_game_teams(team_id).each do |game_team|
+  #     season = game_team.season_id
+  #     season_hash[season] ||= []
+  #     season_hash[season] = avg_not_win_pct_season(season, team_id)
+  #   end
+  #   season_hash
+  # end
 
-  def avg_not_win_pct_season(season, team_id)
-    (total_not_wins_team(season, team_id).to_f / total_games_team(season, team_id)).round(2)
-  end
-
-  def season_not_win_percentage_hash(team_id)
-    season_hash = {}
-    selected_team_game_teams(team_id).each do |game_team|
-      season = game_team.season_id
-      season_hash[season] ||= []
-      season_hash[season] = avg_not_win_pct_season(season, team_id)
-    end
-    season_hash
-  end
+  # def get_worst_season(team_id)
+  #   season_not_win_percentage_hash(team_id).max_by do |season, not_win_percent|
+  #     not_win_percent
+  #   end.to_a[0]
+  # end
 
   def get_worst_season(team_id)
-    season_not_win_percentage_hash(team_id).max_by do |season, not_win_percent|
-      not_win_percent
+    season_win_percentage_hash(team_id).min_by do |season, win_percent|
+      win_percent
     end.to_a[0]
   end
 
@@ -245,14 +246,14 @@ class GameTeamsManager
     end
   end
 
-  def total_games_team_all_seasons(team_id)
-    @game_teams.count do |game_team|
-      game_team.team_id == team_id
-    end
-  end
+  # def total_games_team_all_seasons(team_id)
+  #   @game_teams.count do |game_team|
+  #     game_team.team_id == team_id
+  #   end
+  # end
 
   def get_average_win_percentage(team_id)
-    (total_wins_team_all_seasons(team_id).to_f / total_games_team_all_seasons(team_id)).round(2)
+    (total_wins_team_all_seasons(team_id).to_f / selected_team_game_teams(team_id).count).round(2)
   end
 
   def get_most_goals_scored_for_team(team_id)

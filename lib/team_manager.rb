@@ -85,43 +85,43 @@ class TeamsManager
     }
   end
 
-  def best_season(team_id)
-    find_a_team(team_id).best_season
-  end
+  # def best_season(team_id)
+  #   find_a_team(team_id).best_season
+  # end
+  #
+  # def worst_season(team_id)
+  #   find_a_team(team_id).worst_season
+  # end
+  #
+  # def get_best_season(team_id)
+  #   @tracker.get_best_season(team_id)
+  # end
+  #
+  # def get_worst_season(team_id)
+  #   @tracker.get_worst_season(team_id)
+  # end
 
-  def worst_season(team_id)
-    find_a_team(team_id).worst_season
-  end
-
-  def get_best_season(team_id)
-    @tracker.get_best_season(team_id)
-  end
-
-  def get_worst_season(team_id)
-    @tracker.get_worst_season(team_id)
-  end
-
-  def get_average_win_percentage(team_id)
-    @tracker.get_average_win_percentage(team_id)
-  end
-
-  def average_win_percentage(team_id)
-    find_a_team(team_id).avg_win_pct
-  end
-
-  def get_favorite_opponent(team_id)
-    @tracker.get_favorite_opponent(team_id)
-  end
-
-  def get_rival(team_id)
-    @tracker.get_rival(team_id)
-  end
-
-  def favorite_opponent(team_id)
-    find_team_name(find_a_team(team_id).favorite_opponent)
-  end
-
-  def rival(team_id)
-    find_team_name(find_a_team(team_id).rival)
-  end
+  # def get_average_win_percentage(team_id)
+  #   @tracker.get_average_win_percentage(team_id)
+  # end
+  #
+  # def average_win_percentage(team_id)
+  #   find_a_team(team_id).avg_win_pct
+  # end
+  #
+  # def get_favorite_opponent(team_id)
+  #   @tracker.get_favorite_opponent(team_id)
+  # end
+  #
+  # def get_rival(team_id)
+  #   @tracker.get_rival(team_id)
+  # end
+  #
+  # def favorite_opponent(team_id)
+  #   find_team_name(find_a_team(team_id).favorite_opponent)
+  # end
+  #
+  # def rival(team_id)
+  #   find_team_name(find_a_team(team_id).rival)
+  # end
 end

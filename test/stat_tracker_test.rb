@@ -142,15 +142,15 @@ class StatTrackerTest < Minitest::Test
     assert_equal 'Sporting Kansas City', @stat_tracker.fewest_tackles(season_id)
   end
 
-  def test_it_can_find_best_season_for_team
-    team_id = '6'
-    assert_equal '20122013', @stat_tracker.get_best_season(team_id)
-  end
-
-  def test_it_can_find_worst_season_for_team
-    team_id = '6'
-    assert_equal '20122013', @stat_tracker.get_worst_season(team_id)
-  end
+  # def test_it_can_find_best_season_for_team
+  #   team_id = '6'
+  #   assert_equal '20122013', @stat_tracker.get_best_season(team_id)
+  # end
+  #
+  # def test_it_can_find_worst_season_for_team
+  #   team_id = '6'
+  #   assert_equal '20122013', @stat_tracker.get_worst_season(team_id)
+  # end
 
   def test_it_can_find_team_info
     team_id = '5'
@@ -174,25 +174,35 @@ class StatTrackerTest < Minitest::Test
     assert_equal '20122013', @stat_tracker.worst_season(team_id)
   end
 
-  def test_it_can_find_average_win_percentage_for_team
-    team_id = '6'
-    assert_equal 0.86, @stat_tracker.get_average_win_percentage(team_id)
-  end
+  # def test_it_can_find_average_win_percentage_for_team
+  #   team_id = '6'
+  #   assert_equal 0.86, @stat_tracker.get_average_win_percentage(team_id)
+  # end
 
   def test_average_win_percentage
     team_id = '3'
     assert_equal 0.0, @stat_tracker.average_win_percentage(team_id)
   end
 
-  def test_it_can_get_favorite_opponent
+  def test_it_can_get_most_goals_scored_for_team
     team_id = '6'
-    assert_equal '3', @stat_tracker.get_favorite_opponent(team_id)
+    assert_equal 4, @stat_tracker.most_goals_scored(team_id)
   end
 
-  def test_it_can_get_rival
+  def test_it_can_get_fewest_goals_scored_for_team
     team_id = '6'
-    assert_equal '3', @stat_tracker.get_rival(team_id)
+    assert_equal 1, @stat_tracker.fewest_goals_scored(team_id)
   end
+
+  # def test_it_can_get_favorite_opponent
+  #   team_id = '6'
+  #   assert_equal '3', @stat_tracker.get_favorite_opponent(team_id)
+  # end
+  #
+  # def test_it_can_get_rival
+  #   team_id = '6'
+  #   assert_equal '3', @stat_tracker.get_rival(team_id)
+  # end
 
   def test_team_favorite_opponent
     team_id = '6'
