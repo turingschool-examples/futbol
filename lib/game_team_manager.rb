@@ -1,16 +1,18 @@
 require_relative 'game_teams'
+require_relative 'shared_calc'
 require 'csv'
 
 class GameTeamManager
+  include SharedCalculations
   attr_reader :game_teams
-  def initialize(location, stat_tracker) # I need a test
+  def initialize(locations, stat_tracker) # I need a test
     @stat_tracker = stat_tracker
-    @game_teams = generate_game_teams(location)
+    @game_teams = generate_game_teams(locations)
   end
 
-  def generate_game_teams(location) # I need a test
+  def generate_game_teams(locations) # I need a test
     array = []
-    CSV.foreach(location, headers: true) do |row|
+    CSV.foreach(locations, headers: true) do |row|
       array << GameTeams.new(row.to_hash)
     end
     array
@@ -19,12 +21,9 @@ class GameTeamManager
   def goal_avg_per_team(team_id, home_away)
     goal_array = []
     @game_teams.each do |game|
-        if game.team_id == team_id && home_away == game.HoA
-          goal_array << game.goals
-        elsif game.team_id == team_id && home_away == ''
-          goal_array << game.goals
-        end
-      end
+      goal_array << game.goals if game.team_id == team_id && home_away == game.HoA
+      goal_array << game.goals if game.team_id == team_id && home_away == ''
+    end
     (goal_array.sum.to_f/goal_array.count).round(2)
   end
 
@@ -55,11 +54,9 @@ class GameTeamManager
   def team_data
     @stat_tracker.team_manager.teams
   end
-  
+
   def game_ids_by_team(id)
-    game_teams.select do |game_team|
-      game_team.team_id == id
-    end.map(&:game_id)
+    game_teams.select { |game_team| game_team.team_id == id }.map(&:game_id)
   end
 
   def game_team_info(game_id)
@@ -71,46 +68,30 @@ class GameTeamManager
     end
   end
 
-  def team_by_id(team_id)
-    @stat_tracker.team_info(team_id)['team_name']
-  end
-
   def game_teams_data_for_season(season_id)
-    @game_teams.find_all do |game|
-      game.game_id[0..3] == season_id[0..3]
-    end
+    @game_teams.find_all { |game| game.game_id[0..3] == season_id[0..3] }
   end
 
   def season_coaches(season_id)
-    game_teams_data_for_season(season_id).map do |game|
-      game.head_coach
-    end.uniq
+    game_teams_data_for_season(season_id).map { |game| game.head_coach }.uniq
   end
 
   def winningest_coach(season_id)
-    coaches_by_win_percentage(season_id).max_by do |_coach, win_percentage|
-      win_percentage
-    end[0]
+    season_coaches(season_id).max_by {|coach| coaches_by_win_percentage(season_id,coach)}
   end
 
   def worst_coach(season_id)
-    coaches_by_win_percentage(season_id).min_by do |_coach, win_percentage|
-      win_percentage
-    end[0]
+    season_coaches(season_id).min_by {|coach| coaches_by_win_percentage(season_id,coach)}
   end
 
-  def coaches_by_win_percentage(season_id)
-    coaches_hash = {}
-    season_coaches(season_id).find_all do |coach|
-      total_games = game_teams_data_for_season(season_id).count do |game|
-        game.head_coach == coach
-      end
-      total_wins = game_teams_data_for_season(season_id).count do |game|
-        game.head_coach == coach && game.result == 'WIN'
-      end
-      coaches_hash[coach] = ((total_wins.to_f / total_games.to_f) * 100).round(2)
+  def coaches_by_win_percentage(season_id, coach)
+    coaches_array = []
+    count = 0
+    game_teams_data_for_season(season_id).each do |game|
+        coaches_array << game if game.head_coach == coach && game.result == 'WIN'
+      count += 1 if game.head_coach == coach
     end
-    coaches_hash
+      ((coaches_array.count.to_f / count) * 100 ).round(2)
   end
 
   def total_shots_by_team(season_id, team)
@@ -140,12 +121,10 @@ class GameTeamManager
 
   def most_accurate_team(season_id)
     return_max(team_accuracy(season_id))
-    team_by_id(most_accurate)
   end
 
   def least_accurate_team(season_id)
     return_min(team_accuracy(season_id))
-    team_by_id(least_accurate)
   end
 
   def total_tackles(season_id)
@@ -157,36 +136,17 @@ class GameTeamManager
   end
 
   def total_tackles_helper(season_id, team)
-    total_tackles = game_teams_data_for_season(season_id).sum do |game|
-      if game.team_id == team
-        game.tackles
-      else
-        0
-      end
+    game_teams_data_for_season(season_id).sum do |game|
+      (game.tackles if game.team_id == team).to_i
     end
-    total_tackles
   end
 
   def most_tackles(season_id)
-    most_tackles_team = total_tackles(season_id).max_by do |_team, tackles|
-      tackles
-    end[0]
-    team_by_id(most_tackles_team)
+    return_max(total_tackles(season_id))
   end
 
   def fewest_tackles(season_id)
-    fewest_tackles_team = total_tackles(season_id).min_by do |_team, tackles|
-      tackles
-    end[0]
-    team_by_id(fewest_tackles_team)
-  end
-
-  def return_max(hash)
-    hash.key(hash.values.max)
-  end
-
-  def return_min(hash)
-    hash.key(hash.values.min)
+    return_min(total_tackles(season_id))
   end
 
 end

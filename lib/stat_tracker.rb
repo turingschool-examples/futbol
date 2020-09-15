@@ -104,27 +104,27 @@ class StatTracker
   end
 
   def best_offense
-    @game_teams_manager.best_offense
+    @game_team_manager.best_offense
   end
 
   def worst_offense
-    @game_teams_manager.worst_offense
+    @game_team_manager.worst_offense
   end
 
   def highest_scoring_visitor
-    @game_teams_manager.highest_scoring_visitor
+    @game_team_manager.highest_scoring_visitor
   end
 
   def highest_scoring_home_team
-    @game_teams_manager.highest_scoring_home_team
+    @game_team_manager.highest_scoring_home_team
   end
 
   def lowest_scoring_visitor
-    @game_teams_manager.lowest_scoring_visitor
+    @game_team_manager.lowest_scoring_visitor
   end
 
   def lowest_scoring_home_team
-    @game_teams_manager.lowest_scoring_home_team
+    @game_team_manager.lowest_scoring_home_team
   end
 
   # Season Statistics
@@ -137,19 +137,19 @@ class StatTracker
   end
 
   def most_accurate_team(season_id)
-    @game_team_manager.most_accurate_team(season_id)
+    team_info(@game_team_manager.most_accurate_team(season_id))['team_name']
   end
 
   def least_accurate_team(season_id)
-    @game_team_manager.least_accurate_team(season_id)
+    team_info(@game_team_manager.least_accurate_team(season_id))['team_name']
   end
 
   def most_tackles(season_id)
-    @game_team_manager.most_tackles(season_id)
+    team_info(@game_team_manager.most_tackles(season_id))['team_name']
   end
 
   def fewest_tackles(season_id)
-    @game_team_manager.fewest_tackles(season_id)
+    team_info(@game_team_manager.fewest_tackles(season_id))['team_name']
   end
 
   def team_data # I need a test

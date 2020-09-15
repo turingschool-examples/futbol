@@ -6,7 +6,7 @@ class TeamManager
   def initialize(location, stat_tracker)
     @stat_tracker = stat_tracker
     @teams = generate_teams(location)
-    # @teams_data = team_data_by_id
+    #@teams_data = team_data_by_id
   end
 
   def generate_teams(location)
@@ -18,9 +18,7 @@ class TeamManager
   end
 
   def team_info(id)
-    teams.find do |team|
-      team.team_id == id
-    end.team_info
+    teams.find { |team| team.team_id == id }.team_info
   end
 
   def game_ids_by_team(id)
@@ -155,7 +153,7 @@ class TeamManager
   # def team_info(team_id)
   #   teams_data[team_id]
   # end
-  
+
   def team_data_by_id
     @teams.map{|team| [team.team_id, team.team_info]}.to_h
   end

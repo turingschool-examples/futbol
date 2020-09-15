@@ -53,9 +53,9 @@ class TestStatTracker < Minitest::Test
       game_teams: './fixtures/fixture_game_teams.csv'
     }
     stat_tracker = StatTracker.new(locations)
-    expected = ['2012030231', '2012030232', '2012030233', '2012030234', '2012030235', '2014020550']
+    expected = 17
 
-    assert_equal expected, stat_tracker.game_ids_by_team('17')
+    assert_equal expected, stat_tracker.game_ids_by_team('17').length
   end
 
   def test_it_can_fetch_game_team_info
@@ -65,14 +65,14 @@ class TestStatTracker < Minitest::Test
       game_teams: './fixtures/fixture_game_teams.csv'
     }
     stat_tracker = StatTracker.new(locations)
-    info16 = stat_tracker.game_team_manager.game_teams[19].game_team_info
-    info17 = stat_tracker.game_team_manager.game_teams[18].game_team_info
+    info16 = stat_tracker.game_team_manager.game_teams[15].game_team_info
+    info17 = stat_tracker.game_team_manager.game_teams[152].game_team_info
     expected = {
-      '16' => info16,
-      '17' => info17
+      '1' => info16,
+      '9' => info17
     }
 
-    assert_equal expected, stat_tracker.game_team_info('2012030231')
+    assert_equal expected, stat_tracker.game_team_info('2012020219')
   end
 
   def test_it_can_fetch_game_info
