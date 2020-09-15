@@ -154,6 +154,47 @@ class GameManagerTest < Minitest::Test
     assert_equal 8.33, game_manager.average_goals_per_game
   end
 
+  def test_it_knows_total_goals
+    path = './fixture/game_blank.csv'
+    game_manager = GameManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_manager.games << game_1
+    game_manager.games << game_2
+    game_manager.games << game_3
+
+    game_1.stubs(:away_goals).returns(6)
+    game_1.stubs(:home_goals).returns(5)
+    game_2.stubs(:away_goals).returns(7)
+    game_2.stubs(:home_goals).returns(7)
+    game_3.stubs(:away_goals).returns(0)
+    game_3.stubs(:home_goals).returns(0)
+
+    assert_equal 25, game_manager.total_goals
+  end
+
+  def test_it_knows_average_goals_per_game
+    skip
+    path = './fixture/game_blank.csv'
+    game_manager = GameManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_manager.games << game_1
+    game_manager.games << game_2
+    game_manager.games << game_3
+
+    game_1.stubs(:away_goals).returns(6)
+    game_1.stubs(:home_goals).returns(5)
+    game_2.stubs(:away_goals).returns(7)
+    game_2.stubs(:home_goals).returns(7)
+    game_3.stubs(:away_goals).returns(0)
+    game_3.stubs(:home_goals).returns(0)
+
+    assert_equal 8.33, game_manager.average_goals_per_game
+  end
+
   def test_it_knows_average_goals_by_season
       game_path = './fixture/games_dummy.csv'
       team_path = './fixture/teams_dummy.csv'
