@@ -70,4 +70,14 @@ class TeamStatHelper
     end
   end
 
+  def process_game(team_id, game, opponents, game_count)
+    if team_id.to_i != game.team_id && opponents[game.team_id].nil?
+      game_count[game.team_id] = 1
+        game.result == "WIN" ? opponents[game.team_id] = 1 : opponents[game.team_id] = 0
+    elsif team_id.to_i != game.team_id
+      opponents[game.team_id] += 1 if game.result == "WIN"
+      game_count[game.team_id] += 1
+    end
+  end
+
 end
