@@ -137,19 +137,19 @@ class StatTracker
   end
 
   def most_accurate_team(season_id)
-    @game_team_manager.most_accurate_team(season_id)
+    team_info(@game_team_manager.most_accurate_team(season_id))['team_name']
   end
 
   def least_accurate_team(season_id)
-    @game_team_manager.least_accurate_team(season_id)
+    team_info(@game_team_manager.least_accurate_team(season_id))['team_name']
   end
 
   def most_tackles(season_id)
-    @game_team_manager.most_tackles(season_id)
+    team_info(@game_team_manager.most_tackles(season_id))['team_name']
   end
 
   def fewest_tackles(season_id)
-    @game_team_manager.fewest_tackles(season_id)
+    team_info(@game_team_manager.fewest_tackles(season_id))['team_name']
   end
 
   def team_data # I need a test

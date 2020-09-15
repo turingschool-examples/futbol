@@ -1,7 +1,9 @@
 require_relative 'game_teams'
+require_relative 'shared_calc'
 require 'csv'
 
 class GameTeamManager
+  include SharedCalculations
   attr_reader :game_teams
   def initialize(locations, stat_tracker) # I need a test
     @stat_tracker = stat_tracker
@@ -68,10 +70,6 @@ class GameTeamManager
     end
   end
 
-  def team_by_id(team_id)
-    @stat_tracker.team_info(team_id)['team_name']
-  end
-
   def game_teams_data_for_season(season_id)
     @game_teams.find_all { |game| game.game_id[0..3] == season_id[0..3] }
   end
@@ -128,13 +126,11 @@ class GameTeamManager
   end
 
   def most_accurate_team(season_id)
-    most_accurate = return_max(team_accuracy(season_id))
-    team_by_id(most_accurate)
+    return_max(team_accuracy(season_id))
   end
 
   def least_accurate_team(season_id)
-    least_accurate = return_min(team_accuracy(season_id))
-    team_by_id(least_accurate)
+    return_min(team_accuracy(season_id))
   end
 
   def total_tackles(season_id)
@@ -146,27 +142,16 @@ class GameTeamManager
   end
 
   def total_tackles_helper(season_id, team)
-    total_tackles = game_teams_data_for_season(season_id).sum do |game|
-        (game.tackles if game.team_id == team).to_i
-      end
+    game_teams_data_for_season(season_id).sum do |game|
+      (game.tackles if game.team_id == team).to_i
+    end
   end
 
   def most_tackles(season_id)
-    most_tackles_team = return_max(total_tackles(season_id))
-    team_by_id(most_tackles_team)
+    return_max(total_tackles(season_id))
   end
 
   def fewest_tackles(season_id)
-    fewest_tackles_team = return_min(total_tackles(season_id))
-    team_by_id(fewest_tackles_team)
+    return_min(total_tackles(season_id))
   end
-
-  def return_max(hash)
-    hash.key(hash.values.max)
-  end
-
-  def return_min(hash)
-    hash.key(hash.values.min)
-  end
-
 end
