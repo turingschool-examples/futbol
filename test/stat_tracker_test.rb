@@ -90,4 +90,19 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal 0.31, stat_tracker.percentage_visitor_wins
   end
+
+  def test_it_can_find_percentage_ties
+    game_path = './fixture/games_dummy.csv'
+    team_path = './fixture/teams_dummy.csv'
+    game_teams_path = './fixture/game_teams_dummy.csv'
+
+     locations = {
+       games: game_path,
+       teams: team_path,
+       game_teams: game_teams_path
+     }
+     stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal 0.0, stat_tracker.percentage_ties
+  end
 end
