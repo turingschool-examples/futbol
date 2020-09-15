@@ -58,6 +58,6 @@ class StatTrackerTest < Minitest::Test
      }
      stat_tracker = StatTracker.from_csv(locations)
 
-    assert_equal 5, stat_tracker.lowest_total_score
+    assert_equal 1, stat_tracker.lowest_total_score
   end
 end
