@@ -56,9 +56,7 @@ class GameTeamManager
   end
 
   def game_ids_by_team(id)
-    game_teams.select do |game_team|
-      game_team.team_id == id
-    end.map(&:game_id)
+    game_teams.select { |game_team| game_team.team_id == id }.map(&:game_id)
   end
 
   def game_team_info(game_id)
