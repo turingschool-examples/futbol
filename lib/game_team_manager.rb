@@ -1,21 +1,13 @@
 require_relative 'game_teams'
 require_relative 'shared_calc'
-require 'csv'
+require_relative 'csv_module'
 
 class GameTeamManager
-  include SharedCalculations
+  include SharedCalculations, CSVModule
   attr_reader :game_teams
   def initialize(locations, stat_tracker) # I need a test
     @stat_tracker = stat_tracker
-    @game_teams = generate_game_teams(locations)
-  end
-
-  def generate_game_teams(locations) # I need a test
-    array = []
-    CSV.foreach(locations, headers: true) do |row|
-      array << GameTeams.new(row.to_hash)
-    end
-    array
+    @game_teams = generate_data(locations, GameTeams)
   end
 
   def goal_avg_per_team(team_id, home_away)

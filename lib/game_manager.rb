@@ -1,19 +1,12 @@
 require_relative 'game'
-require 'csv'
+require_relative 'csv_module'
 
 class GameManager
+  include CSVModule
   attr_reader :games
   def initialize(location, stat_tracker)
     @stat_tracker = stat_tracker
-    @games = generate_games(location)
-  end
-
-  def generate_games(location) # I need a test
-    array = []
-    CSV.foreach(location, headers: true) do |row|
-      array << Game.new(row.to_hash)
-    end
-    array
+    @games = generate_data(location, Game)
   end
 
   def return_max(hash)

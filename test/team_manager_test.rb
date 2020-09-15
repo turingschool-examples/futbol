@@ -23,7 +23,7 @@ class TeamManagerTest < Minitest::Test
 
   def test_teams_names_data_pull
     # @team_manager = TeamManager.new(@locations, @team_manager)
-    @team_manager.generate_teams(@locations[:teams])
+    @team_manager.generate_data(@locations[:teams], Team)
     assert_equal 32, @team_manager.teams.count
   end
 
