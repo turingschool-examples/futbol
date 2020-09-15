@@ -6,6 +6,7 @@ require_relative 'game'
 require_relative 'game_teams'
 require_relative 'team'
 require_relative 'season_stats'
+require_relative 'league_stats'
 
 class StatTracker
   attr_reader :game_stats,

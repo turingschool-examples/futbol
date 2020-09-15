@@ -1,4 +1,4 @@
-require './lib/stats'
+require_relative 'stats'
 require_relative 'groupable'
 
 class GameStats < Stats

@@ -1,4 +1,4 @@
-require './lib/stats'
+require_relative 'stats'
 require_relative 'hashable'
 require_relative 'groupable'
 
