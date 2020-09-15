@@ -1,13 +1,7 @@
 class Team
-  attr_reader :team_id,
-              :franchise_id,
-              :team_name,
-              :abbreviation,
-              :stadium,
-              :link,
-              :manager,
-              :average_goals,
-              :avg_goals_home,
+  attr_reader :team_id, :franchise_id, :team_name,
+              :abbreviation, :stadium, :link,
+              :manager, :average_goals, :avg_goals_home,
               :avg_goals_visitor
 
   def initialize(data, manager)

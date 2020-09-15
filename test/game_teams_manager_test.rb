@@ -68,10 +68,10 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal expected, @game_teams_manager.coaches_hash_w_avg_win_percentage(season_id)
   end
 
-  def test_average_win_percentage
+  def test_average_win_percentage_by_season
     season_id = '20152016'
     head_coach = 'Mike Sullivan'
-    assert_equal 100.0, @game_teams_manager.average_win_percentage(season_id, head_coach)
+    assert_equal 100.0, @game_teams_manager.average_win_percentage_by_season(season_id, head_coach)
   end
 
   def test_games_for_coach
@@ -111,15 +111,15 @@ class GameTeamsManagerTest < Minitest::Test
   def test_shot_goal_ratio
     season_id = '20122013'
     team_num = '3'
-    assert_equal 0.21, @game_teams_manager.shot_goal_ratio(season_id, team_num)
+    assert_equal 0.2105, @game_teams_manager.shot_goal_ratio(season_id, team_num)
   end
 
   def test_teams_hash_w_ratio_shots_goals
     season_id = '20122013'
     expected = {
-                  '3' => 0.21,
-                  '6' => 0.33,
-                  '5' => 0.08
+                  '3' => 0.2105,
+                  '6' => 0.3333,
+                  '5' => 0.0769
     }
     assert_equal expected, @game_teams_manager.teams_hash_w_ratio_shots_goals(season_id)
   end
@@ -160,4 +160,38 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal '5', @game_teams_manager.fewest_tackles(season_id)
   end
 
+  def test_it_can_find_best_season_for_team
+    team_id = '6'
+    assert_equal '20122013', @game_teams_manager.get_best_season(team_id)
+  end
+
+  def test_it_can_find_worst_season_for_team
+    team_id = '6'
+    assert_equal '20122013', @game_teams_manager.get_worst_season(team_id)
+  end
+
+  def test_it_can_find_average_win_percentage_for_team
+    team_id = '6'
+    assert_equal 0.86, @game_teams_manager.get_average_win_percentage(team_id)
+  end
+
+  def test_it_can_get_most_goals_scored_for_team
+    team_id = '6'
+    assert_equal 4, @game_teams_manager.get_most_goals_scored_for_team(team_id)
+  end
+
+  def test_it_can_get_fewest_goals_scored_for_team
+    team_id = '6'
+    assert_equal 1, @game_teams_manager.get_fewest_goals_scored_for_team(team_id)
+  end
+
+  def test_it_can_get_favorite_opponent
+    team_id = '6'
+    assert_equal '3', @game_teams_manager.get_favorite_opponent(team_id)
+  end
+
+  def test_it_can_get_rival
+    team_id = '6'
+    assert_equal '3', @game_teams_manager.get_rival(team_id)
+  end
 end
