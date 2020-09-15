@@ -88,12 +88,10 @@ class GameTeamManager
   end
 
   def team_accuracy(season_id)
-    team_hash = {}
-    season_teams(season_id).each do |team|
-      ratio = total_goals_by_team(season_id, team).to_f / total_shots_by_team(season_id, team)
-      team_hash[team] = ratio.round(6)
+    season_teams(season_id).reduce({}) do |team_hash, team|
+      team_hash[team] = (total_goals_by_team(season_id, team).to_f / total_shots_by_team(season_id, team)).round(6)
+      team_hash
     end
-    team_hash
   end
 
   def most_accurate_team(season_id)
