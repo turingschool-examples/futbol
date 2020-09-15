@@ -23,28 +23,27 @@ class StatTracker
     new(game_path, team_path, game_teams_path)
   end
 
-  # # ----------SeasonStats
-  #
+  # ----------SeasonStats
   def winningest_coach(season)
     @game_teams_manager.winningest_coach(season)
   end
-  #
+
   def worst_coach(season)
     @game_teams_manager.worst_coach(season)
   end
-  #
+  
   def most_accurate_team(season)
     @game_teams_manager.most_accurate_team(season)
   end
-  #
+  
   def least_accurate_team(season)
     @game_teams_manager.least_accurate_team(season)
   end
-  #
+  
   def most_tackles(season)
     @game_teams_manager.most_tackles(season)
   end
-  #
+  
   def fewest_tackles(season)
     @game_teams_manager.fewest_tackles(season)
   end
@@ -83,7 +82,6 @@ class StatTracker
   end
 
   #-----------GameStatistics
-
   def highest_total_score
     @game_manager.highest_total_score
   end
@@ -116,7 +114,7 @@ class StatTracker
     @game_manager.average_goals_by_season
   end 
 
-#-------------TeamStats
+  #-------------TeamStats
   def team_info(team_id)
     @team_manager.team_info(team_id)
   end
