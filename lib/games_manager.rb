@@ -81,20 +81,15 @@ class GamesManager
     count
   end
 
-  def team_wins_as_home(team_id, season)
+  def team_wins_as(team_id, season, method_arg1, method_arg2)
     season_group[season].find_all do |game|
-      (game.home_team_id == team_id) && (game.home_is_winner?)
-    end.count
-  end
-
-  def team_wins_as_away(team_id, season)
-    season_group[season].find_all do |game|
-      (game.away_team_id == team_id) && (game.visitor_is_winner?)
+      (game.method(method_arg1).call == team_id) && (game.method(method_arg2).call)
     end.count
   end
 
   def total_team_wins(team_id, season)
-    team_wins_as_home(team_id, season) + team_wins_as_away(team_id, season)
+    team_wins_as(team_id, season, :home_team_id, :home_is_winner?) +
+    team_wins_as(team_id, season, :away_team_id, :visitor_is_winner?)
   end
 
   def total_team_games_per_season(team_id, season)

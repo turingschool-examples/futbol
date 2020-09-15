@@ -78,19 +78,19 @@ class GamesManagerTest < Minitest::Test
     assert_equal expected, @games_manager.game_ids_by_season("20122013")
   end
 
-  def test_it_can_count_total_home_wins
-    assert_equal 1, @games_manager.team_wins_as_home("1", "20142015")
-    assert_equal 1, @games_manager.team_wins_as_home("4", "20142015")
-    assert_equal 3, @games_manager.team_wins_as_home("6", "20142015")
-    assert_equal 0, @games_manager.team_wins_as_home("14", "20142015")
-    assert_equal 2, @games_manager.team_wins_as_home("26", "20142015")
+  def test_it_can_count_total_home_wins_aaa
+    assert_equal 1, @games_manager.team_wins_as("1", "20142015", :home_team_id, :home_is_winner?)
+    assert_equal 1, @games_manager.team_wins_as("4", "20142015", :home_team_id, :home_is_winner?)
+    assert_equal 3, @games_manager.team_wins_as("6", "20142015", :home_team_id, :home_is_winner?)
+    assert_equal 0, @games_manager.team_wins_as("14", "20142015", :home_team_id, :home_is_winner?)
+    assert_equal 2, @games_manager.team_wins_as("26", "20142015", :home_team_id, :home_is_winner?)
   end
 
-  def test_it_can_count_total_away_wins
-    assert_equal 1, @games_manager.team_wins_as_away("1", "20142015")
-    assert_equal 2, @games_manager.team_wins_as_away("4", "20142015")
-    assert_equal 1, @games_manager.team_wins_as_away("6", "20142015")
-    assert_equal 1, @games_manager.team_wins_as_away("26", "20142015")
+  def test_it_can_count_total_away_wins_bbb
+    assert_equal 1, @games_manager.team_wins_as("1", "20142015", :away_team_id, :visitor_is_winner?)
+    assert_equal 2, @games_manager.team_wins_as("4", "20142015", :away_team_id, :visitor_is_winner?)
+    assert_equal 1, @games_manager.team_wins_as("6", "20142015", :away_team_id, :visitor_is_winner?)
+    assert_equal 1, @games_manager.team_wins_as("26", "20142015", :away_team_id, :visitor_is_winner?)
   end
 
   def test_it_can_count_total_number_of_wins_per_season
