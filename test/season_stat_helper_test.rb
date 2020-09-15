@@ -23,4 +23,10 @@ class SeasonStatHelperTest < Minitest::Test
     assert @season_stat_helper.coaches_per_season(seasons)["20122013"].keys.include?("Claude Julien")
     assert @season_stat_helper.coaches_per_season(seasons)["20122013"].keys.include?("John Tortorella")
   end
+
+  def test_collects_season_with_games
+    season_with_games = @season_stat_helper.collects_season_with_games
+    ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @season_stat_helper.season_games.keys
+    assert_equal 806, season_with_games["20122013"].length
+  end
 end
