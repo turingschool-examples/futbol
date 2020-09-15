@@ -243,7 +243,7 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal [game_1, game_2, game_3], game_teams_manager.all_games
   end
 
-  def test_it_knows_tie_percentage
+  def test_it_knows_all_tie_games
     path = './fixture/game_teams_blank.csv'
     game_teams_manager = GameTeamsManager.new(path, nil)
     game_1 = mock("Season Game 1")
@@ -260,6 +260,6 @@ class GameTeamsManagerTest < Minitest::Test
     game_3.stubs(:hoa).returns("away")
     game_3.stubs(:result).returns("LOSS")
 
-    assert_equal 0.0, game_teams_manager.percentage_ties
+    assert_equal [], game_teams_manager.all_tie_games
   end
 end
