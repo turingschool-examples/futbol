@@ -193,4 +193,14 @@ class StatTrackerTest < Minitest::Test
     team_id = '6'
     assert_equal '3', @stat_tracker.get_rival(team_id)
   end
+
+  def test_team_favorite_opponent
+    team_id = '6'
+    assert_equal 'Houston Dynamo', @stat_tracker.favorite_opponent(team_id)
+  end
+
+  def test_team_rival
+    team_id = '6'
+    assert_equal 'Houston Dynamo', @stat_tracker.rival(team_id)
+  end
 end

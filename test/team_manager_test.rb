@@ -123,11 +123,11 @@ class TeamManagerTest < Minitest::Test
 
   def test_team_favorite_opponent
     team_id = '6'
-    assert_equal '3', @team_manager.favorite_opponent(team_id)
+    assert_equal 'Houston Dynamo', @team_manager.favorite_opponent(team_id)
   end
 
   def test_team_rival
     team_id = '6'
-    assert_equal '3', @team_manager.rival(team_id)
+    assert_equal 'Houston Dynamo', @team_manager.rival(team_id)
   end
 end

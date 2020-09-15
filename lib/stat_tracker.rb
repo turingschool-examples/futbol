@@ -132,6 +132,14 @@ class StatTracker
     @teams_manager.average_win_percentage(team_id)
   end
 
+  def favorite_opponent(team_id)
+    @teams_manager.favorite_opponent(team_id)
+  end
+
+  def rival(team_id)
+    @teams_manager.rival(team_id)
+  end
+
   # Helpers
   def find_season_id(game_id)
     @games_manager.find_season_id(game_id)
@@ -168,5 +176,4 @@ class StatTracker
   def get_rival(team_id)
     @game_teams_manager.get_rival(team_id)
   end
-
 end

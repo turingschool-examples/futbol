@@ -118,10 +118,10 @@ class TeamsManager
   end
 
   def favorite_opponent(team_id)
-    find_a_team(team_id).favorite_opponent
+    find_team_name(find_a_team(team_id).favorite_opponent)
   end
 
   def rival(team_id)
-    find_a_team(team_id).rival
+    find_team_name(find_a_team(team_id).rival)
   end
 end
