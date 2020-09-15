@@ -1,5 +1,5 @@
 module Groupable
-  def hash_of_seasons
+  def hash_of_seasons(season)
     @game_stats_data.group_by {|game| game.season}
   end
 
@@ -11,7 +11,7 @@ module Groupable
     games_from_season(season).group_by {|team| team.team_id}
   end
 
-  def group_by_team_id
+  def group_by_team_id(team_id)
     @game_teams_stats_data.group_by {|team| team.team_id}
   end
 

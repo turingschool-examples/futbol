@@ -62,33 +62,33 @@ class StatTracker
   end
 
   def best_offense
-    @team_stats.best_offense_stats
-    @team_stats.best_offense
+    @league_stats.best_offense_stats
+    @league_stats.best_offense
   end
 
   def worst_offense
-    @team_stats.worst_offense_stats
-    @team_stats.worst_offense
+    @league_stats.worst_offense_stats
+    @league_stats.worst_offense
   end
 
   def highest_scoring_visitor
-    @team_stats.team_highest_away_goals
-    @team_stats.highest_scoring_visitor
+    @league_stats.team_highest_away_goals
+    @league_stats.highest_scoring_visitor
   end
 
   def highest_scoring_home_team
-    @team_stats.team_highest_home_goals
-    @team_stats.highest_scoring_home_team
+    @league_stats.team_highest_home_goals
+    @league_stats.highest_scoring_home_team
   end
 
   def lowest_scoring_visitor
-    @team_stats.team_lowest_away_goals
-    @team_stats.lowest_scoring_visitor
+    @league_stats.team_lowest_away_goals
+    @league_stats.lowest_scoring_visitor
   end
 
   def lowest_scoring_home_team
-    @team_stats.team_lowest_home_goals
-    @team_stats.lowest_scoring_home_team
+    @league_stats.team_lowest_home_goals
+    @league_stats.lowest_scoring_home_team
   end
 
   def winningest_coach(season)
