@@ -120,4 +120,19 @@ class StatTrackerTest < Minitest::Test
      expected = {"20122013"=>16}
     assert_equal expected, stat_tracker.count_of_games_by_season
   end
+
+  def test_it_can_find_average_goals_per_game
+    game_path = './fixture/games_dummy.csv'
+    team_path = './fixture/teams_dummy.csv'
+    game_teams_path = './fixture/game_teams_dummy.csv'
+
+     locations = {
+       games: game_path,
+       teams: team_path,
+       game_teams: game_teams_path
+     }
+     stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal 3.56, stat_tracker.average_goals_per_game
+  end
 end
