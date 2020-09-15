@@ -186,7 +186,7 @@ class GameManagerTest < Minitest::Test
     assert_equal expected, stat_tracker.game_manager.initialize_season_information_hash
   end
 
-  def test_it_knows_average_goals_by_season
+  def test_it_knows_aseason_information
       game_path = './fixture/games_dummy.csv'
       team_path = './fixture/teams_dummy.csv'
       game_teams_path = './fixture/game_teams_dummy.csv'
@@ -197,9 +197,9 @@ class GameManagerTest < Minitest::Test
       }
       stat_tracker = StatTracker.from_csv(locations)
 
-      expected = {"20122013"=>3.56}
+      expected = {"20122013"=>{:total_goals=>57, :away_goals=>26, :home_goals=>31, :total_games=>16}}
 
-    assert_equal expected, stat_tracker.game_manager.average_goals_by_season
+    assert_equal expected, stat_tracker.game_manager.season_information
   end
 
 end
