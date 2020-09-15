@@ -43,23 +43,6 @@ class GameTeamManager
     team_data.min_by{|team| goal_avg_per_team(team.team_id, 'home')}.team_name
   end
 
-  def team_data
-    @stat_tracker.team_manager.teams
-  end
-
-  def game_ids_by_team(id)
-    game_teams.select { |game_team| game_team.team_id == id }.map(&:game_id)
-  end
-
-  def game_team_info(game_id)
-    game_teams.select do |game_team|
-      game_team.game_id == game_id
-    end.reduce({}) do |collector, game|
-      collector[game.team_id] = game.game_team_info
-      collector
-    end
-  end
-
   def game_teams_data_for_season(season_id)
     @game_teams.find_all { |game| game.game_id[0..3] == season_id[0..3] }
   end
