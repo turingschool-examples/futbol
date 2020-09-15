@@ -79,6 +79,186 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "John Tortorella", @stat_tracker.game_teams_manager.worst_coach('20122013')
   end
 
+  def test_it_knows_home_win_percentage
+    path = './fixture/game_teams_blank.csv'
+    game_teams_manager = GameTeamsManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_teams_manager.game_teams << game_1
+    game_teams_manager.game_teams << game_2
+    game_teams_manager.game_teams << game_3
+
+    game_1.stubs(:hoa).returns("home")
+    game_1.stubs(:result).returns("WIN")
+    game_2.stubs(:hoa).returns("away")
+    game_2.stubs(:result).returns("WIN")
+    game_3.stubs(:hoa).returns("away")
+    game_3.stubs(:result).returns("LOSS")
+
+    assert_equal 1.0, game_teams_manager.percentage_home_wins
+  end
+
+  def test_it_knows_all_home_games
+    path = './fixture/game_teams_blank.csv'
+    game_teams_manager = GameTeamsManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_teams_manager.game_teams << game_1
+    game_teams_manager.game_teams << game_2
+    game_teams_manager.game_teams << game_3
+
+    game_1.stubs(:hoa).returns("home")
+    game_1.stubs(:result).returns("WIN")
+    game_2.stubs(:hoa).returns("away")
+    game_2.stubs(:result).returns("WIN")
+    game_3.stubs(:hoa).returns("away")
+    game_3.stubs(:result).returns("LOSS")
+
+    assert_equal [game_1], game_teams_manager.all_home_games
+  end
+
+  def test_it_knows_all_home_game_wins
+    path = './fixture/game_teams_blank.csv'
+    game_teams_manager = GameTeamsManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_teams_manager.game_teams << game_1
+    game_teams_manager.game_teams << game_2
+    game_teams_manager.game_teams << game_3
+
+    game_1.stubs(:hoa).returns("home")
+    game_1.stubs(:result).returns("WIN")
+    game_2.stubs(:hoa).returns("away")
+    game_2.stubs(:result).returns("WIN")
+    game_3.stubs(:hoa).returns("away")
+    game_3.stubs(:result).returns("LOSS")
+
+    assert_equal [game_1], game_teams_manager.all_home_game_wins
+  end
+
+  def test_it_knows_visitor_win_percentage
+    path = './fixture/game_teams_blank.csv'
+    game_teams_manager = GameTeamsManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_teams_manager.game_teams << game_1
+    game_teams_manager.game_teams << game_2
+    game_teams_manager.game_teams << game_3
+
+    game_1.stubs(:hoa).returns(6)
+    game_1.stubs(:result).returns("WIN")
+    game_2.stubs(:hoa).returns("away")
+    game_2.stubs(:result).returns("WIN")
+    game_3.stubs(:hoa).returns("away")
+    game_3.stubs(:result).returns("LOSS")
+
+    assert_equal 0.5, game_teams_manager.percentage_visitor_wins
+  end
+
+  def test_it_knows_all_away_games
+    path = './fixture/game_teams_blank.csv'
+    game_teams_manager = GameTeamsManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_teams_manager.game_teams << game_1
+    game_teams_manager.game_teams << game_2
+    game_teams_manager.game_teams << game_3
+
+    game_1.stubs(:hoa).returns(6)
+    game_1.stubs(:result).returns("WIN")
+    game_2.stubs(:hoa).returns("away")
+    game_2.stubs(:result).returns("WIN")
+    game_3.stubs(:hoa).returns("away")
+    game_3.stubs(:result).returns("LOSS")
+
+    assert_equal [game_2, game_3], game_teams_manager.all_away_games
+  end
+
+  def test_it_knows_all_away_game_wins
+    path = './fixture/game_teams_blank.csv'
+    game_teams_manager = GameTeamsManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_teams_manager.game_teams << game_1
+    game_teams_manager.game_teams << game_2
+    game_teams_manager.game_teams << game_3
+
+    game_1.stubs(:hoa).returns(6)
+    game_1.stubs(:result).returns("WIN")
+    game_2.stubs(:hoa).returns("away")
+    game_2.stubs(:result).returns("WIN")
+    game_3.stubs(:hoa).returns("away")
+    game_3.stubs(:result).returns("LOSS")
+
+    assert_equal [game_2], game_teams_manager.all_away_game_wins
+  end
+
+  def test_it_knows_tie_percentage
+    path = './fixture/game_teams_blank.csv'
+    game_teams_manager = GameTeamsManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_teams_manager.game_teams << game_1
+    game_teams_manager.game_teams << game_2
+    game_teams_manager.game_teams << game_3
+
+    game_1.stubs(:hoa).returns("home")
+    game_1.stubs(:result).returns("WIN")
+    game_2.stubs(:hoa).returns("away")
+    game_2.stubs(:result).returns("WIN")
+    game_3.stubs(:hoa).returns("away")
+    game_3.stubs(:result).returns("LOSS")
+
+    assert_equal 0.0, game_teams_manager.percentage_ties
+  end
+
+  def test_it_knows_all_games
+    path = './fixture/game_teams_blank.csv'
+    game_teams_manager = GameTeamsManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_teams_manager.game_teams << game_1
+    game_teams_manager.game_teams << game_2
+    game_teams_manager.game_teams << game_3
+
+    game_1.stubs(:hoa).returns("home")
+    game_1.stubs(:result).returns("WIN")
+    game_2.stubs(:hoa).returns("away")
+    game_2.stubs(:result).returns("WIN")
+    game_3.stubs(:hoa).returns("away")
+    game_3.stubs(:result).returns("LOSS")
+
+    assert_equal [game_1, game_2, game_3], game_teams_manager.all_games
+  end
+
+  def test_it_knows_all_tie_games
+    path = './fixture/game_teams_blank.csv'
+    game_teams_manager = GameTeamsManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_teams_manager.game_teams << game_1
+    game_teams_manager.game_teams << game_2
+    game_teams_manager.game_teams << game_3
+
+    game_1.stubs(:hoa).returns("home")
+    game_1.stubs(:result).returns("WIN")
+    game_2.stubs(:hoa).returns("away")
+    game_2.stubs(:result).returns("WIN")
+    game_3.stubs(:hoa).returns("away")
+    game_3.stubs(:result).returns("LOSS")
+
+    assert_equal [], game_teams_manager.all_tie_games
+  end
+
   def test_initialize_shots_and_goals_per_team
     results = @stat_tracker.game_teams_manager.game_teams_results_by_season('20122013')
     expected = {"3"=>{:shots=>0, :goals=>0}, "6"=>{:shots=>0, :goals=>0}, "5"=>{:shots=>0, :goals=>0},

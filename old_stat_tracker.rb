@@ -20,111 +20,119 @@ class StatTracker
 #
 # #------------GameStatistics
 #
-  def highest_total_score
-    result = games.max_by do |game|
-      game['away_goals'].to_i + game['home_goals'].to_i
-    end
-    result['away_goals'].to_i + result['home_goals'].to_i
-  end
-#
-  def lowest_total_score
-    result = games.min_by do |game|
-      game['away_goals'].to_i + game['home_goals'].to_i
-    end
-    result['away_goals'].to_i + result['home_goals'].to_i
-  end
+  # def highest_total_score
+  #   result = games.max_by do |game|
+  #     game['away_goals'].to_i + game['home_goals'].to_i
+  #   end
+  #   result['away_goals'].to_i + result['home_goals'].to_i
+  # end
+  #
+  # def lowest_total_score
+  #   result = games.min_by do |game|
+  #     game['away_goals'].to_i + game['home_goals'].to_i
+  #   end
+  #   result['away_goals'].to_i + result['home_goals'].to_i
+  # end
 
-  def percentage_home_wins
-    average = all_home_game_wins.count / all_home_games.count.to_f
-    average.round(2)
-  end
+  # def percentage_home_wins
+  #   average = all_home_game_wins.count / all_home_games.count.to_f
+  #   average.round(2)
+  # end
+  #
+  # def percentage_visitor_wins
+  #   average = all_away_game_wins.count / all_away_games.count.to_f
+  #   average.round(2)
+  # end
+  #
+  # def percentage_ties
+  #   average = all_tie_games.count / all_games.count.to_f
+  #   average.round(2)
+  # end
 
-  def percentage_visitor_wins
-    average = all_away_game_wins.count / all_away_games.count.to_f
-    average.round(2)
-  end
+  # def count_of_games_by_season
+  #   games_by_season_index = {}
+  #   games_by_season.each do |season, games|
+  #     games_by_season_index[season] = games.length
+  #   end
+  #   games_by_season_index
+  # end
+  #
+  # def games_by_season
+  #   result = { }
+  #   games.each do |game|
+  #     if result[game['season']] == nil
+  #       result[game['season']] = [game]
+  #     else
+  #       result[game['season']] << game
+  #     end
+  #   end
+  #   result
+  # end
 
-  def percentage_ties
-    average = all_tie_games.count / all_games.count.to_f
-    average.round(2)
-  end
+  # def average_goals_per_game
+  #   (total_goals.to_f / total_number_of_games).round(2)
+  # end
+  #
+  # def total_number_of_goals
+  #   home_goals.count + away_goals.count
+  # end
+  #
+  # def home_goals
+  #   games.find_all do |game|
+  #     game['away_goals'].to_i
+  #   end
+  # end
+  #
+  # def total_goals
+  #   goal_count = 0
+  #   games.each do |game|
+  #     goal_count += game['home_goals'].to_i
+  #     goal_count += game['away_goals'].to_i
+  #   end
+  #   return goal_count
+  # end
+  #
+  # def total_number_of_games
+  #   game_count = 0
+  #   games.each do |game|
+  #     game_count += 1
+  #   end
+  #   return game_count
+  # end
 
-  def count_of_games_by_season
-    games_by_season_index = {}
-    games_by_season.each do |season, games|
-      games_by_season_index[season] = games.length
-    end
-    games_by_season_index
-  end
+  # def average_goals_by_season
+  #
+  #   season_hash = get_total_goals
+  #   season_hash.each do |season, goals|
+  #     count_of_games_by_season.each do |season_games, games|
+  #       if season_games == season
+  #         average = goals.to_f / games.to_f
+  #         season_hash[season] = (average).round(2)
+  #       end
+  #     end
+  #   end
+  # end
+  #
+  # def get_total_goals
+  #   season_hash = create_season_hash
+  #   season_hash_with_goals = season_hash.each do |season, total_goals|
+  #     games.each do |game|
+  #       if game['season'] == season
+  #         total_goals += game['away_goals'].to_i
+  #         total_goals += game['home_goals'].to_i
+  #       end
+  #     end
+  #     season_hash_with_goals[season] = total_goals
+  #   end
+  # end
+  #
+  # def create_season_hash
+  #   season_hash = games.each do |game|
+  #     season_hash[game['season']] = 0
+  #   end
+  #   season_hash
+  # end
 
-  def games_by_season
-    result = { }
-    games.each do |game|
-      if result[game['season']] == nil
-        result[game['season']] = [game]
-      else
-        result[game['season']] << game
-      end
-    end
-    result
-  end
-
-  def average_goals_per_game
-    (total_goals.to_f / total_number_of_games).round(2)
-  end
-
-  def total_number_of_goals
-    home_goals.count + away_goals.count
-  end
-
-  def home_goals
-    games.find_all do |game|
-      game['away_goals'].to_i
-    end
-  end
-
-  def total_goals
-    goal_count = 0
-    games.each do |game|
-      goal_count += game['home_goals'].to_i
-      goal_count += game['away_goals'].to_i
-    end
-    return goal_count
-  end
-
-  def total_number_of_games
-    game_count = 0
-    games.each do |game|
-      game_count += 1
-    end
-    return game_count
-  end
-
-  def average_goals_by_season
-    season_hash = { }
-    games.each do |game|
-      season_hash[game['season']] = 0
-    end
-
-    season_hash.each do |season, average_goals|
-      games.each do |game|
-        if game['season'] == season
-          average_goals += game['away_goals'].to_i
-          average_goals += game['home_goals'].to_i
-        end
-      end
-      season_hash[season] = average_goals
-    end
-
-    season_hash.each do |season, goals|
-      count_of_games_by_season.each do |season_games, games|
-        if season_games == season
-          average = goals.to_f / games.to_f
-          season_hash[season] = (average).round(2)
-        end
-      end
-    end
-  end
 
 #
 #------------LeagueStatistics
@@ -241,38 +249,38 @@ class StatTracker
   #     games_results_per_season
   #   end
 
-    # def initialize_coaches_records(gt_results)
-    #   coach_record_hash = {}
-    #   gt_results.each do |team_result|
-    #     coach_record_hash[team_result['head_coach']] = {wins: 0, losses: 0, ties:0}
-    #   end
-    #   coach_record_hash
-    # end
+    def initialize_coaches_records(gt_results)
+      coach_record_hash = {}
+      gt_results.each do |team_result|
+        coach_record_hash[team_result['head_coach']] = {wins: 0, losses: 0, ties:0}
+      end
+      coach_record_hash
+    end
 
-    # def add_wins_losses(gt_results, coach_record_start)
-    #   gt_results.each do |team_result|
-    #     if team_result['result'] == "WIN"
-    #       coach_record_start[team_result['head_coach']][:wins] += 1
-    #     elsif team_result['result'] == "LOSS"
-    #       coach_record_start[team_result['head_coach']][:losses] += 1
-    #     elsif team_result['result'] == "TIE"
-    #       coach_record_start[team_result['head_coach']][:ties] += 1
-    #     end
-    #   end
-    #   coach_record_start
-    # end
+    def add_wins_losses(gt_results, coach_record_start)
+      gt_results.each do |team_result|
+        if team_result['result'] == "WIN"
+          coach_record_start[team_result['head_coach']][:wins] += 1
+        elsif team_result['result'] == "LOSS"
+          coach_record_start[team_result['head_coach']][:losses] += 1
+        elsif team_result['result'] == "TIE"
+          coach_record_start[team_result['head_coach']][:ties] += 1
+        end
+      end
+      coach_record_start
+    end
 
-    # def determine_winningest_coach(totaled_record)
-    #   totaled_record.max_by do |coach, w_l|
-    #     w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
-    #   end[0]
-    # end
+    def determine_winningest_coach(totaled_record)
+      totaled_record.max_by do |coach, w_l|
+        w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
+      end[0]
+    end
 
-    # def determine_worst_coach(totaled_record)
-    #   totaled_record.min_by do |coach, w_l|
-    #     w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
-    #   end[0]
-    # end
+    def determine_worst_coach(totaled_record)
+      totaled_record.min_by do |coach, w_l|
+        w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
+      end[0]
+    end
 
     # def initialize_shots_and_goals_per_team(gt_results)
     #   total_shots_goals = {}
@@ -435,47 +443,47 @@ class StatTracker
 
   # -----------------GameStatistics
 
-    def all_home_games
-      game_teams.find_all do |game|
-        game['HoA'] == "home"
-      end
-    end
-
-    def all_home_game_wins
-      all_home_games.find_all do |game|
-        game['result'] == "WIN"
-      end
-    end
-
-    def all_home_game_losses
-      all_home_games.find_all do |game|
-        game['result'] == "LOSS"
-      end
-    end
-
-    def all_away_games
-      game_teams.find_all do |game|
-        game['HoA'] == "away"
-      end
-    end
-
-    def all_away_game_wins
-      all_away_games.find_all do |game|
-        game['result'] == "WIN"
-      end
-    end
-
-    def all_games
-      game_teams.find_all do |game|
-        game['HoA'] == "away" || game['HoA'] == "home"
-      end
-    end
-
-    def all_tie_games
-      all_games.find_all do |game|
-        game['result'] == "TIE"
-      end
-    end
+    # def all_home_games
+    #   game_teams.find_all do |game|
+    #     game['HoA'] == "home"
+    #   end
+    # end
+    #
+    # def all_home_game_wins
+    #   all_home_games.find_all do |game|
+    #     game['result'] == "WIN"
+    #   end
+    # end
+    #
+    # def all_home_game_losses
+    #   all_home_games.find_all do |game|
+    #     game['result'] == "LOSS"
+    #   end
+    # end
+    #
+    # def all_away_games
+    #   game_teams.find_all do |game|
+    #     game['HoA'] == "away"
+    #   end
+    # end
+    #
+    # def all_away_game_wins
+    #   all_away_games.find_all do |game|
+    #     game['result'] == "WIN"
+    #   end
+    # end
+    #
+    # def all_games
+    #   game_teams.find_all do |game|
+    #     game['HoA'] == "away" || game['HoA'] == "home"
+    #   end
+    # end
+    #
+    # def all_tie_games
+    #   all_games.find_all do |game|
+    #     game['result'] == "TIE"
+    #   end
+    # end
   # -----------------SeasonStatistics
 
 
@@ -515,6 +523,72 @@ class StatTracker
   end
 
 #----------TeamStatsHelpers
+  def average_of_wins_by_season(team_id)
+    counts_by_season = {}
+    unique_game_info(team_id).each do |season, games|
+      counts_by_season[season] = {}
+      counts_by_season[season][:total] = games.length
+      counts_by_season[season][:wins] = games.select do |game|
+        game['result'] == "WIN"
+      end.length
+      counts_by_season[season][:average] = (counts_by_season[season][:wins].to_f / counts_by_season[season][:total]).round(2)
+    end
+    counts_by_season
+  end
+
+  def unique_game_info(team_id)
+    results = game_info_by_team(team_id)
+    results_by_season = {}
+    team_games_by_season(games_by_team(team_id)).each do |season, games|
+      results_by_season[season] = []
+      games.each do |game|
+        results_by_season[season] << results.find do |game_info|
+          game['game_id'] == game_info['game_id']
+        end
+      end
+    end
+    results_by_season
+  end
+
+  def team_games_by_season(all_games = games)
+    result = {}
+    all_games.each do |game|
+      if result[game['season']] == nil
+        result[game['season']] = [game]
+      else
+        result[game['season']] << game
+      end
+    end
+    result
+  end
+
+  def games_by_team(team_id, all_games = games)
+    games.select do |game|
+      game['home_team_id'] == team_id || game['away_team_id'] == team_id
+    end
+  end
+
+  def game_info_by_team(team_id)
+    game_teams.select do |game_team|
+      game_team['team_id'] == team_id
+    end
+  end
+
+  def result_totals_by_team(team_id)
+    result = {}
+    result[:total]  = game_info_by_team(team_id).length
+    result[:wins]   = (result_totals_helper(team_id, "WIN")).length
+    result[:ties]   = (result_totals_helper(team_id, "TIES")).length
+    result[:losses] = (result_totals_helper(team_id, "LOSSES")).length
+    result
+  end
+
+  def result_totals_helper(team_id, result)
+    game_info_by_team(team_id).select do |game|
+      game['result'] == result
+    end
+  end
+end
 #   def average_of_wins_by_season(team_id)
 #     counts_by_season = {}
 #     unique_game_info(team_id).each do |season, games|

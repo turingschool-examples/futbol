@@ -100,6 +100,59 @@ class GameTeamsManager
     coach_record_start
   end
 
+  #-------------GameStatistics
+
+  def percentage_home_wins
+    average = all_home_game_wins.count / all_home_games.count.to_f
+    average.round(2)
+  end
+
+  def all_home_games
+    @game_teams.find_all do |game|
+      game.hoa == "home"
+    end
+  end
+
+  def all_home_game_wins
+    all_home_games.find_all do |game|
+      game.result == "WIN"
+    end
+  end
+
+  def percentage_visitor_wins
+    average = all_away_game_wins.count / all_away_games.count.to_f
+    average.round(2)
+  end
+
+  def all_away_games
+    @game_teams.find_all do |game|
+      game.hoa == "away"
+    end
+  end
+
+  def all_away_game_wins
+    all_away_games.find_all do |game|
+      game.result == "WIN"
+    end
+  end
+
+  def percentage_ties
+    average = all_tie_games.count / all_games.count.to_f
+    average.round(2)
+  end
+
+  def all_games
+    @game_teams.find_all do |game|
+      game.hoa == "away" || game.hoa == "home"
+    end
+  end
+
+  def all_tie_games
+    all_games.find_all do |game|
+      game.result == "TIE"
+    end
+  end
+
   def start_shots_and_goals_per_team(gt_results)
     total_shots_goals = {}
     gt_results.each do |team_result|
