@@ -26,7 +26,13 @@ class SeasonStatHelperTest < Minitest::Test
 
   def test_collects_season_with_games
     season_with_games = @season_stat_helper.collects_season_with_games
-    ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @season_stat_helper.season_games.keys
+    assert_equal ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @season_stat_helper.collects_season_with_games.keys
     assert_equal 806, season_with_games["20122013"].length
+  end
+
+  def test_collect_shots_per_season
+    shots_per_season = @season_stat_helper.collect_shots_per_season("20122013")
+    assert_equal 358, shots_per_season["Philadelphia Union"]
+    assert_equal 337, shots_per_season["Vancouver Whitecaps FC"]
   end
 end
