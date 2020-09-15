@@ -47,12 +47,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.fetch_game_ids_by_season("20132014")
   end
 
-  def test_it_can_get_games_from_season_game_ids
-    season_game_ids = @stats.game_ids_per_season("20132014")
-    assert_equal GameTeam, @stats.find_game_teams(season_game_ids)[0].class
-    assert_equal (season_game_ids.count * 2), @stats.find_game_teams(season_game_ids).count
-  end
-
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won
     assert_equal 0.3, @stats.percentage_visitor_wins

@@ -38,10 +38,6 @@ class StatTracker
     @games_manager.get_opponent_id(game_id, team_id)
   end
 
-  def game_ids_per_season(season)
-    @game_teams_manager.game_ids_per_season(season)
-  end
-
   def find_game_teams(game_ids)
     @game_teams_manager.find_game_teams(game_ids)
   end
