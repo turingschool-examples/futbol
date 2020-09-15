@@ -1,8 +1,10 @@
 require './lib/stats'
 require_relative 'hashable'
+require_relative 'groupable'
 
 class SeasonStats < Stats
   include Hashable
+  include Groupable
   attr_reader :tracker
 
   def initialize(tracker)
@@ -26,11 +28,16 @@ class SeasonStats < Stats
   end
 
   def most_accurate_team(season)
-    @tracker.teams_stats.most_accurate_team(season)
+    @tracker.team_stats.most_accurate_team(season)
+  end
+
+  def find_least_accurate_team(season)
+    least_accurate = goals_to_shots_ratio_per_season(season).sort_by {|team_id, goals| goals}
+    least_accurate[0][0]
   end
 
   def least_accurate_team(season)
-    @tracker.teams_stats.least_accurate_team(season)
+    @tracker.team_stats.least_accurate_team(season)
   end
 
   def find_team_with_most_tackles(season)
@@ -39,7 +46,7 @@ class SeasonStats < Stats
   end
 
   def most_tackles(season)
-    @tracker.teams_stats.most_tackles(season)
+    @tracker.team_stats.most_tackles(season)
   end
 
   def find_team_with_fewest_tackles(season)
@@ -48,6 +55,12 @@ class SeasonStats < Stats
   end
 
   def fewest_tackles(season)
-    @tracker.teams_stats.fewest_tackles(season)
+    @tracker.team_stats.fewest_tackles(season)
+  end
+
+  def games_from_season(season)
+    @game_teams_stats_data.find_all do |game_team|
+      game_team.game_id.to_s.split('')[0..3].join.to_i == season.split('')[0..3].join.to_i
+    end
   end
 end

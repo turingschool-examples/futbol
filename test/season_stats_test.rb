@@ -27,8 +27,8 @@ class SeasonStatsTest < Minitest::Test
     assert_equal 34, @season_stats.coach_wins("20122013").keys.count
   end
 
-  def test_can_get_hash_of_seasons
-    assert_equal 1612, @season_stats.hash_of_seasons("20122013").count
+  def test_can_get_games_from_season
+    assert_equal 1612, @season_stats.games_from_season("20122013").count
   end
 
   def test_winningest_coach
@@ -91,7 +91,7 @@ class SeasonStatsTest < Minitest::Test
   def test_it_can_find_the_team_with_fewest_tackles
     assert_equal 1, @season_stats.find_team_with_fewest_tackles("20132014")
   end
-
+  
   def test_can_find_team_name_with_fewest_tackles_in_season
     assert_equal 'Atlanta United', @season_stats.fewest_tackles("20132014")
     assert_equal 'Orlando City SC', @season_stats.fewest_tackles("20142015")

@@ -127,12 +127,6 @@ class LeagueStats < Stats
     end
   end
 
-  def games_from_season(season)
-    @game_teams_stats_data.find_all do |game_team|
-      game_team.game_id.to_s.split('')[0..3].join.to_i == season.split('')[0..3].join.to_i
-    end
-  end
-
   def all_team_games(team_id)
     @game_teams_stats_data.find_all do |game_team|
       game_team.team_id == team_id.to_i
