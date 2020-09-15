@@ -1,17 +1,9 @@
 class Team
-  attr_reader :team_id,
-              :franchise_id,
-              :team_name,
-              :abbreviation,
-              :stadium,
-              :link,
-              :manager,
-              :average_goals,
-              :avg_goals_home,
-              :avg_goals_visitor,
-              :best_season,
-              :worst_season,
-              :avg_win_pct
+  attr_reader :team_id, :franchise_id, :team_name,
+              :abbreviation, :stadium, :link,
+              :manager, :average_goals, :avg_goals_home,
+              :avg_goals_visitor, :best_season, :worst_season,
+              :avg_win_pct, :favorite_opponent, :rival
 
   def initialize(data, manager)
     @team_id = data["team_id"]
@@ -27,6 +19,8 @@ class Team
     @best_season = get_best_season(@team_id)
     @worst_season = get_worst_season(@team_id)
     @avg_win_pct = get_average_win_percentage(@team_id)
+    @favorite_opponent = get_favorite_opponent(@team_id)
+    @rival = get_rival(@team_id)
   end
 
   def team_average_goals(team_id)
@@ -47,5 +41,13 @@ class Team
 
   def get_average_win_percentage(team_id)
     @manager.get_average_win_percentage(team_id)
+  end
+
+  def get_favorite_opponent(team_id)
+    @manager.get_favorite_opponent(team_id)
+  end
+
+  def get_rival(team_id)
+    @manager.get_rival(team_id)
   end
 end
