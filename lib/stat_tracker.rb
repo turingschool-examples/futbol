@@ -62,10 +62,6 @@ class StatTracker
     @game_teams_manager.games_containing_team
   end
 
-  def avg_score(filtered_game_teams = @game_teams)
-    @game_teams_manager.avg_score(filtered_game_teams)
-  end
-
   def filter_by_team_id(team_id)
     @game_teams_manager.filter_by_team_id(team_id)
   end
