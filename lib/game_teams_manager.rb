@@ -57,7 +57,7 @@ class GameTeamsManager
 
   def game_teams_results_by_season(season)
     game_teams.find_all do |team_result|
-      @tracker.find_game_ids_for_season(season).include? team_result.game_id
+      team_result.game_id.start_with?(season[0..3])
     end
   end
 
@@ -130,8 +130,6 @@ class GameTeamsManager
     end
     tackles_start
   end
-<<<<<<< HEAD
-=======
 
 #-------------TeamStats
   def best_season(team_id)
@@ -245,5 +243,4 @@ class GameTeamsManager
   def find_team_name(team_id)
     @tracker.team_info(team_id)['team_name']
   end
->>>>>>> eb0f9c1449725e3289d5853aaf43b1a42e741350
 end

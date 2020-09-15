@@ -64,26 +64,6 @@ class GameManagerTest < Minitest::Test
     assert_equal [game_1, game_2], game_manager.games_of_season('20122013')
   end
 
-  def test_find_game_ids_per_season
-    path = './fixture/game_blank.csv'
-    game_manager = GameManager.new(path, nil)
-    game_1 = mock("Season Game 1")
-    game_2 = mock("Season Game 2")
-    game_3 = mock("Season Game 3")
-    game_manager.games << game_1
-    game_manager.games << game_2
-    game_manager.games << game_3
-
-    game_1.stubs(:season).returns('20122013')
-    game_2.stubs(:season).returns('20122013')
-    game_3.stubs(:season).returns('20132014')
-    game_1.stubs(:game_id).returns('123')
-    game_2.stubs(:game_id).returns('456')
-    game_3.stubs(:game_id).returns('789')
-
-    assert_equal ["123", "456"], game_manager.find_game_ids_for_season('20122013')
-  end
-
   def test_it_can_return_team_stats
     team_1 = mock('Team Object 1')
     team_2 = mock('Team Object 2')
@@ -120,7 +100,7 @@ class GameManagerTest < Minitest::Test
 
     assert_equal expected, @blank_tracker.game_manager.team_stats
   end
-  
+
 #------------TeamStatsTests
   def test_it_can_find_games_by_team
     path = './fixture/game_blank.csv'
