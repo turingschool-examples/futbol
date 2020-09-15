@@ -1,20 +1,13 @@
 require_relative 'game'
 require_relative 'csv_module'
+require_relative 'data_call'
 
 class GameManager
-  include CSVModule
+  include CSVModule, DataCall
   attr_reader :games
   def initialize(location, stat_tracker)
     @stat_tracker = stat_tracker
     @games = generate_data(location, Game)
-  end
-
-  def group_by_season
-    @games.group_by { |game| game.season }.uniq
-  end
-
-  def game_info(game_id)
-    games.find {|game| game.game_id == game_id }.game_info
   end
 
   def average_goals(games)

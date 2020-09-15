@@ -15,4 +15,12 @@ module DataCall
       collector
     end
   end
+
+  def group_by_season
+    @games.group_by { |game| game.season }.uniq
+  end
+
+  def game_info(game_id)
+    games.find {|game| game.game_id == game_id }.game_info
+  end
 end
