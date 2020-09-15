@@ -10,8 +10,7 @@ class GamesManager
 
   def initialize(path, stat_tracker)
     @stat_tracker = stat_tracker
-    @games = []
-    create_games(path)
+    @games = create_games(path)
   end
 
   def create_games(games_table)

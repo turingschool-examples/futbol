@@ -21,12 +21,6 @@ class StatTrackerTest < Minitest::Test
 
   # ~~~ HELPER METHOD TESTS~~~
 
-  # def test_it_can_sum_goals_per_game ###
-  #   expected = {
-  #     2014020006=>6, 2014021002=>4, 2014020598=>3, 2014020917=>5, 2014020774=>4, 2014020142=>5, 2014020981=>5, 2014020970=>5, 2014020002=>3, 2014020391=>3, 2014020423=>3, 2014020643=>6, 2014020371=>2, 2014020845=>5, 2014021083=>4, 2014020775=>4}
-  #   assert_equal expected, @stats.sum_game_goals("20142015")
-  # end
-
   def test_it_can_find_total_games ###
     assert_equal 53, @stats.total_games
   end
@@ -38,50 +32,14 @@ class StatTrackerTest < Minitest::Test
     assert_equal 42.86, @stats.fetch_season_win_percentage("26", "20142015")
   end
 
-  def test_it_can_filter_games_by_season
-    expected_games_1 = @stats.filter_by_season("20122013")
-    expected_games_2 = @stats.filter_by_season("20152016")
-    expected_games_3 = @stats.filter_by_season("20142015")
-    result_1 = expected_games_1.none? do |game|
-      game.season == "20132014" && game.season == "20142015" && game.season == "20162017"
-    end
-    assert result_1
-    assert_equal 4, expected_games_1.count
-    result_2 = expected_games_2.any? do |game|
-      game.season == "20122013" && game.season == "20132014" && game.season == "20162017"
-    end
-    assert_equal false, result_2
-    assert_equal 5, expected_games_2.count
-    result_3 = expected_games_3.any? do |game|
-      game.season == "20142015"
-    end
-    assert result_3
-    assert_equal 16, expected_games_3.count
-  end
-
   def test_it_can_create_array_of_all_team_ids
     expected = ["1", "4", "26", "14", "6"]
     assert_equal expected, @stats.fetch_all_team_ids
   end
 
   def test_it_can_get_team_name_from_team_id
-    assert_equal "Chicago Fire", @stats.team_names_by_team_id("4")
+    assert_equal "Chicago Fire", @stats.fetch_team_identifier("4")
   end
-  # DUPLICATE - In other test class
-  # def test_it_can_get_total_scores_by_team
-  #   expected = {"1"=>43, "4"=>37, "14"=>47, "6"=>47, "26"=>37}
-  #   assert_equal expected, @stats.total_scores_by_team
-  # end
-  # DUPLICATE - In other test class
-  # def test_it_can_get_number_of_games_by_team
-  #   expected = {"1"=>23, "4"=>22, "14"=>21, "6"=>20, "26"=>20}
-  #   assert_equal expected, @stats.games_containing_team
-  # end
-  # DUPLICATE - In other test class
-  # def test_it_can_get_average_scores_per_team
-  #   expected = {"1"=>1.87, "4"=>1.682, "14"=>2.238, "6"=>2.35, "26"=>1.85}
-  #   assert_equal expected, @stats.average_scores_by_team
-  # end
 
   def test_it_can_sum_game_goals
     assert_equal 211, @stats.total_goals
@@ -89,14 +47,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal 67, @stats.total_goals(season_1415)
   end
 
-  def test_it_can_calc_a_ratio
-    expected = 0.67
-    assert_equal expected, @stats.ratio(2,3)
-  end
-
   def test_it_can_return_array_of_game_ids_per_season
     expected = ["2012020030", "2012020133", "2012020355", "2012020389"]
-    assert_equal expected, @stats.game_ids_by_season("20122013")
+    assert_equal expected, @stats.fetch_game_ids_by_season("20122013")
   end
 
   def test_it_can_group_games_by_season
@@ -107,14 +60,6 @@ class StatTrackerTest < Minitest::Test
         assert_instance_of Game, game
       end
     end
-  end
-  # DUPLICATE - In other test class
-  # def test_it_can_count_wins
-  #   assert_equal 45, @stats.total_wins
-  # end
-
-  def test_it_can_filter_gameteams_by_team_id
-    assert @stats.games_by_team("6").all? {|gameteam| gameteam.team_id == "6"}
   end
 
   def test_it_can_get_a_game
@@ -137,8 +82,8 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_game_ids_in_season
-    expected = ["2013021198", "2013020371", "2013020203", "2013020649", "2013021160", "2013020334", "2013021221", "2013020667", "2013020321", "2013020285", "2013020739", "2013020088"]
-    assert_equal expected, @stats.game_ids_per_season("20132014")
+    expected = ["2013020088", "2013020203", "2013020285", "2013020321", "2013020334", "2013020371", "2013020649", "2013020667", "2013020739", "2013021160", "2013021198", "2013021221"]
+    assert_equal expected, @stats.fetch_game_ids_by_season("20132014")
   end
 
   def test_it_can_get_games_from_season_game_ids
@@ -146,33 +91,18 @@ class StatTrackerTest < Minitest::Test
     assert_equal GameTeam, @stats.find_game_teams(season_game_ids)[0].class
     assert_equal (season_game_ids.count * 2), @stats.find_game_teams(season_game_ids).count
   end
-  # DUPLICATE - In other test class
-  # def test_it_can_get_shots_per_team
-  #   expected = {"4"=>32, "14"=>26, "1"=>27, "6"=>24, "26"=>40}
-  #   assert_equal expected, @stats.shots_per_team_id("20132014")
-  # end
-
-  def test_it_can_find_goals_per_season
-    expected = {"4"=>10, "14"=>9, "1"=>7, "6"=>10, "26"=>11}
-    assert_equal expected, @stats.season_goals("20132014")
-  end
-  # DUPLICATE - In other test class
-  # def test_shots_per_goal_per_season_for_given_season
-  #   expected = {"4"=>3.20, "14"=>2.89, "1"=>3.86, "6"=>2.40, "26"=>3.64}
-  #   assert_equal expected, @stats.shots_per_goal_per_season("20132014")
-  # end
 
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won ###
-    assert_equal 30.19, @stats.percentage_away_wins
+    assert_equal 0.3, @stats.percentage_visitor_wins
   end
 
   def test_it_can_get_percentage_ties ###
-    assert_equal 15.09, @stats.percentage_ties
+    assert_equal 0.15, @stats.percentage_ties
   end
 
   def test_it_can_get_percentage_home_wins ###
-    assert_equal 54.72, @stats.percentage_home_wins
+    assert_equal 0.55, @stats.percentage_home_wins
   end
 
   def test_it_can_see_count_of_games_by_season ###
@@ -186,12 +116,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_avg_goals_per_game
-    assert_equal 3.98, @stats.avg_goals_per_game
+    assert_equal 3.98, @stats.average_goals_per_game
   end
 
   def test_it_can_determine_highest_and_lowest_game_score
-    assert_equal 2, @stats.lowest_total_score("20142015")
-    assert_equal 6, @stats.highest_total_score("20142015")
+    assert_equal 1, @stats.lowest_total_score
+    assert_equal 6, @stats.highest_total_score
   end
 
 # ~~~ LEAGUE METHOD TESTS~~~
