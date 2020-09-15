@@ -26,10 +26,6 @@ class StatTracker
     CSV.read(path, headers: true, header_converters: :symbol)
   end
 
-  def fetch_all_team_ids
-    @teams_manager.all_team_ids
-  end
-
   def fetch_season_win_percentage(team_id, season)
     @games_manager.season_win_percentage(team_id, season)
   end

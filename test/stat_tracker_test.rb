@@ -32,11 +32,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal 42.86, @stats.fetch_season_win_percentage("26", "20142015")
   end
 
-  def test_it_can_create_array_of_all_team_ids
-    expected = ["1", "4", "26", "14", "6"]
-    assert_equal expected, @stats.fetch_all_team_ids
-  end
-
   def test_it_can_get_team_name_from_team_id
     assert_equal "Chicago Fire", @stats.fetch_team_identifier("4")
   end
