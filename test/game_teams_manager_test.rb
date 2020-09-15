@@ -106,7 +106,7 @@ class GameTeamsManagerTest < Minitest::Test
     #highest scoring visitor team
     assert_equal "6", @game_teams_manager.scoring_team("away",:max_by)
     #lowest scoring visitor team
-    assert_equal "", @game_teams_manager.scoring_team("away",:min_by)
+    assert_equal "4", @game_teams_manager.scoring_team("away",:min_by)
   end
 
   def test_it_can_filter_gameteams_by_team_id
