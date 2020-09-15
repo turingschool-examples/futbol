@@ -92,18 +92,18 @@ class GamesManager
     team_wins_as(team_id, season, :away_team_id, :visitor_is_winner?)
   end
 
-  def total_team_games_per_season(team_id, season)
-    season_group[season].find_all do |game|
-      game.away_team_id == team_id || game.home_team_id == team_id
-    end.count
-  end
-
   def season_win_percentage(team_id, season)
     find_percent(total_team_wins(team_id, season), total_team_games_per_season(team_id, season))
   end
 
   def all_seasons
     season_group.keys.sort
+  end
+
+  def total_team_games_per_season(team_id, season)
+    season_group[season].find_all do |game|
+      game.away_team_id == team_id || game.home_team_id == team_id
+    end.count
   end
 
   def seasons_win_percentages_by_team(team_id)
