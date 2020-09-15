@@ -130,44 +130,33 @@ class GamesManager
     season_group.keys.sort
   end
 
-  def all_teams_all_seasons_win_percentages
-    @stat_tracker.fetch_all_team_ids.reduce({}) do |data, team_id|
-      data[team_id] = all_seasons.reduce({}) do |collector, season|
-        collector[season] = season_win_percentage(team_id, season)
-        collector
-      end
-      data
+  def seasons_win_percentages_by_team(team_id)
+    all_seasons.reduce({}) do |collector, season|
+      collector[season] = season_win_percentage(team_id, season)
+      collector
     end
   end
 
   def best_season(team_id)
-    all_teams_all_seasons_win_percentages.flat_map do |team, seasons|
-      if team == team_id
-        seasons.max_by do |season|
-          season.last
-        end
-      end
-    end.compact.first
+    seasons_win_percentages_by_team(team_id).max_by do |season, percent|
+      percent
+    end[0]
   end
 
   def worst_season(team_id)
-    all_teams_all_seasons_win_percentages.flat_map do |team, seasons|
-      if team == team_id
-        seasons.min_by do |season|
-          season.last
-        end
-      end
-    end.compact.first
+    seasons_win_percentages_by_team(team_id).min_by do |season, percent|
+      percent
+    end[0]
   end
 
-  def get_game(gameid)
+  def get_game(game_id)
     @games.find do |game|
-      game.game_id == gameid
+      game.game_id == game_id
     end
   end
 
-  def get_opponent_id(game, teamid)
-    game.away_team_id == teamid ? game.home_team_id : game.away_team_id
+  def get_opponent_id(game_id, team_id)
+    get_game(game_id).get_opponent_id(team_id)
   end
 
 end

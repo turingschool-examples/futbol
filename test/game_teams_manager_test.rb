@@ -17,31 +17,42 @@ class GameTeamsManagerTest < Minitest::Test
     end
   end
 
-  def test_it_can_organize_season_win_percentage_for_each_team
+  def test_it_can_list_game_teams_per_coach
+    expected = ["Claude Julien", "Guy Boucher", "Peter DeBoer", "Peter Laviolette"]
+    @game_teams_manager.coach_game_teams("20122013").each do |coach, game_teams|
+      game_teams.each do |game_team|
+        assert expected.include?(game_team.head_coach)
+      end
+    end
+  end
+
+  def test_it_can_calculate_coach_game_teams_average_wins
     expected = {
-      "1" => 28.57,
-      "4" => 42.86,
-      "6" => 66.67,
-      "14" => 0,
-      "26" => 42.86
+      "Claude Julien" => 1.0,
+      "Guy Boucher" => 0.0,
+      "Peter DeBoer" => 1.0,
+      "Peter Laviolette" => 0.25
     }
-    assert_equal expected, @game_teams_manager.all_teams_win_percentage("20142015")
-  end
-
-  def test_it_can_determine_winningest_team
-    assert_equal "6", @game_teams_manager.winningest_team("20142015")
-  end
-
-  def test_it_can_determine_team_with_worst_winning_percentage
-    assert_equal "14", @game_teams_manager.worst_team("20142015")
+    assert_equal expected, @game_teams_manager.coach_game_teams_average_wins("20122013")
   end
 
   def test_it_can_list_winningest_coach_by_season
+    assert_equal "Peter DeBoer", @game_teams_manager.winningest_coach("20122013")
+    assert_equal "Claude Julien", @game_teams_manager.winningest_coach("20132014")
     assert_equal "Claude Julien", @game_teams_manager.winningest_coach("20142015")
+    assert_equal "Jon Cooper", @game_teams_manager.winningest_coach("20152016")
+    assert_equal "Bruce Cassidy", @game_teams_manager.winningest_coach("20162017")
+    assert_equal "John Stevens", @game_teams_manager.winningest_coach("20172018")
+
   end
 
   def test_it_can_determine_the_worst_coach_by_season
+    assert_equal "Guy Boucher", @game_teams_manager.worst_coach("20122013")
+    assert_equal "Jon Cooper", @game_teams_manager.worst_coach("20132014")
     assert_equal "Jon Cooper", @game_teams_manager.worst_coach("20142015")
+    assert_equal "Darryl Sutter", @game_teams_manager.worst_coach("20152016")
+    assert_equal "Claude Julien", @game_teams_manager.worst_coach("20162017")
+    assert_equal "Dave Hakstol", @game_teams_manager.worst_coach("20172018")
   end
 
   def test_it_can_get_game_teams_by_season
@@ -130,7 +141,6 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal expected, @game_teams_manager.shots_per_team_id("20132014")
   end
 
-  #This test I had to alter the expected to get it to pass, but when I changed the method formula, the spec harness failed so we should take a closer look at it.
   def test_shots_per_goal_per_season_for_given_season
     expected = {"4"=>3.20, "14"=>2.889, "1"=>3.857, "6"=>2.40, "26"=>3.636}
     assert_equal expected, @game_teams_manager.shots_per_goal_per_season("20132014")
@@ -140,16 +150,24 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal 45, @game_teams_manager.total_wins(@game_teams_manager.game_teams)
   end
 
-  def test_it_can_calculate_average_win_percentage
-    assert_equal 0.32, @game_teams_manager.average_win_percentage("4")
-  end
-
   def test_it_can_filter_by_team_id
     assert @game_teams_manager.filter_by_team_id("4").all? do |gameteam|
       gameteam.team_id == "4"
     end
   end
 
+  def test_it_can_calculate_average_win_percentage_by_a_group
+    expected = {"14"=>0.4, "1"=>0.8, "4"=>0.83, "26"=>0.25}
+    assert_equal expected, @game_teams_manager.average_win_percentage_by(@game_teams_manager.game_teams_by_opponent("6"))
+  end
+
+  def test_it_can_return_highest_win_percentage_for_a_group
+    assert_equal "4", @game_teams_manager.highest_win_percentage(@game_teams_manager.game_teams_by_opponent("6"))
+  end
+
+  def test_it_can_return_lowest_win_percentage_for_a_group
+    assert_equal "26", @game_teams_manager.lowest_win_percentage(@game_teams_manager.game_teams_by_opponent("6"))
+  end
 
   def test_it_can_get_number_of_games_by_team
     expected = {"1"=>23, "4"=>22, "14"=>21, "6"=>20, "26"=>20}
@@ -161,7 +179,6 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal expected, @game_teams_manager.total_scores_by_team
   end
 
-  # Check validity of test - are the expected values accurate?
   def test_it_can_get_average_scores_per_team
     expected = {"1"=>1.87, "4"=>1.682, "14"=>2.238, "6"=>2.35, "26"=>1.85}
     assert_equal expected, @game_teams_manager.average_scores_by_team
