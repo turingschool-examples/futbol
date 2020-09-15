@@ -48,14 +48,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal "26", @stats.get_opponent_id("2014020371","6")
   end
 
-  def test_it_can_create_gameteams_by_opponent
-    assert_equal ["14", "1", "4", "26"], @stats.game_teams_by_opponent("6").keys
-    assert_equal 5, @stats.game_teams_by_opponent("6")["14"].size
-    assert_equal 5, @stats.game_teams_by_opponent("6")["1"].size
-    assert_equal 6, @stats.game_teams_by_opponent("6")["4"].size
-    assert_equal 4, @stats.game_teams_by_opponent("6")["26"].size
-  end
-
   def test_it_can_get_game_ids_in_season
     expected = ["2013020088", "2013020203", "2013020285", "2013020321", "2013020334", "2013020371", "2013020649", "2013020667", "2013020739", "2013021160", "2013021198", "2013021221"]
     assert_equal expected, @stats.fetch_game_ids_by_season("20132014")
