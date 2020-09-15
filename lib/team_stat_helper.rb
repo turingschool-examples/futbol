@@ -69,4 +69,5 @@ class TeamStatHelper
       games.include?(game.game_id)
     end
   end
+
 end

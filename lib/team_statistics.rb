@@ -74,17 +74,12 @@ class TeamStatistics < TeamStatHelper
 
   def favorite_opponent(team_id)
     games = games_for_team_id(team_id)
-    require "pry"; binding.pry
     opponents = {}
     game_count = {}
     games.each do |game|
       if team_id.to_i != game.team_id && opponents[game.team_id].nil?
         game_count[game.team_id] = 1
-        if game.result == "WIN"
-          opponents[game.team_id] = 1
-        else
-          opponents[game.team_id] = 0
-        end
+          game.result == "WIN" ? opponents[game.team_id] = 1 : opponents[game.team_id] = 0
       elsif team_id.to_i != game.team_id
         opponents[game.team_id] += 1 if game.result == "WIN"
         game_count[game.team_id] += 1
