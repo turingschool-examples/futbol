@@ -1,9 +1,9 @@
 require_relative 'team'
 require_relative 'csv_module'
-
+require_relative 'data_call'
 
 class TeamManager
-  include CSVModule
+  include CSVModule, DataCall
   attr_reader :teams, :stat_tracker, :teams_data
   def initialize(location, stat_tracker)
     @stat_tracker = stat_tracker
@@ -94,25 +94,6 @@ class TeamManager
     find_team(rival_id).team_info['team_name']
   end
 
-  def game_ids_by_season(id)
-    gather_game_info(id).reduce({}) do |collector, game|
-      collector[game[:season_id]] = [] if collector[game[:season_id]].nil?
-      collector[game[:season_id]] << game[:game_id]
-      collector
-    end
-  end
-
-  def game_teams_by_season(id)
-    seasons = game_ids_by_season(id)
-    seasons.each do |season, game_ids|
-      seasons[season] = game_ids.map do |game_id|
-        game_team_info(game_id)
-      end
-    end
-
-    seasons
-  end
-
   def count_season_wins(id, season)
     season.count do |pair|
       pair[id][:result] == 'WIN'
@@ -142,17 +123,12 @@ class TeamManager
       (wins[season] / seasons[season].length.to_f).round(2)
     end
   end
-  #
-  # def team_info(team_id)
-  #   teams_data[team_id]
-  # end
 
   def team_data_by_id
     @teams.map{|team| [team.team_id, team.team_info]}.to_h
   end
 
   def count_of_teams
-    # @teams_data.count
     teams.count
   end
 end

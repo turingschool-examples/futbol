@@ -489,4 +489,8 @@ class TeamManagerTest < Minitest::Test
 
     assert_equal '20142015', team_manager.worst_season('5')
   end
+
+  def test_it_can_find_team_data_by_id
+    assert_equal 32, @team_manager.team_data_by_id.count
+  end
 end

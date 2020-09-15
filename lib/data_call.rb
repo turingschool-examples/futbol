@@ -27,4 +27,23 @@ module DataCall
   def game_info(game_id)
     games.find {|game| game.game_id == game_id }.game_info
   end
+
+  def game_ids_by_season(id)
+    gather_game_info(id).reduce({}) do |collector, game|
+      collector[game[:season_id]] = [] if collector[game[:season_id]].nil?
+      collector[game[:season_id]] << game[:game_id]
+      collector
+    end
+  end
+
+  def game_teams_by_season(id)
+    seasons = game_ids_by_season(id)
+    seasons.each do |season, game_ids|
+      seasons[season] = game_ids.map do |game_id|
+        game_team_info(game_id)
+      end
+    end
+    seasons
+
+  end
 end
