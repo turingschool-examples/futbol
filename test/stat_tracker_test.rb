@@ -175,4 +175,14 @@ class TestStatTracker < Minitest::Test
   def test_it_can_find_percentage_visitor_wins
     assert_equal 0.36, @stat_tracker.percentage_visitor_wins
   end
+
+  def test_it_can_find_percentage_ties
+    assert_equal 0.20, @stat_tracker.percentage_ties
+  end
+
+  def test_it_can_find_count_of_games_by_season
+    assert_equal 1323, @stat_tracker.count_of_games_by_season['20132014']
+    assert_equal 1319, @stat_tracker.count_of_games_by_season['20142015']
+    assert_equal 1321, @stat_tracker.count_of_games_by_season['20152016']
+  end
 end
