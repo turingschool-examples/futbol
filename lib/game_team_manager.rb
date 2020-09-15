@@ -15,7 +15,7 @@ class GameTeamManager
     end
     array
   end
-  
+
   def goal_avg_per_team(team_id, home_away)
     goal_array = []
     @game_teams.each do |game|
@@ -55,8 +55,7 @@ class GameTeamManager
   def team_data
     @stat_tracker.team_manager.teams
   end
-
-=======
+  
   def game_ids_by_team(id)
     game_teams.select do |game_team|
       game_team.team_id == id
