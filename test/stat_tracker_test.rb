@@ -22,12 +22,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Chicago Fire", @stats.fetch_team_identifier("4")
   end
 
-  def test_it_can_sum_game_goals
-    assert_equal 211, @stats.total_goals
-    season_1415 = @stats.season_group["20142015"]
-    assert_equal 67, @stats.total_goals(season_1415)
-  end
-
   def test_it_can_return_array_of_game_ids_per_season
     expected = ["2012020030", "2012020133", "2012020355", "2012020389"]
     assert_equal expected, @stats.fetch_game_ids_by_season("20122013")
