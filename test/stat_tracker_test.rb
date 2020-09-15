@@ -37,14 +37,8 @@ class StatTrackerTest < Minitest::Test
     end
   end
 
-  def test_it_can_get_a_game
-    assert_equal "2014021002", @stats.get_game("2014021002").game_id
-  end
-
   def test_it_can_get_opponent_id
     assert_equal "14", @stats.get_opponent_id("2014021002","6")
-
-    game = @stats.get_game("2014020371")
     assert_equal "26", @stats.get_opponent_id("2014020371","6")
   end
 
