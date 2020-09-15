@@ -15,11 +15,6 @@ class Team
     @average_goals = team_average_goals(@team_id)
     @avg_goals_visitor = average_goals_by_type(@team_id, 'away')
     @avg_goals_home = average_goals_by_type(@team_id, 'home')
-    # @best_season = get_best_season(@team_id)
-    # @worst_season = get_worst_season(@team_id)
-    # @avg_win_pct = get_average_win_percentage(@team_id)
-    # @favorite_opponent = get_favorite_opponent(@team_id)
-    # @rival = get_rival(@team_id)
   end
 
   def team_average_goals(team_id)
@@ -29,24 +24,4 @@ class Team
   def average_goals_by_type(team_id, home_away)
     @manager.average_number_of_goals_scored_by_team_by_type(team_id, home_away)
   end
-
-  # def get_best_season(team_id)
-  #   @manager.get_best_season(team_id)
-  # end
-  #
-  # def get_worst_season(team_id)
-  #   @manager.get_worst_season(team_id)
-  # end
-  #
-  # def get_average_win_percentage(team_id)
-  #   @manager.get_average_win_percentage(team_id)
-  # end
-  #
-  # def get_favorite_opponent(team_id)
-  #   @manager.get_favorite_opponent(team_id)
-  # end
-  #
-  # def get_rival(team_id)
-  #   @manager.get_rival(team_id)
-  # end
 end
