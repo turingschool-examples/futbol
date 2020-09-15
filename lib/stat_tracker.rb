@@ -30,10 +30,6 @@ class StatTracker
     @games_manager.game_ids_by_season(season)
   end
 
-  def total_games(filtered_games = @games_manager.games)
-    @games_manager.total_games
-  end
-
   def total_goals(filtered_games = @games_manager.games)
     @games_manager.total_goals(filtered_games)
   end
