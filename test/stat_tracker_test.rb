@@ -21,12 +21,6 @@ class StatTrackerTest < Minitest::Test
 
   # ~~~ HELPER METHOD TESTS~~~
 
-  # def test_it_can_sum_goals_per_game ###
-  #   expected = {
-  #     2014020006=>6, 2014021002=>4, 2014020598=>3, 2014020917=>5, 2014020774=>4, 2014020142=>5, 2014020981=>5, 2014020970=>5, 2014020002=>3, 2014020391=>3, 2014020423=>3, 2014020643=>6, 2014020371=>2, 2014020845=>5, 2014021083=>4, 2014020775=>4}
-  #   assert_equal expected, @stats.sum_game_goals("20142015")
-  # end
-
   def test_it_can_find_total_games ###
     assert_equal 53, @stats.total_games
   end
@@ -46,21 +40,6 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_team_name_from_team_id
     assert_equal "Chicago Fire", @stats.fetch_team_identifier("4")
   end
-  # DUPLICATE - In other test class
-  # def test_it_can_get_total_scores_by_team
-  #   expected = {"1"=>43, "4"=>37, "14"=>47, "6"=>47, "26"=>37}
-  #   assert_equal expected, @stats.total_scores_by_team
-  # end
-  # DUPLICATE - In other test class
-  # def test_it_can_get_number_of_games_by_team
-  #   expected = {"1"=>23, "4"=>22, "14"=>21, "6"=>20, "26"=>20}
-  #   assert_equal expected, @stats.games_containing_team
-  # end
-  # DUPLICATE - In other test class
-  # def test_it_can_get_average_scores_per_team
-  #   expected = {"1"=>1.87, "4"=>1.682, "14"=>2.238, "6"=>2.35, "26"=>1.85}
-  #   assert_equal expected, @stats.average_scores_by_team
-  # end
 
   def test_it_can_sum_game_goals
     assert_equal 211, @stats.total_goals
@@ -112,21 +91,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal GameTeam, @stats.find_game_teams(season_game_ids)[0].class
     assert_equal (season_game_ids.count * 2), @stats.find_game_teams(season_game_ids).count
   end
-  # DUPLICATE - In other test class
-  # def test_it_can_get_shots_per_team
-  #   expected = {"4"=>32, "14"=>26, "1"=>27, "6"=>24, "26"=>40}
-  #   assert_equal expected, @stats.shots_per_team_id("20132014")
-  # end
-
-  # def test_it_can_find_goals_per_season
-  #   expected = {"4"=>10, "14"=>9, "1"=>7, "6"=>10, "26"=>11}
-  #   assert_equal expected, @stats.season_goals("20132014")
-  # end
-  # DUPLICATE - In other test class
-  # def test_shots_per_goal_per_season_for_given_season
-  #   expected = {"4"=>3.20, "14"=>2.89, "1"=>3.86, "6"=>2.40, "26"=>3.64}
-  #   assert_equal expected, @stats.shots_per_goal_per_season("20132014")
-  # end
 
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won ###
