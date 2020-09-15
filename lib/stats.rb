@@ -15,8 +15,8 @@ class Stats
     rows = CSV.read('./data/games.csv', { encoding: 'UTF-8', headers: true, header_converters: :symbol})
     result = []
     rows.each do |game|
-      game.delete(:venue)
-      game.delete(:venue_link)
+      # game.delete(:venue)
+      # game.delete(:venue_link)
       result << Game.new(game)
     end
     result
@@ -26,12 +26,12 @@ class Stats
     rows = CSV.read('./data/game_teams.csv', { encoding: 'UTF-8', headers: true, header_converters: :symbol})
     result = []
     rows.each do |gameteam|
-      gameteam.delete(:pim)
-      gameteam.delete(:powerPlayOpportunities)
-      gameteam.delete(:powerPlayGoals)
-      gameteam.delete(:faceOffWinPercentage)
-      gameteam.delete(:giveaways)
-      gameteam.delete(:takeaways)
+      # gameteam.delete(:pim)
+      # gameteam.delete(:powerPlayOpportunities)
+      # gameteam.delete(:powerPlayGoals)
+      # gameteam.delete(:faceOffWinPercentage)
+      # gameteam.delete(:giveaways)
+      # gameteam.delete(:takeaways)
       result << GameTeams.new(gameteam)
     end
     result
@@ -41,7 +41,7 @@ class Stats
     teams_data = CSV.read('./data/teams.csv', { encoding: 'UTF-8', headers: true, header_converters: :symbol, converters: :all })
     result = []
     teams_data.each do |team|
-      team.delete(:stadium)
+      # team.delete(:stadium)
       result << Team.new(team)
     end
     result
