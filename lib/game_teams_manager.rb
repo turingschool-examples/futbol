@@ -266,4 +266,51 @@ class GameTeamsManager
       game_team.goals
     end.goals
   end
+
+  def game_ids_played_by_team(team_id)
+    selected_team_game_teams(team_id).map do |game_team|
+      game_team.game_id
+    end
+  end
+
+  def all_teams_for_game_id_list(team_id)
+    @game_teams.select do |game_team|
+      game_ids_played_by_team(team_id).include?(game_team.game_id)
+    end
+  end
+
+  def game_teams_played_by_opponent(team_id)
+    all_teams_for_game_id_list(team_id).select do |game_team|
+      game_team.team_id != team_id
+    end
+  end
+
+  def games_w_opponent_hash(team_id)
+    game_teams_played_by_opponent(team_id).group_by do |game_team|
+      game_team.team_id
+    end
+  end
+
+  def opponent_hash(team_id)
+    woohoo = {}
+    games_w_opponent_hash(team_id).map do |opp_team_id, game_team_obj|
+      tie_loss = game_team_obj.count do |game_team|
+        game_team.result == 'LOSS' || game_team.result == 'TIE'
+      end
+      woohoo[opp_team_id] = (tie_loss.to_f / game_team_obj.count).round(2)
+    end
+    woohoo
+  end
+
+  def get_favorite_opponent(team_id)
+    opponent_hash(team_id).max_by do |opp_team_id, tie_loss|
+      tie_loss
+    end.to_a[0]
+  end
+
+  def get_rival(team_id)
+    opponent_hash(team_id).min_by do |opp_team_id, tie_loss|
+      tie_loss
+    end.to_a[0]
+  end
 end

@@ -184,4 +184,14 @@ class GameTeamsManagerTest < Minitest::Test
     team_id = '6'
     assert_equal 1, @game_teams_manager.get_fewest_goals_scored_for_team(team_id)
   end
+
+  def test_it_can_get_favorite_opponent
+    team_id = '6'
+    assert_equal '3', @game_teams_manager.get_favorite_opponent(team_id)
+  end
+
+  def test_it_can_get_rival
+    team_id = '6'
+    assert_equal '3', @game_teams_manager.get_rival(team_id)
+  end
 end
