@@ -25,7 +25,6 @@ class TeamManager
     team_stats_hash
   end
 
-  #-------------TeamStats
   def team_info(team_id)
     team_info = {}
     @teams.each do |team|

@@ -13,7 +13,7 @@ class GameManager
   end
 
   def create_games(path)
-    games_data = CSV.read(path, headers:true)
+    games_data = CSV.read(path, headers: true)
 
     @games = games_data.map do |data|
       Game.new(data, self)
@@ -21,12 +21,11 @@ class GameManager
   end
 
   #------------SeasonStats
-
   def games_of_season(season)
-    @games.find_all {|game| game.season == season}
+    @games.find_all { |game| game.season == season }
   end
 
-#---------------TeamStats
+  #---------------TeamStats
   def games_by_team(team_id)
     @games.select do |game|
       game.home_team_id == team_id || game.away_team_id == team_id
@@ -49,9 +48,7 @@ class GameManager
     end
   end
 
-
-#-------------GameStatistics
-
+  #-------------GameStatistics
   def highest_total_score
     result = @games.max_by do |game|
       game.away_goals.to_i + game.home_goals.to_i
@@ -77,7 +74,7 @@ class GameManager
   def games_by_season
     result = {}
     games.each do |game|
-      if result[game.season] == nil
+      if result[game.season].nil?
         result[game.season] = [game]
       else
         result[game.season] << game
@@ -96,7 +93,8 @@ class GameManager
       goal_count += game.home_goals.to_i
       goal_count += game.away_goals.to_i
     end
-    return goal_count
+
+    goal_count
   end
 
   def total_number_of_games
@@ -104,7 +102,8 @@ class GameManager
     games.each do |game|
       game_count += 1
     end
-    return game_count
+    
+    game_count
   end
 
   def average_goals_by_season
@@ -118,7 +117,7 @@ class GameManager
   def initialize_season_information
     season_info = {}
     games.each do |game|
-      season_info[game.season] = {total_goals: 0, away_goals: 0, home_goals: 0, total_games: 0}
+      season_info[game.season] = { total_goals: 0, away_goals: 0, home_goals: 0, total_games: 0 }
     end
     season_info
   end
@@ -135,5 +134,4 @@ class GameManager
       goals[:total_goals] = goals[:away_goals] + goals[:home_goals]
     end
   end
-
 end
