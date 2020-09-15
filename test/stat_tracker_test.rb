@@ -183,4 +183,14 @@ class StatTrackerTest < Minitest::Test
     team_id = '3'
     assert_equal 0.0, @stat_tracker.average_win_percentage(team_id)
   end
+
+  def test_it_can_get_favorite_opponent
+    team_id = '6'
+    assert_equal '3', @stat_tracker.get_favorite_opponent(team_id)
+  end
+
+  def test_it_can_get_rival
+    team_id = '6'
+    assert_equal '3', @stat_tracker.get_rival(team_id)
+  end
 end

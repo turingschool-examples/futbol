@@ -160,4 +160,13 @@ class StatTracker
   def get_average_win_percentage(team_id)
     @game_teams_manager.get_average_win_percentage(team_id)
   end
+
+  def get_favorite_opponent(team_id)
+    @game_teams_manager.get_favorite_opponent(team_id)
+  end
+
+  def get_rival(team_id)
+    @game_teams_manager.get_rival(team_id)
+  end
+
 end
