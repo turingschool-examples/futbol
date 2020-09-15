@@ -55,7 +55,7 @@ class GameTeamManager
   def team_data
     @stat_tracker.team_manager.teams
   end
-  
+
   def game_ids_by_team(id)
     game_teams.select do |game_team|
       game_team.team_id == id
@@ -82,9 +82,7 @@ class GameTeamManager
   end
 
   def season_coaches(season_id)
-    game_teams_data_for_season(season_id).map do |game|
-      game.head_coach
-    end.uniq
+    game_teams_data_for_season(season_id).map { |game| game.head_coach }.uniq
   end
 
   def winningest_coach(season_id)
