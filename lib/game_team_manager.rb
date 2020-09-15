@@ -92,23 +92,19 @@ class GameTeamManager
   def team_accuracy(season_id)
     team_hash = {}
     season_teams(season_id).each do |team|
-      ratio = total_goals_by_team(season_id, team).to_f / total_shots_by_team(season_id, team).to_f
+      ratio = total_goals_by_team(season_id, team).to_f / total_shots_by_team(season_id, team)
       team_hash[team] = ratio.round(6)
     end
     team_hash
   end
 
   def most_accurate_team(season_id)
-    most_accurate = team_accuracy(season_id).max_by do |_team, accuracy|
-      accuracy
-    end[0]
+    return_max(team_accuracy(season_id))
     team_by_id(most_accurate)
   end
 
   def least_accurate_team(season_id)
-    least_accurate = team_accuracy(season_id).min_by do |_team, accuracy|
-      accuracy
-    end[0]
+    return_min(team_accuracy(season_id))
     team_by_id(least_accurate)
   end
 
@@ -144,4 +140,13 @@ class GameTeamManager
     end[0]
     team_by_id(fewest_tackles_team)
   end
+
+  def return_max(hash)
+    hash.key(hash.values.max)
+  end
+
+  def return_min(hash)
+    hash.key(hash.values.min)
+  end
+
 end
