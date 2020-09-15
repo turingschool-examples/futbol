@@ -95,15 +95,10 @@ class GameManager
   end
 
   def count_of_games_by_season
-    seasons = []
-    seasons_hash = {}
-    @games.each do |game|
-      seasons << game.season unless seasons.include? game.season
+    group_by_season.reduce({}) do |games_season_count, (season, games)|
+      games_season_count[season] = games.length
+      games_season_count
     end
-    seasons.each do |season|
-      seasons_hash[season] = @games.count { |game| game.season == season }
-    end
-    seasons_hash
   end
 
   def average_goals_per_game
