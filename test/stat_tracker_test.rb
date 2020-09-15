@@ -67,22 +67,21 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_team_name_from_team_id
     assert_equal "Chicago Fire", @stats.team_names_by_team_id("4")
   end
-
-  def test_it_can_get_total_scores_by_team
-    expected = {"1"=>43, "4"=>37, "14"=>47, "6"=>47, "26"=>37}
-    assert_equal expected, @stats.total_scores_by_team
-  end
-
-  def test_it_can_get_number_of_games_by_team
-    expected = {"1"=>23, "4"=>22, "14"=>21, "6"=>20, "26"=>20}
-    assert_equal expected, @stats.games_containing_team
-  end
-
-  # Check validity of test - are the expected values accurate?
-  def test_it_can_get_average_scores_per_team
-    expected = {"1"=>1.87, "4"=>1.682, "14"=>2.238, "6"=>2.35, "26"=>1.85}
-    assert_equal expected, @stats.average_scores_by_team
-  end
+  # DUPLICATE - In other test class
+  # def test_it_can_get_total_scores_by_team
+  #   expected = {"1"=>43, "4"=>37, "14"=>47, "6"=>47, "26"=>37}
+  #   assert_equal expected, @stats.total_scores_by_team
+  # end
+  # DUPLICATE - In other test class
+  # def test_it_can_get_number_of_games_by_team
+  #   expected = {"1"=>23, "4"=>22, "14"=>21, "6"=>20, "26"=>20}
+  #   assert_equal expected, @stats.games_containing_team
+  # end
+  # DUPLICATE - In other test class
+  # def test_it_can_get_average_scores_per_team
+  #   expected = {"1"=>1.87, "4"=>1.682, "14"=>2.238, "6"=>2.35, "26"=>1.85}
+  #   assert_equal expected, @stats.average_scores_by_team
+  # end
 
   def test_it_can_sum_game_goals
     assert_equal 211, @stats.total_goals
@@ -109,11 +108,6 @@ class StatTrackerTest < Minitest::Test
       # 26 => 0
     }
     assert_equal expected, @stats.team_tackles("20122013")
-  end
-
-  def test_it_can_get_average_scores_per_team
-    expected = {"1"=>1.87, "4"=>1.68, "14"=>2.24, "6"=>2.35, "26"=>1.85}
-    assert_equal expected, @stats.average_scores_by_team
   end
 
   def test_it_can_group_games_by_season
@@ -164,21 +158,21 @@ class StatTrackerTest < Minitest::Test
     assert_equal GameTeam, @stats.find_game_teams(season_game_ids)[0].class
     assert_equal (season_game_ids.count * 2), @stats.find_game_teams(season_game_ids).count
   end
-
-  def test_it_can_get_shots_per_team
-    expected = {"4"=>32, "14"=>26, "1"=>27, "6"=>24, "26"=>40}
-    assert_equal expected, @stats.shots_per_team_id("20132014")
-  end
+  # DUPLICATE - In other test class
+  # def test_it_can_get_shots_per_team
+  #   expected = {"4"=>32, "14"=>26, "1"=>27, "6"=>24, "26"=>40}
+  #   assert_equal expected, @stats.shots_per_team_id("20132014")
+  # end
 
   def test_it_can_find_goals_per_season
     expected = {"4"=>10, "14"=>9, "1"=>7, "6"=>10, "26"=>11}
     assert_equal expected, @stats.season_goals("20132014")
   end
-
-  def test_shots_per_goal_per_season_for_given_season
-    expected = {"4"=>3.20, "14"=>2.89, "1"=>3.86, "6"=>2.40, "26"=>3.64}
-    assert_equal expected, @stats.shots_per_goal_per_season("20132014")
-  end
+  # DUPLICATE - In other test class
+  # def test_shots_per_goal_per_season_for_given_season
+  #   expected = {"4"=>3.20, "14"=>2.89, "1"=>3.86, "6"=>2.40, "26"=>3.64}
+  #   assert_equal expected, @stats.shots_per_goal_per_season("20132014")
+  # end
 
 # ~~~ GAME METHOD TESTS~~~
   def test_it_can_get_percentage_away_games_won ###
@@ -197,7 +191,7 @@ class StatTrackerTest < Minitest::Test
     expected = {"20142015"=>16, "20172018"=>9, "20152016"=>5, "20132014"=>12, "20122013"=>4, "20162017"=>7}
     assert_equal expected, @stats.count_of_games_by_season
   end
-
+  # DUPLICATE - In other test class - keep in both?
   def test_it_can_get_average_goals_by_season
     expected = {"20142015"=>4.19, "20172018"=>3.78, "20152016"=>3.8, "20132014"=>3.92, "20122013"=>3.5, "20162017"=>4.29}
     assert_equal expected , @stats.average_goals_by_season
@@ -213,10 +207,11 @@ class StatTrackerTest < Minitest::Test
   end
 
 # ~~~ LEAGUE METHOD TESTS~~~
+  # DUPLICATE - In other test class - keep in both?
   def test_worst_offense
     assert_equal "Chicago Fire", @stats.worst_offense
   end
-
+  # DUPLICATE - In other test class - keep in both?
   def test_best_offense
     assert_equal "FC Dallas", @stats.best_offense
   end
@@ -324,23 +319,6 @@ class StatTrackerTest < Minitest::Test
       },
     }
     assert_equal expected, @stats.all_teams_all_seasons_win_percentages
-  end
-
-  def test_it_can_return_a_teams_best_season
-    assert_equal "20122013", @stats.best_season("1")
-    assert_equal "20142015", @stats.best_season("4")
-    assert_equal "20122013", @stats.best_season("6")
-    assert_equal "20152016", @stats.best_season("14")
-    assert_equal "20172018", @stats.best_season("26")
-  end
-
-  #Took the first season in examples were there were multiple options
-  def test_it_can_return_a_teams_worst_season
-    assert_equal "20162017", @stats.worst_season("1")
-    assert_equal "20162017", @stats.worst_season("4")
-    assert_equal "20132014", @stats.worst_season("6")
-    assert_equal "20122013", @stats.worst_season("14")
-    assert_equal "20122013", @stats.worst_season("26")
   end
 
   def test_it_can_see_team_info
