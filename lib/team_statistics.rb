@@ -46,8 +46,8 @@ class TeamStatistics < TeamStatHelper
 
   def most_goals_scored(team_id)
     most_goals = 0
-    collect_seasons(team_id).each do |key, value|
-      value.each do |game|
+    collect_seasons(team_id).each do |season, games|
+      games.each do |game|
         if team_id.to_i == game.away_team_id
           most_goals = game.away_goals if game.away_goals > most_goals
         elsif team_id.to_i == game.home_team_id
