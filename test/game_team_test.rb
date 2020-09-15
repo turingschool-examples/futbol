@@ -2,31 +2,28 @@ require "./lib/game_team"
 require "./test/test_helper"
 
 class GameTeamTest < Minitest::Test
+
   def setup
-    GameTeam.from_csv
+    @game_team_1 = GameTeam.new({
+      game_id: "2014020006",
+      team_id: "1",
+      hoa: "away",
+      result: "WIN",
+      settled_in: "REG",
+      head_coach: "Peter DeBoer",
+      goals: 4,
+      shots: 6,
+      pim: 10,
+      ppg: 0,
+      ppo: 3,
+      fowp: 42.9,
+      tackles: 36,
+      giveaways: 4,
+      takeaways: 5,
+    })
   end
 
-  def test_it_can_read_from_csv
-    assert_equal 106, GameTeam.all_game_teams.count
-  end
-
-  def test_it_has_attributes
-    gt_1 = GameTeam.all_game_teams[0]
-
-    assert_equal 2014020006, gt_1.game_id
-    assert_equal 1, gt_1.team_id
-    assert_equal "away", gt_1.hoa
-    assert_equal "WIN", gt_1.result
-    assert_equal "REG", gt_1.settled_in
-    assert_equal "Peter DeBoer", gt_1.head_coach
-    assert_equal 4, gt_1.goals
-    assert_equal 6, gt_1.shots
-    assert_equal 36, gt_1.tackles
-    assert_equal 10, gt_1.pim
-    assert_equal 3, gt_1.ppo
-    assert_equal 0, gt_1.ppg
-    assert_equal 42.9, gt_1.fowp
-    assert_equal 4, gt_1.giveaways
-    assert_equal 5, gt_1.takeaways
+  def test_it_exists
+    assert_instance_of GameTeam, @game_team_1
   end
 end

@@ -1,26 +1,40 @@
 require "./test/test_helper"
 require "./lib/game"
+require "mocha/minitest"
 
 class GameTest < Minitest::Test
+
   def setup
-    Game.from_csv
-  end
-  def test_it_can_read_from_csv
-    assert_equal 53, Game.all_games.count
+    data = {
+      game_id: 2014020006,
+      season: "20142015",
+      type: "Regular Season",
+      date_time: "10/9/14",
+      away_team_id: "1",
+      home_team_id: "4",
+      away_goals: 4,
+      home_goals: 2
+    }
+    @game_1 = Game.new(data)
   end
 
-  def test_it_can_have_attributes
-    game1 = Game.all_games[0]
-
-    assert_equal 2014020006, game1.game_id
-    assert_equal "20142015", game1.season
-    assert_equal "Regular Season", game1.type
-    assert_equal "10/9/14", game1.date_time
-    assert_equal 1, game1.away_team_id
-    assert_equal 4, game1.home_team_id
-    assert_equal 4, game1.away_goals
-    assert_equal 2, game1.home_goals
-    assert_equal "SeatGeek Stadium", game1.venue
-    assert_equal "/api/v1/venues/null", game1.venue_link
+  def test_it_can_sum_a_game_total_score
+    assert_equal 6, @game_1.total_game_score
   end
+
+  def test_it_can_see_who_is_winner
+    assert_equal false, @game_1.home_is_winner?
+    assert @game_1.visitor_is_winner?
+  end
+
+  def test_it_can_determine_winner_id
+    assert_equal "1", @game_1.winner_id
+    refute_equal "4", @game_1.winner_id
+  end
+
+  def test_it_can_get_opponent_id
+    assert_equal "1", @game_1.get_opponent_id("4")
+    assert_equal "4", @game_1.get_opponent_id("1")
+  end
+
 end
