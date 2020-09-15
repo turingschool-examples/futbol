@@ -103,8 +103,8 @@ class GameTeamManagerTest < Minitest::Test
 
   def test_coaches_by_win_percentage
 
-    assert_equal 32, @game_team_manager.coaches_by_win_percentage('20122013').length
-    assert_equal 29.41, @game_team_manager.coaches_by_win_percentage('20122013')['Ken Hitchcock']
+    assert_equal 52.94, @game_team_manager.coaches_by_win_percentage('20122013','Peter DeBoer')
+    assert_equal 29.41, @game_team_manager.coaches_by_win_percentage('20122013','Ken Hitchcock')
   end
 
   def test_total_shots_by_team

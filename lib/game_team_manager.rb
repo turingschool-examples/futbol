@@ -77,25 +77,21 @@ class GameTeamManager
   end
 
   def winningest_coach(season_id)
-    return_max(coaches_by_win_percentage(season_id))
+    season_coaches(season_id).max_by {|coach| coaches_by_win_percentage(season_id,coach)}
   end
 
   def worst_coach(season_id)
-    return_min(coaches_by_win_percentage(season_id))
+    season_coaches(season_id).min_by {|coach| coaches_by_win_percentage(season_id,coach)}
   end
 
-  def coaches_by_win_percentage(season_id)
-    coaches_hash = {}
-    season_coaches(season_id).find_all do |coach|
-      total_games = game_teams_data_for_season(season_id).count do |game|
-        game.head_coach == coach
-      end
-      total_wins = game_teams_data_for_season(season_id).count do |game|
-        game.head_coach == coach && game.result == 'WIN'
-      end
-      coaches_hash[coach] = ((total_wins.to_f / total_games.to_f) * 100).round(2)
+  def coaches_by_win_percentage(season_id, coach)
+    coaches_array = []
+    count = 0
+    game_teams_data_for_season(season_id).each do |game|
+        coaches_array << game if game.head_coach == coach && game.result == 'WIN'
+      count += 1 if game.head_coach == coach
     end
-    coaches_hash
+      ((coaches_array.count.to_f / count) * 100 ).round(2)
   end
 
   def total_shots_by_team(season_id, team)
@@ -152,4 +148,5 @@ class GameTeamManager
   def fewest_tackles(season_id)
     return_min(total_tackles(season_id))
   end
+
 end
