@@ -47,8 +47,8 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_count_games_by_season
     expected = {
-      "20122013" => 7,
-      "20152016" => 1
+      '20122013' => 7,
+      '20152016' => 1
     }
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
@@ -59,8 +59,8 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_find_average_goals_by_season
     expected = {
-      "20122013" => 4.86,
-      "20152016" => 4.0
+      '20122013' => 4.86,
+      '20152016' => 4.0
     }
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
