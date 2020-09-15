@@ -116,4 +116,12 @@ class TeamsManager
   def get_rival(team_id)
     @tracker.get_rival(team_id)
   end
+
+  def favorite_opponent(team_id)
+    find_a_team(team_id).favorite_opponent
+  end
+
+  def rival(team_id)
+    find_a_team(team_id).rival
+  end
 end

@@ -120,4 +120,14 @@ class TeamManagerTest < Minitest::Test
     team_id = '6'
     assert_equal '3', @team_manager.get_rival(team_id)
   end
+
+  def test_team_favorite_opponent
+    team_id = '6'
+    assert_equal '3', @team_manager.favorite_opponent(team_id)
+  end
+
+  def test_team_rival
+    team_id = '6'
+    assert_equal '3', @team_manager.rival(team_id)
+  end
 end
