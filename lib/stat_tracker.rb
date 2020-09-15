@@ -34,10 +34,6 @@ class StatTracker
     @games_manager.season_group
   end
 
-  def average_scores_by_team
-    @game_teams_manager.average_scores_by_team
-  end
-
   def games_containing_team
     @game_teams_manager.games_containing_team
   end
