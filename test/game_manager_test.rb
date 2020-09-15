@@ -134,6 +134,24 @@ class GameManagerTest < Minitest::Test
     assert_equal expected, game_manager.count_of_games_by_season
   end
 
+  def test_it_knows_games_by_season
+    path = './fixture/game_blank.csv'
+    game_manager = GameManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_manager.games << game_1
+    game_manager.games << game_2
+    game_manager.games << game_3
+
+    game_1.stubs(:season).returns('20122013')
+    game_2.stubs(:season).returns('20122013')
+    game_3.stubs(:season).returns('20132014')
+
+    expected = {"20122013"=>[game_1, game_2], "20132014"=>[game_3]}
+    assert_equal expected, game_manager.games_by_season
+  end
+
   def test_it_knows_average_goals_per_game
     path = './fixture/game_blank.csv'
     game_manager = GameManager.new(path, nil)
