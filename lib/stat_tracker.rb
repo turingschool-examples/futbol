@@ -2,8 +2,10 @@ require "csv"
 require_relative "./teams_manager"
 require_relative "./games_manager"
 require_relative "./game_teams_manager"
+require_relative './manageable'
 
 class StatTracker
+  include Manageable
   attr_reader :teams_manager, :games_manager, :game_teams_manager
 
   def initialize(locations)
@@ -344,7 +346,7 @@ class StatTracker
   end
 
   def average_win_percentage(team_id)
-    @game_teams_manager.average_win_percentage(team_id)
+    ratio(@game_teams_manager.total_wins(@game_teams_manager.filter_by_team_id(team_id)), @game_teams_manager.total_game_teams(@game_teams_manager.filter_by_team_id(team_id)))
   end
 
   def worst_season(team_id)
