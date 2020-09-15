@@ -105,4 +105,19 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal 0.0, stat_tracker.percentage_ties
   end
+
+  def test_it_can_find_count_of_games_by_season
+    game_path = './fixture/games_dummy.csv'
+    team_path = './fixture/teams_dummy.csv'
+    game_teams_path = './fixture/game_teams_dummy.csv'
+
+     locations = {
+       games: game_path,
+       teams: team_path,
+       game_teams: game_teams_path
+     }
+     stat_tracker = StatTracker.from_csv(locations)
+     expected = {"20122013"=>16}
+    assert_equal expected, stat_tracker.count_of_games_by_season
+  end
 end
