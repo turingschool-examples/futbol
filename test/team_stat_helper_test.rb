@@ -10,6 +10,7 @@ class TeamStatHelperTest < Minitest::Test
     @team_stat_helper ||= TeamStatHelper.new(@stat_tracker.game_table, @stat_tracker.team_table, @stat_tracker.game_team_table)
   end
 
+
   def test_collect_seasons
     expected = ["20122013", "20172018", "20132014", "20142015", "20152016", "20162017"]
     assert_equal expected, @team_stat_helper.collect_seasons("6").keys
@@ -36,6 +37,20 @@ class TeamStatHelperTest < Minitest::Test
     assert_equal 1014, @team_stat_helper.games_for_team_id("19").length
     assert_equal 926, @team_stat_helper.games_for_team_id("1").length
     assert_equal 656, @team_stat_helper.games_for_team_id("53").length
+  end
+
+  def test_add_game_wins_to_win_count
+    game_table = @stat_tracker.game_table
+    info = []
+    count = 0
+    game_table.values.each do |game|
+      break if count == 5
+      if game.away_team_id == 6
+        info << game
+        count += 1
+      end
+    end
+    assert_equal 5, @team_stat_helper.add_game_wins_to_win_count("6", info)
   end
 
 end
