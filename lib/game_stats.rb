@@ -1,19 +1,22 @@
-class GameStatistics
-  attr_reader :game_data,
-              :game_teams_data
+require_relative 'stats'
+require_relative 'groupable'
 
-  def initialize(array_game_data, array_game_teams_data)
-    @game_data = array_game_data
-    @game_teams_data = array_game_teams_data
+class GameStats < Stats
+  include Groupable
+  attr_reader :tracker
+
+  def initialize(tracker)
+    @tracker = tracker
+    super(game_stats_data, game_teams_stats_data, teams_stats_data)
   end
 
   def total_games
-    @game_data.count
+    @game_stats_data.count
   end
 
   def get_all_scores_by_game_id
-    game_data.flat_map do |game|
-      game[:away_goals] + game[:home_goals]
+    @game_stats_data.map do |game|
+      game.away_goals + game.home_goals
     end
   end
 
@@ -25,31 +28,24 @@ class GameStatistics
     get_all_scores_by_game_id.min
   end
 
+  def all_home_wins
+    @tracker.league_stats.all_home_wins
+  end
+
   def percentage_home_wins
     (all_home_wins.count.to_f / total_games).round(2)
   end
 
-  def all_home_wins
-    @game_teams_data.select do |game|
-      game[:hoa] == "home" && game[:result] == "WIN"
-    end
+  def all_visitor_wins
+    @tracker.league_stats.all_visitor_wins
   end
 
   def percentage_visitor_wins
     (all_visitor_wins.count.to_f / total_games).round(2)
   end
 
-  def all_visitor_wins
-    @game_teams_data.select do |game|
-      game[:hoa] == "away" && game[:result] == "WIN"
-    end
-  end
-
   def count_of_ties
-    double_ties = @game_teams_data.find_all do |game|
-      game[:result] == "TIE"
-    end
-    double_ties.count / 2
+    @tracker.league_stats.count_of_ties
   end
 
   def percentage_ties
@@ -57,9 +53,7 @@ class GameStatistics
   end
 
   def hash_of_seasons
-    @game_data.group_by do |game|
-      game[:season]
-    end
+    @game_stats_data.group_by {|game| game.season}
   end
 
   def count_of_games_by_season
@@ -77,11 +71,17 @@ class GameStatistics
   def average_goals_by_season
     hash = {}
     hash_of_seasons.each do |season, stat|
-      goals_per_szn = stat.map do |game|
-        game[:home_goals] + game[:away_goals]
+      goals_per_season = stat.map do |game|
+        game.home_goals + game.away_goals
       end
-      hash[season.to_s] = (goals_per_szn.sum / stat.count.to_f).round(2)
+      hash[season.to_s] = (goals_per_season.sum / stat.count.to_f).round(2)
     end
     hash
+  end
+
+  def find_all_game_ids_by_team(team_id)
+    @game_stats_data.find_all do |game|
+      game.home_team_id == team_id || game.away_team_id == team_id
+    end
   end
 end

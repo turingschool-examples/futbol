@@ -1,57 +1,69 @@
-class TeamStats
-  attr_reader :game_data,
-              :game_teams_data,
-              :teams_data
+require_relative 'stats'
+require_relative 'hashable'
+require_relative 'groupable'
 
-  def initialize(data)
-    @game_data = data.game_data
-    @game_teams_data = data.game_teams_data
-    @teams_data = data.teams_data
+class TeamStats < Stats
+  include Hashable
+  include Groupable
+  attr_reader :tracker
+
+  def initialize(tracker)
+    @tracker = tracker
+    super(game_stats_data, game_teams_stats_data, teams_stats_data)
   end
 
-  def group_teams_data
-    @teams_data.group_by do |row|
-      row[:team_id]
+  def count_of_teams
+    @teams_stats_data.length
+  end
+
+  def group_by_team_id
+    @tracker.league_stats.group_by_team_id
+  end
+
+  def most_accurate_team(season)
+    accurate = @teams_stats_data.find do |team|
+      team.teamname if @tracker.season_stats.find_most_accurate_team(season) == team.team_id
     end
+    accurate.teamname
+  end
+
+  def least_accurate_team(season)
+    not_accurate = @teams_stats_data.find do |team|
+      team.teamname if @tracker.season_stats.find_least_accurate_team(season) == team.team_id
+    end
+    not_accurate.teamname
+  end
+
+  def most_tackles(season)
+    most_tackles = @teams_stats_data.find do |team|
+      team.teamname if @tracker.season_stats.find_team_with_most_tackles(season) == team.team_id
+    end
+    most_tackles.teamname
+  end
+
+  def fewest_tackles(season)
+    fewest_tackles = @teams_stats_data.find do |team|
+      team.teamname if @tracker.season_stats.find_team_with_fewest_tackles(season) == team.team_id
+    end
+    fewest_tackles.teamname
   end
 
   def team_info(team_id)
-    v = []
-    group_teams_data.each do |key, data|
-      data.each do |row|
-        if team_id == key.to_s
-          v << row
-        end
+    hash = {}
+    @teams_stats_data.each do |team|
+      if team_id == team.team_id.to_s
+        hash['team_id'] = team.team_id.to_s
+        hash['franchise_id'] =  team.franchiseid.to_s
+        hash['team_name'] = team.teamname
+        hash['abbreviation'] = team.abbreviation
+        hash['link'] = team.link
       end
     end
-    key_transform = v[0].transform_keys {|k| k.to_s}
-    value_transform = key_transform.transform_values {|v| v.to_s}
+    hash
   end
 
   def all_team_games(team_id)
-    @game_teams_data.find_all do |game_team|
-      game_team[:team_id] == team_id.to_i
-    end
-  end
-
-  def group_by_season(team_id)
-    all_team_games(team_id).group_by do |game|
-      game[:game_id].to_s[0..3]
-    end
-  end
-
-  def percent_wins_by_season(team_id)
-    wins = {}
-    group_by_season(team_id).each do |season, games|
-      total_wins = 0
-      total_games = 0
-      games.each do |game|
-        total_wins += 1 if game[:result] == "WIN"
-        total_games += 1
-      end
-      wins[season] = (total_wins.to_f / total_games).round(3)
-    end
-    wins
+    @tracker.league_stats.all_team_games(team_id)
   end
 
   def best_season(team_id)
@@ -76,89 +88,36 @@ class TeamStats
 
   def total_wins(team_id)
     all_team_games(team_id).find_all do |game|
-      game[:result] == "WIN"
+      game.result == "WIN"
     end
   end
 
   def most_goals_scored(team_id)
     most = all_team_games(team_id).max_by do |game|
-      game[:goals]
+      game.goals
     end
-    most[:goals]
+    most.goals
   end
 
   def fewest_goals_scored(team_id)
     fewest = all_team_games(team_id).min_by do |game|
-      game[:goals]
+      game.goals
     end
-    fewest[:goals]
+    fewest.goals
   end
 
   def find_all_game_ids_by_team(team_id)
-    @game_data.find_all do |game|
-      game[:home_team_id] == team_id.to_i || game[:away_team_id] == team_id.to_i
-    end
+    @tracker.game_stats.find_all_game_ids_by_team(team_id)
   end
 
   def find_opponent_id(team_id)
     find_all_game_ids_by_team(team_id).map do |game|
-      if game[:home_team_id] == team_id.to_i
-        game[:away_team_id]
+      if game.home_team_id == team_id
+        game.away_team_id
       else
-        game[:home_team_id]
+        game.home_team_id
       end
     end
-  end
-
-  def hash_by_opponent_id(team_id)
-    hash = {}
-    find_opponent_id(team_id).each do |game|
-      hash[game] = find_all_game_ids_by_team(team_id)
-    end
-    hash
-  end
-
-  def sort_games_against_rival(team_id)
-    hash = {}
-    hash_by_opponent_id(team_id).each do |rival, games|
-      rival_games = games.find_all do |game|
-        rival == game[:away_team_id] || rival == game[:home_team_id]
-      end
-      hash[rival] = rival_games
-    end
-    hash
-  end
-
-  def find_count_of_games_against_rival(team_id)
-    hash = {}
-    sort_games_against_rival(team_id).each do |rival_id, rival_games|
-      game_count = rival_games.count
-      hash[rival_id] = game_count
-    end
-    hash
-  end
-
-  def find_percent_of_winning_games_against_rival(team_id)
-    hash = {}
-    sort_games_against_rival(team_id).each do |rival_id, rival_games|
-      given_team_win_count = 0
-      total_games = 0
-      rival_games.each do |game|
-        if rival_id == game[:away_team_id]
-          total_games += 1
-          if game[:away_goals] < game[:home_goals]
-            given_team_win_count += 1
-          end
-        else
-          total_games += 1
-          if game[:home_goals] < game[:away_goals]
-            given_team_win_count += 1
-          end
-        end
-      end
-      hash[rival_id] = (given_team_win_count.to_f / total_games).round(3) * 100
-    end
-    hash
   end
 
   def favorite_opponent_id(team_id)
@@ -170,10 +129,10 @@ class TeamStats
 
   def favorite_opponent(team_id)
     opponent_id = favorite_opponent_id(team_id)
-    opponent_name = @teams_data.find do |team|
-      team[:teamname] if opponent_id == team[:team_id]
+    opponent_name = @teams_stats_data.find do |team|
+      team.teamname if opponent_id == team.team_id.to_s
     end
-    opponent_name[:teamname]
+    opponent_name.teamname
   end
 
   def rival_opponent_id(team_id)
@@ -185,9 +144,9 @@ class TeamStats
 
   def rival(team_id)
     opponent_id = rival_opponent_id(team_id)
-    opponent_name = @teams_data.find do |team|
-      team[:teamname] if opponent_id == team[:team_id]
+    opponent_name = @teams_stats_data.find do |team|
+      team.teamname if opponent_id == team.team_id.to_s
     end
-    opponent_name[:teamname]
+    opponent_name.teamname
   end
 end

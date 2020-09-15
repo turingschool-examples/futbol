@@ -1,9 +1,6 @@
 require_relative 'test_helper'
-require './lib/game_statistics'
-require './lib/stat_tracker'
-require './lib/league_stats'
 
-class LeagueStatisticsTest < Minitest::Test
+class LeagueStatsTest < Minitest::Test
   def setup
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -14,53 +11,32 @@ class LeagueStatisticsTest < Minitest::Test
       teams: team_path,
       game_teams: game_teams_path
     }
-
-    @stat_tracker = StatTracker.from_csv(locations)
-    @raw_teams_stats = @stat_tracker.teams_stats
-    @raw_game_stats = @stat_tracker.game_stats
-    @raw_game_teams_stats = @stat_tracker.game_teams_stats
-    @game_statistics = GameStatistics.new(@raw_game_stats, @raw_game_teams_stats)
-    @league_stats = LeagueStatistics.new(@raw_teams_stats, @game_statistics)
+  @stat_tracker = StatTracker.from_csv(locations)
+  @league_stats = LeagueStats.new(@stat_tracker)
   end
 
-  def test_it_exits
-    assert_instance_of LeagueStatistics, @league_stats
-  end
-
-  def test_attributes
-    assert_equal 32, @league_stats.teams_data.length
+  def test_it_exists
+    assert_instance_of LeagueStats, @league_stats
   end
 
   def test_count_of_teams
     assert_equal 32, @league_stats.count_of_teams
   end
 
-  def test_group_by_team_id
-    assert_equal 32, @league_stats.group_by_team_id.keys.count
-  end
-
-  def test_team_id_and_average_goals
-    assert_equal 32, @league_stats.team_id_and_average_goals.count
-  end
-
   def test_best_offense_stats
     assert_equal 54, @league_stats.best_offense_stats
-  end
-
-  def test_worst_offense_stats
-    assert_equal 7, @league_stats.worst_offense_stats
   end
 
   def test_team_with_best_offense
     assert_equal 'Reign FC', @league_stats.best_offense
   end
 
-  def test_worst_offense
-    assert_equal 'Utah Royals FC', @league_stats.worst_offense
+  def test_worst_offense_stats
+    assert_equal 7, @league_stats.worst_offense_stats
   end
 
-  def test_id_and_average_away_goals
-    assert_equal 32, @league_stats.team_id_and_average_away_goals.count
+  def test_worst_offense
+    assert_equal 'Utah Royals FC', @league_stats.worst_offense
   end
 
   def test_team_highest_away_goals
@@ -75,14 +51,6 @@ class LeagueStatisticsTest < Minitest::Test
     assert_equal 27, @league_stats.team_lowest_away_goals
   end
 
-  def test_lowest_scoring_visitor
-    assert_equal 'San Jose Earthquakes', @league_stats.lowest_scoring_visitor
-  end
-
-  def test_id_and_average_home_goals
-    assert_equal 32, @league_stats.team_id_and_average_home_goals.count
-  end
-
   def test_team_highest_home_goals
     assert_equal 54, @league_stats.team_highest_home_goals
   end
@@ -93,6 +61,10 @@ class LeagueStatisticsTest < Minitest::Test
 
   def test_team_lowest_home_goals
     assert_equal 7, @league_stats.team_lowest_home_goals
+  end
+
+  def test_lowest_scoring_visitor
+    assert_equal 'San Jose Earthquakes', @league_stats.lowest_scoring_visitor
   end
 
   def test_lowest_scoring_home_team

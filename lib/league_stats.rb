@@ -1,42 +1,21 @@
-class LeagueStatistics
-  attr_reader :teams_data, :game_stats
-  def initialize(array_teams_data, game_stats)
-    @teams_data = array_teams_data
-    @game_stats = game_stats
+require_relative 'stats'
+require_relative 'hashable'
+require_relative 'groupable'
+require_relative 'calculatable'
+
+class LeagueStats < Stats
+  include Hashable
+  include Groupable
+  include Calculatable
+  attr_reader :tracker
+
+  def initialize(tracker)
+    @tracker = tracker
+    super(game_stats_data, game_teams_stats_data, teams_stats_data)
   end
 
   def count_of_teams
-    @teams_data.length
-  end
-
-  def group_by_team_id
-    @game_stats.game_teams_data.group_by do |team|
-      team[:team_id]
-    end
-  end
-
-  def team_id_and_average_goals
-    average_goals_by_team = {}
-    group_by_team_id.each do |team, games|
-      total_games = games.map { |game| game[:game_id] }
-      total_goals = games.sum { |game| game[:goals] }
-      average_goals_by_team[team] = (total_goals.to_f / total_games.count).round(2)
-    end
-    average_goals_by_team
-  end
-
-  def best_offense
-    best_attack = @teams_data.find do |team|
-      team[:teamname] if best_offense_stats == team[:team_id]
-    end
-    best_attack[:teamname]
-  end
-
-  def worst_offense
-    worst_attack = @teams_data.find do |team|
-      team[:teamname] if worst_offense_stats == team[:team_id]
-    end
-    worst_attack[:teamname]
+    @teams_stats_data.count
   end
 
   def best_offense_stats
@@ -46,6 +25,13 @@ class LeagueStatistics
     stats[-1][0]
   end
 
+  def best_offense
+    best_attack = @teams_stats_data.find do |team|
+      team.teamname if best_offense_stats == team.team_id
+    end
+    best_attack.teamname
+  end
+
   def worst_offense_stats
     stats = team_id_and_average_goals.sort_by do |key, value|
       value
@@ -53,14 +39,11 @@ class LeagueStatistics
     stats[0][0]
   end
 
-  def team_id_and_average_away_goals
-    away_team_goals = {}
-    group_by_team_id.each do |team, games|
-      away_games = games.find_all { |game| game[:hoa] == 'away' }
-      away_goals = away_games.sum { |game| game[:goals] }
-      away_team_goals[team] = (away_goals.to_f / away_games.count).round(3)
+  def worst_offense
+    worst_attack = @teams_stats_data.find do |team|
+      team.teamname if worst_offense_stats == team.team_id
     end
-    away_team_goals
+    worst_attack.teamname
   end
 
   def team_highest_away_goals
@@ -71,10 +54,10 @@ class LeagueStatistics
   end
 
   def highest_scoring_visitor
-    visitor = @teams_data.find do |team|
-      team[:teamname] if team_highest_away_goals == team[:team_id]
+    visitor = @teams_stats_data.find do |team|
+      team.teamname if team_highest_away_goals == team.team_id
     end
-    visitor[:teamname]
+    visitor.teamname
   end
 
   def team_lowest_away_goals
@@ -82,23 +65,6 @@ class LeagueStatistics
       goals
     end
     away_goals[0][0]
-  end
-
-  def lowest_scoring_visitor
-    visitor = @teams_data.find do |team|
-      team[:teamname] if team_lowest_away_goals == team[:team_id]
-    end
-    visitor[:teamname]
-  end
-
-  def team_id_and_average_home_goals
-    home_team_goals = {}
-    group_by_team_id.each do |team, games|
-      home_games = games.find_all { |game| game[:hoa] == 'home' }
-      home_goals = home_games.sum { |game| game[:goals] }
-      home_team_goals[team] = (home_goals.to_f / home_games.count).round(3)
-    end
-    home_team_goals
   end
 
   def team_highest_home_goals
@@ -109,10 +75,10 @@ class LeagueStatistics
   end
 
   def highest_scoring_home_team
-    home = @teams_data.find do |team|
-      team[:teamname] if team_highest_home_goals == team[:team_id]
+    home = @teams_stats_data.find do |team|
+      team.teamname if team_highest_home_goals == team.team_id
     end
-    home[:teamname]
+    home.teamname
   end
 
   def team_lowest_home_goals
@@ -122,10 +88,48 @@ class LeagueStatistics
     home_goals[0][0]
   end
 
-  def lowest_scoring_home_team
-    home = @teams_data.find do |team|
-      team[:teamname] if team_lowest_home_goals == team[:team_id]
+  def lowest_scoring_visitor
+    visitor = @teams_stats_data.find do |team|
+      team.teamname if team_lowest_away_goals == team.team_id
     end
-    home[:teamname]
+    visitor.teamname
+  end
+
+  def lowest_scoring_home_team
+    home = @teams_stats_data.find do |team|
+      team.teamname if team_lowest_home_goals == team.team_id
+    end
+    home.teamname
+  end
+
+  def count_of_ties
+    double_ties = @game_teams_stats_data.find_all do |game_team|
+      game_team.result == "TIE"
+    end
+    double_ties.count / 2
+  end
+
+  def all_visitor_wins
+    @game_teams_stats_data.select do |game_team|
+      game_team.hoa == "away" && game_team.result == "WIN"
+    end
+  end
+
+  def all_home_wins
+    @game_teams_stats_data.select do |game_team|
+      game_team.hoa == "home" && game_team.result == "WIN"
+    end
+  end
+
+  def group_by_team_id
+    @game_teams_stats_data.group_by do |team|
+      team.team_id
+    end
+  end
+
+  def all_team_games(team_id)
+    @game_teams_stats_data.find_all do |game_team|
+      game_team.team_id == team_id.to_i
+    end
   end
 end
