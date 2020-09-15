@@ -25,13 +25,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal 53, @stats.total_games
   end
 
-  def test_it_can_fetch_season_win_percentage
-    assert_equal 28.57, @stats.fetch_season_win_percentage("1", "20142015")
-    assert_equal 42.86, @stats.fetch_season_win_percentage("4", "20142015")
-    assert_equal 66.67, @stats.fetch_season_win_percentage("6", "20142015")
-    assert_equal 42.86, @stats.fetch_season_win_percentage("26", "20142015")
-  end
-
   def test_it_can_get_team_name_from_team_id
     assert_equal "Chicago Fire", @stats.fetch_team_identifier("4")
   end
