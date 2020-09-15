@@ -84,15 +84,11 @@ class GameTeamManager
   end
 
   def winningest_coach(season_id)
-    coaches_by_win_percentage(season_id).max_by do |_coach, win_percentage|
-      win_percentage
-    end[0]
+    return_max(coaches_by_win_percentage(season_id))
   end
 
   def worst_coach(season_id)
-    coaches_by_win_percentage(season_id).min_by do |_coach, win_percentage|
-      win_percentage
-    end[0]
+    return_min(coaches_by_win_percentage(season_id))
   end
 
   def coaches_by_win_percentage(season_id)
