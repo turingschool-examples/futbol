@@ -18,15 +18,20 @@ class GameTeamsTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal '2012030221', @game_manager.games[0].game_id
-    assert_equal '20122013', @game_manager.games[0].season
-    assert_equal 'Postseason', @game_manager.games[0].type
-    assert_equal '5/16/13', @game_manager.games[0].date_time
-    assert_equal '3', @game_manager.games[0].away_team_id
-    assert_equal '6', @game_manager.games[0].home_team_id
-    assert_equal '2', @game_manager.games[0].away_goals
-    assert_equal '3', @game_manager.games[0].home_goals
-    assert_equal 'Toyota Stadium', @game_manager.games[0].venue
-    assert_equal '/api/v1/venues/null', @game_manager.games[0].venue_link
+    assert_equal '2012030221', @game_teams_manager.game_teams[0].game_id
+    assert_equal '20122013', @game_teams_manager.game_teams[0].team_id
+    assert_equal 'Postseason', @game_teams_manager.game_teams[0].hoa
+    assert_equal '5/16/13', @game_teams_manager.game_teams[0].result
+    assert_equal '3', @game_teams_manager.game_teams[0].settled_in
+    assert_equal '6', @game_teams_manager.game_teams[0].head_coach
+    assert_equal '2', @game_teams_manager.game_teams[0].goals
+    assert_equal '3', @game_teams_manager.game_teams[0].shots
+    assert_equal 'Toyota Stadium', @game_teams_manager.game_teams[0].tackles
+    assert_equal '/api/v1/venues/null', @game_teams_manager.game_teams[0].power_play_opportunities
+    assert_equal '/api/v1/venues/null', @game_teams_manager.game_teams[0].power_play_goals
+    assert_equal '/api/v1/venues/null', @game_teams_manager.game_teams[0].face_off_win_percentage
+    assert_equal '/api/v1/venues/null', @game_teams_manager.game_teams[0].giveaways
+    assert_equal '/api/v1/venues/null', @game_teams_manager.game_teams[0].takeaways
+    assert_equal '/api/v1/venues/null', @game_teams_manager.game_teams[0].manager
   end
 end
