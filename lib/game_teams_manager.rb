@@ -1,6 +1,9 @@
 require_relative '../lib/findable'
+require_relative '../lib/assistant_to_the_game_teams_manager'
+
 class GameTeamsManager
   include Findable
+  include AssistantToTheGameTeamsManager
 
   attr_reader :game_teams, :tracker
 
@@ -18,7 +21,6 @@ class GameTeamsManager
   end
 
   # -------SeasonStats
-
   def winningest_coach(season)
     coaches_records(season).max_by do |coach, w_l|
       w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
@@ -55,50 +57,50 @@ class GameTeamsManager
     find_team_by_team_id(result_id[0])
   end
 
-  def game_teams_results_by_season(season)
-    game_teams.find_all do |team_result|
-      team_result.game_id.start_with?(season[0..3])
-    end
-  end
+  # def game_teams_results_by_season(season)
+  #   game_teams.find_all do |team_result|
+  #     team_result.game_id.start_with?(season[0..3])
+  #   end
+  # end
 
-  def coaches_records(season)
-    gt_results = game_teams_results_by_season(season)
-    coach_record_start = start_coaches_records(gt_results)
-    add_wins_losses(gt_results, coach_record_start)
-  end
+  # def coaches_records(season)
+  #   gt_results = game_teams_results_by_season(season)
+  #   coach_record_start = start_coaches_records(gt_results)
+  #   add_wins_losses(gt_results, coach_record_start)
+  # end
 
-  def teams_shots_to_goals(season)
-    gt_results = game_teams_results_by_season(season)
-    teams_shots_to_goals_start = start_shots_and_goals_per_team(gt_results)
-    add_shots_and_goals(gt_results, teams_shots_to_goals_start)
-  end
+  # def teams_shots_to_goals(season)
+  #   gt_results = game_teams_results_by_season(season)
+  #   teams_shots_to_goals_start = start_shots_and_goals_per_team(gt_results)
+  #   add_shots_and_goals(gt_results, teams_shots_to_goals_start)
+  # end
 
-  def team_tackles(season)
-    gt_results = game_teams_results_by_season(season)
-    tackles_start = start_tackles_per_team(gt_results)
-    add_tackles(gt_results, tackles_start)
-  end
+  # def team_tackles(season)
+  #   gt_results = game_teams_results_by_season(season)
+  #   tackles_start = start_tackles_per_team(gt_results)
+  #   add_tackles(gt_results, tackles_start)
+  # end
 
-  def start_coaches_records(gt_results)
-    coach_record_hash = {}
-    gt_results.each do |team_result|
-      coach_record_hash[team_result.head_coach] = {wins: 0, losses: 0, ties:0}
-    end
-    coach_record_hash
-  end
+  # def start_coaches_records(gt_results)
+  #   coach_record_hash = {}
+  #   gt_results.each do |team_result|
+  #     coach_record_hash[team_result.head_coach] = {wins: 0, losses: 0, ties:0}
+  #   end
+  #   coach_record_hash
+  # end
 
-  def add_wins_losses(gt_results, coach_record_start)
-    gt_results.each do |team_result|
-      if team_result.result == "WIN"
-        coach_record_start[team_result.head_coach][:wins] += 1
-      elsif team_result.result == "LOSS"
-        coach_record_start[team_result.head_coach][:losses] += 1
-      elsif team_result.result == "TIE"
-        coach_record_start[team_result.head_coach][:ties] += 1
-      end
-    end
-    coach_record_start
-  end
+  # def add_wins_losses(gt_results, coach_record_start)
+  #   gt_results.each do |team_result|
+  #     if team_result.result == "WIN"
+  #       coach_record_start[team_result.head_coach][:wins] += 1
+  #     elsif team_result.result == "LOSS"
+  #       coach_record_start[team_result.head_coach][:losses] += 1
+  #     elsif team_result.result == "TIE"
+  #       coach_record_start[team_result.head_coach][:ties] += 1
+  #     end
+  #   end
+  #   coach_record_start
+  # end
 
   #-------------GameStatistics
   def percentage_home_wins
