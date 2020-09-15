@@ -14,7 +14,7 @@ class GameTeamsTest < Minitest::Test
   end
 
   def test_it_exists
-    assert_instance_of Game, @game_manager.games[0]
+    assert_instance_of GameTeams, @game_teams_manager.game_teams[0]
   end
 
   def test_it_has_attributes
