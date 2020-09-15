@@ -17,31 +17,42 @@ class GameTeamsManagerTest < Minitest::Test
     end
   end
 
-  def test_it_can_organize_season_win_percentage_for_each_team
+  def test_it_can_list_game_teams_per_coach
+    expected = ["Claude Julien", "Guy Boucher", "Peter DeBoer", "Peter Laviolette"]
+    @game_teams_manager.coach_game_teams("20122013").each do |coach, game_teams|
+      game_teams.each do |game_team|
+        assert expected.include?(game_team.head_coach)
+      end
+    end
+  end
+
+  def test_it_can_calculate_coach_game_teams_average_wins
     expected = {
-      "1" => 28.57,
-      "4" => 42.86,
-      "6" => 66.67,
-      "14" => 0,
-      "26" => 42.86
+      "Claude Julien" => 1.0,
+      "Guy Boucher" => 0.0,
+      "Peter DeBoer" => 1.0,
+      "Peter Laviolette" => 0.25
     }
-    assert_equal expected, @game_teams_manager.all_teams_win_percentage("20142015")
-  end
-
-  def test_it_can_determine_winningest_team
-    assert_equal "6", @game_teams_manager.winningest_team("20142015")
-  end
-
-  def test_it_can_determine_team_with_worst_winning_percentage
-    assert_equal "14", @game_teams_manager.worst_team("20142015")
+    assert_equal expected, @game_teams_manager.coach_game_teams_average_wins("20122013")
   end
 
   def test_it_can_list_winningest_coach_by_season
+    assert_equal "Peter DeBoer", @game_teams_manager.winningest_coach("20122013")
+    assert_equal "Claude Julien", @game_teams_manager.winningest_coach("20132014")
     assert_equal "Claude Julien", @game_teams_manager.winningest_coach("20142015")
+    assert_equal "Jon Cooper", @game_teams_manager.winningest_coach("20152016")
+    assert_equal "Bruce Cassidy", @game_teams_manager.winningest_coach("20162017")
+    assert_equal "John Stevens", @game_teams_manager.winningest_coach("20172018")
+
   end
 
   def test_it_can_determine_the_worst_coach_by_season
+    assert_equal "Guy Boucher", @game_teams_manager.worst_coach("20122013")
+    assert_equal "Jon Cooper", @game_teams_manager.worst_coach("20132014")
     assert_equal "Jon Cooper", @game_teams_manager.worst_coach("20142015")
+    assert_equal "Darryl Sutter", @game_teams_manager.worst_coach("20152016")
+    assert_equal "Claude Julien", @game_teams_manager.worst_coach("20162017")
+    assert_equal "Dave Hakstol", @game_teams_manager.worst_coach("20172018")
   end
 
   def test_it_can_get_game_teams_by_season
