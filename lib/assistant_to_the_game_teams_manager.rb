@@ -1,0 +1,3 @@
+module AssistantToTheGameTeamsManager
+
+end
