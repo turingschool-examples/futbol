@@ -77,7 +77,7 @@ class TeamStatistics < TeamStatHelper
     opponents = {}
     game_count = {}
     games.each do |game|
-      process_game(team_id, game, opponents, game_count)
+      process_game_result(team_id, game, opponents, game_count)
     end
     win_percentages = {}
     opponents.each do |team, wins|
@@ -97,11 +97,7 @@ class TeamStatistics < TeamStatHelper
     games.each do |game|
       if team_id.to_i != game.team_id && opponents[game.team_id].nil?
         game_count[game.team_id] = 1
-        if game.result == "WIN"
-          opponents[game.team_id] = 1
-        else
-          opponents[game.team_id] = 0
-        end
+        game.result == "WIN" ? opponents[game.team_id] = 1 : opponents[game.team_id] = 0
       elsif team_id.to_i != game.team_id
         opponents[game.team_id] += 1 if game.result == "WIN"
         game_count[game.team_id] += 1
