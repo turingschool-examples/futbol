@@ -107,11 +107,11 @@ class StatTracker
   end
 
   def lowest_total_score
-    @games_manager.lowest_total_score
+    @games_manager.total_score(:min_by)
   end
 
   def highest_total_score
-    @games_manager.highest_total_score
+    @games_manager.total_score(:max_by)
   end
 
   def percentage_visitor_wins

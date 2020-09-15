@@ -19,14 +19,8 @@ class GamesManager
     end
   end
 
-  def lowest_total_score
-    @games.min_by do |game|
-      game.total_game_score
-    end.total_game_score
-  end
-
-  def highest_total_score
-    @games.max_by do |game|
+  def total_score(method_arg)
+    @games.method(method_arg).call do |game|
       game.total_game_score
     end.total_game_score
   end
