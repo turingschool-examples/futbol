@@ -41,8 +41,7 @@ class TeamStatHelper
   def collect_losses_per_season(team_id)
     season_losses = {}
     collect_seasons(team_id).each do |season, info|
-      add_game_losses_to_loss_count(team_id, info)
-      season_losses[season] = losses
+      season_losses[season] = add_game_losses_to_loss_count(team_id, info)
     end
     season_losses
   end

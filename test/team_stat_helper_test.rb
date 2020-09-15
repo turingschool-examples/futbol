@@ -53,4 +53,18 @@ class TeamStatHelperTest < Minitest::Test
     assert_equal 5, @team_stat_helper.add_game_wins_to_win_count("6", info)
   end
 
+  def test_add_game_losses_to_loss_count
+    game_table = @stat_tracker.game_table
+    info = []
+    count = 0
+    game_table.values.each do |game|
+      break if count == 5
+      if game.away_team_id == 6
+        info << game
+        count += 1
+      end
+    end
+    assert_equal 0, @team_stat_helper.add_game_losses_to_loss_count("6", info)
+  end
+
 end
