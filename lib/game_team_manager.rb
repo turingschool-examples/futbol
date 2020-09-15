@@ -103,11 +103,10 @@ class GameTeamManager
   end
 
   def total_tackles(season_id)
-    tackles_hash = {}
-    season_teams(season_id).each do |team|
+    season_teams(season_id).reduce({}) do |tackles_hash, team|
       tackles_hash[team] = total_tackles_helper(season_id, team)
+      tackles_hash
     end
-    tackles_hash
   end
 
   def total_tackles_helper(season_id, team)
