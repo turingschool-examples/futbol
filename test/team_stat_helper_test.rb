@@ -51,6 +51,9 @@ class TeamStatHelperTest < Minitest::Test
       end
     end
     assert_equal 5, @team_stat_helper.add_game_wins_to_win_count("6", info)
+    # stub game_table to be the exact values
+    # hash with 5 key/value pairs only.
+    # values are game object. So away/home_ids and away/home_goals.
   end
 
   def test_add_game_losses_to_loss_count
@@ -65,6 +68,10 @@ class TeamStatHelperTest < Minitest::Test
       end
     end
     assert_equal 0, @team_stat_helper.add_game_losses_to_loss_count("6", info)
+  end
+
+  def test_games_for_team_id
+    assert_equal 1020, @team_stat_helper.games_for_team_id("6")
   end
 
 end
