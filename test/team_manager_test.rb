@@ -110,4 +110,14 @@ class TeamManagerTest < Minitest::Test
     team_id = '6'
     assert_equal 0.86, @team_manager.average_win_percentage(team_id)
   end
+
+  def test_it_can_get_favorite_opponent
+    team_id = '6'
+    assert_equal '3', @team_manager.get_favorite_opponent(team_id)
+  end
+
+  def test_it_can_get_rival
+    team_id = '6'
+    assert_equal '3', @team_manager.get_rival(team_id)
+  end
 end

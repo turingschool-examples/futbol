@@ -108,4 +108,12 @@ class TeamsManager
   def average_win_percentage(team_id)
     find_a_team(team_id).avg_win_pct
   end
+
+  def get_favorite_opponent(team_id)
+    @tracker.get_favorite_opponent(team_id)
+  end
+
+  def get_rival(team_id)
+    @tracker.get_rival(team_id)
+  end
 end
