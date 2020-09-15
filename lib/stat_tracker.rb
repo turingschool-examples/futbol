@@ -1,4 +1,5 @@
 require 'CSV'
+require_relative 'stats'
 require_relative 'game_stats'
 require_relative 'team_stats'
 require_relative 'game'

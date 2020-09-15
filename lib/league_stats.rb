@@ -1,10 +1,12 @@
 require './lib/stats'
 require_relative 'hashable'
 require_relative 'groupable'
+require_relative 'calculatable'
 
 class LeagueStats < Stats
   include Hashable
   include Groupable
+  include Calculatable
   attr_reader :tracker
 
   def initialize(tracker)
@@ -99,26 +101,26 @@ class LeagueStats < Stats
     end
     home.teamname
   end
-  # --------------
-  # def all_home_wins
-  #   @game_teams_stats_data.select do |game_team|
-  #     game_team.hoa == "home" && game_team.result == "WIN"
-  #   end
-  # end
-  #
-  # def all_visitor_wins
-  #   @game_teams_stats_data.select do |game_team|
-  #     game_team.hoa == "away" && game_team.result == "WIN"
-  #   end
-  # end
-  #
-  # def count_of_ties
-  #   double_ties = @game_teams_stats_data.find_all do |game_team|
-  #     game_team.result == "TIE"
-  #   end
-  #   double_ties.count / 2
-  # end
-  #
+
+  def count_of_ties
+    double_ties = @game_teams_stats_data.find_all do |game_team|
+      game_team.result == "TIE"
+    end
+    double_ties.count / 2
+  end
+
+  def all_visitor_wins
+    @game_teams_stats_data.select do |game_team|
+      game_team.hoa == "away" && game_team.result == "WIN"
+    end
+  end
+
+  def all_home_wins
+    @game_teams_stats_data.select do |game_team|
+      game_team.hoa == "home" && game_team.result == "WIN"
+    end
+  end
+
   # def group_by_team_id
   #   @game_teams_stats_data.group_by do |team|
   #     team.team_id
