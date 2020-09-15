@@ -17,15 +17,16 @@ class GameTest < Minitest::Test
     assert_instance_of Game, @game_manager.games[0]
   end
 
-  # def test_it_has_attributes
-  #   path = './data/teams.csv'
-  #   team = Team.new(path, nil)
-
-  #   assert_equal '1', @team_manager.teams[0].team_id
-  #   assert_equal '23', @team_manager.teams[0].franchise_id
-  #   assert_equal 'Atlanta United', @team_manager.teams[0].team_name
-  #   assert_equal 'ATL', @team_manager.teams[0].abbreviation
-  #   assert_equal 'Mercedes-Benz Stadium', @team_manager.teams[0].stadium
-  #   assert_equal '/api/v1/teams/1', @team_manager.teams[0].link
-  # end
+  def test_it_has_attributes
+    assert_equal '2012030221', @game_manager.games[0].game_id
+    assert_equal '20122013', @game_manager.games[0].season
+    assert_equal 'Postseason', @game_manager.games[0].type
+    assert_equal '5/16/13', @game_manager.games[0].date_time
+    assert_equal '3', @game_manager.games[0].away_team_id
+    assert_equal '6', @game_manager.games[0].home_team_id
+    assert_equal '2', @game_manager.games[0].away_goals
+    assert_equal '3', @game_manager.games[0].home_goals
+    assert_equal 'Toyota Stadium', @game_manager.games[0].venue
+    assert_equal '/api/v1/venues/null', @game_manager.games[0].venue_link
+  end
 end
