@@ -152,7 +152,7 @@ class StatTracker
     team_info(@game_team_manager.fewest_tackles(season_id))['team_name']
   end
 
-  def team_data # I need a test
+  def team_data
     team_manager.team_data_by_id
   end
 end

@@ -185,4 +185,62 @@ class TestStatTracker < Minitest::Test
     assert_equal 1319, @stat_tracker.count_of_games_by_season['20142015']
     assert_equal 1321, @stat_tracker.count_of_games_by_season['20152016']
   end
+
+  def test_it_can_find_average_goals_per_game
+    assert_equal 4.22, @stat_tracker.average_goals_per_game
+  end
+
+  def test_it_can_find_average_goals_by_season
+    assert_equal 4.12, @stat_tracker.average_goals_by_season['20122013']
+    assert_equal 4.23, @stat_tracker.average_goals_by_season['20162017']
+    assert_equal 4.14, @stat_tracker.average_goals_by_season['20142015']
+  end
+
+  def test_it_can_find_winningest_coach
+    assert_equal "Dan Lacroix", @stat_tracker.winningest_coach('20122013')
+    assert_equal "Alain Vigneault", @stat_tracker.winningest_coach('20142015')
+    assert_equal "Bruce Cassidy", @stat_tracker.winningest_coach('20162017')
+  end
+
+  def test_it_can_find_worst_coach
+    assert_equal "Martin Raymond", @stat_tracker.worst_coach('20122013')
+    assert_equal "Ted Nolan", @stat_tracker.worst_coach('20142015')
+    assert_equal "Dave Tippett", @stat_tracker.worst_coach('20162017')
+  end
+
+  def test_it_can_find_most_accurate_team
+    assert_equal "Real Salt Lake", @stat_tracker.most_accurate_team('20132014')
+    assert_equal "Toronto FC", @stat_tracker.most_accurate_team('20142015')
+    assert_equal "Portland Thorns FC", @stat_tracker.most_accurate_team('20162017')
+  end
+
+  def test_it_can_find_least_accurate_team
+    assert_equal "New York City FC", @stat_tracker.least_accurate_team('20132014')
+    assert_equal "Columbus Crew SC", @stat_tracker.least_accurate_team('20142015')
+    assert_equal "FC Cincinnati", @stat_tracker.least_accurate_team('20162017')
+  end
+
+  def test_it_can_find_most_tackles
+    assert_equal "FC Cincinnati", @stat_tracker.most_tackles('20132014')
+    assert_equal "Seattle Sounders FC", @stat_tracker.most_tackles('20142015')
+    assert_equal "Sporting Kansas City", @stat_tracker.most_tackles('20162017')
+  end
+
+  def test_it_can_find_fewest_tackles
+    assert_equal "Atlanta United", @stat_tracker.fewest_tackles('20132014')
+    assert_equal "Orlando City SC", @stat_tracker.fewest_tackles('20142015')
+    assert_equal "New England Revolution", @stat_tracker.fewest_tackles('20162017')
+  end
+
+  def test_it_can_find_team_data
+    assert_equal 32, @stat_tracker.team_data.count
+
+    expected = {"team_id"=>"1", "franchise_id"=>"23", "team_name"=>"Atlanta United", "abbreviation"=>"ATL", "link"=>"/api/v1/teams/1"}
+
+    assert_equal expected, @stat_tracker.team_data['1']
+  end
+
+  def test_it_can_count_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
 end
