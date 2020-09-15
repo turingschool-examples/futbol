@@ -50,11 +50,11 @@ class StatTracker
   end
 
   # potential module, perhaps GameTeams
-  def season_group
-    @games.group_by do |row|
-      row.season
-    end
-  end
+  # def season_group
+  #   @games.group_by do |row|
+  #     row.season
+  #   end
+  # end
 
   def total_goals(filtered_games = @games_manager.games)
     @games_manager.total_goals(filtered_games)
@@ -80,9 +80,9 @@ class StatTracker
 
   # Move to GameTeamsManager
   # Doesn't have a test
-  def total_game_teams(filtered_game_teams = @game_teams)
-    filtered_game_teams.count
-  end
+  # def total_game_teams(filtered_game_teams = @game_teams)
+  #   filtered_game_teams.count
+  # end
 
   # Move to GameTeamsManager
   # Doesn't have a test
@@ -98,78 +98,78 @@ class StatTracker
 
   # This could potentially be replaced by sum_game_goals or vise versa
   # Doesn't have test
-  def total_score(filtered_game_teams = @game_teams)
-    filtered_game_teams.reduce(0) do |sum, game_team|
-      sum += game_team.goals
-    end
-  end
+  # def total_score(filtered_game_teams = @game_teams)
+  #   filtered_game_teams.reduce(0) do |sum, game_team|
+  #     sum += game_team.goals
+  #   end
+  # end
 
   # Move to GameTeamsManager
   # THIS METHOD PENDING DELETION
   # using instead: home_or_away_games
-  def home_games
-    @game_teams.select do |game|
-      game.hoa == "home"
-    end
-  end
+  # def home_games
+  #   @game_teams.select do |game|
+  #     game.hoa == "home"
+  #   end
+  # end
 
   # Move to GameTeamsManager
   # THIS METHOD PENDING DELETION
   # using instead: home_or_away_games
-  def away_games
-    @game_teams.select do |game_team|
-      game_team.hoa == "away"
-    end
-  end
+  # def away_games
+  #   @game_teams.select do |game_team|
+  #     game_team.hoa == "away"
+  #   end
+  # end
 
   #Move to GameTeamsManager
   #Need a vertical call up for Team_ID
   # home_games method used inside will be changed to: home_or_away_games
-  def home_games_by_team
-    home_games.group_by do |game_team|
-      game_team.team_id
-    end
-  end
+  # def home_games_by_team
+  #   home_games.group_by do |game_team|
+  #     game_team.team_id
+  #   end
+  # end
 
   #Move to GameTeamsManager
   #Need a vertical call up for Team_ID
   # away_games method used inside will be changed to: home_or_away_games
-  def away_games_by_team
-    away_games.group_by do |game_team|
-      game_team.team_id
-    end
-  end
+  # def away_games_by_team
+  #   away_games.group_by do |game_team|
+  #     game_team.team_id
+  #   end
+  # end
 
   # This looks like it combines home_games and away_games - keep this one?
   # Move to GameTeams Manager
   # Doesn't have a test
-  def home_or_away_games(where = "home")
-    @game_teams.select do |game|
-      game.hoa == where
-    end
-  end
+  # def home_or_away_games(where = "home")
+  #   @game_teams.select do |game|
+  #     game.hoa == where
+  #   end
+  # end
 
   # Move to GamesTeamsManager
-  def hoa_games_by_team_id(hoa)
-    home_or_away_games(hoa).group_by do |game_team|
-      game_team.team_id
-    end
-  end
+  # def hoa_games_by_team_id(hoa)
+  #   home_or_away_games(hoa).group_by do |game_team|
+  #     game_team.team_id
+  #   end
+  # end
 
   # Move to GameTeamsManager
   # I don't know if this method is necessary anymore
-  def lowest_scoring_team_id(hoa)
-    hoa_games_by_team_id(hoa).min_by do |team_id, details|
-      avg_score(details)
-    end[0]
-  end
+  # def lowest_scoring_team_id(hoa)
+  #   hoa_games_by_team_id(hoa).min_by do |team_id, details|
+  #     avg_score(details)
+  #   end[0]
+  # end
 
   # Move to GameTeamsManager
-  def total_wins(game_teams_filtered = @game_teams)
-    game_teams_filtered.count do |gameteam|
-      gameteam.result == "WIN"
-    end
-  end
+  # def total_wins(game_teams_filtered = @game_teams)
+  #   game_teams_filtered.count do |gameteam|
+  #     gameteam.result == "WIN"
+  #   end
+  # end
 
   def filter_by_team_id(team_id)
     @game_teams_manager.filter_by_team_id(team_id)
@@ -185,11 +185,11 @@ class StatTracker
 
   # Move to GameTeamsManager
   #Duplicate method to filter_by_team_id
-  def games_by_team(team_id)
-    @game_teams.select do |game|
-      game.team_id == team_id
-    end
-  end
+  # def games_by_team(team_id)
+  #   @game_teams.select do |game|
+  #     game.team_id == team_id
+  #   end
+  # end
 
   def get_opponent_id(game_id, team_id)
     @games_manager.get_opponent_id(game_id, team_id)
@@ -207,14 +207,15 @@ class StatTracker
     @game_teams_manager.shots_per_team_id(season)
   end
 
-  def season_goals(season)
-    specific_season = season_group[season]
-    specific_season.reduce(Hash.new(0)) do |season_goals, game|
-      season_goals[game.away_team_id.to_s] += game.away_goals
-      season_goals[game.home_team_id.to_s] += game.home_goals
-      season_goals
-    end
-  end
+  #GTM
+  # def season_goals(season)
+  #   specific_season = @games_manager.season_group[season]
+  #   specific_season.reduce(Hash.new(0)) do |season_goals, game|
+  #     season_goals[game.away_team_id.to_s] += game.away_goals
+  #     season_goals[game.home_team_id.to_s] += game.home_goals
+  #     season_goals
+  #   end
+  # end
 
   def shots_per_goal_per_season(season)
     @game_teams_manager.shots_per_goal_per_season(season)
@@ -222,34 +223,36 @@ class StatTracker
 
   # Move to GamesManager
 
-  def game_ids_by_season(season)
-    filter_by_season(season).map do |game|
-      game.game_id
-    end.sort
-  end
+  # def game_ids_by_season(season)
+  #   filter_by_season(season).map do |game|
+  #     game.game_id
+  #   end.sort
+  # end
 
-  # Move to GameTeamsManager
-  def team_tackles(season)
-    team_season_tackles = {}
-    games = @game_teams.find_all do |game|
-      game_ids_by_season(season).include?(game.game_id)
-    end
-    games.each do |game|
-      if team_season_tackles[game.team_id]
-        team_season_tackles[game.team_id] += game.tackles
-      else
-        team_season_tackles[game.team_id] = game.tackles
-      end
-    end
-    team_season_tackles
-  end
+  # # Move to GameTeamsManager
+  # def team_tackles(season)
+  #   team_season_tackles = {}
+  #   games = @game_teams.find_all do |game|
+  #     game_ids_by_season(season).include?(game.game_id)
+  #   end
+  #   games.each do |game|
+  #     if team_season_tackles[game.team_id]
+  #       team_season_tackles[game.team_id] += game.tackles
+  #     else
+  #       team_season_tackles[game.team_id] = game.tackles
+  #     end
+  #   end
+  #   team_season_tackles
+  # end
 
-  # Move to GameTeamsManager
-  def team_goals_by_game(team_id)
-    games_by_team(team_id).map do |game|
-      game.goals
-    end
-  end
+
+  #NEEDS TEST
+  # # Move to GameTeamsManager
+  # def team_goals_by_game(team_id)
+  #   games_by_team(team_id).map do |game|
+  #     game.goals
+  #   end
+  # end
 
 # ~~~ Game Methods ~~~
   def lowest_total_score

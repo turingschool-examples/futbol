@@ -131,34 +131,23 @@ class GamesManager
     season_group.keys.sort
   end
 
-  def all_teams_all_seasons_win_percentages
-    @stat_tracker.fetch_all_team_ids.reduce({}) do |data, team_id|
-      data[team_id] = all_seasons.reduce({}) do |collector, season|
-        collector[season] = season_win_percentage(team_id, season)
-        collector
-      end
-      data
+  def seasons_win_percentages_by_team(team_id)
+    all_seasons.reduce({}) do |collector, season|
+      collector[season] = season_win_percentage(team_id, season)
+      collector
     end
   end
 
   def best_season(team_id)
-    all_teams_all_seasons_win_percentages.flat_map do |team, seasons|
-      if team == team_id
-        seasons.max_by do |season|
-          season.last
-        end
-      end
-    end.compact.first
+    seasons_win_percentages_by_team(team_id).max_by do |season, percent|
+      percent
+    end[0]
   end
 
   def worst_season(team_id)
-    all_teams_all_seasons_win_percentages.flat_map do |team, seasons|
-      if team == team_id
-        seasons.min_by do |season|
-          season.last
-        end
-      end
-    end.compact.first
+    seasons_win_percentages_by_team(team_id).min_by do |season, percent|
+      percent
+    end[0]
   end
 
   def get_game(game_id)

@@ -141,7 +141,6 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal expected, @game_teams_manager.shots_per_team_id("20132014")
   end
 
-  #This test I had to alter the expected to get it to pass, but when I changed the method formula, the spec harness failed so we should take a closer look at it.
   def test_shots_per_goal_per_season_for_given_season
     expected = {"4"=>3.20, "14"=>2.889, "1"=>3.857, "6"=>2.40, "26"=>3.636}
     assert_equal expected, @game_teams_manager.shots_per_goal_per_season("20132014")
@@ -180,7 +179,6 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal expected, @game_teams_manager.total_scores_by_team
   end
 
-  # Check validity of test - are the expected values accurate?
   def test_it_can_get_average_scores_per_team
     expected = {"1"=>1.87, "4"=>1.682, "14"=>2.238, "6"=>2.35, "26"=>1.85}
     assert_equal expected, @game_teams_manager.average_scores_by_team
