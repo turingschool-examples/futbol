@@ -87,6 +87,10 @@ class GameManagerTest < MiniTest::Test
   end
 
   def test_it_can_show_how_many_wins_per_season
-    assert_equal 3, @game_manager.wins_per_season("24")
+    wins_by_season = Hash.new(0.0),
+    games_by_season = Hash.new { |hash, key| hash[key] = [] }
+
+
+    @game_manager.wins_per_season("24", wins_by_season, games_by_season)
   end
 end
