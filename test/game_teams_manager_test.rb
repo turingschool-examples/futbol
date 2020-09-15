@@ -123,6 +123,26 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal [game_1], game_teams_manager.all_home_games
   end
 
+  def test_it_knows_all_home_game_wins
+    path = './fixture/game_teams_blank.csv'
+    game_teams_manager = GameTeamsManager.new(path, nil)
+    game_1 = mock("Season Game 1")
+    game_2 = mock("Season Game 2")
+    game_3 = mock("Season Game 3")
+    game_teams_manager.game_teams << game_1
+    game_teams_manager.game_teams << game_2
+    game_teams_manager.game_teams << game_3
+
+    game_1.stubs(:hoa).returns("home")
+    game_1.stubs(:result).returns("WIN")
+    game_2.stubs(:hoa).returns("away")
+    game_2.stubs(:result).returns("WIN")
+    game_3.stubs(:hoa).returns("away")
+    game_3.stubs(:result).returns("LOSS")
+
+    assert_equal [game_1], game_teams_manager.all_home_game_wins 
+  end
+
   def test_it_knows_visitor_win_percentage
     path = './fixture/game_teams_blank.csv'
     game_teams_manager = GameTeamsManager.new(path, nil)
