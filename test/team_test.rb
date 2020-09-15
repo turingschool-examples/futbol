@@ -43,27 +43,27 @@ class TeamTest < Minitest::Test
     assert_equal 2.75, @team.avg_goals_visitor
     assert_equal 3.00, @team.avg_goals_home
   end
-
-  def test_it_can_find_best_season
-    assert_equal '20122013', @team.best_season
-  end
-
-  def test_it_can_find_worst_season
-    assert_equal '20122013', @team.worst_season
-  end
-
-  def test_it_can_find_average_win_percentage_for_team
-    team_id = '6'
-    assert_equal 0.86, @team.avg_win_pct
-  end
-
-  def test_it_can_get_favorite_opponent
-    team_id = '6'
-    assert_equal '3', @team.favorite_opponent
-  end
-
-  def test_it_can_get_rival
-    team_id = '6'
-    assert_equal '3', @team.rival
-  end
+  # 
+  # def test_it_can_find_best_season
+  #   assert_equal '20122013', @team.best_season
+  # end
+  #
+  # def test_it_can_find_worst_season
+  #   assert_equal '20122013', @team.worst_season
+  # end
+  #
+  # def test_it_can_find_average_win_percentage_for_team
+  #   team_id = '6'
+  #   assert_equal 0.86, @team.avg_win_pct
+  # end
+  #
+  # def test_it_can_get_favorite_opponent
+  #   team_id = '6'
+  #   assert_equal '3', @team.favorite_opponent
+  # end
+  #
+  # def test_it_can_get_rival
+  #   team_id = '6'
+  #   assert_equal '3', @team.rival
+  # end
 end
