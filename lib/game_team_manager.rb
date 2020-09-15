@@ -147,26 +147,17 @@ class GameTeamManager
 
   def total_tackles_helper(season_id, team)
     total_tackles = game_teams_data_for_season(season_id).sum do |game|
-      if game.team_id == team
-        game.tackles
-      else
-        0
+        (game.tackles if game.team_id == team).to_i
       end
-    end
-    total_tackles
   end
 
   def most_tackles(season_id)
-    most_tackles_team = total_tackles(season_id).max_by do |_team, tackles|
-      tackles
-    end[0]
+    most_tackles_team = return_max(total_tackles(season_id))
     team_by_id(most_tackles_team)
   end
 
   def fewest_tackles(season_id)
-    fewest_tackles_team = total_tackles(season_id).min_by do |_team, tackles|
-      tackles
-    end[0]
+    fewest_tackles_team = return_min(total_tackles(season_id))
     team_by_id(fewest_tackles_team)
   end
 
