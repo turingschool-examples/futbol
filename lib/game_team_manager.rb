@@ -75,28 +75,18 @@ class GameTeamManager
 
   def total_shots_by_team(season_id, team)
     game_teams_data_for_season(season_id).sum do |game|
-      if game.team_id == team
-        game.shots
-      else
-        0
-      end
+      (game.shots if game.team_id == team).to_i
     end
   end
 
   def total_goals_by_team(season_id, team)
     game_teams_data_for_season(season_id).sum do |game|
-      if game.team_id == team
-        game.goals
-      else
-        0
-      end
+      (game.goals if game.team_id == team).to_i
     end
   end
 
   def season_teams(season_id)
-    game_teams_data_for_season(season_id).map do |game|
-      game.team_id
-    end.uniq
+    game_teams_data_for_season(season_id).map{ |game| game.team_id }.uniq
   end
 
   def team_accuracy(season_id)
