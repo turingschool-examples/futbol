@@ -174,8 +174,7 @@ class GameManagerTest < Minitest::Test
     assert_equal 25, game_manager.total_goals
   end
 
-  def test_it_knows_average_goals_per_game
-    skip
+  def test_it_knows_total_number_of_games
     path = './fixture/game_blank.csv'
     game_manager = GameManager.new(path, nil)
     game_1 = mock("Season Game 1")
@@ -192,7 +191,7 @@ class GameManagerTest < Minitest::Test
     game_3.stubs(:away_goals).returns(0)
     game_3.stubs(:home_goals).returns(0)
 
-    assert_equal 8.33, game_manager.average_goals_per_game
+    assert_equal 3, game_manager.total_number_of_games
   end
 
   def test_it_knows_average_goals_by_season
