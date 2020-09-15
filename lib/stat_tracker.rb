@@ -370,6 +370,6 @@ class StatTracker
   end
 
   def rival(team_id)
-    fetch_team_identifier(@game_teams_manager.highest_win_percentage(@game_teams_manager.game_teams_by_opponent(team_id)))
+    fetch_team_identifier(@game_teams_manager.lowest_win_percentage(@game_teams_manager.game_teams_by_opponent(team_id)))
   end
 end
