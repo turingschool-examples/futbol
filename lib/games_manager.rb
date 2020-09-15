@@ -68,16 +68,10 @@ class GamesManager
 
   def average_goals_by_season
     avg_goals_by_season = {}
-    seasonal_game_data.each do |season, details|
+    season_group.each do |season, details|
       avg_goals_by_season[season] = ratio(total_goals(details), total_games(details))
     end
     avg_goals_by_season
-  end
-
-  def seasonal_game_data
-    @games.group_by do |game|
-      game.season
-    end
   end
 
   def season_group

@@ -43,7 +43,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_sum_game_goals
     assert_equal 211, @stats.total_goals
-    season_1415 = @stats.seasonal_game_data["20142015"]
+    season_1415 = @stats.season_group["20142015"]
     assert_equal 67, @stats.total_goals(season_1415)
   end
 
@@ -53,9 +53,9 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_group_games_by_season
-    assert_equal ["20142015", "20172018", "20152016", "20132014", "20122013", "20162017"], @stats.seasonal_game_data.keys
+    assert_equal ["20142015", "20172018", "20152016", "20132014", "20122013", "20162017"], @stats.season_group.keys
 
-    @stats.seasonal_game_data.values.each do |games|
+    @stats.season_group.values.each do |games|
       games.each do |game|
         assert_instance_of Game, game
       end
