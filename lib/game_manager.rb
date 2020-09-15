@@ -36,12 +36,12 @@ class GameManager
   def team_stats
     tracker.initialize_team_stats_hash.each do |team_id, games_goals|
       games.each do |game|
-        if team_id == game.away_team_id || team_id == game.home_team_id
-          games_goals[:away_games] += 1 if team_id == game.away_team_id
-          games_goals[:home_games] += 1 if team_id == game.home_team_id
-          games_goals[:away_goals] += game.away_goals.to_i if team_id == game.away_team_id
-          games_goals[:home_goals] += game.home_goals.to_i if team_id == game.home_team_id
-        end
+        next unless team_id == game.away_team_id || team_id == game.home_team_id
+
+        games_goals[:away_games] += 1 if team_id == game.away_team_id
+        games_goals[:home_games] += 1 if team_id == game.home_team_id
+        games_goals[:away_goals] += game.away_goals.to_i if team_id == game.away_team_id
+        games_goals[:home_goals] += game.home_goals.to_i if team_id == game.home_team_id
       end
       games_goals[:total_games] = games_goals[:away_games] + games_goals[:home_games]
       games_goals[:total_goals] = games_goals[:away_goals] + games_goals[:home_goals]
@@ -60,7 +60,8 @@ class GameManager
     result = @games.min_by do |game|
       game.away_goals.to_i + game.home_goals.to_i
     end
-      result.away_goals.to_i + result.home_goals.to_i
+
+    result.away_goals.to_i + result.home_goals.to_i
   end
 
   def count_of_games_by_season
@@ -99,10 +100,10 @@ class GameManager
 
   def total_number_of_games
     game_count = 0
-    games.each do |game|
+    games.each do
       game_count += 1
     end
-    
+
     game_count
   end
 
@@ -125,11 +126,11 @@ class GameManager
   def season_information
     initialize_season_information.each do |season, goals|
       games.each do |game|
-        if game.season == season
-          goals[:total_games] += 1
-          goals[:away_goals] += game.away_goals.to_i
-          goals[:home_goals] += game.home_goals.to_i
-        end
+        next unless game.season == season
+
+        goals[:total_games] += 1
+        goals[:away_goals] += game.away_goals.to_i
+        goals[:home_goals] += game.home_goals.to_i
       end
       goals[:total_goals] = goals[:away_goals] + goals[:home_goals]
     end
