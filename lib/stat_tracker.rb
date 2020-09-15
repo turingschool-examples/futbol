@@ -38,10 +38,6 @@ class StatTracker
     @games_manager.get_opponent_id(game_id, team_id)
   end
 
-  def shots_per_goal_per_season(season)
-    @game_teams_manager.shots_per_goal_per_season(season)
-  end
-
   def lowest_total_score
     @games_manager.total_score(:min_by)
   end
