@@ -8,6 +8,7 @@ class TeamStats < Stats
   attr_reader :tracker
 
   def initialize(tracker)
+    @tracker = tracker 
     super(game_stats_data, game_teams_stats_data, teams_stats_data)
   end
 
