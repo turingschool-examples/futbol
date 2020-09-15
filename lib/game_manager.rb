@@ -102,11 +102,6 @@ class GameManager
   end
 
   def average_goals_per_game
-    total = 0
-    @games.each do |game|
-      average_goals = (game.away_goals + game.home_goals) / @games.length.to_f
-      total += average_goals
-    end
-    total.round(2)
+    average_goals(@games)
   end
 end
