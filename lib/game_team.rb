@@ -1,8 +1,7 @@
 require 'csv'
 
 class GameTeam
-  attr_reader :manager,
-              :game_id,
+  attr_reader :game_id,
               :team_id,
               :result,
               :head_coach,
@@ -11,7 +10,6 @@ class GameTeam
               :tackles
 
   def initialize(data, manager)
-    @manager = manager
     @game_id = data['game_id']
     @team_id = data['team_id']
     @result = data['result']

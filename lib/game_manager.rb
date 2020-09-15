@@ -132,27 +132,13 @@ class GameManager
         end
       end
     end
+    # require 'Pry';binding.pry
   end
 
   def best_season(team_id)
     wins_by_season = Hash.new(0.0)
     games_by_season = Hash.new { |hash, key| hash[key] = [] }
     wins_per_season(team_id, wins_by_season, games_by_season)
-    # @games.each do |game|
-    #   if game.home_team_id == team_id || game.away_team_id == team_id
-    #     games_by_season[game.season] << game
-    #   end
-    # end
-    # games_by_season.each do |season, games|
-    #   games.each do |game|
-    #     if game.home_team_id == team_id && game.home_goals > game.away_goals
-    #       wins_by_season[season] += 1
-    #     elsif game.away_team_id == team_id && game.away_goals > game.home_goals
-    #       wins_by_season[season] += 1
-    #     end
-    #   end
-    # end
-    # require 'Pry';binding.pry
     games_by_season.max_by do |season, games|
       wins_by_season[season] / games.length
     end[0]
@@ -162,20 +148,6 @@ class GameManager
     wins_by_season = Hash.new(0.0)
     games_by_season = Hash.new { |hash, key| hash[key] = [] }
     wins_per_season(team_id, wins_by_season, games_by_season)
-    # @games.each do |game|
-    #   if game.home_team_id == team_id || game.away_team_id == team_id
-    #     games_by_season[game.season] << game
-    #   end
-    # end
-    # games_by_season.each do |season, games|
-    #   games.each do |game|
-    #     if game.home_team_id == team_id && game.home_goals > game.away_goals
-    #       wins_by_season[season] += 1
-    #     elsif game.away_team_id == team_id && game.away_goals > game.home_goals
-    #       wins_by_season[season] += 1
-    #     end
-    #   end
-    # end
     games_by_season.min_by do |season, games|
       wins_by_season[season] / games.length
     end[0]
