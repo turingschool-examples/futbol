@@ -12,45 +12,45 @@ class GameTeamsManager
   end
 
   def create_game_teams(path)
-    game_teams_data = CSV.read(path, headers:true)
+    game_teams_data = CSV.read(path, headers: true)
     @game_teams = game_teams_data.map do |data|
       GameTeams.new(data, self)
     end
   end
   #-------SeasonStats
   def winningest_coach(season)
-    coaches_records(season).max_by do |coach, w_l|
+    coaches_records(season).max_by do |_coach, w_l|
       w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
     end[0]
   end
 
   def worst_coach(season)
-    coaches_records(season).min_by do |coach, w_l|
+    coaches_records(season).min_by do |_coach, w_l|
       w_l[:wins].to_f / (w_l[:wins] + w_l[:losses] + w_l[:ties])
     end[0]
   end
 
   def most_accurate_team(season)
-    most_accurate_team_id = teams_shots_to_goals(season).max_by do |id, s_g|
+    most_accurate_team_id = teams_shots_to_goals(season).max_by do |_id, s_g|
       s_g[:goals].to_f / s_g[:shots]
     end[0]
     find_team_by_team_id(most_accurate_team_id)
   end
 
   def least_accurate_team(season)
-    least_accurate_team_id = teams_shots_to_goals(season).min_by do |id, s_g|
+    least_accurate_team_id = teams_shots_to_goals(season).min_by do |_id, s_g|
       s_g[:goals].to_f / s_g[:shots]
     end[0]
     find_team_by_team_id(least_accurate_team_id)
   end
 
   def most_tackles(season)
-    result_id = team_tackles(season).max_by {|id, tackle_count| tackle_count}
+    result_id = team_tackles(season).max_by { |_id, tackle_count| tackle_count }
     find_team_by_team_id(result_id[0])
   end
 
   def fewest_tackles(season)
-    result_id = team_tackles(season).min_by {|id, tackle_count| tackle_count}
+    result_id = team_tackles(season).min_by { |_id, tackle_count| tackle_count }
     find_team_by_team_id(result_id[0])
   end
   #-------------GameStatistics
@@ -72,7 +72,7 @@ class GameTeamsManager
   def start_shots_and_goals_per_team(gt_results)
     total_shots_goals = {}
     gt_results.each do |team_result|
-      total_shots_goals[team_result.team_id] = {shots: 0, goals: 0}
+      total_shots_goals[team_result.team_id] = { shots: 0, goals: 0 }
     end
     total_shots_goals
   end
@@ -101,46 +101,46 @@ class GameTeamsManager
   end
   #-------------TeamStats
   def best_season(team_id)
-    best_season = win_percentage_by_season(team_id).max_by do |season, wins_percent|
-        wins_percent
-      end
-      best_year = best_season[0].to_i
-      "#{best_year}201#{best_year.digits[0] + 1}"
+    best_season = win_percentage_by_season(team_id).max_by do |_season, wins_percent|
+      wins_percent
+    end
+    best_year = best_season[0].to_i
+    "#{best_year}201#{best_year.digits[0] + 1}"
   end
 
   def worst_season(team_id)
-    worst_season = win_percentage_by_season(team_id).min_by do |season, wins_percent|
-        wins_percent
-      end
-      worst_year = worst_season[0].to_i
-      "#{worst_year}201#{worst_year.digits[0] + 1}"
+    worst_season = win_percentage_by_season(team_id).min_by do |_season, wins_percent|
+      wins_percent
+    end
+    worst_year = worst_season[0].to_i
+    "#{worst_year}201#{worst_year.digits[0] + 1}"
   end
 
   def average_win_percentage(team_id)
-    (result_totals_by_team(team_id)[:wins].to_f / result_totals_by_team(team_id)[:total].to_f).round(2)
+    (result_totals_by_team(team_id)[:wins] / result_totals_by_team(team_id)[:total].to_f).round(2)
   end
 
   def most_goals_scored(team_id)
     game_info_by_team(team_id).max_by do |game|
-      (game.goals).to_i
+      game.goals.to_i
     end.goals.to_i
   end
 
   def fewest_goals_scored(team_id)
     game_info_by_team(team_id).min_by do |game|
-      (game.goals).to_i
+      game.goals.to_i
     end.goals.to_i
   end
 
   def favorite_opponent(team_id)
-    opponent = find_opponent_win_percentage(team_id).min_by do |team_id, percentage|
+    opponent = find_opponent_win_percentage(team_id).min_by do |_team_id, percentage|
       percentage
     end.first
     find_team_name(opponent)
   end
 
   def rival(team_id)
-    opponent = find_opponent_win_percentage(team_id).max_by do |team_id, percentage|
+    opponent = find_opponent_win_percentage(team_id).max_by do |_team_id, percentage|
       percentage
     end.first
     find_team_name(opponent)
