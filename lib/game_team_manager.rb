@@ -11,12 +11,12 @@ class GameTeamManager
   end
 
   def goal_avg_per_team(team_id, home_away)
-    goal_array = []
-    @game_teams.each do |game|
-      goal_array << game.goals if game.team_id == team_id && home_away == game.HoA
-      goal_array << game.goals if game.team_id == team_id && home_away == ''
+    total = @game_teams.reduce([]) do |goal_array, game_team|
+      goal_array << game_team.goals if game_team.team_id == team_id && home_away == game_team.HoA
+      goal_array << game_team.goals if game_team.team_id == team_id && home_away == ''
+      goal_array
     end
-    (goal_array.sum.to_f/goal_array.count).round(2)
+    (total.sum.to_f/total.count).round(2)
   end
 
   def best_offense
