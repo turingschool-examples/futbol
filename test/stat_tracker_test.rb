@@ -60,4 +60,19 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal 1, stat_tracker.lowest_total_score
   end
+
+  def test_it_can_find_percentage_home_wins
+    game_path = './fixture/games_dummy.csv'
+    team_path = './fixture/teams_dummy.csv'
+    game_teams_path = './fixture/game_teams_dummy.csv'
+
+     locations = {
+       games: game_path,
+       teams: team_path,
+       game_teams: game_teams_path
+     }
+     stat_tracker = StatTracker.from_csv(locations)
+
+    assert_equal 0.69, stat_tracker.percentage_home_wins
+  end
 end
