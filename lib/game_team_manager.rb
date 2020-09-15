@@ -34,24 +34,14 @@ class GameTeamManager
   end
 
   def best_offense
-    team_goals = Hash.new(0)
-    team_game_count = Hash.new(0)
-    @game_teams.each do |game_team|
-      team_goals[game_team.team_id] += game_team.goals
-      team_game_count[game_team.team_id] += 1
-    end
-    best_offense = sort_percentages(team_goals, team_game_count)
+    best_offense_goals = game_and_stat_count(@game_teams, :team_id, :goals)
+    best_offense = sort_percentages(best_offense_goals.first, best_offense_goals.last)
     @tracker.get_team_name(best_offense.last[0])
   end
 
   def worst_offense
-    team_goals = Hash.new(0)
-    team_game_count = Hash.new(0)
-    @game_teams.each do |game_team|
-      team_goals[game_team.team_id] += game_team.goals
-      team_game_count[game_team.team_id] += 1
-    end
-    worst_offense = sort_percentages(team_goals, team_game_count)
+    goals_and_games_hashes = game_and_stat_count(@game_teams, :team_id, :goals)
+    worst_offense = sort_percentages(goals_and_games_hashes.first, goals_and_games_hashes.last)
     @tracker.get_team_name(worst_offense.first[0])
   end
 
