@@ -145,7 +145,7 @@ class GamesManager
   end
 
   def worst_season(team_id)
-    test = seasons_win_percentages_by_team(team_id).min_by do |season, percent|
+    seasons_win_percentages_by_team(team_id).min_by do |season, percent|
       percent
     end[0]
   end

@@ -60,8 +60,8 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_create_array_of_all_team_ids
-    expected = ["1", "4", "6", "14", "26"]
-    assert_equal expected, @stats.team_ids
+    expected = ["1", "4", "26", "14", "6"]
+    assert_equal expected, @stats.fetch_all_team_ids
   end
 
   def test_it_can_get_team_name_from_team_id
@@ -99,17 +99,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stats.game_ids_by_season("20122013")
   end
 
-  def test_it_can_show_total_tackles_per_team_per_season ###
-    expected = {
-      "1" => 30,
-      "4" => 108,
-      "6" => 31,
-      "14" => 17
-      # 26 => 0
-    }
-    assert_equal expected, @stats.team_tackles("20122013")
-  end
-
   def test_it_can_group_games_by_season
     assert_equal ["20142015", "20172018", "20152016", "20132014", "20122013", "20162017"], @stats.seasonal_game_data.keys
 
@@ -119,10 +108,10 @@ class StatTrackerTest < Minitest::Test
       end
     end
   end
-
-  def test_it_can_count_wins
-    assert_equal 45, @stats.total_wins
-  end
+  # DUPLICATE - In other test class
+  # def test_it_can_count_wins
+  #   assert_equal 45, @stats.total_wins
+  # end
 
   def test_it_can_filter_gameteams_by_team_id
     assert @stats.games_by_team("6").all? {|gameteam| gameteam.team_id == "6"}
@@ -133,11 +122,10 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_opponent_id
-    game = @stats.get_game("2014021002")
-    assert_equal "14", @stats.get_opponent_id(game,"6")
+    assert_equal "14", @stats.get_opponent_id("2014021002","6")
 
     game = @stats.get_game("2014020371")
-    assert_equal "26", @stats.get_opponent_id(game,"6")
+    assert_equal "26", @stats.get_opponent_id("2014020371","6")
   end
 
   def test_it_can_create_gameteams_by_opponent
@@ -233,7 +221,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_knows_lowest_scoring_visitor_team
-    assert_equal "Chicago Fire", @stats.lowest_scoring_visitor_team
+    assert_equal "Chicago Fire", @stats.lowest_scoring_visitor
   end
 
 # ~~~ SEASON METHOD TESTS~~~
@@ -274,52 +262,6 @@ class StatTrackerTest < Minitest::Test
   #   expected = ["20122013", "20132014", "20142015", "20152016", "20162017", "20172018"]
   #   assert_equal expected, @stats.all_seasons
   # end
-
-  def test_it_can_return_a_nested_hash_with_all_teams_season_win_percentages
-    expected = {
-      "1" => {
-        "20122013" => 100.0,
-        "20132014" => 40.0,
-        "20142015" => 28.57,
-        "20152016" => 50.0,
-        "20162017" => 25.0,
-        "20172018" => 33.33
-      },
-      "4" => {
-        "20122013" => 25.0,
-        "20132014" => 40.0,
-        "20142015" => 42.86,
-        "20152016" => 33.33,
-        "20162017" => 0.0,
-        "20172018" => 0.0
-      },
-      "6" => {
-        "20122013" => 100.0,
-        "20132014" => 50.0,
-        "20142015" => 66.67,
-        "20152016" => 66.67,
-        "20162017" => 50.0,
-        "20172018" => 50.0
-      },
-      "14" => {
-        "20122013" => 0.0,
-        "20132014" => 25.0,
-        "20142015" => 0.0,
-        "20152016" => 100.0,
-        "20162017" => 60.0,
-        "20172018" => 60.0
-      },
-      "26" => {
-        "20122013" => 0.0,
-        "20132014" => 33.33,
-        "20142015" => 42.86,
-        "20152016" => 0.0,
-        "20162017" => 50.0,
-        "20172018" => 75.0
-      },
-    }
-    assert_equal expected, @stats.all_teams_all_seasons_win_percentages
-  end
 
   def test_it_can_see_team_info
     expected1 = {
