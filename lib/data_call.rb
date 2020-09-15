@@ -7,10 +7,14 @@ module DataCall
     game_teams.select { |game_team| game_team.team_id == id }.map(&:game_id)
   end
 
-  def game_team_info(game_id)
+  def find_game_teams(game_id)
     game_teams.select do |game_team|
       game_team.game_id == game_id
-    end.reduce({}) do |collector, game|
+    end
+  end
+
+  def game_team_info(game_id)
+    find_game_teams(game_id).reduce({}) do |collector, game|
       collector[game.team_id] = game.game_team_info
       collector
     end

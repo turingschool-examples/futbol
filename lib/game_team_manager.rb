@@ -1,9 +1,11 @@
 require_relative 'game_teams'
 require_relative 'shared_calc'
 require_relative 'csv_module'
+require_relative 'data_call'
+
 
 class GameTeamManager
-  include SharedCalculations, CSVModule
+  include SharedCalculations, CSVModule, DataCall
   attr_reader :game_teams
   def initialize(locations, stat_tracker) # I need a test
     @stat_tracker = stat_tracker
