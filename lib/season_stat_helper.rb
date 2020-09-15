@@ -1,4 +1,10 @@
 class SeasonStatHelper
+  def initialize(game, team, game_team)
+    @game = game
+    @team = team
+    @game_team = game_team
+  end
+
   def find_all_seasons
     seasons = []
     @game.each do |game_id, game|
