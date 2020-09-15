@@ -191,7 +191,7 @@ class StatTracker
   end
 
   def best_season(team_id)
-    @games_manager.best_season(team_id)
+    @games_manager.worst_or_best_season(team_id, :max_by)
   end
 
   def average_win_percentage(team_id)
@@ -199,7 +199,7 @@ class StatTracker
   end
 
   def worst_season(team_id)
-    @games_manager.worst_season(team_id)
+    @games_manager.worst_or_best_season(team_id, :min_by)
   end
 
   def team_info(team_id)

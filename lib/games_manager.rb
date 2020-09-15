@@ -113,14 +113,8 @@ class GamesManager
     end
   end
 
-  def best_season(team_id)
-    seasons_win_percentages_by_team(team_id).max_by do |season, percent|
-      percent
-    end[0]
-  end
-
-  def worst_season(team_id)
-    seasons_win_percentages_by_team(team_id).min_by do |season, percent|
+  def worst_or_best_season(team_id, method_arg)
+    seasons_win_percentages_by_team(team_id).method(method_arg).call do |season, percent|
       percent
     end[0]
   end

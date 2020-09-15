@@ -170,19 +170,19 @@ class GamesManagerTest < Minitest::Test
   end
 
   def test_it_can_return_a_teams_best_season
-    assert_equal "20122013", @games_manager.best_season("1")
-    assert_equal "20142015", @games_manager.best_season("4")
-    assert_equal "20122013", @games_manager.best_season("6")
-    assert_equal "20152016", @games_manager.best_season("14")
-    assert_equal "20172018", @games_manager.best_season("26")
+    assert_equal "20122013", @games_manager.worst_or_best_season("1", :max_by)
+    assert_equal "20142015", @games_manager.worst_or_best_season("4", :max_by)
+    assert_equal "20122013", @games_manager.worst_or_best_season("6", :max_by)
+    assert_equal "20152016", @games_manager.worst_or_best_season("14", :max_by)
+    assert_equal "20172018", @games_manager.worst_or_best_season("26", :max_by)
   end
 
   def test_it_can_return_a_teams_worst_season
-    assert_equal "20162017", @games_manager.worst_season("1")
-    assert_equal "20162017", @games_manager.worst_season("4")
-    assert_equal "20132014", @games_manager.worst_season("6")
-    assert_equal "20122013", @games_manager.worst_season("14")
-    assert_equal "20122013", @games_manager.worst_season("26")
+    assert_equal "20162017", @games_manager.worst_or_best_season("1", :min_by)
+    assert_equal "20162017", @games_manager.worst_or_best_season("4", :min_by)
+    assert_equal "20132014", @games_manager.worst_or_best_season("6", :min_by)
+    assert_equal "20122013", @games_manager.worst_or_best_season("14", :min_by)
+    assert_equal "20122013", @games_manager.worst_or_best_season("26", :min_by)
   end
 
   def test_it_can_get_game
