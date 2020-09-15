@@ -49,9 +49,7 @@ class StatTracker
 
   # potential module, perhaps GameTeams
   def season_group
-    @games.group_by do |row|
-      row.season
-    end
+    @games_manager.season_group
   end
 
   def total_goals(filtered_games = @games_manager.games)
@@ -146,9 +144,7 @@ class StatTracker
 
   # Move to GameTeamsManager
   def total_wins(game_teams_filtered = @game_teams)
-    game_teams_filtered.count do |gameteam|
-      gameteam.result == "WIN"
-    end
+    @game_teams_manager.total_wins(game_teams_filtered)
   end
 
   def filter_by_team_id(team_id)

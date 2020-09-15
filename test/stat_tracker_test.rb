@@ -90,11 +90,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal 67, @stats.total_goals(season_1415)
   end
 
-  def test_it_can_calc_a_ratio
-    expected = 0.67
-    assert_equal expected, @stats.ratio(2,3)
-  end
-
   def test_it_can_return_array_of_game_ids_per_season
     expected = ["2012020030", "2012020133", "2012020355", "2012020389"]
     assert_equal expected, @stats.game_ids_by_season("20122013")
@@ -112,7 +107,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_average_scores_per_team
-    expected = {"1"=>1.87, "4"=>1.68, "14"=>2.24, "6"=>2.35, "26"=>1.85}
+    expected = {"1"=>1.87, "4"=>1.682, "14"=>2.238, "6"=>2.35, "26"=>1.85}
     assert_equal expected, @stats.average_scores_by_team
   end
 
