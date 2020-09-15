@@ -27,16 +27,16 @@ class GameManager
     games.find {|game| game.game_id == game_id }.game_info
   end
 
+  def average_goals(games)
+    total = games.sum { |game| game.away_goals + game.home_goals }
+    (total.to_f / games.length).round(2)
+  end
+
   def average_goals_by_season
-    seasons_hash = {}
-    group_by_season.each do |season|
-      total = 0
-      season[1].each do |game|
-        total += game.away_goals + game.home_goals
-      end
-      seasons_hash[season[0]] = (total/season[1].length.to_f).round(2)
+    group_by_season.reduce({}) do |season_avg, (season, games)|
+      season_avg[season] = average_goals(games)
+      season_avg
     end
-    seasons_hash
   end
 
   def highest_total_score
