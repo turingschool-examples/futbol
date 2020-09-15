@@ -19,19 +19,18 @@ class GameTeamsTest < Minitest::Test
 
   def test_it_has_attributes
     assert_equal '2012030221', @game_teams_manager.game_teams[0].game_id
-    assert_equal '20122013', @game_teams_manager.game_teams[0].team_id
-    assert_equal 'Postseason', @game_teams_manager.game_teams[0].hoa
-    assert_equal '5/16/13', @game_teams_manager.game_teams[0].result
-    assert_equal '3', @game_teams_manager.game_teams[0].settled_in
-    assert_equal '6', @game_teams_manager.game_teams[0].head_coach
+    assert_equal '3', @game_teams_manager.game_teams[0].team_id
+    assert_equal 'away', @game_teams_manager.game_teams[0].hoa
+    assert_equal 'LOSS', @game_teams_manager.game_teams[0].result
+    assert_equal 'OT', @game_teams_manager.game_teams[0].settled_in
+    assert_equal 'John Tortorella', @game_teams_manager.game_teams[0].head_coach
     assert_equal '2', @game_teams_manager.game_teams[0].goals
-    assert_equal '3', @game_teams_manager.game_teams[0].shots
-    assert_equal 'Toyota Stadium', @game_teams_manager.game_teams[0].tackles
-    assert_equal '/api/v1/venues/null', @game_teams_manager.game_teams[0].power_play_opportunities
-    assert_equal '/api/v1/venues/null', @game_teams_manager.game_teams[0].power_play_goals
-    assert_equal '/api/v1/venues/null', @game_teams_manager.game_teams[0].face_off_win_percentage
-    assert_equal '/api/v1/venues/null', @game_teams_manager.game_teams[0].giveaways
-    assert_equal '/api/v1/venues/null', @game_teams_manager.game_teams[0].takeaways
-    assert_equal '/api/v1/venues/null', @game_teams_manager.game_teams[0].manager
+    assert_equal '8', @game_teams_manager.game_teams[0].shots
+    assert_equal '44', @game_teams_manager.game_teams[0].tackles
+    assert_equal '3', @game_teams_manager.game_teams[0].power_play_opportunities
+    assert_equal '0', @game_teams_manager.game_teams[0].power_play_goals
+    assert_equal '44.8', @game_teams_manager.game_teams[0].face_off_win_percentage
+    assert_equal '17', @game_teams_manager.game_teams[0].giveaways
+    assert_equal '7', @game_teams_manager.game_teams[0].takeaways
   end
 end
