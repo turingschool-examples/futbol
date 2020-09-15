@@ -5,6 +5,16 @@ class GameManager
   attr_reader :games
   def initialize(location, stat_tracker)
     @stat_tracker = stat_tracker
+    @games = generate_games(location)
+  end
+
+  def generate_games(location) # I need a test
+    array = []
+    CSV.foreach(location, headers: true) do |row|
+      array << Game.new(row.to_hash)
+    end
+    array
+  end
 
   def return_max(hash)
     hash.key(hash.values.max)
@@ -12,6 +22,16 @@ class GameManager
 
   def return_min(hash)
     hash.key(hash.values.min)
+  end
+
+  def group_by_season
+    @games.group_by do |game|
+      game.season
+    end.uniq
+  end
+
+  def game_info(game_id)
+    games.find {|game| game.game_id == game_id }.game_info
   end
 
   def average_goals_by_season

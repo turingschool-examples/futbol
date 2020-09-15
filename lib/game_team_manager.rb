@@ -3,14 +3,14 @@ require 'csv'
 
 class GameTeamManager
   attr_reader :game_teams
-  def initialize(location, stat_tracker) # I need a test
+  def initialize(locations, stat_tracker) # I need a test
     @stat_tracker = stat_tracker
-    @game_teams = generate_game_teams(location)
+    @game_teams = generate_game_teams(locations)
   end
 
-  def generate_game_teams(location) # I need a test
+  def generate_game_teams(locations) # I need a test
     array = []
-    CSV.foreach(location, headers: true) do |row|
+    CSV.foreach(locations, headers: true) do |row|
       array << GameTeams.new(row.to_hash)
     end
     array
@@ -19,12 +19,9 @@ class GameTeamManager
   def goal_avg_per_team(team_id, home_away)
     goal_array = []
     @game_teams.each do |game|
-        if game.team_id == team_id && home_away == game.HoA
-          goal_array << game.goals
-        elsif game.team_id == team_id && home_away == ''
-          goal_array << game.goals
-        end
-      end
+      goal_array << game.goals if game.team_id == team_id && home_away == game.HoA
+      goal_array << game.goals if game.team_id == team_id && home_away == ''
+    end
     (goal_array.sum.to_f/goal_array.count).round(2)
   end
 
@@ -131,12 +128,12 @@ class GameTeamManager
   end
 
   def most_accurate_team(season_id)
-    return_max(team_accuracy(season_id))
+    most_accurate = return_max(team_accuracy(season_id))
     team_by_id(most_accurate)
   end
 
   def least_accurate_team(season_id)
-    return_min(team_accuracy(season_id))
+    least_accurate = return_min(team_accuracy(season_id))
     team_by_id(least_accurate)
   end
 
