@@ -9,18 +9,8 @@ class GameManager
     @games = generate_data(location, Game)
   end
 
-  def return_max(hash)
-    hash.key(hash.values.max)
-  end
-
-  def return_min(hash)
-    hash.key(hash.values.min)
-  end
-
   def group_by_season
-    @games.group_by do |game|
-      game.season
-    end.uniq
+    @games.group_by { |game| game.season }.uniq
   end
 
   def game_info(game_id)
