@@ -64,4 +64,41 @@ module AssistantToTheGameTeamsManager
   def find_team_name(team_id)
     @tracker.team_info(team_id)['team_name']
   end
+
+#-------------GameStatistics
+  def all_games
+    @game_teams.find_all do |game|
+      game.hoa == "away" || game.hoa == "home"
+    end
+  end
+
+  def all_tie_games
+    all_games.find_all do |game|
+      game.result == "TIE"
+    end
+  end
+
+  def all_away_games
+    @game_teams.find_all do |game|
+      game.hoa == "away"
+    end
+  end
+
+  def all_away_game_wins
+    all_away_games.find_all do |game|
+      game.result == "WIN"
+    end
+  end
+
+    def all_home_games
+    @game_teams.find_all do |game|
+      game.hoa == "home"
+    end
+  end
+
+  def all_home_game_wins
+    all_home_games.find_all do |game|
+      game.result == "WIN"
+    end
+  end
 end
