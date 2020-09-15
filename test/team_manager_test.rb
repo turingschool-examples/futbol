@@ -69,9 +69,9 @@ class TeamManagerTest < Minitest::Test
     team_manager = TeamManager.new('A totally legit path', stat_tracker)
     team_manager.stubs(:teams).returns(team_array)
 
-    assert_equal team1.team_info, team_manager.team_info('1')
-    assert_equal team2.team_info, team_manager.team_info('2')
-    assert_equal team3.team_info, team_manager.team_info('3')
+    assert_equal team1.team_info, team_manager.find_team('1').team_info
+    assert_equal team2.team_info, team_manager.find_team('2').team_info
+    assert_equal team3.team_info, team_manager.find_team('3').team_info
   end
 
   def test_it_can_fetch_game_ids_for_a_team

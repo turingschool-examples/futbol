@@ -54,7 +54,7 @@ class StatTracker
   # Team Stats
 
   def team_info(team_id)
-    team_manager.team_info(team_id)
+    team_manager.find_team(team_id).team_info
   end
 
   def game_ids_by_team(team_id)

@@ -8,11 +8,10 @@ class TeamManager
   def initialize(location, stat_tracker)
     @stat_tracker = stat_tracker
     @teams = generate_data(location, Team)
-    #@teams_data = team_data_by_id
   end
 
-  def team_info(id)
-    teams.find { |team| team.team_id == id }.team_info
+  def find_team(id)
+    teams.find { |team| team.team_id == id }
   end
 
   def game_ids_by_team(id)
@@ -84,7 +83,7 @@ class TeamManager
       opponent_win_percentage(id, opponent_id)
     end
 
-    team_info(favorite_id)['team_name']
+    find_team(favorite_id).team_info['team_name']
   end
 
   def rival(id)
@@ -92,7 +91,7 @@ class TeamManager
       opponent_win_percentage(id, opponent_id)
     end
 
-    team_info(rival_id)['team_name']
+    find_team(rival_id).team_info['team_name']
   end
 
   def game_ids_by_season(id)
