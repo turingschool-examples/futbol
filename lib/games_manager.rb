@@ -32,16 +32,9 @@ class GamesManager
     ratio(ties, total_games)
   end
 
-  def percentage_home_wins
+  def percentage_wins(method_arg)
     wins = @games.count do |game|
-      game.home_is_winner?
-    end
-    ratio(wins, total_games)
-  end
-
-  def percentage_visitor_wins
-    wins = @games.count do |game|
-      game.visitor_is_winner?
+      game.method(method_arg).call
     end
     ratio(wins, total_games)
   end

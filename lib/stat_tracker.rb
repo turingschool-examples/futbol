@@ -115,7 +115,7 @@ class StatTracker
   end
 
   def percentage_visitor_wins
-    @games_manager.percentage_visitor_wins
+    @games_manager.percentage_wins(:visitor_is_winner?)
   end
 
   def percentage_ties
@@ -123,7 +123,7 @@ class StatTracker
   end
 
   def percentage_home_wins
-    @games_manager.percentage_home_wins
+    @games_manager.percentage_wins(:home_is_winner?)
   end
 
   def count_of_games_by_season
