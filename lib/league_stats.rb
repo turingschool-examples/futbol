@@ -15,7 +15,7 @@ class LeagueStats < Stats
   end
 
   def count_of_teams
-    @team_stats_data.count_of_teams
+    @teams_stats_data.count
   end
 
   def best_offense_stats
