@@ -37,9 +37,9 @@ class GamesManagerTest < Minitest::Test
   end
 
   def test_it_can_group_games_by_season
-    assert_equal ["20142015", "20172018", "20152016", "20132014", "20122013", "20162017"], @games_manager.seasonal_game_data.keys
+    assert_equal ["20142015", "20172018", "20152016", "20132014", "20122013", "20162017"], @games_manager.season_group.keys
 
-    @games_manager.seasonal_game_data.values.each do |games|
+    @games_manager.season_group.values.each do |games|
       games.each do |game|
         assert_instance_of Game, game
       end
@@ -48,7 +48,7 @@ class GamesManagerTest < Minitest::Test
 
   def test_it_can_sum_game_goals
     assert_equal 211, @games_manager.total_goals
-    season_1415 = @games_manager.seasonal_game_data["20142015"]
+    season_1415 = @games_manager.season_group["20142015"]
     assert_equal 67, @games_manager.total_goals(season_1415)
   end
 

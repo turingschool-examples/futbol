@@ -32,12 +32,6 @@ class GameTeamsManager
     end
   end
 
-  def coach_by_season(team_id, season)
-    game_teams_by_season(season).find do |game_team|
-      game_team.team_id == team_id
-    end.head_coach
-  end
-
   def coach_game_teams(season)
     game_teams_by_season(season).group_by do |game_team|
       game_team.head_coach
@@ -174,7 +168,7 @@ class GameTeamsManager
   end
 
   def game_ids_per_season(season)
-    @stat_tracker.seasonal_game_data[season].map do |games|
+    @stat_tracker.season_group[season].map do |games|
       games.game_id
     end
   end
@@ -196,7 +190,7 @@ class GameTeamsManager
   end
 
   def season_goals(season)
-    specific_season = @stat_tracker.seasonal_game_data[season]
+    specific_season = @stat_tracker.season_group[season]
     specific_season.reduce(Hash.new(0)) do |season_goals, game|
       season_goals[game.away_team_id.to_s] += game.away_goals
       season_goals[game.home_team_id.to_s] += game.home_goals

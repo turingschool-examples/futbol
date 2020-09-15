@@ -50,8 +50,8 @@ class StatTracker
     @games_manager.total_goals(filtered_games)
   end
 
-  def seasonal_game_data
-    @games_manager.seasonal_game_data
+  def season_group
+    @games_manager.season_group
   end
 
   def total_scores_by_team
@@ -106,7 +106,6 @@ class StatTracker
     @game_teams_manager.shots_per_goal_per_season(season)
   end
 
-# ~~~ Game Methods ~~~
   def lowest_total_score
     @games_manager.lowest_total_score
   end
@@ -139,7 +138,6 @@ class StatTracker
     @games_manager.average_goals_per_game
   end
 
-# ~~~ LEAGUE METHODS~~~
   def worst_offense
     @game_teams_manager.worst_offense
   end
@@ -168,8 +166,6 @@ class StatTracker
     @game_teams_manager.lowest_scoring_home_team
   end
 
-# ~~~ SEASON METHODS~~~
-
   def winningest_coach(season)
     @game_teams_manager.winningest_coach(season)
   end
@@ -193,8 +189,6 @@ class StatTracker
   def least_accurate_team(season)
     @game_teams_manager.least_accurate_team(season)
   end
-
-# ~~~ TEAM METHODS~~~
 
   def best_season(team_id)
     @games_manager.best_season(team_id)
