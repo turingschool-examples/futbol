@@ -15,7 +15,48 @@ class GameTeamManager
     end
     array
   end
+  
+  def goal_avg_per_team(team_id, home_away)
+    goal_array = []
+    @game_teams.each do |game|
+        if game.team_id == team_id && home_away == game.HoA
+          goal_array << game.goals
+        elsif game.team_id == team_id && home_away == ''
+          goal_array << game.goals
+        end
+      end
+    (goal_array.sum.to_f/goal_array.count).round(2)
+  end
 
+  def best_offense
+    team_data.max_by{|team| goal_avg_per_team(team.team_id, '')}.team_name
+  end
+
+  def worst_offense
+    team_data.min_by{|team| goal_avg_per_team(team.team_id, '')}.team_name
+  end
+
+  def highest_scoring_visitor
+    team_data.max_by{|team| goal_avg_per_team(team.team_id, 'away')}.team_name
+  end
+
+  def highest_scoring_home_team
+    team_data.max_by{|team| goal_avg_per_team(team.team_id, 'home')}.team_name
+  end
+
+  def lowest_scoring_visitor
+    team_data.min_by{|team| goal_avg_per_team(team.team_id, 'away')}.team_name
+  end
+
+  def lowest_scoring_home_team
+    team_data.min_by{|team| goal_avg_per_team(team.team_id, 'home')}.team_name
+  end
+
+  def team_data
+    @stat_tracker.team_manager.teams
+  end
+
+=======
   def game_ids_by_team(id)
     game_teams.select do |game_team|
       game_team.team_id == id

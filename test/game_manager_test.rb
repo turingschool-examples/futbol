@@ -39,52 +39,6 @@ class GameManagerTest < Minitest::Test
     assert_equal game3.game_info, game_manager.game_info('3')
   end
 
-  def test_with_best_offense
-    assert_equal 'Minnesota United FC', @real_stat_tracker.best_offense
-  end
-
-  def test_with_worst_offense
-    assert_equal 'Columbus Crew SC', @real_stat_tracker.worst_offense
-  end
-
-  def test_highest_scoring_visitor
-    assert_equal 'FC Dallas', @real_stat_tracker.highest_scoring_visitor
-  end
-
-  def test_highest_scoring_home_team
-    assert_equal 'Minnesota United FC', @real_stat_tracker.highest_scoring_home_team
-  end
-
-  def test_lowest_scoring_visitor
-    assert_equal 'Columbus Crew SC', @real_stat_tracker.lowest_scoring_visitor
-  end
-
-  def test_lowest_scoring_home_team
-    assert_equal 'Philadelphia Union', @real_stat_tracker.lowest_scoring_home_team
-  end
-
-  def test_home_team_data_collection
-    stat_tracker = mock('stat tracker object')
-    game_manager = GameManager.new(@locations[:games], stat_tracker)
-    assert_equal 496, game_manager.data_home.count
-  end
-
-  def test_away_team_data_collection
-    stat_tracker = mock('stat tracker object')
-    game_manager = GameManager.new(@locations[:games], stat_tracker)
-    assert_equal 496, game_manager.data_away.count
-  end
-
-  def test_average_goals_per_game
-    stat_tracker = mock('stat tracker object')
-    game_manager = GameManager.new(@locations[:games], stat_tracker)
-    team_data_hash = { '1' => 'I made a big mistake', '2' => 'This is not a real team name', '3' => 'For testing purposes only' }
-    scoredata = [['1', 1], ['1', 0], ['1', 1], ['2', 2], ['2', 4], ['2', 2], ['3', 3], ['3', 3], ['3', 3]]
-    expected = { '1' => 0.6667, '2' => 2.6667, '3' => 3 }
-    game_manager.stubs(:team_data).returns(team_data_hash)
-    assert_equal expected, game_manager.return_average_goals_per_game(scoredata)
-  end
-
   def test_it_has_readable_attributes
     game_manager = mock('game manager object')
     game_1 = mock('game object 1')
