@@ -33,36 +33,35 @@ class GameTeamsManager
     end
   end
 
-  def all_teams_win_percentage(season)
-    percent_wins = {}
-    @stat_tracker.fetch_all_team_ids.each do |team_id|
-      percent_wins[team_id] = @stat_tracker.fetch_season_win_percentage(team_id, season)
+  def coach_by_season(team_id, season)
+    game_teams_by_season(season).find do |game_team|
+      game_team.team_id == team_id
+    end.head_coach
+  end
+
+  def coach_game_teams(season)
+    game_teams_by_season(season).group_by do |game_team|
+      game_team.head_coach
     end
-    percent_wins
   end
 
-  def winningest_team(season)
-    all_teams_win_percentage(season).max_by do |team_id, win_percentage|
-      win_percentage
-    end.first
-  end
-
-  def worst_team(season)
-    all_teams_win_percentage(season).min_by do |team_id, win_percentage|
-      win_percentage
-    end.first
+  #average_win_percentage_by(group)
+  def coach_game_teams_average_wins(season)
+    coach_game_teams(season).map do |opponent, gameteams|
+      [opponent, ratio(total_wins(gameteams), total_game_teams(gameteams))]
+    end.to_h
   end
 
   def winningest_coach(season)
-    @game_teams.find do |game_team|
-      game_team.team_id == winningest_team(season)
-    end.head_coach
+    coach_game_teams_average_wins(season).max_by do |season, win_perc|
+      win_perc
+    end[0]
   end
 
   def worst_coach(season)
-    @game_teams.find do |game_team|
-      game_team.team_id == worst_team(season)
-    end.head_coach
+    coach_game_teams_average_wins(season).min_by do |season, win_perc|
+      win_perc
+    end[0]
   end
 
   def game_teams_by_season(season)
