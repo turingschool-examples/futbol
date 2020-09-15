@@ -60,8 +60,8 @@ class TeamStatistics < TeamStatHelper
 
   def fewest_goals_scored(team_id)
     fewest_goals = 5
-    collect_seasons(team_id).each do |key, value|
-      value.each do |game|
+    collect_seasons(team_id).each do |season, games|
+      games.each do |game|
         if team_id.to_i == game.away_team_id
           fewest_goals = game.away_goals if game.away_goals < fewest_goals
         elsif team_id.to_i == game.home_team_id
