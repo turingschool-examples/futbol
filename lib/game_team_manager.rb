@@ -178,7 +178,6 @@ class GameTeamManager
       end
     end
     biggest_loser = sort_percentages(loser_loses, total_games)
-    # require "pry"; binding.pry
     @tracker.get_team_name(biggest_loser.last[0])
   end
 
