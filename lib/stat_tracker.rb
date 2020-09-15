@@ -23,14 +23,63 @@ class StatTracker
     new(game_path, team_path, game_teams_path)
   end
 
-  # ----------SeasonStats
-
+  # # ----------SeasonStats
+  #
   def winningest_coach(season)
     @game_teams_manager.winningest_coach(season)
   end
+  #
+  def worst_coach(season)
+    @game_teams_manager.worst_coach(season)
+  end
+  #
+  def most_accurate_team(season)
+    @game_teams_manager.most_accurate_team(season)
+  end
+  #
+  def least_accurate_team(season)
+    @game_teams_manager.least_accurate_team(season)
+  end
+  #
+  def most_tackles(season)
+    @game_teams_manager.most_tackles(season)
+  end
+  #
+  def fewest_tackles(season)
+    @game_teams_manager.fewest_tackles(season)
+  end
 
-  def find_game_ids_for_season(season)
-    @game_manager.find_game_ids_for_season(season)
+  # ----------LeaugeStats
+  def count_of_teams
+    @game_manager.count_of_teams
+  end
+
+  def best_offense
+    @game_manager.best_offense
+  end
+
+  def worst_offense
+    @game_manager.worst_offense
+  end
+
+  def highest_scoring_visitor
+    @game_manager.highest_scoring_visitor
+  end
+
+  def highest_scoring_home_team
+    @game_manager.highest_scoring_home_team
+  end
+
+  def lowest_scoring_visitor
+    @game_manager.lowest_scoring_visitor
+  end
+
+  def lowest_scoring_home_team
+    @game_manager.lowest_scoring_home_team
+  end
+
+  def initialize_team_stats_hash
+    @team_manager.initialize_team_stats_hash
   end
 
   #-----------GameStatistics
@@ -66,8 +115,37 @@ class StatTracker
   def average_goals_by_season
     @game_manager.average_goals_by_season
   end 
-end
 
-    # game_manager = CSV.read(locations[:games], headers:true)
-    # team_manager = CSV.read(locations[:teams], headers:true)
-    # game_teams_manager = CSV.read(locations[:game_teams], headers:true)
+#-------------TeamStats
+  def team_info(team_id)
+    @team_manager.team_info(team_id)
+  end
+
+  def best_season(team_id)
+    @game_teams_manager.best_season(team_id)
+  end
+
+  def worst_season(team_id)
+    @game_teams_manager.worst_season(team_id)
+  end
+
+  def average_win_percentage(team_id)
+    @game_teams_manager.average_win_percentage(team_id)
+  end
+
+  def most_goals_scored(team_id)
+    @game_teams_manager.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    @game_teams_manager.fewest_goals_scored(team_id)
+  end
+
+  def favorite_opponent(team_id)
+    @game_teams_manager.favorite_opponent(team_id)
+  end
+
+  def rival(team_id)
+    @game_teams_manager.rival(team_id)
+  end
+end
