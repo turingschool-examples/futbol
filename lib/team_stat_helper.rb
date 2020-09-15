@@ -65,19 +65,11 @@ class TeamStatHelper
           games << game_info.game_id
         end
       end
-     @game_team.find_all do |game|
+     found_games = @game_team.find_all do |game|
       games.include?(game.game_id)
     end
+    found_games
   end
 
-  def process_game_result(team_id, game, opponents, game_count)
-    if team_id.to_i != game.team_id && opponents[game.team_id].nil?
-      game_count[game.team_id] = 1
-        game.result == "WIN" ? opponents[game.team_id] = 1 : opponents[game.team_id] = 0
-    elsif team_id.to_i != game.team_id
-      opponents[game.team_id] += 1 if game.result == "WIN"
-      game_count[game.team_id] += 1
-    end
-  end
 
 end

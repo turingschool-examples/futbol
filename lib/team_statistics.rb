@@ -83,11 +83,11 @@ class TeamStatistics < TeamStatHelper
     opponents.each do |team, wins|
       win_percentages[team] = wins / game_count[team].to_f
     end
-    favorite_team_id = win_percentages.key(win_percentages.values.min)
-    favorite_team = @team.find do |team_id, info|
-      team_id.to_i == favorite_team_id
-    end
-    favorite_team[1].team_name
+    # favorite_team_id = win_percentages.key(win_percentages.values.min)
+    # favorite_team = @team.find do |team_id, info|
+    #   team_id.to_i == favorite_team_id
+    # end
+    # favorite_team[1].team_name
   end
 
   def rival(team_id)
