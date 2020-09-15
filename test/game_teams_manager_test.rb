@@ -30,31 +30,20 @@ class GameTeamsManagerTest < Minitest::Test
     game_teams_path = './fixture/game_teams_blank.csv'
 
     tracker = StatTracker.new(game_path, team_path, game_teams_path)
-    game_1 = mock("Season Game 1")
-    game_2 = mock("Season Game 2")
-    game_3 = mock("Season Game 3")
-    tracker.game_manager.games << game_1
-    tracker.game_manager.games << game_2
-    tracker.game_manager.games << game_3
 
     game_teams_1 = mock("Game Team Object 1")
     game_teams_2 = mock("Game Team Object 2")
     game_teams_3 = mock("Game Team Object 3")
+
     tracker.game_teams_manager.game_teams << game_teams_1
     tracker.game_teams_manager.game_teams << game_teams_2
     tracker.game_teams_manager.game_teams << game_teams_3
 
-    game_1.stubs(:season).returns('20122013')
-    game_2.stubs(:season).returns('20122013')
-    game_3.stubs(:season).returns('20132014')
-    game_1.stubs(:game_id).returns('123')
-    game_2.stubs(:game_id).returns('456')
-    game_3.stubs(:game_id).returns('789')
-    game_teams_1.stubs(:game_id).returns('123')
-    game_teams_2.stubs(:game_id).returns('987')
-    game_teams_3.stubs(:game_id).returns('555')
+    game_teams_1.stubs(:game_id).returns('2012030221')
+    game_teams_2.stubs(:game_id).returns('2012030235')
+    game_teams_3.stubs(:game_id).returns('2014030314')
 
-    assert_equal [game_teams_1], tracker.game_teams_manager.game_teams_results_by_season('20122013')
+    assert_equal [game_teams_1, game_teams_2], tracker.game_teams_manager.game_teams_results_by_season('20122013')
   end
 
   # -----------SeasonStats

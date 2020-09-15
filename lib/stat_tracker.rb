@@ -48,10 +48,6 @@ class StatTracker
   def fewest_tackles(season)
     @game_teams_manager.fewest_tackles(season)
   end
-  #
-  def find_game_ids_for_season(season)
-    @game_manager.find_game_ids_for_season(season)
-  end
 
   # ----------LeaugeStats
   def count_of_teams
