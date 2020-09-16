@@ -18,43 +18,8 @@ class GameTeamsManager
     end
   end
 
-  def avg_score(filtered_game_teams = @game_teams)
-    ratio(total_score(filtered_game_teams), total_game_teams(filtered_game_teams))
-  end
-
   def total_game_teams(filtered_game_teams = @game_teams)
     filtered_game_teams.count
-  end
-
-  def home_or_away_games(hoa)
-    @game_teams.select do |game|
-      game.hoa == hoa
-    end
-  end
-
-  def coach_game_teams(season)
-    game_teams_by_season(season).group_by do |game_team|
-      game_team.head_coach
-    end
-  end
-
-  #average_win_percentage_by(group)
-  def coach_game_teams_average_wins(season)
-    coach_game_teams(season).map do |opponent, gameteams|
-      [opponent, ratio(total_wins(gameteams), total_game_teams(gameteams))]
-    end.to_h
-  end
-
-  def winningest_coach(season)
-    coach_game_teams_average_wins(season).max_by do |season, win_perc|
-      win_perc
-    end[0]
-  end
-
-  def worst_coach(season)
-    coach_game_teams_average_wins(season).min_by do |season, win_perc|
-      win_perc
-    end[0]
   end
 
   def game_teams_by_season(season)
@@ -93,6 +58,12 @@ class GameTeamsManager
     team_goals_by_game(team_id).method(method_arg).call.to_i
   end
 
+  def home_or_away_games(hoa)
+    @game_teams.select do |game|
+      game.hoa == hoa
+    end
+  end
+
   def hoa_games_by_team_id(hoa)
     home_or_away_games(hoa).group_by do |game_team|
       game_team.team_id
@@ -105,32 +76,17 @@ class GameTeamsManager
     end
   end
 
-  def highest_scoring_home_team
-    highest_scoring_home_team = hoa_games_by_team_id("home").max_by do |team_id, details|
+  def highest_lowest_scoring_team(hoa,method_arg)
+    hoa_team_id = hoa_games_by_team_id(hoa).method(method_arg).call do |team_id, details|
       avg_score(details)
     end[0]
-    @stat_tracker.fetch_team_identifier(highest_scoring_home_team)
+    @stat_tracker.fetch_team_identifier(hoa_team_id)
   end
 
-  def highest_scoring_visitor
-    highest_scoring_visitor = hoa_games_by_team_id("away").max_by do |team_id, details|
-      avg_score(details)
-    end[0]
-    @stat_tracker.fetch_team_identifier(highest_scoring_visitor)
-  end
-
-  def lowest_scoring_home_team
-    lowest_scoring_home_team = hoa_games_by_team_id("home").min_by do |team_id, details|
-      avg_score(details)
-    end[0]
-    @stat_tracker.fetch_team_identifier(lowest_scoring_home_team)
-  end
-
-  def lowest_scoring_visitor
-    lowest_scoring_visitor = hoa_games_by_team_id("away").min_by do |team_id, details|
-      avg_score(details)
-    end[0]
-    @stat_tracker.fetch_team_identifier(lowest_scoring_visitor)
+  def coach_game_teams(season)
+    game_teams_by_season(season).group_by do |game_team|
+      game_team.head_coach
+    end
   end
 
   def game_teams_by_opponent(team_id)
@@ -139,22 +95,28 @@ class GameTeamsManager
     end
   end
 
-  def average_win_percentage_by(game_teams_hash)
-    game_teams_hash.map do |group_value, gameteams|
+  def average_win_percentage_by(hash)
+    hash.map do |group_value, gameteams|
       [group_value, ratio(total_wins(gameteams), total_game_teams(gameteams))]
     end.to_h
   end
 
-  def highest_win_percentage(game_teams_hash)
-    average_win_percentage_by(game_teams_hash).max_by do |group, win_perc|
+  def highest_lowest_win_percentage(hash, method_arg)
+    average_win_percentage_by(hash).method(method_arg).call do |group, win_perc|
       win_perc
     end[0]
   end
 
-  def lowest_win_percentage(game_teams_hash)
-    average_win_percentage_by(game_teams_hash).min_by do |group, win_perc|
-      win_perc
-    end[0]
+  def favorite_opponent(team_id)
+    hash = game_teams_by_opponent(team_id)
+    fave_opp_id = highest_lowest_win_percentage(hash, :max_by)
+    @stat_tracker.fetch_team_identifier(fave_opp_id)
+  end
+
+  def rival(team_id)
+    hash = game_teams_by_opponent(team_id)
+    rival_id = highest_lowest_win_percentage(hash, :min_by)
+    @stat_tracker.fetch_team_identifier(rival_id)
   end
 
   def game_ids_per_season(season)
@@ -232,6 +194,10 @@ class GameTeamsManager
   def best_worst_offense(method_arg1)
     team = average_scores_by_team.method(method_arg1).call {|id, average| average}
     @stat_tracker.fetch_team_identifier(team[0])
+  end
+
+  def avg_score(filtered_game_teams = @game_teams)
+    ratio(total_score(filtered_game_teams), total_game_teams(filtered_game_teams))
   end
 
 end

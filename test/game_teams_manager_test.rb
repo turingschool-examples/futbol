@@ -26,46 +26,50 @@ class GameTeamsManagerTest < Minitest::Test
     end
   end
 
-  def test_it_can_calculate_coach_game_teams_average_wins
-    expected = {
-      "Claude Julien" => 1.0,
-      "Guy Boucher" => 0.0,
-      "Peter DeBoer" => 1.0,
-      "Peter Laviolette" => 0.25
-    }
-    assert_equal expected, @game_teams_manager.coach_game_teams_average_wins("20122013")
-  end
+  # Below method deleted, now using average_win_percentage_by_methods (see stattracker)
+  # def test_it_can_calculate_coach_game_teams_average_wins
+  #   expected = {
+  #     "Claude Julien" => 1.0,
+  #     "Guy Boucher" => 0.0,
+  #     "Peter DeBoer" => 1.0,
+  #     "Peter Laviolette" => 0.25
+  #   }
+  #   assert_equal expected, @game_teams_manager.coach_game_teams_average_wins("20122013")
+  # end
 
-  def test_it_can_list_winningest_coach_by_season
-    assert_equal "Peter DeBoer", @game_teams_manager.winningest_coach("20122013")
-    assert_equal "Claude Julien", @game_teams_manager.winningest_coach("20132014")
-    assert_equal "Claude Julien", @game_teams_manager.winningest_coach("20142015")
-    assert_equal "Jon Cooper", @game_teams_manager.winningest_coach("20152016")
-    assert_equal "Bruce Cassidy", @game_teams_manager.winningest_coach("20162017")
-    assert_equal "John Stevens", @game_teams_manager.winningest_coach("20172018")
+  #Below method deleted, now using average_win_percentage_by_methods (see stattracker)
+  # def test_it_can_list_winningest_coach_by_season
+  #   assert_equal "Peter DeBoer", @game_teams_manager.winningest_coach("20122013")
+  #   assert_equal "Claude Julien", @game_teams_manager.winningest_coach("20132014")
+  #   assert_equal "Claude Julien", @game_teams_manager.winningest_coach("20142015")
+  #   assert_equal "Jon Cooper", @game_teams_manager.winningest_coach("20152016")
+  #   assert_equal "Bruce Cassidy", @game_teams_manager.winningest_coach("20162017")
+  #   assert_equal "John Stevens", @game_teams_manager.winningest_coach("20172018")
 
-  end
+  # end
 
-  def test_it_can_determine_the_worst_coach_by_season
-    assert_equal "Guy Boucher", @game_teams_manager.worst_coach("20122013")
-    assert_equal "Jon Cooper", @game_teams_manager.worst_coach("20132014")
-    assert_equal "Jon Cooper", @game_teams_manager.worst_coach("20142015")
-    assert_equal "Darryl Sutter", @game_teams_manager.worst_coach("20152016")
-    assert_equal "Claude Julien", @game_teams_manager.worst_coach("20162017")
-    assert_equal "Dave Hakstol", @game_teams_manager.worst_coach("20172018")
-  end
-
-  def test_it_can_get_game_teams_by_season
-    @game_teams_manager.game_teams_by_season("20142015").each do |game|
-      assert_instance_of GameTeam, game
-    end
-    assert_equal 8, @game_teams_manager.game_teams_by_season("20122013").count
-    assert_equal 24, @game_teams_manager.game_teams_by_season("20132014").count
-    assert_equal 32, @game_teams_manager.game_teams_by_season("20142015").count
-    assert_equal 10, @game_teams_manager.game_teams_by_season("20152016").count
-    assert_equal 14, @game_teams_manager.game_teams_by_season("20162017").count
-    assert_equal 18, @game_teams_manager.game_teams_by_season("20172018").count
-  end
+  # Below method deleted, now using average_win_percentage_by_methods (see stattracker)
+  # def test_it_can_determine_the_worst_coach_by_season
+  #   assert_equal "Guy Boucher", @game_teams_manager.worst_coach("20122013")
+  #   assert_equal "Jon Cooper", @game_teams_manager.worst_coach("20132014")
+  #   assert_equal "Jon Cooper", @game_teams_manager.worst_coach("20142015")
+  #   assert_equal "Darryl Sutter", @game_teams_manager.worst_coach("20152016")
+  #   assert_equal "Claude Julien", @game_teams_manager.worst_coach("20162017")
+  #   assert_equal "Dave Hakstol", @game_teams_manager.worst_coach("20172018")
+  # end
+  #
+  # Below method deleted, now using average_win_percentage_by_methods (see stattracker)
+  # def test_it_can_get_game_teams_by_season
+  #   @game_teams_manager.game_teams_by_season("20142015").each do |game|
+  #     assert_instance_of GameTeam, game
+  #   end
+  #   assert_equal 8, @game_teams_manager.game_teams_by_season("20122013").count
+  #   assert_equal 24, @game_teams_manager.game_teams_by_season("20132014").count
+  #   assert_equal 32, @game_teams_manager.game_teams_by_season("20142015").count
+  #   assert_equal 10, @game_teams_manager.game_teams_by_season("20152016").count
+  #   assert_equal 14, @game_teams_manager.game_teams_by_season("20162017").count
+  #   assert_equal 18, @game_teams_manager.game_teams_by_season("20172018").count
+  # end
 
   def test_it_can_show_total_tackles_per_team_per_season
     expected = {
@@ -94,20 +98,15 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal 1, @game_teams_manager.most_fewest_goals_scored("14", :min)
   end
 
-  def test_it_can_see_highest_scoring_home_team
-    assert_equal "DC United", @game_teams_manager.highest_scoring_home_team
-  end
-
-  def test_it_can_see_highest_scoring_visitor
-    assert_equal "FC Dallas",   @game_teams_manager.highest_scoring_visitor
-  end
-
-  def test_it_knows_lowest_scoring_home_team
-    assert_equal "Atlanta United", @game_teams_manager.lowest_scoring_home_team
-  end
-
-  def test_it_knows_lowest_scoring_visitor_team
-    assert_equal "Chicago Fire", @game_teams_manager.lowest_scoring_visitor
+  def test_it_can_get_highest_lowest_away_home_teams
+    #highest scoring home team
+    assert_equal "DC United", @game_teams_manager.highest_lowest_scoring_team("home",:max_by)
+    #lowest scoring home team
+    assert_equal "Atlanta United", @game_teams_manager.highest_lowest_scoring_team("home",:min_by)
+    #highest scoring visitor team
+    assert_equal "FC Dallas", @game_teams_manager.highest_lowest_scoring_team("away",:max_by)
+    #lowest scoring visitor team
+    assert_equal "Chicago Fire", @game_teams_manager.highest_lowest_scoring_team("away",:min_by)
   end
 
   def test_it_can_filter_gameteams_by_team_id
@@ -161,12 +160,12 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal expected, @game_teams_manager.average_win_percentage_by(@game_teams_manager.game_teams_by_opponent("6"))
   end
 
-  def test_it_can_return_highest_win_percentage_for_a_group
-    assert_equal "4", @game_teams_manager.highest_win_percentage(@game_teams_manager.game_teams_by_opponent("6"))
-  end
+  def test_it_can_return_win_percentage_for_a_group
+    hash = @game_teams_manager.game_teams_by_opponent("6")
+    assert_equal "4", @game_teams_manager.highest_lowest_win_percentage(hash,:max_by)
 
-  def test_it_can_return_lowest_win_percentage_for_a_group
-    assert_equal "26", @game_teams_manager.lowest_win_percentage(@game_teams_manager.game_teams_by_opponent("6"))
+    hash = @game_teams_manager.game_teams_by_opponent("6")
+    assert_equal "26", @game_teams_manager.highest_lowest_win_percentage(hash,:min_by)
   end
 
   def test_it_can_get_number_of_games_by_team
