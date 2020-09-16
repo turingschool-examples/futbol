@@ -2,50 +2,32 @@ require_relative 'season_stat_helper'
 class SeasonStatistics < SeasonStatHelper
 
   def winningest_coach(season)
-    season_coach_hash = coaches_per_season(find_all_seasons)
     winningest_coach_name = nil
     highest_percentage = 0
-    season_coach_hash[season].each do |key, value|
+    coaches_per_season(find_all_seasons)[season].each do |coach, results|
       total_games = 0
       total_wins = 0
-      total_losses = 0
-      total_ties = 0
-      value.each do |game_result|
+      results.each do |game_result|
         total_games += 1
-        if game_result == "WIN"
-          total_wins += 1
-        elsif game_result == "LOSS"
-          total_losses += 1
-        elsif game_result == "TIE"
-          total_ties += 1
-        end
+        total_wins += 1 if game_result == "WIN"
       end
-      if (total_wins.to_f / total_games) > highest_percentage && total_games > 5
+      if (total_wins.to_f / total_games) > highest_percentage
         highest_percentage = (total_wins.to_f ) / total_games
-        winningest_coach_name = key
+        winningest_coach_name = coach
       end
     end
     winningest_coach_name
   end
 
   def worst_coach(season)
-    season_coach_hash = coaches_per_season(find_all_seasons)
     worst_coach_name = nil
     lowest_percentage = 1
-    season_coach_hash[season].each do |key, value|
+    coaches_per_season(find_all_seasons)[season].each do |key, value|
       total_games = 0
       total_wins = 0
-      total_losses = 0
-      total_ties = 0
       value.each do |game_result|
         total_games += 1
-        if game_result == "WIN"
-          total_wins += 1
-        elsif game_result == "LOSS"
-          total_losses += 1
-        elsif game_result == "TIE"
-          total_ties += 1
-        end
+        total_wins += 1 if game_result == "WIN"
       end
       if (total_wins.to_f / total_games) <= lowest_percentage
         lowest_percentage = (total_wins.to_f / total_games)
