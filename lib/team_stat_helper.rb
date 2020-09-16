@@ -71,14 +71,12 @@ class TeamStatHelper
     found_games
   end
 
-  def process_game_result(team_id, game, opponents, game_count)
-    if team_id.to_i != game.team_id && opponents[game.team_id].nil?
-      game_count[game.team_id] = 1
-        game.result == "WIN" ? opponents[game.team_id] = 1 : opponents[game.team_id] = 0
-    elsif team_id.to_i != game.team_id
-      opponents[game.team_id] += 1 if game.result == "WIN"
-      game_count[game.team_id] += 1
+  def win_percentages_by_team(opponents, game_count)
+    win_percentages = {}
+    opponents.each do |team, wins|
+      win_percentages[team] = wins / game_count[team].to_f
     end
+    win_percentages
   end
 
   def min_percentage_favorite_team_team_name(win_percentages)
@@ -96,5 +94,5 @@ class TeamStatHelper
     end
     favorite_team[1].team_name
   end
-  
+
 end

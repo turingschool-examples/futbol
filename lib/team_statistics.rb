@@ -73,30 +73,33 @@ class TeamStatistics < TeamStatHelper
   end
 
   def favorite_opponent(team_id)
-    games = games_for_team_id(team_id)
-    opponents = {}
+    opponents  = {}
     game_count = {}
-    games.each do |game|
-      process_game_result(team_id, game, opponents, game_count)
+    games_for_team_id(team_id).each do |game|
+      if team_id.to_i != game.team_id && opponents[game.team_id].nil?
+        game_count[game.team_id] = 1
+        game.result == "WIN" ? opponents[game.team_id] = 1 : opponents[game.team_id] = 0
+      elsif team_id.to_i != game.team_id
+        opponents[game.team_id] += 1 if game.result == "WIN"
+        game_count[game.team_id] += 1
+      end
     end
-    win_percentages = {}
-    opponents.each do |team, wins|
-      win_percentages[team] = wins / game_count[team].to_f
-    end
-    min_percentage_favorite_team_team_name(win_percentages)
+    min_percentage_favorite_team_team_name(win_percentages_by_team(opponents, game_count))
   end
 
   def rival(team_id)
-    games = games_for_team_id(team_id)
-    opponents = {}
+    opponents  = {}
     game_count = {}
-    games.each do |game|
-      process_game_result(team_id, game, opponents, game_count)
+    games_for_team_id(team_id).each do |game|
+      if team_id.to_i != game.team_id && opponents[game.team_id].nil?
+        game_count[game.team_id] = 1
+        game.result == "WIN" ? opponents[game.team_id] = 1 : opponents[game.team_id] = 0
+      elsif team_id.to_i != game.team_id
+        opponents[game.team_id] += 1 if game.result == "WIN"
+        game_count[game.team_id] += 1
+      end
     end
-    win_percentages = {}
-    opponents.each do |team, wins|
-      win_percentages[team] = wins / game_count[team].to_f
-    end
-    max_percentage_favorite_team_team_name(win_percentages)
+    max_percentage_favorite_team_team_name(win_percentages_by_team(opponents, game_count))
   end
+
 end
