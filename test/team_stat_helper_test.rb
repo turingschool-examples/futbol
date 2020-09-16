@@ -75,4 +75,32 @@ class TeamStatHelperTest < Minitest::Test
     assert_equal 656, @team_stat_helper.games_for_team_id("53")
   end
 
+  def test_process_game_result
+    skip
+    game_with_away_team_win = GameTeam.new({
+      "faceOffWinPercentage" => 62,
+      "game_id" => 2016030231,
+      "giveaways" => 6,
+      "goals" => 2,
+      "head_coach" => "Peter Laviolette",
+      "hoa" => "away",
+      "pim" => 4,
+      "powerPlayGoals" => 2,
+      "powerPlayOpportunities" => 3,
+      "result" => "LOSS",
+      "settled_in" => "REG",
+      "shots" => 8,
+      "tackles" => 34,
+      "takeaways" => 6,
+      "team_id" => 6
+      })
+    opponent_input_hash = {}
+    game_input_hash = {}
+    @team_stat_helper.process_game_result("6", game_with_away_team_win, game_input_hash, game_input_hash)
+    require "pry"; binding.pry
+    assert_equal 1, game_input_hash["6"]
+    # assert_equal {},
+    # require "pry"; binding.pry
+  end
+
 end

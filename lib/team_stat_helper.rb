@@ -68,8 +68,25 @@ class TeamStatHelper
      found_games = @game_team.find_all do |game|
       games.include?(game.game_id)
     end
-    found_games
+    found_games.length
   end
 
+  def process_game_result(team_id, game, opponents, game_count)
+    if team_id.to_i != game.team_id && opponents[game.team_id].nil?
+      game_count[game.team_id] = 1
+        game.result == "WIN" ? opponents[game.team_id] = 1 : opponents[game.team_id] = 0
+    elsif team_id.to_i != game.team_id
+      opponents[game.team_id] += 1 if game.result == "WIN"
+      game_count[game.team_id] += 1
+    end
+  end
 
+  # readme: purpose to give an overview of the project. - gives the reder and
+  # idea of what the project is for.
+  # main obj, this is why we setup our classes.
+  # this is how they "talk" to each other; explain the links between obj's
+  # also explain how they talk to each other that way
+  # how implemented, what design pattern is like, why to chose to do it this way.
+
+  # do not need to include tools required for other github user participation
 end
