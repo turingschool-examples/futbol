@@ -89,12 +89,8 @@ class SeasonStatHelper
     games.each do |game|
       game_teams_array = []
       @game_team.each do |game_info|
-        if game.game_id == game_info.game_id
-          game_teams_array << game_info
-        end
-        if game_teams_array.length >= 2
-          break
-        end
+        game_teams_array << game_info if game.game_id == game_info.game_id
+        break if game_teams_array.length >= 2
       end
       game_teams_array.each do |team|
         if tackles[team.team_id].nil?
