@@ -55,7 +55,7 @@ We reorganized our project by breaking out the methods we had built in the `Stat
 
 ***
 ## Make Your Own Futbol
-- [Main Futbol Project Repo](https://backend.turing.io/module1/projects/futbol/)
+- [Main Futbol Project Repo](https://github.com/turingschool-examples/futbol)
 - [Futbol Spec Harness](https://github.com/turingschool-examples/futbol_spec_harness)
 
 <img src="https://i.ibb.co/cYPFJm0/soccer-penguin.gif" alt="soccer-penguin">
