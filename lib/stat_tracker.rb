@@ -139,11 +139,11 @@ class StatTracker
   end
 
   def most_goals_scored(team_id)
-    @game_teams_manager.most_goals_scored(team_id)
+    @game_teams_manager.most_fewest_goals_scored(team_id, :max)
   end
 
   def fewest_goals_scored(team_id)
-    @game_teams_manager.fewest_goals_scored(team_id)
+    @game_teams_manager.most_fewest_goals_scored(team_id, :min)
   end
 
   def favorite_opponent(team_id)

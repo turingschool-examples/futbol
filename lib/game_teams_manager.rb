@@ -89,12 +89,8 @@ class GameTeamsManager
     end
   end
 
-  def most_goals_scored(team_id)
-    team_goals_by_game(team_id).max.to_i
-  end
-
-  def fewest_goals_scored(team_id)
-    team_goals_by_game(team_id).min.to_i
+  def most_fewest_goals_scored(team_id, method_arg)
+    team_goals_by_game(team_id).method(method_arg).call.to_i
   end
 
   def hoa_games_by_team_id(hoa)
