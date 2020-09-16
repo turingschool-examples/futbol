@@ -185,11 +185,11 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_worst_offense
-    assert_equal "Chicago Fire", @game_teams_manager.worst_offense
+    assert_equal "Chicago Fire", @game_teams_manager.best_worst_offense(:min_by)
   end
 
   def test_best_offense
-    assert_equal "FC Dallas", @game_teams_manager.best_offense
+    assert_equal "FC Dallas", @game_teams_manager.best_worst_offense(:max_by)
   end
 
 end

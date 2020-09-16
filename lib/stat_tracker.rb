@@ -71,11 +71,11 @@ class StatTracker
   end
 
   def worst_offense
-    @game_teams_manager.worst_offense
+    @game_teams_manager.best_worst_offense(:min_by)
   end
 
   def best_offense
-    @game_teams_manager.best_offense
+    @game_teams_manager.best_worst_offense(:max_by)
   end
 
   def count_of_teams

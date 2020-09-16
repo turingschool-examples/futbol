@@ -229,14 +229,9 @@ class GameTeamsManager
     total_scores_by_team.merge(games_containing_team){|team_id, scores, games_played| ratio(scores, games_played, 3)}
   end
 
-  def worst_offense
-    worst = average_scores_by_team.min_by {|id, average| average}
-    @stat_tracker.fetch_team_identifier(worst[0])
-  end
-
-  def best_offense
-    best = average_scores_by_team.max_by {|id, average| average}
-    @stat_tracker.fetch_team_identifier(best[0])
+  def best_worst_offense(method_arg1)
+    team = average_scores_by_team.method(method_arg1).call {|id, average| average}
+    @stat_tracker.fetch_team_identifier(team[0])
   end
 
 end
