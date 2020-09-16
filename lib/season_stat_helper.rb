@@ -89,11 +89,7 @@ class SeasonStatHelper
         break if game_teams_array.length >= 2
       end
       game_teams_array.each do |team|
-        if tackles[team.team_id].nil?
-          tackles[team.team_id] = team.tackles
-        else
-          tackles[team.team_id] += team.tackles
-        end
+        tackles[team.team_id].nil? ? tackles[team.team_id] = team.tackles : tackles[team.team_id] += team.tackles
       end
     end
     tackles
