@@ -9,21 +9,21 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_exists
-    hash = {game_id: 8,
-            team_id: 5,
-                hoa: "away",
-              result: "WIN",
-          settled_in: "OT",
-          head_coach: "Jose Lopez",
-              goals: 7,
-              shots: 15,
-            tackles: 20,
-                pim: 9,
+    hash = {     game_id: 8,
+                 team_id: 5,
+                     hoa: "away",
+                  result: "WIN",
+              settled_in: "OT",
+              head_coach: "Jose Lopez",
+                   goals: 7,
+                   shots: 15,
+                 tackles: 20,
+                     pim: 9,
   powerPlayOpportunities: 3,
-      powerPlayGoals: 3,
-  faceOffWinPercentage: 7,
-          giveaways: 2,
-            takeaways: 0}
+          powerPlayGoals: 3,
+    faceOffWinPercentage: 7,
+               giveaways: 2,
+               takeaways: 0}
     gameteam = GameTeam.new(hash)
     assert_instance_of GameTeam, gameteam
   end
@@ -48,5 +48,5 @@ class GameTeamTest < Minitest::Test
     assert_equal 7, actual.takeaways
     assert_equal 3, actual.team_id
   end
-  
+
 end

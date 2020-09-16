@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 
 class StatTrackerTest < Minitest::Test
+  
   def setup
     game_path = './data/games.csv'
     team_path = './data/teams.csv'

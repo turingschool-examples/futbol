@@ -2,7 +2,6 @@ require_relative 'test_helper'
 
 class LeagueStatHelperTest < Minitest::Test
 
-
   def setup
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -19,16 +18,16 @@ class LeagueStatHelperTest < Minitest::Test
     @league_stat_helper.team_season_average
 
     game_with_this_team_as_away_team = Game.new({
-        "game_id"=> "1",
-        "season"=> "20122013",
-        "type"=> "fun",
-        "date_time"=> "summer",
-        "away_team_id"=> "17",
-        "home_team_id"=> "3",
-        "away_goals" => "5",
-        "home_goals"=> "4",
-        "venue"=> "Kali's house",
-        "venue_link"=> "the internet"
+            "game_id" => "1",
+             "season" => "20122013",
+               "type" => "fun",
+          "date_time" => "summer",
+       "away_team_id" => "17",
+       "home_team_id" => "3",
+         "away_goals" => "5",
+         "home_goals" => "4",
+              "venue" => "Kali's house",
+         "venue_link" => "the internet"
       })
 
     input_hash = {}
@@ -44,16 +43,16 @@ class LeagueStatHelperTest < Minitest::Test
 
   def test_add_goals_to_away_average
     game_with_this_team_as_away_team = Game.new({
-        "game_id"=> "1",
-        "season"=> "20122013",
-        "type"=> "fun",
-        "date_time"=> "summer",
-        "away_team_id"=> "17",
-        "home_team_id"=> "3",
+           "game_id" => "1",
+            "season" => "20122013",
+              "type" => "fun",
+         "date_time" => "summer",
+      "away_team_id" => "17",
+      "home_team_id" => "3",
         "away_goals" => "4",
-        "home_goals"=> "3",
-        "venue"=> "Kali's house",
-        "venue_link"=> "the internet"
+        "home_goals" => "3",
+             "venue" => "Kali's house",
+        "venue_link" => "the internet"
       })
 
     input_hash = {}
@@ -69,16 +68,16 @@ class LeagueStatHelperTest < Minitest::Test
 
   def test_add_goals_to_home_average
     game_with_this_team_as_home_team = Game.new({
-        "game_id"=> "1",
-        "season"=> "20122013",
-        "type"=> "fun",
-        "date_time"=> "summer",
-        "away_team_id"=> "17",
-        "home_team_id"=> "3",
+           "game_id" => "1",
+            "season" => "20122013",
+              "type" => "fun",
+         "date_time" => "summer",
+      "away_team_id" => "17",
+      "home_team_id" => "3",
         "away_goals" => "6",
-        "home_goals"=> "5",
-        "venue"=> "Kali's house",
-        "venue_link"=> "the internet"
+        "home_goals" => "5",
+             "venue" => "Kali's house",
+        "venue_link" => "the internet"
       })
 
       input_hash = {}

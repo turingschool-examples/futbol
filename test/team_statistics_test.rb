@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 
 class TeamStatisticsTest < Minitest::Test
+
   def setup
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -13,11 +14,11 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_team_info
-    expected = {    "team_id" => "18",
-                    "franchise_id" => "34",
+    expected = {      "team_id" => "18",
+                 "franchise_id" => "34",
                     "team_name" => "Minnesota United FC",
-                    "abbreviation" => "MIN",
-                    "link" => "/api/v1/teams/18"
+                 "abbreviation" => "MIN",
+                         "link" => "/api/v1/teams/18"
                   }
     assert_equal expected, @stat_tracker.team_info("18")
   end
