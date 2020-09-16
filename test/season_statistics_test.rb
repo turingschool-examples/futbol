@@ -14,13 +14,11 @@ class SeasonStatistcsTest < Minitest::Test
       game_teams: game_teams_path
     }
     @stat_tracker ||= StatTracker.new(@locations)
-
   end
 
   def test_it_exists
     assert_instance_of StatTracker, @stat_tracker
   end
-
 
   def test_winningest_coach
     assert_equal "Claude Julien", @stat_tracker.winningest_coach("20132014")
