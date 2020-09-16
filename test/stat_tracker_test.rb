@@ -12,39 +12,14 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_has_access_to_other_classes
     assert_instance_of Game, @stats.games_manager.games[0]
-    assert_equal 53, @stats.games_manager.total_games
     assert_instance_of Team, @stats.teams_manager.teams[0]
     assert_equal 5, @stats.teams_manager.teams.count
     assert_instance_of GameTeam, @stats.game_teams_manager.game_teams[0]
     assert_equal 106, @stats.game_teams_manager.game_teams.count
   end
 
-  # ~~~ HELPER METHOD TESTS~~~
-
-  def test_it_can_find_total_games ###
-    assert_equal 53, @stats.total_games
-  end
-
-  def test_it_can_fetch_season_win_percentage
-    assert_equal 28.57, @stats.fetch_season_win_percentage("1", "20142015")
-    assert_equal 42.86, @stats.fetch_season_win_percentage("4", "20142015")
-    assert_equal 66.67, @stats.fetch_season_win_percentage("6", "20142015")
-    assert_equal 42.86, @stats.fetch_season_win_percentage("26", "20142015")
-  end
-
-  def test_it_can_create_array_of_all_team_ids
-    expected = ["1", "4", "26", "14", "6"]
-    assert_equal expected, @stats.fetch_all_team_ids
-  end
-
   def test_it_can_get_team_name_from_team_id
     assert_equal "Chicago Fire", @stats.fetch_team_identifier("4")
-  end
-
-  def test_it_can_sum_game_goals
-    assert_equal 211, @stats.total_goals
-    season_1415 = @stats.season_group["20142015"]
-    assert_equal 67, @stats.total_goals(season_1415)
   end
 
   def test_it_can_return_array_of_game_ids_per_season
@@ -62,34 +37,14 @@ class StatTrackerTest < Minitest::Test
     end
   end
 
-  def test_it_can_get_a_game
-    assert_equal "2014021002", @stats.get_game("2014021002").game_id
-  end
-
   def test_it_can_get_opponent_id
     assert_equal "14", @stats.get_opponent_id("2014021002","6")
-
-    game = @stats.get_game("2014020371")
     assert_equal "26", @stats.get_opponent_id("2014020371","6")
-  end
-
-  def test_it_can_create_gameteams_by_opponent
-    assert_equal ["14", "1", "4", "26"], @stats.game_teams_by_opponent("6").keys
-    assert_equal 5, @stats.game_teams_by_opponent("6")["14"].size
-    assert_equal 5, @stats.game_teams_by_opponent("6")["1"].size
-    assert_equal 6, @stats.game_teams_by_opponent("6")["4"].size
-    assert_equal 4, @stats.game_teams_by_opponent("6")["26"].size
   end
 
   def test_it_can_get_game_ids_in_season
     expected = ["2013020088", "2013020203", "2013020285", "2013020321", "2013020334", "2013020371", "2013020649", "2013020667", "2013020739", "2013021160", "2013021198", "2013021221"]
     assert_equal expected, @stats.fetch_game_ids_by_season("20132014")
-  end
-
-  def test_it_can_get_games_from_season_game_ids
-    season_game_ids = @stats.game_ids_per_season("20132014")
-    assert_equal GameTeam, @stats.find_game_teams(season_game_ids)[0].class
-    assert_equal (season_game_ids.count * 2), @stats.find_game_teams(season_game_ids).count
   end
 
 # ~~~ GAME METHOD TESTS~~~
