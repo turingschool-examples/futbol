@@ -18,6 +18,14 @@ class StatTracker
   def find_worst_coach(game_ids)
     @game_team_manager.find_worst_coach(game_ids)
   end
+
+  def favorite_opponent(team_id)
+    @game_team_manager.favorite_opponent(team_id)
+  end
+
+  def rival(team_id)
+    @game_team_manager.rival(team_id)
+  end
   #-----end traffic cop methods-----#
   def highest_total_score
     @game_manager.highest_total_score
@@ -133,13 +141,5 @@ class StatTracker
 
   def fewest_goals_scored(team_id)
     @game_team_manager.fewest_goals_scored(team_id)
-  end
-
-  def favorite_opponent(team_id)
-    @game_team_manager.favorite_opponent(team_id)
-  end
-
-  def rival(team_id)
-    @game_team_manager.rival(team_id)
   end
 end
