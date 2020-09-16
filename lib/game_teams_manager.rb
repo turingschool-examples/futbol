@@ -1,6 +1,8 @@
 require_relative './game_team'
+require_relative './averageable'
 
 class GameTeamsManager
+  include Averageable
   attr_reader :game_teams, :tracker
   def initialize(game_teams_path, tracker)
     @game_teams = []
@@ -21,13 +23,13 @@ class GameTeamsManager
 
   # Datasets
   def games_played(team_id)
-    @game_teams.find_all do |game_team|
+    @game_teams.select do |game_team|
       game_team.team_id == team_id
     end
   end
 
   def games_played_by_type(team_id, home_away)
-    @game_teams.find_all do |game_team|
+    @game_teams.select do |game_team|
       game_team.team_id == team_id && game_team.home_away == home_away
     end
   end
@@ -38,12 +40,18 @@ class GameTeamsManager
     end
   end
 
+  def all_teams_for_game_id_list(team_id)
+    @game_teams.select do |game_team|
+      game_ids_played_by_team(team_id).include?(game_team.game_id)
+    end
+  end
+
   def coaches_hash_w_avg_win_percentage(season_id)
     by_coach_wins = {}
     selected_season_game_teams(season_id).each do |game_team|
       head_coach = game_team.head_coach
       by_coach_wins[head_coach] ||= []
-      by_coach_wins[head_coach] = average_win_percentage_by_season(season_id, head_coach)
+      by_coach_wins[head_coach] = average(wins_for_coach(season_id, head_coach), games_for_coach(season_id, head_coach), 2)
     end
     by_coach_wins
   end
@@ -100,12 +108,6 @@ class GameTeamsManager
     end
   end
 
-  def all_teams_for_game_id_list(team_id)
-    @game_teams.select do |game_team|
-      game_ids_played_by_team(team_id).include?(game_team.game_id)
-    end
-  end
-
   def game_teams_played_by_opponent(team_id)
     all_teams_for_game_id_list(team_id).select do |game_team|
       game_team.team_id != team_id
@@ -137,27 +139,23 @@ class GameTeamsManager
   def total_goals_by_type(team_id, home_away)
     games_played_by_type(team_id, home_away).sum do |game|
       game.goals
-    end
+    end.to_f
   end
 
   def average_number_of_goals_scored_by_team_by_type(team_id, home_away)
-    (total_goals_by_type(team_id, home_away).to_f / games_played_by_type(team_id, home_away).count).round(2)
+    (total_goals_by_type(team_id, home_away) / games_played_by_type(team_id, home_away).count).round(2)
   end
 
   def wins_for_coach(season_id, head_coach)
     selected_season_game_teams(season_id).count do |game_team|
       game_team.result == 'WIN' if game_team.head_coach == head_coach
-    end
+    end.to_f
   end
 
   def games_for_coach(season_id, head_coach)
     selected_season_game_teams(season_id).count do |game_team|
       game_team.head_coach == head_coach
     end
-  end
-
-  def average_win_percentage_by_season(season_id, head_coach)
-    ((wins_for_coach(season_id, head_coach).to_f / games_for_coach(season_id, head_coach)) * 100).round(2)
   end
 
   def shots_by_team(season_id, team_id)
