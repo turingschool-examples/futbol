@@ -10,10 +10,10 @@
 This project uses ruby to analayze hockey data from 2012 through 2018. We performed statistical on a large data set that included 7442 games played by 32 teams over the course of 6 seasons.
 
 #### Design
-![flow chart](https://github.com/Oxalisviolacea/futbol/blob/main/images/flow_chart.png =250x250)
+![](https://github.com/Oxalisviolacea/futbol/blob/main/images/flow_chart.png =250x250)
 
 #### Methods
-![methods chart](https://github.com/Oxalisviolacea/futbol/blob/main/images/methods_chart.png =250x250)
+![](https://github.com/Oxalisviolacea/futbol/blob/main/images/methods_chart.png =250x250)
 
 #### Process
 Futbol was a collaborative project that was accomplished through a combination of remote pairing and independent work. We used an agile workflow with a github project board.  
