@@ -4,16 +4,16 @@ class SeasonStatistics < SeasonStatHelper
   def winningest_coach(season)
     winningest_coach_name = nil
     highest_percentage = 0
-    coaches_per_season(find_all_seasons)[season].each do |key, value|
+    coaches_per_season(find_all_seasons)[season].each do |coach, results|
       total_games = 0
       total_wins = 0
-      value.each do |game_result|
+      results.each do |game_result|
         total_games += 1
         total_wins += 1 if game_result == "WIN"
       end
-      if (total_wins.to_f / total_games) > highest_percentage && total_games > 5
+      if (total_wins.to_f / total_games) > highest_percentage
         highest_percentage = (total_wins.to_f ) / total_games
-        winningest_coach_name = key
+        winningest_coach_name = coach
       end
     end
     winningest_coach_name
