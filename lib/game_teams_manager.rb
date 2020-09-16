@@ -97,7 +97,7 @@ class GameTeamsManager
     games_played(team_id).each do |game_team|
       season = game_team.season_id
       season_hash[season] ||= []
-      season_hash[season] = avg_win_pct_season(season, team_id)
+      season_hash[season] = average_with_count(total_wins_team(season, team_id), games_played_by_team_by_season(season, team_id))
     end
     season_hash
   end
@@ -119,8 +119,8 @@ class GameTeamsManager
     games_w_opponent_hash(team_id).map do |opp_team_id, game_team_obj|
       tie_loss = game_team_obj.count do |game_team|
         game_team.result == 'LOSS' || game_team.result == 'TIE'
-      end
-      woohoo[opp_team_id] = (tie_loss.to_f / game_team_obj.count).round(2)
+      end.to_f
+      woohoo[opp_team_id] = average_with_count(tie_loss, game_team_obj, 2)
     end
     woohoo
   end
@@ -129,11 +129,11 @@ class GameTeamsManager
   def total_goals(team_id)
     games_played(team_id).sum do |game|
       game.goals
-    end
+    end.to_f
   end
 
   def average_number_of_goals_scored_by_team(team_id)
-    (total_goals(team_id).to_f / games_played(team_id).count).round(2)
+    average_with_count(total_goals(team_id), games_played(team_id), 2)
   end
 
   def total_goals_by_type(team_id, home_away)
@@ -143,7 +143,7 @@ class GameTeamsManager
   end
 
   def average_number_of_goals_scored_by_team_by_type(team_id, home_away)
-    (total_goals_by_type(team_id, home_away) / games_played_by_type(team_id, home_away).count).round(2)
+    average_with_count(total_goals_by_type(team_id, home_away), games_played_by_type(team_id, home_away), 2)
   end
 
   def wins_for_coach(season_id, head_coach)
@@ -182,18 +182,14 @@ class GameTeamsManager
     end.to_f
   end
 
-  def avg_win_pct_season(season, team_id)
-    (total_wins_team(season, team_id) / games_played_by_team_by_season(season, team_id).count).round(4)
-  end
-
   def total_wins_team_all_seasons(team_id)
     @game_teams.count do |game_team|
       game_team.result == 'WIN' if game_team.team_id == team_id
-    end
+    end.to_f
   end
 
   def get_average_win_percentage(team_id)
-    (total_wins_team_all_seasons(team_id).to_f / games_played(team_id).count).round(2)
+    average_with_count(total_wins_team_all_seasons(team_id), games_played(team_id), 2)
   end
 
   def games_w_opponent_hash(team_id)
