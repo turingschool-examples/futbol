@@ -83,27 +83,29 @@ class StatTracker
   end
 
   def highest_scoring_home_team
-    @game_teams_manager.highest_scoring_home_team
+    @game_teams_manager.highest_lowest_scoring_team("home",:max_by)
   end
 
   def highest_scoring_visitor
-    @game_teams_manager.highest_scoring_visitor
+    @game_teams_manager.highest_lowest_scoring_team("away",:max_by)
   end
 
   def lowest_scoring_visitor
-    @game_teams_manager.lowest_scoring_visitor
+    @game_teams_manager.highest_lowest_scoring_team("away",:min_by)
   end
 
   def lowest_scoring_home_team
-    @game_teams_manager.lowest_scoring_home_team
+    @game_teams_manager.highest_lowest_scoring_team("home",:min_by)
   end
 
   def winningest_coach(season)
-    @game_teams_manager.winningest_coach(season)
+    coach_hash = @game_teams_manager.coach_game_teams(season)
+    @game_teams_manager.highest_lowest_win_percentage(coach_hash,:max_by)
   end
 
   def worst_coach(season)
-    @game_teams_manager.worst_coach(season)
+    coach_hash = @game_teams_manager.coach_game_teams(season)
+    @game_teams_manager.highest_lowest_win_percentage(coach_hash,:min_by)
   end
 
   def most_tackles(season)
@@ -147,10 +149,11 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
-    fetch_team_identifier(@game_teams_manager.highest_win_percentage(@game_teams_manager.game_teams_by_opponent(team_id)))
+    @game_teams_manager.favorite_opponent(team_id)
   end
 
   def rival(team_id)
-    fetch_team_identifier(@game_teams_manager.lowest_win_percentage(@game_teams_manager.game_teams_by_opponent(team_id)))
+    @game_teams_manager.rival(team_id)
   end
+  
 end
