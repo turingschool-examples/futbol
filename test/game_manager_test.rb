@@ -1,6 +1,4 @@
-require "minitest/autorun"
-require "minitest/pride"
-require './lib/stat_tracker'
+require "./test/test_helper"
 # require "./lib/game_statistics"
 require './lib/game_manager'
 require 'mocha/minitest'
