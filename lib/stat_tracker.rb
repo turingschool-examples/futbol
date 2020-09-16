@@ -107,11 +107,11 @@ class StatTracker
   end
 
   def most_tackles(season)
-    @game_teams_manager.most_tackles(season)
+    @game_teams_manager.most_fewest_tackles(season, :max_by)
   end
 
   def fewest_tackles(season)
-    @game_teams_manager.fewest_tackles(season)
+    @game_teams_manager.most_fewest_tackles(season, :min_by)
   end
 
   def most_accurate_team(season)

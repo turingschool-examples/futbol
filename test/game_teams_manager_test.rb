@@ -79,11 +79,11 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_it_can_determine_team_with_most_season_tackles
-    assert_equal "Chicago Fire", @game_teams_manager.most_tackles("20122013")
+    assert_equal "Chicago Fire", @game_teams_manager.most_fewest_tackles("20122013", :max_by)
   end
 
   def test_it_can_determine_team_with_fewest_season_tackles
-    assert_equal "DC United", @game_teams_manager.fewest_tackles("20122013")
+    assert_equal "DC United", @game_teams_manager.most_fewest_tackles("20122013", :min_by)
   end
 
   def test_it_can_see_highest_number_of_goals_by_team_in_a_game
