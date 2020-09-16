@@ -15,7 +15,7 @@ class GameTeamManager
 
   def goal_avg_per_team(team_id, home_away)
     total = @game_teams.each_with_object([]) do |game_team, goal_array|
-      goal_array << game_team.goals if game_team.team_id == team_id && home_away == game_team.HoA
+      goal_array << game_team.goals if game_team.team_id == team_id && home_away == game_team.hoa
       goal_array << game_team.goals if game_team.team_id == team_id && home_away == ''
     end
     (total.sum.to_f / total.count).round(2)
