@@ -46,7 +46,7 @@ class GameTeamsManager
     end
   end
 
-  def coaches_hash_w_avg_win_percentage(season_id)
+  def coaches_hash_avg_win_pct(season_id)
     by_coach_wins = {}
     selected_season_game_teams(season_id).each do |game_team|
       head_coach = game_team.head_coach
@@ -68,7 +68,7 @@ class GameTeamsManager
     end
   end
 
-  def teams_hash_w_ratio_shots_goals(season_id)
+  def teams_hash_shots_goals(season_id)
     by_team_goals_ratio = {}
     list_teams_in_season(season_id).each do |team_id|
       by_team_goals_ratio[team_id] ||= []
@@ -92,7 +92,7 @@ class GameTeamsManager
     end
   end
 
-  def season_win_percentage_hash(team_id)
+  def season_win_pct_hash(team_id)
     season_hash = {}
     games_played(team_id).each do |game_team|
       season = game_team.season_id
@@ -188,7 +188,7 @@ class GameTeamsManager
     end.to_f
   end
 
-  def get_average_win_percentage(team_id)
+  def get_average_win_pct(team_id)
     average_with_count(total_wins_team_all_seasons(team_id), games_played(team_id), 2)
   end
 
@@ -200,74 +200,50 @@ class GameTeamsManager
 
   # Core Statistics
   def winningest_coach(season_id)
-    coaches_hash_w_avg_win_percentage(season_id).max_by do |coach, avg_win_perc|
-      avg_win_perc
-    end.to_a[0]
+    coaches_hash_avg_win_pct(season_id).max_by { |coach, avg_win| avg_win }.to_a[0]
   end
 
   def worst_coach(season_id)
-    coaches_hash_w_avg_win_percentage(season_id).min_by do |coach, avg_win_perc|
-      avg_win_perc
-    end.to_a[0]
+    coaches_hash_avg_win_pct(season_id).min_by { |coach, avg_win| avg_win }.to_a[0]
   end
 
   def most_accurate_team(season_id)
-    teams_hash_w_ratio_shots_goals(season_id).max_by do |team, goals_ratio|
-      goals_ratio
-    end.to_a[0]
+    teams_hash_shots_goals(season_id).max_by { |team, goals_ratio| goals_ratio }.to_a[0]
   end
 
   def least_accurate_team(season_id)
-    teams_hash_w_ratio_shots_goals(season_id).min_by do |team, goals_ratio|
-      goals_ratio
-    end.to_a[0]
+    teams_hash_shots_goals(season_id).min_by { |team, goals_ratio| goals_ratio }.to_a[0]
   end
 
   def most_tackles(season_id)
-    teams_hash_w_tackles(season_id).max_by do |team, tackles|
-      tackles
-    end.to_a[0]
+    teams_hash_w_tackles(season_id).max_by { |team, tackles| tackles }.to_a[0]
   end
 
   def fewest_tackles(season_id)
-    teams_hash_w_tackles(season_id).min_by do |team, tackles|
-      tackles
-    end.to_a[0]
+    teams_hash_w_tackles(season_id).min_by { |team, tackles| tackles }.to_a[0]
   end
 
   def get_best_season(team_id)
-    season_win_percentage_hash(team_id).max_by do |season, win_percent|
-      win_percent
-    end.to_a[0]
+    season_win_pct_hash(team_id).max_by { |season, win_pct| win_pct }.to_a[0]
   end
 
   def get_worst_season(team_id)
-    season_win_percentage_hash(team_id).min_by do |season, win_percent|
-      win_percent
-    end.to_a[0]
+    season_win_pct_hash(team_id).min_by { |season, win_pct| win_pct }.to_a[0]
   end
 
   def get_most_goals_scored_for_team(team_id)
-    games_played(team_id).max_by do |game_team|
-      game_team.goals
-    end.goals
+    games_played(team_id).max_by { |game_team| game_team.goals }.goals
   end
 
   def get_fewest_goals_scored_for_team(team_id)
-    games_played(team_id).min_by do |game_team|
-      game_team.goals
-    end.goals
+    games_played(team_id).min_by { |game_team| game_team.goals }.goals
   end
 
   def get_favorite_opponent(team_id)
-    opponent_hash(team_id).max_by do |opp_team_id, tie_loss|
-      tie_loss
-    end.to_a[0]
+    opponent_hash(team_id).max_by { |opp_team_id, tie_loss| tie_loss }.to_a[0]
   end
 
   def get_rival(team_id)
-    opponent_hash(team_id).min_by do |opp_team_id, tie_loss|
-      tie_loss
-    end.to_a[0]
+    opponent_hash(team_id).min_by { |opp_team_id, tie_loss| tie_loss }.to_a[0]
   end
 end
