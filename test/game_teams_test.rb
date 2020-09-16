@@ -9,13 +9,14 @@ class GameTeamsTest < Minitest::Test
            goals: '2',shots: '8',tackles: '44',pim: '8',
            powerPlayOpportunities: '3', powerPlayGoals: '0',
            faceOffWinPercentage: '44.8', giveaways: '17', takeaways:'7'}
+    # @game_manager = mock('A GameManager')
   end
 
   def test_has_attributes
     game = GameTeams.new(@row)
     assert_equal '2012030221', game.game_id
     assert_equal '3', game.team_id
-    assert_equal 'away', game.HoA
+    assert_equal 'away', game.hoa
     assert_equal 'LOSS', game.result
     assert_equal 'OT', game.settled_in
     assert_equal 'John Tortorella', game.head_coach
@@ -23,9 +24,9 @@ class GameTeamsTest < Minitest::Test
     assert_equal 8, game.shots
     assert_equal 44, game.tackles
     assert_equal 8, game.pim
-    assert_equal 3, game.powerPlayOpportunities
-    assert_equal 0, game.powerPlayGoals
-    assert_equal 44.8, game.faceOffWinPercentage
+    assert_equal 3, game.power_play_opportunities
+    assert_equal 0, game.power_play_goals
+    assert_equal 44.8, game.face_off_win_percentage
     assert_equal 17, game.giveaways
     assert_equal 7, game.takeaways
   end
