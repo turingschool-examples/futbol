@@ -191,4 +191,8 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "FC Dallas", @game_teams_manager.best_offense
   end
 
+  def test_most_accurtate_team
+    assert_equal "", @game_teams_manager.most_accurate_team_test("20142015")
+  end
+
 end

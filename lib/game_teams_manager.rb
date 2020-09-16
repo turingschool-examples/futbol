@@ -220,4 +220,13 @@ class GameTeamsManager
     @stat_tracker.fetch_team_identifier(best[0])
   end
 
+  def most_accurate_team_test(season)
+    @game_teams.select do |gameteam|
+      gameteam.game_id[0..3] == season[0..3]
+    end
+  end
+
+  
+
+
 end
