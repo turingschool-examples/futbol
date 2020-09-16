@@ -20,11 +20,12 @@ class GameTeam
     @shots = data['shots'].to_i
     @tackles = data['tackles'].to_i
   end
-  
+
   def stats
     {
     team_id: @team_id,
-    goals: @goals
+    goals: @goals,
+    head_coach: @head_coach
     }
   end
 end
