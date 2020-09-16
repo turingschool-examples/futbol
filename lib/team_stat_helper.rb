@@ -68,7 +68,7 @@ class TeamStatHelper
      found_games = @game_team.find_all do |game|
       games.include?(game.game_id)
     end
-    found_games.length
+    found_games
   end
 
   def process_game_result(team_id, game, opponents, game_count)
@@ -81,12 +81,20 @@ class TeamStatHelper
     end
   end
 
-  # readme: purpose to give an overview of the project. - gives the reder and
-  # idea of what the project is for.
-  # main obj, this is why we setup our classes.
-  # this is how they "talk" to each other; explain the links between obj's
-  # also explain how they talk to each other that way
-  # how implemented, what design pattern is like, why to chose to do it this way.
+  def min_percentage_favorite_team_team_name(win_percentages)
+    favorite_team_id = win_percentages.key(win_percentages.values.min)
+    favorite_team = @team.find do |team_id, info|
+      team_id.to_i == favorite_team_id
+    end
+    favorite_team[1].team_name
+  end
 
-  # do not need to include tools required for other github user participation
+  def max_percentage_favorite_team_team_name(win_percentages)
+    favorite_team_id = win_percentages.key(win_percentages.values.max)
+    favorite_team = @team.find do |team_id, info|
+      team_id.to_i == favorite_team_id
+    end
+    favorite_team[1].team_name
+  end
+  
 end
