@@ -72,7 +72,7 @@ class GameTeamsManager
     by_team_goals_ratio = {}
     list_teams_in_season(season_id).each do |team_id|
       by_team_goals_ratio[team_id] ||= []
-      by_team_goals_ratio[team_id] = shot_goal_ratio(season_id, team_id)
+      by_team_goals_ratio[team_id] = average(goals_by_team(season_id, team_id), shots_by_team(season_id, team_id))
     end
     by_team_goals_ratio
   end
@@ -168,10 +168,6 @@ class GameTeamsManager
     list_game_teams_season_team(season_id, team_id).sum do |game_team|
       game_team.goals
     end.to_f
-  end
-
-  def shot_goal_ratio(season_id, team_id)
-    (goals_by_team(season_id, team_id) / shots_by_team(season_id, team_id)).round(4)
   end
 
   def tackles_by_team(season_id, team_id)
