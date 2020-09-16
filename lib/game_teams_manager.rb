@@ -194,14 +194,9 @@ class GameTeamsManager
     end
   end
 
-  def most_accurate_team(season)
-    most_accurate = shots_per_goal_per_season(season).min_by { |team, avg| avg}
+  def most_least_accurate_team(season, method_arg)
+    most_accurate = shots_per_goal_per_season(season).method(method_arg).call { |team, avg| avg}
     @stat_tracker.fetch_team_identifier(most_accurate[0])
-  end
-
-  def least_accurate_team(season)
-    least_accurate = shots_per_goal_per_season(season).max_by { |team, avg| avg}
-    @stat_tracker.fetch_team_identifier(least_accurate[0])
   end
 
   def total_wins(game_teams)

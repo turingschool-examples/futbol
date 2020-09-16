@@ -123,11 +123,11 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_it_can_get_most_accurate_team_for_season
-    assert_equal "FC Dallas", @game_teams_manager.most_accurate_team("20132014")
+    assert_equal "FC Dallas", @game_teams_manager.most_least_accurate_team("20132014", :min_by)
   end
 
   def test_it_can_get_least_accurate_team_for_season
-    assert_equal "Atlanta United", @game_teams_manager.least_accurate_team("20132014")
+    assert_equal "Atlanta United", @game_teams_manager.most_least_accurate_team("20132014", :max_by)
   end
 
   def test_it_can_get_games_from_season_game_ids

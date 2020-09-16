@@ -115,11 +115,11 @@ class StatTracker
   end
 
   def most_accurate_team(season)
-    @game_teams_manager.most_accurate_team(season)
+    @game_teams_manager.most_least_accurate_team(season, :min_by)
   end
 
   def least_accurate_team(season)
-    @game_teams_manager.least_accurate_team(season)
+    @game_teams_manager.most_least_accurate_team(season, :max_by)
   end
 
   def best_season(team_id)
