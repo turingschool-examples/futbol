@@ -1,11 +1,6 @@
 require_relative 'team_stat_helper'
 
 class TeamStatistics < TeamStatHelper
-  def initialize(game, team, game_team)
-    @game ||= game
-    @team ||= team
-    @game_team ||= game_team
-  end
 
   def team_info(team_id)
     team_info = {}
@@ -40,19 +35,19 @@ class TeamStatistics < TeamStatHelper
   def average_win_percentage(team_id)
     total_average_win_percentage = 0
     total_games = 0
-    collect_seasons(team_id).each do |key, value|
-      total_games += value.length
+    collect_seasons(team_id).each do |season, games|
+      total_games += games.length
     end
-    collect_wins_per_season(team_id).each do |key, value|
-      total_average_win_percentage += value
+    collect_wins_per_season(team_id).each do |season, wins|
+      total_average_win_percentage += wins
     end
     (total_average_win_percentage.to_f/total_games).round(2)
   end
 
   def most_goals_scored(team_id)
     most_goals = 0
-    collect_seasons(team_id).each do |key, value|
-      value.each do |game|
+    collect_seasons(team_id).each do |season, games|
+      games.each do |game|
         if team_id.to_i == game.away_team_id
           most_goals = game.away_goals if game.away_goals > most_goals
         elsif team_id.to_i == game.home_team_id
@@ -65,8 +60,8 @@ class TeamStatistics < TeamStatHelper
 
   def fewest_goals_scored(team_id)
     fewest_goals = 5
-    collect_seasons(team_id).each do |key, value|
-      value.each do |game|
+    collect_seasons(team_id).each do |season, games|
+      games.each do |game|
         if team_id.to_i == game.away_team_id
           fewest_goals = game.away_goals if game.away_goals < fewest_goals
         elsif team_id.to_i == game.home_team_id
@@ -78,58 +73,31 @@ class TeamStatistics < TeamStatHelper
   end
 
   def favorite_opponent(team_id)
-    games = games_for_team_id(team_id)
-    opponents = {}
+    opponents  = {}
     game_count = {}
-    games.each do |game|
-      if team_id.to_i != game.team_id && opponents[game.team_id].nil?
+    games_for_team_id(team_id).each do |game|
         game_count[game.team_id] = 1
-        if game.result == "WIN"
-          opponents[game.team_id] = 1
-        else
-          opponents[game.team_id] = 0
-        end
+      if team_id.to_i != game.team_id && opponents[game.team_id].nil?
+        game.result == "WIN" ? opponents[game.team_id] = 1 : opponents[game.team_id] = 0
       elsif team_id.to_i != game.team_id
         opponents[game.team_id] += 1 if game.result == "WIN"
-        game_count[game.team_id] += 1
       end
     end
-    win_percentages = {}
-    opponents.each do |team, wins|
-      win_percentages[team] = wins / game_count[team].to_f
-    end
-    favorite_team_id = win_percentages.key(win_percentages.values.min)
-    favorite_team = @team.find do |team_id, info|
-      team_id.to_i == favorite_team_id
-    end
-    favorite_team[1].team_name
+    min_percentage_favorite_team_team_name(win_percentages_by_team(opponents, game_count))
   end
 
   def rival(team_id)
-    games = games_for_team_id(team_id)
-    opponents = {}
+    opponents  = {}
     game_count = {}
-    games.each do |game|
+    games_for_team_id(team_id).each do |game|
+      game_count[game.team_id] = 1
       if team_id.to_i != game.team_id && opponents[game.team_id].nil?
-        game_count[game.team_id] = 1
-        if game.result == "WIN"
-          opponents[game.team_id] = 1
-        else
-          opponents[game.team_id] = 0
-        end
+        game.result == "WIN" ? opponents[game.team_id] = 1 : opponents[game.team_id] = 0
       elsif team_id.to_i != game.team_id
         opponents[game.team_id] += 1 if game.result == "WIN"
-        game_count[game.team_id] += 1
       end
     end
-    win_percentages = {}
-    opponents.each do |team, wins|
-      win_percentages[team] = wins / game_count[team].to_f
-    end
-    favorite_team_id = win_percentages.key(win_percentages.values.max)
-    favorite_team = @team.find do |team_id, info|
-      team_id.to_i == favorite_team_id
-    end
-    favorite_team[1].team_name
+    max_percentage_favorite_team_team_name(win_percentages_by_team(opponents, game_count))
   end
+
 end
