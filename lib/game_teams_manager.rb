@@ -86,10 +86,11 @@ class GameTeamsManager
     end
   end
 
-  def scoring_team(hoa,method_arg)
-    hoa_games_by_team_id(hoa).method(method_arg).call do |team_id, details|
+  def highest_lowest_scoring_team(hoa,method_arg)
+    hoa_team_id = hoa_games_by_team_id(hoa).method(method_arg).call do |team_id, details|
       avg_score(details)
     end[0]
+    @stat_tracker.fetch_team_identifier(hoa_team_id)
   end
 
   def coach_game_teams(season)
@@ -110,10 +111,22 @@ class GameTeamsManager
     end.to_h
   end
 
-  def win_percentage(hash, method_arg)
+  def highest_lowest_win_percentage(hash, method_arg)
     average_win_percentage_by(hash).method(method_arg).call do |group, win_perc|
       win_perc
     end[0]
+  end
+
+  def favorite_opponent(team_id)
+    hash = game_teams_by_opponent(team_id)
+    fave_opp_id = highest_lowest_win_percentage(hash, :max_by)
+    @stat_tracker.fetch_team_identifier(fave_opp_id)
+  end
+
+  def rival(team_id)
+    hash = game_teams_by_opponent(team_id)
+    rival_id = highest_lowest_win_percentage(hash, :min_by)
+    @stat_tracker.fetch_team_identifier(rival_id)
   end
 
   def game_ids_per_season(season)

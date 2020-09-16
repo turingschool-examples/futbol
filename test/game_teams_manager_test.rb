@@ -100,13 +100,13 @@ class GameTeamsManagerTest < Minitest::Test
 
   def test_it_can_get_highest_lowest_away_home_teams
     #highest scoring home team
-    assert_equal "14", @game_teams_manager.scoring_team("home",:max_by)
+    assert_equal "DC United", @game_teams_manager.highest_lowest_scoring_team("home",:max_by)
     #lowest scoring home team
-    assert_equal "1", @game_teams_manager.scoring_team("home",:min_by)
+    assert_equal "Atlanta United", @game_teams_manager.highest_lowest_scoring_team("home",:min_by)
     #highest scoring visitor team
-    assert_equal "6", @game_teams_manager.scoring_team("away",:max_by)
+    assert_equal "FC Dallas", @game_teams_manager.highest_lowest_scoring_team("away",:max_by)
     #lowest scoring visitor team
-    assert_equal "4", @game_teams_manager.scoring_team("away",:min_by)
+    assert_equal "Chicago Fire", @game_teams_manager.highest_lowest_scoring_team("away",:min_by)
   end
 
   def test_it_can_filter_gameteams_by_team_id
@@ -162,10 +162,10 @@ class GameTeamsManagerTest < Minitest::Test
 
   def test_it_can_return_win_percentage_for_a_group
     hash = @game_teams_manager.game_teams_by_opponent("6")
-    assert_equal "4", @game_teams_manager.win_percentage(hash,:max_by)
+    assert_equal "4", @game_teams_manager.highest_lowest_win_percentage(hash,:max_by)
 
     hash = @game_teams_manager.game_teams_by_opponent("6")
-    assert_equal "26", @game_teams_manager.win_percentage(hash,:min_by)
+    assert_equal "26", @game_teams_manager.highest_lowest_win_percentage(hash,:min_by)
   end
 
   def test_it_can_get_number_of_games_by_team
