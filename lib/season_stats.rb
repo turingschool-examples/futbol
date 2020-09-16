@@ -13,12 +13,12 @@ class SeasonStats < Stats
   end
 
   def winningest_coach(season)
-   best_coach =  coach_wins(season).max_by {|coach, win| win}
+    best_coach =  coach_wins(season).max_by {|coach, win| win}
     best_coach[0]
   end
 
   def worst_coach(season)
-   worst_coach =  coach_wins(season).min_by {|coach, win| win}
+    worst_coach =  coach_wins(season).min_by {|coach, win| win}
     worst_coach[0]
   end
 

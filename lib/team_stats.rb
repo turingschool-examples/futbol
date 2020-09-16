@@ -83,7 +83,7 @@ class TeamStats < Stats
   end
 
   def average_win_percentage(team_id)
-  (total_wins(team_id).count.to_f / all_team_games(team_id).count).round(2)
+    (total_wins(team_id).count.to_f / all_team_games(team_id).count).round(2)
   end
 
   def total_wins(team_id)
