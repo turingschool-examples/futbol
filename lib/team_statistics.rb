@@ -76,12 +76,11 @@ class TeamStatistics < TeamStatHelper
     opponents  = {}
     game_count = {}
     games_for_team_id(team_id).each do |game|
-      if team_id.to_i != game.team_id && opponents[game.team_id].nil?
         game_count[game.team_id] = 1
+      if team_id.to_i != game.team_id && opponents[game.team_id].nil?
         game.result == "WIN" ? opponents[game.team_id] = 1 : opponents[game.team_id] = 0
       elsif team_id.to_i != game.team_id
         opponents[game.team_id] += 1 if game.result == "WIN"
-        game_count[game.team_id] += 1
       end
     end
     min_percentage_favorite_team_team_name(win_percentages_by_team(opponents, game_count))
@@ -91,12 +90,11 @@ class TeamStatistics < TeamStatHelper
     opponents  = {}
     game_count = {}
     games_for_team_id(team_id).each do |game|
+      game_count[game.team_id] = 1
       if team_id.to_i != game.team_id && opponents[game.team_id].nil?
-        game_count[game.team_id] = 1
         game.result == "WIN" ? opponents[game.team_id] = 1 : opponents[game.team_id] = 0
       elsif team_id.to_i != game.team_id
         opponents[game.team_id] += 1 if game.result == "WIN"
-        game_count[game.team_id] += 1
       end
     end
     max_percentage_favorite_team_team_name(win_percentages_by_team(opponents, game_count))
