@@ -1,17 +1,23 @@
 require_relative 'test_helper'
 
 class GameTeamsTest < Minitest::Test
+  def setup
+    @hash = {
+      game_id: '2012030221',
+      team_id: '3',
+      HoA: 'away',
+      result: 'LOSS',
+      settled_in: 'OT',
+      head_coach: 'John Tortorella',
+      goals: '2',
+      shots: '8',
+      tackles: '44'
+    }
+
+    @game_teams = GameTeams.new(@hash)
+  end
 
   def test_it_exists_with_attributes
-    game_team = GameTeams.new({game_id: 1,
-                     season: "2012",
-                     type: "OT",
-                     date_time: "9/1/20",
-                     away_team_id: "7",
-                     home_team_id: "3",
-                     away_goals: 5,
-                     home_goals: 1})
-
-    assert_instance_of GameTeams, game_team
+    assert_instance_of GameTeams, @game_teams
   end
 end
