@@ -72,7 +72,7 @@ class GameManagerTest < MiniTest::Test
   def test_game_manager_can_average_goals_per_game
     assert_equal 4.41, @game_manager.average_goals_per_game
   end
-  
+
   def test_can_find_lowest_scoring_home_team
     @game_manager.tracker.stubs(:get_team_name).returns("Atlanta United")
     assert_equal "Atlanta United", @game_manager.lowest_scoring_home_team

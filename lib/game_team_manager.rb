@@ -101,13 +101,13 @@ class GameTeamManager
     @tracker.get_team_name(most_tackles_team)
   end
 
-  def find_winningest_coach(game_ids, expected_result)
+  def find_winningest_coach(game_ids)
     coach_game_count = Hash.new(0)
     coach_wins = Hash.new(0.0)
     @game_teams.each do |game|
       if game_ids.include?(game.game_id)
         coach_game_count[game.head_coach] += 1
-        if game.result == expected_result
+        if game.result == "WIN"
           coach_wins[game.head_coach] += 1
         end
       end

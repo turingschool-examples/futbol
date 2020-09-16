@@ -11,8 +11,8 @@ class StatTracker
     new(locations)
   end
   #-------traffic cop methods-------#
-  def find_winningest_coach(game_ids, expected_result)
-    @game_team_manager.find_winningest_coach(game_ids, expected_result)
+  def find_winningest_coach(game_ids)
+    @game_team_manager.find_winningest_coach(game_ids)
   end
 
   def find_worst_coach(game_ids)
