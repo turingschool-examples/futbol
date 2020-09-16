@@ -51,12 +51,8 @@ class SeasonStatHelper
     collects_season_with_games[season].each do |game|
       games = []
       @game_team.each do |game_info|
-        if game.game_id == game_info.game_id
-          games << game_info
-        end
-        if games.length >= 2
-          break
-        end
+        games << game_info if game.game_id == game_info.game_id
+        break if games.length >= 2
       end
       games.each do |game|
         if shots_per_team[@team[game.team_id.to_s].team_name].nil?
@@ -89,19 +85,11 @@ class SeasonStatHelper
     games.each do |game|
       game_teams_array = []
       @game_team.each do |game_info|
-        if game.game_id == game_info.game_id
-          game_teams_array << game_info
-        end
-        if game_teams_array.length >= 2
-          break
-        end
+        game_teams_array << game_info if game.game_id == game_info.game_id
+        break if game_teams_array.length >= 2
       end
       game_teams_array.each do |team|
-        if tackles[team.team_id].nil?
-          tackles[team.team_id] = team.tackles
-        else
-          tackles[team.team_id] += team.tackles
-        end
+      tackles[team.team_id].nil? ? tackles[team.team_id] = team.tackles : tackles[team.team_id] += team.tackles
       end
     end
     tackles
