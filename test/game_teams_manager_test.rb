@@ -83,19 +83,19 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_it_can_determine_team_with_most_season_tackles
-    assert_equal "Chicago Fire", @game_teams_manager.most_tackles("20122013")
+    assert_equal "Chicago Fire", @game_teams_manager.most_fewest_tackles("20122013", :max_by)
   end
 
   def test_it_can_determine_team_with_fewest_season_tackles
-    assert_equal "DC United", @game_teams_manager.fewest_tackles("20122013")
+    assert_equal "DC United", @game_teams_manager.most_fewest_tackles("20122013", :min_by)
   end
 
   def test_it_can_see_highest_number_of_goals_by_team_in_a_game
-    assert_equal 4, @game_teams_manager.most_goals_scored("1")
+    assert_equal 4, @game_teams_manager.most_fewest_goals_scored("1", :max)
   end
 
   def test_it_can_see_lowest_number_of_goals_by_team_in_a_game
-    assert_equal 1, @game_teams_manager.fewest_goals_scored("14")
+    assert_equal 1, @game_teams_manager.most_fewest_goals_scored("14", :min)
   end
 
   def test_it_can_get_highest_lowest_away_home_teams
@@ -122,11 +122,11 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_it_can_get_most_accurate_team_for_season
-    assert_equal "FC Dallas", @game_teams_manager.most_accurate_team("20132014")
+    assert_equal "FC Dallas", @game_teams_manager.most_least_accurate_team("20132014", :min_by)
   end
 
   def test_it_can_get_least_accurate_team_for_season
-    assert_equal "Atlanta United", @game_teams_manager.least_accurate_team("20132014")
+    assert_equal "Atlanta United", @game_teams_manager.most_least_accurate_team("20132014", :max_by)
   end
 
   def test_it_can_get_games_from_season_game_ids
@@ -184,11 +184,11 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_worst_offense
-    assert_equal "Chicago Fire", @game_teams_manager.worst_offense
+    assert_equal "Chicago Fire", @game_teams_manager.best_worst_offense(:min_by)
   end
 
   def test_best_offense
-    assert_equal "FC Dallas", @game_teams_manager.best_offense
+    assert_equal "FC Dallas", @game_teams_manager.best_worst_offense(:max_by)
   end
 
   def test_most_accurtate_team

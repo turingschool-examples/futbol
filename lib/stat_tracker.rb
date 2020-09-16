@@ -71,11 +71,11 @@ class StatTracker
   end
 
   def worst_offense
-    @game_teams_manager.worst_offense
+    @game_teams_manager.best_worst_offense(:min_by)
   end
 
   def best_offense
-    @game_teams_manager.best_offense
+    @game_teams_manager.best_worst_offense(:max_by)
   end
 
   def count_of_teams
@@ -109,19 +109,19 @@ class StatTracker
   end
 
   def most_tackles(season)
-    @game_teams_manager.most_tackles(season)
+    @game_teams_manager.most_fewest_tackles(season, :max_by)
   end
 
   def fewest_tackles(season)
-    @game_teams_manager.fewest_tackles(season)
+    @game_teams_manager.most_fewest_tackles(season, :min_by)
   end
 
   def most_accurate_team(season)
-    @game_teams_manager.most_accurate_team(season)
+    @game_teams_manager.most_least_accurate_team(season, :min_by)
   end
 
   def least_accurate_team(season)
-    @game_teams_manager.least_accurate_team(season)
+    @game_teams_manager.most_least_accurate_team(season, :max_by)
   end
 
   def best_season(team_id)
@@ -141,11 +141,11 @@ class StatTracker
   end
 
   def most_goals_scored(team_id)
-    @game_teams_manager.most_goals_scored(team_id)
+    @game_teams_manager.most_fewest_goals_scored(team_id, :max)
   end
 
   def fewest_goals_scored(team_id)
-    @game_teams_manager.fewest_goals_scored(team_id)
+    @game_teams_manager.most_fewest_goals_scored(team_id, :min)
   end
 
   def favorite_opponent(team_id)
