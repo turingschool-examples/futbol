@@ -36,14 +36,8 @@ class GameTeamsManager
     end
   end
 
-  def most_tackles(season)
-    @stat_tracker.fetch_team_identifier(team_tackles(season).max_by do |team|
-      team.last
-    end.first)
-  end
-
-  def fewest_tackles(season)
-    @stat_tracker.fetch_team_identifier(team_tackles(season).min_by do |team|
+  def most_fewest_tackles(season, method_arg)
+    @stat_tracker.fetch_team_identifier(team_tackles(season).method(method_arg).call do |team|
       team.last
     end.first)
   end
@@ -60,12 +54,8 @@ class GameTeamsManager
     end
   end
 
-  def most_goals_scored(team_id)
-    team_goals_by_game(team_id).max.to_i
-  end
-
-  def fewest_goals_scored(team_id)
-    team_goals_by_game(team_id).min.to_i
+  def most_fewest_goals_scored(team_id, method_arg)
+    team_goals_by_game(team_id).method(method_arg).call.to_i
   end
 
   def home_or_away_games(hoa)
@@ -166,14 +156,9 @@ class GameTeamsManager
     end
   end
 
-  def most_accurate_team(season)
-    most_accurate = shots_per_goal_per_season(season).min_by { |team, avg| avg}
+  def most_least_accurate_team(season, method_arg)
+    most_accurate = shots_per_goal_per_season(season).method(method_arg).call { |team, avg| avg}
     @stat_tracker.fetch_team_identifier(most_accurate[0])
-  end
-
-  def least_accurate_team(season)
-    least_accurate = shots_per_goal_per_season(season).max_by { |team, avg| avg}
-    @stat_tracker.fetch_team_identifier(least_accurate[0])
   end
 
   def total_wins(game_teams)
@@ -206,18 +191,13 @@ class GameTeamsManager
     total_scores_by_team.merge(games_containing_team){|team_id, scores, games_played| ratio(scores, games_played, 3)}
   end
 
+  def best_worst_offense(method_arg1)
+    team = average_scores_by_team.method(method_arg1).call {|id, average| average}
+    @stat_tracker.fetch_team_identifier(team[0])
+  end
+
   def avg_score(filtered_game_teams = @game_teams)
     ratio(total_score(filtered_game_teams), total_game_teams(filtered_game_teams))
-  end
-
-  def worst_offense
-    worst = average_scores_by_team.min_by {|id, average| average}
-    @stat_tracker.fetch_team_identifier(worst[0])
-  end
-
-  def best_offense
-    best = average_scores_by_team.max_by {|id, average| average}
-    @stat_tracker.fetch_team_identifier(best[0])
   end
 
 end
