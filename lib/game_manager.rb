@@ -1,6 +1,8 @@
 require_relative './game'
+require_relative './averageable'
 
 class GamesManager
+  include Averageable
   attr_reader :games, :tracker
   def initialize(games_path, tracker)
     @games = []
@@ -30,8 +32,8 @@ class GamesManager
   def percentage_home_wins
     home_games_won = @games.count do |game|
       game.home_goals > game.away_goals
-    end
-    (home_games_won.to_f / @games.count).round(2)
+    end.to_f
+    average_with_count(home_games_won, @games, 2)
   end
 
   def percentage_visitor_wins

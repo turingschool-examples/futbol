@@ -1,25 +1,17 @@
 require "./test/test_helper"
-# require "./lib/game_statistics"
 require './lib/game_manager'
 require 'mocha/minitest'
-# require './data/dummy_game.csv'
+require './lib/stat_tracker'
 require './lib/game'
 require "pry";
 
 class GamesManagerTest < Minitest::Test
   def setup
-    game_path = './data/dummy_game.csv'
-    team_path = './data/dummy_teams.csv'
-    game_teams_path = './data/dummy_game_teams.csv'
-
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    stat_tracker = StatTracker.from_csv(locations)
-    @games_manager = GamesManager.new(game_path, stat_tracker)
+    stat_tracker = mock('stat_tracker')
+    stat_tracker.stubs(:class).returns(StatTracker)
+    @games_manager = GamesManager.new('./data/dummy_game.csv', stat_tracker)
   end
+
   def test_it_exists
     assert_instance_of GamesManager, @games_manager
   end
