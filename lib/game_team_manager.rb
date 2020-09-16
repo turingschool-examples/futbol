@@ -117,16 +117,17 @@ class GameTeamManager
 
   def find_worst_coach(game_ids)
     coach_game_count = Hash.new(0)
-    coach_losses = Hash.new(0.0)
+    coach_wins = Hash.new
     @game_teams.each do |game|
       if game_ids.include?(game.game_id)
+        coach_wins[game.head_coach] ||= 0
         coach_game_count[game.head_coach] += 1
-        if game.result == "LOSS" || game.result == "TIE"
-          coach_losses[game.head_coach] += 1
+        if game.result == "WIN"
+          coach_wins[game.head_coach] += 1
         end
       end
     end
-    sort_percentages(coach_losses, coach_game_count).last[0]
+    sort_percentages(coach_wins, coach_game_count).first[0]
   end
 
   def find_all_games(team_id)
