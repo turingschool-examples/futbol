@@ -72,7 +72,7 @@ class GameManagerTest < MiniTest::Test
   def test_game_manager_can_average_goals_per_game
     assert_equal 4.41, @game_manager.average_goals_per_game
   end
-  
+
   def test_can_find_lowest_scoring_home_team
     @game_manager.tracker.stubs(:get_team_name).returns("Atlanta United")
     assert_equal "Atlanta United", @game_manager.lowest_scoring_home_team
@@ -85,4 +85,12 @@ class GameManagerTest < MiniTest::Test
   def test_can_get_worst_season_for_team
     assert_equal "20122013", @game_manager.worst_season("24")
   end
+
+  # def test_it_can_show_how_many_wins_per_season
+  #   wins_by_season = Hash.new(0.0),
+  #   games_by_season = Hash.new { |hash, key| hash[key] = [] }
+  #   @game_manager.wins_per_season("24", wins_by_season, games_by_season).each do |game|
+  #     assert_instance_of Game, game
+  #   end
+  # end
 end

@@ -1,6 +1,8 @@
 require 'csv'
+require_relative './mathable'
 
 class GameManager
+  include Mathable
   attr_reader :games,
               :tracker
   def initialize(path, tracker)
@@ -69,10 +71,8 @@ class GameManager
       away_points[game.away_team_id] += game.away_goals
       team_game_count[game.away_team_id] += 1
     end
-    highest_scoring_visitor = away_points.max_by do |team, score|
-      score.to_f / team_game_count[team]
-    end[0]
-    @tracker.get_team_name(highest_scoring_visitor)
+    highest_scoring_visitor = sort_percentages(away_points, team_game_count)
+    @tracker.get_team_name(highest_scoring_visitor.last[0])
   end
 
   def highest_scoring_home_team
@@ -82,10 +82,8 @@ class GameManager
       home_points[game.home_team_id] += game.home_goals
       team_game_count[game.home_team_id] += 1
     end
-    highest_scoring_home_team = home_points.max_by do |team, score|
-      score.to_f / team_game_count[team]
-    end[0]
-    @tracker.get_team_name(highest_scoring_home_team)
+    highest_scoring_home_team = sort_percentages(home_points, team_game_count)
+    @tracker.get_team_name(highest_scoring_home_team.last[0])
   end
 
   def lowest_scoring_visitor
@@ -95,10 +93,8 @@ class GameManager
       away_points[game.away_team_id] += game.away_goals
       team_game_count[game.away_team_id] += 1
     end
-    lowest_scoring_visitor = away_points.min_by do |team, score|
-        score.to_f / team_game_count[team]
-    end[0]
-    @tracker.get_team_name(lowest_scoring_visitor)
+    lowest_scoring_visitor = sort_percentages(away_points, team_game_count)
+    @tracker.get_team_name(lowest_scoring_visitor.first[0])
   end
 
   def get_season_game_ids(season)
@@ -117,30 +113,31 @@ class GameManager
       home_points[game.home_team_id] += game.home_goals
       team_game_count[game.home_team_id] += 1
     end
-    lowest_scoring_home_team = home_points.min_by do |team, score|
-        score.to_f / team_game_count[team]
-    end[0]
-    @tracker.get_team_name(lowest_scoring_home_team)
+    lowest_scoring_home_team = sort_percentages(home_points, team_game_count)
+    @tracker.get_team_name(lowest_scoring_home_team.first[0])
   end
 
+  def wins_per_season(team_id, wins_by, games_by)
+    @games.each do |game|
+      if game.home_team_id == team_id || game.away_team_id == team_id
+        games_by[game.season] << game
+      end
+    end
+    games_by.each do |season, games|
+      games.each do |game|
+        if game.home_team_id == team_id && game.home_goals > game.away_goals
+          wins_by[season] += 1
+        elsif game.away_team_id == team_id && game.away_goals > game.home_goals
+          wins_by[season] += 1
+        end
+      end
+    end
+  end
 
   def best_season(team_id)
     wins_by_season = Hash.new(0.0)
     games_by_season = Hash.new { |hash, key| hash[key] = [] }
-    @games.each do |game|
-      if game.home_team_id == team_id || game.away_team_id == team_id
-        games_by_season[game.season] << game
-      end
-    end
-    games_by_season.each do |season, games|
-      games.each do |game|
-        if game.home_team_id == team_id && game.home_goals > game.away_goals
-          wins_by_season[season] += 1
-        elsif game.away_team_id == team_id && game.away_goals > game.home_goals
-          wins_by_season[season] += 1
-        end
-      end
-    end
+    wins_per_season(team_id, wins_by_season, games_by_season)
     games_by_season.max_by do |season, games|
       wins_by_season[season] / games.length
     end[0]
@@ -149,20 +146,7 @@ class GameManager
   def worst_season(team_id)
     wins_by_season = Hash.new(0.0)
     games_by_season = Hash.new { |hash, key| hash[key] = [] }
-    @games.each do |game|
-      if game.home_team_id == team_id || game.away_team_id == team_id
-        games_by_season[game.season] << game
-      end
-    end
-    games_by_season.each do |season, games|
-      games.each do |game|
-        if game.home_team_id == team_id && game.home_goals > game.away_goals
-          wins_by_season[season] += 1
-        elsif game.away_team_id == team_id && game.away_goals > game.home_goals
-          wins_by_season[season] += 1
-        end
-      end
-    end
+    wins_per_season(team_id, wins_by_season, games_by_season)
     games_by_season.min_by do |season, games|
       wins_by_season[season] / games.length
     end[0]
