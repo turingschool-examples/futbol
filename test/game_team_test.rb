@@ -5,7 +5,7 @@ require './lib/game_team'
 require 'pry';
 require 'mocha/minitest'
 
-class TeamTest < Minitest::Test
+class GameTeamTest < Minitest::Test
   def setup
     data = {
             'game_id'                 => '2012030221',
