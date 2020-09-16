@@ -1,8 +1,7 @@
 require 'csv'
 
 class Team
-  attr_reader :manager,
-              :team_id,
+  attr_reader :team_id,
               :franchise_id,
               :team_name,
               :abbreviation,
@@ -10,7 +9,6 @@ class Team
               :link
 
   def initialize(data, manager)
-    @manager = manager
     @team_id = data["team_id"]
     @franchise_id = data["franchiseId"]
     @team_name = data["teamName"]

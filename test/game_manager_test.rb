@@ -85,4 +85,12 @@ class GameManagerTest < MiniTest::Test
   def test_can_get_worst_season_for_team
     assert_equal "20122013", @game_manager.worst_season("24")
   end
+
+  # def test_it_can_show_how_many_wins_per_season
+  #   wins_by_season = Hash.new(0.0),
+  #   games_by_season = Hash.new { |hash, key| hash[key] = [] }
+  #   @game_manager.wins_per_season("24", wins_by_season, games_by_season).each do |game|
+  #     assert_instance_of Game, game
+  #   end
+  # end
 end
