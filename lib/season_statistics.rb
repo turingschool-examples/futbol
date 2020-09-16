@@ -1,10 +1,5 @@
 require_relative 'season_stat_helper'
 class SeasonStatistics < SeasonStatHelper
-  def initialize(game, team, game_team)
-    @game ||= game
-    @team ||= team
-    @game_team ||= game_team
-  end
 
   def winningest_coach(season)
     season_coach_hash = coaches_per_season(find_all_seasons)
@@ -79,14 +74,14 @@ class SeasonStatistics < SeasonStatHelper
   end
 
   def most_tackles(season)
-    season_games = season_games(season)
+    season_games = collects_season_with_games[season]
     team_tackles = team_tackles_by_season(season_games)
     team_id = team_tackles.key(team_tackles.values.max)
     @team[team_id.to_s].team_name
   end
 
   def fewest_tackles(season)
-    season_games = season_games(season)
+    season_games = collects_season_with_games[season]
     team_tackles = team_tackles_by_season(season_games)
     team_id = team_tackles.key(team_tackles.values.min)
     @team[team_id.to_s].team_name

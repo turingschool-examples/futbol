@@ -1,8 +1,9 @@
 class SeasonStatHelper
+
   def initialize(game, team, game_team)
-    @game = game
-    @team = team
-    @game_team = game_team
+    @game ||= game
+    @team ||= team
+    @game_team ||= game_team
   end
 
   def find_all_seasons
@@ -75,14 +76,6 @@ class SeasonStatHelper
       end
     end
     goals_per_team
-  end
-
-  def season_games(season)
-    games = []
-    @game.each do |game_id, game|
-      games << game if season == game.season
-    end
-    games
   end
 
   def team_tackles_by_season(games)

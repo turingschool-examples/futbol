@@ -23,4 +23,31 @@ class SeasonStatHelperTest < Minitest::Test
     assert @season_stat_helper.coaches_per_season(seasons)["20122013"].keys.include?("Claude Julien")
     assert @season_stat_helper.coaches_per_season(seasons)["20122013"].keys.include?("John Tortorella")
   end
+
+  def test_collects_season_with_games
+    season_with_games = @season_stat_helper.collects_season_with_games
+    assert_equal ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @season_stat_helper.collects_season_with_games.keys
+    assert_equal 806, season_with_games["20122013"].length
+  end
+
+  def test_collect_shots_per_season
+    shots_per_season = @season_stat_helper.collect_shots_per_season("20122013")
+    assert_equal 358, shots_per_season["Philadelphia Union"]
+    assert_equal 337, shots_per_season["Vancouver Whitecaps FC"]
+  end
+
+  def test_collect_goals_per_team
+    goals_per_team = @season_stat_helper.collect_goals_per_team("20142015")
+    assert_equal 204, goals_per_team["Seattle Sounders FC"]
+    assert_equal 165, goals_per_team["Vancouver Whitecaps FC"]
+  end
+
+  def test_team_tackles_by_season
+    games = @season_stat_helper.collects_season_with_games["20122013"]
+    tackles = @season_stat_helper.team_tackles_by_season(games)
+
+    assert_equal 1335, tackles[15]
+    assert_equal 935, tackles[20]
+  end
+
 end
