@@ -1,4 +1,5 @@
 require_relative './game_team'
+require_relative './game_teams_helper'
 require_relative './averageable'
 
 class GameTeamsManager
@@ -8,6 +9,7 @@ class GameTeamsManager
     @game_teams = []
     @tracker = tracker
     create_games(game_teams_path)
+    create_helper
   end
 
   def create_games(game_teams_path)
@@ -15,6 +17,10 @@ class GameTeamsManager
     @game_teams = game_teams_data.map do |data|
       GameTeam.new(data, self)
     end
+  end
+
+  def create_helper
+    @helper = GameTeamsHelper.new(self)
   end
 
   def find_season_id(game_id)
@@ -126,14 +132,14 @@ class GameTeamsManager
   end
 
   # Helpers
-  def total_goals(team_id)
-    games_played(team_id).sum do |game|
-      game.goals
-    end.to_f
-  end
+  # def total_goals(team_id)
+  #   games_played(team_id).sum do |game|
+  #     game.goals
+  #   end.to_f
+  # end
 
   def average_number_of_goals_scored_by_team(team_id)
-    average_with_count(total_goals(team_id), games_played(team_id), 2)
+    average_with_count(@helper.total_goals(team_id), games_played(team_id), 2)
   end
 
   def total_goals_by_type(team_id, home_away)

@@ -2,12 +2,9 @@ require 'csv'
 require_relative './game_manager'
 require_relative './game_teams_manager'
 require_relative './team_manager'
-# require_relative './helper_class'
 
 class StatTracker
-  attr_reader :games_manager,
-              :teams_manager,
-              :game_teams_manager
+  attr_reader :games_manager, :teams_manager, :game_teams_manager
 
   def self.from_csv(locations)
     StatTracker.new(locations)
@@ -133,11 +130,11 @@ class StatTracker
   end
 
   def most_goals_scored(team_id)
-      @game_teams_manager.get_most_goals_scored_for_team(team_id)
+    @game_teams_manager.get_most_goals_scored_for_team(team_id)
   end
 
   def fewest_goals_scored(team_id)
-      @game_teams_manager.get_fewest_goals_scored_for_team(team_id)
+    @game_teams_manager.get_fewest_goals_scored_for_team(team_id)
   end
 
   def favorite_opponent(team_id)
@@ -164,24 +161,4 @@ class StatTracker
   def average_number_of_goals_scored_by_team_by_type(team_id, home_away)
     @game_teams_manager.average_number_of_goals_scored_by_team_by_type(team_id, home_away)
   end
-
-  # def get_best_season(team_id)
-  #   @game_teams_manager.get_best_season(team_id)
-  # end
-  #
-  # def get_worst_season(team_id)
-  #   @game_teams_manager.get_worst_season(team_id)
-  # end
-  #
-  # def get_average_win_percentage(team_id)
-  #   @game_teams_manager.get_average_win_percentage(team_id)
-  # end
-  #
-  # def get_favorite_opponent(team_id)
-  #   @game_teams_manager.get_favorite_opponent(team_id)
-  # end
-  #
-  # def get_rival(team_id)
-  #   @game_teams_manager.get_rival(team_id)
-  # end
 end

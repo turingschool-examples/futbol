@@ -28,10 +28,6 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal 7, @game_teams_manager.games_played('6').count
   end
 
-  def test_return_total_goals_by_team
-    assert_equal 20, @game_teams_manager.total_goals('6')
-  end
-
   def test_average_number_of_goals_scored_by_team
     assert_equal 2.86, @game_teams_manager.average_number_of_goals_scored_by_team('6')
   end
@@ -64,7 +60,7 @@ class GameTeamsManagerTest < Minitest::Test
   def test_coaches_hash_w_avg_win_percentage
     season_id = '20152016'
     expected = {'Mike Sullivan' => 1.0, 'Alain Vigneault' => 0.0}
-    assert_equal expected, @game_teams_manager.coaches_hash_w_avg_win_percentage(season_id)
+    assert_equal expected, @game_teams_manager.coaches_hash_avg_win_pct(season_id)
   end
 
   def test_games_for_coach
@@ -108,7 +104,7 @@ class GameTeamsManagerTest < Minitest::Test
                   '6' => 0.3333,
                   '5' => 0.0769
     }
-    assert_equal expected, @game_teams_manager.teams_hash_w_ratio_shots_goals(season_id)
+    assert_equal expected, @game_teams_manager.teams_hash_shots_goals(season_id)
   end
 
   def test_most_accurate_team
@@ -159,7 +155,7 @@ class GameTeamsManagerTest < Minitest::Test
 
   def test_it_can_find_average_win_percentage_for_team
     team_id = '6'
-    assert_equal 0.86, @game_teams_manager.get_average_win_percentage(team_id)
+    assert_equal 0.86, @game_teams_manager.get_average_win_pct(team_id)
   end
 
   def test_it_can_get_most_goals_scored_for_team
