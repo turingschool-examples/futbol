@@ -102,32 +102,26 @@ class GameTeamManager
   end
 
   def find_winningest_coach(game_ids)
-    coach_game_count = Hash.new(0)
-    coach_wins = Hash.new(0.0)
-    @game_teams.each do |game|
-      if game_ids.include?(game.game_id)
-        coach_game_count[game.head_coach] += 1
-        if game.result == "WIN"
-          coach_wins[game.head_coach] += 1
-        end
-      end
-    end
-    sort_percentages(coach_wins, coach_game_count).last[0]
+    total_wins_and_games = game_and_win_count(game_ids, "WIN")
+    sort_percentages(total_wins_and_games.first, total_wins_and_games.last).last[0]
   end
 
   def find_worst_coach(game_ids)
-    coach_game_count = Hash.new(0)
-    coach_wins = Hash.new
-    @game_teams.each do |game|
+    total_wins_and_games = game_and_win_count(game_ids, "WIN")
+    sort_percentages(total_wins_and_games.first, total_wins_and_games.last).first[0]
+  end
+
+  def game_and_win_count(game_ids, expected_result)
+    @game_teams.reduce([Hash.new, Hash.new(0)]) do |collectors, game|
       if game_ids.include?(game.game_id)
-        coach_wins[game.head_coach] ||= 0
-        coach_game_count[game.head_coach] += 1
-        if game.result == "WIN"
-          coach_wins[game.head_coach] += 1
+        collectors.first[game.head_coach] ||= 0
+        collectors.last[game.head_coach] += 1
+        if game.result == expected_result
+          collectors.first[game.head_coach] += 1
         end
       end
+      collectors
     end
-    sort_percentages(coach_wins, coach_game_count).first[0]
   end
 
   def find_all_games(team_id)
@@ -157,34 +151,28 @@ class GameTeamManager
   end
 
   def favorite_opponent(team_id)
-    total_games = Hash.new(0)
-    loser_loses = Hash.new(0)
-    game_id_array = find_game_ids(team_id)
-    @game_teams.each do |game|
-      if game_id_array.include?(game.game_id) && game.team_id != team_id
-        total_games[game.team_id] += 1
-        if game.result == "LOSS"
-          loser_loses[game.team_id] += 1
-        end
-      end
-    end
-    biggest_loser = sort_percentages(loser_loses, total_games)
+    total_games_and_results = game_and_versus_count(team_id, "LOSS")
+    biggest_loser = sort_percentages(total_games_and_results.first, total_games_and_results.last)
     @tracker.get_team_name(biggest_loser.last[0])
   end
 
   def rival(team_id)
-    total_games = Hash.new(0)
-    winner_wins = Hash.new(0)
-    game_id_array = find_game_ids(team_id)
-    @game_teams.each do |game|
-      if game_id_array.include?(game.game_id) && game.team_id !=team_id
-        total_games[game.team_id] += 1
-        if game.result == "WIN"
-          winner_wins[game.team_id] += 1
+    total_games_and_results = game_and_versus_count(team_id, "WIN")
+    biggest_winner = sort_percentages(total_games_and_results.first, total_games_and_results.last)
+    @tracker.get_team_name(biggest_winner.last[0])
+  end
+
+  def game_and_versus_count(team_id, expected_result)
+    game_ids = find_game_ids(team_id)
+    @game_teams.reduce([Hash.new, Hash.new(0)]) do |collectors, game|
+      if game_ids.include?(game.game_id) && game.team_id != team_id
+        collectors.first[game.team_id] ||= 0
+        collectors.last[game.team_id] += 1
+        if game.result == expected_result
+          collectors.first[game.team_id] += 1
         end
       end
+      collectors
     end
-    biggest_winner = sort_percentages(winner_wins, total_games)
-    @tracker.get_team_name(biggest_winner.last[0])
   end
 end
