@@ -2,16 +2,6 @@ require_relative 'test_helper'
 
 class GameTest < Minitest::Test
   def setup
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-
     @hash = {
        game_id: 2012030221,
        season: 20122013,
@@ -22,9 +12,7 @@ class GameTest < Minitest::Test
        away_goals: 2,
        home_goals: 3
       }
-    @tracker = StatTracker.from_csv(locations)
-    @game_stats   = GameStats.new(@tracker)
-    @game         = Game.new(@hash)
+    @game = Game.new(@hash)
   end
 
   def test_it_exists
