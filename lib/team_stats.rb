@@ -71,7 +71,7 @@ class TeamStats < Stats
       percent_wins
     end
     best_year = best[0].to_i
-    result = "#{best_year}201#{best_year.digits[0] + 1}"
+    "#{best_year}201#{best_year.digits[0] + 1}"
   end
 
   def worst_season(team_id)
@@ -79,7 +79,7 @@ class TeamStats < Stats
       percent_wins
     end
     worst_year = worst[0].to_i
-    result = "#{worst_year}201#{worst_year.digits[0] + 1}"
+    "#{worst_year}201#{worst_year.digits[0] + 1}"
   end
 
   def average_win_percentage(team_id)
@@ -93,16 +93,12 @@ class TeamStats < Stats
   end
 
   def most_goals_scored(team_id)
-    most = all_team_games(team_id).max_by do |game|
-      game.goals
-    end
+    most = all_team_games(team_id).max_by {|game| game.goals}
     most.goals
   end
 
   def fewest_goals_scored(team_id)
-    fewest = all_team_games(team_id).min_by do |game|
-      game.goals
-    end
+    fewest = all_team_games(team_id).min_by {|game| game.goals}
     fewest.goals
   end
 

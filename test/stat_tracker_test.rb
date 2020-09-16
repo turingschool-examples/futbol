@@ -1,4 +1,5 @@
 require_relative 'test_helper'
+require 'mocha/minitest'
 
 class StatTrackerTest < Minitest::Test
   def setup
@@ -98,6 +99,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_lowest_scoring_visitor
+
     assert_equal 'San Jose Earthquakes', @stat_tracker.lowest_scoring_visitor
   end
 
@@ -183,9 +185,5 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_find_rival
     assert_includes ["Houston Dash", "LA Galaxy"], @stat_tracker.rival("18")
-    stat_tracker = StatTracker.new(@locations)
-    @game_stats = GameStats.new(self)
-    @league_stats = LeagueStats.new(self)
-    @season_stats = SeasonStats.new(self)
   end
 end

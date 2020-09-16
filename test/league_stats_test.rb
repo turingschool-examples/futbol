@@ -1,4 +1,5 @@
 require_relative 'test_helper'
+require 'mocha/minitest'
 
 class LeagueStatsTest < Minitest::Test
   def setup
@@ -28,6 +29,8 @@ class LeagueStatsTest < Minitest::Test
   end
 
   def test_team_with_best_offense
+    @league_stats.stubs(:best_offense_stats).returns(54)
+
     assert_equal 'Reign FC', @league_stats.best_offense
   end
 
@@ -36,14 +39,17 @@ class LeagueStatsTest < Minitest::Test
   end
 
   def test_worst_offense
+    @league_stats.stubs(:worst_offense_stats).returns(7)
     assert_equal 'Utah Royals FC', @league_stats.worst_offense
   end
 
   def test_team_highest_away_goals
+
     assert_equal 6, @league_stats.team_highest_away_goals
   end
 
   def test_highest_scoring_visitor
+    @league_stats.stubs(:team_highest_away_goals).returns(6)
     assert_equal 'FC Dallas', @league_stats.highest_scoring_visitor
   end
 
@@ -56,18 +62,25 @@ class LeagueStatsTest < Minitest::Test
   end
 
   def test_highest_scoring_home_team
+    @league_stats.stubs(:team_highest_home_goals).returns(54)
+
     assert_equal 'Reign FC', @league_stats.highest_scoring_home_team
   end
 
   def test_team_lowest_home_goals
+
     assert_equal 7, @league_stats.team_lowest_home_goals
   end
 
   def test_lowest_scoring_visitor
+    @league_stats.stubs(:team_lowest_away_goals).returns(27)
+
     assert_equal 'San Jose Earthquakes', @league_stats.lowest_scoring_visitor
   end
 
   def test_lowest_scoring_home_team
+    @league_stats.stubs(:team_lowest_home_goals).returns(7)
+
     assert_equal 'Utah Royals FC', @league_stats.lowest_scoring_home_team
   end
 end
