@@ -1,0 +1,48 @@
+{
+  "Unit Tests": {
+    "coverage": {
+      "/Users/adam/turing/1module/projects/futbol/lib/stat_tracker.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1603408623
+  }
+}
