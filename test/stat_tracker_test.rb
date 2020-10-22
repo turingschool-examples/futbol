@@ -1,5 +1,4 @@
-require 'Minitest/autorun'
-require 'Minitest/pride'
+require './test/test_helper'
 require './lib/stat_tracker'
 
 class TestStatTracker < Minitest::Test
