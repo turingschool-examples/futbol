@@ -21,6 +21,9 @@ class GameStatisticsTest < Minitest::Test
 
   def test_it_exists
     assert_instance_of GameStatistics, @game_statistics
-    @game_statistics.highest_total_score(@object_data.games)
+  end
+
+  def test_highest_total_score
+    assert_equal 11, @game_statistics.highest_total_score(@object_data.games)
   end
 end
