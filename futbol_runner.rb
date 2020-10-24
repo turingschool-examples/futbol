@@ -1,4 +1,5 @@
 require './lib/stat_tracker'
+require './lib/object_data'
 
 game_path = './data/games.csv'
 team_path = './data/teams.csv'
@@ -10,5 +11,6 @@ locations = {
   game_teams: game_teams_path
 }
 
-#stat_tracker = StatTracker.from_csv(locations)
+stat_tracker = StatTracker.from_csv(locations)
+object_data = ObjectData.new(stat_tracker)
 require "pry"; binding.pry
