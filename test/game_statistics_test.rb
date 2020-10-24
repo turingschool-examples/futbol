@@ -36,4 +36,11 @@ class GameStatsTest < Minitest::Test
 
     assert_equal goals_sum, @game.sum_data(:goals)
   end
+
+  def test_it_can_select_goal_sum_by_team_id
+    team_id = "3"
+    team_3_goal_sum = 8
+
+    assert_equal team_3_goal_sum, @game.team_goal_sum(team_id)
+  end
 end
