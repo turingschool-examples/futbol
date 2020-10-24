@@ -1,32 +1,34 @@
 require './test/test_helper'
 require './lib/stat_tracker'
+require './lib/game'
 
 class TestStatTracker < Minitest::Test
 
     def setup
         # move this into self.from CSV! (below code)
-        game_path = './dummy_data/games_dummy.csv'
-        team_path = './dummy_data/teams_dummy.csv'
-        game_teams_path = './dummy_data/game_teams_dummy.csv'
+        games_path = './data/games.csv'
+        teams_path = './data/teams.csv'
+        game_teams_path = './data/game_teams.csv'
 
         locations = {
-            games: game_path,
-            teams: team_path,
+            games: games_path,
+            teams: teams_path,
             game_teams: game_teams_path
         }
 
-        @stat_tracker = StatTracker.from_csv(locations)
+        @stat_tracker = StatTracker.new(locations)
     end
 
     def test_it_exists
-        binding.pry
         assert_instance_of StatTracker, @stat_tracker
     end
 
-    def test_it_can_provide_highest_and_lowest_total_score
-    # skip
-        assert_equal 4, @stat_tracker.highest_total_score
-        assert_equal 3, @stat_tracker.lowest_total_score
+    def test_highest_total_score
+        assert_equal 11, @stat_tracker.highest_total_score
+    end
+
+    def test_lowest_total_score
+        assert_equal 0, @stat_tracker.lowest_total_score
     end
 
     # def test_it_can_provide_percentage_wins
