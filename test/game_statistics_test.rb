@@ -24,6 +24,6 @@ class GameStatsTest < Minitest::Test
 
   def test_it_exists_and_has_attributes
     assert_instance_of GameStats, @game
-
+    assert_equal @dummy_stats, @game.stats
   end
 end
