@@ -26,4 +26,10 @@ class GameStatsTest < Minitest::Test
     assert_instance_of GameStats, @game
     assert_equal @dummy_stats, @game.stats
   end
+
+  def test_it_can_sum_data
+    goals_sum = 19
+
+    assert_equal goals_sum, @game.sum_data(:goals)
+  end
 end
