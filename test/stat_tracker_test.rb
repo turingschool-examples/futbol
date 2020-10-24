@@ -4,6 +4,7 @@ require './lib/stat_tracker'
 class TestStatTracker < Minitest::Test
 
     def setup
+        # move this into self.from CSV! (below code)
         game_path = './dummy_data/games_dummy.csv'
         team_path = './dummy_data/teams_dummy.csv'
         game_teams_path = './dummy_data/game_teams_dummy.csv'
