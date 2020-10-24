@@ -27,7 +27,12 @@ class GameStatsTest < Minitest::Test
     assert_equal @dummy_stats, @game.stats
   end
 
+  def test_it_can_convert_to_integers
+    assert_equal [1], @game.convert_to_i(["1"])
+  end
+
   def test_it_can_sum_data
+    skip
     goals_sum = 19
 
     assert_equal goals_sum, @game.sum_data(:goals)
