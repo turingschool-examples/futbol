@@ -4,22 +4,24 @@
 # Parse CSV table initially and save as instance variable
 # Method will iterate through instance variable
 class StatTracker
-  attr_reader :g_table, :gt_table, :t_table
+  attr_reader :games, :game_teams, :teams
   def self.from_csv(locations)
-    @g_table = CSV.parse(File.read(locations[:games]), headers: true) # Games table
-    @gt_table = CSV.parse(File.read(locations[:game_teams]), headers: true) # Game Teams table
-    @t_table = CSV.parse(File.read(locations[:teams]), headers: true) # Teams table
+    new(locations)
   end
   
-  def initialize
-    @g_table = nil
-    @gt_table = nil
-    @t_table = nil
+  def initialize(locations)
+    @games = locations[:games]
+    @game_teams = locations[:game_teams]
+    @teams = locations[:teams]
   end
 
-  def highest_total_score# Rename later, for now from Games Table
-    require 'pry'; binding.pry
-    @g_table[6]
+  def highest_total_score # Rename later, for now from Games Table
+    most = 0
+    CSV.foreach(games, :headers => true) do |row|
+      total = row["away_goals"].to_i + row["home_goals"].to_i
+      most = total if total > most
+    end
+    most
   end
 
 end
