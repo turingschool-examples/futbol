@@ -24,19 +24,15 @@ class GameStatsTest < Minitest::Test
   end
 
   def test_sum_of_scores
-    mock_sum_of_scores = mock("sum_of_scores")
-    assert_equal  mock_sum_of_scores, @stat_tracker.sum_of_scores
-    assert_instance_of Array, @stat_tracker.sum_of_scores
-    @stat_tracker.stubs(sum_of_scores).returns([5,8,29])
-    assert_equal [5,8,29], @stat_tracker.sum_of_scores
+    assert_instance_of Array, @gamestats.sum_of_scores
+    @gamestats.stubs(:sum_of_scores).returns([5,8,29])
+    assert_equal [5,8,29], @gamestats.sum_of_scores
   end
 
-  # def test_it_calls_highest_total_score
-  #   mock_high_score = mock("high_score")
-  #   assert_equal  mock_high_score, @stat_tracker.highest_total_score
-  #   assert_instance_of Integer, @stat_tracker.highest_total_score
-  #   @stat_tracker.stubs(highest_total_score).returns(5)
-  #   assert_equal 5, @stat_tracker.highest_total_score
-  # end
+  def test_it_calls_highest_total_score
+    assert_instance_of Integer, @gamestats.highest_total_score
+    @gamestats.stubs(:highest_total_score).returns(5)
+    assert_equal 5, @gamestats.highest_total_score
+  end
 
 end

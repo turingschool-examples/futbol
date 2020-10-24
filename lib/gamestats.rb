@@ -12,13 +12,12 @@ class GameStats
 
   def sum_of_scores
     @games_table.map do |game|
-      require 'pry'; binding.pry
-      game[6] + game[7]
+      game["away_goals"].to_i + game["home_goals"].to_i
     end
   end
 
   def highest_total_score
-    # sum_of_scores.max
+    sum_of_scores.max
   end
 
 end
