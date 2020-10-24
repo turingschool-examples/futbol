@@ -35,4 +35,10 @@ class GameStatsTest < Minitest::Test
     assert_equal 5, @gamestats.highest_total_score
   end
 
+  def test_it_calls_lowest_total_score
+    assert_instance_of Integer, @gamestats.lowest_total_score
+    @gamestats.stubs(:lowest_total_score).returns(5)
+    assert_equal 5, @gamestats.lowest_total_score
+  end
+
 end
