@@ -1,4 +1,5 @@
 class GameTeam
+  attr_reader :goals 
   def initialize(row)
     @team_id = row[1],
     @HoA = row[2],

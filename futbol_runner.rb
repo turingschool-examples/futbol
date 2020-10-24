@@ -13,4 +13,5 @@ locations = {
 
 stat_tracker = StatTracker.from_csv(locations)
 object_data = ObjectData.new(stat_tracker)
-require "pry"; binding.pry
+# require "pry"; binding.pry
+# 0
