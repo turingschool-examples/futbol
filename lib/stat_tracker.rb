@@ -4,5 +4,6 @@ class StatTracker
   end
 
   def initialize(locations)
+    @league_statistics = LeagueStatistics.new(locations[:games], locations[:teams])
   end
 end
