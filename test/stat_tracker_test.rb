@@ -13,7 +13,7 @@ require './lib/stat_tracker'
         locations = {
             games: game_path,
             teams: team_path,
-            game_teams: game_teams_path
+            game_teams: game_teams_path,
             dummy: dummy_path
         }
 
