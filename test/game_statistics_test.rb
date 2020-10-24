@@ -37,10 +37,12 @@ class GameStatsTest < Minitest::Test
     assert_equal goals_sum, @game.sum_data(:goals)
   end
 
-  def test_it_can_select_goal_sum_by_team_id
+  def test_it_can_select_stats_by_header
     team_id = "3"
     team_3_goal_sum = 8
+    team_3_stats = @game.team_stats(:team_id, team_id)
 
-    assert_equal team_3_goal_sum, @game.team_goal_sum(team_id)
+    assert_instance_of CSV::Table, team_3_stats
+    assert_equal team_3_goal_sum, @game.sum_data(:goals, team_3_stats)
   end
 end
