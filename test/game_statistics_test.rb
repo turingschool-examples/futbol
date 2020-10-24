@@ -28,7 +28,7 @@ class GameStatsTest < Minitest::Test
   end
 
   def test_it_can_convert_to_integers
-    assert_equal [1], @game.convert_to_i(["1"])
+    assert_equal [1, 2], @game.convert_to_i(["1", "2"])
   end
 
   def test_it_can_sum_data
