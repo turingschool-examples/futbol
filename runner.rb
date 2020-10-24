@@ -1,4 +1,5 @@
 require './lib/stat_tracker'
+require 'csv'
 
 game_path = './data/games.csv'
 team_path = './data/teams.csv'
@@ -12,3 +13,6 @@ locations = {
 
 
 stat_tracker = StatTracker.from_csv(locations)
+
+highest = stat_tracker.highest_total_score
+puts highest
