@@ -1,9 +1,11 @@
 class LeagueStatistics
-attr_reader :game,
-            :team
+  attr_reader :stat_tracker
 
-  def initialize(argument)
-    @game = game
-    @team = team
+  def initialize(stat_tracker)
+    @stat_tracker = stat_tracker
+  end
+
+  def count_of_teams
+    @stat_tracker[:teams]['team_id'].count
   end
 end
