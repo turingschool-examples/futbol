@@ -6,11 +6,12 @@ class StatTracker
     end
 
     def self.from_csv(locations)
-        table = []
-        locations.each_value do |value|
+        table = {}
+        locations.each_pair do |key, value|
             # value.parse
-            table << CSV.parse(File.read(value), headers: true, header_converters: :symbol)
+            table[key] = CSV.parse(File.read(value), headers: true, header_converters: :symbol)
         end 
-    require 'pry'; binding.pry
+        table
     end
+
 end
