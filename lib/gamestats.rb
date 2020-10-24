@@ -1,8 +1,8 @@
 require 'csv'
 
-class StatTracker
+class GameStats
   def self.from_csv(locations)
-    StatTracker.new(locations)
+    GameStats.new(locations)
   end
 
   def initialize(locations)
