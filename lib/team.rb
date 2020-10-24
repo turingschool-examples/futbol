@@ -1,6 +1,6 @@
 class Team
   def initialize(row)
-    @franchiseId = row[1],
+    @franchiseId = row[1].to_i,
     @teamName = row[2],
     @abbreviation = row[3],
     @Stadium = row[4],
