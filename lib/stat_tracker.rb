@@ -18,7 +18,7 @@ class StatTracker
         games = []
         CSV.foreach(@games_path, headers: true, header_converters: :symbol) do |row|
             game_id = row[:game_id].to_i
-            season = row[:season].to_i
+            season = row[:season]
             type = row[:type]
             date_time = row[:date_time]
             away_team_id = row[:away_team_id].to_i
@@ -76,5 +76,19 @@ class StatTracker
         calculate_winner(game) == :tie
       end
       (ties.to_f / @games.count).round(2)
+    end
+
+    def games_by_season
+      @games.group_by do |game|
+        game.season
+      end
+    end
+
+    def count_of_games_by_season
+      count = {}
+      games_by_season.map do |season, games|
+        count[season] = games.count
+      end
+      count
     end
 end
