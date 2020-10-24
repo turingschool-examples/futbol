@@ -3,7 +3,7 @@ require 'minitest/pride'
 require './lib/stat_tracker'
 require './lib/game_statistics'
 
-class GameStats < Minitest::Test
+class GameStatsTest < Minitest::Test
   def setup
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -18,10 +18,12 @@ class GameStats < Minitest::Test
     }
 
     stat_tracker = StatTracker.from_csv(locations)
-    dummy_stats = stat_tracker[:dummy]
-    @game = GameStats.new()
+    @dummy_stats = stat_tracker[:dummy]
+    @game = GameStats.new(@dummy_stats)
   end
 
   def test_it_exists_and_has_attributes
+    assert_instance_of GameStats, @game
+
   end
 end
