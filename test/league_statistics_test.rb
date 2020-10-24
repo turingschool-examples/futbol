@@ -24,4 +24,11 @@ class LeagueStatisticsTest < Minitest::Test
   def test_it_can_count_number_of_teams
     assert_equal 32, @league_statistics.count_of_teams
   end
+
+  def test_it_knows_highest_average_goals_scored_across_season
+      #
+    	# Name of the team with the highest average
+      # number of goals scored per game across all seasons.
+    assert_equal 'FC Dallas', @stat_tracker.best_offense
+  end
 end
