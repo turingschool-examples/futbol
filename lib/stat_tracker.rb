@@ -37,6 +37,12 @@ class StatTracker
             game.away_goals + game.home_goals
         end
         max_score_game.home_goals + max_score_game.away_goals
-        # require 'pry'; binding.pry
+    end
+
+    def lowest_total_score
+        min_score_game = @games.min_by do |game|
+            game.away_goals + game.home_goals
+        end
+        min_score_game.home_goals + min_score_game.away_goals
     end
 end
