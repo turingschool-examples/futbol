@@ -6,7 +6,7 @@ class LeagueStatisticsTest < Minitest::Test
   def setup
     game_path = './data/game_dummy.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
     locations = {
                   games: game_path,
                   teams: team_path,
@@ -29,6 +29,13 @@ class LeagueStatisticsTest < Minitest::Test
       #
     	# Name of the team with the highest average
       # number of goals scored per game across all seasons.
-    assert_equal 'FC Dallas', @stat_tracker.best_offense
+    assert_equal 'FC Dallas', @league_statistics.best_offense
+  end
+
+  def test_it_knows_lowest_average_goals_scored_across_season
+      #
+      # Name of the team with the highest average
+      # number of goals scored per game across all seasons.
+    assert_equal 'Sporting Kansas City', @league_statistics.worst_offense
   end
 end
