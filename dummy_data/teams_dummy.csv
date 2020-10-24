@@ -1,0 +1,3 @@
+﻿team_id,franchiseId,teamName,abbreviation,Stadium,link
+1,1,Chudley Cannons,CC,abc stadium,/api/v1/teams/1
+2,2,Montrose Magpies,MM,def stadium,/api/v1/teams/2
