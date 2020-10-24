@@ -25,6 +25,11 @@ class GameStatisticsTest < Minitest::Test
 
   def test_highest_total_score
     assert_equal 11, @game_statistics.highest_total_score(@object_data.games)
+  end
 
+  def test_total_goals_by_game
+    assert_equal 6, @game_statistics.total_goals_by_game(@object_data.games)["2017030235"]
+    assert_equal 3, @game_statistics.total_goals_by_game(@object_data.games)["2015030235"]
+    assert_equal 7441,  @game_statistics.total_goals_by_game(@object_data.games).size
   end
 end
