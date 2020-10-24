@@ -13,6 +13,7 @@ class StatTracker
         StatTracker.new(locations)
     end
 
+#make test for below
     def make_games
         games = []
         CSV.foreach(@games_path, headers: true, header_converters: :symbol) do |row|
@@ -45,4 +46,30 @@ class StatTracker
         end
         min_score_game.home_goals + min_score_game.away_goals
     end
+
+    def calculate_winner(game)
+      if game.home_goals > game.away_goals
+        :home
+      elsif game.home_goals < game.away_goals
+        :away
+      else
+        :tie
+      end
+    end
+
+    def percentage_home_wins
+      home_wins = @games.count do |game|
+        calculate_winner(game) == :home
+      end
+      (home_wins.to_f / @games.count).round(2)
+    end
+
+    def percentage_visitor_wins
+      visitor_wins = @games.count do |game|
+        calculate_winner(game) == :away
+      end
+      (visitor_wins.to_f / @games.count).round(2)
+    end
+
+
 end
