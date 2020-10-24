@@ -1,4 +1,6 @@
 require './test/test_helper'
+require 'csv'
+require './lib/stat_tracker'
 
 class StatTrackerTest < MiniTest::Test
 
@@ -8,7 +10,6 @@ class StatTrackerTest < MiniTest::Test
       teams: './data/fixture_files/teams.csv',
       game_teams: './data/fixture_files/game_teams.csv'
     }
-    require 'pry'; binding.pry
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
