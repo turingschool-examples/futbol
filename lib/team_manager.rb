@@ -1,4 +1,5 @@
 require 'csv'
+require_relative './lib/team'
 
 class TeamManager
   attr_reader :teams_data, :teams
@@ -22,5 +23,4 @@ class TeamManager
     end
     teams
   end
-
 end
