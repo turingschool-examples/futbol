@@ -1,18 +1,29 @@
+require './lib/games_collection'
+require './lib/teams_collection'
+require './lib/gameteams_collection'
+
 class StatTracker
+  attr_reader :games_collection, :teams_collection, :game_teams_collection
 
-  attr_reader :games
-
-  def initialize(locations)
-    @games = locations[:games]
+  def initialize(games_collection, teams_collection, game_teams_collection)
+    @games_collection = games_collection
+    @teams_collection = teams_collection
+    @game_teams_collection = game_teams_collection
   end
 
   def self.from_csv(locations)
-    @game_path = locations[:games]
-    @team_path = locations[:teams]
-    @game_team_path = locations[:game_teams]
+    games_collection = GamesCollection.new(locations[:games])
+    teams_collection = TeamsCollection.new(locations[:teams])
+    game_teams_collection = GameTeamsCollection.new(locations[:game_teams])
+
+    StatTracker.new(games_collection, teams_collection, game_teams_collection)
   end
 
   def highest_total_score
+    game = @games_collection.games.max_by do |game|
+      game.away_goals + game.home_goals
+    end
+    game
   end
 
   def lowest_total_score
