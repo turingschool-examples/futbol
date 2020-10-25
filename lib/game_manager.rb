@@ -9,7 +9,7 @@ class GameManager
   end
 
   def all
-    CSV.foreach(@games_data_path, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(@games_data, headers: true, header_converters: :symbol) do |row|
       game_attributes = {
                           game_id: row[:game_id],
                           season: row[:season],
