@@ -90,4 +90,20 @@ class StatTracker
       end
       count
     end
+
+    def average_goals_per_game
+      total_goals = @games.map do |game|
+          game.away_goals + game.home_goals
+      end
+      total_goals.sum.to_f / total_goals.count
+    end
+
+    def average_goals_by_season
+        average_goals = {}
+        games_by_season.map do |season , games|
+         average_goals[season] = (games.sum {|game|  game.away_goals + game.home_goals}).to_f / games.count 
+        end
+        average_goals
+    end
+
 end

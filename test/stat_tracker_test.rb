@@ -86,4 +86,18 @@ class TestStatTracker < Minitest::Test
       assert_equal expected, @stat_tracker.count_of_games_by_season
     end
 
+    def test_it_can_average_goals_per_game
+      #change back to actual test / data
+      assert_equal 3.25 ,  @stat_tracker.average_goals_per_game
+    end
+    
+    def test_it_can_average_goals_by_season
+      expected = {
+          "20172018"=> 3,
+          "20162017"=> 3.5
+      }
+      assert_equal expected , @stat_tracker.average_goals_by_season
+  
+    end
+
 end
