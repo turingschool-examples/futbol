@@ -11,4 +11,9 @@ class GameManagerTest < Minitest::Test
     assert_instance_of GameManager, @game_manager
     assert_equal [], @game_manager.games
   end
+
+  def test_it_can_add_array_of_all_game_objects
+    @game_manager.all
+    assert_instance_of Game, @game_manager.games.first
+  end
 end
