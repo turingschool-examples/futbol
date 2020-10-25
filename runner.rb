@@ -14,8 +14,6 @@ locations = {
 
 stat_tracker = StatTracker.from_csv(locations)
 
-game_teams = CSV.read(game_teams_path, headers:true)
-
 require 'pry'; binding.pry
 
 p "pry"
