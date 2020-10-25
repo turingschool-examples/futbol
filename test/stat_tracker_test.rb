@@ -8,6 +8,7 @@ class StatTrackerTest < MiniTest::Test
       teams: './data/fixture_files/teams.csv',
       game_teams: './data/fixture_files/game_teams.csv'
     }
+    require 'pry'; binding.pry
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
@@ -15,13 +16,3 @@ class StatTrackerTest < MiniTest::Test
   def test_highest_total_score
     assert_equal 5, @stat_tracker.highest_total_score
   end
-
-# League Statistics
-  def test_count_of_teams
-    assert_equal 10, @stat_tracker.count_of_teams
-  end
-
-  def test_team_with_best_offense
-    assert_equal "FC Dallas", @stat_tracker.team_with_best_offense
-  end
-end
