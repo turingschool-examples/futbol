@@ -38,11 +38,8 @@ class TestStatTracker < Minitest::Test
     end
 
     def test_make_games
-      skip
-      games = mock
-      games.stubs(:make_games).returns(Game)
-
-      assert_equal Game, @stat_tracker.make_games
+      assert_instance_of Game, @stat_tracker.make_games[0]
+      assert_instance_of Game, @stat_tracker.make_games[-1]
     end
 
     def test_highest_total_score

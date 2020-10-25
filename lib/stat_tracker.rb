@@ -13,7 +13,6 @@ class StatTracker
         StatTracker.new(locations)
     end
 
-#make test for below
     def make_games
         games = []
         CSV.foreach(@games_path, headers: true, header_converters: :symbol) do |row|
