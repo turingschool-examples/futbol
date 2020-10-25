@@ -1,6 +1,4 @@
 require './test/test_helper'
-require 'csv'
-require './lib/stat_tracker'
 
 class StatTrackerTest < MiniTest::Test
 
@@ -16,5 +14,14 @@ class StatTrackerTest < MiniTest::Test
 # Game Statistics Methods
   def test_highest_total_score
     assert_equal 5, @stat_tracker.highest_total_score
+  end
+
+# League Statistics
+  def test_count_of_teams
+    assert_equal 10, @stat_tracker.count_of_teams
+  end
+
+  def test_team_with_best_offense
+    assert_equal "FC Dallas", @stat_tracker.team_with_best_offense
   end
 end
