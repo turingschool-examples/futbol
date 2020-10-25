@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative '../lib/team'
-require_relative '../lib/team_manager'
+require './lib/team'
+require './lib/team_manager'
 
 class TeamManagerTest < Minitest::Test
 
@@ -25,9 +25,9 @@ class TeamManagerTest < Minitest::Test
   end
 
   def test_it_gives_array_of_all_teams
-    assert_equal 32, @team_manager.all.count
+    assert_equal Team,  @team_manager.all.first.class
   end
 
-  
+
 
 end
