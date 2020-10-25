@@ -191,6 +191,21 @@ class StatTracker
     average_goals.key(average_goals.values.max).to_i
   end
 
+  def lowest_scoring_visitor
+    average_goals = {}
+    game_teams_by_away.map do |team , games|
+     average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count 
+    end
+    average_goals.key(average_goals.values.min).to_i
+  end
+
+  def lowest_scoring_home_team
+    average_goals = {}
+    game_teams_by_home.map do |team , games|
+     average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count 
+    end
+    average_goals.key(average_goals.values.min).to_i
+  end
   
 
 end

@@ -121,6 +121,12 @@ class TestStatTracker < Minitest::Test
       assert_equal 1 , @stat_tracker.highest_scoring_home_team
     end
     
-    
+    def test_it_can_return_lowest_scoring_visitor
+      assert_equal 2 , @stat_tracker.lowest_scoring_visitor
+    end
+
+    def test_it_can_return_lowest_scoring_home
+      assert_equal 2 , @stat_tracker.lowest_scoring_home_team
+    end
 
 end
