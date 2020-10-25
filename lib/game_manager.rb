@@ -3,8 +3,8 @@ require 'csv'
 class GameManager
   attr_reader :games_data_path,
               :games
-  def initialize(data)
-    @games_data_path = data
+  def initialize(file_locations)
+    @games_data = file_locations[:games]
     @games = []
   end
 
@@ -18,7 +18,7 @@ class GameManager
                           away_goals: row[:away_goals],
                           home_goals: row[:home_goals],
                         }
-      @games << (Game.new(game_attributes))
+      @games << Game.new(game_attributes)
     end
     @games
   end
