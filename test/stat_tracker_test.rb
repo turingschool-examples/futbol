@@ -100,4 +100,12 @@ class TestStatTracker < Minitest::Test
   
     end
 
+    def test_it_can_count_teams
+      assert_equal 2 , @stat_tracker.count_of_teams
+    end
+    
+    def test_it_return_best_offense
+      assert_equal 1 , @stat_tracker.best_offense 
+    end
+
 end

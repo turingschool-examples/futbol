@@ -7,6 +7,7 @@ class StatTracker
         @teams_path = locations[:teams]
         @game_teams_path = locations[:game_teams]
         @games = make_games
+        @games_teams = make_games_teams
     end
 
     def self.from_csv(locations)
@@ -30,6 +31,29 @@ class StatTracker
             games << Game.new(game_id, season, type, date_time, away_team_id, home_team_id, away_goals, home_goals, venue, venue_link)
         end
         games
+    end
+
+    def make_game_teams
+      game_teams = []
+      CSV.foreach(@game_teams_path, headers: true, header_converters: :symbol) do |row|
+          game_id = row[:game_id]
+          team_id = row[:team_id]
+          HoA = row[:HoA]
+          result = row[:result]
+          settled_in = row[:settled_in]
+          head_coach = row[:head_coach]
+          goals = row[:goals].to_i
+          shots = row[:shots].to_i
+          tackles = row[:tackles].to_i
+          pim = row[:pim].to_i
+          powerPlayOpportunities = row[:powerPlayOpportunities].to_i
+          powerPlayGoals = row[:powerPlayGoals].to_i
+          faceOffWinPercentage = row[:faceOffWinPercentage].to_f
+          giveaways = row[:giveaways].to_i
+          takeaways = row[:takeaways].to_i
+          game_teams << GameTeams.new(game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways)
+      end
+      game_teams
     end
 
     def highest_total_score
@@ -83,6 +107,14 @@ class StatTracker
       end
     end
 
+    def games_by_team
+      @games.group_by do |game|
+        binding.pry
+        game.team
+      end
+    end
+
+
     def count_of_games_by_season
       count = {}
       games_by_season.map do |season, games|
@@ -105,5 +137,22 @@ class StatTracker
         end
         average_goals
     end
+
+    def count_of_teams
+      @games.map do |game|
+        game.away_team_id
+        game.home_team_id
+      end.uniq.count
+    end
+  
+    def best_offense
+    average_goals = {}
+    games_by_team.map do |team , games|
+     average_goals[team] = (games.sum {|game|  game.away_goals + game.home_goals}).to_f / games.count 
+    end
+  
+    binding.pry
+    average_goals.keys.max
+  end
 
 end
