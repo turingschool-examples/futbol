@@ -1,5 +1,4 @@
 require 'CSV'
-require 'pry'
 
 class StatTracker
 
@@ -7,85 +6,88 @@ class StatTracker
         @games_path = locations[:games]
         @teams_path = locations[:teams]
         @game_teams_path = locations[:game_teams]
+        @games = make_games
     end
 
     def self.from_csv(locations)
         StatTracker.new(locations)
     end
 
-    def game_stuff
-        # game_data = []
-        # CSV.foreach(locations[:games], headers: true, header_converters: :symbol) do |row|
-        #     game_data << row
-        # end
-        scores = []
-        CSV.foreach(game_path, headers: true, header_converters: :symbol) do |row|
-            game_scores << row[:home_goals].to_i + row[:away_goals].to_i
+    def make_games
+        games = []
+        CSV.foreach(@games_path, headers: true, header_converters: :symbol) do |row|
+            game_id = row[:game_id].to_i
+            season = row[:season]
+            type = row[:type]
+            date_time = row[:date_time]
+            away_team_id = row[:away_team_id].to_i
+            home_team_id = row[:home_team_id].to_i
+            away_goals = row[:away_goals].to_i
+            home_goals = row[:home_goals].to_i
+            venue = row[:venue]
+            venue_link = row[:venue_link]
+
+            games << Game.new(game_id, season, type, date_time, away_team_id, home_team_id, away_goals, home_goals, venue, venue_link)
         end
+        games
     end
 
-
-
-    def highest_total_score  
-        p self.from_cvs(@games_path)
-        binding.pry
-        # game_scores
-        # p scores.max
-    end
-
-    def highest_total_score  
-    #     game_scores
-    #     p scores.max
+    def highest_total_score
+        max_score_game = @games.max_by do |game|
+            game.away_goals + game.home_goals
+        end
+        max_score_game.home_goals + max_score_game.away_goals
     end
 
     def lowest_total_score
-    #     game_scores
-    #     p scores.max
+        min_score_game = @games.min_by do |game|
+            game.away_goals + game.home_goals
+        end
+        min_score_game.home_goals + min_score_game.away_goals
+    end
+
+    def calculate_winner(game)
+      if game.home_goals > game.away_goals
+        :home
+      elsif game.home_goals < game.away_goals
+        :away
+      else
+        :tie
+      end
     end
 
     def percentage_home_wins
-    end
-
-    def league_stuff
-    end
-
-    def percentage_home_wins
+      home_wins = @games.count do |game|
+        calculate_winner(game) == :home
+      end
+      (home_wins.to_f / @games.count).round(2)
     end
 
     def percentage_visitor_wins
+      visitor_wins = @games.count do |game|
+        calculate_winner(game) == :away
+      end
+      (visitor_wins.to_f / @games.count).round(2)
     end
 
-    def perentage_ties
+    def percentage_ties
+      ties = @games.count do |game|
+        calculate_winner(game) == :tie
+      end
+      (ties.to_f / @games.count).round(2)
     end
 
-    def count_of_game_by_season
+    def games_by_season
+      @games.group_by do |game|
+        game.season
+      end
     end
-    
-    def average_goals_per_game
+
+    def count_of_games_by_season
+      count = {}
+      games_by_season.map do |season, games|
+        count[season] = games.count
+      end
+      count
     end
-        
-    # #     @count_of_teams = 0
-    # #     @best_offense = ""
-    # #     @worst_offense = ""
-    # #     @highest_scoring_visitor = ""
-    # #     @highest_scoring_home_team = ""
-    # #     @lowest_scoring_visitor = ""
-    # #     @lowest_scoring_home_team = ""
-
-    # #     @winningest_coach = ""
-    # #     @worst_coach = ""
-    # #     @most_accurate_team = ""
-    # #     @least_accurate_team = ""
-    # #     @most_tackles = ""
-    # #     @fewest_tackles = ""
-
-    # #     @team_info = team_data[:team_info]
-    # #     @best_season = ""
-    # #     @worst_season = ""
-    # #     @average_win_percentage = 0.0
-    # #     @most_goals_scored = 0
-    # #     @fewest_goals_scored = 0
-    # #     @favorite_opponent = ""
-    # #     @rival = ""
-    # # end
 end
