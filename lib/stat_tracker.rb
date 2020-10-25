@@ -35,10 +35,11 @@ class StatTracker
 
     def make_game_teams
       game_teams = []
-      CSV.foreach(@game_teams_path, headers: true, header_converters: :symbol) do |row|
+      
+      CSV.foreach(@game_teams_path, headers: true, header_converters: [:symbol , :downcase]   ) do |row|
           game_id = row[:game_id]
           team_id = row[:team_id]
-          hoa = row[:HoA]
+          hoa = row[:hoa]
           result = row[:result]
           settled_in = row[:settled_in]
           head_coach = row[:head_coach]
@@ -107,10 +108,24 @@ class StatTracker
       end
     end
 
-    def games_by_team
+    def game_teams_by_team
       @game_teams.group_by do |game|
         game.team_id
       end
+    end
+
+    def game_teams_by_away
+      @game_teams.group_by do |game|
+        game.team_id unless game.hoa == "home"
+      end
+
+    end
+
+    def game_teams_by_home
+      @game_teams.group_by do |game|
+        game.team_id unless game.hoa == "away"
+      end
+
     end
 
 
@@ -146,10 +161,36 @@ class StatTracker
   
     def best_offense
     average_goals = {}
-    games_by_team.map do |team , games|
+    game_teams_by_team.map do |team , games|
      average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count 
     end
     average_goals.key(average_goals.values.max).to_i
   end
+
+  def worst_offense
+    average_goals = {}
+    game_teams_by_team.map do |team , games|
+     average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count 
+    end
+    average_goals.key(average_goals.values.min).to_i
+  end
+
+  def highest_scoring_visitor
+    average_goals = {}
+    game_teams_by_away.map do |team , games|
+     average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count 
+    end
+    average_goals.key(average_goals.values.max).to_i
+  end
+
+  def highest_scoring_home_team
+    average_goals = {}
+    game_teams_by_home.map do |team , games|
+     average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count 
+    end
+    average_goals.key(average_goals.values.max).to_i
+  end
+
+  
 
 end

@@ -89,13 +89,13 @@ class TestStatTracker < Minitest::Test
 
     def test_it_can_average_goals_per_game
       #change back to actual test / data
-      assert_equal 3.25 ,  @stat_tracker.average_goals_per_game
+      assert_equal 6.0 ,  @stat_tracker.average_goals_per_game
     end
     
     def test_it_can_average_goals_by_season
       expected = {
-          "20172018"=> 3,
-          "20162017"=> 3.5
+          "20172018"=> 5.5,
+          "20162017"=> 6.5
       }
       assert_equal expected , @stat_tracker.average_goals_by_season
   
@@ -108,5 +108,19 @@ class TestStatTracker < Minitest::Test
     def test_it_return_best_offense
       assert_equal 1 , @stat_tracker.best_offense 
     end
+
+    def test_it_can_return_worst_offense
+      assert_equal 2 , @stat_tracker.worst_offense
+    end
+
+    def test_it_can_return_highest_scoring_visitor
+      assert_equal 1 , @stat_tracker.highest_scoring_visitor
+    end
+
+    def test_it_can_return_highest_scoring_home
+      assert_equal 1 , @stat_tracker.highest_scoring_home_team
+    end
+    
+    
 
 end
