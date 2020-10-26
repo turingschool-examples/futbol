@@ -44,5 +44,10 @@ class GameManagerTest < Minitest::Test
     @game_manager.all
     assert_equal 0.36, @game_manager.percentage_visitor_wins
   end
-  
+
+  def test_it_gives_percentage_of_ties
+    @game_manager.all
+    assert_equal 0.20, @game_manager.percentage_ties
+  end
+
 end
