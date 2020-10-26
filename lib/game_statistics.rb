@@ -51,4 +51,8 @@ class GameStatistics
     end
     ties
   end
+
+  def percentage_ties(game_data)
+    (total_ties(game_data) / total_games(game_data).to_f).round(2)
+  end
 end
