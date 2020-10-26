@@ -68,4 +68,10 @@ class GameManagerTest < Minitest::Test
     assert_equal expected, @game_manager.count_of_games_by_season
   end
 
+  def test_it_gives_average_goals_per_game
+    @game_manager.all
+    assert_equal 4.22, @game_manager.average_goals_per_game
+  end
+
+
 end
