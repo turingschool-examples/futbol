@@ -20,6 +20,35 @@ class GamesCollectionTest < Minitest::Test
 
   def test_all_games
 
-    assert_equal 10, @gamescollection.games.length
+    assert_equal 13, @gamescollection.games.length
+  end
+
+  def test_home_wins
+    assert_equal 7, @gamescollection.home_wins
+  end
+
+  def test_visitor_wins
+    assert_equal 5, @gamescollection.visitor_wins
+  end
+
+  def test_ties
+    assert_equal 1, @gamescollection.ties
+  end
+
+  def test_count_of_games_by_season
+
+    expected = {"20122013"=> 12, "20132014"=> 1}
+    assert_equal expected, @gamescollection.count_of_games_by_season
+  end
+
+  def test_average_goals_per_game
+
+    assert_equal 3.38, @gamescollection.average_goals_per_game
+  end
+
+  def test_average_goals_by_season
+
+    expected = {"20122013"=> 3.50, "20132014"=> 2.00}
+    assert_equal expected, @gamescollection.average_goals_by_season
   end
 end

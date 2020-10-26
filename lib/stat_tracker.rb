@@ -1,6 +1,6 @@
-require './lib/games_collection'
-require './lib/teams_collection'
-require './lib/game_teams_collection'
+require_relative './games_collection'
+require_relative './teams_collection'
+require_relative './game_teams_collection'
 
 class StatTracker
   attr_reader :games_collection, :teams_collection, :game_teams_collection
@@ -20,31 +20,41 @@ class StatTracker
   end
 
   def highest_total_score
-    game = @games_collection.games.max_by do |game|
-      game.away_goals + game.home_goals
+    highest = @games_collection.games.max_by do |game|
+      game.total_score
     end
-    game
+    highest.total_score
   end
 
   def lowest_total_score
+    lowest = @games_collection.games.min_by do |game|
+      game.total_score
+    end
+    lowest.total_score
   end
 
   def percentage_home_wins
+    (@games_collection.home_wins.to_f / @games_collection.games.length).round(2)
   end
 
   def percentage_visitor_wins
+    (@games_collection.visitor_wins.to_f / @games_collection.games.length).round(2)
   end
 
   def percentage_ties
+    (@games_collection.ties.to_f / @games_collection.games.length).round(2)
   end
 
   def count_of_games_by_season
+    @games_collection.count_of_games_by_season
   end
 
   def average_goals_per_game
+    @games_collection.average_goals_per_game
   end
 
   def average_goals_by_season
+    @games_collection.average_goals_by_season
   end
 
   def count_of_teams

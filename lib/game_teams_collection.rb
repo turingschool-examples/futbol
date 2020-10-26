@@ -1,4 +1,5 @@
-require './lib/game_team'
+require_relative './game_team'
+require 'CSV'
 
 class GameTeamsCollection
   attr_reader :game_teams
