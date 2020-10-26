@@ -1,8 +1,3 @@
-# Sum up Away and Home team's score per game_id
-# Get data by col
-  # Col by winning score + Col by losing score
-# Parse CSV table initially and save as instance variable
-# Method will iterate through instance variable
 class StatTracker
   attr_reader :games, :game_teams, :teams
   def self.from_csv(locations)
@@ -22,6 +17,10 @@ class StatTracker
       most = total if total > most
     end
     most
+  end
+
+  def count_of_teams
+    CSV.read(teams, headers: true).count
   end
 
 end
