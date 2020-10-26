@@ -38,4 +38,11 @@ class LeagueStatisticsTest < Minitest::Test
       # number of goals scored per game across all seasons.
     assert_equal 'Sporting Kansas City', @league_statistics.worst_offense
   end
+
+  def test_it_knows_highest_average_away
+    	# Name of the team with the highest average score
+      # per game across all seasons when they are away.
+    assert_equal 'FC Dallas', @league_statistics.highest_scoring_visitor
+  end
+
 end
