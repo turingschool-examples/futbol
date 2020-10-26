@@ -15,7 +15,7 @@ class GameStatisticsTest < Minitest::Test
       game_teams: game_teams_path
     }
     @stat_tracker = StatTracker.from_csv(locations)
-    @object_data = ObjectData.new(@stat_tracker)
+    @object_data ||= ObjectData.new(@stat_tracker)
     @game_statistics = GameStatistics.new
   end
 
@@ -27,9 +27,17 @@ class GameStatisticsTest < Minitest::Test
     assert_equal 11, @game_statistics.highest_total_score(@object_data.games)
   end
 
+  def test_lowest_total_score
+    assert_equal 0, @game_statistics.lowest_total_score(@object_data.games)
+  end
+
   def test_total_goals_by_game
     assert_equal 6, @game_statistics.total_goals_by_game(@object_data.games)["2017030235"]
     assert_equal 3, @game_statistics.total_goals_by_game(@object_data.games)["2015030235"]
-    assert_equal 7441,  @game_statistics.total_goals_by_game(@object_data.games).size
+    assert_equal 7441, @game_statistics.total_goals_by_game(@object_data.games).size
+  end
+
+  def test_total_games
+    assert_equal 7441, @game_statistics.total_games(@object_data.games)
   end
 end
