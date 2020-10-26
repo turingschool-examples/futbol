@@ -28,4 +28,8 @@ class StatTrackerTest < MiniTest::Test
   def test_team_with_worst_offense
     assert_equal "Houston Dynamo", @stat_tracker.worst_offense
   end
+
+  def test_highest_scoring_visitor
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+  end
 end
