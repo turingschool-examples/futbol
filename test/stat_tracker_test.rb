@@ -22,7 +22,12 @@ require './lib/stat_tracker'
 
     def test_it_exists_with_attributes
         assert_instance_of StatTracker, @stat_tracker
+
+        assert_equal :dummy, @stat_tracker.all_data.keys[3]
+        
+        assert_equal "2", @stat_tracker.all_data[:dummy][0][:goals]
     end
+
     
 end
 
