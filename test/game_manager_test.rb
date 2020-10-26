@@ -75,7 +75,7 @@ class GameManagerTest < Minitest::Test
 
   def test_it_gives_goal_count_by_season
     @game_manager.all
-    assert_equal 3322, @game_manager.goal_count_by_season('20122013')
+    assert_equal 3322, @game_manager.goal_count('20122013')
 
   end
 

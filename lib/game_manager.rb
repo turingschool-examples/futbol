@@ -80,7 +80,7 @@ class GameManager
     (sum.to_f / @games.size).round(2)
   end
 
-  def goal_count_by_season(season)
+  def goal_count(season)
     games_by_season = @games.select do |game|
       season == game.season
     end
@@ -90,11 +90,11 @@ class GameManager
   end
 
   def average_goals_by_season
-    average_by_season = {}
+    avg_by_season = {}
     @games.each do |game|
-      average_by_season[game.season] = (goal_count_by_season(game.season) / game_count(game.season).to_f).round(2)
+      avg_by_season[game.season] = (goal_count(game.season) / game_count(game.season).to_f).round(2)
     end
-    average_by_season
+    avg_by_season
   end
 
 end
