@@ -41,21 +41,21 @@ class GameManager
     home_wins = @games.count do |game|
       game.away_goals < game.home_goals
     end
-    (home_wins.to_f / @games.count).round(2)
+    (home_wins.to_f / @games.size).round(2)
   end
 
   def percentage_visitor_wins
     visitor_wins = @games.count do |game|
       game.away_goals > game.home_goals
     end
-    (visitor_wins.to_f / @games.count).round(2)
+    (visitor_wins.to_f / @games.size).round(2)
   end
 
   def percentage_ties
     ties = @games.count do |game|
       game.away_goals == game.home_goals
     end
-    (ties.to_f / @games.count).round(2)
+    (ties.to_f / @games.size).round(2)
   end
 
   def game_count(season)
@@ -70,6 +70,14 @@ class GameManager
       games_by_season[game.season] = game_count(game.season)
     end
     games_by_season
+  end
+
+  def average_goals_per_game
+    sum = @games.sum do |game|
+      game.away_goals + game.home_goals
+    end
+
+    (sum.to_f / @games.size).round(2)
   end
 
 
