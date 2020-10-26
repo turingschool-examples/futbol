@@ -8,6 +8,7 @@ class StatTracker
         @game_teams_path = locations[:game_teams]
         @games = make_games
         @game_teams = make_game_teams
+        @teams = make_teams
     end
 
     def self.from_csv(locations)
@@ -31,6 +32,20 @@ class StatTracker
             games << Game.new(game_id, season, type, date_time, away_team_id, home_team_id, away_goals, home_goals, venue, venue_link)
         end
         games
+    end
+
+    def make_teams
+      teams = []
+      CSV.foreach(@teams_path, headers: true, header_converters: :symbol) do |row|
+        team_id = row [:team_id]
+        franchiseid = row [:franchiseid]
+        teamname = row [:teamname]
+        abbreviation = row [:abbreviation]
+        stadium = row [:stadium]
+        link = row[:link]
+        teams << Teams.new(team_id, franchiseid, teamname, abbreviation, stadium, link)
+      end
+      teams
     end
 
     def make_game_teams
@@ -141,13 +156,13 @@ class StatTracker
       total_goals = @games.map do |game|
           game.away_goals + game.home_goals
       end
-      total_goals.sum.to_f / total_goals.count
+      (total_goals.sum.to_f / total_goals.count).round(2)
     end
 
     def average_goals_by_season
         average_goals = {}
         games_by_season.map do |season , games|
-         average_goals[season] = (games.sum {|game|  game.away_goals + game.home_goals}).to_f / games.count 
+         average_goals[season] = ((games.sum {|game|  game.away_goals + game.home_goals}).to_f / games.count).round(2)
         end
         average_goals
     end
@@ -160,35 +175,52 @@ class StatTracker
     end
   
     def best_offense
-    average_goals = {}
-    game_teams_by_team.map do |team , games|
-     average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count 
+      average_goals = {}
+      game_teams_by_team.map do |team , games|
+        average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count 
+      end
+      
+      best_team = average_goals.key(average_goals.values.max)
+      match = @teams.find do |team| 
+        team.team_id == best_team
+      end
+      match.teamname
     end
-    average_goals.key(average_goals.values.max).to_i
-  end
 
-  def worst_offense
-    average_goals = {}
-    game_teams_by_team.map do |team , games|
-     average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count 
+    def worst_offense
+      average_goals = {}
+      game_teams_by_team.map do |team , games|
+      average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count 
+      end
+      worst_team = average_goals.key(average_goals.values.min)
+      match = @teams.find do |team| 
+        team.team_id == worst_team
+      end
+      match.teamname
     end
-    average_goals.key(average_goals.values.min).to_i
-  end
 
-  def highest_scoring_visitor
-    average_goals = {}
-    game_teams_by_away.map do |team , games|
-     average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count 
+    def highest_scoring_visitor
+      average_goals = {}
+      game_teams_by_away.map do |team , games|
+      average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count 
+      end
+      best_visit = average_goals.key(average_goals.values.max)
+      match = @teams.find do |team| 
+        team.team_id == best_visit
+      end
+      match.teamname
     end
-    average_goals.key(average_goals.values.max).to_i
-  end
 
   def highest_scoring_home_team
     average_goals = {}
     game_teams_by_home.map do |team , games|
      average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count 
     end
-    average_goals.key(average_goals.values.max).to_i
+    best_home = average_goals.key(average_goals.values.max)
+    match = @teams.find do |team| 
+      team.team_id == best_home
+    end
+    match.teamname
   end
 
   def lowest_scoring_visitor
@@ -196,7 +228,11 @@ class StatTracker
     game_teams_by_away.map do |team , games|
      average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count 
     end
-    average_goals.key(average_goals.values.min).to_i
+    worst_visit = average_goals.key(average_goals.values.min)
+    match = @teams.find do |team| 
+      team.team_id == worst_visit
+    end
+    match.teamname
   end
 
   def lowest_scoring_home_team
@@ -204,7 +240,11 @@ class StatTracker
     game_teams_by_home.map do |team , games|
      average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count 
     end
-    average_goals.key(average_goals.values.min).to_i
+    worst_home = average_goals.key(average_goals.values.min)
+    match = @teams.find do |team| 
+      team.team_id == worst_home
+    end
+    match.teamname
   end
   
 
