@@ -37,65 +37,59 @@ class StatTracker
 
   def percentage_home_wins
     home_wins = 0
-    away_wins = 0
+    visitor_wins = 0
     ties = 0
     CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
       next if row[:result] == "LOSS"
       if row[:result] == "TIE"
         ties += 0.5
       elsif row[:hoa] == "away"
-        away_wins += 1
+        visitor_wins += 1
       elsif row[:hoa] == "home"
         home_wins += 1
       end
     end
-    total_games = home_wins + away_wins + ties
+    total_games = home_wins + visitor_wins + ties
     percentage = calc_percentage(home_wins, total_games)
   end
 
-  def percentage_away_wins
+  def percentage_visitor_wins
     home_wins = 0
-    away_wins = 0
+    visitor_wins = 0
     ties = 0
     CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
       next if row[:result] == "LOSS"
       if row[:result] == "TIE"
         ties += 0.5
       elsif row[:hoa] == "away"
-        away_wins += 1
+        visitor_wins += 1
       elsif row[:hoa] == "home"
         home_wins += 1
       end
     end
-    total_games = home_wins + away_wins + ties
-    percentage = calc_percentage(away_wins, total_games)
+    total_games = home_wins + visitor_wins + ties
+    percentage = calc_percentage(visitor_wins, total_games)
   end
 
   def percentage_ties
     home_wins = 0
-    away_wins = 0
+    visitor_wins = 0
     ties = 0.0
     CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
       next if row[:result] == "LOSS"
       if row[:result] == "TIE"
         ties += 0.5
       elsif row[:hoa] == "away"
-        away_wins += 1
+        visitor_wins += 1
       elsif row[:hoa] == "home"
         home_wins += 1
       end
     end
-    total_games = home_wins + away_wins + ties
+    total_games = home_wins + visitor_wins + ties
     percentage = calc_percentage(ties, total_games)
   end
 
   def calc_percentage(numerator, denominator)
     (numerator.to_f / denominator * 100).round(2)
   end
-
-  # go back and create tests/method for percentage_ties
-  # possible helper methods:
-  # total Games
-  # away_wins
-  # home_wins
 end
