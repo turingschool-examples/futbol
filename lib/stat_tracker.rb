@@ -83,4 +83,24 @@ class StatTracker
     end
   end
 
+  def highest_scoring_home_team
+    team_stats = {}
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      if team_stats[row[:home_team_id]]
+        team_stats[row[:home_team_id]][:total_home_goals] += row[:home_goals].to_i
+        team_stats[row[:home_team_id]][:total_home_games] += 1
+      else
+        team_stats[row[:home_team_id]] = {total_home_games: 1, total_home_goals: row[:home_goals].to_i}
+      end
+    end
+
+    highest_scoring_home_team = team_stats.max_by do |team, stats|
+      stats[:total_home_goals].to_f / stats[:total_home_games]
+    end[0]
+
+    CSV.foreach(teams, headers:true, header_converters: :symbol) do |row|
+      return row[:teamname] if highest_scoring_home_team == row[:team_id]
+    end
+  end
+
 end
