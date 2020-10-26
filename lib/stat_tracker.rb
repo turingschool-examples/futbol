@@ -46,7 +46,8 @@ class StatTracker
         home_wins += 1
       end
     end
-    percentage = (home_wins.to_f / (home_wins + away_wins)* 100).round(2)
+    total_games = home_wins + away_wins
+    percentage = calc_percentage(home_wins, total_games)
   end
 
   def percentage_away_wins
@@ -60,9 +61,13 @@ class StatTracker
         home_wins += 1
       end
     end
-    percentage = (away_wins.to_f / (home_wins + away_wins)* 100).round(2)
+    total_games = home_wins + away_wins
+    percentage = calc_percentage(away_wins, total_games)
   end
 
+  def calc_percentage(numerator, denominator)
+    (numerator.to_f / denominator * 100).round(2)
+  end
 
   # possible helper methods:
   # total Games
