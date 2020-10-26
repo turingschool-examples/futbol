@@ -43,4 +43,24 @@ class StatTracker
     end
   end
 
+  def worst_offense
+    team_stats = {}
+    CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
+      if team_stats[row[:team_id]]
+        team_stats[row[:team_id]][:total_goals] += row[:goals].to_i
+        team_stats[row[:team_id]][:total_games] += 1
+      else
+        team_stats[row[:team_id]] = {total_games: 1, total_goals: row[:goals].to_i}
+      end
+    end
+
+    worst_offense_team = team_stats.min_by do |team, stats|
+      stats[:total_goals].to_f / stats[:total_games]
+    end[0]
+
+    CSV.foreach(teams, headers:true, header_converters: :symbol) do |row|
+      return row[:teamname] if worst_offense_team == row[:team_id]
+    end
+  end
+
 end
