@@ -21,6 +21,15 @@ class GameStats
     end
   end
 
+  def highest_total_score
+    temp = []
+    require "pry"; binding.pry
+    temp << convert_to_i(iterator(:away_goals))
+    temp << convert_to_i(iterator(:home_goals))
+  end
+  # [[home_goals],[away_goals]].transpose
+  # [[1st_away, 1st_home],[2nd_away, 2nd_home]].reduce.sum
+
 
   ##########################################################
   # This method returns a table that has only the rows where the data_value is inside the header column#######
