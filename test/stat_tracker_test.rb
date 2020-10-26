@@ -17,13 +17,14 @@ require './lib/stat_tracker'
             dummy: dummy_path
         }
 
-        stat_tracker = StatTracker.from_csv(locations)
-        @stat_tracker = StatTracker.new
+        @stat_tracker = StatTracker.from_csv(locations)
     end
 
     def test_it_exists_with_attributes
-        assert_instance_of StatTracker, @stat_tracker
+        @stat_tracker.total_goals
+        assert_instance_of StatTracker, stat_tracker
     end
+    
 end
 
 
