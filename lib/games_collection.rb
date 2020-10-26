@@ -52,4 +52,14 @@ class GamesCollection
     end
     (total_goals.to_f / games.count).round(2)
   end
+
+  def average_goals_by_season
+    seasons = Hash.new(0)
+    games.each do |game|
+      seasons[game.season] += game.total_score
+    end
+    count_of_games_by_season.merge(seasons) do |key, games_count, total_goals|
+      (total_goals.to_f / games_count).round(2)
+    end
+  end
 end
