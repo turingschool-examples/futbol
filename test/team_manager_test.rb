@@ -21,7 +21,7 @@ class TeamManagerTest < Minitest::Test
 
   def test_it_exists_and_has_attributes
     assert_instance_of TeamManager, @team_manager
-    assert_equal './data/teams.csv', @team_manager.teams_attributes
+    assert_equal './data/teams.csv', @team_manager.teams_data
   end
 
   def test_it_gives_array_of_all_teams
