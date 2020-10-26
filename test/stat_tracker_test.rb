@@ -21,8 +21,7 @@ require './lib/stat_tracker'
     end
 
     def test_it_exists_with_attributes
-        @stat_tracker.total_goals
-        assert_instance_of StatTracker, stat_tracker
+        assert_instance_of StatTracker, @stat_tracker
     end
     
 end

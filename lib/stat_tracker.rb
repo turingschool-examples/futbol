@@ -18,7 +18,7 @@ class StatTracker
         # end 
         # table
         stat_tracker = StatTracker.new(data)
-        require 'pry'; binding.pry
+        # require 'pry'; binding.pry
     end
 
     # CSV.foreach('./data/games.csv', headers: true, header_converters: :symbol) do |row|
