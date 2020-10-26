@@ -50,4 +50,22 @@ class GameManagerTest < Minitest::Test
     assert_equal 0.20, @game_manager.percentage_ties
   end
 
+  def test_it_gives_game_count
+    @game_manager.all
+    assert_equal 806, @game_manager.game_count("20122013")
+  end
+
+  def test_it_gives_games_by_season_count
+    @game_manager.all
+    expected = {
+                "20122013"=>806,
+                "20162017"=>1317,
+                "20142015"=>1319,
+                "20152016"=>1321,
+                "20132014"=>1323,
+                "20172018"=>1355
+              }
+    assert_equal expected, @game_manager.count_of_games_by_season
+  end
+
 end
