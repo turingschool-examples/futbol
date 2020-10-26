@@ -98,11 +98,26 @@ class LeagueStatistics
        end
      sum_goals_away
   end
-  
+
+  def total_goals_per_team_id_home
+    sum_goals_home = Hash.new(0)
+     game_data_set.each do |set|
+         if sum_goals_home[set[0]].nil?
+           sum_goals_home[set[0]] = set[2].to_f
+         else
+           sum_goals_home[set[0]] += set[2].to_f
+         end
+       end
+     sum_goals_home
+  end
+
 
   def highest_scoring_visitor
-      wins = Hash.new([])
-require "pry"; binding.pry
+    total_goals_per_team_id_away.each do |team_id, num_goals|
+      total_games_per_team_id_away.each do |id, num_games|
+
+
+
   end
 
 end
