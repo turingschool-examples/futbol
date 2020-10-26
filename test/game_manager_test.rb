@@ -29,5 +29,10 @@ class GameManagerTest < Minitest::Test
     @game_manager.all
     assert_equal 11, @game_manager.highest_total_score
   end
-  
+
+  def test_it_calculates_lowest_total_score
+    @game_manager.all
+    assert_equal 0, @game_manager.lowest_total_score
+  end
+
 end
