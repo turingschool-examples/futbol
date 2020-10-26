@@ -8,7 +8,6 @@ class StatTrackerTest < MiniTest::Test
       teams: './data/fixture_files/teams.csv',
       game_teams: './data/fixture_files/game_teams.csv'
     }
-    require 'pry'; binding.pry
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
@@ -16,3 +15,20 @@ class StatTrackerTest < MiniTest::Test
   def test_highest_total_score
     assert_equal 5, @stat_tracker.highest_total_score
   end
+
+  def test_lowest_total_score
+    assert_equal 1, @stat_tracker.lowest_total_score
+  end
+
+  def test_percentage_home_wins
+    assert_equal 60.00, @stat_tracker.percentage_home_wins
+  end
+
+  def test_percentage_visitor_wins
+    assert_equal 40.00, @stat_tracker.percentage_away_wins
+  end
+
+  def test_calc_percentage
+    assert_equal 40.00, @stat_tracker.calc_percentage(2, 5)
+  end
+end
