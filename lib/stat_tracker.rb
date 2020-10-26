@@ -142,4 +142,39 @@ class StatTracker
       return row[:teamname] if lowest_scoring_home_team == row[:team_id]
     end
   end
+
+  def team_info(team_name)
+    team_info = {}
+    CSV.foreach(teams, headers: true, header_converters: :symbol) do |row|
+      if row[:teamname] == team_name
+        team_info[:team_id] = row[:team_id]
+        team_info[:franchiseid] = row[:franchiseid]
+        team_info[:teamname] = row[:teamname]
+        team_info[:abbreviation] = row[:abbreviation]
+        team_info[:link] = row[:link]
+      end
+    end
+    team_info
+  end
+
+  def team_id(team_name)
+    CSV.foreach(teams, headers:true, header_converters: :symbol) do |row|
+      return row[:team_id] if row[:team_name] == team_name
+    end
+  end
+
+  def best_season(team_name)
+    seasons = {}
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+    if row[:home_goals] > row[:away_goals]
+      if row[:home_team_id] == team_id(team_name)
+        if seasons[row[:season]]
+          seasons[row[:home_team_id]][:total_home_goals] += row[:home_goals].to_i
+          seasons[row[:home_team_id]][:total_home_games] += 1
+        else
+          seasons[row[:season]] = {total_home_games: 1, total_home_goals: row[:home_goals].to_i}
+        end
+
+  end
 end
+
