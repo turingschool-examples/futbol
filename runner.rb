@@ -1,13 +1,13 @@
 # runner.rb
 require './lib/stat_tracker'
 
-game_path = './data/games.csv'
-team_path = './data/teams.csv'
+games_path = './data/games.csv'
+teams_path = './data/teams.csv'
 game_teams_path = './data/game_teams.csv'
 
 locations = {
-  games: game_path,
-  teams: team_path,
+  games: games_path,
+  teams: teams_path,
   game_teams: game_teams_path
 }
 
