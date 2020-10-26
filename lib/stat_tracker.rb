@@ -38,30 +38,36 @@ class StatTracker
   def percentage_home_wins
     home_wins = 0
     away_wins = 0
+    ties = 0.0
     CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
       next if row [:result] == "LOSS"
-      if row[:hoa] == "away"
+      if row[:result] == "TIE"
+        ties += 0.5
+      elsif row[:hoa] == "away"
         away_wins += 1
       elsif row[:hoa] == "home"
         home_wins += 1
       end
     end
-    total_games = home_wins + away_wins
+    total_games = home_wins + away_wins + ties
     percentage = calc_percentage(home_wins, total_games)
   end
 
   def percentage_away_wins
     home_wins = 0
     away_wins = 0
+    ties = 0.0
     CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
       next if row [:result] == "LOSS"
-      if row[:hoa] == "away"
+      if row[:result] == "TIE"
+        ties += 0.5
+      elsif row[:hoa] == "away"
         away_wins += 1
       elsif row[:hoa] == "home"
         home_wins += 1
       end
     end
-    total_games = home_wins + away_wins
+    total_games = home_wins + away_wins + ties
     percentage = calc_percentage(away_wins, total_games)
   end
 
@@ -69,7 +75,10 @@ class StatTracker
     (numerator.to_f / denominator * 100).round(2)
   end
 
-  
+  def percentage_ties
+    CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
+    end 
+  end
 
   # go back and create tests/method for percentage_ties
   # possible helper methods:
