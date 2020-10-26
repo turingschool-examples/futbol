@@ -43,4 +43,12 @@ class GameStatistics
   def percentage_visitor_wins(game_data)
     (total_away_wins(game_data) / total_games(game_data).to_f).round(2)
   end
+
+  def total_ties(game_data)
+    ties = 0
+    game_data.each do |game_id, game|
+      ties += 1 if (game.home_goals == game.away_goals)
+    end
+    ties
+  end
 end

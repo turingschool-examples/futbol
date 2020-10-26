@@ -56,4 +56,8 @@ class GameStatisticsTest < Minitest::Test
   def test_percentage_visitor_wins
     assert_equal 0.36, @game_statistics.percentage_visitor_wins(@object_data.games)
   end
+
+  def test_total_ties
+    assert_equal 1517, @game_statistics.total_ties(@object_data.games)
+  end
 end
