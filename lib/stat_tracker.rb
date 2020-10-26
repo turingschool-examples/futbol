@@ -246,6 +246,41 @@ class StatTracker
     end
     match.teamname
   end
+
+  def game_teams_by_coach
+    @game_teams.group_by do |game|
+      game.head_coach
+    end
+  end
+
+  # def coach_win_percentage
+  #   wins_losses = {}
+  #   game_teams_by_coach.max_by do |coach, games|
+  #     wins_losses[coach] = games.map do |game|
+  #       game.result
+  #     end
+  #   require 'pry'; binding.pry
+  #   end
+
+  # end
+  
+  def winningest_coach(season_id)
+    season_games = @games.find_all do |game|
+      game.season == season_id
+    end
+    game_ids = season_games.map do |game|
+      game.game_id.to_s
+    end
+    wins = {}
+    game_teams_by_coach.map do |coach, games|
+      wins[coach] = games.count do |game|
+        (game.result == "WIN") && (game_ids.include?(game.game_id))
+      end
+    end
+    wins.key(wins.values.max)
+  end
+
   
 
+  
 end
