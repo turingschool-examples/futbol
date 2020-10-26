@@ -44,4 +44,8 @@ class GameStatisticsTest < Minitest::Test
   def test_total_home_wins
     assert_equal 3237, @game_statistics.total_home_wins(@object_data.games)
   end
+
+  def test_percentage_home_wins
+    assert_equal 0.44, @game_statistics.percentage_home_wins(@object_data.games)
+  end
 end

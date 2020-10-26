@@ -28,4 +28,8 @@ class GameStatistics
     end
     wins
   end
+
+  def percentage_home_wins(game_data)
+    (total_home_wins(game_data) / total_games(game_data).to_f).round(2)
+  end
 end
