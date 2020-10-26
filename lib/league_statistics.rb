@@ -18,7 +18,7 @@ class LeagueStatistics
   end
 
   def game_data_set
-      @stat_tracker[:games]['away_team_id'].zip(@stat_tracker[:games]['home_team_id'], @stat_tracker[:games]['away_goals'], @stat_tracker[:games]['home_goals'])
+    @stat_tracker[:games]['away_team_id'].zip(@stat_tracker[:games]['home_team_id'], @stat_tracker[:games]['away_goals'], @stat_tracker[:games]['home_goals'])
   end
 
   def find_highest_goal
@@ -88,18 +88,17 @@ class LeagueStatistics
   end
 
   def total_goals_per_team_id_away
-    sum_goals_away = {}
-    stat_tracker[:games]['away_team_id'].each do |id|
-      sum_goals_away[id] = stat_tracker[:games]['away_goals'].sum do |goals|
-        require "pry"; binding.pry
-        if total_games_per_team_id_away[id] == id.to_i
-          goals.to_i
-        end
-      end
-    end
-    require "pry"; binding.pry
-    sum_goals_away
+    sum_goals_away = Hash.new(0)
+     game_data_set.each do |set|
+         if sum_goals_away[set[0]].nil?
+           sum_goals_away[set[0]] = set[2].to_f
+         else
+           sum_goals_away[set[0]] += set[2].to_f
+         end
+       end
+     sum_goals_away
   end
+  
 
   def highest_scoring_visitor
       wins = Hash.new([])
