@@ -29,5 +29,12 @@ class GameManager
     end
     most_goals.away_goals + most_goals.home_goals
   end
-  
+
+  def lowest_total_score
+    least_goals = @games.min_by do |game|
+      game.away_goals + game.home_goals
+    end
+    least_goals.away_goals + least_goals.home_goals
+  end
+
 end
