@@ -21,18 +21,24 @@ class StatTracker
 
   def highest_total_score
     game = @games_collection.games.max_by do |game|
-      game.away_goals + game.home_goals
+      game.total_score
     end
-    game
+    game.total_score
   end
 
   def lowest_total_score
+    game = @games_collection.games.min_by do |game|
+      game.total_score
+    end
+    game.total_score
   end
 
   def percentage_home_wins
+    (100.0 * @games_collection.home_wins / @games_collection.games.length).round(2)
   end
 
   def percentage_visitor_wins
+    (100.0 * @games_collection.visitor_wins / @games_collection.games.length).round(2)    
   end
 
   def percentage_ties

@@ -20,6 +20,14 @@ class GamesCollectionTest < Minitest::Test
 
   def test_all_games
 
-    assert_equal 10, @gamescollection.games.length
+    assert_equal 13, @gamescollection.games.length
+  end
+
+  def test_home_wins
+    assert_equal 7, @gamescollection.home_wins
+  end
+
+  def test_visitor_wins
+    assert_equal 5, @gamescollection.visitor_wins
   end
 end

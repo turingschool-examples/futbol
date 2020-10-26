@@ -21,4 +21,8 @@ class GameTest < Minitest::Test
   assert_equal 3, @game.home_goals
   assert_equal "Toyota Stadium", @game.venue
   end
+
+  def test_total_score
+    assert_equal 5, @game.total_score
+  end
 end

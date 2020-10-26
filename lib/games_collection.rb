@@ -19,4 +19,17 @@ class GamesCollection
       @games << Game.new(game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link)
     end
   end
+
+  def home_wins
+    games.count do |game|
+      game.home_goals > game.away_goals
+    end
+  end
+
+  def visitor_wins
+    games.count do |game|
+      game.home_goals < game.away_goals
+    end
+  end
+
 end
