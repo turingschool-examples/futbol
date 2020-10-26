@@ -40,4 +40,8 @@ class GameStatisticsTest < Minitest::Test
   def test_total_games
     assert_equal 7441, @game_statistics.total_games(@object_data.games)
   end
+
+  def test_total_home_wins
+    assert_equal 3237, @game_statistics.total_home_wins(@object_data.games)
+  end
 end
