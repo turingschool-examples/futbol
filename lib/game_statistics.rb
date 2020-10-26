@@ -39,4 +39,8 @@ class GameStatistics
     end
     wins
   end
+
+  def percentage_visitor_wins(game_data)
+    (total_away_wins(game_data) / total_games(game_data).to_f).round(2)
+  end
 end
