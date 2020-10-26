@@ -13,7 +13,7 @@ class StatTrackerTest < MiniTest::Test
 
 # Game Statistics Methods
   def test_highest_total_score
-    assert_equal 5, @stat_tracker.highest_total_score
+    assert_equal 8, @stat_tracker.highest_total_score
   end
 
   def test_lowest_total_score
@@ -21,11 +21,11 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_percentage_home_wins
-    assert_equal 60.00, @stat_tracker.percentage_home_wins
+    assert_equal 66.67, @stat_tracker.percentage_home_wins
   end
 
   def test_percentage_visitor_wins
-    assert_equal 40.00, @stat_tracker.percentage_away_wins
+    assert_equal 33.33, @stat_tracker.percentage_away_wins
   end
 
   def test_calc_percentage
