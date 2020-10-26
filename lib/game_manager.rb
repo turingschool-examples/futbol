@@ -58,5 +58,19 @@ class GameManager
     (ties.to_f / @games.count).round(2)
   end
 
+  def game_count(season)
+    @games.count do |game|
+      game.season == season
+    end
+  end
+
+  def count_of_games_by_season
+    games_by_season = {}
+    @games.each do |game|
+      games_by_season[game.season] = game_count(game.season)
+    end
+    games_by_season
+  end
+
 
 end
