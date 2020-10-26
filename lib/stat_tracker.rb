@@ -35,4 +35,17 @@ class StatTracker
     least
   end
 
+  def percentage_home_wins
+    home_wins = 0
+    away_wins = 0
+    CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
+      next if row [:result] == "LOSS"
+      if row[:hoa] == "away"
+        away_wins += 1
+      elsif row[:hoa] == "home"
+        home_wins += 1
+      end
+    end
+    percentage = (home_wins.to_f / (home_wins + away_wins)* 100).round(2)
+  end
 end
