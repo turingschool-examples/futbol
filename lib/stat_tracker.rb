@@ -69,9 +69,11 @@ class StatTracker
     (numerator.to_f / denominator * 100).round(2)
   end
 
+  
+
+  # go back and create tests/method for percentage_ties
   # possible helper methods:
   # total Games
   # away_wins
   # home_wins
-  # percentage_of_games method --pass in enumerator and total games
 end
