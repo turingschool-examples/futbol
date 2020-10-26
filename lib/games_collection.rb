@@ -38,4 +38,11 @@ class GamesCollection
     end
   end
 
+  def count_of_games_by_season
+    seasons = Hash.new(0)
+    games.each do |game|
+      seasons[game.season] += 1
+    end
+    seasons
+  end
 end

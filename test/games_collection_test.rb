@@ -34,4 +34,11 @@ class GamesCollectionTest < Minitest::Test
   def test_ties
     assert_equal 1, @gamescollection.ties
   end
+
+  def test_count_of_games_by_season
+
+    expected = {20122013=> 12, 20132014=> 1}
+    assert_equal expected, @gamescollection.count_of_games_by_season
+  end
+
 end

@@ -43,9 +43,12 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal 7.69, @stattracker.percentage_ties
   end
-#
-#   def test_count_of_games_by_season
-#   end
+
+  def test_count_of_games_by_season
+
+    expected = {20122013=> 12, 20132014=> 1}
+    assert_equal expected, @stattracker.count_of_games_by_season
+  end
 #
 #   def test_average_goals_per_game
 #   end
