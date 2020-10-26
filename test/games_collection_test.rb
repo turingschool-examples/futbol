@@ -30,4 +30,8 @@ class GamesCollectionTest < Minitest::Test
   def test_visitor_wins
     assert_equal 5, @gamescollection.visitor_wins
   end
+
+  def test_ties
+    assert_equal 1, @gamescollection.ties
+  end
 end

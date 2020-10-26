@@ -20,17 +20,17 @@ class StatTracker
   end
 
   def highest_total_score
-    game = @games_collection.games.max_by do |game|
+    highest = @games_collection.games.max_by do |game|
       game.total_score
     end
-    game.total_score
+    highest.total_score
   end
 
   def lowest_total_score
-    game = @games_collection.games.min_by do |game|
+    lowest = @games_collection.games.min_by do |game|
       game.total_score
     end
-    game.total_score
+    lowest.total_score
   end
 
   def percentage_home_wins
@@ -38,10 +38,11 @@ class StatTracker
   end
 
   def percentage_visitor_wins
-    (100.0 * @games_collection.visitor_wins / @games_collection.games.length).round(2)    
+    (100.0 * @games_collection.visitor_wins / @games_collection.games.length).round(2)
   end
 
   def percentage_ties
+    (100.0 * @games_collection.ties / @games_collection.games.length).round(2)
   end
 
   def count_of_games_by_season

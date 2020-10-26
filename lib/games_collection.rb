@@ -32,4 +32,10 @@ class GamesCollection
     end
   end
 
+  def ties
+    games.count do |game|
+      game.home_goals == game.away_goals
+    end
+  end
+
 end

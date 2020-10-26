@@ -38,41 +38,43 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal 38.46, @stattracker.percentage_visitor_wins
   end
+
+  def test_percentage_ties
+
+    assert_equal 7.69, @stattracker.percentage_ties
+  end
 #
-#   def percentage_ties
+#   def test_count_of_games_by_season
 #   end
 #
-#   def count_of_games_by_season
+#   def test_average_goals_per_game
 #   end
 #
-#   def average_goals_per_game
+#   def test_average_goals_by_season
 #   end
 #
-#   def average_goals_by_season
+#   def test_count_of_teams
 #   end
 #
-#   def count_of_teams
+#   def test_best_offense
 #   end
 #
-#   def best_offense
+#   def test_worst_offense
 #   end
 #
-#   def worst_offense
+#   def test_highest_scoring_visitor
 #   end
 #
-#   def highest_scoring_visitor
+#   def test_highest_scoring_home_team
 #   end
 #
-#   def highest_scoring_home_team
+#   def test_lowest_scoring_visitor
 #   end
 #
-#   def lowest_scoring_visitor
+#   def test_lowest_scoring_home_team
 #   end
 #
-#   def lowest_scoring_home_team
-#   end
-#
-#   def team_info
+#   def test_team_info
 #   end
 #
 #   def best_season
