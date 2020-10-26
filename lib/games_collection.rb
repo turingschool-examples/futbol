@@ -45,4 +45,11 @@ class GamesCollection
     end
     seasons
   end
+
+  def average_goals_per_game
+    total_goals = games.sum do |game|
+      game.total_score
+    end
+    (total_goals.to_f / games.count).round(2)
+  end
 end
