@@ -22,4 +22,12 @@ class GameManager
     end
     @games
   end
+
+  def highest_total_score
+    most_goals = @games.max_by do |game|
+      game.away_goals + game.home_goals
+    end
+    most_goals.away_goals + most_goals.home_goals
+  end
+  
 end
