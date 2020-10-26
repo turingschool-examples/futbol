@@ -1,6 +1,6 @@
 require './lib/games_collection'
 require './lib/teams_collection'
-require './lib/gameteams_collection'
+require './lib/game_teams_collection'
 
 class StatTracker
   attr_reader :games_collection, :teams_collection, :game_teams_collection
