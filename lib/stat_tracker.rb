@@ -142,5 +142,4 @@ class StatTracker
       return row[:teamname] if lowest_scoring_home_team == row[:team_id]
     end
   end
-
 end
