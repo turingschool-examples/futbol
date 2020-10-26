@@ -12,12 +12,11 @@ class GameStats
 
   ############### DATA CONVERSION HELPER
   def sum_data(data_key, data = @stats)
-    convert_to_i(data[data_key]).sum
+    convert_to_i(iterator(data_key, data)).sum
   end
 
-  def iterator(header) # ask what it wants to convert to data type
-
-    @stats.map do |stat|
+  def iterator(header, data = @stats) # ask what it wants to convert to data type
+    data.map do |stat|
       stat[header]
     end
   end

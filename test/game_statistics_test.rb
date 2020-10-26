@@ -32,7 +32,6 @@ class GameStatsTest < Minitest::Test
   end
 
   def test_it_can_sum_data
-    skip
     goals_sum = 19
 
     assert_equal goals_sum, @game.sum_data(:goals)
