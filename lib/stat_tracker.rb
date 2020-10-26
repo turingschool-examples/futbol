@@ -1,6 +1,6 @@
-require './lib/games_collection'
-require './lib/teams_collection'
-require './lib/game_teams_collection'
+require_relative './games_collection'
+require_relative './teams_collection'
+require_relative './game_teams_collection'
 
 class StatTracker
   attr_reader :games_collection, :teams_collection, :game_teams_collection
@@ -34,15 +34,15 @@ class StatTracker
   end
 
   def percentage_home_wins
-    (100.0 * @games_collection.home_wins / @games_collection.games.length).round(2)
+    (@games_collection.home_wins.to_f / @games_collection.games.length).round(2)
   end
 
   def percentage_visitor_wins
-    (100.0 * @games_collection.visitor_wins / @games_collection.games.length).round(2)
+    (@games_collection.visitor_wins.to_f / @games_collection.games.length).round(2)
   end
 
   def percentage_ties
-    (100.0 * @games_collection.ties / @games_collection.games.length).round(2)
+    (@games_collection.ties.to_f / @games_collection.games.length).round(2)
   end
 
   def count_of_games_by_season

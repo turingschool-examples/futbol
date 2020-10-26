@@ -1,4 +1,5 @@
-require './lib/team'
+require_relative './team'
+require 'CSV'
 
 class TeamsCollection
   attr_reader :teams
