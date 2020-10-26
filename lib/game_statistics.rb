@@ -15,13 +15,21 @@ class GameStats
     convert_to_i(data[data_key]).sum
   end
 
+  def iterator(header) # ask what it wants to convert to data type
+
+    @stats.map do |stat|
+      stat[header]
+    end
+  end
+
+
   ##########################################################
   # This method returns a table that has only the rows where the data_value is inside the header column#######
   # SUPER IMPORTANT METHOD ################
-  def team_stats(header, data_value)
-    temp = @stats
-    temp.delete_if do |row|
-      row[header] != data_value
-    end
-  end
+  # def team_stats(header, data_value)
+  #   temp = @stats
+  #   temp.delete_if do |row|
+  #     row[header] != data_value
+  #   end
+  # end
 end

@@ -39,7 +39,7 @@ class GameStatsTest < Minitest::Test
   end
 
   def test_it_can_extract_data_values
-    expected = []
+    expected = ["2", "3", "2", "3", "2", "1", "3", "2", "1"]
     assert_equal expected, @game.iterator(:goals)
   end
 
