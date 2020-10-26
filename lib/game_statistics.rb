@@ -21,7 +21,6 @@ class GameStatistics
   end
 
   def total_home_wins(game_data)
-    all_home_wins = {}
     wins = 0
     game_data.each do |game_id, game|
       wins += 1 if (game.home_goals > game.away_goals)
@@ -31,5 +30,13 @@ class GameStatistics
 
   def percentage_home_wins(game_data)
     (total_home_wins(game_data) / total_games(game_data).to_f).round(2)
+  end
+
+  def total_away_wins(game_data)
+    wins = 0
+    game_data.each do |game_id, game|
+      wins += 1 if (game.home_goals < game.away_goals)
+    end
+    wins
   end
 end
