@@ -40,4 +40,8 @@ class StatTrackerTest < MiniTest::Test
   def test_lowest_scoring_visitor
     assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_visitor
   end
+
+  def test_lowest_scoring_home_team
+    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_home_team
+  end
 end
