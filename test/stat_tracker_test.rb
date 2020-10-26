@@ -33,6 +33,6 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_percentage_ties
-    assert_equal 3.00, @stat_tracker.percentage_ties
+    assert_equal 2.00, @stat_tracker.percentage_ties
   end
 end
