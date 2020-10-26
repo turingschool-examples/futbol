@@ -20,6 +20,8 @@ class GameStatsTest < Minitest::Test
     stat_tracker = StatTracker.from_csv(locations)
     @dummy_stats = stat_tracker.all_data[:dummy]
     @game = GameStats.new(@dummy_stats)
+    @game_dummy_stats = stat_tracker.all_data[:games_dummy]
+    @game2 = GameStats.new(@game_dummy_stats)
   end
 
   def test_it_exists_and_has_attributes
@@ -52,6 +54,6 @@ class GameStatsTest < Minitest::Test
   # end
 
   def test_highest_total_score
-
+    assert_equal 5, @game2.highest_total_score
   end
 end
