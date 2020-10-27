@@ -6,20 +6,26 @@ class TeamManager
 
   def initialize(file_location)
     @teams_data = file_location
+    @teams = []
   end
 
   def all
-    teams = []
-    CSV.foreach(@teams_data, header_converters: :symbol, headers: true) do |row|
+    CSV.foreach(@teams_data, headers: true) do |row|
       teams_attributes = {
-        team_id: row[:team_id],
-        franchise_id: row[:franchise_id],
-        team_name: row[:team_name],
-        abbreviation: row[:abbreviation],
-        link: row[:link]
+        "team_id" => row["team_id"],
+        "franchise_id" => row["franchise_id"],
+        "team_name" => row["team_name"],
+        "abbreviation" => row["abbreviation"],
+        "link" => row["link"]
       }
-      teams << Team.new(teams_attributes)
+      @teams << Team.new(teams_attributes)
     end
-    teams
+  end
+
+  def team_info(id)
+    id_team = @teams.find do |team|
+      team.team_id == id
+    end
+    id_team.team_data
   end
 end
