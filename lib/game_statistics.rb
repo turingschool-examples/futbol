@@ -69,11 +69,19 @@ class GameStats
     result.round(2)
   end
 
+  def include_values(value)
+    temp = iterator(:season)
+    temp.count do |season|
+      season == value
+    end
+  end
+
   def count_of_games_by_season
     hash = {}
     seasons = iterator(:season).uniq
     seasons.each do |season|
-      hash[season] = count_include(season)
-    end 
+      hash[season] = include_values(season)
+    end
+    hash 
   end
 end
