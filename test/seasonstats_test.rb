@@ -1,0 +1,39 @@
+require 'minitest/autorun'
+require 'minitest/pride'
+require 'mocha/minitest'
+require './lib/seasonstats'
+
+class SeasonStatsTest < Minitest::Test
+
+  def setup
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    @seasonstats = SeasonStats.from_csv(locations)
+  end
+
+  def test_it_exists
+    assert_instance_of SeasonStats, @seasonstats
+  end
+
+  def test_games_per_season
+    expected = { 20122013 => [2012030221, 2012030222, 2012030223]}
+    assert_instance_of Hash, @seasonstats.games_per_season
+    @seasonstats.stubs(:games_per_season).returns(expected)
+    assert_equal expected, @seasonstats.games_per_season
+  end
+
+  # def test_winningest_coach
+  #   assert_instance_of String, @seasonstats.winningest_coach(20122013)
+  #   @seasonstats.stubs(:winningest_coach).returns("Claude Julien")
+  #   assert_equal "Claude Julien", @seasonstats.winningest_coach(20122013)
+  # end
+
+end
