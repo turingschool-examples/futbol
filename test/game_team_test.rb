@@ -14,8 +14,8 @@ class GameTeamTest < Minitest::Test
   def test_it_exists_and_has_attributes
     gameteam = @game_teams.first
     assert_instance_of GameTeam, gameteam
-    assert_equal 2012030221, gameteam.game_id
-    assert_equal 3, gameteam.team_id
+    assert_equal "2012030221", gameteam.game_id
+    assert_equal "3", gameteam.team_id
     assert_equal "away", gameteam.hoa
     assert_equal "LOSS", gameteam.result
     assert_equal "OT", gameteam.settled_in

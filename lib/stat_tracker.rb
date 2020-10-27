@@ -14,7 +14,7 @@ class StatTracker
   def self.from_csv(locations)
     games_collection = GamesCollection.new(locations[:games])
     teams_collection = TeamsCollection.new(locations[:teams])
-    game_teams_collection = GameTeamsCollection.new(locations[:game_teams])
+    game_teams_collection = GameTeamsCollection.new(locations[:teams], locations[:game_teams])
 
     StatTracker.new(games_collection, teams_collection, game_teams_collection)
   end
@@ -62,13 +62,15 @@ class StatTracker
   end
 
   def best_offense
-    @game_teams_collection.goals_by_team
+    @game_teams_collection.best_offense
   end
 
   def worst_offense
+    @game_teams_collection.worst_offense
   end
 
   def highest_scoring_visitor
+
   end
 
   def highest_scoring_home_team

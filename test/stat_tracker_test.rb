@@ -65,13 +65,17 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal 32, @stattracker.count_of_teams
   end
-#
-#   def test_best_offense
-#   end
-#
-#   def test_worst_offense
-#   end
-#
+
+  def test_best_offense
+
+    assert_equal "FC Dallas", @stattracker.best_offense
+  end
+
+  def test_worst_offense
+
+    assert_equal "Houston Dynamo", @stattracker.worst_offense
+  end
+
 #   def test_highest_scoring_visitor
 #   end
 #
