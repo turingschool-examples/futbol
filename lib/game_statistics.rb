@@ -21,14 +21,18 @@ class GameStats
     end
   end
 
-  def highest_total_score
+  def combine_columns(header1, header2)
     temp = []
-    temp << convert_to_i(iterator(:away_goals))
-    temp << convert_to_i(iterator(:home_goals))
+    temp << convert_to_i(iterator(header1))
+    temp << convert_to_i(iterator(header2))
     temp = temp.transpose
     temp.map do |goals|
       goals.sum
-    end.max
+    end
+  end
+
+  def highest_total_score
+    combine_columns(:away_goals, :home_goals).max
   end
   # [[home_goals],[away_goals]].transpose
   # [[1st_away, 1st_home],[2nd_away, 2nd_home]].reduce.sum
