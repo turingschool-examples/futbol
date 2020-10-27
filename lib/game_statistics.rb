@@ -67,7 +67,6 @@ class GameStatistics
       end
         games_by_season[season] = count
     end
-    # require "pry"; binding.pry
     games_by_season
   end
 
@@ -77,5 +76,7 @@ class GameStatistics
     end
   end
 
-
+  def average_goals_per_game(game_data)
+    (total_goals_by_game(game_data).values.sum / total_goals_by_game(game_data).count.to_f).round(2)
+  end
 end

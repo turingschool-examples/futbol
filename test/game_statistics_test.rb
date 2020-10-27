@@ -76,4 +76,8 @@ class GameStatisticsTest < Minitest::Test
     }
     assert_equal expected, @game_statistics.count_of_games_by_season(@object_data.games)
   end
+
+  def test_average_goals_per_game
+    assert_equal 4.22, @game_statistics.average_goals_per_game(@object_data.games)
+  end
 end
