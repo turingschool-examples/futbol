@@ -261,9 +261,10 @@ class StatTracker
     win_rate = {}    
     
     game_teams_by_coach.map do |coach, games|
-      win_rate[coach] = (games.count {|game| (game.result == "WIN") && game_ids.include?(game.game_id)} / games.count)
+      win_rate[coach] = ((games.count {|game| (game.result == "WIN") && game_ids.include?(game.game_id)}).to_f / (games.count {|game| game_ids.include?(game.game_id)})).round(2)
     end
-    win_rate.key(win_rate.values.max)
+    require 'pry'; binding.pry
+    win_rate.key(win_rate.values.reject{|x| x.nan?}.max)
   end
 
   def worst_coach(season_id)
