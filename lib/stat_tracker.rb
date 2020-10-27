@@ -250,5 +250,15 @@ class StatTracker
     end
     most_goals
   end
+
+  def fewest_goals_scored(team_id)
+    least_goals = 0
+    CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
+      if row[:team_id] == team_id
+        least_goals = row[:goals].to_i if least_goals > row[:goals].to_i
+      end
+    end
+    least_goals
+  end
 end
 
