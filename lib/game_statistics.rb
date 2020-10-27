@@ -49,10 +49,14 @@ class GameStats
       game_half.include?(hoa) && game_half.include?(result)
     end
     games = temp.count / 2
-    outcomes.to_f / games
+    (outcomes.to_f / games).round(2)
   end
 
   def percentage_home_wins
     percentage_results("home", "WIN")
+  end
+
+  def percentage_visitor_wins
+    percentage_results("away", "WIN")
   end
 end
