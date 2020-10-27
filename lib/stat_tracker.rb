@@ -70,16 +70,19 @@ class StatTracker
   end
 
   def highest_scoring_visitor
-
+    @game_teams_collection.highest_scoring_visitor
   end
 
   def highest_scoring_home_team
+    @game_teams_collection.highest_scoring_hometeam
   end
 
   def lowest_scoring_visitor
+    @game_teams_collection.lowest_scoring_visitor
   end
 
   def lowest_scoring_home_team
+    @game_teams_collection.lowest_scoring_hometeam
   end
 
   def team_info(team_id)
