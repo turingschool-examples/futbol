@@ -38,17 +38,21 @@ class GameStats
   def lowest_total_score
     combine_columns(:away_goals, :home_goals).min
   end
-  # [[home_goals],[away_goals]].transpose
-  # [[1st_away, 1st_home],[2nd_away, 2nd_home]].reduce.sum
 
+  def percentage_results(hoa, result)
+    temp = []
+    temp << iterator(:hoa)
+    temp << iterator(:result)
+    temp = temp.transpose
 
-  ##########################################################
-  # This method returns a table that has only the rows where the data_value is inside the header column#######
-  # SUPER IMPORTANT METHOD ################
-  # def team_stats(header, data_value)
-  #   temp = @stats
-  #   temp.delete_if do |row|
-  #     row[header] != data_value
-  #   end
-  # end
+    outcomes = temp.count do |game_half|
+      game_half.include?(hoa) && game_half.include?(result)
+    end
+    games = temp.count / 2
+    outcomes.to_f / games
+  end
+
+  def percentage_home_wins
+    percentage_results("home", "WIN")
+  end
 end
