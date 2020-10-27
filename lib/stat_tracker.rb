@@ -227,5 +227,18 @@ class StatTracker
       worst_win_rate[0]
   end
   
+  def average_win_percentage(team_id)
+    total_win = 0
+    total_game = 0
+    CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
+      if row[:team_id] == team_id
+        if row[:result] == "WIN"
+          total_win += 1
+        end
+        total_game += 1
+      end
+    end
+    (total_win.to_f * 100 / total_game).round(2)
+  end
 end
 
