@@ -195,5 +195,37 @@ class StatTracker
       best_win_rate[0]
   end
 
+  def worst_season(team_id)
+    seasons = {}
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      if row[:home_team_id] == team_id
+        if seasons[row[:season]]
+          seasons[row[:season]][:total_games] += 1
+          seasons[row[:season]][:total_home_wins] += 1 if row[:home_goals] > row[:away_goals]
+        else
+          seasons[row[:season]] = { total_games: 1, 
+                                    total_home_wins: 1,
+                                    total_away_wins: 0 }
+            end
+          end
+        end
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      if row[:away_team_id] == team_id
+        if seasons[row[:season]]
+          seasons[row[:season]][:total_games] += 1
+          seasons[row[:season]][:total_away_wins] += 1 if row[:away_goals] > row[:home_goals]
+        else
+          seasons[row[:season]] = { total_games: 1, 
+                                    total_home_wins: 0,
+                                    total_away_wins: 1 }
+          end
+        end
+      end
+      worst_win_rate = seasons.min_by do |season, stats|
+        ((stats[:total_home_wins] + stats[:total_away_wins]).to_f * 100 / stats[:total_games]).round(2)
+      end
+      worst_win_rate[0]
+  end
+  
 end
 
