@@ -36,13 +36,13 @@ class GameStatsTest < Minitest::Test
   end
 
   def test_it_can_sum_data
-    goals_sum = 19
+    goals_sum = 22
 
     assert_equal goals_sum, @game.sum_data(:goals)
   end
 
   def test_it_can_extract_data_values
-    expected = ["2", "3", "2", "3", "2", "1", "3", "2", "1"]
+    expected = ["2", "3", "2", "3", "2", "1", "3", "2", "1", "3"]
     assert_equal expected, @game.iterator(:goals)
   end
 
@@ -71,13 +71,13 @@ class GameStatsTest < Minitest::Test
   end
 
   def test_it_can_calculate_percentage_results
-    expected = 0.50
+    expected = 0.60
 
     assert_equal expected, @game.percentage_results("home", "WIN")
   end
 
   def test_it_can_make_percentage_home_wins
-    expected = 0.50
+    expected = 0.60
 
     assert_equal expected, @game.percentage_home_wins
   end
