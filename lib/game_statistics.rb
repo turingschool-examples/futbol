@@ -55,4 +55,27 @@ class GameStatistics
   def percentage_ties(game_data)
     (total_ties(game_data) / total_games(game_data).to_f).round(2)
   end
+# 1. define the keys, seasons
+#2. calc value, games played, of key, season, and assign
+  def count_of_games_by_season(game_data)
+    seasons = season_keys(game_data).uniq
+    games_by_season = {}
+    seasons.each do |season|
+      count = 0
+      game_data.each do |game_id, game_obj|
+        count += 1 if season == game_obj.season
+      end
+        games_by_season[season] = count
+    end
+    # require "pry"; binding.pry
+    games_by_season
+  end
+
+  def season_keys(game_data)
+    game_data.map do |game_id, game_obj|
+      game_obj.season
+    end
+  end
+
+
 end

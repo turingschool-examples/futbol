@@ -1,5 +1,5 @@
 class Game
-  attr_reader :home_goals, :away_goals
+  attr_reader :home_goals, :away_goals, :season
   def initialize(row)
     @season = row[1]
     @type = row[2]
