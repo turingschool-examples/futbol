@@ -109,13 +109,12 @@ class TeamStatistics
   def best_season(team_id)
     win_percentage = Hash.new {|hash_obj, key| hash_obj[key] = []}
     winning_games_by_game_id(team_id).each do |season, num_wins|
-      total_games_by_game_id(team_id).each do |szn, total|
-        if season == szn
+      total_games_by_game_id(team_id).each do |seazon, total|
+        if season == seazon
           win_percentage[season] << (num_wins / total).round(2)
         end
       end
-require "pry"; binding.pry
-    win_percentage.max_by {|season, pct| pct}[0]
-      end
     end
+    win_percentage.max_by {|season, pct| pct}[0]
   end
+end
