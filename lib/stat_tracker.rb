@@ -143,10 +143,10 @@ class StatTracker
     end
   end
 
-  def team_info(team_name)
+  def team_info(team_id)
     team_info = {}
     CSV.foreach(teams, headers: true, header_converters: :symbol) do |row|
-      if row[:teamname] == team_name
+      if row[:team_id] == team_id
         team_info[:team_id] = row[:team_id]
         team_info[:franchiseid] = row[:franchiseid]
         team_info[:teamname] = row[:teamname]
@@ -157,24 +157,43 @@ class StatTracker
     team_info
   end
 
-  def team_id(team_name)
-    CSV.foreach(teams, headers:true, header_converters: :symbol) do |row|
-      return row[:team_id] if row[:team_name] == team_name
-    end
-  end
+  # def team_id(team_name)
+  #   CSV.foreach(teams, headers:true, header_converters: :symbol) do |row|
+  #     return row[:team_id] if row[:teamname] == team_name
+  #   end
+  # end
 
-  def best_season(team_name)
+  def best_season(team_id)
     seasons = {}
     CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
-    if row[:home_goals] > row[:away_goals]
-      if row[:home_team_id] == team_id(team_name)
+      if row[:home_team_id] == team_id
         if seasons[row[:season]]
-          seasons[row[:home_team_id]][:total_home_goals] += row[:home_goals].to_i
-          seasons[row[:home_team_id]][:total_home_games] += 1
+          seasons[row[:season]][:total_games] += 1
+          seasons[row[:season]][:total_home_wins] += 1 if row[:home_goals] > row[:away_goals]
         else
-          seasons[row[:season]] = {total_home_games: 1, total_home_goals: row[:home_goals].to_i}
+          seasons[row[:season]] = { total_games: 1, 
+                                    total_home_wins: 1,
+                                    total_away_wins: 0 }
+            end
+          end
         end
-
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      if row[:away_team_id] == team_id
+        if seasons[row[:season]]
+          seasons[row[:season]][:total_games] += 1
+          seasons[row[:season]][:total_away_wins] += 1 if row[:away_goals] > row[:home_goals]
+        else
+          seasons[row[:season]] = { total_games: 1, 
+                                    total_home_wins: 0,
+                                    total_away_wins: 1 }
+          end
+        end
+      end
+      best_win_rate = seasons.max_by do |season, stats|
+        ((stats[:total_home_wins] + stats[:total_away_wins]).to_f * 100 / stats[:total_games]).round(2)
+      end
+      best_win_rate[0]
   end
+
 end
 
