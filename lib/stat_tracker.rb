@@ -249,12 +249,29 @@ class StatTracker
     end
     match.teamname
   end
+  
+  def team_info(arg_id)
+    queried_team = Hash.new
+    @teams.find do |team|
+      
+      if team.team_id == arg_id
+      queried_team["team_id"] = team.team_id
+      queried_team["franchise_id"] = team.franchiseid
+      queried_team["team_name"] = team.teamname
+      queried_team["abbreviation"] = team.abbreviation
+      queried_team["link"] = team.link
+      end
+    end
+    
+  queried_team
+  end
 
   def game_teams_by_coach
     @game_teams.group_by do |game|
       game.head_coach
     end
   end
+
 
   def coach_win_percentage
     wins_losses = {}
@@ -321,5 +338,33 @@ class StatTracker
     @teams.map do |team|
       return team.teamname if team.team_id == ratio[0]
     end
+    
+  def game_ids_by_season(season_id)
+    season_games = @games.find_all do |game|
+      game.season == season_id
+    end
+    game_ids = season_games.map do |game|
+      game.game_id.to_s
+    end
+  end
+
+  def winningest_coach(season_id)
+    game_set = game_ids_by_season(season_id)
+    win_rate = {}
+
+    game_teams_by_coach.map do |coach, games|
+      win_rate[coach] = ((games.count {|game| (game.result == "WIN") && game_set.include?(game.game_id)}).to_f / (games.count {|game| game_set.include?(game.game_id)})).round(2)
+    end
+    win_rate.key(win_rate.values.reject{|x| x.nan?}.max)
+  end
+
+  def worst_coach(season_id)
+    game_set = game_ids_by_season(season_id)
+    win_rate = {}
+    game_teams_by_coach.map do |coach, games|
+      win_rate[coach] = ((games.count {|game| (game.result == "WIN") && game_set.include?(game.game_id)}).to_f / (games.count {|game| game_set.include?(game.game_id)})).round(2)    
+    end
+    win_rate.key(win_rate.values.reject{|x| x.nan?}.min)
+
   end
 end
