@@ -59,4 +59,8 @@ class GameStats
   def percentage_visitor_wins
     percentage_results("away", "WIN")
   end
+
+  def percentage_ties
+    percentage_results("home", "TIE")
+  end
 end
