@@ -119,7 +119,7 @@ class StatTracker
   def average_goals_by_season
     season_avgs = {}
     seasons = []
-    
+
       CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
         next if seasons.include?(row[:season])
         seasons << row[:season]
@@ -140,5 +140,25 @@ class StatTracker
       season_avgs[season] = avg
     end
     season_avgs
+  end
+
+  def winningest_coach(season)
+    season = season.to_s
+    team_id_hash = {:5 => [wins, games]}
+    # hash of team id's and coaches
+    # empty wins_by_team
+    # empty games_by_team
+    # filter games file by season
+    # if statement for away win/ home win/ tie
+    # ties: skip
+    # Inside winner blocks: accumulate in teams_id hash or create new hash key
+
+    team_percentage = {}
+    team_id_hash.each do |key, value|
+      percentage = calc_percentage(wins, games)
+      team_percentage[key] = percentage
+    end
+
+    team_percentage.max_by 
   end
 end
