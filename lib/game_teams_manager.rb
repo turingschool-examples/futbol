@@ -1,11 +1,12 @@
 require 'csv'
+require_relative './game_teams'
 
 class GameTeamsManager
   attr_reader :game_teams_data,
               :game_teams
 
-  def initialize(file_locations)
-    @game_teams_data = file_locations[:game_teams]
+  def initialize(file_location)
+    @game_teams_data = file_location
     @game_teams = []
   end
 
