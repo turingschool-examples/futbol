@@ -253,28 +253,30 @@ class StatTracker
     end
   end
 
-  def winningest_coach(season_id)
-    season_games = @games.find_all { |game| game.season == season_id }
+  def game_ids_by_season(season_id)
+    season_games = @games.find_all do |game|
+      game.season == season_id
+    end
     game_ids = season_games.map do |game|
       game.game_id.to_s
     end
-    win_rate = {}    
-    
+  end
+
+  def winningest_coach(season_id)
+    game_set = game_ids_by_season(season_id)
+    win_rate = {}
+
     game_teams_by_coach.map do |coach, games|
-      win_rate[coach] = ((games.count {|game| (game.result == "WIN") && game_ids.include?(game.game_id)}).to_f / (games.count {|game| game_ids.include?(game.game_id)})).round(2)
+      win_rate[coach] = ((games.count {|game| (game.result == "WIN") && game_set.include?(game.game_id)}).to_f / (games.count {|game| game_set.include?(game.game_id)})).round(2)
     end
-    require 'pry'; binding.pry
     win_rate.key(win_rate.values.reject{|x| x.nan?}.max)
   end
 
   def worst_coach(season_id)
-    season_games = @games.find_all { |game| game.season == season_id }
-    game_ids = season_games.map do |game|
-      game.game_id.to_s
-      end
+    game_set = game_ids_by_season(season_id)
     win_rate = {}
     game_teams_by_coach.map do |coach, games|
-      win_rate[coach] = ((games.count {|game| (game.result == "WIN") && game_ids.include?(game.game_id)}).to_f / (games.count {|game| game_ids.include?(game.game_id)})).round(2)    
+      win_rate[coach] = ((games.count {|game| (game.result == "WIN") && game_set.include?(game.game_id)}).to_f / (games.count {|game| game_set.include?(game.game_id)})).round(2)    
     end
     # require 'pry'; binding.pry
     win_rate.key(win_rate.values.reject{|x| x.nan?}.min)
