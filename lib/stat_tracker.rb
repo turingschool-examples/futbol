@@ -240,5 +240,15 @@ class StatTracker
     end
     (total_win.to_f * 100 / total_game).round(2)
   end
+
+  def most_goals_scored(team_id)
+    most_goals = 0
+    CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
+      if row[:team_id] == team_id
+        most_goals = row[:goals].to_i if most_goals < row[:goals].to_i
+      end
+    end
+    most_goals
+  end
 end
 
