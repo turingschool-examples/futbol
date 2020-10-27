@@ -1,4 +1,7 @@
 require 'CSV'
+require_relative './game'
+require_relative './teams'
+require_relative './game_teams'
 
 class StatTracker
 
@@ -12,13 +15,13 @@ class StatTracker
     end
 
     def self.from_csv(locations)
-        StatTracker.new(locations)
+        StatTracker.new(locations) 
     end
 
     def make_games
         games = []
         CSV.foreach(@games_path, headers: true, header_converters: :symbol) do |row|
-            game_id = row[:game_id].to_i
+            game_id = row[:game_id]
             season = row[:season]
             type = row[:type]
             date_time = row[:date_time]
@@ -253,34 +256,147 @@ class StatTracker
     end
   end
 
-  # def coach_win_percentage
-  #   wins_losses = {}
-  #   game_teams_by_coach.max_by do |coach, games|
-  #     wins_losses[coach] = games.map do |game|
-  #       game.result
-  #     end
-  #   require 'pry'; binding.pry
-  #   end
-
-  # end
-  
-  def winningest_coach(season_id)
-    season_games = @games.find_all do |game|
-      game.season == season_id
-    end
-    game_ids = season_games.map do |game|
-      game.game_id.to_s
-    end
-    wins = {}
-    game_teams_by_coach.map do |coach, games|
-      wins[coach] = games.count do |game|
-        (game.result == "WIN") && (game_ids.include?(game.game_id))
+  def coach_win_percentage
+    wins_losses = {}
+    game_teams_by_coach.max_by do |coach, games|
+      wins_losses[coach] = games.map do |game|
+        game.result
       end
     end
-    wins.key(wins.values.max)
   end
 
-  
+  def season_game_ids
+    season_game_ids = {}
+    games_by_season.map do |season, games|
+      season_game_ids[season] = games.map do |game|
+        game.game_id
+      end
+    end
+    season_game_ids
+  end
 
-  
+  def game_team_by_season(season_id)
+    @game_teams.find_all do |row|
+      season_game_ids[season_id].include?(row.game_id)
+    end
+  end
+
+  def games_by_team_id(season_id)
+    game_team_by_season(season_id).group_by do |game|
+      game.team_id
+    end
+  end
+
+  def team_conversion_percent(season_id)
+    team_ratio = {}
+    games_by_team_id(season_id).map do |team, games|
+      goals = 0.0
+      shots = 0.0
+      games.map do |game|
+        goals += game.goals 
+        shots += game.shots
+      end
+      team_ratio[team] = goals / shots
+    end
+    team_ratio
+  end
+
+  def most_accurate_team(season_id)
+    ratio = team_conversion_percent(season_id).max_by do |team, ratio|
+      ratio
+    end
+
+    @teams.map do |team|
+      return team.teamname if team.team_id == ratio[0]
+    end
+  end
+
+
+
+  def least_accurate_team(season_id)
+    ratio = team_conversion_percent(season_id).min_by do |team, ratio|
+      ratio
+    end
+
+    @teams.map do |team|
+      return team.teamname if team.team_id == ratio[0]
+    end
+  end
 end
+
+
+
+# def least_accurate_team(season_id)
+  # season_game_ids = {}
+  # games_by_season.map do |season, games|
+  #   season_game_ids[season] = games.map do |game|
+  #     game.game_id
+  #   end
+  # end
+
+  # game_team_by_season = @game_teams.find_all do |row|
+  #   season_game_ids[season_id].include?(row.game_id)
+  # end
+
+  # games_by_team_id = game_team_by_season(season_id).group_by do |game|
+  #   game.team_id
+  # end
+
+  # team_ratio = {}
+  # games_by_team_id(season_id).map do |team, games|
+  #   goals = 0.0
+  #   shots = 0.0
+  #   games.map do |game|
+  #     goals += game.goals 
+  #     shots += game.shots
+  #   end
+  #   team_ratio[team] = goals / shots
+  # end
+
+#   hold = team_conversion_percent(season_id).min_by do |team, ratio|
+#     ratio
+#   end
+
+#   @teams.map do |team|
+#     return team.teamname if team.team_id == hold[0]
+#   end
+# end
+
+# def most_accurate_team(season_id)
+  # season_game_ids = {}
+  # games_by_season.map do |season, games|
+  #   season_game_ids[season] = games.map do |game|
+  #     game.game_id
+  #   end
+  # end
+
+  # game_team_by_season = @game_teams.find_all do |row|
+  #   season_game_ids[season_id].include?(row.game_id)
+  # end
+
+  # games_by_team_id = game_team_by_season(season_id).group_by do |game|
+  #   game.team_id
+  # end
+
+  # team_ratio = {}
+  # games_by_team_id(season_id).map do |team, games|
+  #   goals = 0.0
+  #   shots = 0.0
+  #   games.map do |game|
+  #     goals += game.goals 
+  #     shots += game.shots
+  #   end
+  #   team_ratio[team] = goals / shots
+  # end
+
+#   hold = team_conversion_percent(season_id).max_by do |team, ratio|
+#     ratio
+#   end
+
+#   @teams.map do |team|
+#     return team.teamname if team.team_id == hold[0]
+#   end
+# end
+
+
+
