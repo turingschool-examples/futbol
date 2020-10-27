@@ -135,7 +135,7 @@ class TestStatTracker < Minitest::Test
                       "franchise_id" => "34",
                       "team_name" => "Minnesota United FC",
                       "abbreviation" => "MIN",
-                       "link" => "/api/v1/teams/18"
+                      "link" => "/api/v1/teams/18"
     }
 
     assert_equal expected, @stat_tracker.team_info("18")
