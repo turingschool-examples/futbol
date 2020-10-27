@@ -372,14 +372,31 @@ class StatTracker
   def most_tackles(season_id)
     team_tackles = {}
     games_by_team_id(season_id).map do |team, games|
-      team_tackles = 0
+      tackles = 0
       games.map do |game|
-        team_tackles += game.tackles
+        tackles += game.tackles
       end
-      require 'pry'; binding.pry
       team_tackles[team] = tackles
     end
-    team_tackles
+
+    @teams.find do |team|
+      team.team_id == team_tackles.key(team_tackles.values.max)
+    end.teamname
+  end
+
+  def least_tackles(season_id)
+    team_tackles = {}
+    games_by_team_id(season_id).map do |team, games|
+      tackles = 0
+      games.map do |game|
+        tackles += game.tackles
+      end
+      team_tackles[team] = tackles
+    end
+
+    @teams.find do |team|
+      team.team_id == team_tackles.key(team_tackles.values.min)
+    end.teamname
   end
 
 end
