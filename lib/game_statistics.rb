@@ -21,10 +21,10 @@ class GameStats
     end
   end
 
-  def combine_columns(header1, header2)
+  def combine_columns(header1, header2, data = @stats)
     temp = []
-    temp << convert_to_i(iterator(header1))
-    temp << convert_to_i(iterator(header2))
+    temp << convert_to_i(iterator(header1, data))
+    temp << convert_to_i(iterator(header2, data))
     temp = temp.transpose
     temp.map do |goals|
       goals.sum
@@ -82,6 +82,24 @@ class GameStats
     seasons.each do |season|
       hash[season] = include_values(season)
     end
-    hash 
+    hash
+  end
+
+  def team_stats(header, data_value)
+    temp = @stats
+    temp.delete_if do |row|
+      row[header] != data_value
+    end
+  end
+
+  def average_goals_by_season
+    #divide total goals of a season by how many games were that season
+    hash = {}
+    seasons = iterator(:season).uniq
+    seasons.each do |season|
+      array = team_stats(:season, season)
+      hash[season] = (combine_columns(:home_goals, :away_goals, array).sum.to_f / array.count).round(2)
+    end
+    hash
   end
 end
