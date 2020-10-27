@@ -115,4 +115,30 @@ class StatTracker
     end
     avg = (total_goals.to_f / game_count).round(2)
   end
+
+  def average_goals_by_season
+    season_avgs = {}
+    seasons = []
+    
+      CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+        next if seasons.include?(row[:season])
+        seasons << row[:season]
+      end
+
+    seasons.each do |season|
+      total_goals = 0
+      game_count = 0
+
+      CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+        next if season != row[:season]
+        game_count += 1
+        total_goals += row[:home_goals].to_i
+        total_goals += row[:away_goals].to_i
+      end
+
+      avg = (total_goals.to_f / game_count).round(2)
+      season_avgs[season] = avg
+    end
+    season_avgs
+  end
 end

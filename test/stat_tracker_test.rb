@@ -61,7 +61,8 @@ class StatTrackerTest < MiniTest::Test
       "20152016" => 3.88,
       "20162017" => 4.75
     }
-    
+
     assert_equal hash, @stat_tracker.average_goals_by_season
   end
+  
 end
