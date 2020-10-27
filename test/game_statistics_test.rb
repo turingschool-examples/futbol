@@ -10,7 +10,7 @@ class GameStatsTest < Minitest::Test
     game_teams_path = './data/game_teams.csv'
     dummy_path = './data/dummy.csv'
     games_dummy_path = './data/games_dummy.csv'
-    
+
     locations = {
       games: game_path,
       teams: team_path,
@@ -92,5 +92,10 @@ class GameStatsTest < Minitest::Test
     expected = 0.00
 
     assert_equal expected, @game.percentage_ties
+  end
+
+  def test_it_can_average_goals_per_game
+    expected = 3.78
+    assert_equal expected, @game2.average_goals_per_game
   end
 end
