@@ -68,4 +68,12 @@ class GameStats
     result = combine_columns(:away_goals, :home_goals).sum.to_f / iterator(:away_goals).length
     result.round(2)
   end
+
+  def count_of_games_by_season
+    hash = {}
+    seasons = iterator(:season).uniq
+    seasons.each do |season|
+      hash[season] = count_include(season)
+    end 
+  end
 end
