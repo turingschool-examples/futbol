@@ -70,6 +70,12 @@ class GameStatsTest < Minitest::Test
     assert_equal 1, @game2.lowest_total_score
   end
 
+  def test_it_can_calculate_percentage_results
+    expected = 0.5
+
+    assert_equal expected, @game.percentage_results("home", "WIN")
+  end
+
   def test_it_can_make_percentage_home_wins
     expected = 0.5
 
