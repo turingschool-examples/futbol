@@ -45,4 +45,21 @@ class LeagueStatisticsTest < Minitest::Test
     assert_equal 'Real Salt Lake', @league_statistics.highest_scoring_visitor
   end
 
+  def test_it_knows_highest_average_home
+      # Name of the team with the highest average score
+      # per game across all seasons when they are away.
+    assert_equal 'Real Salt Lake', @league_statistics.highest_scoring_home_team
+  end
+
+  def test_it_knows_lowest_average_away
+    	# Name of the team with the highest average score
+      # per game across all seasons when they are away.
+    assert_equal 'Sporting Kansas City', @league_statistics.lowest_scoring_visitor
+  end
+
+  def test_it_knows_lowest_average_home
+      # Name of the team with the highest average score
+      # per game across all seasons when they are away.
+    assert_equal 'Sporting Kansas City', @league_statistics.lowest_scoring_home_team
+  end
 end
