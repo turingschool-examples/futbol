@@ -37,7 +37,13 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_count_of_games_by_season
-    assert_equal 57, @stat_tracker.count_of_games_by_season(20122013)
-    assert_equal 15, @stat_tracker.count_of_games_by_season(20152016)
+    hash = {
+      "20122013" => 57,
+      "20152016" => 16,
+      "20132014" => 6,
+      "20142015" => 17,
+      "20162017" => 4
+    }
+    assert_equal hash, @stat_tracker.count_of_games_by_season
   end
 end
