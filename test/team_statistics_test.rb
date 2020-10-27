@@ -15,6 +15,7 @@ class TeamStatisticsTest < Minitest::Test
 
     @stat_tracker = StatTracker.from_csv(locations)
     @team_statistics = TeamStatistics.new(@stat_tracker)
+    @team_id = '6'
   end
 
   def test_it_exists
@@ -31,5 +32,10 @@ class TeamStatisticsTest < Minitest::Test
                 link: '/api/v1/teams/20'
               }
   assert_equal expected, @team_statistics.team_info('20')
+  end
+
+  def test_it_can_find_best_season
+    # Season with the highest win percentage for a team.
+    assert_equal '20122013', @team_statistics.best_season(@team_id)
   end
 end
