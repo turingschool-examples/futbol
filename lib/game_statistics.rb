@@ -63,4 +63,9 @@ class GameStats
   def percentage_ties
     percentage_results("home", "TIE")
   end
+
+  def average_goals_per_game
+    result = combine_columns(:away_goals, :home_goals).sum.to_f / iterator(:away_goals).length
+    result.round(2)
+  end
 end
