@@ -64,5 +64,8 @@ class StatTrackerTest < MiniTest::Test
 
     assert_equal hash, @stat_tracker.average_goals_by_season
   end
-  
+
+  def test_winningest_coach
+    assert_equal "Dan Bylsma", @stat_tracker.winningest_coach
+  end
 end
