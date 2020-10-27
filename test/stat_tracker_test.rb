@@ -46,4 +46,10 @@ class StatTrackerTest < MiniTest::Test
     }
     assert_equal hash, @stat_tracker.count_of_games_by_season
   end
+
+  def test_average_goals_per_game
+    avg = 3.95
+
+    assert_equal avg, @stat_tracker.average_goals_per_game
+  end
 end
