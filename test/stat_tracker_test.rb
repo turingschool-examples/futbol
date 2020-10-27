@@ -66,6 +66,6 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_winningest_coach
-    assert_equal "Dan Bylsma", @stat_tracker.winningest_coach
+    assert_equal "Dan Bylsma", @stat_tracker.winningest_coach(20152016)
   end
 end
