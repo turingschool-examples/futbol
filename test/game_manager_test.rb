@@ -4,15 +4,7 @@ require './lib/game_manager'
 
 class GameManagerTest < Minitest::Test
   def setup
-    @game_path = './data/games.csv'
-    @team_path = './data/teams.csv'
-    @game_teams_path = './data/game_teams.csv'
-    @file_locations = {
-                      games: @game_path,
-                      teams: @team_path,
-                      game_teams: @game_teams_path
-                        }
-    @game_manager = GameManager.new(@file_locations)
+    @game_manager = GameManager.new('./data/games.csv')
   end
 
   def test_it_exists_and_has_attributes
