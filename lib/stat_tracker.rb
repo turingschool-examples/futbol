@@ -89,6 +89,19 @@ class StatTracker
     percentage = calc_percentage(ties, total_games)
   end
 
+  def count_of_games_by_season
+    season_games = {}
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      if season_games.key?(row[:season]) 
+        season_games[row[:season]] += 1
+      else
+        season_games[row[:season]] = 1
+      end
+      # require 'pry'; binding.pry
+    end
+    season_games
+  end
+
   def calc_percentage(numerator, denominator)
     (numerator.to_f / denominator * 100).round(2)
   end
