@@ -34,6 +34,10 @@ class GameStats
   def highest_total_score
     combine_columns(:away_goals, :home_goals).max
   end
+
+  def lowest_total_score
+    combine_columns(:away_goals, :home_goals).min
+  end
   # [[home_goals],[away_goals]].transpose
   # [[1st_away, 1st_home],[2nd_away, 2nd_home]].reduce.sum
 
