@@ -22,4 +22,9 @@ class TeamsCollectionTest < Minitest::Test
 
     assert_equal 32, @teamscollection.teams.length
   end
+
+  def test_count_of_teams
+
+    assert_equal 32, @teamscollection.count_of_teams
+  end
 end

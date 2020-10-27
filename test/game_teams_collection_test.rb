@@ -22,4 +22,10 @@ class GameTeamsCollectionTest < Minitest::Test
 
     assert_equal 10, @gameteamcollection.game_teams.length
   end
+
+  def test_goals_by_team
+
+    expected = {3=>8, 6=>14}
+    assert_equal expected, @gameteamcollection.goals_by_team
+  end
 end

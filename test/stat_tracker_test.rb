@@ -60,9 +60,11 @@ class StatTrackerTest < Minitest::Test
     expected = {"20122013"=> 3.50, "20132014"=> 2.00}
     assert_equal expected, @stattracker.average_goals_by_season
   end
-#
-#   def test_count_of_teams
-#   end
+
+  def test_count_of_teams
+    
+    assert_equal 32, @stattracker.count_of_teams
+  end
 #
 #   def test_best_offense
 #   end

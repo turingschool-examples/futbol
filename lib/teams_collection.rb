@@ -15,4 +15,8 @@ class TeamsCollection
       @teams << Team.new(team_id,franchiseid,teamname,abbreviation,stadium,link)
     end
   end
+
+  def count_of_teams
+    @teams.length
+  end
 end

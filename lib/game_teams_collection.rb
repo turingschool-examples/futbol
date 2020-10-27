@@ -24,4 +24,18 @@ class GameTeamsCollection
       @game_teams << GameTeam.new(game_id,team_id,hoa,result,settled_in,head_coach,goals,shots,tackles,pim,powerplayopportunities,powerplaygoals,faceoffwinpercentage,giveaways,takeaways)
     end
   end
+
+  def goals_by_team
+    total_goals = Hash.new(0)
+    game_teams.each do |game_team|
+      total_goals[game_team.team_id] += game_team.goals
+    end
+    total_goals
+  end
+
+  def best_offense
+    goals_by_team.max_by do |goals|
+      goals[-1]
+    end
+  end
 end
