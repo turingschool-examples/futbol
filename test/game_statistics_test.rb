@@ -10,7 +10,7 @@ class GameStatsTest < Minitest::Test
     game_teams_path = './data/game_teams.csv'
     dummy_path = './data/dummy.csv'
     games_dummy_path = './data/games_dummy.csv'
-    
+
     locations = {
       games: game_path,
       teams: team_path,
@@ -92,5 +92,33 @@ class GameStatsTest < Minitest::Test
     expected = 0.00
 
     assert_equal expected, @game.percentage_ties
+  end
+
+  def test_it_can_average_goals_per_game
+    expected = 3.78
+    assert_equal expected, @game2.average_goals_per_game
+  end
+
+  def test_it_can_return_included_value
+    expected = 9
+    assert_equal expected, @game2.include_values("20122013")
+  end
+
+  def test_it_can_count_games_by_season
+    expected = {"20122013" => 9}
+    assert_equal expected, @game2.count_of_games_by_season
+  end
+
+  def test_it_can_select_stats_by_header
+    team_id = "3"
+    team_3_goal_sum = 8
+    team_3_stats = @game.team_stats(:team_id, team_id)
+
+    assert_equal team_3_goal_sum, @game.sum_data(:goals, team_3_stats)
+  end
+
+  def test_it_can_average_goals_by_season
+    expected = {"20122013" => 3.78}
+    assert_equal expected, @game2.average_goals_by_season
   end
 end
