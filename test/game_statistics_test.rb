@@ -87,4 +87,10 @@ class GameStatsTest < Minitest::Test
 
     assert_equal expected, @game.percentage_visitor_wins
   end
+
+  def test_it_can_make_percentage_ties
+    expected = 0.00
+
+    assert_equal expected, @game.percentage_ties
+  end
 end
