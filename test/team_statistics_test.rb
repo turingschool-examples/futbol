@@ -20,4 +20,16 @@ class TeamStatisticsTest < Minitest::Test
   def test_it_exists
     assert_instance_of TeamStatistics, @team_statistics
   end
+
+  def test_it_can_list_team_info
+    # 20,21,Toronto FC,TOR,BMO Field,/api/v1/teams/20
+    expected = {
+                team_id: 20,
+                franchise_id: 21,
+                team_name: 'Toronto FC',
+                abbreviation: 'TOR',
+                link: '/api/v1/teams/20'
+              }
+  assert_equal expected, @team_statistics.team_info(20)
+  end
 end
