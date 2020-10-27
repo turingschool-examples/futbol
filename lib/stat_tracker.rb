@@ -338,6 +338,7 @@ class StatTracker
     @teams.map do |team|
       return team.teamname if team.team_id == ratio[0]
     end
+  end
     
   def game_ids_by_season(season_id)
     season_games = @games.find_all do |game|
@@ -367,4 +368,18 @@ class StatTracker
     win_rate.key(win_rate.values.reject{|x| x.nan?}.min)
 
   end
+
+  def most_tackles(season_id)
+    team_tackles = {}
+    games_by_team_id(season_id).map do |team, games|
+      team_tackles = 0
+      games.map do |game|
+        team_tackles += game.tackles
+      end
+      require 'pry'; binding.pry
+      team_tackles[team] = tackles
+    end
+    team_tackles
+  end
+
 end
