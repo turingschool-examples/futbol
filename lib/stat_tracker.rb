@@ -97,12 +97,22 @@ class StatTracker
       else
         season_games[row[:season]] = 1
       end
-      # require 'pry'; binding.pry
     end
     season_games
   end
 
   def calc_percentage(numerator, denominator)
     (numerator.to_f / denominator * 100).round(2)
+  end
+
+  def average_goals_per_game
+    total_goals = 0
+    game_count = 0
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      total_goals += row[:home_goals].to_i
+      total_goals += row[:away_goals].to_i
+      game_count += 1
+    end
+    avg = (total_goals.to_f / game_count).round(2)
   end
 end
