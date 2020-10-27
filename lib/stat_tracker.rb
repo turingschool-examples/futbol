@@ -62,6 +62,7 @@ class StatTracker
   end
 
   def best_offense
+    @game_teams_collection.goals_by_team
   end
 
   def worst_offense
@@ -79,7 +80,8 @@ class StatTracker
   def lowest_scoring_home_team
   end
 
-  def team_info
+  def team_info(team_id)
+    @teams_collection.team_info(team_id)
   end
 
   def best_season

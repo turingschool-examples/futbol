@@ -62,7 +62,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_count_of_teams
-    
+
     assert_equal 32, @stattracker.count_of_teams
   end
 #
@@ -84,8 +84,16 @@ class StatTrackerTest < Minitest::Test
 #   def test_lowest_scoring_home_team
 #   end
 #
-#   def test_team_info
-#   end
+    def test_team_info
+      expected = {
+        "team_id" => "18",
+        "franchise_id" => "34",
+        "team_name" => "Minnesota United FC",
+        "abbreviation" => "MIN",
+        "link" => "/api/v1/teams/18"
+      }
+      assert_equal expected, @stattracker.team_info("18")
+    end
 #
 #   def best_season
 #   end
