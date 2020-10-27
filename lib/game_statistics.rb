@@ -93,7 +93,6 @@ class GameStats
   end
 
   def average_goals_by_season
-    #divide total goals of a season by how many games were that season
     hash = {}
     seasons = iterator(:season).uniq
     seasons.each do |season|
