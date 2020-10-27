@@ -111,13 +111,20 @@ class LeagueStatistics
      sum_goals_home
   end
 
-
   def highest_scoring_visitor
+    something = Hash.new {|hash_obj, key| hash_obj[key] = []}
     total_goals_per_team_id_away.each do |team_id, num_goals|
       total_games_per_team_id_away.each do |id, num_games|
-
-
-
+        if team_id == id
+          something[team_id] << (num_goals / num_games).round(2)
+        end
+      end
+    end
+    team_id1 = something.max_by do |team_id, avg|
+      avg
+    end[0]
+    team_data_set.find do |pair|
+      pair[0] == team_id1
+    end[1]
   end
-
 end
