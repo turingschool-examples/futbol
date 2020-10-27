@@ -99,6 +99,11 @@ class GameStatsTest < Minitest::Test
     assert_equal expected, @game2.average_goals_per_game
   end
 
+  def test_it_can_return_included_value
+    expected = 9
+    assert_equal expected, @game2.include_values("20122013")
+  end
+
   def test_it_can_count_games_by_season
     expected = {"20122013" => 9}
     assert_equal expected, @game2.count_of_games_by_season
