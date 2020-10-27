@@ -39,9 +39,9 @@ class StatTrackerTest < MiniTest::Test
   def test_count_of_games_by_season
     hash = {
       "20122013" => 57,
-      "20152016" => 16,
       "20132014" => 6,
       "20142015" => 17,
+      "20152016" => 16,
       "20162017" => 4
     }
     assert_equal hash, @stat_tracker.count_of_games_by_season
@@ -52,4 +52,16 @@ class StatTrackerTest < MiniTest::Test
 
     assert_equal avg, @stat_tracker.average_goals_per_game
   end
+
+  def test_average_goals_by_season
+    hash = {
+      "20122013" => 3.86,
+      "20132014" => 4.33,
+      "20142015" => 4.00,
+      "20152016" => 3.88,
+      "20162017" => 4.75
+    }
+  end
+
+  assert_equal hash, @stat_tracker.average_goals_by_season
 end
