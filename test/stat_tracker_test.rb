@@ -188,4 +188,17 @@ class TestStatTracker < Minitest::Test
       assert_instance_of Game, @stat_tracker.total_games_per_team_home("6")[0]
       assert_instance_of Game, @stat_tracker.total_games_per_team_home("6")[-1]
     end
+
+    def test_it_can_return_most_tackles
+
+      assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
+      assert_equal "Seattle Sounders FC", @stat_tracker.most_tackles("20142015")
+    end
+    
+    # def test_it_can_return_least_tackles
+
+    #   assert_equal "Atlanta United", @stat_tracker.least_tackles("20132014")
+    #   assert_equal "Orlando City SC", @stat_tracker.least_tackles("20142015")
+    # end
+
 end
