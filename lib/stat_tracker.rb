@@ -30,4 +30,11 @@ class StatTracker
     @team_manager.all
     @team_manager.count_of_teams
   end
+
+  def best_offense
+    @game_teams_manager.all
+    id = @game_teams_manager.best_offense
+    @team_manager.all
+    @team_manager.team_info(id)["team_name"]
+  end
 end

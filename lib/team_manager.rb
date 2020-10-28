@@ -24,7 +24,7 @@ class TeamManager
 
   def team_info(id)
     id_team = @teams.find do |team|
-      team.team_id == id
+      team.team_id == id.to_s
     end
     id_team.team_data
   end
