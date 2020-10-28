@@ -126,29 +126,10 @@ class StatTracker
       end
     end
 
-    def game_teams_by_season
-      
-      # game_team_season_query = {
-      #   "3" => {
-      #         "20122013": [game , game , game]
-      #         "20142015": [game , game , game]
-      #         "20152016": [game , game , game]
-      #         "20122013": [game , game , game]
-      #         "20122013": [game , game , game]
-      #       },
-      #   "6" => {season: [game , game , game]},
-      #   "8" => {season: [game , game , game]},
-      #   "13" => {season: [game , game , game]},
-         
-      # }
-
+    def game_teams_by_team
       @game_teams.group_by do |game|
         game.team_id
       end
-    end
-
-    def games_by_team_by_season(team_id)
-
     end
 
     def game_teams_by_away
@@ -291,16 +272,6 @@ class StatTracker
     end
   end
 
-
-  def coach_win_percentage
-    wins_losses = {}
-    game_teams_by_coach.max_by do |coach, games|
-      wins_losses[coach] = games.map do |game|
-        game.result
-      end
-    end
-  end
-
   def season_game_ids
     season_game_ids = {}
     games_by_season.map do |season, games|
@@ -426,6 +397,16 @@ class StatTracker
     end
     wins_by_season
   end
+
+  def best_season(team_id)
+    win_percentage = {}
+
+    wins_per_season_by_team(team_id).each do |season, win_number|
+     win_percentage[season] = ((win_number.to_f/((total_games_per_team_home(team_id).count) + (total_games_per_team_away(team_id).count)))*100).round(2)
+    end
+    win_percentage.key(win_percentage.values.max)
+  end
+
  
 
  
