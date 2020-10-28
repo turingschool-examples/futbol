@@ -60,13 +60,23 @@ class StatTrackerTest < Minitest::Test
     expected = {"20122013"=> 3.50, "20132014"=> 2.00}
     assert_equal expected, @stattracker.average_goals_by_season
   end
-#
-#   def test_count_of_teams
-#   end
-#
-#   def test_best_offense
-#   end
-#
+
+  def test_count_of_teams
+
+    assert_equal 32, @stattracker.count_of_teams
+  end
+
+  def test_total_goals
+
+    expected = {"6"=>{:home=>9, :away=>5, :total=>14}, "3"=>{:home=>3, :away=>5, :total=>8}}
+    assert_equal expected, @stattracker.total_goals
+  end
+
+  def test_best_offense
+
+    assert_equal "FC Dallas", @stattracker.best_offense
+  end
+
 #   def test_worst_offense
 #   end
 #

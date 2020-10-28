@@ -1,1 +1,9 @@
 coverage
+test/game_test.rb
+test/game_team_test.rb
+test/game_test.rb
+test/teams_collection_test.rb
+test/game_teams_collection_test.rb
+test/games_collection_test.rb
+test/team_test.rb
+test/test_helper.rb

@@ -1,4 +1,4 @@
-require_relative './game_team'
+# require_relative './game_team'
 require 'CSV'
 
 class DataLibrary
@@ -6,10 +6,10 @@ class DataLibrary
 
   def initialize(locations)
     @games = []
-    @game_teams = []
-    @teams = []
     create_games(locations[:games])
+    @game_teams = []
     create_game_teams(locations[:game_teams])
+    @teams = []
     create_teams(locations[:teams])
   end
 
@@ -21,7 +21,9 @@ class DataLibrary
 
   def create_games(file_path)
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      @games << row.to_h
+      game = row.to_h
+      game[:total_score] = game[:home_goals].to_i + game[:away_goals].to_i
+      @games << game
     end
   end
 

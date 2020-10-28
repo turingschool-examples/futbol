@@ -14,18 +14,18 @@ class StatTracker < DataLibrary
     StatTracker.new(locations)
   end
 
-  def highest_total_score
+  def highest_total_score #spec harness method
     highest = @games.max_by do |game|
-      game[:away_goals].to_i + game[:home_goals].to_i
+      game[:total_score]
     end
-    highest[:away_goals].to_i + highest[:home_goals].to_i
+    highest[:total_score]
   end
 
   def lowest_total_score
     lowest = @games.min_by do |game|
-      game[:away_goals].to_i + game[:home_goals].to_i
+      game[:total_score]
     end
-    lowest[:away_goals].to_i + lowest[:home_goals].to_i
+    lowest[:total_score]
   end
 
   def percentage_home_wins
@@ -59,7 +59,7 @@ class StatTracker < DataLibrary
 
   def average_goals_per_game
     total_goals = @games.sum do |game|
-      game[:away_goals].to_i + game[:home_goals].to_i
+      game[:total_score]
     end
     (total_goals.to_f / @games.count).round(2)
   end
@@ -67,7 +67,7 @@ class StatTracker < DataLibrary
   def average_goals_by_season
     seasons = Hash.new(0)
     @games.each do |game|
-      seasons[game[:season]] += (game[:away_goals].to_i + game[:home_goals].to_i)
+      seasons[game[:season]] += (game[:total_score])
     end
     count_of_games_by_season.merge(seasons) do |key, games_count, total_goals|
       (total_goals.to_f / games_count).round(2)
@@ -75,9 +75,33 @@ class StatTracker < DataLibrary
   end
 
   def count_of_teams
+    @teams.count
+  end
+
+  def total_goals
+    home_goals = Hash.new(0)
+    away_goals = Hash.new(0)
+    @game_teams.each do |game_team|
+      if game_team[:hoa] == "home"
+        home_goals[game_team[:team_id]] += game_team[:goals].to_i
+      else
+        away_goals[game_team[:team_id]] += game_team[:goals].to_i
+      end
+    end
+    total_goals = home_goals.merge(away_goals) do |key, home, away|
+      {:home => home, :away => away, :total => home + away}
+    end
   end
 
   def best_offense
+    best = total_goals.max_by do |key, value|
+      value[:total]
+    end
+    @teams.find do |team|
+      if team[:team_id] == best[0]
+        return team[:teamname]
+      end
+    end
   end
 
   def worst_offense
