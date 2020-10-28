@@ -30,25 +30,36 @@ class SeasonStats
      else coaches_and_games[game["head_coach"]] = [game]
      end
    end
+   coaches_and_games
   end
 
-
-  def count_coach_results(season, result)
-    coaches_and_games = {}
-    game_ids_per_season[season].each do |game_id|
-      @games_teams_table.each do |game|
-      if coaches_and_games[game["head_coach"]] && (game["game_id"] == game_id) && (game["result"] == result)
-        coaches_and_games[game["head_coach"]] += 1
-      else (game["game_id"] == game_id) && (game["result"] == result)
-        coaches_and_games[game["head_coach"]] = 1
-      end
+  def results_per_coach_per_season(season)
+    coaches_and_results_per_season = {}
+    games_per_coach.each do |coach, games|
+      games.each do |game|
+        if coaches_and_results_per_season[coach] && game_ids_per_season[season].include?(game["game_id"])
+          coaches_and_results_per_season[coach] << game["result"]
+        elsif game_ids_per_season[season].include?(game["game_id"])
+          coaches_and_results_per_season[coach] = [game["result"]]
+        end
       end
     end
+  end
+
+  def count_coach_results(season, result)
+    coaches_and_results = {}
+      results_per_coach_per_season.each do |coach, results|
+        results.count do |item|
+          item == result
+        end
+      end
     require "pry"; binding.pry
   end
 
   def winningest_coach(season)
-    count_coach_results(season, "WIN")
+    # require "pry"; binding.pry
+    most_wins = count_coach_results(season, "WIN")
+
     #coach_wins(season, WIN)
     #coach_wins[key].
   end
