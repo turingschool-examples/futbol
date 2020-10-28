@@ -124,7 +124,11 @@ class TeamStatistics
   end
 
 
-
-
+  def rival(games, teams, team_id)
+    overall_wins = team_by_win_percentage(games, team_id).min_by do |team_id, wins_hash|
+      wins_hash[:wins] / wins_hash[:total].to_f
+    end
+    team_name_from_id(teams,overall_wins[0].to_s)
+  end
 
 end
