@@ -42,7 +42,12 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal expected_worst, @team_statistics.worst_season(@object_data.games, "6")
   end
 
-  
+  def test_best_season
+    expected_best = "20132014"
+    assert_equal expected_best, @team_statistics.best_season(@object_data.games, "6")
+  end
+
+
 
 
 end
