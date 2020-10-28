@@ -23,17 +23,16 @@ class SeasonStatsTest < Minitest::Test
     assert_instance_of SeasonStats, @seasonstats
   end
 
-  def test_games_per_season
-    expected = { 20122013 => [2012030221, 2012030222, 2012030223]}
-    assert_instance_of Hash, @seasonstats.games_per_season
-    @seasonstats.stubs(:games_per_season).returns(expected)
-    assert_equal expected, @seasonstats.games_per_season
+  def test_games_in_season
+    assert_instance_of Array, @seasonstats.games_in_season("20122013")
+    @seasonstats.stubs(:games_in_season).returns(["game"])
+    assert_equal ["game"], @seasonstats.games_in_season("20122013")
   end
 
-  # def test_winningest_coach
-  #   assert_instance_of String, @seasonstats.winningest_coach(20122013)
-  #   @seasonstats.stubs(:winningest_coach).returns("Claude Julien")
-  #   assert_equal "Claude Julien", @seasonstats.winningest_coach(20122013)
-  # end
+  def test_winningest_coach
+    assert_instance_of String, @seasonstats.winningest_coach("20122013")
+    @seasonstats.stubs(:winningest_coach).returns("Claude Julien")
+    assert_equal "Claude Julien", @seasonstats.winningest_coach("20122013")
+  end
 
 end
