@@ -88,7 +88,7 @@ class TestStatTracker < Minitest::Test
       #change back to actual test / data
       assert_equal 4.22,  @stat_tracker.average_goals_per_game
     end
-    
+
     def test_it_can_average_goals_by_season
       expected = {
         "20122013"=>4.12,
@@ -99,15 +99,15 @@ class TestStatTracker < Minitest::Test
         "20172018"=>4.44
         }
       assert_equal expected , @stat_tracker.average_goals_by_season
-  
+
     end
 
     def test_it_can_count_teams
       assert_equal 32, @stat_tracker.count_of_teams
     end
-    
+
     def test_it_return_best_offense
-      assert_equal "Reign FC", @stat_tracker.best_offense 
+      assert_equal "Reign FC", @stat_tracker.best_offense
     end
 
     def test_it_can_return_worst_offense
@@ -121,7 +121,7 @@ class TestStatTracker < Minitest::Test
     def test_it_can_return_highest_scoring_home
       assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
     end
-    
+
     def test_it_can_return_lowest_scoring_visitor
       assert_equal "San Jose Earthquakes", @stat_tracker.lowest_scoring_visitor
     end
@@ -141,16 +141,16 @@ class TestStatTracker < Minitest::Test
     assert_equal expected, @stat_tracker.team_info("18")
     end
 
-    
+
 
     def test_it_can_return_winningest_coach
-  
+
       assert_equal "Claude Julien", @stat_tracker.winningest_coach("20132014")
       assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
     end
 
     def test_it_can_return_worst_coach
-  
+
       assert_equal "Peter Laviolette", @stat_tracker.worst_coach("20132014")
       assert ("Craig MacTavish" || "Ted Nolan"), @stat_tracker.worst_coach("20142015")
     end
@@ -189,18 +189,14 @@ class TestStatTracker < Minitest::Test
 
     def test_it_returns_wins_per_season_by_team
       expected = {
-        "20122013"=>38, 
-        "20172018"=>50, 
-        "20132014"=>54, 
-        "20142015"=>31, 
-        "20162017"=>45, 
+        "20122013"=>38,
+        "20172018"=>50,
+        "20132014"=>54,
+        "20142015"=>31,
+        "20162017"=>45,
         "20152016"=>33
       }
       assert_equal expected , @stat_tracker.wins_per_season_by_team("6")
-    end
-
-    def test_it_can_return_best_season
-      assert_equal "20132014" , @stat_tracker.best_season("6")
     end
 
     def test_it_can_return_most_tackles
@@ -208,11 +204,27 @@ class TestStatTracker < Minitest::Test
       assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
       assert_equal "Seattle Sounders FC", @stat_tracker.most_tackles("20142015")
     end
-    
-    # def test_it_can_return_least_tackles
 
-    #   assert_equal "Atlanta United", @stat_tracker.least_tackles("20132014")
-    #   assert_equal "Orlando City SC", @stat_tracker.least_tackles("20142015")
-    # end
+    def test_it_can_return_least_tackles
+      assert_equal "Atlanta United", @stat_tracker.least_tackles("20132014")
+      assert_equal "Orlando City SC", @stat_tracker.least_tackles("20142015")
+    end
+
+    def test_it_can_return_best_season
+      assert_equal "20132014" , @stat_tracker.best_season("6")
+    end
+
+    def test_it_can_return_worst_season
+      assert_equal "20142015", @stat_tracker.worst_season("6")
+    end
+
+    def test_it_can_average_win_percentage
+      assert_equal 0.49, @stat_tracker.average_win_percentage("6")
+    end
+
+    def test_it_can_calculate_most_goals_scored
+      assert_equal 7, @stat_tracker.most_goals_scored("18")
+    end
+
 
 end
