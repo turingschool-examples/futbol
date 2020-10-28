@@ -70,6 +70,10 @@ class TeamStatistics
     team_info(lowest_opposing_team(team_id))[:team_name]
   end
 
+  def rival(team_id)
+    team_info(highest_opposing_team(team_id))[:team_name]
+  end
+
   # Helpers
 
   def team_info_row(team_id)
@@ -156,16 +160,22 @@ class TeamStatistics
     losses_by_season
   end
 
-  # def highest_win_percentage(team_id)
-  #   (winning_games(team_id).count / total_games(team_id).count.to_f * 100).round(2)
-  # end
-  #
-  # def lowest_win_percentage(team_id)
-  #   (losing_games(team_id).count / total_games(team_id).count.to_f * 100).round(2)
-  # end
+  def highest_win_percentage(team_id)
+    (winning_games(team_id).count / total_games(team_id).count.to_f * 100).round(2)
+  end
 
-  def game_id_list(team_id)
+  def lowest_win_percentage(team_id)
+    (losing_games(team_id).count / total_games(team_id).count.to_f * 100).round(2)
+  end
+
+  def game_id_list_wins(team_id)
     winning_games(team_id).map do |game|
+      game[0]
+    end
+  end
+
+  def game_id_list_losses(team_id)
+    losing_games(team_id).map do |game|
       game[0]
     end
   end
@@ -173,7 +183,7 @@ class TeamStatistics
   def opposing_team_total_games(team_id)
     total_games = Hash.new {|hash_obj, key| hash_obj[key] = []}
     game_teams_data_set.select do |id|
-      game_id_list(team_id).map do |game_id|
+      game_id_list_wins(team_id).map do |game_id|
         if id[0] == game_id
           total_games[id[1]] << id[1] unless id[1] == team_id
         end
@@ -183,14 +193,26 @@ class TeamStatistics
   end
 
   def lowest_opposing_team(team_id)
-    variable_name = Hash.new {|hash_obj, key| hash_obj[key] = 0}
+    highest_losing_percent = {}
     game_teams_data_set.select do |id|
-      game_id_list(team_id).map do |game_id|
+      game_id_list_wins(team_id).map do |game_id|
         if id[0] == game_id
-          variable_name[id[1]] += (id[3].to_f / opposing_team_total_games(team_id)[id[1]].count).round(2) unless id[1] == team_id
+          highest_losing_percent[id[1]] = lowest_win_percentage(id[1]) unless id[1] == team_id
         end
       end
     end
-    variable_name.min_by {|id, pct| pct}[0]
+    highest_losing_percent.max_by {|id, pct| pct}[0]
+  end
+
+  def highest_opposing_team(team_id)
+    highest_percent = {}
+    game_teams_data_set.select do |id|
+      game_id_list_losses(team_id).map do |game_id|
+        if id[0] == game_id
+          highest_percent[id[1]] = highest_win_percentage(id[1]) unless id[1] == team_id
+        end
+      end
+    end
+    highest_percent.max_by {|id, pct| pct}[0]
   end
 end

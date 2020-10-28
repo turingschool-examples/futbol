@@ -40,7 +40,7 @@ class TeamStatisticsTest < Minitest::Test
   assert_equal expected, @team_statistics.team_info('20')
   end
 
-  # Helpers for best and worst season
+  # Helpers for best, worst season, average_win_percentage
   def test_it_can_find_total_games_per_team_id
     # use a stub here when not using dummy csv?
     expected = [["2012030221", "6", "WIN", "3"],
@@ -111,10 +111,9 @@ class TeamStatisticsTest < Minitest::Test
   #   assert_equal '5', @team_statistics.highest_win_percentage(@team_id)
   # end
   #
-  # def test_it_can_find_lowest_win_percentage_per_team_id
-  #   skip
-  #   assert_equal '5', @team_statistics.lowest_win_percentage(@team_id)
-  # end
+  def test_it_can_find_lowest_win_percentage_per_team_id
+    assert_equal 8.33, @team_statistics.lowest_win_percentage(@team_id)
+  end
 
   def test_it_can_find_best_season
     # Season with the highest win percentage for a team.
@@ -153,11 +152,16 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_find_team_id_with_lowest_win_percentage
-    assert_equal '5', @team_statistics.lowest_opposing_team(@team_id)
+    assert_equal '3', @team_statistics.lowest_opposing_team(@team_id)
   end
 
   def test_it_can_find_favorite_oponent
     # Name of the opponent that has the lowest win percentage against the given team.
-    assert_equal 'Sporting Kansas City', @team_statistics.favorite_oponent(@team_id)
+    assert_equal 'Houston Dynamo', @team_statistics.favorite_oponent(@team_id)
+  end
+
+  def test_it_can_find_rival
+    # Name of the opponent that has the highest win percentage against the given team
+    assert_equal 'Orlando City SC', @team_statistics.rival(@team_id)
   end
 end
