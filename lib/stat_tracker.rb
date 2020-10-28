@@ -410,6 +410,22 @@ class StatTracker
     end
     games_by_season
   end
+
+  def wins_per_season_by_team(team_id)
+    wins_by_season = Hash.new(0)
+
+    total_games_per_team_home(team_id).each do |game|
+      if calculate_winner(game) == :home
+        wins_by_season[game.season]+=1
+      end
+    end
+    total_games_per_team_away(team_id).each do |game|
+      if calculate_winner(game) == :away
+        wins_by_season[game.season]+=1
+      end
+    end
+    wins_by_season
+  end
  
 
  

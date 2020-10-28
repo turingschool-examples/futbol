@@ -200,4 +200,17 @@ class TestStatTracker < Minitest::Test
       }
       assert_equal expected , @stat_tracker.games_per_season_by_team("6")
     end
+
+    def test_it_returns_wins_per_season_by_team
+     
+      expected = {
+        "20122013"=>38, 
+        "20172018"=>50, 
+        "20132014"=>54, 
+        "20142015"=>31, 
+        "20162017"=>45, 
+        "20152016"=>33
+      }
+      assert_equal expected , @stat_tracker.wins_per_season_by_team("6")
+    end
 end
