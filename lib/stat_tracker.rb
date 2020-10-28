@@ -105,12 +105,36 @@ class StatTracker < DataLibrary
   end
 
   def worst_offense
+    worst = total_goals.min_by do |key, value|
+      value[:total]
+    end
+    @teams.find do |team|
+      if team[:team_id] == worst[0]
+        return team[:teamname]
+      end
+    end
   end
 
   def highest_scoring_visitor
+    best = total_goals.max_by do |key, value|
+      value[:away]
+    end
+    @teams.find do |team|
+      if team[:team_id] == best[0]
+        return team[:teamname]
+      end
+    end
   end
 
   def highest_scoring_home_team
+    best = total_goals.max_by do |key, value|
+      value[:home]
+    end
+    @teams.find do |team|
+      if team[:team_id] == best[0]
+        return team[:teamname]
+      end
+    end
   end
 
   def lowest_scoring_visitor

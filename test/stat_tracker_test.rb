@@ -68,7 +68,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_total_goals
 
-    expected = {"6"=>{:home=>9, :away=>5, :total=>14}, "3"=>{:home=>3, :away=>5, :total=>8}}
+    expected = {"6"=>{:home=>9, :away=>5, :total=>14}, "3"=>{:home=>3, :away=>6, :total=>9}}
     assert_equal expected, @stattracker.total_goals
   end
 
@@ -77,15 +77,22 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas", @stattracker.best_offense
   end
 
-#   def test_worst_offense
-#   end
-#
-#   def test_highest_scoring_visitor
-#   end
-#
-#   def test_highest_scoring_home_team
-#   end
-#
+  def test_worst_offense
+
+    assert_equal "Houston Dynamo", @stattracker.worst_offense
+  end
+
+  def test_highest_scoring_visitor
+
+    assert_equal "Houston Dynamo", @stattracker.highest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+
+    assert_equal "FC Dallas", @stattracker.highest_scoring_home_team
+  end
+
+
 #   def test_lowest_scoring_visitor
 #   end
 #
