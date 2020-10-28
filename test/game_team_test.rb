@@ -18,16 +18,10 @@ class GameTeamTest < Minitest::Test
     assert_equal "3", gameteam.team_id
     assert_equal "away", gameteam.hoa
     assert_equal "LOSS", gameteam.result
-    assert_equal "OT", gameteam.settled_in
     assert_equal "John Tortorella", gameteam.head_coach
     assert_equal 2, gameteam.goals
     assert_equal 8, gameteam.shots
     assert_equal 44, gameteam.tackles
-    assert_equal 8, gameteam.pim
-    assert_equal 3, gameteam.powerplayopportunities
-    assert_equal 0, gameteam.powerplaygoals
-    assert_equal 44.8, gameteam.faceoffwinpercentage
-    assert_equal 17, gameteam.giveaways
-    assert_equal 7, gameteam.takeaways
+
   end
 end

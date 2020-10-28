@@ -2,7 +2,7 @@ require_relative './games_collection'
 require_relative './teams_collection'
 require_relative './game_teams_collection'
 
-
+#THE PARENT
 class StatTracker
   attr_reader :games_collection, :teams_collection, :game_teams_collection
 
@@ -10,12 +10,13 @@ class StatTracker
     @games_collection = GamesCollection.new(locations[:games])
     @teams_collection = TeamsCollection.new(locations[:teams])
     @game_teams_collection = GameTeamsCollection.new(locations[:game_teams], locations[:teams])
+    # @seasons_collection = SeasonsCollection.new(locations[:games], locations[:game_teams])
   end
 
   def self.from_csv(locations)
-    StatTracker.new(locations)
+    self.new(locations)
   end
-
+  
   def highest_total_score
     highest = @games_collection.games.max_by do |game|
       game.total_score
