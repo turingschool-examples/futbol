@@ -42,7 +42,7 @@ class TeamStatisticsTest < Minitest::Test
 
   # Helpers for best and worst season
   def test_it_can_find_total_games_per_team_id
-    # use a stub here when not using dummy csv
+    # use a stub here when not using dummy csv?
     expected = [["2012030221", "6", "WIN", "3"],
                 ["2012030222", "6", "WIN", "3"],
                 ["2012030223", "6", "WIN", "2"],
@@ -59,7 +59,7 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_find_winning_games_per_team_id
-    # use a stub here when not using dummy csv
+    # use a stub here when not using dummy csv?
     expected = [["2012030221", "6", "WIN", "3"],
                 ["2012030222", "6", "WIN", "3"],
                 ["2012030223", "6", "WIN", "2"],
@@ -75,13 +75,13 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_find_losing_games_per_team_id
-    # use a stub here when not using dummy csv
+    # use a stub here when not using dummy csv?
     expected = [["2013021187", "6", "TIE", "3"]]
     assert_equal expected, @team_statistics.losing_games(@team_id)
   end
 
   def test_it_can_find_total_games_per_season
-    # use a stub here when not using dummy csv
+    # use a stub here when not using dummy csv?
     expected = {
                 "20122013"=>9.0,
                 "20132014"=>3.0
@@ -90,7 +90,7 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_find_winning_games_per_season
-    # use a stub here when not using dummy csv
+    # use a stub here when not using dummy csv?
     expected = {
                 "20122013"=>9,
                 "20132014"=>2
@@ -99,22 +99,22 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_find_losing_games_per_season
-    # use a stub here when not using dummy csv
+    # use a stub here when not using dummy csv?
     expected = {
                 "20132014"=>1
               }
     assert_equal expected, @team_statistics.losing_games_by_game_id(@team_id)
   end
 
-  def test_it_can_find_highest_win_percentage_per_team_id
-    skip
-    assert_equal '5', @team_statistics.highest_win_percentage(@team_id)
-  end
-
-  def test_it_can_find_lowest_win_percentage_per_team_id
-    skip
-    assert_equal '5', @team_statistics.lowest_win_percentage(@team_id)
-  end
+  # def test_it_can_find_highest_win_percentage_per_team_id
+  #   skip
+  #   assert_equal '5', @team_statistics.highest_win_percentage(@team_id)
+  # end
+  #
+  # def test_it_can_find_lowest_win_percentage_per_team_id
+  #   skip
+  #   assert_equal '5', @team_statistics.lowest_win_percentage(@team_id)
+  # end
 
   def test_it_can_find_best_season
     # Season with the highest win percentage for a team.
