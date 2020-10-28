@@ -47,6 +47,10 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal expected_best, @team_statistics.best_season(@object_data.games, "6")
   end
 
+  def test_average_win_percentage
+    assert_equal 0.49, @team_statistics.average_win_percentage(@object_data.games, "6")
+  end
+
 
 
 
