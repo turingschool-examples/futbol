@@ -1,25 +1,15 @@
 require 'CSV'
 class StatTracker
-  attr_reader :all_data
+  attr_reader :games_repo, :teams_repo, :game_teams_repo
 
-  def initialize(data)
-    @all_data = data
+  def initialize(locations)
+    @games_repo = GamesRepo.new(locations[:game_path], self)
+    @teams_repo = TeamsRepo.new(locations[:teams_path], self)
+    @game_teams_repo = GameTeamsRepo.new(locations[:game_teams_path], self)
+
   end
 
   def self.from_csv(locations)
-
-    @all_data = {}
-
-    locations.each_pair do |key, location|
-        data = []
-        CSV.foreach(location, headers: true, header_converters: :symbol) do |row|
-        
-        
-            data << row
-        end
-        @all_data[key] = data
-    end
-    stat_tracker = StatTracker.new(@all_data)
+    StatTracker.new(locations)
   end
-
 end
