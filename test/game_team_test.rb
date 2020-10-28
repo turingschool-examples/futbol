@@ -1,18 +1,25 @@
 require_relative './test_helper'
 require './lib/game_team'
+require './lib/game_teams_collection'
+require './lib/stat_tracker'
 require 'csv'
 
 class GameTeamTest < Minitest::Test
 
   def setup
-    @game_teams = []
-    CSV.foreach('./data/game_teams.csv', headers: true, header_converters: :symbol) do |row|
-      @game_teams << GameTeam.new(row)
-    end
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    @stattracker = StatTracker.from_csv(locations)
   end
 
   def test_it_exists_and_has_attributes
-    gameteam = @game_teams.first
+    gameteam = @stattracker.game_teams.game_teams.first
     assert_instance_of GameTeam, gameteam
     assert_equal "2012030221", gameteam.game_id
     assert_equal "3", gameteam.team_id
@@ -23,5 +30,10 @@ class GameTeamTest < Minitest::Test
     assert_equal 8, gameteam.shots
     assert_equal 44, gameteam.tackles
 
+  end
+
+  def test_it_can_find_a_team_name
+    gameteam = @stattracker.game_teams.game_teams.first
+    assert_equal "Houston Dynamo", gameteam.team_name("3")
   end
 end

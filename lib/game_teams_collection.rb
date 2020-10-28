@@ -1,19 +1,22 @@
 require_relative './game_team'
-require_relative './teams_collection'
 require 'CSV'
 
-class GameTeamsCollection < TeamsCollection
+class GameTeamsCollection
   attr_reader :game_teams
-  def initialize(game_teams_path, team_path)
+  def initialize(game_teams_path, parent)
+    @parent = parent
     @game_teams = create_game_teams(game_teams_path)
-    super(team_path)
   end
 
   def create_game_teams(game_teams_path)
     csv = CSV.read(game_teams_path, headers: true, header_converters: :symbol)
     csv.map do |row|
-      GameTeam.new(row)
+      GameTeam.new(row, self)
     end
+  end
+
+  def find_team_name(id)
+    @parent.find_team_name(id)
   end
 
   def games_by_team
@@ -82,65 +85,41 @@ class GameTeamsCollection < TeamsCollection
     goals = average_goals_by_team.max_by do |goals|
       goals[-1]
     end
-    @teams.select do |team|
-      if team.team_id == goals[0]
-        return team.teamname
-      end
-    end
+    find_team_name(goals[0])
   end
 
   def worst_offense
     goals = average_goals_by_team.min_by do |goals|
       goals[-1]
     end
-    @teams.select do |team|
-      if team.team_id == goals[0]
-        return team.teamname
-      end
-    end
+    find_team_name(goals[0])
   end
 
   def highest_scoring_visitor
     goals = average_away_goals_by_team.max_by do |goals|
       goals[-1]
     end
-    @teams.select do |team|
-      if team.team_id == goals[0]
-        return team.teamname
-      end
-    end
+    find_team_name(goals[0])
   end
 
   def highest_scoring_hometeam
     goals = average_home_goals_by_team.max_by do |goals|
       goals[-1]
     end
-    @teams.select do |team|
-      if team.team_id == goals[0]
-        return team.teamname
-      end
-    end
+    find_team_name(goals[0])
   end
 
   def lowest_scoring_visitor
     goals = average_away_goals_by_team.min_by do |goals|
       goals[-1]
     end
-    @teams.select do |team|
-      if team.team_id == goals[0]
-        return team.teamname
-      end
-    end
+    find_team_name(goals[0])
   end
 
   def lowest_scoring_hometeam
     goals = average_home_goals_by_team.min_by do |goals|
       goals[-1]
     end
-    @teams.select do |team|
-      if team.team_id == goals[0]
-        return team.teamname
-      end
-    end
+    find_team_name(goals[0])
   end
 end

@@ -1,12 +1,22 @@
 require_relative './test_helper'
 require './lib/game_teams_collection'
 require './lib/team'
+require './lib/stat_tracker'
 require 'CSV'
 
 class GameTeamsCollectionTest < Minitest::Test
 
   def setup
-    @gameteamcollection = GameTeamsCollection.new('./data/game_teams_dummy.csv', './data/teams.csv',)
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    @stattracker = StatTracker.from_csv(locations)
+    @gameteamcollection = @stattracker.game_teams
   end
 
   def test_it_exists

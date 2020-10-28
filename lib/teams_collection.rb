@@ -4,14 +4,23 @@ require 'CSV'
 
 class TeamsCollection
   attr_reader :teams
-  def initialize(file_path)
+  def initialize(file_path, parent)
+    @parent = parent
     @teams = []
     create_teams(file_path)
   end
 
   def create_teams(file_path)
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      @teams << Team.new(row)
+      @teams << Team.new(row, self)
+    end
+  end
+
+  def find_by_id(id)
+    teams.find do |team|
+      if team.team_id == id
+        return team.teamname
+      end
     end
   end
 

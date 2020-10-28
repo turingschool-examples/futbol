@@ -1,7 +1,8 @@
 class Team
   attr_reader :team_id, :franchiseid, :teamname, :abbreviation, :stadium, :link
 
-  def initialize(row)
+  def initialize(row, parent)
+    @parent = parent
     @team_id = row[:team_id]
     @franchiseid = row[:franchiseid]
     @teamname = row[:teamname]
