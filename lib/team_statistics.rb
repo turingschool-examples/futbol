@@ -9,7 +9,7 @@ class TeamStatistics
     @stat_tracker[:teams]['team_id'].zip(@stat_tracker[:teams]['franchiseId'], @stat_tracker[:teams]['teamName'], @stat_tracker[:teams]['abbreviation'], @stat_tracker[:teams]['link'])
   end
 
-  def find_team_id(team_id)
+  def team_info_row(team_id)
     team_info_data_set.map do |item|
       return item if item[0] == team_id
     end
@@ -19,7 +19,7 @@ class TeamStatistics
     team_data = {}
     headers = [:team_id, :franchise_id, :team_name, :abbreviation, :link]
     headers.each_with_index do |header, index|
-      team_data[header] = find_team_id(team_id)[index]
+      team_data[header] = team_info_row(team_id)[index]
     end
     team_data
   end
@@ -185,6 +185,6 @@ class TeamStatistics
   end
 
   def favorite_oponent(team_id)
-    find_team_id(lowest_opposing_team(team_id))[2]
+    team_info(lowest_opposing_team(team_id))[:team_name]
   end
 end

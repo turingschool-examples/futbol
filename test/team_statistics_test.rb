@@ -22,6 +22,12 @@ class TeamStatisticsTest < Minitest::Test
     assert_instance_of TeamStatistics, @team_statistics
   end
 
+  # Helpers for team_info method
+  def test_it_can_find_team_info_row
+    expected = ["6", "6", "FC Dallas", "DAL", "/api/v1/teams/6"]
+    assert_equal expected, @team_statistics.team_info_row(@team_id)
+  end
+
   def test_it_can_list_team_info
     # 20,21,Toronto FC,TOR,BMO Field,/api/v1/teams/20
     expected = {
