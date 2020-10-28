@@ -130,5 +130,9 @@ class TeamStatistics
     loss_percentage.min_by {|season, pct| pct}[0]
   end
 
+  def average_win_percentage(team_id)
+    (winning_games(team_id).count / total_games(team_id).count.to_f * 100).round(2)
+  end
+
   
 end
