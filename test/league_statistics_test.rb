@@ -23,4 +23,8 @@ class LeagueStatisticsTest < Minitest::Test
   def test_it_exists
     assert_instance_of LeagueStatistics, @league_statistics
   end
+
+  def test_count_of_teams
+    assert_equal 32, @league_statistics.count_of_teams(@object_data.teams)
+  end
 end
