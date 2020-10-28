@@ -21,10 +21,10 @@ class GameStats
     end
   end
 
-  def combine_columns(header1, header2, data = @stats)
+  def combine_columns(header1, header2)
     temp = []
-    temp << convert_to_i(iterator(header1, data))
-    temp << convert_to_i(iterator(header2, data))
+    temp << convert_to_i(iterator(header1))
+    temp << convert_to_i(iterator(header2))
     temp = temp.transpose
     temp.map do |goals|
       goals.sum
@@ -62,43 +62,5 @@ class GameStats
 
   def percentage_ties
     percentage_results("home", "TIE")
-  end
-
-  def average_goals_per_game
-    result = combine_columns(:away_goals, :home_goals).sum.to_f / iterator(:away_goals).length
-    result.round(2)
-  end
-
-  def include_values(value)
-    temp = iterator(:season)
-    temp.count do |season|
-      season == value
-    end
-  end
-
-  def count_of_games_by_season
-    hash = {}
-    seasons = iterator(:season).uniq
-    seasons.each do |season|
-      hash[season] = include_values(season)
-    end
-    hash
-  end
-
-  def team_stats(header, data_value)
-    temp = @stats
-    temp.delete_if do |row|
-      row[header] != data_value
-    end
-  end
-
-  def average_goals_by_season
-    hash = {}
-    seasons = iterator(:season).uniq
-    seasons.each do |season|
-      array = team_stats(:season, season)
-      hash[season] = (combine_columns(:home_goals, :away_goals, array).sum.to_f / array.count).round(2)
-    end
-    hash
   end
 end
