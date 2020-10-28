@@ -162,28 +162,22 @@ class StatTracker
     # generate wins and total games for game_counts values array
     CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
       next if row[:season] != season
-      require "pry"; binding.pry
-      game_counts[:home_team_id][1] += 1
-      game_counts[:away_team_id][1] += 1
+      game_counts[row[:home_team_id]][1] += 1
+      game_counts[row[:away_team_id]][1] += 1
       if row[:away_goals] > row[:home_goals]
-        game_counts[:away_team_id][0] += 1
+        game_counts[row[:away_team_id]][0] += 1
       elsif row[:home_goals] > row[:away_goals]
-        game_counts[:home_team_id][0] += 1
+        game_counts[row[:home_team_id]][0] += 1
       end
     end
-    require "pry"; binding.pry
-    # empty wins_by_team
-    # empty games_by_team
-    # filter games file by season
-    # if statement for away win/ home win/ tie
-    # ties: skip
-    # Inside winner blocks: accumulate in teams_id hash or create new hash key
 
     game_counts.each do |team_id, data|
-      percentage = calc_percentage(data[0], data[1]) # data[0] is wins, data[1] is total
+      percentage = calc_percentage(data[0], data[1])
       team_percentage[team_id] = percentage
     end
-
-    team_percentage.max_by
+    winning_team = team_percentage.max_by do |team_id, percentage|
+      percentage
+    end
+    winning_coach = coaches_by_id["5"]
   end
 end
