@@ -188,4 +188,16 @@ class TestStatTracker < Minitest::Test
       assert_instance_of Game, @stat_tracker.total_games_per_team_home("6")[0]
       assert_instance_of Game, @stat_tracker.total_games_per_team_home("6")[-1]
     end
+
+    def test_it_can_return_games_per_season_by_team
+      expected = {
+        "20122013"=>70,
+        "20172018"=>94,
+        "20132014"=>94,
+        "20142015"=>82,
+        "20152016"=>82,
+        "20162017"=>88
+      }
+      assert_equal expected , @stat_tracker.games_per_season_by_team("6")
+    end
 end
