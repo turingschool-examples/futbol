@@ -59,6 +59,12 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal 0, @team_statistics.fewest_goals_scored(@object_data.games, "18")
   end
 
+  def test_favorite_opponent
+    assert_equal "DC United", @team_statistics.favorite_opponent(@object_data.games, @object_data.teams, "18")
+  end
+
+
+
 
 
 
