@@ -33,4 +33,32 @@ class GameTeamsManager
     end
     @game_teams
   end
+
+  def goals_by_team
+    id_by_goals = Hash.new {|hash, key| hash[key] = 0}
+    @game_teams.each do |game_team|
+      if id_by_goals[game_team.team_id]
+        id_by_goals[game_team.team_id] += game_team.goals
+      else
+        id_by_goals[game_team.team_id] = game_team.goals
+      end
+    end
+    id_by_goals
+  end
+
+  def game_count(team_id)
+    @game_teams.count do |game|
+      game.team_id == team_id
+    end
+  end
+
+  def best_offense
+    hash = {}
+    goals_by_team.map do |team_id, goals|
+      hash[team_id] = (goals.to_f / game_count(team_id)).round(2)
+    end
+    hash.max_by do |team_id, average_goals|
+      average_goals
+    end.first
+  end
 end
