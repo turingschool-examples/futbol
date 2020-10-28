@@ -172,7 +172,7 @@ class TeamStatistics
     total_games
   end
 
-  def opposing_team(team_id)
+  def lowest_opposing_team(team_id)
     variable_name = Hash.new {|hash_obj, key| hash_obj[key] = 0}
     game_teams_data_set.select do |id|
       game_id_list(team_id).map do |game_id|
@@ -185,6 +185,6 @@ class TeamStatistics
   end
 
   def favorite_oponent(team_id)
-    find_team_id(opposing_team(team_id))[2]
+    find_team_id(lowest_opposing_team(team_id))[2]
   end
 end
