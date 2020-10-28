@@ -36,6 +36,14 @@ class TeamStatistics
      win_percent_by_season
   end
 
+  def best_season(games, team_id)
+    season_wins_and_losses = add_wins_and_losses(games, team_id)
+    highest_win_to_loss = season_wins_and_losses.max_by do |season, win_and_loss_hash|
+      win_and_loss_hash[:wins].to_f / win_and_loss_hash[:total]
+    end
+    highest_win_to_loss[0].to_s
+  end
+
 
 
 
