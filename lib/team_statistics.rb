@@ -129,4 +129,6 @@ class TeamStatistics
     end
     loss_percentage.min_by {|season, pct| pct}[0]
   end
+
+  
 end

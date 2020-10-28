@@ -43,4 +43,8 @@ class TeamStatisticsTest < Minitest::Test
     # Season with the lowest win percentage for a team.
     assert_equal "20132014", @team_statistics.worst_season(@team_id)
   end
+
+  def test_it_can_find_average_win_percentage
+    assert_equal 50.5, @team_statistics.average_win_percentage(@team_id)
+  end
 end
