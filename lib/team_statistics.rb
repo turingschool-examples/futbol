@@ -36,7 +36,7 @@ class TeamStatistics
 
   def losing_games(team_id)
     game_teams_data_set.select do |game|
-      team_id == game[1] && game[2] == 'LOSS' || game[2] == 'TIE'
+      (team_id == game[1] && game[2] == 'LOSS') || (team_id == game[1] && game[2] == 'TIE')
     end
   end
 
@@ -66,7 +66,7 @@ class TeamStatistics
     total_by_season
   end
 
-  def losses_by_game_id(team_id)
+  def losing_games_by_game_id(team_id)
     losses_by_season = Hash.new {|hash_obj, key| hash_obj[key] = 0}
     losing_games(team_id).map do |season|
       if season[0].start_with?('2012')
@@ -82,8 +82,8 @@ class TeamStatistics
       elsif season[0].start_with?('2017')
         losses_by_season['20172018'] += [season[2]].count
       end
-    losses_by_season
     end
+    losses_by_season
   end
 
   def winning_games_by_game_id(team_id)
@@ -116,5 +116,17 @@ class TeamStatistics
       end
     end
     win_percentage.max_by {|season, pct| pct}[0]
+  end
+
+  def worst_season(team_id)
+    loss_percentage = Hash.new {|hash_obj, key| hash_obj[key] = []}
+    losing_games_by_game_id(team_id).each do |season, num_lost|
+      total_games_by_game_id(team_id).each do |seazon, total|
+        if season == seazon
+          loss_percentage[season] << (num_lost / total).round(2)
+        end
+      end
+    end
+    loss_percentage.min_by {|season, pct| pct}[0]
   end
 end
