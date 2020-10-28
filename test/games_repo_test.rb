@@ -13,4 +13,8 @@ class GamesRepoTest < Minitest::Test
 
     @games_repo = GamesRepo.new(locations[:game_path], self)
   end
+
+  def test_it_exists_and_has_attributes
+    assert_instance_of Array, @games_repo.games
+  end
 end
