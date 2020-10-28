@@ -443,6 +443,19 @@ class StatTracker
     goals
   end
 
+  def fewest_goals_scored(team_id)
+    goals = 0
+
+    game_teams_by_team.each do |team, games|
+      if team_id == team
+        goals = games.min_by do |game|
+          game.goals
+        end.goals
+      end
+    end
+    goals
+  end
+
   def most_tackles(season_id)
     team_tackles = {}
     games_by_team_id(season_id).map do |team, games|
