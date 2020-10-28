@@ -126,10 +126,29 @@ class StatTracker
       end
     end
 
-    def game_teams_by_team
+    def game_teams_by_season
+      
+      # game_team_season_query = {
+      #   "3" => {
+      #         "20122013": [game , game , game]
+      #         "20142015": [game , game , game]
+      #         "20152016": [game , game , game]
+      #         "20122013": [game , game , game]
+      #         "20122013": [game , game , game]
+      #       },
+      #   "6" => {season: [game , game , game]},
+      #   "8" => {season: [game , game , game]},
+      #   "13" => {season: [game , game , game]},
+         
+      # }
+
       @game_teams.group_by do |game|
         game.team_id
       end
+    end
+
+    def games_by_team_by_season(team_id)
+
     end
 
     def game_teams_by_away
@@ -328,8 +347,6 @@ class StatTracker
     end
   end
 
-
-
   def least_accurate_team(season_id)
     ratio = team_conversion_percent(season_id).min_by do |team, ratio|
       ratio
@@ -366,7 +383,22 @@ class StatTracker
       win_rate[coach] = ((games.count {|game| (game.result == "WIN") && game_set.include?(game.game_id)}).to_f / (games.count {|game| game_set.include?(game.game_id)})).round(2)    
     end
     win_rate.key(win_rate.values.reject{|x| x.nan?}.min)
+  end
 
+  def best_season(team_id)
+
+  end
+
+  def total_games_per_team_away(team_id)
+    @games.select do |game|
+      game.away_team_id == team_id.to_i 
+    end
+  end
+
+  def total_games_per_team_home(team_id)
+    @games.select do |game|
+      game.home_team_id == team_id.to_i
+    end
   end
 
   def most_tackles(season_id)

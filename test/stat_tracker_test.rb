@@ -179,6 +179,16 @@ class TestStatTracker < Minitest::Test
       assert_equal "Columbus Crew SC", @stat_tracker.least_accurate_team("20142015")
     end
 
+    def test_it_can_return_total_games_per_team_away
+      assert_instance_of Game, @stat_tracker.total_games_per_team_away("6")[0]
+      assert_instance_of Game, @stat_tracker.total_games_per_team_away("6")[-1]
+    end
+
+    def test_it_can_return_total_games_per_team_home
+      assert_instance_of Game, @stat_tracker.total_games_per_team_home("6")[0]
+      assert_instance_of Game, @stat_tracker.total_games_per_team_home("6")[-1]
+    end
+
     def test_it_can_return_most_tackles
 
       assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
