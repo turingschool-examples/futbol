@@ -81,8 +81,12 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_find_total_games_per_season
-    skip
-    assert_equal '5', @team_statistics.total_games_by_game_id(@team_id)
+    # use a stub here when not using dummy csv
+    expected = {
+                "20122013"=>9.0,
+                "20132014"=>3.0
+              }
+    assert_equal expected, @team_statistics.total_games_by_game_id(@team_id)
   end
 
   def test_it_can_find_winning_games_per_season
