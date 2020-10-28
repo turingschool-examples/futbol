@@ -10,7 +10,7 @@ class StatTracker
     @teams = locations[:teams]
   end
 
-  def highest_total_score # Rename later, for now from Games Table
+  def highest_total_score
     most = 0
     CSV.foreach(games, :headers => true, header_converters: :symbol) do |row|
       total = row[:away_goals].to_i + row[:home_goals].to_i
@@ -20,7 +20,8 @@ class StatTracker
   end
 
   def count_of_teams
-    CSV.read(teams, headers: true).count
+    teams_count = CSV.read(teams, headers: true)
+    teams_count.count
   end
 
   def best_offense
@@ -144,24 +145,18 @@ class StatTracker
   end
 
   def team_info(team_id)
-    team_info = {}
-    CSV.foreach(teams, headers: true, header_converters: :symbol) do |row|
-      if row[:team_id] == team_id
-        team_info[:team_id] = row[:team_id]
-        team_info[:franchiseid] = row[:franchiseid]
-        team_info[:teamname] = row[:teamname]
-        team_info[:abbreviation] = row[:abbreviation]
-        team_info[:link] = row[:link]
+    team_infos = {}
+    CSV.foreach(teams, headers: true) do |row|
+      if row["team_id"] == team_id
+        team_infos["team_id"] = row["team_id"]
+        team_infos["franchise_id"] = row["franchiseId"]
+        team_infos["team_name"] = row["teamName"]
+        team_infos["abbreviation"] = row["abbreviation"]
+        team_infos["link"] = row["link"]
       end
     end
-    team_info
+    team_infos
   end
-
-  # def team_id(team_name)
-  #   CSV.foreach(teams, headers:true, header_converters: :symbol) do |row|
-  #     return row[:team_id] if row[:teamname] == team_name
-  #   end
-  # end
 
   def best_season(team_id)
     seasons = {}
@@ -174,21 +169,17 @@ class StatTracker
           seasons[row[:season]] = { total_games: 1, 
                                     total_home_wins: 1,
                                     total_away_wins: 0 }
-            end
-          end
         end
+      end
+    end
     CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
       if row[:away_team_id] == team_id
         if seasons[row[:season]]
           seasons[row[:season]][:total_games] += 1
           seasons[row[:season]][:total_away_wins] += 1 if row[:away_goals] > row[:home_goals]
-        else
-          seasons[row[:season]] = { total_games: 1, 
-                                    total_home_wins: 0,
-                                    total_away_wins: 1 }
-          end
         end
       end
+    end
       best_win_rate = seasons.max_by do |season, stats|
         ((stats[:total_home_wins] + stats[:total_away_wins]).to_f * 100 / stats[:total_games]).round(2)
       end
@@ -206,21 +197,18 @@ class StatTracker
           seasons[row[:season]] = { total_games: 1, 
                                     total_home_wins: 1,
                                     total_away_wins: 0 }
-            end
-          end
         end
+      end
+    end
     CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
       if row[:away_team_id] == team_id
         if seasons[row[:season]]
           seasons[row[:season]][:total_games] += 1
           seasons[row[:season]][:total_away_wins] += 1 if row[:away_goals] > row[:home_goals]
         else
-          seasons[row[:season]] = { total_games: 1, 
-                                    total_home_wins: 0,
-                                    total_away_wins: 1 }
-          end
         end
       end
+    end
       worst_win_rate = seasons.min_by do |season, stats|
         ((stats[:total_home_wins] + stats[:total_away_wins]).to_f * 100 / stats[:total_games]).round(2)
       end
@@ -238,7 +226,7 @@ class StatTracker
         total_game += 1
       end
     end
-    (total_win.to_f * 100 / total_game).round(2)
+    (total_win.to_f / total_game).round(2)
   end
 
   def most_goals_scored(team_id)
@@ -280,10 +268,6 @@ class StatTracker
         if favorite_opponents[row[:home_team_id]]
           favorite_opponents[row[:home_team_id]][:total_games] += 1
           favorite_opponents[row[:home_team_id]][:total_away_wins] += 1 if row[:away_goals] > row[:home_goals]
-        else
-          favorite_opponents[row[:home_team_id]] = { total_games: 1, 
-                                                    total_home_wins: 0, 
-                                                    total_away_wins: 1 }
         end
       end
     end
@@ -314,17 +298,12 @@ class StatTracker
         if favorite_opponents[row[:home_team_id]]
           favorite_opponents[row[:home_team_id]][:total_games] += 1
           favorite_opponents[row[:home_team_id]][:total_away_wins] += 1 if row[:away_goals] > row[:home_goals]
-        else
-          favorite_opponents[row[:home_team_id]] = { total_games: 1, 
-                                                    total_home_wins: 0, 
-                                                    total_away_wins: 1 }
         end
       end
     end
     worst_win_rate = favorite_opponents.min_by do |opponent, stats|
       ((stats[:total_home_wins] + stats[:total_away_wins]).to_f * 100 / stats[:total_games]).round(2)
     end[0]
-    require 'pry';binding.pry
     CSV.foreach(teams, headers:true, header_converters: :symbol) do |row|
       return row[:teamname] if worst_win_rate == row[:team_id]
     end     
