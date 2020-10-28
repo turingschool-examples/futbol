@@ -45,6 +45,26 @@ class TeamStatistics
   end
 
 
+  def average_win_percentage(games, team_id)
+    total_games = 0
+    total_wins = 0
+    games.each do |game_id, game|
+      home_team_won = game.home_goals > game.away_goals
+      is_draw = game.home_goals == game.away_goals
+      team_is_home = game.home_team_id == team_id.to_i
+      team_is_playing = team_is_home || game.away_team_id == team_id.to_i
+      if team_is_playing
+        total_games += 1
+        if (home_team_won == team_is_home) && !is_draw
+          total_wins += 1
+        end
+      end
+     end
+     (total_wins / total_games.to_f).floor(2)
+  end
+
+
+
 
 
 
