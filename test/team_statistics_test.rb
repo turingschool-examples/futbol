@@ -53,4 +53,9 @@ class TeamStatisticsTest < Minitest::Test
     # Highest number of goals a particular team has scored in a single game.
     assert_equal 4, @team_statistics.most_goals_scored(@team_id)
   end
+
+  def test_it_can_find_fewest_goals_by_team
+    # Lowest numer of goals a particular team has scored in a single game.
+    assert_equal 4, @team_statistics.fewest_goals_scored(@team_id)
+  end
 end
