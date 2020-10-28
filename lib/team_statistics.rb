@@ -6,7 +6,6 @@ class TeamStatistics
   end
 
   # Data Sets
-
   def team_info_data_set
     @stat_tracker[:teams]['team_id'].zip(@stat_tracker[:teams]['franchiseId'], @stat_tracker[:teams]['teamName'], @stat_tracker[:teams]['abbreviation'], @stat_tracker[:teams]['link'])
   end
@@ -16,7 +15,6 @@ class TeamStatistics
   end
 
   # Team Statistics
-
   def team_info(team_id)
     team_data = {}
     headers = [:team_id, :franchise_id, :team_name, :abbreviation, :link]
@@ -75,7 +73,6 @@ class TeamStatistics
   end
 
   # Helpers
-
   def team_info_row(team_id)
     team_info_data_set.map do |item|
       return item if item[0] == team_id
