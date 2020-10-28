@@ -63,6 +63,12 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal "DC United", @team_statistics.favorite_opponent(@object_data.games, @object_data.teams, "18")
   end
 
+  def test_rival
+    valid_options = ["LA Galaxy", "Houston Dash"]
+    actual = @team_statistics.rival(@object_data.games, @object_data.teams, "18")
+    assert valid_options.include?(actual)
+  end
+
 
 
 
