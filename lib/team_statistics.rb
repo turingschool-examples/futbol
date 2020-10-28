@@ -67,6 +67,10 @@ class TeamStatistics
     games_by_goals(games,team_id).max
   end
 
+  def fewest_goals_scored(games, team_id)
+    games_by_goals(games,team_id).min
+  end
+
   def games_by_goals(games, team_id)
     goals = []
     games.each do |game_id, game|
@@ -80,6 +84,9 @@ class TeamStatistics
     end
     goals
   end
+
+
+
 
 
 
