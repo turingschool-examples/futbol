@@ -28,4 +28,8 @@ class TeamManager
     end
     id_team.team_data
   end
+
+  def count_of_teams
+    @teams.size
+  end
 end

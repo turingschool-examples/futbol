@@ -29,4 +29,8 @@ class TeamManagerTest < Minitest::Test
               }
     assert_equal expected, @team_manager.team_info("18")
   end
+
+  def test_count_of_teams
+    assert_equal 32, @team_manager.count_of_teams
+  end
 end
