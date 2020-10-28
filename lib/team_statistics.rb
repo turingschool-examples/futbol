@@ -63,6 +63,25 @@ class TeamStatistics
      (total_wins / total_games.to_f).floor(2)
   end
 
+  def most_goals_scored(games, team_id)
+    games_by_goals(games,team_id).max
+  end
+
+  def games_by_goals(games, team_id)
+    goals = []
+    games.each do |game_id, game|
+      team_is_home = game.home_team_id == team_id.to_i
+      team_is_playing = team_is_home || game.away_team_id == team_id.to_i
+      if team_is_playing && team_is_home
+        goals << game.home_goals
+      elsif team_is_playing
+        goals << game.away_goals
+      end
+    end
+    goals
+  end
+
+
 
 
 
