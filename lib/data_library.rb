@@ -15,7 +15,12 @@ class DataLibrary
 
   def create_teams(file_path)
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      @teams << row.to_h
+      team = row.to_h
+      team[:franchise_id] = team[:franchiseid]
+      team[:team_name] = team[:teamname]
+      team.delete(:franchiseid)
+      team.delete(:teamname)
+      @teams << team
     end
   end
 

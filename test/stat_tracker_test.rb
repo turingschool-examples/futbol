@@ -92,15 +92,26 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas", @stattracker.highest_scoring_home_team
   end
 
+  def test_lowest_scoring_visitor
 
-#   def test_lowest_scoring_visitor
-#   end
-#
-#   def test_lowest_scoring_home_team
-#   end
-#
-#   def test_team_info
-#   end
+    assert_equal "FC Dallas", @stattracker.lowest_scoring_visitor
+  end
+
+  def test_lowest_scoring_home_team
+
+    assert_equal "Houston Dynamo", @stattracker.lowest_scoring_home_team
+  end
+
+  def test_team_info
+   expected = {
+     "team_id" => "18",
+     "franchise_id" => "34",
+     "team_name" => "Minnesota United FC",
+     "abbreviation" => "MIN",
+     "link" => "/api/v1/teams/18"
+   }
+   assert_equal expected, @stattracker.team_info("18")
+  end
 #
 #   def best_season
 #   end

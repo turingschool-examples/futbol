@@ -83,9 +83,9 @@ class StatTracker < DataLibrary
     away_goals = Hash.new(0)
     @game_teams.each do |game_team|
       if game_team[:hoa] == "home"
-        home_goals[game_team[:team_id]] += game_team[:goals].to_i
+        home_goals[game_team[:team_id]] += game_team[:goals].to_f
       else
-        away_goals[game_team[:team_id]] += game_team[:goals].to_i
+        away_goals[game_team[:team_id]] += game_team[:goals].to_f
       end
     end
     total_goals = home_goals.merge(away_goals) do |key, home, away|
@@ -99,7 +99,7 @@ class StatTracker < DataLibrary
     end
     @teams.find do |team|
       if team[:team_id] == best[0]
-        return team[:teamname]
+        return team[:team_name]
       end
     end
   end
@@ -110,7 +110,7 @@ class StatTracker < DataLibrary
     end
     @teams.find do |team|
       if team[:team_id] == worst[0]
-        return team[:teamname]
+        return team[:team_name]
       end
     end
   end
@@ -121,7 +121,7 @@ class StatTracker < DataLibrary
     end
     @teams.find do |team|
       if team[:team_id] == best[0]
-        return team[:teamname]
+        return team[:team_name]
       end
     end
   end
@@ -132,18 +132,41 @@ class StatTracker < DataLibrary
     end
     @teams.find do |team|
       if team[:team_id] == best[0]
-        return team[:teamname]
+        return team[:team_name]
       end
     end
   end
 
   def lowest_scoring_visitor
+    worst = total_goals.min_by do |key, value|
+      value[:away]
+    end
+    @teams.find do |team|
+      if team[:team_id] == worst[0]
+        return team[:team_name]
+      end
+    end
   end
 
   def lowest_scoring_home_team
+    worst = total_goals.min_by do |key, value|
+      value[:home]
+    end
+    @teams.find do |team|
+      if team[:team_id] == worst[0]
+        return team[:team_name]
+      end
+    end
   end
 
-  def team_info
+  def team_info(team_id)
+    info = @teams.find do |team|
+      team[:team_id] == team_id
+    end
+    info.delete(:stadium)
+    info.transform_keys do |key|
+      key.to_s
+    end
   end
 
   def best_season
