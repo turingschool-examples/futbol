@@ -134,5 +134,9 @@ class TeamStatistics
     (winning_games(team_id).count / total_games(team_id).count.to_f * 100).round(2)
   end
 
-  
+  def most_goals_scored(team_id)
+    game_teams_data_set.select do |id|
+      team_id == id[1]
+    end.max_by {|score| score[3]}[3].to_i
+  end
 end
