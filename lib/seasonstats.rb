@@ -37,6 +37,7 @@ class SeasonStats
     coaches_and_results_per_season = {}
     games_per_coach.each do |coach, games|
       games.each do |game|
+          require "pry"; binding.pry
         if coaches_and_results_per_season[coach] && game_ids_per_season[season].include?(game["game_id"])
           coaches_and_results_per_season[coach] << game["result"]
         elsif game_ids_per_season[season].include?(game["game_id"])
@@ -44,6 +45,7 @@ class SeasonStats
         end
       end
     end
+    coaches_and_results_per_season
   end
 
   def count_coach_results(season, result)
@@ -53,7 +55,7 @@ class SeasonStats
           item == result
         end
       end
-    require "pry"; binding.pry
+    # require "pry"; binding.pry
   end
 
   def winningest_coach(season)
