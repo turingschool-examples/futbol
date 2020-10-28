@@ -1,18 +1,12 @@
 require_relative './game_team'
+require_relative './teams_collection'
 require 'CSV'
 
-class GameTeamsCollection
-  attr_reader :teams, :game_teams
-  def initialize(teams_path, game_teams_path)
-    @teams = create_teams(teams_path)
+class GameTeamsCollection < TeamsCollection
+  attr_reader :game_teams
+  def initialize(game_teams_path, team_path)
     @game_teams = create_game_teams(game_teams_path)
-  end
-
-  def create_teams(teams_path)
-    csv = CSV.read(teams_path, headers: true, header_converters: :symbol)
-    csv.map do |row|
-      Team.new(row)
-    end
+    super(team_path)
   end
 
   def create_game_teams(game_teams_path)

@@ -6,7 +6,7 @@ require 'CSV'
 class GameTeamsCollectionTest < Minitest::Test
 
   def setup
-    @gameteamcollection = GameTeamsCollection.new('./data/teams.csv', './data/game_teams_dummy.csv')
+    @gameteamcollection = GameTeamsCollection.new('./data/game_teams_dummy.csv', './data/teams.csv',)
   end
 
   def test_it_exists
@@ -15,7 +15,6 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_first_game
-
     assert_instance_of GameTeam, @gameteamcollection.game_teams[0]
   end
 
@@ -78,7 +77,6 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_lowest_scoring_visitor
-
     assert_equal "Houston Dynamo", @gameteamcollection.lowest_scoring_visitor
   end
 end

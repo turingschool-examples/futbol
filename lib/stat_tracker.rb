@@ -2,21 +2,18 @@ require_relative './games_collection'
 require_relative './teams_collection'
 require_relative './game_teams_collection'
 
+
 class StatTracker
   attr_reader :games_collection, :teams_collection, :game_teams_collection
 
-  def initialize(games_collection, teams_collection, game_teams_collection)
-    @games_collection = games_collection
-    @teams_collection = teams_collection
-    @game_teams_collection = game_teams_collection
+  def initialize(locations)
+    @games_collection = GamesCollection.new(locations[:games])
+    @teams_collection = TeamsCollection.new(locations[:teams])
+    @game_teams_collection = GameTeamsCollection.new(locations[:game_teams], locations[:teams])
   end
 
   def self.from_csv(locations)
-    games_collection = GamesCollection.new(locations[:games])
-    teams_collection = TeamsCollection.new(locations[:teams])
-    game_teams_collection = GameTeamsCollection.new(locations[:teams], locations[:game_teams])
-
-    StatTracker.new(games_collection, teams_collection, game_teams_collection)
+    StatTracker.new(locations)
   end
 
   def highest_total_score
