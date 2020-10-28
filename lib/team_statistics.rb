@@ -139,4 +139,10 @@ class TeamStatistics
       team_id == id[1]
     end.max_by {|score| score[3]}[3].to_i
   end
+
+  def fewest_goals_scored(team_id)
+    game_teams_data_set.select do |id|
+      team_id == id[1]
+    end.min_by {|score| score[3]}[3].to_i
+  end
 end
