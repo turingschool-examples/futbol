@@ -86,10 +86,42 @@ class TeamStatistics
   end
 
 
+  def favorite_opponent(games, teams, team_id)
+    overall_wins = team_by_win_percentage(games, team_id).max_by do |team_id, wins_hash|
+      wins_hash[:wins] / wins_hash[:total].to_f
+    end
+    team_name_from_id(teams,overall_wins[0].to_s)
+  end
 
+  def team_by_win_percentage(games, team_id)
+    percent_hash = {}
+    games.each do |game_id, game|
+      int_id = team_id.to_i
+      home_team_won = game.home_goals > game.away_goals
+      team_is_home = game.home_team_id == int_id
+      is_draw = game.home_goals == game.away_goals
+      if team_is_home
+        opponent_id = game.away_team_id
+      else
+        opponent_id = game.home_team_id
+      end
+      team_is_playing = team_is_home || game.away_team_id == int_id
+      if team_is_playing
+        percent_hash[opponent_id] ||= {wins: 0, total: 0}
+        percent_hash[opponent_id][:total] += 1
+        if (home_team_won == team_is_home) && !is_draw
+          percent_hash[opponent_id][:wins] += 1
+        end
+      end
+     end
+     percent_hash
+  end
 
-
-
+  def team_name_from_id(teams,id)
+    teams.find do |team_id, team|
+      team_id == id
+    end[1].teamName
+  end
 
 
 
