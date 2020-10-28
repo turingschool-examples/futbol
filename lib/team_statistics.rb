@@ -145,4 +145,46 @@ class TeamStatistics
       team_id == id[1]
     end.min_by {|score| score[3]}[3].to_i
   end
+
+  def lowest_win_percentage(team_id)
+    (losing_games(team_id).count / total_games(team_id).count.to_f * 100).round(2)
+  end
+
+  def highest_win_percentage(team_id)
+    (winning_games(team_id).count / total_games(team_id).count.to_f * 100).round(2)
+  end
+
+  def game_id_list(team_id)
+    winning_games(team_id).map do |game|
+      game[0]
+    end
+  end
+
+  def opposing_team_total_games(team_id)
+    total_games = Hash.new {|hash_obj, key| hash_obj[key] = []}
+    game_teams_data_set.select do |id|
+      game_id_list(team_id).map do |game_id|
+        if id[0] == game_id
+          total_games[id[1]] << id[1] unless id[1] == team_id
+        end
+      end
+    end
+    total_games
+  end
+
+  def opposing_team(team_id)
+    variable_name = Hash.new {|hash_obj, key| hash_obj[key] = 0}
+    game_teams_data_set.select do |id|
+      game_id_list(team_id).map do |game_id|
+        if id[0] == game_id
+          variable_name[id[1]] += (id[3].to_f / opposing_team_total_games(team_id)[id[1]].count).round(2) unless id[1] == team_id
+        end
+      end
+    end
+    variable_name.min_by {|id, pct| pct}[0]
+  end
+
+  def favorite_oponent(team_id)
+    find_team_id(opposing_team(team_id))[2]
+  end
 end

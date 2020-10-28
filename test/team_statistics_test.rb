@@ -59,6 +59,17 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal 1, @team_statistics.fewest_goals_scored(@team_id)
   end
 
+  # Helpers for favorite_oponent
+  def test_it_can_find_opposing
+    # Name of the opponent that has the lowest win percentage against the given team.
+    assert_equal 'Sporting Kansas City', @team_statistics.favorite_oponent(@team_id)
+  end
+
+  def test_it_can_find_favorite_oponent
+    # Name of the opponent that has the lowest win percentage against the given team.
+    assert_equal 'Sporting Kansas City', @team_statistics.favorite_oponent(@team_id)
+  end
+
   def test_it_can_find_favorite_oponent
     # Name of the opponent that has the lowest win percentage against the given team.
     assert_equal 'Sporting Kansas City', @team_statistics.favorite_oponent(@team_id)
