@@ -17,7 +17,13 @@ class GamesRepo
   end
 
   def highest_total_goals
-    @games.max do |game|
+    @games.max_by do |game|
+      game.total_goals
+    end.total_goals
+  end
+
+  def lowest_total_goals
+    @games.min_by do |game|
       game.total_goals
     end.total_goals
   end
