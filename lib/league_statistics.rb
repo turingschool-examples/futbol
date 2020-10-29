@@ -36,70 +36,26 @@ class LeagueStatistics
   end
 
   def highest_scoring_visitor
-    something = Hash.new {|hash_obj, key| hash_obj[key] = []}
-    total_goals_per_team_id_away.each do |team_id, num_goals|
-      total_games_per_team_id_away.each do |id, num_games|
-        if team_id == id
-          something[team_id] << (num_goals / num_games).round(2)
-        end
-      end
-    end
-    team_id1 = something.max_by do |team_id, avg|
-      avg
-    end[0]
-    team_data_set.find do |pair|
-      pair[0] == team_id1
+    team_data_set.find do |team_id|
+      team_id[0] == highest_average_team_id_visitor
     end[1]
   end
 
   def highest_scoring_home_team
-    something = Hash.new {|hash_obj, key| hash_obj[key] = []}
-    total_goals_per_team_id_home.each do |team_id, num_goals|
-      total_games_per_team_id_home.each do |id, num_games|
-        if team_id == id
-          something[team_id] << (num_goals / num_games).round(2)
-        end
-      end
-    end
-    team_id1 = something.max_by do |team_id, avg|
-      avg
-    end[0]
-    team_data_set.find do |pair|
-      pair[0] == team_id1
+    team_data_set.find do |team_id|
+      team_id[0] == highest_average_team_id_home
     end[1]
   end
 
   def lowest_scoring_visitor
-    something = Hash.new {|hash_obj, key| hash_obj[key] = []}
-    total_goals_per_team_id_away.each do |team_id, num_goals|
-      total_games_per_team_id_away.each do |id, num_games|
-        if team_id == id
-          something[team_id] << (num_goals / num_games).round(2)
-        end
-      end
-    end
-    team_id1 = something.min_by do |team_id, avg|
-      avg
-    end[0]
-    team_data_set.find do |pair|
-      pair[0] == team_id1
+    team_data_set.find do |team_id|
+      team_id[0] == lowest_average_team_id_visitor
     end[1]
   end
 
   def lowest_scoring_home_team
-    something = Hash.new {|hash_obj, key| hash_obj[key] = []}
-    total_goals_per_team_id_home.each do |team_id, num_goals|
-      total_games_per_team_id_home.each do |id, num_games|
-        if team_id == id
-          something[team_id] << (num_goals / num_games).round(2)
-        end
-      end
-    end
-    team_id1 = something.min_by do |team_id, avg|
-      avg
-    end[0]
-    team_data_set.find do |pair|
-      pair[0] == team_id1
+    team_data_set.find do |team_id|
+      team_id[0] == lowest_average_team_id_home
     end[1]
   end
 
@@ -113,7 +69,6 @@ class LeagueStatistics
   def find_highest_goal_team_id
     find_highest_goal[0]
   end
-
 
   def find_lowest_goal
     game_teams_data_set.min_by do |goal|
@@ -174,4 +129,52 @@ class LeagueStatistics
        end
      sum_goals_home
   end
+
+  def highest_average_team_id_visitor
+    highest_visitor = Hash.new {|hash_obj, key| hash_obj[key] = []}
+    total_goals_per_team_id_away.each do |team_id, num_goals|
+      total_games_per_team_id_away.each do |id, num_games|
+        if team_id == id
+          highest_visitor[team_id] << (num_goals / num_games).round(2)
+        end
+      end
+    end
+     highest_visitor.max_by {|team_id, avg| avg}[0]
+   end
+
+   def highest_average_team_id_home
+     highest_home = Hash.new {|hash_obj, key| hash_obj[key] = []}
+     total_goals_per_team_id_home.each do |team_id, num_goals|
+       total_games_per_team_id_home.each do |id, num_games|
+         if team_id == id
+           highest_home[team_id] << (num_goals / num_games).round(2)
+         end
+       end
+     end
+     highest_home.max_by {|team_id, avg| avg}[0]
+   end
+
+   def lowest_average_team_id_visitor
+   lowest_visitor = Hash.new {|hash_obj, key| hash_obj[key] = []}
+   total_goals_per_team_id_away.each do |team_id, num_goals|
+     total_games_per_team_id_away.each do |id, num_games|
+       if team_id == id
+         lowest_visitor[team_id] << (num_goals / num_games).round(2)
+       end
+     end
+   end
+   lowest_visitor.min_by {|team_id, avg| avg}[0]
+   end
+
+   def lowest_average_team_id_home
+   lowest_home = Hash.new {|hash_obj, key| hash_obj[key] = []}
+   total_goals_per_team_id_home.each do |team_id, num_goals|
+     total_games_per_team_id_home.each do |id, num_games|
+       if team_id == id
+         lowest_home[team_id] << (num_goals / num_games).round(2)
+       end
+     end
+   end
+   lowest_home.min_by {|team_id, avg| avg}[0]
+   end
 end
