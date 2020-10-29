@@ -31,6 +31,6 @@ class GamesRepo
   def count_of_games_in_season(season)
     @games.select do |game|
       game.season == season
-
+    end.count
   end
 end
