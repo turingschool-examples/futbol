@@ -76,4 +76,16 @@ class GameTeamsManager
       average_goals
     end.first
   end
+
+  def lowest_scoring_visitor
+    avg_goals_by_team('away').min_by do |team_id, average_goals|
+      average_goals
+    end.first
+  end
+
+  def lowest_scoring_home_team
+    avg_goals_by_team('home').min_by do |team_id, average_goals|
+      average_goals
+    end.first
+  end
 end

@@ -65,4 +65,12 @@ class StatTracker
   def highest_scoring_home_team
     @team_manager.team_name(@game_teams_manager.highest_scoring_home_team)
   end
+
+  def lowest_scoring_visitor
+    @team_manager.team_name(@game_teams_manager.lowest_scoring_visitor)
+  end
+
+  def lowest_scoring_home_team
+    @team_manager.team_name(@game_teams_manager.lowest_scoring_home_team)
+  end
 end
