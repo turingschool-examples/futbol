@@ -33,4 +33,15 @@ class GamesRepo
       game.season == season
     end.count
   end
+
+  def count_of_games_by_season
+    seasons = @games.map do |game|
+      game.season
+    end.uniq
+    hash = {}
+    seasons.each do |season|
+      hash[season]= count_of_games_in_season(season)
+    end
+    hash 
+  end
 end
