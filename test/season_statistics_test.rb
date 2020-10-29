@@ -128,5 +128,10 @@ class SeasonStatisticsTest < Minitest::Test
     dummy_data = {:wins => 300, :total => 400}
     assert_equal 0.75, @season_statistics.wins_to_percentage(dummy_data)
   end
+  def test_least_accurate_team
+    assert_equal "New York City FC", @season_statistics.most_accurate_team("20132014", @object_data.games, @object_data.game_teams, @object_data.teams)
+    assert_equal "Columbus Crew SC", @season_statistics.most_accurate_team("20142015", @object_data.games, @object_data.game_teams, @object_data.teams)
+  end
+
 
 end
