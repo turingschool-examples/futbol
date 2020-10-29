@@ -78,4 +78,17 @@ class SeasonStatsTest < Minitest::Test
   def test_least_accurate_team
     assert_equal "New York City FC", @seasonstats.least_accurate_team("20122013")
   end
+
+  def test_total_tackles
+    expected = {"3"=>44, "16"=>36, "8"=>24, "9"=>26}
+    assert_equal expected, @seasonstats.total_tackles("20122013")
+  end
+
+  def test_most_tackles
+    assert_equal "Houston Dynamo", @seasonstats.most_tackles("20122013")
+  end
+
+  def test_least_tackles
+    assert_equal "New York Red Bulls", @seasonstats.least_tackles("20122013")
+  end
 end

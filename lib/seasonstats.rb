@@ -117,4 +117,34 @@ class SeasonStats
    row["teamName"]
   end
 
+  def total_tackles(season)
+    teams_tackles = {}
+    games_in_season(season).each do |game|
+      if teams_tackles[game["team_id"]]
+      teams_tackles[game["team_id"]] += game["tackles"].to_i
+      else teams_tackles[game["team_id"]] = game["tackles"].to_i
+      end
+    end
+    teams_tackles
+  end
+
+  def most_tackles(season)
+    team_id = total_tackles(season).max_by do |team, tackles|
+     tackles
+   end
+    row = @teams_table.find do |row|
+     row["team_id"] == team_id[0]
+   end
+   row["teamName"]
+  end
+
+  def least_tackles(season)
+    team_id = total_tackles(season).min_by do |team, tackles|
+     tackles
+    end
+    row = @teams_table.find do |row|
+     row["team_id"] == team_id[0]
+    end
+    row["teamName"]
+  end
 end
