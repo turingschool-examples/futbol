@@ -1,37 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/yesimeza/turing/mod_1_projects/futbol/test/stat_tracker_test.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          null,
-          1,
-          null,
-          1,
-          1,
-          1,
-          1,
-          null,
-          1,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          null,
-          1,
-          1,
-          null,
-          null
-        ]
-      }
     },
-    "timestamp": 1603991730
+    "timestamp": 1603992528
   }
 }
