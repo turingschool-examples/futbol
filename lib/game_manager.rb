@@ -17,35 +17,35 @@ class GameManager
 
   def highest_total_score
     most_goals = @games.max_by do |game|
-      game.away_goals + game.home_goals
+      game.total_score
     end
-    most_goals.away_goals + most_goals.home_goals
+    most_goals.total_score
   end
 
   def lowest_total_score
     least_goals = @games.min_by do |game|
-      game.away_goals + game.home_goals
+      game.total_score
     end
-    least_goals.away_goals + least_goals.home_goals
+    least_goals.total_score
   end
 
   def percentage_home_wins
     home_wins = @games.count do |game|
-      game.away_goals < game.home_goals
+      game.home_win?
     end
     (home_wins.to_f / @games.size).round(2)
   end
 
   def percentage_visitor_wins
     visitor_wins = @games.count do |game|
-      game.away_goals > game.home_goals
+      game.visitor_win?
     end
     (visitor_wins.to_f / @games.size).round(2)
   end
 
   def percentage_ties
     ties = @games.count do |game|
-      game.away_goals == game.home_goals
+      game.tie?
     end
     (ties.to_f / @games.size).round(2)
   end
@@ -66,7 +66,7 @@ class GameManager
 
   def average_goals_per_game
     sum = @games.sum do |game|
-      game.away_goals + game.home_goals
+      game.total_score
     end
 
     (sum.to_f / @games.size).round(2)
@@ -77,7 +77,7 @@ class GameManager
       season == game.season
     end
     games_by_season.sum do |game|
-      game.away_goals + game.home_goals
+      game.total_score
     end
   end
 

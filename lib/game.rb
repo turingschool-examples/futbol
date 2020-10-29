@@ -15,4 +15,20 @@ class Game
     @home_goals = data[:home_goals].to_i
     @parent = parent
   end
+
+  def home_win?
+    @home_goals > @away_goals
+  end
+
+  def visitor_win?
+    @away_goals > @home_goals
+  end
+
+  def tie?
+    @away_goals == @home_goals
+  end
+
+  def total_score
+    @home_goals + @away_goals
+  end
 end

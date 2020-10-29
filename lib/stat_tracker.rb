@@ -51,7 +51,6 @@ class StatTracker
   end
 
   def best_offense
-    id = @game_teams_manager.best_offense
-    @team_manager.team_info(id)["team_name"]
+    @team_manager.team_name(@game_teams_manager.best_offense)
   end
 end
