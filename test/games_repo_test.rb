@@ -25,4 +25,8 @@ class GamesRepoTest < Minitest::Test
   def test_create_game
     assert_instance_of Game, @games_repo.games[0]
   end
+
+  def test_it_can_select_highest_total_goals
+    assert_equal 5, @games_repo.highest_total_goals
+  end
 end
