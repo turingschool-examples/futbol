@@ -33,4 +33,22 @@ class SeasonStatistics
     end[0]
   end
 
+  def most_accurate_team(season_str, game, game_teams)
+    shots_and_goals_by_team_id(season_str, game, game_teams)
+  end
+
+  def shots_and_goals_by_team_id(season_str, game, game_teams)
+    shots_and_goals = {}
+    game.each do |game_id, game_obj|
+      if game_obj.season == season_str
+        game_teams[game_id].each do |hoa, game_team_obj|
+          shots_and_goals[game_team_obj.team_id] ||= {:goals => 0, :shots => 0}
+          shots_and_goals[game_team_obj.team_id][:goals] += game_team_obj.goals
+          shots_and_goals[game_team_obj.team_id][:shots] += game_team_obj.shots
+        end
+      end
+    end
+    shots_and_goals
+  end
+  
 end
