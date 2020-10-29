@@ -70,4 +70,12 @@ class SeasonStatsTest < Minitest::Test
     expected = {"3"=>0.25, "16"=>0.25, "8"=>0.17, "9"=>0.14}
     assert_equal expected, @seasonstats.team_ratios("20122013")
   end
+
+  def test_most_accurate_team
+    assert_equal "Houston Dynamo", @seasonstats.most_accurate_team("20122013")
+  end
+
+  def test_least_accurate_team
+    assert_equal "New York City FC", @seasonstats.least_accurate_team("20122013")
+  end
 end

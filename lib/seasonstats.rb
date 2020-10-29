@@ -96,4 +96,25 @@ class SeasonStats
     end
     score_ratios
   end
+
+  def most_accurate_team(season)
+     team_id = team_ratios(season).max_by do |team, ratio|
+      ratio
+    end
+    row = @teams_table.find do |row|
+      row["team_id"] == team_id[0]
+    end
+    row["teamName"]
+  end
+
+  def least_accurate_team(season)
+    team_id = team_ratios(season).min_by do |team, ratio|
+     ratio
+   end
+   row = @teams_table.find do |row|
+     row["team_id"] == team_id[0]
+   end
+   row["teamName"]
+  end
+
 end
