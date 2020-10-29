@@ -5,9 +5,9 @@ class StatTracker
               :teams_manager,
               :game_teams_manager
   def initialize(file_locations)
-    @game_manager       = GameManager.new(file_locations[:games], self)
-    @team_manager       = TeamManager.new(file_locations[:teams], self)
-    @game_teams_manager = GameTeamsManager.new(file_locations[:game_teams], self)
+    @game_manager       = GameManager.new(file_locations[:games])
+    @team_manager       = TeamManager.new(file_locations[:teams])
+    @game_teams_manager = GameTeamsManager.new(file_locations[:game_teams])
   end
 
   def self.from_csv(file_locations)
@@ -52,5 +52,17 @@ class StatTracker
 
   def best_offense
     @team_manager.team_name(@game_teams_manager.best_offense)
+  end
+
+  def worst_offense
+    @team_manager.team_name(@game_teams_manager.worst_offense)
+  end
+
+  def highest_scoring_visitor
+    @team_manager.team_name(@game_teams_manager.highest_scoring_visitor)
+  end
+
+  def highest_scoring_home_team
+    @team_manager.team_name(@game_teams_manager.highest_scoring_home_team)
   end
 end
