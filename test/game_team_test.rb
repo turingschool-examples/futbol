@@ -34,6 +34,6 @@ class GameTeamTest < Minitest::Test
 
   def test_it_can_find_a_team_name
     gameteam = @stattracker.game_teams.game_teams.first
-    assert_equal "Houston Dynamo", gameteam.team_name("3")
+    assert_equal "Houston Dynamo", gameteam.find_by_id("3")
   end
 end
