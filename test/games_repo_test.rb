@@ -21,8 +21,8 @@ class GamesRepoTest < Minitest::Test
     assert_instance_of Array, @games_repo.games
     assert mock(), @parent
   end
-  
-  def test_create_game 
+
+  def test_create_game
     assert_instance_of Game, @games_repo.games[0]
   end
 end
