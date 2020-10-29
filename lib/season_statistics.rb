@@ -65,4 +65,14 @@ class SeasonStatistics
     teams[id.to_s].teamName
   end
 
+  def least_accurate_team(season_str, game, game_teams, teams)
+    team_name(least_accurate_team_id(season_str, game, game_teams, teams), teams)
+  end
+
+  def least_accurate_team_id(season_str, game, game_teams, teams)
+    shots_and_goals_by_team_id(season_str, game, game_teams).min_by do |team_id, goals_shots|
+      shot_on_goal_ratio(goals_shots)
+    end[0]
+  end
+
 end
