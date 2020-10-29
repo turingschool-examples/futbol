@@ -221,6 +221,7 @@ class StatTracker
   end
 
   def most_accurate_team(season_id)
+    season_id = season_id.to_s
     team_stats = {}
     game_id_per_season = []
 
@@ -248,6 +249,7 @@ class StatTracker
   end
 
   def least_accurate_team(season_id)
+    season_id = season_id.to_s
     team_stats = {}
     game_id_per_season = []
 
@@ -272,5 +274,29 @@ class StatTracker
     CSV.foreach(teams, headers: true, header_converters: :symbol) do |row|
       return row[:teamname] if row[:team_id] == least_accurate_team_id
     end
+  end
+
+  def most_tackles(season_id)
+    season_id = season_id.to_s
+    season_game_ids = []
+    most_tackles = {}
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      season_game_ids << row[:game_id] if row[:season] == season_id
+    end
+    CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
+      if season_game_ids.include?(row[:game_id])
+        if most_tackles[row[:team_id]]
+          most_tackles[row[:team_id]][:total_tackles] += row[:tackles].to_i
+        else
+          most_tackles[row[:team_id]] = {total_tackles: row[:tackles].to_i}
+        end
+      end
+    end
+    team = most_tackles.max_by do |key, val|
+      val[:total_tackles]
+    end[0]
+    CSV.foreach(teams, headers:true, header_converters: :symbol) do |row|
+      return row[:teamname] if team == row[:team_id]
+    end    
   end
 end
