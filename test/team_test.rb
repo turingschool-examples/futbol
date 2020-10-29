@@ -10,7 +10,7 @@ class TeamTest < Minitest::Test
                   "abbreviation" =>"ATL",
                   "link"=> "/api/v1/teams/1"
                 }
-    @team = Team.new(@team_info, 'manager')
+    @team = Team.new(@team_info)
   end
 
   def test_it_exists_and_has_attributes

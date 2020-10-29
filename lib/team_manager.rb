@@ -1,17 +1,15 @@
 require 'csv'
 
 class TeamManager
-  attr_reader :teams,
-              :parent
-  def initialize(file_location, parent)
-    @parent = parent
+  attr_reader :teams
+  def initialize(file_location)
     all(file_location)
   end
 
   def all(file_location)
     teams_data = CSV.read(file_location, headers: true)
     @teams = teams_data.map do |team_data|
-      Team.new(team_data, self)
+      Team.new(team_data)
     end
   end
 

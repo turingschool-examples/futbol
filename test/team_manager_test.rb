@@ -5,7 +5,7 @@ require './lib/team_manager'
 class TeamManagerTest < Minitest::Test
 
   def setup
-    @team_manager = TeamManager.new('./data/teams.csv', 'stat_tracker')
+    @team_manager = TeamManager.new('./data/teams.csv')
   end
 
   def test_it_exists_and_has_attributes

@@ -1,17 +1,15 @@
 require 'csv'
 
 class GameManager
-  attr_reader :games,
-              :parent
-  def initialize(file_location, parent)
-    @parent = parent
+  attr_reader :games
+  def initialize(file_location)
     all(file_location)
   end
 
   def all(file_location)
     games_data = CSV.read(file_location, headers: true, header_converters: :symbol)
     @games = games_data.map do |game_data|
-      Game.new(game_data, self)
+      Game.new(game_data)
     end
   end
 
