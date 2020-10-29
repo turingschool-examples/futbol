@@ -1,6 +1,7 @@
 require_relative './games_collection'
 require_relative './teams_collection'
 require_relative './game_teams_collection'
+require_relative './season_collection'
 require 'csv'
 
 #THE PARENT

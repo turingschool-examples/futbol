@@ -1,7 +1,26 @@
 class SeasonCollection
+  attr_reader :seasons
 
-  def initialize(parent)
-    @parent = parent
+  def initialize(filepath, season_ids, team_ids, parent)
+    @parent     = parent
+    @team_ids   = team_ids
+    @season_ids = season_ids
+    @seasons    = [] 
+    create_seasons(filepath)
+  end
+
+  def create_seasons(filepath)
+    seasons_by_team = {}
+    
+    CSV.foreach(file_path, headers: true, header_converters: :symbol)
+  end
+
+  def map_seasons_by_team
+      @team_ids.each_with_object({}) do |team_id, teams_hash|
+        teams_hash[team_id] = @season_ids.each_with_object({}) do |season, seasons_hash|
+          seasons_hash[season] = []
+        end
+      end  
   end
 
   # def get_first_game
