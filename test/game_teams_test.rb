@@ -11,8 +11,7 @@ class GameTeamsTest < Minitest::Test
                                 goals: 2,
                                 shots: 8,
                                 tackles: 44,
-                              },
-                              'manager')
+                              })
   end
 
   def test_it_exists_and_has_attributes
