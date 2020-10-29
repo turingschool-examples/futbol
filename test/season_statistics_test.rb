@@ -29,4 +29,10 @@ class SeasonStatisticsTest < Minitest::Test
    assert_equal "Alain Vigneault", @season_statistics.winningest_coach("20142015", @object_data.games, @object_data.game_teams)
   end
 
+    def test_worst_coach
+      assert_equal "Peter Laviolette" ,@season_statistics.worst_coach("20132014", @object_data.games, @object_data.game_teams)
+      expected = ["Ted Nolan", "Craig MacTavish"]
+      assert expected.include?(@season_statistics.worst_coach("20142015", @object_data.games, @object_data.game_teams))
+    end
+
 end
