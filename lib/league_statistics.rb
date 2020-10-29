@@ -30,13 +30,9 @@ class LeagueStatistics
   end
 
   def worst_offense
-    name = []
-    team_data_set.each do |pair|
-      if pair[0] == find_lowest_goal_team_id
-        name << pair[1]
-      end
-    end
-    name[0]
+    team_data_set.find do |team_id|
+       team_id[0] == find_lowest_goal_team_id
+     end[1]
   end
 
   def highest_scoring_visitor
