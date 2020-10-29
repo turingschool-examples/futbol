@@ -1,24 +1,17 @@
 require 'csv'
-require_relative './team'
 
 class TeamManager
-  attr_reader :teams_data, :teams
-
-  def initialize(file_location)
-    @teams_data = file_location
-    @teams = []
+  attr_reader :teams,
+              :parent
+  def initialize(file_location, parent)
+    @parent = parent
+    all(file_location)
   end
 
-  def all
-    CSV.foreach(@teams_data, headers: true) do |row|
-      teams_attributes = {
-        "team_id" => row["team_id"],
-        "franchise_id" => row["franchise_id"],
-        "team_name" => row["team_name"],
-        "abbreviation" => row["abbreviation"],
-        "link" => row["link"]
-      }
-      @teams << Team.new(teams_attributes)
+  def all(file_location)
+    teams_data = CSV.read(file_location, headers: true)
+    @teams = teams_data.map do |team_data|
+      Team.new(team_data, self)
     end
   end
 
@@ -26,7 +19,13 @@ class TeamManager
     id_team = @teams.find do |team|
       team.team_id == id.to_s
     end
-    id_team.team_data
+    {
+      "team_id" => id_team.team_id,
+      "franchise_id" => id_team.franchise_id,
+      "team_name" => id_team.team_name,
+      "abbreviation" => id_team.abbreviation,
+      "link" => id_team.link
+    }
   end
 
   def count_of_teams
