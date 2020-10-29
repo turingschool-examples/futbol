@@ -58,4 +58,8 @@ class GameTeamsManagerTest < Minitest::Test
   def test_highest_scoring_home_team
     assert_equal 54, @game_teams_manager.highest_scoring_home_team
   end
+
+  def test_lowest_scoring_visitor
+    assert_equal 27, @game_teams_manager.lowest_scoring_visitor
+  end
 end
