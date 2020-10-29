@@ -24,4 +24,8 @@ class GameTest < Minitest::Test
     assert_equal 3, @game1.home_goals
     assert mock(), @game1.parent
   end
+
+  def test_it_can_report_total_goals
+    assert_equal 5, @game1.total_goals
+  end
 end
