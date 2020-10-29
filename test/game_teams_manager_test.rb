@@ -41,4 +41,8 @@ class GameTeamsManagerTest < Minitest::Test
   def test_best_offense
     assert_equal 54, @game_teams_manager.best_offense
   end
+
+  def test_worst_offense
+    assert_equal 7, @game_teams_manager.worst_offense
+  end
 end
