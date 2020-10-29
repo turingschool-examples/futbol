@@ -11,11 +11,11 @@ class GameTeam
     @goals = row[:goals].to_i
     @shots = row[:shots].to_i
     @tackles = row[:tackles].to_i
-    @team = team_name(row[:team_id])
+    @team = find_by_id(row[:team_id])
+    @season = find_by_id(row[:game_id])
   end
 
-  def team_name(id)
-    # require 'pry'; binding.pry
-    @parent.find_team_name(id)
+  def find_by_id(id)
+    @parent.find_by_id(id)
   end
 end

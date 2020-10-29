@@ -14,8 +14,8 @@ class GameTeamsCollection
     end
   end
 
-  def find_team_name(id)
-    @parent.find_team_name(id)
+  def find_by_id(id)
+    @parent.find_by_id(id)
   end
 
   def games_by_team
@@ -84,41 +84,45 @@ class GameTeamsCollection
     max_goals = average_goals_by_team.max_by do |goals|
       goals[-1]
     end
-    find_team_name(max_goals[0])
+    find_by_id(max_goals[0])
   end
 
   def worst_offense
     min_goals = average_goals_by_team.min_by do |goals|
       goals[-1]
     end
-    find_team_name(min_goals[0])
+    find_by_id(min_goals[0])
   end
 
   def highest_scoring_visitor
     highest_goals = average_away_goals_by_team.max_by do |goals|
       goals[-1]
     end
-    find_team_name(highest_goals[0])
+    find_by_id(highest_goals[0])
   end
 
   def highest_scoring_hometeam
     highest_goals = average_home_goals_by_team.max_by do |goals|
       goals[-1]
     end
-    find_team_name(highest_goals[0])
+    find_by_id(highest_goals[0])
   end
 
   def lowest_scoring_visitor
     lowest_goals = average_away_goals_by_team.min_by do |goals|
       goals[-1]
     end
-    find_team_name(lowest_goals[0])
+    find_by_id(lowest_goals[0])
   end
 
   def lowest_scoring_hometeam
     lowest_goals = average_home_goals_by_team.min_by do |goals|
       goals[-1]
     end
-    find_team_name(lowest_goals[0])
+    find_by_id(lowest_goals[0])
+  end
+
+  def check_the_season
+    find_by_id("2012030221")
   end
 end

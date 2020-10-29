@@ -18,8 +18,8 @@ class StatTracker
     self.new(locations)
   end
 
-  def find_team_name(id)
-    @teams.find_by_id(id)
+  def find_by_id(id)
+    @teams.find_by_id(id) || @games.find_by_id(id)
   end
 
   def highest_total_score
