@@ -186,6 +186,10 @@ class SeasonStatisticsTest < Minitest::Test
     assert_equal expected, @season_statistics.tackles_by_team_id("20132014", @object_data.games, @object_data.game_teams, @object_data.teams)
   end
 
+  def test_team_id_highest_tackles
+    assert_equal [26, 3691], @season_statistics.team_id_highest_tackles("20132014", @object_data.games, @object_data.game_teams, @object_data.teams)
+  end
+
   def test_fewest_tackles
     skip
     assert_equal "Atlanta United", @season_statistics.fewest_tackles("20132014", @object_data.games, @object_data.game_teams, @object_data.teams)

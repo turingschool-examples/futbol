@@ -91,4 +91,10 @@ class SeasonStatistics
     tackles_count
   end
 
+  def team_id_highest_tackles(season_str, game, game_teams, teams)
+    tackles_by_team_id(season_str, game, game_teams, teams).max_by do |team_id_str, tackle_int|
+      tackle_int
+    end
+  end
+
 end
