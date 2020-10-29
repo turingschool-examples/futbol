@@ -27,7 +27,7 @@ class GamesRepoTest < Minitest::Test
   end
 
   def test_it_can_select_highest_total_goals
-    assert_equal 5, @games_repo.highest_total_goals
+    assert_equal 11, @games_repo.highest_total_goals
   end
 
   def test_it_can_select_lowest_total_goals
