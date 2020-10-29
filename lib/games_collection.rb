@@ -2,17 +2,19 @@ require_relative './game'
 require_relative './game_teams_collection'
 
 class GamesCollection
-  attr_reader :games
+  attr_reader :games, :season_ids
 
   def initialize(file_path, parent)
     @parent = parent
     @games = []
+    @season_ids = []
     create_games(file_path)
   end
 
   def create_games(file_path)
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       @games << Game.new(row, self)
+      @season_ids << row[:season] unless @season_ids.include?(row[:season])
     end
   end
 

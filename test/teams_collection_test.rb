@@ -8,9 +8,10 @@ class TeamsCollectionTest < Minitest::Test
     @teamscollection = TeamsCollection.new('./data/teams.csv', self)
   end
 
-  def test_it_exists
+  def test_it_exists_and_has_atrributes
 
     assert_instance_of TeamsCollection, @teamscollection
+    assert_equal 32, @teamscollection.team_ids.count
   end
 
   def test_first_game

@@ -2,16 +2,19 @@ require_relative './team'
 require_relative './game_teams_collection'
 
 class TeamsCollection
-  attr_reader :teams
+  attr_reader :teams, :team_ids
+  
   def initialize(file_path, parent)
     @parent = parent
     @teams = []
+    @team_ids = []
     create_teams(file_path)
   end
 
   def create_teams(file_path)
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       @teams << Team.new(row, self)
+      @team_ids << row[:team_id]
     end
   end
 

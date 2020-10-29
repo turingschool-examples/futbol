@@ -106,6 +106,12 @@ class StatTrackerTest < Minitest::Test
       }
       assert_equal expected, @stattracker.team_info("18")
     end
+
+    def test_ids
+
+      assert_equal 32, @stattracker.team_ids.count
+      assert_equal 2, @stattracker.season_ids.count
+    end
 #
 #   def best_season
 #   end

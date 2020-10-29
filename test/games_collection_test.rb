@@ -8,9 +8,11 @@ class GamesCollectionTest < Minitest::Test
     @gamescollection = GamesCollection.new('./data/games_dummy.csv', self)
   end
 
-  def test_it_exists
+  def test_it_exists_and_has_attributes
 
     assert_instance_of GamesCollection, @gamescollection
+    assert_equal ["20122013", "20132014"], @gamescollection.season_ids
+    assert_equal 2, @gamescollection.season_ids.count
   end
 
   def test_first_game
