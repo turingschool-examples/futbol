@@ -88,5 +88,4 @@ class GameStatisticsTest < Minitest::Test
     }
     assert_equal expected, @game_statistics.average_goals_by_season(@object_data.games)
   end
-
 end
