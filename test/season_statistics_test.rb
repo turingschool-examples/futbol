@@ -120,4 +120,11 @@ class SeasonStatisticsTest < Minitest::Test
     assert_equal expected, @season_statistics.shots_and_goals_by_team_id("20132014", @object_data.games, @object_data.game_teams)
   end
 
+  def test_shot_on_goal_ratio
+    dummy_data = {:goals => 200, :shots => 400}
+    assert_equal 0.5, @season_statistics.shot_on_goal_ratio(dummy_data)
+  end
+
+
+
 end

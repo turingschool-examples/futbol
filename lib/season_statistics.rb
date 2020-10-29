@@ -50,5 +50,9 @@ class SeasonStatistics
     end
     shots_and_goals
   end
-  
+
+  def shot_on_goal_ratio(hash)
+    hash[:goals].to_f / hash[:shots]
+  end
+
 end
