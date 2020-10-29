@@ -28,6 +28,10 @@ class TeamManager
     }
   end
 
+  def team_name(id)
+    team_info(id)["team_name"]
+  end
+
   def count_of_teams
     @teams.size
   end
