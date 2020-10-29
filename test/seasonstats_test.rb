@@ -33,12 +33,10 @@ class SeasonStatsTest < Minitest::Test
     assert_equal expected, @seasonstats.games_in_season("20122013").count
   end
 
-  # def test_games_per_coach
-  #   expected = { "Coach Name" => ["the whole line"]}
-  #   assert_instance_of Hash, @seasonstats.games_per_coach
-  #   @seasonstats.stubs(:games_per_coach).returns(expected)
-  #   assert_equal expected, @seasonstats.games_per_coach
-  # end
+  def test_games_per_coach
+    expected = 4
+    assert_equal expected, @seasonstats.games_per_coach("20122013").count
+  end
 
   # def test_results_per_coach_per_season
   #   expected = { "Coach Name" => ["WIN", "TIE", "LOSS"]}
@@ -47,18 +45,18 @@ class SeasonStatsTest < Minitest::Test
   #   assert_equal expected, @seasonstats.results_per_coach_per_season("20122013")
   # end
   #
-  # def test_count_coach_results
-  #   expected = { "Coach Name" => 55,
-  #                "Another Coach" => 34}
-  #   assert_instance_of Hash, @seasonstats.count_coach_results("20122013", "WIN")
-  #   @seasonstats.stubs(:count_coach_results).returns(expected)
-  #   assert_equal expected, @seasonstats.count_coach_results("12345", "WIN")
-  # end
-  #
-  # def test_winningest_coach
-  #   assert_instance_of String, @seasonstats.winningest_coach("20122013")
-  #   @seasonstats.stubs(:winningest_coach).returns("Claude Julien")
-  #   assert_equal "Claude Julien", @seasonstats.winningest_coach("20122013")
-  # end
+  def test_count_coach_results
+    expected = 4
+    assert_equal expected, @seasonstats.count_coach_results("20122013").count
+  end
+
+  def test_coach_percentage
+    expected = {"John Tortorella"=>0.0, "Joel Quenneville"=>1.0, "Michel Therrien"=>0.0, "Paul MacLean"=>0.0}
+    assert_equal expected, @seasonstats.coach_percentage("20122013")
+  end
+
+  def test_winningest_coach
+    assert_equal "Joel Quenneville", @seasonstats.winningest_coach("20122013")
+  end
 
 end
