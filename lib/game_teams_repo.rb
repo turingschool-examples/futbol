@@ -17,3 +17,4 @@ class GameTeamsRepo
     end
   end
 end
+#add percentage games stats methods 
