@@ -60,30 +60,52 @@ class StatTrackerTest < Minitest::Test
     expected = {"20122013"=> 3.50, "20132014"=> 2.00}
     assert_equal expected, @stattracker.average_goals_by_season
   end
-#
-#   def test_count_of_teams
-#   end
-#
-#   def test_best_offense
-#   end
-#
-#   def test_worst_offense
-#   end
-#
-#   def test_highest_scoring_visitor
-#   end
-#
-#   def test_highest_scoring_home_team
-#   end
-#
-#   def test_lowest_scoring_visitor
-#   end
-#
-#   def test_lowest_scoring_home_team
-#   end
-#
-#   def test_team_info
-#   end
+
+  def test_count_of_teams
+
+    assert_equal 32, @stattracker.count_of_teams
+  end
+
+  def test_best_offense
+
+    assert_equal "FC Dallas", @stattracker.best_offense
+  end
+
+  def test_worst_offense
+
+    assert_equal "Houston Dynamo", @stattracker.worst_offense
+  end
+
+  def test_highest_scoring_visitor
+
+    assert_equal "FC Dallas", @stattracker.highest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+
+    assert_equal "FC Dallas", @stattracker.highest_scoring_home_team
+  end
+
+  def test_lowest_scoring_visitor
+
+    assert_equal "Houston Dynamo", @stattracker.lowest_scoring_visitor
+  end
+
+  def test_lowest_scoring_home_team
+
+    assert_equal "Houston Dynamo", @stattracker.lowest_scoring_home_team
+  end
+
+    def test_team_info
+      expected = {
+        "team_id" => "18",
+        "franchise_id" => "34",
+        "team_name" => "Minnesota United FC",
+        "abbreviation" => "MIN",
+        "link" => "/api/v1/teams/18"
+      }
+      assert_equal expected, @stattracker.team_info("18")
+    end
 #
 #   def best_season
 #   end

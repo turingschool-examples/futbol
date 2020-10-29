@@ -1,24 +1,53 @@
 require_relative './game'
-require 'CSV'
+require_relative './game_teams_collection'
 
 class GamesCollection
   attr_reader :games
 
-  def initialize(file_path)
+  def initialize(file_path, parent)
+    @parent = parent
     @games = []
+    create_games(file_path)
+  end
+
+  def create_games(file_path)
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      game_id = row[:game_id]
-      season = row[:season]
-      type = row[:type]
-      date_time = row[:date_time]
-      away_team_id = row[:away_team_id]
-      home_team_id = row[:home_team_id]
-      away_goals = row[:away_goals].to_i
-      home_goals = row[:home_goals].to_i
-      venue = row[:venue]
-      venue_link = row[:venue_link]
-      @games << Game.new(game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link)
+      @games << Game.new(row, self)
     end
+  end
+
+  def find_by_id(id)
+    games.find do |game|
+      if game.game_id == id
+        return game.season
+      end
+    end
+  end
+
+  def highest_total_score
+    highest = @games.max_by do |game|
+      game.total_score
+    end
+    highest.total_score
+  end
+
+  def lowest_total_score
+    lowest = @games.min_by do |game|
+      game.total_score
+    end
+    lowest.total_score
+  end
+
+  def percentage_home_wins
+    (home_wins.to_f / @games.length).round(2)
+  end
+
+  def percentage_visitor_wins
+    (visitor_wins.to_f / @games.length).round(2)
+  end
+
+  def percentage_ties
+    (ties.to_f / @games.length).round(2)
   end
 
   def home_wins

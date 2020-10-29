@@ -1,30 +1,39 @@
 require_relative './test_helper'
 require './lib/game_team'
+require './lib/game_teams_collection'
+require './lib/stat_tracker'
+
 
 class GameTeamTest < Minitest::Test
 
   def setup
-    @gameteam = GameTeam.new("2012030221","6","home","WIN","OT",
-      "Claude Julien","3","12","51","6","4","1","55.2","4","5")
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    @stattracker = StatTracker.from_csv(locations)
   end
 
   def test_it_exists_and_has_attributes
+    gameteam = @stattracker.game_teams.game_teams.first
+    assert_instance_of GameTeam, gameteam
+    assert_equal "2012030221", gameteam.game_id
+    assert_equal "3", gameteam.team_id
+    assert_equal "away", gameteam.hoa
+    assert_equal "LOSS", gameteam.result
+    assert_equal "John Tortorella", gameteam.head_coach
+    assert_equal 2, gameteam.goals
+    assert_equal 8, gameteam.shots
+    assert_equal 44, gameteam.tackles
 
-    assert_instance_of GameTeam, @gameteam
-    assert_equal 2012030221, @gameteam.game_id
-    assert_equal 6, @gameteam.team_id
-    assert_equal "home", @gameteam.hoa
-    assert_equal "WIN", @gameteam.result
-    assert_equal "OT", @gameteam.settled_in
-    assert_equal "Claude Julien", @gameteam.head_coach
-    assert_equal 3, @gameteam.goals
-    assert_equal 12, @gameteam.shots
-    assert_equal 51, @gameteam.tackles
-    assert_equal 6, @gameteam.pim
-    assert_equal 4, @gameteam.powerPlayOpportunities
-    assert_equal 1, @gameteam.powerPlayGoals
-    assert_equal 55.2, @gameteam.faceOffWinPercentage
-    assert_equal 4, @gameteam.giveaways
-    assert_equal 5, @gameteam.takeaways
+  end
+
+  def test_it_can_find_a_team_name
+    gameteam = @stattracker.game_teams.game_teams.first
+    assert_equal "Houston Dynamo", gameteam.team_name("3")
   end
 end
