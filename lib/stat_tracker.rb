@@ -1,4 +1,8 @@
 require 'CSV'
+require './lib/games_repo'
+require './lib/teams_repo'
+require './lib/game_teams_repo'
+
 class StatTracker
   attr_reader :games_repo, :teams_repo, :game_teams_repo
 
