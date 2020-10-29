@@ -107,16 +107,16 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal '15', @team_statistics.lowest_win_percentage(@team_id)
   end
 
-  def test_it_can_find_opposing_team_total_games
+  def test_it_can_list_total_games_played_with_opposing_team
     expected = {
                 "15"=>["15", "15"],
                 "5"=>["5", "5", "5", "5", "5"],
                 "14"=>["14", "14", "14"]
               }
-    assert_equal expected, @team_statistics.opposing_team_total_games(@team_id)
+    assert_equal expected, @team_statistics.total_opposing_team_games(@team_id)
   end
 
-  def test_it_can_find_team_id_with_lowest_win_percentage
+  def test_it_can_list_number_of_games_lost_per_opposing_team
     expected = {
                 "15"=>2,
                 "5"=>5,
@@ -125,7 +125,7 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal expected, @team_statistics.lowest_opposing_team(@team_id)
   end
 
-  def test_it_can_find_team_id_with_highest_win_percentage
+  def test_it_can_list_number_of_games_won_per_opposing_team
     expected = {
                 "6"=>5,
                 "15"=>5,

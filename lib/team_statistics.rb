@@ -157,7 +157,7 @@ class TeamStatistics
     losses_by_season
   end
 
-  def opposing_team_total_games(team_id)
+  def total_opposing_team_games(team_id)
     total_games = Hash.new {|hash_obj, key| hash_obj[key] = []}
     game_teams_data_set.select do |id|
       winning_games(team_id).map do |game_id|
@@ -170,15 +170,15 @@ class TeamStatistics
   end
 
   def lowest_opposing_team(team_id)
-    highest_loser = Hash.new {|hash_obj, key| hash_obj[key] = 0}
+    highest_opp_losses = Hash.new {|hash_obj, key| hash_obj[key] = 0}
     game_teams_data_set.select do |id|
       winning_games(team_id).map do |game_id|
         if id[0] == game_id[0]
-          highest_loser[id[1]] += 1 unless id[1] == team_id
+          highest_opp_losses[id[1]] += 1 unless id[1] == team_id
         end
       end
     end
-    highest_loser
+    highest_opp_losses
   end
 
   def lowest_win_percentage(team_id)
@@ -186,7 +186,7 @@ class TeamStatistics
     game_teams_data_set.select do |id|
       winning_games(team_id).map do |game_id|
         if id[0] == game_id[0]
-          highest_loser_pct[id[1]] = (lowest_opposing_team(team_id)[id[1]]/ opposing_team_total_games(team_id)[id[1]].count.to_f * 100).round(2) unless id[1] == team_id
+          highest_loser_pct[id[1]] = (lowest_opposing_team(team_id)[id[1]]/ total_opposing_team_games(team_id)[id[1]].count.to_f * 100).round(2) unless id[1] == team_id
         end
       end
     end
@@ -210,7 +210,7 @@ class TeamStatistics
     game_teams_data_set.select do |id|
       winning_games(team_id).map do |game_id|
         if id[0] == game_id[0]
-          highest[id[1]] = (highest_opposing_team(team_id)[id[1]]/ opposing_team_total_games(team_id)[id[1]].count.to_f * 100).round(2) unless id[1] == team_id
+          highest[id[1]] = (highest_opposing_team(team_id)[id[1]]/ total_opposing_team_games(team_id)[id[1]].count.to_f * 100).round(2) unless id[1] == team_id
         end
       end
     end
