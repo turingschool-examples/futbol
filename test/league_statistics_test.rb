@@ -55,69 +55,69 @@ class LeagueStatisticsTest < Minitest::Test
     assert_equal 'Sporting Kansas City', @league_statistics.lowest_scoring_home_team
   end
 
-# Helpe Tests
+# Helper Tests
   def test_it_can_find_highest_goal
-    skip
-    assert_equal 5, @league_statistics.find_highest_goal
+
+    assert_equal '6', @league_statistics.find_highest_goal_team_id
   end
 
-  def test_it_can_find_highest_goal
-    skip
-    assert_equal 5, @league_statistics.find_highest_goal
-  end
-
-  def test_it_can_find_highest_goal
-    skip
-    assert_equal 5, @league_statistics.find_highest_goal
-  end
-
-  def test_it_can_find_highest_goal
-    skip
-    assert_equal 5, @league_statistics.find_highest_goal
-  end
-
-  def test_it_can_find_highest_goal
-    skip
-    assert_equal 5, @league_statistics.find_highest_goal
-  end
-
-  def test_it_can_find_highest_goal
-    skip
-    assert_equal 5, @league_statistics.find_highest_goal
-  end
-
-  def test_it_can_find_highest_goal
-    skip
-    assert_equal 5, @league_statistics.find_highest_goal
-  end
-
-  def test_it_can_find_highest_goal
-    skip
-    assert_equal 5, @league_statistics.find_highest_goal
-  end
-
-  def test_it_can_find_highest_goal
-    skip
-    assert_equal 5, @league_statistics.find_highest_goal
-  end
-
-  def test_it_can_find_highest_goal
-    skip
-    assert_equal 5, @league_statistics.find_highest_goal
-  end
-
-  def test_it_can_find_highest_goal
-    skip
-    assert_equal 5, @league_statistics.find_highest_goal
-  end
-
-  def test_it_can_find_highest_goal
-    skip
-    assert_equal 5, @league_statistics.find_highest_goal
-  end
-  
-  def test_it_can_find_highest_goal
-    skip
-    assert_equal 5, @league_statistics.find_highest_goal
-  end
+  # def test_it_can_find_highest_goal
+  #   skip
+  #   assert_equal 5, @league_statistics.find_highest_goal
+  # end
+  #
+  # def test_it_can_find_highest_goal
+  #   skip
+  #   assert_equal 5, @league_statistics.find_highest_goal
+  # end
+  #
+  # def test_it_can_find_highest_goal
+  #   skip
+  #   assert_equal 5, @league_statistics.find_highest_goal
+  # end
+  #
+  # def test_it_can_find_highest_goal
+  #   skip
+  #   assert_equal 5, @league_statistics.find_highest_goal
+  # end
+  #
+  # def test_it_can_find_highest_goal
+  #   skip
+  #   assert_equal 5, @league_statistics.find_highest_goal
+  # end
+  #
+  # def test_it_can_find_highest_goal
+  #   skip
+  #   assert_equal 5, @league_statistics.find_highest_goal
+  # end
+  #
+  # def test_it_can_find_highest_goal
+  #   skip
+  #   assert_equal 5, @league_statistics.find_highest_goal
+  # end
+  #
+  # def test_it_can_find_highest_goal
+  #   skip
+  #   assert_equal 5, @league_statistics.find_highest_goal
+  # end
+  #
+  # def test_it_can_find_highest_goal
+  #   skip
+  #   assert_equal 5, @league_statistics.find_highest_goal
+  # end
+  #
+  # def test_it_can_find_highest_goal
+  #   skip
+  #   assert_equal 5, @league_statistics.find_highest_goal
+  # end
+  #
+  # def test_it_can_find_highest_goal
+  #   skip
+  #   assert_equal 5, @league_statistics.find_highest_goal
+  # end
+  #
+  # def test_it_can_find_highest_goal
+  #   skip
+  #   assert_equal 5, @league_statistics.find_highest_goal
+  # end
 end

@@ -60,14 +60,8 @@ class LeagueStatistics
   end
 
   #Helper_Methods
-  def find_highest_goal
-    game_teams_data_set.max_by do |goal|
-        goal[1]
-      end
-  end
-
   def find_highest_goal_team_id
-    find_highest_goal[0]
+    game_teams_data_set.max_by {|goal| goal[1]}[0]
   end
 
   def find_lowest_goal
