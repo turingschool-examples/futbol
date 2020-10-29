@@ -284,15 +284,37 @@ class StatTracker
       season_game_ids << row[:game_id] if row[:season] == season_id
     end
     CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
-      if season_game_ids.include?(row[:game_id])
-        if most_tackles[row[:team_id]]
-          most_tackles[row[:team_id]][:total_tackles] += row[:tackles].to_i
-        else
-          most_tackles[row[:team_id]] = {total_tackles: row[:tackles].to_i}
-        end
+      next if !season_game_ids.include?(row[:game_id])
+      if most_tackles[row[:team_id]]
+        most_tackles[row[:team_id]][:total_tackles] += row[:tackles].to_i
+      else
+        most_tackles[row[:team_id]] = {total_tackles: row[:tackles].to_i}
       end
     end
     team = most_tackles.max_by do |key, val|
+      val[:total_tackles]
+    end[0]
+    CSV.foreach(teams, headers:true, header_converters: :symbol) do |row|
+      return row[:teamname] if team == row[:team_id]
+    end    
+  end
+
+  def fewest_tackles(season_id)
+    season_id = season_id.to_s
+    season_game_ids = []
+    least_tackles = {}
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      season_game_ids << row[:game_id] if row[:season] == season_id
+    end
+    CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
+      next if !season_game_ids.include?(row[:game_id])
+      if least_tackles[row[:team_id]]
+        least_tackles[row[:team_id]][:total_tackles] += row[:tackles].to_i
+      else
+        least_tackles[row[:team_id]] = {total_tackles: row[:tackles].to_i}
+      end
+    end
+    team = least_tackles.min_by do |key, val|
       val[:total_tackles]
     end[0]
     CSV.foreach(teams, headers:true, header_converters: :symbol) do |row|
