@@ -145,7 +145,6 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_most_tackles
-    skip
     assert_equal "FC Cincinnati", @season_statistics.most_tackles("20132014", @object_data.games, @object_data.game_teams, @object_data.teams)
     assert_equal "Seattle Sounders FC", @season_statistics.most_tackles("20142015", @object_data.games, @object_data.game_teams, @object_data.teams)
   end
@@ -195,7 +194,6 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_fewest_tackles
-    skip
     assert_equal "Atlanta United", @season_statistics.fewest_tackles("20132014", @object_data.games, @object_data.game_teams, @object_data.teams)
     assert_equal "Orlando City SC", @season_statistics.fewest_tackles("20142015", @object_data.games, @object_data.game_teams, @object_data.teams)
   end

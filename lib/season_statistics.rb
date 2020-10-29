@@ -76,7 +76,7 @@ class SeasonStatistics
   end
 
   def most_tackles(season_str, game, game_teams, teams)
-    tackles_by_team_id(season_str, game, game_teams, teams)
+    team_name(team_id_highest_tackles(season_str, game, game_teams, teams), teams)
   end
 
   def tackles_by_team_id(season_str, game, game_teams, teams)
@@ -102,4 +102,10 @@ class SeasonStatistics
       tackle_int
     end[0]
   end
+
+  def fewest_tackles(season_str, game, game_teams, teams)
+    team_name(team_id_lowest_tackles(season_str, game, game_teams, teams), teams)
+  end
+
+
 end
