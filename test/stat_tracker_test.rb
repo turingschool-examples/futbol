@@ -21,11 +21,11 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_percentage_home_wins
-    assert_equal 66.00, @stat_tracker.percentage_home_wins
+    assert_equal 59.85, @stat_tracker.percentage_home_wins
   end
 
   def test_percentage_visitor_wins
-    assert_equal 32.00, @stat_tracker.percentage_visitor_wins
+    assert_equal 36.5, @stat_tracker.percentage_visitor_wins
   end
 
   def test_calc_percentage
@@ -33,7 +33,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_percentage_ties
-    assert_equal 2.00, @stat_tracker.percentage_ties
+    assert_equal 3.65, @stat_tracker.percentage_ties
   end
 
   def test_count_of_games_by_season
@@ -67,5 +67,25 @@ class StatTrackerTest < MiniTest::Test
 
   def test_winningest_coach
     assert_equal "Dan Bylsma", @stat_tracker.winningest_coach(20152016)
+  end
+
+  def test_worst_coach
+    assert_equal "John Tortorella", @stat_tracker.worst_coach(20152016)
+  end
+
+  def test_most_accurate_team
+    assert_equal "Sporting Kansas City", @stat_tracker.most_accurate_team(20152016)
+  end
+
+  def test_least_accurate_team
+    assert_equal "Chicago Fire", @stat_tracker.least_accurate_team(20152016)
+  end
+
+  def test_most_tackles
+    assert_equal "FC Cincinnati", @stat_tracker.most_tackles(20152016)
+  end
+
+  def test_fewest_tackles
+    assert_equal "Sporting Kansas City", @stat_tracker.fewest_tackles(20152016)
   end
 end
