@@ -38,13 +38,6 @@ class SeasonStatsTest < Minitest::Test
     assert_equal expected, @seasonstats.games_per_coach("20122013").count
   end
 
-  # def test_results_per_coach_per_season
-  #   expected = { "Coach Name" => ["WIN", "TIE", "LOSS"]}
-  #   assert_instance_of Hash, @seasonstats.results_per_coach_per_season("20122013")
-  #   @seasonstats.stubs(:results_per_coach_per_season).returns(expected)
-  #   assert_equal expected, @seasonstats.results_per_coach_per_season("20122013")
-  # end
-  #
   def test_count_coach_results
     expected = 4
     assert_equal expected, @seasonstats.count_coach_results("20122013").count
@@ -59,4 +52,7 @@ class SeasonStatsTest < Minitest::Test
     assert_equal "Joel Quenneville", @seasonstats.winningest_coach("20122013")
   end
 
+  def test_worst_coach
+    assert_equal "John Tortorella", @seasonstats.worst_coach("20122013")
+  end
 end

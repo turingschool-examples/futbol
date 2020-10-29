@@ -39,21 +39,6 @@ class SeasonStats
    coaches_and_games
   end
 
-  # def results_per_coach_per_season(season)
-  #   coaches_and_results_per_season = {}
-  #   games_per_coach.each do |coach, games|
-  #     games.each do |game|
-  #         # require "pry"; binding.pry
-  #       if coaches_and_results_per_season[coach] && game_ids_per_season[season].include?(game["game_id"])
-  #         coaches_and_results_per_season[coach] << game["result"]
-  #       elsif game_ids_per_season[season].include?(game["game_id"])
-  #         coaches_and_results_per_season[coach] = [game["result"]]
-  #       end
-  #     end
-  #   end
-  #   coaches_and_results_per_season
-  # end
-  #
   def count_coach_results(season)
     coaches_and_results = {}
     games_per_coach(season).map do |coach, games|
@@ -76,6 +61,13 @@ class SeasonStats
 
   def winningest_coach(season)
     coach = coach_percentage(season).max_by do |coach, percentage|
+      percentage
+    end
+    coach[0]
+  end
+
+  def worst_coach(season)
+    coach = coach_percentage(season).min_by do |coach, percentage|
       percentage
     end
     coach[0]
