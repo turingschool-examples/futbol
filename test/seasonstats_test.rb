@@ -65,4 +65,9 @@ class SeasonStatsTest < Minitest::Test
     expected = {"3"=>8, "16"=>8, "8"=>12, "9"=>7}
     assert_equal expected, @seasonstats.team_scores("20122013", "shots")
   end
+
+  def test_team_ratios
+    expected = {"3"=>0.25, "16"=>0.25, "8"=>0.17, "9"=>0.14}
+    assert_equal expected, @seasonstats.team_ratios("20122013")
+  end
 end

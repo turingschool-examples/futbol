@@ -54,8 +54,8 @@ class SeasonStats
     coaches_and_percentages = {}
     wins = count_coach_results(season)
     wins.keys.map do |coach|
-      coaches_and_percentages[coach] = wins[coach].to_f /
-                                games_per_coach(season)[coach].count
+      coaches_and_percentages[coach] = (wins[coach].to_f /
+                                games_per_coach(season)[coach].count).round(2)
     end
     coaches_and_percentages
   end
@@ -83,5 +83,17 @@ class SeasonStats
       end
     end
     scores
+  end
+
+  def team_ratios(season)
+    goals = team_scores(season, "goals")
+    shots = team_scores(season, "shots")
+    score_ratios = {}
+    ratios = count_coach_results(season)
+    goals.keys.map do |team_id|
+      score_ratios[team_id] = (goals[team_id].to_f /
+                              shots[team_id]).round(2)
+    end
+    score_ratios
   end
 end
