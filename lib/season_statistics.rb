@@ -1,30 +1,30 @@
 class SeasonStatistics
-# 1. combine 2 iterations into 1
-# hash team => wins
-  def winningest_coach(season_str, data, data1)
-    team_total_wins_by_season(season_str, data, data1)
+  
+  def winningest_coach(season_str, games, game_teams)
+    coach_total_wins_by_season(season_str, games, game_teams).max_by do |team_id,hash|
+      wins_to_percentage(hash)
+    end[0]
   end
 
-  def team_total_wins_by_season(season_str, data, data1)
-    team_wins_by_season = {}
-    data.each do |season, game_obj|
+  def coach_total_wins_by_season(season_str, games, game_teams)
+    team_wins_by_coach = {}
+    games.each do |game_id, game_obj|
       if game_obj.season == season_str
-        team_wins_by_season[game_obj.home_team_id] ||= {wins: 0, total: 0}
-        team_wins_by_season[game_obj.away_team_id] ||= {wins: 0, total: 0}
-        team_wins_by_season[game_obj.home_team_id][:total] += 1
-        team_wins_by_season[game_obj.away_team_id][:total] += 1
-        if game_obj.away_goals > game_obj.home_goals
-          team_wins_by_season[game_obj.away_team_id][:wins] += 1
-        elsif game_obj.away_goals < game_obj.home_goals
-          team_wins_by_season[game_obj.home_team_id][:wins] += 1
+        game_pair_obj = game_teams[game_id]
+        game_pair_obj.each do |hoa, game_team|
+          team_wins_by_coach[game_team.head_coach] ||= {wins: 0, total: 0}
+          team_wins_by_coach[game_team.head_coach][:total] += 1
+          if game_team.result == "WIN"
+            team_wins_by_coach[game_team.head_coach][:wins] += 1
+          end
         end
       end
     end
-    team_wins_by_season
+    team_wins_by_coach
   end
 
-  # def method_name
-  #
-  # end
+  def wins_to_percentage(hash)
+    hash[:wins].to_f / hash[:total]
+  end
 
 end
