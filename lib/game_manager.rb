@@ -1,28 +1,18 @@
 require 'csv'
-require_relative './game'
-
 
 class GameManager
-  attr_reader :games_data_path,
-              :games
-  def initialize(file_location)
-    @games_data = file_location
-    @games = []
+  attr_reader :games,
+              :parent
+  def initialize(file_location, parent)
+    @parent = parent
+    all(file_location)
   end
 
-  def all
-    CSV.foreach(@games_data, headers: true, header_converters: :symbol) do |row|
-      game_attributes = {
-                          game_id: row[:game_id],
-                          season: row[:season],
-                          away_team_id: row[:away_team_id],
-                          home_team_id: row[:home_team_id],
-                          away_goals: row[:away_goals],
-                          home_goals: row[:home_goals],
-                        }
-      @games << Game.new(game_attributes)
+  def all(file_location)
+    games_data = CSV.read(file_location, headers: true, header_converters: :symbol)
+    @games = games_data.map do |game_data|
+      Game.new(game_data, self)
     end
-    @games
   end
 
   def highest_total_score
@@ -98,5 +88,4 @@ class GameManager
     end
     avg_by_season
   end
-
 end
