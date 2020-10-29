@@ -4,7 +4,7 @@ require './lib/game_teams_manager'
 
 class GameTeamsManagerTest < Minitest::Test
   def setup
-    @game_teams_manager = GameTeamsManager.new('./data/game_teams.csv', 'stat_tracker')
+    @game_teams_manager = GameTeamsManager.new('./data/game_teams.csv')
   end
 
   def test_it_exists_and_has_attributes
@@ -18,6 +18,8 @@ class GameTeamsManagerTest < Minitest::Test
   def test_total_goals_by_team
     assert_equal 32, @game_teams_manager.total_goals_by_team.keys.size
     assert_equal 1128, @game_teams_manager.total_goals_by_team[28]
+    assert_equal 549, @game_teams_manager.total_goals_by_team('away')[28]
+    assert_equal 579, @game_teams_manager.total_goals_by_team('home')[28]
   end
 
   def test_avg_goals_by_team
@@ -35,6 +37,9 @@ class GameTeamsManagerTest < Minitest::Test
   # end
 
   def test_game_count
+    assert_equal 268, @game_teams_manager.game_count(16, 'home')
+    assert_equal 266, @game_teams_manager.game_count(16, 'away')
+    assert_equal 534, @game_teams_manager.game_count(16)
     assert_equal 102, @game_teams_manager.game_count(54)
   end
 
@@ -44,5 +49,13 @@ class GameTeamsManagerTest < Minitest::Test
 
   def test_worst_offense
     assert_equal 7, @game_teams_manager.worst_offense
+  end
+
+  def test_highest_scoring_visitor
+    assert_equal 6, @game_teams_manager.highest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal 54, @game_teams_manager.highest_scoring_home_team
   end
 end

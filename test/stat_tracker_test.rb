@@ -77,4 +77,12 @@ class StatTrackerTest < Minitest::Test
   def test_worst_offense
     assert_equal "Utah Royals FC", @stat_tracker.worst_offense
   end
+
+  def test_highest_scoring_visitor
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
+  end
 end
