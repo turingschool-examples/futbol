@@ -51,4 +51,18 @@ class GamesRepo
     end.to_f / @games.count
     average_goals.round(2)
   end
+
+  def average_goals_by_season
+    hash = count_of_games_by_season
+    hash.each_pair do |season, num_games|
+      season_games = @games.select do |game|
+        game.season == season
+      end
+      hash[season] = season_games.sum do |game|
+        game.total_goals
+      end.to_f / num_games
+      hash[season] = hash[season].round(2)
+    end
+    hash
+  end
 end
