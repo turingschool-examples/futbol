@@ -17,4 +17,8 @@ class TeamsRepo
       Team.new(row, self)
     end
   end
+
+  def count_of_teams
+    @teams.count
+  end
 end
