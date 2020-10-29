@@ -187,7 +187,11 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_team_id_highest_tackles
-    assert_equal [26, 3691], @season_statistics.team_id_highest_tackles("20132014", @object_data.games, @object_data.game_teams, @object_data.teams)
+    assert_equal 26, @season_statistics.team_id_highest_tackles("20132014", @object_data.games, @object_data.game_teams, @object_data.teams)
+  end
+
+  def test_team_id_lowest_tackles
+    assert_equal 1, @season_statistics.team_id_lowest_tackles("20132014", @object_data.games, @object_data.game_teams, @object_data.teams)
   end
 
   def test_fewest_tackles
