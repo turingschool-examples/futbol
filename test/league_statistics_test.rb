@@ -1,6 +1,7 @@
 require "minitest/autorun"
 require "minitest/pride"
 require "./lib/league_statistics"
+require "./lib/game_statistics"
 require './lib/object_data'
 require './lib/stat_tracker'
 
@@ -28,7 +29,9 @@ class LeagueStatisticsTest < Minitest::Test
     assert_equal 32, @league_statistics.count_of_teams(@object_data.teams)
   end
 
-  
+  def test_best_offense
+    assert_equal "Reign FC", @league_statistics.best_offense(@object_data.teams)
+  end
 
 
 
