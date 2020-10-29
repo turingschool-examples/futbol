@@ -219,4 +219,59 @@ class StatTracker
     end
     losing_coach = coaches_by_id[losing_team[0]]
   end
+
+  def most_accurate_team(season_id)
+    team_stats = {}
+    #{
+    #  1: {
+    #    goals: 5,
+     #   shots: 10
+     # }
+    #}
+    game_id_per_season = []
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      game_id_per_season << row[:game_id] if row[:season] == season_id
+    end
+
+    CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
+      if game_id_per_season.include?(row[:game_id])
+        if team_stats[row[:team_id]]
+          team_stats[row[:team_id]][:shots] += row[:shots].to_i
+          team_stats[row[:team_id]][:goals] += row[:goals].to_i
+        else
+          team_stats[row[:team_id]] = {shots: row[:shots].to_i, goals: row[:goals].to_i}
+        end
+      end
+    end
+    most_accurate_team_id = team_stats.max_by do |team_id, stats|
+      stats[:goals].to_f / stats[:shots]
+    end[0]
+    CSV.foreach(teams, headers: true, header_converters: :symbol) do |row|
+      return row[:teamname] if row[:team_id] == most_accurate_team_id
+    end
+  end
+
+  def least_accurate_team(season_id)
+    team_stats = {}
+    game_id_per_season = []
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      game_id_per_season << row[:game_id] if row[:season] == season_id
+    end
+    CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
+      if game_id_per_season.include?(row[:game_id])
+        if team_stats[row[:team_id]]
+          team_stats[row[:team_id]][:shots] += row[:shots].to_i
+          team_stats[row[:team_id]][:goals] += row[:goals].to_i
+        else
+          team_stats[row[:team_id]] = {shots: row[:shots].to_i, goals: row[:goals].to_i}
+        end
+      end
+    end
+   least_accurate_team_id = team_stats.min_by do |team_id, stats|
+    stats[:goals].to_f / stats[:shots]
+    end[0]
+    CSV.foreach(teams, headers: true, header_converters: :symbol) do |row|
+      return row[:teamname] if row[:team_id] == least_accurate_team_id
+    end
+  end
 end
