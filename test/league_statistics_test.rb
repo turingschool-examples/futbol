@@ -61,10 +61,10 @@ class LeagueStatisticsTest < Minitest::Test
     assert_equal '6', @league_statistics.find_highest_goal_team_id
   end
 
-  # def test_it_can_find_highest_goal
-  #   skip
-  #   assert_equal 5, @league_statistics.find_highest_goal
-  # end
+  def test_it_can_find_lowest_goal
+    # skip
+    assert_equal '5', @league_statistics.find_lowest_goal_team_id
+  end
   #
   # def test_it_can_find_highest_goal
   #   skip

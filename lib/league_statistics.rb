@@ -64,14 +64,8 @@ class LeagueStatistics
     game_teams_data_set.max_by {|goal| goal[1]}[0]
   end
 
-  def find_lowest_goal
-    game_teams_data_set.min_by do |goal|
-        goal[1]
-      end
-  end
-
   def find_lowest_goal_team_id
-    find_lowest_goal[0]
+    game_teams_data_set.min_by {|goal| goal[1]}[0]
   end
 
   def all_teams_away_and_won
