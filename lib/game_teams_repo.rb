@@ -4,3 +4,4 @@ class GameTeamsRepo
     @parent = parent
   end
 end
+#add percentage games stats methods 

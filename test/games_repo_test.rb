@@ -33,4 +33,8 @@ class GamesRepoTest < Minitest::Test
   def test_it_can_select_lowest_total_goals
     assert_equal 0, @games_repo.lowest_total_goals
   end
+
+  def test_it_can_count_games_by_season
+    assert_equal 0, @games_repo.count_of_games_by_season
+  end
 end
