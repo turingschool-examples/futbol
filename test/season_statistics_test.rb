@@ -125,6 +125,11 @@ class SeasonStatisticsTest < Minitest::Test
     assert_equal 0.5, @season_statistics.shot_on_goal_ratio(dummy_data)
   end
 
+  def test_wins_to_percentage
+    dummy_data = {:wins => 300, :total => 400}
+    assert_equal 0.75, @season_statistics.wins_to_percentage(dummy_data)
+  end
 
+  
 
 end
