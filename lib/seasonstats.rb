@@ -9,6 +9,7 @@ class SeasonStats
     @locations = locations
     @games_teams_table = CSV.parse(File.read(@locations[:game_teams]), headers: true)
     @games_table = CSV.parse(File.read(@locations[:games]), headers: true)
+    @teams_table = CSV.parse(File.read(@locations[:teams]), headers: true)
   end
 
   def game_ids_per_season
@@ -71,5 +72,16 @@ class SeasonStats
       percentage
     end
     coach[0]
+  end
+
+  def team_scores(season, header)
+    scores = {}
+    games_in_season(season).each do |game|
+      if scores[game["team_id"]]
+        scores[game["team_id"]] += game[header].to_i
+      else scores[game["team_id"]] = game[header].to_i
+      end
+    end
+    scores
   end
 end

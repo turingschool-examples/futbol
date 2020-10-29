@@ -55,4 +55,14 @@ class SeasonStatsTest < Minitest::Test
   def test_worst_coach
     assert_equal "John Tortorella", @seasonstats.worst_coach("20122013")
   end
+
+  def test_team_scores_with_goals
+    expected = {"3"=>2, "16"=>2, "8"=>2, "9"=>1}
+    assert_equal expected, @seasonstats.team_scores("20122013", "goals")
+  end
+
+  def test_team_scores_with_shots
+    expected = {"3"=>8, "16"=>8, "8"=>12, "9"=>7}
+    assert_equal expected, @seasonstats.team_scores("20122013", "shots")
+  end
 end
