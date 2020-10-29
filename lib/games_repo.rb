@@ -27,4 +27,10 @@ class GamesRepo
       game.total_goals
     end.total_goals
   end
+
+  def count_of_games_in_season(season)
+    @games.select do |game|
+      game.season == season
+
+  end
 end
