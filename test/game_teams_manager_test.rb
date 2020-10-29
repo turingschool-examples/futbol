@@ -62,4 +62,8 @@ class GameTeamsManagerTest < Minitest::Test
   def test_lowest_scoring_visitor
     assert_equal 27, @game_teams_manager.lowest_scoring_visitor
   end
+
+  def test_lowest_scoring_home_team
+    assert_equal 7, @game_teams_manager.lowest_scoring_home_team
+  end
 end
