@@ -80,4 +80,10 @@ class StatTrackerTest < MiniTest::Test
   def test_least_accurate_team
     assert_equal "Chicago Fire", @stat_tracker.least_accurate_team("20152016")
   end
+
+  def test_most_tackles
+    assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20152016")
+  end
+
+  
 end
