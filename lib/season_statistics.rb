@@ -33,8 +33,8 @@ class SeasonStatistics
     end[0]
   end
 
-  def most_accurate_team(season_str, game, game_teams)
-    shots_and_goals_by_team_id(season_str, game, game_teams)
+  def most_accurate_team(season_str, game, game_teams, teams)
+    team_name(most_accurate_team_id(season_str, game, game_teams, teams), teams)
   end
 
   def shots_and_goals_by_team_id(season_str, game, game_teams)
@@ -53,6 +53,16 @@ class SeasonStatistics
 
   def shot_on_goal_ratio(hash)
     hash[:goals].to_f / hash[:shots]
+  end
+
+  def most_accurate_team_id(season_str, game, game_teams, teams)
+    shots_and_goals_by_team_id(season_str, game, game_teams).max_by do |team_id, goals_shots|
+      shot_on_goal_ratio(goals_shots)
+    end[0]
+  end
+
+  def team_name(id, teams)
+    teams[id.to_s].teamName
   end
 
 end
