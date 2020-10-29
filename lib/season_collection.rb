@@ -1,4 +1,8 @@
-module SeasonCollection
+class SeasonCollection
+
+  def initialize(parent)
+    @parent = parent
+  end
 
   def get_first_game
     @games_collection.games.first

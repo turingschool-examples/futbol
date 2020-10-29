@@ -1,11 +1,11 @@
 require_relative './test_helper'
 require './lib/games_collection'
-require 'CSV'
+require 'csv'
 
 class GamesCollectionTest < Minitest::Test
 
   def setup
-    @gamescollection = GamesCollection.new('./data/games_dummy.csv')
+    @gamescollection = GamesCollection.new('./data/games_dummy.csv', self)
   end
 
   def test_it_exists

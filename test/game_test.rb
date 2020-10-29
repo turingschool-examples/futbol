@@ -7,7 +7,7 @@ class GameTest < Minitest::Test
   def setup
     @games = []
       CSV.foreach('./data/games_dummy.csv', headers: true, header_converters: :symbol) do |row|
-      @games << Game.new(row)
+      @games << Game.new(row, self)
     end
   end
 

@@ -2,7 +2,7 @@ require_relative './test_helper'
 require './lib/game_team'
 require './lib/game_teams_collection'
 require './lib/stat_tracker'
-require 'csv'
+
 
 class GameTeamTest < Minitest::Test
 

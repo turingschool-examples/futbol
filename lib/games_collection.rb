@@ -1,6 +1,5 @@
 require_relative './game'
 require_relative './game_teams_collection'
-require 'CSV'
 
 class GamesCollection
   attr_reader :games
@@ -15,6 +14,32 @@ class GamesCollection
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       @games << Game.new(row, self)
     end
+  end
+
+  def highest_total_score
+    highest = @games.max_by do |game|
+      game.total_score
+    end
+    highest.total_score
+  end
+
+  def lowest_total_score
+    lowest = @games.min_by do |game|
+      game.total_score
+    end
+    lowest.total_score
+  end
+
+  def percentage_home_wins
+    (home_wins.to_f / @games.length).round(2)
+  end
+
+  def percentage_visitor_wins
+    (visitor_wins.to_f / @games.length).round(2)
+  end
+
+  def percentage_ties
+    (ties.to_f / @games.length).round(2)
   end
 
   def home_wins

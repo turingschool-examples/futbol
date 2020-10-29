@@ -1,11 +1,11 @@
 require_relative './test_helper'
 require './lib/teams_collection'
-require 'CSV'
+
 
 class TeamsCollectionTest < Minitest::Test
 
   def setup
-    @teamscollection = TeamsCollection.new('./data/teams.csv')
+    @teamscollection = TeamsCollection.new('./data/teams.csv', self)
   end
 
   def test_it_exists

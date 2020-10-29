@@ -1,6 +1,7 @@
 require_relative './games_collection'
 require_relative './teams_collection'
 require_relative './game_teams_collection'
+require 'csv'
 
 #THE PARENT
 class StatTracker
@@ -10,7 +11,7 @@ class StatTracker
     @games = GamesCollection.new(locations[:games], self)
     @teams = TeamsCollection.new(locations[:teams], self)
     @game_teams = GameTeamsCollection.new(locations[:game_teams], self)
-    # @seasons_collection = SeasonsCollection.new(locations[:games], locations[:game_teams])
+    # @seasons_collection = SeasonsCollection.new(self)
   end
 
   def self.from_csv(locations)
@@ -22,29 +23,23 @@ class StatTracker
   end
 
   def highest_total_score
-    highest = @games.games.max_by do |game|
-      game.total_score
-    end
-    highest.total_score
+    @games.highest_total_score
   end
 
   def lowest_total_score
-    lowest = @games.games.min_by do |game|
-      game.total_score
-    end
-    lowest.total_score
+    @games.lowest_total_score
   end
 
   def percentage_home_wins
-    (@games.home_wins.to_f / @games.games.length).round(2)
+    @games.percentage_home_wins
   end
 
   def percentage_visitor_wins
-    (@games.visitor_wins.to_f / @games.games.length).round(2)
+    @games.percentage_visitor_wins
   end
 
   def percentage_ties
-    (@games.ties.to_f / @games.games.length).round(2)
+    @games.percentage_ties
   end
 
   def count_of_games_by_season

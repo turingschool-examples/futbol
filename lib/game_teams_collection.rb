@@ -1,5 +1,4 @@
 require_relative './game_team'
-require 'CSV'
 
 class GameTeamsCollection
   attr_reader :game_teams
@@ -82,44 +81,44 @@ class GameTeamsCollection
   end
 
   def best_offense
-    goals = average_goals_by_team.max_by do |goals|
+    max_goals = average_goals_by_team.max_by do |goals|
       goals[-1]
     end
-    find_team_name(goals[0])
+    find_team_name(max_goals[0])
   end
 
   def worst_offense
-    goals = average_goals_by_team.min_by do |goals|
+    min_goals = average_goals_by_team.min_by do |goals|
       goals[-1]
     end
-    find_team_name(goals[0])
+    find_team_name(min_goals[0])
   end
 
   def highest_scoring_visitor
-    goals = average_away_goals_by_team.max_by do |goals|
+    highest_goals = average_away_goals_by_team.max_by do |goals|
       goals[-1]
     end
-    find_team_name(goals[0])
+    find_team_name(highest_goals[0])
   end
 
   def highest_scoring_hometeam
-    goals = average_home_goals_by_team.max_by do |goals|
+    highest_goals = average_home_goals_by_team.max_by do |goals|
       goals[-1]
     end
-    find_team_name(goals[0])
+    find_team_name(highest_goals[0])
   end
 
   def lowest_scoring_visitor
-    goals = average_away_goals_by_team.min_by do |goals|
+    lowest_goals = average_away_goals_by_team.min_by do |goals|
       goals[-1]
     end
-    find_team_name(goals[0])
+    find_team_name(lowest_goals[0])
   end
 
   def lowest_scoring_hometeam
-    goals = average_home_goals_by_team.min_by do |goals|
+    lowest_goals = average_home_goals_by_team.min_by do |goals|
       goals[-1]
     end
-    find_team_name(goals[0])
+    find_team_name(lowest_goals[0])
   end
 end
