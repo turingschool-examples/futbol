@@ -37,4 +37,9 @@ class GamesRepoTest < Minitest::Test
   def test_it_can_count_games_in_season
     assert_equal 806, @games_repo.count_of_games_in_season("20122013")
   end
+
+  def test_it_can_return_hash_games_by_season
+    expected = {}
+    assert_equal expected ,@games_repo.count_of_games_by_season
+  end
 end
