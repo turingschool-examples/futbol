@@ -1,18 +1,16 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require './lib/team'
 require './lib/team_manager'
 
 class TeamManagerTest < Minitest::Test
 
   def setup
-    @team_manager = TeamManager.new('./data/teams.csv')
-    @team_manager.all
+    @team_manager = TeamManager.new('./data/teams.csv', 'stat_tracker')
   end
 
   def test_it_exists_and_has_attributes
     assert_instance_of TeamManager, @team_manager
-    assert_equal './data/teams.csv', @team_manager.teams_data
+    assert_equal Array, @team_manager.teams.class
   end
 
   def test_it_gives_array_of_all_teams

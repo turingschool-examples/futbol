@@ -4,8 +4,7 @@ require './lib/game_teams_manager'
 
 class GameTeamsManagerTest < Minitest::Test
   def setup
-    @game_teams_manager = GameTeamsManager.new('./data/game_teams.csv')
-    @game_teams_manager.all
+    @game_teams_manager = GameTeamsManager.new('./data/game_teams.csv', 'stat_tracker')
   end
 
   def test_it_exists_and_has_attributes
@@ -13,7 +12,6 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_it_can_add_array_of_all_game_team_objects
-    @game_teams_manager.all
     assert_instance_of GameTeam, @game_teams_manager.game_teams.first
   end
 
@@ -35,8 +33,6 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_best_offense
-    assert_equal 54,
-    # assert_equal "Reign FC",
-     @game_teams_manager.best_offense
+    assert_equal 54, @game_teams_manager.best_offense
   end
 end

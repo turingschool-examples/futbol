@@ -1,17 +1,16 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require './lib/team'
 
 class TeamTest < Minitest::Test
 
   def setup
-    @team_info = {:team_id=>"1",
-                  :franchise_id=>"23",
-                  :team_name=>"Atlanta United",
-                  :abbreviation=>"ATL",
-                  :link=>"/api/v1/teams/1"
+    @team_info = {"team_id" =>"1",
+                  "franchise_id" =>"23",
+                  "team_name" =>"Atlanta United",
+                  "abbreviation" =>"ATL",
+                  "link"=> "/api/v1/teams/1"
                 }
-    @team = Team.new(@team_info)
+    @team = Team.new(@team_info, 'manager')
   end
 
   def test_it_exists_and_has_attributes

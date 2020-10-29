@@ -9,7 +9,7 @@ class GameTest < Minitest::Test
       home_team_id: 6,
       away_goals: 2,
       home_goals: 3,
-    })
+    }, 'manager')
   end
 
   def test_it_exists_and_has_attributes
