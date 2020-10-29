@@ -14,7 +14,7 @@ class TeamStatistics
     @stat_tracker[:game_teams]['game_id'].zip(@stat_tracker[:game_teams]['team_id'], @stat_tracker[:game_teams]['result'], @stat_tracker[:game_teams]['goals'])
   end
 
-  # Team Statistics
+  # Team Statistics Methods
   def team_info(team_id)
     team_data = {}
     headers = [:team_id, :franchise_id, :team_name, :abbreviation, :link]
@@ -72,7 +72,7 @@ class TeamStatistics
     team_info(highest_win_percentage(team_id))[:team_name]
   end
 
-  # Helpers
+  # Helper Methods
   def team_info_row(team_id)
     team_info_data_set.map do |item|
       return item if item[0] == team_id
