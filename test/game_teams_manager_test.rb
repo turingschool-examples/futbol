@@ -15,9 +15,15 @@ class GameTeamsManagerTest < Minitest::Test
     assert_instance_of GameTeam, @game_teams_manager.game_teams.first
   end
 
-  def test_goals_by_team
-    assert_equal Hash, @game_teams_manager.goals_by_team.class
-    assert_equal 32, @game_teams_manager.goals_by_team.keys.size
+  def test_total_goals_by_team
+    assert_equal 32, @game_teams_manager.total_goals_by_team.keys.size
+    assert_equal 1128, @game_teams_manager.total_goals_by_team[28]
+  end
+
+  def test_avg_goals_by_team
+    assert_equal 32, @game_teams_manager.avg_goals_by_team.keys.size
+    assert_equal 2.04, @game_teams_manager.avg_goals_by_team[4]
+    assert_equal 2.34, @game_teams_manager.avg_goals_by_team[54]
   end
 
   # def test_maximum_goals

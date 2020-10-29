@@ -21,4 +21,20 @@ class GameTest < Minitest::Test
     assert_equal 2, @game.away_goals
     assert_equal 3, @game.home_goals
   end
+
+  def test_home_win
+    assert @game.home_win?
+  end
+
+  def test_away_win
+    refute @game.visitor_win?
+  end
+
+  def test_tie?
+    refute @game.tie?
+  end
+
+  def total_score
+    assert_equal 5, @game.total_score
+  end
 end
