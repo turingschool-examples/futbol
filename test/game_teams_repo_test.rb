@@ -11,11 +11,16 @@ class GameTeamsRepoTest < Minitest::Test
     locations = {
       game_teams: game_teams_path
     }
-    @parent = mock("Stat_tracker")
+    @parent = mock()
     @game_teams_repo = GameTeamsRepo.new(locations[:game_teams_path], @parent)
   end
 
   def test_it_exists_and_has_attributes
     assert_instance_of Array, @game_teams_repo.game_teams
+    assert mock(), @parent
+  end
+
+  def test_create_game_teams
+    assert_instance_of GameTeams, @game_teams_repo.game_teams[0]
   end
 end
