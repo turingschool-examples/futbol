@@ -47,4 +47,8 @@ class GamesRepoTest < Minitest::Test
                 "20172018"=>1355}
     assert_equal expected ,@games_repo.count_of_games_by_season
   end
+
+  def test_it_can_average_goals_per_game
+    assert_equal 4.22, @games_repo.average_goals_per_game
+  end
 end
