@@ -75,4 +75,20 @@ class SeasonStatistics
     end[0]
   end
 
+  def most_tackles(season_str, game, game_teams, teams)
+    tackles_by_team_id(season_str, game, game_teams, teams)
+  end
+
+  def tackles_by_team_id(season_str, game, game_teams, teams)
+    tackles_count = Hash.new {|hash, key| hash[key] = 0}
+    game.each do |game_id_str, game_obj|
+      if season_str == game_obj.season
+          game_teams[game_id_str].each do |hoa, game_team_obj|
+            tackles_count[game_team_obj.team_id] += game_team_obj.tackles
+          end
+      end
+    end
+    tackles_count
+  end
+
 end

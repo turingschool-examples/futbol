@@ -145,11 +145,49 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_most_tackles
+    skip
     assert_equal "FC Cincinnati", @season_statistics.most_tackles("20132014", @object_data.games, @object_data.game_teams, @object_data.teams)
     assert_equal "Seattle Sounders FC", @season_statistics.most_tackles("20142015", @object_data.games, @object_data.game_teams, @object_data.teams)
   end
 
+  def test_tackles_by_team_id
+    expected = {
+      16=>1836,
+      19=>2087,
+      30=>1787,
+      21=>2223,
+      26=>3691,
+      24=>2515,
+      25=>1820,
+      23=>1710,
+      4=>2404,
+      17=>1783,
+      29=>2915,
+      15=>1904,
+      20=>1708,
+      18=>1611,
+      6=>2441,
+      8=>2211,
+      5=>2510,
+      2=>2092,
+      52=>2313,
+      14=>1774,
+      13=>1860,
+      28=>1931,
+      7=>1992,
+      10=>2592,
+      27=>2173,
+      1=>1568,
+      9=>2351,
+      22=>1751,
+      3=>2675,
+      12=>1807
+    }
+    assert_equal expected, @season_statistics.tackles_by_team_id("20132014", @object_data.games, @object_data.game_teams, @object_data.teams)
+  end
+
   def test_fewest_tackles
+    skip
     assert_equal "Atlanta United", @season_statistics.fewest_tackles("20132014", @object_data.games, @object_data.game_teams, @object_data.teams)
     assert_equal "Orlando City SC", @season_statistics.fewest_tackles("20142015", @object_data.games, @object_data.game_teams, @object_data.teams)
   end
