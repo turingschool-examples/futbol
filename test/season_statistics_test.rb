@@ -144,5 +144,14 @@ class SeasonStatisticsTest < Minitest::Test
     assert_equal 20, @season_statistics.most_accurate_team_id("20142015", @object_data.games, @object_data.game_teams, @object_data.teams)
   end
 
+  def test_most_tackles
+    assert_equal "FC Cincinnati", @season_statistics.most_tackles("20132014", @object_data.games, @object_data.game_teams, @object_data.teams)
+    assert_equal "Seattle Sounders FC", @season_statistics.most_tackles("20142015", @object_data.games, @object_data.game_teams, @object_data.teams)
+  end
+
+  def test_fewest_tackles
+    assert_equal "Atlanta United", @season_statistics.fewest_tackles("20132014", @object_data.games, @object_data.game_teams, @object_data.teams)
+    assert_equal "Orlando City SC", @season_statistics.fewest_tackles("20142015", @object_data.games, @object_data.game_teams, @object_data.teams)
+  end
 
 end
