@@ -93,4 +93,10 @@ class StatTrackerTest < Minitest::Test
   def test_lowest_scoring_home_team
     assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_home_team
   end
+
+  def test_winningest_coach
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20132014")
+    assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
+  end
+
 end

@@ -66,4 +66,18 @@ class GameTeamsManagerTest < Minitest::Test
   def test_lowest_scoring_home_team
     assert_equal 7, @game_teams_manager.lowest_scoring_home_team
   end
+
+  def test_it_gives_games_by_season
+    assert_equal 4, @game_teams_manager.games_by_season([2012030222, 2012030223]).size
+  end
+
+  def test_it_gives_coach_stats
+    expected = {"John Tortorella"=>{:game_count=>2, :num_wins=>0}, "Claude Julien"=>{:game_count=>2, :num_wins=>2}}
+    assert_equal expected, @game_teams_manager.coach_stats([2012030222, 2012030223])
+  end
+
+  def test_winningest_coach
+    assert_equal "Claude Julien", @game_teams_manager.winningest_coach([2012030222, 2012030223])
+    # assert_equal "John Tortorella", @game_teams_manager.winningest_coach([2012030222, 2012030223])
+  end
 end
