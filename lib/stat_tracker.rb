@@ -73,4 +73,8 @@ class StatTracker
   def lowest_scoring_home_team
     @team_manager.team_name(@game_teams_manager.lowest_scoring_home_team)
   end
+
+  def winningest_coach(season)
+    @game_teams_manager.games_by_season(@game_manager.game_ids_by_season(season))
+  end
 end
