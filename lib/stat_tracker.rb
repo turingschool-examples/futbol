@@ -69,7 +69,7 @@ class StatTracker
   end
 
   def best_offense
-    @seasons.best_offense
+    find_by_id(@seasons.best_offense[0])
   end
 
   def worst_offense

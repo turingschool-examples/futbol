@@ -7,9 +7,7 @@ require 'csv'
 class SeasonsCollectionTest < Minitest::Test
   def setup
     parent = mock("stat_tracker")
-    parent.stubs(:find_season_id).returns("20122013")
-    parent.stubs(:find_by_id).returns("FC Dallas")
-
+    parent.stubs(:find_season_id => "20122013", :find_by_id => "FC Dallas")
     @seasonids = ["20122013","20132014"]
     @teamids =  ["6", "3"]
     @filepath = './data/game_teams_dummy.csv'
@@ -19,7 +17,7 @@ class SeasonsCollectionTest < Minitest::Test
   def test_it_exists_and_has_attributes
 
     assert_instance_of SeasonsCollection, @seasoncollection
-    assert_equal 4, @seasoncollection.seasons.count
+    assert_equal 2, @seasoncollection.seasons.count
   end
 
   def test_find_season_id
@@ -82,6 +80,32 @@ class SeasonsCollectionTest < Minitest::Test
 
   def test_best_offense
 
-    assert_equal "FC Dallas", @seasoncollection.best_offense
+    assert_equal ["6", 2.8], @seasoncollection.best_offense
   end
+
+  def test_worst_offense
+
+    assert_equal ["3", 1.6], @seasoncollection.worst_offense
+  end
+
+def test_highest_scoring_visitor
+
+  assert_equal [], @seasoncollection.highest_scoring_visitor
+end
+
+def test_highest_scoring_hometeam
+
+  # assert_equal [], @seasoncollection.highest_scoring_hometeam
+end
+
+def test_lowest_scoring_visitor
+
+  # assert_equal [], @seasoncollection.lowest_scoring_visitor
+end
+
+def test_lowest_scoring_hometeam
+
+  # assert_equal [], @seasoncollection.lowest_scoring_hometeam
+end
+
 end

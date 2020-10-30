@@ -25,6 +25,39 @@ class Season
     def total_games
       game_teams.count
     end
+
+    def away_game
+      game_teams.count do |game_team|
+        if game_team[:hoa] == "away"
+          game_team
+        end
+      end
+    end
+
+    def home_game
+      game_teams.count do |game_team|
+        if game_team[:hoa] == "home"
+          game_team
+        end
+      end
+    end
+
+    def away_goals
+      require 'pry'; binding.pry
+      game_teams.sum do |game_team|
+        if game_team[:hoa] == "away"
+          game_team[:goals].to_i
+        end
+      end
+    end
+
+    def home_goals
+      game_teams.sum do |game_team|
+        if game_team[:hoa] == "home"
+          game_team[:goals].to_i
+        end
+      end
+    end
   # def average_goals_by_team
     # average = Hash.new(0)
     # game_teams.each do |game_team|
