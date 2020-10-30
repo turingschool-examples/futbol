@@ -75,6 +75,6 @@ class StatTracker
   end
 
   def winningest_coach(season)
-    @game_teams_manager.games_by_season(@game_manager.game_ids_by_season(season))
+    @game_teams_manager.winningest_coach(@game_manager.game_ids_by_season(season))
   end
 end
