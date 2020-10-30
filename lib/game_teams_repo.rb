@@ -47,5 +47,12 @@ class GameTeamsRepo
       average_goals_by(id)
     end
   end
+
+  def lowest_average_goals
+    ids = team_ids
+    ids.min_by do |id|
+      average_goals_by(id)
+    end
+  end
 end
 #add percentage games stats methods 
