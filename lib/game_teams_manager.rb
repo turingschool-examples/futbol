@@ -95,8 +95,20 @@ class GameTeamsManager
     end
   end
 
-  def winningest_coach
+  def coach_stats(game_ids)
+    hash = Hash.new {|hash, key| hash[key] = Hash.new {|hash, key| hash[key] = 0}}
+    games_by_season(game_ids).each do |game|
+      hash[game.head_coach][:game_count] += 1
+      hash[game.head_coach][:num_wins]
+      hash[game.head_coach][:num_wins] += 1 if game.result == "WIN"
+    end
+    hash
+  end
 
+  def winningest_coach(game_ids)
+    coach_stats(game_ids).max_by do |coach_name, stats|
+      stats[:num_wins] / stats[:game_count].to_f
+    end.first
   end
 
 end
