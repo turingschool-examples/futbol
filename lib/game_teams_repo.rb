@@ -62,10 +62,10 @@ class GameTeamsRepo
     end
   end
 
-  def percentage_home_wins
-    home_games = games_containing(:hoa, "home")
-    home_wins = games_containing(:result, "WIN", home_games).count.to_f 
-    (home_wins / home_games.count).round(2)
+  def percentage_wins(hoa)
+    games = games_containing(:hoa, hoa)
+    wins = games_containing(:result, "WIN", games).count.to_f 
+    (wins / games.count).round(2)
   end
 end
 #add percentage games stats methods
