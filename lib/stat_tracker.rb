@@ -46,4 +46,8 @@ class StatTracker
   def average_goals_per_game
     @games_repo.average_goals_per_game
   end
+
+  def average_goals_by_season
+    @games_repo.average_goals_by_season
+  end
 end
