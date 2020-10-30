@@ -4,7 +4,7 @@ require "./lib/game"
 require "./lib/game_loader"
 require "mocha/minitest"
 
-class Test < Minitest::Test
+class GameTest < Minitest::Test
   def setup
     data = {
             'game_id'      => '2012030221',

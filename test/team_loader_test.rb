@@ -16,8 +16,7 @@ class TeamLoaderTest < Minitest::Test
       game_teams: game_teams_path
     }
 
-    stat_tracker = StatTracker.from_csv(locations)
-    @team_loader = GameLoader.new(team_path, stat_tracker)
+    stat_tracker = TeamLoader.new(team_path, stat_tracker)
   end
 
   def test_it_exists_and_has_attributes
