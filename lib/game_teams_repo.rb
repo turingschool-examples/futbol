@@ -1,15 +1,15 @@
 require 'CSV'
 require './lib/game_teams'
 class GameTeamsRepo
-  attr_reader :parent, 
-              :game_teams 
-  
+  attr_reader :parent,
+              :game_teams
+
   def initialize(path, parent)
     @parent = parent
     @game_teams = create_game_teams(path)
   end
 
-  def create_game_teams(path) 
+  def create_game_teams(path)
     rows = CSV.readlines('./data/game_teams.csv', headers: :true , header_converters: :symbol)
 
     rows.map do |row|
@@ -19,15 +19,15 @@ class GameTeamsRepo
 
   def find_team_by(id)
     @game_teams.find_all do |game_team|
-      game_team.team_id == id 
+      game_team.team_id == id
     end
   end
 
   def average_goals_by(id)
     team_games = find_team_by(id)
-    
+
     total_goals = team_games.sum do |team_game|
-      team_game.goals 
+      team_game.goals
     end
     (total_goals.to_f / team_games.count).round(2)
   end
@@ -54,5 +54,14 @@ class GameTeamsRepo
       average_goals_by(id)
     end
   end
+
+  def games_containing(header, value, games = @team_games)
+    games.select do |game|
+      game.header == value
+    end
+  end
+
+  def percentage_home_wins
+    home_games = games_containing
 end
-#add percentage games stats methods 
+#add percentage games stats methods
