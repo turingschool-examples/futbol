@@ -41,7 +41,11 @@ class GameTeamsRepoTest < Minitest::Test
     assert_equal 7, @game_teams_repo.lowest_average_goals
   end
 
-  def games_containing
-    assert_instance_of Array, @game_teams_repo.games_containing
+  def test_games_containing
+    assert_equal 2, @game_teams_repo.games_containing(:game_id, "2012030221").length
   end 
+
+  def test_percentage_home_wins
+    assert_equal 0.44, @game_teams_repo.percentage_home_wins
+  end
 end
