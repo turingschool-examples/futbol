@@ -49,4 +49,8 @@ class GameTeamsRepoTest < Minitest::Test
     assert_equal 0.44, @game_teams_repo.percentage_wins("home")
     assert_equal 0.36, @game_teams_repo.percentage_wins("away")
   end
+
+  def test_percentage_ties
+    assert_equal 0.20, @game_teams_repo.percentage_ties
+  end
 end
