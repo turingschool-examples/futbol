@@ -29,8 +29,7 @@ class TeamsRepoTest < Minitest::Test
     assert_equal 32, @teams_repo.count_of_teams
   end
 
-  def test_best_offense
-    
-    assert_equal "Reign FC", @teams_repo.best_offense
+  def test_team_name
+    assert_equal "Reign FC", @teams_repo.team_name(54)
   end
 end
