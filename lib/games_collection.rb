@@ -2,7 +2,7 @@ require_relative './game'
 require_relative './game_teams_collection'
 
 class GamesCollection
-  attr_reader :games, :season_ids
+  attr_reader :games, :season_ids, :games_by_season
 
   def initialize(file_path, parent)
     @parent          = parent
@@ -29,7 +29,9 @@ class GamesCollection
   end
 
   def find_season_id(game_id)
-    
+    @games_by_season.keys.find do |season|
+      @games_by_season[season].include?(game_id)
+      end
   end
 
   def highest_total_score

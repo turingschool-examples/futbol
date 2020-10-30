@@ -9,10 +9,20 @@ class SeasonCollection
     create_seasons(filepath)
   end
 
-  def create_seasons(filepath)
-    seasons_by_team = map_seasons_by_team
+  def seasons_by_team(filepath)
+    @seasons_by_team = map_seasons_by_team
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
-      season = 
+      season = find_season_id(row[:game_id])
+      @seasons_by_team[row[:team_id]][season] << row.to_h
+    end
+  end
+
+  def create_seasons(filepath)
+    @seasons_by_team.each do |team_id, seasons|
+      seasons.each do |season_id, games_teams|
+        @seasons << Season.new(team_id, season_id, games_teams, self)
+      end
+    end 
   end
 
   def find_season_id(game_id)
@@ -26,26 +36,4 @@ class SeasonCollection
         end
       end  
   end
-
-  # def get_first_game
-  #   @games_collection.games.first
-  # end
-
-  # def games_by_season
-  #   @games_collection.count_of_games_by_season
-  # end
-
-  # def goals_by_team
-  #   wins = Hash.new(0)
-  #   games_by_season.each do |game|
-  #     wins[game:season] += 1
-
-  # end
-
-  # def winningest_coach
-  # end
-
-  # def worst_coach
-  # end
-
 end
