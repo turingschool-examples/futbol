@@ -1,7 +1,7 @@
 require "csv"
 require "./lib/game"
 
-class GameLoader
+class GameCollection
   attr_reader :game_path, :stat_tracker
 
   def initialize(game_path, stat_tracker)

@@ -6,7 +6,7 @@ class Team
               :stadium,
               :link
 
-  def initialize(data, loader)
+  def initialize(data, collection)
     @team_id      = data['team_id']
     @franchise_id = data['franchiseId']
     @team_name    = data['teamName']

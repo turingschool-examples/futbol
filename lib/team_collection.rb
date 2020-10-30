@@ -1,7 +1,7 @@
 require "csv"
 require "./lib/team"
 
-class TeamLoader
+class TeamCollection
   attr_reader :team_path, :stat_tracker
 
   def initialize(team_path, stat_tracker)

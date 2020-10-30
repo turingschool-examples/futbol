@@ -15,7 +15,7 @@ class GameTeam
               :giveaways,
               :takeaways
 
-  def initialize(data, loader)
+  def initialize(data, collection)
     @game_id     = data['game_id']
     @team_id     = data['team_id']
     @HoA         = data['HoA']

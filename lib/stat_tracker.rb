@@ -1,11 +1,11 @@
-require './lib/game_loader'
-require './lib/team_loader'
-require './lib/game_team_loader'
+require './lib/game_collection'
+require './lib/team_collection'
+require './lib/game_team_collection'
 
 class StatTracker
-  attr_reader :game_loader,
-              :team_loader,
-              :game_team_loader
+  attr_reader :game_collection,
+              :team_collection,
+              :game_team_collection
 
   def self.from_csv(locations)
     StatTracker.new(locations)
@@ -16,8 +16,8 @@ class StatTracker
   end
 
   def load_files(locations)
-    @game_loader = GameLoader.new(locations[:games], self)
-    @team_loader = TeamLoader.new(locations[:teams], self)
-    @game_team_loader = GameTeamLoader.new(locations[:game_teams], self)
+    @game_collection = GameCollection.new(locations[:games], self)
+    @team_collection = TeamCollection.new(locations[:teams], self)
+    @game_team_collection = GameTeamCollection.new(locations[:game_teams], self)
   end
 end

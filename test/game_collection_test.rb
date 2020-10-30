@@ -1,9 +1,10 @@
-require "minitest/autorun"
-require "minitest/pride"
-require "./lib/team_loader"
+require 'minitest/autorun'
+require 'minitest/pride'
+require './lib/game_collection'
 require './lib/stat_tracker'
+require 'mocha/minitest'
 
-class TeamLoaderTest < Minitest::Test
+class GameCollectionTest < Minitest::Test
   def setup
     game_path       = './data/games.csv'
     team_path       = './data/teams.csv'
@@ -15,11 +16,11 @@ class TeamLoaderTest < Minitest::Test
                 game_teams: game_teams_path
               }
 
-    stat_tracker = mock('stat_tracker')
-    @team_loader = TeamLoader.new(team_path, stat_tracker)
+    stat_tracker     = mock('stat_tracker')
+    @game_collection = GameCollection.new(game_path, stat_tracker)
   end
 
   def test_it_exists_and_has_attributes
-    assert_instance_of TeamLoader, @team_loader
+    assert_instance_of GameCollection, @game_collection
   end
 end

@@ -10,7 +10,7 @@ class Game
               :venue,
               :venue_link
 
-  def initialize(data, loader)
+  def initialize(data, collection)
     @game_id      = data['game_id']
     @season       = data['season']
     @type         = data['type']

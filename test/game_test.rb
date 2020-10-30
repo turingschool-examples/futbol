@@ -1,8 +1,8 @@
-require "minitest/autorun"
-require "minitest/pride"
-require "./lib/game"
-require "./lib/game_loader"
-require "mocha/minitest"
+require 'minitest/autorun'
+require 'minitest/pride'
+require './lib/game'
+require './lib/game_collection'
+require 'mocha/minitest'
 
 class GameTest < Minitest::Test
   def setup
@@ -18,8 +18,8 @@ class GameTest < Minitest::Test
             'venue'        => 'Toyota Stadium',
             'venue_link'   => '/api/v1/venues/null'
           }
-    loader = mock('GameLoader')
-    @game = Game.new(data, loader)
+    collection = mock('GameCollection')
+    @game      = Game.new(data, collection)
   end
 
   def test_it_exists_and_has_attributes

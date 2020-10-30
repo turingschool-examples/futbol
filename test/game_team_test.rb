@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/game_team'
-require './lib/game_team_loader'
+require './lib/game_team_collection'
 require 'mocha/minitest'
 
 class GameTeamTest < Minitest::Test
@@ -23,8 +23,8 @@ class GameTeamTest < Minitest::Test
             'giveaways'                => '17',
             'takeaways'                => '7'
           }
-    loader = mock('GameTeamLoader')
-    @game_team = GameTeam.new(data, loader)
+    collection = mock('GameTeamCollection')
+    @game_team = GameTeam.new(data, collection)
   end
 
   def test_it_exists_and_has_attributes

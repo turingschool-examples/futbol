@@ -1,8 +1,8 @@
-require "minitest/autorun"
-require "minitest/pride"
-require "./lib/team"
-require "./lib/team_loader"
-require "mocha/minitest"
+require 'minitest/autorun'
+require 'minitest/pride'
+require './lib/team'
+require './lib/team_collection'
+require 'mocha/minitest'
 
 class TeamTest < Minitest::Test
   def setup
@@ -14,8 +14,8 @@ class TeamTest < Minitest::Test
             'Stadium'      => 'Mercedes-Benz Stadium',
             'link'         => '/api/v1/teams/1'
           }
-    loader = mock('TeamLoader')
-    @team = Team.new(data, loader)
+    collection = mock('TeamCollection')
+    @team      = Team.new(data, collection)
   end
 
   def test_it_exists_and_has_attributes
