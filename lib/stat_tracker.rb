@@ -1,19 +1,21 @@
 require 'csv'
 
 class StatTracker
+  attr_reader :game_loader,
+              :team_loader,
+              :game_team_loader
+
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
 
-  attr_reader :argument
-
   def initialize(locations)
-    @load_files(locations)
+    load_files(locations)
   end
 
   def load_files(locations)
-    @games = Game.new(locations[:games], self)
-    @teams = Team.new(locations[:teams], self)
-    @game_teams = GameTeam.new(locations[:game_teams], self)
+    @game_loader = GameLoader.new(locations[:games], self)
+    @team_loader = TeamLoader.new(locations[:teams], self)
+    @game_team_loader = GameTeamLoader.new(locations[:game_teams], self)
   end
 end
