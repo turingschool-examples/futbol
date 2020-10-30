@@ -82,15 +82,15 @@ class LeagueStatisticsTest < Minitest::Test
     assert_equal expected, @league_statistics.total_goals_per_team_id_away
   end
 
-  # def test_it_knows_total_goals_per_team_id_home
-  #
-  #   assert_equal 5, @league_statistics.total_goals_per_team_id_home
-  # end
+  def test_it_knows_total_goals_per_team_id_home
+    expected = {"6"=>12.0, "3"=>3.0, "5"=>1.0, "24"=>6.0, "20"=>3.0}
+    assert_equal expected, @league_statistics.total_goals_per_team_id_home
+  end
 
-  # def test_it_can_find_highest_goal
-  #   skip
-  #   assert_equal 5, @league_statistics.find_highest_goal
-  # end
+  def test_it_can_find_highest_average_team_id_visitor
+
+    assert_equal "24", @league_statistics.highest_average_team_id_visitor
+  end
   #
   # def test_it_can_find_highest_goal
   #   skip
