@@ -68,7 +68,7 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_it_gives_games_by_season
-    assert_equal 806, @game_teams_manager.games_by_season('20122013').size
+    assert_equal 4, @game_teams_manager.games_by_season([2012030222, 2012030223]).size
   end
 
 
