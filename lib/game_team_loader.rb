@@ -14,6 +14,5 @@ class GameTeamLoader
   def create_game_teams(game_team_path)
     data = CSV.parse(File.read(game_team_path), headers: true)
     @game_teams = data.map {|data| GameTeam.new(data, self)}
-    require "pry"; binding.pry
   end
 end

@@ -32,4 +32,6 @@ class GameTeam
     @giveaways   = data['giveaways']
     @takeaways   = data['takeaways']
   end
+
+  # a method called game that returns a game object
 end

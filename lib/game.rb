@@ -22,4 +22,6 @@ class Game
     @venue        = data['venue']
     @venue_link   = data['venue_link']
   end
+
+  # a method that returns a game object
 end

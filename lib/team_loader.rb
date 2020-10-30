@@ -1,5 +1,5 @@
 require "csv"
-require './lib/team'
+require "./lib/team"
 
 class TeamLoader
   attr_reader :team_path, :stat_tracker

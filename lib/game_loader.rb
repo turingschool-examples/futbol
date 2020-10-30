@@ -1,4 +1,5 @@
 require "csv"
+require "./lib/game"
 
 class GameLoader
   attr_reader :game_path, :stat_tracker
