@@ -71,9 +71,13 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal 4, @game_teams_manager.games_by_season([2012030222, 2012030223]).size
   end
 
+  def test_it_gives_coach_stats
+    expected = {"John Tortorella"=>{:game_count=>2, :num_wins=>0}, "Claude Julien"=>{:game_count=>2, :num_wins=>2}}
+    assert_equal expected, @game_teams_manager.coach_stats([2012030222, 2012030223])
+  end
 
   def test_winningest_coach
-    assert_equal "Claude Julien", @game_teams_manager.winningest_coach("20132014")
-    assert_equal "Alain Vigneault", @game_teams_manager.winningest_coach("20142015")
+    assert_equal "Claude Julien", @game_teams_manager.winningest_coach([2012030222, 2012030223])
+    # assert_equal "John Tortorella", @game_teams_manager.winningest_coach([2012030222, 2012030223])
   end
 end
