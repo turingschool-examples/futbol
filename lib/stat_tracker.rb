@@ -38,4 +38,8 @@ class StatTracker
   def lowest_total_score
     @games_repo.lowest_total_goals
   end
+
+  def count_of_games_by_season
+    @games_repo.count_of_games_by_season
+  end
 end
