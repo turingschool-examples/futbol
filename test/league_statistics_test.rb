@@ -72,10 +72,10 @@ class LeagueStatisticsTest < Minitest::Test
     assert_equal expected, @league_statistics.total_games_per_team_id_away
   end
 
-  # def test_it_can_find_total_games_per_team_id_home
-  #   expected = {"6"=>5, "3"=>2, "5"=>2, "24"=>2, "20"=>2}
-  #   assert_equal expected, @league_statistics.total_games_per_team_id_home
-  # end
+  def test_it_can_find_total_games_per_team_id_home
+    expected = {"6"=>5, "3"=>2, "5"=>2, "24"=>2, "20"=>2}
+    assert_equal expected, @league_statistics.total_games_per_team_id_home
+  end
 
   # def test_it_knows_total_goals_per_team_id_away
   #   expected = {"3"=>5.0, "6"=>11.0, "5"=>1.0, "20"=>4.0, "24"=>6.0}
