@@ -88,4 +88,15 @@ class GameTeamsManager
       average_goals
     end.first
   end
+
+  def games_by_season(game_ids)
+    @game_teams.select do |game|
+      game_ids.include?(game.game_id)
+    end
+  end
+
+  def winningest_coach
+
+  end
+
 end
