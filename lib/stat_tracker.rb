@@ -50,4 +50,16 @@ class StatTracker
   def average_goals_by_season
     @games_repo.average_goals_by_season
   end
+
+  def percentage_home_wins
+    @game_teams_repo.percentage_wins("home")
+  end
+
+  def percentage_visitor_wins
+    @game_teams_repo.percentage_wins("away")
+  end
+
+  def percentage_ties
+    @game_teams_repo.percentage_ties
+  end
 end

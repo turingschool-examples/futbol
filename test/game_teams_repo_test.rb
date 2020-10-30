@@ -1,4 +1,4 @@
- require 'minitest/autorun'
+require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/stat_tracker'
 require 'mocha/minitest'
@@ -33,11 +33,24 @@ class GameTeamsRepoTest < Minitest::Test
   end
 
   def test_team_ids
-    assert_instance_of Array, @game_teams_repo.team_ids 
+    assert_instance_of Array, @game_teams_repo.team_ids
   end
 
   def test_highest_and_lowest_scoring_team_across_all_seasons
     assert_equal 54, @game_teams_repo.highest_average_goals
     assert_equal 7, @game_teams_repo.lowest_average_goals
+  end
+
+  def test_games_containing
+    assert_equal 2, @game_teams_repo.games_containing(:game_id, "2012030221").length
+  end 
+
+  def test_percentage_wins
+    assert_equal 0.44, @game_teams_repo.percentage_wins("home")
+    assert_equal 0.36, @game_teams_repo.percentage_wins("away")
+  end
+
+  def test_percentage_ties
+    assert_equal 0.20, @game_teams_repo.percentage_ties
   end
 end
