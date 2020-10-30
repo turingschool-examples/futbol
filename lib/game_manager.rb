@@ -76,6 +76,12 @@ class GameManager
     end
   end
 
+  def game_ids_by_season(season)
+    games_by_season(season).map do |game|
+      game.id
+    end
+  end
+
   def goal_count(season)
     games_by_season(season).sum do |game|
       game.total_score
