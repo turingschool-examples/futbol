@@ -31,5 +31,12 @@ class GameTeamsRepo
     end
     (total_goals.to_f / team_games.count).round(2)
   end
+
+  def highest_average_goals
+    ids = team_ids
+    ids.max_by do |id|
+      average_goals_by(id)
+    end
+  end
 end
 #add percentage games stats methods 
