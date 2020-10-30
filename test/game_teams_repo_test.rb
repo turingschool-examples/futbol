@@ -1,4 +1,4 @@
- require 'minitest/autorun'
+require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/stat_tracker'
 require 'mocha/minitest'
@@ -45,7 +45,8 @@ class GameTeamsRepoTest < Minitest::Test
     assert_equal 2, @game_teams_repo.games_containing(:game_id, "2012030221").length
   end 
 
-  def test_percentage_home_wins
-    assert_equal 0.44, @game_teams_repo.percentage_home_wins
+  def test_percentage_wins
+    assert_equal 0.44, @game_teams_repo.percentage_wins("home")
+    assert_equal 0.36, @game_teams_repo.percentage_wins("away")
   end
 end
