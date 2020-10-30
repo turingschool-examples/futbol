@@ -68,30 +68,20 @@ class LeagueStatistics
     game_teams_data_set.min_by {|goal| goal[1]}[0]
   end
 
-  def all_teams_away_and_won
-    game_teams_data_set.select do |game|
-      game[2] == "away" && game[3] == "WIN"
-    end
-  end
-
   def total_games_per_team_id_away
-    num_goals_away = {}
-    stat_tracker[:games]['away_team_id'].each do |num|
+    stat_tracker[:games]['away_team_id'].each_with_object({}) do |num, num_goals_away|
     num_goals_away[num] = stat_tracker[:games]['away_team_id'].count do |id|
       num == id
       end
     end
-    num_goals_away
   end
 
   def total_games_per_team_id_home
-    num_goals_home = {}
-    stat_tracker[:games]['home_team_id'].each do |num|
+    stat_tracker[:games]['home_team_id'].each_with_object({}) do |num, num_goals_home|
     num_goals_home[num] = stat_tracker[:games]['home_team_id'].count do |id|
       num == id
       end
     end
-    num_goals_home
   end
 
   def total_goals_per_team_id_away
