@@ -71,7 +71,8 @@ require './lib/stat_tracker'
 
     def test_percentage_home_wins
       skip
-    expect(@stat_tracker.percentage_home_wins).to eq 0.44
+    expected = 0.44
+    assert_equal expected, @stat_tracker.percentage_home_wins
     end
 
     def test_percentage_visitor_wins
@@ -85,7 +86,6 @@ require './lib/stat_tracker'
     end
 
     def test_count_of_games_by_season
-      skip
     expected = {
       "20122013"=>806,
       "20162017"=>1317,
@@ -94,7 +94,7 @@ require './lib/stat_tracker'
       "20132014"=>1323,
       "20172018"=>1355
     }
-    expect(@stat_tracker.count_of_games_by_season).to eq expected
+    assert_equal expected, @stat_tracker.count_of_games_by_season
     end
 
     def test_average_goals_per_game
