@@ -65,8 +65,8 @@ require './lib/stat_tracker'
     end
 
     def test_lowest_total_score
-      skip
-    expect(@stat_tracker.lowest_total_score).to eq 0
+    expected = 0
+    assert_equal expected, @stat_tracker.lowest_total_score
     end
 
     def test_percentage_home_wins
@@ -114,4 +114,4 @@ require './lib/stat_tracker'
     }
     expect(@stat_tracker.average_goals_by_season).to eq expected
     end
-  end 
+  end
