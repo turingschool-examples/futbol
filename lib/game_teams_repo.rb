@@ -67,5 +67,11 @@ class GameTeamsRepo
     wins = games_containing(:result, "WIN", games).count.to_f 
     (wins / games.count).round(2)
   end
+  
+  def percentage_ties
+    games = games_containing(:hoa, "home")
+    ties = games_containing(:result, "TIE", games).count.to_f 
+    (ties / games.count).round(2)
+  end
 end
 #add percentage games stats methods
