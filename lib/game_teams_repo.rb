@@ -49,19 +49,23 @@ class GameTeamsRepo
   end
 
   def lowest_average_goals
+   
     ids = team_ids
     ids.min_by do |id|
       average_goals_by(id)
     end
   end
 
-  def games_containing(header, value, games = @team_games)
+  def games_containing(header, value, games = @game_teams)
     games.select do |game|
-      game.header == value
+      game.send(header) == value
     end
   end
 
   def percentage_home_wins
-    home_games = games_containing
+    home_games = games_containing(:hoa, "home")
+    home_wins = games_containing(:result, "WIN", home_games).count.to_f 
+    (home_wins / home_games.count).round(2)
+  end
 end
 #add percentage games stats methods
