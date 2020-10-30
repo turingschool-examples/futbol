@@ -32,6 +32,15 @@ class GameTeamsRepo
     (total_goals.to_f / team_games.count).round(2)
   end
 
+  def team_ids
+    team_ids = []
+
+    @game_teams.each do |game_team|
+      team_ids << game_team.team_id
+    end
+    team_ids.uniq
+  end
+
   def highest_average_goals
     ids = team_ids
     ids.max_by do |id|
