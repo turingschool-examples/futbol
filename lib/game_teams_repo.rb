@@ -18,10 +18,18 @@ class GameTeamsRepo
   end
 
   def find_team_by(id)
-    data = []
     @game_teams.find_all do |game_team|
       game_team.team_id == id 
     end
+  end
+
+  def average_goals_by(id)
+    team_games = find_team_by(id)
+    
+    total_goals = team_games.sum do |team_game|
+      team_game.goals 
+    end
+    (total_goals.to_f / team_games.count).round(2)
   end
 end
 #add percentage games stats methods 
