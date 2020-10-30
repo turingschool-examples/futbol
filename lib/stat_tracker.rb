@@ -34,4 +34,8 @@ class StatTracker
   def highest_total_score
     @games_repo.highest_total_goals
   end
+
+  def lowest_total_score
+    @games_repo.lowest_total_goals
+  end
 end
