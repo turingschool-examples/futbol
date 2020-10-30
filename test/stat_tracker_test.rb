@@ -98,5 +98,5 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Claude Julien", @stat_tracker.winningest_coach("20132014")
     assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
   end
-  
+
 end
