@@ -66,4 +66,14 @@ class GameTeamsManagerTest < Minitest::Test
   def test_lowest_scoring_home_team
     assert_equal 7, @game_teams_manager.lowest_scoring_home_team
   end
+
+  def test_it_gives_games_by_season
+    assert_equal 806, @game_teams_manager.games_by_season('20122013').size
+  end
+
+
+  def test_winningest_coach
+    assert_equal "Claude Julien", @game_teams_manager.winningest_coach("20132014")
+    assert_equal "Alain Vigneault", @game_teams_manager.winningest_coach("20142015")
+  end
 end
