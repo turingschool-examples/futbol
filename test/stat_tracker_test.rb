@@ -98,8 +98,8 @@ require './lib/stat_tracker'
     end
 
     def test_average_goals_per_game
-      skip
-    expect(@stat_tracker.average_goals_per_game).to eq 4.22
+    expected = 4.22
+    assert_equal expected, @stat_tracker.average_goals_per_game
     end
 
     def test_average_goals_by_season
