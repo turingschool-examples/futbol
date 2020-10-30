@@ -29,6 +29,14 @@ class GameTeamsRepoTest < Minitest::Test
   end
 
   def test_find_average_goals_by_id
-    assert_equal 6, @game_teams_repo.average_goals_by(6)
+    assert_equal 2.26, @game_teams_repo.average_goals_by(6)
+  end
+
+  def test_team_ids
+    assert_instance_of Array, @game_teams_repo.team_ids 
+  end
+
+  def test_highest_scoring_team_across_all_seasons
+    assert_equal 6, @game_teams_repo.highest_average_goals 
   end
 end
