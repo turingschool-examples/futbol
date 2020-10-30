@@ -28,15 +28,11 @@ class TeamsCollection
   end
 
   def team_info(team_id)
-    team_info = @teams.find do |team|
+    the_team = @teams.find do |team|
       team.team_id == team_id
     end
-    new_team_info = {}
-    new_team_info["team_id"] = team_info.team_id
-    new_team_info["franchise_id"] = team_info.franchiseid
-    new_team_info["team_name"] = team_info.teamname
-    new_team_info["abbreviation"] = team_info.abbreviation
-    new_team_info["link"] = team_info.link
-    new_team_info
+    the_team.team_info
   end
+
+
 end

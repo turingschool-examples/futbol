@@ -28,6 +28,11 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_instance_of GameTeam, @gameteamcollection.game_teams[0]
   end
 
+  def test_find_by_id
+
+    assert_equal "20122013", @gameteamcollection.find_by_id("2012030221")
+  end
+
   def test_all_games
 
     assert_equal 10, @gameteamcollection.game_teams.length
@@ -43,6 +48,12 @@ class GameTeamsCollectionTest < Minitest::Test
 
     expected = {"3"=>3, "6"=>2}
     assert_equal expected, @gameteamcollection.away_games_by_team
+  end
+
+  def test_home_games_by_team
+
+    expected = {"6"=>3, "3"=>2}
+    assert_equal expected, @gameteamcollection.home_games_by_team
   end
 
   def test_average_goals_by_team
@@ -81,13 +92,13 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal "FC Dallas", @gameteamcollection.highest_scoring_hometeam
   end
 
+  def test_lowest_scoring_visitor
+
+    assert_equal "Houston Dynamo", @gameteamcollection.lowest_scoring_visitor
+  end
+
   def test_lowest_scoring_home_team
 
     assert_equal "Houston Dynamo", @gameteamcollection.lowest_scoring_hometeam
-  end
-
-  def test_lowest_scoring_visitor
-    
-    assert_equal "Houston Dynamo", @gameteamcollection.lowest_scoring_visitor
   end
 end

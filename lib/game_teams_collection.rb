@@ -121,8 +121,4 @@ class GameTeamsCollection
     end
     find_by_id(lowest_goals[0])
   end
-
-  def check_the_season
-    find_by_id("2012030221")
-  end
 end

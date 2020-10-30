@@ -35,4 +35,11 @@ class GameTeamTest < Minitest::Test
     gameteam = @stattracker.game_teams.game_teams.first
     assert_equal "Houston Dynamo", gameteam.find_by_id("3")
   end
+
+  def test_find_by_id_season
+    gameteam = @stattracker.game_teams.game_teams.first
+
+    assert_equal "20122013", gameteam.find_by_id("2012030221")
+  end
+
 end

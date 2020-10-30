@@ -18,4 +18,6 @@ class GameTeam
   def find_by_id(id)
     @parent.find_by_id(id)
   end
+
+
 end
