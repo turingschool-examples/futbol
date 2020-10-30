@@ -1,20 +1,20 @@
-class GameTeams
-  attr_reader :game_id, 
-              :team_id, 
-              :hoa, 
-              :result, 
-              :settled_in, 
-              :head_coach, 
-              :goals, 
-              :shots, 
+class GameTeam
+  attr_reader :game_id,
+              :team_id,
+              :hoa,
+              :result,
+              :settled_in,
+              :head_coach,
+              :goals,
+              :shots,
               :tackles,
-              :pim, 
-              :powerplayopportunities, 
-              :powerplaygoals, 
-              :faceoffwinpercentage, 
-              :giveaways, 
+              :pim,
+              :powerplayopportunities,
+              :powerplaygoals,
+              :faceoffwinpercentage,
+              :giveaways,
               :takeaways
-              
+
   def initialize(data)
     @game_id = data[:game_id].to_i
     @team_id = data[:team_id].to_i
