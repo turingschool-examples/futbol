@@ -27,4 +27,8 @@ class GameTeamsRepoTest < Minitest::Test
   def test_find_team_by
     assert_instance_of Array, @game_teams_repo.find_team_by(6)
   end
+
+  def test_find_average_goals_by_id
+    assert_equal 6, @game_teams_repo.average_goals_by(6)
+  end
 end
