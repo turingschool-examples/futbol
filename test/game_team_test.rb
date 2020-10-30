@@ -16,5 +16,19 @@ class GameTeamTest < Minitest::Test
       shots: "6",
       tackles: "36"
       }
+    @game_team = GameTeam.new(row)
+  end
+
+  def test_it_exists_and_has_attributes
+    assert_instance_of GameTeam, @game_team
+    assert_equal 2012030111, @game_team.game_id
+    assert_equal 2, @game_team.team_id
+    assert_equal "away", @game_team.hoa
+    assert_equal "LOSS", @game_team.result
+    assert_equal "REG", @game_team.settled_in
+    assert_equal "Jack Capuano", @game_team.head_coach
+    assert_equal 3, @game_team.goals
+    assert_equal 6, @game_team.shots
+    assert_equal 36, @game_team.tackles 
   end
 end
