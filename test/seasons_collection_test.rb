@@ -68,4 +68,9 @@ class SeasonsCollectionTest < Minitest::Test
       assert_instance_of Season, season
     end
   end
+
+  def test_best_offense
+
+    assert_equal "FC Dallas", @seasoncollection.best_offense
+  end
 end

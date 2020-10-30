@@ -1,9 +1,8 @@
 require_relative './test_helper'
 require './lib/team'
-
+require 'csv'
 
 class TeamTest < Minitest::Test
-
   def setup
     @teams = []
     CSV.foreach('./data/teams.csv', headers: true, header_converters: :symbol) do |row|

@@ -40,4 +40,34 @@ class SeasonsCollection
   def find_season_id(game_id)
     @parent.find_season_id(game_id)
   end
+
+  def total_goals_by_team
+    goals_by_team = Hash.new(0)
+    @seasons.each do |season|
+      goals_by_team[season.team_id] += season.total_goals
+    end
+    goals_by_team
+  end
+
+  def total_games_by_team
+    games_by_team = Hash.new(0)
+    @seasons.each do |season|
+      games_by_team[season.team_id] += season.total_games
+    end
+    games_by_team
+  end
+
+  def best_offense
+    average = total_goals_by_team.merge(total_games_by_team) do |team_id, total_goals, total_games|
+      (total_goals.to_f / total_games).round(2)
+    end
+    best = average.max_by do |team_id, avg|
+      avg
+    end
+    find_team_name(best[0])
+  end
+
+  def find_team_name(team_id)
+    @parent.find_by_id(team_id)
+  end
 end

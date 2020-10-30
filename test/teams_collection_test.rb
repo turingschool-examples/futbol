@@ -1,6 +1,6 @@
 require_relative './test_helper'
 require './lib/teams_collection'
-
+require 'csv'
 
 class TeamsCollectionTest < Minitest::Test
 

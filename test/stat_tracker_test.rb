@@ -61,95 +61,95 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stattracker.average_goals_by_season
   end
 
-#   def test_count_of_teams
+  def test_count_of_teams
+
+    assert_equal 32, @stattracker.count_of_teams
+  end
+
+  def test_best_offense
+
+    assert_equal "FC Dallas", @stattracker.best_offense
+  end
+
+  # def test_worst_offense
+  #
+  #   assert_equal "Houston Dynamo", @stattracker.worst_offense
+  # end
+  #
+  # def test_highest_scoring_visitor
+  #
+  #   assert_equal "FC Dallas", @stattracker.highest_scoring_visitor
+  # end
+  #
+  # def test_highest_scoring_home_team
+  #
+  #   assert_equal "FC Dallas", @stattracker.highest_scoring_home_team
+  # end
+  #
+  # def test_lowest_scoring_visitor
+  #
+  #   assert_equal "Houston Dynamo", @stattracker.lowest_scoring_visitor
+  # end
+  #
+  # def test_lowest_scoring_home_team
+  #
+  #   assert_equal "Houston Dynamo", @stattracker.lowest_scoring_home_team
+  # end
+  #
+  #   def test_team_info
+  #     expected = {
+  #       "team_id" => "18",
+  #       "franchise_id" => "34",
+  #       "team_name" => "Minnesota United FC",
+  #       "abbreviation" => "MIN",
+  #       "link" => "/api/v1/teams/18"
+  #     }
+  #     assert_equal expected, @stattracker.team_info("18")
+  #   end
+  #
+  #   def test_ids
+  #
+  #     assert_equal 32, @stattracker.team_ids.count
+  #     assert_equal 2, @stattracker.season_ids.count
+  #   end
 #
-#     assert_equal 32, @stattracker.count_of_teams
+#   def best_season
 #   end
 #
-#   def test_best_offense
-#
-#     assert_equal "FC Dallas", @stattracker.best_offense
+#   def worst_season
 #   end
 #
-#   def test_worst_offense
-#
-#     assert_equal "Houston Dynamo", @stattracker.worst_offense
+#   def average_win_percentage
 #   end
 #
-#   def test_highest_scoring_visitor
-#
-#     assert_equal "FC Dallas", @stattracker.highest_scoring_visitor
+#   def most_goals_scored
 #   end
 #
-#   def test_highest_scoring_home_team
-#
-#     assert_equal "FC Dallas", @stattracker.highest_scoring_home_team
+#   def fewest_goals_scored
 #   end
 #
-#   def test_lowest_scoring_visitor
-#
-#     assert_equal "Houston Dynamo", @stattracker.lowest_scoring_visitor
+#   def favorite_opponent
 #   end
 #
-#   def test_lowest_scoring_home_team
-#
-#     assert_equal "Houston Dynamo", @stattracker.lowest_scoring_home_team
+#   def rival
 #   end
 #
-#     def test_team_info
-#       expected = {
-#         "team_id" => "18",
-#         "franchise_id" => "34",
-#         "team_name" => "Minnesota United FC",
-#         "abbreviation" => "MIN",
-#         "link" => "/api/v1/teams/18"
-#       }
-#       assert_equal expected, @stattracker.team_info("18")
-#     end
+#   def winningest_coach
+#   end
 #
-#     def test_ids
+#   def worst_coach
+#   end
 #
-#       assert_equal 32, @stattracker.team_ids.count
-#       assert_equal 2, @stattracker.season_ids.count
-#     end
-# #
-# #   def best_season
-# #   end
-# #
-# #   def worst_season
-# #   end
-# #
-# #   def average_win_percentage
-# #   end
-# #
-# #   def most_goals_scored
-# #   end
-# #
-# #   def fewest_goals_scored
-# #   end
-# #
-# #   def favorite_opponent
-# #   end
-# #
-# #   def rival
-# #   end
-# #
-# #   def winningest_coach
-# #   end
-# #
-# #   def worst_coach
-# #   end
-# #
-# #   def most_accurate_team
-# #   end
-# #
-# #   def least_accurate_team
-# #   end
-# #
-# #   def most_tackles
-# #   end
-# 
-# #   def fewest_tackles
-# #   end
-# #
+#   def most_accurate_team
+#   end
+#
+#   def least_accurate_team
+#   end
+#
+#   def most_tackles
+#   end
+
+#   def fewest_tackles
+#   end
+#
 end
