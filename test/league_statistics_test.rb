@@ -4,6 +4,7 @@ require "./lib/league_statistics"
 require "./lib/game_statistics"
 require './lib/object_data'
 require './lib/stat_tracker'
+require './test/test_helper'
 
 class LeagueStatisticsTest < Minitest::Test
 

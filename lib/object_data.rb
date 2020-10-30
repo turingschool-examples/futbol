@@ -1,4 +1,4 @@
-
+ 
 class ObjectData
   attr_reader :games, :teams, :game_teams
   def initialize(stat_tracker)
