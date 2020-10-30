@@ -1,7 +1,12 @@
 class Game
-  attr_reader :home_goals, :away_goals, :season
+  attr_reader :home_goals,
+              :away_goals,
+              :season,
+              :type,
+              :away_team_id,
+              :home_team_id
   def initialize(row)
-    @season = row[1].to_i
+    @season = row[1]
     @type = row[2]
     @date_time = row[3]
     @away_team_id = row[4].to_i

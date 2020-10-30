@@ -55,8 +55,7 @@ class GameStatistics
   def percentage_ties(game_data)
     (total_ties(game_data) / total_games(game_data).to_f).round(2)
   end
-# 1. define the keys, seasons
-#2. calc value, games played, of key, season, and assign
+
   def count_of_games_by_season(game_data)
     seasons = season_keys(game_data).uniq
     games_by_season = {}

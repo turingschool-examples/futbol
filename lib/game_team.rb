@@ -1,5 +1,13 @@
 class GameTeam
-  attr_reader :goals, :team_id, :HoA, :result, :shots, :tackles, :head_coach
+  attr_reader :team_id,
+              :head_coach,
+              :shots,
+              :tackles,
+              :goals,
+              :result
+
+
+
   def initialize(row)
     @team_id = row[1].to_i
     @HoA = row[2]
