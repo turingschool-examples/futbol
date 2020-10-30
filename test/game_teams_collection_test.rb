@@ -87,7 +87,7 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_lowest_scoring_visitor
-    binding.pry
+    
     assert_equal "Houston Dynamo", @gameteamcollection.lowest_scoring_visitor
   end
 end
