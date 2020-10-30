@@ -24,7 +24,7 @@ class GameTeamsRepoTest < Minitest::Test
     assert_instance_of GameTeams, @game_teams_repo.game_teams[0]
   end
 
-  def test_count_of_teams
-    assert_equal 32, @game_teams_repo.count_of_teams
+  def test_find_team_by
+    assert_instance_of Array, @game_teams_repo.find_team_by(6)
   end
 end
