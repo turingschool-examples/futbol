@@ -9,7 +9,6 @@ class Team
     @abbreviation = row[:abbreviation]
     @stadium = row[:stadium]
     @link = row[:link]
-
   end
 
   def team_info

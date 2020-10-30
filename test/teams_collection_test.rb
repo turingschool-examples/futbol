@@ -23,6 +23,11 @@ class TeamsCollectionTest < Minitest::Test
     assert_equal 32, @teamscollection.teams.length
   end
 
+  def test_find_by_id
+
+    assert_equal "Minnesota United FC", @teamscollection.find_by_id("18")
+  end
+
   def test_count_of_teams
 
     assert_equal 32, @teamscollection.count_of_teams

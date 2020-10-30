@@ -18,6 +18,42 @@ class GamesCollectionTest < Minitest::Test
     assert_instance_of Game, @gamescollection.games[0]
   end
 
+  def test_create_games
+
+    @gamescollection.create_games('./data/games_dummy.csv')
+    assert_equal 26, @gamescollection.games.length
+  end
+
+  def test_find_by_id
+
+    assert_equal "20122013", @gamescollection.find_by_id("2012030221")
+  end
+
+  def test_highest_total_score
+
+    assert_equal 5, @gamescollection.highest_total_score
+  end
+
+  def test_lowest_total_score
+
+    assert_equal 1, @gamescollection.lowest_total_score
+  end
+
+  def test_percentage_home_wins
+
+    assert_equal 0.54, @gamescollection.percentage_home_wins
+  end
+
+  def test_percentage_visitor_wins
+
+    assert_equal 0.38, @gamescollection.percentage_visitor_wins
+  end
+
+  def test_percentage_ties
+
+    assert_equal 0.08, @gamescollection.percentage_ties
+  end
+
   def test_all_games
 
     assert_equal 13, @gamescollection.games.length

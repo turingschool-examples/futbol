@@ -5,9 +5,11 @@ require 'csv'
 class GameTest < Minitest::Test
 
   def setup
+    @parent = mock("Game Collection")
+    @parent.stubs(:parent => "Parent")
     @games = []
       CSV.foreach('./data/games_dummy.csv', headers: true, header_converters: :symbol) do |row|
-      @games << Game.new(row, self)
+      @games << Game.new(row, @parent)
     end
   end
 
@@ -25,7 +27,7 @@ class GameTest < Minitest::Test
     assert_equal "Toyota Stadium", game.venue
   end
 
-  def test_total_scoreo
+  def test_total_score
     game = @games.first
     assert_equal 5, game.total_score
   end
