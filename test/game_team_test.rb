@@ -1,6 +1,4 @@
-require "minitest/autorun"
-require "minitest/pride"
-require "./lib/model/game_team"
+require_relative './test_helper'
 
 class GameTeamTest < Minitest::Test
 
@@ -16,7 +14,8 @@ class GameTeamTest < Minitest::Test
       shots: "6",
       tackles: "36"
       }
-    @game_team = GameTeam.new(row)
+    parent = nil
+    @game_team = GameTeam.new(row, parent)
   end
 
   def test_it_exists_and_has_attributes
@@ -29,6 +28,6 @@ class GameTeamTest < Minitest::Test
     assert_equal "Jack Capuano", @game_team.head_coach
     assert_equal 3, @game_team.goals
     assert_equal 6, @game_team.shots
-    assert_equal 36, @game_team.tackles 
+    assert_equal 36, @game_team.tackles
   end
 end
