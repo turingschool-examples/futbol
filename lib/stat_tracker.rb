@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 # Sum up Away and Home team's score per game_id
 # Get data by col
   # Col by winning score + Col by losing score
@@ -5,6 +7,7 @@
 # Method will iterate through instance variable
 require 'csv'
 
+>>>>>>> c2396102bc0087a484edefcabce2a0d962c8f126
 class StatTracker
   attr_reader :games, :game_teams, :teams
   def self.from_csv(locations)
@@ -17,7 +20,7 @@ class StatTracker
     @teams = locations[:teams]
   end
 
-  def highest_total_score # Rename later, for now from Games Table
+  def highest_total_score
     most = 0
     CSV.foreach(games, :headers => true, header_converters: :symbol) do |row|
       total = row[:away_goals].to_i + row[:home_goals].to_i
@@ -26,6 +29,298 @@ class StatTracker
     most
   end
 
+<<<<<<< HEAD
+  def count_of_teams
+    teams_count = CSV.read(teams, headers: true)
+    teams_count.count
+  end
+
+  def best_offense
+    team_stats = {}
+    CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
+      if team_stats[row[:team_id]]
+        team_stats[row[:team_id]][:total_goals] += row[:goals].to_i
+        team_stats[row[:team_id]][:total_games] += 1
+      else
+        team_stats[row[:team_id]] = {total_games: 1, total_goals: row[:goals].to_i}
+      end
+    end
+
+    top_offense_team = team_stats.max_by do |team, stats|
+      stats[:total_goals].to_f / stats[:total_games]
+    end[0]
+
+    CSV.foreach(teams, headers:true, header_converters: :symbol) do |row|
+      return row[:teamname] if top_offense_team == row[:team_id]
+    end
+  end
+
+  def worst_offense
+    team_stats = {}
+    CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
+      if team_stats[row[:team_id]]
+        team_stats[row[:team_id]][:total_goals] += row[:goals].to_i
+        team_stats[row[:team_id]][:total_games] += 1
+      else
+        team_stats[row[:team_id]] = {total_games: 1, total_goals: row[:goals].to_i}
+      end
+    end
+
+    worst_offense_team = team_stats.min_by do |team, stats|
+      stats[:total_goals].to_f / stats[:total_games]
+    end[0]
+
+    CSV.foreach(teams, headers:true, header_converters: :symbol) do |row|
+      return row[:teamname] if worst_offense_team == row[:team_id]
+    end
+  end
+
+  def highest_scoring_visitor
+    team_stats = {}
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      if team_stats[row[:away_team_id]]
+        team_stats[row[:away_team_id]][:total_away_goals] += row[:away_goals].to_i
+        team_stats[row[:away_team_id]][:total_away_games] += 1
+      else
+        team_stats[row[:away_team_id]] = {total_away_games: 1, total_away_goals: row[:away_goals].to_i}
+      end
+    end
+
+    highest_scoring_away_team = team_stats.max_by do |team, stats|
+      stats[:total_away_goals].to_f / stats[:total_away_games]
+    end[0]
+
+    CSV.foreach(teams, headers:true, header_converters: :symbol) do |row|
+      return row[:teamname] if highest_scoring_away_team == row[:team_id]
+    end
+  end
+
+  def highest_scoring_home_team
+    team_stats = {}
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      if team_stats[row[:home_team_id]]
+        team_stats[row[:home_team_id]][:total_home_goals] += row[:home_goals].to_i
+        team_stats[row[:home_team_id]][:total_home_games] += 1
+      else
+        team_stats[row[:home_team_id]] = {total_home_games: 1, total_home_goals: row[:home_goals].to_i}
+      end
+    end
+
+    highest_scoring_home_team = team_stats.max_by do |team, stats|
+      stats[:total_home_goals].to_f / stats[:total_home_games]
+    end[0]
+
+    CSV.foreach(teams, headers:true, header_converters: :symbol) do |row|
+      return row[:teamname] if highest_scoring_home_team == row[:team_id]
+    end
+  end
+
+  def lowest_scoring_visitor
+    team_stats = {}
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      if team_stats[row[:away_team_id]]
+        team_stats[row[:away_team_id]][:total_away_goals] += row[:away_goals].to_i
+        team_stats[row[:away_team_id]][:total_away_games] += 1
+      else
+        team_stats[row[:away_team_id]] = {total_away_games: 1, total_away_goals: row[:away_goals].to_i}
+      end
+    end
+
+    lowest_scoring_away_team = team_stats.min_by do |team, stats|
+      stats[:total_away_goals].to_f / stats[:total_away_games]
+    end[0]
+
+    CSV.foreach(teams, headers:true, header_converters: :symbol) do |row|
+      return row[:teamname] if lowest_scoring_away_team == row[:team_id]
+    end
+  end
+
+  def lowest_scoring_home_team
+    team_stats = {}
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      if team_stats[row[:home_team_id]]
+        team_stats[row[:home_team_id]][:total_home_goals] += row[:home_goals].to_i
+        team_stats[row[:home_team_id]][:total_home_games] += 1
+      else
+        team_stats[row[:home_team_id]] = {total_home_games: 1, total_home_goals: row[:home_goals].to_i}
+      end
+    end
+
+    lowest_scoring_home_team = team_stats.min_by do |team, stats|
+      stats[:total_home_goals].to_f / stats[:total_home_games]
+    end[0]
+
+    CSV.foreach(teams, headers:true, header_converters: :symbol) do |row|
+      return row[:teamname] if lowest_scoring_home_team == row[:team_id]
+    end
+  end
+
+  def team_info(team_id)
+    team_infos = {}
+    CSV.foreach(teams, headers: true) do |row|
+      if row["team_id"] == team_id
+        team_infos["team_id"] = row["team_id"]
+        team_infos["franchise_id"] = row["franchiseId"]
+        team_infos["team_name"] = row["teamName"]
+        team_infos["abbreviation"] = row["abbreviation"]
+        team_infos["link"] = row["link"]
+      end
+    end
+    team_infos
+  end
+
+  def best_season(team_id)
+    seasons = {}
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      if row[:home_team_id] == team_id
+        if seasons[row[:season]]
+          seasons[row[:season]][:total_games] += 1
+          seasons[row[:season]][:total_home_wins] += 1 if row[:home_goals] > row[:away_goals]
+        else
+          seasons[row[:season]] = { total_games: 1, 
+                                    total_home_wins: 1,
+                                    total_away_wins: 0 }
+        end
+      end
+    end
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      if row[:away_team_id] == team_id
+        if seasons[row[:season]]
+          seasons[row[:season]][:total_games] += 1
+          seasons[row[:season]][:total_away_wins] += 1 if row[:away_goals] > row[:home_goals]
+        end
+      end
+    end
+      best_win_rate = seasons.max_by do |season, stats|
+        ((stats[:total_home_wins] + stats[:total_away_wins]).to_f * 100 / stats[:total_games]).round(2)
+      end
+      best_win_rate[0]
+  end
+
+  def worst_season(team_id)
+    seasons = {}
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      if row[:home_team_id] == team_id
+        if seasons[row[:season]]
+          seasons[row[:season]][:total_games] += 1
+          seasons[row[:season]][:total_home_wins] += 1 if row[:home_goals] > row[:away_goals]
+        else
+          seasons[row[:season]] = { total_games: 1, 
+                                    total_home_wins: 1,
+                                    total_away_wins: 0 }
+        end
+      end
+    end
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      if row[:away_team_id] == team_id
+        if seasons[row[:season]]
+          seasons[row[:season]][:total_games] += 1
+          seasons[row[:season]][:total_away_wins] += 1 if row[:away_goals] > row[:home_goals]
+        else
+        end
+      end
+    end
+      worst_win_rate = seasons.min_by do |season, stats|
+        ((stats[:total_home_wins] + stats[:total_away_wins]).to_f * 100 / stats[:total_games]).round(2)
+      end
+      worst_win_rate[0]
+  end
+  
+  def average_win_percentage(team_id)
+    total_win = 0
+    total_game = 0
+    CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
+      if row[:team_id] == team_id
+        if row[:result] == "WIN"
+          total_win += 1
+        end
+        total_game += 1
+      end
+    end
+    (total_win.to_f / total_game).round(2)
+  end
+
+  def most_goals_scored(team_id)
+    most_goals = 0
+    CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
+      if row[:team_id] == team_id
+        most_goals = row[:goals].to_i if most_goals < row[:goals].to_i
+      end
+    end
+    most_goals
+  end
+
+  def fewest_goals_scored(team_id)
+    least_goals = 0
+    CSV.foreach(game_teams, headers: true, header_converters: :symbol) do |row|
+      if row[:team_id] == team_id
+        least_goals = row[:goals].to_i if least_goals > row[:goals].to_i
+      end
+    end
+    least_goals
+  end
+
+  def favorite_opponent(team_id)
+    favorite_opponents = {}
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      if row[:home_team_id] == team_id
+        if favorite_opponents[row[:away_team_id]]
+          favorite_opponents[row[:away_team_id]][:total_games] += 1
+          favorite_opponents[row[:away_team_id]][:total_home_wins] += 1 if row[:home_goals] > row[:away_goals]
+        else
+          favorite_opponents[row[:away_team_id]] = { total_games: 1, 
+                                                    total_home_wins: 1, 
+                                                    total_away_wins: 0}
+        end
+      end
+    end
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      if row[:away_team_id] == team_id
+        if favorite_opponents[row[:home_team_id]]
+          favorite_opponents[row[:home_team_id]][:total_games] += 1
+          favorite_opponents[row[:home_team_id]][:total_away_wins] += 1 if row[:away_goals] > row[:home_goals]
+        end
+      end
+    end
+    best_win_rate = favorite_opponents.max_by do |opponent, stats|
+      ((stats[:total_home_wins] + stats[:total_away_wins]).to_f * 100 / stats[:total_games]).round(2)
+    end[0]
+    CSV.foreach(teams, headers:true, header_converters: :symbol) do |row|
+      return row[:teamname] if best_win_rate == row[:team_id]
+    end       
+  end
+
+  def rival(team_id)
+    favorite_opponents = {}
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      if row[:home_team_id] == team_id
+        if favorite_opponents[row[:away_team_id]]
+          favorite_opponents[row[:away_team_id]][:total_games] += 1
+          favorite_opponents[row[:away_team_id]][:total_home_wins] += 1 if row[:home_goals] > row[:away_goals]
+        else
+          favorite_opponents[row[:away_team_id]] = { total_games: 1, 
+                                                    total_home_wins: 1, 
+                                                    total_away_wins: 0}
+        end
+      end
+    end
+    CSV.foreach(games, headers: true, header_converters: :symbol) do |row|
+      if row[:away_team_id] == team_id
+        if favorite_opponents[row[:home_team_id]]
+          favorite_opponents[row[:home_team_id]][:total_games] += 1
+          favorite_opponents[row[:home_team_id]][:total_away_wins] += 1 if row[:away_goals] > row[:home_goals]
+        end
+      end
+    end
+    worst_win_rate = favorite_opponents.min_by do |opponent, stats|
+      ((stats[:total_home_wins] + stats[:total_away_wins]).to_f * 100 / stats[:total_games]).round(2)
+    end[0]
+    CSV.foreach(teams, headers:true, header_converters: :symbol) do |row|
+      return row[:teamname] if worst_win_rate == row[:team_id]
+    end     
+  end
+end
+=======
   def lowest_total_score
     least = 1000
     CSV.foreach(games, :headers => true, header_converters: :symbol) do |row|
@@ -322,3 +617,4 @@ class StatTracker
     end    
   end
 end
+>>>>>>> c2396102bc0087a484edefcabce2a0d962c8f126
