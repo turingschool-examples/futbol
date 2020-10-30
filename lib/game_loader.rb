@@ -4,9 +4,9 @@ class GameLoader
   attr_reader :game_path, :stat_tracker
 
   def initialize(game_path, stat_tracker)
-    @game_path = game_path
+    @game_path    = game_path
     @stat_tracker = stat_tracker
-    @games = []
+    @games        = []
     create_games(game_path)
   end
 
