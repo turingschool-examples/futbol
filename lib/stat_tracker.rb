@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 # Sum up Away and Home team's score per game_id
 # Get data by col
   # Col by winning score + Col by losing score
@@ -7,7 +5,6 @@
 # Method will iterate through instance variable
 require 'csv'
 
->>>>>>> c2396102bc0087a484edefcabce2a0d962c8f126
 class StatTracker
   attr_reader :games, :game_teams, :teams
   def self.from_csv(locations)
@@ -29,7 +26,6 @@ class StatTracker
     most
   end
 
-<<<<<<< HEAD
   def count_of_teams
     teams_count = CSV.read(teams, headers: true)
     teams_count.count
@@ -319,8 +315,7 @@ class StatTracker
       return row[:teamname] if worst_win_rate == row[:team_id]
     end     
   end
-end
-=======
+
   def lowest_total_score
     least = 1000
     CSV.foreach(games, :headers => true, header_converters: :symbol) do |row|
@@ -617,4 +612,3 @@ end
     end    
   end
 end
->>>>>>> c2396102bc0087a484edefcabce2a0d962c8f126
