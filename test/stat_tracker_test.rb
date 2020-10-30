@@ -103,7 +103,6 @@ require './lib/stat_tracker'
     end
 
     def test_average_goals_by_season
-      skip
     expected = {
       "20122013"=>4.12,
       "20162017"=>4.23,
@@ -112,6 +111,6 @@ require './lib/stat_tracker'
       "20132014"=>4.19,
       "20172018"=>4.44
     }
-    expect(@stat_tracker.average_goals_by_season).to eq expected
+    assert_equal expected, @stat_tracker.average_goals_by_season
     end
   end
