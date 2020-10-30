@@ -1,18 +1,15 @@
 require_relative './games_collection'
 require_relative './teams_collection'
-require_relative './game_teams_collection'
 require_relative './season_collection'
 require 'csv'
 
-#THE PARENT
 class StatTracker
-  attr_reader :games, :teams, :game_teams
+  attr_reader :games, :teams, :seasons
 
   def initialize(locations)
     @games = GamesCollection.new(locations[:games], self)
     @teams = TeamsCollection.new(locations[:teams], self)
-    @game_teams = GameTeamsCollection.new(locations[:game_teams], self)
-    # @seasons_collection = SeasonsCollection.new(self)
+    @seasons = SeasonsCollection.new(locations[:game_teams], season_ids, team_ids, self)
   end
 
   def self.from_csv(locations)
