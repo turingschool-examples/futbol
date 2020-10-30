@@ -15,7 +15,8 @@ class GameTeam
               # :giveaways,
               # :takeaways
 
-  def initialize(data)
+  def initialize(data, parent)
+    @parent = parent 
     @game_id = data[:game_id].to_i
     @team_id = data[:team_id].to_i
     @hoa = data[:hoa]
