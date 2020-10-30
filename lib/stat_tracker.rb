@@ -16,4 +16,18 @@ class StatTracker
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
+
+  def count_of_teams
+    @teams_repo.count_of_teams
+  end
+
+  def best_offense
+    id = @game_teams_repo.highest_average_goals
+    @teams_repo.team_name(id)
+  end
+  
+  def worst_offense
+    id = @game_teams_repo.lowest_average_goals
+    @teams_repo.team_name(id)
+  end
 end
