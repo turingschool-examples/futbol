@@ -3,6 +3,8 @@ require 'minitest/pride'
 require './lib/game_statistics'
 require './lib/object_data'
 require './lib/stat_tracker'
+require './test/test_helper'
+
 
 class GameStatisticsTest < Minitest::Test
   def setup
@@ -88,5 +90,4 @@ class GameStatisticsTest < Minitest::Test
     }
     assert_equal expected, @game_statistics.average_goals_by_season(@object_data.games)
   end
-
 end

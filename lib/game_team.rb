@@ -7,6 +7,7 @@ class GameTeam
               :result
 
 
+
   def initialize(row)
     @team_id = row[1].to_i
     @HoA = row[2]
