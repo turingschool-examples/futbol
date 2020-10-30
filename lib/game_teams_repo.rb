@@ -16,5 +16,12 @@ class GameTeamsRepo
       GameTeams.new(row, self)
     end
   end
+
+  def find_team_by(id)
+    data = []
+    @game_teams.find_all do |game_team|
+      game_team.team_id == id 
+    end
+  end
 end
 #add percentage games stats methods 
