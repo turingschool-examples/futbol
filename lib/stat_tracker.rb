@@ -1,6 +1,6 @@
 require_relative './games_collection'
 require_relative './teams_collection'
-require_relative './season_collection'
+require_relative './seasons_collection'
 require 'csv'
 
 class StatTracker

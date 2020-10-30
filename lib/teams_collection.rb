@@ -1,9 +1,8 @@
 require_relative './team'
-require_relative './game_teams_collection'
 
 class TeamsCollection
   attr_reader :teams, :team_ids
-  
+
   def initialize(file_path, parent)
     @parent = parent
     @teams = []
