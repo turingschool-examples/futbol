@@ -5,16 +5,15 @@ class StatTrackerTest < MiniTest::Test
 
   def setup
     locations = {
-      games: './data/games.csv',
-      teams: './data/teams.csv',
-      game_teams: './data/game_teams.csv'
+      games: './data/fixture_files/games.csv',
+      teams: './data//fixture_files/teams.csv',
+      game_teams: './data/fixture_files/game_teams.csv'
     }
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
 # Game Statistics Methods
   def test_highest_total_score
-<<<<<<< HEAD
     assert_equal 11, @stat_tracker.highest_total_score
   end
 
@@ -80,7 +79,6 @@ class StatTrackerTest < MiniTest::Test
 
   def test_can_check_rival
     assert_equal "Real Salt Lake", @stat_tracker.rival("6")
-=======
     assert_equal 8, @stat_tracker.highest_total_score
   end
 
@@ -155,6 +153,5 @@ class StatTrackerTest < MiniTest::Test
 
   def test_fewest_tackles
     assert_equal "Sporting Kansas City", @stat_tracker.fewest_tackles(20152016)
->>>>>>> c2396102bc0087a484edefcabce2a0d962c8f126
   end
 end
