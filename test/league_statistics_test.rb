@@ -91,29 +91,20 @@ class LeagueStatisticsTest < Minitest::Test
 
     assert_equal "24", @league_statistics.highest_average_team_id_visitor
   end
-  #
-  # def test_it_can_find_highest_goal
-  #   skip
-  #   assert_equal 5, @league_statistics.find_highest_goal
-  # end
-  #
-  # def test_it_can_find_highest_goal
-  #   skip
-  #   assert_equal 5, @league_statistics.find_highest_goal
-  # end
-  #
-  # def test_it_can_find_highest_goal
-  #   skip
-  #   assert_equal 5, @league_statistics.find_highest_goal
-  # end
-  #
-  # def test_it_can_find_highest_goal
-  #   skip
-  #   assert_equal 5, @league_statistics.find_highest_goal
-  # end
-  #
-  # def test_it_can_find_highest_goal
-  #   skip
-  #   assert_equal 5, @league_statistics.find_highest_goal
-  # end
+
+  def test_it_can_find_highest_average_team_id_home
+
+    assert_equal "24", @league_statistics.highest_average_team_id_home
+  end
+
+  def test_it_can_find_lowest_average_team_id_visitor
+
+    assert_equal "5", @league_statistics.lowest_average_team_id_visitor
+  end
+
+  def test_it_can_find_lowest_average_team_id_home
+
+    assert_equal "5", @league_statistics.lowest_average_team_id_home
+  end
+
 end
