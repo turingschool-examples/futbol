@@ -23,4 +23,8 @@ class TeamTest < Minitest::Test
     assert_equal "Mercedes-Benz Stadium", @team1.stadium
     assert mock(), @team1.parent
   end
+
+  def test_count_of_teams
+    assert_equal 32, @game_teams_repo.count_of_teams
+  end
 end
