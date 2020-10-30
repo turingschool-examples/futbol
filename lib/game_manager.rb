@@ -70,11 +70,14 @@ class GameManager
     (sum.to_f / @games.size).round(2)
   end
 
-  def goal_count(season)
-    games_by_season = @games.select do |game|
+  def games_by_season(season)
+    @games.select do |game|
       season == game.season
     end
-    games_by_season.sum do |game|
+  end
+
+  def goal_count(season)
+    games_by_season(season).sum do |game|
       game.total_score
     end
   end
