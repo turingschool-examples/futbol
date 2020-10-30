@@ -4,7 +4,7 @@ require './lib/team_collection'
 require './lib/stat_tracker'
 require 'mocha/minitest'
 
-class TeamLoaderTest < Minitest::Test
+class TeamCollectionTest < Minitest::Test
   def setup
     game_path       = './data/games.csv'
     team_path       = './data/teams.csv'
