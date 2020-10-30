@@ -1,9 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/game_statistics'
-require './lib/object_data'
-require './lib/stat_tracker'
-require './lib/season_statistics'
+require './test/test_helper.rb'
 
 class SeasonStatisticsTest < Minitest::Test
   def setup
@@ -32,7 +27,6 @@ class SeasonStatisticsTest < Minitest::Test
 
 #diff checker: files identical. Copied expected from RV. Ask for help(?)
   def test_team_total_wins_by_season
-    skip
       expected = {
         "Joel Quenneville"=>{:wins=>47, :total=>101},
         "Ken Hitchcock"=>{:wins=>37, :total=>88},

@@ -6,14 +6,6 @@ class LeagueStatistics
     teams.count
   end
 
-  # def total_team_goals_all_season(game_data)
-  #   overall_goals = {}
-  #   game_data.each do |team_name, season|
-  #     require "pry"; binding.pry
-  #     overall_goals[team_name] = (season.away_goals + season.home_goals)
-  #   end
-  #   overall_goals
-  # end
   def best_offense(game_teams_data)
 team_goals = Hash.new {|hash, key| hash[key] = 0}
     game_teams_data.each do |game_id, game_pair|
@@ -33,6 +25,8 @@ team_goals = Hash.new {|hash, key| hash[key] = 0}
         total_games[game_obj.team_id] += 1
         end
       end
-    team_goals
+    return team_goals, total_games
   end
+
+
 end

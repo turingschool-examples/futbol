@@ -1,10 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/game_statistics'
-require './lib/object_data'
-require './lib/stat_tracker'
-require './test/test_helper'
-
+require './test/test_helper.rb'
 
 class GameStatisticsTest < Minitest::Test
   def setup

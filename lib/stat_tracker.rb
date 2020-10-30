@@ -1,6 +1,6 @@
-require './lib/game.rb'
-require './lib/team.rb'
-require './lib/game_team.rb'
+require_relative './game.rb'
+require_relative './team.rb'
+require_relative './game_team.rb'
 require 'CSV'
 
 class StatTracker
@@ -38,5 +38,5 @@ class StatTracker
     end
     output_hash
   end
-
+  
 end
