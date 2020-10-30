@@ -1,10 +1,10 @@
 class Season
-    attr_reader :team_id, :season_id, :games_teams
+    attr_reader :team_id, :season_id, :game_teams
 
-    def initialize(team_id, season_id, games_teams, parent)
+    def initialize(team_id, season_id, game_teams, parent)
         @team_id      = team_id
         @season_id    = season_id
-        @games_teams  = games_teams
+        @game_teams   = game_teams
         @parent       = parent
     end
 end
