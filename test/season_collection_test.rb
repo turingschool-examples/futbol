@@ -7,7 +7,7 @@ class SeasonCollectionTest < Minitest::Test
         @seasonids = ["20122013","20132014"]
         @teamids =  %w[1 4 26 14 6 3 5 17 28 18 23 16 9 8 30 15 19 24 27 2 20 21 25 13 10 29 52 54 12 7 22 53]
         
-        @seasoncollection = SeasonCollection.new('./data/game_teams_dummy.csv', seasonids, teamids, self)
+        @seasoncollection = SeasonCollection.new('./data/game_teams_dummy.csv', @seasonids, @teamids, self)
     end
 
     def test_it_exsist_and_has_attributes
@@ -22,6 +22,10 @@ class SeasonCollectionTest < Minitest::Test
 
 
         assert_instance_of Hash, actual
-        assert_equal true, 
+
+        actual.each do |team, season|
+            assert_instance_of String, team
+            assert_instance_of Hash, season
+        end
     end
 end

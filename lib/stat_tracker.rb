@@ -19,6 +19,10 @@ class StatTracker
     self.new(locations)
   end
 
+  def find_season_id(game_id)
+    @games.find_season_id(game_id)
+  end
+
   def season_ids
     @games.season_ids
   end

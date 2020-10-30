@@ -10,9 +10,13 @@ class SeasonCollection
   end
 
   def create_seasons(filepath)
-    seasons_by_team = {}
-    
-    CSV.foreach(file_path, headers: true, header_converters: :symbol)
+    seasons_by_team = map_seasons_by_team
+    CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
+      season = 
+  end
+
+  def find_season_id(game_id)
+    @parent.find_season_id(game_id)
   end
 
   def map_seasons_by_team

@@ -5,9 +5,10 @@ class GamesCollection
   attr_reader :games, :season_ids
 
   def initialize(file_path, parent)
-    @parent = parent
-    @games = []
-    @season_ids = []
+    @parent          = parent
+    @games           = []
+    @season_ids      = []
+    @games_by_season = Hash.new{|hash, key| hash[key] = []}
     create_games(file_path)
   end
 
@@ -15,6 +16,7 @@ class GamesCollection
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       @games << Game.new(row, self)
       @season_ids << row[:season] unless @season_ids.include?(row[:season])
+      @games_by_season[row[:season]] << row[:game_id]
     end
   end
 
@@ -24,6 +26,10 @@ class GamesCollection
         return game.season
       end
     end
+  end
+
+  def find_season_id(game_id)
+    
   end
 
   def highest_total_score
