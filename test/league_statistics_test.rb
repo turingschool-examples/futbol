@@ -30,21 +30,7 @@ class LeagueStatisticsTest < Minitest::Test
   end
 
   def test_best_offense
-    assert_equal "Reign FC", @league_statistics.best_offense(@object_data.teams)
+    assert_equal "Reign FC", @league_statistics.best_offense(@object_data.game_teams)
   end
 
-
-
-  # best_offense	Name of the team with the highest average
-  # number of goals scored per game across all seasons.	String
-# worst_offense	Name of the team with the lowest average number
-#  of goals scored per game across all seasons.	String
-# highest_scoring_visitor	Name of the team with the highest average
-# score per game across all seasons when they are away.	String
-# highest_scoring_home_team	Name of the team with the highest average
-# score per game across all seasons when they are home.	String
-# lowest_scoring_visitor	Name of the team with the lowest average
-# score per game across all seasons when they are a visitor.	String
-# lowest_scoring_home_team	Name of the team with the lowest average
-# score per game across all seasons when they are at home.
 end
