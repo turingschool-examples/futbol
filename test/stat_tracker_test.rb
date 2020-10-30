@@ -30,12 +30,12 @@ require './lib/stat_tracker'
     end
 
     def test_best_offense 
-    skip
+    #skip
     assert_equal "Reign FC", @stat_tracker.best_offense
     end
 
     def test_worst_offense 
-    skip
+    #skip
     assert_equal "Utah Royals FC", @stat_tracker.worst_offense
     end
 
