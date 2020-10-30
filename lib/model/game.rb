@@ -10,7 +10,8 @@ class Game
               :venue,
               :venue_link
 
-  def initialize(data)
+  def initialize(data, parent)
+    @parent = parent 
     @game_id = data[:game_id].to_i
     @season = data[:season].to_i
     @type = data[:type]
