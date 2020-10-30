@@ -25,9 +25,29 @@ class StatTracker
     id = @game_teams_repo.highest_average_goals
     @teams_repo.team_name(id)
   end
-  
+
   def worst_offense
     id = @game_teams_repo.lowest_average_goals
     @teams_repo.team_name(id)
+  end
+
+  def highest_total_score
+    @games_repo.highest_total_goals
+  end
+
+  def lowest_total_score
+    @games_repo.lowest_total_goals
+  end
+
+  def count_of_games_by_season
+    @games_repo.count_of_games_by_season
+  end
+
+  def average_goals_per_game
+    @games_repo.average_goals_per_game
+  end
+
+  def average_goals_by_season
+    @games_repo.average_goals_by_season
   end
 end
