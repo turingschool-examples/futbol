@@ -8,6 +8,7 @@ class SeasonsCollectionTest < Minitest::Test
   def setup
     parent = mock("stat_tracker")
     parent.stubs(:find_season_id).returns("20122013")
+    parent.stubs(:find_by_id).returns("FC Dallas")
 
     @seasonids = ["20122013","20132014"]
     @teamids =  ["6", "3"]
@@ -67,6 +68,16 @@ class SeasonsCollectionTest < Minitest::Test
     @seasoncollection.seasons.each do |season|
       assert_instance_of Season, season
     end
+  end
+
+  def test_total_goals_by_team
+    expected = {"6"=>14, "3"=>8}
+    assert_equal expected, @seasoncollection.total_goals_by_team
+  end
+
+  def test_total_games_by_team
+    expected = {"6"=>5, "3"=>5}
+    assert_equal expected, @seasoncollection.total_games_by_team
   end
 
   def test_best_offense
