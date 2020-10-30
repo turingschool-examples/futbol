@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/team_collection'
 require './lib/stat_tracker'
+require 'mocha/minitest'
 
 class TeamLoaderTest < Minitest::Test
   def setup
