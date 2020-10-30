@@ -1,39 +1,39 @@
 require_relative './test_helper'
 require './lib/game_team'
-require './lib/game_teams_collection'
-require './lib/stat_tracker'
-
 
 class GameTeamTest < Minitest::Test
-
   def setup
-    game_path = './data/games_dummy.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams_dummy.csv'
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    @stattracker = StatTracker.from_csv(locations)
+    sample_hash = {:game_id=>"2012020122",
+                       :team_id=>"3",
+                       :hoa=>"away",
+                       :result=>"WIN",
+                       :settled_in=>"REG",
+                       :head_coach=>"Peter DeBoer",
+                       :goals=>"3",
+                       :shots=>"6",
+                       :tackles=>"19",
+                       :pim=>"21",
+                       :powerplayopportunities=>"3",
+                       :powerplaygoals=>"1",
+                       :faceoffwinpercentage=>"46.6",
+                       :giveaways=>"6",
+                       :takeaways=>"9"
+                      }
+    @gameteam = GameTeam.new(sample_hash, self)
   end
 
-  def test_it_exists_and_has_attributes
-    gameteam = @stattracker.game_teams.game_teams.first
-    assert_instance_of GameTeam, gameteam
-    assert_equal "2012030221", gameteam.game_id
-    assert_equal "3", gameteam.team_id
-    assert_equal "away", gameteam.hoa
-    assert_equal "LOSS", gameteam.result
-    assert_equal "John Tortorella", gameteam.head_coach
-    assert_equal 2, gameteam.goals
-    assert_equal 8, gameteam.shots
-    assert_equal 44, gameteam.tackles
-
+  def test_it_exists
+    assert_instance_of GameTeam, @gameteam
   end
 
-  def test_it_can_find_a_team_name
-    gameteam = @stattracker.game_teams.game_teams.first
-    assert_equal "Houston Dynamo", gameteam.find_by_id("3")
+  def test_attributes
+    assert_equal "2012020122", @gameteam.game_id
+    assert_equal "3", @gameteam.team_id
+    assert_equal "away", @gameteam.hoa
+    assert_equal "WIN", @gameteam.result
+    assert_equal "Peter DeBoer", @gameteam.head_coach
+    assert_equal 3, @gameteam.goals
+    assert_equal 6, @gameteam.shots
+    assert_equal 19, @gameteam.tackles
   end
 end
