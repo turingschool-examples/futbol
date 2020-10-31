@@ -23,5 +23,9 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
+  def test_it_can_find_team_name
+    assert_equal 'Columbus Crew SC', @stat_tracker.find_team_name('53')
+  end
+
 
 end

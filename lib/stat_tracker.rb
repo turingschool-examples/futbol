@@ -21,5 +21,7 @@ class StatTracker
     @game_team_collection = GameTeamCollection.new(locations[:game_teams], self)
   end
 # LeagueStatistics
-
+  def find_team_name(team_id)
+    @team_collection.find_team_name(team_id)
+  end
 end
