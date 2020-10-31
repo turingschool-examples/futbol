@@ -1,5 +1,14 @@
 class GameTeam
-  attr_reader :game_id, :team_id, :hoa, :result, :head_coach, :goals, :shots, :tackles, :parent
+  attr_reader :game_id,
+              :team_id,
+              :hoa,
+              :result,
+              :head_coach,
+              :goals,
+              :shots,
+              :tackles,
+              :team,
+              :season
 
   def initialize(row, parent)
     @parent = parent

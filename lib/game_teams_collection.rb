@@ -4,13 +4,13 @@ class GameTeamsCollection
   attr_reader :game_teams
   def initialize(game_teams_path, parent)
     @parent = parent
-    @game_teams = create_game_teams(game_teams_path)
+    @game_teams = []
+    create_game_teams(game_teams_path)
   end
 
   def create_game_teams(game_teams_path)
-    csv = CSV.read(game_teams_path, headers: true, header_converters: :symbol)
-    csv.map do |row|
-      GameTeam.new(row, self)
+    csv = CSV.foreach(game_teams_path, headers: true, header_converters: :symbol) do |row|
+      @game_teams << GameTeam.new(row, self)
     end
   end
 
@@ -120,5 +120,41 @@ class GameTeamsCollection
       goals[-1]
     end
     find_by_id(lowest_goals[0])
+  end
+
+  def wins_by_coach(season_id)
+    coaches_by_season = Hash.new {|h, k| h[k] = []}
+    game_teams.each do |game_team|
+      if coaches_by_season[game_team.season]
+        coaches_by_season[game_team.season] << {coach: game_team.head_coach, result: game_team.result}
+      end
+    end
+    rehash = Hash.new {|h, k| h[k] = {win: 0, loss: 0, tie: 0}}
+    wins = coaches_by_season.each do |season, coach|
+      coach.each do |coaches|
+        if coaches[:result] == "WIN"
+          rehash[coaches[:coach]][:win] += 1
+        elsif coaches[:result] == "LOSS"
+          rehash[coaches[:coach]][:loss] += 1
+        elsif coaches[:result] == "TIE"
+          rehash[coaches[:coach]][:tie] += 1
+        end
+      end
+    end
+    rehash
+  end
+
+  def winningest_coach(season_id)
+    wins = wins_by_coach(season_id).max_by do |coach, totals|
+      totals[:win].to_f / (totals[:win] + totals[:loss] + totals[:tie])
+    end
+    wins.first
+  end
+
+  def worst_coach(season_id)
+    wins = wins_by_coach(season_id).min_by do |coach, totals|
+      totals[:win].to_f / (totals[:win] + totals[:loss] + totals[:tie])
+    end
+    wins.first
   end
 end

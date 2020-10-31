@@ -101,4 +101,20 @@ class GameTeamsCollectionTest < Minitest::Test
 
     assert_equal "Houston Dynamo", @gameteamcollection.lowest_scoring_hometeam
   end
+
+  def test_wins_by_coach
+    expected = {"John Tortorella"=>{:win=>0, :loss=>5, :tie=>0}, "Claude Julien"=>{:win=>5, :loss=>0, :tie=>0}}
+
+    assert_equal expected, @gameteamcollection.wins_by_coach("20132014")
+  end
+
+  def test_winningest_coach
+
+    assert_equal "Claude Julien", @gameteamcollection.winningest_coach("20132014")
+  end
+
+  def test_worst_coach
+
+    assert_equal "John Tortorella", @gameteamcollection.worst_coach("20132014")
+  end
 end
