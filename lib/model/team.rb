@@ -6,12 +6,13 @@ class Team
               :stadium,
               :link
 
-  def initialize(data)
-    @team_id = data[:team_id].to_i
-    @franchise_id = data[:franchiseId].to_i
+  def initialize(data, parent)
+    @team_id = data[:team_id]
+    @franchise_id = data[:franchiseId]
     @team_name = data[:teamName]
     @abbreviation = data[:abbreviation]
     @stadium = data[:stadium]
     @link = data[:link]
+    @parent = nil
   end
 end
