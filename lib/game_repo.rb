@@ -24,9 +24,10 @@ class GameRepo
   end
 
   def games_by_season
-    @games.group_by do |game|
+    season_games = @games.group_by do |game|
       game.season
     end
+    season_games
   end
 
   def season_game_ids
