@@ -162,4 +162,16 @@ class GameManager
     end
     goals
   end
+
+  def fewest_goals_scored(id)
+    goals = 9999
+    games_by_team(id).each do |game|
+      if game.away_team_id == id
+        goals = game.away_goals if game.away_goals < goals
+      else
+        goals = game.home_goals if game.home_goals < goals
+      end
+    end
+    goals
+  end
 end

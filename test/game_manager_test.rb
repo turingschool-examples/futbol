@@ -120,4 +120,8 @@ class GameManagerTest < Minitest::Test
   def test_most_goals_scored
     assert_equal 7, @game_manager.most_goals_scored("18")
   end
+
+  def test_fewest_goals_scored
+    assert_equal 0, @game_manager.fewest_goals_scored("18")
+  end
 end
