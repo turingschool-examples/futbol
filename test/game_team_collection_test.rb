@@ -16,8 +16,8 @@ class GameTeamCollectionTest < Minitest::Test
                   game_teams: game_teams_path
                 }
 
-    stat_tracker          = mock('stat_tracker')
-    @game_team_collection = GameTeamCollection.new(game_teams_path, stat_tracker)
+    @stat_tracker         = StatTracker.from_csv(locations)
+    @game_team_collection = GameTeamCollection.new(game_teams_path, @stat_tracker)
   end
 
   def test_it_exists_and_has_attributes
@@ -50,4 +50,8 @@ class GameTeamCollectionTest < Minitest::Test
                        @game_team_collection.percentage_ties)
   end
 
+  #LeagueStatistics Methods
+  def test_it_can_count_number_of_teams
+    assert_equal 32, @game_team_collection.count_of_teams
+  end
 end
