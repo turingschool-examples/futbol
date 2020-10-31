@@ -29,4 +29,12 @@ class Game
   def total_score
     @home_goals + @away_goals
   end
+
+  def win?(id)
+    if home_team_id == id
+      home_win?
+    else
+      visitor_win?
+    end
+  end
 end

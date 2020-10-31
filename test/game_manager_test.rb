@@ -87,4 +87,18 @@ class GameManagerTest < Minitest::Test
   def test_team_games_by_season
     assert_equal 6, @game_manager.team_games_by_season(1).size
   end
+
+  def test_team_season_stats
+    expected = {"20172018"=>{:game_count=>87,   :win_count=>33},
+               "20122013"=>{:game_count=>48, :win_count=>16},
+               "20132014"=>{:game_count=>82, :win_count=>31},
+               "20142015"=>{:game_count=>82, :win_count=>28},
+               "20162017"=>{:game_count=>82, :win_count=>26},
+               "20152016"=>{:game_count=>82, :win_count=>32}
+             }
+    assert_equal expected, @game_manager.team_season_stats(1)
+  end
+
+  def test_team_game_wins_by_season
+  end
 end

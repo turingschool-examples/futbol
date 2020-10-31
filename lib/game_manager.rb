@@ -109,4 +109,15 @@ class GameManager
     end
     hash
   end
+
+  def team_season_stats(id)
+    hash = Hash.new {|hash, key| hash[key] = Hash.new {|hash, key| hash[key] = 0}}
+    team_games_by_season(id).each do |season, games|
+      games.each do |game|
+        hash[season][:game_count] += 1
+        hash[season][:win_count] += 1 if game.win?(id)
+      end
+    end
+    hash
+  end
 end
