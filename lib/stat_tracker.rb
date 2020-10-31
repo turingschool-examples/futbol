@@ -1,15 +1,23 @@
-require 'csv'
+require './lib/game_collection'
+require './lib/team_collection'
+require './lib/game_team_collection'
 
 class StatTracker
-    def self.from_csv(locations)
-      all_data = {}
-      locations.each do |file_name, data|
-        all_data[file_name] = read_data(data)
-      end
-      all_data
-    end
+  attr_reader :game_collection,
+              :team_collection,
+              :game_team_collection
 
-    def self.read_data(data)
-      CSV.parse(File.read(data), headers: true)
-    end
+  def self.from_csv(locations)
+    StatTracker.new(locations)
   end
+
+  def initialize(locations)
+    load_collections(locations)
+  end
+
+  def load_collections(locations)
+    @game_collection = GameCollection.new(locations[:games], self)
+    @team_collection = TeamCollection.new(locations[:teams], self)
+    @game_team_collection = GameTeamCollection.new(locations[:game_teams], self)
+  end
+end
