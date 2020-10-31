@@ -123,7 +123,7 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_games_against_opponents
-    expected = {"17"=>{:wins=>1, :total=>1}}
+    expected = {"17"=>{:wins=>2, :total=>3}}
     assert_equal expected, @gamescollection.games_against_opponents("16")
   end
 

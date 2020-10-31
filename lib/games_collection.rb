@@ -158,15 +158,19 @@ class GamesCollection
   def games_against_opponents(team_id)
     wins = Hash.new {|h, k| h[k] = {wins: 0, total: 0}}
     @games.each do |game|
-      if game.away_team_id == team_id && game.winner == "away"
+      if game.away_team_id == team_id && game.winner == "home"
         wins[game.home_team_id][:wins] += 1
         wins[game.home_team_id][:total] += 1
-      elsif game.home_team_id == team_id && game.winner == "home"
+      elsif game.home_team_id == team_id && game.winner == "away"
         wins[game.away_team_id][:wins] += 1
         wins[game.away_team_id][:total] += 1
       elsif game.away_team_id == team_id && game.winner == "tied"
         wins[game.home_team_id][:total] += 1
       elsif game.home_team_id == team_id && game.winner == "tied"
+        wins[game.away_team_id][:total] += 1
+      elsif game.away_team_id == team_id && game.winner == "away"
+        wins[game.home_team_id][:total] += 1
+      elsif game.home_team_id == team_id && game.winner == "home"
         wins[game.away_team_id][:total] += 1
       end
     end
