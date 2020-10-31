@@ -79,4 +79,12 @@ class GameManagerTest < Minitest::Test
     }
     assert_equal expected, @game_manager.average_goals_by_season
   end
+
+  def test_games_by_team
+    assert_equal 463, @game_manager.games_by_team(1).size
+  end
+
+  def test_team_games_by_season
+    assert_equal 6, @game_manager.team_games_by_season(1).size
+  end
 end

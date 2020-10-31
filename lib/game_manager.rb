@@ -95,4 +95,18 @@ class GameManager
     end
     avg_by_season
   end
+
+  def games_by_team(id)
+    @games.select do |game|
+      game.away_team_id == id || game.home_team_id == id
+    end
+  end
+
+  def team_games_by_season(id)
+    hash = Hash.new { |hash, key| hash[key] = [] }
+    games_by_team(id).each do |game|
+      hash[game.season] << game
+    end
+    hash
+  end
 end
