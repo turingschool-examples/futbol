@@ -108,4 +108,8 @@ class GameManagerTest < Minitest::Test
   def test_best_season
     assert_equal "20132014", @game_manager.best_season(6)
   end
+
+  def test_worst_season
+    assert_equal "20142015", @game_manager.worst_season(6)
+  end
 end

@@ -134,4 +134,10 @@ class GameManager
       percentage
     end.first
   end
+
+  def worst_season(id)
+    percentage_wins_by_season(id).min_by do |season, percentage|
+      percentage
+    end.first
+  end
 end
