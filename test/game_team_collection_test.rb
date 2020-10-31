@@ -102,13 +102,13 @@ class GameTeamCollectionTest < Minitest::Test
 
   def test_it_knows_lowest_average_away
   # Name of the team with the highest average score per game across all seasons when they are away.
-    @game_team_collection.stubs(:lowest_average_team_id_visitor).returns('14')
-    assert_equal 'DC United', @game_team_collection.lowest_scoring_visitor
+    @game_team_collection.stubs(:lowest_average_team_id_visitor).returns('27')
+    assert_equal 'San Jose Earthquakes', @game_team_collection.lowest_scoring_visitor
   end
 
   def test_it_knows_lowest_average_home
   # Name of the team with the highest average score per game across all seasons when they are away.
-    @game_team_collection.stubs(:lowest_average_team_id_home).returns('8')
-    assert_equal 'New York Red Bulls', @game_team_collection.lowest_scoring_home_team
+    @game_team_collection.stubs(:lowest_average_team_id_home).returns('7')
+    assert_equal 'Utah Royals FC', @game_team_collection.lowest_scoring_home_team
   end
 end
