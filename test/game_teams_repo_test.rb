@@ -43,7 +43,7 @@ class GameTeamsRepoTest < Minitest::Test
 
   def test_games_containing
     assert_equal 2, @game_teams_repo.games_containing(:game_id, "2012030221").length
-  end 
+  end
 
   def test_percentage_wins
     assert_equal 0.44, @game_teams_repo.percentage_wins("home")
@@ -52,5 +52,13 @@ class GameTeamsRepoTest < Minitest::Test
 
   def test_percentage_ties
     assert_equal 0.20, @game_teams_repo.percentage_ties
+  end
+
+  def test_highest_average_hoa_goals
+    assert_equal 54, @game_teams_repo.highest_average_hoa_goals("home")
+  end
+
+  def test_average_hoa_goals_by_id
+    assert_equal 2.16, @game_teams_repo.average_hoa_goals_by_id(13, :hoa, "home")
   end
 end
