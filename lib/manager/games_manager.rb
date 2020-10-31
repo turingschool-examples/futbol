@@ -20,4 +20,13 @@ class GamesManager
   def highest_total_score
     games.max_by { |game| game.total_score }.total_score
   end
+
+  def verify_in_season(season, game_id)
+    verify = false
+    @games.each do |game|
+      verify = true if game.game_id == game_id && game.season == season
+    end
+
+    verify
+  end
 end

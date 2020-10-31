@@ -9,6 +9,7 @@ class GameTeam
               :shots,
               :tackles
 
+
   def initialize(data, parent)
     @parent = parent 
     @game_id = data[:game_id]

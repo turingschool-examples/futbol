@@ -18,7 +18,7 @@ class GameTeamTest < Minitest::Test
     # @game_team = GameTeam.new(row, parent)
     locations = {
       games: './data/fixture_files/games.csv',
-      teams: './data/teams.csv',
+      teams: './data/fixture_files/teams.csv',
       game_teams: './data/fixture_files/game_teams.csv'
     }
 

@@ -3,9 +3,9 @@ require_relative './test_helper'
 class GameTeamsManagerTest < Minitest::Test
   def setup
     locations = {
-      games: './data/fixture_files/games.csv',
-      teams: './data/teams.csv',
-      game_teams: './data/fixture_files/game_teams.csv'
+      games: './data/games.csv',
+      teams: './data/fixture_files/teams.csv',
+      game_teams: './data/game_teams.csv'
     }
     controller = StatTracker.from_csv(locations)
     @game_teams_manager = controller.game_teams_manager
