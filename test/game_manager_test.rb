@@ -81,11 +81,11 @@ class GameManagerTest < Minitest::Test
   end
 
   def test_games_by_team
-    assert_equal 463, @game_manager.games_by_team(1).size
+    assert_equal 463, @game_manager.games_by_team("1").size
   end
 
   def test_team_games_by_season
-    assert_equal 6, @game_manager.team_games_by_season(1).size
+    assert_equal 6, @game_manager.team_games_by_season("1").size
   end
 
   def test_team_season_stats
@@ -96,20 +96,20 @@ class GameManagerTest < Minitest::Test
                "20162017"=>{:game_count=>82, :win_count=>26},
                "20152016"=>{:game_count=>82, :win_count=>32}
              }
-    assert_equal expected, @game_manager.team_season_stats(1)
+    assert_equal expected, @game_manager.team_season_stats("1")
   end
 
   def test_percentage_wins_by_season
-    assert @game_manager.percentage_wins_by_season(1).keys.all? do |key|
+    assert @game_manager.percentage_wins_by_season("1").keys.all? do |key|
       key.is_a?(Float)
     end
   end
 
   def test_best_season
-    assert_equal "20132014", @game_manager.best_season(6)
+    assert_equal "20132014", @game_manager.best_season("6")
   end
 
   def test_worst_season
-    assert_equal "20142015", @game_manager.worst_season(6)
+    assert_equal "20142015", @game_manager.worst_season("6")
   end
 end

@@ -101,4 +101,12 @@ class StatTracker
   def team_info(id)
     @team_manager.team_info(id)
   end
+
+  def best_season(id)
+    @game_manager.best_season(id)
+  end
+
+  def worst_season(id)
+    @game_manager.best_season(id)
+  end
 end
