@@ -126,6 +126,35 @@ class GameTeamsManager
     hash
   end
 
+  def most_accurate_team(game_ids)
+    team_goal_ratio(game_ids).max_by do |team_id, ratio_hash|
+      ratio_hash[:goals] / ratio_hash[:shots].to_f
+    end.first
+  end
 
+  def least_accurate_team(game_ids)
+    team_goal_ratio(game_ids).min_by do |team_id, ratio_hash|
+      ratio_hash[:goals] / ratio_hash[:shots].to_f
+    end.first
+  end
 
+  def total_tackles_by_team(game_ids)
+    hash = Hash.new {|hash, key| hash[key] = 0}
+    games_by_season(game_ids).each do |game|
+      hash[game.team_id] += game.tackles
+    end
+    hash
+  end
+
+  def most_tackles(game_ids)
+    total_tackles_by_team(game_ids).max_by do |team_id, tackles|
+      tackles
+    end.first
+  end
+
+  def fewest_tackles(game_ids)
+    total_tackles_by_team(game_ids).min_by do |team_id, tackles|
+      tackles
+    end.first
+  end
 end
