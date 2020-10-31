@@ -62,4 +62,24 @@ class StatTracker
   def percentage_ties
     @game_teams_repo.percentage_ties
   end
+
+  def highest_scoring_visitor
+    id = @game_teams_repo.highest_average_hoa_goals("away")
+    @teams_repo.team_name(id)
+  end
+
+  def highest_scoring_home_team
+    id = @game_teams_repo.highest_average_hoa_goals("home")
+    @teams_repo.team_name(id)
+  end
+
+  def lowest_scoring_visitor
+    id = @game_teams_repo.lowest_average_hoa_goals("away")
+    @teams_repo.team_name(id)
+  end
+
+  def lowest_scoring_home_team 
+    id = @game_teams_repo.lowest_average_hoa_goals("home")
+    @teams_repo.team_name(id)
+  end
 end
