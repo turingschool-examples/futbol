@@ -38,5 +38,49 @@ class GameTeamCollection
   def percentage_ties
     (compare_hoa_to_result("away", "TIE") / total_games  * 100).round(2)
   end
-  
+
+  def games_in_season(season)
+    @game_teams.select do |game|
+    @stat_tracker.game_ids_per_season[season].include?(game.game_id)
+    end
+  end
+  #
+  #   def games_per_coach(season)
+  #     coaches_and_games = {}
+  #     games_in_season(season).each do |game|
+  #      if coaches_and_games[game["head_coach"]]
+  #        coaches_and_games[game["head_coach"]] << game
+  #      else coaches_and_games[game["head_coach"]] = [game]
+  #      end
+  #    end
+  #    coaches_and_games
+  #   end
+  #
+  #   def count_coach_results(season)
+  #     coaches_and_results = {}
+  #     games_per_coach(season).map do |coach, games|
+  #         coaches_and_results[coach] = games.count do |game|
+  #         game["result"] == "WIN"
+  #       end
+  #     end
+  #     coaches_and_results
+  #   end
+  #
+  #   def coach_percentage(season)
+  #     coaches_and_percentages = {}
+  #     wins = count_coach_results(season)
+  #     wins.keys.map do |coach|
+  #       coaches_and_percentages[coach] = (wins[coach].to_f /
+  #                                 games_per_coach(season)[coach].count).round(2)
+  #     end
+  #     coaches_and_percentages
+  #   end
+  #
+  #   def winningest_coach(season)
+  #     coach = coach_percentage(season).max_by do |coach, percentage|
+  #       percentage
+  #     end
+  #     coach[0]
+  #   end
+
 end

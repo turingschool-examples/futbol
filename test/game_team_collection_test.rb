@@ -16,7 +16,7 @@ class GameTeamCollectionTest < Minitest::Test
                   game_teams: game_teams_path
                 }
 
-    stat_tracker          = mock('stat_tracker')
+    stat_tracker          = StatTracker.from_csv(locations)
     @game_team_collection = GameTeamCollection.new(game_teams_path, stat_tracker)
   end
 
@@ -49,5 +49,28 @@ class GameTeamCollectionTest < Minitest::Test
                        @game_team_collection.percentage_visitor_wins +
                        @game_team_collection.percentage_ties)
   end
+
+    def test_games_in_season
+      assert_equal 1612, @game_team_collection.games_in_season("20122013").count
+    end
+  #
+  #   def test_games_per_coach
+  #     expected = 4
+  #     assert_equal expected, @seasonstats.games_per_coach("20122013").count
+  #   end
+  #
+  #   def test_count_coach_results
+  #     expected = 4
+  #     assert_equal expected, @seasonstats.count_coach_results("20122013").count
+  #   end
+  #
+  #   def test_coach_percentage
+  #     expected = {"John Tortorella"=>0.0, "Joel Quenneville"=>1.0, "Michel Therrien"=>0.0, "Paul MacLean"=>0.0}
+  #     assert_equal expected, @seasonstats.coach_percentage("20122013")
+  #   end
+  #
+  #   def test_winningest_coach
+  #     assert_equal "Joel Quenneville", @seasonstats.winningest_coach("20122013")
+  #   end
 
 end

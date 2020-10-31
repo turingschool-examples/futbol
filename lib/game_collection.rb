@@ -71,4 +71,13 @@ class GameCollection
     goals_per_season
   end
 
+  def game_ids_per_season
+    seasons_and_games = {}
+    @games.each do |game|
+      (seasons_and_games[game.season] << game.game_id if seasons_and_games[game.season]) ||
+      (seasons_and_games[game.season] = [game.game_id])
+    end
+    seasons_and_games
+  end
+
 end

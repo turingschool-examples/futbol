@@ -20,4 +20,9 @@ class StatTracker
     @team_collection = TeamCollection.new(locations[:teams], self)
     @game_team_collection = GameTeamCollection.new(locations[:game_teams], self)
   end
+
+  def game_ids_per_season
+    @game_collection.game_ids_per_season
+  end
+
 end
