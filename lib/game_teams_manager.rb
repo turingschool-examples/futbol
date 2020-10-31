@@ -126,6 +126,9 @@ class GameTeamsManager
     hash
   end
 
-
-
+  def most_accurate_team(game_ids)
+    team_goal_ratio(game_ids).max_by do |team_id, ratio_hash|
+      ratio_hash[:goals] / ratio_hash[:shots].to_f
+    end.first
+  end
 end

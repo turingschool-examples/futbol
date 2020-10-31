@@ -89,5 +89,7 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal expected, @game_teams_manager.team_goal_ratio([2012030222, 2012030223])
   end
 
-
+  def test_most_accurate_team
+    assert_equal 6, @game_teams_manager.most_accurate_team([2012030222, 2012030223])
+  end
 end
