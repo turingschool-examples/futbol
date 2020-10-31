@@ -78,6 +78,10 @@ class GameTeamsManagerTest < Minitest::Test
 
   def test_winningest_coach
     assert_equal "Claude Julien", @game_teams_manager.winningest_coach([2012030222, 2012030223])
-    # assert_equal "John Tortorella", @game_teams_manager.winningest_coach([2012030222, 2012030223])
   end
+
+  def test_worst_coach
+    assert_equal "John Tortorella", @game_teams_manager.worst_coach([2012030222, 2012030223])
+  end
+
 end
