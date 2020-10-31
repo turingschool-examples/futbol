@@ -56,11 +56,11 @@ class GameCollection
     scores_by_season
   end
 
-  # def season_id
-  #   @games_table.map do |game|
-  #     game["season"]
-  #   end.uniq
-  # end
+  def season_id
+    @games.map do |game|
+      game.season
+    end.uniq
+  end
   #
   # def average_goals_by_season
   #   goals_per_season = {}
