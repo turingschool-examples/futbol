@@ -110,6 +110,15 @@ class GameManager
     hash
   end
 
+  def team_games_by_opponent(id)
+    hash = Hash.new { |hash, key| hash[key] = [] }
+    games_by_team(id).each do |game|
+      hash[game.away_team_id] << game if game.away_team_id != id
+      hash[game.home_team_id] << game if game.home_team_id != id
+    end
+    hash
+  end
+
   def team_season_stats(id)
     hash = Hash.new {|hash, key| hash[key] = Hash.new {|hash, key| hash[key] = 0}}
     team_games_by_season(id).each do |season, games|
@@ -121,12 +130,32 @@ class GameManager
     hash
   end
 
+  def team_opponent_stats(id)
+    hash = Hash.new {|hash, key| hash[key] = Hash.new {|hash, key| hash[key] = 0}}
+    team_games_by_opponent(id).each do |opponent, games|
+      games.each do |game|
+        hash[opponent][:game_count] += 1
+        hash[opponent][:win_count] += 1 if game.win?(id)
+      end
+    end
+    hash
+  end
+
   def percentage_wins_by_season(id)
     percentage_hash = Hash.new(0)
     team_season_stats(id).each do |season, stats|
       percentage_hash[season] = stats[:win_count].to_f / stats[:game_count]
     end
     percentage_hash
+  end
+
+  def percentage_wins_by_opponent(id)
+    percentage_hash = Hash.new(0)
+    team_opponent_stats(id).each do |opponent, stats|
+      percentage_hash[opponent] = stats[:win_count].to_f / stats[:game_count]
+    end
+    percentage_hash
+    require "pry"; binding.pry
   end
 
   def best_season(id)
@@ -173,5 +202,17 @@ class GameManager
       end
     end
     goals
+  end
+
+  def favorite_opponent(id)
+    percentage_wins_by_opponent(id).max_by do |opponent, percentage|
+      percentage
+    end.first
+  end
+
+  def rival(id)
+    percentage_wins_by_opponent(id).min_by do |opponent, percentage|
+      percentage
+    end.first
   end
 end

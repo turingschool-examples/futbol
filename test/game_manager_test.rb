@@ -123,5 +123,29 @@ class GameManagerTest < Minitest::Test
 
   def test_fewest_goals_scored
     assert_equal 0, @game_manager.fewest_goals_scored("18")
-  end 
+  end
+
+  def test_team_games_by_opponent
+    assert_equal 31, @game_manager.team_games_by_opponent("18").keys.size
+  end
+
+  def test_team_opponent_stats
+    assert_equal 31, @game_manager.team_opponent_stats("18").keys.size
+    expected = {:game_count=>34, :win_count=>15}
+    assert_equal expected, @game_manager.team_opponent_stats("18")["19"]
+  end
+
+  def test_percentage_wins_by_opponent
+    assert @game_manager.percentage_wins_by_opponent("18").keys.all? do |key|
+      key.is_a?(Float)
+    end
+  end
+
+  def test_favorite_opponent
+    assert_equal "14", @game_manager.favorite_opponent("18")
+  end
+
+  def test_rival
+    assert_equal "13", @game_manager.rival("18")
+  end
 end
