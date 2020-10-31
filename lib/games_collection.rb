@@ -130,4 +130,60 @@ class GamesCollection
     end
     (wins / total.to_f).round(2)
   end
+
+  def goals_scored_by_team(team_id)
+    games_with_goals = Hash.new(0)
+    @games.each do |game|
+      if game.away_team_id == team_id
+        games_with_goals[game.game_id] = game.away_goals
+      elsif game.home_team_id == team_id
+        games_with_goals[game.game_id] = game.home_goals
+      end
+    end
+    games_with_goals
+  end
+
+  def most_goals_scored(team_id)
+    goals_scored_by_team(team_id).max_by do |key, value|
+      value
+    end.last
+  end
+
+  def fewest_goals_scored(team_id)
+    goals_scored_by_team(team_id).min_by do |key, value|
+      value
+    end.last
+  end
+
+  def games_against_opponents(team_id)
+    wins = Hash.new {|h, k| h[k] = {wins: 0, total: 0}}
+    @games.each do |game|
+      if game.away_team_id == team_id && game.winner == "away"
+        wins[game.home_team_id][:wins] += 1
+        wins[game.home_team_id][:total] += 1
+      elsif game.home_team_id == team_id && game.winner == "home"
+        wins[game.away_team_id][:wins] += 1
+        wins[game.away_team_id][:total] += 1
+      elsif game.away_team_id == team_id && game.winner == "tied"
+        wins[game.home_team_id][:total] += 1
+      elsif game.home_team_id == team_id && game.winner == "tied"
+        wins[game.away_team_id][:total] += 1
+      end
+    end
+    wins
+  end
+
+  def favorite_opponent(team_id)
+    opponent = games_against_opponents(team_id).min_by do |opp, numbers|
+      numbers[:wins].to_f / numbers[:total]
+    end
+    @parent.find_by_id(opponent.first)
+  end
+
+  def rival(team_id)
+    rival = games_against_opponents(team_id).max_by do |opp, numbers|
+      numbers[:wins].to_f / numbers[:total]
+    end
+    @parent.find_by_id(rival.first)
+  end
 end

@@ -5,7 +5,9 @@ require 'csv'
 class GamesCollectionTest < Minitest::Test
 
   def setup
-    @gamescollection = GamesCollection.new('./data/games_dummy.csv', self)
+    @parent = mock("Stat tracker")
+    @parent.stubs(:find_by_id => "FC Dallas")
+    @gamescollection = GamesCollection.new('./data/games_dummy.csv', @parent)
   end
 
   def test_it_exists
@@ -102,5 +104,36 @@ class GamesCollectionTest < Minitest::Test
   def test_average_win_percentage
 
     assert_equal 0.5, @gamescollection.average_win_percentage("17")
+  end
+
+  def test_goals_scored_by_team
+    expected = {"2012030231"=>2, "2012030232"=>1, "2012030233"=>1, "2012030234"=>0}
+
+    assert_equal expected, @gamescollection.goals_scored_by_team("16")
+  end
+
+  def test_most_goals_scored
+
+    assert_equal 2, @gamescollection.most_goals_scored("16")
+  end
+
+  def test_fewest_goals_scored
+
+    assert_equal 0, @gamescollection.fewest_goals_scored("16")
+  end
+
+  def test_games_against_opponents
+    expected = {"17"=>{:wins=>1, :total=>1}}
+    assert_equal expected, @gamescollection.games_against_opponents("16")
+  end
+
+  def test_favorite_opponent
+
+    assert_equal "FC Dallas", @gamescollection.favorite_opponent("16")
+  end
+
+  def test_rival
+
+    assert_equal "FC Dallas", @gamescollection.rival("6")
   end
 end

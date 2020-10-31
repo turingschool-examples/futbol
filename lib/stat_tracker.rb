@@ -86,25 +86,32 @@ class StatTracker
     @teams.team_info(team_id)
   end
 
-  def best_season
+  def best_season(team_id)
+    @games.best_season(team_id)
   end
 
-  def worst_season
+  def worst_season(team_id)
+    @games.worst_season(team_id)
   end
 
-  def average_win_percentage
+  def average_win_percentage(team_id)
+    @games.average_win_percentage(team_id)
   end
 
-  def most_goals_scored
+  def most_goals_scored(team_id)
+    @games.most_goals_scored(team_id)
   end
 
-  def fewest_goals_scored
+  def fewest_goals_scored(team_id)
+    @games.fewest_goals_scored(team_id)
   end
 
-  def favorite_opponent
+  def favorite_opponent(team_id)
+    @games.favorite_opponent(team_id)
   end
 
-  def rival
+  def rival(team_id)
+    @games.rival(team_id)
   end
 
   def winningest_coach
