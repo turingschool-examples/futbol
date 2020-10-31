@@ -12,10 +12,10 @@ class StatTracker
   end
 
   def initialize(locations)
-    load_files(locations)
+    load_collections(locations)
   end
 
-  def load_files(locations)
+  def load_collections(locations)
     @game_collection = GameCollection.new(locations[:games], self)
     @team_collection = TeamCollection.new(locations[:teams], self)
     @game_team_collection = GameTeamCollection.new(locations[:game_teams], self)
