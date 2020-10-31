@@ -24,7 +24,7 @@ class GameTeamCollection
   # end
   #
   # def total_games
-  #   @games_table.count
+  #   @games_teams.count / 2
   # end
   #
   # def percentage_home_wins

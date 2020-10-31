@@ -41,17 +41,19 @@ class GameCollectionTest < Minitest::Test
     assert_equal expected, @game_collection.count_of_games_by_season
   end
 
-  def test_average_goals_per_game
-    assert_equal 2.22, @game_collection.average_goals_per_game
+  def test_total_games
+    assert_equal 7441, @game_collection.total_games
   end
-  #
-  # def test_sum_of_scores_by_season
-  #   expected = {20122013 => 3322}
-  #   assert_instance_of Hash, @game_collection.sum_of_scores_by_season
-  #   @game_collection.stubs(:sum_of_scores_by_season).returns(expected)
-  #   assert_equal expected, @game_collection.sum_of_scores_by_season
-  # end
-  #
+
+  def test_average_goals_per_game
+    assert_equal 4.22, @game_collection.average_goals_per_game
+  end
+
+  def test_sum_of_scores_by_season
+    expected = {"20122013"=>3322, "20162017"=>5565, "20142015"=>5461, "20152016"=>5499, "20132014"=>5547, "20172018"=>6019}
+    assert_equal expected, @game_collection.sum_of_scores_by_season
+  end
+
   # def test_average_goals_by_season
   #   expected = {20122013 => 2.53}
   #   assert_instance_of Hash, @game_collection.average_goals_by_season
