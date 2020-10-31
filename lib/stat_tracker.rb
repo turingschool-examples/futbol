@@ -1,24 +1,23 @@
-require 'csv'
+require './lib/game_collection'
+require './lib/team_collection'
+require './lib/game_team_collection'
 
 class StatTracker
+  attr_reader :game_collection,
+              :team_collection,
+              :game_team_collection
+
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
 
   def initialize(locations)
-    @locations = locations #this is a hash
-    @games_table = CSV.parse(File.read(@locations[:games]), headers: true)
+    load_collections(locations)
   end
 
-  def sum_of_scores
-    @games_table.map do |game|
-      require 'pry'; binding.pry
-      game[6] + game[7]
-    end
+  def load_collections(locations)
+    @game_collection = GameCollection.new(locations[:games], self)
+    @team_collection = TeamCollection.new(locations[:teams], self)
+    @game_team_collection = GameTeamCollection.new(locations[:game_teams], self)
   end
-
-  def highest_total_score
-    # sum_of_scores.max
-  end
-
 end
