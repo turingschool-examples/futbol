@@ -6,27 +6,37 @@ class LeagueStatistics
     teams.count
   end
 
-  def best_offense(game_teams_data)
-team_goals = Hash.new {|hash, key| hash[key] = 0}
-    game_teams_data.each do |game_id, game_pair|
-      game_pair.each do |hoa, game_obj|
-        team_goals[game_obj.team_id] += game_obj.goals
-      end
-    end
-    team_goals
+  def best_offense(game_team_data,teams)
+    team_name(teams,highest_goals_by_team_id(game_team_data))
+  end
+
+  def highest_goals_by_team_id(game_team_data)
+    total_goals_by_team(game_team_data).max_by do |team_id, goals_and_games|
+      goal_to_shot_ratio(goals_and_games)
+    end[0]
   end
 
   def total_goal_by_team(game_team_data)
-    team_goals = Hash.new {|hash, key| hash[key] = 0}
-    total_games = Hash.new {|hash, key| hash[key] = 0}
-    game_teams_data.each do |game_id, game_pair|
+    goals_and_games = Hash.new {|hash, key| hash[key] = {
+        goals: 0,
+        games: 0
+      }}
+    game_team_data.each do |game_id, game_pair|
       game_pair.each do |hoa, game_obj|
-        team_goals[game_obj.team_id] += game_obj.goals
-        total_games[game_obj.team_id] += 1
+        goals_and_games[game_obj.team_id][:goals] += game_obj.goals
+        goals_and_games[game_obj.team_id][:games] += 1
         end
       end
-    return team_goals, total_games
+     goals_and_games
   end
 
+  def goal_to_shot_ratio(hash)
+    hash[:goals] / hash[:games]
+  end
 
+  def team_name_from_id(teams,id)
+    teams.find do |team_id, team|
+      team_id == id
+    end[1].teamName
+  end
 end
