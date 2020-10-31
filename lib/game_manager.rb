@@ -150,4 +150,16 @@ class GameManager
     end
     (total_wins.to_f / total_games).round(2)
   end
+
+  def most_goals_scored(id)
+    goals = 0
+    games_by_team(id).each do |game|
+      if game.away_team_id == id
+        goals = game.away_goals if game.away_goals > goals
+      else
+        goals = game.home_goals if game.home_goals > goals
+      end
+    end
+    goals
+  end
 end

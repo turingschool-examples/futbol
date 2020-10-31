@@ -116,4 +116,8 @@ class GameManagerTest < Minitest::Test
   def test_average_win_percentage
     assert_equal 0.49, @game_manager.average_win_percentage("6")
   end
+
+  def test_most_goals_scored
+    assert_equal 7, @game_manager.most_goals_scored("18")
+  end
 end
