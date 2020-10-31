@@ -61,16 +61,14 @@ class GameCollection
       game.season
     end.uniq
   end
-  #
-  # def average_goals_by_season
-  #   goals_per_season = {}
-  #   season_id.each do |season|
-  #       if !goals_per_season[season]
-  #          goals_per_season[season]= (sum_of_scores_by_season[season] /
-  #                                             count_of_games_by_season[season].to_f).round(2)
-  #       end
-  #   end
-  #   goals_per_season
-  # end
+
+  def average_goals_by_season
+    goals_per_season = {}
+    season_id.each do |season|
+      goals_per_season[season] = (sum_of_scores_by_season[season] /
+                                count_of_games_by_season[season].to_f).round(2)
+    end
+    goals_per_season
+  end
 
 end

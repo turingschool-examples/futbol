@@ -59,7 +59,7 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_average_goals_by_season
-    expected = {20122013 => 2.53}
+    expected = {"20122013"=>4.12, "20162017"=>4.23, "20142015"=>4.14, "20152016"=>4.16, "20132014"=>4.19, "20172018"=>4.44}
     assert_equal expected, @game_collection.average_goals_by_season
   end
 
