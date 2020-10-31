@@ -120,4 +120,18 @@ class GameManager
     end
     hash
   end
+
+  def percentage_wins_by_season(id)
+    percentage_hash = Hash.new(0)
+    team_season_stats(id).each do |season, stats|
+      percentage_hash[season] = stats[:win_count].to_f / stats[:game_count]
+    end
+    percentage_hash
+  end
+
+  def best_season(id)
+    percentage_wins_by_season(id).max_by do |season, percentage|
+      percentage
+    end.first
+  end
 end

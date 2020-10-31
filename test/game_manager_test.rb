@@ -99,6 +99,13 @@ class GameManagerTest < Minitest::Test
     assert_equal expected, @game_manager.team_season_stats(1)
   end
 
-  def test_team_game_wins_by_season
+  def test_percentage_wins_by_season
+    assert @game_manager.percentage_wins_by_season(1).keys.all? do |key|
+      key.is_a?(Float)
+    end
+  end
+
+  def test_best_season
+    assert_equal "20132014", @game_manager.best_season(6)
   end
 end
