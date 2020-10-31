@@ -112,4 +112,8 @@ class GameManagerTest < Minitest::Test
   def test_worst_season
     assert_equal "20142015", @game_manager.worst_season("6")
   end
+
+  def test_average_win_percentage
+    assert_equal 0.49, @game_manager.average_win_percentage("6")
+  end
 end

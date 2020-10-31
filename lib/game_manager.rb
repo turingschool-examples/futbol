@@ -140,4 +140,14 @@ class GameManager
       percentage
     end.first
   end
+
+  def average_win_percentage(id)
+    total_games = 0
+    total_wins = 0
+    team_season_stats(id).each do |season, stats|
+      total_games += stats[:game_count]
+      total_wins += stats[:win_count]
+    end
+    (total_wins.to_f / total_games).round(2)
+  end
 end
