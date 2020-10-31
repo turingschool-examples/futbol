@@ -23,10 +23,10 @@ class GameTeamCollection
     end.to_f
   end
 
-  # def total_games
-  #   @games_teams.count / 2
-  # end
-  #
+  def total_games
+    @game_teams.count / 2
+  end
+
   # def percentage_home_wins
   #   (compare_hoa_to_result("home", "WIN") / total_games * 100).round(2)
   # end

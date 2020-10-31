@@ -28,7 +28,10 @@ class GameTeamCollectionTest < Minitest::Test
     assert_equal 3237.0, @game_team_collection.compare_hoa_to_result("home", "WIN")
   end
 
-  
+  def test_total_games
+    assert_equal 7441, @game_team_collection.total_games
+  end
+
   # def test_it_calls_percentage_of_games_w_home_team_win
   #   assert_equal 45.23, @game_team_collection.percentage_home_wins
   # end
