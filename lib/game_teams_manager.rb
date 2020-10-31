@@ -137,4 +137,13 @@ class GameTeamsManager
       ratio_hash[:goals] / ratio_hash[:shots].to_f
     end.first
   end
+
+  def total_tackles_by_team(game_ids)
+    hash = Hash.new {|hash, key| hash[key] = 0}
+    games_by_season(game_ids).each do |game|
+      hash[game.team_id] += game.tackles
+    end
+    hash
+  end
+  
 end

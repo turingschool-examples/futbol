@@ -96,4 +96,13 @@ class GameTeamsManagerTest < Minitest::Test
   def test_least_accurate_team
     assert_equal 3, @game_teams_manager.least_accurate_team([2012030222, 2012030223])
   end
+
+  def test_total_tackles_by_team
+    expected = ({3=>70, 6=>64})
+    assert_equal expected, @game_teams_manager.total_tackles_by_team([2012030222, 2012030223])
+  end
+
+  def test_most_tackles
+    assert_equal 3,  @game_teams_manager.most_tackles([2012030222, 2012030223])
+  end
 end
