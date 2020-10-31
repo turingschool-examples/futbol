@@ -32,4 +32,20 @@ class LeagueStatisticsTest < Minitest::Test
     assert_equal "Utah Royals FC", @league_statistics.worst_offense(@object_data.game_teams,@object_data.teams)
   end
 
+  def test_highest_scoring_visitor
+    assert_equal "FC Dallas", @league_statistics.highest_scoring_visitor(@object_data.games,@object_data.teams)
+  end
+
+  def test_lowest_scoring_visitor
+    assert_equal "San Jose Earthquakes", @league_statistics.lowest_scoring_visitor(@object_data.games,@object_data.teams)
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal "Reign FC", @league_statistics.highest_scoring_home_team(@object_data.games,@object_data.teams)
+  end
+
+  def test_lowest_scoring_home_team
+    assert_equal "Utah Royals FC", @league_statistics.lowest_scoring_home_team(@object_data.games,@object_data.teams)
+  end
+
 end
