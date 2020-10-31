@@ -131,4 +131,10 @@ class GameTeamsManager
       ratio_hash[:goals] / ratio_hash[:shots].to_f
     end.first
   end
+
+  def least_accurate_team(game_ids)
+    team_goal_ratio(game_ids).min_by do |team_id, ratio_hash|
+      ratio_hash[:goals] / ratio_hash[:shots].to_f
+    end.first
+  end
 end
