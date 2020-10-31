@@ -155,7 +155,6 @@ class GameManager
       percentage_hash[opponent] = stats[:win_count].to_f / stats[:game_count]
     end
     percentage_hash
-    require "pry"; binding.pry
   end
 
   def best_season(id)
