@@ -25,25 +25,25 @@ class LeagueStatisticsTest < Minitest::Test
   #   assert_equal 32, @league_statistics.count_of_teams
   # end
 
-  def test_it_knows_highest_average_goals_scored_across_season
-	# Name of the team with the highest average number of goals scored per game across all seasons.
-    assert_equal 'FC Dallas', @league_statistics.best_offense
-  end
+  # def test_it_knows_highest_average_goals_scored_across_season
+	# # Name of the team with the highest average number of goals scored per game across all seasons.
+  #   assert_equal 'FC Dallas', @league_statistics.best_offense
+  # end
 
-  def test_it_knows_lowest_average_goals_scored_across_season
-  # Name of the team with the highest average number of goals scored per game across all seasons.
-    assert_equal 'Sporting Kansas City', @league_statistics.worst_offense
-  end
+  # def test_it_knows_lowest_average_goals_scored_across_season
+  # # Name of the team with the highest average number of goals scored per game across all seasons.
+  #   assert_equal 'Sporting Kansas City', @league_statistics.worst_offense
+  # end
 
-  def test_it_knows_highest_average_away
-  # Name of the team with the highest average score per game across all seasons when they are away.
-    assert_equal 'Real Salt Lake', @league_statistics.highest_scoring_visitor
-  end
+  # def test_it_knows_highest_average_away
+  # # Name of the team with the highest average score per game across all seasons when they are away.
+  #   assert_equal 'Real Salt Lake', @league_statistics.highest_scoring_visitor
+  # end
 
-  def test_it_knows_highest_average_home
-  # Name of the team with the highest average score per game across all seasons when they are away.
-    assert_equal 'Real Salt Lake', @league_statistics.highest_scoring_home_team
-  end
+  # def test_it_knows_highest_average_home
+  # # Name of the team with the highest average score per game across all seasons when they are away.
+  #   assert_equal 'Real Salt Lake', @league_statistics.highest_scoring_home_team
+  # end
 
   def test_it_knows_lowest_average_away
   # Name of the team with the highest average score per game across all seasons when they are away.
@@ -90,15 +90,15 @@ class LeagueStatisticsTest < Minitest::Test
     assert_equal expected, @league_statistics.total_goals_per_team_id_home
   end
 
-  def test_it_can_find_highest_average_team_id_visitor
-
-    assert_equal "24", @league_statistics.highest_average_team_id_visitor
-  end
-
-  def test_it_can_find_highest_average_team_id_home
-
-    assert_equal "24", @league_statistics.highest_average_team_id_home
-  end
+  # def test_it_can_find_highest_average_team_id_visitor
+  #
+  #   assert_equal "24", @league_statistics.highest_average_team_id_visitor
+  # end
+  #
+  # def test_it_can_find_highest_average_team_id_home
+  #
+  #   assert_equal "24", @league_statistics.highest_average_team_id_home
+  # end
 
   def test_it_can_find_lowest_average_team_id_visitor
 

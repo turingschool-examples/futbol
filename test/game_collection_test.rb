@@ -16,8 +16,8 @@ class GameCollectionTest < Minitest::Test
                 game_teams: game_teams_path
               }
 
-    stat_tracker     = mock('stat_tracker')
-    @game_collection = GameCollection.new(game_path, stat_tracker)
+    @stat_tracker    = StatTracker.from_csv(locations)
+    @game_collection = GameCollection.new(game_path, @stat_tracker)
   end
 
   def test_it_exists_and_has_attributes
@@ -63,4 +63,24 @@ class GameCollectionTest < Minitest::Test
     assert_equal expected, @game_collection.average_goals_by_season
   end
 
+  # LeagueStatistics
+  def test_it_knows_total_goals_per_team_id_away
+    # expected = {"3"=>5.0, "6"=>11.0, "5"=>1.0, "20"=>4.0, "24"=>6.0}
+    assert_equal 32, @game_collection.total_goals_per_team_id_away.count
+  end
+
+  def test_it_knows_total_goals_per_team_id_away
+    # expected = {"3"=>5.0, "6"=>11.0, "5"=>1.0, "20"=>4.0, "24"=>6.0}
+    assert_equal 32, @game_collection.total_goals_per_team_id_home.count
+  end
+
+  def test_it_knows_total_goals_per_team_id_away
+    # expected = {"3"=>5.0, "6"=>11.0, "5"=>1.0, "20"=>4.0, "24"=>6.0}
+    assert_equal 32, @game_collection.total_goals_per_team_id_away.count
+  end
+
+  def test_it_knows_total_goals_per_team_id_home
+    # expected = {"6"=>12.0, "3"=>3.0, "5"=>1.0, "24"=>6.0, "20"=>3.0}
+    assert_equal 32, @game_collection.total_goals_per_team_id_home.count
+  end
 end
