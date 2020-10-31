@@ -24,8 +24,8 @@ class GameCollectionTest < Minitest::Test
     assert_instance_of GameCollection, @game_collection
   end
 
-  def test_sum_of_scores
-    assert_equal 7441, @game_collection.sum_of_scores.count
+  def test_scores_by_game
+    assert_equal 7441, @game_collection.scores_by_game.count
   end
 
   def test_it_calls_highest_total_score
@@ -54,17 +54,13 @@ class GameCollectionTest < Minitest::Test
     assert_equal expected, @game_collection.sum_of_scores_by_season
   end
 
+  def test_season_id
+    assert_equal [20162017, 20142015, 20132014], @game_collection.season_id
+  end
+
   # def test_average_goals_by_season
   #   expected = {20122013 => 2.53}
-  #   assert_instance_of Hash, @game_collection.average_goals_by_season
-  #   @game_collection.stubs(:average_goals_by_season).returns(expected)
   #   assert_equal expected, @game_collection.average_goals_by_season
-  # end
-  #
-  # def test_season_id
-  #   assert_instance_of Array, @game_collection.season_id
-  #   @game_collection.stubs(:season_id).returns([20162017, 20142015, 20132014])
-  #   assert_equal [20162017, 20142015, 20132014], @game_collection.season_id
   # end
 
 end

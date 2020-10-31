@@ -16,18 +16,18 @@ class GameCollection
     @games = data.map {|data| Game.new(data, self)}
   end
 
-  def sum_of_scores
+  def scores_by_game
     @games.map do |game|
       game.away_goals.to_i + game.home_goals.to_i
     end.sort
   end
 
   def highest_total_score
-    sum_of_scores.last
+    scores_by_game.last
   end
 
   def lowest_total_score
-    sum_of_scores.first
+    scores_by_game.first
   end
 
   def count_of_games_by_season
@@ -44,7 +44,7 @@ class GameCollection
   end
 
   def average_goals_per_game
-    (sum_of_scores.sum / total_games.to_f).round(2)
+    (scores_by_game.sum / total_games.to_f).round(2)
   end
 
   def sum_of_scores_by_season
