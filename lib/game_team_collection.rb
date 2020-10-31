@@ -17,12 +17,12 @@ class GameTeamCollection
   end
 
   #FROM THE GAMES STATS SECTION
-  # def compare_hoa_to_result(hoa, result)
-  #   @games_teams_table.to_a.count do |game|
-  #     game[2] == hoa && game[3] == result
-  #   end.to_f
-  # end
-  #
+  def compare_hoa_to_result(hoa, result)
+    @game_teams.count do |game|
+      game.HoA == hoa && game.result == result
+    end.to_f
+  end
+
   # def total_games
   #   @games_teams.count / 2
   # end
@@ -31,7 +31,7 @@ class GameTeamCollection
   #   (compare_hoa_to_result("home", "WIN") / total_games * 100).round(2)
   # end
   #
-  # def percentage_away_wins
+  # def percentage_visitor_wins
   #   (compare_hoa_to_result("away", "WIN") / total_games  * 100).round(2)
   # end
   #

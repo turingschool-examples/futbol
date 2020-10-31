@@ -24,21 +24,26 @@ class GameTeamCollectionTest < Minitest::Test
     assert_instance_of GameTeamCollection, @game_team_collection
   end
   #FROM THE GAMES STATS SECTION
+  def test_compare_hoa_to_result
+    assert_equal 3237.0, @game_team_collection.compare_hoa_to_result("home", "WIN")
+  end
+
+  
   # def test_it_calls_percentage_of_games_w_home_team_win
-  #   assert_equal 45.23, @gamestats.percentage_home_wins
+  #   assert_equal 45.23, @game_team_collection.percentage_home_wins
   # end
   #
-  # def test_it_calls_percentage_of_games_w_away_team_win
-  #   assert_equal 45.23, @gamestats.percentage_away_wins
+  # def test_it_calls_percentage_of_games_w_visitor_team_win
+  #   assert_equal 45.23, @game_team_collection.percentage_away_wins
   # end
   #
   # def test_it_calls_percentage_of_games_tied
-  #   assert_equal 11.55, @gamestats.percentage_ties
+  #   assert_equal 11.55, @game_team_collection.percentage_ties
   # end
   #
   # def test_total_percentages_equals_100
-  #   assert_equal 100, (@gamestats.percentage_home_wins +
-  #                      @gamestats.percentage_away_wins +
-  #                      @gamestats.percentage_ties)
+  #   assert_equal 100, (@game_team_collection.percentage_home_wins +
+  #                      @game_team_collection.percentage_away_wins +
+  #                      @game_team_collection.percentage_ties)
   # end
 end
