@@ -20,6 +20,8 @@ class TeamCollection
     team = @teams.find do |team|
     team.team_id == team_id
     end
+    require "pry"; binding.pry
     team.team_name
+    #team_id is what we need to fix for find_team
   end
 end

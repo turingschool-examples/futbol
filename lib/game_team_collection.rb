@@ -118,29 +118,26 @@ class GameTeamCollection
      team_id = team_ratios(season).max_by do |team, ratio|
       ratio
     end
-    #something here
+     @stat_tracker.find_team(team_id)
   end
-#
-#   def least_accurate_team(season)
-#     team_id = team_ratios(season).min_by do |team, ratio|
-#      ratio
-#    end
-#    row = @teams_table.find do |row|
-#      row["team_id"] == team_id[0]
-#    end
-#    row["teamName"]
-#   end
-#
-#   def total_tackles(season)
-#     teams_tackles = {}
-#     games_in_season(season).each do |game|
-#       if teams_tackles[game["team_id"]]
-#       teams_tackles[game["team_id"]] += game["tackles"].to_i
-#       else teams_tackles[game["team_id"]] = game["tackles"].to_i
-#       end
-#     end
-#     teams_tackles
-#   end
+
+  def least_accurate_team(season)
+    team_id = team_ratios(season).min_by do |team, ratio|
+     ratio
+    end
+     @stat_tracker.find_team(team_id)
+  end
+
+  # def total_tackles(season)
+  #   teams_tackles = {}
+  #   games_in_season(season).each do |game|
+  #     if teams_tackles[game.team_id]
+  #     teams_tackles[game.team_id] += game.tackles.to_i
+  #   else teams_tackles[game.team_id] = game.tackles.to_i
+  #     end
+  #   end
+  #   teams_tackles
+  # end
 #
 #   def most_tackles(season)
 #     team_id = total_tackles(season).max_by do |team, tackles|
