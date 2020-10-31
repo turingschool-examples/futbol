@@ -105,4 +105,8 @@ class GameTeamsManagerTest < Minitest::Test
   def test_most_tackles
     assert_equal 3,  @game_teams_manager.most_tackles([2012030222, 2012030223])
   end
+
+  def test_fewest_tackles
+    assert_equal 6, @game_teams_manager.fewest_tackles([2012030222, 2012030223])
+  end
 end
