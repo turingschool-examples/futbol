@@ -87,4 +87,15 @@ class GamesCollectionTest < Minitest::Test
     expected = {"20122013"=> 3.50, "20132014"=> 2.00}
     assert_equal expected, @gamescollection.average_goals_by_season
   end
+
+  def test_best_season
+
+
+    assert_equal "20132014", @gamescollection.best_season("17")
+  end
+
+  def test_worst_season
+
+    assert_equal "20132014", @gamescollection.worst_season("16")
+  end
 end

@@ -33,6 +33,4 @@ class TeamsCollection
     end
     the_team.team_info
   end
-
-
 end

@@ -92,4 +92,36 @@ class GamesCollection
       (total_goals.to_f / games_count).round(2)
     end
   end
+
+  def games_by_team(team_id)
+    win = Hash.new {|h, k| h[k] = {wins: 0, total: 0}}
+    @games.each do |game|
+      if game.away_team_id == team_id && game.winner == "away"
+        win[game.season][:wins] += 1
+        win[game.season][:total] += 1
+      elsif game.home_team_id == team_id && game.winner == "home"
+        win[game.season][:wins] += 1
+        win[game.season][:total] += 1
+      elsif game.away_team_id == team_id || game.home_team_id == team_id
+        win[game.season][:total] += 1
+      end
+    end
+    win
+  end
+
+  def best_season(team_id)
+    games_by_team(team_id).max_by do |season, numbers|
+      numbers[:wins].to_f / numbers[:total]
+    end.first
+  end
+
+  def worst_season(team_id)
+    games_by_team(team_id).min_by do |season, numbers|
+      numbers[:wins].to_f / numbers[:total]
+    end.first
+  end
+
+  def average_win_percentage(team_id)
+
+  end
 end
