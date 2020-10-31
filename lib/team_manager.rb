@@ -13,21 +13,16 @@ class TeamManager
     end
   end
 
-  def team_info(id)
-    id_team = @teams.find do |team|
-      team.team_id == id.to_s
-    end
-    {
-      "team_id" => id_team.team_id,
-      "franchise_id" => id_team.franchise_id,
-      "team_name" => id_team.team_name,
-      "abbreviation" => id_team.abbreviation,
-      "link" => id_team.link
-    }
+  def team_name(id)
+    @teams.find do |team|
+      team.team_id == id
+    end.team_name
   end
 
-  def team_name(id)
-    team_info(id)["team_name"]
+  def team_info(id)
+    @teams.find do |team|
+      team.team_id == id
+    end.team_info
   end
 
   def count_of_teams

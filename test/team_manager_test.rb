@@ -17,18 +17,22 @@ class TeamManagerTest < Minitest::Test
     assert_equal Team,  @team_manager.teams.first.class
   end
 
-  def test_team_info
-    expected = {
-                "team_id" => "18",
-                "franchise_id" => "34",
-                "team_name" => "Minnesota United FC",
-                "abbreviation" => "MIN",
-                "link" => "/api/v1/teams/18"
-              }
-    assert_equal expected, @team_manager.team_info("18")
-  end
-
   def test_count_of_teams
     assert_equal 32, @team_manager.count_of_teams
+  end
+
+  def test_team_name
+    assert_equal "Atlanta United", @team_manager.team_name("1")
+  end
+
+  def test_team_info
+    expected = {
+                "team_id" => "1",
+                "franchise_id" => "23",
+                "team_name" => "Atlanta United",
+                "abbreviation" => "ATL",
+                "link" => "/api/v1/teams/1"
+              }
+    assert_equal expected, @team_manager.team_info("1")
   end
 end

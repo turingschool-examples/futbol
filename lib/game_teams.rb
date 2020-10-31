@@ -9,7 +9,7 @@ class GameTeam
               :tackles
   def initialize(data)
     @game_id = data[:game_id].to_i
-    @team_id = data[:team_id].to_i
+    @team_id = data[:team_id]
     @hoa = data[:hoa]
     @result = data[:result]
     @head_coach = data[:head_coach]
