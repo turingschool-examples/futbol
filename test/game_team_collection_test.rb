@@ -70,15 +70,16 @@ class GameTeamCollectionTest < Minitest::Test
   end
 
   def test_count_coach_results
-    @game_team_collection.stubs(:count_coach_results).returns()
-    assert_equal , @game_team_collection.count_coach_results("20122013")
+    expected = {"John Tortorella"=>22, "Claude Julien"=>38, "Dan Bylsma"=>33, "Mike Babcock"=>29, "Joel Quenneville"=>38, "Paul MacLean"=>21, "Michel Therrien"=>22, "Mike Yeo"=>14, "Darryl Sutter"=>30, "Ken Hitchcock"=>22, "Bruce Boudreau"=>24, "Jack Capuano"=>17, "Adam Oates"=>22, "Todd Richards"=>17, "Kirk Muller"=>18, "Peter DeBoer"=>16, "Dave Tippett"=>16, "Ron Rolston"=>9, "Bob Hartley"=>17, "Joe Sacco"=>14, "Ralph Krueger"=>18, "Randy Carlyle"=>24, "Kevin Dineen"=>12, "Todd McLellan"=>22, "Barry Trotz"=>12, "Lindy Ruff"=>8, "Claude Noel"=>17, "Peter Laviolette"=>15, "Glen Gulutzan"=>21, "Alain Vigneault"=>23, "Guy Boucher"=>15, "Jon Cooper"=>3, "Martin Raymond"=>0, "Dan Lacroix"=>1}
+    @game_team_collection.stubs(:count_coach_results).returns(expected)
+    assert_equal expected, @game_team_collection.count_coach_results("20122013")
   end
-  #
-  #   def test_coach_percentage
-  # @game_collection.stubs(:game_ids_per_season).return(1612)
-  #     expected = {"John Tortorella"=>0.0, "Joel Quenneville"=>1.0, "Michel Therrien"=>0.0, "Paul MacLean"=>0.0}
-  #     assert_equal expected, @seasonstats.coach_percentage("20122013")
-  #   end
+
+  def test_coach_percentage
+      @game_team_collection.stubs(:coach_percentage).returns(1612)
+      expected = {"John Tortorella"=>0.0, "Joel Quenneville"=>1.0, "Michel Therrien"=>0.0, "Paul MacLean"=>0.0}
+      assert_equal expected, @seasonstats.coach_percentage("20122013")
+    end
   #
   #   def test_winningest_coach
   #     assert_equal "Joel Quenneville", @seasonstats.winningest_coach("20122013")

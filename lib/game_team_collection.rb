@@ -48,7 +48,7 @@ class GameTeamCollection
   def games_per_coach(season)
     coaches_and_games = {}
     games_in_season(season).each do |game|
-     (coaches_and_games[game.head_coach] << game if coaches_and_games[game.head_coach])
+     (coaches_and_games[game.head_coach] << game if coaches_and_games[game.head_coach]) ||
      (coaches_and_games[game.head_coach] = [game])
      end
     coaches_and_games
@@ -56,7 +56,7 @@ class GameTeamCollection
 
   def count_coach_results(season)
       coaches_and_results = {}
-      games_per_coach(season).map do |coach, games|
+      games_per_coach(season).each do |coach, games|
           coaches_and_results[coach] = games.count do |game|
           game.result == "WIN"
         end
