@@ -145,5 +145,10 @@ class GameTeamsManager
     end
     hash
   end
-  
+
+  def most_tackles(game_ids)
+    total_tackles_by_team(game_ids).max_by do |team_id, tackles|
+      tackles
+    end.first
+  end
 end
