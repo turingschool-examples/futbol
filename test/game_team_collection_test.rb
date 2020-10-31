@@ -51,7 +51,7 @@ class GameTeamCollectionTest < Minitest::Test
   end
 
   #LeagueStatistics Methods
-  def test_it_can_count_number_of_teams
-    assert_equal 32, @game_team_collection.count_of_teams
+  def test_it_can_find_highest_goal
+    assert_equal '8', @game_team_collection.find_highest_goal_team_id
   end
 end

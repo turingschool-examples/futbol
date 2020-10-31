@@ -40,16 +40,18 @@ class GameTeamCollection
   end
 
   # LeagueStatistics Methods
-  def count_of_teams
-    @stat_tracker.count_of_teams
+  def find_highest_goal_team_id
+    @game_teams.max_by {|goal| goal.goals}.team_id
   end
 
-  # def best_offense
-  #   team_data_set.find do |team_id|
-  #      team_id[0] == find_highest_goal_team_id
-  #   end[1]
-  # end
-  #
+  def best_offense
+    team_data_set.find do |team_id|
+       team_id[0] == find_highest_goal_team_id
+    end[1]
+  end
+
+
+
   # def worst_offense
   #   team_data_set.find do |team_id|
   #      team_id[0] == find_lowest_goal_team_id

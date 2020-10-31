@@ -19,12 +19,13 @@ class LeagueStatistics
   end
 
   #League_Statistics_Methods
-  def count_of_teams
-    @stat_tracker[:teams]['team_id'].count
-  end
+  # def count_of_teams
+  #   @stat_tracker[:teams]['team_id'].count
+  # end
 
   def best_offense
     team_data_set.find do |team_id|
+      require "pry"; binding.pry
        team_id[0] == find_highest_goal_team_id
     end[1]
   end

@@ -28,4 +28,8 @@ class TeamCollectionTest < Minitest::Test
   def test_it_can_count_number_of_teams
     assert_equal 32, @team_collection.count_of_teams
   end
+
+  def test_it_cand_find_team_name
+    assert_equal 'Columbus Crew SC', @team_collection.find_team_name('53')
+  end
 end
