@@ -28,4 +28,8 @@ class LeagueStatisticsTest < Minitest::Test
     assert_equal "Reign FC", @league_statistics.best_offense(@object_data.game_teams,@object_data.teams)
   end
 
+  def test_worst_offense
+    assert_equal "Utah Royals FC", @league_statistics.worst_offense(@object_data.game_teams,@object_data.teams)
+  end
+
 end
