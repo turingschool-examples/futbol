@@ -76,13 +76,61 @@ class GameTeamCollectionTest < Minitest::Test
   end
 
   def test_coach_percentage
-      @game_team_collection.stubs(:coach_percentage).returns(1612)
-      expected = {"John Tortorella"=>0.0, "Joel Quenneville"=>1.0, "Michel Therrien"=>0.0, "Paul MacLean"=>0.0}
-      assert_equal expected, @seasonstats.coach_percentage("20122013")
-    end
+    expected = {"John Tortorella"=>0.37, "Claude Julien"=>0.54, "Dan Bylsma"=>0.52, "Mike Babcock"=>0.47, "Joel Quenneville"=>0.54, "Paul MacLean"=>0.36, "Michel Therrien"=>0.42, "Mike Yeo"=>0.26, "Darryl Sutter"=>0.45, "Ken Hitchcock"=>0.41, "Bruce Boudreau"=>0.44, "Jack Capuano"=>0.31, "Adam Oates"=>0.4, "Todd Richards"=>0.35, "Kirk Muller"=>0.38, "Peter DeBoer"=>0.33, "Dave Tippett"=>0.33, "Ron Rolston"=>0.29, "Bob Hartley"=>0.35, "Joe Sacco"=>0.29, "Ralph Krueger"=>0.38, "Randy Carlyle"=>0.44, "Kevin Dineen"=>0.25, "Todd McLellan"=>0.37, "Barry Trotz"=>0.25, "Lindy Ruff"=>0.47, "Claude Noel"=>0.35, "Peter Laviolette"=>0.31, "Glen Gulutzan"=>0.44, "Alain Vigneault"=>0.44, "Guy Boucher"=>0.48, "Jon Cooper"=>0.2, "Martin Raymond"=>0.0, "Dan Lacroix"=>1.0}
+    @game_team_collection.stubs(:coach_percentage).returns(expected)
+    assert_equal expected, @game_team_collection.coach_percentage("20122013")
+  end
+
+  def test_winningest_coach
+    expected = {"John Tortorella"=>0.37, "Claude Julien"=>0.54, "Dan Bylsma"=>0.52, "Mike Babcock"=>0.47, "Joel Quenneville"=>0.54, "Paul MacLean"=>0.36, "Michel Therrien"=>0.42, "Mike Yeo"=>0.26, "Darryl Sutter"=>0.45, "Ken Hitchcock"=>0.41, "Bruce Boudreau"=>0.44, "Jack Capuano"=>0.31, "Adam Oates"=>0.4, "Todd Richards"=>0.35, "Kirk Muller"=>0.38, "Peter DeBoer"=>0.33, "Dave Tippett"=>0.33, "Ron Rolston"=>0.29, "Bob Hartley"=>0.35, "Joe Sacco"=>0.29, "Ralph Krueger"=>0.38, "Randy Carlyle"=>0.44, "Kevin Dineen"=>0.25, "Todd McLellan"=>0.37, "Barry Trotz"=>0.25, "Lindy Ruff"=>0.47, "Claude Noel"=>0.35, "Peter Laviolette"=>0.31, "Glen Gulutzan"=>0.44, "Alain Vigneault"=>0.44, "Guy Boucher"=>0.48, "Jon Cooper"=>0.2, "Martin Raymond"=>0.0, "Dan Lacroix"=>1.0}
+    @game_team_collection.stubs(:coach_percentage).returns(expected)
+    assert_equal "Dan Lacroix", @game_team_collection.winningest_coach("20122013")
+  end
+
+  def test_worst_coach
+    expected = {"John Tortorella"=>0.37, "Claude Julien"=>0.54, "Dan Bylsma"=>0.52, "Mike Babcock"=>0.47, "Joel Quenneville"=>0.54, "Paul MacLean"=>0.36, "Michel Therrien"=>0.42, "Mike Yeo"=>0.26, "Darryl Sutter"=>0.45, "Ken Hitchcock"=>0.41, "Bruce Boudreau"=>0.44, "Jack Capuano"=>0.31, "Adam Oates"=>0.4, "Todd Richards"=>0.35, "Kirk Muller"=>0.38, "Peter DeBoer"=>0.33, "Dave Tippett"=>0.33, "Ron Rolston"=>0.29, "Bob Hartley"=>0.35, "Joe Sacco"=>0.29, "Ralph Krueger"=>0.38, "Randy Carlyle"=>0.44, "Kevin Dineen"=>0.25, "Todd McLellan"=>0.37, "Barry Trotz"=>0.25, "Lindy Ruff"=>0.47, "Claude Noel"=>0.35, "Peter Laviolette"=>0.31, "Glen Gulutzan"=>0.44, "Alain Vigneault"=>0.44, "Guy Boucher"=>0.48, "Jon Cooper"=>0.2, "Martin Raymond"=>0.0, "Dan Lacroix"=>1.0}
+    @game_team_collection.stubs(:coach_percentage).returns(expected)
+    assert_equal "Martin Raymond", @game_team_collection.worst_coach("20122013")
+  end
+
+  def test_team_scores_with_goals
+    expected = {"3"=>112, "6"=>154, "5"=>151, "17"=>129, "16"=>163, "9"=>115, "8"=>113, "30"=>101, "26"=>134, "19"=>106, "24"=>121, "2"=>108, "15"=>124, "29"=>93, "12"=>105, "1"=>94, "27"=>91, "7"=>98, "20"=>96, "21"=>90, "22"=>99, "10"=>121, "13"=>87, "28"=>113, "18"=>85, "52"=>98, "4"=>102, "25"=>96, "23"=>108, "14"=>115}
+    @game_team_collection.stubs(:team_scores).returns(expected)
+    assert_equal expected, @game_team_collection.team_scores("20122013", "goals")
+  end
+  
+  #   def test_team_scores_with_shots
+  #     expected = {"3"=>8, "16"=>8, "8"=>12, "9"=>7}
+  #     assert_equal expected, @seasonstats.team_scores("20122013", "shots")
+  #   end
+
+  # def test_team_ratios
+  #   expected = {"3"=>2, "16"=>2, "8"=>2, "9"=>1}
+  #   @game_team_collection.stubs(:team_scores).returns(expected)
+  #   expected_2 = {"3"=>0.25, "16"=>0.25, "8"=>0.17, "9"=>0.14}
+  #   @game_team_collection.stubs(:team_scores).returns(expected_2)
+  #   assert_equal expected, @game_team_collection.team_ratios("20122013")
+  # end
   #
-  #   def test_winningest_coach
-  #     assert_equal "Joel Quenneville", @seasonstats.winningest_coach("20122013")
+  #   def test_most_accurate_team
+  #     assert_equal "Houston Dynamo", @game_team_collection.most_accurate_team("20122013")
+  #   end
+  #
+  #   def test_least_accurate_team
+  #     assert_equal "New York City FC", @game_team_collection.least_accurate_team("20122013")
+  #   end
+  #
+  #   def test_total_tackles
+  #     expected = {"3"=>44, "16"=>36, "8"=>24, "9"=>26}
+  #     assert_equal expected, @game_team_collection.total_tackles("20122013")
+  #   end
+  #
+  #   def test_most_tackles
+  #     assert_equal "Houston Dynamo", @game_team_collection.most_tackles("20122013")
+  #   end
+  #
+  #   def test_least_tackles
+  #     assert_equal "New York Red Bulls", @game_team_collection.least_tackles("20122013")
   #   end
 
 end
