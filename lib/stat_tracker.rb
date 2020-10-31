@@ -17,14 +17,14 @@ class StatTracker
     @teams = locations[:teams]
   end
   
-  def highest_total_score
-    most = 0
-    CSV.foreach(games, :headers => true, header_converters: :symbol) do |row|
-      total = row[:away_goals].to_i + row[:home_goals].to_i
-      most = total if total > most
-    end
-    most
-  end
+  # def highest_total_score
+  #   most = 0
+  #   CSV.foreach(games, :headers => true, header_converters: :symbol) do |row|
+  #     total = row[:away_goals].to_i + row[:home_goals].to_i
+  #     most = total if total > most
+  #   end
+  #   most
+  # end
   
   def lowest_total_score
     least = 1000

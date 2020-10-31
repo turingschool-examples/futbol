@@ -16,4 +16,13 @@ class GamesManager
     @parent = parent
     @games = games
   end
+
+  # def highest_total_score
+  #   most = 0
+  #   CSV.foreach(games, :headers => true, header_converters: :symbol) do |row|
+  #     total = row[:away_goals].to_i + row[:home_goals].to_i
+  #     most = total if total > most
+  #   end
+  #   most
+  # end
 end
