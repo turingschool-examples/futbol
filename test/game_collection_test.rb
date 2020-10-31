@@ -23,4 +23,46 @@ class GameCollectionTest < Minitest::Test
   def test_it_exists_and_has_attributes
     assert_instance_of GameCollection, @game_collection
   end
+
+  def test_sum_of_scores
+    assert_equal 7441, @game_collection.sum_of_scores.count
+  end
+
+  def test_it_calls_highest_total_score
+    assert_equal 11, @game_collection.highest_total_score
+  end
+
+  def test_it_calls_lowest_total_score
+    assert_equal 0, @game_collection.lowest_total_score
+  end
+
+  def test_count_of_games_by_season
+    expected = {"20122013"=>806, "20162017"=>1317, "20142015"=>1319, "20152016"=>1321, "20132014"=>1323, "20172018"=>1355}
+    assert_equal expected, @game_collection.count_of_games_by_season
+  end
+
+  def test_average_goals_per_game
+    assert_equal 2.22, @game_collection.average_goals_per_game
+  end
+  #
+  # def test_sum_of_scores_by_season
+  #   expected = {20122013 => 3322}
+  #   assert_instance_of Hash, @game_collection.sum_of_scores_by_season
+  #   @game_collection.stubs(:sum_of_scores_by_season).returns(expected)
+  #   assert_equal expected, @game_collection.sum_of_scores_by_season
+  # end
+  #
+  # def test_average_goals_by_season
+  #   expected = {20122013 => 2.53}
+  #   assert_instance_of Hash, @game_collection.average_goals_by_season
+  #   @game_collection.stubs(:average_goals_by_season).returns(expected)
+  #   assert_equal expected, @game_collection.average_goals_by_season
+  # end
+  #
+  # def test_season_id
+  #   assert_instance_of Array, @game_collection.season_id
+  #   @game_collection.stubs(:season_id).returns([20162017, 20142015, 20132014])
+  #   assert_equal [20162017, 20142015, 20132014], @game_collection.season_id
+  # end
+
 end

@@ -15,4 +15,27 @@ class GameTeamCollection
     data = CSV.parse(File.read(game_team_path), headers: true)
     @game_teams = data.map {|data| GameTeam.new(data, self)}
   end
+
+  #FROM THE GAMES STATS SECTION
+  # def compare_hoa_to_result(hoa, result)
+  #   @games_teams_table.to_a.count do |game|
+  #     game[2] == hoa && game[3] == result
+  #   end.to_f
+  # end
+  #
+  # def total_games
+  #   @games_table.count
+  # end
+  #
+  # def percentage_home_wins
+  #   (compare_hoa_to_result("home", "WIN") / total_games * 100).round(2)
+  # end
+  #
+  # def percentage_away_wins
+  #   (compare_hoa_to_result("away", "WIN") / total_games  * 100).round(2)
+  # end
+  #
+  # def percentage_ties
+  #   (compare_hoa_to_result("away", "TIE") / total_games  * 100).round(2)
+  # end
 end
