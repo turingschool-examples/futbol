@@ -2,8 +2,13 @@ require './test/test_helper'
 
 class GameRepoTest < Minitest::Test
   def setup
-    games_path = './dummy_data/games_dummy.csv'
-    @games_repo_test = GameRepo.new(games_path)
+    @games_path = './dummy_data/games_dummy.csv'
+    @games_repo_test = GameRepo.new(@games_path)
+  end
+
+  def test_make_games
+    assert_instance_of Game, @games_repo_test.make_games(@games_path)[0]
+    assert_instance_of Game, @games_repo_test.make_games(@games_path)[-1]
   end
 
   def test_it_can_return_total_away_games
