@@ -111,4 +111,21 @@ class GameTeamsManager
     end.first
   end
 
+  def worst_coach(game_ids)
+    coach_stats(game_ids).min_by do |coach_name, stats|
+      stats[:num_wins] / stats[:game_count].to_f
+    end.first
+  end
+
+  def team_goal_ratio(game_ids)
+    hash = Hash.new {|hash, key| hash[key] = Hash.new {|hash, key| hash[key] = 0}}
+    games_by_season(game_ids).each do |game|
+      hash[game.team_id][:goals] += game.goals
+      hash[game.team_id][:shots] += game.shots
+    end
+    hash
+  end
+
+
+
 end

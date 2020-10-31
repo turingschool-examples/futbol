@@ -78,6 +78,16 @@ class GameTeamsManagerTest < Minitest::Test
 
   def test_winningest_coach
     assert_equal "Claude Julien", @game_teams_manager.winningest_coach([2012030222, 2012030223])
-    # assert_equal "John Tortorella", @game_teams_manager.winningest_coach([2012030222, 2012030223])
   end
+
+  def test_worst_coach
+    assert_equal "John Tortorella", @game_teams_manager.worst_coach([2012030222, 2012030223])
+  end
+
+  def test_team_goal_ratio
+    expected = {3=>{:goals=>3, :shots=>15}, 6=>{:goals=>5, :shots=>16}}
+    assert_equal expected, @game_teams_manager.team_goal_ratio([2012030222, 2012030223])
+  end
+
+
 end
