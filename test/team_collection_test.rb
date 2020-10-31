@@ -24,4 +24,8 @@ class TeamCollectionTest < Minitest::Test
   def test_it_exists_and_has_attributes
     assert_instance_of TeamCollection, @team_collection
   end
+
+  def test_it_can_count_number_of_teams
+    assert_equal 32, @team_collection.count_of_teams
+  end
 end

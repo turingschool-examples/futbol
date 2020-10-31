@@ -70,5 +70,4 @@ class GameCollection
     end
     goals_per_season
   end
-
 end

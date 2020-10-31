@@ -20,4 +20,8 @@ class StatTracker
     @team_collection = TeamCollection.new(locations[:teams], self)
     @game_team_collection = GameTeamCollection.new(locations[:game_teams], self)
   end
+# LeagueStatistics
+  def count_of_teams
+    @team_collection.count_of_teams
+  end
 end

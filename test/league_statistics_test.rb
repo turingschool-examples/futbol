@@ -21,9 +21,9 @@ class LeagueStatisticsTest < Minitest::Test
     assert_instance_of LeagueStatistics, @league_statistics
   end
 # League Statistic Tests
-  def test_it_can_count_number_of_teams
-    assert_equal 32, @league_statistics.count_of_teams
-  end
+  # def test_it_can_count_number_of_teams
+  #   assert_equal 32, @league_statistics.count_of_teams
+  # end
 
   def test_it_knows_highest_average_goals_scored_across_season
 	# Name of the team with the highest average number of goals scored per game across all seasons.
@@ -74,7 +74,7 @@ class LeagueStatisticsTest < Minitest::Test
 
   def test_it_can_find_total_games_per_team_id_home
     expected = {"6"=>5, "3"=>2, "5"=>2, "24"=>2, "20"=>2}
-    
+
     assert_equal expected, @league_statistics.total_games_per_team_id_home
   end
 
