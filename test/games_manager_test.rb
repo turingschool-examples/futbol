@@ -14,6 +14,6 @@ class GamesManagerTest < Minitest::Test
   end
 
   def test_highest_total_score
-    assert_equal 11, @games_manager.highest_total_score
+    assert_equal 8, @games_manager.highest_total_score
   end
 end
