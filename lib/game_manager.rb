@@ -95,4 +95,83 @@ class GameManager
     end
     avg_by_season
   end
+
+  def games_by_team(id)
+    @games.select do |game|
+      game.away_team_id == id || game.home_team_id == id
+    end
+  end
+
+  def team_games_by_season(id)
+    hash = Hash.new { |hash, key| hash[key] = [] }
+    games_by_team(id).each do |game|
+      hash[game.season] << game
+    end
+    hash
+  end
+
+  def team_season_stats(id)
+    hash = Hash.new {|hash, key| hash[key] = Hash.new {|hash, key| hash[key] = 0}}
+    team_games_by_season(id).each do |season, games|
+      games.each do |game|
+        hash[season][:game_count] += 1
+        hash[season][:win_count] += 1 if game.win?(id)
+      end
+    end
+    hash
+  end
+
+  def percentage_wins_by_season(id)
+    percentage_hash = Hash.new(0)
+    team_season_stats(id).each do |season, stats|
+      percentage_hash[season] = stats[:win_count].to_f / stats[:game_count]
+    end
+    percentage_hash
+  end
+
+  def best_season(id)
+    percentage_wins_by_season(id).max_by do |season, percentage|
+      percentage
+    end.first
+  end
+
+  def worst_season(id)
+    percentage_wins_by_season(id).min_by do |season, percentage|
+      percentage
+    end.first
+  end
+
+  def average_win_percentage(id)
+    total_games = 0
+    total_wins = 0
+    team_season_stats(id).each do |season, stats|
+      total_games += stats[:game_count]
+      total_wins += stats[:win_count]
+    end
+    (total_wins.to_f / total_games).round(2)
+  end
+
+  def most_goals_scored(id)
+    goals = 0
+    games_by_team(id).each do |game|
+      if game.away_team_id == id
+        goals = game.away_goals if game.away_goals > goals
+      else
+        goals = game.home_goals if game.home_goals > goals
+      end
+    end
+    goals
+  end
+
+  def fewest_goals_scored(id)
+    goals = 9999
+    games_by_team(id).each do |game|
+      if game.away_team_id == id
+        goals = game.away_goals if game.away_goals < goals
+      else
+        goals = game.home_goals if game.home_goals < goals
+      end
+    end
+    goals
+  end
 end

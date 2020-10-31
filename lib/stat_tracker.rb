@@ -87,7 +87,6 @@ class StatTracker
   end
 
   def least_accurate_team(season)
-    require "pry"; binding.pry
     @team_manager.team_name(@game_teams_manager.least_accurate_team(@game_manager.game_ids_by_season(season)))
   end
 
@@ -101,5 +100,25 @@ class StatTracker
 
   def team_info(id)
     @team_manager.team_info(id)
+  end
+
+  def best_season(id)
+    @game_manager.best_season(id)
+  end
+
+  def worst_season(id)
+    @game_manager.worst_season(id)
+  end
+
+  def average_win_percentage(id)
+    @game_manager.average_win_percentage(id)
+  end
+
+  def most_goals_scored(id)
+    @game_manager.most_goals_scored(id)
+  end
+
+  def fewest_goals_scored(id)
+    @game_manager.fewest_goals_scored(id)
   end
 end

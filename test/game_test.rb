@@ -37,4 +37,16 @@ class GameTest < Minitest::Test
   def total_score
     assert_equal 5, @game.total_score
   end
+
+  def test_win?
+    assert_equal false, @game.win?(3)
+    assert_equal true, @game.win?(6)
+    new_game = Game.new({away_goals: 3,
+                        away_team_id: 14,
+                        home_goals: 1,
+                        home_team_id: 1,
+                        id: 2017030114,
+                        season: "20172018"})
+    assert_equal true, new_game.win?(14)
+  end
 end

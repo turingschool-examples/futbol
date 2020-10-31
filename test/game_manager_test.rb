@@ -79,4 +79,49 @@ class GameManagerTest < Minitest::Test
     }
     assert_equal expected, @game_manager.average_goals_by_season
   end
+
+  def test_games_by_team
+    assert_equal 463, @game_manager.games_by_team("1").size
+  end
+
+  def test_team_games_by_season
+    assert_equal 6, @game_manager.team_games_by_season("1").size
+  end
+
+  def test_team_season_stats
+    expected = {"20172018"=>{:game_count=>87,   :win_count=>33},
+               "20122013"=>{:game_count=>48, :win_count=>16},
+               "20132014"=>{:game_count=>82, :win_count=>31},
+               "20142015"=>{:game_count=>82, :win_count=>28},
+               "20162017"=>{:game_count=>82, :win_count=>26},
+               "20152016"=>{:game_count=>82, :win_count=>32}
+             }
+    assert_equal expected, @game_manager.team_season_stats("1")
+  end
+
+  def test_percentage_wins_by_season
+    assert @game_manager.percentage_wins_by_season("1").keys.all? do |key|
+      key.is_a?(Float)
+    end
+  end
+
+  def test_best_season
+    assert_equal "20132014", @game_manager.best_season("6")
+  end
+
+  def test_worst_season
+    assert_equal "20142015", @game_manager.worst_season("6")
+  end
+
+  def test_average_win_percentage
+    assert_equal 0.49, @game_manager.average_win_percentage("6")
+  end
+
+  def test_most_goals_scored
+    assert_equal 7, @game_manager.most_goals_scored("18")
+  end
+
+  def test_fewest_goals_scored
+    assert_equal 0, @game_manager.fewest_goals_scored("18")
+  end 
 end
