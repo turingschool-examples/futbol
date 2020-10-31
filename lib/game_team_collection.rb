@@ -44,19 +44,17 @@ class GameTeamCollection
     @game_teams.max_by {|goal| goal.goals}.team_id
   end
 
-  def best_offense
-    team_data_set.find do |team_id|
-       team_id[0] == find_highest_goal_team_id
-    end[1]
+  def find_lowest_goal_team_id
+    @game_teams.min_by {|goal| goal.goals}.team_id
   end
 
+  def best_offense
+    @stat_tracker.find_team_name(find_highest_goal_team_id)
+  end
 
-
-  # def worst_offense
-  #   team_data_set.find do |team_id|
-  #      team_id[0] == find_lowest_goal_team_id
-  #    end[1]
-  # end
+  def worst_offense
+    @stat_tracker.find_team_name(find_lowest_goal_team_id)
+  end
   #
   # def highest_scoring_visitor
   #   team_data_set.find do |team_id|
@@ -87,9 +85,6 @@ class GameTeamCollection
   #   game_teams_data_set.max_by {|goal| goal[1]}[0]
   # end
   #
-  # def find_lowest_goal_team_id
-  #   game_teams_data_set.min_by {|goal| goal[1]}[0]
-  # end
   #
   # def total_games_per_team_id_away
   #   stat_tracker[:games]['away_team_id'].each_with_object({}) do |num, num_goals_away|
