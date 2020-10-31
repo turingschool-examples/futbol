@@ -111,4 +111,10 @@ class GameTeamsManager
     end.first
   end
 
+  def worst_coach(game_ids)
+    coach_stats(game_ids).min_by do |coach_name, stats|
+      stats[:num_wins] / stats[:game_count].to_f
+    end.first
+  end
+
 end
