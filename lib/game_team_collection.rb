@@ -30,11 +30,11 @@ class GameTeamCollection
   def percentage_home_wins
     (compare_hoa_to_result("home", "WIN") / total_games * 100).round(2)
   end
-  #
-  # def percentage_visitor_wins
-  #   (compare_hoa_to_result("away", "WIN") / total_games  * 100).round(2)
-  # end
-  #
+
+  def percentage_visitor_wins
+    (compare_hoa_to_result("away", "WIN") / total_games * 100).round(2)
+  end
+
   # def percentage_ties
   #   (compare_hoa_to_result("away", "TIE") / total_games  * 100).round(2)
   # end

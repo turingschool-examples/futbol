@@ -36,13 +36,13 @@ class GameTeamCollectionTest < Minitest::Test
     assert_equal 43.5, @game_team_collection.percentage_home_wins
   end
 
-  # def test_it_calls_percentage_of_games_w_visitor_team_win
-  #   assert_equal 45.23, @game_team_collection.percentage_away_wins
-  # end
-  #
-  # def test_it_calls_percentage_of_games_tied
-  #   assert_equal 11.55, @game_team_collection.percentage_ties
-  # end
+  def test_it_calls_percentage_of_games_w_visitor_team_win
+    assert_equal 36.11, @game_team_collection.percentage_visitor_wins
+  end
+
+  def test_it_calls_percentage_of_games_tied
+    assert_equal 11.55, @game_team_collection.percentage_ties
+  end
   #
   # def test_total_percentages_equals_100
   #   assert_equal 100, (@game_team_collection.percentage_home_wins +
