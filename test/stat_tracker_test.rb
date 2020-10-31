@@ -4,7 +4,7 @@ require './lib/stat_tracker'
 require 'mocha/minitest'
 
 class StatTrackerTest < Minitest::Test
-
+  
   def setup
   game_path       = './data/games.csv'
   team_path       = './data/teams.csv'
@@ -19,7 +19,7 @@ class StatTrackerTest < Minitest::Test
   @stat_tracker = StatTracker.from_csv(locations)
   end
 
-  def test_it_exists
+  def test_it_exists_and_can_access_data
     assert_instance_of StatTracker, @stat_tracker
   end
 end
