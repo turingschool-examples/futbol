@@ -27,43 +27,8 @@ class SeasonStatisticsTest < Minitest::Test
 
 #diff checker: files identical. Copied expected from RV. Ask for help(?)
   def test_team_total_wins_by_season
-      expected = {
-        "Joel Quenneville"=>{:wins=>47, :total=>101},
-        "Ken Hitchcock"=>{:wins=>37, :total=>88},
-        "Mike Yeo"=>{:wins=>37, :total=>95},
-        "Patrick Roy"=>{:wins=>36, :total=>89},
-        "Darryl Sutter"=>{:wins=>53, :total=>108},
-        "Bruce Boudreau"=>{:wins=>49, :total=>95},
-        "Lindy Ruff"=>{:wins=>34, :total=>88},
-        "John Tortorella"=>{:wins=>33, :total=>82},
-        "Craig Berube"=>{:wins=>34, :total=>86},
-        "Mike Babcock"=>{:wins=>31, :total=>87},
-        "Todd Richards"=>{:wins=>38, :total=>88},
-        "Adam Oates"=>{:wins=>22, :total=>82},
-        "Bob Hartley"=>{:wins=>24, :total=>82},
-        "Barry Trotz"=>{:wins=>31, :total=>82},
-        "Claude Julien"=>{:wins=>54, :total=>94},
-        "Michel Therrien"=>{:wins=>44, :total=>99},
-        "Dan Bylsma"=>{:wins=>46, :total=>95},
-        "Jack Capuano"=>{:wins=>22, :total=>82},
-        "Claude Noel"=>{:wins=>13, :total=>47},
-        "Jon Cooper"=>{:wins=>29, :total=>86},
-        "Kevin Dineen"=>{:wins=>3, :total=>16},
-        "Todd McLellan"=>{:wins=>41, :total=>89},
-        "Ted Nolan"=>{:wins=>13, :total=>62},
-        "Randy Carlyle"=>{:wins=>22, :total=>82},
-        "Dave Tippett"=>{:wins=>28, :total=>82},
-        "Peter DeBoer"=>{:wins=>31, :total=>82},
-        "Peter Horachek"=>{:wins=>15, :total=>66},
-        "Paul Maurice"=>{:wins=>12, :total=>35},
-        "Paul MacLean"=>{:wins=>24, :total=>82},
-        "Dallas Eakins"=>{:wins=>19, :total=>82},
-        "Alain Vigneault"=>{:wins=>49, :total=>107},
-        "Kirk Muller"=>{:wins=>31, :total=>82},
-        "Ron Rolston"=>{:wins=>2, :total=>20},
-        "Peter Laviolette"=>{:wins=>0, :total=>3}
-      }
-    assert_equal expected, @season_statistics.coach_total_wins_by_season("20142015", @object_data.games, @object_data.game_teams)
+      expected = {"Joel Quenneville"=>{:wins=>47, :total=>101}, "Ken Hitchcock"=>{:wins=>37, :total=>88}, "Mike Yeo"=>{:wins=>37, :total=>95}, "Patrick Roy"=>{:wins=>36, :total=>89}, "Darryl Sutter"=>{:wins=>53, :total=>108}, "Bruce Boudreau"=>{:wins=>49, :total=>95}, "Lindy Ruff"=>{:wins=>34, :total=>88}, "John Tortorella"=>{:wins=>33, :total=>82}, "Craig Berube"=>{:wins=>34, :total=>86}, "Mike Babcock"=>{:wins=>31, :total=>87}, "Todd Richards"=>{:wins=>38, :total=>88}, "Adam Oates"=>{:wins=>22, :total=>82}, "Bob Hartley"=>{:wins=>24, :total=>82}, "Barry Trotz"=>{:wins=>31, :total=>82}, "Claude Julien"=>{:wins=>54, :total=>94}, "Michel Therrien"=>{:wins=>44, :total=>99}, "Dan Bylsma"=>{:wins=>46, :total=>95}, "Jack Capuano"=>{:wins=>22, :total=>82}, "Claude Noel"=>{:wins=>13, :total=>47}, "Jon Cooper"=>{:wins=>29, :total=>86}, "Kevin Dineen"=>{:wins=>3, :total=>16}, "Todd McLellan"=>{:wins=>41, :total=>89}, "Ted Nolan"=>{:wins=>13, :total=>62}, "Randy Carlyle"=>{:wins=>22, :total=>82}, "Dave Tippett"=>{:wins=>28, :total=>82}, "Peter DeBoer"=>{:wins=>31, :total=>82}, "Peter Horachek"=>{:wins=>15, :total=>66}, "Paul Maurice"=>{:wins=>12, :total=>35}, "Paul MacLean"=>{:wins=>24, :total=>82}, "Dallas Eakins"=>{:wins=>19, :total=>82}, "Alain Vigneault"=>{:wins=>49, :total=>107}, "Kirk Muller"=>{:wins=>31, :total=>82}, "Ron Rolston"=>{:wins=>2, :total=>20}, "Peter Laviolette"=>{:wins=>0, :total=>3}}
+      assert_equal expected, @season_statistics.coach_total_wins_by_season("20132014", @object_data.games, @object_data.game_teams)
   end
 
   def test_worst_coach

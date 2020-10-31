@@ -1,4 +1,4 @@
-require './lib/game_statistics'
+require_relative './game_statistics'
 
 class LeagueStatistics
 
