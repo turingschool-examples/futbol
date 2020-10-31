@@ -28,10 +28,4 @@ class TeamManager
   def count_of_teams
     @teams.size
   end
-
-  def best_season(id)
-    #sort games by team id (find_all that match team id) .include for home or away ids => collection that we will iterate over to breakout into seasons; games by season with team id; if game.home_team == arg || game.away_team == arg; games_by_team_id
-    #find win percentage for each season use an if home_id == team_id, make helper methods in game_teams; helper method for winningest coach sorts wins by season
-    # game manager
-  end
 end
