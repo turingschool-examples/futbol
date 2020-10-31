@@ -66,30 +66,19 @@ class StatTracker
 
 
   def percentage_home_wins
-    home_wins = @games.count do |game|
-      game.calculate_winner == :home
-    end
-    (home_wins.to_f / @games.count).round(2)
+    @games_repo.percentage_home_wins
   end
 
   def percentage_visitor_wins
-    visitor_wins = @games.count do |game|
-      calculate_winner(game) == :away
-    end
-    (visitor_wins.to_f / @games.count).round(2)
+    @games_repo.percentage_visitor_wins
   end
 
   def percentage_ties
-    ties = @games.count do |game|
-      calculate_winner(game) == :tie
-    end
-    (ties.to_f / @games.count).round(2)
+    @games_repo.percentage_ties
   end
 
   def games_by_season
-    @games.group_by do |game|
-      game.season
-    end
+    @games_repo.games_by_season
   end
 
   def game_teams_by_team
@@ -113,33 +102,19 @@ class StatTracker
   end
 
   def count_of_games_by_season
-    count = {}
-    games_by_season.map do |season, games|
-      count[season] = games.count
-    end
-    count
+    @games_repo.count_of_games_by_season
   end
 
   def average_goals_per_game
-    total_goals = @games.map do |game|
-      game.away_goals + game.home_goals
-    end
-    (total_goals.sum.to_f / total_goals.count).round(2)
+    @games_repo.average_goals_per_game
   end
 
   def average_goals_by_season
-    average_goals = {}
-    games_by_season.map do |season , games|
-      average_goals[season] = ((games.sum {|game|  game.away_goals + game.home_goals}).to_f / games.count).round(2)
-    end
-    average_goals
+    @games_repo.average_goals_by_season
   end
 
   def count_of_teams
-    @games.map do |game|
-      game.away_team_id
-      game.home_team_id
-    end.uniq.count
+    @games_repo.count_of_teams
   end
 
   def best_offense
@@ -216,7 +191,7 @@ class StatTracker
   end
 
   def team_info(arg_id)
-    queried_team = Hash.new
+    querie - d_team = Hash.new
     @teams.find do |team|
 
       if team.team_id == arg_id
@@ -238,13 +213,7 @@ class StatTracker
   end
 
   def season_game_ids
-    season_game_ids = {}
-    games_by_season.map do |season, games|
-      season_game_ids[season] = games.map do |game|
-        game.game_id
-      end
-    end
-    season_game_ids
+    @games_repo.season_game_ids
   end
 
   def game_team_by_season(season_id)
@@ -294,16 +263,11 @@ class StatTracker
   end
 
   def game_ids_by_season(season_id)
-    season_games = @games.find_all do |game|
-      game.season == season_id
-    end
-    game_ids = season_games.map do |game|
-      game.game_id.to_s
-    end
+    @games_repo.game_ids_by_season(season_id)
   end
 
   def winningest_coach(season_id)
-    game_set = game_ids_by_season(season_id)
+    game_set = @games_repo.game_ids_by_season(season_id)
     win_rate = {}
 
     game_teams_by_coach.map do |coach, games|
@@ -313,7 +277,7 @@ class StatTracker
   end
 
   def worst_coach(season_id)
-    game_set = game_ids_by_season(season_id)
+    game_set = @games_repo.game_ids_by_season(season_id)
     win_rate = {}
     game_teams_by_coach.map do |coach, games|
       win_rate[coach] = ((games.count {|game| (game.result == "WIN") && game_set.include?(game.game_id)}).to_f / (games.count {|game| game_set.include?(game.game_id)})).round(2)
@@ -322,15 +286,11 @@ class StatTracker
   end
 
   def total_games_per_team_away(team_id)
-    @games.select do |game|
-      game.away_team_id == team_id.to_i
-    end
+    @games_repo.total_games_per_team_away(team_id)
   end
 
   def total_games_per_team_home(team_id)
-    @games.select do |game|
-      game.home_team_id == team_id.to_i
-    end
+    @games_repo.total_games_per_team_home(team_id)
   end
 
   def games_per_season_by_team(team_id)
@@ -338,7 +298,7 @@ class StatTracker
     total_games_per_team = total_games_per_team_away(team_id) + total_games_per_team_home(team_id)
 
     total_games_per_team.each do |game|
-      games_by_season[game.season]+=1
+      games_by_season[game.season] += 1
     end
     games_by_season
   end
@@ -347,13 +307,13 @@ class StatTracker
     wins_by_season = Hash.new(0)
 
     total_games_per_team_home(team_id).each do |game|
-      if calculate_winner(game) == :home
-        wins_by_season[game.season]+=1
+      if game.calculate_winner == :home
+        wins_by_season[game.season] += 1
       end
     end
     total_games_per_team_away(team_id).each do |game|
-      if calculate_winner(game) == :away
-        wins_by_season[game.season]+=1
+      if game.calculate_winner == :away
+        wins_by_season[game.season] += 1
       end
     end
     wins_by_season
@@ -363,7 +323,7 @@ class StatTracker
     win_percentage = {}
 
     wins_per_season_by_team(team_id).each do |season, win_number|
-      win_percentage[season] = ((win_number.to_f/((total_games_per_team_home(team_id).count) + (total_games_per_team_away(team_id).count)))*100).round(2)
+      win_percentage[season] = ((win_number.to_f / ((total_games_per_team_home(team_id).count) + (total_games_per_team_away(team_id).count))) * 100).round(2)
     end
     win_percentage.key(win_percentage.values.max)
   end
@@ -372,7 +332,7 @@ class StatTracker
     win_percentage = {}
 
     wins_per_season_by_team(team_id).each do |season, win_number|
-      win_percentage[season] = ((win_number.to_f/((total_games_per_team_home(team_id).count) + (total_games_per_team_away(team_id).count)))*100).round(2)
+      win_percentage[season] = ((win_number.to_f / ((total_games_per_team_home(team_id).count) + (total_games_per_team_away(team_id).count))) * 100).round(2)
     end
     win_percentage.key(win_percentage.values.min)
   end
@@ -382,13 +342,13 @@ class StatTracker
     total_game_count = total_games_per_team_away(team_id).count + total_games_per_team_home(team_id).count
 
     total_games_per_team_home(team_id).each do |game|
-      if calculate_winner(game) == :home
+      if game.calculate_winner == :home
         wins += 1
       end
     end
 
     total_games_per_team_away(team_id).each do |game|
-      if calculate_winner(game) == :away
+      if game.calculate_winner == :away
         wins += 1
       end
     end
