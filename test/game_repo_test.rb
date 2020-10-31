@@ -18,8 +18,8 @@ class GameRepoTest < Minitest::Test
 
   def test_it_can_return_season_by_game_id
     expected = {
-        "20122013" => ["2012030221", "2012030222", "2012030223", "2012030224"]
-              }
+      "20122013" => %w[2012030221 2012030222 2012030223 2012030224]
+    }
     assert_equal expected, @games_repo_test.season_game_ids
   end
 
@@ -28,18 +28,40 @@ class GameRepoTest < Minitest::Test
   end
 
   def test_it_can_return_games_by_season_id
-    assert_equal ["2012030221", "2012030222", "2012030223", "2012030224"] , @games_repo_test.game_ids_by_season("20122013")
+    assert_equal %w[2012030221 2012030222 2012030223 2012030224], @games_repo_test.game_ids_by_season("20122013")
   end
 
   def test_it_can_return_highest_net_score
-    assert_equal 5 , @games_repo_test.highest_total_score
+    assert_equal 5, @games_repo_test.highest_total_score
   end
 
   def test_it_can_return_lowest_net_score
-    assert_equal 3 , @games_repo_test.lowest_total_score
+    assert_equal 3, @games_repo_test.lowest_total_score
   end
 
   def test_it_can_return_percentage_home_wins
-    assert_equal 0.5 ,  @games_repo_test.percentage_home_wins
+    assert_equal 0.5,  @games_repo_test.percentage_home_wins
+  end
+  
+  def test_it_can_return_percentage_visitor_wins
+    assert_equal 0.5, @games_repo_test.percentage_visitor_wins
+  end
+
+  def test_it_can_return_percentage_ties
+    assert_equal 0.0, @games_repo_test.percentage_ties
+  end
+
+  def test_it_can_return_count_of_games_by_season
+    expected = {"20122013"=>4}
+    assert_equal expected,  @games_repo_test.count_of_games_by_season
+  end
+
+  def test_it_can_average_goals_per_game
+    assert_equal 4.5 , @games_repo_test.average_goals_per_game
+  end
+
+  def test_it_can_average_goals_by_season
+    expected =  {"20122013"=>4.5}
+    assert_equal expected , @games_repo_test.average_goals_by_season
   end
 end

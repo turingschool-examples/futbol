@@ -124,9 +124,4 @@ class GameRepo
     end
     average_goals
   end
-
-
-
-
-
 end
