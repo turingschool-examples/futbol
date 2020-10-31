@@ -63,6 +63,13 @@ class GameTeamsRepo
     end
   end
 
+  def lowest_average_hoa_goals(hoa_value)
+    ids = team_ids
+    ids.min_by do |id|
+      average_hoa_goals_by_id(id, :hoa, hoa_value)
+    end
+  end
+  
   def lowest_average_goals
 
     ids = team_ids
