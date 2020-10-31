@@ -191,7 +191,7 @@ class StatTracker
   end
 
   def team_info(arg_id)
-    querie - d_team = Hash.new
+    queried_team = Hash.new
     @teams.find do |team|
 
       if team.team_id == arg_id
@@ -212,25 +212,29 @@ class StatTracker
     end
   end
 
-  def season_game_ids
-    @games_repo.season_game_ids
-  end
+  # def season_game_ids
+  #   @games_repo.season_game_ids
+  # end
 
   def game_team_by_season(season_id)
-    @game_teams.find_all do |row|
-      season_game_ids[season_id].include?(row.game_id)
+    game_ids = @games_repo.season_game_ids
+    team_by_season = @game_teams.find_all do |row|
+      game_ids[season_id].include?(row.game_id)
     end
+    team_by_season
   end
 
   def games_by_team_id(season_id)
-    game_team_by_season(season_id).group_by do |game|
+    game_by_id = game_team_by_season(season_id).group_by do |game|
       game.team_id
     end
+    game_by_id
   end
 
   def team_conversion_percent(season_id)
     team_ratio = {}
-    games_by_team_id(season_id).map do |team, games|
+    season_id_games = games_by_team_id(season_id)
+    season_id_games.map do |team, games|
       goals = 0.0
       shots = 0.0
       games.map do |game|
