@@ -23,4 +23,15 @@ class Game
     @venue = venue
     @venue_link = venue_link
   end
+
+  def calculate_winner
+    if home_goals > away_goals
+      :home
+    elsif home_goals < away_goals
+      :away
+    else
+      :tie
+    end
+  end
+
 end
