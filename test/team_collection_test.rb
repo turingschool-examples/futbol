@@ -26,6 +26,6 @@ class TeamCollectionTest < Minitest::Test
   end
 
   def test_find_team
-    assert_equal "Houston Headbangers", @team_collection.find_team("3")
+    assert_equal "Houston Dynamo", @team_collection.find_team("3")
   end
 end

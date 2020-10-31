@@ -16,8 +16,10 @@ class TeamCollection
     @teams = data.map {|data| Team.new(data, self)}
   end
 
-  #def find_team(team_id)
-  # @teams.find do |team|
-  #  team["team_id"] == team_id
-  # end
+  def find_team(team_id)
+    team = @teams.find do |team|
+    team.team_id == team_id
+    end
+    team.team_name
+  end
 end

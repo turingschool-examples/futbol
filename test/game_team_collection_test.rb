@@ -98,23 +98,25 @@ class GameTeamCollectionTest < Minitest::Test
     @game_team_collection.stubs(:team_scores).returns(expected)
     assert_equal expected, @game_team_collection.team_scores("20122013", "goals")
   end
-  
-  #   def test_team_scores_with_shots
-  #     expected = {"3"=>8, "16"=>8, "8"=>12, "9"=>7}
-  #     assert_equal expected, @seasonstats.team_scores("20122013", "shots")
-  #   end
 
-  # def test_team_ratios
-  #   expected = {"3"=>2, "16"=>2, "8"=>2, "9"=>1}
-  #   @game_team_collection.stubs(:team_scores).returns(expected)
-  #   expected_2 = {"3"=>0.25, "16"=>0.25, "8"=>0.17, "9"=>0.14}
-  #   @game_team_collection.stubs(:team_scores).returns(expected_2)
-  #   assert_equal expected, @game_team_collection.team_ratios("20122013")
-  # end
-  #
-  #   def test_most_accurate_team
-  #     assert_equal "Houston Dynamo", @game_team_collection.most_accurate_team("20122013")
-  #   end
+  def test_team_scores_with_shots
+    expected = {"3"=>441, "6"=>561, "5"=>459, "17"=>440, "16"=>545, "9"=>455, "8"=>396, "30"=>361, "26"=>449, "19"=>358, "24"=>373, "2"=>400, "15"=>372, "29"=>303, "12"=>368, "1"=>322, "27"=>352, "7"=>319, "20"=>303, "21"=>337, "22"=>307, "10"=>358, "13"=>333, "28"=>444, "18"=>291, "52"=>331, "4"=>331, "25"=>297, "23"=>348, "14"=>312}
+    @game_team_collection.stubs(:team_scores).returns(expected)
+    assert_equal expected, @game_team_collection.team_scores("20122013", "shots")
+  end
+
+  def test_team_ratios
+    expected = {"3"=>112, "6"=>154, "5"=>151, "17"=>129, "16"=>163, "9"=>115, "8"=>113, "30"=>101, "26"=>134, "19"=>106, "24"=>121, "2"=>108, "15"=>124, "29"=>93, "12"=>105, "1"=>94, "27"=>91, "7"=>98, "20"=>96, "21"=>90, "22"=>99, "10"=>121, "13"=>87, "28"=>113, "18"=>85, "52"=>98, "4"=>102, "25"=>96, "23"=>108, "14"=>115}
+    expected_2 = {"3"=>441, "6"=>561, "5"=>459, "17"=>440, "16"=>545, "9"=>455, "8"=>396, "30"=>361, "26"=>449, "19"=>358, "24"=>373, "2"=>400, "15"=>372, "29"=>303, "12"=>368, "1"=>322, "27"=>352, "7"=>319, "20"=>303, "21"=>337, "22"=>307, "10"=>358, "13"=>333, "28"=>444, "18"=>291, "52"=>331, "4"=>331, "25"=>297, "23"=>348, "14"=>312}
+    @game_team_collection.stubs(:team_scores).returns(expected, expected_2)
+    expected_3 = {"3"=>0.25, "6"=>0.27, "5"=>0.33, "17"=>0.29, "16"=>0.3, "9"=>0.25, "8"=>0.29, "30"=>0.28, "26"=>0.3, "19"=>0.3, "24"=>0.32, "2"=>0.27, "15"=>0.33, "29"=>0.31, "12"=>0.29, "1"=>0.29, "27"=>0.26, "7"=>0.31, "20"=>0.32, "21"=>0.27, "22"=>0.32, "10"=>0.34, "13"=>0.26, "28"=>0.25, "18"=>0.29, "52"=>0.3, "4"=>0.31, "25"=>0.32, "23"=>0.31, "14"=>0.37}
+    @game_team_collection.stubs(:team_scores).returns(expected_2)
+    assert_equal expected_3, @game_team_collection.team_ratios("20122013")
+  end
+  
+    def test_most_accurate_team
+      assert_equal "Houston Dynamo", @game_team_collection.most_accurate_team("20122013")
+    end
   #
   #   def test_least_accurate_team
   #     assert_equal "New York City FC", @game_team_collection.least_accurate_team("20122013")

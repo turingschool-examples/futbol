@@ -25,4 +25,8 @@ class StatTracker
     @game_collection.game_ids_per_season
   end
 
+  def find_team(team_id)
+    @team_collection.find_team(team_id)
+  end
+
 end
