@@ -32,10 +32,10 @@ class GameTeamCollectionTest < Minitest::Test
     assert_equal 7441, @game_team_collection.total_games
   end
 
-  # def test_it_calls_percentage_of_games_w_home_team_win
-  #   assert_equal 45.23, @game_team_collection.percentage_home_wins
-  # end
-  #
+  def test_it_calls_percentage_of_games_w_home_team_win
+    assert_equal 43.5, @game_team_collection.percentage_home_wins
+  end
+
   # def test_it_calls_percentage_of_games_w_visitor_team_win
   #   assert_equal 45.23, @game_team_collection.percentage_away_wins
   # end
