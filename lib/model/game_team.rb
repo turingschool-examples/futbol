@@ -8,12 +8,6 @@ class GameTeam
               :goals,
               :shots,
               :tackles
-              # :pim,
-              # :powerplayopportunities,
-              # :powerplaygoals,
-              # :faceoffwinpercentage,
-              # :giveaways,
-              # :takeaways
 
   def initialize(data, parent)
     @parent = parent 
@@ -26,11 +20,5 @@ class GameTeam
     @goals = data[:goals].to_i
     @shots = data[:shots].to_i
     @tackles = data[:tackles].to_i
-    # @pim = data[:pim].to_i
-    # @powerplayopportunities = data[:powerplayopportunities].to_i
-    # @powerplaygoals = data[:powerplaygoals].to_i
-    # @faceoffwinpercentage = data[:faceoffwinpercentage].to_f
-    # @giveaways = data[:giveaways].to_i
-    # @takeaways = data[:takeaways].to_i
   end
 end
