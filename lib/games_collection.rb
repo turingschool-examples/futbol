@@ -122,6 +122,12 @@ class GamesCollection
   end
 
   def average_win_percentage(team_id)
-
+    wins = 0
+    total = 0
+    games_by_team(team_id).each do |season, values|
+        wins += values[:wins]
+        total += values[:total]
+    end
+    (wins / total.to_f).round(2)
   end
 end
