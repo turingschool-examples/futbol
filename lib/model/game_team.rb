@@ -7,7 +7,7 @@ class GameTeam
               :head_coach,
               :goals,
               :shots,
-              :tackles#,
+              :tackles
               # :pim,
               # :powerplayopportunities,
               # :powerplaygoals,
