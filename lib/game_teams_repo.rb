@@ -25,7 +25,15 @@ class GameTeamsRepo
 
   def average_goals_by(id)
     team_games = find_team_by(id)
+    total_goals = team_games.sum do |team_game|
+      team_game.goals
+    end
+    (total_goals.to_f / team_games.count).round(2)
+  end
 
+  def average_hoa_goals_by_id(id, hoa, hoa_value)
+    hoa_games = games_containing(hoa, hoa_value)
+    team_games = games_containing(:team_id, id, hoa_games)
     total_goals = team_games.sum do |team_game|
       team_game.goals
     end
@@ -48,8 +56,15 @@ class GameTeamsRepo
     end
   end
 
+  def highest_average_hoa_goals(hoa_value)
+    ids = team_ids
+    ids.max_by do |id|
+      average_hoa_goals_by_id(id, :hoa, hoa_value)
+    end
+  end
+
   def lowest_average_goals
-   
+
     ids = team_ids
     ids.min_by do |id|
       average_goals_by(id)
@@ -64,14 +79,15 @@ class GameTeamsRepo
 
   def percentage_wins(hoa)
     games = games_containing(:hoa, hoa)
-    wins = games_containing(:result, "WIN", games).count.to_f 
+    wins = games_containing(:result, "WIN", games).count.to_f
     (wins / games.count).round(2)
   end
-  
+
   def percentage_ties
     games = games_containing(:hoa, "home")
-    ties = games_containing(:result, "TIE", games).count.to_f 
+    ties = games_containing(:result, "TIE", games).count.to_f
     (ties / games.count).round(2)
   end
+
 end
 #add percentage games stats methods
