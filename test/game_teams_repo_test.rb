@@ -61,4 +61,8 @@ class GameTeamsRepoTest < Minitest::Test
   def test_average_hoa_goals_by_id
     assert_equal 2.16, @game_teams_repo.average_hoa_goals_by_id(13, :hoa, "home")
   end
+
+  def test_lowest_average_hoa_goals
+    assert_equal 27, @game_teams_repo.lowest_average_hoa_goals("away")
+  end
 end
