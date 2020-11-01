@@ -60,6 +60,10 @@ class GameTeamCollection
     @stat_tracker.find_team_name(lowest_average_team_id_visitor)
   end
 
+  def lowest_scoring_home_team
+    @stat_tracker.find_team_name(lowest_average_team_id_home)
+  end
+
   # League Statistics Helper Methods
   def find_highest_goal_team_id
     @game_teams.max_by {|goal| goal.goals}.team_id
@@ -107,9 +111,5 @@ class GameTeamCollection
      end
     end
     lowest_home.min_by {|team_id, avg| avg}[0]
-  end
-
-  def lowest_scoring_home_team
-    @stat_tracker.find_team_name(lowest_average_team_id_home)
   end
 end
