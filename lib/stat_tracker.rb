@@ -8,14 +8,18 @@ class StatTracker
   attr_reader :games, :teams, :game_teams
 
   def initialize(locations)
-    @games = GamesCollection.new(locations[:games], self)
     @teams = TeamsCollection.new(locations[:teams], self)
+    @games = GamesCollection.new(locations[:games], self)
     @game_teams = GameTeamsCollection.new(locations[:game_teams], self)
     # @seasons_collection = SeasonsCollection.new(self)
   end
 
   def self.from_csv(locations)
     self.new(locations)
+  end
+
+  def find_season_id(id)
+    @games.find_season_id(id)
   end
 
   def find_by_id(id)
@@ -114,10 +118,12 @@ class StatTracker
     @games.rival(team_id)
   end
 
-  def winningest_coach
+  def winningest_coach(season_id)
+    @game_teams.winningest_coach(season_id)
   end
 
-  def worst_coach
+  def worst_coach(season_id)
+    @game_teams.worst_coach(season_id)
   end
 
   def most_accurate_team

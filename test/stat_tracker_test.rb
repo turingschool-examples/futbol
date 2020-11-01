@@ -147,12 +147,14 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Houston Dynamo", @stattracker.rival("6")
   end
 
-#   def winningest_coach
-#   end
-#
-#   def worst_coach
-#   end
-#
+  def winningest_coach
+
+    assert_equal "Coach", @stattracker.winningest_coach("20132014")
+  end
+
+  def worst_coach
+  end
+
 #   def most_accurate_team
 #   end
 #

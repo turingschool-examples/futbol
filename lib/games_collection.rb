@@ -16,6 +16,16 @@ class GamesCollection
     end
   end
 
+  def find_season_id(id)
+    game_ids = []
+    games.find_all do |game|
+      if game.season == id
+        game_ids << game.game_id
+      end
+    end
+    game_ids
+  end
+
   def find_by_id(id)
     games.find do |game|
       if game.game_id == id

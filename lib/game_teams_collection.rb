@@ -10,7 +10,7 @@ class GameTeamsCollection
 
   def create_game_teams(game_teams_path)
     csv = CSV.foreach(game_teams_path, headers: true, header_converters: :symbol) do |row|
-      @game_teams << GameTeam.new(row, self)
+      @game_teams << GameTeam.new(row)
     end
   end
 
@@ -122,25 +122,31 @@ class GameTeamsCollection
     find_by_id(lowest_goals[0])
   end
 
+  def seasons(id)
+    @parent.find_season_id(id)
+  end
+
   def wins_by_coach(season_id)
+    game_id = seasons(season_id)
     coaches_by_season = Hash.new {|h, k| h[k] = []}
     game_teams.each do |game_team|
-      if coaches_by_season[game_team.season]
-        coaches_by_season[game_team.season] << {coach: game_team.head_coach, result: game_team.result}
+      if game_id.include?(game_team.game_id)
+        coaches_by_season[game_team.head_coach] << game_team.result
       end
     end
     rehash = Hash.new {|h, k| h[k] = {win: 0, loss: 0, tie: 0}}
-    wins = coaches_by_season.each do |season, coach|
-      coach.each do |coaches|
-        if coaches[:result] == "WIN"
-          rehash[coaches[:coach]][:win] += 1
-        elsif coaches[:result] == "LOSS"
-          rehash[coaches[:coach]][:loss] += 1
-        elsif coaches[:result] == "TIE"
-          rehash[coaches[:coach]][:tie] += 1
+    wins = coaches_by_season.each do |coaches, result|
+        result.each do |status|
+          if status == "WIN"
+            rehash[coaches][:win] += 1
+          elsif status == "LOSS"
+            rehash[coaches][:loss] += 1
+          elsif status == "TIE"
+            rehash[coaches][:tie] += 1
+          end
         end
-      end
     end
+    # require 'pry'; binding.pry
     rehash
   end
 
