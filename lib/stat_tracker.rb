@@ -33,6 +33,23 @@ class StatTracker
   def worst_offense
     @game_team_collection.worst_offense
   end
+
+  def highest_scoring_visitor
+    @team_collection.find_team_name(@game_team_collection..highest_scoring_visitor)
+  end
+
+  def highest_scoring_home_team
+    @team_collection.find_team_name(@game_team_collection.highest_scoring_home_team)
+  end
+
+  def lowest_scoring_visitor
+    @team_collection.find_team_name(@game_team_collection.lowest_scoring_visitor)
+  end
+
+  def lowest_scoring_home_team
+    @team_collection.find_team_name(@game_team_collection.lowest_scoring_home_team)
+  end
+
 # League Statistics Helper Methods
   def find_team_name(team_id)
     @team_collection.find_team_name(team_id)
