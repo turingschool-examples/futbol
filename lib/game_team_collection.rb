@@ -117,14 +117,14 @@ class GameTeamCollection
     team_id = team_ratios(season).max_by do |team, ratio|
       ratio
     end
-    @stat_tracker.find_team(team_id[0])
+    @stat_tracker.find_team_name(team_id[0])
   end
 
   def least_accurate_team(season)
     team_id = team_ratios(season).min_by do |team, ratio|
       ratio
     end
-    @stat_tracker.find_team(team_id[0])
+    @stat_tracker.find_team_name(team_id[0])
   end
 
   def total_tackles(season)
@@ -140,14 +140,14 @@ class GameTeamCollection
     team_id = total_tackles(season).max_by do |team, tackles|
      tackles
    end
-    @stat_tracker.find_team(team_id[0])
+    @stat_tracker.find_team_name(team_id[0])
   end
 
   def least_tackles(season)
     team_id = total_tackles(season).min_by do |team, tackles|
      tackles
     end
-    @stat_tracker.find_team(team_id[0])
+    @stat_tracker.find_team_name(team_id[0])
   end
 
   # League Statistics Methods

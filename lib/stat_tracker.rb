@@ -26,9 +26,9 @@ class StatTracker
     @game_collection.game_ids_per_season
   end
 
-  def find_team(team_id)
-    @team_collection.find_team(team_id)
-  end
+  # def find_team(team_id)
+  #   @team_collection.find_team(team_id)
+  # end
 
 # League Statistics Methods
   def count_of_teams

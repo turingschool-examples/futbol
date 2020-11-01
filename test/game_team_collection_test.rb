@@ -57,43 +57,8 @@ class GameTeamCollectionTest < Minitest::Test
                        @game_team_collection.percentage_visitor_wins +
                        @game_team_collection.percentage_ties)
   end
-  
-  #League Statistics Methods
-  def test_it_can_find_team_name
-  # Name of the team with the highest average number of goals scored per game across all seasons.
-    assert_equal 'New York Red Bulls', @game_team_collection.best_offense
-  end
 
-  def test_it_knows_lowest_average_goals_scored_across_season
-  # Name of the team with the highest average number of goals scored per game across all seasons.
-    assert_equal 'Sporting Kansas City', @game_team_collection.worst_offense
-  end
-
-  def test_it_knows_highest_scoring_away
-  # Name of the team with the highest average score per game across all seasons when they are away.
-    @game_team_collection.stubs(:highest_average_team_id_visitor).returns('6')
-    assert_equal 'FC Dallas', @game_team_collection.highest_scoring_visitor
-  end
-
-  def test_it_knows_highest_average_home
-  # Name of the team with the highest average score per game across all seasons when they are away.
-    @game_team_collection.stubs(:highest_average_team_id_home).returns('54')
-    assert_equal 'Reign FC', @game_team_collection.highest_scoring_home_team
-  end
-
-  def test_it_knows_lowest_average_away
-  # Name of the team with the highest average score per game across all seasons when they are away.
-    @game_team_collection.stubs(:lowest_average_team_id_visitor).returns('27')
-    assert_equal 'San Jose Earthquakes', @game_team_collection.lowest_scoring_visitor
-  end
-
-  def test_it_knows_lowest_average_home
-  # Name of the team with the highest average score per game across all seasons when they are away.
-    @game_team_collection.stubs(:lowest_average_team_id_home).returns('7')
-    assert_equal 'Utah Royals FC', @game_team_collection.lowest_scoring_home_team
-  end
-
-  # Season Statistics 
+  # Season Statistics
   def test_games_in_season
     @game_team_collection.stubs(:games_in_season).returns(1612)
     assert_equal 1612, @game_team_collection.games_in_season("20122013")
@@ -151,13 +116,13 @@ class GameTeamCollectionTest < Minitest::Test
   end
 
   def test_most_accurate_team
-    expected_3 = {"3"=>0.25, "6"=>0.27, "5"=>0.33, "17"=>0.29, "16"=>0.3, "9"=>0.25, "8"=>0.29, "30"=>0.28, "26"=>0.3, "19"=>0.3, "24"=>0.32, "2"=>0.27, "15"=>0.33, "29"=>0.31, "12"=>0.29, "1"=>0.29, "27"=>0.26, "7"=>0.31, "20"=>0.32, "21"=>0.27, "22"=>0.32, "10"=>0.34, "13"=>0.26, "28"=>0.25, "18"=>0.29, "52"=>0.3, "4"=>0.31, "25"=>0.32, "23"=>0.31, "14"=>0.37}
+    # expected_3 = {"3"=>0.25, "6"=>0.27, "5"=>0.33, "17"=>0.29, "16"=>0.3, "9"=>0.25, "8"=>0.29, "30"=>0.28, "26"=>0.3, "19"=>0.3, "24"=>0.32, "2"=>0.27, "15"=>0.33, "29"=>0.31, "12"=>0.29, "1"=>0.29, "27"=>0.26, "7"=>0.31, "20"=>0.32, "21"=>0.27, "22"=>0.32, "10"=>0.34, "13"=>0.26, "28"=>0.25, "18"=>0.29, "52"=>0.3, "4"=>0.31, "25"=>0.32, "23"=>0.31, "14"=>0.37}
     # @game_team_collection.stubs(:team_ratios).returns(expected_3)
     assert_equal "DC United", @game_team_collection.most_accurate_team("20122013")
   end
 
   def test_least_accurate_team
-    expected_3 = {"3"=>0.25, "6"=>0.27, "5"=>0.33, "17"=>0.29, "16"=>0.3, "9"=>0.25, "8"=>0.29, "30"=>0.28, "26"=>0.3, "19"=>0.3, "24"=>0.32, "2"=>0.27, "15"=>0.33, "29"=>0.31, "12"=>0.29, "1"=>0.29, "27"=>0.26, "7"=>0.31, "20"=>0.32, "21"=>0.27, "22"=>0.32, "10"=>0.34, "13"=>0.26, "28"=>0.25, "18"=>0.29, "52"=>0.3, "4"=>0.31, "25"=>0.32, "23"=>0.31, "14"=>0.37}
+    # expected_3 = {"3"=>0.25, "6"=>0.27, "5"=>0.33, "17"=>0.29, "16"=>0.3, "9"=>0.25, "8"=>0.29, "30"=>0.28, "26"=>0.3, "19"=>0.3, "24"=>0.32, "2"=>0.27, "15"=>0.33, "29"=>0.31, "12"=>0.29, "1"=>0.29, "27"=>0.26, "7"=>0.31, "20"=>0.32, "21"=>0.27, "22"=>0.32, "10"=>0.34, "13"=>0.26, "28"=>0.25, "18"=>0.29, "52"=>0.3, "4"=>0.31, "25"=>0.32, "23"=>0.31, "14"=>0.37}
     # @game_team_collection.stubs(:team_ratios).returns(expected_3)
     assert_equal "Houston Dynamo", @game_team_collection.least_accurate_team("20122013")
   end
@@ -174,6 +139,41 @@ class GameTeamCollectionTest < Minitest::Test
 
   def test_least_tackles
     assert_equal "Atlanta United", @game_team_collection.least_tackles("20122013")
+  end
+
+  #League Statistics Methods
+  def test_it_can_find_team_name
+  # Name of the team with the highest average number of goals scored per game across all seasons.
+    assert_equal 'New York Red Bulls', @game_team_collection.best_offense
+  end
+
+  def test_it_knows_lowest_average_goals_scored_across_season
+  # Name of the team with the highest average number of goals scored per game across all seasons.
+    assert_equal 'Sporting Kansas City', @game_team_collection.worst_offense
+  end
+
+  def test_it_knows_highest_scoring_away
+  # Name of the team with the highest average score per game across all seasons when they are away.
+    @game_team_collection.stubs(:highest_average_team_id_visitor).returns('6')
+    assert_equal 'FC Dallas', @game_team_collection.highest_scoring_visitor
+  end
+
+  def test_it_knows_highest_average_home
+  # Name of the team with the highest average score per game across all seasons when they are away.
+    @game_team_collection.stubs(:highest_average_team_id_home).returns('54')
+    assert_equal 'Reign FC', @game_team_collection.highest_scoring_home_team
+  end
+
+  def test_it_knows_lowest_average_away
+  # Name of the team with the highest average score per game across all seasons when they are away.
+    @game_team_collection.stubs(:lowest_average_team_id_visitor).returns('27')
+    assert_equal 'San Jose Earthquakes', @game_team_collection.lowest_scoring_visitor
+  end
+
+  def test_it_knows_lowest_average_home
+  # Name of the team with the highest average score per game across all seasons when they are away.
+    @game_team_collection.stubs(:lowest_average_team_id_home).returns('7')
+    assert_equal 'Utah Royals FC', @game_team_collection.lowest_scoring_home_team
   end
 
   #League Statistics Helper Methods
