@@ -15,22 +15,22 @@ class GameTeamsManager
 
   def find_game_teams(home_or_away = nil)
     @game_teams.select do |game_team|
-      if home_or_away     == 'home'
-        game_team.hoa     == 'home'
-      elsif home_or_away  == 'away'
-        game_team.hoa     == 'away'
+      if home_or_away == 'home'
+        game_team.home?
+      elsif home_or_away == 'away'
+        game_team.away?
       else
-        @game_teams
+        game_team
       end
     end
   end
-    #
+
   def total_goals_by_team(home_or_away = nil)
-    total_goals = Hash.new { |total_goals, id| total_goals[id] = 0 }
+    team_goals = Hash.new { |team_goals, id| team_goals[id] = 0 }
     find_game_teams(home_or_away).each do |game_team|
-      total_goals[game_team.team_id] += game_team.goals
+      team_goals[game_team.team_id] += game_team.goals
     end
-    total_goals
+    team_goals
   end
 
   def avg_goals_by_team(home_or_away = nil)
@@ -42,13 +42,13 @@ class GameTeamsManager
   end
 
   def game_count(team_id, home_or_away = nil)
-    sv = @game_teams.select do |game|
+    @game_teams.select do |game_team|
       if home_or_away == 'home'
-        game.team_id == team_id && game.hoa == 'home'
+        game_team.match?(team_id) && game_team.home?
       elsif home_or_away == 'away'
-        game.team_id == team_id && game.hoa == 'away'
+        game_team.match?(team_id) && game_team.away?
       else
-        game.team_id == team_id
+        game_team.match?(team_id)
       end
     end.size
   end
@@ -90,19 +90,19 @@ class GameTeamsManager
   end
 
   def games_by_season(game_ids)
-    @game_teams.select do |game|
-      game_ids.include?(game.game_id)
+    @game_teams.select do |game_team|
+      game_ids.include?(game_team.game_id)
     end
   end
 
   def coach_stats(game_ids)
-    hash = Hash.new {|hash, key| hash[key] = Hash.new {|hash, key| hash[key] = 0}}
+    stats = Hash.new {|stats, key| stats[key] = Hash.new {|sum, stat| sum[stat] = 0}}
     games_by_season(game_ids).each do |game|
-      hash[game.head_coach][:game_count] += 1
-      hash[game.head_coach][:num_wins]
-      hash[game.head_coach][:num_wins] += 1 if game.result == "WIN"
+      stats[game.head_coach][:game_count] += 1
+      stats[game.head_coach][:num_wins]
+      stats[game.head_coach][:num_wins] += 1 if game.result == "WIN"
     end
-    hash
+    stats
   end
 
   def winningest_coach(game_ids)
@@ -118,12 +118,12 @@ class GameTeamsManager
   end
 
   def team_goal_ratio(game_ids)
-    hash = Hash.new {|hash, key| hash[key] = Hash.new {|hash, key| hash[key] = 0}}
-    games_by_season(game_ids).each do |game|
-      hash[game.team_id][:goals] += game.goals
-      hash[game.team_id][:shots] += game.shots
+    team_shots = Hash.new {|team_shots, team_id| team_shots[team_id] = Hash.new {|sum, stat| sum[stat] = 0}}
+    games_by_season(game_ids).each do |game_team|
+      team_shots[game_team.team_id][:goals] += game_team.goals
+      team_shots[game_team.team_id][:shots] += game_team.shots
     end
-    hash
+    team_shots
   end
 
   def most_accurate_team(game_ids)
@@ -139,11 +139,11 @@ class GameTeamsManager
   end
 
   def total_tackles_by_team(game_ids)
-    hash = Hash.new {|hash, key| hash[key] = 0}
-    games_by_season(game_ids).each do |game|
-      hash[game.team_id] += game.tackles
+    team_tackles = Hash.new {|team_tackles, team| team_tackles[team] = 0}
+    games_by_season(game_ids).each do |game_team|
+      team_tackles[game_team.team_id] += game_team.tackles
     end
-    hash
+    team_tackles
   end
 
   def most_tackles(game_ids)

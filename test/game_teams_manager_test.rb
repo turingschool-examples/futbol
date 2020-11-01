@@ -23,16 +23,15 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_avg_goals_by_team
-    assert_equal 32, @game_teams_manager.avg_goals_by_team.keys.size
-    assert_equal 2.04, @game_teams_manager.avg_goals_by_team["4"]
     assert_equal 2.34, @game_teams_manager.avg_goals_by_team["54"]
+    assert_equal 2.59, @game_teams_manager.avg_goals_by_team('home')["54"]
+    assert_equal 2.10, @game_teams_manager.avg_goals_by_team('away')["54"]
   end
 
   def test_game_count
+    assert_equal 534, @game_teams_manager.game_count("16")
     assert_equal 268, @game_teams_manager.game_count("16", 'home')
     assert_equal 266, @game_teams_manager.game_count("16", 'away')
-    assert_equal 534, @game_teams_manager.game_count("16")
-    assert_equal 102, @game_teams_manager.game_count("54")
   end
 
   def test_best_offense
