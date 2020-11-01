@@ -91,12 +91,8 @@ class StatTracker
   end
 
   def highest_scoring_visitor
-    average_goals = {}
-    game_teams_by_away.map do |team , games|
-      average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
-    end
-    best_visit = average_goals.key(average_goals.values.max)
-    match = @teams.find do |team|
+    best_visit = @game_teams_repo.highest_scoring_visitor
+    match = @teams_repo.all_teams.find do |team|
       team.team_id == best_visit
     end
     match.teamname

@@ -57,5 +57,13 @@ class GameTeamsRepo
         end
         average_goals.key(average_goals.values.min)
       end
+
+      def highest_scoring_visitor
+        average_goals = {}
+        game_teams_by_away.map do |team , games|
+          average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
+        end 
+        average_goals.key(average_goals.values.max)
+      end
     
 end
