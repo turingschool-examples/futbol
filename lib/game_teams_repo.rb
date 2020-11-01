@@ -49,5 +49,13 @@ class GameTeamsRepo
         end
         average_goals.key(average_goals.values.max)
       end
+
+      def worst_offense
+        average_goals = {}
+        game_teams_by_team.map do |team , games|
+          average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
+        end
+        average_goals.key(average_goals.values.min)
+      end
     
 end

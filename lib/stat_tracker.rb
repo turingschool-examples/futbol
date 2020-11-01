@@ -83,12 +83,8 @@ class StatTracker
   end
 
   def worst_offense
-    average_goals = {}
-    game_teams_by_team.map do |team , games|
-      average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
-    end
-    worst_team = average_goals.key(average_goals.values.min)
-    match = @teams.find do |team|
+    worst_team = @game_teams_repo.worst_offense
+    match = @teams_repo.all_teams.find do |team|
       team.team_id == worst_team
     end
     match.teamname
