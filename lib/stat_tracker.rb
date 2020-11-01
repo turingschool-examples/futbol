@@ -58,23 +58,19 @@ class StatTracker
   end
 
   def game_teams_by_team
-    @game_teams.group_by do |game|
-      game.team_id
-    end
+    @game_teams_repo.game_teams_by_team
   end
 
   def game_teams_by_away
-    @game_teams.group_by do |game|
-      game.team_id unless game.hoa == "home"
-    end
-
+    @game_teams_repo.game_teams_by_away
   end
 
   def game_teams_by_home
-    @game_teams.group_by do |game|
-      game.team_id unless game.hoa == "away"
-    end
+    @game_teams_repo.game_teams_by_home
+  end
 
+  def game_teams_by_coach
+    @game_teams_repo.game_teams_by_coach
   end
 
   def count_of_games_by_season
@@ -182,11 +178,7 @@ class StatTracker
     queried_team
   end
 
-  def game_teams_by_coach
-    @game_teams.group_by do |game|
-      game.head_coach
-    end
-  end
+  
 
   # def season_game_ids
   #   @games_repo.season_game_ids

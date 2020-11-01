@@ -6,8 +6,37 @@ class GameTeamsRepo
     def make_game_teams(game_teams_path)
       game_teams = []
       CSV.foreach(game_teams_path, headers: true, header_converters: :symbol) do |row|
-        games_teams << GameTeams.new(row)
+        game_teams << GameTeams.new(row)
       end
       game_teams
     end
+
+#REMEMBER TO REFACTOR THESE
+
+    def game_teams_by_team
+        @game_teams.group_by do |game|
+          game.team_id
+        end
+    end
+
+    def game_teams_by_away
+        @game_teams.group_by do |game|
+          game.team_id unless game.hoa == "home"
+        end
+    
+      end
+    
+      def game_teams_by_home
+        @game_teams.group_by do |game|
+          game.team_id unless game.hoa == "away"
+        end
+    
+      end
+
+      def game_teams_by_coach
+        @game_teams.group_by do |game|
+          game.head_coach
+        end
+      end
+    
 end
