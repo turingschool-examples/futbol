@@ -56,6 +56,11 @@ class GameTeamCollectionTest < Minitest::Test
     assert_equal 'New York Red Bulls', @game_team_collection.best_offense
   end
 
+  def test_it_knows_lowest_average_goals_scored_across_season
+  # Name of the team with the highest average number of goals scored per game across all seasons.
+    assert_equal 'Sporting Kansas City', @game_team_collection.worst_offense
+  end
+
   #League Statistics Helper Methods
 
   def test_it_can_find_highest_goal
@@ -64,11 +69,6 @@ class GameTeamCollectionTest < Minitest::Test
 
   def test_it_can_find_lowest_goal
     assert_equal '5', @game_team_collection.find_lowest_goal_team_id
-  end
-
-  def test_it_knows_lowest_average_goals_scored_across_season
-  # Name of the team with the highest average number of goals scored per game across all seasons.
-    assert_equal 'Sporting Kansas City', @game_team_collection.worst_offense
   end
 
   def test_it_can_find_highest_average_team_id_visitor
