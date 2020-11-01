@@ -10,3 +10,4 @@ class GameTeamsRepo
       end
       game_teams
     end
+end
