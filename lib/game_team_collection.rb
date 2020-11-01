@@ -16,7 +16,7 @@ class GameTeamCollection
     @game_teams = data.map {|data| GameTeam.new(data, self)}
   end
 
-  #FROM THE GAMES STATS SECTION
+  # Game Statistics
   def compare_hoa_to_result(hoa, result)
     @game_teams.count do |game|
       game.HoA == hoa && game.result == result
@@ -39,7 +39,7 @@ class GameTeamCollection
     (compare_hoa_to_result("away", "TIE") / total_games  * 100).round(2)
   end
 
- #FROM THE SEASON STATS SECTION
+ # Season Statistics
   def games_in_season(season)
     @game_teams.select do |game|
     @stat_tracker.game_ids_per_season[season].include?(game.game_id)
@@ -69,8 +69,7 @@ class GameTeamCollection
     coaches_and_percentages = {}
     wins ||= count_coach_results(season)
     wins.keys.map do |coach|
-        coaches_and_percentages[coach] = (wins[coach].to_f /
-                                          games_per_coach(season)[coach].count).round(2)
+      coaches_and_percentages[coach] = (wins[coach].to_f / games_per_coach(season)[coach].count).round(2)
     end
     coaches_and_percentages
   end
@@ -109,8 +108,7 @@ class GameTeamCollection
     score_ratios = {}
     ratios = count_coach_results(season)
     goals.keys.each do |team_id|
-      score_ratios[team_id] = (goals[team_id].to_f /
-                              shots[team_id]).round(2)
+      score_ratios[team_id] = (goals[team_id].to_f / shots[team_id]).round(2)
     end
     score_ratios
   end
@@ -119,14 +117,14 @@ class GameTeamCollection
     team_id = team_ratios(season).max_by do |team, ratio|
       ratio
     end
-    @stat_tracker.find_team(team_id[0])
+    @stat_tracker.find_team_name(team_id[0])
   end
 
   def least_accurate_team(season)
     team_id = team_ratios(season).min_by do |team, ratio|
       ratio
     end
-    @stat_tracker.find_team(team_id[0])
+    @stat_tracker.find_team_name(team_id[0])
   end
 
   def total_tackles(season)
@@ -142,14 +140,14 @@ class GameTeamCollection
     team_id = total_tackles(season).max_by do |team, tackles|
      tackles
    end
-    @stat_tracker.find_team(team_id[0])
+    @stat_tracker.find_team_name(team_id[0])
   end
 
   def least_tackles(season)
     team_id = total_tackles(season).min_by do |team, tackles|
      tackles
     end
-    @stat_tracker.find_team(team_id[0])
+    @stat_tracker.find_team_name(team_id[0])
   end
 
   # League Statistics Methods

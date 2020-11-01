@@ -15,9 +15,8 @@ class GameCollection
     data = CSV.parse(File.read(game_path), headers: true)
     @games = data.map {|data| Game.new(data, self)}
   end
-  
-  # Season Statistics
 
+  # Season Statistics
   def scores_by_game
     @games.map do |game|
       game.away_goals.to_i + game.home_goals.to_i

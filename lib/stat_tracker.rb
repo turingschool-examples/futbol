@@ -8,11 +8,7 @@ class StatTracker
               :game_team_collection
 
   def self.from_csv(locations)
-    all_data = {}
-    locations.each do |file_name, data|
-      all_data[file_name] = read_data(data)
-    end
-    all_data
+    StatTracker.new(locations)
   end
 
   def initialize(locations)
@@ -30,9 +26,9 @@ class StatTracker
     @game_collection.game_ids_per_season
   end
 
-  def find_team(team_id)
-    @team_collection.find_team(team_id)
-  end
+  # def find_team(team_id)
+  #   @team_collection.find_team(team_id)
+  # end
 
 # League Statistics Methods
   def count_of_teams
