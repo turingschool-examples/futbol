@@ -225,8 +225,20 @@ class GameTeamCollection
   end
 
   # TEAM STATS
-
+  def average_win_percentage(team_id)
+    (winning_games(team_id).count / total_games(team_id).count.to_f * 100).round(2)
+  end
 
   # Team Stats Helper
+  def winning_games(team_id)
+    @game_teams.select do |game|
+      team_id == game.team_id && game.result == 'WIN'
+    end
+  end
 
+  def total_games(team_id)
+    @game_teams.select do |game|
+      team_id == game.team_id && game.result != 'TIE'
+    end
+  end
 end

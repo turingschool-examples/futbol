@@ -44,10 +44,10 @@ class TeamStatisticsTest < Minitest::Test
   #   assert_equal "20142015", @team_statistics.worst_season(@team_id)
   # end
 
-  def test_it_can_find_average_win_percentage
-  # Average win percentage of all games for a team.
-    assert_equal 37.04, @team_statistics.average_win_percentage(@team_id)
-  end
+  # def test_it_can_find_average_win_percentage
+  # # Average win percentage of all games for a team.
+  #   assert_equal 37.04, @team_statistics.average_win_percentage(@team_id)
+  # end
 
   def test_it_can_find_highest_goals_by_team
   # Highest number of goals a particular team has scored in a single game.
@@ -75,13 +75,13 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal expected, @team_statistics.team_info_row(@team_id)
   end
 
-  def test_it_can_find_total_games_per_team_id
-    assert_equal 27, @team_statistics.total_games(@team_id).count
-  end
-
-  def test_it_can_find_winning_games_per_team_id
-    assert_equal 10, @team_statistics.winning_games(@team_id).count
-  end
+  # def test_it_can_find_total_games_per_team_id
+  #   assert_equal 27, @team_statistics.total_games(@team_id).count
+  # end
+  #
+  # def test_it_can_find_winning_games_per_team_id
+  #   assert_equal 10, @team_statistics.winning_games(@team_id).count
+  # end
 
   def test_it_can_find_losing_games_per_team_id
     assert_equal 17, @team_statistics.losing_games(@team_id).count

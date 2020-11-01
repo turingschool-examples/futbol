@@ -48,9 +48,9 @@ class TeamStatistics
   #   loss_percentage.min_by {|season, pct| pct}[0]
   # end
 
-  def average_win_percentage(team_id)
-    (winning_games(team_id).count / total_games(team_id).count.to_f * 100).round(2)
-  end
+  # def average_win_percentage(team_id)
+  #   (winning_games(team_id).count / total_games(team_id).count.to_f * 100).round(2)
+  # end
 
   def most_goals_scored(team_id)
     game_teams_data_set.select do |id|
@@ -73,23 +73,23 @@ class TeamStatistics
   end
 
   # Helper Methods
-  def team_info_row(team_id)
-    team_info_data_set.map do |item|
-      return item if item[0] == team_id
-    end
-  end
+  # def team_info_row(team_id)
+  #   team_info_data_set.map do |item|
+  #     return item if item[0] == team_id
+  #   end
+  # end
 
-  def total_games(team_id)
-    game_teams_data_set.select do |game|
-      team_id == game[1] && game[2] != 'TIE'
-    end
-  end
+  # def total_games(team_id)
+  #   game_teams_data_set.select do |game|
+  #     team_id == game[1] && game[2] != 'TIE'
+  #   end
+  # end
 
-  def winning_games(team_id)
-    game_teams_data_set.select do |game|
-      team_id == game[1] && game[2] == 'WIN'
-    end
-  end
+  # def winning_games(team_id)
+  #   game_teams_data_set.select do |game|
+  #     team_id == game[1] && game[2] == 'WIN'
+  #   end
+  # end
 
   def losing_games(team_id)
     game_teams_data_set.select do |game|
@@ -97,25 +97,25 @@ class TeamStatistics
     end
   end
 
-  def total_games_by_game_id(team_id)
-    total_by_season = Hash.new {|hash_obj, key| hash_obj[key] = 0}
-    total_games(team_id).map do |season|
-      if season[0].start_with?('2012')
-        total_by_season['20122013'] += [season[2]].count.to_f
-      elsif season[0].start_with?('2013')
-        total_by_season['20132014'] += [season[2]].count.to_f
-      elsif season[0].start_with?('2014')
-        total_by_season['20142015'] += [season[2]].count.to_f
-      elsif season[0].start_with?('2015')
-        total_by_season['20152016'] += [season[2]].count.to_f
-      elsif season[0].start_with?('2016')
-        total_by_season['20162017'] += [season[2]].count.to_f
-      elsif season[0].start_with?('2017')
-        total_by_season['20172018'] += [season[2]].count.to_f
-      end
-    end
-    total_by_season
-  end
+  # def total_games_by_game_id(team_id)
+  #   total_by_season = Hash.new {|hash_obj, key| hash_obj[key] = 0}
+  #   total_games(team_id).map do |season|
+  #     if season[0].start_with?('2012')
+  #       total_by_season['20122013'] += [season[2]].count.to_f
+  #     elsif season[0].start_with?('2013')
+  #       total_by_season['20132014'] += [season[2]].count.to_f
+  #     elsif season[0].start_with?('2014')
+  #       total_by_season['20142015'] += [season[2]].count.to_f
+  #     elsif season[0].start_with?('2015')
+  #       total_by_season['20152016'] += [season[2]].count.to_f
+  #     elsif season[0].start_with?('2016')
+  #       total_by_season['20162017'] += [season[2]].count.to_f
+  #     elsif season[0].start_with?('2017')
+  #       total_by_season['20172018'] += [season[2]].count.to_f
+  #     end
+  #   end
+  #   total_by_season
+  # end
 
   # def winning_games_by_game_id(team_id)
   #   wins_by_season = Hash.new {|hash_obj, key| hash_obj[key] = 0}
@@ -137,25 +137,25 @@ class TeamStatistics
   #   wins_by_season
   # end
 
-  def losing_games_by_game_id(team_id)
-    losses_by_season = Hash.new {|hash_obj, key| hash_obj[key] = 0}
-    losing_games(team_id).map do |season|
-      if season[0].start_with?('2012')
-        losses_by_season['20122013'] += [season[2]].count
-      elsif season[0].start_with?('2013')
-        losses_by_season['20132014'] += [season[2]].count
-      elsif season[0].start_with?('2014')
-        losses_by_season['20142015'] += [season[2]].count
-      elsif season[0].start_with?('2015')
-        losses_by_season['20152016'] += [season[2]].count
-      elsif season[0].start_with?('2016')
-        losses_by_season['20162017'] += [season[2]].count
-      elsif season[0].start_with?('2017')
-        losses_by_season['20172018'] += [season[2]].count
-      end
-    end
-    losses_by_season
-  end
+  # def losing_games_by_game_id(team_id)
+  #   losses_by_season = Hash.new {|hash_obj, key| hash_obj[key] = 0}
+  #   losing_games(team_id).map do |season|
+  #     if season[0].start_with?('2012')
+  #       losses_by_season['20122013'] += [season[2]].count
+  #     elsif season[0].start_with?('2013')
+  #       losses_by_season['20132014'] += [season[2]].count
+  #     elsif season[0].start_with?('2014')
+  #       losses_by_season['20142015'] += [season[2]].count
+  #     elsif season[0].start_with?('2015')
+  #       losses_by_season['20152016'] += [season[2]].count
+  #     elsif season[0].start_with?('2016')
+  #       losses_by_season['20162017'] += [season[2]].count
+  #     elsif season[0].start_with?('2017')
+  #       losses_by_season['20172018'] += [season[2]].count
+  #     end
+  #   end
+  #   losses_by_season
+  # end
 
   def total_opposing_team_games(team_id)
     total_games = Hash.new {|hash_obj, key| hash_obj[key] = []}

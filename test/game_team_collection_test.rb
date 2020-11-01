@@ -206,14 +206,16 @@ class GameTeamCollectionTest < Minitest::Test
   end
 
   # TEAM STATS
-  def test_it_can_list_team_info
-    expected = {
-                team_id: '20',
-                franchise_id: '21',
-                team_name: 'Toronto FC',
-                abbreviation: 'TOR',
-                link: '/api/v1/teams/20'
-              }
-  assert_equal expected, @game_team_statistics.team_info('20')
+  def test_it_can_find_total_games_per_team_id
+    assert_equal 434, @game_team_collection.total_games('3').count
+  end
+
+  def test_it_can_find_winning_games
+    assert_equal 230, @game_team_collection.winning_games('3').count
+  end
+
+  def test_it_can_find_average_win_percentage
+  # Average win percentage of all games for a team.
+    assert_equal 53.0, @game_team_collection.average_win_percentage('3')
   end
 end
