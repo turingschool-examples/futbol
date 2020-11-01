@@ -110,33 +110,34 @@ class GameTeamCollectionTest < Minitest::Test
     expected_2 = {"3"=>441, "6"=>561, "5"=>459, "17"=>440, "16"=>545, "9"=>455, "8"=>396, "30"=>361, "26"=>449, "19"=>358, "24"=>373, "2"=>400, "15"=>372, "29"=>303, "12"=>368, "1"=>322, "27"=>352, "7"=>319, "20"=>303, "21"=>337, "22"=>307, "10"=>358, "13"=>333, "28"=>444, "18"=>291, "52"=>331, "4"=>331, "25"=>297, "23"=>348, "14"=>312}
     @game_team_collection.stubs(:team_scores).returns(expected, expected_2)
     expected_3 = {"3"=>0.25, "6"=>0.27, "5"=>0.33, "17"=>0.29, "16"=>0.3, "9"=>0.25, "8"=>0.29, "30"=>0.28, "26"=>0.3, "19"=>0.3, "24"=>0.32, "2"=>0.27, "15"=>0.33, "29"=>0.31, "12"=>0.29, "1"=>0.29, "27"=>0.26, "7"=>0.31, "20"=>0.32, "21"=>0.27, "22"=>0.32, "10"=>0.34, "13"=>0.26, "28"=>0.25, "18"=>0.29, "52"=>0.3, "4"=>0.31, "25"=>0.32, "23"=>0.31, "14"=>0.37}
-    @game_team_collection.stubs(:team_scores).returns(expected_3)
+    @game_team_collection.stubs(:team_ratios).returns(expected_3)
     assert_equal expected_3, @game_team_collection.team_ratios("20122013")
   end
 
   def test_most_accurate_team
     expected_3 = {"3"=>0.25, "6"=>0.27, "5"=>0.33, "17"=>0.29, "16"=>0.3, "9"=>0.25, "8"=>0.29, "30"=>0.28, "26"=>0.3, "19"=>0.3, "24"=>0.32, "2"=>0.27, "15"=>0.33, "29"=>0.31, "12"=>0.29, "1"=>0.29, "27"=>0.26, "7"=>0.31, "20"=>0.32, "21"=>0.27, "22"=>0.32, "10"=>0.34, "13"=>0.26, "28"=>0.25, "18"=>0.29, "52"=>0.3, "4"=>0.31, "25"=>0.32, "23"=>0.31, "14"=>0.37}
-    @game_team_collection.stubs(:team_scores).returns(expected_3)
-    assert_equal "Houston Dynamo", @game_team_collection.most_accurate_team("20122013")
+    # @game_team_collection.stubs(:team_ratios).returns(expected_3)
+    assert_equal "DC United", @game_team_collection.most_accurate_team("20122013")
   end
 
-  # def test_least_accurate_team
-  #   expected_3 = {"3"=>0.25, "6"=>0.27, "5"=>0.33, "17"=>0.29, "16"=>0.3, "9"=>0.25, "8"=>0.29, "30"=>0.28, "26"=>0.3, "19"=>0.3, "24"=>0.32, "2"=>0.27, "15"=>0.33, "29"=>0.31, "12"=>0.29, "1"=>0.29, "27"=>0.26, "7"=>0.31, "20"=>0.32, "21"=>0.27, "22"=>0.32, "10"=>0.34, "13"=>0.26, "28"=>0.25, "18"=>0.29, "52"=>0.3, "4"=>0.31, "25"=>0.32, "23"=>0.31, "14"=>0.37}
-  #   @game_team_collection.stubs(:team_scores).returns(expected_3)
-  #   assert_equal "New York City FC", @game_team_collection.least_accurate_team("20122013")
-  # end
-  #
-  # def test_total_tackles
-  #   expected = {"3"=>44, "16"=>36, "8"=>24, "9"=>26}
-  #   assert_equal expected, @game_team_collection.total_tackles("20122013")
-  # end
-  #
-  #   def test_most_tackles
-  #     assert_equal "Houston Dynamo", @game_team_collection.most_tackles("20122013")
-  #   end
-  #
-  #   def test_least_tackles
-  #     assert_equal "New York Red Bulls", @game_team_collection.least_tackles("20122013")
-  #   end
+  def test_least_accurate_team
+    expected_3 = {"3"=>0.25, "6"=>0.27, "5"=>0.33, "17"=>0.29, "16"=>0.3, "9"=>0.25, "8"=>0.29, "30"=>0.28, "26"=>0.3, "19"=>0.3, "24"=>0.32, "2"=>0.27, "15"=>0.33, "29"=>0.31, "12"=>0.29, "1"=>0.29, "27"=>0.26, "7"=>0.31, "20"=>0.32, "21"=>0.27, "22"=>0.32, "10"=>0.34, "13"=>0.26, "28"=>0.25, "18"=>0.29, "52"=>0.3, "4"=>0.31, "25"=>0.32, "23"=>0.31, "14"=>0.37}
+    # @game_team_collection.stubs(:team_ratios).returns(expected_3)
+    assert_equal "Houston Dynamo", @game_team_collection.least_accurate_team("20122013")
+  end
+
+  def test_total_tackles
+    expected = {"3"=>1879, "6"=>2045, "5"=>1698, "17"=>1245, "16"=>1501, "9"=>1659, "8"=>1240, "30"=>1121, "26"=>2201, "19"=>1358, "24"=>1364, "2"=>1216, "15"=>1335, "29"=>1188, "12"=>1100, "1"=>892, "27"=>1260, "7"=>1079, "20"=>935, "21"=>1241, "22"=>1060, "10"=>1977, "13"=>1110, "28"=>1359, "18"=>995, "52"=>1411, "4"=>1316, "25"=>1199, "23"=>1166, "14"=>1105}
+    @game_team_collection.stubs(:total_tackles).returns(expected)
+    assert_equal expected, @game_team_collection.total_tackles("20122013")
+  end
+
+  def test_most_tackles
+    assert_equal "FC Cincinnati", @game_team_collection.most_tackles("20122013")
+  end
+
+  def test_least_tackles
+    assert_equal "Atlanta United", @game_team_collection.least_tackles("20122013")
+  end
 
 end
