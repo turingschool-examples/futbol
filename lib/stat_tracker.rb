@@ -85,15 +85,11 @@ class StatTracker
     @team_collection.team_info(team_id)
   end
 
-  def wins_by_season_per_team_id(team_id)
-    @game_collection.wins_by_season_per_team_id(team_id)
+  def best_season(team_id)
+    @game_collection.best_season(team_id)
   end
 
-  def total_games_by_season_per_team_id(team_id)
-    @game_collection.total_games_by_season_per_team_id(team_id)
-  end
-
-  def loss_by_season_per_team_id(team_id)
-    @game_collection.loss_by_season_per_team_id(team_id)
+  def worst_season(team_id)
+    @game_collection.worst_season(team_id)
   end
 end

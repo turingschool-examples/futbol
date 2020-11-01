@@ -104,4 +104,9 @@ class GameCollectionTest < Minitest::Test
   # Season with the highest win percentage for a team.
     assert_equal '20122013', @game_collection.best_season(@team_id)
   end
+
+  def test_it_can_find_worst_season
+  # Season with the lowest win percentage for a team.
+    assert_equal "20122013", @game_collection.worst_season(@team_id)
+  end
 end

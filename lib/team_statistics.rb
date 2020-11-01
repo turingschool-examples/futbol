@@ -36,17 +36,17 @@ class TeamStatistics
   #   win_percentage.max_by {|season, pct| pct}[0]
   # end
 
-  def worst_season(team_id)
-    loss_percentage = Hash.new {|hash_obj, key| hash_obj[key] = []}
-    losing_games_by_game_id(team_id).each do |season, num_lost|
-      total_games_by_game_id(team_id).each do |seazon, total|
-        if season == seazon
-          loss_percentage[season] << (num_lost / total).round(2)
-        end
-      end
-    end
-    loss_percentage.min_by {|season, pct| pct}[0]
-  end
+  # def worst_season(team_id)
+  #   loss_percentage = Hash.new {|hash_obj, key| hash_obj[key] = []}
+  #   losing_games_by_game_id(team_id).each do |season, num_lost|
+  #     total_games_by_game_id(team_id).each do |seazon, total|
+  #       if season == seazon
+  #         loss_percentage[season] << (num_lost / total).round(2)
+  #       end
+  #     end
+  #   end
+  #   loss_percentage.min_by {|season, pct| pct}[0]
+  # end
 
   def average_win_percentage(team_id)
     (winning_games(team_id).count / total_games(team_id).count.to_f * 100).round(2)

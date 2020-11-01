@@ -29,7 +29,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_find_team
-    assert_equal "Houston Dynamo", @stat_tracker.find_team("3")
+    assert_equal "Houston Dynamo", @stat_tracker.find_team_name("3")
   end
 
   # League Statistics Methods
@@ -104,10 +104,13 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.team_info('20')
   end
 
-  def test_it_can_find_wins_by_season_per_team_id
-    expected = {"20122013"=>22, "20142015"=>52, "20132014"=>49, "20162017"=>44, "20152016"=>39, "20172018"=>24}
-    assert_equal expected, @stat_tracker.wins_by_season_per_team_id(@team_id)
+  def test_it_can_find_best_season
+  # Season with the highest win percentage for a team.
+    assert_equal '20122013', @stat_tracker.best_season('3')
   end
 
-
+  def test_it_can_find_worst_season
+  # Season with the lowest win percentage for a team.
+    assert_equal "20122013", @stat_tracker.worst_season('3')
+  end
 end

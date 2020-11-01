@@ -135,6 +135,18 @@ def best_season(team_id)
   win_percentage.max_by {|season, pct| pct}[0]
 end
 
+def worst_season(team_id)
+  loss_percentage = Hash.new {|hash_obj, key| hash_obj[key] = []}
+  loss_by_season_per_team_id(team_id).each do |season, num_lost|
+    total_games_by_season_per_team_id(team_id).each do |seazon, total|
+      if season == seazon
+        loss_percentage[season] << (num_lost / total).round(2)
+      end
+    end
+  end
+  loss_percentage.min_by {|season, pct| pct}[0]
+end
+
 #Team STATS Helper
   def winning_games(team_id)
   @games.select do |game|
@@ -182,4 +194,5 @@ end
     (game.away_goals < game.home_goals && game.away_team_id == team_id)
     end
   end
-end 
+
+end
