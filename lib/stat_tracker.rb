@@ -39,7 +39,7 @@ class StatTracker
   end
 
   def highest_scoring_home_team
-    @team_collection.find_team_name(@game_team_collection.highest_scoring_home_team)
+      @game_team_collection.highest_scoring_home_team
   end
 
   def lowest_scoring_visitor
