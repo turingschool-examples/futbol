@@ -223,4 +223,7 @@ class GameTeamCollection
     end
     lowest_home.min_by {|team_id, avg| avg}[0]
   end
+
+  # TEAM STATS
+
 end

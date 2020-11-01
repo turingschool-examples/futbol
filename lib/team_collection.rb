@@ -32,4 +32,21 @@ class TeamCollection
       team_id == team.team_id
     end.team_name
   end
+
+  # TEAM StatS
+  def team_info(team_id)
+    team_data = {}
+    @teams.each do |team|
+     if team_id  == team.team_id
+       team_data = {
+                  team_id: team.team_id,
+                  franchise_id: team.franchise_id,
+                  team_name: team.team_name,
+                  abbreviation: team.abbreviation,
+                  link: team.link
+                }
+      end
+    end
+    team_data
+  end
 end

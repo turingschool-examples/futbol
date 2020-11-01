@@ -204,4 +204,16 @@ class GameTeamCollectionTest < Minitest::Test
     @game_team_collection.stubs(:lowest_average_team_id_home).returns('7')
     assert_equal '7', @game_team_collection.lowest_average_team_id_home
   end
+
+  # TEAM STATS
+  def test_it_can_list_team_info
+    expected = {
+                team_id: '20',
+                franchise_id: '21',
+                team_name: 'Toronto FC',
+                abbreviation: 'TOR',
+                link: '/api/v1/teams/20'
+              }
+  assert_equal expected, @game_team_statistics.team_info('20')
+  end
 end
