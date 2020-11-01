@@ -106,7 +106,7 @@ class GameTeamCollection
    def lowest_average_team_id_home
     lowest_home = Hash.new {|hash_obj, key| hash_obj[key] = []}
     @stat_tracker.total_goals_per_team_id_home.each do |team_id, num_goals|
-     @stat_tracker.total_games_per_team_id_home.each do |id, num_games|
+      @stat_tracker.total_games_per_team_id_home.each do |id, num_games|
        lowest_home[team_id] << (num_goals / num_games).round(2) if team_id == id
      end
     end
