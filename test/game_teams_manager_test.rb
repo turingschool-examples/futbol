@@ -26,9 +26,4 @@ class GameTeamsManagerTest < Minitest::Test
 
     #assert_equal coach_hash, all_coaches["Jack Capuano"]
   #end
-
-  #def test_verify_in_season
-    #assert @game_teams_manager.verify_in_season("20152016", "2015030143")
-    #assert_equal false, @game_teams_manager.verify_in_season("20152016", "2013020293")
-  #end
 end

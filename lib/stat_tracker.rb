@@ -23,11 +23,6 @@ class StatTracker
     @teams_manager = TeamsManager.get_data(teams_path, self)
   end
 
-
-  #def verify_in_season(season, id)
-    #@games_manager.verify_in_season(season, id)
-  #end
-
   def game_ids_by_season(season)
     @games_manager.game_ids_by_season(season)
   end

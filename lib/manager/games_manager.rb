@@ -21,22 +21,9 @@ class GamesManager
     games.max_by { |game| game.total_score }.total_score
   end
 
-  #def verify_in_season(season, game_id)
-    #verify = false
-    #@games.each do |game|
-      #return true if game.game_id == game_id && game.season == season
-    #end
-
-    #verify
-  #end
-
   def game_ids_by_season(season)
-    #games_by_season = games.find_all do |game|
-      #game.season == season
-    #end
     games_by_season = games_by_season.map! do |game|
       game.game_id if game.season == season
     end
-    #require 'pry'; binding.pry
   end
 end

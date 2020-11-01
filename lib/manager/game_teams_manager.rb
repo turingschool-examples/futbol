@@ -53,15 +53,14 @@ class GameTeamsManager
     coaches = {}
 
     arr.each do |game_team|
-      coaches[game_team.head_coach] = {:games => 0, :wins => 0} #if games_in_season.include?(game_team.game_id)
+      coaches[game_team.head_coach] = {:games => 0, :wins => 0}
     end
     coaches
   end
 
   def get_stats(coaches, season, arr)
-    #games_in_season = game_ids_by_season(season)
     arr.each do |game_team|
-      if coaches[game_team.head_coach] #&& games_in_season.include?(game_team.game_id)
+      if coaches[game_team.head_coach]
         coaches[game_team.head_coach][:games] += 1
         coaches[game_team.head_coach][:wins] += 1 if game_team.result == "WIN"
       end
