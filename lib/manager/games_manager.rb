@@ -22,8 +22,11 @@ class GamesManager
   end
 
   def game_ids_by_season(season)
+    games_by_season = games.find_all do |game|
+      game.season == season
+    end
     games_by_season = games_by_season.map! do |game|
-      game.game_id if game.season == season
+      game.game_id
     end
   end
 end
