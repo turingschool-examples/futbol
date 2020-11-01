@@ -20,11 +20,12 @@ class GameTeamsManager
 
   def winningest_coach(season)
     season = season.to_s
-    coaches = coaches_by_season(season)
-    coach_stats = get_stats(coaches, season)
+    arr = game_team_by_season(season)
+    coaches = coaches_by_season(season, arr)
+    coach_stats = get_stats(coaches, season, arr)
     coach_win_percentage = calc_coach_percentage(coach_stats)
     winningest = coach_win_percentage.max_by do |coach, percent|
-       percent
+      percent
     end[0]
   end
 
@@ -37,34 +38,34 @@ class GameTeamsManager
     percentages
   end
 
-  def coaches_by_season(season)
+  def game_ids_by_season(season)
+    @parent.game_ids_by_season(season)
+  end
+
+  def game_team_by_season(season)
+    games_in_season = game_ids_by_season(season)
+    game_teams.find_all do |game_team|
+      games_in_season.include?(game_team.game_id)
+    end
+  end
+
+  def coaches_by_season(season, arr)
     coaches = {}
 
-    game_teams.each do |game_team|
-      next if coaches.key?(game_team.head_coach) || verify_in_season(season, game_team.game_id)
-      coaches[game_team.head_coach] = {:games => 0, :wins => 0}
+    arr.each do |game_team|
+      coaches[game_team.head_coach] = {:games => 0, :wins => 0} #if games_in_season.include?(game_team.game_id)
     end
-
     coaches
   end
 
-  # returns true or false
-  def verify_in_season(season, id)
-    season = season.to_s
-    id = id.to_s
-    # looks in games array in manager class
-    parent.verify_in_season(season, id)
-  end
-
-  def get_stats(coaches, season)
-    game_teams.each do |game_team|
-      # next if verify_in_season(season, game_team.game_id) == false
-      current_coach = game_team.head_coach
-      require 'pry'; binding.pry
-      coaches[current_coach][:games] += 1
-      coaches[current_coach][:wins] += 1 if game_team.result == "WIN"
+  def get_stats(coaches, season, arr)
+    #games_in_season = game_ids_by_season(season)
+    arr.each do |game_team|
+      if coaches[game_team.head_coach] #&& games_in_season.include?(game_team.game_id)
+        coaches[game_team.head_coach][:games] += 1
+        coaches[game_team.head_coach][:wins] += 1 if game_team.result == "WIN"
+      end
     end
-
     coaches
   end
 
