@@ -103,4 +103,9 @@ class StatTrackerTest < Minitest::Test
               }
     assert_equal expected, @stat_tracker.team_info('20')
   end
+
+  def test_it_can_find_wins_by_season_per_team_id
+    expected = {"20122013"=>22, "20142015"=>52, "20132014"=>49, "20162017"=>44, "20152016"=>39, "20172018"=>24}
+    assert_equal expected, @stat_tracker.wins_by_season_per_team_id(@team_id)
+  end
 end
