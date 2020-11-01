@@ -91,8 +91,8 @@ class GameTeamCollectionTest < Minitest::Test
   end
 
   def test_it_can_find_lowest_average_team_id_visitor
-    @game_team_collection.stubs(:lowest_average_team_id_visitor).returns('14')
-    assert_equal "14", @game_team_collection.lowest_average_team_id_visitor
+    @game_team_collection.stubs(:lowest_average_team_id_visitor).returns('27')
+    assert_equal '27', @game_team_collection.lowest_average_team_id_visitor
   end
 
   def test_it_can_find_lowest_average_team_id_home
