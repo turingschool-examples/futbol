@@ -21,6 +21,7 @@ class TeamCollection
     team.team_id == team_id
     end
     team.team_name
+  end 
 
   def count_of_teams
     @teams.count

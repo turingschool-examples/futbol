@@ -30,6 +30,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_find_team
     assert_equal "Houston Dynamo", @stat_tracker.find_team("3")
+  end 
 
   # League Statistics Methods
   def test_it_can_count_number_of_teams
