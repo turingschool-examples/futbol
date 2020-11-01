@@ -44,6 +44,10 @@ class GameTeamCollection
     @stat_tracker.find_team_name(find_highest_goal_team_id)
   end
 
+  def worst_offense
+    @stat_tracker.find_team_name(find_lowest_goal_team_id)
+  end
+  
   # League Statistics Helper Methods
   def find_highest_goal_team_id
     @game_teams.max_by {|goal| goal.goals}.team_id
@@ -54,9 +58,6 @@ class GameTeamCollection
   end
 
 
-  def worst_offense
-    @stat_tracker.find_team_name(find_lowest_goal_team_id)
-  end
 
   def highest_average_team_id_visitor
     highest_visitor = Hash.new {|hash_obj, key| hash_obj[key] = []}
