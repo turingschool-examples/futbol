@@ -132,10 +132,7 @@ class StatTracker
 
   def game_team_by_season(season_id)
     game_ids = @games_repo.season_game_ids
-    team_by_season = @game_teams.find_all do |row|
-      game_ids[season_id].include?(row.game_id)
-    end
-    team_by_season
+    @game_teams_repo.game_team_by_season(game_ids, season_id)
   end
 
   def games_by_team_id(season_id)
@@ -145,6 +142,7 @@ class StatTracker
     game_by_id
   end
 
+  # refactor and talk about. why not use game set like other methods?
   def team_conversion_percent(season_id)
     team_ratio = {}
     season_id_games = games_by_team_id(season_id)
@@ -164,8 +162,7 @@ class StatTracker
     ratio = team_conversion_percent(season_id).max_by do |team, ratio|
       ratio
     end
-
-    @teams.map do |team|
+    @teams_repo.all_teams.map do |team|
       return team.teamname if team.team_id == ratio[0]
     end
   end
@@ -175,31 +172,32 @@ class StatTracker
       ratio
     end
 
-    @teams.map do |team|
+    @teams_repo.all_teams.map do |team|
       return team.teamname if team.team_id == ratio[0]
     end
   end
 
-  def game_ids_by_season(season_id)
-    @games_repo.game_ids_by_season(season_id)
-  end
-
   def winningest_coach(season_id)
     game_set = @games_repo.game_ids_by_season(season_id)
-    win_rate = {}
+    game_teams_set = @game_teams_repo.game_teams_by_coach
 
-    game_teams_by_coach.map do |coach, games|
+    win_rate = {}
+    game_teams_set.map do |coach, games|
       win_rate[coach] = ((games.count {|game| (game.result == "WIN") && game_set.include?(game.game_id)}).to_f / (games.count {|game| game_set.include?(game.game_id)})).round(2)
     end
+
     win_rate.key(win_rate.values.reject{|x| x.nan?}.max)
   end
 
   def worst_coach(season_id)
     game_set = @games_repo.game_ids_by_season(season_id)
+    game_teams_set = @game_teams_repo.game_teams_by_coach
+
     win_rate = {}
-    game_teams_by_coach.map do |coach, games|
+    game_teams_set.map do |coach, games|
       win_rate[coach] = ((games.count {|game| (game.result == "WIN") && game_set.include?(game.game_id)}).to_f / (games.count {|game| game_set.include?(game.game_id)})).round(2)
     end
+    
     win_rate.key(win_rate.values.reject{|x| x.nan?}.min)
   end
 
@@ -356,7 +354,7 @@ class StatTracker
       team_tackles[team] = tackles
     end
 
-    @teams.find do |team|
+    @teams_repo.all_teams.find do |team|
       team.team_id == team_tackles.key(team_tackles.values.max)
     end.teamname
   end
@@ -371,7 +369,7 @@ class StatTracker
       team_tackles[team] = tackles
     end
 
-    @teams.find do |team|
+    @teams_repo.all_teams.find do |team|
       team.team_id == team_tackles.key(team_tackles.values.min)
     end.teamname
   end

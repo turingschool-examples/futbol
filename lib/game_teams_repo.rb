@@ -1,4 +1,5 @@
 class GameTeamsRepo
+
   def initialize(game_teams_path)
     @game_teams = make_game_teams(game_teams_path)
   end
@@ -10,6 +11,11 @@ class GameTeamsRepo
     end
     game_teams
   end
+
+  def all_game_teams
+    @game_teams
+  end
+
 #REMEMBER TO REFACTOR THESE
   def game_teams_by_team
       @game_teams.group_by do |game|
@@ -34,6 +40,15 @@ class GameTeamsRepo
   def game_teams_by_coach
     @game_teams.group_by do |game|
       game.head_coach
+    end
+  end
+
+  # def game_ids_by_season
+  # end
+
+  def game_team_by_season(game_ids, season_id)
+    @game_teams.find_all do |row|
+      game_ids[season_id].include?(row.game_id)
     end
   end
 
@@ -84,4 +99,6 @@ class GameTeamsRepo
     end
     average_goals.key(average_goals.values.min)
   end
+  
+
 end
