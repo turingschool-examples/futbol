@@ -39,7 +39,9 @@ class GameTeamCollection
     (compare_hoa_to_result("away", "TIE") / total_games  * 100).round(2)
   end
 
-  # LeagueStatistics Methods
+  # League Statistics Methods
+
+  # League Statistics Helper Methods
   def find_highest_goal_team_id
     @game_teams.max_by {|goal| goal.goals}.team_id
   end
