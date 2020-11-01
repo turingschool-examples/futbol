@@ -49,7 +49,6 @@ class GameTeamCollectionTest < Minitest::Test
                        @game_team_collection.percentage_visitor_wins +
                        @game_team_collection.percentage_ties)
   end
-
   #League Statistics Methods
   def test_it_can_find_team_name
   # Name of the team with the highest average number of goals scored per game across all seasons.

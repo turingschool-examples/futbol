@@ -64,14 +64,14 @@ class GameCollectionTest < Minitest::Test
   end
 
   # LeagueStatistics
-  def test_it_knows_total_goals_per_team_id_away
+  def test_it_knows_total_games_per_team_id_away
     # expected = {"3"=>5.0, "6"=>11.0, "5"=>1.0, "20"=>4.0, "24"=>6.0}
-    assert_equal 32, @game_collection.total_goals_per_team_id_away.count
+    assert_equal 32, @game_collection.total_games_per_team_id_away.count
   end
 
-  def test_it_knows_total_goals_per_team_id_away
+  def test_it_knows_total_games_per_team_id_home
     # expected = {"3"=>5.0, "6"=>11.0, "5"=>1.0, "20"=>4.0, "24"=>6.0}
-    assert_equal 32, @game_collection.total_goals_per_team_id_home.count
+    assert_equal 32, @game_collection.total_games_per_team_id_home.count
   end
 
   def test_it_knows_total_goals_per_team_id_away
