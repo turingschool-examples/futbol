@@ -17,4 +17,16 @@ class GameTeam
     @shots = data[:shots].to_i
     @tackles = data[:tackles].to_i
   end
+
+  def home?
+    @hoa == 'home'
+  end
+
+  def away?
+    @hoa == 'away'
+  end
+
+  def match?(id)
+    @team_id == id
+  end
 end
