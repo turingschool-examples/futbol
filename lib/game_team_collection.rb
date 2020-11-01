@@ -52,6 +52,10 @@ class GameTeamCollection
     @stat_tracker.find_team_name(highest_average_team_id_visitor)
   end
 
+  def highest_scoring_home_team
+    @stat_tracker.find_team_name(highest_average_team_id_home)
+  end
+
   # League Statistics Helper Methods
   def find_highest_goal_team_id
     @game_teams.max_by {|goal| goal.goals}.team_id
@@ -81,18 +85,12 @@ class GameTeamCollection
      highest_home.max_by {|team_id, avg| avg}[0]
    end
 
-  def highest_scoring_home_team
-    @stat_tracker.find_team_name(highest_average_team_id_home)
-  end
-
   def lowest_average_team_id_visitor
     lowest_visitor = Hash.new {|hash_obj, key| hash_obj[key] = []}
     @stat_tracker.total_goals_per_team_id_away.each do |team_id, num_goals|
       @stat_tracker.total_games_per_team_id_away.each do |id, num_games|
-        if team_id == id
-          lowest_visitor[team_id] << (num_goals / num_games).round(2)
+        lowest_visitor[team_id] << (num_goals / num_games).round(2) if team_id == id
         end
-      end
     end
      lowest_visitor.min_by {|team_id, avg| avg}[0]
    end
