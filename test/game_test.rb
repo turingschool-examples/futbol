@@ -9,7 +9,7 @@ class GameTest < Minitest::Test
     @parent.stubs(:parent => "Parent")
     @games = []
       CSV.foreach('./data/games_dummy.csv', headers: true, header_converters: :symbol) do |row|
-      @games << Game.new(row, @parent)
+      @games << Game.new(row)
     end
   end
 

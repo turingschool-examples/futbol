@@ -12,7 +12,7 @@ class GamesCollection
 
   def create_games(file_path)
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      @games << Game.new(row, self)
+      @games << Game.new(row)
     end
   end
 

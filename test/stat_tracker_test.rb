@@ -147,24 +147,34 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Houston Dynamo", @stattracker.rival("6")
   end
 
-  def winningest_coach
+  def test_winningest_coach
 
-    assert_equal "Coach", @stattracker.winningest_coach("20132014")
+    assert_equal "Claude Julien", @stattracker.winningest_coach("20122013")
   end
 
-  def worst_coach
+  def test_worst_coach
+
+    assert_equal "John Tortorella", @stattracker.worst_coach("20122013")
   end
 
-#   def most_accurate_team
-#   end
-#
-#   def least_accurate_team
-#   end
-#
-#   def most_tackles
-#   end
-#
-#   def fewest_tackles
-#   end
-#
+  def test_most_accurate_team
+
+    assert_equal "FC Dallas", @stattracker.most_accurate_team("20122013")
+  end
+
+  def test_least_accurate_team
+
+    assert_equal "Houston Dynamo", @stattracker.least_accurate_team("20122013")
+  end
+
+  def test_most_tackles
+
+    assert_equal "Houston Dynamo", @stattracker.most_tackles("20122013")
+  end
+
+  def test_fewest_tackles
+
+    assert_equal "FC Dallas", @stattracker.fewest_tackles("20122013")
+  end
+
 end

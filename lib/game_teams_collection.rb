@@ -146,7 +146,6 @@ class GameTeamsCollection
           end
         end
     end
-    # require 'pry'; binding.pry
     rehash
   end
 
@@ -162,5 +161,57 @@ class GameTeamsCollection
       totals[:win].to_f / (totals[:win] + totals[:loss] + totals[:tie])
     end
     wins.first
+  end
+
+  def shots_by_team_by_season(season_id)
+    game_ids = seasons(season_id)
+    games_by_season = Hash.new {|h, k| h[k] = {shots: 0, goals: 0}}
+    game_teams.each do |game_team|
+      if game_ids.include?(game_team.game_id)
+        games_by_season[game_team.team_id][:shots] += game_team.shots
+        games_by_season[game_team.team_id][:goals] += game_team.goals
+      end
+    end
+    # require 'pry';binding.pry
+    games_by_season
+  end
+
+  def most_accurate_team(season_id)
+    accurate = shots_by_team_by_season(season_id).min_by do |team, scores|
+      (scores[:shots].to_f / scores[:goals])
+    end
+    find_by_id(accurate.first)
+  end
+
+  def least_accurate_team(season_id)
+    accurate = shots_by_team_by_season(season_id).max_by do |team, scores|
+      (scores[:shots].to_f / scores[:goals])
+    end
+    find_by_id(accurate.first)
+  end
+
+  def teams_with_tackles(season_id)
+    game_ids = seasons(season_id)
+    team_with_tackles = Hash.new(0)
+    game_teams.each do |game_team|
+      if game_ids.include?(game_team.game_id)
+        team_with_tackles[game_team.team_id] += game_team.tackles
+      end
+    end
+    team_with_tackles
+  end
+
+  def most_tackles(season_id)
+    most = teams_with_tackles(season_id).max_by do |team, tackles|
+      tackles
+    end
+    find_by_id(most.first)
+  end
+
+  def fewest_tackles(season_id)
+    least = teams_with_tackles(season_id).min_by do |team, tackles|
+      tackles
+    end
+    find_by_id(least.first)
   end
 end

@@ -11,7 +11,6 @@ class StatTracker
     @teams = TeamsCollection.new(locations[:teams], self)
     @games = GamesCollection.new(locations[:games], self)
     @game_teams = GameTeamsCollection.new(locations[:game_teams], self)
-    # @seasons_collection = SeasonsCollection.new(self)
   end
 
   def self.from_csv(locations)
@@ -126,16 +125,20 @@ class StatTracker
     @game_teams.worst_coach(season_id)
   end
 
-  def most_accurate_team
+  def most_accurate_team(season_id)
+    @game_teams.most_accurate_team(season_id)
   end
 
-  def least_accurate_team
+  def least_accurate_team(season_id)
+    @game_teams.least_accurate_team(season_id)
   end
 
-  def most_tackles
+  def most_tackles(season_id)
+    @game_teams.most_tackles(season_id)
   end
 
-  def fewest_tackles
+  def fewest_tackles(season_id)
+    @game_teams.fewest_tackles(season_id)
   end
 
 end
