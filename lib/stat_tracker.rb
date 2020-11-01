@@ -79,4 +79,9 @@ class StatTracker
   def total_games_per_team_id_home
     @game_collection.total_games_per_team_id_home
   end
+
+# TEAM STATS
+  def team_info(team_id)
+    @team_collection.team_info(team_id)
+  end
 end

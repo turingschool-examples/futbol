@@ -15,14 +15,14 @@ class TeamStatistics
   end
 
   # Team Statistics Methods
-  def team_info(team_id)
-    team_data = {}
-    headers = [:team_id, :franchise_id, :team_name, :abbreviation, :link]
-    headers.each_with_index do |header, index|
-      team_data[header] = team_info_row(team_id)[index]
-    end
-    team_data
-  end
+  # def team_info(team_id)
+  #   team_data = {}
+  #   headers = [:team_id, :franchise_id, :team_name, :abbreviation, :link]
+  #   headers.each_with_index do |header, index|
+  #     team_data[header] = team_info_row(team_id)[index]
+  #   end
+  #   team_data
+  # end
 
   def best_season(team_id)
     win_percentage = Hash.new {|hash_obj, key| hash_obj[key] = []}

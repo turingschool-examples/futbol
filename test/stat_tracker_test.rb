@@ -92,4 +92,15 @@ class StatTrackerTest < Minitest::Test
     @stat_tracker.stubs(:total_goals_per_team_id_home).returns(12)
     assert_equal 12, @stat_tracker.total_goals_per_team_id_home
   end
+
+  def test_it_can_list_team_info
+    expected = {
+                team_id: '20',
+                franchise_id: '21',
+                team_name: 'Toronto FC',
+                abbreviation: 'TOR',
+                link: '/api/v1/teams/20'
+              }
+    assert_equal expected, @stat_tracker.team_info('20')
+  end
 end
