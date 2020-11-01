@@ -6,12 +6,12 @@ class Teams
                 :stadium,
                 :link
 
-    def initialize (team_id, franchiseid, teamname, abbreviation, stadium, link)
-        @team_id = team_id
-        @franchiseid = franchiseid
-        @teamname = teamname
-        @abbreviation = abbreviation
-        @stadium = stadium
-        @link = link
+    def initialize (row)
+        @team_id = row[:team_id]
+        @franchiseid = row[:franchiseid]
+        @teamname = row[:teamname]
+        @abbreviation = row[:abbreviation]
+        @stadium = row[:stadium]
+        @link = row[:link]
     end
 end

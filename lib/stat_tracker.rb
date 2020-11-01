@@ -11,25 +11,11 @@ class StatTracker
     @game_teams_path = locations[:game_teams]
     @games_repo = GameRepo.new(@games_path)
     @game_teams = GameTeamsRepo.new(@game_teams_path)
-    @teams = make_teams
+    @teams = TeamsRepo.new(@teams_path)
   end
 
   def self.from_csv(locations)
     StatTracker.new(locations)
-  end
-
-  def make_teams
-    teams = []
-    CSV.foreach(@teams_path, headers: true, header_converters: :symbol) do |row|
-      team_id = row [:team_id]
-      franchiseid = row [:franchiseid]
-      teamname = row [:teamname]
-      abbreviation = row [:abbreviation]
-      stadium = row [:stadium]
-      link = row[:link]
-      teams << Teams.new(team_id, franchiseid, teamname, abbreviation, stadium, link)
-    end
-    teams
   end
 
   def highest_total_score
@@ -153,22 +139,8 @@ class StatTracker
   end
 
   def team_info(arg_id)
-    queried_team = Hash.new
-    @teams.find do |team|
-
-      if team.team_id == arg_id
-        queried_team["team_id"] = team.team_id
-        queried_team["franchise_id"] = team.franchiseid
-        queried_team["team_name"] = team.teamname
-        queried_team["abbreviation"] = team.abbreviation
-        queried_team["link"] = team.link
-      end
-    end
-
-    queried_team
+    @teams_repo.team_info(arg_id)
   end
-
-  
 
   # def season_game_ids
   #   @games_repo.season_game_ids
