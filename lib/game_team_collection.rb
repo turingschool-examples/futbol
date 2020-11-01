@@ -75,9 +75,7 @@ class GameTeamCollection
      highest_home = Hash.new {|hash_obj, key| hash_obj[key] = []}
      @stat_tracker.total_goals_per_team_id_home.each do |team_id, num_goals|
        @stat_tracker.total_games_per_team_id_home.each do |id, num_games|
-         if team_id == id
-           highest_home[team_id] << (num_goals / num_games).round(2)
-         end
+         highest_home[team_id] << (num_goals / num_games).round(2) if team_id == id
        end
      end
      highest_home.max_by {|team_id, avg| avg}[0]

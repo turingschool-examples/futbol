@@ -63,14 +63,14 @@ class GameTeamCollectionTest < Minitest::Test
 
   def test_it_knows_highest_scoring_away
   # Name of the team with the highest average score per game across all seasons when they are away.
-    @game_team_collection.stubs(:highest_average_team_id_visitor).returns('3')
-    assert_equal 'Houston Dynamo', @game_team_collection.highest_scoring_visitor
+    @game_team_collection.stubs(:highest_average_team_id_visitor).returns('6')
+    assert_equal 'FC Dallas', @game_team_collection.highest_scoring_visitor
   end
 
   def test_it_knows_highest_average_home
   # Name of the team with the highest average score per game across all seasons when they are away.
-    @game_team_collection.stubs(:highest_average_team_id_home).returns('10')
-    assert_equal 'North Carolina Courage', @game_team_collection.highest_scoring_home_team
+    @game_team_collection.stubs(:highest_average_team_id_home).returns('54')
+    assert_equal 'Reign FC', @game_team_collection.highest_scoring_home_team
   end
 
   def test_it_knows_lowest_average_away
@@ -95,13 +95,13 @@ class GameTeamCollectionTest < Minitest::Test
   end
 
   def test_it_can_find_highest_average_team_id_visitor
-    @game_team_collection.stubs(:highest_average_team_id_visitor).returns('3')
-    assert_equal '3', @game_team_collection.highest_average_team_id_visitor
+    @game_team_collection.stubs(:highest_average_team_id_visitor).returns('6')
+    assert_equal '6', @game_team_collection.highest_average_team_id_visitor
   end
 
   def test_it_can_find_highest_average_team_id_home
-    @game_team_collection.stubs(:highest_average_team_id_home).returns('10')
-    assert_equal '10', @game_team_collection.highest_average_team_id_home
+    @game_team_collection.stubs(:highest_average_team_id_home).returns('54')
+    assert_equal '54', @game_team_collection.highest_average_team_id_home
   end
 
   def test_it_can_find_lowest_average_team_id_visitor
