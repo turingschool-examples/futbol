@@ -20,13 +20,10 @@ class StatTracker
     @team_collection = TeamCollection.new(locations[:teams], self)
     @game_team_collection = GameTeamCollection.new(locations[:game_teams], self)
   end
-# LeagueStatistics
+
+# League Statistics Methods
   def count_of_teams
     @team_collection.count_of_teams
-  end
-
-  def find_team_name(team_id)
-    @team_collection.find_team_name(team_id)
   end
 
   def best_offense
@@ -35,6 +32,10 @@ class StatTracker
 
   def worst_offense
     @game_team_collection.worst_offense
+  end
+# League Statistics Helper Methods
+  def find_team_name(team_id)
+    @team_collection.find_team_name(team_id)
   end
 
   def total_goals_per_team_id_away

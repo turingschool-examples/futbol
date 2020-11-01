@@ -23,6 +23,8 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
+  # League Statistics Methods
+
   def test_it_can_count_number_of_teams
     assert_equal 32, @stat_tracker.count_of_teams
   end
@@ -39,5 +41,29 @@ class StatTrackerTest < Minitest::Test
   def test_it_knows_lowest_average_goals_scored_across_season
   # Name of the team with the highest average number of goals scored per game across all seasons.
     assert_equal 'Sporting Kansas City', @stat_tracker.worst_offense
+  end
+
+  def test_it_knows_highest_scoring_away
+  # Name of the team with the highest average score per game across all seasons when they are away.
+    @game_team_collection.stubs(:highest_average_team_id_visitor).returns('6')
+    assert_equal 'FC Dallas', @game_team_collection.highest_scoring_visitor
+  end
+
+  def test_it_knows_highest_average_home
+  # Name of the team with the highest average score per game across all seasons when they are away.
+    @game_team_collection.stubs(:highest_average_team_id_home).returns('54')
+    assert_equal 'Reign FC', @game_team_collection.highest_scoring_home_team
+  end
+
+  def test_it_knows_lowest_average_away
+  # Name of the team with the highest average score per game across all seasons when they are away.
+    @game_team_collection.stubs(:lowest_average_team_id_visitor).returns('27')
+    assert_equal 'San Jose Earthquakes', @game_team_collection.lowest_scoring_visitor
+  end
+
+  # League Statistics Helper Methods
+
+  def test_it_knows_lowest_average_home
+    assert_equal 'Utah Royals FC', @game_team_collection.lowest_scoring_home_team
   end
 end
