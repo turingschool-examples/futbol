@@ -291,10 +291,7 @@ class StatTracker
   end
 
 
-  ####
-
-
-
+  #### HELPER METHODS TO DISCUSS ######
 
   def game_team_by_season(season_id)
     game_ids = @games_repo.season_game_ids
@@ -308,7 +305,6 @@ class StatTracker
     game_by_id
   end
 
-  # refactor and talk about. why not use game set like other methods?
   def team_conversion_percent(season_id)
     team_ratio = {}
     season_id_games = games_by_team_id(season_id)

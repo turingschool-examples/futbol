@@ -2,7 +2,7 @@ require './test/test_helper'
 
 class GameRepoTest < Minitest::Test
   def setup
-    @games_path = './dummy_data/games_dummy.csv'
+    @games_path = './dummy_data/games_dummy_2.csv'
     @games_repo_test = GameRepo.new(@games_path)
   end
 

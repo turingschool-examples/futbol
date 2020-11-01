@@ -12,10 +12,6 @@ class GameTeamsRepo
     game_teams
   end
 
-  def all_game_teams
-    @game_teams
-  end
-
 #REMEMBER TO REFACTOR THESE
   def game_teams_by_team
       @game_teams.group_by do |game|
