@@ -67,6 +67,12 @@ class GameTeamCollectionTest < Minitest::Test
     assert_equal 'Houston Dynamo', @game_team_collection.highest_scoring_visitor
   end
 
+  def test_it_knows_lowest_average_away
+  # Name of the team with the highest average score per game across all seasons when they are away.
+    @game_team_collection.stubs(:lowest_average_team_id_visitor).returns('27')
+    assert_equal 'San Jose Earthquakes', @game_team_collection.lowest_scoring_visitor
+  end
+
   #League Statistics Helper Methods
   def test_it_can_find_highest_goal
     assert_equal '8', @game_team_collection.find_highest_goal_team_id
