@@ -99,36 +99,24 @@ class StatTracker
   end
 
   def highest_scoring_home_team
-    average_goals = {}
-    game_teams_by_home.map do |team , games|
-      average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
-    end
-    best_home = average_goals.key(average_goals.values.max)
-    match = @teams.find do |team|
+    best_home = @game_teams_repo.highest_scoring_home_team
+    match = @teams_repo.all_teams.find do |team|
       team.team_id == best_home
     end
     match.teamname
   end
 
   def lowest_scoring_visitor
-    average_goals = {}
-    game_teams_by_away.map do |team , games|
-      average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
-    end
-    worst_visit = average_goals.key(average_goals.values.min)
-    match = @teams.find do |team|
+    worst_visit = @game_teams_repo.lowest_scoring_visitor
+    match = @teams_repo.all_teams.find do |team|
       team.team_id == worst_visit
     end
     match.teamname
   end
 
   def lowest_scoring_home_team
-    average_goals = {}
-    game_teams_by_home.map do |team , games|
-      average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
-    end
-    worst_home = average_goals.key(average_goals.values.min)
-    match = @teams.find do |team|
+    worst_home = @game_teams_repo.lowest_scoring_home_team
+    match = @teams_repo.all_teams.find do |team|
       team.team_id == worst_home
     end
     match.teamname
