@@ -24,13 +24,13 @@ class GameTeamsManager
       end
     end
   end
-  
+
   def total_goals_by_team(home_or_away = nil)
-    total_goals = Hash.new { |total_goals, id| total_goals[id] = 0 }
+    team_goals = Hash.new { |team_goals, id| team_goals[id] = 0 }
     find_game_teams(home_or_away).each do |game_team|
-      total_goals[game_team.team_id] += game_team.goals
+      team_goals[game_team.team_id] += game_team.goals
     end
-    total_goals
+    team_goals
   end
 
   def avg_goals_by_team(home_or_away = nil)
