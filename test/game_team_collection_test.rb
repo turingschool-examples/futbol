@@ -50,13 +50,16 @@ class GameTeamCollectionTest < Minitest::Test
                        @game_team_collection.percentage_ties)
   end
 
-  #LeagueStatistics Methods
-  def test_it_can_find_highest_goal
-    assert_equal '8', @game_team_collection.find_highest_goal_team_id
+  #League Statistics Methods
+  def test_it_can_find_team_name
+  # Name of the team with the highest average number of goals scored per game across all seasons.
+    assert_equal 'New York Red Bulls', @game_team_collection.best_offense
   end
 
-  def test_it_can_find_team_name
-    assert_equal 'New York Red Bulls', @game_team_collection.best_offense
+  #League Statistics Helper Methods
+
+  def test_it_can_find_highest_goal
+    assert_equal '8', @game_team_collection.find_highest_goal_team_id
   end
 
   def test_it_can_find_lowest_goal
