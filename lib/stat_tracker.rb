@@ -8,7 +8,11 @@ class StatTracker
               :game_team_collection
 
   def self.from_csv(locations)
-    StatTracker.new(locations)
+    all_data = {}
+    locations.each do |file_name, data|
+      all_data[file_name] = read_data(data)
+    end
+    all_data
   end
 
   def initialize(locations)
