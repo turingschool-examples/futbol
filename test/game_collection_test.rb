@@ -96,7 +96,12 @@ class GameCollectionTest < Minitest::Test
     assert_equal expected, @game_collection.wins_by_season_per_team_id(@team_id)
   end
 
-  # def test_it_can_find_winning_games_by_team_id
-  #   assert_equal 100, @game_collection.winning_games(@team_id).count
-  # end
+  def test_it_can_find_winning_games_by_team_id
+    assert_equal 230, @game_collection.winning_games(@team_id).count
+  end
+
+  def test_it_can_find_best_season
+  # Season with the highest win percentage for a team.
+    assert_equal '20122013', @game_collection.best_season(@team_id)
+  end
 end

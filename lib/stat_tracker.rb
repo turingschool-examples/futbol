@@ -88,4 +88,12 @@ class StatTracker
   def wins_by_season_per_team_id(team_id)
     @game_collection.wins_by_season_per_team_id(team_id)
   end
+
+  def total_games_by_season_per_team_id(team_id)
+    @game_collection.total_games_by_season_per_team_id(team_id)
+  end
+
+  def loss_by_season_per_team_id(team_id)
+    @game_collection.loss_by_season_per_team_id(team_id)
+  end
 end
