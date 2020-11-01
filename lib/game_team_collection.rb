@@ -40,6 +40,9 @@ class GameTeamCollection
   end
 
   # League Statistics Methods
+  def best_offense
+    @stat_tracker.find_team_name(find_highest_goal_team_id)
+  end
 
   # League Statistics Helper Methods
   def find_highest_goal_team_id
@@ -50,9 +53,6 @@ class GameTeamCollection
     @game_teams.min_by {|goal| goal.goals}.team_id
   end
 
-  def best_offense
-    @stat_tracker.find_team_name(find_highest_goal_team_id)
-  end
 
   def worst_offense
     @stat_tracker.find_team_name(find_lowest_goal_team_id)
