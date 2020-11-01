@@ -75,19 +75,19 @@ class GameCollection
   def total_goals_per_team_id_away
     sum_goals_away = Hash.new(0)
      @games.each do |game|
-         if sum_goals_away[game.away_team_id].nil?
-           sum_goals_away[game.away_team_id] = game.away_goals.to_f
-         else
-           sum_goals_away[game.away_team_id] += game.away_goals.to_f
-         end
+       if sum_goals_away[game.away_team_id].nil?
+         sum_goals_away[game.away_team_id] = game.away_goals.to_f
+       else
+         sum_goals_away[game.away_team_id] += game.away_goals.to_f
        end
-     sum_goals_away
+     end
+   sum_goals_away
   end
 
   def total_games_per_team_id_away
     @games.each_with_object({}) do |game, num_goals_away|
-    num_goals_away[game.away_team_id] = @games.count do |gme|
-      game.away_team_id == gme.away_team_id
+      num_goals_away[game.away_team_id] = @games.count do |gme|
+        game.away_team_id == gme.away_team_id
       end
     end
   end
@@ -106,8 +106,8 @@ class GameCollection
 
   def total_games_per_team_id_home
     @games.each_with_object({}) do |game, num_goals_home|
-    num_goals_home[game.home_team_id] = @games.count do |gme|
-      game.home_team_id == gme.home_team_id
+      num_goals_home[game.home_team_id] = @games.count do |gme|
+        game.home_team_id == gme.home_team_id
       end
     end
   end
