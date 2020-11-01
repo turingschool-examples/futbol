@@ -115,7 +115,7 @@ class TestStatTracker < Minitest::Test
     assert_equal 32, @stat_tracker.count_of_teams
   end
 
-  def test_it_return_best_offense
+  def test_it_can_return_best_offense
     # skip
     assert_equal "Reign FC", @stat_tracker.best_offense
   end

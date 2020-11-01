@@ -40,7 +40,6 @@ class StatTracker
     @games_repo.lowest_total_score
   end
 
-
   def percentage_home_wins
     @games_repo.percentage_home_wins
   end
@@ -90,16 +89,7 @@ class StatTracker
   end
 
   def best_offense
-    average_goals = {}
-    game_teams_by_team.map do |team , games|
-      average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
-    end
-
-    best_team = average_goals.key(average_goals.values.max)
-    match = @teams.find do |team|
-      team.team_id == best_team
-    end
-    match.teamname
+    @game_teams_repo.best_offense
   end
 
   def worst_offense
