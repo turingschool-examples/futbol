@@ -11,6 +11,9 @@ class GameTeamsRepo
       game_teams
     end
 
+    # def teams
+    #   @stat_tracker.teams
+    # end
 #REMEMBER TO REFACTOR THESE
 
     def game_teams_by_team
@@ -41,16 +44,10 @@ class GameTeamsRepo
 
       def best_offense
         average_goals = {}
-        data = game_teams_by_team
-        data.map do |team , games|
+        game_teams_by_team.map do |team , games|
           average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
         end
-    
-        best_team = average_goals.key(average_goals.values.max)
-        match = @teams.find do |team|
-          team.team_id == best_team
-        end
-        match.teamname
+        average_goals.key(average_goals.values.max)
       end
     
 end

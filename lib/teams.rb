@@ -6,7 +6,7 @@ class Teams
                 :stadium,
                 :link
 
-    def initialize (row)
+    def initialize(row)
         @team_id = row[:team_id]
         @franchiseid = row[:franchiseid]
         @teamname = row[:teamname]

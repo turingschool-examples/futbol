@@ -11,6 +11,10 @@ class TeamsRepo
       teams
     end
 
+    def all_teams
+      @teams
+    end
+
     def team_info(arg_id)
         queried_team = Hash.new
         @teams.find do |team|
@@ -23,7 +27,6 @@ class TeamsRepo
             queried_team["link"] = team.link
           end
         end
-    
         queried_team
       end
     

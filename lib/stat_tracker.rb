@@ -10,8 +10,8 @@ class StatTracker
     @teams_path = locations[:teams]
     @game_teams_path = locations[:game_teams]
     @games_repo = GameRepo.new(@games_path)
-    @game_teams = GameTeamsRepo.new(@game_teams_path)
-    @teams = TeamsRepo.new(@teams_path)
+    @game_teams_repo = GameTeamsRepo.new(@game_teams_path)
+    @teams_repo = TeamsRepo.new(@teams_path)
   end
 
   def self.from_csv(locations)
@@ -75,7 +75,11 @@ class StatTracker
   end
 
   def best_offense
-    @game_teams_repo.best_offense
+    best_team = @game_teams_repo.best_offense
+    match = @teams_repo.all_teams.find do |team|
+      team.team_id == best_team
+    end
+    match.teamname
   end
 
   def worst_offense
