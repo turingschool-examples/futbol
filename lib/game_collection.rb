@@ -121,4 +121,22 @@ class GameCollection
       end
     end
   end
+
+# TEAM STATS
+  def wins_by_season_per_team_id(team_id)
+    wins_by_season = Hash.new {|hash_obj, key| hash_obj[key] = 0}
+      winning_games(team_id).each do |win|
+        total = [win]
+        wins_by_season[win.season] += total.count
+      end
+      wins_by_season
+    end
+  end
+
+  #Team STATS Helper
+  def winning_games(team_id)
+  @games.select do |game|
+    (game.home_goals > game.away_goals && game.home_team_id == team_id) ||
+    (game.away_goals > game.home_goals && game.away_team_id == team_id)
+  end
 end

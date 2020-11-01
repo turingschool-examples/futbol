@@ -18,6 +18,7 @@ class GameCollectionTest < Minitest::Test
 
     @stat_tracker    = StatTracker.from_csv(locations)
     @game_collection = GameCollection.new(game_path, @stat_tracker)
+    @team_id = '3'
   end
 
   def test_it_exists_and_has_attributes
@@ -88,4 +89,14 @@ class GameCollectionTest < Minitest::Test
     # expected = {"6"=>12.0, "3"=>3.0, "5"=>1.0, "24"=>6.0, "20"=>3.0}
     assert_equal 32, @game_collection.total_goals_per_team_id_home.count
   end
+
+  # TEAM STATS
+  def test_it_can_find_wins_by_season_per_team_id
+    expected = {"20122013"=>22, "20142015"=>52, "20132014"=>49, "20162017"=>44, "20152016"=>39, "20172018"=>24}
+    assert_equal expected, @game_collection.wins_by_season_per_team_id(@team_id)
+  end
+
+  # def test_it_can_find_winning_games_by_team_id
+  #   assert_equal 100, @game_collection.winning_games(@team_id).count
+  # end
 end
