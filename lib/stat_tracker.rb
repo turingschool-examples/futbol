@@ -25,6 +25,15 @@ class StatTracker
     @game_team_collection = GameTeamCollection.new(locations[:game_teams], self)
   end
 
+# Season Stats
+  def game_ids_per_season
+    @game_collection.game_ids_per_season
+  end
+
+  def find_team(team_id)
+    @team_collection.find_team(team_id)
+  end
+
 # League Statistics Methods
   def count_of_teams
     @team_collection.count_of_teams

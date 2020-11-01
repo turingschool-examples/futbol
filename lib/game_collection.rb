@@ -15,6 +15,8 @@ class GameCollection
     data = CSV.parse(File.read(game_path), headers: true)
     @games = data.map {|data| Game.new(data, self)}
   end
+  
+  # Season Statistics
 
   def scores_by_game
     @games.map do |game|
@@ -69,6 +71,15 @@ class GameCollection
                                 count_of_games_by_season[season].to_f).round(2)
     end
     goals_per_season
+  end
+
+  def game_ids_per_season
+    seasons_and_games = {}
+    @games.each do |game|
+      (seasons_and_games[game.season] << game.game_id if seasons_and_games[game.season]) ||
+      (seasons_and_games[game.season] = [game.game_id])
+    end
+    seasons_and_games
   end
 
   # League Statistic
