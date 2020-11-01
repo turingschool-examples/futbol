@@ -8,7 +8,11 @@ class StatTracker
               :game_team_collection
 
   def self.from_csv(locations)
-    StatTracker.new(locations)
+    all_data = {}
+    locations.each do |file_name, data|
+      all_data[file_name] = read_data(data)
+    end
+    all_data
   end
 
   def initialize(locations)
@@ -21,6 +25,7 @@ class StatTracker
     @game_team_collection = GameTeamCollection.new(locations[:game_teams], self)
   end
 
+# Season Stats
   def game_ids_per_season
     @game_collection.game_ids_per_season
   end
@@ -29,4 +34,53 @@ class StatTracker
     @team_collection.find_team(team_id)
   end
 
+# League Statistics Methods
+  def count_of_teams
+    @team_collection.count_of_teams
+  end
+
+  def best_offense
+    @game_team_collection.best_offense
+  end
+
+  def worst_offense
+    @game_team_collection.worst_offense
+  end
+
+  def highest_scoring_visitor
+    @game_team_collection.highest_scoring_visitor
+  end
+
+  def highest_scoring_home_team
+    @game_team_collection.highest_scoring_home_team
+  end
+
+  def lowest_scoring_visitor
+    @game_team_collection.lowest_scoring_visitor
+  end
+
+  def lowest_scoring_home_team
+    @game_team_collection.lowest_scoring_home_team
+  end
+
+# League Statistics Helper Methods
+  def find_team_name(team_id)
+    @team_collection.find_team_name(team_id)
+  end
+
+  def total_goals_per_team_id_away
+    @game_collection.total_goals_per_team_id_away
+  end
+
+  def total_games_per_team_id_away
+    @game_collection.total_games_per_team_id_away
+  end
+
+  def total_goals_per_team_id_home
+    @game_collection.total_goals_per_team_id_home
+  end
+
+  def total_games_per_team_id_home
+    @game_collection.total_games_per_team_id_home
+  end
 end
