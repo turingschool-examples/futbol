@@ -61,8 +61,13 @@ class GameTeamCollectionTest < Minitest::Test
     assert_equal 'Sporting Kansas City', @game_team_collection.worst_offense
   end
 
-  #League Statistics Helper Methods
+  def test_it_knows_highest_scoring_away
+  # Name of the team with the highest average score per game across all seasons when they are away.
+    @game_team_collection.stubs(:highest_average_team_id_visitor).returns('3')
+    assert_equal 'Houston Dynamo', @game_team_collection.highest_scoring_visitor
+  end
 
+  #League Statistics Helper Methods
   def test_it_can_find_highest_goal
     assert_equal '8', @game_team_collection.find_highest_goal_team_id
   end
@@ -85,12 +90,6 @@ class GameTeamCollectionTest < Minitest::Test
   def test_it_can_find_highest_average_team_id_home
     @game_team_collection.stubs(:highest_average_team_id_home).returns('10')
     assert_equal '10', @game_team_collection.highest_average_team_id_home
-  end
-
-  def test_it_knows_highest_average_home
-  # Name of the team with the highest average score per game across all seasons when they are away.
-    @game_team_collection.stubs(:highest_average_team_id_home).returns('10')
-    assert_equal 'North Carolina Courage', @game_team_collection.highest_scoring_home_team
   end
 
   def test_it_can_find_lowest_average_team_id_visitor
