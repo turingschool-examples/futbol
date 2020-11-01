@@ -43,6 +43,17 @@ class GameTeamsRepo
     end
   end
 
+  def game_teams_by_team_id
+    game_set = {}
+    team_set = game_teams_by_team
+    team_set.map do |team, games|
+      game_set[team] = games.map do |game|
+        game.game_id
+      end
+    end
+    game_set
+  end
+
   # def game_ids_by_season
   # end
 
