@@ -23,22 +23,22 @@ class StatTracker
   def retrieve_game_teams
     output_hash = {}
     CSV.foreach(@locations[:game_teams], headers: true) do |row|
-      output_hash[row[0]] = {} if !output_hash[row[0]]
-      output_hash[row[0]][row[2]] = GameTeam.new(row)
+      output_hash[row["game_id"]] = {} if !output_hash[row["game_id"]]
+      output_hash[row["game_id"]][row["HoA"]] = GameTeam.new(row)
     end
     output_hash
   end
   def retrieve_games
     output_hash = {}
     CSV.foreach(@locations[:games], headers: true) do |row|
-      output_hash[row[0]] = Game.new(row)
+      output_hash[row["game_id"]] = Game.new(row)
     end
     output_hash
   end
   def retrieve_teams
     output_hash = {}
     CSV.foreach(@locations[:teams], headers: true) do |row|
-      output_hash[row[0]] = Team.new(row)
+      output_hash[row["team_id"]] = Team.new(row)
     end
     output_hash
   end
