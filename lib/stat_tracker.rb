@@ -55,11 +55,8 @@ class StatTracker
   end
 
   def best_offense
-    best_team = @game_teams_repo.best_offense
-    match = @teams_repo.all_teams.find do |team|
-      team.team_id == best_team
-    end
-    match.teamname
+    best_team = @game_teams_repo.best_offense 
+    @teams_repo.team_name(best_team)
   end
 
   def worst_offense
