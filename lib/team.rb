@@ -5,10 +5,10 @@ class Team
               :link,
               :Stadium
   def initialize(row)
-    @franchiseId = row[1]
-    @teamName = row[2]
-    @abbreviation = row[3]
-    @Stadium = row[4]
-    @link = row[5]
+    @franchiseId = row["franchiseId"]
+    @teamName = row["teamName"]
+    @abbreviation = row["abbreviation"]
+    @Stadium = row["Stadium"]
+    @link = row["link"]
   end
 end
