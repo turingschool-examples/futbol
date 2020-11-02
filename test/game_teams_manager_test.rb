@@ -19,11 +19,31 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "Dan Bylsma", @game_teams_manager.winningest_coach("20142015")
   end
 
-  #def test_coaches
-    #coach_hash = {:games => 0, :wins => 0}
+  def test_coaches_by_season
+    coach_hash = {:games => 0, :wins => 0}
 
-    #all_coaches = @game_teams_manager.coaches_by_season("20152016")
+    all_coaches = @game_teams_manager.coaches_by_season("20152016")
 
-    #assert_equal coach_hash, all_coaches["Jack Capuano"]
-  #end
+    assert_equal coach_hash, all_coaches["Jack Capuano"]
+  end
+
+  def test_game_team_by_season
+
+  end
+
+  def test_game_ids_by_season
+
+  end
+
+  def test_get_stats
+
+  end
+
+  def test_calc_coach_percentage
+
+  end
+
+  def test_calc_percentage
+    
+  end
 end
