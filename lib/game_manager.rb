@@ -48,16 +48,11 @@ class GameManager
     (ties.to_f / @games.size).round(2)
   end
 
-  def game_count(season)
-    @games.count do |game|
-      game.season == season
-    end
-  end
 
   def count_of_games_by_season
-    games_by_season = {}
+    games_by_season = Hash.new {|hash, key| hash[key] = 0}
     @games.each do |game|
-      games_by_season[game.season] = game_count(game.season)
+      games_by_season[game.season] += 1
     end
     games_by_season
   end
