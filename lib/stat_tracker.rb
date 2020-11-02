@@ -92,4 +92,12 @@ class StatTracker
   def worst_season(team_id)
     @game_collection.worst_season(team_id)
   end
+
+  def favorite_oponent(team_id)
+    @stat_tracker.find_team_name(lowest_win_percentage(team_id))
+  end
+  
+  def rival(team_id)
+    @stat_tracker.find_team_name(highest_win_percentage(team_id))
+  end
 end
