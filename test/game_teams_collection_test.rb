@@ -44,6 +44,11 @@ class GameTeamsCollectionTest < Minitest::Test
     assert_equal expected, @gameteamcollection.away_games_by_team
   end
 
+  def test_goal_total_by_hoa
+    assert_equal (expected = {"6"=>9, "3"=>3}), @gameteamcollection.goal_total_by_hoa("home")
+    assert_equal (expected = {"3"=>5, "6"=>5}), @gameteamcollection.goal_total_by_hoa("away")
+  end
+
   def test_home_games_by_team
 
     expected = {"6"=>3, "3"=>2}

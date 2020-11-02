@@ -49,6 +49,16 @@ class GameTeamsCollection
     home_games
   end
 
+  def goal_total_by_hoa(hoa = "all")
+    game_teams.each_with_object(Hash.new(0)) do |game_team, average|
+      if game_team.hoa == hoa
+        average[game_team.team_id] += game_team.goals
+      elsif game_team.hoa == "all"
+        average[game_team.team_id] += game_team.goals
+      end
+    end
+  end
+
   def average_goals_by_team
     average = Hash.new(0)
     game_teams.each do |game_team|
@@ -58,23 +68,11 @@ class GameTeamsCollection
   end
 
   def average_away_goals_by_team
-    average = Hash.new(0)
-    game_teams.each do |game_team|
-      if game_team.hoa == "away"
-        average[game_team.team_id] += game_team.goals
-      end
-    end
-    combine(away_games_by_team, average)
+    combine(away_games_by_team, goal_total_by_hoa("away"))
   end
 
   def average_home_goals_by_team
-    average = Hash.new(0)
-    game_teams.each do |game_team|
-      if game_team.hoa == "home"
-        average[game_team.team_id] += game_team.goals
-      end
-    end
-    combine(home_games_by_team, average)
+    combine(home_games_by_team, goal_total_by_hoa("home"))
   end
 
   def best_offense
