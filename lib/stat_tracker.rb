@@ -16,6 +16,10 @@ class StatTracker
     self.new(locations)
   end
 
+  def find_team_name(team_id)
+    @teams.find_team_name
+  end
+
   def find_season_id(id)
     @games.find_season_id(id)
   end
@@ -109,11 +113,11 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
-    @games.favorite_opponent(team_id)
+    find_by_id(@games.favorite_opponent(team_id))
   end
 
   def rival(team_id)
-    @games.rival(team_id)
+    find_by_id(@games.rival(team_id))
   end
 
   def winningest_coach(season_id)

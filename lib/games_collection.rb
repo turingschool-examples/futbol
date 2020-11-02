@@ -1,6 +1,9 @@
 require_relative './game'
+require_relative './calculator'
 
 class GamesCollection
+  include Calculator
+
   attr_reader :games
 
   def initialize(file_path, parent)
@@ -187,16 +190,10 @@ class GamesCollection
   end
 
   def favorite_opponent(team_id)
-    opponent = games_against_opponents(team_id).min_by do |opp, numbers|
-      numbers[:wins].to_f / numbers[:total]
-    end
-    @parent.find_by_id(opponent.first)
+    min(avg(games_against_opponents(team_id))).first
   end
 
   def rival(team_id)
-    rival = games_against_opponents(team_id).max_by do |opp, numbers|
-      numbers[:wins].to_f / numbers[:total]
-    end
-    @parent.find_by_id(rival.first)
+    max(avg(games_against_opponents(team_id))).first
   end
 end

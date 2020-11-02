@@ -129,11 +129,11 @@ class GamesCollectionTest < Minitest::Test
 
   def test_favorite_opponent
 
-    assert_equal "FC Dallas", @gamescollection.favorite_opponent("16")
+    assert_equal "17", @gamescollection.favorite_opponent("16")
   end
 
   def test_rival
 
-    assert_equal "FC Dallas", @gamescollection.rival("6")
+    assert_equal "3", @gamescollection.rival("6")
   end
 end
