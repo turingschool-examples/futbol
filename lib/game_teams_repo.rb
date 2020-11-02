@@ -1,0 +1,111 @@
+class GameTeamsRepo
+
+  def initialize(game_teams_path)
+    @game_teams = make_game_teams(game_teams_path)
+  end
+  
+  def make_game_teams(game_teams_path)
+    game_teams = []
+    CSV.foreach(game_teams_path, headers: true, header_converters: :symbol) do |row|
+      game_teams << GameTeams.new(row)
+    end
+    game_teams
+  end
+
+#REMEMBER TO REFACTOR THESE
+  def game_teams_by_team
+      @game_teams.group_by do |game|
+        game.team_id
+      end
+  end
+
+  def game_teams_by_away
+      @game_teams.group_by do |game|
+        game.team_id unless game.hoa == "home"
+      end
+  
+    end
+  
+  def game_teams_by_home
+    @game_teams.group_by do |game|
+      game.team_id unless game.hoa == "away"
+    end
+
+  end
+
+  def game_teams_by_coach
+    @game_teams.group_by do |game|
+      game.head_coach
+    end
+  end
+
+  def game_teams_by_team_id
+    game_set = {}
+    team_set = game_teams_by_team
+    team_set.map do |team, games|
+      game_set[team] = games.map do |game|
+        game.game_id
+      end
+    end
+    game_set
+  end
+
+  # def game_ids_by_season
+  # end
+
+  def game_team_by_season(game_ids, season_id)
+    @game_teams.find_all do |row|
+      game_ids[season_id].include?(row.game_id)
+    end
+  end
+
+  def best_offense
+    average_goals = {}
+    game_teams_by_team.map do |team , games|
+      average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
+    end
+    average_goals.key(average_goals.values.max)
+  end
+
+  def worst_offense
+    average_goals = {}
+    game_teams_by_team.map do |team , games|
+      average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
+    end
+    average_goals.key(average_goals.values.min)
+  end
+
+  def highest_scoring_visitor
+    average_goals = {}
+    game_teams_by_away.map do |team , games|
+      average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
+    end 
+    average_goals.key(average_goals.values.max)
+  end
+
+  def highest_scoring_home_team
+    average_goals = {}
+    game_teams_by_home.map do |team , games|
+      average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
+    end
+    average_goals.key(average_goals.values.max)
+  end
+
+  def lowest_scoring_visitor
+    average_goals = {}
+    game_teams_by_away.map do |team , games|
+      average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
+    end
+    average_goals.key(average_goals.values.min)
+  end
+
+  def lowest_scoring_home_team
+    average_goals = {}
+    game_teams_by_home.map do |team , games|
+      average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
+    end
+    average_goals.key(average_goals.values.min)
+  end
+  
+
+end
