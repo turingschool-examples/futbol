@@ -6,9 +6,9 @@ require 'mocha/minitest'
 class StatTrackerTest < Minitest::Test
 
   def setup
-  game_path       = './data/games.csv'
+  game_path       = './data/games_dummy.csv'
   team_path       = './data/teams.csv'
-  game_teams_path = './data/game_teams.csv'
+  game_teams_path = './data/game_teams_dummy.csv'
 
   locations = {
                 games: game_path,

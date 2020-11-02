@@ -94,10 +94,10 @@ class StatTracker
   end
 
   def favorite_oponent(team_id)
-    @stat_tracker.find_team_name(lowest_win_percentage(team_id))
+    @game_team_collection.find_team_name(lowest_win_percentage(team_id))
   end
-  
+
   def rival(team_id)
-    @stat_tracker.find_team_name(highest_win_percentage(team_id))
+    @game_team_collection.find_team_name(highest_win_percentage(team_id))
   end
 end

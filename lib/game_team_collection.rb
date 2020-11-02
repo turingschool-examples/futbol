@@ -175,6 +175,19 @@ class GameTeamCollection
     @stat_tracker.find_team_name(lowest_average_team_id_home)
   end
 
+  def most_goals_scored(team_id)
+    # require "pry"; binding.pry
+    @game_teams.select do |game_team|
+      team_id == game_team.team_id
+    end.max_by {|game| game.goals}.goals.to_i
+  end
+
+  def fewest_goals_scored(team_id)
+    @game_teams.select do |game_team|
+      team_id == game_team.team_id
+    end.min_by {|game| game.goals}.goals.to_i
+  end
+
   # League Statistics Helper Methods
   def find_highest_goal_team_id
     @game_teams.max_by {|goal| goal.goals}.team_id

@@ -6,9 +6,9 @@ require 'mocha/minitest'
 
 class GameTeamCollectionTest < Minitest::Test
   def setup
-    game_path       = './data/games.csv'
+    game_path       = './data/games_dummy.csv'
     team_path       = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
 
     locations = {
                   games: game_path,
@@ -256,7 +256,7 @@ class GameTeamCollectionTest < Minitest::Test
   def test_it_can_find_team_id_for_highest_win_percentage
     assert_equal '15', @game_team_collection.highest_win_percentage('3')
   end
-  
+
   def test_it_can_list_number_of_games_won_per_opposing_team
     expected = {
                 "6"=>12, "15"=>17, "5"=>19, "14"=>12, "19"=>3, "52"=>5, "9"=>13,
@@ -266,5 +266,15 @@ class GameTeamCollectionTest < Minitest::Test
                 "21"=>2, "54"=>1, "23"=>1
               }
     assert_equal expected, @game_team_collection.highest_opposing_team('3')
+  end
+
+  def test_it_can_find_highest_goals_by_team
+  # Highest number of goals a particular team has scored in a single game.
+    assert_equal 2, @game_team_collection.most_goals_scored('3')
+  end
+
+  def test_it_can_find_fewest_goals_by_team
+  # Lowest numer of goals a particular team has scored in a single game.
+    assert_equal 0, @game_team_collection.fewest_goals_scored('3')
   end
 end

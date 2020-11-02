@@ -49,15 +49,15 @@ class TeamStatisticsTest < Minitest::Test
   #   assert_equal 37.04, @team_statistics.average_win_percentage(@team_id)
   # end
 
-  def test_it_can_find_highest_goals_by_team
-  # Highest number of goals a particular team has scored in a single game.
-    assert_equal 5, @team_statistics.most_goals_scored(@team_id)
-  end
-
-  def test_it_can_find_fewest_goals_by_team
-  # Lowest numer of goals a particular team has scored in a single game.
-    assert_equal 0, @team_statistics.fewest_goals_scored(@team_id)
-  end
+  # def test_it_can_find_highest_goals_by_team
+  # # Highest number of goals a particular team has scored in a single game.
+  #   assert_equal 5, @team_statistics.most_goals_scored(@team_id)
+  # end
+  #
+  # def test_it_can_find_fewest_goals_by_team
+  # # Lowest numer of goals a particular team has scored in a single game.
+  #   assert_equal 0, @team_statistics.fewest_goals_scored(@team_id)
+  # end
 
   def test_it_can_find_favorite_oponent
   # Name of the opponent that has the lowest win percentage against the given team.
