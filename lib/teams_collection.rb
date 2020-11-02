@@ -20,6 +20,7 @@ class TeamsCollection
       end
     end
   end
+
   def find_team_name(team_id)
     teams.find do |team|
       return team.teamname if team.team_id == team_id

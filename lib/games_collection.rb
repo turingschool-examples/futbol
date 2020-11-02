@@ -35,7 +35,19 @@ class GamesCollection
       end
     end
   end
+#GAME STATS HELPER METHODS
+  def wins_by_hoa(hoa) #used by percentage_home_wins, percentage_visitor_wins, percentage_ties
+    games.count do |game|
+      game.winner == hoa
+    end
+  end
 
+  def seasons #used by average_goals_by_season
+    games.each_with_object(Hash.new(0)) do |game, seasons|
+      seasons[game.season] += game.total_score
+    end
+  end
+#GAME STATS
   def highest_total_score
     highest = @games.max_by do |game|
       game.total_score
@@ -62,12 +74,6 @@ class GamesCollection
     (wins_by_hoa("tie").to_f / @games.length).round(2)
   end
 
-  def wins_by_hoa(hoa)
-    games.count do |game|
-      game.winner == hoa
-    end
-  end
-
   def count_of_games_by_season
     seasons = Hash.new(0)
     games.each do |game|
@@ -83,17 +89,11 @@ class GamesCollection
     (total_goals.to_f / games.count).round(2)
   end
 
-  def seasons
-    games.each_with_object(Hash.new(0)) do |game, seasons|
-      seasons[game.season] += game.total_score
-    end
-  end
-
   def average_goals_by_season
     combine(count_of_games_by_season, seasons)
   end
-
-  def games_by_team(team_id)
+#TEAM STAT HELPER METHODS
+  def games_by_team(team_id) #used by best_season, worst_season, average_win_percentage
     win = Hash.new {|h, k| h[k] = {wins: 0, total: 0}}
     @games.each do |game|
       if game.away_team_id == team_id && game.winner == "away"
@@ -109,19 +109,7 @@ class GamesCollection
     win
   end
 
-  def best_season(team_id)
-    max_avg(games_by_team(team_id)).first
-  end
-
-  def worst_season(team_id)
-    min_avg(games_by_team(team_id)).first
-  end
-
-  def average_win_percentage(team_id)
-    win_pct(games_by_team(team_id))
-  end
-
-  def goals_scored_by_team(team_id)
+  def goals_scored_by_team(team_id) #used by fewest_goals_scored, most_goals_scored
     games_with_goals = Hash.new(0)
     @games.each do |game|
       if game.away_team_id == team_id
@@ -133,15 +121,7 @@ class GamesCollection
     games_with_goals
   end
 
-  def most_goals_scored(team_id)
-    high(goals_scored_by_team(team_id)).last
-  end
-
-  def fewest_goals_scored(team_id)
-    low(goals_scored_by_team(team_id)).last
-  end
-
-  def games_against_opponents(team_id)
+  def games_against_opponents(team_id) #used by favorite_opponent, rival
     wins = Hash.new {|h, k| h[k] = {wins: 0, total: 0}}
     @games.each do |game|
       if game.away_team_id == team_id && game.winner == "home"
@@ -161,6 +141,26 @@ class GamesCollection
       end
     end
     wins
+  end
+#TEAM STATS
+  def best_season(team_id)
+    max_avg(games_by_team(team_id)).first
+  end
+
+  def worst_season(team_id)
+    min_avg(games_by_team(team_id)).first
+  end
+
+  def average_win_percentage(team_id)
+    win_pct(games_by_team(team_id))
+  end
+
+  def most_goals_scored(team_id)
+    high(goals_scored_by_team(team_id)).last
+  end
+
+  def fewest_goals_scored(team_id)
+    low(goals_scored_by_team(team_id)).last
   end
 
   def favorite_opponent(team_id)
