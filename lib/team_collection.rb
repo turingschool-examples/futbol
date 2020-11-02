@@ -29,7 +29,7 @@ class TeamCollection
   # Team Stats
   def team_info(team_id)
     team_data = {}
-    @teams.each_with_object({}) do |team, team_data|
+    @teams.each do |team|
      if team_id  == team.team_id
        team_data = {
                   team_id: team.team_id,
