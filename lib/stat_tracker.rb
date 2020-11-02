@@ -100,4 +100,16 @@ class StatTracker
   def rival(team_id)
     @game_team_collection.find_team_name(highest_win_percentage(team_id))
   end
+
+  def most_goals_scored(team_id)
+    @game_team_collection.select do |game_team|
+      team_id == game_team.team_id
+    end.max_by {|game| game.goals}.goals.to_i
+  end
+
+  def fewest_goals_scored(team_id)
+    @game_team_collection.select do |game_team|
+      team_id == game_team.team_id
+    end.min_by {|game| game.goals}.goals.to_i
+  end
 end

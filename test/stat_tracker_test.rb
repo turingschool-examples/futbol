@@ -123,4 +123,14 @@ class StatTrackerTest < Minitest::Test
   # Name of the opponent that has the highest win percentage against the given team
     assert_equal 'Portland Timbers', @stat_tracker.rival('3')
   end
+
+  def test_it_can_find_highest_goals_by_team
+  # Highest number of goals a particular team has scored in a single game.
+    assert_equal 2, @stat_tracker.most_goals_scored('3')
+  end
+
+  def test_it_can_find_fewest_goals_by_team
+  # Lowest numer of goals a particular team has scored in a single game.
+    assert_equal 0, @stat_tracker.fewest_goals_scored('3')
+  end
 end

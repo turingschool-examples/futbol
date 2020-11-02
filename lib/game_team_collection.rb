@@ -176,7 +176,6 @@ class GameTeamCollection
   end
 
   def most_goals_scored(team_id)
-    # require "pry"; binding.pry
     @game_teams.select do |game_team|
       team_id == game_team.team_id
     end.max_by {|game| game.goals}.goals.to_i
