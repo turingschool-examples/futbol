@@ -6,7 +6,6 @@ class GameTeamsRepoTest < Minitest::Test
     @game_teams_repo_test = GameTeamsRepo.new(@game_teams_path, stat_tracker)
     @teams_path = './data/teams.csv'
     @teams = TeamsRepo.new(@teams_path)
-    @stat_tracker = stat_tracker
   end
 
   def test_make_game_teams

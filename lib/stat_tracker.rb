@@ -88,26 +88,12 @@ class StatTracker
 
   #MOST AND LEAST ACCURATE - DISCUSS WITH TEAM
   def most_accurate_team(season_id)
-    ratio = team_conversion_percent(season_id)
-    ratio.max_by do |team, ratio|
-      ratio
-    end
-    @teams_repo.all_teams.map do |team|
-      return team.teamname if team.team_id == ratio[0]
-    end
+    @game_teams_repo.most_accurate_team(season_id)
   end
 
   def least_accurate_team(season_id)
-    ratio = team_conversion_percent(season_id)
-    ratio.min_by do |team, ratio|
-      ratio
-    end
-
-    @teams_repo.all_teams.map do |team|
-      return team.teamname if team.team_id == ratio[0]
-    end
+    @game_teams_repo.least_accurate_team(season_id)
   end
-
 
   def most_tackles(season_id)
     team_tackles = {}

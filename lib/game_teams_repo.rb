@@ -97,26 +97,21 @@ class GameTeamsRepo
     end
     team_ratio
   end
-  
+
   def most_accurate_team(season_id)
     ratio = team_conversion_percent(season_id)
-    ratio.max_by do |team, ratio|
+    data_collector = ratio.max_by do |team, ratio|
       ratio
     end
-    @teams_repo.all_teams.map do |team|
-      return team.teamname if team.team_id == ratio[0]
-    end
+    @stat_tracker.team_name(data_collector[0])
   end
 
   def least_accurate_team(season_id)
     ratio = team_conversion_percent(season_id)
-    ratio.min_by do |team, ratio|
+    data_collector = ratio.min_by do |team, ratio|
       ratio
     end
-
-    @teams_repo.all_teams.map do |team|
-      return team.teamname if team.team_id == ratio[0]
-    end
+    @stat_tracker.team_name(data_collector[0])
   end
 
   def game_teams_by_team_id
