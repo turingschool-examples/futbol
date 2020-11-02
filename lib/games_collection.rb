@@ -134,13 +134,7 @@ class GamesCollection
   end
 
   def average_win_percentage(team_id)
-    wins = 0
-    total = 0
-    games_by_team(team_id).each do |season, values|
-        wins += values[:wins]
-        total += values[:total]
-    end
-    (wins / total.to_f).round(2)
+    win_pct(games_by_team(team_id))
   end
 
   def goals_scored_by_team(team_id)
@@ -156,15 +150,11 @@ class GamesCollection
   end
 
   def most_goals_scored(team_id)
-    goals_scored_by_team(team_id).max_by do |key, value|
-      value
-    end.last
+    max(goals_scored_by_team(team_id)).last
   end
 
   def fewest_goals_scored(team_id)
-    goals_scored_by_team(team_id).min_by do |key, value|
-      value
-    end.last
+    min(goals_scored_by_team(team_id)).last
   end
 
   def games_against_opponents(team_id)
@@ -190,10 +180,10 @@ class GamesCollection
   end
 
   def favorite_opponent(team_id)
-    min(avg(games_against_opponents(team_id))).first
+    min_avg(games_against_opponents(team_id)).first
   end
 
   def rival(team_id)
-    max(avg(games_against_opponents(team_id))).first
+    max_avg(games_against_opponents(team_id)).first
   end
 end
