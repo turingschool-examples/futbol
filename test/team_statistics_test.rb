@@ -58,16 +58,16 @@ class TeamStatisticsTest < Minitest::Test
   # # Lowest numer of goals a particular team has scored in a single game.
   #   assert_equal 0, @team_statistics.fewest_goals_scored(@team_id)
   # end
-
-  def test_it_can_find_favorite_oponent
-  # Name of the opponent that has the lowest win percentage against the given team.
-    assert_equal 'Portland Timbers', @team_statistics.favorite_oponent(@team_id)
-  end
-
-  def test_it_can_find_rival
-  # Name of the opponent that has the highest win percentage against the given team
-    assert_equal 'Portland Timbers', @team_statistics.rival(@team_id)
-  end
+  #
+  # def test_it_can_find_favorite_oponent
+  # # Name of the opponent that has the lowest win percentage against the given team.
+  #   assert_equal 'Portland Timbers', @team_statistics.favorite_oponent(@team_id)
+  # end
+  #
+  # def test_it_can_find_rival
+  # # Name of the opponent that has the highest win percentage against the given team
+  #   assert_equal 'Portland Timbers', @team_statistics.rival(@team_id)
+  # end
 
   # Helper method tests
   def test_it_can_find_team_info_row

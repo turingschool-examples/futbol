@@ -25,10 +25,6 @@ class TeamCollectionTest < Minitest::Test
     assert_instance_of TeamCollection, @team_collection
   end
 
-  # def test_find_team
-  #   assert_equal "Houston Dynamo", @team_collection.find_team("3")
-  # end
-
   def test_it_can_count_number_of_teams
     assert_equal 32, @team_collection.count_of_teams
   end

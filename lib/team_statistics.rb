@@ -10,9 +10,9 @@ class TeamStatistics
     @stat_tracker[:teams]['team_id'].zip(@stat_tracker[:teams]['franchiseId'], @stat_tracker[:teams]['teamName'], @stat_tracker[:teams]['abbreviation'], @stat_tracker[:teams]['link'])
   end
 
-  def game_teams_data_set
-    @stat_tracker[:game_teams]['game_id'].zip(@stat_tracker[:game_teams]['team_id'], @stat_tracker[:game_teams]['result'], @stat_tracker[:game_teams]['goals'])
-  end
+  # def game_teams_data_set
+  #   @stat_tracker[:game_teams]['game_id'].zip(@stat_tracker[:game_teams]['team_id'], @stat_tracker[:game_teams]['result'], @stat_tracker[:game_teams]['goals'])
+  # end
 
   # Team Statistics Methods
   # def team_info(team_id)
@@ -48,21 +48,21 @@ class TeamStatistics
   #   loss_percentage.min_by {|season, pct| pct}[0]
   # end
 
-  # def average_win_percentage(team_id)
-  #   (winning_games(team_id).count / total_games(team_id).count.to_f * 100).round(2)
+  def average_win_percentage(team_id)
+    (winning_games(team_id).count / total_games(team_id).count.to_f * 100).round(2)
+  end
+
+  # def most_goals_scored(team_id)
+  #   game_teams_data_set.select do |id|
+  #     team_id == id[1]
+  #   end.max_by {|score| score[3]}[3].to_i
   # end
-
-  def most_goals_scored(team_id)
-    game_teams_data_set.select do |id|
-      team_id == id[1]
-    end.max_by {|score| score[3]}[3].to_i
-  end
-
-  def fewest_goals_scored(team_id)
-    game_teams_data_set.select do |id|
-      team_id == id[1]
-    end.min_by {|score| score[3]}[3].to_i
-  end
+  #
+  # def fewest_goals_scored(team_id)
+  #   game_teams_data_set.select do |id|
+  #     team_id == id[1]
+  #   end.min_by {|score| score[3]}[3].to_i
+  # end
 
   # def favorite_oponent(team_id)
   #   team_info(lowest_win_percentage(team_id))[:team_name]

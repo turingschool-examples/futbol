@@ -175,17 +175,6 @@ class GameTeamCollection
     @stat_tracker.find_team_name(lowest_average_team_id_home)
   end
 
-  def most_goals_scored(team_id)
-    @game_teams.select do |game_team|
-      team_id == game_team.team_id
-    end.max_by {|game| game.goals}.goals.to_i
-  end
-
-  def fewest_goals_scored(team_id)
-    @game_teams.select do |game_team|
-      team_id == game_team.team_id
-    end.min_by {|game| game.goals}.goals.to_i
-  end
 
   # League Statistics Helper Methods
   def find_highest_goal_team_id
@@ -239,6 +228,18 @@ class GameTeamCollection
   # TEAM STATS
   def average_win_percentage(team_id)
     (winning_games(team_id).count / total_games(team_id).count.to_f * 100).round(2)
+  end
+
+  def most_goals_scored(team_id)
+    @game_teams.select do |game_team|
+      team_id == game_team.team_id
+    end.max_by {|game| game.goals}.goals.to_i
+  end
+
+  def fewest_goals_scored(team_id)
+    @game_teams.select do |game_team|
+      team_id == game_team.team_id
+    end.min_by {|game| game.goals}.goals.to_i
   end
 
   # Team Stats Helper
