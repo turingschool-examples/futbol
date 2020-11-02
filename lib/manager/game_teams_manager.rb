@@ -29,24 +29,15 @@ class GameTeamsManager
     end[0]
   end
 
-  def calc_coach_percentage(coach_stats)
-    percentages = {}
-    coach_stats.each do |coach, stat|
-      percentages[coach] = calc_percentage(stat[:wins], stat[:games])
-    end
-
-    percentages
-  end
-
-  def game_ids_by_season(season)
-    @parent.game_ids_by_season(season)
-  end
-
   def game_team_by_season(season)
     games_in_season = game_ids_by_season(season)
     game_teams.find_all do |game_team|
       games_in_season.include?(game_team.game_id)
     end
+  end
+
+  def game_ids_by_season(season)
+    @parent.game_ids_by_season(season)
   end
 
   def coaches_by_season(season, arr)
@@ -66,6 +57,15 @@ class GameTeamsManager
       end
     end
     coaches
+  end
+
+  def calc_coach_percentage(coach_stats)
+    percentages = {}
+    coach_stats.each do |coach, stat|
+      percentages[coach] = calc_percentage(stat[:wins], stat[:games])
+    end
+
+    percentages
   end
 
   def calc_percentage(numerator, denominator)
