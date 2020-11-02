@@ -122,15 +122,11 @@ class GamesCollection
   end
 
   def best_season(team_id)
-    games_by_team(team_id).max_by do |season, numbers|
-      numbers[:wins].to_f / numbers[:total]
-    end.first
+    max_avg(games_by_team(team_id)).first
   end
 
   def worst_season(team_id)
-    games_by_team(team_id).min_by do |season, numbers|
-      numbers[:wins].to_f / numbers[:total]
-    end.first
+    min_avg(games_by_team(team_id)).first
   end
 
   def average_win_percentage(team_id)

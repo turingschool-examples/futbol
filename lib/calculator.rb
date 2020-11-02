@@ -35,7 +35,4 @@ module Calculator
     end
     (value[:wins].to_f / value[:total]).round(2)
   end
-
-  def total_avg
-  end
 end
