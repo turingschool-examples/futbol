@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/cydkyd/turing/1mod/projects/2010/futbol/test/team_test.rb": {
+      "/Users/yesimeza/turing/mod_1_projects/futbol/test/team_test.rb": {
         "lines": [
           1,
           1,
@@ -30,6 +30,6 @@
         ]
       }
     },
-    "timestamp": 1604260144
+    "timestamp": 1604338170
   }
 }

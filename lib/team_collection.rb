@@ -15,14 +15,7 @@ class TeamCollection
     data = CSV.parse(File.read(team_path), headers: true)
     @teams = data.map {|data| Team.new(data, self)}
   end
-
-  # def find_team(team_id)
-  #   team = @teams.find do |team|
-  #   team.team_id == team_id
-  #   end
-  #   team.team_name
-  # end
-
+# League Stats
   def count_of_teams
     @teams.count
   end
@@ -31,5 +24,22 @@ class TeamCollection
     @teams.find do |team|
       team_id == team.team_id
     end.team_name
+  end
+
+  # Team Stats
+  def team_info(team_id)
+    team_data = {}
+    @teams.each do |team|
+     if team_id  == team.team_id
+       team_data = {
+                  team_id: team.team_id,
+                  franchise_id: team.franchise_id,
+                  team_name: team.team_name,
+                  abbreviation: team.abbreviation,
+                  link: team.link
+                }
+      end
+    end
+    team_data
   end
 end

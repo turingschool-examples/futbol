@@ -79,4 +79,38 @@ class StatTracker
   def total_games_per_team_id_home
     @game_collection.total_games_per_team_id_home
   end
+
+# TEAM STATS
+  def team_info(team_id)
+    @team_collection.team_info(team_id)
+  end
+
+  def best_season(team_id)
+    @game_collection.best_season(team_id)
+  end
+
+  def worst_season(team_id)
+    @game_collection.worst_season(team_id)
+  end
+
+  def average_win_percentage(team_id)
+    @game_team_collection.average_win_percentage(team_id)
+  end
+
+  def most_goals_scored(team_id)
+    @game_team_collection.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    @game_team_collection.fewest_goals_scored(team_id)
+  end
+
+  def favorite_oponent(team_id)
+    @team_collection.find_team_name(@game_team_collection.lowest_win_percentage(team_id))
+  end
+
+  def rival(team_id)
+    @team_collection.find_team_name(@game_team_collection.highest_win_percentage(team_id))
+  end
+
 end
