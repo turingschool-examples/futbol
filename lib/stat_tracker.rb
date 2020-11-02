@@ -71,10 +71,7 @@ class StatTracker
   end
 
   def lowest_scoring_visitor
-    worst_visit = @game_teams_repo.lowest_scoring_visitor
-    @teams_repo.all_teams.find do |team|
-      team.team_id == worst_visit
-    end.teamname
+    @game_teams_repo.lowest_scoring_visitor
   end
 
   def lowest_scoring_home_team
