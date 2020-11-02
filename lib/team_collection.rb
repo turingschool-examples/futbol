@@ -15,7 +15,9 @@ class TeamCollection
     data = CSV.parse(File.read(team_path), headers: true)
     @teams = data.map {|data| Team.new(data, self)}
   end
+
 # League Stats
+
   def count_of_teams
     @teams.count
   end
