@@ -9,7 +9,7 @@ class TeamsCollection
 
   def create_teams(file_path)
     CSV.foreach(file_path, headers: true, header_converters: :symbol).map do |row|
-      Team.new(row, self)
+      Team.new(row)
     end
   end
 
