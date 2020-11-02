@@ -79,15 +79,7 @@ class StatTracker
   end
 
   def winningest_coach(season_id)
-    game_set = @games_repo.game_ids_by_season(season_id)
-    game_teams_set = @game_teams_repo.game_teams_by_coach
-
-    win_rate = {}
-    game_teams_set.map do |coach, games|
-      win_rate[coach] = ((games.count {|game| (game.result == "WIN") && game_set.include?(game.game_id)}).to_f / (games.count {|game| game_set.include?(game.game_id)})).round(2)
-    end
-
-    win_rate.key(win_rate.values.reject{|x| x.nan?}.max)
+    @game_teams_repo.winningest_coach(season_id)
   end
 
   def worst_coach(season_id)
@@ -273,6 +265,10 @@ class StatTracker
 
   def team_name(id)
     @teams_repo.team_name(id)
+  end
+
+  def game_ids_by_season(season_id)
+    @games_repo.game_ids_by_season(season_id)
   end
 
   def game_team_by_season(season_id)
