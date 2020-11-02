@@ -64,6 +64,61 @@ class GameTeamsRepo
     win_rate.key(win_rate.values.reject{|x| x.nan?}.min)
   end
 
+  def game_ids_by_season
+    game_id = @stat_tracker.game_ids_by_season(season_id)
+    game_team_by_season(game_id, season_id)
+  end
+
+  def game_team_by_season(season_id)
+    game_ids = @stat_tracker.season_game_ids
+    @game_teams.find_all do |row|
+      game_ids[season_id].include?(row.game_id)
+    end
+  end
+
+  def games_by_team_id(season_id)
+    game_by_id = game_team_by_season(season_id).group_by do |game|
+      game.team_id
+    end
+    game_by_id
+  end
+
+  def team_conversion_percent(season_id)
+    team_ratio = {}
+    season_id_games = games_by_team_id(season_id)
+    season_id_games.map do |team, games|
+      goals = 0.0
+      shots = 0.0
+      games.map do |game|
+        goals += game.goals
+        shots += game.shots
+      end
+      team_ratio[team] = goals / shots
+    end
+    team_ratio
+  end
+  
+  def most_accurate_team(season_id)
+    ratio = team_conversion_percent(season_id)
+    ratio.max_by do |team, ratio|
+      ratio
+    end
+    @teams_repo.all_teams.map do |team|
+      return team.teamname if team.team_id == ratio[0]
+    end
+  end
+
+  def least_accurate_team(season_id)
+    ratio = team_conversion_percent(season_id)
+    ratio.min_by do |team, ratio|
+      ratio
+    end
+
+    @teams_repo.all_teams.map do |team|
+      return team.teamname if team.team_id == ratio[0]
+    end
+  end
+
   def game_teams_by_team_id
     game_set = {}
     team_set = game_teams_by_team
@@ -73,12 +128,6 @@ class GameTeamsRepo
       end
     end
     game_set
-  end
-
-  def game_team_by_season(game_ids, season_id)
-    @game_teams.find_all do |row|
-      game_ids[season_id].include?(row.game_id)
-    end
   end
 
   def best_offense

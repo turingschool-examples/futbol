@@ -88,7 +88,8 @@ class StatTracker
 
   #MOST AND LEAST ACCURATE - DISCUSS WITH TEAM
   def most_accurate_team(season_id)
-    ratio = team_conversion_percent(season_id).max_by do |team, ratio|
+    ratio = team_conversion_percent(season_id)
+    ratio.max_by do |team, ratio|
       ratio
     end
     @teams_repo.all_teams.map do |team|
@@ -97,7 +98,8 @@ class StatTracker
   end
 
   def least_accurate_team(season_id)
-    ratio = team_conversion_percent(season_id).min_by do |team, ratio|
+    ratio = team_conversion_percent(season_id)
+    ratio.min_by do |team, ratio|
       ratio
     end
 
@@ -254,7 +256,10 @@ class StatTracker
 
 
   #### HELPER METHODS TO DISCUSS ######
-
+  def season_game_ids
+    @games_repo.season_game_ids
+  end
+  
   def team_name(id)
     @teams_repo.team_name(id)
   end
@@ -264,30 +269,15 @@ class StatTracker
   end
 
   def game_team_by_season(season_id)
-    game_ids = @games_repo.season_game_ids
-    @game_teams_repo.game_team_by_season(game_ids, season_id)
+    @game_teams_repo.game_team_by_season(season_id)
   end
 
   def games_by_team_id(season_id)
-    game_by_id = game_team_by_season(season_id).group_by do |game|
-      game.team_id
-    end
-    game_by_id
+    @game_teams_repo.games_by_team_id(season_id)
   end
 
   def team_conversion_percent(season_id)
-    team_ratio = {}
-    season_id_games = games_by_team_id(season_id)
-    season_id_games.map do |team, games|
-      goals = 0.0
-      shots = 0.0
-      games.map do |game|
-        goals += game.goals
-        shots += game.shots
-      end
-      team_ratio[team] = goals / shots
-    end
-    team_ratio
+   @game_teams_repo.team_conversion_percent(season_id)
   end
   
   def total_games_per_team_away(team_id)

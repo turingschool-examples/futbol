@@ -11,5 +11,5 @@ require './lib/teams'
 require './lib/game_repo'
 require './lib/game_teams_repo'
 require './lib/teams_repo'
-# require './test/game_repo_test'
+require './test/game_repo_test'
 
