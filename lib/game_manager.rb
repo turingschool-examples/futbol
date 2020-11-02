@@ -1,5 +1,4 @@
 require 'csv'
-
 class GameManager
   attr_reader :games
   def initialize(file_location)
@@ -48,16 +47,10 @@ class GameManager
     (ties.to_f / @games.size).round(2)
   end
 
-  def game_count(season)
-    @games.count do |game|
-      game.season == season
-    end
-  end
-
   def count_of_games_by_season
-    games_by_season = {}
+    games_by_season = Hash.new {|hash, key| hash[key] = 0}
     @games.each do |game|
-      games_by_season[game.season] = game_count(game.season)
+      games_by_season[game.season] += 1
     end
     games_by_season
   end
@@ -89,13 +82,14 @@ class GameManager
   end
 
   def average_goals_by_season
-    avg_by_season = {}
-    @games.each do |game|
-      avg_by_season[game.season] = (goal_count(game.season) / game_count(game.season).to_f).round(2)
+    avg_by_season = Hash.new {|hash, key| hash[key] = 0}
+    count_of_games_by_season.each do |season, games|
+      avg = (goal_count(season).to_f / games).round(2)
+      avg_by_season[season] += avg
     end
     avg_by_season
   end
-
+  
   def games_by_team(id)
     @games.select do |game|
       game.away_team_id == id || game.home_team_id == id
@@ -103,42 +97,42 @@ class GameManager
   end
 
   def team_games_by_season(id)
-    hash = Hash.new { |hash, key| hash[key] = [] }
+    team_by_season = Hash.new { |hash, key| hash[key] = [] }
     games_by_team(id).each do |game|
-      hash[game.season] << game
+      team_by_season[game.season] << game
     end
-    hash
+    team_by_season
   end
 
   def team_games_by_opponent(id)
-    hash = Hash.new { |hash, key| hash[key] = [] }
+    games = Hash.new { |hash, key| hash[key] = [] }
     games_by_team(id).each do |game|
-      hash[game.away_team_id] << game if game.away_team_id != id
-      hash[game.home_team_id] << game if game.home_team_id != id
+      games[game.away_team_id] << game if game.away_team_id != id
+      games[game.home_team_id] << game if game.home_team_id != id
     end
-    hash
+    games
   end
 
   def team_season_stats(id)
-    hash = Hash.new {|hash, key| hash[key] = Hash.new {|hash, key| hash[key] = 0}}
+    season_stats = Hash.new {|hash, key| hash[key] = Hash.new {|hash, key| hash[key] = 0}}
     team_games_by_season(id).each do |season, games|
       games.each do |game|
-        hash[season][:game_count] += 1
-        hash[season][:win_count] += 1 if game.win?(id)
+        season_stats[season][:game_count] += 1
+        season_stats[season][:win_count] += 1 if game.win?(id)
       end
     end
-    hash
+    season_stats
   end
 
   def team_opponent_stats(id)
-    hash = Hash.new {|hash, key| hash[key] = Hash.new {|hash, key| hash[key] = 0}}
+    opponent_stats = Hash.new {|hash, key| hash[key] = Hash.new {|hash, key| hash[key] = 0}}
     team_games_by_opponent(id).each do |opponent, games|
       games.each do |game|
-        hash[opponent][:game_count] += 1
-        hash[opponent][:win_count] += 1 if game.win?(id)
+        opponent_stats[opponent][:game_count] += 1
+        opponent_stats[opponent][:win_count] += 1 if game.win?(id)
       end
     end
-    hash
+    opponent_stats
   end
 
   def percentage_wins_by_season(id)

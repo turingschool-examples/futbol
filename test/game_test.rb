@@ -34,7 +34,7 @@ class GameTest < Minitest::Test
     refute @game.tie?
   end
 
-  def total_score
+  def test_total_score
     assert_equal 5, @game.total_score
   end
 
