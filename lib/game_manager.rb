@@ -12,21 +12,15 @@ class GameManager
 
   def all(file_location)
     games_data = CSV.read(file_location, headers: true, header_converters: :symbol)
-    @games = games_data.map do |game_data|
-      Game.new(game_data)
-    end
+    @games = games_data.map { |game_data| Game.new(game_data) }
   end
 
   def highest_total_score
-    @games.max_by do |game|
-      game.total_score
-    end.total_score
+    @games.max_by { |game| game.total_score }.total_score
   end
 
   def lowest_total_score
-    @games.min_by do |game|
-      game.total_score
-    end.total_score
+    @games.min_by { |game| game.total_score }.total_score
   end
 
   def percentage_home_wins
@@ -43,9 +37,7 @@ class GameManager
 
   def count_of_games_by_season
     games_by_season = counter_hash
-    @games.each do |game|
-      games_by_season[game.season] += 1
-    end
+    @games.each { |game| games_by_season[game.season] += 1 }
     games_by_season
   end
 
@@ -54,21 +46,15 @@ class GameManager
   end
 
   def games_by_season(season)
-    @games.select do |game|
-      season == game.season
-    end
+    @games.select { |game| season == game.season }
   end
 
   def game_ids_by_season(season)
-    games_by_season(season).map do |game|
-      game.id
-    end
+    games_by_season(season).map { |game| game.id }
   end
 
   def goal_count(season)
-    games_by_season(season).sum do |game|
-      game.total_score
-    end
+    games_by_season(season).sum { |game| game.total_score }
   end
 
   def average_goals_by_season
@@ -81,9 +67,7 @@ class GameManager
   end
 
   def games_by_team(id)
-    @games.select do |game|
-      game.match?(id)
-    end
+    @games.select { |game| game.match?(id) }
   end
 
   def team_games_by_season(id)
@@ -104,41 +88,19 @@ class GameManager
   end
 
   def team_season_stats(id)
-    season_stats = counter_sub_hash
-    team_games_by_season(id).each do |season, games|
-      games.each do |game|
-        season_stats[season][:game_count] += 1
-        season_stats[season][:win_count] += 1 if game.win?(id)
-      end
-    end
-    season_stats
+    game_stats_for(team_games_by_season(id), id)
   end
 
   def team_opponent_stats(id)
-    opponent_stats = counter_sub_hash
-    team_games_by_opponent(id).each do |opponent, games|
-      games.each do |game|
-        opponent_stats[opponent][:game_count] += 1
-        opponent_stats[opponent][:win_count] += 1 if game.win?(id)
-      end
-    end
-    opponent_stats
+    game_stats_for(team_games_by_opponent(id), id)
   end
 
   def percentage_wins_by_season(id)
-    pct_hash = counter_hash
-    team_season_stats(id).each do |season, stats|
-      pct_hash[season] = percentage(stats[:win_count], stats[:game_count], 2)
-    end
-    pct_hash
+    percentage_wins_by(team_season_stats(id), id)
   end
 
   def percentage_wins_by_opponent(id)
-    pct_hash = counter_hash
-    team_opponent_stats(id).each do |opponent, stats|
-      pct_hash[opponent] = percentage(stats[:win_count], stats[:game_count], 2)
-    end
-    pct_hash
+    percentage_wins_by(team_opponent_stats(id), id)
   end
 
   def best_season(id)
