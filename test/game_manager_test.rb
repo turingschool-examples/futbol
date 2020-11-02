@@ -56,6 +56,10 @@ class GameManagerTest < Minitest::Test
     assert_equal 806, @game_manager.games_by_season('20122013').size
   end
 
+  def test_it_gives_season_game_stats
+    assert_equal 806, @game_manager.games_by_season('20122013').size
+  end
+
   def test_it_gives_game_ids_by_season
     assert_equal 806, @game_manager.game_ids_by_season('20122013').size
   end

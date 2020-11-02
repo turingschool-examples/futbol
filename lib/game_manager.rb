@@ -1,5 +1,4 @@
 require 'csv'
-
 class GameManager
   attr_reader :games
   def initialize(file_location)
@@ -48,7 +47,6 @@ class GameManager
     (ties.to_f / @games.size).round(2)
   end
 
-
   def count_of_games_by_season
     games_by_season = Hash.new {|hash, key| hash[key] = 0}
     @games.each do |game|
@@ -91,6 +89,7 @@ class GameManager
     end
     avg_by_season
   end
+  
   def games_by_team(id)
     @games.select do |game|
       game.away_team_id == id || game.home_team_id == id
