@@ -3,7 +3,6 @@ require_relative './teams_collection'
 require_relative './game_teams_collection'
 require 'csv'
 
-#THE PARENT
 class StatTracker
   attr_reader :games, :teams, :game_teams
 

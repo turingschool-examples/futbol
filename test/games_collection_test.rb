@@ -5,7 +5,7 @@ require 'csv'
 class GamesCollectionTest < Minitest::Test
 
   def setup
-    @parent = mock("Stat tracker")
+    @parent = mock("Collection")
     @parent.stubs(:find_by_id => "FC Dallas")
     @gamescollection = GamesCollection.new('./data/games_dummy.csv', @parent)
   end

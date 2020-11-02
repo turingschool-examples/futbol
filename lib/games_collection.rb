@@ -1,5 +1,4 @@
 require_relative './game'
-require_relative './game_teams_collection'
 
 class GamesCollection
   attr_reader :games

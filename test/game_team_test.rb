@@ -1,33 +1,36 @@
 require_relative './test_helper'
 require './lib/game_team'
-require './lib/game_teams_collection'
-require './lib/stat_tracker'
-
 
 class GameTeamTest < Minitest::Test
-
   def setup
-    game_path = './data/games_dummy.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams_dummy.csv'
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    @stattracker = StatTracker.from_csv(locations)
+    row = {:game_id=>"2012030221",
+           :team_id=>"3",
+           :hoa=>"away",
+           :result=>"LOSS",
+           :settled_in=>"OT",
+           :head_coach=>"John Tortorella",
+           :goals=>"2",
+           :shots=>"8",
+           :tackles=>"44",
+           :pim=>"8",
+           :powerplayopportunities=>"3",
+           :powerplaygoals=>"0",
+           :faceoffwinpercentage=>"44.8",
+           :giveaways=>"17",
+           :takeaways=>"7"
+          }
+    @game_team = GameTeam.new(row)
   end
 
   def test_it_exists_and_has_attributes
-    gameteam = @stattracker.game_teams.game_teams.first
-    assert_instance_of GameTeam, gameteam
-    assert_equal "2012030221", gameteam.game_id
-    assert_equal "3", gameteam.team_id
-    assert_equal "away", gameteam.hoa
-    assert_equal "LOSS", gameteam.result
-    assert_equal "John Tortorella", gameteam.head_coach
-    assert_equal 2, gameteam.goals
-    assert_equal 8, gameteam.shots
-    assert_equal 44, gameteam.tackles
+    assert_instance_of GameTeam, @game_team
+    assert_equal "2012030221", @game_team.game_id
+    assert_equal "3", @game_team.team_id
+    assert_equal "away", @game_team.hoa
+    assert_equal "LOSS", @game_team.result
+    assert_equal "John Tortorella", @game_team.head_coach
+    assert_equal 2, @game_team.goals
+    assert_equal 8, @game_team.shots
+    assert_equal 44, @game_team.tackles
   end
 end

@@ -9,7 +9,7 @@ class GameTeamsCollection
   end
 
   def create_game_teams(game_teams_path)
-    csv = CSV.foreach(game_teams_path, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(game_teams_path, headers: true, header_converters: :symbol) do |row|
       @game_teams << GameTeam.new(row)
     end
   end
@@ -172,7 +172,6 @@ class GameTeamsCollection
         games_by_season[game_team.team_id][:goals] += game_team.goals
       end
     end
-    # require 'pry';binding.pry
     games_by_season
   end
 

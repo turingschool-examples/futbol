@@ -5,7 +5,8 @@ require './lib/teams_collection'
 class TeamsCollectionTest < Minitest::Test
 
   def setup
-    @teamscollection = TeamsCollection.new('./data/teams.csv', self)
+    @parent = mock("Collection")
+    @teamscollection = TeamsCollection.new('./data/teams.csv', @parent)
   end
 
   def test_it_exists
