@@ -110,7 +110,8 @@ class GameTeamsRepo
     game_teams_by_home.map do |team , games|
       average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
     end
-    average_goals.key(average_goals.values.min)
+    worst_home = average_goals.key(average_goals.values.min)
+    @stat_tracker.team_name(worst_home)
   end
   
 

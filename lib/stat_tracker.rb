@@ -75,10 +75,7 @@ class StatTracker
   end
 
   def lowest_scoring_home_team
-    worst_home = @game_teams_repo.lowest_scoring_home_team
-    @teams_repo.all_teams.find do |team|
-      team.team_id == worst_home
-    end.teamname
+    @game_teams_repo.lowest_scoring_home_team
   end
 
   def winningest_coach(season_id)
