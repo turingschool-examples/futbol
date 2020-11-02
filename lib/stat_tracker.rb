@@ -26,10 +26,6 @@ class StatTracker
     @game_collection.game_ids_per_season
   end
 
-  # def find_team(team_id)
-  #   @team_collection.find_team(team_id)
-  # end
-
 # League Statistics Methods
   def count_of_teams
     @team_collection.count_of_teams
@@ -106,11 +102,10 @@ class StatTracker
   end
 
   def favorite_oponent(team_id)
-    @team_collection.find_team_name(@game_team_collection.lowest_win_percentage(team_id))
+    find_team_name(@game_team_collection.lowest_win_percentage(team_id))
   end
 
   def rival(team_id)
-    @team_collection.find_team_name(@game_team_collection.highest_win_percentage(team_id))
+    find_team_name(@game_team_collection.highest_win_percentage(team_id))
   end
-
 end
