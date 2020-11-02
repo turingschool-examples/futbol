@@ -49,4 +49,19 @@ class GameTest < Minitest::Test
                         season: "20172018"})
     assert_equal true, new_game.win?(14)
   end
+
+  def test_match?
+    assert_equal false, @game.match?(14)
+    assert_equal true, @game.match?(3)
+  end
+
+  def test_away?
+    assert_equal false, @game.away?(6)
+    assert_equal true, @game.away?(3)
+  end
+
+  def test_home?
+    assert_equal false, @game.home?(3)
+    assert_equal true, @game.home?(6)
+  end
 end
