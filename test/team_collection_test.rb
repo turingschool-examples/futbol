@@ -33,7 +33,7 @@ class TeamCollectionTest < Minitest::Test
     assert_equal 'Columbus Crew SC', @team_collection.find_team_name('53')
   end
 
-  # TEAM STATS
+  # Team Statistics 
   def test_it_can_list_team_info
     expected = {
                 team_id: '20',

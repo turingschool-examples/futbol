@@ -23,7 +23,8 @@ class GameTeamCollectionTest < Minitest::Test
   def test_it_exists_and_has_attributes
     assert_instance_of GameTeamCollection, @game_team_collection
   end
-  #FROM THE GAMES STATS SECTION
+
+# Game Statistics
   def test_compare_hoa_to_result
     @game_team_collection.stubs(:compare_hoa_to_result).returns(3237.0)
     assert_equal 3237.0, @game_team_collection.compare_hoa_to_result("home", "WIN")
@@ -67,7 +68,6 @@ class GameTeamCollectionTest < Minitest::Test
   def test_games_per_coach
     @game_team_collection.stubs(:games_per_coach).returns(34)
     assert_equal 34, @game_team_collection.games_per_coach("20122013")
-    #do count
   end
 
   def test_count_coach_results
@@ -205,7 +205,7 @@ class GameTeamCollectionTest < Minitest::Test
     assert_equal '7', @game_team_collection.lowest_average_team_id_home
   end
 
-  # TEAM STATS
+  # Team Statisitcs 
   def test_it_can_find_total_games_per_team_id
     assert_equal 434, @game_team_collection.total_games('3').count
   end
