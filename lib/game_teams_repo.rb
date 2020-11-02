@@ -52,6 +52,18 @@ class GameTeamsRepo
     win_rate.key(win_rate.values.reject{|x| x.nan?}.max)
   end
 
+  def worst_coach(season_id)
+    game_set = @stat_tracker.game_ids_by_season(season_id)
+    game_teams_set = game_teams_by_coach
+
+    win_rate = {}
+    game_teams_set.map do |coach, games|
+      win_rate[coach] = ((games.count {|game| (game.result == "WIN") && game_set.include?(game.game_id)}).to_f / (games.count {|game| game_set.include?(game.game_id)})).round(2)
+    end
+    
+    win_rate.key(win_rate.values.reject{|x| x.nan?}.min)
+  end
+
   def game_teams_by_team_id
     game_set = {}
     team_set = game_teams_by_team

@@ -83,15 +83,7 @@ class StatTracker
   end
 
   def worst_coach(season_id)
-    game_set = @games_repo.game_ids_by_season(season_id)
-    game_teams_set = @game_teams_repo.game_teams_by_coach
-
-    win_rate = {}
-    game_teams_set.map do |coach, games|
-      win_rate[coach] = ((games.count {|game| (game.result == "WIN") && game_set.include?(game.game_id)}).to_f / (games.count {|game| game_set.include?(game.game_id)})).round(2)
-    end
-    
-    win_rate.key(win_rate.values.reject{|x| x.nan?}.min)
+    @game_teams_repo.worst_coach(season_id)
   end
 
   #MOST AND LEAST ACCURATE - DISCUSS WITH TEAM
