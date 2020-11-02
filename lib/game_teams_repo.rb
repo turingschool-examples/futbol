@@ -1,7 +1,8 @@
 class GameTeamsRepo
 
-  def initialize(game_teams_path)
+  def initialize(game_teams_path, stat_tracker)
     @game_teams = make_game_teams(game_teams_path)
+    @stat_tracker = stat_tracker
   end
   
   def make_game_teams(game_teams_path)
@@ -64,7 +65,8 @@ class GameTeamsRepo
     game_teams_by_team.map do |team , games|
       average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
     end
-    average_goals.key(average_goals.values.max)
+    best_team = average_goals.key(average_goals.values.max)
+    @stat_tracker.team_name(best_team)
   end
 
   def worst_offense
@@ -72,7 +74,8 @@ class GameTeamsRepo
     game_teams_by_team.map do |team , games|
       average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
     end
-    average_goals.key(average_goals.values.min)
+    worst_team = average_goals.key(average_goals.values.min)
+    @stat_tracker.team_name(worst_team)
   end
 
   def highest_scoring_visitor
@@ -80,7 +83,8 @@ class GameTeamsRepo
     game_teams_by_away.map do |team , games|
       average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
     end 
-    average_goals.key(average_goals.values.max)
+    best_visit = average_goals.key(average_goals.values.max)
+    @stat_tracker.team_name(best_visit)
   end
 
   def highest_scoring_home_team
@@ -88,7 +92,8 @@ class GameTeamsRepo
     game_teams_by_home.map do |team , games|
       average_goals[team] = (games.sum {|game|  game.goals}).to_f / games.count
     end
-    average_goals.key(average_goals.values.max)
+    best_home = average_goals.key(average_goals.values.max)
+    @stat_tracker.team_name(best_home)
   end
 
   def lowest_scoring_visitor
