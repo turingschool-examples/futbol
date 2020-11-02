@@ -113,4 +113,14 @@ class StatTrackerTest < Minitest::Test
   # Season with the lowest win percentage for a team.
     assert_equal "20122013", @stat_tracker.worst_season('3')
   end
+
+  def test_it_can_find_favorite_oponent
+  # Name of the opponent that has the lowest win percentage against the given team.
+    assert_equal 'Portland Timbers', @stat_tracker.favorite_oponent('3')
+  end
+
+  def test_it_can_find_rival
+  # Name of the opponent that has the highest win percentage against the given team
+    assert_equal 'Portland Timbers', @stat_tracker.rival('3')
+  end
 end
