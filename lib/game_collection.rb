@@ -121,4 +121,77 @@ class GameCollection
       end
     end
   end
+
+# Team Statistics
+def best_season(team_id)
+  win_percentage = Hash.new {|hash_obj, key| hash_obj[key] = []}
+  wins_by_season_per_team_id(team_id).each do |season, num_wins|
+    total_games_by_season_per_team_id(team_id).each do |seazon, total|
+      if season == seazon
+        win_percentage[season] << (num_wins / total).round(2)
+      end
+    end
+  end
+  win_percentage.max_by {|season, pct| pct}[0]
+end
+
+def worst_season(team_id)
+  loss_percentage = Hash.new {|hash_obj, key| hash_obj[key] = []}
+  loss_by_season_per_team_id(team_id).each do |season, num_lost|
+    total_games_by_season_per_team_id(team_id).each do |seazon, total|
+      if season == seazon
+        loss_percentage[season] << (num_lost / total).round(2)
+      end
+    end
+  end
+  loss_percentage.min_by {|season, pct| pct}[0]
+end
+
+#Team Statistics Helpers
+  def winning_games(team_id)
+  @games.select do |game|
+    (game.home_goals > game.away_goals && game.home_team_id == team_id) ||
+    (game.away_goals > game.home_goals && game.away_team_id == team_id)
+    end
+  end
+
+  def total_games_by_team_id(team_id)
+  @games.select do |game|
+   game.home_team_id == team_id || game.away_team_id == team_id
+    end
+  end
+
+  def wins_by_season_per_team_id(team_id)
+  wins_by_season = Hash.new {|hash_obj, key| hash_obj[key] = 0}
+    winning_games(team_id).each do |win|
+      total = [win]
+      wins_by_season[win.season] += total.count
+    end
+    wins_by_season
+  end
+
+  def total_games_by_season_per_team_id(team_id)
+    total_by_season = Hash.new {|hash_obj, key| hash_obj[key] = 0}
+    total_games_by_team_id(team_id).each do |win|
+      total = [win]
+      total_by_season[win.season] += total.count
+    end
+    total_by_season
+  end
+
+  def loss_by_season_per_team_id(team_id)
+  loss_by_season = Hash.new {|hash_obj, key| hash_obj[key] = 0}
+    losing_games(team_id).each do |loss|
+      total = [loss]
+      loss_by_season[loss.season] += total.count
+    end
+    loss_by_season
+  end
+
+  def losing_games(team_id)
+  @games.select do |game|
+    (game.home_goals < game.away_goals && game.home_team_id == team_id) ||
+    (game.away_goals < game.home_goals && game.away_team_id == team_id)
+    end
+  end
 end

@@ -6,9 +6,9 @@ require 'mocha/minitest'
 class StatTrackerTest < Minitest::Test
 
   def setup
-  game_path       = './data/games.csv'
+  game_path       = './data/games_dummy.csv'
   team_path       = './data/teams.csv'
-  game_teams_path = './data/game_teams.csv'
+  game_teams_path = './data/game_teams_dummy.csv'
 
   locations = {
                 games: game_path,
@@ -29,7 +29,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_find_team
-    assert_equal "Houston Dynamo", @stat_tracker.find_team("3")
+    assert_equal "Houston Dynamo", @stat_tracker.find_team_name("3")
   end
 
   # League Statistics Methods
@@ -91,5 +91,52 @@ class StatTrackerTest < Minitest::Test
     # expected = {"6"=>12.0, "3"=>3.0, "5"=>1.0, "24"=>6.0, "20"=>3.0}
     @stat_tracker.stubs(:total_goals_per_team_id_home).returns(12)
     assert_equal 12, @stat_tracker.total_goals_per_team_id_home
+  end
+
+# Team Stats
+  def test_it_can_list_team_info
+    expected = {
+                team_id: '20',
+                franchise_id: '21',
+                team_name: 'Toronto FC',
+                abbreviation: 'TOR',
+                link: '/api/v1/teams/20'
+              }
+    assert_equal expected, @stat_tracker.team_info('20')
+  end
+
+  def test_it_can_find_best_season
+  # Season with the highest win percentage for a team.
+    assert_equal '20122013', @stat_tracker.best_season('3')
+  end
+
+  def test_it_can_find_worst_season
+  # Season with the lowest win percentage for a team.
+    assert_equal "20122013", @stat_tracker.worst_season('3')
+  end
+
+  def test_it_can_find_average_win_percentage
+  # Average win percentage of all games for a team.
+    assert_equal 53.0, @stat_tracker.average_win_percentage('3')
+  end
+
+  def test_it_can_find_highest_goals_by_team
+    # Highest number of goals a particular team has scored in a single game.
+    assert_equal 2, @stat_tracker.most_goals_scored('3')
+  end
+
+  def test_it_can_find_fewest_goals_by_team
+    # Lowest numer of goals a particular team has scored in a single game.
+    assert_equal 0, @stat_tracker.fewest_goals_scored('3')
+  end
+
+  def test_it_can_find_favorite_oponent
+  # Name of the opponent that has the lowest win percentage against the given team.
+    assert_equal 'Portland Timbers', @stat_tracker.favorite_oponent('3')
+  end
+
+  def test_it_can_find_rival
+  # Name of the opponent that has the highest win percentage against the given team
+    assert_equal 'Portland Timbers', @stat_tracker.rival('3')
   end
 end
