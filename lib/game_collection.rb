@@ -122,7 +122,7 @@ class GameCollection
     end
   end
 
-# TEAM STATS
+# Team Statistics
 def best_season(team_id)
   win_percentage = Hash.new {|hash_obj, key| hash_obj[key] = []}
   wins_by_season_per_team_id(team_id).each do |season, num_wins|
@@ -147,7 +147,7 @@ def worst_season(team_id)
   loss_percentage.min_by {|season, pct| pct}[0]
 end
 
-#Team STATS Helper
+#Team Statistics Helpers
   def winning_games(team_id)
   @games.select do |game|
     (game.home_goals > game.away_goals && game.home_team_id == team_id) ||
@@ -194,5 +194,4 @@ end
     (game.away_goals < game.home_goals && game.away_team_id == team_id)
     end
   end
-
 end
