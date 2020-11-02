@@ -19,14 +19,29 @@ class GameTeamsManager
   end
 
   def winningest_coach(season)
+    coach_count(season, "winningest")
+  end
+
+  def worst_coach(season)
+    coach_count(season, "worst")
+  end
+
+  def coach_count(season, status)
     season = season.to_s
-    arr = game_team_by_season(season)
-    coaches = coaches_by_season(season, arr)
-    coach_stats = get_stats(coaches, season, arr)
+    season_game_teams = game_team_by_season(season)
+    coaches = coaches_by_season(season, season_game_teams)
+    coach_stats = get_stats(coaches, season, season_game_teams)
     coach_win_percentage = calc_coach_percentage(coach_stats)
-    winningest = coach_win_percentage.max_by do |coach, percent|
-      percent
-    end[0]
+    if status == "winningest"
+      coach_win_percentage.max_by do |coach, percent|
+        percent
+      end[0]
+    elsif status == "worst"
+      coach_win_percentage.min_by do |coach, percent|
+        percent
+      end[0]
+    end
+    
   end
 
   def game_team_by_season(season)
@@ -40,17 +55,17 @@ class GameTeamsManager
     @parent.game_ids_by_season(season)
   end
 
-  def coaches_by_season(season, arr)
+  def coaches_by_season(season, season_game_teams)
     coaches = {}
 
-    arr.each do |game_team|
+    season_game_teams.each do |game_team|
       coaches[game_team.head_coach] = {:games => 0, :wins => 0}
     end
     coaches
   end
 
-  def get_stats(coaches, season, arr)
-    arr.each do |game_team|
+  def get_stats(coaches, season, season_game_teams)
+    season_game_teams.each do |game_team|
       if coaches[game_team.head_coach]
         coaches[game_team.head_coach][:games] += 1
         coaches[game_team.head_coach][:wins] += 1 if game_team.result == "WIN"

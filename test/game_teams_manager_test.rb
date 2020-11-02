@@ -16,7 +16,7 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_winningest_coach
-    assert_equal "Dan Bylsma", @game_teams_manager.winningest_coach("20142015")
+    assert_equal "Alain Vigneault", @game_teams_manager.winningest_coach("20142015")
   end
 
   def test_coaches_by_season
@@ -44,6 +44,10 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_calc_percentage
-    
+
+  end
+
+  def test_worst_coach
+    assert_equal "Ted Nolan", @game_teams_manager.worst_coach("20142015")
   end
 end
