@@ -1,6 +1,9 @@
 require_relative './game_team'
+require_relative './calculator'
 
 class GameTeamsCollection
+  include Calculator
+
   attr_reader :game_teams
   def initialize(game_teams_path, parent)
     @parent = parent
@@ -51,9 +54,7 @@ class GameTeamsCollection
     game_teams.each do |game_team|
       average[game_team.team_id] += game_team.goals
     end
-    games_by_team.merge(average) do |key, games, goals|
-      (goals.to_f / games).round(2)
-    end
+    combine(games_by_team, average)
   end
 
   def average_away_goals_by_team
@@ -63,9 +64,7 @@ class GameTeamsCollection
         average[game_team.team_id] += game_team.goals
       end
     end
-    away_games_by_team.merge(average) do |key, games, goals|
-      (goals.to_f / games).round(2)
-    end
+    combine(away_games_by_team, average)
   end
 
   def average_home_goals_by_team
@@ -75,9 +74,7 @@ class GameTeamsCollection
         average[game_team.team_id] += game_team.goals
       end
     end
-    home_games_by_team.merge(average) do |key, games, goals|
-      (goals.to_f / games).round(2)
-    end
+    combine(home_games_by_team, average)
   end
 
   def best_offense
