@@ -205,7 +205,7 @@ class GameTeamCollectionTest < Minitest::Test
     assert_equal '7', @game_team_collection.lowest_average_team_id_home
   end
 
-  # Team Statisitcs 
+  # Team Statisitcs
   def test_it_can_find_total_games_per_team_id
     assert_equal 434, @game_team_collection.total_games('3').count
   end
