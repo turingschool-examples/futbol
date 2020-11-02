@@ -51,32 +51,20 @@ class GamesCollection
   end
 
   def percentage_home_wins
-    (home_wins.to_f / @games.length).round(2)
+    (wins_by_hoa("home").to_f / @games.length).round(2)
   end
 
   def percentage_visitor_wins
-    (visitor_wins.to_f / @games.length).round(2)
+    (wins_by_hoa("away").to_f / @games.length).round(2)
   end
 
   def percentage_ties
-    (ties.to_f / @games.length).round(2)
+    (wins_by_hoa("tie").to_f / @games.length).round(2)
   end
 
-  def home_wins
+  def wins_by_hoa(hoa)
     games.count do |game|
-      game.home_goals > game.away_goals
-    end
-  end
-
-  def visitor_wins
-    games.count do |game|
-      game.home_goals < game.away_goals
-    end
-  end
-
-  def ties
-    games.count do |game|
-      game.home_goals == game.away_goals
+      game.winner == hoa
     end
   end
 

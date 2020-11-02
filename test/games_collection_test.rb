@@ -62,15 +62,15 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_home_wins
-    assert_equal 7, @gamescollection.home_wins
+    assert_equal 7, @gamescollection.wins_by_hoa("home")
+    assert_equal 5, @gamescollection.wins_by_hoa("away")
+    assert_equal 1, @gamescollection.wins_by_hoa("tie")
   end
 
   def test_visitor_wins
-    assert_equal 5, @gamescollection.visitor_wins
   end
 
   def test_ties
-    assert_equal 1, @gamescollection.ties
   end
 
   def test_count_of_games_by_season
