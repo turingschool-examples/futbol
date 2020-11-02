@@ -95,14 +95,14 @@ class GamesCollection
     (total_goals.to_f / games.count).round(2)
   end
 
-  def average_goals_by_season
-    seasons = Hash.new(0)
-    games.each do |game|
+  def seasons
+    games.each_with_object(Hash.new(0)) do |game, seasons|
       seasons[game.season] += game.total_score
     end
-    count_of_games_by_season.merge(seasons) do |key, games_count, total_goals|
-      (total_goals.to_f / games_count).round(2)
-    end
+  end
+
+  def average_goals_by_season
+    combine(count_of_games_by_season, seasons)
   end
 
   def games_by_team(team_id)
@@ -146,11 +146,11 @@ class GamesCollection
   end
 
   def most_goals_scored(team_id)
-    max(goals_scored_by_team(team_id)).last
+    high(goals_scored_by_team(team_id)).last
   end
 
   def fewest_goals_scored(team_id)
-    min(goals_scored_by_team(team_id)).last
+    low(goals_scored_by_team(team_id)).last
   end
 
   def games_against_opponents(team_id)

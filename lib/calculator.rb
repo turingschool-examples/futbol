@@ -1,13 +1,13 @@
 module Calculator
 
-  def max(values_hash)
+  def high(values_hash)
     max_pair = values_hash.max_by do |key, values|
       values
     end
     max_pair
   end
 
-  def min(values_hash)
+  def low(values_hash)
     min_pair = values_hash.min_by do |key, values|
       values
     end
@@ -21,11 +21,11 @@ module Calculator
   end
 
   def min_avg(hash)
-    min(avg(hash))
+    low(avg(hash))
   end
 
   def max_avg(hash)
-    max(avg(hash))
+    high(avg(hash))
   end
 
   def win_pct(hash)
@@ -34,5 +34,11 @@ module Calculator
       sum[:total] += data_set[:total]
     end
     (value[:wins].to_f / value[:total]).round(2)
+  end
+
+  def combine(hash1, hash2)
+    hash1.merge(hash2) do |key, games, goals|
+      (goals.to_f / games).round(2)
+    end
   end
 end
