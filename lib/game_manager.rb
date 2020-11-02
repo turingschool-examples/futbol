@@ -84,13 +84,13 @@ class GameManager
   end
 
   def average_goals_by_season
-    avg_by_season = {}
-    @games.each do |game|
-      avg_by_season[game.season] = (goal_count(game.season) / game_count(game.season).to_f).round(2)
+    avg_by_season = Hash.new {|hash, key| hash[key] = 0}
+    count_of_games_by_season.each do |season, games|
+      avg = (goal_count(season).to_f / games).round(2)
+      avg_by_season[season] += avg
     end
     avg_by_season
   end
-
   def games_by_team(id)
     @games.select do |game|
       game.away_team_id == id || game.home_team_id == id
