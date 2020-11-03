@@ -104,15 +104,11 @@ class GameManager
   end
 
   def best_season(team_id)
-    percentage_wins_by_season(team_id).max_by do |season, percentage|
-      percentage
-    end.first
+    percentage_wins_by_season(team_id).max_by { |season, pct| pct }.first
   end
 
   def worst_season(team_id)
-    percentage_wins_by_season(team_id).min_by do |season, percentage|
-      percentage
-    end.first
+    percentage_wins_by_season(team_id).min_by { |season, pct| pct }.first
   end
 
   def average_win_percentage(team_id)
@@ -128,26 +124,22 @@ class GameManager
   def most_goals_scored(team_id)
     away = games_by_team(team_id).max_by { |game| game.away_goals }
     home = games_by_team(team_id).max_by { |game| game.home_goals }
-    return away.away_goals if away.away_goals >= home.home_goals
-    return home.home_goals if home.home_goals > away.away_goals
+    return away.away_goals if away.away_goals > home.home_goals
+    return home.home_goals if home.home_goals >= away.away_goals
   end
 
   def fewest_goals_scored(team_id)
     away = games_by_team(team_id).min_by { |game| game.away_goals }
     home = games_by_team(team_id).min_by { |game| game.home_goals }
-    return away.away_goals if away.away_goals <= home.home_goals
-    return home.home_goals if home.home_goals < away.away_goals
+    return away.away_goals if away.away_goals < home.home_goals
+    return home.home_goals if home.home_goals <= away.away_goals
   end
 
   def favorite_opponent(team_id)
-    percentage_wins_by_opponent(team_id).max_by do |opponent, percentage|
-      percentage
-    end.first
+    percentage_wins_by_opponent(team_id).max_by { |opp, pct| pct }.first
   end
 
   def rival(team_id)
-    percentage_wins_by_opponent(team_id).min_by do |opponent, percentage|
-      percentage
-    end.first
+    percentage_wins_by_opponent(team_id).min_by { |opp, pct| pct }.first
   end
 end
