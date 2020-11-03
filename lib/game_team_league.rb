@@ -1,8 +1,9 @@
 require_relative './game_team'
 require_relative './game_team_collection'
+require_relative "./divisable"
 
 class GameTeamLeague < GameTeamCollection
-
+  include Divisable
   def best_offense
     @stat_tracker.find_team_name(find_highest_goal_team_id)
   end
@@ -39,7 +40,7 @@ class GameTeamLeague < GameTeamCollection
     highest_visitor = Hash.new {|hash_obj, key| hash_obj[key] = []}
     @stat_tracker.total_goals_per_team_id_away.each do |team_id, num_goals|
       @stat_tracker.total_games_per_team_id_away.each do |id, num_games|
-        highest_visitor[team_id] << (num_goals / num_games).round(2) if team_id == id
+        highest_visitor[team_id] << average(num_goals, num_games) if team_id == id
       end
     end
      highest_visitor.max_by {|team_id, avg| avg}[0]
@@ -49,7 +50,7 @@ class GameTeamLeague < GameTeamCollection
      highest_home = Hash.new {|hash_obj, key| hash_obj[key] = []}
      @stat_tracker.total_goals_per_team_id_home.each do |team_id, num_goals|
        @stat_tracker.total_games_per_team_id_home.each do |id, num_games|
-         highest_home[team_id] << (num_goals / num_games).round(2) if team_id == id
+         highest_home[team_id] << average(num_goals, num_games) if team_id == id
        end
      end
      highest_home.max_by {|team_id, avg| avg}[0]
@@ -59,7 +60,7 @@ class GameTeamLeague < GameTeamCollection
     lowest_visitor = Hash.new {|hash_obj, key| hash_obj[key] = []}
     @stat_tracker.total_goals_per_team_id_away.each do |team_id, num_goals|
       @stat_tracker.total_games_per_team_id_away.each do |id, num_games|
-        lowest_visitor[team_id] << (num_goals / num_games).round(2) if team_id == id
+        lowest_visitor[team_id] << average(num_goals, num_games) if team_id == id
         end
     end
      lowest_visitor.min_by {|team_id, avg| avg}[0]
@@ -69,7 +70,7 @@ class GameTeamLeague < GameTeamCollection
     lowest_home = Hash.new {|hash_obj, key| hash_obj[key] = []}
     @stat_tracker.total_goals_per_team_id_home.each do |team_id, num_goals|
       @stat_tracker.total_games_per_team_id_home.each do |id, num_games|
-       lowest_home[team_id] << (num_goals / num_games).round(2) if team_id == id
+       lowest_home[team_id] << average(num_goals, num_games) if team_id == id
      end
     end
     lowest_home.min_by {|team_id, avg| avg}[0]
