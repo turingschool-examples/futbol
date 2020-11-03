@@ -4,7 +4,7 @@ require './lib/game_manager'
 
 class GameManagerTest < Minitest::Test
   def setup
-    @game_manager = GameManager.new('./data/games_fixture.csv')
+    @game_manager = GameManager.new('./data/games.csv')
   end
 
   def test_it_exists_and_has_attributes
