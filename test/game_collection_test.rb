@@ -1,14 +1,10 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/game_collection'
-require './lib/stat_tracker'
-require 'mocha/minitest'
+require './test/test_helper'
 
 class GameCollectionTest < Minitest::Test
   def setup
-    game_path       = './data/games.csv'
+    game_path       = './data/games_dummy.csv'
     team_path       = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
 
     locations = {
                 games: game_path,
