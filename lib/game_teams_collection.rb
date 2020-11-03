@@ -89,49 +89,35 @@ class GameTeamsCollection
     low(average_home_goals_by_team).first
   end
 
-  def seasons(id)
+  def game_ids_by_season(id)
     @parent.find_season_id(id)
   end
 
   def wins_by_coach(season_id)
-    game_id = seasons(season_id)
-    coaches_by_season = Hash.new {|h, k| h[k] = []}
-    game_teams.each do |game_team|
-      if game_id.include?(game_team.game_id)
-        coaches_by_season[game_team.head_coach] << game_team.result
-      end
+    game_ids = game_ids_by_season(season_id)
+    @game_teams.each_with_object(Hash.new {|h, k| h[k] = {win: 0, total: 0}}) do |game_team, wins|
+      next if !game_ids.include?(game_team.game_id)
+      wins[game_team.head_coach][:total] += 1
+      wins[game_team.head_coach][:win] += 1 if game_team.result == "WIN"
     end
-    rehash = Hash.new {|h, k| h[k] = {win: 0, loss: 0, tie: 0}}
-    wins = coaches_by_season.each do |coaches, result|
-        result.each do |status|
-          if status == "WIN"
-            rehash[coaches][:win] += 1
-          elsif status == "LOSS"
-            rehash[coaches][:loss] += 1
-          elsif status == "TIE"
-            rehash[coaches][:tie] += 1
-          end
-        end
-    end
-    rehash
   end
 
   def winningest_coach(season_id)
     wins = wins_by_coach(season_id).max_by do |coach, totals|
-      totals[:win].to_f / (totals[:win] + totals[:loss] + totals[:tie])
+      totals[:win].to_f / totals[:total]
     end
     wins.first
   end
 
   def worst_coach(season_id)
     wins = wins_by_coach(season_id).min_by do |coach, totals|
-      totals[:win].to_f / (totals[:win] + totals[:loss] + totals[:tie])
+      totals[:win].to_f / totals[:total]
     end
     wins.first
   end
 
   def shots_by_team_by_season(season_id)
-    game_ids = seasons(season_id)
+    game_ids = game_ids_by_season(season_id)
     games_by_season = Hash.new {|h, k| h[k] = {shots: 0, goals: 0}}
     game_teams.each do |game_team|
       if game_ids.include?(game_team.game_id)
@@ -157,7 +143,7 @@ class GameTeamsCollection
   end
 
   def teams_with_tackles(season_id)
-    game_ids = seasons(season_id)
+    game_ids = game_ids_by_season(season_id)
     team_with_tackles = Hash.new(0)
     game_teams.each do |game_team|
       if game_ids.include?(game_team.game_id)
