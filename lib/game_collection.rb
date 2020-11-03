@@ -1,7 +1,9 @@
 require "csv"
 require_relative "./game"
+require_relative "./divisable"
 
 class GameCollection
+  include Divisable
   attr_reader :game_path, :stat_tracker
 
   def initialize(game_path, stat_tracker)
@@ -45,7 +47,7 @@ class GameCollection
   end
 
   def average_goals_per_game
-    (scores_by_game.sum / total_amount_games.to_f).round(2)
+    average(scores_by_game.sum, total_amount_games.to_f)
   end
 
   def sum_of_scores_by_season
