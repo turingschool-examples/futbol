@@ -49,22 +49,19 @@ class GameTeamsCollection
     home_games
   end
 
+
   def goal_total_by_hoa(hoa = "all")
     game_teams.each_with_object(Hash.new(0)) do |game_team, average|
       if game_team.hoa == hoa
         average[game_team.team_id] += game_team.goals
-      elsif game_team.hoa == "all"
+      elsif hoa == "all"
         average[game_team.team_id] += game_team.goals
       end
     end
   end
 
   def average_goals_by_team
-    average = Hash.new(0)
-    game_teams.each do |game_team|
-      average[game_team.team_id] += game_team.goals
-    end
-    combine(games_by_team, average)
+    combine(games_by_team, goal_total_by_hoa)
   end
 
   def average_away_goals_by_team
