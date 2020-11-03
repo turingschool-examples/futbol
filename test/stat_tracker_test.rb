@@ -1,7 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/stat_tracker'
-require 'mocha/minitest'
+require './test/test_helper'
 
 class StatTrackerTest < Minitest::Test
 

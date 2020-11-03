@@ -1,8 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/game_team'
-require './lib/game_team_collection'
-require 'mocha/minitest'
+require './test/test_helper'
 
 class GameTeamTest < Minitest::Test
   def setup
