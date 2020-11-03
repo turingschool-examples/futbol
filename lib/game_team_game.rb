@@ -24,5 +24,4 @@ class GameTeamGame < GameTeamCollection
   def percentage_ties
     (compare_hoa_to_result("away", "TIE") / total_amount_games  * 100).round(2)
   end
-
 end
