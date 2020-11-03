@@ -1,10 +1,10 @@
 require 'csv'
 require_relative './mathable'
-require_relative './hashable'
+require_relative './supportable'
 
 class GameManager
   include Mathable
-  include Hashable
+  include Supportable
   attr_reader :games
   def initialize(file_location)
     all(file_location)
@@ -66,97 +66,87 @@ class GameManager
     avg_by_season
   end
 
-  def games_by_team(id)
-    @games.select { |game| game.match?(id) }
+  def games_by_team(team_id)
+    @games.select { |game| game.match?(team_id) }
   end
 
-  def team_games_by_season(id)
+  def team_games_by_season(team_id)
     team_by_season = collector_hash
-    games_by_team(id).each do |game|
+    games_by_team(team_id).each do |game|
       team_by_season[game.season] << game
     end
     team_by_season
   end
 
-  def team_games_by_opponent(id)
+  def team_games_by_opponent(team_id)
     games = collector_hash
-    games_by_team(id).each do |game|
-      games[game.away_team_id] << game if !game.away?(id)
-      games[game.home_team_id] << game if !game.home?(id)
+    games_by_team(team_id).each do |game|
+      games[game.away_team_id] << game if !game.away?(team_id)
+      games[game.home_team_id] << game if !game.home?(team_id)
     end
     games
   end
 
-  def team_season_stats(id)
-    game_stats_for(team_games_by_season(id), id)
+  def team_season_stats(team_id)
+    game_stats_for(team_games_by_season(team_id), team_id)
   end
 
-  def team_opponent_stats(id)
-    game_stats_for(team_games_by_opponent(id), id)
+  def team_opponent_stats(team_id)
+    game_stats_for(team_games_by_opponent(team_id), team_id)
   end
 
-  def percentage_wins_by_season(id)
-    percentage_wins_by(team_season_stats(id), id)
+  def percentage_wins_by_season(team_id)
+    percentage_wins_by(team_season_stats(team_id), team_id)
   end
 
-  def percentage_wins_by_opponent(id)
-    percentage_wins_by(team_opponent_stats(id), id)
+  def percentage_wins_by_opponent(team_id)
+    percentage_wins_by(team_opponent_stats(team_id), team_id)
   end
 
-  def best_season(id)
-    percentage_wins_by_season(id).max_by do |season, percentage|
+  def best_season(team_id)
+    percentage_wins_by_season(team_id).max_by do |season, percentage|
       percentage
     end.first
   end
 
-  def worst_season(id)
-    percentage_wins_by_season(id).min_by do |season, percentage|
+  def worst_season(team_id)
+    percentage_wins_by_season(team_id).min_by do |season, percentage|
       percentage
     end.first
   end
 
-  def average_win_percentage(id)
+  def average_win_percentage(team_id)
     total_games = 0
     total_wins = 0
-    team_season_stats(id).each do |season, stats|
+    team_season_stats(team_id).each do |season, stats|
       total_games += stats[:game_count]
       total_wins += stats[:win_count]
     end
     percentage(total_wins, total_games, 2)
   end
 
-  def most_goals_scored(id)
-    goals = 0
-    games_by_team(id).each do |game|
-      if game.away?(id)
-        goals = game.away_goals if game.away_goals > goals
-      else
-        goals = game.home_goals if game.home_goals > goals
-      end
-    end
-    goals
+  def most_goals_scored(team_id)
+    away = games_by_team(team_id).max_by { |game| game.away_goals }
+    home = games_by_team(team_id).max_by { |game| game.home_goals }
+    return away.away_goals if away.away_goals >= home.home_goals
+    return home.home_goals if home.home_goals > away.away_goals
   end
 
-  def fewest_goals_scored(id)
-    goals = 99
-    games_by_team(id).each do |game|
-      if game.away?(id)
-        goals = game.away_goals if game.away_goals < goals
-      else
-        goals = game.home_goals if game.home_goals < goals
-      end
-    end
-    goals
+  def fewest_goals_scored(team_id)
+    away = games_by_team(team_id).min_by { |game| game.away_goals }
+    home = games_by_team(team_id).min_by { |game| game.home_goals }
+    return away.away_goals if away.away_goals <= home.home_goals
+    return home.home_goals if home.home_goals < away.away_goals
   end
 
-  def favorite_opponent(id)
-    percentage_wins_by_opponent(id).max_by do |opponent, percentage|
+  def favorite_opponent(team_id)
+    percentage_wins_by_opponent(team_id).max_by do |opponent, percentage|
       percentage
     end.first
   end
 
-  def rival(id)
-    percentage_wins_by_opponent(id).min_by do |opponent, percentage|
+  def rival(team_id)
+    percentage_wins_by_opponent(team_id).min_by do |opponent, percentage|
       percentage
     end.first
   end
