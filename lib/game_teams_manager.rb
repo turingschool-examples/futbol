@@ -19,13 +19,7 @@ class GameTeamsManager
 
   def find_game_teams(home_or_away = nil)
     @game_teams.select do |game_team|
-      if home_or_away == 'home'
-        game_team.home?
-      elsif home_or_away == 'away'
-        game_team.away?
-      else
-        game_team
-      end
+      game_team.check(home_or_away)
     end
   end
 
