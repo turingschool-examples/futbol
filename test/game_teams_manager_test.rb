@@ -1,7 +1,6 @@
 require './test/test_helper'
 require './lib/game_teams'
 require './lib/game_teams_manager'
-require 'mocha/minitest'
 
 class GameTeamsManagerTest < Minitest::Test
   def setup
@@ -298,7 +297,7 @@ class GameTeamsManagerTest < Minitest::Test
 
   def test_fewest_tackles
     @game_teams_manager.expects(:total_tackles_by_team).returns({"3"=>70, "6"=>64})
-    
+
     assert_equal "6", @game_teams_manager.fewest_tackles([2012030222, 2012030223])
   end
 end
