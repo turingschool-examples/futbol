@@ -81,15 +81,13 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_best_offense
-    @parent.stubs(:find_team_name, "3").returns("FC Dallas")
 
-    assert_equal "FC Dallas", @gameteamcollection.best_offense
+    assert_equal "6", @gameteamcollection.best_offense
   end
 
   def test_worst_offense
-    @parent.stubs(:find_team_name, "6").returns("Houston Dynamo")
 
-    assert_equal "Houston Dynamo", @gameteamcollection.worst_offense
+    assert_equal "3", @gameteamcollection.worst_offense
   end
 
   def test_highest_scoring_visitor

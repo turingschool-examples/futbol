@@ -66,17 +66,11 @@ class GameTeamsCollection
   end
 
   def best_offense
-    max_goals = average_goals_by_team.max_by do |goals|
-      goals[-1]
-    end
-    find_team_name(max_goals[0])
+    high(average_goals_by_team).first
   end
 
   def worst_offense
-    min_goals = average_goals_by_team.min_by do |goals|
-      goals[-1]
-    end
-    find_team_name(min_goals[0])
+    low(average_goals_by_team).first
   end
 
   def highest_scoring_visitor

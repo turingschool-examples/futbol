@@ -61,11 +61,11 @@ class StatTracker
   end
 
   def best_offense
-    @game_teams.best_offense
+    find_team_name(@game_teams.best_offense)
   end
 
   def worst_offense
-    @game_teams.worst_offense
+    find_team_name(@game_teams.worst_offense)
   end
 
   def highest_scoring_visitor
