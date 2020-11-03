@@ -134,27 +134,30 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_knows_total_games_per_team_id_away
-    # expected = {"3"=>5.0, "6"=>11.0, "5"=>1.0, "20"=>4.0, "24"=>6.0}
-    @stat_tracker.stubs(:total_games_per_team_id_away).returns(4)
-    assert_equal 4, @stat_tracker.total_games_per_team_id_away
+    expected = {"3"=>7, "6"=>4, "5"=>5, "17"=>8, "16"=>7, "9"=>3, "8"=>2, "30"=>3, "26"=>6, "19"=>3, "24"=>3, "2"=>3, "15"=>3}
+    assert_equal expected, @stat_tracker.total_games_per_team_id_away
   end
 
   def test_it_knows_total_games_per_team_id_home
-    # expected = {"3"=>5.0, "6"=>11.0, "5"=>1.0, "20"=>4.0, "24"=>6.0}
-    @stat_tracker.stubs(:total_games_per_team_id_home).returns(11)
-    assert_equal 11, @stat_tracker.total_games_per_team_id_home
+    expected = {"6"=>5, "3"=>5, "5"=>5, "16"=>10, "17"=>6, "8"=>3, "9"=>2, "30"=>2, "19"=>3, "26"=>5, "24"=>4, "2"=>3, "15"=>4}
+    assert_equal expected, @stat_tracker.total_games_per_team_id_home
   end
 
   def test_it_knows_total_goals_per_team_id_away
-    # expected = {"3"=>5.0, "6"=>11.0, "5"=>1.0, "20"=>4.0, "24"=>6.0}
-    @stat_tracker.stubs(:total_goals_per_team_id_away).returns(5)
-    assert_equal 5, @stat_tracker.total_goals_per_team_id_away
+    expected = {
+                "3"=>10.0, "6"=>12.0, "5"=>8.0, "17"=>14.0, "16"=>12.0, "9"=>7.0,
+                "8"=>3.0, "30"=>4.0, "26"=>11.0, "19"=>4.0, "24"=>7.0, "2"=>2.0, "15"=>6.0
+              }
+    assert_equal expected, @stat_tracker.total_goals_per_team_id_away
   end
 
   def test_it_knows_total_goals_per_team_id_home
-    # expected = {"6"=>12.0, "3"=>3.0, "5"=>1.0, "24"=>6.0, "20"=>3.0}
-    @stat_tracker.stubs(:total_goals_per_team_id_home).returns(12)
-    assert_equal 12, @stat_tracker.total_goals_per_team_id_home
+    expected = {
+                "6"=>12.0, "3"=>8.0, "5"=>9.0, "16"=>21.0, "17"=>13.0,
+                "8"=>6.0, "9"=>7.0, "30"=>3.0, "19"=>6.0, "26"=>10.0,
+                "24"=>10.0, "2"=>9.0, "15"=>6.0
+              }
+    assert_equal expected, @stat_tracker.total_goals_per_team_id_home
   end
 
 # Team Stats
@@ -170,37 +173,30 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_best_season
-  # Season with the highest win percentage for a team.
     assert_equal '20122013', @stat_tracker.best_season('3')
   end
 
   def test_it_can_find_worst_season
-  # Season with the lowest win percentage for a team.
     assert_equal "20122013", @stat_tracker.worst_season('3')
   end
 
   def test_it_can_find_average_win_percentage
-  # Average win percentage of all games for a team.
     assert_equal 37.04, @stat_tracker.average_win_percentage('3')
   end
 
   def test_it_can_find_highest_goals_by_team
-    # Highest number of goals a particular team has scored in a single game.
     assert_equal 5, @stat_tracker.most_goals_scored('3')
   end
 
   def test_it_can_find_fewest_goals_by_team
-    # Lowest numer of goals a particular team has scored in a single game.
     assert_equal 0, @stat_tracker.fewest_goals_scored('3')
   end
 
   def test_it_can_find_favorite_oponent
-  # Name of the opponent that has the lowest win percentage against the given team.
     assert_equal 'Portland Timbers', @stat_tracker.favorite_oponent('3')
   end
 
   def test_it_can_find_rival
-  # Name of the opponent that has the highest win percentage against the given team
     assert_equal 'Portland Timbers', @stat_tracker.rival('3')
   end
 end
