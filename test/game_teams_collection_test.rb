@@ -111,7 +111,7 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_wins_by_coach
-    expected = {"John Tortorella"=>{:win=>0, :total=>5}, "Claude Julien"=>{:win=>5, :total=>5}}
+    expected = {"John Tortorella"=>{:wins=>0, :total=>5}, "Claude Julien"=>{:wins=>5, :total=>5}}
 
     assert_equal expected, @gameteamcollection.wins_by_coach("20122013")
   end

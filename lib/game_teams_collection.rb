@@ -95,25 +95,19 @@ class GameTeamsCollection
 
   def wins_by_coach(season_id)
     game_ids = game_ids_by_season(season_id)
-    @game_teams.each_with_object(Hash.new {|h, k| h[k] = {win: 0, total: 0}}) do |game_team, wins|
+    @game_teams.each_with_object(Hash.new {|h, k| h[k] = {wins: 0, total: 0}}) do |game_team, wins|
       next if !game_ids.include?(game_team.game_id)
       wins[game_team.head_coach][:total] += 1
-      wins[game_team.head_coach][:win] += 1 if game_team.result == "WIN"
+      wins[game_team.head_coach][:wins] += 1 if game_team.result == "WIN"
     end
   end
 
   def winningest_coach(season_id)
-    wins = wins_by_coach(season_id).max_by do |coach, totals|
-      totals[:win].to_f / totals[:total]
-    end
-    wins.first
+    max_avg(wins_by_coach(season_id)).first
   end
 
   def worst_coach(season_id)
-    wins = wins_by_coach(season_id).min_by do |coach, totals|
-      totals[:win].to_f / totals[:total]
-    end
-    wins.first
+    min_avg(wins_by_coach(season_id)).first
   end
 
   def shots_by_team_by_season(season_id)
