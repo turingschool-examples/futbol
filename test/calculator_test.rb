@@ -7,6 +7,7 @@ class CalculatorTest < Minitest::Test
   def setup
     @hashibl_lector = {"20122013"=> 12, "20132014"=> 1}
     @each_with_objectable = {"3"=>{:success=>38, :total=>8}, "6"=>{:success=>46, :total=>14}}
+    @ble = {"17"=>{:success=>1, :total=>4}}
   end
 
   def test_high
@@ -32,5 +33,10 @@ class CalculatorTest < Minitest::Test
   def test_max_avg
 
     assert_equal ["3", 4.75], max_avg(@each_with_objectable)
+  end
+
+  def test_win_pct
+
+    assert_equal 0.25, win_pct(@ble)
   end
 end
