@@ -22,33 +22,26 @@ class GameTeamsCollection
   end
 
   def games_by_team
-    total_games = Hash.new(0)
-    game_teams.each do |game_team|
-      total_games[game_team.team_id] += 1
-    end
-    total_games
+    games_by_hoa
   end
 
   def away_games_by_team
-    away_games = Hash.new(0)
-    game_teams.each do |game_team|
-      if game_team.hoa == "away"
-        away_games[game_team.team_id] += 1
-      end
-    end
-    away_games
+    games_by_hoa("away")
   end
 
   def home_games_by_team
-    home_games = Hash.new(0)
-    game_teams.each do |game_team|
-      if game_team.hoa == "home"
-        home_games[game_team.team_id] += 1
-      end
-    end
-    home_games
+    games_by_hoa("home")
   end
 
+  def games_by_hoa(hoa = "all")
+    game_teams.each_with_object(Hash.new(0)) do |game_team, average|
+      if game_team.hoa == hoa
+        average[game_team.team_id] += 1
+      elsif hoa == "all"
+        average[game_team.team_id] += 1
+      end
+    end
+  end
 
   def goal_total_by_hoa(hoa = "all")
     game_teams.each_with_object(Hash.new(0)) do |game_team, average|

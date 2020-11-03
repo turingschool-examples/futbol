@@ -45,8 +45,15 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_goal_total_by_hoa
-    assert_equal (expected = {"6"=>9, "3"=>3}), @gameteamcollection.goal_total_by_hoa("home")
-    assert_equal (expected = {"3"=>5, "6"=>5}), @gameteamcollection.goal_total_by_hoa("away")
+    assert_equal ({"6"=>9, "3"=>3}), @gameteamcollection.goal_total_by_hoa("home")
+    assert_equal ({"3"=>5, "6"=>5}), @gameteamcollection.goal_total_by_hoa("away")
+    assert_equal ({"3"=>8, "6"=>14}), @gameteamcollection.goal_total_by_hoa
+  end
+
+  def test_games_by_hoa
+    assert_equal ({"6"=>3, "3"=>2}), @gameteamcollection.games_by_hoa("home")
+    assert_equal ({"3"=>3, "6"=>2}), @gameteamcollection.games_by_hoa("away")
+    assert_equal ({"3"=>5, "6"=>5}), @gameteamcollection.games_by_hoa
   end
 
   def test_home_games_by_team
