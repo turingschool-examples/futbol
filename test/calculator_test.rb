@@ -12,4 +12,9 @@ class CalculatorTest < Minitest::Test
 
     assert_equal ["20122013", 12], high(@hashibl_lector)
   end
+
+  def test_low
+
+    assert_equal ["20132014", 1], low(@hashibl_lector)
+  end
 end
