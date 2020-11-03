@@ -7,7 +7,7 @@ class StatTracker
   attr_reader :games, :teams, :game_teams
 
   def initialize(locations)
-    @teams = TeamsCollection.new(locations[:teams], self)
+    @teams = TeamsCollection.new(locations[:teams])
     @games = GamesCollection.new(locations[:games], self)
     @game_teams = GameTeamsCollection.new(locations[:game_teams], self)
   end

@@ -2,8 +2,7 @@ require_relative './team'
 
 class TeamsCollection
   attr_reader :teams
-  def initialize(file_path, parent)
-    @parent = parent
+  def initialize(file_path)
     @teams = create_teams(file_path)
   end
 
