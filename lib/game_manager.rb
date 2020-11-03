@@ -126,11 +126,17 @@ class GameManager
   end
 
   def most_goals_scored(team_id)
-    goals_scored("most", team_id)
+    away = games_by_team(id).max_by { |game| game.away_goals }
+    home = games_by_team(id).max_by { |game| game.home_goals }
+    return away.away_goals if away.away_goals >= home.home_goals
+    return home.home_goals if home.home_goals > away.away_goals
   end
 
   def fewest_goals_scored(team_id)
-    goals_scored("fewest", team_id)
+    away = games_by_team(id).min_by { |game| game.away_goals }
+    home = games_by_team(id).min_by { |game| game.home_goals }
+    return away.away_goals if away.away_goals <= home.home_goals
+    return home.home_goals if home.home_goals < away.away_goals
   end
 
   def favorite_opponent(team_id)
