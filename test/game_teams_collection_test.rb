@@ -111,7 +111,7 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_wins_by_coach
-    expected = {"John Tortorella"=>{:wins=>0, :total=>5}, "Claude Julien"=>{:wins=>5, :total=>5}}
+    expected = {"John Tortorella"=>{:success=>0, :total=>5}, "Claude Julien"=>{:success=>5, :total=>5}}
 
     assert_equal expected, @gameteamcollection.wins_by_coach("20122013")
   end
@@ -127,17 +127,15 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_most_accurate_team
-    @parent.stubs(:find_team_name, "3").returns("FC Dallas")
-    expected = {"3"=>{:shots=>38, :goals=>8}, "6"=>{:shots=>46, :goals=>14}}
+    expected = {"3"=>{:success=>38, :total=>8}, "6"=>{:success=>46, :total=>14}}
 
     assert_equal expected, @gameteamcollection.shots_by_team_by_season("20122013")
-    assert_equal "FC Dallas", @gameteamcollection.most_accurate_team("20122013")
+    assert_equal "6", @gameteamcollection.most_accurate_team("20122013")
   end
 
   def test_least_accurate_team
-    @parent.stubs(:find_team_name, "6").returns("Houston Dynamo")
 
-    assert_equal "Houston Dynamo", @gameteamcollection.least_accurate_team("20122013")
+    assert_equal "3", @gameteamcollection.least_accurate_team("20122013")
   end
 
   def test_teams_with_tackles

@@ -86,10 +86,10 @@ class GamesCollection
   end
 #TEAM STAT HELPER METHODS
   def team_wins_by_season(team_id) #used by best_season, worst_season, average_win_percentage
-    @games.each_with_object(Hash.new {|h, k| h[k] = {wins: 0, total: 0}}) do |game, wins|
+    @games.each_with_object(Hash.new {|h, k| h[k] = {success: 0, total: 0}}) do |game, wins|
       next if !game.teams.include?(team_id)
       wins[game.season][:total] += 1
-      wins[game.season][:wins] += 1 if game.won_game?(team_id)
+      wins[game.season][:success] += 1 if game.won_game?(team_id)
     end
   end
 
@@ -106,10 +106,10 @@ class GamesCollection
   end
 
   def team_wins_by_opponent(team_id) #used by favorite_opponent, rival
-    @games.each_with_object(Hash.new {|h, k| h[k] = {wins: 0, total: 0}}) do |game, wins|
+    @games.each_with_object(Hash.new {|h, k| h[k] = {success: 0, total: 0}}) do |game, wins|
       next if !game.teams.include?(team_id)
       wins[game.opponent(team_id)][:total] += 1
-      wins[game.opponent(team_id)][:wins] += 1 if game.won_game?(team_id)
+      wins[game.opponent(team_id)][:success] += 1 if game.won_game?(team_id)
     end
   end
 #TEAM STATS

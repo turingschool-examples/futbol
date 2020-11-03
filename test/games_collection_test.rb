@@ -112,12 +112,12 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_team_wins_by_opponent
-    expected = {"17"=>{:wins=>1, :total=>4}}
+    expected = {"17"=>{:success=>1, :total=>4}}
     assert_equal expected, @gamescollection.team_wins_by_opponent("16")
   end
 
   def test_team_wins_by_season
-    expected = {"17"=>{:wins=>1, :total=>4}}
+    expected = {"17"=>{:success=>1, :total=>4}}
     assert_equal expected, @gamescollection.team_wins_by_opponent("16")
   end
 

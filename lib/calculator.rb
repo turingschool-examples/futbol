@@ -16,7 +16,7 @@ module Calculator
 
   def avg(values_hash)
     values_hash.transform_values do |value|
-      value[:wins].to_f / value[:total]
+      value[:success].to_f / value[:total]
     end
   end
 
@@ -30,10 +30,10 @@ module Calculator
 
   def win_pct(hash)
     value = hash.values.each_with_object(Hash.new(0)) do |data_set, sum|
-      sum[:wins] += data_set[:wins]
+      sum[:success] += data_set[:success]
       sum[:total] += data_set[:total]
     end
-    (value[:wins].to_f / value[:total]).round(2)
+    (value[:success].to_f / value[:total]).round(2)
   end
 
   def combine(hash1, hash2)

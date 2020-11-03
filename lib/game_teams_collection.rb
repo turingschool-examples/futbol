@@ -95,10 +95,10 @@ class GameTeamsCollection
 
   def wins_by_coach(season_id)
     game_ids = game_ids_by_season(season_id)
-    @game_teams.each_with_object(Hash.new {|h, k| h[k] = {wins: 0, total: 0}}) do |game_team, wins|
+    @game_teams.each_with_object(Hash.new {|h, k| h[k] = {success: 0, total: 0}}) do |game_team, wins|
       next if !game_ids.include?(game_team.game_id)
       wins[game_team.head_coach][:total] += 1
-      wins[game_team.head_coach][:wins] += 1 if game_team.result == "WIN"
+      wins[game_team.head_coach][:success] += 1 if game_team.result == "WIN"
     end
   end
 
@@ -112,28 +112,19 @@ class GameTeamsCollection
 
   def shots_by_team_by_season(season_id)
     game_ids = game_ids_by_season(season_id)
-    games_by_season = Hash.new {|h, k| h[k] = {shots: 0, goals: 0}}
-    game_teams.each do |game_team|
-      if game_ids.include?(game_team.game_id)
-        games_by_season[game_team.team_id][:shots] += game_team.shots
-        games_by_season[game_team.team_id][:goals] += game_team.goals
-      end
+    game_teams.each_with_object(Hash.new {|h, k| h[k] = {success: 0, total: 0}}) do |game_team, stat|
+      next if !game_ids.include?(game_team.game_id)
+      stat[game_team.team_id][:success] += game_team.shots
+      stat[game_team.team_id][:total] += game_team.goals
     end
-    games_by_season
   end
 
   def most_accurate_team(season_id)
-    accurate = shots_by_team_by_season(season_id).min_by do |team, scores|
-      (scores[:shots].to_f / scores[:goals])
-    end
-    find_team_name(accurate.first)
+    min_avg(shots_by_team_by_season(season_id)).first
   end
 
   def least_accurate_team(season_id)
-    accurate = shots_by_team_by_season(season_id).max_by do |team, scores|
-      (scores[:shots].to_f / scores[:goals])
-    end
-    find_team_name(accurate.first)
+    max_avg(shots_by_team_by_season(season_id)).first
   end
 
   def teams_with_tackles(season_id)
