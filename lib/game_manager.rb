@@ -1,10 +1,10 @@
 require 'csv'
 require_relative './mathable'
-require_relative './hashable'
+require_relative './supportable'
 
 class GameManager
   include Mathable
-  include Hashable
+  include Supportable
   attr_reader :games
   def initialize(file_location)
     all(file_location)
