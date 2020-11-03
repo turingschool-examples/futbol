@@ -14,7 +14,7 @@
       <img src="./assets/0.12.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2020-11-02T19:17:51-07:00">2020-11-02T19:17:51-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2020-11-02T19:20:45-07:00">2020-11-02T19:20:45-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -77,7 +77,7 @@
             <td class="cell--number">3</td>
             <td class="cell--number">3</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">1.00</td>
+            <td class="cell--number">2.00</td>
             
           </tr>
         
@@ -279,8 +279,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="4">
-            <span class="hits">1</span>
+          <li class="covered" data-hits="4" data-linenumber="4">
+            <span class="hits">4</span>
             
 
             
@@ -1425,7 +1425,7 @@
 
             
 
-            <code class="ruby">      goals_per_season[season] = (sum_of_scores_by_season[season] /</code>
+            <code class="ruby">      goals_per_season[season] = average(sum_of_scores_by_season[season],</code>
           </li>
         </div>
       
@@ -1436,7 +1436,7 @@
 
             
 
-            <code class="ruby">                                count_of_games_by_season[season].to_f).round(2)</code>
+            <code class="ruby">                                count_of_games_by_season[season].to_f)</code>
           </li>
         </div>
       
@@ -2107,7 +2107,7 @@
 
             
 
-            <code class="ruby">        win_percentage[season] &lt;&lt; (num_wins / total).round(2)</code>
+            <code class="ruby">        win_percentage[season] &lt;&lt; average(num_wins, total)</code>
           </li>
         </div>
       
@@ -2239,7 +2239,7 @@
 
             
 
-            <code class="ruby">        loss_percentage[season] &lt;&lt; (num_lost / total).round(2)</code>
+            <code class="ruby">        loss_percentage[season] &lt;&lt; average(num_lost, total)</code>
           </li>
         </div>
       

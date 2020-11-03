@@ -68,8 +68,8 @@ class GameCollection
   def average_goals_by_season
     goals_per_season = {}
     season_id.each do |season|
-      goals_per_season[season] = (sum_of_scores_by_season[season] /
-                                count_of_games_by_season[season].to_f).round(2)
+      goals_per_season[season] = average(sum_of_scores_by_season[season],
+                                count_of_games_by_season[season].to_f)
     end
     goals_per_season
   end
@@ -130,7 +130,7 @@ def best_season(team_id)
   wins_by_season_per_team_id(team_id).each do |season, num_wins|
     total_games_by_season_per_team_id(team_id).each do |seazon, total|
       if season == seazon
-        win_percentage[season] << (num_wins / total).round(2)
+        win_percentage[season] << average(num_wins, total)
       end
     end
   end
@@ -142,7 +142,7 @@ def worst_season(team_id)
   loss_by_season_per_team_id(team_id).each do |season, num_lost|
     total_games_by_season_per_team_id(team_id).each do |seazon, total|
       if season == seazon
-        loss_percentage[season] << (num_lost / total).round(2)
+        loss_percentage[season] << average(num_lost, total)
       end
     end
   end
