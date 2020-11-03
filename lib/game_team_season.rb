@@ -1,8 +1,9 @@
 require_relative './game_team'
 require_relative './game_team_collection'
+require_relative "./divisable"
 
 class GameTeamSeason < GameTeamCollection
-
+  include Divisable
   def games_in_season(season)
     @game_teams.select do |game|
     @stat_tracker.game_ids_per_season[season].include?(game.game_id)
@@ -32,7 +33,7 @@ class GameTeamSeason < GameTeamCollection
     coaches_and_percentages = {}
     wins ||= count_coach_results(season)
     wins.keys.map do |coach|
-      coaches_and_percentages[coach] = (wins[coach].to_f / games_per_coach(season)[coach].count).round(2)
+      coaches_and_percentages[coach] = average(wins[coach].to_f, games_per_coach(season)[coach].count)
     end
     coaches_and_percentages
   end
@@ -71,7 +72,7 @@ class GameTeamSeason < GameTeamCollection
     score_ratios = {}
     ratios = count_coach_results(season)
     goals.keys.each do |team_id|
-      score_ratios[team_id] = (goals[team_id].to_f / shots[team_id]).round(2)
+      score_ratios[team_id] = average(goals[team_id].to_f, shots[team_id])
     end
     score_ratios
   end
