@@ -30,7 +30,7 @@ class GameTeam
     team_id == id
   end
 
-  def check(home_or_away)
+  def check(home_or_away = nil)
     if home_or_away == 'home'
       home?
     elsif home_or_away == 'away'
