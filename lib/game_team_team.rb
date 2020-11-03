@@ -19,7 +19,6 @@ class GameTeamTeam < GameTeamCollection
     end.min_by {|game| game.goals}.goals.to_i
   end
 
-  # Team Stats Helper
   def winning_games(team_id)
     @game_teams.select do |game|
       team_id == game.team_id && game.result == 'WIN'
