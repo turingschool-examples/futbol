@@ -19,7 +19,6 @@ class TeamTest < Minitest::Test
     assert_equal "23", @team.franchiseid
     assert_equal "Atlanta United", @team.teamname
     assert_equal "ATL", @team.abbreviation
-    assert_equal "Mercedes-Benz Stadium", @team.stadium
   end
 
   def test_team_info

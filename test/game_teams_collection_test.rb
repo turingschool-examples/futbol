@@ -145,14 +145,12 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_most_tackles
-    @parent.stubs(:find_team_name, "6").returns("Houston Dynamo")
 
-    assert_equal "Houston Dynamo", @gameteamcollection.most_tackles("20122013")
+    assert_equal "3", @gameteamcollection.most_tackles("20122013")
   end
 
   def test_fewest_tackles
-    @parent.stubs(:find_team_name, "3").returns("FC Dallas")
 
-    assert_equal "FC Dallas", @gameteamcollection.fewest_tackles("20122013")
+    assert_equal "6", @gameteamcollection.fewest_tackles("20122013")
   end
 end

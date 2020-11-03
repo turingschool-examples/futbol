@@ -133,11 +133,10 @@ class StatTracker
   end
 
   def most_tackles(season_id)
-    @game_teams.most_tackles(season_id)
+    find_team_name(@game_teams.most_tackles(season_id))
   end
 
   def fewest_tackles(season_id)
-    @game_teams.fewest_tackles(season_id)
+    find_team_name(@game_teams.fewest_tackles(season_id))
   end
-
 end

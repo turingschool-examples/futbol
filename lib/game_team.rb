@@ -6,9 +6,7 @@ class GameTeam
               :head_coach,
               :goals,
               :shots,
-              :tackles,
-              :team,
-              :season
+              :tackles
 
   def initialize(row)
     @game_id = row[:game_id]

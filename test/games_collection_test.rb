@@ -23,7 +23,7 @@ class GamesCollectionTest < Minitest::Test
   def test_create_games
 
     @gamescollection.create_games('./data/games_dummy.csv')
-    assert_equal 26, @gamescollection.games.length
+    assert_equal 13, @gamescollection.games.length
   end
 
   def test_highest_total_score

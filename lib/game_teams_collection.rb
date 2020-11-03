@@ -7,13 +7,12 @@ class GameTeamsCollection
   attr_reader :game_teams
   def initialize(game_teams_path, parent)
     @parent = parent
-    @game_teams = []
-    create_game_teams(game_teams_path)
+    @game_teams = create_game_teams(game_teams_path)
   end
 
   def create_game_teams(game_teams_path)
-    CSV.foreach(game_teams_path, headers: true, header_converters: :symbol) do |row|
-      @game_teams << GameTeam.new(row)
+    CSV.foreach(game_teams_path, headers: true, header_converters: :symbol).map do |row|
+      GameTeam.new(row)
     end
   end
 
@@ -129,26 +128,17 @@ class GameTeamsCollection
 
   def teams_with_tackles(season_id)
     game_ids = game_ids_by_season(season_id)
-    team_with_tackles = Hash.new(0)
-    game_teams.each do |game_team|
-      if game_ids.include?(game_team.game_id)
-        team_with_tackles[game_team.team_id] += game_team.tackles
-      end
+    game_teams.each_with_object(Hash.new(0)) do |game_team, teams|
+      next if !game_ids.include?(game_team.game_id)
+      teams[game_team.team_id] += game_team.tackles
     end
-    team_with_tackles
   end
 
   def most_tackles(season_id)
-    most = teams_with_tackles(season_id).max_by do |team, tackles|
-      tackles
-    end
-    find_team_name(most.first)
+    high(teams_with_tackles(season_id)).first
   end
 
   def fewest_tackles(season_id)
-    least = teams_with_tackles(season_id).min_by do |team, tackles|
-      tackles
-    end
-    find_team_name(least.first)
+    low(teams_with_tackles(season_id)).first
   end
 end
