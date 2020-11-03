@@ -6,8 +6,7 @@ class GamesCollection
 
   attr_reader :games
 
-  def initialize(file_path, parent)
-    @parent = parent
+  def initialize(file_path)
     @games = create_games(file_path)
   end
 
