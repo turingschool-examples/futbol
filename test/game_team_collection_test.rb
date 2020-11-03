@@ -95,55 +95,6 @@ class GameTeamCollectionTest < Minitest::Test
     assert_equal "Atlanta United", @game_team_collection.least_tackles("20122013")
   end
 
-  #League Statistics Methods
-  def test_it_can_find_team_name
-    assert_equal 'New York Red Bulls', @game_team_collection.best_offense
-  end
-
-  def test_it_knows_lowest_average_goals_scored_across_season
-    assert_equal 'Sporting Kansas City', @game_team_collection.worst_offense
-  end
-
-  def test_it_knows_highest_scoring_away
-    assert_equal 'FC Dallas', @game_team_collection.highest_scoring_visitor
-  end
-
-  def test_it_knows_highest_average_home
-    assert_equal 'Reign FC', @game_team_collection.highest_scoring_home_team
-  end
-
-  def test_it_knows_lowest_average_away
-    assert_equal 'San Jose Earthquakes', @game_team_collection.lowest_scoring_visitor
-  end
-
-  def test_it_knows_lowest_average_home
-    assert_equal 'Utah Royals FC', @game_team_collection.lowest_scoring_home_team
-  end
-
-  #League Statistics Helper Methods
-  def test_it_can_find_highest_goal
-    assert_equal '8', @game_team_collection.find_highest_goal_team_id
-  end
-
-  def test_it_can_find_lowest_goal
-    assert_equal '5', @game_team_collection.find_lowest_goal_team_id
-  end
-
-  def test_it_can_find_highest_average_team_id_visitor
-    assert_equal '6', @game_team_collection.highest_average_team_id_visitor
-  end
-
-  def test_it_can_find_highest_average_team_id_home
-    assert_equal '54', @game_team_collection.highest_average_team_id_home
-  end
-
-  def test_it_can_find_lowest_average_team_id_visitor
-    assert_equal '27', @game_team_collection.lowest_average_team_id_visitor
-  end
-
-  def test_it_can_find_lowest_average_team_id_home
-    assert_equal '7', @game_team_collection.lowest_average_team_id_home
-  end
 
   # Team Statisitcs
   def test_it_can_find_total_games_per_team_id
