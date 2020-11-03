@@ -21,25 +21,21 @@ class GameTeamCollectionTest < Minitest::Test
   end
 
   def test_it_knows_highest_scoring_away
-  # Name of the team with the highest average score per game across all seasons when they are away.
     @game_team_collection.stubs(:highest_average_team_id_visitor).returns('6')
     assert_equal 'FC Dallas', @game_team_collection.highest_scoring_visitor
   end
 
   def test_it_knows_highest_average_home
-  # Name of the team with the highest average score per game across all seasons when they are away.
     @game_team_collection.stubs(:highest_average_team_id_home).returns('54')
     assert_equal 'Reign FC', @game_team_collection.highest_scoring_home_team
   end
 
   def test_it_knows_lowest_average_away
-  # Name of the team with the highest average score per game across all seasons when they are away.
     @game_team_collection.stubs(:lowest_average_team_id_visitor).returns('27')
     assert_equal 'San Jose Earthquakes', @game_team_collection.lowest_scoring_visitor
   end
 
   def test_it_knows_lowest_average_home
-  # Name of the team with the highest average score per game across all seasons when they are away.
     @game_team_collection.stubs(:lowest_average_team_id_home).returns('7')
     assert_equal 'Utah Royals FC', @game_team_collection.lowest_scoring_home_team
   end
@@ -83,7 +79,6 @@ class GameTeamCollectionTest < Minitest::Test
   end
 
   def test_it_can_find_average_win_percentage
-  # Average win percentage of all games for a team.
     assert_equal 53.0, @game_team_collection.average_win_percentage('3')
   end
 
@@ -137,12 +132,10 @@ class GameTeamCollectionTest < Minitest::Test
   end
 
   def test_it_can_find_highest_goals_by_team
-  # Highest number of goals a particular team has scored in a single game.
     assert_equal 2, @game_team_collection.most_goals_scored('3')
   end
 
   def test_it_can_find_fewest_goals_by_team
-  # Lowest numer of goals a particular team has scored in a single game.
     assert_equal 0, @game_team_collection.fewest_goals_scored('3')
   end
 end
