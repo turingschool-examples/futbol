@@ -15,19 +15,19 @@ class Game
   end
 
   def home_win?
-    @home_goals > @away_goals
+    home_goals > away_goals
   end
 
   def visitor_win?
-    @away_goals > @home_goals
+    away_goals > home_goals
   end
 
   def tie?
-    @away_goals == @home_goals
+    away_goals == home_goals
   end
 
   def total_score
-    @home_goals + @away_goals
+    home_goals + away_goals
   end
 
   def win?(id)
@@ -36,5 +36,17 @@ class Game
     else
       visitor_win?
     end
+  end
+
+  def match?(id)
+    away_team_id == id || home_team_id == id
+  end
+
+  def away?(id)
+    away_team_id == id
+  end
+
+  def home?(id)
+    home_team_id == id
   end
 end

@@ -44,7 +44,7 @@ class GameManagerTest < Minitest::Test
                 "20152016"=>1321,
                 "20132014"=>1323,
                 "20172018"=>1355
-              }
+               }
     assert_equal expected, @game_manager.count_of_games_by_season
   end
 
@@ -69,14 +69,14 @@ class GameManagerTest < Minitest::Test
   end
 
   def test_it_gives_average_goals_by_season
-    expected = {
-      "20122013"=>4.12,
-      "20162017"=>4.23,
-      "20142015"=>4.14,
-      "20152016"=>4.16,
-      "20132014"=>4.19,
-      "20172018"=>4.44
-    }
+    expected =  {
+                  "20122013"=>4.12,
+                  "20162017"=>4.23,
+                  "20142015"=>4.14,
+                  "20152016"=>4.16,
+                  "20132014"=>4.19,
+                  "20172018"=>4.44
+                }
     assert_equal expected, @game_manager.average_goals_by_season
   end
 
@@ -89,13 +89,14 @@ class GameManagerTest < Minitest::Test
   end
 
   def test_team_season_stats
-    expected = {"20172018"=>{:game_count=>87,   :win_count=>33},
-               "20122013"=>{:game_count=>48, :win_count=>16},
-               "20132014"=>{:game_count=>82, :win_count=>31},
-               "20142015"=>{:game_count=>82, :win_count=>28},
-               "20162017"=>{:game_count=>82, :win_count=>26},
-               "20152016"=>{:game_count=>82, :win_count=>32}
-             }
+    expected = {
+                 "20172018"=>{:game_count=>87, :win_count=>33},
+                 "20122013"=>{:game_count=>48, :win_count=>16},
+                 "20132014"=>{:game_count=>82, :win_count=>31},
+                 "20142015"=>{:game_count=>82, :win_count=>28},
+                 "20162017"=>{:game_count=>82, :win_count=>26},
+                 "20152016"=>{:game_count=>82, :win_count=>32}
+               }
     assert_equal expected, @game_manager.team_season_stats("1")
   end
 
