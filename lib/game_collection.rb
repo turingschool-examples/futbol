@@ -20,9 +20,7 @@ class GameCollection
 
   # Season Statistics
   def scores_by_game
-    @games.map do |game|
-      game.away_goals.to_i + game.home_goals.to_i
-    end.sort
+    @games.map {|game| game.away_goals.to_i + game.home_goals.to_i}.sort
   end
 
   def highest_total_score
@@ -34,12 +32,10 @@ class GameCollection
   end
 
   def count_of_games_by_season
-    games_per_season = {}
-    @games.each do |game|
+    @games.each_with_object({}) do |game, games_per_season|
       (games_per_season[game.season] += 1 if games_per_season[game.season]) ||
       (games_per_season[game.season] = 1)
     end
-    games_per_season
   end
 
   def total_amount_games
@@ -60,40 +56,29 @@ class GameCollection
   end
 
   def season_id
-    @games.map do |game|
-      game.season
-    end.uniq
+    @games.map {|game| game.season}.uniq
   end
 
   def average_goals_by_season
-    goals_per_season = {}
-    season_id.each do |season|
+    season_id.each_with_object({}) do |season, goals_per_season|
       goals_per_season[season] = average(sum_of_scores_by_season[season],
                                 count_of_games_by_season[season].to_f)
     end
-    goals_per_season
   end
 
   def game_ids_per_season
-    seasons_and_games = {}
-    @games.each do |game|
+    @games.each_with_object({}) do |game, seasons_and_games|
       (seasons_and_games[game.season] << game.game_id if seasons_and_games[game.season]) ||
       (seasons_and_games[game.season] = [game.game_id])
     end
-    seasons_and_games
   end
 
   # League Statistic
   def total_goals_per_team_id_away
-    sum_goals_away = Hash.new(0)
-     @games.each do |game|
-       if sum_goals_away[game.away_team_id].nil?
-         sum_goals_away[game.away_team_id] = game.away_goals.to_f
-       else
-         sum_goals_away[game.away_team_id] += game.away_goals.to_f
-       end
-     end
-   sum_goals_away
+    @games.each_with_object(Hash.new(0)) do |game, sum_goals_away|
+      (sum_goals_away[game.away_team_id] = game.away_goals.to_f if sum_goals_away[game.away_team_id].nil?) ||
+      (sum_goals_away[game.away_team_id] += game.away_goals.to_f)
+    end
   end
 
   def total_games_per_team_id_away
@@ -105,15 +90,10 @@ class GameCollection
   end
 
   def total_goals_per_team_id_home
-    sum_goals_home = Hash.new(0)
-    @games.each do |game|
-      if sum_goals_home[game.home_team_id].nil?
-        sum_goals_home[game.home_team_id] = game.home_goals.to_f
-      else
-        sum_goals_home[game.home_team_id] += game.home_goals.to_f
-      end
+    @games.each_with_object(Hash.new(0)) do |game, sum_goals_home|
+      (sum_goals_home[game.home_team_id] = game.home_goals.to_f  if sum_goals_home[game.home_team_id].nil?) ||
+      (sum_goals_home[game.home_team_id] += game.home_goals.to_f)
     end
-    sum_goals_home
   end
 
   def total_games_per_team_id_home
@@ -129,9 +109,7 @@ def best_season(team_id)
   win_percentage = Hash.new {|hash_obj, key| hash_obj[key] = []}
   wins_by_season_per_team_id(team_id).each do |season, num_wins|
     total_games_by_season_per_team_id(team_id).each do |seazon, total|
-      if season == seazon
-        win_percentage[season] << average(num_wins, total)
-      end
+      win_percentage[season] << average(num_wins, total) if season == seazon
     end
   end
   win_percentage.max_by {|season, pct| pct}[0]
@@ -141,9 +119,7 @@ def worst_season(team_id)
   loss_percentage = Hash.new {|hash_obj, key| hash_obj[key] = []}
   loss_by_season_per_team_id(team_id).each do |season, num_lost|
     total_games_by_season_per_team_id(team_id).each do |seazon, total|
-      if season == seazon
-        loss_percentage[season] << average(num_lost, total)
-      end
+    loss_percentage[season] << average(num_lost, total) if season == seazon
     end
   end
   loss_percentage.min_by {|season, pct| pct}[0]
@@ -151,49 +127,43 @@ end
 
 #Team Statistics Helpers
   def winning_games(team_id)
-  @games.select do |game|
-    (game.home_goals > game.away_goals && game.home_team_id == team_id) ||
-    (game.away_goals > game.home_goals && game.away_team_id == team_id)
+    @games.select do |game|
+      (game.home_goals > game.away_goals && game.home_team_id == team_id) ||
+      (game.away_goals > game.home_goals && game.away_team_id == team_id)
     end
   end
 
   def total_games_by_team_id(team_id)
-  @games.select do |game|
-   game.home_team_id == team_id || game.away_team_id == team_id
-    end
+    @games.select do |game|
+     game.home_team_id == team_id || game.away_team_id == team_id
+      end
   end
 
   def wins_by_season_per_team_id(team_id)
-  wins_by_season = Hash.new {|hash_obj, key| hash_obj[key] = 0}
-    winning_games(team_id).each do |win|
+    winning_games(team_id).each_with_object(Hash.new(0)) do |win, wins_by_season|
       total = [win]
       wins_by_season[win.season] += total.count
     end
-    wins_by_season
   end
 
   def total_games_by_season_per_team_id(team_id)
-    total_by_season = Hash.new {|hash_obj, key| hash_obj[key] = 0}
-    total_games_by_team_id(team_id).each do |win|
+    total_games_by_team_id(team_id).each_with_object(Hash.new(0)) do |win, total_by_season|
       total = [win]
       total_by_season[win.season] += total.count
     end
-    total_by_season
   end
 
   def loss_by_season_per_team_id(team_id)
-  loss_by_season = Hash.new {|hash_obj, key| hash_obj[key] = 0}
-    losing_games(team_id).each do |loss|
+    losing_games(team_id).each_with_object(Hash.new(0)) do |loss, loss_by_season|
       total = [loss]
       loss_by_season[loss.season] += total.count
     end
-    loss_by_season
   end
 
   def losing_games(team_id)
-  @games.select do |game|
-    (game.home_goals < game.away_goals && game.home_team_id == team_id) ||
-    (game.away_goals < game.home_goals && game.away_team_id == team_id)
+    @games.select do |game|
+      (game.home_goals < game.away_goals && game.home_team_id == team_id) ||
+      (game.away_goals < game.home_goals && game.away_team_id == team_id)
     end
   end
 end
