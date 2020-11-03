@@ -28,4 +28,9 @@ class CalculatorTest < Minitest::Test
 
     assert_equal ["6", 3.2857142857142856], min_avg(@each_with_objectable)
   end
+
+  def test_max_avg
+
+    assert_equal ["3", 4.75], max_avg(@each_with_objectable)
+  end
 end
