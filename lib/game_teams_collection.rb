@@ -74,31 +74,19 @@ class GameTeamsCollection
   end
 
   def highest_scoring_visitor
-    highest_goals = average_away_goals_by_team.max_by do |goals|
-      goals[-1]
-    end
-    find_team_name(highest_goals[0])
+    high(average_away_goals_by_team).first
   end
 
   def highest_scoring_hometeam
-    highest_goals = average_home_goals_by_team.max_by do |goals|
-      goals[-1]
-    end
-    find_team_name(highest_goals[0])
+    high(average_home_goals_by_team).first
   end
 
   def lowest_scoring_visitor
-    lowest_goals = average_away_goals_by_team.min_by do |goals|
-      goals[-1]
-    end
-    find_team_name(lowest_goals[0])
+    low(average_away_goals_by_team).first
   end
 
   def lowest_scoring_hometeam
-    lowest_goals = average_home_goals_by_team.min_by do |goals|
-      goals[-1]
-    end
-    find_team_name(lowest_goals[0])
+    low(average_home_goals_by_team).first
   end
 
   def seasons(id)

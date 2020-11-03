@@ -91,27 +91,23 @@ class GameTeamsCollectionTest < Minitest::Test
   end
 
   def test_highest_scoring_visitor
-    @parent.stubs(:find_team_name, "3").returns("FC Dallas")
 
-    assert_equal "FC Dallas", @gameteamcollection.highest_scoring_visitor
+    assert_equal "6", @gameteamcollection.highest_scoring_visitor
   end
 
   def test_highest_scoring_hometeam
-    @parent.stubs(:find_team_name, "6").returns("FC Dallas")
 
-    assert_equal "FC Dallas", @gameteamcollection.highest_scoring_hometeam
+    assert_equal "6", @gameteamcollection.highest_scoring_hometeam
   end
 
   def test_lowest_scoring_visitor
-    @parent.stubs(:find_team_name, "6").returns("Houston Dynamo")
 
-    assert_equal "Houston Dynamo", @gameteamcollection.lowest_scoring_visitor
+    assert_equal "3", @gameteamcollection.lowest_scoring_visitor
   end
 
   def test_lowest_scoring_home_team
-    @parent.stubs(:find_team_name, "6").returns("Houston Dynamo")
 
-    assert_equal "Houston Dynamo", @gameteamcollection.lowest_scoring_hometeam
+    assert_equal "3", @gameteamcollection.lowest_scoring_hometeam
   end
 
   def test_wins_by_coach
