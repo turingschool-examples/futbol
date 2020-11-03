@@ -17,8 +17,8 @@ class GameTeamsCollection
     end
   end
 
-  def find_by_id(id)
-    @parent.find_by_id(id)
+  def find_team_name(id)
+    @parent.find_team_name(id)
   end
 
   def games_by_team
@@ -69,42 +69,42 @@ class GameTeamsCollection
     max_goals = average_goals_by_team.max_by do |goals|
       goals[-1]
     end
-    find_by_id(max_goals[0])
+    find_team_name(max_goals[0])
   end
 
   def worst_offense
     min_goals = average_goals_by_team.min_by do |goals|
       goals[-1]
     end
-    find_by_id(min_goals[0])
+    find_team_name(min_goals[0])
   end
 
   def highest_scoring_visitor
     highest_goals = average_away_goals_by_team.max_by do |goals|
       goals[-1]
     end
-    find_by_id(highest_goals[0])
+    find_team_name(highest_goals[0])
   end
 
   def highest_scoring_hometeam
     highest_goals = average_home_goals_by_team.max_by do |goals|
       goals[-1]
     end
-    find_by_id(highest_goals[0])
+    find_team_name(highest_goals[0])
   end
 
   def lowest_scoring_visitor
     lowest_goals = average_away_goals_by_team.min_by do |goals|
       goals[-1]
     end
-    find_by_id(lowest_goals[0])
+    find_team_name(lowest_goals[0])
   end
 
   def lowest_scoring_hometeam
     lowest_goals = average_home_goals_by_team.min_by do |goals|
       goals[-1]
     end
-    find_by_id(lowest_goals[0])
+    find_team_name(lowest_goals[0])
   end
 
   def seasons(id)
@@ -164,14 +164,14 @@ class GameTeamsCollection
     accurate = shots_by_team_by_season(season_id).min_by do |team, scores|
       (scores[:shots].to_f / scores[:goals])
     end
-    find_by_id(accurate.first)
+    find_team_name(accurate.first)
   end
 
   def least_accurate_team(season_id)
     accurate = shots_by_team_by_season(season_id).max_by do |team, scores|
       (scores[:shots].to_f / scores[:goals])
     end
-    find_by_id(accurate.first)
+    find_team_name(accurate.first)
   end
 
   def teams_with_tackles(season_id)
@@ -189,13 +189,13 @@ class GameTeamsCollection
     most = teams_with_tackles(season_id).max_by do |team, tackles|
       tackles
     end
-    find_by_id(most.first)
+    find_team_name(most.first)
   end
 
   def fewest_tackles(season_id)
     least = teams_with_tackles(season_id).min_by do |team, tackles|
       tackles
     end
-    find_by_id(least.first)
+    find_team_name(least.first)
   end
 end

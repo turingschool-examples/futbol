@@ -26,11 +26,6 @@ class GamesCollectionTest < Minitest::Test
     assert_equal 26, @gamescollection.games.length
   end
 
-  def test_find_by_id
-
-    assert_equal "20122013", @gamescollection.find_by_id("2012030221")
-  end
-
   def test_highest_total_score
 
     assert_equal 5, @gamescollection.highest_total_score
@@ -117,6 +112,11 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_team_wins_by_opponent
+    expected = {"17"=>{:wins=>1, :total=>4}}
+    assert_equal expected, @gamescollection.team_wins_by_opponent("16")
+  end
+
+  def test_team_wins_by_season
     expected = {"17"=>{:wins=>1, :total=>4}}
     assert_equal expected, @gamescollection.team_wins_by_opponent("16")
   end

@@ -19,11 +19,6 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, @stattracker
   end
 
-  def test_find_by_id
-
-    assert_equal "20122013", @stattracker.find_by_id("2012030221")
-  end
-
   def test_highest_total_score
 
     assert_equal 5, @stattracker.highest_total_score

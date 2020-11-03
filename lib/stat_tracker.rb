@@ -17,15 +17,11 @@ class StatTracker
   end
 
   def find_team_name(team_id)
-    @teams.find_team_name
+    @teams.find_team_name(team_id)
   end
 
   def find_season_id(id)
     @games.find_season_id(id)
-  end
-
-  def find_by_id(id)
-    @teams.find_by_id(id) || @games.find_by_id(id)
   end
 
   def highest_total_score
@@ -113,11 +109,11 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
-    find_by_id(@games.favorite_opponent(team_id))
+    find_team_name(@games.favorite_opponent(team_id))
   end
 
   def rival(team_id)
-    find_by_id(@games.rival(team_id))
+    find_team_name(@games.rival(team_id))
   end
 
   def winningest_coach(season_id)

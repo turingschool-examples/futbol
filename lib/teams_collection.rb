@@ -13,14 +13,6 @@ class TeamsCollection
     end
   end
 
-  def find_by_id(id)
-    teams.find do |team|
-      if team.team_id == id
-        return team.teamname
-      end
-    end
-  end
-
   def find_team_name(team_id)
     teams.find do |team|
       return team.teamname if team.team_id == team_id
