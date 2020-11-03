@@ -116,9 +116,9 @@ class GamesCollectionTest < Minitest::Test
     assert_equal 0, @gamescollection.fewest_goals_scored("16")
   end
 
-  def test_games_against_opponents
-    expected = {"17"=>{:wins=>2, :total=>3}}
-    assert_equal expected, @gamescollection.games_against_opponents("16")
+  def test_team_wins_by_opponent
+    expected = {"17"=>{:wins=>1, :total=>4}}
+    assert_equal expected, @gamescollection.team_wins_by_opponent("16")
   end
 
   def test_favorite_opponent

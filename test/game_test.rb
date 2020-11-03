@@ -34,6 +34,21 @@ class GameTest < Minitest::Test
     assert_equal 5, @game.total_score
   end
 
+  def test_won_game
+    assert_equal false, @game.won_game?("3")
+    assert_equal true, @game.won_game?("6")
+    assert_equal false, @game.won_game?("7")
+  end
+
+  def test_opponent
+    assert_equal "6", @game.opponent("3")
+    assert_equal "3", @game.opponent("6")
+  end
+
+  def test_teams
+    assert_equal ["6", "3"], @game.teams
+  end
+
   def test_winner
     assert_equal "home", @game.winner
   end

@@ -27,6 +27,18 @@ class Game
     away_goals + home_goals
   end
 
+  def won_game?(team_id)
+    (team_id == home_team_id && winner == "home") || (team_id == away_team_id && winner == "away")
+  end
+
+  def opponent(team_id)
+    teams.-([team_id])[0]
+  end
+
+  def teams
+    [home_team_id, away_team_id]
+  end
+
   def winner
     if @away_goals > @home_goals
       "away"

@@ -121,26 +121,12 @@ class GamesCollection
     games_with_goals
   end
 
-  def games_against_opponents(team_id) #used by favorite_opponent, rival
-    wins = Hash.new {|h, k| h[k] = {wins: 0, total: 0}}
-    @games.each do |game|
-      if game.away_team_id == team_id && game.winner == "home"
-        wins[game.home_team_id][:wins] += 1
-        wins[game.home_team_id][:total] += 1
-      elsif game.home_team_id == team_id && game.winner == "away"
-        wins[game.away_team_id][:wins] += 1
-        wins[game.away_team_id][:total] += 1
-      elsif game.away_team_id == team_id && game.winner == "tied"
-        wins[game.home_team_id][:total] += 1
-      elsif game.home_team_id == team_id && game.winner == "tied"
-        wins[game.away_team_id][:total] += 1
-      elsif game.away_team_id == team_id && game.winner == "away"
-        wins[game.home_team_id][:total] += 1
-      elsif game.home_team_id == team_id && game.winner == "home"
-        wins[game.away_team_id][:total] += 1
-      end
+  def team_wins_by_opponent(team_id) #used by favorite_opponent, rival
+    @games.each_with_object(Hash.new {|h, k| h[k] = {wins: 0, total: 0}}) do |game, wins|
+      next if !game.teams.include?(team_id)
+      wins[game.opponent(team_id)][:total] += 1
+      wins[game.opponent(team_id)][:wins] += 1 if game.won_game?(team_id)
     end
-    wins
   end
 #TEAM STATS
   def best_season(team_id)
@@ -164,10 +150,10 @@ class GamesCollection
   end
 
   def favorite_opponent(team_id)
-    min_avg(games_against_opponents(team_id)).first
+    max_avg(team_wins_by_opponent(team_id)).first
   end
 
   def rival(team_id)
-    max_avg(games_against_opponents(team_id)).first
+    min_avg(team_wins_by_opponent(team_id)).first
   end
 end
