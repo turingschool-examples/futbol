@@ -35,4 +35,10 @@ class GameTeamsTest < Minitest::Test
     assert @game_team.match?("3")
     assert_equal false, @game_team.match?("54")
   end
+
+  def test_it_can_check_home_or_away
+    assert_equal false, @game_team.check('home')
+    assert_equal true, @game_team.check('away')
+    assert_equal @game_team, @game_team.check
+  end
 end

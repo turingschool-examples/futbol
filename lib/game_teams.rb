@@ -19,14 +19,24 @@ class GameTeam
   end
 
   def home?
-    @hoa == 'home'
+    hoa == 'home'
   end
 
   def away?
-    @hoa == 'away'
+    hoa == 'away'
   end
 
   def match?(id)
-    @team_id == id
+    team_id == id
+  end
+
+  def check(home_or_away = nil)
+    if home_or_away == 'home'
+      home?
+    elsif home_or_away == 'away'
+      away?
+    else
+      self
+    end
   end
 end
