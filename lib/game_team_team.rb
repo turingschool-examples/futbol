@@ -1,10 +1,11 @@
 require_relative './game_team'
 require_relative './game_team_collection'
+require_relative "./divisable"
 
 class GameTeamTeam < GameTeamCollection
-
+  include Divisable
   def average_win_percentage(team_id)
-    (winning_games(team_id).count / total_games(team_id).count.to_f * 100).round(2)
+    percentage(winning_games(team_id).count, total_games(team_id).count)
   end
 
   def most_goals_scored(team_id)
@@ -50,7 +51,7 @@ class GameTeamTeam < GameTeamCollection
        if game_team.game_id == game.game_id
          lowest = lowest_opposing_team(team_id)[game_team.team_id]
          total = total_opposing_team_games(team_id)[game_team.team_id].count.to_f
-         highest_loser_pct[game_team.team_id] = (lowest / total * 100).round(2) unless game_team.team_id == team_id
+         highest_loser_pct[game_team.team_id] = percentage(lowest, total) unless game_team.team_id == team_id
        end
      end
    end
@@ -99,7 +100,7 @@ class GameTeamTeam < GameTeamCollection
        if game_team.game_id == game.game_id
          high = highest_opposing_team(team_id)[game_team.team_id]
          total = total_opposing_team_games(team_id)[game_team.team_id].count.to_f
-         highest[game_team.team_id] = (high / total * 100).round(2) unless game_team.team_id == team_id
+         highest[game_team.team_id] = percentage(high, total) unless game_team.team_id == team_id
        end
      end
    end

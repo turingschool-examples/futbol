@@ -17,7 +17,6 @@ class TeamCollection
   end
 
 # League Stats
-
   def count_of_teams
     @teams.count
   end
