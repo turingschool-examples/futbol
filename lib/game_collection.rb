@@ -47,12 +47,10 @@ class GameCollection
   end
 
   def sum_of_scores_by_season
-    scores_by_season = {}
-    @games.each do |game|
+    @games.each_with_object({}) do |game, scores_by_season|
       (scores_by_season[game.season] += game.away_goals.to_i + game.home_goals.to_i if scores_by_season[game.season]) ||
       (scores_by_season[game.season] = game.away_goals.to_i + game.home_goals.to_i)
     end
-    scores_by_season
   end
 
   def season_id
@@ -72,7 +70,6 @@ class GameCollection
       (seasons_and_games[game.season] = [game.game_id])
     end
   end
-
   # League Statistic
   def total_goals_per_team_id_away
     @games.each_with_object(Hash.new(0)) do |game, sum_goals_away|
@@ -103,28 +100,26 @@ class GameCollection
       end
     end
   end
-
 # Team Statistics
-def best_season(team_id)
-  win_percentage = Hash.new {|hash_obj, key| hash_obj[key] = []}
-  wins_by_season_per_team_id(team_id).each do |season, num_wins|
-    total_games_by_season_per_team_id(team_id).each do |seazon, total|
-      win_percentage[season] << average(num_wins, total) if season == seazon
+  def best_season(team_id)
+    win_percentage = Hash.new {|hash_obj, key| hash_obj[key] = []}
+    wins_by_season_per_team_id(team_id).each do |season, num_wins|
+      total_games_by_season_per_team_id(team_id).each do |seazon, total|
+        win_percentage[season] << average(num_wins, total) if season == seazon
+      end
     end
+    win_percentage.max_by {|season, pct| pct}[0]
   end
-  win_percentage.max_by {|season, pct| pct}[0]
-end
 
-def worst_season(team_id)
-  loss_percentage = Hash.new {|hash_obj, key| hash_obj[key] = []}
-  loss_by_season_per_team_id(team_id).each do |season, num_lost|
-    total_games_by_season_per_team_id(team_id).each do |seazon, total|
-    loss_percentage[season] << average(num_lost, total) if season == seazon
+  def worst_season(team_id)
+    loss_percentage = Hash.new {|hash_obj, key| hash_obj[key] = []}
+    loss_by_season_per_team_id(team_id).each do |season, num_lost|
+      total_games_by_season_per_team_id(team_id).each do |seazon, total|
+      loss_percentage[season] << average(num_lost, total) if season == seazon
+      end
     end
+    loss_percentage.min_by {|season, pct| pct}[0]
   end
-  loss_percentage.min_by {|season, pct| pct}[0]
-end
-
 #Team Statistics Helpers
   def winning_games(team_id)
     @games.select do |game|
