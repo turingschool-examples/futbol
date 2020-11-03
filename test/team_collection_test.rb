@@ -1,15 +1,11 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'mocha/minitest'
-require './lib/team_collection'
-require './lib/stat_tracker'
-require 'mocha/minitest'
+require './test/test_helper'
+
 
 class TeamCollectionTest < Minitest::Test
   def setup
-    game_path       = './data/games.csv'
+    game_path       = './data/games_dummy.csv'
     team_path       = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
 
     locations = {
                 games: game_path,
@@ -33,7 +29,7 @@ class TeamCollectionTest < Minitest::Test
     assert_equal 'Columbus Crew SC', @team_collection.find_team_name('53')
   end
 
-  # Team Statistics 
+  # Team Statistics
   def test_it_can_list_team_info
     expected = {
                 team_id: '20',

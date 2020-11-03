@@ -1,5 +1,5 @@
 require "csv"
-require "./lib/game"
+require_relative "./game"
 
 class GameCollection
   attr_reader :game_path, :stat_tracker
@@ -40,12 +40,12 @@ class GameCollection
     games_per_season
   end
 
-  def total_games
+  def total_amount_games
     @games.count
   end
 
   def average_goals_per_game
-    (scores_by_game.sum / total_games.to_f).round(2)
+    (scores_by_game.sum / total_amount_games.to_f).round(2)
   end
 
   def sum_of_scores_by_season
