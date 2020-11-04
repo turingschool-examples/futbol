@@ -3,7 +3,6 @@ require './lib/team'
 require './lib/team_manager'
 
 class TeamManagerTest < Minitest::Test
-
   def setup
     @team_manager = TeamManager.new('./data/teams.csv')
   end

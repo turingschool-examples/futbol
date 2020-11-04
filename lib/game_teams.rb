@@ -7,6 +7,7 @@ class GameTeam
               :goals,
               :shots,
               :tackles
+
   def initialize(data)
     @game_id = data[:game_id].to_i
     @team_id = data[:team_id]
