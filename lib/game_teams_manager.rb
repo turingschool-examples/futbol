@@ -5,7 +5,9 @@ require_relative './supportable'
 class GameTeamsManager
   include Mathable
   include Supportable
+
   attr_reader :game_teams
+
   def initialize(file_location)
     all(file_location)
   end

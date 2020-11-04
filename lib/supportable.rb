@@ -1,5 +1,4 @@
 module Supportable
-
   def counter_sub_hash
     Hash.new {|stats, key| stats[key] = Hash.new {|sums, stat| sums[stat] = 0}}
   end
@@ -30,5 +29,4 @@ module Supportable
     end
     win_pct_by_category
   end
-
 end

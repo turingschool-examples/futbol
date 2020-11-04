@@ -2,6 +2,7 @@ require 'csv'
 
 class TeamManager
   attr_reader :teams
+
   def initialize(file_location)
     all(file_location)
   end

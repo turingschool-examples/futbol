@@ -4,14 +4,15 @@ class StatTracker
   attr_reader :game_manager,
               :team_manager,
               :game_teams_manager
+
+  def self.from_csv(file_locations)
+    new(file_locations)
+  end
+
   def initialize(file_locations)
     @game_manager       = GameManager.new(file_locations[:games])
     @team_manager       = TeamManager.new(file_locations[:teams])
     @game_teams_manager = GameTeamsManager.new(file_locations[:game_teams])
-  end
-
-  def self.from_csv(file_locations)
-    new(file_locations)
   end
 
   def highest_total_score
