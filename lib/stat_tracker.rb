@@ -9,7 +9,7 @@ class StatTracker
   def initialize(locations)
     @teams = TeamsCollection.new(locations[:teams])
     @games = GamesCollection.new(locations[:games])
-    @game_teams = GameTeamsCollection.new(locations[:game_teams], self)
+    @game_teams = GameTeamsCollection.new(locations[:game_teams])
   end
 
   def self.from_csv(locations)
@@ -18,10 +18,6 @@ class StatTracker
 
   def find_team_name(team_id)
     @teams.find_team_name(team_id)
-  end
-
-  def find_season_id(id)
-    @games.find_season_id(id)
   end
 
   def highest_total_score

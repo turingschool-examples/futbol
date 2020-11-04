@@ -5,8 +5,7 @@ class GameTeamsCollection
   include Calculator
 
   attr_reader :game_teams
-  def initialize(game_teams_path, parent)
-    @parent = parent
+  def initialize(game_teams_path)
     @game_teams = create_game_teams(game_teams_path)
   end
 
@@ -14,10 +13,6 @@ class GameTeamsCollection
     CSV.foreach(game_teams_path, headers: true, header_converters: :symbol).map do |row|
       GameTeam.new(row)
     end
-  end
-
-  def find_team_name(id)
-    @parent.find_team_name(id)
   end
 
   def games_by_team
@@ -88,14 +83,9 @@ class GameTeamsCollection
     low(average_home_goals_by_team).first
   end
 
-  def game_ids_by_season(id)
-    @parent.find_season_id(id)
-  end
-
   def wins_by_coach(season_id)
-    game_ids = game_ids_by_season(season_id)
     @game_teams.each_with_object(Hash.new {|h, k| h[k] = {success: 0, total: 0}}) do |game_team, wins|
-      next if !game_ids.include?(game_team.game_id)
+      next unless game_team.game_id[0..3] == season_id[0..3]
       wins[game_team.head_coach][:total] += 1
       wins[game_team.head_coach][:success] += 1 if game_team.result == "WIN"
     end
@@ -110,9 +100,8 @@ class GameTeamsCollection
   end
 
   def shots_by_team_by_season(season_id)
-    game_ids = game_ids_by_season(season_id)
     game_teams.each_with_object(Hash.new {|h, k| h[k] = {success: 0, total: 0}}) do |game_team, stat|
-      next if !game_ids.include?(game_team.game_id)
+      next unless game_team.game_id[0..3] == season_id[0..3]
       stat[game_team.team_id][:success] += game_team.shots
       stat[game_team.team_id][:total] += game_team.goals
     end
@@ -127,9 +116,8 @@ class GameTeamsCollection
   end
 
   def teams_with_tackles(season_id)
-    game_ids = game_ids_by_season(season_id)
     game_teams.each_with_object(Hash.new(0)) do |game_team, teams|
-      next if !game_ids.include?(game_team.game_id)
+      next unless game_team.game_id[0..3] == season_id[0..3]
       teams[game_team.team_id] += game_team.tackles
     end
   end

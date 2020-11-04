@@ -4,13 +4,7 @@ require './lib/game_teams_collection'
 class GameTeamsCollectionTest < Minitest::Test
 
   def setup
-    @parent = mock("Collection")
-    # @parent.stubs(:find_team_name, "3").returns("FC Dallas")
-    # @parent.stubs(:find_team_name, "6").returns("Houston Dynamo")
-    @parent.stubs(:find_season_id).returns(["2012030221", "2012030222", "2012030223", "2012030224", "2012030225"])
-    @parent.stubs(:find_team_name, "2012030221").returns("20122013")
-
-    @gameteamcollection = GameTeamsCollection.new('./data/game_teams_dummy.csv', @parent)
+    @gameteamcollection = GameTeamsCollection.new('./data/game_teams_dummy.csv')
   end
 
   def test_it_exists
@@ -20,11 +14,6 @@ class GameTeamsCollectionTest < Minitest::Test
 
   def test_first_game
     assert_instance_of GameTeam, @gameteamcollection.game_teams[0]
-  end
-
-  def test_find_team_name
-
-    assert_equal "20122013", @gameteamcollection.find_team_name("2012030221")
   end
 
   def test_all_games
