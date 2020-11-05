@@ -43,39 +43,46 @@ class GameTeamsManager
   end
 
   def best_offense
-    avg_goals_by_team.max_by do |team_id, average_goals|
-      average_goals
-    end.first
+    min_or_max(:max_by, avg_goals_by_team).first
+
+    # avg_goals_by_team.max_by do |team_id, average_goals|
+    #   average_goals
+    # end.first
   end
 
   def worst_offense
-    avg_goals_by_team.min_by do |team_id, average_goals|
-      average_goals
-    end.first
+    min_or_max(:min_by, avg_goals_by_team).first
+    # avg_goals_by_team.min_by do |team_id, average_goals|
+    #   average_goals
+    # end.first
   end
 
   def highest_scoring_visitor
-    avg_goals_by_team('away').max_by do |team_id, average_goals|
-      average_goals
-    end.first
+    min_or_max(:max_by, avg_goals_by_team('away')).first
+    # avg_goals_by_team('away').max_by do |team_id, average_goals|
+    #   average_goals
+    # end.first
   end
 
   def highest_scoring_home_team
-    avg_goals_by_team('home').max_by do |team_id, average_goals|
-      average_goals
-    end.first
+    min_or_max(:max_by, avg_goals_by_team('home')).first
+  #   avg_goals_by_team('home').max_by do |team_id, average_goals|
+  #     average_goals
+  #   end.first
   end
 
   def lowest_scoring_visitor
-    avg_goals_by_team('away').min_by do |team_id, average_goals|
-      average_goals
-    end.first
+    min_or_max(:min_by, avg_goals_by_team('away')).first
+    # avg_goals_by_team('away').min_by do |team_id, average_goals|
+    #   average_goals
+    # end.first
   end
 
   def lowest_scoring_home_team
-    avg_goals_by_team('home').min_by do |team_id, average_goals|
-      average_goals
-    end.first
+    min_or_max(:min_by, avg_goals_by_team('home')).first
+    # avg_goals_by_team('home').min_by do |team_id, average_goals|
+    #   average_goals
+    # end.first
   end
 
   def games_by_season(game_ids)
@@ -136,14 +143,16 @@ class GameTeamsManager
   end
 
   def most_tackles(game_ids)
-    total_tackles_by_team(game_ids).max_by do |team_id, tackles|
-      tackles
-    end.first
+    min_or_max(:max_by, total_tackles_by_team(game_ids)).first
+    # total_tackles_by_team(game_ids).max_by do |team_id, tackles|
+    #   tackles
+    # end.first
   end
 
   def fewest_tackles(game_ids)
-    total_tackles_by_team(game_ids).min_by do |team_id, tackles|
-      tackles
-    end.first
+    min_or_max(:min_by, total_tackles_by_team(game_ids)).first
+    # total_tackles_by_team(game_ids).min_by do |team_id, tackles|
+    #   tackles
+    # end.first
   end
 end

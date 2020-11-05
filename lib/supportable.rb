@@ -29,4 +29,9 @@ module Supportable
     end
     win_pct_by_category
   end
+
+  def min_or_max(method, collection)
+    collection.send(method) {|team_id, category| category}
+  end
+  
 end

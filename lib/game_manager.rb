@@ -106,11 +106,11 @@ class GameManager
   end
 
   def best_season(team_id)
-    percentage_wins_by_season(team_id).max_by { |season, pct| pct }.first
+    min_or_max(:max_by, percentage_wins_by_season(team_id)).first
   end
 
   def worst_season(team_id)
-    percentage_wins_by_season(team_id).min_by { |season, pct| pct }.first
+    min_or_max(:min_by, percentage_wins_by_season(team_id)).first
   end
 
   def average_win_percentage(team_id)
@@ -138,10 +138,10 @@ class GameManager
   end
 
   def favorite_opponent(team_id)
-    percentage_wins_by_opponent(team_id).max_by { |opp, pct| pct }.first
+    min_or_max(:max_by, percentage_wins_by_opponent(team_id)).first
   end
 
   def rival(team_id)
-    percentage_wins_by_opponent(team_id).min_by { |opp, pct| pct }.first
+    min_or_max(:min_by, percentage_wins_by_opponent(team_id)).first
   end
 end
