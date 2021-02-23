@@ -1,6 +1,10 @@
 class StatTracker
 
-  def initialize
-  end
+def self.from_csv(data)
+end
+
+def initialize(data)
+  @data = data
+end
 
 end
