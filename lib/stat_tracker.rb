@@ -9,6 +9,7 @@ class StatTracker
       |csv_file| 
       SmarterCSV.process(csv_file[1])
     }
+    blah
   end
 
 end
