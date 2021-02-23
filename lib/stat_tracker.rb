@@ -1,16 +1,14 @@
+require 'CSV'
+
 class StatTracker
 
-  def self.from_csv(data)
-    #Read data
-    #StatTracker.new(data)
+  def initialize
   end
 
-  def initialize(data)
-    #OR Read data here
-    #require "pry"; binding.pry
-    @data = data
+  def self.from_csv(data_locations)
+    CSV.foreach(data_locations[:games], headers: true, header_converters: :symbol) do |row|
+      
+    end
   end
 
 end
-
-# HASHED out lines are updates from Turing kickoff video
