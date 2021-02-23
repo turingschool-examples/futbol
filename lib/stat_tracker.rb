@@ -3,6 +3,6 @@ class StatTracker
   end
 
   def self.from_csv(locations)
-    
+
   end
 end
