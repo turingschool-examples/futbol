@@ -9,22 +9,11 @@ class StatTracker
   end
 
   def self.from_csv(import_data)
-    @data = import_data.map {|csv_file| SmarterCSV.process(csv_file[1])}
+    #p import_data[:games]
+    @data = import_data.map {
+      |csv_file| 
+      SmarterCSV.process(csv_file[1])
+    }
+    #p CSV.parse(File.read(import_data[:games]), headers: true)
   end
-
 end
-
-game_path = './data/games.csv'
-team_path = './data/teams.csv'
-game_teams_path = './data/game_teams.csv'
-
-locations = {
-  games: game_path,
-  teams: team_path,
-  game_teams: game_teams_path
-}
-
-stat_tracker = StatTracker.from_csv(locations)
-
-
-require 'pry'; binding.pry
