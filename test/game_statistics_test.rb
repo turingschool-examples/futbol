@@ -1,9 +1,9 @@
-# require './test/test_helper'
-require 'minitest/pride'
-require 'minitest/autorun'
-require './lib/game_statistics'
-require 'csv'
-require 'pry'
+require "./test/test_helper"
+# require 'minitest/pride'
+# require 'minitest/autorun'
+# require './lib/game_statistics'
+# require 'csv'
+# require 'pry'
 
 class GameStatisticsTest < Minitest::Test
   def setup
@@ -12,7 +12,6 @@ class GameStatisticsTest < Minitest::Test
 
   def test_it_exists
     assert_instance_of GameStatistics, @game_statistics
-    binding.pry
   end
 
   def test_highest_total_score

@@ -1,5 +1,5 @@
 
-require './test_helper.rb'
+require "./test/test_helper"
 
 
 class LeagueStatisticsTest < Minitest::Test

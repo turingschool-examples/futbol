@@ -1,12 +1,13 @@
-require 'simplecov'
-SimpleCov.start do
-end
+require 'pry'
+require "minitest/autorun"
+require "minitest/pride"
+require "mocha/minitest"
+require "csv"
+require "simplecov"
 
-require 'minitest/pride'
-require 'minitest/autorun'
+SimpleCov.start
 
-# require './league_statistics_test'
-require './game_statistics_test'
-
-
-require './lib/game_statistics'
+require "./lib/game_statistics"
+require "./lib/league_statistics"
+require "./lib/season_statistics"
+require "./lib/team_statistics"
