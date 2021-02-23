@@ -1,0 +1,17 @@
+{
+  "Unit Tests": {
+    "coverage": {
+      "/Users/aklick/Documents/turing/futbol/futbol/lib/stuff.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          0,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1614052827
+  }
+}
