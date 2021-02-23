@@ -5,4 +5,8 @@ end
 require 'minitest/pride'
 require 'minitest/autorun'
 
-require './league_statistics.rb'
+# require './league_statistics_test'
+require './game_statistics_test'
+
+
+require './lib/game_statistics'

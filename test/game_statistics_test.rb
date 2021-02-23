@@ -1,8 +1,18 @@
-require './test/test_helper.rb'
+# require './test/test_helper'
+require 'minitest/pride'
+require 'minitest/autorun'
+require './lib/game_statistics'
+require 'csv'
+require 'pry'
 
 class GameStatisticsTest < Minitest::Test
-  def test_it_exists
+  def setup
+    @game_statistics = GameStatistics.new(CSV.parse(File.read("./data/games_to_test.csv"), headers: true))
+  end
 
+  def test_it_exists
+    assert_instance_of GameStatistics, @game_statistics
+    binding.pry
   end
 
   def test_highest_total_score
