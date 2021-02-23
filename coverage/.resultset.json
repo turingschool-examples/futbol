@@ -1,10 +1,20 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/aklick/Documents/turing/futbol/futbol/lib/stuff.rb": {
+      "/Users/aklick/Documents/turing/futbol/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
+          null,
           1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
           1,
           0,
           null,
@@ -12,6 +22,6 @@
         ]
       }
     },
-    "timestamp": 1614052827
+    "timestamp": 1614106871
   }
 }
