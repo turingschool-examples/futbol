@@ -1,4 +1,4 @@
-require './test/test_helper.rb'
+require "./test/test_helper"
 
 class GameStatisticsTest < Minitest::Test
   def test_it_exists
@@ -15,7 +15,7 @@ class GameStatisticsTest < Minitest::Test
 
   def test_worst_season
 
-  end 
+  end
 
   def test_average_win_percentage
 

@@ -1,16 +1,17 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/game_statistics'
-
-
+require "./test/test_helper"
+# require 'minitest/pride'
+# require 'minitest/autorun'
+# require './lib/game_statistics'
+# require 'csv'
+# require 'pry'
 
 class GameStatisticsTest < Minitest::Test
-
   def setup
+    @game_statistics = GameStatistics.new(CSV.parse(File.read("./data/games_to_test.csv"), headers: true))
   end
 
   def test_it_exists
-
+    assert_instance_of GameStatistics, @game_statistics
   end
 
   def test_highest_total_score

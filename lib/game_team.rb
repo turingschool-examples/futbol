@@ -1,0 +1,3 @@
+class GameTeam
+  
+end
