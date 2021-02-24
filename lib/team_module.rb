@@ -1,7 +1,9 @@
-class TeamStatistics
+# require '.lib/stattracker'
 
-  def initialize(team_id)
-    @team_id = team_id
+class Team
+
+  def setup
+    p "hey"
   end
 
   def team_info

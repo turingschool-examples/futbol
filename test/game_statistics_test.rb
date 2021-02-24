@@ -1,6 +1,14 @@
-require './test/test_helper.rb'
+require 'minitest/autorun'
+require 'minitest/pride'
+require './lib/game_statistics'
+
+
 
 class GameStatisticsTest < Minitest::Test
+
+  def setup
+  end
+
   def test_it_exists
 
   end
