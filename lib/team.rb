@@ -6,12 +6,12 @@ class Team
               :stadium,
               :link
 
-  def initialize(specs)
-    @team_id = specs[:team_id]
-    @franchiseID = specs[:franchiseID]
-    @teamName = specs[:teamName]
-    @abbreviation = specs[:abbreviation]
-    @stadium = specs[:stadium]
-    @link = specs[:link]
+  def initialize(info)
+    @team_id = info[:team_id]
+    @franchiseID = info[:franchiseID]
+    @teamName = info[:teamName]
+    @abbreviation = info[:abbreviation]
+    @stadium = info[:stadium]
+    @link = info[:link]
   end
 end
