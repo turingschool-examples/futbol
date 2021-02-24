@@ -4,8 +4,9 @@ class StatTracker
 
   def self.from_csv(locations)
     StatTracker.new
-    @games = CSV.parse(File.read("./dummy_data/games_dummy.csv"), headers: true)
-    @game_teams = CSV.parse(File.read("./dummy_data/game_teams_dummy.csv"), headers: true)
-    @teams = CSV.parse(File.read("./dummy_data/teams_dummy.csv"), headers: true)
+    @games = CSV.parse(File.read(locations[:games]), headers: true)
+    @game_teams = CSV.parse(File.read(locations[:game_teams]), headers: true)
+    @teams = CSV.parse(File.read(locations[:teams]), headers: true)
+    require "pry"; binding.pry
   end
 end
