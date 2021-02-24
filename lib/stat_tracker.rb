@@ -1,21 +1,31 @@
 require 'CSV'
-class StatTracker
+require'./lib/game_data'
+require './lib/team_data'
+require './lib/game_teams_data'
+require 'pry'
+
+class StatTracker # < MethodsClass?
 
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
 
   def initialize(locations)
-    # read data here?
-    @locations = locations
+    @game_path = locations[:games]
+    @team_path = locations[:teams]
+    @game_teams_path = locations[:game_teams]
+    @game = GameData.new(@game_path)
+  end
+
+  def highest_total_score
+    @game.highest_total_score
+  end
+
+  def lowest_total_score
+    @game.lowest_total_score
+  end
+
+  def percentage_home_wins
+    @game.percentage_home_wins
   end
 end
-
-
-# columns = CSV.foreach('./data/teams.csv', headers: false).map { |row| row[0]}
-# p columns
-
-table = CSV.parse(File.read('./data/game_teams.csv'), headers: true, header_converters: :symbol)
-# p table.by_row[0]
-# p table.by_col[0]
-p table.first.to_h
