@@ -19,11 +19,15 @@ class StatTracker
       CSV.foreach(path, :headers => true,
       header_converters: :symbol) do |row|
         if key == :games
-          Game.new(row.to_h)
+          GameManager.new(row.to_h)
           require "pry"; binding.pry
         elsif key == :teams
+          TeamManager.new(row.to_h)
+          # add stuff
           # Team.new(row.to_h)
         else
+          TeamGameManager.new(row.to_h)
+          # add stuff
           # GameTeam.new(row.to_h)
         end
       end

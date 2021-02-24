@@ -1,6 +1,6 @@
 require "./test/test_helper"
 
-class GameStatisticsTest < Minitest::Test
+class TeamManagerTest < Minitest::Test
   def test_it_exists
 
   end

@@ -1,12 +1,18 @@
-class Team
+class TeamManager
+  attr_reader #add stuff
 
-  def team_info(team_id)
-    {
-      "team id" => team_id,
-      "franchise_id" => @teams[team_id].franchise_id
-
-    }
+  def initialize(data)
+    #add stuff
   end
+
+
+  # def team_info(team_id)
+  #   {
+  #     "team id" => team_id,
+  #     "franchise_id" => @teams[team_id].franchise_id
+  #
+  #   }
+  # end
 
     def team_info
       # Description: A hash with key/value pairs for the following attributes:
