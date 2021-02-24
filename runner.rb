@@ -11,3 +11,8 @@ locations = {
 }
 
 stat_tracker = StatTracker.from_csv(locations)
+<<<<<<< HEAD
+
+# require 'pry'; binding.pry
+=======
+>>>>>>> bc640c8815fa421c33ac24ed4842367f05b26174
