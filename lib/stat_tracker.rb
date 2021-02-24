@@ -7,6 +7,5 @@ class StatTracker
     @games = CSV.parse(File.read(locations[:games]), headers: true)
     @game_teams = CSV.parse(File.read(locations[:game_teams]), headers: true)
     @teams = CSV.parse(File.read(locations[:teams]), headers: true)
-    require "pry"; binding.pry
   end
 end
