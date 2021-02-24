@@ -1,7 +1,7 @@
 require 'CSV'
 require'./lib/game_data'
 require './lib/team_data'
-require './lib/game_teams_data'
+require './lib/game_stats_data'
 require 'pry'
 
 class StatTracker # < MethodsClass?
