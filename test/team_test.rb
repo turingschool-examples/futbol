@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require './lib/team'
 
 class TeamTest < Minitest::Test
@@ -20,10 +19,10 @@ class TeamTest < Minitest::Test
 
   def test_it_has_attributes
     fake_data = {team_id: "1",
-                  franchiseId: "23",
-                  teamName: "Atlanta United",
+                  franchiseid: "23",
+                  teamname: "Atlanta United",
                   abbreviation: "ATL",
-                  Stadium:"Mercedes-Benz Stadium",
+                  stadium:"Mercedes-Benz Stadium",
                   link: "/api/v1/teams/1"
                 }
 

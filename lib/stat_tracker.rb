@@ -9,7 +9,7 @@ class StatTracker
     @games = games
     @teams = teams
     @game_teams = game_teams
-    require "pry"; binding.pry
+    # require "pry"; binding.pry
   end
 
   def self.from_csv(data_locations)
@@ -26,8 +26,21 @@ class StatTracker
       game_teams << GameTeam.new(row)
     end
     stat_tracker = StatTracker.new(games, teams, game_teams)
-
   end
 
+  ####### Game Stats ########
 
+  ###########################
+
+  ###### Team Stats #########
+
+  ###########################
+
+  ###### League Stats #######
+
+  ###########################
+
+  ###### Season Stats #######
+
+  ###########################
 end
