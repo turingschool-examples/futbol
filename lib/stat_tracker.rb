@@ -1,10 +1,12 @@
 require 'CSV'
 
 class StatTracker
-  def initialize(params)
+  attr_reader :games
+
+  def initialize
   end
 
   def self.from_csv(locations)
-    StatTracker.new(locations)  #This gets the test to pass but is probably wrong
+    StatTracker.new
   end
 end
