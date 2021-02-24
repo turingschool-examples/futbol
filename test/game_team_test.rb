@@ -5,14 +5,14 @@ require './lib/game_team'
 class GameTeamTest < MiniTest::Test
 
  def test_it_exists_with_attributes
-    fake_data = {game_id: "2012030221", team_id: "3", home_or_away: "away", 
+    fake_data = {game_id: "2012030221", team_id: "3", HoA: "away", 
                 result: "LOSS", settled_in: "OT", 
                 head_coach: "John Tortorella", goals: 2, shots: 8, tackles: 44, 
-                pim: 8, power_play_opportunities: 3, power_play_goals: 0, 
-                face_off_win_percentage: 44.8, giveaways: 17, takeaways: 7}
+                pim: 8, powerPlayOpportunities: 3, powerPlayGoals: 0, 
+                faceOffWinPercentage: 44.8, giveaways: 17, takeaways: 7}
 
     game_team = GameTeam.new(fake_data)
-
+    
     assert_instance_of GameTeam, game_team
     assert_equal "2012030221", game_team.game_id
     assert_equal "3", game_team.team_id
