@@ -1,4 +1,4 @@
-class Team
+class Teams
   attr_reader :team_id,
               :franchiseID,
               :teamName,

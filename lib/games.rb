@@ -1,4 +1,4 @@
-class Game
+class Games
   attr_reader :game_id,
               :season,
               :type,
@@ -11,7 +11,7 @@ class Game
               :venue_link
 
   def initialize(info)
-    @game_id = info[:game_id]
+    @game_id = info[:game_id].to_i
     @season = info[:season]
     @type = info[:type]
     @date_time = info[:date_time]
