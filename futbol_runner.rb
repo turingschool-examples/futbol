@@ -1,7 +1,5 @@
 # runner.rb
 
-require 'minitest/autorun'
-require 'minitest/pride'
 require './lib/stat_tracker'
 
 game_path = './fixture/games_dummy15.csv'  #'./data/games.csv'
