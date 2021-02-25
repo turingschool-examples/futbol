@@ -1,7 +1,7 @@
 require 'CSV'
-require './lib/games_manager'
-require './lib/teams_manager'
-require './lib/game_teams_manager'
+require_relative './lib/games_manager'
+require_relative './lib/teams_manager'
+require_relative './lib/game_teams_manager'
 
 class StatTracker
 
