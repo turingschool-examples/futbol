@@ -47,7 +47,7 @@ class StatTracker
     percentage(wins, games)
   end
 
-  def percentage_visitor_wins
+  def percentage_visitor_wins #game_team manager
     games = @game_teams.find_all do |game_team|
       game_team if game_team.hoa == "away"
     end
@@ -55,6 +55,14 @@ class StatTracker
       game if game.result == "WIN"
     end
     percentage(wins, games)
+  end
+
+  def percentage_ties #game_team manager 
+    games = @game_teams
+    ties = @game_teams.find_all do |game|
+      game if game.result == "TIE"
+    end
+    percentage(ties, games)
   end
 
   def percentage(array1, array2) #potential for a module later?
