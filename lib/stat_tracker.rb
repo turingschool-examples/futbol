@@ -23,19 +23,23 @@ class StatTracker
     @game_teams = load_csv_data(game_teams_path, GameTeam)
   end
 
-
   #Game Statistics
-
+     def highest_total_score
+        scores = @games.flat_map do |game|
+          [game.away_goals.to_i + game.home_goals.to_i]
+        end
+        scores.max
+      end
 
 
   #League Statistics
-  def count_of_teams
-    counter = 0
-    @teams.each do |team|
-      counter += 1
+    def count_of_teams
+      counter = 0
+      @teams.each do |team|
+        counter += 1
+      end
+      counter
     end
-    counter
-  end
 
 
   #Season Statistics
