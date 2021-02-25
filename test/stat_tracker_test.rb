@@ -3,10 +3,10 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/stat_tracker'
 # require './test/test_helper'
+require './lib/games_manager'
 
 class StatTrackerTest < Minitest::Test
   def setup
-    skip
     @game_path = './dummy_data/games_dummy.csv'
     @team_path = './dummy_data/teams_dummy.csv'
     @game_teams_path = './dummy_data/game_teams_dummy.csv'
@@ -20,13 +20,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_exists
-    skip
     assert_instance_of StatTracker, @stat_tracker_instance
   end
 
-  def test_it_can_read_from_created_csv_tables
-    skip
-    stat = StatTracker.new(@locations)
-    assert_equal "1", stat.teams[0]["team_id"]
+  def test_it_can_create_hash_from_games
+    @stat_tracker_instance.games_hash
+    assert_instance_of Hash, @stat_tracker_instance.games_hash
   end
 end
