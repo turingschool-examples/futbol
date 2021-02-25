@@ -3,8 +3,9 @@ require 'pry'
 require './lib/team'
 
 class TeamData
-  def initialize(data)
+  def initialize(path, stat_tracker)
     @all_team_data = []
+    @stat_tracker = stat_tracker
 
     CSV.foreach('./data/teams.csv', headers: true, header_converters: :symbol) do |row|
       @all_team_data << Team.new(row)

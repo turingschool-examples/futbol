@@ -1,5 +1,3 @@
-require 'CSV'
-
 class Team
 
   attr_reader :team_id,
@@ -16,6 +14,5 @@ class Team
     @abbreviation = data[:abbreviation]
     @stadium = data[:stadium]
     @link = data[:link]
-    binding.pry
   end
 end

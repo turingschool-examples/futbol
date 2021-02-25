@@ -3,13 +3,16 @@ require 'pry'
 require './lib/game_stats'
 
 class GameStatsData
-  def initialize
-    @all_game_teams_data = []
-    # @stattracker = stattracker
+  def initialize(locations, stat_tracker)
+    @all_game_stats_data = []
+    @stat_tracker = stat_tracker
 
-    CSV.foreach('./data/game_stats.csv', headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(@stat_tracker.game_stats_path, headers: true, header_converters: :symbol) do |row|
       @all_game_stats_data << GameStats.new(row)
     end
-    # binding.pry
   end
+
+  # def game
+  #
+  # end
 end

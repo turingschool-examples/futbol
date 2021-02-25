@@ -11,21 +11,20 @@ class StatTracker # < MethodsClass?
   end
 
   def initialize(locations)
-    @game_path = locations[:games]
-    @team_path = locations[:teams]
-    @game_teams_path = locations[:game_teams]
-    @game = GameData.new(@game_path)
+    @game_data = GameData.new(locations[:games], self)
+    @team_data = TeamData.new(locations[:teams], self)
+    @game_stats = GameStatsData.new(locations[:game_stats], self)
   end
 
   def highest_total_score
-    @game.highest_total_score
+    @game_data.game_with_highest_total_score.total_goals
   end
 
   def lowest_total_score
-    @game.lowest_total_score
+    @game_data.game_with_lowest_total_score.total_goals
   end
 
-  def percentage_home_wins
-    @game.percentage_home_wins
-  end
+  # def percentage_home_wins
+  #   @game.percentage_home_wins
+  # end
 end

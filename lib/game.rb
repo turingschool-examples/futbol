@@ -1,5 +1,3 @@
-require 'CSV'
-
 class Game
   attr_reader :game_id,
               :season,
@@ -23,5 +21,21 @@ class Game
     @home_goals = data[:home_goals].to_i
     @venue = data[:venue]
     @venue_link = data[:venue_link]
+  end
+
+  def total_goals
+    @away_goals + @home_goals
+  end
+
+  # add methods as much as possible
+
+  def winner
+    if @home_goals > @away_goals
+      :home
+    elsif @away_goals > @home_goals
+      :away
+    else
+      :tie
+    end
   end
 end
