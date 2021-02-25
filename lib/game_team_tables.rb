@@ -7,6 +7,8 @@ class GameTeamTable < StatTracker
   def random_task(data)
     super
   end
-
+  def send_team_data(teams)
+    super
+  end
   
 end

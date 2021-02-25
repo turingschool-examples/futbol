@@ -15,6 +15,10 @@ class StatTracker
   #   self.from_csv(csv_files)
     
   # end
+
+  def send_team_data(teams)
+    p teams
+  end
   def random_task(data)
     p data
   end
