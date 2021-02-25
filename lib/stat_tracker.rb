@@ -1,6 +1,6 @@
-require_relative 'team_manager'
-require_relative 'game_team_manager'
-require_relative 'game_manager'
+require './manager/team_manager'
+require './manager/game_team_manager'
+require './manager/game_manager'
 
 class StatTracker
 
@@ -19,7 +19,7 @@ class StatTracker
     @game_manager.highest_scoring_game.total_score
   end
 
-  
+
   # def self.from_csv(locations)
   #   # require "pry";binding.pry
   #   # data = locations.map do |key, path|
