@@ -1,0 +1,2 @@
+class GameTeamsManager
+end

@@ -1,0 +1,2 @@
+class GamesManager
+end
