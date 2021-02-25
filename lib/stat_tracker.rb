@@ -6,11 +6,9 @@ require './lib/game_teams_manager'
 class StatTracker
 
   def initialize(games_path, team_path, game_team_path)
-
-    @games = GamesManager.new(games_path, self)
-    @teams = TeamsManager.new(team_path, self)
-    @game_teams = GameTeamsManager.new(game_team_path, self)
-    # require "pry"; binding.pry
+    @games = GamesManager.new(games_path)
+    @teams = TeamsManager.new(team_path)
+    @game_teams = GameTeamsManager.new(game_team_path)
   end
 
   def self.from_csv(data_locations)
@@ -36,4 +34,4 @@ class StatTracker
   ###### Season Stats #######
 
   ###########################
-end
+end 

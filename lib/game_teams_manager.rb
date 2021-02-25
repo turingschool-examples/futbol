@@ -1,14 +1,11 @@
-require './lib/stat_tracker'
 require './lib/game_team'
 
 
 class GameTeamsManager
-  attr_reader :data_path, :game_teams
+  attr_reader :game_teams
 
-  def initialize(data_path, stat_tracker)
-    @data_path = data_path
-    @stat_tracker = stat_tracker
-    @game_teams = generate_list(@data_path)
+  def initialize(data_path)
+    @game_teams = generate_list(data_path)
   end
 
   def generate_list(data_path)
