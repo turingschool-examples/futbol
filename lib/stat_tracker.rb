@@ -1,31 +1,22 @@
 require 'CSV'
-require_relative './game'
-require_relative './team'
-require_relative './game_team'
+require_relative './lib/games_manager'
+require_relative './lib/teams_manager'
+require_relative './lib/game_teams_manager'
 
 class StatTracker
 
-  def initialize(games, teams, game_teams)
-    @games = games
-    @teams = teams
-    @game_teams = game_teams
-    # require "pry"; binding.pry
+  def initialize(games_path, team_path, game_team_path)
+    @games = GamesManager.new(games_path)
+    @teams = TeamsManager.new(team_path)
+    @game_teams = GameTeamsManager.new(game_team_path)
   end
 
   def self.from_csv(data_locations)
-    games = []
-    teams = []
-    game_teams = []
-    CSV.foreach(data_locations[:games], headers: true, header_converters: :symbol) do |row|
-      games << Game.new(row)
-    end
-    CSV.foreach(data_locations[:teams], headers: true, header_converters: :symbol) do |row|
-      teams << Team.new(row)
-    end
-    CSV.foreach(data_locations[:game_teams], headers: true, header_converters: :symbol) do |row|
-      game_teams << GameTeam.new(row)
-    end
-    stat_tracker = StatTracker.new(games, teams, game_teams)
+    games_path = data_locations[:games]
+    teams_path = data_locations[:teams]
+    game_teams_path = data_locations[:game_teams]
+
+    StatTracker.new(games_path, teams_path, game_teams_path)
   end
 
   ####### Game Stats ########
@@ -43,4 +34,4 @@ class StatTracker
   ###### Season Stats #######
 
   ###########################
-end
+end 
