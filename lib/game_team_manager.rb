@@ -1,5 +1,5 @@
 class GameTeamManager
-  attr_reader # add stuff
+  # attr_reader # add stuff
 
   def initialize(data)
     #add stuff
