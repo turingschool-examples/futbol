@@ -47,6 +47,16 @@ class StatTracker
     percentage(wins, games)
   end
 
+  def percentage_visitor_wins
+    games = @game_teams.find_all do |game_team|
+      game_team if game_team.hoa == "away"
+    end
+    wins = games.find_all do |game|
+      game if game.result == "WIN"
+    end
+    percentage(wins, games)
+  end
+
   def percentage(array1, array2) #potential for a module later?
     percent = array1.length.to_f / array2.length.to_f
     readable_percent = (percent * 100).round(2)
