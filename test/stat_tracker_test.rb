@@ -16,5 +16,7 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
-
+  def test_highest_total_score
+    assert_equal 6, @stat_tracker.highest_total_score
+  end
 end
