@@ -30,9 +30,12 @@ class StatTracker
 
   #League Statistics
   def count_of_teams
-    puts @teams
+    counter = 0
+    @teams.each do |team|
+      counter += 1
+    end
+    counter
   end
-
 
 
   #Season Statistics
