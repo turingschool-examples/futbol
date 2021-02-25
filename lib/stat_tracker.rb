@@ -24,15 +24,57 @@ class StatTracker
   end
 
   #Game Statistics
-     def highest_total_score
-        scores = @games.flat_map do |game|
-          [game.away_goals.to_i + game.home_goals.to_i]
-        end
-        scores.max
-      end
+  
+  def highest_total_score
+    scores = @games.flat_map do |game|
+      [game.away_goals.to_i + game.home_goals.to_i]
+    end
+    scores.max
+  end
+  
+  def lowest_total_score #game_manager
+    scores = @games.flat_map do |game|
+      [game.away_goals.to_i + game.home_goals.to_i]
+    end
+    scores.min
+  end
+
+  def percentage_home_wins #game_team manager
+    games = @game_teams.find_all do |game_team|
+      game_team if game_team.hoa == "home"
+    end
+    wins = games.find_all do |game|
+      game if game.result == "WIN"
+    end
+    percentage(wins, games)
+  end
+
+  def percentage_visitor_wins #game_team manager
+    games = @game_teams.find_all do |game_team|
+      game_team if game_team.hoa == "away"
+    end
+    wins = games.find_all do |game|
+      game if game.result == "WIN"
+    end
+    percentage(wins, games)
+  end
+
+  def percentage_ties #game_team manager 
+    games = @game_teams
+    ties = @game_teams.find_all do |game|
+      game if game.result == "TIE"
+    end
+    percentage(ties, games)
+  end
+
+  def percentage(array1, array2) #potential for a module later?
+    percent = array1.length.to_f / array2.length.to_f
+    readable_percent = (percent * 100).round(2)
+  end
 
 
   #League Statistics
+  
     def count_of_teams
       counter = 0
       @teams.each do |team|
@@ -47,4 +89,6 @@ class StatTracker
 
 
   #Team Statistics
+
+
 end
