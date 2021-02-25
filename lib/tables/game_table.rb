@@ -1,10 +1,10 @@
-#require './lib/helper_modules/csv_to_hashable.rb'
-
+require './lib/helper_modules/csv_to_hashable.rb'
+require './lib/instances/game'
 class GameTable 
   attr_reader :game_data, :stat_tracker
-  #include CsvToHash
+  include CsvToHash
   def initialize(locations)
-    #from_csv(locations)
+    @game_data = from_csv(locations, 'Game')
   end
   
   def other_call(data)
