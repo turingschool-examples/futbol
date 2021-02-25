@@ -1,5 +1,5 @@
 class GameTeamTable < StatTracker
-  attr_reader :game_team_data
+  attr_reader :game_team_data, :teams
   def initialize(stat_tracker)
     @game_team_data = stat_tracker
   end
@@ -7,8 +7,10 @@ class GameTeamTable < StatTracker
   def random_task(data)
     super
   end
-  def send_team_data(teams)
+  def send_team_data
+    super()
+  end
+  def get_table_data
     super
   end
-  
 end

@@ -1,6 +1,6 @@
 require 'csv'
 require 'active_support'
-require './lib/csv_to_hashable.rb'
+require './lib/helper_modules/csv_to_hashable.rb'
 class StatTracker 
   include CsvToHash
   attr_reader :games, :game_teams, :teams, :data_hash, :locations
@@ -17,12 +17,16 @@ class StatTracker
   # end
 
   def send_team_data(teams)
-    p teams
+    @teams = @teams
   end
   def random_task(data)
     p data
   end
 
+  def get_table_data
+    p @teams
+    send_team_data(@teams)
+  end
 end
 
 
