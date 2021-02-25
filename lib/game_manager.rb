@@ -16,6 +16,24 @@ class GameManager
     end
   end
   #
+  def highest_scoring_game
+    @games.max_by do |game|
+      game.total_score
+    end
+  end
+
+  def home_wins
+    @games.find_all do |game|
+      game.winner == :home
+    end
+  end
+
+  def calculate_percentage_home_wins
+    # number of home wins / total number games
+    (home_wins.count.to_f / @games.count) * 100
+  end 
+
+
   # def highest_total_score
   #   # Description: Highest sum of the winning and losing teams’ scores
   #   # Return Value: Integer

@@ -14,9 +14,12 @@ class StatTracker
     require "pry";binding.pry
   end
 
-  def lowest_total_score
-
+  def highest_total_score
+    #        game object               tack on total_score
+    @game_manager.highest_scoring_game.total_score
   end
+
+  
   # def self.from_csv(locations)
   #   # require "pry";binding.pry
   #   # data = locations.map do |key, path|
