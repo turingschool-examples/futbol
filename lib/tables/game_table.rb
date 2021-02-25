@@ -8,6 +8,6 @@ class GameTable < StatTracker
   end
   
   def other_call(data)
-    p data
+    data
   end
 end
