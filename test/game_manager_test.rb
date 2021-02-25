@@ -1,21 +1,31 @@
 require './test/test_helper'
-require './lib/game_manager'
+require './lib/games_manager'
 
+require 'mocha/minitest'
 
 class GameManagerTest < Minitest::Test
 
   def test_it_exists
-    # fake_data = {game_id: 2012030221, season: 20122013, type: "Postseason", date_time: "5/16/13", away_team_id: 3, home_team_id: 6, away_goals: 2, home_goals: 3, venue: "Toyota Stadium", venue_link: "/api/v1/venues/null"}
-    #
-    # game = Game.new(fake_data)
-    m=mock
-    m.stubs(:foreach).returns([])
 
+    start_tracker = mock
+    path = "./fixture/games_dummy15.csv"
+    game_manager = GamesManager.new(path , start_tracker)
+    csv = mock
+    csv.stubs(:foreach).returns([])
 
-    assert_instance_of GameManager, ------
+    assert_instance_of GamesManager, game_manager
   end
 
   def test_it_has_attributes
 
+    start_tracker = mock
+    path = "./fixture/games_dummy15.csv"
+    game_manager = GamesManager.new(path , start_tracker)
+    csv = mock
+    csv.stubs(:foreach).returns([])
+
+    assert_equal path, game_manager.data_path
+    # assert_equal [], game_manager.games
+    # assert_instance_of StatTracker, stat_tracker
   end
 end
