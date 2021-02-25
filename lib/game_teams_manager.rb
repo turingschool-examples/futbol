@@ -1,4 +1,4 @@
-require './lib/game_team'
+require_relative './game_team'
 
 
 class GameTeamsManager

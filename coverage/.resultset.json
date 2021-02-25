@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/aphilosopher30/Desktop/turing_work/futbol/lib/game_team.rb": {
+      "/Users/mcg/turing/1module/Projects/futbol/lib/game_team.rb": {
         "lines": [
           null,
           1,
@@ -27,7 +27,7 @@
           null
         ]
       },
-      "/Users/aphilosopher30/Desktop/turing_work/futbol/test/game_test.rb": {
+      "/Users/mcg/turing/1module/Projects/futbol/test/game_test.rb": {
         "lines": [
           1,
           1,
@@ -90,7 +90,7 @@
           null
         ]
       },
-      "/Users/aphilosopher30/Desktop/turing_work/futbol/lib/game.rb": {
+      "/Users/mcg/turing/1module/Projects/futbol/lib/game.rb": {
         "lines": [
           1,
           1,
@@ -110,7 +110,7 @@
           null
         ]
       },
-      "/Users/aphilosopher30/Desktop/turing_work/futbol/test/games_manager_test.rb": {
+      "/Users/mcg/turing/1module/Projects/futbol/test/games_manager_test.rb": {
         "lines": [
           1,
           1,
@@ -130,7 +130,7 @@
           null,
           null,
           null,
-          1,
+          null,
           1,
           1,
           null,
@@ -141,7 +141,7 @@
           null
         ]
       },
-      "/Users/aphilosopher30/Desktop/turing_work/futbol/lib/games_manager.rb": {
+      "/Users/mcg/turing/1module/Projects/futbol/lib/games_manager.rb": {
         "lines": [
           1,
           null,
@@ -164,7 +164,7 @@
           null
         ]
       },
-      "/Users/aphilosopher30/Desktop/turing_work/futbol/test/stat_tracker_test.rb": {
+      "/Users/mcg/turing/1module/Projects/futbol/test/stat_tracker_test.rb": {
         "lines": [
           1,
           1,
@@ -200,7 +200,7 @@
           null
         ]
       },
-      "/Users/aphilosopher30/Desktop/turing_work/futbol/lib/stat_tracker.rb": {
+      "/Users/mcg/turing/1module/Projects/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
           1,
@@ -241,7 +241,7 @@
           null
         ]
       },
-      "/Users/aphilosopher30/Desktop/turing_work/futbol/lib/teams_manager.rb": {
+      "/Users/mcg/turing/1module/Projects/futbol/lib/teams_manager.rb": {
         "lines": [
           1,
           null,
@@ -265,7 +265,7 @@
           null
         ]
       },
-      "/Users/aphilosopher30/Desktop/turing_work/futbol/lib/team.rb": {
+      "/Users/mcg/turing/1module/Projects/futbol/lib/team.rb": {
         "lines": [
           1,
           1,
@@ -281,7 +281,7 @@
           null
         ]
       },
-      "/Users/aphilosopher30/Desktop/turing_work/futbol/lib/game_teams_manager.rb": {
+      "/Users/mcg/turing/1module/Projects/futbol/lib/game_teams_manager.rb": {
         "lines": [
           1,
           null,
@@ -305,7 +305,7 @@
           null
         ]
       },
-      "/Users/aphilosopher30/Desktop/turing_work/futbol/test/team_test.rb": {
+      "/Users/mcg/turing/1module/Projects/futbol/test/team_test.rb": {
         "lines": [
           1,
           1,
@@ -335,7 +335,7 @@
           null
         ]
       },
-      "/Users/aphilosopher30/Desktop/turing_work/futbol/test/teams_manager_test.rb": {
+      "/Users/mcg/turing/1module/Projects/futbol/test/teams_manager_test.rb": {
         "lines": [
           1,
           1,
@@ -366,6 +366,6 @@
         ]
       }
     },
-    "timestamp": 1614289887
+    "timestamp": 1614291045
   }
 }

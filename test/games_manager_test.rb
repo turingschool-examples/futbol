@@ -16,7 +16,7 @@ class GameManagerTest < Minitest::Test
 
     #CSV.stubs(:foreach).returns([])
 
-    start_tracker = mock
+    # start_tracker = mock
     path = "./fixture/games_dummy15.csv"
     game_manager = GamesManager.new(path)
 
