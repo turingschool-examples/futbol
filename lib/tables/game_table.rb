@@ -7,4 +7,7 @@ class GameTable < StatTracker
     @games = from_csv(locations)
   end
   
+  def other_call(data)
+    p data
+  end
 end

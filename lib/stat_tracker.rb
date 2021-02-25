@@ -23,9 +23,8 @@ class StatTracker
     @teams
   end
 
-  def get_table_data
-    p @teams
-    send_team_data(@teams)
+  def call_test
+    @games.other_call(@teams)
   end
 end
 

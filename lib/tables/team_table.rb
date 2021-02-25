@@ -5,7 +5,7 @@ class TeamsTable < StatTracker
   attr_reader :team_data
   def initialize(locations)
     @team_data = from_csv(locations)
-    @stats = StatTracker.new
+    #@stats = StatTracker.
   end
 
   def random_task
