@@ -1,5 +1,3 @@
-require 'CSV'
-
 class GameStats
     attr_reader :game_id,
                 :team_id,
@@ -33,6 +31,5 @@ class GameStats
       @faceOffWinPercentage = data[:faceOffWinPercentage]
       @giveaways = data[:giveaways]
       @takeaways = data[:takeaways]
-      # binding.pry
     end
   end
