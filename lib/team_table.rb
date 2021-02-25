@@ -4,8 +4,8 @@ class TeamsTable
     @team_data = stat_tracker
   end
 
-  def can_communicate
-    p 'yes'
+  def random_task
+    super
   end
 
 end
