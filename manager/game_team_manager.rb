@@ -1,18 +1,13 @@
-require_relative 'game_team'
+require './lib/game_team'
+require './modules/data_loadable'
 
 class GameTeamManager
+  include DataLoadable
 
   attr_reader :game_teams
 
   def initialize(data)
     @game_teams = load_data(data)
   end
-
-  def load_data(file_path)
-    csv = CSV.read(file_path, :headers => true,
-    header_converters: :symbol)
-      csv.map do |row|
-      GameTeam.new(row)
-    end
 
 end

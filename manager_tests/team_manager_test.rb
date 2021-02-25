@@ -1,16 +1,15 @@
 require "./test/test_helper"
 
 class TeamManagerTest < Minitest::Test
+
   def setup
-    
+    @team_data = './data/teams.csv'
+
+    @team_manager = TeamManager.new(@team_data)
   end
 
   def test_it_exists
     assert_instance_of TeamManager, @team_manager
-  end
-
-  def test_can_pull_correct_info
-    assert_equal [], @team_manager.load_data(@teams)
   end
 
   # def test_team_info
