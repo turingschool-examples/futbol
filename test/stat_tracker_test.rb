@@ -16,6 +16,8 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
+  #Game Statistics Tests
+ 
   def test_percentage_of_two_arrays_lengths
     array1 = ["1", "2", "3"]
     array2 = ["3", "4", "5", "6", "7", "8", "9"]
@@ -42,4 +44,17 @@ class StatTrackerTest < Minitest::Test
   def test_percentage_ties #added one "TIE" result to truncated_data
     assert_equal 4.0, @stat_tracker.percentage_ties
   end
+  
+  #League Statistics Tests
+
+  def test_it_counts_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+  
+  #Season Statistics Tests
+  
+  
+  #Team Statistics Tests
+
+
 end
