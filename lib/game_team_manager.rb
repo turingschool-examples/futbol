@@ -1,10 +1,18 @@
+require_relative 'game_team'
+
 class GameTeamManager
-  # attr_reader # add stuff
+
+  attr_reader :game_teams
 
   def initialize(data)
-    #add stuff
+    @game_teams = load_data(data)
   end
 
-  # add method stuff
+  def load_data(file_path)
+    csv = CSV.read(file_path, :headers => true,
+    header_converters: :symbol)
+      csv.map do |row|
+      GameTeam.new(row)
+    end
 
 end
