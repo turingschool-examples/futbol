@@ -22,4 +22,22 @@ class StatTracker
     @teams      = load_csv_data(teams_path, Team)
     @game_teams = load_csv_data(game_teams_path, GameTeam)
   end
+
+
+  #Game Statistics
+
+
+
+  #League Statistics
+  def count_of_teams
+    puts @teams
+  end
+
+
+
+  #Season Statistics
+
+
+
+  #Team Statistics
 end
