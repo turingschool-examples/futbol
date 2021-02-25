@@ -1,20 +1,22 @@
 require_relative 'game'
+require_relative 'data_loadable'
 
 class GameManager
 
   attr_reader :games
+  include DataLoadable
 
   def initialize(data)
-    @games = load_data(data)
+    @games = load_data(data, Game)
   end
 
-  def load_data(file_path)
-    csv = CSV.read(file_path, :headers => true,
-    header_converters: :symbol)
-      csv.map do |row|
-      Game.new(row)
-    end
-  end
+  # def load_data(file_path)
+  #   csv = CSV.read(file_path, :headers => true,
+  #   header_converters: :symbol)
+  #     csv.map do |row|
+  #     Game.new(row)
+  #   end
+  # end
   #
   def highest_scoring_game
     @games.max_by do |game|
