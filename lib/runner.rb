@@ -15,7 +15,7 @@ locations = {
   #teams_test: './data/teams_test.csv'
 }
 
-stat_tracker = StatTracker.new(locations)
+stat_tracker = StatTracker.new
 #stat_tracker.from_csv(locations)
 #tracker = StatTracker.new(locations)
 require 'pry'; binding.pry

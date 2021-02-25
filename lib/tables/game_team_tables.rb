@@ -1,11 +1,14 @@
+require './lib/helper_modules/csv_to_hashable.rb'
+
 class GameTeamTable < StatTracker
+  include CsvToHash
   attr_reader :game_team_data, :teams
-  def initialize(stat_tracker)
-    @game_team_data = stat_tracker
+  def initialize(locations)
+    @game_team_data = from_csv(locations)
   end
 
-  def random_task(data)
-    super
+  def random_task
+    
   end
   def send_team_data
     super()

@@ -1,7 +1,11 @@
-class TeamsTable
+require './lib/helper_modules/csv_to_hashable.rb'
+
+class TeamsTable < StatTracker
+  include CsvToHash
   attr_reader :team_data
-  def initialize(stat_tracker)
-    @team_data = stat_tracker
+  def initialize(locations)
+    @team_data = from_csv(locations)
+    @stats = StatTracker.new
   end
 
   def random_task
