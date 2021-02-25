@@ -1,6 +1,6 @@
 require 'CSV'
 
-module CsvLoadable
+class CsvLoadable
 
   def load_csv_data(path, object)
     data = CSV.open("#{path}", headers: true, header_converters: :symbol)
