@@ -29,4 +29,11 @@ class StatTracker
     end
     scores.max
   end
+
+  def lowest_total_score
+    scores = @games.flat_map do |game|
+      [game.away_goals.to_i + game.home_goals.to_i]
+    end
+    scores.min
+  end
 end
