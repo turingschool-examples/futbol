@@ -19,7 +19,7 @@ class GameManagerTest < Minitest::Test
   def test_it_has_attributes
 
     start_tracker = mock
-    # path = "./fixture/games_dummy15.csv"
+    path = "./fixture/games_dummy15.csv"
     game_manager = GamesManager.new(path , start_tracker)
 
     # csv = mock
