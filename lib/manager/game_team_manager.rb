@@ -9,5 +9,4 @@ class GameTeamManager
   def initialize(data)
     @game_teams = load_data(data)
   end
-
 end

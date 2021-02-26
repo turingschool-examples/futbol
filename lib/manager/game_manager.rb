@@ -6,7 +6,6 @@ class GameManager
 
   attr_reader :games
 
-
   def initialize(data)
     @games = load_data(data, Game)
   end
@@ -27,7 +26,6 @@ class GameManager
     # number of home wins / total number games
     (home_wins.count.to_f / @games.count) * 100
   end
-
 
   # def highest_total_score
   #   # Description: Highest sum of the winning and losing teams’ scores

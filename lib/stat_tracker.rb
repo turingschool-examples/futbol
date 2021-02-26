@@ -1,6 +1,6 @@
-require './manager/team_manager'
-require './manager/game_team_manager'
-require './manager/game_manager'
+require './lib/manager/team_manager'
+require './lib/manager/game_team_manager'
+require './lib/manager/game_manager'
 
 class StatTracker
 
