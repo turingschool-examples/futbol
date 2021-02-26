@@ -2,23 +2,7 @@ require './test/test_helper'
 
 class GameStatsTest < Minitest::Test
   def setup
-    @game7 = GameStats.new({
-                  game_id: 2015030133,
-                  team_id: 4,
-                  hoa: "home",
-                  result: "LOSS",
-                  settled_in: "REG",
-                  head_coach: "Dave Hakstol",
-                  goals: 1,
-                  shots: 8,
-                  tackles: 45,
-                  pim: 53,
-                  powerPlayOpportunities: 5,
-                  powerPlayGoals: 0,
-                  faceOffWinPercentage: 55.9,
-                  giveaways: 17,
-                  takeaways: 2
-                })
+    @game = './test/game_stats_dummy.csv'
   end
 #should we account for two teams per game id and return arrays?
   def test_it_exists_and_has_attributes

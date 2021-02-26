@@ -33,7 +33,8 @@ class Game
     if @home_goals > @away_goals
       :home
     elsif @away_goals > @home_goals
-      :away
+      :visitor
+      #changed from away to match methods list naming convention
     else
       :tie
     end

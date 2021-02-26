@@ -1,6 +1,6 @@
 require 'CSV'
 require 'pry'
-require './lib/game_stats'
+require_relative './game_stats'
 
 class GameStatsData
   def initialize(locations, stat_tracker)
