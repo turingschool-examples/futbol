@@ -7,10 +7,11 @@ class TeamManager
   attr_reader :teams
 
   def initialize(data)
-    @teams = data_loadable(data, Team)
+    @teams = load_data(data, Team)
   end
 
   def best_season
+    
     # Description: Season with the highest win percentage for a team.
     # Return Value: String
   end

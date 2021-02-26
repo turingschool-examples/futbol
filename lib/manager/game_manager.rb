@@ -6,7 +6,6 @@ class GameManager
 
   attr_reader :games
 
-
   def initialize(data)
     @games = load_data(data, Game)
   end
@@ -96,7 +95,6 @@ class GameManager
     (home_wins.count.to_f / @games.count) * 100
   end
 >>>>>>> main:manager/game_manager.rb
-
 
   # def highest_total_score
   #   # Description: Highest sum of the winning and losing teams’ scores

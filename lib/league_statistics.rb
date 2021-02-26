@@ -1,11 +1,14 @@
-
 class LeagueStatistics
+  include DataLoadable
 
-  # def initialize(argument)
-  #   @argument = argument
-  # end
+  def initialize(data)
+    @games = load_data(data[:games], Game)
+    @teams = load_data(data[:teams], Team)
+    @game_teams = load_data(data[:game_teams], GameTeam)
+  end
 
   def count_of_teams
+    @teams.count
     # Description - Total number of teams in the data.
     # Return Value - Integer
   end
