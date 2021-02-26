@@ -5,11 +5,10 @@ class StatTracker
 
   def initialize(locations)
     @locations = locations
-    # @team_manager = TeamsManager.new(load_csv(locations[:teams]), self)
+    @team_manager = TeamsManager.new(CSV.parse(File.read(locations[:teams]), headers: true, header_converters: :symbol), self)
     @games_manager = GamesManager.new(CSV.parse(File.read(locations[:games]), headers: true, header_converters: :symbol), self)
-    # @game_team_manager = GameTeamsManager.new(load_csv(locations[:game_teams]), self)
+    @game_team_manager = GameTeamsManager.new(CSV.parse(File.read(locations[:game_teams]), headers: true, header_converters: :symbol), self)
   end
-
 
   def self.from_csv(locations)
     StatTracker.new(locations)
