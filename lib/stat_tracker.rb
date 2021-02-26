@@ -25,27 +25,22 @@ class StatTracker
   end
 
   #Game Statistics
-  
+
   def highest_total_score
-    scores = @games.flat_map do |game|
-      game.total_score
-      # [game.away_goals.to_i + game.home_goals.to_i]
-      #needs to be refactored. 
-      #anything that does any calculation should be refactored into a method that lives on it's assigned class
-      #between the do and end block should be "game.total_score"
-      #total score should be "away_goals.to_i + home_goals.to_i"
+    scores = @games.max_by do |game|
+      game.total_goals
     end
-    scores.max
-  end
-  
-  def lowest_total_score #game_manager
-    scores = @games.flat_map do |game|
-      [game.away_goals.to_i + game.home_goals.to_i]
-    end
-    scores.min
+    scores.total_goals
   end
 
-  def percentage_home_wins #game_team manager
+  def lowest_total_score
+    scores = @games.min_by do |game|
+      game.total_goals
+    end
+    scores.total_goals
+  end
+
+  def percentage_home_wins
     games = @game_teams.find_all do |game_team|
       game_team if game_team.hoa == "home"
     end
@@ -55,7 +50,7 @@ class StatTracker
     percentage(wins, games)
   end
 
-  def percentage_visitor_wins #game_team manager
+  def percentage_visitor_wins
     games = @game_teams.find_all do |game_team|
       game_team if game_team.hoa == "away"
     end
@@ -65,7 +60,7 @@ class StatTracker
     percentage(wins, games)
   end
 
-  def percentage_ties #game_team manager 
+  def percentage_ties #game_team manager
     games = @game_teams
     ties = @game_teams.find_all do |game|
       game if game.result == "TIE"
@@ -73,7 +68,7 @@ class StatTracker
     percentage(ties, games)
   end
 
-  def percentage(array1, array2) #potential for a module later?
+  def percentage(array1, array2)
     percent = array1.length.to_f / array2.length.to_f
     readable_percent = (percent * 100).round(2)
   end
@@ -95,7 +90,6 @@ class StatTracker
                     game.away_goals + game.home_goals
                   end
     (total_goals/(@games.count.to_f)).round(2)
-    require 'pry'; binding.pry
   end
 
 
@@ -103,7 +97,7 @@ class StatTracker
   #   @games.count
   # end
   #League Statistics
-  
+
     def count_of_teams
       counter = 0
       @teams.each do |team|

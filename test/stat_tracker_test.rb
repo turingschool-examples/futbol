@@ -18,7 +18,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   #Game Statistics Tests
- 
+
   def test_percentage_of_two_arrays_lengths
     array1 = ["1", "2", "3"]
     array2 = ["3", "4", "5", "6", "7", "8", "9"]
@@ -57,20 +57,21 @@ class StatTrackerTest < Minitest::Test
   # def test_quick_counter
   #   assert_equal 49, @stat_tracker.quick_count
   # end
-  
+
   #League Statistics Tests
 
   def test_it_counts_teams
     assert_equal 32, @stat_tracker.count_of_teams
   end
-  
+
   #Season Statistics Tests
-  
-  
+
+
   #Team Statistics Tests
 
 
   def test_highest_total_score
+    skip
    @game1 = mock
    @game2 = mock
    @game1.stubs(:total_score).returns(100)
@@ -80,10 +81,10 @@ class StatTrackerTest < Minitest::Test
    csv_loadable.stubs(:load_csv_data)
    csv_loadable.stubs(:load_csv_data).with('game_path', Game).returns(@games)
    stat_tracker = StatTracker.new('game_team_path', 'game_path', 'teams_path', csv_loadable)
-  
+
    assert_equal 100, stat_tracker.highest_total_score
   end
-  
+
   #   # => with says that whenever we see the items in the parenthesis, please give back the thing after the returns, which right now is the array of mocks
 end
 
