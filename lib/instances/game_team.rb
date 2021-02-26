@@ -1,4 +1,4 @@
-require_relative './tables/game_team_tables'
+require_relative '../tables/game_team_tables'
 
 
 class GameTeam
@@ -18,7 +18,7 @@ class GameTeam
   :giveaways,
   :takeaways
   def initialize(data)
-    data
+    #data
     @game_id = data[:game_id]
     @team_id = data[:team_id]
     @HoA = data[:HoA]

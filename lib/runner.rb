@@ -1,7 +1,7 @@
-require_relative './lib/stat_tracker'
-require_relative './lib/tables/team_table'
-require_relative './lib/tables/game_table'
-require_relative './lib/tables/game_team_tables'
+require_relative './stat_tracker'
+require_relative './tables/team_table'
+require_relative './tables/game_table'
+require_relative './tables/game_team_tables'
 
 
 game_path = './data/games.csv'
@@ -21,7 +21,6 @@ locations = {
 stat_tracker = StatTracker.new
 #stat_tracker.from_csv(locations)
 #tracker = StatTracker.new(locations)
-require 'pry'; binding.pry
 # teams = TeamsTable.new(stat_tracker[:teams])
 # stat_track = StatTracker.new
 # games = GameTable.new(stat_tracker[:games])

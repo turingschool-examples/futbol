@@ -9,7 +9,6 @@ class StatTracker
     @games = GameTable.new('./data/games.csv')
     @game_teams = GameTeamTable.new('./data/game_teams.csv')
     @teams = TeamsTable.new('./data/teams.csv')
-    require 'pry'; binding.pry
   end
 
   def send_team_data(teams = '@teams')
