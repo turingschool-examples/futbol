@@ -1,6 +1,6 @@
 require 'CSV'
 require 'pry'
-require './lib/game'
+require_relative './game'
 
 class GameData
   def initialize(locations, stat_tracker)
@@ -12,13 +12,13 @@ class GameData
     end
   end
 
-  def game_with_highest_total_score
+  def highest_total_score_in_game
     @all_game_data.max_by do |game|
       game.total_goals
     end.total_goals
   end
 
-  def game_with_lowest_total_score
+  def lowest_total_score_in_game
     @all_game_data.min_by do |game|
       game.total_goals
     end.total_goals
@@ -31,6 +31,12 @@ class GameData
   end
 
   def percentage_home_wins
-    (home_wins_array.count / @all_game_data.count) * 100
+    ((home_wins_array.count).to_f / (@all_game_data.count)).round(2)
+  end
+
+  def visitor_wins_array
+    @all_game_data.find_all do |game|
+      game.winner == :visitor
+    end
   end
 end

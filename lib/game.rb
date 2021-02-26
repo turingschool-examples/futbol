@@ -33,7 +33,7 @@ class Game
     if @home_goals > @away_goals
       :home
     elsif @away_goals > @home_goals
-      :away
+      :visitor
     else
       :tie
     end
