@@ -6,8 +6,9 @@ class GameStatsData
   def initialize(locations, stat_tracker)
     @all_game_stats_data = []
     @stat_tracker = stat_tracker
+    # binding.pry
 
-    CSV.foreach(@stat_tracker.game_stats_path, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(locations, headers: true, header_converters: :symbol) do |row|
       @all_game_stats_data << GameStats.new(row)
     end
   end
