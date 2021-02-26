@@ -17,17 +17,22 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
+  def test_it_has_attributes
+    skip
+    assert_equal @games, @stat_tracker.games
+  end
+
   #Game Statistics Tests
+
+  def test_it_can_find_the_highest_total_score
+    assert_equal 6, @stat_tracker.highest_total_score
+  end
 
   def test_percentage_of_two_arrays_lengths
     array1 = ["1", "2", "3"]
     array2 = ["3", "4", "5", "6", "7", "8", "9"]
 
     assert_equal 42.86, @stat_tracker.percentage(array1, array2)
-  end
-
-  def test_highest_total_score
-    assert_equal 6, @stat_tracker.highest_total_score
   end
 
   def test_lowest_total_score
