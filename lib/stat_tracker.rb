@@ -73,16 +73,16 @@ class StatTracker
     readable_percent = (percent * 100).round(2)
   end
 
-  def count_of_games_by_season
+  def count_of_goals_by_season
     #	A hash with season names (e.g. 20122013) as keys and counts of games as values
     hash = Hash.new(0)
 
      @games.each do |game|
-      hash[game.season] += 1
-     end
+         hash[game.season.to_s] += game.away_goals + game.home_goals
+        # require 'pry'; binding.pry
+      end
      hash
-      # require 'pry'; binding.pry
-  end
+   end
 
   def average_goals_per_game
     #Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)
@@ -90,9 +90,27 @@ class StatTracker
                     game.away_goals + game.home_goals
                   end
     (total_goals/(@games.count.to_f)).round(2)
+    # require 'pry'; binding.pry
   end
 
-
+  def average_goals_by_season
+    #Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as values (rounded to the nearest 100th)
+    
+   #sort out each season
+   #calculate how many goals in each season
+   #calculate how many games are in each season
+   #divide number of goals by number of games
+   #make that number the value in the hash
+    game_season_totals = count_of_games_by_season
+    goal_totals = count_of_goals_by_season
+    hash = Hash.new(0)
+  
+    @games.each do |game|
+      # require 'pry'; binding.pry
+      hash[game.season.to_s] = (goal_totals[game.season.to_s].to_f/game_season_totals[game.season.to_s].to_f).round(2)
+    end
+    hash
+  end
   # def quick_count
   #   @games.count
   # end
