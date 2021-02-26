@@ -43,4 +43,10 @@ class GameData
   def percentage_visitor_wins
     ((visitor_wins_array.count).to_f / (@all_game_data.count)).round(2)
   end
+
+  def game_tie_array
+    @all_game_data.find_all do |game|
+      game.winner == :tie
+    end
+  end
 end
