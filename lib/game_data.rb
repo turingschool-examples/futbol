@@ -54,12 +54,22 @@ class GameData
     ((game_tie_array.count).to_f / (@all_game_data.count)).round(2)
   end
 
-  def count_of_games_by_season
+  def make_game_ids_by_season_hash
     by_season = {}
     @all_game_data.each do |game|
-      by_season[game.season] = game
-      #need to return values as count, not game object
+      by_season[game.season.to_i] = []
     end
-    by_season
+
+    @all_game_data.each do |game|
+      by_season[game.season.to_i] << game.game_id
+    end
+      by_season
   end
+
+  def count_of_games_by_season
+    by_season = make_game_ids_by_season_hash
+    by_season.each { |key, value| by_season[key] = value.count }
+  end
+
+
 end

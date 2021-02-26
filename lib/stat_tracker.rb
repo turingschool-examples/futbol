@@ -24,7 +24,19 @@ class StatTracker # < MethodsClass?
     @game_data.game_with_lowest_total_score.total_goals
   end
 
-  # def percentage_home_wins
-  #   @game.percentage_home_wins
-  # end
+  def percentage_home_wins
+    @game_data.percentage_home_wins
+  end
+
+  def percentage_visitor_wins
+    @game_data.percentage_visitor_wins
+  end
+
+  def percentage_ties
+    @game_data.percentage_ties
+  end
+
+  def count_of_games_by_season
+    @game_data.count_of_games_by_season
+  end
 end
