@@ -7,6 +7,9 @@ require './lib/tables/game_team_tables'
 game_path = './data/games.csv'
 team_path = './data/teams.csv'
 game_teams_path = './data/game_teams.csv'
+teams_test_path = './data/teams_test.csv'
+games_test_path = './data/games_test.csv'
+game_teams_test_path = './data/game_teams_test.csv'
 
 locations = {
   games: game_path,
