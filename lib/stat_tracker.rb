@@ -27,6 +27,14 @@ class StatTracker
   def lowest_total_score
     @games.lowest_total_score
   end
+
+  def percentage_home_wins
+    @games.percentage_home_wins
+  end
+
+  def count_of_games_by_season
+    @games.count_of_games_by_season
+  end
   ###########################
 
   ###### Team Stats #########
@@ -40,4 +48,4 @@ class StatTracker
   ###### Season Stats #######
 
   ###########################
-end 
+end
