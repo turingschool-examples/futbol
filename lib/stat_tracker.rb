@@ -1,16 +1,27 @@
 require 'csv'
+require 'active_support'
 
-class StatTracker
+class StatTracker 
+  #include CsvToHash
+  attr_reader :games, :game_teams, :teams
+  def initialize
+    #from_csv(locations)
+    @games = GameTable.new('./data/games.csv')
+    @game_teams = GameTeamTable.new('./data/game_teams.csv')
+    @teams = TeamsTable.new('./data/teams.csv')
+    require 'pry'; binding.pry
+  end
 
-  def self.from_csv(csv_file)
-    @data = csv_file.map {
-      |csv_file|
-      CSV.parse(File.read(csv_file[1]), headers: true, header_converters: :symbol, converters: :numeric)
-    }
-    hash = Hash.new()
-    csv_file.each_with_index do |file, i|
-      hash[file[0]] = @data[i] 
-    end
-    hash
+  def send_team_data(teams = '@teams')
+    @teams
+  end
+  def random_task
+    @teams
+  end
+
+  def call_test
+    @games.other_call(@teams)
   end
 end
+
+

@@ -1,4 +1,8 @@
 require './lib/stat_tracker'
+require './lib/tables/team_table'
+require './lib/tables/game_table'
+require './lib/tables/game_team_tables'
+
 
 game_path = './data/games.csv'
 team_path = './data/teams.csv'
@@ -11,12 +15,18 @@ locations = {
   games: game_path,
   teams: team_path,
   game_teams: game_teams_path,
-  teams_test: teams_test_path,
-  games_test: games_test_path,
-  game_teams_test: game_teams_test_path
+  #teams_test: './data/teams_test.csv'
 }
 
-stat_tracker = StatTracker.from_csv(locations)
+stat_tracker = StatTracker.new
+#stat_tracker.from_csv(locations)
+#tracker = StatTracker.new(locations)
+require 'pry'; binding.pry
+# teams = TeamsTable.new(stat_tracker[:teams])
+# stat_track = StatTracker.new
+# games = GameTable.new(stat_tracker[:games])
+# game_teams = GameTeamTable.new(stat_tracker[:game_teams])
+# data = {team_id: 0, average: 0}
+# p game_teams.game_team_data.each{|game| game}
+# #stat_track.team_instantiate
 
-
-# require "pry";binding.pry
