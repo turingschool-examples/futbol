@@ -17,4 +17,38 @@ class GameTeamsManager
   end
 
 
+
+
+  def get_team_tackle_hash(season_games_ids)
+    team_tackles_totals =  Hash.new(0)
+    @game_teams.each do |game_team|
+      if season_games_ids.include?(game_team.game_id)
+        team_tackles_totals[game_team.team_id] += game_team.tackles
+      end
+    end
+    team_tackles_totals
+  end
+
+
+
+
+  def most_tackles
+
+
+
+    # grouping together all games from a season, into a hash. k=season, value = game list
+    #
+    #
+    #
+    #
+    #
+    # hash_of_totalTaklesPerTeam[teamnumber] += takcles
+    #
+    # take gameBYteams, tackles of team X in that game.
+    #   add tackles to team X in hash of teamtackles
+    #
+    # hash_of_teamstakcles with the k=teamID,value= total_tackles
+  end
+
+
 end
