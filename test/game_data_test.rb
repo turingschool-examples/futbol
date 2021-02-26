@@ -47,4 +47,8 @@ class GameDataTest < Minitest::Test
   def test_game_tie_array
     assert_equal 1, @game_data.game_tie_array.count
   end
+
+  def test_percentage_ties
+    assert_equal 0.10, @game_data.percentage_ties
+  end
 end

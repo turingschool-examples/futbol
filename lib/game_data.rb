@@ -49,4 +49,8 @@ class GameData
       game.winner == :tie
     end
   end
+
+  def percentage_ties
+    ((game_tie_array.count).to_f / (@all_game_data.count)).round(2)
+  end
 end
