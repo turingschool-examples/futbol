@@ -32,4 +32,8 @@ class GameTest < Minitest::Test
     assert_equal "Toyota Stadium", @game.venue
     assert_equal "/api/v1/venues/null", @game.venue_link
   end
+
+  def test_it_can_return_total_game_score_both_teams
+    assert_equal 5, @game.total_goals 
+  end
 end
