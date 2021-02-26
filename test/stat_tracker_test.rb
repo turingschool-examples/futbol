@@ -1,4 +1,5 @@
 require_relative 'test_helper'
+require 'mocha/minitest'
 
 class StatTrackerTest < Minitest::Test
 
@@ -44,6 +45,14 @@ class StatTrackerTest < Minitest::Test
   def test_percentage_ties #added one "TIE" result to truncated_data
     assert_equal 4.0, @stat_tracker.percentage_ties
   end
+
+  def test_count_of_games_by_season
+    assert_equal ({20122013=>49}), @stat_tracker.count_of_games_by_season
+  end
+
+  # def test_quick_counter
+  #   assert_equal 49, @stat_tracker.quick_count
+  # end
   
   #League Statistics Tests
 
@@ -57,4 +66,23 @@ class StatTrackerTest < Minitest::Test
   #Team Statistics Tests
 
 
+  def test_highest_total_score
+   @game1 = mock
+   @game2 = mock
+   @game1.stubs(:total_score).returns(100)
+   @game2.stubs(:total_score).returns(1)
+   @games = [@game1, @game2]
+   csv_loadable = mock
+   csv_loadable.stubs(:load_csv_data)
+   csv_loadable.stubs(:load_csv_data).with('game_path', Game).returns(@games)
+   stat_tracker = StatTracker.new('game_team_path', 'game_path', 'teams_path', csv_loadable)
+  
+   assert_equal 100, stat_tracker.highest_total_score
+  end
+  
+  #   # => with says that whenever we see the items in the parenthesis, please give back the thing after the returns, which right now is the array of mocks
 end
+
+## Consider separate class that calculates games statistics
+
+### Still need to call stat_tracker.highest_total_score. How we do we pass the games data back and forth between the stat tracker and the game manager?
