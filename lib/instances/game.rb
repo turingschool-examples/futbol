@@ -1,4 +1,4 @@
-require './lib/tables/game_table'
+require_relative './tables/game_table'
 
 class Game
   attr_reader :game_id,
@@ -24,4 +24,5 @@ class Game
     @venue = data[:venue]
     @venue_link = data[:venue_link]
   end
+
 end

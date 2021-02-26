@@ -1,7 +1,7 @@
-require './lib/stat_tracker'
-require './lib/tables/team_table'
-require './lib/tables/game_table'
-require './lib/tables/game_team_tables'
+require_relative './lib/stat_tracker'
+require_relative './lib/tables/team_table'
+require_relative './lib/tables/game_table'
+require_relative './lib/tables/game_team_tables'
 
 
 game_path = './data/games.csv'
@@ -29,4 +29,3 @@ require 'pry'; binding.pry
 # data = {team_id: 0, average: 0}
 # p game_teams.game_team_data.each{|game| game}
 # #stat_track.team_instantiate
-

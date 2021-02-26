@@ -13,10 +13,10 @@ class StatTrackerTest < Minitest::Test
     }
     @tracker = StatTracker.from_csv(@locations)
   end
-  
+
   def test_has_attributes
 
-    
+
     assert_equal 1, @tracker[:teams_test][0][:team_id]
   end
   def test_highest_total_score
@@ -29,7 +29,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_highest_score
-    
+
   end
 
 end

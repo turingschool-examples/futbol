@@ -1,19 +1,20 @@
-require './lib/tables/game_team_tables'
+require_relative './tables/game_team_tables'
+
 
 class GameTeam
-  attr_reader :game_id, 
-  :team_id, 
-  :HoA, 
-  :result, 
-  :settled_in, 
-  :head_coach, 
-  :goals, 
-  :shots, 
-  :tackles, 
-  :pim, 
+  attr_reader :game_id,
+  :team_id,
+  :HoA,
+  :result,
+  :settled_in,
+  :head_coach,
+  :goals,
+  :shots,
+  :tackles,
+  :pim,
   :powerPlayOpportunities,
   :powerPlayGoals,
-  :faceOffWinPercentage, 
+  :faceOffWinPercentage,
   :giveaways,
   :takeaways
   def initialize(data)

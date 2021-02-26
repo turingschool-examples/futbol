@@ -1,7 +1,7 @@
 require 'csv'
-require 'active_support'
+#require 'active_support'
 
-class StatTracker 
+class StatTracker
   #include CsvToHash
   attr_reader :games, :game_teams, :teams
   def initialize
@@ -23,5 +23,3 @@ class StatTracker
     @games.other_call(@teams)
   end
 end
-
-
