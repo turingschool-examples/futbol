@@ -1,6 +1,6 @@
 require 'CSV'
 require 'pry'
-require './lib/team'
+require_relative './team'
 
 class TeamData
   def initialize(locations, stat_tracker)

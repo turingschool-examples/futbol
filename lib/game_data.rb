@@ -53,4 +53,13 @@ class GameData
   def percentage_ties
     ((game_tie_array.count).to_f / (@all_game_data.count)).round(2)
   end
+
+  def count_of_games_by_season
+    by_season = {}
+    @all_game_data.each do |game|
+      by_season[game.season] = game
+      #need to return values as count, not game object
+    end
+    by_season
+  end
 end

@@ -1,7 +1,7 @@
-require './lib/stat_tracker'
-require './lib/team_data'
-require './lib/game_data'
-require './lib/game_stats_data'
+require_relative './stat_tracker'
+require_relative './team_data'
+require_relative './game_data'
+require_relative './game_stats_data'
 
 game_path = './data/games.csv'
 team_path = './data/teams.csv'

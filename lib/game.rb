@@ -34,6 +34,7 @@ class Game
       :home
     elsif @away_goals > @home_goals
       :visitor
+      #changed from away to match methods list naming convention
     else
       :tie
     end

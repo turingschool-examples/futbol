@@ -51,4 +51,12 @@ class GameDataTest < Minitest::Test
   def test_percentage_ties
     assert_equal 0.10, @game_data.percentage_ties
   end
+
+  def test_count_of_games_by_season
+    expected = {
+              20122013 => 6,
+              20132014 => 4
+                }
+    assert_equal expected, @game_data.count_of_games_by_season
+  end
 end
