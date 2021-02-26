@@ -45,6 +45,14 @@ class StatTrackerTest < Minitest::Test
   def test_percentage_ties #added one "TIE" result to truncated_data
     assert_equal 4.0, @stat_tracker.percentage_ties
   end
+
+  def test_count_of_games_by_season
+    assert_equal ({20122013=>49}), @stat_tracker.count_of_games_by_season
+  end
+
+  # def test_quick_counter
+  #   assert_equal 49, @stat_tracker.quick_count
+  # end
   
   #League Statistics Tests
 
