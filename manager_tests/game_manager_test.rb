@@ -12,6 +12,10 @@ class GameManagerTest < Minitest::Test
     assert_instance_of GameManager, @game_manager
   end
 
+  def test_highest_scoring_game
+    assert_equal 0, @game_manager.highest_scoring_game
+  end
+
   def test_highest_total_score
 
   end
@@ -32,12 +36,16 @@ class GameManagerTest < Minitest::Test
 
   end
 
-  def test_count_of_games_by_season
+  def test_number_of_season_games
+    expected = {"20122013" => 20, "20122014" => 25}
 
+    assert_equal expected, @game_manager.number_of_season_games
   end
 
   def test_average_goals_per_game
+    expected = 4.5
 
+    assert_equal expected, @game_manager.average_goals_per_match
   end
 
   def test_average_goals_by_season
