@@ -5,9 +5,12 @@ class StatTrackerTest < Minitest::Test
 
   def setup
     @locations = {
-      games: './data/games_truncated.csv',
+      games: './data/games.csv',
       teams: './data/teams.csv',
-      game_teams: './data/game_teams_truncated.csv'
+      game_teams: './data/game_teams.csv'
+      # games: './data/games_truncated.csv',
+      # game_teams: './data/game_teams_truncated.csv'
+
     }
 
     @stat_tracker = StatTracker.from_csv(@locations)
@@ -57,6 +60,10 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_return_average_goals_per_game
     assert_equal 3.92, @stat_tracker.average_goals_per_game
+  end
+
+  def test_average_goals_by_season
+    assert_equal ({20122020=>12345}), @stat_tracker.average_goals_by_season
   end
 
   # def test_quick_counter
