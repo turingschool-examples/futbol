@@ -67,7 +67,12 @@ class GameManagerTest < Minitest::Test
     path = "./data/games.csv"
     game_manager = GamesManager.new(path)
 
-    assert_equal Hash, game_manager.count_of_games_by_season.class
-  end
+    expected = {
+                "20122013"=>806, "20162017"=>1317, "20142015"=>1319, 
+                "20152016"=>1321, "20132014"=>1323, "20172018"=>1355
+                }
 
+    assert_equal Hash, game_manager.count_of_games_by_season.class
+    assert_equal expected, game_manager.count_of_games_by_season
+  end
 end

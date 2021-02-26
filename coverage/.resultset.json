@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/kevinn/turing/futbol/lib/games_manager.rb": {
+      "/Users/mcg/turing/1module/Projects/futbol/lib/games_manager.rb": {
         "lines": [
           1,
           null,
@@ -57,22 +57,22 @@
           null,
           null,
           1,
-          1,
-          1,
-          7441,
-          6,
+          2,
+          2,
+          14882,
+          12,
           null,
-          7435,
+          14870,
           null,
           null,
-          1,
+          2,
           null,
           null,
           null,
           null
         ]
       },
-      "/Users/kevinn/turing/futbol/lib/game.rb": {
+      "/Users/mcg/turing/1module/Projects/futbol/lib/game.rb": {
         "lines": [
           1,
           1,
@@ -96,6 +96,6 @@
         ]
       }
     },
-    "timestamp": 1614312984
+    "timestamp": 1614314209
   }
 }
