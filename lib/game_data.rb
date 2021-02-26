@@ -39,4 +39,8 @@ class GameData
       game.winner == :visitor
     end
   end
+
+  def percentage_visitor_wins
+    ((visitor_wins_array.count).to_f / (@all_game_data.count)).round(2)
+  end
 end
