@@ -1,23 +1,16 @@
-require_relative 'game'
-require_relative 'data_loadable'
+require './lib/game'
+require './modules/data_loadable'
 
 class GameManager
+  include DataLoadable
 
   attr_reader :games
-  include DataLoadable
+
 
   def initialize(data)
     @games = load_data(data, Game)
   end
 
-  # def load_data(file_path)
-  #   csv = CSV.read(file_path, :headers => true,
-  #   header_converters: :symbol)
-  #     csv.map do |row|
-  #     Game.new(row)
-  #   end
-  # end
-  #
   def highest_scoring_game
     @games.max_by do |game|
       game.total_score
@@ -43,6 +36,7 @@ class GameManager
   end
 
   def calculate_percentage_home_wins
+<<<<<<< HEAD:lib/game_manager.rb
     ((home_wins.count.to_f / @games.count) * 100).round(2)
   end
 
@@ -97,6 +91,11 @@ class GameManager
     season_names_and_games
   end
 
+=======
+    # number of home wins / total number games
+    (home_wins.count.to_f / @games.count) * 100
+  end
+>>>>>>> main:manager/game_manager.rb
 
 
   # def highest_total_score

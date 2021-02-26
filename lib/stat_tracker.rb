@@ -1,6 +1,6 @@
-require_relative 'team_manager'
-require_relative 'game_team_manager'
-require_relative 'game_manager'
+require './manager/team_manager'
+require './manager/game_team_manager'
+require './manager/game_manager'
 
 class StatTracker
 
@@ -19,6 +19,7 @@ class StatTracker
     @game_manager.highest_scoring_game.total_score
   end
 
+<<<<<<< HEAD
   def lowest_total_score
     #        game object               tack on total_score
     @game_manager.lowest_scoring_game.total_score
@@ -44,6 +45,8 @@ class StatTracker
     @game_manager.average_goals_per_match
   end
 
+=======
+>>>>>>> main
 
   # def self.from_csv(locations)
   #   # require "pry";binding.pry
