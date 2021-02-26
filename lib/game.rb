@@ -1,8 +1,10 @@
 class Game
 
-  def initialize(data)
-    # @manager = manager
-    @data = data[:name]
+  attr_reader :data
+
+  def initialize(data, manager)
+    @manager = manager
+    @data = data
     # @away_team_id = data[:away_team_id]
   end
 end

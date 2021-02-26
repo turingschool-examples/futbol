@@ -23,8 +23,4 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, @stat_tracker_instance
   end
 
-  def test_it_can_create_hash_from_games
-    @stat_tracker_instance.games_hash
-    assert_instance_of Hash, @stat_tracker_instance.games_hash
-  end
 end
