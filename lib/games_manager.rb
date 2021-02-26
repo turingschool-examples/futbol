@@ -26,4 +26,46 @@ class GamesManager
       game.away_goals + game.home_goals
     end.min
   end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  def get_season_games(season)
+    season_games = @games.find_all do |game|
+      game.season == season
+    end
+    season_games_ids = season_games.map do |game|
+      game.season
+    end
+  end
+
+
 end
