@@ -32,9 +32,18 @@ class StatTracker
     @games.percentage_home_wins
   end
 
+  def percentage_visitor_wins
+    @games.percentage_visitor_wins
+  end
+
+  def percentage_ties
+    @games.percentage_ties
+  end
+
   def count_of_games_by_season
     @games.count_of_games_by_season
   end
+
   ###########################
 
   ###### Team Stats #########

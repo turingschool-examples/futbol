@@ -39,7 +39,7 @@ class GameManagerTest < Minitest::Test
     assert_equal 1, game_manager.lowest_total_score
   end
 
-  def test_percentage_home_wins_dummy_file  
+  def test_percentage_home_wins_dummy_file
     path = "./fixture/games_dummy15.csv"
     game_manager = GamesManager.new(path)
 
@@ -47,7 +47,23 @@ class GameManagerTest < Minitest::Test
     assert_equal 0.67, game_manager.percentage_home_wins
   end
 
-  def test_count_of_games_by_season
+  def test_percentage_visitor_wins_full_file
+    path = "./data/games.csv"
+    game_manager = GamesManager.new(path)
+
+    assert_equal Float, game_manager.percentage_visitor_wins.class
+    assert_equal 0.36, game_manager.percentage_visitor_wins
+  end
+
+  def test_percentage_ties_full_file
+    path = "./data/games.csv"
+    game_manager = GamesManager.new(path)
+
+    assert_equal Float, game_manager.percentage_ties.class
+    assert_equal 0.2, game_manager.percentage_ties
+  end
+
+  def test_count_of_games_by_season_full_file
     path = "./data/games.csv"
     game_manager = GamesManager.new(path)
 
