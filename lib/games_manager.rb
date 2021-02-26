@@ -17,13 +17,13 @@ class GamesManager
 
   def highest_total_score
     total_scores = games.map do |game|
-      game.away_goals + game.home_goals
+      game.away_goals + game.home_goals # potential helper method
     end.max
   end
 
   def lowest_total_score
     total_scores = games.map do |game|
-      game.away_goals + game.home_goals
+      game.away_goals + game.home_goals 
     end.min
   end
 
@@ -52,16 +52,60 @@ class GamesManager
   end
 
   def count_of_games_by_season
-    count = Hash.new
+    @games_in_season = Hash.new
     games.each do |game|
-      if count[game.season].nil?
-        count[game.season] = 1
+      if @games_in_season[game.season].nil?
+        @games_in_season[game.season] = 1
       else
-        count[game.season] += 1
+        @games_in_season[game.season] += 1
       end
     end
-    count
+    @games_in_season
   end
 
-  # require "pry"; binding.pry
+  def average_goals_per_game
+    total_goals = games.sum do |game|
+      game.away_goals + game.home_goals
+    end.to_f
+    (total_goals / games.count).round(2)
+  end
+  # make total goals an instance variable
+  def average_goals_by_season
+    goals = Hash.new
+    all_seasons = []
+    games.each do |game|
+      if goals[game.season].nil?
+        all_seasons << game.season
+        goals[game.season] = (game.away_goals + game.home_goals)
+      else
+        goals[game.season] += (game.away_goals + game.home_goals)
+      end
+    end
+    average = Hash.new
+    all_seasons.each do |season|
+      average[season] = (goals[season].to_f/@games_in_season[season]).round(2)
+    end
+    average
+    #total number of goals in a season /
+    #total number of games in a season
+
+    #make count from count games by season into instance variable
+    #nested iteration through both hashes to do the math one at a time
+
+    # goals_in_season = Hash.new
+    # test_hash = Hash.new(0)
+    # games.each do |game|
+    #   if goals_in_season[game.season].nil?
+    #     goals_in_season[game.season] = (game.away_goals + game.home_goals)
+    #   else
+    #     goals_in_season[game.season] += (game.away_goals + game.home_goals)
+    #   end
+    # end
+    # @games_in_season.each do |num_games|
+    #   goals_in_season.map do |num_goals|
+    #     test_hash[num_goals[0]] = num_goals[1] / num_games[1].to_f
+    #   end
+    # end
+  end
 end
+
