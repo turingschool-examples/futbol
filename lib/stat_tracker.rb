@@ -1,6 +1,6 @@
-require './lib/game'
-require './lib/team'
-require './lib/game_team'
+require_relative './game'
+require_relative './team'
+require_relative './game_team'
 require_relative 'csv_loadable'
 
 class StatTracker
