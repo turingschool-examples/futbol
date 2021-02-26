@@ -59,3 +59,14 @@ Additional Remote Considerations:
 Project management tools we will use (GitHub projects or Trello are popular tools):
 	* Trello is preferred 
 		* @ Klaudia or @wyatt
+
+
+Planning for the weekend: [Target EOD Sunday, but drop dead date EOD Monday]
+* team KAJ [game,season]
+ * 6pm Friday
+ * Sat 10AM
+ * Sunday 10AM (joey will be late)
+ * POMS do it
+ * Independent is OK
+* team RamRod [league,team]
+ * Independent work, divide the two method blocks	 
