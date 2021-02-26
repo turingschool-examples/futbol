@@ -20,7 +20,27 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_exists
-    assert_instance_of StatTracker, @stat_tracker_instance
+    games_manager = GamesManager.new(
+      @locations[:games],
+      StatTracker.from_csv(@locations)
+    )
+    assert_instance_of GamesManager, games_manager
   end
+
+  # def test_it_can_create_games
+  #   # skip
+  #   games_manager = GamesManager.new(
+  #     @locations[:games],
+  #     StatTracker.from_csv(@locations)
+  #   )
+  #   assert_equal [], games_manager.games
+  #   games_manager.create_games(@locations[:games])
+  #   assert_equal false, games_manager.games.empty?
+  # end
+
+
+
+
+
 
 end

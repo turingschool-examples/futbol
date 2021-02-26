@@ -1,11 +1,9 @@
-require 'simplecov'
+require 'CSV'
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/stat_tracker'
-# require './test/test_helper'
-require './lib/games_manager'
+require './lib/game'
 
-class StatTrackerTest < Minitest::Test
+class GameTest < Minitest::Test
   def setup
     @game_path = './dummy_data/games_dummy.csv'
     @team_path = './dummy_data/teams_dummy.csv'
@@ -15,12 +13,11 @@ class StatTrackerTest < Minitest::Test
       teams: @team_path,
       game_teams: @game_teams_path
     }
-    @stat_tracker_method = StatTracker.from_csv(@locations)
-    @stat_tracker_instance = StatTracker.new(@locations)
+  @fake_games_data = CSV.parse(File.read(@locations[:games]), headers: true)
   end
 
   def test_it_exists
-    assert_instance_of StatTracker, @stat_tracker_instance
+    game = Game.new(@fake_games_data[0])
+    assert_instance_of Game, game
   end
-
 end
