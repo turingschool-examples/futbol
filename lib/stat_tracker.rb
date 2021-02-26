@@ -20,7 +20,13 @@ class StatTracker
   end
 
   ####### Game Stats ########
+  def highest_total_score
+    @games.highest_total_score
+  end
 
+  def lowest_total_score
+    @games.lowest_total_score
+  end
   ###########################
 
   ###### Team Stats #########
