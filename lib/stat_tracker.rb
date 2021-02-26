@@ -89,6 +89,16 @@ class StatTracker
       # require 'pry'; binding.pry
   end
 
+  def average_goals_per_game
+    #Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)
+    total_goals = @games.sum do |game|
+                    game.away_goals + game.home_goals
+                  end
+    (total_goals/(@games.count.to_f)).round(2)
+    require 'pry'; binding.pry
+  end
+
+
   # def quick_count
   #   @games.count
   # end
