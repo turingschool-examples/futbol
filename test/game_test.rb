@@ -17,7 +17,7 @@ class GameTest < Minitest::Test
   end
 
   def test_it_exists_and_has_attributes
-    assert_instance_of Game, @game15
+    assert_instance_of Game, @game7
     assert_equal 2015030133, @game7.game_id
     assert_equal 20152016, @game7.season
     assert_equal "Postseason", @game7.type
@@ -32,5 +32,9 @@ class GameTest < Minitest::Test
 
   def test_total_goals
     assert_equal 5, @game7.total_goals
+  end
+
+  def test_winner
+    assert_equal :away, @game7.winner
   end
 end
