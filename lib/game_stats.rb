@@ -1,3 +1,4 @@
+require 'pry'
 class GameStats
     attr_reader :game_id,
                 :team_id,
