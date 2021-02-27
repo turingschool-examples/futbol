@@ -27,8 +27,8 @@ class GameTeamTestTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal 2012030221, @game_team.game_id
-    assert_equal 3, @game_team.team_id
+    assert_equal "2012030221", @game_team.game_id
+    assert_equal "3", @game_team.team_id
     assert_equal "away", @game_team.hoa
     assert_equal "LOSS", @game_team.result
     assert_equal "OT", @game_team.settled_in
