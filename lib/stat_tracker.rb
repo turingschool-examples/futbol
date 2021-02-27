@@ -59,6 +59,17 @@ class StatTracker
   ###########################
 
   ###### League Stats #######
+  def count_of_teams
+    @teams.count_of_teams
+  end
+
+  def best_offense
+    # something goes here
+  end
+
+  def worst_offense
+    # something here too....
+  end
 
   ###########################
 
