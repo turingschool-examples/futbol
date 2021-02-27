@@ -6,7 +6,7 @@ class GamesManager
   def initialize(data_path)
     @games = generate_list(data_path)
   end
-  
+
   def generate_list(data_path)
     list_of_data = []
     CSV.foreach(data_path, headers: true, header_converters: :symbol) do |row|
@@ -14,13 +14,13 @@ class GamesManager
     end
     list_of_data
   end
-  
+
   def home_and_away_goals_sum
     games.map do |game|
-      game.away_goals + game.home_goals 
+      game.away_goals + game.home_goals
     end
   end
-  
+
   def highest_total_score
     home_and_away_goals_sum.max
   end

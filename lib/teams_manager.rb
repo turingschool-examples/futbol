@@ -16,6 +16,10 @@ class TeamsManager
     list_of_data
   end
 
+  def count_of_teams #ask intructors if they want this
+    teams.uniq.count
+  end
+
   def get_names_hash
     team_names_hash = {}
     @teams.each do |team|
@@ -35,5 +39,4 @@ class TeamsManager
     # team.name
   #end
   end
-
 end
