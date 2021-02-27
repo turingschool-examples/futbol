@@ -1,7 +1,7 @@
 class GameStats
     attr_reader :game_id,
                 :team_id,
-                :HoA,
+                :hoa,
                 :result,
                 :settled_in,
                 :head_coach,
@@ -9,16 +9,16 @@ class GameStats
                 :shots,
                 :tackles,
                 :pim,
-                :powerPlayOpportunities,
-                :powerPlayGoals,
-                :faceOffWinPercentage,
+                :powerplayopportunities,
+                :powerplaygoals,
+                :faceoffwinpercentage,
                 :giveaways,
                 :takeaways
 
-    def initialize(data)
+    def initialize(data, parent)
       @game_id = data[:game_id]
       @team_id = data[:team_id]
-      @HoA = data[:HoA]
+      @hoa = data[:hoa]
       @result = data[:result]
       @settled_in = data[:settled_in]
       @head_coach = data[:head_coach]
@@ -26,10 +26,11 @@ class GameStats
       @shots = data[:shots]
       @tackles = data[:tackles]
       @pim = data[:pim]
-      @powerPlayOpportunities = data[:powerPlayOpportunities]
-      @powerPlayGoals = data[:powerPlayGoals]
-      @faceOffWinPercentage = data[:faceOffWinPercentage]
+      @powerplayopportunities = data[:powerplayopportunities]
+      @powerplaygoals = data[:powerplaygoals]
+      @faceoffwinpercentage = data[:faceoffwinpercentage]
       @giveaways = data[:giveaways]
       @takeaways = data[:takeaways]
+      @parent = parent
     end
   end
