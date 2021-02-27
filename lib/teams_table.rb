@@ -5,4 +5,6 @@ class TeamsTable
     @stat_tracker = stat_tracker
   end
 
+
+
 end
