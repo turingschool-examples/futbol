@@ -34,5 +34,6 @@ class GameTeam
     @faceOffWinPercentage = data[:faceOffWinPercentage]
     @giveaways = data[:giveaways]
     @takeaways = data[:takeaways]
+    require 'pry'; binding.pry
   end
 end
