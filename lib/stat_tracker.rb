@@ -32,226 +32,6 @@ class StatTracker
     highest_score
   end
 
-  # League Statistics
-  def count_of_teams
-    number_of_teams = team_data.map do |team|
-      team
-    end
-    number_of_teams.count
-  end
-
-  # Season Statistics
-  def most_tackles(season_id)
-    find_season = games_data.find_all do |game|
-      game[:season] == season_id
-    end
-
-    test_game_id = game_teams_data.find_all do |team|
-      find_season.each do |season_asdf|
-        team[:game_id] == season_asdf[:game_id]
-      end
-    end
-
-    result = test_game_id.max_by do |game_team|
-      game_team[:tackles]
-    end
-
-    name_result = team_data.find do |team|
-      team[:team_id] == result[:team_id]
-    end
-    name_result[:teamname]
-  end
-  # Team Statistics
-  # A hash with key/value pairs for the following attributes: team_id,
-  # franchise_id, team_name, abbreviation, and link
-  def team_info(team_id)
-    team_data_string_headers = CSV.parse(File.read('./data/teams.csv'), headers: true)
-    team_info = team_data_string_headers.find do |team|
-      # require "pry"; binding.pry
-      team["team_id"] == team_id
-    end
-
-    team_deets = team_info.to_h
-    team_deets.delete("Stadium")
-    team_deets["team_name"] = team_deets["teamName"]
-    team_deets.delete("teamName")
-    team_deets["franchise_id"] = team_deets["franchiseId"]
-    team_deets.delete("franchiseId")
-    team_deets
-  end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   def lowest_total_score
     lowest_score = 100
     games_data.each do |game|
@@ -262,7 +42,6 @@ class StatTracker
     end
     lowest_score
   end
-
 
   def percentage_home_wins
     number_home_wins = game_teams_data.find_all do |game|
@@ -287,4 +66,57 @@ class StatTracker
 
     (number_visitor_wins / all_games).round(2)
   end
+
+  def percentage_ties
+    (1 - (percentage_home_wins + percentage_visitor_wins)).round(2)
+  end
+
+  # League Statistics
+  def count_of_teams
+    number_of_teams = team_data.map do |team|
+      team
+    end
+    number_of_teams.count
+  end
+
+  # Season Statistics
+
+  # def most_tackles(season_id)
+  #   find_season = games_data.find_all do |game|
+  #     game[:season] == season_id
+  #   end
+  #
+  #   games_array = []
+  #   find_season.each do |season|
+  #     games_array << season[:game_id]
+  #   end
+  #
+  #   nuther_array = []
+  #   game_teams_data.each do |rows|
+  #     games_array.each do |id|
+  #       nuther_array << rows if rows[:game_id] == id
+  #     end
+  #   end
+  #   most_tackles = nuther_array.max_by {|rows| rows[:tackles]}
+  # end
+
+  # Team Statistics
+  # A hash with key/value pairs for the following attributes: team_id,
+  # franchise_id, team_name, abbreviation, and link
+  def team_info(team_id)
+    team_data_string_headers = CSV.parse(File.read('./data/teams.csv'), headers: true)
+    team_info = team_data_string_headers.find do |team|
+      # require "pry"; binding.pry
+      team["team_id"] == team_id
+    end
+
+    team_deets = team_info.to_h
+    team_deets.delete("Stadium")
+    team_deets["team_name"] = team_deets["teamName"]
+    team_deets.delete("teamName")
+    team_deets["franchise_id"] = team_deets["franchiseId"]
+    team_deets.delete("franchiseId")
+    team_deets
+  end
+
 end
