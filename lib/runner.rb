@@ -1,7 +1,7 @@
 require_relative './stat_tracker'
-require_relative './team_data'
-require_relative './game_data'
-require_relative './game_stats_data'
+require_relative './team_manager'
+require_relative './game_manager'
+require_relative './game_stats_manager'
 
 # game_path = './data/games.csv'
 # team_path = './data/teams.csv'

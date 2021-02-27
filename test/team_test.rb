@@ -13,12 +13,12 @@ class TeamTest < Minitest::Test
   end
 
   def test_it_exists_and_has_attributes
-    assert_instance_of Team, @rockets
-    assert_equal 4, @rockets.team_id
-    assert_equal 16, @rockets.franchiseID
-    assert_equal "Chicago Fire", @rockets.teamName
-    assert_equal "CHI", @rockets.abbreviation
-    assert_equal "SeatGeek Stadium", @rockets.stadium
-    assert_equal "/api/v1/teams/4", @rockets.link
+    assert_instance_of Team, @chi_fire
+    assert_equal 4, @chi_fire.team_id
+    assert_equal 16, @chi_fire.franchiseID
+    assert_equal "Chicago Fire", @chi_fire.teamName
+    assert_equal "CHI", @chi_fire.abbreviation
+    assert_equal "SeatGeek Stadium", @chi_fire.stadium
+    assert_equal "/api/v1/teams/4", @chi_fire.link
   end
 end
