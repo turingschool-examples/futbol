@@ -4,7 +4,7 @@ class GameTeamTest < Minitest::Test
   def setup
     @data =   { game_id: '2012030221',
               team_id: '3',
-              HoA: 'away',
+              hoa: 'away',
               result: 'LOSS',
               settled_in: 'OT',
               head_coach: 'John Tortorella',

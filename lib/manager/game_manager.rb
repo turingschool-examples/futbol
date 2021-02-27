@@ -73,15 +73,20 @@ class GameManager
   end
 
   def average_goals_by_season
-    # Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as values (rounded to the nearest 100th)
-    # Result: Hash
-    # average goals per game = total goals /
-    test = number_of_season_games
-    @games.each do |game|
-      # season_names_and_average_goals[game.season] = [] if  season_names_and_average_goals[game.season].nil?
-      test[game.season] = average_goals_per_match
+    games_by_season.transform_values! do |array|
+      avg = array.map do |game|
+        game.total_score
+      end.sum
+      (avg.to_f / array.length).round(2)
     end
-    test
-    require "pry"; binding.pry
+  end
+
+  def games_by_season
+    season_games = @games.reduce({}) do |hash, game|
+      hash[game.season] << game if hash[game.season]
+      hash[game.season] = [game] if hash[game.season].nil?
+      hash
+    end
+    season_games
   end
 end

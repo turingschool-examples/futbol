@@ -11,7 +11,6 @@ class StatTracker
 
   def initialize(locations)
     @game_manager = GameManager.new(locations[:games])
-    require "pry";binding.pry
   end
 
   def highest_total_score

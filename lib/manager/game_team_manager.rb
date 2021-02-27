@@ -7,6 +7,6 @@ class GameTeamManager
   attr_reader :game_teams
 
   def initialize(data)
-    @game_teams = load_data(data)
+    @game_teams = load_data(data, GameTeam)
   end
 end
