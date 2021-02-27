@@ -114,6 +114,7 @@ class StatTracker
   # def quick_count
   #   @games.count
   # end
+
   #League Statistics
 
     def count_of_teams
@@ -124,6 +125,31 @@ class StatTracker
       counter
     end
 
+    def best_offense
+    #Name of the team with the highest average number of goals scored per game across all seasons.
+      scores = Hash.new
+
+      @game_teams.each do |game_team|
+        if scores[game_team.team_id] == nil
+          scores[game_team.team_id] = []
+          scores[game_team.team_id] << game_team.goals
+        else
+          scores[game_team.team_id] << game_team.goals
+        end
+      end
+      data = Hash
+      # require 'pry'; binding.pry
+
+
+    #use teams, iterate over each team
+    #use games, iterate over each game
+    #count number of games each team plays
+    #collect the sum of goals based on team ID
+    #divide sum of goals by count of games
+    #return the average as result[teamID] = average
+    #look at values in result, pick the biggest one.
+    #convert team ID to name as string
+    end
 
 
   #Season Statistics

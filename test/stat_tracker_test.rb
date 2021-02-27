@@ -7,9 +7,9 @@ class StatTrackerTest < Minitest::Test
     @locations = {
       games: './data/games.csv',
       teams: './data/teams.csv',
-      game_teams: './data/game_teams.csv'
+      # game_teams: './data/game_teams.csv'
       # games: './data/games_truncated.csv',
-      # game_teams: './data/game_teams_truncated.csv'
+      game_teams: './data/game_teams_truncated.csv'
 
     }
 
@@ -74,6 +74,11 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_counts_teams
     assert_equal 32, @stat_tracker.count_of_teams
+  end
+
+  def test_best_offense
+    # require 'pry'; binding.pry
+    assert_equal 123, @stat_tracker.best_offense
   end
 
   #Season Statistics Tests
