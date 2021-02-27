@@ -10,9 +10,7 @@ class GameTeamTable
   end
 
   def winningest_coach(season)
-    # require "pry"; binding.pry
-
-    season = @stat_tracker.game_by_season[20122013].map do |season|
+    season = @stat_tracker.game_by_season[20132014].map do |season|
       season.game_id
     end
     #wins count / winnings seasons count
@@ -22,15 +20,8 @@ class GameTeamTable
       gameteam.game_id
     end
 
-    array = []
-    # one = ids == season
+    overlap = season & ids
+    require "pry"; binding.pry
 
-    if ids == season
-      array << one
-    end
-    # equal = ids.find_all do |gameid|
-    #   gameid == season if s
-    #   require "pry"; binding.pry
-    # end
   end
 end
