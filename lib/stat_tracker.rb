@@ -4,8 +4,6 @@ require_relative './game_team'
 require_relative 'csv_loadable'
 
 class StatTracker
-  #CSVloadable doesn't need to be a module because we're only using it in one place
-
   attr_reader :games,
               :teams,
               :game_teams
@@ -19,7 +17,6 @@ class StatTracker
 
   def initialize(game_teams_path, game_path, teams_path, csv_loadable = CsvLoadable.new)
     @games      = csv_loadable.load_csv_data(game_path, Game)
-    #can be stubbed because this is a method we didn't define in this class, it's included via module
     @teams      = csv_loadable.load_csv_data(teams_path, Team)
     @game_teams = csv_loadable.load_csv_data(game_teams_path, GameTeam)
   end
@@ -74,58 +71,41 @@ class StatTracker
   end
 
   def count_of_games_by_season
-    #	A hash with season names (e.g. 20122013) as keys and counts of games as values
     hash = Hash.new(0)
 
-     @games.each do |game|
+    @games.each do |game|
       hash[game.season.to_s] += 1
-     end
-     hash
+    end
+    hash
   end
 
   def count_goals
-    
-    #	A hash with season names (e.g. 20122013) as keys and counts of games as values
     hash = Hash.new(0)
 
-     @games.each do |game|
-         hash[game.season.to_s] += game.away_goals + game.home_goals
-        # require 'pry'; binding.pry
-      end
+    @games.each do |game|
+        hash[game.season.to_s] += game.away_goals + game.home_goals
+    end
      hash
    end
 
   def average_goals_per_game
-    #Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)
     total_goals = @games.sum do |game|
                     game.away_goals + game.home_goals
                   end
     (total_goals/(@games.count.to_f)).round(2)
-    # require 'pry'; binding.pry
   end
 
   def average_goals_by_season
-    #Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as values (rounded to the nearest 100th)
-    
-   #sort out each season
-   #calculate how many goals in each season
-   #calculate how many games are in each season
-   #divide number of goals by number of games
-   #make that number the value in the hash
     game_season_totals = count_of_games_by_season
     goal_totals = count_goals
     
     hash = Hash.new(0)
   
     @games.each do |game|
-      # require 'pry'; binding.pry
       hash[game.season.to_s] = (goal_totals[game.season.to_s].to_f/game_season_totals[game.season.to_s].to_f).round(2)
     end
     hash
   end
-  # def quick_count
-  #   @games.count
-  # end
 
   #League Statistics
 
