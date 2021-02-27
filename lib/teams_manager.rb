@@ -36,4 +36,24 @@ class TeamsManager
   #end
   end
 
+  def team_info(team_id)
+    # info = {}
+    desired_team = @teams.find do |team|
+      team.team_id == team_id
+    end
+    # info[:team_id] = desired_team.team_id
+    # info[:franchise_id] = desired_team.franchise_id
+    # info[:team_name] = desired_team.team_name
+    # info[:abbreviation] = desired_team.abbreviation
+    # info[:link] = desired_team.link
+    info = { :team_id => desired_team.team_id,
+             :franchise_id => desired_team.franchise_id,
+             :team_name => desired_team.team_name,
+             :abbreviation => desired_team.abbreviation,
+             :link => desired_team.link }
+    # info
+  end
+
+
+
 end

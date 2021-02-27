@@ -58,8 +58,6 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal [6, 20], game_team_manager.score_and_shots_by_team(game_ids)["6"]
   end
 
-
-
   def test_calculate_ratios
     path = "./fixture/game_teams_dummy15.csv"
     game_team_manager = GameTeamsManager.new(path)
@@ -87,4 +85,9 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "John Tortorella", game_team_manager.worst_coach(game_ids)
   end
 
+  def test_best_season
+    path = "./fixture/game_teams_dummy15.csv"
+    game_team_manager = GameTeamsManager.new(path)
+
+  end
 end

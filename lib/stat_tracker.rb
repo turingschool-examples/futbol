@@ -55,7 +55,14 @@ class StatTracker
   ###########################
 
   ###### Team Stats #########
+  
 
+  def best_season(team_id)
+    # all_team_games = @game_teams.get_list_of_games(team_id)
+    # all_team_games.each do |game|
+    #   game.game_id finds game.season_id
+    # end
+  end
   ###########################
 
   ###### League Stats #######
