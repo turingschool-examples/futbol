@@ -86,4 +86,46 @@ class GamesManager
       (goals/games.to_f).round(2)
     end
   end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  def get_season_games(season)
+    season_games = @games.find_all do |game|
+      game.season == season
+    end
+    season_games_ids = season_games.map do |game|
+      game.game_id
+    end
+  end
+
+
 end

@@ -6,7 +6,7 @@ class TeamsManagerTest < Minitest::Test
 
   def test_it_exists
 
-    path = "./fixture/games_dummy15.csv"
+    path = "./fixture/teams_dummy15.csv"
     team_manager = TeamsManager.new(path)
 
     assert_instance_of TeamsManager, team_manager
@@ -16,7 +16,7 @@ class TeamsManagerTest < Minitest::Test
 
     #CSV.stubs(:foreach).returns([])
 
-    path = "./fixture/games_dummy15.csv"
+    path = "./fixture/teams_dummy15.csv"
     team_manager = TeamsManager.new(path)
 
     assert_equal 15, team_manager.teams.length

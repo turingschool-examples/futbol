@@ -1,8 +1,8 @@
 require_relative './team'
-
+require 'CSV'
 
 class TeamsManager
-  attr_reader :data_path, :teams
+  attr_reader :teams
 
   def initialize(data_path)
     @teams = generate_list(data_path)
@@ -39,5 +39,4 @@ class TeamsManager
     # team.name
   #end
   end
-
 end

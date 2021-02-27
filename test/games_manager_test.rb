@@ -39,6 +39,17 @@ class GameManagerTest < Minitest::Test
     assert_equal 1, game_manager.lowest_total_score
   end
 
+  def test_get_season_games
+    path = "./fixture/games_dummy15.csv"
+    game_manager = GamesManager.new(path)
+
+    season_games = game_manager.get_season_games("20122013")
+
+    assert_equal 15, season_games.length
+    assert_instance_of String, season_games[0]
+    assert_instance_of String, season_games[-1]
+  end
+
   def test_percentage_home_wins_dummy_file
     path = "./fixture/games_dummy15.csv"
     game_manager = GamesManager.new(path)
@@ -68,10 +79,10 @@ class GameManagerTest < Minitest::Test
     game_manager = GamesManager.new(path)
 
     expected = {
-      "20122013"=>806, "20162017"=>1317, "20142015"=>1319,
-      "20152016"=>1321, "20132014"=>1323, "20172018"=>1355
-    }
-
+                "20122013"=>806, "20162017"=>1317, "20142015"=>1319, 
+                "20152016"=>1321, "20132014"=>1323, "20172018"=>1355
+                }
+    
     assert_equal Hash, game_manager.count_of_games_by_season.class
     assert_equal expected, game_manager.count_of_games_by_season
   end
