@@ -85,9 +85,10 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "John Tortorella", game_team_manager.worst_coach(game_ids)
   end
 
-  def test_best_season
-    path = "./fixture/game_teams_dummy15.csv"
-    game_team_manager = GameTeamsManager.new(path)
-
-  end
+  # def test_best_season
+  #   path = "./fixture/games_dummy15.csv"
+  #   game_team_manager = GameTeamsManager.new(path)
+  #
+  #   assert_equal Hash, game_team_manager.best_season("6").class
+  # end
 end

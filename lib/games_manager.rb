@@ -6,7 +6,7 @@ class GamesManager
   def initialize(data_path)
     @games = generate_list(data_path)
   end
-  
+
   def generate_list(data_path)
     list_of_data = []
     CSV.foreach(data_path, headers: true, header_converters: :symbol) do |row|
@@ -14,13 +14,13 @@ class GamesManager
     end
     list_of_data
   end
-  
+
   def home_and_away_goals_sum
     games.map do |game|
-      game.away_goals + game.home_goals 
+      game.away_goals + game.home_goals
     end
   end
-  
+
   def highest_total_score
     home_and_away_goals_sum.max
   end
@@ -87,36 +87,81 @@ class GamesManager
     end
   end
 
+  def get_season_results(team_id)
+    summary = {}
+    @games.each do |game|
+      if team_id == game.away_team_id || team_id == game.home_team_id
+        summary[game.season] = [] if summary[game.season].nil?
+        if team_id == game.home_team_id && game.home_goals > game.away_goals
+          result = "W"
+        elsif team_id == game.away_team_id && game.home_goals < game.away_goals
+          result = "W"
+        elsif game.home_goals == game.away_goals
+          result = "T"
+        else
+          result = "L"
+        end
+        summary[game.season] << result
+      end
+    end
+    summary
+  end
 
+  def best_season(team_id)
+    most = 0
+    best = nil
+    get_season_results(team_id).each do |key, value|   #refactor-able?
+      if value.count('W').to_f / value.size > most
+        most = value.count('W').to_f / value.size
+        best = key
+      end
+    end
+    best
+  end
 
+  def worst_season(team_id)
+    least = 1
+    worst = nil
+    get_season_results(team_id).each do |key, value|   #refactor-able?
+      if value.count('W').to_f / value.size < least
+        least = value.count('W').to_f / value.size
+        worst = key
+      end
+    end
+    worst
+  end
 
+  def average_win_percentage(team_id)
+    wins = 0
+    all = 0
+    get_season_results(team_id).each do |key, value|   #refactor-able?
+      wins += value.count("W")
+      all += value.count
+    end
+    (wins.to_f/all).round(2)    #leave as decimal to 0.00 like previous
+  end
 
+  def get_goals_scored(team_id)
+    scored = []
+    @games.each do |game|       #probably refactor-able
+      if team_id == game.away_team_id || team_id == game.home_team_id
+        if team_id == game.home_team_id
+          scored << game.home_goals
+        elsif team_id == game.away_team_id
+          scored << game.away_goals
+        end
+      end
+    end
+    scored
+  end
 
+  def most_goals_scored(team_id)
+    get_goals_scored(team_id).max_by {|score|score.to_i}
+  end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  def fewest_goals_scored(team_id)
+    get_goals_scored(team_id).min_by {|score|score.to_i}
+  end
 
   def get_season_games(season)
     season_games = @games.find_all do |game|
@@ -127,5 +172,5 @@ class GamesManager
     end
   end
 
-
+  # require "pry"; binding.pry
 end

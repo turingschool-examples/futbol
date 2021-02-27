@@ -38,7 +38,7 @@ class GameTeamsManager
     hash
   end
 
-  def score_ratios_hash(season_games_ids)
+  def score_ratios_hash(season_games_ids)   ##Refactor?: 'hash' to 'accuracy'
     hash = score_and_shots_by_team(season_games_ids)
     hash.each do |team_id, pair|
       ratio = calculate_ratios(pair)
@@ -51,7 +51,7 @@ class GameTeamsManager
     pair[0].to_f/pair[1].to_f
   end
 
-  def winningest_coach(season_games)
+  def winningest_coach(season_games)   ##Refactor?: change 'hash' to 'coach'
     hash = Hash.new { |hash, team| hash[team] = [0,0] }
     @game_teams.each do |game_team|
       if season_games.include?(game_team.game_id)
@@ -66,7 +66,7 @@ class GameTeamsManager
     hash.key(hash.values.max)
   end
 
-  def worst_coach(season_games)
+  def worst_coach(season_games)   ##Refactor?:  change 'hash' to 'coach'
     hash = Hash.new { |hash, team| hash[team] = [0,0] }
     @game_teams.each do |game_team|
       if season_games.include?(game_team.game_id)
@@ -80,5 +80,13 @@ class GameTeamsManager
     end
     hash.key(hash.values.min)
   end
+
+#PSUEDO  def best_season(team_id)
+#        METHOD.gets_season_id_games_csv(game_id)
+# @games.ea if @games.team_id == team_id
+#  'hash'     season[season_id] = [] if nil? & all_season << s_id
+#             season[season_id] << result
+# end          end                   gives {season_id: [W/L]}
+#
 
 end
