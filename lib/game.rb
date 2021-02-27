@@ -8,7 +8,8 @@ class Game
               :away_goals,
               :home_goals,
               :venue,
-              :venue_link
+              :venue_link,
+              :parent
 
   def initialize(data, parent)
     @game_id = data[:game_id]

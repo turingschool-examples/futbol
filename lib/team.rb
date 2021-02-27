@@ -5,7 +5,8 @@ class Team
               :teamName,
               :abbreviation,
               :Stadium,
-              :link
+              :link,
+              :parent
 
   def initialize(data, parent)
     @team_id = data[:team_id]

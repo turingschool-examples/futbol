@@ -13,7 +13,8 @@ class GameStats
                 :powerplaygoals,
                 :faceoffwinpercentage,
                 :giveaways,
-                :takeaways
+                :takeaways,
+                :parent
 
     def initialize(data, parent)
       @game_id = data[:game_id]

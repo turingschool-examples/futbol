@@ -9,7 +9,7 @@ class GameStatsManager
     # binding.pry
 
     CSV.foreach(locations, headers: true, header_converters: :symbol) do |row|
-      @all_game_stats << GameStats.new(row)
+      @all_game_stats << GameStats.new(row, self)
     end
   end
 

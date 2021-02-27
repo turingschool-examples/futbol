@@ -8,7 +8,7 @@ class TeamManager
     @stat_tracker = stat_tracker
 
     CSV.foreach(locations, headers: true, header_converters: :symbol) do |row|
-      @all_team_data << Team.new(row)
+      @all_team_data << Team.new(row, self)
     end
   end
 end
