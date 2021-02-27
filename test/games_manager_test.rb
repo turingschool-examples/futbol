@@ -79,8 +79,7 @@ class GameManagerTest < Minitest::Test
     game_manager = GamesManager.new(path)
 
     expected = {
-                "20122013"=>806, "20162017"=>1317, "20142015"=>1319,
-                "20152016"=>1321, "20132014"=>1323, "20172018"=>1355
+                "20122013"=>806, "20162017"=>1317, "20142015"=>1319, "20152016"=>1321, "20132014"=>1323, "20172018"=>1355
                 }
 
     assert_equal Hash, game_manager.count_of_games_by_season.class
@@ -145,6 +144,5 @@ class GameManagerTest < Minitest::Test
 
     assert_equal 0, game_manager.fewest_goals_scored('6')
   end
-
   # path = "./fixture/games_dummy15.csv"
 end

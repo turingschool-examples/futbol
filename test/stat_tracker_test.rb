@@ -105,40 +105,33 @@ class StatTrackerTest < Minitest::Test
 
   ###### Team Stats #########
 
-  def test_best_season
-    game_path = "./data/games.csv"
-    team_path = './fixture/teams_dummy15.csv'
-    game_team_path = './fixture/game_teams_dummy15.csv'
-    tracker = StatTracker.new(game_path, team_path, game_team_path)
-
-    assert_equal "", tracker.best_season("1")
-  end
-
   def test_team_info
     game_path = "./data/games.csv"
     team_path = './fixture/teams_dummy15.csv'
     game_team_path = './fixture/game_teams_dummy15.csv'
     tracker = StatTracker.new(game_path, team_path, game_team_path)
 
-    expected = {:team_id=>"1", :franchise_id=>"23", :team_name=>"Atlanta United", :abbreviation=>"ATL", :link=>"/api/v1/teams/1"}
+    expected = {"team_id"=>"1", "franchise_id"=>"23", "team_name"=>"Atlanta United", "abbreviation"=>"ATL", "link"=>"/api/v1/teams/1"}
 
     assert_equal expected, tracker.team_info("1")
   end
+
   def test_best_season
     game_path = "./data/games.csv"
     team_path = './fixture/teams_dummy15.csv'
     game_team_path = './fixture/game_teams_dummy15.csv'
     tracker = StatTracker.new(game_path, team_path, game_team_path)
 
-    assert_equal "", tracker.best_season("1")
+    assert_equal "20132014", tracker.best_season("6")
   end
+
   def test_worst_season
     game_path = "./data/games.csv"
     team_path = './fixture/teams_dummy15.csv'
     game_team_path = './fixture/game_teams_dummy15.csv'
     tracker = StatTracker.new(game_path, team_path, game_team_path)
 
-    assert_equal "", tracker.worst_season("1")
+    assert_equal  "20142015", tracker.worst_season("6")
   end
   def test_average_win_perentage
     game_path = "./data/games.csv"
@@ -146,15 +139,16 @@ class StatTrackerTest < Minitest::Test
     game_team_path = './fixture/game_teams_dummy15.csv'
     tracker = StatTracker.new(game_path, team_path, game_team_path)
 
-    assert_equal "", tracker.average_win_percentage("1")
+    assert_equal 0.49, tracker.average_win_percentage("6")
   end
+
   def test_most_goals_scored
     game_path = "./data/games.csv"
     team_path = './fixture/teams_dummy15.csv'
     game_team_path = './fixture/game_teams_dummy15.csv'
     tracker = StatTracker.new(game_path, team_path, game_team_path)
 
-  assert_equal "", tracker.most_goals_scored("1")
+  assert_equal 7, tracker.most_goals_scored("18")
   end
 
   def test_fewest_goals_scored
@@ -163,10 +157,11 @@ class StatTrackerTest < Minitest::Test
     game_team_path = './fixture/game_teams_dummy15.csv'
     tracker = StatTracker.new(game_path, team_path, game_team_path)
 
-    assert_equal "", tracker.fewest_goals_scored("1")
+    assert_equal 0, tracker.fewest_goals_scored("18")
   end
 
-
+  # assert_equal "DC United", tracker.favorite_opponent("18")
+  # assert_equal "Houston Dash", tracker.rival("18")
 
   ###########################
 
