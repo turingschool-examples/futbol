@@ -17,6 +17,12 @@ class GameTeamsManager
     list_of_data
   end
 
+  # def team_id_highest_average_goals_all
+  #   game_teams.each do |game|
+  #     require 'pry'; binding.pry
+  #   end
+  # end
+
   def get_team_tackle_hash(season_games_ids)
     team_tackles_totals = Hash.new(0)
     @game_teams.each do |game_team|
@@ -81,17 +87,6 @@ class GameTeamsManager
     hash.key(hash.values.min)
   end
 
-#PSUEDO  def best_season(team_id)
-#        METHOD.gets_season_id_games_csv(game_id)
-# @games.ea if @games.team_id == team_id
-#  'hash'     season[season_id] = [] if nil? & all_season << s_id
-#             season[season_id] << result
-# end          end                   gives {season_id: [W/L]}
-#
-
-
-
-
 #get_all_game_numbers_a_team_played_in
 #if game number == team_game.number && team_id != team_game.team_id
 # => if win, += 1 to hash wins, else += to hash total_games
@@ -99,6 +94,47 @@ class GameTeamsManager
 #analize the values to find the bigest/smallest
 #return key that associated with biggest or smallest value
 
+  def total_goals_by_team
+    goals_by_team_id = {}
+    game_teams.each do |game|
+      if goals_by_team_id[game.team_id].nil?
+        goals_by_team_id[game.team_id] = game.goals
+      else
+        goals_by_team_id[game.team_id] += game.goals
+      end
+    end
+    goals_by_team_id
+  end
 
+  def total_games_by_team
+    games_by_team_id = {}
+    game_teams.each do |game|
+      if games_by_team_id[game.team_id].nil?
+        games_by_team_id[game.team_id] = 1
+      else
+        games_by_team_id[game.team_id] += 1
+      end
+    end
+    games_by_team_id
+  end
 
+  def best_offense
+    averages = total_goals_by_team.merge(total_games_by_team) do |team_id, goals, games|
+      (goals/games.to_f).round(2)
+    end
+    average_max = averages.max_by do |team_id, average|
+      average
+    end
+     average_max[0]
+  end
+
+  def worst_offense
+    averages = total_goals_by_team.merge(total_games_by_team) do |team_id, goals, games|
+      (goals/games.to_f).round(2)
+    end
+    average_min = averages.min_by do |team_id, average|
+      average
+    end
+     average_min[0]
+  end
 end

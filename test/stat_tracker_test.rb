@@ -166,7 +166,32 @@ class StatTrackerTest < Minitest::Test
   ###########################
 
   ###### League Stats #######
+  def test_count_of_teams_full_file
+    game_path = './fixture/games_dummy15.csv'
+    team_path = './data/teams.csv'
+    game_team_path = './fixture/game_teams_dummy15.csv'
+    tracker = StatTracker.new(game_path, team_path, game_team_path)
 
+    assert_equal 32, tracker.count_of_teams
+  end
+
+  def test_best_offense_dummy_file
+    game_path = './fixture/games_dummy15.csv'
+    team_path = './fixture/teams_dummy15.csv'
+    game_team_path = './fixture/game_teams_dummy15.csv'
+    tracker = StatTracker.new(game_path, team_path, game_team_path)
+
+    assert_equal "FC Dallas", tracker.best_offense
+  end
+
+  def test_worst_offense_dummy_file
+    game_path = './fixture/games_dummy15.csv'
+    team_path = './fixture/teams_dummy15.csv'
+    game_team_path = './fixture/game_teams_dummy15.csv'
+    tracker = StatTracker.new(game_path, team_path, game_team_path)
+
+    assert_equal "Sporting Kansas City", tracker.worst_offense
+  end
   ###########################
 
   ###### Season Stats #######

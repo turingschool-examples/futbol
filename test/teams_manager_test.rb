@@ -1,6 +1,6 @@
 require './test/test_helper'
 require './lib/teams_manager'
-
+require 'CSV'
 
 class TeamsManagerTest < Minitest::Test
 
@@ -24,7 +24,13 @@ class TeamsManagerTest < Minitest::Test
     assert_instance_of Team, team_manager.teams[-1]
   end
 
+  def test_count_of_teams_full_file
+    path = "./data/teams.csv"
+    team_manager = TeamsManager.new(path)
 
+    assert_equal 32, team_manager.count_of_teams
+  end
+  
   def test_get_names_hash
     teams_manager = TeamsManager.new('./fixture/teams_dummy15.csv')
 

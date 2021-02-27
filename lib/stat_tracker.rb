@@ -84,6 +84,17 @@ class StatTracker
   ###########################
 
   ###### League Stats #######
+  def count_of_teams
+    @teams.count_of_teams
+  end
+
+  def best_offense
+    @teams.get_team_name(@game_teams.best_offense)
+  end
+
+  def worst_offense
+    @teams.get_team_name(@game_teams.worst_offense)
+  end
 
   ###########################
 
