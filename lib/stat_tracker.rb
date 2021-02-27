@@ -175,6 +175,34 @@ class StatTracker
       end
     end
 
+    def highest_scoring_visitor
+      #Name of the team with the highest average score per game across all seasons when they are away.
+      scores = Hash.new
+ 
+      @game_teams.each do |game_team|
+        if scores[game_team.team_id] == nil && game_team.hoa == "away"
+          scores[game_team.team_id] = []
+          scores[game_team.team_id] << game_team.goals
+          # require 'pry'; binding.pry
+        elsif game_team.hoa == "away"
+          scores[game_team.team_id] << game_team.goals
+        end
+      end
+      data = Hash[scores.map { |team_id, goals| [team_id, (goals.sum.to_f / goals.length.to_f).round(2)]} ]
+      #make highest average scores per geme (use above??) - away team
+      #get the name of the team
+      
+      teams_max = data.max_by {|team_id, average_goals| average_goals}
+      
+      @teams.find do |team|
+        if team.team_id == teams_max[0]
+          return team.teamname.to_s
+        end
+      end
+      
+
+    end
+
 
   #Season Statistics
 

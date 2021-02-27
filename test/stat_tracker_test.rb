@@ -88,6 +88,10 @@ class StatTrackerTest < Minitest::Test
     NEEDS TO BE MOCKED AND STUBBED
   end
 
+  def test_highest_scoring_visitor
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+  end
+
   #Season Statistics Tests
 
 
