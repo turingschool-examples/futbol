@@ -1,5 +1,5 @@
 require "minitest/autorun"
-require "minitest/pride"
+require "minitest/nyan_cat"
 require './lib/tables/game_table'
 require "./lib/instances/game"
 require './test/test_helper'
@@ -37,7 +37,7 @@ include CsvToHash
     assert_equal 0.20, @game_table.percentage_ties
   end
 
-  def test_count_of_games_by_season
+  def test_count_of_games_by_seasongt
     expected = {
       "20122013"=>806,
       "20162017"=>1317,
