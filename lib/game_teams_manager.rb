@@ -51,4 +51,34 @@ class GameTeamsManager
     pair[0].to_f/pair[1].to_f
   end
 
+  def winningest_coach(season_games)
+    hash = Hash.new { |hash, team| hash[team] = [0,0] }
+    @game_teams.each do |game_team|
+      if season_games.include?(game_team.game_id)
+        hash[game_team.head_coach][1] += 1
+        hash[game_team.head_coach][0] += 1 if game_team.result == "WIN"
+      end
+    end
+    hash.each do |team_id, pair|
+      ratio = calculate_ratios(pair)
+      hash[team_id] = ratio
+    end
+    hash.key(hash.values.max)
+  end
+
+  def worst_coach(season_games)
+    hash = Hash.new { |hash, team| hash[team] = [0,0] }
+    @game_teams.each do |game_team|
+      if season_games.include?(game_team.game_id)
+        hash[game_team.head_coach][1] += 1
+        hash[game_team.head_coach][0] += 1 if game_team.result == "WIN"
+      end
+    end
+    hash.each do |team_id, pair|
+      ratio = calculate_ratios(pair)
+      hash[team_id] = ratio
+    end
+    hash.key(hash.values.min)
+  end
+
 end

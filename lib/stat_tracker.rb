@@ -70,25 +70,14 @@ class StatTracker
   end
 
 
-  # def winninget_coach(season)
-  #   season_games = @games.get_season_games(season)
-  #   @game_teams.winningest_coach(season_games)
-    # def winningest_coach(season_games)
-    #   hash = Hash.new { |hash, team| hash[team] = [0,0] }
-    #   for game_team in list of all game_teams,
-    #     if season_games.include?(game_team.game_id)
-    #       hash[game_team.coach][1] += 1
-    #       if game_team.win == "win"
-    #         hash[game_team.coach][0] += 1
-    #       end
-    #      end
-    #    end
-    #    calculate_ratios() for every key value pair etc. etc etc
-    # end
-  #  convert team id into team name
-  # end
+  def winningest_coach(season)
+    # season_games = @games.get_season_games(season)
+    @game_teams.winningest_coach(@games.get_season_games(season))
+  end
 
+  def worst_coach(season)
+    # season_games = @games.get_season_games(season)
+    @game_teams.worst_coach(@games.get_season_games(season))
+  end
 
-
-  ###########################
 end
