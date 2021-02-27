@@ -129,80 +129,91 @@ class StatTracker
 
   #League Statistics
 
-    def count_of_teams
-      counter = 0
-      @teams.each do |team|
-        counter += 1
-      end
-      counter
+  def count_of_teams
+    counter = 0
+    @teams.each do |team|
+      counter += 1
     end
+    counter
+  end
 
-    def best_offense
-    #Name of the team with the highest average number of goals scored per game across all seasons.
-      data = calculate_average_scores
-      teams_max = data.max_by {|team_id, average_goals| average_goals}
-      
-      @teams.find do |team|
-        if team.team_id == teams_max[0]
-          return team.teamname.to_s
-        end
-      end
-     end
+  def best_offense
+    data = calculate_average_scores
+    team_max = data.max_by {|team_id, average_goals| average_goals}
+    
+    get_team_name(team_max)
+  end
      
-     def calculate_average_scores
-      scores = Hash.new
- 
-      @game_teams.each do |game_team|
-        if scores[game_team.team_id] == nil
-          scores[game_team.team_id] = []
-          scores[game_team.team_id] << game_team.goals
-        else
-          scores[game_team.team_id] << game_team.goals
-        end
-      end
-      data = Hash[scores.map { |team_id, goals| [team_id, (goals.sum.to_f / goals.length.to_f).round(2)]} ]
-     end
+  def worst_offense
+    data = calculate_average_scores
+    team_min = data.min_by {|team_id, average_goals| average_goals}
+    get_team_name(team_min)
+  end
 
-     def worst_offense
-    #Name of the team with the highest average number of goals scored per game across all seasons.
-      data = calculate_average_scores
-      teams_min = data.min_by {|team_id, average_goals| average_goals}
-      
-      @teams.find do |team|
-        if team.team_id == teams_min[0]
-          return team.teamname.to_s
-        end
+  def highest_scoring_visitor
+    data = calculate_home_or_away_average("away")
+
+    team_max = data.max_by {|team_id, average_goals| average_goals}
+    get_team_name(team_max)
+  end  
+
+  def lowest_scoring_visitor
+    data = calculate_home_or_away_average("away")
+
+    team_min = data.min_by {|team_id, average_goals| average_goals}
+    get_team_name(team_min)
+  end  
+
+  def highest_scoring_home_team
+    data = calculate_home_or_away_average("home")
+
+    team_max = data.max_by {|team_id, average_goals| average_goals}
+    get_team_name(team_max)
+  end  
+
+  def lowest_scoring_home_team
+    data = calculate_home_or_away_average("home")
+
+    team_min = data.min_by {|team_id, average_goals| average_goals}
+    get_team_name(team_min)
+  end 
+
+  #helper_methods
+  def calculate_home_or_away_average(status)
+    scores = Hash.new
+
+    @game_teams.each do |game_team|
+      if scores[game_team.team_id] == nil && game_team.hoa == status
+        scores[game_team.team_id] = []
+        scores[game_team.team_id] << game_team.goals
+      elsif game_team.hoa == status
+        scores[game_team.team_id] << game_team.goals
       end
     end
+    data = Hash[scores.map { |team_id, goals| [team_id, (goals.sum.to_f / goals.length.to_f.round(2))]} ]
+  end
 
-    def highest_scoring_visitor
-      #Name of the team with the highest average score per game across all seasons when they are away.
-      scores = Hash.new
- 
-      @game_teams.each do |game_team|
-        if scores[game_team.team_id] == nil && game_team.hoa == "away"
-          scores[game_team.team_id] = []
-          scores[game_team.team_id] << game_team.goals
-          # require 'pry'; binding.pry
-        elsif game_team.hoa == "away"
-          scores[game_team.team_id] << game_team.goals
-        end
-      end
-      data = Hash[scores.map { |team_id, goals| [team_id, (goals.sum.to_f / goals.length.to_f).round(2)]} ]
-      #make highest average scores per geme (use above??) - away team
-      #get the name of the team
-      
-      teams_max = data.max_by {|team_id, average_goals| average_goals}
-      
-      @teams.find do |team|
-        if team.team_id == teams_max[0]
-          return team.teamname.to_s
-        end
-      end
-      
+  def calculate_average_scores
+    scores = Hash.new
 
+    @game_teams.each do |game_team|
+      if scores[game_team.team_id] == nil
+        scores[game_team.team_id] = []
+        scores[game_team.team_id] << game_team.goals
+      else
+        scores[game_team.team_id] << game_team.goals
+      end
     end
+    data = Hash[scores.map { |team_id, goals| [team_id, (goals.sum.to_f / goals.length.to_f).round(2)]} ]
+  end
 
+  def get_team_name(team_data)
+     @teams.find do |team|
+      if team.team_id == team_data[0]
+        return team.teamname.to_s
+      end
+    end
+  end
 
   #Season Statistics
 

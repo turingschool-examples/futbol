@@ -55,20 +55,16 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_count_of_games_by_season
-    assert_equal ({20122013=>49}), @stat_tracker.count_of_games_by_season
+    assert_equal ({"20122013"=>806, "20162017"=>1317, "20142015"=>1319, "20152016"=>1321, "20132014"=>1323, "20172018"=>1355}), @stat_tracker.count_of_games_by_season
   end
 
   def test_it_can_return_average_goals_per_game
-    assert_equal 3.92, @stat_tracker.average_goals_per_game
+    assert_equal 4.22, @stat_tracker.average_goals_per_game
   end
 
   def test_average_goals_by_season
-    assert_equal ({20122020=>12345}), @stat_tracker.average_goals_by_season
+    assert_equal ({"20122013"=>4.12, "20162017"=>4.23, "20142015"=>4.14, "20152016"=>4.16, "20132014"=>4.19, "20172018"=>4.44}), @stat_tracker.average_goals_by_season
   end
-
-  # def test_quick_counter
-  #   assert_equal 49, @stat_tracker.quick_count
-  # end
 
   #League Statistics Tests
 
@@ -90,6 +86,18 @@ class StatTrackerTest < Minitest::Test
 
   def test_highest_scoring_visitor
     assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal "LA Galaxy", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_lowest_scoring_visitor
+    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_lowest_scoring_home_team
+    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_home_team
   end
 
   #Season Statistics Tests
