@@ -79,4 +79,212 @@ class StatTracker
     team_deets.delete("franchiseId")
     team_deets
   end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  def lowest_total_score
+    lowest_score = 100
+    games_data.each do |game|
+      sum = game[:home_goals].to_i + game[:away_goals].to_i
+      if sum < lowest_score
+        lowest_score = sum
+      end
+    end
+    lowest_score
+  end
+
+
+  def percentage_home_wins
+    number_home_wins = game_teams_data.find_all do |game|
+      (game[:hoa] == "home") && (game[:result] == "WIN")
+    end.size.to_f
+
+    all_games = games_data.find_all do |game|
+      game
+    end.size
+
+    (number_home_wins / all_games).round(2)
+  end
+
+  def percentage_visitor_wins
+    number_visitor_wins = game_teams_data.find_all do |game|
+      (game[:hoa] == "away") && (game[:result] == "WIN")
+    end.size.to_f
+
+    all_games = games_data.find_all do |game|
+      game
+    end.size
+
+    (number_visitor_wins / all_games).round(2)
+  end
 end
