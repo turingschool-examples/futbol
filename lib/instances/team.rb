@@ -1,5 +1,5 @@
-require './lib/tables/team_table'
-class Team 
+require_relative '../tables/team_table'
+class Team
   attr_reader :team_id,
               :franchiseid,
               :teamname,

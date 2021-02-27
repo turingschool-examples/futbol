@@ -1,7 +1,7 @@
 require 'csv'
-require 'active_support'
+#require 'active_support'
 
-class StatTracker 
+class StatTracker
   #include CsvToHash
   attr_reader :games, :game_teams, :teams
   def initialize
@@ -9,7 +9,6 @@ class StatTracker
     @games = GameTable.new('./data/games.csv')
     @game_teams = GameTeamTable.new('./data/game_teams.csv')
     @teams = TeamsTable.new('./data/teams.csv')
-    require 'pry'; binding.pry
   end
 
   def send_team_data(teams = '@teams')
@@ -23,5 +22,3 @@ class StatTracker
     @games.other_call(@teams)
   end
 end
-
-
