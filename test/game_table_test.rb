@@ -1,5 +1,5 @@
 require "minitest/autorun"
-require "minitest/nyan_cat"
+require "minitest/pride"
 require './lib/tables/game_table'
 require "./lib/instances/game"
 require './test/test_helper'
@@ -63,5 +63,5 @@ include CsvToHash
       "20172018"=>4.44
     }
     assert_equal expected, @game_table.average_goals_by_season
-  end 
+  end
 end

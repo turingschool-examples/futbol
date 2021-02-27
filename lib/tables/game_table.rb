@@ -3,8 +3,9 @@ require './lib/instances/game'
 class GameTable
   attr_reader :game_data, :stat_tracker
   include CsvToHash
-  def initialize(locations)
+  def initialize(locations, stat_tracker)
     @game_data = from_csv(locations, 'Game')
+    @stat_tracker = stat_tracker
   end
 
   def other_call(data)
@@ -84,9 +85,9 @@ class GameTable
     #Average number of goals scored in a game organized in a hash with season
     #names (e.g. 20122013) as keys and a float representing the average number
     #of goals in a game for that season as values (rounded to the nearest 100th)
-   
- 
-  
+
+
+
     games_by_season_hash = @game_data.group_by {|game| game.season}
     s1_count = games_by_season_hash[20122013].count
     s1_total_goals = games_by_season_hash[20122013].flat_map {|game| game.away_goals + game.home_goals}
@@ -111,7 +112,7 @@ class GameTable
     s6_count = games_by_season_hash[20172018].count
     s6_total_goals = games_by_season_hash[20172018].flat_map {|game| game.away_goals + game.home_goals}
     s6_average_goals_per_game = (s6_total_goals.sum.to_f / s6_count).round(2)
- 
+
 
     result = {
       "20122013"=> s1_average_goals_per_game,
@@ -122,4 +123,10 @@ class GameTable
       "20172018"=> s6_average_goals_per_game
     }
    end
+
+  def game_by_season
+    season = @game_data.group_by do |game|
+      game.season
+    end
+  end
 end
