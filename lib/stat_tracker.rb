@@ -139,8 +139,19 @@ class StatTracker
 
     def best_offense
     #Name of the team with the highest average number of goals scored per game across all seasons.
+      data = calculate_average_scores
+      teams_max = data.max_by {|team_id, average_goals| average_goals}
+      
+      @teams.find do |team|
+        if team.team_id == teams_max[0]
+          return team.teamname.to_s
+        end
+      end
+     end
+     
+     def calculate_average_scores
       scores = Hash.new
-
+ 
       @game_teams.each do |game_team|
         if scores[game_team.team_id] == nil
           scores[game_team.team_id] = []
@@ -150,24 +161,18 @@ class StatTracker
         end
       end
       data = Hash[scores.map { |team_id, goals| [team_id, (goals.sum.to_f / goals.length.to_f).round(2)]} ]
-      teams_max = data.max_by {|team_id, average_goals| average_goals}
+     end
+
+     def worst_offense
+    #Name of the team with the highest average number of goals scored per game across all seasons.
+      data = calculate_average_scores
+      teams_min = data.min_by {|team_id, average_goals| average_goals}
       
       @teams.find do |team|
-        if team.team_id == teams_max[0]
+        if team.team_id == teams_min[0]
           return team.teamname.to_s
         end
       end
-      # require 'pry'; binding.pry
-
-
-    #use teams, iterate over each team
-    #use games, iterate over each game
-    #count number of games each team plays
-    #collect the sum of goals based on team ID
-    #divide sum of goals by count of games
-    #return the average as result[teamID] = average
-    #look at values in result, pick the biggest one.
-    #convert team ID to name as string
     end
 
 

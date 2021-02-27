@@ -80,6 +80,14 @@ class StatTrackerTest < Minitest::Test
     assert_equal "FC Dallas", @stat_tracker.best_offense
   end
 
+  def test_worst_offense
+    assert_equal "Sporting Kansas City", @stat_tracker.worst_offense
+  end
+
+  def calculate_average_scores
+    NEEDS TO BE MOCKED AND STUBBED
+  end
+
   #Season Statistics Tests
 
 
