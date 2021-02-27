@@ -44,7 +44,7 @@ class GameTeamsManager
     hash
   end
 
-  def score_ratios_hash(season_games_ids)
+  def score_ratios_hash(season_games_ids)   ##Refactor?: 'hash' to 'accuracy'
     hash = score_and_shots_by_team(season_games_ids)
     hash.each do |team_id, pair|
       ratio = calculate_ratios(pair)
@@ -57,7 +57,7 @@ class GameTeamsManager
     pair[0].to_f/pair[1].to_f
   end
 
-  def winningest_coach(season_games)
+  def winningest_coach(season_games)   ##Refactor?: change 'hash' to 'coach'
     hash = Hash.new { |hash, team| hash[team] = [0,0] }
     @game_teams.each do |game_team|
       if season_games.include?(game_team.game_id)
@@ -72,7 +72,7 @@ class GameTeamsManager
     hash.key(hash.values.max)
   end
 
-  def worst_coach(season_games)
+  def worst_coach(season_games)   ##Refactor?:  change 'hash' to 'coach'
     hash = Hash.new { |hash, team| hash[team] = [0,0] }
     @game_teams.each do |game_team|
       if season_games.include?(game_team.game_id)
@@ -86,6 +86,13 @@ class GameTeamsManager
     end
     hash.key(hash.values.min)
   end
+
+#get_all_game_numbers_a_team_played_in
+#if game number == team_game.number && team_id != team_game.team_id
+# => if win, += 1 to hash wins, else += to hash total_games
+#analize the hash numbers, to get a hash with ratios
+#analize the values to find the bigest/smallest
+#return key that associated with biggest or smallest value
 
   def total_goals_by_team
     goals_by_team_id = {}

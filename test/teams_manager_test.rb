@@ -51,4 +51,13 @@ class TeamsManagerTest < Minitest::Test
     assert_equal "Orlando City SC", teams_manager.get_team_name("30")
   end
 
+  def test_team_info
+    teams_manager = TeamsManager.new('./data/teams.csv')
+
+    expected = {"team_id" => "1", "franchise_id" => "23",
+                "team_name" => "Atlanta United",         "abbreviation" => "ATL", "link" => "/api/v1/teams/1"}
+
+    assert_equal expected, teams_manager.team_info("1")
+  end
+
 end
