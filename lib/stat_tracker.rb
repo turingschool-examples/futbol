@@ -27,6 +27,31 @@ class StatTracker
   def lowest_total_score
     @games.lowest_total_score
   end
+
+  def percentage_home_wins
+    @games.percentage_home_wins
+  end
+
+  def percentage_visitor_wins
+    @games.percentage_visitor_wins
+  end
+
+  def percentage_ties
+    @games.percentage_ties
+  end
+
+  def count_of_games_by_season
+    @games.count_of_games_by_season
+  end
+
+  def average_goals_per_game
+    @games.average_goals_per_game
+  end
+
+  def average_goals_by_season
+    @games.average_goals_by_season
+  end
+
   ###########################
 
   ###### Team Stats #########
@@ -44,7 +69,6 @@ class StatTracker
     tackle_hash = @game_teams.get_team_tackle_hash(season_games)
     team_id = tackle_hash.key(tackle_hash.values.max)
     @teams.get_team_name(team_id)
-  #  require 'pry' ; binding.pry
   end
 
   def fewest_tackles(season)
@@ -52,7 +76,6 @@ class StatTracker
     tackle_hash = @game_teams.get_team_tackle_hash(season_games)
     team_id = tackle_hash.key(tackle_hash.values.min)
     @teams.get_team_name(team_id)
-
   end
 
   def most_accurate_team(season)
@@ -69,15 +92,14 @@ class StatTracker
     @teams.get_team_name(team_id)
   end
 
-
   def winningest_coach(season)
-    # season_games = @games.get_season_games(season)
     @game_teams.winningest_coach(@games.get_season_games(season))
   end
 
   def worst_coach(season)
-    # season_games = @games.get_season_games(season)
     @game_teams.worst_coach(@games.get_season_games(season))
   end
+
+  ###########################
 
 end
