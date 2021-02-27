@@ -10,7 +10,7 @@ class Game
               :venue,
               :venue_link
 
-  def initialize(data)
+  def initialize(data, parent)
     @game_id = data[:game_id]
     @season = data[:season]
     @type = data[:type]
@@ -21,13 +21,12 @@ class Game
     @home_goals = data[:home_goals].to_i
     @venue = data[:venue]
     @venue_link = data[:venue_link]
+    @parent = parent
   end
 
   def total_goals
     @away_goals + @home_goals
   end
-
-  # add methods as much as possible
 
   def winner
     if @home_goals > @away_goals
