@@ -43,12 +43,13 @@ class GameManagerTest < Minitest::Test
   end
 
   def test_average_goals_per_game
+    skip
     expected = 4.5
 
     assert_equal expected, @game_manager.average_goals_per_match
   end
 
   def test_average_goals_by_season
-
+  @game_manager.average_goals_by_season
   end
 end

@@ -59,7 +59,6 @@ class GameManager
          season_names_and_games[game.season] = 1
       else
          season_names_and_games[game.season] += 1
-
       end
     end
     season_names_and_games
@@ -77,15 +76,12 @@ class GameManager
     # Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as values (rounded to the nearest 100th)
     # Result: Hash
     # average goals per game = total goals /
-    season_names_and_average_goals = {}
-    average_goals_per_match
+    test = number_of_season_games
     @games.each do |game|
-      if season_names_and_average_goals[game.season].nil?
-         season_names_and_average_goals[game.season] = 1
-      else
-         season_names_and_average_goals[game.season] += 1
-      end
+      # season_names_and_average_goals[game.season] = [] if  season_names_and_average_goals[game.season].nil?
+      test[game.season] = average_goals_per_match
     end
-    season_names_and_games
+    test
+    require "pry"; binding.pry
   end
 end
