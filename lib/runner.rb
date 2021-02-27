@@ -3,9 +3,13 @@ require_relative './team_data'
 require_relative './game_data'
 require_relative './game_stats_data'
 
-game_path = './data/games.csv'
+# game_path = './data/games.csv'
+# team_path = './data/teams.csv'
+# game_stats_path = './data/game_stats.csv'
+
+game_path = 'data/fixture/games_dummy.csv'
 team_path = './data/teams.csv'
-game_stats_path = './data/game_stats.csv'
+game_stats_path = 'data/fixture/game_stats_dummy.csv'
 
 locations = {
   games: game_path,

@@ -2,13 +2,9 @@ require './test/test_helper'
 
 class GameDataTest < Minitest::Test
   def setup
-    @game_path = './test/games_dummy.csv'
-
-    locations = {
-      games: @game_path
-    }
-
-    @stat_tracker = mock
+    def self.from_csv(locations)
+      StatTracker.new(locations)
+    end
 
     @game_data = GameData.new(locations[:games], @stat_tracker)
   end

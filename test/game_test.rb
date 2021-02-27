@@ -24,6 +24,6 @@ class GameTest < Minitest::Test
   end
 
   def test_winner
-    assert_equal :away, @game7.winner
+    assert_equal :away, @game.winner
   end
 end
