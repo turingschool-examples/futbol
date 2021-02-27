@@ -15,12 +15,29 @@ class StatTrackerTest < Minitest::Test
       teams: @team_path,
       game_teams: @game_teams_path
     }
-    @stat_tracker_method = StatTracker.from_csv(@locations)
-    @stat_tracker_instance = StatTracker.new(@locations)
+    @stat_tracker = StatTracker.from_csv(@locations)
+    # @stat_tracker_instance = StatTracker.new(@locations)
   end
 
   def test_it_exists
-    assert_instance_of StatTracker, @stat_tracker_instance
+    # skip
+    assert_instance_of StatTracker, @stat_tracker
+  end
+
+  # Game Statistics Tests
+  def test_it_can_find_highest_score
+    # stat_tracker = StatTracker.from_csv(@locations)
+    assert_equal 5, @stat_tracker.highest_total_score
+  end
+
+  #League Statistics Tests
+  def test_it_can_count_number_of_teams
+    # skip
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+
+  def test_it_can_name_team_with_most_tackles
+    assert_equal "FC Dallas", @stat_tracker.most_tackles
   end
 
 end
