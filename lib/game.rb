@@ -1,11 +1,12 @@
 class Game
   attr_reader :game_id,
               :away_goals,
-              :home_goals
+              :home_goals,
+              :season
 
   def initialize(raw_data)
     @game_id = raw_data[:game_id]
-    # @season = raw_data[:season]
+    @season = raw_data[:season]
     # @type = raw_data[:type]
     # @date_time = raw_data[:date_time]
     # @away_team_id = raw_data[:away_team_id]

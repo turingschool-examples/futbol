@@ -27,6 +27,31 @@ class StatTracker
   def lowest_total_score
     @games.lowest_total_score
   end
+
+  def percentage_home_wins
+    @games.percentage_home_wins
+  end
+
+  def percentage_visitor_wins
+    @games.percentage_visitor_wins
+  end
+
+  def percentage_ties
+    @games.percentage_ties
+  end
+
+  def count_of_games_by_season
+    @games.count_of_games_by_season
+  end
+
+  def average_goals_per_game
+    @games.average_goals_per_game
+  end
+
+  def average_goals_by_season
+    @games.average_goals_by_season
+  end
+
   ###########################
 
   ###### Team Stats #########
@@ -40,4 +65,4 @@ class StatTracker
   ###### Season Stats #######
 
   ###########################
-end 
+end
