@@ -70,7 +70,18 @@ class StatTracker
     readable_percent = percent.round(2)
   end
 
-  def count_of_goals_by_season
+  def count_of_games_by_season
+    #	A hash with season names (e.g. 20122013) as keys and counts of games as values
+    hash = Hash.new(0)
+
+     @games.each do |game|
+      hash[game.season.to_s] += 1
+     end
+     hash
+  end
+
+  def count_goals
+    
     #	A hash with season names (e.g. 20122013) as keys and counts of games as values
     hash = Hash.new(0)
 
@@ -99,7 +110,8 @@ class StatTracker
    #divide number of goals by number of games
    #make that number the value in the hash
     game_season_totals = count_of_games_by_season
-    goal_totals = count_of_goals_by_season
+    goal_totals = count_goals
+    
     hash = Hash.new(0)
 
     @games.each do |game|
@@ -111,6 +123,7 @@ class StatTracker
   # def quick_count
   #   @games.count
   # end
+
   #League Statistics
 
   def count_of_teams
@@ -121,7 +134,82 @@ class StatTracker
     counter
   end
 
+  def best_offense
+    data = calculate_average_scores
+    team_max = data.max_by {|team_id, average_goals| average_goals}
+    
+    get_team_name(team_max)
+  end
+     
+  def worst_offense
+    data = calculate_average_scores
+    team_min = data.min_by {|team_id, average_goals| average_goals}
+    get_team_name(team_min)
+  end
 
+  def highest_scoring_visitor
+    data = calculate_home_or_away_average("away")
+
+    team_max = data.max_by {|team_id, average_goals| average_goals}
+    get_team_name(team_max)
+  end  
+
+  def lowest_scoring_visitor
+    data = calculate_home_or_away_average("away")
+
+    team_min = data.min_by {|team_id, average_goals| average_goals}
+    get_team_name(team_min)
+  end  
+
+  def highest_scoring_home_team
+    data = calculate_home_or_away_average("home")
+
+    team_max = data.max_by {|team_id, average_goals| average_goals}
+    get_team_name(team_max)
+  end  
+
+  def lowest_scoring_home_team
+    data = calculate_home_or_away_average("home")
+
+    team_min = data.min_by {|team_id, average_goals| average_goals}
+    get_team_name(team_min)
+  end 
+
+  #helper_methods
+  def calculate_home_or_away_average(status)
+    scores = Hash.new
+
+    @game_teams.each do |game_team|
+      if scores[game_team.team_id] == nil && game_team.hoa == status
+        scores[game_team.team_id] = []
+        scores[game_team.team_id] << game_team.goals
+      elsif game_team.hoa == status
+        scores[game_team.team_id] << game_team.goals
+      end
+    end
+    data = Hash[scores.map { |team_id, goals| [team_id, (goals.sum.to_f / goals.length.to_f.round(2))]} ]
+  end
+
+  def calculate_average_scores
+    scores = Hash.new
+    @game_teams.each do |game_team|
+      if scores[game_team.team_id] == nil
+        scores[game_team.team_id] = []
+        scores[game_team.team_id] << game_team.goals
+      else
+        scores[game_team.team_id] << game_team.goals
+      end
+    end
+    data = Hash[scores.map { |team_id, goals| [team_id, (goals.sum.to_f / goals.length.to_f).round(2)]} ]
+  end
+
+  def get_team_name(team_data)
+     @teams.find do |team|
+      if team.team_id == team_data[0]
+        return team.teamname.to_s
+      end
+    end
+  end
 
   #Season Statistics
 
