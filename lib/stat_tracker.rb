@@ -73,7 +73,8 @@ class StatTracker
     readable_percent = (percent * 100).round(2)
   end
 
-  def count_of_goals_by_season
+  def count_goals
+    
     #	A hash with season names (e.g. 20122013) as keys and counts of games as values
     hash = Hash.new(0)
 
@@ -102,7 +103,8 @@ class StatTracker
    #divide number of goals by number of games
    #make that number the value in the hash
     game_season_totals = count_of_games_by_season
-    goal_totals = count_of_goals_by_season
+    goal_totals = count_goals
+    
     hash = Hash.new(0)
   
     @games.each do |game|
@@ -137,8 +139,14 @@ class StatTracker
           scores[game_team.team_id] << game_team.goals
         end
       end
-      data = Hash[scores.map { |team_id, goals| [team_id, (goals.sum.to_f / goals.length.to_f)]} ]
-      data
+      data = Hash[scores.map { |team_id, goals| [team_id, (goals.sum.to_f / goals.length.to_f).round(2)]} ]
+      teams_max = data.max_by {|team_id, average_goals| average_goals}
+      
+      @teams.find do |team|
+        if team.team_id == teams_max[0]
+          return team.teamname.to_s
+        end
+      end
       # require 'pry'; binding.pry
 
 

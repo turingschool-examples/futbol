@@ -77,8 +77,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_best_offense
-    # require 'pry'; binding.pry
-    assert_equal 123, @stat_tracker.best_offense
+    assert_equal "FC Dallas", @stat_tracker.best_offense
   end
 
   #Season Statistics Tests
