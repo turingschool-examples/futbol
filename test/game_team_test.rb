@@ -21,7 +21,7 @@ class GameTeamTest < MiniTest::Test
     # assert_equal "John Tortorella", game_team.head_coach
     # assert_equal 2, game_team.goals
     # assert_equal 8, game_team.shots
-    # assert_equal 44, game_team.tackles
+    assert_equal 44, game_team.tackles
     # assert_equal 8, game_team.pim
     # assert_equal 3, game_team.power_play_opportunities
     # assert_equal 0, game_team.power_play_goals

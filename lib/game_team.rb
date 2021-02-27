@@ -1,17 +1,18 @@
 
 class GameTeam
-  attr_reader :game_id, :team_id 
+  attr_reader :game_id, :team_id, :tackles, :goals,
+              :shots, :result, :head_coach
 
    def initialize(raw_data)
     @game_id = raw_data[:game_id]
-    @team_id = raw_data[:team_id]
+    @team_id = raw_data[:team_id].strip
     # @home_or_away = raw_data[:hoa]
-    # @result = raw_data[:result]
+    @result = raw_data[:result]
     # @settled_in = raw_data[:settled_in]
-    # @head_coach = raw_data[:head_coach]
-    # @goals = raw_data[:goals].to_i
-    # @shots = raw_data[:shots].to_i
-    # @tackles = raw_data[:tackles].to_i
+    @head_coach = raw_data[:head_coach]
+    @goals = raw_data[:goals].to_i
+    @shots = raw_data[:shots].to_i
+    @tackles = raw_data[:tackles].to_i
     # @pim = raw_data[:pim].to_i
     # @power_play_opportunities = raw_data[:powerplayopportunities].to_i
     # @power_play_goals = raw_data[:powerplaygoals].to_i
