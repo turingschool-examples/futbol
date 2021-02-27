@@ -1,16 +1,16 @@
 require './test/test_helper'
 
-class GameDataTest < Minitest::Test
+class GameManagerTest < Minitest::Test
   def setup
     def self.from_csv(locations)
       StatTracker.new(locations)
     end
 
-    @game_data = GameData.new(locations[:games], @stat_tracker)
+    @game_data = GameManager.new(locations[:games], @stat_tracker)
   end
 
   def test_it_exists
-    assert_instance_of GameData, @game_data
+    assert_instance_of GameManager, @game_data
     assert mock, @stat_tracker
   end
 
