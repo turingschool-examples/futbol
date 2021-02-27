@@ -73,6 +73,16 @@ class StatTracker
     readable_percent = (percent * 100).round(2)
   end
 
+  def count_of_games_by_season
+    #	A hash with season names (e.g. 20122013) as keys and counts of games as values
+    hash = Hash.new(0)
+
+     @games.each do |game|
+      hash[game.season.to_s] += 1
+     end
+     hash
+  end
+
   def count_goals
     
     #	A hash with season names (e.g. 20122013) as keys and counts of games as values
