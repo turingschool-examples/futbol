@@ -5,14 +5,13 @@ class StatTrackerTest < Minitest::Test
 
   def setup
     @locations = {
-      games: './data/games.csv',
+      # games: './data/games.csv',
+      # teams: './data/teams.csv',
+      # game_teams: './data/game_teams.csv'
+      games: './data/games_truncated.csv',
+      game_teams: './data/game_teams_truncated.csv',
       teams: './data/teams.csv',
-      game_teams: './data/game_teams.csv'
-      # games: './data/games_truncated.csv',
-      # game_teams: './data/game_teams_truncated.csv'
-
     }
-
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
@@ -21,8 +20,8 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    skip
-    assert_equal @games, @stat_tracker.games
+    @stat_tracker.stubs(:games).returns("Games Array")
+    assert_equal "Games Array", @stat_tracker.games
   end
 
   #Game Statistics Tests
@@ -35,34 +34,42 @@ class StatTrackerTest < Minitest::Test
     array1 = ["1", "2", "3"]
     array2 = ["3", "4", "5", "6", "7", "8", "9"]
 
-    assert_equal 42.86, @stat_tracker.percentage(array1, array2)
+    assert_equal 0.43, @stat_tracker.percentage(array1, array2)
   end
 
   def test_lowest_total_score
+
     assert_equal 1, @stat_tracker.lowest_total_score
   end
 
   def test_percentage_home_wins
-    assert_equal 53.85, @stat_tracker.percentage_home_wins
+
+    assert_equal 0.54, @stat_tracker.percentage_home_wins
   end
 
   def test_percentage_visitor_wins
-    assert_equal 41.67, @stat_tracker.percentage_visitor_wins
+
+    assert_equal 0.42, @stat_tracker.percentage_visitor_wins
   end
 
   def test_percentage_ties #added one "TIE" result to truncated_data
-    assert_equal 4.0, @stat_tracker.percentage_ties
+
+    assert_equal 0.04, @stat_tracker.percentage_ties
   end
 
   def test_count_of_games_by_season
+    skip
+
     assert_equal ({20122013=>49}), @stat_tracker.count_of_games_by_season
   end
 
   def test_it_can_return_average_goals_per_game
+    skip
     assert_equal 3.92, @stat_tracker.average_goals_per_game
   end
 
   def test_average_goals_by_season
+    skip
     assert_equal ({20122020=>12345}), @stat_tracker.average_goals_by_season
   end
 
@@ -73,14 +80,16 @@ class StatTrackerTest < Minitest::Test
   #League Statistics Tests
 
   def test_it_counts_teams
+    skip
     assert_equal 32, @stat_tracker.count_of_teams
   end
 
   #Season Statistics Tests
 
-
   #Team Statistics Tests
-
+  def test_winningest_coach_best_win_percentage_for_season
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach(20122013)
+  end
 
   def test_highest_total_score
     skip
