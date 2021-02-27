@@ -22,7 +22,7 @@ class GameTeamsManager
   #     require 'pry'; binding.pry
   #   end
   # end
-  
+
   def get_team_tackle_hash(season_games_ids)
     team_tackles_totals = Hash.new(0)
     @game_teams.each do |game_team|
@@ -97,5 +97,37 @@ class GameTeamsManager
       end
     end
     goals_by_team_id
+  end
+
+  def total_games_by_team
+    games_by_team_id = {}
+    game_teams.each do |game|
+      if games_by_team_id[game.team_id].nil?
+        games_by_team_id[game.team_id] = 1
+      else
+        games_by_team_id[game.team_id] += 1
+      end
+    end
+    games_by_team_id
+  end
+
+  def best_offense
+    averages = total_goals_by_team.merge(total_games_by_team) do |team_id, goals, games|
+      (goals/games.to_f).round(2)
+    end
+    average_max = averages.max_by do |team_id, average|
+      average
+    end
+     average_max[0]
+  end
+
+  def worst_offense
+    averages = total_goals_by_team.merge(total_games_by_team) do |team_id, goals, games|
+      (goals/games.to_f).round(2)
+    end
+    average_min = averages.min_by do |team_id, average|
+      average
+    end
+     average_min[0]
   end
 end
