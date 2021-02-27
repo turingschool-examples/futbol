@@ -4,16 +4,18 @@ require_relative './team_data'
 require_relative './game_stats_data'
 require 'pry'
 
-class StatTracker # < MethodsClass?
+class StatTracker
 
-  def self.from_csv(locations)
-    StatTracker.new(locations)
-  end
+  attr_reader :game_data, :team_data, :game_stats
 
   def initialize(locations)
     @game_data = GameData.new(locations[:games], self)
     @team_data = TeamData.new(locations[:teams], self)
     @game_stats = GameStatsData.new(locations[:game_stats], self)
+  end
+
+  def self.from_csv(locations)
+    StatTracker.new(locations)
   end
 
   def highest_total_score

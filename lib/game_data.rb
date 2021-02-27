@@ -8,7 +8,7 @@ class GameData
     @stat_tracker = stat_tracker
 
     CSV.foreach(locations, headers: true, header_converters: :symbol) do |row|
-      @all_game_data << Game.new(row)
+      @all_game_data << Game.new(row, self)
     end
   end
 
@@ -70,6 +70,4 @@ class GameData
     by_season = make_game_ids_by_season_hash
     by_season.each { |key, value| by_season[key] = value.count }
   end
-
-
 end
