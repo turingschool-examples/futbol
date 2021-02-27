@@ -2,6 +2,7 @@ require_relative './game'
 require_relative './team'
 require_relative './game_team'
 require_relative 'csv_loadable'
+require_relative './games_manager'
 
 class StatTracker
   attr_reader :games,
@@ -24,17 +25,11 @@ class StatTracker
   #Game Statistics
 
   def highest_total_score
-    scores = @games.max_by do |game|
-      game.total_goals
-    end
-    scores.total_goals
+    GamesManager.highest_total_score(@games)
   end
 
   def lowest_total_score
-    scores = @games.min_by do |game|
-      game.total_goals
-    end
-    scores.total_goals
+    GamesManager.lowest_total_score(@games)
   end
 
   def percentage_home_wins
@@ -81,7 +76,7 @@ class StatTracker
   end
 
   def count_goals
-    
+
     #	A hash with season names (e.g. 20122013) as keys and counts of games as values
     hash = Hash.new(0)
 
@@ -111,7 +106,7 @@ class StatTracker
    #make that number the value in the hash
     game_season_totals = count_of_games_by_season
     goal_totals = count_goals
-    
+
     hash = Hash.new(0)
 
     @games.each do |game|
@@ -137,10 +132,10 @@ class StatTracker
   def best_offense
     data = calculate_average_scores
     team_max = data.max_by {|team_id, average_goals| average_goals}
-    
+
     get_team_name(team_max)
   end
-     
+
   def worst_offense
     data = calculate_average_scores
     team_min = data.min_by {|team_id, average_goals| average_goals}
@@ -152,28 +147,28 @@ class StatTracker
 
     team_max = data.max_by {|team_id, average_goals| average_goals}
     get_team_name(team_max)
-  end  
+  end
 
   def lowest_scoring_visitor
     data = calculate_home_or_away_average("away")
 
     team_min = data.min_by {|team_id, average_goals| average_goals}
     get_team_name(team_min)
-  end  
+  end
 
   def highest_scoring_home_team
     data = calculate_home_or_away_average("home")
 
     team_max = data.max_by {|team_id, average_goals| average_goals}
     get_team_name(team_max)
-  end  
+  end
 
   def lowest_scoring_home_team
     data = calculate_home_or_away_average("home")
 
     team_min = data.min_by {|team_id, average_goals| average_goals}
     get_team_name(team_min)
-  end 
+  end
 
   #helper_methods
   def calculate_home_or_away_average(status)
