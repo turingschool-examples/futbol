@@ -60,7 +60,7 @@ class StatTrackerTest < Minitest::Test
   def test_count_of_games_by_season
     skip
 
-    assert_equal ({20122013=>49}), @stat_tracker.count_of_games_by_season
+    assert_equal ({"20122013"=>49}), @stat_tracker.count_of_games_by_season
   end
 
   def test_it_can_return_average_goals_per_game
@@ -70,7 +70,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_average_goals_by_season
     skip
-    assert_equal ({20122020=>12345}), @stat_tracker.average_goals_by_season
+    assert_equal ({"20122020"=>12345}), @stat_tracker.average_goals_by_season
   end
 
   # def test_quick_counter
@@ -88,7 +88,8 @@ class StatTrackerTest < Minitest::Test
 
   #Team Statistics Tests
   def test_winningest_coach_best_win_percentage_for_season
-    assert_equal "Claude Julien", @stat_tracker.winningest_coach(20122013)
+
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20122013")
   end
 
   def test_highest_total_score

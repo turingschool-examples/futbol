@@ -104,7 +104,7 @@ class StatTracker
 
     @games.each do |game|
       # require 'pry'; binding.pry
-      hash[game.season.to_s] = (goal_totals[game.season.to_s].to_f/game_season_totals[game.season.to_s].to_f).round(2)
+      hash[game.season] = (goal_totals[game.season].to_f/game_season_totals[game.season].to_f).round(2)
     end
     hash
   end
