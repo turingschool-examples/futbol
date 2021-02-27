@@ -18,7 +18,7 @@ class GameTeamsManager
   end
 
   def get_team_tackle_hash(season_games_ids)
-    team_tackles_totals =  Hash.new(0)
+    team_tackles_totals = Hash.new(0)
     @game_teams.each do |game_team|
       if season_games_ids.include?(game_team.game_id)
         team_tackles_totals[game_team.team_id] += game_team.tackles
@@ -26,7 +26,7 @@ class GameTeamsManager
     end
     team_tackles_totals
   end
-  
+
   def score_and_shots_by_team(season_games_ids)
     hash = Hash.new { |hash, key| hash[key] = [0,0] }
     @game_teams.each do |game_team|
@@ -50,8 +50,5 @@ class GameTeamsManager
   def calculate_ratios(pair)
     pair[0].to_f/pair[1].to_f
   end
-
-
-
 
 end

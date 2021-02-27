@@ -63,7 +63,7 @@ class GamesManager
       game.season == season
     end
     season_games_ids = season_games.map do |game|
-      game.season
+      game.game_id
     end
   end
 
