@@ -39,12 +39,14 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_name_team_with_most_tackles
     skip
-    assert_equal "FC Dallas", @stat_tracker.most_tackles
+    assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
+    assert_equal "Seattle Sounders FC", @stat_tracker.most_tackles("20142015")
   end
 
   #Team Statistics
   def test_it_can_list_team_info
-    # skip
+    skip
+
     expected = {
      "team_id" => "18",
      "franchise_id" => "34",
@@ -54,6 +56,10 @@ class StatTrackerTest < Minitest::Test
    }
 
    assert_equal @stat_tracker.team_info("18"), expected
+  end
+
+  def test
+
   end
 
 end
