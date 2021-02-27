@@ -21,7 +21,14 @@ class GameTeamTable
     end
 
     overlap = season & ids
-    require "pry"; binding.pry
 
+    @game_team_data.find_all do |games|
+      overlap.include?(games.game_id)
+    end
+    require "pry"; binding.pry
+    # x = @game_team_data.find_all do |game|
+    #   game.game_id.each do |game_id|
+    #     game_id
+    # end
   end
 end
