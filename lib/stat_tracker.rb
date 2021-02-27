@@ -64,11 +64,11 @@ class StatTracker
   end
 
   def best_offense
-    # something goes here
+    @teams.get_team_name(@game_teams.best_offense)
   end
 
   def worst_offense
-    # something here too....
+    @teams.get_team_name(@game_teams.worst_offense)
   end
 
   ###########################

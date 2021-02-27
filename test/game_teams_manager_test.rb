@@ -37,7 +37,6 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal 87, test["6"]
   end
 
-
   def test_score_ratios_hash
     path = "./fixture/game_teams_dummy15.csv"
     game_team_manager = GameTeamsManager.new(path)
@@ -57,8 +56,6 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal [4, 17], game_team_manager.score_and_shots_by_team(game_ids)["3"]
     assert_equal [6, 20], game_team_manager.score_and_shots_by_team(game_ids)["6"]
   end
-
-
 
   def test_calculate_ratios
     path = "./fixture/game_teams_dummy15.csv"
@@ -87,4 +84,26 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "John Tortorella", game_team_manager.worst_coach(game_ids)
   end
 
+  def test_total_games_by_team_dummy_file
+    path = "./fixture/game_teams_dummy15.csv"
+    game_teams_manager = GameTeamsManager.new(path)
+
+    expected = {"3"=>5, "6"=>7, "5"=>3}
+
+    assert_equal expected, game_teams_manager.total_games_by_team
+  end
+
+  def test_best_offense_dummy_file
+    path = "./fixture/game_teams_dummy15.csv"
+    game_teams_manager = GameTeamsManager.new(path)
+
+    assert_equal "6", game_teams_manager.best_offense
+  end
+
+  def test_worst_offense_dummy_file
+    path = "./fixture/game_teams_dummy15.csv"
+    game_teams_manager = GameTeamsManager.new(path)
+
+    assert_equal "5", game_teams_manager.worst_offense
+  end
 end
