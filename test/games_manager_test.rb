@@ -112,6 +112,8 @@ class GameManagerTest < Minitest::Test
   def test_best_season
     path = "./data/games.csv"
     game_manager = GamesManager.new(path)
+    game_manager.best_season('6')
+    require 'pry'; binding.pry
 
     assert_equal "20132014", game_manager.best_season('6')
   end

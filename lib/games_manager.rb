@@ -105,18 +105,20 @@ class GamesManager
       end
     end
     summary
+#  require 'pry'; binding.pry
   end
 
   def best_season(team_id)
     most = 0
     best = nil
-    get_season_results(team_id).each do |key, value|   #refactor-able?
+    get_season_results(team_id).each do |key, value|   #refactor-able? #I think we can use .valuses.max/.min
       if value.count('W').to_f / value.size > most
         most = value.count('W').to_f / value.size
         best = key
       end
     end
     best
+#    require 'pry'; binding.pry
   end
 
   def worst_season(team_id)

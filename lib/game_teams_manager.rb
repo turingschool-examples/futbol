@@ -89,4 +89,16 @@ class GameTeamsManager
 # end          end                   gives {season_id: [W/L]}
 #
 
+
+
+
+#get_all_game_numbers_a_team_played_in
+#if game number == team_game.number && team_id != team_game.team_id
+# => if win, += 1 to hash wins, else += to hash total_games
+#analize the hash numbers, to get a hash with ratios
+#analize the values to find the bigest/smallest
+#return key that associated with biggest or smallest value
+
+
+
 end
