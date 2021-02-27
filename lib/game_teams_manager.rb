@@ -16,4 +16,5 @@ class GameTeamsManager
     end
   end
 
+  
 end

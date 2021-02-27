@@ -34,7 +34,6 @@ class StatTracker
 
   # League Statistics
   def count_of_teams
-    # team_data = CSV.parse(File.read('./dummy_data/teams_dummy.csv'), headers: true, header_converters: :symbol)
     number_of_teams = team_data.map do |team|
       team
     end
@@ -42,11 +41,18 @@ class StatTracker
   end
 
   # Season Statistics
-  def most_tackles
-    # game_teams_data = CSV.parse(File.read('./dummy_data/game_teams_dummy.csv'), headers: true, header_converters: :symbol)
-    # team_data = CSV.parse(File.read('./dummy_data/teams_dummy.csv'), headers: true, header_converters: :symbol)
+  def most_tackles(season_id)
+    find_season = games_data.find_all do |game|
+      game[:season] == season_id
+    end
 
-    result = game_teams_data.max_by do |game_team|
+    test_game_id = game_teams_data.find_all do |team|
+      find_season.each do |season_asdf|
+        team[:game_id] == season_asdf[:game_id]
+      end
+    end
+
+    result = test_game_id.max_by do |game_team|
       game_team[:tackles]
     end
 
