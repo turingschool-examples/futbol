@@ -137,7 +137,8 @@ class StatTracker
           scores[game_team.team_id] << game_team.goals
         end
       end
-      data = Hash
+      data = Hash[scores.map { |team_id, goals| [team_id, (goals.sum.to_f / goals.length.to_f)]} ]
+      data
       # require 'pry'; binding.pry
 
 
