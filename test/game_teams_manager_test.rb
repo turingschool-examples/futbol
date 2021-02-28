@@ -107,14 +107,6 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "5", game_teams_manager.worst_offense
   end
 
-  def test_team_id_highest_average_goals_all_full_file
-    skip
-    path = "./data/game_teams.csv"
-    game_teams_manager = GameTeamsManager.new(path)
-
-    assert_equal "54", game_teams_manager.team_id_highest_average_goals_all
-  end
-
   def test_total_goals_by_team_dummy_file
     path = "./fixture/game_teams_dummy15.csv"
     game_teams_manager = GameTeamsManager.new(path)
