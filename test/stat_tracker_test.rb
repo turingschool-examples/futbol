@@ -271,4 +271,24 @@ class StatTrackerTest < Minitest::Test
     assert_equal "John Tortorella", tracker.worst_coach("20122013")
   end
 
+  def test_favorite_opponent
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_team_path = './data/game_teams.csv'
+    tracker = StatTracker.new(game_path, team_path, game_team_path)
+
+    assert_equal "DC United", tracker.favorite_opponent("18")
+  end
+
+  def test_rival
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_team_path = './data/game_teams.csv'
+    tracker = StatTracker.new(game_path, team_path, game_team_path)
+
+    assert_equal "LA Galaxy", tracker.rival("18")
+  end
+
+
+
 end

@@ -80,6 +80,15 @@ class StatTracker
     @games.fewest_goals_scored(team_id)
   end
 
+  def rival(team_id)
+    rival = @game_teams.rival(team_id)
+    @teams.get_team_name(rival)
+  end
+
+  def favorite_opponent(team_id)
+    favorite_opponent = @game_teams.favorite_opponent(team_id)
+    @teams.get_team_name(favorite_opponent)
+  end
 
   ###########################
 

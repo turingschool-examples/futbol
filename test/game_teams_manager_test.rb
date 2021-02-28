@@ -115,4 +115,18 @@ class GameTeamsManagerTest < Minitest::Test
 
     assert_equal expected, game_teams_manager.total_goals_by_team
   end
+
+  def test_favorite_opponent
+    path = "./data/game_teams.csv"
+    game_teams_manager = GameTeamsManager.new(path)
+
+    assert_instance_of String, game_teams_manager.favorite_opponent("6")
+  end
+
+  def test_rival
+    path = "./data/game_teams.csv"
+    game_teams_manager = GameTeamsManager.new(path)
+
+    assert_instance_of String, game_teams_manager.rival("6")
+  end
 end
