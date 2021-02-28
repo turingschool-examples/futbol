@@ -65,11 +65,11 @@ def test_you_can_find_lowest_total_score
       "20152016"=>4.16,
       "20132014"=>4.19,
       "20172018"=>4.44
-    }
+      }
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
-  
-  
+
+
   #League Statistics Tests
   def test_it_can_count_number_of_teams
     skip
@@ -92,7 +92,7 @@ def test_you_can_find_lowest_total_score
      "team_name" => "Minnesota United FC",
      "abbreviation" => "MIN",
      "link" => "/api/v1/teams/18"
-   }
+      }
 
    assert_equal expected, @stat_tracker.team_info("18")
   end
@@ -179,10 +179,12 @@ def test_you_can_find_lowest_total_score
   end
 
   def test_percentage_of_home_wins
+
     assert_equal 0.44, @stat_tracker.percentage_home_wins
   end
 
   def test_percentage_of_visitor_wins
+
     assert_equal 0.36, @stat_tracker.percentage_visitor_wins
   end
 
@@ -199,10 +201,12 @@ def test_you_can_find_lowest_total_score
   end
 
   def test_it_can_calculate_best_offense
+
     assert_equal "Reign FC", @stat_tracker.best_offense
   end
 
   def test_it_can_calculate_worst_offense
+    
     assert_equal "Utah Royals FC", @stat_tracker.worst_offense
   end
 end
