@@ -183,6 +183,29 @@ class StatTracker
   end
 
   # Team Statistics
+
+  def favorite_opponent(id)
+    game_id = []
+    game_teams_data.each do |team_id|
+      game_id << team_id[:game_id] if team_id[:team_id] == id
+    end
+
+    games_played = {}
+    game_id.each do |games|
+      game_teams_data.each do |data|
+        if games == data[:game_id] && data[:team_id] != id
+          games_played[data[:team_id]] = [] if games_played[data[:team_id]].nil?
+          games_played[data[:team_id]] << data[:result]
+        end
+      end
+    end
+    games_lost = games_played.transform_values { |value| (value.count("LOSS") / value.length.to_f) }
+
+    most_losses = games_lost.max_by { |key, value| value }
+
+    find_team = team_data.find { |team| team[:team_id] == most_losses[0] }
+    find_team[:teamname]
+  end
   # A hash with key/value pairs for the following attributes: team_id,
   # franchise_id, team_name, abbreviation, and link
   def team_info(team_id)
@@ -200,7 +223,7 @@ class StatTracker
     team_deets
   end
 
-def fewest_goals_scored(team_id)
+  def fewest_goals_scored(team_id)
     team_result = []
     game_teams_data.each do |games|
       team_result << games if games[:team_id] == team_id
