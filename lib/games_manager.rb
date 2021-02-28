@@ -237,7 +237,7 @@ class GamesManager
     average_max = averages.max_by do |team_id, average|
       average
     end
-     average_max[0]
+    average_max[0]
   end
 
   def lowest_scoring_visitor
@@ -247,17 +247,17 @@ class GamesManager
     average_min = averages.min_by do |team_id, average|
       average
     end
-     average_min[0]
+    average_min[0]
   end
 
   def lowest_scoring_home
-      averages = total_home_goals.merge(total_home_games) do |team_id, goals, games|
+    averages = total_home_goals.merge(total_home_games) do |team_id, goals, games|
       (goals/games.to_f).round(2)
     end
-      average_min = averages.min_by do |team_id, average|
+    average_min = averages.min_by do |team_id, average|
       average
     end
-      average_min[0]
+    average_min[0]
   end
 end 
   
