@@ -7,9 +7,9 @@ class StatTrackerTest < Minitest::Test
     @locations = {
       games: './data/games.csv',
       teams: './data/teams.csv',
-      # game_teams: './data/game_teams.csv'
+      game_teams: './data/game_teams.csv'
       # games: './data/games_truncated.csv',
-      game_teams: './data/game_teams_truncated.csv'
+      # game_teams: './data/game_teams_truncated.csv'
 
     }
 
@@ -120,10 +120,15 @@ class StatTrackerTest < Minitest::Test
 
    assert_equal 100, stat_tracker.highest_total_score
   end
+  
+  def test_best_season
+    assert_equal "20162017", @stat_tracker.best_season("8")
+  end
 
-  #   # => with says that whenever we see the items in the parenthesis, please give back the thing after the returns, which right now is the array of mocks
+  def test_worst_season
+    assert_equal "20172018", @stat_tracker.worst_season("8")
+  end
+ 
 end
 
-## Consider separate class that calculates games statistics
 
-### Still need to call stat_tracker.highest_total_score. How we do we pass the games data back and forth between the stat tracker and the game manager?

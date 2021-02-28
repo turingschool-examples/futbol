@@ -200,6 +200,50 @@ class StatTracker
 
 
   #Team Statistics
+  
+  def best_season(team_id)
+    result = win_percent_by_season(team_id)
+    result.max_by {|season, win_percent| win_percent}.first.to_s
+  end
+
+  def worst_season(team_id)
+    result = win_percent_by_season(team_id)
+    result.min_by {|season, win_percent| win_percent}.first.to_s
+  end
+
+  def win_percent_by_season(team_id)
+    season_hash = {}
+    season_and_games(team_id).each do |season, game_seasons|
+      matching_game_ids = game_seasons.map(&:game_id)
+      matching_game_teams = @game_teams.find_all do |game_team|
+        game_team.team_id == team_id.to_i && matching_game_ids.include?(game_team.game_id)
+      end
+      season_hash[season] = percentage(matching_game_teams, "WIN")
+    end
+    season_hash
+  end
+
+  def season_and_games(team_id)
+    @games.find_all do |game|
+      game.away_team_id == team_id.to_i || game.home_team_id == team_id.to_i
+    end.group_by(&:season)
+  end
+
+  def percentage(matching_game_teams, condition)
+    win_count = matching_game_teams.count do |season_game|
+      season_game.result == condition
+    end
+    (win_count / matching_game_teams.length.to_f).round(2)
+  end
 
 
+
+  # def count_of_games_by_season
+  #   hash = Hash.new(0)
+
+  #   @games.each do |game|
+  #     hash[game.season.to_s] += 1
+  #   end
+  #   hash
+  # end
 end
