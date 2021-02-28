@@ -215,4 +215,10 @@ def test_you_can_find_lowest_total_score
     # skip
     assert_equal "DC United", @stat_tracker.favorite_opponent("18")
   end
+
+  def test_it_has_a_rival
+    # skip
+    # assert_equal "Houston Dash", @stat_tracker.rival("18")
+    assert_equal "LA Galaxy", @stat_tracker.rival("18")
+  end
 end
