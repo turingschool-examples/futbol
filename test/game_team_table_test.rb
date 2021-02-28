@@ -9,13 +9,14 @@ require './lib/helper_modules/csv_to_hashable'
 class GameTeamTableTest < Minitest::Test
   include CsvToHash
   def setup
-    stat_tracker = StatTracker.new
+    stat_tracker = StatTracker.new()
     locations = './data/game_teams.csv'
     @game_table = GameTeamTable.new(locations, stat_tracker)
   end
 
   def test_winningest_coach
+    
     assert_equal "Claude Julien", @game_table.winningest_coach("20132014")
-    assert_equal "Alain Vigneault", @game_table.game_by_seaon("20142015")
+    assert_equal "Alain Vigneault", @game_table.winningest_coach("20142015")
   end
 end

@@ -1,5 +1,5 @@
 require "minitest/autorun"
-require "minitest/pride"
+require "minitest/nyan_cat"
 require './lib/tables/game_table'
 require "./lib/instances/game"
 require './test/test_helper'
@@ -9,10 +9,11 @@ require './lib/helper_modules/csv_to_hashable'
 class GameTableTest < Minitest::Test
 include CsvToHash
   def setup
+    stat_tracker = nil
     locations = './data/games.csv'
-    @game_table = GameTable.new(locations)
+    @game_table = GameTable.new(locations, stat_tracker)
   end
-
+  
   def test_it_exists
     assert_instance_of GameTable, @game_table
   end
@@ -37,7 +38,7 @@ include CsvToHash
     assert_equal 0.20, @game_table.percentage_ties
   end
 
-  def test_count_of_games_by_seasongt
+  def test_count_of_games_by_season
     expected = {
       "20122013"=>806,
       "20162017"=>1317,
@@ -63,5 +64,5 @@ include CsvToHash
       "20172018"=>4.44
     }
     assert_equal expected, @game_table.average_goals_by_season
-  end
+  end 
 end

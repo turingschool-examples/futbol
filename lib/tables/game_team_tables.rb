@@ -10,25 +10,28 @@ class GameTeamTable
   end
 
   def winningest_coach(season)
-    season = @stat_tracker.game_by_season[20132014].map do |season|
+    
+    season = @stat_tracker.game_by_season[season.to_i].map do |season|
       season.game_id
     end
-    #wins count / winnings seasons count
-    #need to get wins count by each coach
-
+   
     ids = @game_team_data.map do |gameteam|
       gameteam.game_id
     end
 
     overlap = season & ids
 
-    @game_team_data.find_all do |games|
+    games_by_season= @game_team_data.find_all do |games|
       overlap.include?(games.game_id)
     end
-    require "pry"; binding.pry
-    # x = @game_team_data.find_all do |game|
-    #   game.game_id.each do |game_id|
-    #     game_id
-    # end
+
+    winning_coach_hash =games_by_season.group_by do |game|
+       game.head_coach if game.result == "WIN"
+      end  
+
+    win_count = winning_coach_hash.each { |k, v| winning_coach_hash[k] = v.count}.reject{|coach| coach == nil}
+    # require 'pry'; binding.pry
+    win_count.max_by{|coach, win| win}[0]
+
   end
 end
