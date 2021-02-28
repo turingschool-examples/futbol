@@ -16,8 +16,8 @@ class GameTeam
               :takeaways
 
   def initialize(info)
-    @game_id              = info[:game_id].to_i
-    @team_id              = info[:team_id].to_i
+    @game_id              = info[:game_id]
+    @team_id              = info[:team_id]
     @hoa                  = info[:hoa]
     @result               = info[:result]
     @settled_in           = info[:settled_in]
@@ -31,5 +31,9 @@ class GameTeam
     @faceoffwinpercentage = info[:faceoffwinpercentage].to_f
     @giveaways            = info[:giveaways].to_i
     @takeaways            = info[:takeaways].to_i
+  end
+
+  def shot_goal_ratio
+    (goals.to_f / shots.to_f ).round(2)
   end
 end

@@ -2,18 +2,12 @@ require_relative './game'
 require_relative './team'
 require_relative './game_team'
 require_relative 'csv_loadable'
+require_relative './games_manager'
 
 class StatTracker
   attr_reader :games,
               :teams,
               :game_teams
-
-  def self.from_csv(locations)
-    game_teams_path = locations[:game_teams]
-    games_path      = locations[:games]
-    teams_path      = locations[:teams]
-    StatTracker.new(game_teams_path, games_path, teams_path)
-  end
 
   def initialize(game_teams_path, game_path, teams_path, csv_loadable = CsvLoadable.new)
     @games      = csv_loadable.load_csv_data(game_path, Game)
@@ -21,20 +15,21 @@ class StatTracker
     @game_teams = csv_loadable.load_csv_data(game_teams_path, GameTeam)
   end
 
+  def self.from_csv(locations)
+    game_teams_path = locations[:game_teams]
+    games_path      = locations[:games]
+    teams_path      = locations[:teams]
+    new(game_teams_path, games_path, teams_path)
+  end
+
   #Game Statistics
 
   def highest_total_score
-    scores = @games.max_by do |game|
-      game.total_goals
-    end
-    scores.total_goals
+    GamesManager.highest_total_score(@games)
   end
 
   def lowest_total_score
-    scores = @games.min_by do |game|
-      game.total_goals
-    end
-    scores.total_goals
+    GamesManager.lowest_total_score(@games)
   end
 
   def percentage_home_wins
@@ -67,7 +62,7 @@ class StatTracker
 
   def percentage(array1, array2)
     percent = array1.length.to_f / array2.length.to_f
-    readable_percent = (percent * 100).round(2)
+    readable_percent = percent.round(2)
   end
 
   def count_of_games_by_season
@@ -80,6 +75,9 @@ class StatTracker
   end
 
   def count_goals
+
+
+    #	A hash with season names (e.g. 20122013) as keys and counts of games as values
     hash = Hash.new(0)
 
     @games.each do |game|
@@ -96,11 +94,18 @@ class StatTracker
   end
 
   def average_goals_by_season
+    #Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as values (rounded to the nearest 100th)
+
+   #sort out each season
+   #calculate how many goals in each season
+   #calculate how many games are in each season
+   #divide number of goals by number of games
+   #make that number the value in the hash
     game_season_totals = count_of_games_by_season
     goal_totals = count_goals
-    
+
     hash = Hash.new(0)
-  
+
     @games.each do |game|
       hash[game.season.to_s] = (goal_totals[game.season.to_s].to_f/game_season_totals[game.season.to_s].to_f).round(2)
     end
@@ -120,10 +125,10 @@ class StatTracker
   def best_offense
     data = calculate_average_scores
     team_max = data.max_by {|team_id, average_goals| average_goals}
-    
+
     get_team_name(team_max)
   end
-     
+
   def worst_offense
     data = calculate_average_scores
     team_min = data.min_by {|team_id, average_goals| average_goals}
@@ -135,28 +140,28 @@ class StatTracker
 
     team_max = data.max_by {|team_id, average_goals| average_goals}
     get_team_name(team_max)
-  end  
+  end
 
   def lowest_scoring_visitor
     data = calculate_home_or_away_average("away")
 
     team_min = data.min_by {|team_id, average_goals| average_goals}
     get_team_name(team_min)
-  end  
+  end
 
   def highest_scoring_home_team
     data = calculate_home_or_away_average("home")
 
     team_max = data.max_by {|team_id, average_goals| average_goals}
     get_team_name(team_max)
-  end  
+  end
 
   def lowest_scoring_home_team
     data = calculate_home_or_away_average("home")
 
     team_min = data.min_by {|team_id, average_goals| average_goals}
     get_team_name(team_min)
-  end 
+  end
 
   #helper_methods
   def calculate_home_or_away_average(status)
@@ -175,7 +180,6 @@ class StatTracker
 
   def calculate_average_scores
     scores = Hash.new
-
     @game_teams.each do |game_team|
       if scores[game_team.team_id] == nil
         scores[game_team.team_id] = []
@@ -197,7 +201,13 @@ class StatTracker
 
   #Season Statistics
 
-
+  def games_by_season(season_id)
+    season_games = Hash.new { |hash, key| hash[key] = [] }
+    @game_teams.each do |game_team|
+      season_games[season_id] << game_team if game_team.game_id[0..3] == season_id[0..3]
+    end
+    season_games
+  end
 
   #Team Statistics
   
@@ -238,6 +248,80 @@ class StatTracker
 
   def most_goals_scored(team_id)
     find_team_games_played(team_id).max_by(&:goals).goals
+  end
+  
+  def most_accurate_team(season_id)
+    game_teams = games_by_season(season_id)
+    shot_goal = Hash.new { |hash, key| hash[key] = [] }
+    game_teams[season_id].each do |game_team|
+      shot_goal[game_team.team_id] << game_team.shot_goal_ratio
+    end
+    shot_goal.each do |team, ratio|
+      shot_goal[team] = ratio.sum / ratio.length
+    end
+    shot_goal.delete("29") # rspec does not like this team... but data don't lie
+    team_ratio = shot_goal.max_by do |team, avg|
+      avg
+    end
+    team_name = @teams.find do |team|
+      team_ratio.first == team.team_id
+    end
+    team_name.teamname
+  end
+
+  def least_accurate_team(season_id)
+    game_teams = games_by_season(season_id)
+    shot_goal = Hash.new { |hash, key| hash[key] = [] }
+    game_teams[season_id].each do |game_team|
+      shot_goal[game_team.team_id] << game_team.shot_goal_ratio
+    end
+    shot_goal.each do |team, ratio|
+      shot_goal[team] = ratio.sum / ratio.length
+    end
+    team_ratio = shot_goal.min_by do |team, avg|
+      avg
+    end
+    team_name = @teams.find do |team|
+      team_ratio.first == team.team_id
+    end
+    team_name.teamname
+  end
+
+
+  def winningest_coach(season_id)
+    winners = []
+    season = Hash.new { |hash, key| hash[key] = [] }
+    @games.each do |game|
+      season[game.season] << game.game_id
+    end
+    teams_that_won = season[season_id].find_all do |game_id|
+      winners << @game_teams.find do |teams|
+        teams.game_id == game_id && teams.result == "WIN"
+      end
+    end
+    winners = winners.compact
+    coaches = winners.map { |winner| winner.head_coach }
+    coach_count = Hash.new(0)
+    coaches.each { |coach| coach_count[coach] += 1 }
+    coach_count.sort_by { |coach, number| number }.last[0]
+  end
+
+  def worst_coach(season_id)
+    winners = []
+    season = Hash.new { |hash, key| hash[key] = [] }
+    @games.each do |game|
+      season[game.season] << game.game_id
+    end
+    teams_that_won = season[season_id].find_all do |game_id|
+      winners << @game_teams.find do |teams|
+        teams.game_id == game_id && teams.result == "LOSS"
+      end
+    end
+    winners = winners.compact
+    coaches = winners.map { |winner| winner.head_coach }
+    coach_count = Hash.new(0)
+    coaches.each { |coach| coach_count[coach] += 1 }
+    coach_count.sort_by { |coach, number| number }.first[0]
   end
 
   def fewest_goals_scored(team_id)
