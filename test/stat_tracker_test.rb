@@ -57,7 +57,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_average_goals_by_season
-    #WORK IN PROGRESS
     # skip
     expected = {
       "20122013"=>4.12,

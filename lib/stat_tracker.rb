@@ -91,13 +91,11 @@ class StatTracker
   def average_goals_by_season
     result = {}
     games_data.each do |game|
+      goals = (game[:away_goals].to_f + game[:home_goals].to_f)
       result[game[:season]] = [] if result[game[:season]].nil?
-
-      # if result.keys == game[:season]
-        # result[game[:season]] << game[:away_goals].to_i + game[:home_goals]
-      # end
+      result[game[:season]].push(goals)
     end
-    result
+    bucket = result.transform_values {|value| (value.sum / value.length).round(2)}
   end
 
   # Season Statistics
