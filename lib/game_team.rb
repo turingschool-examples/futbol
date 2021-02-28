@@ -1,4 +1,3 @@
-
 class GameTeam
   attr_reader :game_id, :team_id, :tackles, :goals,
               :shots, :result, :head_coach

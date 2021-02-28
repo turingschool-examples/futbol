@@ -13,9 +13,6 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_it_has_attributes
-
-    #CSV.stubs(:foreach).returns([])
-
     path = "./fixture/game_teams_dummy15.csv"
     game_team_manager = GameTeamsManager.new(path)
 
@@ -25,7 +22,6 @@ class GameTeamsManagerTest < Minitest::Test
   end
 
   def test_get_team_tackle_hash
-
     path = "./fixture/game_teams_dummy15.csv"
     game_team_manager = GameTeamsManager.new(path)
 

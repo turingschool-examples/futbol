@@ -1,7 +1,6 @@
 require_relative './game_team'
 require 'CSV'
 
-
 class GameTeamsManager
   attr_reader :game_teams
 
@@ -103,7 +102,6 @@ class GameTeamsManager
       rivals[rival] = calculate_ratios(pair)
     end
     rivals.key(rivals.values.min)
-#    require 'pry'; binding.pry
   end
 
   def rival(team_id)

@@ -51,11 +51,9 @@ class StatTracker
   def average_goals_by_season
     @games.average_goals_by_season
   end
-
   ###########################
 
   ###### Team Stats #########
-
   def team_info(team_id)
     @teams.team_info(team_id)
   end
@@ -89,7 +87,6 @@ class StatTracker
     favorite_opponent = @game_teams.favorite_opponent(team_id)
     @teams.get_team_name(favorite_opponent)
   end
-
   ###########################
 
   ###### League Stats #######
@@ -106,26 +103,23 @@ class StatTracker
   end
 
   def highest_scoring_home_team
-  @teams.get_team_name(@games.highest_scoring_home)
-end
+    @teams.get_team_name(@games.highest_scoring_home)
+  end
 
-def lowest_scoring_home_team
-  @teams.get_team_name(@games.lowest_scoring_home)
-end
+  def lowest_scoring_home_team
+    @teams.get_team_name(@games.lowest_scoring_home)
+  end
 
- def highest_scoring_visitor
-   @teams.get_team_name(@games.highest_scoring_visitor)
- end
+  def highest_scoring_visitor
+    @teams.get_team_name(@games.highest_scoring_visitor)
+  end
 
- def lowest_scoring_visitor
-   @teams.get_team_name(@games.lowest_scoring_visitor)
- end
-
-
+  def lowest_scoring_visitor
+    @teams.get_team_name(@games.lowest_scoring_visitor)
+  end
   ###########################
 
   ###### Season Stats #######
-
   def most_tackles(season)
     season_games = @games.get_season_games(season)
     tackle_hash = @game_teams.get_team_tackle_hash(season_games)
@@ -161,7 +155,5 @@ end
   def worst_coach(season)
     @game_teams.worst_coach(@games.get_season_games(season))
   end
-
   ###########################
-
 end
