@@ -11,7 +11,7 @@ class StatTrackerTest < Minitest::Test
       games: './data/games_truncated.csv',
       game_teams: './data/game_teams_truncated.csv',
     }
-    
+
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
@@ -24,7 +24,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Games Array", @stat_tracker.games
   end
 
-  
+
   #Game Statistics Tests
 
   def test_it_can_find_the_highest_total_score
@@ -55,13 +55,13 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_count_of_games_by_season
-    assert_equal ({"20122013"=>806, "20162017"=>1317, "20142015"=>1319, "20152016"=>1321, "20132014"=>1323, "20172018"=>1355}), @stat_tracker.count_of_games_by_season
+    assert_equal ({"20122013"=>49}), @stat_tracker.count_of_games_by_season
   end
 
   def test_it_can_return_average_goals_per_game
-    assert_equal 4.22, @stat_tracker.average_goals_per_game
+    assert_equal 3.92, @stat_tracker.average_goals_per_game
   end
-  
+
 
  #League Statistics Tests
 
@@ -97,11 +97,15 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_home_team
   end
 
-  
+
   #Season Statistics Tests
-  
+
   def test_winningest_coach_best_win_percentage_for_season
     assert_equal "Claude Julien", @stat_tracker.winningest_coach("20122013")
+  end
+
+  def test_worst_coach
+    assert_equal "Mike Babcock", @stat_tracker.worst_coach("20122013")
   end
 
   def test_highest_total_score
@@ -118,14 +122,14 @@ class StatTrackerTest < Minitest::Test
 
    assert_equal 100, stat_tracker.highest_total_score
   end
-  
-  
+
+
   #Team Statistics Tests
-  
-  
+
+
   #Helper Methods
-  
+
    def test_average_goals_by_season
-    assert_equal ({"20122013"=>4.12, "20162017"=>4.23, "20142015"=>4.14, "20152016"=>4.16, "20132014"=>4.19, "20172018"=>4.44}), @stat_tracker.average_goals_by_season
+    assert_equal ({"20122013"=>3.92}), @stat_tracker.average_goals_by_season
    end
 end
