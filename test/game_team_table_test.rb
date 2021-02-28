@@ -33,5 +33,15 @@ class GameTeamTableTest < Minitest::Test
   def test_least_accurate_team
     assert_equal "New York City FC", @game_table.least_accurate_team("20132014")
     assert_equal "Columbus Crew SC", @game_table.least_accurate_team("20142015")
-  end 
-end
+  end
+
+  def test_most_tackles
+    assert_equal "FC Cincinnati", @game_table.most_tackles("20132014")
+    assert_equal "Seattle Sounders FC", @game_table..most_tackles("20142015")
+  end
+
+  def test_fewest_tackles
+    assert_equal "Atlanta United", @game_table.fewest_tackles("20132014")
+    assert_equal "Orlando City SC", @game_table.fewest_tackles("20142015")
+  end
+end   

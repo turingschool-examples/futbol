@@ -112,5 +112,65 @@ class GameTeamTable
       ratio.sum
     end
     r1[0]
-  end 
+  end
+
+  def most_tackles(season)
+    season = @stat_tracker.game_by_season[season.to_i].map do |season|
+      season.game_id
+      #which game id has this season id (from the argument) as well
+    end
+
+    ids = @game_team_data.map do |gameteam|
+      gameteam.game_id
+    end
+    #gameteam and gameteam match on 124/125 the same
+    #way games and game match on 133/134. The names dont
+    #matter just that they match
+
+    overlap = season & ids
+    games_by_season = @game_team_data.find_all do |games|
+      overlap.include?(games.game_id)
+    end
+    games_by_team_id_hash = games_by_season.group_by do |game|
+      game.team_id
+    end
+    container = games_by_team_id_hash.each do |team, games|
+      games_by_team_id_hash[team] = games.sum do |lul|
+        lul.tackles
+      end
+    end
+    thereturn = container.max_by do |team_id, tackle|
+      tackle
+    end
+    thereturn[0]
+  end
+
+  def fewest_tackles(season)
+    season = @stat_tracker.game_by_season[season.to_i].map do |season|
+      season.game_id
+      #which game id has this season id (from the argument) as well
+    end
+
+    ids = @game_team_data.map do |gameteam|
+      gameteam.game_id
+    end
+
+
+    overlap = season & ids
+    games_by_season = @game_team_data.find_all do |games|
+      overlap.include?(games.game_id)
+    end
+    games_by_team_id_hash = games_by_season.group_by do |game|
+      game.team_id
+    end
+    container = games_by_team_id_hash.each do |team, games|
+      games_by_team_id_hash[team] = games.sum do |lul|
+        lul.tackles
+      end
+    end
+    thereturn = container.min_by do |team_id, tackle|
+      tackle
+    end
+    thereturn[0]
+  end
 end
