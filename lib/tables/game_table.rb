@@ -70,45 +70,10 @@ class GameTable
 
     goals = games_by_season_hash.each do |season, game|
       games_by_season_hash[season] = ((game.map {|indvidual_game| indvidual_game.away_goals.to_f + indvidual_game.home_goals.to_f}).sum/ game.count).round(2)
-    #  ( (indvidual_game.away_goals.to_f + indvidual_game.home_goals.to_f) / game.count).round(2)
+
     end
     goals
   end
-
-#     s1_count = games_by_season_hash[season].count
-#     s1_total_goals = games_by_season_hash[season].flat_map {|game| game.away_goals + game.home_goals}
-#     s1_average_goals_per_game = (s1_total_goals.sum.to_f / s1_count).round(2)
-# require "pry"; binding.pry
-#     # s2_count = games_by_season_hash[20162017].count
-#     # s2_total_goals = games_by_season_hash[20162017].flat_map {|game| game.away_goals + game.home_goals}
-#     # s2_average_goals_per_game = (s2_total_goals.sum.to_f / s2_count).round(2)
-#     #
-#     # s3_count = games_by_season_hash[20142015].count
-#     # s3_total_goals = games_by_season_hash[20142015].flat_map {|game| game.away_goals + game.home_goals}
-#     # s3_average_goals_per_game = (s3_total_goals.sum.to_f / s3_count).round(2)
-#     #
-#     # s4_count = games_by_season_hash[20152016].count
-#     # s4_total_goals = games_by_season_hash[20152016].flat_map {|game| game.away_goals + game.home_goals}
-#     # s4_average_goals_per_game = (s4_total_goals.sum.to_f / s4_count).round(2)
-#     #
-#     # s5_count = games_by_season_hash[20132014].count
-#     # s5_total_goals = games_by_season_hash[20132014].flat_map {|game| game.away_goals + game.home_goals}
-#     # s5_average_goals_per_game = (s5_total_goals.sum.to_f / s5_count).round(2)
-#     #
-#     # s6_count = games_by_season_hash[20172018].count
-#     # s6_total_goals = games_by_season_hash[20172018].flat_map {|game| game.away_goals + game.home_goals}
-#     # s6_average_goals_per_game = (s6_total_goals.sum.to_f / s6_count).round(2)
-#     #
-#
-#     result = {
-#       "20122013"=> s1_average_goals_per_game,
-#       "20162017"=> s2_average_goals_per_game,
-#       "20142015"=> s3_average_goals_per_game,
-#       "20152016"=> s4_average_goals_per_game,
-#       "20132014"=> s5_average_goals_per_game,
-#       "20172018"=> s6_average_goals_per_game
-#     }
-#    end
 
   def game_by_season
     season = @game_data.group_by do |game|
