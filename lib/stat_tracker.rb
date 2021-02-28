@@ -251,4 +251,22 @@ class StatTracker
     end
     team_name[:teamname]
   end
+
+  def worst_offense
+    grouped = Hash.new{|hash, key| hash[key] = []}
+    game_teams_data.each do |game_team|
+      grouped[game_team[:team_id]] << game_team[:goals].to_i
+    end
+
+    avg_score = grouped.map { |team_id, goals| [team_id, (goals.sum / goals.count.to_f) ]}
+
+    min_avg = avg_score.min_by do |team, score|
+      score
+    end
+
+    team_name = team_data.find do |team|
+      team[:team_id] == min_avg[0]
+    end
+    team_name[:teamname]
+  end
 end
