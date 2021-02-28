@@ -217,8 +217,13 @@ def test_you_can_find_lowest_total_score
   end
 
   def test_it_has_a_rival
-    # skip
+    skip
     # assert_equal "Houston Dash", @stat_tracker.rival("18")
     assert_equal "LA Galaxy", @stat_tracker.rival("18")
+  end
+
+  def test_average_win_percentage
+    # skip
+    assert_equal 0.49, @stat_tracker.average_win_percentage("6")
   end
 end
