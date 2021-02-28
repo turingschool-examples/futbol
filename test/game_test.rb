@@ -31,18 +31,18 @@ class GameTest < Minitest::Test
 
   def test_total_goals
     assert_equal 5, @game.total_score
-
-    assert_instance_of Game, @game
-    assert_equal 2015030133, @game.game_id
-    assert_equal 20152016, @game.season
-    assert_equal "Postseason", @game.type
-    assert_equal "4/18/16", @game.date_time
-    assert_equal 15, @game.away_team_id
-    assert_equal 4, @game.home_team_id
-    assert_equal 4, @game.away_goals
-    assert_equal 1, @game.home_goals
-    assert_equal "SeatGeek Stadium", @game.venue
-    assert_equal "/api/v1/venues/null", @game.venue_link
+    #
+    # assert_instance_of Game, @game
+    # assert_equal 2015030133, @game.game_id
+    # assert_equal 20152016, @game.season
+    # assert_equal "Postseason", @game.type
+    # assert_equal "4/18/16", @game.date_time
+    # assert_equal 15, @game.away_team_id
+    # assert_equal 4, @game.home_team_id
+    # assert_equal 4, @game.away_goals
+    # assert_equal 1, @game.home_goals
+    # assert_equal "SeatGeek Stadium", @game.venue
+    # assert_equal "/api/v1/venues/null", @game.venue_link
   end
 
   def test_total_score
@@ -54,7 +54,7 @@ class GameTest < Minitest::Test
   end
 
   def test_winning_team_score
-    assert_equal "Game tie: 1-4.", @game.winning_team_score
+    assert_equal 4, @game.winning_team_score
     game1 = Game.new({
                   game_id: 2015030133,
                   season: 20152016,
@@ -84,7 +84,7 @@ class GameTest < Minitest::Test
   end
 
   def test_losing_team_score
-    assert_equal "Game tie: 1-4.", @game.losing_team_score
+    assert_equal 1, @game.losing_team_score
     game1 = Game.new({
                   game_id: 2015030133,
                   season: 20152016,

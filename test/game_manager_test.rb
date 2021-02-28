@@ -9,13 +9,13 @@ class GameManagerTest < Minitest::Test
     assert_instance_of GameManager, @game_data
   end
 
-  def test_highest_total_score_in_game
-    assert_equal 10, @game_data.highest_total_score_in_game
+  def test_highest_total_score
+    assert_equal 10, @game_data.highest_total_score
   end
 ##Edgecase for multiple highest scores - array?
 
   def test_lowest_total_score_in_game
-    assert_equal 1, @game_data.lowest_total_score_in_game
+    assert_equal 1, @game_data.lowest_total_score
   end
   ##Edgecase for multiple highest scores - array?
 
@@ -57,5 +57,22 @@ class GameManagerTest < Minitest::Test
               20132014 => 4
                 }
     assert_equal expected, @game_data.count_of_games_by_season
+  end
+
+  def test_average_goals_per_game
+    assert_equal 4.40, @game_data.average_goals_per_game
+  end
+
+  def test_average_goals_per_season
+    assert_equal 4.17, @game_data.average_goals_in_a_season(20122013)
+    assert_equal 4.75, @game_data.average_goals_in_a_season(20132014)
+  end
+
+  def test_average_goals_by_season
+    expected = {
+              20122013 => 4.17,
+              20132014 => 4.75
+                }
+    assert_equal expected, @game_data.average_goals_by_season
   end
 end
