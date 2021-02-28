@@ -43,4 +43,8 @@ class GameTeamTestTest < Minitest::Test
     assert_equal 17, @game_team.giveaways
     assert_equal 7, @game_team.takeaways
   end
+
+  def test_it_can_calculate_shot_goal_ratio
+    assert_equal 0.25, @game_team.shot_goal_ratio
+  end
 end
