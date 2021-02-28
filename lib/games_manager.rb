@@ -174,5 +174,48 @@ class GamesManager
     end
   end
 
-  # require "pry"; binding.pry
+  def total_home_goals
+    home_team_id_goals = {}
+    games.each do |game|
+      if home_team_id_goals[game.home_team_id].nil?
+        home_team_id_goals[game.home_team_id] = game.home_goals
+      else
+        home_team_id_goals[game.home_team_id] += game.home_goals
+      end
+    end
+    home_team_id_goals
+  end
+
+  def total_home_games
+    home_team_id_games = {}
+    games.each do |game|
+      if home_team_id_games[game.home_team_id].nil?
+        home_team_id_games[game.home_team_id] = 1
+      else
+        home_team_id_games[game.home_team_id] += 1
+      end
+    end
+    home_team_id_games
+  end
+
+  def highest_scoring_home
+    averages = total_home_goals.merge(total_home_games) do |team_id, goals, games|
+      (goals/games.to_f).round(2)
+    end
+    average_max = averages.max_by do |team_id, average|
+      average
+    end
+     average_max[0]
+  end
+
+  def lowest_scoring_home
+    averages = total_home_goals.merge(total_home_games) do |team_id, goals, games|
+      (goals/games.to_f).round(2)
+    end
+    average_min = averages.min_by do |team_id, average|
+      average
+    end
+     average_min[0]
+  end
+
 end

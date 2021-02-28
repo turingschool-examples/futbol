@@ -192,6 +192,24 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal "Sporting Kansas City", tracker.worst_offense
   end
+
+  def test_highest_scoring_home_team_full_file
+    game_path = "./data/games.csv"
+    team_path = './data/teams.csv'
+    game_team_path = './fixture/game_teams_dummy15.csv'
+    tracker = StatTracker.new(game_path, team_path, game_team_path)
+
+    assert_equal "Reign FC", tracker.highest_scoring_home
+  end
+
+  def test_lowest_scoring_home_team_full_file
+    game_path = "./data/games.csv"
+    team_path = './data/teams.csv'
+    game_team_path = './fixture/game_teams_dummy15.csv'
+    tracker = StatTracker.new(game_path, team_path, game_team_path)
+
+    assert_equal "Utah Royals FC", tracker.lowest_scoring_home
+  end
   ###########################
 
   ###### Season Stats #######

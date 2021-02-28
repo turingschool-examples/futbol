@@ -55,7 +55,7 @@ class StatTracker
   ###########################
 
   ###### Team Stats #########
-  
+
   def team_info(team_id)
     @teams.team_info(team_id)
   end
@@ -95,6 +95,14 @@ class StatTracker
   def worst_offense
     @teams.get_team_name(@game_teams.worst_offense)
   end
+
+  def highest_scoring_home_team
+  @teams.get_team_name(@games.highest_scoring_home)
+end
+
+def lowest_scoring_home_team
+  @teams.get_team_name(@games.lowest_scoring_home)
+end
 
   ###########################
 
