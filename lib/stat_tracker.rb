@@ -317,15 +317,4 @@ class StatTracker
     worst_coach = average.min_by {|key, value| value}
     worst_coach[0]
   end
-  # def best_season(team_id)
-  #   number_wins = 0
-  #   result = []
-  #   games_data.each do |game|
-  #     if game[:away_team_id] == team_id || game[:home_team_id] == team_id
-  #       result << game
-  #     end
-  #   end
-  #   require "pry"; binding.pry
-  # end
-
 end
