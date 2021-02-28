@@ -22,16 +22,7 @@ class GameTeamTable
   end
 
   def winningest_coach(season)
-    season = @stat_tracker.game_by_season[season.to_i].map do |season|
-      season.game_id
-    end
-    ids = @game_team_data.map do |gameteam|
-      gameteam.game_id
-    end
-    overlap = season & ids
-    games_by_season= @game_team_data.find_all do |games|
-      overlap.include?(games.game_id)
-    end
+    games_by_season = games_by_season(season)
     winning_coach_hash =games_by_season.group_by do |game|
        game.head_coach if game.result == "WIN"
       end
@@ -40,16 +31,7 @@ class GameTeamTable
   end
 
   def worst_coach(season)
-    season = @stat_tracker.game_by_season[season.to_i].map do |season|
-      season.game_id
-    end
-    ids = @game_team_data.map do |gameteam|
-      gameteam.game_id
-    end
-    overlap = season & ids
-    games_by_season = @game_team_data.find_all do |games|
-      overlap.include?(games.game_id)
-    end
+    games_by_season = games_by_season(season)
     winning_coach_hash = games_by_season.group_by do |game|
        game.head_coach if game.result == "LOSS"
       end
@@ -58,56 +40,31 @@ class GameTeamTable
   end
 
   def most_accurate_team(season)
-    season = @stat_tracker.game_by_season[season.to_i].map do |season|
-      season.game_id
-    end
-    ids = @game_team_data.map do |gameteam|
-      gameteam.game_id
-    end
-    overlap = season & ids
-    games_by_season = @game_team_data.find_all do |games|
-      overlap.include?(games.game_id)
-    end
-
+    games_by_season = games_by_season(season)
     games_by_team_id_hash = games_by_season.group_by do |game|
       game.team_id
     end
-
     ratio_of_g_to_s = games_by_team_id_hash.each do |team, ratio|
       games_by_team_id_hash[team] = ratio.map do |array|
         (array.goals.to_f / array.shots.to_f).round(2)
       end
     end
-
     r1 = ratio_of_g_to_s.max_by do |team_id, ratio|
       ratio.sum
     end
     r1[0]
-    # require "pry"; binding.pry
   end
 
   def least_accurate_team(season)
-    season = @stat_tracker.game_by_season[season.to_i].map do |season|
-      season.game_id
-    end
-    ids = @game_team_data.map do |gameteam|
-      gameteam.game_id
-    end
-    overlap = season & ids
-    games_by_season = @game_team_data.find_all do |games|
-      overlap.include?(games.game_id)
-    end
-
+    games_by_season = games_by_season(season)
     games_by_team_id_hash = games_by_season.group_by do |game|
       game.team_id
     end
-
     ratio_of_g_to_s = games_by_team_id_hash.each do |team, ratio|
       games_by_team_id_hash[team] = ratio.map do |array|
         (array.goals.to_f / array.shots.to_f).round(2)
       end
     end
-
     r1 = ratio_of_g_to_s.min_by do |team_id, ratio|
       ratio.sum
     end
@@ -115,22 +72,7 @@ class GameTeamTable
   end
 
   def most_tackles(season)
-    season = @stat_tracker.game_by_season[season.to_i].map do |season|
-      season.game_id
-      #which game id has this season id (from the argument) as well
-    end
-
-    ids = @game_team_data.map do |gameteam|
-      gameteam.game_id
-    end
-    #gameteam and gameteam match on 124/125 the same
-    #way games and game match on 133/134. The names dont
-    #matter just that they match
-
-    overlap = season & ids
-    games_by_season = @game_team_data.find_all do |games|
-      overlap.include?(games.game_id)
-    end
+    games_by_season = games_by_season(season)
     games_by_team_id_hash = games_by_season.group_by do |game|
       game.team_id
     end
@@ -146,20 +88,7 @@ class GameTeamTable
   end
 
   def fewest_tackles(season)
-    season = @stat_tracker.game_by_season[season.to_i].map do |season|
-      season.game_id
-      #which game id has this season id (from the argument) as well
-    end
-
-    ids = @game_team_data.map do |gameteam|
-      gameteam.game_id
-    end
-
-
-    overlap = season & ids
-    games_by_season = @game_team_data.find_all do |games|
-      overlap.include?(games.game_id)
-    end
+    games_by_season = games_by_season(season)
     games_by_team_id_hash = games_by_season.group_by do |game|
       game.team_id
     end
@@ -172,5 +101,18 @@ class GameTeamTable
       tackle
     end
     thereturn[0]
+  end
+
+  def games_by_season(season)
+    season = @stat_tracker.game_by_season[season.to_i].map do |season|
+      season.game_id
+    end
+    ids = @game_team_data.map do |gameteam|
+      gameteam.game_id
+    end
+    overlap = season & ids
+    games_by_season= @game_team_data.find_all do |games|
+      overlap.include?(games.game_id)
+    end
   end
 end
