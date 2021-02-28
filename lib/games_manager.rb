@@ -118,7 +118,6 @@ class GamesManager
       end
     end
     best
-#    require 'pry'; binding.pry
   end
 
   def worst_season(team_id)
