@@ -168,21 +168,22 @@ def test_you_can_find_lowest_total_score
   end
 
   def test_you_can_find_lowest_total_score
-
+    skip
     assert_equal 0, @stat_tracker.lowest_total_score
   end
 
   def test_percentage_of_home_wins
-
+    skip
     assert_equal 0.44, @stat_tracker.percentage_home_wins
   end
 
   def test_percentage_of_visitor_wins
-
+    skip
     assert_equal 0.36, @stat_tracker.percentage_visitor_wins
   end
 
   def test_count_games_by_season
+    skip
     expected = {
       "20122013"=>806,
       "20162017"=>1317,
@@ -195,152 +196,30 @@ def test_you_can_find_lowest_total_score
   end
 
   def test_it_can_calculate_best_offense
-
+    skip
     assert_equal "Reign FC", @stat_tracker.best_offense
   end
 
   def test_it_can_calculate_worst_offense
-
+        skip
     assert_equal "Utah Royals FC", @stat_tracker.worst_offense
   end
-# end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  def test_it_can_have_a_favorite_opponent
+    skip
+    assert_equal "DC United", @stat_tracker.favorite_opponent("18")
+  end
+
+  def test_it_has_a_rival
+    skip
+    # assert_equal "Houston Dash", @stat_tracker.rival("18")
+    assert_equal "LA Galaxy", @stat_tracker.rival("18")
+  end
+
+  def test_average_win_percentage
+    # skip
+    assert_equal 0.49, @stat_tracker.average_win_percentage("6")
+  end
 
   def test_best_season
     # WORK IN PROGRESS
