@@ -8,9 +8,10 @@ class Game
               :away_goals,
               :home_goals,
               :venue,
-              :venue_link
+              :venue_link,
+              :parent
 
-  def initialize(data)
+  def initialize(data, parent)
     @game_id = data[:game_id]
     @season = data[:season]
     @type = data[:type]
@@ -21,6 +22,7 @@ class Game
     @home_goals = data[:home_goals].to_i
     @venue = data[:venue]
     @venue_link = data[:venue_link]
+    @parent = parent
   end
 
   def total_score
@@ -33,7 +35,7 @@ class Game
     if @home_goals > @away_goals
       :home
     elsif @away_goals > @home_goals
-      :away
+      :visitor
     else
       :tie
     end

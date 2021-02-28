@@ -1,11 +1,15 @@
-require './lib/stat_tracker'
-require './lib/team_data'
-require './lib/game_data'
-require './lib/game_stats_data'
+require_relative './stat_tracker'
+require_relative './team_manager'
+require_relative './game_manager'
+require_relative './game_stats_manager'
 
 game_path = './data/games.csv'
 team_path = './data/teams.csv'
 game_stats_path = './data/game_stats.csv'
+
+# game_path = 'data/fixture/games_dummy.csv'
+# team_path = './data/teams.csv'
+# game_stats_path = 'data/fixture/game_stats_dummy.csv'
 
 locations = {
   games: game_path,

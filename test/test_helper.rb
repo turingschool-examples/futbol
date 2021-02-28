@@ -6,10 +6,10 @@ require 'minitest/autorun'
 require 'mocha/minitest'
 
 require './lib/team'
-require './lib/team_data'
+require './lib/team_manager'
 require './lib/game'
-require './lib/game_data'
+require './lib/game_manager'
 require './lib/game_stats'
-require './lib/game_stats_data'
+require './lib/game_stats_manager'
 
 require 'pry'
