@@ -79,6 +79,27 @@ class StatTracker
     number_of_teams.count
   end
 
+  def average_goals_per_game
+    sum = 0
+    games_data.each do |game|
+      sum += game[:away_goals].to_i
+      sum += game[:home_goals].to_i
+    end
+    (sum.to_f / games_data.count).round(2)
+  end
+
+  def average_goals_by_season
+    result = {}
+    games_data.each do |game|
+      result[game[:season]] = [] if result[game[:season]].nil?
+
+      # if result.keys == game[:season]
+        # result[game[:season]] << game[:away_goals].to_i + game[:home_goals]
+      # end
+    end
+    result
+  end
+
   # Season Statistics
 
   # def most_tackles(season_id)
@@ -109,7 +130,6 @@ class StatTracker
       # require "pry"; binding.pry
       team["team_id"] == team_id
     end
-
     team_deets = team_info.to_h
     team_deets.delete("Stadium")
     team_deets["team_name"] = team_deets["teamName"]
