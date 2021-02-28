@@ -11,19 +11,9 @@ class GameTeamTable
     @stat_tracker = stat_tracker
   end
 
-  def get_season(season)
-    season = @stat_tracker.game_by_season[season.to_i].map do |season|
-      season.game_id
-    end
-    ids = @game_team_data.map do |gameteam|
-      gameteam.game_id
-    end
-    overlap = season & ids
-  end
-
   def winningest_coach(season)
     games_by_season = games_by_season(season)
-    winning_coach_hash =games_by_season.group_by do |game|
+    winning_coach_hash = games_by_season.group_by do |game|
        game.head_coach if game.result == "WIN"
       end
     win_count = winning_coach_hash.each { |k, v| winning_coach_hash[k] = v.count}.reject{|coach| coach == nil}
@@ -41,9 +31,7 @@ class GameTeamTable
 
   def most_accurate_team(season)
     games_by_season = games_by_season(season)
-    games_by_team_id_hash = games_by_season.group_by do |game|
-      game.team_id
-    end
+    games_by_team_id_hash = games_by_season.group_by {|game| game.team_id}
     ratio_of_g_to_s = games_by_team_id_hash.each do |team, ratio|
       games_by_team_id_hash[team] = ratio.map do |array|
         (array.goals.to_f / array.shots.to_f).round(2)
@@ -57,9 +45,7 @@ class GameTeamTable
 
   def least_accurate_team(season)
     games_by_season = games_by_season(season)
-    games_by_team_id_hash = games_by_season.group_by do |game|
-      game.team_id
-    end
+    games_by_team_id_hash = games_by_season.group_by {|game| game.team_id}
     ratio_of_g_to_s = games_by_team_id_hash.each do |team, ratio|
       games_by_team_id_hash[team] = ratio.map do |array|
         (array.goals.to_f / array.shots.to_f).round(2)
@@ -73,9 +59,7 @@ class GameTeamTable
 
   def most_tackles(season)
     games_by_season = games_by_season(season)
-    games_by_team_id_hash = games_by_season.group_by do |game|
-      game.team_id
-    end
+    games_by_team_id_hash = games_by_season.group_by {|game| game.team_id}
     container = games_by_team_id_hash.each do |team, games|
       games_by_team_id_hash[team] = games.sum do |lul|
         lul.tackles
@@ -89,9 +73,7 @@ class GameTeamTable
 
   def fewest_tackles(season)
     games_by_season = games_by_season(season)
-    games_by_team_id_hash = games_by_season.group_by do |game|
-      game.team_id
-    end
+    games_by_team_id_hash = games_by_season.group_by {|game| game.team_id}
     container = games_by_team_id_hash.each do |team, games|
       games_by_team_id_hash[team] = games.sum do |lul|
         lul.tackles
