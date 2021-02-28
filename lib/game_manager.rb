@@ -6,14 +6,14 @@ require_relative './csv_parser'
 class GameManager
   include CsvParser
 
-  def initialize(locations)
-    @all_games = load_it_up(locations, Game)
+  def initialize(file)
+    @all_games = load_it_up(file, Game)
   end
 
   def highest_total_score_in_game
-    @all_games.max_by do |game|
+    @all_games.map do |game|
       game.total_goals
-    end
+    end.max
   end
 
   def lowest_total_score_in_game

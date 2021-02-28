@@ -8,7 +8,6 @@ class TeamManager
 
   def initialize(locations)
     @all_teams = load_it_up(locations, Team)
-
     # CSV.foreach(locations, headers: true, header_converters: :symbol) do |row|
     #   @all_team_data << Team.new(row, self)
     # end

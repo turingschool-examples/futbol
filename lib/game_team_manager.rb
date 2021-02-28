@@ -1,11 +1,13 @@
+require 'CSV'
+require 'pry'
+require_relative './game'
 require_relative './csv_parser'
 
-class GameTeamsManager
+class GameTeamManager
   include CsvParser
 
-  def initialize(locations)
-    @all_game_teams = load_it_up(locations, GameTeams)
-
+  def initialize(file)
+    @all_game_teams = load_it_up(file, GameTeam)
     # CSV.read(locations, headers: true, header_converters: :symbol) do |row|
     #
     #   @all_game_teams << GameTeams.new(row, self)

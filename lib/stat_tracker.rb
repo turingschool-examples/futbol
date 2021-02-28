@@ -25,8 +25,7 @@ class StatTracker
       #becomes an array of game objects
         # needs to be passed in game_manger as argument
     @team = load_it_up(locations[:teams], Team)
-    @game_team = load_it_up([:game_teams], GameTeams)
-
+    @game_team = load_it_up(locations[:game_teams], GameTeams)
   end
 
   def highest_total_score

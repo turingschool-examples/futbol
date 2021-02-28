@@ -2,14 +2,7 @@ require './test/test_helper'
 
 class TeamManagerTest < Minitest::Test
   def setup
-    @team_path = './data/teams.csv'
-
-    locations = {
-      teams: @team_path
-    }
-
-    @stat_tracker = mock
-    @team_data = TeamManager.new(locations[:teams], @stat_tracker)
+    @team_data = TeamManager.new('./data/teams.csv')
   end
 
   def test_it_exists
