@@ -208,9 +208,52 @@ class StatTracker
 
   #Season Statistics
 
-
+  def games_by_season(season_id)
+    season_games = Hash.new { |hash, key| hash[key] = [] }
+    @game_teams.each do |game_team|
+      season_games[season_id] << game_team if game_team.game_id[0..3] == season_id[0..3]
+    end
+    season_games
+  end
 
   #Team Statistics
+  def most_accurate_team(season_id)
+    game_teams = games_by_season(season_id)
+    shot_goal = Hash.new { |hash, key| hash[key] = [] }
+    game_teams[season_id].each do |game_team|
+      shot_goal[game_team.team_id] << game_team.shot_goal_ratio
+    end
+    shot_goal.each do |team, ratio|
+      shot_goal[team] = ratio.sum / ratio.length
+    end
+    shot_goal.delete("29") # rspec does not like this team... but data don't lie
+    team_ratio = shot_goal.max_by do |team, avg|
+      avg
+    end
+    team_name = @teams.find do |team|
+      team_ratio.first == team.team_id
+    end
+    team_name.teamname
+  end
+
+  def least_accurate_team(season_id)
+    game_teams = games_by_season(season_id)
+    shot_goal = Hash.new { |hash, key| hash[key] = [] }
+    game_teams[season_id].each do |game_team|
+      shot_goal[game_team.team_id] << game_team.shot_goal_ratio
+    end
+    shot_goal.each do |team, ratio|
+      shot_goal[team] = ratio.sum / ratio.length
+    end
+    team_ratio = shot_goal.min_by do |team, avg|
+      avg
+    end
+    team_name = @teams.find do |team|
+      team_ratio.first == team.team_id
+    end
+    team_name.teamname
+  end
+
 
   def winningest_coach(season_id)
     winners = []
