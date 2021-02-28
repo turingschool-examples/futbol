@@ -105,7 +105,6 @@ class GamesManager
       end
     end
     summary
-#  require 'pry'; binding.pry
   end
 
   def best_season(team_id)
@@ -168,7 +167,7 @@ class GamesManager
     season_games = @games.find_all do |game|
       game.season == season
     end
-    season_games_ids = season_games.map do |game|
+    season_games.map do |game|
       game.game_id
     end
   end
@@ -252,13 +251,13 @@ class GamesManager
   end
 
   def lowest_scoring_home
-   averages = total_home_goals.merge(total_home_games) do |team_id, goals, games|
-     (goals/games.to_f).round(2)
-   end
-   average_min = averages.min_by do |team_id, average|
-     average
-   end
-    average_min[0]
- end
+      averages = total_home_goals.merge(total_home_games) do |team_id, goals, games|
+      (goals/games.to_f).round(2)
+    end
+      average_min = averages.min_by do |team_id, average|
+      average
+    end
+      average_min[0]
+  end
 end 
   

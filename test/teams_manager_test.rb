@@ -5,7 +5,6 @@ require 'CSV'
 class TeamsManagerTest < Minitest::Test
 
   def test_it_exists
-
     path = "./fixture/teams_dummy15.csv"
     team_manager = TeamsManager.new(path)
 
@@ -13,9 +12,6 @@ class TeamsManagerTest < Minitest::Test
   end
 
   def test_it_has_attributes
-
-    #CSV.stubs(:foreach).returns([])
-
     path = "./fixture/teams_dummy15.csv"
     team_manager = TeamsManager.new(path)
 
@@ -59,5 +55,4 @@ class TeamsManagerTest < Minitest::Test
 
     assert_equal expected, teams_manager.team_info("1")
   end
-
 end

@@ -5,7 +5,6 @@ require 'CSV'
 class GameManagerTest < Minitest::Test
 
   def test_it_exists
-
     path = "./fixture/games_dummy15.csv"
     game_manager = GamesManager.new(path)
 
@@ -13,10 +12,6 @@ class GameManagerTest < Minitest::Test
   end
 
   def test_it_has_attributes
-
-    #CSV.stubs(:foreach).returns([])
-
-    # start_tracker = mock
     path = "./fixture/games_dummy15.csv"
     game_manager = GamesManager.new(path)
 
@@ -143,6 +138,7 @@ class GameManagerTest < Minitest::Test
 
     assert_equal 0, game_manager.fewest_goals_scored('6')
   end
+
   def test_total_home_goals
     path = "./data/games.csv"
     game_manager = GamesManager.new(path)
@@ -158,6 +154,7 @@ class GameManagerTest < Minitest::Test
                }
     assert_equal expected, game_manager.total_home_goals
   end
+
   def test_total_home_games
     path = "./data/games.csv"
     game_manager = GamesManager.new(path)
@@ -173,11 +170,13 @@ class GameManagerTest < Minitest::Test
                 }
     assert_equal expected, game_manager.total_home_games
   end
+
   def test_highest_scoring_home_full_file
     path = "./data/games.csv"
     game_manager = GamesManager.new(path)
     assert_equal "54", game_manager.highest_scoring_home
   end
+
   def test_lowest_scoring_home_full_file
     path = "./data/games.csv"
     game_manager = GamesManager.new(path)
@@ -199,6 +198,7 @@ class GameManagerTest < Minitest::Test
                }
     assert_equal expected, game_manager.total_away_goals
   end
+
   def test_total_away_games
     path = "./data/games.csv"
     game_manager = GamesManager.new(path)
@@ -226,5 +226,4 @@ class GameManagerTest < Minitest::Test
     game_manager = GamesManager.new(path)
     assert_equal "27", game_manager.lowest_scoring_visitor
   end
-
 end

@@ -4,7 +4,6 @@ require './lib/stat_tracker'
 class StatTrackerTest < Minitest::Test
 
   def test_it_exists
-
     game_path = './fixture/games_dummy15.csv'
     team_path = './fixture/teams_dummy15.csv'
     game_team_path = './fixture/game_teams_dummy15.csv'
@@ -67,9 +66,9 @@ class StatTrackerTest < Minitest::Test
     tracker = StatTracker.new(game_path, team_path, game_team_path)
 
     expected = {
-      "20122013"=>806, "20162017"=>1317, "20142015"=>1319,
-      "20152016"=>1321, "20132014"=>1323, "20172018"=>1355
-    }
+                "20122013"=>806, "20162017"=>1317, "20142015"=>1319,
+                "20152016"=>1321, "20132014"=>1323, "20172018"=>1355
+                }
 
     assert_equal Hash, tracker.count_of_games_by_season.class
     assert_equal expected, tracker.count_of_games_by_season
@@ -104,7 +103,6 @@ class StatTrackerTest < Minitest::Test
   ###########################
 
   ###### Team Stats #########
-
   def test_team_info
     game_path = "./data/games.csv"
     team_path = './fixture/teams_dummy15.csv'
@@ -133,6 +131,7 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal  "20142015", tracker.worst_season("6")
   end
+
   def test_average_win_perentage
     game_path = "./data/games.csv"
     team_path = './fixture/teams_dummy15.csv'
@@ -148,7 +147,7 @@ class StatTrackerTest < Minitest::Test
     game_team_path = './fixture/game_teams_dummy15.csv'
     tracker = StatTracker.new(game_path, team_path, game_team_path)
 
-  assert_equal 7, tracker.most_goals_scored("18")
+    assert_equal 7, tracker.most_goals_scored("18")
   end
 
   def test_fewest_goals_scored
@@ -159,10 +158,6 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal 0, tracker.fewest_goals_scored("18")
   end
-
-  # assert_equal "DC United", tracker.favorite_opponent("18")
-  # assert_equal "Houston Dash", tracker.rival("18")
-
   ###########################
 
   ###### League Stats #######
@@ -208,24 +203,25 @@ class StatTrackerTest < Minitest::Test
     tracker = StatTracker.new(game_path, team_path, game_team_path)
     assert_equal 'San Jose Earthquakes', tracker.lowest_scoring_visitor
   end
-    def test_highest_scoring_home_team_full_file
+
+  def test_highest_scoring_home_team_full_file
     game_path = "./data/games.csv"
     team_path = './data/teams.csv'
     game_team_path = './fixture/game_teams_dummy15.csv'
     tracker = StatTracker.new(game_path, team_path, game_team_path)
-    assert_equal "Reign FC", tracker.highest_scoring_home
+    assert_equal "Reign FC", tracker.highest_scoring_home_team
   end
+
   def test_lowest_scoring_home_team_full_file
     game_path = "./data/games.csv"
     team_path = './data/teams.csv'
     game_team_path = './fixture/game_teams_dummy15.csv'
     tracker = StatTracker.new(game_path, team_path, game_team_path)
-    assert_equal "Utah Royals FC", tracker.lowest_scoring_home
+    assert_equal "Utah Royals FC", tracker.lowest_scoring_home_team
   end
   ###########################
 
   ###### Season Stats #######
-
   def test_most_tackles
     game_path = './fixture/games_dummy15.csv'
     team_path = './fixture/teams_dummy15.csv'
@@ -300,7 +296,4 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal "LA Galaxy", tracker.rival("18")
   end
-
-
-
 end
