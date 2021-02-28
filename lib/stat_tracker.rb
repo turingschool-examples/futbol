@@ -230,6 +230,14 @@ class StatTracker
       find_team[:teamname]
     end
 
+    def average_win_percentage(team_id)
+      game_results = []
+      game_teams_data.each do |row|
+        game_results << row[:result] if row[:team_id] == team_id
+      end
+      win_bucket = (game_results.count("WIN") / game_results.length.to_f).round(2)
+    end
+
   # A hash with key/value pairs for the following attributes: team_id,
   # franchise_id, team_name, abbreviation, and link
   def team_info(team_id)
