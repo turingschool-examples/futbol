@@ -99,25 +99,47 @@ class StatTracker
   end
 
   # Season Statistics
+  def most_accurate_team(season_id)
+    result = []
+    games_data.each do |game|
+      result << game[:game_id] if game[:season] == season_id
+    end
+    hash = {}
+    game_teams_data.each do |game_team|
+      result.each do |game|
+        if game == game_team[:game_id]
+          hash[game_team[:team_id]] = [] if hash[game_team[:team_id]].nil?
+          calculation = game_team[:goals].to_f / (game_team[:shots].to_f)
+          hash[game_team[:team_id]] << calculation
+        end
+      end
+    end
+    transformed = hash.transform_values {|value| value.sum / value.length}
+    most_accurate = transformed.max_by {|key, value| value}
+    final = team_data.find {|team| team[:team_id] == most_accurate[0]}
+    final[:teamname]
+  end
 
-  # def most_tackles(season_id)
-  #   find_season = games_data.find_all do |game|
-  #     game[:season] == season_id
-  #   end
-  #
-  #   games_array = []
-  #   find_season.each do |season|
-  #     games_array << season[:game_id]
-  #   end
-  #
-  #   nuther_array = []
-  #   game_teams_data.each do |rows|
-  #     games_array.each do |id|
-  #       nuther_array << rows if rows[:game_id] == id
-  #     end
-  #   end
-  #   most_tackles = nuther_array.max_by {|rows| rows[:tackles]}
-  # end
+  def least_accurate_team(season_id)
+    result = []
+    games_data.each do |game|
+      result << game[:game_id] if game[:season] == season_id
+    end
+    hash = {}
+    game_teams_data.each do |game_team|
+      result.each do |game|
+        if game == game_team[:game_id]
+          hash[game_team[:team_id]] = [] if hash[game_team[:team_id]].nil?
+          calculation = game_team[:goals].to_f / (game_team[:shots].to_f)
+          hash[game_team[:team_id]] << calculation
+        end
+      end
+    end
+    transformed = hash.transform_values {|value| value.sum / value.length}
+    least_accurate = transformed.min_by {|key, value| value}
+    final = team_data.find {|team| team[:team_id] == least_accurate[0]}
+    final[:teamname]
+  end
 
   # Team Statistics
   # A hash with key/value pairs for the following attributes: team_id,
