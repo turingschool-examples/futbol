@@ -417,4 +417,281 @@ class StatTracker
     end
     team_name[:teamname]
   end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  def best_season(team_id)
+    games_by_team = game_teams_data.find_all do |game|
+      game[:team_id] == team_id
+    end
+
+    wins = games_by_team.find_all do |game|
+      game[:result] == "WIN"
+    end
+
+    game_ids = wins.map do |game|
+      game[:game_id]
+    end
+
+    games_by_id = []
+    game_ids.each do |id|
+      games_data.each do |game|
+        if game[:game_id] == id
+          games_by_id << game[:season]
+        end
+      end
+    end
+
+    seasons = games_by_id.group_by do |season|
+      season
+    end
+    season_count = seasons.transform_values do |value|
+      value.count
+    end
+    most_wins = season_count.max_by do |season, count|
+      count
+    end
+    most_wins[0]
+  end
+
+  def worst_season(team_id)
+    games_by_team = game_teams_data.find_all do |game|
+      game[:team_id] == team_id
+    end
+
+    wins = games_by_team.find_all do |game|
+      game[:result] == "WIN"
+    end
+
+    game_ids = wins.map do |game|
+      game[:game_id]
+    end
+
+    games_by_id = []
+    game_ids.each do |id|
+      games_data.each do |game|
+        if game[:game_id] == id
+          games_by_id << game[:season]
+        end
+      end
+    end
+
+    seasons = games_by_id.group_by do |season|
+      season
+    end
+    season_count = seasons.transform_values do |value|
+      value.count
+    end
+    least_wins = season_count.min_by do |season, count|
+      count
+    end
+    least_wins[0]
+  end
 end

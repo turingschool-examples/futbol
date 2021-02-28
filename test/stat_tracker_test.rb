@@ -107,12 +107,6 @@ def test_you_can_find_lowest_total_score
     assert_equal 7, @stat_tracker.most_goals_scored("18")
   end
 
-  def test_best_season
-    # WORK IN PROGRESS
-    skip
-    assert_equal "20132014", @stat_tracker.best_season("6")
-  end
-
   def test_highest_scoring_home_team
     skip
     assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
@@ -207,7 +201,7 @@ def test_you_can_find_lowest_total_score
   end
 
   def test_it_can_calculate_worst_offense
-    skip
+        skip
     assert_equal "Utah Royals FC", @stat_tracker.worst_offense
   end
 
@@ -225,5 +219,14 @@ def test_you_can_find_lowest_total_score
   def test_average_win_percentage
     # skip
     assert_equal 0.49, @stat_tracker.average_win_percentage("6")
+  end
+
+  def test_best_season
+    # WORK IN PROGRESS
+    assert_equal "20132014", @stat_tracker.best_season("6")
+  end
+
+  def test_worst_season
+    assert_equal "20142015", @stat_tracker.worst_season("6")
   end
 end
