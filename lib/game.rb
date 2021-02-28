@@ -25,9 +25,11 @@ class Game
     @parent = parent
   end
 
-  def total_goals
+  def total_score
     @away_goals + @home_goals
   end
+
+  # add methods as much as possible: ratio?
 
   def winner
     if @home_goals > @away_goals
@@ -36,6 +38,26 @@ class Game
       :visitor
     else
       :tie
+    end
+  end
+
+  def winning_team_score
+    if winner == :home
+      @home_goals
+    elsif winner == :away
+      @away_goals
+    else winner == :tie
+      "Game tie: #{@home_goals}-#{@away_goals}."
+    end
+  end
+
+  def losing_team_score
+    if winner == :home
+      @away_goals
+    elsif winner == :away
+      @home_goals
+    else winner == :tie
+      "Game tie: #{@home_goals}-#{@away_goals}."
     end
   end
 end
