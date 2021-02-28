@@ -12,14 +12,14 @@ class GameManager
 
   def highest_total_score_in_game
     @all_games.map do |game|
-      game.total_goals
+      game.total_score
     end.max
   end
 
   def lowest_total_score_in_game
     @all_games.min_by do |game|
-      game.total_goals
-    end.total_goals
+      game.total_score
+    end.total_score
   end
 
   def home_wins_array

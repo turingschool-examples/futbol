@@ -48,7 +48,7 @@ class Game
       "Game tie: #{@home_goals}-#{@away_goals}."
     end
   end
-
+  
   def losing_team_score
     if winner == :home
       @away_goals
