@@ -130,10 +130,32 @@ class StatTrackerTest < Minitest::Test
 
    assert_equal 100, stat_tracker.highest_total_score
   end
+  
+  def test_best_season
+    assert_equal "20162017", @stat_tracker.best_season("8")
+  end
 
+  def test_worst_season
+    assert_equal "20172018", @stat_tracker.worst_season("8")
+  end
+
+  def test_most_goals_scored
+    assert_equal 6, @stat_tracker.most_goals_scored("3")
+  end
+
+  def test_fewest_goals_scored
+    assert_equal 0, @stat_tracker.fewest_goals_scored("3")
+  end
 
   #Team Statistics Tests
 
+  def test_it_can_find_most_accurate_team
+    assert_equal "FC Dallas", @stat_tracker.most_accurate_team("20122013")
+  end
+
+  def test_it_can_find_least_accurate_team
+    assert_equal "Sporting Kansas City", @stat_tracker.least_accurate_team("20122013")
+  end
 
   #Helper Methods
 

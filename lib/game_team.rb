@@ -32,4 +32,8 @@ class GameTeam
     @giveaways            = info[:giveaways].to_i
     @takeaways            = info[:takeaways].to_i
   end
+
+  def shot_goal_ratio
+    (goals.to_f / shots.to_f ).round(2)
+  end
 end
