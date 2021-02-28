@@ -35,7 +35,7 @@ class StatTrackerTest < Minitest::Test
     array1 = ["1", "2", "3"]
     array2 = ["3", "4", "5", "6", "7", "8", "9"]
 
-    assert_equal 0.43, @stat_tracker.percentage(array1, array2)
+    assert_equal 0.43, @stat_tracker.arry_percentage(array1, array2)
   end
 
   def test_lowest_total_score
@@ -122,7 +122,7 @@ class StatTrackerTest < Minitest::Test
 
    assert_equal 100, stat_tracker.highest_total_score
   end
-  
+
   def test_best_season
     assert_equal "20162017", @stat_tracker.best_season("8")
   end

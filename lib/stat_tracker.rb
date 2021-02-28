@@ -39,7 +39,7 @@ class StatTracker
     wins = games.find_all do |game|
       game if game.result == "WIN"
     end
-    percentage(wins, games)
+    arry_percentage(wins, games)
   end
 
   def percentage_visitor_wins
@@ -49,7 +49,7 @@ class StatTracker
     wins = games.find_all do |game|
       game if game.result == "WIN"
     end
-    percentage(wins, games)
+    arry_percentage(wins, games)
   end
 
   def percentage_ties #game_team manager
@@ -57,10 +57,10 @@ class StatTracker
     ties = @game_teams.find_all do |game|
       game if game.result == "TIE"
     end
-    percentage(ties, games)
+    arry_percentage(ties, games)
   end
 
-  def percentage(array1, array2)
+  def arry_percentage(array1, array2)
     percent = array1.length.to_f / array2.length.to_f
     readable_percent = percent.round(2)
   end
@@ -210,7 +210,7 @@ class StatTracker
   end
 
   #Team Statistics
-  
+
   def best_season(team_id)
     result = win_percent_by_season(team_id)
     result.max_by {|season, win_percent| win_percent}.first.to_s
@@ -249,7 +249,7 @@ class StatTracker
   def most_goals_scored(team_id)
     find_team_games_played(team_id).max_by(&:goals).goals
   end
-  
+
   def most_accurate_team(season_id)
     game_teams = games_by_season(season_id)
     shot_goal = Hash.new { |hash, key| hash[key] = [] }
@@ -330,7 +330,7 @@ class StatTracker
 
   def find_team_games_played(team_id)
     @game_teams.find_all do |game_team|
-      game_team.team_id == team_id.to_i 
+      game_team.team_id == team_id.to_i
     end
   end
 end
