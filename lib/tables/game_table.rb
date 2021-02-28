@@ -66,11 +66,13 @@ class GameTable
     #of goals in a game for that season as values (rounded to the nearest 100th)
 
     games_by_season_hash = @game_data.group_by {|game| game.season.to_s}
+
+
     goals = games_by_season_hash.each do |season, game|
-      games_by_season_hash[season] = game.away_goals + game.home_goals
+      games_by_season_hash[season] = ((game.map {|indvidual_game| indvidual_game.away_goals.to_f + indvidual_game.home_goals.to_f}).sum/ game.count).round(2)
+    #  ( (indvidual_game.away_goals.to_f + indvidual_game.home_goals.to_f) / game.count).round(2)
     end
     goals
-    require "pry"; binding.pry
   end
 
 #     s1_count = games_by_season_hash[season].count
