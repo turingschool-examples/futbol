@@ -1,12 +1,12 @@
 require './test/test_helper'
 
-class GameStatsTest < Minitest::Test
+class GameTeamsTest < Minitest::Test
   def setup
-    @game = './test/game_stats_dummy.csv'
+    @game7 = GameTeamsManager.new('./test/game_teams_dummy.csv', @stat_tracker)
   end
 #should we account for two teams per game id and return arrays?
   def test_it_exists_and_has_attributes
-    assert_instance_of GameStats, @game7
+    assert_instance_of GameTeams, @game7
     assert_equal 2015030133, @game7.game_id
     assert_equal 4, @game7.team_id
     assert_equal "home", @game7.hoa

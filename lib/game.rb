@@ -8,12 +8,11 @@ class Game
               :away_goals,
               :home_goals,
               :venue,
-              :venue_link,
-              :parent
+              :venue_link
 
-  def initialize(data, parent)
+  def initialize(data)
     @game_id = data[:game_id]
-    @season = data[:season]
+    @season = data[:season].to_i
     @type = data[:type]
     @date_time = data[:date_time]
     @away_team_id = data[:away_team_id]
@@ -22,7 +21,6 @@ class Game
     @home_goals = data[:home_goals].to_i
     @venue = data[:venue]
     @venue_link = data[:venue_link]
-    @parent = parent
   end
 
   def total_goals

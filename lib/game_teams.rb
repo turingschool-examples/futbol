@@ -1,5 +1,6 @@
 require 'pry'
-class GameStats
+
+class GameTeams
     attr_reader :game_id,
                 :team_id,
                 :hoa,
@@ -14,13 +15,12 @@ class GameStats
                 :powerplaygoals,
                 :faceoffwinpercentage,
                 :giveaways,
-                :takeaways,
-                :parent
+                :takeaways
 
-    def initialize(data, parent)
+    def initialize(data)
       @game_id = data[:game_id]
       @team_id = data[:team_id]
-      @hoa = data[:hoa]
+      @hoa = data[:HoA]
       @result = data[:result]
       @settled_in = data[:settled_in]
       @head_coach = data[:head_coach]
@@ -28,11 +28,10 @@ class GameStats
       @shots = data[:shots]
       @tackles = data[:tackles]
       @pim = data[:pim]
-      @powerplayopportunities = data[:powerplayopportunities]
+      @powerplayopportunities = data[:powerPlayOpportunities]
       @powerplaygoals = data[:powerplaygoals]
       @faceoffwinpercentage = data[:faceoffwinpercentage]
       @giveaways = data[:giveaways]
       @takeaways = data[:takeaways]
-      @parent = parent
     end
   end

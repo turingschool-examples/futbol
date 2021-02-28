@@ -1,25 +1,36 @@
 require 'CSV'
 require_relative './game_manager'
 require_relative './team_manager'
-require_relative './game_stats_manager'
+require_relative './game_teams_manager'
+require_relative './csv_parser'
+require_relative 'game'
+require_relative 'team'
+require_relative 'game_teams'
+
 require 'pry'
 
 class StatTracker
+  include CsvParser
 
-  attr_reader :game_data, :team_data, :game_stats
-
-  def initialize(locations)
-    @game_manager = GameManager.new(locations[:games], self)
-    @team_manager = TeamManager.new(locations[:teams], self)
-    @game_manager = GameStatsManager.new(locations[:game_stats], self)
-  end
+  attr_reader :game_manager,
+              :team_manager,
+              :game_teams_manager
 
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
 
+  def initialize(locations)
+    @game = load_it_up(locations[:games], Game)
+      #becomes an array of game objects
+        # needs to be passed in game_manger as argument
+    @team = load_it_up(locations[:teams], Team)
+    @game_team = load_it_up([:game_teams], GameTeams)
+
+  end
+
   def highest_total_score
-    @game_manager.game_with_highest_total_score.total_goals
+    @game_manager.highest_total_score_in_game
   end
 
   def lowest_total_score

@@ -2,11 +2,7 @@ require './test/test_helper'
 
 class GameManagerTest < Minitest::Test
   def setup
-    def self.from_csv(locations)
-      StatTracker.new(locations)
-    end
-
-    @game_data = GameManager.new(locations[:games], @stat_tracker)
+    @game_data = GameManager.new('data/fixture/games_dummy.csv')
   end
 
   def test_it_exists
