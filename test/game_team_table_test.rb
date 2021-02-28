@@ -28,5 +28,10 @@ class GameTeamTableTest < Minitest::Test
   def test_most_accurate_team
     assert_equal "Real Salt Lake", @game_table.most_accurate_team("20132014")
     assert_equal "Toronto FC", @game_table.most_accurate_team("20142015")
+  end
+
+  def test_least_accurate_team
+    assert_equal "New York City FC", @game_table.least_accurate_team("20132014")
+    assert_equal "Columbus Crew SC", @game_table.least_accurate_team("20142015")
   end 
 end
