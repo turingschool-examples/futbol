@@ -118,7 +118,6 @@ class GamesManager
       end
     end
     best
-#    require 'pry'; binding.pry
   end
 
   def worst_season(team_id)
@@ -208,8 +207,42 @@ class GamesManager
      average_max[0]
   end
 
-  def lowest_scoring_home
-    averages = total_home_goals.merge(total_home_games) do |team_id, goals, games|
+  def total_away_goals
+    visitor_team_id_goals = {}
+    games.each do |game|
+      if visitor_team_id_goals[game.away_team_id].nil?
+        visitor_team_id_goals[game.away_team_id] = game.away_goals
+      else
+        visitor_team_id_goals[game.away_team_id] += game.away_goals
+      end
+    end
+    visitor_team_id_goals
+  end
+
+  def total_away_games
+    visitor_team_id_games = {}
+    games.each do |game|
+      if visitor_team_id_games[game.away_team_id].nil?
+        visitor_team_id_games[game.away_team_id] = 1
+      else
+        visitor_team_id_games[game.away_team_id] += 1
+      end
+    end
+    visitor_team_id_games
+  end
+
+  def highest_scoring_visitor
+    averages = total_away_goals.merge(total_away_games) do |team_id, goals, games|
+      (goals/games.to_f).round(2)
+    end
+    average_max = averages.max_by do |team_id, average|
+      average
+    end
+     average_max[0]
+  end
+
+  def lowest_scoring_visitor
+    averages = total_away_goals.merge(total_away_games) do |team_id, goals, games|
       (goals/games.to_f).round(2)
     end
     average_min = averages.min_by do |team_id, average|
@@ -218,4 +251,14 @@ class GamesManager
      average_min[0]
   end
 
-end
+  def lowest_scoring_home
+   averages = total_home_goals.merge(total_home_games) do |team_id, goals, games|
+     (goals/games.to_f).round(2)
+   end
+   average_min = averages.min_by do |team_id, average|
+     average
+   end
+    average_min[0]
+ end
+end 
+  

@@ -130,24 +130,22 @@ class GameManagerTest < Minitest::Test
     assert_equal 0.49, game_manager.average_win_percentage('6')
   end
 
-  def test_most_goals_scored
+  def test_most_goals_scored_full_file
     path = "./data/games.csv"
     game_manager = GamesManager.new(path)
 
     assert_equal 6, game_manager.most_goals_scored('6')
   end
 
-  def test_fewest_goals_scored
+  def test_fewest_goals_scored_full_file
     path = "./data/games.csv"
     game_manager = GamesManager.new(path)
 
     assert_equal 0, game_manager.fewest_goals_scored('6')
   end
-
   def test_total_home_goals
     path = "./data/games.csv"
     game_manager = GamesManager.new(path)
-
     expected = {
                 "6"=>586, "3"=>557, "5"=>664, "16"=>598,
                 "17"=>503, "8"=>519, "9"=>540, "30"=>556,
@@ -160,11 +158,9 @@ class GameManagerTest < Minitest::Test
                }
     assert_equal expected, game_manager.total_home_goals
   end
-
   def test_total_home_games
     path = "./data/games.csv"
     game_manager = GamesManager.new(path)
-
     expected =  {
                 "6"=>257, "3"=>265, "5"=>278, "16"=>268,
                 "17"=>242, "8"=>249, "9"=>245, "30"=>250,
@@ -175,19 +171,60 @@ class GameManagerTest < Minitest::Test
                 "54"=>51, "1"=>231, "23"=>234, "27"=>65,
                 "7"=>229, "22"=>235, "12"=>229, "53"=>164
                 }
-
     assert_equal expected, game_manager.total_home_games
   end
-
   def test_highest_scoring_home_full_file
     path = "./data/games.csv"
     game_manager = GamesManager.new(path)
     assert_equal "54", game_manager.highest_scoring_home
   end
-
   def test_lowest_scoring_home_full_file
     path = "./data/games.csv"
     game_manager = GamesManager.new(path)
     assert_equal "7", game_manager.lowest_scoring_home
   end
+  
+  def test_total_away_goals
+    path = "./data/games.csv"
+    game_manager = GamesManager.new(path)
+    expected = {
+                 "3"=>572, "6"=>568, "5"=>598, "17"=>504,
+                 "16"=>558, "9"=>498, "8"=>500, "30"=>506,
+                 "26"=>519, "19"=>519, "24"=>553, "2"=>507,
+                 "15"=>582, "20"=>458, "14"=>550, "28"=>549,
+                 "4"=>470, "21"=>450, "25"=>505, "13"=>453,
+                 "18"=>527, "10"=>469, "29"=>505, "52"=>488,
+                 "54"=>107, "1"=>440, "12"=>462, "23"=>453,
+                 "22"=>479, "7"=>430, "27"=>120, "53"=>303
+               }
+    assert_equal expected, game_manager.total_away_goals
+  end
+  def test_total_away_games
+    path = "./data/games.csv"
+    game_manager = GamesManager.new(path)
+    expected =  {
+                  "3"=>266, "6"=>253, "5"=>274, "17"=>247,
+                  "16"=>266, "9"=>248, "8"=>249, "30"=>252,
+                  "26"=>256, "19"=>254, "24"=>258, "2"=>242,
+                  "15"=>264, "20"=>237, "14"=>259, "28"=>258,
+                  "4"=>239, "21"=>235, "25"=>238, "13"=>232,
+                  "18"=>257, "10"=>240, "29"=>238, "52"=>239,
+                  "54"=>51, "1"=>232, "12"=>229, "23"=>234,
+                  "22"=>236, "7"=>229, "27"=>65, "53"=>164
+                }
+    assert_equal expected, game_manager.total_away_games
+  end
+  
+  def test_highest_scoring_visitor_full_file
+    path = "./data/games.csv"
+    game_manager = GamesManager.new(path)
+    assert_equal "6", game_manager.highest_scoring_visitor
+  end
+  
+  def test_lowest_scoring_visitor_full_file
+    path = "./data/games.csv"
+    game_manager = GamesManager.new(path)
+    assert_equal "27", game_manager.lowest_scoring_visitor
+  end
+
 end

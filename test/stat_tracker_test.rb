@@ -193,21 +193,33 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Sporting Kansas City", tracker.worst_offense
   end
 
-  def test_highest_scoring_home_team_full_file
+  def test_highest_scoring_visitor_full_file
     game_path = "./data/games.csv"
     team_path = './data/teams.csv'
     game_team_path = './fixture/game_teams_dummy15.csv'
     tracker = StatTracker.new(game_path, team_path, game_team_path)
-
+    assert_equal 'FC Dallas', tracker.highest_scoring_visitor
+  end
+  
+  def test_lowest_scoring_visitor_full_file
+    game_path = "./data/games.csv"
+    team_path = './data/teams.csv'
+    game_team_path = './fixture/game_teams_dummy15.csv'
+    tracker = StatTracker.new(game_path, team_path, game_team_path)
+    assert_equal 'San Jose Earthquakes', tracker.lowest_scoring_visitor
+  end
+    def test_highest_scoring_home_team_full_file
+    game_path = "./data/games.csv"
+    team_path = './data/teams.csv'
+    game_team_path = './fixture/game_teams_dummy15.csv'
+    tracker = StatTracker.new(game_path, team_path, game_team_path)
     assert_equal "Reign FC", tracker.highest_scoring_home
   end
-
   def test_lowest_scoring_home_team_full_file
     game_path = "./data/games.csv"
     team_path = './data/teams.csv'
     game_team_path = './fixture/game_teams_dummy15.csv'
     tracker = StatTracker.new(game_path, team_path, game_team_path)
-
     assert_equal "Utah Royals FC", tracker.lowest_scoring_home
   end
   ###########################
@@ -270,5 +282,25 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal "John Tortorella", tracker.worst_coach("20122013")
   end
+
+  def test_favorite_opponent
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_team_path = './data/game_teams.csv'
+    tracker = StatTracker.new(game_path, team_path, game_team_path)
+
+    assert_equal "DC United", tracker.favorite_opponent("18")
+  end
+
+  def test_rival
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_team_path = './data/game_teams.csv'
+    tracker = StatTracker.new(game_path, team_path, game_team_path)
+
+    assert_equal "LA Galaxy", tracker.rival("18")
+  end
+
+
 
 end
