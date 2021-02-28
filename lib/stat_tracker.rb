@@ -316,6 +316,7 @@ def fewest_goals_scored(team_id)
     end
     worst_coach = average.min_by {|key, value| value}
     worst_coach[0]
+  end
 
 #Name of the team with the highest
 #average number of goals scored per game across all seasons.
