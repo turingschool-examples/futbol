@@ -129,7 +129,20 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_lowest_scoring_visitor
-    # skip
+    skip
     assert_equal "San Jose Earthquakes", @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_winningest_coach
+    skip
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20132014")
+    assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
+  end
+
+  def test_worst_coach
+    skip
+    name = "Ted Nolan"
+    assert_equal "Peter Laviolette", @stat_tracker.worst_coach("20132014")
+    assert_equal name, @stat_tracker.worst_coach("20142015")
   end
 end

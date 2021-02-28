@@ -213,6 +213,47 @@ class StatTracker
     find_team[:teamname]
   end
 
+  def winningest_coach(season_id)
+    season = []
+    games_data.each do |game|
+      season << game[:game_id] if game[:season] == season_id
+    end
+    result = {}
+    game_teams_data.each do |game_team|
+      season.each do |game_id|
+        if game_id == game_team[:game_id]
+          result[game_team[:head_coach]] = [] if result[game_team[:head_coach]].nil?
+          result[game_team[:head_coach]] << game_team[:result]
+        end
+      end
+    end
+    average = result.transform_values do |value|
+      (value.count("WIN") / value.length.to_f)
+    end
+    winning_coach = average.max_by {|key, value| value}
+    winning_coach[0]
+  end
+
+  def worst_coach(season_id)
+    season = []
+    games_data.each do |game|
+      season << game[:game_id] if game[:season] == season_id
+    end
+    result = {}
+    game_teams_data.each do |game_team|
+      season.each do |game_id|
+        if game_id == game_team[:game_id]
+          result[game_team[:head_coach]] = [] if result[game_team[:head_coach]].nil?
+          result[game_team[:head_coach]] << game_team[:result]
+        end
+      end
+    end
+    average = result.transform_values do |value|
+      (value.count("WIN") / value.length.to_f)
+    end
+    worst_coach = average.min_by {|key, value| value}
+    worst_coach[0]
+  end
   # def best_season(team_id)
   #   number_wins = 0
   #   result = []
