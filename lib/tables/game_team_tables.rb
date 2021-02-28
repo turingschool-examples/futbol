@@ -1,8 +1,10 @@
 require './lib/helper_modules/csv_to_hashable'
+require './lib/helper_modules/team_returnable'
 require './lib/instances/game_team'
 
 class GameTeamTable
   include CsvToHash
+  include ReturnTeamable
   attr_reader :game_team_data, :teams, :stat_tracker
   def initialize(locations, stat_tracker)
     @game_team_data = from_csv(locations, 'GameTeam')

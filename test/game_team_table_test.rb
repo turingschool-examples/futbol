@@ -8,6 +8,7 @@ require './lib/helper_modules/csv_to_hashable'
 
 class GameTeamTableTest < Minitest::Test
   include CsvToHash
+  include ReturnTeamable
   def setup
     stat_tracker = StatTracker.new()
     locations = './data/game_teams.csv'
