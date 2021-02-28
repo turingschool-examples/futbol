@@ -106,6 +106,24 @@ class GameTeamsManager
 #    require 'pry'; binding.pry
   end
 
+  def rival(team_id)
+    rivals = Hash.new { |rivals, team| rivals[team] = [0,0] }
+    played = @game_teams.find_all do |game_team|
+      team_id == game_team.team_id
+    end
+    played.each do |game_A|
+      opponent_game = @game_teams.find do |game_B|
+        game_A.game_id == game_B.game_id && game_A.team_id != game_B.team_id
+      end
+      rivals[opponent_game.team_id][1] += 1
+      rivals[opponent_game.team_id][0] += 1 if opponent_game.result == "WIN"
+    end
+    rivals.each do |rival, pair|
+      rivals[rival] = calculate_ratios(pair)
+    end
+    rivals.key(rivals.values.max)
+  end
+
   def total_goals_by_team
     goals_by_team_id = {}
     game_teams.each do |game| #should this be @game_teams?

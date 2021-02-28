@@ -122,4 +122,11 @@ class GameTeamsManagerTest < Minitest::Test
 
     assert_instance_of String, game_teams_manager.favorite_opponent("6")
   end
+
+  def test_rival
+    path = "./data/game_teams.csv"
+    game_teams_manager = GameTeamsManager.new(path)
+
+    assert_instance_of String, game_teams_manager.rival("6")
+  end
 end
