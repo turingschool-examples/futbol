@@ -47,7 +47,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_percentage_visitor_wins
-    assert_equal 0.42, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.38, @stat_tracker.percentage_visitor_wins
   end
 
   def test_percentage_ties #added one "TIE" result to truncated_data
@@ -106,6 +106,14 @@ class StatTrackerTest < Minitest::Test
 
   def test_worst_coach
     assert_equal "Mike Babcock", @stat_tracker.worst_coach("20122013")
+  end
+
+  def test_most_tackles_by_team_in_season
+    assert_equal "FC Dallas", @stat_tracker.most_tackles("20122013")
+  end
+
+  def test_fewest_tackles_by_team_in_season
+    assert_equal "New York Red Bulls", @stat_tracker.fewest_tackles("20122013")
   end
 
   def test_highest_total_score
