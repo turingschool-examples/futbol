@@ -2,6 +2,7 @@ require_relative './game'
 require_relative './team'
 require_relative './game_team'
 require_relative 'csv_loadable'
+require_relative './games_manager'
 
 class StatTracker
   attr_reader :games,
@@ -24,17 +25,11 @@ class StatTracker
   #Game Statistics
 
   def highest_total_score
-    scores = @games.max_by do |game|
-      game.total_goals
-    end
-    scores.total_goals
+    GamesManager.highest_total_score(@games)
   end
 
   def lowest_total_score
-    scores = @games.min_by do |game|
-      game.total_goals
-    end
-    scores.total_goals
+    GamesManager.lowest_total_score(@games)
   end
 
   def percentage_home_wins
