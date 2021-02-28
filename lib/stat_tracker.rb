@@ -105,6 +105,15 @@ class StatTracker
     @teams.get_team_name(@game_teams.worst_offense)
   end
 
+  def highest_scoring_visitor
+    @teams.get_team_name(@games.highest_scoring_visitor)
+  end
+
+  def lowest_scoring_visitor
+    @teams.get_team_name(@games.lowest_scoring_visitor)
+  end
+
+
   ###########################
 
   ###### Season Stats #######
