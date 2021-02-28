@@ -57,7 +57,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_average_goals_by_season
-    # skip
+    skip
     expected = {
       "20122013"=>4.12,
       "20162017"=>4.23,
@@ -94,6 +94,42 @@ class StatTrackerTest < Minitest::Test
      "link" => "/api/v1/teams/18"
    }
 
-   assert_equal @stat_tracker.team_info("18"), expected
+   assert_equal expected, @stat_tracker.team_info("18")
+  end
+
+  def test_fewest_goals_scored
+    skip
+    assert_equal 0, @stat_tracker.fewest_goals_scored("18")
+  end
+
+  def test_most_goals_scored
+    skip
+    assert_equal 7, @stat_tracker.most_goals_scored("18")
+  end
+
+  def test_best_season
+    # WORK IN PROGRESS
+    skip
+    assert_equal "20132014", @stat_tracker.best_season("6")
+  end
+
+  def test_highest_scoring_home_team
+    skip
+    assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_lowest_scoring_home_team
+    skip
+    assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_highest_scoring_visitor
+    skip
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_lowest_scoring_visitor
+    # skip
+    assert_equal "San Jose Earthquakes", @stat_tracker.lowest_scoring_visitor
   end
 end

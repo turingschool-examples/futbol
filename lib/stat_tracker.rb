@@ -137,4 +137,91 @@ class StatTracker
     team_deets
   end
 
+  def fewest_goals_scored(team_id)
+    team_result = []
+    game_teams_data.each do |games|
+      team_result << games if games[:team_id] == team_id
+    end
+    goals = team_result.min_by do |result|
+      result[:goals]
+    end[:goals].to_i
+  end
+
+  def most_goals_scored(team_id)
+    team_result = []
+    game_teams_data.each do |games|
+      team_result << games if games[:team_id] == team_id
+    end
+    goals = team_result.max_by do |result|
+      result[:goals]
+    end[:goals].to_i
+  end
+
+  def highest_scoring_home_team
+    grouped = {}
+    games_data.each do |game|
+      grouped[game[:home_team_id]] = [] if grouped[game[:home_team_id]].nil?
+      grouped[game[:home_team_id]] << game[:home_goals].to_f
+    end
+    averaged = grouped.transform_values do |values|
+      (values.sum / values.length).round(2)
+    end
+    result = averaged.max_by {|key, value| value}
+    find_team = team_data.find {|team| team[:team_id] == result[0]}
+    find_team[:teamname]
+  end
+
+  def lowest_scoring_home_team
+    grouped = {}
+    games_data.each do |game|
+      grouped[game[:home_team_id]] = [] if grouped[game[:home_team_id]].nil?
+      grouped[game[:home_team_id]] << game[:home_goals].to_f
+    end
+    averaged = grouped.transform_values do |values|
+      (values.sum / values.length).round(2)
+    end
+    result = averaged.min_by {|key, value| value}
+    find_team = team_data.find {|team| team[:team_id] == result[0]}
+    find_team[:teamname]
+  end
+
+  def highest_scoring_visitor
+    grouped = {}
+    games_data.each do |game|
+      grouped[game[:away_team_id]] = [] if grouped[game[:away_team_id]].nil?
+      grouped[game[:away_team_id]] << game[:away_goals].to_f
+    end
+    averaged = grouped.transform_values do |values|
+      (values.sum / values.length).round(2)
+    end
+    result = averaged.max_by {|key, value| value}
+    find_team = team_data.find {|team| team[:team_id] == result[0]}
+    find_team[:teamname]
+  end
+
+  def lowest_scoring_visitor
+    grouped = {}
+    games_data.each do |game|
+      grouped[game[:away_team_id]] = [] if grouped[game[:away_team_id]].nil?
+      grouped[game[:away_team_id]] << game[:away_goals].to_f
+    end
+    averaged = grouped.transform_values do |values|
+      (values.sum / values.length).round(2)
+    end
+    result = averaged.min_by {|key, value| value}
+    find_team = team_data.find {|team| team[:team_id] == result[0]}
+    find_team[:teamname]
+  end
+
+  # def best_season(team_id)
+  #   number_wins = 0
+  #   result = []
+  #   games_data.each do |game|
+  #     if game[:away_team_id] == team_id || game[:home_team_id] == team_id
+  #       result << game
+  #     end
+  #   end
+  #   require "pry"; binding.pry
+  # end
+
 end
