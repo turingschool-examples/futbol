@@ -149,6 +149,9 @@ class StatTrackerTest < Minitest::Test
   def test_most_accurate_team
     skip
     assert_equal "Real Salt Lake", @stat_tracker.most_accurate_team("20132014")
+    # This second assertion refuses to pass - I am figuring it out.
+    # Weird thing is least_accurate_team passes - I only changed min_by and such
+    # Someone could take a look at it?
     # assert_equal "Toronto FC", @stat_tracker.most_accurate_team("20142015")
   end
 

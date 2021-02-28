@@ -99,6 +99,7 @@ class StatTracker
   end
 
   # Season Statistics
+
   def most_accurate_team(season_id)
     result = []
     games_data.each do |game|
