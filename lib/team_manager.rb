@@ -1,15 +1,16 @@
 require 'CSV'
 require 'pry'
 require_relative './team'
+require_relative './csv_parser'
 
 class TeamManager
-  def initialize(locations, stat_tracker)
-    @all_team_data = []
-    @stat_tracker = stat_tracker
+  include CsvParser
 
-    CSV.foreach(locations, headers: true, header_converters: :symbol) do |row|
-      @all_team_data << Team.new(row, self)
-    end
+  def initialize(locations)
+    @all_teams = load_it_up(locations, Team)
+    # CSV.foreach(locations, headers: true, header_converters: :symbol) do |row|
+    #   @all_team_data << Team.new(row, self)
+    # end
   end
 end
 

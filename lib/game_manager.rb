@@ -1,21 +1,19 @@
 require 'CSV'
 require 'pry'
 require_relative './game'
+require_relative './csv_parser'
 
 class GameManager
-  def initialize(locations, stat_tracker)
-    @all_games = []
-    @stat_tracker = stat_tracker
+  include CsvParser
 
-    CSV.foreach(locations, headers: true, header_converters: :symbol) do |row|
-      @all_games << Game.new(row, self)
-    end
+  def initialize(file)
+    @all_games = load_it_up(file, Game)
   end
 
   def highest_total_score_in_game
-    @all_games.max_by do |game|
+    @all_games.map do |game|
       game.total_goals
-    end.total_goals
+    end.max
   end
 
   def lowest_total_score_in_game
