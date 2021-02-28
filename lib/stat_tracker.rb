@@ -100,6 +100,46 @@ class StatTracker
 
   # Season Statistics
 
+  def most_tackles(season_id)
+    result = []
+    games_data.each do |game|
+      result << game[:game_id] if game[:season] == season_id
+    end
+    hash = {}
+    game_teams_data.each do |game_team|
+      result.each do |game|
+        if game == game_team[:game_id]
+          hash[game_team[:team_id]] = [] if hash[game_team[:team_id]].nil?
+          hash[game_team[:team_id]] << game_team[:tackles].to_i
+        end
+      end
+    end
+    transformed = hash.transform_values {|value| value.sum}
+    tackles = transformed.max_by {|key, value| value}
+    find = team_data.find {|team| team[:team_id] == tackles[0]}
+    find[:teamname]
+  end
+
+  def fewest_tackles(season_id)
+    result = []
+    games_data.each do |game|
+      result << game[:game_id] if game[:season] == season_id
+    end
+    hash = {}
+    game_teams_data.each do |game_team|
+      result.each do |game|
+        if game == game_team[:game_id]
+          hash[game_team[:team_id]] = [] if hash[game_team[:team_id]].nil?
+          hash[game_team[:team_id]] << game_team[:tackles].to_i
+        end
+      end
+    end
+    transformed = hash.transform_values {|value| value.sum}
+    tackles = transformed.min_by {|key, value| value}
+    find = team_data.find {|team| team[:team_id] == tackles[0]}
+    find[:teamname]
+  end
+
   def most_accurate_team(season_id)
     result = []
     games_data.each do |game|
