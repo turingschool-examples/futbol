@@ -26,4 +26,8 @@ class StatTracker
   def game_by_season
     @games.game_by_season
   end
+
+  def game_by_season(season)
+    @game_teams.game_by_season(season)
+  end 
 end
