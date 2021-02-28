@@ -236,14 +236,17 @@ class StatTracker
     (win_count / matching_game_teams.length.to_f).round(2)
   end
 
+  def most_goals_scored(team_id)
+    find_team_games_played(team_id).max_by(&:goals).goals
+  end
 
+  def fewest_goals_scored(team_id)
+    find_team_games_played(team_id).min_by(&:goals).goals
+  end
 
-  # def count_of_games_by_season
-  #   hash = Hash.new(0)
-
-  #   @games.each do |game|
-  #     hash[game.season.to_s] += 1
-  #   end
-  #   hash
-  # end
+  def find_team_games_played(team_id)
+    @game_teams.find_all do |game_team|
+      game_team.team_id == team_id.to_i 
+    end
+  end
 end
