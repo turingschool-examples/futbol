@@ -37,6 +37,9 @@ class GameTeamTable
   end
 
   def highest_scoring_home_team
-    @game_team_data.find_all {|game| game.HoA }
+    hash = Hash.new
+    #finds all home games, groups them by team, takes the 
+    @game_team_data.find_all {|game| game.hoa == 'home' }.group_by{|game| game.team_id}.map{|team| hash[team[0]] = team[1].map{|game| game.goals}.sum.to_f / team[1].length}
+    hash.max_by {|team| team[1]}[0]
   end
 end

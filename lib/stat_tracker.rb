@@ -4,7 +4,6 @@ require './lib/helper_modules/team_returnable'
 class StatTracker
   include ReturnTeamable
   attr_reader :games, :game_teams, :teams
-
   def initialize
     @games = GameTable.new('./data/games.csv')
     @game_teams = GameTeamTable.new('./data/game_teams.csv')
@@ -33,6 +32,6 @@ class StatTracker
   end
 
   def highest_scoring_home_team
-    @game_teams.highest_scoring_home_team
+    return_team_name(@game_teams.highest_scoring_home_team, @teams.team_data)
   end
 end
