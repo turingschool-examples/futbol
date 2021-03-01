@@ -44,4 +44,30 @@ class GameTeamTableTest < Minitest::Test
     assert_equal "Atlanta United", @game_table.fewest_tackles("20132014")
     assert_equal "Orlando City SC", @game_table.fewest_tackles("20142015")
   end
-end   
+
+  def test_best_offense
+
+    assert_equal "Reign FC", @game_table.best_offense
+  end
+
+  def test_highest_scoring_visitor
+
+    assert_equal "FC Dallas", @game_table.highest_scoring_visitor
+  end
+
+  def test_lowest_scoring_visitor
+    assert_equal "San Jose Earthquakes", @game_table.lowest_scoring_visitor
+  end
+
+  def test_average_win_percentage
+    assert_equal 0.49, @game_table.average_win_percentage("6")
+  end
+
+  def test_best_season
+    assert_equal "20132014", @game_table.best_season("6")
+  end
+
+  def test_fewest_goals_scored
+    assert_equal 0, @game_table.fewest_goals_scored("18")
+  end
+end
