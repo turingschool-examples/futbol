@@ -171,7 +171,7 @@ class GamesManager
       game.game_id
     end
   end
-
+  
   def total_home_goals
     team_id_by_home_goals = games.map do |game|
       [game.home_team_id, game.home_goals]
@@ -195,7 +195,7 @@ class GamesManager
   
   def total_away_games
     team_id_by_away_games = games.map do |game|
-      [game.away_team_id, 1] #[[4, 1], [3,1]]
+      [game.away_team_id, 1]
     end
     sum_values(team_id_by_away_games)
   end
@@ -209,13 +209,23 @@ class GamesManager
   def highest_scoring_home
     max_average_hash_values(total_home_goals, total_home_games)
   end
-
+  
   def highest_scoring_visitor
     max_average_hash_values(total_away_goals, total_away_games)
   end
 
   def lowest_scoring_visitor
     min_average_hash_values(total_away_goals, total_away_games)
+  end
+
+  def highest_scoring_home
+    averages = total_home_goals.merge(total_home_games) do |team_id, goals, games|
+      (goals/games.to_f).round(2)
+    end
+    average_max = averages.max_by do |team_id, average|
+      average
+    end
+     average_max[0]
   end
 
   def lowest_scoring_home
