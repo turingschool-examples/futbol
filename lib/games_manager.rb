@@ -228,20 +228,14 @@ class GamesManager
     averages = hash_1.merge(hash_2) do |key, hash_1_value, hash_2_value|
       (hash_1_value/hash_2_value.to_f).round(2)
     end
-    average_min = averages.min_by do |key, average|
-      average
-    end
-    average_min[0]
+    (averages.min_by {|team_id, average| average})[0]
   end
 
   def max_average_hash_values(hash_1, hash_2)
     averages = hash_1.merge(hash_2) do |key, hash_1_value, hash_2_value|
       (hash_1_value/hash_2_value.to_f).round(2)
     end
-    average_max = averages.max_by do |key, average|
-      average
-    end
-    average_max[0]
+    (averages.max_by {|team_id, average| average})[0]
   end
 end 
   
