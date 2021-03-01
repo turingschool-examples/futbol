@@ -10,12 +10,7 @@ class StatTracker
     @teams = TeamsTable.new('./data/teams.csv')
     require 'pry'; binding.pry
   end
-  def send_team_data(teams = '@teams')
-    @teams
-  end
-  def call_test
-    @games.other_call(@teams)
-  end
+
   def game_by_season
     @games.game_by_season
   end

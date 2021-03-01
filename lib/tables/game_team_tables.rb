@@ -1,4 +1,5 @@
 require './lib/helper_modules/csv_to_hashable'
+require './lib/helper_modules/team_returnable'
 require './lib/instances/game_team'
 require './lib/helper_modules/team_returnable'
 require './lib/helper_modules/averageable'
@@ -7,6 +8,7 @@ class GameTeamTable
   include CsvToHash
   include ReturnTeamable
   include Averageable
+
   attr_reader :game_team_data, :teams, :stat_tracker
 
   def initialize(locations)
@@ -15,18 +17,92 @@ class GameTeamTable
   end
 
   def winningest_coach(season)
-    season = @stat_tracker.game_by_season[20132014].map do |season|
+    games_by_season = games_by_season(season)
+    winning_coach_hash = games_by_season.group_by do |game|
+       game.head_coach if game.result == "WIN"
+      end
+    win_count = winning_coach_hash.each { |k, v| winning_coach_hash[k] = v.count}.reject{|coach| coach == nil}
+    win_count.max_by{|coach, win| win}[0]
+  end
+
+  def worst_coach(season)
+    games_by_season = games_by_season(season)
+    winning_coach_hash = games_by_season.group_by do |game|
+       game.head_coach if game.result == "LOSS"
+      end
+    win_count = winning_coach_hash.each { |k, v| winning_coach_hash[k] = v.count}.reject{|coach| coach == nil}
+    win_count.min_by{|coach, win| win}[0]
+  end
+
+  def most_accurate_team(season)
+    games_by_season = games_by_season(season)
+    games_by_team_id_hash = games_by_season.group_by {|game| game.team_id}
+    ratio_of_g_to_s = games_by_team_id_hash.each do |team, ratio|
+      games_by_team_id_hash[team] = ratio.map do |array|
+        (array.goals.to_f / array.shots.to_f).round(2)
+      end
+    end
+    r1 = ratio_of_g_to_s.max_by do |team_id, ratio|
+      ratio.sum
+    end
+    r1[0]
+  end
+
+  def least_accurate_team(season)
+    games_by_season = games_by_season(season)
+    games_by_team_id_hash = games_by_season.group_by {|game| game.team_id}
+    ratio_of_g_to_s = games_by_team_id_hash.each do |team, ratio|
+      games_by_team_id_hash[team] = ratio.map do |array|
+        (array.goals.to_f / array.shots.to_f).round(2)
+      end
+    end
+    r1 = ratio_of_g_to_s.min_by do |team_id, ratio|
+      ratio.sum
+    end
+    r1[0]
+  end
+
+  def most_tackles(season)
+    games_by_season = games_by_season(season)
+    games_by_team_id_hash = games_by_season.group_by {|game| game.team_id}
+    container = games_by_team_id_hash.each do |team, games|
+      games_by_team_id_hash[team] = games.sum do |lul|
+        lul.tackles
+      end
+    end
+    thereturn = container.max_by do |team_id, tackle|
+      tackle
+    end
+    thereturn[0]
+  end
+
+  def fewest_tackles(season)
+    games_by_season = games_by_season(season)
+    games_by_team_id_hash = games_by_season.group_by {|game| game.team_id}
+    container = games_by_team_id_hash.each do |team, games|
+      games_by_team_id_hash[team] = games.sum do |lul|
+        lul.tackles
+      end
+    end
+    thereturn = container.min_by do |team_id, tackle|
+      tackle
+    end
+    thereturn[0]
+  end
+ 
+  def game_by_season
+    season = @game_data.group_by do |game|
+      game.season
+    end
+  end
+  def games_by_season(season)
+    season = @stat_tracker.game_by_season[season.to_i].map do |season|
       season.game_id
     end
-    #wins count / winnings seasons count
-    #need to get wins count by each coach
-
     ids = @game_team_data.map do |gameteam|
       gameteam.game_id
     end
-
     overlap = season & ids
-  
 
   end
 
