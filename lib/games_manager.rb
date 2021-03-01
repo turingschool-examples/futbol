@@ -173,51 +173,39 @@ class GamesManager
   end
 
   def total_home_goals
-    home_team_id_goals = {}
-    games.each do |game|
-      if home_team_id_goals[game.home_team_id].nil?
-        home_team_id_goals[game.home_team_id] = game.home_goals
-      else
-        home_team_id_goals[game.home_team_id] += game.home_goals
-      end
+    team_id_by_home_goals = games.map do |game|
+      [game.home_team_id, game.home_goals]
     end
-    home_team_id_goals
-  end
-
-  def total_home_games
-    home_team_id_games = {}
-    games.each do |game|
-      if home_team_id_games[game.home_team_id].nil?
-        home_team_id_games[game.home_team_id] = 1
-      else
-        home_team_id_games[game.home_team_id] += 1
-      end
-    end
-    home_team_id_games
+    sum_values(team_id_by_home_goals)
   end
   
   def total_away_goals
-    visitor_team_id_goals = {}
-    games.each do |game|
-      if visitor_team_id_goals[game.away_team_id].nil?
-        visitor_team_id_goals[game.away_team_id] = game.away_goals
-      else
-        visitor_team_id_goals[game.away_team_id] += game.away_goals
-      end
+    team_id_by_away_goals = games.map do |game|
+      [game.away_team_id, game.away_goals]
     end
-    visitor_team_id_goals
+    sum_values(team_id_by_away_goals)
+  end
+  
+  def total_home_games
+    team_id_by_home_games = games.map do |game|
+      [game.home_team_id, 1]
+    end
+    sum_values(team_id_by_home_games)
   end
   
   def total_away_games
-    visitor_team_id_games = {}
-    games.each do |game|
-      if visitor_team_id_games[game.away_team_id].nil?
-        visitor_team_id_games[game.away_team_id] = 1
-      else
-        visitor_team_id_games[game.away_team_id] += 1
-      end
+    team_id_by_away_games = games.map do |game|
+      [game.away_team_id, 1]
     end
-    visitor_team_id_games
+    sum_values(team_id_by_away_games)
+  end
+  
+  def sum_values(key_value_arr)
+    sum = Hash.new(0)
+    key_value_arr.each do |key, value|
+      sum[key] += value
+    end
+    sum
   end
   
   def highest_scoring_home
