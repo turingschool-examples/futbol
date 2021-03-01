@@ -14,6 +14,7 @@ class StatTracker
   def game_by_season
     @games.game_by_season
   end
+
   def count_of_teams
     @teams.count_of_teams
   end
@@ -42,5 +43,7 @@ class StatTracker
     games = @game_teams.find_team_games(team_id_str).map{|game|[game.game_id,game.result]}
     @games.favorite_opponent(games)
   end
-
+  def game_by_season(season)
+    @game_teams.game_by_season(season)
+  end 
 end
