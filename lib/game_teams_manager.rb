@@ -16,15 +16,15 @@ class GameTeamsManager
     list_of_data
   end
 
-  # def get_team_tackle_hash(season_games_ids)
-  #   team_tackles_totals = Hash.new(0)
-  #   @game_teams.each do |game_team|
-  #     if season_games_ids.include?(game_team.game_id)
-  #       team_tackles_totals[game_team.team_id] += game_team.tackles
-  #     end
-  #   end
-  #   team_tackles_totals
-  # end
+  def get_team_tackle_hash(season_games_ids)
+    team_tackles_totals = Hash.new(0)
+    @game_teams.each do |game_team|
+      if season_games_ids.include?(game_team.game_id)
+        team_tackles_totals[game_team.team_id] += game_team.tackles
+      end
+    end
+    team_tackles_totals
+  end
 
 
   def create_hash_int(key, value, data_list)
@@ -32,26 +32,28 @@ class GameTeamsManager
     data_list.each do |datum|
       hash[key.call(datum)] += value.call(datum)
     end
+    hash
   end
 
   def create_hash_list(key, value, data_list)
-    hash = Hash.new { |hash, key| hash[key] = [] }
+    hash = Hash.new { |h, k| h[k] = [] }
     data_list.each do |datum|
-      hash[key.call(datum)] += value.call(datum)
+      hash[key.call(datum)] << value.call(datum)
     end
+    hash
   end
 
   def get_proportion_hash(numerator_hash, denominator_hash)
-    numerator_hash.merge(denominator_hash) do |key, numerator, denominator|
+    hash = numerator_hash.merge(denominator_hash) do |key, numerator, denominator|
       (numerator/denominator.to_f).round(2)
     end
+    hash
   end
 
   def get_proportion_hash_list(hash, criterion = "WIN")
     hash.each do |key, value|
       hash[key] = (value.count(criterion)/value.count.to_f).round(2)
     end
-    hash
   end
 
   def score_ratios_hash(season_games_ids)#new
@@ -59,42 +61,59 @@ class GameTeamsManager
       season_games_ids.include?(game_team.game_id)
     end
 
-    team_id_key = {|game_team| game_team.team_id }
-    goal_value = {|game_team| game_team.goals}
-    shots_value = {|game_team| game_team.shots}
+    team_id_key = Proc.new{|game_team| game_team.team_id}
+    goal_value = Proc.new{|game_team| game_team.goals}
+    shots_value = Proc.new{|game_team| game_team.shots}
 
     goals_hash = create_hash_int(team_id_key, goal_value, data_list)
     shots_hash = create_hash_int(team_id_key, shots_value, data_list)
 
-    get_proportions_hash(goals_hash, shots_hash)
+    get_proportion_hash(goals_hash, shots_hash)
   end
 
   def winningest_coach(season_games)
     data_list = @game_teams.find_all do |game_team|
-      season_games_ids.include?(game_team.game_id)
+      season_games.include?(game_team.game_id)
     end
 
-    coach_key = {|game_team| game_team.result}
-    result_value = {|game_team| game_team.result}
-    coach_hash_win_list = create_hash_list(coach_key, result_value, @game_teams)
+    coach_key = Proc.new{|game_team| game_team.head_coach}
+    result_value = Proc.new{|game_team| game_team.result}
+    coach_hash_win_list = create_hash_list(coach_key, result_value, data_list)
     coach_hash_win_ratio = get_proportion_hash_list(coach_hash_win_list)
 
-    coach_hash_win_ratio.key(coach_hash.values.max)
+    coach_hash_win_ratio.key(coach_hash_win_ratio.values.max)
   end
 
   def worst_coach(season_games)
     data_list = @game_teams.find_all do |game_team|
-      season_games_ids.include?(game_team.game_id)
+      season_games.include?(game_team.game_id)
     end
 
-    coach_key = {|game_team| game_team.result}
-    result_value = {|game_team| game_team.result}
-    coach_hash_win_list = create_hash_list(coach_key, result_value, @game_teams)
+    coach_key = Proc.new{|game_team| game_team.head_coach}
+    result_value = Proc.new{|game_team| game_team.result}
+    coach_hash_win_list = create_hash_list(coach_key, result_value, data_list)
     coach_hash_win_ratio = get_proportion_hash_list(coach_hash_win_list)
 
-    coach_hash_win_ratio.key(coach_hash.values.min)
+    coach_hash_win_ratio.key(coach_hash_win_ratio.values.min)
   end
 
+  def favorite_opponent(team_id)
+    rivals = Hash.new { |rivals, team| rivals[team] = [0,0] }
+    played = @game_teams.find_all do |game_team|
+      team_id == game_team.team_id
+    end
+    played.each do |game_A|
+      opponent_game = @game_teams.find do |game_B|
+        game_A.game_id == game_B.game_id && game_A.team_id != game_B.team_id
+      end
+      rivals[opponent_game.team_id][1] += 1
+      rivals[opponent_game.team_id][0] += 1 if opponent_game.result == "WIN"
+    end
+    rivals.each do |rival, pair|
+      rivals[rival] = calculate_ratios(pair)
+    end
+    rivals.key(rivals.values.min)
+  end
 
   # def score_and_shots_by_team(season_games_ids)
   #   hash = Hash.new { |hash, key| hash[key] = [0,0] }
@@ -150,23 +169,23 @@ class GameTeamsManager
   #   coach.key(coach.values.min)
   # end
 
-  def favorite_opponent(team_id)
-    rivals = Hash.new { |rivals, team| rivals[team] = [0,0] }
-    played = @game_teams.find_all do |game_team|
-      team_id == game_team.team_id
-    end
-    played.each do |game_A|
-      opponent_game = @game_teams.find do |game_B|
-        game_A.game_id == game_B.game_id && game_A.team_id != game_B.team_id
-      end
-      rivals[opponent_game.team_id][1] += 1
-      rivals[opponent_game.team_id][0] += 1 if opponent_game.result == "WIN"
-    end
-    rivals.each do |rival, pair|
-      rivals[rival] = calculate_ratios(pair)
-    end
-    rivals.key(rivals.values.min)
-  end
+  # def favorite_opponent(team_id)
+  #   rivals = Hash.new { |rivals, team| rivals[team] = [0,0] }
+  #   played = @game_teams.find_all do |game_team|
+  #     team_id == game_team.team_id
+  #   end
+  #   played.each do |game_A|
+  #     opponent_game = @game_teams.find do |game_B|
+  #       game_A.game_id == game_B.game_id && game_A.team_id != game_B.team_id
+  #     end
+  #     rivals[opponent_game.team_id][1] += 1
+  #     rivals[opponent_game.team_id][0] += 1 if opponent_game.result == "WIN"
+  #   end
+  #   rivals.each do |rival, pair|
+  #     rivals[rival] = calculate_ratios(pair)
+  #   end
+  #   rivals.key(rivals.values.min)
+  # end
 
   def rival(team_id)
     rivals = Hash.new { |rivals, team| rivals[team] = [0,0] }
