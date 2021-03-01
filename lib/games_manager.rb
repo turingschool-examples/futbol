@@ -16,9 +16,7 @@ class GamesManager
   end
 
   def home_and_away_goals_sum
-    games.map do |game|
-      game.away_goals + game.home_goals
-    end
+    games.map {|game| game.away_goals + game.home_goals}
   end
 
   def highest_total_score
@@ -56,11 +54,8 @@ class GamesManager
   def count_of_games_by_season
     games_in_season = Hash.new
     games.each do |game|
-      if games_in_season[game.season].nil?
-        games_in_season[game.season] = 1
-      else
-        games_in_season[game.season] += 1
-      end
+      games_in_season[game.season] =0 if games_in_season[game.season].nil?
+      games_in_season[game.season] += 1
     end
     games_in_season
   end
@@ -75,13 +70,9 @@ class GamesManager
   def average_goals_by_season
     goals_in_season = Hash.new
     games.each do |game|
-      if goals_in_season[game.season].nil?
-        goals_in_season[game.season] = (game.away_goals + game.home_goals)
-      else
-        goals_in_season[game.season] += (game.away_goals + game.home_goals)
-      end
+      goals_in_season[game.season] = 0 if goals_in_season[game.season].nil?
+      goals_in_season[game.season] += (game.away_goals + game.home_goals)
     end
-
     count_of_games_by_season.merge(goals_in_season) do |season, games, goals|
       (goals/games.to_f).round(2)
     end
@@ -92,15 +83,8 @@ class GamesManager
     @games.each do |game|
       if team_id == game.away_team_id || team_id == game.home_team_id
         summary[game.season] = [] if summary[game.season].nil?
-        if team_id == game.home_team_id && game.home_goals > game.away_goals
-          result = "W"
-        elsif team_id == game.away_team_id && game.home_goals < game.away_goals
-          result = "W"
-        elsif game.home_goals == game.away_goals
-          result = "T"
-        else
-          result = "L"
-        end
+        result = "non-win"
+        result = "W" if (team_id == game.home_team_id && game.home_goals > game.away_goals) || (team_id == game.away_team_id && game.home_goals < game.away_goals)
         summary[game.season] << result
       end
     end
@@ -108,27 +92,11 @@ class GamesManager
   end
 
   def best_season(team_id)
-    most = 0
-    best = nil
-    get_season_results(team_id).each do |key, value|   #refactor-able? #I think we can use .valuses.max/.min
-      if value.count('W').to_f / value.size > most
-        most = value.count('W').to_f / value.size
-        best = key
-      end
-    end
-    best
+    (get_season_results(team_id).max_by {|k, v| v.count('W').to_f / v.size})[0]
   end
 
   def worst_season(team_id)
-    least = 1
-    worst = nil
-    get_season_results(team_id).each do |key, value|   #refactor-able?
-      if value.count('W').to_f / value.size < least
-        least = value.count('W').to_f / value.size
-        worst = key
-      end
-    end
-    worst
+    (get_season_results(team_id).min_by {|k, v| v.count('W').to_f / v.size})[0]
   end
 
   def average_win_percentage(team_id)
@@ -156,11 +124,11 @@ class GamesManager
   end
 
   def most_goals_scored(team_id)
-    get_goals_scored(team_id).max_by {|score|score.to_i}
+    get_goals_scored(team_id).max_by {|score| score.to_i}
   end
 
   def fewest_goals_scored(team_id)
-    get_goals_scored(team_id).min_by {|score|score.to_i}
+    get_goals_scored(team_id).min_by {|score| score.to_i}
   end
 
   def get_season_games(season)
@@ -171,35 +139,35 @@ class GamesManager
       game.game_id
     end
   end
-  
+
   def total_home_goals
     team_id_by_home_goals = games.map do |game|
       [game.home_team_id, game.home_goals]
     end
     sum_values(team_id_by_home_goals)
   end
-  
+
   def total_away_goals
     team_id_by_away_goals = games.map do |game|
       [game.away_team_id, game.away_goals]
     end
     sum_values(team_id_by_away_goals)
   end
-  
+
   def total_home_games
     team_id_by_home_games = games.map do |game|
       [game.home_team_id, 1]
     end
     sum_values(team_id_by_home_games)
   end
-  
+
   def total_away_games
     team_id_by_away_games = games.map do |game|
       [game.away_team_id, 1]
     end
     sum_values(team_id_by_away_games)
   end
-  
+
   def sum_values(key_value_arr)
     sum = Hash.new(0)
     key_value_arr.each do |key, value|
@@ -207,45 +175,32 @@ class GamesManager
     end
     sum
   end
-  
+
   def highest_scoring_visitor
     averages = total_away_goals.merge(total_away_games) do |team_id, goals, games|
       (goals/games.to_f).round(2)
     end
-    average_max = averages.max_by do |team_id, average|
-      average
-    end
-    average_max[0]
+    (averages.max_by {|team_id, average| average})[0]
   end
 
   def lowest_scoring_visitor
     averages = total_away_goals.merge(total_away_games) do |team_id, goals, games|
       (goals/games.to_f).round(2)
     end
-    average_min = averages.min_by do |team_id, average|
-      average
-    end
-    average_min[0]
+    (averages.min_by {|team_id, average| average})[0]
   end
 
   def highest_scoring_home
     averages = total_home_goals.merge(total_home_games) do |team_id, goals, games|
       (goals/games.to_f).round(2)
     end
-    average_max = averages.max_by do |team_id, average|
-      average
-    end
-     average_max[0]
+    (averages.max_by {|team_id, average| average})[0]
   end
 
   def lowest_scoring_home
     averages = total_home_goals.merge(total_home_games) do |team_id, goals, games|
       (goals/games.to_f).round(2)
     end
-    average_min = averages.min_by do |team_id, average|
-      average
-    end
-    average_min[0]
+    (averages.min_by {|team_id, average| average})[0]
   end
-end 
-  
+end
