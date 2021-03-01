@@ -1,6 +1,8 @@
+require_relative './mathable'
 require_relative './game'
 
 class GamesManager
+  include Mathable
   attr_reader :data_path, :games
 
   def initialize(data_path)
@@ -15,20 +17,12 @@ class GamesManager
     list_of_data
   end
 
-  def home_and_away_goals_sum
-    games.map { |game| game.total_goals }
-  end
-
   def highest_total_score
     home_and_away_goals_sum.max
   end
 
   def lowest_total_score
     home_and_away_goals_sum.min
-  end
-
-  def to_percent(numerator, denominator)    #helper, module?
-    (numerator.to_f / denominator).round(2)
   end
 
   def percentage_home_wins
@@ -152,16 +146,6 @@ class GamesManager
     sum_values(team_id_by_away_games)
   end
 
-  def sum_values(key_value_arr)
-    sum = Hash.new(0)
-    key_value_arr.each { |key, value| sum[key] += value }
-    sum
-  end
-
-  def highest_scoring_home
-    max_average_hash_values(total_home_goals, total_home_games)
-  end
-
   def highest_scoring_visitor
     max_average_hash_values(total_away_goals, total_away_games)
   end
@@ -176,19 +160,5 @@ class GamesManager
 
   def lowest_scoring_home
     min_average_hash_values(total_home_goals, total_home_games)
-  end
-
-  def min_average_hash_values(hash_1, hash_2)
-    averages = hash_1.merge(hash_2) do |key, hash_1_value, hash_2_value|
-      to_percent(hash_1_value, hash_2_value)
-    end
-    (averages.min_by {|team_id, average| average}).first
-  end
-
-  def max_average_hash_values(hash_1, hash_2)
-    averages = hash_1.merge(hash_2) do |key, hash_1_value, hash_2_value|
-      to_percent(hash_1_value, hash_2_value)
-    end
-    (averages.max_by {|team_id, average| average}).first
   end
 end
