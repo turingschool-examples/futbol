@@ -16,12 +16,6 @@ class GameTeamsManager
     list_of_data
   end
 
-  # def team_id_highest_average_goals_all
-  #   game_teams.each do |game|
-  #     require 'pry'; binding.pry
-  #   end
-  # end
-
   def get_team_tackle_hash(season_games_ids)
     team_tackles_totals = Hash.new(0)
     @game_teams.each do |game_team|
@@ -33,45 +27,40 @@ class GameTeamsManager
   end
 
   def score_and_shots_by_team(season_games_ids)
-    hash = Hash.new { |hash, key| hash[key] = [0,0] }
+    accuracy = Hash.new { |accuracy, key| accuracy[key] = [0,0] }
     @game_teams.each do |game_team|
       if season_games_ids.include?(game_team.game_id)
-        hash[game_team.team_id][0] += game_team.goals
-        hash[game_team.team_id][1] += game_team.shots
+        accuracy[game_team.team_id][0] += game_team.goals
+        accuracy[game_team.team_id][1] += game_team.shots
       end
     end
-    hash
+    accuracy
   end
 
-  def score_ratios_hash(season_games_ids)   ##Refactor?: 'hash' to 'accuracy'
-    hash = score_and_shots_by_team(season_games_ids)
-    hash.each do |team_id, pair|
-      ratio = calculate_ratios(pair)
-      hash[team_id] = ratio
-    end
-    hash
+  def score_ratios_hash(season_games_ids)
+    ratio = score_and_shots_by_team(season_games_ids)
+    ratio.transform_values {|pair| calculate_ratios(pair)}   #map for hashes
   end
 
   def calculate_ratios(pair)
     pair[0].to_f/pair[1].to_f
   end
 
-  def winningest_coach(season_games)   ##Refactor?: change 'hash' to 'coach'
-    hash = Hash.new { |hash, team| hash[team] = [0,0] }
+  def winningest_coach(season_games)
+    coach = Hash.new { |coach, team| coach[team] = [0,0] }
     @game_teams.each do |game_team|
       if season_games.include?(game_team.game_id)
-        hash[game_team.head_coach][1] += 1
-        hash[game_team.head_coach][0] += 1 if game_team.result == "WIN"
+        coach[game_team.head_coach][1] += 1
+        coach[game_team.head_coach][0] += 1 if game_team.result == "WIN"
       end
     end
-    hash.each do |team_id, pair|
-      ratio = calculate_ratios(pair)
-      hash[team_id] = ratio
+    coach.each do |team_id, pair|
+      coach[team_id] = calculate_ratios(pair)
     end
-    hash.key(hash.values.max)
+    coach.key(coach.values.max)
   end
 
-  def worst_coach(season_games)   ##Refactor?:  change 'hash' to 'coach'
+  def worst_coach(season_games)
     coach = Hash.new { |hash, team| hash[team] = [0,0] }
     @game_teams.each do |game_team|
       if season_games.include?(game_team.game_id)
@@ -80,8 +69,7 @@ class GameTeamsManager
       end
     end
     coach.each do |team_id, pair|
-      ratio = calculate_ratios(pair)
-      coach[team_id] = ratio
+      coach[team_id] = calculate_ratios(pair)
     end
     coach.key(coach.values.min)
   end
@@ -123,46 +111,37 @@ class GameTeamsManager
   end
 
   def total_goals_by_team
-    goals_by_team_id = {}
-    game_teams.each do |game| #should this be @game_teams?
-      if goals_by_team_id[game.team_id].nil?
-        goals_by_team_id[game.team_id] = game.goals
-      else
-        goals_by_team_id[game.team_id] += game.goals
-      end
+    goals_by_team_id = Hash.new(0)
+    game_teams.each do |game|           #should this be @game_teams?
+      goals_by_team_id[game.team_id] += game.goals
     end
     goals_by_team_id
   end
 
   def total_games_by_team
-    games_by_team_id = {}
+    games_by_team_id = Hash.new(0)
     game_teams.each do |game|
-      if games_by_team_id[game.team_id].nil?
-        games_by_team_id[game.team_id] = 1
-      else
-        games_by_team_id[game.team_id] += 1
-      end
+      games_by_team_id[game.team_id] += 1
     end
     games_by_team_id
   end
 
   def best_offense
     averages = total_goals_by_team.merge(total_games_by_team) do |team_id, goals, games|
-      (goals/games.to_f).round(2)
+      to_percent(goals, games)
     end
-    average_max = averages.max_by do |team_id, average|
-      average
-    end
-     average_max[0]
+    averages.max_by {|team_id, average| average}.first
   end
 
   def worst_offense
     averages = total_goals_by_team.merge(total_games_by_team) do |team_id, goals, games|
-      (goals/games.to_f).round(2)
+      to_percent(goals, games)
     end
-    average_min = averages.min_by do |team_id, average|
-      average
-    end
-     average_min[0]
+    averages.min_by {|team_id, average| average}.first
   end
+
+  def to_percent(top, bottom)
+    (top.to_f / bottom).round(2)
+  end
+
 end
