@@ -238,6 +238,23 @@ class StatTracker
 
   #Team Statistics
 
+  #Teams manager needs average_win_percentage of all games for given team
+  #first gimme team _id, so i can return all games for that team
+  def average_win_percentage(team_id)
+    all_games = @game_teams.find_all do |game_team|
+      game_team.team_id == team_id
+    end
+    wins = 0.0
+    losses = 0.0
+    ties = 0.0
+    all_games.each do |game|
+      wins += 1.0 if game.result == "WIN"
+      losses += 1.0 if game.result == "LOSS"
+      ties += 1 if game.result == "TIE"
+    end
+    avg_win_percent = (wins / (wins + losses + ties)).round(2)
+  end
+
   def best_season(team_id)
     result = win_percent_by_season(team_id)
     result.max_by {|season, win_percent| win_percent}.first.to_s
@@ -275,6 +292,14 @@ class StatTracker
 
   def most_goals_scored(team_id)
     find_team_games_played(team_id).max_by(&:goals).goals
+  end
+
+  def games_by_season(season_id)
+    season_games = Hash.new { |hash, key| hash[key] = [] }
+    @game_teams.each do |game_team|
+      season_games[season_id] << game_team if game_team.game_id[0..3] == season_id[0..3]
+    end
+    season_games
   end
 
   def most_accurate_team(season_id)

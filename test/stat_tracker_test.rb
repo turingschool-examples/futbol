@@ -149,6 +149,14 @@ class StatTrackerTest < Minitest::Test
 
   #Team Statistics Tests
 
+  def test_it_can_get_games_by_season
+    skip
+  end
+
+  def test_it_can_get_average_win_percentage_for_team_all_games
+    assert_equal 0.67, @stat_tracker.average_win_percentage("17")
+  end
+
   def test_it_can_find_most_accurate_team
     assert_equal "FC Dallas", @stat_tracker.most_accurate_team("20122013")
   end
