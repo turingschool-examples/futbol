@@ -20,17 +20,12 @@ class TeamsManager
     teams.uniq.count
   end
 
-  def get_names_hash
+  def get_team_name(team_id)
     team_names_hash = {}
     @teams.each do |team|
       team_names_hash[team.team_id] = team.team_name
     end
-    team_names_hash
-  end
-
-  def get_team_name(team_id)
-    name_hash = get_names_hash
-    name_hash[team_id]
+    team_names_hash[team_id]
   end
 
   def team_info(team_id)
