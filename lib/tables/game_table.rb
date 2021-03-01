@@ -3,7 +3,7 @@ require './lib/instances/game'
 class GameTable
   attr_reader :game_data, :stat_tracker
   include CsvToHash
-  def initialize(locations, stat_tracker)
+  def initialize(locations)
     @game_data = from_csv(locations, 'Game')
     @stat_tracker = stat_tracker
   end
@@ -61,9 +61,6 @@ class GameTable
   end
 
   def average_goals_by_season
-    #Average number of goals scored in a game organized in a hash with season
-    #names (e.g. 20122013) as keys and a float representing the average number
-    #of goals in a game for that season as values (rounded to the nearest 100th)
 
     games_by_season_hash = @game_data.group_by {|game| game.season.to_s}
 
@@ -80,4 +77,10 @@ class GameTable
       game.season
     end
   end
+  def favorite_opponent(results)
+    away = results.map{|result| @game_data.find{|game| game.game_id == result[0]}.away_team_id}
+    results = results.map{|result| @game_data.find{|game| game.game_id == result[0]}.home_team_id}.zip(away).zip(results)
+    require 'pry'; binding.pry
+  end
 end
+
