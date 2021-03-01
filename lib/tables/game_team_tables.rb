@@ -184,4 +184,9 @@ class GameTeamTable
   def fewest_goals_scored(team_id_str)
     @game_team_data.find_all{|game| game.team_id == team_id_str.to_i}.min_by{|game| game.goals}.goals
   end
+
+  def rival(results)
+    home = results.map{|result| @game_data.find{|game| game.game_id == result[0]}.home_team_id}
+    results = results.map{|result| @game_data.find{|game| game.game_id == result[0]}.away_team_id}.zip(home).zip(new_results)
+  end
 end

@@ -69,7 +69,6 @@ class StatTracker
   end
 
   def rival(team_id_str)
-    #sends array [game_id,result]
     games = @game_teams.find_team_games(team_id_str).map{|game|[game.game_id,game.result]}
     @games.rival(games)
   end
