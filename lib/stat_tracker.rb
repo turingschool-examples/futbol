@@ -238,8 +238,63 @@ class StatTracker
 
   #Team Statistics
 
-  #Teams manager needs average_win_percentage of all games for given team
-  #first gimme team _id, so i can return all games for that team
+
+  def rival(team_id)
+    game_ids_hash = Hash.new { |hash, key| hash[key] = [] }
+    @game_teams.each do |game_team|
+      game_ids_hash[team_id] << game_team.game_id if game_team.team_id == team_id
+    end
+
+    all_the_teams_that_team_id_has_played = []
+    @game_teams.each do |game_team|
+      if game_team.team_id == team_id
+        next
+      elsif game_ids_hash[team_id].include?(game_team.game_id)
+        all_the_teams_that_team_id_has_played << game_team
+      end
+    end
+
+    all_opponents_game_by_id = all_the_teams_that_team_id_has_played.group_by do |game_team|
+      game_team.team_id
+    end
+
+    length = all_opponents_game_by_id.map do |id, game|
+      game.length
+    end
+
+    a = all_opponents_game_by_id.each do |keys, values|
+      all_opponents_game_by_id[keys] = values.map { |v|
+        if v.result == "WIN"
+           1
+         elsif v.result == "LOSS"
+           0
+         elsif v.result == "TIE"
+           0
+        end
+      }
+    end
+
+    b = a.each do |keys, values|
+      all_opponents_game_by_id[keys] = (values.sum.to_f / values.count.to_f )
+    end
+
+    c = b.max_by do |keys, values|
+      values
+    end
+
+    team = @teams.find do |team|
+      team.team_id == c.first
+    end
+    team.teamname
+
+  end
+
+
+  def loss_percentage(team1, team2)
+    (team1.losses / total_games ).round(2)
+
+  end
+
   def average_win_percentage(team_id)
     all_games = @game_teams.find_all do |game_team|
       game_team.team_id == team_id
