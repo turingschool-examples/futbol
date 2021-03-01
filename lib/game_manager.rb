@@ -91,7 +91,7 @@ class GameManager
   def average_goals_by_season
     avg_by_season = {}
     @all_games.each do |game|
-      avg_by_season[game.season] = average_goals_in_a_season(game.season)
+      avg_by_season[game.season.to_s] = average_goals_in_a_season(game.season)
     end
     avg_by_season
   end

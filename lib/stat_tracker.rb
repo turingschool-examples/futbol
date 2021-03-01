@@ -1,11 +1,11 @@
 require 'CSV'
 require_relative './game_manager'
 require_relative './team_manager'
-require_relative './game_teams_manager'
+require_relative './game_team_manager'
 require_relative './csv_parser'
 require_relative 'game'
 require_relative 'team'
-require_relative 'game_teams'
+require_relative 'game_team'
 
 require 'pry'
 
@@ -14,26 +14,26 @@ class StatTracker
 
   attr_reader :game_manager,
               :team_manager,
-              :game_teams_manager
+              :game_team_manager
 
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
 
   def initialize(locations)
-    @game = load_it_up(locations[:games], Game)
+    @game_manager = GameManager.new(locations[:games])
       #becomes an array of game objects
         # needs to be passed in game_manger as argument
-    @team = load_it_up(locations[:teams], Team)
-    @game_team = load_it_up(locations[:game_teams], GameTeams)
+    @team_manager = load_it_up(locations[:teams], Team)
+    @game_team_manager = load_it_up(locations[:game_teams], GameTeam)
   end
 
   def highest_total_score
-    @game_manager.highest_total_score_in_game
+    @game_manager.highest_total_score
   end
 
   def lowest_total_score
-    @game_manager.game_with_lowest_total_score.total_goals
+    @game_manager.lowest_total_score
   end
 
   def percentage_home_wins
@@ -50,5 +50,13 @@ class StatTracker
 
   def count_of_games_by_season
     @game_manager.count_of_games_by_season
+  end
+
+  def average_goals_per_game
+    @game_manager.average_goals_per_game
+  end
+
+  def average_goals_by_season
+    @game_manager.average_goals_by_season
   end
 end

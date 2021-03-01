@@ -70,8 +70,8 @@ class GameManagerTest < Minitest::Test
 
   def test_average_goals_by_season
     expected = {
-              20122013 => 4.17,
-              20132014 => 4.75
+              "20122013" => 4.17,
+              "20132014" => 4.75
                 }
     assert_equal expected, @game_data.average_goals_by_season
   end
