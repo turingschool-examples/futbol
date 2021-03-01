@@ -16,12 +16,6 @@ class GameTeamsManager
     list_of_data
   end
 
-  # def team_id_highest_average_goals_all
-  #   game_teams.each do |game|
-  #     require 'pry'; binding.pry
-  #   end
-  # end
-
   def get_team_tackle_hash(season_games_ids)
     team_tackles_totals = Hash.new(0)
     @game_teams.each do |game_team|

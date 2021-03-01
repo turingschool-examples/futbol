@@ -202,30 +202,20 @@ class GamesManager
   
   def sum_values(key_value_arr)
     sum = Hash.new(0)
-    key_value_arr.each do |key, value|
-      sum[key] += value
-    end
+    key_value_arr.each { |key, value| sum[key] += value }
     sum
   end
   
+  def highest_scoring_home
+    max_average_hash_values(total_home_goals, total_home_games)
+  end
+  
   def highest_scoring_visitor
-    averages = total_away_goals.merge(total_away_games) do |team_id, goals, games|
-      (goals/games.to_f).round(2)
-    end
-    average_max = averages.max_by do |team_id, average|
-      average
-    end
-    average_max[0]
+    max_average_hash_values(total_away_goals, total_away_games)
   end
 
   def lowest_scoring_visitor
-    averages = total_away_goals.merge(total_away_games) do |team_id, goals, games|
-      (goals/games.to_f).round(2)
-    end
-    average_min = averages.min_by do |team_id, average|
-      average
-    end
-    average_min[0]
+    min_average_hash_values(total_away_goals, total_away_games)
   end
 
   def highest_scoring_home
@@ -239,13 +229,21 @@ class GamesManager
   end
 
   def lowest_scoring_home
-    averages = total_home_goals.merge(total_home_games) do |team_id, goals, games|
-      (goals/games.to_f).round(2)
+    min_average_hash_values(total_home_goals, total_home_games)
+  end
+
+  def min_average_hash_values(hash_1, hash_2)
+    averages = hash_1.merge(hash_2) do |key, hash_1_value, hash_2_value|
+      (hash_1_value/hash_2_value.to_f).round(2)
     end
-    average_min = averages.min_by do |team_id, average|
-      average
+    (averages.min_by {|team_id, average| average}).first
+  end
+
+  def max_average_hash_values(hash_1, hash_2)
+    averages = hash_1.merge(hash_2) do |key, hash_1_value, hash_2_value|
+      (hash_1_value/hash_2_value.to_f).round(2)
     end
-    average_min[0]
+    (averages.max_by {|team_id, average| average}).first
   end
 end 
   
