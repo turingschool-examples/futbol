@@ -18,4 +18,28 @@ class Game
     # @venue = raw_data[:venue]
     # @venue_link = raw_data[:venue_link]
   end
+
+  def home_team?(team_id)
+    team_id == home_team_id
+  end
+
+  def away_team?(team_id)
+    team_id == away_team_id
+  end
+
+  def won?(team_id)
+    home_team_won?(team_id) || away_team_won?(team_id)
+  end
+
+  def home_team_won?(team_id)
+    home_team?(team_id) && home_goals > away_goals
+  end
+
+  def away_team_won?(team_id)
+    away_team?(team_id) && away_goals > home_goals
+  end
+
+  def total_goals
+    home_goals + away_goals
+  end
 end

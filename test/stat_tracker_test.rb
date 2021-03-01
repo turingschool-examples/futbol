@@ -13,6 +13,18 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, tracker
   end
 
+  def test_from_csv
+    data_locations = {
+      games: './fixture/games_dummy15.csv',
+      teams: './fixture/teams_dummy15.csv',
+      game_teams: './fixture/game_teams_dummy15.csv'
+    }
+
+    tracker = StatTracker.from_csv(data_locations)
+
+    assert_instance_of StatTracker, tracker
+  end
+
   ####### Game Stats ########
   def test_highest_total_score_dummy_file
     game_path = './fixture/games_dummy15.csv'
@@ -195,7 +207,7 @@ class StatTrackerTest < Minitest::Test
     tracker = StatTracker.new(game_path, team_path, game_team_path)
     assert_equal 'FC Dallas', tracker.highest_scoring_visitor
   end
-  
+
   def test_lowest_scoring_visitor_full_file
     game_path = "./data/games.csv"
     team_path = './data/teams.csv'
