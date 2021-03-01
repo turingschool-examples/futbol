@@ -10,7 +10,7 @@ class GameTeamTableTest < Minitest::Test
   include CsvToHash
   include ReturnTeamable
   def setup
-    stat_tracker = StatTracker.new()
+    stat_tracker = nil
     locations = './data/game_teams.csv'
     @game_table = GameTeamTable.new(locations, stat_tracker)
   end
