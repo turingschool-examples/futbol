@@ -1,8 +1,8 @@
-require './lib/helper_modules/csv_to_hashable'
-require './lib/helper_modules/team_returnable'
-require './lib/instances/game_team'
-require './lib/helper_modules/team_returnable'
-require './lib/helper_modules/averageable'
+require_relative '../helper_modules/csv_to_hashable'
+require_relative '../helper_modules/team_returnable'
+require_relative './instances/game_team'
+require_relative './helper_modules/team_returnable'
+require_relative './helper_modules/averageable'
 
 class GameTeamTable
   include CsvToHash

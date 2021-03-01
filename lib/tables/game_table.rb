@@ -1,5 +1,5 @@
-require './lib/helper_modules/csv_to_hashable.rb'
-require './lib/instances/game'
+require_relative '../helper_modules/csv_to_hashable'
+require_relative '../instances/game'
 class GameTable
   attr_reader :game_data, :stat_tracker
   include CsvToHash
@@ -23,6 +23,7 @@ class GameTable
     end
     total.count
     percentage = (wins.to_f / @game_data.count).round(2)
+    percentage
   end
 
   def percentage_away_wins
@@ -32,6 +33,7 @@ class GameTable
     end
     total.count
     percentage = (wins.to_f / @game_data.count).round(2)
+    percentage
   end
 
   def percentage_ties
@@ -41,6 +43,7 @@ class GameTable
     end
     total.count
     percentage = (wins.to_f / @game_data.count).round(2)
+    percentage
   end
 
   def count_of_games_by_season
@@ -48,12 +51,14 @@ class GameTable
     result = games_by_season_hash.each do |season, games|
       games_by_season_hash[season] = games.count
     end
+    result
   end
 
   def average_goals_per_game
     total_games = @game_data.count
     total_goals = @game_data.flat_map {|game| game.away_goals + game.home_goals}
     average = (total_goals.sum.to_f / total_games).round(2)
+    average
   end
 
   def average_goals_by_season
@@ -72,6 +77,7 @@ class GameTable
     season = @game_data.group_by do |game|
       game.season
     end
+    season
   end
   def favorite_opponent(results)
     away = results.map{|result| @game_data.find{|game| game.game_id == result[0]}.away_team_id}

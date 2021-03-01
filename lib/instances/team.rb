@@ -1,15 +1,11 @@
-
-24 lines (21 sloc)  619 Bytes
-  
-require './lib/helper_modules/csv_to_hashable'
-require './lib/instances/team'
-require './lib/helper_modules/team_returnable'
+require_relative './helper_modules/csv_to_hashable'
+require_relative './instances/team'
+require_relative './helper_modules/team_returnable'
 
 class TeamsTable
   include CsvToHash
   include ReturnTeamable
   attr_reader :team_data
-
   def initialize(locations)
     @team_data = from_csv(locations, 'Team')
     @hash = Hash.new

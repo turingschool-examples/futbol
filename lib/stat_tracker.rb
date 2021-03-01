@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/helper_modules/team_returnable'
+require_relative './helper_modules/team_returnable'
 
 class StatTracker
   include ReturnTeamable
@@ -8,7 +8,6 @@ class StatTracker
     @games = GameTable.new('./data/games.csv')
     @game_teams = GameTeamTable.new('./data/game_teams.csv')
     @teams = TeamsTable.new('./data/teams.csv')
-    require 'pry'; binding.pry
   end
 
   def game_by_season

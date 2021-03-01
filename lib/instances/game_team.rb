@@ -1,4 +1,4 @@
-require_relative '../tables/game_team_tables'
+require_relative './tables/game_team_tables'
 
 
 class GameTeam

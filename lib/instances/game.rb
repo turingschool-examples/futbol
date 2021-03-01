@@ -1,4 +1,4 @@
-require_relative '../tables/game_table'
+require_relative './tables/game_table'
 
 class Game
   attr_reader :game_id,

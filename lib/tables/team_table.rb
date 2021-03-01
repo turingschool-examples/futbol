@@ -1,6 +1,6 @@
-require './lib/helper_modules/csv_to_hashable'
-require './lib/instances/team'
-require './lib/helper_modules/team_returnable'
+require_relative './helper_modules/csv_to_hashable'
+require_relative './instances/team'
+require_relative './helper_modules/team_returnable'
 
 class TeamsTable
   include CsvToHash
