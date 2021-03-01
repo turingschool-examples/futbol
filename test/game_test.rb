@@ -55,6 +55,7 @@ class GameTest < Minitest::Test
 
   def test_winning_team_score
     assert_equal 4, @game.winning_team_score
+
     game1 = Game.new({
                   game_id: 2015030133,
                   season: 20152016,
@@ -68,6 +69,7 @@ class GameTest < Minitest::Test
                   venue_link: "/api/v1/venues/null"
                 })
     assert_equal 10, game1.winning_team_score
+    
     game2 = Game.new({
                   game_id: 2015030133,
                   season: 20152016,
