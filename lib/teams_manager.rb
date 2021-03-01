@@ -16,7 +16,7 @@ class TeamsManager
     list_of_data
   end
 
-  def count_of_teams #ask intructors if they want this
+  def count_of_teams
     teams.uniq.count
   end
 
@@ -31,21 +31,13 @@ class TeamsManager
   def get_team_name(team_id)
     name_hash = get_names_hash
     name_hash[team_id]
-    #refactor decision
-  #alternate replacement without hashing.
-  #get_name(id)
-    # team = @teams.find do |team|
-    #   team.team_id == id
-    # end
-    # team.name
-  #end
   end
 
   def team_info(team_id)
     desired_team = @teams.find do |team|
       team.team_id == team_id
     end
-    
+
     info = { "team_id" => desired_team.team_id,
              "franchise_id" => desired_team.franchise_id,
              "team_name" => desired_team.team_name,
