@@ -195,16 +195,14 @@ class GamesManager
   
   def total_away_games
     team_id_by_away_games = games.map do |game|
-      [game.away_team_id, 1]
+      [game.away_team_id, 1] #[[4, 1], [3,1]]
     end
     sum_values(team_id_by_away_games)
   end
   
   def sum_values(key_value_arr)
     sum = Hash.new(0)
-    key_value_arr.each do |key, value|
-      sum[key] += value
-    end
+    key_value_arr.each { |key, value| sum[key] += value }
     sum
   end
   
@@ -228,14 +226,14 @@ class GamesManager
     averages = hash_1.merge(hash_2) do |key, hash_1_value, hash_2_value|
       (hash_1_value/hash_2_value.to_f).round(2)
     end
-    (averages.min_by {|team_id, average| average})[0]
+    (averages.min_by {|team_id, average| average}).first
   end
 
   def max_average_hash_values(hash_1, hash_2)
     averages = hash_1.merge(hash_2) do |key, hash_1_value, hash_2_value|
       (hash_1_value/hash_2_value.to_f).round(2)
     end
-    (averages.max_by {|team_id, average| average})[0]
+    (averages.max_by {|team_id, average| average}).first
   end
 end 
   
