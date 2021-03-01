@@ -143,5 +143,4 @@ class GameTeamsManager
   def to_percent(top, bottom)
     (top.to_f / bottom).round(2)
   end
-
 end
