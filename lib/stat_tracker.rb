@@ -35,7 +35,17 @@ class StatTracker
     @teams.team_info(return_team(team_id_str.to_i, @teams.team_data))
   end
   def worst_season(team_id_str)
-    @game_teams.worst_season(return_team(team_id_str.to_i, @teams.team_data).team_id)
+    year = @game_teams.worst_season(team_id_str.to_i)
+    #add back in the 2nd year of season
+    year + (year.to_i + 1).to_s
+  end
+  def most_goals_scored(team_id_str)
+    @game_teams.most_goals_scored(team_id_str)
+  end
+  def favorite_opponent(team_id_str)
+    #sends array [game_id,result]
+    games = @game_teams.find_team_games(team_id_str).map{|game|[game.game_id,game.result]}
+    @games.favorite_opponent(games)
   end
 
 end

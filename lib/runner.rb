@@ -19,7 +19,8 @@ locations = {
 }
 
 stat_tracker = StatTracker.new
-stat_tracker.worst_offense
+stat_tracker.favorite_opponent('15')
+# require 'pry'; binding.pry
 #stat_tracker.from_csv(locations)
 #tracker = StatTracker.new(locations)
 # teams = TeamsTable.new(stat_tracker[:teams])

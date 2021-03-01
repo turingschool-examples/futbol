@@ -76,52 +76,10 @@ class GameTable
   end
 
   def average_goals_per_game
-    total_games = @game_data.count
-    total_goals = @game_data.flat_map {|game| game.away_goals + game.home_goals}
-    average = (total_goals.sum.to_f / total_games).round(2)
-  end
-
-  def average_goals_by_season
-    #Average number of goals scored in a game organized in a hash with season
-    #names (e.g. 20122013) as keys and a float representing the average number
-    #of goals in a game for that season as values (rounded to the nearest 100th)
-
-
-
-    games_by_season_hash = @game_data.group_by {|game| game.season}
-    s1_count = games_by_season_hash[20122013].count
-    s1_total_goals = games_by_season_hash[20122013].flat_map {|game| game.away_goals + game.home_goals}
-    s1_average_goals_per_game = (s1_total_goals.sum.to_f / s1_count).round(2)
-
-    s2_count = games_by_season_hash[20162017].count
-    s2_total_goals = games_by_season_hash[20162017].flat_map {|game| game.away_goals + game.home_goals}
-    s2_average_goals_per_game = (s2_total_goals.sum.to_f / s2_count).round(2)
-
-    s3_count = games_by_season_hash[20142015].count
-    s3_total_goals = games_by_season_hash[20142015].flat_map {|game| game.away_goals + game.home_goals}
-    s3_average_goals_per_game = (s3_total_goals.sum.to_f / s3_count).round(2)
-
-    s4_count = games_by_season_hash[20152016].count
-    s4_total_goals = games_by_season_hash[20152016].flat_map {|game| game.away_goals + game.home_goals}
-    s4_average_goals_per_game = (s4_total_goals.sum.to_f / s4_count).round(2)
-
-    s5_count = games_by_season_hash[20132014].count
-    s5_total_goals = games_by_season_hash[20132014].flat_map {|game| game.away_goals + game.home_goals}
-    s5_average_goals_per_game = (s5_total_goals.sum.to_f / s5_count).round(2)
-
-    s6_count = games_by_season_hash[20172018].count
-    s6_total_goals = games_by_season_hash[20172018].flat_map {|game| game.away_goals + game.home_goals}
-    s6_average_goals_per_game = (s6_total_goals.sum.to_f / s6_count).round(2)
-
-
-    result = {
-      "20122013"=> s1_average_goals_per_game,
-      "20162017"=> s2_average_goals_per_game,
-      "20142015"=> s3_average_goals_per_game,
-      "20152016"=> s4_average_goals_per_game,
-      "20132014"=> s5_average_goals_per_game,
-      "20172018"=> s6_average_goals_per_game
-    }
+    hash = Hash.new
+    seasons = @games.game_data.group_by{|game| game.season}
+    seasons.map{|season| hash[season[0].to_s] = (season[1].map{|game| game.home_goals + game.away_goals}.sum.to_f / season[1].length).round(2)}
+    hash
    end
 
   def game_by_season
@@ -129,4 +87,10 @@ class GameTable
       game.season
     end
   end
+  def favorite_opponent(results)
+    away = results.map{|result| @game_data.find{|game| game.game_id == result[0]}.away_team_id}
+    results = results.map{|result| @game_data.find{|game| game.game_id == result[0]}.home_team_id}.zip(away).zip(results)
+    require 'pry'; binding.pry
+  end
 end
+

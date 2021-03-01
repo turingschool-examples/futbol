@@ -51,11 +51,19 @@ class GameTeamTable
     hash.min_by {|team| team[1]}[0]
   end
   def worst_season(team_id)
-    hash = Hash.new
-    @game_team_data.find_all{|game| game.team_id == team_id}.map{|game| hash[game.game_id] = game.result}
     array = []
-    hash.each{|h| array << [hash[h[0]], h[0].to_s.split('')[0..3].join]}
-    # rehash = Hash.new
-    # array.group_by{|arr| arr[1]}.map{|season| season[1].each{|game|game[0]== "WIN" ? }}
+    hash = Hash.new()
+    @game_team_data.find_all{|game| game.team_id == team_id}.map{|game| array << [game.game_id, game.result]}
+    array = array.group_by{|line| line[0].to_s.split('')[0..3].join}
+    array.map{|season| hash[season[0]] = season[1].find_all{|game| game[1] == 'WIN'}.length.to_f / season[1].length}
+    hash.min_by {|team| team[1]}[0]
+  end
+
+  def most_goals_scored(team_id_str)
+    #find all the games for that team, then takes max by goals scored and returns the goals from the object
+    @game_team_data.find_all{|game| game.team_id == team_id_str.to_i}.max_by{|game| game.goals}.goals
+  end
+  def find_team_games(team_id_str)
+    @game_team_data.find_all{|game| game.team_id == team_id_str.to_i}
   end
 end
