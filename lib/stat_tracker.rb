@@ -15,6 +15,66 @@ class StatTracker
     @games.game_by_season
   end
 
+  def highest_total_score
+    @games.highest_total_score
+  end
+
+  def lowest_total_score
+    @games.lowest_total_score
+  end
+
+  def percentage_home_wins
+    @games.percentage_home_wins
+  end
+
+  def percentage_away_wins
+    @games.percentage_away_wins
+  end
+
+  def percentage_ties
+    @games.percentage_ties
+  end
+
+  def count_of_games_by_season
+    @games.count_of_games_by_season
+  end
+
+  def average_goals_per_game
+    @games.average_goals_per_game
+  end
+
+  def average_goals_by_season
+    @games.average_goals_by_season
+  end
+
+  def winningest_coach
+    @game_teams.winningest_coach(season)
+  end
+
+  def worst_coach(season)
+    @game_teams.worst_coach(season)
+  end
+
+  def most_accurate_team(season)
+    @game_teams.most_accurate_team(season)
+  end
+
+  def least_accurate_team(season)
+    @game_teams.least_accurate_team(season)
+  end
+
+  def most_tackles(seasson)
+    @game_teams.most_tackles(season)
+  end
+
+  def fewest_tackles(season)
+    @game_teams.fewest_tackles(season)
+  end
+
+  def games_by_season(season)
+    @game_teams.games_by_season(season)
+  end
+
   def count_of_teams
     @teams.count_of_teams
   end

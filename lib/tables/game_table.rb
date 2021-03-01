@@ -8,10 +8,6 @@ class GameTable
     @stat_tracker = stat_tracker
   end
 
-  def other_call(data)
-    data
-  end
-
   def highest_total_score
     @game_data.map {|game| game.away_goals + game.home_goals}.max
   end
