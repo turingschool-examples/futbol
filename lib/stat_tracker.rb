@@ -45,5 +45,32 @@ class StatTracker
   end
   def game_by_season(season)
     @game_teams.game_by_season(season)
-  end 
+  end
+
+  def best_offense
+    return_team(@game_teams.best_offense, @teams.team_data).teamname
+  end
+
+  def highest_scoring_visitor
+    return_team(@game_teams.highest_scoring_visitor, @teams.team_data).teamname
+  end
+
+  def lowest_scoring_visitor
+    return_team(@game_teams.lowest_scoring_visitor, @teams.team_data).teamname
+  end
+
+  def best_season(team_id_str)
+    year = @game_teams.best_season(team_id_str.to_i)
+    year + (year.to_i + 1).to_s
+  end
+
+  def fewest_goals_scored(team_id_str)
+    @game_teams.fewest_goals_scored(team_id_str)
+  end
+
+  def rival(team_id_str)
+    games = @game_teams.find_team_games(team_id_str).map{|game|[game.game_id,game.result]}
+    @games.rival(games)
+  end
+
 end

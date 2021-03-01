@@ -80,7 +80,11 @@ class GameTable
   def favorite_opponent(results)
     away = results.map{|result| @game_data.find{|game| game.game_id == result[0]}.away_team_id}
     results = results.map{|result| @game_data.find{|game| game.game_id == result[0]}.home_team_id}.zip(away).zip(results)
-    require 'pry'; binding.pry
+
+  end
+
+  def rival(results)
+    home = results.map{|result| @game_data.find{|game| game.game_id == result[0]}.home_team_id}
+    results = results.map{|result| @game_data.find{|game| game.game_id == result[0]}.away_team_id}.zip(home).zip(new_results)
   end
 end
-

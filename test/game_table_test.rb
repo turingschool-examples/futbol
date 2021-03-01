@@ -65,4 +65,8 @@ include CsvToHash
     }
     assert_equal expected, @game_table.average_goals_by_season
   end
+
+  def test_rival
+    assert_equal "Houston Dash", @game_table.rival("18")
+  end
 end
