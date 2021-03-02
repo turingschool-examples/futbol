@@ -4,7 +4,6 @@ require_relative './teams_manager'
 require_relative './game_teams_manager'
 
 class StatTracker
-
   def initialize(games_path, team_path, game_team_path)
     @games = GamesManager.new(games_path)
     @teams = TeamsManager.new(team_path)
@@ -18,7 +17,6 @@ class StatTracker
 
     StatTracker.new(games_path, teams_path, game_teams_path)
   end
-
   ####### Game Stats ########
   def highest_total_score
     @games.highest_total_score
@@ -51,8 +49,6 @@ class StatTracker
   def average_goals_by_season
     @games.average_goals_by_season
   end
-  ###########################
-
   ###### Team Stats #########
   def team_info(team_id)
     @teams.team_info(team_id)
@@ -87,8 +83,6 @@ class StatTracker
     favorite_opponent = @game_teams.favorite_opponent(team_id)
     @teams.get_team_name(favorite_opponent)
   end
-  ###########################
-
   ###### League Stats #######
   def count_of_teams
     @teams.count_of_teams
@@ -117,8 +111,6 @@ class StatTracker
   def lowest_scoring_visitor
     @teams.get_team_name(@games.lowest_scoring_visitor)
   end
-  ###########################
-
   ###### Season Stats #######
   def most_tackles(season)
     season_games = @games.get_season_games(season)
@@ -155,5 +147,4 @@ class StatTracker
   def worst_coach(season)
     @game_teams.worst_coach(@games.get_season_games(season))
   end
-  ###########################
 end

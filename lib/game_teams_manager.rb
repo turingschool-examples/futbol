@@ -41,11 +41,11 @@ class GameTeamsManager
 
   def score_ratios_hash(season_games_ids)
     ratio = score_and_shots_by_team(season_games_ids)
-    ratio.transform_values {|pair| calculate_ratios(pair)}   #map for hashes
+    ratio.transform_values {|pair| calculate_ratios(pair)}
   end
 
   def calculate_ratios(pair)
-    pair[0].to_f/pair[1].to_f
+    pair.first.to_f / pair.last.to_f
   end
 
   def winningest_coach(season_games)
@@ -114,7 +114,7 @@ class GameTeamsManager
 
   def total_goals_by_team
     goals_by_team_id = Hash.new(0)
-    game_teams.each do |game|           #should this be @game_teams?
+    game_teams.each do |game|
       goals_by_team_id[game.team_id] += game.goals
     end
     goals_by_team_id
@@ -141,8 +141,4 @@ class GameTeamsManager
     end
     averages.min_by {|team_id, average| average}.first
   end
-
-  # def to_percent(numerator, denominator)
-  #   (numerator.to_f / denominator).round(2)
-  # end
 end

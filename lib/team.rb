@@ -8,6 +8,5 @@ class Team
     @team_name = team_data[:teamname]
     @abbreviation = team_data[:abbreviation]
     @link = team_data[:link]
-    # @stadium = team_data[:stadium]
   end
 end

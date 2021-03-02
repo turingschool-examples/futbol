@@ -26,19 +26,8 @@ class TeamsManagerTest < Minitest::Test
 
     assert_equal 32, team_manager.count_of_teams
   end
-  
-  def test_get_names_hash
-    teams_manager = TeamsManager.new('./fixture/teams_dummy15.csv')
 
-    team_hash = teams_manager.get_names_hash
-
-    assert_equal "Atlanta United", team_hash["1"]
-    assert_equal "FC Dallas", team_hash["6"]
-    assert_equal "Minnesota United FC", team_hash["18"]
-    assert_equal "Orlando City SC", team_hash["30"]
-  end
-
-  def test_get_name
+  def test_get_team_name
     teams_manager = TeamsManager.new('./fixture/teams_dummy15.csv')
 
     assert_equal "Atlanta United", teams_manager.get_team_name("1")
