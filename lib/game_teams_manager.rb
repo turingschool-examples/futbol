@@ -70,7 +70,7 @@ class GameTeamsManager
   end
 
   def create_ratio_hash(hash)
-    hash.transform_values {|pair| to_percent(pair[0], pair[1])}
+    hash.transform_values {|pair| get_percentage(pair[0], pair[1])}
   end
 
   def winningest_coach(season_games)
@@ -130,14 +130,14 @@ class GameTeamsManager
 
   def best_offense
     averages = total_goals_by_team.merge(total_games_by_team) do |team_id, goals, games|
-      to_percent(goals, games)
+      get_percentage(goals, games)
     end
     averages.max_by {|team_id, average| average}.first
   end
 
   def worst_offense
     averages = total_goals_by_team.merge(total_games_by_team) do |team_id, goals, games|
-      to_percent(goals, games)
+      get_percentage(goals, games)
     end
     averages.min_by {|team_id, average| average}.first
   end
