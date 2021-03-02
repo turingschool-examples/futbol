@@ -6,76 +6,24 @@ require_relative './csv_parser'
 class TeamManager
   include CsvParser
 
-  def initialize(locations)
-    @all_teams = load_it_up(locations, Team)
-    # CSV.foreach(locations, headers: true, header_converters: :symbol) do |row|
-    #   @all_team_data << Team.new(row, self)
-    # end
+  def initialize(file)
+    @all_teams = load_it_up(file, Team)
   end
-end
 
+  def count_of_teams
+    @all_teams.count
+  end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# require 'CSV'
-# require 'pry'
-# # require './data/teams.csv'
-#
-# class TeamData
-#
-#   def initialize
-#     @all_teams_data = Array.new
-#   end
-#
-#   CSV.foreach('./data/teams.csv', headers: true, header_converters: :symbol) do |row|
-#     @all_teams_data << row.to_h
-#     # team_id = row[:team_id].to_i
-#     # id = row[:id]
-#     # franchiseId = row[:franchiseId].to_i
-#     # teamName = row[:teamName]
-#     # abbreviation = row[:abbreviation]
-#     # stadium = row[:stadium]
-#     # link = row[:link]
-#
-#     # @all_teams_data << convert_to_team_data(row)
-#   end
-#   p @all_teams_data
-#   binding.pry
-# end
-
-  # def convert_to_team_data(row)
-  #   row = Team.new({
-  #     team_id: row[:team_id].to_i,
-  #     id: row[:id],
-  #     franchiseId: row[:franchiseId].to_i,
-  #     teamName: row[:teamName],
-  #     abbreviation: row[:abbreviation],
-  #     stadium: row[:stadium],
-  #     link: row[:link]
-  #     })
-  #     binding.pry
-  #
-  # end
+  def team_info(id)
+    team = @all_teams.find do |team|
+      team.team_id == id
+    end
+      info = {
+        "team_id" => team.team_id,
+        "franchiseid" => team.franchiseid.to_s,
+        "teamname" => team.teamname,
+        "abbreviation" => team.abbreviation,
+        "link" => team.link
+                }
+    end
+  end
