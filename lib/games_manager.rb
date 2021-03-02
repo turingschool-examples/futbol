@@ -18,11 +18,11 @@ class GamesManager
   end
 
   def highest_total_score
-    games.map {|game| game.total_goals}.max
+    home_and_away_goals_sum.max
   end
 
   def lowest_total_score
-    games.map {|game| game.total_goals}.min
+    home_and_away_goals_sum.min
   end
 
   def percentage_home_wins
