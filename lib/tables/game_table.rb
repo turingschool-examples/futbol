@@ -85,8 +85,11 @@ class GameTable
 
   end
 
-  def rival(results)
+  def rival(team_id_str)
+    results = team_id_str.to_i
     home = results.map{|result| @game_data.find{|game| game.game_id == result[0]}.home_team_id}
     results = results.map{|result| @game_data.find{|game| game.game_id == result[0]}.away_team_id}.zip(home).zip(new_results)
+    games = @game_teams.find_team_games(team_id_str).map{|game|[game.game_id,game.result]}
+
   end
 end

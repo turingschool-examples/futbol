@@ -110,20 +110,20 @@ class GameTeamTable
     #groups games by team_id, then adds the team_id as key to goal_hash with average goals per game as value
     @game_team_data.group_by{|game| game.team_id}.map {|team| hash[team[0]] = team[1].map{|game| game.goals}.sum.to_f / team[1].length}
     #finds the minimum score, return the team_id of team with min score
-    hash.min_by {|team| team[1]}[0]
+    return_team(hash.min_by {|team| team[1]}[0]).teamname
   end
 
   def highest_scoring_home_team
     hash = Hash.new
     #finds all home games, groups them by team, takes the
     @game_team_data.find_all {|game| game.hoa == 'home' }.group_by{|game| game.team_id}.map{|team| hash[team[0]] = team[1].map{|game| game.goals}.sum.to_f / team[1].length}
-    hash.max_by {|team| team[1]}[0]
+    return_team(hash.max_by {|team| team[1]}[0]).teamname
   end
   def lowest_scoring_home_team
     hash = Hash.new
     #finds all home games, groups them by team, takes the
     @game_team_data.find_all {|game| game.hoa == 'home' }.group_by{|game| game.team_id}.map{|team| hash[team[0]] = team[1].map{|game| game.goals}.sum.to_f / team[1].length}
-    hash.min_by {|team| team[1]}[0]
+    return_team(hash.min_by {|team| team[1]}[0]).teamname
   end
   def worst_season(team_id)
     array = []
@@ -131,7 +131,8 @@ class GameTeamTable
     @game_team_data.find_all{|game| game.team_id == team_id}.map{|game| array << [game.game_id, game.result]}
     array = array.group_by{|line| line[0].to_s.split('')[0..3].join}
     array.map{|season| hash[season[0]] = season[1].find_all{|game| game[1] == 'WIN'}.length.to_f / season[1].length}
-    hash.min_by {|team| team[1]}[0]
+    year = (hash.min_by {|team| team[1]}[0]).to_i
+    year + (year.to_i + 1).to_s
   end
 
   def most_goals_scored(team_id_str)
@@ -146,19 +147,19 @@ class GameTeamTable
   def best_offense
     best_offense_hash = Hash.new
     @game_team_data.group_by{|game| game.team_id}.map {|team| best_offense_hash[team[0]] = team[1].map{|game| game.goals}.sum.to_f / team[1].length}
-    best_offense_hash.max_by {|team| team[1]}[0]
+    return_team(best_offense_hash.max_by {|team| team[1]}[0]).teamname
   end
 
   def highest_scoring_visitor
     visitor_hash = Hash.new
     @game_team_data.find_all {|game| game.hoa == 'away' }.group_by{|game| game.team_id}.map{|team| visitor_hash[team[0]] = team[1].map{|game| game.goals}.sum.to_f / team[1].length}
-    visitor_hash.max_by {|team| team[1]}[0]
+    return_team(visitor_hash.max_by {|team| team[1]}[0]).teamname
   end
 
   def lowest_scoring_visitor
     lowest_vis_hash = Hash.new
     @game_team_data.find_all {|game| game.hoa == 'away' }.group_by{|game| game.team_id}.map{|team| lowest_vis_hash[team[0]] = team[1].map{|game| game.goals}.sum.to_f / team[1].length}
-    lowest_vis_hash.min_by {|team| team[1]}[0]
+    return_team(lowest_vis_hash.min_by {|team| team[1]}[0]).teamname
   end
 
   def average_win_percentage(team_id)
@@ -178,7 +179,8 @@ class GameTeamTable
     @game_team_data.find_all{|game| game.team_id == team_id}.map{|game| array << [game.game_id, game.result]}
     array = array.group_by{|line| line[0].to_s.split('')[0..3].join}
     array.map{|season| hash[season[0]] = season[1].find_all{|game| game[1] == 'WIN'}.length.to_f / season[1].length}
-    hash.max_by {|team| team[1]}[0]
+    year = (hash.max_by {|team| team[1]}[0]).to_i
+    year + (year.to_i + 1).to_s
   end
 
   def fewest_goals_scored(team_id_str)
