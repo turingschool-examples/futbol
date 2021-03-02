@@ -1,20 +1,14 @@
+require_relative './readable'
 require_relative './mathable'
 require_relative './game'
 
 class GamesManager
+  include Readable
   include Mathable
   attr_reader :data_path, :games
 
   def initialize(data_path)
-    @games = generate_list(data_path)
-  end
-
-  def generate_list(data_path)
-    list_of_data = []
-    CSV.foreach(data_path, headers: true, header_converters: :symbol) do |row|
-      list_of_data << Game.new(row)
-    end
-    list_of_data
+    @games = generate_list(data_path, Game)
   end
 
   def highest_total_score
