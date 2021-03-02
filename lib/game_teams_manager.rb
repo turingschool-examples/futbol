@@ -27,6 +27,14 @@ class GameTeamsManager
     arry_percentage(wins, games)
   end
 
+  def percentage_ties
+    games = @game_teams
+    ties = @game_teams.find_all do |game|
+      game if game.result == "TIE"
+    end
+    arry_percentage(ties, games)
+  end
+
   def loss_percentage(team1, team2)
     (team1.losses / total_games ).round(2)
   end

@@ -22,4 +22,22 @@ class GamesManagerTest < Minitest::Test
 
     assert_equal 1, games_manager.lowest_total_score
   end
+
+  def test_count_of_games_by_season
+    games_manager = GamesManager.new(setup)
+
+    assert_equal ({"20122013"=>49}), games_manager.count_of_games_by_season
+  end
+
+  def test_it_can_return_average_goals_per_game
+    games_manager = GamesManager.new(setup)
+
+    assert_equal 3.92, games_manager.average_goals_per_game
+  end
+
+  def test_average_goals_by_season
+    games_manager = GamesManager.new(setup)
+
+   assert_equal ({"20122013"=>3.92}), games_manager.average_goals_by_season
+  end
 end

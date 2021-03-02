@@ -23,4 +23,10 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal 0.36, game_teams_manager.percentage_visitor_wins
   end
 
+  def test_percentage_ties
+    game_teams_manager = GameTeamsManager.new(setup)
+
+    assert_equal 0.04, game_teams_manager.percentage_ties
+  end
+
 end

@@ -40,7 +40,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal 0.36, @stat_tracker.percentage_visitor_wins
   end
 
-  def test_percentage_ties #added one "TIE" result to truncated_data
+  def test_percentage_ties
     assert_equal 0.04, @stat_tracker.percentage_ties
   end
 

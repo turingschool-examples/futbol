@@ -6,6 +6,9 @@ require_relative './games_manager'
 require_relative './game_teams_manager'
 
 class StatTracker
+
+  include Mathable
+
   attr_reader :games,
               :teams,
               :game_teams
@@ -23,8 +26,6 @@ class StatTracker
     new(game_teams_path, games_path, teams_path)
   end
 
-  #Game Statistics
-
   def highest_total_score
     games_manager = GamesManager.new(self).highest_total_score
   end
@@ -41,54 +42,21 @@ class StatTracker
     game_teams_manager = GameTeamsManager.new(self).percentage_visitor_wins
   end
 
-  def percentage_ties #game_team manager
-    games = @game_teams
-    ties = @game_teams.find_all do |game|
-      game if game.result == "TIE"
-    end
-    arry_percentage(ties, games)
-  end
-
-  def arry_percentage(array1, array2)
-    percent = array1.length.to_f / array2.length.to_f
-    readable_percent = percent.round(2)
+  def percentage_ties
+    game_teams_manager = GameTeamsManager.new(self).percentage_ties
   end
 
   def count_of_games_by_season
-    hash = Hash.new(0)
-
-    @games.each do |game|
-      hash[game.season.to_s] += 1
-    end
-    hash
+    games_manager = GamesManager.new(self).count_of_games_by_season
   end
 
-  def count_goals
-    hash = Hash.new(0)
-    @games.each do |game|
-        hash[game.season.to_s] += game.away_goals + game.home_goals
-    end
-     hash
-   end
-
   def average_goals_per_game
-    total_goals = @games.sum do |game|
-                    game.away_goals + game.home_goals
-                  end
-    (total_goals/(@games.count.to_f)).round(2)
+    games_manager = GamesManager.new(self).average_goals_per_game
   end
 
   def average_goals_by_season
-    game_season_totals = count_of_games_by_season
-    goal_totals = count_goals
-    hash = Hash.new(0)
-    @games.each do |game|
-      hash[game.season.to_s] = (goal_totals[game.season.to_s].to_f/game_season_totals[game.season.to_s].to_f).round(2)
-    end
-    hash
+    games_manager = GamesManager.new(self).average_goals_by_season
   end
-
-  #League Statistics
 
   def count_of_teams
     counter = 0
