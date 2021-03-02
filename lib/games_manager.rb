@@ -12,26 +12,26 @@ class GamesManager
   end
 
   def highest_total_score
-    home_and_away_goals_sum.max
+    (games.map { |game| game.total_goals }).max
   end
 
   def lowest_total_score
-    home_and_away_goals_sum.min
+    (games.map { |game| game.total_goals }).min
   end
 
   def percentage_home_wins
     wins = games.count {|game| game.away_goals < game.home_goals}
-    to_percent(wins, games.count)
+    get_percentage(wins, games.count)
   end
 
   def percentage_visitor_wins
     wins = games.count {|game| game.away_goals > game.home_goals}
-    to_percent(wins, games.size)
+    get_percentage(wins, games.size)
   end
 
   def percentage_ties
     ties = games.count {|game| game.away_goals == game.home_goals}
-    to_percent(ties, games.size)
+    get_percentage(ties, games.size)
   end
 
   def count_of_games_by_season
@@ -42,14 +42,14 @@ class GamesManager
 
   def average_goals_per_game
     total_goals = games.sum {|game| game.total_goals}
-    to_percent(total_goals, games.size)
+    get_percentage(total_goals, games.size)
   end
 
   def average_goals_by_season
     goals_in_season = Hash.new(0)
     games.each {|game| goals_in_season[game.season] += game.total_goals}
     count_of_games_by_season.merge(goals_in_season) do |season, games, goals|
-      to_percent(goals, games)
+      get_percentage(goals, games)
     end
   end
 
@@ -85,7 +85,7 @@ class GamesManager
       wins += value.count("WIN")
       all += value.count
     end
-    to_percent(wins, all)
+    get_percentage(wins, all)
   end
 
   def get_goals_scored(team_id)

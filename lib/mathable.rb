@@ -1,14 +1,14 @@
 module Mathable
   def min_average_hash_values(hash_1, hash_2)
     averages = hash_1.merge(hash_2) do |key, hash_1_value, hash_2_value|
-      to_percent(hash_1_value, hash_2_value)
+      get_percentage(hash_1_value, hash_2_value)
     end
     (averages.min_by {|team_id, average| average}).first
   end
 
   def max_average_hash_values(hash_1, hash_2)
     averages = hash_1.merge(hash_2) do |key, hash_1_value, hash_2_value|
-      to_percent(hash_1_value, hash_2_value)
+      get_percentage(hash_1_value, hash_2_value)
     end
     (averages.max_by {|team_id, average| average}).first
   end
@@ -19,11 +19,7 @@ module Mathable
     sum
   end
 
-  def to_percent(numerator, denominator)    #helper, module?
+  def get_percentage(numerator, denominator)
     (numerator.to_f / denominator).round(2)
-  end
-
-  def home_and_away_goals_sum
-    games.map { |game| game.total_goals }
   end
 end
