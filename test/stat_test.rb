@@ -23,7 +23,7 @@ class StatTrackerTest < Minitest::Test
     skip
     locations = {path: './data/games_test.csv'}
     tracker = StatTracker.from_csv(locations)
-    require 'pry'; binding.pry
+  
     refute_equal [], tracker[0][0]
     assert_equal tracker[0][0], {:team_id=>1, :franchiseid=>23, :teamname=>"Atlanta United", :abbreviation=>"ATL", :stadium=>"Mercedes-Benz Stadium", :link=>"/api/v1/teams/1"}
   end

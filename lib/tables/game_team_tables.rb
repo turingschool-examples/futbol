@@ -1,8 +1,7 @@
 require_relative '../helper_modules/csv_to_hashable'
+require_relative '../instances/game_team'
 require_relative '../helper_modules/team_returnable'
-require_relative './instances/game_team'
-require_relative './helper_modules/team_returnable'
-require_relative './helper_modules/averageable'
+require_relative '../helper_modules/averageable'
 
 class GameTeamTable
   include CsvToHash
@@ -11,9 +10,10 @@ class GameTeamTable
 
   attr_reader :game_team_data, :teams, :stat_tracker
 
-  def initialize(locations)
+  def initialize(locations, stat_tracker)
     @game_team_data = from_csv(locations, 'GameTeam')
     @stat_tracker = stat_tracker
+    require 'pry'; binding.pry
   end
 
   def winningest_coach(season)
@@ -45,7 +45,7 @@ class GameTeamTable
     r1 = ratio_of_g_to_s.max_by do |team_id, ratio|
       ratio.sum
     end
-    r1[0]
+     r1[0]
   end
 
   def least_accurate_team(season)
@@ -184,5 +184,4 @@ class GameTeamTable
   def fewest_goals_scored(team_id_str)
     @game_team_data.find_all{|game| game.team_id == team_id_str.to_i}.min_by{|game| game.goals}.goals
   end
-
 end
