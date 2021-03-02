@@ -120,7 +120,7 @@ class StatTracker
   end
 
   def best_offense
-    @game_teams.best_offense, @teams.team_data
+    @game_teams.best_offense
   end
 
   def highest_scoring_visitor
@@ -128,7 +128,7 @@ class StatTracker
   end
 
   def lowest_scoring_visitor
-    @game_teams.lowest_scoring_visitor, @teams.team_data
+    @game_teams.lowest_scoring_visitor
   end
 
   def best_season(team_id_str)

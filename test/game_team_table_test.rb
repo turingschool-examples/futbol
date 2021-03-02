@@ -13,7 +13,6 @@ class GameTeamTableTest < Minitest::Test
     stat_tracker = StatTracker.new
     locations = './data/game_teams.csv'
     @game_table = GameTeamTable.new(locations, stat_tracker)
-    require 'pry'; binding.pry
   end
 
   def test_winningest_coach

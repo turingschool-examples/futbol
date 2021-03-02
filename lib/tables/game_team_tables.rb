@@ -13,7 +13,7 @@ class GameTeamTable
   def initialize(locations, stat_tracker)
     @game_team_data = from_csv(locations, 'GameTeam')
     @stat_tracker = stat_tracker
-    require 'pry'; binding.pry
+ 
   end
 
   def winningest_coach(season)
