@@ -48,32 +48,33 @@ class GameTeamsManager
     pair.first.to_f / pair.last.to_f
   end
 
-  def winningest_coach(season_games)
-    coach = Hash.new { |coach, team| coach[team] = [0,0] }
+  def create_coach_hash(season_games)
+    coach_hash = Hash.new { |coach, team| coach[team] = [0,0] }
     @game_teams.each do |game_team|
       if season_games.include?(game_team.game_id)
-        coach[game_team.head_coach][1] += 1
-        coach[game_team.head_coach][0] += 1 if game_team.result == "WIN"
+        coach_hash[game_team.head_coach][1] += 1
+        coach_hash[game_team.head_coach][0] += 1 if game_team.result == "WIN"
       end
     end
-    coach.each do |team_id, pair|
-      coach[team_id] = calculate_ratios(pair)
+    coach_hash
+  end
+
+  def create_ratio_hash(hash)
+    hash.each do |team_id, pair|
+      hash[team_id] = calculate_ratios(pair)
     end
-    coach.key(coach.values.max)
+  end
+
+  def winningest_coach(season_games)
+    coach_pairs = create_coach_hash(season_games)
+    coach_ratio = create_ratio_hash(coach_pairs)
+    coach_ratio.key(coach_ratio.values.max)
   end
 
   def worst_coach(season_games)
-    coach = Hash.new { |hash, team| hash[team] = [0,0] }
-    @game_teams.each do |game_team|
-      if season_games.include?(game_team.game_id)
-        coach[game_team.head_coach][1] += 1
-        coach[game_team.head_coach][0] += 1 if game_team.result == "WIN"
-      end
-    end
-    coach.each do |team_id, pair|
-      coach[team_id] = calculate_ratios(pair)
-    end
-    coach.key(coach.values.min)
+    coach_pairs = create_coach_hash(season_games)
+    coach_ratio = create_ratio_hash(coach_pairs)
+    coach_ratio.key(coach_ratio.values.min)
   end
 
   def favorite_opponent(team_id)
