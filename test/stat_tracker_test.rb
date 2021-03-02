@@ -1,19 +1,10 @@
 require_relative 'test_helper'
+require_relative '../lib/helpable'
 require 'mocha/minitest'
 
+
 class StatTrackerTest < Minitest::Test
-
-  def setup
-    @locations = {
-      # games: './data/games.csv',
-      teams: './data/teams.csv',
-      # game_teams: './data/game_teams.csv',
-      games: './data/games_truncated.csv',
-      game_teams: './data/game_teams_truncated.csv'
-    }
-
-    @stat_tracker = StatTracker.from_csv(@locations)
-  end
+  include Helpable
 
   def test_it_exists
     assert_instance_of StatTracker, @stat_tracker
@@ -115,21 +106,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal "New York Red Bulls", @stat_tracker.fewest_tackles("20122013")
   end
 
-  def test_highest_total_score
-    skip
-   @game1 = mock
-   @game2 = mock
-   @game1.stubs(:total_score).returns(100)
-   @game2.stubs(:total_score).returns(1)
-   @games = [@game1, @game2]
-   csv_loadable = mock
-   csv_loadable.stubs(:load_csv_data)
-   csv_loadable.stubs(:load_csv_data).with('game_path', Game).returns(@games)
-   stat_tracker = StatTracker.new('game_team_path', 'game_path', 'teams_path', csv_loadable)
-
-   assert_equal 100, stat_tracker.highest_total_score
-  end
-
   def test_best_season
 
     assert_equal "20122013", @stat_tracker.best_season("8")
@@ -167,20 +143,6 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_find_teams_fav_opponent
     assert_equal "Houston Dynamo", @stat_tracker.favorite_opponent("6")
-  end
-
-  def test_it_can_get_loss_percentage_vs_particular_team
-    skip
-    team_1 = 1
-    team_2 = 0
-    games = [team_1, team_2]
-    stat_tracker = GameTeamsManger.new(games)
-
-    assert_equal [ team_2, 0.0 ], stat_tracker.loss_percentage(team_1, team_2)
-  end
-
-  def test_it_can_get_games_by_season
-    skip
   end
 
   def test_it_can_get_average_win_percentage_for_team_all_games

@@ -3,6 +3,7 @@ require_relative './team'
 require_relative './game_team'
 require_relative 'csv_loadable'
 require_relative './games_manager'
+require_relative './game_teams_manager'
 
 class StatTracker
   attr_reader :games,
@@ -25,31 +26,19 @@ class StatTracker
   #Game Statistics
 
   def highest_total_score
-    GamesManager.highest_total_score(@games)
+    games_manager = GamesManager.new(self).highest_total_score
   end
 
   def lowest_total_score
-    GamesManager.lowest_total_score(@games)
+    games_manager = GamesManager.new(self).lowest_total_score
   end
 
   def percentage_home_wins
-    games = @game_teams.find_all do |game_team|
-      game_team if game_team.hoa == "home"
-    end
-    wins = games.find_all do |game|
-      game if game.result == "WIN"
-    end
-    arry_percentage(wins, games)
+    game_teams_manager = GameTeamsManager.new(self).percentage_home_wins
   end
 
   def percentage_visitor_wins
-    games = @game_teams.find_all do |game_team|
-      game_team if game_team.hoa == "away"
-    end
-    wins = games.find_all do |game|
-      game if game.result == "WIN"
-    end
-    arry_percentage(wins, games)
+    game_teams_manager = GameTeamsManager.new(self).percentage_visitor_wins
   end
 
   def percentage_ties #game_team manager

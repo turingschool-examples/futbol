@@ -1,21 +1,17 @@
 class GamesManager
-  def initialize(games)
-    @games = games
+  def initialize(data)
+    @games = data.games
   end
 
-  def self.from_csv(locations)
-    games_path = locations[:games]
-  end
-
-  def self.highest_total_score(path)
-    scores = path.max_by do |game|
+  def highest_total_score
+    scores = @games.max_by do |game|
       game.total_goals
     end
     scores.total_goals
   end
 
-  def self.lowest_total_score(path)
-    scores = path.min_by do |game|
+  def lowest_total_score
+    scores = @games.min_by do |game|
       game.total_goals
     end
     scores.total_goals
