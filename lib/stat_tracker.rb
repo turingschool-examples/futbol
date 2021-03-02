@@ -75,11 +75,7 @@ class StatTracker
   end
 
   def count_goals
-
-
-    #	A hash with season names (e.g. 20122013) as keys and counts of games as values
     hash = Hash.new(0)
-
     @games.each do |game|
         hash[game.season.to_s] += game.away_goals + game.home_goals
     end
@@ -94,18 +90,9 @@ class StatTracker
   end
 
   def average_goals_by_season
-    #Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as values (rounded to the nearest 100th)
-
-   #sort out each season
-   #calculate how many goals in each season
-   #calculate how many games are in each season
-   #divide number of goals by number of games
-   #make that number the value in the hash
     game_season_totals = count_of_games_by_season
     goal_totals = count_goals
-
     hash = Hash.new(0)
-
     @games.each do |game|
       hash[game.season.to_s] = (goal_totals[game.season.to_s].to_f/game_season_totals[game.season.to_s].to_f).round(2)
     end
@@ -237,7 +224,17 @@ class StatTracker
   end
 
   #Team Statistics
+  def team_info(team_id)
+    team = @teams.find { |team| team.team_id == team_id }
 
+    {
+      "team_id"      => team.team_id,
+      "franchise_id" => team.franchiseid,
+      "team_name"    => team.teamname,
+      "abbreviation" => team.abbreviation,
+      "link"         => team.link
+    }
+  end
 
   def rival(team_id)
     game_ids_hash = Hash.new { |hash, key| hash[key] = [] }
@@ -284,6 +281,55 @@ class StatTracker
 
     team = @teams.find do |team|
       team.team_id == c.first
+    end
+    team.teamname
+
+  end
+
+  def favorite_opponent(team_id)
+    game_ids_hash = Hash.new { |hash, key| hash[key] = [] }
+    @game_teams.each do |game_team|
+      game_ids_hash[team_id] << game_team.game_id if game_team.team_id == team_id
+    end
+
+    all_the_teams_that_team_id_has_played = []
+    @game_teams.each do |game_team|
+      if game_team.team_id == team_id
+        next
+      elsif game_ids_hash[team_id].include?(game_team.game_id)
+        all_the_teams_that_team_id_has_played << game_team
+      end
+    end
+    all_opponents_game_by_id = all_the_teams_that_team_id_has_played.group_by do |game_team|
+      game_team.team_id
+    end
+
+    length = all_opponents_game_by_id.map do |id, game|
+      game.length
+    end
+
+    opponent_results = all_opponents_game_by_id.each do |keys, values|
+      all_opponents_game_by_id[keys] = values.map { |opponent|
+        if opponent.result == "WIN"
+           0
+         elsif opponent.result == "LOSS"
+           1
+         elsif opponent.result == "TIE"
+           0
+        end
+      }
+    end
+
+    opponent_loss_percent = opponent_results.each do |keys, values|
+      all_opponents_game_by_id[keys] = (values.sum.to_f / values.count.to_f )
+    end
+
+    favorite_opponent = opponent_loss_percent.max_by do |keys, values|
+      values
+    end
+
+    team = @teams.find do |team|
+      team.team_id == favorite_opponent.first
     end
     team.teamname
 
@@ -366,7 +412,7 @@ class StatTracker
     shot_goal.each do |team, ratio|
       shot_goal[team] = ratio.sum / ratio.length
     end
-    shot_goal.delete("29") # rspec does not like this team... but data don't lie
+    shot_goal.delete("29")
     team_ratio = shot_goal.max_by do |team, avg|
       avg
     end

@@ -24,7 +24,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Games Array", @stat_tracker.games
   end
 
-
   #Game Statistics Tests
 
   def test_it_can_find_the_highest_total_score
@@ -133,28 +132,41 @@ class StatTrackerTest < Minitest::Test
 
   def test_best_season
 
-    assert_equal "20162017", @stat_tracker.best_season("8")
+    assert_equal "20122013", @stat_tracker.best_season("8")
   end
 
   def test_worst_season
 
-    assert_equal "20172018", @stat_tracker.worst_season("8")
+    assert_equal "20122013", @stat_tracker.worst_season("8")
   end
 
   def test_most_goals_scored
 
-    assert_equal 6, @stat_tracker.most_goals_scored("3")
+    assert_equal 3, @stat_tracker.most_goals_scored("3")
   end
 
   def test_fewest_goals_scored
-    
-    assert_equal 0, @stat_tracker.fewest_goals_scored("3")
+
+    assert_equal 1, @stat_tracker.fewest_goals_scored("3")
   end
 
   #Team Statistics Tests
+  def test_it_can_get_team_info
+    expected = {"team_id"=>"3",
+                "franchise_id"=>"10",
+                "team_name"=>"Houston Dynamo",
+                "abbreviation"=>"HOU",
+                "link"=>"/api/v1/teams/3"
+              }
+    assert_equal expected, @stat_tracker.team_info("3")
+  end
 
   def test_it_can_find_teams_rival
     assert_equal "FC Dallas", @stat_tracker.rival("3")
+  end
+
+  def test_it_can_find_teams_fav_opponent
+    assert_equal "Houston Dynamo", @stat_tracker.favorite_opponent("6")
   end
 
   def test_it_can_get_loss_percentage_vs_particular_team
