@@ -18,6 +18,16 @@ class GameTeamsManager
     list_of_data
   end
 
+  def most_tackles(season)
+    tackle_hash = get_team_tackle_hash(season)
+    tackle_hash.key(tackle_hash.values.max)
+  end
+
+  def fewest_tackles(season)
+    tackle_hash = get_team_tackle_hash(season)
+    tackle_hash.key(tackle_hash.values.min)
+  end
+
   def get_team_tackle_hash(season_games_ids)
     team_tackles_totals = Hash.new(0)
     @game_teams.each do |game_team|
@@ -26,6 +36,16 @@ class GameTeamsManager
       end
     end
     team_tackles_totals
+  end
+
+  def most_accurate_team(season)
+    score_ratios = score_and_shots_by_team(season)
+    score_ratios.key(score_ratios.values.max)
+  end
+
+  def least_accurate_team(season)
+    score_ratios = score_and_shots_by_team(season)
+    score_ratios.key(score_ratios.values.min)
   end
 
   def score_and_shots_by_team(season_games_ids)

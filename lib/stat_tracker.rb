@@ -114,29 +114,25 @@ class StatTracker
   ###### Season Stats #######
   def most_tackles(season)
     season_games = @games.get_season_games(season)
-    tackle_hash = @game_teams.get_team_tackle_hash(season_games)
-    team_id = tackle_hash.key(tackle_hash.values.max)
+    team_id = @game_teams.most_tackles(season_games)
     @teams.get_team_name(team_id)
   end
 
   def fewest_tackles(season)
     season_games = @games.get_season_games(season)
-    tackle_hash = @game_teams.get_team_tackle_hash(season_games)
-    team_id = tackle_hash.key(tackle_hash.values.min)
+    team_id = @game_teams.fewest_tackles(season_games)
     @teams.get_team_name(team_id)
   end
 
   def most_accurate_team(season)
     season_games = @games.get_season_games(season)
-    score_ratios = @game_teams.score_ratios_hash(season_games)
-    team_id = score_ratios.key(score_ratios.values.max)
+    team_id = @game_teams.most_accurate_team(season_games)
     @teams.get_team_name(team_id)
   end
 
   def least_accurate_team(season)
     season_games = @games.get_season_games(season)
-    score_ratios = @game_teams.score_ratios_hash(season_games)
-    team_id = score_ratios.key(score_ratios.values.min)
+    team_id = @game_teams.least_accurate_team(season_games)
     @teams.get_team_name(team_id)
   end
 
