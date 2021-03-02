@@ -325,7 +325,7 @@ class StatTracker
     season_and_games(team_id).each do |season, game_seasons|
       matching_game_ids = game_seasons.map(&:game_id)
       matching_game_teams = @game_teams.find_all do |game_team|
-        game_team.team_id == team_id.to_i && matching_game_ids.include?(game_team.game_id)
+        game_team.team_id == team_id && matching_game_ids.include?(game_team.game_id)
       end
       season_hash[season] = percentage(matching_game_teams, "WIN")
     end
@@ -334,7 +334,7 @@ class StatTracker
 
   def season_and_games(team_id)
     @games.find_all do |game|
-      game.away_team_id == team_id.to_i || game.home_team_id == team_id.to_i
+      game.away_team_id == team_id|| game.home_team_id == team_id
     end.group_by(&:season)
   end
 
@@ -437,7 +437,7 @@ class StatTracker
 
   def find_team_games_played(team_id)
     @game_teams.find_all do |game_team|
-      game_team.team_id == team_id.to_i
+      game_team.team_id == team_id
     end
   end
 end
