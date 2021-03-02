@@ -4,12 +4,18 @@ require './lib/helper_modules/team_returnable'
 class StatTracker
   include ReturnTeamable
   attr_reader :games, :game_teams, :teams
-  def initialize
+  def initialize(locations)
+    #locations.each {|| }
     @games = GameTable.new('./data/games.csv')
     @game_teams = GameTeamTable.new('./data/game_teams.csv')
     @teams = TeamsTable.new('./data/teams.csv')
     require 'pry'; binding.pry
   end
+
+  def self.from_csv(locations)
+    StatTracker.new(locations)
+  end
+
   def send_team_data(teams = '@teams')
     @teams
   end

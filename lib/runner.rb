@@ -18,7 +18,7 @@ locations = {
   #teams_test: './data/teams_test.csv'
 }
 
-stat_tracker = StatTracker.new
+stat_tracker = StatTracker.from_csv(locations)
 stat_tracker.favorite_opponent('15')
 # require 'pry'; binding.pry
 #stat_tracker.from_csv(locations)
