@@ -29,14 +29,14 @@ class GameTeamsManager
   end
 
   def score_and_shots_by_team(season_games_ids)
-    hash = Hash.new { |hash, key| hash[key] = [0,0] }
+    accuracy = Hash.new { |accuracy, key| accuracy[key] = [0,0] }
     @game_teams.each do |game_team|
       if season_games_ids.include?(game_team.game_id)
-        hash[game_team.team_id][0] += game_team.goals
-        hash[game_team.team_id][1] += game_team.shots
+        accuracy[game_team.team_id][0] += game_team.goals
+        accuracy[game_team.team_id][1] += game_team.shots
       end
     end
-    hash
+    accuracy
   end
 
   def score_ratios_hash(season_games_ids)
