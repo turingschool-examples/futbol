@@ -2,7 +2,7 @@ class GameTeam
   attr_reader :game_id, :team_id, :tackles, :goals,
               :shots, :result, :head_coach
 
-   def initialize(raw_data)
+  def initialize(raw_data)
     @game_id = raw_data[:game_id]
     @team_id = raw_data[:team_id].strip
     @result = raw_data[:result]
@@ -10,5 +10,10 @@ class GameTeam
     @goals = raw_data[:goals].to_i
     @shots = raw_data[:shots].to_i
     @tackles = raw_data[:tackles].to_i
-   end
+  end
+
+  def is_game_pair?(game_team)
+    game_id == game_team.game_id && team_id != game_team.team_id
+  end
+
 end

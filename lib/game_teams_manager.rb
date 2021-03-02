@@ -60,8 +60,8 @@ class GameTeamsManager
   end
 
   def create_ratio_hash(hash)
-    hash.each do |team_id, pair|
-      hash[team_id] = calculate_ratios(pair)
+    hash.each do |key, pair|
+      hash[key] = calculate_ratios(pair)
     end
   end
 
@@ -77,40 +77,31 @@ class GameTeamsManager
     coach_ratio.key(coach_ratio.values.min)
   end
 
-  def favorite_opponent(team_id)
+  def get_hash_of_rival_teams(team_id)
     rivals = Hash.new { |rivals, team| rivals[team] = [0,0] }
     played = @game_teams.find_all do |game_team|
       team_id == game_team.team_id
     end
-    played.each do |game_A|
-      opponent_game = @game_teams.find do |game_B|
-        game_A.game_id == game_B.game_id && game_A.team_id != game_B.team_id
+    played.each do |game_a|
+      opponent_game = @game_teams.find do |game_b|
+        game_a.is_game_pair?(game_b)
       end
       rivals[opponent_game.team_id][1] += 1
       rivals[opponent_game.team_id][0] += 1 if opponent_game.result == "WIN"
     end
-    rivals.each do |rival, pair|
-      rivals[rival] = calculate_ratios(pair)
-    end
-    rivals.key(rivals.values.min)
+    rivals
+  end
+
+  def favorite_opponent(team_id)
+    rival_hash = get_hash_of_rival_teams(team_id)
+    rival_hash_ratio = create_ratio_hash(rival_hash)
+    rival_hash_ratio.key(rival_hash_ratio.values.min)
   end
 
   def rival(team_id)
-    rivals = Hash.new { |rivals, team| rivals[team] = [0,0] }
-    played = @game_teams.find_all do |game_team|
-      team_id == game_team.team_id
-    end
-    played.each do |game_A|
-      opponent_game = @game_teams.find do |game_B|
-        game_A.game_id == game_B.game_id && game_A.team_id != game_B.team_id
-      end
-      rivals[opponent_game.team_id][1] += 1
-      rivals[opponent_game.team_id][0] += 1 if opponent_game.result == "WIN"
-    end
-    rivals.each do |rival, pair|
-      rivals[rival] = calculate_ratios(pair)
-    end
-    rivals.key(rivals.values.max)
+    rival_hash = get_hash_of_rival_teams(team_id)
+    rival_hash_ratio = create_ratio_hash(rival_hash)
+    rival_hash_ratio.key(rival_hash_ratio.values.max)
   end
 
   def total_goals_by_team
