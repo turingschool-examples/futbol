@@ -18,11 +18,11 @@ class GamesManager
   end
 
   def highest_total_score
-    home_and_away_goals_sum.max
+    games.map {|game| game.total_goals}.max
   end
 
   def lowest_total_score
-    home_and_away_goals_sum.min
+    games.map {|game| game.total_goals}.min
   end
 
   def percentage_home_wins
@@ -56,16 +56,16 @@ class GamesManager
     games.each {|game| goals_in_season[game.season] += game.total_goals}
     count_of_games_by_season.merge(goals_in_season) do |season, games, goals|
       to_percent(goals, games)
-    end                         #to shorten
+    end
   end
 
   def get_season_results(team_id)
     summary = {}
     @games.each do |game|
       if game.home_team?(team_id) || game.away_team?(team_id)
-        summary[game.season] ||= []  ##sugar - if summary[game.season].nil?
+        summary[game.season] ||= []
         result = "non-win"
-        result = "WIN" if game.won?(team_id)  ##delegated to game.rb
+        result = "WIN" if game.won?(team_id)
         summary[game.season] << result
       end
     end
@@ -112,38 +112,28 @@ class GamesManager
   end
 
   def get_season_games(season)
-    season_games = @games.find_all do |game|
-      game.season == season
-    end
+    season_games = @games.find_all { |game| game.season == season }
     season_games.map { |game| game.game_id }
   end
 
   def total_home_goals
-    team_id_by_home_goals = games.map do |game|
-      [game.home_team_id, game.home_goals]
-    end
-    sum_values(team_id_by_home_goals)
+    home_goals = games.map { |game| [game.home_team_id, game.home_goals] }
+    sum_values(home_goals)
   end
 
   def total_away_goals
-    team_id_by_away_goals = games.map do |game|
-      [game.away_team_id, game.away_goals]
-    end
-    sum_values(team_id_by_away_goals)
+    away_goals = games.map { |game| [game.away_team_id, game.away_goals] }
+    sum_values(away_goals)
   end
 
   def total_home_games
-    team_id_by_home_games = games.map do |game|
-      [game.home_team_id, 1]
-    end
-    sum_values(team_id_by_home_games)
+    team_home_games = games.map { |game| [game.home_team_id, 1] }
+    sum_values(team_home_games)
   end
 
   def total_away_games
-    team_id_by_away_games = games.map do |game|
-      [game.away_team_id, 1]
-    end
-    sum_values(team_id_by_away_games)
+    team_away_games = games.map { |game| [game.away_team_id, 1] }
+    sum_values(team_away_games)
   end
 
   def highest_scoring_visitor
