@@ -56,19 +56,19 @@ class StatTracker
   end
 
   def most_accurate_team(season)
-    @game_teams.most_accurate_team(season)
+    return_team(@game_teams.most_accurate_team(season), @teams.team_data).teamname
   end
 
   def least_accurate_team(season)
-    @game_teams.least_accurate_team(season)
+    return_team(@game_teams.least_accurate_team(season), @teams.team_data).teamname
   end
 
   def most_tackles(seasson)
-    @game_teams.most_tackles(season)
+    return_team(@game_teams.most_tackles(season), @teams.team_data).teamname
   end
 
   def fewest_tackles(season)
-    @game_teams.fewest_tackles(season)
+    return_team(@game_teams.fewest_tackles(season), @teams.team_data).teamname
   end
 
   def games_by_season(season)

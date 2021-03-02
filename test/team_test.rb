@@ -16,6 +16,4 @@ class TeamTest < Minitest::Test
   def test_number_of_teams
     assert_equal @teams.count_of_teams, 32
   end
-
-  
 end
