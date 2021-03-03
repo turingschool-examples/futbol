@@ -48,4 +48,4 @@ class GameTeamTest < MiniTest::Test
     assert_equal true, game_team1.is_game_pair?(game_team2)
     assert_equal false, game_team1.is_game_pair?(game_team3)
   end
-end 
+end
