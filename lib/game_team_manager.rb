@@ -33,12 +33,14 @@ class GameTeamManager
     average_goals_by_team_hash.max_by do |key, value|
       value
     end.first
+
   end
 
   def teams_least_average_goals
     average_goals_by_team_hash.min_by do |key, value|
       value
     end.first
+
   end
 
   def average_team_goals_per_game(id)

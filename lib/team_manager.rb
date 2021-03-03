@@ -6,8 +6,10 @@ require_relative './csv_parser'
 class TeamManager
   include CsvParser
 
+
   def initialize(file)
     @all_teams = load_it_up(file, Team)
+
   end
 
   def count_of_teams
@@ -32,6 +34,4 @@ class TeamManager
         "link" => team.link
                 }
     end
-
-
   end

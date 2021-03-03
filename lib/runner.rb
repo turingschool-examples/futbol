@@ -1,7 +1,4 @@
 require_relative './stat_tracker'
-# require_relative './team_manager'
-# require_relative './game_manager'
-# require_relative './game_teams_manager'
 
 game_path = './data/games.csv'
 team_path = './data/teams.csv'
@@ -18,3 +15,4 @@ locations = {
 }
 
 stat_tracker = StatTracker.from_csv(locations)
+stat_tracker.best_offense
