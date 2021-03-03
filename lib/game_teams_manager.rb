@@ -23,23 +23,13 @@ class GameTeamsManager
   end
 
   def get_team_tackle_hash(season_games_ids)
-    team_tackles_totals = Hash.new(0)
+     team_tackles_totals = Hash.new(0)
     @game_teams.each do |game_team|
       if season_games_ids.include?(game_team.game_id)
         team_tackles_totals[game_team.team_id] += game_team.tackles
       end
     end
     team_tackles_totals
-  end
-
-  def most_accurate_team(season)
-    score_ratios = score_and_shots_by_team(season)
-    score_ratios.key(score_ratios.values.max)
-  end
-
-  def least_accurate_team(season)
-    score_ratios = score_and_shots_by_team(season)
-    score_ratios.key(score_ratios.values.min)
   end
 
   def score_and_shots_by_team(season_games_ids)
@@ -55,7 +45,11 @@ class GameTeamsManager
 
   def score_ratios_hash(season_games_ids)
     ratio = score_and_shots_by_team(season_games_ids)
-    create_ratio_hash(ratio)
+    ratio.transform_values {|pair| calculate_ratios(pair)}
+  end
+
+  def calculate_ratios(pair)
+    pair.first.to_f / pair.last.to_f
   end
 
   def create_coach_hash(season_games)
@@ -70,7 +64,9 @@ class GameTeamsManager
   end
 
   def create_ratio_hash(hash)
-    hash.transform_values {|pair| get_percentage(pair[0], pair[1])}
+    hash.each do |key, pair|
+      hash[key] = calculate_ratios(pair)
+    end
   end
 
   def winningest_coach(season_games)
@@ -91,11 +87,11 @@ class GameTeamsManager
       team_id == game_team.team_id
     end
     played.each do |game_a|
-      rival_game = @game_teams.find do |game_b|
+      opponent_game = @game_teams.find do |game_b|
         game_a.is_game_pair?(game_b)
       end
-      rivals[rival_game.team_id][1] += 1
-      rivals[rival_game.team_id][0] += 1 if rival_game.result == "WIN"
+      rivals[opponent_game.team_id][1] += 1
+      rivals[opponent_game.team_id][0] += 1 if opponent_game.result == "WIN"
     end
     rivals
   end
