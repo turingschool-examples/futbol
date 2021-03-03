@@ -30,4 +30,8 @@ class GameTeamManagerTest < Minitest::Test
   def test_teams_max_average_goals
     assert_equal "6", @game_team_data.teams_max_average_goals
   end
+
+  def test_average_team_goals_per_game
+    assert_equal 1.6, @game_team_data.average_team_goals_per_game(3)
+  end
 end

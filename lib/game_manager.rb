@@ -105,18 +105,18 @@ class GameManager
     games
   end
 
-  def average_team_goals_per_game(id)
-    all_goals = []
-    @all_games.each do |game|
-      if game.home_team_id == id
-        then all_goals << game.home_goals
-      else game.away_team_id == id
-        all_goals << game.away_goals
-      end
-    end
-    all_goals.sum / all_goals.count
-    require 'pry'; binding.pry
-  end
+  # def average_team_goals_per_game(id)
+  #   all_goals = []
+  #   @all_games.each do |game|
+  #     if game.home_team_id == id
+  #       all_goals << game.home_goals
+  #     else game.away_team_id == id
+  #       all_goals << game.away_goals
+  #     end
+  #   end
+  #   all_goals.sum / all_goals.count
+  #   require 'pry'; binding.pry
+  # end
 
   # def team_goals_all_seasons(id)
   #   games_by_id(id).sum do |game|

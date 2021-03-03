@@ -81,7 +81,7 @@ class GameManagerTest < Minitest::Test
     assert_equal 10, @game_data.games_by_id(6).count
   end
 
-  def test_average_team_goals_per_game
-    assert_equal 2.9, @game_data.average_team_goals_per_game(6)
-  end
+  # def test_average_team_goals_per_game
+  #   assert_equal 2.9, @game_data.average_team_goals_per_game(6)
+  # end
 end
