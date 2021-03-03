@@ -1,4 +1,5 @@
 require './test/test_helper'
+
 class GameTeamManagerTest < Minitest::Test
   def setup
     @game_team_data = GameTeamManager.new("data/fixture/game_teams_dummy.csv")
