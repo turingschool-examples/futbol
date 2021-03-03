@@ -9,8 +9,9 @@ require './lib/helper_modules/csv_to_hashable'
 class GameTableTest < Minitest::Test
 include CsvToHash
   def setup
+    stat_tracker = nil
     locations = './data/games.csv'
-    @game_table = GameTable.new(locations)
+    @game_table = GameTable.new(locations, stat_tracker)
   end
 
   def test_it_exists
@@ -37,7 +38,7 @@ include CsvToHash
     assert_equal 0.20, @game_table.percentage_ties
   end
 
-  def test_count_of_games_by_seasongt
+  def test_count_of_games_by_season
     expected = {
       "20122013"=>806,
       "20162017"=>1317,
@@ -63,5 +64,9 @@ include CsvToHash
       "20172018"=>4.44
     }
     assert_equal expected, @game_table.average_goals_by_season
+  end
+
+  def test_rival
+    assert_equal "Houston Dash", @game_table.rival("18")
   end
 end

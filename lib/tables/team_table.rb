@@ -1,5 +1,6 @@
 require_relative '../helper_modules/csv_to_hashable'
 require_relative '../instances/team'
+require_relative '../helper_modules/team_returnable'
 
 class TeamsTable
   include CsvToHash
