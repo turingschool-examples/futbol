@@ -25,13 +25,11 @@ class TeamManager
       team.team_id == id
     end
       info = {
-        "team_id" => team.team_id,
+        "team_id" => team.team_id.to_s,
         "franchiseid" => team.franchiseid.to_s,
         "teamname" => team.teamname,
         "abbreviation" => team.abbreviation,
         "link" => team.link
                 }
     end
-
-
   end
