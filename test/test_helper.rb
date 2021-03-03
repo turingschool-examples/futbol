@@ -11,5 +11,6 @@ require './lib/game'
 require './lib/game_manager'
 require './lib/game_team'
 require './lib/game_team_manager'
+require './lib/stat_tracker'
 
 require 'pry'

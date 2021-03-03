@@ -95,4 +95,5 @@ class GameManager
     end
     avg_by_season
   end
+  
 end
