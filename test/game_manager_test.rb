@@ -63,12 +63,8 @@ class GameManagerTest < Minitest::Test
     assert_equal 4.40, @game_data.average_goals_per_game
   end
 
-  def test_highest_average_goals_per_game
 
-
-  end
-
-  def test_average_goals_per_season
+  def test_average_goals_in_a_season
     assert_equal 4.17, @game_data.average_goals_in_a_season(20122013)
     assert_equal 4.75, @game_data.average_goals_in_a_season(20132014)
   end
@@ -85,8 +81,7 @@ class GameManagerTest < Minitest::Test
     assert_equal 10, @game_data.games_by_id(6).count
   end
 
-  def test_team_average_per_game
-    assert_equal 21, @game_data.team_goals_all_seasons(6)
-    assert_equal 2.10, @game_data.overall_avg_goals_per_game(6)
+  def test_average_team_goals_per_game
+    assert_equal 2.9, @game_data.average_team_goals_per_game(6)
   end
 end

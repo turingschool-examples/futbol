@@ -14,4 +14,8 @@ class Team
     @stadium = data[:stadium]
     @link = data[:link]
   end
+
+  # def team_lookup(id)
+  #   id == team_id
+  # end
 end

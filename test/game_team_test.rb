@@ -37,4 +37,5 @@ class GameTeamTest < Minitest::Test
     assert_equal 17, @game_team.giveaways
     assert_equal 2, @game_team.takeaways
   end
+
 end
