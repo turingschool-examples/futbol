@@ -34,6 +34,9 @@ class GameTeamManagerTest < Minitest::Test
     assert_equal "6", @game_team_data.teams_max_average_goals
   end
 
+  def test_average_team_goals_per_game
+    assert_equal 1.6, @game_team_data.average_team_goals_per_game(3)
+
   def test_it_can_calculate_winningest_coach
     @game_team_data = GameTeamManager.new('data/fixture/game_teams_dummy.csv')
 

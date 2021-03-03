@@ -8,7 +8,7 @@ class Team
               :count
 
   def initialize(data)
-    @team_id = data[:team_id]
+    @team_id = data[:team_id].to_i
     @franchiseid = data[:franchiseid]
     @teamname = data[:teamname]
     @abbreviation = data[:abbreviation]

@@ -42,4 +42,16 @@ class GameTeamManager
     end.first
 
   end
+
+  def average_team_goals_per_game(id)
+    all_scores = []
+    @all_game_teams.each do |game|
+      if game.team_id == id
+        all_scores << game.goals
+      end
+    end
+    count = all_scores.count
+    final = (all_scores.sum)/count.to_f
+    final.round(2)
+  end
 end

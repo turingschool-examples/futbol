@@ -44,8 +44,8 @@ class GameManagerTest < Minitest::Test
   end
 
   def test_make_game_ids_by_season_hash
-    expected = {20122013=>[2012030221, 2012030222, 2012030223, 2012030224,
-      2012030225, 2012030311], 20132014=>[2012030312, 2012030313, 2012030314,
+    expected = {"20122013"=>[2012030221, 2012030222, 2012030223, 2012030224,
+      2012030225, 2012030311], "20132014"=>[2012030312, 2012030313, 2012030314,
       2012030559]}
 
     assert_equal expected, @game_data.make_game_ids_by_season_hash
@@ -53,8 +53,8 @@ class GameManagerTest < Minitest::Test
 
   def test_count_of_games_by_season
     expected = {
-              20122013 => 6,
-              20132014 => 4
+              "20122013" => 6,
+              "20132014" => 4
                 }
     assert_equal expected, @game_data.count_of_games_by_season
   end
@@ -81,7 +81,7 @@ class GameManagerTest < Minitest::Test
     assert_equal 10, @game_data.games_by_id(6).count
   end
 
-  def test_average_team_goals_per_game
-    assert_equal 2.9, @game_data.average_team_goals_per_game(6)
-  end
+  # def test_average_team_goals_per_game
+  #   assert_equal 2.9, @game_data.average_team_goals_per_game(6)
+  # end
 end

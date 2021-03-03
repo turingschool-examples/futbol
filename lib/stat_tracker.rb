@@ -65,6 +65,7 @@ class StatTracker
   end
 
   def best_offense
+    # require 'pry'; binding.pry
     team_best_average = @game_team_manager.teams_max_average_goals
     @team_manager.find_team_by_id(team_best_average).teamname
   end
