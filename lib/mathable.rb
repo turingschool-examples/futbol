@@ -19,7 +19,7 @@ module Mathable
     sum
   end
 
-  def get_percentage(numerator, denominator)
-    (numerator.to_f / denominator).round(2)
+  def get_percentage(numerator, denominator, round_to = 2)
+    (numerator.to_f / denominator).round(round_to)
   end
 end
