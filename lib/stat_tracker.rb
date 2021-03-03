@@ -1,5 +1,8 @@
 require 'csv'
 require_relative './helper_modules/team_returnable'
+require '../futbol/lib/tables/team_table'
+require '../futbol/lib/tables/game_table'
+require '../futbol/lib/tables/game_team_tables'
 
 class StatTracker
   include ReturnTeamable
@@ -9,6 +12,7 @@ class StatTracker
     @games = GameTable.new(locations[:games])
     @game_teams = GameTeamTable.new(locations[:game_teams])
     @teams = TeamsTable.new(locations[:teams])
+
   end
 
   def self.from_csv(locations)
@@ -67,6 +71,7 @@ class StatTracker
     return_team(@game_teams.least_accurate_team(season), @teams.team_data).teamname
   end
 
+
   def most_tackles(seasson)
     return_team(@game_teams.most_tackles(season), @teams.team_data).teamname
   end
@@ -120,11 +125,11 @@ class StatTracker
   end
 
   def best_offense
-    @game_teams.best_offense
+    return_team(@game_teams.best_offense).teamname
   end
 
   def highest_scoring_visitor
-    @game_teams.highest_scoring_visitor
+    return_team(@game_teams.highest_scoring_visitor).teamname
   end
 
   def lowest_scoring_visitor
