@@ -33,10 +33,10 @@ class TeamsManager
       team.team_id == team_id
     end
 
-    info = { "team_id" => desired_team.team_id,
-             "franchise_id" => desired_team.franchise_id,
-             "team_name" => desired_team.team_name,
-             "abbreviation" => desired_team.abbreviation,
-             "link" => desired_team.link}
+     { "team_id" => desired_team.team_id,
+       "franchise_id" => desired_team.franchise_id,
+       "team_name" => desired_team.team_name,
+       "abbreviation" => desired_team.abbreviation,
+       "link" => desired_team.link}
   end
 end

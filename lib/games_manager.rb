@@ -67,7 +67,7 @@ class GamesManager
   end
 
   def best_season(team_id)
-    rando = get_season_results(team_id).max_by do |key, value|
+    get_season_results(team_id).max_by do |key, value|
       value.count('WIN').to_f / value.size
     end.first
   end

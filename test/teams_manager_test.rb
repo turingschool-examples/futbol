@@ -20,6 +20,13 @@ class TeamsManagerTest < Minitest::Test
     assert_instance_of Team, team_manager.teams[-1]
   end
 
+  def test_readable_generate_list
+    path = "./fixture/teams_dummy15.csv"
+    team_manager = TeamsManager.new(path)
+
+    assert_equal Array, team_manager.teams.class
+  end
+
   def test_count_of_teams_full_file
     path = "./data/teams.csv"
     team_manager = TeamsManager.new(path)
