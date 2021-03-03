@@ -12,15 +12,15 @@ class TeamManagerTest < Minitest::Test
   def test_count_of_teams
     assert_equal 32, @team_data.count_of_teams
   end
-  
+
   def test_team_info
     expected = {
-                  "team_id" => "14",
-                  "franchiseid" => "31",
+                  "team_id" => 14,
+                  "franchiseid" => 31,
                   "teamname" => "DC United",
                   "abbreviation" => "DC",
                   "link" => "/api/v1/teams/14"
                 }
-    assert_equal expected, @team_data.team_info("14")
+    assert_equal expected, @team_data.team_info(14)
   end
 end
