@@ -95,5 +95,44 @@ class GameManager
     end
     avg_by_season
   end
-  
+
+  def games_by_id(team_id)
+    games = []
+    @all_games.find_all do |game|
+      team_id == game.home_team_id || team_id == game.away_team_id
+      games << game
+    end
+    games
+  end
+
+  def average_team_goals_per_game(id)
+    all_goals = []
+    @all_games.each do |game|
+      if game.home_team_id == id
+        then all_goals << game.home_goals
+      else game.away_team_id == id
+        all_goals << game.away_goals
+      end
+    end
+    all_goals.sum / all_goals.count
+    require 'pry'; binding.pry
+  end
+
+  # def team_goals_all_seasons(id)
+  #   games_by_id(id).sum do |game|
+  #     if id == game.away_team_id
+  #       game.away_goals
+  #     else id == game.home_team_id
+  #       game.home_goals
+  #       # require 'pry'; binding.pry
+  #     end
+  #   end
+  # end
+
+  # def overall_avg_goals_per_game(id)
+  #   total_games = games_by_id(id).count
+  #   total_goals = team_goals_all_seasons(id).to_f
+  #   (total_goals / total_games).round(2)
+  # end
+
 end

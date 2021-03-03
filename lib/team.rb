@@ -16,8 +16,4 @@ class Team
     @link = data[:link]
     # @count = 0
   end
-
-  # def count_of_teams
-  #   @count += 1
-  # end
 end

@@ -3,9 +3,9 @@ require_relative './game_manager'
 require_relative './team_manager'
 require_relative './game_team_manager'
 require_relative './csv_parser'
-require_relative 'game'
-require_relative 'team'
-require_relative 'game_team'
+# require_relative 'game'
+# require_relative 'team'
+# require_relative 'game_team'
 
 require 'pry'
 
@@ -67,5 +67,13 @@ class StatTracker
   def best_offense
     team_best_average = @game_team_manager.teams_max_average_goals
     @team_manager.find_team_by_id(team_best_average).teamname
+  end
+
+  def worst_offense
+    team_least_average = game_team_manager.teams_least_average_goals
+    @team_manager.find_team_by_id(team_least_average).teamname
+  end
+
+  def highest_scoring_visitor
   end
 end

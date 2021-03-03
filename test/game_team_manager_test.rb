@@ -2,7 +2,9 @@ require './test/test_helper'
 
 class GameTeamManagerTest < Minitest::Test
   def setup
-    @game_team_data = GameTeamManager.new("data/fixture/game_teams_dummy.csv")
+
+    @game_team_data = GameTeamManager.new('data/fixture/game_teams_dummy.csv')
+
   end
 
   def test_it_exists
@@ -12,6 +14,7 @@ class GameTeamManagerTest < Minitest::Test
   def test_make_goals_by_team_hash
     expected = {
       "3"=>[2, 2, 1, 2, 1],
+
       "6"=>[3, 3, 2, 3, 3]
     }
 
