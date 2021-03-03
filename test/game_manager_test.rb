@@ -26,7 +26,7 @@ class GameManagerTest < Minitest::Test
   def test_percentage_home_wins
     assert_equal 0.50, @game_data.percentage_home_wins
   end
-  #BigDecimal? to return two decimal values - zeros
+
   def test_visitor_wins_array
     assert_equal 4, @game_data.visitor_wins_array.count
   end
@@ -80,8 +80,4 @@ class GameManagerTest < Minitest::Test
   def test_games_by_id
     assert_equal 10, @game_data.games_by_id(6).count
   end
-
-  # def test_average_team_goals_per_game
-  #   assert_equal 2.9, @game_data.average_team_goals_per_game(6)
-  # end
 end

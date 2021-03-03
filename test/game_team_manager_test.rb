@@ -13,9 +13,8 @@ class GameTeamManagerTest < Minitest::Test
 
   def test_make_goals_by_team_hash
     expected = {
-      "3"=>[2, 2, 1, 2, 1],
-
-      "6"=>[3, 3, 2, 3, 3]
+      3=>[2, 2, 1, 2, 1],
+      6=>[3, 3, 2, 3, 3]
     }
 
     assert_equal expected, @game_team_data.make_goals_by_team_hash
@@ -23,15 +22,15 @@ class GameTeamManagerTest < Minitest::Test
 
   def test_average_goals_by_team_hash
     expected = {
-      "3"=>1.6,
-      "6"=>2.75
+      3=>1.6,
+      6=>2.8
     }
 
     assert_equal expected, @game_team_data.average_goals_by_team_hash
   end
 
   def test_teams_max_average_goals
-    assert_equal "6", @game_team_data.teams_max_average_goals
+    assert_equal 6, @game_team_data.teams_max_average_goals
   end
 
   def test_average_team_goals_per_game
