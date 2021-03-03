@@ -42,13 +42,14 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal [6, 20], game_team_manager.score_and_shots_by_team(game_ids)["6"]
   end
 
-  def test_calculate_ratios
+  def test_create_ratio_hash
     path = "./fixture/game_teams_dummy15.csv"
     game_team_manager = GameTeamsManager.new(path)
 
-    pair = [3, 6]
+    test_hash = {9 => [3, 6], 11 => [1, 4], 13 => [2, 6]}
+    expected = {9 => 0.5, 11 => 0.25, 13 => 0.33}
 
-    assert_equal 0.5, game_team_manager.calculate_ratios(pair)
+    assert_equal expected, game_team_manager.create_ratio_hash(test_hash)
   end
 
   def test_winningest_coach

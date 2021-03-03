@@ -128,15 +128,13 @@ class StatTracker
 
   def most_accurate_team(season)
     season_games = @games.get_season_games(season)
-    score_ratios = @game_teams.score_ratios_hash(season_games)
-    team_id = score_ratios.key(score_ratios.values.max)
+    team_id = @game_teams.most_accurate_team(season_games)
     @teams.get_team_name(team_id)
   end
 
   def least_accurate_team(season)
     season_games = @games.get_season_games(season)
-    score_ratios = @game_teams.score_ratios_hash(season_games)
-    team_id = score_ratios.key(score_ratios.values.min)
+    team_id = @game_teams.least_accurate_team(season_games)
     @teams.get_team_name(team_id)
   end
 
