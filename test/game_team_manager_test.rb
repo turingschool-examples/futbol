@@ -20,7 +20,7 @@ class GameTeamManagerTest < Minitest::Test
   def test_average_goals_by_team_hash
     expected = {
       "3"=>1.6,
-      "6"=>2.8
+      "6"=>2.75
     }
 
     assert_equal expected, @game_team_data.average_goals_by_team_hash
