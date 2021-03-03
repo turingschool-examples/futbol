@@ -33,13 +33,13 @@ class GameTeamsManager
   end
 
   def most_accurate_team(season)
-    score_ratios = score_and_shots_by_team(season)
-    score_ratios.key(score_ratios.values.max)
+    score_hash = score_ratios_hash(season)
+    score_hash.key(score_hash.values.max)
   end
 
   def least_accurate_team(season)
-    score_ratios = score_and_shots_by_team(season)
-    score_ratios.key(score_ratios.values.min)
+    score_hash = score_ratios_hash(season)
+    score_hash.key(score_hash.values.min)
   end
 
   def score_and_shots_by_team(season_games_ids)
@@ -112,33 +112,24 @@ class GameTeamsManager
     rival_hash_ratio.key(rival_hash_ratio.values.max)
   end
 
-  def total_goals_by_team
-    goals_by_team_id = Hash.new(0)
-    game_teams.each do |game|
-      goals_by_team_id[game.team_id] += game.goals
+  def create_goals_hash
+    goals_hash = Hash.new { |coach, team| coach[team] = [0,0] }
+    @game_teams.each do |game_team|
+      goals_hash[game_team.team_id][1] += 1
+      goals_hash[game_team.team_id][0] += game_team.goals
     end
-    goals_by_team_id
-  end
-
-  def total_games_by_team
-    games_by_team_id = Hash.new(0)
-    game_teams.each do |game|
-      games_by_team_id[game.team_id] += 1
-    end
-    games_by_team_id
+    goals_hash
   end
 
   def best_offense
-    averages = total_goals_by_team.merge(total_games_by_team) do |team_id, goals, games|
-      get_percentage(goals, games)
-    end
-    averages.max_by {|team_id, average| average}.first
+    goal_hash = create_goals_hash
+    goal_hash_ratio = create_ratio_hash(goal_hash)
+    goal_hash_ratio.max_by {|team_id, average| average}.first
   end
 
   def worst_offense
-    averages = total_goals_by_team.merge(total_games_by_team) do |team_id, goals, games|
-      get_percentage(goals, games)
-    end
-    averages.min_by {|team_id, average| average}.first
+    goal_hash = create_goals_hash
+    goal_hash_ratio = create_ratio_hash(goal_hash)
+    goal_hash_ratio.min_by {|team_id, average| average}.first
   end
 end

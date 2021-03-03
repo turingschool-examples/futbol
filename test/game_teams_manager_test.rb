@@ -80,14 +80,14 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "John Tortorella", game_team_manager.worst_coach(game_ids)
   end
 
-  def test_total_games_by_team_dummy_file
-    path = "./fixture/game_teams_dummy15.csv"
-    game_teams_manager = GameTeamsManager.new(path)
-
-    expected = {"3"=>5, "6"=>7, "5"=>3}
-
-    assert_equal expected, game_teams_manager.total_games_by_team
-  end
+  # def test_total_games_by_team_dummy_file
+  #   path = "./fixture/game_teams_dummy15.csv"
+  #   game_teams_manager = GameTeamsManager.new(path)
+  #
+  #   expected = {"3"=>5, "6"=>7, "5"=>3}
+  #
+  #   assert_equal expected, game_teams_manager.total_games_by_team
+  # end
 
   def test_best_offense_dummy_file
     path = "./fixture/game_teams_dummy15.csv"
@@ -103,14 +103,14 @@ class GameTeamsManagerTest < Minitest::Test
     assert_equal "5", game_teams_manager.worst_offense
   end
 
-  def test_total_goals_by_team_dummy_file
-    path = "./fixture/game_teams_dummy15.csv"
-    game_teams_manager = GameTeamsManager.new(path)
-
-    expected = {"3"=>8, "6"=>21, "5"=>2}
-
-    assert_equal expected, game_teams_manager.total_goals_by_team
-  end
+  # def test_total_goals_by_team_dummy_file
+  #   path = "./fixture/game_teams_dummy15.csv"
+  #   game_teams_manager = GameTeamsManager.new(path)
+  #
+  #   expected = {"3"=>8, "6"=>21, "5"=>2}
+  #
+  #   assert_equal expected, game_teams_manager.total_goals_by_team
+  # end
 
   def test_favorite_opponent
     path = "./data/game_teams.csv"
