@@ -55,7 +55,7 @@ class GameTeamsManager
 
   def score_ratios_hash(season_games_ids)
     ratio = score_and_shots_by_team(season_games_ids)
-    create_ratio_hash(ratio)
+    create_ratio_hash(ratio, 10)
   end
 
   def create_coach_hash(season_games)
@@ -69,8 +69,8 @@ class GameTeamsManager
     coach_hash
   end
 
-  def create_ratio_hash(hash)
-    hash.transform_values {|pair| get_percentage(pair[0], pair[1])}
+  def create_ratio_hash(hash, rounding = 2)
+    hash.transform_values {|pair| get_percentage(pair[0], pair[1], rounding)}
   end
 
   def winningest_coach(season_games)
