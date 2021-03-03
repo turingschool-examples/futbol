@@ -55,11 +55,11 @@ class GameManager
   def make_game_ids_by_season_hash
     by_season = {}
     @all_games.each do |game|
-      by_season[game.season.to_i] = []
+      by_season[game.season.to_s] = []
     end
 
     @all_games.each do |game|
-      by_season[game.season.to_i] << game.game_id
+      by_season[game.season.to_s] << game.game_id
     end
       by_season
   end

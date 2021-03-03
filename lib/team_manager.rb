@@ -32,4 +32,6 @@ class TeamManager
         "link" => team.link
                 }
     end
+
+
   end
