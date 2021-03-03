@@ -21,7 +21,7 @@ class GamesManager
 
   def percentage_home_wins
     wins = games.count {|game| game.away_goals < game.home_goals}
-    get_percentage(wins, games.count)
+    get_percentage(wins, games.size)
   end
 
   def percentage_visitor_wins
