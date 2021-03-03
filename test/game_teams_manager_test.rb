@@ -125,4 +125,14 @@ class GameTeamsManagerTest < Minitest::Test
 
     assert_instance_of String, game_teams_manager.rival("6")
   end
+
+  def test_create_goals_hash
+    path = "./fixture/game_teams_dummy15.csv"
+    game_teams_manager = GameTeamsManager.new(path)
+
+    expected = {"3"=>[8, 5], "6"=>[21, 7], "5"=>[2, 3]}
+
+    assert_equal expected, game_teams_manager.create_goals_hash
+
+  end
 end
