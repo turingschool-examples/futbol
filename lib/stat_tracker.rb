@@ -77,4 +77,14 @@ class StatTracker
 
   def highest_scoring_visitor
   end
+
+  def best_defense
+    most_tackles = @game_team_manager.most_tackles
+    @team_manager.find_team_by_id(most_tackles).teamname
+  end
+
+  def worst_defense
+    fewest_tackles_id = @game_team_manager.fewest_tackles
+    @team_manager.find_team_by_id(fewest_tackles_id).teamname
+  end
 end
