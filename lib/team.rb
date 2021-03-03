@@ -4,18 +4,16 @@ class Team
               :teamname,
               :abbreviation,
               :stadium,
-              :link
+              :link,
+              :count
 
   def initialize(data)
     @team_id = data[:team_id].to_i
-    @franchiseid = data[:franchiseid]
+    @franchiseid = data[:franchiseid].to_i
     @teamname = data[:teamname]
     @abbreviation = data[:abbreviation]
     @stadium = data[:stadium]
     @link = data[:link]
+    # @count = 0
   end
-
-  # def team_lookup(id)
-  #   id == team_id
-  # end
 end

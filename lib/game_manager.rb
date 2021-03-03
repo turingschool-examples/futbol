@@ -104,5 +104,4 @@ class GameManager
     end
     games
   end
-
 end

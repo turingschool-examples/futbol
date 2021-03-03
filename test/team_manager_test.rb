@@ -19,8 +19,8 @@ class TeamManagerTest < Minitest::Test
 
   def test_team_info
     expected = {
-                  "team_id" => "14",
-                  "franchiseid" => "31",
+                  "team_id" => 14,
+                  "franchiseid" => 31,
                   "teamname" => "DC United",
                   "abbreviation" => "DC",
                   "link" => "/api/v1/teams/14"

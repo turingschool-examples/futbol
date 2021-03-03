@@ -2,7 +2,9 @@ require './test/test_helper'
 
 class GameTeamManagerTest < Minitest::Test
   def setup
+
     @game_team_data = GameTeamManager.new('data/fixture/game_teams_dummy.csv')
+
   end
 
   def test_it_exists
@@ -33,5 +35,40 @@ class GameTeamManagerTest < Minitest::Test
 
   def test_average_team_goals_per_game
     assert_equal 1.6, @game_team_data.average_team_goals_per_game(3)
+
+  def test_it_can_calculate_winningest_coach
+    @game_team_data = GameTeamManager.new('data/fixture/game_teams_dummy.csv')
+
+    assert_equal 'Claude Julien', @game_team_data.winningest_coach(20122013)
+  end
+
+  def test_it_can_calculate_worst_coach
+    @game_team_data = GameTeamManager.new('data/fixture/game_teams_dummy.csv')
+
+    assert_equal 'John Tortorella', @game_team_data.worst_coach(20122013)
+  end
+
+  def test_it_can_calculate_most_accurate_team
+    @game_team_data = GameTeamManager.new('data/fixture/game_teams_dummy.csv')
+
+    assert_equal 'FC Dallas', @game_team_data.most_accurate_team(20122013)
+  end
+
+  def test_it_can_calulate_least_accurate_team
+    @game_team_data = GameTeamManager.new('data/fixture/game_teams_dummy.csv')
+
+    assert_equal 'Houston Dynamo', @game_team_data.least_accurate_team
+  end
+
+  def test_it_can_calculate_most_tackles
+    @game_team_data = GameTeamManager.new('data/fixture/game_teams_dummy.csv')
+
+    assert_equal 'FC Dallas', @game_team_data.most_tackles
+  end
+
+  def test_it_can_calculate_fewest_tackles
+    @game_team_data = GameTeamManager.new('data/fixture/game_teams_dummy.csv')
+
+    assert_equal 'FC Dallas', @game_team_data.fewest_tackles
   end
 end
