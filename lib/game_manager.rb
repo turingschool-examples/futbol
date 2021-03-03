@@ -134,4 +134,5 @@ class GameManager
   #   total_goals = team_goals_all_seasons(id).to_f
   #   (total_goals / total_games).round(2)
   # end
+
 end
