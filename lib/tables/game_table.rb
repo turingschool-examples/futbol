@@ -1,15 +1,11 @@
-require './lib/helper_modules/csv_to_hashable.rb'
-require './lib/instances/game'
+require_relative '../helper_modules/csv_to_hashable.rb'
+require_relative '../instances/game'
 class GameTable
   attr_reader :game_data, :stat_tracker
   include CsvToHash
   def initialize(locations)
     @game_data = from_csv(locations, 'Game')
     @stat_tracker = stat_tracker
-  end
-
-  def other_call(data)
-    data
   end
 
   def highest_total_score
@@ -87,10 +83,9 @@ class GameTable
       game.season
     end
   end
-  def favorite_opponent(results)
-    away = results.map{|result| @game_data.find{|game| game.game_id == result[0]}.away_team_id}
-    results = results.map{|result| @game_data.find{|game| game.game_id == result[0]}.home_team_id}.zip(away).zip(results)
-    require 'pry'; binding.pry
-  end
+  # def favorite_opponent(results)
+  #   away = results.map{|result| @game_data.find{|game| game.game_id == result[0]}.away_team_id}
+  #   results = results.map{|result| @game_data.find{|game| game.game_id == result[0]}.home_team_id}.zip(away).zip(results)
+  # end
 end
 

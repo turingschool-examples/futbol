@@ -19,7 +19,7 @@ locations = {
 }
 
 stat_tracker = StatTracker.from_csv(locations)
-stat_tracker.favorite_opponent('15')
+require 'pry'; binding.pry
 # require 'pry'; binding.pry
 #stat_tracker.from_csv(locations)
 #tracker = StatTracker.new(locations)

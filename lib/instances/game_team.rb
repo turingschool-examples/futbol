@@ -17,8 +17,8 @@ class GameTeam
   :faceOffWinPercentage,
   :giveaways,
   :takeaways
+  
   def initialize(data)
-    #data
     @game_id = data[:game_id]
     @team_id = data[:team_id]
     @hoa = data[:hoa]

@@ -1,4 +1,5 @@
 require_relative '../tables/team_table'
+
 class Team
   attr_reader :team_id,
               :franchiseid,
