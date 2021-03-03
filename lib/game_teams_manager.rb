@@ -33,14 +33,14 @@ class GameTeamsManager
   end
 
   def most_accurate_team(season)
-    score_hash = score_and_shots_by_team(season_games_ids)
-    ratio_hash = create_ratio_hash(ratio, 10)
+    score_hash = score_and_shots_by_team(season)
+    ratio_hash = create_ratio_hash(score_hash, 10)
     ratio_hash.key(ratio_hash.values.max)
   end
 
   def least_accurate_team(season)
-    score_hash = score_and_shots_by_team(season_games_ids)
-    ratio_hash = create_ratio_hash(ratio, 10)
+    score_hash = score_and_shots_by_team(season)
+    ratio_hash = create_ratio_hash(score_hash, 10)
     ratio_hash.key(ratio_hash.values.min)
   end
 
