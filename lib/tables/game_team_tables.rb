@@ -136,7 +136,6 @@ class GameTeamTable
     @game_team_data.find_all{|game| game.team_id == team_id_str.to_i}
   end
 
-
   def best_offense
     best_offense_hash = Hash.new
     @game_team_data.group_by{|game| game.team_id}.map {|team| best_offense_hash[team[0]] = team[1].map{|game| game.goals}.sum.to_f / team[1].length}

@@ -116,8 +116,9 @@ class StatTracker
 
   def favorite_opponent(team_id_str)
     #sends array [game_id,result]
-    games = @game_teams.find_team_games(team_id_str).map{|game|[game.game_id,game.result]}
-    @games.favorite_opponent(games)
+    require 'pry'; binding.pry
+    games = find_team_games(team_id_str).map{|game|[game.game_id,game.result]}
+    @games.favorite_opponent([games, team_id_str])
   end
 
   def game_by_season(season)
@@ -129,7 +130,7 @@ class StatTracker
   end
 
   def highest_scoring_visitor
-    return_team(@game_teams.highest_scoring_visitor).teamname
+    return_team(@game_teams.highest_scoring_visitor,).teamname
   end
 
   def lowest_scoring_visitor
@@ -148,6 +149,9 @@ class StatTracker
   def rival(team_id_str)
     games = @game_teams.find_team_games(team_id_str).map{|game|[game.game_id,game.result]}
     @games.rival(games)
+  end
+  def find_team_games(team_id_str)
+    @game_teams.game_team_data.find_all{|game| game.team_id == team_id_str.to_i}
   end
 
   def average_win_percentage(team_id)
