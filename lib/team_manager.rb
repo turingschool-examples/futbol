@@ -6,10 +6,8 @@ require_relative './csv_parser'
 class TeamManager
   include CsvParser
 
-
   def initialize(file)
     @all_teams = load_it_up(file, Team)
-
   end
 
   def count_of_teams
@@ -26,12 +24,12 @@ class TeamManager
     team = @all_teams.find do |team|
       team.team_id == id
     end
-      info = {
-        "team_id" => team.team_id,
-        "franchiseid" => team.franchiseid.to_s,
-        "teamname" => team.teamname,
-        "abbreviation" => team.abbreviation,
-        "link" => team.link
-                }
-    end
+    hash = {
+      "team_id" => team.team_id,
+      "franchiseid" => team.franchiseid,
+      "teamname" => team.teamname,
+      "abbreviation" => team.abbreviation,
+      "link" => team.link
+    }
   end
+end
