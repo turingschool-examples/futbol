@@ -12,7 +12,7 @@ class GameTeamTable
 
   def initialize(locations)
     @game_team_data = from_csv(locations, 'GameTeam')
- 
+
   end
 
   def winningest_coach(season)
@@ -65,8 +65,8 @@ class GameTeamTable
     games_by_season = games_by_season(season)
     games_by_team_id_hash = games_by_season.group_by {|game| game.team_id}
     container = games_by_team_id_hash.each do |team, games|
-      games_by_team_id_hash[team] = games.sum do |lul|
-        lul.tackles
+      games_by_team_id_hash[team] = games.sum do |game|
+        game.tackles
       end
     end
     thereturn = container.max_by do |team_id, tackle|
@@ -79,8 +79,8 @@ class GameTeamTable
     games_by_season = games_by_season(season)
     games_by_team_id_hash = games_by_season.group_by {|game| game.team_id}
     container = games_by_team_id_hash.each do |team, games|
-      games_by_team_id_hash[team] = games.sum do |lul|
-        lul.tackles
+      games_by_team_id_hash[team] = games.sum do |game|
+        game.tackles
       end
     end
     thereturn = container.min_by do |team_id, tackle|
@@ -103,20 +103,21 @@ class GameTeamTable
     #groups games by team_id, then adds the team_id as key to goal_hash with average goals per game as value
     @game_team_data.group_by{|game| game.team_id}.map {|team| hash[team[0]] = team[1].map{|game| game.goals}.sum.to_f / team[1].length}
     #finds the minimum score, return the team_id of team with min score
-    return_team(hash.min_by {|team| team[1]}[0]).teamname
+    hash.min_by {|team| team[1]}
   end
 
   def highest_scoring_home_team
     hash = Hash.new
-    #finds all home games, groups them by team, takes the
+
     @game_team_data.find_all {|game| game.hoa == 'home' }.group_by{|game| game.team_id}.map{|team| hash[team[0]] = team[1].map{|game| game.goals}.sum.to_f / team[1].length}
-    return_team(hash.max_by {|team| team[1]}[0]).teamname
+    hash.max_by {|team| team[1]}[0]
   end
+
   def lowest_scoring_home_team
     hash = Hash.new
-    #finds all home games, groups them by team, takes the
+    # require "pry";binding.pry
     @game_team_data.find_all {|game| game.hoa == 'home' }.group_by{|game| game.team_id}.map{|team| hash[team[0]] = team[1].map{|game| game.goals}.sum.to_f / team[1].length}
-    return_team(hash.min_by {|team| team[1]}[0]).teamname
+    hash.min_by {|team| team[1]}
   end
   def worst_season(team_id)
     array = []
@@ -168,7 +169,7 @@ class GameTeamTable
     array = array.group_by{|line| line[0].to_s.split('')[0..3].join}
     array.map{|season| hash[season[0]] = season[1].find_all{|game| game[1] == 'WIN'}.length.to_f / season[1].length}
     year = (hash.max_by {|team| team[1]}[0]).to_i
-    year.to_s + (year + 1).to_s
+    year + (year.to_i + 1).to_s
   end
 
   def fewest_goals_scored(team_id_str)

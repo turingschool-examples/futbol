@@ -71,12 +71,21 @@ class GameTable
     }
   end
 
+  def average_goals_by_season
+    games_by_season_hash = @game_data.group_by {|game| game.season.to_s}
+    goals = games_by_season_hash.each do |season, game|
+      games_by_season_hash[season] = ((game.map {|indvidual_game| indvidual_game.away_goals.to_f + indvidual_game.home_goals.to_f}).sum/ game.count).round(2)
+
+    end
+    goals
+  end
+
   def average_goals_per_game
-    hash = Hash.new
-    seasons = @games.game_data.group_by{|game| game.season}
-    seasons.map{|season| hash[season[0].to_s] = (season[1].map{|game| game.home_goals + game.away_goals}.sum.to_f / season[1].length).round(2)}
-    hash
-   end
+    total_games = @game_data.count
+    total_goals = @game_data.flat_map {|game| game.away_goals + game.home_goals}
+    average = (total_goals.sum.to_f / total_games).round(2)
+    average
+  end
 
   def game_by_season
     season = @game_data.group_by do |game|
@@ -85,15 +94,15 @@ class GameTable
   end
   def favorite_opponent(results)
     team = results[1].to_i
-    #finds all games played by team 
+    #finds all games played by team
     games = results[0].map{|result| @game_data.find_all{|game| game.game_id == result[0].to_i}}
-    opp_data = games.map do |game| 
+    opp_data = games.map do |game|
       if game[0].away_team_id == team
-        if game[0].away_goals - game[0].home_goals < 0 
-          [-1,game[0].home_team_id]       
+        if game[0].away_goals - game[0].home_goals < 0
+          [-1,game[0].home_team_id]
         else
-          [1, game[0].home_team_id] 
-        end 
+          [1, game[0].home_team_id]
+        end
       else
         if game[0].home_goals - game[0].away_goals < 0
           [-1, game[0].away_team_id]
@@ -102,11 +111,35 @@ class GameTable
         end
       end
     end
-    require 'pry'; binding.pry
-    hash_thing = stuff.group_by{|thing| thing[1]}
-    stuff.group_by{|thing| thing[1]}.map{|opp|hash[opp[0]] = opp[1][0] }
-    hash_thing.map{|thing|hash[thing[0]] = thing[1].map{|item| item[0]}.sum.to_f / thing[1].length}
+    hash = Hash.new
+    opp_hash = opp_data.group_by{|opponent| opponent[1]}
+    opp_data.group_by{|opponent| opponent[1]}.map{|opp|hash[opp[0]] = opp[1][0] }
+    opp_hash.map{|opponent|hash[opponent[0]] = opponent[1].map{|item| item[0]}.sum.to_f / opponent[1].length}
     hash.max_by{|hash| hash[1]}[0]
-    results = results.map{|result| @game_data.find{|game| game.game_id == result[0]}.home_team_id}.zip(away).zip(results)
+  end
+
+  def rival(results)
+    team = results[1].to_i
+    games = results[0].map{|result| @game_data.find_all{|game| game.game_id == result[0].to_i}}
+    opp_data = games.map do |game|
+      if game[0].away_team_id == team
+        if game[0].away_goals - game[0].home_goals < 0
+          [-1,game[0].home_team_id]
+        else
+          [1, game[0].home_team_id]
+        end
+      else
+        if game[0].home_goals - game[0].away_goals < 0
+          [-1, game[0].away_team_id]
+        else
+          [1, game[0].away_team_id]
+        end
+      end
+    end
+    hash = Hash.new
+    opp_hash = opp_data.group_by{|opponent| opponent[1]}
+    opp_data.group_by{|opponent| opponent[1]}.map{|opp|hash[opp[0]] = opp[1][0] }
+    opp_hash.map{|opponent|hash[opponent[0]] = opponent[1].map{|item| item[0]}.sum.to_f / opponent[1].length}
+    hash.min_by{|hash| hash[1]}[0]
   end
 end

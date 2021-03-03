@@ -13,11 +13,11 @@ class TeamsTable
   def count_of_teams
     @team_data.length
   end
-  
+
   def team_info(team)
     hash = Hash.new
     #takes in team object, creates hash key value pair for each instance var
-    team.instance_variables.each{|variable|  hash[variable.to_s.delete("@")] = team.instance_variable_get(variable) }
-    hash
+    team.instance_variables.each{|variable|  hash[variable.to_s.delete("@")] = team.instance_variable_get(variable.to_s) }
+    hash.reject("stadium")
   end
 end
