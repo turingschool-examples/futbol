@@ -18,5 +18,4 @@ locations = {
 }
 
 stat_tracker = StatTracker.from_csv(locations)
-stat_tracker.favorite_opponent('15')
-require 'pry'; binding.pry
+p stat_tracker.most_accurate_team('20142015')

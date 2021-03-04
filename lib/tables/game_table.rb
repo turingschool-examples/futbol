@@ -20,7 +20,6 @@ class GameTable
     wins = 0
     total = @game_data.map { |game| wins += 1 if game.home_goals > game.away_goals }.count
     percentage = (wins.to_f / @game_data.count).round(2)
-    # require "pry"; binding.pry
     percentage
     end
 

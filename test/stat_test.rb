@@ -98,7 +98,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_worst_season
-    assert_equal "20142015", @tracker.best_season("6")
+    assert_equal "20142015", @tracker.worst_season("6")
   end
 
   def test_average_win_percentage
@@ -114,11 +114,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_favorite_opponent
-    assert_equal "DC United", @tracker.favorite_opponent("18")
+    assert_equal 14, @tracker.favorite_opponent("18")
   end
 
   def test_rival
-    assert_equal "Houston Dash" || "LA Galaxy", @tracker.rival("18")
+    assert_equal "LA Galaxy" || "Houston Dash", @tracker.rival("18")
   end
 
   def test_winningest_coach

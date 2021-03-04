@@ -63,7 +63,6 @@ class StatTracker
   end
 
   def most_accurate_team(season)
-    require "pry";binding.pry
     return_team(@game_teams.most_accurate_team(season), @teams.team_data).team_name
   end
 
@@ -89,7 +88,6 @@ class StatTracker
   end
 
   def worst_offense
-    @game_teams.worst_offense
     return_team(@game_teams.worst_offense, @teams.team_data).team_name
   end
 
@@ -106,9 +104,9 @@ class StatTracker
   end
 
   def worst_season(team_id_str)
-    year = @game_teams.worst_season(team_id_str.to_i)
+    year = @game_teams.worst_season(team_id_str)
     #add back in the 2nd year of season
-    year + (year.to_i + 1).to_s
+    year.to_s + (year.to_i + 1).to_s
   end
 
   def most_goals_scored(team_id_str)
@@ -117,15 +115,16 @@ class StatTracker
 
   def favorite_opponent(team_id_str)
     games = find_team_games(team_id_str).map{|game|[game.game_id,game.result]}
-    return_team(@game_teams.favorite_opponent(season), @teams.team_data).team_name
+    # require "pry"; binding.pry
+    return_team(@games.favorite_opponent([games, team_id_str]), @teams.team_data).team_name
   end
-
+  
   def game_by_season(season)
     @game_teams.game_by_season(season)
   end
 
   def best_offense
-    return_team(@game_teams.best_offense).team_name
+    return_team(@game_teams.best_offense, @teams.team_data).team_name
   end
 
   def highest_scoring_visitor
@@ -147,7 +146,8 @@ class StatTracker
 
   def rival(team_id_str)
     games = find_team_games(team_id_str).map{|game|[game.game_id,game.result]}
-    return_team(@game_teams.rival(season), @teams.team_data).team_name
+    # require "pry"; binding.pry
+    return_team(@games.rival([games, team_id_str]), @teams.team_data).team_name
   end
 
   def find_team_games(team_id_str)
