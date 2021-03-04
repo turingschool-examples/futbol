@@ -13,6 +13,10 @@ class TeamManagerTest < Minitest::Test
     assert_equal 32, @team_data.count_of_teams
   end
 
+  def test_find_team_by_id
+    assert_equal "LA Galaxy", @team_data.find_team_by_id(17).teamname
+  end
+
   def test_team_info
     expected = {
                   "team_id" => 14,

@@ -12,7 +12,6 @@ class GameTeamManagerTest < Minitest::Test
   def test_make_goals_by_team_hash
     expected = {
       3=>[2, 2, 1, 2, 1],
-
       6=>[3, 3, 2, 3, 3]
     }
 

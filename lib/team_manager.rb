@@ -24,12 +24,13 @@ class TeamManager
     team = @all_teams.find do |team|
       team.team_id == id
     end
-    hash = {
-      "team_id" => team.team_id,
-      "franchiseid" => team.franchiseid,
-      "teamname" => team.teamname,
-      "abbreviation" => team.abbreviation,
-      "link" => team.link
-    }
+      info = {
+        "team_id" => team.team_id.to_s,
+        "franchiseid" => team.franchiseid.to_s,
+        "teamname" => team.teamname,
+        "abbreviation" => team.abbreviation,
+        "link" => team.link
+                }
+    end
   end
 end
