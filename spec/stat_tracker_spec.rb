@@ -1,5 +1,6 @@
 require './lib/stat_tracker'
 
+
 RSpec.describe StatTracker do
   context '#initialize' do
     it 'exists' do
@@ -32,7 +33,7 @@ RSpec.describe StatTracker do
       # stat_tracker = StatTracker.new
       stat_tracker = StatTracker.from_csv(locations)
 
-      expect(stat_tracker[0].data[:game_id]).to eq(2012030221)
+      expect(stat_tracker[:games][0].data[:game_id]).to eq(2012030221)
     end
   end
 end
