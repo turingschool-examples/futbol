@@ -1,5 +1,5 @@
-require 'simplecov'
-require './lib/stat_tracker'
+require_relative 'simplecov'
+require_relative './lib/stat_tracker'
 
 
 SimpleCov.start
