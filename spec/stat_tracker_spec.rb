@@ -56,5 +56,15 @@ RSpec.describe StatTracker do
     it 'has an average win percentage' do
       expect(stat_tracker.average_win_percentage("15")).to eq(0.63)
     end
+
+    it 'has highest and lowest total scored' do
+      expect(stat_tracker.highest_total_score).to eq(7)
+      expect(stat_tracker.lowest_total_score).to eq(1)
+    end
+
+    it 'has percentage home and away wins' do
+      expect(stat_tracker.percentage_home_wins).to eq()
+      expect(stat_tracker.percentage_away_wins).to eq()
+    end
   end
 end
