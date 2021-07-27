@@ -25,9 +25,10 @@ class Games
     @venue_link = row["venue_link"]
   end
 
+  # module, maybe?
   def self.file(file)
     rows = CSV.read(file, headers: true)
-    rows.each do |row|
+    rows.map do |row|
       new(row)
     end
   end
