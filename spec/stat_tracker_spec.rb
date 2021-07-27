@@ -14,7 +14,7 @@ RSpec.describe StatTracker do
       game_teams: game_teams_path
       }
 
-      stat_tracker = StatTracker.new
+      stat_tracker = StatTracker.new(locations)
 
       expect(stat_tracker).to be_a StatTracker
     end
@@ -31,10 +31,10 @@ RSpec.describe StatTracker do
       }
 
       stat_tracker = StatTracker.from_csv(locations)
-
-      expect(stat_tracker[:games][0].data[:game_id]).to eq(2012030221)
-      expect(stat_tracker[:teams][0].data[:team_id]).to eq(1)
-      expect(stat_tracker[:game_teams][0].data[:game_id]).to eq(2012030221)
+      expect(stat_tracker.games[0].data[:game_id]).to eq(2012030221)
+      expect(stat_tracker.teams[0].data[:team_id]).to eq(1)
+      expect(stat_tracker.game_teams[0].data[:game_id]).to eq(2012030221)
+      expect(stat_tracker).to be_a(StatTracker)
     end
   end
 end
