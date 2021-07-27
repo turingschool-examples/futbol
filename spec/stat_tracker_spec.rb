@@ -37,10 +37,12 @@ RSpec.describe StatTracker do
       "abbreviation" => "MIN",
       "link" => "/api/v1/teams/18"
     }
-
     expect(stat_tracker.teams).not_to be_empty
     expect(stat_tracker.game_teams).not_to be_empty
     expect(stat_tracker.games).not_to be_empty
     expect(stat_tracker.team_info("18")).to eq(expected)
+    expect(stat_tracker.best_season("15")).to eq("20162017")
+    expect(stat_tracker.worst_season("15")).to eq("20142015")
+    expect(stat_tracker.average_win_percentage("15")).to eq(0.63)
   end
 end
