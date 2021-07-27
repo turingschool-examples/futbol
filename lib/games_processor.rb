@@ -106,7 +106,7 @@ module GamesProcessor
 
     team_info(rival_team)["team_name"]
   end
-  
+
   def highest_total_score
     highest_game = @games.max_by do |game|
       game[:away_goals].to_i + game[:home_goals].to_i
@@ -119,5 +119,14 @@ module GamesProcessor
       game[:away_goals].to_i + game[:home_goals].to_i
     end
     lowest_game[:away_goals].to_i + lowest_game[:home_goals].to_i
+  end
+
+  def count_of_games_by_seasons
+    count_seasons = Hash.new(0)
+    @games.each do |game|
+      season = game[:season]
+      count_seasons[season] += 1
+    end
+    count_seasons
   end
 end
