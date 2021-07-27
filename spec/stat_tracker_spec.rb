@@ -167,4 +167,85 @@ RSpec.describe StatTracker do
       expect(stat_tracker.average_goals_by_season).to eq({"20122013" => 3.70})
     end
   end
+  
+    context 'league stats methods' do
+    it '#count_of_teams' do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.count_of_teams).to eq(32)
+    end
+    it '#games_by_team_id' do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.games_by_team_id).to be_a Hash
+    end
+    # mock and stub this bad boy
+    xit '#goals_per_team' do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.goals_per_team).to eq({
+        3 => [2, 2, 1, 2, 1], 
+        6 => [3, 3, 2, 3, 3]
+      })
+    end
+    it '#team_name_by_team_id' do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.team_name_by_team_id(1)).to eq("Atlanta United")
+    end
+    it '#best_offense' do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.best_offense).to eq("Reign FC")
+    end
+    it '#worst_offense' do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.worst_offense).to eq("Utah Royals FC")
+    end
+  end
 end
+end
+

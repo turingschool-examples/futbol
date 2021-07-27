@@ -9,3 +9,4 @@ team_id,franchiseId,teamName,abbreviation,Stadium,link
 17,12,LA Galaxy,LA,Dignity Health Sports Park,/api/v1/teams/17
 28,29,Los Angeles FC,LFC,Banc of California Stadium,/api/v1/teams/28
 18,34,Minnesota United FC,MIN,Allianz Field,/api/v1/teams/18
+
