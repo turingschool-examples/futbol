@@ -6,7 +6,7 @@ class StatTracker
   attr_reader :games, :teams, :game_teams
 
   def initialize(files)
-    # game_stats = GameStats.new
+    # game_stats = GameStats.new(files)
     @games ||= Games.file(files[:games])
     require 'pry'; binding.pry
     # @teams ||= Teams.file(files[:teams])

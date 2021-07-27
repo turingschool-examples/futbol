@@ -1,7 +1,17 @@
 {
   "RSpec": {
     "coverage": {
+      "/Users/chary/turing/1module/4week/futbol/spec/team_stats_spec.rb": {
+        "lines": [
+
+        ]
+      },
+      "/Users/chary/turing/1module/4week/futbol/spec/teams_spec.rb": {
+        "lines": [
+
+        ]
+      }
     },
-    "timestamp": 1627413099
+    "timestamp": 1627424920
   }
 }

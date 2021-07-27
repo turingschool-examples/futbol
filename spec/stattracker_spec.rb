@@ -11,9 +11,9 @@ RSpec.describe StatTracker do
     @game_teams_path = './data/game_teams.csv'
     @locations = {games: @game_path, teams: @team_path, game_teams: @game_teams_path}
     @stat_tracker = StatTracker.from_csv(@locations)
-  end 
+  end
 
-  it 'exists' do
+  xit 'exists' do
     expect(@stat_tracker).to be_a(StatTracker)
   end
 end
