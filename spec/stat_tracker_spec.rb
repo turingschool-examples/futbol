@@ -78,7 +78,11 @@ RSpec.describe StatTracker do
 
     stat_tracker = StatTracker.from_csv(file_paths)
 
-    expect(stat_tracker.highest_total_scores).to eq(5)
+    expect(stat_tracker.lowest_total_scores).to eq(1)
+  end
+
+  it "text" do
+
   end
 
 end

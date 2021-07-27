@@ -28,4 +28,13 @@ class StatTracker
     highest
   end
 
+  def lowest_total_scores
+    lowest = games.first[:away_goals].to_i + games.first[:home_goals].to_i
+    @games.each do |game|
+      sum = game[:away_goals].to_i + game[:home_goals].to_i
+      lowest = sum if sum < lowest
+    end
+    lowest
+  end
+
 end
