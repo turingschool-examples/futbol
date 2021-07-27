@@ -41,7 +41,7 @@ RSpec.describe League do
 
   it 'can get an array of games played' do
 
-    expect(@league.games_by_team(3)).to eq(4)
+    expect(@league.games_by_team(3).length).to eq(5)
   end
 
 
