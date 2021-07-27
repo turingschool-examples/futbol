@@ -30,8 +30,9 @@ RSpec.describe StatTracker do
 
     stat_tracker = StatTracker.from_csv(locations)
 
-    expect(stat_tracker.games).to eq(locations[:games])
-    expect(stat_tracker.teams).to eq(locations[:teams])
-    expect(stat_tracker.game_teams).to eq(locations[:game_teams])
+    expect(stat_tracker.teams).not_to be_empty
+    expect(stat_tracker.game_teams).not_to be_empty
+    expect(stat_tracker.team_info).not_to be_empty
+    expect(stat_tracker.games).not_to be_empty
   end
 end
