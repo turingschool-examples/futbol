@@ -263,5 +263,18 @@ RSpec.describe StatTracker do
       stat_tracker = StatTracker.from_csv(locations)
       expect(stat_tracker.worst_offense).to eq("Utah Royals FC")
     end
+
+    it '#finds_home_games' do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+        }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.games_by_hoa("home")).to eq(1)
+    end
   end
 end

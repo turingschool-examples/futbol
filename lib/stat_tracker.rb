@@ -121,7 +121,7 @@ class StatTracker
 
 # LEAGUE STATISTICS
   def count_of_teams
-    @teams.count 
+    @teams.count
   end
 
   def games_by_team_id
@@ -145,7 +145,7 @@ class StatTracker
         team_goals[team.team_id] << team.goals
       end
     end
-    team_goals 
+    team_goals
   end
 
   def team_name_by_team_id(team_id)
@@ -167,5 +167,22 @@ class StatTracker
       goals.sum / goals.count.to_f
     end
     team_name_by_team_id(team_id.first)
+  end
+
+  def games_by_hoa(hoa)
+    hoa_by_team_id = {}
+    games_by_team_id.each do |id, games|
+      games.each do |game|
+        if game.hoa == hoa
+          if hoa_by_team_id[id].nil?
+            hoa_by_team_id[id] = [1, game.goals]
+          else
+            hoa_by_team_id[id][0] += 1
+            hoa_by_team_id[id][1] += game.goals
+          end
+        end
+      end
+    end
+    hoa_by_team_id
   end
 end
