@@ -84,6 +84,28 @@ RSpec.describe StatTracker do
     end
   end
 
+  context 'game stats' do
+    game_path = './data/mini_games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/mini_game_teams.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+    
+    it 'counts games per season' do
+      expected = {
+        '20132014' => 6,
+        '20142015' => 19,
+        '20152016' => 9,
+        '20162017' => 17
+      }
+      expect(stat_tracker.count_of_games_by_seasons).to eq(expected)
+    end
+  end
+
   context 'best and worst offense' do
     game_path = './data/mini_games.csv'
     team_path = './data/teams.csv'
