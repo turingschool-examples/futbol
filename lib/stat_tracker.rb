@@ -50,14 +50,14 @@ class StatTracker
 # GAME STATISTICS
   def highest_total_score
     game_sums = @games.map do |game|
-      game.data[:home_goals] + game.data[:away_goals]
+      game.home_goals + game.away_goals
     end
     game_sums.max
   end
 
   def lowest_total_score
     game_sums = @games.map do |game|
-      game.data[:home_goals] + game.data[:away_goals]
+      game.home_goals + game.away_goals
     end
     game_sums.min
   end
