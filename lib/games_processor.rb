@@ -106,7 +106,7 @@ module GamesProcessor
 
     team_info(rival_team)["team_name"]
   end
-  
+
   def highest_total_score
     highest_game = @games.max_by do |game|
       game[:away_goals].to_i + game[:home_goals].to_i
@@ -119,5 +119,41 @@ module GamesProcessor
       game[:away_goals].to_i + game[:home_goals].to_i
     end
     lowest_game[:away_goals].to_i + lowest_game[:home_goals].to_i
+  end
+
+  def percentage_home_wins
+    home_game_wins = 0
+    total_games = 0
+    @games.each do |game|
+      total_games += 1
+      if game[:home_goals] > game[:away_goals]
+        home_game_wins += 1
+      end
+    end
+    (home_game_wins.fdiv(total_games)).round(2)
+  end
+
+  def percentage_visitor_wins
+    visitor_game_wins = 0
+    total_games = 0
+    @games.each do |game|
+      total_games += 1
+      if game[:home_goals] < game[:away_goals]
+        visitor_game_wins += 1
+      end
+    end
+    (visitor_game_wins.fdiv(total_games)).round(2)
+  end
+
+  def percentage_ties
+    ties = 0
+    total_games = 0
+    @games.each do |game|
+      total_games += 1
+      if game[:home_goals] == game[:away_goals]
+        ties += 1
+      end
+    end
+    (ties.fdiv(total_games)).round(2)
   end
 end

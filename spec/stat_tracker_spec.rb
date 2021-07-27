@@ -57,6 +57,12 @@ RSpec.describe StatTracker do
       expect(stat_tracker.highest_total_score).to eq(7)
       expect(stat_tracker.lowest_total_score).to eq(1)
     end
+    it "can give percentage of home wins, away wins, and ties" do
+      expect(stat_tracker.percentage_home_wins).to eq(0.67)
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.31)
+      expect(stat_tracker.percentage_ties).to eq(0.02)
+
+    end
   end
 
   context 'favourite oppenent and rival' do
