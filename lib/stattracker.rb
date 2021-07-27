@@ -8,8 +8,9 @@ class StatTracker
   def initialize(files)
     # game_stats = GameStats.new
     @games ||= Games.file(files[:games])
-    @teams ||= Teams.file(files[:teams])
-    @game_teams ||= GameTeams.file(files[:game_teams])
+    require 'pry'; binding.pry
+    # @teams ||= Teams.file(files[:teams])
+    # @game_teams ||= GameTeams.file(files[:game_teams])
   end
 
   def self.from_csv(files)
