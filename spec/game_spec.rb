@@ -9,8 +9,8 @@ RSpec.describe Game do
       date_time: "6/8/13",
       away_team_id: "5",
       home_team_id: "6",
-      away_goals: 0,
-      home_goals: 1
+      away_goals: "0",
+      home_goals: "1"
     })
 
     it "exists" do
@@ -19,6 +19,10 @@ RSpec.describe Game do
 
     it "has attributes" do
       expect(game.game_id).to eq("2012030314")
+    end
+
+    it "calculates total game score" do
+      expect(game.total_game_score).to eq(1)
     end
   end
 end
