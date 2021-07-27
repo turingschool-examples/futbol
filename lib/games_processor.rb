@@ -61,7 +61,7 @@ module GamesProcessor
     (wins.fdiv(games)).round(2)
   end
 
-  def opponent_win_loss(team_id)
+  def opponent_win_count(team_id)
     win_loss = {}
     @games.each do |game|
       if game[:home_team_id] == team_id || game[:away_team_id] == team_id
@@ -81,7 +81,7 @@ module GamesProcessor
   end
 
   def calculate_win_percents(team_id)
-    win_loss = opponent_win_loss(team_id)
+    win_loss = opponent_win_count(team_id)
     win_loss.each.map do |team, results|
       avg = results[:wins].fdiv(results[:total])
       [team, avg]
