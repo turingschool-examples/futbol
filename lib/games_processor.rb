@@ -80,7 +80,7 @@ module GamesProcessor
     win_loss
   end
 
-  def calculate_win_percent(team_id)
+  def calculate_win_percents(team_id)
     win_loss = opponent_win_loss(team_id)
     win_loss.each.map do |team, results|
       avg = results[:wins].fdiv(results[:total])
@@ -89,7 +89,7 @@ module GamesProcessor
   end
 
   def favorite_opponent(team_id)
-    win_loss = calculate_win_percent(team_id)
+    win_loss = calculate_win_percents(team_id)
     fav_team = win_loss.each.max_by do |team, result|
       result
     end.first
@@ -98,7 +98,7 @@ module GamesProcessor
   end
 
   def rival(team_id)
-    win_loss = calculate_win_percent(team_id)
+    win_loss = calculate_win_percents(team_id)
     rival_team = win_loss.each.min_by do |team, result|
       result
     end.first
