@@ -106,4 +106,18 @@ module GamesProcessor
 
     team_info(rival_team)["team_name"]
   end
+  
+  def highest_total_score
+    highest_game = @games.max_by do |game|
+      game[:away_goals].to_i + game[:home_goals].to_i
+    end
+    highest_game[:away_goals].to_i + highest_game[:home_goals].to_i
+  end
+
+  def lowest_total_score
+    lowest_game = @games.min_by do |game|
+      game[:away_goals].to_i + game[:home_goals].to_i
+    end
+    lowest_game[:away_goals].to_i + lowest_game[:home_goals].to_i
+  end
 end

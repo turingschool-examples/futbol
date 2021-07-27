@@ -18,4 +18,26 @@ module GameTeamsProcessor
     end
     game_teams
   end
+
+  def most_goals_scored(team_id)
+    goals = goals_per_team_game(team_id)
+    goals.max_by do |goal|
+      goal.to_i
+    end.to_i
+  end
+
+  def goals_per_team_game(team_id)
+    goals = []
+    @game_teams.filter_map do |game|
+      goals << game[:goals] if game[:team_id] == team_id
+    end
+    goals
+  end
+
+  def fewest_goals_scored(team_id)
+    goals = goals_per_team_game(team_id)
+    goals.min_by do |goal|
+      goal.to_i
+    end.to_i
+  end
 end
