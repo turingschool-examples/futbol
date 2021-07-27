@@ -61,5 +61,10 @@ RSpec.describe StatTracker do
       expect(stat_tracker.most_goals_scored("3")).to eq(5)
       expect(stat_tracker.fewest_goals_scored("3")).to eq(0)
     end
+    
+    it 'has highest and lowest total scored' do
+      expect(stat_tracker.highest_total_score).to eq(7)
+      expect(stat_tracker.lowest_total_score).to eq(1)
+    end
   end
 end
