@@ -17,7 +17,7 @@ RSpec.describe GameStats do
     expect(@game_stats.highest_total_score).to be(11)
   end
 
-  xit 'gives lowest total score' do
+  it 'gives lowest total score' do
     expect(@game_stats.lowest_total_score).to be(0)
   end
 
