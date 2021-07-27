@@ -1,4 +1,4 @@
-require './lib/games.rb'
+require './lib/game.rb'
 
 RSpec.describe Game do
 
@@ -8,13 +8,13 @@ RSpec.describe Game do
     expect(game).to be_a(Game)
   end
 
-  it 'has data' do
+  it 'data is a hash' do
     info = ["2012030221","20122013","Postseason","5/16/13","3","6","2","3","Toyota Stadium","/api/v1/venues/null"]
     game = Game.new(info)
     expect(game.data).to be_a(Hash)
   end
 
-  it 'data has game ID' do
+  it 'game has data' do
     info = ["2012030221","20122013","Postseason","5/16/13","3","6","2","3","Toyota Stadium","/api/v1/venues/null"]
     game = Game.new(info)
     expect(game.data[:game_id]).to eq(2012030221)
