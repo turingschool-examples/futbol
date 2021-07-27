@@ -30,7 +30,7 @@ class StatTracker
   fewest_tackles	Name of the Team with the fewest tackles in the season	String
 
 # TEAM STATS
-  team_info	A hash with key/value pairs for the following attributes: team_id, franchise_id, team_name, abbreviation, and link	Hash
+X team_info	A hash with key/value pairs for the following attributes: team_id, franchise_id, team_name, abbreviation, and link	Hash
   best_season	Season with the highest win percentage for a team.	String
   worst_season	Season with the lowest win percentage for a team.	String
   average_win_percentage	Average win percentage of all games for a team.	Float
@@ -38,8 +38,5 @@ class StatTracker
   fewest_goals_scored	Lowest numer of goals a particular team has scored in a single game.	Integer
   favorite_opponent	Name of the opponent that has the lowest win percentage against the given team.	String
   rival	Name of the opponent that has the highest win percentage against the given team.	String
-
-
-
 
 end

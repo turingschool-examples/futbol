@@ -18,4 +18,8 @@ class Game
       @away_goals = attributes[:away_goals]
       @home_goals = attributes[:home_goals]
     end
+
+  def total_game_score
+    @away_goals.to_i + @home_goals.to_i
   end
+end
