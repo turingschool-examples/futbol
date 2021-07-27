@@ -17,12 +17,6 @@ module GamesProcessor
     games
   end
 
-  def all_team_games(team_id)
-    @games.find_all do |game|
-      game[:home_team_id] == team_id || game[:away_team_id] == team_id
-    end
-  end
-
   def best_season(team_id)
     season_avg = seasons_win_count(team_id)
     season_avg.each.max_by do |season, stats|
@@ -35,12 +29,6 @@ module GamesProcessor
     season_avg.each.min_by do |season, stats|
       stats[:wins].fdiv(stats[:total])
     end.first
-  end
-
-  def team_games_by_season(team_id)
-    all_team_games(team_id).group_by do |game|
-      game[:season]
-    end
   end
 
   def seasons_win_count(team_id)
