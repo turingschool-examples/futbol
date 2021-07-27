@@ -41,14 +41,50 @@ class StatTracker
     home_games = 0
     home_wins = 0
     @game_teams.each do |game_team|
-      if game_team[:hoa] == 'home' && game_team[:result] == 'WIN'
-        home_wins += 1
+      if game_team[:hoa] == 'home'
         home_games += 1
-      elsif game_team[:hoa] == 'home'
-        home_games += 1
+        if game_team[:result] == 'WIN'
+          home_wins += 1
+        end
       end
     end
-    (home_wins.to_f / home_games.to_f).round(2)
+    ((home_wins.to_f / home_games.to_f) * 100).round(2)
   end
 
+  def percentage_visitor_wins
+    visitor_games = 0
+    visitor_wins = 0
+    @game_teams.each do |game_team|
+      if game_team[:hoa] == 'away'
+        visitor_games += 1
+        if game_team[:result] == 'WIN'
+          visitor_wins += 1
+        end
+      end
+    end
+    ((visitor_wins.to_f /  visitor_games.to_f) * 100).round(2)
+  end
+
+  def percentage_ties
+    ties = 0
+    @games.each do |game|
+      if game[:home_goals] == game[:away_goals]
+        ties += 1
+      end
+    end
+    ((ties.to_f / @games.count.to_f) * 100).round(2)
+  end
+
+  def count_of_games_by_season
+    games_by_season = {}
+    @games.each do |game|
+      # binding.pry
+      if games_by_season[game[:season]].nil?
+        games_by_season[game[:season]] = 1
+      else
+        games_by_season[game[:season]] += 1
+      end
+    end
+    games_by_season
+  end
 end

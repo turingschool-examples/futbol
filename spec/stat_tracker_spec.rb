@@ -94,11 +94,58 @@ RSpec.describe StatTracker do
 
     stat_tracker = StatTracker.from_csv(file_paths)
 
-    expect(stat_tracker.percentage_home_wins).to eq(0.60)
+    expect(stat_tracker.percentage_home_wins).to eq(68.42)
   end
 
-  it "text" do
+  it "can return percentage of visitor wins" do
+    game_path = './data/fixture_games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/fixture_game_teams.csv'
 
+    file_paths = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(file_paths)
+
+    expect(stat_tracker.percentage_visitor_wins).to eq(25.00)
   end
 
+  it "can return the percentage of ties to game" do
+    game_path = './data/fixture_games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/fixture_game_teams.csv'
+
+    file_paths = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(file_paths)
+
+    expect(stat_tracker.percentage_ties).to eq(5.0)
+  end
+
+  it "can create a hash of amount of games per season" do
+    game_path = './data/fixture_games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/fixture_game_teams.csv'
+
+    file_paths = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(file_paths)
+
+    expect(stat_tracker.count_of_games_by_season).to eq({
+      "20122013" => 39,
+      "20152016" => 1
+    }
+    )
+  end
 end
