@@ -37,4 +37,38 @@ RSpec.describe StatTracker do
       expect(stat_tracker).to be_a(StatTracker)
     end
   end
+
+  context "Game stat methods" do
+    it '#highest_total_score' do
+      game_path = './data/test_games.csv'
+      team_path = './data/test_teams.csv'
+      game_teams_path = './data/test_game_teams.csv'
+
+      locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+      }
+
+      stat_tracker = StatTracker.from_csv(locations)
+
+      expect(stat_tracker.highest_total_score).to eq(5)
+    end
+
+    it '#lowest_total_score' do
+      game_path = './data/test_games.csv'
+      team_path = './data/test_teams.csv'
+      game_teams_path = './data/test_game_teams.csv'
+
+      locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+      }
+
+      stat_tracker = StatTracker.from_csv(locations)
+
+      expect(stat_tracker.lowest_total_score).to eq(3)
+    end
+  end
 end
