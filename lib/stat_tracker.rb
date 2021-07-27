@@ -61,4 +61,54 @@ class StatTracker
     end
     game_sums.min
   end
+
+# LEAGUE STATISTICS
+  def count_of_teams
+    @teams.count 
+  end
+
+  def games_by_team_id
+    teams = {}
+    @game_teams.each do |team|
+      if teams[team.team_id].nil?
+        teams[team.team_id] = [team]
+      elsif !teams[team.team_id].include?(team)
+        teams[team.team_id] << team
+      end
+    end
+    teams
+  end
+
+  def goals_per_team
+    team_goals = {}
+    @game_teams.each do |team|
+      if team_goals[team.team_id].nil?
+        team_goals[team.team_id] = [team.goals]
+      else
+        team_goals[team.team_id] << team.goals
+      end
+    end
+    team_goals 
+  end
+
+  def team_name_by_team_id(team_id)
+    team = @teams.find do |team|
+      team_id == team.team_id
+    end
+    team.team_name
+  end
+
+  def best_offense
+    team_id = goals_per_team.max_by do |team, goals|
+      goals.sum / goals.count.to_f
+    end
+    team_name_by_team_id(team_id.first)
+  end
+
+  def worst_offense
+    team_id = goals_per_team.min_by do |team, goals|
+      goals.sum / goals.count.to_f
+    end
+    team_name_by_team_id(team_id.first)
+  end
 end
