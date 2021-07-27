@@ -4,9 +4,9 @@ require './lib/stat_tracker'
 RSpec.describe StatTracker do
   context '#initialize' do
     it 'exists' do
-      game_path = './data/test_games.csv'
-      team_path = './data/test_teams.csv'
-      game_teams_path = './data/test_game_teams.csv'
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
 
       locations = {
       games: game_path,
@@ -20,9 +20,9 @@ RSpec.describe StatTracker do
     end
 
     it 'accepts data' do
-      game_path = './data/test_games.csv'
-      team_path = './data/test_teams.csv'
-      game_teams_path = './data/test_game_teams.csv'
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
 
       locations = {
         games: game_path,
@@ -40,9 +40,9 @@ RSpec.describe StatTracker do
 
   context "Game stat methods" do
     it '#highest_total_score' do
-      game_path = './data/test_games.csv'
-      team_path = './data/test_teams.csv'
-      game_teams_path = './data/test_game_teams.csv'
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
 
       locations = {
       games: game_path,
@@ -52,13 +52,13 @@ RSpec.describe StatTracker do
 
       stat_tracker = StatTracker.from_csv(locations)
 
-      expect(stat_tracker.highest_total_score).to eq(5)
+      expect(stat_tracker.highest_total_score).to eq(11)
     end
 
     it '#lowest_total_score' do
-      game_path = './data/test_games.csv'
-      team_path = './data/test_teams.csv'
-      game_teams_path = './data/test_game_teams.csv'
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
 
       locations = {
       games: game_path,
@@ -68,15 +68,15 @@ RSpec.describe StatTracker do
 
       stat_tracker = StatTracker.from_csv(locations)
 
-      expect(stat_tracker.lowest_total_score).to eq(1)
+      expect(stat_tracker.lowest_total_score).to eq(0)
     end
   end
 
   context 'league stats methods' do
     it '#count_of_teams' do
-      game_path = './data/test_games.csv'
-      team_path = './data/test_teams.csv'
-      game_teams_path = './data/test_game_teams.csv'
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
 
       locations = {
       games: game_path,
@@ -86,13 +86,13 @@ RSpec.describe StatTracker do
 
       stat_tracker = StatTracker.from_csv(locations)
 
-      expect(stat_tracker.count_of_teams).to eq(10)
+      expect(stat_tracker.count_of_teams).to eq(32)
     end
 
     it '#games_by_team_id' do
-      game_path = './data/test_games.csv'
-      team_path = './data/test_teams.csv'
-      game_teams_path = './data/test_game_teams.csv'
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
 
       locations = {
       games: game_path,
@@ -101,16 +101,15 @@ RSpec.describe StatTracker do
       }
 
       stat_tracker = StatTracker.from_csv(locations)
-      # expected = {
-
-      # }
+      
       expect(stat_tracker.games_by_team_id).to be_a Hash
     end
 
-    it '#goals_per_team' do
-      game_path = './data/test_games.csv'
-      team_path = './data/test_teams.csv'
-      game_teams_path = './data/test_game_teams.csv'
+    # mock and stub this bad boy
+    xit '#goals_per_team' do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
 
       locations = {
       games: game_path,
@@ -127,9 +126,9 @@ RSpec.describe StatTracker do
     end
 
     it '#team_name_by_team_id' do
-      game_path = './data/test_games.csv'
-      team_path = './data/test_teams.csv'
-      game_teams_path = './data/test_game_teams.csv'
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
 
       locations = {
       games: game_path,
