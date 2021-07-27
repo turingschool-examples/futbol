@@ -38,27 +38,18 @@ module GamesProcessor
       season = game[:season]
       if game[:home_team_id] == team_id || game[:away_team_id] == team_id
         season_avg[season] ||= {wins: 0, total: 0}
-        if game[:home_team_id] == team_id
-          home_win = game[:home_goals] > game[:away_goals]
-          season_avg[season][:wins] += 1 if home_win
-        else
-          away_win = game[:home_goals] < game[:away_goals]
-          season_avg[season][:wins] += 1 if away_win
+        teams = [game[:home_team_id], game[:away_team_id]]
+        goals = [game[:home_goals], game[:away_goals]]
+        team_index = teams.index(team_id)
+        opp_index = team_index - 1
+
+        if goals[team_index] > goals[opp_index]
+        season_avg[season][:wins] += 1
         end
         season_avg[season][:total] += 1
       end
     end
     season_avg
-  end
-
-  def average_win_percentage(team_id)
-    wins = 0
-    games = 0
-    seasons_win_count(team_id).each do |season, stats|
-      wins += stats[:wins]
-      games += stats[:total]
-    end
-    (wins.fdiv(games)).round(2)
   end
 
   def opponent_win_count(team_id)
@@ -78,6 +69,16 @@ module GamesProcessor
       end
     end
     win_loss
+  end
+
+  def average_win_percentage(team_id)
+    wins = 0
+    games = 0
+    seasons_win_count(team_id).each do |season, stats|
+      wins += stats[:wins]
+      games += stats[:total]
+    end
+    (wins.fdiv(games)).round(2)
   end
 
   def calculate_win_percents(team_id)
