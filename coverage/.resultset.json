@@ -1,0 +1,17 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/kaitlynfox/Dev/futbol/lib/stat_tracker.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1627343881
+  }
+}
