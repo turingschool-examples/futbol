@@ -1,4 +1,4 @@
-class GameTeams
+class GameTeam
   attr_reader :team_id,
               :home_or_away,
               :result,
@@ -6,7 +6,7 @@ class GameTeams
               :goal,
               :shots,
               :tackles
-              
+
   def initialize(params)
     @team_id = params[:team_id]
     @home_or_away = params[:home_or_away]
