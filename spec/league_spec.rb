@@ -18,30 +18,30 @@ RSpec.describe League do
     }
 
     @stat_tracker = StatTracker.from_csv(locations)
+    @league = League.new(@stat_tracker.games, @stat_tracker.teams, @stat_tracker.game_teams)
+
   end
 
-    it 'exists and can read data' do
-      league = League.new([], [], [])
+  it 'exists and can read data' do
+    league = League.new([], [], [])
 
-      expect(league).to be_a(League)
-      expect(league.games).to eq([])
-      expect(league.teams).to eq([])
-      expect(league.game_teams).to eq([])
-    end
+    expect(league).to be_a(League)
+    expect(league.games).to eq([])
+    expect(league.teams).to eq([])
+    expect(league.game_teams).to eq([])
+  end
 
-    it 'can count numbers of teams' do
-      team = @stat_tracker.teams
-      league = League.new(@stat_tracker.games, @stat_tracker.teams, @stat_tracker.game_teams)
+  it 'can count numbers of teams' do
+    expect(@league.count_of_teams).to eq(32)
+  end
 
+  xit 'can get best offense' do
+    # expect(league.best_offense).to eq(PLACEHOLDER)
+  end
 
-      expect(league.count_of_teams).to eq(32)
-    end
+  it 'can get an array of games played' do
 
-    it 'can get best offense' do
-      league = League.new(@stat_tracker.games, @stat_tracker.teams, @stat_tracker.game_teams)
-
-
-    
+    expect(@league.games_by_team(3)).to eq(4)
   end
 
 

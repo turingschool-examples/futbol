@@ -7,9 +7,9 @@ class League
     @game_teams = game_teams
   end
 
-
-
   def count_of_teams
     @teams.length
   end
+
+
 end
