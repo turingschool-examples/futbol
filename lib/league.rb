@@ -17,4 +17,19 @@ class League
     end
   end
 
+  def best_offense
+    @teams.each do |team|
+      #some_method(team[:team_id])
+    end.max[team_name]
+  end
+
+  #this will hit @game_teams again. Will need refactor to minimize time, nest games_by_team and add denominator count?.
+  def games_average(team_id)
+    sum = 0.00
+    games_by_team(team_id).each do |game|
+      sum += game[:goals].to_i
+    end
+    sum / games_by_team(team_id).length
+  end
+
 end
