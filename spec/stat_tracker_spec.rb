@@ -26,7 +26,7 @@ RSpec.describe StatTracker do
   end
 
   context 'statistics' do
-    game_path = './data/mini_games.csv'
+    game_path = './data/games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/mini_game_teams.csv'
     locations = {
@@ -55,6 +55,11 @@ RSpec.describe StatTracker do
 
     it 'has an average win percentage' do
       expect(stat_tracker.average_win_percentage("15")).to eq(0.63)
+    end
+
+    it "can get most and fewest number of goals" do
+      expect(stat_tracker.most_goals_scored("3")).to eq(5)
+      expect(stat_tracker.fewest_goals_scored("3")).to eq(0)
     end
   end
 end
