@@ -21,27 +21,31 @@ RSpec.describe GameStats do
     expect(@game_stats.lowest_total_score).to be(0)
   end
 
-  xit 'gives percentage of home wins' do
+  it 'gives percentage of home wins' do
     expect(@game_stats.percentage_home_wins).to be_a(Float)
   end
 
-  xit 'gives percentage of visitor wins' do
+  it 'gives percentage of visitor wins' do
     expect(@game_stats.percentage_visitor_wins).to be_a(Float)
   end
 
-  xit 'can give percentage of ties' do
-    expect(@game_stats.percenatage_ties).to eq(Float)
+  it 'can give percentage of ties' do
+    expect(@game_stats.percentage_ties).to be_a(Float)
+  end
+
+  it 'gives correct results for win/tie percentages' do
+    expect(@game_stats.percentage_home_wins + @game_stats.percentage_visitor_wins + @game_stats.percentage_ties).to eq(1.0)
   end
 
   xit 'can give count of games by season' do
-    expect(@game_stats.count_of_games_by_season).to eq(Hash)
+    expect(@game_stats.count_of_games_by_season).to be_a(Hash)
   end
 
   xit 'gives average goals per game' do
-    expect(@game_stats.average_goals_per_game).to be(Float)
+    expect(@game_stats.average_goals_per_game).to be_a(Float)
   end
 
   xit 'gives average goals by season' do
-    expect(@game_stats.average_goals_by_season).to be(Hash)
+    expect(@game_stats.average_goals_by_season).to be_a(Hash)
   end
 end
