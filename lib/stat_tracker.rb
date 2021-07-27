@@ -37,4 +37,18 @@ class StatTracker
     lowest
   end
 
+  def percentage_home_wins
+    home_games = 0
+    home_wins = 0
+    @game_teams.each do |game_team|
+      if game_team[:hoa] == 'home' && game_team[:result] == 'WIN'
+        home_wins += 1
+        home_games += 1
+      elsif game_team[:hoa] == 'home'
+        home_games += 1
+      end
+    end
+    (home_wins.to_f / home_games.to_f).round(2)
+  end
+
 end
