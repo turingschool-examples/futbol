@@ -14,4 +14,12 @@ class GameStatistics
     end
     highest_scoring_game[:away_goals].to_i + highest_scoring_game[:home_goals].to_i
   end
+
+  def lowest_total_score
+    lowest_scoring_game =
+    @data.games.min_by do |game|
+      game[:away_goals].to_i + game[:home_goals].to_i
+    end
+    lowest_scoring_game[:away_goals].to_i + lowest_scoring_game[:home_goals].to_i
+  end
 end
