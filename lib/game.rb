@@ -1,3 +1,5 @@
+require_relative './data/games_sample'
+require_relative './data/games'
 class Game
   attr_reader :game_id,
               :season,
