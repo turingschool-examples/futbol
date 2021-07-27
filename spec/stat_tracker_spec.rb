@@ -1,5 +1,6 @@
 require_relative 'spec_helper'
 require './lib/stat_tracker'
+
 # require './data/games'
 # require './data/teams'
 # require './data/game_teams'
@@ -47,4 +48,37 @@ RSpec.describe StatTracker do
     expect(stat_tracker.teams).to be_a(CSV::Table)
     expect(stat_tracker.game_teams).to be_a(CSV::Table)
   end
+
+  it "can give the game with the highest total scores " do
+    game_path = './data/fixture_games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/fixture_game_teams.csv'
+
+    file_paths = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(file_paths)
+
+    expect(stat_tracker.highest_total_scores).to eq(5)
+  end
+
+  it "can give the game with the lowest total scores " do
+    game_path = './data/fixture_games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/fixture_game_teams.csv'
+
+    file_paths = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(file_paths)
+
+    expect(stat_tracker.highest_total_scores).to eq(5)
+  end
+
 end
