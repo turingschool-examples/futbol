@@ -6,17 +6,19 @@ module TeamsProcessor
 
     CSV.foreach(file_path, headers: true) do |row|
       teams << {
-        team_id: row["team_id"],
-        franchise_id: row["franchiseId"],
-        team_name: row["teamName"],
-        abbrev: row["abbreviation"],
-        link: row["link"]
+        "team_id" => row["team_id"],
+        "franchise_id" => row["franchiseId"],
+        "team_name" => row["teamName"],
+        "abbreviation" => row["abbreviation"],
+        "link" => row["link"]
       }
     end
     teams
   end
 
-  def team_info
-    @teams 
+  def team_info(team_id)
+    @teams.find do |team|
+      team["team_id"] == team_id
+    end
   end
 end
