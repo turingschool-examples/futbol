@@ -1,4 +1,5 @@
 require 'spec_helper'
+
 RSpec.describe StatTracker do
   context 'initialize' do
     game_path = './data/mini_games.csv'
