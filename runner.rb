@@ -1,5 +1,5 @@
 require_relative './lib/stat_tracker'
-require_relative 'CSV'
+require 'CSV'
 
 game_path = './data/games_test.csv'
 team_path = './data/teams_test.csv'
