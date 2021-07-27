@@ -48,10 +48,10 @@ RSpec.describe StatTracker do
       expect(stat_tracker.average_win_percentage("15")).to eq(0.63)
     end
 
-    it "can get most and fewest number of goals" do
-      expect(stat_tracker.most_goals_scored("3")).to eq(5)
-      expect(stat_tracker.fewest_goals_scored("3")).to eq(0)
-    end
+    # it "can get most and fewest number of goals" do
+    #   expect(stat_tracker.most_goals_scored("3")).to eq(5)
+    #   expect(stat_tracker.fewest_goals_scored("3")).to eq(0)
+    # end
 
     it 'has highest and lowest total scored' do
       expect(stat_tracker.highest_total_score).to eq(7)
@@ -76,6 +76,22 @@ RSpec.describe StatTracker do
 
     it 'has a rival' do
       expect(stat_tracker.rival("15")).to eq("Seattle Sounders FC")
+    end
+  end
+
+  context 'average goals per game and season' do
+    game_path = './data/mini_games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/mini_game_teams.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
+    it 'has average goals per game' do
+      expect(stat_tracker.average_goals_per_game).to eq(3.96)
     end
   end
 end
