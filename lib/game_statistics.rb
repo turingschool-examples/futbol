@@ -22,4 +22,28 @@ class GameStatistics
     end
     lowest_scoring_game[:away_goals].to_i + lowest_scoring_game[:home_goals].to_i
   end
+
+  def percentage_home_wins
+    (home_team_wins.fdiv(@data.games.length) * 100).round(2)
+  end
+
+  def percentage_visitor_wins
+    (visitor_team_wins.fdiv(@data.games.length) * 100).round(2)
+  end
+
+  def home_team_wins
+    home_wins =
+    @data.games.count do |game|
+      game[:home_goals] > game[:away_goals]
+    end
+    home_wins
+  end
+
+  def visitor_team_wins
+    visitor_wins =
+    @data.games.count do |game|
+      game[:home_goals] < game[:away_goals]
+    end
+    visitor_wins
+  end
 end

@@ -33,5 +33,17 @@ RSpec.describe GameStatistics do
     expect(@game_stats.lowest_total_score).to eq(1)
   end
 
+  it 'counts home wins' do
+    expect(@game_stats.home_team_wins).to eq(21)
+  end
+
+  it 'finds percentage of home wins' do
+    expect(@game_stats.percentage_home_wins).to eq(72.41)
+  end
+
+  it 'finds percentage of visitor wins' do
+    expect(@game_stats.percentage_visitor_wins).to eq(24.14)
+  end
+
 
 end
