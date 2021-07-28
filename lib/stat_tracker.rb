@@ -1,4 +1,7 @@
 require 'CSV'
+require_relative './game'
+require_relative './team'
+require_relative './game_teams'
 
 class StatTracker
   attr_reader :games, :teams, :game_teams
@@ -13,27 +16,27 @@ class StatTracker
     teams = []
     game_teams = []
 
-    # CSV.foreach(locations[:games], headers: true, header_converters: :symbol) do |row|
-    #   headers ||= row.headers
-    #           #this is a hash, have our game/team class take a hash as an argument
-    #           require "pry"; binding.pry
-    #   games << Team.new(row)
-    # end
+    CSV.foreach(locations[:games], headers: true, header_converters: :symbol) do |row|
+      headers ||= row.headers
+
+      games << Game.new(row)
+    end
 
     CSV.foreach(locations[:teams], headers: true, header_converters: :symbol) do |row|
       headers ||= row.headers
 
       teams << Team.new(row)
-      # require "pry"; binding.pry
+
     end
 
     CSV.foreach(locations[:game_teams], headers: true, header_converters: :symbol) do |row|
       headers ||= row.headers
 
-      game_teams << row.to_h
+      game_teams << GameTeams.new(row)
     end
 
     StatTracker.new(games, teams, game_teams)
+  
   end
 
   def highest_total_score
