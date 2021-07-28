@@ -28,7 +28,7 @@ class GameStats < StatTracker
         hwins << game
       end
     end
-    (hwins.length.to_f / @games.length.to_f).round(2)
+    hwins.length.fdiv(@games.length).round(2)
   end
 
   def percentage_visitor_wins
@@ -38,7 +38,7 @@ class GameStats < StatTracker
         awins << game
       end
     end
-    (awins.length.to_f / @games.length.to_f).round(2)
+    awins.length.fdiv(@games.length).round(2)
   end
 
   def percentage_ties
@@ -48,6 +48,16 @@ class GameStats < StatTracker
         ties << game
       end
     end
-    (ties.length.to_f / @games.length.to_f).round(2)
+    ties.length.fdiv(@games.length).round(2)
+  end
+
+  def count_of_games_by_season
+  end
+
+  def average_goals_per_game
+    goals = @games.map do |game|
+      game.away_goals + game.home_goals
+    end
+    goals.sum.fdiv(@games.length).round(2)
   end
 end

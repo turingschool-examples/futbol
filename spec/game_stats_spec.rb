@@ -41,7 +41,7 @@ RSpec.describe GameStats do
     expect(@game_stats.count_of_games_by_season).to be_a(Hash)
   end
 
-  xit 'gives average goals per game' do
+  it 'gives average goals per game' do
     expect(@game_stats.average_goals_per_game).to be_a(Float)
   end
 
