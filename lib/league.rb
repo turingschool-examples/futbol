@@ -17,10 +17,16 @@ class League
     end
   end
 
+    #pretty sure this is offensive to some coding god
   def best_offense
+    acc = {}
     @teams.each do |team|
-      #some_method(team[:team_id])
-    end.max[team_name]
+      #conditional handles edge cases where there are no games for the teams. Should not be a problem when dealing with the full dataset.
+      if games_by_team(team[:team_id]).length != 0
+        acc[games_average(team[:team_id])] = team[:team_name]
+      end
+    end
+    acc[acc.keys.max]
   end
 
   #this will hit @game_teams again. Will need refactor to minimize time, nest games_by_team and add denominator count?.
