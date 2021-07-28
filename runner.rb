@@ -2,7 +2,11 @@ require_relative './lib/stat_tracker'
 require 'CSV'
 
 game_path = './data/games_test.csv'
+
 team_path = './data/teams_test.csv'
+
+team_path = './data/teams.csv'
+
 game_teams_path = './data/game_teams_test.csv'
 
 locations = {
@@ -12,5 +16,3 @@ locations = {
 }
 
 stat_tracker = StatTracker.from_csv(locations)
-
-require 'pry'; binding.pry
