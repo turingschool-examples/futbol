@@ -19,14 +19,14 @@ module GamesProcessor
 
   def best_season(team_id)
     season_avg = seasons_win_count(team_id)
-    season_avg.each.max_by do |season, stats|
+    season_avg.max_by do |season, stats|
       stats[:wins].fdiv(stats[:total])
     end.first
   end
 
   def worst_season(team_id)
     season_avg = seasons_win_count(team_id)
-    season_avg.each.min_by do |season, stats|
+    season_avg.min_by do |season, stats|
       stats[:wins].fdiv(stats[:total])
     end.first
   end
@@ -83,7 +83,7 @@ module GamesProcessor
 
   def calculate_win_percents(team_id)
     win_loss = opponent_win_count(team_id)
-    win_loss.each.map do |team, results|
+    win_loss.map do |team, results|
       avg = results[:wins].fdiv(results[:total])
       [team, avg]
     end.to_h
@@ -91,7 +91,7 @@ module GamesProcessor
 
   def favorite_opponent(team_id)
     win_loss = calculate_win_percents(team_id)
-    fav_team = win_loss.each.max_by do |team, result|
+    fav_team = win_loss.max_by do |team, result|
       result
     end.first
 
@@ -100,7 +100,7 @@ module GamesProcessor
 
   def rival(team_id)
     win_loss = calculate_win_percents(team_id)
-    rival_team = win_loss.each.min_by do |team, result|
+    rival_team = win_loss.min_by do |team, result|
       result
     end.first
 
