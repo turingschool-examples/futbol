@@ -91,6 +91,11 @@ module GameTeamsProcessor
         accuracy_data[game[:team_id]][:shots] += game[:shots].to_i
       end
     end
+    accuracy_data
+  end
+
+  def get_accuracy_average(season)
+    accuracy_data = get_accuracy_data(season)
     accuracy_average = Hash.new
     accuracy_data.each do |team, data|
       accuracy_average[team] = data[:goals].fdiv(data[:shots])
@@ -99,7 +104,7 @@ module GameTeamsProcessor
   end
 
   def most_accurate_team(season)
-    accuracy_average = get_accuracy_data(season)
+    accuracy_average = get_accuracy_average(season)
     highest_team = accuracy_average.max_by do |team, average|
       average
     end.first
@@ -108,13 +113,14 @@ module GameTeamsProcessor
   end
 
   def least_accurate_team(season)
-    accuracy_average = get_accuracy_data(season)
+    accuracy_average = get_accuracy_average(season)
     least_accurate_team = accuracy_average.min_by do |team, average|
       average
     end.first
 
     team_info(least_accurate_team)['team_name']
-
+  end
+  
   def team_tackles(season)
     @game_teams.reduce({}) do |acc, game|
       if game[:game_id][0..3] == season[0..3]
