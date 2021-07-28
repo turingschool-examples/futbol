@@ -1,4 +1,5 @@
 require 'spec_helper'
+
 RSpec.describe StatTracker do
   context 'initialize' do
     game_path = './data/mini_games.csv'
@@ -57,6 +58,10 @@ RSpec.describe StatTracker do
       expect(stat_tracker.highest_total_score).to eq(7)
       expect(stat_tracker.lowest_total_score).to eq(1)
     end
+
+    it 'has a teams count in a league' do
+      expect(stat_tracker.count_of_teams).to eq(32)
+    end
   end
 
   context 'favourite oppenent and rival' do
@@ -79,7 +84,8 @@ RSpec.describe StatTracker do
     end
   end
 
-  context 'average goals per game and season' do
+  context 'game stats' do
+
     game_path = './data/mini_games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/mini_game_teams.csv'
@@ -103,6 +109,36 @@ RSpec.describe StatTracker do
       "20162017"=>4.24
     }
       expect(stat_tracker.average_goals_by_season).to eq(expected)
+    end
+    
+    it 'counts games per season' do
+      expected = {
+        '20132014' => 6,
+        '20142015' => 19,
+        '20152016' => 9,
+        '20162017' => 17
+      }
+      expect(stat_tracker.count_of_games_by_seasons).to eq(expected)
+    end
+  end
+
+  context 'best and worst offense' do
+    game_path = './data/mini_games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/mini_game_teams.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
+    it 'has best offense' do
+      expect(stat_tracker.best_offense).to eq("Houston Dynamo")
+    end
+
+    it 'has worst offense' do
+      expect(stat_tracker.worst_offense).to eq("Chicago Fire")
     end
   end
 end

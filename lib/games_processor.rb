@@ -121,6 +121,7 @@ module GamesProcessor
     lowest_game[:away_goals].to_i + lowest_game[:home_goals].to_i
   end
 
+
   def average_goals_by_season
     goals_per_season.reduce({}) do |acc, season_goals|
       acc[season_goals[0]] = season_goals[1].fdiv(games_per_season(season_goals[0])).round(2)
@@ -145,5 +146,14 @@ module GamesProcessor
     @games.count do |game|
       game if game[:season] == season
     end
+  end
+  
+  def count_of_games_by_seasons
+    count_seasons = Hash.new(0)
+    @games.each do |game|
+      season = game[:season]
+      count_seasons[season] += 1
+    end
+    count_seasons
   end
 end

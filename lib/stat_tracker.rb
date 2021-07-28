@@ -1,7 +1,6 @@
-require './lib/teams_processor'
-require './lib/games_processor'
-require './lib/game_teams_processor'
-
+require_relative './teams_processor'
+require_relative './games_processor'
+require_relative './game_teams_processor'
 
 class StatTracker
   include TeamsProcessor

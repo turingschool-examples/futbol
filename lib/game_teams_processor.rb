@@ -28,7 +28,7 @@ module GameTeamsProcessor
 
   def goals_per_team_game(team_id)
     goals = []
-    @game_teams.filter_map do |game|
+    @game_teams.each do |game|
       goals << game[:goals] if game[:team_id] == team_id
     end
     goals
