@@ -17,4 +17,11 @@ class GameTeam
     @shots = params[:shots]
     @tackles = params[:tackles]
   end
+
+  def self.read_file(location)
+    game_team_rows = CSV.read(location, headers: true, header_converters: :symbol)
+    game_team_rows.map do |game_team_row|
+      new(game_team_row)
+    end
+  end
 end

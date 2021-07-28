@@ -9,29 +9,9 @@ class StatTracker
   attr_reader :games, :teams, :game_teams
 
   def initialize(locations)
-    games_path = locations[:games]
-    teams_path = locations[:teams]
-    game_teams_path = locations[:game_teams]
-    @classes = [Game, Team, GameTeam]
-
-    @games = []
-    game_rows = CSV.read(games_path, headers: true, header_converters: :symbol)
-    game_rows.each do |game_row|
-      @games << Game.new(game_row)
-    end
-
-    @teams = []
-    teams_rows = CSV.read(teams_path, headers: true, header_converters: :symbol)
-    teams_rows.each do |team_row|
-      @teams. << Team.new(team_row)
-    end
-
-    @game_teams = []
-    game_teams_rows = CSV.foreach(game_teams_path, headers: true, header_converters: :symbol)
-    game_teams_rows.each do |game_teams_row|
-      @game_teams << GameTeam.new(game_teams_row)
-    end
-
+    @games = Game.read_file(locations[:games])
+    @teams = Team.read_file(locations[:teams])
+    @game_teams = GameTeam.read_file(locations[:game_teams])
   end
 
   def self.from_csv(locations)
