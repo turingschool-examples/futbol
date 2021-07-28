@@ -57,4 +57,8 @@ RSpec.describe GameStatistics do
   it 'finds percentage of ties' do
     expect(@game_stats.percentage_ties).to eq(3.45)
   end
+
+  it 'finds the count of games by season' do
+    expect(@game_stats.count_of_games_by_season).to eq({'20122013' => 29 })
+  end
 end
