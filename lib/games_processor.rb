@@ -18,54 +18,64 @@ module GamesProcessor
   end
 
   def best_season(team_id)
-    season_avg = seasons_win_count(team_id)
-    season_avg.max_by do |season, stats|
-      stats[:wins].fdiv(stats[:total])
+    get_season_averages(team_id).max_by do |season, average|
+      average
     end.first
   end
 
   def worst_season(team_id)
-    season_avg = seasons_win_count(team_id)
-    season_avg.min_by do |season, stats|
-      stats[:wins].fdiv(stats[:total])
+    get_season_averages(team_id).min_by do |season, average|
+      average
     end.first
   end
 
-  def seasons_win_count(team_id)
-    season_avg = {}
+  def get_season_averages(team_id)
+    season_average = seasons_win_count(team_id)
+    season_average.map do |season, stats|
+      [season, stats[:wins].fdiv(stats[:total])]
+    end.to_h
+  end
 
+  def get_home_or_away(team_id, game)
+    teams = [game[:home_team_id], game[:away_team_id]]
+    goals = [game[:home_goals], game[:away_goals]]
+    team_index = teams.index(team_id)
+    opp_index = team_index - 1
+    {
+      team_goals: goals[team_index],
+      opp_id: teams[opp_index],
+      opp_goals: goals[opp_index]
+    }
+  end
+
+  def seasons_win_count(team_id)
+    season_average = {}
     @games.each do |game|
       season = game[:season]
       if game[:home_team_id] == team_id || game[:away_team_id] == team_id
-        season_avg[season] ||= {wins: 0, total: 0}
-        teams = [game[:home_team_id], game[:away_team_id]]
-        goals = [game[:home_goals], game[:away_goals]]
-        team_index = teams.index(team_id)
-        opp_index = team_index - 1
+        data = get_home_or_away(team_id, game)
 
-        if goals[team_index] > goals[opp_index]
-        season_avg[season][:wins] += 1
+        season_average[season] ||= {wins: 0, total: 0}
+        if data[:team_goals] > data[:opp_goals]
+          season_average[season][:wins] += 1
         end
-        season_avg[season][:total] += 1
+        season_average[season][:total] += 1
       end
     end
-    season_avg
+    season_average
   end
 
   def opponent_win_count(team_id)
     win_loss = {}
     @games.each do |game|
       if game[:home_team_id] == team_id || game[:away_team_id] == team_id
-        teams = [game[:home_team_id], game[:away_team_id]]
-        goals = [game[:home_goals], game[:away_goals]]
-        team_index = teams.index(team_id)
-        opp_index = team_index - 1
+        data = get_home_or_away(team_id, game)
 
-        win_loss[teams[opp_index]] ||= {wins: 0, total: 0}
-        if goals[team_index] > goals[opp_index]
-          win_loss[teams[opp_index]][:wins] += 1
+        win_loss[data[:opp_id]] ||= {wins: 0, total: 0}
+        if data[:team_goals] > data[:opp_goals]
+          win_loss[data[:opp_id]][:wins] += 1
         end
-        win_loss[teams[opp_index]][:total] += 1
+        win_loss[data[:opp_id]][:total] += 1
       end
     end
     win_loss
