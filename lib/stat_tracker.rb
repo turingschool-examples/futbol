@@ -1,42 +1,69 @@
+require './lib/game'
+require './lib/team'
+require './lib/game_team'
+require 'csv'
+
+
 class StatTracker
+  attr_reader :games, :teams, :game_teams
 
+  def initialize(stat_tracker_params)
+    games_path = stat_tracker_params[:games]
+    teams_path = stat_tracker_params[:teams]
+    game_teams_path = stat_tracker_params[:game_teams]
 
+    @games = get_csv(games_path, Game) # Maybe ||= could prevent edge cases by assigning
+    @teams = get_csv(teams_path, Team) # from the .csv if @games does not yet exist
+    @game_teams = get_csv(game_teams_path, GameTeam)
+  end
 
-# GAME STATS
-  highest_total_score	Highest sum of the winning and losing teams’ scores	Integer
-  lowest_total_score	Lowest sum of the winning and losing teams’ scores	Integer
-  percentage_home_wins	Percentage of games that a home team has won (rounded to the nearest 100th)	Float
-  percentage_visitor_wins	Percentage of games that a visitor has won (rounded to the nearest 100th)	Float
-  percentage_ties	Percentage of games that has resulted in a tie (rounded to the nearest 100th)	Float
-  count_of_games_by_season	A hash with season names (e.g. 20122013) as keys and counts of games as values	Hash
-  average_goals_per_game	Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)	Float
-  average_goals_by_season	Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as values (rounded to the nearest 100th)	Hash
+  def self.get_csv(stat_tracker_params)
+    StatTracker.new(stat_tracker_params)
+  end
 
-# LEAGUE STATS
-  count_of_teams	Total number of teams in the data.	Integer
-  best_offense	Name of the team with the highest average number of goals scored per game across all seasons.	String
-  worst_offense	Name of the team with the lowest average number of goals scored per game across all seasons.	String
-  highest_scoring_visitor	Name of the team with the highest average score per game across all seasons when they are away.	String
-  highest_scoring_home_team	Name of the team with the highest average score per game across all seasons when they are home.	String
-  lowest_scoring_visitor	Name of the team with the lowest average score per game across all seasons when they are a visitor.	String
-  lowest_scoring_home_team	Name of the team with the lowest average score per game across all seasons when they are at home.	String
+  def find_team_by_id(id) # test method - feel free to delete
+    @teams.find do |team|
+      team.team_id == id
+    end
+  end
 
-# SEASON STATS
-  winningest_coach	Name of the Coach with the best win percentage for the season	String
-  worst_coach	Name of the Coach with the worst win percentage for the season	String
-  most_accurate_team	Name of the Team with the best ratio of shots to goals for the season	String
-  least_accurate_team	Name of the Team with the worst ratio of shots to goals for the season	String
-  most_tackles	Name of the Team with the most tackles in the season	String
-  fewest_tackles	Name of the Team with the fewest tackles in the season	String
+  def games_by_season # test method - feel free to delete
+    @games.group_by { |game| game.season }
+  end
 
-# TEAM STATS
-X team_info	A hash with key/value pairs for the following attributes: team_id, franchise_id, team_name, abbreviation, and link	Hash
-  best_season	Season with the highest win percentage for a team.	String
-  worst_season	Season with the lowest win percentage for a team.	String
-  average_win_percentage	Average win percentage of all games for a team.	Float
-  most_goals_scored	Highest number of goals a particular team has scored in a single game.	Integer
-  fewest_goals_scored	Lowest numer of goals a particular team has scored in a single game.	Integer
-  favorite_opponent	Name of the opponent that has the lowest win percentage against the given team.	String
-  rival	Name of the opponent that has the highest win percentage against the given team.	String
-
+  def total_game_score_array # test method - I'm not even sure this one's in the method list
+  total_game_scores = []
+  @games.each do |game|
+    total_game_scores << game.total_game_score #using a method from game class
+  end
+  total_game_scores
+  end
 end
+
+
+# maybe put all the stuff below in another file? module? idk
+
+def get_csv(path, class_type)
+  rows = CSV.read(path, headers: true, header_converters: :symbol)
+  rows.map do |row|
+    class_type.new(row)
+  end
+end
+
+game_path = './data/games_sample.csv'
+team_path = './data/teams.csv'
+game_teams_path = './data/game_teams.csv'
+
+locations = {
+  games: game_path,
+  teams: team_path,
+  game_teams: game_teams_path
+}
+
+
+# my examples
+stat_tracker = StatTracker.get_csv(locations)
+# require "pry"; binding.pry
+# p stat_tracker.find_team_by_id('3')
+# p stat_tracker.games_by_season
+p stat_tracker.total_game_score_array
