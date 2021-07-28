@@ -70,4 +70,12 @@ class GameStatistics
     end
     games_by_season
   end
+
+  def average_goals_per_game
+    goals = []
+    @data.games.each do |game|
+      goals << game[:home_goals].to_i + game[:away_goals].to_i
+    end
+    goals.sum.fdiv(goals.length).round(2)
+  end
 end
