@@ -30,6 +30,12 @@ class StatTracker
     game_teams_rows = CSV.foreach(game_teams_path, headers: true, header_converters: :symbol)
     game_teams_rows.each do |game_teams_row|
       @game_teams << GameTeam.new(game_teams_row)
+
+    @game_stats = GameStats.new(@games, @teams, @game_team)
+    @league_stats = LeagueStats.new(@games, @teams, @game_team)
+    @season_stats = SeasonStats.new(@games, @teams, @game_team)
+    @team_stats = TeamStats.new(@games, @teams, @game_team)
+
     end
 
   end
