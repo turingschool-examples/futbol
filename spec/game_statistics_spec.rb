@@ -17,7 +17,7 @@ RSpec.describe GameStatistics do
     }
 
     @stat_tracker = StatTracker.from_csv(locations)
-    @game_stats = GameStatistics.new(@stat_tracker)
+    @game_stats = GameStatistics.new(@stat_tracker.games, @stat_tracker.teams, @stat_tracker.game_teams)
 
   end
 
@@ -38,7 +38,7 @@ RSpec.describe GameStatistics do
   end
 
   it 'finds percentage of home wins' do
-    expect(@game_stats.percentage_home_wins).to eq(72.41)
+    expect(@game_stats.percentage_home_wins).to eq(0.72)
   end
 
   it 'finds visitor wins' do
@@ -46,7 +46,7 @@ RSpec.describe GameStatistics do
   end
 
   it 'finds percentage of visitor wins' do
-    expect(@game_stats.percentage_visitor_wins).to eq(24.14)
+    expect(@game_stats.percentage_visitor_wins).to eq(0.24)
   end
 
   it 'finds number of ties' do
@@ -55,7 +55,7 @@ RSpec.describe GameStatistics do
 
 
   it 'finds percentage of ties' do
-    expect(@game_stats.percentage_ties).to eq(3.45)
+    expect(@game_stats.percentage_ties).to eq(0.03)
   end
 
   it 'finds the count of games by season' do
