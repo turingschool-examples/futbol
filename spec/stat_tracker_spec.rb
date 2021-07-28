@@ -1,4 +1,5 @@
 require './lib/stat_tracker'
+require './spec/spec_helper'
 
 RSpec.describe StatTracker do
   context '#initialize' do

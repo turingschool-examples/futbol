@@ -212,7 +212,6 @@ class StatTracker
       stats[1] / stats[0].to_f
     end
     team_name_by_team_id(lowest_home_team.first)
-
   end
 
 
