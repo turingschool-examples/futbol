@@ -306,4 +306,17 @@ class StatTracker
     end
     team_name_by_team_id(fewest_tackles.first)
   end
+
+  def team_info(team_id)
+    find_team = @teams.find do |team|
+      team.team_id.to_s == team_id
+    end
+    team_info = {
+      "team_id" => find_team.team_id.to_s,
+      "franchise_id" => find_team.franchise_id.to_s,
+      "team_name" => find_team.team_name,
+      "abbreviation" => find_team.abbreviation,
+      "link" => find_team.link
+    }
+  end
 end
