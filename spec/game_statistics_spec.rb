@@ -61,4 +61,8 @@ RSpec.describe GameStatistics do
   it 'finds the count of games by season' do
     expect(@game_stats.count_of_games_by_season).to eq({'20122013' => 29 })
   end
+
+  it 'finds average goals by game' do
+    expect(@game_stats.average_goals_per_game).to eq(3.69)
+  end
 end
