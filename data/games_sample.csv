@@ -1,4 +1,4 @@
-dgame_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
+game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
 2012030221,20122013,Postseason,5/16/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
 2012020251,20122013,Regular Season,2/23/13,52,4,3,3,SeatGeek Stadium,/api/v1/venues/null
 2015021171,20152016,Regular Season,4/2/16,1,14,1,3,Audi Field,/api/v1/venues/null
