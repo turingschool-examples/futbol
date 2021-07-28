@@ -478,4 +478,26 @@ RSpec.describe StatTracker do
       expect(stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
     end
   end
+
+  context 'Team stats methods' do
+    it '#team_info' do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expected = {
+      "team_id" => "18",
+      "franchise_id" => "34",
+      "team_name" => "Minnesota United FC",
+      "abbreviation" => "MIN",
+      "link" => "/api/v1/teams/18"
+      }
+      expect(stat_tracker.team_info("18")).to eq(expected)
+    end
+  end
 end
