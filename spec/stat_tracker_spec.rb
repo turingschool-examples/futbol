@@ -331,4 +331,71 @@ RSpec.describe StatTracker do
       expect(stat_tracker.lowest_scoring_home_team).to eq("Utah Royals FC")
     end
   end
+
+  context 'Season stats methods' do
+    it '#winningest_coach' do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.winningest_coach("20132014")).to eq("Claude Julien")
+    end
+
+    it '#worst_coach' do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.worst_coach("20132014")).to eq("Peter Laviolette")
+    end
+
+    it '#game_ids_by_season' do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.game_ids_by_season("20122013").size).to eq(806)
+    end
+
+    it '#game_teams_by_season' do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.game_teams_by_season("20122013").size).to eq(1612)
+    end
+
+    it '#coach_stats_by_season' do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.coach_stats_by_season("20122013")["John Tortorella"]).to eq([60, 22])
+    end
+  end
 end
