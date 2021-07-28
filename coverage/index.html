@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2021-07-27T20:24:52-06:00">2021-07-27T20:24:52-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2021-07-27T21:27:29-06:00">2021-07-27T21:27:29-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -30,7 +30,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         21.89
+         22.05
        </span>
     </span> hits/line
     )
@@ -43,8 +43,8 @@
   </div>
 
   <div class="t-line-summary">
-    <b>199</b> relevant lines,
-    <span class="green"><b>199</b> lines covered</span> and
+    <b>204</b> relevant lines,
+    <span class="green"><b>204</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed. </span>
     (<span class="green">
   100.0%
@@ -73,11 +73,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#23df1c0891cd18ea5912ba0d9514e0907e442eca" class="src_link" title="lib/game_teams_processor.rb">lib/game_teams_processor.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">74</td>
-            <td class="cell--number">38</td>
-            <td class="cell--number">38</td>
+            <td class="cell--number">83</td>
+            <td class="cell--number">43</td>
+            <td class="cell--number">43</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">22.97</td>
+            <td class="cell--number">23.58</td>
             
           </tr>
         
@@ -145,8 +145,8 @@
     
 
     <div class="t-line-summary">
-      <b>38</b> relevant lines.
-      <span class="green"><b>38</b> lines covered</span> and
+      <b>43</b> relevant lines.
+      <span class="green"><b>43</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -725,7 +725,7 @@
 
             
 
-            <code class="ruby">    most_wins = coach_wins(season).max_by do|coach, win|</code>
+            <code class="ruby">    most_wins = coach_win_pct(season).max_by do|coach, win|</code>
           </li>
         </div>
       
@@ -802,7 +802,7 @@
 
             
 
-            <code class="ruby">    least_wins = coach_wins(season).min_by do|coach, win|</code>
+            <code class="ruby">    least_wins = coach_win_pct(season).min_by do|coach, win|</code>
           </li>
         </div>
       
@@ -868,7 +868,7 @@
 
             
 
-            <code class="ruby">  def coach_wins(season)</code>
+            <code class="ruby">  def coach_win_pct(season)</code>
           </li>
         </div>
       
@@ -879,57 +879,24 @@
 
             
 
-            <code class="ruby">    coach_wins = @game_teams.reduce({}) do |acc, game|</code>
+            <code class="ruby">    coach_wins(season).each.reduce({}) do |acc, (coach, wins)|</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="102" data-linenumber="67">
-            <span class="hits">102</span>
+          <li class="covered" data-hits="18" data-linenumber="67">
+            <span class="hits">18</span>
             
 
             
 
-            <code class="ruby">      acc[game[:coach]] ||= 0</code>
+            <code class="ruby">      acc[coach] = wins[:wins].fdiv(wins[:total])</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="102" data-linenumber="68">
-            <span class="hits">102</span>
-            
-
-            
-
-            <code class="ruby">      if game[:result] == &quot;WIN&quot; &amp;&amp; game[:game_id][0..3] == season[0..3]</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="22" data-linenumber="69">
-            <span class="hits">22</span>
-            
-
-            
-
-            <code class="ruby">        acc[game[:coach]] += 1</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="70">
-            
-            
-
-            
-
-            <code class="ruby">      end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="102" data-linenumber="71">
-            <span class="hits">102</span>
+          <li class="covered" data-hits="18" data-linenumber="68">
+            <span class="hits">18</span>
             
 
             
@@ -939,7 +906,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="72">
+          <li class="never" data-hits="" data-linenumber="69">
             
             
 
@@ -950,7 +917,18 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="73">
+          <li class="never" data-hits="" data-linenumber="70">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="71">
             
             
 
@@ -961,7 +939,128 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="74">
+          <li class="never" data-hits="" data-linenumber="72">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="73">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def coach_wins(season)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="74">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @game_teams.reduce({}) do |acc, game|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="102" data-linenumber="75">
+            <span class="hits">102</span>
+            
+
+            
+
+            <code class="ruby">      acc[game[:coach]] ||= {wins: 0, total: 0}</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="102" data-linenumber="76">
+            <span class="hits">102</span>
+            
+
+            
+
+            <code class="ruby">      if game[:result] == &quot;WIN&quot; &amp;&amp; game[:game_id][0..3] == season[0..3]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="22" data-linenumber="77">
+            <span class="hits">22</span>
+            
+
+            
+
+            <code class="ruby">        acc[game[:coach]][:wins] += 1</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="78">
+            
+            
+
+            
+
+            <code class="ruby">      end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="102" data-linenumber="79">
+            <span class="hits">102</span>
+            
+
+            
+
+            <code class="ruby">      acc[game[:coach]][:total] += 1</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="102" data-linenumber="80">
+            <span class="hits">102</span>
+            
+
+            
+
+            <code class="ruby">      acc</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="81">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="82">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="83">
             
             
 

@@ -49,25 +49,33 @@ module GameTeamsProcessor
   end
 
   def winningest_coach(season)
-    most_wins = coach_wins(season).max_by do|coach, win|
+    most_wins = coach_win_pct(season).max_by do|coach, win|
       win
     end
     most_wins[0]
   end
 
   def worst_coach(season)
-    least_wins = coach_wins(season).min_by do|coach, win|
+    least_wins = coach_win_pct(season).min_by do|coach, win|
       win
     end
     least_wins[0]
   end
 
+  def coach_win_pct(season)
+    coach_wins(season).each.reduce({}) do |acc, (coach, wins)|
+      acc[coach] = wins[:wins].fdiv(wins[:total])
+      acc
+    end
+  end
+
   def coach_wins(season)
-    coach_wins = @game_teams.reduce({}) do |acc, game|
-      acc[game[:coach]] ||= 0
+    @game_teams.reduce({}) do |acc, game|
+      acc[game[:coach]] ||= {wins: 0, total: 0}
       if game[:result] == "WIN" && game[:game_id][0..3] == season[0..3]
-        acc[game[:coach]] += 1
+        acc[game[:coach]][:wins] += 1
       end
+      acc[game[:coach]][:total] += 1
       acc
     end
   end
