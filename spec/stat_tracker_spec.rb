@@ -85,6 +85,7 @@ RSpec.describe StatTracker do
   end
 
   context 'game stats' do
+
     game_path = './data/mini_games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/mini_game_teams.csv'
@@ -94,6 +95,21 @@ RSpec.describe StatTracker do
       game_teams: game_teams_path
     }
     stat_tracker = StatTracker.from_csv(locations)
+
+    it 'has average goals per game' do
+      expect(stat_tracker.average_goals_per_game).to eq(3.96)
+    end
+
+    it 'has average goals by season' do
+
+      expected = {
+      "20142015"=>3.63,
+      "20152016"=>4.33,
+      "20132014"=>4.67,
+      "20162017"=>4.24
+    }
+      expect(stat_tracker.average_goals_by_season).to eq(expected)
+    end
     
     it 'counts games per season' do
       expected = {
