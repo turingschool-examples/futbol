@@ -144,11 +144,11 @@ RSpec.describe StatTracker do
     stat_tracker = StatTracker.from_csv(locations)
 
     it 'has best offense' do
-      expect(stat_tracker.best_offense).to eq("Houston Dynamo")
+      expect(stat_tracker.best_offense).to eq("Sporting Kansas City")
     end
 
     it 'has worst offense' do
-      expect(stat_tracker.worst_offense).to eq("Chicago Fire")
+      expect(stat_tracker.worst_offense).to eq("Houston Dash")
     end
   end
 end
