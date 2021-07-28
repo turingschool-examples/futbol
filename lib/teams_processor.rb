@@ -21,4 +21,33 @@ module TeamsProcessor
       team["team_id"] == team_id
     end
   end
+
+  def count_of_teams
+    @teams.count
+  end
+
+  def best_offense
+    team_id = get_goals_per_team.each.max_by do |team, goals|
+      goals
+    end.first
+
+    team_info(team_id)["team_name"]
+  end
+
+  def worst_offense
+    team_id = get_goals_per_team.each.min_by do |team, goals|
+      goals
+    end.first
+
+    team_info(team_id)["team_name"]
+  end
+
+  def get_goals_per_team
+    team_goals = Hash.new(0)
+
+    @game_teams.each do |game|
+      team_goals[game[:team_id]] += game[:goals].to_i
+    end
+    team_goals
+  end
 end

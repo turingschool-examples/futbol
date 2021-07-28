@@ -28,7 +28,7 @@ module GameTeamsProcessor
 
   def goals_per_team_game(team_id)
     goals = []
-    @game_teams.filter_map do |game|
+    @game_teams.each do |game|
       goals << game[:goals] if game[:team_id] == team_id
     end
     goals
@@ -39,5 +39,12 @@ module GameTeamsProcessor
     goals.min_by do |goal|
       goal.to_i
     end.to_i
+  end
+
+  def average_goals_per_game
+    goals = @game_teams.sum do |game|
+      game[:goals].to_f
+    end
+    (goals.fdiv(@game_teams.size) * 2).round(2)
   end
 end
