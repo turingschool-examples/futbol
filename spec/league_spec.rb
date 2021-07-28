@@ -35,11 +35,11 @@ RSpec.describe League do
     expect(@league.count_of_teams).to eq(32)
   end
 
-  xit 'can get best offense' do
-    expect(@league.best_offense).to eq(2)
+  it 'can get best offense' do
+    expect(@league.best_offense).to eq("New York City FC")
   end
 
-  xit 'can get an array of games played' do
+  it 'can get an array of games played' do
     expect(@league.games_by_team(3).length).to eq(5)
   end
 
@@ -47,5 +47,19 @@ RSpec.describe League do
     expect(@league.games_average(3)).to eq(1.6)
   end
 
+  it 'can get worst offense' do
+    expect(@league.worst_offense).to eq("Sporting Kansas City")
+  end
 
+  it 'can get highest scoring visitor' do
+    expect(@league.highest_scoring_visitor).to eq("FC Dallas")
+  end
+
+  it 'can filter away games' do
+    expect(@league.away_games(3).length).to eq(3)
+  end
+
+  it 'can average away games' do
+    expect(@league.away_average(3)).to eq(1.6666666666666667)
+  end
 end

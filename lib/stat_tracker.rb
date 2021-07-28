@@ -129,4 +129,35 @@ class StatTracker
     end
     average_goals_by_season
   end
+
+  def best_offense
+    acc = {}
+    @teams.each do |team|
+      #conditional handles edge cases where there are no games for the teams. Should not be a problem when dealing with the full dataset.
+                            #this will fail spec suite because we tweaked the csv files to be tame_name instead of taemname
+      if games_by_team(team[:team_id]).length != 0
+        acc[games_average(team[:team_id])] = team[:teamname]
+        # require "pry"; binding.pry
+      end
+    end
+    # require "pry"; binding.pry
+    acc[acc.keys.max]
+  end
+
+  #this will hit @game_teams again. Will need refactor to minimize time, nest games_by_team and add denominator count?.
+  def games_average(team_id)
+    goals_scored = 0.00
+    games_by_team(team_id).each do |game|
+      goals_scored += game[:goals].to_i
+    end
+    goals_scored / games_by_team(team_id).length
+  end
+
+  def games_by_team(team_id)
+    @game_teams.find_all do |game|
+      game[:team_id] == team_id.to_s
+    end
+  end
+
+
 end
