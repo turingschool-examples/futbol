@@ -148,4 +148,97 @@ RSpec.describe StatTracker do
     }
     )
   end
+
+  it 'can give total games played' do
+    game_path = './data/fixture_games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/fixture_game_teams.csv'
+
+    file_paths = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(file_paths)
+    expect(stat_tracker.total_games).to eq(40)
+  end
+
+  it 'can give total games played' do
+    game_path = './data/fixture_games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/fixture_game_teams.csv'
+
+    file_paths = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(file_paths)
+    expect(stat_tracker.total_goals).to eq(155)
+  end
+
+  it 'can return average goals scored per game' do
+    game_path = './data/fixture_games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/fixture_game_teams.csv'
+
+    file_paths = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(file_paths)
+    expect(stat_tracker.average_goals_per_game).to eq(3.88)
+  end
+
+  # xit 'can return total goals in a given season' do
+  #   game_path = './data/fixture_games.csv'
+  #   team_path = './data/teams.csv'
+  #   game_teams_path = './data/fixture_game_teams.csv'
+  #
+  #   file_paths = {
+  #     games: game_path,
+  #     teams: team_path,
+  #     game_teams: game_teams_path
+  #   }
+  #
+  #   stat_tracker = StatTracker.from_csv(file_paths)
+  #   expect(stat_tracker.total_goals_per_season('20122013')).to eq(151)
+  # end
+  #
+  # xit 'can return total games played in season' do
+  #   game_path = './data/fixture_games.csv'
+  #   team_path = './data/teams.csv'
+  #   game_teams_path = './data/fixture_game_teams.csv'
+  #
+  #   file_paths = {
+  #     games: game_path,
+  #     teams: team_path,
+  #     game_teams: game_teams_path
+  #   }
+  #
+  #   stat_tracker = StatTracker.from_csv(file_paths)
+  #   expect(stat_tracker.total_games_per_season('20122013')).to eq(39)
+  # end
+
+  it 'can return average goals scored in a season' do
+    game_path = './data/fixture_games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/fixture_game_teams.csv'
+
+    file_paths = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(file_paths)
+    expect(stat_tracker.average_goals_by_season).to eq({
+      "20122013" => 3.87,
+      "20152016" => 4
+      })
+  end
 end
