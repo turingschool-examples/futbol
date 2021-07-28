@@ -182,8 +182,8 @@ module GamesProcessor
       game if game[:season] == season
     end
   end
-  
-  def count_of_games_by_seasons
+
+  def count_of_games_by_season
     count_seasons = Hash.new(0)
     @games.each do |game|
       season = game[:season]

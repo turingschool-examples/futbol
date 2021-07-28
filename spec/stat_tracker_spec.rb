@@ -11,9 +11,11 @@ RSpec.describe StatTracker do
       game_teams: game_teams_path
     }
     stat_tracker = StatTracker.from_csv(locations)
+
     it "exists" do
       expect(stat_tracker).to be_a(StatTracker)
     end
+
     it "has attributes" do
       expect(stat_tracker.teams).not_to be_empty
       expect(stat_tracker.game_teams).not_to be_empty
@@ -31,6 +33,7 @@ RSpec.describe StatTracker do
       game_teams: game_teams_path
     }
     stat_tracker = StatTracker.from_csv(locations)
+
     it "has team info" do
       expected = {
         "team_id" => "18",
@@ -39,12 +42,15 @@ RSpec.describe StatTracker do
         "abbreviation" => "MIN",
         "link" => "/api/v1/teams/18"
       }
+
       expect(stat_tracker.team_info("18")).to eq(expected)
     end
+
     it 'has best and worst seasons' do
       expect(stat_tracker.best_season("15")).to eq("20162017")
       expect(stat_tracker.worst_season("15")).to eq("20142015")
     end
+
     it 'has an average win percentage' do
       expect(stat_tracker.average_win_percentage("15")).to eq(0.63)
     end
@@ -58,7 +64,7 @@ RSpec.describe StatTracker do
       expect(stat_tracker.highest_total_score).to eq(7)
       expect(stat_tracker.lowest_total_score).to eq(1)
     end
-    
+
     it "can give percentage of home wins, away wins, and ties" do
       expect(stat_tracker.percentage_home_wins).to eq(0.67)
       expect(stat_tracker.percentage_visitor_wins).to eq(0.31)
@@ -106,7 +112,6 @@ RSpec.describe StatTracker do
     end
 
     it 'has average goals by season' do
-
       expected = {
       "20142015"=>3.63,
       "20152016"=>4.33,
@@ -115,7 +120,7 @@ RSpec.describe StatTracker do
     }
       expect(stat_tracker.average_goals_by_season).to eq(expected)
     end
-    
+
     it 'counts games per season' do
       expected = {
         '20132014' => 6,
@@ -123,7 +128,7 @@ RSpec.describe StatTracker do
         '20152016' => 9,
         '20162017' => 17
       }
-      expect(stat_tracker.count_of_games_by_seasons).to eq(expected)
+      expect(stat_tracker.count_of_games_by_season).to eq(expected)
     end
   end
 
