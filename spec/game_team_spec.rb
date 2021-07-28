@@ -1,8 +1,8 @@
 require './lib/game_teams'
 
-RSpec.describe GameTeams do
+RSpec.describe GameTeam do
   context "it's a futbol game teams class" do
-    game = GameTeams.new({game_id: "2012030222",
+    game = GameTeam.new({game_id: "2012030222",
     team_id: "3",
     home_or_away: "away",
     result: "LOSS",
@@ -12,7 +12,7 @@ RSpec.describe GameTeams do
     tackles: "33"})
 
     it "exists" do
-      expect(game).to be_a(GameTeams)
+      expect(game).to be_a(GameTeam)
     end
 
     it "has attributes" do

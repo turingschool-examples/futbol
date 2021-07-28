@@ -1,5 +1,6 @@
 class GameTeam
   attr_reader :team_id,
+
               :hoa,
               :result,
               :head_coach,
