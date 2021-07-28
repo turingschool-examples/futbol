@@ -114,13 +114,13 @@ module GameTeamsProcessor
 
   def least_accurate_team(season)
     accuracy_average = get_accuracy_average(season)
-    least_accurate_team = accuracy_average.min_by do |team, average|
+    lowest_team = accuracy_average.min_by do |team, average|
       average
     end.first
 
-    team_info(least_accurate_team)['team_name']
+    team_info(lowest_team)['team_name']
   end
-  
+
   def team_tackles(season)
     @game_teams.reduce({}) do |acc, game|
       if game[:game_id][0..3] == season[0..3]
