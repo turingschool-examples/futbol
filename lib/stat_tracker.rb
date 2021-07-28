@@ -1,8 +1,10 @@
 require 'CSV'
 require 'pry'
 require_relative 'game_statistics'
+require_relative 'season_stats'
 class StatTracker
   include GameStatistics
+  include SeasonStats
 
   attr_reader :games, :teams, :game_teams
 
