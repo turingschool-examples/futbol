@@ -480,7 +480,7 @@ RSpec.describe StatTracker do
   end
 
   context 'Team stats methods' do
-    it '#team_info' do
+    it '#team_info(team_id)' do
       game_path = './data/games.csv'
       team_path = './data/teams.csv'
       game_teams_path = './data/game_teams.csv'
@@ -498,6 +498,164 @@ RSpec.describe StatTracker do
       "link" => "/api/v1/teams/18"
       }
       expect(stat_tracker.team_info("18")).to eq(expected)
+    end
+
+    it "#find_win_count" do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.find_win_count("6")).to eq({20122013=>[70, 38], 20172018=>[94, 50], 20132014=>[94, 54], 20142015=>[82, 31], 20152016=>[82, 33], 20162017=>[88, 45]})
+    end
+
+    it "#best_season(team_id)" do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.best_season("6")).to eq "20132014"
+    end
+
+    it "#worst_season(team_id)" do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.worst_season("6")).to eq "20142015"
+    end
+
+    it "#{}total_win_count(team_id)" do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.total_win_count("6")).to eq 251
+    end
+
+    it "#average_win_percentage(team_id)" do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.average_win_percentage("6")).to eq 0.49
+    end
+
+#MOCK N STUB
+    xit "#game_teams_by_id(team_id)" do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.game_teams_by_id("18")).to eq 7
+    end
+
+    it "#most_goals_scored(team_id)" do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.most_goals_scored("18")).to eq 7
+    end
+
+    it "#fewest_goals_scored(team_id)" do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.fewest_goals_scored("18")).to eq 0
+    end
+
+#mock and stub
+    xit "#games_against_rivals(team_id)" do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.games_against_rivals("18")[3]).to eq 0
+    end
+
+    it "#win_percentage_against_rivals(team_id)" do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.wins_against_rivals("18")[3]).to eq [10, 4]
+    end
+
+    it "#favorite_opponent(team_id)" do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.favorite_opponent("18")).to eq("DC United")
+    end
+
+    it "#rival(team_id)" do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
     end
   end
 end
