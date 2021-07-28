@@ -62,4 +62,21 @@ RSpec.describe League do
   it 'can average away games' do
     expect(@league.away_average(3)).to eq(1.6666666666666667)
   end
+
+  it 'can filter home games' do
+    expect(@league.home_games(3).length).to eq(2)
+  end
+
+  it 'can get highest scoring home team' do
+    expect(@league.highest_scoring_home_team).to eq("New York City FC")
+  end
+
+  it 'can get lowest scoring away team' do
+    expect(@league.lowest_scoring_visitor).to eq("Sporting Kansas City")
+  end
+
+  it 'can get lowest scoring home team' do
+    expect(@league.lowest_scoring_home_team).to eq("Sporting Kansas City")
+  end
+
 end

@@ -74,4 +74,50 @@ class League
     highest_scoring.key(highest_scoring.values.max)
   end
 
+  def lowest_scoring_visitor
+    lowest_scoring = {}
+    @teams.each do |team|
+      if away_games(team[:team_id]).length != 0
+        lowest_scoring[team[:team_name]] = away_average(team[:team_id])
+      end
+    end
+    lowest_scoring.key(lowest_scoring.values.min)
+  end
+
+
+  def home_games(team_id)
+    games_by_team(team_id).find_all do |game|
+      game[:hoa] == 'home'
+    end
+  end
+
+  #write test
+  def home_average(team_id)
+    goals_scored = 0.00
+    home_games(team_id).each do |game|
+      goals_scored += game[:goals].to_i
+    end
+    goals_scored.fdiv(home_games(team_id).length)
+  end
+
+  def highest_scoring_home_team
+    highest_scoring = {}
+    @teams.each do |team|
+      if home_games(team[:team_id]).length != 0
+        highest_scoring[team[:team_name]] = home_average(team[:team_id])
+      end
+    end
+    highest_scoring.key(highest_scoring.values.max)
+  end
+
+  def lowest_scoring_home_team
+    lowest_scoring = {}
+    @teams.each do |team|
+      if home_games(team[:team_id]).length != 0
+        lowest_scoring[team[:team_name]] = home_average(team[:team_id])
+      end
+    end
+    lowest_scoring.key(lowest_scoring.values.min)
+  end
+
 end
