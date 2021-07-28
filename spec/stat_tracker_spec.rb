@@ -58,6 +58,12 @@ RSpec.describe StatTracker do
       expect(stat_tracker.highest_total_score).to eq(7)
       expect(stat_tracker.lowest_total_score).to eq(1)
     end
+    
+    it "can give percentage of home wins, away wins, and ties" do
+      expect(stat_tracker.percentage_home_wins).to eq(0.67)
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.31)
+      expect(stat_tracker.percentage_ties).to eq(0.02)
+    end
 
     it 'has a teams count in a league' do
       expect(stat_tracker.count_of_teams).to eq(32)
@@ -85,7 +91,6 @@ RSpec.describe StatTracker do
   end
 
   context 'game stats' do
-
     game_path = './data/mini_games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/mini_game_teams.csv'
