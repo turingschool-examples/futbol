@@ -13,16 +13,18 @@ class StatTracker
     teams = []
     game_teams = []
 
-    CSV.foreach(locations[:games], headers: true, header_converters: :symbol) do |row|
-      headers ||= row.headers
-
-      games << row.to_h
-    end
+    # CSV.foreach(locations[:games], headers: true, header_converters: :symbol) do |row|
+    #   headers ||= row.headers
+    #           #this is a hash, have our game/team class take a hash as an argument
+    #           require "pry"; binding.pry
+    #   games << Team.new(row)
+    # end
 
     CSV.foreach(locations[:teams], headers: true, header_converters: :symbol) do |row|
       headers ||= row.headers
 
-      teams << row.to_h
+      teams << Team.new(row)
+      # require "pry"; binding.pry
     end
 
     CSV.foreach(locations[:game_teams], headers: true, header_converters: :symbol) do |row|
