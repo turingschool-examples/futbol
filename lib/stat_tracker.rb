@@ -319,4 +319,33 @@ class StatTracker
       "link" => find_team.link
     }
   end
+
+  def find_games_by_team_id(team_id)
+    games_by_team = @games.find_all do |game|
+      game.away_team_id.to_s == team_id || game.home_team_id.to_s == team_id
+    end
+    games_by_team
+  end
+
+  def find_win_count(team_id)
+    season_wins = {}
+    find_games_by_team_id(team_id).each do |game|
+      if season_wins[game.season].nil?
+        season_wins[game.season] = [0, 0]
+        # total games, wins
+      end
+      season_wins[game.season][0] += 1
+      if game.away_team_id.to_s == team_id && game.away_goals > game.home_goals
+        season_wins[game.season][1] += 1
+      elsif game.home_team_id.to_s == team_id && game.home_goals > game.away_goals
+        season_wins[game.season][1] += 1
+      end
+    end
+    season_wins
+  end
+
+  def best_season(team_id)
+  end
+
+
 end

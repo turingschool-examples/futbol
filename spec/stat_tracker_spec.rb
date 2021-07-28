@@ -480,7 +480,7 @@ RSpec.describe StatTracker do
   end
 
   context 'Team stats methods' do
-    it '#team_info' do
+    it '#team_info(team_id)' do
       game_path = './data/games.csv'
       team_path = './data/teams.csv'
       game_teams_path = './data/game_teams.csv'
@@ -499,5 +499,32 @@ RSpec.describe StatTracker do
       }
       expect(stat_tracker.team_info("18")).to eq(expected)
     end
+
+    it "#find_win_count" do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.find_win_count("6")).to eq({20122013=>[70, 38], 20172018=>[94, 50], 20132014=>[94, 54], 20142015=>[82, 31], 20152016=>[82, 33], 20162017=>[88, 45]})
+    end
+
+    it "#best_season(team_id)" do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.best_season("6")).to eq "20132014"
+    end
+
   end
 end
