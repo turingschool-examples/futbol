@@ -55,6 +55,13 @@ module GameTeamsProcessor
     most_wins[0]
   end
 
+  def worst_coach(season)
+    least_wins = coach_wins(season).min_by do|coach, win|
+      win
+    end
+    least_wins[0]
+  end
+
   def coach_wins(season)
     coach_wins = @game_teams.reduce({}) do |acc, game|
       acc[game[:coach]] ||= 0
