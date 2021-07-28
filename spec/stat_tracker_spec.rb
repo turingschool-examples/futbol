@@ -164,9 +164,9 @@ RSpec.describe StatTracker do
 
 
   context 'season stats' do
-    game_path = './data/mini_games.csv'
+    game_path = './data/games.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/mini_game_teams.csv'
+    game_teams_path = './data/game_teams.csv'
     locations = {
       games: game_path,
       teams: team_path,
@@ -175,11 +175,12 @@ RSpec.describe StatTracker do
     stat_tracker = StatTracker.from_csv(locations)
 
     it 'has winningest coach' do
-      expect(stat_tracker.winningest_coach("20142015")).to eq('Alain Vigneault')
+      require 'pry'; binding.pry
+      expect(stat_tracker.winningest_coach("20132014")).to eq('Alain Vigneault')
     end
 
     it 'has worst coach' do
-      expect(stat_tracker.worst_coach("20142015")).to eq('Darryl Sutter')
+      expect(stat_tracker.worst_coach("20132014")).to eq('Darryl Sutter')
     end
   end
 end
