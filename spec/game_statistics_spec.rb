@@ -41,11 +41,36 @@ RSpec.describe GameStatistics do
     expect(@game_stats.percentage_home_wins).to eq(72.41)
   end
 
+  it 'finds visitor wins' do
+    expect(@game_stats.visitor_team_wins).to eq(7)
+  end
+
   it 'finds percentage of visitor wins' do
     expect(@game_stats.percentage_visitor_wins).to eq(24.14)
   end
 
+  it 'finds number of ties' do
+    expect(@game_stats.ties).to eq(1)
+  end
+
+
   it 'finds percentage of ties' do
     expect(@game_stats.percentage_ties).to eq(3.45)
+  end
+
+  it 'finds the count of games by season' do
+    expect(@game_stats.count_of_games_by_season).to eq({ '20122013' => 29 })
+  end
+
+  it 'finds average goals by game' do
+    expect(@game_stats.average_goals_per_game).to eq(3.69)
+  end
+
+  it 'finds total goals by season' do
+    expect(@game_stats.total_goals_by_season).to eq({ '20122013' =>107 })
+  end
+
+  it 'finds average_goals_per_game' do
+    expect(@game_stats.average_goals_by_season).to eq({ '20122013' => 3.69 })
   end
 end

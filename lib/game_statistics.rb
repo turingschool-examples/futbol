@@ -58,4 +58,48 @@ class GameStatistics
     end
     ties
   end
+
+  def count_of_games_by_season
+    games_by_season = Hash.new(0)
+    @data.games.each do |game|
+      game.each do |key, value|
+        if key == :season
+          games_by_season[value] += 1
+        end
+      end
+    end
+    games_by_season
+  end
+
+  def average_goals_per_game
+    goals = []
+    @data.games.each do |game|
+      goals << game[:home_goals].to_i + game[:away_goals].to_i
+    end
+    goals.sum.fdiv(goals.length).round(2)
+  end
+
+  def total_goals_by_season
+    goals_by_season = Hash.new(0)
+    @data.games.each do |game|
+      game.each do |key, value|
+        if key == :season
+          goals_by_season[value] += game[:home_goals].to_i + game[:away_goals].to_i
+        end
+      end
+    end
+    goals_by_season
+  end
+
+  def average_goals_by_season
+    average_goals_by_season = Hash.new(0)
+    total_goals_by_season.each do |season, goals|
+      count_of_games_by_season.each do |key, games|
+        if season == key
+          average_goals_by_season[season] = goals.fdiv(games).round(2)
+        end
+      end
+    end
+    average_goals_by_season
+  end
 end
