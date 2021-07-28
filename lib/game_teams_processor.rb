@@ -40,4 +40,11 @@ module GameTeamsProcessor
       goal.to_i
     end.to_i
   end
+
+  def average_goals_per_game
+    goals = @game_teams.sum do |game|
+      game[:goals].to_f
+    end
+    (goals.fdiv(@game_teams.size) * 2).round(2)
+  end
 end

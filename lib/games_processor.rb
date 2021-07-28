@@ -121,7 +121,69 @@ module GamesProcessor
     lowest_game[:away_goals].to_i + lowest_game[:home_goals].to_i
   end
 
-  def count_of_games_by_seasons
+  def percentage_home_wins
+    home_game_wins = 0
+    total_games = 0
+    @games.each do |game|
+      total_games += 1
+      if game[:home_goals] > game[:away_goals]
+        home_game_wins += 1
+      end
+    end
+    (home_game_wins.fdiv(total_games)).round(2)
+  end
+
+  def percentage_visitor_wins
+    visitor_game_wins = 0
+    total_games = 0
+    @games.each do |game|
+      total_games += 1
+      if game[:home_goals] < game[:away_goals]
+        visitor_game_wins += 1
+      end
+    end
+    (visitor_game_wins.fdiv(total_games)).round(2)
+  end
+
+  def percentage_ties
+    ties = 0
+    total_games = 0
+    @games.each do |game|
+      total_games += 1
+      if game[:home_goals] == game[:away_goals]
+        ties += 1
+      end
+    end
+    (ties.fdiv(total_games)).round(2)
+  end
+
+  def average_goals_by_season
+    goals_per_season.reduce({}) do |acc, season_goals|
+      acc[season_goals[0]] = season_goals[1].fdiv(games_per_season(season_goals[0])).round(2)
+      acc
+    end
+  end
+
+  def goals_per_game(game)
+    game[:away_goals].to_i + game[:home_goals].to_i
+  end
+
+  def goals_per_season
+    goals = {}
+    @games.each do |game|
+      goals[game[:season]] ||= 0
+      goals[game[:season]] += goals_per_game(game)
+    end
+    goals
+  end
+
+  def games_per_season(season)
+    @games.count do |game|
+      game if game[:season] == season
+    end
+  end
+
+  def count_of_games_by_season
     count_seasons = Hash.new(0)
     @games.each do |game|
       season = game[:season]

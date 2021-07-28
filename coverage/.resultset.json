@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/tannerdale/turing/1module/projects/futbol/lib/stat_tracker.rb": {
+      "/Users/theodorestaros/turing/projects/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
           1,
@@ -29,7 +29,7 @@
           null
         ]
       },
-      "/Users/tannerdale/turing/1module/projects/futbol/lib/teams_processor.rb": {
+      "/Users/theodorestaros/turing/projects/futbol/lib/teams_processor.rb": {
         "lines": [
           1,
           null,
@@ -57,7 +57,7 @@
           null
         ]
       },
-      "/Users/tannerdale/turing/1module/projects/futbol/lib/games_processor.rb": {
+      "/Users/theodorestaros/turing/projects/futbol/lib/games_processor.rb": {
         "lines": [
           1,
           null,
@@ -197,13 +197,24 @@
           null,
           null,
           null,
+          1,
+          1,
+          1,
+          3,
           null,
           null,
+          1,
           null,
           null,
+          1,
+          1,
+          1,
+          3,
           null,
           null,
+          1,
           null,
+<<<<<<< HEAD
           3,
           null,
           null,
@@ -227,48 +238,75 @@
           1,
           11,
           null,
+=======
+>>>>>>> a284ac44c228311a3ccc300d2589bb89ab5af645
+          null,
+          1,
+          1,
+          51,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          51,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          51,
+          51,
+          34,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          51,
+          51,
+          16,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          51,
+          51,
+          1,
+          null,
+          null,
+          1,
           null,
           null
         ]
       },
-      "/Users/tannerdale/turing/1module/projects/futbol/spec/stat_tracker_spec.rb": {
+      "/Users/theodorestaros/turing/projects/futbol/lib/game_teams_processor.rb": {
         "lines": [
           1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          1,
-          null,
-          null,
           null,
           1,
           1,
-          1,
+          3,
           null,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null,
-          null,
-          1,
-          1,
-          1,
-          1,
-          null,
-          1,
-          null,
+          3,
+          153,
           null,
           null,
           1,
           1,
           null,
-          1,
           null,
+<<<<<<< HEAD
           null,
           null,
           null,
@@ -278,6 +316,9 @@
           1,
           1,
           1,
+=======
+          null,
+>>>>>>> a284ac44c228311a3ccc300d2589bb89ab5af645
           null,
           1,
           1,
@@ -293,6 +334,7 @@
           1,
           null,
           null,
+<<<<<<< HEAD
           null,
           1,
           1,
@@ -300,6 +342,9 @@
           1,
           null,
           1,
+=======
+          3,
+>>>>>>> a284ac44c228311a3ccc300d2589bb89ab5af645
           null,
           null,
           null,
@@ -307,16 +352,32 @@
           null,
           1,
           1,
+          11,
+          null,
+          null,
+          null,
+          1,
+          2,
+          2,
+          102,
+          null,
+          2,
           null,
           null,
           1,
           1,
+          1,
+          11,
           null,
           null,
           null
         ]
       }
     },
+<<<<<<< HEAD
     "timestamp": 1627420258
+=======
+    "timestamp": 1627429814
+>>>>>>> a284ac44c228311a3ccc300d2589bb89ab5af645
   }
 }
