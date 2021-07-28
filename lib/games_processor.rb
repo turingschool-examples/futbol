@@ -243,8 +243,4 @@ module GamesProcessor
     end.first
     team_info(team_id)['team_name']
   end
-
-  
-
-
 end
