@@ -214,5 +214,46 @@ class StatTracker
     team_name_by_team_id(lowest_home_team.first)
   end
 
+  # SEASON STATISTICS
+
+  def game_ids_by_season(season)
+    @games.map do |game|
+      game.game_id if game.season.to_s == season
+    end.compact
+  end
+
+  def game_teams_by_season(season)
+    game_ids = game_ids_by_season(season)
+    gts = @game_teams.find_all do |game_team|
+      game_ids.include?(game_team.game_id)
+    end
+    gts
+  end
+
+  def coach_stats_by_season(season)
+    coaches = {}
+    game_teams_by_season(season).each do |game_team|
+      if coaches[game_team.head_coach].nil?
+        coaches[game_team.head_coach] = [0, 0]
+      end
+      coaches[game_team.head_coach][0] += 1
+      coaches[game_team.head_coach][1] += 1 if game_team.result == "WIN"
+    end
+    coaches
+  end
+
+  def winningest_coach(season)
+    best_coach = coach_stats_by_season(season).max_by do |coach, stats|
+      stats[1].to_f / stats[0]
+    end
+    best_coach.first
+  end
+
+  def worst_coach(season)
+    baddest_coach = coach_stats_by_season(season).min_by do |coach, stats|
+      stats[1].to_f / stats[0]
+    end
+    baddest_coach.first
+  end
 
 end
