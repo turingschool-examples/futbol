@@ -185,7 +185,8 @@ RSpec.describe StatTracker do
     it "has most accurate and least accurate teams" do
       expect(stat_tracker.most_accurate_team("20132014")).to eq("New England Revolution")
       expect(stat_tracker.least_accurate_team("20132014")).to eq("Philadelphia Union")
-
+    end
+    
     it 'names the team with the most and fewest tackles' do
       expect(stat_tracker.team_tackles("20142015")).to eq({"14"=>146, "3"=>349, "5"=>152})
       expect(stat_tracker.most_tackles("20142015")).to eq("Houston Dynamo")
