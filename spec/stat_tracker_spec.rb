@@ -162,4 +162,24 @@ RSpec.describe StatTracker do
     end
   end
 
+
+  context 'season stats' do
+    game_path = './data/mini_games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/mini_game_teams.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+
+    it 'has winningest coach' do
+      expect(stat_tracker.winningest_coach("20142015")).to eq('Alain Vigneault')
+    end
+
+    it 'has worst coach' do
+      expect(stat_tracker.worst_coach("20142015")).to eq('Darryl Sutter')
+    end
+  end
 end
