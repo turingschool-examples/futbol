@@ -1,4 +1,4 @@
-require './lib/stattracker'
+require './lib/stat_tracker'
 
 class GameStats < StatTracker
   attr_reader :games
@@ -52,6 +52,11 @@ class GameStats < StatTracker
   end
 
   def count_of_games_by_season
+    games_bs = {}
+    # Here we're looking to create a hash where the key is the season ID and the value is the total games
+    @games.each do |game|
+    end
+    games_bs
   end
 
   def average_goals_per_game
@@ -59,5 +64,11 @@ class GameStats < StatTracker
       game.away_goals + game.home_goals
     end
     goals.sum.fdiv(@games.length).round(2)
+  end
+
+  def average_goals_by_season
+    goals_bs = {}
+    # This is a hash where key is season ID and value is average goals
+    goals_bs
   end
 end

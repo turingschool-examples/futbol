@@ -1,6 +1,6 @@
 require 'rspec'
 require './lib/game_stats'
-require './lib/stattracker'
+require './lib/stat_tracker'
 require './lib/games'
 
 RSpec.describe GameStats do
@@ -37,7 +37,8 @@ RSpec.describe GameStats do
     expect(@game_stats.percentage_home_wins + @game_stats.percentage_visitor_wins + @game_stats.percentage_ties).to eq(1.0)
   end
 
-  xit 'can give count of games by season' do
+  it 'can give count of games by season' do
+    require 'pry'; binding.pry
     expect(@game_stats.count_of_games_by_season).to be_a(Hash)
   end
 
