@@ -36,7 +36,7 @@ RSpec.describe League do
   end
 
   xit 'can get best offense' do
-    # expect(league.best_offense).to eq(PLACEHOLDER)
+    expect(@league.best_offense).to eq(2)
   end
 
   xit 'can get an array of games played' do
