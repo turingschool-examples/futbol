@@ -166,5 +166,9 @@ RSpec.describe StatTracker do
     it 'has winningest coach' do
       expect(stat_tracker.winningest_coach("20142015")).to eq('Alain Vigneault')
     end
+
+    it 'has worst coach' do
+      expect(stat_tracker.worst_coach("20142015")).to eq('Darryl Sutter')
+    end
   end
 end
