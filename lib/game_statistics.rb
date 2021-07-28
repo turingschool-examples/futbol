@@ -58,4 +58,16 @@ class GameStatistics
     end
     ties
   end
+
+  def count_of_games_by_season
+    games_by_season = Hash.new(0)
+    @data.games.each do |game|
+      game.each do |key, value|
+        if key == :season
+          games_by_season[value] += 1
+        end
+      end
+    end
+    games_by_season
+  end
 end
