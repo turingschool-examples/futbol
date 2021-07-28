@@ -31,6 +31,10 @@ class GameStatistics
     (visitor_team_wins.fdiv(@data.games.length) * 100).round(2)
   end
 
+  def percentage_ties
+    (ties.fdiv(@data.games.length) * 100).round(2)
+  end
+
   def home_team_wins
     home_wins =
     @data.games.count do |game|
@@ -45,5 +49,13 @@ class GameStatistics
       game[:home_goals] < game[:away_goals]
     end
     visitor_wins
+  end
+
+  def ties
+    ties =
+    @data.games.count do |game|
+      game[:home_goals] == game[:away_goals]
+    end
+    ties
   end
 end

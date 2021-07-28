@@ -45,5 +45,7 @@ RSpec.describe GameStatistics do
     expect(@game_stats.percentage_visitor_wins).to eq(24.14)
   end
 
-
+  it 'finds percentage of ties' do
+    expect(@game_stats.percentage_ties).to eq(3.45)
+  end
 end
