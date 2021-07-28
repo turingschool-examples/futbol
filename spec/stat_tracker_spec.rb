@@ -132,7 +132,7 @@ RSpec.describe StatTracker do
     end
   end
 
-  context 'best and worst offense' do
+  context 'league statistics' do
     game_path = './data/mini_games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/mini_game_teams.csv'
@@ -150,5 +150,16 @@ RSpec.describe StatTracker do
     it 'has worst offense' do
       expect(stat_tracker.worst_offense).to eq("Houston Dash")
     end
+
+    it 'highest scoring vistor and home team' do
+      expect(stat_tracker.highest_scoring_visitor).to eq("Sporting Kansas City")
+      expect(stat_tracker.highest_scoring_home_team).to eq("Real Salt Lake")
+    end
+
+    it 'lowest scoring vistor and home team' do
+      expect(stat_tracker.lowest_scoring_visitor).to eq("Houston Dash")
+      expect(stat_tracker.lowest_scoring_home_team).to eq("Houston Dash")
+    end
   end
+
 end
