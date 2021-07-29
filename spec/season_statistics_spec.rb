@@ -3,16 +3,17 @@ require './spec/spec_helper'
 require './lib/season_statistics'
 
 RSpec.describe SeasonStatistics do
-
   context 'Season stats methods' do
-    game_path = './spec/fixture_files/test_games.csv'
-    team_path = './spec/fixture_files/test_teams.csv'
+    game_path       = './spec/fixture_files/test_games.csv'
+    team_path       = './spec/fixture_files/test_teams.csv'
     game_teams_path = './spec/fixture_files/test_game_teams.csv'
+
     locations = {
-      games: game_path,
-      teams: team_path,
+      games:      game_path,
+      teams:      team_path,
       game_teams: game_teams_path
-    }
+      }
+
     stat_tracker = StatTracker.from_csv(locations)
 
     it '#winningest_coach' do

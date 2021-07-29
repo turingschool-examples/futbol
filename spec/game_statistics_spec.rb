@@ -3,17 +3,16 @@ require './spec/spec_helper'
 require './lib/game_statistics'
 
 RSpec.describe GameStatistics do
-
   context "Game stat methods" do
-    game_path = './spec/fixture_files/test_games.csv'
-    team_path = './spec/fixture_files/test_teams.csv'
+    game_path       = './spec/fixture_files/test_games.csv'
+    team_path       = './spec/fixture_files/test_teams.csv'
     game_teams_path = './spec/fixture_files/test_game_teams.csv'
 
     locations = {
-    games: game_path,
-    teams: team_path,
-    game_teams: game_teams_path
-    }
+      games:      game_path,
+      teams:      team_path,
+      game_teams: game_teams_path
+      }
 
     stat_tracker = StatTracker.from_csv(locations)
 
