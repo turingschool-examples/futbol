@@ -29,9 +29,6 @@ RSpec.describe StatTracker do
     end
   end
 
-
-
-
   context 'Team stats methods' do
     game_path = './spec/fixture_files/test_games.csv'
     team_path = './spec/fixture_files/test_teams.csv'
