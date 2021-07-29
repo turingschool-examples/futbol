@@ -64,12 +64,12 @@ RSpec.describe StatTracker do
 
     it '#count_of_games_by_season' do
       expect(stat_tracker.count_of_games_by_season).to eq({
-          "20122013"=>111,
-          "20132014"=>123,
-          "20142015"=>221,
-          "20152016"=>87,
-          "20162017"=>73,
-          "20172018"=>135
+        "20122013"=>111,
+        "20132014"=>123,
+        "20142015"=>221,
+        "20152016"=>87,
+        "20162017"=>73,
+        "20172018"=>135
         })
     end
 
@@ -85,7 +85,7 @@ RSpec.describe StatTracker do
         "20152016" => 4.17,
         "20132014" => 4.27,
         "20172018" => 4.39
-      })
+        })
     end
   end
 
@@ -230,7 +230,14 @@ RSpec.describe StatTracker do
     end
 
     it "#find_win_count" do
-      expect(stat_tracker.find_win_count("6")).to eq({"20122013"=>[11, 10], "20172018"=>[16, 10], "20132014"=>[8, 6], "20142015"=>[10, 4], "20152016"=>[3, 1], "20162017"=>[2, 0]})
+      expect(stat_tracker.find_win_count("6")).to eq({
+        "20122013"=>[11, 10], 
+        "20172018"=>[16, 10], 
+        "20132014"=>[8, 6], 
+        "20142015"=>[10, 4], 
+        "20152016"=>[3, 1], 
+        "20162017"=>[2, 0]
+        })
     end
 
     it "#best_season(team_id)" do
