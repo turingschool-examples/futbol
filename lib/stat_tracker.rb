@@ -4,10 +4,15 @@ require './lib/team'
 require './lib/game_team'
 require './lib/game_statistics'
 require './lib/league_statistics'
+require './lib/season_statistics'
+require './lib/team_statistics'
+
 
 class StatTracker
   include GameStatistics
   include LeagueStatistics
+  include SeasonStatistics
+  
   attr_reader :games, :teams, :game_teams
   def initialize(stats)
     @games = stats[:games]
@@ -32,12 +37,6 @@ class StatTracker
     end
     objects
   end
-
-
-# LEAGUE STATISTICS
-
-
-  # SEASON STATISTICS
 
   def game_ids_by_season(season)
     @games.map do |game|
