@@ -86,4 +86,8 @@ RSpec.describe SeasonStatistics do
   it "most tackles in a season" do
     expect(@season_stats.most_tackles("20122013")).to eq("Houston Dynamo")
   end
+
+  it "fewest tackles in a season" do
+    expect(@season_stats.fewest_tackles("20122013")).to eq("Orlando City SC")
+  end
 end
