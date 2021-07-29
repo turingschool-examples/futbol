@@ -6,18 +6,65 @@ require 'pry'
 
 
 class StatTracker
-  attr_reader :games, :teams, :game_teams
+  attr_reader :game_manager, :team_manager, :game_team_manager
 
   def initialize(locations)
-    @games = Game.read_file(locations[:games])
-    @teams = Team.read_file(locations[:teams])
-    @game_teams = GameTeam.read_file(locations[:game_teams])
+    @game_manager = GameManager.new(locations)
+    @team_manager = TeamManager.new(locations)
+    @game_team_manager = GameTeamManager.new(locations)
   end
 
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# LEAGUES METHODS
+  # def count_of_teams
+  #   @teams.count
+  # end
+  #
+  # def team_average_goals_per_game
+  #   students_by_group = {}
+  #     @courses.each do |course|
+  #       course.students.each do |student|
+  #         if students_by_group[student.group].nil?
+  #           students_by_group[student.group] = [student]
+  #         else
+  #           # elsif !students_by_group[student.group].include?(student) <= to avoid using uniq! below
+  #
+  #           students_by_group[student.group] << student
+  #         end
+  #         students_by_group[student.group].uniq!
+  #       end
+  #     end
+  #     students_by_group
+
+    #   scores_by_team = {}
+    #     @game_teams.each do |gt|
+    #       gt.teams.each do |team|
+    #         if scores_by_team[team.]
+    #
+    # average_scores = {}
+    # @teams.each do
+#   end
+#
+#   def best_offense
+#   end
+# end
 
 #
 # locations.each do |class_type, path|

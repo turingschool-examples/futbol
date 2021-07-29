@@ -19,12 +19,20 @@ RSpec.describe StatTracker do
   it "exists" do
     expect(@stat_tracker).to be_a(StatTracker)
   end
+
+  # xit "counts teams" do
+  #   expect(@stat_tracker.count_of_teams).to eq(32)
+  # end
+  #
+  # xit "calculates team with highest avg. goals/game all seasons" do
+  #
+  #
+  # end
 end
 
-  
 
 
-# count_of_teams	Total number of teams in the data.	Integer
+
 # best_offense	Name of the team with the highest average number of goals scored per game across all seasons.	String
 # worst_offense	Name of the team with the lowest average number of goals scored per game across all seasons.	String
 # highest_scoring_visitor	Name of the team with the highest average score per game across all seasons when they are away.	String
