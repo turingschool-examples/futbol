@@ -59,6 +59,7 @@ class GameManager
     (tie_count.to_f / total_games * 100).round(1)
   end
 
+
   # def seasons
   #   @games.map do |game|
   #     game.season
@@ -93,6 +94,12 @@ class GameManager
   #     season_hash[game.season] << game_count
   #   end
   # end
+
+  def games_by_season
+    @games.group_by do |game|
+      game.season
+    end
+  end
 end
 
 

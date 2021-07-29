@@ -20,6 +20,21 @@ RSpec.describe StatTracker do
     expect(@stat_tracker).to be_a(StatTracker)
   end
 
+  it 'has a game manager' do
+    expect(@stat_tracker.game_manager).to be_a(GameManager)
+  end
+
+  it 'has a team manager' do
+    expect(@stat_tracker.team_manager).to be_a(TeamManager)
+  end
+
+  it 'has a game team manager' do
+    expect(@stat_tracker.game_team_manager).to be_a(GameTeamManager)
+  end
+
+  it 'has a season manager' do
+    expect(@stat_tracker.season_manager).to be_a(SeasonManager)
+  end
   # xit "counts teams" do
   #   expect(@stat_tracker.count_of_teams).to eq(32)
   # end

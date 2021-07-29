@@ -6,12 +6,13 @@ require 'pry'
 
 
 class StatTracker
-  attr_reader :game_manager, :team_manager, :game_team_manager
+  attr_reader :game_manager, :team_manager, :game_team_manager, :season_manager
 
   def initialize(locations)
     @game_manager = GameManager.new(locations)
     @team_manager = TeamManager.new(locations)
     @game_team_manager = GameTeamManager.new(locations)
+    @season_manager = SeasonManager.new(@game_manager.games_by_season)
   end
 
   def self.from_csv(locations)
