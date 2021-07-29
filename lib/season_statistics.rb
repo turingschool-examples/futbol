@@ -1,96 +1,93 @@
 module SeasonStatistics
-
-  def count_of_teams
-    @teams.count
+  def game_ids_by_season(season)
+    @games.map do |game|
+      game.game_id if game.season == season
+    end.compact
   end
 
-  def games_by_team_id
-    teams = {}
-    @game_teams.each do |team|
-      if teams[team.team_id].nil?
-        teams[team.team_id] = [team]
-      elsif !teams[team.team_id].include?(team)
-        teams[team.team_id] << team
+  def game_teams_by_season(season)
+    game_ids = game_ids_by_season(season)
+    gts = @game_teams.find_all do |game_team|
+      game_ids.include?(game_team.game_id)
+    end
+    gts
+  end
+
+  def coach_stats_by_season(season)
+    coaches = {}
+    game_teams_by_season(season).each do |game_team|
+      if coaches[game_team.head_coach].nil?
+        coaches[game_team.head_coach] = [0, 0]
       end
+      coaches[game_team.head_coach][0] += 1
+      coaches[game_team.head_coach][1] += 1 if game_team.result == "WIN"
     end
-    teams
+    coaches
   end
 
-  def goals_per_team
-    team_goals = {}
-    @game_teams.each do |team|
-      if team_goals[team.team_id].nil?
-        team_goals[team.team_id] = [team.goals]
-      else
-        team_goals[team.team_id] << team.goals
+  def winningest_coach(season)
+    best_coach = coach_stats_by_season(season).max_by do |coach, stats|
+      stats[1].to_f / stats[0]
+    end
+    best_coach.first
+  end
+
+  def worst_coach(season)
+    baddest_coach = coach_stats_by_season(season).min_by do |coach, stats|
+      stats[1].to_f / stats[0]
+    end
+    baddest_coach.first
+  end
+
+  def team_shots_by_season(season)
+    teams_shots = {}
+    game_teams_by_season(season).each do |game_team|
+      if teams_shots[game_team.team_id].nil?
+        teams_shots[game_team.team_id]  = [0, 0]
       end
+      teams_shots[game_team.team_id][0] += game_team.goals
+      teams_shots[game_team.team_id][1] += game_team.shots
     end
-    team_goals
+    teams_shots
   end
 
-  def team_name_by_team_id(team_id)
-    team = @teams.find do |team|
-      team_id == team.team_id
+  def most_accurate_team(season)
+    most_accurate = team_shots_by_season(season).max_by do |team, stats|
+      stats[0] / stats[1].to_f
     end
-    team.team_name
+    team_name_by_team_id(most_accurate.first)
   end
 
-  def best_offense
-    team_id = goals_per_team.max_by do |team, goals|
-      goals.sum / goals.count.to_f
+  def least_accurate_team(season)
+    least_accurate = team_shots_by_season(season).min_by do |team, stats|
+      stats[0] / stats[1].to_f
     end
-    team_name_by_team_id(team_id.first)
+    team_name_by_team_id(least_accurate.first)
   end
 
-  def worst_offense
-    team_id = goals_per_team.min_by do |team, goals|
-      goals.sum / goals.count.to_f
-    end
-    team_name_by_team_id(team_id.first)
-  end
-
-  def games_by_hoa(hoa)
-    hoa_by_team_id = {}
-    games_by_team_id.each do |id, games|
-      games.each do |game|
-        if game.hoa == hoa
-          if hoa_by_team_id[id].nil?
-            hoa_by_team_id[id] = [1, game.goals]
-          else
-            hoa_by_team_id[id][0] += 1
-            hoa_by_team_id[id][1] += game.goals
-          end
-        end
+  def tackles_by_season(season)
+    tackles = {}
+    game_teams_by_season(season).each do |game_team|
+      if tackles[game_team.team_id].nil?
+        tackles[game_team.team_id]  = 0
       end
+      tackles[game_team.team_id] += game_team.tackles
     end
-    hoa_by_team_id
+    tackles
   end
 
-  def highest_scoring_visitor
-    highest_visitor = games_by_hoa("away").max_by do |team, stats|
-      stats[1] / stats[0].to_f
+  def most_tackles(season)
+    most_tackles = tackles_by_season(season).max_by do |team, tackles|
+      tackles
     end
-    team_name_by_team_id(highest_visitor.first)
+    team_name_by_team_id(most_tackles.first)
   end
 
-  def highest_scoring_home_team
-    highest_home_team = games_by_hoa("home").max_by do |team, stats|
-      stats[1] / stats[0].to_f
+  def fewest_tackles(season)
+    fewest_tackles = tackles_by_season(season).min_by do |team, tackles|
+      tackles
     end
-    team_name_by_team_id(highest_home_team.first)
+    team_name_by_team_id(fewest_tackles.first)
   end
 
-  def lowest_scoring_visitor
-    lowest_away_team = games_by_hoa("away").min_by do |team, stats|
-      stats[1] / stats[0].to_f
-    end
-    team_name_by_team_id(lowest_away_team.first)
-  end
-
-  def lowest_scoring_home_team
-    lowest_home_team = games_by_hoa("home").min_by do |team, stats|
-      stats[1] / stats[0].to_f
-    end
-    team_name_by_team_id(lowest_home_team.first)
-  end
 end
