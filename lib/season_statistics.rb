@@ -30,6 +30,38 @@ class SeasonStatistics
     shots_by_team
   end
 
+  def most_accurate_team(season)
+    goals_by_team = Hash.new(0)
+    season_shorten = season.slice(0..3)
+    @game_teams.each do |game|
+      if game.game_id.start_with?(season_shorten)
+        goals_by_team[game.team_id] += game.goals.to_i
+      end
+    end
+    accuracy =
+      goals_by_team.max_by do |id, goals|
+      tot_goals = total_shots(season)[id]
+      goals.fdiv(tot_goals)
+    end
+    team_identifier(accuracy[0])
+  end
+
+  def least_accurate_team(season)
+    goals_by_team = Hash.new(0)
+    season_shorten = season.slice(0..3)
+    @game_teams.each do |game|
+      if game.game_id.start_with?(season_shorten)
+        goals_by_team[game.team_id] += game.goals.to_i
+      end
+    end
+    accuracy =
+      goals_by_team.min_by do |id, goals|
+      tot_goals = total_shots(season)[id]
+      goals.fdiv(tot_goals)
+    end
+    team_identifier(accuracy[0])
+  end
+
 
   def total_games_by_coach(season)
     games_by_coach = Hash.new(0)

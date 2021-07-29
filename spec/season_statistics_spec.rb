@@ -60,16 +60,20 @@ RSpec.describe SeasonStatistics do
       "17" => 46,
       "19" => 28,
       "26" => 26,
-      "3" => 38,
+      "3"  => 38,
       "30" => 33,
-      "5" => 32,
-      "6" => 76,
-      "8" => 43,
-      "9" => 36
+      "5"  => 32,
+      "6"  => 76,
+      "8"  => 43,
+      "9"  => 36
       })
   end
 
-  # it 'most accurate team' do
-  #   expect(@season_stats.most_accurate_team('20122013')).to eq("Houston Dynamo")
-  # end
+  it "most accurate team" do
+    expect(@season_stats.most_accurate_team('20122013')).to eq("New York City FC")
+  end
+
+  it "least accurate team" do
+    expect(@season_stats.least_accurate_team('20122013')).to eq("Sporting Kansas City")
+  end
 end
