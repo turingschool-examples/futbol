@@ -23,6 +23,7 @@ class Game
 
   def self.read_file(location)
     game_rows = CSV.read(location, headers: true, header_converters: :symbol)
+
     game_rows.map do |game_row|
       new(game_row)
     end
