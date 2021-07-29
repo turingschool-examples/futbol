@@ -1,4 +1,5 @@
 module TeamStatistics
+  
   def team_info(team_id)
     find_team = @teams.find do |team|
       team.team_id == team_id

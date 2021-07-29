@@ -1,6 +1,5 @@
 module GameStatistics
 
-
   def highest_total_score
     game_sums = @games.map do |game|
       game.home_goals + game.away_goals

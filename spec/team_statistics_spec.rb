@@ -4,23 +4,25 @@ require './lib/team_statistics'
 
 RSpec.describe TeamStatistics do
   context 'Team stats methods' do
-    game_path = './spec/fixture_files/test_games.csv'
-    team_path = './spec/fixture_files/test_teams.csv'
+    game_path       = './spec/fixture_files/test_games.csv'
+    team_path       = './spec/fixture_files/test_teams.csv'
     game_teams_path = './spec/fixture_files/test_game_teams.csv'
+
     locations = {
-      games: game_path,
-      teams: team_path,
+      games:      game_path,
+      teams:      team_path,
       game_teams: game_teams_path
-    }
+      }
+
     stat_tracker = StatTracker.from_csv(locations)
 
     it '#team_info(team_id)' do
       expected = {
-        "team_id" => "18",
+        "team_id" =>      "18",
         "franchise_id" => "34",
-        "team_name" => "Minnesota United FC",
+        "team_name" =>    "Minnesota United FC",
         "abbreviation" => "MIN",
-        "link" => "/api/v1/teams/18"
+        "link" =>         "/api/v1/teams/18"
         }
       expect(stat_tracker.team_info("18")).to eq(expected)
     end
