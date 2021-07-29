@@ -1,6 +1,4 @@
 require './lib/game'
-# require './data/games_sample'
-# require './lib/stat_tracker'
 
 RSpec.describe Game do
   context "it's a futbol game" do
