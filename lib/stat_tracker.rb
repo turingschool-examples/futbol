@@ -36,7 +36,7 @@ class StatTracker
     end
 
     StatTracker.new(games, teams, game_teams)
-  
+
   end
 
   def highest_total_score
