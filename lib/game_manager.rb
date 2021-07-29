@@ -56,6 +56,12 @@ class GameManager
   def percent_ties
     (tie_count.to_f / total_games * 100).round(1)
   end
+
+  def games_by_season
+    @games.group_by do |game|
+      game.season
+    end
+  end
 end
 
 
