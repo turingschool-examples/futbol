@@ -14,5 +14,8 @@ RSpec.describe Team do
     expect(team.team_id).to eq(1)
     expect(team.team_name).to eq("Atlanta United")
     expect(team.stadium).to eq("Mercedes-Benz Stadium")
+    expect(team.franchise_id).to eq(23)
+    expect(team.abbreviation).to eq("ATL")
+    expect(team.link).to eq("/api/v1/teams/1")
   end
 end
