@@ -1,51 +1,47 @@
 require_relative 'spec_helper'
 require './lib/stat_tracker'
 
-# require './data/games'
-# require './data/teams'
-# require './data/game_teams'
-
 RSpec.describe StatTracker do
+  before(:each) do
+    @game_path = './data/fixture_games.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './data/fixture_game_teams.csv'
 
-  it 'initializes an instance of itself' do
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-
-    file_paths = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
+    @file_paths = {
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
     }
 
-    stat_tracker = StatTracker.from_csv(file_paths)
-
-    expect(stat_tracker).to be_instance_of(StatTracker)
+    @stat_tracker = StatTracker.new(@file_paths)
   end
 
-  it 'has attributes' do
-    stat_tracker = StatTracker.new(:dog, :bird, :aircraft_carrier)
 
-    expect(stat_tracker.games).to eq(:dog)
-    expect(stat_tracker.teams).to eq(:bird)
-    expect(stat_tracker.game_teams).to eq(:aircraft_carrier)
+  describe '#initialize' do
+    it 'exists and has attributes' do
+      expect(@stat_tracker).to be_instance_of(StatTracker)
+      expect(@stat_tracker.game_manager).to be_instance_of(GameManager)
+      expect(@stat_tracker.team_manager).to be_instance_of(TeamManager)
+      expect(@stat_tracker.game_team_manager).to be_instance_of(GameTeamManager)
+    end
   end
 
-  it 'can open readable CSV' do
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+  describe '.from_csv(file_paths)' do
+    it 'returns instance of StatTracker' do
+      stats = StatTracker.from_csv(@file_paths)
+      expect(stats).to be_instance_of(StatTracker)
+    end
+  end
 
-    file_paths = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
+  describe '#highest_total_score' do
+    it 'highest_total_score' do
+      expect(@stat_tracker.highest_total_score).to eq(5)
+    end
+  end
 
-    stat_tracker = StatTracker.from_csv(file_paths)
-
-    expect(stat_tracker.games).to be_a(CSV::Table)
-    expect(stat_tracker.teams).to be_a(CSV::Table)
-    expect(stat_tracker.game_teams).to be_a(CSV::Table)
+  describe '#lowest_total_score' do
+    it 'lowest_total_score' do
+      expect(@stat_tracker.lowest_total_score).to eq(1)
+    end
   end
 end
