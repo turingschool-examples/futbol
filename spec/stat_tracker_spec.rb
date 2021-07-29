@@ -32,6 +32,7 @@ RSpec.describe StatTracker do
 
       stat_tracker = StatTracker.from_csv(locations)
       expect(stat_tracker.games[0].game_id).to eq(2012030221)
+      expect(stat_tracker.games[0].away_goals).to eq(2)
       expect(stat_tracker.teams[0].team_id).to eq(1)
       expect(stat_tracker.game_teams[0].game_id).to eq(2012030221)
       expect(stat_tracker).to be_a(StatTracker)

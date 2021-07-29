@@ -7,11 +7,11 @@ class Team
               :link
 
   def initialize(stats)
-    @team_id = stats[0].to_i
-    @franchise_id = stats[1].to_i
-    @team_name = stats[2]
-    @abbreviation = stats[3]
-    @stadium = stats[4]
-    @link = stats[5]
+    @team_id = stats[:team_id].to_i
+    @franchise_id = stats[:franchiseid].to_i
+    @team_name = stats[:teamname]
+    @abbreviation = stats[:abbreviation]
+    @stadium = stats[:stadium]
+    @link = stats[:link]
   end
 end
