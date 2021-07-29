@@ -3,16 +3,19 @@ require 'pry'
 require_relative 'game_manager'
 require_relative 'team_manager'
 require_relative 'game_team_manager'
+require_relative 'season_manager'
 
 class StatTracker
   attr_reader :game_manager,
               :team_manager,
-              :game_team_manager
+              :game_team_manager,
+              :season_manager
 
   def initialize(file_paths)
     @game_manager      = GameManager.new(file_paths[:games])
     @team_manager      = TeamManager.new(file_paths[:teams])
     @game_team_manager = GameTeamManager.new(file_paths[:game_teams])
+    @season_manager    = SeasonManager.new(@game_manager.seasons, @game_manager.games, @game_team_manager.game_teams)
   end
 
   def self.from_csv(file_paths)

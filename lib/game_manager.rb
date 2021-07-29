@@ -106,4 +106,10 @@ class GameManager
     end
     result
   end
+
+  def seasons
+    @games.map do |game_id, game|
+      game.season
+    end.uniq
+  end
 end
