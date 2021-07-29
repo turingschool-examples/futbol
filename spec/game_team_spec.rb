@@ -1,4 +1,4 @@
-require './lib/game_teams'
+require './lib/game_team'
 
 RSpec.describe GameTeam do
   context "it's a futbol game teams class" do
