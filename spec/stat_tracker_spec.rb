@@ -14,13 +14,13 @@ RSpec.describe StatTracker do
   }
 
   stat_tracker = StatTracker.new(locations)
+  stat_tracker = StatTracker.from_csv(locations)
     
     it 'exists' do
       expect(stat_tracker).to be_a StatTracker
     end
 
     it 'accepts data' do
-      stat_tracker = StatTracker.from_csv(locations)
       expect(stat_tracker.games[0].game_id).to eq(2012030221)
       expect(stat_tracker.games[0].away_goals).to eq(2)
       expect(stat_tracker.teams[0].team_id).to eq(1)
@@ -30,136 +30,54 @@ RSpec.describe StatTracker do
   end
 
   context "Game stat methods" do
+    game_path = './spec/fixture_files/test_games.csv'
+    team_path = './spec/fixture_files/test_teams.csv'
+    game_teams_path = './spec/fixture_files/test_game_teams.csv'
+
+    locations = {
+    games: game_path,
+    teams: team_path,
+    game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+
     it '#highest_total_score' do
-      game_path = './spec/fixture_files/test_games.csv'
-      team_path = './spec/fixture_files/test_teams.csv'
-      game_teams_path = './spec/fixture_files/test_game_teams.csv'
-
-      locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-      }
-
-      stat_tracker = StatTracker.from_csv(locations)
-
       expect(stat_tracker.highest_total_score).to eq(9)
     end
 
     it '#lowest_total_score' do
-      game_path = './spec/fixture_files/test_games.csv'
-      team_path = './spec/fixture_files/test_teams.csv'
-      game_teams_path = './spec/fixture_files/test_game_teams.csv'
-
-      locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-      }
-
-      stat_tracker = StatTracker.from_csv(locations)
-
       expect(stat_tracker.lowest_total_score).to eq(1)
     end
 
     it '#percentage_home_wins' do
-      game_path = './spec/fixture_files/test_games.csv'
-      team_path = './spec/fixture_files/test_teams.csv'
-      game_teams_path = './spec/fixture_files/test_game_teams.csv'
-
-      locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-      }
-
-      stat_tracker = StatTracker.from_csv(locations)
-
       expect(stat_tracker.percentage_home_wins).to eq(0.45)
     end
 
     it '#percentage_visitor_wins' do
-      game_path = './spec/fixture_files/test_games.csv'
-      team_path = './spec/fixture_files/test_teams.csv'
-      game_teams_path = './spec/fixture_files/test_game_teams.csv'
-
-      locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-      }
-
-      stat_tracker = StatTracker.from_csv(locations)
-
       expect(stat_tracker.percentage_visitor_wins).to eq(0.37)
     end
 
     it '#percentage_ties' do
-      game_path = './spec/fixture_files/test_games.csv'
-      team_path = './spec/fixture_files/test_teams.csv'
-      game_teams_path = './spec/fixture_files/test_game_teams.csv'
-
-      locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-      }
-
-      stat_tracker = StatTracker.from_csv(locations)
-
       expect(stat_tracker.percentage_ties).to eq(0.18)
     end
 
     it '#count_of_games_by_season' do
-      game_path = './spec/fixture_files/test_games.csv'
-      team_path = './spec/fixture_files/test_teams.csv'
-      game_teams_path = './spec/fixture_files/test_game_teams.csv'
-
-      locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-      }
-
-      stat_tracker = StatTracker.from_csv(locations)
-
-      expect(stat_tracker.count_of_games_by_season).to eq({"20122013"=>111,
-                                                           "20132014"=>123,
-                                                           "20142015"=>221,
-                                                           "20152016"=>87,
-                                                           "20162017"=>73,
-                                                           "20172018"=>135})
+      expect(stat_tracker.count_of_games_by_season).to eq({
+          "20122013"=>111,
+          "20132014"=>123,
+          "20142015"=>221,
+          "20152016"=>87,
+          "20162017"=>73,
+          "20172018"=>135
+        })
     end
 
     it '#average_goals_per_game' do
-      game_path = './spec/fixture_files/test_games.csv'
-      team_path = './spec/fixture_files/test_teams.csv'
-      game_teams_path = './spec/fixture_files/test_game_teams.csv'
-
-      locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-      }
-
-      stat_tracker = StatTracker.from_csv(locations)
-
       expect(stat_tracker.average_goals_per_game).to eq(4.2)
     end
 
     it '#average_goals_by_season' do
-      game_path = './spec/fixture_files/test_games.csv'
-      team_path = './spec/fixture_files/test_teams.csv'
-      game_teams_path = './spec/fixture_files/test_game_teams.csv'
-
-      locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-      }
-
-      stat_tracker = StatTracker.from_csv(locations)
-
       expect(stat_tracker.average_goals_by_season).to eq({
         "20122013" => 4.07,
         "20162017" => 4.36,
