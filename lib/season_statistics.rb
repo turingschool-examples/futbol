@@ -62,7 +62,6 @@ class SeasonStatistics
     team_identifier(accuracy[0])
   end
 
-
   def total_games_by_coach(season)
     games_by_coach = Hash.new(0)
     season_shorten = season.slice(0..3)
@@ -102,5 +101,33 @@ class SeasonStatistics
       losses.fdiv(tot_games)
     end
     coach[0]
+  end
+
+  def most_tackles(season)
+    tackles_by_team = Hash.new(0)
+    season_shorten = season.slice(0..3)
+    @game_teams.each do |game|
+      if game.game_id.start_with?(season_shorten)
+        tackles_by_team[game.team_id] += game.tackles.to_i
+      end
+    end
+    team_highest = tackles_by_team.max_by do |team_id, tackles|
+      tackles
+    end
+    team_identifier(team_highest[0])
+  end
+
+  def fewest_tackles(season)
+    tackles_by_team = Hash.new(0)
+    season_shorten = season.slice(0..3)
+    @game_teams.each do |game|
+      if game.game_id.start_with?(season_shorten)
+        tackles_by_team[game.team_id] += game.tackles.to_i
+      end
+    end
+    team_highest = tackles_by_team.min_by do |team_id, tackles|
+      tackles
+    end
+    team_identifier(team_highest[0])
   end
 end

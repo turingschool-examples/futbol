@@ -29,16 +29,19 @@ RSpec.describe SeasonStatistics do
 
   it 'returns total games by coach' do
     expect(@season_stats.total_games_by_coach("20122013")).to eq({
-     "Claude Julien"    => 9,
-     "Dan Bylsma"       => 4,
-     "Darryl Sutter"    => 4,
-     "Joel Quenneville" => 12,
-     "John Tortorella"  => 5,
-     "Ken Hitchcock"    => 4,
-     "Michel Therrien"  => 5,
-     "Mike Babcock"     => 7,
-     "Mike Yeo"         => 5,
-     "Paul MacLean"     => 5
+      "Adam Oates"       => 7,
+      "Bruce Boudreau"   => 7,
+      "Claude Julien"    => 9,
+      "Dan Bylsma"       => 10,
+      "Darryl Sutter"    => 11,
+      "Jack Capuano"     => 6,
+      "Joel Quenneville" => 17,
+      "John Tortorella"  => 12,
+      "Ken Hitchcock"    => 6,
+      "Michel Therrien"  => 5,
+      "Mike Babcock"     => 14,
+      "Mike Yeo"         => 5,
+      "Paul MacLean"     => 5,
     })
   end
 
@@ -56,16 +59,19 @@ RSpec.describe SeasonStatistics do
 
   it "counts total shots" do
     expect(@season_stats.total_shots('20122013')).to eq({
-      "16" => 99,
-      "17" => 46,
-      "19" => 28,
-      "26" => 26,
-      "3"  => 38,
+      "15" => 52,
+      "16" => 134,
+      "17" => 98,
+      "19" => 42,
+      "2"  => 47,
+      "24" => 54,
+      "26" => 69,
+      "3"  => 87,
       "30" => 33,
-      "5"  => 32,
+      "5"  => 71,
       "6"  => 76,
       "8"  => 43,
-      "9"  => 36
+      "9"  => 36,
       })
   end
 
@@ -74,6 +80,14 @@ RSpec.describe SeasonStatistics do
   end
 
   it "least accurate team" do
-    expect(@season_stats.least_accurate_team('20122013')).to eq("Sporting Kansas City")
+    expect(@season_stats.least_accurate_team('20122013')).to eq("Houston Dynamo")
+  end
+
+  it "most tackles in a season" do
+    expect(@season_stats.most_tackles("20122013")).to eq("Houston Dynamo")
+  end
+
+  it "fewest tackles in a season" do
+    expect(@season_stats.fewest_tackles("20122013")).to eq("Orlando City SC")
   end
 end
