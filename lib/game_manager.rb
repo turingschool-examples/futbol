@@ -1,10 +1,12 @@
 require 'game'
 
 class GameManager
-  attr_reader :games
+  attr_reader :games,
+              :season_hash
 
   def initialize(locations)
     @games = Game.read_file(locations[:games])
+    @season_hash = {}
   end
 
   def total_game_score
@@ -56,6 +58,42 @@ class GameManager
   def percent_ties
     (tie_count.to_f / total_games * 100).round(1)
   end
+
+
+  # def seasons
+  #   @games.map do |game|
+  #     game.season
+  #   end.uniq
+  # @games.group_by do |game|
+  #   game.season
+  # end
+
+  def games_per_season
+
+    @games.each do |game|
+      @season_hash[game.season] ||= []
+      @season_hash[game.season] << game
+    end
+    @season_hash
+  end
+
+  def count_of_games_by_season
+    game_count = {}
+    games_per_season.each do |season, game|
+      game_count[season] = game.count
+    end
+  end
+  # def count_of_teams_per_season
+  #   @season_hash = {}
+  #   @games.each do |game|
+  #     game.season
+
+  #   @games.find_all do |game|
+  #     game_count = game.count
+  #     season_hash[game.season] ||= []
+  #     season_hash[game.season] << game_count
+  #   end
+  # end
 
   def games_by_season
     @games.group_by do |game|
