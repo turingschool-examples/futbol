@@ -11,6 +11,26 @@ class SeasonStatistics
     @game_teams = game_teams
   end
 
+  def team_identifier(id)
+    matching_team =
+    @teams.find do |team|
+      team.team_id == id
+    end
+    matching_team.team_name
+  end
+
+  def total_shots(season)
+    shots_by_team = Hash.new(0)
+    season_shorten = season.slice(0..3)
+    @game_teams.each do |game|
+      if game.game_id.start_with?(season_shorten)
+        shots_by_team[game.team_id] += game.shots.to_i
+      end
+    end
+    shots_by_team
+  end
+
+
   def total_games_by_coach(season)
     games_by_coach = Hash.new(0)
     season_shorten = season.slice(0..3)
