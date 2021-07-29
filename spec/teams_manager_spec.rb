@@ -28,5 +28,9 @@ RSpec.describe TeamsManager do
     it 'has a teams count in a league' do
       expect(teams_manager.count_of_teams).to eq(32)
     end
+
+    it 'returns team name by team id' do
+      expect(teams_manager.team_by_id("18")).to eq("Minnesota United FC")
+    end
   end
 end
