@@ -1,5 +1,4 @@
-require_relative './lib/game'
-require_relative './data/games_sample'
+require './lib/game'
 
 RSpec.describe Game do
   context "it's a futbol game" do
