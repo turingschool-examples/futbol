@@ -12,17 +12,17 @@ class GameStatistics
   def highest_total_score
     highest_scoring_game =
     @games.max_by do |game|
-      game[:away_goals].to_i + game[:home_goals].to_i
+      game.away_goals.to_i + game.home_goals.to_i
     end
-    highest_scoring_game[:away_goals].to_i + highest_scoring_game[:home_goals].to_i
+    highest_scoring_game.away_goals.to_i + highest_scoring_game.home_goals.to_i
   end
 
   def lowest_total_score
     lowest_scoring_game =
     @games.min_by do |game|
-      game[:away_goals].to_i + game[:home_goals].to_i
+      game.away_goals.to_i + game.home_goals.to_i
     end
-    lowest_scoring_game[:away_goals].to_i + lowest_scoring_game[:home_goals].to_i
+    lowest_scoring_game.away_goals.to_i + lowest_scoring_game.home_goals.to_i
   end
 
   def percentage_home_wins
@@ -40,7 +40,7 @@ class GameStatistics
   def home_team_wins
     home_wins =
     @games.count do |game|
-      game[:home_goals] > game[:away_goals]
+      game.home_goals > game.away_goals
     end
     home_wins
   end
@@ -48,7 +48,7 @@ class GameStatistics
   def visitor_team_wins
     visitor_wins =
     @games.count do |game|
-      game[:home_goals] < game[:away_goals]
+      game.home_goals < game.away_goals
     end
     visitor_wins
   end
@@ -56,7 +56,7 @@ class GameStatistics
   def ties
     ties =
     @games.count do |game|
-      game[:home_goals] == game[:away_goals]
+      game.home_goals == game.away_goals
     end
     ties
   end
@@ -64,11 +64,7 @@ class GameStatistics
   def count_of_games_by_season
     games_by_season = Hash.new(0)
     @games.each do |game|
-      game.each do |key, value|
-        if key == :season
-          games_by_season[value] += 1
-        end
-      end
+        games_by_season[game.season] += 1
     end
     games_by_season
   end
@@ -76,7 +72,7 @@ class GameStatistics
   def average_goals_per_game
     goals = []
     @games.each do |game|
-      goals << game[:home_goals].to_i + game[:away_goals].to_i
+      goals << game.home_goals.to_i + game.away_goals.to_i
     end
     goals.sum.fdiv(goals.length).round(2)
   end
@@ -84,11 +80,7 @@ class GameStatistics
   def total_goals_by_season
     goals_by_season = Hash.new(0)
     @games.each do |game|
-      game.each do |key, value|
-        if key == :season
-          goals_by_season[value] += game[:home_goals].to_i + game[:away_goals].to_i
-        end
-      end
+      goals_by_season[game.season] += game.home_goals.to_i + game.away_goals.to_i
     end
     goals_by_season
   end
