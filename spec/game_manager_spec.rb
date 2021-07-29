@@ -62,8 +62,16 @@ RSpec.describe GameManager do
     expect(@game_manager.percent_ties).to eq(26.3)
 
   end
-  # it "is an array of season numbers" do
-  #   result = ["20122013", "20152016", "20132014", "20142015", "20172018", "20162017"]
-  #   expect(@game_manager.array_of_seasons).to eq(result)
-  # end
+
+  it 'has games sorted by season' do
+    expect(@game_manager.games_by_season).to be_a(Hash)
+    hash_keys = @game_manager.games_by_season.keys
+    expect(hash_keys.count).to eq(6)
+  end
 end
+
+
+# it "is an array of season numbers" do
+#   result = ["20122013", "20152016", "20132014", "20142015", "20172018", "20162017"]
+#   expect(@game_manager.array_of_seasons).to eq(result)
+# end
