@@ -207,8 +207,7 @@ RSpec.describe StatTracker do
       expect(stat_tracker.games_by_team_id).to be_a Hash
     end
 
-    # mock and stub this bad boy
-    xit '#goals_per_team' do
+    it '#goals_per_team' do
       game_path = './spec/fixture_files/test_games.csv'
       team_path = './spec/fixture_files/test_teams.csv'
       game_teams_path = './spec/fixture_files/test_game_teams.csv'
@@ -218,10 +217,8 @@ RSpec.describe StatTracker do
         game_teams: game_teams_path
         }
       stat_tracker = StatTracker.from_csv(locations)
-      expect(stat_tracker.goals_per_team).to eq({
-        3 => [2, 2, 1, 2, 1],
-        6 => [3, 3, 2, 3, 3]
-      })
+
+      expect(stat_tracker.goals_per_team[3]).to eq([2, 2, 1, 2, 1, 1, 0, 2, 2, 1, 1, 3, 2, 2, 1, 0, 3, 2, 3, 2, 2, 2, 2, 2, 3, 3, 0, 5, 0, 1, 3, 0, 1, 2, 2, 2, 3, 2, 1, 1, 3, 0])
     end
 
     it '#team_name_by_team_id' do
@@ -263,8 +260,7 @@ RSpec.describe StatTracker do
       expect(stat_tracker.worst_offense).to eq("Sky Blue FC")
     end
 
-# MOCK AND STUB PLZ
-    xit '#finds_home_games' do
+    it '#finds_home_games' do
       game_path = './spec/fixture_files/test_games.csv'
       team_path = './spec/fixture_files/test_teams.csv'
       game_teams_path = './spec/fixture_files/test_game_teams.csv'
@@ -274,7 +270,7 @@ RSpec.describe StatTracker do
         game_teams: game_teams_path
         }
       stat_tracker = StatTracker.from_csv(locations)
-      expect(stat_tracker.games_by_hoa("home")).to eq(1)
+      expect(stat_tracker.games_by_hoa("home")[3]).to eq([20, 32])
     end
 
     it '#highest_scoring_visitor' do
