@@ -64,7 +64,11 @@ RSpec.describe TeamStatistics do
   # end
 
   it "can get all seasons" do
-    expect(@team_stats.all_seasons).to eq(["20122013"])
+    expect(@team_stats.all_seasons).to eq(["20122013", "20162017", "20142015", "20152016", "20132014"])
+  end
+
+  it 'can get win percentage for a season' do
+    expect(@team_stats.season_win_percentage('20122013', '3')).to eq(0.08333333333333333)
   end
 
   # it "can get lowest win percentage" do

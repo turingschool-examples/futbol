@@ -10,7 +10,7 @@ RSpec.describe Team do
       })
 
     expect(team).to be_a(Team)
-    expect(team.id).to eq(1)
+    expect(team.team_id).to eq(1)
     expect(team.name).to eq('name')
   end
 

@@ -57,7 +57,42 @@ class TeamStatistics
     seasons
   end
 
-  
+  def season_win_percentage(season, team_id)
+
+    winning_game_ids = games_won(team_id).map do |game|
+      require "pry"; binding.pry
+      game.game_id
+    end
+
+
+    count = 0
+    @games.each do |game|
+      # require "pry"; binding.pry
+      if game.season == season &&  (game.away_team_id == team_id || game.home_team_id)
+        count += 1
+      end
+      # game_ids.each do |game_id|
+      #   # require "pry"; binding.pry
+      #   # if game.season == season
+      #   #   require "pry"; binding.pry
+      #   #   if game.game_id != game_id
+      #   #     game_ids.delete(game_id)
+      #   #     require "pry"; binding.pry
+      #   #   end
+      #   # end
+      # end
+    end
+    game_ids = []
+    @games.each do |game|
+      if game.season == season
+        game_ids << game.game_id
+      end
+    end
+    season_winning_game_ids = winning_game_ids & game_ids
+    season_winning_game_ids.length / count
+
+    #num of winning games in season fdiv(num of games in season)
+  end
 
   # def favorite_opponent(team_id)
   #
