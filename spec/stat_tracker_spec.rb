@@ -3,33 +3,23 @@ require './spec/spec_helper'
 
 RSpec.describe StatTracker do
   context '#initialize' do
+  game_path = './spec/fixture_files/test_games.csv'
+  team_path = './spec/fixture_files/test_teams.csv'
+  game_teams_path = './spec/fixture_files/test_game_teams.csv'
+
+  locations = {
+  games: game_path,
+  teams: team_path,
+  game_teams: game_teams_path
+  }
+
+  stat_tracker = StatTracker.new(locations)
+    
     it 'exists' do
-      game_path = './spec/fixture_files/test_games.csv'
-      team_path = './spec/fixture_files/test_teams.csv'
-      game_teams_path = './spec/fixture_files/test_game_teams.csv'
-
-      locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-      }
-
-      stat_tracker = StatTracker.new(locations)
-
       expect(stat_tracker).to be_a StatTracker
     end
 
     it 'accepts data' do
-      game_path = './spec/fixture_files/test_games.csv'
-      team_path = './spec/fixture_files/test_teams.csv'
-      game_teams_path = './spec/fixture_files/test_game_teams.csv'
-
-      locations = {
-        games: game_path,
-        teams: team_path,
-        game_teams: game_teams_path
-      }
-
       stat_tracker = StatTracker.from_csv(locations)
       expect(stat_tracker.games[0].game_id).to eq(2012030221)
       expect(stat_tracker.games[0].away_goals).to eq(2)
