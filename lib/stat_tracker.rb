@@ -69,10 +69,10 @@ class StatTracker
   def count_of_games_by_season
     count = {}
     @games.each do |game|
-      if count[game.season.to_s].nil?
-        count[game.season.to_s] = 1
+      if count[game.season].nil?
+        count[game.season] = 1
       else
-        count[game.season.to_s] += 1
+        count[game.season] += 1
       end
     end
     count
@@ -97,7 +97,7 @@ class StatTracker
     end
     results = {}
     hash.each do |season, stats|
-      results[season.to_s] = (stats[1].to_f / stats[0]).round(2)
+      results[season] = (stats[1].to_f / stats[0]).round(2)
     end
     results
   end
@@ -201,7 +201,7 @@ class StatTracker
 
   def game_ids_by_season(season)
     @games.map do |game|
-      game.game_id if game.season.to_s == season
+      game.game_id if game.season == season
     end.compact
   end
 
@@ -292,11 +292,11 @@ class StatTracker
 
   def team_info(team_id)
     find_team = @teams.find do |team|
-      team.team_id.to_s == team_id
+      team.team_id == team_id
     end
     team_info = {
-      "team_id" => find_team.team_id.to_s,
-      "franchise_id" => find_team.franchise_id.to_s,
+      "team_id" => find_team.team_id,
+      "franchise_id" => find_team.franchise_id,
       "team_name" => find_team.team_name,
       "abbreviation" => find_team.abbreviation,
       "link" => find_team.link
@@ -305,7 +305,7 @@ class StatTracker
 
   def find_games_by_team_id(team_id)
     games_by_team = @games.find_all do |game|
-      game.away_team_id.to_s == team_id || game.home_team_id.to_s == team_id
+      game.away_team_id == team_id || game.home_team_id == team_id
     end
     games_by_team
   end
@@ -318,9 +318,9 @@ class StatTracker
         # total games, wins
       end
       season_wins[game.season][0] += 1
-      if game.away_team_id.to_s == team_id && game.away_goals > game.home_goals
+      if game.away_team_id == team_id && game.away_goals > game.home_goals
         season_wins[game.season][1] += 1
-      elsif game.home_team_id.to_s == team_id && game.home_goals > game.away_goals
+      elsif game.home_team_id == team_id && game.home_goals > game.away_goals
         season_wins[game.season][1] += 1
       end
     end
@@ -331,19 +331,19 @@ class StatTracker
     best_season = find_win_count(team_id).max_by do |season, wins|
       wins[1] / wins[0].to_f
     end
-    best_season.first.to_s
+    best_season.first
   end
 
   def worst_season(team_id)
     worst_season = find_win_count(team_id).min_by do |season, wins|
       wins[1] / wins[0].to_f
     end
-    worst_season.first.to_s
+    worst_season.first
   end
 
   def total_win_count(team_id)
     team_wins = @game_teams.count do |game|
-      team_id == game.team_id.to_s && game.result == "WIN"
+      team_id == game.team_id && game.result == "WIN"
     end
     team_wins
   end
@@ -354,7 +354,7 @@ class StatTracker
 
   def game_teams_by_id(team_id)
     by_id = @game_teams.find_all do |game|
-      game.team_id.to_s == team_id
+      game.team_id == team_id
     end
     by_id
   end
@@ -376,7 +376,7 @@ class StatTracker
   def games_against_rivals(team_id)
     rival_games = {}
     find_games_by_team_id(team_id).each do |game|
-      if game.away_team_id.to_s != team_id
+      if game.away_team_id != team_id
         if rival_games[game.away_team_id].nil?
           rival_games[game.away_team_id] = [game]
         else
@@ -402,9 +402,9 @@ class StatTracker
       end
       games.each do |game|
         wins_against_rivals[rival][0] += 1
-        if game.away_team_id.to_s == team_id && game.away_goals > game.home_goals
+        if game.away_team_id == team_id && game.away_goals > game.home_goals
           wins_against_rivals[rival][1] += 1
-        elsif game.home_team_id.to_s == team_id && game.home_goals > game.away_goals
+        elsif game.home_team_id == team_id && game.home_goals > game.away_goals
           wins_against_rivals[rival][1] += 1
         end
       end

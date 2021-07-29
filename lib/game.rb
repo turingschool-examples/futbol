@@ -11,12 +11,12 @@ class Game
               :venue_link
 
   def initialize(stats)
-    @game_id = stats[:game_id].to_i
-    @season = stats[:season].to_i
+    @game_id = stats[:game_id]
+    @season = stats[:season]
     @type = stats[:type]
     @date_time = stats[:date_time]
-    @away_team_id = stats[:away_team_id].to_i
-    @home_team_id = stats[:home_team_id].to_i
+    @away_team_id = stats[:away_team_id]
+    @home_team_id = stats[:home_team_id]
     @away_goals = stats[:away_goals].to_i
     @home_goals = stats[:home_goals].to_i
     @venue = stats[:venue]
