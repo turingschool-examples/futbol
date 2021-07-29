@@ -21,6 +21,7 @@ RSpec.describe StatTracker do
       expect(stat_tracker.game_teams).not_to be_empty
       expect(stat_tracker.games).not_to be_empty
     end
+
   end
 
   context 'statistics' do
@@ -162,11 +163,10 @@ RSpec.describe StatTracker do
     end
   end
 
-
   context 'season stats' do
-    game_path = './data/games.csv'
+    game_path = './data/mini_games.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_teams_path = './data/mini_game_teams.csv'
     locations = {
       games: game_path,
       teams: team_path,
@@ -175,12 +175,22 @@ RSpec.describe StatTracker do
     stat_tracker = StatTracker.from_csv(locations)
 
     it 'has winningest coach' do
-      require 'pry'; binding.pry
-      expect(stat_tracker.winningest_coach("20132014")).to eq('Alain Vigneault')
+      expect(stat_tracker.winningest_coach("20142015")).to eq('Alain Vigneault')
     end
 
     it 'has worst coach' do
-      expect(stat_tracker.worst_coach("20132014")).to eq('Darryl Sutter')
+      expect(stat_tracker.worst_coach("20142015")).to eq("Mike Johnston")
+    end
+
+    it "has most accurate and least accurate teams" do
+      expect(stat_tracker.most_accurate_team("20132014")).to eq("New England Revolution")
+      expect(stat_tracker.least_accurate_team("20132014")).to eq("Philadelphia Union")
+    end
+    
+    it 'names the team with the most and fewest tackles' do
+      expect(stat_tracker.team_tackles("20142015")).to eq({"14"=>146, "3"=>349, "5"=>152})
+      expect(stat_tracker.most_tackles("20142015")).to eq("Houston Dynamo")
+      expect(stat_tracker.fewest_tackles("20142015")).to eq("DC United")
     end
   end
 end
