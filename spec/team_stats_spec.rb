@@ -26,7 +26,7 @@ RSpec.describe TeamStatistics do
     expect(@team_stats).to be_a(TeamStatistics)
   end
 
-  it "can show team info" do
+    it "can show team info" do
     result = {
              team_id: "3",
              franchise_id: "10",
@@ -37,38 +37,42 @@ RSpec.describe TeamStatistics do
     expect(@team_stats.team_info("3")).to eq(result)
   end
 
-  it "can get games won by a team" do
+  xit "can get games won by a team" do
     expect(@team_stats.games_won("3")).to eq([])
     expect(@team_stats.games_won("6").length).to eq(9)
   end
 
-  it "can get average win percentage" do
+  xit "can get average win percentage" do
     expect(@team_stats.average_win_percentage("3")).to eq(0)
     expect(@team_stats.average_win_percentage("6")).to eq(1)
   end
 
-  it "can get all games played by team" do
+  xit "can get all games played by team" do
     expect(@team_stats.all_games_played("3").length).to eq(5)
   end
 
-  it "can get most goals scored" do
+  xit "can get most goals scored" do
     expect(@team_stats.most_goals_scored("3")).to eq(2)
   end
 
-  it "can get fewest goals scored" do
+  xit "can get fewest goals scored" do
     expect(@team_stats.fewest_goals_scored("3")).to eq(1)
   end
 
-  # it "can get best season" do
-  #   expect(@team_stats.best_season("3")).to eq("")
-  # end
+  it "can get best season" do
+    expect(@team_stats.best_season("3")).to eq("20122013")
+  end
 
   it "can get all seasons" do
     expect(@team_stats.all_seasons).to eq(["20122013", "20162017", "20142015", "20152016", "20132014"])
   end
 
   it 'can get win percentage for a season' do
-    expect(@team_stats.season_win_percentage('20122013', '3')).to eq(0.08333333333333333)
+    expect(@team_stats.season_win_percentage('20122013', '3')).to eq(0.16666666666666666)
+  end
+
+  it 'can get worst season' do
+    expect(@team_stats.worst_season('3')).to eq("20162017")
   end
 
   # it "can get lowest win percentage" do
