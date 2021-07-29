@@ -13,18 +13,20 @@ class StatTracker
   include SeasonStatistics
   include TeamStatistics
 
-  attr_reader :games, :teams, :game_teams
+  attr_reader :games, 
+              :teams, 
+              :game_teams
   def initialize(stats)
-    @games = stats[:games]
-    @teams = stats[:teams]
+    @games      = stats[:games]
+    @teams      = stats[:teams]
     @game_teams = stats[:game_teams]
   end
 
   def self.from_csv(locations)
-    stats = {}
-    stats[:games] = create_obj_csv(locations[:games], Game)
-    stats[:teams] = create_obj_csv(locations[:teams], Team)
-    stats[:game_teams] = create_obj_csv(locations[:game_teams], GameTeam)
+    stats               = {}
+    stats[:games]       = create_obj_csv(locations[:games], Game)
+    stats[:teams]       = create_obj_csv(locations[:teams], Team)
+    stats[:game_teams]  = create_obj_csv(locations[:game_teams], GameTeam)
 
     StatTracker.new(stats)
   end

@@ -1,4 +1,5 @@
 module SeasonStatistics
+
   def game_ids_by_season(season)
     @games.map do |game|
       game.game_id if game.season == season
@@ -89,5 +90,4 @@ module SeasonStatistics
     end
     team_name_by_team_id(fewest_tackles.first)
   end
-
 end
