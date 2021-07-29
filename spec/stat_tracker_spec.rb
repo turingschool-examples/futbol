@@ -206,7 +206,7 @@ RSpec.describe StatTracker do
       stat_tracker = StatTracker.from_csv(locations)
       expect(stat_tracker.games_by_team_id).to be_a Hash
     end
-
+#mock and stub
     it '#goals_per_team' do
       game_path = './spec/fixture_files/test_games.csv'
       team_path = './spec/fixture_files/test_teams.csv'
@@ -260,6 +260,7 @@ RSpec.describe StatTracker do
       expect(stat_tracker.worst_offense).to eq("Sky Blue FC")
     end
 
+# MOCK AND STUB PLZ
     it '#finds_home_games' do
       game_path = './spec/fixture_files/test_games.csv'
       team_path = './spec/fixture_files/test_teams.csv'
