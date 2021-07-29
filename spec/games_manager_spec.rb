@@ -53,6 +53,5 @@ RSpec.describe GamesManager do
     it 'games per season' do
       expect(games_manager.games_per_season('20132014')).to eq(6)
     end
-
   end
 end
