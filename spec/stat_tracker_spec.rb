@@ -21,10 +21,10 @@ RSpec.describe StatTracker do
     end
 
     it 'accepts data' do
-      expect(stat_tracker.games[0].game_id).to eq(2012030221)
+      expect(stat_tracker.games[0].game_id).to eq("2012030221")
       expect(stat_tracker.games[0].away_goals).to eq(2)
-      expect(stat_tracker.teams[0].team_id).to eq(1)
-      expect(stat_tracker.game_teams[0].game_id).to eq(2012030221)
+      expect(stat_tracker.teams[0].team_id).to eq("1")
+      expect(stat_tracker.game_teams[0].game_id).to eq("2012030221")
       expect(stat_tracker).to be_a(StatTracker)
     end
   end
@@ -110,11 +110,11 @@ RSpec.describe StatTracker do
 
 #mock and stub
     it '#goals_per_team' do
-      expect(stat_tracker.goals_per_team[3]).to eq([2, 2, 1, 2, 1, 1, 0, 2, 2, 1, 1, 3, 2, 2, 1, 0, 3, 2, 3, 2, 2, 2, 2, 2, 3, 3, 0, 5, 0, 1, 3, 0, 1, 2, 2, 2, 3, 2, 1, 1, 3, 0])
+      expect(stat_tracker.goals_per_team["3"]).to eq([2, 2, 1, 2, 1, 1, 0, 2, 2, 1, 1, 3, 2, 2, 1, 0, 3, 2, 3, 2, 2, 2, 2, 2, 3, 3, 0, 5, 0, 1, 3, 0, 1, 2, 2, 2, 3, 2, 1, 1, 3, 0])
     end
 
     it '#team_name_by_team_id' do
-      expect(stat_tracker.team_name_by_team_id(1)).to eq("Atlanta United")
+      expect(stat_tracker.team_name_by_team_id("1")).to eq("Atlanta United")
     end
 
     it '#best_offense' do
@@ -127,7 +127,7 @@ RSpec.describe StatTracker do
 
 # MOCK AND STUB PLZ
     it '#finds_home_games' do
-      expect(stat_tracker.games_by_hoa("home")[3]).to eq([20, 32])
+      expect(stat_tracker.games_by_hoa("home")["3"]).to eq([20, 32])
     end
 
     it '#highest_scoring_visitor' do
@@ -179,7 +179,7 @@ RSpec.describe StatTracker do
     end
 
     it '#team_shots_by_season' do
-      expect(stat_tracker.team_shots_by_season("20122013")[3]).to eq([19, 100])
+      expect(stat_tracker.team_shots_by_season("20122013")["3"]).to eq([19, 100])
     end
 
     it '#most_accurate_team' do
@@ -193,7 +193,7 @@ RSpec.describe StatTracker do
     end
 
     it "#tackles_by_season" do
-      expect(stat_tracker.tackles_by_season("20132014")[3]).to eq 102
+      expect(stat_tracker.tackles_by_season("20132014")["3"]).to eq 102
     end
 
     it "#most_tackles" do
@@ -230,14 +230,7 @@ RSpec.describe StatTracker do
     end
 
     it "#find_win_count" do
-      expect(stat_tracker.find_win_count("6")).to eq({
-        20122013=>[11, 10], 
-        20172018=>[16, 10], 
-        20132014=>[8, 6], 
-        20142015=>[10, 4], 
-        20152016=>[3, 1], 
-        20162017=>[2, 0]
-      })
+      expect(stat_tracker.find_win_count("6")).to eq({"20122013"=>[11, 10], "20172018"=>[16, 10], "20132014"=>[8, 6], "20142015"=>[10, 4], "20152016"=>[3, 1], "20162017"=>[2, 0]})
     end
 
     it "#best_season(team_id)" do
@@ -275,7 +268,7 @@ RSpec.describe StatTracker do
     end
 
     it "#win_percentage_against_rivals(team_id)" do
-      expect(stat_tracker.wins_against_rivals("18")[3]).to eq [1, 0]
+      expect(stat_tracker.wins_against_rivals("18")["3"]).to eq [1, 0]
     end
 
     it "#favorite_opponent(team_id)" do
