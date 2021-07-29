@@ -41,12 +41,6 @@ module GameTeamsProcessor
     end.to_i
   end
 
-  def average_goals_per_game
-    goals = @game_teams.sum do |game|
-      game[:goals].to_f
-    end
-    (goals.fdiv(@game_teams.size) * 2).round(2)
-  end
 
   def winningest_coach(season)
     most_wins = coach_win_pct(season).max_by do|coach, pct|
