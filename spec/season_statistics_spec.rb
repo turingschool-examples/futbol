@@ -49,4 +49,31 @@ RSpec.describe SeasonStatistics do
   it 'worst coach' do
     expect(@season_stats.worst_coach("20122013")).to eq("John Tortorella")
   end
+
+  it 'returns a hash with team ID keys and team name values' do
+    expect(@season_stats.team_identifier("3")).to eq("Houston Dynamo")
+  end
+
+  it "counts total shots" do
+    expect(@season_stats.total_shots('20122013')).to eq({
+      "16" => 99,
+      "17" => 46,
+      "19" => 28,
+      "26" => 26,
+      "3"  => 38,
+      "30" => 33,
+      "5"  => 32,
+      "6"  => 76,
+      "8"  => 43,
+      "9"  => 36
+      })
+  end
+
+  it "most accurate team" do
+    expect(@season_stats.most_accurate_team('20122013')).to eq("New York City FC")
+  end
+
+  it "least accurate team" do
+    expect(@season_stats.least_accurate_team('20122013')).to eq("Sporting Kansas City")
+  end
 end
