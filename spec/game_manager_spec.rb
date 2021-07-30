@@ -60,7 +60,6 @@ RSpec.describe GameManager do
 
   it 'has tie percent' do
     expect(@game_manager.percent_ties).to eq(26.3)
-
   end
 
   it 'has games sorted by season' do
@@ -70,7 +69,7 @@ RSpec.describe GameManager do
   end
 
   it 'can return a single game by id' do
-    expect(@game_manager.game_by_id('2102030221')).to be_a(Game)
+    expect(@game_manager.game_by_id('2012030221')).to be_a(Game)
   end
 end
 
