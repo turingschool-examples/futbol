@@ -14,4 +14,6 @@ class Team
         @stadium = data[:stadium]
         @link = data[:link]
     end
+
+      
 end
