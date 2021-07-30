@@ -34,15 +34,13 @@ module GameStatistics
   end
 
   def count_of_games_by_season
-    count = {}
-    @games.each do |game|
+    @games.each_with_object({}) do |game, count|
       if count[game.season].nil?
         count[game.season] = 1
       else
         count[game.season] += 1
       end
     end
-    count
   end
 
   def average_goals_per_game
@@ -53,8 +51,7 @@ module GameStatistics
   end
 
   def all_goals_by_season
-    goals = {}
-    @games.each do |game|
+    @games.each_with_object({}) do |game, goals|
       if goals[game.season].nil?
         goals[game.season] = [1, game.home_goals + game.away_goals]
       else
@@ -62,7 +59,6 @@ module GameStatistics
         goals[game.season][1] += game.home_goals + game.away_goals
       end
     end
-    goals
   end
 
   def average_goals_by_season
