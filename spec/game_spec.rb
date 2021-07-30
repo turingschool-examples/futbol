@@ -32,12 +32,12 @@ RSpec.describe Game do
       expect(game.game_id).to eq("2012030314")
     end
 
-    it "calculates total game score" do
-      expect(game.total_game_score).to eq(1)
-    end
-
-    it "calculates total games" do
-      expect(game.total_games).to eq(2)
-    end
+    # it "calculates total game score" do
+    #   expect(game.total_game_score).to eq(1)
+    # end
+    #
+    # it "calculates total games" do
+    #   expect(game.total_games).to eq(2)
+    # end
   end
 end
