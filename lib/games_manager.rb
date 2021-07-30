@@ -79,4 +79,64 @@ class GamesManager
     end
   end
 
+  #Helper
+  def get_home_team_goals
+    home_avg = {}
+    @games.each do |game|
+
+      home_avg[game.home_team_id] ||= { goals: 0, total: 0 }
+      home_avg[game.home_team_id][:goals] += game.home_goals
+      home_avg[game.home_team_id][:total] += 1
+    end
+    home_avg
+  end
+
+#Interface
+  def highest_scoring_home_team
+    home_info = get_home_team_goals
+    team_id = home_info.each.max_by do |team, data|
+      data[:goals].fdiv(data[:total])
+    end.first
+    team_id
+  end
+
+#Interface
+  def lowest_scoring_home_team
+    home_info = get_home_team_goals
+    team_id = home_info.each.min_by do |team, data|
+      data[:goals].fdiv(data[:total])
+    end.first
+    team_id
+  end
+
+  #Helper
+  def get_visitor_goals
+    visitor_avg = {}
+    @games.each do |game|
+
+      visitor_avg[game.away_team_id] ||= { goals: 0, total: 0 }
+      visitor_avg[game.away_team_id][:goals] += game.away_goals
+      visitor_avg[game.away_team_id][:total] += 1
+    end
+    visitor_avg
+  end
+
+#Interface
+  def highest_scoring_visitor
+    visitor_info = get_visitor_goals
+    team_id = visitor_info.each.max_by do |team, data|
+      data[:goals].fdiv(data[:total])
+    end.first
+    team_id
+  end
+
+#Interface
+  def lowest_scoring_visitor
+    visitor_info = get_visitor_goals
+    team_id = visitor_info.each.min_by do |team, data|
+      data[:goals].fdiv(data[:total])
+    end.first
+    team_id
+  end
+
 end
