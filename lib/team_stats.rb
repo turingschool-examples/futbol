@@ -121,9 +121,40 @@ class TeamStatistics
       end
     end
     team_wins.fdiv(total_games)
+    # require "pry"; binding.pry
   end
-  # def favorite_opponent(team_id)
-  #
-  # end
+
+  def favorite_opponent(team_id)
+    favorite_opponent_name = nil
+
+    favorite_opponent_id = all_opponents(team_id).max_by do |opponent_id|
+      team_opponent_win_percentage(opponent_id, team_id)
+    end
+
+    @teams.each do |team|
+      if team.team_id == favorite_opponent_id
+        favorite_opponent_name = team.team_name
+      end
+    end
+
+    favorite_opponent_name
+  end
+
+  #needs a robust test
+  def rival(team_id)
+    rival = nil
+
+    rival_id = all_opponents(team_id).min_by do |opponent_id|
+      team_opponent_win_percentage(opponent_id, team_id)
+    end
+
+    @teams.each do |team|
+      if team.team_id == rival_id
+        rival = team.team_name
+      end
+    end
+
+    rival
+  end
 
 end
