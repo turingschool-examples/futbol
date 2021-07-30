@@ -205,20 +205,20 @@ class StatTracker
   end
 
   def worst_coach(season)
-    wins_by_coach = Hash.new(0)
+    wins_by_coach = total_games_by_coach(season)
     season_shorten = season.slice(0..3)
     @game_teams.each do |game|
-      if game.game_id.start_with?(season_shorten) && game.result == ('LOSS')
+      if game.game_id.start_with?(season_shorten) && game.result == ("WIN")
         wins_by_coach[game.head_coach] += 1
       end
     end
-    coach = wins_by_coach.min_by do |coach, wins|
-      tot_games = total_games_by_coach(season)[coach]
-      (wins - tot_games).fdiv(tot_games)
-    end
-    coach[0]
-  end
 
+    loser_coach = wins_by_coach.min_by do |coach, wins|
+      tot_games = total_games_by_coach(season)[coach]
+      (wins_by_coach[coach] - tot_games).fdiv(tot_games)
+    end
+    loser_coach[0]
+  end
 
   def most_tackles(season)
     tackles_by_team = Hash.new(0)
