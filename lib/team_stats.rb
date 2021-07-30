@@ -64,13 +64,16 @@ class TeamStatistics
   end
 
   def season_win_percentage(season, team_id)
+    #could be made into a helper method
     winning_game_ids = games_won(team_id).map do |game|
       game.game_id
     end
 
+    #could be made into two helper methods, but speed becomes an issue when dealing with full CSVs
     games_in_season = []
     total_games = 0
     @games.each do |game|
+                                  #run on boolean, should be shortened
       if game.season == season && (game.away_team_id == team_id || game.home_team_id == team_id)
         total_games += 1
       end
@@ -80,6 +83,7 @@ class TeamStatistics
     end
 
     winning_game_in_season_ids = winning_game_ids & games_in_season
+    #condidional changes the evil NaN into nils. Nils are produced when total_games = 0.
     if total_games != 0
       winning_game_in_season_ids.length.fdiv(total_games)
     end
@@ -87,10 +91,37 @@ class TeamStatistics
 
   def worst_season(team_id)
     all_seasons.min_by do |season|
+      #super messsy, but gets rid of nils from season_win_percentage, evading errors from min_by/nil interaction
        [season_win_percentage(season, team_id)].compact
     end
   end
 
+  #do we need this? We could just iterate over the entire teams and have an exception when team_id == team_id
+  def all_opponents(team_id)
+    @games.filter_map do |game|
+      if team_id == game.home_team_id
+        game.away_team_id
+      elsif team_id == game.away_team_id
+        game.home_team_id
+      end
+    end.uniq
+  end
+
+  def team_opponent_win_percentage(opponent_id, team_id)
+    team_wins = 0
+    total_games = 0
+    @games.each do |game|
+      #lots of functionality may be moved to games_class
+      if game.away_team_id == team_id && game.home_team_id == opponent_id
+        team_wins +=1 if game.away_goals > game.home_goals
+        total_games += 1
+      elsif game.home_team_id == team_id && game.away_team_id == opponent_id
+        team_wins += 1 if game.away_goals < game.home_goals
+        total_games += 1
+      end
+    end
+    team_wins.fdiv(total_games)
+  end
   # def favorite_opponent(team_id)
   #
   # end

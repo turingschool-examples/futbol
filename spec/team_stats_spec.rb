@@ -37,8 +37,8 @@ RSpec.describe TeamStatistics do
     expect(@team_stats.team_info("3")).to eq(result)
   end
 
-  xit "can get games won by a team" do
-    expect(@team_stats.games_won("3")).to eq([])
+  it "can get games won by a team" do
+    expect(@team_stats.games_won("3").length).to eq(2)
     expect(@team_stats.games_won("6").length).to eq(9)
   end
 
@@ -75,11 +75,16 @@ RSpec.describe TeamStatistics do
     expect(@team_stats.worst_season('3')).to eq("20162017")
   end
 
-  # it "can get lowest win percentage" do
-  #   expect(@team_stats.lowest_win_percentage("3")).to eq(0)
-  # end
+  xit "can get favorite opponent" do
+    expect(@team_stats.favorite_opponent("3")).to eq("Portland Timbers")
+  end
 
-  # it "can get favorite opponent" do
-  #   expect(@team_stats.favorite_opponent("3")).to eq("string")
-  # end
+  it 'can get all opponents it has played against' do
+    expect(@team_stats.all_opponents("3").length).to eq(3)
+  end
+
+  it 'can get average win percentage against an opponent' do
+    expect(@team_stats.team_opponent_win_percentage('6', '3')).to eq(0.0)
+    expect(@team_stats.team_opponent_win_percentage('15', '3')).to eq(0.2857142857142857)
+  end
 end
