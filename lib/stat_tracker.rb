@@ -53,6 +53,10 @@ class StatTracker
   def average_goals_per_season
     game_manager.average_goals_per_season
   end
+
+  def winningest_coach(season)
+    season_manager.winningest_coach(season)
+  end
 end
 
 

@@ -104,4 +104,5 @@ RSpec.describe GameManager do
         "20152016"=>4.0})
     end
   end
+
 end

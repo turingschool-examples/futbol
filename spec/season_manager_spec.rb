@@ -20,4 +20,10 @@ RSpec.describe SeasonManager do
   it "is a thing" do
     expect(@stat_tracker.season_manager.seasons_hash).to eq(5)
   end
+
+  describe '#winningest_coach' do
+    it "can return all the coaches and their win percentages" do
+      expect(@stat_tracker.season_manager.winningest_coach("20122013")).to eq("Claude Julien")
+    end
+  end
 end

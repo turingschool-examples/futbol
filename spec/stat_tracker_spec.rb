@@ -85,4 +85,10 @@ RSpec.describe StatTracker do
         "20152016"=>4.0})
     end
   end
+
+  describe '#winningest_coach' do
+    it "can return all the coaches and their win percentages" do
+      expect(@stat_tracker.season_manager.winningest_coach("20122013")).to eq("Claude Julien")
+    end
+  end
 end
