@@ -67,5 +67,15 @@ RSpec.describe GameTeamsManager do
       expect(game_teams_manager.most_tackles("20142015")).to eq("3")
       expect(game_teams_manager.fewest_tackles("20142015")).to eq("14")
     end
+
+    it 'highest scoring vistor and home team' do
+      expect(game_teams_manager.highest_scoring_visitor).to eq("28")
+      # expect(stat_tracker.highest_scoring_home_team).to eq("Real Salt Lake")
+    end
+
+    it 'lowest scoring vistor and home team' do
+      expect(game_teams_manager.lowest_scoring_visitor).to eq("4")
+      # expect(stat_tracker.lowest_scoring_home_team).to eq("Houston Dash")
+    end
   end
 end

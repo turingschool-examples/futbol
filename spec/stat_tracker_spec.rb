@@ -52,13 +52,4 @@ RSpec.describe StatTracker do
       expect(stat_tracker.worst_offense).to eq("Houston Dash")
     end
 
-    it 'highest scoring vistor and home team' do
-      expect(stat_tracker.highest_scoring_visitor).to eq("Sporting Kansas City")
-      expect(stat_tracker.highest_scoring_home_team).to eq("Real Salt Lake")
-    end
-
-    it 'lowest scoring vistor and home team' do
-      expect(stat_tracker.lowest_scoring_visitor).to eq("Houston Dash")
-      expect(stat_tracker.lowest_scoring_home_team).to eq("Houston Dash")
-    end
   end
