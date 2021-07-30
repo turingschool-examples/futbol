@@ -166,7 +166,7 @@ class GamesManager
     @games.each do |game|
       if game.has_team?(team_id)
         season_average[game.season] ||= {wins: 0, total: 0}
-        if winner?(team_id, game)
+        if game.winner?(team_id, game)
            season_average[game.season][:wins] += 1
         end
         season_average[game.season][:total] += 1

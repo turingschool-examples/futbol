@@ -9,6 +9,7 @@ class GameTeamsManager
     make_game_teams(file_path)
   end
 
+
 #helper
   def make_game_teams(file_path)
     CSV.foreach(file_path, headers: true) do |row|
@@ -150,5 +151,60 @@ class GameTeamsManager
     team_id
   end
 
-  
+#Interface
+  def best_season(team_id)
+    get_season_averages(team_id).max_by do |season, average|
+      average
+    end.first
+  end
+
+#Interface
+  def worst_season(team_id)
+    get_season_averages(team_id).min_by do |season, average|
+      average
+    end.first
+  end
+
+#Helper
+  def get_season_averages(team_id)
+    season_average = seasons_win_count(team_id)
+    season_average.map do |season, stats|
+      [season, stats[:wins].fdiv(stats[:total])]
+    end
+  end
+
+#Helper
+  def seasons_win_count(team_id)
+    @game_teams.reduce({}) do |acc, game|
+      if game.team_id == team_id
+        acc[game.season] ||= {wins: 0, total: 0}
+        process_game(acc[game.season], game)
+      end
+      acc
+    end
+  end
+
+#Helper
+  def process_game(data, game)
+    data[:wins] += 1 if game.won?
+    data[:total] += 1
+  end
+
+  #Interface
+  def most_goals_scored(team_id)
+    goals_per_team_game(team_id).max
+  end
+
+  #Helper
+  def goals_per_team_game(team_id)
+    @game_teams.map do |game|
+      game.goals if game.team_id == team_id
+    end.compact
+  end
+
+  #Interface
+  def fewest_goals_scored(team_id)
+    goals_per_team_game(team_id).min
+  end
+
 end
