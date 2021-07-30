@@ -27,6 +27,11 @@ RSpec.describe TeamStatistics do
       expect(stat_tracker.team_info("18")).to eq(expected)
     end
 
+    it '#team_win?' do
+      expect(stat_tracker.team_win?("3", stat_tracker.games[0])).to be false
+      expect(stat_tracker.team_win?("6", stat_tracker.games[0])).to be true
+    end
+
     it "#find_win_count" do
       expect(stat_tracker.find_win_count("6")).to eq({
         "20122013"=>[11, 10],
