@@ -5,8 +5,8 @@ RSpec.describe TeamManager do
     @file_path = './data/teams.csv'
     @team_manager = TeamManager.new(@file_path)
     @team_manager.load
-
   end
+
   describe '#load' do
     it 'length' do
       expect(@team_manager.load.length).to eq(32)
@@ -22,6 +22,12 @@ RSpec.describe TeamManager do
   describe '#count_of_teams' do
     it '#count_of_teams' do
       expect(@team_manager.count_of_teams).to eq(32)
+    end
+  end
+
+  describe '#teams_by_id' do
+    it 'creates teams_by_id hash' do
+      expect(@team_manager.teams_by_id).to be_instance_of(Hash)
     end
   end
 end

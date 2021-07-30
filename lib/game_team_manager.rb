@@ -46,4 +46,15 @@ class GameTeamManager
     average.round(2)
   end
 
+  def best_offense
+    
+    best_average = 0
+    best_team = nil
+    team_averages = {}
+    @game_teams.each do |game_id, teams|
+      teams.each do |hoa, team|
+
+      end
+    end
+  end
 end
