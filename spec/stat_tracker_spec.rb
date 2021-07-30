@@ -16,11 +16,6 @@ RSpec.describe StatTracker do
       expect(stat_tracker).to be_a(StatTracker)
     end
 
-    it 'has best and worst seasons' do
-      expect(stat_tracker.best_season("15")).to eq("20162017")
-      expect(stat_tracker.worst_season("15")).to eq("20142015")
-    end
-
     it 'has an average win percentage' do
       expect(stat_tracker.average_win_percentage("15")).to eq(0.63)
     end

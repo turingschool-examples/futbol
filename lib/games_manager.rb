@@ -137,4 +137,58 @@ class GamesManager
     end.first
     team_id
   end
+
+#Interface
+  def best_season(team_id)
+    get_season_averages(team_id).max_by do |season, average|
+      average
+    end.first
+  end
+
+#Interface
+  def worst_season(team_id)
+    get_season_averages(team_id).min_by do |season, average|
+      average
+    end.first
+  end
+
+#Helper
+  def get_season_averages(team_id)
+    season_average = seasons_win_count(team_id)
+    season_average.map do |season, stats|
+      [season, stats[:wins].fdiv(stats[:total])]
+    end.to_h
+  end
+
+#Helper
+  def seasons_win_count(team_id)
+    season_average = {}
+    @games.each do |game|
+      if game.has_team?(team_id)
+        season_average[game.season] ||= {wins: 0, total: 0}
+        if winner?(team_id, game)
+           season_average[game.season][:wins] += 1
+        end
+        season_average[game.season][:total] += 1
+      end
+    end
+    season_average
+  end
+
+  # We send team_id, they return hash with opp_id & results against
+  def opponent_win_count(team_id)
+    win_loss = {}
+    @games.each do |game|
+      if game[:home_team_id] == team_id || game[:away_team_id] == team_id
+        data = get_home_or_away(team_id, game)
+
+        win_loss[data[:opp_id]] ||= {wins: 0, total: 0}
+        if data[:team_goals] > data[:opp_goals]
+          win_loss[data[:opp_id]][:wins] += 1
+        end
+        win_loss[data[:opp_id]][:total] += 1
+      end
+    end
+    win_loss
+  end
 end
