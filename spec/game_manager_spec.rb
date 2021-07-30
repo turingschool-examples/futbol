@@ -50,7 +50,7 @@ RSpec.describe GameManager do
   end
 
   it 'has home win percents' do
-    expect(@game_manager.percent_home_wins).to eq(63.2)
+    expect(@game_manager.percentage_home_wins).to eq(63.2)
   end
 
   it 'has visitor wins count' do

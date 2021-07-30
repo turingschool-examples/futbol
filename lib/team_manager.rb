@@ -1,4 +1,4 @@
-require 'team'
+require_relative './team'
 
 class TeamManager
   attr_reader :teams

@@ -1,3 +1,8 @@
+require_relative './game'
+require_relative './game_team'
+require_relative './team'
+
+
 class SeasonManager
   def initialize(hash)
     @seasons = hash
