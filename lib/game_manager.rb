@@ -70,9 +70,9 @@ class GameManager
     (tie_count.to_f / total_games * 100).round(1)
   end
 
-  def game_by_id(game_id)
+  def game_by_id(id)
     game_return = @games.filter do |game|
-      game.game_id
+      game.game_id == id
     end
     game_return[0]
   end
