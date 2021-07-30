@@ -13,6 +13,17 @@ RSpec.describe Game do
       home_goals: "1"
     })
 
+    game2 = Game.new({
+      game_id: "2012020251",
+      season: "20122013",
+      type: "Regular Season",
+      date_time: "2/23/13",
+      away_team_id: "52",
+      home_team_id: "4",
+      away_goals: "3",
+      home_goals: "3"
+    })
+
     it "exists" do
       expect(game).to be_a(Game)
     end
@@ -21,8 +32,12 @@ RSpec.describe Game do
       expect(game.game_id).to eq("2012030314")
     end
 
-    it "calculates total game score" do
-      expect(game.total_game_score).to eq(1)
-    end
+    # it "calculates total game score" do
+    #   expect(game.total_game_score).to eq(1)
+    # end
+    #
+    # it "calculates total games" do
+    #   expect(game.total_games).to eq(2)
+    # end
   end
 end

@@ -1,11 +1,24 @@
 require 'game'
 
 class GameManager
-  attr_reader :games
+  attr_reader :games,
+              :season_hash
+              :id_hash
 
   def initialize(locations)
     @games = Game.read_file(locations[:games])
+    @season_hash = {}
+    @id_hash = {}
   end
+
+  # def game_by_id_hash
+  #   @games.map do |game|
+  #     if game.game_id
+  #       @id_hash[game.game_id] = game
+  #     end
+  #   end
+  #   @id_hash
+  # end
 
   def total_game_score
     @games.map do |game|
@@ -57,20 +70,42 @@ class GameManager
     (tie_count.to_f / total_games * 100).round(1)
   end
 
+
+  # def seasons
+  #   @games.map do |game|
+  #     game.season
+  #   end.uniq
+  # @games.group_by do |game|
+  #   game.season
+  # end
+
+  def count_of_games_by_season
+    game_count = {}
+    games_by_season.each do |k,v|
+      game_count[k] = v.count
+    end
+    game_count
+  end
+
   def games_by_season
     @games.group_by do |game|
       game.season
     end
   end
+
+
+  def average_goals_per_game
+    total_game_score.sum.fdiv(@games.count)
+  end
+
+  def average_goals_by_season
+    goals_by_season = {}
+    games_by_season.map do |season, games|
+      sum_of_goals = games.sum do |game|
+        game.away_goals.to_f + game.home_goals.to_f
+        end
+      goals_by_season[season] = sum_of_goals.fdiv(games.count)
+    end
+    goals_by_season
+  end
 end
-
-
-
-
-
-
-  # def array_of_seasons
-  #   @games.map do |game|
-  #     game.season
-  #   end.uniq
-  # end
