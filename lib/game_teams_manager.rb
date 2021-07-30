@@ -117,4 +117,38 @@ class GameTeamsManager
       tackles
     end.first
   end
+
+#Helper
+  def get_away_team_goals
+    away_avg = {}
+    @game_teams.each do |game|
+
+      away_avg[game.team_id] ||= { goals: 0, total: 0 }
+      if game.home_away == "away"
+        away_avg[game.team_id][:goals] += game.goals
+        away_avg[game.team_id][:total] += 1
+      end
+    end
+    away_avg
+  end
+
+#Interface
+  def highest_scoring_visitor
+    away_info = get_away_team_goals
+    team_id = away_info.each.max_by do |team, data|
+      data[:goals].fdiv(data[:total])
+    end.first
+    team_id
+  end
+
+#Interface
+  def lowest_scoring_visitor
+    away_info = get_away_team_goals
+    team_id = away_info.each.min_by do |team, data|
+      data[:goals].fdiv(data[:total])
+    end.first
+    team_id
+  end
+
+  
 end
