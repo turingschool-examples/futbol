@@ -5,27 +5,23 @@ module LeagueStatistics
   end
 
   def games_by_team_id
-    teams = {}
-    @game_teams.each do |team|
+    @game_teams.each_with_object({}) do |team, teams|
       if teams[team.team_id].nil?
         teams[team.team_id] = [team]
-      elsif !teams[team.team_id].include?(team)
+      else
         teams[team.team_id] << team
       end
     end
-    teams
   end
 
   def goals_per_team
-    team_goals = {}
-    @game_teams.each do |team|
+    @game_teams.each_with_object({}) do |team, team_goals|
       if team_goals[team.team_id].nil?
         team_goals[team.team_id] = [team.goals]
       else
         team_goals[team.team_id] << team.goals
       end
     end
-    team_goals
   end
 
   def team_name_by_team_id(team_id)
@@ -53,14 +49,12 @@ module LeagueStatistics
     hoa_by_team_id = {}
     games_by_team_id.each do |id, games|
       games.each do |game|
-        if game.hoa == hoa
-          if hoa_by_team_id[id].nil?
+          if game.hoa == hoa && hoa_by_team_id[id].nil?
             hoa_by_team_id[id] = [1, game.goals]
-          else
+          elsif game.hoa == hoa
             hoa_by_team_id[id][0] += 1
             hoa_by_team_id[id][1] += game.goals
           end
-        end
       end
     end
     hoa_by_team_id
