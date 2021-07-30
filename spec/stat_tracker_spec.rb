@@ -28,4 +28,4 @@ RSpec.describe StatTracker do
       expect(stat_tracker).to be_a(StatTracker)
     end
   end
-end 
+end
