@@ -1,4 +1,4 @@
-game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways
+game_id,team_id,hoa,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways
 2012030221,3,away,LOSS,OT,John Tortorella,2,8,44,8,3,0,44.8,17,7
 2012030221,6,home,WIN,OT,Claude Julien,3,12,51,6,4,1,55.2,4,5
 2014021189,25,away,WIN,REG,Lindy Ruff,3,6,16,15,6,2,41.4,11,6
