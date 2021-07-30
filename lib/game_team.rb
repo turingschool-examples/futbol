@@ -1,6 +1,6 @@
 class GameTeam
   attr_reader :team_id,
-
+              :game_id,
               :hoa,
               :result,
               :head_coach,
@@ -9,6 +9,7 @@ class GameTeam
               :tackles
 
   def initialize(params)
+    @game_id = params[:game_id]
     @team_id = params[:team_id]
     @hoa = params[:hoa]
     @result = params[:result]
