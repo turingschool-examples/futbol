@@ -8,10 +8,10 @@ class Team
 
   def initialize(params)
     @team_id      = params["team_id"]
-    @franchiseid  = params["franchiseid"]
-    @teamname     = params["teamname"]
+    @franchiseid  = params["franchiseId"]
+    @teamname     = params["teamName"]
     @abbreviation = params["abbreviation"]
-    @stadium      = params["stadium"]
+    @stadium      = params["Stadium"]
     @link         = params["link"]
   end
 end

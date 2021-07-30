@@ -16,4 +16,16 @@ class TeamManager
       @teams[row["team_id"]] = Team.new(row)
     end
   end
+
+  def count_of_teams
+    @teams.count
+  end
+
+  def teams_by_id
+    teams_by_id = {}
+    @teams.each do |team_id, team|
+      teams_by_id[team_id] = team.teamname
+    end
+    teams_by_id
+  end
 end
