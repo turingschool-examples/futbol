@@ -22,6 +22,13 @@ RSpec.describe GameManager do
     expect(@game_manager.games).to be_an(Array)
   end
 
+  # it "can create a game id hash" do
+  #
+  #   expected = {"2012030221" => @game}
+  #
+  #   expect(@game_manager.game_by_id_hash).to eq(expected)
+  # end
+
   it "adds team scores together for total score" do
     expect(@game_manager.total_game_score).to eq([5, 6, 4, 1, 5, 7, 3, 5, 6, 4, 4, 3, 4, 4, 6, 5, 5, 5, 5])
   end
@@ -62,15 +69,14 @@ RSpec.describe GameManager do
     expect(@game_manager.percent_ties).to eq(26.3)
   end
 
-  it "can create a season hash" do
-
+  it "can count games per season" do
     expected = {
       '20122013' => 2,
       '20152016' => 1
-
     }
     expect(@game_manager.count_of_games_by_season).to eq(expected)
   end
+
 
 
   # it "is an array of season numbers" do
@@ -84,10 +90,11 @@ RSpec.describe GameManager do
     expect(hash_keys.count).to eq(6)
   end
 
+  it 'can average all goals for all games' do
+    expect(@game_manager.average_goals_per_game).to eq(5.0)
+  end
+
+  it 'can avearge all goals for all games by season' do
+    expect(@game_manager.average_goals_by_season).to eq({"20122013"=>5.5, "20152016"=>4.0})
+  end
 end
-
-
-# it "is an array of season numbers" do
-#   result = ["20122013", "20152016", "20132014", "20142015", "20172018", "20162017"]
-#   expect(@game_manager.array_of_seasons).to eq(result)
-# end
