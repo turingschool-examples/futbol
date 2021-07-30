@@ -226,7 +226,13 @@ end
 
 
 
-
+  def lowest_scoring_visitor
+    away_info = get_away_team_goals
+    team_id = away_info.each.min_by do |team, data|
+      data[:goals].fdiv(data[:total])
+    end.first
+    team_info(team_id)['team_name']
+  end
 
   def get_home_team_goals
     home_avg = {}

@@ -124,7 +124,6 @@ class GameTeamsManager
     @game_teams.each do |game|
 
       away_avg[game.team_id] ||= { goals: 0, total: 0 }
-      # require "pry"; binding.pry
       if game.home_away == "away"
         away_avg[game.team_id][:goals] += game.goals
         away_avg[game.team_id][:total] += 1
@@ -149,7 +148,7 @@ class GameTeamsManager
       data[:goals].fdiv(data[:total])
     end.first
     team_id
-    
   end
 
+  
 end
