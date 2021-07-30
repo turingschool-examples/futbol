@@ -1,4 +1,4 @@
-require 'game'
+require_relative './game'
 
 class GameManager
   attr_reader :games,
@@ -48,7 +48,7 @@ class GameManager
     end
   end
 
-  def percent_home_wins
+  def percentage_home_wins
     (home_wins_count.to_f / total_games * 100).round(1)
   end
 
