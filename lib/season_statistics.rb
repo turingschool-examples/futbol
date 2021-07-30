@@ -8,17 +8,16 @@ module SeasonStatistics
 
   def game_teams_by_season(season)
     game_ids = game_ids_by_season(season)
-    gts = @game_teams.find_all do |game_team|
+    @game_teams.find_all do |game_team|
       game_ids.include?(game_team.game_id)
     end
-    gts
   end
 
   def coach_stats_by_season(season)
     coaches = {}
     game_teams_by_season(season).each do |game_team|
       if coaches[game_team.head_coach].nil?
-        coaches[game_team.head_coach] = [0, 0]
+        coaches[game_team.head_coach] = [0, 0] #[game count, win count]
       end
       coaches[game_team.head_coach][0] += 1
       coaches[game_team.head_coach][1] += 1 if game_team.result == "WIN"
@@ -44,7 +43,7 @@ module SeasonStatistics
     teams_shots = {}
     game_teams_by_season(season).each do |game_team|
       if teams_shots[game_team.team_id].nil?
-        teams_shots[game_team.team_id]  = [0, 0]
+        teams_shots[game_team.team_id]  = [0, 0] #[goals , shots]
       end
       teams_shots[game_team.team_id][0] += game_team.goals
       teams_shots[game_team.team_id][1] += game_team.shots
