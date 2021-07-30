@@ -222,31 +222,11 @@ end
 
 
 
-  def get_away_team_goals
-    away_avg = {}
-    @games.each do |game|
-      away_avg[game[:away_team_id]] ||= { goals: 0, total: 0 }
-      away_avg[game[:away_team_id]][:goals] += game[:away_goals].to_i
-      away_avg[game[:away_team_id]][:total] += 1
-    end
-    away_avg
-  end
 
-  def highest_scoring_visitor
-    away_info = get_away_team_goals
-    team_id = away_info.each.max_by do |team, data|
-      data[:goals].fdiv(data[:total])
-    end.first
-    team_info(team_id)['team_name']
-  end
 
-  def lowest_scoring_visitor
-    away_info = get_away_team_goals
-    team_id = away_info.each.min_by do |team, data|
-      data[:goals].fdiv(data[:total])
-    end.first
-    team_info(team_id)['team_name']
-  end
+
+
+
 
   def get_home_team_goals
     home_avg = {}
