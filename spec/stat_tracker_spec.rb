@@ -20,10 +20,6 @@ RSpec.describe StatTracker do
       expect(stat_tracker.average_win_percentage("15")).to eq(0.63)
     end
 
-    it "can get most and fewest number of goals" do
-      expect(stat_tracker.most_goals_scored("3")).to eq(5)
-      expect(stat_tracker.fewest_goals_scored("3")).to eq(0)
-    end
 
     it "can give percentage of home wins, away wins, and ties" do
       expect(stat_tracker.percentage_home_wins).to eq(0.67)

@@ -190,24 +190,3 @@ end
     end.first
     team_info(team_id)['team_name']
   end
-  def most_goals_scored(team_id)
-    goals = goals_per_team_game(team_id)
-    goals.max_by do |goal|
-      goal.to_i
-    end.to_i
-  end
-
-  def goals_per_team_game(team_id)
-    goals = []
-    @game_teams.each do |game|
-      goals << game[:goals] if game[:team_id] == team_id
-    end
-    goals
-  end
-
-  def fewest_goals_scored(team_id)
-    goals = goals_per_team_game(team_id)
-    goals.min_by do |goal|
-      goal.to_i
-    end.to_i
-  end

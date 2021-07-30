@@ -12,4 +12,12 @@ class GameTeams
       @tackles = game_teams_data["tackles"].to_i
   end
 
+  def won?
+    @result == "WIN"
+  end
+
+  def season
+    next_year = @game_id[0..3].to_i + 1
+    "#{@game_id[0..3]}#{next_year}"
+  end
 end
