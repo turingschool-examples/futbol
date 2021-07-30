@@ -9,12 +9,14 @@ class GamesManager
     make_games(file_path)
   end
 
+# helper
   def make_games(file_path)
     CSV.foreach(file_path, headers: true) do |row|
       @games << Game.new(row)
     end
   end
 
+#Interface
   def highest_total_score
     highest_game = @games.max_by do |game|
       game.away_goals + game.home_goals
@@ -22,6 +24,7 @@ class GamesManager
     highest_game.away_goals + highest_game.home_goals
   end
 
+  #Interface
   def lowest_total_score
     lowest_game = @games.min_by do |game|
       game.away_goals + game.home_goals
@@ -29,6 +32,7 @@ class GamesManager
     lowest_game.away_goals + lowest_game.home_goals
   end
 
+  #Interface
   def count_of_games_by_season
     count_seasons = Hash.new(0)
     @games.each do |game|
