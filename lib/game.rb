@@ -33,12 +33,12 @@ class Game
     end
   end
 
-  def game_by_id
-    @game_rows.each do |game_row|
-      @id_hash[game_row.game_id] ||= []
-      @id_hash[game_row.game_id] << game_row
-    end
-    @id_hash
-
-  end
+  # def game_by_id
+  #   @game_rows.each do |game_row|
+  #     @id_hash[game_row.game_id] ||= []
+  #     @id_hash[game_row.game_id] << game_row
+  #   end
+  #   @id_hash
+  #
+  # end
 end
