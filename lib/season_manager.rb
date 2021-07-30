@@ -8,30 +8,17 @@ class SeasonManager
     create_seasons(seasons, games, game_teams)
   end
 
-  # def create_seasons(seasons, games, game_teams)
-  #   fill_season_ids(seasons)
-  #   @seasons_hash.each do |season_id, data|
-  #     variable = nil
-  #     games.each do |game_id, game|
-  #       if game.season == season_id
-  #           @seasons_hash[season] ||= Season.new
-  #       variable = {game_id => game, game_teams[game_id]} #class method containing this data goes here
-  #     end
-  #   end
-  #
-  #   end
-
-    # @seasons_hash[season] = Season.new
   def create_seasons(seasons, games, game_teams)
     fill_season_ids(seasons)
-    @seasons_hash.each do |season, game_id2|
+    @seasons_hash.each do |season_id, season|
       games.each do |game_id, game|
-        if game.season == season
-          @seasons_hash[season].add_game(game_id, game, game_teams[game_id][:home], game_teams[game_id][:away])
+        if game.season == season_id
+          @seasons_hash[season_id].add_game(game_id, game, game_teams[game_id][:home], game_teams[game_id][:away])
         end
       end
     end
 
+    require "pry"; binding.pry
   end
 
   def fill_season_ids(seasons)
@@ -40,3 +27,20 @@ class SeasonManager
     end
   end
 end
+
+
+
+# def create_seasons(seasons, games, game_teams)
+#   fill_season_ids(seasons)
+#   @seasons_hash.each do |season_id, data|
+#     variable = nil
+#     games.each do |game_id, game|
+#       if game.season == season_id
+#           @seasons_hash[season] ||= Season.new
+#       variable = {game_id => game, game_teams[game_id]} #class method containing this data goes here
+#     end
+#   end
+#
+#   end
+
+# @seasons_hash[season] = Season.new

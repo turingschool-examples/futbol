@@ -38,4 +38,3 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2012030165,20122013,Postseason,5/9/13,17,24,2,3,Rio Tinto Stadium,/api/v1/venues/null
 2012030166,20122013,Postseason,5/11/13,24,17,3,2,Dignity Health Sports Park,/api/v1/venues/null
 2012030167,20122013,Postseason,5/13/13,17,24,3,2,Rio Tinto Stadium,/api/v1/venues/null
-2015030142,20152016,Postseason,4/16/16,3,5,2,2,Children's Mercy Park,/api/v1/venues/null
