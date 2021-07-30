@@ -34,5 +34,4 @@ class GameTeams
     @takeaways                = hash[:takeaways]
   end
 
-
-end
+end 
