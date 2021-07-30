@@ -28,6 +28,7 @@ RSpec.describe TeamManager do
   describe '#teams_by_id' do
     it 'creates teams_by_id hash' do
       expect(@team_manager.teams_by_id).to be_instance_of(Hash)
+      expect(@team_manager.teams_by_id["1"]).to eq("Atlanta United")
     end
   end
 end

@@ -28,13 +28,13 @@ RSpec.describe GameTeamManager do
     game_team_manager.load
 
     it 'counts total games for all seasons' do
-      expect(game_team_manager.total_games_all_seasons(3)).to eq(5)
+      expect(game_team_manager.total_games_all_seasons("3")).to eq(5)
     end
     it 'counts total goals for all seasons' do
-      expect(game_team_manager.total_goals_all_seasons(3)).to eq(8)
+      expect(game_team_manager.total_goals_all_seasons("3")).to eq(8)
     end
     it 'calculates average goals for all seasons' do
-      expect(game_team_manager.average_goals_all_seasons(3)).to eq(1.60)
+      expect(game_team_manager.average_goals_all_seasons("3")).to eq(1.60)
     end
   end
 
@@ -42,13 +42,18 @@ RSpec.describe GameTeamManager do
     file_path = './data/fixture_game_teams.csv'
     game_team_manager = GameTeamManager.new(file_path)
     game_team_manager.load
+    teams_by_id = {"3" => "Houston Dynamo",
+                  "6" => "FC Dallas",
+                  "5" => "Sporting Kansas City",
+                  "17" => "LA Galaxy"
+                  }
 
-    it 'returns best_offense team_id' do
-      expect(game_team_manager.best_offense).to eq(1)
+    it 'returns best_offense team string' do
+      expect(game_team_manager.best_offense(teams_by_id)).to eq("FC Dallas")
     end
 
-    it 'returns worst_offense team_id' do
-      expect(game_team_manager.worst_offense).to eq(1)
+    it 'returns worst_offense team string' do
+      expect(game_team_manager.worst_offense(teams_by_id)).to eq("Sporting Kansas City")
     end
   end
 end

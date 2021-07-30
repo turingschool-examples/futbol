@@ -25,7 +25,7 @@ class GameTeamManager
     total = 0
     @game_teams.each do |game_id, teams|
       teams.each do |hoa, team|
-        total += 1 if team_id == team.team_id.to_i
+        total += 1 if team_id == team.team_id
       end
     end
     total
@@ -35,7 +35,7 @@ class GameTeamManager
     total = 0
     @game_teams.each do |game_id, teams|
       teams.each do |hoa, team|
-        total += team.goals.to_i if team_id == team.team_id.to_i
+        total += team.goals.to_i if team_id == team.team_id
       end
     end
     total
@@ -46,15 +46,29 @@ class GameTeamManager
     average.round(2)
   end
 
-  def best_offense
-    
+  def best_offense(teams_by_id)
     best_average = 0
     best_team = nil
-    team_averages = {}
-    @game_teams.each do |game_id, teams|
-      teams.each do |hoa, team|
-
+    teams_by_id.each do |team_id, team_name|
+      average = average_goals_all_seasons(team_id)
+      if average > best_average
+        best_average = average
+        best_team = team_name
       end
     end
+    best_team
+  end
+
+  def worst_offense(teams_by_id)
+    worst_average = 100000
+    worst_team = nil
+    teams_by_id.each do |team_id, team_name|
+      average = average_goals_all_seasons(team_id)
+      if average < worst_average
+        worst_average = average
+        worst_team = team_name
+      end
+    end
+    worst_team
   end
 end

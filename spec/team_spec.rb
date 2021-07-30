@@ -2,13 +2,13 @@ require './lib/team'
 
 RSpec.describe Team do
 
-  describe 'initialization' do
-    it 'exists and has attributes' do
-      team = Team.new({
-                      "team_id"
-                      })
-    end
-  end
+  # describe 'initialization' do
+  #   it 'exists and has attributes' do
+  #     team = Team.new({
+  #
+  #                     })
+  #   end
+  # end
 
 end
 

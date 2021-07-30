@@ -27,6 +27,5 @@ class TeamManager
       teams_by_id[team_id] = team.teamname
     end
     teams_by_id
-    require "pry"; binding.pry
   end
 end
