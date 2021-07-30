@@ -56,12 +56,12 @@ RSpec.describe GamesManager do
 
     it 'highest scoring vistor and home team' do
       expect(games_manager.highest_scoring_visitor).to eq("5")
-      expect(games_manager.highest_scoring_home_team).to eq("26")
+      expect(games_manager.highest_scoring_home_team).to eq("24")
     end
 
     it 'lowest scoring vistor and home team' do
       expect(games_manager.lowest_scoring_visitor).to eq("13")
-      expect(games_manager.lowest_scoring_home_team).to eq("4")
+      expect(games_manager.lowest_scoring_home_team).to eq("13")
     end
   end
 end
