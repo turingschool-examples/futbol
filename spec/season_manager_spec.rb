@@ -18,6 +18,6 @@ RSpec.describe SeasonManager do
   end
 
   it "is a thing" do
-    expect(@stat_tracker.season_manager.fill_season_ids(@stat_tracker.game_manager.seasons)).to eq(5)
+    expect(@stat_tracker.season_manager.seasons_hash).to eq(5)
   end
 end

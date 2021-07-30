@@ -15,9 +15,9 @@ RSpec.describe GameTeamManager do
       game_team_manager = GameTeamManager.new(file_path)
       game_team_manager.load
 
-      game_team_manager.game_teams.each do |game_id, team_array|
-        expect(team_array[0]).to be_instance_of(GameTeam)
-        expect(team_array[1]).to be_instance_of(GameTeam)
+      game_team_manager.game_teams.each do |game_id, team_hash|
+        expect(team_hash[:home]).to be_instance_of(GameTeam)
+        expect(team_hash[:away]).to be_instance_of(GameTeam)
       end
     end
   end
