@@ -73,6 +73,16 @@
  * 6pm MST dinner break
  * start of the day work sesh - 30 min recap of any work that wasn't done as a group the day before
  * front loading the work - slow down if we can
+ * 
+ * Weekend Schedule:
+ * TD: Open 
+ * X: Out 11 - 1pm timeframe, Evening 5:30pm 
+ * T: Possible party 
+ * H: Friday 5:30pm, Sat/Sun biking morning 
+ * KF: Saturday: work anytime up to 2pm / Sunday: work anytime up to 3pm 
+
+ * Saturday: 9 - 2pm (30 min break sometime)
+ * Sunday: 9 - 3pm
 
 * What tools do you want to use to manage the project?
  * computers, tuple, teletype

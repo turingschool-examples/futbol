@@ -53,5 +53,28 @@ RSpec.describe GamesManager do
     it 'games per season' do
       expect(games_manager.games_per_season('20132014')).to eq(6)
     end
+
+    it 'highest scoring vistor and home team' do
+      expect(games_manager.highest_scoring_visitor).to eq("5")
+      expect(games_manager.highest_scoring_home_team).to eq("24")
+    end
+
+    it 'lowest scoring vistor and home team' do
+      expect(games_manager.lowest_scoring_visitor).to eq("13")
+      expect(games_manager.lowest_scoring_home_team).to eq("13")
+    end
+
+    it 'has best and worst seasons' do
+      expect(games_manager.best_season("15")).to eq("20162017")
+      expect(games_manager.worst_season("15")).to eq("20142015")
+    end
+
+    it "gets seasons averages" do
+
+    end
+
+    it "gets seasons win count" do
+
+    end
   end
 end

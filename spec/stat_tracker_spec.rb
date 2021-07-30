@@ -16,11 +16,6 @@ RSpec.describe StatTracker do
       expect(stat_tracker).to be_a(StatTracker)
     end
 
-    it 'has best and worst seasons' do
-      expect(stat_tracker.best_season("15")).to eq("20162017")
-      expect(stat_tracker.worst_season("15")).to eq("20142015")
-    end
-
     it 'has an average win percentage' do
       expect(stat_tracker.average_win_percentage("15")).to eq(0.63)
     end
@@ -52,13 +47,4 @@ RSpec.describe StatTracker do
       expect(stat_tracker.worst_offense).to eq("Houston Dash")
     end
 
-    it 'highest scoring vistor and home team' do
-      expect(stat_tracker.highest_scoring_visitor).to eq("Sporting Kansas City")
-      expect(stat_tracker.highest_scoring_home_team).to eq("Real Salt Lake")
-    end
-
-    it 'lowest scoring vistor and home team' do
-      expect(stat_tracker.lowest_scoring_visitor).to eq("Houston Dash")
-      expect(stat_tracker.lowest_scoring_home_team).to eq("Houston Dash")
-    end
   end

@@ -51,39 +51,6 @@ end
     end.to_h
   end
 
-  # GameManager Method
-  # We send team_id, they return hash with opp_id & results against
-  def opponent_win_count(team_id)
-    win_loss = {}
-    @games.each do |game|
-      if game[:home_team_id] == team_id || game[:away_team_id] == team_id
-        data = get_home_or_away(team_id, game)
-
-        win_loss[data[:opp_id]] ||= {wins: 0, total: 0}
-        if data[:team_goals] > data[:opp_goals]
-          win_loss[data[:opp_id]][:wins] += 1
-        end
-        win_loss[data[:opp_id]][:total] += 1
-      end
-    end
-    win_loss
-  end
-
-  # GameManager Method
-  # Full send
-  def get_home_or_away(team_id, game)
-    teams = [game[:home_team_id], game[:away_team_id]]
-    goals = [game[:home_goals], game[:away_goals]]
-    team_index = teams.index(team_id)
-    opp_index = team_index - 1
-    {
-      team_goals: goals[team_index],
-      opp_id: teams[opp_index],
-      opp_goals: goals[opp_index]
-    }
-  end
-
-
   ####
 
   # Interface
@@ -138,41 +105,6 @@ end
     end
     team_goals
   end
-  def best_season(team_id)
-    get_season_averages(team_id).max_by do |season, average|
-      average
-    end.first
-  end
-
-  def worst_season(team_id)
-    get_season_averages(team_id).min_by do |season, average|
-      average
-    end.first
-  end
-
-  def get_season_averages(team_id)
-    season_average = seasons_win_count(team_id)
-    season_average.map do |season, stats|
-      [season, stats[:wins].fdiv(stats[:total])]
-    end.to_h
-  end
-
-  def seasons_win_count(team_id, games)
-    season_average = {}
-    games.each do |game|
-      season = game[:season]
-      if game[:home_team_id] == team_id || game[:away_team_id] == team_id
-        data = get_home_or_away(team_id, game)
-
-        season_average[season] ||= {wins: 0, total: 0}
-        if data[:team_goals] > data[:opp_goals]
-          season_average[season][:wins] += 1
-        end
-        season_average[season][:total] += 1
-      end
-    end
-    season_average
-  end
 
   def rival(team_id)
     win_loss = calculate_win_percents(team_id)
@@ -182,7 +114,6 @@ end
 
     team_info(rival_team)["team_name"]
   end
-
 
   def percentage_home_wins
     home_game_wins = 0
@@ -222,23 +153,9 @@ end
 
 
 
-  def get_away_team_goals
-    away_avg = {}
-    @games.each do |game|
-      away_avg[game[:away_team_id]] ||= { goals: 0, total: 0 }
-      away_avg[game[:away_team_id]][:goals] += game[:away_goals].to_i
-      away_avg[game[:away_team_id]][:total] += 1
-    end
-    away_avg
-  end
 
-  def highest_scoring_visitor
-    away_info = get_away_team_goals
-    team_id = away_info.each.max_by do |team, data|
-      data[:goals].fdiv(data[:total])
-    end.first
-    team_info(team_id)['team_name']
-  end
+
+
 
   def lowest_scoring_visitor
     away_info = get_away_team_goals
