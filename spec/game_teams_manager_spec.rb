@@ -67,5 +67,46 @@ RSpec.describe GameTeamsManager do
       expect(game_teams_manager.most_tackles("20142015")).to eq("3")
       expect(game_teams_manager.fewest_tackles("20142015")).to eq("14")
     end
+
+    it 'has best and worst seasons' do
+      expect(game_teams_manager.best_season("3")).to eq("20142015")
+      expect(game_teams_manager.worst_season("15")).to eq("20152016")
+    end
+
+    it "can process a game" do
+      game1 = double('game win')
+      game2 = double('game loss')
+
+      allow(game1).to receive(:won?).and_return(true)
+      allow(game2).to receive(:won?).and_return(false)
+      data1 = {wins: 0, total: 0}
+      data2 = {wins: 0, total: 0}
+      expected1 = {wins: 1, total: 1}
+      expected2 = {wins: 0, total: 1}
+      game_teams_manager.process_game(data1, game1)
+      game_teams_manager.process_game(data2, game2)
+      expect(data1).to eq(expected1)
+      expect(data2).to eq(expected2)
+    end
+
+    it "gets seasons averages" do
+      expect(game_teams_manager.get_season_averages("3")).to eq([["20142015", 0.727272727272727273]])
+    end
+
+    it "gets seasons win count" do
+      expect(game_teams_manager.seasons_win_count("3")).to eq({"20142015" => {wins: 8, total: 11}})
+    end
+
+    it "can get most and fewest number of goals" do
+      expect(game_teams_manager.most_goals_scored("3")).to eq(5)
+      expect(game_teams_manager.fewest_goals_scored("3")).to eq(0)
+    end
+
+    it "can get team goals" do
+      expected = [2, 3, 2, 2, 2, 2, 2, 3, 3, 0, 5]
+
+      expect(game_teams_manager.goals_per_team_game("3")).to eq(expected)
+    end
+
   end
 end
