@@ -16,4 +16,8 @@ class TeamManager
       @teams[row["team_id"]] = Team.new(row)
     end
   end
+
+  def count_of_teams
+    @teams.count
+  end
 end
