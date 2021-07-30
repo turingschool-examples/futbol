@@ -1,17 +1,15 @@
 module GameStatistics
 
   def highest_total_score
-    game_sums = @games.map do |game|
+    @games.map do |game|
       game.home_goals + game.away_goals
-    end
-    game_sums.max
+    end.max
   end
 
   def lowest_total_score
-    game_sums = @games.map do |game|
+    @games.map do |game|
       game.home_goals + game.away_goals
-    end
-    game_sums.min
+    end.min
   end
 
   def percentage_home_wins
@@ -54,20 +52,24 @@ module GameStatistics
     (total_goals.to_f / (@games.length)).round(2)
   end
 
-  def average_goals_by_season
-    hash = {}
+  def all_goals_by_season
+    goals = {}
     @games.each do |game|
-      if hash[game.season].nil?
-        hash[game.season] = [1, game.home_goals + game.away_goals]
+      if goals[game.season].nil?
+        goals[game.season] = [1, game.home_goals + game.away_goals]
       else
-        hash[game.season][0] += 1
-        hash[game.season][1] += game.home_goals + game.away_goals
+        goals[game.season][0] += 1
+        goals[game.season][1] += game.home_goals + game.away_goals
       end
     end
-    results = {}
-    hash.each do |season, stats|
-      results[season] = (stats[1].to_f / stats[0]).round(2)
+    goals
+  end
+
+  def average_goals_by_season
+    average_goals = {}
+    all_goals_by_season.each do |season, stats|
+      average_goals[season] = (stats[1].to_f / stats[0]).round(2)
     end
-    results
+    average_goals
   end
 end

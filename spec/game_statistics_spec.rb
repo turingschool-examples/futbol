@@ -51,6 +51,17 @@ RSpec.describe GameStatistics do
       expect(stat_tracker.average_goals_per_game).to eq(4.2)
     end
 
+    it '#all_goals_by_season' do
+      expected =  {"20122013"=>[111, 452],
+                   "20162017"=>[73, 318],
+                   "20142015"=>[221, 900],
+                   "20152016"=>[87, 363],
+                   "20132014"=>[123, 525],
+                   "20172018"=>[135, 592]}
+                   
+      expect(stat_tracker.all_goals_by_season).to eq(expected)
+    end
+
     it '#average_goals_by_season' do
       expect(stat_tracker.average_goals_by_season).to eq({
         "20122013" => 4.07,
