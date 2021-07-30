@@ -83,7 +83,6 @@ class GamesManager
   def get_home_team_goals
     home_avg = {}
     @games.each do |game|
-
       home_avg[game.home_team_id] ||= { goals: 0, total: 0 }
       home_avg[game.home_team_id][:goals] += game.home_goals
       home_avg[game.home_team_id][:total] += 1
@@ -138,5 +137,4 @@ class GamesManager
     end.first
     team_id
   end
-
 end
