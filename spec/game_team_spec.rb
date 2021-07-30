@@ -17,6 +17,7 @@ RSpec.describe GameTeam do
 
     it "has attributes" do
       expect(game.team_id).to eq("3")
+      expect(game.game_id).to eq("2012030222")
     end
   end
 end
