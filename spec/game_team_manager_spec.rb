@@ -186,9 +186,7 @@ RSpec.describe GameTeamManager do
       game_team_manager = GameTeamManager.new(file_path)
       game_team_manager.load
       list = game_team_manager.opponents_list("6")
-      # list.each do |game_team|
-      #   expect(game_team.team_id).to eq("3") | eq("5")
-      # end
+      expect(list).to eq({"3"=>{:games=>5, :wins=>0}, "5"=>{:games=>4, :wins=>0}})
     end
   end
 
