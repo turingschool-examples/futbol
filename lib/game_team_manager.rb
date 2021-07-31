@@ -157,4 +157,20 @@ class GameTeamManager
   def games(games)
     games.count
   end
+
+  def average_win_percentage(team_id)
+    total_games = 0
+    total_wins = 0
+    @game_teams.each do |game_id, teams|
+      teams.each do |hoa, team|
+        if team.team_id == team_id
+          if team.result == "WIN"
+            total_wins += 1
+          end
+          total_games += 1
+        end
+      end
+    end
+    (total_wins / total_games.to_f).round(2)
+  end
 end
