@@ -26,7 +26,6 @@ class StatTracker
       headers ||= row.headers
 
       teams << Team.new(row)
-
     end
 
     CSV.foreach(locations[:game_teams], headers: true, header_converters: :symbol) do |row|
@@ -36,7 +35,6 @@ class StatTracker
     end
 
     StatTracker.new(games, teams, game_teams)
-
   end
 # Game stats start
   def highest_total_score
@@ -212,7 +210,6 @@ class StatTracker
         wins_by_coach[game.head_coach] += 1
       end
     end
-
     loser_coach = wins_by_coach.min_by do |coach, wins|
       tot_games = total_games_by_coach(season)[coach]
       (wins_by_coach[coach] - tot_games).fdiv(tot_games)
@@ -381,7 +378,7 @@ class StatTracker
   end
 
   def average_win_percentage(team_id)
-    games_won(team_id).length.fdiv(all_games_played(team_id).length)
+    games_won(team_id).length.fdiv(all_games_played(team_id).length).round(2)
   end
 
   def most_goals_scored(team_id)
@@ -434,7 +431,7 @@ class StatTracker
 
   def worst_season(team_id)
     all_seasons.min_by do |season|
-      [season_win_percentage(season, team_id)].compact
+       [season_win_percentage(season, team_id)].compact
     end
   end
 
@@ -452,6 +449,7 @@ class StatTracker
     team_wins = 0
     total_games = 0
     @games.each do |game|
+      #lots of functionality may be moved to games_class
       if game.away_team_id == team_id && game.home_team_id == opponent_id
         team_wins +=1 if game.away_goals > game.home_goals
         total_games += 1
@@ -463,4 +461,29 @@ class StatTracker
     team_wins.fdiv(total_games)
   end
 
+  def favorite_opponent(team_id)
+    favorite_opponent_name = nil
+    favorite_opponent_id = all_opponents(team_id).max_by do |opponent_id|
+      team_opponent_win_percentage(opponent_id, team_id)
+    end
+    @teams.each do |team|
+      if team.team_id == favorite_opponent_id
+        favorite_opponent_name = team.team_name
+      end
+    end
+    favorite_opponent_name
+  end
+
+  def rival(team_id)
+    rival = nil
+    rival_id = all_opponents(team_id).min_by do |opponent_id|
+      team_opponent_win_percentage(opponent_id, team_id)
+    end
+    @teams.each do |team|
+      if team.team_id == rival_id
+        rival = team.team_name
+      end
+    end
+    rival
+  end
 end
