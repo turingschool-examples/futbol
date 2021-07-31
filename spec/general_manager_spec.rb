@@ -74,21 +74,21 @@ RSpec.describe GeneralManager do
     end
 
     it 'highest scoring vistor and home team' do
-      expect(@general_manager.highest_scoring_visitor).to eq("5")
-      expect(@general_manager.highest_scoring_home_team).to eq("24")
+      expect(@general_manager.highest_scoring_visitor).to eq("Sporting Kansas City")
+      expect(@general_manager.highest_scoring_home_team).to eq("Real Salt Lake")
     end
 
     it 'lowest scoring vistor and home team' do
-      expect(@general_manager.lowest_scoring_visitor).to eq("13")
-      expect(@general_manager.lowest_scoring_home_team).to eq("13")
+      expect(@general_manager.lowest_scoring_visitor).to eq("Houston Dash")
+      expect(@general_manager.lowest_scoring_home_team).to eq("Houston Dash")
     end
 
     it 'has a favourite opponent' do
-      expect(@general_manager.favorite_opponent("15")).to eq("Seattle Sounders FC")
+      expect(@general_manager.favorite_opponent("15")).to eq("North Carolina Courage")
     end
 
     it 'has a rival' do
-      expect(@general_manager.rival("15")).to eq("North Carolina Courage")
+      expect(@general_manager.rival("15")).to eq("Seattle Sounders FC")
     end
   end
 
