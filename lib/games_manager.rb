@@ -109,6 +109,7 @@ class GamesManager
   end
 
   #Helper
+  ##same as get_awway_team_goals in GameTeamsMgr
   def get_visitor_goals
     visitor_avg = {}
     @games.each do |game|
@@ -138,57 +139,90 @@ class GamesManager
     team_id
   end
 
-#Interface
-  def best_season(team_id)
-    get_season_averages(team_id).max_by do |season, average|
-      average
-    end.first
-  end
-
-#Interface
-  def worst_season(team_id)
-    get_season_averages(team_id).min_by do |season, average|
-      average
-    end.first
-  end
-
-#Helper
-  def get_season_averages(team_id)
-    season_average = seasons_win_count(team_id)
-    season_average.map do |season, stats|
-      [season, stats[:wins].fdiv(stats[:total])]
-    end.to_h
-  end
-
-#Helper
-  def seasons_win_count(team_id)
-    season_average = {}
-    @games.each do |game|
-      if game.has_team?(team_id)
-        season_average[game.season] ||= {wins: 0, total: 0}
-        if game.winner?(team_id, game)
-           season_average[game.season][:wins] += 1
-        end
-        season_average[game.season][:total] += 1
-      end
-    end
-    season_average
-  end
-
   # We send team_id, they return hash with opp_id & results against
+  # Helper
   def opponent_win_count(team_id)
-    win_loss = {}
-    @games.each do |game|
-      if game[:home_team_id] == team_id || game[:away_team_id] == team_id
-        data = get_home_or_away(team_id, game)
+    @games.reduce({}) do |acc, game|
+      if game.has_team?(team_id)
+        opp_id = opponent_id(team_id, game)
 
-        win_loss[data[:opp_id]] ||= {wins: 0, total: 0}
-        if data[:team_goals] > data[:opp_goals]
-          win_loss[data[:opp_id]][:wins] += 1
+        acc[opp_id] ||= {wins: 0, total: 0}
+        if !game.winner?(team_id)
+          acc[opp_id][:wins] += 1
         end
-        win_loss[data[:opp_id]][:total] += 1
+        acc[opp_id][:total] += 1
       end
+      acc
     end
-    win_loss
+  end
+
+  def opponent_id(team_id, game)
+    if game.home_team?(team_id)
+      game.away_team_id
+    else
+      game.home_team_id
+    end
+  end
+
+  ########
+  # Interface
+  def favorite_opponent(team_id)
+    win_loss = calculate_win_percents(team_id)
+    win_loss.max_by do |team, result|
+      result
+    end.first
+  end
+  # Interface
+  def rival(team_id)
+    win_loss = calculate_win_percents(team_id)
+    win_loss.min_by do |team, result|
+      result
+    end.first
+  end
+
+  # Helper
+  def calculate_win_percents(team_id)
+    win_loss = opponent_win_count(team_id)
+    win_loss.map do |team, results|
+      avg = results[:wins].fdiv(results[:total])
+      [team, avg]
+    end
+  end
+
+###################### MOOOOVE
+# Interface
+  def percentage_home_wins
+    home_stats = @games.reduce({wins: 0, total: 0}) do |acc, game|
+      acc[:total] += 1
+      if game.winner?(game.home_team_id)
+        acc[:wins] += 1
+      end
+      acc
+    end
+    (home_stats[:wins].fdiv(home_stats[:total])).round(2)
+  end
+
+# Interface
+  def percentage_visitor_wins
+    away_stats = @games.reduce({wins: 0, total: 0}) do |acc, game|
+      acc[:total] += 1
+      if game.winner?(game.away_team_id)
+        acc[:wins] += 1
+      end
+      acc
+    end
+    (away_stats[:wins].fdiv(away_stats[:total])).round(2)
+  end
+
+# Interface
+  def percentage_ties
+    tie_stats = @games.reduce({ties: 0, total: 0}) do |acc, game|
+      acc[:total] += 1
+      if !(game.home_win? || game.away_win?)
+        acc[:ties] += 1
+      end
+      acc
+    end
+    (tie_stats[:ties].fdiv(tie_stats[:total])).round(2)
   end
 end

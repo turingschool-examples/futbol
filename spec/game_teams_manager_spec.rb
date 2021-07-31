@@ -108,5 +108,33 @@ RSpec.describe GameTeamsManager do
       expect(game_teams_manager.goals_per_team_game("3")).to eq(expected)
     end
 
+    it 'has best offense' do
+      expect(game_teams_manager.best_offense).to eq("28")
+    end
+
+    it 'has worst offense' do
+      expect(game_teams_manager.worst_offense).to eq("4")
+    end
+
+
+    it 'gets offense averages' do
+      expected = {
+        "26" => 2.33,
+        "28" => 2.67,
+        "16" => 2.67,
+        "19" => 1.67,
+        "4" => 1.0,
+        "15" => 1.67,
+        "5" => 1.2,
+        "3" => 2.36,
+        "14" => 2.4
+      }
+      expect(game_teams_manager.get_offense_averages).to eq(expected)
+    end
+
+
+    it 'has an average win percentage' do
+      expect(game_teams_manager.average_win_percentage("15")).to eq(0.67)
+    end
   end
 end

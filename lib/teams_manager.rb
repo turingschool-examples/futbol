@@ -47,5 +47,4 @@ class TeamsManager
     end
     team.team_name
   end
-
 end

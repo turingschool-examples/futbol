@@ -9,7 +9,6 @@ class GameTeamsManager
     make_game_teams(file_path)
   end
 
-
 #helper
   def make_game_teams(file_path)
     CSV.foreach(file_path, headers: true) do |row|
@@ -119,38 +118,6 @@ class GameTeamsManager
     end.first
   end
 
-#Helper
-  def get_away_team_goals
-    away_avg = {}
-    @game_teams.each do |game|
-
-      away_avg[game.team_id] ||= { goals: 0, total: 0 }
-      if game.home_away == "away"
-        away_avg[game.team_id][:goals] += game.goals
-        away_avg[game.team_id][:total] += 1
-      end
-    end
-    away_avg
-  end
-
-#Interface
-  def highest_scoring_visitor
-    away_info = get_away_team_goals
-    team_id = away_info.each.max_by do |team, data|
-      data[:goals].fdiv(data[:total])
-    end.first
-    team_id
-  end
-
-#Interface
-  def lowest_scoring_visitor
-    away_info = get_away_team_goals
-    team_id = away_info.each.min_by do |team, data|
-      data[:goals].fdiv(data[:total])
-    end.first
-    team_id
-  end
-
 #Interface
   def best_season(team_id)
     get_season_averages(team_id).max_by do |season, average|
@@ -163,6 +130,22 @@ class GameTeamsManager
     get_season_averages(team_id).min_by do |season, average|
       average
     end.first
+  end
+
+
+  # Interface
+  def average_win_percentage(team_id)
+    team_stats = team_win_stats(team_id)
+    (team_stats[:wins].fdiv(team_stats[:total])).round(2)
+  end
+
+  def team_win_stats(team_id)
+    @game_teams.reduce({wins: 0, total: 0}) do |acc, game|
+      if game.team_id == team_id
+        process_game(acc, game)
+      end
+      acc
+    end
   end
 
 #Helper
@@ -207,4 +190,35 @@ class GameTeamsManager
     goals_per_team_game(team_id).min
   end
 
+  # Interface
+  def best_offense
+    team_id = get_offense_averages.max_by do |team, data|
+      data
+    end.first
+    team_id
+  end
+
+  # Interface
+  def worst_offense
+    team_id = get_offense_averages.min_by do |team, data|
+      data
+    end.first
+    team_id
+  end
+
+  # Helper
+  def get_offense_averages
+     get_goals_per_team.map do |team, data|
+      [team, data[:goals].fdiv(data[:total]).round(2)]
+    end.to_h
+  end
+
+  def get_goals_per_team
+    @game_teams.reduce({}) do |acc, game|
+      acc[game.team_id] ||= {goals: 0, total: 0}
+      acc[game.team_id][:goals] += game.goals
+      acc[game.team_id][:total] += 1
+      acc
+    end
+  end
 end

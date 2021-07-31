@@ -32,5 +32,6 @@ RSpec.describe TeamsManager do
     it 'returns team name by team id' do
       expect(teams_manager.team_by_id("18")).to eq("Minnesota United FC")
     end
+
   end
 end
