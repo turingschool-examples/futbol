@@ -1,7 +1,9 @@
 require 'csv'
 require_relative 'game_teams'
+require_relative 'mathable'
 
 class GameTeamsManager
+  include Mathable
   attr_reader :game_teams
 
   def initialize(file_path)
@@ -18,24 +20,22 @@ class GameTeamsManager
 
 # Interface
   def winningest_coach(season)
-    most_wins = coach_win_pct(season).max_by do|coach, pct|
+    coach_win_pct(season).max_by do|coach, pct|
       pct
-    end
-    most_wins[0]
+    end.first
   end
 
 # Interface
   def worst_coach(season)
-    least_wins = coach_win_pct(season).min_by do|coach, pct|
+    coach_win_pct(season).min_by do|coach, pct|
       pct
-    end
-    least_wins[0]
+    end.first
   end
 
 #helper
   def coach_win_pct(season)
-    test = coach_wins(season).each.reduce({}) do |acc, (coach, results)|
-      acc[coach] = results[:wins].fdiv(results[:total])
+    coach_wins(season).each.reduce({}) do |acc, (coach, results)|
+      acc[coach] = average(results)
       acc
     end
   end
@@ -72,7 +72,7 @@ class GameTeamsManager
     accuracy_data = get_accuracy_data(season)
     accuracy_average = Hash.new
     accuracy_data.each do |team, data|
-      accuracy_average[team] = data[:goals].fdiv(data[:shots])
+      accuracy_average[team] = average(data)
     end
     accuracy_average
   end
@@ -136,7 +136,7 @@ class GameTeamsManager
   # Interface
   def average_win_percentage(team_id)
     team_stats = team_win_stats(team_id)
-    (team_stats[:wins].fdiv(team_stats[:total])).round(2)
+    average(team_stats).round(2)
   end
 
   def team_win_stats(team_id)
@@ -152,7 +152,7 @@ class GameTeamsManager
   def get_season_averages(team_id)
     season_average = seasons_win_count(team_id)
     season_average.map do |season, stats|
-      [season, stats[:wins].fdiv(stats[:total])]
+      [season, average(stats)]
     end
   end
 
@@ -209,7 +209,7 @@ class GameTeamsManager
   # Helper
   def get_offense_averages
      get_goals_per_team.map do |team, data|
-      [team, data[:goals].fdiv(data[:total]).round(2)]
+      [team, average(data).round(2)]
     end.to_h
   end
 
@@ -231,7 +231,7 @@ class GameTeamsManager
       end
       acc
     end
-    (home_stats[:wins].fdiv(home_stats[:total])).round(2)
+    average(home_stats).round(2)
   end
 
 # Interface
@@ -243,7 +243,7 @@ class GameTeamsManager
       end
       acc
     end
-    (away_stats[:wins].fdiv(away_stats[:total])).round(2)
+    average(away_stats).round(2)
   end
 
 # Interface
@@ -255,6 +255,6 @@ class GameTeamsManager
       end
       acc
     end
-    (tie_stats[:ties].fdiv(tie_stats[:total])).round(2)
+    average(tie_stats).round(2)
   end
 end

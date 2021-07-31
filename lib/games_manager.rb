@@ -1,7 +1,9 @@
 require 'csv'
 require_relative 'game'
+require_relative 'mathable'
 
 class GamesManager
+  include Mathable
   attr_reader :games
 
   def initialize(file_path)
@@ -93,19 +95,17 @@ class GamesManager
 #Interface
   def highest_scoring_home_team
     home_info = get_home_team_goals
-    team_id = home_info.each.max_by do |team, data|
-      data[:goals].fdiv(data[:total])
+     home_info.each.max_by do |team, data|
+      average(data)
     end.first
-    team_id
   end
 
 #Interface
   def lowest_scoring_home_team
     home_info = get_home_team_goals
-    team_id = home_info.each.min_by do |team, data|
-      data[:goals].fdiv(data[:total])
+    home_info.each.min_by do |team, data|
+      average(data)
     end.first
-    team_id
   end
 
   #Helper
@@ -125,7 +125,7 @@ class GamesManager
   def highest_scoring_visitor
     visitor_info = get_visitor_goals
     team_id = visitor_info.each.max_by do |team, data|
-      data[:goals].fdiv(data[:total])
+      average(data)
     end.first
     team_id
   end
@@ -134,7 +134,7 @@ class GamesManager
   def lowest_scoring_visitor
     visitor_info = get_visitor_goals
     team_id = visitor_info.each.min_by do |team, data|
-      data[:goals].fdiv(data[:total])
+      average(data)
     end.first
     team_id
   end
@@ -184,8 +184,7 @@ class GamesManager
   def calculate_win_percents(team_id)
     win_loss = opponent_win_count(team_id)
     win_loss.map do |team, results|
-      avg = results[:wins].fdiv(results[:total])
-      [team, avg]
+      [team, average(results)]
     end
   end
 end
