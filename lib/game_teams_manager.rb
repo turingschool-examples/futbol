@@ -132,6 +132,22 @@ class GameTeamsManager
     end.first
   end
 
+
+  # Interface
+  def average_win_percentage(team_id)
+    team_stats = team_win_stats(team_id)
+    (team_stats[:wins].fdiv(team_stats[:total])).round(2)
+  end
+
+  def team_win_stats(team_id)
+    @game_teams.reduce({wins: 0, total: 0}) do |acc, game|
+      if game.team_id == team_id
+        process_game(acc, game)
+      end
+      acc
+    end
+  end
+
 #Helper
   def get_season_averages(team_id)
     season_average = seasons_win_count(team_id)
@@ -193,7 +209,7 @@ class GameTeamsManager
   # Helper
   def get_offense_averages
      get_goals_per_team.map do |team, data|
-      [team, data[:goals].fdiv(data[:total])]
+      [team, data[:goals].fdiv(data[:total]).round(2)]
     end.to_h
   end
 
