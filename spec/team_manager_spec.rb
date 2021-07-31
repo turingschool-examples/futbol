@@ -31,4 +31,18 @@ RSpec.describe TeamManager do
       expect(@team_manager.teams_by_id["1"]).to eq("Atlanta United")
     end
   end
+
+  describe '#team_info(team_id)' do
+    it 'returns a hash of attributes per team_id' do
+      expected = {
+        "team_id"      => "1",
+        "franchiseId"  => "23",
+        "teamName"     => "Atlanta United",
+        "abbreviation" => "ATL",
+        "link"         => "/api/v1/teams/1"
+      }
+
+      expect(@team_manager.team_info("1")).to eq (expected)
+    end
+  end
 end
