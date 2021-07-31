@@ -3,9 +3,7 @@ require_relative 'games_manager'
 require_relative 'game_teams_manager'
 
 class GeneralManager
-  attr_reader :teams_manager,
-              :games_manager,
-              :game_teams_manager
+  attr_reader :teams_manager, :games_manager, :game_teams_manager
 
   def initialize(locations)
     @teams_manager = TeamsManager.new(locations[:teams])
@@ -42,33 +40,27 @@ class GeneralManager
   end
 
   def highest_scoring_home_team
-    id = @games_manager.highest_scoring_home_team
-    @teams_manager.team_by_id(id)
+    @teams_manager.team_by_id(@games_manager.highest_scoring_home_team)
   end
 
   def lowest_scoring_home_team
-    id = @games_manager.lowest_scoring_home_team
-    @teams_manager.team_by_id(id)
+    @teams_manager.team_by_id(@games_manager.lowest_scoring_home_team)
   end
 
   def highest_scoring_visitor
-    id = @games_manager.highest_scoring_visitor
-    @teams_manager.team_by_id(id)
+    @teams_manager.team_by_id(@games_manager.highest_scoring_visitor)
   end
 
   def lowest_scoring_visitor
-    id = @games_manager.lowest_scoring_visitor
-    @teams_manager.team_by_id(id)
+    @teams_manager.team_by_id(@games_manager.lowest_scoring_visitor)
   end
 
   def favorite_opponent(team_id)
-    id = @games_manager.favorite_opponent(team_id)
-    @teams_manager.team_by_id(id)
+    @teams_manager.team_by_id(@games_manager.favorite_opponent(team_id))
   end
 
   def rival(team_id)
-    id = @games_manager.rival(team_id)
-    @teams_manager.team_by_id(id)
+    @teams_manager.team_by_id(@games_manager.rival(team_id))
   end
 
   def winningest_coach(season)
@@ -80,23 +72,19 @@ class GeneralManager
   end
 
   def most_accurate_team(season)
-    id = @game_teams_manager.most_accurate_team(season)
-    @teams_manager.team_by_id(id)
+    @teams_manager.team_by_id(@game_teams_manager.most_accurate_team(season))
   end
 
   def least_accurate_team(season)
-    id = @game_teams_manager.least_accurate_team(season)
-    @teams_manager.team_by_id(id)
+    @teams_manager.team_by_id(@game_teams_manager.least_accurate_team(season))
   end
 
   def most_tackles(season)
-    id = @game_teams_manager.most_tackles(season)
-    @teams_manager.team_by_id(id)
+    @teams_manager.team_by_id(@game_teams_manager.most_tackles(season))
   end
 
   def fewest_tackles(season)
-    id = @game_teams_manager.fewest_tackles(season)
-    @teams_manager.team_by_id(id)
+    @teams_manager.team_by_id(@game_teams_manager.fewest_tackles(season))
   end
 
   def best_season(team_id)
@@ -120,12 +108,10 @@ class GeneralManager
   end
 
   def best_offense
-    id = @game_teams_manager.best_offense
-    @teams_manager.team_by_id(id)
+    @teams_manager.team_by_id(@game_teams_manager.best_offense)
   end
 
   def worst_offense
-    id = @game_teams_manager.worst_offense
-    @teams_manager.team_by_id(id)
+    @teams_manager.team_by_id(@game_teams_manager.worst_offense)
   end
 end
