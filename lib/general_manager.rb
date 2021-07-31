@@ -108,11 +108,11 @@ class GeneralManager
   end
 
   def best_offense
-    @teams_manager.team_by_id(@game_teams_manager.best_offense)
+    @teams_manager.team_by_id(@game_teams_manager.offense_results[:max].call)
   end
 
   def worst_offense
-    @teams_manager.team_by_id(@game_teams_manager.worst_offense)
+    @teams_manager.team_by_id(@game_teams_manager.offense_results[:min].call)
   end
 
   def percentage_home_wins

@@ -45,10 +45,7 @@ class GameTeamsManager
     @game_teams.reduce({}) do |acc, game|
       if game.game_id[0..3] == season[0..3]
         acc[game.coach] ||= {wins: 0, total: 0}
-        if game.result == "WIN"
-          acc[game.coach][:wins] += 1
-        end
-        acc[game.coach][:total] += 1
+        process_game(acc[game.coach], game)
       end
       acc
     end
@@ -190,20 +187,12 @@ class GameTeamsManager
     goals_per_team_game(team_id).min
   end
 
-  # Interface
-  def best_offense
-    team_id = get_offense_averages.max_by do |team, data|
-      data
-    end.first
-    team_id
-  end
-
-  # Interface
-  def worst_offense
-    team_id = get_offense_averages.min_by do |team, data|
-      data
-    end.first
-    team_id
+#interface
+  def offense_results
+    {
+      min: -> { get_offense_averages.min_by { |team, data| data }.first },
+      max: -> { get_offense_averages.max_by { |team, data| data }.first }
+    }
   end
 
   # Helper
