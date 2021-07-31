@@ -1,6 +1,8 @@
 require './lib/stat_tracker'
+require './renameable'
 
 class SeasonStatistics
+  include Renameable
   attr_reader :games,
               :teams,
               :game_teams
@@ -12,8 +14,7 @@ class SeasonStatistics
   end
 
   def team_identifier(id)
-    matching_team =
-    @teams.find do |team|
+    matching_team = @teams.find do |team|
       team.team_id == id
     end
     matching_team.team_name
@@ -21,9 +22,8 @@ class SeasonStatistics
 
   def total_shots(season)
     shots_by_team = Hash.new(0)
-    season_shorten = season.slice(0..3)
     @game_teams.each do |game|
-      if game.game_id.start_with?(season_shorten)
+      if season_verification(game, season)
         shots_by_team[game.team_id] += game.shots.to_i
       end
     end
@@ -32,14 +32,12 @@ class SeasonStatistics
 
   def most_accurate_team(season)
     goals_by_team = Hash.new(0)
-    season_shorten = season.slice(0..3)
     @game_teams.each do |game|
-      if game.game_id.start_with?(season_shorten)
+      if season_verification(game, season)
         goals_by_team[game.team_id] += game.goals.to_i
       end
     end
-    accuracy =
-      goals_by_team.max_by do |id, goals|
+    accuracy = goals_by_team.max_by do |id, goals|
       tot_goals = total_shots(season)[id]
       goals.fdiv(tot_goals)
     end
@@ -48,9 +46,8 @@ class SeasonStatistics
 
   def least_accurate_team(season)
     goals_by_team = Hash.new(0)
-    season_shorten = season.slice(0..3)
     @game_teams.each do |game|
-      if game.game_id.start_with?(season_shorten)
+      if season_verification(game, season)
         goals_by_team[game.team_id] += game.goals.to_i
       end
     end
@@ -64,9 +61,8 @@ class SeasonStatistics
 
   def total_games_by_coach(season)
     games_by_coach = Hash.new(0)
-    season_shorten = season.slice(0..3)
     @game_teams.each do |game|
-      if game.game_id.start_with?(season_shorten)
+      if season_verification(game, season)
         games_by_coach[game.head_coach] += 1
       end
     end
@@ -75,9 +71,8 @@ class SeasonStatistics
 
   def winningest_coach(season)
     wins_by_coach = Hash.new(0)
-    season_shorten = season.slice(0..3)
     @game_teams.each do |game|
-      if game.game_id.start_with?(season_shorten) && game.result == 'WIN'
+      if season_verification(game, season) && game.result == 'WIN'
         wins_by_coach[game.head_coach] += 1
       end
     end
@@ -90,9 +85,8 @@ class SeasonStatistics
 
   def worst_coach(season)
     wins_by_coach = total_games_by_coach(season)
-    season_shorten = season.slice(0..3)
     @game_teams.each do |game|
-      if game.game_id.start_with?(season_shorten) && game.result == ("WIN")
+      if season_verification(game, season) && game.result == ("WIN")
         wins_by_coach[game.head_coach] += 1
       end
     end
@@ -105,9 +99,8 @@ class SeasonStatistics
 
   def most_tackles(season)
     tackles_by_team = Hash.new(0)
-    season_shorten = season.slice(0..3)
     @game_teams.each do |game|
-      if game.game_id.start_with?(season_shorten)
+      if season_verification(game, season)
         tackles_by_team[game.team_id] += game.tackles.to_i
       end
     end
@@ -119,9 +112,8 @@ class SeasonStatistics
 
   def fewest_tackles(season)
     tackles_by_team = Hash.new(0)
-    season_shorten = season.slice(0..3)
     @game_teams.each do |game|
-      if game.game_id.start_with?(season_shorten)
+      if season_verification(game, season)
         tackles_by_team[game.team_id] += game.tackles.to_i
       end
     end
