@@ -64,7 +64,22 @@ RSpec.describe GamesManager do
       expect(games_manager.lowest_scoring_home_team).to eq("13")
     end
 
-    
+    it 'has a favourite opponent' do
+      expect(stat_tracker.favorite_opponent("15")).to eq("North Carolina Courage")
+    end
 
+    it 'has a rival' do
+      expect(stat_tracker.rival("15")).to eq("Seattle Sounders FC")
+    end
+
+    it "percentage of home wins, away wins, and ties" do
+      expect(stat_tracker.percentage_home_wins).to eq(0.67)
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.31)
+      expect(stat_tracker.percentage_ties).to eq(0.02)
+    end
+
+    it 'calcs win percents' do
+
+    end
   end
 end
