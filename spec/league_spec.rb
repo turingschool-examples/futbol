@@ -19,7 +19,6 @@ RSpec.describe League do
 
     @stat_tracker = StatTracker.from_csv(locations)
     @league = League.new(@stat_tracker.games, @stat_tracker.teams, @stat_tracker.game_teams)
-
   end
 
   it 'exists and can read data' do
@@ -81,7 +80,7 @@ RSpec.describe League do
   end
 
   it 'can get home average' do
-    expect(@league.home_average(3)).to eq()
+    expect(@league.home_average(3)).to eq(1.2857142857142858)
   end
 
 end

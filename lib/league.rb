@@ -88,7 +88,6 @@ class League
     end
   end
 
-  #write test
   def home_average(team_id)
     goals_scored = 0.00
     home_games(team_id).each do |game|
