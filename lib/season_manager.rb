@@ -106,7 +106,7 @@ class SeasonManager
         add_goals_data(most_accurate, game_data)
       end
     end
-    most = most_accurate.max_by do |team_id, goals_data|
+    most = most_accurate.min_by do |team_id, goals_data|
       goals_data[:total_shots] / goals_data[:total_goals]
     end[0]
 
@@ -125,4 +125,28 @@ class SeasonManager
     most_accurate[game_data[hoa].team_id] = {total_goals: 0, total_shots: 0}
   end
 
+  def least_accurate_team(season, teams_by_id)
+    least_accurate = {}
+    @seasons_hash[season].games.each do |game_id, game_data|
+      if least_accurate[game_data[:home].team_id].nil? && least_accurate[game_data[:away].team_id].nil?
+        create_team_id(least_accurate, game_data, :home)
+        create_team_id(least_accurate, game_data, :away)
+        add_goals_data(least_accurate, game_data)
+      elsif least_accurate[game_data[:home].team_id].nil?
+        create_team_id(least_accurate, game_data, :home)
+        add_goals_data(least_accurate, game_data)
+      elsif least_accurate[game_data[:away].team_id].nil?
+        create_team_id(least_accurate, game_data, :away)
+        add_goals_data(least_accurate, game_data)
+      else
+        add_goals_data(least_accurate, game_data)
+      end
+    end
+    least = least_accurate.max_by do |team_id, goals_data|
+      goals_data[:total_shots] / goals_data[:total_goals]
+    end[0]
+
+    teams_by_id[least]
+
+  end
 end
