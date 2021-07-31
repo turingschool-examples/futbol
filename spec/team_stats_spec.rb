@@ -28,11 +28,11 @@ RSpec.describe TeamStatistics do
 
     it "can show team info" do
     result = {
-             team_id: "3",
-             franchise_id: "10",
-             team_name: "Houston Dynamo",
-             abbreviation: "HOU",
-             link: "/api/v1/teams/3"}
+             "team_id" => "3",
+             "franchise_id" => "10",
+             "team_name" => "Houston Dynamo",
+             "abbreviation" => "HOU",
+             "link" => "/api/v1/teams/3"}
 
     expect(@team_stats.team_info("3")).to eq(result)
   end
@@ -42,21 +42,21 @@ RSpec.describe TeamStatistics do
     expect(@team_stats.games_won("6").length).to eq(9)
   end
 
-  xit "can get average win percentage" do
-    expect(@team_stats.average_win_percentage("3")).to eq(0)
+  it "can get average win percentage" do
+    expect(@team_stats.average_win_percentage("3")).to eq(0.11764705882352941)
     expect(@team_stats.average_win_percentage("6")).to eq(1)
   end
 
-  xit "can get all games played by team" do
-    expect(@team_stats.all_games_played("3").length).to eq(5)
+  it "can get all games played by team" do
+    expect(@team_stats.all_games_played("3").length).to eq(17)
   end
 
-  xit "can get most goals scored" do
-    expect(@team_stats.most_goals_scored("3")).to eq(2)
+  it "can get most goals scored" do
+    expect(@team_stats.most_goals_scored("3")).to eq(3)
   end
 
-  xit "can get fewest goals scored" do
-    expect(@team_stats.fewest_goals_scored("3")).to eq(1)
+  it "can get fewest goals scored" do
+    expect(@team_stats.fewest_goals_scored("3")).to eq(0)
   end
 
   it "can get best season" do
@@ -83,13 +83,12 @@ RSpec.describe TeamStatistics do
     expect(@team_stats.all_opponents("3").length).to eq(3)
   end
 
-  xit 'can get average win percentage against an opponent' do
+  it 'can get average win percentage against an opponent' do
     expect(@team_stats.team_opponent_win_percentage('6', '3')).to eq(0.0)
     expect(@team_stats.team_opponent_win_percentage('15', '3')).to eq(0.2857142857142857)
   end
 
-
-  xit 'can get biggest rival' do
-    expect(@team_stats.rival("16")).to eq("Sporting Kansas City")
+  it 'can get biggest rival' do
+    expect(@team_stats.rival("16")).to eq("FC Cincinnati")
   end
 end
