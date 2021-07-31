@@ -11,18 +11,16 @@ class League
     @teams.length
   end
 
-    #pretty sure this is offensive to some coding god
-
-    def worst_offense
-      acc = {}
-      @teams.each do |team|
+  def worst_offense
+    acc = {}
+    @teams.each do |team|
         #conditional handles edge cases where there are no games for the teams. Should not be a problem when dealing with the full dataset.
-        if games_by_team(team.team_id).length != 0
-          acc[games_average(team.team_id)] = team.team_name
-        end
+      if games_by_team(team.team_id).length != 0
+        acc[games_average(team.team_id)] = team.team_name
       end
-      acc[acc.keys.min]
     end
+    acc[acc.keys.min]
+  end
 
   def best_offense
     acc = {}
@@ -33,9 +31,7 @@ class League
       end
     end
     acc[acc.keys.max]
-    # require "pry"; binding.pry
   end
-
   #this will hit @game_teams again. Will need refactor to minimize time, nest games_by_team and add denominator count?.
   def games_average(team_id)
     goals_scored = 0.00
