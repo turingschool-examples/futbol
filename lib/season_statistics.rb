@@ -89,18 +89,18 @@ class SeasonStatistics
   end
 
   def worst_coach(season)
-    losses_by_coach = Hash.new(0)
+    wins_by_coach = total_games_by_coach(season)
     season_shorten = season.slice(0..3)
     @game_teams.each do |game|
-      if game.game_id.start_with?(season_shorten) && game.result == 'LOSS'
-        losses_by_coach[game.head_coach] += 1
+      if game.game_id.start_with?(season_shorten) && game.result == ("WIN")
+        wins_by_coach[game.head_coach] += 1
       end
     end
-    coach = losses_by_coach.max_by do |coach, losses|
+    loser_coach = wins_by_coach.min_by do |coach, wins|
       tot_games = total_games_by_coach(season)[coach]
-      losses.fdiv(tot_games)
+      (wins_by_coach[coach] - tot_games).fdiv(tot_games)
     end
-    coach[0]
+    loser_coach[0]
   end
 
   def most_tackles(season)
