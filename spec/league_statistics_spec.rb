@@ -1,7 +1,7 @@
 require "simplecov"
 require "CSV"
 require "./lib/stat_tracker"
-require "./lib/league"
+require "./lib/league_statistics"
 
 
 SimpleCov.start
