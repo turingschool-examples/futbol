@@ -144,4 +144,39 @@ RSpec.describe GameTeamManager do
       expect(game_team_manager.average_win_percentage("6")).to eq(1.00)
     end
   end
+
+  describe '#all_games_by_team(team_id)' do
+    it 'returns array of all games by team' do
+      file_path = './data/fixture_game_teams.csv'
+      game_team_manager = GameTeamManager.new(file_path)
+      game_team_manager.load
+      games = game_team_manager.all_games_by_team("3")
+      games.each do |game_team|
+        expect(game_team.team_id).to eq("3")
+        expect(game_team).to be_instance_of(GameTeam)
+      end
+    end
+  end
+
+  describe '#most_goals_scored(team_id)' do
+    it 'returns most goals in a single game' do
+      file_path = './data/fixture_game_teams.csv'
+      game_team_manager = GameTeamManager.new(file_path)
+      game_team_manager.load
+
+      expect(game_team_manager.most_goals_scored("3")).to eq(2)
+      expect(game_team_manager.most_goals_scored("6")).to eq(4)
+    end
+  end
+
+  describe '#fewest_goals_scored(team_id)' do
+    it 'returns least goals in a single game' do
+      file_path = './data/fixture_game_teams.csv'
+      game_team_manager = GameTeamManager.new(file_path)
+      game_team_manager.load
+
+      expect(game_team_manager.fewest_goals_scored("5")).to eq(0)
+      expect(game_team_manager.fewest_goals_scored("6")).to eq(1)
+    end
+  end
 end
