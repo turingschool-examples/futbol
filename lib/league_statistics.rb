@@ -32,7 +32,7 @@ class League
     end
     acc[acc.keys.max]
   end
-  #this will hit @game_teams again. Will need refactor to minimize time, nest games_by_team and add denominator count?.
+
   def games_average(team_id)
     goals_scored = 0.00
     games_by_team(team_id).each do |game|
@@ -88,7 +88,6 @@ class League
     end
   end
 
-  #write test
   def home_average(team_id)
     goals_scored = 0.00
     home_games(team_id).each do |game|
@@ -116,5 +115,4 @@ class League
     end
     lowest_scoring.key(lowest_scoring.values.min)
   end
-
 end

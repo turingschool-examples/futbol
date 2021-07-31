@@ -1,14 +1,14 @@
 require "simplecov"
 require "CSV"
 require "./lib/stat_tracker"
-require "./lib/team_stats"
+require "./lib/team_statistics"
 require "pry"
 
 SimpleCov.start
 RSpec.describe TeamStatistics do
   before(:each) do
     game_path = './data/games_test.csv'
-    team_path = './data/teams_test.csv'
+    team_path = './data/teams.csv'
     game_teams_path = './data/game_teams_test.csv'
 
     locations = {

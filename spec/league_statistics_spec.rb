@@ -1,14 +1,14 @@
 require "simplecov"
 require "CSV"
 require "./lib/stat_tracker"
-require "./lib/league"
+require "./lib/league_statistics"
 
 
 SimpleCov.start
 RSpec.describe League do
   before(:each) do
     game_path = './data/games_test.csv'
-    team_path = './data/teams_test.csv'
+    team_path = './data/teams.csv'
     game_teams_path = './data/game_teams_test.csv'
 
     locations = {
@@ -19,7 +19,6 @@ RSpec.describe League do
 
     @stat_tracker = StatTracker.from_csv(locations)
     @league = League.new(@stat_tracker.games, @stat_tracker.teams, @stat_tracker.game_teams)
-
   end
 
   it 'exists and can read data' do
@@ -78,6 +77,10 @@ RSpec.describe League do
 
   it 'can get lowest scoring home team' do
     expect(@league.lowest_scoring_home_team).to eq("Chicago Fire")
+  end
+
+  it 'can get home average' do
+    expect(@league.home_average(3)).to eq(1.2857142857142858)
   end
 
 end
