@@ -1,5 +1,6 @@
 require 'CSV'
 require './lib/game_team'
+require 'pry'
 
 class GameTeamManager
   attr_reader :game_teams

@@ -1,4 +1,5 @@
 require './lib/game_team_manager'
+require './lib/stat_tracker'
 
 RSpec.describe GameTeamManager do
   describe '#load' do
