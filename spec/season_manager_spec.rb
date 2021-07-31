@@ -57,4 +57,16 @@ RSpec.describe SeasonManager do
       expect(@stat_tracker.season_manager.least_tackles("20122013", @stat_tracker.team_manager.teams_by_id)).to eq("Sporting Kansas City")
     end
   end
+
+  describe '#best_season' do
+    it "can return the best season for a team by highest win percentage" do
+      expect(@stat_tracker.season_manager.best_season("6")).to eq("20122013")
+    end
+  end
+
+  describe '#worst_season' do
+    it "can return the best season for a team by highest win percentage" do
+      expect(@stat_tracker.season_manager.worst_season("6")).to eq("20122013")
+    end
+  end
 end
