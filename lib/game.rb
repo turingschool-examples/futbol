@@ -19,6 +19,10 @@ class Game
     @home_goals > @away_goals
   end
 
+  def away_win?
+    @away_goals > @home_goals
+  end
+
   def has_team?(team_id)
     @home_team_id == team_id || @away_team_id == team_id
   end
@@ -27,7 +31,7 @@ class Game
     @home_team_id == team_id
   end
 
-  def winner?(team_id, game)
-    home_team?(team_id) && home_win? || !home_team?(team_id) && !home_win?
+  def winner?(team_id)
+    home_team?(team_id) && home_win? || !home_team?(team_id) && away_win?
   end
 end
