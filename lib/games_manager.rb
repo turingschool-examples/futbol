@@ -30,11 +30,11 @@ class GamesManager
 
   #Interface
   def count_of_games_by_season
-    count_seasons = Hash.new(0)
-    @games.each do |game|
-      count_seasons[game.season] += 1
+    @games.reduce({}) do |acc, game|
+      acc[game.season] ||= 0
+      acc[game.season] += 1
+      acc
     end
-    count_seasons
   end
 
 ##Interface
@@ -47,12 +47,11 @@ class GamesManager
 
   ##helper
   def goals_per_season
-    goals = {}
-    @games.each do |game|
-      goals[game.season] ||= 0
-      goals[game.season] += goals_per_game(game)
+    @games.reduce({}) do |acc, game|
+      acc[game.season] ||= 0
+      acc[game.season] += goals_per_game(game)
+      acc
     end
-    goals
   end
 
   ##helper
@@ -77,60 +76,36 @@ class GamesManager
 
   #Helper
   def get_home_team_goals
-    home_avg = {}
-    @games.each do |game|
-      home_avg[game.home_team_id] ||= { goals: 0, total: 0 }
-      home_avg[game.home_team_id][:goals] += game.home_goals
-      home_avg[game.home_team_id][:total] += 1
+    @games.reduce({}) do |acc, game|
+      acc[game.home_team_id] ||= { goals: 0, total: 0 }
+      acc[game.home_team_id][:goals] += game.home_goals
+      acc[game.home_team_id][:total] += 1
+      acc
     end
-    home_avg
   end
 
-#Interface
-  def highest_scoring_home_team
-    home_info = get_home_team_goals
-     home_info.each.max_by do |team, data|
-      average(data)
-    end.first
-  end
-
-#Interface
-  def lowest_scoring_home_team
-    home_info = get_home_team_goals
-    home_info.each.min_by do |team, data|
-      average(data)
-    end.first
+# Interface
+  def team_scores(hoa, min_max)
+    info = {
+      home: -> { get_home_team_goals },
+      away: -> { get_visitor_goals }
+    }
+    team = {
+      max: -> { info[hoa].call.max_by { |team, data| average(data) }.first },
+      min: -> { info[hoa].call.min_by { |team, data| average(data) }.first }
+    }
+    team[min_max].call
   end
 
   #Helper
   ##same as get_awway_team_goals in GameTeamsMgr
   def get_visitor_goals
-    visitor_avg = {}
-    @games.each do |game|
-
-      visitor_avg[game.away_team_id] ||= { goals: 0, total: 0 }
-      visitor_avg[game.away_team_id][:goals] += game.away_goals
-      visitor_avg[game.away_team_id][:total] += 1
+    @games.reduce({}) do |acc, game|
+      acc[game.away_team_id] ||= { goals: 0, total: 0 }
+      acc[game.away_team_id][:goals] += game.away_goals
+      acc[game.away_team_id][:total] += 1
+      acc
     end
-    visitor_avg
-  end
-
-#Interface
-  def highest_scoring_visitor
-    visitor_info = get_visitor_goals
-    team_id = visitor_info.each.max_by do |team, data|
-      average(data)
-    end.first
-    team_id
-  end
-
-#Interface
-  def lowest_scoring_visitor
-    visitor_info = get_visitor_goals
-    team_id = visitor_info.each.min_by do |team, data|
-      average(data)
-    end.first
-    team_id
   end
 
   # We send team_id, they return hash with opp_id & results against
@@ -139,11 +114,8 @@ class GamesManager
     @games.reduce({}) do |acc, game|
       if game.has_team?(team_id)
         opp_id = opponent_id(team_id, game)
-
         acc[opp_id] ||= {wins: 0, total: 0}
-        if !game.winner?(team_id)
-          acc[opp_id][:wins] += 1
-        end
+        acc[opp_id][:wins] += 1 if !game.winner?(team_id)
         acc[opp_id][:total] += 1
       end
       acc
@@ -160,22 +132,15 @@ class GamesManager
 
   ########
   # Interface
-  def favorite_opponent(team_id)
-    win_loss = calculate_win_percents(team_id)
-    win_loss.min_by do |team, result|
-      result
-    end.first
-  end
-  # Interface
-  def rival(team_id)
-    win_loss = calculate_win_percents(team_id)
-    win_loss.max_by do |team, result|
-      result
-    end.first
+  def opponent_results(team_id)
+    {
+      fav: -> { win_percent(team_id).min_by { |team, result| result }.first },
+      rival: -> { win_percent(team_id).max_by { |team, result| result }.first }
+    }
   end
 
   # Helper
-  def calculate_win_percents(team_id)
+  def win_percent(team_id)
     win_loss = opponent_win_count(team_id)
     win_loss.map do |team, results|
       [team, average(results)]

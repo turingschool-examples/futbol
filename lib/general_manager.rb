@@ -40,27 +40,27 @@ class GeneralManager
   end
 
   def highest_scoring_home_team
-    @teams_manager.team_by_id(@games_manager.highest_scoring_home_team)
+    @teams_manager.team_by_id(@games_manager.team_scores(:home, :max))
   end
 
   def lowest_scoring_home_team
-    @teams_manager.team_by_id(@games_manager.lowest_scoring_home_team)
+    @teams_manager.team_by_id(@games_manager.team_scores(:home, :min))
   end
 
   def highest_scoring_visitor
-    @teams_manager.team_by_id(@games_manager.highest_scoring_visitor)
+    @teams_manager.team_by_id(@games_manager.team_scores(:away, :max))
   end
 
   def lowest_scoring_visitor
-    @teams_manager.team_by_id(@games_manager.lowest_scoring_visitor)
+    @teams_manager.team_by_id(@games_manager.team_scores(:away, :min))
   end
 
   def favorite_opponent(team_id)
-    @teams_manager.team_by_id(@games_manager.favorite_opponent(team_id))
+    @teams_manager.team_by_id(@games_manager.opponent_results(team_id)[:fav].call)
   end
 
   def rival(team_id)
-    @teams_manager.team_by_id(@games_manager.rival(team_id))
+    @teams_manager.team_by_id(@games_manager.opponent_results(team_id)[:rival].call)
   end
 
   def winningest_coach(season)
