@@ -13,16 +13,6 @@ class Team
     @link = info[:link]
   end
 
-  def team_info
-    info = {
-      team_id: @team_id,
-      franchise_id: @franchise_id,
-      team_name: @team_name,
-      abbreviation: @abbreviation,
-      link: @link
-    }
-  end
-
   def self.read_file(location)
     team_rows = CSV.read(location, headers: true, header_converters: :symbol)
     team_rows.map do |team_row|
