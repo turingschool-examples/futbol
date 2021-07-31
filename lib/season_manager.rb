@@ -65,4 +65,27 @@ class SeasonManager
       coach_data[:total_wins] / coach_data[:total_games]
     end[0]
   end
+
+  def worst_coach(season)
+    coach_wins = {}
+    @seasons_hash[season].games.each do |game_id, game_data|
+      # if game_data[:home].result == 'WIN'
+      if coach_wins[game_data[:home].head_coach].nil? && coach_wins[game_data[:away].head_coach].nil?
+        create_coach(coach_wins, game_data, :home)
+        create_coach(coach_wins, game_data, :away)
+        add_data(coach_wins, game_data)
+      elsif coach_wins[game_data[:home].head_coach].nil?
+        create_coach(coach_wins, game_data, :home)
+        add_data(coach_wins, game_data)
+      elsif coach_wins[game_data[:away].head_coach].nil?
+        create_coach(coach_wins, game_data, :away)
+        add_data(coach_wins, game_data)
+      else
+        add_data(coach_wins, game_data)
+      end
+    end
+    coach_wins.min_by do |coach, coach_data|
+      coach_data[:total_wins] / coach_data[:total_games]
+    end[0]
+  end
 end
