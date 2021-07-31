@@ -13,12 +13,9 @@ RSpec.describe GameTeamsManager do
       expect(game_teams_manager).to respond_to(:make_game_teams)
     end
 
-    it 'has winningest coach' do
-      expect(game_teams_manager.winningest_coach("20142015")).to eq('Alain Vigneault')
-    end
-
-    it 'has worst coach' do
-      expect(game_teams_manager.worst_coach("20142015")).to eq("Mike Johnston")
+    it 'has winningest and worst coach' do
+      expect(game_teams_manager.coach_results("20142015")[:max].call).to eq('Alain Vigneault')
+      expect(game_teams_manager.coach_results("20142015")[:min].call).to eq("Mike Johnston")
     end
 
     it 'coach win percentage per coach' do
@@ -58,19 +55,19 @@ RSpec.describe GameTeamsManager do
     end
 
     it "has most accurate and least accurate teams" do
-      expect(game_teams_manager.most_accurate_team("20132014")).to eq("16")
-      expect(game_teams_manager.least_accurate_team("20132014")).to eq("19")
+      expect(game_teams_manager.accuracy_results("20132014")[:max].call).to eq("16")
+      expect(game_teams_manager.accuracy_results("20132014")[:min].call).to eq("19")
     end
 
     it 'names the team with the most and fewest tackles' do
       expect(game_teams_manager.team_tackles("20142015")).to eq({"14"=>146, "3"=>349, "5"=>152})
-      expect(game_teams_manager.most_tackles("20142015")).to eq("3")
-      expect(game_teams_manager.fewest_tackles("20142015")).to eq("14")
+      expect(game_teams_manager.tackle_results("20142015")[:max].call).to eq("3")
+      expect(game_teams_manager.tackle_results("20142015")[:min].call).to eq("14")
     end
 
     it 'has best and worst seasons' do
-      expect(game_teams_manager.best_season("3")).to eq("20142015")
-      expect(game_teams_manager.worst_season("15")).to eq("20152016")
+      expect(game_teams_manager.season_results("3")[:max].call).to eq("20142015")
+      expect(game_teams_manager.season_results("15")[:min].call).to eq("20152016")
     end
 
     it 'has an average win percentage' do
@@ -94,7 +91,7 @@ RSpec.describe GameTeamsManager do
     end
 
     it "gets seasons averages" do
-      expect(game_teams_manager.get_season_averages("3")).to eq([["20142015", 0.727272727272727273]])
+      expect(game_teams_manager.season_averages("3")).to eq([["20142015", 0.727272727272727273]])
     end
 
     it "gets seasons win count" do
@@ -102,8 +99,8 @@ RSpec.describe GameTeamsManager do
     end
 
     it "can get most and fewest number of goals" do
-      expect(game_teams_manager.most_goals_scored("3")).to eq(5)
-      expect(game_teams_manager.fewest_goals_scored("3")).to eq(0)
+      expect(game_teams_manager.goal_results("3")[:max].call).to eq(5)
+      expect(game_teams_manager.goal_results("3")[:min].call).to eq(0)
     end
 
     it "can get team goals" do
