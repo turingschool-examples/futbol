@@ -68,7 +68,6 @@ class TeamStatistics
     winning_game_ids = games_won(team_id).map do |game|
       game.game_id
     end
-
     #could be made into two helper methods, but speed becomes an issue when dealing with full CSVs
     games_in_season = []
     total_games = 0
@@ -81,7 +80,6 @@ class TeamStatistics
         games_in_season << game.game_id
       end
     end
-
     winning_game_in_season_ids = winning_game_ids & games_in_season
     #condidional changes the evil NaN into nils. Nils are produced when total_games = 0.
     if total_games != 0
@@ -91,12 +89,11 @@ class TeamStatistics
 
   def worst_season(team_id)
     all_seasons.min_by do |season|
-      #super messsy, but gets rid of nils from season_win_percentage, evading errors from min_by/nil interaction
+      #super weird, but gets rid of nils from season_win_percentage, evading errors from min_by/nil interaction
        [season_win_percentage(season, team_id)].compact
     end
   end
 
-  #do we need this? We could just iterate over the entire teams and have an exception when team_id == team_id
   def all_opponents(team_id)
     @games.filter_map do |game|
       if team_id == game.home_team_id
@@ -111,7 +108,7 @@ class TeamStatistics
     team_wins = 0
     total_games = 0
     @games.each do |game|
-      #lots of functionality may be moved to games_class
+      #lots of functionality may be moved to game_class
       if game.away_team_id == team_id && game.home_team_id == opponent_id
         team_wins +=1 if game.away_goals > game.home_goals
         total_games += 1
@@ -121,13 +118,13 @@ class TeamStatistics
       end
     end
     team_wins.fdiv(total_games)
-    # require "pry"; binding.pry
   end
 
   def favorite_opponent(team_id)
     favorite_opponent_name = nil
 
-    favorite_opponent_id = all_opponents(team_id).max_by do |opponent_id|
+    favorite_opponent_id =
+    all_opponents(team_id).max_by do |opponent_id|
       team_opponent_win_percentage(opponent_id, team_id)
     end
 
@@ -136,15 +133,14 @@ class TeamStatistics
         favorite_opponent_name = team.team_name
       end
     end
-
     favorite_opponent_name
   end
 
-  #needs a robust test
   def rival(team_id)
     rival = nil
 
-    rival_id = all_opponents(team_id).min_by do |opponent_id|
+    rival_id =
+    all_opponents(team_id).min_by do |opponent_id|
       team_opponent_win_percentage(opponent_id, team_id)
     end
 
@@ -153,8 +149,6 @@ class TeamStatistics
         rival = team.team_name
       end
     end
-
     rival
   end
-
 end
