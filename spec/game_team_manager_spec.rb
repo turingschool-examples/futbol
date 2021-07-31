@@ -199,4 +199,14 @@ RSpec.describe GameTeamManager do
       expect(game_team_manager.favorite_opponent("6")).to eq("3")
     end
   end
+
+  describe '#rival(team_id)' do
+    it 'returns opponent with highest win percentage against team' do
+      file_path = './data/fixture_game_teams.csv'
+      game_team_manager = GameTeamManager.new(file_path)
+      game_team_manager.load
+
+      expect(game_team_manager.rival("3")).to eq("6")
+    end
+  end
 end

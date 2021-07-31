@@ -238,6 +238,21 @@ class GameTeamManager
         favorite = opponent_id
       end
     end
-    favorite 
+    favorite
   end
+
+  def rival(team_id)
+    arch_nemesis = nil
+    lowest = 0
+    op_hash = opponents_list(team_id)
+    op_hash.each do |opponent_id, results|
+      current = results[:wins] / results[:games].to_f
+      if current > lowest
+        lowest = current
+        arch_nemesis = opponent_id
+      end
+    end
+    arch_nemesis
+  end
+
 end
