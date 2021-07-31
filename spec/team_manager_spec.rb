@@ -26,4 +26,15 @@ RSpec.describe TeamManager do
     expect(@team_manager.team_by_id("1")).to be_a(Team)
   end
 
+  it "can determine team info" do
+    expected = {
+      team_id: "1",
+      franchise_id: "23",
+      team_name: "Atlanta United",
+      abbreviation: "ATL",
+      link: "/api/v1/teams/1"
+    }
+    expect(@team_manager.team_info("1")).to eq(expected)
+  end
+
 end
