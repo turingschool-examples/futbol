@@ -114,4 +114,16 @@ class GeneralManager
   def worst_offense
     @teams_manager.team_by_id(@game_teams_manager.worst_offense)
   end
+
+  def percentage_home_wins
+    @game_teams_manager.percentage_home_wins
+  end
+
+  def percentage_visitor_wins
+    @game_teams_manager.percentage_visitor_wins
+  end
+
+  def percentage_ties
+    @game_teams_manager.percentage_ties
+  end
 end
