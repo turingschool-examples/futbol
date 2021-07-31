@@ -139,28 +139,6 @@ class GamesManager
     team_id
   end
 
-#Interface
-  def best_season(team_id)
-    get_season_averages(team_id).max_by do |season, average|
-      average
-    end.first
-  end
-
-#Interface
-  def worst_season(team_id)
-    get_season_averages(team_id).min_by do |season, average|
-      average
-    end.first
-  end
-
-#Helper
-  def get_season_averages(team_id)
-    season_average = seasons_win_count(team_id)
-    season_average.map do |season, stats|
-      [season, stats[:wins].fdiv(stats[:total])]
-    end.to_h
-  end
-
   # Interface
   def average_win_percentage(team_id)
     wins = 0
@@ -170,21 +148,6 @@ class GamesManager
       games += stats[:total]
     end
     (wins.fdiv(games)).round(2)
-  end
-
-#Helper
-  def seasons_win_count(team_id)
-    season_average = {}
-    @games.each do |game|
-      if game.has_team?(team_id)
-        season_average[game.season] ||= {wins: 0, total: 0}
-        if game.winner?(team_id, game)
-           season_average[game.season][:wins] += 1
-        end
-        season_average[game.season][:total] += 1
-      end
-    end
-    season_average
   end
 
   # We send team_id, they return hash with opp_id & results against

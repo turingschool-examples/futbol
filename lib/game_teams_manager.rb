@@ -118,39 +118,6 @@ class GameTeamsManager
     end.first
   end
 
-#Helper
-##same as get_visitor_goals in GamesMgr
-  def get_away_team_goals
-    away_avg = {}
-    @game_teams.each do |game|
-
-      away_avg[game.team_id] ||= { goals: 0, total: 0 }
-      if game.home_away == "away"
-        away_avg[game.team_id][:goals] += game.goals
-        away_avg[game.team_id][:total] += 1
-      end
-    end
-    away_avg
-  end
-
-#Interface
-  def highest_scoring_visitor
-    away_info = get_away_team_goals
-    team_id = away_info.each.max_by do |team, data|
-      data[:goals].fdiv(data[:total])
-    end.first
-    team_id
-  end
-
-#Interface
-  def lowest_scoring_visitor
-    away_info = get_away_team_goals
-    team_id = away_info.each.min_by do |team, data|
-      data[:goals].fdiv(data[:total])
-    end.first
-    team_id
-  end
-
 #Interface
   def best_season(team_id)
     get_season_averages(team_id).max_by do |season, average|
@@ -212,8 +179,7 @@ class GameTeamsManager
     team_id = get_offense_averages.max_by do |team, data|
       data
     end.first
-
-    team_info(team_id)["team_name"]
+    team_id
   end
 
   # Interface
@@ -221,8 +187,7 @@ class GameTeamsManager
     team_id = get_offense_averages.min_by do |team, data|
       data
     end.first
-
-    team_info(team_id)["team_name"]
+    team_id
   end
 
   # Helper
@@ -230,5 +195,14 @@ class GameTeamsManager
      get_goals_per_team.map do |team, data|
       [team, data[:goals].fdiv(data[:total])]
     end.to_h
+  end
+
+  def get_goals_per_team
+    @game_teams.reduce({}) do |acc, game|
+      acc[game.team_id] ||= {goals: 0, total: 0}
+      acc[game.team_id][:goals] += game.goals
+      acc[game.team_id][:total] += 1
+      acc
+    end
   end
 end
