@@ -42,19 +42,23 @@ class GeneralManager
   end
 
   def highest_scoring_home_team
-    @games_manager.highest_scoring_home_team
+    id = @games_manager.highest_scoring_home_team
+    @teams_manager.team_by_id(id)
   end
 
   def lowest_scoring_home_team
-    @games_manager.lowest_scoring_home_team
+    id = @games_manager.lowest_scoring_home_team
+    @teams_manager.team_by_id(id)
   end
 
   def highest_scoring_visitor
-    @games_manager.highest_scoring_visitor
+    id = @games_manager.highest_scoring_visitor
+    @teams_manager.team_by_id(id)
   end
 
   def lowest_scoring_visitor
-    @games_manager.lowest_scoring_visitor
+    id = @games_manager.lowest_scoring_visitor
+    @teams_manager.team_by_id(id)
   end
 
   def favorite_opponent(team_id)
