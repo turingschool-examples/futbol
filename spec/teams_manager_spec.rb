@@ -33,9 +33,5 @@ RSpec.describe TeamsManager do
       expect(teams_manager.team_by_id("18")).to eq("Minnesota United FC")
     end
 
-    it 'has an average win percentage' do
-      expect(stat_tracker.average_win_percentage("15")).to eq(0.63)
-    end
-
   end
 end

@@ -81,5 +81,9 @@ RSpec.describe GamesManager do
     it 'calcs win percents' do
 
     end
+
+    it 'has an average win percentage' do
+      expect(teams_manager.average_win_percentage("15")).to eq(0.63)
+    end
   end
 end

@@ -47,17 +47,4 @@ class TeamsManager
     end
     team.team_name
   end
-
-#############
-  # Interface
-  def average_win_percentage(team_id)
-    wins = 0
-    games = 0
-    seasons_win_count(team_id, @games).each do |season, stats|
-      wins += stats[:wins]
-      games += stats[:total]
-    end
-    (wins.fdiv(games)).round(2)
-  end
-
 end

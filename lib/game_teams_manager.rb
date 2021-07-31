@@ -119,6 +119,7 @@ class GameTeamsManager
   end
 
 #Helper
+##same as get_visitor_goals in GamesMgr
   def get_away_team_goals
     away_avg = {}
     @game_teams.each do |game|

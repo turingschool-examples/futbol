@@ -109,6 +109,7 @@ class GamesManager
   end
 
   #Helper
+  ##same as get_awway_team_goals in GameTeamsMgr
   def get_visitor_goals
     visitor_avg = {}
     @games.each do |game|
@@ -158,6 +159,17 @@ class GamesManager
     season_average.map do |season, stats|
       [season, stats[:wins].fdiv(stats[:total])]
     end.to_h
+  end
+
+  # Interface
+  def average_win_percentage(team_id)
+    wins = 0
+    games = 0
+    seasons_win_count(team_id, @games).each do |season, stats|
+      wins += stats[:wins]
+      games += stats[:total]
+    end
+    (wins.fdiv(games)).round(2)
   end
 
 #Helper
