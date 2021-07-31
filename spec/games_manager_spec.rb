@@ -72,12 +72,6 @@ RSpec.describe GamesManager do
       expect(games_manager.rival("15")).to eq("2")
     end
 
-    it "percentage of home wins, away wins, and ties" do
-      expect(games_manager.percentage_home_wins).to eq(0.67)
-      expect(games_manager.percentage_visitor_wins).to eq(0.31)
-      expect(games_manager.percentage_ties).to eq(0.02)
-    end
-
     it 'calcs win percents' do
 
     end
