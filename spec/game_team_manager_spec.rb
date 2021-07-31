@@ -132,4 +132,16 @@ RSpec.describe GameTeamManager do
       end
     end
   end
+
+  describe '#average_win_percentage(team_id)' do
+    it 'calculates average for all games for a team' do
+      file_path = './data/fixture_game_teams.csv'
+      game_team_manager = GameTeamManager.new(file_path)
+      game_team_manager.load
+
+      expect(game_team_manager.average_win_percentage("26")).to eq(0.50)
+      expect(game_team_manager.average_win_percentage("3")).to eq(0.00)
+      expect(game_team_manager.average_win_percentage("6")).to eq(1.00)
+    end
+  end
 end
