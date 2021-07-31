@@ -118,7 +118,23 @@ RSpec.describe GameTeamsManager do
 
 
     it 'gets offense averages' do
+      expected = {
+        "26" => 2.33,
+        "28" => 2.67,
+        "16" => 2.67,
+        "19" => 1.67,
+        "4" => 1.0,
+        "15" => 1.67,
+        "5" => 1.2,
+        "3" => 2.36,
+        "14" => 2.4
+      }
+      expect(game_teams_manager.get_offense_averages).to eq(expected)
+    end
 
+
+    it 'has an average win percentage' do
+      expect(game_teams_manager.average_win_percentage("15")).to eq(0.67)
     end
   end
 end
