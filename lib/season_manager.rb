@@ -50,15 +50,15 @@ class SeasonManager
       if coach_wins[game_data[:home].head_coach].nil? && coach_wins[game_data[:away].head_coach].nil?
         create_coach(coach_wins, game_data, :home)
         create_coach(coach_wins, game_data, :away)
-        add_data(coach_wins, game_data)
+        add_coach_data(coach_wins, game_data)
       elsif coach_wins[game_data[:home].head_coach].nil?
         create_coach(coach_wins, game_data, :home)
-        add_data(coach_wins, game_data)
+        add_coach_data(coach_wins, game_data)
       elsif coach_wins[game_data[:away].head_coach].nil?
         create_coach(coach_wins, game_data, :away)
-        add_data(coach_wins, game_data)
+        add_coach_data(coach_wins, game_data)
       else
-        add_data(coach_wins, game_data)
+        add_coach_data(coach_wins, game_data)
       end
     end
     coach_wins.max_by do |coach, coach_data|
@@ -73,15 +73,15 @@ class SeasonManager
       if coach_wins[game_data[:home].head_coach].nil? && coach_wins[game_data[:away].head_coach].nil?
         create_coach(coach_wins, game_data, :home)
         create_coach(coach_wins, game_data, :away)
-        add_data(coach_wins, game_data)
+        add_coach_data(coach_wins, game_data)
       elsif coach_wins[game_data[:home].head_coach].nil?
         create_coach(coach_wins, game_data, :home)
-        add_data(coach_wins, game_data)
+        add_coach_data(coach_wins, game_data)
       elsif coach_wins[game_data[:away].head_coach].nil?
         create_coach(coach_wins, game_data, :away)
-        add_data(coach_wins, game_data)
+        add_coach_data(coach_wins, game_data)
       else
-        add_data(coach_wins, game_data)
+        add_coach_data(coach_wins, game_data)
       end
     end
     coach_wins.min_by do |coach, coach_data|
@@ -106,7 +106,7 @@ class SeasonManager
         add_goals_data(most_accurate, game_data)
       end
     end
-    most = most_accurate.max_by do |team_id, goals_data|
+    most = most_accurate.min_by do |team_id, goals_data|
       goals_data[:total_shots] / goals_data[:total_goals]
     end[0]
 
@@ -125,4 +125,64 @@ class SeasonManager
     most_accurate[game_data[hoa].team_id] = {total_goals: 0, total_shots: 0}
   end
 
+  def least_accurate_team(season, teams_by_id)
+    least_accurate = {}
+    @seasons_hash[season].games.each do |game_id, game_data|
+      if least_accurate[game_data[:home].team_id].nil? && least_accurate[game_data[:away].team_id].nil?
+        create_team_id(least_accurate, game_data, :home)
+        create_team_id(least_accurate, game_data, :away)
+        add_goals_data(least_accurate, game_data)
+      elsif least_accurate[game_data[:home].team_id].nil?
+        create_team_id(least_accurate, game_data, :home)
+        add_goals_data(least_accurate, game_data)
+      elsif least_accurate[game_data[:away].team_id].nil?
+        create_team_id(least_accurate, game_data, :away)
+        add_goals_data(least_accurate, game_data)
+      else
+        add_goals_data(least_accurate, game_data)
+      end
+    end
+    least = least_accurate.max_by do |team_id, goals_data|
+      goals_data[:total_shots] / goals_data[:total_goals]
+    end[0]
+
+    teams_by_id[least]
+
+  end
+
+  def create_teams_tackle_data(most_tackles, game_data, hoa)
+    most_tackles[game_data[hoa].team_id] = game_data[hoa].tackles.to_i
+  end
+
+  def add_tackle_data(most_tackles, game_data)
+      most_tackles[game_data[:home].team_id] += game_data[:home].tackles.to_i
+      most_tackles[game_data[:away].team_id] += game_data[:away].tackles.to_i
+
+  end
+
+
+  def most_tackles(season, teams_by_id)
+    most_tackles = {}
+    @seasons_hash[season].games.each do |game_id, game_data|
+      if most_tackles[game_data[:home].team_id].nil? && most_tackles[game_data[:away].team_id].nil?
+        create_teams_tackle_data(most_tackles, game_data, :home)
+        create_teams_tackle_data(most_tackles, game_data, :away)
+        add_tackle_data(most_tackles, game_data)
+      elsif most_tackles[game_data[:home].team_id].nil?
+        create_teams_tackle_data(most_tackles, game_data, :home)
+        add_tackle_data(most_tackles, game_data)
+      elsif most_tackles[game_data[:away].team_id].nil?
+        create_teams_tackle_data(most_tackles, game_data, :away)
+        add_tackle_data(most_tackles, game_data)
+      else
+        add_tackle_data(most_tackles, game_data)
+      end
+    end
+    most = most_tackles.max_by do |team_id, tackles|
+      tackles
+    end[0]
+    teams_by_id[most]
+  end
+
+  
 end
