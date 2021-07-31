@@ -14,8 +14,8 @@ RSpec.describe GamesManager do
     end
 
     it 'has highest and lowest total scored' do
-      expect(games_manager.highest_total_score).to eq(7)
-      expect(games_manager.lowest_total_score).to eq(1)
+      expect(games_manager.score_results(:max)).to eq(7)
+      expect(games_manager.score_results(:min)).to eq(1)
     end
 
     it 'counts games per season' do
