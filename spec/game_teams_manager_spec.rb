@@ -109,11 +109,11 @@ RSpec.describe GameTeamsManager do
     end
 
     it 'has best offense' do
-      expect(stat_tracker.best_offense).to eq("Sporting Kansas City")
+      expect(game_teams_manager.best_offense).to eq("28")
     end
 
     it 'has worst offense' do
-      expect(stat_tracker.worst_offense).to eq("Houston Dash")
+      expect(game_teams_manager.worst_offense).to eq("4")
     end
 
 
