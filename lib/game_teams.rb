@@ -1,5 +1,4 @@
 class GameTeams
-
   attr_reader :game_id,
               :team_id,
               :hoa,
@@ -33,5 +32,4 @@ class GameTeams
     @giveaways                = hash[:giveaways]
     @takeaways                = hash[:takeaways]
   end
-
-end 
+end
