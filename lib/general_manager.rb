@@ -116,11 +116,11 @@ class GeneralManager
   end
 
   def percentage_home_wins
-    @game_teams_manager.percentage_home_wins
+    @game_teams_manager.percentage_hoa_wins(:home)
   end
 
   def percentage_visitor_wins
-    @game_teams_manager.percentage_visitor_wins
+    @game_teams_manager.percentage_hoa_wins(:away)
   end
 
   def percentage_ties

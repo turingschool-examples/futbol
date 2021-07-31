@@ -19,7 +19,6 @@ class GameTeamsManager
   end
 
 # Interface
-
   def coach_results(season)
     {
       max: -> { coach_win_pct(season).max_by { |coach, pct| pct }.first },
@@ -30,7 +29,7 @@ class GameTeamsManager
 #helper
   def coach_win_pct(season)
     coach_wins(season).each.reduce({}) do |acc, (coach, results)|
-      acc[coach] = average(results)
+      acc[coach] = hash_average(results)
       acc
     end
   end
@@ -61,12 +60,10 @@ class GameTeamsManager
 
 #helper
   def get_accuracy_average(season)
-    accuracy_data = get_accuracy_data(season)
-    accuracy_average = Hash.new
-    accuracy_data.each do |team, data|
-      accuracy_average[team] = average(data)
+    get_accuracy_data(season).reduce({}) do |acc, data|
+      acc[data.first] = hash_average(data.last)
+      acc
     end
-    accuracy_average
   end
 
 #Interface
@@ -108,7 +105,7 @@ class GameTeamsManager
 # Interface
   def average_win_percentage(team_id)
     team_stats = team_win_stats(team_id)
-    average(team_stats).round(2)
+    hash_average(team_stats).round(2)
   end
 
   def team_win_stats(team_id)
@@ -124,7 +121,7 @@ class GameTeamsManager
   def season_averages(team_id)
     season_average = seasons_win_count(team_id)
     season_average.map do |season, stats|
-      [season, average(stats)]
+      [season, hash_average(stats)]
     end
   end
 
@@ -171,7 +168,7 @@ class GameTeamsManager
   # Helper
   def get_offense_averages
      get_goals_per_team.map do |team, data|
-      [team, average(data).round(2)]
+      [team, hash_average(data).round(2)]
     end.to_h
   end
 
@@ -185,27 +182,16 @@ class GameTeamsManager
   end
 
 # Interface
-  def percentage_home_wins
-    home_stats = @game_teams.reduce({wins: 0, total: 0}) do |acc, game|
+  def percentage_hoa_wins(hoa)
+    team = {home: "home", away: "away"}
+    stats = @game_teams.reduce({wins: 0, total: 0}) do |acc, game|
       acc[:total] += 0.5
-      if game.won? && game.home_away == "home"
+      if game.won? && game.home_away == team[hoa]
         acc[:wins] += 1
       end
       acc
     end
-    average(home_stats).round(2)
-  end
-
-# Interface
-  def percentage_visitor_wins
-    away_stats = @game_teams.reduce({wins: 0, total: 0}) do |acc, game|
-      acc[:total] += 0.5
-      if game.won? && game.home_away == "away"
-        acc[:wins] += 1
-      end
-      acc
-    end
-    average(away_stats).round(2)
+    hash_average(stats).round(2)
   end
 
 # Interface
@@ -217,6 +203,6 @@ class GameTeamsManager
       end
       acc
     end
-    average(tie_stats).round(2)
+    hash_average(tie_stats).round(2)
   end
 end
