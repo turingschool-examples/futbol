@@ -20,11 +20,11 @@ class GeneralManager
   end
 
   def highest_total_score
-    @games_manager.highest_total_score
+    @games_manager.score_results(:max)
   end
 
   def lowest_total_score
-    @games_manager.lowest_total_score
+    @games_manager.score_results(:min)
   end
 
   def count_of_games_by_season

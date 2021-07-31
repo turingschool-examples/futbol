@@ -19,19 +19,13 @@ class GamesManager
   end
 
 #Interface
-  def highest_total_score
-    highest_game = @games.max_by do |game|
-      game.away_goals + game.home_goals
-    end
-    highest_game.away_goals + highest_game.home_goals
-  end
-
-  #Interface
-  def lowest_total_score
-    lowest_game = @games.min_by do |game|
-      game.away_goals + game.home_goals
-    end
-    lowest_game.away_goals + lowest_game.home_goals
+  def score_results(min_max)
+    min_max_game = {
+      max: -> { @games.max_by { |game| game.total_goals } },
+      min: -> { @games.min_by { |game| game.total_goals } }
+    }
+    game = min_max_game[min_max].call
+    game.total_goals
   end
 
   #Interface
