@@ -72,4 +72,89 @@ class GameTeamManager
     end
     worst_team
   end
+
+  #######################################
+  def highest_scoring_visitor(teams_by_id)
+    max = away_teams.max_by do |team|
+      games = away_games(team.team_id)
+      average_goals(games)
+    end
+    id = max.team_id
+    teams_by_id[id]
+  end
+
+  def highest_scoring_home_team(teams_by_id)
+    max = home_teams.max_by do |team|
+      games = home_games(team.team_id)
+      average_goals(games)
+    end
+    id = max.team_id
+    teams_by_id[id]
+  end
+
+  def lowest_scoring_visitor(teams_by_id)
+    min = away_teams.min_by do |team|
+      games = away_games(team.team_id)
+      average_goals(games)
+    end
+    id = min.team_id
+    teams_by_id[id]
+  end
+
+  def lowest_scoring_home_team(teams_by_id)
+    min = home_teams.min_by do |team|
+      games = home_games(team.team_id)
+      average_goals(games)
+    end
+    id = min.team_id
+    teams_by_id[id]
+  end
+
+  def home_teams
+    home_teams = []
+    @game_teams.each do |game_id, teams|
+      home_teams << teams[:home]
+    end
+    home_teams
+  end
+
+  def away_teams
+    away_teams = []
+    @game_teams.each do |game_id, teams|
+      away_teams << teams[:away]
+    end
+    away_teams
+  end
+
+  def home_games(team_id)
+    games = []
+    home_teams.each do |team|
+      games << team if team_id == team.team_id
+    end
+    games
+  end
+
+  def away_games(team_id)
+    games = []
+    away_teams.each do |team|
+      games << team if team_id == team.team_id
+    end
+    games
+  end
+
+  def average_goals(games)
+    goals(games) / games(games).to_f
+  end
+
+  def goals(games)
+    goals = 0
+    games.each do |game|
+      goals += game.goals.to_i
+    end
+    goals
+  end
+
+  def games(games)
+    games.count
+  end
 end
