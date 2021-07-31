@@ -225,8 +225,19 @@ class GameTeamManager
     end
     list
   end
+
   # Edge case question: What to do if a team never wins?
   def favorite_opponent(team_id)
-
+    favorite = nil
+    highest = 2013020002
+    op_hash = opponents_list(team_id)
+    op_hash.each do |opponent_id, results|
+      current = results[:wins] / results[:games].to_f
+      if current < highest
+        highest = current
+        favorite = opponent_id
+      end
+    end
+    favorite 
   end
 end

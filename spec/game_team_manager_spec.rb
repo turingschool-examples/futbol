@@ -191,12 +191,12 @@ RSpec.describe GameTeamManager do
   end
 
   describe '#favorite_opponent(team_id)' do
-    xit 'returns opponent with lowest win percentage against team' do
+    it 'returns opponent with lowest win percentage against team' do
       file_path = './data/fixture_game_teams.csv'
       game_team_manager = GameTeamManager.new(file_path)
       game_team_manager.load
 
-      expect(game_team_manager.favorite_opponent("6")).to eq("Houston Dynamo")
+      expect(game_team_manager.favorite_opponent("6")).to eq("3")
     end
   end
 end
