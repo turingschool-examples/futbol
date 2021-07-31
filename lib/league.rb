@@ -1,4 +1,8 @@
+require "./all_seasonable"
+
 class League
+  include AllSeasonable
+
   attr_reader :games, :teams, :game_teams
 
   def initialize (games, teams, game_teams)
@@ -79,22 +83,6 @@ class League
       end
     end
     lowest_scoring.key(lowest_scoring.values.min)
-  end
-
-
-  def home_games(team_id)
-    games_by_team(team_id).find_all do |game|
-      game.hoa == 'home'
-    end
-  end
-
-  #write test
-  def home_average(team_id)
-    goals_scored = 0.00
-    home_games(team_id).each do |game|
-      goals_scored += game.goals.to_i
-    end
-    goals_scored.fdiv(home_games(team_id).length)
   end
 
   def highest_scoring_home_team

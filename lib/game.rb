@@ -22,7 +22,6 @@ class Game
     @home_goals = hash[:home_goals]
     @venue = hash[:venue]
     @venue_link = hash[:venue_link]
-
   end
 
 end
