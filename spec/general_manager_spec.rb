@@ -84,11 +84,54 @@ RSpec.describe GeneralManager do
     end
 
     it 'has a favourite opponent' do
-      expect(@general_manager.favorite_opponent("15")).to eq("2")
+      expect(@general_manager.favorite_opponent("15")).to eq("Seattle Sounders FC")
     end
 
     it 'has a rival' do
-      expect(@general_manager.rival("15")).to eq("10")
+      expect(@general_manager.rival("15")).to eq("North Carolina Courage")
     end
+  end
+
+  context 'game teams' do
+    it 'has winningest coach' do
+      expect(@general_manager.winningest_coach("20142015")).to eq('Alain Vigneault')
+    end
+
+    it 'has worst coach' do
+      expect(@general_manager.worst_coach("20142015")).to eq("Mike Johnston")
+    end
+
+    it "has most accurate and least accurate teams" do
+      expect(@general_manager.most_accurate_team("20132014")).to eq("New England Revolution")
+      expect(@general_manager.least_accurate_team("20132014")).to eq("Philadelphia Union")
+    end
+
+    it 'names the team with the most and fewest tackles' do
+      expect(@general_manager.most_tackles("20142015")).to eq("Houston Dynamo")
+      expect(@general_manager.fewest_tackles("20142015")).to eq("DC United")
+    end
+
+    it 'has best and worst seasons' do
+      expect(@general_manager.best_season("3")).to eq("20142015")
+      expect(@general_manager.worst_season("15")).to eq("20152016")
+    end
+
+    it 'has an average win percentage' do
+      expect(@general_manager.average_win_percentage("15")).to eq(0.67)
+    end
+
+    it "can get most and fewest number of goals" do
+      expect(@general_manager.most_goals_scored("3")).to eq(5)
+      expect(@general_manager.fewest_goals_scored("3")).to eq(0)
+    end
+
+    it 'has best offense' do
+      expect(@general_manager.best_offense).to eq("Los Angeles FC")
+    end
+
+    it 'has worst offense' do
+      expect(@general_manager.worst_offense).to eq("Chicago Fire")
+    end
+
   end
 end
