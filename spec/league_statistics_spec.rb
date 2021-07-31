@@ -8,8 +8,8 @@ SimpleCov.start
 RSpec.describe League do
   before(:each) do
     game_path = './data/games_test.csv'
-    team_path = './data/teams_test.csv'
-    game_teams_path = './data/game_teams_test.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
 
     locations = {
       games: game_path,
