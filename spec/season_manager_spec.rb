@@ -33,4 +33,10 @@ RSpec.describe SeasonManager do
       expect(@stat_tracker.season_manager.worst_coach("20122013")).to eq("John Tortorella")
     end
   end
+
+  describe '#most_accurate_team' do
+    it "can return the most most_accurate_team according to shots on goal" do
+      expect(@stat_tracker.season_manager.most_accurate_team("20122013", @stat_tracker.team_manager.teams_by_id)).to eq("John Tortorella")
+    end
+  end
 end
