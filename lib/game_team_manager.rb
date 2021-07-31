@@ -200,5 +200,59 @@ class GameTeamManager
     min.goals.to_i
   end
 
+  def opponent_results
+    {games: 0, wins: 0}
+  end
+
+  def opponents_list(team_id)
+    list = {}
+    @game_teams.each do |game_id, teams|
+      teams.each do |hoa, team|
+        if team.team_id == team_id
+          if team.hoa == "home"
+            id = teams[:away].team_id
+            list[id] ||= opponent_results
+            list[id][:games] += 1
+            list[id][:wins] += 1 if teams[:away].result == 'WIN'
+          elsif team.hoa == "away"
+            id = teams[:home].team_id
+            list[id] ||= opponent_results
+            list[id][:games] += 1
+            list[id][:wins] += 1 if teams[:home].result == 'WIN'
+          end
+        end
+      end
+    end
+    list
+  end
+
+  # Edge case question: What to do if a team never wins?
+  def favorite_opponent(team_id)
+    favorite = nil
+    highest = 2013020002
+    op_hash = opponents_list(team_id)
+    op_hash.each do |opponent_id, results|
+      current = results[:wins] / results[:games].to_f
+      if current < highest
+        highest = current
+        favorite = opponent_id
+      end
+    end
+    favorite
+  end
+
+  def rival(team_id)
+    arch_nemesis = nil
+    lowest = 0
+    op_hash = opponents_list(team_id)
+    op_hash.each do |opponent_id, results|
+      current = results[:wins] / results[:games].to_f
+      if current > lowest
+        lowest = current
+        arch_nemesis = opponent_id
+      end
+    end
+    arch_nemesis
+  end
 
 end
