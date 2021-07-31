@@ -188,41 +188,4 @@ class GamesManager
       [team, avg]
     end
   end
-
-###################### MOOOOVE
-# Interface
-  def percentage_home_wins
-    home_stats = @games.reduce({wins: 0, total: 0}) do |acc, game|
-      acc[:total] += 1
-      if game.winner?(game.home_team_id)
-        acc[:wins] += 1
-      end
-      acc
-    end
-    (home_stats[:wins].fdiv(home_stats[:total])).round(2)
-  end
-
-# Interface
-  def percentage_visitor_wins
-    away_stats = @games.reduce({wins: 0, total: 0}) do |acc, game|
-      acc[:total] += 1
-      if game.winner?(game.away_team_id)
-        acc[:wins] += 1
-      end
-      acc
-    end
-    (away_stats[:wins].fdiv(away_stats[:total])).round(2)
-  end
-
-# Interface
-  def percentage_ties
-    tie_stats = @games.reduce({ties: 0, total: 0}) do |acc, game|
-      acc[:total] += 1
-      if !(game.home_win? || game.away_win?)
-        acc[:ties] += 1
-      end
-      acc
-    end
-    (tie_stats[:ties].fdiv(tie_stats[:total])).round(2)
-  end
 end

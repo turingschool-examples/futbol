@@ -221,4 +221,40 @@ class GameTeamsManager
       acc
     end
   end
+
+# Interface
+  def percentage_home_wins
+    home_stats = @game_teams.reduce({wins: 0, total: 0}) do |acc, game|
+      acc[:total] += 0.5
+      if game.won? && game.home_away == "home"
+        acc[:wins] += 1
+      end
+      acc
+    end
+    (home_stats[:wins].fdiv(home_stats[:total])).round(2)
+  end
+
+# Interface
+  def percentage_visitor_wins
+    away_stats = @game_teams.reduce({wins: 0, total: 0}) do |acc, game|
+      acc[:total] += 0.5
+      if game.won? && game.home_away == "away"
+        acc[:wins] += 1
+      end
+      acc
+    end
+    (away_stats[:wins].fdiv(away_stats[:total])).round(2)
+  end
+
+# Interface
+  def percentage_ties
+    tie_stats = @game_teams.reduce({ties: 0, total: 0}) do |acc, game|
+      acc[:total] += 1
+      if game.result == "TIE"
+        acc[:ties] += 1
+      end
+      acc
+    end
+    (tie_stats[:ties].fdiv(tie_stats[:total])).round(2)
+  end
 end
