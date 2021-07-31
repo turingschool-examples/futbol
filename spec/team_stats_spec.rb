@@ -28,11 +28,11 @@ RSpec.describe TeamStatistics do
 
     it "can show team info" do
     result = {
-             team_id: "3",
-             franchise_id: "10",
-             team_name: "Houston Dynamo",
-             abbreviation: "HOU",
-             link: "/api/v1/teams/3"}
+             "team_id" => "3",
+             "franchise_id" => "10",
+             "team_name" => "Houston Dynamo",
+             "abbreviation" => "HOU",
+             "link" => "/api/v1/teams/3"}
 
     expect(@team_stats.team_info("3")).to eq(result)
   end
