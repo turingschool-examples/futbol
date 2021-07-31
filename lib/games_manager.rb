@@ -109,6 +109,7 @@ class GamesManager
   end
 
   #Helper
+  ##same as get_awway_team_goals in GameTeamsMgr
   def get_visitor_goals
     visitor_avg = {}
     @games.each do |game|
@@ -160,6 +161,17 @@ class GamesManager
     end.to_h
   end
 
+  # Interface
+  def average_win_percentage(team_id)
+    wins = 0
+    games = 0
+    seasons_win_count(team_id, @games).each do |season, stats|
+      wins += stats[:wins]
+      games += stats[:total]
+    end
+    (wins.fdiv(games)).round(2)
+  end
+
 #Helper
   def seasons_win_count(team_id)
     season_average = {}
@@ -191,4 +203,70 @@ class GamesManager
     end
     win_loss
   end
+
+  ########
+  # Interface
+  def favorite_opponent(team_id)
+    win_loss = calculate_win_percents(team_id)
+    fav_team = win_loss.max_by do |team, result|
+      result
+    end.first
+
+    team_info(fav_team)["team_name"]
+  end
+  # Interface
+  def rival(team_id)
+    win_loss = calculate_win_percents(team_id)
+    rival_team = win_loss.min_by do |team, result|
+      result
+    end.first
+
+    team_info(rival_team).team_name
+  end
+
+  # Helper
+  def calculate_win_percents(team_id)
+    win_loss = opponent_win_count(team_id)
+    win_loss.map do |team, results|
+      avg = results[:wins].fdiv(results[:total])
+      [team, avg]
+    end.to_h
+  end
+
+  def percentage_home_wins
+    home_game_wins = 0
+    total_games = 0
+    @games.each do |game|
+      total_games += 1
+      if game[:home_goals] > game[:away_goals]
+        home_game_wins += 1
+      end
+    end
+    (home_game_wins.fdiv(total_games)).round(2)
+  end
+
+  def percentage_visitor_wins
+    visitor_game_wins = 0
+    total_games = 0
+    @games.each do |game|
+      total_games += 1
+      if game[:home_goals] < game[:away_goals]
+        visitor_game_wins += 1
+      end
+    end
+    (visitor_game_wins.fdiv(total_games)).round(2)
+  end
+
+  def percentage_ties
+    ties = 0
+    total_games = 0
+    @games.each do |game|
+      total_games += 1
+      if game[:home_goals] == game[:away_goals]
+        ties += 1
+      end
+    end
+    (ties.fdiv(total_games)).round(2)
+  end
+
 end

@@ -108,5 +108,17 @@ RSpec.describe GameTeamsManager do
       expect(game_teams_manager.goals_per_team_game("3")).to eq(expected)
     end
 
+    it 'has best offense' do
+      expect(stat_tracker.best_offense).to eq("Sporting Kansas City")
+    end
+
+    it 'has worst offense' do
+      expect(stat_tracker.worst_offense).to eq("Houston Dash")
+    end
+
+
+    it 'gets offense averages' do
+
+    end
   end
 end

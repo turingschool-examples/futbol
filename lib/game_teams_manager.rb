@@ -9,7 +9,6 @@ class GameTeamsManager
     make_game_teams(file_path)
   end
 
-
 #helper
   def make_game_teams(file_path)
     CSV.foreach(file_path, headers: true) do |row|
@@ -120,6 +119,7 @@ class GameTeamsManager
   end
 
 #Helper
+##same as get_visitor_goals in GamesMgr
   def get_away_team_goals
     away_avg = {}
     @game_teams.each do |game|
@@ -207,4 +207,28 @@ class GameTeamsManager
     goals_per_team_game(team_id).min
   end
 
+  # Interface
+  def best_offense
+    team_id = get_offense_averages.max_by do |team, data|
+      data
+    end.first
+
+    team_info(team_id)["team_name"]
+  end
+
+  # Interface
+  def worst_offense
+    team_id = get_offense_averages.min_by do |team, data|
+      data
+    end.first
+
+    team_info(team_id)["team_name"]
+  end
+
+  # Helper
+  def get_offense_averages
+     get_goals_per_team.map do |team, data|
+      [team, data[:goals].fdiv(data[:total])]
+    end.to_h
+  end
 end
