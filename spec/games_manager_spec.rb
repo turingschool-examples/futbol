@@ -65,11 +65,11 @@ RSpec.describe GamesManager do
     end
 
     it 'has a favourite opponent' do
-      expect(games_manager.favorite_opponent("15")).to eq("2")
+      expect(games_manager.favorite_opponent("15")).to eq("10")
     end
 
     it 'has a rival' do
-      expect(games_manager.rival("15")).to eq("10")
+      expect(games_manager.rival("15")).to eq("2")
     end
 
     it "percentage of home wins, away wins, and ties" do

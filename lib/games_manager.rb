@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/game'
+require_relative 'game'
 
 class GamesManager
   attr_reader :games
@@ -168,14 +168,14 @@ class GamesManager
   # Interface
   def favorite_opponent(team_id)
     win_loss = calculate_win_percents(team_id)
-    win_loss.max_by do |team, result|
+    win_loss.min_by do |team, result|
       result
     end.first
   end
   # Interface
   def rival(team_id)
     win_loss = calculate_win_percents(team_id)
-    win_loss.min_by do |team, result|
+    win_loss.max_by do |team, result|
       result
     end.first
   end

@@ -1,6 +1,9 @@
-class StatTracker
+require_relative 'general_manager'
+
+class StatTracker < GeneralManager
 
   def initialize(locations)
+    super
   end
 
   def self.from_csv(locations)
