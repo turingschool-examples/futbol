@@ -40,15 +40,16 @@ RSpec.describe League do
   end
 
   it 'can get an array of games played' do
-    expect(@league.games_by_team(3).length).to eq(5)
+    expect(@league.games_by_team(3)).to be_a(Array)
+    expect(@league.games_by_team(3).length).to eq(17)
   end
 
   it 'can make an average from games' do
-    expect(@league.games_average(3)).to eq(1.6)
+    expect(@league.games_average(3)).to eq(1.5294117647058822)
   end
 
   it 'can get worst offense' do
-    expect(@league.worst_offense).to eq("Sporting Kansas City")
+    expect(@league.worst_offense).to eq("Chicago Fire")
   end
 
   it 'can get highest scoring visitor' do
@@ -56,15 +57,15 @@ RSpec.describe League do
   end
 
   it 'can filter away games' do
-    expect(@league.away_games(3).length).to eq(3)
+    expect(@league.away_games(3).length).to eq(10)
   end
 
   it 'can average away games' do
-    expect(@league.away_average(3)).to eq(1.6666666666666667)
+    expect(@league.away_average(3)).to eq(1.7)
   end
 
   it 'can filter home games' do
-    expect(@league.home_games(3).length).to eq(2)
+    expect(@league.home_games(3).length).to eq(7)
   end
 
   it 'can get highest scoring home team' do
@@ -72,11 +73,11 @@ RSpec.describe League do
   end
 
   it 'can get lowest scoring away team' do
-    expect(@league.lowest_scoring_visitor).to eq("Sporting Kansas City")
+    expect(@league.lowest_scoring_visitor).to eq("Seattle Sounders FC")
   end
 
   it 'can get lowest scoring home team' do
-    expect(@league.lowest_scoring_home_team).to eq("Sporting Kansas City")
+    expect(@league.lowest_scoring_home_team).to eq("Chicago Fire")
   end
 
 end
