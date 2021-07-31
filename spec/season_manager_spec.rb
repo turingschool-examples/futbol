@@ -54,7 +54,7 @@ RSpec.describe SeasonManager do
 
   describe '#least_tackles' do
     it "can return the name of the team with the least tackles" do
-      expect(@stat_tracker.season_managerleast_tackles("20122013", @stat_tracker.team_manager.teams_by_id)).to eq("Sporting Kansas City")
+      expect(@stat_tracker.season_manager.least_tackles("20122013", @stat_tracker.team_manager.teams_by_id)).to eq("Sporting Kansas City")
     end
   end
 end
