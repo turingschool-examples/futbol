@@ -142,6 +142,16 @@ class GameTeamManager
     games
   end
 
+  def all_games_by_team(team_id)
+    games = []
+    @game_teams.each do |game_id, teams|
+      teams.each do |hoa, team|
+        games << team if team_id == team.team_id
+      end
+    end
+    games
+  end
+
   def average_goals(games)
     goals(games) / games(games).to_f
   end
@@ -173,4 +183,22 @@ class GameTeamManager
     end
     (total_wins / total_games.to_f).round(2)
   end
+
+  def most_goals_scored(team_id)
+    games = all_games_by_team(team_id)
+    max = games.max_by do |game|
+      game.goals
+    end
+    max.goals.to_i
+  end
+
+  def fewest_goals_scored(team_id)
+    games = all_games_by_team(team_id)
+    min = games.min_by do |game|
+      game.goals
+    end
+    min.goals.to_i
+  end
+
+
 end
