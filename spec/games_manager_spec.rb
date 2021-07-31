@@ -55,25 +55,26 @@ RSpec.describe GamesManager do
     end
 
     it 'highest scoring vistor and home team' do
-      expect(games_manager.highest_scoring_visitor).to eq("5")
-      expect(games_manager.highest_scoring_home_team).to eq("24")
+      expect(games_manager.team_scores(:away, :max)).to eq("5")
+      expect(games_manager.team_scores(:home, :max)).to eq("24")
     end
 
     it 'lowest scoring vistor and home team' do
-      expect(games_manager.lowest_scoring_visitor).to eq("13")
-      expect(games_manager.lowest_scoring_home_team).to eq("13")
+      expect(games_manager.team_scores(:away, :min)).to eq("13")
+      expect(games_manager.team_scores(:home, :min)).to eq("13")
     end
 
     it 'has a favourite opponent' do
-      expect(games_manager.favorite_opponent("15")).to eq("10")
+      expect(games_manager.opponent_results("15")[:fav].call).to eq("10")
     end
 
     it 'has a rival' do
-      expect(games_manager.rival("15")).to eq("2")
+      expect(games_manager.opponent_results("15")[:rival].call).to eq("2")
     end
 
     it 'calcs win percents' do
-
+      expected = [["3", 3.fdiv(7)], ["10", 0.0], ["2", 2.fdiv(3)]]
+      expect(games_manager.win_percent("15")).to eq(expected)
     end
   end
 end
