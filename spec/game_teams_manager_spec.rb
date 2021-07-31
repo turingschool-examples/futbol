@@ -73,6 +73,10 @@ RSpec.describe GameTeamsManager do
       expect(game_teams_manager.worst_season("15")).to eq("20152016")
     end
 
+    it 'has an average win percentage' do
+      expect(game_teams_manager.average_win_percentage("15")).to eq(0.67)
+    end
+
     it "can process a game" do
       game1 = double('game win')
       game2 = double('game loss')
@@ -116,7 +120,6 @@ RSpec.describe GameTeamsManager do
       expect(game_teams_manager.worst_offense).to eq("4")
     end
 
-
     it 'gets offense averages' do
       expected = {
         "26" => 2.33,
@@ -130,11 +133,6 @@ RSpec.describe GameTeamsManager do
         "14" => 2.4
       }
       expect(game_teams_manager.get_offense_averages).to eq(expected)
-    end
-
-
-    it 'has an average win percentage' do
-      expect(game_teams_manager.average_win_percentage("15")).to eq(0.67)
     end
   end
 end
