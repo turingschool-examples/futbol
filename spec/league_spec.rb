@@ -80,4 +80,8 @@ RSpec.describe League do
     expect(@league.lowest_scoring_home_team).to eq("Chicago Fire")
   end
 
+  it 'can get home average' do
+    expect(@league.home_average(3)).to eq()
+  end
+
 end
