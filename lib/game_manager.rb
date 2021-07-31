@@ -1,4 +1,4 @@
-require 'game'
+require_relative './game'
 
 class GameManager
   attr_reader :games,
@@ -48,7 +48,7 @@ class GameManager
     end
   end
 
-  def percent_home_wins
+  def percentage_home_wins
     (home_wins_count.to_f / total_games * 100).round(1)
   end
 
@@ -70,14 +70,12 @@ class GameManager
     (tie_count.to_f / total_games * 100).round(1)
   end
 
-
-  # def seasons
-  #   @games.map do |game|
-  #     game.season
-  #   end.uniq
-  # @games.group_by do |game|
-  #   game.season
-  # end
+  def game_by_id(id)
+    game_return = @games.filter do |game|
+      game.game_id == id
+    end
+    game_return[0]
+  end
 
   def count_of_games_by_season
     game_count = {}
