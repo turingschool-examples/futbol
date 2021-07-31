@@ -1,3 +1,7 @@
+require_relative 'teams_manager'
+require_relative 'games_manager'
+require_relative 'game_teams_manager'
+
 class GeneralManager
   attr_reader :teams_manager,
               :games_manager,
