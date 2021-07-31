@@ -1,5 +1,6 @@
 require './lib/game_team_manager'
 require './lib/stat_tracker'
+require './lib/team_manager'
 
 RSpec.describe GameTeamManager do
   describe '#load' do
@@ -43,11 +44,12 @@ RSpec.describe GameTeamManager do
     file_path = './data/fixture_game_teams.csv'
     game_team_manager = GameTeamManager.new(file_path)
     game_team_manager.load
-    teams_by_id = {"3" => "Houston Dynamo",
-                  "6" => "FC Dallas",
-                  "5" => "Sporting Kansas City",
-                  "17" => "LA Galaxy"
-                  }
+    teams_by_id = {
+      "3" => "Houston Dynamo",
+      "6" => "FC Dallas",
+      "5" => "Sporting Kansas City",
+      "17" => "LA Galaxy"
+    }
 
     it 'returns best_offense team string' do
       expect(game_team_manager.best_offense(teams_by_id)).to eq("FC Dallas")
@@ -55,6 +57,79 @@ RSpec.describe GameTeamManager do
 
     it 'returns worst_offense team string' do
       expect(game_team_manager.worst_offense(teams_by_id)).to eq("Sporting Kansas City")
+    end
+  end
+
+
+  ##### DOUBLE CHECK THESE EXPECTATIONS WITH FIXTURE FILES
+  describe 'highest/lowest scoring home and away' do
+    game_teams_path = './data/fixture_game_teams.csv'
+    game_team_manager = GameTeamManager.new(game_teams_path)
+    game_team_manager.load
+    teams_path = './data/teams.csv'
+    team_manager = TeamManager.new(teams_path)
+    teams_by_id = team_manager.teams_by_id
+
+    it 'returns highest scoring visitor name' do
+      expect(game_team_manager.highest_scoring_visitor(teams_by_id)).to eq("FC Dallas")
+    end
+
+    it 'returns highest scoring home name' do
+      expect(game_team_manager.highest_scoring_home_team(teams_by_id)).to eq("New York City FC")
+    end
+
+    it 'returns lowest scoring visitor name' do
+      expect(game_team_manager.lowest_scoring_visitor(teams_by_id)).to eq("Sporting Kansas City")
+    end
+
+    it 'returns lowest scoring home name' do
+      expect(game_team_manager.lowest_scoring_home_team(teams_by_id)).to eq("Sporting Kansas City")
+    end
+  end
+
+  describe '#home and away teams' do
+    it 'returns home teams' do
+      file_path = './data/fixture_game_teams.csv'
+      game_team_manager = GameTeamManager.new(file_path)
+      game_team_manager.load
+
+      game_team_manager.home_teams.each do |team|
+        expect(team.hoa).to eq("home")
+      end
+    end
+
+    it 'returns away teams' do
+      file_path = './data/fixture_game_teams.csv'
+      game_team_manager = GameTeamManager.new(file_path)
+      game_team_manager.load
+
+      game_team_manager.away_teams.each do |team|
+        expect(team.hoa).to eq("away")
+      end
+    end
+  end
+
+  describe '#home and away games' do
+    it 'returns home games' do
+      file_path = './data/fixture_game_teams.csv'
+      game_team_manager = GameTeamManager.new(file_path)
+      game_team_manager.load
+
+      game_team_manager.home_games("3").each do |game|
+        expect(game.team_id).to eq("3")
+        expect(game.hoa).to eq("home")
+      end
+    end
+
+    it 'returns away games' do
+      file_path = './data/fixture_game_teams.csv'
+      game_team_manager = GameTeamManager.new(file_path)
+      game_team_manager.load
+
+      game_team_manager.away_games("3").each do |game|
+        expect(game.team_id).to eq("3")
+        expect(game.hoa).to eq("away")
+      end
     end
   end
 end
