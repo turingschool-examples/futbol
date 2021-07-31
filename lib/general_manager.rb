@@ -64,35 +64,35 @@ class GeneralManager
   end
 
   def winningest_coach(season)
-    @game_teams_manager.winningest_coach(season)
+    @game_teams_manager.coach_results(season)[:max].call
   end
 
   def worst_coach(season)
-    @game_teams_manager.worst_coach(season)
+    @game_teams_manager.coach_results(season)[:min].call
   end
 
   def most_accurate_team(season)
-    @teams_manager.team_by_id(@game_teams_manager.most_accurate_team(season))
+    @teams_manager.team_by_id(@game_teams_manager.accuracy_results(season)[:max].call)
   end
 
   def least_accurate_team(season)
-    @teams_manager.team_by_id(@game_teams_manager.least_accurate_team(season))
+    @teams_manager.team_by_id(@game_teams_manager.accuracy_results(season)[:min].call)
   end
 
   def most_tackles(season)
-    @teams_manager.team_by_id(@game_teams_manager.most_tackles(season))
+    @teams_manager.team_by_id(@game_teams_manager.tackle_results(season)[:max].call)
   end
 
   def fewest_tackles(season)
-    @teams_manager.team_by_id(@game_teams_manager.fewest_tackles(season))
+    @teams_manager.team_by_id(@game_teams_manager.tackle_results(season)[:min].call)
   end
 
   def best_season(team_id)
-    @game_teams_manager.best_season(team_id)
+    @game_teams_manager.season_results(team_id)[:max].call
   end
 
   def worst_season(team_id)
-    @game_teams_manager.worst_season(team_id)
+    @game_teams_manager.season_results(team_id)[:min].call
   end
 
   def average_win_percentage(team_id)
@@ -100,11 +100,11 @@ class GeneralManager
   end
 
   def most_goals_scored(team_id)
-    @game_teams_manager.most_goals_scored(team_id)
+    @game_teams_manager.goal_results(team_id)[:max].call
   end
 
   def fewest_goals_scored(team_id)
-    @game_teams_manager.fewest_goals_scored(team_id)
+    @game_teams_manager.goal_results(team_id)[:min].call
   end
 
   def best_offense

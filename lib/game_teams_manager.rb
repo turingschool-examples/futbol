@@ -19,17 +19,12 @@ class GameTeamsManager
   end
 
 # Interface
-  def winningest_coach(season)
-    coach_win_pct(season).max_by do|coach, pct|
-      pct
-    end.first
-  end
 
-# Interface
-  def worst_coach(season)
-    coach_win_pct(season).min_by do|coach, pct|
-      pct
-    end.first
+  def coach_results(season)
+    {
+      max: -> { coach_win_pct(season).max_by { |coach, pct| pct }.first },
+      min: -> { coach_win_pct(season).min_by { |coach, pct| pct }.first }
+    }
   end
 
 #helper
@@ -74,20 +69,13 @@ class GameTeamsManager
     accuracy_average
   end
 
-# Interface
-  def most_accurate_team(season)
-    accuracy_average = get_accuracy_average(season)
-    accuracy_average.max_by do |team, average|
-      average
-    end.first
-  end
-
-# Interface
-  def least_accurate_team(season)
-    accuracy_average = get_accuracy_average(season)
-    accuracy_average.min_by do |team, average|
-      average
-    end.first
+#Interface
+  def accuracy_results(season)
+    average = get_accuracy_average(season)
+    {
+      max: -> { average.max_by { |team, avg| avg }.first },
+      min: -> { average.min_by { |team, avg| avg }.first }
+    }
   end
 
 #helper
@@ -102,35 +90,22 @@ class GameTeamsManager
   end
 
 # Interface
-  def most_tackles(season)
-    team_tackles(season).max_by do |team, tackles|
-      tackles
-    end.first
+  def tackle_results(season)
+    {
+      max: -> { team_tackles(season).max_by { |team, tackles| tackles }.first },
+      min: -> { team_tackles(season).min_by { |team, tackles| tackles }.first }
+    }
+  end
+
+#Interface
+  def season_results(team_id)
+    {
+      max: -> { season_averages(team_id).max_by { |season, avg| avg }.first },
+      min: -> { season_averages(team_id).min_by { |season, avg| avg }.first }
+    }
   end
 
 # Interface
-  def fewest_tackles(season)
-    team_tackles(season).min_by do |team, tackles|
-      tackles
-    end.first
-  end
-
-#Interface
-  def best_season(team_id)
-    get_season_averages(team_id).max_by do |season, average|
-      average
-    end.first
-  end
-
-#Interface
-  def worst_season(team_id)
-    get_season_averages(team_id).min_by do |season, average|
-      average
-    end.first
-  end
-
-
-  # Interface
   def average_win_percentage(team_id)
     team_stats = team_win_stats(team_id)
     average(team_stats).round(2)
@@ -146,7 +121,7 @@ class GameTeamsManager
   end
 
 #Helper
-  def get_season_averages(team_id)
+  def season_averages(team_id)
     season_average = seasons_win_count(team_id)
     season_average.map do |season, stats|
       [season, average(stats)]
@@ -170,11 +145,6 @@ class GameTeamsManager
     data[:total] += 1
   end
 
-  #Interface
-  def most_goals_scored(team_id)
-    goals_per_team_game(team_id).max
-  end
-
   #Helper
   def goals_per_team_game(team_id)
     @game_teams.map do |game|
@@ -183,8 +153,11 @@ class GameTeamsManager
   end
 
   #Interface
-  def fewest_goals_scored(team_id)
-    goals_per_team_game(team_id).min
+  def goal_results(team_id)
+    {
+      min: -> { goals_per_team_game(team_id).min },
+      max: -> { goals_per_team_game(team_id).max }
+    }
   end
 
 #interface
