@@ -200,5 +200,34 @@ class GameTeamManager
     min.goals.to_i
   end
 
+  def opponents_list(team_id)
+    list = {}
+    opponent_results = {
+      games: 0,
+      wins: 0
+    }
+    @game_teams.each do |game_id, teams|
+      teams.each do |hoa, team|
+        if team.team_id == team_id
+          if team.hoa == "home"
+            id = teams[:away].team_id
+            list[id] ||= opponent_results
+            list[id][:games] += 1
+            list[id][:wins] += 1 if teams[:away].result == 'WIN'
+          elsif team.hoa == "away"
+            id = teams[:home].team_id
+            list[id] ||= opponent_results
+            list[id][:games] += 1
+            list[id][:wins] += 1 if teams[:home].result == 'WIN'
+          end
+          require "pry"; binding.pry
+        end
+      end
+    end
+    list
+  end
+  # Edge case question: What to do if a team never wins?
+  def favorite_opponent(team_id)
 
+  end
 end

@@ -179,4 +179,26 @@ RSpec.describe GameTeamManager do
       expect(game_team_manager.fewest_goals_scored("6")).to eq(1)
     end
   end
+
+  describe '#opponents_list(team_id)' do
+    it 'lists opponents' do
+      file_path = './data/fixture_game_teams.csv'
+      game_team_manager = GameTeamManager.new(file_path)
+      game_team_manager.load
+      list = game_team_manager.opponents_list("6")
+      # list.each do |game_team|
+      #   expect(game_team.team_id).to eq("3") | eq("5")
+      # end
+    end
+  end
+
+  describe '#favorite_opponent(team_id)' do
+    xit 'returns opponent with lowest win percentage against team' do
+      file_path = './data/fixture_game_teams.csv'
+      game_team_manager = GameTeamManager.new(file_path)
+      game_team_manager.load
+
+      expect(game_team_manager.favorite_opponent("6")).to eq("Houston Dynamo")
+    end
+  end
 end
