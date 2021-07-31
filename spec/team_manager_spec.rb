@@ -21,4 +21,9 @@ RSpec.describe TeamManager do
   it "is an array" do
     expect(@team_manager.teams).to be_an(Array)
   end
+
+  it 'can return a single team by id' do
+    expect(@team_manager.team_by_id("1")).to be_a(Team)
+  end
+
 end
