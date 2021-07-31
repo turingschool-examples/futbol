@@ -6,7 +6,7 @@ class TeamStatistics
     @teams = teams
     @game_teams = game_teams
   end
- #was tweaked in stat_tracker strings instead of symbols
+
   def team_info(team_id)
     team_info = {}
     @teams.each do |team|
