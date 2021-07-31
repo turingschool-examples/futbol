@@ -130,8 +130,8 @@ RSpec.describe GameTeamsManager do
     end
 
     it "percentage of home wins, away wins, and ties" do
-      expect(game_teams_manager.percentage_home_wins).to eq(0.43)
-      expect(game_teams_manager.percentage_visitor_wins).to eq(0.59)
+      expect(game_teams_manager.percentage_hoa_wins(:home)).to eq(0.43)
+      expect(game_teams_manager.percentage_hoa_wins(:away)).to eq(0.59)
       expect(game_teams_manager.percentage_ties).to eq(0.0)
     end
   end
