@@ -1,7 +1,6 @@
-require './lib/season'
-require 'pry'
-class SeasonManager
+require_relative './season'
 
+class SeasonManager
   attr_reader :seasons_hash
 
   def initialize(seasons, games, game_teams)
