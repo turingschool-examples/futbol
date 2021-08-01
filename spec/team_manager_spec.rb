@@ -12,10 +12,8 @@ RSpec.describe TeamManager do
       expect(@team_manager.load.length).to eq(32)
     end
 
-    it 'creates game object for every row' do
-      @team_manager.teams.each do |team_id, team_object|
-        expect(team_object).to be_instance_of(Team)
-      end
+    it 'creates a team object for every row' do
+      expect(@team_manager.teams.first).to be_instance_of(Team)
     end
   end
 
@@ -25,19 +23,25 @@ RSpec.describe TeamManager do
     end
   end
 
-  describe '#teams_by_id' do
-    it 'creates teams_by_id hash' do
-      expect(@team_manager.teams_by_id).to be_instance_of(Hash)
-      expect(@team_manager.teams_by_id["1"]).to eq("Atlanta United")
+  describe '#team_by_id(team_id)' do
+    it 'returns team  by id' do
+      expect(@team_manager.team_by_id("1").teamname).to eq("Atlanta United")
     end
   end
+
+  describe '#team_name_by_id(team_id)' do
+    it 'gets team name  by id' do
+      expect(@team_manager.team_name_by_id("1")).to eq("Atlanta United")
+    end
+  end
+
 
   describe '#team_info(team_id)' do
     it 'returns a hash of attributes per team_id' do
       expected = {
         "team_id"      => "1",
-        "franchiseId"  => "23",
-        "teamName"     => "Atlanta United",
+        "franchise_id"  => "23",
+        "team_name"     => "Atlanta United",
         "abbreviation" => "ATL",
         "link"         => "/api/v1/teams/1"
       }
