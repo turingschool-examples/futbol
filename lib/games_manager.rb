@@ -1,9 +1,9 @@
 require 'csv'
 require_relative 'game'
-require_relative 'mathable'
+require_relative 'percentageable'
 
 class GamesManager
-  include Mathable
+  include Percentageable
   attr_reader :games
 
   def initialize(file_path)
