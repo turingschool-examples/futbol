@@ -1,9 +1,10 @@
 require 'csv'
 require_relative 'game_teams'
-require_relative 'percentageable'
+require_relative 'seasons_manager'
+# require_relative 'percentageable'
 
-class GameTeamsManager
-  include Percentageable
+class GameTeamsManager < SeasonsManager
+  # include Percentageable
   attr_reader :game_teams
 
   def initialize(file_path)
@@ -24,22 +25,22 @@ class GameTeamsManager
     }
   end
 
-  def coach_win_pct(season)
-    coach_wins(season).each.reduce({}) do |acc, (coach, results)|
-      acc[coach] = hash_avg(results)
-      acc
-    end
-  end
-
-  def coach_wins(season)
-    @game_teams.reduce({}) do |acc, game|
-      if game.game_id[0..3] == season[0..3]
-        acc[game.coach] ||= {wins: 0, total: 0}
-        process_game(acc[game.coach], game)
-      end
-      acc
-    end
-  end
+  # def coach_win_pct(season)
+  #   coach_wins(season).each.reduce({}) do |acc, (coach, results)|
+  #     acc[coach] = hash_avg(results)
+  #     acc
+  #   end
+  # end
+  #
+  # def coach_wins(season)
+  #   @game_teams.reduce({}) do |acc, game|
+  #     if game.game_id[0..3] == season[0..3]
+  #       acc[game.coach] ||= {wins: 0, total: 0}
+  #       process_game(acc[game.coach], game)
+  #     end
+  #     acc
+  #   end
+  # end
 
   def accuracy_results(season)
     average = get_accuracy_avg(accuracy_data(season))
