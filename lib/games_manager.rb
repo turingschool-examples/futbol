@@ -1,9 +1,10 @@
 require 'csv'
 require_relative 'game'
-require_relative 'percentageable'
+require_relative 'seasons_manager'
+# require_relative 'percentageable'
 
-class GamesManager
-  include Percentageable
+class GamesManager < SeasonsManager
+  # include Percentageable
   attr_reader :games
 
   def initialize(file_path)
@@ -35,10 +36,7 @@ class GamesManager
   end
 
   def average_goals_by_season
-    goals_per_season.reduce({}) do |acc, goals|
-      acc[goals[0]] = avg(goals[1], games_per_season(goals[0])).round(2)
-      acc
-    end
+    avg_season_goals(goals_per_season)
   end
 
   def goals_per_season
@@ -50,10 +48,7 @@ class GamesManager
   end
 
   def average_goals_per_game
-    goals = @games.sum do |game|
-      game.total_goals
-    end
-    (avg(goals, @games.size)).round(2)
+    goal_per_game_avg(@games)
   end
 
   def games_per_season(season)
@@ -86,7 +81,7 @@ class GamesManager
     }
     team = {
       max: -> { info[hoa].call.max_by { |team, data| hash_avg(data) }.first },
-      min: ->{ info[hoa].call.min_by { |team, data| hash_avg(data) }.first }
+      min: -> { info[hoa].call.min_by { |team, data| hash_avg(data) }.first }
     }
     team[min_max].call
   end
@@ -99,12 +94,13 @@ class GamesManager
     end
   end
 
-  def opponent_results(id)
+  def opponent_results(id, fav_rival)
     data = opponent_win_count(id)
-    {
+    team = {
       fav: -> { win_percent(data).min_by { |team, result| result }.first },
       rival: -> { win_percent(data).max_by { |team, result| result }.first }
     }
+    team[fav_rival].call
   end
 
   def opponent_win_count(id)
