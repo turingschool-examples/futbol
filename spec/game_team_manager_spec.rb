@@ -14,6 +14,7 @@ RSpec.describe GameTeamManager do
     @game_team_manager = GameTeamManager.new(locations)
     @season_game_ids = ['2012030221', '2012030222', '2012030223', '2012030224', '2012030225',
       '2012030311', '2012030312', '2012030313', '2012030314', '2012030231']
+    @season_team_ids = ['3', '6', '5', '17', '16']
   end
 
   it "exists" do
@@ -81,5 +82,23 @@ RSpec.describe GameTeamManager do
 
   it 'has total goals by team id' do
     expect(@game_team_manager.total_goals('3')).to eq(8)
+  end
+
+  it 'has accuracy for each team' do
+    results = {"16"=>5.0,
+               "17"=>5.0,
+               "3"=>4.75,
+               "5"=>16.0,
+               "6"=>3.1666666666666665
+              }
+    expect(@game_team_manager.team_accuracy(@season_team_ids)).to eq(results)
+  end
+
+  it 'has most accurate team id' do
+    expect(@game_team_manager.most_accurate_team(@season_team_ids)).to eq('6')
+  end
+
+  it 'has least accurate team_id' do
+    expect(@game_team_manager.least_accurate_team(@season_team_ids)).to eq('5')
   end
 end
