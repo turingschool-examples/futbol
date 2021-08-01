@@ -42,7 +42,7 @@ class GameManager
         home_wins += 1
       end
     end
-    ((home_wins / @games.length.to_f) * 100).round(2)
+    ((home_wins / @games.length.to_f) * 100).round(2) #fdiv method
   end
 
   def percentage_visitor_wins
@@ -52,7 +52,7 @@ class GameManager
         visitor_wins += 1
       end
     end
-    ((visitor_wins / @games.length.to_f) * 100).round(2)
+    ((visitor_wins / @games.length.to_f) * 100).round(2)#fdiv method
   end
 
   def percentage_ties
@@ -62,14 +62,14 @@ class GameManager
         ties += 1
       end
     end
-    ((ties / @games.length.to_f) * 100).round(2)
+    ((ties / @games.length.to_f) * 100).round(2)#fdiv method
   end
 
   def count_of_games_by_season
     season_data = {}
     @games.each do |game_id, game|
       if season_data.include?(game.season)
-        season_data[game.season] += 1
+        season_data[game.season] += 1 # build key value pair first and then add to it  READABILTY
       else
         season_data[game.season] = 1
       end
@@ -82,7 +82,7 @@ class GameManager
     @games.each do |game_id, game|
       goals += (game.away_goals.to_i + game.home_goals.to_i)
     end
-    goals / @games.length.to_f
+    goals / @games.length.to_f#fdiv method
   end
 
   def average_goals_per_season
@@ -90,7 +90,7 @@ class GameManager
     total_games = "games"
     total_goals = "goals"
     @games.each do |game_id, game|
-      if season_data.include?(game.season)
+      if season_data.include?(game.season)# build key value pair first and then add to it READABILTY
         season_data[game.season][total_games] += 1
         season_data[game.season][total_goals] += (game.away_goals.to_i + game.home_goals.to_i)
       else
@@ -102,12 +102,12 @@ class GameManager
     end
     result = {}
     season_data.each do |season, data|
-      result[season] = data["goals"] / data["games"].to_f
+      result[season] = data["goals"] / data["games"].to_f#fdiv method
     end
     result
   end
 
-  def seasons
+  def seasons #WRITE TEST FOR THIS
     @games.map do |game_id, game|
       game.season
     end.uniq

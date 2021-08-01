@@ -1,8 +1,8 @@
 class Season
   attr_reader :games
-  # each season.unq
+
   def initialize
-    @games = {}
+    @games = {}# rename to game data per game_id
   end
 
   def add_game(game_id, game, game_team_home, game_team_away)

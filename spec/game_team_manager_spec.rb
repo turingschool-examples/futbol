@@ -2,7 +2,7 @@ require './lib/game_team_manager'
 require './lib/stat_tracker'
 require './lib/team_manager'
 
-RSpec.describe GameTeamManager do
+RSpec.describe GameTeamManager do # reorginize according to postion in actual class
   describe '#load' do
     it 'length' do
       file_path = './data/fixture_game_teams.csv'

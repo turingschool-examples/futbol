@@ -11,22 +11,22 @@ class GameTeamManager
     load
   end
 
-  def load
+  def load # Chance for Inheritance Refactor
     data = CSV.read(@file_path, headers: true)
     data.each do |row|
       if @game_teams[row["game_id"]].nil?
         @game_teams[row["game_id"]] = {away: GameTeam.new(row)}
-      else
+      else # Too brittle. Turn into a elsif statement and ask if the game_id does contain a home. Determine default value to be an error code
         @game_teams[row["game_id"]][:home] = GameTeam.new(row)
       end
     end
   end
 
-  def total_games_all_seasons(team_id)
+  def total_games_all_seasons(team_id)# Refactor naming of passing variable
     total = 0
     @game_teams.each do |game_id, teams|
-      teams.each do |hoa, team|
-        total += 1 if team_id == team.team_id
+      teams.each do |hoa, team|# Rename team to team object for clarity
+        total += 1 if team_id == team.team_id # Break into multi line for MIKE DAO
       end
     end
     total
@@ -36,14 +36,14 @@ class GameTeamManager
     total = 0
     @game_teams.each do |game_id, teams|
       teams.each do |hoa, team|
-        total += team.goals.to_i if team_id == team.team_id
+        total += team.goals.to_i if team_id == team.team_id# Break into multi line for MIKE DAO
       end
     end
     total
   end
 
   def average_goals_all_seasons(team_id)
-    average = total_goals_all_seasons(team_id) / total_games_all_seasons(team_id).to_f
+    average = total_goals_all_seasons(team_id) / total_games_all_seasons(team_id).to_f# FDIV REFACTOR
     average.round(2)
   end
 
@@ -58,6 +58,10 @@ class GameTeamManager
       end
     end
     best_team
+    # Do the shit below it works
+    # teams_by_id.max_by do |team_id, team_name|
+    #   average_goals_all_seasons(team_id)
+    # end[1]
   end
 
   def worst_offense(teams_by_id)
@@ -71,9 +75,16 @@ class GameTeamManager
       end
     end
     worst_team
+    # Do the shit below it works
+    # teams_by_id.min_by do |team_id, team_name|
+    #   average_goals_all_seasons(team_id)
+    # end[1]
   end
 
   #######################################
+  # Reorginize per usage
+  # METHOD NAMES SHOULDNT BE THE SAME AS VARIABLE NAMES
+  # GO OVER WITH MICHAEL AND SEE WAS HAPPENIN
   def highest_scoring_visitor(teams_by_id)
     max = away_teams.max_by do |team|
       games = away_games(team.team_id)
@@ -153,7 +164,7 @@ class GameTeamManager
   end
 
   def average_goals(games)
-    goals(games) / games(games).to_f
+    goals(games) / games(games).to_f# FDIV
   end
 
   def goals(games)
@@ -164,7 +175,7 @@ class GameTeamManager
     goals
   end
 
-  def games(games)
+  def games(games)# RENAME TO GAMES COUNT OR SOMTHING SIMILAR
     games.count
   end
 
@@ -181,7 +192,7 @@ class GameTeamManager
         end
       end
     end
-    (total_wins / total_games.to_f).round(2)
+    (total_wins / total_games.to_f).round(2)# FDIV
   end
 
   def most_goals_scored(team_id)
