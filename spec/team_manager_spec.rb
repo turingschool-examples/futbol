@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe TeamManager do
   before(:each) do
-    game_path = './data/games_sample.csv'
+    game_path = './data/games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams_sample.csv'
 
@@ -44,6 +44,11 @@ RSpec.describe TeamManager do
       game.away_team_id == "3" || game.home_team_id == "3"
     end
 
-    expect(@team_manager.win_percentage("3", games)).to eq(50.0)
+    expect(@team_manager.win_percentage("3", games)).to eq(43.3)
+  end
+
+  it "can determine best season for a team" do
+    expect(@team_manager.best_season("3")).to eq("20122013")
+    expect(@team_manager.best_season("6")).to eq("20122013")
   end
 end
