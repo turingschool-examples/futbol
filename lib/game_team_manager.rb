@@ -109,7 +109,7 @@ class GameTeamManager
     end
   end
 
-  def least_tackles(season_team_ids)
+  def fewest_tackles(season_team_ids)
     season_team_ids.min_by do |team_id|
       team_tackles(team_id)
     end

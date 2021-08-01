@@ -111,6 +111,6 @@ RSpec.describe GameTeamManager do
   end
 
   it 'has team with least tackles' do
-    expect(@game_team_manager.least_tackles(@season_team_ids)).to eq('16')
+    expect(@game_team_manager.fewest_tackles(@season_team_ids)).to eq('16')
   end
 end
