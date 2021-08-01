@@ -133,5 +133,13 @@ RSpec.describe GeneralManager do
       expect(@general_manager.worst_offense).to eq("Chicago Fire")
     end
 
+    it "percentage of home wins, away wins" do
+      expect(@general_manager.percentage_home_wins).to eq(0.43)
+      expect(@general_manager.percentage_visitor_wins).to eq(0.59)
+    end
+
+    it "has percentage ties" do
+      expect(@general_manager.percentage_ties).to eq(0.0)
+    end
   end
 end
