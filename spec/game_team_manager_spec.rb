@@ -26,6 +26,7 @@ RSpec.describe GameTeamManager do
     expect(@game_team_manager.by_game_id('2012030221')).to be_an(Array)
     expect(@game_team_manager.by_game_id('2012030221').count).to eq(2)
     expect(@game_team_manager.by_game_id('2012030221')[0]).to be_a(GameTeam)
+
   end
 
   it 'has coaches' do

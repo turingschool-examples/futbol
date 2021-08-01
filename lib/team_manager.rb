@@ -1,10 +1,16 @@
 require_relative './team'
+require_relative './game_manager'
+require_relative './game'
 
 class TeamManager
   attr_reader :teams
 
   def initialize(locations)
     @teams = Team.read_file(locations[:teams])
+    @games = Game.read_file(locations[:games])
+    @game_manager = GameManager.new(locations)
+    @game_team_manager = GameTeamManager.new(locations)
+
   end
   #
   def team_by_id(id)
@@ -15,27 +21,99 @@ class TeamManager
   end
 
   def team_info(id)
-    info = {
-      team_id: team_by_id(id).team_id,
-      franchise_id: team_by_id(id).franchise_id,
-      team_name: team_by_id(id).team_name,
-      abbreviation: team_by_id(id).abbreviation,
-      link: team_by_id(id).link
+    team = team_by_id(id)
+    {
+      team_id: id,
+      franchise_id: team.franchise_id,
+      team_name: team.team_name,
+      abbreviation: team.abbreviation,
+      link: team.link
     }
   end
 
-  
+  def best_season(id)
+    season_games = @game_manager.games_by_team_id(id).group_by do |game|
+      game.season
+    end
+    #we will refactor this with sort_by.
+    season_games.max_by do |season, season_games|
+      win_percentage(id, season_games)
+    end.flatten[0]
+  end
 
-  # def team_info(team_id)
-  #   find_team = @teams.find do |team|
-  #     team.team_id == team_id
-  #   end
-  #   team_info = {
-  #     team_id: find_team.team_id,
-  #     franchise_id:  find_team.franchise_id,
-  #     team_name:  find_team.team_name,
-  #     abbreviation: find_team.abbreviation,
-  #     link:  find_team.link
-  #   }
-  # end
+  def worst_season(id)
+    season_games = @game_manager.games_by_team_id(id).group_by do |game|
+      game.season
+    end
+
+    #we will refactor this with sort_by.
+    season_games.min_by do |season, season_games|
+      win_percentage(id, season_games)
+    end.flatten[0]
+  end
+
+  def win_percentage(id, games)
+    total_wins = @game_manager.games_by_team_id(id).count do |game|
+      game.home_team_id == id && game.home_goals > game.away_goals || game.away_team_id == id && game.away_goals > game.home_goals
+    end
+    (total_wins.fdiv(games.count) * 100.0).round(1)
+  end
+
+  def average_win_percentage(id)
+    win_percentage(id, @game_manager.games_by_team_id(id))
+  end
+
+  def all_goals_by_team(id)
+    @game_manager.games_by_team_id(id).filter_map do |game|
+      game.home_goals if game.home_team_id == id || game.away_goals if game.away_team_id == id
+    end
+  end
+
+  def most_goals_scored(id)
+    all_goals_by_team(id).max.to_i
+  end
+
+  def fewest_goals_scored(id)
+    all_goals_by_team(id).min.to_i
+  end
+
+  def team_opponent_games(id)
+    # opponents = Hash.new
+    opponent_games = {}
+    @game_manager.games_by_team_id(id).each do |team_id|
+      opponent_games[team_id]
+      @game_teams.find_all do |game|
+        opponent_games[team_id] = game
+      end
+    end
+    opponent_games
+  end
+
+  def favorite_opponent(id)
+
+  end
+  #the key is '@game_manager.games_by_team_id(id)'
+
+    # value = []
+    # value << if @game_manager.games_by_team_id(id).include?(key)
+    #   require "pry"; binding.pry
+    # end
+
+    # teams = @game_manager.games_by_team_id(id).group_by do |game|
+    #   id if game.home_team_id == id || id  if game.away_team_id == id
+    # end
+    # require "pry"; binding.pry
+    # teams
+
+
+
+
+    # @game_manager.games_by_team_id(id).map do |game|
+    #   game.home_goals if game.home_team_id == id || game.away_goals if game.away_team_id == id
+    # end.uniq
+
+    #iterate thru the games w max_by and match the id to home or away team id
+    #if id == home_team_id look at home goals
+    #else id == away_team_id look at away goals
+
 end

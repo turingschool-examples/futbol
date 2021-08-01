@@ -34,4 +34,12 @@ class GameTeamManager
       winning_coach(game)
     end
   end
+
+  # def by_team_and_game_id(team_id, game_id)
+  #   @game_teams.find do |game_team|
+  #     game_team.game_id == game_id && game_team.team_id == team_id
+  #   end
+  # end
+
+
 end
