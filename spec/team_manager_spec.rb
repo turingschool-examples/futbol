@@ -48,7 +48,21 @@ RSpec.describe TeamManager do
   end
 
   it "can determine best season for a team" do
-    expect(@team_manager.best_season("3")).to eq("20122013")
-    expect(@team_manager.best_season("6")).to eq("20122013")
+    expect(@team_manager.best_season("5")).to eq("20122013")
+    expect(@team_manager.best_season("16")).to eq("20122013")
+  end
+
+  it "can determine the team's worst season" do
+    expect(@team_manager.worst_season("3")).to eq("20132014")
+    expect(@team_manager.worst_season("6")).to eq("20172018")
+  end
+
+  it "can average the win percentage" do
+    expect(@team_manager.average_win_percentage("3")).to eq(43.3)
+    expect(@team_manager.average_win_percentage("16")).to eq(44.2)
+  end
+
+  it "can return the most goals scored" do
+    expect(@team_manager.most_goals_scored("3")).to eq(5)
   end
 end

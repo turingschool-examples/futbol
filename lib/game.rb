@@ -8,8 +8,7 @@ class Game
               :home_team_id,
               :away_goals,
               :home_goals,
-              :id_hash,
-              :game_rows
+              :id_hash
 
   def initialize(attributes)
     @game_id = attributes[:game_id]
@@ -21,13 +20,12 @@ class Game
     @away_goals = attributes[:away_goals]
     @home_goals = attributes[:home_goals]
     @id_hash = {}
-    @game_rows = []
   end
 
   def self.read_file(location)
-    @game_rows = CSV.read(location, headers: true, header_converters: :symbol)
+    game_rows = CSV.read(location, headers: true, header_converters: :symbol)
 
-    @game_rows.map do |game_row|
+    game_rows.map do |game_row|
       new(game_row)
     end
   end

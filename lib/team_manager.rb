@@ -35,20 +35,42 @@ class TeamManager
     season_games = @game_manager.games_by_team_id(id).group_by do |game|
       game.season
     end
+    #we will refactor this with sort_by.
+    season_games.max_by do |season, season_games|
+      win_percentage(id, season_games)
+    end.flatten[0]
+  end
 
-    season_games.max_by do |season_games|
+  def worst_season(id)
+    season_games = @game_manager.games_by_team_id(id).group_by do |game|
+      game.season
+    end
+
+    #we will refactor this with sort_by.
+    season_games.min_by do |season, season_games|
       win_percentage(id, season_games)
     end.flatten[0]
   end
 
   def win_percentage(id, games)
-
     total_wins = @game_manager.games_by_team_id(id).count do |game|
       game.home_team_id == id && game.home_goals > game.away_goals || game.away_team_id == id && game.away_goals > game.home_goals
     end
     (total_wins.fdiv(games.count) * 100.0).round(1)
   end
 
+  def average_win_percentage(id)
+    win_percentage(id, @game_manager.games_by_team_id(id))
+  end
 
+  def most_goals_scored(id)
+    @game_manager.games_by_team_id(id).map do |game|
+      game.home_goals if game.home_team_id == id || game.away_goals if game.away_team_id == id
+    end.uniq
 
+    #iterate thru the games w max_by and match the id to home or away team id
+    #if id == home_team_id look at home goals
+    #else id == away_team_id look at away goals
+
+  end
 end
