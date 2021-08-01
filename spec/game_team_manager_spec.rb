@@ -26,5 +26,14 @@ RSpec.describe GameTeamManager do
     expect(@game_team_manager.by_game_id('2012030221')).to be_an(Array)
     expect(@game_team_manager.by_game_id('2012030221').count).to eq(2)
     expect(@game_team_manager.by_game_id('2012030221')[0]).to be_a(GameTeam)
+
   end
+
+  # it 'can find game team by game and team id' do
+  #   game =  @game_team_manager.by_team_and_game_id('3', '2012030221')
+  #   expect(game.game_id).to eq('2012030221')
+  #
+  # end
+
+
 end

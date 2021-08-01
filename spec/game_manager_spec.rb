@@ -1,4 +1,4 @@
-require 'spec_helper'
+ require 'spec_helper'
 
 RSpec.describe GameManager do
   before(:each) do
@@ -51,7 +51,7 @@ RSpec.describe GameManager do
   end
 
   it 'has visitor win percents' do
-    expect(@game_manager.percent_visitor_wins).to eq(10.5)
+    expect(@game_manager.percentage_visitor_wins).to eq(10.5)
   end
 
   it 'has a tie count' do
@@ -70,6 +70,10 @@ RSpec.describe GameManager do
 
   it 'can return a single game by id' do
     expect(@game_manager.game_by_id('2012030221')).to be_a(Game)
+  end
+
+  it "can return games based on team id" do
+    expect(@game_manager.games_by_team_id("3").count).to eq(2)
   end
 end
 

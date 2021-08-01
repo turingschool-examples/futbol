@@ -20,6 +20,12 @@ class GameManager
   #   @id_hash
   # end
 
+  def games_by_team_id(id)
+    @games.find_all do |game|
+      game.away_team_id == id || game.home_team_id == id
+    end
+  end
+
   def total_game_score
     @games.map do |game|
       game.away_goals.to_i + game.home_goals.to_i
@@ -58,7 +64,7 @@ class GameManager
     end
   end
 
-  def percent_visitor_wins
+  def percentage_visitor_wins
     (visitor_wins_count.to_f / total_games * 100).round(1)
   end
 
