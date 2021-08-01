@@ -13,6 +13,12 @@ class GameTeamManager
     end
   end
 
+  def by_team_id(team_id)
+    @game_teams.filter do |game_team|
+      game_team.team_id == team_id
+    end
+  end
+
   def coaches(season_game_ids)
     season_game_ids.flat_map do |game_id|
       game_team_pair = by_game_id(game_id)
@@ -29,8 +35,6 @@ class GameTeamManager
     end
     coach_results
   end
-
-
 
   def winning_coach(game_id)
     winner = by_game_id(game_id).find do |game_team|
@@ -57,6 +61,18 @@ class GameTeamManager
       wins.to_f / coaches(season_game_ids).count(coach) * 100
     end
     worst[0]
+  end
+
+  def total_shots(team_id)
+    by_team_id(team_id).sum do |game_team|
+      game_team.shots.to_i
+    end
+  end
+
+  def total_goals(team_id)
+    by_team_id(team_id).sum do |game_team|
+      game_team.goals.to_i
+    end
   end
 end
 
