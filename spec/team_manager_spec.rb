@@ -79,4 +79,7 @@ RSpec.describe TeamManager do
   it "determines which id is the opposing team's" do
     expect(@team_manager.games_against_opponents("3")).to eq({})
   end
+  it 'has a favorite opponent' do
+    expect(@team_manager.favorite_opponent("3")).to eq('FC Dallas')
+  end
 end
