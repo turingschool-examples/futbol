@@ -62,4 +62,15 @@ class TeamManager
   def average_win_percentage(id)
     win_percentage(id, @game_manager.games_by_team_id(id))
   end
+
+  def most_goals_scored(id)
+    @game_manager.games_by_team_id(id).map do |game|
+      game.home_goals if game.home_team_id == id || game.away_goals if game.away_team_id == id
+    end.uniq
+
+    #iterate thru the games w max_by and match the id to home or away team id
+    #if id == home_team_id look at home goals
+    #else id == away_team_id look at away goals
+
+  end
 end
