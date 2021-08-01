@@ -14,8 +14,8 @@ RSpec.describe GamesManager do
     end
 
     it 'has highest and lowest total scored' do
-      expect(games_manager.highest_total_score).to eq(7)
-      expect(games_manager.lowest_total_score).to eq(1)
+      expect(games_manager.score_results(:max)).to eq(7)
+      expect(games_manager.score_results(:min)).to eq(1)
     end
 
     it 'counts games per season' do
@@ -55,31 +55,26 @@ RSpec.describe GamesManager do
     end
 
     it 'highest scoring vistor and home team' do
-      expect(games_manager.highest_scoring_visitor).to eq("5")
-      expect(games_manager.highest_scoring_home_team).to eq("24")
+      expect(games_manager.team_scores(:away, :max)).to eq("5")
+      expect(games_manager.team_scores(:home, :max)).to eq("24")
     end
 
     it 'lowest scoring vistor and home team' do
-      expect(games_manager.lowest_scoring_visitor).to eq("13")
-      expect(games_manager.lowest_scoring_home_team).to eq("13")
+      expect(games_manager.team_scores(:away, :min)).to eq("13")
+      expect(games_manager.team_scores(:home, :min)).to eq("13")
     end
 
     it 'has a favourite opponent' do
-      expect(games_manager.favorite_opponent("15")).to eq("10")
+      expect(games_manager.opponent_results("15")[:fav].call).to eq("10")
     end
 
     it 'has a rival' do
-      expect(games_manager.rival("15")).to eq("2")
-    end
-
-    it "percentage of home wins, away wins, and ties" do
-      expect(games_manager.percentage_home_wins).to eq(0.67)
-      expect(games_manager.percentage_visitor_wins).to eq(0.31)
-      expect(games_manager.percentage_ties).to eq(0.02)
+      expect(games_manager.opponent_results("15")[:rival].call).to eq("2")
     end
 
     it 'calcs win percents' do
-
+      expected = [["3", 3.fdiv(7)], ["10", 0.0], ["2", 2.fdiv(3)]]
+      expect(games_manager.win_percent("15")).to eq(expected)
     end
   end
 end

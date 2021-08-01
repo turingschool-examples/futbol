@@ -1,7 +1,9 @@
 require 'csv'
 require_relative 'game_teams'
+require_relative 'mathable'
 
 class GameTeamsManager
+  include Mathable
   attr_reader :game_teams
 
   def initialize(file_path)
@@ -17,25 +19,17 @@ class GameTeamsManager
   end
 
 # Interface
-  def winningest_coach(season)
-    most_wins = coach_win_pct(season).max_by do|coach, pct|
-      pct
-    end
-    most_wins[0]
-  end
-
-# Interface
-  def worst_coach(season)
-    least_wins = coach_win_pct(season).min_by do|coach, pct|
-      pct
-    end
-    least_wins[0]
+  def coach_results(season)
+    {
+      max: -> { coach_win_pct(season).max_by { |coach, pct| pct }.first },
+      min: -> { coach_win_pct(season).min_by { |coach, pct| pct }.first }
+    }
   end
 
 #helper
   def coach_win_pct(season)
-    test = coach_wins(season).each.reduce({}) do |acc, (coach, results)|
-      acc[coach] = results[:wins].fdiv(results[:total])
+    coach_wins(season).each.reduce({}) do |acc, (coach, results)|
+      acc[coach] = hash_average(results)
       acc
     end
   end
@@ -45,10 +39,7 @@ class GameTeamsManager
     @game_teams.reduce({}) do |acc, game|
       if game.game_id[0..3] == season[0..3]
         acc[game.coach] ||= {wins: 0, total: 0}
-        if game.result == "WIN"
-          acc[game.coach][:wins] += 1
-        end
-        acc[game.coach][:total] += 1
+        process_game(acc[game.coach], game)
       end
       acc
     end
@@ -69,28 +60,19 @@ class GameTeamsManager
 
 #helper
   def get_accuracy_average(season)
-    accuracy_data = get_accuracy_data(season)
-    accuracy_average = Hash.new
-    accuracy_data.each do |team, data|
-      accuracy_average[team] = data[:goals].fdiv(data[:shots])
+    get_accuracy_data(season).reduce({}) do |acc, data|
+      acc[data.first] = hash_average(data.last)
+      acc
     end
-    accuracy_average
   end
 
-# Interface
-  def most_accurate_team(season)
-    accuracy_average = get_accuracy_average(season)
-    accuracy_average.max_by do |team, average|
-      average
-    end.first
-  end
-
-# Interface
-  def least_accurate_team(season)
-    accuracy_average = get_accuracy_average(season)
-    accuracy_average.min_by do |team, average|
-      average
-    end.first
+#Interface
+  def accuracy_results(season)
+    average = get_accuracy_average(season)
+    {
+      max: -> { average.max_by { |team, avg| avg }.first },
+      min: -> { average.min_by { |team, avg| avg }.first }
+    }
   end
 
 #helper
@@ -105,38 +87,25 @@ class GameTeamsManager
   end
 
 # Interface
-  def most_tackles(season)
-    team_tackles(season).max_by do |team, tackles|
-      tackles
-    end.first
+  def tackle_results(season)
+    {
+      max: -> { team_tackles(season).max_by { |team, tackles| tackles }.first },
+      min: -> { team_tackles(season).min_by { |team, tackles| tackles }.first }
+    }
+  end
+
+#Interface
+  def season_results(team_id)
+    {
+      max: -> { season_averages(team_id).max_by { |season, avg| avg }.first },
+      min: -> { season_averages(team_id).min_by { |season, avg| avg }.first }
+    }
   end
 
 # Interface
-  def fewest_tackles(season)
-    team_tackles(season).min_by do |team, tackles|
-      tackles
-    end.first
-  end
-
-#Interface
-  def best_season(team_id)
-    get_season_averages(team_id).max_by do |season, average|
-      average
-    end.first
-  end
-
-#Interface
-  def worst_season(team_id)
-    get_season_averages(team_id).min_by do |season, average|
-      average
-    end.first
-  end
-
-
-  # Interface
   def average_win_percentage(team_id)
     team_stats = team_win_stats(team_id)
-    (team_stats[:wins].fdiv(team_stats[:total])).round(2)
+    hash_average(team_stats).round(2)
   end
 
   def team_win_stats(team_id)
@@ -149,10 +118,10 @@ class GameTeamsManager
   end
 
 #Helper
-  def get_season_averages(team_id)
+  def season_averages(team_id)
     season_average = seasons_win_count(team_id)
     season_average.map do |season, stats|
-      [season, stats[:wins].fdiv(stats[:total])]
+      [season, hash_average(stats)]
     end
   end
 
@@ -173,11 +142,6 @@ class GameTeamsManager
     data[:total] += 1
   end
 
-  #Interface
-  def most_goals_scored(team_id)
-    goals_per_team_game(team_id).max
-  end
-
   #Helper
   def goals_per_team_game(team_id)
     @game_teams.map do |game|
@@ -186,30 +150,25 @@ class GameTeamsManager
   end
 
   #Interface
-  def fewest_goals_scored(team_id)
-    goals_per_team_game(team_id).min
+  def goal_results(team_id)
+    {
+      min: -> { goals_per_team_game(team_id).min },
+      max: -> { goals_per_team_game(team_id).max }
+    }
   end
 
-  # Interface
-  def best_offense
-    team_id = get_offense_averages.max_by do |team, data|
-      data
-    end.first
-    team_id
-  end
-
-  # Interface
-  def worst_offense
-    team_id = get_offense_averages.min_by do |team, data|
-      data
-    end.first
-    team_id
+#interface
+  def offense_results
+    {
+      min: -> { get_offense_averages.min_by { |team, data| data }.first },
+      max: -> { get_offense_averages.max_by { |team, data| data }.first }
+    }
   end
 
   # Helper
   def get_offense_averages
      get_goals_per_team.map do |team, data|
-      [team, data[:goals].fdiv(data[:total]).round(2)]
+      [team, hash_average(data).round(2)]
     end.to_h
   end
 
@@ -220,5 +179,30 @@ class GameTeamsManager
       acc[game.team_id][:total] += 1
       acc
     end
+  end
+
+# Interface
+  def percentage_hoa_wins(hoa)
+    team = {home: "home", away: "away"}
+    stats = @game_teams.reduce({wins: 0, total: 0}) do |acc, game|
+      acc[:total] += 0.5
+      if game.won? && game.home_away == team[hoa]
+        acc[:wins] += 1
+      end
+      acc
+    end
+    hash_average(stats).round(2)
+  end
+
+# Interface
+  def percentage_ties
+    tie_stats = @game_teams.reduce({ties: 0, total: 0}) do |acc, game|
+      acc[:total] += 1
+      if game.result == "TIE"
+        acc[:ties] += 1
+      end
+      acc
+    end
+    hash_average(tie_stats).round(2)
   end
 end

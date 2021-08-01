@@ -34,4 +34,8 @@ class Game
   def winner?(team_id)
     home_team?(team_id) && home_win? || !home_team?(team_id) && away_win?
   end
+
+  def total_goals
+    @home_goals + @away_goals
+  end
 end
