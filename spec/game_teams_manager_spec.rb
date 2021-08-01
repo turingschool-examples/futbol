@@ -56,7 +56,7 @@ RSpec.describe GameTeamsManager do
         "3"=>0.3291139240506329,
         "14"=>0.3333333333333333
       }
-      expect(game_teams_manager.get_accuracy_average(input)).to eq(expected)
+      expect(game_teams_manager.get_accuracy_avg(input)).to eq(expected)
     end
 
     it "has most accurate and least accurate teams" do
@@ -99,7 +99,7 @@ RSpec.describe GameTeamsManager do
       input = {
         "20142015" => {wins: 8, total: 11}
       }
-      expect(game_teams_manager.season_averages(input)).to eq([["20142015", 0.727272727272727273]])
+      expect(game_teams_manager.season_avgs(input)).to eq([["20142015", 0.727272727272727273]])
     end
 
     it "gets seasons win count" do
@@ -145,12 +145,15 @@ RSpec.describe GameTeamsManager do
         "3" => 2.36,
         "14" => 2.4
       }
-      expect(game_teams_manager.get_offense_averages(input)).to eq(expected)
+      expect(game_teams_manager.get_offense_avgs(input)).to eq(expected)
     end
 
     it "percentage of home wins, away wins, and ties" do
       expect(game_teams_manager.percentage_hoa_wins(:home)).to eq(0.43)
       expect(game_teams_manager.percentage_hoa_wins(:away)).to eq(0.59)
+    end
+
+    it "has percentage ties" do
       expect(game_teams_manager.percentage_ties).to eq(0.0)
     end
   end
