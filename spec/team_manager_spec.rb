@@ -56,4 +56,8 @@ RSpec.describe TeamManager do
     expect(@team_manager.worst_season("3")).to eq("20132014")
     expect(@team_manager.worst_season("6")).to eq("20172018")
   end
+
+  it "can average the win percentage" do
+    expect(@team_manager.average_win_percentage("3")).to eq(43.3)
+  end
 end
