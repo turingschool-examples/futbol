@@ -98,6 +98,18 @@ class TeamManager
 
     team_var.team_name
   end
+  
+  def rival_opponent(id)
+    opponent = games_against_opponents(id).min_by do |id, game|
+      win_percentage(id, game)
+    end.flatten[0]
+
+    team_var = @teams.find do |team|
+      team.team_id == opponent
+    end
+
+    team_var.team_name
+  end
 end
 
   #the key is '@game_manager.games_by_team_id(id)'
