@@ -1,5 +1,6 @@
 require_relative './season'
 
+
 class SeasonManager
   attr_reader :seasons_hash
 
@@ -25,67 +26,64 @@ class SeasonManager
     end
   end
 
-  def create_coach(coach_wins, game_data, hoa)
-    coach_wins[game_data[hoa].head_coach] = {total_games: 0, total_wins: 0}
+  def games_and_wins
+    {total_games: 0, total_wins: 0}
   end
 
   def add_coach_data(coach_wins, game_data)
     if game_data[:away].result == 'WIN'
-      coach_wins[game_data[:home].head_coach][:total_games] += 1
-      coach_wins[game_data[:away].head_coach][:total_games] += 1
       coach_wins[game_data[:away].head_coach][:total_wins] += 1
-    else
-      coach_wins[game_data[:away].head_coach][:total_games] += 1
-      coach_wins[game_data[:home].head_coach][:total_games] += 1
+    elsif game_data[:away].result == 'LOSS'
       coach_wins[game_data[:home].head_coach][:total_wins] += 1
     end
+    coach_wins[game_data[:home].head_coach][:total_games] += 1
+    coach_wins[game_data[:away].head_coach][:total_games] += 1
   end
 
 
-  # Can change to nested iteration but mainly it is prefrence for winningest_coach and worst coach
+
   def winningest_coach(season)# rename to season id or something similar
     coach_wins = {} # define a method for lines 46-61
     @seasons_hash[season].games.each do |game_id, game_data|
       if coach_wins[game_data[:home].head_coach].nil? && coach_wins[game_data[:away].head_coach].nil?
-        create_coach(coach_wins, game_data, :home)
-        create_coach(coach_wins, game_data, :away)
+        coach_wins[game_data[:home].head_coach] = games_and_wins
+        coach_wins[game_data[:away].head_coach] = games_and_wins
         add_coach_data(coach_wins, game_data)
       elsif coach_wins[game_data[:home].head_coach].nil?
-        create_coach(coach_wins, game_data, :home)
+        coach_wins[game_data[:home].head_coach] = games_and_wins
         add_coach_data(coach_wins, game_data)
       elsif coach_wins[game_data[:away].head_coach].nil?
-        create_coach(coach_wins, game_data, :away)
+        coach_wins[game_data[:away].head_coach] = games_and_wins
         add_coach_data(coach_wins, game_data)
       else
         add_coach_data(coach_wins, game_data)
       end
     end
-    coach_wins.max_by do |coach, coach_data|# rename coach to coach name
-      coach_data[:total_wins] / coach_data[:total_games] #FDIV
-    end[0]
+    coach_wins.max_by do |coach_name, coach_data|
+      coach_data[:total_wins] / coach_data[:total_games].to_f #FDIV
+    end.first
   end
 
   def worst_coach(season)
     coach_wins = {}
     @seasons_hash[season].games.each do |game_id, game_data|
-      # if game_data[:home].result == 'WIN'
       if coach_wins[game_data[:home].head_coach].nil? && coach_wins[game_data[:away].head_coach].nil?
-        create_coach(coach_wins, game_data, :home)
-        create_coach(coach_wins, game_data, :away)
+        coach_wins[game_data[:home].head_coach] = games_and_wins
+        coach_wins[game_data[:away].head_coach] = games_and_wins
         add_coach_data(coach_wins, game_data)
       elsif coach_wins[game_data[:home].head_coach].nil?
-        create_coach(coach_wins, game_data, :home)
+        coach_wins[game_data[:home].head_coach] = games_and_wins
         add_coach_data(coach_wins, game_data)
       elsif coach_wins[game_data[:away].head_coach].nil?
-        create_coach(coach_wins, game_data, :away)
+        coach_wins[game_data[:away].head_coach] = games_and_wins
         add_coach_data(coach_wins, game_data)
       else
         add_coach_data(coach_wins, game_data)
       end
     end
     coach_wins.min_by do |coach, coach_data|
-      coach_data[:total_wins] / coach_data[:total_games]
-    end[0]
+      coach_data[:total_wins] / coach_data[:total_games].to_f
+    end.first
   end
 
   def most_accurate_team(season, teams_by_id)
