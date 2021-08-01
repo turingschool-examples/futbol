@@ -12,6 +12,8 @@ RSpec.describe TeamManager do
       game_teams: game_teams_path
     }
     @team_manager = TeamManager.new(locations)
+    @games = Game.read_file(locations[:games])
+
   end
 
   it "exists" do
@@ -37,4 +39,11 @@ RSpec.describe TeamManager do
     expect(@team_manager.team_info("1")).to eq(expected)
   end
 
+  it "can determine win percentage" do
+    games = @games.find_all do |game|
+      game.away_team_id == "3" || game.home_team_id == "3"
+    end
+
+    expect(@team_manager.win_percentage("3", games)).to eq(50.0)
+  end
 end
