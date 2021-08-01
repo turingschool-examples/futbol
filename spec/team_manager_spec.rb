@@ -69,4 +69,9 @@ RSpec.describe TeamManager do
   it 'can have most goals scored' do
   expect(@team_manager.most_goals_scored("3")).to eq(7)
   end
+
+    it 'can have fewest goals' do
+      expect(@team_manager.fewest_goals_scored("3")).to eq(0)
+      expect(@team_manager.fewest_goals_scored("1")).to eq(0)
+    end
 end
