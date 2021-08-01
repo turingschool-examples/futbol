@@ -66,7 +66,7 @@ class TeamManager
   def all_goals_by_team(id)
     @game_manager.games_by_team_id(id).filter_map do |game|
       game.home_goals if game.home_team_id == id || game.away_goals if game.away_team_id == id
-    end
+    end.uniq
   end
 
   def most_goals_scored(id)
@@ -77,21 +77,41 @@ class TeamManager
     all_goals_by_team(id).min.to_i
   end
 
-  def team_opponent_games(id)
-    # opponents = Hash.new
-    opponent_games = {}
-    @game_manager.games_by_team_id(id).each do |team_id|
-      opponent_games[team_id]
-      @game_teams.find_all do |game|
-        opponent_games[team_id] = game
+  def games_against_opponents(id)
+    @game_manager.games_by_team_id(id).group_by do |game|
+      if game.home_team_id == id
+        game.away_team_id
+      elsif game.away_team_id == id
+        game.home_team_id
       end
     end
-    opponent_games
   end
 
   def favorite_opponent(id)
+    opponent = games_against_opponents(id).max_by do |id, game|
+      win_percentage(id, game)
+    end.flatten[0]
 
+    team_var = @teams.find do |team|
+      team.team_id == opponent
+    end
+
+    team_var.team_name
   end
+  
+  def rival_opponent(id)
+    opponent = games_against_opponents(id).min_by do |id, game|
+      win_percentage(id, game)
+    end.flatten[0]
+
+    team_var = @teams.find do |team|
+      team.team_id == opponent
+    end
+
+    team_var.team_name
+  end
+end
+
   #the key is '@game_manager.games_by_team_id(id)'
 
     # value = []
@@ -115,5 +135,3 @@ class TeamManager
     #iterate thru the games w max_by and match the id to home or away team id
     #if id == home_team_id look at home goals
     #else id == away_team_id look at away goals
-
-end
