@@ -101,4 +101,16 @@ RSpec.describe GameTeamManager do
   it 'has least accurate team_id' do
     expect(@game_team_manager.least_accurate_team(@season_team_ids)).to eq('5')
   end
+
+  it 'has team tackles' do
+    expect(@game_team_manager.team_tackles('3')).to eq(179)
+  end
+
+  it 'has team with most tackles' do
+    expect(@game_team_manager.most_tackles(@season_team_ids)).to eq('6')
+  end
+
+  it 'has team with least tackles' do
+    expect(@game_team_manager.least_tackles(@season_team_ids)).to eq('16')
+  end
 end
