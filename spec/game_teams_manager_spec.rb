@@ -24,7 +24,7 @@ RSpec.describe GameTeamsManager do
         "Alain Vigneault"=>0.7272727272727273,
         "Jon Cooper"=>0.6
       }
-      expect(game_teams_manager.coach_win_pct("20142015")).to eq(expected)
+      expect(game_teams_manager.coach_win_pct("20142015", game_teams_manager.game_teams)).to eq(expected)
     end
 
     it 'counts coach wins by season' do
@@ -33,7 +33,7 @@ RSpec.describe GameTeamsManager do
         "Alain Vigneault"=>{:wins=>8, :total=>11},
         "Jon Cooper"=>{:wins=>3, :total=>5}
       }
-      expect(game_teams_manager.coach_wins("20142015")).to eq(expected)
+      expect(game_teams_manager.coach_wins("20142015", game_teams_manager.game_teams)).to eq(expected)
     end
 
     it 'gets accuracy data' do

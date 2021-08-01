@@ -20,27 +20,14 @@ class GameTeamsManager < SeasonsManager
 
   def coach_results(season)
     {
-      max: -> { coach_win_pct(season).max_by { |coach, pct| pct }.first },
-      min: -> { coach_win_pct(season).min_by { |coach, pct| pct }.first }
+      max: -> {
+        coach_win_pct(season, @game_teams).max_by { |coach, pct| pct }.first
+      },
+      min: -> {
+        coach_win_pct(season, @game_teams).min_by { |coach, pct| pct }.first
+      }
     }
   end
-
-  # def coach_win_pct(season)
-  #   coach_wins(season).each.reduce({}) do |acc, (coach, results)|
-  #     acc[coach] = hash_avg(results)
-  #     acc
-  #   end
-  # end
-  #
-  # def coach_wins(season)
-  #   @game_teams.reduce({}) do |acc, game|
-  #     if game.game_id[0..3] == season[0..3]
-  #       acc[game.coach] ||= {wins: 0, total: 0}
-  #       process_game(acc[game.coach], game)
-  #     end
-  #     acc
-  #   end
-  # end
 
   def accuracy_results(season)
     average = get_accuracy_avg(accuracy_data(season))
