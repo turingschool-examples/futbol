@@ -40,6 +40,11 @@ RSpec.describe SeasonManager do
       ]
     expect(@season_manager.game_id_by_season('20122013')).to eq(result)
   end
+
+  it 'can extract team ids' do
+    result = ['3', '6', '5', '17', '16']
+    expect(@season_manager.team_id_by_season('20122013')).to eq(result)
+  end
 end
 
 
