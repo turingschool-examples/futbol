@@ -1,10 +1,8 @@
 require 'csv'
 require_relative 'game'
 require_relative 'seasons_manager'
-# require_relative 'percentageable'
 
 class GamesManager < SeasonsManager
-  # include Percentageable
   attr_reader :games
 
   def initialize(file_path)
@@ -28,11 +26,7 @@ class GamesManager < SeasonsManager
   end
 
   def count_of_games_by_season
-    @games.reduce({}) do |acc, game|
-      acc[game.season] ||= 0
-      acc[game.season] += 1
-      acc
-    end
+    get_season_game_count
   end
 
   def average_goals_by_season
@@ -40,11 +34,7 @@ class GamesManager < SeasonsManager
   end
 
   def goals_per_season
-    @games.reduce({}) do |acc, game|
-      acc[game.season] ||= 0
-      acc[game.season] += game.total_goals
-      acc
-    end
+    get_goals_per_season
   end
 
   def average_goals_per_game
@@ -52,9 +42,7 @@ class GamesManager < SeasonsManager
   end
 
   def games_per_season(season)
-    @games.count do |game|
-      game.season == season
-    end
+    get_games_per_season(season)
   end
 
   def get_hoa_goals(hoa)
@@ -86,14 +74,6 @@ class GamesManager < SeasonsManager
     team[min_max].call
   end
 
-  def opponent_id(id, game)
-    if game.home_team?(id)
-      game.away_team_id
-    else
-      game.home_team_id
-    end
-  end
-
   def opponent_results(id, fav_rival)
     data = opponent_win_count(id)
     team = {
@@ -112,6 +92,14 @@ class GamesManager < SeasonsManager
         acc[opp_id][:total] += 1
       end
       acc
+    end
+  end
+
+  def opponent_id(id, game)
+    if game.home_team?(id)
+      game.away_team_id
+    else
+      game.home_team_id
     end
   end
 end
