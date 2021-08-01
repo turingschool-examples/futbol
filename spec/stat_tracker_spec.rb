@@ -37,8 +37,12 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.season_manager).to be_a(SeasonManager)
   end
 
-  it 'has winningest coach' do
+  it 'has winningest coach by season' do
     expect(@stat_tracker.winningest_coach('20122013')).to eq("Claude Julien")
+  end
+
+  it 'has worst coach by season' do
+    expect(@stat_tracker.worst_coach('20122013')).to eq("John Tortorella")
   end
 end
 
