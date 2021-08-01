@@ -74,4 +74,8 @@ RSpec.describe TeamManager do
       expect(@team_manager.fewest_goals_scored("3")).to eq(0)
       expect(@team_manager.fewest_goals_scored("1")).to eq(0)
     end
+
+    it 'has games against an opponent' do
+      expect(@team_manager.team_opponent_games("1")).to eq({"1" => [3, 4, 5]})
+    end
 end
