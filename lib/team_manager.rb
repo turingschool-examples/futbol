@@ -73,6 +73,9 @@ class TeamManager
     all_goals_by_team(id).max.to_i
   end
 
+  def fewest_goals_scored(id)
+    all_goals_by_team(id).min.to_i
+  end
     # @game_manager.games_by_team_id(id).map do |game|
     #   game.home_goals if game.home_team_id == id || game.away_goals if game.away_team_id == id
     # end.uniq
