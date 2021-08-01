@@ -8,7 +8,6 @@ module Percentageable
     num1.fdiv(num2)
   end
 
-#helper
   def get_accuracy_avg(accuracy_data)
     accuracy_data.reduce({}) do |acc, data|
       acc[data.first] = hash_avg(data.last)
@@ -16,14 +15,12 @@ module Percentageable
     end
   end
 
-#Helper
   def season_avgs(win_data)
     win_data.map do |season, stats|
       [season, hash_avg(stats)]
     end
   end
 
-  # Helper
   def get_offense_avgs(goal_data)
      goal_data.map do |team, data|
       [team, hash_avg(data).round(2)]
@@ -56,5 +53,19 @@ module Percentageable
     win_loss.map do |team, results|
       [team, hash_avg(results)]
     end
+  end
+
+  def avg_season_goals(goal_data)
+    goal_data.reduce({}) do |acc, goals|
+      acc[goals[0]] = avg(goals[1], games_per_season(goals[0])).round(2)
+      acc
+    end
+  end
+
+  def goal_per_game_avg(games)
+    goals = games.sum do |game|
+      game.total_goals
+    end
+    (avg(goals, games.size)).round(2)
   end
 end
