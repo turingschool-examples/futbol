@@ -115,7 +115,7 @@ RSpec.describe GameTeamManager do # reorginize according to postion in actual cl
       game_team_manager = GameTeamManager.new(file_path)
       game_team_manager.load
 
-      game_team_manager.home_games("3").each do |game|
+      game_team_manager.home_games_per_team("3").each do |game|
         expect(game.team_id).to eq("3")
         expect(game.hoa).to eq("home")
       end
@@ -126,7 +126,7 @@ RSpec.describe GameTeamManager do # reorginize according to postion in actual cl
       game_team_manager = GameTeamManager.new(file_path)
       game_team_manager.load
 
-      game_team_manager.away_games("3").each do |game|
+      game_team_manager.away_games_per_team("3").each do |game|
         expect(game.team_id).to eq("3")
         expect(game.hoa).to eq("away")
       end

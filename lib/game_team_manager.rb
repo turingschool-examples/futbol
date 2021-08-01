@@ -47,109 +47,83 @@ class GameTeamManager
   end
 
   def best_offense(teams_by_id)
-    best_average = 0
-    best_team = nil
-    teams_by_id.each do |team_id, team_name|
-      average = average_goals_all_seasons(team_id)
-      if average > best_average
-        best_average = average
-        best_team = team_name
-      end
-    end
-    best_team
-    # Do the shit below it works
-    # teams_by_id.max_by do |team_id, team_name|
-    #   average_goals_all_seasons(team_id)
-    # end[1]
+    teams_by_id.max_by do |team_id, team_name|
+      average_goals_all_seasons(team_id)
+    end[1]
   end
 
   def worst_offense(teams_by_id)
-    worst_average = 100000
-    worst_team = nil
-    teams_by_id.each do |team_id, team_name|
-      average = average_goals_all_seasons(team_id)
-      if average < worst_average
-        worst_average = average
-        worst_team = team_name
-      end
-    end
-    worst_team
-    # Do the shit below it works
-    # teams_by_id.min_by do |team_id, team_name|
-    #   average_goals_all_seasons(team_id)
-    # end[1]
+    teams_by_id.min_by do |team_id, team_name|
+      average_goals_all_seasons(team_id)
+    end[1]
   end
 
-  #######################################
-  # Reorginize per usage
-  # METHOD NAMES SHOULDNT BE THE SAME AS VARIABLE NAMES
-  # GO OVER WITH MICHAEL AND SEE WAS HAPPENIN
   def highest_scoring_visitor(teams_by_id)
-    max = away_teams.max_by do |team|
-      games = away_games(team.team_id)
-      average_goals(games)
+    highest_scoring_visitor = away_teams.max_by do |game_team_object|
+      away_games_per_team = away_games_per_team(game_team_object.team_id)
+      average_goals(away_games_per_team)
     end
-    id = max.team_id
+    id = highest_scoring_visitor.team_id
     teams_by_id[id]
   end
 
   def highest_scoring_home_team(teams_by_id)
-    max = home_teams.max_by do |team|
-      games = home_games(team.team_id)
-      average_goals(games)
+    highest_scoring_home_team = home_teams.max_by do |game_team_object|
+      home_games_per_team = home_games_per_team(game_team_object.team_id)
+      average_goals(home_games_per_team)
     end
-    id = max.team_id
+    id = highest_scoring_home_team.team_id
     teams_by_id[id]
   end
 
   def lowest_scoring_visitor(teams_by_id)
-    min = away_teams.min_by do |team|
-      games = away_games(team.team_id)
-      average_goals(games)
+    lowest_scoring_visitor = away_teams.min_by do |game_team_object|
+      away_games_per_team = away_games_per_team(game_team_object.team_id)
+      average_goals(away_games_per_team)
     end
-    id = min.team_id
+    id = lowest_scoring_visitor.team_id
     teams_by_id[id]
   end
 
   def lowest_scoring_home_team(teams_by_id)
-    min = home_teams.min_by do |team|
-      games = home_games(team.team_id)
-      average_goals(games)
+    lowest_scoring_home_team = home_teams.min_by do |game_team_object|
+      home_games_per_team = home_games_per_team(game_team_object.team_id)
+      average_goals(home_games_per_team)
     end
-    id = min.team_id
+    id = lowest_scoring_home_team.team_id
     teams_by_id[id]
   end
 
   def home_teams
     home_teams = []
-    @game_teams.each do |game_id, teams|
-      home_teams << teams[:home]
+    @game_teams.each do |game_id, game_team_object|
+      home_teams << game_team_object[:home]
     end
     home_teams
   end
 
   def away_teams
     away_teams = []
-    @game_teams.each do |game_id, teams|
-      away_teams << teams[:away]
+    @game_teams.each do |game_id, game_team_object|
+      away_teams << game_team_object[:away]
     end
     away_teams
   end
 
-  def home_games(team_id)
-    games = []
-    home_teams.each do |team|
-      games << team if team_id == team.team_id
+  def home_games_per_team(team_id)
+    home_games = []
+    home_teams.each do |home_team_object|
+      home_games << home_team_object if team_id == home_team_object.team_id
     end
-    games
+    home_games
   end
 
-  def away_games(team_id)
-    games = []
-    away_teams.each do |team|
-      games << team if team_id == team.team_id
+  def away_games_per_team(team_id)
+    away_games = []
+    away_teams.each do |away_team_object|
+      away_games << away_team_object if team_id == away_team_object.team_id
     end
-    games
+    away_games
   end
 
   def all_games_by_team(team_id)
@@ -163,7 +137,7 @@ class GameTeamManager
   end
 
   def average_goals(games)
-    goals(games) / games(games).to_f# FDIV
+    goals(games) / games_count(games).to_f# FDIV
   end
 
   def goals(games)
@@ -174,7 +148,7 @@ class GameTeamManager
     goals
   end
 
-  def games(games)# RENAME TO GAMES COUNT OR SOMTHING SIMILAR
+  def games_count(games)# RENAME TO GAMES COUNT OR SOMTHING SIMILAR
     games.count
   end
 
