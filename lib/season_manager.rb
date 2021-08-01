@@ -60,7 +60,7 @@ class SeasonManager
       end
     end
     coach_wins.max_by do |coach_name, coach_data|
-      coach_data[:total_wins] / coach_data[:total_games].to_f #FDIV
+      coach_data[:total_wins].fdiv(coach_data[:total_games])
     end.first
   end
 
@@ -82,7 +82,7 @@ class SeasonManager
       end
     end
     coach_wins.min_by do |coach, coach_data|
-      coach_data[:total_wins] / coach_data[:total_games].to_f
+      coach_data[:total_wins].fdiv(coach_data[:total_games])
     end.first
   end
 
@@ -104,7 +104,7 @@ class SeasonManager
       end
     end
     most = most_accurate.min_by do |team_id, goals_data|
-      goals_data[:total_shots] / goals_data[:total_goals]
+      goals_data[:total_shots].fdiv(goals_data[:total_goals])
     end[0]
 
     teams_by_id[most]
@@ -140,7 +140,7 @@ class SeasonManager
       end
     end
     least = least_accurate.max_by do |team_id, goals_data|
-      goals_data[:total_shots] / goals_data[:total_goals]
+      goals_data[:total_shots].fdiv(goals_data[:total_goals])
     end[0]
 
     teams_by_id[least]
@@ -233,7 +233,6 @@ class SeasonManager
       season.games.each do |game_id, game_data|
         home_team_id = game_data[:game].home_team_id
         away_team_id = game_data[:game].away_team_id
-        # binding.pry
         if away_team_id == team_id
           process_away_win(season_data, game_data, season_id)
         elsif home_team_id == team_id
@@ -243,7 +242,7 @@ class SeasonManager
       end
     end
     season_data.min_by do |season_id, season_data|
-      season_data[:total_wins] / season_data[:total_games]
+      season_data[:total_wins].fdiv(season_data[:total_games])
     end[0]
   end
 
@@ -264,7 +263,7 @@ class SeasonManager
       end
     end
     season_data.min_by do |season_id, season_data|
-      season_data[:total_wins] / season_data[:total_games]
+      season_data[:total_wins].fdiv(season_data[:total_games])
     end[0]
   end
 end

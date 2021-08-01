@@ -42,7 +42,7 @@ class GameTeamManager
   end
 
   def average_goals_all_seasons(team_id)
-    average = total_goals_all_seasons(team_id) / total_games_all_seasons(team_id).to_f# FDIV REFACTOR
+    average = total_goals_all_seasons(team_id).fdiv(total_games_all_seasons(team_id))
     average.round(2)
   end
 
@@ -137,7 +137,7 @@ class GameTeamManager
   end
 
   def average_goals(games)
-    goals(games) / games_count(games).to_f# FDIV
+    goals(games).fdiv(games_count(games))
   end
 
   def goals(games)
@@ -165,7 +165,7 @@ class GameTeamManager
         end
       end
     end
-    (total_wins / total_games.to_f).round(2)# FDIV
+    (total_wins.fdiv(total_games)).round(2)
   end
 
   def most_goals_scored(team_id)
