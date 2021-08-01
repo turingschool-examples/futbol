@@ -1,6 +1,8 @@
 require_relative './stat_tracker'
+require './renameable'
 
 class GameStatistics
+include Renameable
   attr_reader :games, :teams, :game_teams
 
   def initialize(games, teams, game_teams)
@@ -38,19 +40,21 @@ class GameStatistics
   end
 
   def home_team_wins
-    home_wins =
-    @games.count do |game|
-      game.home_goals > game.away_goals
-    end
-    home_wins
+    greater_than(@games, :home_goals, :away_goals)
+    # home_wins =
+    # @games.count do |game|
+    #   game.home_goals > game.away_goals
+    # end
+    # home_wins
   end
 
   def visitor_team_wins
-    visitor_wins =
-    @games.count do |game|
-      game.home_goals < game.away_goals
-    end
-    visitor_wins
+    greater_than(@games, :away_goals, :home_goals)
+    # visitor_wins =
+    # @games.count do |game|
+    #   game.home_goals < game.away_goals
+    # end
+    # visitor_wins
   end
 
   def ties
