@@ -41,9 +41,10 @@ class StatTracker
 
   def winningest_coach(season)
     season_games = @season_manager.game_id_by_season(season) #returns array of game ids
+    all_coaches = @game_team_manager.coaches(season_games) #returns array of all coaches
     win_coaches = @game_team_manager.winning_coaches(season_games) # win_coaches equals array of winning coaches for season
     win_coaches.max_by do |coach|
-      win_coaches.count(coach) / season_games.count.to_f * 100
+      win_coaches.count(coach) / all_coaches.count(coach).to_f * 100
     end
   end
 end
