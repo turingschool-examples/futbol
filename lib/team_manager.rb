@@ -53,10 +53,14 @@ class TeamManager
   end
 
   def win_percentage(id, games)
-
     total_wins = @game_manager.games_by_team_id(id).count do |game|
       game.home_team_id == id && game.home_goals > game.away_goals || game.away_team_id == id && game.away_goals > game.home_goals
     end
     (total_wins.fdiv(games.count) * 100.0).round(1)
+  end
+
+  def average_win_percentage(id)
+    win_percentage(id, @game_manager.games_by_team_id(id))
+
   end
 end
