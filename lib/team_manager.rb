@@ -78,16 +78,15 @@ class TeamManager
   end
 
   def team_opponent_games(id)
-    # opponents = Hash.new
-    opponent_games = {}
-    @game_manager.games_by_team_id(id).each do |team_id|
-      opponent_games[team_id]
-      @game_teams.find_all do |game|
-        opponent_games[team_id] = game
+    @game_manager.games_by_team_id(id).group_by do |game|
+      if game.home_team_id == id
+        game.away_team_id
+      elsif game.away_team_id == id
+        game.home_team_id
       end
     end
-    opponent_games
   end
+
 
   def favorite_opponent(id)
 
