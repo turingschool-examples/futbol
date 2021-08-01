@@ -12,6 +12,8 @@ RSpec.describe GameTeamManager do
       game_teams: game_teams_path
     }
     @game_team_manager = GameTeamManager.new(locations)
+    @season_game_ids = ['2012030221', '2012030222', '2012030223', '2012030224', '2012030225',
+      '2012030311', '2012030312', '2012030313', '2012030314', '2012030231']
   end
 
   it "exists" do
@@ -30,14 +32,12 @@ RSpec.describe GameTeamManager do
   end
 
   it 'has coaches' do
-    season_game_ids = ['2012030221', '2012030222', '2012030223', '2012030224',
-      '2012030225', '2012030311', '2012030312', '2012030313', '2012030314', '2012030231']
     results = ["John Tortorella", "Claude Julien", "John Tortorella", "Claude Julien",
       "Claude Julien", "John Tortorella", "Claude Julien", "John Tortorella",
       "John Tortorella", "Claude Julien", "Claude Julien", "Dan Bylsma", "Claude Julien",
       "Dan Bylsma", "Dan Bylsma", "Claude Julien", "Dan Bylsma", "Claude Julien", "Mike Babcock", "Joel Quenneville"]
 
-    expect(@game_team_manager.coaches(season_game_ids)).to eq(results)
+    expect(@game_team_manager.coaches(@season_game_ids)).to eq(results)
   end
 
   it 'can find winning coach' do
@@ -45,11 +45,27 @@ RSpec.describe GameTeamManager do
   end
 
   it 'can find winning coaches' do
-    season_game_ids = ['2012030221', '2012030222', '2012030223', '2012030224', '2012030225',
-      '2012030311', '2012030312', '2012030313', '2012030314', '2012030231']
     results = ["Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien",
       "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Joel Quenneville"]
 
-    expect(@game_team_manager.winning_coaches(season_game_ids)).to eq(results)
+    expect(@game_team_manager.winning_coaches(@season_game_ids)).to eq(results)
+  end
+
+  it 'has results for each coach in a season' do
+    results = {"Claude Julien"=>9,
+               "Dan Bylsma"=>0,
+               "Joel Quenneville"=>1,
+               "John Tortorella"=>0,
+               "Mike Babcock"=>0
+              }
+    expect(@game_team_manager.coach_wins(@season_game_ids)).to eq(results)
+  end
+
+  it 'has winningest_coach by season' do
+    expect(@game_team_manager.winningest_coach(@season_game_ids)).to eq("Claude Julien")
+  end
+
+  it 'has worst coach by season' do
+    expect(@game_team_manager.worst_coach(@season_game_ids)).to eq("John Tortorella")
   end
 end
