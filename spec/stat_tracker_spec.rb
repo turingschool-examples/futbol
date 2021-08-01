@@ -44,6 +44,14 @@ RSpec.describe StatTracker do
   it 'has worst coach by season' do
     expect(@stat_tracker.worst_coach('20122013')).to eq("John Tortorella")
   end
+
+  it 'has most accurate team id' do
+    expect(@stat_tracker.most_accurate_team('20122013')).to eq('FC Dallas')
+  end
+
+  it 'has least accurate team_id' do
+    expect(@stat_tracker.least_accurate_team('20122013')).to eq('Sporting Kansas City')
+  end
 end
 
 
