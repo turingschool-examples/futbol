@@ -32,8 +32,8 @@ class TeamManager
   def team_info(team_id)
     {
       "team_id"      => @teams[team_id].team_id,
-      "franchiseId"  => @teams[team_id].franchiseid,
-      "teamName"     => @teams[team_id].teamname,
+      "franchise_id"  => @teams[team_id].franchiseid,
+      "team_name"     => @teams[team_id].teamname,
       "abbreviation" => @teams[team_id].abbreviation,
       "link"         => @teams[team_id].link
     }
