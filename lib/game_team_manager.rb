@@ -19,4 +19,10 @@ class GameTeamManager
       end
     winner.head_coach
   end
+
+  def winning_coaches(season_game_ids)
+    season_game_ids.map do |game|
+      winning_coach(game)
+    end
+  end
 end
