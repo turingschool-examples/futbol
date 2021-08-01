@@ -1,5 +1,5 @@
-require './lib/stat_tracker'
-require './renameable'
+require_relative './stat_tracker'
+require_relative './renameable'
 
 class SeasonStatistics
   include Renameable

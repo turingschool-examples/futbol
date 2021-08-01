@@ -1,5 +1,5 @@
 require_relative './stat_tracker'
-require './renameable'
+require_relative './renameable'
 
 class GameStatistics
 include Renameable
