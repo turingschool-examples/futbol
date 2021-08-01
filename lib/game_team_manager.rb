@@ -74,6 +74,28 @@ class GameTeamManager
       game_team.goals.to_i
     end
   end
+
+  def team_accuracy(season_team_ids)
+    accuracy = {}
+    season_team_ids.each do |team_id|
+      accuracy[team_id] = total_shots(team_id).to_f / total_goals(team_id)
+    end
+    accuracy
+  end
+
+  def most_accurate_team(season_team_ids)
+    most_accurate = team_accuracy(season_team_ids).min_by do |team_id, s_to_g|
+      s_to_g
+    end
+    most_accurate[0]
+  end
+
+  def least_accurate_team(season_team_ids)
+    least_accurate = team_accuracy(season_team_ids).max_by do |team_id, s_to_g|
+      s_to_g
+    end
+    least_accurate[0]
+  end
 end
 
 
