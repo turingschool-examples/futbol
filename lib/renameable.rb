@@ -21,10 +21,15 @@ module Renameable
     matching_team.team_name
   end
 
-
   def greater_than(data_set, header_1, header_2)
     data_set.count do |game|
       game.send(header_1) > game.send(header_2)
+    end
+  end
+
+  def equal_to(data_set, header_1, header_2)
+    data_set.count do |game|
+      game.send(header_1) == game.send(header_2)
     end
   end
 end
