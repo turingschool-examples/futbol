@@ -14,8 +14,8 @@ RSpec.describe GameTeamsManager do
     end
 
     it 'has winningest and worst coach' do
-      expect(game_teams_manager.coach_results("20142015")[:max].call).to eq('Alain Vigneault')
-      expect(game_teams_manager.coach_results("20142015")[:min].call).to eq("Mike Johnston")
+      expect(game_teams_manager.coach_results("20142015", :max)).to eq('Alain Vigneault')
+      expect(game_teams_manager.coach_results("20142015", :min)).to eq("Mike Johnston")
     end
 
     it 'coach win percentage per coach' do
@@ -24,7 +24,7 @@ RSpec.describe GameTeamsManager do
         "Alain Vigneault"=>0.7272727272727273,
         "Jon Cooper"=>0.6
       }
-      expect(game_teams_manager.coach_win_pct("20142015", game_teams_manager.game_teams)).to eq(expected)
+      expect(game_teams_manager.coach_win_pct("20142015")).to eq(expected)
     end
 
     it 'counts coach wins by season' do
@@ -33,7 +33,7 @@ RSpec.describe GameTeamsManager do
         "Alain Vigneault"=>{:wins=>8, :total=>11},
         "Jon Cooper"=>{:wins=>3, :total=>5}
       }
-      expect(game_teams_manager.coach_wins("20142015", game_teams_manager.game_teams)).to eq(expected)
+      expect(game_teams_manager.coach_wins("20142015")).to eq(expected)
     end
 
     it 'gets accuracy data' do
@@ -60,19 +60,19 @@ RSpec.describe GameTeamsManager do
     end
 
     it "has most accurate and least accurate teams" do
-      expect(game_teams_manager.accuracy_results("20132014")[:max].call).to eq("16")
-      expect(game_teams_manager.accuracy_results("20132014")[:min].call).to eq("19")
+      expect(game_teams_manager.accuracy_results("20132014", :max)).to eq("16")
+      expect(game_teams_manager.accuracy_results("20132014", :min)).to eq("19")
     end
 
     it 'names the team with the most and fewest tackles' do
       expect(game_teams_manager.team_tackles("20142015")).to eq({"14"=>146, "3"=>349, "5"=>152})
-      expect(game_teams_manager.tackle_results("20142015")[:max].call).to eq("3")
-      expect(game_teams_manager.tackle_results("20142015")[:min].call).to eq("14")
+      expect(game_teams_manager.tackle_results("20142015", :max)).to eq("3")
+      expect(game_teams_manager.tackle_results("20142015", :min)).to eq("14")
     end
 
     it 'has best and worst seasons' do
-      expect(game_teams_manager.season_results("3")[:max].call).to eq("20142015")
-      expect(game_teams_manager.season_results("15")[:min].call).to eq("20152016")
+      expect(game_teams_manager.season_results("3", :max)).to eq("20142015")
+      expect(game_teams_manager.season_results("15", :min)).to eq("20152016")
     end
 
     it 'has an average win percentage' do
@@ -107,8 +107,8 @@ RSpec.describe GameTeamsManager do
     end
 
     it "can get most and fewest number of goals" do
-      expect(game_teams_manager.goal_results("3")[:max].call).to eq(5)
-      expect(game_teams_manager.goal_results("3")[:min].call).to eq(0)
+      expect(game_teams_manager.goal_results("3", :max)).to eq(5)
+      expect(game_teams_manager.goal_results("3", :min)).to eq(0)
     end
 
     it "can get team goals" do
@@ -118,8 +118,8 @@ RSpec.describe GameTeamsManager do
     end
 
     it 'has best and worse offense' do
-      expect(game_teams_manager.offense_results[:max].call).to eq("28")
-      expect(game_teams_manager.offense_results[:min].call).to eq("4")
+      expect(game_teams_manager.offense_results(:max)).to eq("28")
+      expect(game_teams_manager.offense_results(:min)).to eq("4")
     end
 
     it 'gets offense averages' do
@@ -154,7 +154,15 @@ RSpec.describe GameTeamsManager do
     end
 
     it "has percentage ties" do
-      expect(game_teams_manager.percentage_ties).to eq(0.0)
+      game1 = double("vistor win")
+      game2 = double("home win")
+      game3 = double("tie")
+      allow(game1).to receive(:result).and_return("WIN")
+      allow(game2).to receive(:result).and_return("LOSS")
+      allow(game3).to receive(:result).and_return("TIE")
+      games = [game1, game2, game3]
+
+      expect(game_teams_manager.get_percentage_ties(games)).to eq(0.33)
     end
   end
 end
