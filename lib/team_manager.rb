@@ -61,6 +61,5 @@ class TeamManager
 
   def average_win_percentage(id)
     win_percentage(id, @game_manager.games_by_team_id(id))
-
   end
 end
