@@ -12,4 +12,11 @@ class GameTeamManager
       game_team.game_id == id
     end
   end
+
+  def winning_coach(id)
+    winner = by_game_id(id).find do |game_team|
+        game_team.result == "WIN"
+      end
+    winner.head_coach
+  end
 end
