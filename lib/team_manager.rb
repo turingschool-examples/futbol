@@ -66,7 +66,7 @@ class TeamManager
   def all_goals_by_team(id)
     @game_manager.games_by_team_id(id).filter_map do |game|
       game.home_goals if game.home_team_id == id || game.away_goals if game.away_team_id == id
-    end
+    end.uniq
   end
 
   def most_goals_scored(id)
