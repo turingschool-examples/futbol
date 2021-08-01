@@ -60,6 +60,9 @@ RSpec.describe TeamManager do
   it "can average the win percentage" do
     expect(@team_manager.average_win_percentage("3")).to eq(43.3)
     expect(@team_manager.average_win_percentage("16")).to eq(44.2)
-    
+  end
+
+  it "can return the most goals scored" do
+    expect(@team_manager.most_goals_scored("3")).to eq(5)
   end
 end
