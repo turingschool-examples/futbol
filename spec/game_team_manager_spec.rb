@@ -28,22 +28,27 @@ RSpec.describe GameTeamManager do
     expect(@game_team_manager.by_game_id('2012030221')[0]).to be_a(GameTeam)
   end
 
+  it 'has coaches' do
+    season_game_ids = ['2012030221', '2012030222', '2012030223', '2012030224',
+      '2012030225', '2012030311', '2012030312', '2012030313', '2012030314', '2012030231']
+    results = ["John Tortorella", "Claude Julien", "John Tortorella", "Claude Julien",
+      "Claude Julien", "John Tortorella", "Claude Julien", "John Tortorella",
+      "John Tortorella", "Claude Julien", "Claude Julien", "Dan Bylsma", "Claude Julien",
+      "Dan Bylsma", "Dan Bylsma", "Claude Julien", "Dan Bylsma", "Claude Julien", "Mike Babcock", "Joel Quenneville"]
+
+    expect(@game_team_manager.coaches(season_game_ids)).to eq(results)
+  end
+
   it 'can find winning coach' do
     expect(@game_team_manager.winning_coach('2012030221')).to eq('Claude Julien')
   end
 
   it 'can find winning coaches' do
-    season_game_ids = ['2012030221',
-    '2012030222',
-    '2012030223',
-    '2012030224',
-    '2012030225',
-    '2012030311',
-    '2012030312',
-    '2012030313',
-    '2012030314',
-    '2012030231']
-    results = ["Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Joel Quenneville"]
+    season_game_ids = ['2012030221', '2012030222', '2012030223', '2012030224', '2012030225',
+      '2012030311', '2012030312', '2012030313', '2012030314', '2012030231']
+    results = ["Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien",
+      "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Joel Quenneville"]
+
     expect(@game_team_manager.winning_coaches(season_game_ids)).to eq(results)
   end
 end
