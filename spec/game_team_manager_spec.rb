@@ -2,9 +2,9 @@ require 'spec_helper'
 
 RSpec.describe GameTeamManager do
   before(:each) do
-    game_path = './data/games_sample.csv'
+    game_path = './data/season_game_sample.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams_sample.csv'
+    game_teams_path = './data/season_game_teams_sample.csv'
 
     locations = {
       games: game_path,
@@ -30,5 +30,20 @@ RSpec.describe GameTeamManager do
 
   it 'can find winning coach' do
     expect(@game_team_manager.winning_coach('2012030221')).to eq('Claude Julien')
+  end
+
+  it 'can find winning coaches' do
+    season_game_ids = ['2012030221',
+    '2012030222',
+    '2012030223',
+    '2012030224',
+    '2012030225',
+    '2012030311',
+    '2012030312',
+    '2012030313',
+    '2012030314',
+    '2012030231']
+    results = ["Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Joel Quenneville"]
+    expect(@game_team_manager.winning_coaches(season_game_ids)).to eq(results)
   end
 end
