@@ -68,4 +68,18 @@ RSpec.describe GameTeamManager do
   it 'has worst coach by season' do
     expect(@game_team_manager.worst_coach(@season_game_ids)).to eq("John Tortorella")
   end
+
+  it 'returns game teams by team id' do
+    expect(@game_team_manager.by_team_id('3')).to be_an(Array)
+    expect(@game_team_manager.by_team_id('3').count).to eq(5)
+    expect(@game_team_manager.by_team_id('3')[0]).to be_a(GameTeam)
+  end
+
+  it 'has total shots by team id' do
+    expect(@game_team_manager.total_shots('3')).to eq(38)
+  end
+
+  it 'has total goals by team id' do
+    expect(@game_team_manager.total_goals('3')).to eq(8)
+  end
 end
