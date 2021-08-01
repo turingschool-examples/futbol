@@ -1,32 +1,32 @@
 module Percentageable
-  def hash_average(data)
+  def hash_avg(data)
     count, total = data.keys
     data[count].fdiv(data[total])
   end
 
-  def average(num1, num2)
+  def avg(num1, num2)
     num1.fdiv(num2)
   end
 
 #helper
-  def get_accuracy_average(accuracy_data)
+  def get_accuracy_avg(accuracy_data)
     accuracy_data.reduce({}) do |acc, data|
-      acc[data.first] = hash_average(data.last)
+      acc[data.first] = hash_avg(data.last)
       acc
     end
   end
 
 #Helper
-  def season_averages(win_data)
+  def season_avgs(win_data)
     win_data.map do |season, stats|
-      [season, hash_average(stats)]
+      [season, hash_avg(stats)]
     end
   end
 
   # Helper
-  def get_offense_averages(goal_data)
+  def get_offense_avgs(goal_data)
      goal_data.map do |team, data|
-      [team, hash_average(data).round(2)]
+      [team, hash_avg(data).round(2)]
     end.to_h
   end
 
@@ -38,7 +38,7 @@ module Percentageable
       end
       acc
     end
-    hash_average(tie_stats).round(2)
+    hash_avg(tie_stats).round(2)
   end
 
   def get_percentage_hoa_wins(team, games)
@@ -49,6 +49,12 @@ module Percentageable
       end
       acc
     end
-    hash_average(stats).round(2)
+    hash_avg(stats).round(2)
+  end
+
+  def win_percent(win_loss)
+    win_loss.map do |team, results|
+      [team, hash_avg(results)]
+    end
   end
 end
