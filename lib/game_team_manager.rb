@@ -96,6 +96,24 @@ class GameTeamManager
     end
     least_accurate[0]
   end
+
+  def team_tackles(team_id)
+    by_team_id(team_id).sum do |game_team|
+      game_team.tackles.to_i
+    end
+  end
+
+  def most_tackles(season_team_ids)
+    season_team_ids.max_by do |team_id|
+      team_tackles(team_id)
+    end
+  end
+
+  def least_tackles(season_team_ids)
+    season_team_ids.min_by do |team_id|
+      team_tackles(team_id)
+    end
+  end
 end
 
 
