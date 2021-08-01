@@ -58,11 +58,12 @@ include Renameable
   end
 
   def ties
-    ties =
-    @games.count do |game|
-      game.home_goals == game.away_goals
-    end
-    ties
+    equal_to(@games, :home_goals, :away_goals)
+    # ties =
+    # @games.count do |game|
+    #   game.home_goals == game.away_goals
+    # end
+    # ties
   end
 
   def count_of_games_by_season
