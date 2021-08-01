@@ -22,6 +22,16 @@ class GameTeamManager
     end
   end
 
+  def coach_wins(season_game_ids)
+    coach_results = {}
+    coaches(season_game_ids).uniq.each do |coach|
+      coach_results[coach] = winning_coaches(season_game_ids).count(coach)
+    end
+    coach_results
+  end
+
+
+
   def winning_coach(game_id)
     winner = by_game_id(game_id).find do |game_team|
         game_team.result == "WIN"
@@ -35,11 +45,25 @@ class GameTeamManager
     end
   end
 
-  # def by_team_and_game_id(team_id, game_id)
-  #   @game_teams.find do |game_team|
-  #     game_team.game_id == game_id && game_team.team_id == team_id
-  #   end
-  # end
+  def winningest_coach(season_game_ids)
+    winningest = coach_wins(season_game_ids).max_by do |coach, wins|
+      wins.to_f / coaches(season_game_ids).count(coach) * 100
+    end # returns array [coach_name, win_count]
+    winningest[0] #coach name will be index 0
+  end
 
-
+  def worst_coach(season_game_ids)
+    worst = coach_wins(season_game_ids).min_by do |coach, wins|
+      wins.to_f / coaches(season_game_ids).count(coach) * 100
+    end
+    worst[0]
+  end
 end
+
+
+
+# def by_team_and_game_id(team_id, game_id)
+#   @game_teams.find do |game_team|
+#     game_team.game_id == game_id && game_team.team_id == team_id
+#   end
+# end
