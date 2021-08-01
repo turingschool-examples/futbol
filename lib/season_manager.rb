@@ -90,50 +90,50 @@ class SeasonManager
     most_accurate = {}
     @seasons_hash[season].games.each do |game_id, game_data|
       if most_accurate[game_data[:home].team_id].nil? && most_accurate[game_data[:away].team_id].nil?
-        create_team_id(most_accurate, game_data, :home)
-        create_team_id(most_accurate, game_data, :away)
+        most_accurate[game_data[:away].team_id] = goals_and_shots
+        most_accurate[game_data[:home].team_id] = goals_and_shots
         add_goals_data(most_accurate, game_data)
       elsif most_accurate[game_data[:home].team_id].nil?
-        create_team_id(most_accurate, game_data, :home)
+        most_accurate[game_data[:home].team_id] = goals_and_shots
         add_goals_data(most_accurate, game_data)
       elsif most_accurate[game_data[:away].team_id].nil?
-        create_team_id(most_accurate, game_data, :away)
+        most_accurate[game_data[:away].team_id] = goals_and_shots
         add_goals_data(most_accurate, game_data)
       else
         add_goals_data(most_accurate, game_data)
       end
     end
-    most = most_accurate.min_by do |team_id, goals_data|
+
+    most_accurate_team = most_accurate.min_by do |team_id, goals_data|
       goals_data[:total_shots].fdiv(goals_data[:total_goals])
-    end[0]
+    end.first
 
-    teams_by_id[most]
-
+    teams_by_id[most_accurate_team]
   end
 
-  def add_goals_data(most_accurate, game_data)
-    most_accurate[game_data[:home].team_id][:total_goals] += game_data[:home].goals.to_i
-    most_accurate[game_data[:away].team_id][:total_goals] += game_data[:away].goals.to_i
-    most_accurate[game_data[:home].team_id][:total_shots] += game_data[:home].shots.to_i
-    most_accurate[game_data[:away].team_id][:total_shots] += game_data[:away].shots.to_i
+  def add_goals_data(accurate_hash, game_data)
+    accurate_hash[game_data[:home].team_id][:total_goals] += game_data[:home].goals.to_i
+    accurate_hash[game_data[:away].team_id][:total_goals] += game_data[:away].goals.to_i
+    accurate_hash[game_data[:home].team_id][:total_shots] += game_data[:home].shots.to_i
+    accurate_hash[game_data[:away].team_id][:total_shots] += game_data[:away].shots.to_i
   end
 
-  def create_team_id(most_accurate, game_data, hoa)
-    most_accurate[game_data[hoa].team_id] = {total_goals: 0, total_shots: 0}
+  def goals_and_shots
+    {total_goals: 0, total_shots: 0}
   end
 
   def least_accurate_team(season, teams_by_id)
     least_accurate = {}
     @seasons_hash[season].games.each do |game_id, game_data|
       if least_accurate[game_data[:home].team_id].nil? && least_accurate[game_data[:away].team_id].nil?
-        create_team_id(least_accurate, game_data, :home)
-        create_team_id(least_accurate, game_data, :away)
+        least_accurate[game_data[:away].team_id] = goals_and_shots
+        least_accurate[game_data[:home].team_id] = goals_and_shots
         add_goals_data(least_accurate, game_data)
       elsif least_accurate[game_data[:home].team_id].nil?
-        create_team_id(least_accurate, game_data, :home)
+        least_accurate[game_data[:home].team_id] = goals_and_shots
         add_goals_data(least_accurate, game_data)
       elsif least_accurate[game_data[:away].team_id].nil?
-        create_team_id(least_accurate, game_data, :away)
+        least_accurate[game_data[:away].team_id] = goals_and_shots
         add_goals_data(least_accurate, game_data)
       else
         add_goals_data(least_accurate, game_data)
@@ -141,7 +141,7 @@ class SeasonManager
     end
     least = least_accurate.max_by do |team_id, goals_data|
       goals_data[:total_shots].fdiv(goals_data[:total_goals])
-    end[0]
+    end.first
 
     teams_by_id[least]
 
@@ -204,10 +204,6 @@ class SeasonManager
     teams_by_id[least]
   end
 
-  def create_season_data(season_data, season_id)
-    season_data[season_id] = {total_games: 0, total_wins: 0}
-  end
-
   def process_away_win(season_data, game_data, season_id)
     if game_data[:game].away_goals > game_data[:game].home_goals
       season_data[season_id][:total_wins] += 1
@@ -229,7 +225,7 @@ class SeasonManager
   def best_season(team_id)
     season_data = {}
     @seasons_hash.each do |season_id, season|
-      create_season_data(season_data, season_id)
+      season_data[season_id] = games_and_wins
       season.games.each do |game_id, game_data|
         home_team_id = game_data[:game].home_team_id
         away_team_id = game_data[:game].away_team_id
@@ -241,19 +237,18 @@ class SeasonManager
         end
       end
     end
-    season_data.min_by do |season_id, season_data|
+    season_data.max_by do |season_id, season_data|
       season_data[:total_wins].fdiv(season_data[:total_games])
-    end[0]
+    end.first
   end
 
   def worst_season(team_id)
     season_data = {}
     @seasons_hash.each do |season_id, season|
-      create_season_data(season_data, season_id)
+      season_data[season_id] = games_and_wins
       season.games.each do |game_id, game_data|
         home_team_id = game_data[:game].home_team_id
         away_team_id = game_data[:game].away_team_id
-        # binding.pry
         if away_team_id == team_id
           process_away_win(season_data, game_data, season_id)
         elsif home_team_id == team_id
@@ -264,6 +259,6 @@ class SeasonManager
     end
     season_data.min_by do |season_id, season_data|
       season_data[:total_wins].fdiv(season_data[:total_games])
-    end[0]
+    end.first
   end
 end
