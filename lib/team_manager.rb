@@ -35,8 +35,19 @@ class TeamManager
     season_games = @game_manager.games_by_team_id(id).group_by do |game|
       game.season
     end
+    #we will refactor this with sort_by.
+    season_games.max_by do |season, season_games|
+      win_percentage(id, season_games)
+    end.flatten[0]
+  end
 
-    season_games.max_by do |season_games|
+  def worst_season(id)
+    season_games = @game_manager.games_by_team_id(id).group_by do |game|
+      game.season
+    end
+
+    #we will refactor this with sort_by.
+    season_games.min_by do |season, season_games|
       win_percentage(id, season_games)
     end.flatten[0]
   end
@@ -48,7 +59,4 @@ class TeamManager
     end
     (total_wins.fdiv(games.count) * 100.0).round(1)
   end
-
-
-
 end
