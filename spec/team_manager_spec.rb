@@ -59,5 +59,7 @@ RSpec.describe TeamManager do
 
   it "can average the win percentage" do
     expect(@team_manager.average_win_percentage("3")).to eq(43.3)
+    expect(@team_manager.average_win_percentage("16")).to eq(44.2)
+    
   end
 end
