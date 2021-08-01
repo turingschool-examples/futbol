@@ -60,6 +60,18 @@ class StatTracker
     team_id = @game_team_manager.least_accurate_team(season_teams)
     @team_manager.team_name(team_id)
   end
+
+  def most_tackles(season)
+    season_teams = @season_manager.team_id_by_season(season)
+    team_id = @game_team_manager.most_tackles(season_teams)
+    @team_manager.team_name(team_id)
+  end
+
+  def fewest_tackles(season)
+    season_teams = @season_manager.team_id_by_season(season)
+    team_id = @game_team_manager.fewest_tackles(season_teams)
+    @team_manager.team_name(team_id)
+  end
 end
 
 
