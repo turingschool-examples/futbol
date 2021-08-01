@@ -29,6 +29,7 @@ RSpec.describe GameTeamManager do
 
   end
 
+
   # it 'can find game team by game and team id' do
   #   game =  @game_team_manager.by_team_and_game_id('3', '2012030221')
   #   expect(game.game_id).to eq('2012030221')
