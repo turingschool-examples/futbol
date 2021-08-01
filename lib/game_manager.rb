@@ -69,7 +69,7 @@ class GameManager
     season_data = {}
     @games.each do |game_id, game|
       if season_data.include?(game.season)
-        season_data[game.season] += 1
+        season_data[game.season] += 1 # build key value pair first and then add to it  READABILTY
       else
         season_data[game.season] = 1
       end
@@ -90,7 +90,7 @@ class GameManager
     total_games = "games"
     total_goals = "goals"
     @games.each do |game_id, game|
-      if season_data.include?(game.season)
+      if season_data.include?(game.season)# build key value pair first and then add to it READABILTY
         season_data[game.season][total_games] += 1
         season_data[game.season][total_goals] += (game.away_goals.to_i + game.home_goals.to_i)
       else
@@ -107,7 +107,7 @@ class GameManager
     result
   end
 
-  def seasons
+  def seasons #WRITE TEST FOR THIS
     @games.map do |game_id, game|
       game.season
     end.uniq

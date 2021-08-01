@@ -10,7 +10,7 @@ class TeamManager
     load
   end
 
-  def load
+  def load # CHANCE FOR Inheritance
     data = CSV.read(@file_path, headers: true)
     data.each do |row|
       @teams[row["team_id"]] = Team.new(row)

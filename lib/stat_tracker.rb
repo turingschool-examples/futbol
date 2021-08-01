@@ -10,7 +10,7 @@ class StatTracker
               :game_team_manager,
               :season_manager
 
-  def initialize(file_paths)
+  def initialize(file_paths) # ARE WE BREAKING LAW OF DEMETER?
     @game_manager      = GameManager.new(file_paths[:games])
     @team_manager      = TeamManager.new(file_paths[:teams])
     @game_team_manager = GameTeamManager.new(file_paths[:game_teams])

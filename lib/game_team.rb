@@ -20,12 +20,12 @@ class GameTeam
     @team_id                = params["team_id"]
     @hoa                    = params["HoA"]
     @result                 = params["result"]
-    @settled_in             = params["settled_in"]
+    @settled_in             = params["settled_in"]# Not used within existing code put it down
     @head_coach             = params["head_coach"]
     @goals                  = params["goals"]
     @shots                  = params["shots"]
     @tackles                = params["tackles"]
-    @pim                    = params["pim"]
+    @pim                    = params["pim"]# Not used within existing code put it down lines 28-33
     @powerplayopportunities = params["powerPlayOpportunities"]
     @powerplaygoals         = params["powerPlayGoals"]
     @faceoffwinpercentage   = params["faceOffWinPercentage"]

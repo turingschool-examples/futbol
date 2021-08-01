@@ -12,7 +12,6 @@ class SeasonManager
     fill_season_ids(seasons)
     @seasons_hash.each do |season_id, season|
       games.each do |game_id, game|
-        # edge case for nil vals here?
         if game.season == season_id
           @seasons_hash[season_id].add_game(game_id, game, game_teams[game_id][:home], game_teams[game_id][:away])
         end
@@ -42,10 +41,11 @@ class SeasonManager
     end
   end
 
-  def winningest_coach(season)
-    coach_wins = {}
+
+  # Can change to nested iteration but mainly it is prefrence for winningest_coach and worst coach
+  def winningest_coach(season)# rename to season id or something similar
+    coach_wins = {} # define a method for lines 46-61
     @seasons_hash[season].games.each do |game_id, game_data|
-      # if game_data[:home].result == 'WIN'
       if coach_wins[game_data[:home].head_coach].nil? && coach_wins[game_data[:away].head_coach].nil?
         create_coach(coach_wins, game_data, :home)
         create_coach(coach_wins, game_data, :away)
@@ -60,8 +60,8 @@ class SeasonManager
         add_coach_data(coach_wins, game_data)
       end
     end
-    coach_wins.max_by do |coach, coach_data|
-      coach_data[:total_wins] / coach_data[:total_games]
+    coach_wins.max_by do |coach, coach_data|# rename coach to coach name
+      coach_data[:total_wins] / coach_data[:total_games] #FDIV
     end[0]
   end
 
