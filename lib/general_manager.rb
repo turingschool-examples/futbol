@@ -56,11 +56,11 @@ class GeneralManager
   end
 
   def favorite_opponent(team_id)
-    @teams_manager.team_by_id(@games_manager.opponent_results(team_id)[:fav].call)
+    @teams_manager.team_by_id(@games_manager.opponent_results(team_id, :fav))
   end
 
   def rival(team_id)
-    @teams_manager.team_by_id(@games_manager.opponent_results(team_id)[:rival].call)
+    @teams_manager.team_by_id(@games_manager.opponent_results(team_id, :rival))
   end
 
   def winningest_coach(season)
