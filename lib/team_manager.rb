@@ -31,6 +31,10 @@ class TeamManager
     }
   end
 
+  def team_name(id)
+    team_by_id(id).team_name
+  end
+
   def best_season(id)
     season_games = @game_manager.games_by_team_id(id).group_by do |game|
       game.season
@@ -98,7 +102,7 @@ class TeamManager
 
     team_var.team_name
   end
-  
+
   def rival_opponent(id)
     opponent = games_against_opponents(id).min_by do |id, game|
       win_percentage(id, game)
