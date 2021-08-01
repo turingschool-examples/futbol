@@ -78,7 +78,7 @@ class GameTeamManager
   def team_accuracy(season_team_ids)
     accuracy = {}
     season_team_ids.each do |team_id|
-      accuracy[team_id] = total_shots(team_id).to_f / total_goals(team_id)
+      accuracy[team_id] = (total_shots(team_id).to_f / total_goals(team_id)).round(2)
     end
     accuracy
   end

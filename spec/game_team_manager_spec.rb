@@ -89,7 +89,7 @@ RSpec.describe GameTeamManager do
                "17"=>5.0,
                "3"=>4.75,
                "5"=>16.0,
-               "6"=>3.1666666666666665
+               "6"=>3.17
               }
     expect(@game_team_manager.team_accuracy(@season_team_ids)).to eq(results)
   end
