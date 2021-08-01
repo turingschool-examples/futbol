@@ -42,16 +42,21 @@ RSpec.describe GameTeamsManager do
         "3"=>{:goals=>26, :shots=>79},
         "14"=>{:goals=>12, :shots=>36}
       }
-      expect(game_teams_manager.get_accuracy_data("20142015")).to eq(expected)
+      expect(game_teams_manager.accuracy_data("20142015")).to eq(expected)
     end
 
     it 'gets accuracy average' do
+      input = {
+        "5"=>{:goals=>6, :shots=>31},
+        "3"=>{:goals=>26, :shots=>79},
+        "14"=>{:goals=>12, :shots=>36}
+      }
       expected = {
         "5"=>0.1935483870967742,
         "3"=>0.3291139240506329,
         "14"=>0.3333333333333333
       }
-      expect(game_teams_manager.get_accuracy_average("20142015")).to eq(expected)
+      expect(game_teams_manager.get_accuracy_average(input)).to eq(expected)
     end
 
     it "has most accurate and least accurate teams" do
@@ -91,7 +96,10 @@ RSpec.describe GameTeamsManager do
     end
 
     it "gets seasons averages" do
-      expect(game_teams_manager.season_averages("3")).to eq([["20142015", 0.727272727272727273]])
+      input = {
+        "20142015" => {wins: 8, total: 11}
+      }
+      expect(game_teams_manager.season_averages(input)).to eq([["20142015", 0.727272727272727273]])
     end
 
     it "gets seasons win count" do
@@ -115,6 +123,17 @@ RSpec.describe GameTeamsManager do
     end
 
     it 'gets offense averages' do
+      input = {
+        "26"=>{:goals=>7, :total=>3},
+        "28"=>{:goals=>8, :total=>3},
+        "16"=>{:goals=>16, :total=>6},
+        "19"=>{:goals=>10, :total=>6},
+        "4"=>{:goals=>6, :total=>6},
+        "15"=>{:goals=>10, :total=>6},
+        "5"=>{:goals=>6, :total=>5},
+        "3"=>{:goals=>26, :total=>11},
+        "14"=>{:goals=>12, :total=>5}
+       }
       expected = {
         "26" => 2.33,
         "28" => 2.67,
@@ -126,7 +145,7 @@ RSpec.describe GameTeamsManager do
         "3" => 2.36,
         "14" => 2.4
       }
-      expect(game_teams_manager.get_offense_averages).to eq(expected)
+      expect(game_teams_manager.get_offense_averages(input)).to eq(expected)
     end
 
     it "percentage of home wins, away wins, and ties" do
