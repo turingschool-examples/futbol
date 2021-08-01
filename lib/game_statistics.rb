@@ -40,7 +40,7 @@ include Renameable
   end
 
   def home_team_wins
-    greater_than(@games, :home_goals, :away_goals)
+    count_greater_than(@games, :home_goals, :away_goals)
     # home_wins =
     # @games.count do |game|
     #   game.home_goals > game.away_goals
@@ -49,7 +49,7 @@ include Renameable
   end
 
   def visitor_team_wins
-    greater_than(@games, :away_goals, :home_goals)
+    count_greater_than(@games, :away_goals, :home_goals)
     # visitor_wins =
     # @games.count do |game|
     #   game.home_goals < game.away_goals
@@ -58,7 +58,7 @@ include Renameable
   end
 
   def ties
-    equal_to(@games, :home_goals, :away_goals)
+    count_equal_to(@games, :home_goals, :away_goals)
     # ties =
     # @games.count do |game|
     #   game.home_goals == game.away_goals
