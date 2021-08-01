@@ -41,10 +41,10 @@ RSpec.describe TeamManager do
 
   it "can determine win percentage" do
     games = @games.find_all do |game|
-      game.away_team_id == "3" || game.home_team_id == "3"
+      game.away_team_id == "16" || game.home_team_id == "16"
     end
 
-    expect(@team_manager.win_percentage("3", games)).to eq(43.3)
+    expect(@team_manager.win_percentage("16", games)).to eq(43.3)
   end
 
   it "can determine best season for a team" do
@@ -59,7 +59,7 @@ RSpec.describe TeamManager do
 
   it "can average the win percentage" do
     expect(@team_manager.average_win_percentage("3")).to eq(43.3)
-    expect(@team_manager.average_win_percentage("16")).to eq(44.2)
+    expect(@team_manager.average_win_percentage("6")).to eq(44.2)
   end
 
   it 'shows all goals by team' do
@@ -77,9 +77,6 @@ RSpec.describe TeamManager do
 
 
   it "determines which id is the opposing team's" do
-    expect(@team_manager.team_opponent_games("3")).to eq({})
+    expect(@team_manager.games_against_opponents("3")).to eq({})
   end
-
-
-
 end
