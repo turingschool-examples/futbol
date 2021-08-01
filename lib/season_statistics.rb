@@ -1,5 +1,5 @@
-require './lib/stat_tracker'
-require './renameable'
+require_relative './stat_tracker'
+require_relative './renameable'
 
 class SeasonStatistics
   include Renameable
@@ -13,30 +13,13 @@ class SeasonStatistics
     @game_teams = game_teams
   end
 
-  def team_identifier(id)
-    matching_team = @teams.find do |team|
-      team.team_id == id
-    end
-    matching_team.team_name
-  end
-
   def total_shots(season)
-    shots_by_team = Hash.new(0)
-    @game_teams.each do |game|
-      if season_verification(game, season)
-        shots_by_team[game.team_id] += game.shots.to_i
-      end
-    end
-    shots_by_team
+    hash_generator(@game_teams, :team_id, :shots, season)
   end
 
   def most_accurate_team(season)
-    goals_by_team = Hash.new(0)
-    @game_teams.each do |game|
-      if season_verification(game, season)
-        goals_by_team[game.team_id] += game.goals.to_i
-      end
-    end
+    goals_by_team = hash_generator(@game_teams, :team_id, :goals, season)
+
     accuracy = goals_by_team.max_by do |id, goals|
       tot_goals = total_shots(season)[id]
       goals.fdiv(tot_goals)
@@ -45,14 +28,9 @@ class SeasonStatistics
   end
 
   def least_accurate_team(season)
-    goals_by_team = Hash.new(0)
-    @game_teams.each do |game|
-      if season_verification(game, season)
-        goals_by_team[game.team_id] += game.goals.to_i
-      end
-    end
-    accuracy =
-      goals_by_team.min_by do |id, goals|
+    goals_by_team = hash_generator(@game_teams, :team_id, :goals, season)
+
+    accuracy = goals_by_team.min_by do |id, goals|
       tot_goals = total_shots(season)[id]
       goals.fdiv(tot_goals)
     end
@@ -60,6 +38,7 @@ class SeasonStatistics
   end
 
   def total_games_by_coach(season)
+
     games_by_coach = Hash.new(0)
     @game_teams.each do |game|
       if season_verification(game, season)
@@ -98,12 +77,7 @@ class SeasonStatistics
   end
 
   def most_tackles(season)
-    tackles_by_team = Hash.new(0)
-    @game_teams.each do |game|
-      if season_verification(game, season)
-        tackles_by_team[game.team_id] += game.tackles.to_i
-      end
-    end
+    tackles_by_team = hash_generator(@game_teams, :team_id, :tackles, season)
     team_highest = tackles_by_team.max_by do |team_id, tackles|
       tackles
     end
@@ -111,12 +85,7 @@ class SeasonStatistics
   end
 
   def fewest_tackles(season)
-    tackles_by_team = Hash.new(0)
-    @game_teams.each do |game|
-      if season_verification(game, season)
-        tackles_by_team[game.team_id] += game.tackles.to_i
-      end
-    end
+    tackles_by_team = hash_generator(@game_teams, :team_id, :tackles, season)
     team_highest = tackles_by_team.min_by do |team_id, tackles|
       tackles
     end
