@@ -42,10 +42,6 @@ RSpec.describe GamesManager do
       expect(games_manager).to respond_to(:goals_per_season)
     end
 
-    it 'goals per game' do
-      expect(games_manager).to respond_to(:goals_per_game)
-    end
-
     it 'has average goals per game' do
       expect(games_manager.average_goals_per_game).to eq(4.08)
     end

@@ -49,20 +49,15 @@ class GamesManager
   def goals_per_season
     @games.reduce({}) do |acc, game|
       acc[game.season] ||= 0
-      acc[game.season] += goals_per_game(game)
+      acc[game.season] += game.total_goals
       acc
     end
-  end
-
-  ##helper
-  def goals_per_game(game)
-    game.away_goals + game.home_goals
   end
 
 ##Interface
   def average_goals_per_game
     goals = @games.sum do |game|
-      game.away_goals + game.home_goals
+      game.total_goals
     end
     (average(goals, @games.size)).round(2)
   end
