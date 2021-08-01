@@ -26,7 +26,7 @@ class GameTeamsManager
 
   def coach_win_pct(season)
     coach_wins(season).each.reduce({}) do |acc, (coach, results)|
-      acc[coach] = hash_average(results)
+      acc[coach] = hash_avg(results)
       acc
     end
   end
@@ -42,7 +42,7 @@ class GameTeamsManager
   end
 
   def accuracy_results(season)
-    average = get_accuracy_average(accuracy_data(season))
+    average = get_accuracy_avg(accuracy_data(season))
     {
       max: -> { average.max_by { |team, avg| avg }.first },
       min: -> { average.min_by { |team, avg| avg }.first }
@@ -78,7 +78,7 @@ class GameTeamsManager
   end
 
   def season_results(team_id)
-    averages = season_averages(seasons_win_count(team_id))
+    averages = season_avgs(seasons_win_count(team_id))
     {
       max: -> { averages.max_by { |season, avg| avg }.first },
       min: -> { averages.min_by { |season, avg| avg }.first }
@@ -97,7 +97,7 @@ class GameTeamsManager
 
   def average_win_percentage(team_id)
     team_stats = team_win_stats(team_id)
-    hash_average(team_stats).round(2)
+    hash_avg(team_stats).round(2)
   end
 
   def team_win_stats(team_id)
@@ -126,7 +126,7 @@ class GameTeamsManager
   end
 
   def offense_results
-    shot_data = get_offense_averages(get_goals_per_team)
+    shot_data = get_offense_avgs(get_goals_per_team)
     {
       min: -> { shot_data.min_by { |team, data| data }.first },
       max: -> { shot_data.max_by { |team, data| data }.first }
