@@ -1,6 +1,6 @@
 class SeasonManager
   def initialize(hash)
-    @seasons = hash
+    @seasons = hash # keys = seasons, values = array of game objects
   end
 
   def games_in_season(season)
@@ -11,5 +11,14 @@ class SeasonManager
     games_in_season(season).map do |game|
       game.game_id
     end
+  end
+
+  def team_id_by_season(season)
+    team_ids = []
+    games_in_season(season).each do |game|
+      team_ids << game.away_team_id
+      team_ids << game.home_team_id
+    end
+    team_ids.uniq
   end
 end
