@@ -31,35 +31,24 @@ class TeamManager
     }
   end
 
+  def best_season(id)
+    season_games = @game_manager.games_by_team_id(id).group_by do |game|
+      game.season
+    end
 
+    season_games.max_by do |season_games|
+      win_percentage(id, season_games)
+    end.flatten[0]
+  end
 
   def win_percentage(id, games)
 
     total_wins = @game_manager.games_by_team_id(id).count do |game|
       game.home_team_id == id && game.home_goals > game.away_goals || game.away_team_id == id && game.away_goals > game.home_goals
     end
-    # total_wins = games.map do |game|
-    #   @game_team_manager.by_team_and_game_id(id, game.game_id).result.sum do |game_team|
-    #      game_team.result == "WIN"
-    #   end
-    # #   require "pry";binding.pry
-    # end
-    total_wins.fdiv(games.count) * 100.0
+    (total_wins.fdiv(games.count) * 100.0).round(1)
   end
-    # require "pry";binding.pry
 
 
 
-  # def team_info(team_id)
-  #   find_team = @teams.find do |team|
-  #     team.team_id == team_id
-  #   end
-  #   team_info = {
-  #     team_id: find_team.team_id,
-  #     franchise_id:  find_team.franchise_id,
-  #     team_name:  find_team.team_name,
-  #     abbreviation: find_team.abbreviation,
-  #     link:  find_team.link
-  #   }
-  # end
 end
