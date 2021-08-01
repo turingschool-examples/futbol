@@ -1,9 +1,9 @@
 require 'csv'
 require_relative 'game_teams'
-require_relative 'mathable'
+require_relative 'percentageable'
 
 class GameTeamsManager
-  include Mathable
+  include Percentageable
   attr_reader :game_teams
 
   def initialize(file_path)
@@ -11,14 +11,12 @@ class GameTeamsManager
     make_game_teams(file_path)
   end
 
-#helper
   def make_game_teams(file_path)
     CSV.foreach(file_path, headers: true) do |row|
       @game_teams << GameTeams.new(row)
     end
   end
 
-# Interface
   def coach_results(season)
     {
       max: -> { coach_win_pct(season).max_by { |coach, pct| pct }.first },
@@ -26,7 +24,6 @@ class GameTeamsManager
     }
   end
 
-#helper
   def coach_win_pct(season)
     coach_wins(season).each.reduce({}) do |acc, (coach, results)|
       acc[coach] = hash_average(results)
@@ -34,7 +31,6 @@ class GameTeamsManager
     end
   end
 
-#helper
   def coach_wins(season)
     @game_teams.reduce({}) do |acc, game|
       if game.game_id[0..3] == season[0..3]
@@ -45,37 +41,32 @@ class GameTeamsManager
     end
   end
 
-#helper
-  def get_accuracy_data(season)
-    accuracy_data = Hash.new
-    @game_teams.each do |game|
-      if game.game_id[0..3] == season[0..3]
-        accuracy_data[game.team_id] ||= {goals: 0, shots: 0}
-        accuracy_data[game.team_id][:goals] += game.goals
-        accuracy_data[game.team_id][:shots] += game.shots
-      end
-    end
-    accuracy_data
-  end
-
-#helper
-  def get_accuracy_average(season)
-    get_accuracy_data(season).reduce({}) do |acc, data|
-      acc[data.first] = hash_average(data.last)
-      acc
-    end
-  end
-
-#Interface
   def accuracy_results(season)
-    average = get_accuracy_average(season)
+    average = get_accuracy_average(accuracy_data(season))
     {
       max: -> { average.max_by { |team, avg| avg }.first },
       min: -> { average.min_by { |team, avg| avg }.first }
     }
   end
 
-#helper
+  def accuracy_data(season)
+    @game_teams.reduce({}) do |acc, game|
+      if game.game_id[0..3] == season[0..3]
+        acc[game.team_id] ||= {goals: 0, shots: 0}
+        acc[game.team_id][:goals] += game.goals
+        acc[game.team_id][:shots] += game.shots
+      end
+      acc
+    end
+  end
+
+  def tackle_results(season)
+    {
+      max: -> { team_tackles(season).max_by { |team, tackles| tackles }.first },
+      min: -> { team_tackles(season).min_by { |team, tackles| tackles }.first }
+    }
+  end
+
   def team_tackles(season)
     @game_teams.reduce({}) do |acc, game|
       if game.game_id[0..3] == season[0..3]
@@ -86,46 +77,14 @@ class GameTeamsManager
     end
   end
 
-# Interface
-  def tackle_results(season)
-    {
-      max: -> { team_tackles(season).max_by { |team, tackles| tackles }.first },
-      min: -> { team_tackles(season).min_by { |team, tackles| tackles }.first }
-    }
-  end
-
-#Interface
   def season_results(team_id)
+    averages = season_averages(seasons_win_count(team_id))
     {
-      max: -> { season_averages(team_id).max_by { |season, avg| avg }.first },
-      min: -> { season_averages(team_id).min_by { |season, avg| avg }.first }
+      max: -> { averages.max_by { |season, avg| avg }.first },
+      min: -> { averages.min_by { |season, avg| avg }.first }
     }
   end
 
-# Interface
-  def average_win_percentage(team_id)
-    team_stats = team_win_stats(team_id)
-    hash_average(team_stats).round(2)
-  end
-
-  def team_win_stats(team_id)
-    @game_teams.reduce({wins: 0, total: 0}) do |acc, game|
-      if game.team_id == team_id
-        process_game(acc, game)
-      end
-      acc
-    end
-  end
-
-#Helper
-  def season_averages(team_id)
-    season_average = seasons_win_count(team_id)
-    season_average.map do |season, stats|
-      [season, hash_average(stats)]
-    end
-  end
-
-#Helper
   def seasons_win_count(team_id)
     @game_teams.reduce({}) do |acc, game|
       if game.team_id == team_id
@@ -136,20 +95,23 @@ class GameTeamsManager
     end
   end
 
-#Helper
+  def average_win_percentage(team_id)
+    team_stats = team_win_stats(team_id)
+    hash_average(team_stats).round(2)
+  end
+
+  def team_win_stats(team_id)
+    @game_teams.reduce({wins: 0, total: 0}) do |acc, game|
+      process_game(acc, game) if game.team_id == team_id
+      acc
+    end
+  end
+
   def process_game(data, game)
     data[:wins] += 1 if game.won?
     data[:total] += 1
   end
 
-  #Helper
-  def goals_per_team_game(team_id)
-    @game_teams.map do |game|
-      game.goals if game.team_id == team_id
-    end.compact
-  end
-
-  #Interface
   def goal_results(team_id)
     {
       min: -> { goals_per_team_game(team_id).min },
@@ -157,19 +119,18 @@ class GameTeamsManager
     }
   end
 
-#interface
-  def offense_results
-    {
-      min: -> { get_offense_averages.min_by { |team, data| data }.first },
-      max: -> { get_offense_averages.max_by { |team, data| data }.first }
-    }
+  def goals_per_team_game(team_id)
+    @game_teams.map do |game|
+      game.goals if game.team_id == team_id
+    end.compact
   end
 
-  # Helper
-  def get_offense_averages
-     get_goals_per_team.map do |team, data|
-      [team, hash_average(data).round(2)]
-    end.to_h
+  def offense_results
+    shot_data = get_offense_averages(get_goals_per_team)
+    {
+      min: -> { shot_data.min_by { |team, data| data }.first },
+      max: -> { shot_data.max_by { |team, data| data }.first }
+    }
   end
 
   def get_goals_per_team
@@ -181,28 +142,12 @@ class GameTeamsManager
     end
   end
 
-# Interface
   def percentage_hoa_wins(hoa)
     team = {home: "home", away: "away"}
-    stats = @game_teams.reduce({wins: 0, total: 0}) do |acc, game|
-      acc[:total] += 0.5
-      if game.won? && game.home_away == team[hoa]
-        acc[:wins] += 1
-      end
-      acc
-    end
-    hash_average(stats).round(2)
+    get_percentage_hoa_wins(team[hoa], @game_teams)
   end
 
-# Interface
   def percentage_ties
-    tie_stats = @game_teams.reduce({ties: 0, total: 0}) do |acc, game|
-      acc[:total] += 1
-      if game.result == "TIE"
-        acc[:ties] += 1
-      end
-      acc
-    end
-    hash_average(tie_stats).round(2)
+    get_percentage_ties(@game_teams)
   end
 end
