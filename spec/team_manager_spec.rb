@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe TeamManager do
   before(:each) do
-    game_path = './data/games.csv'
+    game_path = './data/games_sample.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams_sample.csv'
 
@@ -75,7 +75,11 @@ RSpec.describe TeamManager do
     expect(@team_manager.fewest_goals_scored("1")).to eq(0)
   end
 
-  it 'has games against an opponent' do
-    expect(@team_manager.team_opponent_games("1")).to eq({"1" => [3, 4, 5]})
+
+  it "determines which id is the opposing team's" do
+    expect(@team_manager.team_opponent_games("3")).to eq({})
   end
+
+
+
 end
