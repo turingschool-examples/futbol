@@ -77,7 +77,7 @@ class TeamManager
     all_goals_by_team(id).min.to_i
   end
 
-  def team_opponent_games(id)
+  def games_against_opponents(id)
     @game_manager.games_by_team_id(id).group_by do |game|
       if game.home_team_id == id
         game.away_team_id
@@ -87,10 +87,6 @@ class TeamManager
     end
   end
 
-
-  def favorite_opponent(id)
-
-  end
   #the key is '@game_manager.games_by_team_id(id)'
 
     # value = []
