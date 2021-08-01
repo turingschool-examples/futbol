@@ -183,24 +183,24 @@ class SeasonManager
     teams_by_id[most]
   end
 
-  def least_tackles(season, teams_by_id)
-    least_tackles = {}
+  def fewest_tackles(season, teams_by_id)
+    fewest_tackles = {}
     @seasons_hash[season].games.each do |game_id, game_data|
-      if least_tackles[game_data[:home].team_id].nil? && least_tackles[game_data[:away].team_id].nil?
-        create_teams_tackle_data(least_tackles, game_data, :home)
-        create_teams_tackle_data(least_tackles, game_data, :away)
-        add_tackle_data(least_tackles, game_data)
-      elsif least_tackles[game_data[:home].team_id].nil?
-        create_teams_tackle_data(least_tackles, game_data, :home)
-        add_tackle_data(least_tackles, game_data)
-      elsif least_tackles[game_data[:away].team_id].nil?
-        create_teams_tackle_data(least_tackles, game_data, :away)
-        add_tackle_data(least_tackles, game_data)
+      if fewest_tackles[game_data[:home].team_id].nil? && fewest_tackles[game_data[:away].team_id].nil?
+        create_teams_tackle_data(fewest_tackles, game_data, :home)
+        create_teams_tackle_data(fewest_tackles, game_data, :away)
+        add_tackle_data(fewest_tackles, game_data)
+      elsif fewest_tackles[game_data[:home].team_id].nil?
+        create_teams_tackle_data(fewest_tackles, game_data, :home)
+        add_tackle_data(fewest_tackles, game_data)
+      elsif fewest_tackles[game_data[:away].team_id].nil?
+        create_teams_tackle_data(fewest_tackles, game_data, :away)
+        add_tackle_data(fewest_tackles, game_data)
       else
-        add_tackle_data(least_tackles, game_data)
+        add_tackle_data(fewest_tackles, game_data)
       end
     end
-    least = least_tackles.min_by do |team_id, tackles|
+    least = fewest_tackles.min_by do |team_id, tackles|
       tackles
     end[0]
     teams_by_id[least]

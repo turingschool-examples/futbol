@@ -53,9 +53,101 @@ class StatTracker
     game_manager.average_goals_per_season
   end
 
+  def count_of_teams
+    team_manager.count_of_teams
+  end
+
+  def best_offense
+    teams_by_id = team_manager.teams_by_id
+    game_team_manager.best_offense(teams_by_id)
+  end
+
+  def worst_offense
+    teams_by_id = team_manager.teams_by_id
+    game_team_manager.worst_offense(teams_by_id)
+  end
+
+  def highest_scoring_visitor
+    teams_by_id = team_manager.teams_by_id
+    game_team_manager.highest_scoring_visitor(teams_by_id)
+  end
+
+  def highest_scoring_home_team
+    teams_by_id = team_manager.teams_by_id
+    game_team_manager.highest_scoring_home_team(teams_by_id)
+  end
+
+  def lowest_scoring_visitor
+    teams_by_id = team_manager.teams_by_id
+    game_team_manager.lowest_scoring_visitor(teams_by_id)
+  end
+
+  def lowest_scoring_home_team
+    teams_by_id = team_manager.teams_by_id
+    game_team_manager.lowest_scoring_home_team(teams_by_id)
+  end
+
+  def team_info(team_id)
+    team_manager.team_info(team_id)
+  end
+#not working yet
+  def best_season(team_id)
+    season_manager.best_season(team_id)
+  end
+  #not working yet
+  def worst_season(team_id)
+    season_manager.worst_season(team_id)
+  end
+
+  def average_win_percentage(team_id)
+    game_team_manager.average_win_percentage(team_id)
+  end
+
+  def most_goals_scored(team_id)
+    game_team_manager.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    game_team_manager.fewest_goals_scored(team_id)
+  end
+
+  def favorite_opponent(team_id)
+    id = game_team_manager.favorite_opponent(team_id)
+    team_manager.team_info(id)["team_name"]
+  end
+
+  def rival(team_id)
+    id = game_team_manager.rival(team_id)
+    team_manager.team_info(id)["team_name"]
+  end
+
   # This isn't working yet.
   def winningest_coach(season)
     season_manager.winningest_coach(season)
+  end
+#not working
+  def worst_coach(season)
+    season_manager.worst_coach(season)
+  end
+  #not working
+  def most_accurate_team(season_id)
+    teams_by_id = team_manager.teams_by_id
+    season_manager.most_accurate_team(season_id, teams_by_id)
+  end
+  #not working
+  def least_accurate_team(season_id)
+    teams_by_id = team_manager.teams_by_id
+    season_manager.least_accurate_team(season_id, teams_by_id)
+  end
+
+  def most_tackles(season_id)
+    teams_by_id = team_manager.teams_by_id
+    season_manager.most_tackles(season_id, teams_by_id)
+  end
+
+  def fewest_tackles(season_id)
+    teams_by_id = team_manager.teams_by_id
+    season_manager.fewest_tackles(season_id, teams_by_id)
   end
 end
 
