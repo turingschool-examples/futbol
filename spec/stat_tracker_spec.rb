@@ -4,9 +4,9 @@ require 'spec_helper'
 RSpec.describe StatTracker do
   before(:each) do
 
-    game_path = './data/games_sample.csv'
+    game_path = './data/season_game_sample.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams_sample.csv'
+    game_teams_path = './data/season_game_teams_sample.csv'
 
     locations = {
       games: game_path,
@@ -36,18 +36,22 @@ RSpec.describe StatTracker do
   it 'has a season manager' do
     expect(@stat_tracker.season_manager).to be_a(SeasonManager)
   end
-  # xit "counts teams" do
-  #   expect(@stat_tracker.count_of_teams).to eq(32)
-  # end
-  #
-  # xit "calculates team with highest avg. goals/game all seasons" do
-  #
-  #
-  # end
+
+  it 'has winningest coach' do
+    expect(@stat_tracker.winningest_coach('20122013')).to eq("Claude Julien")
+  end
 end
 
 
 
+# xit "counts teams" do
+#   expect(@stat_tracker.count_of_teams).to eq(32)
+# end
+#
+# xit "calculates team with highest avg. goals/game all seasons" do
+#
+#
+# end
 
 # best_offense	Name of the team with the highest average number of goals scored per game across all seasons.	String
 # worst_offense	Name of the team with the lowest average number of goals scored per game across all seasons.	String
