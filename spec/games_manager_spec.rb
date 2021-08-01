@@ -61,11 +61,11 @@ RSpec.describe GamesManager do
     end
 
     it 'has a favourite opponent' do
-      expect(games_manager.opponent_results("15")[:fav].call).to eq("10")
+      expect(games_manager.opponent_results("15", :fav)).to eq("10")
     end
 
     it 'has a rival' do
-      expect(games_manager.opponent_results("15")[:rival].call).to eq("2")
+      expect(games_manager.opponent_results("15", :rival)).to eq("2")
     end
 
     it 'calcs win percents' do
