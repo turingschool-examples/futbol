@@ -24,14 +24,14 @@ class TeamsManager
     format_team_info(team)
   end
 
-##helper
+  # #helper
   def format_team_info(team)
     {
-      "team_id" => team.team_id,
-      "franchise_id" => team.franchise_id,
-      "team_name" => team.team_name,
-      "abbreviation" => team.abbreviation,
-      "link" => team.link
+      'team_id' => team.team_id,
+      'franchise_id' => team.franchise_id,
+      'team_name' => team.team_name,
+      'abbreviation' => team.abbreviation,
+      'link' => team.link
     }
   end
 

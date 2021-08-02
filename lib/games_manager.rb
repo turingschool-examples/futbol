@@ -46,12 +46,11 @@ class GamesManager < SeasonsManager
   end
 
   def get_hoa_goals(hoa)
-    @games.reduce({}) do |acc, game|
+    @games.each_with_object({}) do |game, acc|
       team_id, goals = get_game_info(game)[hoa]
       acc[team_id] ||= { goals: 0, total: 0 }
       acc[team_id][:goals] += goals
       acc[team_id][:total] += 1
-      acc
     end
   end
 
@@ -68,8 +67,8 @@ class GamesManager < SeasonsManager
       away: -> { get_hoa_goals(hoa) }
     }
     team = {
-      max: -> { info[hoa].call.max_by { |team, data| hash_avg(data) }.first },
-      min: -> { info[hoa].call.min_by { |team, data| hash_avg(data) }.first }
+      max: -> { info[hoa].call.max_by { |_team, data| hash_avg(data) }.first },
+      min: -> { info[hoa].call.min_by { |_team, data| hash_avg(data) }.first }
     }
     team[min_max].call
   end
@@ -77,21 +76,20 @@ class GamesManager < SeasonsManager
   def opponent_results(id, fav_rival)
     data = opponent_win_count(id)
     team = {
-      fav: -> { win_percent(data).min_by { |team, result| result }.first },
-      rival: -> { win_percent(data).max_by { |team, result| result }.first }
+      fav: -> { win_percent(data).min_by { |_team, result| result }.first },
+      rival: -> { win_percent(data).max_by { |_team, result| result }.first }
     }
     team[fav_rival].call
   end
 
   def opponent_win_count(id)
-    @games.reduce({}) do |acc, game|
-      if game.has_team?(id)
-        opp_id = opponent_id(id, game)
-        acc[opp_id] ||= {wins: 0, total: 0}
-        acc[opp_id][:wins] += 1 if !game.winner?(id)
-        acc[opp_id][:total] += 1
-      end
-      acc
+    @games.each_with_object({}) do |game, acc|
+      next unless game.has_team?(id)
+
+      opp_id = opponent_id(id, game)
+      acc[opp_id] ||= { wins: 0, total: 0 }
+      acc[opp_id][:wins] += 1 unless game.winner?(id)
+      acc[opp_id][:total] += 1
     end
   end
 

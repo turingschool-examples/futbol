@@ -1,7 +1,6 @@
 require_relative 'general_manager'
 
 class StatTracker < GeneralManager
-
   def initialize(locations)
     super
   end

@@ -7,12 +7,12 @@ class Game
               :home_goals
 
   def initialize(game_data)
-    @game_id = game_data["game_id"]
-    @season = game_data["season"]
-    @away_team_id = game_data["away_team_id"]
-    @home_team_id = game_data["home_team_id"]
-    @away_goals = game_data["away_goals"].to_i
-    @home_goals = game_data["home_goals"].to_i
+    @game_id = game_data['game_id']
+    @season = game_data['season']
+    @away_team_id = game_data['away_team_id']
+    @home_team_id = game_data['home_team_id']
+    @away_goals = game_data['away_goals'].to_i
+    @home_goals = game_data['home_goals'].to_i
   end
 
   def home_win?
@@ -24,7 +24,7 @@ class Game
   end
 
   def has_team?(team_id)
-    @home_team_id == team_id || @away_team_id == team_id
+    [@home_team_id, @away_team_id].include?(team_id)
   end
 
   def home_team?(team_id)
