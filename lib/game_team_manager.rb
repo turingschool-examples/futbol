@@ -114,6 +114,30 @@ class GameTeamManager
       team_tackles(team_id)
     end
   end
+
+  def goals_by_team
+    sorted_goals = {}
+    @game_teams.reduce({}) do |goals_hash, game_team|
+      sorted_goals[game_team.team_id] ||= []
+      sorted_goals[game_team.team_id] << game_team.goals.to_i
+      sorted_goals
+    end
+  end
+
+  def average_goals
+    goals_by_team.reduce({}) do |average, (team, sorted_goals)|
+      average[team] = (sorted_goals.sum / sorted_goals.count.to_f).truncate(2)
+      average
+    end
+  end
+
+  def best_average_score_team
+    average_goals.max_by { |team, average| average }.first
+  end
+
+  def worst_average_score_team
+    average_goals.min_by { |team, average| average }.first
+  end
 end
 
 
