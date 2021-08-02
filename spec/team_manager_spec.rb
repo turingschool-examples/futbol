@@ -39,6 +39,10 @@ RSpec.describe TeamManager do
     expect(@team_manager.team_info("1")).to eq(expected)
   end
 
+  it "can count number of teams" do
+    expect(@team_manager.count_teams).to eq(32)
+  end
+
   it "can determine win percentage" do
     games = @games.find_all do |game|
       game.away_team_id == "16" || game.home_team_id == "16"
