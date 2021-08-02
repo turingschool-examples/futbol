@@ -60,8 +60,9 @@ RSpec.describe TeamStatistics do
     end
 
   #MOCK N STUB
-    xit "#game_teams_by_id(team_id)" do
-      expect(stat_tracker.game_teams_by_id("18")).to eq 7
+    it "#game_teams_by_id(team_id)" do
+      expect(stat_tracker.game_teams_by_id("18")).to be_an(Array)
+      expect(stat_tracker.game_teams_by_id("18").length).to eq(28)
     end
 
     it "#most_goals_scored(team_id)" do
@@ -73,8 +74,9 @@ RSpec.describe TeamStatistics do
     end
 
   #mock and stub
-    xit "#games_against_rivals(team_id)" do
-      expect(stat_tracker.games_against_rivals("18")[3]).to eq 0
+    it "#games_against_rivals(team_id)" do
+      expect(stat_tracker.games_against_rivals("18")).to be_a(Hash)
+      expect(stat_tracker.games_against_rivals("18").length).to eq(17)
     end
 
     it "#win_percentage_against_rivals(team_id)" do
