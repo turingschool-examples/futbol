@@ -20,21 +20,26 @@ module TeamStatistics
     games_by_team
   end
 
+  def team_win?(team_id, game)
+    away = game.away_team_id == team_id && game.away_goals > game.home_goals
+    home = game.home_team_id == team_id && game.home_goals > game.away_goals
+    if home || away
+      true
+    else
+      false
+    end
+  end
+
   def find_win_count(team_id)
-    season_wins = {}
-    find_games_by_team_id(team_id).each do |game|
+    find_games_by_team_id(team_id).each_with_object({}) do |game, season_wins|
       if season_wins[game.season].nil?
-        season_wins[game.season] = [0, 0]
-        # total games, wins
+        season_wins[game.season] = [0, 0]# total games, wins
       end
       season_wins[game.season][0] += 1
-      if game.away_team_id == team_id && game.away_goals > game.home_goals
-        season_wins[game.season][1] += 1
-      elsif game.home_team_id == team_id && game.home_goals > game.away_goals
+      if team_win?(team_id, game)
         season_wins[game.season][1] += 1
       end
     end
-    season_wins
   end
 
   def best_season(team_id)
@@ -59,14 +64,14 @@ module TeamStatistics
   end
 
   def average_win_percentage(team_id)
-    (total_win_count(team_id).to_f / find_games_by_team_id(team_id).count).round(2)
+    win = total_win_count(team_id).to_f / find_games_by_team_id(team_id).count
+    win.round(2)
   end
 
   def game_teams_by_id(team_id)
-    by_id = @game_teams.find_all do |game|
+    @game_teams.find_all do |game|
       game.team_id == team_id
     end
-    by_id
   end
 
   def most_goals_scored(team_id)
