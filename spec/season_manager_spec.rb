@@ -36,25 +36,25 @@ RSpec.describe SeasonManager do
 
   describe '#most_accurate_team' do
     it "can return the most most_accurate_team according to shots on goal" do
-      expect(@stat_tracker.season_manager.most_accurate_team("20122013", @stat_tracker.team_manager.teams_by_id)).to eq("New York City FC")
+      expect(@stat_tracker.season_manager.most_accurate_team("20122013")).to eq("9")
     end
   end
 
   describe '#least_accurate_team' do
     it "can return the least least_accurate_team according to shots on goal" do
-      expect(@stat_tracker.season_manager.least_accurate_team("20122013", @stat_tracker.team_manager.teams_by_id)).to eq("Sporting Kansas City")
+      expect(@stat_tracker.season_manager.least_accurate_team("20122013")).to eq("5")
     end
   end
 
   describe '#most_tackles' do
     it "can return the name of the team witht he most tackles" do
-      expect(@stat_tracker.season_manager.most_tackles("20122013", @stat_tracker.team_manager.teams_by_id)).to eq("LA Galaxy")
+      expect(@stat_tracker.season_manager.most_tackles("20122013")).to eq('17')
     end
   end
 
   describe '#fewest_tackles' do
     it "can return the name of the team with the least tackles" do
-      expect(@stat_tracker.season_manager.fewest_tackles("20122013", @stat_tracker.team_manager.teams_by_id)).to eq("Sporting Kansas City")
+      expect(@stat_tracker.season_manager.fewest_tackles("20122013")).to eq("5")
     end
   end
 

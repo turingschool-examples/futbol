@@ -12,9 +12,10 @@ class SeasonManager
   def create_seasons(seasons, games, game_teams)
     fill_season_ids(seasons)
     @seasons_hash.each do |season_id, season|
-      games.each do |game_id, game|
+      games.each do |game|
         if game.season == season_id
-          @seasons_hash[season_id].add_game(game_id, game, game_teams[game_id][:home], game_teams[game_id][:away])
+          @seasons_hash[season_id].add_game(game.game_id, game, game_teams[game.game_id][:home], game_teams[game.game_id][:away])
+          # require "pry"; binding.pry
         end
       end
     end
@@ -86,7 +87,7 @@ class SeasonManager
     end.first
   end
 
-  def most_accurate_team(season, teams_by_id)
+  def most_accurate_team(season)
     most_accurate = {}
     @seasons_hash[season].games.each do |game_id, game_data|
       if most_accurate[game_data[:home].team_id].nil? && most_accurate[game_data[:away].team_id].nil?
@@ -108,7 +109,7 @@ class SeasonManager
       goals_data[:total_shots].fdiv(goals_data[:total_goals])
     end.first
 
-    teams_by_id[most_accurate_team]
+    most_accurate_team
   end
 
   def add_goals_data(accurate_hash, game_data)
@@ -122,7 +123,7 @@ class SeasonManager
     {total_goals: 0, total_shots: 0}
   end
 
-  def least_accurate_team(season, teams_by_id)
+  def least_accurate_team(season)
     least_accurate = {}
     @seasons_hash[season].games.each do |game_id, game_data|
       if least_accurate[game_data[:home].team_id].nil? && least_accurate[game_data[:away].team_id].nil?
@@ -143,7 +144,7 @@ class SeasonManager
       goals_data[:total_shots].fdiv(goals_data[:total_goals])
     end.first
 
-    teams_by_id[least]
+    least
 
   end
 
@@ -158,7 +159,7 @@ class SeasonManager
   end
 
 
-  def most_tackles(season, teams_by_id)
+  def most_tackles(season)
     most_tackles = {}
     @seasons_hash[season].games.each do |game_id, game_data|
       if most_tackles[game_data[:home].team_id].nil? && most_tackles[game_data[:away].team_id].nil?
@@ -178,10 +179,10 @@ class SeasonManager
     most = most_tackles.max_by do |team_id, tackles|
       tackles
     end[0]
-    teams_by_id[most]
+    most
   end
 
-  def fewest_tackles(season, teams_by_id)
+  def fewest_tackles(season)
     fewest_tackles = {}
     @seasons_hash[season].games.each do |game_id, game_data|
       if fewest_tackles[game_data[:home].team_id].nil? && fewest_tackles[game_data[:away].team_id].nil?
@@ -201,7 +202,7 @@ class SeasonManager
     least = fewest_tackles.min_by do |team_id, tackles|
       tackles
     end[0]
-    teams_by_id[least]
+    least
   end
 
   def process_away_win(season_data, game_data, season_id)
