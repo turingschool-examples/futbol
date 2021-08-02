@@ -35,6 +35,10 @@ class TeamManager
     team_by_id(id).team_name
   end
 
+  def count_teams
+    @teams.count
+  end
+
   def best_season(id)
     season_games = @game_manager.games_by_team_id(id).group_by do |game|
       game.season
