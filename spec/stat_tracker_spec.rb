@@ -76,6 +76,22 @@ RSpec.describe StatTracker do
   it "returns the name of the team with the lowest avg goals per game" do
     expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
   end
+
+  it "text" do
+    expect(@stat_tracker.highest_scoring_visitor).to eq("6")
+  end
+
+  it "text" do
+    expect(@stat_tracker.highest_scoring_home_team).to eq("6")
+  end
+
+  it "text" do
+    expect(@stat_tracker.lowest_scoring_visitor).to eq("5")
+  end
+
+  it "text" do
+    expect(@stat_tracker.lowest_scoring_home_team).to eq("5")
+  end
 end
 
 

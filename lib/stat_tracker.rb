@@ -85,4 +85,20 @@ class StatTracker
   def worst_offense
     @team_manager.team_name(@game_team_manager.worst_average_score_team)
   end
+
+  def highest_scoring_visitor
+    @game_team_manager.best_average_score_team_away
+  end
+
+  def highest_scoring_home_team
+    @game_team_manager.best_average_score_team_home
+  end
+
+  def lowest_scoring_visitor
+    @game_team_manager.worst_average_score_team_away
+  end
+
+  def lowest_scoring_home_team
+    @game_team_manager.worst_average_score_team_home
+  end
 end

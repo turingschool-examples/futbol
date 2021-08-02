@@ -138,6 +138,58 @@ class GameTeamManager
   def worst_average_score_team
     average_goals.min_by { |team, average| average }.first
   end
+
+  def goals_by_team_home
+    sorted_goals_home = {}
+    @game_teams.reduce({}) do |goals_hash, game_team|
+      if game_team.hoa == "home"
+        sorted_goals_home[game_team.team_id] ||= []
+        sorted_goals_home[game_team.team_id] << game_team.goals.to_i
+      end
+      sorted_goals_home
+    end
+  end
+
+  def average_goals_home
+    goals_by_team_home.reduce({}) do |average, (team, sorted_goals)|
+      average[team] = (sorted_goals.sum / sorted_goals.count.to_f).truncate(2)
+      average
+    end
+  end
+
+  def best_average_score_team_home
+    average_goals_home.max_by { |team, average| average }.first
+  end
+
+  def worst_average_score_team_home
+    average_goals_home.min_by { |team, average| average }.first
+  end
+
+  def goals_by_team_away
+    sorted_goals_away = {}
+    @game_teams.reduce({}) do |goals_hash, game_team|
+      if game_team.hoa == "away"
+        sorted_goals_away[game_team.team_id] ||= []
+        sorted_goals_away[game_team.team_id] << game_team.goals.to_i
+      end
+      sorted_goals_away
+    end
+  end
+
+  def average_goals_away
+    goals_by_team_away.reduce({}) do |average, (team, sorted_goals)|
+      average[team] = (sorted_goals.sum / sorted_goals.count.to_f).truncate(2)
+      average
+    end
+  end
+
+  def best_average_score_team_away
+    average_goals_away.max_by { |team, average| average }.first
+  end
+
+  def worst_average_score_team_away
+    average_goals_away.min_by { |team, average| average }.first
+  end
 end
 
 
