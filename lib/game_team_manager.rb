@@ -46,52 +46,58 @@ class GameTeamManager
     average.round(2)
   end
 
-  def best_offense(teams_by_id)
-    teams_by_id.max_by do |team_id, team_name|
-      average_goals_all_seasons(team_id)
-    end[1]
+  def all_team_ids
+    ids = []
+    @game_teams.each do |game_id, home_and_away|
+      home_and_away.each do |hoa, game_team|
+        ids << game_team.team_id
+      end
+    end
+    ids.uniq
   end
 
-  def worst_offense(teams_by_id)
-    teams_by_id.min_by do |team_id, team_name|
+  def best_offense
+    all_team_ids.max_by do |team_id, team_name|
       average_goals_all_seasons(team_id)
-    end[1]
+    end
   end
 
-  def highest_scoring_visitor(teams_by_id)
+  def worst_offense
+    all_team_ids.min_by do |team_id, team_name|
+      average_goals_all_seasons(team_id)
+    end
+  end
+
+  def highest_scoring_visitor
     highest_scoring_visitor = away_teams.max_by do |game_team_object|
       away_games_per_team = away_games_per_team(game_team_object.team_id)
       average_goals(away_games_per_team)
     end
-    id = highest_scoring_visitor.team_id
-    teams_by_id[id]
+    highest_scoring_visitor.team_id
   end
 
-  def highest_scoring_home_team(teams_by_id)
+  def highest_scoring_home_team
     highest_scoring_home_team = home_teams.max_by do |game_team_object|
       home_games_per_team = home_games_per_team(game_team_object.team_id)
       average_goals(home_games_per_team)
     end
-    id = highest_scoring_home_team.team_id
-    teams_by_id[id]
+    highest_scoring_home_team.team_id
   end
 
-  def lowest_scoring_visitor(teams_by_id)
+  def lowest_scoring_visitor
     lowest_scoring_visitor = away_teams.min_by do |game_team_object|
       away_games_per_team = away_games_per_team(game_team_object.team_id)
       average_goals(away_games_per_team)
     end
-    id = lowest_scoring_visitor.team_id
-    teams_by_id[id]
+    lowest_scoring_visitor.team_id
   end
 
-  def lowest_scoring_home_team(teams_by_id)
+  def lowest_scoring_home_team
     lowest_scoring_home_team = home_teams.min_by do |game_team_object|
       home_games_per_team = home_games_per_team(game_team_object.team_id)
       average_goals(home_games_per_team)
     end
-    id = lowest_scoring_home_team.team_id
-    teams_by_id[id]
+    lowest_scoring_home_team.team_id
   end
 
   def home_teams
