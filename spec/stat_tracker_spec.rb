@@ -78,37 +78,18 @@ RSpec.describe StatTracker do
   end
 
   it "text" do
-    expect(@stat_tracker.highest_scoring_visitor).to eq("6")
+    expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
   end
 
   it "text" do
-    expect(@stat_tracker.highest_scoring_home_team).to eq("6")
+    expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
   end
 
   it "text" do
-    expect(@stat_tracker.lowest_scoring_visitor).to eq("5")
+    expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
   end
 
   it "text" do
-    expect(@stat_tracker.lowest_scoring_home_team).to eq("5")
+    expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
   end
 end
-
-
-
-
-# xit "counts teams" do
-#   expect(@stat_tracker.count_of_teams).to eq(32)
-# end
-#
-# xit "calculates team with highest avg. goals/game all seasons" do
-#
-#
-# end
-
-# best_offense	Name of the team with the highest average number of goals scored per game across all seasons.	String
-# worst_offense	Name of the team with the lowest average number of goals scored per game across all seasons.	String
-# highest_scoring_visitor	Name of the team with the highest average score per game across all seasons when they are away.	String
-# highest_scoring_home_team	Name of the team with the highest average score per game across all seasons when they are home.	String
-# lowest_scoring_visitor	Name of the team with the lowest average score per game across all seasons when they are a visitor.	String
-# lowest_scoring_home_team	Name of the team with the lowest average score per game across all seasons when they are at home.	String
