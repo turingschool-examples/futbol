@@ -66,6 +66,7 @@ RSpec.describe GameManager do
     expect(@game_manager.games_by_season).to be_a(Hash)
     hash_keys = @game_manager.games_by_season.keys
     expect(hash_keys.count).to eq(6)
+    expect(@game_manager.games_by_season.values.flatten[0]).to be_a(Game)
   end
 
   it 'can return a single game by id' do

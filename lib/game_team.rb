@@ -5,7 +5,7 @@ class GameTeam
               :hoa,
               :result,
               :head_coach,
-              :goal,
+              :goals,
               :shots,
               :tackles
 

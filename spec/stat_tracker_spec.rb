@@ -4,9 +4,9 @@ require 'spec_helper'
 RSpec.describe StatTracker do
   before(:each) do
 
-    game_path = './data/games_sample.csv'
+    game_path = './data/season_game_sample.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams_sample.csv'
+    game_teams_path = './data/season_game_teams_sample.csv'
 
     locations = {
       games: game_path,
@@ -36,18 +36,42 @@ RSpec.describe StatTracker do
   it 'has a season manager' do
     expect(@stat_tracker.season_manager).to be_a(SeasonManager)
   end
-  # xit "counts teams" do
-  #   expect(@stat_tracker.count_of_teams).to eq(32)
-  # end
-  #
-  # xit "calculates team with highest avg. goals/game all seasons" do
-  #
-  #
-  # end
+
+  it 'has winningest coach by season' do
+    expect(@stat_tracker.winningest_coach('20122013')).to eq("Claude Julien")
+  end
+
+  it 'has worst coach by season' do
+    expect(@stat_tracker.worst_coach('20122013')).to eq("John Tortorella")
+  end
+
+  it 'has most accurate team id' do
+    expect(@stat_tracker.most_accurate_team('20122013')).to eq('FC Dallas')
+  end
+
+  it 'has least accurate team_id' do
+    expect(@stat_tracker.least_accurate_team('20122013')).to eq('Sporting Kansas City')
+  end
+
+  it 'has team with most tackles' do
+    expect(@stat_tracker.most_tackles('20122013')).to eq('FC Dallas')
+  end
+
+  it 'has team with least tackles' do
+    expect(@stat_tracker.fewest_tackles('20122013')).to eq('New England Revolution')
+  end
 end
 
 
 
+# xit "counts teams" do
+#   expect(@stat_tracker.count_of_teams).to eq(32)
+# end
+#
+# xit "calculates team with highest avg. goals/game all seasons" do
+#
+#
+# end
 
 # best_offense	Name of the team with the highest average number of goals scored per game across all seasons.	String
 # worst_offense	Name of the team with the lowest average number of goals scored per game across all seasons.	String

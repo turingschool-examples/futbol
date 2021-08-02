@@ -38,6 +38,40 @@ class StatTracker
   def percentage_home_wins
     @game_manager.percentage_home_wins
   end
+
+  def winningest_coach(season)
+    season_games = @season_manager.game_id_by_season(season) #returns array of game ids
+    @game_team_manager.winningest_coach(season_games)
+  end
+
+  def worst_coach(season)
+    season_games = @season_manager.game_id_by_season(season) #returns array of game ids
+    @game_team_manager.worst_coach(season_games)
+  end
+
+  def most_accurate_team(season)
+    season_teams = @season_manager.team_id_by_season(season)
+    team_id = @game_team_manager.most_accurate_team(season_teams)
+    @team_manager.team_name(team_id)
+  end
+
+  def least_accurate_team(season)
+    season_teams = @season_manager.team_id_by_season(season)
+    team_id = @game_team_manager.least_accurate_team(season_teams)
+    @team_manager.team_name(team_id)
+  end
+
+  def most_tackles(season)
+    season_teams = @season_manager.team_id_by_season(season)
+    team_id = @game_team_manager.most_tackles(season_teams)
+    @team_manager.team_name(team_id)
+  end
+
+  def fewest_tackles(season)
+    season_teams = @season_manager.team_id_by_season(season)
+    team_id = @game_team_manager.fewest_tackles(season_teams)
+    @team_manager.team_name(team_id)
+  end
 end
 
 

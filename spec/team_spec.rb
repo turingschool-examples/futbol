@@ -21,7 +21,4 @@ RSpec.describe Team do
       expect(team.abbreviation).to eq("CHI")
     end
   end
-
-
-
 end
