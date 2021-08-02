@@ -18,8 +18,8 @@ class GameTeamsManager < SeasonsManager
 
   def coach_results(season, min_max)
     results = {
-      max: -> { coach_win_pct(season).max_by { |coach, pct| pct }.first },
-      min: -> { coach_win_pct(season).min_by { |coach, pct| pct }.first }
+      max: -> { coach_win_pct(season).max_by { |_coach, pct| pct }.first },
+      min: -> { coach_win_pct(season).min_by { |_coach, pct| pct }.first }
     }
     results[min_max].call
   end
@@ -27,16 +27,16 @@ class GameTeamsManager < SeasonsManager
   def accuracy_results(season, min_max)
     average = get_accuracy_avg(accuracy_data(season))
     results = {
-      max: -> { average.max_by { |team, avg| avg }.first },
-      min: -> { average.min_by { |team, avg| avg }.first }
+      max: -> { average.max_by { |_team, avg| avg }.first },
+      min: -> { average.min_by { |_team, avg| avg }.first }
     }
     results[min_max].call
   end
 
   def tackle_results(season, min_max)
     results = {
-      max: -> { team_tackles(season).max_by { |team, tackles| tackles }.first },
-      min: -> { team_tackles(season).min_by { |team, tackles| tackles }.first }
+      max: -> { team_tackles(season).max_by { |_team, tackles| tackles }.first },
+      min: -> { team_tackles(season).min_by { |_team, tackles| tackles }.first }
     }
     results[min_max].call
   end
@@ -44,8 +44,8 @@ class GameTeamsManager < SeasonsManager
   def season_results(id, min_max)
     averages = season_avgs(seasons_win_count(id))
     results = {
-      max: -> { averages.max_by { |season, avg| avg }.first },
-      min: -> { averages.min_by { |season, avg| avg }.first }
+      max: -> { averages.max_by { |_season, avg| avg }.first },
+      min: -> { averages.min_by { |_season, avg| avg }.first }
     }
     results[min_max].call
   end
@@ -56,9 +56,8 @@ class GameTeamsManager < SeasonsManager
   end
 
   def team_win_stats(id)
-    @game_teams.reduce({wins: 0, total: 0}) do |acc, game|
+    @game_teams.each_with_object({ wins: 0, total: 0 }) do |game, acc|
       process_game(acc, game) if game.team_id == id
-      acc
     end
   end
 
@@ -84,23 +83,22 @@ class GameTeamsManager < SeasonsManager
   def offense_results(min_max)
     shot_data = get_offense_avgs(get_goals_per_team)
     results = {
-      min: -> { shot_data.min_by { |team, data| data }.first },
-      max: -> { shot_data.max_by { |team, data| data }.first }
+      min: -> { shot_data.min_by { |_team, data| data }.first },
+      max: -> { shot_data.max_by { |_team, data| data }.first }
     }
     results[min_max].call
   end
 
   def get_goals_per_team
-    @game_teams.reduce({}) do |acc, game|
-      acc[game.team_id] ||= {goals: 0, total: 0}
+    @game_teams.each_with_object({}) do |game, acc|
+      acc[game.team_id] ||= { goals: 0, total: 0 }
       acc[game.team_id][:goals] += game.goals
       acc[game.team_id][:total] += 1
-      acc
     end
   end
 
   def percentage_hoa_wins(hoa)
-    team = {home: "home", away: "away"}
+    team = { home: 'home', away: 'away' }
     get_percentage_hoa_wins(team[hoa], @game_teams)
   end
 

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe StatTracker do
-  it "exists" do
+  it 'exists' do
     game_path = './data/mini_games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/mini_game_teams.csv'
