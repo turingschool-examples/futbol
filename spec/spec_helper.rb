@@ -20,6 +20,7 @@ require './lib/teams_manager'
 require './lib/game_teams_manager'
 require './lib/general_manager'
 require './lib/stat_tracker'
+require './lib/seasons_manager'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate

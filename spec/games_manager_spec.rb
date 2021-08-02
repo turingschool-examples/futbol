@@ -42,10 +42,6 @@ RSpec.describe GamesManager do
       expect(games_manager).to respond_to(:goals_per_season)
     end
 
-    it 'goals per game' do
-      expect(games_manager).to respond_to(:goals_per_game)
-    end
-
     it 'has average goals per game' do
       expect(games_manager.average_goals_per_game).to eq(4.08)
     end
@@ -65,16 +61,21 @@ RSpec.describe GamesManager do
     end
 
     it 'has a favourite opponent' do
-      expect(games_manager.opponent_results("15")[:fav].call).to eq("10")
+      expect(games_manager.opponent_results("15", :fav)).to eq("10")
     end
 
     it 'has a rival' do
-      expect(games_manager.opponent_results("15")[:rival].call).to eq("2")
+      expect(games_manager.opponent_results("15", :rival)).to eq("2")
     end
 
     it 'calcs win percents' do
+      input = [
+        ["3", {win: 3, loss: 7}],
+        ["10", {win: 0, loss: 4}],
+        ["2", {win: 2, loss: 3}]
+      ]
       expected = [["3", 3.fdiv(7)], ["10", 0.0], ["2", 2.fdiv(3)]]
-      expect(games_manager.win_percent("15")).to eq(expected)
+      expect(games_manager.win_percent(input)).to eq(expected)
     end
   end
 end
