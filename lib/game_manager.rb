@@ -6,20 +6,21 @@ class GameManager
 
   def initialize(file_path)
     @file_path = file_path
-    @games = {}
-    load
+    @games = load
   end
 
   def load
     data = CSV.read(@file_path, headers: true)
+    games = []
     data.each do |row|
-      @games[row["game_id"]] = Game.new(row)
+      games.push(Game.new(row))
     end
+    games
   end
 
   def highest_total_score
     max = 0
-    @games.each do |game_id, game|
+    @games.each do |game|
       current = game.away_goals.to_i + game.home_goals.to_i
       max = current if current > max
     end
@@ -28,7 +29,7 @@ class GameManager
 
   def lowest_total_score
     min = 100000
-    @games.each do |game_id, game|
+    @games.each do |game|
       current = game.away_goals.to_i + game.home_goals.to_i
       min = current if current < min
     end
@@ -37,7 +38,7 @@ class GameManager
 
   def percentage_home_wins
     home_wins = 0
-    @games.each do |game_id, game|
+    @games.each do |game|
       if game.away_goals.to_i < game.home_goals.to_i
         home_wins += 1
       end
@@ -47,7 +48,7 @@ class GameManager
 
   def percentage_visitor_wins
     visitor_wins = 0
-    @games.each do |game_id, game|
+    @games.each do |game|
       if game.away_goals.to_i > game.home_goals.to_i
         visitor_wins += 1
       end
@@ -57,7 +58,7 @@ class GameManager
 
   def percentage_ties
     ties = 0
-    @games.each do |game_id, game|
+    @games.each do |game|
       if game.away_goals.to_i == game.home_goals.to_i
         ties += 1
       end
@@ -67,7 +68,7 @@ class GameManager
 
   def count_of_games_by_season
     season_data = {}
-    @games.each do |game_id, game|
+    @games.each do |game|
       if season_data.include?(game.season)
         season_data[game.season] += 1 # build key value pair first and then add to it  READABILTY
       else
@@ -79,7 +80,7 @@ class GameManager
 
   def average_goals_per_game
     goals = 0
-    @games.each do |game_id, game|
+    @games.each do |game|
       goals += (game.away_goals.to_i + game.home_goals.to_i)
     end
     (goals.fdiv(@games.length)).round(2)
@@ -89,7 +90,7 @@ class GameManager
     season_data = {}
     total_games = "games"
     total_goals = "goals"
-    @games.each do |game_id, game|
+    @games.each do |game|
       if season_data.include?(game.season)# build key value pair first and then add to it READABILTY
         season_data[game.season][total_games] += 1
         season_data[game.season][total_goals] += (game.away_goals.to_i + game.home_goals.to_i)
@@ -107,8 +108,8 @@ class GameManager
     result
   end
 
-  def seasons #WRITE TEST FOR THIS
-    @games.map do |game_id, game|
+  def seasons
+    @games.map do |game|
       game.season
     end.uniq
   end
