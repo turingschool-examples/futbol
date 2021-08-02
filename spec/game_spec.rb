@@ -3,7 +3,7 @@ require './lib/game'
 
 RSpec.describe Game do
 
-  it 'exists and can take a has' do
+  it 'exists and can take a hash' do
     game = Game.new({
       game_id: 1,
       type: 'away'

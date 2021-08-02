@@ -1,11 +1,11 @@
-class TeamStatistics
-  attr_reader :games, :teams, :game_teams
-
-  def initialize (games, teams, game_teams)
-    @games = games
-    @teams = teams
-    @game_teams = game_teams
-  end
+module TeamStatistics
+  # attr_reader :games, :teams, :game_teams
+  #
+  # def initialize (games, teams, game_teams)
+  #   @games = games
+  #   @teams = teams
+  #   @game_teams = game_teams
+  # end
 
   def team_info(team_id)
     team_info = {}
@@ -34,7 +34,7 @@ class TeamStatistics
   end
 
   def average_win_percentage(team_id)
-    games_won(team_id).length.fdiv(all_games_played(team_id).length)
+    games_won(team_id).length.fdiv(all_games_played(team_id).length).round(2)
   end
 
   def most_goals_scored(team_id)
