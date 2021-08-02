@@ -113,4 +113,34 @@ RSpec.describe GameTeamManager do
   it 'has team with least tackles' do
     expect(@game_team_manager.fewest_tackles(@season_team_ids)).to eq('16')
   end
+
+  it "creates a hash of teams and goals" do
+    results = {
+      "16"=>[2],
+      "17"=>[1],
+      "3"=>[2, 2, 1, 2, 1],
+      "5"=>[0, 1, 1, 0],
+      "6"=>[3, 3, 2, 3, 3, 3, 4, 2, 1]
+    }
+    expect(@game_team_manager.goals_by_team).to eq(results)
+  end
+
+  it "returns the average all time goals per game by team" do
+    results = {
+      "16"=>2.0,
+      "17"=>1.0,
+      "3"=>1.6,
+      "5"=>0.5,
+      "6"=>2.66
+    }
+    expect(@game_team_manager.average_goals).to eq(results)
+  end
+
+  it "returns the team id of team with the highest average goals per game" do
+    expect(@game_team_manager.best_average_score_team).to eq("6")
+  end
+
+  it "returns the team id of team with the lowest average goals per game" do
+    expect(@game_team_manager.worst_average_score_team).to eq("5")
+  end
 end
