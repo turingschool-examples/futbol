@@ -1,0 +1,26 @@
+<body>
+  <header>
+    <h1> Futbol Statistics</h1>
+  </header>
+
+  <a href="./index.html">Home</a>
+  <a href="./league.html">League Stats</a>
+  <a href="./season.html">Season Stats</a>
+  <a href="./team.html">Team Stats</a>
+
+  <h3>Game Statistics</h3>
+  <p>Highest Total Score: <%=stat_tracker.highest_total_score%></p>
+  <p>Lowest Total Score: <%=stat_tracker.lowest_total_score%></p>
+  <p>Percentage Home Wins: <%=stat_tracker.percentage_home_wins%></p>
+  <p>Percentage Visitor Wins: <%=stat_tracker.percentage_visitor_wins%></p>
+  <p>Percentage Ties: <%=stat_tracker.percentage_ties%></p>
+  <p>Count of Games by Season:</p>
+  <table>
+    <% stat_tracker.count_of_games_by_season.each do |season, count| %>
+      <td> <%= "#{season}: #{count}    " %> </td>
+      
+    <% end %>
+  </table>
+  <p>Average Goals per Game: <%=stat_tracker.average_goals_per_game%></p>
+  <p>Average Goals by Season: <%=stat_tracker.average_goals_by_season%></p>
+</body>

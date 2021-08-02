@@ -27,6 +27,11 @@ RSpec.describe TeamStatistics do
       expect(stat_tracker.team_info("18")).to eq(expected)
     end
 
+    it '#team_win?' do
+      expect(stat_tracker.team_win?("3", stat_tracker.games[0])).to be false
+      expect(stat_tracker.team_win?("6", stat_tracker.games[0])).to be true
+    end
+
     it "#find_win_count" do
       expect(stat_tracker.find_win_count("6")).to eq({
         "20122013"=>[11, 10],
@@ -55,8 +60,9 @@ RSpec.describe TeamStatistics do
     end
 
   #MOCK N STUB
-    xit "#game_teams_by_id(team_id)" do
-      expect(stat_tracker.game_teams_by_id("18")).to eq 7
+    it "#game_teams_by_id(team_id)" do
+      expect(stat_tracker.game_teams_by_id("18")).to be_an(Array)
+      expect(stat_tracker.game_teams_by_id("18").length).to eq(28)
     end
 
     it "#most_goals_scored(team_id)" do
@@ -68,8 +74,9 @@ RSpec.describe TeamStatistics do
     end
 
   #mock and stub
-    xit "#games_against_rivals(team_id)" do
-      expect(stat_tracker.games_against_rivals("18")[3]).to eq 0
+    it "#games_against_rivals(team_id)" do
+      expect(stat_tracker.games_against_rivals("18")).to be_a(Hash)
+      expect(stat_tracker.games_against_rivals("18").length).to eq(17)
     end
 
     it "#win_percentage_against_rivals(team_id)" do
