@@ -60,7 +60,24 @@ RSpec.describe StatTracker do
   it 'has team with least tackles' do
     expect(@stat_tracker.fewest_tackles('20122013')).to eq('New England Revolution')
   end
+
+  it "counts number of teams" do
+    expect(@stat_tracker.count_of_teams).to eq(32)
+  end
+
+  it "returns the name of the team with the highest avg goals per game" do
+    expect(@stat_tracker.best_offense).to eq("FC Dallas")
+  end
+
+  it "returns the name of the team with the highest avg goals per game" do
+    expect(@stat_tracker.best_offense).to eq("FC Dallas")
+  end
+
+  it "returns the name of the team with the lowest avg goals per game" do
+    expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
+  end
 end
+
 
 
 
@@ -79,9 +96,3 @@ end
 # highest_scoring_home_team	Name of the team with the highest average score per game across all seasons when they are home.	String
 # lowest_scoring_visitor	Name of the team with the lowest average score per game across all seasons when they are a visitor.	String
 # lowest_scoring_home_team	Name of the team with the lowest average score per game across all seasons when they are at home.	String
-
-
-# stat_tracker = StatTracker.get_csv(locations)
-# p stat_tracker.find_team_by_id('3')
-# p stat_tracker.games_by_season
-# p stat_tracker.total_game_score_array
