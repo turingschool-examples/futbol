@@ -42,5 +42,7 @@ RSpec.describe Renameable do
 
   it 'returns count_equal_to' do
     expect(@game_stats.count_equal_to(@game_stats.games, :home_goals, :away_goals)).to eq(3)
+
+
   end
 end
