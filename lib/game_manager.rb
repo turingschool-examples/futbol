@@ -75,20 +75,12 @@ class GameManager < Manager
   end
 
   def average_goals_per_season
-    season_data = {}
-    total_games = "games"
-    total_goals = "goals"
+    season_data = Hash.new { |hash, key| hash[key] = { "games" => 0, "goals" => 0} }
     @games.each do |game|
-      if season_data.include?(game.season)# build key value pair first and then add to it READABILTY
-        season_data[game.season][total_games] += 1
-        season_data[game.season][total_goals] += (game.away_goals.to_i + game.home_goals.to_i)
-      else
-        season_data[game.season] = {
-          total_games => 1,
-          total_goals => (game.away_goals.to_i + game.home_goals.to_i)
-        }
-      end
+      season_data[game.season]["games"] += 1
+      season_data[game.season]["goals"] += (game.away_goals.to_i + game.home_goals.to_i)
     end
+
     result = {}
     season_data.each do |season, data|
       result[season] = (data["goals"].fdiv(data["games"])).round(2)
