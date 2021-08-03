@@ -112,7 +112,7 @@ class StatTracker
   end
 
   # def winningest_coach(season)
-  #   season_manager.winningest_coach(season)
+  #   game_team_manager.winningest_coach(game_manager.game_ids_by_season(season))
   # end
   #
   # def worst_coach(season)
