@@ -86,11 +86,15 @@ class GamesManager < SeasonsManager
     @games.each_with_object({}) do |game, acc|
       next unless game.has_team?(id)
 
-      opp_id = opponent_id(id, game)
-      acc[opp_id] ||= { wins: 0, total: 0 }
-      acc[opp_id][:wins] += 1 unless game.winner?(id)
-      acc[opp_id][:total] += 1
+      opponent_game(acc, id, game)
     end
+  end
+
+  def opponent_game(acc, id, game)
+    opp_id = opponent_id(id, game)
+    acc[opp_id] ||= { wins: 0, total: 0 }
+    acc[opp_id][:wins] += 1 unless game.winner?(id)
+    acc[opp_id][:total] += 1
   end
 
   def opponent_id(id, game)
