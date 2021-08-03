@@ -1,6 +1,5 @@
 require_relative './season'
 
-
 class SeasonManager
   attr_reader :seasons_hash
 
@@ -15,7 +14,6 @@ class SeasonManager
       games.each do |game|
         if game.season == season_id
           @seasons_hash[season_id].add_game(game.game_id, game, game_teams[game.game_id][:home], game_teams[game.game_id][:away])
-          # require "pry"; binding.pry
         end
       end
     end
@@ -41,11 +39,9 @@ class SeasonManager
     coach_wins[game_data[:away].head_coach][:total_games] += 1
   end
 
-
-
-  def winningest_coach(season)# rename to season id or something similar
+  def winningest_coach(season_id)
     coach_wins = {} # define a method for lines 46-61
-    @seasons_hash[season].games.each do |game_id, game_data|
+    @seasons_hash[season_id].games.each do |game_id, game_data|
       if coach_wins[game_data[:home].head_coach].nil? && coach_wins[game_data[:away].head_coach].nil?
         coach_wins[game_data[:home].head_coach] = games_and_wins
         coach_wins[game_data[:away].head_coach] = games_and_wins
@@ -88,22 +84,7 @@ class SeasonManager
   end
 
   def most_accurate_team(season)
-    most_accurate = {}
-    @seasons_hash[season].games.each do |game_id, game_data|
-      if most_accurate[game_data[:home].team_id].nil? && most_accurate[game_data[:away].team_id].nil?
-        most_accurate[game_data[:away].team_id] = goals_and_shots
-        most_accurate[game_data[:home].team_id] = goals_and_shots
-        add_goals_data(most_accurate, game_data)
-      elsif most_accurate[game_data[:home].team_id].nil?
-        most_accurate[game_data[:home].team_id] = goals_and_shots
-        add_goals_data(most_accurate, game_data)
-      elsif most_accurate[game_data[:away].team_id].nil?
-        most_accurate[game_data[:away].team_id] = goals_and_shots
-        add_goals_data(most_accurate, game_data)
-      else
-        add_goals_data(most_accurate, game_data)
-      end
-    end
+    most_accurate = @seasons_hash[season].most_accurate_team
 
     most_accurate_team = most_accurate.min_by do |team_id, goals_data|
       goals_data[:total_shots].fdiv(goals_data[:total_goals])
@@ -112,40 +93,14 @@ class SeasonManager
     most_accurate_team
   end
 
-  def add_goals_data(accurate_hash, game_data)
-    accurate_hash[game_data[:home].team_id][:total_goals] += game_data[:home].goals.to_i
-    accurate_hash[game_data[:away].team_id][:total_goals] += game_data[:away].goals.to_i
-    accurate_hash[game_data[:home].team_id][:total_shots] += game_data[:home].shots.to_i
-    accurate_hash[game_data[:away].team_id][:total_shots] += game_data[:away].shots.to_i
-  end
-
-  def goals_and_shots
-    {total_goals: 0, total_shots: 0}
-  end
-
   def least_accurate_team(season)
-    least_accurate = {}
-    @seasons_hash[season].games.each do |game_id, game_data|
-      if least_accurate[game_data[:home].team_id].nil? && least_accurate[game_data[:away].team_id].nil?
-        least_accurate[game_data[:away].team_id] = goals_and_shots
-        least_accurate[game_data[:home].team_id] = goals_and_shots
-        add_goals_data(least_accurate, game_data)
-      elsif least_accurate[game_data[:home].team_id].nil?
-        least_accurate[game_data[:home].team_id] = goals_and_shots
-        add_goals_data(least_accurate, game_data)
-      elsif least_accurate[game_data[:away].team_id].nil?
-        least_accurate[game_data[:away].team_id] = goals_and_shots
-        add_goals_data(least_accurate, game_data)
-      else
-        add_goals_data(least_accurate, game_data)
-      end
-    end
+    least_accurate = @seasons_hash[season].least_accurate_team
+
     least = least_accurate.max_by do |team_id, goals_data|
       goals_data[:total_shots].fdiv(goals_data[:total_goals])
     end.first
 
     least
-
   end
 
   def create_teams_tackle_data(most_tackles, game_data, hoa)
@@ -155,7 +110,6 @@ class SeasonManager
   def add_tackle_data(most_tackles, game_data)
       most_tackles[game_data[:home].team_id] += game_data[:home].tackles.to_i
       most_tackles[game_data[:away].team_id] += game_data[:away].tackles.to_i
-
   end
 
 
