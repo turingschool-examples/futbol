@@ -8,8 +8,6 @@ require_relative './game_statistics'
 require_relative './season_statistics'
 
 class StatTracker
-  include League
-  include TeamStatistics
   attr_reader :games, :teams, :game_teams
 
   def initialize (games, teams, game_teams)
@@ -51,6 +49,14 @@ class StatTracker
 
   def season_statistics
     SeasonStatistics.new(@games, @teams, @game_teams)
+  end
+
+  def league_statistics
+    LeagueStatistics.new(@games, @teams, @game_teams)
+  end
+
+  def team_statistics
+    TeamStatistics.new(@games, @teams, @game_teams)
   end
 
   def highest_total_score
@@ -125,6 +131,69 @@ class StatTracker
     season_statistics.fewest_tackles(season)
   end
 
+  #league statistics methods
+
+  def count_of_teams
+    league_statistics.count_of_teams
+  end
+
+  def best_offense
+    league_statistics.best_offense
+  end
+
+  def worst_offense
+    league_statistics.worst_offense
+  end
+
+  def highest_scoring_visitor
+    league_statistics.highest_scoring_visitor
+  end
+
+  def lowest_scoring_visitor
+    league_statistics.lowest_scoring_visitor
+  end
+
+  def lowest_scoring_home_team
+    league_statistics.lowest_scoring_home_team
+  end
+
+  def highest_scoring_home_team
+    league_statistics.highest_scoring_home_team
+  end
+
+  #team statistics methods
+
+  def team_info(team_id)
+    team_statistics.team_info(team_id)
+  end
+
+  def best_season(team_id)
+    team_statistics.best_season(team_id)
+  end
+
+  def worst_season(team_id)
+    team_statistics.worst_season(team_id)
+  end
+
+  def average_win_percentage(team_id)
+    team_statistics.average_win_percentage(team_id)
+  end
+
+  def most_goals_scored(team_id)
+    team_statistics.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    team_statistics.fewest_goals_scored(team_id)
+  end
+
+  def favorite_opponent(team_id)
+    team_statistics.favorite_opponent(team_id)
+  end
+
+  def rival(team_id)
+    team_statistics.rival(team_id)
+  end
 
 
 end
