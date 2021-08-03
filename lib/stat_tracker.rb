@@ -194,6 +194,4 @@ class StatTracker
   def rival(team_id)
     team_statistics.rival(team_id)
   end
-
-
 end
