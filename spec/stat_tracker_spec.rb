@@ -4,9 +4,9 @@ require 'spec_helper'
 RSpec.describe StatTracker do
   before(:each) do
 
-    game_path = './data/season_game_sample.csv'
+    game_path = './data/games.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/season_game_teams_sample.csv'
+    game_teams_path = './data/game_teams.csv'
 
     locations = {
       games: game_path,
