@@ -59,31 +59,32 @@ class Season
     tackles_by_team
   end
 
-  # def process_away_win(season_data, game_data, season_id)
-  #   if game_data[:game].away_goals > game_data[:game].home_goals
-  #     season_data[season_id][:total_wins] += 1
-  #   end
-  #   season_data[season_id][:total_games] += 1
-  # end
-  #
-  # def process_home_win(season_data, game_data, season_id)
-  #   if game_data[:game].away_goals < game_data[:game].home_goals
-  #     season_data[season_id][:total_wins] += 1
-  #   end
-  #   season_data[season_id][:total_games] += 1
-  # end
-  #
-  # def games_and_wins_by_team(team_id)
-  #   games_and_wins = Hash.new {|h, k| h[k] = {total_games: 0, total_wins: 0}}
-  #   @games.each do |game_id, game_data|
-  #     home_team_id = game_data[:game].home_team_id
-  #     away_team_id = game_data[:game].away_team_id
-  #     if away_team_id == team_id
-  #       process_away_win(games_and_wins, game_data, game_data[:game].season)
-  #     elsif home_team_id == team_id
-  #       process_home_win(games_and_wins, game_data, game_data[:game].season)
-  #     end
-  #   end
-  #   games_and_wins
-  # end
+  def process_away_win(games_and_wins, game_data, season_id)
+    if game_data[:game].away_goals > game_data[:game].home_goals
+      games_and_wins[:total_wins] += 1
+    end
+    games_and_wins[:total_games] += 1
+  end
+
+  def process_home_win(games_and_wins, game_data, season_id)
+    if game_data[:game].away_goals < game_data[:game].home_goals
+      games_and_wins[:total_wins] += 1
+    end
+    games_and_wins[:total_games] += 1
+  end
+
+  def games_and_wins_by_team(team_id)
+    games_and_wins = {total_games: 0, total_wins: 0}
+    @games.each do |game_id, game_data|
+      home_team_id = game_data[:game].home_team_id
+      away_team_id = game_data[:game].away_team_id
+
+      if away_team_id == team_id
+        process_away_win(games_and_wins, game_data, game_data[:game].season)
+      elsif home_team_id == team_id
+        process_home_win(games_and_wins, game_data, game_data[:game].season)
+      end
+    end
+    games_and_wins
+  end
 end
