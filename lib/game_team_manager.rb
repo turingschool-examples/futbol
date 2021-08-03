@@ -124,6 +124,8 @@ class GameTeamManager
     end
   end
 
+  # LEAGUE METHODS
+
   def goals_by_team
     @game_teams.reduce({}) do |sorted_goals, game_team|
       sorted_goals[game_team.team_id] ||= []
@@ -140,16 +142,20 @@ class GameTeamManager
   end
 
   def best_average_score_team
-    average_goals.max_by { |team, average| average }.first
+    average_goals.max_by do |team, average|
+      average
+    end.first
   end
 
   def worst_average_score_team
-    average_goals.min_by { |team, average| average }.first
+    average_goals.min_by do |team, average|
+      average
+    end.first
   end
 
   def goals_by_team_home
     @game_teams.reduce({}) do |sorted_goals_home, game_team|
-      if game_team.hoa == "home"
+      if game_team.home?
         sorted_goals_home[game_team.team_id] ||= []
         sorted_goals_home[game_team.team_id] << game_team.goals.to_i
       end
@@ -165,16 +171,20 @@ class GameTeamManager
   end
 
   def best_average_score_team_home
-    average_goals_home.max_by { |team, average| average }.first
+    average_goals_home.max_by do |team, average|
+      average
+    end.first
   end
 
   def worst_average_score_team_home
-    average_goals_home.min_by { |team, average| average }.first
+    average_goals_home.min_by do |team, average|
+      average
+    end.first
   end
 
   def goals_by_team_away
     @game_teams.reduce({}) do |sorted_goals_away, game_team|
-      if game_team.hoa == "away"
+      if !game_team.home?
         sorted_goals_away[game_team.team_id] ||= []
         sorted_goals_away[game_team.team_id] << game_team.goals.to_i
       end
@@ -190,11 +200,15 @@ class GameTeamManager
   end
 
   def best_average_score_team_away
-    average_goals_away.max_by { |team, average| average }.first
+    average_goals_away.max_by do |team, average|
+      average
+    end.first
   end
 
   def worst_average_score_team_away
-    average_goals_away.min_by { |team, average| average }.first
+    average_goals_away.min_by do |team, average|
+      average
+    end.first
   end
 end
 
