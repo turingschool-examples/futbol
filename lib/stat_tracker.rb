@@ -7,14 +7,12 @@ require_relative './season_manager'
 class StatTracker
   attr_reader :game_manager,
               :team_manager,
-              :game_team_manager,
-              :season_manager
+              :game_team_manager
 
   def initialize(file_paths)
     @game_manager      = GameManager.new(file_paths[:games])
     @team_manager      = TeamManager.new(file_paths[:teams])
     @game_team_manager = GameTeamManager.new(file_paths[:game_teams])
-    @season_manager    = SeasonManager.new(@game_manager.seasons, @game_manager.games, @game_team_manager.game_teams)
   end
 
   def self.from_csv(file_paths)
@@ -85,13 +83,13 @@ class StatTracker
     team_manager.team_info(team_id)
   end
 
-  def best_season(team_id)
-    season_manager.best_season(team_id)
-  end
-
-  def worst_season(team_id)
-    season_manager.worst_season(team_id)
-  end
+  # def best_season(team_id)
+  #   season_manager.best_season(team_id)
+  # end
+  #
+  # def worst_season(team_id)
+  #   season_manager.worst_season(team_id)
+  # end
 
   def average_win_percentage(team_id)
     game_team_manager.average_win_percentage(team_id)
@@ -113,27 +111,27 @@ class StatTracker
     team_manager.team_name_by_id(game_team_manager.rival(team_id))
   end
 
-  def winningest_coach(season)
-    season_manager.winningest_coach(season)
-  end
-
-  def worst_coach(season)
-    season_manager.worst_coach(season)
-  end
-
-  def most_accurate_team(season_id)
-    team_manager.team_name_by_id(season_manager.most_accurate_team(season_id))
-  end
-
-  def least_accurate_team(season_id)
-    team_manager.team_name_by_id(season_manager.least_accurate_team(season_id))
-  end
-
-  def most_tackles(season_id)
-    team_manager.team_name_by_id(season_manager.most_tackles(season_id))
-  end
-
-  def fewest_tackles(season_id)
-    team_manager.team_name_by_id(season_manager.fewest_tackles(season_id))
-  end
+  # def winningest_coach(season)
+  #   season_manager.winningest_coach(season)
+  # end
+  #
+  # def worst_coach(season)
+  #   season_manager.worst_coach(season)
+  # end
+  #
+  # def most_accurate_team(season_id)
+  #   team_manager.team_name_by_id(season_manager.most_accurate_team(season_id))
+  # end
+  #
+  # def least_accurate_team(season_id)
+  #   team_manager.team_name_by_id(season_manager.least_accurate_team(season_id))
+  # end
+  #
+  # def most_tackles(season_id)
+  #   team_manager.team_name_by_id(season_manager.most_tackles(season_id))
+  # end
+  #
+  # def fewest_tackles(season_id)
+  #   team_manager.team_name_by_id(season_manager.fewest_tackles(season_id))
+  # end
 end
