@@ -40,12 +40,12 @@ class StatTracker
   end
 
   def winningest_coach(season)
-    season_games = @season_manager.game_id_by_season(season) #returns array of game ids
+    season_games = @season_manager.game_id_by_season(season)
     @game_team_manager.winningest_coach(season_games)
   end
 
   def worst_coach(season)
-    season_games = @season_manager.game_id_by_season(season) #returns array of game ids
+    season_games = @season_manager.game_id_by_season(season)
     @game_team_manager.worst_coach(season_games)
   end
 
