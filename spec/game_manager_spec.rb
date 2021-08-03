@@ -101,5 +101,13 @@ RSpec.describe GameManager do
       expect(game_manager.seasons).to eq(["20122013"])
     end
   end
-#
+
+  describe '#game_ids_by_season(season_id)' do
+    it 'does that' do
+      file_path = './data/fixture_games.csv'
+      game_manager = GameManager.new(file_path)
+
+      expect(game_manager.game_ids_by_season("20122013").first).to eq("2012030221")
+    end
+  end
 end
