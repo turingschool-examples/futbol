@@ -55,25 +55,25 @@ class SeasonManager
   #   end.first
   # end
 
-  def most_accurate_team(season)
-    accuracy = @seasons_hash[season].accuracy
-
-    most_accurate_team = accuracy.min_by do |team_id, goals_data|
-      goals_data[:total_shots].fdiv(goals_data[:total_goals])
-    end.first
-
-    most_accurate_team
-  end
-
-  def least_accurate_team(season)
-    accuracy = @seasons_hash[season].accuracy
-
-    least = accuracy.max_by do |team_id, goals_data|
-      goals_data[:total_shots].fdiv(goals_data[:total_goals])
-    end.first
-
-    least
-  end
+  # def most_accurate_team(season)
+  #   accuracy = @seasons_hash[season].accuracy
+  #
+  #   most_accurate_team = accuracy.min_by do |team_id, goals_data|
+  #     goals_data[:total_shots].fdiv(goals_data[:total_goals])
+  #   end.first
+  #
+  #   most_accurate_team
+  # end
+  #
+  # def least_accurate_team(season)
+  #   accuracy = @seasons_hash[season].accuracy
+  #
+  #   least = accuracy.max_by do |team_id, goals_data|
+  #     goals_data[:total_shots].fdiv(goals_data[:total_goals])
+  #   end.first
+  #
+  #   least
+  # end
 
   def create_teams_tackle_data(most_tackles, game_data, hoa)
     most_tackles[game_data[hoa].team_id] = game_data[hoa].tackles.to_i

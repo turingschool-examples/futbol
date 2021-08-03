@@ -13,20 +13,20 @@ class Season
     }
   end
 
-  def add_goals_data(accurate_hash, game_data)
-    accurate_hash[game_data[:home].team_id][:total_goals] += game_data[:home].goals.to_i
-    accurate_hash[game_data[:away].team_id][:total_goals] += game_data[:away].goals.to_i
-    accurate_hash[game_data[:home].team_id][:total_shots] += game_data[:home].shots.to_i
-    accurate_hash[game_data[:away].team_id][:total_shots] += game_data[:away].shots.to_i
-  end
-
-  def accuracy
-    accuracy = Hash.new {|h, k| h[k] = {total_goals: 0, total_shots: 0}}
-    @games.each do |game_id, game_data|
-      add_goals_data(accuracy, game_data)
-    end
-    accuracy
-  end
+  # def add_goals_data(accurate_hash, game_data)
+  #   accurate_hash[game_data[:home].team_id][:total_goals] += game_data[:home].goals.to_i
+  #   accurate_hash[game_data[:away].team_id][:total_goals] += game_data[:away].goals.to_i
+  #   accurate_hash[game_data[:home].team_id][:total_shots] += game_data[:home].shots.to_i
+  #   accurate_hash[game_data[:away].team_id][:total_shots] += game_data[:away].shots.to_i
+  # end
+  #
+  # def accuracy
+  #   accuracy = Hash.new {|h, k| h[k] = {total_goals: 0, total_shots: 0}}
+  #   @games.each do |game_id, game_data|
+  #     add_goals_data(accuracy, game_data)
+  #   end
+  #   accuracy
+  # end
 
   # def add_coach_data(coach_wins, game_data)
   #   if game_data[:away].result == 'WIN'

@@ -120,22 +120,22 @@ class StatTracker
   end
 
   def most_accurate_team(season_id)
-    most_accurate = game_team_manager.most_accurate_team(game_manager.game_ids_by_season(season))
+    most_accurate = game_team_manager.most_accurate_team(game_manager.game_ids_by_season(season_id))
     team_manager.team_name_by_id(most_accurate)
   end
 
   def least_accurate_team(season_id)
-    least_accurate = game_team_manager.least_accurate_team(game_manager.game_ids_by_season(season))
+    least_accurate = game_team_manager.least_accurate_team(game_manager.game_ids_by_season(season_id))
     team_manager.team_name_by_id(least_accurate)
   end
 
   def most_tackles(season_id)
-    most_tackles = game_team_manager.most_tackles(game_manager.game_ids_by_season(season))
+    most_tackles = game_team_manager.most_tackles(game_manager.game_ids_by_season(season_id))
     team_manager.team_name_by_id(most_tackles)
   end
 
   def fewest_tackles(season_id)
-    fewest_tackles = game_team_manager.fewest_tackles(game_manager.game_ids_by_season(season))
+    fewest_tackles = game_team_manager.fewest_tackles(game_manager.game_ids_by_season(season_id))
     team_manager.team_name_by_id(fewest_tackles)
   end
 end
