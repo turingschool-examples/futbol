@@ -96,6 +96,11 @@ RSpec.describe StatTracker do
   it "checks highest total score" do
     expect(@stat_tracker.highest_total_score).to eq(5)
   end
+
+  it "checks lowest total score" do
+    expect(@stat_tracker.lowest_total_score).to eq(1)
+
+  end
 end
 
 
