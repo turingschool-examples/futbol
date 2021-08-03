@@ -182,8 +182,24 @@ RSpec.describe GameTeamManager do
   describe '#least_accurate_team' do
     it "can return the least least_accurate_team according to shots on goal" do
       games_by_season = @game_manager.game_ids_by_season("20122013")
-      
+
       expect(@game_team_manager.least_accurate_team(games_by_season)).to eq("5")
+    end
+  end
+
+  describe '#most_tackles' do
+    it "can return the name of the team witht he most tackles" do
+      games_by_season = @game_manager.game_ids_by_season("20122013")
+
+      expect(@game_team_manager.most_tackles(games_by_season)).to eq('17')
+    end
+  end
+
+  describe '#fewest_tackles' do
+    it "can return the name of the team with the least tackles" do
+      games_by_season = @game_manager.game_ids_by_season("20122013")
+
+      expect(@game_team_manager.fewest_tackles(games_by_season)).to eq("5")
     end
   end
 end

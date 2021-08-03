@@ -46,17 +46,17 @@ RSpec.describe SeasonManager do
   #   end
   # end
 
-  describe '#most_tackles' do
-    it "can return the name of the team witht he most tackles" do
-      expect(@stat_tracker.season_manager.most_tackles("20122013")).to eq('17')
-    end
-  end
-
-  describe '#fewest_tackles' do
-    it "can return the name of the team with the least tackles" do
-      expect(@stat_tracker.season_manager.fewest_tackles("20122013")).to eq("5")
-    end
-  end
+  # describe '#most_tackles' do
+  #   it "can return the name of the team witht he most tackles" do
+  #     expect(@stat_tracker.season_manager.most_tackles("20122013")).to eq('17')
+  #   end
+  # end
+  #
+  # describe '#fewest_tackles' do
+  #   it "can return the name of the team with the least tackles" do
+  #     expect(@stat_tracker.season_manager.fewest_tackles("20122013")).to eq("5")
+  #   end
+  # end
 
   describe '#best_season' do
     it "can return the best season for a team by highest win percentage" do
