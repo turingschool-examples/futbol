@@ -155,4 +155,60 @@ RSpec.describe GameTeamManager do
   it "returns the team id of team with the lowest average goals per game" do
     expect(@game_team_manager.worst_average_score_team).to eq("5")
   end
+
+  it "creates a hash of teams and goals for home games" do
+    results = {
+      "16" => [2],
+      "3" => [1, 2],
+      "5" => [0, 1],
+      "6" => [3, 3, 3, 2, 1]
+    }
+    expect(@game_team_manager.goals_by_team_home).to eq(results)
+  end
+
+  it "creates a hash of teams and goals for away games" do
+    results = {
+      "17" => [1],
+      "3" => [2, 2, 1],
+      "5" => [1, 0],
+      "6" => [2, 3, 3, 4]
+    }
+    expect(@game_team_manager.goals_by_team_away).to eq(results)
+  end
+
+  it "returns the average home goals per game by team" do
+    results = {
+      "16" => 2.0,
+      "3" => 1.5,
+      "5" => 0.5,
+      "6" => 2.4
+    }
+    expect(@game_team_manager.average_goals_home).to eq(results)
+  end
+
+  it "returns the team id of team with the highest average goals for home games" do
+    expect(@game_team_manager.best_average_score_team_home).to eq("6")
+  end
+
+  it "returns the team id of team with the lowest average goals for home games" do
+    expect(@game_team_manager.worst_average_score_team_home).to eq("5")
+  end
+
+  it "returns the average away goals per game by team" do
+    results = {
+      "17" => 1.0,
+      "3" => 1.66,
+      "5" => 0.5,
+      "6" => 3.0
+    }
+    expect(@game_team_manager.average_goals_away).to eq(results)
+  end
+
+  it "returns the team id of team with the highest average goals for away games" do
+    expect(@game_team_manager.best_average_score_team_away).to eq("6")
+  end
+
+  it "returns the team id of team with the lowest average goals for away games" do
+    expect(@game_team_manager.worst_average_score_team_away).to eq("5")
+  end
 end
