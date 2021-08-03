@@ -81,9 +81,21 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#winningest_coach' do
-    it "can return all the coaches and their win percentages" do
-      expect(@stat_tracker.season_manager.winningest_coach("20122013")).to eq("Claude Julien")
+  # describe '#winningest_coach' do
+  #   it "can return all the coaches and their win percentages" do
+  #     expect(@stat_tracker.season_manager.winningest_coach("20122013")).to eq("Claude Julien")
+  #   end
+  # end
+
+  describe '#best_season' do
+    it "can return the best season from a given team" do
+      expect(@stat_tracker.best_season("6")).to eq("20122013")
+    end
+  end
+
+  describe '#worst_season' do
+    it "can return the best season from a given team" do
+      expect(@stat_tracker.worst_season("6")).to eq("20122013")
     end
   end
 end

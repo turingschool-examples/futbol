@@ -32,4 +32,5 @@ class GameTeam
     @giveaways              = params["giveaways"]
     @takeaways              = params["takeaways"]
   end
+
 end

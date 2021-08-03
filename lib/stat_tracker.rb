@@ -83,13 +83,13 @@ class StatTracker
     team_manager.team_info(team_id)
   end
 
-  # def best_season(team_id)
-  #   season_manager.best_season(team_id)
-  # end
+  def best_season(team_id)
+    game_manager.best_season(team_id)
+  end
   #
-  # def worst_season(team_id)
-  #   season_manager.worst_season(team_id)
-  # end
+  def worst_season(team_id)
+    game_manager.worst_season(team_id)
+  end
 
   def average_win_percentage(team_id)
     game_team_manager.average_win_percentage(team_id)
