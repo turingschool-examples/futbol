@@ -21,8 +21,7 @@ class SeasonStatistics
     goals_by_team = hash_generator(@game_teams, :team_id, :goals, season)
 
     accuracy = goals_by_team.max_by do |id, goals|
-      tot_goals = total_shots(season)[id]
-      goals.fdiv(tot_goals)
+      goals.fdiv(total_shots(season)[id])
     end
     team_identifier(accuracy[0])
   end
@@ -31,8 +30,7 @@ class SeasonStatistics
     goals_by_team = hash_generator(@game_teams, :team_id, :goals, season)
 
     accuracy = goals_by_team.min_by do |id, goals|
-      tot_goals = total_shots(season)[id]
-      goals.fdiv(tot_goals)
+      goals.fdiv(total_shots(season)[id])
     end
     team_identifier(accuracy[0])
   end
@@ -40,6 +38,7 @@ class SeasonStatistics
   def total_games_by_coach(season)
     games_by_coach = Hash.new(0)
     @game_teams.each do |game|
+      require "pry"; binding.pry
       if season_verification(game, season)
         games_by_coach[game.head_coach] += 1
       end
@@ -50,7 +49,7 @@ class SeasonStatistics
   def wins_by_coach(season)
     coach_wins_hash = total_games_by_coach(season)
     @game_teams.each do |game|
-      if season_verification(game, season) && game.result == "WIN"
+      if season_verification(game, season) && game.win?
         coach_wins_hash[game.head_coach] += 1
       end
     end

@@ -27,6 +27,32 @@ RSpec.describe SeasonStatistics do
     expect(@season_stats.game_teams).to be_a(Array)
   end
 
+  it "counts total shots" do
+    expect(@season_stats.total_shots('20122013')).to eq({
+      "15" => 52,
+      "16" => 134,
+      "17" => 98,
+      "19" => 42,
+      "2"  => 47,
+      "24" => 54,
+      "26" => 69,
+      "3"  => 87,
+      "30" => 33,
+      "5"  => 71,
+      "6"  => 76,
+      "8"  => 43,
+      "9"  => 36,
+      })
+  end
+
+  it "most accurate team" do
+    expect(@season_stats.most_accurate_team('20122013')).to eq("New York City FC")
+  end
+
+  it "least accurate team" do
+    expect(@season_stats.least_accurate_team('20122013')).to eq("Houston Dynamo")
+  end
+
   it 'returns total games by coach' do
     expect(@season_stats.total_games_by_coach("20122013")).to eq({
       "Adam Oates"       => 7,
@@ -41,7 +67,7 @@ RSpec.describe SeasonStatistics do
       "Michel Therrien"  => 5,
       "Mike Babcock"     => 14,
       "Mike Yeo"         => 5,
-      "Paul MacLean"     => 5,
+      "Paul MacLean"     => 5
     })
   end
 
@@ -69,36 +95,6 @@ RSpec.describe SeasonStatistics do
 
   it 'worst coach' do
     expect(@season_stats.worst_coach("20122013")).to eq("John Tortorella")
-  end
-
-  it 'returns a hash with team ID keys and team name values' do
-    expect(@season_stats.team_identifier("3")).to eq("Houston Dynamo")
-  end
-
-  it "counts total shots" do
-    expect(@season_stats.total_shots('20122013')).to eq({
-      "15" => 52,
-      "16" => 134,
-      "17" => 98,
-      "19" => 42,
-      "2"  => 47,
-      "24" => 54,
-      "26" => 69,
-      "3"  => 87,
-      "30" => 33,
-      "5"  => 71,
-      "6"  => 76,
-      "8"  => 43,
-      "9"  => 36,
-      })
-  end
-
-  it "most accurate team" do
-    expect(@season_stats.most_accurate_team('20122013')).to eq("New York City FC")
-  end
-
-  it "least accurate team" do
-    expect(@season_stats.least_accurate_team('20122013')).to eq("Houston Dynamo")
   end
 
   it "most tackles in a season" do

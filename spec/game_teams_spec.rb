@@ -42,4 +42,13 @@ RSpec.describe GameTeams do
     expect(game_teams.giveaways).to eq("17")
     expect(game_teams.takeaways).to eq("7")
   end
+
+  it 'returns win result' do
+    hash = {
+      result:"LOSS",
+    }
+    game_teams = GameTeams.new(hash)
+
+    expect(game_teams.win?).to eq(false)
+  end
 end
