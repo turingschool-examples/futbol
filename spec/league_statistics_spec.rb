@@ -5,7 +5,7 @@ require "./lib/league_statistics"
 
 
 SimpleCov.start
-RSpec.describe League do
+RSpec.describe LeagueStatistics do
   before(:each) do
     game_path = './data/games_test.csv'
     team_path = './data/teams.csv'
@@ -18,13 +18,13 @@ RSpec.describe League do
     }
 
     @stat_tracker = StatTracker.from_csv(locations)
-    @league = League.new(@stat_tracker.games, @stat_tracker.teams, @stat_tracker.game_teams)
+    @league = LeagueStatistics.new(@stat_tracker.games, @stat_tracker.teams, @stat_tracker.game_teams)
   end
 
   it 'exists and can read data' do
-    league = League.new([], [], [])
+    league = LeagueStatistics.new([], [], [])
 
-    expect(league).to be_a(League)
+    expect(league).to be_a(LeagueStatistics)
     expect(league.games).to eq([])
     expect(league.teams).to eq([])
     expect(league.game_teams).to eq([])
