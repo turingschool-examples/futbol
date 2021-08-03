@@ -97,4 +97,8 @@ class StatTracker
   def lowest_scoring_home_team
     @game_team_manager.worst_average_score_team_home
   end
+
+  def percentage_ties
+    @game_manager.percentage_ties
+  end
 end
