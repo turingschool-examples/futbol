@@ -58,43 +58,37 @@ class StatTracker
   end
 
   def best_offense
-    id = game_team_manager.best_offense
-    team_manager.team_name_by_id(id)
+    team_manager.team_name_by_id(game_team_manager.best_offense)
   end
 
   def worst_offense
-    id = game_team_manager.worst_offense
-    team_manager.team_name_by_id(id)
+    team_manager.team_name_by_id(game_team_manager.worst_offense)
   end
 
   def highest_scoring_visitor
-    id = game_team_manager.highest_scoring_visitor
-    team_manager.team_name_by_id(id)
+    team_manager.team_name_by_id(game_team_manager.highest_scoring_visitor)
   end
 
   def highest_scoring_home_team
-    id = game_team_manager.highest_scoring_home_team
-    team_manager.team_name_by_id(id)
+    team_manager.team_name_by_id(game_team_manager.highest_scoring_home_team)
   end
 
   def lowest_scoring_visitor
-    id = game_team_manager.lowest_scoring_visitor
-    team_manager.team_name_by_id(id)
+    team_manager.team_name_by_id(game_team_manager.lowest_scoring_visitor)
   end
 
   def lowest_scoring_home_team
-    id = game_team_manager.lowest_scoring_home_team
-    team_manager.team_name_by_id(id)
+    team_manager.team_name_by_id(game_team_manager.lowest_scoring_home_team)
   end
 
   def team_info(team_id)
     team_manager.team_info(team_id)
   end
-#not working yet
+
   def best_season(team_id)
     season_manager.best_season(team_id)
   end
-  #not working yet
+
   def worst_season(team_id)
     season_manager.worst_season(team_id)
   end
@@ -112,13 +106,11 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
-    id = game_team_manager.favorite_opponent(team_id)
-    team_manager.team_name_by_id(id)
+    team_manager.team_name_by_id(game_team_manager.favorite_opponent(team_id))
   end
 
   def rival(team_id)
-    id = game_team_manager.rival(team_id)
-    team_manager.team_name_by_id(id)
+    team_manager.team_name_by_id(game_team_manager.rival(team_id))
   end
 
   def winningest_coach(season)
@@ -130,22 +122,18 @@ class StatTracker
   end
 
   def most_accurate_team(season_id)
-    id = season_manager.most_accurate_team(season_id)
-    team_manager.team_name_by_id(id)
+    team_manager.team_name_by_id(season_manager.most_accurate_team(season_id))
   end
 
   def least_accurate_team(season_id)
-    id = season_manager.least_accurate_team(season_id)
-    team_manager.team_name_by_id(id)
+    team_manager.team_name_by_id(season_manager.least_accurate_team(season_id))
   end
 
   def most_tackles(season_id)
-    id = season_manager.most_tackles(season_id)
-    team_manager.team_name_by_id(id)
+    team_manager.team_name_by_id(season_manager.most_tackles(season_id))
   end
 
   def fewest_tackles(season_id)
-    id = season_manager.fewest_tackles(season_id)
-    team_manager.team_name_by_id(id)
+    team_manager.team_name_by_id(season_manager.fewest_tackles(season_id))
   end
 end
