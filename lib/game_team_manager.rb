@@ -26,50 +26,50 @@ class GameTeamManager
     game_results.include?("TIE")
   end
 
-  def coaches(season_game_ids)
-    season_game_ids.flat_map do |game_id|
-      game_team_pair = by_game_id(game_id)
-      game_team_pair.map do |game_team|
+  def coaches(game_ids)
+    game_ids.flat_map do |game_id|
+      by_game_id(game_id).flat_map do |game_team|
         game_team.head_coach
       end
-    end
+    end.uniq
   end
 
-  def coach_wins(season_game_ids)
-    coach_results = {}
-    coaches(season_game_ids).uniq.each do |coach|
-      coach_results[coach] = winning_coaches(season_game_ids).count(coach)
+  def by_coach(game_ids, coach)
+    all = game_ids.flat_map do |game_id|
+      by_game_id(game_id)
     end
-    coach_results
+    filtered = all.filter do |game_team|
+      game_team.head_coach == coach
+    end
+    filtered
   end
 
-  def winning_coach(game_id)
-    winner = by_game_id(game_id).find do |game_team|
+  def wins(collection)
+    collection.count do |game_team|
       game_team.result == "WIN"
     end
-    winner.head_coach
   end
 
-  def winning_coaches(season_game_ids)
-    season_game_ids.map do |game|
-      if !tied?(game)
-        winning_coach(game)
-      end
+  def total_games(collection)
+    collection.count
+  end
+
+  def win_percentage(collection)
+    (wins(collection) / total_games(collection).to_f * 100).round(2)
+  end
+
+  def winningest_coach(game_ids)
+    winningest = coaches(game_ids).max_by do |coach|
+      win_percentage(by_coach(game_ids, coach))
     end
+    winningest
   end
 
-  def winningest_coach(season_game_ids)
-    winningest = coach_wins(season_game_ids).max_by do |coach, wins|
-      wins.to_f / coaches(season_game_ids).count(coach) * 100
-    end # returns array [coach_name, win_count]
-    winningest[0] #coach name will be index 0
-  end
-
-  def worst_coach(season_game_ids)
-    worst = coach_wins(season_game_ids).min_by do |coach, wins|
-      wins.to_f / coaches(season_game_ids).count(coach) * 100
+  def worst_coach(game_ids)
+    worst_team = coaches(game_ids).min_by do |coach|
+      win_percentage(by_coach(game_ids, coach))
     end
-    worst[0]
+    worst_team
   end
 
   def total_shots(team_id)
