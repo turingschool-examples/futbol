@@ -6,19 +6,20 @@ class GameTeamManager
 
   def initialize(file_path)
     @file_path = file_path
-    @game_teams = {}
-    load
+    @game_teams = load
   end
 
-  def load # Chance for Inheritance Refactor
+  def load
+    gt_games = Hash.new { |hash, key| hash[key] = { away: nil, home: nil} }
     data = CSV.read(@file_path, headers: true)
     data.each do |row|
-      if @game_teams[row["game_id"]].nil?
-        @game_teams[row["game_id"]] = {away: GameTeam.new(row)}
-      else # Too brittle. Turn into a elsif statement and ask if the game_id does contain a home. Determine default value to be an error code
-        @game_teams[row["game_id"]][:home] = GameTeam.new(row)
+      if row["HoA"] == "away"
+        gt_games[row["game_id"]][:away] = GameTeam.new(row)
+      elsif row["HoA"] == "home"
+        gt_games[row["game_id"]][:home] = GameTeam.new(row)
       end
     end
+    gt_games
   end
 
   def total_games_all_seasons(team_id)# Refactor naming of passing variable
