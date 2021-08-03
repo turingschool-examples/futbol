@@ -13,7 +13,7 @@ RSpec.describe Team do
         "Stadium"      =>  "Mercedes-Benz Stadium"
       })
       expect(team).to be_a(Team)
-      expect(team.team_id).to eq(1)
+      expect(team.team_id).to eq("1")
     end
   end
 
