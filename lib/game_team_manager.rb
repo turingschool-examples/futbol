@@ -280,4 +280,44 @@ class GameTeamManager < Manager
     end
     coach_wins
   end
+
+  def most_accurate_team(game_team_ids)
+    game_teams_from_ids = game_teams_from_ids(game_team_ids)
+    accuracy = accuracy(game_teams_from_ids)
+
+    most = accuracy.min_by do |team_id, goals_data|
+      goals_data[:total_shots].fdiv(goals_data[:total_goals])
+    end.first
+
+    most
+  end
+
+  def least_accurate_team(game_team_ids)
+    game_teams_from_ids = game_teams_from_ids(game_team_ids)
+    accuracy = accuracy(game_teams_from_ids)
+
+    least = accuracy.max_by do |team_id, goals_data|
+      goals_data[:total_shots].fdiv(goals_data[:total_goals])
+    end.first
+
+    least
+  end
+
+  def accuracy(game_teams_from_ids)
+    accuracy = Hash.new {|h, k| h[k] = {total_goals: 0, total_shots: 0}}
+    game_teams_from_ids.each do |game_team|
+      add_goals_data(accuracy, game_team)
+    end
+    accuracy
+  end
+
+  def add_goals_data(accuracy, game_team)
+    # require "pry"; binding.pry
+    accuracy[game_team.team_id][:total_goals] += game_team.goals.to_i
+    accuracy[game_team.team_id][:total_shots] += game_team.shots.to_i
+    # accuracy[game_data[:home].team_id][:total_goals] += game_data[:home].goals.to_i
+    # accuracy[game_data[:away].team_id][:total_goals] += game_data[:away].goals.to_i
+    # accuracy[game_data[:home].team_id][:total_shots] += game_data[:home].shots.to_i
+    # accuracy[game_data[:away].team_id][:total_shots] += game_data[:away].shots.to_i
+  end
 end

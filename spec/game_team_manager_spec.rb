@@ -170,4 +170,20 @@ RSpec.describe GameTeamManager do
       expect(@game_team_manager.worst_coach(games_by_season)).to eq("John Tortorella")
     end
   end
+
+  describe '#most_accurate_team' do
+    it "can return the most most_accurate_team according to shots on goal" do
+      games_by_season = @game_manager.game_ids_by_season("20122013")
+
+      expect(@game_team_manager.most_accurate_team(games_by_season)).to eq("9")
+    end
+  end
+
+  describe '#least_accurate_team' do
+    it "can return the least least_accurate_team according to shots on goal" do
+      games_by_season = @game_manager.game_ids_by_season("20122013")
+      
+      expect(@game_team_manager.least_accurate_team(games_by_season)).to eq("5")
+    end
+  end
 end

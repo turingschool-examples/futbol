@@ -86,7 +86,7 @@ class StatTracker
   def best_season(team_id)
     game_manager.best_season(team_id)
   end
-  #
+
   def worst_season(team_id)
     game_manager.worst_season(team_id)
   end
@@ -111,27 +111,31 @@ class StatTracker
     team_manager.team_name_by_id(game_team_manager.rival(team_id))
   end
 
-  # def winningest_coach(season)
-  #   game_team_manager.winningest_coach(game_manager.game_ids_by_season(season))
-  # end
-  #
-  # def worst_coach(season)
-  #   season_manager.worst_coach(season)
-  # end
-  #
-  # def most_accurate_team(season_id)
-  #   team_manager.team_name_by_id(season_manager.most_accurate_team(season_id))
-  # end
-  #
-  # def least_accurate_team(season_id)
-  #   team_manager.team_name_by_id(season_manager.least_accurate_team(season_id))
-  # end
-  #
-  # def most_tackles(season_id)
-  #   team_manager.team_name_by_id(season_manager.most_tackles(season_id))
-  # end
-  #
-  # def fewest_tackles(season_id)
-  #   team_manager.team_name_by_id(season_manager.fewest_tackles(season_id))
-  # end
+  def winningest_coach(season)
+    game_team_manager.winningest_coach(game_manager.game_ids_by_season(season))
+  end
+
+  def worst_coach(season)
+    game_team_manager.worst_coach(game_manager.game_ids_by_season(season))
+  end
+
+  def most_accurate_team(season_id)
+    most_accurate = game_team_manager.most_accurate_team(game_manager.game_ids_by_season(season_id))
+    team_manager.team_name_by_id(most_accurate)
+  end
+
+  def least_accurate_team(season_id)
+    least_accurate = game_team_manager.least_accurate_team(game_manager.game_ids_by_season(season_id))
+    team_manager.team_name_by_id(least_accurate)
+  end
+
+  def most_tackles(season_id)
+    most_tackles = game_team_manager.most_tackles(game_manager.game_ids_by_season(season_id))
+    team_manager.team_name_by_id(most_tackles)
+  end
+
+  def fewest_tackles(season_id)
+    fewest_tackles = game_team_manager.fewest_tackles(game_manager.game_ids_by_season(season_id))
+    team_manager.team_name_by_id(fewest_tackles)
+  end
 end
