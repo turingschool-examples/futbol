@@ -1,8 +1,10 @@
 require 'CSV'
 require_relative './game'
 require_relative './manager'
+require_relative './mathable'
 
 class GameManager < Manager
+  include Mathable
   attr_reader :games
 
   def initialize(file_path)
@@ -10,52 +12,52 @@ class GameManager < Manager
     @games = load(@file_path, Game)
   end
 
+  def total_goals(game)
+    game.away_goals + game.home_goals
+  end
+
   def highest_total_score
-    max = 0
-    @games.each do |game|
-      current = game.away_goals.to_i + game.home_goals.to_i
-      max = current if current > max
+    max = @games.max_by do |game|
+      total_goals(game)
     end
-    max
+    total_goals(max)
   end
 
   def lowest_total_score
-    min = 100000
-    @games.each do |game|
-      current = game.away_goals.to_i + game.home_goals.to_i
-      min = current if current < min
+    min = @games.min_by do |game|
+      total_goals(game)
     end
-    min
+    total_goals(min)
+  end
+
+  def home_wins_count
+    @games.count do |game|
+      game.away_goals < game.home_goals
+    end
+  end
+
+  def visitor_wins_count
+    @games.count do |game|
+      game.away_goals > game.home_goals
+    end
+  end
+
+  def ties_count
+    @games.count do |game|
+      game.away_goals == game.home_goals
+    end
   end
 
   def percentage_home_wins
-    home_wins = 0
-    @games.each do |game|
-      if game.away_goals.to_i < game.home_goals.to_i
-        home_wins += 1
-      end
-    end
-    (home_wins.fdiv(@games.length.to_f)).round(2)
+    find_percent(home_wins_count, @games.count)
   end
 
   def percentage_visitor_wins
-    visitor_wins = 0
-    @games.each do |game|
-      if game.away_goals.to_i > game.home_goals.to_i
-        visitor_wins += 1
-      end
-    end
-    (visitor_wins.fdiv(@games.length.to_f)).round(2)
+    find_percent(visitor_wins_count, @games.count)
   end
 
   def percentage_ties
-    ties = 0
-    @games.each do |game|
-      if game.away_goals.to_i == game.home_goals.to_i
-        ties += 1
-      end
-    end
-    (ties.fdiv(@games.length)).round(2)
+    find_percent(ties_count, @games.count)
   end
 
   def count_of_games_by_season
@@ -104,7 +106,6 @@ class GameManager < Manager
 
   def best_season(team_id)
     season_data = Hash.new {|h, k| h[k] = {total_games: 0, total_wins: 0}}
-    fill_season_data(season_data)
     @games.each do |game|
       if game.away_team_id == team_id
         if game.away_win?
@@ -123,15 +124,8 @@ class GameManager < Manager
     end.first
   end
 
-  def fill_season_data(season_data)
-    seasons.each do |season|
-      season_data[season]
-    end
-  end
-
   def worst_season(team_id)
     season_data = Hash.new {|h, k| h[k] = {total_games: 0, total_wins: 0}}
-    fill_season_data(season_data)
     @games.each do |game|
       if game.away_team_id == team_id
         if game.away_win?
