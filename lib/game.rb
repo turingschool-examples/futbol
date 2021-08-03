@@ -22,4 +22,12 @@ class Game # Refactor for Inheritance maybe
     @venue        = params["venue"]
     @venue_link   = params["venue_link"]
   end
+
+  def home_win?
+    @home_goals > @away_goals
+  end
+
+  def away_win?
+    @away_goals > @home_goals
+  end
 end

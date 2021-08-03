@@ -101,4 +101,52 @@ class GameManager < Manager
     end
     game_ids
   end
+
+  def best_season(team_id)
+    season_data = Hash.new {|h, k| h[k] = {total_games: 0, total_wins: 0}}
+    fill_season_data(season_data)
+    @games.each do |game|
+      if game.away_team_id == team_id
+        if game.away_win?
+          season_data[game.season][:total_wins] += 1
+        end
+        season_data[game.season][:total_games] += 1
+      elsif game.home_team_id == team_id
+        if game.home_win?
+          season_data[game.season][:total_wins] += 1
+        end
+        season_data[game.season][:total_games] += 1
+      end
+    end
+    season_data.max_by do |season_id, season_data|
+      season_data[:total_wins].fdiv(season_data[:total_games])
+    end.first
+  end
+
+  def fill_season_data(season_data)
+    seasons.each do |season|
+      season_data[season]
+    end
+  end
+
+  def worst_season(team_id)
+    season_data = Hash.new {|h, k| h[k] = {total_games: 0, total_wins: 0}}
+    fill_season_data(season_data)
+    @games.each do |game|
+      if game.away_team_id == team_id
+        if game.away_win?
+          season_data[game.season][:total_wins] += 1
+        end
+        season_data[game.season][:total_games] += 1
+      elsif game.home_team_id == team_id
+        if game.home_win?
+          season_data[game.season][:total_wins] += 1
+        end
+        season_data[game.season][:total_games] += 1
+      end
+    end
+    season_data.min_by do |season_id, season_data|
+      season_data[:total_wins].fdiv(season_data[:total_games])
+    end.first
+  end
 end
