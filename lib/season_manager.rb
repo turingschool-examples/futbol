@@ -75,35 +75,35 @@ class SeasonManager
   #   least
   # end
 
-  def create_teams_tackle_data(most_tackles, game_data, hoa)
-    most_tackles[game_data[hoa].team_id] = game_data[hoa].tackles.to_i
-  end
-
-  def add_tackle_data(most_tackles, game_data)
-      most_tackles[game_data[:home].team_id] += game_data[:home].tackles.to_i
-      most_tackles[game_data[:away].team_id] += game_data[:away].tackles.to_i
-  end
-
-
-  def most_tackles(season)
-    tackles_by_team = @seasons_hash[season].tackles_by_team
-
-    most = tackles_by_team.max_by do |team_id, tackles|
-      tackles
-    end[0]
-
-    most
-  end
-
-  def fewest_tackles(season)
-    tackles_by_team = @seasons_hash[season].tackles_by_team
-
-    least = tackles_by_team.min_by do |team_id, tackles|
-      tackles
-    end[0]
-
-    least
-  end
+  # def create_teams_tackle_data(most_tackles, game_data, hoa)
+  #   most_tackles[game_data[hoa].team_id] = game_data[hoa].tackles.to_i
+  # end
+  #
+  # def add_tackle_data(most_tackles, game_data)
+  #     most_tackles[game_data[:home].team_id] += game_data[:home].tackles.to_i
+  #     most_tackles[game_data[:away].team_id] += game_data[:away].tackles.to_i
+  # end
+  #
+  #
+  # def most_tackles(season)
+  #   tackles_by_team = @seasons_hash[season].tackles_by_team
+  #
+  #   most = tackles_by_team.max_by do |team_id, tackles|
+  #     tackles
+  #   end[0]
+  #
+  #   most
+  # end
+  #
+  # def fewest_tackles(season)
+  #   tackles_by_team = @seasons_hash[season].tackles_by_team
+  #
+  #   least = tackles_by_team.min_by do |team_id, tackles|
+  #     tackles
+  #   end[0]
+  #
+  #   least
+  # end
 
   def best_season(team_id)
     season_data = {}

@@ -312,12 +312,45 @@ class GameTeamManager < Manager
   end
 
   def add_goals_data(accuracy, game_team)
-    # require "pry"; binding.pry
     accuracy[game_team.team_id][:total_goals] += game_team.goals.to_i
     accuracy[game_team.team_id][:total_shots] += game_team.shots.to_i
-    # accuracy[game_data[:home].team_id][:total_goals] += game_data[:home].goals.to_i
-    # accuracy[game_data[:away].team_id][:total_goals] += game_data[:away].goals.to_i
-    # accuracy[game_data[:home].team_id][:total_shots] += game_data[:home].shots.to_i
-    # accuracy[game_data[:away].team_id][:total_shots] += game_data[:away].shots.to_i
+  end
+
+  def create_teams_tackle_data(most_tackles, game_data, hoa)
+    most_tackles[game_data[hoa].team_id] = game_data[hoa].tackles.to_i
+  end
+
+  def most_tackles(game_team_ids)
+    game_teams_from_ids = game_teams_from_ids(game_team_ids)
+    tackles_by_team = tackles_by_team(game_teams_from_ids)
+
+    most = tackles_by_team.max_by do |team_id, tackles|
+      tackles
+    end[0]
+
+    most
+  end
+
+  def fewest_tackles(game_team_ids)
+    game_teams_from_ids = game_teams_from_ids(game_team_ids)
+    tackles_by_team = tackles_by_team(game_teams_from_ids)
+
+    least = tackles_by_team.min_by do |team_id, tackles|
+      tackles
+    end[0]
+
+    least
+  end
+
+  def add_tackle_data(tackles, game_team)
+    tackles[game_team.team_id] += game_team.tackles.to_i
+  end
+
+  def tackles_by_team(game_teams)
+    tackles_by_team = Hash.new(0)
+    game_teams.each do |game_team|
+      add_tackle_data(tackles_by_team, game_team)
+    end
+    tackles_by_team
   end
 end

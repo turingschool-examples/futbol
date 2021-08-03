@@ -46,18 +46,18 @@ class Season
   #   coach_wins
   # end
 
-  def add_tackle_data(tackles, game_data)
-      tackles[game_data[:home].team_id] += game_data[:home].tackles.to_i
-      tackles[game_data[:away].team_id] += game_data[:away].tackles.to_i
-  end
-
-  def tackles_by_team
-    tackles_by_team = Hash.new(0)
-    @games.each do |game_id, game_data|
-      add_tackle_data(tackles_by_team, game_data)
-    end
-    tackles_by_team
-  end
+  # def add_tackle_data(tackles, game_data)
+  #     tackles[game_data[:home].team_id] += game_data[:home].tackles.to_i
+  #     tackles[game_data[:away].team_id] += game_data[:away].tackles.to_i
+  # end
+  #
+  # def tackles_by_team
+  #   tackles_by_team = Hash.new(0)
+  #   @games.each do |game_id, game_data|
+  #     add_tackle_data(tackles_by_team, game_data)
+  #   end
+  #   tackles_by_team
+  # end
 
   def process_away_win(games_and_wins, game_data, season_id)
     if game_data[:game].away_goals > game_data[:game].home_goals
