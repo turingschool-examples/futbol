@@ -105,7 +105,24 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.percentage_home_wins).to eq(60.0)
   end
 
+  it "checks percentage_visitor_wins" do
+    expect(@stat_tracker.percentage_visitor_wins).to eq(40.0)
+  end
+
   it "can check the percentage of ties" do
     expect(@stat_tracker.percentage_ties).to eq(0.0)
   end
+
+  it 'checks count of games by season' do
+    expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=>10})
+  end
+
+  it 'checks average goals per game' do
+    expect(@stat_tracker.average_goals_per_game).to eq(3.7)
+  end
+
+  it 'checks average goals by season' do
+    expect(@stat_tracker.average_goals_by_season).to eq({"20122013"=>3.7})
+  end
+
 end
