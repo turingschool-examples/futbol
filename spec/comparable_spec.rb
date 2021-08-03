@@ -4,7 +4,7 @@ require 'simplecov'
 require 'CSV'
 
 SimpleCov.start
-RSpec.describe Renameable do
+RSpec.describe Comparable do
   before :each do
     game_path = './data/games_test.csv'
     team_path = './data/teams.csv'
@@ -42,7 +42,5 @@ RSpec.describe Renameable do
 
   it 'returns count_equal_to' do
     expect(@game_stats.count_equal_to(@game_stats.games, :home_goals, :away_goals)).to eq(3)
-
-
   end
 end

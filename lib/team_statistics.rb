@@ -1,7 +1,7 @@
-require_relative './renameable'
+require_relative './comparable'
 
 class TeamStatistics
-  include Renameable
+  include Comparable
   attr_reader :games, :teams, :game_teams
 
   def initialize (games, teams, game_teams)

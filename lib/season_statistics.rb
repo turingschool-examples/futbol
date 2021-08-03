@@ -1,8 +1,8 @@
 require_relative './stat_tracker'
-require_relative './renameable'
+require_relative './comparable'
 
 class SeasonStatistics
-  include Renameable
+  include Comparable
   attr_reader :games,
               :teams,
               :game_teams
@@ -38,7 +38,6 @@ class SeasonStatistics
   def total_games_by_coach(season)
     games_by_coach = Hash.new(0)
     @game_teams.each do |game|
-      require "pry"; binding.pry
       if season_verification(game, season)
         games_by_coach[game.head_coach] += 1
       end
