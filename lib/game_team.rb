@@ -3,12 +3,12 @@ class GameTeam
               :team_id,
               :hoa,
               :result,
-              :settled_in,
+              # :settled_in,
               :head_coach,
               :goals,
               :shots,
               :tackles,
-              :pim,
+              # :pim,
               :powerplayopportunities,
               :powerplaygoals,
               :faceoffwinpercentage,
@@ -20,12 +20,12 @@ class GameTeam
     @team_id                = params["team_id"]
     @hoa                    = params["HoA"]
     @result                 = params["result"]
-    @settled_in             = params["settled_in"]# Not used within existing code put it down
+    # @settled_in             = params["settled_in"] # Not used
     @head_coach             = params["head_coach"]
-    @goals                  = params["goals"]
+    @goals                  = params["goals"].to_i
     @shots                  = params["shots"]
     @tackles                = params["tackles"]
-    @pim                    = params["pim"]# Not used within existing code put it down lines 28-33
+    # @pim                    = params["pim"] # Not used
     @powerplayopportunities = params["powerPlayOpportunities"]
     @powerplaygoals         = params["powerPlayGoals"]
     @faceoffwinpercentage   = params["faceOffWinPercentage"]

@@ -3,15 +3,15 @@ class Team
               :franchiseid,
               :teamname,
               :abbreviation,
-              :stadium,
+              # :stadium,
               :link
 
   def initialize(params)
     @team_id      = params["team_id"]
-    @franchiseid  = params["franchiseId"]#Not used within code. put it down
+    @franchiseid  = params["franchiseId"]
     @teamname     = params["teamName"]
     @abbreviation = params["abbreviation"]
-    @stadium      = params["Stadium"] #Not used within existing methods can be put down
+    # @stadium      = params["Stadium"] #Not used
     @link         = params["link"]
   end
 end
