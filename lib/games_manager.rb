@@ -1,19 +1,13 @@
-require 'csv'
 require_relative 'game'
 require_relative 'seasons_manager'
+require_relative 'parsable'
 
 class GamesManager < SeasonsManager
+  include Parsable
   attr_reader :games
 
   def initialize(file_path)
-    @games = []
-    make_games(file_path)
-  end
-
-  def make_games(file_path)
-    CSV.foreach(file_path, headers: true) do |row|
-      @games << Game.new(row)
-    end
+    @games = make_objects(file_path, Game)
   end
 
   def score_results(min_max)
@@ -86,11 +80,15 @@ class GamesManager < SeasonsManager
     @games.each_with_object({}) do |game, acc|
       next unless game.has_team?(id)
 
-      opp_id = opponent_id(id, game)
-      acc[opp_id] ||= { wins: 0, total: 0 }
-      acc[opp_id][:wins] += 1 unless game.winner?(id)
-      acc[opp_id][:total] += 1
+      opponent_game(acc, id, game)
     end
+  end
+
+  def opponent_game(acc, id, game)
+    opp_id = opponent_id(id, game)
+    acc[opp_id] ||= { wins: 0, total: 0 }
+    acc[opp_id][:wins] += 1 unless game.winner?(id)
+    acc[opp_id][:total] += 1
   end
 
   def opponent_id(id, game)

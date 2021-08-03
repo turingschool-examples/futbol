@@ -9,7 +9,7 @@ RSpec.describe GamesManager do
     end
 
     it 'makes games' do
-      expect(games_manager).to respond_to(:make_games)
+      expect(games_manager).to respond_to(:make_objects)
     end
 
     it 'has highest and lowest total scored' do
