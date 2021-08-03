@@ -49,14 +49,14 @@ RSpec.describe GameTeamManager do
     expect(@game_team_manager.winning_coach('2012030221')).to eq('Claude Julien')
   end
 
-  xit 'can find winning coaches' do
+  it 'can find winning coaches' do
     results = ["Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien",
       "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Joel Quenneville"]
 
     expect(@game_team_manager.winning_coaches(@season_game_ids)).to eq(results)
   end
 
-  xit 'has results for each coach in a season' do
+  it 'has results for each coach in a season' do
     results = {"Claude Julien"=>9,
                "Dan Bylsma"=>0,
                "Joel Quenneville"=>1,
@@ -66,11 +66,11 @@ RSpec.describe GameTeamManager do
     expect(@game_team_manager.coach_wins(@season_game_ids)).to eq(results)
   end
 
-  xit 'has winningest_coach by season' do
+  it 'has winningest_coach by season' do
     expect(@game_team_manager.winningest_coach(@season_game_ids)).to eq("Claude Julien")
   end
 
-  xit 'has worst coach by season' do
+  it 'has worst coach by season' do
     expect(@game_team_manager.worst_coach(@season_game_ids)).to eq("John Tortorella")
   end
 
