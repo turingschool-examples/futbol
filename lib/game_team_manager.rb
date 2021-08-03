@@ -19,6 +19,13 @@ class GameTeamManager
     end
   end
 
+  def tied?(game_id)
+    game_results = by_game_id(game_id).map do |game_team|
+      game_team.result
+    end
+    game_results.include?("TIE")
+  end
+
   def coaches(season_game_ids)
     season_game_ids.flat_map do |game_id|
       game_team_pair = by_game_id(game_id)
@@ -38,14 +45,16 @@ class GameTeamManager
 
   def winning_coach(game_id)
     winner = by_game_id(game_id).find do |game_team|
-        game_team.result == "WIN"
-      end
+      game_team.result == "WIN"
+    end
     winner.head_coach
   end
 
   def winning_coaches(season_game_ids)
     season_game_ids.map do |game|
-      winning_coach(game)
+      if !tied?(game)
+        winning_coach(game)
+      end
     end
   end
 
