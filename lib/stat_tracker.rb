@@ -15,8 +15,18 @@ class StatTracker
     StatTracker.new(locations)
   end
 
+  def format_team_info(team)
+    {
+      'team_id' => team.team_id,
+      'franchise_id' => team.franchise_id,
+      'team_name' => team.team_name,
+      'abbreviation' => team.abbreviation,
+      'link' => team.link
+    }
+  end
+
   def team_info(team_id)
-    @teams_manager.team_info(team_id)
+    format_team_info(@teams_manager.team_info(team_id))
   end
 
   def count_of_teams
