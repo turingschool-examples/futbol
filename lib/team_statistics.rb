@@ -1,11 +1,11 @@
-module TeamStatistics
-  # attr_reader :games, :teams, :game_teams
-  #
-  # def initialize (games, teams, game_teams)
-  #   @games = games
-  #   @teams = teams
-  #   @game_teams = game_teams
-  # end
+class TeamStatistics
+  attr_reader :games, :teams, :game_teams
+
+  def initialize (games, teams, game_teams)
+    @games = games
+    @teams = teams
+    @game_teams = game_teams
+  end
 
   def team_info(team_id)
     team_info = {}
@@ -63,6 +63,13 @@ module TeamStatistics
     end
   end
 
+  def worst_season(team_id)
+    all_seasons.min_by do |season|
+      #super weird, but gets rid of nils from season_win_percentage, evading errors from min_by/nil interaction
+       [season_win_percentage(season, team_id)].compact
+    end
+  end
+
   def season_win_percentage(season, team_id)
     #could be made into a helper method
     winning_game_ids = games_won(team_id).map do |game|
@@ -84,13 +91,6 @@ module TeamStatistics
     #condidional changes the evil NaN into nils. Nils are produced when total_games = 0.
     if total_games != 0
       winning_game_in_season_ids.length.fdiv(total_games)
-    end
-  end
-
-  def worst_season(team_id)
-    all_seasons.min_by do |season|
-      #super weird, but gets rid of nils from season_win_percentage, evading errors from min_by/nil interaction
-       [season_win_percentage(season, team_id)].compact
     end
   end
 
