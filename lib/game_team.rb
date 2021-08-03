@@ -26,4 +26,8 @@ class GameTeam
       new(game_team_row)
     end
   end
+
+  def home?
+    @hoa == "home"
+  end
 end
