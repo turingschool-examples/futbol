@@ -22,7 +22,7 @@ RSpec.describe SeasonManager do
 
   it 'gets games for given season' do
     expect(@season_manager.games_in_season('20122013')[0]).to be_a(Game)
-    expect(@season_manager.games_in_season('20122013').count).to eq(10)
+    expect(@season_manager.games_in_season('20122013').count).to eq(11)
   end
 
   it 'can extract game id' do
@@ -36,13 +36,14 @@ RSpec.describe SeasonManager do
       '2012030312',
       '2012030313',
       '2012030314',
-      '2012030231'
+      '2012030231',
+      '2013030152'
       ]
     expect(@season_manager.game_id_by_season('20122013')).to eq(result)
   end
 
   it 'can extract team ids' do
-    result = ['3', '6', '5', '17', '16']
+    result = ['3', '6', '5', '17', '16', '30', '21']
     expect(@season_manager.team_id_by_season('20122013')).to eq(result)
   end
 end

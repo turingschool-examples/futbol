@@ -13,8 +13,8 @@ RSpec.describe GameTeamManager do
     }
     @game_team_manager = GameTeamManager.new(locations)
     @season_game_ids = ['2012030221', '2012030222', '2012030223', '2012030224', '2012030225',
-      '2012030311', '2012030312', '2012030313', '2012030314', '2012030231']
-    @season_team_ids = ['3', '6', '5', '17', '16']
+      '2012030311', '2012030312', '2012030313', '2012030314', '2012030231', '2013030152']
+    @season_team_ids = ['3', '6', '5', '17', '16', '30', '21']
   end
 
   it "exists" do
@@ -29,37 +29,43 @@ RSpec.describe GameTeamManager do
     expect(@game_team_manager.by_game_id('2012030221')).to be_an(Array)
     expect(@game_team_manager.by_game_id('2012030221').count).to eq(2)
     expect(@game_team_manager.by_game_id('2012030221')[0]).to be_a(GameTeam)
+  end
 
+  it 'tied?' do
+    expect(@game_team_manager.tied?('2012030221')).to eq(false)
+    expect(@game_team_manager.tied?('2013030152')).to eq(true)
+  end
+
+  it 'counts wins for given collection' do
+    collection = @season_game_ids.flat_map do |game_id|
+                   @game_team_manager.by_game_id(game_id)
+                 end
+    expect(@game_team_manager.wins(collection)).to eq(10)
+  end
+
+  it 'total games for given team id' do
+    collection = @season_game_ids.flat_map do |game_id|
+                   @game_team_manager.by_game_id(game_id)
+                 end
+    expect(@game_team_manager.total_games(collection)).to eq(22)
+  end
+
+  it 'calculates win percentage' do
+    collection = @season_game_ids.flat_map do |game_id|
+                   @game_team_manager.by_game_id(game_id)
+                 end
+    expect(@game_team_manager.win_percentage(collection)).to eq(45.45)
   end
 
   it 'has coaches' do
-    results = ["John Tortorella", "Claude Julien", "John Tortorella", "Claude Julien",
-      "Claude Julien", "John Tortorella", "Claude Julien", "John Tortorella",
-      "John Tortorella", "Claude Julien", "Claude Julien", "Dan Bylsma", "Claude Julien",
-      "Dan Bylsma", "Dan Bylsma", "Claude Julien", "Dan Bylsma", "Claude Julien", "Mike Babcock", "Joel Quenneville"]
-
-    expect(@game_team_manager.coaches(@season_game_ids)).to eq(results)
+    result = ["John Tortorella", "Claude Julien", "Dan Bylsma", "Mike Babcock", "Joel Quenneville", "Mike Yeo", "Patrick Roy"]
+    expect(@game_team_manager.coaches(@season_game_ids)).to eq(result)
   end
 
-  it 'can find winning coach' do
-    expect(@game_team_manager.winning_coach('2012030221')).to eq('Claude Julien')
-  end
-
-  it 'can find winning coaches' do
-    results = ["Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien",
-      "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Claude Julien", "Joel Quenneville"]
-
-    expect(@game_team_manager.winning_coaches(@season_game_ids)).to eq(results)
-  end
-
-  it 'has results for each coach in a season' do
-    results = {"Claude Julien"=>9,
-               "Dan Bylsma"=>0,
-               "Joel Quenneville"=>1,
-               "John Tortorella"=>0,
-               "Mike Babcock"=>0
-              }
-    expect(@game_team_manager.coach_wins(@season_game_ids)).to eq(results)
+  it 'has game_teams by a given coach' do
+    expect(@game_team_manager.by_coach(@season_game_ids, "Claude Julien")).to be_an(Array)
+    expect(@game_team_manager.by_coach(@season_game_ids, "Claude Julien").count).to eq(9)
+    expect(@game_team_manager.by_coach(@season_game_ids, "Claude Julien")[0]).to be_a(GameTeam)
   end
 
   it 'has winningest_coach by season' do
@@ -87,7 +93,9 @@ RSpec.describe GameTeamManager do
   it 'has accuracy for each team' do
     results = {"16"=>5.0,
                "17"=>5.0,
+               "21"=>3.5,
                "3"=>4.75,
+               "30"=>4.0,
                "5"=>16.0,
                "6"=>3.17
               }
@@ -116,22 +124,26 @@ RSpec.describe GameTeamManager do
 
   it "creates a hash of teams and goals" do
     results = {
-      "16" => [2],
-      "17" => [1],
-      "3" => [2, 2, 1, 2, 1],
-      "5" => [0, 1, 1, 0],
-      "6" => [3, 3, 2, 3, 3, 3, 4, 2, 1]
+      "16"=>[2],
+      "17"=>[1],
+      "21"=> [2],
+      "3"=>[2, 2, 1, 2, 1],
+      "30"=> [2],
+      "5"=>[0, 1, 1, 0],
+      "6"=>[3, 3, 2, 3, 3, 3, 4, 2, 1]
     }
     expect(@game_team_manager.goals_by_team).to eq(results)
   end
 
   it "returns the average all time goals per game by team" do
     results = {
-      "16" => 2.0,
-      "17" => 1.0,
-      "3" => 1.6,
-      "5" => 0.5,
-      "6" => 2.66
+      "16"=>2.0,
+      "17"=>1.0,
+      "21"=> 2.0,
+      "3"=>1.6,
+      "30"=> 2.0,
+      "5"=>0.5,
+      "6"=>2.66
     }
     expect(@game_team_manager.average_goals).to eq(results)
   end
