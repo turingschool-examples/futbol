@@ -8,7 +8,7 @@ module Percentageable
     num1.fdiv(num2)
   end
 
-  def get_accuracy_avg(accuracy_data)
+  def accuracy_avg(accuracy_data)
     accuracy_data.each_with_object({}) do |data, acc|
       acc[data.first] = hash_avg(data.last)
     end

@@ -18,7 +18,6 @@ SimpleCov.start
 require './lib/games_manager'
 require './lib/teams_manager'
 require './lib/game_teams_manager'
-require './lib/general_manager'
 require './lib/stat_tracker'
 require './lib/seasons_manager'
 

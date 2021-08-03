@@ -10,15 +10,6 @@ class GamesManager < SeasonsManager
     @games = make_objects(file_path, Game)
   end
 
-  def score_results(min_max)
-    min_max_game = {
-      max: -> { @games.max_by { |game| game.total_goals } },
-      min: -> { @games.min_by { |game| game.total_goals } }
-    }
-    game = min_max_game[min_max].call
-    game.total_goals
-  end
-
   def count_of_games_by_season
     get_season_game_count
   end
@@ -56,24 +47,46 @@ class GamesManager < SeasonsManager
   end
 
   def team_scores(hoa, min_max)
-    info = {
+    results(min_max, all_team_scores(hoa))
+  end
+
+  def all_team_scores(hoa)
+    {
+      max: -> { hoa_goals(hoa).call.max_by { |_team, data| hash_avg(data) }.first },
+      min: -> { hoa_goals(hoa).call.min_by { |_team, data| hash_avg(data) }.first }
+    }
+  end
+
+  def hoa_goals(hoa)
+    goals = {
       home: -> { get_hoa_goals(hoa) },
       away: -> { get_hoa_goals(hoa) }
     }
-    team = {
-      max: -> { info[hoa].call.max_by { |_team, data| hash_avg(data) }.first },
-      min: -> { info[hoa].call.min_by { |_team, data| hash_avg(data) }.first }
-    }
-    team[min_max].call
+    goals[hoa]
   end
 
-  def opponent_results(id, fav_rival)
+  def opponent_results(id, min_max)
+    results(min_max, opponent_min_max(id))
+  end
+
+  def opponent_min_max(id)
     data = opponent_win_count(id)
-    team = {
-      fav: -> { win_percent(data).min_by { |_team, result| result }.first },
-      rival: -> { win_percent(data).max_by { |_team, result| result }.first }
+    {
+      min: -> { win_percent(data).min_by { |_team, result| result }.first },
+      max: -> { win_percent(data).max_by { |_team, result| result }.first }
     }
-    team[fav_rival].call
+  end
+
+  def game_score_results(min_max)
+    game = {
+      max: -> { @games.max_by { |game| game.total_goals } },
+      min: -> { @games.min_by { |game| game.total_goals } }
+    }
+    game[min_max].call.total_goals
+  end
+
+  def results(min_max, block)
+    block[min_max].call
   end
 
   def opponent_win_count(id)

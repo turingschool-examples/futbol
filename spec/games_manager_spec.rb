@@ -13,8 +13,8 @@ RSpec.describe GamesManager do
     end
 
     it 'has highest and lowest total scored' do
-      expect(games_manager.score_results(:max)).to eq(7)
-      expect(games_manager.score_results(:min)).to eq(1)
+      expect(games_manager.game_score_results(:max)).to eq(7)
+      expect(games_manager.game_score_results(:min)).to eq(1)
     end
 
     it 'counts games per season' do
@@ -60,11 +60,11 @@ RSpec.describe GamesManager do
     end
 
     it 'has a favourite opponent' do
-      expect(games_manager.opponent_results('15', :fav)).to eq('10')
+      expect(games_manager.opponent_results('15', :min)).to eq('10')
     end
 
     it 'has a rival' do
-      expect(games_manager.opponent_results('15', :rival)).to eq('2')
+      expect(games_manager.opponent_results('15', :max)).to eq('2')
     end
 
     it 'calcs win percents' do

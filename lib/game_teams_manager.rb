@@ -11,37 +11,36 @@ class GameTeamsManager < SeasonsManager
   end
 
   def coach_results(season, min_max)
-    averages = coach_win_pct(season)
-    calc_min_or_max(min_max, averages)
+    results(min_max, calc_min_or_max(coach_win_pct(season)))
   end
 
   def accuracy_results(season, min_max)
-    averages = get_accuracy_avg(accuracy_data(season))
-    calc_min_or_max(min_max, averages)
+    results(min_max, calc_min_or_max(accuracy_avg(accuracy_data(season))))
   end
 
   def season_results(id, min_max)
-    averages = season_avgs(seasons_win_count(id))
-    calc_min_or_max(min_max, averages)
+    results(min_max, calc_min_or_max(season_avgs(seasons_win_count(id))))
   end
 
   def tackle_results(season, min_max)
-    data = team_tackles(season)
-    calc_min_or_max(min_max, data)
+    results(min_max, calc_min_or_max(team_tackles(season)))
   end
 
-  def calc_min_or_max(min_max, data)
-    results = {
+  def calc_min_or_max(data)
+    {
       max: -> { data.max_by { |_team, stats| stats }.first },
       min: -> { data.min_by { |_team, stats| stats }.first }
     }
-    results[min_max].call
   end
 
   def average_win_percentage(id)
     team_stats = team_win_stats(id)
     hash_avg(team_stats).round(2)
   end
+
+   def results(min_max, block)
+    block[min_max].call
+   end
 
   def team_win_stats(id)
     @game_teams.each_with_object({ wins: 0, total: 0 }) do |game, acc|
@@ -55,11 +54,14 @@ class GameTeamsManager < SeasonsManager
   end
 
   def goal_results(id, min_max)
-    results = {
+    results(min_max, goal_min_max(id))
+  end
+
+  def goal_min_max(id)
+    {
       min: -> { goals_per_team_game(id).min },
       max: -> { goals_per_team_game(id).max }
     }
-    results[min_max].call
   end
 
   def goals_per_team_game(id)
