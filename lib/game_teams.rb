@@ -32,4 +32,8 @@ class GameTeams
     @giveaways                = hash[:giveaways]
     @takeaways                = hash[:takeaways]
   end
+
+  def win?
+    @result == 'WIN'
+  end 
 end

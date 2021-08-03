@@ -27,36 +27,6 @@ RSpec.describe SeasonStatistics do
     expect(@season_stats.game_teams).to be_a(Array)
   end
 
-  it 'returns total games by coach' do
-    expect(@season_stats.total_games_by_coach("20122013")).to eq({
-      "Adam Oates"       => 7,
-      "Bruce Boudreau"   => 7,
-      "Claude Julien"    => 9,
-      "Dan Bylsma"       => 10,
-      "Darryl Sutter"    => 11,
-      "Jack Capuano"     => 6,
-      "Joel Quenneville" => 17,
-      "John Tortorella"  => 12,
-      "Ken Hitchcock"    => 6,
-      "Michel Therrien"  => 5,
-      "Mike Babcock"     => 14,
-      "Mike Yeo"         => 5,
-      "Paul MacLean"     => 5,
-    })
-  end
-
-  it 'winningest coach' do
-    expect(@season_stats.winningest_coach("20122013")).to eq("Claude Julien")
-  end
-
-  it 'worst coach' do
-    expect(@season_stats.worst_coach("20122013")).to eq("John Tortorella")
-  end
-
-  it 'returns a hash with team ID keys and team name values' do
-    expect(@season_stats.team_identifier("3")).to eq("Houston Dynamo")
-  end
-
   it "counts total shots" do
     expect(@season_stats.total_shots('20122013')).to eq({
       "15" => 52,
@@ -81,6 +51,50 @@ RSpec.describe SeasonStatistics do
 
   it "least accurate team" do
     expect(@season_stats.least_accurate_team('20122013')).to eq("Houston Dynamo")
+  end
+
+  it 'returns total games by coach' do
+    expect(@season_stats.total_games_by_coach("20122013")).to eq({
+      "Adam Oates"       => 7,
+      "Bruce Boudreau"   => 7,
+      "Claude Julien"    => 9,
+      "Dan Bylsma"       => 10,
+      "Darryl Sutter"    => 11,
+      "Jack Capuano"     => 6,
+      "Joel Quenneville" => 17,
+      "John Tortorella"  => 12,
+      "Ken Hitchcock"    => 6,
+      "Michel Therrien"  => 5,
+      "Mike Babcock"     => 14,
+      "Mike Yeo"         => 5,
+      "Paul MacLean"     => 5
+    })
+  end
+
+  it 'returns wins by coach' do
+    expect(@season_stats.wins_by_coach("20122013")).to eq({
+       "Adam Oates" => 12,
+       "Bruce Boudreau" => 11,
+       "Claude Julien" => 18,
+       "Dan Bylsma" => 14,
+       "Darryl Sutter" => 16,
+       "Jack Capuano" => 8,
+       "Joel Quenneville" => 26,
+       "John Tortorella" => 14,
+       "Ken Hitchcock" => 9,
+       "Michel Therrien" => 6,
+       "Mike Babcock" => 21,
+       "Mike Yeo" => 6,
+       "Paul MacLean" => 8
+    })
+  end
+
+  it 'winningest coach' do
+    expect(@season_stats.winningest_coach("20122013")).to eq("Claude Julien")
+  end
+
+  it 'worst coach' do
+    expect(@season_stats.worst_coach("20122013")).to eq("John Tortorella")
   end
 
   it "most tackles in a season" do

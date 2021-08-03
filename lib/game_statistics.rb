@@ -41,29 +41,14 @@ include Renameable
 
   def home_team_wins
     count_greater_than(@games, :home_goals, :away_goals)
-    # home_wins =
-    # @games.count do |game|
-    #   game.home_goals > game.away_goals
-    # end
-    # home_wins
   end
 
   def visitor_team_wins
     count_greater_than(@games, :away_goals, :home_goals)
-    # visitor_wins =
-    # @games.count do |game|
-    #   game.home_goals < game.away_goals
-    # end
-    # visitor_wins
   end
 
   def ties
     count_equal_to(@games, :home_goals, :away_goals)
-    # ties =
-    # @games.count do |game|
-    #   game.home_goals == game.away_goals
-    # end
-    # ties
   end
 
   def count_of_games_by_season
