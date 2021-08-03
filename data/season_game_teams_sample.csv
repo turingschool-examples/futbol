@@ -19,3 +19,5 @@ game_id,team_id,hoa,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012030314,6,home,WIN,REG,Claude Julien,1,6,25,8,3,0,52.5,11,5
 2012030231,17,away,LOSS,REG,Mike Babcock,1,5,43,10,3,0,52.5,6,4
 2012030231,16,home,WIN,REG,Joel Quenneville,2,10,24,10,3,1,47.5,2,11
+2013030152,30,away,TIE,REG,Mike Yeo,2,8,34,16,3,0,52.2,3,7
+2013030152,21,home,TIE,REG,Patrick Roy,2,7,26,16,3,1,47.8,3,9
