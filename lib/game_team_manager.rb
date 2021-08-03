@@ -13,19 +13,6 @@ class GameTeamManager
     end
   end
 
-  def by_team_id(team_id)
-    @game_teams.filter do |game_team|
-      game_team.team_id == team_id
-    end
-  end
-
-  def tied?(game_id)
-    game_results = by_game_id(game_id).map do |game_team|
-      game_team.result
-    end
-    game_results.include?("TIE")
-  end
-
   def coaches(game_ids)
     game_ids.flat_map do |game_id|
       by_game_id(game_id).flat_map do |game_team|
@@ -72,38 +59,54 @@ class GameTeamManager
     worst_team
   end
 
-  def total_shots(team_id)
-    by_team_id(team_id).sum do |game_team|
+  def by_team_id(collection, team_id)
+    collection.filter do |game_team|
+      game_team.team_id == team_id
+    end
+  end
+
+  def season_collection(game_ids)
+    game_ids.flat_map do |game_id|
+      by_game_id(game_id)
+    end
+  end
+
+  def team_ids(collection)
+    collection.map do |game_team|
+      game_team.team_id
+    end.uniq
+  end
+
+  def total_shots(collection)
+    collection.sum do |game_team|
       game_team.shots.to_i
     end
   end
 
-  def total_goals(team_id)
-    by_team_id(team_id).sum do |game_team|
+  def total_goals(collection)
+    collection.sum do |game_team|
       game_team.goals.to_i
     end
   end
 
-  def team_accuracy(season_team_ids)
-    accuracy = {}
-    season_team_ids.each do |team_id|
-      accuracy[team_id] = (total_shots(team_id).to_f / total_goals(team_id)).round(2)
-    end
-    accuracy
+  def team_accuracy(collection)
+    (total_shots(collection).to_f / total_goals(collection)).round(3)
   end
 
-  def most_accurate_team(season_team_ids)
-    most_accurate = team_accuracy(season_team_ids).min_by do |team_id, s_to_g|
-      s_to_g
+  def most_accurate_team(season_game_ids)
+    collection = season_collection(season_game_ids)
+    team_ids = team_ids(collection)
+    team_ids.min_by do |team_id|
+      team_accuracy(by_team_id(collection, team_id))
     end
-    most_accurate[0]
   end
 
-  def least_accurate_team(season_team_ids)
-    least_accurate = team_accuracy(season_team_ids).max_by do |team_id, s_to_g|
-      s_to_g
+  def least_accurate_team(season_game_ids)
+    collection = season_collection(season_game_ids)
+    team_ids = team_ids(collection)
+    team_ids.max_by do |team_id|
+      team_accuracy(by_team_id(collection, team_id))
     end
-    least_accurate[0]
   end
 
   def team_tackles(team_id)
