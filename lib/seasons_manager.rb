@@ -29,9 +29,8 @@ class SeasonsManager
   end
 
   def team_tackles(season)
-    @game_teams.each_with_object({}) do |game, acc|
+    @game_teams.each_with_object(Hash.new(0)) do |game, acc|
       if game.game_id[0..3] == season[0..3]
-        acc[game.team_id] ||= 0
         acc[game.team_id] += game.tackles
       end
     end
@@ -47,15 +46,13 @@ class SeasonsManager
   end
 
   def get_season_game_count
-    @games.each_with_object({}) do |game, acc|
-      acc[game.season] ||= 0
+    @games.each_with_object(Hash.new(0)) do |game, acc|
       acc[game.season] += 1
     end
   end
 
   def get_goals_per_season
-    @games.each_with_object({}) do |game, acc|
-      acc[game.season] ||= 0
+    @games.each_with_object(Hash.new(0)) do |game, acc|
       acc[game.season] += game.total_goals
     end
   end
