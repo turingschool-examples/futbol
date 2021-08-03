@@ -99,7 +99,7 @@ class GameManager
 
 
   def average_goals_per_game
-    total_game_score.sum.fdiv(@games.count)
+    total_game_score.sum.fdiv(@games.count).round(2)
   end
 
   def average_goals_by_season
@@ -108,7 +108,7 @@ class GameManager
       sum_of_goals = games.sum do |game|
         game.away_goals.to_f + game.home_goals.to_f
         end
-      goals_by_season[season] = sum_of_goals.fdiv(games.count)
+      goals_by_season[season] = sum_of_goals.fdiv(games.count).round(2)
     end
     goals_by_season
   end
