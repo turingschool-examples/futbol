@@ -22,11 +22,11 @@ class GameTeamManager
     gt_games
   end
 
-  def total_games_all_seasons(team_id)# Refactor naming of passing variable
+  def total_games_all_seasons(team_id)
     total = 0
     @game_teams.each do |game_id, teams|
-      teams.each do |hoa, team|# Rename team to team object for clarity
-        total += 1 if team_id == team.team_id # Break into multi line for MIKE DAO
+      teams.each do |hoa, game_team|
+        total += 1 if team_id == game_team.team_id
       end
     end
     total
@@ -36,7 +36,7 @@ class GameTeamManager
     total = 0
     @game_teams.each do |game_id, teams|
       teams.each do |hoa, team|
-        total += team.goals.to_i if team_id == team.team_id# Break into multi line for MIKE DAO
+        total += team.goals if team_id == team.team_id
       end
     end
     total

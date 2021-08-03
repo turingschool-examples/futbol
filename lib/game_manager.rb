@@ -10,15 +10,6 @@ class GameManager < Manager
     @games = load(@file_path, Game)
   end
 
-  # def load
-  #   data = CSV.read(@file_path, headers: true)
-  #   games = []
-  #   data.each do |row|
-  #     games.push(Game.new(row))
-  #   end
-  #   games
-  # end
-
   def highest_total_score
     max = 0
     @games.each do |game|

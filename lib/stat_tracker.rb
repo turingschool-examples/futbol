@@ -10,7 +10,7 @@ class StatTracker
               :game_team_manager,
               :season_manager
 
-  def initialize(file_paths) # ARE WE BREAKING LAW OF DEMETER?
+  def initialize(file_paths)
     @game_manager      = GameManager.new(file_paths[:games])
     @team_manager      = TeamManager.new(file_paths[:teams])
     @game_team_manager = GameTeamManager.new(file_paths[:game_teams])
@@ -149,13 +149,3 @@ class StatTracker
     team_manager.team_name_by_id(id)
   end
 end
-
-
-
-
-
-
-# games = CSV.read(file_paths[:games], headers: true, header_converters: :symbol)
-# teams = CSV.read(file_paths[:teams], headers: true, header_converters: :symbol)
-# game_teams = CSV.read(file_paths[:game_teams], headers: true, header_converters: :symbol)
-# StatTracker.new(games, teams, game_teams)

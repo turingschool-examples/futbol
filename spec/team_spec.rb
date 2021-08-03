@@ -18,7 +18,3 @@ RSpec.describe Team do
   end
 
 end
-
-# path = './data/teams.csv'
-# => "./data/teams.csv"
-# [6] pry(main)> data = CSV.read(path, headers: true)
