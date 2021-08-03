@@ -10,14 +10,11 @@ RSpec.describe GameTeamManager do
 
   describe '#load' do
     it 'length' do
-      expect(@game_team_manager.game_teams.length).to eq(39)
+      expect(@game_team_manager.game_teams.length).to eq(78)
     end
 
     it 'creates game object for every row' do
-      @game_team_manager.game_teams.each do |game_id, team_hash|
-        expect(team_hash[:home]).to be_instance_of(GameTeam)
-        expect(team_hash[:away]).to be_instance_of(GameTeam)
-      end
+      expect(@game_team_manager.game_teams.first).to be_instance_of(GameTeam)
     end
   end
 
@@ -36,6 +33,11 @@ RSpec.describe GameTeamManager do
   end
 
   describe 'best and worst offense methods' do
+    it 'all team ids' do
+      expectation = ["3", "6", "5", "17", "16", "9", "8", "30", "26", "19", "24"]
+      expect(@game_team_manager.all_team_ids).to eq(expectation)
+    end
+
     it 'returns best_offense team string' do
       expect(@game_team_manager.best_offense).to eq("9")
     end
@@ -122,6 +124,13 @@ RSpec.describe GameTeamManager do
     it 'returns least goals in a single game' do
       expect(@game_team_manager.fewest_goals_scored("5")).to eq(0)
       expect(@game_team_manager.fewest_goals_scored("6")).to eq(1)
+    end
+  end
+
+  describe '#games_list(team_id)' do
+    it 'returns all game ids per team' do
+      expected = ["2012030311", "2012030312", "2012030313", "2012030314"]
+      expect(@game_team_manager.all_game_ids_by_team("5")).to eq(expected)
     end
   end
 

@@ -1,43 +1,25 @@
 require 'CSV'
 require_relative './game_team'
+require_relative './manager'
 
-class GameTeamManager
+class GameTeamManager < Manager
   attr_reader :game_teams
 
   def initialize(file_path)
     @file_path = file_path
-    @game_teams = load
+    @game_teams = load(@file_path, GameTeam)
   end
 
-  def load
-    gt_games = Hash.new { |hash, key| hash[key] = { away: nil, home: nil} }
-    data = CSV.read(@file_path, headers: true)
-    data.each do |row|
-      if row["HoA"] == "away"
-        gt_games[row["game_id"]][:away] = GameTeam.new(row)
-      elsif row["HoA"] == "home"
-        gt_games[row["game_id"]][:home] = GameTeam.new(row)
-      end
+  def total_games_all_seasons(id)
+    @game_teams.count do |game_team|
+      game_team.team_id == id
     end
-    gt_games
   end
 
-  def total_games_all_seasons(team_id)
+  def total_goals_all_seasons(id)
     total = 0
-    @game_teams.each do |game_id, teams|
-      teams.each do |hoa, game_team|
-        total += 1 if team_id == game_team.team_id
-      end
-    end
-    total
-  end
-
-  def total_goals_all_seasons(team_id)
-    total = 0
-    @game_teams.each do |game_id, teams|
-      teams.each do |hoa, team|
-        total += team.goals if team_id == team.team_id
-      end
+    @game_teams.each do |game_team|
+      total += game_team.goals if game_team.team_id == id
     end
     total
   end
@@ -48,13 +30,9 @@ class GameTeamManager
   end
 
   def all_team_ids
-    ids = []
-    @game_teams.each do |game_id, home_and_away|
-      home_and_away.each do |hoa, game_team|
-        ids << game_team.team_id
-      end
-    end
-    ids.uniq
+    @game_teams.map do |game_team|
+      game_team.team_id
+    end.uniq
   end
 
   def best_offense
@@ -103,16 +81,16 @@ class GameTeamManager
 
   def home_teams
     home_teams = []
-    @game_teams.each do |game_id, game_team_object|
-      home_teams << game_team_object[:home]
+    @game_teams.each do |game_team_object|
+      home_teams << game_team_object if game_team_object.hoa == 'home'
     end
     home_teams
   end
 
   def away_teams
     away_teams = []
-    @game_teams.each do |game_id, game_team_object|
-      away_teams << game_team_object[:away]
+    @game_teams.each do |game_team_object|
+      away_teams << game_team_object if game_team_object.hoa == 'away'
     end
     away_teams
   end
@@ -133,24 +111,22 @@ class GameTeamManager
     away_games
   end
 
-  def all_games_by_team(team_id)
+  def all_games_by_team(id)
     games = []
-    @game_teams.each do |game_id, teams|
-      teams.each do |hoa, team|
-        games << team if team_id == team.team_id
-      end
+    @game_teams.each do |game_team|
+      games << game_team if game_team.team_id == id
     end
     games
   end
 
   def average_goals(games)
-    goals(games).fdiv(games_count(games))
+    goals_count(games).fdiv(games_count(games))
   end
 
-  def goals(games)
+  def goals_count(games)
     goals = 0
     games.each do |game|
-      goals += game.goals.to_i
+      goals += game.goals
     end
     goals
   end
@@ -159,17 +135,15 @@ class GameTeamManager
     games.count
   end
 
-  def average_win_percentage(team_id)
+  def average_win_percentage(id)
     total_games = 0
     total_wins = 0
-    @game_teams.each do |game_id, teams|
-      teams.each do |hoa, team|
-        if team.team_id == team_id
-          if team.result == "WIN"
-            total_wins += 1
-          end
-          total_games += 1
+    @game_teams.each do |game_team|
+      if game_team.team_id == id
+        if game_team.result == "WIN"
+          total_wins += 1
         end
+        total_games += 1
       end
     end
     (total_wins.fdiv(total_games)).round(2)
@@ -191,23 +165,50 @@ class GameTeamManager
     min.goals.to_i
   end
 
+  def opponent_results
+    {games: 0, wins: 0}
+  end
+
+  def all_game_ids_by_team(team_id)
+    game_ids = []
+    @game_teams.each do |game_team|
+      game_ids << game_team.game_id if game_team.team_id == team_id
+    end
+    game_ids
+  end
+
   def opponents_list(team_id)
-    list = Hash.new {|h, k| h[k] = {games: 0, wins: 0}}
-    @game_teams.each do |game_id, teams|
-      if teams[:home].team_id == team_id
-        id = teams[:away].team_id
-        list[id][:wins] += 1 if teams[:away].result == 'WIN'
-        list[id][:games] += 1
-      elsif teams[:away].team_id == team_id
-        id = teams[:home].team_id
-        list[id][:wins] += 1 if teams[:home].result == 'WIN'
-        list[id][:games] += 1
+    list = {}
+    game_ids = all_game_ids_by_team(team_id)
+    @game_teams.each do |game_team|
+      game_ids.each do |game_id|
+        if game_team.game_id == game_id && game_team.team_id != team_id
+          id = game_team.team_id
+          list[id] ||= opponent_results
+          list[id][:games] += 1
+          list[id][:wins] += 1 if game_team.result == 'WIN'
+        end
       end
     end
     list
   end
 
-  # Edge case question: What to do if a team never wins?
+  # def opponents_list(team_id)
+  #   list = Hash.new {|h, k| h[k] = {games: 0, wins: 0}}
+  #   @game_teams.each do |game_teams|
+  #     if game_teams[:home].team_id == team_id
+  #       id = game_teams[:away].team_id
+  #       list[id][:wins] += 1 if game_teams[:away].result == 'WIN'
+  #       list[id][:games] += 1
+  #     elsif game_teams[:away].team_id == team_id
+  #       id = game_teams[:home].team_id
+  #       list[id][:wins] += 1 if game_teams[:home].result == 'WIN'
+  #       list[id][:games] += 1
+  #     end
+  #   end
+  #   list
+  # end
+
   def favorite_opponent(team_id)
     favorite = nil
     highest = 2013020002
