@@ -59,13 +59,9 @@ class GameManager < Manager
   end
 
   def count_of_games_by_season
-    season_data = {}
+    season_data = Hash.new(0)
     @games.each do |game|
-      if season_data.include?(game.season)
-        season_data[game.season] += 1 # build key value pair first and then add to it  READABILTY
-      else
-        season_data[game.season] = 1
-      end
+      season_data[game.season] += 1
     end
     season_data
   end

@@ -245,5 +245,4 @@ class GameTeamManager
     end
     arch_nemesis
   end
-
 end
