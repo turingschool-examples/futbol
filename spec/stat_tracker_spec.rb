@@ -125,4 +125,36 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.average_goals_by_season).to eq({"20122013"=>3.7})
   end
 
+  it 'gets team info' do
+    expect(@stat_tracker.team_info("16")).to eq({:abbreviation=>"NE", :franchise_id=>"11", :link=>"/api/v1/teams/16", :team_id=>"16", :team_name=>"New England Revolution"})
+  end
+
+  it 'gets best season' do
+    expect(@stat_tracker.best_season("16")).to eq("20122013")
+  end
+
+  it 'gets worst season' do
+    expect(@stat_tracker.worst_season("16")).to eq("20122013")
+  end
+
+  it 'gets average win percentage' do
+    expect(@stat_tracker.average_win_percentage("16")).to eq(100.0)
+  end
+
+  it 'gets most goals scored' do
+    expect(@stat_tracker.most_goals_scored("16")).to eq(0)
+  end
+
+  it 'gets fewest goals scored' do
+    expect(@stat_tracker.fewest_goals_scored("6")).to eq(0)
+  end
+
+  it 'gets favorite opponent' do
+    expect(@stat_tracker.favorite_opponent("16")).to eq("LA Galaxy")
+  end
+
+  it 'gets rival' do
+    expect(@stat_tracker.rival("16")).to eq("LA Galaxy")
+  end
+
 end
