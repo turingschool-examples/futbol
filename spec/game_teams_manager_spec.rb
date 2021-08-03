@@ -55,7 +55,7 @@ RSpec.describe GameTeamsManager do
         '3' => 0.3291139240506329,
         '14' => 0.3333333333333333
       }
-      expect(game_teams_manager.get_accuracy_avg(input)).to eq(expected)
+      expect(game_teams_manager.accuracy_avg(input)).to eq(expected)
     end
 
     it 'has most accurate and least accurate teams' do

@@ -46,25 +46,26 @@ class GamesManager < SeasonsManager
     }
   end
 
-  def team_scores(min_max, hoa)
+  def team_scores(hoa, min_max)
     results(min_max, all_team_scores(hoa))
   end
 
   def all_team_scores(hoa)
     {
-      max: -> { hoa_goals[hoa].call.max_by { |_team, data| hash_avg(data) }.first },
-      min: -> { hoa_goals[hoa].call.min_by { |_team, data| hash_avg(data) }.first }
+      max: -> { hoa_goals(hoa).call.max_by { |_team, data| hash_avg(data) }.first },
+      min: -> { hoa_goals(hoa).call.min_by { |_team, data| hash_avg(data) }.first }
     }
   end
 
-  def hoa_goals
-    {
+  def hoa_goals(hoa)
+    goals = {
       home: -> { get_hoa_goals(hoa) },
       away: -> { get_hoa_goals(hoa) }
     }
+    goals[hoa]
   end
 
-  def opponent_results(min_max, id)
+  def opponent_results(id, min_max)
     results(min_max, opponent_min_max(id))
   end
 
@@ -77,10 +78,11 @@ class GamesManager < SeasonsManager
   end
 
   def game_score_results(min_max)
-    {
+    game = {
       max: -> { @games.max_by { |game| game.total_goals } },
       min: -> { @games.min_by { |game| game.total_goals } }
     }
+    game[min_max].call.total_goals
   end
 
   def results(min_max, block)

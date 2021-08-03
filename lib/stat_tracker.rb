@@ -24,11 +24,11 @@ class StatTracker
   end
 
   def highest_total_score
-    @games_manager.score_results(:max)
+    @games_manager.game_score_results(:max)
   end
 
   def lowest_total_score
-    @games_manager.score_results(:min)
+    @games_manager.game_score_results(:min)
   end
 
   def count_of_games_by_season
@@ -60,11 +60,11 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
-    @teams_manager.team_by_id(@games_manager.opponent_results(team_id, :fav))
+    @teams_manager.team_by_id(@games_manager.opponent_results(team_id, :min))
   end
 
   def rival(team_id)
-    @teams_manager.team_by_id(@games_manager.opponent_results(team_id, :rival))
+    @teams_manager.team_by_id(@games_manager.opponent_results(team_id, :max))
   end
 
   def winningest_coach(season)

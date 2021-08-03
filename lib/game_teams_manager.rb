@@ -15,14 +15,14 @@ class GameTeamsManager < SeasonsManager
   end
 
   def accuracy_results(season, min_max)
-    results(min_max, calc_min_or_max(accuracy_avg(accuracy_data(season)))
+    results(min_max, calc_min_or_max(accuracy_avg(accuracy_data(season))))
   end
 
-  def season_results(min_max, id)
+  def season_results(id, min_max)
     results(min_max, calc_min_or_max(season_avgs(seasons_win_count(id))))
   end
 
-  def tackle_results(season)
+  def tackle_results(season, min_max)
     results(min_max, calc_min_or_max(team_tackles(season)))
   end
 
