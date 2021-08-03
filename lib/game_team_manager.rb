@@ -155,7 +155,7 @@ class GameTeamManager
     goals
   end
 
-  def games_count(games)# RENAME TO GAMES COUNT OR SOMTHING SIMILAR
+  def games_count(games)
     games.count
   end
 
@@ -191,27 +191,17 @@ class GameTeamManager
     min.goals.to_i
   end
 
-  def opponent_results
-    {games: 0, wins: 0}
-  end
-
   def opponents_list(team_id)
-    list = {}
+    list = Hash.new {|h, k| h[k] = {games: 0, wins: 0}}
     @game_teams.each do |game_id, teams|
-      teams.each do |hoa, team|
-        if team.team_id == team_id
-          if team.hoa == "home"
-            id = teams[:away].team_id
-            list[id] ||= opponent_results
-            list[id][:games] += 1
-            list[id][:wins] += 1 if teams[:away].result == 'WIN'
-          elsif team.hoa == "away"
-            id = teams[:home].team_id
-            list[id] ||= opponent_results
-            list[id][:games] += 1
-            list[id][:wins] += 1 if teams[:home].result == 'WIN'
-          end
-        end
+      if teams[:home].team_id == team_id
+        id = teams[:away].team_id
+        list[id][:wins] += 1 if teams[:away].result == 'WIN'
+        list[id][:games] += 1
+      elsif teams[:away].team_id == team_id
+        id = teams[:home].team_id
+        list[id][:wins] += 1 if teams[:home].result == 'WIN'
+        list[id][:games] += 1
       end
     end
     list

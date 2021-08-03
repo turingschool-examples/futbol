@@ -105,20 +105,6 @@ class SeasonManager
     least
   end
 
-  def process_away_win(season_data, game_data, season_id)
-    if game_data[:game].away_goals > game_data[:game].home_goals
-      season_data[season_id][:total_wins] += 1
-    end
-    season_data[season_id][:total_games] += 1
-  end
-
-  def process_home_win(season_data, game_data, season_id)
-    if game_data[:game].away_goals < game_data[:game].home_goals
-      season_data[season_id][:total_wins] += 1
-    end
-    season_data[season_id][:total_games] += 1
-  end
-
   def best_season(team_id)
     season_data = {}
     @seasons_hash.each do |season_id, season|
