@@ -23,6 +23,8 @@ class StatTracker
     StatTracker.new(locations)
   end
 
+  #game stats
+
   def highest_total_score
     @game_manager.highest_total_score
   end
@@ -35,6 +37,7 @@ class StatTracker
     @game_manager.percentage_home_wins
   end
 
+  # Season methods
   def winningest_coach(season)
     season_games = @season_manager.game_id_by_season(season) #returns array of game ids
     @game_team_manager.winningest_coach(season_games)
