@@ -56,7 +56,7 @@ class StatTracker
   def average_goals_by_season
     @game_manager.average_goals_by_season
   end
-  
+
   # Season methods
   def winningest_coach(season)
     season_games = @season_manager.game_id_by_season(season) #returns array of game ids
@@ -121,4 +121,37 @@ class StatTracker
     @team_manager.team_name(@game_team_manager.worst_average_score_team_home)
   end
 
+  # Team stats
+
+  def team_info(team_id)
+    @team_manager.team_info(team_id)
+  end
+
+  def best_season(team_id)
+    @team_manager.best_season(team_id)
+  end
+
+  def worst_season(team_id)
+    @team_manager.worst_season(team_id)
+  end
+
+  def average_win_percentage(team_id)
+    @team_manager.average_win_percentage(team_id)
+  end
+
+  def most_goals_scored(team_id)
+    @team_manager.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    @team_manager.fewest_goals_scored(team_id)
+  end
+
+  def favorite_opponent(team_id)
+    @team_manager.favorite_opponent(team_id)
+  end
+
+  def rival(team_id)
+    @team_manager.rival_opponent(team_id)
+  end
 end
