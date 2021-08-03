@@ -62,4 +62,12 @@ class SeasonsManager
       game.season == season
     end
   end
+
+  def seasons
+    @games.map { |game| game.season }.uniq
+  end
+
+  def format_seasons(season)
+    season[0..3] + "-" + season[4..]
+  end
 end
