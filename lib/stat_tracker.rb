@@ -2,7 +2,6 @@ require 'CSV'
 require_relative './game_manager'
 require_relative './team_manager'
 require_relative './game_team_manager'
-require_relative './season_manager'
 
 class StatTracker
   attr_reader :game_manager,
