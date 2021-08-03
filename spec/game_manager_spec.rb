@@ -6,7 +6,7 @@ RSpec.describe GameManager do
       file_path = './data/fixture_games.csv'
       game_manager = GameManager.new(file_path)
 
-      expect(game_manager.load.length).to eq(39)
+      expect(game_manager.games.length).to eq(39)
     end
 
     it 'creates game object for every row' do

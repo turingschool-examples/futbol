@@ -1,22 +1,13 @@
 require 'CSV'
 require_relative './team'
+require_relative './manager'
 
-class TeamManager
+class TeamManager < Manager
   attr_reader :teams
 
   def initialize(file_path)
     @file_path = file_path
-    @teams = load
-  end
-
-  def load # CHANCE FOR Inheritance
-    teams = []
-    data = CSV.read(@file_path, headers: true)
-    data.each do |row| #change this to map later
-      team = Team.new(row)
-      teams.push(team)
-    end
-    teams
+    @teams = load(@file_path, Team)
   end
 
   def count_of_teams

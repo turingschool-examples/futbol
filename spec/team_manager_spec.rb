@@ -1,15 +1,15 @@
 require './lib/team_manager'
+require './lib/manager'
 
 RSpec.describe TeamManager do
   before(:each) do
-    @file_path = './data/teams.csv'
-    @team_manager = TeamManager.new(@file_path)
-    @team_manager.load
+    file_path = './data/teams.csv'
+    @team_manager = TeamManager.new(file_path)
   end
 
   describe '#load' do
     it 'length' do
-      expect(@team_manager.load.length).to eq(32)
+      expect(@team_manager.teams.length).to eq(32)
     end
 
     it 'creates a team object for every row' do
