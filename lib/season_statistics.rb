@@ -38,7 +38,6 @@ class SeasonStatistics
   end
 
   def total_games_by_coach(season)
-
     games_by_coach = Hash.new(0)
     @game_teams.each do |game|
       if season_verification(game, season)
@@ -48,30 +47,27 @@ class SeasonStatistics
     games_by_coach
   end
 
-  def winningest_coach(season)
-    wins_by_coach = Hash.new(0)
+  def wins_by_coach(season)
+    coach_wins_hash = total_games_by_coach(season)
     @game_teams.each do |game|
-      if season_verification(game, season) && game.result == 'WIN'
-        wins_by_coach[game.head_coach] += 1
+      if season_verification(game, season) && game.result == "WIN"
+        coach_wins_hash[game.head_coach] += 1
       end
     end
-    coach = wins_by_coach.max_by do |coach, wins|
-      tot_games = total_games_by_coach(season)[coach]
-      wins.fdiv(tot_games)
+    coach_wins_hash
+  end
+
+  def winningest_coach(season)
+    coach = wins_by_coach(season).max_by do |coach, wins|
+      wins.fdiv(total_games_by_coach(season)[coach])
     end
     coach[0]
   end
 
   def worst_coach(season)
-    wins_by_coach = total_games_by_coach(season)
-    @game_teams.each do |game|
-      if season_verification(game, season) && game.result == ("WIN")
-        wins_by_coach[game.head_coach] += 1
-      end
-    end
-    loser_coach = wins_by_coach.min_by do |coach, wins|
+    loser_coach = wins_by_coach(season).min_by do |coach, wins|
       tot_games = total_games_by_coach(season)[coach]
-      (wins_by_coach[coach] - tot_games).fdiv(tot_games)
+      (wins_by_coach(season)[coach] - tot_games).fdiv(tot_games)
     end
     loser_coach[0]
   end
