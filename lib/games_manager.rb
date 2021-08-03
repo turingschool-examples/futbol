@@ -1,19 +1,13 @@
-require 'csv'
 require_relative 'game'
 require_relative 'seasons_manager'
+require_relative 'parsable'
 
 class GamesManager < SeasonsManager
+  include Parsable
   attr_reader :games
 
   def initialize(file_path)
-    @games = []
-    make_games(file_path)
-  end
-
-  def make_games(file_path)
-    CSV.foreach(file_path, headers: true) do |row|
-      @games << Game.new(row)
-    end
+    @games = make_objects(file_path, Game)
   end
 
   def score_results(min_max)

@@ -9,7 +9,7 @@ RSpec.describe TeamsManager do
     end
 
     it 'makes teams' do
-      expect(teams_manager).to respond_to(:make_teams)
+      expect(teams_manager).to respond_to(:make_objects)
     end
 
     it 'has team info' do

@@ -9,7 +9,7 @@ RSpec.describe GameTeamsManager do
     end
 
     it 'makes games' do
-      expect(game_teams_manager).to respond_to(:make_game_teams)
+      expect(game_teams_manager).to respond_to(:make_objects)
     end
 
     it 'has winningest and worst coach' do
