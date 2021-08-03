@@ -55,7 +55,7 @@ class GameManager
   end
 
   def percentage_home_wins
-    (home_wins_count.to_f / total_games * 100).round(1)
+    (home_wins_count.to_f / total_games).round(2)
   end
 
   def visitor_wins_count
@@ -65,7 +65,7 @@ class GameManager
   end
 
   def percentage_visitor_wins
-    (visitor_wins_count.to_f / total_games * 100).round(1)
+    (visitor_wins_count.to_f / total_games).round(2)
   end
 
   def tie_count
@@ -73,7 +73,7 @@ class GameManager
   end
 
   def percent_ties
-    (tie_count.to_f / total_games * 100).round(1)
+    (tie_count.to_f / total_games).round(2)
   end
 
   def game_by_id(id)
