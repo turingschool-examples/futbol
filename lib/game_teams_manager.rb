@@ -17,35 +17,29 @@ class GameTeamsManager < SeasonsManager
   end
 
   def coach_results(season, min_max)
-    results = {
-      max: -> { coach_win_pct(season).max_by { |_coach, pct| pct }.first },
-      min: -> { coach_win_pct(season).min_by { |_coach, pct| pct }.first }
-    }
-    results[min_max].call
+    averages = coach_win_pct(season)
+    calc_min_or_max(min_max, averages)
   end
 
   def accuracy_results(season, min_max)
-    average = get_accuracy_avg(accuracy_data(season))
-    results = {
-      max: -> { average.max_by { |_team, avg| avg }.first },
-      min: -> { average.min_by { |_team, avg| avg }.first }
-    }
-    results[min_max].call
-  end
-
-  def tackle_results(season, min_max)
-    results = {
-      max: -> { team_tackles(season).max_by { |_team, tackles| tackles }.first },
-      min: -> { team_tackles(season).min_by { |_team, tackles| tackles }.first }
-    }
-    results[min_max].call
+    averages = get_accuracy_avg(accuracy_data(season))
+    calc_min_or_max(min_max, averages)
   end
 
   def season_results(id, min_max)
     averages = season_avgs(seasons_win_count(id))
+    calc_min_or_max(min_max, averages)
+  end
+
+  def tackle_results(season, min_max)
+    data = team_tackles(season)
+    calc_min_or_max(min_max, data)
+  end
+
+  def calc_min_or_max(min_max, data)
     results = {
-      max: -> { averages.max_by { |_season, avg| avg }.first },
-      min: -> { averages.min_by { |_season, avg| avg }.first }
+      max: -> { data.max_by { |_team, stats| stats }.first },
+      min: -> { data.min_by { |_team, stats| stats }.first }
     }
     results[min_max].call
   end
