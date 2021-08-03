@@ -25,35 +25,35 @@ class SeasonManager
     end
   end
 
-  def games_and_wins
-    {total_games: 0, total_wins: 0}
-  end
+  # def games_and_wins
+  #   {total_games: 0, total_wins: 0}
+  # end
+  #
+  # def add_coach_data(coach_wins, game_data)
+  #   if game_data[:away].result == 'WIN'
+  #     coach_wins[game_data[:away].head_coach][:total_wins] += 1
+  #   elsif game_data[:away].result == 'LOSS'
+  #     coach_wins[game_data[:home].head_coach][:total_wins] += 1
+  #   end
+  #   coach_wins[game_data[:home].head_coach][:total_games] += 1
+  #   coach_wins[game_data[:away].head_coach][:total_games] += 1
+  # end
 
-  def add_coach_data(coach_wins, game_data)
-    if game_data[:away].result == 'WIN'
-      coach_wins[game_data[:away].head_coach][:total_wins] += 1
-    elsif game_data[:away].result == 'LOSS'
-      coach_wins[game_data[:home].head_coach][:total_wins] += 1
-    end
-    coach_wins[game_data[:home].head_coach][:total_games] += 1
-    coach_wins[game_data[:away].head_coach][:total_games] += 1
-  end
-
-  def winningest_coach(season_id)
-    coach_wins = @seasons_hash[season_id].coach_wins
-
-    coach_wins.max_by do |coach_name, coach_data|
-      coach_data[:total_wins].fdiv(coach_data[:total_games])
-    end.first
-  end
-
-  def worst_coach(season)
-    coach_wins = @seasons_hash[season].coach_wins
-
-    coach_wins.min_by do |coach, coach_data|
-      coach_data[:total_wins].fdiv(coach_data[:total_games])
-    end.first
-  end
+  # def winningest_coach(season_id)
+  #   coach_wins = @seasons_hash[season_id].coach_wins
+  #
+  #   coach_wins.max_by do |coach_name, coach_data|
+  #     coach_data[:total_wins].fdiv(coach_data[:total_games])
+  #   end.first
+  # end
+  #
+  # def worst_coach(season)
+  #   coach_wins = @seasons_hash[season].coach_wins
+  #
+  #   coach_wins.min_by do |coach, coach_data|
+  #     coach_data[:total_wins].fdiv(coach_data[:total_games])
+  #   end.first
+  # end
 
   def most_accurate_team(season)
     accuracy = @seasons_hash[season].accuracy

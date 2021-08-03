@@ -236,4 +236,48 @@ class GameTeamManager < Manager
     end
     arch_nemesis
   end
+
+  def winningest_coach(game_team_ids)
+    game_teams_from_ids = game_teams_from_ids(game_team_ids)
+    coach_wins = coach_wins(game_teams_from_ids)
+
+    coach_wins.max_by do |coach_name, coach_data|
+      coach_data[:total_wins].fdiv(coach_data[:total_games])
+    end.first
+  end
+
+  def worst_coach(game_team_ids)
+    game_teams_from_ids = game_teams_from_ids(game_team_ids)
+    coach_wins = coach_wins(game_teams_from_ids)
+
+    coach_wins.min_by do |coach_name, coach_data|
+      coach_data[:total_wins].fdiv(coach_data[:total_games])
+    end.first
+  end
+
+  # we pass in the season's game ids
+  def game_teams_from_ids(game_team_ids)
+    game_teams_from_ids = []
+    @game_teams.each do |game_team|
+      if game_team_ids.include?(game_team.game_id)
+        game_teams_from_ids << game_team
+      end
+    end
+    game_teams_from_ids
+  end
+
+  def add_coach_data(coach_wins, game_team)
+    if game_team.result == "WIN"
+      coach_wins[game_team.head_coach][:total_wins] += 1
+    end
+    coach_wins[game_team.head_coach][:total_games] += 1
+  end
+
+  def coach_wins(game_teams_from_ids)
+    coach_wins = Hash.new {|h, k| h[k] = {total_games: 0, total_wins: 0}}
+    game_teams_from_ids.each do |game_team|
+      add_coach_data(coach_wins, game_team)
+    end
+    coach_wins
+  end
 end

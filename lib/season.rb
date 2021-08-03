@@ -28,23 +28,23 @@ class Season
     accuracy
   end
 
-  def add_coach_data(coach_wins, game_data)
-    if game_data[:away].result == 'WIN'
-      coach_wins[game_data[:away].head_coach][:total_wins] += 1
-    elsif game_data[:away].result == 'LOSS'
-      coach_wins[game_data[:home].head_coach][:total_wins] += 1
-    end
-    coach_wins[game_data[:home].head_coach][:total_games] += 1
-    coach_wins[game_data[:away].head_coach][:total_games] += 1
-  end
-
-  def coach_wins
-    coach_wins = Hash.new {|h, k| h[k] = {total_games: 0, total_wins: 0}}
-    @games.each do |game_id, game_data|
-      add_coach_data(coach_wins, game_data)
-    end
-    coach_wins
-  end
+  # def add_coach_data(coach_wins, game_data)
+  #   if game_data[:away].result == 'WIN'
+  #     coach_wins[game_data[:away].head_coach][:total_wins] += 1
+  #   elsif game_data[:away].result == 'LOSS'
+  #     coach_wins[game_data[:home].head_coach][:total_wins] += 1
+  #   end
+  #   coach_wins[game_data[:home].head_coach][:total_games] += 1
+  #   coach_wins[game_data[:away].head_coach][:total_games] += 1
+  # end
+  #
+  # def coach_wins
+  #   coach_wins = Hash.new {|h, k| h[k] = {total_games: 0, total_wins: 0}}
+  #   @games.each do |game_id, game_data|
+  #     add_coach_data(coach_wins, game_data)
+  #   end
+  #   coach_wins
+  # end
 
   def add_tackle_data(tackles, game_data)
       tackles[game_data[:home].team_id] += game_data[:home].tackles.to_i

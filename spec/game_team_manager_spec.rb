@@ -1,11 +1,13 @@
 require './lib/game_team_manager'
 require './lib/stat_tracker'
-require './lib/team_manager'
+require './lib/game_manager'
 
 RSpec.describe GameTeamManager do
   before(:each) do
-    file_path = './data/fixture_game_teams.csv'
-    @game_team_manager = GameTeamManager.new(file_path)
+    gt_path = './data/fixture_game_teams.csv'
+    @game_team_manager = GameTeamManager.new(gt_path)
+    g_path = './data/fixture_games.csv'
+    @game_manager = GameManager.new(g_path)
   end
 
   describe '#load' do
@@ -150,6 +152,22 @@ RSpec.describe GameTeamManager do
   describe '#rival(team_id)' do
     it 'returns opponent with highest win percentage against team' do
       expect(@game_team_manager.rival("3")).to eq("6")
+    end
+  end
+
+  describe '#winningest_coach' do
+    it "can return all the coaches and their win percentages" do
+      games_by_season = @game_manager.game_ids_by_season("20122013")
+
+      expect(@game_team_manager.winningest_coach(games_by_season)).to eq("Claude Julien")
+    end
+  end
+
+  describe '#worst_coach' do
+    it "can return all the coaches and their win percentages" do
+      games_by_season = @game_manager.game_ids_by_season("20122013")
+
+      expect(@game_team_manager.worst_coach(games_by_season)).to eq("John Tortorella")
     end
   end
 end
