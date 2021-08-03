@@ -116,8 +116,7 @@ class GameTeamManager
   end
 
   def goals_by_team
-    sorted_goals = {}
-    @game_teams.reduce({}) do |goals_hash, game_team|
+    @game_teams.reduce({}) do |sorted_goals, game_team|
       sorted_goals[game_team.team_id] ||= []
       sorted_goals[game_team.team_id] << game_team.goals.to_i
       sorted_goals
@@ -140,8 +139,7 @@ class GameTeamManager
   end
 
   def goals_by_team_home
-    sorted_goals_home = {}
-    @game_teams.reduce({}) do |goals_hash, game_team|
+    @game_teams.reduce({}) do |sorted_goals_home, game_team|
       if game_team.hoa == "home"
         sorted_goals_home[game_team.team_id] ||= []
         sorted_goals_home[game_team.team_id] << game_team.goals.to_i
@@ -166,8 +164,7 @@ class GameTeamManager
   end
 
   def goals_by_team_away
-    sorted_goals_away = {}
-    @game_teams.reduce({}) do |goals_hash, game_team|
+    @game_teams.reduce({}) do |sorted_goals_away, game_team|
       if game_team.hoa == "away"
         sorted_goals_away[game_team.team_id] ||= []
         sorted_goals_away[game_team.team_id] << game_team.goals.to_i
