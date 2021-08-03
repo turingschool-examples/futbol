@@ -12,16 +12,8 @@ RSpec.describe TeamsManager do
       expect(teams_manager).to respond_to(:make_objects)
     end
 
-    it 'has team info' do
-      expected = {
-        'team_id' => '18',
-        'franchise_id' => '34',
-        'team_name' => 'Minnesota United FC',
-        'abbreviation' => 'MIN',
-        'link' => '/api/v1/teams/18'
-      }
-
-      expect(teams_manager.team_info('18')).to eq(expected)
+    it 'can find a team' do
+      expect(teams_manager.team_info("18")).to be_a(Team)
     end
 
     it 'has a teams count in a league' do
