@@ -99,6 +99,6 @@ class StatTracker
   end
 
   def percentage_ties
-    @game_manager.percentage_ties
+    @game_manager.percent_ties
   end
 end
