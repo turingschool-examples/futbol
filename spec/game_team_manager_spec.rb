@@ -31,9 +31,15 @@ RSpec.describe GameTeamManager do
     expect(@game_team_manager.by_game_id('2012030221')[0]).to be_a(GameTeam)
   end
 
-  it 'tied?' do
-    expect(@game_team_manager.tied?('2012030221')).to eq(false)
-    expect(@game_team_manager.tied?('2013030152')).to eq(true)
+  it 'collects game_teams array using game_ids' do
+    expect(@game_team_manager.season_collection(@season_game_ids)).to be_an(Array)
+    expect(@game_team_manager.season_collection(@season_game_ids).count).to eq(@season_game_ids.count * 2)
+    expect(@game_team_manager.season_collection(@season_game_ids)[0]).to be_a(GameTeam)
+  end
+
+  it 'returns team ids for given collection' do
+    collection = @game_team_manager.season_collection(@season_game_ids)
+    expect(@game_team_manager.team_ids(collection)).to eq(@season_team_ids)
   end
 
   it 'counts wins for given collection' do
@@ -43,7 +49,7 @@ RSpec.describe GameTeamManager do
     expect(@game_team_manager.wins(collection)).to eq(10)
   end
 
-  it 'total games for given team id' do
+  it 'total games for given collection' do
     collection = @season_game_ids.flat_map do |game_id|
                    @game_team_manager.by_game_id(game_id)
                  end
@@ -77,48 +83,44 @@ RSpec.describe GameTeamManager do
   end
 
   it 'returns game teams by team id' do
-    expect(@game_team_manager.by_team_id('3')).to be_an(Array)
-    expect(@game_team_manager.by_team_id('3').count).to eq(5)
-    expect(@game_team_manager.by_team_id('3')[0]).to be_a(GameTeam)
+    collection = @game_team_manager.season_collection(@season_game_ids)
+    expect(@game_team_manager.by_team_id(collection, '3')).to be_an(Array)
+    expect(@game_team_manager.by_team_id(collection, '3').count).to eq(5)
+    expect(@game_team_manager.by_team_id(collection, '3')[0]).to be_a(GameTeam)
   end
 
   it 'has total shots by team id' do
-    expect(@game_team_manager.total_shots('3')).to eq(38)
+    collection = @game_team_manager.by_team_id(@game_team_manager.season_collection(@season_game_ids), '3')
+    expect(@game_team_manager.total_shots(collection)).to eq(38)
   end
 
   it 'has total goals by team id' do
-    expect(@game_team_manager.total_goals('3')).to eq(8)
+    collection = @game_team_manager.by_team_id(@game_team_manager.season_collection(@season_game_ids), '3')
+    expect(@game_team_manager.total_goals(collection)).to eq(8)
   end
 
   it 'has accuracy for each team' do
-    results = {"16"=>5.0,
-               "17"=>5.0,
-               "21"=>3.5,
-               "3"=>4.75,
-               "30"=>4.0,
-               "5"=>16.0,
-               "6"=>3.17
-              }
-    expect(@game_team_manager.team_accuracy(@season_team_ids)).to eq(results)
+    collection = @game_team_manager.by_team_id(@game_team_manager.season_collection(@season_game_ids), '3')
+    expect(@game_team_manager.team_accuracy(collection)).to eq(4.75)
   end
 
   it 'has most accurate team id' do
-    expect(@game_team_manager.most_accurate_team(@season_team_ids)).to eq('6')
+    expect(@game_team_manager.most_accurate_team(@season_game_ids)).to eq('6')
   end
 
   it 'has least accurate team_id' do
-    expect(@game_team_manager.least_accurate_team(@season_team_ids)).to eq('5')
+    expect(@game_team_manager.least_accurate_team(@season_game_ids)).to eq('5')
   end
 
-  it 'has team tackles' do
+  xit 'has team tackles' do
     expect(@game_team_manager.team_tackles('3')).to eq(179)
   end
 
-  it 'has team with most tackles' do
+  xit 'has team with most tackles' do
     expect(@game_team_manager.most_tackles(@season_team_ids)).to eq('6')
   end
 
-  it 'has team with least tackles' do
+  xit 'has team with least tackles' do
     expect(@game_team_manager.fewest_tackles(@season_team_ids)).to eq('16')
   end
 
@@ -159,6 +161,7 @@ RSpec.describe GameTeamManager do
   it "creates a hash of teams and goals for home games" do
     results = {
       "16" => [2],
+      "21" => [2],
       "3" => [1, 2],
       "5" => [0, 1],
       "6" => [3, 3, 3, 2, 1]
@@ -170,6 +173,7 @@ RSpec.describe GameTeamManager do
     results = {
       "17" => [1],
       "3" => [2, 2, 1],
+      "30" => [2],
       "5" => [1, 0],
       "6" => [2, 3, 3, 4]
     }
@@ -179,6 +183,7 @@ RSpec.describe GameTeamManager do
   it "returns the average home goals per game by team" do
     results = {
       "16" => 2.0,
+      "21" => 2.0,
       "3" => 1.5,
       "5" => 0.5,
       "6" => 2.4
@@ -198,6 +203,7 @@ RSpec.describe GameTeamManager do
     results = {
       "17" => 1.0,
       "3" => 1.66,
+      "30" => 2.0,
       "5" => 0.5,
       "6" => 3.0
     }
