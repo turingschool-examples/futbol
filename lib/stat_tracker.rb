@@ -31,10 +31,6 @@ class StatTracker
     @game_manager.lowest_total_score
   end
 
-  def highest_total_score
-    @game_manager.highest_total_score
-  end
-
   def percentage_home_wins
     @game_manager.percentage_home_wins
   end
@@ -100,5 +96,9 @@ class StatTracker
 
   def lowest_scoring_home_team
     @team_manager.team_name(@game_team_manager.worst_average_score_team_home)
+  end
+
+  def percentage_ties
+    @game_manager.percent_ties
   end
 end

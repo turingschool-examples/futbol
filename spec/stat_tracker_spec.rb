@@ -92,4 +92,20 @@ RSpec.describe StatTracker do
   it "text" do
     expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
   end
+
+  it "checks highest total score" do
+    expect(@stat_tracker.highest_total_score).to eq(5)
+  end
+
+  it "checks lowest total score" do
+    expect(@stat_tracker.lowest_total_score).to eq(1)
+  end
+
+  it "checks percentage_home_wins" do
+    expect(@stat_tracker.percentage_home_wins).to eq(60.0)
+  end
+
+  it "can check the percentage of ties" do
+    expect(@stat_tracker.percentage_ties).to eq(0.0)
+  end
 end
