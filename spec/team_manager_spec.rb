@@ -66,6 +66,8 @@ RSpec.describe TeamManager do
       game.game_id == "2012030224"
     end
     expect(@team_manager.winning_team("6", games)).to eq(true)
+    expect(@team_manager.winning_team("3", games)).to eq(false)
+
   end
 
   it "can average the win percentage" do
