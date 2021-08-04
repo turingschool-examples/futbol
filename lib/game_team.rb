@@ -23,8 +23,8 @@ class GameTeam
     # @settled_in             = params["settled_in"] # Not used
     @head_coach             = params["head_coach"]
     @goals                  = params["goals"].to_i
-    @shots                  = params["shots"]
-    @tackles                = params["tackles"]
+    @shots                  = params["shots"].to_i
+    @tackles                = params["tackles"].to_i
     # @pim                    = params["pim"] # Not used
     # @powerplayopportunities = params["powerPlayOpportunities"] # Not used
     # @powerplaygoals         = params["powerPlayGoals"] # Not used
