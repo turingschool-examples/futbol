@@ -39,18 +39,21 @@ class TeamManager
     @teams.count
   end
 
-  def games_by_season(id)
-    @game_manager.games_by_team_id(id).group_by do |game|
-      game.season
-    end
-  end
 
   def best_season(id)
+    season_games = @game_manager.games_by_team_id(id).group_by do |game|
+      game.season
+    end
+
     #we will refactor this with sort_by.
-    games_by_season.find do |season, season_games|
+    season_games.max_by do |season, season_games|
       win_percentage(id, season_games)
-    end.flatten
+    end.flatten[0]
   end
+
+
+    #we will refactor this with sort_by.
+
 
   def worst_season(id)
     season_games = @game_manager.games_by_team_id(id).group_by do |game|
@@ -68,7 +71,7 @@ class TeamManager
   # end
 
   def win_percentage(id, games)
-    total_wins = @game_manager.games_by_team_id(id).count do |game|
+    total_wins = games.count do |game|
       game.home_team_id == id && game.home_goals > game.away_goals || game.away_team_id == id && game.away_goals > game.home_goals
     end
     (total_wins.fdiv(games.count)).round(2)
@@ -85,12 +88,14 @@ class TeamManager
   end
 
   def most_goals_scored(id)
+    require "pry";binding.pry
     all_goals_by_team(id).max.to_i
   end
 
   def fewest_goals_scored(id)
     all_goals_by_team(id).min.to_i
   end
+
 
   def games_against_opponents(id)
     @game_manager.games_by_team_id(id).group_by do |game|
@@ -103,20 +108,21 @@ class TeamManager
   end
 
   def favorite_opponent(id)
-    opponent = games_against_opponents(id).max_by do |id, game|
-      win_percentage(id, game)
+    opponent = games_against_opponents(id).max_by do |opponent_id, games|
+      win_percentage(id, games)
     end.flatten[0]
 
     team_var = @teams.find do |team|
       team.team_id == opponent
     end
+    # require"pry";binding.pry
 
     team_var.team_name
   end
 
   def rival_opponent(id)
-    opponent = games_against_opponents(id).min_by do |id, game|
-      win_percentage(id, game)
+    opponent = games_against_opponents(id).min_by do |opponent_id, games|
+      win_percentage(id, games)
     end.flatten[0]
 
     team_var = @teams.find do |team|
