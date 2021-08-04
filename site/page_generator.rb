@@ -69,7 +69,7 @@ team_stats_template = %{
               <li><b>Abbreviation:</b> <%= team.abbreviation %></li>
               <li><b>Best Season:</b> <%= stat_tracker.games_manager.format_seasons(stat_tracker.best_season(team.team_id)) %></li>
               <li><b>Worst Season:</b> <%= stat_tracker.games_manager.format_seasons(stat_tracker.worst_season(team.team_id)) %></li>
-              <li><b>Average Win Percent of All games:</b> <%= stat_tracker.average_win_percentage(team.team_id) %></li>
+              <li><b>Average Win Percent of All games:</b> <%= (stat_tracker.average_win_percentage(team.team_id) * 100).to_i %>%</li>
               <li><b>Most Goals Scored in a Game:</b> <%= stat_tracker.most_goals_scored(team.team_id) %></li>
               <li><b>Fewest Goals Scores in a Game:</b> <%= stat_tracker.fewest_goals_scored(team.team_id) %></li>
               <li><b>Favorite Opponent:</b> <%= stat_tracker.favorite_opponent(team.team_id) %></li>
@@ -123,16 +123,16 @@ game_stats_template = %{
         <ul>
           <li><b>Highest Total Score in a Game:</b> <%= stat_tracker.highest_total_score %></li>
           <li><b>Lowest Total Score in a Game:</b> <%= stat_tracker.lowest_total_score %></li>
-          <li><b>Percentage of Games Won by a Home Team:</b> <%= stat_tracker.percentage_home_wins %></li>
-          <li><b>Percentage of Games Won by a Visiting Team:</b> <%= stat_tracker.percentage_visitor_wins %></li>
-          <li><b>Percentage of Ties:</b> <%= stat_tracker.percentage_ties %></li>
+          <li><b>Percentage of Games Won by a Home Team:</b> <%= (stat_tracker.percentage_home_wins * 100).to_i %>%</li>
+          <li><b>Percentage of Games Won by a Visiting Team:</b> <%= (stat_tracker.percentage_visitor_wins * 100).to_i %>%</li>
+          <li><b>Percentage of Ties:</b> <%= (stat_tracker.percentage_ties * 100).to_i %>%</li>
           <li><b>Average Goals per Game:</b> <%= stat_tracker.average_goals_per_game %></li>
-          <li><b>Number of Games per Season:</b> <% stat_tracker.count_of_games_by_season.each do |season, count| %>
+          <li><b>Number of Games per Season:</b> <% stat_tracker.count_of_games_by_season.each.sort_by { |season, count| season.to_i}.each do |season, count| %>
             <ul>
               <li><b><%= stat_tracker.games_manager.format_seasons(season) %>:</b> <%= count %></li>
             </ul>
           <% end %></li>
-          <li><b>Average Goals per Game by Season:</b> <% stat_tracker.average_goals_by_season.each do |season, avg_goals| %>
+          <li><b>Average Goals per Game by Season:</b> <% stat_tracker.average_goals_by_season.each.sort_by { |season, avg_goals| season.to_i}.each do |season, avg_goals| %>
             <ul>
               <li><b><%= stat_tracker.games_manager.format_seasons(season) %>:</b> <%= avg_goals %></li>
             </ul>
