@@ -77,10 +77,9 @@ class GameManager
   end
 
   def game_by_id(id)
-    game_return = @games.find do |game|
+    @games.find do |game|
       game.game_id == id
     end
-    game_return
   end
 
   def count_of_games_by_season
