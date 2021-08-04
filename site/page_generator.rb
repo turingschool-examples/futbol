@@ -34,26 +34,22 @@ home_template = %{
       font-family: "Verdana";
       color: EDF5E1;
       font-size: 28px;
-  }
+    }
     a:link {
       color: EDF5E1;
       font-size: 23px;
-  }
+    }
     a:visited {
       color: EDF5E1;
       font-size: 23px;
-  }
-
-    h1 {
-      color: 32CD32
-  }
+    }
     .header {
       padding: 60px;
       text-align: center;
       background: #05386B;
       color: EDF5E1;
       font-size: 30px;
-  }
+    }
   </style>
 }
 
@@ -62,16 +58,15 @@ team_stats_template = %{
     <head><title><%= "Stat Tracker" %></title></head>
     <body>
 
-      <h1>Teams</h1>
+      <h1>Team Statistics</h1>
 
         <% stat_tracker.teams_manager.teams.each do |team| %>
           <ul>
-            <li><h3><%= team.team_name %></h3></li>
+            <h3><%= team.team_name %></h3>
             <ul>
               <li><b>Team ID:</b> <%= team.team_id %></li>
               <li><b>Franchise ID:</b> <%= team.franchise_id %></li>
               <li><b>Abbreviation:</b> <%= team.abbreviation %></li>
-              <li><b>Link:</b> <%= team.link %></li>
               <li><b>Best Season:</b> <%= stat_tracker.games_manager.format_seasons(stat_tracker.best_season(team.team_id)) %></li>
               <li><b>Worst Season:</b> <%= stat_tracker.games_manager.format_seasons(stat_tracker.worst_season(team.team_id)) %></li>
               <li><b>Average Win Percent of All games:</b> <%= stat_tracker.average_win_percentage(team.team_id) %></li>
@@ -84,34 +79,36 @@ team_stats_template = %{
         <% end %>
     </body>
   </html>
-
   <style>
-    body {
+    h1 {
+      padding: 55px;
+      text-align: left;
+      background: #05386B;
+      color: EDF5E1;
+      font-size: 34px;
+    }
+    h3 {
       background-color: #379683;
-      text-align: center;
+      text-align: left;
       font-family: "Verdana";
       color: EDF5E1;
       font-size: 28px;
-  }
+    }
+    body {
+      background-color: #379683;
+      text-align: left;
+      font-family: "Verdana";
+      color: #05386B;
+      font-size: 18px;
+    }
     a:link {
       color: EDF5E1;
       font-size: 23px;
-  }
+    }
     a:visited {
       color: EDF5E1;
       font-size: 23px;
-  }
-
-    h1 {
-      color: 32CD32
-  }
-    .header {
-      padding: 60px;
-      text-align: center;
-      background: #05386B;
-      color: EDF5E1;
-      font-size: 30px;
-  }
+    }
   </style>
 }
 
@@ -121,18 +118,19 @@ game_stats_template = %{
     <body>
 
       <h1>Game Statistics</h1>
+
         <ul>
           <li><b>Highest Total Score in a Game:</b> <%= stat_tracker.highest_total_score %></li>
           <li><b>Lowest Total Score in a Game:</b> <%= stat_tracker.lowest_total_score %></li>
           <li><b>Percentage of Games Won by a Home Team:</b> <%= stat_tracker.percentage_home_wins %></li>
           <li><b>Percentage of Games Won by a Visiting Team:</b> <%= stat_tracker.percentage_visitor_wins %></li>
           <li><b>Percentage of Ties:</b> <%= stat_tracker.percentage_ties %></li>
+          <li><b>Average Goals per Game:</b> <%= stat_tracker.average_goals_per_game %></li>
           <li><b>Number of Games per Season:</b> <% stat_tracker.count_of_games_by_season.each do |season, count| %>
             <ul>
               <li><b><%= stat_tracker.games_manager.format_seasons(season) %>:</b> <%= count %></li>
             </ul>
           <% end %></li>
-          <li><b>Average Goals per Game:</b> <%= stat_tracker.average_goals_per_game %></li>
           <li><b>Average Goals per Game by Season:</b> <% stat_tracker.average_goals_by_season.each do |season, avg_goals| %>
             <ul>
               <li><b><%= stat_tracker.games_manager.format_seasons(season) %>:</b> <%= avg_goals %></li>
@@ -141,6 +139,30 @@ game_stats_template = %{
         </ul>
     </body>
   </html>
+  <style>
+    h1 {
+      padding: 35px;
+      text-align: left;
+      background: #05386B;
+      color: EDF5E1;
+      font-size: 23px;
+    }
+    body {
+      background-color: #379683;
+      text-align: left;
+      font-family: "Verdana";
+      color: #05386B;
+      font-size: 14px;
+    }
+    a:link {
+      color: EDF5E1;
+      font-size: 23px;
+    }
+    a:visited {
+      color: EDF5E1;
+      font-size: 23px;
+    }
+  </style>
 }
 
 league_stats_template = %{
@@ -148,7 +170,7 @@ league_stats_template = %{
     <head><title><%= "Stat Tracker" %></title></head>
     <body>
 
-      <h1>League Statistics</h1>
+      <h1 class='header'>League Statistics</h1>
         <ul>
           <li><b>Count of Teams:</b> <%= stat_tracker.count_of_teams %></li>
           <li><b>Best Offense:</b> <%= stat_tracker.best_offense %></li>
@@ -160,6 +182,38 @@ league_stats_template = %{
         </ul>
     </body>
   </html>
+  <style>
+  h1 {
+    padding: 35px;
+    text-align: left;
+    background: #05386B;
+    color: EDF5E1;
+    font-size: 23px;
+  }
+  body {
+    background-color: #379683;
+    text-align: left;
+    font-family: "Verdana";
+    color: #05386B;
+    font-size: 14px;
+  }
+    h3 {
+      background-color: #379683;
+      text-align: left;
+      font-family: "Verdana";
+      color: EDF5E1;
+      font-size: 23px;
+  }
+    a:link {
+      color: EDF5E1;
+      font-size: 23px;
+  }
+    a:visited {
+      color: EDF5E1;
+      font-size: 23px;
+  }
+
+  </style>
 }
 
 season_stats_template = %{
@@ -167,10 +221,10 @@ season_stats_template = %{
     <head><title><%= "Stat Tracker" %></title></head>
     <body>
 
-      <h1>Season Statistics</h1>
+    <h1 class='header'>Season Statistics</h1>
       <% stat_tracker.games_manager.seasons.each do |season| %>
         <ul>
-          <li><h3><%= stat_tracker.games_manager.format_seasons(season) %></h3></li>
+          <h3><%= stat_tracker.games_manager.format_seasons(season) %></h3>
           <ul>
             <li><b>Winningest Coach:</b> <%= stat_tracker.winningest_coach(season) %></li>
             <li><b>Worst Coach:</b> <%= stat_tracker.worst_coach(season) %></li>
@@ -183,9 +237,38 @@ season_stats_template = %{
       <% end %>
     </body>
   </html>
+  <style>
+  h1 {
+    padding: 35px;
+    text-align: left;
+    background: #05386B;
+    color: EDF5E1;
+    font-size: 23px;
+  }
+  body {
+    background-color: #379683;
+    text-align: left;
+    font-family: "Verdana";
+    color: #05386B;
+    font-size: 14px;
+  }
+    h3 {
+      background-color: #379683;
+      text-align: left;
+      font-family: "Verdana";
+      color: EDF5E1;
+      font-size: 18px;
+  }
+    a:link {
+      color: EDF5E1;
+      font-size: 23px;
+  }
+    a:visited {
+      color: EDF5E1;
+      font-size: 23px;
+  }
+  </style>
 }
-
-
 
 
 home = ERB.new(home_template)
