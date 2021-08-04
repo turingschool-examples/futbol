@@ -23,31 +23,37 @@ class TeamManager
   def team_info(id)
     team = team_by_id(id)
     {
-      team_id: id,
-      franchise_id: team.franchise_id,
-      team_name: team.team_name,
-      abbreviation: team.abbreviation,
-      link: team.link
+      "team_id" => id,
+      "franchise_id" => team.franchise_id,
+      "team_name" => team.team_name,
+      "abbreviation" => team.abbreviation,
+      "link" => team.link
     }
   end
 
-  def team_name(id)
-    team_by_id(id).team_name
-  end
+  # def team_name(id)
+  #   team_by_id(id).team_name
+  # end
 
   def count_teams
     @teams.count
   end
 
+
   def best_season(id)
     season_games = @game_manager.games_by_team_id(id).group_by do |game|
       game.season
     end
+
     #we will refactor this with sort_by.
     season_games.max_by do |season, season_games|
       win_percentage(id, season_games)
     end.flatten[0]
   end
+
+
+    #we will refactor this with sort_by.
+
 
   def worst_season(id)
     season_games = @game_manager.games_by_team_id(id).group_by do |game|
@@ -60,30 +66,35 @@ class TeamManager
     end.flatten[0]
   end
 
+  # def winning_team(game)
+  #   game.home_team_id == id && game.home_goals > game.away_goals || game.away_team_id == id && game.away_goals > game.home_goals
+  # end
+
   def win_percentage(id, games)
-    total_wins = @game_manager.games_by_team_id(id).count do |game|
+    total_wins = games.count do |game|
       game.home_team_id == id && game.home_goals > game.away_goals || game.away_team_id == id && game.away_goals > game.home_goals
     end
-    (total_wins.fdiv(games.count) * 100.0).round(1)
+    (total_wins.fdiv(games.count)).round(2)
   end
 
   def average_win_percentage(id)
     win_percentage(id, @game_manager.games_by_team_id(id))
   end
 
-  def all_goals_by_team(id)
+  def all_score_counts_by_team(id)
     @game_manager.games_by_team_id(id).filter_map do |game|
-      game.home_goals if game.home_team_id == id || game.away_goals if game.away_team_id == id
+      (game.home_goals if game.home_team_id == id) || (game.away_goals if game.away_team_id == id)
     end.uniq
   end
 
   def most_goals_scored(id)
-    all_goals_by_team(id).max.to_i
+    all_score_counts_by_team(id).max.to_i
   end
 
   def fewest_goals_scored(id)
-    all_goals_by_team(id).min.to_i
+    all_score_counts_by_team(id).min.to_i
   end
+
 
   def games_against_opponents(id)
     @game_manager.games_by_team_id(id).group_by do |game|
@@ -96,20 +107,21 @@ class TeamManager
   end
 
   def favorite_opponent(id)
-    opponent = games_against_opponents(id).max_by do |id, game|
-      win_percentage(id, game)
+    opponent = games_against_opponents(id).max_by do |opponent_id, games|
+      win_percentage(id, games)
     end.flatten[0]
 
     team_var = @teams.find do |team|
       team.team_id == opponent
     end
+    # require"pry";binding.pry
 
     team_var.team_name
   end
 
   def rival_opponent(id)
-    opponent = games_against_opponents(id).min_by do |id, game|
-      win_percentage(id, game)
+    opponent = games_against_opponents(id).min_by do |opponent_id, games|
+      win_percentage(id, games)
     end.flatten[0]
 
     team_var = @teams.find do |team|
@@ -119,6 +131,7 @@ class TeamManager
     team_var.team_name
   end
 end
+
 
   #the key is '@game_manager.games_by_team_id(id)'
 

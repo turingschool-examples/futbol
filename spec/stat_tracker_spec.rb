@@ -17,23 +17,23 @@ RSpec.describe StatTracker do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
-  xit "exists" do
+  it "exists" do
     expect(@stat_tracker).to be_a(StatTracker)
   end
 
-  xit 'has a game manager' do
+  it 'has a game manager' do
     expect(@stat_tracker.game_manager).to be_a(GameManager)
   end
 
-  xit 'has a team manager' do
+  it 'has a team manager' do
     expect(@stat_tracker.team_manager).to be_a(TeamManager)
   end
 
-  xit 'has a game team manager' do
+  it 'has a game team manager' do
     expect(@stat_tracker.game_team_manager).to be_a(GameTeamManager)
   end
 
-  xit 'has a season manager' do
+  it 'has a season manager' do
     expect(@stat_tracker.season_manager).to be_a(SeasonManager)
   end
 
@@ -65,100 +65,107 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.fewest_tackles('20132014')).to eq('Atlanta United')
   end
 
-  xit "counts number of teams" do
+  it "counts number of teams" do
     expect(@stat_tracker.count_of_teams).to eq(32)
   end
 
-  xit "returns the name of the team with the highest avg goals per game" do
+  it "returns the name of the team with the highest avg goals per game" do
     expect(@stat_tracker.best_offense).to eq("FC Dallas")
   end
 
-  xit "returns the name of the team with the highest avg goals per game" do
+  it "returns the name of the team with the highest avg goals per game" do
     expect(@stat_tracker.best_offense).to eq("FC Dallas")
   end
 
-  xit "returns the name of the team with the lowest avg goals per game" do
+  it "returns the name of the team with the lowest avg goals per game" do
     expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
   end
 
-  xit "text" do
+  it "text" do
     expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
   end
 
-  xit "text" do
+  it "text" do
     expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
   end
 
-  xit "text" do
+  it "text" do
     expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
   end
 
-  xit "text" do
+  it "text" do
     expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
   end
 
-  xit "checks highest total score" do
-    expect(@stat_tracker.highest_total_score).to eq(5)
+  it "checks highest total score" do
+    expect(@stat_tracker.highest_total_score).to eq(11)
   end
 
-  xit "checks lowest total score" do
-    expect(@stat_tracker.lowest_total_score).to eq(1)
+  it "checks lowest total score" do
+    expect(@stat_tracker.lowest_total_score).to eq(0)
   end
 
-  xit "checks percentage_home_wins" do
-    expect(@stat_tracker.percentage_home_wins).to eq(60.0)
+  it "checks percentage_home_wins" do
+    expect(@stat_tracker.percentage_home_wins).to eq(0.44)
   end
 
-  xit "checks percentage_visitor_wins" do
-    expect(@stat_tracker.percentage_visitor_wins).to eq(40.0)
+  it "checks percentage_visitor_wins" do
+    expect(@stat_tracker.percentage_visitor_wins).to eq(0.36)
   end
 
-  xit "can check the percentage of ties" do
-    expect(@stat_tracker.percentage_ties).to eq(0.0)
+  it "can check the percentage of ties" do
+    expect(@stat_tracker.percentage_ties).to eq(0.20)
   end
 
-  xit 'checks count of games by season' do
-    expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=>10})
+  it 'checks count of games by season' do
+    expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=>806, "20132014"=>1323, "20142015"=>1319, "20152016"=>1321, "20162017"=>1317, "20172018"=>1355})
   end
 
-  xit 'checks average goals per game' do
-    expect(@stat_tracker.average_goals_per_game).to eq(3.7)
+  it 'checks average goals per game' do
+    expect(@stat_tracker.average_goals_per_game).to eq(4.22)
   end
 
-  xit 'checks average goals by season' do
-    expect(@stat_tracker.average_goals_by_season).to eq({"20122013"=>3.7})
+  it 'checks average goals by season' do
+    expect(@stat_tracker.average_goals_by_season).to eq({"20122013"=>4.12, "20132014"=>4.19, "20142015"=>4.14, "20152016"=>4.16, "20162017"=>4.23, "20172018"=>4.44})
   end
 
-  xit 'gets team info' do
-    expect(@stat_tracker.team_info("16")).to eq({:abbreviation=>"NE", :franchise_id=>"11", :link=>"/api/v1/teams/16", :team_id=>"16", :team_name=>"New England Revolution"})
+  it 'gets team info' do
+    expected = {
+      "team_id" => "1",
+      "franchise_id" => "23",
+      "team_name" => "Atlanta United",
+      "abbreviation" => "ATL",
+      "link" => "/api/v1/teams/1"
+    }
+    expect(@stat_tracker.team_info("1")).to eq(expected)
   end
 
-  xit 'gets best season' do
+  it 'gets best season' do
     expect(@stat_tracker.best_season("16")).to eq("20122013")
   end
 
-  xit 'gets worst season' do
-    expect(@stat_tracker.worst_season("16")).to eq("20122013")
+  it 'gets worst season' do
+    expect(@stat_tracker.worst_season("16")).to eq("20162017")
   end
 
-  xit 'gets average win percentage' do
-    expect(@stat_tracker.average_win_percentage("16")).to eq(100.0)
+  it 'gets average win percentage' do
+    expect(@stat_tracker.average_win_percentage("16")).to eq(0.44)
   end
 
-  xit 'gets most goals scored' do
-    expect(@stat_tracker.most_goals_scored("16")).to eq(0)
+  it 'gets most goals scored' do
+    expect(@stat_tracker.most_goals_scored("16")).to eq(8)
   end
 
-  xit 'gets fewest goals scored' do
+  it 'gets fewest goals scored' do
     expect(@stat_tracker.fewest_goals_scored("6")).to eq(0)
   end
 
-  xit 'gets favorite opponent' do
-    expect(@stat_tracker.favorite_opponent("16")).to eq("LA Galaxy")
+  it 'gets favorite opponent' do
+    expect(@stat_tracker.favorite_opponent("16")).to eq("Sporting Kansas City")
   end
 
-  xit 'gets rival' do
-    expect(@stat_tracker.rival("16")).to eq("LA Galaxy")
+  it 'gets rival' do
+    expect(@stat_tracker.rival("16")).to eq("Reign FC")
   end
 
 end
