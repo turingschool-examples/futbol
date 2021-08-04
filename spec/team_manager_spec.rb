@@ -61,6 +61,13 @@ RSpec.describe TeamManager do
     expect(@team_manager.worst_season("6")).to eq("20142015")
   end
 
+  it "can identify the winning team" do
+    games = @games.find do |game|
+      game.game_id == "2012030224"
+    end
+    expect(@team_manager.winning_team("6", games)).to eq(true)
+  end
+
   it "can average the win percentage" do
     expect(@team_manager.average_win_percentage("3")).to eq(0.43)
     expect(@team_manager.average_win_percentage("6")).to eq(0.49)
