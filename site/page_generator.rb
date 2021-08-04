@@ -81,36 +81,37 @@ team_stats_template = %{
   </html>
   <style>
     h1 {
-      padding: 55px;
+      padding: 35px;
       text-align: left;
       background: #05386B;
       color: EDF5E1;
-      font-size: 34px;
-    }
-    h3 {
-      background-color: #379683;
-      text-align: left;
-      font-family: "Verdana";
-      color: EDF5E1;
-      font-size: 28px;
+      font-size: 23px;
     }
     body {
       background-color: #379683;
       text-align: left;
       font-family: "Verdana";
       color: #05386B;
-      font-size: 18px;
+      font-size: 14px;
     }
-    a:link {
-      color: EDF5E1;
-      font-size: 23px;
+      h3 {
+        background-color: #379683;
+        text-align: left;
+        font-family: "Verdana";
+        color: EDF5E1;
+        font-size: 23px;
     }
-    a:visited {
-      color: EDF5E1;
-      font-size: 23px;
+      a:link {
+        color: EDF5E1;
+        font-size: 23px;
     }
-  </style>
-}
+      a:visited {
+        color: EDF5E1;
+        font-size: 23px;
+    }
+
+    </style>
+  }
 
 game_stats_template = %{
   <html>
@@ -170,7 +171,7 @@ league_stats_template = %{
     <head><title><%= "Stat Tracker" %></title></head>
     <body>
 
-      <h1 class='header'>League Statistics</h1>
+      <h1>League Statistics</h1>
         <ul>
           <li><b>Count of Teams:</b> <%= stat_tracker.count_of_teams %></li>
           <li><b>Best Offense:</b> <%= stat_tracker.best_offense %></li>
@@ -221,7 +222,7 @@ season_stats_template = %{
     <head><title><%= "Stat Tracker" %></title></head>
     <body>
 
-    <h1 class='header'>Season Statistics</h1>
+    <h1>Season Statistics</h1>
       <% stat_tracker.games_manager.seasons.each do |season| %>
         <ul>
           <h3><%= stat_tracker.games_manager.format_seasons(season) %></h3>
