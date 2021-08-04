@@ -1,7 +1,9 @@
 require_relative './game_team'
 require_relative './manager'
+require_relative './mathable'
 
 class GameTeamManager < Manager
+  include Mathable
   attr_reader :game_teams
 
   def initialize(file_path)
@@ -24,8 +26,7 @@ class GameTeamManager < Manager
   end
 
   def average_goals_all_seasons(team_id)
-    average = total_goals_all_seasons(team_id).fdiv(total_games_all_seasons(team_id))
-    average.round(2)
+    find_percent(total_goals_all_seasons(team_id), total_games_all_seasons(team_id))
   end
 
   def all_team_ids
@@ -48,86 +49,70 @@ class GameTeamManager < Manager
 
   def highest_scoring_visitor
     highest_scoring_visitor = away_teams.max_by do |game_team_object|
-      away_games_per_team = away_games_per_team(game_team_object.team_id)
-      average_goals(away_games_per_team)
+      games = away_games_per_team(game_team_object.team_id)
+      find_percent(goals_count(games), games_count(games))
     end
     highest_scoring_visitor.team_id
   end
 
   def highest_scoring_home_team
     highest_scoring_home_team = home_teams.max_by do |game_team_object|
-      home_games_per_team = home_games_per_team(game_team_object.team_id)
-      average_goals(home_games_per_team)
+      games = home_games_per_team(game_team_object.team_id)
+      find_percent(goals_count(games), games_count(games))
     end
     highest_scoring_home_team.team_id
   end
 
   def lowest_scoring_visitor
     lowest_scoring_visitor = away_teams.min_by do |game_team_object|
-      away_games_per_team = away_games_per_team(game_team_object.team_id)
-      average_goals(away_games_per_team)
+      games = away_games_per_team(game_team_object.team_id)
+      find_percent(goals_count(games), games_count(games))
     end
     lowest_scoring_visitor.team_id
   end
 
   def lowest_scoring_home_team
     lowest_scoring_home_team = home_teams.min_by do |game_team_object|
-      home_games_per_team = home_games_per_team(game_team_object.team_id)
-      average_goals(home_games_per_team)
+      games = home_games_per_team(game_team_object.team_id)
+      find_percent(goals_count(games), games_count(games))
     end
     lowest_scoring_home_team.team_id
   end
 
   def home_teams
-    home_teams = []
-    @game_teams.each do |game_team_object|
-      home_teams << game_team_object if game_team_object.hoa == 'home'
+    @game_teams.find_all do |game_team_object|
+      game_team_object.hoa == 'home'
     end
-    home_teams
   end
 
   def away_teams
-    away_teams = []
-    @game_teams.each do |game_team_object|
-      away_teams << game_team_object if game_team_object.hoa == 'away'
+    @game_teams.find_all do |game_team_object|
+      game_team_object.hoa == 'away'
     end
-    away_teams
   end
 
   def home_games_per_team(team_id)
-    home_games = []
-    home_teams.each do |home_team_object|
-      home_games << home_team_object if team_id == home_team_object.team_id
+    home_teams.find_all do |home_team_object|
+      team_id == home_team_object.team_id
     end
-    home_games
   end
 
   def away_games_per_team(team_id)
-    away_games = []
-    away_teams.each do |away_team_object|
-      away_games << away_team_object if team_id == away_team_object.team_id
+    away_teams.find_all do |away_team_object|
+      team_id == away_team_object.team_id
     end
-    away_games
   end
 
   def all_games_by_team(id)
-    games = []
-    @game_teams.each do |game_team|
-      games << game_team if game_team.team_id == id
+    @game_teams.find_all do |game_team|
+      game_team.team_id == id
     end
-    games
-  end
-
-  def average_goals(games)
-    goals_count(games).fdiv(games_count(games))
   end
 
   def goals_count(games)
-    goals = 0
-    games.each do |game|
-      goals += game.goals
+    games.sum do |game|
+      game.goals
     end
-    goals
   end
 
   def games_count(games)
@@ -139,33 +124,25 @@ class GameTeamManager < Manager
     total_wins = 0
     @game_teams.each do |game_team|
       if game_team.team_id == id
-        if game_team.result == "WIN"
-          total_wins += 1
-        end
+        total_wins += 1 if game_team.result == "WIN"
         total_games += 1
       end
     end
-    (total_wins.fdiv(total_games)).round(2)
+    find_percent(total_wins, total_games)
   end
 
   def most_goals_scored(team_id)
-    games = all_games_by_team(team_id)
-    max = games.max_by do |game|
+    max = all_games_by_team(team_id).max_by do |game|
       game.goals
     end
-    max.goals.to_i
+    max.goals
   end
 
   def fewest_goals_scored(team_id)
-    games = all_games_by_team(team_id)
-    min = games.min_by do |game|
+    min = all_games_by_team(team_id).min_by do |game|
       game.goals
     end
-    min.goals.to_i
-  end
-
-  def opponent_results
-    {games: 0, wins: 0}
+    min.goals
   end
 
   def all_game_ids_by_team(team_id)
@@ -177,98 +154,53 @@ class GameTeamManager < Manager
   end
 
   def opponents_list(team_id)
-    list = {}
+    list = Hash.new { |h, k| h[k] = {games: 0, wins: 0} }
     game_ids = all_game_ids_by_team(team_id)
     @game_teams.each do |game_team|
       game_ids.each do |game_id|
         if game_team.game_id == game_id && game_team.team_id != team_id
-          id = game_team.team_id
-          list[id] ||= opponent_results
-          list[id][:games] += 1
-          list[id][:wins] += 1 if game_team.result == 'WIN'
+          list[game_team.team_id][:games] += 1
+          list[game_team.team_id][:wins] += 1 if game_team.result == 'WIN'
         end
       end
     end
     list
   end
 
-  # def opponents_list(team_id)
-  #   list = Hash.new {|h, k| h[k] = {games: 0, wins: 0}}
-  #   @game_teams.each do |game_teams|
-  #     if game_teams[:home].team_id == team_id
-  #       id = game_teams[:away].team_id
-  #       list[id][:wins] += 1 if game_teams[:away].result == 'WIN'
-  #       list[id][:games] += 1
-  #     elsif game_teams[:away].team_id == team_id
-  #       id = game_teams[:home].team_id
-  #       list[id][:wins] += 1 if game_teams[:home].result == 'WIN'
-  #       list[id][:games] += 1
-  #     end
-  #   end
-  #   list
-  # end
-
   def favorite_opponent(team_id)
-    favorite = nil
-    highest = 2013020002
-    op_hash = opponents_list(team_id)
-    op_hash.each do |opponent_id, results|
-      current = results[:wins] / results[:games].to_f
-      if current < highest
-        highest = current
-        favorite = opponent_id
-      end
-    end
-    favorite
+    opponents_list(team_id).min_by do |opponent_id, results|
+      find_percent(results[:wins], results[:games])
+    end.first
   end
 
   def rival(team_id)
-    arch_nemesis = nil
-    lowest = 0
-    op_hash = opponents_list(team_id)
-    op_hash.each do |opponent_id, results|
-      current = results[:wins] / results[:games].to_f
-      if current > lowest
-        lowest = current
-        arch_nemesis = opponent_id
-      end
-    end
-    arch_nemesis
+    opponents_list(team_id).max_by do |opponent_id, results|
+      find_percent(results[:wins], results[:games])
+    end.first
   end
 
   def winningest_coach(game_team_ids)
     game_teams_from_ids = game_teams_from_ids(game_team_ids)
-    coach_wins = coach_wins(game_teams_from_ids)
-
-    coach_wins.max_by do |coach_name, coach_data|
+    coach_wins(game_teams_from_ids).max_by do |coach_name, coach_data|
       coach_data[:total_wins].fdiv(coach_data[:total_games])
     end.first
   end
 
   def worst_coach(game_team_ids)
     game_teams_from_ids = game_teams_from_ids(game_team_ids)
-    coach_wins = coach_wins(game_teams_from_ids)
-
-    coach_wins.min_by do |coach_name, coach_data|
+    coach_wins(game_teams_from_ids).min_by do |coach_name, coach_data|
       coach_data[:total_wins].fdiv(coach_data[:total_games])
     end.first
   end
 
-  # we pass in the season's game ids
   def game_teams_from_ids(game_team_ids)
-    game_teams_from_ids = []
-    @game_teams.each do |game_team|
-      if game_team_ids.include?(game_team.game_id)
-        game_teams_from_ids << game_team
-      end
+    @game_teams.find_all do |game_team|
+      game_team_ids.include?(game_team.game_id)
     end
-    game_teams_from_ids
   end
 
   def add_coach_data(coach_wins, game_team)
-    if game_team.result == "WIN"
-      coach_wins[game_team.head_coach][:total_wins] += 1
-    end
+    coach_wins[game_team.head_coach][:total_wins] += 1 if game_team.result == "WIN"
     coach_wins[game_team.head_coach][:total_games] += 1
   end
 
@@ -282,24 +214,16 @@ class GameTeamManager < Manager
 
   def most_accurate_team(game_team_ids)
     game_teams_from_ids = game_teams_from_ids(game_team_ids)
-    accuracy = accuracy(game_teams_from_ids)
-
-    most = accuracy.min_by do |team_id, goals_data|
+    accuracy(game_teams_from_ids).min_by do |team_id, goals_data|
       goals_data[:total_shots].fdiv(goals_data[:total_goals])
     end.first
-
-    most
   end
 
   def least_accurate_team(game_team_ids)
     game_teams_from_ids = game_teams_from_ids(game_team_ids)
-    accuracy = accuracy(game_teams_from_ids)
-
-    least = accuracy.max_by do |team_id, goals_data|
+    accuracy(game_teams_from_ids).max_by do |team_id, goals_data|
       goals_data[:total_shots].fdiv(goals_data[:total_goals])
     end.first
-
-    least
   end
 
   def accuracy(game_teams_from_ids)
@@ -315,30 +239,18 @@ class GameTeamManager < Manager
     accuracy[game_team.team_id][:total_shots] += game_team.shots.to_i
   end
 
-  def create_teams_tackle_data(most_tackles, game_data, hoa)
-    most_tackles[game_data[hoa].team_id] = game_data[hoa].tackles.to_i
-  end
-
   def most_tackles(game_team_ids)
     game_teams_from_ids = game_teams_from_ids(game_team_ids)
-    tackles_by_team = tackles_by_team(game_teams_from_ids)
-
-    most = tackles_by_team.max_by do |team_id, tackles|
+    tackles_by_team(game_teams_from_ids).max_by do |team_id, tackles|
       tackles
-    end[0]
-
-    most
+    end.first
   end
 
   def fewest_tackles(game_team_ids)
     game_teams_from_ids = game_teams_from_ids(game_team_ids)
-    tackles_by_team = tackles_by_team(game_teams_from_ids)
-
-    least = tackles_by_team.min_by do |team_id, tackles|
+    tackles_by_team(game_teams_from_ids).min_by do |team_id, tackles|
       tackles
-    end[0]
-
-    least
+    end.first
   end
 
   def add_tackle_data(tackles, game_team)
