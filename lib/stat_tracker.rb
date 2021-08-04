@@ -1,4 +1,3 @@
-require 'CSV'
 require_relative './game_manager'
 require_relative './team_manager'
 require_relative './game_team_manager'

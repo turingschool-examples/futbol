@@ -1,4 +1,4 @@
-require './lib/team'
+require_relative 'spec_helper'
 
 RSpec.describe Team do
 

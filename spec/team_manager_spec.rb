@@ -1,5 +1,4 @@
-require './lib/team_manager'
-require './lib/manager'
+require_relative 'spec_helper'
 
 RSpec.describe TeamManager do
   before(:each) do

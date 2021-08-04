@@ -1,4 +1,3 @@
-require 'CSV'
 require_relative './team'
 require_relative './manager'
 

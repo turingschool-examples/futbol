@@ -1,4 +1,4 @@
-require './lib/game_manager'
+require_relative 'spec_helper'
 
 RSpec.describe GameManager do
   before(:each) do
@@ -6,7 +6,7 @@ RSpec.describe GameManager do
     @game_manager = GameManager.new(file_path)
   end
 
-  describe '#load' do
+  describe '#initialize' do
     it 'exists and has attributes' do
       expect(@game_manager).to be_instance_of(GameManager)
       expect(@game_manager.games.length).to eq(39)

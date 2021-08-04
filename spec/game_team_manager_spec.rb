@@ -1,6 +1,4 @@
-require './lib/game_team_manager'
-require './lib/stat_tracker'
-require './lib/game_manager'
+require_relative 'spec_helper'
 
 RSpec.describe GameTeamManager do
   before(:each) do

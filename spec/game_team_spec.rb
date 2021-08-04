@@ -1,4 +1,4 @@
-require './lib/game_team'
+require_relative 'spec_helper'
 
 RSpec.describe GameTeam do
   describe 'initialization' do
@@ -18,7 +18,7 @@ RSpec.describe GameTeam do
         # "giveaways"              => 17,
         # "takeaways"              => 7
       })
-      
+
       expect(game_team).to be_a(GameTeam)
       expect(game_team.team_id).to eq("3")
     end

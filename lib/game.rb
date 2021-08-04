@@ -1,4 +1,4 @@
-class Game # Refactor for Inheritance maybe
+class Game
   attr_reader :game_id,
               :season,
               # :type,

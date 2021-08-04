@@ -1,4 +1,4 @@
-require './lib/game'
+require_relative 'spec_helper'
 
 RSpec.describe Game do
   describe 'initialization' do
