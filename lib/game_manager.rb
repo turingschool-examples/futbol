@@ -84,8 +84,8 @@ class GameManager
 
   def count_of_games_by_season
     game_count = {}
-    games_by_season.each do |k,v|
-      game_count[k] = v.count
+    games_by_season.each do |season, games|
+      game_count[season] = games.count
     end
     game_count
   end
