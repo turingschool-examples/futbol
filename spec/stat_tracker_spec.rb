@@ -1,5 +1,4 @@
 require_relative 'spec_helper'
-require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
   before(:each) do
@@ -75,17 +74,67 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#average_goals_per_season' do
-    it "average_goals_per_season" do
+  describe '#average_goals_by_season' do
+    it "average_goals_by_season" do
       expect(@stat_tracker.average_goals_by_season).to eq({"20122013"=>3.87})
     end
   end
 
-  # describe '#winningest_coach' do
-  #   it "can return all the coaches and their win percentages" do
-  #     expect(@stat_tracker.season_manager.winningest_coach("20122013")).to eq("Claude Julien")
-  #   end
-  # end
+  describe '#count_of_teams' do
+    it 'counts all teams' do
+      expect(@stat_tracker.count_of_teams).to eq(32)
+    end
+  end
+
+  describe '#best_offense' do
+    it 'best_offense' do
+      expect(@stat_tracker.best_offense).to eq("New York City FC")
+    end
+  end
+
+  describe '#worst_offense' do
+    it 'worst_offense' do
+      expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
+    end
+  end
+
+  describe '#highest_scoring_visitor' do
+    it 'highest_scoring_visitor' do
+      expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+    end
+  end
+
+  describe '#highest_scoring_home_team' do
+    it 'highest_scoring_home_team' do
+      expect(@stat_tracker.highest_scoring_home_team).to eq("New York City FC")
+    end
+  end
+
+  describe '#lowest_scoring_visitor' do
+    it 'textlowest_scoring_visitor' do
+      expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
+    end
+  end
+
+  describe '#lowest_scoring_home_team' do
+    it 'lowest_scoring_home_team' do
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
+    end
+  end
+
+  describe '#team_info(team_id)' do
+    it 'team_info by team_id' do
+      expectation = {
+        "team_id"=>"1",
+        "franchise_id"=>"23",
+        "team_name"=>"Atlanta United",
+        "abbreviation"=>"ATL",
+        "link"=>"/api/v1/teams/1"
+      }
+
+      expect(@stat_tracker.team_info("1")).to eq(expectation)
+    end
+  end
 
   describe '#best_season' do
     it "can return the best season from a given team" do
@@ -96,6 +145,72 @@ RSpec.describe StatTracker do
   describe '#worst_season' do
     it "can return the best season from a given team" do
       expect(@stat_tracker.worst_season("6")).to eq("20122013")
+    end
+  end
+
+  describe '#average_win_percentage(team_id)' do
+    it 'average_win_percentage by team_id' do
+      expect(@stat_tracker.average_win_percentage("3")).to eq(0.00)
+    end
+  end
+
+  describe '#most_goals_scored(team_id)' do
+    it 'most_goals_scored by team_id' do
+      expect(@stat_tracker.most_goals_scored("3")).to eq(2)
+    end
+  end
+
+  describe '#fewest_goals_scored(team_id)' do
+    it 'fewest_goals_scored by team_id' do
+      expect(@stat_tracker.fewest_goals_scored("3")).to eq(1)
+    end
+  end
+
+  describe '#favorite_opponent(team_id)' do
+    it 'favorite_opponent(team_id)' do
+      expect(@stat_tracker.favorite_opponent("3")).to eq("FC Dallas")
+    end
+  end
+
+  describe '#rival(team_id)' do
+    it 'rival by team_id' do
+      expect(@stat_tracker.rival("3")).to eq("FC Dallas")
+    end
+  end
+
+  describe '#winningest_coach(season)' do
+    it "winningest_coach by season" do
+      expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+    end
+  end
+
+  describe '#worst_coach(season)' do
+    it 'worst_coach by season' do
+      expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
+    end
+  end
+
+  describe '#most_accurate_team(season_id)' do
+    it 'most_accurate_team by season_id' do
+      expect(@stat_tracker.most_accurate_team("20122013")).to eq("New York City FC")
+    end
+  end
+
+  describe '#least_accurate_team(season_id)' do
+    it 'least_accurate_team by season_id' do
+      expect(@stat_tracker.least_accurate_team("20122013")).to eq("Sporting Kansas City")
+    end
+  end
+
+  describe '#most_tackles(season_id)' do
+    it 'most_tackles by season_id' do
+      expect(@stat_tracker.most_tackles("20122013")).to eq("LA Galaxy")
+    end
+  end
+
+  describe '#fewest_tackles(season_id)' do
+    it 'fewest_tackles by season_id' do
+      expect(@stat_tracker.fewest_tackles("20122013")).to eq("Sporting Kansas City")
     end
   end
 end
