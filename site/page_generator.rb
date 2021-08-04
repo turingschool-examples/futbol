@@ -9,6 +9,7 @@ locations = {
   teams: team_path,
   game_teams: game_teams_path
 }
+
 stat_tracker = StatTracker.from_csv(locations)
 
 home_template = %{
@@ -16,15 +17,44 @@ home_template = %{
     <head><title><%= "Stat Tracker" %></title></head>
     <body>
 
-      <h1>Welcome to Futbol Stat Tracker!</h1>
+      <b><h1 class='header'>Welcome to Futbol Stat Tracker!</h1></b>
 
-      <a href = "./site/team_stats.html" > Team Statistics </a></br>
-      <a href = "./site/game_stats.html" > Game Statistics </a></br>
-      <a href = "./site/league_stats.html" > League Statistics </a></br>
-      <a href = "./site/season_stats.html" > Season Statistics </a>
+      <b><a href = "./site/team_stats.html" target ="_blank"> Team Statistics</a>   |</b>
+      <b><a href = "./site/game_stats.html" target ="_blank"> Game Statistics</a>   |</b>
+      <b><a href = "./site/league_stats.html" target ="_blank"> League Statistics</a>   |</b>
+      <b><a href = "./site/season_stats.html" target ="_blank"> Season Statistics</a></b>
 
     </body>
   </html>
+
+  <style>
+    body {
+      background-color: #379683;
+      text-align: center;
+      font-family: "Verdana";
+      color: EDF5E1;
+      font-size: 28px;
+  }
+    a:link {
+      color: EDF5E1;
+      font-size: 23px;
+  }
+    a:visited {
+      color: EDF5E1;
+      font-size: 23px;
+  }
+
+    h1 {
+      color: 32CD32
+  }
+    .header {
+      padding: 60px;
+      text-align: center;
+      background: #05386B;
+      color: EDF5E1;
+      font-size: 30px;
+  }
+  </style>
 }
 
 team_stats_template = %{
@@ -54,6 +84,35 @@ team_stats_template = %{
         <% end %>
     </body>
   </html>
+
+  <style>
+    body {
+      background-color: #379683;
+      text-align: center;
+      font-family: "Verdana";
+      color: EDF5E1;
+      font-size: 28px;
+  }
+    a:link {
+      color: EDF5E1;
+      font-size: 23px;
+  }
+    a:visited {
+      color: EDF5E1;
+      font-size: 23px;
+  }
+
+    h1 {
+      color: 32CD32
+  }
+    .header {
+      padding: 60px;
+      text-align: center;
+      background: #05386B;
+      color: EDF5E1;
+      font-size: 30px;
+  }
+  </style>
 }
 
 game_stats_template = %{
