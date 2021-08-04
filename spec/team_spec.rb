@@ -9,8 +9,8 @@ RSpec.describe Team do
         "franchiseId"  => "23",
         "teamName"     => "Atlanta United",
         "abbreviation" => "ATL",
-        "link"         => "/api/v1/teams/1",
-        "Stadium"      =>  "Mercedes-Benz Stadium"
+        "link"         => "/api/v1/teams/1"
+        # "Stadium"      =>  "Mercedes-Benz Stadium"
       })
       expect(team).to be_a(Team)
       expect(team.team_id).to eq("1")
