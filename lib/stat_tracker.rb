@@ -58,37 +58,35 @@ class StatTracker
   end
 
   # Season methods
+  def season_games(season)
+    @season_manager.game_id_by_season(season)
+  end
+
   def winningest_coach(season)
-    season_games = @season_manager.game_id_by_season(season)
-    @game_team_manager.winningest_coach(season_games)
+    @game_team_manager.winningest_coach(season_games(season))
   end
 
   def worst_coach(season)
-    season_games = @season_manager.game_id_by_season(season)
-    @game_team_manager.worst_coach(season_games)
+    @game_team_manager.worst_coach(season_games(season))
   end
 
   def most_accurate_team(season)
-    season_teams = @season_manager.team_id_by_season(season)
-    team_id = @game_team_manager.most_accurate_team(season_teams)
+    team_id = @game_team_manager.most_accurate_team(season_games(season))
     @team_manager.team_name(team_id)
   end
 
   def least_accurate_team(season)
-    season_teams = @season_manager.team_id_by_season(season)
-    team_id = @game_team_manager.least_accurate_team(season_teams)
+    team_id = @game_team_manager.least_accurate_team(season_games(season))
     @team_manager.team_name(team_id)
   end
 
   def most_tackles(season)
-    season_teams = @season_manager.team_id_by_season(season)
-    team_id = @game_team_manager.most_tackles(season_teams)
+    team_id = @game_team_manager.most_tackles(season_games(season))
     @team_manager.team_name(team_id)
   end
 
   def fewest_tackles(season)
-    season_teams = @season_manager.team_id_by_season(season)
-    team_id = @game_team_manager.fewest_tackles(season_teams)
+    team_id = @game_team_manager.fewest_tackles(season_games(season))
     @team_manager.team_name(team_id)
   end
 
