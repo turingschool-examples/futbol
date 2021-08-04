@@ -42,4 +42,26 @@ RSpec.describe StatTracker do
     expect(stat_tracker.game_teams.first).to be_a(GameTeams)
     expect(stat_tracker.teams.first).to be_a(Team)
   end
+
+  it 'can instatiate the right objects' do
+    game_path = './data/games.csv'
+
+    team_path = './data/teams.csv'
+
+    game_teams_path = './data/game_teams.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+
+    expect(stat_tracker.game_statistics).to be_a(GameStatistics)
+    expect(stat_tracker.season_statistics).to be_a(SeasonStatistics)
+    expect(stat_tracker.league_statistics).to be_a(LeagueStatistics)
+    expect(stat_tracker.team_statistics).to be_a(TeamStatistics)
+
+  end
 end

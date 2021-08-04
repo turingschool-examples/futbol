@@ -3,7 +3,9 @@ require_relative './comparable'
 
 class GameStatistics
 include Comparable
-  attr_reader :games, :teams, :game_teams
+  attr_reader :games,
+              :teams,
+              :game_teams
 
   def initialize(games, teams, game_teams)
     @games = games

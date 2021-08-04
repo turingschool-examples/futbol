@@ -18,7 +18,6 @@ RSpec.describe GameStatistics do
 
     @stat_tracker = StatTracker.from_csv(locations)
     @game_stats = GameStatistics.new(@stat_tracker.games, @stat_tracker.teams, @stat_tracker.game_teams)
-
   end
 
   it 'exists' do

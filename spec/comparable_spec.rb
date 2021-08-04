@@ -19,10 +19,12 @@ RSpec.describe Comparable do
     @stat_tracker = StatTracker.from_csv(locations)
     @season_stats = SeasonStatistics.new(@stat_tracker.games, @stat_tracker.teams, @stat_tracker.game_teams)
     @game_stats = GameStatistics.new(@stat_tracker.games, @stat_tracker.teams, @stat_tracker.game_teams)
+    @team_stats = TeamStatistics.new(@stat_tracker.games, @stat_tracker.teams, @stat_tracker.game_teams)
   end
 
   it 'returns season_verification' do
     expect(@season_stats.season_verification(@season_stats.game_teams.first, '20132014')).to eq(false)
+    expect(@team_stats.season_verification(@team_stats.games.first, '20162017')).to eq(false)
   end
 
   it 'returns generated hash' do

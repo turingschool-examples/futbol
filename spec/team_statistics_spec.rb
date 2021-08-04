@@ -19,7 +19,6 @@ RSpec.describe TeamStatistics do
 
     @stat_tracker = StatTracker.from_csv(locations)
     @team_stats = TeamStatistics.new(@stat_tracker.games, @stat_tracker.teams, @stat_tracker.game_teams)
-
   end
 
   it "exists" do
@@ -90,5 +89,13 @@ RSpec.describe TeamStatistics do
 
   it 'can get biggest rival' do
     expect(@team_stats.rival("16")).to eq("FC Cincinnati")
+  end
+
+  it 'can get rival id'do
+    expect(@team_stats.rival_id('16')).to eq('26')
+  end
+
+  it 'can get favorite opponent id' do
+    expect(@team_stats.favorite_opponent_id("3")).to eq('15')
   end
 end

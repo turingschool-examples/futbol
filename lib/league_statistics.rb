@@ -1,5 +1,7 @@
 class LeagueStatistics
-  attr_reader :games, :teams, :game_teams
+  attr_reader :games,
+              :teams,
+              :game_teams
 
   def initialize (games, teams, game_teams)
     @games = games
@@ -14,7 +16,6 @@ class LeagueStatistics
   def worst_offense
     acc = {}
     @teams.each do |team|
-        #conditional handles edge cases where there are no games for the teams. Should not be a problem when dealing with the full dataset.
       if games_by_team(team.team_id).length != 0
         acc[games_average(team.team_id)] = team.team_name
       end
@@ -25,7 +26,6 @@ class LeagueStatistics
   def best_offense
     acc = {}
     @teams.each do |team|
-      #conditional handles edge cases where there are no games for the teams. Should not be a problem when dealing with the full dataset.
       if games_by_team(team.team_id).length != 0
         acc[games_average(team.team_id)] = team.team_name
       end
@@ -34,9 +34,9 @@ class LeagueStatistics
   end
 
   def games_average(team_id)
-    goals_scored = 0.00
-    games_by_team(team_id).each do |game|
-      goals_scored += game.goals.to_i
+    goals_scored =
+    games_by_team(team_id).sum do |game|
+      game.goals.to_f
     end
     goals_scored / games_by_team(team_id).length
   end
@@ -54,9 +54,9 @@ class LeagueStatistics
   end
 
   def away_average(team_id)
-    goals_scored = 0.00
-    away_games(team_id).each do |game|
-      goals_scored += game.goals.to_i
+    goals_scored =
+    away_games(team_id).sum do |game|
+      game.goals.to_f
     end
     goals_scored.fdiv(away_games(team_id).length)
   end
@@ -80,7 +80,6 @@ class LeagueStatistics
     end
     lowest_scoring.key(lowest_scoring.values.min)
   end
-
 
   def home_games(team_id)
     games_by_team(team_id).find_all do |game|
