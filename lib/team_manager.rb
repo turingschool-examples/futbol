@@ -10,9 +10,8 @@ class TeamManager
     @games = Game.read_file(locations[:games])
     @game_manager = GameManager.new(locations)
     @game_team_manager = GameTeamManager.new(locations)
-
   end
-  #
+
   def team_by_id(id)
     team_return = @teams.find do |team|
        team.team_id == id
@@ -39,7 +38,6 @@ class TeamManager
     @teams.count
   end
 
-
   def best_season(id)
     season_games = @game_manager.games_by_team_id(id).group_by do |game|
       game.season
@@ -50,10 +48,6 @@ class TeamManager
       win_percentage(id, season_games)
     end.flatten[0]
   end
-
-
-    #we will refactor this with sort_by.
-
 
   def worst_season(id)
     season_games = @game_manager.games_by_team_id(id).group_by do |game|
@@ -66,13 +60,13 @@ class TeamManager
     end.flatten[0]
   end
 
-  # def winning_team(game)
-  #   game.home_team_id == id && game.home_goals > game.away_goals || game.away_team_id == id && game.away_goals > game.home_goals
-  # end
+  def winning_team(id, game)
+    game.home_team_id == id && game.home_goals > game.away_goals || game.away_team_id == id && game.away_goals > game.home_goals
+  end
 
   def win_percentage(id, games)
     total_wins = games.count do |game|
-      game.home_team_id == id && game.home_goals > game.away_goals || game.away_team_id == id && game.away_goals > game.home_goals
+    winning_team(id, game)
     end
     (total_wins.fdiv(games.count)).round(2)
   end
