@@ -13,10 +13,9 @@ class TeamManager
   end
 
   def team_by_id(id)
-    team_return = @teams.find do |team|
+    @teams.find do |team|
        team.team_id == id
      end
-     team_return
   end
 
   def team_info(id)
