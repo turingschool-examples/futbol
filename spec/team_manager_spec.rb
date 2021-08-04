@@ -66,8 +66,8 @@ RSpec.describe TeamManager do
     expect(@team_manager.average_win_percentage("6")).to eq(0.44)
   end
 
-  it 'shows all goals by team' do
-    expect(@team_manager.all_goals_by_team("18")).to eq(["3", "1", "2", "0", "4", "5", "7", "6"])
+  it 'shows all score counts by team' do
+    expect(@team_manager.all_score_counts_by_team("18")).to eq(["3", "1", "2", "0", "4", "5", "7", "6"])
   end
 
   it 'can have most goals scored' do
