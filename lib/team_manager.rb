@@ -10,14 +10,12 @@ class TeamManager
     @games = Game.read_file(locations[:games])
     @game_manager = GameManager.new(locations)
     @game_team_manager = GameTeamManager.new(locations)
-
   end
-  #
+
   def team_by_id(id)
-    team_return = @teams.find do |team|
+    @teams.find do |team|
        team.team_id == id
      end
-     team_return
   end
 
   def team_info(id)
@@ -31,48 +29,39 @@ class TeamManager
     }
   end
 
-  # def team_name(id)
-  #   team_by_id(id).team_name
-  # end
+  def team_name(id)
+    team_by_id(id).team_name
+  end
 
   def count_teams
     @teams.count
   end
 
+  def games_by_season_by_team(id)
+    @game_manager.games_by_team_id(id).group_by do |game|
+      game.season
+    end
+  end
 
   def best_season(id)
-    season_games = @game_manager.games_by_team_id(id).group_by do |game|
-      game.season
-    end
-
-    #we will refactor this with sort_by.
-    season_games.max_by do |season, season_games|
+    games_by_season_by_team(id).max_by do |season, season_games|
       win_percentage(id, season_games)
     end.flatten[0]
   end
-
-
-    #we will refactor this with sort_by.
-
 
   def worst_season(id)
-    season_games = @game_manager.games_by_team_id(id).group_by do |game|
-      game.season
-    end
-
-    #we will refactor this with sort_by.
-    season_games.min_by do |season, season_games|
+    games_by_season_by_team(id).min_by do |season, season_games|
       win_percentage(id, season_games)
     end.flatten[0]
   end
 
-  # def winning_team(game)
-  #   game.home_team_id == id && game.home_goals > game.away_goals || game.away_team_id == id && game.away_goals > game.home_goals
-  # end
+  def winning_team(id, game)
+    game.home_team_id == id && game.home_goals > game.away_goals || game.away_team_id == id && game.away_goals > game.home_goals
+  end
 
   def win_percentage(id, games)
     total_wins = games.count do |game|
-      game.home_team_id == id && game.home_goals > game.away_goals || game.away_team_id == id && game.away_goals > game.home_goals
+    winning_team(id, game)
     end
     (total_wins.fdiv(games.count)).round(2)
   end
@@ -95,7 +84,6 @@ class TeamManager
     all_score_counts_by_team(id).min.to_i
   end
 
-
   def games_against_opponents(id)
     @game_manager.games_by_team_id(id).group_by do |game|
       if game.home_team_id == id
@@ -110,12 +98,9 @@ class TeamManager
     opponent = games_against_opponents(id).max_by do |opponent_id, games|
       win_percentage(id, games)
     end.flatten[0]
-
     team_var = @teams.find do |team|
       team.team_id == opponent
     end
-    # require"pry";binding.pry
-
     team_var.team_name
   end
 
@@ -123,36 +108,9 @@ class TeamManager
     opponent = games_against_opponents(id).min_by do |opponent_id, games|
       win_percentage(id, games)
     end.flatten[0]
-
     team_var = @teams.find do |team|
       team.team_id == opponent
     end
-
     team_var.team_name
   end
 end
-
-
-  #the key is '@game_manager.games_by_team_id(id)'
-
-    # value = []
-    # value << if @game_manager.games_by_team_id(id).include?(key)
-    #   require "pry"; binding.pry
-    # end
-
-    # teams = @game_manager.games_by_team_id(id).group_by do |game|
-    #   id if game.home_team_id == id || id  if game.away_team_id == id
-    # end
-    # require "pry"; binding.pry
-    # teams
-
-
-
-
-    # @game_manager.games_by_team_id(id).map do |game|
-    #   game.home_goals if game.home_team_id == id || game.away_goals if game.away_team_id == id
-    # end.uniq
-
-    #iterate thru the games w max_by and match the id to home or away team id
-    #if id == home_team_id look at home goals
-    #else id == away_team_id look at away goals

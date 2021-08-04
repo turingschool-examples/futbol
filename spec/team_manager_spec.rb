@@ -13,7 +13,6 @@ RSpec.describe TeamManager do
     }
     @team_manager = TeamManager.new(locations)
     @games = Game.read_file(locations[:games])
-
   end
 
   it "exists" do
@@ -40,7 +39,7 @@ RSpec.describe TeamManager do
   end
 
   it "can count number of teams" do
-      expect(@team_manager.count_teams).to eq(32)
+    expect(@team_manager.count_teams).to eq(32)
   end
 
   it "can determine win percentage" do
@@ -49,6 +48,11 @@ RSpec.describe TeamManager do
     end
 
     expect(@team_manager.win_percentage("16", games)).to eq(0.44)
+  end
+
+  it "can group the games by season by team" do
+    expect(@team_manager.games_by_season_by_team("3").keys).to eq(["20122013", "20152016", "20142015", "20132014", "20172018", "20162017"])
+    expect(@team_manager.games_by_season_by_team("3").fetch("20122013").count).to eq(60)
   end
 
   it "can determine best season for a team" do
@@ -61,6 +65,14 @@ RSpec.describe TeamManager do
     expect(@team_manager.worst_season("6")).to eq("20142015")
   end
 
+  it "can identify the winning team" do
+    games = @games.find do |game|
+      game.game_id == "2012030224"
+    end
+    expect(@team_manager.winning_team("6", games)).to eq(true)
+    expect(@team_manager.winning_team("3", games)).to eq(false)
+  end
+
   it "can average the win percentage" do
     expect(@team_manager.average_win_percentage("3")).to eq(0.43)
     expect(@team_manager.average_win_percentage("6")).to eq(0.49)
@@ -71,7 +83,7 @@ RSpec.describe TeamManager do
   end
 
   it 'can have most goals scored' do
-  expect(@team_manager.most_goals_scored("18")).to eq(7)
+    expect(@team_manager.most_goals_scored("18")).to eq(7)
   end
 
   it 'can have fewest goals' do
@@ -79,13 +91,11 @@ RSpec.describe TeamManager do
     expect(@team_manager.fewest_goals_scored("1")).to eq(0)
   end
 
-
   it "determines which id is the opposing team's" do
-    # expected = {'1' => }
     expect(@team_manager.games_against_opponents("3")).to be_a(Hash)
     expect(@team_manager.games_against_opponents("3").keys.first).to eq("6")
-
   end
+
   it 'has a favorite opponent' do
     expect(@team_manager.favorite_opponent("18")).to eq('DC United')
   end
@@ -97,5 +107,4 @@ RSpec.describe TeamManager do
   it 'returns team name by id' do
     expect(@team_manager.team_name('3')).to eq('Houston Dynamo')
   end
-
 end
