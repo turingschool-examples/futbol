@@ -1,6 +1,9 @@
 require_relative './game_team'
+require_relative './mathable'
 
 class GameTeamManager
+  include Mathable
+
   attr_reader :game_teams
 
   def initialize(locations)
@@ -143,7 +146,7 @@ class GameTeamManager
 
   def average_goals
     goals_by_team.reduce({}) do |average, (team, sorted_goals)|
-      average[team] = (sorted_goals.sum / sorted_goals.count.to_f).truncate(2)
+      average[team] = compute_average(sorted_goals.sum, sorted_goals.count.to_f).truncate(2)
       average
     end
   end
@@ -172,7 +175,7 @@ class GameTeamManager
 
   def average_goals_home
     goals_by_team_home.reduce({}) do |average, (team, sorted_goals)|
-      average[team] = (sorted_goals.sum / sorted_goals.count.to_f).truncate(2)
+      average[team] = compute_average(sorted_goals.sum, sorted_goals.count.to_f).truncate(2)
       average
     end
   end
@@ -201,7 +204,7 @@ class GameTeamManager
 
   def average_goals_away
     goals_by_team_away.reduce({}) do |average, (team, sorted_goals)|
-      average[team] = (sorted_goals.sum / sorted_goals.count.to_f).truncate(2)
+      average[team] = compute_average(sorted_goals.sum, sorted_goals.count.to_f).truncate(2)
       average
     end
   end
@@ -218,11 +221,3 @@ class GameTeamManager
     end.first
   end
 end
-
-
-
-# def by_team_and_game_id(team_id, game_id)
-#   @game_teams.find do |game_team|
-#     game_team.game_id == game_id && game_team.team_id == team_id
-#   end
-# end
