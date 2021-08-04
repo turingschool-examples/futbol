@@ -13,13 +13,12 @@ class StatTracker
               :game_teams
 
   def initialize (games, teams, game_teams)
-    @games = games
-    @teams = teams
+    @games      = games
+    @teams      = teams
     @game_teams = game_teams
   end
 
   def self.from_csv(locations)
-
     games = []
     teams = []
     game_teams = []
@@ -60,7 +59,9 @@ class StatTracker
   def team_statistics
     TeamStatistics.new(@games, @teams, @game_teams)
   end
+
   #game statistics methods
+
   def highest_total_score
     game_statistics.highest_total_score
   end
@@ -92,7 +93,9 @@ class StatTracker
   def average_goals_by_season
     game_statistics.average_goals_by_season
   end
+
   #Season statistics methods
+
   def most_accurate_team(season)
     season_statistics.most_accurate_team(season)
   end

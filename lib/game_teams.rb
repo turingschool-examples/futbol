@@ -9,15 +9,14 @@ class GameTeams
               :tackles
 
   def initialize(hash)
-    @game_id                  = hash[:game_id]
-    @team_id                  = hash[:team_id]
-    @hoa                      = hash[:hoa]
-    @result                   = hash[:result]
-    @head_coach               = hash[:head_coach]
-    @goals                    = hash[:goals]
-    @shots                    = hash[:shots]
-    @tackles                  = hash[:tackles]
-
+    @game_id    = hash[:game_id]
+    @team_id    = hash[:team_id]
+    @hoa        = hash[:hoa]
+    @result     = hash[:result]
+    @head_coach = hash[:head_coach]
+    @goals      = hash[:goals]
+    @shots      = hash[:shots]
+    @tackles    = hash[:tackles]
   end
 
   def win?

@@ -1,18 +1,15 @@
 require './lib/game'
 
-
 RSpec.describe Game do
-
   it 'exists and can take a hash' do
     game = Game.new({
-      game_id: '1',
-      season: 'k',
+      game_id:      '1',
+      season:       'k',
       away_team_id: '3',
       home_team_id: '2',
-      away_goals: '4',
-      home_goals: '1'
-
-      })
+      away_goals:   '4',
+      home_goals:   '1'
+    })
 
     expect(game).to be_a(Game)
     expect(game.game_id).to eq('1')
@@ -25,13 +22,13 @@ RSpec.describe Game do
 
   it 'can determine if a team played in that game' do
     game = Game.new({
-      game_id: '1',
-      season: 'k',
+      game_id:      '1',
+      season:       'k',
       away_team_id: '3',
       home_team_id: '2',
-      away_goals: '4',
-      home_goals: '1'
-      })
+      away_goals:   '4',
+      home_goals:   '1'
+    })
 
     expect(game.played?('2')).to eq(true)
     expect(game.played?('10')).to eq(false)
@@ -40,13 +37,13 @@ RSpec.describe Game do
 
   it 'can determine if the team won' do
     game = Game.new({
-      game_id: '1',
-      season: 'k',
+      game_id:      '1',
+      season:       'k',
       away_team_id: '3',
       home_team_id: '2',
-      away_goals: '4',
-      home_goals: '1'
-      })
+      away_goals:   '4',
+      home_goals:   '1'
+    })
 
     expect(game.won?('3')).to eq(true)
     expect(game.won?('2')).to eq(false)
@@ -55,13 +52,13 @@ RSpec.describe Game do
 
   it 'can determine whether they are home or away' do
     game = Game.new({
-      game_id: '1',
-      season: 'k',
+      game_id:      '1',
+      season:       'k',
       away_team_id: '3',
       home_team_id: '2',
-      away_goals: '4',
-      home_goals: '1'
-      })
+      away_goals:   '4',
+      home_goals:   '1'
+    })
 
     expect(game.home?('2')).to eq(true)
     expect(game.home?('3')).to eq(false)

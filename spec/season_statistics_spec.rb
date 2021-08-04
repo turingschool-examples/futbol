@@ -6,13 +6,13 @@ require 'CSV'
 SimpleCov.start
 RSpec.describe SeasonStatistics do
   before :each do
-    game_path = './data/games_test.csv'
-    team_path = './data/teams.csv'
+    game_path       = './data/games_test.csv'
+    team_path       = './data/teams.csv'
     game_teams_path = './data/game_teams_test.csv'
 
     locations = {
-      games: game_path,
-      teams: team_path,
+      games:      game_path,
+      teams:      team_path,
       game_teams: game_teams_path
     }
 
@@ -73,19 +73,19 @@ RSpec.describe SeasonStatistics do
 
   it 'returns wins by coach' do
     expect(@season_stats.wins_by_coach("20122013")).to eq({
-       "Adam Oates" => 12,
-       "Bruce Boudreau" => 11,
-       "Claude Julien" => 18,
-       "Dan Bylsma" => 14,
-       "Darryl Sutter" => 16,
-       "Jack Capuano" => 8,
+       "Adam Oates"       => 12,
+       "Bruce Boudreau"   => 11,
+       "Claude Julien"    => 18,
+       "Dan Bylsma"       => 14,
+       "Darryl Sutter"    => 16,
+       "Jack Capuano"     => 8,
        "Joel Quenneville" => 26,
-       "John Tortorella" => 14,
-       "Ken Hitchcock" => 9,
-       "Michel Therrien" => 6,
-       "Mike Babcock" => 21,
-       "Mike Yeo" => 6,
-       "Paul MacLean" => 8
+       "John Tortorella"  => 14,
+       "Ken Hitchcock"    => 9,
+       "Michel Therrien"  => 6,
+       "Mike Babcock"     => 21,
+       "Mike Yeo"         => 6,
+       "Paul MacLean"     => 8
     })
   end
 

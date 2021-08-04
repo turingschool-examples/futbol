@@ -4,17 +4,16 @@ require 'CSV'
 
 SimpleCov.start
 RSpec.describe GameTeams do
-
   it 'exists & has attributes' do
     hash = {
-      game_id:"2012030221",
-      team_id:"3",
-      hoa:"away",
-      result:"LOSS",
-      head_coach:"John Tortorella",
-      goals:"2",
-      shots:"8",
-      tackles:"44"
+      game_id:    "2012030221",
+      team_id:    "3",
+      hoa:        "away",
+      result:     "LOSS",
+      head_coach: "John Tortorella",
+      goals:      "2",
+      shots:      "8",
+      tackles:    "44"
     }
     game_teams = GameTeams.new(hash)
 

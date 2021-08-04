@@ -1,17 +1,15 @@
 require './lib/team'
 
 RSpec.describe Team do
-
   it 'exists and can take a hash' do
     team = Team.new({
-      teamname: 'name',
-      team_id: 1,
-      franchiseid: 2,
+      teamname:     'name',
+      team_id:      1,
+      franchiseid:  2,
       abbreviation: 'LoL',
-      stadium: 'Place',
-      link: './a/'
-
-      })
+      stadium:      'Place',
+      link:         './a/'
+    })
 
     expect(team).to be_a(Team)
     expect(team.team_id).to eq(1)

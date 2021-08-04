@@ -8,8 +8,8 @@ include Comparable
               :game_teams
 
   def initialize(games, teams, game_teams)
-    @games = games
-    @teams = teams
+    @games      = games
+    @teams      = teams
     @game_teams = game_teams
   end
 
@@ -42,15 +42,15 @@ include Comparable
   end
 
   def home_team_wins
-    count_greater_than(@games, :home_goals, :away_goals)
+    count_greater_than(@games, :home_goals, :>, :away_goals)
   end
 
   def visitor_team_wins
-    count_greater_than(@games, :away_goals, :home_goals)
+    count_greater_than(@games, :away_goals, :>, :home_goals)
   end
 
   def ties
-    count_equal_to(@games, :home_goals, :away_goals)
+    count_greater_than(@games, :home_goals, :==, :away_goals)
   end
 
   def count_of_games_by_season
