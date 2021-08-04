@@ -17,11 +17,11 @@ RSpec.describe GameManager do
     end
   end
 
-  describe '#total_goals(game)' do
+  describe '#total_goals_by_game(game)' do
     it 'adds home and away goals' do
       game = @game_manager.games.first
 
-      expect(@game_manager.total_goals(game)).to eq(5)
+      expect(@game_manager.total_goals_by_game(game)).to eq(5)
     end
   end
 
@@ -71,59 +71,76 @@ RSpec.describe GameManager do
       expect(@game_manager.percentage_home_wins).to eq(0.64)
     end
   end
-#
+
   describe '#percentage_visitor_wins' do
     it "percentage_visitor_wins" do
       expect(@game_manager.percentage_visitor_wins).to eq(0.33)
     end
   end
-#
+
   describe '#percentage_ties' do
     it "percentage_ties" do
       expect(@game_manager.percentage_ties).to eq(0.03)
     end
   end
-#
+
   describe '#count_of_games_by_season' do
     it "count_of_games_by_season" do
       expect(@game_manager.count_of_games_by_season).to eq({"20122013" => 39})
     end
   end
-#
+
+  describe '#total_goals' do
+    it "counts all goals in @games" do
+      expect(@game_manager.total_goals).to eq(151)
+    end
+  end
+
   describe '#average_goals_per_game' do
     it "average_goals_per_game" do
-      file_path = './data/fixture_games.csv'
-      @game_manager = GameManager.new(file_path)
-
       expect(@game_manager.average_goals_per_game).to eq(3.87)
     end
   end
-#
+
+  describe '#games_and_goals_per_season' do
+    it "groups games and goals by season" do
+      expect(@game_manager.games_and_goals_per_season).to eq({"20122013"=>{"games"=>39, "goals"=>151}})
+    end
+  end
+
   describe '#average_goals_per_season' do
     it "average_goals_per_season" do
-      file_path = './data/fixture_games.csv'
-      @game_manager = GameManager.new(file_path)
-
-      expect(@game_manager.average_goals_per_season).to eq({
-        "20122013"=>3.87})
+      expect(@game_manager.average_goals_per_season).to eq({"20122013"=>3.87})
     end
   end
 
   describe '#seasons' do
     it "makes an array of all seasons" do
-      file_path = './data/fixture_games.csv'
-      @game_manager = GameManager.new(file_path)
-
       expect(@game_manager.seasons).to eq(["20122013"])
     end
   end
 
   describe '#game_ids_by_season(season_id)' do
     it 'does that' do
-      file_path = './data/fixture_games.csv'
-      @game_manager = GameManager.new(file_path)
-
       expect(@game_manager.game_ids_by_season("20122013").first).to eq("2012030221")
+    end
+  end
+
+  describe '#games_and_wins_by_team(team_id)' do
+    it "can return the best season for a team by highest win percentage" do
+      expect(@game_manager.games_and_wins_by_team("3")).to eq({"20122013"=>{:total_games=>5, :total_wins=>0}})
+    end
+  end
+
+  describe '#best_season' do
+    it "can return the best season for a team by highest win percentage" do
+      expect(@game_manager.best_season("6")).to eq("20122013")
+    end
+  end
+
+  describe '#worst_season' do
+    it "can return the best season for a team by highest win percentage" do
+      expect(@game_manager.worst_season("6")).to eq("20122013")
     end
   end
 end
