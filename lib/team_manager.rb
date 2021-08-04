@@ -31,9 +31,9 @@ class TeamManager
     }
   end
 
-  # def team_name(id)
-  #   team_by_id(id).team_name
-  # end
+  def team_name(id)
+    team_by_id(id).team_name
+  end
 
   def count_teams
     @teams.count
