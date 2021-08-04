@@ -82,5 +82,4 @@ RSpec.describe LeagueStatistics do
   it 'can get home average' do
     expect(@league.home_average(3)).to eq(1.2857142857142858)
   end
-
 end

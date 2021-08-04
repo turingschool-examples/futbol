@@ -21,7 +21,6 @@ RSpec.describe Game do
     expect(game.home_team_id).to eq('2')
     expect(game.away_goals).to eq('4')
     expect(game.home_goals).to eq('1')
-
   end
 
   it 'can determine if a team played in that game' do
@@ -52,7 +51,6 @@ RSpec.describe Game do
     expect(game.won?('3')).to eq(true)
     expect(game.won?('2')).to eq(false)
     expect(game.won?('10')).to eq(false)
-
   end
 
   it 'can determine whether they are home or away' do
@@ -71,7 +69,5 @@ RSpec.describe Game do
     expect(game.away?('2')).to eq(false)
     expect(game.away?('3')).to eq(true)
     expect(game.away?('10')).to eq(false)
-
   end
-
 end

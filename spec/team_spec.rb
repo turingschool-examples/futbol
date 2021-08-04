@@ -1,6 +1,5 @@
 require './lib/team'
 
-
 RSpec.describe Team do
 
   it 'exists and can take a hash' do
@@ -22,5 +21,4 @@ RSpec.describe Team do
     expect(team.stadium).to eq('Place')
     expect(team.link).to eq('./a/')
   end
-
 end
