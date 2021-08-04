@@ -1,6 +1,9 @@
 require_relative './game'
+require_relative './mathable'
 
 class GameManager
+  include Mathable
+
   attr_reader :games,
               :season_hash
               :id_hash
@@ -10,15 +13,6 @@ class GameManager
     @season_hash = {}
     @id_hash = {}
   end
-
-  # def game_by_id_hash
-  #   @games.map do |game|
-  #     if game.game_id
-  #       @id_hash[game.game_id] = game
-  #     end
-  #   end
-  #   @id_hash
-  # end
 
   def games_by_team_id(id)
     @games.find_all do |game|
