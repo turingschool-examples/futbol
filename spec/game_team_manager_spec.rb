@@ -112,16 +112,17 @@ RSpec.describe GameTeamManager do
     expect(@game_team_manager.least_accurate_team(@season_game_ids)).to eq('5')
   end
 
-  xit 'has team tackles' do
-    expect(@game_team_manager.team_tackles('3')).to eq(179)
+  it 'has team tackles' do
+    collection = @game_team_manager.by_team_id(@game_team_manager.season_collection(@season_game_ids), '3')
+    expect(@game_team_manager.team_tackles(collection, '3')).to eq(179)
   end
 
-  xit 'has team with most tackles' do
-    expect(@game_team_manager.most_tackles(@season_team_ids)).to eq('6')
+  it 'has team with most tackles' do
+    expect(@game_team_manager.most_tackles(@season_game_ids)).to eq('6')
   end
 
-  xit 'has team with least tackles' do
-    expect(@game_team_manager.fewest_tackles(@season_team_ids)).to eq('16')
+  it 'has team with least tackles' do
+    expect(@game_team_manager.fewest_tackles(@season_game_ids)).to eq('16')
   end
 
   it "creates a hash of teams and goals" do
