@@ -1,4 +1,4 @@
-###  Futbol
+#  Futbol
 
 ## Table of contents
 * [General info](#general-info)
@@ -37,7 +37,7 @@ Stats can be viewed by running `ruby runner.rb`.
 ## List of viewable statistics:
 Any statistic can be viewed by running the following list of methods on the preloaded `stat_tracker` instance.
 
-# Game Statistics
+### Game Statistics
 * highest_total_score
 * lowest_total_score
 * percentage_home_wins
@@ -47,7 +47,7 @@ Any statistic can be viewed by running the following list of methods on the prel
 * average_goals_per_game
 * average_goals_by_season
 
-# League Statistics
+### League Statistics
 * count_of_teams
 * best_offense
 * worst_offense
@@ -56,7 +56,7 @@ Any statistic can be viewed by running the following list of methods on the prel
 * lowest_scoring_visitor
 * lowest_scoring_home_team
 
-# Season Statistics
+### Season Statistics
 These methods each take a season id as an argument and return the values described below.
 * winningest_coach
 * worst_coach
@@ -65,7 +65,7 @@ These methods each take a season id as an argument and return the values describ
 * most_tackles
 * fewest_tackles
 
-# Team Statistics
+### Team Statistics
 Each of the methods below take a team id as an argument. Using that team id, your instance of StatTracker will provide statistics for a specific team.
 * team_info
 * best_season
@@ -77,7 +77,7 @@ Each of the methods below take a team id as an argument. Using that team id, you
 * rival
 
 ## Features
-List of features ready and TODOs for future development
+List of features ready:
 * __Futbol__ runs each of the above methods.
 * Test coverage at 100%.
 
