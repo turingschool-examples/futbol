@@ -51,6 +51,11 @@ RSpec.describe TeamManager do
     expect(@team_manager.win_percentage("16", games)).to eq(0.44)
   end
 
+  it "can group the games by season by team" do
+    expect(@team_manager.games_by_season_by_team("3").keys).to eq(["20122013", "20152016", "20142015", "20132014", "20172018", "20162017"])
+    expect(@team_manager.games_by_season_by_team("3").fetch("20122013").count).to eq(60)
+  end
+
   it "can determine best season for a team" do
     expect(@team_manager.best_season("5")).to eq("20122013")
     expect(@team_manager.best_season("16")).to eq("20122013")
