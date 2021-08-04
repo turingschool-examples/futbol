@@ -37,24 +37,20 @@ class TeamManager
     @teams.count
   end
 
-  def best_season(id)
-    season_games = @game_manager.games_by_team_id(id).group_by do |game|
+  def games_by_season_by_team(id)
+    @game_manager.games_by_team_id(id).group_by do |game|
       game.season
     end
+  end
 
-    #we will refactor this with sort_by.
-    season_games.max_by do |season, season_games|
+  def best_season(id)
+    games_by_season_by_team(id).max_by do |season, season_games|
       win_percentage(id, season_games)
     end.flatten[0]
   end
 
   def worst_season(id)
-    season_games = @game_manager.games_by_team_id(id).group_by do |game|
-      game.season
-    end
-
-    #we will refactor this with sort_by.
-    season_games.min_by do |season, season_games|
+    games_by_season_by_team(id).min_by do |season, season_games|
       win_percentage(id, season_games)
     end.flatten[0]
   end
