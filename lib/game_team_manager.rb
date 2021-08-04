@@ -109,21 +109,25 @@ class GameTeamManager
     end
   end
 
-  def team_tackles(team_id)
-    by_team_id(team_id).sum do |game_team|
+  def team_tackles(collection, team_id)
+    by_team_id(collection, team_id).sum do |game_team|
       game_team.tackles.to_i
     end
   end
 
-  def most_tackles(season_team_ids)
-    season_team_ids.max_by do |team_id|
-      team_tackles(team_id)
+  def most_tackles(season_game_ids)
+    collection = season_collection(season_game_ids)
+    team_ids = team_ids(collection)
+    team_ids.max_by do |team_id|
+      team_tackles(collection, team_id)
     end
   end
 
-  def fewest_tackles(season_team_ids)
-    season_team_ids.min_by do |team_id|
-      team_tackles(team_id)
+  def fewest_tackles(season_game_ids)
+    collection = season_collection(season_game_ids)
+    team_ids = team_ids(collection)
+    team_ids.min_by do |team_id|
+      team_tackles(collection, team_id)
     end
   end
 
