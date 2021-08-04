@@ -7,13 +7,13 @@ class GameTeam
               :head_coach,
               :goals,
               :shots,
-              :tackles,
+              :tackles
               # :pim,
-              :powerplayopportunities,
-              :powerplaygoals,
-              :faceoffwinpercentage,
-              :giveaways,
-              :takeaways
+              # :powerplayopportunities,
+              # :powerplaygoals,
+              # :faceoffwinpercentage,
+              # :giveaways,
+              # :takeaways
 
   def initialize(params)
     @game_id                = params["game_id"]
@@ -26,11 +26,10 @@ class GameTeam
     @shots                  = params["shots"]
     @tackles                = params["tackles"]
     # @pim                    = params["pim"] # Not used
-    @powerplayopportunities = params["powerPlayOpportunities"]
-    @powerplaygoals         = params["powerPlayGoals"]
-    @faceoffwinpercentage   = params["faceOffWinPercentage"]
-    @giveaways              = params["giveaways"]
-    @takeaways              = params["takeaways"]
+    # @powerplayopportunities = params["powerPlayOpportunities"] # Not used
+    # @powerplaygoals         = params["powerPlayGoals"] # Not used
+    # @faceoffwinpercentage   = params["faceOffWinPercentage"] # Not used
+    # @giveaways              = params["giveaways"] # Not used
+    # @takeaways              = params["takeaways"] # Not used
   end
-
 end
