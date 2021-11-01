@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
