@@ -1,6 +1,6 @@
 ## Futbol
 
-#Group Members: Robin D., Seth Perna, Jimmy Page, Craig Cardwell
+Group Members: Robin D., Seth Perna, Jimmy Page, Craig Cardwell
 
 Starter repository for the [Turing School](https://turing.io/) Futbol project.
 
