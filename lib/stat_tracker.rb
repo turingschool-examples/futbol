@@ -78,12 +78,14 @@ class StatTracker
   # A hash with season names (e.g. 20122013) as keys and counts of games as values
   def count_of_games_by_season
     count_of_games_by_season = Hash.new(0)
-    games_by_season = @games.groupby{|game| game.season}
+    games_by_season = @games.group_by{|game| game.season}
     games_by_season.keys.each do |season|
-      count_of_games_by_season[season] = count_of_games_by_season[season].length
+      count_of_games_by_season[season] = games_by_season[season].length
     end
     return count_of_games_by_season
   end
+
+
   # Average number of goals scored in a game across all seasons including
   # both home and away goals (rounded to the nearest 100th) - float
   def avgerage_goals_per_game
@@ -95,18 +97,20 @@ class StatTracker
   # with season names (e.g. 20122013) as keys and a float
   # representing the average number of goals in a game for that season
   # as values (rounded to the nearest 100th)	- Hash
-  def avgerage_goals_per_season
-    avg_goals_per_season = Hash.new(0)
-    games_by_season = @games.groupby do|game|
-      game.season
-    end
-    games_by_season.keys.each do |season|
-      goals_by_season = games_by_season[season].map{|game| game.home_goals + game.away_goals}
-      avg_goals_per_season[season] = (goals_by_season.sum / goals_by_season.length).round(2)
-    end
-  end
 
-  def highest_scoring_visitor
+  # def avgerage_goals_per_season
+  #   avg_goals_per_season = Hash.new(0)
+  #   games_by_season = @games.group_by do|game|
+  #     game.season
+  #   end
+  #   games_by_season.keys.each do |season|
+  #     goals_by_season = games_by_season[season].map{|game| game.home_goals + game.away_goals}
+  #     avg_goals_per_season[season] = (goals_by_season.sum.to_f / goals_by_season.length.to_f).round(2)
+  #   end
+  #   return avg_goals_per_season
+  # end
+  #
+  # def highest_scoring_visitor
 
 
 
@@ -233,14 +237,27 @@ class StatTracker
 
 
   end
-  def most_tackles
 
+  # Name of the Team with the most tackles in the season	- String
+  def most_tackles(season)
+    # collect game_id by season - games.csv
+    # get cooresponding # tackles from game_teams.csv
+    # get team ID from game_teams.csv
+    # get team name from team ID
+    games_by_season = @games.group_by{|game| game.season}
+    games_by_season.each do |season, games|
+      games.each do |game|
+        @game_teams[game.game_id].tackles
+      end
+    end
 
 
 
 
   end
-  def fewest_tackles
+
+  # Name of the Team with the fewest tackles in the season	- String
+  def fewest_tackles(season)
 
 
 
