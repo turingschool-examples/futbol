@@ -11,7 +11,7 @@ class StatTracker
 
   def self.from_csv(locations)
     locations = {}
-    locations[:games] = CSV.read('./data/games_test.csv')
+    locations[:games] = CSV.foreach('./data/games_test.csv')
     locations[:teams] = CSV.read('./data/teams_test.csv')
     locations[:game_teams] = CSV.read('./data/game_teams_test.csv')
     StatTracker.new(locations)

@@ -7,8 +7,8 @@ RSpec.describe StatTracker do
 
   it 'exists' do
     game_path = CSV.read('./data/games_test.csv')
-    team_path = )
-    game_teams_path = './data/game_teams_test.csv'
+    team_path = CSV.read('./data/teams_test.csv')
+    game_teams_path = CSV.read('./data/game_teams_test.csv')
 
     locations = {
       games: game_path,
