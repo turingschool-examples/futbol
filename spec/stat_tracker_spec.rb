@@ -71,28 +71,28 @@ RSpec.describe StatTracker do
 
   describe '#highest_total_score' do
     it 'will find the highest sum of the team scores from all the games' do
-      expect(@stat_tracker.highest_total_score).to eq(11)
+      expect(@stat_tracker.highest_total_score).to eq(6)
     end
   end
   describe '#lowest_total_score' do
     it 'will find the lowest sum of the team scores from all the games' do
-      expect(@stat_tracker.lowest_total_score).to eq(0)
+      expect(@stat_tracker.lowest_total_score).to eq(2)
     end
   end
 
 
   describe  "percentage wins" do
     it "finds the percentage of visitor wins" do
-      expect(@stat_tracker.percentage_visitor_wins).to eq(0.36)
+      expect(@stat_tracker.percentage_visitor_wins).to eq(0.29)
     end
     it "finds the percentage of home wins" do
-      expect(@stat_tracker.percentage_home_wins).to eq(0.44)
+      expect(@stat_tracker.percentage_home_wins).to eq(0.43)
     end
   end
 
   describe "#percentage of ties" do
     it "checks the percentage of games that are ties" do
-      expect(@stat_tracker.percentage_ties).to eq(0.20)
+      expect(@stat_tracker.percentage_ties).to eq(0.29)
     end
   end
 
@@ -105,5 +105,5 @@ RSpec.describe StatTracker do
     xit 'returns the avgerage # of goals per season' do
       expect(@stat_tracker.avg_goals_per_season).to eq()
     end
-  end 
+  end
 end

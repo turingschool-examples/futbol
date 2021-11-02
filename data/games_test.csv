@@ -3,3 +3,20 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2012030222,20122013,Postseason,5/19/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
 2012030223,20122013,Postseason,5/21/13,6,3,2,1,BBVA Stadium,/api/v1/venues/null
 2012030224,20122013,Postseason,5/23/13,6,3,3,2,BBVA Stadium,/api/v1/venues/null
+2014030151,20142015,Postseason,4/17/15,30,19,2,2,Talen Energy Stadium,/api/v1/venues/null
+2014030152,20142015,Postseason,4/18/15,30,19,1,2,Talen Energy Stadium,/api/v1/venues/null
+2014030153,20142015,Postseason,4/21/15,19,30,0,3,Exploria Stadium,/api/v1/venues/null
+2014030154,20142015,Postseason,4/23/15,19,30,4,1,Exploria Stadium,/api/v1/venues/null
+2014030155,20142015,Postseason,4/25/15,30,19,2,1,Talen Energy Stadium,/api/v1/venues/null
+2012020298,20122013,Regular Season,3/1/13,17,28,1,1,Banc of California Stadium,/api/v1/venues/null
+2012020495,20122013,Regular Season,3/28/13,3,9,0,3,Yankee Stadium,/api/v1/venues/null
+2014020793,20142015,Regular Season,2/10/15,26,29,2,3,Exploria Stadium,/api/v1/venues/null
+2014020700,20142015,Regular Season,1/28/15,14,12,2,2,Yurcak Field,/api/v1/venues/null
+2014020201,20142015,Regular Season,11/8/14,53,24,2,2,Rio Tinto Stadium,/api/v1/venues/null
+2014021092,20142015,Regular Season,3/24/15,19,5,3,2,Children's Mercy Park,/api/v1/venues/null
+2014020693,20142015,Regular Season,1/22/15,29,52,0,2,Providence Park,/api/v1/venues/null
+2014020548,20142015,Regular Season,1/1/15,12,5,1,2,Children's Mercy Park,/api/v1/venues/null
+2014020434,20142015,Regular Season,12/13/14,24,22,2,2,Maryland SoccerPlex,/api/v1/venues/null
+2014020205,20142015,Regular Season,11/9/14,30,8,1,2,Red Bull Arena,/api/v1/venues/null
+2014020133,20142015,Regular Season,10/29/14,28,21,2,2,BC Place,/api/v1/venues/null
+2014020016,20142015,Regular Season,10/10/14,52,53,4,2,Mapfre Stadium,/api/v1/venues/null
