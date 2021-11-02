@@ -1,13 +1,14 @@
+require 'csv'
 
 class StatTracker
 
-  def initialize
-    @filenames = {}
+  def initialize(filenames)
+    filenames.each do |k, v|
+      puts CSV.read(v)
+    end
   end
 
   def self.from_csv(filenames)
-    filenames.each do |k, v|
-      rows = CSV.read(v)
-    end
+    self.new(filenames)
   end
 end
