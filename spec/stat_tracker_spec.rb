@@ -60,4 +60,15 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.highest_total_score).to eq(11)
     end
   end
+
+  describe ' #avg_goals_per_game' do
+    xit 'returns the avgerage # of goals per game' do
+      expect(@stat_tracker.avg_goals_per_game).to eq()
+    end
+  end
+  describe ' #avg_goals_per_season' do
+    xit 'returns the avgerage # of goals per season' do
+      expect(@stat_tracker.avg_goals_per_season).to eq()
+    end
+  end
 end
