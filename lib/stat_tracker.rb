@@ -80,7 +80,7 @@ class StatTracker
     count_of_games_by_season = Hash.new(0)
     games_by_season = @games.groupby{|game| game.season}
     games_by_season.keys.each do |season|
-      count_of_games_by_season[season] = count_of_games_by_season[season].length)
+      count_of_games_by_season[season] = count_of_games_by_season[season].length
     end
     return count_of_games_by_season
   end
