@@ -10,7 +10,6 @@ class StatTracker
 
   def self.from_csv(locations)
     locations.map do |location|
-      # require 'pry'; binding.pry
       StatTracker.new(location)
     end
   end
@@ -30,7 +29,6 @@ class StatTracker
   def read_game_teams_stats(file)
     CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
       game_team = GameTeam.new(row)
-      require 'pry'; binding.pry
     end
   end
 
