@@ -40,6 +40,11 @@ class StatTracker
     game_score.max
   end
 
+  def lowest_total_score
+    game_score = @games.map {|game| game.away_goals + game.home_goals}
+    game_score.min
+  end
+
   def percentage_visitor_wins
     visitor_wins = []
     @games.each do |game|
