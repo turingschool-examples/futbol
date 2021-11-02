@@ -22,6 +22,18 @@ class GameStats
     max_score
   end
 
+  def lowest_total_score
+    @game_data = CSV.parse(File.read("./data/sample_games.csv"), headers: true)
+    low_score = 100
+    @game_data.each do |game|
+      sum = game["away_goals"].to_i + game["home_goals"].to_i
+      if sum < low_score
+        low_score = sum
+      end
+    end
+    low_score
+  end
+
   def percentage_home_wins
     @game_data = CSV.parse(File.read("./data/sample_games.csv"), headers: true)
     home_wins = 0
