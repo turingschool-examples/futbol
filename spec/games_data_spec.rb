@@ -22,9 +22,20 @@ RSpec.describe GamesData do
     expect(game_obj).to be_instance_of(GamesData)
   end
 
-  it 'can store and access teams data' do
+  it 'can store and access games data' do
     game_obj = GamesData.new(@stat_tracker)
 
     expect(game_obj.game_data).to eq(@stat_tracker.games)
   end
+
+  it 'can store and access games data' do
+    game_obj = GamesData.new(@stat_tracker)
+    expect(game_obj.highest_total_score).to eq(5)
+  end
+
+  # it 'can initliaze one ' do
+  #   game_obj = GamesData.new(@stat_tracker)
+  #
+  #   expect(game_obj.game_data).to eq(@stat_tracker.games)
+  # end
 end
