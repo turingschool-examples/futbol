@@ -95,15 +95,20 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.percentage_ties).to eq(0.29)
     end
   end
-
-  describe ' #avg_goals_per_game' do
-    xit 'returns the avgerage # of goals per game' do
-      expect(@stat_tracker.avg_goals_per_game).to eq()
+  describe ' #count_of_games_by_season' do
+    xit 'returns a hash with correct count of games per season' do
+      expect(@stat_tracker.count_of_games_by_season).to be_a(Hash)
+      expect(@stat_tracker.count_of_games_by_season).to eq({})
     end
   end
-  describe ' #avg_goals_per_season' do
+  describe ' #avgerage_goals_per_game' do
+    xit 'returns the avgerage # of goals per game' do
+      expect(@stat_tracker.avgerage_goals_per_game).to eq()
+    end
+  end
+  describe ' #avgerage_goals_per_season' do
     xit 'returns the avgerage # of goals per season' do
-      expect(@stat_tracker.avg_goals_per_season).to eq()
+      expect(@stat_tracker.avgerage_goals_per_season).to eq()
     end
   end
 end
