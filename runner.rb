@@ -1,8 +1,8 @@
 require './lib/stat_tracker'
 
-game_path = './data/games.csv'
-team_path = './data/teams.csv'
-game_teams_path = './data/game_teams.csv'
+game_path = './data/games_dummy.csv'
+team_path = './data/teams_dummy.csv'
+game_teams_path = './data/game_teams_dummy.csv'
 
 locations = {
   games: game_path,
@@ -10,6 +10,10 @@ locations = {
   game_teams: game_teams_path
 }
 
-stat_tracker = StatTracker.from_csv(locations)
-
-require 'pry'; binding.pry 
+ted_lasso = StatTracker.from_csv(locations)
+# ted_lasso will hold the value of a single instance
+# of the StatTracker class. That instance will hold all
+# the data we've opened within it. In effect, ted_lasso
+# holds all of our data, and will have all our methods
+# called to it.
+require 'pry'; binding.pry
