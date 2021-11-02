@@ -3,17 +3,24 @@ require 'csv'
 class StatTracker
 
   def initialize
-    # @game_path = locations[:games]
-    # @team_path = locations[:teams]
-    # @game_teams_path = locations[:game_teams]
   end
 
-  def self.from_csv(files)
-    StatTracker.new(files)
+
+
+  def self.convert_path_to_csv(files)
+    result = []
+    rows = CSV.read(files, headers:true)
+    rows.each do |row|
+      result << row
+    end
+    result
   end
 
-  def game_data(file_name)
-    rows = CSV.read(file_name, headers: true)
-    require "pry"; binding.pry
+  def self.from_csv(locations)
+    data = Hash.new
+    locations.each do |symbol, path|
+      data[symbol] = convert_path_to_csv(path)
+    end
+    data
   end
 end
