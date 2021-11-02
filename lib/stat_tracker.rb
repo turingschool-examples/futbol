@@ -111,6 +111,51 @@ class StatTracker
   #   return avg_goals_per_season
   end
 
+  #League Statistics
+  def count_of_teams
+    @teams.count
+  end
+
+  def best_offense
+    require 'pry'; binding.pry
+    
+    # games_by_team_id = @game_teams.group_by {|game_team| game_team.team_id}
+    #
+    # team_offense = {}
+    # games_by_team_id.map do |team_id, game_teams|
+    #   total_goals = 0
+    #   games = 0
+    #   game_teams.each do |game_team|
+    #     total_goals += game_team.goals
+    #     games +=1
+    #   end
+    #   team_offense[team_id] = total_goals.to_f/games
+    # end
+    # avg_goals = team_offense.values.max
+    # best_offense_id = team_offense.key(avg_goals)
+    # best_offensive_team = @teams.find {|team| team.team_id == best_offense_id}
+    # best_offensive_team.team_name
+  end
+
+  def worst_offense
+    games_by_team_id = @game_teams.group_by {|game_team| game_team.team_id}
+
+    team_offense = {}
+    games_by_team_id.map do |team_id, game_teams|
+      total_goals = 0
+      games = 0
+      game_teams.each do |game_team|
+        total_goals += game_team.goals
+        games +=1
+      end
+      team_offense[team_id] = total_goals.to_f/games
+    end
+    avg_goals = team_offense.values.min
+    worst_offense_id = team_offense.key(avg_goals)
+    worst_offensive_team = @teams.find {|team| team.team_id == worst_offense_id}
+    worst_offensive_team.team_name
+  end
+
    def highest_scoring_visitor
 
 
@@ -119,13 +164,8 @@ class StatTracker
 
   end
 
-  def worst_offense
 
 
-
-
-
-  end
   def highest_scoring_home_team
 
 
