@@ -7,12 +7,12 @@ RSpec.describe "Stat Tracker" do
       @team_path       = './data/teams.csv'
       @game_teams_path = './data/game_teams.csv'
 
-      locations = {
+      @locations = {
                     games: @game_path,
                     teams: @team_path,
                     game_teams: @game_teams_path
                   }
-      @stat_tracker = StatTracker.new(locations)
+      @stat_tracker = StatTracker.from_csv(@locations)
   end
 
   it "exists" do
@@ -20,12 +20,13 @@ RSpec.describe "Stat Tracker" do
   end
 
   it "has attributes" do
-    expect(@stat_tracker.games.count).to eq(7441)
-    expect(@stat_tracker.teams.count).to eq(32)
-    expect(@stat_tracker.game_teams.count).to eq(14882)
+    # require "pry"; binding.pry
+    expect(@stat_tracker.games.count).to eq(7442)
+    expect(@stat_tracker.teams.count).to eq(33)
+    expect(@stat_tracker.game_teams.count).to eq(14883)
   end
 
-  it 'can create an array of hashes from a CSV' do 
+  it 'can create an array of hashes from a CSV' do
     expect(@stat_tracker.to_array(@team_path)).to be_an(Array)
     expect(@stat_tracker.to_array(@team_path).first).to be_a(Hash)
     expect(@stat_tracker.to_array(@team_path).count).to eq(32)
