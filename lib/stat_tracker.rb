@@ -2,7 +2,12 @@ require 'csv'
 
 class StatTracker
 
-  def initialize
+  def initialize(data)
+    @data = data
+    @games = @data[:games]
+    @teams = @data[:teams]
+    @games_teams = @data[:games_test]
+
   end
 
 
@@ -17,10 +22,14 @@ class StatTracker
   end
 
   def self.from_csv(locations)
-    data = Hash.new
+    formatte_data = {}
     locations.each do |symbol, path|
-      data[symbol] = convert_path_to_csv(path)
+      @data[symbol] = convert_path_to_csv(path)
     end
-    data
+    StatTracker.new(formatte_data)
+  end
+
+  def self.get_data(data_set)
+    @data[data_set]
   end
 end
