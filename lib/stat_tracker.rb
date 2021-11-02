@@ -4,6 +4,7 @@ require './lib/game'
 
 class StatTracker
   attr_accessor :location
+  
   def initialize(location)
     @location = location
     @games = {}
@@ -27,12 +28,14 @@ class StatTracker
   def read_team_stats(file)
     CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
       team = Team.new(row)
+      @teams[team.team_id] = team
     end
   end
 
   def read_game_teams_stats(file)
     CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
       game_team = GameTeam.new(row)
+      @game_teams[game_team.game_id] = game_team
     end
   end
 
