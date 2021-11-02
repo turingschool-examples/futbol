@@ -21,5 +21,13 @@ RSpec.describe GameStats do
     expect(@game_stats.highest_total_score).to eq(5)
   end
 
+  it "lowest_total_score" do
+
+    expect(@game_stats.lowest_total_score).to eq(1)
+  end
   
+  it "#percentage_home_wins" do
+
+    expect(@game_stats.percentage_home_wins).to eq(62.50)
+  end
 end
