@@ -1,7 +1,111 @@
 {
   "RSpec": {
     "coverage": {
+      "/Users/robindittrich/turing/1module/projects/futbol_group_proj/futbol/spec/league_stats_spec.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/robindittrich/turing/1module/projects/futbol_group_proj/futbol/lib/league_stats.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          null
+        ]
+      },
+      "/Users/robindittrich/turing/1module/projects/futbol_group_proj/futbol/spec/season_stats_spec.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/robindittrich/turing/1module/projects/futbol_group_proj/futbol/lib/season_stats.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          null
+        ]
+      },
+      "/Users/robindittrich/turing/1module/projects/futbol_group_proj/futbol/spec/stat_tracker_spec.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/robindittrich/turing/1module/projects/futbol_group_proj/futbol/spec/team_stats_spec.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/robindittrich/turing/1module/projects/futbol_group_proj/futbol/lib/team_stats.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          null
+        ]
+      }
     },
-    "timestamp": 1635817009
+    "timestamp": 1635822449
   }
 }
