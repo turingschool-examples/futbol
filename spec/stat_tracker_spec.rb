@@ -6,18 +6,22 @@ require 'csv'
 RSpec.describe StatTracker do
 
   it 'exists' do
-    # locations = {
-    #   games: game_path,
-    #   teams: team_path,
-    #   game_teams: game_teams_path
-    # }
+    game_path = CSV.read('./data/games_test.csv')
+    team_path = )
+    game_teams_path = './data/game_teams_test.csv'
 
-    stat_tracker = StatTracker.new
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
 
+    stat_tracker = StatTracker.from_csv(locations)
     expect(stat_tracker).to be_an_instance_of(StatTracker)
+    require "pry"; binding.pry
   end
 
-  it '#game_data' do
+  xit '#game_data' do
     stat_tracker = StatTracker.new
     game_path = './data/games_test.csv'
     team_path = './data/teams_test.csv'
