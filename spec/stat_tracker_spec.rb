@@ -60,4 +60,13 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.highest_total_score).to eq(11)
     end
   end
+
+  describe  "percentage wins" do
+    it "finds the percentage of visitor wins" do
+      expect(@stat_tracker.percentage_visitor_wins).to eq(0.36)
+    end
+    it "finds the percentage of home wins" do
+      expect(@stat_tracker.percentage_home_wins).to eq(0.44)
+    end
+  end
 end

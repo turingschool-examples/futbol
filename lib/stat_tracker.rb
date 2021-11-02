@@ -39,4 +39,24 @@ class StatTracker
     game_score = @games.map {|game| game.away_goals + game.home_goals}
     game_score.max
   end
+
+  def percentage_visitor_wins
+    visitor_wins = []
+    @games.each do |game|
+      if game.away_goals > game.home_goals
+        visitor_wins.push(game)
+      end
+    end
+    (visitor_wins.count.to_f / @games.count.to_f).round(2)
+  end
+
+  def percentage_home_wins
+    home_wins = []
+    @games.each do |game|
+      if game.home_goals > game.away_goals
+        home_wins.push(game)
+      end
+    end
+    (home_wins.count.to_f / @games.count.to_f).round(2)
+  end
 end
