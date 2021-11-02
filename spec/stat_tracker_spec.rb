@@ -60,11 +60,36 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.highest_total_score).to eq(11)
     end
   end
+  describe '#lowest_total_score' do
+    it 'will find the lowest sum of the team scores from all the games' do
+      expect(@stat_tracker.lowest_total_score).to eq(0)
+    end
+  end
 
-  describe '#count_of_games_by_season' do
-    it 'will find total number of games by season' do
 
-      expect(@stat_tracker.highest_total_score).to eq(10)
+  describe  "percentage wins" do
+    it "finds the percentage of visitor wins" do
+      expect(@stat_tracker.percentage_visitor_wins).to eq(0.36)
+    end
+    it "finds the percentage of home wins" do
+      expect(@stat_tracker.percentage_home_wins).to eq(0.44)
+    end
+  end
+
+  describe "#percentage of ties" do
+    it "checks the percentage of games that are ties" do
+      expect(@stat_tracker.percentage_ties).to eq(0.20)
+    end
+  end
+
+  describe ' #avg_goals_per_game' do
+    xit 'returns the avgerage # of goals per game' do
+      expect(@stat_tracker.avg_goals_per_game).to eq()
+    end
+  end
+  describe ' #avg_goals_per_season' do
+    xit 'returns the avgerage # of goals per season' do
+      expect(@stat_tracker.avg_goals_per_season).to eq()
     end
   end
 end
