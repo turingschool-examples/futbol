@@ -201,8 +201,13 @@ class StatTracker
 
   #### Season
   def winningest_coach
-
-
+    # games_won = []
+    # @games.each do|game|
+    #   if game.game.home_goals > game.away_goals
+    #     games_won.push(game)
+    #   end
+    #   games_won.group_by
+    # end
 
 
 
