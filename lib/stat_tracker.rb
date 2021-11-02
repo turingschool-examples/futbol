@@ -40,6 +40,41 @@ class StatTracker
     game_score.max
   end
 
+  def lowest_total_score
+    game_score = @games.map {|game| game.away_goals + game.home_goals}
+    game_score.min
+  end
+
+  def percentage_visitor_wins
+    visitor_wins = []
+    @games.each do |game|
+      if game.away_goals > game.home_goals
+        visitor_wins.push(game)
+      end
+    end
+    (visitor_wins.count.to_f / @games.count.to_f).round(2)
+  end
+
+  def percentage_home_wins
+    home_wins = []
+    @games.each do |game|
+      if game.home_goals > game.away_goals
+        home_wins.push(game)
+      end
+    end
+    (home_wins.count.to_f / @games.count.to_f).round(2)
+  end
+
+  def percentage_ties
+    tie_games = []
+    @games.each do |game|
+      if game.home_goals == game.away_goals
+        tie_games.push(game)
+      end
+    end
+    (tie_games.count.to_f / @games.count.to_f).round(2)
+  end
+
   # Average number of goals scored in a game across all seasons including
   # both home and away goals (rounded to the nearest 100th) - float
   def avg_goals_per_game
