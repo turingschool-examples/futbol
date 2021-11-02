@@ -1,7 +1,11 @@
 require 'csv'
-require_relative './teams'
-require_relative './game_teams'
-require_relative './games'
+# require_relative './teams'
+# require_relative './game_teams'
+# require_relative './games'
+
+require_relative './teams_test'
+require_relative './game_teams_test'
+require_relative './games_test'
 
 class StatTracker
   attr_accessor :games, :teams, :game_teams
