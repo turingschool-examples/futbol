@@ -12,7 +12,6 @@ class Creator
   end
 
   def stat_obj_creator(game_team_data)
-    require "pry"; binding.pry
   end
 
 
