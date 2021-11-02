@@ -17,7 +17,6 @@ class StatTracker
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       rows << row.to_h
     end
-    # require "pry"; binding.pry
     rows
   end
 
