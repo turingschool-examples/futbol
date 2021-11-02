@@ -41,12 +41,9 @@ RSpec.describe StatTracker do
 
     it 'has attributes' do
       stat_tracker2 = StatTracker.new()
-      expect(stat_tracker2.games).to be_a(Array)
-      expect(stat_tracker2.teams).to be_a(Array)
-      expect(stat_tracker2.game_teams).to be_a(Array)
-      expect(stat_tracker2.games).to eq([])
-      expect(stat_tracker2.teams).to eq([])
-      expect(stat_tracker2.game_teams).to eq([])
+      expect(stat_tracker2.games).to be_a(Hash)
+      expect(stat_tracker2.teams).to be_a(Hash)
+      expect(stat_tracker2.game_teams).to be_a(Hash)
     end
   end
 
@@ -57,12 +54,12 @@ RSpec.describe StatTracker do
       end
 
       it 'has correct attributes and classes' do
-        expect(@stat_tracker.games).to be_a(Array)
-        expect(@stat_tracker.teams).to be_a(Array)
-        expect(@stat_tracker.game_teams).to be_a(Array)
-        expect(@stat_tracker.games[0]).to be_a(Games)
-        expect(@stat_tracker.teams[0]).to be_a(Teams)
-        expect(@stat_tracker.game_teams[0]).to be_a(GameTeams)
+        expect(@stat_tracker.games).to be_a(Hash)
+        expect(@stat_tracker.teams).to be_a(Hash)
+        expect(@stat_tracker.game_teams).to be_a(Hash)
+        expect(@stat_tracker.games.values[0]).to be_a(Games)
+        expect(@stat_tracker.teams.values[0]).to be_a(Teams)
+        expect(@stat_tracker.game_teams.values[0]).to be_a(GameTeams)
       end
     end
   end
@@ -107,7 +104,7 @@ RSpec.describe StatTracker do
     end
   end
   describe ' #avgerage_goals_per_season' do
-    it 'returns a hash with avgerage # of goals per season' do
+    xit 'returns a hash with avgerage # of goals per season' do
       expect(@stat_tracker.avgerage_goals_per_season).to be_a(Hash)
       expect(@stat_tracker.avgerage_goals_per_season).to eq({"20122013" => 3.83, "20142015" => 3.87})
     end
@@ -206,12 +203,12 @@ RSpec.describe StatTracker do
 
     end
   end
-  describe '#most_tackles' do
-    xit '' do
-
+  describe ' #most_tackles' do
+    xit 'returns the name of the team with the most tackles in the season' do
+      #season =
     end
   end
-  describe '#fewest_tackles' do
+  describe ' #fewest_tackles' do
     xit '' do
 
     end
