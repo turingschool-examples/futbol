@@ -2,18 +2,29 @@ require 'csv'
 
 class StatTracker
 
-  def initialize(locations_info)
-    @games =  locations_info[:games]
-    @teams = locations_info[:teams]
-    @game_teams = locations_info[:game_teams]
+  def initialize(data)
+    @data = data
+    @games = @data[:games]
+    @teams = @data[:teams]
+    @games_teams = @data[:games_test]
+
   end
 
+
+
+  def self.convert_path_to_csv(files)
+    result = []
+    rows = CSV.read(files, headers:true)
+    rows.each do |row|
+      result << row
+    end
+    result
+  end
 
   def self.from_csv(locations)
-    locations = {}
-    locations[:games] = CSV.foreach('./data/games_test.csv')
-    locations[:teams] = CSV.read('./data/teams_test.csv')
-    locations[:game_teams] = CSV.read('./data/game_teams_test.csv')
-    StatTracker.new(locations)
+    formatted_data = {}
+    locations.each do |symbol, path|
+      formatted_data[symbol] = convert_path_to_csv(path)
+    end
+    StatTracker.new(formatted_data)
   end
-end
