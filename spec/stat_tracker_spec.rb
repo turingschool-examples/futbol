@@ -3,14 +3,14 @@ require './lib/stat_tracker'
 
 RSpec.describe "Stat Tracker" do
   before(:each) do
-      game_path       = './data/games.csv'
-      team_path       = './data/teams.csv'
-      game_teams_path = './data/game_teams.csv'
+      @game_path       = './data/games.csv'
+      @team_path       = './data/teams.csv'
+      @game_teams_path = './data/game_teams.csv'
 
       locations = {
-                    games: game_path,
-                    teams: team_path,
-                    game_teams: game_teams_path
+                    games: @game_path,
+                    teams: @team_path,
+                    game_teams: @game_teams_path
                   }
       @stat_tracker = StatTracker.new(locations)
   end
@@ -20,9 +20,16 @@ RSpec.describe "Stat Tracker" do
   end
 
   it "has attributes" do
-    expect(@stat_tracker.games).to eq(game_path)
-    expect(@stat_tracker.teams).to eq("#{\#<CSV::Table mode:col_or_row row_count:33>}")
-    expect(@stat_tracker.game_teams).to eq('./data/game_teams.csv')
+    expect(@stat_tracker.games.count).to eq(7441)
+    expect(@stat_tracker.teams.count).to eq(32)
+    expect(@stat_tracker.game_teams.count).to eq(14882)
+  end
 
+  it 'can create an array of hashes from a CSV' do 
+    expect(@stat_tracker.to_array(@team_path)).to be_an(Array)
+    expect(@stat_tracker.to_array(@team_path).first).to be_a(Hash)
+    expect(@stat_tracker.to_array(@team_path).count).to eq(32)
+    expect(@stat_tracker.to_array(@team_path).first.count).to eq(6)
+    expect(@stat_tracker.to_array(@team_path).sample.count).to eq(6)
   end
 end

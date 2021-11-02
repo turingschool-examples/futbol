@@ -11,6 +11,12 @@ class StatTracker
     @game_teams = CSV.read(locations[:game_teams], headers: true)
   end
 
+  def to_array(file_path)
+    rows = []
 
-
+    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
+      rows << row.to_h
+    end
+    rows
+  end
 end
