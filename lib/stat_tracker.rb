@@ -118,7 +118,7 @@ class StatTracker
 
   def best_offense
     require 'pry'; binding.pry
-    
+    #make an array 
     # games_by_team_id = @game_teams.group_by {|game_team| game_team.team_id}
     #
     # team_offense = {}
