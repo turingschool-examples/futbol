@@ -16,5 +16,5 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2012030236,20122013,Postseason,5/28/13,16,17,2,3,Dignity Health Sports Park,/api/v1/venues/null
 2012030237,20122013,Postseason,5/30/13,17,16,1,2,Gillette Stadium,/api/v1/venues/null
 2012030121,20122013,Postseason,5/2/13,9,8,2,2,Red Bull Arena,/api/v1/venues/null
-2012030122,20122013,Postseason,5/3/13,9,8,1,3,Red Bull Arena,/api/v1/venues/null
-2012030123,20122013,Postseason,5/5/13,8,9,1,4,Yankee Stadium,/api/v1/venues/null
+2012030122,20132014,Postseason,5/3/13,9,8,1,3,Red Bull Arena,/api/v1/venues/null
+2012030123,20142015,Postseason,5/5/13,8,9,1,4,Yankee Stadium,/api/v1/venues/null

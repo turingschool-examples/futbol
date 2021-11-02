@@ -69,4 +69,23 @@ class GamesData < StatTracker
     ((tie_counter.to_f / @game_data.length) * 100).round(2)
   end
 
+  def sum_of_games_in_season(season_number)
+    season_games = @game_data.select do |row|
+      row['season'] == season_number
+    end
+    season_games.count
+  end
+
+  def count_of_games_by_season
+    new_hash = {}
+    keys = @game_data.map do |row|
+      row['season']
+    end.flatten.uniq
+
+    keys.each do |key|
+      new_hash[key] = sum_of_games_in_season(key)
+    end
+    new_hash
+  end
+
 end
