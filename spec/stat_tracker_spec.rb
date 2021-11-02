@@ -21,16 +21,33 @@ RSpec.describe StatTracker do
 
   describe '#initialize' do
     it 'exists' do
-      expect(@stat_tracker).to be_an_instance_of(StatTracker)
+      stat_tracker2 = StatTracker.new()
+      expect(stat_tracker2).to be_an_instance_of(StatTracker)
     end
 
     it 'has attributes' do
-      expect(@stat_tracker.games).to be_a(Array)
-      expect(@stat_tracker.teams).to be_a(Array)
-      expect(@stat_tracker.game_teams).to be_a(Array)
-      expect(@stat_tracker.games[0]).to be_a(Games)
-      expect(@stat_tracker.teams[0]).to be_a(Teams)
-      expect(@stat_tracker.game_teams[0]).to be_a(GameTeams)
+      stat_tracker2 = StatTracker.new()
+      expect(stat_tracker2.games).to be_a(Array)
+      expect(stat_tracker2.teams).to be_a(Array)
+      expect(stat_tracker2.game_teams).to be_a(Array)
+      expect(stat_tracker2.games).to eq([])
+      expect(stat_tracker2.teams).to eq([])
+      expect(stat_tracker2.game_teams).to eq([])
     end
+  end
+
+  describe '::from_csv' do
+    describe 'returns a StatTracker object'
+      it 'exists' do
+        expect(@stat_tracker).to be_an_instance_of(StatTracker)
+      end
+      it 'has correct attributes and classes' do
+        expect(@stat_tracker.games).to be_a(Array)
+        expect(@stat_tracker.teams).to be_a(Array)
+        expect(@stat_tracker.game_teams).to be_a(Array)
+        expect(@stat_tracker.games[0]).to be_a(Games)
+        expect(@stat_tracker.teams[0]).to be_a(Teams)
+        expect(@stat_tracker.game_teams[0]).to be_a(GameTeams)
+      end
   end
 end
