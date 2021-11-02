@@ -1,5 +1,7 @@
 require 'csv'
 require_relative './team'
+require_relative './game_teams'
+require_relative './games'
 
 class StatTracker
   # attr_reader
