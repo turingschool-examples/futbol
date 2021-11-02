@@ -25,7 +25,12 @@ RSpec.describe StatTracker do
     end
 
     it 'has attributes' do
-
+      expect(@stat_tracker.games).to be_a(Array)
+      expect(@stat_tracker.teams).to be_a(Array)
+      expect(@stat_tracker.game_teams).to be_a(Array)
+      expect(@stat_tracker.games[0]).to be_a(Games)
+      expect(@stat_tracker.teams[0]).to be_a(Teams)
+      expect(@stat_tracker.game_teams[0]).to be_a(GameTeams)
     end
   end
 end
