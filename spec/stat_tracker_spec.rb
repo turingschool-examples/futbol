@@ -107,7 +107,7 @@ RSpec.describe StatTracker do
     end
   end
   describe ' #avgerage_goals_per_season' do
-    it 'returns a hash with avgerage # of goals per season' do
+    xit 'returns a hash with avgerage # of goals per season' do
       expect(@stat_tracker.avgerage_goals_per_season).to be_a(Hash)
       expect(@stat_tracker.avgerage_goals_per_season).to eq({"20122013" => 3.83, "20142015" => 3.87})
     end
@@ -206,12 +206,12 @@ RSpec.describe StatTracker do
 
     end
   end
-  describe '#most_tackles' do
-    xit '' do
-
+  describe ' #most_tackles' do
+    xit 'returns the name of the team with the most tackles in the season' do
+      #season =
     end
   end
-  describe '#fewest_tackles' do
+  describe ' #fewest_tackles' do
     xit '' do
 
     end
