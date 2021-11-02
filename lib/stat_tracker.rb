@@ -61,7 +61,7 @@ class StatTracker
 
     stat_tracker = StatTracker.new()
 
-    stat_tracker.games_array = CSV.read(filenames[:games], headers:false)
+    stat_tracker.games_array = CSV.read(filenames[:games], headers: false)
     stat_tracker.games_array.each do |array|
       stat_tracker.game_id << array[0]
       stat_tracker.season << array[1]
@@ -128,4 +128,9 @@ class StatTracker
     return max_total_score
   end
 
+
+  def count_of_games_by_season
+    @season.shift
+    @season.tally
+  end
 end
