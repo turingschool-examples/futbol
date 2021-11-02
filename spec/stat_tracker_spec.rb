@@ -3,9 +3,9 @@ require './lib/stat_tracker'
 
 RSpec.describe "Stat Tracker" do
   before(:each) do
-      @game_path       = './data/games.csv'
+      @game_path       = './data/games_sample.csv'
+      @game_teams_path = './data/game_teams_sample.csv'
       @team_path       = './data/teams.csv'
-      @game_teams_path = './data/game_teams.csv'
 
       @locations = {
                     games: @game_path,
@@ -20,9 +20,9 @@ RSpec.describe "Stat Tracker" do
   end
 
   it "has attributes" do
-    expect(@stat_tracker.games.count).to eq(7442)
+    expect(@stat_tracker.games.count).to eq(21)
     expect(@stat_tracker.teams.count).to eq(33)
-    expect(@stat_tracker.game_teams.count).to eq(14883)
+    expect(@stat_tracker.game_teams.count).to eq(21)
   end
 
   it 'can create an array of hashes from a CSV' do
