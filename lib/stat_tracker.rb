@@ -1,5 +1,5 @@
 require 'csv'
-require_relative './team'
+require_relative './teams'
 require_relative './game_teams'
 require_relative './games'
 
@@ -13,7 +13,7 @@ class StatTracker
   def self.from_csv(locations)
     rows = CSV.read(locations[:teams], headers: true)
     rows.each do |row|
-      team = Team.new(row)
+      team = Teams.new(row)
     end
 
     rows = CSV.read(locations[:games], headers: true)
