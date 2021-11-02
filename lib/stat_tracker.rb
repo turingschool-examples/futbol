@@ -25,7 +25,6 @@ class StatTracker
     game_path = locations[:games]
     team_path = locations[:teams]
     game_team_path = locations[:game_teams]
-    # require "pry"; binding.pry
     self.new(game_path, team_path, game_team_path)
   end
 end

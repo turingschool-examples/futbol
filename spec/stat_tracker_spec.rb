@@ -20,7 +20,6 @@ RSpec.describe "Stat Tracker" do
   end
 
   it "has attributes" do
-    # require "pry"; binding.pry
     expect(@stat_tracker.games.count).to eq(7442)
     expect(@stat_tracker.teams.count).to eq(33)
     expect(@stat_tracker.game_teams.count).to eq(14883)
