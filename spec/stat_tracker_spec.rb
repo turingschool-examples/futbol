@@ -111,4 +111,110 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.avgerage_goals_per_season).to eq({"20122013" => 3.83, "20142015" => 3.87})
     end
   end
+
+  #League Stat
+  describe '#highest_scoring_visitor' do
+    xit 'returns highest score from vistor team' do
+
+    end
+  end
+
+  describe '#worst_offense' do
+    xit '' do
+
+    end
+  end
+
+  describe '#highest_scoring_home_team' do
+    xit '' do
+
+    end
+  end
+
+  describe '#lowest_scoring_visitor' do
+    xit '' do
+
+    end
+  end
+
+  describe '#lowest_scoring_home_team' do
+    xit '' do
+
+    end
+  end
+
+  describe '#team_info' do
+    xit '' do
+
+    end
+  end
+
+  describe '#best_season' do
+    xit '' do
+
+    end
+  end
+
+  describe '#worst_season' do
+    xit '' do
+
+    end
+  end
+
+  describe '#average_win_percentage' do
+    xit '' do
+
+    end
+  end
+
+  describe '#most_goals_scored' do
+    xit '' do
+
+    end
+  end
+
+  describe '#rival' do
+    xit '' do
+
+    end
+  end
+
+  describe '#rival' do
+    xit '' do
+
+    end
+  end
+  ### Season
+  describe '#winningest_coach' do
+    xit '' do
+
+    end
+  end
+  describe '#worst_coach' do
+    xit '' do
+
+    end
+  end
+  describe '#most_accurate_team' do
+    xit '' do
+
+    end
+  end
+  describe '#least_accurate_team' do
+    xit '' do
+
+    end
+  end
+  describe '#most_tackles' do
+    xit '' do
+
+    end
+  end
+  describe '#fewest_tackles' do
+    xit '' do
+
+    end
+  end
+
+
 end

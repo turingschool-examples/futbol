@@ -108,4 +108,141 @@ class StatTracker
     end
     return avg_goals_per_season
   end
+
+  def highest_scoring_visitor
+
+
+
+
+
+  end
+
+  def worst_offense
+
+
+
+
+
+  end
+  def highest_scoring_home_team
+
+
+
+
+
+  end
+  def lowest_scoring_visitor
+
+
+
+
+
+  end
+  def lowest_scoring_home_team
+
+
+
+
+
+  end
+  def team_info
+
+
+
+
+
+  end
+  def best_season
+
+
+
+
+
+  end
+  def worst_season
+
+
+
+
+
+  end
+  def average_win_percentage
+
+
+
+
+
+  end
+  def most_goals_scored
+
+
+
+
+
+  end
+  def fewest_goals_scored
+
+
+
+
+
+  end
+  def favorite_opponent
+
+
+
+
+
+  end
+  def rival
+
+
+
+
+
+  end
+
+  #### Season
+  def winningest_coach
+
+
+
+
+
+  end
+  def worst_coach
+
+
+
+
+
+  end
+  def most_accurate_team
+
+
+
+
+
+  end
+  def least_accurate_team
+
+
+
+
+
+  end
+  def most_tackles
+
+
+
+
+
+  end
+  def fewest_tackles
+
+
+
+
+
+  end
 end
