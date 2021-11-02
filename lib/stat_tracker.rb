@@ -33,10 +33,4 @@ class StatTracker
     end
     return stat_tracker
   end
-
-  #Game Statistics Methods
-  def highest_total_score
-    game_score = @games.map {|game| game.away_goals + game.home_goals}
-    game_score.max
-  end
 end

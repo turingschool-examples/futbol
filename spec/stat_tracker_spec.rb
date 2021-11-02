@@ -60,4 +60,11 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.highest_total_score).to eq(11)
     end
   end
+
+  describe '#count_of_games_by_season' do
+    it 'will find total number of games by season' do
+
+      expect(@stat_tracker.highest_total_score).to eq(10)
+    end
+  end
 end
