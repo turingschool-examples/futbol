@@ -4,7 +4,7 @@ require './lib/game'
 
 class StatTracker
   attr_accessor :location
-  
+
   def initialize(location)
     @location = location
     @games = {}
@@ -38,7 +38,7 @@ class StatTracker
       @game_teams[game_team.game_id] = game_team
     end
   end
-
+  # Game Statistics
   def highest_total_score
     high_score = 0
     @games.each_value do |game|
@@ -49,6 +49,14 @@ class StatTracker
     end
     high_score
   end
+  # League Statistics
+
+
+  # Season Statistics
+
+
+  # Team Statistics
+
 
 
 end
