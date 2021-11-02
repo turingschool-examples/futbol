@@ -7,7 +7,7 @@ class StatTracker
   def initialize(location)
     @location = location
   end
-
+ 
   def self.from_csv(locations)
     locations.map do |location|
       StatTracker.new(location)
