@@ -1,21 +1,20 @@
 require 'csv'
 class StatTracker
-  attr_reader :games,
-              :teams,
-              :game_teams
+  attr_reader :game_data,
+              :team_data,
+              :game_team_data
 
-  def initialize(games, teams, game_teams)
-    @games      = games#games-hash value
-    @teams      = teams #same as above
-    @game_teams = game_teams #same as above
+  def initialize(game_data, team_data, game_team_data)
+    @game_data      = game_data
+    @team_data      = team_data
+    @game_team_data = game_team_data
   end
 
-
   def self.from_csv(locations)
-    games = CSV.read(locations[:games], headers: true)
-    teams = CSV.read(locations[:teams], headers: true)
-    game_teams = CSV.read(locations[:game_teams], headers: true)
-    self.new(games, teams, game_teams)
+    game_data = CSV.read(locations[:games], headers: true)
+    team_data = CSV.read(locations[:teams], headers: true)
+    game_team_data = CSV.read(locations[:game_teams], headers: true)
+    self.new(game_data, team_data, game_team_data)
   end
 
 end
