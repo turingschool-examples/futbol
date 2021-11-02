@@ -28,7 +28,4 @@ class StatTracker
     end
     StatTracker.new(formatted_data)
   end
-<<<<<<< HEAD
-=======
 end
->>>>>>> fc8db115984cab06e4f655f02bd8dbc0bfb15823
