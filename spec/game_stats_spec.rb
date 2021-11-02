@@ -2,10 +2,24 @@ require 'csv'
 require 'simplecov'
 require './lib/game_stats'
 
-RSpec.describe Game_stats do
-  it 'exists' do
-    game_stats = Game_stats.new
+SimpleCov.start
 
-    expect(game_stats).to be_an_instance_of(Game_stats)
+RSpec.describe GameStats do
+  before :each do
+    @game_path = './data/sample_games.csv'
+    # @team_path = './data/teams.csv'
+    # @game_team_path = './data/game_teams.csv'
+    @game_stats = GameStats.new(@game_path)
   end
+  it 'exists' do
+
+    expect(@game_stats).to be_an_instance_of(GameStats)
+  end
+
+  it "#highest_total_score" do
+
+    expect(@game_stats.highest_total_score).to eq(5)
+  end
+
+  
 end
