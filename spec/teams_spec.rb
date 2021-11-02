@@ -1,16 +1,16 @@
-require './lib/game_teams'
+require './lib/team'
 require 'csv'
 
-describe GameTeams do
+describe Teams do
   before(:each) do
-    @rows = CSV.read('./data/game_teams.csv', headers: true)
+    @rows = CSV.read('./data/teams.csv', headers: true)
     @row = @rows[0]
     # powerPlayGoals,faceOffWinPercentage,giveaways,takeaways
-    @game_team = GameTeams.new(@row)
+    @team = Teams.new(@row)
   end
   describe 'initialize' do
     it 'exists' do
-      expect(@game_team).to be_a(GameTeams)
+      expect(@game_team).to be_a(Teams)
     end
     it 'has attributes' do
       expect(@game_team.game_id).to eq('2012030221')
