@@ -8,6 +8,7 @@ class StatTracker
     @game_data      = game_data
     @team_data      = team_data
     @game_team_data = game_team_data
+    @creator = Creator.create_objects(game_data, team_data, game_team_data)
   end
 
   def self.from_csv(locations)
