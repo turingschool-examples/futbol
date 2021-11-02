@@ -18,7 +18,7 @@ class GamesData < StatTracker
   end
 
   def highest_total_score
-  highest_score = 0
+    highest_score = 0
     @game_data.each do |row|
       total_score = row['away_goals'].to_i + row['home_goals'].to_i
       if total_score > highest_score
@@ -26,5 +26,16 @@ class GamesData < StatTracker
       end
     end
     highest_score
+  end
+
+  def lowest_total_score
+    lowest_score = 100
+    @game_data.each do |row|
+      total_score = row['away_goals'].to_i + row['home_goals'].to_i
+      if total_score < lowest_score
+        lowest_score = total_score
+      end
+    end
+    lowest_score
   end
 end
