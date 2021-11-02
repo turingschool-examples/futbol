@@ -22,14 +22,10 @@ class StatTracker
   end
 
   def self.from_csv(locations)
-    formatte_data = {}
+    formatted_data = {}
     locations.each do |symbol, path|
-      @data[symbol] = convert_path_to_csv(path)
+      formatted_data[symbol] = convert_path_to_csv(path)
     end
-    StatTracker.new(formatte_data)
-  end
-
-  def self.get_data(data_set)
-    @data[data_set]
+    StatTracker.new(formatted_data)
   end
 end
