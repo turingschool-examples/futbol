@@ -4,7 +4,7 @@ class TeamsData < StatTracker
   attr_reader :teamData
   def initialize(current_stat_tracker)
     @teamData = current_stat_tracker.teams
-    # require 'pry'; binding.pry
+    require 'pry'; binding.pry
     #
     # @team_id = @teams["team_id"]
     # @franchise_id = @teams["franchise_id"]
