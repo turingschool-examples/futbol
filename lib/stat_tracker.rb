@@ -2,6 +2,7 @@ require 'csv'
 
 class StatTracker
 
+  attr_reader :data, :games, :teams, :game_teams
   def initialize(data)
     @data = data
     @games = @data[:games]
@@ -28,4 +29,5 @@ class StatTracker
     end
     StatTracker.new(formatted_data)
   end
+
 end
