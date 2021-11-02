@@ -1,7 +1,9 @@
+
 require "pry"
 require 'csv'
 
 class StatTracker
+
 
   attr_accessor :games_array, :game_id, :season, :type, :date_time, :away_team_id,
     :home_team_id, :away_goals, :home_goals, :venue, :venue_link,
@@ -55,6 +57,7 @@ class StatTracker
 
 
   def self.from_csv(filenames)
+
 
     stat_tracker = StatTracker.new()
 
