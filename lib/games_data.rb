@@ -47,7 +47,16 @@ class GamesData < StatTracker
       end
     end
     ((win_counter.to_f / @game_data.length) * 100).round(2)
-    require "pry"; binding.pry 
+  end
+
+  def percentage_away_wins
+    win_counter = 0
+    @game_data.each do |row|
+      if row['home_goals'].to_i < row['away_goals'].to_i
+        win_counter += 1
+      end
+    end
+    ((win_counter.to_f / @game_data.length) * 100).round(2)
   end
 
 end

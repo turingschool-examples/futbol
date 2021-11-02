@@ -43,6 +43,11 @@ RSpec.describe GamesData do
     expect(game_obj.percentage_home_wins).to eq(68.42)
   end
 
+  it '#percentage_away_wins' do
+    game_obj = GamesData.new(@stat_tracker)
+    expect(game_obj.percentage_away_wins).to eq(26.32)
+  end
+
   # it 'can initliaze one ' do
   #   game_obj = GamesData.new(@stat_tracker)
   #
