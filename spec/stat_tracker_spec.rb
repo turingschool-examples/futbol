@@ -37,10 +37,11 @@ RSpec.describe StatTracker do
   end
 
   describe '::from_csv' do
-    describe 'returns a StatTracker object'
+    describe 'returns a StatTracker object' do
       it 'exists' do
         expect(@stat_tracker).to be_an_instance_of(StatTracker)
       end
+
       it 'has correct attributes and classes' do
         expect(@stat_tracker.games).to be_a(Array)
         expect(@stat_tracker.teams).to be_a(Array)
@@ -49,5 +50,14 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.teams[0]).to be_a(Teams)
         expect(@stat_tracker.game_teams[0]).to be_a(GameTeams)
       end
+    end
+  end
+
+  #Game Statistics Methods
+
+  describe '#highest_total_score' do
+    it 'will find the highest sum of the team scores from all the games' do
+      expect(@stat_tracker.highest_total_score).to eq(11)
+    end
   end
 end
