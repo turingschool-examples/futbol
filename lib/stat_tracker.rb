@@ -19,9 +19,9 @@ class StatTracker
       games = Games.new(row)
     end
 
-    rows = CSV.read(locations[:games_teams], headers: true)
+    rows = CSV.read(locations[:game_teams], headers: true)
     rows.each do |row|
-      games_teams = GamesTeams.new(row)
+      game_teams = GameTeams.new(row)
     end
   end
 end
