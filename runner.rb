@@ -12,4 +12,5 @@
    game_teams: game_teams_path
  }
 
- stat_tracker = StatTracker.from_csv(locations)
+stat_tracker = StatTracker.from_csv(locations)
+stat_tracker.highest_total_score
