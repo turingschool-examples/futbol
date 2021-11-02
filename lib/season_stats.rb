@@ -1,0 +1,3 @@
+class SeasonStats
+  
+end
