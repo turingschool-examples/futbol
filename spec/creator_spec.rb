@@ -4,6 +4,7 @@ SimpleCov.command_name 'Unit Tests'
 require './lib/tg_stat'
 require './lib/creator'
 require './lib/stat_tracker'
+require './lib/game'
 
 RSpec.describe Creator do
   # let(:league){double("league")}
@@ -38,13 +39,25 @@ RSpec.describe Creator do
 
   describe  '#stat_obj_creator' do
     it "creates a hash objects" do
-      expect(creator.stat_obj_creator(game_team_data)).to be_a(Hash)
+      expect(Creator.stat_obj_creator(game_team_data)).to be_a(Hash)
     end
 
     it 'creates TGStat objects' do
-      stats_hash = creator.stat_obj_creator(game_team_data)
-      
+      stats_hash = Creator.stat_obj_creator(game_team_data)
+
       expect(stats_hash['2012030221_3']).to be_a(TGStat)
+    end
+  end
+
+  describe '#game_obj_creator' do
+    it 'creates a hash' do
+      expect(Creator.stat_obj_creator(game_team_data)).to be_a(Hash)
+    end
+    it 'creates game objects' do
+      stats_hash = Creator.stat_obj_creator(game_team_data)
+      games_hash = Creator.game_obj_creator(game_data, stats_hash)
+
+      expect(games_hash['2012030236']).to be_a(Game)
     end
   end
 
