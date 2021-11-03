@@ -17,7 +17,12 @@ RSpec.describe SeasonStats do
   end
 
   it 'winningest_coach' do
-    
+
     expect(@season_stats.winningest_coach).to eq("Mike Babcock")
+  end
+
+  it 'worst_coach' do
+
+    expect(@season_stats.worst_coach).to eq("Dan Bylsma")
   end
 end
