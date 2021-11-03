@@ -24,7 +24,15 @@ RSpec.describe StatTracker do
   it 'can display the highest total score' do
     expect(stat_tracker.highest_total_score).to eq(5)
   end
+  
+  it 'it can display lowest total score' do
+    expect(stat_tracker.lowest_total_score).to eq(3)
+  end
 
+  it 'it can display total wins by home team as percentage' do
+    expect(stat_tracker.percentage_home_wins).to eq(60.00)
+  end
+  
   it 'can find the percentage of games that a visitor has won' do
     expect(stat_tracker.percentage_visitor_wins).to eq(40.00)
   end
