@@ -118,28 +118,12 @@ class StatTracker
     @teams.count
   end
 
+#Methods between lines 123 & 150 are used with best_offense/worst_offense
+#calculating goals across all seasons for a team
   def best_offense
     @teams.max_by do |team|
       average_goals(team)
     end.team_name
-  end
-
-  def average_goals(team)
-    all_games = team_games(team)
-    # require 'pry'; binding.pry
-    return 0 if all_games.empty?
-    total_goals(all_games)/all_games.count
-  end
-
-  def team_games(team)
-    @game_teams.find_all do |game|
-      game.team_id == team.team_id
-    end
-  end
-
-  def total_goals(game_set)
-    # return 0 if game_set.empty?
-    game_set.sum {|game| game.goals}
   end
 
   def worst_offense
@@ -147,16 +131,42 @@ class StatTracker
       average_goals(team)
     end.team_name
   end
-
-   def highest_scoring_visitor
-
-
-
-
-
+  #average goals across all games
+  def average_goals(team)
+    all_games = team_games(team)
+    return 0 if all_games.empty?
+    total_goals(all_games)/all_games.count.to_f
+  end
+  #finds all games a team plays in, and returns that array
+  def team_games(team)
+    @game_teams.find_all do |game|
+      game.team_id == team.team_id
+    end
+  end
+  #sums the goals for all games of a team
+  def total_goals(all_games)
+    all_games.sum {|game| game.goals}
   end
 
+  #Lines 153 to ??? use these methods to find teh highest/lowest scoring teams
+  #based on being the home or away team
+  def highest_scoring_visitor
+    @teams.max_by do |team|
+      visiting_average_goals(team)
+    end.team_name
+  end
 
+  def visiting_team_games(team)
+    @game_teams.find_all do |game|
+      game.team_id == team.team_id && game.h_o_a == "away"
+    end
+  end
+
+  def visiting_average_goals(team)
+    visiting_games = visiting_team_games(team)
+    return 0 if visiting_games.empty?
+    total_goals(visiting_games)/visiting_games.count.to_f
+  end
 
   def highest_scoring_home_team
 
