@@ -30,4 +30,19 @@ RSpec.describe SeasonStats do
 
     expect(@season_stats.most_accurate_team).to eq("17")
   end
+
+  it 'least_accurate_team' do
+
+    expect(@season_stats.least_accurate_team).to eq("5")
+  end
+
+  it 'most_tackles' do
+
+    expect(@season_stats.most_tackles).to eq("6")
+  end
+
+  it 'fewest_tackles' do
+
+    expect(@season_stats.fewest_tackles).to eq("17")
+  end
 end
