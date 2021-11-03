@@ -88,4 +88,13 @@ class GamesData < StatTracker
     new_hash
   end
 
+
+  def average_goals_per_game
+    goal_counter = 0
+    @game_data.each do |row|
+      goal_counter += (row['away_goals'].to_f + row['home_goals'].to_f)
+    end
+    (goal_counter / @game_data.count).round(2)
+  end
+
 end

@@ -72,6 +72,12 @@ RSpec.describe GamesData do
     expect(game_obj.count_of_games_by_season).to eq(expected)
   end
 
+  it '#average_goals_per_game' do
+    game_obj = GamesData.new(@stat_tracker)
+    expect(game_obj.average_goals_per_game).to eq(3.68)
+  end
+
+
   # it 'can initliaze one ' do
   #   game_obj = GamesData.new(@stat_tracker)
   #
