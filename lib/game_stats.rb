@@ -78,5 +78,16 @@ class GameStats
     x = (total_ties.to_f / total_game.to_f)
     (x * 100.0).round(2)
   end
-  
+
+  def count_of_games_by_season
+    @game_data = CSV.parse(File.read("./data/sample_games.csv"), headers: true)
+    total_games_per_season = Hash.new
+    # count = 0
+    @game_data.each do |game|
+      require "pry"; binding.pry
+      # if @game_data["season"] == total_games_per_season[game["season"]]
+      total_games_per_season[game["season"]] = @game_data["season"].uniq.count
+    end
+    total_games_per_season
+  end
 end
