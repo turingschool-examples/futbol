@@ -245,33 +245,37 @@ class StatTracker
     games_in_season = @games.find_all{ |game| game.season == season }
   end
 
+  def game_ids_in_games(games)
+    game_ids_in_games = games_in_season.map { |game| game.game_id }
+  end
+
+  def game_teams_by_game(games)
+    game_ids = game_ids_in_games(games)
+    @game_teams.find_all{|game_team|game_ids.include?(game_team.game_id)}
+  end
+
+
   # helper method to collect all game_teams in a given season
   def game_teams_in_season(season)
-    # collect all games is selected season. games.csv
-    # collect all game_team entires with corresponding game_ids - game_teams.csv
     games_in_season = games_in_season(season)
-    game_ids_in_season = games_in_season.map { |game| game.game_id }
-    # only include game_team if it's game_id is in list of correct game ids
-    game_teams_in_season = @game_teams.find_all do |game_team|
-      game_ids_in_season.include?(game_team.game_id)
-    end
-    return game_teams_in_season
+    game_teams_in_season = game_teams_by_game(games_in_season)
+  end
+
+  def team_from_game_team(game_team)
+    # get team id from selected game_team, and use this to gather the team name.
+    team_id =  game_teams.team_id
+    teams = @teams.select{|team| team.team_id == team_id} #this can be faster with a hash
+    return teams
   end
 
   # return an array of team names from an array of team objects, or a single team name if only one given
-  def get_teams_from_game_teams(game_teams)
+  def teams_from_game_teams(game_teams)
     # if single team, return single value. Else return array of values.
-    if game_teams.class == Array
-      # get team ids from selected game_teams, and use this to gather the team names.
-      team_ids =  game_teams.map { |game_team| game_team.team_id }
-      teams = @teams.select{ |team| team_ids.include?(team.team_id) } # this can be faster with a hash.
-      return teams
-    else
-      # get team id from selected game_team, and use this to gather the team name.
-      team_id =  game_teams.team_id
-      teams = @teams.select{|team| team.team_id == team_id} #this can be faster with a hash
-      return teams
-    end
+    # get team ids from selected game_teams, and use this to gather the team names.
+    team_ids =  game_teams.map { |game_team| game_team.team_id }
+    teams = @teams.select{ |team| team_ids.include?(team.team_id) } # this can be faster with a hash.
+    return teams
+
   end
 
   # Name of the Team with the most tackles in the season	- String
