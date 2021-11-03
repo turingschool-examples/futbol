@@ -2,12 +2,12 @@ require 'csv'
 
 class StatTracker
 
-  attr_reader :data, :games, :teams, :game_teams
+  attr_reader :data, :games, :teams, :games_teams
   def initialize(data)
     @data = data
     @games = @data[:games]
     @teams = @data[:teams]
-    @games_teams = @data[:games_test]
+    @games_teams = @data[:games_teams]
 
   end
 

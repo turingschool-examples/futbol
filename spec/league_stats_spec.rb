@@ -12,7 +12,7 @@ RSpec.describe LeagueStats do
     @locations = {
       games: @game_path,
       teams: @team_path,
-      game_teams: @game_teams_path
+      games_teams: @game_teams_path
     }
     @stat_tracker = StatTracker.from_csv(@locations)
   end
@@ -27,12 +27,30 @@ RSpec.describe LeagueStats do
 
     expect(league_obj.game_data).to eq(@stat_tracker.games)
     expect(league_obj.team_data).to eq(@stat_tracker.teams)
-    expect(league_obj.game_teams).to eq(@stat_tracker.game_teams)
+    expect(league_obj.games_teams).to eq(@stat_tracker.games_teams)
   end
 
   it '#count_of_teams' do
      league_obj = LeagueStats.new(@stat_tracker)
 
      expect(league_obj.count_of_teams).to eq(20)
+  end
+
+  it '#all_teams_ids' do
+    league_obj = LeagueStats.new(@stat_tracker)
+
+    expect(league_obj.all_teams_ids.length).to eq(5)
+  end
+
+  it '#average_goals_per_team' do
+    league_obj = LeagueStats.new(@stat_tracker)
+
+    expect(league_obj.average_goals_per_team(3)).to eq(1.60)
+  end
+
+  xit '#best_offense' do
+    league_obj = LeagueStats.new(@stat_tracker)
+
+    expect(league_obj.best_offense).to eq('')
   end
 end
