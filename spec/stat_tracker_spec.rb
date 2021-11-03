@@ -134,12 +134,22 @@ RSpec.describe StatTracker do
   end
 
   describe '#highest_scoring_visitor' do
+    it 'finds all the visiting games for a team' do
+      team = @stat_tracker.teams[5]
+      expect(@stat_tracker.visiting_team_games(team).count).to eq(2)
+    end
+
     it 'returns the highest average scoring visitor team name' do
       expect(@stat_tracker.highest_scoring_visitor).to eq("New York City FC")
     end
   end
 
   describe '#highest_scoring_home_team' do
+    it 'finds all the visiting games for a team' do
+      team = @stat_tracker.teams[4]
+      expect(@stat_tracker.home_team_games(team).count).to eq(2)
+    end
+
     it 'returns the highest average scoring home team name' do
       expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
     end
