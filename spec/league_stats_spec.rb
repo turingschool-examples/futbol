@@ -30,4 +30,7 @@ RSpec.describe LeagueStats do
 
     expect(@league_stats.worst_offense).to eq("5")
   end
+
+  it '#highest_scoring_visitor' do
+  end
 end
