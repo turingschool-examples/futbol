@@ -6,11 +6,6 @@ require_relative '../lib/stat_tracker.rb'
 
 RSpec.describe Class do
 
-  it "exists" do
-    stattracker= StatTracker.new
-    expect(stattracker).to be_a(StatTracker)
-  end
-
   it "attributes" do
     stattracker= StatTracker.new
     expect(stattracker.games).to eq(nil)
