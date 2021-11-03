@@ -187,18 +187,16 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#games_by_season' do
-    it 'sorts games by season' do
-      expected = {
-        "20142015" => [@stat_tracker.games[19]]
-      }
-      expected(@stat_tracker.team_games_by_season("8")).to eq(expected)
+  describe '#team_games_by_season' do
+    it 'returns all games played in a season for a given team' do
+      expected = [@stat_tracker.games[18]]
+      expect(@stat_tracker.team_games_by_season("8", "20142015")).to eq(expected)
     end
   end
 
   describe '#seasons' do
     it 'returns all the seasons games have been played' do
-      expected(@stat_tracker.seasons).to eq(["20122013", "20142015"])
+      expect(@stat_tracker.seasons).to eq(["20122013", "20142015"])
     end
   end
 
