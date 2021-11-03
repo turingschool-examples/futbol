@@ -113,4 +113,26 @@ class LeagueStats
     end
     team_id.uniq
   end
+
+  def average_home_goals_per_team(team_id_integer)
+    game_counter = 0
+    goals_per_game = []
+    @game_data.each do |row|
+      if row['home_team_id'].to_i == team_id_integer
+        goals_per_game << row['home_goals'].to_i
+        game_counter += 1
+      end
+    end
+    (goals_per_game.sum.to_f / game_counter).round(2)
+  end
+
+  def highest_scoring_home_team
+    team_goal_hash = {}
+    team_id = all_teams_home_ids
+    team_id.each do |id|
+      team_goal_hash[id] = average_home_goals_per_team(id.to_i)
+    end
+    best_away_team = team_goal_hash.key(team_goal_hash.values.max)
+    convert_team_id_to_name(best_away_team)
+  end
 end

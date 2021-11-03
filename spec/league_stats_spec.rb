@@ -96,4 +96,10 @@ RSpec.describe LeagueStats do
     expect(league_obj.all_teams_home_ids).to eq([6, 3, 5, 16, 17, 8, 9])
   end
 
+  it '#average_home_goals_per_team' do
+    league_obj = LeagueStats.new(@stat_tracker)
+
+    expect(league_obj.average_home_goals_per_team(5)).to eq(0.50)
+  end
+
 end
