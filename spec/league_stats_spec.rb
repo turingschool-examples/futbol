@@ -71,4 +71,10 @@ RSpec.describe LeagueStats do
 
     expect(league_obj.average_away_goals_per_team(9)).to eq(1.50)
   end
+
+  it '#all_teams_ids_game_data' do
+    league_obj = LeagueStats.new(@stat_tracker)
+
+    expect(league_obj.all_teams_away_ids).to eq([3, 6, 5, 17, 16, 9, 8])
+  end
 end

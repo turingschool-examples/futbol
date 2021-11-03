@@ -75,9 +75,20 @@ class LeagueStats
     (goals_per_game.sum.to_f / game_counter).round(2)
   end
 
+  ## This is a redundant method that needed to be used because we are using
+  ## a test data set. When using entire data set, refactor into one team_ids
+  ## method
+  def all_teams_away_ids
+    team_id = []
+    @game_data.each do |row|
+      team_id << row['away_team_id'].to_i
+    end
+    team_id.uniq
+  end
+
   def best_away_offense
     team_goal_hash = {}
-    team_id = all_teams_ids
+    team_id = all_teams_ids_game_data
     team_id.each do |id|
       team_goal_hash[id] = average_goals_per_team(id.to_i)
     end
