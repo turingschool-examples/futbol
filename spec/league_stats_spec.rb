@@ -102,4 +102,10 @@ RSpec.describe LeagueStats do
     expect(league_obj.average_home_goals_per_team(5)).to eq(0.50)
   end
 
+  it '#highest_scoring_home_team' do
+    league_obj = LeagueStats.new(@stat_tracker)
+
+    expect(league_obj.highest_scoring_home_team).to eq('New York City FC')
+  end
+
 end

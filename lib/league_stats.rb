@@ -132,7 +132,7 @@ class LeagueStats
     team_id.each do |id|
       team_goal_hash[id] = average_home_goals_per_team(id.to_i)
     end
-    best_away_team = team_goal_hash.key(team_goal_hash.values.max)
-    convert_team_id_to_name(best_away_team)
+    best_home_team = team_goal_hash.key(team_goal_hash.values.max)
+    convert_team_id_to_name(best_home_team)
   end
 end
