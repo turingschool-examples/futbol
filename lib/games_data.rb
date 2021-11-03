@@ -97,4 +97,33 @@ class GamesData < StatTracker
     (goal_counter / @game_data.count).round(2)
   end
 
+
+  def average_goals(season)
+
+    new_array = @game_data.select do |row|
+      row['season'] == season
+    end
+    goals = 0
+    new_array.each do |row|
+      goals += (row['away_goals'].to_f + row['home_goals'].to_f)
+    end
+
+    (goals / sum_of_games_in_season(season)).round(2)
+  end
+
+  def average_goals_by_season
+    goal_counter = 0
+    new_hash = {}
+
+    keys = @game_data.map do |row|
+      row['season']
+    end.flatten.uniq
+
+    keys.each do |key|
+      new_hash[key] = average_goals(key)
+    end
+    
+    new_hash
+  end
+
 end
