@@ -21,31 +21,38 @@ class TeamsData < StatTracker
 
 
   def parse_seasons
-    # parsed_seasons = Hash.new
-
     seasons = @gameData.map do |row|
       row['season']
     end.uniq
 
     parsed_seasons = Hash[seasons.collect { |item| [item, []] } ]
 
-
     parsed_seasons.each do |season|
       @gameData.each do |row|
         if season[0] == row['season']
-          season[]
-          require 'pry'; binding.pry
+          season[1] << row
+
         end
       end
     end
 
-    puts parsed_seasons
-
+    parsed_seasons
   end
 
   def best_season(team_id)
+    separated_seasons = parse_seasons
+    win_percentages_by_season = Hash.new
+
+    # remove all irrelevent data from separated_seasons values
+
+
+
+    # separated_seasons.map do |season|
+    # 
+    # end
 
   end
+
 
   def worst_season(team_id)
 
