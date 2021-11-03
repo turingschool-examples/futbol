@@ -36,9 +36,14 @@ RSpec.describe GameStats do
     expect(@game_stats.percentage_away_wins).to eq(33.33)
   end
 
-  it "#percentage_ties" do
+  xit "#percentage_ties" do
 
     expect(@game_stats.percentage_ties).to eq(11.11)
+  end
+
+  it "count_of_games_by_season" do
+
+    expect(@game_stats.count_of_games_by_season).to eq(Hash)
   end
 
 
