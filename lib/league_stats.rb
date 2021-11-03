@@ -52,4 +52,14 @@ class LeagueStats
     best_team = team_goal_hash.key(team_goal_hash.values.max)
     convert_team_id_to_name(best_team)
   end
+
+  def worst_offense
+    team_goal_hash = {}
+    team_id = all_teams_ids
+    team_id.each do |id|
+      team_goal_hash[id] = average_goals_per_team(id.to_i)
+    end
+    worst_team = team_goal_hash.key(team_goal_hash.values.min)
+    convert_team_id_to_name(worst_team)
+  end
 end

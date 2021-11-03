@@ -59,4 +59,10 @@ RSpec.describe LeagueStats do
 
     expect(league_obj.best_offense).to eq('FC Dallas')
   end
+
+  it '#worst_offense' do
+    league_obj = LeagueStats.new(@stat_tracker)
+
+    expect(league_obj.worst_offense).to eq('Sporting Kansas City')
+  end
 end
