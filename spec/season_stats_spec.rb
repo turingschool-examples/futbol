@@ -25,4 +25,9 @@ RSpec.describe SeasonStats do
 
     expect(@season_stats.worst_coach).to eq("Dan Bylsma")
   end
+
+  it 'most_accurate_team' do
+
+    expect(@season_stats.most_accurate_team).to eq("17")
+  end
 end
