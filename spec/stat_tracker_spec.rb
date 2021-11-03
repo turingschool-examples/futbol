@@ -17,11 +17,11 @@ RSpec.describe StatTracker do
     expect(stat_tracker).to be_instance_of(StatTracker)
   end
 
-  it 'opens files' do
+  xit 'opens files' do
     expect(stat_tracker.games).to eq('./data/games_dummy.csv')
   end
 
   it 'it can display the highest total score' do
-    expect(stat_tracker.highest_total_score).to eq(7)
+    expect(stat_tracker.highest_total_score).to eq(5)
   end
 end
