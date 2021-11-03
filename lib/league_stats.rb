@@ -124,4 +124,5 @@ class LeagueStats
   def lowest_scoring_home_team
     worst_offense
   end
+
 end

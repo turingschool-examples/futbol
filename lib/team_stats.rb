@@ -3,5 +3,5 @@ require 'simplecov'
 
 SimpleCov.start
 
-class Team_stats
+class TeamStats
 end
