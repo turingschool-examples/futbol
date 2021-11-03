@@ -148,7 +148,7 @@ class StatTracker
     all_games.sum {|game| game.goals}
   end
 
-  #Lines 153 to ??? use these methods to find teh highest/lowest scoring teams
+  #Lines 153 to 200 use these methods to find teh highest/lowest scoring teams
   #based on being the home or away team
   def highest_scoring_visitor
     @teams.max_by do |team|
@@ -198,20 +198,56 @@ class StatTracker
     end.team_name
   end
 
-  def team_info
 
-
-
-
-
+  #Team Statistics
+  def team_info(team_id)
+    team = find_team(team_id)
+    {
+      team_id: team.team_id,
+      franchise_id: team.franchise_id,
+      team_name: team.team_name,
+      abbreviation: team.abbreviation,
+      stadium: team.stadium,
+      link: team.link
+    }
+    # categories = team.keys
+    # info = team.values
+    # Hash[categories.zip(info)]
   end
-  def best_season
 
-
-
-
-
+  def find_team(team_id)
+    @teams.find {|team| team.team_id == team_id}
   end
+
+  def best_season(team_id)
+    seasons.max_by do |season|
+      team_season_win_percentage(team_id, season) #pass in two arguments and include the season?
+    end
+  end
+
+  def seasons
+    @games.map {|game| game.season}.uniq
+  end
+
+  def team_season_win_percentage(team_id, season)
+    season_wins(team_id, season).count/team_games_by_season(team_id, season).count.to_f
+  end
+
+  #this is going through the games and not game_teams where the wins aare saved
+  def team_games_by_season(team_id, season)
+    seasons_games = games_in_season(season)
+    seasons_games.find_all do |game|
+      game.away_team_id == team_id || game.home_team_id == team_id
+    end
+  end
+
+  def season_wins(team_id, season)
+    @game_teams.find_all do |game_team|
+      game_team.team_id == team_id && game_team.result == "WIN"
+    end
+  end
+
+# ==============================================
   def worst_season
 
 
