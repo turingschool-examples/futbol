@@ -241,30 +241,70 @@ class StatTracker
 
   end
 
+  def games_in_season(season)
+    games_in_season = @games.find_all{ |game| game.season == season }
+  end
+
+  # helper method to collect all game_teams in a given season
+  def game_teams_in_season(season)
+    # collect all games is selected season. games.csv
+    # collect all game_team entires with corresponding game_ids - game_teams.csv
+    games_in_season = games_in_season(season)
+    game_ids_in_season = games_in_season.map { |game| game.game_id }
+    # only include game_team if it's game_id is in list of correct game ids
+    game_teams_in_season = @game_teams.find_all do |game_team|
+      game_ids_in_season.include?(game_team.game_id)
+    end
+    return game_teams_in_season
+  end
+
+  # return an array of team names from an array of team objects, or a single team name if only one given
+  def get_teams_from_game_teams(game_teams)
+    # if single team, return single value. Else return array of values.
+    if game_teams.class == Array
+      # get team ids from selected game_teams, and use this to gather the team names.
+      team_ids =  game_teams.map { |game_team| game_team.team_id }
+      teams = @teams.select{ |team| team_ids.include?(team.team_id) } # this can be faster with a hash.
+      return teams
+    else
+      # get team id from selected game_team, and use this to gather the team name.
+      team_id =  game_teams.team_id
+      teams = @teams.select{|team| team.team_id == team_id} #this can be faster with a hash
+      return teams
+    end
+  end
+
   # Name of the Team with the most tackles in the season	- String
   def most_tackles(season)
-    # collect game_id by season - games.csv
-    # get cooresponding # tackles from game_teams.csv
-    # get team ID from game_teams.csv
-    # get team name from team ID
-    games_by_season = @games.group_by{|game| game.season}
-    games_by_season.each do |season, games|
-      games.each do |game|
-        @game_teams[game.game_id].tackles
-      end
+    game_teams_in_season = game_teams_in_season(season)
+    # get game_team object with most tackles - game_teams.csv
+    max_tackles_game_teams = game_teams_in_season.max_by do |game_team|
+      game_team.tackles
     end
-
-
-
-
+    teams = get_teams_from_game_teams(max_tackles_game_teams)
+    team_names = teams.map { |team| team.team_name }
+    #return sigle name if only one item.
+    if team_names.length == 1
+      return team_names[0]
+    else
+      return team_names
+    end
   end
 
   # Name of the Team with the fewest tackles in the season	- String
   def fewest_tackles(season)
-
-
-
-
-
+    game_teams_in_season = game_teams_in_season(season)
+    # get game_team object with most tackles - game_teams.csv
+    min_tackles_game_teams = game_teams_in_season.min_by do |game_team|
+      game_team.tackles
+    end
+    teams = get_teams_from_game_teams(min_tackles_game_teams)
+    team_names = teams.map { |team| team.team_name }
+    #return sigle name if only one item.
+    if team_names.length == 1
+      return team_names[0]
+    else
+      return team_names
+    end
   end
 end
