@@ -21,7 +21,15 @@ RSpec.describe StatTracker do
     expect(stat_tracker.games).to eq('./data/games_dummy.csv')
   end
 
-  it 'it can display the highest total score' do
+  it 'can display the highest total score' do
     expect(stat_tracker.highest_total_score).to eq(5)
+  end
+
+  it 'can find the percentage of games that a visitor has won' do
+    expect(stat_tracker.percentage_visitor_wins).to eq(40.00)
+  end
+
+  it 'can find the percentage of games that resulted in a tie' do
+    expect(stat_tracker.percentage_ties).to eq(0.00)
   end
 end
