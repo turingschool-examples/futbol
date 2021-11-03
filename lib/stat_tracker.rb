@@ -255,19 +255,18 @@ class StatTracker
   end
 
   # return an array of team names from an array of team objects, or a single team name if only one given
-  def get_team_names_from_game_teams(game_teams)
+  def get_teams_from_game_teams(game_teams)
     # if single team, return single value. Else return array of values.
     if game_teams.class == Array
       # get team ids from selected game_teams, and use this to gather the team names.
       team_ids =  game_teams.map { |game_team| game_team.team_id }
-      teams = @teams.select{ |team| team_ids.include?(team.team_id) }
-      team_names = teams.map { |team| team.team_name }
-      return team_names
+      teams = @teams.select{ |team| team_ids.include?(team.team_id) } # this can be faster with a hash.
+      return teams
     else
       # get team id from selected game_team, and use this to gather the team name.
       team_id =  game_teams.team_id
-      team_name = @teams.select{|team| team.team_id == team_id}[0].team_name #this can be faster with a hash
-      return team_name
+      teams = @teams.select{|team| team.team_id == team_id} #this can be faster with a hash
+      return teams
     end
   end
 
@@ -278,8 +277,14 @@ class StatTracker
     max_tackles_game_teams = game_teams_in_season.max_by do |game_team|
       game_team.tackles
     end
-    team_names = get_team_names_from_game_teams(max_tackles_game_teams)
-    return team_names
+    teams = get_teams_from_game_teams(max_tackles_game_teams)
+    team_names = teams.map { |team| team.team_name }
+    #return sigle name if only one item.
+    if team_names.length == 1
+      return team_names[0]
+    else
+      return team_names
+    end
   end
 
   # Name of the Team with the fewest tackles in the season	- String
@@ -289,7 +294,13 @@ class StatTracker
     min_tackles_game_teams = game_teams_in_season.min_by do |game_team|
       game_team.tackles
     end
-    team_names = get_team_names_from_game_teams(min_tackles_game_teams)
-    return team_names
+    teams = get_teams_from_game_teams(min_tackles_game_teams)
+    team_names = teams.map { |team| team.team_name }
+    #return sigle name if only one item.
+    if team_names.length == 1
+      return team_names[0]
+    else
+      return team_names
+    end
   end
 end

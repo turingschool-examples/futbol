@@ -207,12 +207,12 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.game_teams_in_season('20122013').length).to eq(4)
     end
   end
-  describe 'get_team_names_from_game_teams' do
+  describe 'get_team_from_game_teams' do
     it 'returns a single team name if a single team given' do
       team1 = @stat_tracker.teams[0]
       teams2 = @stat_tracker.teams[0..2]
-      expect(@stat_tracker.get_team_names_from_game_teams(team1)).to eq('Atlanta United')
-      expect(@stat_tracker.get_team_names_from_game_teams(teams2)).to eq(['Atlanta United','Chicago Fire','FC Cincinnati'])
+      expect(@stat_tracker.get_teams_from_game_teams(team1)).to eq([team1])
+      expect(@stat_tracker.get_teams_from_game_teams(teams2)).to eq(teams2)
     end
   end
   describe ' #most_tackles' do
