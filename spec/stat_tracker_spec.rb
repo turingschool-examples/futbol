@@ -126,7 +126,7 @@ RSpec.describe StatTracker do
 
   describe '#highest_scoring_visitor' do
     xit 'returns highest score from vistor team' do
-
+      expect(@stat_tracker.highest_scoring_visitor).to eq("Philadelphia Union")
     end
   end
 
