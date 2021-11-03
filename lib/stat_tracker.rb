@@ -117,8 +117,8 @@ class StatTracker
   end
 
   def best_offense
-    require 'pry'; binding.pry
-    #make an array 
+    # require 'pry'; binding.pry
+    #make an array
     # games_by_team_id = @game_teams.group_by {|game_team| game_team.team_id}
     #
     # team_offense = {}
@@ -135,6 +135,29 @@ class StatTracker
     # best_offense_id = team_offense.key(avg_goals)
     # best_offensive_team = @teams.find {|team| team.team_id == best_offense_id}
     # best_offensive_team.team_name
+
+    @teams.max_by do |key, team|
+      # require 'pry'; binding.pry
+      total_goals(team)
+    end.team_name
+  end
+
+  def total_goals(team)
+    all_games = team_games(team)
+    average_goals(all_games)
+  end
+
+  def team_games(team)
+    @game_teams.find_all do |key, game|
+      # require 'pry'; binding.pry
+      game.team_id == team.team_id
+    end
+  end
+
+  def average_goals(game_set)
+    return 0 if game_set.empty?
+    # require 'pry'; binding.pry
+    game_set.sum {|game| game[1].goals}/game_set.count
   end
 
   def worst_offense
