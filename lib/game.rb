@@ -2,26 +2,17 @@ require 'csv'
 require './lib/stat_tracker'
 
 class Game
-  def initialize(game_path)
-    # @game_id    = @game_path[:game_id]
-    # require "pry"; binding.pry
-    # @season     = @game_path[:season]
-    # @game_path  = game_path
+  attr_reader :game_id
+
+  def initialize(data)
+    @game_id      = data[:game_id]
+    @season       = data[:season]
+    @type         = data[:type]
+    @date_time    = data[:date_time]
+    @away_team_id = data[:home_team_id]
+    @away_goals   = data[:away_goals]
+    @home_goals   = data[:home_goals]
+    @venue        = data[:venue]
+    @venue_link   = data[:venue_link]
   end
-
-  # def to_cells
-  # end
-
-    # for each |row|
-    # something = Game.new
-
-  # def to_array
-  #   rows = []
-  #
-  #   CSV.foreach(@game_path, headers: true, header_converters: :symbol) do |row|
-  #     rows << row.to_h
-  #   end
-  #   rows
-  #   require "pry"; binding.pry
-  # end
 end

@@ -13,7 +13,6 @@ class GameTracker
       rows << row.to_h
     end
     rows
-    require "pry"; binding.pry
   end
 
   # def location

@@ -3,27 +3,21 @@ require './lib/game.rb'
 
 RSpec.describe Game do
 
-before(:each) do
-  @game_path       = './data/games_sample.csv'
-
-end
-
-
-  def to_array
-    rows = []
-
-    CSV.foreach(@game_path, headers: true, header_converters: :symbol) do |row|
-      rows << row.to_h
-    end
-    game_board = rows.map do |row|
-      Game.new(row)
-      require "pry"; binding.pry
-    end
+  game_file = CSV.read('./data/games_sample.csv', headers: true, header_converters: :symbol)
+  game_array = game_file.map do |row|
+    Game.new(row)
   end
 
-  it 'exists' do
-    game = Game.new(@game_path)
-    game.to_array
-    expect()
+  before(:each) do 
+    @game = game_array
+  end
+  
+  it 'exists' do 
+    expect(@game).to be_an(Array)
+    expect(@game.sample).to be_an_instance_of(Game)
+  end
+
+  it 'has attributes' do 
+    expect(@game.first.game_id).to eq("2012030221")
   end
 end
