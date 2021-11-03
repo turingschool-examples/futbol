@@ -72,7 +72,7 @@ RSpec.describe LeagueStats do
     expect(league_obj.average_away_goals_per_team(9)).to eq(1.50)
   end
 
-  it '#all_teams_ids_game_data' do
+  it '#all_teams_away_ids' do
     league_obj = LeagueStats.new(@stat_tracker)
 
     expect(league_obj.all_teams_away_ids).to eq([3, 6, 5, 17, 16, 9, 8])
@@ -89,4 +89,11 @@ RSpec.describe LeagueStats do
 
     expect(league_obj.lowest_scoring_visitor).to eq('Sporting Kansas City')
   end
+
+  it '#all_teams_home_ids' do
+    league_obj = LeagueStats.new(@stat_tracker)
+
+    expect(league_obj.all_teams_home_ids).to eq([6, 3, 5, 16, 17, 8, 9])
+  end
+
 end

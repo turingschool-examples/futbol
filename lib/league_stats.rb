@@ -105,4 +105,12 @@ class LeagueStats
     worst_away_team = team_goal_hash.key(team_goal_hash.values.min)
     convert_team_id_to_name(worst_away_team)
   end
+
+  def all_teams_home_ids
+    team_id = []
+    @game_data.each do |row|
+      team_id << row['home_team_id'].to_i
+    end
+    team_id.uniq
+  end
 end
