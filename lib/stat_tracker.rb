@@ -61,7 +61,9 @@ class StatTracker
 
     stat_tracker = StatTracker.new()
 
-    stat_tracker.games_array = CSV.read(filenames[:games], headers: false)
+
+    stat_tracker.games_array = CSV.read(filenames[:games], headers: true)
+
     stat_tracker.games_array.each do |array|
       stat_tracker.game_id << array[0]
       stat_tracker.season << array[1]
@@ -75,7 +77,7 @@ class StatTracker
       stat_tracker.venue_link << array[9]
     end
 
-    stat_tracker.teams_array = CSV.read(filenames[:teams])
+    stat_tracker.teams_array = CSV.read(filenames[:teams], headers: true)
     stat_tracker.teams_array.each do |array|
       stat_tracker.team_id << array[0]
       stat_tracker.franchiseId << array[1]
@@ -88,7 +90,7 @@ class StatTracker
 
     # require "pry"; binding.pry
 
-    stat_tracker.game_teams_array = CSV.read(filenames[:game_teams])
+    stat_tracker.game_teams_array = CSV.read(filenames[:game_teams], headers: true)
     stat_tracker.game_teams_array.each do |array|
       stat_tracker.gt_game_id << array[0]
       stat_tracker.gt_team_id << array[1]
@@ -118,7 +120,7 @@ class StatTracker
     max_total_score = 0
     sum = 0
 
-    for i in 1..@away_goals.length-1 do
+    for i in 0..@away_goals.length-1 do
       sum = @away_goals[i] + @home_goals[i]
       if sum > max_total_score
         max_total_score = sum
@@ -130,7 +132,11 @@ class StatTracker
 
 
   def count_of_games_by_season
-    @season.shift
     @season.tally
   end
+
+  def count_of_teams
+    @team_id.count
+  end
+
 end
