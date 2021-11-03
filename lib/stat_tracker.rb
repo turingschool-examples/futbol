@@ -22,6 +22,8 @@ class StatTracker
     result
   end
 
+
+
   def self.from_csv(locations)
     formatted_data = {}
     locations.each do |symbol, path|

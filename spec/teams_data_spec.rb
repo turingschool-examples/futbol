@@ -28,4 +28,19 @@ RSpec.describe TeamsData do
 
     expect(team_obj.teamData).to eq(@stat_tracker.teams)
   end
+
+  it 'can return #team_info' do
+    team_obj = TeamsData.new(@stat_tracker)
+    team_obj.team_info(18)
+
+    expected = {
+      team_id: 18,
+      franchiseId: 34,
+      teamName: "Minnesota United FC",
+      abbreviation: MIN,
+      Stadium: "Allianz Field",
+      link: "/api/v1/teams/18"
+    }
+    expected(TeamsData.team_info(team_id)).to eq(expected)
+  end
 end
