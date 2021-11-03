@@ -48,6 +48,12 @@ RSpec.describe LeagueStats do
     expect(league_obj.average_goals_per_team(3)).to eq(1.60)
   end
 
+  it '#convert_team_id_to_name' do
+    league_obj = LeagueStats.new(@stat_tracker)
+
+    expect(league_obj.convert_team_id_to_name(1)).to eq('Atlanta United')
+  end
+
   xit '#best_offense' do
     league_obj = LeagueStats.new(@stat_tracker)
 
