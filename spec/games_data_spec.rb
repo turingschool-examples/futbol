@@ -53,6 +53,14 @@ RSpec.describe GamesData do
     expect(game_obj.percentage_ties).to eq(5.26)
   end
 
+  it '#sum_of_games_in_season' do
+    game_obj = GamesData.new(@stat_tracker)
+
+    expect(game_obj.sum_of_games_in_season('20122013')).to eq(17)
+    expect(game_obj.sum_of_games_in_season('20132014')).to eq(1)
+    expect(game_obj.sum_of_games_in_season('20142015')).to eq(1)
+  end
+
   it '#count_of_games_by_season' do
     game_obj = GamesData.new(@stat_tracker)
 
