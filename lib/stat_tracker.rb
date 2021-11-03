@@ -1,4 +1,5 @@
 require 'csv'
+require './creator'
 class StatTracker
   attr_reader :game_data,
               :team_data,
@@ -12,9 +13,9 @@ class StatTracker
   end
 
   def self.from_csv(locations)
-    game_data = CSV.read(locations[:games], headers: true)
-    team_data = CSV.read(locations[:teams], headers: true)
-    game_team_data = CSV.read(locations[:game_teams], headers: true)
+    game_data = CSV.read(locations[:games], headers: true, header_converters: :symbol)
+    team_data = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
+    game_team_data = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
     self.new(game_data, team_data, game_team_data)
   end
 
