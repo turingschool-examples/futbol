@@ -236,20 +236,36 @@ class StatTracker
 
   # Name of the Team with the most tackles in the season	- String
   def most_tackles(season)
-    # collect game_id by season - games.csv
-    # get cooresponding # tackles from game_teams.csv
-    # get team ID from game_teams.csv
-    # get team name from team ID
-    games_by_season = @games.group_by{|game| game.season}
-    games_by_season.each do |season, games|
-      games.each do |game|
-        @game_teams[game.game_id].tackles
-      end
+    # collect all games is selected season. games.csv
+    # collect all game_team entires with corresponding game_ids - game_teams.csv
+    # get game_team object with most tackles - game_teams.csv
+    # get team ID from this game_team object
+    # get team name from team ID - teams.csv
+
+    games_in_season = @games.values.find_all{ |game| game.season == season }
+    game_ids_in_season = games_in_season.map { |game| game.game_id }
+    # only include game_team if it's game_id is in list of correct game ids
+    game_teams_in_season = @game_teams.values.find_all do |game_team|
+      game_ids_in_season.include?(game_team.game_id)
+    end
+    # find all game_teams with max number of tackles
+    max_tackles_game_teams = game_teams_in_season.max_by do |game_team|
+      game_team.tackles
     end
 
-
-
-
+    # if single team, return single value. Else return array of values.
+    if max_tackles_game_teams.class == Array
+      # get team ids from selected game_teams, and use this to gather the team names.
+      max_tackles_team_ids =  max_tackles_game_teams.map { |game_team| game_team.team_id}
+      max_tackles_teams = max_tackles_team_ids.map { |team_id| @teams[team_id]}
+      max_tackles_team_names = max_tackles_teams.map { |team| team.team_name}
+      return max_tackles_team_names
+    else
+      # get team id from selected game_team, and use this to gather the team name.
+      max_tackles_team_id =  max_tackles_game_teams.team_id
+      max_tackles_team_name = @teams[max_tackles_team_id].team_name
+      return max_tackles_team_name
+    end
   end
 
   # Name of the Team with the fewest tackles in the season	- String

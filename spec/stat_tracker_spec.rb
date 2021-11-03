@@ -21,7 +21,7 @@ RSpec.describe StatTracker do
 
   before(:all) do
     game_path = './data/games_test.csv'
-    team_path = './data/teams_test.csv'
+    team_path = './data/teams.csv'
     game_teams_path = './data/game_teams_test.csv'
 
     locations = {
@@ -204,8 +204,8 @@ RSpec.describe StatTracker do
     end
   end
   describe ' #most_tackles' do
-    xit 'returns the name of the team with the most tackles in the season' do
-      #season =
+    it 'returns the name of the team with the most tackles in the season' do
+      expect(@stat_tracker.most_tackles('20122013')).to eq('FC Dallas')
     end
   end
   describe ' #fewest_tackles' do
