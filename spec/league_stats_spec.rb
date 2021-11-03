@@ -25,4 +25,9 @@ RSpec.describe LeagueStats do
 
     expect(@league_stats.best_offense).to eq("17")
   end
+
+  it '#worst_offense' do
+
+    expect(@league_stats.worst_offense).to eq("5")
+  end
 end
