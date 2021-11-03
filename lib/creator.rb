@@ -29,14 +29,18 @@ class Creator
   def self.game_obj_creator(game_data, stats_hash)
     games_hash = {}
     game_data.each do |game|
-      home_team = "#{game[:game_id] + '_' + game[:home_team_id]}".to_sym
-      away_team = "#{game[:game_id] + '_' + game[:away_team_id]}".to_sym
+      home_team = "#{game[:game_id] + '_' + game[:home_team_id]}"
+      away_team = "#{game[:game_id] + '_' + game[:away_team_id]}"
+      # require 'pry'; binding.pry
       games_hash[game[:game_id]] = Game.new(game, stats_hash[home_team], stats_hash[away_team])
     end
     games_hash
   end
 
-  def season_obj_creator
+  def self.season_obj_creator(games_hash)
+    seasons_hash = games_hash.values.group_by do |game|
+      game.season
+    end
   end
 
   def team_obj_creator
