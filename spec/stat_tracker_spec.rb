@@ -30,6 +30,6 @@ RSpec.describe StatTracker do
   end
 
   it 'can find the percentage of games that resulted in a tie' do
-    expect(stat_tracker.percentage_ties).to eq(20.00)
+    expect(stat_tracker.percentage_ties).to eq(0.00)
   end
 end
