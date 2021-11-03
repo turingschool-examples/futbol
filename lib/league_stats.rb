@@ -86,13 +86,23 @@ class LeagueStats
     team_id.uniq
   end
 
-  def best_away_offense
+  def highest_scoring_visitor
     team_goal_hash = {}
-    team_id = all_teams_ids_game_data
+    team_id = all_teams_away_ids
     team_id.each do |id|
-      team_goal_hash[id] = average_goals_per_team(id.to_i)
+      team_goal_hash[id] = average_away_goals_per_team(id.to_i)
     end
-    best_team = team_goal_hash.key(team_goal_hash.values.max)
-    convert_team_id_to_name(best_team)
+    best_away_team = team_goal_hash.key(team_goal_hash.values.max)
+    convert_team_id_to_name(best_away_team)
+  end
+
+  def lowest_scoring_visitor
+    team_goal_hash = {}
+    team_id = all_teams_away_ids
+    team_id.each do |id|
+      team_goal_hash[id] = average_away_goals_per_team(id.to_i)
+    end
+    worst_away_team = team_goal_hash.key(team_goal_hash.values.min)
+    convert_team_id_to_name(worst_away_team)
   end
 end

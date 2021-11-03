@@ -77,4 +77,16 @@ RSpec.describe LeagueStats do
 
     expect(league_obj.all_teams_away_ids).to eq([3, 6, 5, 17, 16, 9, 8])
   end
+
+  it '#highest_scoring_visitor' do
+    league_obj = LeagueStats.new(@stat_tracker)
+
+    expect(league_obj.highest_scoring_visitor).to eq('FC Dallas')
+  end
+
+  it '#lowest_scoring_visitor' do
+    league_obj = LeagueStats.new(@stat_tracker)
+
+    expect(league_obj.lowest_scoring_visitor).to eq('Sporting Kansas City')
+  end
 end
