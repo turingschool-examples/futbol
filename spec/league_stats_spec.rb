@@ -33,6 +33,6 @@ RSpec.describe LeagueStats do
 
   it '#highest_scoring_visitor' do
 
-    expect(@league_stats.highest_scoring_visitor).to eq("17")
+    expect(@league_stats.highest_scoring_visitor).to eq("6")
   end
 end
