@@ -20,8 +20,9 @@ class StatTracker
   end
 
   def highest_total_score
-    @game_results.map do |results|
-      if  results.find
+    game_goals_array = []
+    @game_results.by_col[0]
+    # require "pry"; binding.pry
   end
 
 end

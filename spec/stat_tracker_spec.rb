@@ -4,13 +4,13 @@ require './runner.rb'
 
 RSpec.describe StatTracker do
 
-  games = './data/games_dummy.csv'
-  teams = './data/teams_dummy.csv'
-  game_results = './data/game_results_dummy.csv'
-  let(:stat_tracker) {StatTracker.new(games, teams, game_results)}
+  game_path = './data/games_dummy.csv'
+  team_path = './data/teams_dummy.csv'
+  game_results_path = './data/game_results_dummy.csv'
   let(:games) {CSV.parse(File.read(game_path), headers: true)}
   let(:teams) {CSV.parse(File.read(team_path), headers: true)}
-  let(:game_results) {CSV.parse(File.read(game_results), headers: true)}
+  let(:game_results) {CSV.parse(File.read(game_results_path), headers: true)}
+  let(:stat_tracker) {StatTracker.new(games, teams, game_results)}
 
 
   it 'exists' do
@@ -22,6 +22,6 @@ RSpec.describe StatTracker do
   end
 
   it 'it can display the highest total score' do
-    expect(highest_total_score).to eq(7)
+    expect(stat_tracker.highest_total_score).to eq(7)
   end
 end
