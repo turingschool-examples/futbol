@@ -61,7 +61,9 @@ class StatTracker
 
     stat_tracker = StatTracker.new()
 
+
     stat_tracker.games_array = CSV.read(filenames[:games], headers: true)
+
     stat_tracker.games_array.each do |array|
       stat_tracker.game_id << array[0]
       stat_tracker.season << array[1]

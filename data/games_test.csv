@@ -8,3 +8,7 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2012030312,20122013,Postseason,6/4/13,6,5,4,1,Children's Mercy Park,/api/v1/venues/null
 2012030313,20122013,Postseason,6/6/13,5,6,1,2,Toyota Stadium,/api/v1/venues/null
 2012030314,20122013,Postseason,6/8/13,5,6,0,1,Toyota Stadium,/api/v1/venues/null
+2016020158,20162017,Regular Season,11/4/16,8,29,0,8,Exploria Stadium,/api/v1/venues/null
+2015020648,20152016,Regular Season,1/15/16,16,8,2,1,Red Bull Arena,/api/v1/venues/null
+2017020592,20172018,Regular Season,12/31/17,26,23,2,3,Saputo Stadium,/api/v1/venues/null
+2015020258,20152016,Regular Season,11/15/15,22,26,3,2,Nippert Stadium,/api/v1/venues/null
