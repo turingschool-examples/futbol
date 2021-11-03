@@ -241,11 +241,15 @@ class StatTracker
 
   end
 
+  def games_in_season(season)
+    games_in_season = @games.find_all{ |game| game.season == season }
+  end
+
   # helper method to collect all game_teams in a given season
   def game_teams_in_season(season)
     # collect all games is selected season. games.csv
     # collect all game_team entires with corresponding game_ids - game_teams.csv
-    games_in_season = @games.find_all{ |game| game.season == season }
+    games_in_season = games_in_season(season)
     game_ids_in_season = games_in_season.map { |game| game.game_id }
     # only include game_team if it's game_id is in list of correct game ids
     game_teams_in_season = @game_teams.find_all do |game_team|
