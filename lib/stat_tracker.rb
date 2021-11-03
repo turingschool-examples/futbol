@@ -65,6 +65,12 @@ class StatTracker
     end
     low_score
   end
+
+  def percentage_home_wins
+    home_wins_count = 0
+    @games.each_value do |game|
+      if game.home_goals
+  end
   # League Statistics
 
 
