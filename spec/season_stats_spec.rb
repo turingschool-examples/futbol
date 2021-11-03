@@ -21,27 +21,27 @@ RSpec.describe SeasonStats do
     expect(@season_stats.winningest_coach).to eq("Mike Babcock")
   end
 
-  it 'worst_coach' do
+  xit 'worst_coach' do
 
     expect(@season_stats.worst_coach).to eq("Dan Bylsma")
   end
 
-  it 'most_accurate_team' do
+  xit 'most_accurate_team' do
 
     expect(@season_stats.most_accurate_team).to eq("17")
   end
 
-  it 'least_accurate_team' do
+  xit 'least_accurate_team' do
 
     expect(@season_stats.least_accurate_team).to eq("5")
   end
 
-  it 'most_tackles' do
+  xit 'most_tackles' do
 
     expect(@season_stats.most_tackles).to eq("6")
   end
 
-  it 'fewest_tackles' do
+  xit 'fewest_tackles' do
 
     expect(@season_stats.fewest_tackles).to eq("17")
   end
