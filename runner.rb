@@ -13,7 +13,6 @@ locations = {
 }
 
 stat_tracker = StatTracker.from_csv(locations)
-# require 'pry'; binding.pry
 
 
 
@@ -22,4 +21,5 @@ stat_tracker[0].read_team_stats(team_path)
 stat_tracker[0].read_game_teams_stats(game_teams_path)
 
 stat_tracker[0].highest_total_score
+
 # require 'pry'; binding.pry

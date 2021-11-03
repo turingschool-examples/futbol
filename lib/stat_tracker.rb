@@ -65,6 +65,10 @@ class StatTracker
     end
     low_score
   end
+
+  def percentage_home_wins
+    @games.each_value do |game|
+  end
   # League Statistics
 
 
