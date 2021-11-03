@@ -1,36 +1,25 @@
-require "rspec"
-require "./runner"
-require "./lib/stat_tracker"
+require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
-  # before :each do
-  #  @stat_tracker = StatTracker.new(locations)
-  #  @stat_tracker = StatTracker.from_csv(locations)
-
   it 'exists' do
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams.csv'
+
     locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    stat_tracker = StatTracker.new(locations)
-    # stat_tracker = StatTracker.from_csv(locations)
+              games: game_path,
+              teams: team_path,
+              game_teams: game_teams_path
+                }
+
+    stat_tracker = StatTracker.from_csv(locations)
+
     expect(stat_tracker).to be_an_instance_of(StatTracker)
   end
 
-  it '#highest_total_score' do
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    stat_tracker = StatTracker.new(locations)
+  xit '#highest_total_score' do
+    stat_tracker = StatTracker.from_csv(locations)
+
     expect(stat_tracker.highest_total_score).to eq(11)
   end
 end
