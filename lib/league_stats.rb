@@ -135,4 +135,14 @@ class LeagueStats
     best_home_team = team_goal_hash.key(team_goal_hash.values.max)
     convert_team_id_to_name(best_home_team)
   end
+
+  def lowest_scoring_home_team
+    team_goal_hash = {}
+    team_id = all_teams_home_ids
+    team_id.each do |id|
+      team_goal_hash[id] = average_home_goals_per_team(id.to_i)
+    end
+    worst_home_team = team_goal_hash.key(team_goal_hash.values.min)
+    convert_team_id_to_name(worst_home_team)
+  end
 end

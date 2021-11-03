@@ -108,4 +108,10 @@ RSpec.describe LeagueStats do
     expect(league_obj.highest_scoring_home_team).to eq('New York City FC')
   end
 
+  it '#lowest_scoring_home_team' do
+    league_obj = LeagueStats.new(@stat_tracker)
+
+    expect(league_obj.lowest_scoring_home_team).to eq('Sporting Kansas City')
+  end
+
 end
