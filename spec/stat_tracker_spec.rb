@@ -130,7 +130,7 @@ RSpec.describe StatTracker do
   end
 
   describe '#lowest_scoring_visitor' do
-    xit '' do
+    xit 'names the team with the lowest scoring ' do
 
     end
   end
@@ -184,8 +184,8 @@ RSpec.describe StatTracker do
   end
   ### Season
   describe '#winningest_coach' do
-    xit '' do
-
+    xit 'Name of the Coach with the best win percentage for the season' do
+      expect(@stat_tracker.winningest_coach('20122013')).to eq()
     end
   end
   describe '#worst_coach' do
