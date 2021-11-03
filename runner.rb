@@ -16,4 +16,4 @@ ted_lasso = StatTracker.from_csv(locations)
 # the data we've opened within it. In effect, ted_lasso
 # holds all of our data, and will have all our methods
 # called to it.
-require 'pry'; binding.pry
+# require 'pry'; binding.pry
