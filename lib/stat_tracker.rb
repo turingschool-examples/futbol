@@ -91,7 +91,7 @@ class StatTracker
 
   # Average number of goals scored in a game across all seasons including
   # both home and away goals (rounded to the nearest 100th) - float
-  def avgerage_goals_per_game
+  def average_goals_per_game
     total_goals = @games.map{|game| game.home_goals + game.away_goals}
     avg_goals_per_game = (total_goals.sum.to_f/total_goals.length.to_f).round(2)
   end
@@ -101,7 +101,7 @@ class StatTracker
   # representing the average number of goals in a game for that season
   # as values (rounded to the nearest 100th)	- Hash
 
-  def avgerage_goals_per_season
+  def average_goals_per_season
   #   avg_goals_per_season = Hash.new(0)
   #   games_by_season = @games.group_by do|game|
   #     game.season
