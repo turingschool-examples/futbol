@@ -51,13 +51,32 @@ RSpec.describe Creator do
 
   describe '#game_obj_creator' do
     it 'creates a hash' do
-      expect(Creator.stat_obj_creator(game_team_data)).to be_a(Hash)
+      stats_hash = Creator.stat_obj_creator(game_team_data)
+
+      expect(Creator.game_obj_creator(game_data, stats_hash)).to be_a(Hash)
     end
     it 'creates game objects' do
       stats_hash = Creator.stat_obj_creator(game_team_data)
       games_hash = Creator.game_obj_creator(game_data, stats_hash)
 
       expect(games_hash['2012030236']).to be_a(Game)
+    end
+    it 'game object matches its stat objects' do
+      stats_hash = Creator.stat_obj_creator(game_team_data)
+      games_hash = Creator.game_obj_creator(game_data, stats_hash)
+
+      expect(games_hash['2012030236'].game_id).to eq(stats_hash['2012030236_17'].game_id)
+      expect(games_hash['2012030236'].game_id).to eq(stats_hash['2012030236_16'].game_id)
+    end
+    it 'game object matches home team and away team' do
+      stats_hash = Creator.stat_obj_creator(game_team_data)
+      games_hash = Creator.game_obj_creator(game_data, stats_hash)
+
+      expect(games_hash['2012030236'].home_team_id).to eq(stats_hash['2012030236_17'].team_id)
+      expect(games_hash['2012030236'].away_team_id).to eq(stats_hash['2012030236_16'].team_id)
+
+      expect(games_hash['2012030236'].home_team_stat).to eq(stats_hash['2012030236_17'])
+      expect(games_hash['2012030236'].away_team_stat).to eq(stats_hash['2012030236_16'])
     end
   end
 
