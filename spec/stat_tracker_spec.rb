@@ -1,6 +1,5 @@
 require './lib/stat_tracker'
 
-
 RSpec.describe StatTracker do
   before(:each) do
     @game_path = './data/games_test.csv'
@@ -23,16 +22,4 @@ RSpec.describe StatTracker do
   it 'can access csv data' do
     expect(StatTracker.from_csv(@filenames)).to be_an_instance_of(StatTracker)
   end
-
-  it 'can find the highest total score' do
-    expect(@stat_tracker.highest_total_score).to eq(5)
-  end
-
-  it 'can find the lowest total score' do
-    expected = 7
-    mock_games = OpenStruct.new(lowest_total_score: expected)
-    actual = StatTracker.new(games: mock_games).lowest_total_score
-    expect(actual).to eq(expected)
-  end
-
- end
+end

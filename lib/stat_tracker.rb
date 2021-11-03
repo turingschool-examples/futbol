@@ -12,7 +12,6 @@ class StatTracker
     @games = []
     @teams = []
     @game_teams = []
- 
   end
 
   def self.from_csv(filenames)
@@ -29,22 +28,19 @@ class StatTracker
     end
   end
 
-    
   def make_teams(filenames)
     CSV.foreach(filenames[:teams], headers: true) do |row|
       @teams << Team.new(row)
     end
   end
 
-  
   def make_game_teams(filenames)
     CSV.foreach(filenames[:game_teams], headers: true) do |row|
       @game_teams << GameTeam.new(row)
     end
   end
-
 end
 
-StatTracker.from_csv({ games: './data/games.csv', 
-                      teams: './data/teams.csv',
-                      game_teams: './data/game_teams.csv'})
+StatTracker.from_csv({ games: './data/games.csv',
+                       teams: './data/teams.csv',
+                       game_teams: './data/game_teams.csv' })

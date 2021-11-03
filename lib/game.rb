@@ -20,11 +20,13 @@ class Game
   end
 
   def self.lowest_total_score(games)
-    games.min_by { |game| game.total_score }
+    game = games.min_by { |game| game.total_score }
+    game.total_score
   end
 
   def self.highest_total_score(games)
-    games.max_by { |game| game.total_score }
+    game = games.max_by { |game| game.total_score }
+    game.total_score
   end
 
   def total_score
@@ -34,4 +36,8 @@ class Game
   def won?
     home_goals > away_goals
   end
+
+  def count_of_games_by_season end
+
+  def count_of_teams; end
 end
