@@ -65,4 +65,10 @@ RSpec.describe LeagueStats do
 
     expect(league_obj.worst_offense).to eq('Sporting Kansas City')
   end
+
+  it '#average_away_goals_per_team' do
+    league_obj = LeagueStats.new(@stat_tracker)
+
+    expect(league_obj.average_away_goals_per_team(9)).to eq(1.50)
+  end
 end
