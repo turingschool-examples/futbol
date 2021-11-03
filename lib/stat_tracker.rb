@@ -136,7 +136,7 @@ class StatTracker
     # best_offensive_team = @teams.find {|team| team.team_id == best_offense_id}
     # best_offensive_team.team_name
 
-    @teams.max_by do |key, team|
+    @teams.max_by do |team|
       # require 'pry'; binding.pry
       total_goals(team)
     end.team_name
@@ -148,7 +148,7 @@ class StatTracker
   end
 
   def team_games(team)
-    @game_teams.find_all do |key, game|
+    @game_teams.find_all do |game|
       # require 'pry'; binding.pry
       game.team_id == team.team_id
     end
