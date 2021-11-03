@@ -3,7 +3,12 @@ require './lib/team'
 require './lib/game'
 
 class StatTracker
+
   attr_accessor :location
+
+  attr_reader :games,
+              :teams,
+              :game_teams
 
   def initialize(location)
     @location = location
@@ -48,6 +53,17 @@ class StatTracker
       end
     end
     high_score
+  end
+
+  def lowest_total_score
+    low_score = 100
+    @games.each_value do |game|
+      low = game.away_goals + game.home_goals
+      if low < low_score
+        low_score = low
+      end
+    end
+    low_score
   end
   # League Statistics
 
