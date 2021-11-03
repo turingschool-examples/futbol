@@ -207,18 +207,26 @@ class StatTracker
   end
 
   #### Season
-  def winningest_coach
-    # games_won = []
-    # @games.each do|game|
-    #   if game.game.home_goals > game.away_goals
-    #     games_won.push(game)
-    #   end
-    #   games_won.group_by
-    # end
-
-
-
+  def winningest_coach(season)
+    require "pry"; binding.pry
+    winning_coaches(season)
   end
+
+  def wins_by_season(season)
+    games_won = []
+    game_teams_in_season(season).each do |game|
+      if game.result == "WIN"
+        games_won.push(game)
+      end
+    end
+    games_won
+  end
+
+  def winning_coaches(season)
+    wins_grouped = wins_by_season(season).group_by { |game| game.head_coach }
+    wins_grouped.keys
+  end
+
   def worst_coach
 
 

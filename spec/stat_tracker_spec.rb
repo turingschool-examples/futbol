@@ -182,6 +182,9 @@ RSpec.describe StatTracker do
   end
   ### Season
   describe '#winningest_coach' do
+    it "checks the ins by seasons" do
+      expect(@stat_tracker.winningest_coach('20122013')).to be_a(Array)
+    end
     xit 'Name of the Coach with the best win percentage for the season' do
       expect(@stat_tracker.winningest_coach('20122013')).to eq()
     end
