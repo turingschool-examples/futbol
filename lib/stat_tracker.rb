@@ -187,19 +187,17 @@ class StatTracker
   end
 
   def lowest_scoring_visitor
-
-
-
-
-
+    @teams.min_by do |team|
+      visiting_average_goals(team)
+    end.team_name
   end
+
   def lowest_scoring_home_team
-
-
-
-
-
+    @teams.min_by do |team|
+      home_average_goals(team)
+    end.team_name
   end
+
   def team_info
 
 
