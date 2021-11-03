@@ -126,6 +126,8 @@ class StatTracker
 
   def average_goals(team)
     all_games = team_games(team)
+    # require 'pry'; binding.pry
+    return 0 if all_games.empty?
     total_goals(all_games)/all_games.count
   end
 
@@ -136,7 +138,7 @@ class StatTracker
   end
 
   def total_goals(game_set)
-    return 0 if game_set.empty?
+    # return 0 if game_set.empty?
     game_set.sum {|game| game.goals}
   end
 
