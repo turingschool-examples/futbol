@@ -20,4 +20,9 @@ RSpec.describe LeagueStats do
 
     expect(@league_stats.count_of_teams).to eq(5)
   end
+
+  it '#best_offense' do
+
+    expect(@league_stats.best_offense).to eq("17")
+  end
 end
