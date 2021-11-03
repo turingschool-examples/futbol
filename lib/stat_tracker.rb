@@ -113,42 +113,91 @@ class StatTracker
   #   return avg_goals_per_season
   end
 
-   def highest_scoring_visitor
+  #League Statistics
+  def count_of_teams
+    @teams.count
+  end
 
-
-
-
-
+#Methods between lines 123 & 150 are used with best_offense/worst_offense
+#calculating goals across all seasons for a team
+  def best_offense
+    @teams.max_by do |team|
+      average_goals(team)
+    end.team_name
   end
 
   def worst_offense
-
-
-
-
-
+    @teams.min_by do |team|
+      average_goals(team)
+    end.team_name
   end
+  #average goals across all games
+  def average_goals(team)
+    all_games = team_games(team)
+    return 0 if all_games.empty?
+    total_goals(all_games)/all_games.count.to_f
+  end
+  #finds all games a team plays in, and returns that array
+  def team_games(team)
+    @game_teams.find_all do |game|
+      game.team_id == team.team_id
+    end
+  end
+  #sums the goals for all games of a team
+  def total_goals(all_games)
+    all_games.sum {|game| game.goals}
+  end
+
+  #Lines 153 to ??? use these methods to find teh highest/lowest scoring teams
+  #based on being the home or away team
+  def highest_scoring_visitor
+    @teams.max_by do |team|
+      visiting_average_goals(team)
+    end.team_name
+  end
+
+  def visiting_team_games(team)
+    @game_teams.find_all do |game|
+      game.team_id == team.team_id && game.h_o_a == "away"
+    end
+  end
+
+  def visiting_average_goals(team)
+    visiting_games = visiting_team_games(team)
+    return 0 if visiting_games.empty?
+    total_goals(visiting_games)/visiting_games.count.to_f
+  end
+
   def highest_scoring_home_team
-
-
-
-
-
+    @teams.max_by do |team|
+      home_average_goals(team)
+    end.team_name
   end
+
+  def home_team_games(team)
+    @game_teams.find_all do |game|
+      game.team_id == team.team_id && game.h_o_a == "home"
+    end
+  end
+
+  def home_average_goals(team)
+    home_games = home_team_games(team)
+    return 0 if home_games.empty?
+    total_goals(home_games)/home_games.count.to_f
+  end
+
   def lowest_scoring_visitor
-
-
-
-
-
+    @teams.min_by do |team|
+      visiting_average_goals(team)
+    end.team_name
   end
+
   def lowest_scoring_home_team
-
-
-
-
-
+    @teams.min_by do |team|
+      home_average_goals(team)
+    end.team_name
   end
+
   def team_info
 
 
