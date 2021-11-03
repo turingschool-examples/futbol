@@ -1,5 +1,5 @@
 require './lib/stat_tracker'
-
+require './lib/game'
 
 RSpec.describe StatTracker do
   before(:each) do
@@ -24,7 +24,7 @@ RSpec.describe StatTracker do
     expect(StatTracker.from_csv(@filenames)).to be_an_instance_of(StatTracker)
   end
 
-  it 'can find the highest total score' do
+  xit 'can find the highest total score' do
     expect(@stat_tracker.highest_total_score).to eq(5)
   end
 
@@ -35,12 +35,12 @@ RSpec.describe StatTracker do
     expect(actual).to eq(expected)
   end
 
-   xit 'counts all the teams in the league' do
-     expect(@stat_tracker.count_of_teams).to eq(32)
-   end
-   
-   xit 'counts games by season' do
-     expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=> 9, "20162017" => 1, "20152016" => 2, "20172018" => 1})
-   end
+  xit 'counts all the teams in the league' do
+    expect(@stat_tracker.count_of_teams).to eq(32)
+  end
 
- end
+  xit 'counts games by season' do
+    expect(@stat_tracker.count_of_games_by_season).to eq({ '20122013' => 9, '20162017' => 1, '20152016' => 2,
+                                                           '20172018' => 1 })
+  end
+end

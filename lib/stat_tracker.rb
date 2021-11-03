@@ -20,16 +20,6 @@ class StatTracker
       @games << Game.new(row)
     end
   end
-
-
-  #def count_of_games_by_season
-    #@season.tally
-  #end
-
-  #def count_of_teams
-   # @team_id.count
- # end
-
 end
 
 StatTracker.from_csv({ games: './data/games.csv' })
