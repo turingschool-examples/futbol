@@ -11,8 +11,6 @@ class StatTracker
 
   end
 
-
-
   def self.convert_path_to_csv(files)
     result = []
     rows = CSV.read(files, headers:true)
