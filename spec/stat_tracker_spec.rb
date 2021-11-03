@@ -9,7 +9,7 @@ require './lib/stat_tracker'
    @team_path = './data/teams.csv'
    @game_teams_path = './data/game_teams.csv'
 
-   @locations = {
+   @filenames = {
      games: @game_path,
      teams: @team_path,
      game_teams: @game_teams_path
@@ -19,7 +19,7 @@ require './lib/stat_tracker'
 
    it 'exists' do
      expect(@stat_tracker).to be_an_instance_of(StatTracker)
-     expect(StatTracker.from_csv(@locations)).to be_an_instance_of(StatTracker)
+     expect(StatTracker.from_csv(@filenames)).to be_an_instance_of(StatTracker)
    end
 
    it 'can access csv data' do
@@ -31,6 +31,8 @@ require './lib/stat_tracker'
      expect(@stat_tracker.highest_total_score).to eq(5)
    end
 
- 
+   it 'counts all the teams in the league' do
+     expect(@stat_tracker.count_of_teams).to eq(32)
+   end
 
  end
