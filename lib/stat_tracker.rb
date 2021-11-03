@@ -295,10 +295,10 @@ class StatTracker
   end
 
   def game_ids_in_games(games)
-    game_ids_in_games = games_in_season.map { |game| game.game_id }
+    game_ids_in_games = games.map { |game| game.game_id }
   end
 
-  def game_teams_by_game(games)
+  def game_teams_by_games(games)
     game_ids = game_ids_in_games(games)
     @game_teams.find_all{|game_team|game_ids.include?(game_team.game_id)}
   end
@@ -307,14 +307,14 @@ class StatTracker
   # helper method to collect all game_teams in a given season
   def game_teams_in_season(season)
     games_in_season = games_in_season(season)
-    game_teams_in_season = game_teams_by_game(games_in_season)
+    game_teams_in_season = game_teams_by_games(games_in_season)
   end
 
   def team_from_game_team(game_team)
     # get team id from selected game_team, and use this to gather the team name.
-    team_id =  game_teams.team_id
-    teams = @teams.select{|team| team.team_id == team_id} #this can be faster with a hash
-    return teams
+    team_id =  game_team.team_id
+    team = @teams.select{|team| team.team_id == team_id} #this can be faster with a hash
+    return team[0]
   end
 
   # return an array of team names from an array of team objects, or a single team name if only one given
@@ -330,11 +330,10 @@ class StatTracker
   # Name of the Team with the most tackles in the season	- String
   def most_tackles(season)
     game_teams_in_season = game_teams_in_season(season)
-    # get game_team object with most tackles - game_teams.csv
-    max_tackles_game_teams = game_teams_in_season.max_by do |game_team|
-      game_team.tackles
-    end
-    teams = get_teams_from_game_teams(max_tackles_game_teams)
+    max_tackles_game_team = game_teams_in_season.max_by{ |game_team|game_team.tackles}
+    max_tackles = max_tackles_game_team.tackles
+    max_tackles_game_teams = game_teams_in_season.select{|game_team| game_team.tackles == max_tackles}
+    teams = teams_from_game_teams(max_tackles_game_teams)
     team_names = teams.map { |team| team.team_name }
     #return sigle name if only one item.
     if team_names.length == 1
@@ -351,7 +350,7 @@ class StatTracker
     min_tackles_game_teams = game_teams_in_season.min_by do |game_team|
       game_team.tackles
     end
-    teams = get_teams_from_game_teams(min_tackles_game_teams)
+    teams = teams_from_game_teams(min_tackles_game_teams)
     team_names = teams.map { |team| team.team_name }
     #return sigle name if only one item.
     if team_names.length == 1

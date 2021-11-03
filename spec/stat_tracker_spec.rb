@@ -229,27 +229,61 @@ RSpec.describe StatTracker do
 
     end
   end
+  describe ' #games_in_season' do
+    it 'returns an array and games' do
+      expect(@stat_tracker.games_in_season('20122013').all?{|game| game.class == Games}).to eq(true)
+    end
+  end
+  describe ' #game_ids_in_games' do
+    it 'returns an array of game ids for each input game' do
+      game1 = @stat_tracker.games[0]
+      games2 = @stat_tracker.games[0..2]
+      expect(@stat_tracker.game_ids_in_games([game1])).to eq(['2012030221'])
+      expect(@stat_tracker.game_ids_in_games(games2)).to eq(['2012030221','2012030222','2012030223'])
+    end
+  end
+  describe ' #game_teams_by_games' do
+    it 'returns all game_team associated with single input game' do
+      game1 = @stat_tracker.games[0]
+      game_teams1 = [@stat_tracker.game_teams[0], @stat_tracker.game_teams[2]]
+      expect(@stat_tracker.game_teams_by_games([game1])).to eq(game_teams1)
+    end
+    it 'returns all game_teams associated with multiple input games' do
+      games2 = @stat_tracker.games[0..1]
+      game_teams2 = @stat_tracker.game_teams[0..3]
+      expect(@stat_tracker.game_teams_by_games(games2)).to eq(game_teams2)
+    end
+  end
   describe ' #game_teams_in_season' do
     it 'returns an array of all of the game_teams that are a part of the selected season' do
       expect(@stat_tracker.game_teams_in_season('20122013')).to be_a(Array)
       expect(@stat_tracker.game_teams_in_season('20122013').length).to eq(4)
     end
   end
-  describe 'get_team_from_game_teams' do
-    it 'returns a single team name if a single team given' do
-      team1 = @stat_tracker.teams[0]
-      teams2 = @stat_tracker.teams[0..2]
-      expect(@stat_tracker.get_teams_from_game_teams(team1)).to eq([team1])
-      expect(@stat_tracker.get_teams_from_game_teams(teams2)).to eq(teams2)
+  describe 'team_from_game_team' do
+    it 'returns a single team name for a single game_team given' do
+      game_team1 = @stat_tracker.game_teams[0]
+      team1 = @stat_tracker.teams[5]
+      expect(@stat_tracker.team_from_game_team(game_team1)).to eq(team1)
+    end
+  end
+  describe 'teams_from_game_teams' do
+    it 'returns an array of teams for an array of game_team objects' do
+      game_team1 = @stat_tracker.game_teams[0]
+      team1 = @stat_tracker.teams[5]
+      game_teams2 = @stat_tracker.game_teams[0..3]
+      teams2 = [@stat_tracker.teams[4], @stat_tracker.teams[5]]
+      expect(@stat_tracker.teams_from_game_teams([game_team1])).to eq([team1])
+      expect(@stat_tracker.teams_from_game_teams(game_teams2)).to eq(teams2)
     end
   end
   describe ' #most_tackles' do
-    it 'returns the name of the team with the most tackles in the season' do
+    xit 'returns the name of the team with the most tackles in the season' do
       expect(@stat_tracker.most_tackles('20122013')).to eq('FC Dallas')
     end
   end
   describe '  #fewest_tackles' do
-    it 'returns the name of the team with the fewest tackles in the season' do
+    xit 'returns the name of the team with the fewest tackles in the season' do
       expect(@stat_tracker.fewest_tackles('20122013')).to eq('Houston Dynamo')
     end
   end
