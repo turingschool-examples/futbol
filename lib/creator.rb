@@ -1,3 +1,4 @@
+require './tg_stat'
 class Creator
   attr_reader :league
 
@@ -12,7 +13,11 @@ class Creator
   end
 
   def stat_obj_creator(game_team_data)
+    stats_hash = {}
+    game_team_data.each do |stat|
+      stat_name = "#{stat[:game_id] + '_' + stat[:team_id]}"
+      stats_hash[stat_name] = TGStat.new(stat)
+    end
+    stats_hash
   end
-
-
 end
