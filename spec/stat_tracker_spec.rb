@@ -167,9 +167,19 @@ RSpec.describe StatTracker do
     end
   end
 
+  #Team Statistics - each method takes a team_id as an argument
   describe '#team_info' do
-    xit '' do
+    it 'returns a hash with key/values for all team attributes' do
+    expected = {
+      team_id: "15",
+      franchise_id: "24",
+      team_name: "Portland Timbers",
+      abbreviation: "POR",
+      stadium: "Providence Park",
+      link:"/api/v1/teams/15"
+    }
 
+    expect(@stat_tracker.team_info("15")).to eq(expected)
     end
   end
 
