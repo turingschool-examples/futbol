@@ -3,18 +3,23 @@ require 'pry'
 require './lib/game'
 require './lib/team'
 
+require './lib/game_team'
+
 class StatTracker
-  attr_reader :games, :teams
+  attr_reader :games, :teams, :game_teams
 
   def initialize
     @games = []
     @teams = []
+    @game_teams = []
+ 
   end
 
   def self.from_csv(filenames)
     stat_tracker = StatTracker.new
     stat_tracker.make_games(filenames)
     stat_tracker.make_teams(filenames)
+    stat_tracker.make_game_teams(filenames)
     stat_tracker
   end
 
@@ -24,21 +29,22 @@ class StatTracker
     end
   end
 
+    
   def make_teams(filenames)
     CSV.foreach(filenames[:teams], headers: true) do |row|
       @teams << Team.new(row)
     end
   end
 
-
-  #def count_of_games_by_season
-    #@season.tally
-  #end
-
-  #def count_of_teams
-   # @team_id.count
- # end
+  
+  def make_game_teams(filenames)
+    CSV.foreach(filenames[:game_teams], headers: true) do |row|
+      @game_teams << GameTeam.new(row)
+    end
+  end
 
 end
 
-StatTracker.from_csv({ games: './data/games.csv' })
+StatTracker.from_csv({ games: './data/games.csv', 
+                      teams: './data/teams.csv',
+                      game_teams: './data/game_teams.csv'})
