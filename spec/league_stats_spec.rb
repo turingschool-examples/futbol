@@ -35,4 +35,19 @@ RSpec.describe LeagueStats do
 
     expect(@league_stats.highest_scoring_visitor).to eq("6")
   end
+
+  it '#highest_scoring_home_team' do
+
+    expect(@league_stats.highest_scoring_home_team).to eq("17")
+  end
+
+  it 'lowest_scoring_visitor' do
+
+    expect(@league_stats.worst_offense).to eq("5")
+  end
+
+  it 'lowest_scoring_home_team' do
+
+    expect(@league_stats.worst_offense).to eq("5")
+  end
 end
