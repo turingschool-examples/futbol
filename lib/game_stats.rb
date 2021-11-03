@@ -37,7 +37,7 @@ class GameStats
   def percentage_home_wins
     @game_data = CSV.parse(File.read("./data/sample_games.csv"), headers: true)
     home_wins = 0
-    total_game = -1
+    total_game = 0
     @game_data.each do |game|
       total_game += 1
       if game["home_goals"] > game["away_goals"]
@@ -46,6 +46,37 @@ class GameStats
       end
     end
     x = (home_wins.to_f / total_game.to_f)
-    x * 100
+    (x * 100.0).round(2)
   end
+
+  def percentage_away_wins
+    @game_data = CSV.parse(File.read("./data/sample_games.csv"), headers: true)
+    away_wins = 0
+    total_game = 0
+    @game_data.each do |game|
+      total_game += 1
+      if game["away_goals"] > game["home_goals"]
+        away_wins += 1
+      else
+      end
+    end
+    x = (away_wins.to_f / total_game.to_f)
+    (x * 100.0).round(2)
+  end
+
+  def percentage_ties
+    @game_data = CSV.parse(File.read("./data/sample_games.csv"), headers: true)
+    total_game = 0
+    total_ties = 0
+    @game_data.each do |game|
+      total_game += 1
+      if game["home_goals"] == game["away_goals"]
+        total_ties += 1
+      else
+      end
+    end
+    x = (total_ties.to_f / total_game.to_f)
+    (x * 100.0).round(2)
+  end
+  
 end
