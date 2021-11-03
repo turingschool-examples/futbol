@@ -346,10 +346,9 @@ class StatTracker
   # Name of the Team with the fewest tackles in the season	- String
   def fewest_tackles(season)
     game_teams_in_season = game_teams_in_season(season)
-    # get game_team object with most tackles - game_teams.csv
-    min_tackles_game_teams = game_teams_in_season.min_by do |game_team|
-      game_team.tackles
-    end
+    min_tackles_game_team = game_teams_in_season.min_by{ |game_team|game_team.tackles}
+    min_tackles = min_tackles_game_team.tackles
+    min_tackles_game_teams = game_teams_in_season.select{|game_team| game_team.tackles == min_tackles}
     teams = teams_from_game_teams(min_tackles_game_teams)
     team_names = teams.map { |team| team.team_name }
     #return sigle name if only one item.
