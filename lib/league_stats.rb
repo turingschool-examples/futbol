@@ -74,4 +74,31 @@ class LeagueStats
     end
     worst_offense_team
   end
+
+  def highest_scoring_visitor
+    teams_games_goals_avg = {}
+    @league_data.each do |league|
+        if league["HoA"] == "away"
+          if teams_games_goals_avg.keys.include? (league["team_id"])
+          else
+            teams_games_goals_avg[league["team_id"]] = [0,0]
+          end
+
+          current_goals = league["goals"].to_i
+          first = (teams_games_goals_avg[league["team_id"]][0] += 1)
+          second = (teams_games_goals_avg[league["team_id"]][1] += current_goals)
+          teams_games_goals_avg[league["team_id"]] = [first, second]
+      end
+    end
+    best_offense_team_average = 0
+    best_offense_team = nil
+    teams_games_goals_avg.each do |key, value|
+      value[2] = (value[1].to_f / value[0].to_f)
+      if value[2] > best_offense_team_average
+        best_offense_team_average = value[2]
+        best_offense_team = key
+      end
+    end
+    best_offense_team
+  end
 end
