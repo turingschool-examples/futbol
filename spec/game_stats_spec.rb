@@ -9,6 +9,6 @@ describe GameStats do
     end
 
     it 'attributes' do
-        expect(gamestats.games).to eq(Array)
+        expect(gamestats.games).to be_an(Array)
     end
 end

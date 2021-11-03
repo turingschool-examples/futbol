@@ -5,7 +5,6 @@ class GameStats
 
     def initialize(file)
         @games = self.format(file)
-        require 'pry'; binding.pry
     end
 
     def format(file)
