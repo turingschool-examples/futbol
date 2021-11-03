@@ -77,6 +77,13 @@ RSpec.describe GamesData do
     expect(game_obj.average_goals_per_game).to eq(3.68)
   end
 
+  it '#average_goals' do
+    game_obj = GamesData.new(@stat_tracker)
+    expect(game_obj.average_goals('20122013')).to eq(3.59)
+    expect(game_obj.average_goals('20132014')).to eq(4.00)
+    expect(game_obj.average_goals('20142015')).to eq(5.00)
+  end
+
   it '#average_goals_by_season' do
     game_obj = GamesData.new(@stat_tracker)
     expected = {
