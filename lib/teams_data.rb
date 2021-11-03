@@ -4,6 +4,7 @@ class TeamsData < StatTracker
   attr_reader :teamData
   def initialize(current_stat_tracker)
     @teamData = current_stat_tracker.teams
+    @gameData = current_stat_tracker.games
     #
 
   end
@@ -15,6 +16,30 @@ class TeamsData < StatTracker
     @abbreviation = @teams["abbreviation"]
     @link = @teams["link"]
 
+
+  end
+
+
+  def parse_seasons
+    # parsed_seasons = Hash.new
+
+    seasons = @gameData.map do |row|
+      row['season']
+    end.uniq
+
+    parsed_seasons = Hash[seasons.collect { |item| [item, []] } ]
+
+
+    parsed_seasons.each do |season|
+      @gameData.each do |row|
+        if season[0] == row['season']
+          season[]
+          require 'pry'; binding.pry
+        end
+      end
+    end
+
+    puts parsed_seasons
 
   end
 
