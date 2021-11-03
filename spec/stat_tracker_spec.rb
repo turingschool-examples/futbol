@@ -109,6 +109,12 @@ RSpec.describe StatTracker do
   end
 
   #League Stat
+  describe '#count_of_teams' do
+    it 'counts the total number of teams' do
+      expect(@stat_tracker.count_of_teams).to eq(@stat_tracker.teams.count)
+    end
+  end
+
   describe '#best_offense' do
     it 'uses the #average_goals method' do
       team = @stat_tracker.teams[5]
@@ -128,14 +134,14 @@ RSpec.describe StatTracker do
   end
 
   describe '#highest_scoring_visitor' do
-    it 'returns highest score from visitor team' do
+    it 'returns the highest average scoring visitor team name' do
       expect(@stat_tracker.highest_scoring_visitor).to eq("New York City FC")
     end
   end
 
   describe '#highest_scoring_home_team' do
-    xit '' do
-
+    it 'returns the highest average scoring home team name' do
+      expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
     end
   end
 
