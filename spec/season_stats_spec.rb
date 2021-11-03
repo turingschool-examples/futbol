@@ -15,4 +15,9 @@ RSpec.describe SeasonStats do
 
     expect(@season_stats).to be_an_instance_of(SeasonStats)
   end
+
+  it 'winningest_coach' do
+    
+    expect(@season_stats.winningest_coach).to eq("Mike Babcock")
+  end
 end
