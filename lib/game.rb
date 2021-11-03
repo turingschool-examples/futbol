@@ -37,7 +37,7 @@ class Game
     home_goals > away_goals
   end
 
-  def count_of_games_by_season; end
+  def count_of_games_by_season end
 
   def count_of_teams; end
 end

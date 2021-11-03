@@ -35,6 +35,7 @@ RSpec.describe StatTracker do
     expect(actual).to eq(expected)
   end
 
+<<<<<<< HEAD
   xit 'counts all the teams in the league' do
     expect(@stat_tracker.count_of_teams).to eq(32)
   end
@@ -44,3 +45,6 @@ RSpec.describe StatTracker do
                                                            '20172018' => 1 })
   end
 end
+=======
+ end
+>>>>>>> f7388b661cfd9b54e0f639bab515859964073545
