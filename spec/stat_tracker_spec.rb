@@ -170,7 +170,7 @@ RSpec.describe StatTracker do
   #Team Statistics - each method takes a team_id as an argument
   describe '#team_info' do
     it '#find_team - can find a team by team_id' do
-      expect(@stat_tracker.find_team("15")).to eq(@teams[15])
+      expect(@stat_tracker.find_team("15")).to eq(@stat_tracker.teams[15])
     end
 
     it 'returns a hash with key/values for all team attributes' do
@@ -187,9 +187,24 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#best_season' do
-    xit '' do
+  describe '#games_by_season' do
+    it 'sorts games by season' do
+      expected = {
+        "20142015" => [@stat_tracker.games[19]]
+      }
+      expected(@stat_tracker.team_games_by_season("8")).to eq(expected)
+    end
+  end
 
+  describe '#seasons' do
+    it 'returns all the seasons games have been played' do
+      expected(@stat_tracker.seasons).to eq(["20122013", "20142015"])
+    end
+  end
+
+  describe '#best_season' do
+    it 'returns the season with the highest win percentage for a team' do
+      expect(@stat_tracker.best_season("6")).to eq("20122013")
     end
   end
 
