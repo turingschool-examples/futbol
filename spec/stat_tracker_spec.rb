@@ -35,15 +35,13 @@ RSpec.describe StatTracker do
 
   describe '#initialize' do
     it 'exists' do
-      stat_tracker2 = StatTracker.new()
-      expect(stat_tracker2).to be_an_instance_of(StatTracker)
+      expect(@stat_tracker).to be_an_instance_of(StatTracker)
     end
 
     it 'has attributes' do
-      stat_tracker2 = StatTracker.new()
-      expect(stat_tracker2.games).to be_a(Hash)
-      expect(stat_tracker2.teams).to be_a(Hash)
-      expect(stat_tracker2.game_teams).to be_a(Hash)
+      expect(@stat_tracker.games).to be_a(Array)
+      expect(@stat_tracker.teams).to be_a(Array)
+      expect(@stat_tracker.game_teams).to be_a(Array)
     end
   end
 
@@ -54,12 +52,12 @@ RSpec.describe StatTracker do
       end
 
       it 'has correct attributes and classes' do
-        expect(@stat_tracker.games).to be_a(Hash)
-        expect(@stat_tracker.teams).to be_a(Hash)
-        expect(@stat_tracker.game_teams).to be_a(Hash)
-        expect(@stat_tracker.games.values[0]).to be_a(Games)
-        expect(@stat_tracker.teams.values[0]).to be_a(Teams)
-        expect(@stat_tracker.game_teams.values[0]).to be_a(GameTeams)
+        expect(@stat_tracker.games).to be_a(Array)
+        expect(@stat_tracker.teams).to be_a(Array)
+        expect(@stat_tracker.game_teams).to be_a(Array)
+        expect(@stat_tracker.games[0]).to be_a(Games)
+        expect(@stat_tracker.teams[0]).to be_a(Teams)
+        expect(@stat_tracker.game_teams[0]).to be_a(GameTeams)
       end
     end
   end
@@ -98,15 +96,15 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.count_of_games_by_season).to eq({"20122013" => 6, "20142015" => 15})
     end
   end
-  describe ' #avgerage_goals_per_game' do
-    it 'returns the avgerage # of goals per game' do
-      expect(@stat_tracker.avgerage_goals_per_game).to eq(3.86)
+  describe ' #average_goals_per_game' do
+    it 'returns the average # of goals per game' do
+      expect(@stat_tracker.average_goals_per_game).to eq(3.86)
     end
   end
-  describe ' #avgerage_goals_per_season' do
-    xit 'returns a hash with avgerage # of goals per season' do
-      expect(@stat_tracker.avgerage_goals_per_season).to be_a(Hash)
-      expect(@stat_tracker.avgerage_goals_per_season).to eq({"20122013" => 3.83, "20142015" => 3.87})
+  describe ' #average_goals_per_season' do
+    xit 'returns a hash with average # of goals per season' do
+      expect(@stat_tracker.average_goals_per_season).to be_a(Hash)
+      expect(@stat_tracker.average_goals_per_season).to eq({"20122013" => 3.83, "20142015" => 3.87})
     end
   end
 
