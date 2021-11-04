@@ -25,7 +25,6 @@ RSpec.describe Creator do
   let!(:team_data){stat_tracker.team_data}
   let!(:game_team_data){stat_tracker.game_team_data}
   let!(:creator) { Creator.create_objects(game_data, team_data, game_team_data) }
-  let(:league) {creator.league}
 
   describe '#initialize' do
     it "exists" do
@@ -33,11 +32,18 @@ RSpec.describe Creator do
     end
 
     it "is an attribute" do
-      expect(creator.league).to eq(league)
+      expect(creator.teams_hash).to be_a(Hash)
+      expect(creator.seasons_hash).to be_a(Hash)
+      expect(creator.stats_hash).to be_a(Hash)
+      expect(creator.games_hash).to be_a(Hash)
     end
-
   end
 
+  describe '#create_objects' do
+    it "creates Creator class instance with game object hashes" do
+      expect(creator).to be_a(Creator)
+    end
+  end
   describe  '#stat_obj_creator' do
     it "creates a hash objects" do
       expect(Creator.stat_obj_creator(game_team_data)).to be_a(Hash)
@@ -108,31 +114,16 @@ RSpec.describe Creator do
       stats_hash = Creator.stat_obj_creator(game_team_data)
       games_hash = Creator.game_obj_creator(game_data, stats_hash)
       teams_hash = Creator.team_obj_creator(team_data, games_hash)
+
       expect(teams_hash["17"]).to be_a(Team)
     end
-    xit 'game object matches its stat objects' do
+    it 'team object matches its game_team object identifier' do
       stats_hash = Creator.stat_obj_creator(game_team_data)
       games_hash = Creator.game_obj_creator(game_data, stats_hash)
+      teams_hash = Creator.team_obj_creator(team_data, games_hash)
 
-      expect(games_hash['2012030236'].game_id).to eq(stats_hash['2012030236_17'].game_id)
-      expect(games_hash['2012030236'].game_id).to eq(stats_hash['2012030236_16'].game_id)
-    end
-    xit 'game object matches home team and away team' do
-      stats_hash = Creator.stat_obj_creator(game_team_data)
-      games_hash = Creator.game_obj_creator(game_data, stats_hash)
-
-      expect(games_hash['2012030236'].home_team_id).to eq(stats_hash['2012030236_17'].team_id)
-      expect(games_hash['2012030236'].away_team_id).to eq(stats_hash['2012030236_16'].team_id)
-
-      expect(games_hash['2012030236'].home_team_stat).to eq(stats_hash['2012030236_17'])
-      expect(games_hash['2012030236'].away_team_stat).to eq(stats_hash['2012030236_16'])
+      expect(teams_hash["6"].team_id).to eq(teams_hash["6"].game_objects[0].home_team_id)
+      expect(teams_hash["3"].team_id).to eq(teams_hash["3"].game_objects[0].away_team_id)
     end
   end
-
-  # describe "#league" do
-  #   it "creates league object" do
-  #   expect(creator.league).to be_a(League)
-  #   end
-  # end
-
 end
