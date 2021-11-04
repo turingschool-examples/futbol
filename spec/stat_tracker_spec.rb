@@ -30,7 +30,7 @@ RSpec.describe StatTracker do
   end
 
   it 'it can display total wins by home team as percentage' do
-    expect(stat_tracker.percentage_home_wins).to eq(60.00)
+    expect(stat_tracker.percentage_home_wins).to eq(40.00)
   end
 
   xit 'can find the percentage of games that a visitor has won' do
@@ -38,6 +38,6 @@ RSpec.describe StatTracker do
   end
 
   xit 'can find the percentage of games that resulted in a tie' do
-    expect(stat_tracker.percentage_ties).to eq(0.00)
+    expect(stat_tracker.percentage_ties).to eq(20.00)
   end
 end
