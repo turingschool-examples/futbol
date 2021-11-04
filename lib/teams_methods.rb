@@ -6,12 +6,12 @@ module Teams_Methods
     team = @teams.select do |team|
       team.teamName == team_name
     end
-
-    team_info['team_id'] = team[0].team_id
-    team_info['franchiseId'] = team[0].franchiseId
-    team_info['teamName'] = team[0].teamName
-    team_info['abbreviation'] = team[0].abbreviation
-    team_info['link'] = team[0].link
+    team = team[0]
+    team_info['team_id'] = team.team_id
+    team_info['franchiseId'] = team.franchiseId
+    team_info['teamName'] = team.teamName
+    team_info['abbreviation'] = team.abbreviation
+    team_info['link'] = team.link
 
     team_info
   end
