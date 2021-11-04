@@ -298,17 +298,63 @@ class StatTracker
   def rival; end
 
   #### Season
-  def winningest_coach
-    # games_won = []
-    # @games.each do|game|
-    #   if game.game.home_goals > game.away_goals
-    #     games_won.push(game)
-    #   end
-    #   games_won.group_by
-    # end
+  def winningest_coach(season)
+    average_wins_by_coach(season).max_by { |coach , average_wins| average_wins }[0]
   end
 
-  def worst_coach; end
+  def wins_by_season(season)
+    games_won = []
+    game_teams_in_season(season).each do |game|
+      if game.result == "WIN"
+        games_won.push(game)
+      end
+    end
+    games_won
+  end
+
+  def total_games_by_coaches(season)
+    games_by_coach = game_teams_in_season(season).group_by { |game_team| game_team.head_coach}
+    games_by_coach.each do |coach , game_teams|
+      games_by_coach[coach] = game_teams.count
+    end
+    games_by_coach
+  end
+
+  def wins_per_coaches(season)
+    wins_grouped = wins_by_season(season).group_by { |game| game.head_coach }
+    wins_grouped.each do |coach , games|
+      wins_grouped[coach] = games.count
+    end
+    wins_grouped
+  end
+
+
+  def average_wins_by_coach(season)
+    average_percent_won_by_coaches = Hash.new
+    total_games_by_coaches(season).each do |coach , total_games|
+      wins_per_coaches(season).each do |coach1 , total_wins|
+        if coach == coach1
+          if total_games > 0
+            average_percent_won_by_coaches[coach] = total_wins / total_games.to_f
+          else
+            # Edge case nil for games that have a total of 0
+            average_percent_won_by_coaches[coach] = nil
+          end
+        end
+      end
+    end
+    average_percent_won_by_coaches
+  end
+
+  def worst_coach(season)
+    # .reject! is removing nil
+    #        expected: "Peter Laviolette"
+    #             got: "Ron Rolston"
+    average_wins_by_coach(season).reject! { |coach , average_wins| average_wins == nil }
+    average_wins_by_coach(season).min_by { |coach , average_wins| average_wins }[0]
+  end
+
+  def most_accurate_team; end
 
 
   # accept an array of game teams and return a single accuracy score
