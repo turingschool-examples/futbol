@@ -8,7 +8,6 @@ require './lib/game'
 require './lib/team'
 
 RSpec.describe Creator do
-  # let(:league){double("league")}
   let!(:stat_tracker) do
     game_path = './spec/fixtures/spec_games.csv'
     team_path = './spec/fixtures/spec_teams.csv'

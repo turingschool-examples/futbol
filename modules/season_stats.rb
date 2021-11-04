@@ -1,3 +1,3 @@
-module SeasonStats
+class SeasonStats
 
 end
