@@ -5,11 +5,11 @@ require './lib/game'
 require './lib/team'
 require './lib/game_team'
 
+require './lib/season_methods'
 require './lib/teams_methods'
 
-
 class StatTracker
-
+  include SeasonMethods
   include Teams_Methods
 
   attr_reader :games, :teams, :game_teams
@@ -45,6 +45,8 @@ class StatTracker
       @game_teams << GameTeam.new(row)
     end
   end
+
+
 
 end
 
