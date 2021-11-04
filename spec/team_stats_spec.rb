@@ -25,6 +25,6 @@ end
 
 #team_id, franchise_id, team_name, abbreviation, and link
 
-#season wins, season, losses
+#season wins, season losses
 #goals in a single game
 #win percentage against the given team
