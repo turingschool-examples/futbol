@@ -30,5 +30,6 @@ RSpec.describe StatTracker do
     stat_tracker = StatTracker.from_csv(locations)
 
     expect(stat_tracker.highest_total_score).to eq(11)
+
   end
 end
