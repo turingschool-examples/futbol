@@ -3,7 +3,8 @@ require './creator'
 class StatTracker
   attr_reader :game_data,
               :team_data,
-              :game_team_data
+              :game_team_data,
+              :creator
 
   def initialize(game_data, team_data, game_team_data)
     @game_data      = game_data
@@ -18,5 +19,4 @@ class StatTracker
     game_team_data = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
     self.new(game_data, team_data, game_team_data)
   end
-
 end

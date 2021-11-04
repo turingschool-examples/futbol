@@ -1,3 +1,3 @@
-class GameStats
-  
+module GameStats
+
 end

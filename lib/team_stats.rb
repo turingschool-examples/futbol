@@ -1,3 +1,3 @@
-class TeamStats
-  
+module TeamStats
+
 end
