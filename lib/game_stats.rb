@@ -84,7 +84,6 @@ class GameStats
     total_games_per_season = Hash.new
     # count = 0
     @game_data.each do |game|
-      require "pry"; binding.pry
       # if @game_data["season"] == total_games_per_season[game["season"]]
       total_games_per_season[game["season"]] = @game_data["season"].uniq.count
     end
