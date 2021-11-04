@@ -1,3 +1,4 @@
+require 'spec_helper'
 require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
@@ -23,6 +24,11 @@ RSpec.describe StatTracker do
     expect(StatTracker.from_csv(@filenames)).to be_an_instance_of(StatTracker)
   end
 
+
+  it 'can return team name of team with the best offense' do
+    expect(@stat_tracker.best_offense).to eq("Chicago Fire")
+  end
+
   it '#team_info' do
     expect(@stat_tracker.team_info('LA Galaxy')).to eq({
       'team_id' => 17,
@@ -37,6 +43,5 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.average_win_percentage(17)).to eq(57.14)
     #add another test for different team
   end
-
 
 end

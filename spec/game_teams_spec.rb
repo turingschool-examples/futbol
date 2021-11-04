@@ -1,13 +1,22 @@
+require 'spec_helper'
 require './lib/game_team'
+require './lib/game'
+require './lib/team'
+require './lib/stat_tracker'
 
-RSpec.require do
+RSpec.describe do
 
-  xit 'counts all the teams in the league' do
-    expect(@stat_tracker.count_of_teams).to eq(32)
-  end
+  before(:each) do
+    @game_path = './data/games_test.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './data/game_teams.csv'
 
-  xit 'counts games by season' do
-    expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=> 9, "20162017" => 1, "20152016" => 2, "20172018" => 1})
+    @filenames = {
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
+    }
+    @new_stat_tracker = StatTracker.from_csv(@filenames)
   end
 
 end
