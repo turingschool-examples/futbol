@@ -20,7 +20,7 @@ class TeamsData < StatTracker
   end
 
 
-  def parse_seasons
+  def parse_seasons(team_id=nil)
     seasons = @gameData.map do |row|
       row['season']
     end.uniq
@@ -40,23 +40,36 @@ class TeamsData < StatTracker
 
   def best_season(team_id)
     separated_seasons = parse_seasons
-    win_percentages_by_season = Hash.new
-    # create a new Hash
-      # keys are season
-      # values are percentage of wins
+    team_games_by_season = Hash[separated_seasons.keys.collect { |item| [item, nil] } ]
 
-    # remove all irrelevent data from separated_seasons values
-
-    sanitized_hash = separated_seasons.map do |season, value|
+    separated_seasons.each do |key, value|
+      filtered_season_stats = []
 
       value.each do |row|
-        require 'pry'; binding.pry
-        if row['home_team_id'] != team_id.to_s && row['away_team_id'] != team_id.to_s
-          value.delete(row)
+        if row['home_team_id'] == team_id.to_s || row['away_team_id'] == team_id.to_s
+          filtered_season_stats << row
         end
       end
+
+      team_games_by_season[key] = filtered_season_stats
     end
 
+    team_games_by_season.each do |key, season|
+      win_count = 0
+
+      season.each do |row|
+        home_win = row['home_goals'].to_i > row['away_goals'].to_i
+        away_win = row['home_goals'].to_i < row['away_goals'].to_i
+        if team_id == row['home_team_id'].to_i && home_win
+          win_count += 1
+        elsif team_id == row['away_team_id'].to_i && away_win
+          win_count += 1
+        end
+      end
+      team_games_by_season[key] = ((win_count/season.count) * 100).round(2)
+    end
+    # require 'pry'; binding.pry
+    team_games_by_season.key(team_games_by_season.values.max)
 
   end
 
