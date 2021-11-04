@@ -53,5 +53,27 @@ class StatTracker
 
     (result_hash["TIE"].length.to_f / result_hash.each_value) *100.ceil(2)
       #require "pry"; binding.pry
+
+  def lowest_total_score
+    grouped_by_game = @game_results.group_by do |row|
+      row["game_id"]
+    end
+    game_sum_goals = []
+    grouped_by_game.each_pair do |key, value|
+      first_team_goals = value.first["goals"].to_i
+      second_team_goals = value.last["goals"].to_i
+      game_sum_goals << first_team_goals + second_team_goals
+    end
+    game_sum_goals.min
+  end
+
+  def percentage_home_wins
+    home_team_hash = @game_results.group_by do |row|
+      row["HoA"]
+    end
+    home_team_wins = home_team_hash["home"].select do |game|
+      game["result"] == "WIN"
+    end
+    (home_team_wins.length.to_f / home_team_hash["home"].length.to_f) * 100.ceil(2)
   end
 end

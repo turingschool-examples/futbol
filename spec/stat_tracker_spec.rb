@@ -40,5 +40,36 @@ RSpec.describe StatTracker do
   it 'can find the percentage of games that resulted in a tie' do
 
     expect(stat_tracker.percentage_ties).to eq(20.00)
+    
+  it 'it can display lowest total score' do
+    expect(stat_tracker.lowest_total_score).to eq(3)
+  end
+
+  it 'it can display total wins by home team as percentage' do
+    expect(stat_tracker.percentage_home_wins).to eq(40.00)
+  end
+
+  xit 'can find the percentage of games that a visitor has won' do
+    expect(stat_tracker.percentage_visitor_wins).to eq(40.00)
+  end
+
+  xit 'can find the percentage of games that resulted in a tie' do
+    expect(stat_tracker.percentage_ties).to eq(20.00)
+  end
+
+  it 'can sort the number of games attributed to each season' do
+    expect(stat_tracker.count_of_games_by_season).to be_a(Hash)
+    expect(stat_tracker.count_of_games_by_season).to include('20122013' => 10)
+    #may need to change dummy data to test more key/value pairs
+  end
+
+  it 'can calculate average goals per game across seasons' do
+    expect(stat_tracker.averagee_goals_per_game),to eq(3.70)
+  end
+
+  it 'can organize average goals per game by season' do
+    expect(stat_tracker.average_goals_by_season).to be_a(Hash)
+    expect(stat_tracker.average_goals_by_season).to include('20122013' => 3.70)
+
   end
 end
