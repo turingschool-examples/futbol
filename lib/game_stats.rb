@@ -56,4 +56,20 @@ class GameStats < Game
     end
     (total_visitor_wins.to_f / total_games).round(2)
   end
+
+  def percentage_ties
+    total_games = 0
+    @games.each do |game|
+      total_games += 1
+    end
+
+    total_ties = 0
+    @games.each do |game|
+      if game.away_goals == game.home_goals
+        total_ties += 1
+      end
+    end
+    (total_ties.to_f / total_games).round(2)
+
+  end
 end

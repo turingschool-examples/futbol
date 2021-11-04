@@ -28,4 +28,8 @@ describe GameStats do
     it "can show percentage_visitor_wins" do
         expect(gamestats.percentage_visitor_wins).to eq(0.25)
     end
+
+    it "can show you the percentage of tie games" do
+        expect(gamestats.percentage_ties).to eq(0.05)
+    end
 end
