@@ -335,18 +335,15 @@ class StatTracker
     average_wins_by_coach(season).max_by { |coach , average_wins| average_wins }[0]
   end
 
-  def total_games_by_coaches(season)
-    games_by_coach = game_teams_in_season(season).group_by { |game_team| game_team.head_coach}
-    games_by_coach.each do |coach , game_teams|
-    end
-    games_by_coach
+  def game_teams_by_coaches(season)
+    game_teams_by_coach = game_teams_in_season(season).group_by { |game_teams| game_teams.head_coach}
   end
 
   def average_wins_by_coach(season)
     average_percent_won_by_coaches = Hash.new
-    total_games_by_coaches(season).each do |coach , total_games|
-      total_wins = total_games.find_all{ |game| game.result == 'WIN'}.count.to_f
-          average_percent_won_by_coaches[coach] = total_wins / total_games.count.to_f
+    game_teams_by_coaches(season).each do |coach , game_teams|
+      total_wins = game_teams.find_all{ |game_team| game_team.result == 'WIN'}.count.to_f
+      average_percent_won_by_coaches[coach] = total_wins / game_teams.count.to_f
       end
     average_percent_won_by_coaches
   end
