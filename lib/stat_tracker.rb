@@ -331,10 +331,22 @@ class StatTracker
       accuracy = accuracy(game_teams)
       accuracy_hash[team_id] = accuracy
     end
+    max_team_id = accuracy_hash.max_by{|team_id, accuracy| accuracy}[0]
+    max_team = @teams.select{ |team| team.team_id == max_team_id}[0]
+    max_team_name = max_team.team_name
   end
 
   def least_accurate_team(season)
-
+    game_teams_in_season = game_teams_in_season(season)
+    game_teams_by_team = game_teams_in_season.group_by{|game_team| game_team.team_id}
+    accuracy_hash = Hash.new()
+    game_teams_by_team.each do |team_id, game_teams|
+      accuracy = accuracy(game_teams)
+      accuracy_hash[team_id] = accuracy
+    end
+    min_team_id = accuracy_hash.min_by{|team_id, accuracy| accuracy}[0]
+    min_team = @teams.select{ |team| team.team_id == min_team_id}[0]
+    min_team_name = min_team.team_name
   end
 
   def games_in_season(season)
