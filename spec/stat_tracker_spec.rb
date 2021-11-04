@@ -241,17 +241,17 @@ RSpec.describe StatTracker do
 
   describe ' #favorite_opponent' do
     it 'Name of the opponent that has the lowest win percentage against the given team.' do
-      team = @stat_tracker.teams[5]
-      expect(@stat_tracker.favorite_opponent(team)).to be_a(String)
-      expect(@stat_tracker.favorite_opponent(team)).to eq('FC Dallas')
+      team_id = @stat_tracker.teams[5].team_id
+      expect(@stat_tracker.favorite_opponent(team_id)).to be_a(String)
+      expect(@stat_tracker.favorite_opponent(team_id)).to eq('FC Dallas')
     end
   end
 
   describe ' #rival' do
     it 'Name of the opponent that has the highest win percentage against the given team.' do
-      team = @stat_tracker.teams[5]
-      expect(@stat_tracker.favorite_opponent(team)).to be_a(String)
-      expect(@stat_tracker.favorite_opponent(team)).to eq('FC Dallas')
+      team_id = @stat_tracker.teams[5].team_id
+      expect(@stat_tracker.rival(team_id)).to be_a(String)
+      expect(@stat_tracker.rival(team_id)).to eq('FC Dallas')
     end
   end
   ### Season

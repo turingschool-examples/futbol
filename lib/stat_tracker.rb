@@ -293,14 +293,13 @@ class StatTracker
     total.min
   end
 
-  #given a team, return a hash of the win percentages of all opponents
-  def opponent_win_percentages(team)
+  #given a team_id, return a hash of the win percentages of all opponents
+  def opponent_win_percentages(team_id)
     # get all games of a particular team
     # sort by opponent id
     # iterates through games by opponent
     # count wins and losses, return win percentage
     # return opponent with lowest win percentage
-    team_id = team.team_id
     games_with_team = @games.find_all{|game| game.home_team_id == team_id}
     games_by_away_team = games_with_team.group_by{|game| game.away_team_id}
     opponent_win_percentages = Hash.new()
@@ -315,13 +314,13 @@ class StatTracker
     opponent_win_percentages
   end
 
-  def favorite_opponent(team)
-    opponent_win_percentages = opponent_win_percentages(team)
+  def favorite_opponent(team_id)
+    opponent_win_percentages = opponent_win_percentages(team_id)
     fav_opponent = opponent_win_percentages.min_by{|away_team_name, win_percentage| win_percentage}[0]
   end
 
-  def rival
-    opponent_win_percentages = opponent_win_percentages(team)
+  def rival(team_id)
+    opponent_win_percentages = opponent_win_percentages(team_id)
     rival = opponent_win_percentages.max_by{|away_team_name, win_percentage| win_percentage}[0]
   end
 
