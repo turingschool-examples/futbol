@@ -6,8 +6,6 @@ require './lib/team'
 require './runner'
 
 
-# Game Statistics Tests
-
 RSpec.describe StatTracker do
   before(:each) do
     @game_path = './data/games.csv'
@@ -25,7 +23,7 @@ RSpec.describe StatTracker do
     @stat_tracker[0].read_game_teams_stats(@game_teams_path)
   end
 
-  xdescribe '#initialize' do
+  describe '#initialize' do
     it 'is an instance of StatTracker' do
       expect(@stat_tracker).to be_an_instance_of Array
     end
@@ -43,44 +41,14 @@ RSpec.describe StatTracker do
     end
   end
 
-  xdescribe '#highest_total_score' do
+ #Leage Statistics Tests
+  describe '#count_of_teams' do
+    it 'returns total number of teams' do
+      expect(@stat_tracker[0].count_of_teams).to eq(32)
+    end
+
     it 'returns an integer' do
-      expect(@stat_tracker[0].highest_total_score).to be_an_instance_of Integer
-    end
-
-    it 'returns highest total of winning and losing team score by game' do
-      expect(@stat_tracker[0].highest_total_score).to eq 11
-    end
-  end
-
-  xdescribe '#lowest_total_score' do
-    it 'returns an integer' do
-      expect(@stat_tracker[0].lowest_total_score).to be_an_instance_of Integer
-    end
-
-    it 'returns lowest total of winning and losing team score by game' do
-      expect(@stat_tracker[0].lowest_total_score).to eq 0
-    end
-  end
-
-  describe '#percentage_home_wins' do
-    it 'returns a float' do
-      expect(@stat_tracker[0].percentage_home_wins).to be_an_instance_of Float
-    end
-
-    it 'percentage of games won by the home team' do
-      expect(@stat_tracker[0].percentage_home_wins).to eq 0
-    end
+      expect(@stat_tracker[0].count_of_teams).to be_an_instance_of(Integer)
+    end 
   end
 end
-
-
-
-
-# League Statistics Tests
-
-
-# Season Statistics Tests
-
-
-# Team Statistics Tests
