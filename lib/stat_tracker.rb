@@ -1,3 +1,4 @@
+require 'csv'
 require './lib/game_team'
 require './lib/team'
 require './lib/game'
@@ -43,42 +44,9 @@ class StatTracker
       @game_teams[game_team.game_id] = game_team
     end
   end
-  # Game Statistics
-  def highest_total_score
-    high_score = 0
-    @games.each_value do |game|
-      high = game.away_goals + game.home_goals
-      if (game.away_goals + game.home_goals) > high_score
-        high_score = game.away_goals + game.home_goals
-      end
-    end
-    high_score
-  end
 
-  def lowest_total_score
-    low_score = 100
-    @games.each_value do |game|
-      low = game.away_goals + game.home_goals
-      if low < low_score
-        low_score = low
-      end
-    end
-    low_score
-  end
-
-  def percentage_home_wins
-    home_wins_count = 0
-    @games.each_value do |game|
-      if game.home_goals
-  end
   # League Statistics
-
-
-  # Season Statistics
-
-
-  # Team Statistics
-
-
-
+  def count_of_teams
+    @teams.length
+  end
 end
