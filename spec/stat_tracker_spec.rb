@@ -228,13 +228,30 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#rival' do
-    xit '' do
+  describe ' #opponent_win_percentage' do
+    it 'returns a hash' do
+      team = @stat_tracker.teams[5]
+      expect(@stat_tracker.opponent_win_percentages(team)).to be_a(Hash)
+    end
+    it 'return a hash of the win percentages of all opponents as floats' do
+      team = @stat_tracker.teams[5]
+      expect(@stat_tracker.opponent_win_percentages(team).values.flatten.all?{|perc| perc.class == Float}).to eq(true)
     end
   end
 
-  describe '#rival' do
-    xit '' do
+  describe ' #favorite_opponent' do
+    it 'Name of the opponent that has the lowest win percentage against the given team.' do
+      team = @stat_tracker.teams[5]
+      expect(@stat_tracker.favorite_opponent(team)).to be_a(String)
+      expect(@stat_tracker.favorite_opponent(team)).to eq('FC Dallas')
+    end
+  end
+
+  describe ' #rival' do
+    it 'Name of the opponent that has the highest win percentage against the given team.' do
+      team = @stat_tracker.teams[5]
+      expect(@stat_tracker.favorite_opponent(team)).to be_a(String)
+      expect(@stat_tracker.favorite_opponent(team)).to eq('FC Dallas')
     end
   end
   ### Season
