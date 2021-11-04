@@ -41,8 +41,8 @@ RSpec.describe SeasonStats do
     expect(@season_stats.most_tackles).to eq("6")
   end
 
-  xit 'fewest_tackles' do
+  it 'fewest_tackles' do
 
-    expect(@season_stats.fewest_tackles).to eq("17")
+    expect(@season_stats.fewest_tackles).to eq("16")
   end
 end

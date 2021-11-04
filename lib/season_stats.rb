@@ -65,7 +65,7 @@ class SeasonStats
       worst_coach
     end
 
-    def most_accurate_team
+    def most_accurate_team #best ratio of shots to goals for the season
       accuracy = 0.0
       most_accurate_team_id = nil
       @season_log.each do |team|
@@ -78,7 +78,7 @@ class SeasonStats
       most_accurate_team_id
     end
 
-    def least_accurate_team
+    def least_accurate_team #worst ratio of shots to goals for the season
       accuracy = 100.0
       least_accurate_team_id = nil
       @season_log.each do |team|
@@ -89,5 +89,31 @@ class SeasonStats
         end
       end
       least_accurate_team_id
+    end
+
+    def most_tackles #most tackles in the season
+      tackle_max = 0
+      most_tackles_team_id = nil
+      @season_log.each do |team|
+        if team[1][5] > tackle_max
+          tackle_max = team[1][5]
+          most_tackles_team_id = team[0]
+        else
+        end
+      end
+      most_tackles_team_id
+    end
+
+    def fewest_tackles #fewest tackles in the season
+      tackle_max = 1000
+      fewest_tackles_team_id = nil
+      @season_log.each do |team|
+        if team[1][5] < tackle_max
+          tackle_min = team[1][5]
+          fewest_tackles_team_id = team[0]
+        else
+        end
+      end
+      fewest_tackles_team_id
     end
   end
