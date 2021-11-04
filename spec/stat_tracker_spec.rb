@@ -259,23 +259,25 @@ RSpec.describe StatTracker do
   end
   ### Season
   describe '#winningest_coach' do
-    
-    xit "gets the total games played by coaches" do
-      expect(@stat_tracker.total_games_by_coaches('20122013')).to be_an(Hash)
-      expect(@stat_tracker.total_games_by_coaches('20122013')).to eq({"Claude Julien"=>2, "John Tortorella"=>2})
+
+    it "gets the total games played by coaches" do
+      expect(@stat_tracker.game_teams_by_coaches('20122013')).to be_an(Hash)
+
     end
     it "finds the average of the coach" do
       expect(@stat_tracker.average_wins_by_coach('20122013')).to be_an(Hash)
       expect(@stat_tracker.average_wins_by_coach('20122013')).to eq({"Claude Julien"=>1, "John Tortorella"=>0})
     end
 
-    xit 'Name of the Coach with the best win percentage for the season' do
+    it 'Name of the Coach with the best win percentage for the season' do
       expect(@stat_tracker.winningest_coach('20122013')).to be_a(String)
+      expect(@stat_tracker.winningest_coach('20122013')).to eq("Claude Julien")
     end
   end
   describe '#worst_coach' do
     it 'Name of the Coach with the worst win percentage for the season' do
       expect(@stat_tracker.winningest_coach('20122013')).to be_a(String)
+      expect(@stat_tracker.worst_coach('20122013')).to eq("John Tortorella")
     end
   end
   describe ' #accuracy' do
