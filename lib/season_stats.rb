@@ -8,46 +8,86 @@ class SeasonStats
   def initialize(season_data)
     @season_data = CSV.parse(File.read("./data/sample_game_teams.csv"), headers: true)
     @season_log = {}
+    @total_games_per_season = 0
     season_log_method
   end
 
-  def winningest_coach
-  end
-
   def season_log_method
-    @total_games_per_season = 0
-    @season_data.each do |season|
-        if season["HoA"] == "home"
+    @season_data.each do |game|
+        if game["HoA"] == "home"
           @total_games_per_season += 1
         end
-
-        if @season_log.keys.include? (season["team_id"])
+        if @season_log.keys.include? (game["team_id"])
         else
-          @season_log[season["team_id"]] = [(season["head_coach"]), 0, 0, 0, 0, 0]
+          @season_log[game["team_id"]] = [(game["head_coach"]), 0, 0, 0, 0, 0]
         end
-
-        win_count = 0
-        if season["result"] == "WIN"
-          win_count += 1
-        end
-
-        lose_count = 0
-        if season["result"] == "LOSE"
-          lose_count += 1
-        end
-
-        shots = (@season_log[season["team_id"]][3] += (season["shots"]).to_i)
-        goals = (@season_log[season["team_id"]][4] += (season["goals"]).to_i)
-        tackles = (@season_log[season["team_id"]][5] += (season["tackles"]).to_i)
-
-        @season_log[season["team_id"]] = [(season["head_coach"]), win_count, lose_count, shots, goals, tackles]
+        shots = (@season_log[game["team_id"]][3] += (game["shots"]).to_i)
+        goals = (@season_log[game["team_id"]][4] += (game["goals"]).to_i)
+        tackles = (@season_log[game["team_id"]][5] += (game["tackles"]).to_i)
+        @season_log[game["team_id"]] = [(game["head_coach"]), 0, 0, shots, goals, tackles] #<<<<Helps understand hash
       end
-      require "pry"; binding.pry
+      win_loss_counter
     end
-    #I need coach,
-    #win_percent(win count,loss count),
-    #shot/goal ratio,
-    #and tackles
 
-    #AAAAAALLL IN ONE BIG HASH
+    def win_loss_counter
+      @season_data.each do |game|
+        if game["result"] == "WIN"
+          @season_log[game["team_id"]][1] += 1
+        else
+          @season_log[game["team_id"]][2] += 1
+        end
+      end
+    end
+
+    def winningest_coach #best win % of season (gameswon/totalgames)
+      win_percentage = 0.0
+      winningest_coach = nil
+      @season_log.each do |team|
+        if team[1][1] / (team[1][2] + team[1][1]).to_f > win_percentage
+          winningest_coach = team[1][0]
+          win_percentage = 100 * (team[1][1] / (team[1][2] + team[1][1])).to_f
+        else
+        end
+      end
+      winningest_coach
+    end
+
+    def worst_coach #worst win % of season (gameswon/totalgames)
+      win_percentage = 100.0
+      worst_coach = nil
+      @season_log.each do |team|
+        if team[1][1] / (team[1][2] + team[1][1]).to_f < win_percentage
+          worst_coach = team[1][0]
+          win_percentage = 100 * (team[1][1] / (team[1][2] + team[1][1])).to_f
+        else
+        end
+      end
+      worst_coach
+    end
+
+    def most_accurate_team
+      accuracy = 0.0
+      most_accurate_team_id = nil
+      @season_log.each do |team|
+        if team[1][4] / (team[1][3]).to_f > accuracy
+          most_accurate_team_id = team[0]
+          accuracy = 100 * team[1][4] / (team[1][3]).to_f
+        else
+        end
+      end
+      most_accurate_team_id
+    end
+
+    def least_accurate_team
+      accuracy = 100.0
+      least_accurate_team_id = nil
+      @season_log.each do |team|
+        if team[1][4] / (team[1][3]).to_f < accuracy
+          least_accurate_team_id = team[0]
+          accuracy = 100 * team[1][4] / (team[1][3]).to_f
+        else
+        end
+      end
+      least_accurate_team_id
+    end
   end
