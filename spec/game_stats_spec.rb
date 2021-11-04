@@ -24,4 +24,8 @@ describe GameStats do
     it "can show percentage of home wins" do
         expect(gamestats.percentage_home_wins).to eq(0.7)
     end
+
+    it "can show percentage_visitor_wins" do
+        expect(gamestats.percentage_visitor_wins).to eq(0.25)
+    end
 end
