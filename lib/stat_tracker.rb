@@ -46,22 +46,12 @@ class StatTracker
   end
 
   def percentage_home_wins
-    grouped_by_home = @game_results.group_by do |row|
+    home_team_hash = @game_results.group_by do |row|
       row["HoA"]
     end
-    wins_counter = 0
-    grouped_by_home.each_pair do |key, value|
-      require "pry"; binding.pry
-      if value.first["HoA"] == ["home"]
-        if value.first["result"] == ['WIN']
-          wins_counter += 1
-        end
-      elsif value.last["HoA"] == ["home"]
-        if value.last["result"] == ['WIN']
-          wins_counter += 1
-        end
-      end
+    home_team_wins = home_team_hash["home"].select do |game|
+      game["result"] == "WIN"
     end
-    wins_counter.count
+    (home_team_wins.length.to_f / home_team_hash["home"].length.to_f) * 100.ceil(2)
   end
 end
