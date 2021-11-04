@@ -22,4 +22,18 @@ RSpec.describe SeasonStats do
     season_obj = SeasonStats.new(@stat_tracker)
     expect(season_obj).to be_instance_of(SeasonStats)
   end
-end 
+
+  it 'shows all seasons in dataset' do
+    season_obj = SeasonStats.new(@stat_tracker)
+
+
+    expect(season_obj.all_season).to eq(["20122013","20132014","20142015"])
+  end
+
+  it 'shows an array of games for a given season' do
+    season_obj = SeasonStats.new(@stat_tracker)
+    expected = ["2012030122"]
+
+    expect(season_obj.array_of_games("20132014")).to eq(expected)
+  end
+end
