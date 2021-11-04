@@ -25,8 +25,23 @@ class GameStats < Game
     def lowest_total_score
       @games.map do |game|
         (game.away_goals.to_i + game.home_goals.to_i)
-        require "pry"; binding.pry
+        # require "pry"; binding.pry
       end.min
+    end
+
+    def percentage_home_wins
+      total_games = 0
+      @games.each do |game|
+        total_games += 1
+      end
+
+      total_home_wins = 0
+      @games.each do |game|
+        if game.home_goals > game.away_goals
+          total_home_wins += 1
+        end
+      end
+      (total_home_wins.to_f / total_games)
     end
 
 

@@ -20,4 +20,8 @@ describe GameStats do
         expect(gamestats.lowest_total_score).to eq(1)
 
     end
+
+    it "can show percentage of home wins" do
+        expect(gamestats.percentage_home_wins).to eq(0.7)
+    end
 end
