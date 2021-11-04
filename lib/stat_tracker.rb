@@ -14,9 +14,15 @@ class StatTracker
   end
 
   def self.from_csv(locations)
-    games = CSV.parse(File.read(locations[:games]), headers: true)
-    teams = CSV.parse(File.read(locations[:teams]), headers: true)
-    game_results = CSV.parse(File.read(locations[:game_teams]), headers: true)
+    games = CSV.parse(File.read(locations[:games]), headers: true).each do |row|
+      # row = Game.new
+    end
+    teams = CSV.parse(File.read(locations[:teams]), headers: true).each do |row|
+      # row = Team.new
+    end
+    game_results = CSV.parse(File.read(locations[:game_teams]), headers: true).each do |row|
+      # row = Team.new
+    end
     ted_lasso = StatTracker.new(games, teams, game_results)
     return ted_lasso
   end
@@ -64,7 +70,7 @@ class StatTracker
     result_hash = @game_results.group_by do |row|
                               row["result"]
                       end
-    # require "pry"; binding.pry
+    require "pry"; binding.pry
 
     ((result_hash["TIE"].length.to_f / result_hash.each_value) *100).ceil(2)
       #require "pry"; binding.pry
@@ -73,13 +79,21 @@ class StatTracker
 
 
 
+  # def percentage_home_wins
+  #   home_team_hash = @game_results.group_by do |row|
+  #     row["HoA"]
+  #   end
+  #   home_team_wins = home_team_hash["home"].select do |game|
+  #     game["result"] == "WIN"
+  #   end
+  #   ((home_team_wins.length.to_f / home_team_hash["home"].length.to_f) * 100).ceil(2)
+  # end
+
   def percentage_home_wins
-    home_team_hash = @game_results.group_by do |row|
-      row["HoA"]
+    home_team_winners = @game_results.select do |game_team|
+      game_team.home? && game_team.won?
     end
-    home_team_wins = home_team_hash["home"].select do |game|
-      game["result"] == "WIN"
-    end
-    ((home_team_wins.length.to_f / home_team_hash["home"].length.to_f) * 100).ceil(2)
+
+    ((home_team_winners.length.to_f / home_team_hash["home"].length.to_f) * 100).ceil(2)
   end
 end
