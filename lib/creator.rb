@@ -3,19 +3,22 @@ require './game'
 require './team'
 
 class Creator
-  attr_reader :league
+  attr_reader :teams_hash, :seasons_hash, :stats_hash, :games_hash
 
-  def initialize(league)
-    @league = league
+  def initialize(teams_hash, seasons_hash, stats_hash, games_hash)
+    @teams_hash = teams_hash
+    @seasons_hash = seasons_hash
+    @stats_hash = stats_hash
+    @games_hash = games_hash
   end
 
   def self.create_objects(game_data, team_data, game_team_data)
     stats_hash = self.stat_obj_creator(game_team_data)
     games_hash = self.game_obj_creator(game_data, stats_hash)
-    @seasons_hash = self.season_obj_creator(games_hash)
+    seasons_hash = self.season_obj_creator(games_hash)
+    teams_hash = self.team_obj_creator(team_data, games_hash)
 
-    league = "this is league"
-    self.new(league)
+    self.new(teams_hash, seasons_hash, stats_hash, games_hash)
   end
 
   def self.stat_obj_creator(game_team_data)
@@ -52,18 +55,11 @@ class Creator
   def self.team_obj_creator(team_data, games_hash)
     teams_hash = {}
     team_data.each do |team|
-      # stuff wrong here
-      team_games = team_games.group_by { |game| game.game_id }
+      team_games = games_hash.values.find_all do |game|
+        (game.home_team_id == team[:team_id]) || (game.away_team_id == team[:team_id])
+      end
       teams_hash[team[:team_id]] = Team.new(team, team_games)
     end
     teams_hash
   end
-  # team_games = games_hash.values.find_all do |game|
-  #   require "pry"; binding.pry
-  #   (game.home_team_id == team[:team_id]) || (game.away_team_id == team[:team_id])
-  # end
-
-  def self.league_obj_creator
-  end
-
 end
