@@ -250,7 +250,7 @@ class StatTracker
   def worst_season(team_id)
     seasons.min_by do |season|
       team_season_win_percentage(team_id, season)
-    end 
+    end
   end
 
   def average_win_percentage(team_id)
@@ -298,11 +298,9 @@ class StatTracker
   def rival; end
 
   #### Season
-<<<<<<< HEAD
   def winningest_coach(season)
-    average_wins_by_coach(season).each do |coach|
-      coach.max
-    end
+    average_wins_by_coach(season).max_by { |coach , average_wins| average_wins }[0]
+    require "pry"; binding.pry
   end
 
   def wins_by_season(season)
@@ -316,10 +314,6 @@ class StatTracker
   end
 
   def total_games_by_coaches(season)
-    # game_teams_in_season(season).reduce({}) do |hash, games|
-    #   hash[games.head_coach] = games.each do |game|
-          # if game.
-    # end
     games_by_coach = game_teams_in_season(season).group_by { |game_team| game_team.head_coach}
     games_by_coach.each do |coach , game_teams|
       games_by_coach[coach] = game_teams.count
@@ -336,7 +330,15 @@ class StatTracker
   end
 
   def average_wins_by_coach(season)
-    wins_per_coaches(season) / total_games_by_coaches(season)
+    average_percent_won_by_coaches = Hash.new
+    total_games_by_coaches(season).each do |coach , total_games|
+      wins_per_coaches(season).each do |coach1 , total_wins|
+        if coach == coach1
+            average_percent_won_by_coaches[coach] = total_wins / total_games.to_f
+        end
+      end
+    end
+    average_percent_won_by_coaches
   end
 
 
@@ -348,17 +350,7 @@ class StatTracker
   end
 
   def most_accurate_team
-=======
-  def winningest_coach
-    # games_won = []
-    # @games.each do|game|
-    #   if game.game.home_goals > game.away_goals
-    #     games_won.push(game)
-    #   end
-    #   games_won.group_by
-    # end
   end
->>>>>>> c1b94b555372b7d30ea0cee6199fbf0cc5edc7c7
 
   def worst_coach; end
 
