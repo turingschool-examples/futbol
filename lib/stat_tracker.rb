@@ -1,34 +1,41 @@
 require 'csv'
 require 'pry'
+require './lib/game'
+require './lib/team'
+require './lib/game_team'
 
 
 class StatTracker
 
   attr_reader :games,
               :teams,
-              :game_results
-  def initialize(games, teams, game_results)
+              :game_teams
+  def initialize(games, teams, game_teams)
     @games      = games
     @teams      = teams
-    @game_results = game_results
+    @game_teams = game_teams
   end
 
   def self.from_csv(locations)
-    games = CSV.parse(File.read(locations[:games]), headers: true).each do |row|
-      # row = Game.new
+    games = []
+    CSV.parse(File.read(locations[:games]), headers: true).each do |row|
+       games << Game.new(row)
     end
-    teams = CSV.parse(File.read(locations[:teams]), headers: true).each do |row|
-      # row = Team.new
+    teams = []
+    CSV.parse(File.read(locations[:teams]), headers: true).each do |row|
+      teams << Team.new(row)
     end
-    game_results = CSV.parse(File.read(locations[:game_teams]), headers: true).each do |row|
-      # row = Team.new
+    game_teams = []
+    CSV.parse(File.read(locations[:game_teams]), headers: true).each do |row|
+      game_teams << GameTeam.new(row)
     end
-    ted_lasso = StatTracker.new(games, teams, game_results)
+    ted_lasso = StatTracker.new(games, teams, game_teams)
+    require "pry"; binding.pry
     return ted_lasso
   end
 
   def highest_total_score
-    grouped_by_game = @game_results.group_by do |row|
+    grouped_by_game = @game_teams.group_by do |row|
       row["game_id"]
     end
     game_sum_goals = []
@@ -41,7 +48,7 @@ class StatTracker
   end
 
   def lowest_total_score
-    grouped_by_game = @game_results.group_by do |row|
+    grouped_by_game = @game_teams.group_by do |row|
       row["game_id"]
     end
     game_sum_goals = []
@@ -54,7 +61,7 @@ class StatTracker
   end
 
   def percentage_visitor_wins
-    away_team_hash = @game_results.group_by do |row|
+    away_team_hash = @game_teams.group_by do |row|
                               row["HoA"]
                       end
 
@@ -67,7 +74,7 @@ class StatTracker
   end
 
   def percentage_ties
-    result_hash = @game_results.group_by do |row|
+    result_hash = @game_teams.group_by do |row|
                               row["result"]
                       end
     require "pry"; binding.pry
@@ -80,7 +87,7 @@ class StatTracker
 
 
   # def percentage_home_wins
-  #   home_team_hash = @game_results.group_by do |row|
+  #   home_team_hash = @game_teams.group_by do |row|
   #     row["HoA"]
   #   end
   #   home_team_wins = home_team_hash["home"].select do |game|
@@ -90,7 +97,7 @@ class StatTracker
   # end
 
   def percentage_home_wins
-    home_team_winners = @game_results.select do |game_team|
+    home_team_winners = @game_teams.select do |game_team|
       game_team.home? && game_team.won?
     end
 
