@@ -202,12 +202,12 @@ class StatTracker
   def team_info(team_id)
     team = find_team(team_id)
     {
-      team_id: team.team_id,
-      franchise_id: team.franchise_id,
-      team_name: team.team_name,
-      abbreviation: team.abbreviation,
-      stadium: team.stadium,
-      link: team.link
+      "team_id" => team.team_id,
+      "franchise_id" => team.franchise_id,
+      "team_name" => team.team_name,
+      "abbreviation" => team.abbreviation,
+      "stadium" => team.stadium,
+      "link" => team.link
     }
     # categories = team.keys
     # info = team.values
@@ -250,7 +250,7 @@ class StatTracker
   def worst_season(team_id)
     seasons.min_by do |season|
       team_season_win_percentage(team_id, season)
-    end 
+    end
   end
 
   def average_win_percentage(team_id)
