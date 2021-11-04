@@ -31,7 +31,6 @@ class TeamsData < StatTracker
       @gameData.each do |row|
         if season[0] == row['season']
           season[1] << row
-
         end
       end
     end
@@ -42,14 +41,22 @@ class TeamsData < StatTracker
   def best_season(team_id)
     separated_seasons = parse_seasons
     win_percentages_by_season = Hash.new
+    # create a new Hash
+      # keys are season
+      # values are percentage of wins
 
     # remove all irrelevent data from separated_seasons values
 
+    sanitized_hash = separated_seasons.map do |season, value|
 
+      value.each do |row|
+        require 'pry'; binding.pry
+        if row['home_team_id'] != team_id.to_s && row['away_team_id'] != team_id.to_s
+          value.delete(row)
+        end
+      end
+    end
 
-    # separated_seasons.map do |season|
-    # 
-    # end
 
   end
 

@@ -44,14 +44,17 @@ RSpec.describe TeamsData do
   #   expected(TeamsData.team_info(team_id)).to eq(expected)
   # end
 
-  it 'parses season data' do
+  # it 'parses season data' do
+  #   team_obj = TeamsData.new(@stat_tracker)
+  #
+  #   expect(team_obj.parse_seasons).to eq(3)
+  #   expect(team_obj.parse_seasons[1].size).to eq(1)
+  #   expect(team_obj.parse_seasons[3].size).to eq(1)
+  #   expect(team_obj.parse_seasons[5].size).to eq(1)
+  # end
+
+  it 'finds best season by team' do
     team_obj = TeamsData.new(@stat_tracker)
-
-    expect(team_obj.parse_seasons).to eq(3)
-    expect(team_obj.parse_seasons[1].size).to eq(1)
-    expect(team_obj.parse_seasons[3].size).to eq(1)
-    expect(team_obj.parse_seasons[5].size).to eq(1)
+    expect(team_obj.best_season(2)).to eq(4)
   end
-
-  it ''
 end
