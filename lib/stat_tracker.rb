@@ -220,7 +220,6 @@ class StatTracker
   def best_season(team_id)
     seasons.max_by do |season|
       team_season_win_percentage(team_id, season) #pass in two arguments and include the season?
-      # require 'pry'; binding.pry
     end
   end
 
@@ -233,10 +232,9 @@ class StatTracker
 
     #this line is returning an infinity when there are zero games in a season
     season_wins(team_id, season).count/team_games_by_season(team_id, season).count.to_f
-    # require 'pry'; binding.pry
   end
 
-  #this is going through the games and not game_teams where the wins aare saved
+  #this is going through the games and not game_teams where the wins are saved
   def team_games_by_season(team_id, season)
     seasons_games = games_in_season(season)
     team_games_in_season = seasons_games.find_all do |game|
