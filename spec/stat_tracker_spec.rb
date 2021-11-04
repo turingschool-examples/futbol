@@ -99,10 +99,10 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_goals_per_game).to eq(3.86)
     end
   end
-  describe ' #average_goals_per_season' do
-    xit 'returns a hash with average # of goals per season' do
-      expect(@stat_tracker.average_goals_per_season).to be_a(Hash)
-      expect(@stat_tracker.average_goals_per_season).to eq({ '20122013' => 3.83, '20142015' => 3.87 })
+  describe ' #average_goals_by_season' do
+    it 'returns a hash with average # of goals per season' do
+      expect(@stat_tracker.average_goals_by_season()).to be_a(Hash)
+      expect(@stat_tracker.average_goals_by_season).to eq({ '20122013' => 3.83, '20142015' => 3.87 })
     end
   end
 
@@ -229,7 +229,7 @@ RSpec.describe StatTracker do
       team = @stat_tracker.teams[5]
       expect(@stat_tracker.opponent_win_percentages(team)).to be_a(Hash)
     end
-    
+
     it 'return a hash of the win percentages of all opponents as floats' do
       team = @stat_tracker.teams[5]
       expect(@stat_tracker.opponent_win_percentages(team).values.flatten.all?{|perc| perc.class == Float}).to eq(true)

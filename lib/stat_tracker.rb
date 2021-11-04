@@ -93,17 +93,15 @@ class StatTracker
   # with season names (e.g. 20122013) as keys and a float
   # representing the average number of goals in a game for that season
   # as values (rounded to the nearest 100th)	- Hash
-
-  def average_goals_per_season
-    #   avg_goals_per_season = Hash.new(0)
-    #   games_by_season = @games.group_by do|game|
-    #     game.season
-    #   end
-    #   games_by_season.keys.each do |season|
-    #     goals_by_season = games_by_season[season].map{|game| game.home_goals + game.away_goals}
-    #     avg_goals_per_season[season] = (goals_by_season.sum.to_f / goals_by_season.length.to_f).round(2)
-    #   end
-    #   return avg_goals_per_season
+  def average_goals_by_season
+    avg_goals_by_season = Hash.new(0)
+    games_by_season = @games.group_by{|game|game.season}
+    games_by_season.each do |season, games|
+      total_goals = games.map{|game| game.away_goals + game.home_goals}.sum
+      avg_goals = (total_goals/games.count.to_f)
+      avg_goals_by_season[season] = avg_goals.round(2)
+    end
+    return avg_goals_by_season
   end
 
   # League Statistics
