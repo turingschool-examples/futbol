@@ -145,8 +145,8 @@ class StatTracker
     all_games.sum { |game| game.goals }
   end
 
-  # Lines 153 to ??? use these methods to find teh highest/lowest scoring teams
-  # based on being the home or away team
+  #Lines 153 to 200 use these methods to find teh highest/lowest scoring teams
+  #based on being the home or away team
   def highest_scoring_visitor
     @teams.max_by do |team|
       visiting_average_goals(team)
@@ -197,11 +197,65 @@ class StatTracker
     end.team_name
   end
 
-  def team_info; end
 
-  def best_season; end
+  #Team Statistics
+  def team_info(team_id)
+    team = find_team(team_id)
+    {
+      "team_id" => team.team_id,
+      "franchise_id" => team.franchise_id,
+      "team_name" => team.team_name,
+      "abbreviation" => team.abbreviation,
+      "link" => team.link
+    }
+    # categories = team.keys
+    # info = team.values
+    # Hash[categories.zip(info)]
+  end
 
-  def worst_season; end
+  def find_team(team_id)
+    @teams.find {|team| team.team_id == team_id}
+  end
+
+  def best_season(team_id)
+    seasons.max_by do |season|
+      team_season_win_percentage(team_id, season) #pass in two arguments and include the season?
+    end
+  end
+
+  def seasons
+    @games.map {|game| game.season}.uniq
+  end
+
+  def team_season_win_percentage(team_id, season)
+    # return 0 if team_games_by_season(team_id, season).count == 0
+
+    #this line is returning an infinity when there are zero games in a season
+    season_wins(team_id, season).count/team_games_by_season(team_id, season).count.to_f
+  end
+
+  #this is going through the games and not game_teams where the wins are saved
+  def team_games_by_season(team_id, season)
+    seasons_games = games_in_season(season)
+    team_games_in_season = seasons_games.find_all do |game|
+      game.away_team_id == team_id || game.home_team_id == team_id
+    end
+  end
+
+  #this method was just searching all the game_teams originally, need to limit it
+  #changed to Leland's helper method to sort by games in season
+  def season_wins(team_id, season)
+    game_teams_in_season(season).find_all do |game_team|
+    # @game_teams
+      game_team.team_id == team_id && game_team.result == "WIN"
+    end
+  end
+
+  def worst_season(team_id)
+    seasons.min_by do |season|
+      team_season_win_percentage(team_id, season)
+    end
+  end
 
   def average_win_percentage(team_id)
     away_games = @games.find_all do |game|
@@ -272,42 +326,45 @@ class StatTracker
     games_in_season = @games.find_all { |game| game.season == season }
   end
 
+  def game_ids_in_games(games)
+    game_ids_in_games = games.map { |game| game.game_id }
+  end
+
+  def game_teams_by_games(games)
+    game_ids = game_ids_in_games(games)
+    @game_teams.find_all{|game_team|game_ids.include?(game_team.game_id)}
+  end
+
   # helper method to collect all game_teams in a given season
   def game_teams_in_season(season)
-    # collect all games is selected season. games.csv
-    # collect all game_team entires with corresponding game_ids - game_teams.csv
     games_in_season = games_in_season(season)
-    game_ids_in_season = games_in_season.map { |game| game.game_id }
-    # only include game_team if it's game_id is in list of correct game ids
-    @game_teams.find_all do |game_team|
-      game_ids_in_season.include?(game_team.game_id)
-    end
+    game_teams_in_season = game_teams_by_games(games_in_season)
+  end
+
+  def team_from_game_team(game_team)
+    # get team id from selected game_team, and use this to gather the team name.
+    team_id =  game_team.team_id
+    team = @teams.select{|team| team.team_id == team_id} #this can be faster with a hash
+    return team[0]
   end
 
   # return an array of team names from an array of team objects, or a single team name if only one given
-  def get_teams_from_game_teams(game_teams)
+  def teams_from_game_teams(game_teams)
     # if single team, return single value. Else return array of values.
-    if game_teams.instance_of?(Array)
-      # get team ids from selected game_teams, and use this to gather the team names.
-      team_ids = game_teams.map { |game_team| game_team.team_id }
-      @teams.select { |team| team_ids.include?(team.team_id) } # this can be faster with a hash.
 
-    else
-      # get team id from selected game_team, and use this to gather the team name.
-      team_id = game_teams.team_id
-      @teams.select { |team| team.team_id == team_id } # this can be faster with a hash
-
-    end
+    # get team ids from selected game_teams, and use this to gather the team names.
+    team_ids =  game_teams.map { |game_team| game_team.team_id }
+    teams = @teams.select{ |team| team_ids.include?(team.team_id) } # this can be faster with a hash.
+    return teams
   end
 
   # Name of the Team with the most tackles in the season	- String
   def most_tackles(season)
     game_teams_in_season = game_teams_in_season(season)
-    # get game_team object with most tackles - game_teams.csv
-    max_tackles_game_teams = game_teams_in_season.max_by do |game_team|
-      game_team.tackles
-    end
-    teams = get_teams_from_game_teams(max_tackles_game_teams)
+    max_tackles_game_team = game_teams_in_season.max_by{ |game_team|game_team.tackles}
+    max_tackles = max_tackles_game_team.tackles
+    max_tackles_game_teams = game_teams_in_season.select{|game_team| game_team.tackles == max_tackles}
+    teams = teams_from_game_teams(max_tackles_game_teams)
     team_names = teams.map { |team| team.team_name }
     # return sigle name if only one item.
     if team_names.length == 1
@@ -320,11 +377,10 @@ class StatTracker
   # Name of the Team with the fewest tackles in the season	- String
   def fewest_tackles(season)
     game_teams_in_season = game_teams_in_season(season)
-    # get game_team object with most tackles - game_teams.csv
-    min_tackles_game_teams = game_teams_in_season.min_by do |game_team|
-      game_team.tackles
-    end
-    teams = get_teams_from_game_teams(min_tackles_game_teams)
+    min_tackles_game_team = game_teams_in_season.min_by{ |game_team|game_team.tackles}
+    min_tackles = min_tackles_game_team.tackles
+    min_tackles_game_teams = game_teams_in_season.select{|game_team| game_team.tackles == min_tackles}
+    teams = teams_from_game_teams(min_tackles_game_teams)
     team_names = teams.map { |team| team.team_name }
     # return sigle name if only one item.
     if team_names.length == 1
