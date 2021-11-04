@@ -278,22 +278,18 @@ class StatTracker
           # if game.
     # end
     games_by_coach = game_teams_in_season(season).group_by { |game_team| game_team.head_coach}
-    # games_by_coach[games_by_coach.keys] = games_by_coach.values.count
-    # # games_by_coach.values.count
-
-
-    # total_games_hash_by_coaches = games_by_coach.map do |coach , game_teams|
-    #   game_teams.count
-    #   require "pry"; binding.pry
-    # end
+    games_by_coach.each do |coach , game_teams|
+      games_by_coach[coach] = game_teams.count
+    end
+    games_by_coach
   end
-  # require "pry"; binding.pry
 
   def wins_per_coaches(season)
     wins_grouped = wins_by_season(season).group_by { |game| game.head_coach }
-    # total_games_won_hash_by_coaches = wins_grouped.map { |coach , game_teams| game_teams.count}
-
-    # if total_games_by_coaches(season).keys == wins_grouped
+    wins_grouped.each do |coach , games|
+      wins_grouped[coach] = games.count
+    end
+    wins_grouped
   end
 
   def average_wins_by_coach(season)
