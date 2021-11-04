@@ -206,7 +206,8 @@ RSpec.describe StatTracker do
   end
 
   describe '#worst_season' do
-    xit '' do
+    it 'returns the season with the lowest win percentage for a team' do
+      expect(@stat_tracker.best_season("6")).to eq("20122013")
     end
   end
 
