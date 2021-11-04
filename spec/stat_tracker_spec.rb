@@ -51,5 +51,8 @@ RSpec.describe StatTracker do
     expect(stat_tracker.averagee_goals_per_game),to eq(3.70)
   end
 
-  
+  it 'can organize average goals per game by season' do
+    expect(stat_tracker.average_goals_by_season).to be_a(Hash)
+    expect(stat_tracker.average_goals_by_season).to include('20122013' => 3.70)
+  end
 end
