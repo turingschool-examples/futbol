@@ -213,26 +213,21 @@ RSpec.describe StatTracker do
   end
 
   describe '#average_win_percentage' do
-    it 'returns average percentage for a team' do
-      expect(@stat_tracker.average_win_percentage('6')).to eq(1.0)
+      it 'returns average percentage for a team' do
+        expect(@stat_tracker.average_win_percentage('6')).to eq(1.0)
+      end
     end
-  end
 
-  describe '#most_goals_scored' do
-    it 'returns a teams most goals scored in a game' do
-      expect(@stat_tracker.most_goals_scored('30')).to eq(3)
+    describe '#most_goals_scored' do
+      it 'returns a teams most goals scored in a game' do
+        expect(@stat_tracker.most_goals_scored('30')).to eq(3)
+      end
     end
-  end
-  describe '#fewest_goals_scored' do
-    it 'returns a teams most goals scored in a game' do
-      expect(@stat_tracker.most_goals_scored('30')).to eq(3)
+    describe '#fewest_goals_scored' do
+      it 'returns a teams most goals scored in a game' do
+        expect(@stat_tracker.most_goals_scored('30')).to eq(3)
+      end
     end
-  end
-
-  describe '#rival' do
-    xit '' do
-    end
-  end
 
   describe '#rival' do
     xit '' do
