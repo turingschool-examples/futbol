@@ -47,5 +47,9 @@ RSpec.describe StatTracker do
     #may need to change dummy data to test more key/value pairs
   end
 
+  it 'can calculate average goals per game across seasons' do
+    expect(stat_tracker.averagee_goals_per_game),to eq(3.70)
+  end
+
   
 end
