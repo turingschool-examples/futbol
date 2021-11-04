@@ -145,13 +145,8 @@ class StatTracker
     all_games.sum { |game| game.goals }
   end
 
-<<<<<<< HEAD
   #Lines 153 to 200 use these methods to find teh highest/lowest scoring teams
   #based on being the home or away team
-=======
-  # Lines 153 to ??? use these methods to find teh highest/lowest scoring teams
-  # based on being the home or away team
->>>>>>> 1a72fec9bfd2c4255ce15b3cbda36c6db73e0a9a
   def highest_scoring_visitor
     @teams.max_by do |team|
       visiting_average_goals(team)
@@ -252,19 +247,15 @@ class StatTracker
     end
   end
 
-# ==============================================
   def worst_season
-
-
-
-
-
   end
+
   def average_win_percentage
 
-  def best_season; end
+  end
 
-  def worst_season; end
+  def worst_season
+  end
 
   def average_win_percentage(team_id)
     total = @games.size

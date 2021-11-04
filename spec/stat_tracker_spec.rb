@@ -126,12 +126,9 @@ RSpec.describe StatTracker do
 
   describe '#worst_offense' do
     it 'returns the team with the lowest average goals per game across seasons' do
-<<<<<<< HEAD
       expect(@stat_tracker.worst_offense).to eq("Atlanta United")
-=======
       allow(@stat_tracker).to receive(:worst_offense).and_return('New York Red Bulls')
       expect(@stat_tracker.worst_offense).to eq('New York Red Bulls')
->>>>>>> 1a72fec9bfd2c4255ce15b3cbda36c6db73e0a9a
     end
   end
 
