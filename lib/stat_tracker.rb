@@ -1,40 +1,19 @@
-require 'csv'
-require_relative './teams'
-require_relative './game_teams'
-require_relative './games'
+# require 'csv'
+require_relative './teams_manager'
+require_relative './game_teams_manager'
+require_relative './games_manager'
 
 class StatTracker
-  attr_accessor :games, :teams, :game_teams
+  attr_accessor :games_mngr, :teams_mngr, :gt_mngr
 
   def initialize(locations)
-    @games = create_games(locations[:games])
-    @teams = create_teams(locations[:teams])
-    @game_teams = create_game_teams(locations[:game_teams])
+    @games_mngr = GamesManager.new(locations[:games])
+    @teams_mngr = TeamsManager.new(locations[:teams])
+    @gt_mngr = GameTeamsManager.new(locations[:game_teams])
   end
 
   def self.from_csv(locations)
     stat_tracker = StatTracker.new(locations)
-  end
-
-  def create_teams(teams_data)
-    rows = CSV.read(teams_data, headers: true)
-    rows.map do |row|
-      Teams.new(row)
-    end
-  end
-
-  def create_games(games_data)
-    rows = CSV.read(games_data, headers: true)
-    rows.map do |row|
-      Games.new(row)
-    end
-  end
-
-  def create_game_teams(game_teams_data)
-    rows = CSV.read(game_teams_data, headers: true)
-    rows.map do |row|
-      GameTeams.new(row)
-    end
   end
 
   # Game Statistics Methods
