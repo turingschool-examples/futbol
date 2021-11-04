@@ -230,6 +230,7 @@ class StatTracker
   end
 
   def team_season_win_percentage(team_id, season)
+    return 0 if team_games_by_season(team_id, season).count == 0
     season_wins(team_id, season).count/team_games_by_season(team_id, season).count.to_f
   end
 
