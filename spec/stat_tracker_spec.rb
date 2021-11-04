@@ -4,7 +4,7 @@ RSpec.describe StatTracker do
   before(:each) do
     @game_path = './data/games_test.csv'
     @team_path = './data/teams.csv'
-    @game_teams_path = './data/game_teams.csv'
+    @game_teams_path = './data/game_teams_test.csv'
 
     @filenames = {
       games: @game_path,
@@ -31,6 +31,11 @@ RSpec.describe StatTracker do
       'abbreviation' => 'LA',
       'link' => '/api/v1/teams/17'
       })
+  end
+
+  it '#average_win_percentage' do
+    expect(@stat_tracker.average_win_percentage(17)).to eq(57.14)
+    #add another test for different team
   end
 
 

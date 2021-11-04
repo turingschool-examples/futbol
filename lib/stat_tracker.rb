@@ -55,9 +55,35 @@ class StatTracker
     team_info
   end
 
+  def average_win_percentage(team_id)
+    wins = 0
+    loss_or_tie = 0
+    rows = []
+    @game_teams.each do |row|
+      if row.team_id == team_id
+        rows << row
+      end
+    end
+
+    rows.each do |row|
+      if row.result == 'WIN'
+        wins += 1
+      elsif row.result != 'WIN'
+        loss_or_tie += 1
+      end
+    end
+
+    wins = wins.to_f
+    loss_or_tie = loss_or_tie.to_f
+    total = wins + loss_or_tie
+    percentage = (wins / total) * 100
+    percentage = percentage.round(2)
+    percentage
+  end
+
 end
 
 
 StatTracker.from_csv({ games: './data/games.csv',
                        teams: './data/teams.csv',
-                       game_teams: './data/game_teams.csv' })
+                       game_teams: './data/game_teams_test.csv' })
