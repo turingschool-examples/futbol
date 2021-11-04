@@ -1,10 +1,12 @@
-require 'csv' 
+require 'csv'
+require_relative "game.rb"
 
-class GameStats
-    attr_reader :games 
+class GameStats < Game
+    attr_reader :games
 
     def initialize(file)
         @games = self.format(file)
+        # require "pry"; binding.pry
     end
 
     def format(file)
@@ -13,4 +15,19 @@ class GameStats
             Game.new(row)
         end
     end
+
+    def highest_total_score
+      @games.map do |game|
+        (game.away_goals.to_i + game.home_goals.to_i)
+      end.max
+    end
+
+    def lowest_total_score
+      @games.map do |game|
+        (game.away_goals.to_i + game.home_goals.to_i)
+        require "pry"; binding.pry
+      end.min
+    end
+
+
 end
