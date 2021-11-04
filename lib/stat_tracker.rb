@@ -37,23 +37,21 @@ class StatTracker
     end
   end
 
-  #Game Statistics Methods
+  # Game Statistics Methods
   def highest_total_score
-    game_score = @games.map {|game| game.away_goals + game.home_goals}
+    game_score = @games.map { |game| game.away_goals + game.home_goals }
     game_score.max
   end
 
   def lowest_total_score
-    game_score = @games.map {|game| game.away_goals + game.home_goals}
+    game_score = @games.map { |game| game.away_goals + game.home_goals }
     game_score.min
   end
 
   def percentage_visitor_wins
     visitor_wins = []
     @games.each do |game|
-      if game.away_goals > game.home_goals
-        visitor_wins.push(game)
-      end
+      visitor_wins.push(game) if game.away_goals > game.home_goals
     end
     (visitor_wins.count.to_f / @games.count.to_f).round(2)
   end
@@ -61,9 +59,7 @@ class StatTracker
   def percentage_home_wins
     home_wins = []
     @games.each do |game|
-      if game.home_goals > game.away_goals
-        home_wins.push(game)
-      end
+      home_wins.push(game) if game.home_goals > game.away_goals
     end
     (home_wins.count.to_f / @games.count.to_f).round(2)
   end
@@ -71,9 +67,7 @@ class StatTracker
   def percentage_ties
     tie_games = []
     @games.each do |game|
-      if game.home_goals == game.away_goals
-        tie_games.push(game)
-      end
+      tie_games.push(game) if game.home_goals == game.away_goals
     end
     (tie_games.count.to_f / @games.count.to_f).round(2)
   end
@@ -81,19 +75,18 @@ class StatTracker
   # A hash with season names (e.g. 20122013) as keys and counts of games as values
   def count_of_games_by_season
     count_of_games_by_season = Hash.new(0)
-    games_by_season = @games.group_by{|game| game.season}
+    games_by_season = @games.group_by { |game| game.season }
     games_by_season.keys.each do |season|
       count_of_games_by_season[season] = games_by_season[season].length
     end
-    return count_of_games_by_season
+    count_of_games_by_season
   end
-
 
   # Average number of goals scored in a game across all seasons including
   # both home and away goals (rounded to the nearest 100th) - float
   def average_goals_per_game
-    total_goals = @games.map{|game| game.home_goals + game.away_goals}
-    avg_goals_per_game = (total_goals.sum.to_f/total_goals.length.to_f).round(2)
+    total_goals = @games.map { |game| game.home_goals + game.away_goals }
+    avg_goals_per_game = (total_goals.sum.to_f / total_goals.length.to_f).round(2)
   end
 
   # Average number of goals scored in a game organized in a hash
@@ -102,24 +95,24 @@ class StatTracker
   # as values (rounded to the nearest 100th)	- Hash
 
   def average_goals_per_season
-  #   avg_goals_per_season = Hash.new(0)
-  #   games_by_season = @games.group_by do|game|
-  #     game.season
-  #   end
-  #   games_by_season.keys.each do |season|
-  #     goals_by_season = games_by_season[season].map{|game| game.home_goals + game.away_goals}
-  #     avg_goals_per_season[season] = (goals_by_season.sum.to_f / goals_by_season.length.to_f).round(2)
-  #   end
-  #   return avg_goals_per_season
+    #   avg_goals_per_season = Hash.new(0)
+    #   games_by_season = @games.group_by do|game|
+    #     game.season
+    #   end
+    #   games_by_season.keys.each do |season|
+    #     goals_by_season = games_by_season[season].map{|game| game.home_goals + game.away_goals}
+    #     avg_goals_per_season[season] = (goals_by_season.sum.to_f / goals_by_season.length.to_f).round(2)
+    #   end
+    #   return avg_goals_per_season
   end
 
-  #League Statistics
+  # League Statistics
   def count_of_teams
     @teams.count
   end
 
-#Methods between lines 123 & 150 are used with best_offense/worst_offense
-#calculating goals across all seasons for a team
+  # Methods between lines 123 & 150 are used with best_offense/worst_offense
+  # calculating goals across all seasons for a team
   def best_offense
     @teams.max_by do |team|
       average_goals(team)
@@ -131,25 +124,34 @@ class StatTracker
       average_goals(team)
     end.team_name
   end
-  #average goals across all games
+
+  # average goals across all games
   def average_goals(team)
     all_games = team_games(team)
     return 0 if all_games.empty?
-    total_goals(all_games)/all_games.count.to_f
+
+    total_goals(all_games) / all_games.count.to_f
   end
-  #finds all games a team plays in, and returns that array
+
+  # finds all games a team plays in, and returns that array
   def team_games(team)
     @game_teams.find_all do |game|
       game.team_id == team.team_id
     end
   end
-  #sums the goals for all games of a team
+
+  # sums the goals for all games of a team
   def total_goals(all_games)
-    all_games.sum {|game| game.goals}
+    all_games.sum { |game| game.goals }
   end
 
+<<<<<<< HEAD
   #Lines 153 to 200 use these methods to find teh highest/lowest scoring teams
   #based on being the home or away team
+=======
+  # Lines 153 to ??? use these methods to find teh highest/lowest scoring teams
+  # based on being the home or away team
+>>>>>>> 1a72fec9bfd2c4255ce15b3cbda36c6db73e0a9a
   def highest_scoring_visitor
     @teams.max_by do |team|
       visiting_average_goals(team)
@@ -158,14 +160,15 @@ class StatTracker
 
   def visiting_team_games(team)
     @game_teams.find_all do |game|
-      game.team_id == team.team_id && game.h_o_a == "away"
+      game.team_id == team.team_id && game.h_o_a == 'away'
     end
   end
 
   def visiting_average_goals(team)
     visiting_games = visiting_team_games(team)
     return 0 if visiting_games.empty?
-    total_goals(visiting_games)/visiting_games.count.to_f
+
+    total_goals(visiting_games) / visiting_games.count.to_f
   end
 
   def highest_scoring_home_team
@@ -176,14 +179,15 @@ class StatTracker
 
   def home_team_games(team)
     @game_teams.find_all do |game|
-      game.team_id == team.team_id && game.h_o_a == "home"
+      game.team_id == team.team_id && game.h_o_a == 'home'
     end
   end
 
   def home_average_goals(team)
     home_games = home_team_games(team)
     return 0 if home_games.empty?
-    total_goals(home_games)/home_games.count.to_f
+
+    total_goals(home_games) / home_games.count.to_f
   end
 
   def lowest_scoring_visitor
@@ -258,39 +262,53 @@ class StatTracker
   end
   def average_win_percentage
 
+  def best_season; end
 
+  def worst_season; end
 
+  def average_win_percentage(team_id)
+    total = @games.size
+    away_games = @games.find_all do |game|
+      team_id == game.away_team_id && game.away_goals > game.home_goals
+    end.size
 
+    home_games = @games.find_all do |game|
+      team_id == game.home_team_id && game.away_goals < game.home_goals
+    end.size
+    percentage = (away_games + home_games) / total.to_f * 100
 
+    percentage.round
   end
-  def most_goals_scored
 
-
-
-
-
+  def most_goals_scored(team_id)
+    total = []
+    away_games = @games.find_all do |game|
+      team_id == game.away_team_id
+    end
+    home_games = @games.find_all do |game|
+      team_id == game.home_team_id
+    end
+    total << away_games = away_games.map { |game| game.away_goals }.max
+    total << home_games = home_games.map { |game| game.home_goals }.max
+    total.max
   end
-  def fewest_goals_scored
 
-
-
-
-
+  def fewest_goals_scored(team_id)
+    total = []
+    away_games = @games.find_all do |game|
+      team_id == game.away_team_id
+    end
+    home_games = @games.find_all do |game|
+      team_id == game.home_team_id
+    end
+    total << away_games = away_games.map { |game| game.away_goals }.min
+    total << home_games = home_games.map { |game| game.home_goals }.min
+    total.min
   end
-  def favorite_opponent
 
+  def favorite_opponent; end
 
-
-
-
-  end
-  def rival
-
-
-
-
-
-  end
+  def rival; end
 
   #### Season
   def winningest_coach
@@ -301,34 +319,16 @@ class StatTracker
     #   end
     #   games_won.group_by
     # end
-
-
-
   end
-  def worst_coach
 
+  def worst_coach; end
 
+  def most_accurate_team; end
 
-
-
-  end
-  def most_accurate_team
-
-
-
-
-
-  end
-  def least_accurate_team
-
-
-
-
-
-  end
+  def least_accurate_team; end
 
   def games_in_season(season)
-    games_in_season = @games.find_all{ |game| game.season == season }
+    games_in_season = @games.find_all { |game| game.season == season }
   end
 
   # helper method to collect all game_teams in a given season
@@ -338,25 +338,24 @@ class StatTracker
     games_in_season = games_in_season(season)
     game_ids_in_season = games_in_season.map { |game| game.game_id }
     # only include game_team if it's game_id is in list of correct game ids
-    game_teams_in_season = @game_teams.find_all do |game_team|
+    @game_teams.find_all do |game_team|
       game_ids_in_season.include?(game_team.game_id)
     end
-    return game_teams_in_season
   end
 
   # return an array of team names from an array of team objects, or a single team name if only one given
   def get_teams_from_game_teams(game_teams)
     # if single team, return single value. Else return array of values.
-    if game_teams.class == Array
+    if game_teams.instance_of?(Array)
       # get team ids from selected game_teams, and use this to gather the team names.
-      team_ids =  game_teams.map { |game_team| game_team.team_id }
-      teams = @teams.select{ |team| team_ids.include?(team.team_id) } # this can be faster with a hash.
-      return teams
+      team_ids = game_teams.map { |game_team| game_team.team_id }
+      @teams.select { |team| team_ids.include?(team.team_id) } # this can be faster with a hash.
+
     else
       # get team id from selected game_team, and use this to gather the team name.
-      team_id =  game_teams.team_id
-      teams = @teams.select{|team| team.team_id == team_id} #this can be faster with a hash
-      return teams
+      team_id = game_teams.team_id
+      @teams.select { |team| team.team_id == team_id } # this can be faster with a hash
+
     end
   end
 
@@ -369,11 +368,11 @@ class StatTracker
     end
     teams = get_teams_from_game_teams(max_tackles_game_teams)
     team_names = teams.map { |team| team.team_name }
-    #return sigle name if only one item.
+    # return sigle name if only one item.
     if team_names.length == 1
-      return team_names[0]
+      team_names[0]
     else
-      return team_names
+      team_names
     end
   end
 
@@ -386,11 +385,11 @@ class StatTracker
     end
     teams = get_teams_from_game_teams(min_tackles_game_teams)
     team_names = teams.map { |team| team.team_name }
-    #return sigle name if only one item.
+    # return sigle name if only one item.
     if team_names.length == 1
-      return team_names[0]
+      team_names[0]
     else
-      return team_names
+      team_names
     end
   end
 end
