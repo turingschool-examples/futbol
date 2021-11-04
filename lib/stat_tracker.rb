@@ -1,10 +1,10 @@
-require 'CSV'
-require './lib/game_teams'
-require './lib/games'
-require './lib/teams'
-require './lib/game_teams_manager'
-require './lib/game_manager'
-require './lib/teams_manager'
+# require_relative './lib/stat_tracker'
+require_relative './game_manager'
+require_relative './game_teams_manager'
+require_relative './game_teams'
+require_relative './games'
+require_relative './teams_manager'
+require_relative './teams'
 
 class StatTracker
   def self.from_csv(locations)
@@ -21,7 +21,24 @@ class StatTracker
     @games.highest_total_score
   end
 
-  def some_other_method
-    @teams.some_other_method
+  def lowest_total_score
+    @games.lowest_total_score
   end
+
+  def percentage_home_wins
+    @games.percentage_home_wins
+  end
+
+  def percentage_visitor_wins
+    @games.percentage_visitor_wins
+  end
+
+  def percentage_ties
+    @games.percentage_ties
+  end
+
+  def count_of_games_by_season
+    @games.count_of_games_by_season
+  end
+
 end

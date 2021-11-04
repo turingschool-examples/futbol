@@ -42,7 +42,7 @@ class GameManager
     percent_wins.round(2)
   end
 
-  def percentage_away_wins
+  def percentage_visitor_wins
     away_team_wins = []
     @game_objects.each do |row|
       if row.home_goals < row.away_goals

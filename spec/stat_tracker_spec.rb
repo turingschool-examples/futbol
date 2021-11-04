@@ -1,6 +1,11 @@
 require './lib/stat_tracker'
-
-RSpec.describe StatTracker do
+require './lib/game_manager'
+require './lib/game_teams_manager'
+require './lib/game_teams'
+require './lib/games'
+require './lib/teams_manager'
+require './lib/teams'
+RSpec.escribe StatTracker do
   it 'exists' do
     game_path = './data/games.csv'
     team_path = './data/teams.csv'

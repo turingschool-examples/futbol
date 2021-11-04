@@ -46,7 +46,7 @@ RSpec.describe GameManager do
   it "calculates percentage of away wins" do
     game_path = './data/games.csv'
     game_manager = GameManager.new(game_path)
-    expect(game_manager.percentage_away_wins).to eq(0.36)
+    expect(game_manager.percentage_visitor_wins).to eq(0.36)
   end
 
   it "calculates percentage of ties" do
