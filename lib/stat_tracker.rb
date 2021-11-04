@@ -328,56 +328,33 @@ class StatTracker
     wins_grouped
   end
 
-  def losses_by_season(season)
-    games_lost = []
-    game_teams_in_season(season).each do |game|
-      if game.result == "LOSS"
-        games_lost.push(game)
-      end
-    end
-    games_lost
-  end
-
-  def losses_per_coaches(season)
-    losses_grouped = losses_by_season(season).group_by { |game| game.head_coach }
-    losses_grouped.each do |coach , games|
-      losses_grouped[coach] = games.count
-    end
-    losses_grouped
-  end
 
   def average_wins_by_coach(season)
     average_percent_won_by_coaches = Hash.new
     total_games_by_coaches(season).each do |coach , total_games|
       wins_per_coaches(season).each do |coach1 , total_wins|
         if coach == coach1
+          if total_games > 0
             average_percent_won_by_coaches[coach] = total_wins / total_games.to_f
+          else
+            # Edge case nil for games that have a total of 0
+            average_percent_won_by_coaches[coach] = nil
+          end
         end
       end
     end
     average_percent_won_by_coaches
   end
 
-  def average_losses_by_coach(season)
-    average_percent_loss_by_coaches = Hash.new
-    total_games_by_coaches(season).each do |coach , total_games|
-      wins_per_coaches(season).each do |coach1 , total_loss|
-        if coach == coach1
-            average_percent_loss_by_coaches[coach] = total_loss / total_games.to_f
-        end
-      end
-    end
-    average_percent_loss_by_coaches
+  def worst_coach(season)
+    # .reject! is removing nil
+    #        expected: "Peter Laviolette"
+    #             got: "Ron Rolston"
+    average_wins_by_coach(season).reject! { |coach , average_wins| average_wins == nil }
+    average_wins_by_coach(season).min_by { |coach , average_wins| average_wins }[0]
   end
 
-  def worst_coach
-      average_losses_by_coach(season).max_by { |coach , average_losses| average_losses }[0]
-  end
-
-  def most_accurate_team
-  end
-
-  def worst_coach; end
+  def most_accurate_team; end
 
   def most_accurate_team; end
 
