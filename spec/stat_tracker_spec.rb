@@ -211,8 +211,21 @@ RSpec.describe StatTracker do
   ### Season
   describe '#winningest_coach' do
     it "checks the ins by seasons" do
-      expect(@stat_tracker.winningest_coach('20122013')).to be_a(Array)
+      expect(@stat_tracker.wins_by_season('20122013')).to be_a(Array)
     end
+    xit "checks for the winning coaches to be an Array" do
+      expect(@stat_tracker.wins_per_coaches('20122013')).to be_a(Integer)
+    end
+    it "gets the total games played by coaches" do
+      expect(@stat_tracker.total_games_by_coaches('20122013')).to be_an(Integer)
+    end
+    xit "finds the average of the coach" do
+      expect(@stat_tracker.average_wins_by_coach('20122013')).to be_an(Float)
+    end
+    xit "checks for coaches in the season" do
+      expect(@stat_tracker.coaches_in_season('20122013')).to be_a(Array)
+    end
+
     xit 'Name of the Coach with the best win percentage for the season' do
       expect(@stat_tracker.winningest_coach('20122013')).to eq()
     end
