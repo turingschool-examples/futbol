@@ -10,20 +10,13 @@ class SeasonStats
   end
 
   def all_season
-    seasons_uniq = []
+    seasons = []
     # This each can be refactors
     @game_data.each do |row|
-      seasons_uniq << row['season']
+      seasons << row['season']
     end
-    seasons_uniq.uniq
+    seasons.uniq
   end
-
-  # example hash
-  # def hash_ex
-  #   x = {}
-  #   all_season.each do |season|
-  #   x[season] = helpermethod(season)
-  # end
 
   def array_of_games(season)
     games_array = []
@@ -35,33 +28,15 @@ class SeasonStats
     games_array
   end
 
-  # def all_season
-  #   seasons_uniq = []
-  #   @game_data.each do |row|
-  #     seasons_uniq << row['season']
-  #   end
-  #   seasons_uniq.uniq
-  # end
-
   def coaches_in_season(season)
-    coaches_uniq = []
+    coaches = []
     @games_teams.each do |row|
-      array_of_games(season).each do |game|
-        if row["game_id"] == game
-          coaches_uniq << row["head_coach"]
-        end
+      if array_of_games(season).include?(row['game_id'])
+        coaches << row["head_coach"]
       end
     end
-    coaches_uniq.uniq
+    coaches.uniq
   end
-
-  # def games_played_by_coach(season)
-  #   hash = Hash.new
-  #   @games_teams.each do |row|
-  #       coaches_in_season(season).each do |coach|
-  #     end
-  #   end
-  # end
 
   def coach_win_percentage(season, coach)
     array = []
@@ -70,8 +45,25 @@ class SeasonStats
           array << row["result"]
       end
     end
-
     win_percentage(array)
+  end
+
+  def winningest_coach(season)
+    hash = Hash.new
+    coaches = coaches_in_season(season)
+    coaches.each do |coach|
+      hash[coach] = coach_win_percentage(season, coach)
+    end
+    hash.key(hash.values.max)
+  end
+
+  def worst_coach(season)
+    hash = Hash.new
+    coaches = coaches_in_season(season)
+    coaches.each do |coach|
+      hash[coach] = coach_win_percentage(season, coach)
+    end
+    hash.key(hash.values.min)
   end
 
   def win_percentage(results)
@@ -89,5 +81,4 @@ class SeasonStats
     end
     (wins.to_f / results.length).round(2)
   end
-
 end

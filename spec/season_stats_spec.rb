@@ -26,7 +26,7 @@ RSpec.describe SeasonStats do
   it 'shows all seasons in dataset' do
     season_obj = SeasonStats.new(@stat_tracker)
 
-    expected = "20122013", "20162017", "20142015", "20152016", "20132014", "20172018"
+    expected = ["20122013", "20162017", "20142015", "20152016", "20132014"]
     expect(season_obj.all_season).to eq(expected)
   end
 
@@ -34,22 +34,22 @@ RSpec.describe SeasonStats do
     season_obj = SeasonStats.new(@stat_tracker)
 
 
-    expect(season_obj.array_of_games("20132014")).to be_a Array
+    expect(season_obj.array_of_games("20142015")).to be_a Array
   end
 
-  xit 'shows an array of coaches for a given season' do
+  it 'shows an array of coaches for a given season' do
     season_obj = SeasonStats.new(@stat_tracker)
     expected = []
 
-    expect(season_obj.coaches_in_season("20132014").count).to eq(34)
+    expect(season_obj.coaches_in_season("20122013").count).to eq(13)
   end
 
   it 'shows a coaches win percentage' do
     season_obj = SeasonStats.new(@stat_tracker)
-    coach = "Jack Capuano"
-    season = "20132014"
+    coach = "Mike Yeo"
+    season = "20122013"
 
-    expect(season_obj.coach_win_percentage(season, coach)).to eq(0.27)
+    expect(season_obj.coach_win_percentage(season, coach)).to eq(0.20)
   end
 
   it 'shows calculates win percentage' do
@@ -57,6 +57,20 @@ RSpec.describe SeasonStats do
     results = ["WIN","WIN","WIN","WIN","LOSS"]
 
     expect(season_obj.win_percentage(results)).to eq(0.80)
+  end
+
+  it 'shows calculates highes win percentage per coach by season' do
+    season_obj = SeasonStats.new(@stat_tracker)
+    season = "20122013"
+
+    expect(season_obj.winningest_coach(season)).to eq("Claude Julien")
+  end
+
+  it 'shows calculates lowest win percentage per coach by season' do
+    season_obj = SeasonStats.new(@stat_tracker)
+    season = "20122013"
+
+    expect(season_obj.worst_coach(season)).to eq("John Tortorella")
   end
 
 
