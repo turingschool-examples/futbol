@@ -202,12 +202,11 @@ class StatTracker
   def team_info(team_id)
     team = find_team(team_id)
     {
-      team_id: team.team_id,
-      franchise_id: team.franchise_id,
-      team_name: team.team_name,
-      abbreviation: team.abbreviation,
-      stadium: team.stadium,
-      link: team.link
+      "team_id" => team.team_id,
+      "franchise_id" => team.franchise_id,
+      "team_name" => team.team_name,
+      "abbreviation" => team.abbreviation,
+      "link" => team.link
     }
     # categories = team.keys
     # info = team.values
@@ -229,20 +228,25 @@ class StatTracker
   end
 
   def team_season_win_percentage(team_id, season)
-    return 0 if team_games_by_season(team_id, season).count == 0
+    # return 0 if team_games_by_season(team_id, season).count == 0
+
+    #this line is returning an infinity when there are zero games in a season
     season_wins(team_id, season).count/team_games_by_season(team_id, season).count.to_f
   end
 
-  #this is going through the games and not game_teams where the wins aare saved
+  #this is going through the games and not game_teams where the wins are saved
   def team_games_by_season(team_id, season)
     seasons_games = games_in_season(season)
-    seasons_games.find_all do |game|
+    team_games_in_season = seasons_games.find_all do |game|
       game.away_team_id == team_id || game.home_team_id == team_id
     end
   end
 
+  #this method was just searching all the game_teams originally, need to limit it
+  #changed to Leland's helper method to sort by games in season
   def season_wins(team_id, season)
-    @game_teams.find_all do |game_team|
+    game_teams_in_season(season).find_all do |game_team|
+    # @game_teams
       game_team.team_id == team_id && game_team.result == "WIN"
     end
   end
@@ -254,17 +258,21 @@ class StatTracker
   end
 
   def average_win_percentage(team_id)
-    total = @games.size
     away_games = @games.find_all do |game|
-      team_id == game.away_team_id && game.away_goals > game.home_goals
+      team_id == game.away_team_id
+    end
+    away_game_wins = away_games.find_all do |game|
+      game.away_goals > game.home_goals
     end.size
 
     home_games = @games.find_all do |game|
-      team_id == game.home_team_id && game.away_goals < game.home_goals
+      team_id == game.home_team_id
+    end
+    home_game_wins = home_games.find_all do |game|
+      game.away_goals < game.home_goals
     end.size
-    percentage = (away_games + home_games) / total.to_f * 100
-
-    percentage.round
+    percentage = (away_game_wins + home_game_wins).to_f / (away_games.size + home_games.size).to_f
+    percentage.round(2)
   end
 
   def most_goals_scored(team_id)

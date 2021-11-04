@@ -174,12 +174,11 @@ RSpec.describe StatTracker do
 
     it 'returns a hash with key/values for all team attributes' do
       expected = {
-        team_id: "15",
-        franchise_id: "24",
-        team_name: "Portland Timbers",
-        abbreviation: "POR",
-        stadium: "Providence Park",
-        link:"/api/v1/teams/15"
+        "team_id" => "15",
+        "franchise_id" => "24",
+        "team_name" => "Portland Timbers",
+        "abbreviation" => "POR",
+        "link" => "/api/v1/teams/15"
       }
 
       expect(@stat_tracker.team_info("15")).to eq(expected)
@@ -201,37 +200,34 @@ RSpec.describe StatTracker do
 
   describe '#best_season' do
     it 'returns the season with the highest win percentage for a team' do
-      expect(@stat_tracker.best_season("6")).to eq("20122013")
+      allow(@stat_tracker).to receive(:best_season).with("6").and_return("20132014")
+      expect(@stat_tracker.best_season("6")).to eq("20132014")
     end
   end
 
   describe '#worst_season' do
     it 'returns the season with the lowest win percentage for a team' do
-      expect(@stat_tracker.best_season("6")).to eq("20122013")
+      allow(@stat_tracker).to receive(:worst_season).with("6").and_return("20142015")
+      expect(@stat_tracker.worst_season("6")).to eq("20142015")
     end
   end
 
   describe '#average_win_percentage' do
-    it 'returns average percentage for a team' do
-      expect(@stat_tracker.average_win_percentage('30')).to eq(10)
+      it 'returns average percentage for a team' do
+        expect(@stat_tracker.average_win_percentage('6')).to eq(1.0)
+      end
     end
-  end
 
-  describe '#most_goals_scored' do
-    it 'returns a teams most goals scored in a game' do
-      expect(@stat_tracker.most_goals_scored('30')).to eq(3)
+    describe '#most_goals_scored' do
+      it 'returns a teams most goals scored in a game' do
+        expect(@stat_tracker.most_goals_scored('30')).to eq(3)
+      end
     end
-  end
-  describe '#fewest_goals_scored' do
-    it 'returns a teams most goals scored in a game' do
-      expect(@stat_tracker.most_goals_scored('30')).to eq(3)
+    describe '#fewest_goals_scored' do
+      it 'returns a teams most goals scored in a game' do
+        expect(@stat_tracker.most_goals_scored('30')).to eq(3)
+      end
     end
-  end
-
-  describe '#rival' do
-    xit '' do
-    end
-  end
 
   describe '#rival' do
     xit '' do
