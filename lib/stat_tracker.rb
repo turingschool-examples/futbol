@@ -247,14 +247,10 @@ class StatTracker
     end
   end
 
-  def worst_season
-  end
-
-  def average_win_percentage
-
-  end
-
-  def worst_season
+  def worst_season(team_id)
+    seasons.min_by do |season|
+      team_season_win_percentage(team_id, season)
+    end 
   end
 
   def average_win_percentage(team_id)
