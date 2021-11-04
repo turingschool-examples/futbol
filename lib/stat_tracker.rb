@@ -2,7 +2,6 @@ require 'csv'
 require 'pry'
 require './lib/game'
 require './lib/team'
-
 require './lib/game_team'
 
 class StatTracker
@@ -39,7 +38,25 @@ class StatTracker
       @game_teams << GameTeam.new(row)
     end
   end
+
+  def team_info(team_name)
+
+    team_info = {}
+    team = @teams.select do |team|
+      team.teamName == team_name
+    end
+
+    team_info['team_id'] = team[0].team_id
+    team_info['franchiseId'] = team[0].franchiseId
+    team_info['teamName'] = team[0].teamName
+    team_info['abbreviation'] = team[0].abbreviation
+    team_info['link'] = team[0].link
+
+    team_info
+  end
+
 end
+
 
 StatTracker.from_csv({ games: './data/games.csv',
                        teams: './data/teams.csv',

@@ -22,4 +22,16 @@ RSpec.describe StatTracker do
   it 'can access csv data' do
     expect(StatTracker.from_csv(@filenames)).to be_an_instance_of(StatTracker)
   end
+
+  it '#team_info' do
+    expect(@stat_tracker.team_info('LA Galaxy')).to eq({
+      'team_id' => 17,
+      'franchiseId' => 12,
+      'teamName' => 'LA Galaxy',
+      'abbreviation' => 'LA',
+      'link' => '/api/v1/teams/17'
+      })
+  end
+
+
 end
