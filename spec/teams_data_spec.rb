@@ -55,6 +55,6 @@ RSpec.describe TeamsData do
 
   it 'finds best season by team' do
     team_obj = TeamsData.new(@stat_tracker)
-    expect(team_obj.best_season(2)).to eq(4)
+    expect(team_obj.best_season(9)).to eq('20142015')
   end
 end
