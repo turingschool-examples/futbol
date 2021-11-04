@@ -3,7 +3,7 @@ require_relative './game_manager'
 require_relative './game_teams_manager'
 require_relative './game_teams'
 require_relative './games'
-require_relative './teams_manager'
+require_relative './team_manager'
 require_relative './teams'
 
 class StatTracker
