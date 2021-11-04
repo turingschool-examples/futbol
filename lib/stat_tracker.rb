@@ -356,9 +356,44 @@ class StatTracker
 
   def most_accurate_team; end
 
-  def most_accurate_team; end
 
-  def least_accurate_team; end
+  # accept an array of game teams and return a single accuracy score
+  def accuracy(game_teams)
+    total_goals = game_teams.map{|game_team| game_team.goals}.sum.to_f
+    total_shots = game_teams.map{|game_team| game_team.shots}.sum.to_f
+    accuracy = total_goals/total_shots
+  end
+
+  def most_accurate_team(season)
+    # get all games in season
+    # get game_teams in games
+    # group_by game_teams by team_id.
+    # iterate through each team - work on array of game_teams
+    # sum all goals, sum all shots, calculate single accuracy score
+    game_teams_in_season = game_teams_in_season(season)
+    game_teams_by_team = game_teams_in_season.group_by{|game_team| game_team.team_id}
+    accuracy_hash = Hash.new()
+    game_teams_by_team.each do |team_id, game_teams|
+      accuracy = accuracy(game_teams)
+      accuracy_hash[team_id] = accuracy
+    end
+    max_team_id = accuracy_hash.max_by{|team_id, accuracy| accuracy}[0]
+    max_team = @teams.select{ |team| team.team_id == max_team_id}[0]
+    max_team_name = max_team.team_name
+  end
+
+  def least_accurate_team(season)
+    game_teams_in_season = game_teams_in_season(season)
+    game_teams_by_team = game_teams_in_season.group_by{|game_team| game_team.team_id}
+    accuracy_hash = Hash.new()
+    game_teams_by_team.each do |team_id, game_teams|
+      accuracy = accuracy(game_teams)
+      accuracy_hash[team_id] = accuracy
+    end
+    min_team_id = accuracy_hash.min_by{|team_id, accuracy| accuracy}[0]
+    min_team = @teams.select{ |team| team.team_id == min_team_id}[0]
+    min_team_name = min_team.team_name
+  end
 
   def games_in_season(season)
     games_in_season = @games.find_all { |game| game.season == season }

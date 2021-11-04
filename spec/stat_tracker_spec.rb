@@ -261,13 +261,21 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.winningest_coach('20122013')).to be_a(String)
     end
   end
-  describe '#most_accurate_team' do
-    xit '' do
+  describe ' #accuracy' do
+    it 'accepts an array of game_teams and returns a single accuracy score' do
+      game_teams1 = @stat_tracker.game_teams[0..4]
+      expect(@stat_tracker.accuracy(game_teams1)).to eq(13.0/43.0)
     end
   end
-  describe '#least_accurate_team' do
-    xit '' do
-    end
+  describe ' #most_accurate_team' do
+    it 'returns the name of the team with the best ratio of shots to goals for the season' do
+    expect(@stat_tracker.most_accurate_team('20122013')).to eq('FC Dallas')
+  end
+  end
+  describe ' #least_accurate_team' do
+    it 'returns the name of the team with the worst ratio of shots to goals for the season' do
+    expect(@stat_tracker.least_accurate_team('20122013')).to eq('Houston Dynamo')
+  end
   end
   describe ' #games_in_season' do
     it 'returns an array and games' do
