@@ -250,7 +250,7 @@ class StatTracker
   def worst_season(team_id)
     seasons.min_by do |season|
       team_season_win_percentage(team_id, season)
-    end 
+    end
   end
 
   def average_win_percentage(team_id)
@@ -310,9 +310,32 @@ class StatTracker
 
   def worst_coach; end
 
-  def most_accurate_team; end
 
-  def least_accurate_team; end
+  # accept an array of game teams and return a single accuracy score
+  def accuracy(game_teams)
+    total_goals = game_teams.map{|game_team| game_team.goals}.sum.to_f
+    total_shots = game_teams.map{|game_team| game_team.shots}.sum.to_f
+    accuracy = total_goals/total_shots
+  end
+
+  def most_accurate_team(season)
+    # get all games in season
+    # get game_teams in games
+    # group_by game_teams by team_id.
+    # iterate through each team - work on array of game_teams
+    # sum all goals, sum all shots, calculate single accuracy score
+    game_teams_in_season = game_teams_in_season(season)
+    game_teams_by_team = game_teams_in_season.group_by{|game_team| game_team.team_id}
+    accuracy_hash = Hash.new()
+    game_teams_by_team.each do |team_id, game_teams|
+      accuracy = accuracy(game_teams)
+      accuracy_hash[team_id] = accuracy
+    end
+  end
+
+  def least_accurate_team(season)
+
+  end
 
   def games_in_season(season)
     games_in_season = @games.find_all { |game| game.season == season }
