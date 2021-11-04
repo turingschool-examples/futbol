@@ -67,4 +67,15 @@ RSpec.describe GameManager do
       "20172018"=>1355
     })
   end
+
+  it 'can caluculate number of seasons' do
+    game_path = './data/games.csv'
+    game_manager = GameManager.new(game_path)
+    expect(game_manager.number_of_seasons).to eq(6)
+  end
+  # xit 'away goals' do
+  #   game_path = './data/games.csv'
+  #   game_manager = GameManager.new(game_path)
+  #   expect(game_manager.away_goals).to eq(0.2)
+  # end
 end
