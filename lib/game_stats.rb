@@ -1,10 +1,12 @@
 require 'csv' 
+require_relative 'game.rb'
 
-class GameStats
+class GameStats < Game
     attr_reader :games 
 
     def initialize(file)
         @games = self.format(file)
+
     end
 
     def format(file)
