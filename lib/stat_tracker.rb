@@ -2,10 +2,13 @@ require 'csv'
 require 'pry'
 require './lib/game'
 require './lib/team'
-
 require './lib/game_team'
 
+require './lib/season_methods'
+
 class StatTracker
+  include SeasonMethods
+
   attr_reader :games, :teams, :game_teams
 
   def initialize
@@ -39,7 +42,14 @@ class StatTracker
       @game_teams << GameTeam.new(row)
     end
   end
+
+
 end
+
+
+
+
+
 
 StatTracker.from_csv({ games: './data/games.csv',
                        teams: './data/teams.csv',
