@@ -203,10 +203,18 @@ class StatTracker
 
   def worst_season; end
 
-  def average_win_percentage; end
+  def average_win_percentage(team_id)
+    total = @games.size
+    away_games = @games.find_all do |game|
+      team_id == game.away_team_id && game.away_goals > game.home_goals
+    end.size
 
-  def find_team(team_id)
-    @teams.find { |team| team.team_id == team_id }
+    home_games = @games.find_all do |game|
+      team_id == game.home_team_id && game.away_goals < game.home_goals
+    end.size
+    percentage = (away_games + home_games) / total.to_f * 100
+
+    percentage.round
   end
 
   def most_goals_scored(team_id)
