@@ -1,10 +1,13 @@
 require 'simplecov'
+require './league_stats'
+
 SimpleCov.start
 SimpleCov.command_name 'Unit Tests'
-require_relative '../lib/stat_tracker.rb'
+require_relative './modules/league_stats'
 
 
-RSpec.describe Class do
+RSpec.describe StatTracker do
+  let(:stattracker) { StatTracker.new { include LeagueStats } }
 
   it "attributes" do
     game_path = './data/games.csv'
@@ -33,5 +36,8 @@ RSpec.describe Class do
     expect(StatTracker.from_csv(locations)).to be_a(StatTracker)
   end
 
+  it "league count_of_teams" do
+    expect(stattracker.count_of_teams).to eq(32)
+  end
 
 end
