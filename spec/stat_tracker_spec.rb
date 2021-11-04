@@ -178,7 +178,6 @@ RSpec.describe StatTracker do
         "franchise_id" => "24",
         "team_name" => "Portland Timbers",
         "abbreviation" => "POR",
-        "stadium" => "Providence Park",
         "link" => "/api/v1/teams/15"
       }
 
