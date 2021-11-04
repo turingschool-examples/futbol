@@ -1,11 +1,30 @@
-require_relative './lib/stat_tracker'
-require 'csv'
-require_relative './lib/game_team'
-require_relative './lib/game'
-require_relative './lib/team'
-require_relative './runner'
+require './lib/stat_tracker'
+require './lib/game'
+require './lib/team'
+require './lib/game_team'
+require './runner'
+
+describe StatTracker do
+  before(:each) do
+
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    @stat_tracker = StatTracker.from_csv(locations)
+  end
 
 
+    it 'exists' do
+      expect(@stat_tracker).to be_instance_of(StatTracker)
+    end
+end
 # Game Statistics Tests
 
 
