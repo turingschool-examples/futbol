@@ -40,4 +40,12 @@ RSpec.describe StatTracker do
   xit 'can find the percentage of games that resulted in a tie' do
     expect(stat_tracker.percentage_ties).to eq(0.00)
   end
+
+  it 'can sort the number of games attributed to each season' do
+    expect(stat_tracker.count_of_games_by_season).to be_a(Hash)
+    expect(stat_tracker.count_of_games_by_season).to include('20122013' => 10)
+    #may need to change dummy data to test more key/value pairs
+  end
+
+  
 end
