@@ -1,9 +1,9 @@
 require 'CSV'
 require 'pry'
 
-require_relative './teams'
+require_relative './game_teams'
 
-class GameTeamManager
+class GameTeamsManager
   attr_reader :game_teams_objects, :game_teams_path
 
   def initialize(game_teams_path)

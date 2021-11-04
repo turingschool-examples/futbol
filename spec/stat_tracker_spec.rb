@@ -1,7 +1,7 @@
 require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
-  xit 'exists' do
+  it 'exists' do
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams.csv'
@@ -18,6 +18,7 @@ RSpec.describe StatTracker do
   end
 
   xit '#highest_total_score' do
+
     stat_tracker = StatTracker.from_csv(locations)
 
     expect(stat_tracker.highest_total_score).to eq(11)

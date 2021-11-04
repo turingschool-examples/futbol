@@ -1,9 +1,14 @@
-
 require 'CSV'
+require './lib/game_teams'
+require './lib/games'
+# require './lib/teams'
+require './lib/game_teams_manager'
+require './lib/game_manager'
+# require './lib/teams_manager'
 
 class StatTracker
   def self.from_csv(locations)
-    StatTracker.new
+    StatTracker.new(locations)
   end
 
   def initialize(locations)

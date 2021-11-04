@@ -1,5 +1,5 @@
 require 'CSV'
-require './runner'
+
 
 class GameTeams
   attr_reader :game_id,
