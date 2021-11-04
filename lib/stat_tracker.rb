@@ -206,15 +206,19 @@ class StatTracker
   def average_win_percentage(team_id)
     total = @games.size
     away_games = @games.find_all do |game|
-      team_id == game.away_team_id && game.away_goals > game.home_goals
+      team_id == game.away_team_id
+    end
+    away_games = away_games.find_all do |game|
+      game.away_goals > game.home_goals
     end.size
-
     home_games = @games.find_all do |game|
-      team_id == game.home_team_id && game.away_goals < game.home_goals
+      team_id == game.home_team_id
+    end
+    home_games = home_games.find_all do |game|
+      game.away_goals < game.home_goals
     end.size
-    percentage = (away_games + home_games) / total.to_f * 100
-
-    percentage.round
+    percentage = (away_games + home_games) / total.to_f
+    percentage.round(2)
   end
 
   def most_goals_scored(team_id)
