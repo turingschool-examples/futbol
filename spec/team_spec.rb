@@ -1,9 +1,9 @@
 require 'CSV'
-require './lib/team'
+require './lib/teams'
 
-RSpec.describe Team do
+RSpec.describe Teams do
   it 'exists' do
-    team = Team.new({
+    team = Teams.new({
           :team_id => '1',
           :franchiseId => '23',
           :teamName => 'Atlanta United',
@@ -12,11 +12,11 @@ RSpec.describe Team do
           :link => 'api/v1/teams/1'
       })
 
-    expect(team).to be_an_instance_of(Team)
+    expect(team).to be_an_instance_of(Teams)
   end
 
   it 'has attributes' do
-    team = Team.new({
+    team = Teams.new({
           :team_id => '1',
           :franchiseId => '23',
           :teamName => 'Atlanta United',
