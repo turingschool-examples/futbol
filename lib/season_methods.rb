@@ -62,9 +62,23 @@ module SeasonMethods
 
   end
 
+  def most_accurate_team
+  end
+
+  def least_accurate_team
+  end
+
   def most_tackles
     team_tackles = Hash.new(0)
 
+    @game_teams.each do |row|
+
+    end
+
   end
+
+  def fewest_tackles
+  end
+
 
 end

@@ -29,34 +29,6 @@ class GameTeam
 end
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #def count_of_games_by_season
   #@season.tally
 #end

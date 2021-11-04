@@ -26,4 +26,5 @@ puts stat_tracker.worst_coach
 
 
 ##### NEED TO FIX
-# if a coach is winless - won't return for worst coach 
+# if a coach is winless - won't return for worst coach
+# correct for ties - can lump in with losses
