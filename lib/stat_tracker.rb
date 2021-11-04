@@ -206,7 +206,6 @@ class StatTracker
       "franchise_id" => team.franchise_id,
       "team_name" => team.team_name,
       "abbreviation" => team.abbreviation,
-      "stadium" => team.stadium,
       "link" => team.link
     }
     # categories = team.keys
@@ -234,6 +233,7 @@ class StatTracker
 
     #this line is returning an infinity when there are zero games in a season
     season_wins(team_id, season).count/team_games_by_season(team_id, season).count.to_f
+    # require 'pry'; binding.pry
   end
 
   #this is going through the games and not game_teams where the wins aare saved
@@ -244,8 +244,11 @@ class StatTracker
     end
   end
 
+  #this method was just searching all the game_teams originally, need to limit it
+  #changed to Leland's helper method to sort by games in season
   def season_wins(team_id, season)
-    @game_teams.find_all do |game_team|
+    game_teams_in_season(season).find_all do |game_team|
+    # @game_teams
       game_team.team_id == team_id && game_team.result == "WIN"
     end
   end
