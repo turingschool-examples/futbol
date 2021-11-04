@@ -17,3 +17,5 @@ ted_lasso = StatTracker.from_csv(locations)
 # holds all of our data, and will have all our methods
 # called to it.
 # require 'pry'; binding.pry
+
+ted_lasso.percentage_ties
