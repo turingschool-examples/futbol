@@ -222,9 +222,6 @@ RSpec.describe StatTracker do
     xit "finds the average of the coach" do
       expect(@stat_tracker.average_wins_by_coach('20122013')).to be_an(Float)
     end
-    xit "checks for coaches in the season" do
-      expect(@stat_tracker.coaches_in_season('20122013')).to be_a(Array)
-    end
 
     xit 'Name of the Coach with the best win percentage for the season' do
       expect(@stat_tracker.winningest_coach('20122013')).to eq()
