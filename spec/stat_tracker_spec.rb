@@ -1,6 +1,6 @@
-require '/spec_helper.rb'
-require './lib/stat_tracker.rb'
-require './runner.rb'
+require_relative '/spec_helper.rb'
+require_relative './lib/stat_tracker.rb'
+require_relative './runner.rb'
 
 RSpec.describe StatTracker do
 
