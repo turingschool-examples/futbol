@@ -10,11 +10,19 @@ class TeamsData < StatTracker
   end
 
   def team_info(team_id)
-    @team_id = @teams["team_id"]
-    @franchise_id = @teams["franchise_id"]
-    @team_name = @teams["teamName"]
-    @abbreviation = @teams["abbreviation"]
-    @link = @teams["link"]
+    selected_team = @teamData.select do |csv_row|
+        csv_row["team_id"] == inp_team_id.to_s
+      end
+
+      team_hash = {
+        team_id: selected_team[0]["team_id"].to_i,
+        franchiseId: selected_team[0]["franchiseId"].to_i,
+        teamName: selected_team[0]["teamName"],
+        abbreviation: selected_team[0]["abbreviation"],
+        link: selected_team[0]["link"]
+      }
+
+      team_hash
 
 
   end
@@ -79,7 +87,21 @@ class TeamsData < StatTracker
   end
 
   def average_win_percentage(team_id)
+    selected_team_games = @teamGameData.select do |csv_row|
+      csv_row["home_team_id"] == inp_team_id.to_s
+    end
 
+    total_won = []
+    total_lost = []
+
+    selected_team_games.each do |game|
+      if game["result"] == "WIN"
+        total_won << game
+      elsif game["result"] == "LOSS"
+        total_lost << game
+      end
+
+      average_win_percentage = total_won.size / total_won.size + total_lost.size
   end
 
   def most_goals_scored(team_id)

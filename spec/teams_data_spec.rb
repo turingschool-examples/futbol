@@ -3,9 +3,9 @@ require './lib/teams_data'
 
 RSpec.describe TeamsData do
   before(:each) do
-    @game_path = './data/games_test.csv'
-    @team_path = './data/teams_test.csv'
-    @game_teams_path = './data/game_teams_test.csv'
+    @game_path = './data/games.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './data/game_teams.csv'
 
     @locations = {
       games: @game_path,
@@ -29,29 +29,18 @@ RSpec.describe TeamsData do
     expect(team_obj.teamData).to eq(@stat_tracker.teams)
   end
 
-  # it 'can return #team_info' do
-  #   team_obj = TeamsData.new(@stat_tracker)
-  #   team_obj.team_info(18)
-  #
-  #   expected = {
-  #     team_id: 18,
-  #     franchiseId: 34,
-  #     teamName: "Minnesota United FC",
-  #     abbreviation: MIN,
-  #     Stadium: "Allianz Field",
-  #     link: "/api/v1/teams/18"
-  #   }
-  #   expected(TeamsData.team_info(team_id)).to eq(expected)
-  # end
+  it 'can return #team_info' do
+    team_obj = TeamsData.new(@stat_tracker)
 
-  # it 'parses season data' do
-  #   team_obj = TeamsData.new(@stat_tracker)
-  #
-  #   expect(team_obj.parse_seasons).to eq(3)
-  #   expect(team_obj.parse_seasons[1].size).to eq(1)
-  #   expect(team_obj.parse_seasons[3].size).to eq(1)
-  #   expect(team_obj.parse_seasons[5].size).to eq(1)
-  # end
+    expected = {
+      team_id: 18,
+      franchiseId: 34,
+      teamName: "Minnesota United FC",
+      abbreviation: "MIN",
+      link: "/api/v1/teams/18"
+    }
+    expected(TeamsData.team_info(team_id)).to eq(expected)
+  end
 
   it 'finds best season by team' do
     team_obj = TeamsData.new(@stat_tracker)
