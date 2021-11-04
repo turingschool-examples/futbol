@@ -79,12 +79,19 @@ class GameManager
     end
     seasons.uniq.count
   end
-  
-  # def away_goals
-  #   goals = 0
-  #   @game_objects.each do |row|
-  #     binding.pry
-  #   goals += row.away_goals
+
+  def array_away_team_ids
+    away_id = []
+      @game_objects.each do |row|
+        away_id << row.away_team_id
+      end
+    away_id.uniq
+  end
+  # def max_away_goals_by_team_id
+  #   # goals = []
+  #   @game_objects.map do |row|
+  #   x =  row.away_team_id
+  #   binding.pry
   #   end
   # end
 
