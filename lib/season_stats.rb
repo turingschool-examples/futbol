@@ -39,13 +39,13 @@ class SeasonStats
   end
 
   def coach_win_percentage(season, coach)
-    array = []
+    result_array = []
     @games_teams.each do |row|
       if array_of_games(season).include?(row['game_id']) && row["head_coach"] == coach
-          array << row["result"]
+          result_array << row["result"]
       end
     end
-    win_percentage(array)
+    win_percentage(result_array)
   end
 
   def winningest_coach(season)
@@ -80,5 +80,15 @@ class SeasonStats
       end
     end
     (wins.to_f / results.length).round(2)
+  end
+
+  def teams_in_season(season)
+    team_ids = []
+    @games_teams.each do |row|
+      if array_of_games(season).include?(row['game_id'])
+        team_ids << row["team_id"]
+      end
+    end
+    team_ids.uniq
   end
 end
