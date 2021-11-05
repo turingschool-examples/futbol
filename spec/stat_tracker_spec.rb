@@ -63,4 +63,14 @@ describe StatTracker do
       expect(@stat_tracker.average_goals_per_game(3)).to eq(1.6)
     end
   end
+
+  describe '#worst_offense' do
+    it 'returns team with least avg goals per game for all seasons' do
+      expect(@stat_tracker.worst_offense).to eq("Houston Dynamo")
+    end
+
+    it 'returns a string' do
+      expect(@stat_tracker.worst_offense).to be_instance_of(String)
+    end
+  end
 end
