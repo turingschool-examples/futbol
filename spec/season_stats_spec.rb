@@ -78,7 +78,25 @@ RSpec.describe SeasonStats do
     season = "20122013"
 
     expected = ["3", "6", "5", "17", "16", "9", "8", "30", "26", "19", "24", "2", "15"]
+
     expect(season_obj.teams_in_season(season)).to be_a Array
     expect(season_obj.teams_in_season(season)).to eq(expected)
+  end
+
+  it 'shows an array of tackles for each team_id' do
+    season_obj = SeasonStats.new(@stat_tracker)
+    season = "20122013"
+    team_id = "6"
+    expected = 271
+
+
+    expect(season_obj.team_tackles(season, team_id)).to eq(expected)
+  end
+
+  it 'shows team with most tackles in a season' do
+    season_obj = SeasonStats.new(@stat_tracker)
+    season = "20122013"
+    expected = "Houston Dynamo"
+    expect(season_obj.most_tackles(season)).to eq(expected)
   end
 end
