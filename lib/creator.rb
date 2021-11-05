@@ -1,7 +1,7 @@
 # require './tg_stat'
 # require './game'
 # require './team'
-# #commented these out, spec still runs
+# commented these out, spec still runs
 class Creator
   attr_reader :teams_hash, :seasons_hash, :stats_hash, :games_hash
 
@@ -35,7 +35,6 @@ class Creator
     game_data.each do |game|
       home_team = "#{game[:game_id] + '_' + game[:home_team_id]}"
       away_team = "#{game[:game_id] + '_' + game[:away_team_id]}"
-      # require 'pry'; binding.pry
       games_hash[game[:game_id]] = Game.new(game, stats_hash[home_team], stats_hash[away_team])
     end
     games_hash
@@ -46,6 +45,7 @@ class Creator
       game.season
     end
   end
+
   # def self.postseason_obj_creator
   #   season_type_hash = games_hash.values.group_by do |game|
   #     game.type
