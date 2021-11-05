@@ -50,17 +50,20 @@ class StatTracker
 
   # Team Statistics
   def team_info(team_id)
+
+    result = @teams.select { |team| team.team_id == team_id }
+    team = result[0]
+
     info = {
-      :team_id => @teams[team_id].team_id,
-      :franchise_id => @teams[team_id].franchise_id,
-      :team_name => @teams[team_id].team_name,
-      :abbreviation => @teams[team_id].abbreviation,
-      :link => @teams[team_id].link
+      :team_id => team.team_id,
+      :franchise_id => team.franchise_id,
+      :team_name => team.team_name,
+      :abbreviation => team.abbreviation,
+      :link => team.link
     }
   end
 
   def best_season(team_id)
-    # require 'pry'; binding.pry
 
     game_ids = []
     won_game_ids = []
@@ -68,16 +71,14 @@ class StatTracker
     wins_by_season = Hash.new(0)
     percent_by_season = Hash.new(0)
 
-    # Find the game objects that match the team_id
     games = @game_teams.select { |game_team| game_team.team_id == team_id }
-    # Get the game_ids from each game object THAT ARE VERIFIED for the team
+
     game_ids = games.map { |game| game.game_id }
-    #
+
     game_ids.each do |id|
       @game_teams.each do |game|
         if id == game.game_id
           if game.result == "WIN"
-            p "GAMES RESULT IF BRANCH TRIGGERED"
             won_game_ids << id
           end
         end
@@ -106,8 +107,6 @@ class StatTracker
     end
 
     max_season = percent_by_season.max_by { |key,value| value }[0]
-
-    require 'pry'; binding.pry
     #
     #
     #
