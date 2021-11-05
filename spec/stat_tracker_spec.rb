@@ -1,16 +1,16 @@
-require_relative '/spec_helper.rb'
-require_relative './lib/stat_tracker.rb'
-require_relative './runner.rb'
+require './spec_helper.rb'
+require './lib/stat_tracker.rb'
+require './runner.rb'
 
 RSpec.describe StatTracker do
 
-  game_path = './data/games_dummy.csv'
-  team_path = './data/teams_dummy.csv'
-  game_teams_path = './data/game_teams_dummy.csv'
-  let(:games) {CSV.parse(File.read(game_path), headers: true)}
-  let(:teams) {CSV.parse(File.read(team_path), headers: true)}
-  let(:game_teams) {CSV.parse(File.read(game_teams_path), headers: true)}
-  let(:stat_tracker) {StatTracker.new(games, teams, game_teams)}
+  # game_path = './data/games_dummy.csv'
+  # team_path = './data/teams_dummy.csv'
+  # game_teams_path = './data/game_teams_dummy.csv'
+  # let(:games) {CSV.parse(File.read(game_path), headers: true)}
+  # let(:teams) {CSV.parse(File.read(team_path), headers: true)}
+  # let(:game_teams) {CSV.parse(File.read(game_teams_path), headers: true)}
+  let(:stat_tracker) {StatTracker.new}#(games, teams, game_teams)}
 
 
   it 'exists' do
@@ -55,5 +55,11 @@ RSpec.describe StatTracker do
     expect(stat_tracker.average_goals_by_season).to be_a(Hash)
     expect(stat_tracker.average_goals_by_season).to include('20122013' => 3.70)
 
+  end
+
+  ##League Stats Methods
+
+  it 'count the total number of teams' do
+    expect(stat_tracker.count_of_teams).to eq(10)
   end
 end
