@@ -32,4 +32,12 @@ describe GameStats do
     it "can show you the percentage of tie games" do
         expect(gamestats.percentage_ties).to eq(0.05)
     end
+
+    xit "can return a hash of the number of games per season" do
+        expect(gamestats.count_of_games_by_season).to eq([])
+    end
+
+    it "can return the average goals per game" do
+        expect(gamestats.average_goals_per_game).to eq(3.75)
+    end
 end

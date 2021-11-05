@@ -15,19 +15,19 @@ class GameStats < Game
     end
   end
 
-  def highest_total_score
+  def highest_total_score   #returns highest number of goals in any game
     @games.map do |game|
       (game.away_goals.to_i + game.home_goals.to_i)
     end.max
   end
 
-  def lowest_total_score
+  def lowest_total_score  #returns lowest number of goals scored in any game
     @games.map do |game|
       (game.away_goals.to_i + game.home_goals.to_i)
     end.min
   end
 
-  def percentage_home_wins
+  def percentage_home_wins #returns a float percentage of home team wins of all games
     total_games = 0
     @games.each do |game|
       total_games += 1
@@ -42,7 +42,7 @@ class GameStats < Game
     (total_home_wins.to_f / total_games).round(2)
   end
 
-  def percentage_visitor_wins
+  def percentage_visitor_wins # returns a float percentage of away team wins of all games
     total_games = 0
     @games.each do |game|
       total_games += 1
@@ -57,7 +57,7 @@ class GameStats < Game
     (total_visitor_wins.to_f / total_games).round(2)
   end
 
-  def percentage_ties
+  def percentage_ties #returns a float percentage of tie games
     total_games = 0
     @games.each do |game|
       total_games += 1
@@ -70,6 +70,17 @@ class GameStats < Game
       end
     end
     (total_ties.to_f / total_games).round(2)
+  end
 
+  def count_of_games_by_season
+
+  end
+
+  def average_goals_per_game
+    total_goals = 0
+    @games.each do |game|
+      total_goals += (game.home_goals.to_i + game.away_goals.to_i)
+    end
+    (total_goals.to_f / @games.count).round(2)
   end
 end
