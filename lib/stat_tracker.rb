@@ -45,7 +45,7 @@ class StatTracker
 
   def lowest_total_score
     low_score = 100
-    @games.each_value do |game|
+    @games.each do |game|
       if game.total_goals < low_score
         low_score = game.total_goals
       end
@@ -107,7 +107,7 @@ class StatTracker
   def total_goals
     total_goals_count = 0.0
     @games.each do |game|
-      total_games_count += game.total_goals
+      total_goals_count += game.total_goals
     end
     total_goals_count
   end
