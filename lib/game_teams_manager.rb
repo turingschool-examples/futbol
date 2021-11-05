@@ -12,11 +12,14 @@ class GameTeamsManager
       objects = []
       CSV.foreach(game_teams_path, headers: true, header_converters: :symbol) do |row|
         objects << GameTeams.new(row)
-        
+
       end
       objects)
 
   end
 
+  def best offence
+
+  end
 
 end
