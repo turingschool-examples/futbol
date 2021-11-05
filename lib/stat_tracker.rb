@@ -201,5 +201,28 @@ class StatTracker
     team.team_name
   end
 
+  def rival(team_id)
+    total_games_won = @game_teams.select do |game_team|
+      game_team.result == "WIN" && game_team.team_id == team_id
+    end
+
+    won_game_ids = total_games_won.map { |game| game.game_id }
+
+    losers = []
+    won_game_ids.each do |game_id|
+      @game_teams.each do |game_team|
+        if game_team.team_id != team_id && game_team.game_id == game_id
+          losers << game_team.team_id
+        end
+      end
+    end
+
+    biggest_loser = losers.min_by { |loser| losers.count(loser) }
+    team = @teams.find { |team| team.team_id == biggest_loser }
+    team.team_name
+  end
+
+
+
 
 end
