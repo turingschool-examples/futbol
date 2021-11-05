@@ -163,5 +163,13 @@ class StatTracker
     (total_wins.count.to_f / total_games.count.to_f * 100).round(2)
   end
 
+  def most_goals_scored(team_id)
+    total_games = @game_teams.select { |game_team| game_team.team_id == team_id }
+
+    game = total_games.max_by { |game| game.goals }
+    
+    game.goals
+  end
+
 
 end
