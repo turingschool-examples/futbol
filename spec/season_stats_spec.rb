@@ -97,6 +97,7 @@ RSpec.describe SeasonStats do
     season_obj = SeasonStats.new(@stat_tracker)
     season = "20122013"
     expected = "Houston Dynamo"
+
     expect(season_obj.most_tackles(season)).to eq(expected)
   end
 
@@ -104,6 +105,7 @@ RSpec.describe SeasonStats do
     season_obj = SeasonStats.new(@stat_tracker)
     season = "20122013"
     expected = "Orlando City SC"
+
     expect(season_obj.fewest_tackles(season)).to eq(expected)
   end
 
@@ -115,6 +117,14 @@ RSpec.describe SeasonStats do
 
 
     expect(season_obj.team_goals_ratio(season, team_id)).to eq(expected)
+  end
+
+  it 'shows team with the best shots to goals in a season' do
+    season_obj = SeasonStats.new(@stat_tracker)
+    season = "20122013"
+    expected = "New York City FC"
+
+    expect(season_obj.most_accurate_team(season)).to eq(expected)
   end
 
 
