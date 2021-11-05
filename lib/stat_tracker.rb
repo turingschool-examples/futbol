@@ -31,25 +31,9 @@ class StatTracker
 
     stat_tracker = StatTracker.new(games, teams, game_teams)
   end
-  # Game Statistics
-  def highest_total_score
-    high_score = 0
-    @games.each_value do |game|
-      high = game.away_goals + game.home_goals
-      if (game.away_goals + game.home_goals) > high_score
-        high_score = game.away_goals + game.home_goals
-      end
-    end
-    high_score
-  end
-  # League Statistics
 
-
-  # Season Statistics
-
-
-  # Team Statistics
-
-
+  def count_of_teams
+    @teams.length
+  end 
 
 end
