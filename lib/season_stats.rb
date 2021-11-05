@@ -130,4 +130,20 @@ class SeasonStats
     end
     convert_team_id_to_name(tackles.key(tackles.values.min).to_i)
   end
+
+  def team_goals_ratio(season, team_id)
+    shots_array = []
+    goals_array = []
+    @games_teams.each do |row|
+      if array_of_games(season).include?(row['game_id']) && row["team_id"] == team_id
+          shots_array<< row["shots"].to_i
+      end
+    end
+    @games_teams.each do |row|
+      if array_of_games(season).include?(row['game_id']) && row["team_id"] == team_id
+          goals_array << row["goals"].to_i
+      end
+    end
+    (shots_array.sum / goals_array.sum.to_f).round(2)
+  end
 end
