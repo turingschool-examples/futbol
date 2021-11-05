@@ -72,15 +72,13 @@ class GameStats < Game
     (total_ties.to_f / total_games).round(2)
   end
 
-  def count_of_games_by_season
+  def count_of_games_by_season #returns a hash
     values = @games.map do |game|
       game.season
     end
     hash = Hash.new(0)
     values.each { | value | hash.store(value, hash[value]+1) }
     hash
-
-
   end
 
   def average_goals_per_game
@@ -91,7 +89,24 @@ class GameStats < Game
     (total_goals.to_f / @games.count).round(2)
   end
 
-  def average_goals_by_season
+  def average_goals_per_season(season) #helper method for method below
+    total_goals = 0
+    total_games = []
+    @games.each do |game|
+      if game.season == season
+        total_goals += (game.home_goals.to_i + game.away_goals.to_i)
+        total_games << game
+      end
+    end
+    (total_goals/total_games.count.to_f).round(2)
+  end
 
+  def average_goals_by_season
+    seasons = @games.map do |game|
+      game.season
+    end
+    hash = Hash.new(0)
+    seasons.each { | season | hash.store(season, average_goals_per_season(season)) }
+    hash
   end
 end
