@@ -73,5 +73,12 @@ RSpec.describe SeasonStats do
     expect(season_obj.worst_coach(season)).to eq("John Tortorella")
   end
 
+  it 'shows team_id per season' do
+    season_obj = SeasonStats.new(@stat_tracker)
+    season = "20122013"
 
+    expected = ["3", "6", "5", "17", "16", "9", "8", "30", "26", "19", "24", "2", "15"]
+    expect(season_obj.teams_in_season(season)).to be_a Array
+    expect(season_obj.teams_in_season(season)).to eq(expected)
+  end
 end
