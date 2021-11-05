@@ -3,7 +3,7 @@ require './lib/teams_data'
 
 RSpec.describe TeamsData do
   before(:each) do
-    @game_path = './data/games_test.csv'
+    @game_path = './data/games.csv'
     @team_path = './data/teams.csv'
     @game_teams_path = './data/game_teams_test.csv'
 
@@ -47,11 +47,15 @@ RSpec.describe TeamsData do
   #   expect(team_obj.all_games_by_team(6).count).to eq(3)
   # end
 
-  it 'finds best season by team' do
+  xit 'finds best season by team' do
     team_obj = TeamsData.new(@stat_tracker)
     expect(team_obj.best_season(6)).to eq("20122013")
   end
 
+  it 'finds all games between two teams' do
+    team_obj = TeamsData.new(@stat_tracker)
+    expect(team_obj.get_face_offs(6,3).count).to eq(3)
+  end
 
   it 'calculates win percentage' do
     team_obj = TeamsData.new(@stat_tracker)
@@ -66,5 +70,10 @@ RSpec.describe TeamsData do
   it 'finds lowest scoring game by team' do
     team_obj = TeamsData.new(@stat_tracker)
     expect(team_obj.fewest_goals_scored(6)).to eq(1)
+  end
+
+  xit 'finds favorite_opponent' do
+    team_obj = TeamsData.new(@stat_tracker)
+    expect(team_obj.favorite_opponent(6)).to eq(1)
   end
 end
