@@ -1,7 +1,7 @@
-require './tg_stat'
-require './game'
-require './team'
-
+# require './tg_stat'
+# require './game'
+# require './team'
+# #commented these out, spec still runs
 class Creator
   attr_reader :teams_hash, :seasons_hash, :stats_hash, :games_hash
 
