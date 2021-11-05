@@ -1,4 +1,4 @@
-require './lib/stat_tracker.rb'
+require_relative './stat_tracker.rb'
 class League
   attr_reader :games,
               :teams,
