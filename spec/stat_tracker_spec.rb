@@ -67,14 +67,14 @@ describe StatTracker do
   end
 
   describe '#most_goals_scored' do
-    xit 'returns the highest nuber of goals a particular team has scored in a single game' do
-
+    it 'returns the highest nuber of goals a particular team has scored in a single game' do
+      expect(@stat_tracker.most_goals_scored(3)).to eq(5)
     end
   end
 
   describe '#fewest_goals_scored' do
     it 'returns the lowest numer of goals a particular team has scored in a single game' do
-
+      expect(@stat_tracker.fewest_goals_scored(3)).to eq(0)
     end
   end
 
