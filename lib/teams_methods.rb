@@ -17,9 +17,11 @@ module Teams_Methods
   end
 
   def average_win_percentage(team_id)
+
     wins = 0
     loss_or_tie = 0
     rows = []
+
     @game_teams.each do |row|
       if row.team_id == team_id
         rows << row
