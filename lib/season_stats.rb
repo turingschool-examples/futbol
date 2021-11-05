@@ -121,4 +121,13 @@ class SeasonStats
     end
     name_array[0]
   end
+
+  def fewest_tackles(season)
+    tackles = Hash.new
+    teams_id = teams_in_season(season)
+    teams_id.each do |team_id|
+      tackles[team_id] = team_tackles(season, team_id)
+    end
+    convert_team_id_to_name(tackles.key(tackles.values.min).to_i)
+  end
 end
