@@ -99,4 +99,11 @@ RSpec.describe SeasonStats do
     expected = "Houston Dynamo"
     expect(season_obj.most_tackles(season)).to eq(expected)
   end
+
+  it 'shows team with fewest tackles in a season' do
+    season_obj = SeasonStats.new(@stat_tracker)
+    season = "20122013"
+    expected = "Orlando City SC"
+    expect(season_obj.fewest_tackles(season)).to eq(expected)
+  end
 end
