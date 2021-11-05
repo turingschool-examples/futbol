@@ -1,5 +1,4 @@
-require './creator'
-class LeagueStats
+module LeagueStats
 
   def count_of_teams
     creator.teams_hash.count
@@ -13,9 +12,10 @@ class LeagueStats
       total_goals_by_team[game.away_team_id.to_sym] << game.away_goals
       total_goals_by_team[game.home_team_id.to_sym] << game.home_goals
     end
-    total_goals_by_team.max_by do |k,v|
+
+    best_team_id = total_goals_by_team.max_by do |k,v|
       v.sum / v.length
     end
-    require "pry"; binding.pry
+    creator.teams_hash[best_team_id.first.to_s].team_name
   end
 end
