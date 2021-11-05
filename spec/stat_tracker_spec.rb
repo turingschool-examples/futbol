@@ -4,13 +4,13 @@ require './runner.rb'
 
 RSpec.describe StatTracker do
 
-  game_path = './data/games_dummy.csv'
-  team_path = './data/teams_dummy.csv'
-  game_teams_path = './data/game_teams_dummy.csv'
-  let(:games) {CSV.parse(File.read(game_path), headers: true)}
-  let(:teams) {CSV.parse(File.read(team_path), headers: true)}
-  let(:game_teams) {CSV.parse(File.read(game_teams_path), headers: true)}
-  let(:stat_tracker) {StatTracker.new(games, teams, game_teams)}
+  # game_path = './data/games_dummy.csv'
+  # team_path = './data/teams_dummy.csv'
+  # game_teams_path = './data/game_teams_dummy.csv'
+  # let(:games) {CSV.parse(File.read(game_path), headers: true)}
+  # let(:teams) {CSV.parse(File.read(team_path), headers: true)}
+  # let(:game_teams) {CSV.parse(File.read(game_teams_path), headers: true)}
+  let(:stat_tracker) {StatTracker.new}#(games, teams, game_teams)}
 
 
   it 'exists' do

@@ -3,48 +3,46 @@ require 'csv'
 require_relative './game'
 require_relative './team'
 require_relative './game_team'
+require_relative './league'
 
 
 class StatTracker
 
-  attr_reader :games,
-              :teams,
-              :game_teams
-  def initialize(games, teams, game_teams)
-    @games      = games
-    @teams      = teams
-    @game_teams = game_teams
-  end
+  # attr_reader :games,
+  #             :teams,
+  #             :game_teams
+  # def initialize(games, teams, game_teams)
+  #   @games      = games
+  #   @teams      = teams
+  #   @game_teams = game_teams
+  # end
 
   def self.from_csv(locations)
-    games = []
-    CSV.parse(File.read(locations[:games]), headers: true).each do |row|
-       games << Game.new(row)
-    end
-    teams = []
-    CSV.parse(File.read(locations[:teams]), headers: true).each do |row|
-      teams << Team.new(row)
-    end
-    game_teams = []
-    CSV.parse(File.read(locations[:game_teams]), headers: true).each do |row|
-      game_teams << GameTeam.new(row)
-    end
-    ted_lasso = StatTracker.new(games, teams, game_teams)
-  
+    games = CSV.parse(File.read(locations[:games]), headers: true).map {|row| Game.new(row)}
+
+    teams = CSV.parse(File.read(locations[:teams]), headers: true).map {|row| Team.new(row)}
+
+    game_teams = CSV.parse(File.read(locations[:game_teams]), headers: true).map {|row| GameTeam.new(row)}
+
+    league = League.new(games, teams, game_teams)
+    ted_lasso = StatTracker.new#(games, teams, game_teams)
     return ted_lasso
   end
 
+
+
   def highest_total_score
-    grouped_by_game = @game_teams.group_by do |row|
-      row["game_id"]
-    end
-    game_sum_goals = []
-    grouped_by_game.each_pair do |key, value|
-      first_team_goals = value.first["goals"].to_i
-      second_team_goals = value.last["goals"].to_i
-      game_sum_goals << first_team_goals + second_team_goals
-    end
-    game_sum_goals.max
+    league.highest_total_score
+    # grouped_by_game = @game_teams.group_by do |row|
+    #   row["game_id"]
+    # end
+    # game_sum_goals = []
+    # grouped_by_game.each_pair do |key, value|
+    #   first_team_goals = value.first["goals"].to_i
+    #   second_team_goals = value.last["goals"].to_i
+    #   game_sum_goals << first_team_goals + second_team_goals
+    # end
+    # game_sum_goals.max
   end
 
   def lowest_total_score
