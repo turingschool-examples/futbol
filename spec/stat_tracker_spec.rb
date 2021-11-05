@@ -29,15 +29,48 @@ RSpec.describe StatTracker do
     expect(stattracker).to be_a(StatTracker)
   end
 
-  # these will be in the league stat class spec
-  describe "League Stats" do
-    it "league count_of_teams" do
-      expect(stattracker.count_of_teams).to eq(32)
+  # Tests from the included LeagueStats module
+  describe 'LeagueStats module methods' do
+    describe '#count_of_teams' do
+      it 'can find the number of teams in the league' do
+        expect(stattracker.count_of_teams).to eq(32)
+      end
     end
-  
-    it "best offense" do
-      expect(stattracker.best_offense).to eq("FC Dallas")
+
+    describe '#best_offense' do
+      it 'can find the team with the best offense and return string name' do
+        expect(stattracker.best_offense).to eq('FC Dallas')
+      end
+    end
+
+    describe '#worst_offense' do
+      it 'can find the team with the worst offense and return string name' do
+        expect(stattracker.worst_offense).to eq('Sporting Kansas City')
+      end
+    end
+
+    describe '#highest_scoring_visitor' do
+      it 'can find the team with the best offense avg while visitor and return string name' do
+        expect(stattracker.highest_scoring_visitor).to eq('FC Dallas')
+      end
+    end
+
+    describe '#highest_scoring_home_team' do
+      it 'can find the team with the best offense avg while home and return string name' do
+        expect(stattracker.highest_scoring_home_team).to eq('New York City FC')
+      end
+    end
+
+    describe '#lowest_scoring_visitor' do
+      it 'can find the team with the worst offense avg while visitor and return string name' do
+        expect(stattracker.lowest_scoring_visitor).to eq('Sporting Kansas City')
+      end
+    end
+
+    describe '#lowest_scoring_home_team' do
+      it 'can find the team with the worst offense avg while home and return string name' do
+        expect(stattracker.lowest_scoring_home_team).to eq('Sporting Kansas City')
+      end
     end
   end
-
 end
