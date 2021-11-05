@@ -10,12 +10,4 @@ locations = {
   game_teams: game_teams_path
 }
 
-ted_lasso = StatTracker.from_csv(locations)
-# ted_lasso will hold the value of a single instance
-# of the StatTracker class. That instance will hold all
-# the data we've opened within it. In effect, ted_lasso
-# holds all of our data, and will have all our methods
-# called to it.
-# require 'pry'; binding.pry
-
-ted_lasso.percentage_ties
+stat_tracker = StatTracker.from_csv(locations)
