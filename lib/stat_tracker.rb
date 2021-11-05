@@ -72,11 +72,11 @@ class StatTracker
 
     games = @game_teams.select { |game_team| game_team.team_id == team_id }
 
-    game_ids = games.map { |game| game.game_id }
+    game_ids = games.map { |game| (game.game_id.to_s + game.hoa) }
 
     game_ids.each do |id|
       @game_teams.each do |game|
-        if id == game.game_id
+        if id == (game.game_id.to_s + game.hoa)
           if game.result == "WIN"
             won_game_ids << id
           end
@@ -118,11 +118,11 @@ class StatTracker
 
     games = @game_teams.select { |game_team| game_team.team_id == team_id }
 
-    game_ids = games.map { |game| game.game_id }
+    game_ids = games.map { |game| (game.game_id.to_s + game.hoa) }
 
     game_ids.each do |id|
       @game_teams.each do |game|
-        if id == game.game_id
+        if id == (game.game_id.to_s + game.hoa)
           if game.result == "WIN"
             won_game_ids << id
           end
@@ -161,6 +161,22 @@ class StatTracker
     total_wins = total_games.select { |game| game.result == "WIN" }
 
     (total_wins.count.to_f / total_games.count.to_f * 100).round(2)
+  end
+
+  def most_goals_scored(team_id)
+    total_games = @game_teams.select { |game_team| game_team.team_id == team_id }
+
+    game = total_games.max_by { |game| game.goals }
+
+    game.goals
+  end
+
+  def fewest_goals_scored(team_id)
+    total_games = @game_teams.select { |game_team| game_team.team_id == team_id }
+
+    game = total_games.min_by { |game| game.goals }
+
+    game.goals
   end
 
 
