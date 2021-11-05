@@ -180,5 +180,31 @@ class StatTracker
     game.goals
   end
 
+  def favorite_opponent(team_id)
+    # In Game_teams, find all games that include team 3 AND result is a win. This is a master list of won games
+    # OR
+    # In Games, look if team_id == home or away
+    total_games_won = @game_teams.select do |game_team|
+      game_team.result == "WIN" && game_team.team_id == team_id
+    end
+    # Iterate the master list of won games and save the game_ids
+    won_game_ids = total_games_won.map do |game|
+      game.game_id
+    end
+    # Iterate @game_teams and find the game_id in question, and if it is not the team_id argument, return the team_id. "losers"
+    losers = []
+    won_game_ids.each do |game_id|
+      @game_teams.each do |game_team|
+        if game_team.team_id != team_id && game_team.game_id == game_id
+          losers << game_team.team_id
+        end
+      end
+    end
+
+    biggest_loser = losers.max_by { |loser| losers.count(loser) }
+    team = @teams.find { |team| team.team_id == biggest_loser }
+    team.team_name
+  end
+
 
 end
