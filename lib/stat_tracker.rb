@@ -64,4 +64,13 @@ class StatTracker
     total_goals_by_team(team_id).to_f / games_by_team(team_id).length.to_f
   end
 
+  def worst_offense
+    id = id = @game_teams.min_by do |team|
+           average_goals_per_game(team.team_id)
+         end.team_id
+
+     @teams.find do |team|
+       id == team.team_id
+     end.team_name
+   end
 end
