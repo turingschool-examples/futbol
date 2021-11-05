@@ -20,7 +20,7 @@ RSpec.describe "Stat Tracker" do
   end
 
   it "has attributes" do
-    expect(@stat_tracker.games.count).to eq(21)
+    expect(@stat_tracker.games.count).to eq(25)
     expect(@stat_tracker.teams.count).to eq(33)
     expect(@stat_tracker.game_teams.count).to eq(21)
   end
