@@ -47,12 +47,16 @@ RSpec.describe TeamsData do
   #   expect(team_obj.all_games_by_team(6).count).to eq(3)
   # end
 
-  # it 'finds best season by team' do
-  #   team_obj = TeamsData.new(@stat_tracker)
-  #   expect(team_obj.best_season(6)).to eq("20122013")
-  # end
+  it 'finds best season by team' do
+    team_obj = TeamsData.new(@stat_tracker)
+    expect(team_obj.best_season(6)).to eq("20122013")
+  end
 
 
+  it 'calculates win percentage' do
+    team_obj = TeamsData.new(@stat_tracker)
+    expect(team_obj.average_win_percentage(6)).to eq(88.89)
+  end
 
   it 'finds most scored goals by team' do
     team_obj = TeamsData.new(@stat_tracker)
@@ -61,6 +65,6 @@ RSpec.describe TeamsData do
 
   it 'finds lowest scoring game by team' do
     team_obj = TeamsData.new(@stat_tracker)
-    expect(team_obj.most_goals_scored(6)).to eq(1)
+    expect(team_obj.fewest_goals_scored(6)).to eq(1)
   end
 end

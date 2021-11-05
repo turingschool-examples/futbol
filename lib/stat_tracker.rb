@@ -7,8 +7,7 @@ class StatTracker
     @data = data
     @games = @data[:games]
     @teams = @data[:teams]
-    @games_teams = @data[:games_test]
-
+    @game_teams = @data[:game_teams]
   end
 
 
