@@ -65,7 +65,7 @@ class StatTracker
   end
 
   def worst_offense
-    id = id = @game_teams.min_by do |team|
+    id = @game_teams.min_by do |team|
            average_goals_per_game(team.team_id)
          end.team_id
 
