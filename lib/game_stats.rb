@@ -73,8 +73,13 @@ class GameStats < Game
   end
 
   def count_of_games_by_season
-    hash = {}
-    
+    values = @games.map do |game|
+      game.season
+    end
+    hash = Hash.new(0)
+    values.each { | value | hash.store(value, hash[value]+1) }
+    hash
+
 
   end
 
