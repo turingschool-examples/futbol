@@ -83,7 +83,7 @@ RSpec.describe SeasonStats do
     expect(season_obj.teams_in_season(season)).to eq(expected)
   end
 
-  it 'shows an array of tackles for each team_id' do
+  it 'shows the total tackles for each team_id' do
     season_obj = SeasonStats.new(@stat_tracker)
     season = "20122013"
     team_id = "6"
@@ -106,4 +106,16 @@ RSpec.describe SeasonStats do
     expected = "Orlando City SC"
     expect(season_obj.fewest_tackles(season)).to eq(expected)
   end
+
+  it 'shows the ratio of shots to goals for a team' do
+    season_obj = SeasonStats.new(@stat_tracker)
+    season = "20122013"
+    team_id = "6"
+    expected = 3.17
+
+
+    expect(season_obj.team_goals_ratio(season, team_id)).to eq(expected)
+  end
+
+
 end
