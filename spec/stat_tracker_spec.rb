@@ -84,9 +84,9 @@ describe StatTracker do
     end
   end
 
-  xdescribe '#rival' do
+  describe '#rival' do
     it 'returns the name of the opponent that has the highest win percentage against the given team' do
-
+      expect(@stat_tracker.rival(3)).to eq("Reign FC")
     end
   end
 end
