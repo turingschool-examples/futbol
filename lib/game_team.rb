@@ -1,4 +1,6 @@
+
 class GameTeam
+
   attr_reader :game_id, :team_id, :HoA, :result, :settled_in,
   :head_coach, :goals, :shots, :tackles, :pim,
   :powerPlayOpportunities, :powerPlayGoals, :faceOffWinPercentage,
@@ -25,38 +27,4 @@ class GameTeam
     @takeaways = row['takeaways'].to_i
   end
 
-
 end
-
-
-#def count_of_games_by_season
-  #@season.tally
-#end
-
-#def count_of_teams
- # @team_id.count
-# end
-#
-# def calc_average_goals_alltime(team_id)
-#
-#   goals = []
-#
-#   @game_teams_hashes.each do |hash|
-#     if hash["team_id"] == team_id
-#       goals << hash["goals"].to_i
-#     end
-#   end
-#   sum = goals.sum
-#   count = goals.count
-#   average = sum / count
-#   average
-# end
-#
-# def best_offense
-#   averages = []
-#   @teams_hashes.each do |team|
-#     averages << [team, self.calc_average_goals_alltime(team["team_id"])]
-#   end
-#   max = averages.max {|a, b| a[1] <=> b[1]}
-#   max[0]["teamName"]
-# end
