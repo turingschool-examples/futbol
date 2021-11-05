@@ -34,6 +34,34 @@ class StatTracker
 
   def count_of_teams
     @teams.length
-  end 
+  end
+
+  def best_offense
+   id = @game_teams.max_by do |team|
+          average_goals_per_game(team.team_id)
+        end.team_id
+
+    @teams.find do |team|
+      id == team.team_id
+    end.team_name
+  end
+
+  def games_by_team(team_id)
+    @game_teams.select do |game|
+      game.team_id == team_id
+    end
+  end
+
+  def total_goals_by_team(team_id)
+    goals = []
+    games_by_team(team_id).each do |game|
+      goals << game.goals
+    end
+    goals.sum
+  end
+
+  def average_goals_per_game(team_id)
+    total_goals_by_team(team_id).to_f / games_by_team(team_id).length.to_f
+  end
 
 end
