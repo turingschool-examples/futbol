@@ -79,13 +79,13 @@ describe StatTracker do
   end
 
   describe '#favorite_opponent' do
-    xit 'returns the name of the opponent that has the lowest win percentage against the given team' do
-
+    it 'returns the name of the opponent that has the lowest win percentage against the given team' do
+      expect(@stat_tracker.favorite_opponent(3)).to eq("Sporting Kansas City")
     end
   end
 
-  describe '#rival' do
-    xit 'returns the name of the opponent that has the highest win percentage against the given team' do
+  xdescribe '#rival' do
+    it 'returns the name of the opponent that has the highest win percentage against the given team' do
 
     end
   end
