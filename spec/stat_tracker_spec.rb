@@ -9,7 +9,7 @@ describe StatTracker do
 
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams_test.csv'
+    game_teams_path = './data/game_teams.csv'
 
     locations = {
       games: game_path,
@@ -56,13 +56,13 @@ describe StatTracker do
 
   describe '#worst_season' do
     it 'returns the season with the lowest win percentage for a team' do
-      expect(@stat_tracker.worst_season(3)).to eq("20152016")
+      expect(@stat_tracker.worst_season(3)).to eq("20172018")
     end
   end
 
   describe '#average_win_percentage' do
     it 'returns the average win percentage of all games for a team' do
-      expect(@stat_tracker.average_win_percentage(3)).to eq(36.11)
+      expect(@stat_tracker.average_win_percentage(3)).to eq(43.31)
     end
   end
 
