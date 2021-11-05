@@ -43,9 +43,6 @@ class TeamsData < StatTracker
 
     season_games = Hash[seasons.collect { |item| [item, team_games.select { |game| item == game['season']}] } ]
 
-    
-
-
   end
 
 
@@ -104,8 +101,55 @@ class TeamsData < StatTracker
     lowest_score
   end
 
+  def convert_team_id_to_name(team_id_integer)
+    name_array = []
+    @team_data.each do |row|
+      if row['team_id'].to_i == team_id_integer
+        name_array << row['teamName']
+      end
+    end
+    name_array[0]
+  end
+
+  def get_opponent_ids(team_games, team_id)
+    opponent_ids = []
+    team_games.each do |row|
+      if row['home_team_id'] == team_id.to_s
+        opponent_ids << row['away_team_id']
+      end
+      if row['away_team_id'] == team_id.to_s
+        opponent_ids << row['home_team_id']
+      end
+    end
+    opponent_ids = opponent_ids.uniq
+  end
+
+  def get_face_offs(team1_id, team2_id)
+    team1_games = all_games_by_team(team1_id)
+    face_offs = team1_games.select do |row|
+      row['home_team_id'] == team2_id.to_s || row['away_team_id'] == team2_id.to_s
+    end
+    face_offs
+  end
+
   def favorite_opponent(team_id)
 
+    # get all games team has played in
+    team_games = all_games_by_team(team_id)
+
+    opponent_ids = get_opponent_ids(team_games, team_id)
+    require 'pry'; binding.pry
+
+    games_by_team = Hash.new
+
+    # games_by_teams = Hash[opponent_ids.collect { |item| [item, team_games.select { |game| item == game['season']}] } ]
+
+    # teams_games.each
+    # if row['home_team_id'] == team_id.to_s
+      # || opponent_ids << row['away_team_id']
+    # break up games according to each unique team
+    # find average_win_percentage of each teams total games
+    # return lowest average
   end
 
   def rival(team_id)
