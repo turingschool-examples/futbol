@@ -1,3 +1,4 @@
+
 class Team
   def initialize(data)
     @team_id = data["team_id"]

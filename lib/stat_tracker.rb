@@ -1,4 +1,4 @@
-# require_relative 'csv'
+require 'csv'
 # require_relative 'pry'
 require_relative './game'
 require_relative './team'
@@ -30,7 +30,7 @@ class StatTracker
       game_teams << GameTeam.new(row)
     end
     ted_lasso = StatTracker.new(games, teams, game_teams)
-    require "pry"; binding.pry
+  
     return ted_lasso
   end
 

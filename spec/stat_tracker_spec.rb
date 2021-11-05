@@ -1,6 +1,6 @@
-require_relative '/spec_helper.rb'
-require_relative './lib/stat_tracker.rb'
-require_relative './runner.rb'
+require './spec_helper.rb'
+require './lib/stat_tracker.rb'
+require './runner.rb'
 
 RSpec.describe StatTracker do
 
@@ -55,5 +55,11 @@ RSpec.describe StatTracker do
     expect(stat_tracker.average_goals_by_season).to be_a(Hash)
     expect(stat_tracker.average_goals_by_season).to include('20122013' => 3.70)
 
+  end
+
+  ##League Stats Methods
+
+  it 'count the total number of teams' do
+    expect(stat_tracker.count_of_teams).to eq(10)
   end
 end
