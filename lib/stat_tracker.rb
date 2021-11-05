@@ -51,8 +51,8 @@ class StatTracker
   # Team Statistics
   def team_info(team_id)
 
-    result = @teams.select { |team| team.team_id == team_id }
-    team = result[0]
+    team = @teams.find { |team| team.team_id == team_id }
+    # team = result[0]
 
     info = {
       :team_id => team.team_id,
@@ -92,7 +92,6 @@ class StatTracker
         end
       end
     end
-
 
     won_game_ids.each do |id|
       @games.each do |game|
@@ -157,6 +156,7 @@ class StatTracker
 
   end
 
+  #average win percentage of all games for a team
   def average_win_percentage
 
   end
