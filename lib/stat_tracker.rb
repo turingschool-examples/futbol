@@ -49,7 +49,160 @@ class StatTracker
 
 
   # Team Statistics
+  def team_info(team_id)
+    info = {
+      :team_id => @teams[team_id].team_id,
+      :franchise_id => @teams[team_id].franchise_id,
+      :team_name => @teams[team_id].team_name,
+      :abbreviation => @teams[team_id].abbreviation,
+      :link => @teams[team_id].link
+    }
+  end
 
+  def best_season(team_id)
+    # require 'pry'; binding.pry
+
+    game_ids = []
+    won_game_ids = []
+    total_by_season = Hash.new(0)
+    wins_by_season = Hash.new(0)
+    percent_by_season = Hash.new(0)
+
+    # Find the game objects that match the team_id
+    games = @game_teams.select { |game_team| game_team.team_id == team_id }
+    # Get the game_ids from each game object THAT ARE VERIFIED for the team
+    game_ids = games.map { |game| game.game_id }
+    #
+    game_ids.each do |id|
+      @game_teams.each do |game|
+        if id == game.game_id
+          if game.result == "WIN"
+            p "GAMES RESULT IF BRANCH TRIGGERED"
+            won_game_ids << id
+          end
+        end
+      end
+    end
+
+    game_ids.each do |id|
+      @games.each do |game|
+        if game.game_id == id.slice(0..9).to_i
+          total_by_season[game.season] += 1
+        end
+      end
+    end
+
+
+    won_game_ids.each do |id|
+      @games.each do |game|
+        if game.game_id == id.slice(0..9).to_i
+          wins_by_season[game.season] += 1
+        end
+      end
+    end
+
+    total_by_season.each_key do |key|
+      percent_by_season[key] = wins_by_season[key] * 100 / total_by_season[key].to_f
+    end
+
+    max_season = percent_by_season.max_by { |key,value| value }[0]
+
+    require 'pry'; binding.pry
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+    # # OLD CODE BELOW
+    #
+    # game_ids.each do |id|
+    #   @game_teams.each_value do |a|
+    #     if id == a.game_id + a.hoa
+    #       if a.result == "WIN"
+    #         won_game_ids << id.slice(0..9)
+    #       end
+    #       require 'pry'; binding.pry
+    #     end
+    #   end
+    # end
+    #
+    # game_ids.each do |id|
+    #   @games.each_value do |a|
+    #     if a.game_id.to_s == id.slice(0..9)
+    #       total_by_season[a.season] += 1
+    #     end
+    #   end
+    # end
+    #
+    # won_game_ids.each do |id|
+    #   @games.each_value do |a|
+    #     if a.game_id.to_s == id
+    #       wins_by_season[a.season] += 1
+    #     end
+    #   end
+    # end
+    #
+    # total_by_season.each_key do |a|
+    #   percent_by_season[a] = wins_by_season[a] * 100 / total_by_season[a].to_f
+    # end
+    #
+    # max_season = percent_by_season.max_by { |key,value| value }[0]
+
+  end
+
+  def worst_season(team_id)
+    game_ids = []
+    won_game_ids = []
+    total_by_season = Hash.new(0)
+    wins_by_season = Hash.new(0)
+    percent_by_season = Hash.new(0)
+
+    @game_teams.each do |a, b|
+      if b.team_id == team_id
+        game_ids << a
+      end
+    end
+
+    game_ids.each do |id|
+      @game_teams.each_value do |a|
+        if id == a.game_id + a.hoa
+          if a.result == "WIN"
+            won_game_ids << id.slice(0..9)
+          end
+        end
+      end
+    end
+
+    game_ids.each do |id|
+      @games.each_value do |a|
+        if a.game_id.to_s == id.slice(0..9)
+          total_by_season[a.season] += 1
+        end
+      end
+    end
+
+    won_game_ids.each do |id|
+      @games.each_value do |a|
+        if a.game_id.to_s == id
+          wins_by_season[a.season] += 1
+        end
+      end
+    end
+
+    total_by_season.each_key do |a|
+      percent_by_season[a] = wins_by_season[a] * 100 / total_by_season[a].to_f
+    end
+
+    max_season = percent_by_season.min_by { |key,value| value }[0]
+  end
+
+  def average_win_percentage
+
+  end
 
 
 end
