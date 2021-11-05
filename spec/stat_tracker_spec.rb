@@ -20,13 +20,13 @@ describe StatTracker do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
-
+  describe '#initialize' do
     it 'exists' do
       expect(@stat_tracker).to be_instance_of(StatTracker)
     end
+  end 
 
     describe '#count of teams' do
-
       it 'returns total number of teams' do
         expect(@stat_tracker.count_of_teams).to eq(10)
       end
