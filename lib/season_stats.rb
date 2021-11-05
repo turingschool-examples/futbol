@@ -146,4 +146,13 @@ class SeasonStats
     end
     (shots_array.sum / goals_array.sum.to_f).round(2)
   end
+
+  def most_accurate_team(season)
+    ratio = Hash.new
+    teams_id = teams_in_season(season)
+    teams_id.each do |team_id|
+      ratio[team_id] = team_goals_ratio(season, team_id)
+    end
+    convert_team_id_to_name(ratio.key(ratio.values.min).to_i)
+  end
 end
