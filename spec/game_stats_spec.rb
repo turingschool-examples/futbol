@@ -1,9 +1,17 @@
-require 'simplecov'
-SimpleCov.start
-SimpleCov.command_name 'Game Statistics Class Tests'
-require './lib/game_stats'
-
-RSpec.describe GameStats do
-
-  
-end
+# require './lib/game_stats'
+#
+# RSpec.describe GameStats do
+#
+#   it "exists" do
+#     gamestats = GameStats.new
+#     expect(gamestats).to be_a(GameStats)
+#   end
+#
+#   it "highest_total_score" do
+#     gamestats = GameStats.new
+#     expect(gamestats.highest_total_score).to eq(10)
+#   end
+#
+#
+#
+# end
