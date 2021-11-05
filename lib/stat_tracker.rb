@@ -155,13 +155,11 @@ class StatTracker
 
   end
 
-  #average win percentage of all games for a team
   def average_win_percentage(team_id)
-    #get the total games from game_teams that the team has played.
     total_games = @game_teams.select { |game_team| game_team.team_id == team_id }
-    #Count how many are wins
+
     total_wins = total_games.select { |game| game.result == "WIN" }
-    # percentage wins = wins/total
+
     (total_wins.count.to_f / total_games.count.to_f * 100).round(2)
   end
 
