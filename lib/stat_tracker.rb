@@ -167,6 +167,14 @@ class StatTracker
     total_games = @game_teams.select { |game_team| game_team.team_id == team_id }
 
     game = total_games.max_by { |game| game.goals }
+
+    game.goals
+  end
+
+  def fewest_goals_scored(team_id)
+    total_games = @game_teams.select { |game_team| game_team.team_id == team_id }
+
+    game = total_games.min_by { |game| game.goals }
     
     game.goals
   end
