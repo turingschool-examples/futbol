@@ -73,6 +73,8 @@ class GameStats < Game
   end
 
   def count_of_games_by_season
+    hash = {}
+    
 
   end
 
@@ -82,5 +84,9 @@ class GameStats < Game
       total_goals += (game.home_goals.to_i + game.away_goals.to_i)
     end
     (total_goals.to_f / @games.count).round(2)
+  end
+
+  def average_goals_by_season
+
   end
 end
