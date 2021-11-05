@@ -72,4 +72,27 @@ class GameManager
     Hash[games_count]
   end
 
+  def number_of_seasons
+    seasons = []
+    @game_objects.each do |row|
+        seasons << row.season
+    end
+    seasons.uniq.count
+  end
+
+  def array_away_team_ids
+    away_id = []
+      @game_objects.each do |row|
+        away_id << row.away_team_id
+      end
+    away_id.uniq
+  end
+  # def max_away_goals_by_team_id
+  #   # goals = []
+  #   @game_objects.map do |row|
+  #   x =  row.away_team_id
+  #   binding.pry
+  #   end
+  # end
+
 end

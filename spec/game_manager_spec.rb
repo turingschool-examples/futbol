@@ -67,4 +67,22 @@ RSpec.describe GameManager do
       "20172018"=>1355
     })
   end
+
+  it 'can caluculate number of seasons' do
+    game_path = './data/games.csv'
+    game_manager = GameManager.new(game_path)
+    expect(game_manager.number_of_seasons).to eq(6)
+  end
+
+  it 'can make an array of all away team ids' do
+    game_path = './data/games.csv'
+    game_manager = GameManager.new(game_path)
+    expect(game_manager.array_away_team_ids.length).to eq(32)
+  end
+
+  # xit 'can find team by id with hightest ave goals' do
+  #   game_path = './data/games.csv'
+  #   game_manager = GameManager.new(game_path)
+  #   expect(game_manager.max_away_goals_by_team_id).to eq(6)
+  # end
 end
