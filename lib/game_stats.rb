@@ -89,7 +89,7 @@ class GameStats < Game
     (total_goals.to_f / @games.count).round(2)
   end
 
-  def average_goals_per_season(season) #helper method for method below
+  def average_goals_per_season(season) #creates the values for the hash made in the method below
     total_goals = 0
     total_games = []
     @games.each do |game|
@@ -101,7 +101,7 @@ class GameStats < Game
     (total_goals/total_games.count.to_f).round(2)
   end
 
-  def average_goals_by_season
+  def average_goals_by_season #creates a hash where the keys are seasons and values are average goals per season
     seasons = @games.map do |game|
       game.season
     end
