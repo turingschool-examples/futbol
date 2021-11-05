@@ -6,38 +6,24 @@ require_relative './game_team'
 require_relative './league'
 
 
-class StatTracker < League
+class StatTracker 
   attr_reader :league
 
-  def initialize
-    @league = league
-  end
-
-  # attr_reader :games,
-  #             :teams,
-  #             :game_teams
-  # def initialize(games, teams, game_teams)
-  #   @games      = games
-  #   @teams      = teams
-  #   @game_teams = game_teams
-  # end
-
-  def self.from_csv(locations)
+  def initialize(locations)
     games = CSV.parse(File.read(locations[:games]), headers: true).map {|row| Game.new(row)}
-
     teams = CSV.parse(File.read(locations[:teams]), headers: true).map {|row| Team.new(row)}
-
     game_teams = CSV.parse(File.read(locations[:game_teams]), headers: true).map {|row| GameTeam.new(row)}
 
-    league = League.new(games, teams, game_teams)
-    stat_tracker = StatTracker.new#(games, teams, game_teams)
-    return stat_tracker
+    @league = League.new({games: games, teams: teams, game_teams: game_teams})
   end
 
+  def self.from_csv(locations)
+     StatTracker.new(locations)
+   end
 
 
   def count_of_teams
-    league.count_of_teams
+    @league.count_of_teams
   end
     # grouped_by_game = @game_teams.group_by do |row|
     #   row["game_id"]
