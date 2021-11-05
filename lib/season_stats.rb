@@ -91,4 +91,34 @@ class SeasonStats
     end
     team_ids.uniq
   end
+
+  def team_tackles(season, team_id)
+    result_array = []
+    @games_teams.each do |row|
+      if array_of_games(season).include?(row['game_id']) && row["team_id"] == team_id
+          result_array << row["tackles"].to_i
+      end
+    end
+    result_array.sum
+  end
+
+  def most_tackles(season)
+    tackles = Hash.new
+    teams_id = teams_in_season(season)
+    teams_id.each do |team_id|
+      tackles[team_id] = team_tackles(season, team_id)
+    end
+    convert_team_id_to_name(tackles.key(tackles.values.max).to_i)
+  end
+
+## Needs to be put into a module
+  def convert_team_id_to_name(team_id_integer)
+    name_array = []
+    @team_data.each do |row|
+      if row['team_id'].to_i == team_id_integer
+        name_array << row['teamName']
+      end
+    end
+    name_array[0]
+  end
 end
