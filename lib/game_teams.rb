@@ -17,6 +17,7 @@ class GameTeams
               :giveaways,
               :takeaways
 
+<<<<<<< HEAD
   def initialize(info_hash)
     @game_id                = info_hash[:game_id].to_i
     @team_id                = info_hash[:team_id].to_i
@@ -33,5 +34,25 @@ class GameTeams
     @faceoffwinpercentage   = info_hash[:faceOffWinPercentage].to_f
     @giveaways              = info_hash[:giveaways].to_i
     @takeaways              = info_hash[:takeaways].to_i
+=======
+
+  def initialize(row)
+    @row = row[:game_id]
+    @team_id = row[:team_id].to_i
+    @HoA = row[:HoA]
+    @result = row[:result]
+    @settled_in = row[:settled_in]
+    @head_coach = row[:head_coach]
+    @goals = row[:goals].to_i
+    @shots = row[:shots].to_i
+    @tackles = row[:tackles].to_i
+    @pim = row[:pim].to_i
+    @powerPlayOpportunities = row[:powerPlayOpportunities].to_i
+    @powerPlayGoals = row[:powerPlayGoals].to_i
+    @faceOffWinPercentage = row[:faceOffWinPercentage]
+    @giveaways = row[:giveaways].to_i
+    @takeaways = row[:takeaways].to_i
+
+>>>>>>> 6272cf6 (commit to save changes and switch branch)
   end
 end

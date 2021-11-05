@@ -99,10 +99,6 @@ class GameManager
     avg_goals_per_game.round(2)
   end
 
-  # def best_offense
-  #   @game_objects.each do |game|
-  #     require "pry"; binding.pry
-  #   end
-  end
+  
 
 end
