@@ -84,13 +84,19 @@ class TeamsData < StatTracker
     end
 
     win_percentages_by_season.key(win_percentages_by_season.values.max)
-    # require 'pry'; binding.pry
-
   end
 
 
   def worst_season(team_id)
+    team_games = team_games_per_season(team_id)
 
+    win_percentages_by_season = {}
+    team_games.each do |season, games|
+      win_percentages_by_season[season] = season_win_percentage(games, team_id)
+    end
+
+    win_percentages_by_season.key(win_percentages_by_season.values.min)
+    # require 'pry'; binding.pry
   end
 
   def average_win_percentage(team_id)
