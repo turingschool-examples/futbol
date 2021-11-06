@@ -28,7 +28,7 @@ RSpec.describe League do
   end
 
   it 'can count total number of teams' do
-
+    #
     expect(league.count_of_teams).to eq(10)
   end
 end
