@@ -47,6 +47,7 @@ class StatTracker
   def highest_total_score
     max_score = 0
     @game_hash.each_value do |game|
+      require "pry"; binding.pry
       sum = game.away_goals + game.home_goals
       if sum > max_score
         max_score = sum
@@ -134,38 +135,93 @@ class StatTracker
      end
      avg
    end
- #
+
    def season_games
      @games_path.group_by do |game|
        game.season
+       require "pry"; binding.pry
      end
    end
- #
+
    def total_goals(season)
-     (total_away_goals(season) + total_home_goals(season)).sum
-   end
- #
-   def total_away_goals(season)
-     away = @games_path.each do |game|
-       game.away_goals.find_all do |goal|
-        game.include?(season)
+      (total_away_goals(season) + total_home_goals(season)).sum
+    end
+
+    def total_away_goals(season)
+      a = []
+      away = @game_hash.each_value do |game|
+        game.away_goals.sum do |goal|
+         game.include?(season)
+         a << goal
+         require "pry"; binding.pry
+       end
       end
-     end
 
-     away.map do |goal|
-       goal.to_f
-     end
-   end
+      away.map do |goal|
+        goal.to_f
+      end
+    end
 
-   def total_home_goals(season)
-     home = @games_path.select do |game|
-       @games_path.include?(season)
-     end
-     home.map do |goal|
-       goal.to_f
-     end
-   end
- end
+
+
+end
+
+  #
+  # def average_goals_by_season
+  #   avg = 0.0
+  #   total = 0.0
+  #   avg_hash = Hash.new(0)
+  #   @game_hash.each_value do |game|
+  #     count_of_games_by_season.each do |sea|
+  #       if game.season_id == sea[0]
+  #         total = (game.away_goals += game.home_goals).to_f
+  #       end
+  #       avg = (total / sea.last.to_f).round(2)
+  #       avg_hash[sea.first] = avg
+  #     end
+  #   end
+  #   avg_hash
+  # end
+
+  # def average_goals_by_season
+  #    avg = {}
+  #    count_of_games_by_season.each_pair do |season, games|
+  #      avg[season] = (total_goals(season) / games).round(2)
+  #    end
+  #    avg
+  #  end
+ # #
+   # def season_games
+   #   @games_path.group_by do |game|
+   #     game.season
+   #   end
+   # end
+ # #
+ #   def total_goals(season)
+ #     (total_away_goals(season) + total_home_goals(season)).sum
+ #   end
+ # #
+   # def total_away_goals(season)
+   #   away = @games_path.each do |game|
+   #     game.away_goals.find_all do |goal|
+   #      game.include?(season)
+   #    end
+   #   end
+   #
+   #   away.map do |goal|
+   #     goal.to_f
+   #   end
+   # end
+ #
+ #   def total_home_goals(season)
+ #     home = @games_path.select do |game|
+ #       @games_path.include?(season)
+ #     end
+ #     home.map do |goal|
+ #       goal.to_f
+ #     end
+ #   end
+
  # #
   # def average_goals_by_season
   #   avg = 0.0
