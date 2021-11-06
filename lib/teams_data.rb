@@ -60,7 +60,6 @@ class TeamsData < StatTracker
 
      win_percentage = ((total_won.to_f / season_games.length) * 100).round(2)
 
-    # require 'pry'; binding.pry
   end
 
   def team_games_per_season(team_id)
@@ -76,7 +75,18 @@ class TeamsData < StatTracker
 
   end
 
+  def best_season(team_id)
+    team_games = team_games_per_season(team_id)
 
+    win_percentages_by_season = {}
+    team_games.each do |season, games|
+      win_percentages_by_season[season] = season_win_percentage(games, team_id)
+    end
+
+    win_percentages_by_season.key(win_percentages_by_season.values.max)
+    # require 'pry'; binding.pry
+
+  end
 
 
   def worst_season(team_id)
