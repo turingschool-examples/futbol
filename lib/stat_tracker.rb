@@ -133,5 +133,15 @@ class StatTracker
       id == team.team_id
     end.team_name
   end
-  
+
+  def lowest_scoring_visitor
+    id = @game_teams.min_by do |game|
+      average_away_score(game.team_id)
+    end.team_id
+
+    @teams.find do |team|
+      id == team.team_id
+    end.team_name
+  end 
+
 end
