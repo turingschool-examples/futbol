@@ -118,7 +118,7 @@ class StatTracker
         percent_by_season = Hash.new(0)
 
         games = @game_teams.select { |game_team| game_team.team_id == team_id }
-
+   
         game_ids = games.map { |game| (game.game_id.to_s + game.hoa) }
 
         game_ids.each do |id|
@@ -180,6 +180,7 @@ class StatTracker
     game.goals
   end
 
+
   def favorite_opponent(team_id)
     total_games_won = @game_teams.select do |game_team|
       game_team.result == "WIN" && game_team.team_id == team_id
@@ -221,8 +222,5 @@ class StatTracker
     team = @teams.find { |team| team.team_id == biggest_loser }
     team.team_name
   end
-
-
-
 
 end
