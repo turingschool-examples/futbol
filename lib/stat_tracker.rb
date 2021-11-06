@@ -11,6 +11,8 @@ class StatTracker
   attr_accessor :game_teams_path, :teams_path, :games_path
 
   def initialize(locations)
+    @game_hash = {}
+    @game_teams_hash = {}
     @games_path = games(locations[:games])
     # @teams_path = teams(locations[:teams])
     # @game_teams_path = game_teams(locations[:game_teams])
@@ -23,7 +25,7 @@ class StatTracker
   def games(game_stats)
     rows = CSV.read(game_stats, headers: true)
     rows.map do |row|
-      GameStats.new(row)
+      @game_hash[row['game_id']] = GameStats.new(row)
     end
   end
 
@@ -38,13 +40,13 @@ class StatTracker
   def game_teams(game_teams_stats)
     rows = CSV.read(game_stats, headers: true)
     rows.map do |row|
-      GameTeams.new(row)
+      @game_teams_hash[row["team_id"]] = GameTeams.new(row)
     end
   end
 
   def highest_total_score
     max_score = 0
-    @games_path.each do |game|
+    @game_hash.each_value do |game|
       sum = game.away_goals + game.home_goals
       if sum > max_score
         max_score = sum
@@ -132,20 +134,22 @@ class StatTracker
      end
      avg
    end
-
+ #
    def season_games
      @games_path.group_by do |game|
-       game.season_id
+       game.season
      end
    end
-
+ #
    def total_goals(season)
      (total_away_goals(season) + total_home_goals(season)).sum
    end
-
+ #
    def total_away_goals(season)
-     away = @games_path.select do |game|
-       game.include?(season)
+     away = @games_path.each do |game|
+       game.away_goals.find_all do |goal|
+        game.include?(season)
+      end
      end
 
      away.map do |goal|
@@ -169,9 +173,8 @@ class StatTracker
   #   avg_hash = Hash.new(0)
   #   @games_path.group_by do |game|
   #     count_of_games_by_season.each do |sea|
-  #       require "pry"; binding.pry
   #       if game.season_id == sea[0]
-  #         total = (game.away_goals + game.home_goals).to_f
+  #         total += (game.away_goals + game.home_goals).to_f
   #       end
   #       avg = (total / sea.last.to_f).round(2)
   #       avg_hash[sea.first] = avg
