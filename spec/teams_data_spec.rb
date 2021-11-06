@@ -79,6 +79,13 @@ RSpec.describe TeamsData do
     expect(team_obj.best_season(team_id)).to eq("20132014")
   end
 
+  it 'finds worst season by team' do
+    team_obj = TeamsData.new(@stat_tracker)
+    team_id = 6
+
+    expect(team_obj.worst_season(team_id)).to eq("20142015")
+  end
+
   xit 'finds all games between two teams' do
     team_obj = TeamsData.new(@stat_tracker)
     expect(team_obj.get_face_offs(6,3).count).to eq(3)
