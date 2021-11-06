@@ -1,14 +1,14 @@
 require 'rspec'
 require './lib/league_stats.rb'
 
-describe League do 
-    let(:league) {League.new}
+describe LeagueStats do 
+    let(:league) {LeagueStats.new('./data/game_teams_sample.csv')}
 
     it 'exists' do
-        expect(league).to be_an_instance_of(League)
+        expect(league).to be_an_instance_of(LeagueStats)
     end
 
-    it 'attributes' do
-        expect(league.name).to eq()
+    xit 'attributes' do
+        expect(league.name).to be_an(Array)
     end
 end
