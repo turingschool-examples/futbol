@@ -79,8 +79,14 @@ RSpec.describe TeamsData do
     expect(team_obj.fewest_goals_scored(6)).to eq(1)
   end
 
-  it 'finds favorite_opponent' do
+  it 'finds favorite opponent' do
     team_obj = TeamsData.new(@stat_tracker)
     expect(team_obj.favorite_opponent(6)).to eq('Columbus Crew SC')
   end
+
+  it 'finds rival team' do
+    team_obj = TeamsData.new(@stat_tracker)
+    expect(team_obj.favorite_opponent(6)).to eq('Real Salt Lake')
+  end
+
 end
