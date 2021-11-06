@@ -12,12 +12,12 @@ RSpec.describe League do
 
   let(:league) {League.new(data)}
 
-  it 'exists' do
+  xit 'exists' do
     league = League.new(data)
     expect(league).to be_instance_of(League)
   end
 
-  it 'has attributes' do
+  xit 'has attributes' do
 
     expect(league.games).to be_a(Array)
     expect(league.games).to include(Game)
@@ -46,12 +46,12 @@ RSpec.describe League do
   end
   #game_teams_dummy
 
-  xit 'can find the percentage of ties' do
+  it 'can find the percentage of ties' do
     expect(league.percentage_ties).to eq(0.33)
   end
   #game_teams_dummy
 
-  xit 'can count games by season' do
+  it 'can count games by season' do
     expected = {
       "20122013" => 6,
       "20132014" => 5
