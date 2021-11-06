@@ -37,11 +37,31 @@ class League
       sum_of_goals_each_game << value[0].goals.to_i + value[1].goals.to_i
     end
     sum_of_goals_each_game.min
+
   end
 
   def count_of_teams
     @teams.count
   end
+
+  def percentage_home_wins
+    home_games = @game_teams.find_all do |game_team|
+      game_team.home_or_away["home"]
+    end
+    home_game_wins = @game_teams.find_all do |game_team|
+      game_team.home_or_away["home"] && game_team.result == "WIN"
+    end
+    ((home_game_wins.length.to_f)/(home_games.length.to_f)).round(2)
+  end
+
+  def percentage_away_wins
+    away_games = @game_teams.find_all do |game_team|
+      game_team.home_or_away["away"]
+    end
+    away_game_wins = @game_teams.find_all do |game_team|
+      game_team.home_or_away["away"] && game_team.result["WIN"]
+    end
+    ((away_game_wins.length.to_f)/(away_games.length.to_f)).round(2)
 
   def percentage_ties
     tie_games = @game_teams.select {|game| game.result == "TIE"}
