@@ -5,9 +5,16 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012030222,6,home,WIN,REG,Claude Julien,3,8,36,19,1,0,48.3,16,6
 2012030183,19,away,LOSS,REG,Ken Hitchcock,0,7,39,10,4,0,50.9,13,2
 2012030183,26,home,WIN,REG,Darryl Sutter,1,5,53,10,4,0,49.1,17,9
-2012030224,6,away,WIN,OT,Claude Julien,3,10,24,8,4,2,53.7,8,6
-2012030224,3,home,LOSS,OT,John Tortorella,2,8,40,8,4,1,46.3,9,7
+2012030224,6,away,WIN,OT,Claude Julien,3,10,60,8,4,2,53.7,8,6
+2012030224,3,home,LOSS,OT,John Tortorella,2,8,2,8,4,1,46.3,9,7
 2012030225,3,away,TIE,REG,John Tortorella,1,7,25,13,2,1,50.9,5,3
 2012030225,6,home,TIE,REG,Claude Julien,3,8,35,11,3,1,49.1,12,9
 2012030121,9,away,TIE,REG,Paul MacLean,2,7,31,23,2,0,39.4,9,1
 2012030121,8,home,TIE,REG,Michel Therrien,2,12,24,6,5,1,60.6,11,10
+#
+2012030153,16,away,LOSS,OT,Joel Quenneville,1,10,13,8,2,0,44.4,3,2
+2012030153,30,home,WIN,OT,Mike Yeo,2,12,34,6,3,0,55.6,7,9
+2012030161,17,away,WIN,REG,Mike Babcock,2,6,24,8,4,1,51.8,13,3
+2012030161,24,home,LOSS,REG,Bruce Boudreau,1,10,35,8,4,2,48.2,8,2
+2012030113,5,away,TIE,OT,Dan Bylsma,1,10,33,8,5,3,47.5,8,6
+2012030113,2,home,TIE,OT,Jack Capuano,1,20,35,12,3,0,52.5,14,19
