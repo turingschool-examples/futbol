@@ -11,7 +11,7 @@ class TeamsData < StatTracker
 
   def team_info(team_id)
     selected_team = @teamData.select do |csv_row|
-        csv_row["team_id"] == inp_team_id.to_s
+        csv_row["team_id"] == team_id.to_s
       end
 
       team_hash = {
@@ -96,7 +96,6 @@ class TeamsData < StatTracker
     end
 
     win_percentages_by_season.key(win_percentages_by_season.values.min)
-    # require 'pry'; binding.pry
   end
 
   def average_win_percentage(team_id)
@@ -178,11 +177,11 @@ class TeamsData < StatTracker
     face_offs = team1_games.select do |row|
       row['home_team_id'] == team2_id.to_s || row['away_team_id'] == team2_id.to_s
     end
+
     face_offs
   end
 
   def face_off_win_percentage(face_offs, team_id)
-
     game_ids = []
     face_offs.each do |game|
       game_ids << game['game_id']
@@ -250,6 +249,5 @@ class TeamsData < StatTracker
     favorite_opponent_id = win_percentage_by_team.key(win_percentage_by_team.values.min)
 
     convert_team_id_to_name(favorite_opponent_id.to_i)
-
   end
 end
