@@ -184,7 +184,6 @@ class TeamsData < StatTracker
   end
 
   def rival(team_id)
-    # "24"=>10.0,
     team_games = all_games_by_team(team_id)
 
     opponent_ids = get_opponent_ids(team_games, team_id)
@@ -200,7 +199,7 @@ class TeamsData < StatTracker
     end
 
     favorite_opponent_id = win_percentage_by_team.key(win_percentage_by_team.values.min)
-    
+
     convert_team_id_to_name(favorite_opponent_id.to_i)
 
   end
