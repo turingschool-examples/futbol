@@ -62,6 +62,7 @@ Use `bundle info [gemname]` to see where a bundled gem is installed.
 If there are any errors, verify that bundler or your ruby environment was correctly setup.
 
 ### 4. Run the StatTracker:
+---
 From the terminal, utilize the runner.rb file to use the Futbol StatTracker class.
 
 ```shell
