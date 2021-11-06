@@ -86,7 +86,7 @@ RSpec.describe TeamsData do
 
   it 'finds rival team' do
     team_obj = TeamsData.new(@stat_tracker)
-    expect(team_obj.favorite_opponent(6)).to eq('Real Salt Lake')
+    expect(team_obj.rival(6)).to eq('Real Salt Lake')
   end
 
 end
