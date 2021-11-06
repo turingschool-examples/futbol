@@ -7,9 +7,12 @@ class SeasonStats
   attr_reader :season_data
   def initialize(season_data)
     @season_data = CSV.parse(File.read("./data/sample_game_teams.csv"), headers: true)
+    @game_data = CSV.parse(File.read("./data/sample_games.csv"), headers: true)
     @season_log = {}
+    # @alpha_master_hash = {}
     @total_games_per_season = 0
     season_log_method
+    # alpha_master_hash_co_high_el_method # <<<<<<<<<<<<<<<<<<
   end
 
   def season_log_method
@@ -29,6 +32,17 @@ class SeasonStats
       end
       win_loss_counter
     end
+
+    # def alpha_master_hash_co_high_el_method #<<<<<<<<<<<<<<<
+    #   @game_data["season"].each do |season|
+    #     if @alpha_master_hash[season].keys.include? (season["season"])
+    #     else
+    #       @alpha_master_hash[season] = season["season"]
+    #     end
+    #       @alpha_master_hash[season] = season["season"]
+    #       require "pry"; binding.pry
+    #     end
+    # end
 
     def win_loss_counter
       @season_data.each do |game|

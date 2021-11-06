@@ -5,9 +5,8 @@ SimpleCov.start
 
 class LeagueStats
   attr_reader :league_data
-  def initialize(league_data)
-    #@league_data = CSV.read("./data/sample_game_teams.csv")
-    @league_data = CSV.parse(File.read("./data/sample_game_teams.csv"), headers: true)
+  def initialize(location)
+    @league_data = CSV.parse(File.read(location), headers: true) #REFACTOR THIS INTO THE STAT_TRACKER FILE
     @teams_games_goals_avg = {}
     @teams_games_goals_avg_away = {}
     build_teams_games_goals_avg_hash
