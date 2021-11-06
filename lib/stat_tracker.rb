@@ -37,9 +37,9 @@ class StatTracker
   end
 
   def best_offense
-   id = @game_teams.max_by do |team|
-          average_goals_per_game(team.team_id)
-        end.team_id
+    id = @game_teams.max_by do |team|
+      average_goals_per_game(team.team_id)
+    end.team_id
 
     @teams.find do |team|
       id == team.team_id
@@ -65,12 +65,42 @@ class StatTracker
   end
 
   def worst_offense
-    id = id = @game_teams.min_by do |team|
-           average_goals_per_game(team.team_id)
-         end.team_id
+    id = @game_teams.min_by do |team|
+      average_goals_per_game(team.team_id)
+    end.team_id
 
-     @teams.find do |team|
-       id == team.team_id
-     end.team_name
-   end
+    @teams.find do |team|
+      id == team.team_id
+    end.team_name
+  end
+
+  def games_away(team_id)
+    games = games_by_team(team_id)
+    away = []
+    games.each do |game|
+      if game.hoa == "away"
+        away << game
+      end
+    end
+    away
+  end
+
+  def average_away_score(team_id)
+    games = games_away(team_id)
+    away_scores = games_away(team_id).map do |game|
+      game.goals
+    end
+    avg = away_scores.sum.to_f / games.length.to_f
+    avg.round(1)
+  end
+
+  def highest_scoring_visitor
+    id = @game_teams.max_by do |game|
+      average_away_score(game.team_id)
+    end.team_id
+
+    @teams.find do |team|
+      id == team.team_id
+    end.team_name
+  end
 end
