@@ -37,12 +37,12 @@ RSpec.describe League do
     expect(league.lowest_total_score).to eq(1)
   end
   #game_teams_dummy
-  xit 'can find the percentage of games won by a home team' do
-    expect(league.percentage_home_wins).to eq(0.50)
+  it 'can find the percentage of games won by a home team' do
+    expect(league.percentage_home_wins).to eq(0.44)
   end
   #game_teams_dummy
-  xit 'can find the percentage of games won by an away team' do
-    expect(league.percentage_away_wins).to eq(0.17)
+  it 'can find the percentage of games won by an away team' do
+    expect(league.percentage_away_wins).to eq(0.22)
   end
   #game_teams_dummy
 
