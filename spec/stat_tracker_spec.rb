@@ -2,11 +2,11 @@ require 'simplecov'
 
 SimpleCov.start
 SimpleCov.command_name 'Unit Tests'
-require './lib/tg_stat'
-require './lib/creator'
-require './lib/stat_tracker'
-require './lib/game'
-require './lib/team'
+require_relative './lib/tg_stat'
+require_relative './lib/creator'
+require_relative './lib/stat_tracker'
+require_relative './lib/game'
+require_relative './lib/team'
 
 RSpec.describe StatTracker do
   let!(:game_path)       {'./spec/fixtures/spec_games.csv'}
@@ -42,7 +42,7 @@ RSpec.describe StatTracker do
         expect(stattracker.best_offense).to eq('FC Dallas')
       end
     end
-    
+
         describe '#worst_offense' do
       it 'can find the team with the worst offense and return string name' do
         expect(stattracker.worst_offense).to eq('Sporting Kansas City')
@@ -73,9 +73,9 @@ RSpec.describe StatTracker do
       end
     end
   end
-  
+
   describe 'GameStats module methods' do
-   
+
       it "highest_total_score" do
         expect(stattracker.highest_total_score).to eq(5)
       end
@@ -122,7 +122,7 @@ RSpec.describe StatTracker do
         expect(stattracker.team_info("18")).to eq expected
       end
     end
-    
+
     describe '#best_season' do
       it "returns the best season for the team id given" do
         expect(stattracker.best_season("6")).to eq "20122013"

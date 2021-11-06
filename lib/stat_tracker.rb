@@ -1,9 +1,9 @@
 require 'csv'
-require './creator'
-require './modules/game_stats'
-require './modules/league_stats'
-require './modules/season_stats'
-require './modules/team_stats'
+require_relative './creator'
+require_relative '../modules/game_stats'
+require_relative '../modules/league_stats'
+require_relative '../modules/season_stats'
+require_relative '../modules/team_stats'
 
 class StatTracker
   include GameStats

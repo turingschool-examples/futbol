@@ -42,6 +42,7 @@ module GameStats
         games_by_season[games[0]] = creator.games_hash.count
       end
     games_by_season
+    #broken
   end
 
   def average_goals_per_game
@@ -59,6 +60,7 @@ module GameStats
         seasons_average_goals[games[0]] = average_goals_per_game
       end
     seasons_average_goals
+    #rounding issues
   end
 
   end
