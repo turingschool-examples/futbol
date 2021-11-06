@@ -9,3 +9,13 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2012030313,20122013,Postseason,6/6/13,5,6,1,2,Toyota Stadium,/api/v1/venues/null
 2012030314,20122013,Postseason,6/8/13,5,6,0,1,Toyota Stadium,/api/v1/venues/null
 2012030231,20122013,Postseason,5/16/13,17,16,1,2,Gillette Stadium,/api/v1/venues/null
+2013020674,20132014,Regular Season,1/11/14,19,23,1,2,Saputo Stadium,/api/v1/venues/null
+2013020177,20132014,Regular Season,10/29/13,24,4,3,2,SeatGeek Stadium,/api/v1/venues/null
+2012020225,20122013,Regular Season,2/19/13,29,24,2,3,Rio Tinto Stadium,/api/v1/venues/null
+2012020577,20122013,Regular Season,4/8/13,12,6,2,4,Toyota Stadium,/api/v1/venues/null
+2013021085,20132014,Regular Season,3/25/14,17,29,2,2,Exploria Stadium,/api/v1/venues/null
+2012020122,20122013,Regular Season,2/3/13,1,2,3,0,Centruy Link Field,/api/v1/venues/null
+2012020387,20122013,Regular Season,3/13/13,26,27,2,3,Avaya Stadium,/api/v1/venues/null
+2013021036,20132014,Regular Season,3/19/14,15,24,3,2,Rio Tinto Stadium,/api/v1/venues/null
+2012020510,20122013,Regular Season,3/31/13,26,30,3,3,Exploria Stadium,/api/v1/venues/null
+2013020704,20132014,Regular Season,1/15/14,20,18,2,2,Allianz Field,/api/v1/venues/null

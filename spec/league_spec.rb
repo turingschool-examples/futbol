@@ -5,18 +5,15 @@ RSpec.describe League do
   game_path = './data/games_dummy.csv'
   team_path = './data/teams_dummy.csv'
   game_teams_path = './data/game_teams_dummy.csv'
-  # let(:games) {CSV.parse(File.read(game_path), headers: true).map {|row| Game.new(row)}}
-  # let(:teams) {CSV.parse(File.read(team_path), headers: true).map {|row| Team.new(row)}}
-  # let(:game_teams) {CSV.parse(File.read(game_teams_path), headers: true).map {|row| GameTeam.new(row)}}
-  let(:locations) {{
-    games: game_path,
-    teams: team_path,
-    game_teams: game_teams_path
-  }}
-  let(:league) {League.new(locations)}
+  let(:games) {CSV.parse(File.read(game_path), headers: true).map {|row| Game.new(row)}}
+  let(:teams) {CSV.parse(File.read(team_path), headers: true).map {|row| Team.new(row)}}
+  let(:game_teams) {CSV.parse(File.read(game_teams_path), headers: true).map {|row| GameTeam.new(row)}}
+  let(:data) {{games: games, teams: teams, game_teams: game_teams}}
+
+  let(:league) {League.new(data)}
 
   it 'exists' do
-    league = League.new(locations)
+    league = League.new(data)
     expect(league).to be_instance_of(League)
   end
 
