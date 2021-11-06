@@ -47,7 +47,6 @@ class StatTracker
   def highest_total_score
     max_score = 0
     @game_hash.each_value do |game|
-      require "pry"; binding.pry
       sum = game.away_goals + game.home_goals
       if sum > max_score
         max_score = sum
@@ -129,42 +128,57 @@ class StatTracker
   end
 
   def average_goals_by_season
-     avg = {}
-     count_of_games_by_season.each_pair do |season, games|
-       avg[season] = (total_goals(season) / games).round(2)
-     end
-     avg
-   end
-
-   def season_games
-     @games_path.group_by do |game|
-       game.season
-       require "pry"; binding.pry
-     end
-   end
-
-   def total_goals(season)
-      (total_away_goals(season) + total_home_goals(season)).sum
+    agbs = count_of_games_by_season
+    agbs.transform_values! do |season_games|
+      [season_games, 0]
     end
-
-    def total_away_goals(season)
-      a = []
-      away = @game_hash.each_value do |game|
-        game.away_goals.sum do |goal|
-         game.include?(season)
-         a << goal
-         require "pry"; binding.pry
-       end
-      end
-
-      away.map do |goal|
-        goal.to_f
-      end
+    @games_path.each do |game|
+      agbs[game.season_id][1] += game.home_goals
+      agbs[game.season_id][1] += game.away_goals
     end
-
-
-
+    agbs.transform_values do |season_games|
+      (season_games[1] / season_games[0].to_f).round(2)
+    end
+  end
 end
+
+#   def average_goals_by_season
+#      avg = {}
+#      count_of_games_by_season.each_pair do |season, games|
+#        avg[season] = (total_goals(season) / games).round(2)
+#      end
+#      avg
+#    end
+#
+#    def season_games
+#      @games_path.group_by do |game|
+#        game.season
+#        require "pry"; binding.pry
+#      end
+#    end
+#
+#    def total_goals(season)
+#       (total_away_goals(season) + total_home_goals(season)).sum
+#     end
+#
+#     def total_away_goals(season)
+#       a = []
+#       away = @game_hash.each_value do |game|
+#         game.away_goals.sum do |goal|
+#          game.include?(season)
+#          a << goal
+#          require "pry"; binding.pry
+#        end
+#       end
+#
+#       away.map do |goal|
+#         goal.to_f
+#       end
+#     end
+#
+#
+#
+# end
 
   #
   # def average_goals_by_season
