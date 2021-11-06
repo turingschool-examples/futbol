@@ -72,5 +72,44 @@ RSpec.describe StatTracker do
         expect(stattracker.lowest_scoring_home_team).to eq('Sporting Kansas City')
       end
     end
+
+    describe 'GameStats module methods' do
+
+      it "highest_total_score" do
+        expect(stattracker.highest_total_score).to eq(5)
+      end
+
+      it "lowest_total_score" do
+        expect(stattracker.lowest_total_score).to eq(1)
+      end
+
+
+      it "percentage_home_wins" do
+        expect(stattracker.percentage_home_wins).to eq(0.7)
+      end
+
+      it "percentage percentage_visitor_wins" do
+        expect(stattracker.percentage_visitor_wins).to eq(0.25)
+      end
+
+      it "percentage_ties" do
+        expect(stattracker.percentage_ties).to eq(0.1)
+      end
+
+      it "count_of_games_by_season" do
+        expect(stattracker.count_of_games_by_season).to eq({"20122013"=>20})
+      end
+
+      it "average_goals_per_game" do
+        expect(stattracker.average_goals_per_game).to eq(3.75)
+      end
+
+      it "average goals by season" do
+        expect(stattracker.average_goals_by_season).to eq({"20122013"=>3.75})
+      end
+
+
+    end
+
   end
 end
