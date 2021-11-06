@@ -12,10 +12,12 @@ class League
     # @games = CSV.parse(File.read(locations[:games]), headers: true).map {|row| Game.new(row)}
     # @teams = CSV.parse(File.read(locations[:teams]), headers: true).map {|row| Team.new(row)}
     # @game_teams = CSV.parse(File.read(locations[:game_teams]), headers: true).map {|row| GameTeam.new(row)}
+
+    require "pry"; binding.pry
   end
 
   def count_of_teams
-    @teams.count
+        @teams.count
   end
 
 end
