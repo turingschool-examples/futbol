@@ -8,7 +8,6 @@ require './lib/game'
 require './lib/team'
 
 RSpec.describe Creator do
-  # let(:league){double("league")}
   let!(:stat_tracker) do
     game_path = './spec/fixtures/spec_games.csv'
     team_path = './spec/fixtures/spec_teams.csv'
@@ -44,6 +43,7 @@ RSpec.describe Creator do
       expect(creator).to be_a(Creator)
     end
   end
+
   describe  '#stat_obj_creator' do
     it "creates a hash objects" do
       expect(Creator.stat_obj_creator(game_team_data)).to be_a(Hash)
@@ -62,12 +62,14 @@ RSpec.describe Creator do
 
       expect(Creator.game_obj_creator(game_data, stats_hash)).to be_a(Hash)
     end
+
     it 'creates game objects' do
       stats_hash = Creator.stat_obj_creator(game_team_data)
       games_hash = Creator.game_obj_creator(game_data, stats_hash)
 
       expect(games_hash['2012030236']).to be_a(Game)
     end
+
     it 'game object matches its stat objects' do
       stats_hash = Creator.stat_obj_creator(game_team_data)
       games_hash = Creator.game_obj_creator(game_data, stats_hash)
@@ -75,6 +77,7 @@ RSpec.describe Creator do
       expect(games_hash['2012030236'].game_id).to eq(stats_hash['2012030236_17'].game_id)
       expect(games_hash['2012030236'].game_id).to eq(stats_hash['2012030236_16'].game_id)
     end
+
     it 'game object matches home team and away team' do
       stats_hash = Creator.stat_obj_creator(game_team_data)
       games_hash = Creator.game_obj_creator(game_data, stats_hash)
@@ -94,6 +97,7 @@ RSpec.describe Creator do
 
       expect(Creator.season_obj_creator(games_hash)).to be_a(Hash)
     end
+
     it 'creates a hash of game objects sorted by season' do
       stats_hash = Creator.stat_obj_creator(game_team_data)
       games_hash = Creator.game_obj_creator(game_data, stats_hash)
@@ -110,6 +114,7 @@ RSpec.describe Creator do
 
       expect(Creator.team_obj_creator(team_data, games_hash)).to be_a(Hash)
     end
+
     it 'creates team objects' do
       stats_hash = Creator.stat_obj_creator(game_team_data)
       games_hash = Creator.game_obj_creator(game_data, stats_hash)
@@ -117,6 +122,7 @@ RSpec.describe Creator do
 
       expect(teams_hash["17"]).to be_a(Team)
     end
+    
     it 'team object matches its game_team object identifier' do
       stats_hash = Creator.stat_obj_creator(game_team_data)
       games_hash = Creator.game_obj_creator(game_data, stats_hash)
