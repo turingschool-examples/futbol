@@ -1,5 +1,18 @@
 module TeamStats
-  
+  def win_loss(team_id)
+    win_loss = {}
+    creator.games_hash.each do |game|
+      if game[1].away_team_id == team_id
+        win_loss[game[1].season] ||= []
+        win_loss[game[1].season].push(game[1].away_team_stat.result)
+      elsif game[1].home_team_id == team_id
+        win_loss[game[1].season] ||= []
+        win_loss[game[1].season].push(game[1].home_team_stat.result)
+      end
+    end
+    win_loss
+  end
+
   def team_info(team_id)
     @teams = creator.teams_hash
     info = {}
@@ -11,37 +24,17 @@ module TeamStats
     info
   end
   def best_season(team_id)
-    win_loss = {}
-    creator.games_hash.each do |game|
-      if game[1].away_team_id == team_id
-        win_loss[game[1].season] ||= []
-        win_loss[game[1].season].push(game[1].away_team_stat.result)
-      elsif game[1].home_team_id == team_id
-        win_loss[game[1].season] ||= []
-        win_loss[game[1].season].push(game[1].home_team_stat.result)
-      end
-    end
-    best = win_loss.max_by do |k,v|
+    best = win_loss(team_id).max_by do |k,v|
       v.count("WIN") / v.length
     end
     best[0]
   end
 
   def worst_season(team_id)
-    win_loss = {}
-    creator.games_hash.each do |game|
-      if game[1].away_team_id == team_id
-        win_loss[game[1].season] ||= []
-        win_loss[game[1].season].push(game[1].away_team_stat.result)
-      elsif game[1].home_team_id == team_id
-        win_loss[game[1].season] ||= []
-        win_loss[game[1].season].push(game[1].home_team_stat.result)
-      end
-    end
-    best = win_loss.max_by do |k,v|
+    worst = win_loss(team_id).max_by do |k,v|
       v.count("LOSS") / v.length
     end
-    best[0]
+    worst[0]
   end
 
   def average_win_percentage(team_id)
