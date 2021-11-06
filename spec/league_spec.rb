@@ -12,12 +12,12 @@ RSpec.describe League do
 
   let(:league) {League.new(data)}
 
-  xit 'exists' do
+  it 'exists' do
     league = League.new(data)
     expect(league).to be_instance_of(League)
   end
 
-  xit 'has attributes' do
+  it 'has attributes' do
 
     expect(league.games).to be_a(Array)
     expect(league.games).to include(Game)
@@ -60,8 +60,8 @@ RSpec.describe League do
   end
   #games_dummy
 
-  xit 'can average goals per game across a season' do
-    expect(league.average_goals_per_game).to eq(3.73)
+  it 'can average goals per game across a season' do
+    expect(league.average_goals_per_game).to eq(3.56)
   end
   #games_dummy
 
