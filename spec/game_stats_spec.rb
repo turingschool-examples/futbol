@@ -33,15 +33,20 @@ describe GameStats do
       expect(gamestats.percentage_ties).to eq(0.04)
     end
 
-    xit "can return a hash of the number of games per season" do
-      expect(gamestats.count_of_games_by_season).to eq([])
+    it "can return a hash of the number of games per season" do
+      expect(gamestats.count_of_games_by_season).to eq({"20122013"=>20, "20162017"=>4})
     end
 
     it "can return the average goals per game" do
       expect(gamestats.average_goals_per_game).to eq(3.92)
     end
 
-    xit "can return a hash of average goals by season" do
-      expect(gamestats.average_goals_by_season).to eq([])
+    it "can show average goals per season" do
+      expect(gamestats.average_goals_per_season("20122013")).to eq(3.75)
+      expect(gamestats.average_goals_per_season("20162017")).to eq(4.75)
+    end
+
+    it "can return a hash of average goals by season" do
+      expect(gamestats.average_goals_by_season).to eq({"20122013"=>3.75, "20162017"=>4.75})
     end
 end
