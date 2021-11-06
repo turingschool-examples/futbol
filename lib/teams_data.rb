@@ -1,16 +1,16 @@
 require './lib/stat_tracker'
 class TeamsData < StatTracker
 
-  attr_reader :teamData, :gameData
+  attr_reader :team_data
   def initialize(current_stat_tracker)
-    @teamData = current_stat_tracker.teams
-    @gameData = current_stat_tracker.games
-    @gameTeamData = current_stat_tracker.game_teams
+    @team_data = current_stat_tracker.teams
+    @game_data = current_stat_tracker.games
+    @game_teams_data = current_stat_tracker.game_teams
 
   end
 
   def team_info(team_id)
-    selected_team = @teamData.select do |csv_row|
+    selected_team = @team_data.select do |csv_row|
         csv_row["team_id"] == team_id.to_s
       end
 
@@ -28,7 +28,7 @@ class TeamsData < StatTracker
 
 
   def all_games_by_team(team_id)
-    games = @gameData.select do |row|
+    games = @game_data.select do |row|
       row['home_team_id'] == team_id.to_s || row['away_team_id'] == team_id.to_s
     end
     games
@@ -65,7 +65,7 @@ class TeamsData < StatTracker
   def team_games_per_season(team_id)
     team_games = all_games_by_team(team_id)
 
-    seasons = @gameData.map do |row|
+    seasons = @game_data.map do |row|
       row['season']
     end.uniq
 
@@ -99,7 +99,7 @@ class TeamsData < StatTracker
   end
 
   def average_win_percentage(team_id)
-    selected_team_games = @gameTeamData.select do |csv_row|
+    selected_team_games = @game_teams_data.select do |csv_row|
       csv_row["team_id"] == team_id.to_s
     end
     total_won = []
@@ -118,7 +118,7 @@ class TeamsData < StatTracker
   end
 
   def most_goals_scored(team_id)
-    selected_team_games = @gameTeamData.select do |csv_row|
+    selected_team_games = @game_teams_data.select do |csv_row|
       csv_row["team_id"] == team_id.to_s
     end
 
@@ -134,7 +134,7 @@ class TeamsData < StatTracker
   end
 
   def fewest_goals_scored(team_id)
-    selected_team_games = @gameTeamData.select do |csv_row|
+    selected_team_games = @game_teams_data.select do |csv_row|
       csv_row["team_id"] == team_id.to_s
     end
 
@@ -151,7 +151,7 @@ class TeamsData < StatTracker
 
   def convert_team_id_to_name(team_id_integer)
     name_array = []
-    @teamData.each do |row|
+    @team_data.each do |row|
       if row['team_id'].to_i == team_id_integer
         name_array << row['teamName']
       end
@@ -188,7 +188,7 @@ class TeamsData < StatTracker
     end
 
     results = []
-    @gameTeamData.each do |game|
+    @game_teams_data.each do |game|
       if game_ids.any? {|id| id == game['game_id']}
         results << game
       end

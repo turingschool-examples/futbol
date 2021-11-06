@@ -24,7 +24,7 @@ RSpec.describe TeamsData do
   xit 'can store and access teams data' do
     team_obj = TeamsData.new(@stat_tracker)
 
-    expect(team_obj.teamData).to eq(@stat_tracker.teams)
+    expect(team_obj.team_data).to eq(@stat_tracker.teams)
   end
 
   xit 'can return #team_info' do
