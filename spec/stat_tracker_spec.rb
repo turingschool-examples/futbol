@@ -47,7 +47,7 @@ RSpec.describe StatTracker do
 
   xit 'can find the percentage of games that resulted in a tie' do
     #game_teams_dummy
-    expect(stat_tracker.percentage_ties).to eq(0.34)
+    expect(stat_tracker.percentage_ties).to eq(0.33)
   end
 
   xit 'can sort the number of games attributed to each season' do
@@ -62,14 +62,14 @@ RSpec.describe StatTracker do
 
   xit 'can calculate average goals per game across seasons' do
     #games_dummy
-    expect(stat_tracker.average_goals_per_game).to eq(3.73)
+    expect(stat_tracker.average_goals_per_game).to eq(3.56)
   end
 
   xit 'can organize average goals per game by season' do
     #games_dummy
     expected = {
       "20122013" => 3.33,
-      "20132014" => 4.40
+      "20132014" => 4.20
     }
     expect(stat_tracker.average_goals_by_season).to eq(expected)
   end
