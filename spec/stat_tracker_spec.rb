@@ -97,4 +97,26 @@ describe StatTracker do
     end
   end
 
+  describe '#highest_scoring_home_team' do
+    it 'returns team with highest avg score for home games' do
+      expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
+    end
+
+    it 'returns a string' do
+      expect(@stat_tracker.highest_scoring_home_team).to be_instance_of(String)
+    end
+  end
+
+  describe '#games_home' do
+    it 'returns all home games by team_id' do
+      expect(@stat_tracker.games_home(3).length).to eq(2)
+    end
+  end
+
+  describe '#average_home_score' do
+    it 'returns average score per home game by team_id' do
+      expect(@stat_tracker.average_home_score(3)).to eq(1.5)
+    end
+  end
+
 end
