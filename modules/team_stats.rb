@@ -67,8 +67,7 @@ module TeamStats
   def fewest_goals_scored(team_id)
     goals_scored(team_id).min
   end
-
-  def favorite_opponent(team_id)
+  def opponent(team_id)
     win_loss = {}
     creator.games_hash.each do |game|
       if game[1].away_team_id == team_id
@@ -79,29 +78,22 @@ module TeamStats
         win_loss[game[1].away_team_id].push(game[1].away_team_stat.result)
       end
     end
-    best = win_loss.max_by do |k,v|
+    win_loss
+  end
+  def favorite_opponent(team_id)
+    favorite = opponent(team_id).max_by do |k,v|
       v.count("WIN") / v.length
     end
     # require "pry"; binding.pry
-    fav = creator.teams_hash.select {|team|  team[0] == best[0]}
-    fav.values[0].team_name
+    favorite_name = creator.teams_hash.select {|team|  team[0] == favorite[0]}
+    favorite_name.values[0].team_name
   end
 
   def rival(team_id)
-    win_loss = {}
-    creator.games_hash.each do |game|
-      if game[1].away_team_id == team_id
-        win_loss[game[1].home_team_id] ||= []
-        win_loss[game[1].home_team_id].push(game[1].home_team_stat.result)
-      elsif game[1].home_team_id == team_id
-        win_loss[game[1].away_team_id] ||= []
-        win_loss[game[1].away_team_id].push(game[1].away_team_stat.result)
-      end
-    end
-    best = win_loss.min_by do |k,v|
+    rival_team = opponent(team_id).min_by do |k,v|
       v.count("WIN") / v.length
     end
-    rival = creator.teams_hash.select {|team|  team[0] == best[0]}
-    rival.values[0].team_name
+    rival_name = creator.teams_hash.select {|team|  team[0] == rival_team[0]}
+    rival_name.values[0].team_name
   end
 end
