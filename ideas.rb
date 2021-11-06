@@ -1,34 +1,30 @@
 require 'csv'
 require 'simplecov'
+require './lib/stat_tracker'
 
 SimpleCov.start
 
 class GameStats
-  attr_reader :game_id, :season_id, :type, :date_time, :away_team_id, :home_team_id, :away_goals, :home_goals, :venue, :venue_link
+  attr_reader :game_data
   def initialize(game_data)
-    @game_id = game_data["game_id"]
-    @season_id = game_data["season"]
-    @type = game_data["type"]
-    @date_time = game_data["date_time"]
-    @away_team_id = game_data["away_team_id"]
-    @home_team_id = game_data["home_team_id"]
-    @away_goals = game_data["away_goals"]
-    @home_goals = game_data["home_goals"]
-    @venue = game_data["venue"]
-    @venue_link = game_data["venue_link"]
+    @game_data = CSV.parse(File.read("./data/sample_games.csv"), headers: true)
+    @seasons = []
+  end
+
+  def game_log_method
+
   end
 
   def highest_total_score
     max_score = 0
-    @games_path.each do |game|
-      sum = game.away_goals.to_i + game.home_goals.to_i
+    @game_data.each do |game|
+      sum = game["away_goals"].to_i + game["home_goals"].to_i
       if sum > max_score
         max_score = sum
       end
     end
     max_score
   end
-
 
   def lowest_total_score
     low_score = 100
@@ -51,10 +47,11 @@ class GameStats
       else
       end
     end
-    x = (home_wins.to_f / total_game.to_f).round(2)
+    x = (home_wins.to_f / total_game.to_f)
+    (x * 100.0).round(2)
   end
 
-  def percentage_visitor_wins
+  def percentage_away_wins
     away_wins = 0
     total_game = 0
     @game_data.each do |game|
@@ -64,7 +61,8 @@ class GameStats
       else
       end
     end
-    x = (away_wins.to_f / total_game.to_f).round(2)
+    x = (away_wins.to_f / total_game.to_f)
+    (x * 100.0).round(2)
   end
 
   def percentage_ties
@@ -77,9 +75,9 @@ class GameStats
       else
       end
     end
-    x = (total_ties.to_f / total_game.to_f).round(2)
+    x = (total_ties.to_f / total_game.to_f)
+    (x * 100.0).round(2)
   end
-
 
   def count_of_games_by_season
     total_games_per_season = Hash.new(0)
@@ -104,7 +102,7 @@ class GameStats
   #   # tgps[game] << (game["home_goals"].to_f)
   #   tgps
   # end
-#
+
   def average_goals_per_game
     total_game = 0.0
     away_goals = 0.0
@@ -118,7 +116,6 @@ class GameStats
     avg_goal_per_game = sum / total_game
     avg_goal_per_game.round(2)
   end
-
 
   def average_goals_per_season
     avg = {}
@@ -142,7 +139,7 @@ class GameStats
     away = @game_data["away_goals"].select do |goal|
       @game_data["season"].include?(season)
     end
-
+    require "pry"; binding.pry
     away.map do |goal|
       goal.to_f
     end
@@ -157,44 +154,44 @@ class GameStats
     end
   end
 end
-#
-# # def count_of_goals_by_season
-# #   total = 0
-# #   total_goals_per_season = Hash.new(0)
-# #   @game_data["season"].each do |game|
-# #     require "pry"; binding.pry
-# #     total_games_per_season[game] += @game_data["away_goals"].
-# #   end
-# #   total_goals_per_season
-# # end
-#
-# # def total_goals_per_season
-# #   tgps = []
-# #   total = 0
-# #   @game_data.group_by do |season|
-# #     count_of_games_by_season.map do |sea|
-# #       if season.values_at("season")[0] == sea[0]
-# #         total = (season.values_at("away_goals")[0].to_f += season.values_at("home_goals")[0].to_f)
-# #       else
-# #       end
-# #     end
-# #     require "pry"; binding.pry
-# #   end
-# # end
-#
-#   def average_goals_per_season
-#     avg = 0.0
-#     total = 0.0
-#     avg_hash = Hash.new(0)
-#     avps = @game_data.group_by do |season|
-#       count_of_games_by_season.each do |sea|
-#         if season.values_at("season")[0] == sea[0]
-#           total = (season.values_at("away_goals")[0].to_f + season.values_at("home_goals")[0].to_f)
-#         end
-#         avg = (total / sea.last.to_f).round(2)
-#         avg_hash[sea.first] = avg
-#       end
-#     end
-#     avg_hash
-#   end
-# end
+
+  # def count_of_goals_by_season
+  #   total = 0
+  #   total_goals_per_season = Hash.new(0)
+  #   @game_data["season"].each do |game|
+  #     require "pry"; binding.pry
+  #     total_games_per_season[game] += @game_data["away_goals"].
+  #   end
+  #   total_goals_per_season
+  # end
+
+  # def total_goals_per_season
+  #   tgps = []
+  #   total = 0
+  #   @game_data.group_by do |season|
+  #     count_of_games_by_season.map do |sea|
+  #       if season.values_at("season")[0] == sea[0]
+  #         total = (season.values_at("away_goals")[0].to_f += season.values_at("home_goals")[0].to_f)
+  #       else
+  #       end
+  #     end
+  #     require "pry"; binding.pry
+  #   end
+  # end
+
+  # def average_goals_per_season
+  #   avg = 0.0
+  #   total = 0.0
+  #   avg_hash = Hash.new(0)
+  #   avps = @game_data.group_by do |season|
+  #     count_of_games_by_season.each do |sea|
+  #       if season.values_at("season")[0] == sea[0]
+  #         total = (season.values_at("away_goals")[0].to_f + season.values_at("home_goals")[0].to_f)
+  #       end
+  #       avg = (total / sea.last.to_f).round(2)
+  #       avg_hash[sea.first] = avg
+  #     end
+  #   end
+  #   bi
+  #   avg_hash
+  # end
