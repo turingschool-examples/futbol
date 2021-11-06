@@ -2,7 +2,9 @@ require_relative './game'
 require_relative './team'
 require_relative './game_team'
 require_relative './stat_tracker.rb'
+require_relative './summable'
 class League
+  include Summable
   attr_reader :games,
               :teams,
               :game_teams
@@ -14,28 +16,10 @@ class League
   end
 
   def highest_total_score
-
-    game_id_hash = @game_teams.group_by do |game_team|
-      game_team.game_id
-    end
-
-    sum_of_goals_each_game = []
-    game_id_hash.each_pair do |key, value|
-      sum_of_goals_each_game << value[0].goals.to_i + value[1].goals.to_i
-    end
     sum_of_goals_each_game.max
   end
 
   def lowest_total_score
-
-    game_id_hash = @game_teams.group_by do |game_team|
-      game_team.game_id
-    end
-
-    sum_of_goals_each_game = []
-    game_id_hash.each_pair do |key, value|
-      sum_of_goals_each_game << value[0].goals.to_i + value[1].goals.to_i
-    end
     sum_of_goals_each_game.min
   end
 
@@ -73,6 +57,7 @@ class League
     games_by_season.transform_values! {|value| value.count}
   end
 
+
   def combined_hash_team_goals
     away_team_hash = @games.group_by {|game| game.away_team_id}
     away_added_goals = away_team_hash.map {|id, games| games.map {|game| game.away_goals.to_i}.inject(:+)}
@@ -94,5 +79,11 @@ class League
     worst_team = @teams.find {|team| team.team_id == lowest_scoring_team}
     worst_team.team_name
   end
+
+  # def average_goals_per_game
+  #   require "pry"; binding.pry
+  #   sum_of_goals_each_game.sum / @game_teams.map {|game_team| game_team.game_id.uniq.length}
+  # end
+
 
 end
