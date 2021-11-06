@@ -58,6 +58,22 @@ class League
   end
 
 
+  def average_goals_per_game
+    ((sum_of_goals_each_game.sum.to_f) / (@game_teams.uniq {|game_team| game_team.game_id}.length.to_f)).round(2)
+  end
+
+  def average_goals_by_season
+    goals = []
+    games_by_season = @games.group_by {|game| game.season}
+
+    goals << away = games_by_season.map {|season, game| game.map {|game| game.away_goals.to_f}.inject(:+)}
+    goals << home = games_by_season.map {|season, game| game.map {|game| game.home_goals.to_f}.inject(:+)}
+    total_games_season = games_by_season.map {|season, game| game.map {|game| game.game_id}.count}
+    goals_array = goals.transpose.map(&:sum)
+    average_goals_per_game_season = goals_array.zip(total_games_season).map {|thing| thing.inject(:/).round(2)}
+    average_goals_by_season_hash = Hash[games_by_season.keys.zip(average_goals_per_game_season)]
+  end
+
   def combined_hash_team_goals
     away_team_hash = @games.group_by {|game| game.away_team_id}
     away_added_goals = away_team_hash.map {|id, games| games.map {|game| game.away_goals.to_i}.inject(:+)}
@@ -84,6 +100,4 @@ class League
   #   require "pry"; binding.pry
   #   sum_of_goals_each_game.sum / @game_teams.map {|game_team| game_team.game_id.uniq.length}
   # end
-
-
 end

@@ -65,10 +65,10 @@ RSpec.describe League do
   end
   #games_dummy
 
-  xit 'can organize average goals per game by season' do
+  it 'can organize average goals per game by season' do
     expected = {
       "20122013" => 3.33,
-      "20132014" => 4.40
+      "20132014" => 4.20
     }
     expect(league.average_goals_by_season).to eq(expected)
   end
