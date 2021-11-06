@@ -1,7 +1,7 @@
 module TeamStats
-  def win_loss(team_id)
-    win_loss = {}
-    creator.games_hash.each do |game|
+  def season_games(team_id)
+     win_loss = {}
+     creator.games_hash.map do |game|
       if game[1].away_team_id == team_id
         win_loss[game[1].season] ||= []
         win_loss[game[1].season].push(game[1].away_team_stat.result)
@@ -24,14 +24,14 @@ module TeamStats
     info
   end
   def best_season(team_id)
-    best = win_loss(team_id).max_by do |k,v|
+    best = season_games(team_id).max_by do |k,v|
       v.count("WIN") / v.length
     end
     best[0]
   end
 
   def worst_season(team_id)
-    worst = win_loss(team_id).max_by do |k,v|
+    worst = season_games(team_id).max_by do |k,v|
       v.count("LOSS") / v.length
     end
     worst[0]
@@ -84,7 +84,6 @@ module TeamStats
     favorite = opponent(team_id).max_by do |k,v|
       v.count("WIN") / v.length
     end
-    # require "pry"; binding.pry
     favorite_name = creator.teams_hash.select {|team|  team[0] == favorite[0]}
     favorite_name.values[0].team_name
   end
