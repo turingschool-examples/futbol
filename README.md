@@ -1,11 +1,10 @@
 ![image](https://user-images.githubusercontent.com/78194232/140588612-210bcab2-9351-43e4-87d9-883a7fb20bef.png)
 
 # Futbol
----
 Is a program created to analyze fictional football (soccer for the yanks) league statistics. Our program utilizes data read from CSV, which can be then used for calculating statistics in four different categories of League, Season, Team and Game.
 ## Setup (for Unix based systems):
----
 ### 1. Clone this repository:
+---
 Theres is no need to fork the repository, cloning is just fine to your directory of choice. Start by opening up your terminal, and typing the following commands for either ssh or https to clone the directory. Once cloned, you'll have a new local copy in your directory.
 ```shell
 // using ssh key
@@ -15,12 +14,14 @@ $ git clone git@github.com:tjroeder/futbol.git
 $ git clone https://github.com/tjroeder/futbol.git
 ```
 ### 2. Change to the project directory:
+---
 In terminal, utilize the `cd` command to change to the futbol project directory. 
 ```shell
 $ cd futbol/
 ```
 
 ### 3. Install required Gems utilizing Bundler:
+---
 In terminal, use Bundler to install any missing Gems. If Bundler is not installed first run the following command.
 ```shell
 $ gem install bundler
@@ -61,7 +62,6 @@ Use `bundle info [gemname]` to see where a bundled gem is installed.
 If there are any errors, verify that bundler or your ruby environment was correctly setup.
 
 ### 4. Run the StatTracker:
----
 From the terminal, utilize the runner.rb file to use the Futbol StatTracker class.
 
 ```shell
@@ -83,7 +83,6 @@ $ new_stat_tracker = StatTracker.from_csv(game_data, team_data, game_team_data)
 
 
 ## StatTracker Methods:
----
 ### Game Statistics:
 | **Method** | **Description** | **Return Value** |
 |--------|-------------|--------------|
@@ -133,7 +132,7 @@ $ new_stat_tracker = StatTracker.from_csv(game_data, team_data, game_team_data)
 
 
 # Contributors:
----
+
 [Chris Hewitt](https://github.com/Henchworm)
 
 [Tim Roeder](https://github.com/tjroeder)
