@@ -26,8 +26,37 @@ class StatTracker
 
   def best_offense
     league_stats = LeagueStats.new(@game_teams_path)
-    team_id = league_stats.best_offense #<<<<< Need to refactor this, unless I get the exact answer
+    league_stats.best_offense
   end
 
+  def worst_offense
+    league_stats = LeagueStats.new(@game_teams_path)
+    league_stats.worst_offense
+  end
+
+  def highest_scoring_visitor
+    league_stats = LeagueStats.new(@game_teams_path)
+    league_stats.highest_scoring_visitor
+  end
+
+  def highest_scoring_home_team
+    league_stats = LeagueStats.new(@game_teams_path)
+    league_stats.highest_scoring_home_team
+  end
+
+  def lowest_scoring_visitor
+    league_stats = LeagueStats.new(@game_teams_path)
+    league_stats.lowest_scoring_visitor
+  end
+
+  def lowest_scoring_home_team
+    league_stats = LeagueStats.new(@game_teams_path)
+    league_stats.lowest_scoring_home_team
+  end
+
+  def winningest_coach(season_id)
+    season_stats = SeasonStats.new(@game_teams_path)
+    season_stats.winningest_coach("20132014")
+  end
 
 end

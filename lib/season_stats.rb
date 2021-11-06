@@ -5,13 +5,14 @@ SimpleCov.start
 
 class SeasonStats
   attr_reader :season_data
-  def initialize(season_data)
-    @season_data = CSV.parse(File.read("./data/sample_game_teams.csv"), headers: true)
-    @game_data = CSV.parse(File.read("./data/sample_games.csv"), headers: true)
+  def initialize(location)
+    @season_data = CSV.parse(File.read(location), headers: true)
+    @game_data = CSV.parse(File.read(location), headers: true)
     @season_log = {}
-    # @alpha_master_hash = {}
+    @alpha_hash_3000 = {}
     @total_games_per_season = 0
     season_log_method
+    alpha_hash_3000_method
     # alpha_master_hash_co_high_el_method # <<<<<<<<<<<<<<<<<<
   end
 
@@ -33,16 +34,22 @@ class SeasonStats
       win_loss_counter
     end
 
-    # def alpha_master_hash_co_high_el_method #<<<<<<<<<<<<<<<
-    #   @game_data["season"].each do |season|
-    #     if @alpha_master_hash[season].keys.include? (season["season"])
-    #     else
-    #       @alpha_master_hash[season] = season["season"]
-    #     end
-    #       @alpha_master_hash[season] = season["season"]
-    #       require "pry"; binding.pry
-    #     end
-    # end
+    def alpha_hash_3000_method
+      season_hash = {}
+      @game_data.each do |game|
+        if @alpha_hash_3000.keys.include? (game["season"])
+        else
+          @alpha_hash_3000[game["season"]] = [season_hash[game["team_id"]] = (game["head_coach"]), 0, 0, 0, 0, 0]
+        end
+        require "pry"; binding.pry
+        shots = (@alpha_hash_3000[game["team_id"]][3] += (game["shots"]).to_i)
+        goals = (@alpha_hash_3000[game["team_id"]][4] += (game["goals"]).to_i)
+        tackles = (@alpha_hash_3000[game["team_id"]][5] += (game["tackles"]).to_i)
+        @alpha_hash_3000[game["team_id"]] = [(game["head_coach"]), 0, 0, shots, goals, tackles] #<<<<Helps understand hash
+        #{[20122013 => {"3"=>["John Tortorella", 0, 5, 38, 8, 179], "6"=>["Claude Julien", 9, 0, 76, 24, 271], "5"=>["Dan Bylsma", 0, 4, 32, 2, 150], "17"=>["Mike Babcock", 4, 2, 40, 12, 181], "16"=>["Joel Quenneville", 2, 4, 50, 8, 142]}
+      end
+      win_loss_counter
+    end
 
     def win_loss_counter
       @season_data.each do |game|
@@ -54,7 +61,7 @@ class SeasonStats
       end
     end
 
-    def winningest_coach #best win % of season (gameswon/totalgames)
+    def winningest_coach(season_id) #best win % of season (gameswon/totalgames)
       win_percentage = 0.0
       winningest_coach = nil
       @season_log.each do |team|
