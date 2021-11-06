@@ -29,11 +29,11 @@ RSpec.describe League do
 
   ###GAME STATS METHODS
 
-  xit 'can find the highest total score' do
+  it 'can find the highest total score' do
     expect(league.highest_total_score).to eq(5)
   end
   #game_teams_dummy
-  xit 'can find the lowest total score' do
+  it 'can find the lowest total score' do
     expect(league.lowest_total_score).to eq(1)
   end
   #game_teams_dummy
