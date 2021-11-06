@@ -32,41 +32,75 @@ class StatTracker
     stat_tracker = StatTracker.new(games, teams, game_teams)
   end
   # Game Statistics
-  def highest_total_score
-    high_score = 0
-    @games.each_value do |game|
-      high = game.away_goals + game.home_goals
-      if (game.away_goals + game.home_goals) > high_score
-        high_score = game.away_goals + game.home_goals
-      end
-    end
-    high_score
-  end
-
-  def lowest_total_score
-    low_score = 100
-    @games.each_value do |game|
-      low = game.away_goals + game.home_goals
-      if low < low_score
-        low_score = low
-      end
-    end
-    low_score
-  end
-
-  def percentage_home_wins
-    home_wins_count = 0
-    @games.each_value do |game|
-      if game.home_goals
-  end
+  # def highest_total_score
+  #   high_score = 0
+  #   @games.each_value do |game|
+  #     high = game.away_goals + game.home_goals
+  #     if (game.away_goals + game.home_goals) > high_score
+  #       high_score = game.away_goals + game.home_goals
+  #     end
+  #   end
+  #   high_score
+  # end
+  #
+  # def lowest_total_score
+  #   low_score = 100
+  #   @games.each_value do |game|
+  #     low = game.away_goals + game.home_goals
+  #     if low < low_score
+  #       low_score = low
+  #     end
+  #   end
+  #   low_score
+  # end
+  #
+  # def percentage_home_wins
+  #   home_wins_count = 0
+  #   @games.each_value do |game|
+  #     if game.home_goals
+  # end
   # League Statistics
 
 
   # Season Statistics
+  def winningest_coach(season)
+    coach_name = "Coach"
+    season_games = []
+     @games.each do |game|
+       if game.season == :season
+         season_games << game
+       end
+    end
+    filtered_game_teams = []
+    @game_teams.each do |game_team|
+      season_games.each do |game|
+        if game.game_id == game_teams.game_id
+          filtered_game_teams << game_team
+        end
+      end
+    end
 
+    coach_win_count = Hash.new(0)
+    filtered_game_teams.each do |game_team|
+      if game_team.result == "WIN"
+        coach_win_count[game_team.head_coach] += 1
+      end
+    end
 
-  # Team Statistics
+    coach_total_game_count = Hash.new(0)
+    filtered_game_teams.each do |game_team|
+      coach_total_game_count[game_team.head_coach] += 1
+    end
+    # require "pry"; binding.pry
+    coach_win_percentage_math = (coach_win_count) / (coach_total_game_count) * 100
 
-
-
+    # list of all coaches, win percentage for each coach, pick highest one
+    # {coach_name : win %}
+    coach_win_percentages = {}
+    filtered_game_teams.each do |game_team|
+      coach_win_percentages[game_team.head_coach] = coach_win_percentage_math
+    end
+    coach_win_percentages.max
+  end
 end
+  # Team Statistics
