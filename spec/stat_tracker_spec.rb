@@ -119,4 +119,14 @@ describe StatTracker do
     end
   end
 
+  describe '#lowest_scoring_visitor' do
+    it 'returns team with lowest avg score for away games' do
+      expect(@stat_tracker.lowest_scoring_visitor).to eq("Houston Dynamo")
+    end
+
+    it 'returns a string' do
+      expect(@stat_tracker.lowest_scoring_visitor).to be_instance_of(String)
+    end 
+  end
+
 end
