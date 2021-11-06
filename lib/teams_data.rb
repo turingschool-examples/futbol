@@ -34,7 +34,36 @@ class TeamsData < StatTracker
     games
   end
 
-  def best_season(team_id)
+  def get_game_ids(array_of_games)
+    ids = []
+    array_of_games.each do |game|
+      ids << game['game_id']
+    end
+    ids
+  end
+
+
+  def season_win_percentage(season_games, team_id)
+    total_won = 0
+
+    season_games.each do |game|
+      home_win = game['home_goals'] > game['away_goals']
+      away_win = game['away_goals'] > game['home_goals']
+
+      if team_id.to_s == game['home_team_id'] && home_win
+        total_won += 1
+
+      elsif team_id.to_s == game['away_team_id'] &&    away_win
+        total_won += 1
+      end
+    end
+
+     win_percentage = ((total_won.to_f / season_games.length) * 100).round(2)
+
+    # require 'pry'; binding.pry
+  end
+
+  def team_games_per_season(team_id)
     team_games = all_games_by_team(team_id)
 
     seasons = @gameData.map do |row|
@@ -43,7 +72,11 @@ class TeamsData < StatTracker
 
     season_games = Hash[seasons.collect { |item| [item, team_games.select { |game| item == game['season']}] } ]
 
+    season_games
+
   end
+
+
 
 
   def worst_season(team_id)
