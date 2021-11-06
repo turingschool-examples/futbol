@@ -72,9 +72,11 @@ RSpec.describe TeamsData do
     expect(games[season].length).to eq(94)
   end
 
-  xit 'finds best season by team' do
+  it 'finds best season by team' do
     team_obj = TeamsData.new(@stat_tracker)
-    expect(team_obj.best_season(6)).to eq("20122013")
+    team_id = 6
+
+    expect(team_obj.best_season(team_id)).to eq("20132014")
   end
 
   xit 'finds all games between two teams' do
