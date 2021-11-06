@@ -42,8 +42,8 @@ RSpec.describe StatTracker do
         expect(stattracker.best_offense).to eq('FC Dallas')
       end
     end
-
-    describe '#worst_offense' do
+    
+        describe '#worst_offense' do
       it 'can find the team with the worst offense and return string name' do
         expect(stattracker.worst_offense).to eq('Sporting Kansas City')
       end
@@ -72,9 +72,10 @@ RSpec.describe StatTracker do
         expect(stattracker.lowest_scoring_home_team).to eq('Sporting Kansas City')
       end
     end
-
-    describe 'GameStats module methods' do
-
+  end
+  
+  describe 'GameStats module methods' do
+   
       it "highest_total_score" do
         expect(stattracker.highest_total_score).to eq(5)
       end
@@ -82,7 +83,6 @@ RSpec.describe StatTracker do
       it "lowest_total_score" do
         expect(stattracker.lowest_total_score).to eq(1)
       end
-
 
       it "percentage_home_wins" do
         expect(stattracker.percentage_home_wins).to eq(0.7)
@@ -107,9 +107,56 @@ RSpec.describe StatTracker do
       it "average goals by season" do
         expect(stattracker.average_goals_by_season).to eq({"20122013"=>3.75})
       end
+  end
 
-
+  describe 'TeamStats' do
+    describe '#team_info' do
+      it "returns the info for each team" do
+        expected = {
+          "team_id" => "18",
+          "franchise_id" => "34",
+          "team_name" => "Minnesota United FC",
+          "abbreviation" => "MIN",
+          "link" => "/api/v1/teams/18"
+        }
+        expect(stattracker.team_info("18")).to eq expected
+      end
+    end
+    
+    describe '#best_season' do
+      it "returns the best season for the team id given" do
+        expect(stattracker.best_season("6")).to eq "20122013"
+      end
     end
 
+    describe '#worst_season' do
+      it "returns the worst season for the team id given" do
+        expect(stattracker.worst_season("3")).to eq "20122013"
+      end
+    end
+
+    describe '#average_win_percentage' do
+      it "returns the average win/loss percentage for the team id given" do
+        expect(stattracker.average_win_percentage("6")).to eq 100.0
+      end
+    end
+
+    describe '#least_goals_scored' do
+      it "returns the least goals scored for the team id given" do
+        expect(stattracker.fewest_goals_scored("6")).to eq 1
+      end
+    end
+
+    describe '#favorite_opponent' do
+      it "returns the team name that has the most losses against the team id given" do
+        expect(stattracker.favorite_opponent("6")).to eq "Houston Dynamo"
+      end
+    end
+
+    describe '#rival' do
+      it "returns the team name that has the most wins against the team id given" do
+        expect(stattracker.rival("5")).to eq "FC Dallas"
+      end
+    end
   end
 end
