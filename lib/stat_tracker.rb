@@ -1,47 +1,35 @@
-require './lib/game_team'
-require './lib/team'
-require './lib/game'
+require 'csv'
+require_relative 'game'
+require_relative 'team'
+require_relative 'game_team'
 
 class StatTracker
+  attr_reader :games, :teams, :game_teams
 
-  attr_accessor :location
-
-  attr_reader :games,
-              :teams,
-              :game_teams
-
-  def initialize(location)
-    @location = location
-    @games = {}
-    @teams = {}
-    @game_teams = {}
+  def initialize (games, teams, game_teams)
+    @games = games
+    @teams = teams
+    @game_teams = game_teams
   end
 
   def self.from_csv(locations)
-    locations.map do |location|
-      StatTracker.new(location)
-    end
-  end
-
-  def read_game_stats(file)
-    CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
+    games = []
+    CSV.foreach(locations[:games], headers: true, header_converters: :symbol) do |row|
       game = Game.new(row)
-      @games[game.game_id] = game
+      games << game
     end
-  end
-
-  def read_team_stats(file)
-    CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
+    teams = []
+    CSV.foreach(locations[:teams], headers: true, header_converters: :symbol) do |row|
       team = Team.new(row)
-      @teams[team.team_id] = team
+      teams << team
     end
-  end
-
-  def read_game_teams_stats(file)
-    CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
+    game_teams = []
+    CSV.foreach(locations[:game_teams], headers: true, header_converters: :symbol) do |row|
       game_team = GameTeam.new(row)
-      @game_teams[game_team.game_id] = game_team
+      game_teams << game_team
     end
+
+    stat_tracker = StatTracker.new(games, teams, game_teams)
   end
   # Game Statistics
   def highest_total_score
