@@ -142,6 +142,16 @@ class StatTracker
     @teams.find do |team|
       id == team.team_id
     end.team_name
-  end 
+  end
+
+  def lowest_scoring_home_team
+    id = @game_teams.min_by do |game|
+      average_home_score(game.team_id)
+    end.team_id
+
+    @teams.find do |team|
+      id == team.team_id
+    end.team_name
+  end
 
 end
