@@ -5,7 +5,7 @@ RSpec.describe TeamsData do
   before(:each) do
     @game_path = './data/games.csv'
     @team_path = './data/teams.csv'
-    @game_teams_path = './data/game_teams_test.csv'
+    @game_teams_path = './data/game_teams.csv'
 
     @locations = {
       games: @game_path,
@@ -55,6 +55,13 @@ RSpec.describe TeamsData do
   it 'finds all games between two teams' do
     team_obj = TeamsData.new(@stat_tracker)
     expect(team_obj.get_face_offs(6,3).count).to eq(3)
+  end
+
+  it 'calculates face off win percentage' do
+    team_obj = TeamsData.new(@stat_tracker)
+    face_offs = team_obj.get_face_offs(3,6)
+
+    expect(team_obj.face_off_win_percentage(face_offs, 17).count).to eq(43.48)
   end
 
   it 'calculates win percentage' do
