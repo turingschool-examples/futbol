@@ -2,15 +2,14 @@ require 'csv'
 
 class StatTracker
 
-  attr_reader :data, :games, :teams, :game_teams
+  attr_reader :data, :games, :teams, :games_teams
   def initialize(data)
     @data = data
     @games = @data[:games]
     @teams = @data[:teams]
     @game_teams = @data[:game_teams]
+
   end
-
-
 
   def self.convert_path_to_csv(files)
     result = []

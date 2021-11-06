@@ -122,7 +122,7 @@ class GamesData < StatTracker
     keys.each do |key|
       new_hash[key] = average_goals(key)
     end
-    
+
     new_hash
   end
 
