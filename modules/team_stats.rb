@@ -23,6 +23,7 @@ module TeamStats
     info["link"] = @teams[team_id].link
     info
   end
+
   def best_season(team_id)
     best = season_games(team_id).max_by do |k,v|
       v.count("WIN") / v.length
@@ -48,6 +49,7 @@ module TeamStats
     end
     (win_loss.count("WIN") / win_loss.length.to_f) * 100
   end
+
   def goals_scored(team_id)
     goals_scored = []
     creator.games_hash.each_value do |game|
@@ -67,6 +69,7 @@ module TeamStats
   def fewest_goals_scored(team_id)
     goals_scored(team_id).min
   end
+
   def opponent(team_id)
     win_loss = {}
     creator.games_hash.each do |game|
@@ -80,6 +83,7 @@ module TeamStats
     end
     win_loss
   end
+  
   def favorite_opponent(team_id)
     favorite = opponent(team_id).max_by do |k,v|
       v.count("WIN") / v.length
