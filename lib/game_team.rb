@@ -1,4 +1,5 @@
 class GameTeam
+  attr_reader :game_id, :goals
   def initialize(data)
     @game_id = data["game_id"]
     @team_id = data["team_id"]
