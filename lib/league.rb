@@ -57,7 +57,6 @@ class League
     games_by_season.transform_values! {|value| value.count}
   end
 
-
   def average_goals_per_game
     ((sum_of_goals_each_game.sum.to_f) / (@game_teams.uniq {|game_team| game_team.game_id}.length.to_f)).round(2)
   end
@@ -95,9 +94,4 @@ class League
     worst_team = @teams.find {|team| team.team_id == lowest_scoring_team}
     worst_team.team_name
   end
-
-  # def average_goals_per_game
-  #   require "pry"; binding.pry
-  #   sum_of_goals_each_game.sum / @game_teams.map {|game_team| game_team.game_id.uniq.length}
-  # end
 end
