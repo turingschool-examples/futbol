@@ -103,7 +103,7 @@ class TeamsData < StatTracker
 
   def convert_team_id_to_name(team_id_integer)
     name_array = []
-    @team_data.each do |row|
+    @teamData.each do |row|
       if row['team_id'].to_i == team_id_integer
         name_array << row['teamName']
       end
@@ -180,13 +180,12 @@ class TeamsData < StatTracker
       win_percentage_by_team[opponent_id] = face_off_win_percentage(all_face_offs, team_id)
     end
 
-    # require 'pry'; binding.pry
-
-    # find average_win_percentage of each teams total games
-    # return lowest average
+    # "53"=>87.5,
+    favorite_opponent_id = win_percentage_by_team.key(win_percentage_by_team.values.max)
+    convert_team_id_to_name(favorite_opponent_id.to_i)
   end
 
   def rival(team_id)
-
+    
   end
 end
