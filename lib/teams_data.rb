@@ -132,22 +132,56 @@ class TeamsData < StatTracker
     face_offs
   end
 
+  def face_off_win_percentage(face_offs, team_id)
+
+    game_ids = []
+    face_offs.each do |game|
+      game_ids << game['game_id']
+    end
+
+    results = []
+    @gameTeamData.each do |game|
+      if game_ids.any? {|id| id == game['game_id']}
+        results << game
+      end
+    end
+
+    total_won = 0
+    total_lost = 0
+    results.each do |game|
+      if team_id.to_s == game['team_id'] && game['result'] == 'WIN'
+        total_won += 1
+      elsif team_id.to_s != game['team_id'] && game['result'] == 'LOSS'
+        total_won += 1
+      else
+        total_lost += 1
+      end
+    end
+
+    win_percentage = ((total_won / (total_won + total_lost).to_f) * 100).round(2)
+
+    win_percentage
+  end
+
   def favorite_opponent(team_id)
 
     # get all games team has played in
     team_games = all_games_by_team(team_id)
 
     opponent_ids = get_opponent_ids(team_games, team_id)
-    require 'pry'; binding.pry
 
     games_by_team = Hash.new
+    opponent_ids.each do |opponent_id|
+      games_by_team[opponent_id] = get_face_offs(team_id, opponent_id.to_i)
+    end
 
-    # games_by_teams = Hash[opponent_ids.collect { |item| [item, team_games.select { |game| item == game['season']}] } ]
+    win_percentage_by_team = Hash.new
+    games_by_team.each do |opponent_id, all_face_offs|
+      win_percentage_by_team[opponent_id] = face_off_win_percentage(all_face_offs, team_id)
+    end
 
-    # teams_games.each
-    # if row['home_team_id'] == team_id.to_s
-      # || opponent_ids << row['away_team_id']
-    # break up games according to each unique team
+    # require 'pry'; binding.pry
+
     # find average_win_percentage of each teams total games
     # return lowest average
   end
