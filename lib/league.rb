@@ -21,7 +21,6 @@ class League
 
   def lowest_total_score
     sum_of_goals_each_game.min
-
   end
 
   def count_of_teams
@@ -46,6 +45,7 @@ class League
       game_team.home_or_away["away"] && game_team.result["WIN"]
     end
     ((away_game_wins.length.to_f)/(away_games.length.to_f)).round(2)
+  end
 
   def percentage_ties
     tie_games = @game_teams.select {|game| game.result == "TIE"}
@@ -57,9 +57,33 @@ class League
     games_by_season.transform_values! {|value| value.count}
   end
 
+
+  def combined_hash_team_goals
+    away_team_hash = @games.group_by {|game| game.away_team_id}
+    away_added_goals = away_team_hash.map {|id, games| games.map {|game| game.away_goals.to_i}.inject(:+)}
+    away_hash = Hash[away_team_hash.keys.zip(away_added_goals)]
+    home_team_hash = @games.group_by {|game| game.home_team_id}
+    home_added_goals = home_team_hash.map {|id, games| games.map {|game| game.home_goals.to_i}.inject(:+)}
+    home_hash = Hash[home_team_hash.keys.zip(home_added_goals)]
+    home_hash.merge(away_hash){|key, home_value, away_value| home_value + away_value}
+  end
+
+  def best_offense
+    highest_scoring_team = combined_hash_team_goals.index(combined_hash_team_goals.values.max)
+    best_team = @teams.find {|team| team.team_id == highest_scoring_team}
+    best_team.team_name
+  end
+
+  def worst_offense
+    lowest_scoring_team = combined_hash_team_goals.index(combined_hash_team_goals.values.min)
+    worst_team = @teams.find {|team| team.team_id == lowest_scoring_team}
+    worst_team.team_name
+  end
+
   # def average_goals_per_game
   #   require "pry"; binding.pry
   #   sum_of_goals_each_game.sum / @game_teams.map {|game_team| game_team.game_id.uniq.length}
   # end
+
 
 end

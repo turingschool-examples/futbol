@@ -76,17 +76,17 @@ RSpec.describe League do
 
   ###LEAGUE STATS
 
-  xit 'can count total number of teams' do
+  it 'can count total number of teams' do
     expect(league.count_of_teams).to eq(10)
   end
   #teams_dummy
 
-  xit 'can calculate best offense' do
+  it 'can calculate best offense' do
     expect(league.best_offense).to eq("FC Dallas")
   end
   #games_dummy and teams_dummy
 
-  xit 'can calculate worst offense' do
+  it 'can calculate worst offense' do
     expect(league.worst_offense).to eq("Sporting Kansas City")
   end
   #games_dummy and teams_dummy
