@@ -24,16 +24,17 @@ describe StatTracker do
     it 'exists' do
       expect(@stat_tracker).to be_instance_of(StatTracker)
     end
-  end 
+  end
 
-    describe '#count of teams' do
-      it 'returns total number of teams' do
-        expect(@stat_tracker.count_of_teams).to eq(10)
-      end
+  describe '#count of teams' do
+    it 'returns total number of teams' do
+      expect(@stat_tracker.count_of_teams).to eq(10)
+    end
 
-      it 'returns an integer' do
-        expect(@stat_tracker.count_of_teams).to be_instance_of(Integer)
-      end
+
+    it 'returns an integer' do
+      expect(@stat_tracker.count_of_teams).to be_instance_of(Integer)
+    end
   end
 
   describe '#best_offense' do
@@ -73,4 +74,28 @@ describe StatTracker do
       expect(@stat_tracker.worst_offense).to be_instance_of(String)
     end
   end
+
+  describe '#games_away' do
+    it 'returns all away games by team_id' do
+      expect(@stat_tracker.games_away(3).length).to eq(3)
+    end
+  end
+
+  describe '#average_away_score' do
+    it 'returns average score per away game by team_id' do
+      expect(@stat_tracker.average_away_score(3)).to eq(1.7)
+    end
+  end
+
+  describe '#highest_scoring_visitor' do
+    it 'returns team with highest avg score for away games' do
+      expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+    end
+
+
+    it 'returns a string' do
+      expect(@stat_tracker.highest_scoring_visitor).to be_instance_of(String)
+    end
+  end
+
 end
