@@ -43,4 +43,14 @@ class League
     @teams.count
   end
 
+  def percentage_ties
+    tie_games = @game_teams.select {|game| game.result == "TIE"}
+    ((tie_games.count / 2.0) / (@game_teams.count / 2.0)).round(2)
+  end
+
+  def count_of_games_by_season
+    games_by_season = @games.group_by {|game| game.season}
+    games_by_season.transform_values! {|value| value.count}
+    #require "pry"; binding.pry
+  end
 end
