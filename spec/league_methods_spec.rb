@@ -31,8 +31,9 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.worst_offense(@stat_tracker.game_teams, @stat_tracker.teams)).to eq("Utah Royals FC")
   end
 
-  it 'can return the average all-time goals when playing away' do
-    expect(@stat_tracker.calc_avg_goals_away_alltime(@stat_tracker.game_teams, 6)).to eq(2.2450592885375493)
+  it 'can return the average all-time goals when playing away or home' do
+    expect(@stat_tracker.calc_avg_goals_alltime(@stat_tracker.game_teams, 6, "away")).to eq(2.2450592885375493)
+    expect(@stat_tracker.calc_avg_goals_alltime(@stat_tracker.game_teams, 6, "home")).to eq(2.280155642023346)
   end
 
   it 'can return team name of team with highest all-time average score when playing away' do
