@@ -1,4 +1,13 @@
 class GameTeam
+  attr_reader :game_id,
+              :team_id,
+              :home_or_away,
+              :result,
+              :head_coach,
+              :goals,
+              :shots,
+              :tackles
+
   def initialize(data)
     @game_id = data["game_id"]
     @team_id = data["team_id"]

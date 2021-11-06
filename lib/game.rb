@@ -1,4 +1,12 @@
 class Game
+attr_reader :game_id,
+            :season,
+            :type,
+            :away_team_id,
+            :home_team_id,
+            :away_goals,
+            :home_goals
+
   def initialize(data)
     @game_id = data["game_id"]
     @season = data["season"]
