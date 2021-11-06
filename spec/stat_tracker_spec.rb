@@ -122,9 +122,19 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#count_of_games_by_season' do
+  xdescribe '#count_of_games_by_season' do
     it 'returns array with season id as key and count as value' do
+      @stat_tracker.count_of_games_by_season
       expect(@stat_tracker.count_of_games_by_season).to be_an_instance_of Hash
+    end
+
+    it 'has helper get_season_ids' do
+      # require "pry"; binding.pry
+      expect(@stat_tracker.get_season_ids).to be_an_instance_of Array
+
+      expect(@stat_tracker.get_season_ids).to include("20132014")
+      expect(@stat_tracker.get_season_ids).to include("20162017")
+      expect(@stat_tracker.get_season_ids).to include("20172018")
     end
   end
 
