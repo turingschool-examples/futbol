@@ -31,6 +31,7 @@ describe StatTracker do
       expect(@stat_tracker.count_of_teams).to eq(10)
     end
 
+
     it 'returns an integer' do
       expect(@stat_tracker.count_of_teams).to be_instance_of(Integer)
     end
