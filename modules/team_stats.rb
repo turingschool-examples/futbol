@@ -48,8 +48,7 @@ module TeamStats
     end
     (win_loss.count("WIN") / win_loss.length.to_f) * 100
   end
-
-  def most_goals_scored(team_id)
+  def goals_scored(team_id)
     goals_scored = []
     creator.games_hash.each_value do |game|
       if game.away_team_id == team_id
@@ -58,19 +57,15 @@ module TeamStats
         goals_scored.push(game.home_goals)
       end
     end
-    goals_scored.max
+    goals_scored
+  end
+
+  def most_goals_scored(team_id)
+    goals_scored(team_id).max
   end
 
   def fewest_goals_scored(team_id)
-    goals_scored = []
-    creator.games_hash.each_value do |game|
-      if game.away_team_id == team_id
-        goals_scored.push(game.away_goals)
-      elsif game.home_team_id == team_id
-        goals_scored.push(game.home_goals)
-      end
-    end
-    goals_scored.min
+    goals_scored(team_id).min
   end
 
   def favorite_opponent(team_id)
