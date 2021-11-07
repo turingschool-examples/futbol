@@ -31,6 +31,138 @@ class StatTracker
 
     stat_tracker = StatTracker.new(games, teams, game_teams)
   end
+  
+   # Game Statistics
+  
+  def highest_total_score
+    high_score = 0
+    @games.each do |game|
+      if game.total_goals > high_score
+        high_score = game.total_goals
+      end
+    end
+  end
+  
+  def lowest_total_score
+    low_score = 100
+    @games.each do |game|
+      if game.total_goals < low_score
+        low_score = game.total_goals
+      end
+    end
+    low_score
+  end
+
+  def total_games_count
+    @games.length.to_f
+  end
+
+  def home_wins_count
+    home_wins_count = 0.0
+    @games.each do |game|
+      if game.home_win?
+        home_wins_count += 1
+      end
+    end
+    home_wins_count
+  end
+
+  def percentage_home_wins
+    percentage_home_wins = (home_wins_count / total_games_count) * 100
+    percentage_home_wins.round(2)
+  end
+
+  def visitor_wins_count
+    visitor_wins_count = 0.0
+    @games.each do |game|
+      if game.visitor_win?
+        visitor_wins_count += 1
+      end
+    end
+    visitor_wins_count
+  end
+
+  def percentage_visitor_wins
+    percentage_visitor_wins = (visitor_wins_count / total_games_count) * 100
+
+    percentage_visitor_wins.round(2)
+  end
+
+  def tied_games_count
+    tied_games_count = 0.0
+    @games.each do |game|
+      if game.tie_game?
+        tied_games_count += 1
+      end
+    end
+    tied_games_count
+  end
+
+  def percentage_ties
+    percentage_ties = (tied_games_count / total_games_count) * 100
+
+    percentage_ties.round(2) #create a module that rounds all floats to 2 decimal places?
+  end
+
+  def total_goals
+    total_goals_count = 0.0
+    @games.each do |game|
+      total_goals_count += game.total_goals
+    end
+    total_goals_count
+  end
+
+  def average_goals_per_game
+    avg_goals = total_goals / total_games_count
+    avg_goals.round(2)
+  end
+
+  def get_season_ids
+    @games.map do |game|
+      game.season
+    end
+  end
+
+  def filter_by_season(season_id)
+    #create array of all items with season_id
+    filtered_seasons = []
+
+    @games.each do |game|
+      if season_id == game.season
+        filtered_seasons << game
+      end
+    end
+    filtered_seasons
+  end
+
+  def count_of_games_by_season
+    season_game_count = {}
+
+    get_season_ids.uniq.each do |season_id|
+      season_game_count[season_id] = filter_by_season(season_id).length.to_f
+    end
+    season_game_count
+  end
+
+  def average_goals_by_season
+    average_goals_by_season = {}
+    get_season_ids.uniq.each do |season_id|
+      season_goal_count = 0
+
+      season_games = filter_by_season(season_id)
+
+      season_games.each do |game|
+          season_goal_count += game.total_goals
+      end
+
+      average_goals = season_goal_count.to_f / season_games.length.to_f
+
+      average_goals_by_season[season_id] = average_goals.round(2)
+    end
+    average_goals_by_season
+  end
+
+  # League Statistics
 
   def count_of_teams
     @teams.length
@@ -153,5 +285,4 @@ class StatTracker
       id == team.team_id
     end.team_name
   end
-
 end
