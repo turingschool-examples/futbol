@@ -76,4 +76,8 @@ class StatTracker
   def count_of_teams
     @teams.count_of_teams
   end
+
+  def team_info(team_id)
+    @teams.team_info(team_id)
+  end
 end
