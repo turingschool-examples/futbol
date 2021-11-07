@@ -2,7 +2,7 @@ require 'CSV'
 require 'pry'
 
 require_relative './game_teams'
-require_relative './teams_manager'
+require_relative './team_manager'
 
 class GameTeamsManager
   attr_reader :game_teams_objects, :game_teams_path, :teams
@@ -88,6 +88,14 @@ class GameTeamsManager
   def lowest_scoring_home_team
     lowest_home = teams.min_by { |team| average_goals_per_game_by_id(team.team_id, "home") }
     lowest_home.teamname
+  end
+
+  def most_goals_scored(team_id)
+    games_by_team_id = @game_teams_objects.find_all { |game| game.team_id == team_id.to_i  }
+    most = games_by_team_id.max_by do |game|
+      game.goals
+    end
+    most.goals
   end
 
   # def test

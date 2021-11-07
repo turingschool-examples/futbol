@@ -63,6 +63,14 @@ RSpec.describe GameTeamsManager do
     expect(game_teams_manager.lowest_scoring_home_team).to eq("Utah Royals FC")
   end
 
+  it '#most_goals_scored' do
+    game_teams_path = './data/game_teams.csv'
+    game_teams_manager = GameTeamsManager.new(game_teams_path)
+    expect(game_teams_manager.most_goals_scored("18")).to eq(7)
+    # expect(game_teams_manager.most_goals_scored.include?("3")).to eq(false)
+
+  end
+
   # it "test" do
   #   game_teams_path = './data/game_teams.csv'
   #   game_teams_manager = GameTeamsManager.new(game_teams_path)
