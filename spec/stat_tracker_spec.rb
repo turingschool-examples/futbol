@@ -51,6 +51,18 @@ describe StatTracker do
       expect(@stat_tracker.worst_coach("20122013")).to eq("Martin Raymond")
     end
   end
+
+  describe '#most_accurate_team' do
+    it 'returns a string' do
+      expect(@stat_tracker.most_accurate_team("20122013")).to eq("Houston Dynamo")
+    end
+
+    it 'gives name of team with the best ratio of shots to goals for the season' do
+      expect(@stat_tracker.most_accurate_team("20122013")).to eq("Houston Dynamo")
+    end
+
+
+ end
 end
 # Season Statistics Tests
 
