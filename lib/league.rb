@@ -3,8 +3,10 @@ require_relative './team'
 require_relative './game_team'
 require_relative './stat_tracker.rb'
 require_relative './summable'
+require_relative './league_stats_module.rb'
 class League
   include Summable
+  include Hashable
   attr_reader :games,
               :teams,
               :game_teams
@@ -93,5 +95,14 @@ class League
     lowest_scoring_team = combined_hash_team_goals.index(combined_hash_team_goals.values.min)
     worst_team = @teams.find {|team| team.team_id == lowest_scoring_team}
     worst_team.team_name
+  end
+
+  def highest_scoring_visitor
+    away_team_hash = @games.group_by {|game| game.away_team_id}
+    away_team_hash.transform_values! {|value| value.count}
+    combined_average = away_teams_goals_by_id.merge(away_team_hash){|key, goals_value, games_value| goals_value.to_f / games_value.to_f}
+    team_id = combined_average.max[0]
+    require "pry"; binding.pry
+    return @teams.select {|team| team.team_id == team_id}.map {|team| team.team_name}[0]
   end
 end
