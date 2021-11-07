@@ -12,8 +12,10 @@ class StatTracker
 
   def initialize(locations)
     @game_hash = {}
+    @team_hash = {}
     @game_teams_hash = {}
     @games_path = games(locations[:games])
+    @teams_path = my_teams(locations[:teams])
   end
 
   def self.from_csv(locations)
@@ -27,19 +29,27 @@ class StatTracker
     end
   end
 
-  def teams(team_stats)
-    rows = CSV.read(game_stats, headers: true)
+  def my_teams(team_stats)
+    rows = CSV.read(team_stats, headers: true)
     rows.map do |row|
-      TeamStats.new(row)
+      @team_hash[row['team_id']] = TeamStats.new(row)
     end
   end
 
-  def game_teams(game_teams_stats)
-    rows = CSV.read(game_stats, headers: true)
-    rows.map do |row|
-      @game_teams_hash[row["team_id"]] = GameTeams.new(row)
-    end
-  end
+  # def teams(team_stats)
+  #   rows = CSV.read(game_stats, headers: true)
+  #   rows.map do |row|
+  #     require "pry"; binding.pry
+  #     TeamStats.new(row)
+  #   end
+  # end
+  #
+  # def game_teams(game_teams_stats)
+  #   rows = CSV.read(game_stats, headers: true)
+  #   rows.map do |row|
+  #     @game_teams_hash[row["team_id"]] = GameTeams.new(row)
+  #   end
+  # end
 
   def highest_total_score
     max_score = 0
@@ -125,21 +135,28 @@ class StatTracker
   end
 
   def average_goals_by_season
-    agbs = count_of_games_by_season
-    agbs.transform_values! do |season_games|
+    avg_goal_by_season = count_of_games_by_season
+    avg_goal_by_season.transform_values! do |season_games|
       [season_games, 0]
     end
     @games_path.each do |game|
-      agbs[game.season_id][1] += game.home_goals
-      agbs[game.season_id][1] += game.away_goals
+      avg_goal_by_season[game.season_id][1] += game.home_goals
+      avg_goal_by_season[game.season_id][1] += game.away_goals
     end
-    agbs.transform_values do |season_games|
+    avg_goal_by_season.transform_values do |season_games|
       (season_games[1] / season_games[0].to_f).round(2)
     end
   end
 
-  def team_info
-    require "pry"; binding.pry
-    @games_path
+  def team_info(team_id)
+    team_info_hash = {}
+    @teams_path.each do |team|
+      team_info_hash['team_id'] = team.team_id
+      team_info_hash['franchiseId'] = team.franchise_id
+      team_info_hash['teamName'] = team.team_name
+      team_info_hash['abbreviation'] = team.abbreviation
+      team_info_hash['link'] = team.link
+    end
+    team_info_hash
   end
 end

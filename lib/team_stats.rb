@@ -18,7 +18,6 @@ class TeamStats
     @abbreviation = team_data["abbreviation"]
     @stadium      = team_data["Stadium"]
     @link         = team_data["link"]
-    # require "pry"; binding.pry
   end
 end
 

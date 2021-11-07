@@ -1,7 +1,6 @@
 require 'csv'
 require 'simplecov'
 require './lib/team_stats'
-# require './lib/game_team'
 
 SimpleCov.start
 
@@ -11,6 +10,12 @@ RSpec.describe TeamStats do
     @rows = CSV.read(@team_info_path, headers: true)
     @row = @rows[1]
     @team_stats = TeamStats.new(@row)
+  end
+
+  it 'exists' do
+
+    expect(@team_stats).to be_instance_of(TeamStats)
+  end
 
     # @team_path = './data/game_teams.csv'
     # @rows = CSV.read(@team_path, headers: true)
@@ -18,14 +23,8 @@ RSpec.describe TeamStats do
     # @game_team = GameTeam.new(@row)
 
 
-    @team_stats = TeamStats.new(@team_info_path)
+    # @team_stats = TeamStats.new(@team_info_path)
     # @game_team = GameTeam.new(@team_path)
-  end
-
-  it 'exists' do
-
-    expect(@team_stats).to be_instance_of(TeamStats)
-  end
 
   # it 'team_info' do
   #
