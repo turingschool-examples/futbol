@@ -149,14 +149,12 @@ class StatTracker
   end
 
   def team_info(team_id)
-    team_info_hash = {}
-    @teams_path.each do |team|
-      team_info_hash['team_id'] = team.team_id
-      team_info_hash['franchiseId'] = team.franchise_id
-      team_info_hash['teamName'] = team.team_name
-      team_info_hash['abbreviation'] = team.abbreviation
-      team_info_hash['link'] = team.link
-    end
-    team_info_hash
+    team_info = {
+      'team_id' => @team_hash[team_id].team_id,
+      'franchise_id' => @team_hash[team_id].franchise_id,
+      'team_name' => @team_hash[team_id].team_name,
+      'abbreviation' => @team_hash[team_id].abbreviation,
+      'link' => @team_hash[team_id].link
+    }
   end
 end
