@@ -72,15 +72,15 @@ class StatTracker
     percentage(tied_games_count, total_games_count)
   end
 
-  # def total_goals
-  #   total_goals_count = 0.0
-  #   @games.each do |game|
-  #     total_goals_count += game.total_goals
-  #   end
-  #   total_goals_count
-  # end
+  def total_goals
+    total_goals_count = 0.0
+    @games.each do |game|
+      total_goals_count += game.total_goals
+    end
+    total_goals_count
+  end
 
-  def average_goals_across_all_games #refactor league stats average_goals_per_game to different name and rename this
+  def average_goals_per_game
     all_total_goals = @games.map {|game| game.total_goals}
     average(all_total_goals)
   end
@@ -138,7 +138,7 @@ class StatTracker
 
   def best_offense
     id = @game_teams.max_by do |team|
-      average_goals_per_game(team.team_id)
+      average_goals_per_game_by_team(team.team_id)
     end.team_id
 
     @teams.find do |team|
@@ -160,13 +160,13 @@ class StatTracker
     goals.sum
   end
 
-  def average_goals_per_game(team_id)
+  def average_goals_per_game_by_team(team_id)
     total_goals_by_team(team_id).to_f / games_by_team(team_id).length.to_f
   end
 
   def worst_offense
     id = @game_teams.min_by do |team|
-      average_goals_per_game(team.team_id)
+      average_goals_per_game_by_team(team.team_id)
     end.team_id
 
     @teams.find do |team|
