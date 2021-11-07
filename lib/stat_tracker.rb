@@ -72,17 +72,17 @@ class StatTracker
     percentage(tied_games_count, total_games_count)
   end
 
-  def total_goals
-    total_goals_count = 0.0
-    @games.each do |game|
-      total_goals_count += game.total_goals
-    end
-    total_goals_count
-  end
+  # def total_goals
+  #   total_goals_count = 0.0
+  #   @games.each do |game|
+  #     total_goals_count += game.total_goals
+  #   end
+  #   total_goals_count
+  # end
 
   def average_goals_across_all_games #refactor league stats average_goals_per_game to different name and rename this
-    avg_goals = total_goals / total_games_count
-    avg_goals.round(2)
+    all_total_goals = @games.map {|game| game.total_goals}
+    average(all_total_goals)
   end
 
   def get_season_ids

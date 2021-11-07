@@ -112,13 +112,13 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#total_goals' do
-    it 'counts the total number of away_goals and home_goals' do
-      expect(@stat_tracker.total_goals).to be_an_instance_of Float
-
-      expect(@stat_tracker.total_goals).to eq 31413.0
-    end
-  end
+  # describe '#total_goals' do
+  #   it 'counts the total number of away_goals and home_goals' do
+  #     expect(@stat_tracker.total_goals).to be_an_instance_of Float
+  #
+  #     expect(@stat_tracker.total_goals).to eq 31413.0
+  #   end
+  # end
 
   describe '#average_goals_across_all_games' do
     it 'divides the total number of goals by the total number of games' do
