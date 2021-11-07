@@ -2,8 +2,10 @@ require 'csv'
 require_relative 'game'
 require_relative 'team'
 require_relative 'game_team'
+require_relative 'calculator'
 
 class StatTracker
+  include Calculator
   attr_reader :games, :teams, :game_teams
 
   def initialize (games, teams, game_teams)
@@ -31,26 +33,15 @@ class StatTracker
 
     stat_tracker = StatTracker.new(games, teams, game_teams)
   end
-  
+
    # Game Statistics
-  
+
   def highest_total_score
-    high_score = 0
-    @games.each do |game|
-      if game.total_goals > high_score
-        high_score = game.total_goals
-      end
-    end
+    @games.map {|game| game.total_goals}.max
   end
-  
+
   def lowest_total_score
-    low_score = 100
-    @games.each do |game|
-      if game.total_goals < low_score
-        low_score = game.total_goals
-      end
-    end
-    low_score
+    @games.map {|game| game.total_goals}.min
   end
 
   def total_games_count
@@ -58,63 +49,40 @@ class StatTracker
   end
 
   def home_wins_count
-    home_wins_count = 0.0
-    @games.each do |game|
-      if game.home_win?
-        home_wins_count += 1
-      end
-    end
-    home_wins_count
+    @games.select {|game| game.home_win?}.length.to_f
   end
 
   def percentage_home_wins
-    percentage_home_wins = (home_wins_count / total_games_count) * 100
-    percentage_home_wins.round(2)
+    percentage(home_wins_count, total_games_count)
   end
 
   def visitor_wins_count
-    visitor_wins_count = 0.0
-    @games.each do |game|
-      if game.visitor_win?
-        visitor_wins_count += 1
-      end
-    end
-    visitor_wins_count
+    @games.select {|game| game.visitor_win?}.length.to_f
   end
 
   def percentage_visitor_wins
-    percentage_visitor_wins = (visitor_wins_count / total_games_count) * 100
-
-    percentage_visitor_wins.round(2)
+    percentage(visitor_wins_count, total_games_count)
   end
 
   def tied_games_count
-    tied_games_count = 0.0
-    @games.each do |game|
-      if game.tie_game?
-        tied_games_count += 1
-      end
-    end
-    tied_games_count
+    @games.select {|game| game.tie_game?}.length.to_f
   end
 
   def percentage_ties
-    percentage_ties = (tied_games_count / total_games_count) * 100
-
-    percentage_ties.round(2) #create a module that rounds all floats to 2 decimal places?
+    percentage(tied_games_count, total_games_count)
   end
 
-  def total_goals
-    total_goals_count = 0.0
-    @games.each do |game|
-      total_goals_count += game.total_goals
-    end
-    total_goals_count
-  end
+  # def total_goals
+  #   total_goals_count = 0.0
+  #   @games.each do |game|
+  #     total_goals_count += game.total_goals
+  #   end
+  #   total_goals_count
+  # end
 
-  def average_goals_per_game
-    avg_goals = total_goals / total_games_count
-    avg_goals.round(2)
+  def average_goals_across_all_games #refactor league stats average_goals_per_game to different name and rename this
+    all_total_goals = @games.map {|game| game.total_goals}
+    average(all_total_goals)
   end
 
   def get_season_ids
