@@ -3,7 +3,7 @@ require_relative './team'
 require_relative './game_team'
 require_relative './stat_tracker.rb'
 require_relative './summable'
-require_relative './league_stats_module.rb'
+require_relative './hashable'
 class League
   include Summable
   include Hashable
@@ -39,7 +39,7 @@ class League
     ((home_game_wins.length.to_f)/(home_games.length.to_f)).round(2)
   end
 
-  def percentage_away_wins
+  def percentage_visitor_wins
     away_games = @game_teams.find_all do |game_team|
       game_team.home_or_away["away"]
     end
@@ -75,24 +75,14 @@ class League
     average_goals_by_season_hash = Hash[games_by_season.keys.zip(average_goals_per_game_season)]
   end
 
-  def combined_hash_team_goals
-    away_team_hash = @games.group_by {|game| game.away_team_id}
-    away_added_goals = away_team_hash.map {|id, games| games.map {|game| game.away_goals.to_i}.inject(:+)}
-    away_hash = Hash[away_team_hash.keys.zip(away_added_goals)]
-    home_team_hash = @games.group_by {|game| game.home_team_id}
-    home_added_goals = home_team_hash.map {|id, games| games.map {|game| game.home_goals.to_i}.inject(:+)}
-    home_hash = Hash[home_team_hash.keys.zip(home_added_goals)]
-    home_hash.merge(away_hash){|key, home_value, away_value| home_value + away_value}
-  end
-
   def best_offense
-    highest_scoring_team = combined_hash_team_goals.index(combined_hash_team_goals.values.max)
+    highest_scoring_team = averaging_hash.index(averaging_hash.values.max)
     best_team = @teams.find {|team| team.team_id == highest_scoring_team}
     best_team.team_name
   end
 
   def worst_offense
-    lowest_scoring_team = combined_hash_team_goals.index(combined_hash_team_goals.values.min)
+    lowest_scoring_team = averaging_hash.index(averaging_hash.values.min)
     worst_team = @teams.find {|team| team.team_id == lowest_scoring_team}
     worst_team.team_name
   end
@@ -102,7 +92,6 @@ class League
     away_team_hash.transform_values! {|value| value.count}
     combined_average = away_teams_goals_by_id.merge(away_team_hash){|key, goals_value, games_value| goals_value.to_f / games_value.to_f}
     team_id = combined_average.max[0]
-    require "pry"; binding.pry
     return @teams.select {|team| team.team_id == team_id}.map {|team| team.team_name}[0]
   end
 end
