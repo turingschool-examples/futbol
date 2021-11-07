@@ -91,12 +91,12 @@ RSpec.describe League do
   end
   #games_dummy and teams_dummy
 
-  xit 'can calculate highest scoring visitor' do
+  it 'can calculate highest scoring visitor' do
     expect(league.highest_scoring_visitor).to eq("FC Dallas")
   end
   #games_dummy and teams_dummy
 
-  xit 'can calculate highest scoring home team' do
+  it 'can calculate highest scoring home team' do
     expect(league.highest_scoring_home_team).to eq("Sky Blue FC")
   end
   #games_dummy and teams_dummy
