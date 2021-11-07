@@ -112,19 +112,19 @@ RSpec.describe StatTracker do
     end
   end
 
-  # describe '#total_goals' do
-  #   it 'counts the total number of away_goals and home_goals' do
-  #     expect(@stat_tracker.total_goals).to be_an_instance_of Float
-  #
-  #     expect(@stat_tracker.total_goals).to eq 31413.0
-  #   end
-  # end
+  describe '#total_goals' do
+    it 'counts the total number of away_goals and home_goals' do
+      expect(@stat_tracker.total_goals).to be_an_instance_of Float
 
-  describe '#average_goals_across_all_games' do
+      expect(@stat_tracker.total_goals).to eq 31413.0
+    end
+  end
+
+  describe '#average_goals_per_game' do
     it 'divides the total number of goals by the total number of games' do
-      expect(@stat_tracker.average_goals_across_all_games).to be_an_instance_of Float #refactor league stats average_goals_per_game to different name and rename this
+      expect(@stat_tracker.average_goals_per_game).to be_an_instance_of Float
 
-      expect(@stat_tracker.average_goals_across_all_games).to eq 4.22 #refactor league stats average_goals_per_game to different name and rename this
+      expect(@stat_tracker.average_goals_per_game).to eq 4.22
     end
   end
 
@@ -135,7 +135,6 @@ RSpec.describe StatTracker do
     end
 
     it 'has helper get_season_ids' do
-      # require "pry"; binding.pry
       expect(@stat_tracker.get_season_ids).to be_an_instance_of Array
 
       expect(@stat_tracker.get_season_ids).to include("20132014")
@@ -210,15 +209,15 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#total goals_by_team' do
+  describe '#total_goals_by_team' do
     it 'returns number of total goals by team_id' do
       expect(@stat_tracker.total_goals_by_team(3)).to eq(8)
     end
   end
 
-  describe '#average_goals_per_game' do
+  describe '#average_goals_per_game_by_team' do
     it 'returns number of average goals per game by team_id' do
-      expect(@stat_tracker.average_goals_per_game(3)).to eq(1.6)
+      expect(@stat_tracker.average_goals_per_game_by_team(3)).to eq(1.6)
     end
   end
 
