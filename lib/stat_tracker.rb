@@ -55,8 +55,8 @@ class StatTracker
   end
 
   def winningest_coach(season_id)
-    season_stats = SeasonStats.new(@game_teams_path)
-    season_stats.winningest_coach("20132014")
+    season_stats = SeasonStats.new(@game_teams_path, @games_path)
+    season_stats.winningest_coach(season_id)
   end
 
 end
