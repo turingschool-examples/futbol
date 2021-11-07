@@ -65,19 +65,11 @@ class StatTracker
   end
 
   def tied_games_count
-    tied_games_count = 0.0
-    @games.each do |game|
-      if game.tie_game?
-        tied_games_count += 1
-      end
-    end
-    tied_games_count
+    @games.select {|game| game.tie_game?}.length.to_f
   end
 
   def percentage_ties
-    percentage_ties = (tied_games_count / total_games_count) * 100
-
-    percentage_ties.round(2) #create a module that rounds all floats to 2 decimal places?
+    percentage(tied_games_count, total_games_count)
   end
 
   def total_goals
