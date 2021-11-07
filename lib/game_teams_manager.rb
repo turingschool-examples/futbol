@@ -90,6 +90,22 @@ class GameTeamsManager
     lowest_home.teamname
   end
 
+  def most_goals_scored(team_id)
+    games_by_team_id = @game_teams_objects.find_all { |game| game.team_id == team_id.to_i  }
+    most = games_by_team_id.max_by do |game|
+      game.goals
+    end
+    most.goals
+  end
+
+  def fewest_goals_scored(team_id)
+    games_by_team_id = @game_teams_objects.find_all { |game| game.team_id == team_id.to_i  }
+    fewest = games_by_team_id.min_by do |game|
+      game.goals
+    end
+    fewest.goals
+  end
+
   # def test
   #
   #   require "pry"; binding.pry

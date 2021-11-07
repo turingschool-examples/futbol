@@ -68,6 +68,14 @@ class StatTracker
   def lowest_scoring_home_team
     @game_teams.lowest_scoring_home_team
   end
+  
+  def most_goals_scored(team_id)
+    @game_teams.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    @game_teams.fewest_goals_scored(team_id)
+  end
 
   def average_goals_by_season
     @games.average_goals_by_season
