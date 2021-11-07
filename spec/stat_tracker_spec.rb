@@ -32,12 +32,23 @@ describe StatTracker do
 # League Statistics Tests
 
   describe '#winningest_coach' do
-    it 'returns a string'do
-      expect(@stat_tracker.winningest_coach(20122013)).to be_a(String)
+
+    it 'returns a string' do
+      expect(@stat_tracker.winningest_coach("20122013")).to eq("Dan Lacroix")
+    end
+    #
+    it 'gives name of Coach with best win percentage of season' do
+      expect(@stat_tracker.winningest_coach("20122013")).to eq("Dan Lacroix")
+    end
+  end
+
+  describe '#worst_coach' do
+    it 'returns a string' do
+      expect(@stat_tracker.worst_coach("20122013")).to eq("Martin Raymond")
     end
 
-    it 'gives name of Coach with best win percentage of season' do
-      expect(@stat_tracker.winningest_coach(20122013)).to eq("Claude Julien")
+    it 'gives name of Coach with the worst win percentage for the season' do
+      expect(@stat_tracker.worst_coach("20122013")).to eq("Martin Raymond")
     end
   end
 end
