@@ -75,5 +75,8 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.average_goals_by_season).to eq(expected)
   end
 
+  it '#team info' do
+    expect(@stat_tracker.team_info).to eq(Hash)
+  end
 
 end
