@@ -63,26 +63,15 @@ class StatTracker
   end
 
   def best_season(team_id)
-
-    game_ids = []
-    won_game_ids = []
     total_by_season = Hash.new(0)
     wins_by_season = Hash.new(0)
     percent_by_season = Hash.new(0)
 
-    games = @game_teams.select { |game_team| game_team.team_id == team_id }
-
+    games = @game_teams.select { |game_team| game_team.team_id == 3 }
     game_ids = games.map { |game| (game.game_id.to_s + game.hoa) }
 
-    game_ids.each do |id|
-      @game_teams.each do |game|
-        if id == (game.game_id.to_s + game.hoa)
-          if game.result == "WIN"
-            won_game_ids << id
-          end
-        end
-      end
-    end
+    won_games = @game_teams.select { |game_team| game_team.team_id == team_id && game_team.result == "WIN" }
+    won_ids = won_games.map { |won_game| won_game.game_id }
 
     game_ids.each do |id|
       @games.each do |game|
@@ -92,10 +81,9 @@ class StatTracker
       end
     end
 
-
-    won_game_ids.each do |id|
+    won_ids.each do |id|
       @games.each do |game|
-        if game.game_id == id.slice(0..9).to_i
+        if game.game_id == id
           wins_by_season[game.season] += 1
         end
       end
@@ -110,49 +98,37 @@ class StatTracker
   end
 
   def worst_season(team_id)
+    total_by_season = Hash.new(0)
+    wins_by_season = Hash.new(0)
+    percent_by_season = Hash.new(0)
 
-        game_ids = []
-        won_game_ids = []
-        total_by_season = Hash.new(0)
-        wins_by_season = Hash.new(0)
-        percent_by_season = Hash.new(0)
+    games = @game_teams.select { |game_team| game_team.team_id == team_id }
+    game_ids = games.map { |game| (game.game_id.to_s + game.hoa) }
 
-        games = @game_teams.select { |game_team| game_team.team_id == team_id }
-   
-        game_ids = games.map { |game| (game.game_id.to_s + game.hoa) }
+    won_games = @game_teams.select { |game_team| game_team.team_id == team_id && game_team.result == "WIN" }
+    won_ids = won_games.map { |won_game| won_game.game_id }
 
-        game_ids.each do |id|
-          @game_teams.each do |game|
-            if id == (game.game_id.to_s + game.hoa)
-              if game.result == "WIN"
-                won_game_ids << id
-              end
-            end
-          end
+    game_ids.each do |id|
+      @games.each do |game|
+        if game.game_id == id.slice(0..9).to_i
+          total_by_season[game.season] += 1
         end
+      end
+    end
 
-        game_ids.each do |id|
-          @games.each do |game|
-            if game.game_id == id.slice(0..9).to_i
-              total_by_season[game.season] += 1
-            end
-          end
+    won_ids.each do |id|
+      @games.each do |game|
+        if game.game_id == id
+          wins_by_season[game.season] += 1
         end
+      end
+    end
 
+    total_by_season.each_key do |key|
+      percent_by_season[key] = wins_by_season[key] * 100 / total_by_season[key].to_f
+    end
 
-        won_game_ids.each do |id|
-          @games.each do |game|
-            if game.game_id == id.slice(0..9).to_i
-              wins_by_season[game.season] += 1
-            end
-          end
-        end
-
-        total_by_season.each_key do |key|
-          percent_by_season[key] = wins_by_season[key] * 100 / total_by_season[key].to_f
-        end
-
-        max_season = percent_by_season.min_by { |key,value| value }[0]
+    max_season = percent_by_season.min_by { |key,value| value }[0]
 
   end
 
