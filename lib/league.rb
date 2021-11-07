@@ -39,7 +39,7 @@ class League
     ((home_game_wins.length.to_f)/(home_games.length.to_f)).round(2)
   end
 
-  def percentage_visitor_wins
+  def percentage_away_wins
     away_games = @game_teams.find_all do |game_team|
       game_team.home_or_away["away"]
     end
@@ -105,5 +105,21 @@ class League
   def lowest_scoring_home_team
     team_id = home_team_goals_per_game_avg.index(home_team_goals_per_game_avg.values.min)
     team_name_from_id(team_id)
+  end
+
+  def most_tackles(season)
+    game_teams_by_team = game_teams_by_season(season).group_by{|game_team| game_team.team_id}
+    team_tackles_totals = game_teams_by_team.transform_values{|values| values.map{|game_team| game_team.tackles.to_i}.inject(:+)}
+    highest_tackling_team_id = team_tackles_totals.index(team_tackles_totals.values.max)
+    highest_tackling_team = @teams.find {|team| team.team_id == highest_tackling_team_id}
+    highest_tackling_team.team_name
+  end
+
+  def fewest_tackles(season)
+    game_teams_by_team = game_teams_by_season(season).group_by{|game_team| game_team.team_id}
+    team_tackles_totals = game_teams_by_team.transform_values{|values| values.map{|game_team| game_team.tackles.to_i}.inject(:+)}
+    lowest_tackling_team_id = team_tackles_totals.index(team_tackles_totals.values.min)
+    lowest_tackling_team = @teams.find {|team| team.team_id == lowest_tackling_team_id}
+    lowest_tackling_team.team_name
   end
 end

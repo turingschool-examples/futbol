@@ -64,4 +64,12 @@ class StatTracker
   def worst_offense
     @league.worst_offense
   end
+
+  def most_tackles(season)
+    @league.most_tackles(season)
+  end
+
+  def fewest_tackles(season)
+    @league.fewest_tackles(season)
+  end
 end

@@ -77,7 +77,7 @@ RSpec.describe League do
   ###LEAGUE STATS
 
   it 'can count total number of teams' do
-    expect(league.count_of_teams).to eq(10)
+    expect(league.count_of_teams).to eq(11)
   end
   #teams_dummy
 
@@ -130,12 +130,12 @@ RSpec.describe League do
     expect(league.least_accurate_team("20122013")).to eq("Seattle Sounders")
   end
 
-  xit 'can calculate the most tackles' do
+  it 'can calculate the most tackles' do
     expect(league.most_tackles("20122013")).to eq("FC Dallas")
   end
 
-  xit 'can calculate the fewest tackles' do
-    expect(league.fewest_tackles("20122013")).to eq("Houston Dynamo")
+  it 'can calculate the fewest tackles' do
+    expect(league.fewest_tackles("20122013")).to eq("LA Galaxy")
   end
 
 
