@@ -19,10 +19,49 @@ class StatTracker
 
   def self.from_csv(locations)
      StatTracker.new(locations)
-   end
+  end
 
+  def highest_total_score
+    @league.highest_total_score
+  end
+
+  def lowest_total_score
+    @league.lowest_total_score
+  end
+
+  def percentage_home_wins
+    @league.percentage_home_wins
+  end
+
+  def percentage_visitor_wins
+    @league.percentage_visitor_wins
+  end
+
+  def percentage_ties
+    @league.percentage_ties
+  end
+
+  def count_of_games_by_season
+    @league.count_of_games_by_season
+  end
+
+  def average_goals_per_game
+    @league.average_goals_per_game
+  end
+
+  def average_goals_by_season
+    @league.average_goals_by_season
+  end
 
   def count_of_teams
     @league.count_of_teams
   end
-end 
+
+  def best_offense
+    @league.best_offense
+  end
+
+  def worst_offense
+    @league.worst_offense
+  end
+end
