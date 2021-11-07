@@ -3,7 +3,7 @@ require './lib/game_manager'
 require './lib/game_teams_manager'
 require './lib/game_teams'
 require './lib/games'
-require './lib/teams_manager'
+require './lib/team_manager'
 require './lib/teams'
 RSpec.describe StatTracker do
   it 'exists' do
@@ -35,6 +35,12 @@ RSpec.describe StatTracker do
     stat_tracker = StatTracker.from_csv(locations)
 
     expect(stat_tracker.highest_total_score).to eq(11)
+  end
 
+  it '#most_goals_scored' do
+    game_teams_path = './data/game_teams.csv'
+    game_teams_manager = GameTeamsManager.new(game_teams_path)
+    expect(game_teams_manager.most_goals_scored("18")).to eq(7)
+    # expect(game_teams_manager.most_goals_scored.include?("3")).to eq(false)
   end
 end
