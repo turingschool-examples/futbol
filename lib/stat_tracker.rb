@@ -47,13 +47,7 @@ class StatTracker
   end
 
   def home_wins_count
-    home_wins_count = 0.0
-    @games.each do |game|
-      if game.home_win?
-        home_wins_count += 1
-      end
-    end
-    home_wins_count
+    @games.select {|game| game.home_win?}.length.to_f
   end
 
   def percentage_home_wins
