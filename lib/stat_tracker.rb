@@ -51,8 +51,7 @@ class StatTracker
   end
 
   def percentage_home_wins
-    percentage_home_wins = (home_wins_count / total_games_count) * 100
-    percentage_home_wins.round(2)
+    percentage(home_wins_count, total_games_count)
   end
 
   def visitor_wins_count
