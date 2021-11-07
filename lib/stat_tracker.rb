@@ -103,4 +103,35 @@ class StatTracker
       id == team.team_id
     end.team_name
   end
+
+  def games_home(team_id)
+    games = games_by_team(team_id)
+    home = []
+    games.each do |game|
+      if game.hoa == "home"
+        home << game
+      end
+    end
+    home
+  end
+
+  def average_home_score(team_id)
+    games = games_home(team_id)
+    home_scores = games_home(team_id).map do |game|
+      game.goals
+    end
+    avg = home_scores.sum.to_f / games.length.to_f
+    avg.round(1)
+  end
+
+  def highest_scoring_home_team
+    id = @game_teams.max_by do |game|
+      average_home_score(game.team_id)
+    end.team_id
+
+    @teams.find do |team|
+      id == team.team_id
+    end.team_name
+  end
+  
 end
