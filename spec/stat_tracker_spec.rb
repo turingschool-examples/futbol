@@ -4,6 +4,7 @@ require './lib/game'
 require './lib/team'
 require './lib/game_team'
 require './runner'
+require_relative 'stat_tracker_spec'
 
 RSpec.describe StatTracker do
   before(:each) do
