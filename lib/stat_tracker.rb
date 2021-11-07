@@ -57,19 +57,11 @@ class StatTracker
   end
 
   def visitor_wins_count
-    visitor_wins_count = 0.0
-    @games.each do |game|
-      if game.visitor_win?
-        visitor_wins_count += 1
-      end
-    end
-    visitor_wins_count
+    @games.select {|game| game.visitor_win?}.length.to_f
   end
 
   def percentage_visitor_wins
-    percentage_visitor_wins = (visitor_wins_count / total_games_count) * 100
-
-    percentage_visitor_wins.round(2)
+    percentage(visitor_wins_count, total_games_count)
   end
 
   def tied_games_count
