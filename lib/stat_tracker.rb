@@ -35,13 +35,7 @@ class StatTracker
    # Game Statistics
 
   def highest_total_score
-    high_score = 0
-    @games.each do |game|
-      if game.total_goals > high_score
-        high_score = game.total_goals
-      end
-    end
-    high_score
+    @games.map {|game| game.total_goals}.max
   end
 
   def lowest_total_score
