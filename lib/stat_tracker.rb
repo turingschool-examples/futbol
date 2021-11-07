@@ -39,13 +39,7 @@ class StatTracker
   end
 
   def lowest_total_score
-    low_score = 100
-    @games.each do |game|
-      if game.total_goals < low_score
-        low_score = game.total_goals
-      end
-    end
-    low_score
+    @games.map {|game| game.total_goals}.min
   end
 
   def total_games_count
