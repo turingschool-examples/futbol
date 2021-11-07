@@ -149,6 +149,7 @@ class StatTracker
   end
 
   def team_info(team_id)
+<<<<<<< HEAD
     team_info_hash = {}
     @teams_path.each do |team|
       team_info_hash['team_id'] = team.team_id
@@ -159,5 +160,14 @@ class StatTracker
     end
     team_info_hash
     require "pry"; binding.pry
+=======
+    team_info = {
+      'team_id' => @team_hash[team_id].team_id,
+      'franchise_id' => @team_hash[team_id].franchise_id,
+      'team_name' => @team_hash[team_id].team_name,
+      'abbreviation' => @team_hash[team_id].abbreviation,
+      'link' => @team_hash[team_id].link
+    }
+>>>>>>> 6dd086cda6bad7054eccfd659fdc494d51504f92
   end
 end
