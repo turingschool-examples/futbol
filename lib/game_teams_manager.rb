@@ -2,7 +2,7 @@ require 'CSV'
 require 'pry'
 
 require_relative './game_teams'
-require_relative './teams_manager'
+require_relative './team_manager'
 
 class GameTeamsManager
   attr_reader :game_teams_objects, :game_teams_path, :teams
