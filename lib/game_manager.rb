@@ -8,7 +8,7 @@ class GameManager
 
   def initialize(game_path)
     @game_path = './data/games.csv'
-    # @stat_tracker = stat_tracker
+
     @game_objects = (
       objects = []
       CSV.foreach(game_path, headers: true, header_converters: :symbol) do |row|
@@ -98,8 +98,5 @@ class GameManager
     avg_goals_per_game = goals_in_game.to_f / 7441
     avg_goals_per_game.round(2)
   end
-
-
-
 
 end

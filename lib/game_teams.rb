@@ -18,7 +18,6 @@ class GameTeams
               :takeaways
 
   def initialize(row)
-    @row = row[:game_id]
     @team_id = row[:team_id].to_i
     @hoa = row[:hoa]
     @result = row[:result]

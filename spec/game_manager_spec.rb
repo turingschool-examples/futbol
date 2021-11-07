@@ -86,5 +86,5 @@ RSpec.describe GameManager do
     expect(game_manager.average_goals_per_game).to eq(4.22)
   end
 
-
+  
 end

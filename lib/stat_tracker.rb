@@ -69,4 +69,8 @@ class StatTracker
     @game_teams.lowest_scoring_home_team
   end
 
+  def average_win_percentage(team_id)
+    @game_teams.average_win_percentage(6)#look into further. do not hard code.
+  end
+
 end

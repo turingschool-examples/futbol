@@ -62,16 +62,48 @@ RSpec.describe GameTeamsManager do
     game_teams_manager = GameTeamsManager.new(game_teams_path)
     expect(game_teams_manager.lowest_scoring_home_team).to eq("Utah Royals FC")
   end
-
-  # it "test" do
+  #
+  # it "calculates wins by team Id" do
   #   game_teams_path = './data/game_teams.csv'
   #   game_teams_manager = GameTeamsManager.new(game_teams_path)
   #   expect(game_teams_manager.wins_by_team_id(3)).to eq("Utah Royals FC")
   # end
-  #
-  # it "test" do
+
+  # it "test1" do
   #   game_teams_path = './data/game_teams.csv'
   #   game_teams_manager = GameTeamsManager.new(game_teams_path)
-  #   expect(game_teams_manager.win_percent_by_id(3)).to eq(2.44)
+  #   expect(game_teams_manager.win_percent_by_id(7)).to eq(2.44)
   # end
+  # it "test2" do
+  #   game_teams_path = './data/game_teams.csv'
+  #   game_teams_manager = GameTeamsManager.new(game_teams_path)
+  #   expect(game_teams_manager.winning_coach).to eq("wade")
+  # end
+  # it "test3" do
+  #   game_teams_path = './data/game_teams.csv'
+  #   game_teams_manager = GameTeamsManager.new(game_teams_path)
+  #   expect(game_teams_manager.losing_coach).to eq("wade")
+  # end
+  it "caluculates average win percentage" do
+    game_teams_path = './data/game_teams.csv'
+    game_teams_manager = GameTeamsManager.new(game_teams_path)
+    expect(game_teams_manager.average_win_percentage(6)).to eq(0.49)
+  end
+
+  it "calculates most tackles by team id" do
+    game_teams_path = './data/game_teams.csv'
+    game_teams_manager = GameTeamsManager.new(game_teams_path)
+    expect(game_teams_manager.total_tackles_by_team_id(5)).to eq(5)
+  end
+  it "calculates tackles by season" do
+    game_teams_path = './data/game_teams.csv'
+    game_teams_manager = GameTeamsManager.new(game_teams_path)
+    expect(game_teams_manager.tackles_by_season).to eq("wade")
+  end
+
+  it "calculates most tackles by season" do
+    game_teams_path = './data/game_teams.csv'
+    game_teams_manager = GameTeamsManager.new(game_teams_path)
+    expect(game_teams_manager.most_tackles).to eq("wade")
+  end
 end
