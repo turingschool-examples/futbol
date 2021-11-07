@@ -4,6 +4,7 @@ require_relative 'team'
 require_relative 'game_team'
 
 class StatTracker
+  include Calculator
   attr_reader :games, :teams, :game_teams
 
   def initialize (games, teams, game_teams)
