@@ -16,4 +16,9 @@ class TeamManager
       end
       objects)
   end
+
+
+  def count_of_teams
+    @team_objects.count
+  end
 end
