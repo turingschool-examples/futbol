@@ -3,7 +3,7 @@ require './lib/game_manager'
 require './lib/game_teams_manager'
 require './lib/game_teams'
 require './lib/games'
-require './lib/teams_manager'
+require './lib/team_manager'
 require './lib/teams'
 RSpec.describe StatTracker do
   it 'exists' do
@@ -22,7 +22,7 @@ RSpec.describe StatTracker do
     expect(stat_tracker).to be_an_instance_of(StatTracker)
   end
 
-  xit '#highest_total_score' do
+  it '#highest_total_score' do
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams.csv'
