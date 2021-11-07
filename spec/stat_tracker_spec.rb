@@ -75,5 +75,16 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.average_goals_by_season).to eq(expected)
   end
 
+  it "#team_info" do
+    expected = {
+      "team_id" => "18",
+      "franchise_id" => "34",
+      "team_name" => "Minnesota United FC",
+      "abbreviation" => "MIN",
+      "link" => "/api/v1/teams/18"
+    }
+
+    expect(@stat_tracker.team_info("18")).to eq expected
+  end
 
 end
