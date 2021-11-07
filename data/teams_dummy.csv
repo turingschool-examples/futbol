@@ -4,8 +4,8 @@ team_id,franchiseId,teamName,abbreviation,Stadium,link
 4,16,Chicago Fire,CHI,SeatGeek Stadium,/api/v1/teams/4
 5,17,Sporting Kansas City,SKC,Children's Mercy Park,/api/v1/teams/5
 6,6,FC Dallas,DAL,Toyota Stadium,/api/v1/teams/6
+12,26,Sky Blue FC,SBL,Yurcak Field,/api/v1/teams/12
 14,31,DC United,DC,Audi Field,/api/v1/teams/14
 17,12,LA Galaxy,LA,Dignity Health Sports Park,/api/v1/teams/17
-26,14,FC Cincinnati,CIN,Nippert Stadium,/api/v1/teams/26
 18,34,Minnesota United FC,MIN,Allianz Field,/api/v1/teams/18
 28,29,Los Angeles FC,LFC,Banc of California Stadium,/api/v1/teams/28

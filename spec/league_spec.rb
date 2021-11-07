@@ -101,11 +101,11 @@ RSpec.describe League do
   end
   #games_dummy and teams_dummy
 
-  xit 'can calculate lowest scoring visitor' do
+  it 'can calculate lowest scoring visitor' do
     expect(league.lowest_scoring_visitor).to eq("Sporting Kansas City")
   end
   #games_dummy and teams_dummy
-  xit 'can calculate lowest scoring home team' do
+  it 'can calculate lowest scoring home team' do
     expect(league.lowest_scoring_home_team).to eq("Sporting Kansas City")
   end
   #games_dummy and teams_dummy
