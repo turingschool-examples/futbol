@@ -142,6 +142,18 @@ RSpec.describe StatTracker do
     it 'returns hash with sesaon id as key and float of average number of goals per game as value' do
       expect(@stat_tracker.average_goals_by_season).to be_an_instance_of Hash
     end
+
+    it 'has season numbers as keys' do
+      expect(@stat_tracker.average_goals_by_season.keys.include?("20122013")).to be_truthy
+
+      expect(@stat_tracker.average_goals_by_season.keys.include?("20162017")).to be_truthy
+
+      expect(@stat_tracker.average_goals_by_season.keys.include?("20172018")).to be_truthy
+
+      first_season_goals = @stat_tracker.average_goals_by_season.values[0]
+
+      expect(first_season_goals).to eq(first_season_goals.round(2))
+    end
   end
 end
 

@@ -143,6 +143,25 @@ class StatTracker
     end
     season_game_count
   end
+
+  def average_goals_by_season
+    average_goals_by_season = {}
+    get_season_ids.uniq.each do |season_id|
+      season_goal_count = 0
+
+      season_games = filter_by_season(season_id)
+
+      season_games.each do |game|
+          season_goal_count += game.total_goals
+      end
+
+      average_goals = season_goal_count.to_f / season_games.length.to_f
+
+      average_goals_by_season[season_id] = average_goals.round(2)
+    end
+    average_goals_by_season
+  end
+
   # League Statistics
 
 
