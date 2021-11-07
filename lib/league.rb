@@ -91,7 +91,35 @@ class League
     away_team_hash = @games.group_by {|game| game.away_team_id}
     away_team_hash.transform_values! {|value| value.count}
     combined_average = away_teams_goals_by_id.merge(away_team_hash){|key, goals_value, games_value| goals_value.to_f / games_value.to_f}
-    team_id = combined_average.max[0]
+    team_id = combined_average.index(combined_average.values.max)
     return @teams.select {|team| team.team_id == team_id}.map {|team| team.team_name}[0]
   end
+
+  def highest_scoring_home_team
+    home_team_hash = @games.group_by {|game| game.home_team_id}
+    home_team_hash.transform_values! {|value| value.count}
+    combined_average = home_team_goals_by_id.merge(home_team_hash){|key, goals_value, games_value| goals_value.to_f / games_value.to_f}
+    team_id = combined_average.index(combined_average.values.max)
+    #require "pry"; binding.pry
+    return @teams.select {|team| team.team_id == team_id}.map {|team| team.team_name}[0]
+  end
+
+  def lowest_scoring_visitor
+    away_team_hash = @games.group_by {|game| game.away_team_id}
+    away_team_hash.transform_values! {|value| value.count}
+    combined_average = away_teams_goals_by_id.merge(away_team_hash){|key, goals_value, games_value| goals_value.to_f / games_value.to_f}
+    team_id = combined_average.index(combined_average.values.min)
+    return @teams.select {|team| team.team_id == team_id}.map {|team| team.team_name}[0]
+  end
+
+  def lowest_scoring_home_team
+    home_team_hash = @games.group_by {|game| game.home_team_id}
+    home_team_hash.transform_values! {|value| value.count}
+    combined_average = home_team_goals_by_id.merge(home_team_hash){|key, goals_value, games_value| goals_value.to_f / games_value.to_f}
+    team_id = combined_average.index(combined_average.values.min)
+    #require "pry"; binding.pry
+    return @teams.select {|team| team.team_id == team_id}.map {|team| team.team_name}[0]
+  end
+
+
 end
