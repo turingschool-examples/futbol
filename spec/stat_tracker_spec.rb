@@ -4,6 +4,7 @@ require './lib/game'
 require './lib/team'
 require './lib/game_team'
 require './runner'
+require_relative 'stat_tracker_spec'
 
 RSpec.describe StatTracker do
   before(:each) do
@@ -139,7 +140,7 @@ RSpec.describe StatTracker do
   end
 
   xdescribe '#average_goals_by_season' do
-    it 'returns hash with sesaon id as key and float of average number of goals per game as value' do
+    it 'returns hash with season id as key and float of average number of goals per game as value' do
       expect(@stat_tracker.average_goals_by_season).to be_an_instance_of Hash
     end
 
