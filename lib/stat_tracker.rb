@@ -31,9 +31,9 @@ class StatTracker
 
     stat_tracker = StatTracker.new(games, teams, game_teams)
   end
-  
+
    # Game Statistics
-  
+
   def highest_total_score
     high_score = 0
     @games.each do |game|
@@ -41,8 +41,9 @@ class StatTracker
         high_score = game.total_goals
       end
     end
+    high_score
   end
-  
+
   def lowest_total_score
     low_score = 100
     @games.each do |game|
@@ -112,7 +113,7 @@ class StatTracker
     total_goals_count
   end
 
-  def average_goals_per_game
+  def average_goals_across_all_games #refactor league stats average_goals_per_game to different name and rename this
     avg_goals = total_goals / total_games_count
     avg_goals.round(2)
   end
