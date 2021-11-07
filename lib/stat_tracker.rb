@@ -158,5 +158,6 @@ class StatTracker
       team_info_hash['link'] = team.link
     end
     team_info_hash
+    require "pry"; binding.pry
   end
 end
