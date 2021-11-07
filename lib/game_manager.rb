@@ -87,12 +87,19 @@ class GameManager
       end
     away_id.uniq
   end
-  # def max_away_goals_by_team_id
-  #   # goals = []
-  #   @game_objects.map do |row|
-  #   x =  row.away_team_id
-  #   binding.pry
-  #   end
-  # end
+
+  def average_goals_per_game
+    goals_array = []
+    @game_objects.each do |game|
+      total_goals = game.away_goals + game.home_goals
+      goals_array << total_goals
+  end
+    goals_in_game = goals_array.sum
+    avg_goals_per_game = goals_in_game.to_f / 7441
+    avg_goals_per_game.round(2)
+  end
+
+
+
 
 end
