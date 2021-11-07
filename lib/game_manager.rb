@@ -99,6 +99,7 @@ class GameManager
     avg_goals_per_game.round(2)
   end
 
-  
+
+
 
 end

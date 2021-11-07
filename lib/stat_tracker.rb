@@ -45,4 +45,28 @@ class StatTracker
     @games.average_goals_per_game
   end
 
+  def best_offense
+    @game_teams.best_offense
+  end
+
+  def worst_offense
+    @game_teams.worst_offense
+  end
+
+  def highest_scoring_visitor
+    @game_teams.highest_scoring_visitor
+  end
+
+  def highest_scoring_home_team
+    @game_teams.highest_scoring_home_team
+  end
+
+  def lowest_scoring_visitor
+    @game_teams.lowest_scoring_visitor
+  end
+
+  def lowest_scoring_home_team
+    @game_teams.lowest_scoring_home_team
+  end
+
 end
