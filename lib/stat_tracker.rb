@@ -128,15 +128,15 @@ class StatTracker
   end
 
   def average_goals_by_season
-    agbs = count_of_games_by_season
-    agbs.transform_values! do |season_games|
+    avg_goals_by_season = count_of_games_by_season
+    avg_goals_by_season.transform_values! do |season_games|
       [season_games, 0]
     end
     @games_path.each do |game|
-      agbs[game.season_id][1] += game.home_goals
-      agbs[game.season_id][1] += game.away_goals
+      avg_goals_by_season[game.season_id][1] += game.home_goals
+      avg_goals_by_season[game.season_id][1] += game.away_goals
     end
-    agbs.transform_values do |season_games|
+    avg_goals_by_season.transform_values do |season_games|
       (season_games[1] / season_games[0].to_f).round(2)
     end
   end
