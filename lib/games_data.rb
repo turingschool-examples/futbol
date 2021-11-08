@@ -1,20 +1,12 @@
 require './lib/stat_tracker'
+require './lib/games_modules'
 
-class GamesData < StatTracker
-
+class GamesData
+  include GamesEnumerables
   attr_reader :game_data
 
   def initialize(current_stat_tracker)
     @game_data = current_stat_tracker.games
-    # @game_id = @game_data["game_id"]
-    # @season = @game_data["season"]
-    # @type = @game_data["type"]
-    # @data_time = @game_data["date_time"]
-    # away_team_id = @game_data["away_team_id"]
-    # home_team_id = @game_data["home_team_id"]
-    # away_goals = @game_data["away_goals"].to_i
-    # home_goals = @game_data["home_goals"].to_i
-    # venue = @game_data["venue"]
   end
 
   def highest_total_score
@@ -46,7 +38,7 @@ class GamesData < StatTracker
         win_counter += 1
       end
     end
-    ((win_counter.to_f / @game_data.length) * 100).round(2)
+    return_percentage(win_counter, @game_data)
   end
 
   def percentage_visitor_wins
@@ -56,7 +48,7 @@ class GamesData < StatTracker
         win_counter += 1
       end
     end
-    ((win_counter.to_f / @game_data.length) * 100).round(2)
+    return_percentage(win_counter, @game_data)
   end
 
   def percentage_ties
@@ -66,7 +58,7 @@ class GamesData < StatTracker
         tie_counter += 1
       end
     end
-    ((tie_counter.to_f / @game_data.length) * 100).round(2)
+    return_percentage(tie_counter, @game_data)
   end
 
   def sum_of_games_in_season(season_number)
@@ -88,13 +80,12 @@ class GamesData < StatTracker
     new_hash
   end
 
-
   def average_goals_per_game
     goal_counter = 0
     @game_data.each do |row|
       goal_counter += (row['away_goals'].to_f + row['home_goals'].to_f)
     end
-    (goal_counter / @game_data.count).round(2)
+    get_average(goal_counter, @game_data)
   end
 
 

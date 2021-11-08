@@ -1,10 +1,8 @@
 game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
-<<<<<<< HEAD
 2012030221,20122013,Postseason,5/16/13,3,6,1,2,Toyota Stadium,/api/v1/venues/null
 2012030222,20122013,Postseason,5/19/13,3,6,3,2,Toyota Stadium,/api/v1/venues/null
 2012030223,20132014,Postseason,5/21/13,6,3,1,2,BBVA Stadium,/api/v1/venues/null
 2012030224,20132014,Postseason,5/23/13,6,3,2,1,BBVA Stadium,/api/v1/venues/null
-=======
 2012030221,20122013,Postseason,5/16/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
 2012030222,20122013,Postseason,5/19/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
 2012030223,20122013,Postseason,5/21/13,6,3,2,1,BBVA Stadium,/api/v1/venues/null
@@ -154,4 +152,3 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2015030223,20152016,Postseason,5/3/16,15,5,2,3,Children's Mercy Park,/api/v1/venues/null
 2015030224,20152016,Postseason,5/5/16,15,5,2,3,Children's Mercy Park,/api/v1/venues/null
 2015030225,20152016,Postseason,5/7/16,5,15,1,3,Providence Park,/api/v1/venues/null
->>>>>>> 71542b4cdeb07760510783556df7f7499b36d62d

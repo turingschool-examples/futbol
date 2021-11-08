@@ -6,7 +6,6 @@ class TeamsData < StatTracker
     @team_data = current_stat_tracker.teams
     @game_data = current_stat_tracker.games
     @game_teams_data = current_stat_tracker.game_teams
-
   end
 
   def team_info(team_id)
