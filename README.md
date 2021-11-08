@@ -1,6 +1,6 @@
 # Futbol  
 
-### About  
+## About  
 ##### Welcome to our CSV data analyzer tool!  
 We wrote this program to import and analyze data from a directory of CSV files containing sports statistics.  
 
