@@ -16,6 +16,7 @@ class StatTracker
     @game_teams_hash = {}
     @games_path = games(locations[:games])
     @teams_path = my_teams(locations[:teams])
+    @game_teams_path = my_game_teams(locations[:game_teams])
   end
 
   def self.from_csv(locations)
@@ -33,6 +34,13 @@ class StatTracker
     rows = CSV.read(team_stats, headers: true)
     rows.map do |row|
       @team_hash[row['team_id']] = TeamStats.new(row)
+    end
+  end
+
+  def my_game_teams(game_team_stats)
+    rows = CSV.read(game_team_stats, headers: true)
+    rows.map do |row|
+      @team_hash[row['team_id']] = GameTeamStats.new(row)
     end
   end
 
