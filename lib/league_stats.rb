@@ -11,7 +11,7 @@ class LeagueStats < Team
   def format(file)
     league_file = CSV.read(file, headers: true, header_converters: :symbol)
     league_file.map do |row|
-      LeagueStats.new(row)
+      Team.new(row)
     end
   end
 
