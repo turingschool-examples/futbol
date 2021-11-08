@@ -18,8 +18,6 @@ class GameTeamsManager
     @teams = TeamManager.new('./data/teams.csv').team_objects
 
     @games = GameManager.new('./data/games.csv').game_objects
-    # team_manager = TeamManager.new('./data/teams.csv')
-    # @teams = team_manager.team_objects
 
   end
 
@@ -52,20 +50,11 @@ class GameTeamsManager
   end
 
   def average_win_percentage(team_id, hoa = nil) #test
-    win_percent = wins_by_team_id(team_id, hoa).count
-    other_percent = games_by_team_id(team_id, hoa).count
+    win_percent = wins_by_team_id(team_id).count
+    other_percent = games_by_team_id(team_id,).count
     total = win_percent.to_f/other_percent
     total.round(2)
   end
-
-  # def winning_coach #test
-  #   best_coach = teams.max_by { |team| win_percent_by_id(team.team_id) }
-  #   best_coach.teamname
-  #
-  # end
-  # def losing_coach #test
-  #   worst_coach = teams.min_by { |team| win_percent_by_id(team.team_id) }
-  #   worst_coach.teamname
 
 
 
@@ -100,23 +89,35 @@ class GameTeamsManager
     lowest_home.teamname
   end
 
-
-
-  def total_tackles_by_team_id(team_id, hoa = nil)
-    games_by_team_id(team_id, hoa).sum do |game|
-      game.tackles
+  def total_tackles_by_team_id(team_id, season = nil)
+    games_by_team_id(team_id).sum do |game|
+      if season == nil
+        game.tackles
+      else
+              #is this game part of a season we want to count
+      end
     end
   end
 
-  def tackles_by_season
-    seasons = @games.group_by {|game| game.season}
+  # if hoa == nil
+  #   game.team_id == team_id
+  # else
+  #   game.hoa == hoa && game.team_id == team_id
+  # end
 
-    #if statement. if season == 20122013, return most takcles method
-    require "pry"; binding.pry
+  def test
+    @games
+
   end
+  #write method if passed game/season it tells you the season. games table
+  #if game is in seson, tackles count. increment tackles.
+  #if not, dont increase sum. add zero
 
-  def most_tackles
-    high_tackles = teams.max_by { |team| total_tackles_by_team_id(team.team_id) }
+
+
+
+  def most_tackles(season)
+    high_tackles = teams.max_by { |team| total_tackles_by_team_id(team.team_id, season) }
     high_tackles.teamname
   end
 end

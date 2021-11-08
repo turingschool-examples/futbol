@@ -70,7 +70,7 @@ class StatTracker
   end
 
   def average_win_percentage(team_id)
-    @game_teams.average_win_percentage(6)#look into further. do not hard code.
+    @game_teams.average_win_percentage(team_id.to_i)
   end
 
 end

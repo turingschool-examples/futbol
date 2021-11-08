@@ -90,20 +90,17 @@ RSpec.describe GameTeamsManager do
     expect(game_teams_manager.average_win_percentage(6)).to eq(0.49)
   end
 
-  it "calculates most tackles by team id" do
+  it "calculates tackles by team id" do
     game_teams_path = './data/game_teams.csv'
     game_teams_manager = GameTeamsManager.new(game_teams_path)
-    expect(game_teams_manager.total_tackles_by_team_id(5)).to eq(5)
+    expect(game_teams_manager.total_tackles_by_team_id(3)).to eq(13381)
   end
-  it "calculates tackles by season" do
-    game_teams_path = './data/game_teams.csv'
-    game_teams_manager = GameTeamsManager.new(game_teams_path)
-    expect(game_teams_manager.tackles_by_season).to eq("wade")
-  end
+
+
 
   it "calculates most tackles by season" do
     game_teams_path = './data/game_teams.csv'
     game_teams_manager = GameTeamsManager.new(game_teams_path)
-    expect(game_teams_manager.most_tackles).to eq("wade")
+    expect(game_teams_manager.most_tackles("season")).to eq("FC Cincinnati")
   end
 end

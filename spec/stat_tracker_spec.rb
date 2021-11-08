@@ -37,4 +37,10 @@ RSpec.describe StatTracker do
     expect(stat_tracker.highest_total_score).to eq(11)
 
   end
+
+  it "caluculates average win percentage" do
+    game_teams_path = './data/game_teams.csv'
+    game_teams_manager = GameTeamsManager.new(game_teams_path)
+    expect(game_teams_manager.average_win_percentage(6)).to eq(0.49)
+  end
 end
