@@ -167,7 +167,13 @@ class StatTracker
     }
   end
 
-  def best_season
+  def best_season(team_id)
+    game_total = 0.0
+    team_wins = 0.0
+    win_percent = 0.0
+    #need to return season id for team's highest percentage of wins
+    @game_teams_hash.map do |team|
     require "pry"; binding.pry
+    end
   end
 end
