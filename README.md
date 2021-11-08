@@ -23,7 +23,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://linktr.ee/parkerlockhart"><img src="https://avatars.githubusercontent.com/u/88950699?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Parker</b></sub></a><br /><a href="https://github.com/joeldenverdev/futbol/commits?author=ParkerLockhart" title="Code">💻</a></td>
+    <td align="center"><a href="https://linktr.ee/parkerlockhart"><img src="https://avatars.githubusercontent.com/u/88950699?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Parker</b></sub></a><br /><a href="https://github.com/joeldenverdev/futbol/commits?author=ParkerLockhart" title="Code">💻</a> <a href="https://github.com/joeldenverdev/futbol/commits?author=ParkerLockhart" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
