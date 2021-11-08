@@ -1,6 +1,3 @@
-require 'csv'
-require './lib/stat_tracker'
-
 class Game
   attr_reader :away_goals,
               :away_team_id,
