@@ -1,0 +1,27 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "ParkerLockhart",
+      "name": "Parker",
+      "avatar_url": "https://avatars.githubusercontent.com/u/88950699?v=4",
+      "profile": "https://linktr.ee/parkerlockhart",
+      "contributions": [
+        "code",
+        "test",
+        "review",
+        "ideas"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "futbol",
+  "projectOwner": "joeldenverdev",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
