@@ -23,7 +23,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/jgrazulis"><img src="https://avatars.githubusercontent.com/u/86636152?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jessica</b></sub></a><br /><a href="https://github.com/joeldenverdev/futbol/commits?author=jgrazulis" title="Code">💻</a> <a href="https://github.com/joeldenverdev/futbol/pulls?q=is%3Apr+reviewed-by%3Ajgrazulis" title="Reviewed Pull Requests">👀</a> <a href="#ideas-jgrazulis" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/jgrazulis"><img src="https://avatars.githubusercontent.com/u/86636152?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jessica</b></sub></a><br /><a href="https://github.com/joeldenverdev/futbol/commits?author=jgrazulis" title="Code">💻</a> <a href="https://github.com/joeldenverdev/futbol/pulls?q=is%3Apr+reviewed-by%3Ajgrazulis" title="Reviewed Pull Requests">👀</a> <a href="#ideas-jgrazulis" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/joeldenverdev/futbol/commits?author=jgrazulis" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
