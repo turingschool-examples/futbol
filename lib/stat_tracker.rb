@@ -4,6 +4,7 @@ require_relative './game_stats'
 require_relative './league_stats.rb'
 require_relative './season_stats.rb'
 require_relative './team_stats.rb'
+require_relative './game_team_stats'
 
 SimpleCov.start
 
@@ -40,7 +41,7 @@ class StatTracker
   def my_game_teams(game_team_stats)
     rows = CSV.read(game_team_stats, headers: true)
     rows.map do |row|
-      @team_hash[row['team_id']] = GameTeamStats.new(row)
+      @game_teams_hash[row['team_id']] = GameTeamStats.new(row)
     end
   end
 
@@ -159,10 +160,14 @@ class StatTracker
   def team_info(team_id)
     team_info = {
       'team_id' => @team_hash[team_id].team_id,
-      'franchise_id' => @team_hash[team_id].franchise_id,
+      'franchiseId' => @team_hash[team_id].franchise_id,
       'team_name' => @team_hash[team_id].team_name,
       'abbreviation' => @team_hash[team_id].abbreviation,
       'link' => @team_hash[team_id].link
     }
+  end
+
+  def best_season
+    require "pry"; binding.pry
   end
 end
