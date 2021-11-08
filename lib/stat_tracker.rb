@@ -68,7 +68,7 @@ class StatTracker
   def lowest_scoring_home_team
     @game_teams.lowest_scoring_home_team
   end
-  
+
   def most_goals_scored(team_id)
     @game_teams.most_goals_scored(team_id)
   end
@@ -87,5 +87,9 @@ class StatTracker
 
   def team_info(team_id)
     @teams.team_info(team_id)
+  end
+
+  def average_win_percentage(team_id)
+    @game_teams.average_win_percentage(team_id.to_i)
   end
 end

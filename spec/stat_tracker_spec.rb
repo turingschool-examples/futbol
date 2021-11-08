@@ -50,4 +50,10 @@ RSpec.describe StatTracker do
     expect(game_teams_manager.most_goals_scored("18")).to eq(7)
     # expect(game_teams_manager.most_goals_scored.include?("3")).to eq(false)
   end
+
+  it "caluculates average win percentage" do
+    game_teams_path = './data/game_teams.csv'
+    game_teams_manager = GameTeamsManager.new(game_teams_path)
+    expect(game_teams_manager.average_win_percentage(6)).to eq(0.49)
+  end
 end

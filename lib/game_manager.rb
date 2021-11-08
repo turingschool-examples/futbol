@@ -8,7 +8,7 @@ class GameManager
 
   def initialize(game_path)
     @game_path = './data/games.csv'
-    # @stat_tracker = stat_tracker
+
     @game_objects = (
       objects = []
       CSV.foreach(game_path, headers: true, header_converters: :symbol) do |row|
