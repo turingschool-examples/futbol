@@ -19,3 +19,13 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012030314,6,home,WIN,REG,Claude Julien,1,6,25,8,3,0,52.5,11,5
 2012030231,17,away,LOSS,REG,Mike Babcock,1,5,43,10,3,0,52.5,6,4
 2012030231,16,home,WIN,REG,Joel Quenneville,2,10,24,10,3,1,47.5,2,11
+2012030325,26,away,WIN,OT,Darryl Sutter,3,9,62,4,2,1,55.7,8,8
+2012030325,16,home,LOSS,OT,Joel Quenneville,2,8,42,4,2,0,44.3,6,15
+2016030171,20,away,LOSS,REG,Glen Gulutzan,2,8,33,14,5,1,37.2,11,8
+2016030171,24,home,WIN,REG,Randy Carlyle,3,10,30,10,7,2,62.8,12,5
+2016030172,20,away,LOSS,REG,Glen Gulutzan,2,9,34,17,3,1,41.2,11,5
+2014030174,52,home,LOSS,REG,Paul Maurice,2,6,45,2,3,1,46.5,10,7
+2017030241,28,away,LOSS,REG,Peter DeBoer,0,8,33,31,5,0,47.8,8,6
+2017030241,54,home,WIN,REG,Gerard Gallant,5,8,48,10,10,3,52.2,10,15
+2017030242,28,away,LOSS,OT,Peter DeBoer,2,11,48,12,7,2,55.1,7,12
+2017030242,54,home,WIN,OT,Gerard Gallant,3,7,52,22,2,0,44.9,15,26
