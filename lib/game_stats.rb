@@ -1,7 +1,7 @@
 require 'csv'
-require_relative "game.rb"
+require_relative "./game.rb"
 
-class GameStats < Game
+class GameStats 
     attr_reader :games
 
     def initialize(file)

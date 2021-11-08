@@ -19,11 +19,11 @@ RSpec.describe "Stat Tracker" do
     expect(@stat_tracker).to be_a StatTracker
   end
 
-  it "has attributes" do
-    expect(@stat_tracker.games.count).to eq(25)
-    expect(@stat_tracker.teams.count).to eq(33)
-    expect(@stat_tracker.game_teams.count).to eq(31)
-  end
+  # it "has attributes" do
+  #   expect(@stat_tracker.games.count).to eq(25)
+  #   expect(@stat_tracker.teams.count).to eq(33)
+  #   expect(@stat_tracker.game_teams.count).to eq(31)
+  # end
 
   it 'can create an array of hashes from a CSV' do
     expect(@stat_tracker.to_array(@team_path)).to be_an(Array)
