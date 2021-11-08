@@ -23,6 +23,19 @@ class Game
     @venue_link = data[:venue_link]
   end
 
+  def home_win?
+    @home_goals > @away_goals
+  end
 
+  def visitor_win?
+    @home_goals < @away_goals
+  end
 
+  def tie_game?
+    @home_goals == @away_goals
+  end
+
+  def total_goals
+    @home_goals + @away_goals
+  end
 end
