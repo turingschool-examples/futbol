@@ -55,8 +55,22 @@ class StatTracker
   end
 
   def winningest_coach(season_id)
-    season_stats = SeasonStats.new(@game_teams_path, @games_path)
+    season_stats = SeasonStats.new(@game_teams_path, @games_path, @teams_path)
     season_stats.winningest_coach(season_id)
   end
 
+  def worst_coach(season_id)
+    season_stats = SeasonStats.new(@game_teams_path, @games_path, @teams_path)
+    season_stats.worst_coach(season_id)
+  end
+
+  def most_accurate_team(season_id)
+    season_stats = SeasonStats.new(@game_teams_path, @games_path, @teams_path)
+    season_stats.most_accurate_team(season_id)
+  end
+
+  def least_accurate_team(season_id)
+    season_stats = SeasonStats.new(@game_teams_path, @games_path, @teams_path)
+    season_stats.least_accurate_team(season_id)
+  end
 end
