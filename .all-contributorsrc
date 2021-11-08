@@ -6,6 +6,17 @@
   "commit": false,
   "contributors": [
     {
+      "login": "jbreit88",
+      "name": "Brad (he/him)",
+      "avatar_url": "https://avatars.githubusercontent.com/u/88853324?v=4",
+      "profile": "https://github.com/jbreit88",
+      "contributions": [
+        "code",
+        "ideas",
+        "test",
+        "review"
+        ]
+
       "login": "joeldenverdev",
       "name": "Joel Grant",
       "avatar_url": "https://avatars.githubusercontent.com/u/69736499?v=4",
