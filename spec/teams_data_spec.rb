@@ -3,9 +3,15 @@ require './lib/teams_data'
 
 RSpec.describe TeamsData do
   before(:each) do
+<<<<<<< HEAD
     @game_path = './data/games.csv'
     @team_path = './data/teams.csv'
     @game_teams_path = './data/game_teams.csv'
+=======
+    @game_path = './data/games_test.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './data/game_teams_test.csv'
+>>>>>>> 71542b4cdeb07760510783556df7f7499b36d62d
 
     @locations = {
       games: @game_path,
