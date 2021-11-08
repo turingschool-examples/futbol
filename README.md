@@ -3,11 +3,8 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-### About  
-##### Welcome to our CSV data analyzer tool!  
+### Welcome to our CSV data analyzer tool!  
 We wrote this program to import and analyze data from a directory of CSV files containing sports statistics.  
-
-Mod1 group project for [Turing School](https://turing.io/) Cohort 2110  
 
 ![languages](https://img.shields.io/github/languages/top/joeldenverdev/futbol?color=red)
 ![PRs](https://img.shields.io/github/issues-pr-closed/joeldenverdev/futbol)
@@ -32,4 +29,4 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome
