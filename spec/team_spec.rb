@@ -20,7 +20,7 @@ describe Team do
 	it 'has attributes' do 
 		expect(@team.first.game_id).to eq("2012030221")
     expect(@team.first.team_id).to eq("3")
-    expect(@team.first.hoa).to eq("5/16/13")
+    expect(@team.first.hoa).to eq("away")
     expect(@team.first.result).to eq("LOSS")
     expect(@team.first.settled_in).to eq("OT")
     expect(@team.first.head_coach).to eq("John Tortorella")
@@ -28,9 +28,9 @@ describe Team do
     expect(@team.first.shots).to eq("8")
     expect(@team.first.tackles).to eq("44")
     expect(@team.first.pim).to eq("8")
-    expect(@team.first.power_play_opps).to eq("Toyota Stadium")
-    expect(@team.first.power_play_goals).to eq("Toyota Stadium")
-    expect(@team.first.face_off_win_percentage).to eq("Toyota Stadium")
+    expect(@team.first.power_play_opportunities).to eq(3)
+    expect(@team.first.power_play_goals).to eq(0)
+    expect(@team.first.face_off_win_percentage).to eq(44.8)
     expect(@team.first.giveaways).to eq("17")
     expect(@team.first.takeaways).to eq("7")
 	end
