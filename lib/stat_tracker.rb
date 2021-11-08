@@ -7,7 +7,7 @@ class StatTracker
     @data = data
     @games = @data[:games]
     @teams = @data[:teams]
-    @games_teams = @data[:games_teams]
+    @game_teams = @data[:game_teams]
 
   end
 
@@ -19,6 +19,8 @@ class StatTracker
     end
     result
   end
+
+
 
   def self.from_csv(locations)
     formatted_data = {}
