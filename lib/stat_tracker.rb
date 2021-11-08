@@ -133,7 +133,6 @@ class StatTracker
 
   # League Statistics
 
-
   def count_of_teams
     @teams.length
   end
@@ -163,7 +162,8 @@ class StatTracker
   end
 
   def average_goals_per_game_by_team(team_id)
-    total_goals_by_team(team_id).to_f / games_by_team(team_id).length.to_f
+    avg = total_goals_by_team(team_id).to_f / games_by_team(team_id).length.to_f
+    avg.round(2)
   end
 
   def worst_offense
@@ -187,8 +187,8 @@ class StatTracker
     away
   end
 
-# Season Statistics 
-  
+# Season Statistics
+
    def season_games(season)
     @games.find_all do |game|
       game.season == season
@@ -231,7 +231,7 @@ class StatTracker
 
     winning_coach = winning_percent.max_by { |key, value| value }[0]
   end
-  
+
   def worst_coach(season)
     season_games = []
      @games.each do |game|
@@ -423,12 +423,9 @@ class StatTracker
     team_name = @teams.find do |team|
       team.team_id == team_id_tackles
     end
-
     team_name.team_name
+  end
 
-# Team Statistics
-    
-    
   def average_away_score(team_id)
     games = games_away(team_id)
     away_scores = games_away(team_id).map do |game|
@@ -498,8 +495,8 @@ class StatTracker
 
   end
 
-
   # Team Statistics
+
   def team_info(team_id)
     team = @teams.find { |team| team.team_id.to_s == team_id }
 
@@ -667,5 +664,3 @@ class StatTracker
     team.first.team_name
   end
 end
-end 
-end 

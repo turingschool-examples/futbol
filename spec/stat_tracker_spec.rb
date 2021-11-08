@@ -1,17 +1,12 @@
 require 'csv'
 require './lib/stat_tracker'
-require './lib/game'
-require './lib/team'
-require './lib/game_team'
-require './runner'
-require_relative 'stat_tracker_spec'
 
 RSpec.describe StatTracker do
   before(:each) do
 
-    game_path = './data/games.csv'
+    game_path = './data/games_tester.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_teams_path = './data/game_teams_tester.csv'
 
     locations = {
       games: game_path,
@@ -27,7 +22,7 @@ RSpec.describe StatTracker do
     it 'exists' do
       expect(@stat_tracker).to be_instance_of(StatTracker)
     end
-
+  end
 
   # Game Statistics Tests
 
@@ -37,7 +32,7 @@ RSpec.describe StatTracker do
     end
 
     it 'returns highest total of winning and losing team score by game' do
-      expect(@stat_tracker.highest_total_score).to eq 11
+      expect(@stat_tracker.highest_total_score).to eq 9
     end
   end
 
@@ -47,7 +42,7 @@ RSpec.describe StatTracker do
     end
 
     it 'returns lowest total of winning and losing team score by game' do
-      expect(@stat_tracker.lowest_total_score).to eq 0
+      expect(@stat_tracker.lowest_total_score).to eq 1
     end
   end
 
@@ -55,7 +50,7 @@ RSpec.describe StatTracker do
     it 'returns the total number of games' do
       expect(@stat_tracker.total_games_count).to be_an_instance_of Float
 
-      expect(@stat_tracker.total_games_count).to eq 7441.0
+      expect(@stat_tracker.total_games_count).to eq 500.0
     end
   end
 
@@ -63,7 +58,7 @@ RSpec.describe StatTracker do
     it 'counts the number of times home team outscored away team' do
       expect(@stat_tracker.home_wins_count).to be_an_instance_of Float
 
-      expect(@stat_tracker.home_wins_count).to eq 3237.0
+      expect(@stat_tracker.home_wins_count).to eq 232.0
     end
   end
 
@@ -73,7 +68,7 @@ RSpec.describe StatTracker do
     end
 
     it 'percentage of games won by the home team' do
-      expect(@stat_tracker.percentage_home_wins).to eq 43.50
+      expect(@stat_tracker.percentage_home_wins).to eq 46.4
     end
   end
 
@@ -81,7 +76,7 @@ RSpec.describe StatTracker do
     it 'counts the numbers of times away team outscored home team' do
       expect(@stat_tracker.visitor_wins_count).to be_an_instance_of Float
 
-      expect(@stat_tracker.visitor_wins_count).to eq 2687.0
+      expect(@stat_tracker.visitor_wins_count).to eq 195.0
     end
   end
 
@@ -89,7 +84,7 @@ RSpec.describe StatTracker do
     it 'returns a float' do
       expect(@stat_tracker.percentage_visitor_wins).to be_an_instance_of Float
 
-      expect(@stat_tracker.percentage_visitor_wins).to eq 36.11
+      expect(@stat_tracker.percentage_visitor_wins).to eq 39.0
     end
   end
 
@@ -97,7 +92,7 @@ RSpec.describe StatTracker do
     it 'returns a float' do
       expect(@stat_tracker.tied_games_count).to be_an_instance_of Float
 
-      expect(@stat_tracker.tied_games_count).to eq 1517.0
+      expect(@stat_tracker.tied_games_count).to eq 73.0
     end
   end
 
@@ -105,7 +100,7 @@ RSpec.describe StatTracker do
     it 'returns the percentage of game where the scores were equal' do
       expect(@stat_tracker.percentage_ties).to be_an_instance_of Float
 
-      expect(@stat_tracker.percentage_ties).to eq 20.39
+      expect(@stat_tracker.percentage_ties).to eq 14.6
     end
   end
 
@@ -113,7 +108,7 @@ RSpec.describe StatTracker do
     it 'counts the total number of away_goals and home_goals' do
       expect(@stat_tracker.total_goals).to be_an_instance_of Float
 
-      expect(@stat_tracker.total_goals).to eq 31413.0
+      expect(@stat_tracker.total_goals).to eq 2088.0
     end
   end
 
@@ -121,7 +116,7 @@ RSpec.describe StatTracker do
     it 'divides the total number of goals by the total number of games' do
       expect(@stat_tracker.average_goals_per_game).to be_an_instance_of Float
 
-      expect(@stat_tracker.average_goals_per_game).to eq 4.22
+      expect(@stat_tracker.average_goals_per_game).to eq 4.18
     end
   end
 
@@ -157,40 +152,38 @@ RSpec.describe StatTracker do
       expect(first_season_goals).to eq(first_season_goals.round(2))
     end
   end
-end
 
-    
-  # Season Statistics Test
-    
+  # Season Statistics Tests
+
   describe '#winningest_coach' do
 
     it 'returns a string' do
-      expect(@stat_tracker.winningest_coach("20122013")).to eq("coach name")
+      expect(@stat_tracker.winningest_coach("20122013")).to be_instance_of(String)
     end
-    #
+
     it 'gives name of Coach with best win percentage of season' do
-      expect(@stat_tracker.winningest_coach("20122013")).to eq("coach name")
+      expect(@stat_tracker.winningest_coach("20122013")).to eq("Dave Tippett")
     end
   end
 
   describe '#worst_coach' do
 
     it 'returns a string' do
-      expect(@stat_tracker.worst_coach("20122013")).to eq("coach name")
+      expect(@stat_tracker.worst_coach("20122013")).to be_a(String)
     end
 
     it 'gives name of Coach with the worst win percentage for the season' do
-      expect(@stat_tracker.worst_coach("20122013")).to eq("coach name")
+      expect(@stat_tracker.worst_coach("20122013")).to eq("Todd Richards")
     end
   end
 
   describe '#most_accurate_team' do
     it 'returns a string' do
-      expect(@stat_tracker.most_accurate_team("20122013")).to eq("team name")
+      expect(@stat_tracker.most_accurate_team("20122013")).to be_a(String)
     end
 
     it 'gives name of team with the best ratio of shots to goals for the season' do
-      expect(@stat_tracker.most_accurate_team("20122013")).to eq("team name")
+      expect(@stat_tracker.most_accurate_team("20122013")).to eq("LA Galaxy")
     end
   end
 
@@ -200,7 +193,7 @@ end
     end
 
     it 'gives name of team with the worst ratio of shots to goals for the season' do
-      expect(@stat_tracker.least_accurate_team("20122013")).to eq("team name")
+      expect(@stat_tracker.least_accurate_team("20122013")).to eq("Minnesota United FC")
     end
   end
 
@@ -210,7 +203,7 @@ end
     end
 
     it 'gives name of team with the most tackles in the season' do
-      expect(@stat_tracker.most_tackles("20122013")).to eq("team name")
+      expect(@stat_tracker.most_tackles("20122013")).to eq("FC Cincinnati")
     end
   end
 
@@ -220,16 +213,15 @@ end
     end
 
     it 'gives name of team with the fewest tackles in the season' do
-      expect(@stat_tracker.fewest_tackles("20122013")).to eq("team name")
+      expect(@stat_tracker.fewest_tackles("20122013")).to eq("Minnesota United FC")
     end
   end
-end
 
-  # League Statistics Test
+  # League Statistics Tests
 
   describe '#count of teams' do
     it 'returns total number of teams' do
-      expect(@stat_tracker.count_of_teams).to eq(10)
+      expect(@stat_tracker.count_of_teams).to eq(32)
     end
 
     it 'returns an integer' do
@@ -249,25 +241,25 @@ end
 
   describe '#games_by_team' do
     it 'returns number of games per team by team_id' do
-      expect(@stat_tracker.games_by_team(3).length).to eq(5)
+      expect(@stat_tracker.games_by_team(3).length).to eq(42)
     end
   end
 
   describe '#total_goals_by_team' do
     it 'returns number of total goals by team_id' do
-      expect(@stat_tracker.total_goals_by_team(3)).to eq(8)
+      expect(@stat_tracker.total_goals_by_team(3)).to eq(73)
     end
   end
 
   describe '#average_goals_per_game_by_team' do
     it 'returns number of average goals per game by team_id' do
-      expect(@stat_tracker.average_goals_per_game_by_team(3)).to eq(1.6)
+      expect(@stat_tracker.average_goals_per_game_by_team(3)).to eq(1.74)
     end
   end
 
   describe '#worst_offense' do
     it 'returns team with least avg goals per game for all seasons' do
-      expect(@stat_tracker.worst_offense).to eq("Houston Dynamo")
+      expect(@stat_tracker.worst_offense).to eq("Sky Blue FC")
     end
 
     it 'returns a string' do
@@ -277,19 +269,19 @@ end
 
   describe '#games_away' do
     it 'returns all away games by team_id' do
-      expect(@stat_tracker.games_away(3).length).to eq(3)
+      expect(@stat_tracker.games_away(3).length).to eq(22)
     end
   end
 
   describe '#average_away_score' do
     it 'returns average score per away game by team_id' do
-      expect(@stat_tracker.average_away_score(3)).to eq(1.7)
+      expect(@stat_tracker.average_away_score(3)).to eq(1.9)
     end
   end
 
   describe '#highest_scoring_visitor' do
     it 'returns team with highest avg score for away games' do
-      expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+      expect(@stat_tracker.highest_scoring_visitor).to eq("Columbus Crew SC")
     end
 
     it 'returns a string' do
@@ -299,7 +291,7 @@ end
 
   describe '#highest_scoring_home_team' do
     it 'returns team with highest avg score for home games' do
-      expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
+      expect(@stat_tracker.highest_scoring_home_team).to eq("San Jose Earthquakes")
     end
 
     it 'returns a string' do
@@ -309,19 +301,19 @@ end
 
   describe '#games_home' do
     it 'returns all home games by team_id' do
-      expect(@stat_tracker.games_home(3).length).to eq(2)
+      expect(@stat_tracker.games_home(3).length).to eq(20)
     end
   end
 
   describe '#average_home_score' do
     it 'returns average score per home game by team_id' do
-      expect(@stat_tracker.average_home_score(3)).to eq(1.5)
+      expect(@stat_tracker.average_home_score(3)).to eq(1.6)
     end
   end
 
   describe '#lowest_scoring_visitor' do
     it 'returns team with lowest avg score for away games' do
-      expect(@stat_tracker.lowest_scoring_visitor).to eq("Houston Dynamo")
+      expect(@stat_tracker.lowest_scoring_visitor).to eq("Chicago Fire")
     end
 
     it 'returns a string' do
@@ -331,13 +323,16 @@ end
 
   describe '#lowest_scoring_home_team' do
     it 'returns team with lowest avg score for home games' do
-      expect(@stat_tracker.lowest_scoring_home_team).to eq("Houston Dynamo")
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("Sky Blue FC")
     end
 
     it 'returns a string' do
       expect(@stat_tracker.lowest_scoring_home_team).to be_instance_of(String)
-
     end
+  end
+
+  #Team Statistics Tests
+
   describe '#team_info' do
     it 'returns team_id, franchise_id, team_name, abbr., and link' do
       expected = {
@@ -359,19 +354,19 @@ end
 
   describe '#worst_season' do
     it 'returns the season with the lowest win percentage for a team' do
-      expect(@stat_tracker.worst_season("3")).to eq("20172018")
+      expect(@stat_tracker.worst_season("3")).to eq("20152016")
     end
   end
 
   describe '#average_win_percentage' do
     it 'returns the average win percentage of all games for a team' do
-      expect(@stat_tracker.average_win_percentage("3")).to eq(0.43)
+      expect(@stat_tracker.average_win_percentage("3")).to eq(0.36)
     end
   end
 
   describe '#most_goals_scored' do
     it 'returns the highest nuber of goals a particular team has scored in a single game' do
-      expect(@stat_tracker.most_goals_scored("3")).to eq(6)
+      expect(@stat_tracker.most_goals_scored("3")).to eq(5)
     end
   end
 
@@ -383,12 +378,13 @@ end
 
   describe '#favorite_opponent' do
     it 'returns the name of the opponent that has the lowest win percentage against the given team' do
-      expect(@stat_tracker.favorite_opponent("3")).to eq("Montreal Impact")
+      expect(@stat_tracker.favorite_opponent("3")).to eq("Atlanta United")
     end
   end
 
   describe '#rival' do
     it 'returns the name of the opponent that has the highest win percentage against the given team' do
-      expect(@stat_tracker.rival("3")).to eq("San Jose Earthquakes")
+      expect(@stat_tracker.rival("3")).to eq("FC Dallas")
+    end
   end
 end
