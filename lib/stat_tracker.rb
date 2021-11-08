@@ -2,7 +2,7 @@ require 'csv'
 
 class StatTracker
 
-  attr_reader :data, :games, :teams, :games_teams
+  attr_reader :data, :games, :teams, :game_teams
   def initialize(data)
     @games = data[:games]
     @teams = data[:teams]
