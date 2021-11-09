@@ -12,7 +12,7 @@ class Games
 
   def initialize(info_hash)
     @game_id       = info_hash[:game_id].to_i
-    @season        = info_hash[:season].to_s
+    @season        = info_hash[:season].to_i
     @date_time     = info_hash[:date_time]
     @type          = info_hash[:type]
     @away_team_id  = info_hash[:away_team_id].to_i
