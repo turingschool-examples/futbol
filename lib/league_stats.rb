@@ -2,10 +2,12 @@ require 'csv'
 require_relative 'team.rb'
 
 class LeagueStats < Team
-  attr_reader :leagues
+  attr_reader :game_teams, 
+              :games 
 
-  def initialize(file)
-    @leagues = self.format(file)
+  def initialize(file_1, file_2)
+    @game_teams = self.format(file_1)
+    @games      = self.format(file_1)
   end 
 
   def format(file)
@@ -15,7 +17,11 @@ class LeagueStats < Team
     end
   end
 
-  def count_teams
+  def count_of_teams
+    @game_teams.count
+  end
 
+  def best_offense 
+    
   end
 end
