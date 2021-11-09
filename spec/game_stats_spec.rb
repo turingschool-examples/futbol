@@ -14,7 +14,7 @@ describe GameStats do
   end
 
   it "can show you the highest total score of all games" do
-    expect(gamestats.highest_total_score).to eq(5)
+    expect(gamestats.highest_total_score).to eq(6)
   end
 
   it "can show you the lowest total score of all games" do
@@ -23,23 +23,23 @@ describe GameStats do
   end
 
   it "can show percentage of home wins" do
-    expect(gamestats.percentage_home_wins).to eq(0.67)
+    expect(gamestats.percentage_home_wins).to eq(0.51)
   end
 
   it "can show percentage_visitor_wins" do
-    expect(gamestats.percentage_visitor_wins).to eq(0.29)
+    expect(gamestats.percentage_visitor_wins).to eq(0.44)
   end
 
   it "can show you the percentage of tie games" do
-    expect(gamestats.percentage_ties).to eq(0.04)
+    expect(gamestats.percentage_ties).to eq(0.05)
   end
 
   it "can return a hash of the number of games per season" do
-    expect(gamestats.count_of_games_by_season).to eq({"20122013"=>20, "20162017"=>4})
+    expect(gamestats.count_of_games_by_season).to eq({"20122013"=>20, "20132014"=>21, "20142015"=>17, "20152016"=>11, "20162017"=>4})
   end
 
   it "can return the average goals per game" do
-    expect(gamestats.average_goals_per_game).to eq(3.92)
+    expect(gamestats.average_goals_per_game).to eq(4.0)
   end
 
   it "can show average goals per season" do
@@ -48,6 +48,6 @@ describe GameStats do
   end
 
   it "can return a hash of average goals by season" do
-    expect(gamestats.average_goals_by_season).to eq({"20122013"=>3.75, "20162017"=>4.75})
+    expect(gamestats.average_goals_by_season).to eq({"20122013"=>3.75, "20132014"=>4.43, "20142015"=>3.35, "20152016"=>4.36, "20162017"=>4.75})
   end
 end
