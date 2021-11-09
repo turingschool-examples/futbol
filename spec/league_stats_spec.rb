@@ -37,6 +37,11 @@ describe LeagueStats do
 		expect(league.away_teams_list.count).to eq(47)
 	end
 
+	it 'home teams list' do 
+		expect(league.home_teams_list).to be_an(Array)
+		expect(league.home_teams_list.count).to eq(47)
+	end
+
 	it '#highest_scoring_visitor' do 
 		expect(league.highest_scoring_visitor).to eq("FC Dallas")
 	end
@@ -45,7 +50,7 @@ describe LeagueStats do
 		expect(league.lowest_scoring_visitor).to eq("Sporting Kansas City")
 	end
 
-	it '#highest scoring home team' do 
+	xit '#highest scoring home team' do 
 		expect(league.highest_scoring_home_team).to eq({})
 	end
 end

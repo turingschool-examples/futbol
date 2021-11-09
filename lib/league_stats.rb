@@ -88,6 +88,12 @@ class LeagueStats < Team
     end
   end
 
+  def home_teams_list
+   @game_teams.find_all do |game|
+      game.hoa == "home"
+    end
+  end
+
   def highest_scoring_visitor
     scores = away_teams_list.reduce({}) do |hash, team|
       hash[team.team_id] = team.goals.to_i
@@ -105,6 +111,6 @@ class LeagueStats < Team
   end
 
   def highest_scoring_home_team
-    
+
   end
 end
