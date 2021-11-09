@@ -103,4 +103,8 @@ class LeagueStats < Team
     end
     find_team_name(scores.key(scores.values.min))
   end
+
+  def highest_scoring_home_team
+    
+  end
 end
