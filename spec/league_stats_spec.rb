@@ -50,7 +50,11 @@ describe LeagueStats do
 		expect(league.lowest_scoring_visitor).to eq("Sporting Kansas City")
 	end
 
-	xit '#highest scoring home team' do 
-		expect(league.highest_scoring_home_team).to eq({})
+	it '#highest scoring home team' do 
+		expect(league.highest_scoring_home_team).to eq("New England Revolution")
+	end
+
+	it '#lowest scoring home team' do 
+		expect(league.lowest_scoring_home_team).to eq("Portland Timbers")
 	end
 end

@@ -111,6 +111,18 @@ class LeagueStats < Team
   end
 
   def highest_scoring_home_team
+    scores = home_teams_list.reduce({}) do |hash, team|
+      hash[team.team_id] = team.goals.to_i
+      hash
+    end
+    find_team_name(scores.key(scores.values.max))
+  end
 
+  def lowest_scoring_home_team
+    scores = home_teams_list.reduce({}) do |hash, team|
+      hash[team.team_id] = team.goals.to_i
+      hash
+    end
+    find_team_name(scores.key(scores.values.min))
   end
 end
