@@ -1,13 +1,13 @@
 require 'csv'
-require './lib/stat_tracker'
+require_relative './stat_tracker'
 
 class Teams
-  attr_reader :team_id, 
-              :franchise_id, 
+  attr_reader :team_id,
+              :franchise_id,
               :teamname,
-              :abbreviation, 
+              :abbreviation,
               :stadium,
-              :link 
+              :link
 
   def initialize(data)
     @team_id      = data[:team_id]

@@ -1,12 +1,13 @@
 require 'csv'
 require_relative "./game_stats"
+require_relative "./league_stats"
 
 class StatTracker
 
   def initialize(game_path, team_path, game_team_path)
-    @game_stat  = GameStats.new(game_path)
-    @teams      = CSV.read(team_path)
-    @game_teams = CSV.read(game_team_path)
+    @game_stat   = GameStats.new(game_path)
+    @league_stat = LeagueStats.new(game_team_path, team_path, game_path)
+    # @game_teams  = CSV.read(game_team_path)
 
   end
 
@@ -40,6 +41,22 @@ class StatTracker
 
   def average_goals_by_season
     @game_stat.average_goals_by_season
+  end
+
+  def count_of_teams
+    @league_stat.count_of_teams
+  end
+
+  def best_offense
+    @league_stat.best_offense
+  end
+
+  def worst_offense
+    @league_stat.worst_offense
+  end
+
+  def highest_scoring_visitor
+    @league_stat.highest_scoring_visitor
   end
 
   def to_array(file_path)

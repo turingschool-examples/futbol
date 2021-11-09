@@ -16,7 +16,7 @@ RSpec.describe "Stat Tracker" do
   end
 
   it "exists" do
-    expect(@stat_tracker).to be_a StatTracker
+    expect(@stat_tracker).to be_an_instance_of StatTracker
   end
 
   # it "has attributes" do
@@ -25,7 +25,7 @@ RSpec.describe "Stat Tracker" do
   #   expect(@stat_tracker.game_teams.count).to eq(31)
   # end
 
-  it 'can create an array of hashes from a CSV' do
+  xit 'can create an array of hashes from a CSV' do
     expect(@stat_tracker.to_array(@team_path)).to be_an(Array)
     expect(@stat_tracker.to_array(@team_path).first).to be_a(Hash)
     expect(@stat_tracker.to_array(@team_path).count).to eq(32)
