@@ -1,4 +1,5 @@
 require 'CSV'
+require 'spec_helper'
 require './lib/stat_tracker'
 require './lib/team_manager'
 
@@ -29,7 +30,7 @@ RSpec.describe TeamManager do
   it 'has team info' do
     team_path = './data/teams.csv'
     team_manager = TeamManager.new(team_path)
-    
+
     expect(team_manager.team_info("18")).to eq({
       "team_id" => "18",
       "franchise_id" => "34",

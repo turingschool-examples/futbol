@@ -1,4 +1,5 @@
 require 'CSV'
+require 'spec_helper'
 require './lib/teams'
 
 RSpec.describe Teams do
