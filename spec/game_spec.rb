@@ -8,18 +8,18 @@ RSpec.describe Game do
     Game.new(row)
   end
 
-  before(:each) do 
+  before(:each) do
     @game = game_array
   end
-  
-  it 'exists' do 
+
+  it 'exists' do
     expect(@game).to be_an(Array)
     expect(@game.sample).to be_an_instance_of(Game)
   end
 
-  it 'has attributes' do 
+  it 'has attributes' do
     expect(@game.first.away_goals).to eq("2")
-    expect(@game.first.away_team_id).to eq("6")
+    expect(@game.first.away_team_id).to eq("3")
     expect(@game.first.date_time).to eq("5/16/13")
     expect(@game.first.game_id).to eq("2012030221")
     expect(@game.first.home_goals).to eq("3")

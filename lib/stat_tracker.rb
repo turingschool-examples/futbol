@@ -54,7 +54,7 @@ class StatTracker
   def worst_offense
     @league_stat.worst_offense
   end
-
+  
   def highest_scoring_visitor
     @league_stat.highest_scoring_visitor
   end
