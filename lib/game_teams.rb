@@ -18,6 +18,7 @@ class GameTeams
               :takeaways
 
   def initialize(row)
+    @game_id = row[:game_id].to_i
     @team_id = row[:team_id].to_i
     @hoa = row[:hoa]
     @result = row[:result]
@@ -29,7 +30,7 @@ class GameTeams
     @pim = row[:pim].to_i
     @powerplayopportunities = row[:powerplayopportunities].to_i
     @powerplaygoals = row[:powerplaygoals].to_i
-    @faceoffwinpercentage = row[:faceoffwinpercentage]
+    @faceoffwinpercentage = row[:faceoffwinpercentage].to_f
     @giveaways = row[:giveaways].to_i
     @takeaways = row[:takeaways].to_i
 
