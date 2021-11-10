@@ -43,7 +43,7 @@ class GameTeamsManager
 
   end
 
-  def wins_by_team_id(team_id, hoa = nil) #test
+  def wins_by_team_id(team_id, hoa = nil)
     games_by_team_id(team_id, hoa).find_all do |game|
         game.result == "WIN"
     end
@@ -86,47 +86,29 @@ class GameTeamsManager
     lowest_home.teamname
   end
 
-
-  def game_is_in_season(season, game_id)
-    # @games.any? { |game| game.season == season && game.game_id == game_id }
-    @games.any? do |game|
-      game.season == season && game.game_id == game_id
-      require "pry"; binding.pry
-    end
-
-  end
-
-  def total_tackles_by_team_id(team_id)
+  def total_tackles_by_team_id(team_id, season = nil)
     games_by_team_id(team_id).sum do |game|
-      if game_is_in_season(season, game_id)
-        puts "counts tackles"
+      if game_is_in_season(season, game.game_id)
         game.tackles
       else
-        puts "doesnt count"
         0
       end
     end
   end
 
+  def game_is_in_season(season, game_id)
+    @games.any? do |game|
+      game.season == season && game.game_id == game_id
+    end
+  end
 
   def most_tackles(season)
-    most_tackles = @teams.max_by { |team| total_tackles_by_team_id(season) } #team.team_id
+    most_tackles = @teams.max_by { |team| total_tackles_by_team_id(team.team_id,season) }
     most_tackles.teamname
   end
 
+  def fewest_tackles(season)
+    least_tackles = @teams.min_by { |team| total_tackles_by_team_id(team.team_id,season) }
+    least_tackles.teamname
+  end
 end
-
-# if season == nil
-#   game.tackles
-# else
-  # require "pry"; binding.pry
-
-
-  # def ids_in_given_season(season)
-  #  away_team_ids = @games.map do |game|
-  #     if game.season == season
-  #       [game.away_team_id, game.home_team_id]
-  #     end
-  #   end
-  #   flat_away_team_ids = away_team_ids.flatten.uniq.compact
-  # end

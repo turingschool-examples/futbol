@@ -50,7 +50,7 @@ class GameManager
       end
     end
     away_team_wins_count = away_team_wins.count
-    percent_wins = away_team_wins_count.to_f / 7441
+    percent_wins = away_team_wins_count.to_f / game_objects.count
     percent_wins.round(2)
 
   end
@@ -63,7 +63,7 @@ class GameManager
       end
     end
     ties_count = ties.count
-    percent_ties = ties_count.to_f / 7441
+    percent_ties = ties_count.to_f / game_objects.count
     percent_ties.round(2)
   end
 
@@ -89,13 +89,11 @@ class GameManager
   end
 
   def average_goals_per_game
-    goals_array = []
-    @game_objects.each do |game|
-      total_goals = game.away_goals + game.home_goals
-      goals_array << total_goals
-  end
+    goals_array = @game_objects.map do |game|
+      game.away_goals + game.home_goals
+    end
     goals_in_game = goals_array.sum
-    avg_goals_per_game = goals_in_game.to_f / 7441
+    avg_goals_per_game = goals_in_game.to_f / game_objects.count
     avg_goals_per_game.round(2)
   end
 

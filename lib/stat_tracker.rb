@@ -73,4 +73,12 @@ class StatTracker
     @game_teams.average_win_percentage(team_id.to_i)
   end
 
+  def most_tackles(season)
+    @game_teams.most_tackles(season)
+  end
+
+  def fewest_tackles(season)
+    @game_teams.fewest_tackles(season)
+  end
+
 end

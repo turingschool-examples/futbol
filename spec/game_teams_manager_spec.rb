@@ -21,10 +21,16 @@ RSpec.describe GameTeamsManager do
 
   end
 
-  it "calls method" do
+  it "calculates average goals per game by ID" do
     game_teams_path = './data/game_teams.csv'
     game_teams_manager = GameTeamsManager.new(game_teams_path)
     expect(game_teams_manager.average_goals_per_game_by_id(3)).to eq(2.13)
+  end
+
+  it "calculates total goals by team id" do
+    game_teams_path = './data/game_teams.csv'
+    game_teams_manager = GameTeamsManager.new(game_teams_path)
+    expect(game_teams_manager.total_goals_by_team(3)).to eq(1129)
   end
 
   it "calculates best offense" do
@@ -66,19 +72,21 @@ RSpec.describe GameTeamsManager do
   it "caluculates average win percentage" do
     game_teams_path = './data/game_teams.csv'
     game_teams_manager = GameTeamsManager.new(game_teams_path)
-    expect(game_teams_manager.average_win_percentage(6)).to eq(0.49)
+    expect(game_teams_manager.average_win_percentage(3)).to eq(0.43)
   end
 
   it "calculates most tackles" do
     game_teams_path = './data/game_teams.csv'
     game_teams_manager = GameTeamsManager.new(game_teams_path)
-    expect(game_teams_manager.game_is_in_season("20132014", 2012030221)).to eq(true)
+    expect(game_teams_manager.most_tackles("20132014")).to eq("FC Cincinnati")
   end
 
-  it "calculates most tackles" do
+  it "calculates fewest tackles" do
     game_teams_path = './data/game_teams.csv'
     game_teams_manager = GameTeamsManager.new(game_teams_path)
-    expect(game_teams_manager.most_tackles(20132014)).to eq("FC Cincinnati")
+    expect(game_teams_manager.fewest_tackles(20132014)).to eq("Atlanta United")
   end
+
+
 
 end
