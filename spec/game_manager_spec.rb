@@ -2,6 +2,7 @@ require 'CSV'
 require 'spec_helper'
 require './lib/stat_tracker'
 require './lib/game_manager'
+require 'spec_helper'
 
 
 RSpec.describe GameManager do
@@ -10,13 +11,6 @@ RSpec.describe GameManager do
     game_manager = GameManager.new(game_path)
 
     expect(game_manager).to be_an_instance_of(GameManager)
-  end
-
-  xit 'starts with no game objects' do
-    game_path = './data/games.csv'
-    game_manager = GameManager.new(game_path)
-
-    expect(game_manager.game_objects).to eq([])
   end
 
   it 'can create game objects' do
