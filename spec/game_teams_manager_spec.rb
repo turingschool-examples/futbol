@@ -1,4 +1,5 @@
 require 'CSV'
+require 'spec_helper'
 require './lib/stat_tracker'
 require './lib/game_teams_manager'
 
@@ -87,6 +88,15 @@ RSpec.describe GameTeamsManager do
     expect(game_teams_manager.fewest_tackles(20132014)).to eq("Atlanta United")
   end
 
+  it '#most_goals_scored' do
+    game_teams_path = './data/game_teams.csv'
+    game_teams_manager = GameTeamsManager.new(game_teams_path)
+    expect(game_teams_manager.most_goals_scored("18")).to eq(7)
+  end
 
-
+  it '#fewest_goals_scored' do
+    game_teams_path = './data/game_teams.csv'
+    game_teams_manager = GameTeamsManager.new(game_teams_path)
+    expect(game_teams_manager.fewest_goals_scored("18")).to eq(0)
+  end
 end

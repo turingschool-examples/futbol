@@ -1,4 +1,5 @@
 require 'CSV'
+require 'spec_helper'
 require './lib/games'
 
 RSpec.describe Games do
@@ -19,7 +20,7 @@ RSpec.describe Games do
     expect(game).to be_an_instance_of(Games)
   end
 
-  it 'has attributes' do
+  xit 'has attributes' do
     game = Games.new({
           :game_id       => '2012030221',
           :season        => '20122013',
@@ -33,7 +34,7 @@ RSpec.describe Games do
           :venue_link    =>  "/api/v1/venues/null"
       })
 
-    expect(game.game_id).to eq(2012030221)
+    expect(game.game_id).to eq('2012030221')
     expect(game.season).to eq(20122013)
     expect(game.date_time).to eq('5/16/13')
     expect(game.type).to eq('Postseason')

@@ -1,9 +1,10 @@
+require 'spec_helper'
 require './lib/stat_tracker'
 require './lib/game_manager'
 require './lib/game_teams_manager'
 require './lib/game_teams'
 require './lib/games'
-require './lib/teams_manager'
+require './lib/team_manager'
 require './lib/teams'
 RSpec.describe StatTracker do
   it 'exists' do
@@ -22,7 +23,7 @@ RSpec.describe StatTracker do
     expect(stat_tracker).to be_an_instance_of(StatTracker)
   end
 
-  xit '#highest_total_score' do
+  it '#highest_total_score' do
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams.csv'
@@ -35,7 +36,20 @@ RSpec.describe StatTracker do
     stat_tracker = StatTracker.from_csv(locations)
 
     expect(stat_tracker.highest_total_score).to eq(11)
+  end
 
+  it '#most_goals_scored' do
+    game_teams_path = './data/game_teams.csv'
+    game_teams_manager = GameTeamsManager.new(game_teams_path)
+    expect(game_teams_manager.most_goals_scored("18")).to eq(7)
+    # expect(game_teams_manager.most_goals_scored.include?("3")).to eq(false)
+  end
+
+  it '#fewest_goals_scored' do
+    game_teams_path = './data/game_teams.csv'
+    game_teams_manager = GameTeamsManager.new(game_teams_path)
+    expect(game_teams_manager.most_goals_scored("18")).to eq(7)
+    # expect(game_teams_manager.most_goals_scored.include?("3")).to eq(false)
   end
 
   it "caluculates average win percentage" do
