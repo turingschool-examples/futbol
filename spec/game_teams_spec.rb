@@ -43,7 +43,7 @@ RSpec.describe GameTeams do
           :takeaways                =>'7'
           })
 
-    expect(game_teams.game_id).to eq('2012030221')
+    expect(game_teams.game_id).to eq(2012030221)
     expect(game_teams.team_id).to eq(3)
     expect(game_teams.hoa).to eq('away')
     expect(game_teams.result).to eq('LOSS')
