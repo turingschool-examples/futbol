@@ -18,7 +18,6 @@ RSpec.describe GameManager do
     game_manager = GameManager.new(game_path)
 
     expect(game_manager.game_objects[0]).to be_an(Games)
-    # expect(game_manager.add_objects).to be_an_instance_of(GameManager)
     expect(game_manager.game_objects.count).to eq(7441)
   end
 

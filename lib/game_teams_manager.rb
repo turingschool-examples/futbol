@@ -9,16 +9,9 @@ class GameTeamsManager
 
   def initialize(game_teams_path)
     @game_teams_path = './data/game_teams.csv'
-    @game_teams_objects = (
-      objects = []
-      CSV.foreach(game_teams_path, headers: true, header_converters: :symbol) do |row|
-        objects << GameTeams.new(row)
-      end
-      objects)
+    @game_teams_objects = CSV.read(game_teams_path, headers: true, header_converters: :symbol).map {|row| GameTeams.new(row)}
     @teams = TeamManager.new('./data/teams.csv').team_objects
-
     @games = GameManager.new('./data/games.csv').game_objects
-
   end
 
   def games_by_team_id(team_id, hoa = nil)
@@ -40,9 +33,14 @@ class GameTeamsManager
   def average_goals_per_game_by_id(team_id, hoa = nil)
     average = total_goals_by_team(team_id, hoa) / games_by_team_id(team_id, hoa).count.to_f
     average.round(2)
-
   end
 
+  def best_offense
+    teams.max_by { |team| average_goals_per_game_by_id(team.team_id) }.teamname
+  end
+
+  def worst_offense
+    teams.min_by { |team| average_goals_per_game_by_id(team.team_id) }.teamname
   def wins_by_team_id(team_id, hoa = nil)
     games_by_team_id(team_id, hoa).find_all do |game|
         game.result == "WIN"
@@ -56,34 +54,20 @@ class GameTeamsManager
     total.round(2)
   end
 
-  def best_offense
-    best_team = teams.max_by { |team| average_goals_per_game_by_id(team.team_id) }
-    best_team.teamname
-  end
-
-  def worst_offense
-    worst_team = teams.min_by { |team| average_goals_per_game_by_id(team.team_id) }
-    worst_team.teamname
-  end
-
   def highest_scoring_visitor
-    highest_visitor = teams.max_by { |team| average_goals_per_game_by_id(team.team_id, "away") }
-    highest_visitor.teamname
+    teams.max_by { |team| average_goals_per_game_by_id(team.team_id, "away") }.teamname
   end
 
   def highest_scoring_home_team
-    highest_home = teams.max_by { |team| average_goals_per_game_by_id(team.team_id, "home") }
-    highest_home.teamname
+    teams.max_by { |team| average_goals_per_game_by_id(team.team_id, "home") }.teamname
   end
 
   def lowest_scoring_visitor
-    lowest_visitor = teams.min_by { |team| average_goals_per_game_by_id(team.team_id, "away") }
-    lowest_visitor.teamname
+    teams.min_by { |team| average_goals_per_game_by_id(team.team_id, "away") }.teamname
   end
 
   def lowest_scoring_home_team
-    lowest_home = teams.min_by { |team| average_goals_per_game_by_id(team.team_id, "home") }
-    lowest_home.teamname
+    teams.min_by { |team| average_goals_per_game_by_id(team.team_id, "home") }.teamname
   end
 
   def total_tackles_by_team_id(team_id, season = nil)
@@ -113,7 +97,7 @@ class GameTeamsManager
   end
 
   def most_goals_scored(team_id)
-    games_by_team_id = @game_teams_objects.find_all { |game| game.team_id == team_id.to_i  }
+    games_by_team_id = @game_teams_objects.find_all { |game| game.team_id == team_id.to_i }
     most = games_by_team_id.max_by do |game|
       game.goals
     end

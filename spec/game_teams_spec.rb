@@ -24,7 +24,7 @@ RSpec.describe GameTeams do
     expect(game_teams).to be_an_instance_of(GameTeams)
   end
 
-  xit 'has attributes' do
+  it 'has attributes' do
     game_teams = GameTeams.new({
           :game_id                  =>'2012030221',
           :team_id                  =>'3',
