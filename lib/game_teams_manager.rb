@@ -41,6 +41,8 @@ class GameTeamsManager
 
   def worst_offense
     teams.min_by { |team| average_goals_per_game_by_id(team.team_id) }.teamname
+  end
+
   def wins_by_team_id(team_id, hoa = nil)
     games_by_team_id(team_id, hoa).find_all do |game|
         game.result == "WIN"
