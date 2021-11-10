@@ -2,6 +2,7 @@ require 'CSV'
 require 'spec_helper'
 require './lib/stat_tracker'
 require './lib/game_manager'
+require 'spec_helper'
 
 
 RSpec.describe GameManager do

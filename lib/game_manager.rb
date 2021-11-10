@@ -60,8 +60,8 @@ class GameManager
       goals_in_game = goals_array.sum
       avg_goals_per_game = goals_in_game.to_f / @game_objects.count
       avg_goals_per_game.round(2)
-    end
-
+  end
+  
   def average_goals_by_season
     seasons = @game_objects.group_by {|game| game.season}
     seasons.each do |season, all_games_by_season|
