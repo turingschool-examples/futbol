@@ -8,15 +8,8 @@ class TeamManager
 
   def initialize(team_path)
     @team_path = './data/teams.csv'
-    # @stat_tracker = stat_tracker
-    @team_objects = (
-      objects = []
-      CSV.foreach(team_path, headers: true, header_converters: :symbol) do |row|
-        objects << Teams.new(row)
-      end
-      objects)
+    @team_objects = CSV.read(team_path, headers: true, header_converters: :symbol).map {|row| Teams.new(row)}
   end
-
 
   def count_of_teams
     @team_objects.count
