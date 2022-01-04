@@ -2,6 +2,54 @@
   "RSpec": {
     "coverage": {
     },
-    "timestamp": 1641258502
+    "timestamp": 1641326947
+  },
+  "Futbol Tests": {
+    "coverage": {
+      "/Users/richardlabrecque/turing/1module/projects/futbol/spec/stat_tracker_spec.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1641327350
   }
 }

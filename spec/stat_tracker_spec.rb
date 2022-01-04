@@ -1,7 +1,6 @@
 require './lib/stat_tracker'
 require 'pry'
-require 'simplecov'
-SimpleCov.start
+require_relative 'spec_helper'
 
 RSpec.describe StatTracker do
   # before(:each) do
