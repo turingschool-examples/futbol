@@ -1,4 +1,4 @@
-require './lib/stat_tracker'                                                                     ✔  12:39:00   ▓▒░
+require './lib/stat_tracker'
 
 game_path = './data/games.csv'
 team_path = './data/teams.csv'
