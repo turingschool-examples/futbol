@@ -11,5 +11,12 @@ class StatTracker
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
-  
+
+  def highest_total_score
+    game_with_max = @games.max_by do |row|
+      row[:away_goals].to_i + row[:home_goals].to_i
+    end
+    return game_with_max[:away_goals].to_i + game_with_max[:home_goals].to_i
+  end
+
 end
