@@ -58,5 +58,13 @@ RSpec.describe do Game
     expect(game.average_goals_per_game).to eq(3.77)
   end
 
+  it 'average_goals_by_season' do
+    game_path = './data/average_goals_by_season.csv'
+    locations = {games: game_path}
+    game = Game.new(locations[:games])
+    expect(game.average_goals_by_season).to eq({'20122013' => 4.5, '20162017' => 4.75, '20142015' => 4})
+  end
+
+
 
 end

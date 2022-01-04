@@ -73,4 +73,15 @@ class Game
     (total_scores.to_f / total_games).round(2)
   end
 
+  def average_goals_by_season
+    # want key value pair to give total number of games, then want total number of goals. Will then return hash that has season name with the value of average goals
+    season_games = count_of_games_by_season
+    require "pry"; binding.pry
+    
+      @contents.each do |row|
+        # count_of_games_by_season[pair[0]]=((row[:home_goals].to_f + row[:away_goals].to_f) / pair[1])
+      end
+    end
+  end
+
 end
