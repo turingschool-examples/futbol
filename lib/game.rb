@@ -55,7 +55,22 @@ class Game
     ((ties.to_f / total_games) * 100).round(2)
   end
 
+  def count_of_games_by_season
+    game_count = Hash.new(0)
+    @contents.each do |row|
+      game_count[row[:season]] += 1
+    end
+    game_count
+  end
 
-
+  def average_goals_per_game
+    total_games = 0
+    total_scores = 0
+    @contents.each do |row|
+      total_games += 1
+      total_scores += (row[:home_goals].to_i + row[:away_goals].to_i)
+    end
+    (total_scores.to_f / total_games).round(2)
+  end
 
 end

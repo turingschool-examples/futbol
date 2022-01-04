@@ -44,5 +44,19 @@ RSpec.describe do Game
     expect(game.percentage_ties).to be(4.55)
   end
 
+  it 'count_of_games_by_season' do
+    game_path = './data/games_stub_2.csv'
+    locations = {games: game_path}
+    game = Game.new(locations[:games])
+    expect(game.count_of_games_by_season).to eq({'20122013' => 57, '20162017' => 4, '20142015' => 6})
+  end
+
+  it 'average_goals_per_game' do
+    game_path = './data/games_stub.csv'
+    locations = {games: game_path}
+    game = Game.new(locations[:games])
+    expect(game.average_goals_per_game).to eq(3.77)
+  end
+
 
 end
