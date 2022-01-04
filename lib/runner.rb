@@ -13,5 +13,9 @@ locations = {
 
 stat_tracker = StatTracker.from_csv(locations)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> d47329378e2b4b86fa1a8c973fe2d2de9882d2ef
 require 'pry'
 binding.pry
