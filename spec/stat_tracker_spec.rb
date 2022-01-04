@@ -1,10 +1,10 @@
 require './lib/stat_tracker'
 require 'pry'
-require_relative 'spec_helper'
+# require_relative 'spec_helper'
 
 RSpec.describe StatTracker do
   before(:each) do
-    game_path = './data/games.csv'
+    game_path = './data/games_sample.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams.csv'
     @locations = {
@@ -12,7 +12,7 @@ RSpec.describe StatTracker do
       teams: team_path,
       game_teams: game_teams_path
       }
-    #@stat_tracker = StatTracker.from_csv(@locations)
+    @stat_tracker = StatTracker.from_csv(@locations)
   end
 
   it 'exists' do
@@ -23,14 +23,14 @@ RSpec.describe StatTracker do
 
   it 'from CSV create new StatTracker' do
 
-     stat_tracker = StatTracker.from_csv(@locations)
+    stat_tracker = StatTracker.from_csv(@locations)
     expect(stat_tracker).to be_a(StatTracker)
     expect(stat_tracker.locations).to eq(@locations)
   end
 
-  xit "returns highest total score" do
-
-  expect(@stat_tracker.highest_total_score).to eq()
+  it "returns highest total score" do
+    # stat_tracker = StatTracker.from_csv(@locations)
+    expect(@stat_tracker.highest_total_score).to eq(5)
   end
 
   xit "#lowest_total_score" do

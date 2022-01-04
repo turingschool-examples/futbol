@@ -1,7 +1,7 @@
 {
   "Futbol Tests": {
     "coverage": {
-      "/Users/richardlabrecque/turing/1module/projects/futbol/spec/stat_tracker_spec.rb": {
+      "/Users/michaelhicks/turing/1module/projects/futbol/spec/stat_tracker_spec.rb": {
         "lines": [
           1,
           1,
@@ -73,6 +73,6 @@
         ]
       }
     },
-    "timestamp": 1641329708
+    "timestamp": 1641332187
   }
 }
