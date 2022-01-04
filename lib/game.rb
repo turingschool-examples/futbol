@@ -24,4 +24,28 @@ class Game
     end
     total_scores.min
   end
+
+  def percentage_home_wins
+    total_games = 0
+    home_wins = 0
+    @contents.each do |row|
+      total_games += 1
+      row[:home_goals].to_i > row[:away_goals].to_i ? home_wins += 1 : next
+    end
+    ((home_wins.to_f / total_games) * 100).truncate(2)
+  end
+
+  def percentage_vistor_wins
+    total_games = 0
+    visitor_wins = 0
+    @contents.each do |row|
+      total_games += 1
+      row[:home_goals].to_i < row[:away_goals].to_i ? visitor_wins += 1 : next
+    end
+    ((visitor_wins.to_f / total_games) * 100).truncate(2)
+  end
+
+
+
+
 end

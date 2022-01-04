@@ -23,15 +23,19 @@ RSpec.describe do Game
     expect(game.lowest_total_score).to be(1)
   end
 
+  it 'percentage_home_wins' do
+    game_path = './data/games_stub.csv'
+    locations = {games: game_path}
+    game = Game.new(locations[:games])
+    expect(game.percentage_home_wins).to be(68.18)
+  end
+
+  it 'percentage_visitor_wins' do
+    game_path = './data/games_stub.csv'
+    locations = {games: game_path}
+    game = Game.new(locations[:games])
+    expect(game.percentage_vistor_wins).to be(27.27)
+  end
 
 
-  # it '' do
-  #
-  # end
-  # it '' do
-  #
-  # end
-  # it '' do
-  #
-  # end
 end
