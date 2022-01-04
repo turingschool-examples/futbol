@@ -7,8 +7,8 @@ class StatTracker
     @locations = locations
   end
 
-  def self.from_csv(locations) #add .to_a changes to an array
-    StatTracker.new(locations) #creating an instance of StatTracker holding the hash as locations
+  def self.from_csv(places) #add .to_a changes to an array
+    StatTracker.new(places) #creating an instance of StatTracker holding the hash as locations
   end
 
 
