@@ -1,15 +1,14 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/jesseochs/turing/1module/projects/futbol/lib/test.rb": {
+      "/Users/gls/turing/1module/projects/futbol/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
-          null,
           null,
           null
         ]
       }
     },
-    "timestamp": 1641306544
+    "timestamp": 1641328343
   }
 }
