@@ -1,35 +1,37 @@
 require 'csv'
 
 class TeamManager
-  attr_reader :team_id,
-              :franchise_id,
-              :team_name,
-              :abbreviation,
-              :stadium,
-              :link
+  attr_accessor :team_id,
+                :franchise_id,
+                :team_name,
+                :abbreviation,
+                :stadium,
+                :link
   def initialize
-    CSV.foreach("data/teams.csv", headers: true, header_converters: :symbol) do |row|
-      @team_id = row[:team_id]
-      @franchise_id = row[:franchiseid]
-      @team_name = row[:teamname]
-      @abbreviation = row[:abbreviation]
-      @stadium = row[:stadium]
-      @link = row[:link]
+      @data = load_file
+      @hash_data = Hash.new {|h,k| h[k] = []}
+      @labeled_data = label_data
+  end
+
+  def load_file()
+    data = CSV.read('./data/teams.csv')
+    headers = data.shift.map {|i| i.to_sym }
+    string_data = data.map {|row| row.map {|cell| cell.to_s} }
+  end
+
+  def label_data()
+    @data.each do |row|
+      @hash_data[:team_id] << row[0]
+      @hash_data[:franchiseid] << row[1]
+      @hash_data[:teamname] << row[2]
+      @hash_data[:abbreviation] << row[3]
+      @hash_data[:stadium] << row[4]
+      @hash_data[:link] << row[5]
     end
+    return @hash_data
   end
 end
 
-
 team = TeamManager.new
-p team.data
-# contents = CSV.read("./data/teams.csv")
-# p contents
-
-# @data = CSV.foreach("./data/teams.csv") do |row|
-#   @team_id = row[:team_id]
-#   @franchise_id = row[:franchiseid]
-#   @team_name = row[:teamname]
-#   @abbreviation = row[:abbreviation]
-#   @stadium = row[:stadium]
-#   @link = row[:link]
-# end
+p team.label_data.keys[0]
+# require "pry"; binding.pry
