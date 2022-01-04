@@ -46,4 +46,8 @@ RSpec.describe 'Game Stats' do
   it 'reports highest total score' do
     expect(@stat_tracker.highest_total_score).to be 7
   end
+
+  it 'reports lowest total score' do
+    expect(@stat_tracker.lowest_total_score).to be 2
+  end
 end

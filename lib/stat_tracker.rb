@@ -19,4 +19,11 @@ class StatTracker
     return game_with_max[:away_goals].to_i + game_with_max[:home_goals].to_i
   end
 
+  def lowest_total_score
+    game_with_min = @games.min_by do |row|
+      row[:away_goals].to_i + row[:home_goals].to_i
+    end
+    return game_with_min[:away_goals].to_i + game_with_min[:home_goals].to_i
+  end
+
 end
