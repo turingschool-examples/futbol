@@ -1,9 +1,21 @@
 require './lib/stat_tracker'
 require 'pry'
 require 'simplecov'
-# SimpleCov.start
+SimpleCov.start
 
-RSpec.describe  StatTracker do
+RSpec.describe StatTracker do
+  # before(:each) do
+  #   game_path = './data/games.csv'
+  #   team_path = './data/teams.csv'
+  #   game_teams_path = './data/game_teams.csv'
+  #
+  #   locations = {
+  #     games: game_path,
+  #     teams: team_path,
+  #     game_teams: game_teams_path
+  #     }
+  # end
+
   it 'exists' do
     stat_tracker = StatTracker.new("places")
     # binding.pry
@@ -22,6 +34,7 @@ RSpec.describe  StatTracker do
     }
     stat_tracker = StatTracker.from_csv(locations)
     expect(stat_tracker).to be_a(StatTracker)
+    expect(stat_tracker.locations).to eq(locations)
   end
 
 end

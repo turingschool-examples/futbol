@@ -1,7 +1,7 @@
 require 'pry'
 
 class StatTracker
-
+  attr_reader :locations
 
   def initialize(locations)
     @locations = locations
