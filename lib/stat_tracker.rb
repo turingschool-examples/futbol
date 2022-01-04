@@ -31,6 +31,20 @@ class StatTracker
     scores_array.min
   end
 
+  def percentage_home_wins
+    games = CSV.read @locations[:game_teams], headers: true, header_converters: :symbol
+    games_played = 0
+    wins = 0
+     games.each do |game|
+      if game[:hoa] == "home" && game[:results] == "WIN"
+        games_played += 1
+        wins += 1
+      elsif game[:hoa] == "home" && game[:results] == "LOSS"
+        games_played += 1
+      end
+    end
+  end
+  # binding.pry
 end
 
 
