@@ -32,7 +32,7 @@ class Game
       total_games += 1
       row[:home_goals].to_i > row[:away_goals].to_i ? home_wins += 1 : next
     end
-    ((home_wins.to_f / total_games) * 100).truncate(2)
+    ((home_wins.to_f / total_games) * 100).round(2)
   end
 
   def percentage_vistor_wins
@@ -42,7 +42,17 @@ class Game
       total_games += 1
       row[:home_goals].to_i < row[:away_goals].to_i ? visitor_wins += 1 : next
     end
-    ((visitor_wins.to_f / total_games) * 100).truncate(2)
+    ((visitor_wins.to_f / total_games) * 100).round(2)
+  end
+
+  def percentage_ties
+    total_games = 0
+    ties = 0
+    @contents.each do |row|
+      total_games += 1
+      row[:home_goals].to_i == row[:away_goals].to_i ? ties += 1 : next
+    end
+    ((ties.to_f / total_games) * 100).round(2)
   end
 
 

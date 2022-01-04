@@ -37,5 +37,12 @@ RSpec.describe do Game
     expect(game.percentage_vistor_wins).to be(27.27)
   end
 
+  it 'percentage_ties' do
+    game_path = './data/games_stub.csv'
+    locations = {games: game_path}
+    game = Game.new(locations[:games])
+    expect(game.percentage_ties).to be(4.55)
+  end
+
 
 end
