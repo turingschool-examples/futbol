@@ -1,7 +1,7 @@
 require './lib/stat_tracker'
 require 'pry'
 require 'simplecov'
-Simplecov.start
+SimpleCov.start
 
 RSpec.describe  StatTracker do
   it 'exists' do
