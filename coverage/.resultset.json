@@ -2,6 +2,7 @@
   "RSpec": {
     "coverage": {
     },
+<<<<<<< HEAD
     "timestamp": 1641326947
   },
   "Futbol Tests": {
@@ -51,5 +52,8 @@
       }
     },
     "timestamp": 1641327350
+=======
+    "timestamp": 1641268556
+>>>>>>> e628643fa1547cd56321de6162e022358b55e1ea
   }
 }
