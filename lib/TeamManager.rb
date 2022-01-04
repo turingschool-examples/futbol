@@ -21,7 +21,6 @@ end
 
 
 team = TeamManager.new
-require "pry"; binding.pry
 p team.data
 # contents = CSV.read("./data/teams.csv")
 # p contents
