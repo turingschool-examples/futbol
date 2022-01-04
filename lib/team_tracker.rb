@@ -7,7 +7,7 @@ class TeamTracker
   attr_reader :teams
 
   def initialize
-    @teams = create_teams
+    @@teams = create_teams
   end
 
   def create_teams
