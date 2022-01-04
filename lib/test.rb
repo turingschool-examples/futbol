@@ -5,4 +5,8 @@ class Test
   def initialize(name)
     @name = name
   end
-end 
+
+  def run
+    puts "hello!"
+  end
+end

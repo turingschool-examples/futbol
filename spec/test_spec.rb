@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 require './lib/test'
 
 RSpec.describe do 'Test for simplecov'
@@ -8,6 +10,9 @@ RSpec.describe do 'Test for simplecov'
 
   it 'has a name' do
     test = Test.new("Bliff")
+    name = "Lisa"
     expect(test.name).to eq "Bliff"
   end
+
+
 end
