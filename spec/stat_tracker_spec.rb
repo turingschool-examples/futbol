@@ -1,6 +1,6 @@
 require './lib/stat_tracker'
 require 'pry'
-# require_relative 'spec_helper'
+#require_relative 'spec_helper'
 
 RSpec.describe StatTracker do
   before(:each) do
@@ -37,8 +37,8 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.lowest_total_score).to eq 0
   end
 
-  xit "#percentage_home_wins" do
-    expect(@stat_tracker.percentage_home_wins).to eq 0.44
+  it "#percentage_home_wins" do
+    expect(@stat_tracker.percentage_home_wins).to eq 0.55
   end
 
   xit "#percentage_visitor_wins" do
