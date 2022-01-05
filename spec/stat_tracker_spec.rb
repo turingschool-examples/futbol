@@ -81,4 +81,8 @@ RSpec.describe 'Game Stats' do
     expect(@stat_tracker.count_of_games_by_season).to be_a(Hash)
     expect(@stat_tracker.count_of_games_by_season).to include('20172018' => 9)
   end
+
+  it 'can count total teams in data' do
+    expect(@stat_tracker.count_of_teams).to eq(32)
+  end
 end
