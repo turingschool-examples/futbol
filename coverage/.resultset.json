@@ -9,10 +9,10 @@
           1,
           null,
           1,
-          5,
-          5,
-          5,
-          5,
+          6,
+          6,
+          6,
+          6,
           null,
           null,
           1,
@@ -46,6 +46,15 @@
           null,
           null,
           null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          48,
+          null,
+          1,
           1,
           null,
           null,
@@ -68,8 +77,35 @@
           null,
           null
         ]
+      },
+      "/Users/tj/Desktop/turing_projects/futbol/spec/stat_tracker_spec.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          2,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null
+        ]
       }
     },
-    "timestamp": 1641419899
+    "timestamp": 1641422295
   }
 }

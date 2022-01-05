@@ -28,4 +28,8 @@ RSpec.describe GameStatistics do
   it "displays #percentage_visitor_wins" do
     expect(subject.percentage_visitor_wins).to eq(0.13)
   end
+
+  it "displays #percentage_ties" do
+    expect(subject.percentage_ties).to eq(0.04)
+  end
 end

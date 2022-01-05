@@ -61,4 +61,13 @@ class GameStatistics
     perc_visitor_wins = visitor_wins.to_f / @games_by_team.size
     perc_visitor_wins.round(2)
   end
+
+  def percentage_ties
+    num_ties = 0
+    @games_by_team.each do |row|
+      num_ties +=1 if row[:result] == "TIE"
+    end
+    perc_tie = num_ties.to_f / @games_by_team.size
+    perc_tie.round(2)
+  end
 end
