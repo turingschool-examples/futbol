@@ -1,5 +1,5 @@
 class Team
-  attr_reader :team_id,
+  attr_reader :team_id, :franchise_id, :team_name, :abbreviation, :stadium, :link
 
   def initialize(row)
     @team_id = row[0]
@@ -9,4 +9,4 @@ class Team
     @stadium = row[4]
     @link = row[5]
   end
-end 
+end
