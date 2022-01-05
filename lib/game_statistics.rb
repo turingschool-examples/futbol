@@ -49,6 +49,7 @@ class GameStatistics
     @games_by_team.each do |row|
       home_wins +=1 if row[:hoa] == "home" && row[:result] == "WIN"
     end
-    home_wins.to_f / @games_by_team.size
+    perc_home_wins = home_wins.to_f / @games_by_team.size
+    perc_home_wins.round(2)
   end
 end
