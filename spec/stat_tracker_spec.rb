@@ -58,4 +58,27 @@ RSpec.describe 'Game Stats' do
   it 'reports percentage visitor wins' do
     expect(@stat_tracker.percentage_visitor_wins).to eq(0.11)
   end
+
+  it 'reports average goals per game' do
+    expect(@stat_tracker.average_goals_per_game).to be 4.39
+  end
+
+  it 'reports average goals per game by season' do
+    expected = {
+      '20122013' => 5.2,
+      '20132014' => 4,
+      '20152016' => 3,
+      '20172018' => 4.22
+    }
+    expect(@stat_tracker.average_goals_by_season).to eq expected
+  end
+
+  it 'can find the percentage of games that ended in a tie' do
+    expect(@stat_tracker.percentage_ties).to eq(16.667)
+  end
+
+  xit 'can sort games by season' do
+    expect(@stat_tracker.count_of_games_by_season).to be_a(Hash)
+    expect(@stat_tracker.count_of_games_by_season).to include('20172018' => 9)
+  end
 end
