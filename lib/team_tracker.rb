@@ -7,12 +7,12 @@ class TeamTracker
   attr_reader :teams
 
   def initialize
-    @teams = create_teams
+    @@teams = create_teams
   end
 
   def create_teams
     @teams = []
-    contents = CSV.open './data/teams_stub.csv', headers:true, header_converters: :symbol
+    contents = CSV.open './data/teams.csv', headers:true, header_converters: :symbol
     contents.each do |row|
       team_id = row[:team_id]
       franchise_id = row[:franchiseid]
@@ -27,7 +27,7 @@ class TeamTracker
 
   def self.teams
     @teams
-  end 
+  end
 
   def team_info(team)
     team_hash = {}
