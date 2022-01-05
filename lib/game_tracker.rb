@@ -7,7 +7,7 @@ class GameTracker
   attr_reader :games, :path
 
   def initialize(path)
-    @@games = create(path)
+    @games = create(path)
     @path = path
   end
 
@@ -32,7 +32,7 @@ class GameTracker
 
     def highest_total_score
       total_scores = []
-      @@games.each do |game|
+      @games.each do |game|
         # binding.pry
         score =  game.away_goals.to_i + game.home_goals.to_i
         total_scores << score
@@ -44,7 +44,7 @@ class GameTracker
 
     def lowest_total_score
       total_scores = []
-      @@games.each do |game|
+      @games.each do |game|
         # binding.pry
         score =  game.away_goals.to_i + game.home_goals.to_i
         total_scores << score
@@ -56,7 +56,7 @@ class GameTracker
     def percentage_home_wins
       total_games = 0
       home_wins = 0
-      @@games.each do |game|
+      @games.each do |game|
         total_games += 1
         game.home_goals.to_i > game.away_goals.to_i ? home_wins += 1 : next
       end
@@ -66,7 +66,7 @@ class GameTracker
     def percentage_vistor_wins
       total_games = 0
       visitor_wins = 0
-        @@games.each do |game|
+        @games.each do |game|
         total_games += 1
         game.home_goals.to_i < game.away_goals.to_i ? visitor_wins += 1 : next
       end
@@ -76,7 +76,7 @@ class GameTracker
     def percentage_ties
       total_games = 0
       ties = 0
-      @@games.each do |game|
+      @games.each do |game|
         total_games += 1
         game.home_goals.to_i == game.away_goals.to_i ? ties += 1 : next
       end
@@ -85,7 +85,7 @@ class GameTracker
 
     def count_of_games_by_season
       game_count = Hash.new(0)
-      @@games.each do |game|
+      @games.each do |game|
         game_count[game.season] += 1
       end
       game_count
@@ -94,7 +94,7 @@ class GameTracker
     def average_goals_per_game
       total_games = 0
       total_scores = 0
-      @@games.each do |game|
+      @games.each do |game|
         total_games += 1
         total_scores += (game.home_goals.to_i + game.away_goals.to_i)
       end
@@ -102,7 +102,7 @@ class GameTracker
     end
 
     def average_goals_by_season
-      season_hash = @@games.group_by do |game|
+      season_hash = @games.group_by do |game|
         game.season
       end
       average_goals_by_season = season_hash.each_pair do |season, games|
