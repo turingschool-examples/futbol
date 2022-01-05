@@ -1,21 +1,18 @@
-require './lib/league'
+require './lib/league_tracker'
 
-RSpec.describe do League
+
+RSpec.describe do LeagueTracker
   it 'exists' do
-    game_path = './data/game_teams_stub.csv'
-    locations = {games: game_path}
-    league = League.new(locations[:games])
-    expect(league).to be_a(League)
+    tracker = LeagueTracker.new
+    expect(tracker).to be_a(LeagueTracker)
   end
 
   it 'can count teams' do
-    game_path = './data/game_teams_stub.csv'
-    locations = {games: game_path}
-    league = League.new(locations[:games])
-    expect(league.count_of_teams).to eq(5)
+    tracker = LeagueTracker.new
+    expect(tracker.count_of_teams).to eq(32)
   end
 
-  it 'can tell best offense' do
+  xit 'can tell best offense' do
     game_path = './data/game_teams_stub.csv'
     locations = {games: game_path}
     league = League.new(locations[:games])
