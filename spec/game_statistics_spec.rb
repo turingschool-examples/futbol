@@ -20,4 +20,8 @@ RSpec.describe GameStatistics do
   it "displays #lowest total score of a game" do
     expect(subject.lowest_total_score).to eq(1)
   end
+
+  it "displays #percentage_home_wins" do
+    expect(subject.percentage_home_wins).to eq(0.3541666666666667)
+  end
 end

@@ -7,7 +7,7 @@ class GameStatistics
     @files = files
     @games_file = CSV.readlines files[:games], headers: true, header_converters: :symbol
     @teams_file= files[:teams]
-    @games_by_team = files[:game_stats]
+    @games_by_team = CSV.readlines files[:game_stats], headers: true, header_converters: :symbol
   end
 
   def highest_total_score
@@ -42,5 +42,13 @@ class GameStatistics
     #   end
     # end
       lts
+  end
+
+  def percentage_home_wins
+    home_wins = 0
+    @games_by_team.each do |row|
+      home_wins +=1 if row[:hoa] == "home" && row[:result] == "WIN"
+    end
+    home_wins.to_f / @games_by_team.size
   end
 end
