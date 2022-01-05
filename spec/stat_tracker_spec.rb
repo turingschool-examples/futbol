@@ -6,11 +6,11 @@ RSpec.describe 'StatTracker' do
 
   it 'exists' do
 
-      expect(stat_tracker).to be_a(StatTracker)
+    expect(stat_tracker).to be_a(StatTracker)
   end
 
-#   it 'reads csv' do
-# binding.pry
-#     expect(stat_tracker.parse(games_sample.csv)).to be(true)
-#   end
+  xit 'reads csv' do
+    #need to validate expectation
+    expect(stat_tracker.parse('./data/games_sample.csv').row_count).to eq(45)
+  end
 end
