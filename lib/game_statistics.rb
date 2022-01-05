@@ -71,6 +71,13 @@ class GameStatistics
     perc_tie.round(2)
   end
 
+  def count_of_games_by_season
+    season_array = @games_file.map do |row|
+      row[:season]
+    end
+    season_array.group_by { |season| season }.transform_values { |values| values.count }
+  end
+
   def average_goals_per_game
     num_goals = 0
     @games_file.each do |row|

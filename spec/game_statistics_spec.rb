@@ -33,7 +33,11 @@ RSpec.describe GameStatistics do
     expect(subject.percentage_ties).to eq(0.04)
   end
 
+  it "displays #count_of_games_by_season" do
+    expect(subject.count_of_games_by_season).to eq({"20122013"=>57, "20132014"=>10, "20142015"=>10})
+  end
+
   it "displays #average_goals_per_game" do
-    expect(subject.average_goals_per_game).to eq(3.92)
+    expect(subject.average_goals_per_game).to eq(3.91)
   end
 end

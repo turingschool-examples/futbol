@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2022-01-05T18:12:31-05:00">2022-01-05T18:12:31-05:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2022-01-05T18:54:08-05:00">2022-01-05T18:54:08-05:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -30,7 +30,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         7.44
+         11.54
        </span>
     </span> hits/line
     )
@@ -43,8 +43,8 @@
   </div>
 
   <div class="t-line-summary">
-    <b>63</b> relevant lines,
-    <span class="green"><b>63</b> lines covered</span> and
+    <b>67</b> relevant lines,
+    <span class="green"><b>67</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed. </span>
     (<span class="green">
   100.0%
@@ -73,11 +73,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#d72cdc4abe9801d483471d5a8df64517cdeda31e" class="src_link" title="lib/game_statistics.rb">lib/game_statistics.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">83</td>
-            <td class="cell--number">48</td>
-            <td class="cell--number">48</td>
+            <td class="cell--number">90</td>
+            <td class="cell--number">52</td>
+            <td class="cell--number">52</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">9.44</td>
+            <td class="cell--number">14.56</td>
             
           </tr>
         
@@ -123,8 +123,8 @@
     
 
     <div class="t-line-summary">
-      <b>48</b> relevant lines.
-      <span class="green"><b>48</b> lines covered</span> and
+      <b>52</b> relevant lines.
+      <span class="green"><b>52</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -202,8 +202,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="7" data-linenumber="7">
-            <span class="hits">7</span>
+          <li class="covered" data-hits="8" data-linenumber="7">
+            <span class="hits">8</span>
             
 
             
@@ -213,8 +213,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="7" data-linenumber="8">
-            <span class="hits">7</span>
+          <li class="covered" data-hits="8" data-linenumber="8">
+            <span class="hits">8</span>
             
 
             
@@ -224,8 +224,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="7" data-linenumber="9">
-            <span class="hits">7</span>
+          <li class="covered" data-hits="8" data-linenumber="9">
+            <span class="hits">8</span>
             
 
             
@@ -235,8 +235,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="7" data-linenumber="10">
-            <span class="hits">7</span>
+          <li class="covered" data-hits="8" data-linenumber="10">
+            <span class="hits">8</span>
             
 
             
@@ -290,8 +290,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="49" data-linenumber="15">
-            <span class="hits">49</span>
+          <li class="covered" data-hits="77" data-linenumber="15">
+            <span class="hits">77</span>
             
 
             
@@ -345,8 +345,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="49" data-linenumber="20">
-            <span class="hits">49</span>
+          <li class="covered" data-hits="77" data-linenumber="20">
+            <span class="hits">77</span>
             
 
             
@@ -477,8 +477,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="49" data-linenumber="32">
-            <span class="hits">49</span>
+          <li class="covered" data-hits="77" data-linenumber="32">
+            <span class="hits">77</span>
             
 
             
@@ -532,8 +532,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="49" data-linenumber="37">
-            <span class="hits">49</span>
+          <li class="covered" data-hits="77" data-linenumber="37">
+            <span class="hits">77</span>
             
 
             
@@ -945,7 +945,7 @@
 
             
 
-            <code class="ruby">  def average_goals_per_game</code>
+            <code class="ruby">  def count_of_games_by_season</code>
           </li>
         </div>
       
@@ -956,34 +956,23 @@
 
             
 
-            <code class="ruby">    num_goals = 0</code>
+            <code class="ruby">    season_array = @games_file.map do |row|</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="76">
-            <span class="hits">1</span>
+          <li class="covered" data-hits="77" data-linenumber="76">
+            <span class="hits">77</span>
             
 
             
 
-            <code class="ruby">    @games_file.each do |row|</code>
+            <code class="ruby">      row[:season]</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="49" data-linenumber="77">
-            <span class="hits">49</span>
-            
-
-            
-
-            <code class="ruby">      num_goals += row[:away_goals].to_i + row[:home_goals].to_i</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="78">
+          <li class="never" data-hits="" data-linenumber="77">
             
             
 
@@ -994,29 +983,18 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="79">
-            <span class="hits">1</span>
+          <li class="covered" data-hits="81" data-linenumber="78">
+            <span class="hits">81</span>
             
 
             
 
-            <code class="ruby">    avg_goals = num_goals.to_f / @games_file.size</code>
+            <code class="ruby">    season_array.group_by { |season| season }.transform_values { |values| values.count }</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="80">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    avg_goals.round(2)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="81">
+          <li class="never" data-hits="" data-linenumber="79">
             
             
 
@@ -1027,7 +1005,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="82">
+          <li class="never" data-hits="" data-linenumber="80">
             
             
 
@@ -1038,7 +1016,106 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="83">
+          <li class="covered" data-hits="1" data-linenumber="81">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def average_goals_per_game</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="82">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    num_goals = 0</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="83">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    @games_file.each do |row|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="77" data-linenumber="84">
+            <span class="hits">77</span>
+            
+
+            
+
+            <code class="ruby">      num_goals += row[:away_goals].to_i + row[:home_goals].to_i</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="85">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="86">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    avg_goals = num_goals.to_f / @games_file.size</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="87">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    avg_goals.round(2)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="88">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="89">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="90">
             
             
 
