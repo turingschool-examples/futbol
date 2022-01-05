@@ -42,7 +42,7 @@ class StatTracker
     end
     (visitor_wins.to_f / @game_teams.count.to_f).round(2)
   end
- 
+
   def average_goals_per_game
     total_goals = @games.sum do |row|
       row[:away_goals].to_i + row[:home_goals].to_i
@@ -72,4 +72,24 @@ class StatTracker
   def percentage_ties
     (tie.count.to_f / games.count * 100).round(3)
   end
+
+  def sum_of_games_in_season(season_number)
+    season_games = @games.select do |row|
+      row[:season] == season_number
+    end
+    season_games.count
+  end
+
+  def count_of_games_by_season
+    new_hash = {}
+    keys = games.map do |row|
+      row[:season]
+    end.flatten.uniq
+
+    keys.each do |key|
+      new_hash[key] = sum_of_games_in_season(key)
+    end
+    new_hash
+  end
+
 end
