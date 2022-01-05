@@ -7,7 +7,7 @@ class TeamTracker
   attr_reader :teams
 
   def initialize
-    @@teams = create_teams
+    @teams = create_teams
   end
 
   def create_teams
@@ -25,6 +25,10 @@ class TeamTracker
     @teams
   end
 
+  def self.teams
+    @teams
+  end 
+
   def team_info(team)
     team_hash = {}
     team.instance_variables.each do |variable|
@@ -34,6 +38,6 @@ class TeamTracker
     team_hash
   end
 end
-tracker = TeamTracker.new
+#tracker = TeamTracker.new
 #p tracker.teams
-p tracker.team_info(tracker.teams[1])
+#p tracker.team_info(tracker.teams[1])
