@@ -3,10 +3,10 @@ class StatTracker
   include Parsable
 
     def initialize(location)
-      @game_statistics = GameStatistics.new(location)
-      @league_statistics = LeagueStatistics.new(location)
-      @season_statistics = SeasonStatistics.new(location)
-      @team_statistics = TeamStatistics.new(location)
+      @game_stats = GameStats.new(location)
+      @league_stats = LeagueStats.new(location)
+      @season_stats = SeasonStats.new(location)
+      @team_stats = TeamStats.new(location)
     end
 
     def highest_total_score
