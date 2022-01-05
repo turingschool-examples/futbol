@@ -55,4 +55,7 @@ RSpec.describe 'Game Stats' do
     expect(@stat_tracker.percentage_home_wins).to eq(0.31)
   end
 
+  it 'reports percentage visitor wins' do
+    expect(@stat_tracker.percentage_visitor_wins).to eq(0.11)
+  end
 end
