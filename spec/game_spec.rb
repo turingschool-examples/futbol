@@ -1,6 +1,7 @@
 require './lib/game'
 require './lib/game_tracker'
 require 'pry'
+
 RSpec.describe do Game
   it 'exists' do
     game_path = './data/games_stub.csv'
