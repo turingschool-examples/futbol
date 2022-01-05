@@ -1,6 +1,7 @@
 require 'csv'
 class StatTracker
-  attr_reader :game_manager, :team_manager, :game_team_manager
+
+  attr_reader :game_manager, :team_manager, :game_team_manager, :game_statistics
 
 
   def self.from_csv(locations)
@@ -8,22 +9,17 @@ class StatTracker
   end
 
   def initialize(locations)
-    load_managers(locations)
+    @game_manager = GameManager.new(locations[:games])
+    @team_manager = TeamManager.new(locations[:teams])
+    @game_team_manager = GameTeamManager.new(locations[:game_teams])
+    @game_statistics = GameStatistics.new(game_manager)
   end
 
-  def load_managers(locations)
-    @game_manager = GameManager.new(locations[:games], self)
-    @team_manager = TeamManager.new(locations[:teams], self)
-    @game_team_manager = GameTeamManager.new(locations[:game_teams], self)
-  end
+  # require 'pry'; binding.pry
 
-  require 'pry'; binding.pry
-
-  # Coaching Statistics
-
-
+  # Season Statistics
   def winningest_coach
-    
+
   end
 
   def worst_coach
@@ -47,5 +43,6 @@ class StatTracker
     # Name of the Team with the fewest tackles in the season (String)
   end
 
-  # Team Statistics 
+  # Team Statistics
+>>>>>>> d47329378e2b4b86fa1a8c973fe2d2de9882d2ef
 end
