@@ -1,4 +1,5 @@
 require 'csv'
+require './lib/team'
 
 class TeamManager
   attr_accessor :data
