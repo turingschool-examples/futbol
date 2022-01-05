@@ -1,7 +1,58 @@
 {
   "RSpec": {
     "coverage": {
+      "/Users/tj/Desktop/turing_projects/futbol/lib/game_statistics.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          3,
+          3,
+          3,
+          3,
+          null,
+          null,
+          1,
+          1,
+          49,
+          null,
+          1,
+          1,
+          1,
+          49,
+          null,
+          1,
+          49,
+          49,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          49,
+          null,
+          1,
+          1,
+          1,
+          49,
+          null,
+          1,
+          49,
+          147,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null
+        ]
+      }
     },
-    "timestamp": 1641328559
+    "timestamp": 1641395805
   }
 }
