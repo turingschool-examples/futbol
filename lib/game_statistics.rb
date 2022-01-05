@@ -52,4 +52,13 @@ class GameStatistics
     perc_home_wins = home_wins.to_f / @games_by_team.size
     perc_home_wins.round(2)
   end
+
+  def percentage_visitor_wins
+    visitor_wins = 0
+    @games_by_team.each do |row|
+      visitor_wins +=1 if row[:hoa] == "away" && row[:result] == "WIN"
+    end
+    perc_visitor_wins = visitor_wins.to_f / @games_by_team.size
+    perc_visitor_wins.round(2)
+  end
 end
