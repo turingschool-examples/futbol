@@ -1,8 +1,14 @@
 require './lib/team_manager'
 
 class TeamStatistics
-
-  def initialize(team_manager)
-    @teams = team_manager
+  def initialize(manager = TeamManager.new("./data/teams.csv"))
+    
   end
-end 
+
+  # def team_info
+  #   hash = {}
+  #   teams.data.each do |team|
+  #     require "pry"; binding.pry
+  #   end
+  # end
+end
