@@ -19,11 +19,28 @@ class GameStatistics
     scores.each_with_index do |score,index|
       index_array << index if score == hts
     end
-    @games_file.each_with_index do |row, index|
-      index_array.select do |score_index|
-        puts "#{row} #{hts}" if score_index == index
-      end
-    end
+    # @games_file.each_with_index do |row, index|
+    #   index_array.select do |score_index|
+    #     puts "#{row} #{hts}" if score_index == index
+    #   end
+    # end
     hts
+  end
+
+  def lowest_total_score
+    scores = @games_file.map do |row|
+      row[:away_goals].to_i + row[:home_goals].to_i
+    end
+    lts = scores.min
+    index_array = []
+    scores.each_with_index do |score,index|
+      index_array << index if score == lts
+    end
+    # @games_file.each_with_index do |row, index|
+    #   index_array.select do |score_index|
+    #     puts "#{row} #{lts}" if score_index == index
+    #   end
+    # end
+      lts
   end
 end
