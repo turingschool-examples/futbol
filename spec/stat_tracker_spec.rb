@@ -1,4 +1,5 @@
 require './lib/stat_tracker'
+require './lib/games'
 require 'pry'
 #require_relative 'spec_helper'
 
@@ -16,7 +17,7 @@ RSpec.describe StatTracker do
   end
 
   it 'exists' do
-    stat_tracker = StatTracker.new("places")
+    stat_tracker = StatTracker.new(@locations)
     # binding.pry
     expect(stat_tracker).to be_a(StatTracker)
   end

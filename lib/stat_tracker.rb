@@ -1,11 +1,15 @@
 require 'pry'
 require 'CSV'
+require './lib/games'
 
 class StatTracker
   attr_reader :locations
 
   def initialize(locations)
     @locations = locations
+    @games_file = Games.new(@locations[:games])
+    @read_games = @games_file.read_file
+
   end
 
   def self.from_csv(places) #add .to_a changes to an array
@@ -14,18 +18,16 @@ class StatTracker
 
 
   def highest_total_score
-    games = CSV.read @locations[:games], headers: true, header_converters: :symbol
     scores_array = []
-    games.each do |row|
+    @read_games.each do |row|
       scores_array << row[:away_goals].to_i + row[:home_goals].to_i
     end
     scores_array.max
   end
 
   def lowest_total_score
-    games = CSV.read @locations[:games], headers: true, header_converters: :symbol
     scores_array = []
-    games.each do |row|
+    @read_games.each do |row|
       scores_array << row[:away_goals].to_i + row[:home_goals].to_i
     end
     scores_array.min
