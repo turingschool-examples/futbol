@@ -92,5 +92,9 @@ class StatTracker
     new_hash
   end
 
+  def count_of_teams
+    @teams.count
+  end
+
 
 end
