@@ -20,6 +20,7 @@ class Game
     @venue = venue
     @venue_link = venue
   end
+  
 end
 #   def initialize(path)
 #     @path = path
