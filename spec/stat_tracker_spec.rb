@@ -65,3 +65,30 @@ RSpec.describe 'Game Stats' do
     expect(@stat_tracker.average_goals_by_season).to eq expected
   end
 end
+
+RSpec.describe 'Team Stats' do
+  before(:each) do
+    @game_path = './data/games_dummy.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './data/game_teams_dummy.csv'
+    @locations = {
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
+    }
+    @stat_tracker = StatTracker.from_csv(@locations)
+  end
+
+  it 'gives a hash of team info' do
+
+    expected = {
+      "Team ID" => "1",
+      "Franchise ID" => "23",
+      "Team Name" => "Atlanta United",
+      "Abbreviation" => "ATL",
+      "Link" => '/api/v1/teams/1',
+    }
+
+    expect(@stat_tracker.team_info("1")).to eq expected
+  end
+end

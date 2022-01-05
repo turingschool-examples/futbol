@@ -45,4 +45,17 @@ class StatTracker
     end
     h
   end
+
+  def team_info(id)
+    h = {}
+    team = @teams.find do |row|
+      row[:team_id] == id
+    end
+    h["Team ID"] = team[:team_id]
+    h["Franchise ID"] = team[:franchiseid]
+    h["Team Name"] = team[:teamname]
+    h["Abbreviation"] = team[:abbreviation]
+    h["Link"] = team[:link]
+    h
+  end
 end
