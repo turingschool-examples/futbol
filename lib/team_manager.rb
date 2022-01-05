@@ -2,8 +2,8 @@ require 'csv'
 
 class TeamManager
   attr_accessor :data
-  
-  def initialize
+
+  def initialize(path)
     @data = load_file(path)
   end
 
