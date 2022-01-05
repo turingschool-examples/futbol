@@ -102,25 +102,16 @@ class GameTracker
     end
 
     def average_goals_by_season
-      # games_by_season = Hash.new {|hash, key| hash[key] = 0}
-
       season_hash = @@games.group_by do |game|
         game.season
       end
-      game_average = {}
       average_goals_by_season = season_hash.each_pair do |season, games|
-        total_games = 0
-        total_scores = 0
-        games.map do |game|
-          total_games += 1
-          total_scores += (game.home_goals.to_i + game.away_goals.to_i)
-          (total_scores.to_f) #/ total_games).round(2)
+        goal_total = 0
+        games.each do |game|
+          goal_total += game.home_goals.to_f
+          goal_total += game.away_goals.to_f
         end
-        games = total_scores / total_games
-
-        games
+        season_hash[season] = (goal_total.to_f / games.length)
       end
-      average_goals_by_season
-      # binding.pry
-  end
+    end
 end
