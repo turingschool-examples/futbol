@@ -23,4 +23,8 @@ RSpec.describe 'StatTracker' do
     expect(stat_tracker.filter_by_header(baby_data, :hoa)).to eq(expected)
   end
 
+  it "can filter by criteria" do
+
+    expect(stat_tracker.criteria_filter(baby_data, :result, "LOSS").size).to eq(3)
+  end
 end
