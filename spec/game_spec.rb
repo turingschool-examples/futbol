@@ -7,7 +7,7 @@ RSpec.describe do Game
     game_path = './data/games_stub.csv'
     locations = {games: game_path}
     gametracker = GameTracker.new(game_path)
-     expect(gametracker).to be_an_instance_of(GameTracker)
+    expect(gametracker).to be_an_instance_of(GameTracker)
   end
 
 
