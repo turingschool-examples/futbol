@@ -1,11 +1,14 @@
 
 class StatTracker
-  attr_reader :games, :teams, :game_teams
+  attr_reader :games, :teams, :game_teams, :home_goals, :away_goals, :season
 
   def initialize(locations)
     @games = CSV.read locations[:games], headers: true, header_converters: :symbol
     @teams = CSV.read locations[:teams], headers: true, header_converters: :symbol
     @game_teams = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
+    @home_goals = []
+    @away_goals = []
+    @season = []
   end
 
   def self.from_csv(locations)
@@ -24,6 +27,20 @@ class StatTracker
       row[:away_goals].to_i + row[:home_goals].to_i
     end
     return game_with_min[:away_goals].to_i + game_with_min[:home_goals].to_i
+  end
+
+  def percentage_home_wins
+    home_wins = @game_teams.count do |game|
+      game[:hoa] == "home" && game[:result] == "WIN"
+    end
+    (home_wins.to_f / @game_teams.count.to_f).round(2)
+  end
+
+  def percentage_visitor_wins
+    visitor_wins = @game_teams.count do |game|
+      game[:hoa] == "away" && game[:result] == "WIN"
+    end
+    (visitor_wins.to_f / @game_teams.count.to_f).round(2)
   end
 
   def average_goals_per_game
@@ -57,5 +74,16 @@ class StatTracker
     h["Abbreviation"] = team[:abbreviation]
     h["Link"] = team[:link]
     h
+  end
+
+  def tie
+    @games.find_all do |game|
+      game[:home_goals] == game[:away_goals]
+    end
+  end
+
+  def percentage_ties
+    (tie.count.to_f / games.count * 100).round(3)
+
   end
 end
