@@ -26,4 +26,11 @@ class StatTracker
     return game_with_min[:away_goals].to_i + game_with_min[:home_goals].to_i
   end
 
+  def percentage_home_wins
+    home_wins = @game_teams.count do |game|
+      game[:hoa] == "home" && game[:result] == "WIN"
+    end
+    (home_wins.to_f / @game_teams.count.to_f).round(2)
+  end
+
 end

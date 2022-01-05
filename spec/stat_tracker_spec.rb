@@ -50,4 +50,9 @@ RSpec.describe 'Game Stats' do
   it 'reports lowest total score' do
     expect(@stat_tracker.lowest_total_score).to be 2
   end
+
+  it 'reports percentage home wins' do
+    expect(@stat_tracker.percentage_home_wins).to eq(0.31)
+  end
+
 end
