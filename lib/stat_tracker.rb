@@ -29,6 +29,26 @@ class StatTracker
     return game_with_min[:away_goals].to_i + game_with_min[:home_goals].to_i
   end
 
+  def average_goals_per_game
+    total_goals = @games.sum do |row|
+      row[:away_goals].to_i + row[:home_goals].to_i
+    end.to_f/@games.count
+    total_goals.round(2)
+  end
+
+  def average_goals_by_season
+    h = Hash.new(0)
+    count = Hash.new(0)
+    @games.each do |row|
+      h[row[:season]] += row[:home_goals].to_f + row[:away_goals].to_f
+      count[row[:season]] += 1
+    end
+    h.each do |key, val|
+      h[key] = (val/count[key]).round(2)
+    end
+    h
+  end
+
   def tie
     @games.find_all do |game|
       game[:home_goals] == game[:away_goals]
@@ -38,5 +58,4 @@ class StatTracker
   def percentage_ties
     (tie.count.to_f / games.count * 100).round(3)
   end
-
 end
