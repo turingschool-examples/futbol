@@ -5,6 +5,7 @@ class TeamManager
   attr_accessor :data
 
   def initialize(path)
+    # returns an array of Team objects that each possess header attributes
     @data = load_file(path)
   end
 
