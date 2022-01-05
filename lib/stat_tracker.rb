@@ -36,15 +36,15 @@ class StatTracker
     games_played = 0
     wins = 0
      games.each do |game|
-      if game[:hoa] == "home" && game[:results] == "WIN"
+      if game[:hoa] == "home" && game[:result] == "WIN"
         games_played += 1
         wins += 1
-      elsif game[:hoa] == "home" && game[:results] == "LOSS"
+      elsif game[:hoa] == "home" && game[:result] == "LOSS"
         games_played += 1
       end
     end
+      (wins.to_f / games_played.to_f).round(2)
   end
-  # binding.pry
 end
 
 
