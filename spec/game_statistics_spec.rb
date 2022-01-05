@@ -32,4 +32,8 @@ RSpec.describe GameStatistics do
   it "displays #percentage_ties" do
     expect(subject.percentage_ties).to eq(0.04)
   end
+
+  it "displays #average_goals_per_game" do
+    expect(subject.average_goals_per_game).to eq(3.92)
+  end
 end

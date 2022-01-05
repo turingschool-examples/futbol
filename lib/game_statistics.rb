@@ -70,4 +70,14 @@ class GameStatistics
     perc_tie = num_ties.to_f / @games_by_team.size
     perc_tie.round(2)
   end
+
+  def average_goals_per_game
+    num_goals = 0
+    @games_file.each do |row|
+      num_goals += row[:away_goals].to_i + row[:home_goals].to_i
+    end
+    avg_goals = num_goals.to_f / @games_file.size
+    avg_goals.round(2)
+  end
+
 end
