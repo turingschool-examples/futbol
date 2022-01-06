@@ -83,7 +83,34 @@ RSpec.describe 'Game Stats' do
   end
 end
 
+
+###########season stats tests##################
+RSpec.describe 'Season Stats' do
+
+  before(:each) do
+    @game_path = './data/games_dummy.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './data/game_teams_dummy.csv'
+    @locations = {
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
+    }
+    @stat_tracker = StatTracker.from_csv(@locations)
+  end
+
+  it 'reports winningest coach' do
+    expect(@stat_tracker.winningest_coach(20172018)).to eq("Paul Maurice")
+  end
+
+  it 'reports worst coach' do
+    expect(@stat_tracker.worst_coach(20172018)).to eq("Bruce Boudreau")
+  end
+end
+###############################################
+
 RSpec.describe 'Team Stats' do
+
   before(:each) do
     @game_path = './data/games_dummy.csv'
     @team_path = './data/teams.csv'

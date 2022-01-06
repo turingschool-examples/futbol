@@ -86,6 +86,63 @@ class StatTracker
     (tie.count.to_f / games.count * 100).round(3)
   end
 
+
+############season stats##############
+  def winningest_coach(season)
+    games_in_season = @games.select do |game|
+      game if game[:season].to_i == season
+    end
+    game_ids = games_in_season.map do |game|
+      game[:game_id]
+    end
+    games = @game_teams.select do |game|
+     game if game_ids.include?(game[:game_id])
+    end
+    wins = games.select do |game|
+      game if game[:result] == "WIN"
+    end
+    coach_wins_hash = Hash.new(0.0)
+    wins.each do |game|
+      coach_wins_hash[game[:head_coach]] += 1.0
+    end
+    games_coached = Hash.new(0.0)
+    games.each do |game|
+      games_coached[game[:head_coach]] += 1.0
+    end
+    coach_wins_hash.each_key do |key|
+      coach_wins_hash[key] = coach_wins_hash[key] / games_coached[key]
+    end
+    coach_wins_hash.key(coach_wins_hash.values.max)
+  end
+
+  def worst_coach(season)
+    games_in_season = @games.select do |game|
+      game if game[:season].to_i == season
+    end
+    game_ids = games_in_season.map do |game|
+      game[:game_id]
+    end
+    games = @game_teams.select do |game|
+     game if game_ids.include?(game[:game_id])
+    end
+    loss = games.select do |game|
+      game if game[:result] == "LOSS"
+    end
+    coach_loss_hash = Hash.new(0.0)
+    loss.each do |game|
+      coach_loss_hash[game[:head_coach]] += 1.0
+    end
+    games_coached = Hash.new(0.0)
+    games.each do |game|
+      games_coached[game[:head_coach]] += 1.0
+    end
+    coach_loss_hash.each_key do |key|
+      coach_loss_hash[key] = coach_loss_hash[key] / games_coached[key]
+    end
+    coach_loss_hash.key(coach_loss_hash.values.max)
+  end
+#########################################
+
   def season_finder(game_id) #Team Stats
     game = @games.find do |row|
       game_id == row[:game_id]
@@ -124,7 +181,7 @@ class StatTracker
     wins / games_played_in_season(team_id, season_id).count
   end
 
-  def all_seasons_played(team_id)
+  def all_seasons_played(team_id) #Team Stats
     seasons_played = []
     @games.map do |row|
       if row[:away_team_id] == team_id || row[:home_team_id] == team_id
@@ -134,7 +191,7 @@ class StatTracker
     seasons_played.uniq
   end
 
-  def best_season(team_id)
+  def best_season(team_id) #Team Stats
     h = {}
     all_seasons_played(team_id).each do |season_id|
       h[season_id] = avg_wins_by_season(team_id, season_id)
@@ -164,5 +221,6 @@ class StatTracker
     end
     new_hash
   end
+
 
 end
