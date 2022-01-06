@@ -13,5 +13,3 @@ class GameManager
     end
   end
 end
-
-a = GameManager.new
