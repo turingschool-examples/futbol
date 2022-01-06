@@ -2,7 +2,7 @@ require './lib/games'
 require './lib/stat_tracker'
 require 'pry'
 
-RSpec.describe Games do
+RSpec.describe GamesCollection do
   before(:each) do
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
