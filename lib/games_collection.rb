@@ -1,4 +1,5 @@
 require 'pry'
+
 class GamesCollection
   attr_reader :games
   def initialize(games_file)
