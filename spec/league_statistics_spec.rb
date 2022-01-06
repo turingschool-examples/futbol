@@ -1,3 +1,4 @@
+require_relative 'spec_helper'
 require './lib/league_statistics'
 require 'RSpec'
 
@@ -7,7 +8,7 @@ RSpec.describe LeagueStatistics do
   end
 
   it "shows number of teams" do
-    
+
   end
 
 end
