@@ -1,5 +1,9 @@
 require './spec/spec_helper'
 require './lib/stat_tracker'
+require './lib/game.rb'
+require './lib/league.rb'
+require './lib/team.rb'
+require './lib/season.rb'
 require 'csv'
 
 RSpec.describe StatTracker do
@@ -47,23 +51,23 @@ RSpec.describe 'Game Stats' do
     expect(@stat_tracker.highest_total_score).to be 7
   end
 
-  it 'reports lowest total score' do
+  xit 'reports lowest total score' do
     expect(@stat_tracker.lowest_total_score).to be 2
   end
 
-  it 'reports percentage home wins' do
+  xit 'reports percentage home wins' do
     expect(@stat_tracker.percentage_home_wins).to eq(0.31)
   end
 
-  it 'reports percentage visitor wins' do
+  xit 'reports percentage visitor wins' do
     expect(@stat_tracker.percentage_visitor_wins).to eq(0.11)
   end
 
-  it 'reports average goals per game' do
+  xit 'reports average goals per game' do
     expect(@stat_tracker.average_goals_per_game).to be 4.39
   end
 
-  it 'reports average goals per game by season' do
+  xit 'reports average goals per game by season' do
     expected = {
       '20122013' => 5.2,
       '20132014' => 4,
@@ -73,17 +77,25 @@ RSpec.describe 'Game Stats' do
     expect(@stat_tracker.average_goals_by_season).to eq expected
   end
 
-  it 'can find the percentage of games that ended in a tie' do
+  xit 'can find the percentage of games that ended in a tie' do
     expect(@stat_tracker.percentage_ties).to eq(16.667)
   end
 
-  it 'can sort games by season' do
+  xit 'can sort games by season' do
     expect(@stat_tracker.count_of_games_by_season).to be_a(Hash)
     expect(@stat_tracker.count_of_games_by_season).to include('20172018' => 9)
   end
 
-  it 'can count total teams in data' do
+  xit 'can count total teams in data' do
     expect(@stat_tracker.count_of_teams).to eq(32)
+  end
+
+  xit 'can convert team ids to name' do
+    expect(@stat_tracker.convert_team_id_to_name(24)).to eq('Real Salt Lake')
+  end
+
+  xit 'can return the best offense in data' do
+    expect(@stat_tracker.best_offense).to eq('Portland Thorns FC')
   end
 end
 
@@ -103,11 +115,11 @@ RSpec.describe 'Season Stats' do
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
-  it 'reports winningest coach' do
+  xit 'reports winningest coach' do
     expect(@stat_tracker.winningest_coach(20172018)).to eq("Paul Maurice")
   end
 
-  it 'reports worst coach' do
+  xit 'reports worst coach' do
     expect(@stat_tracker.worst_coach(20172018)).to eq("Bruce Boudreau")
   end
 end
@@ -127,7 +139,7 @@ RSpec.describe 'Team Stats' do
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
-  it 'gives a hash of team info' do
+  xit 'gives a hash of team info' do
 
     expected = {
       "Team ID" => "1",
@@ -140,27 +152,27 @@ RSpec.describe 'Team Stats' do
     expect(@stat_tracker.team_info("1")).to eq expected
   end
 
-  it 'finds the season that a game belongs to' do
+  xit 'finds the season that a game belongs to' do
     expect(@stat_tracker.season_finder("2012020225")).to eq "20122013"
     expect(@stat_tracker.season_finder("2013020177")).to eq "20132014"
     expect(@stat_tracker.season_finder("2017030163")).to eq "20172018"
   end
 
-  it 'finds the games played by a team in a season' do
+  xit 'finds the games played by a team in a season' do
     expect(@stat_tracker.games_played_in_season("24", "20132014").count).to eq 1
     expect(@stat_tracker.games_played_in_season("24", "20122013").count).to eq 2
   end
 
-  it 'finds a teams average wins for a season' do
+  xit 'finds a teams average wins for a season' do
     expect(@stat_tracker.avg_wins_by_season("24", "20132014")).to eq 1
     expect(@stat_tracker.avg_wins_by_season("24", "20122013")).to eq 0.75
   end
 
-  it 'finds all the seasons a team has played in' do
+  xit 'finds all the seasons a team has played in' do
     expect(@stat_tracker.all_seasons_played('24')).to eq ["20132014", "20122013"]
   end
 
-  it 'finds the best season' do
+  xit 'finds the best season' do
     expect(@stat_tracker.best_season("24")).to eq "20132014"
     expect(@stat_tracker.best_season("28")).to eq "20152016"
     expect(@stat_tracker.best_season("29")).to eq "20132014"
