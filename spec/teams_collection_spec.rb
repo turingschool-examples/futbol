@@ -18,19 +18,19 @@ RSpec.describe TeamsCollection do
   end
   it 'exists' do
     games = TeamsCollection.new("stuff")
-    expect(games).to be_a(Games)
+    expect(teams).to be_a(Teams)
   end
 
-  it 'can take a csv file from a stat tracker' do
+  xit 'can take a csv file from a stat tracker' do
 
-    games = Games.new(@stat_tracker.locations[:games])
-    expect(games.games_file).to eq('./data/games.csv')
+    games = Teams.new(@stat_tracker.locations[:teams])
+    expect(games.teams_file).to eq('./data/teams.csv')
   end
 
-  it 'can take a csv file from a stat tracker' do
+  xit 'can take a csv file from a stat tracker' do
 
-    games = Games.new(@stat_tracker.locations[:games])
+    games = Teams.new(@stat_tracker.locations[:teams])
     games.readfile
-    expect(games.games_file).to eq('./data/games.csv')
+    expect(games.teams_file).to eq('./data/teams.csv')
   end
 end
