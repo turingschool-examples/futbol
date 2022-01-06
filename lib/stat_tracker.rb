@@ -1,13 +1,13 @@
 require 'pry'
 require 'CSV'
-require './lib/games'
+require './lib/games_collection'
 
 class StatTracker
   attr_reader :locations
 
   def initialize(locations)
     @locations = locations
-    @games_file = Games.new(@locations[:games])
+    @games_file = GamesCollection.new(@locations[:games])
     @read_games = @games_file.read_file
 
   end

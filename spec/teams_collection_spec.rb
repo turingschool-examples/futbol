@@ -1,8 +1,8 @@
-require './lib/games'
+require './lib/teams_collection'
 require './lib/stat_tracker'
 require 'pry'
 
-RSpec.describe GamesCollection do
+RSpec.describe TeamsCollection do
   before(:each) do
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -17,7 +17,7 @@ RSpec.describe GamesCollection do
       @stat_tracker = StatTracker.from_csv(locations)
   end
   it 'exists' do
-    games = Games.new("stuff")
+    games = TeamsCollection.new("stuff")
     expect(games).to be_a(Games)
   end
 
