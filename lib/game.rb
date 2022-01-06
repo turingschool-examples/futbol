@@ -24,4 +24,8 @@ class Game
   def total_score
     @_total_score ||= home_goals + away_goals
   end
+
+  def home_win?
+    home_goals > away_goals
+  end
 end

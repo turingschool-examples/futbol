@@ -4,9 +4,10 @@ require './lib/game_statistics'
 
 RSpec.describe GameStatistics do
   before(:each) do
-    mock_game_1 = OpenStruct.new({ home_score: 1, away_score: 3, total_score: 4 })
-    mock_game_2 = OpenStruct.new({ home_score: 2, away_score: 6, total_score: 8 })
-    mock_game_manager = OpenStruct.new({ data: [mock_game_1, mock_game_2] })
+    mock_game_1 = OpenStruct.new({ home_score: 1, away_score: 3, total_score: 4, home_win?: false })
+    mock_game_2 = OpenStruct.new({ home_score: 2, away_score: 6, total_score: 8, home_win?: false })
+    mock_game_3 = OpenStruct.new({ home_score: 3, away_score: 1, total_score: 4, home_win?: true })
+    mock_game_manager = OpenStruct.new({ data: [mock_game_1, mock_game_2, mock_game_3] })
     @game_statistics = GameStatistics.new(mock_game_manager)
   end
   describe '#highest_total_score' do
@@ -21,6 +22,14 @@ RSpec.describe GameStatistics do
     it 'has a lowest score' do
       actual = @game_statistics.lowest_total_score
       expected = 4
+      expect(actual).to eq(expected)
+    end
+  end
+
+  describe '#percentage_home_wins' do
+    it 'has a percentage of home wins' do
+      actual = @game_statistics.percentage_home_wins
+      expected = 33.333
       expect(actual).to eq(expected)
     end
   end
