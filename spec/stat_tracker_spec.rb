@@ -101,8 +101,8 @@ RSpec.describe 'Season Stats' do
     expect(@stat_tracker.winningest_coach(20172018)).to eq("Paul Maurice")
   end
 
-  xit 'reports worst coach' do
-    expect(@stat_tracker.worst_coach).to eq("Claude Julien", "John Tortorella", "Peter DeBoer")
+  it 'reports worst coach' do
+    expect(@stat_tracker.worst_coach(20172018)).to eq("Bruce Boudreau")
   end
 ###############################################
 end

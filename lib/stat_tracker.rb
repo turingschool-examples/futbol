@@ -75,7 +75,6 @@ class StatTracker
 
 ############season stats##############
   def winningest_coach(season)
-    # review which games are in specified season
     games_in_season = @games.select do |game|
       game if game[:season].to_i == season
     end
@@ -100,15 +99,34 @@ class StatTracker
       coach_wins_hash[key] = coach_wins_hash[key] / games_coached[key]
     end
     coach_wins_hash.key(coach_wins_hash.values.max)
-    # require 'pry'; binding.pry
   end
 
-  # def worst_coach
-  #   #coach with fewest wins per total games (they particated in)
-  #   coaches = @game_teams.map do |game|
-  #     game[:head_coach]
-  #   end
-  # end
+  def worst_coach(season)
+    games_in_season = @games.select do |game|
+      game if game[:season].to_i == season
+    end
+    game_ids = games_in_season.map do |game|
+      game[:game_id]
+    end
+    games = @game_teams.select do |game|
+     game if game_ids.include?(game[:game_id])
+    end
+    loss = games.select do |game|
+      game if game[:result] == "LOSS"
+    end
+    coach_loss_hash = Hash.new(0.0)
+    loss.each do |game|
+      coach_loss_hash[game[:head_coach]] += 1.0
+    end
+    games_coached = Hash.new(0.0)
+    games.each do |game|
+      games_coached[game[:head_coach]] += 1.0
+    end
+    coach_loss_hash.each_key do |key|
+      coach_loss_hash[key] = coach_loss_hash[key] / games_coached[key]
+    end
+    coach_loss_hash.key(coach_loss_hash.values.max)
+  end
 #########################################
 
 end
