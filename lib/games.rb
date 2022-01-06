@@ -1,13 +1,14 @@
 require 'pry'
-class Games
-  attr_reader :games_file, :read_file
+class GamesCollection
+  attr_reader :games
   def initialize(games_file)
-    @games_file = games_file
-    @read_games = []
-    read_file
+    @games = read_file(games_file)
   end
 
-  def read_file
-    @read_games = CSV.read @games_file, headers: true, header_converters: :symbol
+  def read_file(games_file)
+    data = CSV.read(games_file, headers: true, header_converters: :symbol)
+    data.map do |row|
+      Game.new(row)
+    end
   end
 end
