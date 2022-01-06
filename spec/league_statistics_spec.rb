@@ -22,7 +22,7 @@ RSpec.describe LeagueStatistics do
     expect(league).to be_instance_of(LeagueStatistics)
   end
 
-    xit 'can count the number of teams' do
+    it 'can count the number of teams' do
       league = LeagueStatistics.new(@locations)
     expect(league.count_of_teams).to eq(32)
     end

@@ -10,4 +10,8 @@ class LeagueStatistics
     @games_file = CSV.read files[:games], headers: true, header_converters: :symbol
   end
 
+
+  def count_of_teams
+    @teams_file.length
+  end
   end
