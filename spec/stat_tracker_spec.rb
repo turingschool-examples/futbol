@@ -82,3 +82,57 @@ RSpec.describe 'Game Stats' do
     expect(@stat_tracker.count_of_games_by_season).to include('20172018' => 9)
   end
 end
+
+RSpec.describe 'Team Stats' do
+  before(:each) do
+    @game_path = './data/games_dummy.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './data/game_teams_dummy.csv'
+    @locations = {
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
+    }
+    @stat_tracker = StatTracker.from_csv(@locations)
+  end
+
+  it 'gives a hash of team info' do
+
+    expected = {
+      "Team ID" => "1",
+      "Franchise ID" => "23",
+      "Team Name" => "Atlanta United",
+      "Abbreviation" => "ATL",
+      "Link" => '/api/v1/teams/1',
+    }
+
+    expect(@stat_tracker.team_info("1")).to eq expected
+  end
+
+  it 'finds the season that a game belongs to' do
+    expect(@stat_tracker.season_finder("2012020225")).to eq "20122013"
+    expect(@stat_tracker.season_finder("2013020177")).to eq "20132014"
+    expect(@stat_tracker.season_finder("2017030163")).to eq "20172018"
+  end
+
+  it 'finds the games played by a team in a season' do
+    expect(@stat_tracker.games_played_in_season("24", "20132014").count).to eq 1
+    expect(@stat_tracker.games_played_in_season("24", "20122013").count).to eq 2
+  end
+
+  it 'finds a teams average wins for a season' do
+    expect(@stat_tracker.avg_wins_by_season("24", "20132014")).to eq 1
+    expect(@stat_tracker.avg_wins_by_season("24", "20122013")).to eq 0.75
+  end
+
+  it 'finds all the seasons a team has played in' do
+    expect(@stat_tracker.all_seasons_played('24')).to eq ["20132014", "20122013"]
+  end
+
+  it 'finds the best season' do
+    expect(@stat_tracker.best_season("24")).to eq "20132014"
+    expect(@stat_tracker.best_season("28")).to eq "20152016"
+    expect(@stat_tracker.best_season("29")).to eq "20132014"
+    expect(@stat_tracker.best_season("30")).to eq "20122013"
+  end
+end
