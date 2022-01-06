@@ -1,14 +1,19 @@
+
+require 'simplecov'
+SimpleCov.start
 require './lib/game_team'
 require 'csv'
 require './lib/game'
 require './lib/game_team_tracker'
 
-RSpec.describe do GameTeam
+RSpec.describe do GameTeamTracker
   it 'exists' do
-    game_path = './data/games_stub.csv'
-    locations = {games: game_path}
-    game_team = GameTeam.new(locations)
-    expect(game_tracker).to be_a(GameTracker)
+    game_path = './data/game_teams_stub.csv'
+    locations = {
+      games: './data/games_stub.csv',
+      game_teams: game_path}
+    game_tracker = GameTeamTracker.new(locations)
+    expect(game_tracker).to be_a(GameTeamTracker)
   end
 
   xit 'can count teams' do

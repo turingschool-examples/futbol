@@ -1,4 +1,3 @@
 class GameTeamTracker < Statistics
-
-
+  
 end

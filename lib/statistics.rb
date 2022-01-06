@@ -8,9 +8,9 @@ class Statistics
 
   def initialize(locations)
     @games = CSV.read(locations[:games], headers: true, header_converters: :symbol).map {|row| Game.new(row)}
+    @game_teams = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol).map {|row| GameTeam.new(row)}
   end
 end
 
 
 # @teams = CSV.read(locations[:teams], headers: true, header_converters: :symbol).map {|row| Team.new(row)}
-# @game_teams = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol).map {|row| GameTeam.new(row)}
