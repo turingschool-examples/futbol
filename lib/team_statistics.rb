@@ -1,14 +1,9 @@
 require './lib/team_manager'
-
+# TeamStatistics knows about multiple teams
 class TeamStatistics
-  def initialize(manager = TeamManager.new("./data/teams.csv"))
-    
-  end
+  attr_reader :manager
 
-  # def team_info
-  #   hash = {}
-  #   teams.data.each do |team|
-  #     require "pry"; binding.pry
-  #   end
-  # end
+  def initialize(team_manager))
+    @team_manager = team_manager
+  end
 end
