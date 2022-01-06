@@ -1,10 +1,9 @@
 require 'RSpec'
-require 'ostruct'
 require './lib/team'
 
 RSpec.describe Team do
   before(:each) do
-    @base_row = [nil, nil, nil, nil, nil, nil]
+    @base_row = [:team_id, :franchise_id, :team_name, :abbreviation, :stadium, :link]
   end
 
   describe '#initialize' do
