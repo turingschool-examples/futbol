@@ -77,7 +77,7 @@ RSpec.describe 'Game Stats' do
     expect(@stat_tracker.percentage_ties).to eq(16.667)
   end
 
-  xit 'can sort games by season' do
+  it 'can sort games by season' do
     expect(@stat_tracker.count_of_games_by_season).to be_a(Hash)
     expect(@stat_tracker.count_of_games_by_season).to include('20172018' => 9)
   end
