@@ -1,4 +1,5 @@
 require 'csv'
+require './lib/statistics'
 
 class Game
   attr_reader :game_id,

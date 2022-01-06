@@ -6,22 +6,13 @@ require './lib/statistics'
 
 class GameTracker < Statistics
 
-
-   def initialize()#path = './data/games.csv')
-    # @path = path
-    super(games)
-  end
-
-
-
-    def highest_total_score
-      total_scores = []
-      games.each do |game|
+  def highest_total_score
+    total_scores = []
+    @games.each do |game|
         # binding.pry
         score =  game.away_goals.to_i + game.home_goals.to_i
         total_scores << score
-      end
-
+    end
       total_scores.max
     end
 
