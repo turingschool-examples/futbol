@@ -1,6 +1,6 @@
-require_relative 'spec_helper'
+require 'spec_helper'
 require 'ostruct'
-require './lib/game_statistics'
+require './lib/statistics/game_statistics'
 
 RSpec.describe GameStatistics do
   before(:each) do
