@@ -26,4 +26,20 @@ class GameStatistics
     game_count = games.data.count
     (home_wins.to_f / game_count.to_f).round(5) * 100
   end
+
+  def percentage_visitor_wins
+    visitor_wins = games.data.find_all do |game|
+      game.visitor_win?
+    end.count
+    game_count = games.data.count
+    (visitor_wins.to_f / game_count.to_f).round(5) * 100
+  end
+
+  def percentage_ties
+    tie_count = games.data.find_all do |game|
+      game.tie?
+    end.count
+    game_count = games.data.count
+    (tie_count.to_f / game_count.to_f).round(5) * 100
+  end
 end
