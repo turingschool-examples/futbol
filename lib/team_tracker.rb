@@ -7,12 +7,35 @@ class TeamTracker
   attr_reader :teams
 
   def initialize
-    @teams = create_teams
+    @@teams = create_teams
+  end
+
+  def create_games
+    @games = []
+    contents = CSV.open './data/game_teams_stub.csv', headers:true, header_converters: :symbol
+    contents.each do |row|
+      team_id = row[:team_id]
+      game_id = row[:game_id]
+      hoa = row[:HoA]
+      result = row[:result]
+      settled_in = row[:settled_in]
+      head_coach = row[:head_coach]
+      goals = row[:goals]
+      shots = row[:shots]
+      tackles = row[:tackles]
+      pim = row[:pim]
+      powerPlayOpportunities = row[:powerPlayOpportunities]
+      powerPlayGoals = row[:powerPlayGoals]
+      faceOffWinPercentage = row[:faceOffWinPercentage]
+      giveaways = row[:giveaways]
+      takeaways = row[:takeaways]
+    end
+    @games
   end
 
   def create_teams
     @teams = []
-    contents = CSV.open './data/teams_stub.csv', headers:true, header_converters: :symbol
+    contents = CSV.open './data/teams.csv', headers:true, header_converters: :symbol
     contents.each do |row|
       team_id = row[:team_id]
       franchise_id = row[:franchiseid]
@@ -27,7 +50,7 @@ class TeamTracker
 
   def self.teams
     @teams
-  end 
+  end
 
   def team_info(team)
     team_hash = {}
