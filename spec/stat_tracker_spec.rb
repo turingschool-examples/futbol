@@ -1,5 +1,5 @@
 require './lib/stat_tracker'
-require './lib/games'
+require './lib/games_collection'
 require 'pry'
 #require_relative 'spec_helper'
 

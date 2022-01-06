@@ -1,4 +1,4 @@
-require './lib/games'
+require './lib/games_collection'
 require './lib/stat_tracker'
 require 'pry'
 
@@ -17,19 +17,19 @@ RSpec.describe GamesCollection do
       @stat_tracker = StatTracker.from_csv(locations)
   end
   it 'exists' do
-    games = Games.new("stuff")
-    expect(games).to be_a(Games)
+    games = GamesCollection.new("stuff")
+    expect(games).to be_a(GamesCollection)
   end
 
   it 'can take a csv file from a stat tracker' do
 
-    games = Games.new(@stat_tracker.locations[:games])
+    games = GamesCollection.new(@stat_tracker.locations[:games])
     expect(games.games_file).to eq('./data/games.csv')
   end
 
   it 'can take a csv file from a stat tracker' do
 
-    games = Games.new(@stat_tracker.locations[:games])
+    games = GamesCollection.new(@stat_tracker.locations[:games])
     games.readfile
     expect(games.games_file).to eq('./data/games.csv')
   end
