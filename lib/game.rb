@@ -1,5 +1,12 @@
 class Game
-  attr_reader :team_id, :season, :type, :data_time
+  attr_reader(
+    :team_id,
+    :season,
+    :type,
+    :data_time,
+    :home_goals,
+    :away_goals
+  )
 
   def initialize(row)
     @team_id = row[0]
@@ -12,5 +19,9 @@ class Game
     @home_goals = row[7]
     @venue = row[8]
     @venue_link = row[9]
+  end
+
+  def total_score
+    @_total_score ||= home_goals + away_goals
   end
 end
