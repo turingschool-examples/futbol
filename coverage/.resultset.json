@@ -1,6 +1,92 @@
 {
   "RSpec": {
     "coverage": {
+      "/Users/ianross/turing/1mod/futbol/lib/game.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null
+        ]
+      },
+      "/Users/ianross/turing/1mod/futbol/spec/league_statistics_spec.rb": {
+        "lines": [
+          1,
+          1,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/ianross/turing/1mod/futbol/spec/managers/team_manager_spec.rb": {
+        "lines": [
+          1,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          null,
+          null,
+          null,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/ianross/turing/1mod/futbol/spec/stat_tracker_spec.rb": {
+        "lines": [
+          1,
+          1,
+          1
+        ]
+      },
       "/Users/ianross/turing/1mod/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
@@ -43,8 +129,139 @@
           null,
           null
         ]
+      },
+      "/Users/ianross/turing/1mod/futbol/spec/statistics/game_stat_spec.rb": {
+        "lines": [
+          1,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/ianross/turing/1mod/futbol/spec/statistics/season_statistics_spec.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          null,
+          null
+        ]
+      },
+      "/Users/ianross/turing/1mod/futbol/spec/statistics/team_statistics_spec.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/ianross/turing/1mod/futbol/spec/team_spec.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          0,
+          null,
+          null,
+          1,
+          1,
+          0,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/ianross/turing/1mod/futbol/lib/team.rb": {
+        "lines": [
+          null,
+          1,
+          1,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null
+        ]
       }
     },
-    "timestamp": 1641499874
+    "timestamp": 1641509692
   }
 }
