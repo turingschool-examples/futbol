@@ -39,4 +39,22 @@ RSpec.describe SeasonStatistics do
     expect(@game_statistics.worst_coach(2012030222)).to eq('John Tortorella')
   end
 
+  # Aedan's tests
+  describe '#total_games' do
+    it 'can return the total number of games for a given team' do
+      actual = @game_statistics.total_games(3)
+      expected = 2
+      expect(actual).to eq(expected)
+    end
+
+  describe '#win_percentage' do
+      xit 'can return the win percentage of all games for a given team' do
+        actual = @game_statistics.win_percentage(3)
+        expected = 50
+        expect(actual).to eq(expected)
+      end
+    end
+  end
+
+
 end

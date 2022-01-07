@@ -78,6 +78,12 @@ class SeasonStatistics
     return total_tackles
   end
 
+  # Aedan's methods
+  def total_games(team_id)
+      @gtmd.data.find_all do |game|
+        team_id == game.team_id
+      end.count
+    end
 
 end
 
