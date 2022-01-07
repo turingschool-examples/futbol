@@ -37,4 +37,19 @@ class GameTeam
     @takeaways = row[14].to_i
   end
 
+  def num_games_played
+    #amount of times team id shows up in data
+  end
+
+  def average_goals_overall
+    # goals / number of games played
+  end
+
+  def average_goals_HoA
+    # if HoA == away
+    #   those games / number of games played
+    # elsif HoA == home
+    #   those games / number of games played
+    # end
+  end
 end
