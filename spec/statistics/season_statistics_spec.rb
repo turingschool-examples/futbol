@@ -74,6 +74,24 @@ RSpec.describe SeasonStatistics do
   end
 
   # Aedan's tests
+  describe '#total_games' do
+    xit 'can return the total number of games for a given team' do
+      actual = @season_statistics.total_games(3)
+      expected = 2
+      expect(actual).to eq(expected)
+    end
+
+  describe '#win_percentage' do
+      xit 'can return the win percentage of all games for a given team' do
+        actual = @season_statistics.win_percentage(3)
+        expected = 50
+        expect(actual).to eq(expected)
+      end
+    end
+  end
+
+
+  # Aedan's tests
   describe '#matching_teams' do
     it 'can return an array of game objects that match a team_id' do
       actual = @game_statistics.matching_teams(3)
@@ -83,8 +101,8 @@ RSpec.describe SeasonStatistics do
   end
 
   describe '#total_games' do
-    xit 'can return the total number of games for a given team' do
-      actual = @season_statistics.total_games(3)
+    it 'can return the total number of games for a given team' do
+      actual = @game_statistics.total_games(3)
       expected = 2
       expect(actual).to eq(expected)
     end
