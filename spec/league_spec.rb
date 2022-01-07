@@ -75,9 +75,21 @@ RSpec.describe do GameTeamTracker
     }
     # binding.pry
     game_tracker = GameTeamTracker.new(locations)
-    expect(game_tracker.lowest_scoring_visitor).to eq("name")
+    expect(game_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
   end
 
+  it 'find highest scoring home' do
+    game_path = './data/game_teams_stub.csv'
+    team_path = './data/teams.csv'
+    locations = {
+      games: './data/games_stub.csv',
+      teams: './data/teams.csv',
+      game_teams: game_path
+    }
+    # binding.pry
+    game_tracker = GameTeamTracker.new(locations)
+    expect(game_tracker.highest_home).to eq("Sporting Kansas City")
+  end
 
   # it '' do
   # end
