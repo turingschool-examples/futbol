@@ -79,12 +79,21 @@ class SeasonStatistics
   end
 
   # Aedan's methods
-  def total_games(team_id)
-      @gtmd.data.find_all do |game|
-        team_id == game.team_id
-      end.count
+  def matching_teams(team_id)
+    @gtmd.data.find_all do |game|
+      team_id == game.team_id
     end
+  end
 
-end
+  def total_games(team_id)
+    matching_teams(team_id).count
+  end
+
+  def win_percentage(team_id)
+
+  end
+end 
+
+
 
 a = SeasonStatistics.new($game_team_manager_data)
