@@ -132,7 +132,7 @@ RSpec.describe 'Season Stats' do
     expect(@stat_tracker.winningest_coach(20172018)).to eq("Paul Maurice")
   end
 
-  xit 'reports worst coach' do
+  it 'reports worst coach' do
     expect(@stat_tracker.worst_coach(20172018)).to eq("Bruce Boudreau")
   end
 end
@@ -151,7 +151,7 @@ RSpec.describe 'Team Stats' do
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
-  xit 'gives a hash of team info' do
+  it 'gives a hash of team info' do
     expected = {
       "Team ID" => "1",
       "Franchise ID" => "23",
@@ -183,7 +183,7 @@ RSpec.describe 'Team Stats' do
     expect(@stat_tracker.all_seasons_played('24')).to eq ["20132014", "20122013"]
   end
 
-  xit 'finds the best season' do
+  it 'finds the best season' do
     expect(@stat_tracker.best_season("24")).to eq "20132014"
     expect(@stat_tracker.best_season("28")).to eq "20152016"
     expect(@stat_tracker.best_season("29")).to eq "20132014"

@@ -14,10 +14,7 @@ class StatTracker
     @away_goals = []
     @season = []
     #@game = Game.new(locations)
-
   end
-
-
 
   def self.from_csv(locations)
     StatTracker.new(locations)
@@ -67,16 +64,19 @@ class StatTracker
 
 ############Season Stats##############
   def winningest_coach(season)
+    Season.new.winningest_coach(season, @game_teams, @games)
   end
 
   def worst_coach(season)
+    Season.new.worst_coach(season, @game_teams, @games)
   end
 
 ###################Team Stats###############
   def team_info(id)
+    Team.new.team_info(id, @teams)
   end
 
   def best_season(team_id)
+    Team.new.best_season(team_id, @games, @game_teams)
   end
-
 end
