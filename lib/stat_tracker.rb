@@ -22,4 +22,8 @@ class StatTracker
   def self.from_csv(files)
     StatTracker.new(files)
   end
+
+  def count_of_teams
+    @read_teams.size
+  end
 end
