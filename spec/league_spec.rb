@@ -88,7 +88,7 @@ RSpec.describe do GameTeamTracker
     }
     # binding.pry
     game_tracker = GameTeamTracker.new(locations)
-    expect(game_tracker.highest_home).to eq("Sporting Kansas City")
+    expect(game_tracker.highest_scoring_home_team).to eq("fc dallas")
   end
 
   # it '' do
