@@ -77,7 +77,7 @@ class SeasonStatistics
   # Aedan's methods
   def matching_teams(team_id)
     @gtmd.data.find_all do |game|
-      team_id == game.team_id
+      team_id.to_s == game.team_id
     end
   end
 
