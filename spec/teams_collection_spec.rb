@@ -18,12 +18,12 @@ RSpec.describe TeamsCollection do
   end
   it 'exists' do
     teams = TeamsCollection.new(@stat_tracker.locations[:teams])
-    expect(teams).to be_a(TeamsCgit ollection)
+    expect(teams).to be_a(TeamsCollection)
   end
 
-  xit 'can take a csv file from a stat tracker' do
+  it 'can take a csv file from a stat tracker' do
 
-    teams = Team.new(@stat_tracker.locations[:teams])
+    teams = TeamsCollection.new(@stat_tracker.locations[:teams])
     expect(teams.teams_file).to eq('./data/teams.csv')
   end
 
