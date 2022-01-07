@@ -25,7 +25,7 @@ RSpec.describe do GameTeamTracker
     expect(game_tracker.count_of_teams).to eq(5)
   end
 
-  xit 'can tell best offense' do
+  it 'can tell best offense' do
     game_path = './data/game_teams_stub.csv'
     locations = {
       games: './data/games_stub.csv',

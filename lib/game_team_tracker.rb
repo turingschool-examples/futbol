@@ -3,10 +3,23 @@ class GameTeamTracker < Statistics
     unique = @game_teams.map {|game|game.team_id}
     unique.uniq.count
   end
+
+  def best_offense
+    sorted = @game_teams.group_by {|game| game.team_id}
+    #goal_average_calculator(team_hash)
+    sorted.map do |key, sorted|
+      goals = sorted.sum {|game| game.goals}
+      total_games = sorted.count
+      average = goals.to_f / total_games
+      key_hash = {}
+      key_hash[key] = average
+      key_hash.each_pair.values.max
+    end
+  end
 end
 # game_path = './data/game_teams_stub.csv'
 # locations = {
 #   games: './data/games_stub.csv',
 #   game_teams: game_path}
 # game_tracker = GameTeamTracker.new(locations)
-# p game_tracker.
+# p game_tracker.best_offense
