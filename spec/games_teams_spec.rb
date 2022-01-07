@@ -14,14 +14,14 @@ RSpec.describe GamesTeams do
       shots: 8,
       tackles: 44,
       pim: 8,
-      powerPlayOpportunities: 3,
-      power_play_goals: 0,
-      faceoff_win_percentage: 44.8,
+      powerplayopportunities: 3,
+      powerplaygoals: 0,
+      faceoffwinpercentage: 44.8,
       giveaways: 17,
       takeaways: 7}
 
     games_teams = GamesTeams.new(attributes)
-    binding.pry
+    #binding.pry
       expect(games_teams).to be_a(GamesTeams)
       expect(games_teams.game_id).to eq(2012030221)
       expect(games_teams.team_id).to eq(3)
@@ -33,7 +33,7 @@ RSpec.describe GamesTeams do
       expect(games_teams.shots).to eq(8)
       expect(games_teams.tackles).to eq(44)
       expect(games_teams.pim).to eq(8)
-      expect(games_teams.powerPlayOpportunities).to eq(3)
+      expect(games_teams.powerplayopportunities).to eq(3)
       expect(games_teams.power_play_goals).to eq(0)
       expect(games_teams.faceoff_win_percentage).to eq(44.8)
       expect(games_teams.giveaways).to eq(17)
