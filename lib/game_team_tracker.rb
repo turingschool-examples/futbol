@@ -4,7 +4,7 @@ class GameTeamTracker < Statistics
     unique.uniq.count
   end
 
-  def best_offense
+  def best_offense # look at breaking into different methods
     best_team = {}
     max = 0
     sorted = @game_teams.group_by {|game| game.team_id}
@@ -41,8 +41,10 @@ class GameTeamTracker < Statistics
       key_hash = key_hash.to_h
       min = key_hash.values.min
       worst_team = key_hash.select {|k,v| v == min}
+      #binding.pry
     end
     worst_team
-    binding.pry
   end
+
+#  team[key].team_id
 end
