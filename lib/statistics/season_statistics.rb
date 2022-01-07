@@ -75,12 +75,22 @@ class SeasonStatistics
   end
 
   # Aedan's methods
-  def total_games(team_id)
-      @gtmd.data.find_all do |game|
-        team_id == game.team_id
-      end.count
+  def matching_teams(team_id)
+    @gtmd.data.find_all do |game|
+      team_id == game.team_id
     end
+  end
 
+  def total_games(team_id)
+    matching_teams(team_id).count
+  end
+
+
+  def win_percentage(team_id)
+    wins = matching_teams(team_id).find_all {|team| team.result == "WIN" }
+    (wins.count.to_f/total_games(team_id)) * 100
+  end
 end
 
 a = SeasonStatistics.new(GameTeamsManager.new('./data/game_teams.csv'))
+
