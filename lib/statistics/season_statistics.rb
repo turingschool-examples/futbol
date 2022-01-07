@@ -16,20 +16,24 @@ class SeasonStatistics
 
   end
 
-  def most_accurate_team
+  def most_accurate_team(season_id)
     # Name of the Team with the best ratio of shots to goals for the season (String)
+    season_teams(season_id).max_by {|team| teams_by_accuracy(season_id, team) }
+    # needs to be converted to string with data from team_manager
   end
 
-  def least_accurate_team
-    # Name of the Team with  the worst ratio of shots to goals for the season (String)
+  def least_accurate_team(season_id)
+    season_teams(season_id).min_by {|team| teams_by_accuracy(season_id, team) }
   end
 
-  def most_tackles
+  def most_tackles(season_id)
     # Name of the Team with the most tackles in the season (String)
+    season_teams(season_id).max_by {|team| tackles_by_team(season_id, team) }
+    # needs to be converted to string with data from team_manager
   end
 
-  def fewest_tackles
-    # Name of the Team with the fewest tackles in the season (String)
+  def fewest_tackles(season_id)
+    season_teams(season_id).min_by {|team| tackles_by_team(season_id, team) }
   end
 
   ## Necessary helper methods for above result methods
@@ -52,8 +56,29 @@ class SeasonStatistics
     ((won_games_by_coach.count.to_f / count) * 100).round(2)
   end
 
+  def season_teams(season_id)
+    game_teams_data_by_season(season_id).map { |game| game.team_id }.uniq
+  end
+
+  def teams_by_accuracy(season_id, team)
+    total_shots = 0
+    total_goals = 0
+    game_teams_data_by_season(season_id).each do |game|
+      total_shots += game.shots if game.team_id == team
+      total_goals += game.goals if game.team_id == team
+    end
+    ((total_goals.to_f / total_shots) * 100).round(2)
+  end
+
+  def tackles_by_team(season_id, team)
+    total_tackles = 0
+    game_teams_data_by_season(season_id).each do |game|
+      total_tackles += game.tackles if game.team_id == team
+    end
+    return total_tackles
+  end
+
 
 end
 
 a = SeasonStatistics.new($game_team_manager_data)
-# binding.pry
