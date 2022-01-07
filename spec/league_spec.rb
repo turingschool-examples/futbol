@@ -1,4 +1,4 @@
-
+require 'pry'
 require 'simplecov'
 SimpleCov.start
 require './lib/game_team'
