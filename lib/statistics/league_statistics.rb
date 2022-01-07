@@ -9,7 +9,7 @@ class LeagueStatistics
   end
 
   def count_of_teams #total number of teams in data
-    gtd.team_id
+    #amount of times a team id shows up
   end
 
   def best_offense #team with highest average goals per game for all seasons
