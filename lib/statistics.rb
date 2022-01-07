@@ -15,10 +15,8 @@ class Statistics
   def find_name_by_ID(name_id)
     @teams.select do |team|
       team.team_id == name_id
-
     end
   end
-
 end
 
 
