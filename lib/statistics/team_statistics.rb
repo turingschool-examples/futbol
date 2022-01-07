@@ -1,4 +1,4 @@
-require './lib/managers/team_manager.rb'
+require_relative '../managers/team_manager.rb'
 require 'pry'
 # TeamStatistics knows about multiple teams
 class TeamStatistics
