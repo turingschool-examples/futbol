@@ -7,11 +7,12 @@ require './lib/managers/game_teams_manager'
 require './lib/managers/team_manager'
 
 class StatTracker
-  attr_reader :season_statistics
+  attr_reader :season_statistics, :team_statistics
 
   def initialize(locations)
     game_manager = GameManager.new(locations[:games])
     team_manager = TeamManager.new(locations[:teams])
+    @team_statistics = TeamStatistics.new(team_manager)
     game_team_manager = GameTeamsManager.new(locations[:game_teams])
     @season_statistics = SeasonStatistics.new(game_team_manager)
   end
@@ -34,23 +35,19 @@ class StatTracker
   end
 
   def most_accurate_team(season_id)
-    @season_statistics.most_accurate_team(season_id)
-    # needs to reference team_statistics (team_id -> team_name)
+    @team_statistics.convert_id_to_team_name(@season_statistics.most_accurate_team(season_id))
   end
 
   def least_accurate_team(season_id)
-    @season_statistics.least_accurate_team(season_id)
-    # needs to reference team_statistics (team_id -> team_name)
+    @team_statistics.convert_id_to_team_name(@season_statistics.least_accurate_team(season_id))
   end
 
   def most_tackles(season_id)
-    @season_statistics.most_tackles(season_id)
-    # needs to reference team_statistics (team_id -> team_name)
+    @team_statistics.convert_id_to_team_name(@season_statistics.most_tackles(season_id))
   end
 
   def fewest_tackles(season_id)
-    @season_statistics.fewest_tackles(season_id)
-    # needs to reference team_statistics (team_id -> team_name)
+    @team_statistics.convert_id_to_team_name(@season_statistics.fewest_tackles(season_id))
   end
 
   # Team Statistics
