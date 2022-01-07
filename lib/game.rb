@@ -11,7 +11,6 @@ class Game
     # @home_goals = []
     # @away_goals = []
     # @season = []
-
   end
 
   def highest_total_score(games_data)
@@ -70,14 +69,14 @@ class Game
     season_games.count
   end
 
-  def average_goals_per_game(game_data)
-    total_goals = game_data.sum do |row|
+  def average_goals_per_game(games_data)
+    total_goals = games_data.sum do |row|
       row[:away_goals].to_i + row[:home_goals].to_i
-    end.to_f/game_data.count
+    end.to_f/games_data.count
     total_goals.round(2)
   end
 
-  def average_goals_by_season(game_data)
+  def average_goals_by_season(games_data)
     h = Hash.new(0)
     count = Hash.new(0)
     games_data.each do |row|

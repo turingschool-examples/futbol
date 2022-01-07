@@ -72,11 +72,11 @@ RSpec.describe 'Game Stats' do
     expect(@stat_tracker.count_of_games_by_season).to include('20172018' => 9)
   end
 
-  xit 'reports average goals per game' do
+  it 'reports average goals per game' do
     expect(@stat_tracker.average_goals_per_game).to be 4.39
   end
 
-  xit 'reports average goals per game by season' do
+  it 'reports average goals per game by season' do
     expected = {
       '20122013' => 5.2,
       '20132014' => 4,
@@ -85,8 +85,22 @@ RSpec.describe 'Game Stats' do
     }
     expect(@stat_tracker.average_goals_by_season).to eq expected
   end
+end
+#### League Stats #############
+RSpec.describe 'League Stats' do
+  before(:each) do
+    @game_path = './data/games_dummy.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './data/game_teams_dummy.csv'
+    @locations = {
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
+    }
+    @stat_tracker = StatTracker.from_csv(@locations)
+  end
 
-  xit 'can count total teams in data' do
+  it 'can count total teams in data' do
     expect(@stat_tracker.count_of_teams).to eq(32)
   end
 
@@ -98,7 +112,6 @@ RSpec.describe 'Game Stats' do
     expect(@stat_tracker.best_offense).to eq('Portland Thorns FC')
   end
 end
-
 
 ###########season stats tests##################
 RSpec.describe 'Season Stats' do
@@ -115,7 +128,7 @@ RSpec.describe 'Season Stats' do
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
-  xit 'reports winningest coach' do
+  it 'reports winningest coach' do
     expect(@stat_tracker.winningest_coach(20172018)).to eq("Paul Maurice")
   end
 
@@ -126,7 +139,6 @@ end
 ###############################################
 
 RSpec.describe 'Team Stats' do
-
   before(:each) do
     @game_path = './data/games_dummy.csv'
     @team_path = './data/teams.csv'
@@ -140,7 +152,6 @@ RSpec.describe 'Team Stats' do
   end
 
   xit 'gives a hash of team info' do
-
     expected = {
       "Team ID" => "1",
       "Franchise ID" => "23",
@@ -149,7 +160,7 @@ RSpec.describe 'Team Stats' do
       "Link" => '/api/v1/teams/1',
     }
 
-    expect(@stat_tracker.team_info("1")).to eq expected
+    expect(@stat_tracker.team_info("1")).to eq(expected)
   end
 
   xit 'finds the season that a game belongs to' do
