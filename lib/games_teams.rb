@@ -13,9 +13,9 @@ attr_reader :game_id, :team_id, :hoa, :result, :settled_in, :head_coach, :goals,
     @shots = data[:shots]
     @tackles = data[:tackles]
     @pim = data[:pim]
-    @powerPlayOpportunities = data[:powerPlayOpportunities]
-    @power_play_goals = data[:power_play_goals]
-    @faceoff_win_percentage = data[:faceoff_win_percentage]
+    @powerPlayOpportunities = data[:powerplayopportunities]
+    @power_play_goals = data[:powerplaygoals]
+    @faceoff_win_percentage = data[:faceoffwinpercentage]
     @giveaways = data[:giveaways]
     @takeaways = data[:takeaways]
   end

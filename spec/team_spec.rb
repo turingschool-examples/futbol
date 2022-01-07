@@ -13,9 +13,10 @@ RSpec.describe Team do
     }
 
     team = Team.new(attributes)
+    #binding.pry
     expect(team).to be_a(Team)
     expect(team.team_id).to eq(1)
-    expect(team.franchiseId).to eq(23)
+    expect(team.franchiseid).to eq(23)
     expect(team.teamName).to eq("Atlanta United")
     expect(team.abbreviation).to eq("ATL")
     expect(team.stadium).to eq("Mercedes-Benz Stadium")
