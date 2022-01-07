@@ -1,4 +1,5 @@
-require './lib/managers/game_teams_manager.rb'
+require './lib/managers/team_manager.rb'
+require 'pry'
 # TeamStatistics knows about multiple teams
 class TeamStatistics
   attr_reader :manager
@@ -89,8 +90,17 @@ class TeamStatistics
 # returns team.name
   end
 
+
   # Name of opponent that has the highest win percentage against the given team.
   def rival
 
   end
+
+  # Michael's methods --ignore this
+
+  def convert_id_to_team_name(team_id)
+    matching_team = @team_manager.data.find{ |team| team.team_id == team_id }
+    return matching_team.team_name
+  end
 end
+a = TeamStatistics.new(TeamManager.new('./data/teams.csv'))
