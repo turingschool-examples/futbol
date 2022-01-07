@@ -1,7 +1,7 @@
 require './lib/stat_tracker'
 require './lib/games_collection'
 require 'pry'
-#require_relative 'spec_helper'
+
 
 RSpec.describe StatTracker do
   before(:each) do
@@ -23,11 +23,12 @@ RSpec.describe StatTracker do
   end
 
   it 'from CSV create new StatTracker' do
-
     stat_tracker = StatTracker.from_csv(@locations)
     expect(stat_tracker).to be_a(StatTracker)
     expect(stat_tracker.locations).to eq(@locations)
   end
 
-  
+  it '#count_of_teams can count total number of teams' do
+    expect(@stat_tracker.count_of_teams).to eq(32)
+  end
 end
