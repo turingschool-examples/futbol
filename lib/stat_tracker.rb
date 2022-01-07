@@ -1,10 +1,10 @@
-require './lib/statistics/game_statistics'
-require './lib/statistics/league_statistics'
-require './lib/statistics/season_statistics'
-require './lib/statistics/team_statistics'
-require './lib/managers/game_manager'
-require './lib/managers/game_teams_manager'
-require './lib/managers/team_manager'
+require_relative './statistics/game_statistics'
+require_relative './statistics/league_statistics'
+require_relative './statistics/season_statistics'
+require_relative './statistics/team_statistics'
+require_relative './managers/game_manager'
+require_relative './managers/game_teams_manager'
+require_relative './managers/team_manager'
 
 class StatTracker
   attr_reader :season_statistics, :team_statistics

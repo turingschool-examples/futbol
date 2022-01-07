@@ -1,4 +1,4 @@
-require './lib/managers/game_teams_manager'
+require_relative '../managers/game_teams_manager'
 require 'pry'
 # THIS IS MICHAEL'S
 # Season Statistics
@@ -17,9 +17,7 @@ class SeasonStatistics
   end
 
   def most_accurate_team(season_id)
-    # Name of the Team with the best ratio of shots to goals for the season (String)
     season_teams(season_id).max_by {|team| teams_by_accuracy(season_id, team) }
-    # needs to be converted to string with data from team_manager
   end
 
   def least_accurate_team(season_id)
@@ -27,9 +25,7 @@ class SeasonStatistics
   end
 
   def most_tackles(season_id)
-    # Name of the Team with the most tackles in the season (String)
     season_teams(season_id).max_by {|team| tackles_by_team(season_id, team) }
-    # needs to be converted to string with data from team_manager
   end
 
   def fewest_tackles(season_id)

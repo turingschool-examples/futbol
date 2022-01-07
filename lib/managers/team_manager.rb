@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/team'
+require_relative '../team.rb'
 # TeamManager reads CSV data and converts it into an array of Team objects
 
 class TeamManager

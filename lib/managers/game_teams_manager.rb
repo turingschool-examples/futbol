@@ -1,6 +1,6 @@
 require 'csv'
 require 'pry'
-require './lib/game_team'
+require_relative '../game_team'
 class GameTeamsManager
   attr_accessor :data
 
@@ -15,6 +15,6 @@ class GameTeamsManager
   end
 end
 
-a = GameTeamsManager.new('./data/game_teams.csv')
-require 'pry'
-binding.pry
+$game_team_manager_data = GameTeamsManager.new('./data/game_teams.csv')
+# require 'pry'
+# binding.pry
