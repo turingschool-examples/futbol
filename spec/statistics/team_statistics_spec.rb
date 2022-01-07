@@ -34,31 +34,3 @@ RSpec.describe TeamStatistics do
     end
   end
 end
-# placeholder name TeamGame doesn't exist yet
-# This is for the #win_percentage. Needs game_team_manager
-RSpec.describe TeamGame do
-  before(:each) do
-    mock_game_team_1 = OpenStruct.new({game_id: 2012030221, team_id: 3, HOA: "away", result: "LOSS",
-       settled_in: "OT", head_coach: "John Tortorella" })
-    mock_game_team_2 = OpenStruct.new({game_id: 2012030222, team_id: 3, HOA: "home", result: "WIN",
-       settled_in: "REG", head_coach: "John Tortorella" })
-    mock_game_team_3 = OpenStruct.new({game_id: 2012030221, team_id: 4, HOA: "away", result: "LOSS",
-       settled_in: "OT", head_coach: "John Tortorella" })
-    mock_game_team_manager = OpenStruct.new({ data: [mock_team_1, mock_team_2, mock_team_3] })
-    @game_team_statistics = SeasonStatistics.new(mock_game_team_manager)
-  end
-
-  describe 'exists' do
-    it "exists" do
-      expect(@game_team_statistics).to be_a(TeamGame)
-    end
-  end
-
-  describe '#win_percentage' do
-    it 'can return the win percentage of all games for a given team' do
-      actual = @game_team_statistics.win_percentage(3)
-      expected = 50
-      expect(actual).to eq(expected)
-    end
-  end
-end
