@@ -1,16 +1,15 @@
 require 'csv'
 require 'pry'
 require_relative '../game'
+require_relative '../csv_reader'
+
 class GameManager
   attr_accessor :data
+  include CSVReader
 
   def initialize(path)
-    @data = load_file(path)
-  end
-
-  def load_file(path)
-    CSV.read(path)[1..-1].collect do |row|
-      Game.new(row)
-    end
+    @data = generate_data(path, Game)
   end
 end
+
+a = GameManager.new('./data/game_teams.csv')

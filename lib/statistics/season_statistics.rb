@@ -92,6 +92,5 @@ class SeasonStatistics
   end
 end
 
+a = SeasonStatistics.new(GameTeamsManager.new('./data/game_teams.csv'))
 
-
-a = SeasonStatistics.new($game_team_manager_data)

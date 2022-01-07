@@ -1,4 +1,4 @@
-require './lib/managers/game_team_manager'
+require_relative '../managers/game_teams_manager'
 require 'pry'
 #Ians Code
 class LeagueStatistics
