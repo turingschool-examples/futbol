@@ -23,14 +23,8 @@ RSpec.describe GamesCollection do
 
   it 'can take a csv file from a stat tracker' do
 
-    games = GamesCollection.new(@stat_tracker[@locations[:games]])
+    games = GamesCollection.new(@stat_tracker.locations[:games])
     expect(games.games_file).to eq('./data/games.csv')
   end
 
-  xit 'can take a csv file from a stat tracker' do
-
-    games = GamesCollection.new(@locations[:games])
-    games.readfile
-    expect(games.games_file).to eq('./data/games.csv')
-  end
 end

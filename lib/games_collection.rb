@@ -2,7 +2,7 @@ require 'pry'
 require './lib/game'
 
 class GamesCollection
-  attr_reader :games
+  attr_reader :games_file
   def initialize(games_file)
     @games_file = games_file
     @games = self.read_file
