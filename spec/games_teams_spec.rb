@@ -21,6 +21,7 @@ RSpec.describe GamesTeams do
       takeaways: 7}
 
     games_teams = GamesTeams.new(attributes)
+    binding.pry
       expect(games_teams).to be_a(GamesTeams)
       expect(games_teams.game_id).to eq(2012030221)
       expect(games_teams.team_id).to eq(3)
