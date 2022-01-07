@@ -31,4 +31,8 @@ RSpec.describe StatTracker do
   it '#count_of_teams can count total number of teams' do
     expect(@stat_tracker.count_of_teams).to eq(32)
   end
+
+  it '#best_offense can find the team with highest average number of goals scored' do
+    expect(@stat_tracker.best_offense).to eq("Reign FC")
+  end
 end
