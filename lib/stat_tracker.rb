@@ -1,34 +1,38 @@
 require 'pry'
 require 'CSV'
 require './lib/games_collection'
+require './lib/teams_collection'
+require './lib/games_teams_collection'
 
 class StatTracker
   attr_reader :locations
 
   def initialize(locations)
     @locations = locations
-    @read_games = ()
+
     @games_file = GamesCollection.new(@locations[:games])
+    @teams_file = TeamsCollection.new(@locations[:teams])
+    @game_teams_file = GamesTeamsCollection.new(@locations[:game_teams])
     @read_games = @games_file.read_file
-  end
-  # def setup
-  # end
+    @read_teams = @teams_file.read_file
+    @read_game_teams = @game_teams_file.read_file
 
-  def self.from_csv(locations) #add .to_a changes to an array\
+  end
+
+  def self.from_csv(files) #add .to_a changes to an array\
     #binding.pry
-    StatTracker.new(locations) #creating an instance of StatTracker holding the hash as locations
+    StatTracker.new(files) #creating an instance of StatTracker holding the hash as locations
   end
-
 
   def highest_total_score
-    scores_array = []
+    scores_array = [] #helper method later
     @read_games.each do |row|
       scores_array << row[:away_goals].to_i + row[:home_goals].to_i
     end
     scores_array.max
   end
 
-  def lowest_total_score
+  def lowest_total_score #helper method it later
     scores_array = []
     @read_games.each do |row|
       scores_array << row[:away_goals].to_i + row[:home_goals].to_i
