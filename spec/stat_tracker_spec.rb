@@ -189,4 +189,18 @@ RSpec.describe 'Team Stats' do
     expect(@stat_tracker.best_season("29")).to eq "20132014"
     expect(@stat_tracker.best_season("30")).to eq "20122013"
   end
+
+  it 'finds the worst season' do
+    expect(@stat_tracker.worst_season("24")).to eq "20122013"
+    expect(@stat_tracker.worst_season("28")).to eq "20122013"
+    expect(@stat_tracker.worst_season("29")).to eq "20122013"
+    expect(@stat_tracker.worst_season("30")).to eq "20172018"
+  end
+
+  it 'calculates average win percentage of all games' do
+    expect(@stat_tracker.average_win_percentage("24")).to eq 66.67
+    expect(@stat_tracker.average_win_percentage("28")).to eq 50
+    expect(@stat_tracker.average_win_percentage("29")).to eq 0
+    expect(@stat_tracker.average_win_percentage("30")).to eq 0.17
+  end
 end
