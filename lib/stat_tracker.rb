@@ -8,11 +8,11 @@ class StatTracker
   def initialize(locations)
     @locations = locations
     @read_games = ()
-  end
-  def setup
     @games_file = GamesCollection.new(@locations[:games])
     @read_games = @games_file.read_file
   end
+  # def setup
+  # end
 
   def self.from_csv(locations) #add .to_a changes to an array\
     #binding.pry

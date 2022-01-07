@@ -1,8 +1,9 @@
 require 'pry'
+require './lib/team'
 class TeamsCollection
-  attr_reader :teams
+  attr_reader :teams_file
   def initialize(teams_file)
-    @games = read_file(teams_file)
+    @teams_file = read_file(teams_file)
   end
 
   def read_file(teams_file)
