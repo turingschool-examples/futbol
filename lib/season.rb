@@ -1,15 +1,20 @@
 class Season
-  def initialize
-  end
+  attr_reader :games, :teams, :game_teams
 
-  def winningest_coach(season, game_teams_data, games_data)
-    games_in_season = games_data.select do |game|
+  def initialize(games, teams, game_teams)
+    @games = games
+    @teams = teams
+    @game_teams = game_teams
+end
+
+  def winningest_coach(season)
+    games_in_season = @games.select do |game|
       game if game[:season].to_i == season
     end
     game_ids = games_in_season.map do |game|
       game[:game_id]
     end
-    games = game_teams_data.select do |game|
+    games = @game_teams.select do |game|
      game if game_ids.include?(game[:game_id])
     end
     wins = games.select do |game|
@@ -29,14 +34,14 @@ class Season
     coach_wins_hash.key(coach_wins_hash.values.max)
   end
 
-  def worst_coach(season, game_teams_data, games_data)
-    games_in_season = games_data.select do |game|
+  def worst_coach(season)
+    games_in_season = @games.select do |game|
       game if game[:season].to_i == season
     end
     game_ids = games_in_season.map do |game|
       game[:game_id]
     end
-    games = game_teams_data.select do |game|
+    games = @game_teams.select do |game|
      game if game_ids.include?(game[:game_id])
     end
     loss = games.select do |game|

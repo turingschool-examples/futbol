@@ -1,10 +1,15 @@
 class Team
-  def initialize
+  attr_reader :games, :teams, :game_teams
+
+  def initialize(games, teams, game_teams)
+    @games = games
+    @teams = teams
+    @game_teams = game_teams
   end
 
-  def team_info(id, teams_data)#Team Stats
+  def team_info(id)
     h = {}
-    team = teams_data.find do |row|
+    team = @teams.find do |row|
       row[:team_id] == id
     end
     h["Team ID"] = team[:team_id]
@@ -15,10 +20,10 @@ class Team
     h
   end
 
-  def best_season(team_id, games_data, game_teams_data) #Team Stats
+  def best_season(team_id)
     h = {}
-    all_seasons_played(team_id, games_data, game_teams_data).each do |season_id|
-      h[season_id] = avg_wins_by_season(team_id, season_id, games_data, game_teams_data)
+    all_seasons_played(team_id).each do |season_id|
+      h[season_id] = avg_wins_by_season(team_id, season_id)
     end
 
     best = h.max_by do |season, avg|
@@ -27,9 +32,9 @@ class Team
     best[0]
   end
 
-  def all_seasons_played(team_id, games_data, game_teams_data) #Team Stats
+  def all_seasons_played(team_id)
     seasons_played = []
-    games_data.map do |row|
+    @games.map do |row|
       if row[:away_team_id] == team_id || row[:home_team_id] == team_id
         seasons_played << row[:season]
       end
@@ -37,9 +42,9 @@ class Team
     seasons_played.uniq
   end
 
-  def avg_wins_by_season(team_id, season_id, games_data, game_teams_data) #Team Stats
+  def avg_wins_by_season(team_id, season_id)
     wins = 0
-    games = games_played_in_season(team_id, season_id, games_data, game_teams_data)
+    games = games_played_in_season(team_id, season_id)
     games.each do |game|
       if game[:result] == "WIN"
         wins += 1
@@ -47,18 +52,18 @@ class Team
         wins += 0.5
       end
     end
-    wins / games_played_in_season(team_id, season_id, games_data, game_teams_data).count
+    wins / games_played_in_season(team_id, season_id).count
   end
 
-  def games_played_in_season(team_id, season_id, games_data, game_teams_data) #Teams Stats
+  def games_played_in_season(team_id, season_id)
     game_ids = []
-    games_data.each do |row|
+    @games.each do |row|
       if row[:season] == season_id && (row[:away_team_id] == team_id || row[:home_team_id] == team_id)
         game_ids << row[:game_id]
       end
     end
     csv_games = []
-    game_teams_data.each do |row|
+    @game_teams.each do |row|
       game_ids.each do |id|
         if row[:game_id] == id && row[:team_id] == team_id
           csv_games << row
