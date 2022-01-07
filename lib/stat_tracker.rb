@@ -38,9 +38,12 @@ class StatTracker
   end
 
   def percentage_home_wins
+    games_played = 0
+    wins = 0
      @read_games.each do |game|
-       binding.pry
+       # binding.pry
       if game.home_goals.to_i > game.away_goals.to_i
+        # binding.pry
         games_played += 1
         wins += 1
       elsif
@@ -49,6 +52,19 @@ class StatTracker
     end
       (wins.to_f / games_played.to_f).round(2)
   end
+
+  # def percentage_visitor_wins
+  #    @read_games.each do |game|
+  #     if game.away_goals.to_i > game.home_goals.to_i
+  #       games_played += 1
+  #       wins += 1
+  #     elsif
+  #       games_played += 1
+  #     end
+  #   end
+  #   binding.pry
+  #     (wins.to_f / games_played.to_f).round(2)
+  # end
 end
 
 
