@@ -1,0 +1,6 @@
+
+
+class SeasonTracker < Statistics
+
+
+end
