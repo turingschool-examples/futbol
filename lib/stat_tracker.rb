@@ -82,7 +82,7 @@ class StatTracker
   end
 
   def least_accurate_team(season)
-    #coming soon!
+    @season.least_accurate_team(season)
   end
 
   def most_tackles(season)

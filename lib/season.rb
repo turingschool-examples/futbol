@@ -70,7 +70,16 @@ class Season
   end
 
   def least_accurate_team(season)  #stat_tracker method
-
+    # Name of the Team with the worst ratio of shots to goals for the season
+    # goals / shots
+    shot_accuracy_hash = Hash.new(0.0)
+    total_shots_per_season(season).each_key do |key|
+      shot_accuracy_hash[key] = total_goals_per_season(season)[key] / total_shots_per_season(season)[key]
+    end
+    team_info = @teams.find do |team|
+      team[:team_id] == shot_accuracy_hash.key(shot_accuracy_hash.values.min) #this yeilds  string of the team_id
+    end
+    team_info[:teamname]
   end
 
   def games_in_season_by_team_id(season) #helper method
