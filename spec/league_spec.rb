@@ -11,6 +11,7 @@ RSpec.describe do GameTeamTracker
     game_path = './data/game_teams_stub.csv'
     locations = {
       games: './data/games_stub.csv',
+      teams: './data/teams.csv',
       game_teams: game_path}
     game_tracker = GameTeamTracker.new(locations)
     expect(game_tracker).to be_a(GameTeamTracker)
@@ -20,6 +21,7 @@ RSpec.describe do GameTeamTracker
     game_path = './data/game_teams_stub.csv'
     locations = {
       games: './data/games_stub.csv',
+      teams: './data/teams.csv',
       game_teams: game_path}
     game_tracker = GameTeamTracker.new(locations)
     expect(game_tracker.count_of_teams).to eq(5)
@@ -29,20 +31,25 @@ RSpec.describe do GameTeamTracker
     game_path = './data/game_teams_stub.csv'
     locations = {
       games: './data/games_stub.csv',
+      teams: './data/teams.csv',
       game_teams: game_path}
     game_tracker = GameTeamTracker.new(locations)
-    expect(game_tracker.best_offense).to include("6")
-    #expect(game_tracker.best_offense).to eq("FC Dallas")
+    #expect(game_tracker.best_offense).to include("6")
+    expect(game_tracker.best_offense).to eq("FC Dallas")
   end
 
   it 'can tell worst offense' do
     game_path = './data/game_teams_stub.csv'
+    team_path = './data/teams.csv'
     locations = {
       games: './data/games_stub.csv',
-      game_teams: game_path}
+      teams: './data/teams.csv',
+      game_teams: game_path
+    }
+    # binding.pry
     game_tracker = GameTeamTracker.new(locations)
-    expect(game_tracker.worst_offense).to include("5")
-    #expect(game_tracker.best_offense).to eq("FC Dallas")
+    #expect(game_tracker.worst_offense).to include("5")
+    expect(game_tracker.worst_offense).to eq("Sporting Kansas City")
   end
   # it '' do
   # end

@@ -17,17 +17,12 @@ class GameTeamTracker < Statistics
       key_hash[key] = average
       key_hash = key_hash.to_h
       max = key_hash.values.max
-
-      #key_hash = key_hash.each_pair.to_h
-      # key_hash = key_hash.each_pair.to_h
       best_team = key_hash.select {|k,v| v == max}
-
     end
-    #binding.pry
-    best_team
+    find_name_by_ID(best_team.keys[0])[0].teamname
   end
 
-  def worst_offense
+  def worst_offense # look at breaking into different methods
     worst_team = {}
     min = 0
     sorted = @game_teams.group_by {|game| game.team_id}
@@ -41,10 +36,7 @@ class GameTeamTracker < Statistics
       key_hash = key_hash.to_h
       min = key_hash.values.min
       worst_team = key_hash.select {|k,v| v == min}
-      #binding.pry
     end
-    worst_team
+    find_name_by_ID(worst_team.keys[0])[0].teamname
   end
-
-#  team[key].team_id
 end
