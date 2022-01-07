@@ -26,10 +26,23 @@ class GameTeamTracker < Statistics
     #binding.pry
     best_team
   end
+
+  def worst_offense
+    worst_team = {}
+    min = 0
+    sorted = @game_teams.group_by {|game| game.team_id}
+    key_hash = {}
+    #goal_average_calculator(team_hash)
+    sorted.map do |key, sorted|
+      goals = sorted.sum {|game| game.goals}
+      total_games = sorted.count
+      average = goals.to_f / total_games
+      key_hash[key] = average
+      key_hash = key_hash.to_h
+      min = key_hash.values.min
+      worst_team = key_hash.select {|k,v| v == min}
+    end
+    worst_team
+    binding.pry
+  end
 end
-# game_path = './data/game_teams_stub.csv'
-# locations = {
-#   games: './data/games_stub.csv',
-#   game_teams: game_path}
-# game_tracker = GameTeamTracker.new(locations)
-# p game_tracker.best_offense
