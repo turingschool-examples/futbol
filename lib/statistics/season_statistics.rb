@@ -90,9 +90,10 @@ class SeasonStatistics
   end
 
   def win_percentage(team_id)
-
+    wins = matching_teams(team_id).find_all {|team| team.result == "WIN" }
+    (wins.count.to_f/total_games(team_id)) * 100
   end
-end 
+end
 
 
 
