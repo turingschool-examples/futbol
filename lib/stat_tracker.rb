@@ -82,10 +82,20 @@ class StatTracker
     # binding.pry
       (wins.to_f / games_played.to_f).round(2)
   end
+
+  def count_of_games_by_season
+    games_by_season = {}
+
+    seasons = @read_games.map do |game|
+      game.season
+    end.uniq
+    games_seasons = @read_games.map do |game|
+      game.season
+    end
+    seasons.each do |season|
+      games_by_season[season] = games_seasons.count(season)
+    end
+    games_by_season
+  end
 end
-
-
-# locations.each do |location|
-#   location.key.to_s = StatTracker.new(location.value)
-#   binding.pry
-# end
+  
