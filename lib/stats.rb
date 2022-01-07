@@ -1,6 +1,6 @@
 require 'csv'
 
-class Stats
+class Stats 
   attr_reader :games, :teams, :game_teams, :home_goals, :away_goals, :season
 
   def initialize(locations)

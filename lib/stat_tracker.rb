@@ -13,7 +13,7 @@ class StatTracker
     @home_goals = []
     @away_goals = []
     @season = []
-    @game = Game.new(locations)
+    #@game = Game.new(locations)
 
   end
 
@@ -25,29 +25,35 @@ class StatTracker
 
 ###########Game Stats###############
   def highest_total_score
-    @game.highest_total_score
+    Game.new.highest_total_score(@games)
   end
 
   def lowest_total_score
-
+    Game.new.lowest_total_score(@games)
   end
 
   def percentage_home_wins
+    Game.new.percentage_home_wins(@game_teams)
   end
 
   def percentage_visitor_wins
+    Game.new.percentage_visitor_wins(@game_teams)
   end
 
   def percentage_ties
+    Game.new.percentage_ties(@games)
   end
 
   def count_of_games_by_season
+    Game.new.count_of_games_by_season(@games)
   end
 
   def average_goals_per_game
+    Game.new.average_goals_per_game(@games)
   end
 
   def average_goals_by_season
+    Game.new.average_goals_by_season(@games)
   end
 ###########League Stats##############
 

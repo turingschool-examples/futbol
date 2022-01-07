@@ -51,16 +51,25 @@ RSpec.describe 'Game Stats' do
     expect(@stat_tracker.highest_total_score).to be 7
   end
 
-  xit 'reports lowest total score' do
+  it 'reports lowest total score' do
     expect(@stat_tracker.lowest_total_score).to be 2
   end
 
-  xit 'reports percentage home wins' do
+  it 'reports percentage home wins' do
     expect(@stat_tracker.percentage_home_wins).to eq(0.31)
   end
 
-  xit 'reports percentage visitor wins' do
+  it 'reports percentage visitor wins' do
     expect(@stat_tracker.percentage_visitor_wins).to eq(0.11)
+  end
+
+  it 'can find the percentage of games that ended in a tie' do
+    expect(@stat_tracker.percentage_ties).to eq(16.667)
+  end
+
+  it 'can count games by season' do
+    expect(@stat_tracker.count_of_games_by_season).to be_a(Hash)
+    expect(@stat_tracker.count_of_games_by_season).to include('20172018' => 9)
   end
 
   xit 'reports average goals per game' do
@@ -75,15 +84,6 @@ RSpec.describe 'Game Stats' do
       '20172018' => 4.22
     }
     expect(@stat_tracker.average_goals_by_season).to eq expected
-  end
-
-  xit 'can find the percentage of games that ended in a tie' do
-    expect(@stat_tracker.percentage_ties).to eq(16.667)
-  end
-
-  xit 'can sort games by season' do
-    expect(@stat_tracker.count_of_games_by_season).to be_a(Hash)
-    expect(@stat_tracker.count_of_games_by_season).to include('20172018' => 9)
   end
 
   xit 'can count total teams in data' do
