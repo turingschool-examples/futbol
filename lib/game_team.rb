@@ -20,8 +20,8 @@ class GameTeam
   )
 
   def initialize(row)
-    @game_id = row[0].to_i
-    @team_id = row[1].to_i
+    @game_id = row[0]
+    @team_id = row[1]
     @HoA = row[2]
     @result = row[3]
     @settled_in = row[4]
