@@ -7,13 +7,16 @@ class StatTracker
 
   def initialize(locations)
     @locations = locations
+    @read_games = ()
+  end
+  def setup
     @games_file = GamesCollection.new(@locations[:games])
     @read_games = @games_file.read_file
-
   end
 
-  def self.from_csv(places) #add .to_a changes to an array
-    StatTracker.new(places) #creating an instance of StatTracker holding the hash as locations
+  def self.from_csv(locations) #add .to_a changes to an array\
+    #binding.pry
+    StatTracker.new(locations) #creating an instance of StatTracker holding the hash as locations
   end
 
 

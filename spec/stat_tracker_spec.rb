@@ -18,7 +18,7 @@ RSpec.describe StatTracker do
 
   it 'exists' do
     stat_tracker = StatTracker.new(@locations)
-    # binding.pry
+     binding.pry
     expect(stat_tracker).to be_a(StatTracker)
   end
 
@@ -29,16 +29,16 @@ RSpec.describe StatTracker do
     expect(stat_tracker.locations).to eq(@locations)
   end
 
-  it "returns highest total score" do
+  xit "returns highest total score" do
     # stat_tracker = StatTracker.from_csv(@locations)
     expect(@stat_tracker.highest_total_score).to eq(11)
   end
 
-  it "#lowest_total_score" do
+  xit "#lowest_total_score" do
     expect(@stat_tracker.lowest_total_score).to eq 0
   end
 
-  it "#percentage_home_wins" do
+  xit "#percentage_home_wins" do
     expect(@stat_tracker.percentage_home_wins).to eq 0.55
   end
 
