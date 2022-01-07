@@ -29,7 +29,7 @@ RSpec.describe StatTracker do
     expect(stat_tracker.locations).to eq(@locations)
   end
 
-  xit "returns highest total score" do
+  it "returns highest total score" do
     # stat_tracker = StatTracker.from_csv(@locations)
     expect(@stat_tracker.highest_total_score).to eq(11)
   end

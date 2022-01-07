@@ -7,7 +7,7 @@ class StatTracker
 
   def initialize(locations)
     @locations = locations
-    @read_games = ()
+    # @read_games = ()
     @games_file = GamesCollection.new(@locations[:games])
     @read_games = @games_file.read_file
   end
@@ -23,7 +23,8 @@ class StatTracker
   def highest_total_score
     scores_array = []
     @read_games.each do |row|
-      scores_array << row[:away_goals].to_i + row[:home_goals].to_i
+      # binding.pry
+      scores_array << (row.away_goals.to_i + row.home_goals.to_i)
     end
     scores_array.max
   end
@@ -31,7 +32,7 @@ class StatTracker
   def lowest_total_score
     scores_array = []
     @read_games.each do |row|
-      scores_array << row[:away_goals].to_i + row[:home_goals].to_i
+      scores_array << row.away_goals.to_i + row.home_goals.to_i
     end
     scores_array.min
   end
