@@ -31,12 +31,19 @@ RSpec.describe do GameTeamTracker
       games: './data/games_stub.csv',
       game_teams: game_path}
     game_tracker = GameTeamTracker.new(locations)
-    expect(game_tracker.best_offense).to eq("FC Dallas")
+    expect(game_tracker.best_offense).to include("6")
+    #expect(game_tracker.best_offense).to eq("FC Dallas")
   end
 
-  # it '' do
-  # end
-  #
+  it 'can tell worst offense' do
+    game_path = './data/game_teams_stub.csv'
+    locations = {
+      games: './data/games_stub.csv',
+      game_teams: game_path}
+    game_tracker = GameTeamTracker.new(locations)
+    expect(game_tracker.worst_offense).to include("5")
+    #expect(game_tracker.best_offense).to eq("FC Dallas")
+  end
   # it '' do
   # end
   # it '' do
