@@ -99,22 +99,59 @@ RSpec.describe Team do
   it 'finds all the games against one opponent' do
     expect(@team.all_games_against("15", "5").count).to be 4
     expect(@team.all_games_against("30", "52").count).to be 5
+    expect(@team.all_games_against("52", "30").count).to be 5
     expect(@team.all_games_against("30", "52").class).to be Array
   end
 
   it 'finds an opponents rate of wins against the team' do
     expect(@team.win_against_rate("15", "5")).to eq 0.5
-    expect(@team.win_against_rate("30", "52")).to eq 0.2
-    expect(@team.win_against_rate("52", "30")).to eq 0.8
+    expect(@team.win_against_rate("30", "52")).to eq 0.8
+    expect(@team.win_against_rate("52", "30")).to eq 0.2
     expect(@team.win_against_rate("30", "26")).to eq 0
-
   end
 
-  xit 'names a favorite opponent' do
-    expect(@team.favorite_opponent()).to eq 5
+  it 'finds all of a teams opponents' do
+    expect(@team.all_opponents("1")).to eq ["2"]
+    expect(@team.all_opponents("30")).to eq ["26", "52"]
+    expect(@team.all_opponents("24")).to eq ["4", "28", "29"]
   end
 
-  xit 'names a rival' do
-    expect(@team.rival()).to eq 5
+  it 'finds its name' do
+    expect(@team.find_name("2")).to eq "Seattle Sounders FC"
+    expect(@team.find_name("13")).to eq "Houston Dash"
+    expect(@team.find_name("25")).to eq "Chicago Red Stars"
+    expect(@team.find_name("53")).to eq "Columbus Crew SC"
+  end
+
+  it 'builds an opponent rundown' do
+    expected = {
+      "Orlando City SC"=>0.2,
+    }
+    expect(@team.opponent_rundown("52")).to eq expected
+
+    expected = {
+      "Portland Thorns FC"=>0.8,
+      "FC Cincinnati"=>0
+    }
+    expect(@team.opponent_rundown("30")).to eq expected
+
+    expected = {
+      "Chicago Fire"=>0,
+      "Los Angeles FC"=>0,
+      "Orlando Pride"=>0
+    }
+    expect(@team.opponent_rundown("24")).to eq expected
+  end
+
+  it 'names a favorite opponent' do
+    expect(@team.favorite_opponent("24")).to eq("Chicago Fire").or(eq("Orlando Pride"))
+    expect(@team.favorite_opponent("30")).to eq "FC Cincinnati"
+    expect(@team.favorite_opponent("52")).to eq "Orlando City SC"
+  end
+
+  it 'names a rival' do
+    expect(@team.rival("24")).to eq("Los Angeles FC").or(eq("Chicago Fire")).or(eq("Orlando Pride"))
+    expect(@team.rival("30")).to eq "Portland Thorns FC"
+    expect(@team.rival("52")).to eq "Orlando City SC"
   end
 end

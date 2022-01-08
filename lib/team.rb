@@ -113,21 +113,75 @@ class Team
     least_goals[:goals].to_i
   end
 
-  def favorite_opponent #stat tracker
+  def favorite_opponent(team_id)
+    fave = opponent_rundown(team_id).min_by do |team_name, wins_against|
+      wins_against
+    end
+    fave[0]
   end
 
-  def rival #stat_tracker
+  def rival(team_id)
+    fave = opponent_rundown(team_id).max_by do |team_name, wins_against|
+      wins_against
+    end
+    fave[0]
   end
 
   def all_games_against(team_id, opponent_id)
-    game_ids = all_games_played(team_id).map do |row|
+    all_team_games = all_games_played(team_id)
+    game_ids = all_team_games.map do |row|
       row[:game_id]
     end
-    x = @game_teams.select do |row|
-      row[:team_id] == opponent_id
+    # @game_teams.select do |row|
+    a = []
+    @game_teams.each do |row|
+      game_ids.each do |game_id|
+        if row[:team_id] == opponent_id && row[:game_id] == game_id
+          a << row
+        end
+      end
     end
+    a
   end
 
+  def win_against_rate(team_id, opponent_id)
+    games_played = all_games_against(team_id, opponent_id)
+    opponent_wins = games_played.count do |row|
+      row[:result] == "WIN"
+    end
+    opponent_wins.to_f / games_played.count
+  end
+
+  def all_opponents(team_id)
+    all_games = @games.select do |row|
+      row if row[:home_team_id] == team_id || row[:away_team_id]
+    end
+    opponent_ids = []
+    all_games.each do |row|
+      if row[:away_team_id] == team_id
+        opponent_ids << row[:home_team_id]
+      elsif row[:home_team_id] == team_id
+        opponent_ids << row[:away_team_id]
+      end
+    end
+    opponent_ids.uniq.sort_by { |x| x.to_i }
+  end
+
+  def find_name(team_id)
+    team_row = @teams.find do |row|
+      row[:team_id] == team_id
+    end
+    team_row[:teamname]
+  end
+
+  def opponent_rundown(team_id)
+    h = {}
+    all_opponents(team_id).each do |opponent_id|
+      h[find_name(opponent_id)] =
+      win_against_rate(team_id, opponent_id)
+    end
+    h
+  end
 
   def season_finder(game_id)
     game = @games.find do |row|
