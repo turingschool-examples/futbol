@@ -97,4 +97,20 @@ RSpec.describe SeasonStatistics do
         expect(actual).to eq(expected)
     end
   end
+
+  describe '#most_goals_scored' do
+    it 'can return the win percentage of all games for a given team' do
+        actual = @season_statistics.most_goals_scored(6)
+        expected = 3
+        expect(actual).to eq(expected)
+    end
+  end
+
+  describe '#fewest_goals_scored' do
+    it 'can return the win percentage of all games for a given team' do
+        actual = @season_statistics.fewest_goals_scored(6)
+        expected =2
+        expect(actual).to eq(expected)
+    end
+  end
 end
