@@ -93,4 +93,25 @@ class TeamTracker < Statistics
     end
     ((hash.values.sum) / hash.values.length).round(2)
   end
+
+  def most_goals_scored(team_id)
+    team_goal_max = @game_teams.find_all do |game|
+      game.team_id == team_id
+    end
+    game = team_goal_max.max_by do |game|
+      game.goals
+    end
+    game.goals
+  end
+
+  def fewest_goals_scored(team_id)
+    team_goal_min = @game_teams.find_all do |game|
+      game.team_id == team_id
+    end
+    game = team_goal_min.min_by do |game|
+      game.goals
+    end
+    game.goals
+  end
+
 end
