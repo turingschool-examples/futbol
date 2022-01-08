@@ -15,6 +15,20 @@ class LeagueStatistics
     @teams_file.length
   end
 
+  # def average_goals(argument_1)
+  #   result_2 = {}
+  #   argument_1.each do |key, value|
+  #     result_2[key] = value.sum / value.size.to_f
+  #   end
+  # end
+
+
+  #
+  # def away_goals
+  #   @game_teams_file.find_all do |row|
+  #     row[:hoa] == "away"
+  #   end
+  # end
 
   def best_offense
     hash_result = {}
