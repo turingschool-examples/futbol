@@ -15,8 +15,8 @@ class StatTracker
     @read_games = @games_file.read_file
     @read_teams = @teams_file.read_file
     @read_game_teams = @game_teams_file.read_file
-
   end
+
 
   def self.from_csv(files) #add .to_a changes to an array\
     #binding.pry
@@ -82,7 +82,6 @@ class StatTracker
     end
       (ties.to_f / games_played.to_f).round(2)
   end
-end
 
   def percentage_visitor_wins
     games_played = 0
@@ -126,6 +125,8 @@ end
     seasons.each do |season|
       @games_by_season[season] = games_seasons.count(season)
     end
+
+
     @games_by_season
   end
   # binding.pry
