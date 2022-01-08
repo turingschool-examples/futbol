@@ -18,7 +18,7 @@ RSpec.describe StatTracker do
 
   it 'exists' do
     stat_tracker = StatTracker.new(@locations)
-     # binding.pry
+      #binding.pry
     expect(stat_tracker).to be_a(StatTracker)
   end
 
@@ -39,7 +39,9 @@ RSpec.describe StatTracker do
   end
 
   it "#percentage_home_wins" do
-    expect(@stat_tracker.percentage_home_wins).to eq 0.44
+
+    expect(@stat_tracker.percentage_home_wins).to eq 0.55
+
   end
 
   it "#percentage_visitor_wins" do
