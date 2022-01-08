@@ -71,6 +71,8 @@ class StatTracker
       return row.teamname if y[0] == row.team_id
     end
   end
-  
+
+  def highest_score_visitor
+  end
 
 end
