@@ -73,6 +73,25 @@ class StatTracker
   end
 
   def highest_score_visitor
+    hash_for_away_teams = {}
+    @read_games.each do |row|
+      if hash_for_away_teams[row.away_team_id].nil?
+        hash_for_away_teams[row.away_team_id] = [row.away_goals.to_i]
+      else
+        hash_for_away_teams[row.away_team_id] << row.away_goals.to_i
+      end
+    end
+
+    hash_for_average_goals_away = {}
+    hash_for_away_teams.each do |team_id, team_id_goals|
+      hash_for_average_goals_away[team_id] = team_id_goals.sum / team_id_goals.size.to_f
+    end
+
+    away_highest_average = hash_for_average_goals_away.max_by {|team_id, team_id_goals| team_id_goals}
+
+    @read_teams.find_all do |row|
+      return row.teamname if away_highest_average[0] == row.team_id
+    end
   end
 
 end
