@@ -41,7 +41,7 @@ RSpec.describe StatTracker do
   end
 
   it '#highest_score_visitor can find the team with highest average score per game' do
-    expect(@stat_tracker.highest_score_visitor).to eq("")
+    expect(@stat_tracker.highest_score_visitor).to eq("FC Dallas")
   end
 
 
