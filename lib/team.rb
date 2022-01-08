@@ -113,14 +113,14 @@ class Team
     least_goals[:goals].to_i
   end
 
-  def favorite_opponent(team_id)
+  def favorite_opponent(team_id) #stat tracker
     fave = opponent_rundown(team_id).min_by do |team_name, wins_against|
       wins_against
     end
     fave[0]
   end
 
-  def rival(team_id)
+  def rival(team_id) #stat tracker
     fave = opponent_rundown(team_id).max_by do |team_name, wins_against|
       wins_against
     end
@@ -132,7 +132,6 @@ class Team
     game_ids = all_team_games.map do |row|
       row[:game_id]
     end
-    # @game_teams.select do |row|
     a = []
     @game_teams.each do |row|
       game_ids.each do |game_id|
