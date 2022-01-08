@@ -40,8 +40,12 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.worst_offense).to eq("Utah Royals FC")
   end
 
-  it '#highest_score_visitor can find the team with highest average score per game' do
-    expect(@stat_tracker.highest_score_visitor).to eq("FC Dallas")
+  it '#highest_scoring_visitor can find the team with highest average score per game' do
+    expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+  end
+
+  it '#highest_scoring_home_team can find the team with highest average score per game' do
+    expect(@stat_tracker.highest_scoring_home_team).to eq("Reign FC")
   end
 
 
