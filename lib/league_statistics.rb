@@ -93,4 +93,25 @@ class LeagueStatistics
     return row[:teamname] if highest_average_goals_away[0] == row[:team_id]
     end
   end
+
+  def highest_scoring_home_team
+    home_team_hash = {}
+    @games_file.each do |row|
+      if home_team_hash[row[:home_team_id]].nil?
+      home_team_hash[row[:home_team_id]] = [row[:home_goals].to_i]
+      else
+      home_team_hash[row[:home_team_id]] << row[:home_goals].to_i
+      end
+    end
+
+    average_goals_hash_home = {}
+    home_team_hash.each do |key, value|
+      average_goals_hash_home[key] = value.sum / value.size.to_f
+    end
+    highest_average_goals_home = average_goals_hash_home.max_by {|key, value| value}
+
+    @teams_file.find_all do |row|
+    return row[:teamname] if highest_average_goals_home[0] == row[:team_id]
+    end
+  end
 end
