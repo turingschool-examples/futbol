@@ -60,6 +60,16 @@ RSpec.describe do SeasonTracker
     expect(season_tracker.least_accurate_team("20122013")).to eq("Sporting Kansas City")
   end
 
+  it 'most_tackles' do
+    game_path = './data/game_teams_stub.csv'
+    locations = {
+      games: './data/games_stub_2.csv',
+      teams: './data/teams.csv',
+      game_teams: game_path}
+    season_tracker = SeasonTracker.new(locations)
+    expect(season_tracker.most_tackles("20122013")).to eq("FC Dallas")
+  end
+
 
 
 
