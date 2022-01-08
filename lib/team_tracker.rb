@@ -17,10 +17,10 @@ class TeamTracker < Statistics
     all_games = @games.find_all do |game|
       game.home_team_id == team_id || game.away_team_id == team_id
     end
-    reg_games = all_games.find_all do |game|
-      game.type == "Regular Season"
-    end
-    games_by_season = reg_games.group_by do |game|
+    # reg_games = all_games.find_all do |game|
+    #   game.type == "Regular Season"
+    # end
+    games_by_season = all_games.group_by do |game|
       game.season
     end
     win_hash = Hash.new { |hash, key| hash[key] = [] }
@@ -45,10 +45,10 @@ class TeamTracker < Statistics
     all_games = @games.find_all do |game|
       game.home_team_id == team_id || game.away_team_id == team_id
     end
-    reg_games = all_games.find_all do |game|
-      game.type == "Regular Season"
-    end
-    games_by_season = reg_games.group_by do |game|
+    # reg_games = all_games.find_all do |game|
+    #   game.type == "Regular Season"
+    # end
+    games_by_season = all_games.group_by do |game|
       game.season
     end
     win_hash = Hash.new { |hash, key| hash[key] = [] }
@@ -67,5 +67,30 @@ class TeamTracker < Statistics
       hash[season] = wins.to_f / win_hash[season].length
     end
     hash.key(hash.values.min)
+  end
+
+  def average_win_percentage(team_id)
+    all_games = @games.find_all do |game|
+      game.home_team_id == team_id || game.away_team_id == team_id
+    end
+    games_by_season = all_games.group_by do |game|
+      game.season
+    end
+    win_hash = Hash.new { |hash, key| hash[key] = [] }
+    games_by_season.each_pair do |season, games|
+      games.each do |game|
+        @game_teams.find_all do |game_2|
+          win_hash[season] << game_2 if game.game_id == game_2.game_id && game_2.team_id == team_id
+        end
+      end
+    end
+    hash = Hash.new
+    win_hash.each_pair do |season, games|
+      wins = games.count do |game|
+        game.result == "WIN"
+      end
+      hash[season] = (wins.to_f / win_hash[season].length).round(2)
+    end
+    ((hash.values.sum) / hash.values.length).round(2)
   end
 end
