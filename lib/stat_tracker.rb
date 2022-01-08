@@ -114,7 +114,7 @@ class StatTracker
   end
 
   def count_of_games_by_season
-    games_by_season = {}
+    @games_by_season = {}
 
     seasons = @read_games.map do |game|
       game.season
@@ -123,8 +123,38 @@ class StatTracker
       game.season
     end
     seasons.each do |season|
-      games_by_season[season] = games_seasons.count(season)
+      @games_by_season[season] = games_seasons.count(season)
     end
-      games_by_season
+
+
+    @games_by_season
+  end
+  # binding.pry
+  def average_goals_per_game
+    @total_goals = 0
+    @read_games.each do |home|
+      @total_goals += (home.home_goals.to_f + home.away_goals.to_f)
+    end
+    (@total_goals.to_f / @read_games.count).round(2)
+    # binding.pry
+  end
+
+  def average_goals_by_season
+    @seasons = @read_games.map do |game|
+      game.season
+    end.uniq
+    total_goals_by_season = Hash.new(0)
+    @read_games.each do |game|
+        total_goals_by_season[game.season] += (game.home_goals.to_f + game.away_goals.to_f)
+    end
+    average_goals_by_season = {} #Hash.new(0)
+
+    # binding.pry
+    @seasons.each do |w|
+        average_goals_by_season[w] = (total_goals_by_season[w].to_f / count_of_games_by_season[w].to_f).round(2)
+        # average_goals_by_season.transform_values! { |v| (total_goals_by_season[w].to_i / count_of_games_by_season[w].to_i)}
+        # binding.pry
+    end
+    average_goals_by_season
   end
 end
