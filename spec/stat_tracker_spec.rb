@@ -113,7 +113,6 @@ end
 
 ###########season stats tests##################
 RSpec.describe 'Season Stats' do
-
   before(:each) do
     @game_path = './data/games_dummy.csv'
     @team_path = './data/teams.csv'
@@ -132,6 +131,22 @@ RSpec.describe 'Season Stats' do
 
   it 'reports worst coach' do
     expect(@stat_tracker.worst_coach(20172018)).to eq("Bruce Boudreau")
+  end
+
+  it 'reports most accurate team re: goals / shots' do
+    expect(@stat_tracker.most_accurate_team(20172018)).to eq("Sporting Kansas City")
+  end
+
+  it 'reports least accurate team re: goals / shots' do
+    expect(@stat_tracker.least_accurate_team(20172018)).to eq("Orlando City SC")
+  end
+
+  it 'reports most tackles per season' do
+    expect(@stat_tracker.most_tackles(20172018)).to eq("Portland Thorns FC")
+  end
+
+  it 'reports fewest tackles per season' do
+    expect(@stat_tracker.fewest_tackles(20172018)).to eq("Orlando City SC")
   end
 end
 ###############################################
@@ -159,6 +174,12 @@ RSpec.describe 'Team Stats' do
     }
     expect(@stat_tracker.team_info("1")).to eq(expected)
   end
+
+  # xit 'finds the season that a game belongs to' do
+  #   expect(@stat_tracker.season_finder("2012020225")).to eq "20122013"
+  #   expect(@stat_tracker.season_finder("2013020177")).to eq "20132014"
+  #   expect(@stat_tracker.season_finder("2017030163")).to eq "20172018"
+  # end
 
   it 'finds the best season' do
     expect(@stat_tracker.best_season("24")).to eq "20132014"

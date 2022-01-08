@@ -73,6 +73,22 @@ class StatTracker
     @season.worst_coach(season)
   end
 
+  def most_accurate_team(season)
+    @season.most_accurate_team(season)
+  end
+
+  def least_accurate_team(season)
+    @season.least_accurate_team(season)
+  end
+
+  def most_tackles(season)
+    @season.most_tackles(season)
+  end
+
+  def fewest_tackles(season)
+    @season.fewest_tackles(season)
+  end
+
 ###################Team Stats###############
   def team_info(id)
     @team.team_info(id)
