@@ -54,4 +54,12 @@ RSpec.describe GameStatistics do
       expect(actual).to eq(expected)
     end
   end
+
+  describe '#count_of_games_by_season' do
+    it 'has a count of games per season' do
+      actual = @game_statistics.count_of_games_by_season
+      expected = 25
+      expect(actual).to eq(expected)
+    end
+  end
 end

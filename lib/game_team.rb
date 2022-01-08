@@ -26,15 +26,30 @@ class GameTeam
     @result = row[3]
     @settled_in = row[4]
     @head_coach = row[5]
-    @goals = row[6]
-    @shots = row[7]
-    @tackles = row[8]
-    @pim = row[9]
-    @powerPlayOpportunities = row[10]
-    @powerPlayGoals = row[11]
-    @faceOffWinPercentage = row[12]
-    @giveaways = row[13]
-    @takeaways = row[14]
+    @goals = row[6].to_i
+    @shots = row[7].to_i
+    @tackles = row[8].to_i
+    @pim = row[9].to_i
+    @powerPlayOpportunities = row[10].to_i
+    @powerPlayGoals = row[11].to_i
+    @faceOffWinPercentage = row[12].to_f
+    @giveaways = row[13].to_i
+    @takeaways = row[14].to_i
   end
 
+  def num_games_played
+    #amount of times team id shows up in data
+  end
+
+  def average_goals_overall
+    # goals / number of games played
+  end
+
+  def average_goals_HoA
+    # if HoA == away
+    #   those games / number of games played
+    # elsif HoA == home
+    #   those games / number of games played
+    # end
+  end
 end

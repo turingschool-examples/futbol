@@ -1,39 +1,54 @@
-require 'csv'
+require_relative './statistics/game_statistics'
+require_relative './statistics/league_statistics'
+require_relative './statistics/season_statistics'
+require_relative './statistics/team_statistics'
+require_relative './managers/game_manager'
+require_relative './managers/game_teams_manager'
+require_relative './managers/team_manager'
+
 class StatTracker
-  attr_reader :game_statistics
+  attr_reader :season_statistics, :team_statistics
 
   def initialize(locations)
     game_manager = GameManager.new(locations[:games])
-    @game_statistics = GameStatistics.new(game_manager)
     team_manager = TeamManager.new(locations[:teams])
-    game_team_manager = GameTeamManager.new(locations[:game_teams])
+    @team_statistics = TeamStatistics.new(team_manager)
+    game_team_manager = GameTeamsManager.new(locations[:game_teams])
+    @season_statistics = SeasonStatistics.new(game_team_manager)
   end
 
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
-  # require 'pry'; binding.pry
+
+  # Game Statistics
+
+  # League Statistics
 
   # Season Statistics
-  def winningest_coach; end
-
-  def worst_coach
-    # Name of the Coach with the worst win percentage for the season (String)
+  def winningest_coach(season_id)
+    @season_statistics.winningest_coach(season_id)
   end
 
-  def most_accurate_team
-    # Name of the Team with the best ratio of shots to goals for the season (String)
+  def worst_coach(season_id)
+    @season_statistics.worst_coach(season_id)
   end
 
-  def least_accurate_team
-    # Name of the Team with  the worst ratio of shots to goals for the season (String)
+  def most_accurate_team(season_id)
+    @team_statistics.convert_id_to_team_name(@season_statistics.most_accurate_team(season_id))
   end
 
-  def most_tackles
-    # Name of the Team with the most tackles in the season (String)
+  def least_accurate_team(season_id)
+    @team_statistics.convert_id_to_team_name(@season_statistics.least_accurate_team(season_id))
   end
 
-  def fewest_tackles
-    # Name of the Team with the fewest tackles in the season (String)
+  def most_tackles(season_id)
+    @team_statistics.convert_id_to_team_name(@season_statistics.most_tackles(season_id))
   end
+
+  def fewest_tackles(season_id)
+    @team_statistics.convert_id_to_team_name(@season_statistics.fewest_tackles(season_id))
+  end
+
+  # Team Statistics
 end
