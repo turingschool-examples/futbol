@@ -72,4 +72,25 @@ class LeagueStatistics
       return row[:teamname] if y[0] == row[:team_id]
     end
   end
+
+  def highest_scoring_visitor
+  away_team_hash = {}
+  @games_file.each do |row|
+    if away_team_hash[row[:away_team_id]].nil?
+      away_team_hash[row[:away_team_id]] = [row[:away_goals].to_i]
+    else
+      away_team_hash[row[:away_team_id]] << row[:away_goals].to_i
+    end
+  end
+
+    average_goals_hash_away = {}
+    away_team_hash.each do |key, value|
+      average_goals_hash_away[key] = value.sum / value.size.to_f
+    end
+    highest_average_goals_away = average_goals_hash_away.max_by {|key, value| value}
+
+    @teams_file.find_all do |row|
+    return row[:teamname] if highest_average_goals_away[0] == row[:team_id]
+    end
+  end
 end
