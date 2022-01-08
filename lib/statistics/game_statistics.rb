@@ -42,4 +42,8 @@ class GameStatistics
 
     results
   end
+
+  def average_goals_per_game
+    (games.data.sum { |game| game.total_score }) / games.data.count
+  end
 end
