@@ -27,11 +27,6 @@ RSpec.describe LeagueStatistics do
       expect(league.count_of_teams).to eq(32)
     end
 
-    xit 'average goals helper method' do
-      league = LeagueStatistics.new(@locations)
-      expect(league.average_goals).to eq("")
-    end
-
     it 'team with highest average number of goals' do
       league = LeagueStatistics.new(@locations)
       expect(league.best_offense).to eq("FC Dallas")
@@ -40,5 +35,10 @@ RSpec.describe LeagueStatistics do
     it 'team with lowest average number of goals' do
       league = LeagueStatistics.new(@locations)
       expect(league.worst_offense).to eq("Sporting Kansas City")
+    end
+
+    it 'team with highest average score when away' do
+      league = LeagueStatistics.new(@locations)
+      expect(league.highest_scoring_visitor).to eq("FC Dallas")
     end
   end
