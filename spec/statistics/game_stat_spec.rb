@@ -5,13 +5,13 @@ require './lib/statistics/game_statistics'
 RSpec.describe GameStatistics do
   before(:each) do
     mock_game_1 = OpenStruct.new({ home_score: 1, away_score: 3, total_score: 4, home_win?: false, visitor_win?: true,
-                                   tie?: false })
+                                   tie?: false, season: '20122013' })
     mock_game_2 = OpenStruct.new({ home_score: 2, away_score: 6, total_score: 8, home_win?: false, visitor_win?: true,
-                                   tie?: false })
+                                   tie?: false, season: '20122013' })
     mock_game_3 = OpenStruct.new({ home_score: 3, away_score: 1, total_score: 4, home_win?: true, visitor_win?: false,
-                                   tie?: false })
+                                   tie?: false, season: '20122013' })
     mock_game_4 = OpenStruct.new({ home_score: 2, away_score: 2, total_score: 4, home_win?: false,
-                                   visitor_win?: false, tie?: true })
+                                   visitor_win?: false, tie?: true, season: '20142015' })
     mock_game_manager = OpenStruct.new({ data: [mock_game_1, mock_game_2, mock_game_3, mock_game_4] })
     @game_statistics = GameStatistics.new(mock_game_manager)
   end
@@ -58,7 +58,8 @@ RSpec.describe GameStatistics do
   describe '#count_of_games_by_season' do
     it 'has a count of games per season' do
       actual = @game_statistics.count_of_games_by_season
-      expected = 25
+      expected = { '20122013' => 3,
+                   '20142015' => 1 }
       expect(actual).to eq(expected)
     end
   end
