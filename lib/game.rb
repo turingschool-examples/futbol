@@ -5,7 +5,11 @@ class Game
     :type,
     :data_time,
     :home_goals,
-    :away_goals
+    :away_goals,
+    :away_team_id,
+    :home_team_id,
+    :venue,
+    :venue_link
   )
 
   def initialize(row)
@@ -27,5 +31,13 @@ class Game
 
   def home_win?
     home_goals > away_goals
+  end
+
+  def visitor_win?
+    away_goals > home_goals
+  end
+
+  def tie?
+    away_goals == home_goals
   end
 end
