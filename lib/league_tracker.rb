@@ -25,7 +25,4 @@ class LeagueTracker
       accumulator[row[:team_id]] += row[:goals]
     end
   end
-
-
-
 end

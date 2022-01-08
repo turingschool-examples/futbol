@@ -27,7 +27,7 @@ class TeamTracker < Statistics
     games_by_season.each_pair do |season, games|
       games.each do |game|
         @game_teams.find_all do |game_2|
-          win_hash[season] << game_2 if game.game_id == game_2.game_id
+          win_hash[season] << game_2 if game.game_id == game_2.game_id && game_2.team_id == team_id
         end
       end
     end
@@ -36,13 +36,8 @@ class TeamTracker < Statistics
       wins = games.count do |game|
         game.result == "WIN"
       end
-      ties = games.count do |game|
-        game.result == "TIE"
-      end
-      hash[season] = (wins.to_f + (ties/2))/ win_hash[season].length
+      hash[season] = wins.to_f / win_hash[season].length
     end
-    require "pry"; binding.pry
+    hash.key(hash.values.max)
   end
 end
-#tracker = TeamTracker.new
-#p tracker.teams
