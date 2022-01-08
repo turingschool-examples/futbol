@@ -52,4 +52,8 @@ RSpec.describe LeagueStatistics do
       expect(league.lowest_scoring_visitor).to eq("Sporting Kansas City")
     end
 
+    it 'team with lowest average score when home' do
+      league = LeagueStatistics.new(@locations)
+      expect(league.lowest_scoring_home_team).to eq("Sporting Kansas City")
+    end
   end
