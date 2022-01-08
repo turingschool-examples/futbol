@@ -40,7 +40,17 @@ RSpec.describe do SeasonTracker
     expect(season_tracker.worst_coach("20122013")).to eq("John Tortorella")
   end
 
-  
+  it 'most_accurate_team' do
+    game_path = './data/game_teams_stub.csv'
+    locations = {
+      games: './data/games_stub_2.csv',
+      teams: './data/teams.csv',
+      game_teams: game_path}
+    season_tracker = SeasonTracker.new(locations)
+    expect(season_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
+  end
+
+
 
 
 

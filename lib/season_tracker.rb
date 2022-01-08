@@ -40,10 +40,30 @@ class SeasonTracker < Statistics
       hash[coach] = result.to_f / coaches[coach].length
     end
     hash.key(hash.values.min)
-    require "pry"; binding.pry
   end
 
-
+  def most_accurate_team(season_id)
+    seasons = @games.find_all {|game| game.season == season_id}
+    seasons.each do |game|
+      @game_teams.find_all do |game_2|
+        game.game_id == game_2.game_id
+      end
+    end
+    teams = @game_teams.group_by do |game|
+      game.team_id
+    end
+    hash = Hash.new
+    teams.each_pair do |team, games|
+      shots = games.reduce(0) do |sum, game|
+        sum + game.shots
+      end
+      goals = games.reduce(0) do |sum, game|
+        sum + game.goals
+      end
+      hash[team] = goals.to_f / shots
+    end
+    find_name_by_ID(hash.key(hash.values.max))[0].teamname
+  end
 
 
 end
