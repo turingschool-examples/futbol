@@ -1,3 +1,6 @@
+# MIGHT NEED
+
+
 require 'csv'
 require './lib/team'
 
@@ -52,6 +55,8 @@ class TeamTracker
     @teams
   end
 
+
+  # USE THIS METHOD TEAM INFO
   def team_info(team)
     team_hash = {}
     team.instance_variables.each do |variable|
