@@ -7,14 +7,6 @@ class Game
     @games = games
     @teams = teams
     @game_teams = game_teams
-
-    # require "pry"; binding.pry
-    # super(games)
-    # super(teams)
-    # super(game_teams)
-    # @home_goals = []
-    # @away_goals = []
-    # @season = []
   end
 
   def highest_total_score

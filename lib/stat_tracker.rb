@@ -16,10 +16,6 @@ class StatTracker
     @league = League.new(games, teams, game_teams)
     @season = Season.new(games, teams, game_teams)
     @team = Team.new(games, teams, game_teams)
-    # @home_goals = []
-    # @away_goals = []
-    # @season = []
-    #@game = Game.new(locations)
   end
 
   def self.from_csv(locations)
@@ -83,7 +79,30 @@ class StatTracker
   end
 
   def best_season(team_id)
-    # Team.new.best_season(team_id, @games, @game_teams)
     @team.best_season(team_id)
+  end
+
+  def worst_season(team_id)
+    @team.worst_season(team_id)
+  end
+
+  def average_win_percentage(team_id)
+    @team.average_win_percentage(team_id)
+  end
+
+  def most_goals_scored(team_id)
+    @team.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    @team.fewest_goals_scored(team_id)
+  end
+
+  def favorite_opponent(team_id)
+    @team.favorite_opponent(team_id)
+  end
+
+  def rival(team_id)
+    @team.rival(team_id)
   end
 end

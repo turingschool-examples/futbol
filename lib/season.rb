@@ -5,7 +5,7 @@ class Season
     @games = games
     @teams = teams
     @game_teams = game_teams
-end
+  end
 
   def winningest_coach(season)
     games_in_season = @games.select do |game|
