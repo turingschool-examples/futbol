@@ -114,4 +114,19 @@ class TeamTracker < Statistics
     game.goals
   end
 
+  def favorite_opponent(team_id)
+    all_games = @games.find_all do |game|
+      game.home_team_id == team_id || game.away_team_id == team_id
+    end
+    won_games = @game_teams.find_all{|game|game.result == "WIN"}
+    filtered_games = []
+    all_games.each do |game|
+      won_games.each do |won_game|
+        filtered_games << game if game.game_id == won_game.game_id
+      end
+    end
+    filtered_games
+    require "pry"; binding.pry
+  end
+
 end

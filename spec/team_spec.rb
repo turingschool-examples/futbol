@@ -83,4 +83,16 @@ RSpec.describe do TeamTracker
     expect(team_tracker.fewest_goals_scored("18")).to eq(0)
   end
 
+  it 'tests favorite opponent' do
+    game_path = './data/game_teams.csv'
+    locations = {
+      games: './data/games.csv',
+      teams: './data/teams.csv',
+      game_teams: game_path}
+    team_tracker = TeamTracker.new(locations)
+    expect(team_tracker.favorite_opponent("18")).to eq("DC United")
+  end
+
+
+
 end
