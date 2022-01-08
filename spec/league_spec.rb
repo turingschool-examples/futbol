@@ -34,7 +34,6 @@ RSpec.describe do GameTeamTracker
       teams: './data/teams.csv',
       game_teams: game_path}
     game_tracker = GameTeamTracker.new(locations)
-    #expect(game_tracker.best_offense).to include("6")
     expect(game_tracker.best_offense).to eq("FC Dallas")
   end
 
@@ -46,9 +45,7 @@ RSpec.describe do GameTeamTracker
       teams: './data/teams.csv',
       game_teams: game_path
     }
-    # binding.pry
     game_tracker = GameTeamTracker.new(locations)
-
     expect(game_tracker.worst_offense).to eq("Sporting Kansas City")
   end
 
@@ -60,7 +57,6 @@ RSpec.describe do GameTeamTracker
       teams: './data/teams.csv',
       game_teams: game_path
     }
-    # binding.pry
     game_tracker = GameTeamTracker.new(locations)
     expect(game_tracker.highest_scoring_visitor).to eq("FC Dallas")
   end
@@ -73,7 +69,6 @@ RSpec.describe do GameTeamTracker
       teams: './data/teams.csv',
       game_teams: game_path
     }
-    # binding.pry
     game_tracker = GameTeamTracker.new(locations)
     expect(game_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
   end
@@ -86,7 +81,6 @@ RSpec.describe do GameTeamTracker
       teams: './data/teams.csv',
       game_teams: game_path
     }
-    # binding.pry
     game_tracker = GameTeamTracker.new(locations)
     expect(game_tracker.highest_scoring_home_team).to eq("FC Dallas")
   end
@@ -99,11 +93,7 @@ RSpec.describe do GameTeamTracker
       teams: './data/teams.csv',
       game_teams: game_path
     }
-    # binding.pry
     game_tracker = GameTeamTracker.new(locations)
     expect(game_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
   end
-
-
-
 end
