@@ -48,5 +48,9 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.highest_scoring_home_team).to eq("Reign FC")
   end
 
+  it '#lowest_scoring_visitor can find the team with highest average score per game' do
+    expect(@stat_tracker.lowest_scoring_visitor).to eq("San Jose Earthquakes")
+  end
+
 
 end
