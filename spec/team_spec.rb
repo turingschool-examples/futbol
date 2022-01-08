@@ -63,4 +63,24 @@ RSpec.describe do TeamTracker
     expect(team_tracker.average_win_percentage("6")).to eq(0.49)
   end
 
+  it 'tests most goals scored' do
+    game_path = './data/game_teams.csv'
+    locations = {
+      games: './data/games.csv',
+      teams: './data/teams.csv',
+      game_teams: game_path}
+    team_tracker = TeamTracker.new(locations)
+    expect(team_tracker.most_goals_scored("18")).to eq(7)
+  end
+
+  it 'tests fewest_goals_scored' do
+    game_path = './data/game_teams.csv'
+    locations = {
+      games: './data/games.csv',
+      teams: './data/teams.csv',
+      game_teams: game_path}
+    team_tracker = TeamTracker.new(locations)
+    expect(team_tracker.fewest_goals_scored("18")).to eq(0)
+  end
+
 end
