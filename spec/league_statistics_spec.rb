@@ -46,4 +46,10 @@ RSpec.describe LeagueStatistics do
       league = LeagueStatistics.new(@locations)
       expect(league.highest_scoring_home_team).to eq("LA Galaxy")
     end
+
+    it 'team with lowest average score when away' do
+      league = LeagueStatistics.new(@locations)
+      expect(league.lowest_scoring_visitor).to eq("Sporting Kansas City")
+    end
+
   end
