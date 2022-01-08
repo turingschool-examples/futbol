@@ -9,7 +9,6 @@ class StatTracker
 
   def initialize(locations)
     @locations = locations
-
     @games_file = GamesCollection.new(@locations[:games])
     @teams_file = TeamsCollection.new(@locations[:teams])
     @game_teams_file = GamesTeamsCollection.new(@locations[:game_teams])
@@ -44,6 +43,7 @@ class StatTracker
   def percentage_home_wins
     games_played = 0
     wins = 0
+
      @read_game_teams.each do |game|
       if game.hoa == "home" && game.result == "WIN"
         games_played += 1
@@ -84,8 +84,49 @@ class StatTracker
   end
 end
 
+  def percentage_visitor_wins
+    games_played = 0
+    wins = 0
+     @read_games.each do |game|
+      if game.away_goals.to_i > game.home_goals.to_i
+        games_played += 1
+        wins += 1
+      elsif
+        games_played += 1
+      end
+    end
+    # binding.pry
+      (wins.to_f / games_played.to_f).round(2)
+  end
 
-# locations.each do |location|
-#   location.key.to_s = StatTracker.new(location.value)
-#   binding.pry
-# end
+  def percentage_ties
+    games_played = 0
+    wins = 0
+     @read_games.each do |game|
+      if game.away_goals.to_i == game.home_goals.to_i
+        games_played += 1
+        wins += 1
+      elsif
+        games_played += 1
+      end
+    end
+    # binding.pry
+      (wins.to_f / games_played.to_f).round(2)
+  end
+
+  def count_of_games_by_season
+    games_by_season = {}
+
+    seasons = @read_games.map do |game|
+      game.season
+    end.uniq
+    games_seasons = @read_games.map do |game|
+      game.season
+    end
+    seasons.each do |season|
+      games_by_season[season] = games_seasons.count(season)
+    end
+    games_by_season
+  end
+end
+  
