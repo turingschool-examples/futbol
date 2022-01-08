@@ -1,66 +1,62 @@
-require 'csv'
-require './lib/team'
-
-#require '../data/teams_stub.csv'
-
-class TeamTracker
-  attr_reader :teams
-
-  def initialize
-    @@teams = create_teams
-  end
-
-  def create_games
-    @games = []
-    contents = CSV.open './data/game_teams_stub.csv', headers:true, header_converters: :symbol
-    contents.each do |row|
-      team_id = row[:team_id]
-      game_id = row[:game_id]
-      hoa = row[:HoA]
-      result = row[:result]
-      settled_in = row[:settled_in]
-      head_coach = row[:head_coach]
-      goals = row[:goals]
-      shots = row[:shots]
-      tackles = row[:tackles]
-      pim = row[:pim]
-      powerPlayOpportunities = row[:powerPlayOpportunities]
-      powerPlayGoals = row[:powerPlayGoals]
-      faceOffWinPercentage = row[:faceOffWinPercentage]
-      giveaways = row[:giveaways]
-      takeaways = row[:takeaways]
-    end
-    @games
-  end
-
-  def create_teams
-    @teams = []
-    contents = CSV.open './data/teams.csv', headers:true, header_converters: :symbol
-    contents.each do |row|
-      team_id = row[:team_id]
-      franchise_id = row[:franchiseid]
-      team_name = row[:teamname]
-      abbreviation = row[:abbreviation]
-      stadium = row[:stadium]
-      link = row[:link]
-      @teams << Team.new(team_id, franchise_id, team_name, abbreviation, stadium, link)
-    end
-    @teams
-  end
-
-  def self.teams
-    @teams
-  end
-
-  def team_info(team)
+class TeamTracker < Statistics
+  # USE THIS METHOD TEAM INFO
+  def team_info(team_id)
     team_hash = {}
+    team = @teams.find do |team|
+      team.team_id == team_id
+    end
     team.instance_variables.each do |variable|
       variable = variable.to_s.delete! '@'
       team_hash[variable.to_sym] = team.instance_variable_get("@#{variable}".to_sym)
     end
     team_hash
   end
+
+
+  def best_season(team_id)
+    all_games = @games.find_all do |game|
+      game.home_team_id == team_id || game.away_team_id == team_id
+    end
+    reg_games = all_games.find_all do |game|
+      game.type == "Regular Season"
+    end
+    games_by_season = reg_games.group_by do |game|
+      game.season
+    end
+    win_hash = Hash.new { |hash, key| hash[key] = [] }
+    games_by_season.each_pair do |season, games|
+      games.each do |game|
+        @game_teams.find_all do |game_2|
+          win_hash[season] << game_2 if game.game_id == game_2.game_id
+        end
+      end
+    end
+    hash = Hash.new
+    win_hash.each_pair do |season, games|
+      wins = games.count do |game|
+        game.result == "WIN"
+      end
+      ties = games.count do |game|
+        game.result == "TIE"
+      end
+      hash[season] = (wins.to_f + (ties/2))/ win_hash[season].length
+    end
+    require "pry"; binding.pry
+  end
 end
 #tracker = TeamTracker.new
 #p tracker.teams
-#p tracker.team_info(tracker.teams[1])
+  10  spec/team_spec.rb
+@@ -35,5 +35,15 @@
+    )
+  end
+
+  it 'tests best season' do
+    game_path = './data/game_teams.csv'
+    locations = {
+      games: './data/games.csv',
+      teams: './data/teams.csv',
+      game_teams: game_path}
+    team_tracker = TeamTracker.new(locations)
+    expect(team_tracker.best_season("6")).to eq("20132014")
+  end
