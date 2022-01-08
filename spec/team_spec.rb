@@ -53,5 +53,14 @@ RSpec.describe do TeamTracker
     expect(team_tracker.worst_season("6")).to eq("20142015")
   end
 
+  it 'tests average_win_percentage' do
+    game_path = './data/game_teams.csv'
+    locations = {
+      games: './data/games.csv',
+      teams: './data/teams.csv',
+      game_teams: game_path}
+    team_tracker = TeamTracker.new(locations)
+    expect(team_tracker.average_win_percentage("6")).to eq(0.49)
+  end
 
 end
