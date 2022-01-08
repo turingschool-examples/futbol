@@ -111,12 +111,37 @@ class Season
     shots_per_team
   end
 
-
   def most_tackles(season)  #stat_tracker method
-
+    tackles_hash = Hash.new(0.0)
+    tackles_per_season(season).each_key do |key|
+      tackles_hash[key] = tackles_per_season(season)[key]
+    end
+    team_info = @teams.find do |team|
+      team[:team_id] == tackles_hash.key(tackles_hash.values.max) #this yeilds  string of the team_id
+    end
+    team_info[:teamname]
   end
 
   def fewest_tackles(season) #stat_tracker method
+    tackles_hash = Hash.new(0.0)
+    tackles_per_season(season).each_key do |key|
+      tackles_hash[key] = tackles_per_season(season)[key]
+    end
+    team_info = @teams.find do |team|
+      team[:team_id] == tackles_hash.key(tackles_hash.values.min) #this yeilds  string of the team_id
+    end
+    # require 'pry'; binding.pry
+    team_info[:teamname]
+  end
 
+  def tackles_per_season(season) #helper method
+    tackles_per_team = Hash.new(0)
+    games_in_season_by_team_id(season).each do |team_id, game_array|
+      tackles_per_team[team_id] = game_array.map {|game| game[:tackles].to_f}
+    end
+    tackles_per_team.each do |team_id, tackles_array|
+      tackles_per_team[team_id] = tackles_array.sum
+    end
+    tackles_per_team
   end
 end

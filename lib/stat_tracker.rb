@@ -16,11 +16,7 @@ class StatTracker
     @league = League.new(games, teams, game_teams)
     @season = Season.new(games, teams, game_teams)
     @team = Team.new(games, teams, game_teams)
-    # @home_goals = []
-    # @away_goals = []
-    # @season = []
-    #@game = Game.new(locations)
-  end
+    end
 
   def self.from_csv(locations)
     StatTracker.new(locations)
@@ -86,11 +82,11 @@ class StatTracker
   end
 
   def most_tackles(season)
-    #coming soon!
+    @season.most_tackles(season)
   end
 
   def fewest_tackles(season)
-    #coming soon!
+    @season.fewest_tackles(season)
   end
 
 ###################Team Stats###############

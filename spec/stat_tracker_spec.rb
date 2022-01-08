@@ -142,6 +142,14 @@ RSpec.describe 'Season Stats' do
   it 'reports least accurate team re: goals / shots' do
     expect(@stat_tracker.least_accurate_team(20172018)).to eq("Orlando City SC")
   end
+
+  it 'reports most tackles per season' do
+    expect(@stat_tracker.most_tackles(20172018)).to eq("Portland Thorns FC")
+  end
+
+  it 'reports fewest tackles per season' do
+    expect(@stat_tracker.fewest_tackles(20172018)).to eq("Orlando City SC")
+  end
 end
 ###############################################
 
