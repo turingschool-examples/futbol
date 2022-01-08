@@ -41,4 +41,9 @@ RSpec.describe LeagueStatistics do
       league = LeagueStatistics.new(@locations)
       expect(league.highest_scoring_visitor).to eq("FC Dallas")
     end
+
+    it 'team with highest average score when home' do
+      league = LeagueStatistics.new(@locations)
+      expect(league.highest_scoring_home_team).to eq("LA Galaxy")
+    end
   end
