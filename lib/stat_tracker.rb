@@ -35,9 +35,9 @@ class StatTracker
       end
     end
 
-    result_2 = average_goals(hash_team_stats)
+    team_stats = average_goals(hash_team_stats)
 
-    highest_average_goals = result_2.max_by {|key, value| value}
+    highest_average_goals = team_stats.max_by {|team_id, team_id_value| team_id_value}
 
     @read_teams.find_all do |row|
       return row.teamname if highest_average_goals[0] == row.team_id
@@ -61,9 +61,7 @@ class StatTracker
       end
     end
 
-    result_2 = average_goals(hash_team_stats)
-
-    lowest_average = result_2.min_by {|team_id, team_id_value| team_id_value}
+    lowest_average = team_stats.min_by {|team_id, team_id_value| team_id_value}
 
     @read_teams.find_all do |row|
       return row.teamname if lowest_average[0] == row.team_id
