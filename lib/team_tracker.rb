@@ -115,18 +115,23 @@ class TeamTracker < Statistics
   end
 
   def favorite_opponent(team_id)
-    all_games = @games.find_all do |game|
-      game.home_team_id == team_id || game.away_team_id == team_id
-    end
-    won_games = @game_teams.find_all{|game|game.result == "WIN"}
-    filtered_games = []
+    all_games = @games.find_all {|game| game.home_team_id == team_id || game.away_team_id == team_id }
+    opponent_lost_hash = Hash.new { |hash, key| hash[key] = [] }
+    total_opponent_games = Hash.new { |hash, key| hash[key] = 0 }
     all_games.each do |game|
-      won_games.each do |won_game|
-        filtered_games << game if game.game_id == won_game.game_id
+      opponent_lost_hash[game.away_team_id] << game if (game.home_team_id == team_id) && (game.home_goals > game.away_goals)
+      opponent_lost_hash[game.home_team_id] << game if (game.away_team_id == team_id) && (game.home_goals < game.away_goals)
+      total_opponent_games[game.home_team_id] += 1 if (game.away_team_id == team_id)
+      total_opponent_games[game.away_team_id] += 1 if (game.home_team_id == team_id)
+    end
+    most_win_hash = Hash.new
+    opponent_lost_hash.each_pair do |lost_opponent, won_games|
+      total_opponent_games.each_pair do |any_opponent, all_games|
+        if lost_opponent == any_opponent
+          most_win_hash[lost_opponent] = won_games.length / all_games.to_f
+        end
       end
     end
-    filtered_games
-    require "pry"; binding.pry
+    find_name_by_ID(most_win_hash.key(most_win_hash.values.max))[0].teamname
   end
-
 end
