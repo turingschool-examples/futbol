@@ -93,6 +93,13 @@ RSpec.describe do TeamTracker
     expect(team_tracker.favorite_opponent("18")).to eq("DC United")
   end
 
-
-
+  it 'rival' do
+    game_path = './data/game_teams.csv'
+    locations = {
+      games: './data/games.csv',
+      teams: './data/teams.csv',
+      game_teams: game_path}
+    team_tracker = TeamTracker.new(locations)
+    expect(team_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
+  end
 end
