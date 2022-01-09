@@ -63,4 +63,47 @@ class League
     end
     x[:teamname]
   end
+  
+  def highest_scoring_visitor
+    score_ranker("high", "away")
+  end
+
+  def highest_scoring_home_team
+    score_ranker("high", "home")
+  end
+
+  def lowest_scoring_visitor
+    score_ranker("low", "away")
+  end
+
+  def lowest_scoring_home_team
+    score_ranker("low", "home")
+  end
+
+  def score_ranker(rank, location)
+    if rank == "high"
+      team = avg_scoring(location).max_by { |k,v| v }
+      team[0]
+    elsif rank == "low"
+      team = avg_scoring(location).min_by { |k,v| v }
+      team[0]
+    end
+  end
+
+  def avg_scoring(location)
+    h = {}
+    all_team_ids = @teams.map {|row| row[:team_id]}
+    all_team_ids.each do |id|
+      goals = 0
+      gamez = 0
+      @games.each do |row|
+        if row["#{location}_team_id".to_sym] == id
+          goals += row["#{location}_goals".to_sym].to_i
+          gamez += 1
+        end
+        h[convert_team_id_to_name(id.to_i)] = (goals.to_f / gamez).round(2) unless gamez == 0
+      end
+    end
+    h
+  end
 end
