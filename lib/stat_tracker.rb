@@ -32,14 +32,15 @@ class StatTracker
     scores_array.max
   end
 
-  def lowest_total_score #helper method it later
-    scores_array = []
-    @read_games.each do |row|
-      scores_array << row.away_goals.to_i + row.home_goals.to_i
-    end
-    scores_array.min
+  def self.from_csv(files)
+    StatTracker.new(files)
   end
 
+
+  def count_of_teams
+    @read_teams.size
+  end
+  
   def percentage_home_wins
     games_played = 0
     wins = 0
@@ -53,21 +54,143 @@ class StatTracker
       end
     end
       (wins.to_f / games_played.to_f).round(2)
-  end
+   end
 
-  def percentage_away_wins
-    games_played = 0
-    wins = 0
-     @read_game_teams.each do |game|
-      if game.hoa == "away" && game.result == "WIN"
-        games_played += 1
-        wins += 1
-      elsif game.hoa == "away" && game.result == "LOSS"
-        games_played += 1
-      end
-    end
-      (wins.to_f / games_played.to_f).round(2)
-  end
+  # def best_offense
+  #   hash_team_stats = {}
+  #   @read_game_teams.each do |row|
+  #     if hash_team_stats[row.team_id].nil?
+  #       hash_team_stats[row.team_id] = [row.goals.to_i]
+  #     else
+  #       hash_team_stats[row.team_id] << row.goals.to_i
+  #     end
+  #   end
+  #
+  #   team_stats = average_goals(hash_team_stats)
+  #
+  #   highest_average_goals = team_stats.max_by {|team_id, team_id_value| team_id_value}
+  #
+  #   @read_teams.find_all do |row|
+  #     return row.teamname if highest_average_goals[0] == row.team_id
+  #   end
+  # end
+  #
+  # def average_goals(argument_1)
+  #   result_2 = {}
+  #   argument_1.each do |key, value|
+  #     result_2[key] = value.sum / value.size.to_f
+  #   end
+  # end
+  #
+  # def worst_offense
+  #   hash_team_stats = {}
+  #   @read_game_teams.each do |row|
+  #     if hash_team_stats[row.team_id].nil?
+  #       hash_team_stats[row.team_id] = [row.goals.to_i]
+  #     else
+  #       hash_team_stats[row.team_id] << row.goals.to_i
+  #     end
+  #   end
+  #
+  #   team_stats = {}
+  #   hash_team_stats.each do |key, value|
+  #     team_stats[key] = value.sum / value.size.to_f
+  #   end
+  #
+  #   lowest_average_goals = team_stats.min_by {|team_id, team_id_value| team_id_value}
+  #
+  #   @read_teams.find_all do |row|
+  #     return row.teamname if lowest_average_goals[0] == row.team_id
+  #   end
+  # end
+  #
+  # def highest_scoring_visitor
+  #   hash_for_away_teams = {}
+  #   @read_games.each do |row|
+  #     if hash_for_away_teams[row.away_team_id].nil?
+  #       hash_for_away_teams[row.away_team_id] = [row.away_goals.to_i]
+  #     else
+  #       hash_for_away_teams[row.away_team_id] << row.away_goals.to_i
+  #     end
+  #   end
+  #
+  #   hash_for_average_goals_away = {}
+  #   hash_for_away_teams.each do |team_id, team_id_goals|
+  #     hash_for_average_goals_away[team_id] = team_id_goals.sum / team_id_goals.size.to_f
+  #   end
+  #
+  #   away_highest_average = hash_for_average_goals_away.max_by {|team_id, team_id_goals| team_id_goals}
+  #
+  #   @read_teams.find_all do |row|
+  #     return row.teamname if away_highest_average[0] == row.team_id
+  #   end
+  # end
+  #
+  # def highest_scoring_home_team
+  #   hash_for_home_teams = {}
+  #   @read_games.each do |row|
+  #     if hash_for_home_teams[row.home_team_id].nil?
+  #       hash_for_home_teams[row.home_team_id] = [row.home_goals.to_i]
+  #     else
+  #       hash_for_home_teams[row.home_team_id] << row.home_goals.to_i
+  #     end
+  #   end
+  #
+  #   hash_for_average_goals_home = {}
+  #   hash_for_home_teams.each do |team_id, team_id_goals|
+  #     hash_for_average_goals_home[team_id] = team_id_goals.sum / team_id_goals.size.to_f
+  #   end
+  #
+  #   home_highest_average = hash_for_average_goals_home.max_by {|team_id, team_id_goals| team_id_goals}
+  #
+  #   @read_teams.find_all do |row|
+  #     return row.teamname if home_highest_average[0] == row.team_id
+  #   end
+  # end
+  #
+  # def lowest_scoring_visitor
+  #   hash_for_away_teams = {}
+  #   @read_games.each do |row|
+  #     if hash_for_away_teams[row.away_team_id].nil?
+  #       hash_for_away_teams[row.away_team_id] = [row.away_goals.to_i]
+  #     else
+  #       hash_for_away_teams[row.away_team_id] << row.away_goals.to_i
+  #     end
+  #   end
+  #
+  #   hash_for_average_goals_away = {}
+  #   hash_for_away_teams.each do |team_id, team_id_goals|
+  #     hash_for_average_goals_away[team_id] = team_id_goals.sum / team_id_goals.size.to_f
+  #   end
+  #
+  #   away_lowest_average = hash_for_average_goals_away.min_by {|team_id, team_id_goals| team_id_goals}
+  #
+  #   @read_teams.find_all do |row|
+  #     return row.teamname if away_lowest_average[0] == row.team_id
+  #   end
+  # end
+  #
+  # def lowest_scoring_home_team
+  #   hash_for_home_teams = {}
+  #   @read_games.each do |row|
+  #     if hash_for_home_teams[row.home_team_id].nil?
+  #       hash_for_home_teams[row.home_team_id] = [row.home_goals.to_i]
+  #     else
+  #       hash_for_home_teams[row.home_team_id] << row.home_goals.to_i
+  #     end
+  #   end
+  #
+  #   hash_for_average_goals_home = {}
+  #   hash_for_home_teams.each do |team_id, team_id_goals|
+  #     hash_for_average_goals_home[team_id] = team_id_goals.sum / team_id_goals.size.to_f
+  #   end
+  #
+  #   home_lowest_average = hash_for_average_goals_home.min_by {|team_id, team_id_goals| team_id_goals}
+  #
+  #   @read_teams.find_all do |row|
+  #     return row.teamname if home_lowest_average[0] == row.team_id
+  #   end
+  # end
 
   def percentage_ties
     games_played = 0
