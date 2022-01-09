@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/tj/Desktop/turing_projects/futbol/lib/game_statistics.rb": {
+      "/Users/lukepascale/turing/projects/futbol/lib/game_statistics.rb": {
         "lines": [
           1,
           null,
@@ -95,7 +95,7 @@
           null
         ]
       },
-      "/Users/tj/Desktop/turing_projects/futbol/spec/stat_tracker_spec.rb": {
+      "/Users/lukepascale/turing/projects/futbol/spec/stat_tracker_spec.rb": {
         "lines": [
           1,
           1,
@@ -121,12 +121,66 @@
           null,
           null
         ]
+      },
+      "/Users/lukepascale/turing/projects/futbol/spec/team_statistics_spec.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/lukepascale/turing/projects/futbol/lib/team_statistics.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          null
+        ]
       }
     },
-<<<<<<< Updated upstream
-    "timestamp": 1641426848
-=======
-    "timestamp": 1641332735
->>>>>>> Stashed changes
+    "timestamp": 1641755502
   }
 }
