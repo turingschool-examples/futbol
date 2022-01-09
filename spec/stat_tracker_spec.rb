@@ -102,12 +102,12 @@ RSpec.describe 'League Stats' do
     expect(@stat_tracker.count_of_teams).to eq(32)
   end
 
-  xit 'can convert team ids to name' do
-    expect(@stat_tracker.convert_team_id_to_name(24)).to eq('Real Salt Lake')
+  it 'can return the best offense in data' do
+    expect(@stat_tracker.best_offense).to eq("FC Dallas")
   end
 
-  xit 'can return the best offense in data' do
-    expect(@stat_tracker.best_offense).to eq('Portland Thorns FC')
+  it 'can return the worst offense in data' do
+    expect(@stat_tracker.worst_offense).to eq("Seattle Sounders FC")
   end
 end
 

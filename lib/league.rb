@@ -8,45 +8,62 @@ class League
       @game_teams = game_teams
   end
 
-  def average_goals_per_team(team_id_integer)
-    game_counter = 0
-    goals_per_game = []
-    @game_teams.each do |row|
-      if row[:team_id].to_i == team_id_integer
-        goals_per_game << row[:goals].to_i
-        game_counter += 1
-      end
-    end
-    average(goals_per_game, game_counter)
-  end
-
   def count_of_teams
     @teams.count
   end
 
-  def all_teams_ids(data)
-    team_id = []
-    data.each do |row|
-      team_id << row[:team_id].to_i
+  def best_offense #stat tracker
+    offense_avgs_by_team = Hash.new(0.0)
+    total_goals_per_team.each do |team_id, total_goals|
+      offense_avgs_by_team[team_id] = total_goals_per_team[team_id] / all_games_played(team_id).count
     end
-    team_id.uniq
+    best_team_id = offense_avgs_by_team.key(offense_avgs_by_team.values.max)
+    convert_team_id_to_name(best_team_id)
   end
 
-  def average(numerator, denominator)
-    (numerator.sum.to_f / denominator).round(2)
+  def worst_offense #stat tracker
+    offense_avgs_by_team = Hash.new(0.0)
+    total_goals_per_team.each do |team_id, total_goals|
+      offense_avgs_by_team[team_id] = total_goals_per_team[team_id] / all_games_played(team_id).count
+    end
+    best_team_id = offense_avgs_by_team.key(offense_avgs_by_team.values.min)
+    convert_team_id_to_name(best_team_id)
   end
 
-  def convert_team_id_to_name(team_id_integer)
+  def games_by_team_id
+    @game_teams.group_by {|game| game[:team_id]}
+  end
+
+  def collection_of_goals_per_team
+    goals_per_team = Hash.new(0)
+    games_by_team_id.each do |team_id, game_array|
+      goals_per_team[team_id] = game_array.map {|game| game[:goals].to_f}
+    end
+    goals_per_team
+  end
+
+  def total_goals_per_team
+    goal_grandtotals_per_team = Hash.new(0)
+    collection_of_goals_per_team.each do |team_id, goals_array|
+      goal_grandtotals_per_team[team_id] = goals_array.sum
+    end
+    goal_grandtotals_per_team
+  end
+
+  def all_games_played(team_id)
+    @game_teams.select do |row|
+      row if row[:team_id] == team_id
+    end
+  end
+
+  def convert_team_id_to_name(team_id)
     name_array = []
     x = @teams.find do |row|
-      row[:team_id].to_i == team_id_integer
+      row[:team_id] == team_id
     end
     x[:teamname]
   end
-
-  def best_offense
-  end
-
+  
   def highest_scoring_visitor
     score_ranker("high", "away")
   end
