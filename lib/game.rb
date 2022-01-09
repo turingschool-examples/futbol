@@ -16,7 +16,7 @@ class Game
     # @away_goals = []
     # @season = []
   end
-
+  
   def highest_total_score
     game_with_max = @games.max_by do |row|
       row[:away_goals].to_i + row[:home_goals].to_i
