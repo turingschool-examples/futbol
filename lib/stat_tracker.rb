@@ -64,6 +64,10 @@ class StatTracker
     @league.best_offense
   end
 
+  def worst_offense
+    @league.worst_offense
+  end
+
 ############Season Stats##############
   def winningest_coach(season)
     @season.winningest_coach(season)
