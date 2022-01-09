@@ -154,4 +154,10 @@ RSpec.describe Team do
     expect(@team.rival("30")).to eq "Portland Thorns FC"
     expect(@team.rival("52")).to eq "Orlando City SC"
   end
+
+  it 'finds the season that a game belongs to' do
+    expect(@team.season_finder("2012020225")).to eq "20122013"
+    expect(@team.season_finder("2013020177")).to eq "20132014"
+    expect(@team.season_finder("2017030163")).to eq "20172018"
+  end
 end
