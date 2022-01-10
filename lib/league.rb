@@ -1,11 +1,10 @@
-
 class League
-    attr_reader :games, :teams, :game_teams
+  attr_reader :games, :teams, :game_teams
 
-    def initialize(games, teams, game_teams)
-      @games = games
-      @teams = teams
-      @game_teams = game_teams
+  def initialize(games, teams, game_teams)
+    @games = games
+    @teams = teams
+    @game_teams = game_teams
   end
 
   def count_of_teams
@@ -63,7 +62,7 @@ class League
     end
     x[:teamname]
   end
-  
+
   def highest_scoring_visitor
     score_ranker("high", "away")
   end
@@ -101,7 +100,7 @@ class League
           goals += row["#{location}_goals".to_sym].to_i
           gamez += 1
         end
-        h[convert_team_id_to_name(id.to_i)] = (goals.to_f / gamez).round(2) unless gamez == 0
+        h[convert_team_id_to_name(id)] = (goals.to_f / gamez).round(2) unless gamez == 0
       end
     end
     h

@@ -46,19 +46,18 @@ class Season
   def games_in_season(season) #helper method
     #array of games from game_teams that have a matching game_id to the game_ids within a certain season
     season_games = @games.select do |game|
-      game if game[:season].to_i == season
+      game if game[:season] == season  #removed .to_i -- will see if this fixes spec harness issues
     end
     game_ids = season_games.map do |game|
       game[:game_id]
     end
     games = @game_teams.select do |game|
-     game if game_ids.include?(game[:game_id])
+      game if game_ids.include?(game[:game_id])
     end
   end
 
   def most_accurate_team(season)  #stat_tracker method
     # Name of the Team with the best ratio of shots to goals for the season
-    # goals / shots
     shot_accuracy_hash = Hash.new(0.0)
     total_shots_per_season(season).each_key do |key|
       shot_accuracy_hash[key] = total_goals_per_season(season)[key] / total_shots_per_season(season)[key]
@@ -71,7 +70,6 @@ class Season
 
   def least_accurate_team(season)  #stat_tracker method
     # Name of the Team with the worst ratio of shots to goals for the season
-    # goals / shots
     shot_accuracy_hash = Hash.new(0.0)
     total_shots_per_season(season).each_key do |key|
       shot_accuracy_hash[key] = total_goals_per_season(season)[key] / total_shots_per_season(season)[key]
@@ -130,7 +128,6 @@ class Season
     team_info = @teams.find do |team|
       team[:team_id] == tackles_hash.key(tackles_hash.values.min) #this yeilds  string of the team_id
     end
-    # require 'pry'; binding.pry
     team_info[:teamname]
   end
 
