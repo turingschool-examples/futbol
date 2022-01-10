@@ -75,5 +75,9 @@ class StatTracker
 
   def lowest_scoring_home_team
     @game_team_tracker.lowest_scoring_home_team
-  end 
+  end
+
+  def team_info(team_id)
+    @team_tracker.team_info(team_id)
+  end
 end

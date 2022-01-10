@@ -12,6 +12,7 @@ RSpec.describe do TeamTracker
     team_tracker = TeamTracker.new(locations)
     expect(team_tracker).to be_a(TeamTracker)
   end
+
   it 'tests team info' do
     game_path = './data/game_teams_stub.csv'
     locations = {

@@ -7,7 +7,7 @@ class TeamTracker < Statistics
     end
     team.instance_variables.each do |variable|
       variable = variable.to_s.delete! '@'
-      team_hash[variable.to_sym] = team.instance_variable_get("@#{variable}".to_sym)
+      variable == 'stadium' ? next : team_hash[variable] = team.instance_variable_get("@#{variable}")
     end
     team_hash
   end
@@ -135,7 +135,7 @@ class TeamTracker < Statistics
     find_name_by_ID(most_win_hash.key(most_win_hash.values.max))[0].teamname
   end
 
-  def rival(team_id) ###REFACTOR VARIABLE NAMES 
+  def rival(team_id) ###REFACTOR VARIABLE NAMES
     all_games = @games.find_all {|game| game.home_team_id == team_id || game.away_team_id == team_id }
     opponent_lost_hash = Hash.new { |hash, key| hash[key] = [] }
     total_opponent_games = Hash.new { |hash, key| hash[key] = 0 }

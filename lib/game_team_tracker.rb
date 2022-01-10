@@ -19,7 +19,7 @@ class GameTeamTracker < Statistics
       max = key_hash.values.max
       best_team = key_hash.select {|k,v| v == max}
     end
-    find_name_by_ID(best_team.keys[0])[0].teamname
+    find_name_by_ID(best_team.keys[0])[0].team_name
   end
 
   def worst_offense # look at breaking into different methods
@@ -37,7 +37,7 @@ class GameTeamTracker < Statistics
       min = key_hash.values.min
       worst_team = key_hash.select {|k,v| v == min}
     end
-    find_name_by_ID(worst_team.keys[0])[0].teamname
+    find_name_by_ID(worst_team.keys[0])[0].team_name
   end
 
   def highest_scoring_visitor
@@ -57,7 +57,7 @@ class GameTeamTracker < Statistics
       max = key_hash.values.max
       highest_visitor = key_hash.select {|k,v| v == max}
     end
-    find_name_by_ID(highest_visitor.keys[0])[0].teamname
+    find_name_by_ID(highest_visitor.keys[0])[0].team_name
     #binding.pry
   end
 
@@ -78,7 +78,7 @@ class GameTeamTracker < Statistics
       min = key_hash.values.min
       lowest_visitor = key_hash.select {|k,v| v == min}
     end
-    find_name_by_ID(lowest_visitor.keys[0])[0].teamname
+    find_name_by_ID(lowest_visitor.keys[0])[0].team_name
   end
 
   def highest_scoring_home_team
@@ -98,7 +98,7 @@ class GameTeamTracker < Statistics
       max = key_hash.values.max
       high_home = key_hash.select {|k,v| v == max}
     end
-    find_name_by_ID(high_home.keys[0])[0].teamname
+    find_name_by_ID(high_home.keys[0])[0].team_name
   end
 
   def lowest_scoring_home_team
@@ -118,6 +118,6 @@ class GameTeamTracker < Statistics
       min = key_hash.values.min
       low_home = key_hash.select {|k,v| v == min}
     end
-    find_name_by_ID(low_home.keys[0])[0].teamname
+    find_name_by_ID(low_home.keys[0])[0].team_name
   end
 end
