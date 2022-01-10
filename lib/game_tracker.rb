@@ -47,7 +47,7 @@ class GameTracker < Statistics
         total_games += 1
         game.home_goals.to_i == game.away_goals.to_i ? ties += 1 : next
       end
-      ((ties.to_f / total_games) * 100).round(2)
+      (ties.to_f / total_games).round(2)
     end
 
     def count_of_games_by_season
