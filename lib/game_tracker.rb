@@ -1,8 +1,3 @@
-# require 'csv'
-# require './lib/game'
-# require './lib/team_tracker'
-# require './lib/statistics'
-
 class GameTracker < Statistics
 
   def highest_total_score
