@@ -32,4 +32,8 @@ class StatTracker
   def percentage_visitor_wins
     @game_tracker.percentage_visitor_wins
   end
+
+  def percentage_ties
+    @game_tracker.percentage_ties
+  end
 end
