@@ -1,11 +1,7 @@
-require 'pry'
 require 'simplecov'
 SimpleCov.start
-require './lib/game_team'
-require 'csv'
-require './lib/game'
-require './lib/game_team_tracker'
 require './lib/team_tracker'
+
 RSpec.describe do TeamTracker
   it 'exists' do
     game_path = './data/game_teams_stub.csv'
