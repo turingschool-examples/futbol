@@ -78,7 +78,7 @@ class GameTracker < Statistics
           goal_total += game.home_goals.to_f
           goal_total += game.away_goals.to_f
         end
-        season_hash[season] = (goal_total.to_f / games.length)
+        season_hash[season] = (goal_total.to_f / games.length).round(2)
       end
     end
 end
