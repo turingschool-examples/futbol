@@ -80,4 +80,8 @@ class StatTracker
   def team_info(team_id)
     @team_tracker.team_info(team_id)
   end
+
+  def best_season(team_id)
+    @team_tracker.best_season(team_id)
+  end
 end
