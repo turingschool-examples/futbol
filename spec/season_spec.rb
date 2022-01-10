@@ -42,9 +42,4 @@ RSpec.describe 'Season Stats' do
     }
     expect(@stat_tracker.season.total_shots_per_season("20172018")).to eq expected
   end
-
-  it 'most accurate team works ' do
-
-    expect(@stat_tracker.season.most_accurate_team("20172018")).to eq("Sporting Kansas City")
-  end
 end

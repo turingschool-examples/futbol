@@ -24,10 +24,6 @@ RSpec.describe League do
     expect(@league).to be_instance_of(League)
   end
 
-  it 'can count total teams in data' do
-    expect(@league.count_of_teams).to eq(32)
-  end
-
   it 'can convert team ids to name' do
     expect(@league.convert_team_id_to_name("24")).to eq('Real Salt Lake')
   end
@@ -98,10 +94,10 @@ RSpec.describe League do
     expect(@league.score_ranker("low", "home")).to eq "Seattle Sounders FC"
   end
 
-  it 'uses the official methods to find highest & lowest scoring visitor & home team' do
-    expect(@league.highest_scoring_visitor).to eq("Atlanta United").or(eq("FC Cincinnati")).or(eq("Sporting Kansas City")).or(eq("Los Angeles FC")).or(eq("Real Salt Lake"))
-    expect(@league.highest_scoring_home_team).to eq("Portland Timbers").or(eq("FC Dallas"))
-    expect(@league.lowest_scoring_visitor).to eq "Minnesota United FC"
-    expect(@league.lowest_scoring_home_team).to eq "Seattle Sounders FC"
-  end
+  # it 'uses the official methods to find highest & lowest scoring visitor & home team' do
+  #   expect(@league.highest_scoring_visitor).to eq("Atlanta United").or(eq("FC Cincinnati")).or(eq("Sporting Kansas City")).or(eq("Los Angeles FC")).or(eq("Real Salt Lake"))
+  #   expect(@league.highest_scoring_home_team).to eq("Portland Timbers").or(eq("FC Dallas"))
+  #   expect(@league.lowest_scoring_visitor).to eq "Minnesota United FC"
+  #   expect(@league.lowest_scoring_home_team).to eq "Seattle Sounders FC"
+  # end
 end
