@@ -1,8 +1,7 @@
-require 'csv'
-require './lib/game'
-require './lib/season'
-require './lib/team_tracker'
-require './lib/statistics'
+# require 'csv'
+# require './lib/game'
+# require './lib/team_tracker'
+# require './lib/statistics'
 
 class GameTracker < Statistics
 
