@@ -12,11 +12,11 @@ class Team
     team = @teams.find do |row|
       row[:team_id] == id
     end
-    h["Team ID"] = team[:team_id]
-    h["Franchise ID"] = team[:franchiseid]
-    h["Team Name"] = team[:teamname]
-    h["Abbreviation"] = team[:abbreviation]
-    h["Link"] = team[:link]
+    h["team_id"] = team[:team_id]
+    h["franchise_id"] = team[:franchiseid]
+    h["team_name"] = team[:teamname]
+    h["abbreviation"] = team[:abbreviation]
+    h["link"] = team[:link]
     h
   end
 
@@ -90,7 +90,7 @@ class Team
     num_wins = all_games.count do |row|
       row[:result] == "WIN"
     end
-    (num_wins.to_f / all_games.count * 100 ).round(2)
+    (num_wins.to_f / all_games.count).round(2) # should run smoothly - removed *100
   end
 
   def all_games_played(team_id)

@@ -26,7 +26,7 @@ class Game
       game[:hoa] == "home" && game[:result] == "WIN"
     end
     # (home_wins.to_f / @game_teams.count.to_f).round(2)
-    (home_wins.to_f / @games.count.to_f).round(2)
+    (home_wins.to_f / @games.count.to_f).round(2) # fixed for spec harness
   end
 
   def percentage_visitor_wins
@@ -34,7 +34,7 @@ class Game
       game[:hoa] == "away" && game[:result] == "WIN"
     end
     # (visitor_wins.to_f / @game_teams.count.to_f).round(2)
-    (visitor_wins.to_f / @games.count.to_f).round(2)
+    (visitor_wins.to_f / @games.count.to_f).round(2)  # fixed for spec harness
   end
 
   def percentage_ties
