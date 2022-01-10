@@ -26,11 +26,11 @@ RSpec.describe Team do
 
   it 'gives a hash of team info' do
     expected = {
-      "Team ID" => "1",
-      "Franchise ID" => "23",
-      "Team Name" => "Atlanta United",
-      "Abbreviation" => "ATL",
-      "Link" => '/api/v1/teams/1',
+      "team_id" => "1",
+      "franchise_id" => "23",
+      "team_name" => "Atlanta United",
+      "abbreviation" => "ATL",
+      "link" => '/api/v1/teams/1',
     }
 
     expect(@team.team_info("1")).to eq(expected)

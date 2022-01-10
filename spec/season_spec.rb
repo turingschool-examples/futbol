@@ -20,7 +20,7 @@ RSpec.describe 'Season Stats' do
   end
 
   it 'pulls games of a given season' do #helper method tests
-    expect(@stat_tracker.season.games_in_season(20172018).class).to be Array
+    expect(@stat_tracker.season.games_in_season("20172018").class).to be Array
   end
 
   it 'total goals per season works' do
@@ -30,7 +30,7 @@ RSpec.describe 'Season Stats' do
       "30"  => 7.0,
       "52"  => 12.0
     }
-    expect(@stat_tracker.season.total_goals_per_season(20172018)).to eq expected
+    expect(@stat_tracker.season.total_goals_per_season("20172018")).to eq expected
   end
 
   it 'total shots per season works' do
@@ -40,11 +40,11 @@ RSpec.describe 'Season Stats' do
       "30"  => 30.0,
       "52"  => 41.0
     }
-    expect(@stat_tracker.season.total_shots_per_season(20172018)).to eq expected
+    expect(@stat_tracker.season.total_shots_per_season("20172018")).to eq expected
   end
 
   it 'most accurate team works ' do
 
-    expect(@stat_tracker.season.most_accurate_team(20172018)).to eq("Sporting Kansas City")
+    expect(@stat_tracker.season.most_accurate_team("20172018")).to eq("Sporting Kansas City")
   end
 end

@@ -1,5 +1,3 @@
-require './lib/stats.rb'
-
 class Game
   attr_reader :games, :teams, :game_teams
 
@@ -8,7 +6,7 @@ class Game
     @teams = teams
     @game_teams = game_teams
   end
-  
+
   def highest_total_score
     game_with_max = @games.max_by do |row|
       row[:away_goals].to_i + row[:home_goals].to_i
@@ -27,18 +25,21 @@ class Game
     home_wins = @game_teams.count do |game|
       game[:hoa] == "home" && game[:result] == "WIN"
     end
-    (home_wins.to_f / @game_teams.count.to_f).round(2)
+    # (home_wins.to_f / @game_teams.count.to_f).round(2)
+    (home_wins.to_f / @games.count.to_f).round(2) # fixed for spec harness
   end
 
   def percentage_visitor_wins
     visitor_wins = @game_teams.count do |game|
       game[:hoa] == "away" && game[:result] == "WIN"
     end
-    (visitor_wins.to_f / @game_teams.count.to_f).round(2)
+    # (visitor_wins.to_f / @game_teams.count.to_f).round(2)
+    (visitor_wins.to_f / @games.count.to_f).round(2)  # fixed for spec harness
   end
 
   def percentage_ties
-    (tie.count.to_f / @games.count * 100).round(3)
+    # (tie.count.to_f / @games.count * 100).round(3)
+    (tie.count.to_f / @games.count).round(2)
   end
 
   def tie

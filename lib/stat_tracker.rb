@@ -1,9 +1,12 @@
-require './lib/game.rb'
-require './lib/league.rb'
-require './lib/team.rb'
-require './lib/season.rb'
-require './spec/spec_helper'
-
+require 'simplecov'
+SimpleCov.start
+require_relative './game.rb'
+require_relative './league.rb'
+require_relative './team.rb'
+require_relative './season.rb'
+require 'pry'
+require 'csv'
+#I'm not sure the spec harness is able to look at our spec folder - i had a few issues getting it to see the spechelper folder
 class StatTracker
   attr_reader :games, :teams, :game_teams, :game, :league, :season, :team
 
@@ -11,7 +14,7 @@ class StatTracker
     @games = CSV.read locations[:games], headers: true, header_converters: :symbol
     @teams = CSV.read locations[:teams], headers: true, header_converters: :symbol
     @game_teams = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
-
+    # superclass potential for following attributes
     @game = Game.new(games, teams, game_teams)
     @league = League.new(games, teams, game_teams)
     @season = Season.new(games, teams, game_teams)
@@ -21,7 +24,6 @@ class StatTracker
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
-
 ###########Game Stats###############
   def highest_total_score
     @game.highest_total_score
@@ -55,7 +57,6 @@ class StatTracker
     @game.average_goals_by_season
   end
 ###########League Stats##############
-
   def count_of_teams
     @league.count_of_teams
   end
@@ -68,6 +69,21 @@ class StatTracker
     @league.worst_offense
   end
 
+  def highest_scoring_visitor
+    @league.highest_scoring_visitor
+  end
+
+  def highest_scoring_home_team
+    @league.highest_scoring_home_team
+  end
+
+  def lowest_scoring_visitor
+    @league.lowest_scoring_visitor
+  end
+
+  def lowest_scoring_home_team
+    @league.lowest_scoring_home_team
+  end
 ############Season Stats##############
   def winningest_coach(season)
     @season.winningest_coach(season)
@@ -92,7 +108,6 @@ class StatTracker
   def fewest_tackles(season)
     @season.fewest_tackles(season)
   end
-
 ###################Team Stats###############
   def team_info(id)
     @team.team_info(id)
