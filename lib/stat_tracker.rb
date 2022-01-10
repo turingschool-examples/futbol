@@ -3,6 +3,8 @@ require 'CSV'
 require './lib/games_collection'
 require './lib/teams_collection'
 require './lib/games_teams_collection'
+require './lib/season_stats'
+
 
 class StatTracker
   attr_reader :locations
@@ -15,6 +17,7 @@ class StatTracker
     @read_games = @games_file.read_file
     @read_teams = @teams_file.read_file
     @read_game_teams = @game_teams_file.read_file
+    #@season_stats = SeasonStats.new
   end
 
 
@@ -291,6 +294,34 @@ class StatTracker
   end
 
   def winningest_coach (season_id)
+    game_ids_in_season = []
+    games_in_season = []
+    #season_hash = Hash.new { |hash, key| hash[key] =  }
+    #seasons listed in games csv @read_games
+    #if arg == season_id > games in that season
+    #count times each coach shows up
+    #if coach AND win +1 wins
+    #if coach and loss +1 games played
+    @read_games.each do |game|
+      if season_id == game.season
+        game_ids_in_season << game.game_id
+      end
+    end
+    game_ids_in_season.each do |game_id|
+      @read_game_teams.each do |game|
+        if game_id == game.game_id
+        games_in_season << game
+        end
+      end
+  end
+  binding.pry
+
+      #e
+
+    #coach listed in games_teams @read_game_teams
+     #find win % of each coach "string" :head_coach
+     #wins listed in games_teams @read_game_team
+    #highest_win_percenet return coach name
   end
 
   def worst_coach (season_id)
@@ -301,7 +332,7 @@ class StatTracker
 
   def least_accurate_team (season_id)
   end
-  
+
   def most_tackles (season_id)
   end
 
