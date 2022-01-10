@@ -116,6 +116,11 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.best_offense).to eq "Reign FC"
   end
 
+  it 'test' do
+    expect(@stat_tracker.winningest_coach("20122013")).to be_a String
+
+  end
+
 
 
 end
