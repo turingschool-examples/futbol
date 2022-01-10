@@ -10,7 +10,7 @@ class GameTeam
     @head_coach = row[:head_coach]
     @goals = row[:goals].to_i
     @shots = row[:shots].to_i
-    @tackles = row[:tackles]
+    @tackles = row[:tackles].to_i
     @pim = row[:pim]
     @powerPlayOpportunities = row[:powerPlayOpportunities]
     @powerPlayGoals = row[:powerPlayGoals]
