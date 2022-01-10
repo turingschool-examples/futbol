@@ -16,4 +16,8 @@ class StatTracker
     @season_tracker = SeasonTracker.new(locations)
     @game_team_tracker = GameTeamTracker.new(locations)
   end
+
+  def highest_total_score
+    @game_tracker.highest_total_score
+  end
 end
