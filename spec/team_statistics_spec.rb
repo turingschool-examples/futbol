@@ -6,9 +6,9 @@ require 'pry'
 RSpec.describe TeamStatistics do
   describe '#TeamStatistics' do
     stat_files = {
-          game_stats: './data/dummy_game_teams.csv',
-          games: './data/dummy_games.csv',
-          teams: './data/dummy_teams.csv'
+          game_teams: './data/game_teams.csv',
+          games: './data/games.csv',
+          teams: './data/teams.csv'
         }
     new_stat = TeamStatistics.new(stat_files)
 
@@ -18,7 +18,12 @@ RSpec.describe TeamStatistics do
     end
 
     it '#can read the team_info' do
-      expect(new_stat.team_info).to eq({:abbreviation=>"CCS", :franchiseid=>"28", :link=>"/api/v1/teams/53", :team_id=>"53", :teamname=>"Columbus Crew SC"})
+      expect(new_stat.team_info("53")).to eq({:abbreviation=>"CCS", :franchiseid=>"28", :link=>"/api/v1/teams/53", :team_id=>"53", :teamname=>"Columbus Crew SC"})
+    end
+
+    xit '#can determine the best_season' do
+       binding.pry
+      expect(new_stat.best_season).to eq([])
     end
   end
 end
