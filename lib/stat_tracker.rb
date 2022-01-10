@@ -99,5 +99,9 @@ class StatTracker
 
   def fewest_goals_scored(team_id)
     @team_tracker.fewest_goals_scored(team_id)
+  end
+
+  def favorite_opponent(team_id)
+    @team_tracker.favorite_opponent(team_id)
   end 
 end

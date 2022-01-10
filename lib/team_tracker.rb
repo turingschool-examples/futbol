@@ -132,7 +132,7 @@ class TeamTracker < Statistics
         end
       end
     end
-    find_name_by_ID(most_win_hash.key(most_win_hash.values.max))[0].teamname
+    find_name_by_ID(most_win_hash.key(most_win_hash.values.max))[0].team_name
   end
 
   def rival(team_id) ###REFACTOR VARIABLE NAMES
