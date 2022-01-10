@@ -23,6 +23,7 @@ class LeagueStatistics
         hash_result[row[:team_id]] = [row[:goals].to_i]
       else
         hash_result[row[:team_id]]<< row[:goals].to_i
+
       end
     end
 
@@ -30,10 +31,11 @@ class LeagueStatistics
     hash_result.each do |key, value|
       result_2[key] = value.sum / value.size.to_f
     end
-    y = result_2.max_by {|key, value| value}
+    highest_average = result_2.max_by {|key, value| value}
     #we need team id. Iterate over teams. Access row by team_id. Return teamname
     @teams_file.find_all do |row|
-      return row[:teamname] if y[0] == row[:team_id]
+      return row[:teamname] if highest_average[0] == row[:team_id]
+
     end
   end
 
@@ -52,12 +54,13 @@ class LeagueStatistics
     hash_result.each do |key, value|
       result_2[key] = value.sum / value.size.to_f
     end
-    y = result_2.min_by {|key, value| value}
+    lowest_average = result_2.min_by {|key, value| value}
 
     @teams_file.find_all do |row|
-      return row[:teamname] if y[0] == row[:team_id]
+      return row[:teamname] if lowest_average[0] == row[:team_id]
     end
   end
+
 
   def highest_scoring_visitor
   away_team_hash = {}
@@ -70,15 +73,16 @@ class LeagueStatistics
   end
 
     average_goals_hash_away = {}
-    away_team_hash.each do |key, value|
-      average_goals_hash_away[key] = value.sum / value.size.to_f
+    away_team_hash.each do |teamid, goals|
+      average_goals_hash_away[teamid] = goals.sum / goals.size.to_f
     end
-    highest_average_goals_away = average_goals_hash_away.max_by {|key, value| value}
+    highest_average_goals_away = average_goals_hash_away.max_by {|teamid, goals| goals}
 
     @teams_file.find_all do |row|
     return row[:teamname] if highest_average_goals_away[0] == row[:team_id]
     end
   end
+
 
   def highest_scoring_home_team
     home_team_hash = {}
@@ -91,15 +95,16 @@ class LeagueStatistics
     end
 
     average_goals_hash_home = {}
-    home_team_hash.each do |key, value|
-      average_goals_hash_home[key] = value.sum / value.size.to_f
+    home_team_hash.each do |teamid, goals|
+      average_goals_hash_home[teamid] = goals.sum / goals.size.to_f
     end
-    highest_average_goals_home = average_goals_hash_home.max_by {|key, value| value}
+    highest_average_goals_home = average_goals_hash_home.max_by {|teamid, goals| goals}
 
     @teams_file.find_all do |row|
     return row[:teamname] if highest_average_goals_home[0] == row[:team_id]
     end
   end
+
 
   def lowest_scoring_visitor
     away_team_hash = {}
@@ -112,15 +117,16 @@ class LeagueStatistics
     end
 
       average_goals_hash_away = {}
-      away_team_hash.each do |key, value|
-        average_goals_hash_away[key] = value.sum / value.size.to_f
+      away_team_hash.each do |teamid, goals|
+        average_goals_hash_away[teamid] = goals.sum / goals.size.to_f
       end
-      lowest_average_goals_away = average_goals_hash_away.min_by {|key, value| value}
+      lowest_average_goals_away = average_goals_hash_away.min_by {|teamid, goals| goals}
 
       @teams_file.find_all do |row|
       return row[:teamname] if lowest_average_goals_away[0] == row[:team_id]
       end
   end
+
 
   def lowest_scoring_home_team
     home_team_hash = {}
@@ -133,13 +139,15 @@ class LeagueStatistics
     end
 
     average_goals_hash_home = {}
-    home_team_hash.each do |key, value|
-      average_goals_hash_home[key] = value.sum / value.size.to_f
+    home_team_hash.each do |teamid, goals|
+      average_goals_hash_home[teamid] = goals.sum / goals.size.to_f
     end
-    lowest_average_goals_home = average_goals_hash_home.min_by {|key, value| value}
+    lowest_average_goals_home = average_goals_hash_home.min_by {|teamid, goals| goals}
 
     @teams_file.find_all do |row|
     return row[:teamname] if lowest_average_goals_home[0] == row[:team_id]
     end
   end
+
+
 end
