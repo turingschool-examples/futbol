@@ -53,15 +53,15 @@ RSpec.describe 'Game Stats' do
   end
 
   it 'reports percentage home wins' do
-    expect(@stat_tracker.percentage_home_wins).to eq(0.31)
+    expect(@stat_tracker.percentage_home_wins).to eq(0.61)
   end
 
   it 'reports percentage visitor wins' do
-    expect(@stat_tracker.percentage_visitor_wins).to eq(0.11)
+    expect(@stat_tracker.percentage_visitor_wins).to eq(0.22)
   end
 
   it 'can find the percentage of games that ended in a tie' do
-    expect(@stat_tracker.percentage_ties).to eq(16.667)
+    expect(@stat_tracker.percentage_ties).to eq(0.17)
   end
 
   it 'can count games by season' do
@@ -125,27 +125,27 @@ RSpec.describe 'Season Stats' do
   end
 
   it 'reports winningest coach' do
-    expect(@stat_tracker.winningest_coach(20172018)).to eq("Paul Maurice")
+    expect(@stat_tracker.winningest_coach("20172018")).to eq("Paul Maurice")
   end
 
   it 'reports worst coach' do
-    expect(@stat_tracker.worst_coach(20172018)).to eq("Bruce Boudreau")
+    expect(@stat_tracker.worst_coach("20172018")).to eq("Bruce Boudreau")
   end
 
   it 'reports most accurate team re: goals / shots' do
-    expect(@stat_tracker.most_accurate_team(20172018)).to eq("Sporting Kansas City")
+    expect(@stat_tracker.most_accurate_team("20172018")).to eq("Sporting Kansas City")
   end
 
   it 'reports least accurate team re: goals / shots' do
-    expect(@stat_tracker.least_accurate_team(20172018)).to eq("Orlando City SC")
+    expect(@stat_tracker.least_accurate_team("20172018")).to eq("Orlando City SC")
   end
 
   it 'reports most tackles per season' do
-    expect(@stat_tracker.most_tackles(20172018)).to eq("Portland Thorns FC")
+    expect(@stat_tracker.most_tackles("20172018")).to eq("Portland Thorns FC")
   end
 
   it 'reports fewest tackles per season' do
-    expect(@stat_tracker.fewest_tackles(20172018)).to eq("Orlando City SC")
+    expect(@stat_tracker.fewest_tackles("20172018")).to eq("Orlando City SC")
   end
 end
 ###############################################
