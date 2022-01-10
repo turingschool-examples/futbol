@@ -3,7 +3,6 @@ class GameTracker < Statistics
   def highest_total_score
     total_scores = []
     @games.each do |game|
-        # binding.pry
         score =  game.away_goals.to_i + game.home_goals.to_i
         total_scores << score
     end
@@ -14,7 +13,6 @@ class GameTracker < Statistics
     def lowest_total_score
       total_scores = []
       @games.each do |game|
-        # binding.pry
         score =  game.away_goals.to_i + game.home_goals.to_i
         total_scores << score
       end
