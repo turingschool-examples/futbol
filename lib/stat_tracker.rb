@@ -20,4 +20,8 @@ class StatTracker
   def highest_total_score
     @game_tracker.highest_total_score
   end
+
+  def lowest_total_score
+    @game_tracker.lowest_total_score
+  end
 end
