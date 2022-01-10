@@ -24,4 +24,12 @@ class StatTracker
   def lowest_total_score
     @game_tracker.lowest_total_score
   end
+
+  def percentage_home_wins
+    @game_tracker.percentage_home_wins
+  end
+
+  def percentage_visitor_wins
+    @game_tracker.percentage_visitor_wins
+  end
 end

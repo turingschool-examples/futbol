@@ -27,17 +27,17 @@ class GameTracker < Statistics
         total_games += 1
         game.home_goals.to_i > game.away_goals.to_i ? home_wins += 1 : next
       end
-      ((home_wins.to_f / total_games) * 100).round(2)
+      (home_wins.to_f / total_games).round(2)
     end
 
-    def percentage_vistor_wins
+    def percentage_visitor_wins
       total_games = 0
       visitor_wins = 0
         @games.each do |game|
         total_games += 1
         game.home_goals.to_i < game.away_goals.to_i ? visitor_wins += 1 : next
       end
-      ((visitor_wins.to_f / total_games) * 100).round(2)
+      (visitor_wins.to_f / total_games).round(2)
     end
 
     def percentage_ties
