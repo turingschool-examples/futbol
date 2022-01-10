@@ -1,3 +1,5 @@
+require_relative './statistics'
+
 class Team
   attr_reader :team_id,
               :franchiseid,

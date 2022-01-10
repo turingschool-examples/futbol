@@ -1,7 +1,7 @@
 require 'csv'
-require './lib/game'
-require './lib/team'
-require './lib/game_team'
+require_relative './game'
+require_relative './team'
+require_relative './game_team'
 
 class Statistics
   attr_reader :games, :teams, :game_teams
@@ -18,6 +18,3 @@ class Statistics
     end
   end
 end
-
-
-#
