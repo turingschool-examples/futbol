@@ -57,4 +57,11 @@ class StatTracker
     @game_team_tracker.best_offense
   end
 
+  def worst_offense
+    @game_team_tracker.worst_offense
+  end
+
+  def highest_scoring_visitor
+    @game_team_tracker.highest_scoring_visitor
+  end 
 end
