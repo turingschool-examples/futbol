@@ -31,7 +31,7 @@ RSpec.describe Team do
 
   it 'finds a teams average wins for a season' do
     expect(@team.avg_wins_by_season("24", "20132014")).to eq 1
-    expect(@team.avg_wins_by_season("24", "20122013")).to eq 0.75
+    expect(@team.avg_wins_by_season("24", "20122013")).to eq 0.5
   end
 
   it 'finds all the seasons a team has played in' do

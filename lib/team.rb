@@ -37,7 +37,6 @@ class Team
     all_seasons_played(team_id).each do |season_id|
       h[season_id] = avg_wins_by_season(team_id, season_id)
     end
-
     worst = h.min_by do |season, avg|
       avg
     end
@@ -60,11 +59,9 @@ class Team
     games.each do |game|
       if game[:result] == "WIN"
         wins += 1
-      elsif game[:result] == "TIE"
-        wins += 0.5
       end
     end
-    wins / games_played_in_season(team_id, season_id).count
+    (wins.to_f / games_played_in_season(team_id, season_id).count).round(2)
   end
 
   def games_played_in_season(team_id, season_id)

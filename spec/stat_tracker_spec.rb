@@ -110,19 +110,19 @@ RSpec.describe 'League Stats' do
   end
 
   it 'finds the highest scoring visitor' do
-    expect(@league.highest_scoring_visitor).to eq("Atlanta United").or(eq("FC Cincinnati")).or(eq("Sporting Kansas City")).or(eq("Los Angeles FC")).or(eq("Real Salt Lake"))
+    expect(@stat_tracker.highest_scoring_visitor).to eq("Atlanta United").or(eq("FC Cincinnati")).or(eq("Sporting Kansas City")).or(eq("Los Angeles FC")).or(eq("Real Salt Lake"))
   end
 
   it 'finds the highest scoring home team' do
-    expect(@league.highest_scoring_home_team).to eq("Portland Timbers").or(eq("FC Dallas"))
+    expect(@stat_tracker.highest_scoring_home_team).to eq("Portland Timbers").or(eq("FC Dallas"))
   end
 
   it 'finds the lowest scoring visitor' do
-    expect(@league.lowest_scoring_visitor).to eq "Minnesota United FC"
+    expect(@stat_tracker.lowest_scoring_visitor).to eq "Minnesota United FC"
   end
 
   it 'finds the lowest scoring home team' do
-    expect(@league.lowest_scoring_home_team).to eq "Seattle Sounders FC"
+    expect(@stat_tracker.lowest_scoring_home_team).to eq "Seattle Sounders FC"
   end
 end
 
@@ -181,11 +181,11 @@ RSpec.describe 'Team Stats' do
 
   it 'gives a hash of team info' do
     expected = {
-      "Team ID" => "1",
-      "Franchise ID" => "23",
-      "Team Name" => "Atlanta United",
-      "Abbreviation" => "ATL",
-      "Link" => '/api/v1/teams/1',
+      "team_id" => "1",
+      "franchise_id" => "23",
+      "team_name" => "Atlanta United",
+      "abbreviation" => "ATL",
+      "link" => '/api/v1/teams/1',
     }
     expect(@stat_tracker.team_info("1")).to eq(expected)
   end
@@ -193,22 +193,22 @@ RSpec.describe 'Team Stats' do
   it 'finds the best season' do
     expect(@stat_tracker.best_season("24")).to eq "20132014"
     expect(@stat_tracker.best_season("28")).to eq "20152016"
-    expect(@stat_tracker.best_season("29")).to eq "20132014"
-    expect(@stat_tracker.best_season("30")).to eq "20122013"
+    expect(@stat_tracker.best_season("29")).to eq "20122013"
+    expect(@stat_tracker.best_season("30")).to eq "20172018"
   end
 
   it 'finds the worst season' do
     expect(@stat_tracker.worst_season("24")).to eq "20122013"
     expect(@stat_tracker.worst_season("28")).to eq "20122013"
     expect(@stat_tracker.worst_season("29")).to eq "20122013"
-    expect(@stat_tracker.worst_season("30")).to eq "20172018"
+    expect(@stat_tracker.worst_season("30")).to eq "20122013"
   end
 
   it 'calculates average win percentage of all games' do
-    expect(@stat_tracker.average_win_percentage("24")).to eq 66.67
-    expect(@stat_tracker.average_win_percentage("28")).to eq 50
-    expect(@stat_tracker.average_win_percentage("29")).to eq 0
-    expect(@stat_tracker.average_win_percentage("30")).to eq 16.67
+    expect(@stat_tracker.average_win_percentage("24")).to eq 0.67
+    expect(@stat_tracker.average_win_percentage("28")).to eq 0.50
+    expect(@stat_tracker.average_win_percentage("29")).to eq 0.0
+    expect(@stat_tracker.average_win_percentage("30")).to eq 0.17
   end
 
   it 'gives highest number of goals in a single game' do
