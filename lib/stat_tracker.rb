@@ -104,8 +104,32 @@ class StatTracker
   def favorite_opponent(team_id)
     @team_tracker.favorite_opponent(team_id)
   end
-
+#Below are failing
   def rival(team_id)
     @team_tracker.rival(team_id)
-  end 
+  end
+
+  def winningest_coach(season)
+    @season_tracker.winningest_coach(season)
+  end
+
+  def worst_coach(season)
+    @season_tracker.worst_coach(season)
+  end
+
+  def most_accurate_team(season)
+    @season_tracker.most_accurate_team(season)
+  end
+
+  def least_accurate_team(season)
+    @season_tracker.least_accurate_team(season)
+  end
+
+  def most_tackles(season)
+    @season_tracker.most_tackles(season)
+  end
+
+  def fewest_tackles(season)
+    @season_tracker.fewest_tackles(season)
+  end
 end

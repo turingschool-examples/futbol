@@ -19,6 +19,7 @@ class SeasonTracker < Statistics
       end
       hash[coach] = result.to_f / coaches[coach].length
     end
+
     hash.key(hash.values.max)
   end
 
@@ -62,7 +63,7 @@ class SeasonTracker < Statistics
       end
       hash[team] = goals.to_f / shots
     end
-    find_name_by_ID(hash.key(hash.values.max))[0].teamname
+    find_name_by_ID(hash.key(hash.values.max))[0].team_name
   end
 
   def least_accurate_team(season_id)
@@ -85,7 +86,7 @@ class SeasonTracker < Statistics
       end
       hash[team] = goals.to_f / shots
     end
-    find_name_by_ID(hash.key(hash.values.min))[0].teamname
+    find_name_by_ID(hash.key(hash.values.min))[0].team_name
   end
 
   def most_tackles(season_id)
@@ -105,7 +106,7 @@ class SeasonTracker < Statistics
       end
       hash[team] = tackles
     end
-    find_name_by_ID(hash.key(hash.values.max))[0].teamname
+    find_name_by_ID(hash.key(hash.values.max))[0].team_name
   end
 
   def least_tackles(season_id)
@@ -125,6 +126,6 @@ class SeasonTracker < Statistics
       end
       hash[team] = tackles
     end
-    find_name_by_ID(hash.key(hash.values.min))[0].teamname
+    find_name_by_ID(hash.key(hash.values.min))[0].team_name
   end
 end
