@@ -1,5 +1,3 @@
-require 'simplecov'
-SimpleCov.start
 require './lib/team_tracker'
 
 RSpec.describe do TeamTracker
@@ -20,14 +18,12 @@ RSpec.describe do TeamTracker
       teams: './data/teams.csv',
       game_teams: game_path}
     team_tracker = TeamTracker.new(locations)
-    expect(team_tracker.team_info("1")).to eq(
-      {:team_id=>"1",
-      :franchiseid=>"23",
-      :teamname=>"Atlanta United",
-      :abbreviation=>"ATL",
-      :stadium=>"Mercedes-Benz Stadium",
-      :link=>"/api/v1/teams/1"}
-    )
+    expected = {'team_id' => "1",
+          'franchise_id' => "23",
+          'team_name' =>"Atlanta United",
+          'abbreviation' => "ATL",
+          'link' => "/api/v1/teams/1"}
+    expect(team_tracker.team_info("1")).to eq(expected)
   end
 
   it 'tests best season' do
