@@ -43,7 +43,7 @@ RSpec.describe 'Game Stats' do
     }
     @stat_tracker = StatTracker.from_csv(locations)
   end
-
+##########Game Stats#############
   it 'reports highest total score' do
     expect(@stat_tracker.highest_total_score).to be 7
   end
@@ -108,6 +108,22 @@ RSpec.describe 'League Stats' do
   it 'can return the worst offense in data' do
     expect(@stat_tracker.worst_offense).to eq("Seattle Sounders FC")
   end
+
+  it 'finds the highest scoring visitor' do
+    expect(@league.highest_scoring_visitor).to eq("Atlanta United").or(eq("FC Cincinnati")).or(eq("Sporting Kansas City")).or(eq("Los Angeles FC")).or(eq("Real Salt Lake"))
+  end
+
+  it 'finds the highest scoring home team' do
+    expect(@league.highest_scoring_home_team).to eq("Portland Timbers").or(eq("FC Dallas"))
+  end
+
+  it 'finds the lowest scoring visitor' do
+    expect(@league.lowest_scoring_visitor).to eq "Minnesota United FC"
+  end
+
+  it 'finds the lowest scoring home team' do
+    expect(@league.lowest_scoring_home_team).to eq "Seattle Sounders FC"
+  end
 end
 
 ###########season stats tests##################
@@ -148,7 +164,7 @@ RSpec.describe 'Season Stats' do
     expect(@stat_tracker.fewest_tackles("20172018")).to eq("Orlando City SC")
   end
 end
-###############################################
+##################team stats#############################
 
 RSpec.describe 'Team Stats' do
   before(:each) do
@@ -173,12 +189,6 @@ RSpec.describe 'Team Stats' do
     }
     expect(@stat_tracker.team_info("1")).to eq(expected)
   end
-
-  # xit 'finds the season that a game belongs to' do
-  #   expect(@stat_tracker.season_finder("2012020225")).to eq "20122013"
-  #   expect(@stat_tracker.season_finder("2013020177")).to eq "20132014"
-  #   expect(@stat_tracker.season_finder("2017030163")).to eq "20172018"
-  # end
 
   it 'finds the best season' do
     expect(@stat_tracker.best_season("24")).to eq "20132014"

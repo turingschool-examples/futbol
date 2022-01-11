@@ -43,7 +43,7 @@ class Game
   end
 
   def tie
-    @games.find_all do |game|
+  @games.find_all do |game|
       game[:home_goals] == game[:away_goals]
     end
   end
