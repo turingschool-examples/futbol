@@ -29,7 +29,7 @@ class Season
   def games_in_season(season) #helper method
     #array of games from game_teams that have a matching game_id to the game_ids within a certain season
     season_games = @games.select do |game|
-      game if game[:season] == season  #removed .to_i -- will see if this fixes spec harness issues
+      game if game[:season] == season
     end
     game_ids = season_games.map do |game|
       game[:game_id]
@@ -37,6 +37,7 @@ class Season
     games = @game_teams.select do |game|
       game if game_ids.include?(game[:game_id])
     end
+
   end
 
   def games_in_season_by_datatype(season, datatype) #helper method

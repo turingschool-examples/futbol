@@ -8,23 +8,33 @@ require 'csv'
 
 RSpec.describe 'Season Stats' do
   before(:each) do
-    @game_path = './data/games_dummy.csv'
-    @team_path = './data/teams.csv'
-    @game_teams_path = './data/game_teams_dummy.csv'
-    @locations = {
-      games: @game_path,
-      teams: @team_path,
-      game_teams: @game_teams_path
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
     }
     # @stat_tracker = StatTracker.from_csv(@locations)
+    @games = CSV.read locations[:games], headers: true, header_converters: :symbol
+    @teams = CSV.read locations[:teams], headers: true, header_converters: :symbol
+    @game_teams = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
+
     @season = Season.new(@games, @teams, @game_teams)
 
   end
 
-  it 'pulls games of a given season' do #helper method tests
-    # expect(@stat_tracker.season.games_in_season("20172018").class).to be Array
-    expect(@season.games_in_season("20172018").class).to be Array
+  it 'win percentage by coach' do
+    expect(@season.win_percentage_by_coach("20172018").class).to be Hash
+    expect(@season.win_percentage_by_coach("20172018").keys).to include "Mike Sullivan"
   end
+
+  it 'games in season' do
+    expect(@season.games_in_season("20172018").class).to be Array
+    expect(@season.games_in_season("20172018").first.class).to be CSV::Row
+  end
+
 
   it 'total goals per season works' do
     expected = {
@@ -33,7 +43,6 @@ RSpec.describe 'Season Stats' do
       "30"  => 7.0,
       "52"  => 12.0
     }
-    # expect(@stat_tracker.season.total_goals_per_season("20172018")).to eq expected
     expect(@season.total_goals_per_season("20172018")).to eq expected
   end
 
@@ -44,13 +53,16 @@ RSpec.describe 'Season Stats' do
       "30"  => 30.0,
       "52"  => 41.0
     }
-    # expect(@stat_tracker.season.total_shots_per_season("20172018")).to eq expected
     expect(@season.total_shots_per_season("20172018")).to eq expected
   end
 
-  it 'gives a hash of games in season by team id' do
-    expect(@season.games_in_season_by_team_id("20172018").class).to be Hash
-    expect(@season.games_in_season_by_team_id("20172018").count).to be 4
-    expect(@season.games_in_season_by_team_id("20172018").keys).to include "30"
+  it 'gives a hash of games in season by datatype' do
+    expect(@season.games_in_season_by_datatype("20172018", :team_id).class).to be Hash
+    expect(@season.games_in_season_by_datatype("20172018", :team_id).keys).to include "30"
+  end
+
+  it 'tackles per season' do
+    expect(@season.tackles_per_season("20172018").class).to be Hash
+    expect(@season.tackles_per_season("20172018").keys).to include "30"
   end
 end
