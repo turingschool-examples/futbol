@@ -29,6 +29,37 @@ class Season
     end
   end
 
+  def season_games_rows(season)
+    # creates array of all season games
+    # season_games = @games.select do |game|
+    #   game[:season] == season
+    # end
+    find_in_sheet(season, :season, @games)
+  end
+
+  def games_in_season_by_header(identifier, header)
+    season_game_teams_rows(identifier).group_by {|game| game[header]}
+  end
+
+  def season_game_teams_rows(season)
+    game_ids = season_games_rows(season).map do |game|
+      game[:game_id]
+    end
+    games = []
+    game_ids.each do |game_id|
+      games << find_in_sheet(game_id, :game_id, @game_teams)[0]
+      games << find_in_sheet(game_id, :game_id, @game_teams)[1]
+    end
+    games
+    # require 'pry'; binding.pry
+    # find_in_sheet(season, :game_id, game_ids)
+    # games = @game_teams.select do |game|
+    #   game_ids.include?(game[:game_id])
+    # end
+  end
+
+
+
   # def games_in_season(season)
   #   season_games = @games.select do |game|
   #     game[:season] == season

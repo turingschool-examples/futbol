@@ -72,7 +72,7 @@ class Game
       row[:season]
     end.flatten.uniq
     seasons.each do |season|
-      season_info[season] = season_games_rows(season).count
+      season_info[season] = find_in_sheet(season, :season, @games).count
     end
     season_info
   end
