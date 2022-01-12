@@ -42,29 +42,7 @@ module DataCollector
     (data.find_all {|game| game.team_id == team_id}).length
   end
 
-
-  # def best_or_worse
-  #   if best_worse == "best"
-  #     game.home_goals > game.away_goals
-  #   elsif home_away_tie == "away"
-  #     game.home_goals < game.away_goals
-  #   else
-  #     game.home_goals == game.away_goals
-  #   end
-  # # end
-  #
-  # end
-
-  def goals_per_game(hash)
-    key_hash = {}
-    hash.map do |key, sorted|
-      goals = sorted.sum {|game| game.goals}
-      key_hash[key] = goals.to_f / sorted.count
-    end
-  end
-
   def sort_games(data)
-    # binding.pry
     data.group_by {|game| game.team_id}
   end
 
@@ -74,11 +52,5 @@ module DataCollector
     else best_worse == "worst"
       find_name_by_ID(hash.key(hash.values.min))[0].team_name
     end
-
   end
 end
-
-#averaged_results = games_by_season.reduce({}) do |hash, season_games|
-#   hash[season_games[0]] = season_games[1].length
-#   hash
-# end
