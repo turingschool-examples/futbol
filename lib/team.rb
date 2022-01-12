@@ -167,10 +167,6 @@ class Team
   end
 
   def find_name(team_id)
-    # team_row = @teams.find do |row|
-    #   row[:team_id] == team_id
-    # end
-    # team_row[:teamname]
     team = find_in_sheet(team_id, :team_id, @teams)
     team[0][:teamname]
   end
@@ -185,9 +181,6 @@ class Team
   end
 
   def season_finder(game_id)
-    # game = @games.find do |row|
-    #   game_id == row[:game_id]
-    # end
     game = find_in_sheet(game_id, :game_id, @games)
     game[0][:season]
   end

@@ -1,13 +1,9 @@
 require 'simplecov'
 SimpleCov.start
-# require_relative './spec_helper'
-
 require_relative './game.rb'
 require_relative './league.rb'
 require_relative './team.rb'
 require_relative './season.rb'
-
-# require 'pry'
 require 'csv'
 
 class StatTracker

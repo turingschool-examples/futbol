@@ -1,4 +1,3 @@
-# require './spec/spec_helper'
 require_relative './spec_helper'
 RSpec.describe 'Season Stats' do
   before(:each) do

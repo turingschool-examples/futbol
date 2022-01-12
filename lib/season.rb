@@ -30,10 +30,6 @@ class Season
   end
 
   def season_games_rows(season)
-    # creates array of all season games
-    # season_games = @games.select do |game|
-    #   game[:season] == season
-    # end
     find_in_sheet(season, :season, @games)
   end
 
@@ -51,31 +47,7 @@ class Season
       games << find_in_sheet(game_id, :game_id, @game_teams)[1]
     end
     games
-    # require 'pry'; binding.pry
-    # find_in_sheet(season, :game_id, game_ids)
-    # games = @game_teams.select do |game|
-    #   game_ids.include?(game[:game_id])
-    # end
   end
-
-
-
-  # def games_in_season(season)
-  #   season_games = @games.select do |game|
-  #     game[:season] == season
-  #   end
-  #   game_ids = season_games.map do |game|
-  #     game[:game_id]
-  #   end
-  #   games = @game_teams.select do |game|
-  #     game_ids.include?(game[:game_id])
-  #   end
-  #
-  # end
-
-  # def games_in_season_by_header(season, header)
-  #   games_in_season(season).group_by {|game| game[header]}
-  # end
 
   def most_accurate_team(season)
     shot_accuracy_hash = Hash.new(0.0)
