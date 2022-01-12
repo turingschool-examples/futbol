@@ -65,7 +65,7 @@ RSpec.describe do TeamTracker
       teams: './data/teams.csv',
       game_teams: game_path}
     team_tracker = TeamTracker.new(locations)
-    expect(team_tracker.most_goals_scored("18")).to eq(7)
+    expect(team_tracker.goals_scored("18", 'most')).to eq(7)
   end
 
   it 'tests fewest_goals_scored' do
@@ -75,7 +75,7 @@ RSpec.describe do TeamTracker
       teams: './data/teams.csv',
       game_teams: game_path}
     team_tracker = TeamTracker.new(locations)
-    expect(team_tracker.fewest_goals_scored("18")).to eq(0)
+    expect(team_tracker.goals_scored("18", 'fewest')).to eq(0)
   end
 
   it 'tests favorite opponent' do

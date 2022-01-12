@@ -94,11 +94,11 @@ class StatTracker
   end
 
   def most_goals_scored(team_id)
-    @team_tracker.most_goals_scored(team_id)
+    @team_tracker.goals_scored(team_id, 'most')
   end
 
   def fewest_goals_scored(team_id)
-    @team_tracker.fewest_goals_scored(team_id)
+    @team_tracker.goals_scored(team_id, 'fewest')
   end
 
   def favorite_opponent(team_id)
