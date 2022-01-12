@@ -1,6 +1,5 @@
 require './lib/game'
 require './lib/game_tracker'
-require 'pry'
 
 RSpec.describe do Game
   it 'exists' do
@@ -10,9 +9,6 @@ RSpec.describe do Game
       teams: './data/teams.csv',
       game_teams: './data/game_teams_stub.csv'}
     gametracker = GameTracker.new(locations)
-
-
-
     expect(gametracker).to be_an_instance_of(GameTracker)
   end
 
@@ -44,7 +40,7 @@ RSpec.describe do Game
       teams: './data/teams.csv',
       game_teams: './data/game_teams_stub.csv'}
     gametracker = GameTracker.new(locations)
-    expect(gametracker.percentage_home_wins).to be(0.68)
+    expect(gametracker.percentage_wins('home')).to be(0.68)
   end
 
   it 'percentage_visitor_wins' do
@@ -54,7 +50,7 @@ RSpec.describe do Game
       teams: './data/teams.csv',
       game_teams: './data/game_teams_stub.csv'}
     gametracker = GameTracker.new(locations)
-    expect(gametracker.percentage_visitor_wins).to be(0.27)
+    expect(gametracker.percentage_wins('away')).to be(0.27)
   end
 
   it 'percentage_ties' do
@@ -64,7 +60,7 @@ RSpec.describe do Game
       teams: './data/teams.csv',
       game_teams: './data/game_teams_stub.csv'}
     gametracker = GameTracker.new(locations)
-    expect(gametracker.percentage_ties).to be(0.05)
+    expect(gametracker.percentage_wins('tie')).to be(0.05)
   end
 
   it 'count_of_games_by_season' do
