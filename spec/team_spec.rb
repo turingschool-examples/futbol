@@ -1,4 +1,6 @@
+require './lib/team'
 require './lib/team_tracker'
+
 
 RSpec.describe do TeamTracker
   it 'exists' do
@@ -33,7 +35,7 @@ RSpec.describe do TeamTracker
       teams: './data/teams.csv',
       game_teams: game_path}
     team_tracker = TeamTracker.new(locations)
-    expect(team_tracker.best_season("6")).to eq("20132014")
+    expect(team_tracker.season_outcome("6", "best")).to eq("20132014")
   end
 
   it 'tests worst season' do
@@ -43,7 +45,7 @@ RSpec.describe do TeamTracker
       teams: './data/teams.csv',
       game_teams: game_path}
     team_tracker = TeamTracker.new(locations)
-    expect(team_tracker.worst_season("6")).to eq("20142015")
+    expect(team_tracker.season_outcome("6", "worse")).to eq("20142015")
   end
 
   it 'tests average_win_percentage' do
