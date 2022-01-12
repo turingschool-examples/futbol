@@ -7,37 +7,37 @@ class Team
     @game_teams = game_teams
   end
 
-  def team_info(id) #stat_tracker
-    h = {}
+  def team_info(id)
+    info = {}
     team = @teams.find do |row|
       row[:team_id] == id
     end
-    h["team_id"] = team[:team_id]
-    h["franchise_id"] = team[:franchiseid]
-    h["team_name"] = team[:teamname]
-    h["abbreviation"] = team[:abbreviation]
-    h["link"] = team[:link]
-    h
+    info["team_id"] = team[:team_id]
+    info["franchise_id"] = team[:franchiseid]
+    info["team_name"] = team[:teamname]
+    info["abbreviation"] = team[:abbreviation]
+    info["link"] = team[:link]
+    info
   end
 
-  def best_season(team_id) #stat_tracker
-    h = {}
+  def best_season(team_id)
+    season_stats = {}
     all_seasons_played(team_id).each do |season_id|
-      h[season_id] = avg_wins_by_season(team_id, season_id)
+      season_stats[season_id] = avg_wins_by_season(team_id, season_id)
     end
 
-    best = h.max_by do |season, avg|
+    best = season_stats.max_by do |season, avg|
       avg
     end
     best[0]
   end
 
-  def worst_season(team_id) #stat_tracker
-    h = {}
+  def worst_season(team_id)
+    season_stats = {}
     all_seasons_played(team_id).each do |season_id|
-      h[season_id] = avg_wins_by_season(team_id, season_id)
+      season_stats[season_id] = avg_wins_by_season(team_id, season_id)
     end
-    worst = h.min_by do |season, avg|
+    worst = season_stats.min_by do |season, avg|
       avg
     end
     worst[0]
@@ -71,57 +71,58 @@ class Team
         game_ids << row[:game_id]
       end
     end
-    csv_games = []
+    games_played = []
     @game_teams.each do |row|
       game_ids.each do |id|
         if row[:game_id] == id && row[:team_id] == team_id
-          csv_games << row
+          games_played << row
         end
       end
     end
-    csv_games
+    games_played
   end
 
-  def average_win_percentage(team_id) #stat_tracker
+  def average_win_percentage(team_id)
     all_games = all_games_played(team_id)
     num_wins = all_games.count do |row|
       row[:result] == "WIN"
     end
-    (num_wins.to_f / all_games.count).round(2) # should run smoothly - removed *100
+    (num_wins.to_f / all_games.count).round(2)
   end
 
   def all_games_played(team_id)
     @game_teams.select do |row|
-      row if row[:team_id] == team_id
+      # row if row[:team_id] == team_id
+      row[:team_id] == team_id
     end
   end
 
-  def most_goals_scored(team_id) #stat tracker
+  def most_goals_scored(team_id)
     most_goals = all_games_played(team_id).max_by do |row|
       row[:goals].to_i
     end
     most_goals[:goals].to_i
   end
 
-  def fewest_goals_scored(team_id) #stat tracker
+  def fewest_goals_scored(team_id)
     least_goals = all_games_played(team_id).min_by do |row|
       row[:goals].to_i
     end
     least_goals[:goals].to_i
   end
 
-  def favorite_opponent(team_id) #stat tracker
-    fave = opponent_rundown(team_id).min_by do |team_name, wins_against|
+  def favorite_opponent(team_id)
+    fave_team = opponent_rundown(team_id).min_by do |team_name, wins_against|
       wins_against
     end
-    fave[0]
+    fave_team[0]
   end
 
-  def rival(team_id) #stat tracker
-    fave = opponent_rundown(team_id).max_by do |team_name, wins_against|
+  def rival(team_id)
+    rival_team = opponent_rundown(team_id).max_by do |team_name, wins_against|
       wins_against
     end
-    fave[0]
+    rival_team[0]
   end
 
   def all_games_against(team_id, opponent_id)
@@ -129,15 +130,15 @@ class Team
     game_ids = all_team_games.map do |row|
       row[:game_id]
     end
-    a = []
+    games_against = []
     @game_teams.each do |row|
       game_ids.each do |game_id|
         if row[:team_id] == opponent_id && row[:game_id] == game_id
-          a << row
+          games_against << row
         end
       end
     end
-    a
+    games_against
   end
 
   def win_against_rate(team_id, opponent_id)
@@ -171,12 +172,12 @@ class Team
   end
 
   def opponent_rundown(team_id)
-    h = {}
+    rundown = {}
     all_opponents(team_id).each do |opponent_id|
-      h[find_name(opponent_id)] =
+      rundown[find_name(opponent_id)] =
       win_against_rate(team_id, opponent_id)
     end
-    h
+    rundown
   end
 
   def season_finder(game_id)

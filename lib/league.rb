@@ -11,7 +11,7 @@ class League
     @teams.count
   end
 
-  def best_offense #stat tracker
+  def best_offense
     offense_avgs_by_team = Hash.new(0.0)
     total_goals_per_team.each do |team_id, total_goals|
       offense_avgs_by_team[team_id] = total_goals_per_team[team_id] / all_games_played(team_id).count
@@ -20,7 +20,7 @@ class League
     convert_team_id_to_name(best_team_id)
   end
 
-  def worst_offense #stat tracker
+  def worst_offense
     offense_avgs_by_team = Hash.new(0.0)
     total_goals_per_team.each do |team_id, total_goals|
       offense_avgs_by_team[team_id] = total_goals_per_team[team_id] / all_games_played(team_id).count
@@ -57,10 +57,10 @@ class League
 
   def convert_team_id_to_name(team_id)
     name_array = []
-    x = @teams.find do |row|
+    team = @teams.find do |row|
       row[:team_id] == team_id
     end
-    x[:teamname]
+    team[:teamname]
   end
 
   def highest_scoring_visitor
@@ -90,19 +90,19 @@ class League
   end
 
   def avg_scoring(location)
-    h = {}
+    all_teams_data = {}
     all_team_ids = @teams.map {|row| row[:team_id]}
     all_team_ids.each do |id|
       goals = 0
-      gamez = 0
+      games_played = 0
       @games.each do |row|
         if row["#{location}_team_id".to_sym] == id
           goals += row["#{location}_goals".to_sym].to_i
-          gamez += 1
+          games_played += 1
         end
-        h[convert_team_id_to_name(id)] = (goals.to_f / gamez).round(2) unless gamez == 0
+        all_teams_data[convert_team_id_to_name(id)] = (goals.to_f / games_played).round(2) unless games_played == 0
       end
     end
-    h
+    all_teams_data
   end
 end

@@ -16,7 +16,7 @@ RSpec.describe 'Season Stats' do
       teams: team_path,
       game_teams: game_teams_path
     }
-    # @stat_tracker = StatTracker.from_csv(@locations)
+
     @games = CSV.read locations[:games], headers: true, header_converters: :symbol
     @teams = CSV.read locations[:teams], headers: true, header_converters: :symbol
     @game_teams = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
