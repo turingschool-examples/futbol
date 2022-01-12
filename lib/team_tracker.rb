@@ -34,23 +34,10 @@ class TeamTracker < Statistics
     average(total_wins, games_by_team)
   end
 
-  def most_goals_scored(team_id) ###SOMEONE ELSE REFACTOR
-    team_goal_max = @game_teams.find_all do |game|
-      game.team_id == team_id
-    end
-    game = team_goal_max.max_by do |game|
-      game.goals
-    end
-    game.goals
-  end
-
-  def fewest_goals_scored(team_id) ###SOMEONE ELSE REFACTOR
-    team_goal_min = @game_teams.find_all do |game|
-      game.team_id == team_id
-    end
-    game = team_goal_min.min_by do |game|
-      game.goals
-    end
+  def goals_scored(team_id, amount)
+    team_goal_max = @game_teams.find_all {|game| game.team_id == team_id}
+    game = team_goal_max.max_by {|game| game.goals} if amount == 'most'
+    game = team_goal_max.min_by {|game| game.goals} if amount == 'fewest'
     game.goals
   end
 
