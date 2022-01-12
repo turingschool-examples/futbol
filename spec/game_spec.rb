@@ -24,7 +24,7 @@ RSpec.describe do Game
       teams: './data/teams.csv',
       game_teams: './data/game_teams_stub.csv'}
     gametracker = GameTracker.new(locations)
-    expect(gametracker.highest_total_score).to be(5)
+    expect(gametracker.total_score.max).to be(5)
   end
 
   it 'give lowest total score' do
@@ -34,7 +34,7 @@ RSpec.describe do Game
       teams: './data/teams.csv',
       game_teams: './data/game_teams_stub.csv'}
     gametracker = GameTracker.new(locations)
-    expect(gametracker.lowest_total_score).to be(1)
+    expect(gametracker.total_score.min).to be(1)
   end
 
   it 'percentage_home_wins' do
