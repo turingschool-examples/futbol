@@ -20,4 +20,20 @@ module DataCollector
       game.season
     end
   end
+
+  def get_team(team_id)
+    @teams.find do |team|
+      team.team_id == team_id
+    end
+  end
+
+  def find_games(results)
+    game_results = []
+    @games.each do |game|
+      results.each do |game_team|
+        game_results << game if game.game_id == game_team.game_id
+      end
+    end
+    game_results
+  end
 end
