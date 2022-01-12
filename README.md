@@ -2,9 +2,9 @@
 
 This project uses data from a fictional "Futbol" league to analyze performance for specific teams across specific games and seasons. The data we want needs to include who best and worst performers are, as well as be able to pull statistics for individual teams. We have created a "Stat Tracker" at assist in this process and to provide us with the data we need.
 
-## Methods needed
+## Methods
 
-* Game Statistics 
+* Game Statistics
 highest_total_score
 lowest_total_score
 percentage_home_wins
