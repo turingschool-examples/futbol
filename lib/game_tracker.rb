@@ -16,7 +16,7 @@ class GameTracker < Statistics
     result = @games.count do |game|
       home_away_or_tie(game, home_away_tie)
     end
-    average(result)
+    average(result, @games)
   end
 
   def count_of_games_by_season
@@ -28,23 +28,18 @@ class GameTracker < Statistics
   end
 
   def average_goals_per_game
-    result = @games.reduce(0) do |sum, game|
+    goals_per_game = @games.reduce(0) do |sum, game|
       sum += (game.home_goals + game.away_goals)
     end
-    average(result)
+    average(goals_per_game, @games)
   end
 
   def average_goals_by_season
-    season_hash = @games.group_by do |game|
-      game.season
+    goals_by_season_hash = games_by_season_hash.reduce({}) do |hash, games_per_season|
+      goals = games_per_season[1].sum {|game| game.home_goals + game.away_goals}
+      hash[games_per_season[0]] = average(goals, games_per_season[1].length )
+      hash
     end
-    average_goals_by_season = season_hash.each_pair do |season, games|
-      goal_total = 0
-      games.each do |game|
-        goal_total += game.home_goals.to_f
-        goal_total += game.away_goals.to_f
-      end
-      season_hash[season] = (goal_total.to_f / games.length).round(2)
-    end
+    goals_by_season_hash
   end
 end
