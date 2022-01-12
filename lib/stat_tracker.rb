@@ -110,11 +110,11 @@ class StatTracker
   end
 
   def winningest_coach(season)
-    @season_tracker.winningest_coach(season)
+    @season_tracker.best_worst_coach(season, 'best')
   end
 
   def worst_coach(season)
-    @season_tracker.worst_coach(season)
+    @season_tracker.best_worst_coach(season, 'worst')
   end
 
   def most_accurate_team(season)

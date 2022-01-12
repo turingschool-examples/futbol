@@ -1,11 +1,8 @@
-# require 'pry'
-# # require 'simplecov'
-# SimpleCov.start
+require './lib/statistics'
+require './lib/season_tracker'
 require './lib/game_team'
-require 'csv'
 require './lib/game'
 require './lib/game_team_tracker'
-require './lib/season_tracker'
 
 RSpec.describe do SeasonTracker
   it 'exists' do
@@ -18,8 +15,6 @@ RSpec.describe do SeasonTracker
     expect(season_tracker).to be_a(SeasonTracker)
   end
 
-
-
   it 'winningest coach' do
     game_path = './data/game_teams_stub.csv'
     locations = {
@@ -27,7 +22,7 @@ RSpec.describe do SeasonTracker
       teams: './data/teams.csv',
       game_teams: game_path}
     season_tracker = SeasonTracker.new(locations)
-    expect(season_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+    expect(season_tracker.best_worst_coach("20122013", 'best')).to eq("Claude Julien")
   end
 
   it 'worst coach' do
@@ -37,7 +32,7 @@ RSpec.describe do SeasonTracker
       teams: './data/teams.csv',
       game_teams: game_path}
     season_tracker = SeasonTracker.new(locations)
-    expect(season_tracker.worst_coach("20122013")).to eq("John Tortorella")
+    expect(season_tracker.best_worst_coach("20122013", 'worst')).to eq("John Tortorella")
   end
 
   it 'most_accurate_team' do

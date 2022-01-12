@@ -1,47 +1,19 @@
-
+require './lib/data_collector'
+require './lib/calculator'
 
 class SeasonTracker < Statistics
+  include DataCollector
 
-  def winningest_coach(season_id)
+  def best_worst_coach(season_id, outcome)
     seasons = @games.find_all {|game| game.season == season_id}
-    season_coaches = []
-    seasons.each do |game|
-      @game_teams.find_all do |game_2|
-        season_coaches << game_2 if game.game_id == game_2.game_id
-      end
+    season_coaches = find_games(@game_teams, seasons)
+    coaches = group_by_data_hash(season_coaches, 'head_coach')
+    coach_hash = coaches.transform_values do |games|
+      results = games.select {|game| game.result == "WIN"} if outcome == 'best'
+      results = games.select {|game| game.result != "WIN"} if outcome == 'worst'
+      results.length.to_f / games.length
     end
-    coaches = season_coaches.group_by do |game|
-      game.head_coach
-    end
-    hash = Hash.new
-    coaches.each_pair do |coach, games|
-      result = games.count do |game|
-        game.result == "WIN"
-      end
-      hash[coach] = result.to_f / coaches[coach].length
-    end
-    hash.key(hash.values.max)
-  end
-
-  def worst_coach(season_id) # IF TEST HARNESS FAILS, CHANGE line 42
-    seasons = @games.find_all {|game| game.season == season_id}
-    season_coaches = []
-    seasons.each do |game|
-      @game_teams.find_all do |game_2|
-        season_coaches << game_2 if game.game_id == game_2.game_id
-      end
-    end
-    coaches = season_coaches.group_by do |game|
-      game.head_coach
-    end
-    hash = Hash.new
-    coaches.each_pair do |coach, games|
-      result = games.count do |game|
-        game.result == "WIN"
-      end
-      hash[coach] = result.to_f / coaches[coach].length
-    end
-    hash.key(hash.values.min)
+    coach_hash.key(coach_hash.values.max)
   end
 
   def most_accurate_team(season_id)
