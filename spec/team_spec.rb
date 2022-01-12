@@ -85,7 +85,7 @@ RSpec.describe do TeamTracker
       teams: './data/teams.csv',
       game_teams: game_path}
     team_tracker = TeamTracker.new(locations)
-    expect(team_tracker.favorite_opponent("18")).to eq("DC United")
+    expect(team_tracker.opponent_results("18", 'favorite')).to eq("DC United")
   end
 
   it 'rival' do
@@ -95,6 +95,6 @@ RSpec.describe do TeamTracker
       teams: './data/teams.csv',
       game_teams: game_path}
     team_tracker = TeamTracker.new(locations)
-    expect(team_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
+    expect(team_tracker.opponent_results("18", 'rival')).to eq("Houston Dash").or(eq("LA Galaxy"))
   end
 end

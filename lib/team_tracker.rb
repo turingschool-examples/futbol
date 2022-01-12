@@ -17,7 +17,7 @@ class TeamTracker < Statistics
   def season_outcome(team_id, outcome)
     game_team_results = @game_teams.find_all {|game| game.team_id == team_id && game.result == "WIN"} if outcome == "best"
     game_team_results = @game_teams.find_all {|game| game.team_id == team_id && game.result != "WIN"} if outcome == "worse"
-    game_results = find_games(game_team_results)
+    game_results = find_games(@games, game_team_results)
     games_by_season = game_results.group_by {|game| game.season}
     averaged_results = games_by_season.reduce({}) do |hash, season_games|
       hash[season_games[0]] = season_games[1].length
@@ -41,45 +41,17 @@ class TeamTracker < Statistics
     game.goals
   end
 
-  def favorite_opponent(team_id)
+  def opponent_results(team_id, type)
     all_games = @games.find_all {|game| game.home_team_id == team_id || game.away_team_id == team_id }
-    opponent_lost_hash = Hash.new { |hash, key| hash[key] = [] }
-    total_opponent_games = Hash.new { |hash, key| hash[key] = 0 }
-    all_games.each do |game|
-      opponent_lost_hash[game.away_team_id] << game if (game.home_team_id == team_id) && (game.home_goals > game.away_goals)
-      opponent_lost_hash[game.home_team_id] << game if (game.away_team_id == team_id) && (game.home_goals < game.away_goals)
-      total_opponent_games[game.home_team_id] += 1 if (game.away_team_id == team_id)
-      total_opponent_games[game.away_team_id] += 1 if (game.home_team_id == team_id)
+    game_teams_results = find_games(@game_teams, all_games)
+    opponent_games = game_teams_results.find_all{|game| game.team_id != team_id}
+    opponent_hash = opponent_games.reduce({}) do |hash, game|
+      hash[game.team_id] = 0 unless hash.key?(game.team_id)
+      hash[game.team_id] += 1 if game.result == "WIN" && type == "rival"
+      hash[game.team_id] += 1 if game.result != "WIN" && type == "favorite"
+      hash
     end
-    most_win_hash = Hash.new
-    opponent_lost_hash.each_pair do |lost_opponent, won_games|
-      total_opponent_games.each_pair do |any_opponent, all_games|
-        if lost_opponent == any_opponent
-          most_win_hash[lost_opponent] = won_games.length / all_games.to_f
-        end
-      end
-    end
-    find_name_by_ID(most_win_hash.key(most_win_hash.values.max))[0].team_name
-  end
-
-  def rival(team_id) ###REFACTOR VARIABLE NAMES
-    all_games = @games.find_all {|game| game.home_team_id == team_id || game.away_team_id == team_id }
-    opponent_lost_hash = Hash.new { |hash, key| hash[key] = [] }
-    total_opponent_games = Hash.new { |hash, key| hash[key] = 0 }
-    all_games.each do |game|
-      opponent_lost_hash[game.away_team_id] << game if (game.home_team_id == team_id) && (game.home_goals > game.away_goals)
-      opponent_lost_hash[game.home_team_id] << game if (game.away_team_id == team_id) && (game.home_goals < game.away_goals)
-      total_opponent_games[game.home_team_id] += 1 if (game.away_team_id == team_id)
-      total_opponent_games[game.away_team_id] += 1 if (game.home_team_id == team_id)
-    end
-    most_win_hash = Hash.new
-    opponent_lost_hash.each_pair do |lost_opponent, won_games|
-      total_opponent_games.each_pair do |any_opponent, all_games|
-        if lost_opponent == any_opponent
-          most_win_hash[lost_opponent] = won_games.length / all_games.to_f
-        end
-      end
-    end
-    find_name_by_ID(most_win_hash.key(most_win_hash.values.min))[0].team_name
+    opponent_hash.each {|k, v| opponent_hash[k] = v.to_f / count_games_per_team(k, opponent_games)}
+    find_name_by_ID(opponent_hash.key(opponent_hash.values.max))[0].team_name
   end
 end
