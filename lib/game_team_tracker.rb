@@ -1,5 +1,6 @@
 class GameTeamTracker < Statistics
-  # include DataCollector
+  include DataCollector
+  
   def count_of_teams
     unique = @game_teams.map {|game|game.team_id}
     unique.uniq.count
@@ -36,7 +37,6 @@ class GameTeamTracker < Statistics
     end
     away_team = away_array.group_by {|game| game.team_id}
     key_hash = {}
-    #goal_average_calculator(team_hash)
     away_team.map do |key, away_team|
       goals = away_team.sum {|game| game.goals}
       total_games = away_team.count
@@ -47,7 +47,6 @@ class GameTeamTracker < Statistics
       highest_visitor = key_hash.select {|k,v| v == max}
     end
     find_name_by_ID(highest_visitor.keys[0])[0].team_name
-    #binding.pry
   end
 
   def lowest_scoring_visitor
