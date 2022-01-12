@@ -62,7 +62,7 @@ RSpec.describe do SeasonTracker
       teams: './data/teams.csv',
       game_teams: game_path}
     season_tracker = SeasonTracker.new(locations)
-    expect(season_tracker.most_tackles("20122013")).to eq("FC Dallas")
+    expect(season_tracker.tackle_results("20122013", 'most')).to eq("FC Dallas")
   end
 
   it 'fewest_tackles' do
@@ -72,6 +72,6 @@ RSpec.describe do SeasonTracker
       teams: './data/teams.csv',
       game_teams: game_path}
     season_tracker = SeasonTracker.new(locations)
-    expect(season_tracker.fewest_tackles("20122013")).to eq("New England Revolution")
+    expect(season_tracker.tackle_results("20122013", 'fewest')).to eq("New England Revolution")
   end
 end
