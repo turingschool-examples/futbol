@@ -66,15 +66,15 @@ class StatTracker
   end
 
   def highest_scoring_home_team
-    @game_team_tracker.scoring_visitor("worst")
+    @game_team_tracker.home_away_scoring("best")
   end
 
   def lowest_scoring_visitor
-    @game_team_tracker.lowest_scoring_visitor
+    @game_team_tracker.scoring_visitor("worst")
   end
 
   def lowest_scoring_home_team
-    @game_team_tracker.lowest_scoring_home_team
+    @game_team_tracker.home_away_scoring("worst")
   end
 
   def team_info(team_id)

@@ -54,10 +54,33 @@ module DataCollector
     end
   end
 
-  def goal_counter(game_array)
-    team_hash = game_array.transform_values do |games|
+  def goal_counter(game_hash)
+    team_hash = game_hash.transform_values do |games|
       goals = games.reduce(0) {|sum, game| sum + game.goals }
       goals.to_f / games.length
     end
+  end
+
+  # def home_or_away_hash(data, home_or_away)
+  #   return_hash = data.group_by do |game|
+  #     if home_or_away == "home"
+  #       game.team_id
+  #     else home_or_away == "away"
+  #       game.team_id
+  #     end
+  #   end
+  # end
+
+  def group_by_data_hash(data, by_attr)
+    return_hash = data.group_by do |game|
+      if by_attr == 'season'
+        game.season
+      elsif by_attr == 'head_coach'
+        game.head_coach
+      elsif by_attr == 'team_id'
+        game.team_id
+      end
+    end
+    return_hash
   end
 end

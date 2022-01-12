@@ -14,68 +14,21 @@ class GameTeamTracker < Statistics
   end
 
   def scoring_visitor(best_worse)
+    # home_or_away(home_away)
     game_array = sort_games(@game_teams)
-    team_hash = goal_counter(game_array)
-    best_or_worse(best_worse, team_hash)
+    # binding.pry
+    team_games = sort_games()
+    # away_team = team_games.group_by {|game| game.team_id}
+    team_hash = goal_counter(team_games)
+    # best_or_worse(best_worse, team_hash)
   end
 
-  # def lowest_scoring_visitor
-  #   lowest_visitor = {}
-  #   away_array = @game_teams.find_all do |game|    #game_array
-  #     game if game.hoa == "away"
-  #   end
-  #   away_team = away_array.group_by {|game| game.team_id}
-  #   key_hash = {}
-  #   #goal_average_calculator(team_hash)
-  #   away_team.map do |key, away_team|
-  #     goals = away_team.sum {|game| game.goals}
-  #     total_games = away_team.count
-  #     average = goals.to_f / total_games
-  #     key_hash[key] = average
-  #     key_hash = key_hash.to_h
-  #     min = key_hash.values.min
-  #     lowest_visitor = key_hash.select {|k,v| v == min}
-  #   end
-  #   find_name_by_ID(lowest_visitor.keys[0])[0].team_name
-  # end
+  def home_scoring(best_worse)
+    home_away = @game_teams.find_all { |game| game.hoa == "home"}
+    home_team_hash = group_by_data_hash(home_away, "team_id")
+    team_hash = goal_counter(home_team_hash)
+    result = best_or_worse(best_worse, team_hash)
 
-  def highest_scoring_home_team
-    high_home = {}
-    home_array = @game_teams.find_all do |game|
-      game if game.hoa == "home"
-    end
-    home_team = home_array.group_by {|game| game.team_id}
-    key_hash = {}
-    #goal_average_calculator(team_hash)
-    home_team.map do |key, home_team|
-      goals = home_team.sum {|game| game.goals}
-      total_games = home_team.count
-      average = goals.to_f / total_games
-      key_hash[key] = average
-      key_hash = key_hash.to_h
-      max = key_hash.values.max
-      high_home = key_hash.select {|k,v| v == max}
-    end
-    find_name_by_ID(high_home.keys[0])[0].team_name
   end
 
-  def lowest_scoring_home_team
-    low_home = {}
-    home_array = @game_teams.find_all do |game|
-      game if game.hoa == "home"
-    end
-    home_team = home_array.group_by {|game| game.team_id}
-    key_hash = {}
-    #goal_average_calculator(team_hash)
-    home_team.map do |key, home_team|
-      goals = home_team.sum {|game| game.goals}
-      total_games = home_team.count
-      average = goals.to_f / total_games
-      key_hash[key] = average
-      key_hash = key_hash.to_h
-      min = key_hash.values.min
-      low_home = key_hash.select {|k,v| v == min}
-    end
-    find_name_by_ID(low_home.keys[0])[0].team_name
-  end
 end

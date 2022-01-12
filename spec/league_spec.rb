@@ -81,10 +81,10 @@ RSpec.describe do GameTeamTracker
       game_teams: game_path
     }
     game_tracker = GameTeamTracker.new(locations)
-    expect(game_tracker.highest_scoring_home_team).to eq("FC Dallas")
+    expect(game_tracker.home_scoring("best")).to eq("FC Dallas")
   end
 
-  it 'find lowest home visitor' do
+  it 'find lowest scoring home team' do
     game_path = './data/game_teams_stub.csv'
     team_path = './data/teams.csv'
     locations = {
@@ -93,6 +93,6 @@ RSpec.describe do GameTeamTracker
       game_teams: game_path
     }
     game_tracker = GameTeamTracker.new(locations)
-    expect(game_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
+    expect(game_tracker.home_scoring("worst")).to eq("Sporting Kansas City")
   end
 end
