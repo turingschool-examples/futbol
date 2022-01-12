@@ -28,31 +28,7 @@ class SeasonTracker < Statistics
     outcome == 'most' ? find_name_by_ID(goals_per_game.key(goals_per_game.values.max))[0].team_name :
       find_name_by_ID(goals_per_game.key(goals_per_game.values.min))[0].team_name
   end
-
-  def least_accurate_team(season_id)
-    seasons = @games.find_all {|game| game.season == season_id}
-    season_accuracy = []
-    seasons.each do |game|
-      @game_teams.find_all do |game_2|
-        season_accuracy << game_2 if game.game_id == game_2.game_id
-      end
-    end
-    teams = season_accuracy.group_by do |game|
-      game.team_id
-    end
-    hash = Hash.new
-    teams.each_pair do |team, games|
-      shots = games.reduce(0) do |sum, game|
-        sum + game.shots
-      end
-      goals = games.reduce(0) do |sum, game|
-        sum + game.goals
-      end
-      hash[team] = goals.to_f / shots
-    end
-    find_name_by_ID(hash.key(hash.values.min))[0].team_name
-  end
-
+  
   def most_tackles(season_id)
     seasons = @games.find_all {|game| game.season == season_id}
     season_tackles = []
