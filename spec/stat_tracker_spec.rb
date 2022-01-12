@@ -1,9 +1,5 @@
-require './spec/spec_helper'
-require './lib/game.rb'
-require './lib/league.rb'
-require './lib/team.rb'
-require './lib/season.rb'
-require 'csv'
+# require './spec/spec_helper'
+require_relative './spec_helper'
 
 RSpec.describe StatTracker do
   before(:each) do
@@ -43,7 +39,6 @@ RSpec.describe 'Game Stats' do
     }
     @stat_tracker = StatTracker.from_csv(locations)
   end
-##########Game Stats#############
   it 'reports highest total score' do
     expect(@stat_tracker.highest_total_score).to be 7
   end
@@ -83,7 +78,7 @@ RSpec.describe 'Game Stats' do
     expect(@stat_tracker.average_goals_by_season).to eq expected
   end
 end
-#### League Stats #############
+
 RSpec.describe 'League Stats' do
   before(:each) do
     @game_path = './data/games_dummy.csv'
@@ -126,7 +121,6 @@ RSpec.describe 'League Stats' do
   end
 end
 
-###########season stats tests##################
 RSpec.describe 'Season Stats' do
   before(:each) do
     @game_path = './data/games_dummy.csv'
@@ -164,7 +158,6 @@ RSpec.describe 'Season Stats' do
     expect(@stat_tracker.fewest_tackles("20172018")).to eq("Orlando City SC")
   end
 end
-##################team stats#############################
 
 RSpec.describe 'Team Stats' do
   before(:each) do

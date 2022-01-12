@@ -1,5 +1,16 @@
 require 'simplecov'
 SimpleCov.start
-
+require './lib/stat_tracker'
+require './lib/game.rb'
+require './lib/league.rb'
+require './lib/team.rb'
+require './lib/season.rb'
+require './lib/findable.rb'
+# require_relative './stat_tracker'
+# require_relative './game.rb'
+# require_relative './league.rb'
+# require_relative './team.rb'
+# require_relative './season.rb'
+# require_relative './findable.rb'
 require 'pry'
 require 'csv'

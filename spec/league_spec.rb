@@ -1,6 +1,5 @@
-require 'csv'
-require './lib/stat_tracker'
-
+# require './spec/spec_helper'
+require_relative './spec_helper'
 RSpec.describe League do
   before(:each) do
     @game_path = './data/games_dummy.csv'
@@ -17,7 +16,7 @@ RSpec.describe League do
     @game_teams = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
 
     @league = League.new(@games, @teams, @game_teams)
-    # @stat_tracker = StatTracker.from_csv(locations)
+
   end
 
   it 'exists' do
@@ -93,11 +92,4 @@ RSpec.describe League do
     expect(@league.score_ranker("low", "away")).to eq "Minnesota United FC"
     expect(@league.score_ranker("low", "home")).to eq "Seattle Sounders FC"
   end
-
-  # it 'uses the official methods to find highest & lowest scoring visitor & home team' do
-  #   expect(@league.highest_scoring_visitor).to eq("Atlanta United").or(eq("FC Cincinnati")).or(eq("Sporting Kansas City")).or(eq("Los Angeles FC")).or(eq("Real Salt Lake"))
-  #   expect(@league.highest_scoring_home_team).to eq("Portland Timbers").or(eq("FC Dallas"))
-  #   expect(@league.lowest_scoring_visitor).to eq "Minnesota United FC"
-  #   expect(@league.lowest_scoring_home_team).to eq "Seattle Sounders FC"
-  # end
 end

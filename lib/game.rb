@@ -22,23 +22,20 @@ class Game
   end
 
   def percentage_home_wins
-    home_wins = @game_teams.count do |game|
-      game[:hoa] == "home" && game[:result] == "WIN"
+    home_wins = @game_teams.count do |row|
+      row[:hoa] == "home" && row[:result] == "WIN"
     end
-    # (home_wins.to_f / @game_teams.count.to_f).round(2)
-    (home_wins.to_f / @games.count.to_f).round(2) # fixed for spec harness
+    (home_wins.to_f / @games.count.to_f).round(2)
   end
 
   def percentage_visitor_wins
-    visitor_wins = @game_teams.count do |game|
-      game[:hoa] == "away" && game[:result] == "WIN"
+    visitor_wins = @game_teams.count do |row|
+      row[:hoa] == "away" && row[:result] == "WIN"
     end
-    # (visitor_wins.to_f / @game_teams.count.to_f).round(2)
-    (visitor_wins.to_f / @games.count.to_f).round(2)  # fixed for spec harness
+    (visitor_wins.to_f / @games.count.to_f).round(2)
   end
 
   def percentage_ties
-    # (tie.count.to_f / @games.count * 100).round(3)
     (tie.count.to_f / @games.count).round(2)
   end
 
@@ -49,19 +46,19 @@ class Game
   end
 
   def count_of_games_by_season
-    new_hash = {}
-    keys = @games.map do |row|
+    season_info = {}
+    seasons = @games.map do |row|
       row[:season]
     end.flatten.uniq
-    keys.each do |key|
-      new_hash[key] = sum_of_games_in_season(key)
+    seasons.each do |season|
+      season_info[season] = sum_of_games_in_season(season)
     end
-    new_hash
+    season_info
   end
 
-  def sum_of_games_in_season(season_number)
+  def sum_of_games_in_season(season_id)
     season_games = @games.select do |row|
-      row[:season] == season_number
+      row[:season] == season_id
     end
     season_games.count
   end
@@ -74,15 +71,15 @@ class Game
   end
 
   def average_goals_by_season
-    h = Hash.new(0)
-    count = Hash.new(0)
+    goals_by_season = Hash.new(0)
+    games_count = Hash.new(0)
     @games.each do |row|
-      h[row[:season]] += row[:home_goals].to_f + row[:away_goals].to_f
-      count[row[:season]] += 1
+      goals_by_season[row[:season]] += row[:home_goals].to_f + row[:away_goals].to_f
+      games_count[row[:season]] += 1
     end
-    h.each do |key, val|
-      h[key] = (val/count[key]).round(2)
+    goals_by_season.each do |season, goals|
+      goals_by_season[season] = (goals/games_count[season]).round(2)
     end
-    h
+    goals_by_season
   end
 end

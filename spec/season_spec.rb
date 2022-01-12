@@ -1,11 +1,5 @@
-require './spec/spec_helper'
-require './lib/stat_tracker'
-require './lib/game.rb'
-require './lib/league.rb'
-require './lib/team.rb'
-require './lib/season.rb'
-require 'csv'
-
+# require './spec/spec_helper'
+require_relative './spec_helper'
 RSpec.describe 'Season Stats' do
   before(:each) do
     game_path = './data/games_dummy.csv'
@@ -16,7 +10,7 @@ RSpec.describe 'Season Stats' do
       teams: team_path,
       game_teams: game_teams_path
     }
-    # @stat_tracker = StatTracker.from_csv(@locations)
+
     @games = CSV.read locations[:games], headers: true, header_converters: :symbol
     @teams = CSV.read locations[:teams], headers: true, header_converters: :symbol
     @game_teams = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
@@ -56,9 +50,9 @@ RSpec.describe 'Season Stats' do
     expect(@season.total_shots_per_season("20172018")).to eq expected
   end
 
-  it 'gives a hash of games in season by datatype' do
-    expect(@season.games_in_season_by_datatype("20172018", :team_id).class).to be Hash
-    expect(@season.games_in_season_by_datatype("20172018", :team_id).keys).to include "30"
+  it 'gives a hash of games in season by header' do
+    expect(@season.games_in_season_by_header("20172018", :team_id).class).to be Hash
+    expect(@season.games_in_season_by_header("20172018", :team_id).keys).to include "30"
   end
 
   it 'tackles per season' do
