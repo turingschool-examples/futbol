@@ -5,7 +5,6 @@ module DataCollector
     end
   end
 
-
   def home_away_or_tie(game, home_away_tie)
     if home_away_tie == "home"
       game.home_goals > game.away_goals
@@ -13,6 +12,12 @@ module DataCollector
       game.home_goals < game.away_goals
     else
       game.home_goals == game.away_goals
+    end
+  end
+
+  def games_by_season_hash
+    @games.group_by do |game|
+      game.season
     end
   end
 end
