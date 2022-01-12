@@ -10,36 +10,22 @@ class GameTracker < Statistics
     end
   end
 
-  def percentage_home_wins
-    total_games = 0
-    home_wins = 0
-    @games.each do |game|
-      total_games += 1
-      game.home_goals.to_i > game.away_goals.to_i ? home_wins += 1 : next
+  def percentage_wins(home_away_tie)
+    result = @games.count do |game|
+      home_away_or_tie(game, home_away_tie)
     end
-    (home_wins.to_f / total_games).round(2)
-    require "pry"; binding.pry
+    (result.to_f / @games.length).round(2)
   end
 
-  def percentage_visitor_wins
-    total_games = 0
-    visitor_wins = 0
-      @games.each do |game|
-      total_games += 1
-      game.home_goals.to_i < game.away_goals.to_i ? visitor_wins += 1 : next
-    end
-    (visitor_wins.to_f / total_games).round(2)
-  end
-
-  def percentage_ties
-    total_games = 0
-    ties = 0
-    @games.each do |game|
-      total_games += 1
-      game.home_goals.to_i == game.away_goals.to_i ? ties += 1 : next
-    end
-    (ties.to_f / total_games).round(2)
-  end
+  # def percentage_ties
+  #   total_games = 0
+  #   ties = 0
+  #   @games.each do |game|
+  #     total_games += 1
+  #     game.home_goals.to_i == game.away_goals.to_i ? ties += 1 : next
+  #   end
+  #   (ties.to_f / total_games).round(2)
+  # end
 
   def count_of_games_by_season
     game_count = Hash.new(0)
