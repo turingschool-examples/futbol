@@ -18,23 +18,23 @@ class StatTracker
   end
 
   def highest_total_score
-    @game_tracker.highest_total_score
+    @game_tracker.total_score.max
   end
 
   def lowest_total_score
-    @game_tracker.lowest_total_score
+    @game_tracker.total_score.min
   end
 
   def percentage_home_wins
-    @game_tracker.percentage_home_wins
+    @game_tracker.percentage_wins('home')
   end
 
   def percentage_visitor_wins
-    @game_tracker.percentage_visitor_wins
+    @game_tracker.percentage_wins('away')
   end
 
   def percentage_ties
-    @game_tracker.percentage_ties
+    @game_tracker.percentage_wins('tie')
   end
 
   def count_of_games_by_season
