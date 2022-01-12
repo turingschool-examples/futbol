@@ -1,7 +1,9 @@
 require './lib/data_collector'
+require './lib/calculator'
 
 class GameTracker < Statistics
   include DataCollector
+  include Calculator
 
   def total_score
     @games.reduce([]) do |array, game|
@@ -14,18 +16,8 @@ class GameTracker < Statistics
     result = @games.count do |game|
       home_away_or_tie(game, home_away_tie)
     end
-    (result.to_f / @games.length).round(2)
+    average(result)
   end
-
-  # def percentage_ties
-  #   total_games = 0
-  #   ties = 0
-  #   @games.each do |game|
-  #     total_games += 1
-  #     game.home_goals.to_i == game.away_goals.to_i ? ties += 1 : next
-  #   end
-  #   (ties.to_f / total_games).round(2)
-  # end
 
   def count_of_games_by_season
     game_count = Hash.new(0)
@@ -36,13 +28,10 @@ class GameTracker < Statistics
   end
 
   def average_goals_per_game
-    total_games = 0
-    total_scores = 0
-    @games.each do |game|
-      total_games += 1
-      total_scores += (game.home_goals.to_i + game.away_goals.to_i)
+    result = @games.reduce(0) do |sum, game|
+      sum += (game.home_goals + game.away_goals)
     end
-    (total_scores.to_f / total_games).round(2)
+    average(result)
   end
 
   def average_goals_by_season
