@@ -1,4 +1,7 @@
+require_relative './findable.rb'
+
 class Game
+  include Findable
   attr_reader :games, :teams, :game_teams
 
   def initialize(games, teams, game_teams)
@@ -45,22 +48,33 @@ class Game
     end
   end
 
+  # def count_of_games_by_season
+  #   season_info = {}
+  #   seasons = @games.map do |row|
+  #     row[:season]
+  #   end.flatten.uniq
+  #   seasons.each do |season|
+  #     season_info[season] = sum_of_games_in_season(season)
+  #   end
+  #   season_info
+  # end
+  #
+  # def sum_of_games_in_season(season_id)
+  #   season_games = @games.select do |row|
+  #     row[:season] == season_id
+  #   end
+  #   season_games.count
+  # end
+
   def count_of_games_by_season
     season_info = {}
     seasons = @games.map do |row|
       row[:season]
     end.flatten.uniq
     seasons.each do |season|
-      season_info[season] = sum_of_games_in_season(season)
+      season_info[season] = season_games_rows(season).count
     end
     season_info
-  end
-
-  def sum_of_games_in_season(season_id)
-    season_games = @games.select do |row|
-      row[:season] == season_id
-    end
-    season_games.count
   end
 
   def average_goals_per_game

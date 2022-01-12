@@ -25,7 +25,7 @@ class Season
       end
     end
     win_percentage_by_coach = wins.transform_values do |win_games|
-      win_games.count.to_f / games_in_season(season).count.to_f
+      win_games.count.to_f / season_game_teams_rows(season).count.to_f
     end
   end
 

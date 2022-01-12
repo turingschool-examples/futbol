@@ -1,4 +1,7 @@
+require_relative './findable.rb'
+
 class League
+  include Findable
   attr_reader :games, :teams, :game_teams
 
   def initialize(games, teams, game_teams)
