@@ -3,6 +3,7 @@ require './lib/calculator'
 
 class TeamTracker < Statistics
   include DataCollector
+  include Calculator
 
   def team_info(team_id)
     team_hash = {}
@@ -13,55 +14,16 @@ class TeamTracker < Statistics
     team_hash
   end
 
-
-  def best_season(team_id)
-    all_games = @games.find_all do |game|
-      game.home_team_id == team_id || game.away_team_id == team_id
+  def season_outcome(team_id, outcome)
+    game_team_results = @game_teams.find_all {|game| game.team_id == team_id && game.result == "WIN"} if outcome == "best"
+    game_team_results = @game_teams.find_all {|game| game.team_id == team_id && game.result != "WIN"} if outcome == "worse"
+    game_results = find_games(game_team_results)
+    games_by_season = game_results.group_by {|game| game.season}
+    averaged_results = games_by_season.reduce({}) do |hash, season_games|
+      hash[season_games[0]] = season_games[1].length
+      hash
     end
-    games_by_season = all_games.group_by do |game|
-      game.season
-    end
-    win_hash = Hash.new { |hash, key| hash[key] = [] }
-    games_by_season.each_pair do |season, games|
-      games.each do |game|
-        @game_teams.find_all do |game_2|
-          win_hash[season] << game_2 if game.game_id == game_2.game_id && game_2.team_id == team_id
-        end
-      end
-    end
-    hash = Hash.new
-    win_hash.each_pair do |season, games|
-      wins = games.count do |game|
-        game.result == "WIN"
-      end
-      hash[season] = wins.to_f / win_hash[season].length
-    end
-    hash.key(hash.values.max)
-  end
-
-  def worst_season(team_id)
-    all_games = @games.find_all do |game|
-      game.home_team_id == team_id || game.away_team_id == team_id
-    end
-    games_by_season = all_games.group_by do |game|
-      game.season
-    end
-    win_hash = Hash.new { |hash, key| hash[key] = [] }
-    games_by_season.each_pair do |season, games|
-      games.each do |game|
-        @game_teams.find_all do |game_2|
-          win_hash[season] << game_2 if game.game_id == game_2.game_id && game_2.team_id == team_id
-        end
-      end
-    end
-    hash = Hash.new
-    win_hash.each_pair do |season, games|
-      wins = games.count do |game|
-        game.result == "WIN"
-      end
-      hash[season] = wins.to_f / win_hash[season].length
-    end
-    hash.key(hash.values.min)
+    averaged_results.key(averaged_results.values.max)
   end
 
   def average_win_percentage(team_id)
