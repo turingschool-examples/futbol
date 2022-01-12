@@ -1,4 +1,7 @@
+require_relative './findable.rb'
+
 class League
+  include Findable
   attr_reader :games, :teams, :game_teams
 
   def initialize(games, teams, game_teams)
@@ -50,17 +53,12 @@ class League
   end
 
   def all_games_played(team_id)
-    @game_teams.select do |row|
-      row if row[:team_id] == team_id
-    end
+    find_in_sheet(team_id, :team_id, @game_teams)
   end
 
   def convert_team_id_to_name(team_id)
-    name_array = []
-    team = @teams.find do |row|
-      row[:team_id] == team_id
-    end
-    team[:teamname]
+    team = find_in_sheet(team_id, :team_id, @teams)
+    team[0][:teamname]
   end
 
   def highest_scoring_visitor

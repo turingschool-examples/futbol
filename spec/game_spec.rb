@@ -1,4 +1,3 @@
-# require './spec/spec_helper'
 require_relative './spec_helper'
 RSpec.describe Team do
   before(:each) do
@@ -21,12 +20,5 @@ RSpec.describe Team do
   it 'finds all tie games' do
     expect(@game.tie.class).to be Array
     expect(@game.tie.count).to be 3
-  end
-
-  it 'sum_of_games_in_season' do
-    expect(@game.sum_of_games_in_season("20122013")).to be 5
-    expect(@game.sum_of_games_in_season("20132014")).to be 3
-    expect(@game.sum_of_games_in_season("20152016")).to be 1
-    expect(@game.sum_of_games_in_season("20172018")).to be 9
   end
 end

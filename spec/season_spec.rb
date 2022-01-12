@@ -1,4 +1,3 @@
-# require './spec/spec_helper'
 require_relative './spec_helper'
 RSpec.describe 'Season Stats' do
   before(:each) do
@@ -24,11 +23,10 @@ RSpec.describe 'Season Stats' do
     expect(@season.win_percentage_by_coach("20172018").keys).to include "Mike Sullivan"
   end
 
-  it 'games in season' do
-    expect(@season.games_in_season("20172018").class).to be Array
-    expect(@season.games_in_season("20172018").first.class).to be CSV::Row
+  it 'season_games_rows' do
+    expect(@season.season_games_rows("20172018").class).to be Array
+    expect(@season.season_games_rows("20172018").first.class).to be CSV::Row
   end
-
 
   it 'total goals per season works' do
     expected = {

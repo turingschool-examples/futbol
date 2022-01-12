@@ -1,4 +1,7 @@
+require_relative './findable.rb'
+
 class Game
+  include Findable
   attr_reader :games, :teams, :game_teams
 
   def initialize(games, teams, game_teams)
@@ -51,16 +54,9 @@ class Game
       row[:season]
     end.flatten.uniq
     seasons.each do |season|
-      season_info[season] = sum_of_games_in_season(season)
+      season_info[season] = find_in_sheet(season, :season, @games).count
     end
     season_info
-  end
-
-  def sum_of_games_in_season(season_id)
-    season_games = @games.select do |row|
-      row[:season] == season_id
-    end
-    season_games.count
   end
 
   def average_goals_per_game
