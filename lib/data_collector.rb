@@ -27,13 +27,17 @@ module DataCollector
     end
   end
 
-  def find_games(results)
-    game_results = []
-    @games.each do |game|
-      results.each do |game_team|
-        game_results << game if game.game_id == game_team.game_id
+  def find_games(results_1, results_2)
+    final_games = []
+    results_1.each do |game_1|
+      results_2.each do |game_2|
+        final_games << game_1 if game_1.game_id == game_2.game_id
       end
     end
-    game_results
+    final_games
+  end
+
+  def count_games_per_team(team_id, data)
+    (data.find_all {|game| game.team_id == team_id}).length
   end
 end
