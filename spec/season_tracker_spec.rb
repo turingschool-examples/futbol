@@ -42,7 +42,7 @@ RSpec.describe do SeasonTracker
       teams: './data/teams.csv',
       game_teams: game_path}
     season_tracker = SeasonTracker.new(locations)
-    expect(season_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
+    expect(season_tracker.accurate_team("20122013", 'most')).to eq("FC Dallas")
   end
 
   it 'least_accurate_team' do
@@ -52,7 +52,7 @@ RSpec.describe do SeasonTracker
       teams: './data/teams.csv',
       game_teams: game_path}
     season_tracker = SeasonTracker.new(locations)
-    expect(season_tracker.least_accurate_team("20122013")).to eq("Sporting Kansas City")
+    expect(season_tracker.accurate_team("20122013", 'least')).to eq("Sporting Kansas City")
   end
 
   it 'most_tackles' do
