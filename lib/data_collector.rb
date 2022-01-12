@@ -61,16 +61,6 @@ module DataCollector
     end
   end
 
-  # def home_or_away_hash(data, home_or_away)
-  #   return_hash = data.group_by do |game|
-  #     if home_or_away == "home"
-  #       game.team_id
-  #     else home_or_away == "away"
-  #       game.team_id
-  #     end
-  #   end
-  # end
-
   def group_by_data_hash(data, by_attr)
     return_hash = data.group_by do |game|
       if by_attr == 'season'

@@ -14,13 +14,10 @@ class GameTeamTracker < Statistics
   end
 
   def scoring_visitor(best_worse)
-    # home_or_away(home_away)
-    game_array = sort_games(@game_teams)
-    # binding.pry
-    team_games = sort_games()
-    # away_team = team_games.group_by {|game| game.team_id}
-    team_hash = goal_counter(team_games)
-    # best_or_worse(best_worse, team_hash)
+    home_away = @game_teams.find_all { |game| game.hoa == "away"}
+    home_team_hash = group_by_data_hash(home_away, "team_id")
+    team_hash = goal_counter(home_team_hash)
+    result = best_or_worse(best_worse, team_hash)
   end
 
   def home_scoring(best_worse)
@@ -28,7 +25,5 @@ class GameTeamTracker < Statistics
     home_team_hash = group_by_data_hash(home_away, "team_id")
     team_hash = goal_counter(home_team_hash)
     result = best_or_worse(best_worse, team_hash)
-
   end
-
 end
