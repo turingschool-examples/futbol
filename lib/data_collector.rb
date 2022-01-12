@@ -15,10 +15,17 @@ module DataCollector
     end
   end
 
-  def games_by_season_hash
-    @games.group_by do |game|
-      game.season
+  def group_by_data_hash(data, by_attr)
+    return_hash = data.group_by do |game|
+      if by_attr == 'season'
+        game.season
+      elsif by_attr == 'head_coach'
+        game.head_coach
+      elsif by_attr == 'team_id'
+        game.team_id
+      end 
     end
+    return_hash
   end
 
   def get_team(team_id)
