@@ -31,7 +31,7 @@ class TeamTracker < Statistics
     total_wins = games_by_team.count do |game|
       game.result == "WIN"
     end
-    average(total_wins, games_by_team)
+    average(total_wins, count_games_per_team(team_id, @game_teams))
   end
 
   def goals_scored(team_id, amount)
@@ -51,7 +51,7 @@ class TeamTracker < Statistics
       hash[game.team_id] += 1 if game.result != "WIN" && type == "favorite"
       hash
     end
-    opponent_hash.each {|k, v| opponent_hash[k] = v.to_f / count_games_per_team(k, opponent_games)}
+    opponent_hash.each {|k, v| opponent_hash[k] = average(v, count_games_per_team(k, opponent_games))}
     find_name_by_ID(opponent_hash.key(opponent_hash.values.max))[0].team_name
   end
 end
