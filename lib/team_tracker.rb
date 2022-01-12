@@ -1,13 +1,14 @@
+require './lib/data_collector'
+require './lib/calculator'
+
 class TeamTracker < Statistics
-  # USE THIS METHOD TEAM INFO
+  include DataCollector
+
   def team_info(team_id)
     team_hash = {}
-    team = @teams.find do |team|
-      team.team_id == team_id
-    end
-    team.instance_variables.each do |variable|
+    get_team(team_id).instance_variables.each do |variable|
       variable = variable.to_s.delete! '@'
-      variable == 'stadium' ? next : team_hash[variable] = team.instance_variable_get("@#{variable}")
+      variable == 'stadium' ? next : team_hash[variable] = get_team(team_id).instance_variable_get("@#{variable}")
     end
     team_hash
   end
@@ -17,9 +18,6 @@ class TeamTracker < Statistics
     all_games = @games.find_all do |game|
       game.home_team_id == team_id || game.away_team_id == team_id
     end
-    # reg_games = all_games.find_all do |game|
-    #   game.type == "Regular Season"
-    # end
     games_by_season = all_games.group_by do |game|
       game.season
     end
@@ -45,9 +43,6 @@ class TeamTracker < Statistics
     all_games = @games.find_all do |game|
       game.home_team_id == team_id || game.away_team_id == team_id
     end
-    # reg_games = all_games.find_all do |game|
-    #   game.type == "Regular Season"
-    # end
     games_by_season = all_games.group_by do |game|
       game.season
     end
