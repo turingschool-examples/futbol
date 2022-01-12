@@ -1,6 +1,5 @@
-require 'pry'
-require 'simplecov'
-SimpleCov.start
+# require 'simplecov'
+# SimpleCov.start
 require './lib/game_team'
 require 'csv'
 require './lib/game'
@@ -34,7 +33,7 @@ RSpec.describe do GameTeamTracker
       teams: './data/teams.csv',
       game_teams: game_path}
     game_tracker = GameTeamTracker.new(locations)
-    expect(game_tracker.best_offense).to eq("FC Dallas")
+    expect(game_tracker.offense("best")).to eq("FC Dallas")
   end
 
   it 'can tell worst offense' do
@@ -46,7 +45,7 @@ RSpec.describe do GameTeamTracker
       game_teams: game_path
     }
     game_tracker = GameTeamTracker.new(locations)
-    expect(game_tracker.worst_offense).to eq("Sporting Kansas City")
+    expect(game_tracker.offense("worst")).to eq("Sporting Kansas City")
   end
 
   it 'find highest scoring visitor' do

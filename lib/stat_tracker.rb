@@ -18,23 +18,23 @@ class StatTracker
   end
 
   def highest_total_score
-    @game_tracker.highest_total_score
+    @game_tracker.total_score.max
   end
 
   def lowest_total_score
-    @game_tracker.lowest_total_score
+    @game_tracker.total_score.min
   end
 
   def percentage_home_wins
-    @game_tracker.percentage_home_wins
+    @game_tracker.percentage_wins('home')
   end
 
   def percentage_visitor_wins
-    @game_tracker.percentage_visitor_wins
+    @game_tracker.percentage_wins('away')
   end
 
   def percentage_ties
-    @game_tracker.percentage_ties
+    @game_tracker.percentage_wins('tie')
   end
 
   def count_of_games_by_season
@@ -54,11 +54,11 @@ class StatTracker
   end
 
   def best_offense
-    @game_team_tracker.best_offense
+    @game_team_tracker.offense("best", data)
   end
 
   def worst_offense
-    @game_team_tracker.worst_offense
+    @game_team_tracker.offense("worst", data)
   end
 
   def highest_scoring_visitor
@@ -82,11 +82,11 @@ class StatTracker
   end
 
   def best_season(team_id)
-    @team_tracker.best_season(team_id)
+    @team_tracker.season_outcome(team_id, "best")
   end
 
   def worst_season(team_id)
-    @team_tracker.worst_season(team_id)
+    @team_tracker.season_outcome(team_id, "worse")
   end
 
   def average_win_percentage(team_id)
@@ -94,19 +94,19 @@ class StatTracker
   end
 
   def most_goals_scored(team_id)
-    @team_tracker.most_goals_scored(team_id)
+    @team_tracker.goals_scored(team_id, 'most')
   end
 
   def fewest_goals_scored(team_id)
-    @team_tracker.fewest_goals_scored(team_id)
+    @team_tracker.goals_scored(team_id, 'fewest')
   end
 
   def favorite_opponent(team_id)
-    @team_tracker.favorite_opponent(team_id)
+    @team_tracker.opponent_results(team_id, 'favorite')
   end
 #Below are failing
   def rival(team_id)
-    @team_tracker.rival(team_id)
+    @team_tracker.opponent_results(team_id, 'rival')
   end
 
   def winningest_coach(season)

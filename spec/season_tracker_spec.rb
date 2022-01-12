@@ -1,6 +1,6 @@
-require 'pry'
-require 'simplecov'
-SimpleCov.start
+# require 'pry'
+# # require 'simplecov'
+# SimpleCov.start
 require './lib/game_team'
 require 'csv'
 require './lib/game'
@@ -79,11 +79,4 @@ RSpec.describe do SeasonTracker
     season_tracker = SeasonTracker.new(locations)
     expect(season_tracker.fewest_tackles("20122013")).to eq("New England Revolution")
   end
-
-
-
-
-
-
-
 end
