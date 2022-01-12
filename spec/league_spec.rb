@@ -57,7 +57,7 @@ RSpec.describe do GameTeamTracker
       game_teams: game_path
     }
     game_tracker = GameTeamTracker.new(locations)
-    expect(game_tracker.highest_scoring_visitor).to eq("FC Dallas")
+    expect(game_tracker.scoring_visitor("best")).to eq("FC Dallas")
   end
 
   it 'find lowest scoring visitor' do
@@ -69,7 +69,7 @@ RSpec.describe do GameTeamTracker
       game_teams: game_path
     }
     game_tracker = GameTeamTracker.new(locations)
-    expect(game_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
+    expect(game_tracker.scoring_visitor("worst")).to eq("Sporting Kansas City")
   end
 
   it 'find highest scoring home' do

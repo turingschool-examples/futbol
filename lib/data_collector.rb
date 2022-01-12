@@ -53,4 +53,11 @@ module DataCollector
       find_name_by_ID(hash.key(hash.values.min))[0].team_name
     end
   end
+
+  def goal_counter(game_array)
+    team_hash = game_array.transform_values do |games|
+      goals = games.reduce(0) {|sum, game| sum + game.goals }
+      goals.to_f / games.length
+    end
+  end
 end
