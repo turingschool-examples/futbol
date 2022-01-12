@@ -35,7 +35,7 @@ class GameTracker < Statistics
   end
 
   def average_goals_by_season
-    goals_by_season_hash = games_by_season_hash.reduce({}) do |hash, games_per_season|
+    goals_by_season_hash = group_by_data_hash(@games, 'season').reduce({}) do |hash, games_per_season|
       goals = games_per_season[1].sum {|game| game.home_goals + game.away_goals}
       hash[games_per_season[0]] = average(goals, games_per_season[1].length )
       hash
