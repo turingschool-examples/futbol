@@ -1,4 +1,7 @@
+require_relative './findable.rb'
+
 class Season
+  include Findable
   attr_reader :games, :teams, :game_teams
 
   def initialize(games, teams, game_teams)
@@ -16,7 +19,7 @@ class Season
   end
 
   def win_percentage_by_coach(season)
-    wins = games_in_season_by_datatype(season, :head_coach).transform_values do |values|
+    wins = games_in_season_by_header(season, :head_coach).transform_values do |values|
       values.reject do |game|
         game if game[:result] != "WIN"
       end
@@ -26,25 +29,22 @@ class Season
     end
   end
 
-  def games_in_season(season)
-    season_games = @games.select do |game|
-      # game if game[:season] == season
-      game[:season] == season
-    end
-    game_ids = season_games.map do |game|
-      game[:game_id]
-    end
-    games = @game_teams.select do |game|
-      # game if game_ids.include?(game[:game_id])
-      game_ids.include?(game[:game_id])
-    end
+  # def games_in_season(season)
+  #   season_games = @games.select do |game|
+  #     game[:season] == season
+  #   end
+  #   game_ids = season_games.map do |game|
+  #     game[:game_id]
+  #   end
+  #   games = @game_teams.select do |game|
+  #     game_ids.include?(game[:game_id])
+  #   end
+  #
+  # end
 
-  end
-
-  def games_in_season_by_datatype(season, datatype)
-    #returns a hash with datatype as key / array of games as values
-    games_in_season(season).group_by {|game| game[datatype]}
-  end
+  # def games_in_season_by_header(season, header)
+  #   games_in_season(season).group_by {|game| game[header]}
+  # end
 
   def most_accurate_team(season)
     shot_accuracy_hash = Hash.new(0.0)
@@ -70,7 +70,7 @@ class Season
 
   def total_goals_per_season(season)
     goals_per_team = Hash.new(0)
-    games_in_season_by_datatype(season, :team_id).each do |team_id, game_array|
+    games_in_season_by_header(season, :team_id).each do |team_id, game_array|
       goals_per_team[team_id] = game_array.map {|game| game[:goals].to_f}
     end
     goals_per_team.each do |team_id, goals_array|
@@ -81,7 +81,7 @@ class Season
 
   def total_shots_per_season(season)
     shots_per_team = Hash.new(0)
-    games_in_season_by_datatype(season, :team_id).each do |team_id, game_array|
+    games_in_season_by_header(season, :team_id).each do |team_id, game_array|
       shots_per_team[team_id] = game_array.map {|game| game[:shots].to_f}
     end
     shots_per_team.each do |team_id, shots_array|
@@ -114,7 +114,7 @@ class Season
 
   def tackles_per_season(season)
     tackles_per_team = Hash.new(0)
-    games_in_season_by_datatype(season, :team_id).each do |team_id, game_array|
+    games_in_season_by_header(season, :team_id).each do |team_id, game_array|
       tackles_per_team[team_id] = game_array.map {|game| game[:tackles].to_f}
     end
     tackles_per_team.each do |team_id, tackles_array|

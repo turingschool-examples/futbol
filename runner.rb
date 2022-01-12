@@ -1,10 +1,5 @@
-require './lib/stat_tracker'
-
-# commenting out old file paths -- so we have them for future use - dummy lines below will go away
-# game_path = './data/games.csv'
-# team_path = './data/teams.csv'
-# game_teams_path = './data/game_teams.csv'
-
+# require './spec/spec_helper'
+require_relative './spec_helper'
 game_path = './data/games_dummy.csv'
 team_path = './data/teams.csv'
 game_teams_path = './data/game_teams_dummy.csv'
@@ -16,5 +11,3 @@ locations = {
 }
 
 stat_tracker = StatTracker.from_csv(locations)
-
-require 'pry'; binding.pry

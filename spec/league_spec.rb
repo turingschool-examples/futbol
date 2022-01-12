@@ -1,6 +1,5 @@
-require 'csv'
-require './lib/stat_tracker'
-
+# require './spec/spec_helper'
+require_relative './spec_helper'
 RSpec.describe League do
   before(:each) do
     @game_path = './data/games_dummy.csv'

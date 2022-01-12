@@ -92,7 +92,6 @@ class Team
 
   def all_games_played(team_id)
     @game_teams.select do |row|
-      # row if row[:team_id] == team_id
       row[:team_id] == team_id
     end
   end

@@ -1,10 +1,5 @@
-require './spec/spec_helper'
-require './lib/game.rb'
-require './lib/league.rb'
-require './lib/team.rb'
-require './lib/season.rb'
-require './lib/stat_tracker.rb'
-require 'csv'
+# require './spec/spec_helper'
+require_relative './spec_helper'
 
 RSpec.describe StatTracker do
   before(:each) do
