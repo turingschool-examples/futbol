@@ -82,11 +82,11 @@ class StatTracker
   end
 
   def best_season(team_id)
-    @team_tracker.best_season(team_id)
+    @team_tracker.season_outcome(team_id, "best")
   end
 
   def worst_season(team_id)
-    @team_tracker.worst_season(team_id)
+    @team_tracker.season_outcome(team_id, "worse")
   end
 
   def average_win_percentage(team_id)
