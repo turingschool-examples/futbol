@@ -34,6 +34,6 @@ class GameTeams
   end
 
   def self.create_list_of_game_teams(gameteams)
-    gameteams.map { |gameteams| GameTeams.new(gameteams) }
+    gameteams.map { |gameteam| GameTeams.new(gameteam) }
   end
 end
