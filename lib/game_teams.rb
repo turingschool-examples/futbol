@@ -25,7 +25,7 @@ class GameTeams
     @goals = info['goals']
     @shots = info['shots']
     @tackles = info['tackles']
-    @pim = info[pim]
+    @pim = info['pim']
     @power_play_opportunities = info['powerPlayOpportunities']
     @power_play_goals = info['powerPlayGoals']
     @face_off_win_percentage = info['faceOffWinPercentage']
