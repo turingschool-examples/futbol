@@ -1,6 +1,7 @@
 require 'csv'
+require './lib/game'
 
-class StatTracker
+class StatTracker < Game
   attr_reader :games, :teams, :game_teams
 
   def initialize(locations)
