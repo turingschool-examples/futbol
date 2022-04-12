@@ -32,4 +32,8 @@ class GameTeams
     @giveaways = info['giveaways']
     @takeaways = info['takeaways']
   end
+
+  def self.create_list_of_game_teams(game_teams)
+    game_teams.map { |game| GameTeams.new(game) }
+  end
 end
