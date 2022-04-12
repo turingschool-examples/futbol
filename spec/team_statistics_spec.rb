@@ -33,4 +33,12 @@ describe TeamStatistics do
 
     expect(@stat_tracker.team_info('1')).to eq expected
   end
+
+  it 'can produce best season for a team' do
+    expect(@stat_tracker.best_season('6')).to eq '20132014'
+  end
+
+  it 'can produce worst season for a team' do
+    expect(@stat_tracker.worst_season('6')).to eq '20142015'
+  end
 end
