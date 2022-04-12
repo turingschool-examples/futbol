@@ -59,4 +59,16 @@ module TeamStatistics
     end
     seasons
   end
+
+  def most_goals_scored(team_id)
+    games = GameTeams.create_list_of_game_teams(@game_teams)
+    teams_games = games.find_all { |game| game.team_id == team_id }
+    teams_games.sort_by { |game| game.goals }[-1].goals
+  end
+
+  def fewest_goals_scored(team_id)
+    games = GameTeams.create_list_of_game_teams(@game_teams)
+    teams_games = games.find_all { |game| game.team_id == team_id }
+    teams_games.sort_by { |game| game.goals }[0].goals
+  end
 end

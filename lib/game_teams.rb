@@ -22,7 +22,7 @@ class GameTeams
     @result = info['result']
     @settled_in = info['settled_in']
     @head_coach = info['head_coach']
-    @goals = info['goals']
+    @goals = info['goals'].to_i
     @shots = info['shots']
     @tackles = info['tackles']
     @pim = info['pim']
@@ -31,9 +31,5 @@ class GameTeams
     @face_off_win_percentage = info['faceOffWinPercentage']
     @giveaways = info['giveaways']
     @takeaways = info['takeaways']
-  end
-
-  def self.create_list_of_game_teams(gameteams)
-    gameteams.map { |gameteam| GameTeams.new(gameteam) }
   end
 end

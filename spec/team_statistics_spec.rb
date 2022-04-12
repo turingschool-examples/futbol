@@ -45,4 +45,16 @@ describe TeamStatistics do
   it 'can produce average win percentage of a team' do
     expect(@stat_tracker.average_win_percentage('6')).to eq 0.49
   end
+
+  it 'can produce the highest amount of goals of a single game for a team' do
+    expect(@stat_tracker.most_goals_scored('18')).to eq 7
+  end
+
+  it 'can produce the fewest amount of goals of a single game for a team' do
+    expect(@stat_tracker.fewest_goals_scored('18')).to eq 0
+  end
+
+  it 'can produce the team that wins against a team the least' do
+    expect(@stat_tracker.favorite_opponent('18')).to eq 'DC United'
+  end
 end
