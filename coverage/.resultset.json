@@ -1,0 +1,22 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/luke/turing/1Module/projects/futbol/lib/stat_tracker.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1649783655
+  }
+}
