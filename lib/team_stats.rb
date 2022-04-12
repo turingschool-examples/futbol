@@ -12,7 +12,5 @@ class TeamStats
 
   def self.create_a_list_of_teams(teams)
     teams.map { |team| TeamStats.new(team) }
-
   end
-
 end
