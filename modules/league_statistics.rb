@@ -13,26 +13,31 @@ module LeagueStats
     highest_goal_average_per_game = []
     game_teams.each do |game, team|
       team.each do goals.sum / goals.length
-    highest_goal_average_per_game << team
+      highest_goal_average_per_game << team
+      end
     end
     highest_goal_average_per_game.sort[-1]
   end
 
   def worst_offense
     game_teams = GameTeams.create_list_of_games(@game_teams)
-    scores = []
-    game_teams.each do |team_id, goals|
-      scores << goals.sum / goals.length if team_id == team_id
+    highest_goal_average_per_game = []
+    game_teams.each do |game, team|
+      team.each do goals.sum / goals.length
+      highest_goal_average_per_game << team
+      end
     end
-    scores[0]
+    highest_goal_average_per_game[0]
   end
 
   def highest_scoring_visitor
     game_teams = GameTeams.create_list_of_games(@game_teams)
-    scores = []
-      scores << goals.sum / goals.length if team_id == team_id && if hoa == hoa
+    highest_goal_average_per_game = []
+    game_teams.each do |game, team|
+      team.each do goals.sum / goals.length
+      highest_goal_average_per_game << team if team.hoa == "away"
     end
-    scores.sort[-1]
+    highest_goal_average_per_game.sort[-1]
   end
 
 
