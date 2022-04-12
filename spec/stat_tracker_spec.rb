@@ -2,7 +2,8 @@ require 'simplecov'
 SimpleCov.start
 require './lib/stat_tracker'
 require './lib/team'
-
+require './lib/game_team'
+require 'pry'
 
 describe StatTracker do
   before :each do
@@ -22,8 +23,13 @@ describe StatTracker do
 	  expect(@stat_tracker).to be_an_instance_of(StatTracker)
   end
 
+
 	it "has a team" do
-		@team1 = Team.new('1', '23', 'Atlanta United', 'ATL', 'Mercedes-Benz Stadium', 'link')
-		expect(@stat_tracker.team[0]).to eq '1'
+		expect(@stat_tracker.teams[0]).to be_a(Team)
 	end
+
+  it 'has game_teams' do
+    expect(@stat_tracker.game_teams[0]).to be_a(GameTeam)
+  end
+
 end
