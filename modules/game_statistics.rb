@@ -23,5 +23,14 @@ module GameStats
     ((games.count{ |game| game.home_goals < game.away_goals}) / games.length.to_f).round(2)
   end
 
+  def percentage_ties
+    games = Game.create_list_of_games(@games)
+    ((games.count{ |game| game.home_goals == game.away_goals}) / games.length.to_f).round(2)
+  end
 
+  def count_of_games_by_season
+
+  end
+
+  
 end
