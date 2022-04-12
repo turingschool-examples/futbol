@@ -30,7 +30,19 @@ RSpec.describe 'Season' do
     end
 
     it ' returns the most accurate team' do
-      expect(@stat_tracker.most_accurate_team).to eq ''
+      expect(@stat_tracker.most_accurate_team('20132014')).to eq 'Real Salt Lake'
+    end
+
+    it 'returns the least accurate team' do
+      expect(@stat_tracker.least_accurate_team('20132014')).to eq 'New York City FC'
+    end
+
+    it 'returns team with most tackles' do
+      expect(@stat_tracker.most_tackles('20132014')).to eq 'FC Cincinnati'
+    end
+
+    it 'returns team with least tackles' do
+      expect(@stat_tracker.fewest_tackles('20132014')).to eq 'Atlanta United'
     end
   end
 end
