@@ -1,0 +1,16 @@
+game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways
+2012030183,19,away,LOSS,REG,Ken Hitchcock,0,7,39,10,4,0,50.9,13,2
+2013021004,12,away,LOSS,REG,Kirk Muller,1,7,21,6,3,0,46.3,8,5
+2016020186,5,home,LOSS,REG,Mike Sullivan,2,8,31,4,3,0,47.5,10,8
+2013030144,4,home,WIN,REG,Craig Berube,2,6,33,10,2,1,57.4,13,2
+2014020348,4,away,LOSS,REG,Craig Berube,2,5,26,8,1,1,64.7,9,6
+2016020658,17,home,WIN,REG,Jeff Blashill,1,5,11,2,4,0,45.5,10,2
+2014021103,26,away,WIN,REG,Darryl Sutter,3,9,29,4,2,0,58.8,10,7
+2015020308,19,away,WIN,REG,Ken Hitchcock,2,6,15,11,0,0,54.5,4,1
+2014020172,13,away,LOSS,OT,Gerard Gallant,1,4,27,0,1,0,38.5,7,8
+2017030135,15,home,LOSS,OT,Barry Trotz,2,7,38,10,4,1,43.5,18,10
+2013020885,23,home,WIN,REG,John Tortorella,1,8,18,6,4,0,53.6,9,6
+2017021010,16,away,LOSS,REG,Joel Quenneville,3,10,9,9,2,0,55.6,14,7
+2017020515,28,away,TIE,REG,Peter DeBoer,3,5,9,6,3,1,52.9,9,6
+2014020875,10,home,LOSS,OT,Peter Horachek,2,8,39,19,4,0,49.4,13,20
+2017020341,17,away,LOSS,OT,Jeff Blashill,1,10,16,4,4,1,45.5,15,9
