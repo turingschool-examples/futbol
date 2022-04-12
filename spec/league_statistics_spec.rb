@@ -1,10 +1,10 @@
-require './lib/game'
+require './lib/team_stats'
 require './lib/game_teams'
-require './modules/game_statistics'
+require './modules/league_statistics'
 require './lib/stat_tracker'
 require 'rspec'
 
-describe GameStats do
+describe LeagueStats do
   before(:all) do
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -19,4 +19,7 @@ describe GameStats do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
+  it 'can access TeamStats to count teams' do
+  expect(@stat_tracker.count_of_teams).to eq(32)
+  end
 end

@@ -1,5 +1,6 @@
 require './lib/game_teams'
 require './lib/team_stats'
+require 'pry'
 
 module LeagueStats
 
@@ -7,6 +8,7 @@ module LeagueStats
     teams = TeamStats.create_list_of_teams(@teams)
     teams.map { |team| team.length}
   end
+
 
   def best_offense
     game_teams = GameTeams.create_list_of_games(@game_teams)
