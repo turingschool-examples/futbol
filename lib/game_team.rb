@@ -11,12 +11,13 @@ class GameTeam
     @result = result
     @settled_in = settled_in
     @head_coach = head_coach
+    @goals = goals
     @shots = shots
     @tackles = tackles
     @pim = pim
     @power_play_opportunities = power_play_opportunities
     @power_play_goals = power_play_goals
-    @face_off_win_precentage = face_off_win_percentage
+    @face_off_win_percentage = face_off_win_percentage
     @giveaways = giveaways
     @takeaways = takeaways
   end

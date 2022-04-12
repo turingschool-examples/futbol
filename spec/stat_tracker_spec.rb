@@ -1,6 +1,8 @@
 require 'simplecov'
 SimpleCov.start
 require './lib/stat_tracker'
+require './lib/game_team'
+require 'pry'
 
 describe StatTracker do
   before :each do
@@ -18,5 +20,9 @@ describe StatTracker do
   it 'exists' do
 
   expect(@stat_tracker).to be_an_instance_of(StatTracker)
+  end
+
+  it 'has game_teams' do
+    expect(@stat_tracker.game_teams[0]).to be_a(GameTeam)
   end
 end
