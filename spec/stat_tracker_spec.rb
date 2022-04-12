@@ -2,16 +2,23 @@ require './lib/stat_tracker'
 
 
 RSpec.describe StatTracker do
-    
-    it 'exists and has attributes' do 
-        stat_tracker = StatTracker.new
+
+    it 'exists and has attributes' do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+
+      locations = {
+          games: game_path,
+          teams: team_path,
+          game_teams: game_teams_path
+        }
+        stat_tracker = StatTracker.from_csv(locations)
 
         expect(stat_tracker).to be_an_instance_of(StatTracker)
     end
 
-    it 'can call #from_csv on self' do 
-        stat_tracker = StatTracker.new
-
+    it 'can call #from_csv on self' do
         game_path = './data/games.csv'
         team_path = './data/teams.csv'
         game_teams_path = './data/game_teams.csv'
@@ -21,11 +28,11 @@ RSpec.describe StatTracker do
             teams: team_path,
             game_teams: game_teams_path
           }
-        
-        expect(self.from_csv(locations)).to eq({
-            games: game_path,
-            teams: team_path,
-            game_teams: game_teams_path
-          })
+          stat_tracker = StatTracker.from_csv(locations)
+          #require 'pry';binding.pry
+
+        expect(stat_tracker.games.count).to eq(7441)
+        expect(stat_tracker.teams.count).to eq(32)
+        expect(stat_tracker.game_teams.count).to eq(14882)
     end
 end
