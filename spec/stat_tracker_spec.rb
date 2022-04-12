@@ -1,6 +1,7 @@
 require 'simplecov'
 SimpleCov.start
 require './lib/stat_tracker'
+require './lib/game'
 
 describe StatTracker do
   before :each do
@@ -15,8 +16,12 @@ describe StatTracker do
     }
     @stat_tracker = StatTracker.from_csv(@locations)
   end
-  it 'exists' do
 
-  expect(@stat_tracker).to be_an_instance_of(StatTracker)
+  it 'exists' do
+    expect(@stat_tracker).to be_an_instance_of(StatTracker)
+  end
+
+  it 'has game' do
+    expect(@stat_tracker.games[0]).to be_a(Game)
   end
 end

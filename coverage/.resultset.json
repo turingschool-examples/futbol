@@ -1,0 +1,74 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/luke/turing/1Module/projects/futbol/lib/stat_tracker.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          2,
+          2,
+          2,
+          null,
+          null,
+          1,
+          2,
+          2,
+          2,
+          2,
+          null,
+          null,
+          null,
+          1,
+          2,
+          2,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          null,
+          null,
+          2,
+          null,
+          null
+        ]
+      },
+      "/Users/luke/turing/1Module/projects/futbol/lib/game.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1649798980
+  }
+}
