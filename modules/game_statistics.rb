@@ -6,7 +6,8 @@ module GameStats
     games = Game.create_list_of_games(@games)
     games.map { |game| game.away_goals + game.home_goals }.sort[-1]
   end
-# require 'pry' ;binding pry
+
+  # require 'pry' ;binding pry
   def lowest_total_score
     games = Game.create_list_of_games(@games)
     games.map { |game| game.away_goals + game.home_goals }.sort[0]
@@ -14,17 +15,17 @@ module GameStats
 
   def percentage_home_wins
     games = Game.create_list_of_games(@games)
-    ((games.count{ |game| game.home_goals > game.away_goals}) / games.length.to_f).round(2)
+    ((games.count { |game| game.home_goals > game.away_goals }) / games.length.to_f).round(2)
   end
 
   def percentage_visitor_wins
     games = Game.create_list_of_games(@games)
-    ((games.count{ |game| game.home_goals < game.away_goals}) / games.length.to_f).round(2)
+    ((games.count { |game| game.home_goals < game.away_goals }) / games.length.to_f).round(2)
   end
 
   def percentage_ties
     games = Game.create_list_of_games(@games)
-    ((games.count{ |game| game.home_goals == game.away_goals}) / games.length.to_f).round(2)
+    ((games.count { |game| game.home_goals == game.away_goals }) / games.length.to_f).round(2)
   end
 
   def count_of_games_by_season
@@ -37,12 +38,12 @@ module GameStats
         games_by_season[game.season] += 1
       end
     end
-      games_by_season
+    games_by_season
   end
 
   def average_goals_per_game
     games = Game.create_list_of_games(@games)
-    (games.flat_map{ |game| game.home_goals + game.away_goals}.sum / games.length.to_f).round(2)
+    (games.flat_map { |game| game.home_goals + game.away_goals }.sum / games.length.to_f).round(2)
   end
 
   def average_goals_by_season
@@ -62,5 +63,4 @@ module GameStats
     end
     average_goals
   end
-
 end
