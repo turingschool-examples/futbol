@@ -23,8 +23,8 @@ class GameTeams
     @settled_in = info['settled_in']
     @head_coach = info['head_coach']
     @goals = info['goals'].to_i
-    @shots = info['shots']
-    @tackles = info['tackles']
+    @shots = info['shots'].to_i
+    @tackles = info['tackles'].to_i
     @pim = info['pim']
     @power_play_opportunities = info['powerPlayOpportunities']
     @power_play_goals = info['powerPlayGoals']
