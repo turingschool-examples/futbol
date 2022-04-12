@@ -41,4 +41,8 @@ describe TeamStatistics do
   it 'can produce worst season for a team' do
     expect(@stat_tracker.worst_season('6')).to eq '20142015'
   end
+
+  it 'can produce average win percentage of a team' do
+    expect(@stat_tracker.average_win_percentage('6')).to eq 0.49
+  end
 end
