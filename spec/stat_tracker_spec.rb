@@ -3,6 +3,7 @@ SimpleCov.start
 require './lib/stat_tracker'
 require './lib/team'
 require './lib/game_team'
+require './lib/game'
 require 'pry'
 
 describe StatTracker do
@@ -20,7 +21,11 @@ describe StatTracker do
   end
 
   it 'exists' do
-	  expect(@stat_tracker).to be_an_instance_of(StatTracker)
+    expect(@stat_tracker).to be_an_instance_of(StatTracker)
+  end
+
+  it 'has game' do
+    expect(@stat_tracker.games[0]).to be_a(Game)
   end
 
 
