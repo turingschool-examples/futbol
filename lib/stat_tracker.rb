@@ -23,25 +23,35 @@ class StatTracker
     game_score.max
   end
 
-  # def initialize(locations)
-  #   @games = CSV.open ""
-  #   @teams = CSV.open ""
-  #   @game_teams = CSV.open ""
-  # end
-  #
-  # def self.from_csv(locations)
-  #   StatTracker.new(locations)
-  # end
+  def team_info(team_id)
+    # require "pry"; binding.pry
+    team = Hash.new
 
+    @teams.each do |row|
+      if row[:team_id] == team_id.to_s
+        team[:team_id] = row[:team_id]
+        team[:franchise_id] = row[:franchiseid]
+        team[:team_name] = row[:teamname]
+        team[:abbreviation] = row[:abbreviation]
+        team[:link] = row[:link]
+      end
+    end
+    # require "pry";binding.pry
+    return team
+  end
 end
 
 
-# contents = CSV.open "./data/event_attendees.csv", headers: true, header_converters: :symbol
-# # puts contents
-#
-# attendees = []
-#
-# big_contents[0] do |row|
-#  p row[:game_id]
-#
-# end
+## -- Old Team info Method attempts -- ##
+    # @teams.find do |row|
+    #   team_id = row[:team_id]
+    #   franchise_id = row[:franchiseid]
+    #   team_name = row[:teamname]
+    #   abbrev = row[:abbreviation]
+    #   link = row[:link]
+    #   team << Hash.new(team_id, franchise_id, team_name, abbrev, link)
+      # :team_id => @teams[:team_id],
+      # :franchise_id => @teams[:franchiseid],
+      # :team_name => @teams[:teamname],
+      # :abbrev => @teams[:abbreviation],
+      # :link => @teams[:link]
