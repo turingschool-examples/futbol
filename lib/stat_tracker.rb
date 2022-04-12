@@ -1,16 +1,20 @@
 require 'CSV'
 class StatTracker
-  def initialize
+  attr_reader :teams, :games, :game_teams
+
+  def initialize(data1, data2, data3)
+    @teams = data2
+    @games = data1
+    @game_teams = data3
   end
+
   def self.from_csv(locations)
-    futbol = []
-     locations.each do |key, value|
-       key = []
-         CSV.foreach(value, headers: true) do |row|
-         key << row.to_h()
-       end
-       futbol << key
-     end
-     return futbol
-   end
- end
+    data = []
+    locations.values.each do |location|
+      contents = CSV.read "#{location}", headers: true, header_converters: :symbol
+      data << contents
+      end
+      # require 'pry'; binding.pry
+      StatTracker.new(data[0], data[1], data[2])
+  end
+end
