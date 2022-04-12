@@ -71,4 +71,86 @@ module TeamStatistics
     teams_games = games.find_all { |game| game.team_id == team_id }
     teams_games.sort_by { |game| game.goals }[0].goals
   end
+
+  def favorite_opponent(team_id)
+    games = Game.create_list_of_games(@games)
+    teams = TeamStats.create_a_list_of_teams(@teams)
+    wins = count_wins_against_opponent(games, team_id)
+    losses = count_losses_against_opponent(games, team_id)
+    percentages = []
+    wins.each do |team, win|
+      percentages << if losses[team].nil?
+                       [team, win]
+                     else
+                       [team, win / losses[team]]
+                     end
+    end
+    favorite_team_id = percentages.sort_by { |team| team[1] }[-1][0]
+    teams.find { |team| team.team_id == favorite_team_id }.team_name
+  end
+
+  def rival(team_id)
+    games = Game.create_list_of_games(@games)
+    teams = TeamStats.create_a_list_of_teams(@teams)
+    wins = count_wins_against_opponent(games, team_id)
+    losses = count_losses_against_opponent(games, team_id)
+    percentages = []
+    losses.each do |team, loss|
+      percentages << if wins[team].nil?
+                       [team, loss]
+                     else
+                       [team, loss / wins[team]]
+                     end
+    end
+    favorite_team_id = percentages.sort_by { |team| team[1] }[-1][0]
+    teams.find { |team| team.team_id == favorite_team_id }.team_name
+  end
+
+  def count_wins_against_opponent(games, team_id)
+    opponents = {}
+    games.each do |game|
+      if game.home_team_id == team_id
+        if game.home_goals > game.away_goals
+          if opponents[game.away_team_id].nil?
+            opponents[game.away_team_id] = 1
+          else
+            opponents[game.away_team_id] += 1
+          end
+        end
+      elsif game.away_team_id == team_id
+        if game.home_goals < game.away_goals
+          if opponents[game.home_team_id].nil?
+            opponents[game.home_team_id] = 1
+          else
+            opponents[game.home_team_id] += 1
+          end
+        end
+      end
+    end
+    opponents
+  end
+
+  def count_losses_against_opponent(games, team_id)
+    opponents = {}
+    games.each do |game|
+      if game.home_team_id == team_id
+        if game.home_goals < game.away_goals
+          if opponents[game.away_team_id].nil?
+            opponents[game.away_team_id] = 1
+          else
+            opponents[game.away_team_id] += 1
+          end
+        end
+      elsif game.away_team_id == team_id
+        if game.home_goals > game.away_goals
+          if opponents[game.home_team_id].nil?
+            opponents[game.home_team_id] = 1
+          else
+            opponents[game.home_team_id] += 1
+          end
+        end
+      end
+    end
+    opponents
+  end
 end
