@@ -1,7 +1,9 @@
 require 'csv'
 require './modules/game_statistics'
+require './modules/team_statistics'
 
 class StatTracker
+  include TeamStatistics
   include GameStats
   attr_reader :games, :teams, :game_teams
 
