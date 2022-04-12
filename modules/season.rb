@@ -23,19 +23,21 @@ module Season
   end
 
   def worst_coach(season)
-    victories = GameTeams.create_list_of_game_teams(@game_teams).find_all { |game| game.result == 'LOSS' }
+    losses = GameTeams.create_list_of_game_teams(@game_teams).find_all { |game| game.result == 'LOSS' }
     games = games_by_season(season)
-    wins_by_coach = {}
-    victories.each do |win|
-      next unless games.any? { |game| game.game_id == win.game_id }
+    loss_by_coach = {}
+    losses.each do |loss|
+      next unless games.any? { |game| game.game_id == loss.game_id }
 
-      wins_by_coach[win.head_coach] = 1 if wins_by_coach[win.head_coach].nil?
-      wins_by_coach[win.head_coach] += 1
+      loss_by_coach[loss.head_coach] = 1 if wins_by_coach[win.head_coach].nil?
+      loss_by_coach[loss.head_coach] += 1
     end
     wins_by_coach.sort_by { |_coach, wins| wins }[0][0]
   end
 
-  def most_accurate_team; end
+  def most_accurate_team; end # make a hash nested in a hash
+
+  def team_by_id; end
 
   def least_accurate_team; end
 

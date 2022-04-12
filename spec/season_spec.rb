@@ -28,5 +28,9 @@ RSpec.describe 'Season' do
       expect(@stat_tracker.worst_coach('20132014')).to eq 'Peter Laviolette'
       expect(@stat_tracker.worst_coach('20142015')).to eq 'Craig MacTavish'
     end
+
+    it ' returns the most accurate team' do
+      expect(@stat_tracker.most_accurate_team).to eq ''
+    end
   end
 end
