@@ -35,7 +35,15 @@ class StatTracker
     sum.min
   end
 
-
+  def average_goals_per_game
+    goals = []
+    @games.each do |row|
+      i = row[:away_goals].to_f + row[:home_goals].to_f
+      goals << i
+    end
+    # require 'pry'; binding.pry
+    (goals.sum / goals.count).round(2)  
+  end
 
 
 

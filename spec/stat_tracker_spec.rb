@@ -26,7 +26,10 @@ describe StatTracker do
     expect(@stat_tracker.lowest_total_score).to eq(1)
   end
 
-
+  it 'find the average goals per game' do
+    # require 'pry'; bind!ing.pry
+    expect(@stat_tracker.average_goals_per_game).to eq(4.78)
+  end
 
 
 
