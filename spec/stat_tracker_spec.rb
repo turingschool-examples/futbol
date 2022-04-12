@@ -1,5 +1,6 @@
 require './lib/stat_tracker'
 
+
 RSpec.describe StatTracker do
     
     it 'exists and has attributes' do 
