@@ -1,0 +1,16 @@
+game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
+2014021110,20142015,Regular Season,3/27/15,8,52,2,3,Providence Park,/api/v1/venues/null
+2014020370,20142015,Regular Season,12/3/14,4,28,1,2,Banc of California Stadium,/api/v1/venues/null
+2017020787,20172018,Regular Season,2/2/18,16,23,2,2,Saputo Stadium,/api/v1/venues/null
+2016020897,20162017,Regular Season,2/24/17,21,18,2,2,Allianz Field,/api/v1/venues/null
+2017020745,20172018,Regular Season,1/25/18,26,20,2,1,BMO Field,/api/v1/venues/null
+2017020711,20172018,Regular Season,1/20/18,52,20,1,1,BMO Field,/api/v1/venues/null
+2017020334,20172018,Regular Season,11/24/17,5,6,3,2,Toyota Stadium,/api/v1/venues/null
+2014020345,20142015,Regular Season,11/30/14,7,8,3,3,Red Bull Arena,/api/v1/venues/null
+2015020702,20152016,Regular Season,1/22/16,30,26,3,0,Nippert Stadium,/api/v1/venues/null
+2017021113,20172018,Regular Season,3/18/18,19,16,3,2,Gillette Stadium,/api/v1/venues/null
+2013020125,20132014,Regular Season,10/21/13,25,24,3,4,Rio Tinto Stadium,/api/v1/venues/null
+2014021087,20142015,Regular Season,3/24/15,7,25,3,2,SeatGeek Stadium,/api/v1/venues/null
+2017021040,20172018,Regular Season,3/9/18,12,16,3,2,Gillette Stadium,/api/v1/venues/null
+2013020658,20132014,Regular Season,1/9/14,3,16,3,2,Gillette Stadium,/api/v1/venues/null
+2014020357,20142015,Regular Season,12/2/14,14,3,4,3,BBVA Stadium,/api/v1/venues/null
