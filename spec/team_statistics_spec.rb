@@ -24,13 +24,13 @@ describe TeamStatistics do
 
   it 'can return a hash of a teams info' do
     expected = {
-      'team_id' => '18',
-      'franchise_id' => '34',
-      'team_name' => 'Minnesota United FC',
-      'abbreviation' => 'MIN',
-      'link' => '/api/v1/teams/18'
+      'team_id' => '1',
+      'franchise_id' => '23',
+      'team_name' => 'Atlanta United',
+      'abbreviation' => 'ATL',
+      'link' => '/api/v1/teams/1'
     }
 
-    expect(@stat_tracker.team_info('18')).to eq expected
+    expect(@stat_tracker.team_info('1')).to eq expected
   end
 end
