@@ -63,7 +63,15 @@ RSpec.describe StatTracker do
     }
 
     stat_tracker = StatTracker.new(locations)
-    expect(stat_tracker.team_info).to eq(Hash)
+    
+    expected = {:team_id=>"1",
+      :franchise_id=>"23",
+      :team_name=>"Atlanta United",
+      :abbreviation=>"ATL",
+
+      :link=>"/api/v1/teams/1"}
+
+    expect(stat_tracker.team_info(1)).to eq(expected)
   end
 
 end
