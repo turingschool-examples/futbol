@@ -8,4 +8,5 @@ class StatTracker
     stat_tracker1 = self.new
     # require "pry";binding.pry
   end
+  
 end
