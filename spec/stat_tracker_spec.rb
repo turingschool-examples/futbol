@@ -51,4 +51,19 @@ RSpec.describe StatTracker do
     expect(stat_tracker.highest_total_score).to eq(7)
   end
 
+  it 'can give us team info' do
+    game_path = './data/games_15_rows.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/games_teams_15_rows.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.new(locations)
+    expect(stat_tracker.team_info).to eq(Hash)
+  end
+
 end
