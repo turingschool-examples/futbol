@@ -98,7 +98,9 @@ describe StatTracker do
 
 
 #SAI
-
+  it 'returns a percentage of how many wins were home wins' do
+    expect(@stat_tracker.percentage_home_wins).to eq(44.44)
+  end
 
 
 
