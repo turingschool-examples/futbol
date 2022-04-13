@@ -98,8 +98,13 @@ class StatTracker
 
 
 #SAI
-
-
+def percentage_home_wins
+  total_games = @games[:game_id].count.to_f
+  home_wins = 0
+  @games.each { |row| home_wins += 1 if row[:home_goals].to_i > row[:away_goals].to_i }
+  decimal = (home_wins.to_f / total_games)
+  (decimal * 100).round(2)
+end
 
 
 
