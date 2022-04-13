@@ -412,7 +412,16 @@ end
 
 #STEPHEN
 
-
+  def count_of_teams
+    @team_ids = []
+    @teams[:team_id].each do |id|
+      if !@team_ids.include?(id.to_i)
+        @team_ids << id.to_i
+      end
+    end
+    # require "pry"; binding.pry
+    @team_ids.count
+  end
 
 
 
