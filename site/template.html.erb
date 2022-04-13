@@ -18,6 +18,27 @@
     <p class='pass'><%= "Number of Games per Season: #{@stat_tracker.count_of_games_by_season}" %></p>
     <p class='pass'><%= "Average Goals per Game: #{@stat_tracker.average_goals_per_game}" %></p>
     <p class='pass'><%= "Average Goals per Season: #{@stat_tracker.average_goals_by_season}" %></p>
-  </DIV>                 <!-- to this line! -->
+  </DIV>                <!-- to this line! -->
+  <!-- <DIV>
+    <h2>League Stats</h2>
+    <p class=‘pass’><%= “Team count: #{stat_tracker.count_of_teams}” %></p>
+    <p class=‘pass’><%= “Best Offense #{stat_tracker.best_offense}” %></p>
+    <p class=‘pass’><%= “Worst Offense: #{stat_tracker.worst_offense}” %></p>
+    <p class=‘pass’><%= “Highest Scoring Visitor: #{stat_tracker.highest_scoring_visitor}” %></p>
+    <p class=‘pass’><%= “Highest Scoring Home Team: #{stat_tracker.highest_scoring_home_team}” %></p>
+    <p class=‘pass’><%= “Lowest Scoring Visitor: #{stat_tracker.lowest_scoring_visitor}” %></p>
+    <p class=‘pass’><%= “Lowest Scoring Home Team: #{stat_tracker.lowest_scoring_home_team}” %></p>
+  </DIV> -->
+  <DIV>
+    <h2>Team Statistics</h2>
+    <p class=‘pass’><%= “Team Information: #{stat_tracker.team_info}” %></p>
+    <p class=‘pass’><%= “Best Season: #{stat_tracker.best_season('6')}” %></p>
+    <p class=‘pass’><%= “Worst Season: #{stat_tracker.worst_season('6')” %></p>
+    <p class=‘pass’><%= “Average Win %: #{stat_tracker.average_win_percentage('6')}” %></p>
+    <p class=‘pass’><%= “Most Goals Scored: #{stat_tracker.most_goals_scored('18')}” %></p>
+    <p class=‘pass’><%= “Fewest Goals Scored: #{stat_tracker.fewest_goals_scored('18')}” %></p>
+    <p class=‘pass’><%= “Favorite Opponent: #{stat_tracker.favorite_opponent('18')}” %></p>
+    <p class=‘pass’><%= “Rival: #{stat_tracker.rival('18')}” %></p>
+  </DIV>
 </BODY>
 </HTML>
