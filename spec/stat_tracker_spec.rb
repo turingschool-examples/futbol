@@ -57,10 +57,10 @@ RSpec.describe StatTracker do
     expect(stat_tracker.highest_total_score).to eq(7)
   end
 
-  xit 'can give me the winningest coach given a specific season' do
+  it 'can give me the winningest coach given a specific season' do
     game_path = './data/games_sample.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/games_teams_sample.csv'
+    game_teams_path = './data/game_teams.csv'
 
     locations = {
       games: game_path,
@@ -106,6 +106,28 @@ RSpec.describe StatTracker do
     stat_tracker = StatTracker.from_csv(locations)
     expect(stat_tracker.game_teams_by_season(20172018).count).to eq(4)
   end
+
+  it 'gives me coaches records given an array of games' do
+
+    game_path = './data/games_15_rows.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/games_teams_15_rows.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+
+    game_teams = stat_tracker.game_teams_by_season(20172018)
+
+    expect(stat_tracker.coaches_records(game_teams)["Lindy Ruff"][3].round(2)).to eq(0.39)
+
+  end
+
+
 
 
 
