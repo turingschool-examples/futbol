@@ -104,7 +104,7 @@ RSpec.describe StatTracker do
     }
 
     stat_tracker = StatTracker.from_csv(locations)
-    expect(stat_tracker.game_teams_by_season(20172018).count).to eq(6)
+    expect(stat_tracker.game_teams_by_season(20172018).count).to eq(4)
   end
 
 
