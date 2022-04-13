@@ -76,4 +76,11 @@ class StatTracker
   return game_arr
   end
 
+	def highest_total_score
+		highest_score_arr = []
+		@games.each do |game|
+			highest_score_arr << game.away_goals.to_i + game.home_goals.to_i
+		end
+		highest_score_arr.max
+	end
 end
