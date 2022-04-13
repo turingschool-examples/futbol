@@ -404,6 +404,9 @@ end
 
 #STEPHEN
 
+  it 'counts the total number of teams in the data' do
+    expect(@stat_tracker.count_of_teams).to eq(9)
+  end
 
 
 
