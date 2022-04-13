@@ -2,6 +2,7 @@ require 'csv'
 require_relative 'game'
 require_relative 'team'
 
+
 class StatTracker
 
 attr_reader :games, :team, :game_teams
@@ -28,10 +29,8 @@ attr_reader :games, :team, :game_teams
     teams_array = []
     CSV.foreach(teams_csv, headers: true, header_converters: :symbol) do |row|
       teams_array << Team.new(row)
-      require 'pry'; binding.pry
     end
     teams_array
   end
-
 
 end
