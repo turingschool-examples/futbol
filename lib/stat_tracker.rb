@@ -83,4 +83,20 @@ class StatTracker
 		end
 		highest_score_arr.max
 	end
+
+	def highest_total_score
+		highest_score_arr = []
+		@games.each do |game|
+			highest_score_arr << game.away_goals.to_i + game.home_goals.to_i
+		end
+		highest_score_arr.max
+	end
+
+	def lowest_total_score
+		lowest_score_arr = []
+		@games.each do |game|
+			lowest_score_arr << game.away_goals.to_i + game.home_goals.to_i
+		end
+		lowest_score_arr.min
+	end
 end
