@@ -114,7 +114,13 @@ def percentage_visitor_wins
   (decimal * 100).round(2)
 end
 
-
+def percentage_ties
+  total_games = @games[:game_id].count.to_f
+  number_tied = 0
+  @games.each { |row| number_tied += 1 if row[:home_goals].to_i == row[:away_goals].to_i }
+  decimal = (number_tied.to_f / total_games)
+  (decimal * 100).round(2)
+end
 
 
 
