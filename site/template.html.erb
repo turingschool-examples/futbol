@@ -1,0 +1,23 @@
+<HTML>
+<HEAD>
+  <!-- etc... -->
+</HEAD>
+<BODY>
+  <DIV class='header'><img src='notsoccerpic.jpeg' alt='logo' style="width:500px;height:300px;"></div>
+  <DIV class='content'>
+  <DIV class='div1'>
+    <h1>FUTBOL STATS!</h1>
+  </DIV>
+  <DIV class='div2'>   <!-- Copy from this line.... -->
+    <h2>Game Stats</h2>
+    <p class='pass'><%= "Highest Total Score: #{@stat_tracker.highest_total_score}" %></p>
+    <p class='pass'><%= "Lowest Total Score: #{@stat_tracker.lowest_total_score}" %></p>
+    <p class='pass'><%= "Percentage Home Wins: #{@stat_tracker.percentage_home_wins}" %></p>
+    <p class='pass'><%= "Percentage Visitor Wins: #{@stat_tracker.percentage_visitor_wins}" %></p>
+    <p class='pass'><%= "Percentage Ties: #{@stat_tracker.percentage_ties}" %></p>
+    <p class='pass'><%= "Number of Games per Season: #{@stat_tracker.count_of_games_by_season}" %></p>
+    <p class='pass'><%= "Average Goals per Game: #{@stat_tracker.average_goals_per_game}" %></p>
+    <p class='pass'><%= "Average Goals per Season: #{@stat_tracker.average_goals_by_season}" %></p>
+  </DIV>                 <!-- to this line! -->
+</BODY>
+</HTML>
