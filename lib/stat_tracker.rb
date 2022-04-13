@@ -106,6 +106,16 @@ def percentage_home_wins
   (decimal * 100).round(2)
 end
 
+def percentage_visitor_wins
+  total_games = @games[:game_id].count.to_f
+  visitor_wins = 0
+  @games.each { |row| visitor_wins += 1 if row[:home_goals].to_i < row[:away_goals].to_i }
+  decimal = (visitor_wins.to_f / total_games)
+  (decimal * 100).round(2)
+end
+
+
+
 
 
 
