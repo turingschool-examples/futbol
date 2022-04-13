@@ -87,9 +87,26 @@ RSpec.describe StatTracker do
     }
 
     stat_tracker = StatTracker.from_csv(locations)
-
     expect(stat_tracker.games_by_season(20172018).count).to eq(6)
-
   end
+
+
+  it 'gives me all the game teams given the season' do
+
+    game_path = './data/games_15_rows.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/games_teams_15_rows.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+    expect(stat_tracker.game_teams_by_season(20172018).count).to eq(6)
+  end
+
+
 
 end
