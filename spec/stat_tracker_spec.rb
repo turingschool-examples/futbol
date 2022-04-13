@@ -101,7 +101,9 @@ describe StatTracker do
   it 'returns a percentage of how many wins were home wins' do
     expect(@stat_tracker.percentage_home_wins).to eq(44.44)
   end
-
+  it 'returns a percentage of how many wins were away wins' do
+    expect(@stat_tracker.percentage_visitor_wins).to eq(55.56)
+  end
 
 
 
