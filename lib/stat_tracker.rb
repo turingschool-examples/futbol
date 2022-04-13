@@ -29,19 +29,17 @@ class StatTracker
     end
   end
 
+  def game_teams_by_season(season)
+    @game_teams.select do |row|
+      row[:game_id][0..3] == season.to_s[0..3]
+    end
+  end
+
   def winningest_coach(season)
-    season_games = games_by_season(season)
     coaches_records = {}
 
-    season_game_teams = []
-    @game_teams.each do |row|
-      season_games.each do |game|
-        if row[:game_id] == game[:game_id]
-          season_game_teams << row
-        end
-      end
-    end
-
+    season_game_teams = game_teams_by_season(season)
+    
     season_game_teams.each do |row|
       coaches_records[row[:head_coach]] = [0,0,0,0.to_f]
     end
