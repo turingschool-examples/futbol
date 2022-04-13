@@ -21,12 +21,12 @@
   </DIV>  <!-- to this line! -->
   <DIV class='div3'>   <!-- Copy from this line.... -->
     <h2>Season Stats</h2>
-    <p class='pass'><%= "Winningest Coach: #{@stat_tracker.winningest_coach('20132014')"} %></p>
+    <p class='pass'><%= "Winningest Coach: #{@stat_tracker.winningest_coach('20132014')}" %></p>
     <p class='pass'><%= "Worst Coach: #{@stat_tracker.worst_coach('20132014')}" %></p>
-    <p class='pass'><%= "Most Accurate Team: #{@stat_tracker.most_accurate_team}" %></p>
-    <p class='pass'><%= "Least Accurate Team: #{@stat_tracker.least_accurate_team}" %></p>
-    <p class='pass'><%= "Most Tackles: #{@stat_tracker.most_tackles}" %></p>
-    <p class='pass'><%= "Fewest Tackles: #{@stat_tracker.fewest_tackles}" %></p>
+    <p class='pass'><%= "Most Accurate Team: #{@stat_tracker.most_accurate_team('20132014')}" %></p>
+    <p class='pass'><%= "Least Accurate Team: #{@stat_tracker.least_accurate_team('20132014')}" %></p>
+    <p class='pass'><%= "Most Tackles: #{@stat_tracker.most_tackles('20132014')}" %></p>
+    <p class='pass'><%= "Fewest Tackles: #{@stat_tracker.fewest_tackles('20132014')}" %></p>
   </DIV> 
 </BODY>
 </HTML>
