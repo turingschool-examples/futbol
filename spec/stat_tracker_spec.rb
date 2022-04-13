@@ -109,9 +109,9 @@ RSpec.describe StatTracker do
 
   it 'gives me coaches records given an array of games' do
 
-    game_path = './data/games_15_rows.csv'
+    game_path = './data/games_sample.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/games_teams_15_rows.csv'
+    game_teams_path = './data/games_teams_sample.csv'
 
     locations = {
       games: game_path,
@@ -123,7 +123,9 @@ RSpec.describe StatTracker do
 
     game_teams = stat_tracker.game_teams_by_season(20172018)
 
-    expect(stat_tracker.coaches_records(game_teams)["Lindy Ruff"][3].round(2)).to eq(0.39)
+
+
+    expect(stat_tracker.coaches_records(game_teams)["Joel Quenneville"][1]).to eq(3)
 
   end
 

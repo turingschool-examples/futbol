@@ -35,24 +35,24 @@ class StatTracker
     end
   end
 
-  def winningest_coach(season)
-    coaches_records = {}
-
-    season_game_teams = game_teams_by_season(season)
-    
-    season_game_teams.each do |row|
-      coaches_records[row[:head_coach]] = [0,0,0,0.to_f]
+  def coaches_records(game_teams)
+    hash = {}
+    game_teams.each do |row|
+      hash[row[:head_coach]] = [0,0,0.to_f]
     end
-
-    season_game_teams.each do |row|
+    game_teams.each do |row|
       if row[:result] == "WIN"
-        coaches_records[row[:head_coach]][0] += 1
-      elsif row[:result] == "LOSS"
-        coaches_records[row[:head_coach]][1] += 1
-      elsif row[:result] == "TIE"
-        coaches_records[row[:head_coach]][2] += 1
+        hash[row[:head_coach]][0] += 1
+      else
+        hash[row[:head_coach]][1] += 1
       end
     end
+    return hash
+  end
+
+  def winningest_coach(season)
+    season_game_teams = game_teams_by_season(season)
+    coaches_records = coaches_records(season_game_teams)
 
     coaches_records.keys.each do |key|
       total_games = coaches_records[key][0] + coaches_records[key][1] + coaches_records[key][2]
@@ -69,7 +69,7 @@ class StatTracker
       end
     end
 
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
 
     return winning_coach
   end
