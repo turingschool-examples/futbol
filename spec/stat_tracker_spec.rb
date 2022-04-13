@@ -107,7 +107,7 @@ RSpec.describe StatTracker do
     expect(stat_tracker.game_teams_by_season(20172018).count).to eq(4)
   end
 
-  it 'gives me coaches records given an array of games' do
+  it 'gives me coaches records given an array of games, not including win percentage' do
 
     game_path = './data/games_sample.csv'
     team_path = './data/teams.csv'
@@ -123,9 +123,27 @@ RSpec.describe StatTracker do
 
     game_teams = stat_tracker.game_teams_by_season(20172018)
 
-
-
     expect(stat_tracker.coaches_records(game_teams)["Joel Quenneville"][1]).to eq(3)
+
+  end
+
+  it 'gives me coaches win percentage given a coaching record hash' do
+    game_path = './data/games_sample.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/games_teams_sample.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+
+    game_teams = stat_tracker.game_teams_by_season(20172018)
+    coaching_hash = coaches_records(game_teams)
+
+    expect(stat_tracker.win_percentage_by_coach(coaching_hash)["Joel Quenneville"][2]).to eq(0.40)
 
   end
 
