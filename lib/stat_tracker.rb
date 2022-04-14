@@ -1,5 +1,5 @@
 require 'csv'
-
+# 
 # game_data = CSV.open"./data/games.csv", headers: true, header_converters: :symbol
 
 class StatTracker
@@ -88,34 +88,5 @@ class StatTracker
       @teams.map {|team| team[:team_id]}.length
   end
 
-<<<<<<< HEAD
-
-class A
-
-def initialize(argument)
-  @argument = argument
-  @argument = row[:game_id]
-
-end
-
-class B
-
-  def initialize(argument)
-    @argument = argument
-  end
-end
-  # def initialize(locations)
-
-
-  #   @games = CSV.open ""
-  #   @teams = CSV.open ""
-  #   @game_teams = CSV.open ""
-  # end
-  #
-  # def self.from_csv(locations)
-  #   StatTracker.new(locations)
-  # end
-=======
->>>>>>> b9129a1054ac93f8bb3f017865bd5e93525e9b5d
 
 end
