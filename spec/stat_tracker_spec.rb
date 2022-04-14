@@ -42,4 +42,8 @@ RSpec.describe StatTracker do
 
     expect(@stat_tracker.team_info("18")).to eq expected
   end
+
+  it "can return most goals scored by a team" do
+    expect(@stat_tracker.most_goals_scored("3")).to eq 2
+  end
 end
