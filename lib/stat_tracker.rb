@@ -60,28 +60,28 @@ attr_reader :games, :team, :game_teams
   def count_of_teams
 
   end
-  
-  ##Name of the team with the highest average number of goals scored per game across all seasons.
+
+  # #Name of the team with the highest average number of goals scored per game across all seasons.
   # def best_offense
   # end
   #
-  ##Name of the team with the lowest average number of goals scored per game across all seasons.
+  # #Name of the team with the lowest average number of goals scored per game across all seasons.
   # def worst_offense
   # end
   #
-  ##Name of the team with the highest average score per game across all seasons when they are away.
+  # #Name of the team with the highest average score per game across all seasons when they are away.
   # def highest_scoring_visitor
   # end
   #
-  ##Name of the team with the highest average score per game across all seasons when they are home
+  # #Name of the team with the highest average score per game across all seasons when they are home
   # def highest_scoring_home_team
   # end
   #
-  ##Name of the team with the lowest average score per game across all seasons when they are a visitor.
+  # #Name of the team with the lowest average score per game across all seasons when they are a visitor.
   # def lowest_scoring_visitor
   # end
   #
-  ##Name of the team with the lowest average score per game across all seasons when they are at home.
+  # #Name of the team with the lowest average score per game across all seasons when they are at home.
   # def lowest_scoring_home_team
   # end
 
