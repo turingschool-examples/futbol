@@ -212,6 +212,7 @@ RSpec.describe StatTracker do
     }
 
     stat_tracker = StatTracker.from_csv(locations)
+    expect(stat_tracker.most_accurate_team(20172018)).to eq("Los Angeles FC")
   end
 
   it 'counts total number of teams' do
@@ -227,7 +228,7 @@ RSpec.describe StatTracker do
 
     stat_tracker = StatTracker.from_csv(locations)
     expect(stat_tracker.count_of_teams).to eq(32)
-  end 
+  end
 
 
 
