@@ -22,9 +22,9 @@ class StatTracker
 	def create_teams(teams)
 		team_arr = Array.new
 		teams.each do |row|
-			team_id = row[:team_id]
-			franchise_id = row[:franchise_id]
-			team_name = row[:team_name]
+			team_id = row[:teamid]
+			franchise_id = row[:franchiseid]
+			team_name = row[:teamname]
 			abbreviation = row[:abbreviation]
 			stadium = row[:stadium] # do symbols always return all lowercase or the same case as we assign it???
 			link = row[:link]
@@ -46,9 +46,9 @@ class StatTracker
       shots = row[:shots]
       tackles = row[:tackles]
       pim = row[:pim]
-      power_play_opportunities = row[:power_play_opportunities]
-      power_play_goals = row[:power_play_goals]
-      face_off_win_percentage = row[:face_off_win_percentage]
+      power_play_opportunities = row[:powerplayopportunities]
+      power_play_goals = row[:powerplaygoals]
+      face_off_win_percentage = row[:faceoffwinpercentage]
       giveaways = row[:giveaways]
       takeaways = row[:takeaways]
       # binding.pry
@@ -84,13 +84,6 @@ class StatTracker
 		highest_score_arr.max
 	end
 
-	def highest_total_score
-		highest_score_arr = []
-		@games.each do |game|
-			highest_score_arr << game.away_goals.to_i + game.home_goals.to_i
-		end
-		highest_score_arr.max
-	end
 
 	def lowest_total_score
 		lowest_score_arr = []
@@ -98,5 +91,15 @@ class StatTracker
 			lowest_score_arr << game.away_goals.to_i + game.home_goals.to_i
 		end
 		lowest_score_arr.min
+	end
+
+	def percentage_home_wins
+		total_home_wins = []
+		@games.each do |game|
+			if game.home_goals.to_f > game.away_goals.to_f
+				total_home_wins << game
+			end
+		end
+		return ((total_home_wins.count).to_f / (@games.count).to_f) * 100
 	end
 end

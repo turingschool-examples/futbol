@@ -36,14 +36,16 @@ describe StatTracker do
     expect(@stat_tracker.game_teams[0]).to be_a(GameTeam)
   end
 
-	it "has a highest total score" do
+	it "it can calculate the highest total score of games" do
 		expect(@stat_tracker.highest_total_score).to eq 5
 	end
 
-	it "has a lowest total score" do
+	it "can calculate the lowest total score of games" do
 		expect(@stat_tracker.lowest_total_score).to eq 3
 	end
 
-
+	it "can calculate a percentage of home wins" do
+		expect(@stat_tracker.percentage_home_wins).to eq 60.0
+	end
 
 end
