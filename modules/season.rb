@@ -1,7 +1,6 @@
 require './lib/game'
 require './lib/game_teams'
 require './lib/team_stats'
-require 'pry'
 # This mod will handle all season related methods
 module Season
   def winningest_coach(season)
@@ -28,7 +27,7 @@ module Season
 
   def worst_coach(season)
     outcome = GameTeams.create_list_of_game_teams(@game_teams).find_all { |game| game.result == 'LOSS' }
-    coach_performance(season, outcome).sort_by { |_coach, loss| loss }[0][0]
+    coach_performance(season, outcome).min_by { |_coach, loss| loss }[0]
   end
 
   def most_accurate_team(season)
@@ -40,7 +39,7 @@ module Season
     info = GameTeams.create_list_of_game_teams(@game_teams)
     games = games_by_season(season)
     shots_taken = {}
-    goals_made  = {}
+    goals_made = {}
     info.each do |team|
       next unless games.any? { |game| game.game_id == team.game_id }
 
