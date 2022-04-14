@@ -9,7 +9,6 @@ RSpec.describe StatTracker do
 
   it 'exists' do
 
-
     game_path = './data/games_15_rows.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/games_teams_15_rows.csv'
@@ -38,6 +37,18 @@ RSpec.describe StatTracker do
     stat_tracker = StatTracker.from_csv(locations)
     expected = CSV.read "#{locations[:games]}", headers: true, header_converters: :symbol
     expect(stat_tracker.games).to eq(expected)
+  end
+  
+  it 'can give us team info' do
+   stat_tracker = StatTracker.new(locations)
+
+   expected = {:team_id=>"1",
+               :franchise_id=>"23",
+               :team_name=>"Atlanta United",
+               :abbreviation=>"ATL",
+               :link=>"/api/v1/teams/1"}
+
+   expect(stat_tracker.team_info(1)).to eq(expected)
   end
 
   it 'can give me the highest_total_score' do
@@ -203,7 +214,7 @@ RSpec.describe StatTracker do
   it 'gives me the team with the best shot percentage given a season' do
     game_path = './data/games_sample.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/games_teams_15_rows.csv'
+    game_teams_path = './data/game_teams.csv'
 
     locations = {
       games: game_path,
@@ -212,6 +223,38 @@ RSpec.describe StatTracker do
     }
 
     stat_tracker = StatTracker.from_csv(locations)
+    expect(stat_tracker.most_accurate_team(20172018)).to eq("Portland Timbers")
+  end
+
+  it 'gives me the team with the worst shot percentage given a season' do
+    game_path = './data/games_sample.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+    expect(stat_tracker.least_accurate_team(20172018)).to eq("Toronto FC")
+  end
+
+  it 'gives me the team with most and least tackles' do
+    game_path = './data/games_sample.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+    expect(stat_tracker.most_tackles(20142015)).to eq("Seattle Sounders FC")
+    expect(stat_tracker.fewest_tackles(20142015)).to eq("Orlando City SC")
   end
 
   it 'counts total number of teams' do
@@ -227,9 +270,6 @@ RSpec.describe StatTracker do
 
     stat_tracker = StatTracker.from_csv(locations)
     expect(stat_tracker.count_of_teams).to eq(32)
-  end 
-
-
-
+  end
 
 end
