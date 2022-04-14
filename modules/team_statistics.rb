@@ -4,7 +4,7 @@ require './lib/game_teams'
 
 module TeamStatistics
   def team_info(team_id)
-    teams = TeamStats.create_a_list_of_teams(@teams)
+    teams = @teams
     the_team = teams.find { |team| team.team_id == team_id }
     { 'team_id' => the_team.team_id,
       'franchise_id' => the_team.franchise_id,
@@ -14,22 +14,19 @@ module TeamStatistics
   end
 
   def best_season(team_id)
-    games = Game.create_list_of_games(@games)
-    seasons = count_season_wins(games, team_id)
+    seasons = count_season_wins(@games, team_id)
     seasons.sort_by { |_season, wins| wins }[-1][0]
   end
 
   def worst_season(team_id)
-    games = Game.create_list_of_games(@games)
-    seasons = count_season_wins(games, team_id)
+    seasons = count_season_wins(@games, team_id)
     seasons.sort_by { |_season, wins| wins }[0][0]
   end
 
   def average_win_percentage(team_id)
-    games = Game.create_list_of_games(@games)
-    total_games = games.count { |game| game.home_team_id == team_id || game.away_team_id == team_id }
-    seasons = count_season_wins(games, team_id)
-    total_games_per_season = games.count do |game|
+    total_games = @games.count { |game| game.home_team_id == team_id || game.away_team_id == team_id }
+    seasons = count_season_wins(@games, team_id)
+    total_games_per_season = @games.count do |game|
       game.home_team_id == team_id || game.away_team_id == team_id
     end / seasons.length
     percentage = seasons.map { |_season, wins| wins.to_f / total_games_per_season }.sum / seasons.length
@@ -61,22 +58,18 @@ module TeamStatistics
   end
 
   def most_goals_scored(team_id)
-    games = GameTeams.create_list_of_game_teams(@game_teams)
-    teams_games = games.find_all { |game| game.team_id == team_id }
+    teams_games = @game_teams.find_all { |game| game.team_id == team_id }
     teams_games.sort_by { |game| game.goals }[-1].goals
   end
 
   def fewest_goals_scored(team_id)
-    games = GameTeams.create_list_of_game_teams(@game_teams)
-    teams_games = games.find_all { |game| game.team_id == team_id }
+    teams_games = @game_teams.find_all { |game| game.team_id == team_id }
     teams_games.sort_by { |game| game.goals }[0].goals
   end
 
   def favorite_opponent(team_id)
-    games = Game.create_list_of_games(@games)
-    teams = TeamStats.create_a_list_of_teams(@teams)
-    wins = count_wins_against_opponent(games, team_id)
-    losses = count_losses_against_opponent(games, team_id)
+    wins = count_wins_against_opponent(@games, team_id)
+    losses = count_losses_against_opponent(@games, team_id)
     percentages = []
     wins.each do |team, win|
       percentages << if losses[team].nil?
@@ -86,14 +79,12 @@ module TeamStatistics
                      end
     end
     favorite_team_id = percentages.sort_by { |team| team[1] }[-1][0]
-    teams.find { |team| team.team_id == favorite_team_id }.team_name
+    @teams.find { |team| team.team_id == favorite_team_id }.team_name
   end
 
   def rival(team_id)
-    games = Game.create_list_of_games(@games)
-    teams = TeamStats.create_a_list_of_teams(@teams)
-    wins = count_wins_against_opponent(games, team_id)
-    losses = count_losses_against_opponent(games, team_id)
+    wins = count_wins_against_opponent(@games, team_id)
+    losses = count_losses_against_opponent(@games, team_id)
     percentages = []
     losses.each do |team, loss|
       percentages << if wins[team].nil?
@@ -103,7 +94,7 @@ module TeamStatistics
                      end
     end
     favorite_team_id = percentages.sort_by { |team| team[1] }[-1][0]
-    teams.find { |team| team.team_id == favorite_team_id }.team_name
+    @teams.find { |team| team.team_id == favorite_team_id }.team_name
   end
 
   def count_wins_against_opponent(games, team_id)
