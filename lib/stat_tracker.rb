@@ -59,7 +59,7 @@ attr_reader :games, :team, :game_teams
 
   def winningest_coach
     # Name of the Coach with the best win percentage for the season
-
+    
   end
 
   def worst_coach

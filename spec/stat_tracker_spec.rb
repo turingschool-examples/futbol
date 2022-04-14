@@ -3,9 +3,9 @@ require './spec/spec_helper'
 RSpec.describe StatTracker do
 
   before(:all) do
-    game_path = './data/games.csv'
+    game_path = './data/games_fixture.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_teams_path = './data/game_teams_fixture.csv'
 
     locations = {
       games: game_path,
@@ -30,4 +30,37 @@ RSpec.describe StatTracker do
 
     expect(@stat_tracker.lowest_total_score).to eq 0
   end
+
+  ## SEASON STAT TESTS
+
+  it "checks winningest coach" do
+
+
+  end
+
+  it "checks worst coach" do
+
+
+  end
+
+  it "checks most accurate team" do
+
+
+  end
+
+  it "checks least accurate team" do
+
+
+  end
+
+  it "checks most tackles" do
+
+
+  end
+
+  it "checks least tackles" do
+
+
+  end
+
 end
