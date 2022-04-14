@@ -1,8 +1,11 @@
 require 'csv'
 require './modules/game_statistics'
+require './modules/league_statistics'
+
 
 class StatTracker
   include GameStats
+  include LeagueStats
   attr_reader :games, :teams, :game_teams
 
   def initialize(locations)
