@@ -22,6 +22,8 @@ module Season
     games.find_all { |game| game.season == season }
   end
 
+  def coach_performace; end
+
   def worst_coach(season)
     losses = GameTeams.create_list_of_game_teams(@game_teams).find_all { |game| game.result == 'LOSS' }
     games = games_by_season(season)
@@ -63,7 +65,7 @@ module Season
     teams.find { |team| team.team_id == most_accurate[-1][0] }.team_name
   end
 
-  def team_by_id; end
+  def team_accuracy; end
 
   def least_accurate_team(season)
     info = GameTeams.create_list_of_game_teams(@game_teams)
@@ -94,8 +96,12 @@ module Season
   end
 
   def most_tackles(season)
-    info = GameTeams.create_list_of_game_teams(@game_teams)
     teams = TeamStats.create_a_list_of_teams(@teams)
+    teams.find { |team| team.team_id == team_tackles(season)[-1][0] }.team_name
+  end
+
+  def team_tackles(season)
+    info = GameTeams.create_list_of_game_teams(@game_teams)
     games = games_by_season(season)
     tackles_by_team = {}
     info.each do |team|
@@ -107,25 +113,11 @@ module Season
         tackles_by_team[team.team_id] += team.tackles
       end
     end
-    tackles_sorted = tackles_by_team.sort_by { |_team, tackles| tackles }
-    teams.find { |team| team.team_id == tackles_sorted[-1][0] }.team_name
+    tackles_by_team.sort_by { |_team, tackles| tackles }
   end
 
   def fewest_tackles(season)
-    info = GameTeams.create_list_of_game_teams(@game_teams)
     teams = TeamStats.create_a_list_of_teams(@teams)
-    games = games_by_season(season)
-    tackles_by_team = {}
-    info.each do |team|
-      next unless games.any? { |game| game.game_id == team.game_id }
-
-      if tackles_by_team[team.team_id].nil?
-        tackles_by_team[team.team_id] = team.tackles
-      else
-        tackles_by_team[team.team_id] += team.tackles
-      end
-    end
-    tackles_sorted = tackles_by_team.sort_by { |_team, tackles| tackles }
-    teams.find { |team| team.team_id == tackles_sorted[0][0] }.team_name
+    teams.find { |team| team.team_id == team_tackles(season)[0][0] }.team_name
   end
 end
