@@ -16,11 +16,7 @@ class StatTracker
   end
 
   def highest_total_score
-    game_score = []
-    @games.each do |row|
-      game_score << row[:away_goals].to_i + row[:home_goals].to_i
-    end
-    game_score.max
+    @games.map {|game| game[:away_goals].to_i + game[:home_goals].to_i}.max
   end
 
   def games_by_season(season)
@@ -60,8 +56,8 @@ class StatTracker
 
   def winningest_coach(season)
     season_game_teams = game_teams_by_season(season)
-    coaches_records = win_percentage_by_coach(coaches_records(season_game_teams))
-    winning_coach = coaches_records.max_by do |coach|
+    coaches_hash = win_percentage_by_coach(coaches_records(season_game_teams))
+    winning_coach = coaches_hash.max_by do |coach|
       coach[1][2]
     end[0]
   end
@@ -85,8 +81,9 @@ class StatTracker
     game_teams.each do |game|
       total_amount += game[category].to_i
     end
-    require 'pry'; binding.pry
     total_amount
   end
+
+
 
 end

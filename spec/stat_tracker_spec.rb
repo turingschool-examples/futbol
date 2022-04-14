@@ -1,6 +1,5 @@
 require 'simplecov'
 SimpleCov.start
-
 require './lib/stat_tracker'
 require 'csv'
 
@@ -57,7 +56,7 @@ RSpec.describe StatTracker do
     expect(stat_tracker.highest_total_score).to eq(7)
   end
 
-  xit 'can give me the winningest coach given a specific season' do
+  it 'can give me the winningest coach given a specific season' do
     game_path = './data/games_sample.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams.csv'
@@ -148,7 +147,7 @@ RSpec.describe StatTracker do
 
   end
 
-  xit 'gives me the coach with the worst record given a season' do
+  it 'gives me the coach with the worst record given a season' do
     game_path = './data/games_sample.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams.csv'
@@ -201,7 +200,7 @@ RSpec.describe StatTracker do
 
   end
 
-  xit 'gives me the team with the best shot percentage given a season' do
+  it 'gives me the team with the best shot percentage given a season' do
     game_path = './data/games_sample.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/games_teams_15_rows.csv'
