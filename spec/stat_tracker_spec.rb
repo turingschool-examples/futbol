@@ -409,7 +409,7 @@ end
   end
 
   it 'can name the team with the best offense' do
-    expect(@stat_tracker.best_offense).to eq("Houston Dynamo")
+    expect(@stat_tracker.best_offense).to eq("FC Dallas")
   end
 
 
