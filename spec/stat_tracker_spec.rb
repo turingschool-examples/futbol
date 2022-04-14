@@ -26,8 +26,15 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.game_teams.count).to eq(14882)
     end
 
-    it '#highest_total_score' do
-      expect(@stat_tracker.highest_total_score).to eq(6)
+    xit 'can load collections' do
+
+      expect(stat_tracker.load_collections(locations)).to eq({
+        games => CSV.read(locations[:games], headers:true,
+           header_converters: :symbol),
+        teams =>,
+        game_teams =>
+        })
+      #collections is the key with the data as the value so that
     end
 
 

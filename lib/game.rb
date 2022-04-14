@@ -7,7 +7,7 @@ attr_reader :game_id, :season, :type, :date_time, :away_team_id, :home_team_id,
     def initialize(game_id,season,type,date_time,away_team_id,
                     home_team_id,away_goals,home_goals,venue,
                     venue_link)
-                    
+
         @game_id = game_id
         @season = season
         @type = type
@@ -19,4 +19,5 @@ attr_reader :game_id, :season, :type, :date_time, :away_team_id, :home_team_id,
         @venue = venue
         @venue_link = venue_link
     end
+
 end
