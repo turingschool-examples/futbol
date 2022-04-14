@@ -25,6 +25,23 @@ class StatTracker
     end
   end
 
+
+  def team_info(team_id)
+    # require "pry"; binding.pry
+    team = Hash.new
+
+    @teams.each do |row|
+      if row[:team_id] == team_id.to_s
+        team[:team_id] = row[:team_id]
+        team[:franchise_id] = row[:franchiseid]
+        team[:team_name] = row[:teamname]
+        team[:abbreviation] = row[:abbreviation]
+        team[:link] = row[:link]
+      end
+    end
+    return team
+  end
+
   def game_teams_by_season(season)
     @game_teams.select do |row|
       row[:game_id][0..3] == season.to_s[0..3]
@@ -53,6 +70,7 @@ class StatTracker
     end
     return coaching_hash
   end
+
 
   def winningest_coach(season)
     season_game_teams = game_teams_by_season(season)
@@ -154,5 +172,5 @@ class StatTracker
       @teams.map {|team| team[:team_id]}.length
   end
 
-
 end
+

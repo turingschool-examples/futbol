@@ -39,6 +39,18 @@ RSpec.describe StatTracker do
     expected = CSV.read "#{locations[:games]}", headers: true, header_converters: :symbol
     expect(stat_tracker.games).to eq(expected)
   end
+  
+  it 'can give us team info' do
+   stat_tracker = StatTracker.new(locations)
+
+   expected = {:team_id=>"1",
+               :franchise_id=>"23",
+               :team_name=>"Atlanta United",
+               :abbreviation=>"ATL",
+               :link=>"/api/v1/teams/1"}
+
+   expect(stat_tracker.team_info(1)).to eq(expected)
+ end
 
   it 'can give me the highest_total_score' do
 
@@ -265,3 +277,4 @@ RSpec.describe StatTracker do
 
 
 end
+
