@@ -35,4 +35,8 @@ describe LeagueStats do
     expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
   end
 
+  it "#highest_scoring_home_team" do
+    expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
+  end
+
 end
