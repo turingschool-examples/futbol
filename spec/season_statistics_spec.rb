@@ -1,5 +1,5 @@
 require 'rspec'
-require './modules/season'
+require './modules/season_statistics'
 require './lib/stat_tracker'
 require 'pry'
 

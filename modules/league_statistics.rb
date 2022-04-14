@@ -1,7 +1,6 @@
 require './lib/team_stats'
 require './lib/game'
 require './lib/game_teams'
-require 'pry'
 
 module LeagueStats
   def count_of_teams
