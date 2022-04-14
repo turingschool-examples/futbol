@@ -50,28 +50,20 @@ class StatTracker
     return hash
   end
 
+  def win_percentage_by_coach(coaching_hash)
+    coaching_hash.keys.map do |key|
+      total_games = coaching_hash[key][0] + coaching_hash[key][1]
+      coaching_hash[key][2] = coaching_hash[key][0]/total_games.to_f
+    end
+    return coaching_hash
+  end
+
   def winningest_coach(season)
     season_game_teams = game_teams_by_season(season)
-    coaches_records = coaches_records(season_game_teams)
-
-    coaches_records.keys.each do |key|
-      total_games = coaches_records[key][0] + coaches_records[key][1] + coaches_records[key][2]
-      coaches_records[key][3] = coaches_records[key][0]/total_games.to_f
-    end
-
-    winning_coach = ""
-    winning_coach_percentage = 0.to_f
-
-    coaches_records.keys.each do |key|
-      if coaches_records[key][3] > winning_coach_percentage
-        winning_coach_percentage = coaches_records[key][3]
-        winning_coach = key
-      end
-    end
-
-    # require 'pry'; binding.pry
-
-    return winning_coach
+    coaches_records = win_percentage_by_coach(coaches_records(season_game_teams))
+    winning_coach = coaches_records.max_by do |coach|
+      coach[1][2]
+    end[0]
   end
 
 end

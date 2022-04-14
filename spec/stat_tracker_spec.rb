@@ -141,9 +141,10 @@ RSpec.describe StatTracker do
     stat_tracker = StatTracker.from_csv(locations)
 
     game_teams = stat_tracker.game_teams_by_season(20172018)
-    coaching_hash = coaches_records(game_teams)
 
-    expect(stat_tracker.win_percentage_by_coach(coaching_hash)["Joel Quenneville"][2]).to eq(0.40)
+    coaching_hash = stat_tracker.coaches_records(game_teams)
+
+    expect(stat_tracker.win_percentage_by_coach(coaching_hash)["Joel Quenneville"][2]).to eq(0.4)
 
   end
 
