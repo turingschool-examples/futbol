@@ -102,6 +102,72 @@ class StatTracker
     total_amount
   end
 
+  def most_accurate_team(season)
+    season_game_teams = game_teams_by_season(season)
+    hash = {}
+    season_game_teams.each do |row|
+      hash[row[:team_id]] = [0,0,0.to_f]
+    end
+    season_game_teams.each do |row|
+      hash[row[:team_id]][0] += row[:goals].to_i
+      hash[row[:team_id]][1] += row[:shots].to_i
+      hash[row[:team_id]][2] = hash[row[:team_id]][0]/hash[row[:team_id]][1].to_f
+    end
+    accurate_team_id = hash.max_by do |team|
+      team[1][2]
+    end[0]
+    return team_name(accurate_team_id)
+  end
+
+  def least_accurate_team(season)
+    season_game_teams = game_teams_by_season(season)
+    hash = {}
+    season_game_teams.each do |row|
+      hash[row[:team_id]] = [0,0,0.to_f]
+    end
+    season_game_teams.each do |row|
+      hash[row[:team_id]][0] += row[:goals].to_i
+      hash[row[:team_id]][1] += row[:shots].to_i
+      hash[row[:team_id]][2] = hash[row[:team_id]][0]/hash[row[:team_id]][1].to_f
+    end
+    inaccurate_team_id = hash.min_by do |team|
+      team[1][2]
+    end[0]
+    return team_name(inaccurate_team_id)
+  end
+
+  def most_tackles(season)
+    season_game_teams = game_teams_by_season(season)
+    hash = {}
+    season_game_teams.each do |row|
+      hash[row[:team_id]] = [0]
+    end
+    season_game_teams.each do |row|
+      hash[row[:team_id]][0] += row[:tackles].to_i
+    end
+    most_tackles_team_id = hash.max_by do |team|
+      team[1]
+    end[0]
+    return team_name(most_tackles_team_id)
+  end
+
+  def fewest_tackles(season)
+    season_game_teams = game_teams_by_season(season)
+    hash = {}
+    season_game_teams.each do |row|
+      hash[row[:team_id]] = [0]
+    end
+    season_game_teams.each do |row|
+      hash[row[:team_id]][0] += row[:tackles].to_i
+    end
+    fewest_tackles_team_id = hash.min_by do |team|
+      team[1]
+    end[0]
+    return team_name(fewest_tackles_team_id)
+  end
+
+
+
   def count_of_teams
       @teams.map {|team| team[:team_id]}.length
   end

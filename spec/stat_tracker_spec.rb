@@ -9,6 +9,7 @@ RSpec.describe StatTracker do
 
   it 'exists' do
 
+
     game_path = './data/games_15_rows.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/games_teams_15_rows.csv'
@@ -49,7 +50,7 @@ RSpec.describe StatTracker do
                :link=>"/api/v1/teams/1"}
 
    expect(stat_tracker.team_info(1)).to eq(expected)
-  end
+ end
 
   it 'can give me the highest_total_score' do
 
@@ -272,4 +273,8 @@ RSpec.describe StatTracker do
     expect(stat_tracker.count_of_teams).to eq(32)
   end
 
+
+
+
 end
+
