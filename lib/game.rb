@@ -18,4 +18,5 @@ class Game
   def self.create_list_of_games(games)
     games.map { |game| Game.new(game) }
   end
+
 end
