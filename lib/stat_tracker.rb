@@ -197,27 +197,6 @@ end
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #COLIN
 def average_goals_per_game
   goals = []
@@ -318,78 +297,70 @@ end
 
 
 
-
-
-
-
-
-
-
-
-#THIAGO
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# T H I A G O O O O O O O A L L L L L
+  def winningest_coach
+    # require 'pry'; binding.pry
+    results = @game_teams[:result]
+    coaches = @game_teams[:head_coach]
+    unique_coaches = coaches.uniq
+
+    win_list = Hash.new(0)
+    # require 'pry'; binding.pry
+
+    coach_result = coaches.zip(results)
+    win_results = []
+    coach_result.each do |g|
+      win_results << g if g.include?("WIN")
+    end
+
+    unique_coaches.each do |coach|
+      win_results.each do |win|
+        if coach == win[0] && win_list[coach] == nil
+          win_list[coach] = 1
+        elsif coach == win[0] && win_list[coach] != nil
+          win_list[coach] += 1
+        end
+      end
+    end
+    # require 'pry';binding.pry
+    win_list.key(win_list.values.max)
+
+
+    # coaches.each do |coach|
+    #   results.each do |result|
+    #     if win_list[:coach] == nil && result == "WIN"
+    #       win_list[:coach] += 1
+    #   end
+    # end
+    #
+    # coaches.each do |coach|
+    #   if result.includes?("WIN")
+    #     coach_win_list << coach
+    #   elsif result.includes?("LOSS")
+    #     coach_lose_list << coach
+    #   end
+    # end
+    # results = []
+    # coach_wins_list = []
+    # coach_lose_list = []
+    #
+    # # results.each do |result|
+    # #   results << result
+    # # end
+    #
+    # coaches.each do |coach|
+    #   if result.includes?("WIN")
+    #     coach_win_list << coach
+    #   elsif result.includes?("LOSS")
+    #     coach_lose_list << coach
+    #   end
+    # end
+  end
+# This method should take a season id as an argument and return the values described below.
+#
+# Method: winningest_coach
+# Description: Name of the Coach with the best win percentage for the season
+# Return Value: String
 
 
 
