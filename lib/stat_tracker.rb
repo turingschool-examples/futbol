@@ -55,6 +55,7 @@ attr_reader :games, :team, :game_teams
 
   ## TEAM STATISTICS
 
+<<<<<<< HEAD
   def team_info(id)
     info = Hash.new
     @teams.each do |team|
@@ -68,4 +69,39 @@ attr_reader :games, :team, :game_teams
     end
     info
   end
+=======
+
+  ## SEASON STATISTICS : All methods return Strings
+
+  def winningest_coach
+    # Name of the Coach with the best win percentage for the season
+
+  end
+
+  def worst_coach
+    # Name of the Coach with the worst win percentage for the season
+
+  end
+
+  def most_accurate_team
+    # Name of the Team with the best ratio of shots to goals for the season
+
+  end
+
+  def least_accurate_team
+    # Name of the Team with the worst ratio of shots to goals for the season
+
+  end
+
+  def most_tackles
+    # Name of the Team with the most tackles in the season
+
+  end
+
+  def fewest_tackles
+    # Name of the Team with the fewest tackles in the season
+
+  end
+
+>>>>>>> aa906d47d0f681b712e8ec6ba67adad4fe3ace77
 end
