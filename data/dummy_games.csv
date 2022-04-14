@@ -4,6 +4,8 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2012030223,20122013,Postseason,5/21/13,6,3,2,1,BBVA Stadium,/api/v1/venues/null
 2012030224,20122013,Postseason,5/23/13,6,3,3,2,BBVA Stadium,/api/v1/venues/null
 2012030225,20122013,Postseason,5/25/13,3,6,1,3,Toyota Stadium,/api/v1/venues/null
+2012020381,20122013,Regular Season,3/12/13,14,13,3,2,BBVA Stadium,/api/v1/venues/null
+2012020141,20122013,Regular Season,2/8/13,8,7,2,2,Rio Tinto Stadium,/api/v1/venues/null
 2015030131,20152016,Postseason,4/14/16,4,15,0,2,Providence Park,/api/v1/venues/null
 2015030132,20152016,Postseason,4/16/16,4,15,1,2,Providence Park,/api/v1/venues/null
 2015030133,20152016,Postseason,4/18/16,15,4,4,1,SeatGeek Stadium,/api/v1/venues/null
@@ -12,6 +14,4 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2013020408,20132014,Regular Season,12/3/13,4,30,0,2,Exploria Stadium,/api/v1/venues/null
 2013020445,20132014,Regular Season,12/8/13,24,19,3,2,Talen Energy Stadium,/api/v1/venues/null
 2013020723,20132014,Regular Season,1/18/14,3,9,2,1,Yankee Stadium,/api/v1/venues/null
-2012020381,20122013,Regular Season,3/12/13,14,13,3,2,BBVA Stadium,/api/v1/venues/null
 2013020628,20132014,Regular Season,1/5/14,1,7,1,2,Rio Tinto Stadium,/api/v1/venues/null
-2012020141,20122013,Regular Season,2/8/13,8,7,2,2,Rio Tinto Stadium,/api/v1/venues/null
