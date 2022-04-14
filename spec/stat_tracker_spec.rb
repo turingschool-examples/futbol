@@ -148,6 +148,24 @@ RSpec.describe StatTracker do
 
   end
 
+  it 'gives me the coach with the worst record given a season' do
+    game_path = './data/games_sample.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/games_teams_15_rows.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+
+    expect(stat_tracker.worst_coach(20132014)).to eq("Kirk Muller")
+
+
+  end
+
 
 
 
