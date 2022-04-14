@@ -183,10 +183,10 @@ RSpec.describe StatTracker do
 
   end
 
-  xit 'gives me the team with the best shot percentage given a season' do
+  it 'gives me an array of total amount of something when i pass it in' do
     game_path = './data/games_sample.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_teams_path = './data/games_teams_15_rows.csv'
 
     locations = {
       games: game_path,
@@ -195,6 +195,26 @@ RSpec.describe StatTracker do
     }
 
     stat_tracker = StatTracker.from_csv(locations)
+
+    game_teams = stat_tracker.game_teams_by_season(20172018)
+    expect(stat_tracker.total_amount(game_teams, :goals)).to eq(9)
+
+  end
+
+  xit 'gives me the team with the best shot percentage given a season' do
+    game_path = './data/games_sample.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/games_teams_15_rows.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+
+
 
   end
 
