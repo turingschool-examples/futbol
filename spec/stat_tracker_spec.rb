@@ -197,13 +197,6 @@ describe StatTracker do
 
 
 
-
-
-
-
-
-
-
 #COLIN
 it 'find the average goals per game' do
   # require 'pry'; bind!ing.pry
@@ -304,10 +297,10 @@ end
 
 
 
-
-
-
 #THIAGO
+  it 'can return name of coach with best win percentage based on season' do
+    expect(@stat_tracker.winningest_coach).to eq("Claude Julien")
+  end
 
 
 
@@ -329,10 +322,7 @@ end
 
 
 
-
-
-
-
+# Ensuring this line stays on 325
 
 
 
