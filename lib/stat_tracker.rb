@@ -2,8 +2,9 @@ require 'csv'
 require './lib/game_team'
 require './lib/team'
 require './lib/game'
+require './lib/game_module'
 class StatTracker
-
+include GameModule
 	attr_reader :games, :teams, :game_teams
 
 	def initialize(games_hash, teams_hash, game_teams_hash)
@@ -66,8 +67,8 @@ class StatTracker
       date_time = row[:date_time]
       away_team_id = row[:away_team_id]
       home_team_id = row[:home_team_id]
-      away_goals = row[:away_goals]
-      home_goals = row[:home_goals]
+      away_goals = row[:away_goals].to_i
+      home_goals = row[:home_goals].to_i
       venue = row[:venue]
       venue_link = row[:venue_link]
       game_arr << Game.new(game_id, season, type, date_time, away_team_id, home_team_id,
@@ -77,42 +78,47 @@ class StatTracker
   end
 
 	def highest_total_score
-		highest_score_arr = []
-		@games.each do |game|
-			highest_score_arr << game.away_goals.to_i + game.home_goals.to_i
-		end
-		highest_score_arr.max
+		GameModule.total_score(@games).max
 	end
 
 
 	def lowest_total_score
-		lowest_score_arr = []
-		@games.each do |game|
-			lowest_score_arr << game.away_goals.to_i + game.home_goals.to_i
-		end
-		lowest_score_arr.min
+		GameModule.total_score(@games).min
 	end
 
 	def percentage_visitor_wins
-		# create accumulator - empty array to hold the return value
-		total_visitor_wins = []
-		# calculate percentage of games that away goals > home goals
-		@games.each do |game|
-			if game.home_goals.to_f < game.away_goals.to_f
-				total_visitor_wins << game
-			end
-		end
-		return ((total_visitor_wins.count).to_f / (@games.count).to_f) * 100
-
+		return ((GameModule.total_visitor_wins(@games).count).to_f / (@games.count).to_f) * 100
+	end
 
 	def percentage_home_wins
-		total_home_wins = []
+		return ((GameModule.total_home_wins(@games).count).to_f / (@games.count).to_f) * 100
+	end
+
+	def average_goals_per_game
+		(GameModule.total_score(@games).sum.to_f / @games.count).ceil(2)
+	end
+
+	def average_goals_per_season
+		season_goals_avg = {}
 		@games.each do |game|
-			if game.home_goals.to_f > game.away_goals.to_f
-				total_home_wins << game
+			season = game.season
+			if season_goals_avg[season] == nil
+				season_goals_avg[season] = [game.away_goals + game.home_goals]
+			else
+				season_goals_avg[season] << game.away_goals + game.home_goals
 			end
 		end
-		return ((total_home_wins.count).to_f / (@games.count).to_f) * 100
+			season_goals_avg.each do |season, goals|
+				season_goals_avg[season] = (goals.sum.to_f / goals.count.to_f).ceil(2)
+		end
+		return season_goals_avg
+	end
 
+	def count_of_teams
+		total_teams = []
+		@teams.each do |team|
+			total_teams << team.team_id
+		end
+			total_teams.count
 	end
 end
