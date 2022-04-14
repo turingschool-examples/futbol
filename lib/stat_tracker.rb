@@ -4,7 +4,7 @@ require './lib/team'
 require './lib/game_teams'
 
 class StatTracker
-  attr_reader :games,:teams, :game_teams, :games_array
+  attr_reader :games, :teams, :game_teams, :games_array
 
   def initialize(locations)
     @games = CSV.read(locations[:games], headers:true,
@@ -14,9 +14,9 @@ class StatTracker
     @game_teams = CSV.read(locations[:game_teams],
        headers:true, header_converters: :symbol)
     @games_array = []
-    fill_game_array
-    fill_team_array
-    fill_game_teams_array
+    # fill_game_array
+    # fill_team_array
+    # fill_game_teams_array
   end
 
   def self.from_csv(locations)
@@ -59,6 +59,11 @@ class StatTracker
         shots, tackles, pim, power_play_opportunities, power_play_goals,
         face_off_win_percentage, giveaways, takeaways)
       end
+  end
+
+  def load_collections
+    @game_stats = GameStats.new(locations[:game_stats])
+    #this does stuff so other classes can use it :D
   end
 
 

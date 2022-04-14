@@ -1,8 +1,15 @@
 class GameStats
-  def initialize
-    @games_array = []
-  end
 
+  attr_reader :game_path, :team_path, :game_teams_path, :games_array
+
+  def initialize(locations)
+    @game_path = locations[:games]
+    require'pry';binding.pry
+    @team_path = locations[:teams]
+    @game_teams_path = locations[:game_teams]
+    @games_array = []
+    # fill_game_array
+  end
   def fill_game_array
     @games.each do |row|
       game_id = row[:game_id]

@@ -76,21 +76,3 @@ RSpec.describe Game do
 end
 
 #Game Stats Tests
-
-RSpec.describe Game do
-  before :each do
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-
-    @locations = {
-        games: game_path,
-        teams: team_path,
-        game_teams: game_teams_path
-      }
-      @stat_tracker = StatTracker.from_csv(@locations)
-      
-    it 'highest_total_score' do
-      expect(@stat_tracker.highest_total_score).to eq(6)
-    end
-end
