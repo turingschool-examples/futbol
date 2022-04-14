@@ -419,9 +419,11 @@ end
         @team_ids << id.to_i
       end
     end
-    # require "pry"; binding.pry
     @team_ids.count
   end
+
+
+  
 
 
 
