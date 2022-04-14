@@ -66,4 +66,12 @@ class StatTracker
     end[0]
   end
 
+  def worst_coach(season)
+    season_game_teams = game_teams_by_season(season)
+    coaches_records = win_percentage_by_coach(coaches_records(season_game_teams))
+    winning_coach = coaches_records.min_by do |coach|
+      coach[1][2]
+    end[0]
+  end
+
 end
