@@ -57,7 +57,7 @@ RSpec.describe StatTracker do
     expect(stat_tracker.highest_total_score).to eq(7)
   end
 
-  it 'can give me the winningest coach given a specific season' do
+  xit 'can give me the winningest coach given a specific season' do
     game_path = './data/games_sample.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams.csv'
@@ -148,7 +148,7 @@ RSpec.describe StatTracker do
 
   end
 
-  it 'gives me the coach with the worst record given a season' do
+  xit 'gives me the coach with the worst record given a season' do
     game_path = './data/games_sample.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams.csv'
@@ -162,6 +162,39 @@ RSpec.describe StatTracker do
     stat_tracker = StatTracker.from_csv(locations)
 
     expect(stat_tracker.worst_coach(20132014)).to eq("Peter Laviolette")
+
+  end
+
+  it 'gives me a team name given a team ID' do
+    game_path = './data/games_sample.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+    id = 29
+
+    expect(stat_tracker.team_name(id)).to eq("Orlando Pride")
+
+  end
+
+  xit 'gives me the team with the best shot percentage given a season' do
+    game_path = './data/games_sample.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
 
   end
 
