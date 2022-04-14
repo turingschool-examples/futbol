@@ -36,8 +36,26 @@ class StatTracker
         team[:link] = row[:link]
       end
     end
-    # require "pry";binding.pry
     return team
+  end
+
+  def team_wins
+    @game_teams.each do |row|
+      winning_teams = []
+      if stat_tracker.game_teams(results).include?("WIN")
+        winning_teams << row[:result]
+      end
+    end
+  end
+
+  def highest_win_percentage_team
+  end
+
+  def average_win_percentage(team_id)
+    opponent_for_every_win = []
+    @game_teams.each do |row|
+      row[:result]
+    end
   end
 end
 
