@@ -1,5 +1,6 @@
 require './lib/stat_tracker'
 require 'csv'
+require 'pry'
 
 RSpec.describe StatTracker do
 
@@ -73,4 +74,20 @@ RSpec.describe StatTracker do
     expect(stat_tracker.team_info(1)).to eq(expected)
   end
 
+  it 'returns team`s highest winning percentage ' do
+    game_path = './data/games_15_rows.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/games_teams_15_rows.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.new(locations)
+
+    expect(stat_tracker.highest_win_percentage_team).to eq(expected)
+
+  end
 end
