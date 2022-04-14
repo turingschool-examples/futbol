@@ -6,14 +6,39 @@ class StatTracker
   attr_reader :games, :teams, :game_teams
 
   def initialize(locations)
-    @games = CSV.read "#{locations[:games]}", headers: true, header_converters: :symbol
-    @teams = CSV.read "#{locations[:teams]}", headers: true, header_converters: :symbol
-    @game_teams = CSV.read "#{locations[:game_teams]}", headers: true, header_converters: :symbol
+    @games = read_games(locations[:games])
+    @teams = read_teams(locations[:teams])
+    @game_teams = read_game_teams(locations[:game_teams])
+    # require 'pry'; binding.pry
   end
 
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
+
+  def read_games(csv)
+  games_arr = []
+  CSV.foreach(csv, headers: true, header_converters: :symbol) do |row|
+    games_arr << Game.new(row)
+  end
+  games_arr
+end
+
+def read_teams(csv)
+  teams_arr = []
+  CSV.foreach(csv, headers: true, header_converters: :symbol) do |row|
+    teams_arr << Team.new(row)
+  end
+  teams_arr
+end
+
+def read_game_teams(csv)
+  game_teams_arr = []
+  CSV.foreach(csv, headers: true, header_converters: :symbol) do |row|
+    game_teams_arr << GameTeam.new(row)
+  end
+  game_teams_arr
+end
 
   def highest_total_score
     @games.map {|game| game[:away_goals].to_i + game[:home_goals].to_i}.max
@@ -23,6 +48,23 @@ class StatTracker
     @games.select do |row|
       row[:season] == season.to_s
     end
+  end
+
+
+  def team_info(team_id)
+    # require "pry"; binding.pry
+    team = Hash.new
+
+    @teams.each do |row|
+      if row[:team_id] == team_id.to_s
+        team[:team_id] = row[:team_id]
+        team[:franchise_id] = row[:franchiseid]
+        team[:team_name] = row[:teamname]
+        team[:abbreviation] = row[:abbreviation]
+        team[:link] = row[:link]
+      end
+    end
+    return team
   end
 
   def game_teams_by_season(season)
@@ -54,6 +96,7 @@ class StatTracker
     return coaching_hash
   end
 
+
   def winningest_coach(season)
     season_game_teams = game_teams_by_season(season)
     coaches_hash = win_percentage_by_coach(coaches_records(season_game_teams))
@@ -84,9 +127,71 @@ class StatTracker
     total_amount
   end
 
+  def most_accurate_team(season)
+    season_game_teams = game_teams_by_season(season)
+    hash = {}
+    season_game_teams.each do |row|
+      hash[row[:team_id]] = [0,0,0.to_f]
+    end
+    season_game_teams.each do |row|
+      hash[row[:team_id]][0] += row[:goals].to_i
+      hash[row[:team_id]][1] += row[:shots].to_i
+      hash[row[:team_id]][2] = hash[row[:team_id]][0]/hash[row[:team_id]][1].to_f
+    end
+    accurate_team_id = hash.max_by do |team|
+      team[1][2]
+    end[0]
+    return team_name(accurate_team_id)
+  end
+
+  def least_accurate_team(season)
+    season_game_teams = game_teams_by_season(season)
+    hash = {}
+    season_game_teams.each do |row|
+      hash[row[:team_id]] = [0,0,0.to_f]
+    end
+    season_game_teams.each do |row|
+      hash[row[:team_id]][0] += row[:goals].to_i
+      hash[row[:team_id]][1] += row[:shots].to_i
+      hash[row[:team_id]][2] = hash[row[:team_id]][0]/hash[row[:team_id]][1].to_f
+    end
+    inaccurate_team_id = hash.min_by do |team|
+      team[1][2]
+    end[0]
+    return team_name(inaccurate_team_id)
+  end
+
+  def most_tackles(season)
+    season_game_teams = game_teams_by_season(season)
+    hash = {}
+    season_game_teams.each do |row|
+      hash[row[:team_id]] = [0]
+    end
+    season_game_teams.each do |row|
+      hash[row[:team_id]][0] += row[:tackles].to_i
+    end
+    most_tackles_team_id = hash.max_by do |team|
+      team[1]
+    end[0]
+    return team_name(most_tackles_team_id)
+  end
+
+  def fewest_tackles(season)
+    season_game_teams = game_teams_by_season(season)
+    hash = {}
+    season_game_teams.each do |row|
+      hash[row[:team_id]] = [0]
+    end
+    season_game_teams.each do |row|
+      hash[row[:team_id]][0] += row[:tackles].to_i
+    end
+    fewest_tackles_team_id = hash.min_by do |team|
+      team[1]
+    end[0]
+    return team_name(fewest_tackles_team_id)
+  end
+
   def count_of_teams
       @teams.map {|team| team[:team_id]}.length
   end
-
-
 end
