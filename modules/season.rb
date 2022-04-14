@@ -1,16 +1,16 @@
 require './lib/game'
 require './lib/game_teams'
 require './lib/team_stats'
+
 # This mod will handle all season related methods
 module Season
   def winningest_coach(season)
-    outcome = GameTeams.create_list_of_game_teams(@game_teams).find_all { |game| game.result == 'WIN' }
+    outcome = @game_teams.find_all { |game| game.result == 'WIN' }
     coach_performance(season, outcome).sort_by { |_coach, wins| wins }.reverse[0][0]
   end
 
   def games_by_season(season)
-    games = Game.create_list_of_games(@games)
-    games.find_all { |game| game.season == season }
+    @games.find_all { |game| game.season == season }
   end
 
   def coach_performance(season, outcome)
@@ -26,21 +26,19 @@ module Season
   end
 
   def worst_coach(season)
-    outcome = GameTeams.create_list_of_game_teams(@game_teams).find_all { |game| game.result == 'LOSS' }
+    outcome = @game_teams.find_all { |game| game.result == 'LOSS' }
     coach_performance(season, outcome).min_by { |_coach, loss| loss }[0]
   end
 
   def most_accurate_team(season)
-    teams = TeamStats.create_a_list_of_teams(@teams)
-    teams.find { |team| team.team_id == team_accuracy(season)[-1][0] }.team_name
+    @teams.find { |team| team.team_id == team_accuracy(season)[-1][0] }.team_name
   end
 
   def team_accuracy(season)
-    info = GameTeams.create_list_of_game_teams(@game_teams)
     games = games_by_season(season)
     shots_taken = {}
     goals_made = {}
-    info.each do |team|
+    @game_teams.each do |team|
       next unless games.any? { |game| game.game_id == team.game_id }
 
       if shots_taken[team.team_id].nil?
@@ -62,20 +60,17 @@ module Season
   end
 
   def least_accurate_team(season)
-    teams = TeamStats.create_a_list_of_teams(@teams)
-    teams.find { |team| team.team_id == team_accuracy(season)[0][0] }.team_name
+    @teams.find { |team| team.team_id == team_accuracy(season)[0][0] }.team_name
   end
 
   def most_tackles(season)
-    teams = TeamStats.create_a_list_of_teams(@teams)
-    teams.find { |team| team.team_id == team_tackles(season)[-1][0] }.team_name
+    @teams.find { |team| team.team_id == team_tackles(season)[-1][0] }.team_name
   end
 
   def team_tackles(season)
-    info = GameTeams.create_list_of_game_teams(@game_teams)
     games = games_by_season(season)
     tackles_by_team = {}
-    info.each do |team|
+    @game_teams.each do |team|
       next unless games.any? { |game| game.game_id == team.game_id }
 
       if tackles_by_team[team.team_id].nil?
@@ -88,7 +83,6 @@ module Season
   end
 
   def fewest_tackles(season)
-    teams = TeamStats.create_a_list_of_teams(@teams)
-    teams.find { |team| team.team_id == team_tackles(season)[0][0] }.team_name
+    @teams.find { |team| team.team_id == team_tackles(season)[0][0] }.team_name
   end
 end

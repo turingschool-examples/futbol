@@ -18,8 +18,7 @@ describe TeamStatistics do
   end
 
   it 'can create a list of Team Stats' do
-    team_stats = TeamStats.create_a_list_of_teams(@stat_tracker.teams)
-    expect(team_stats.all? { |team| team.instance_of?(TeamStats) }).to eq(true)
+    expect(@stat_tracker.teams.all? { |team| team.instance_of?(TeamStats) }).to eq(true)
   end
 
   it 'can return a hash of a teams info' do
