@@ -5,16 +5,8 @@ require 'pry'
 # This mod will handle all season related methods
 module Season
   def winningest_coach(season)
-    victories = GameTeams.create_list_of_game_teams(@game_teams).find_all { |game| game.result == 'WIN' }
-    games = games_by_season(season)
-    wins_by_coach = {}
-    victories.each do |win|
-      next unless games.any? { |game| game.game_id == win.game_id }
-
-      wins_by_coach[win.head_coach] = 1 if wins_by_coach[win.head_coach].nil?
-      wins_by_coach[win.head_coach] += 1
-    end
-    wins_by_coach.sort_by { |_coach, wins| wins }.reverse[0][0]
+    outcome = GameTeams.create_list_of_game_teams(@game_teams).find_all { |game| game.result == 'WIN' }
+    coach_performance(season, outcome).sort_by { |_coach, wins| wins }.reverse[0][0]
   end
 
   def games_by_season(season)
@@ -22,19 +14,21 @@ module Season
     games.find_all { |game| game.season == season }
   end
 
-  def coach_performace; end
+  def coach_performance(season, outcome)
+    games = games_by_season(season)
+    result_by_coach = {}
+    outcome.each do |result|
+      next unless games.any? { |game| game.game_id == result.game_id }
+
+      result_by_coach[result.head_coach] = 1 if result_by_coach[result.head_coach].nil?
+      result_by_coach[result.head_coach] += 1
+    end
+    result_by_coach
+  end
 
   def worst_coach(season)
-    losses = GameTeams.create_list_of_game_teams(@game_teams).find_all { |game| game.result == 'LOSS' }
-    games = games_by_season(season)
-    loss_by_coach = {}
-    losses.each do |loss|
-      next unless games.any? { |game| game.game_id == loss.game_id }
-
-      loss_by_coach[loss.head_coach] = 1 if loss_by_coach[loss.head_coach].nil?
-      loss_by_coach[loss.head_coach] += 1
-    end
-    loss_by_coach.sort_by { |_coach, loss| loss }[0][0]
+    outcome = GameTeams.create_list_of_game_teams(@game_teams).find_all { |game| game.result == 'LOSS' }
+    coach_performance(season, outcome).sort_by { |_coach, loss| loss }[0][0]
   end
 
   def most_accurate_team(season)
