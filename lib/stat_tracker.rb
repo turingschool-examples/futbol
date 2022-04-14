@@ -97,7 +97,7 @@ class StatTracker
 
 
 
-#SAI
+  #SAI
 
 
 
@@ -197,17 +197,31 @@ class StatTracker
 
 
 
-#COLIN
-def average_goals_per_game
-  goals = []
-  @games.each do |row|
-    i = row[:away_goals].to_f + row[:home_goals].to_f
-    goals << i
+  #COLIN
+  def average_goals_per_game
+    goals = []
+    @games.each do |row|
+      i = row[:away_goals].to_f + row[:home_goals].to_f
+      goals << i
+    end
+    (goals.sum / goals.count).round(2)
   end
-  # require 'pry'; binding.pry
-  (goals.sum / goals.count).round(2)
-end
 
+  def average_goals_by_season
+    average_by_season = {}
+    season_hash = @games.group_by { |row| row[:season].itself }
+    # season_hash.except(:away_goals, :home_goals)
+    season_hash.each do |season, games|
+      games.each do |key|
+        key.each do |data|
+        if data == :away_goals || :home_goals
+          average_by_season.merge!(season => key)
+        end
+        require 'pry'; binding.pry
+        end
+      end
+    end
+  end
 
 
 
@@ -305,7 +319,7 @@ end
 
 
 
-#THIAGO
+  #THIAGO
 
 
 
@@ -405,7 +419,7 @@ end
 
 
 
-#STEPHEN
+  #STEPHEN
 
 
 
