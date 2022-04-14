@@ -74,4 +74,19 @@ class StatTracker
     end[0]
   end
 
+  def team_name(id)
+    @teams.find do |row|
+      row[:team_id] == id.to_s
+    end[:teamname].to_s
+  end
+
+  def total_amount(game_teams, category)
+    total_amount = 0
+    game_teams.each do |game|
+      total_amount += game[category].to_i
+    end
+    require 'pry'; binding.pry
+    total_amount
+  end
+
 end
