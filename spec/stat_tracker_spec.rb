@@ -412,6 +412,9 @@ end
     expect(@stat_tracker.best_offense).to eq("FC Dallas")
   end
 
+  it 'can name the team with the worst offense' do
+    expect(@stat_tracker.worst_offense).to eq("Houston Dynamo")
+  end
 
 
 
