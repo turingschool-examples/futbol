@@ -2,8 +2,9 @@ require 'csv'
 require './lib/game_team'
 require './lib/team'
 require './lib/game'
+require './lib/game_module'
 class StatTracker
-
+include GameModule
 	attr_reader :games, :teams, :game_teams
 
 	def initialize(games_hash, teams_hash, game_teams_hash)
@@ -77,42 +78,19 @@ class StatTracker
   end
 
 	def highest_total_score
-		highest_score_arr = []
-		@games.each do |game|
-			highest_score_arr << game.away_goals.to_i + game.home_goals.to_i
-		end
-		highest_score_arr.max
+		GameModule.total_score(@games).max
 	end
 
 
 	def lowest_total_score
-		lowest_score_arr = []
-		@games.each do |game|
-			lowest_score_arr << game.away_goals.to_i + game.home_goals.to_i
-		end
-		lowest_score_arr.min
+		GameModule.total_score(@games).min
 	end
 
 	def percentage_visitor_wins
-		# create accumulator - empty array to hold the return value
-		total_visitor_wins = []
-		# calculate percentage of games that away goals > home goals
-		@games.each do |game|
-			if game.home_goals.to_f < game.away_goals.to_f
-				total_visitor_wins << game
-			end
-		end
-		return ((total_visitor_wins.count).to_f / (@games.count).to_f) * 100
-
+		return ((GameModule.total_visitor_wins(@games).count).to_f / (@games.count).to_f) * 100
+	end
 
 	def percentage_home_wins
-		total_home_wins = []
-		@games.each do |game|
-			if game.home_goals.to_f > game.away_goals.to_f
-				total_home_wins << game
-			end
-		end
-		return ((total_home_wins.count).to_f / (@games.count).to_f) * 100
-
+		return ((GameModule.total_home_wins(@games).count).to_f / (@games.count).to_f) * 100
 	end
 end
