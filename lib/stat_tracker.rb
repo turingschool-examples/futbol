@@ -298,7 +298,7 @@ end
 
 
 # T H I A G O O O O O O O A L L L L L
-  def winningest_coach
+  def winningest_coach#.(season) not implemented yet
     # require 'pry'; binding.pry
     results = @game_teams[:result]
     coaches = @game_teams[:head_coach]
@@ -363,38 +363,38 @@ end
 # Return Value: String
 
 
+def worst_coach#.(season) not implemented yet
+  # require 'pry'; binding.pry
+  results = @game_teams[:result]
+  coaches = @game_teams[:head_coach]
+  unique_coaches = coaches.uniq
 
+  loss_list = Hash.new(0)
+  # require 'pry'; binding.pry
 
+  coach_result = coaches.zip(results)
+  loss_results = []
+  coach_result.each do |g|
+    loss_results << g if g.include?("LOSS")
+  end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  unique_coaches.each do |coach|
+    loss_results.each do |loss|
+      if coach == loss[0] && loss_list[coach] == nil
+        loss_list[coach] = 1
+      elsif coach == loss[0] && loss_list[coach] != nil
+        loss_list[coach] += 1
+      end
+    end
+  end
+  # require 'pry';binding.pry
+  loss_list.key(loss_list.values.min)
+end
+# This method should take a season id as an argument and return the values described below.
+#
+# Method: worst_coach
+# Description: Name of the Coach with the worst win percentage for the season
+# Return Value: String
 
 
 #STEPHEN
