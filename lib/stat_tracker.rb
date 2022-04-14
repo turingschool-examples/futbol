@@ -18,6 +18,7 @@ attr_reader :games, :team, :game_teams
     StatTracker.new(locations)
   end
 
+
   def read_and_create_games(games_csv)
     games_array = []
     CSV.foreach(games_csv, headers: true, header_converters: :symbol) do |row|
@@ -38,9 +39,19 @@ attr_reader :games, :team, :game_teams
     game_teams_array = []
     CSV.foreach(game_teams_csv, headers: true, header_converters: :symbol) do |row|
       game_teams_array << GameTeam.new(row)
-      require "pry";binding.pry
     end
     game_teams_array
   end
+
+  ## GAME STATISTICS
+
+  def highest_total_score
+    @games.map {|game| game.away_goals + game.home_goals}.max
+  end
+
+  def lowest_total_score
+    @games.map {|game| game.away_goals + game.home_goals}.min
+  end
+
 
 end
