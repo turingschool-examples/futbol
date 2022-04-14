@@ -58,7 +58,7 @@ attr_reader :games, :team, :game_teams
 
   ## total number of teams in the data
   def count_of_teams
-
+    @teams.count
   end
 
   # #Name of the team with the highest average number of goals scored per game across all seasons.

@@ -23,17 +23,17 @@ RSpec.describe StatTracker do
 
   it "finds highest_total_score" do
 
-    expect(@stat_tracker.highest_total_score).to_eq(11)
+    expect(@stat_tracker.highest_total_score).to eq(11)
   end
 
   it "finds lowest_total_score" do
 
-    expect(@stat_tracker.lowest_total_score).to_eq(0)
+    expect(@stat_tracker.lowest_total_score).to eq(0)
   end
 
   it "returns count_of_teams" do
 
-    expect(@stat_tracker.count_of_teams).to_eq(32)
+    expect(@stat_tracker.count_of_teams).to eq(32)
   end
 
 end
