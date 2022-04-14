@@ -19,7 +19,17 @@ describe LeagueStats do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
-  it 'can access TeamStats to count teams' do
-  expect(@stat_tracker.count_of_teams).to eq(32)
+  it '#count of teams' do
+    expect(@stat_tracker.count_of_teams).to eq(32)
   end
+
+  it "#best offense"do
+  expect(@stat_tracker.best_offense).to eq("Reign FC")
+  end
+
+  it "#worst_offense" do
+    expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
+  end
+
+
 end
