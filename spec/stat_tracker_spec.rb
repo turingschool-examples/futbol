@@ -71,7 +71,7 @@ describe StatTracker do
 
     it "can calculate average goals per season" do
 
-      expected ={
+      expected = {
         "20122013" => 4.43,
         "20152016" => 3.00,
         "20132014" => 3.25

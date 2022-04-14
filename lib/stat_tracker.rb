@@ -67,8 +67,8 @@ include GameModule
       date_time = row[:date_time]
       away_team_id = row[:away_team_id]
       home_team_id = row[:home_team_id]
-      away_goals = row[:away_goals]
-      home_goals = row[:home_goals]
+      away_goals = row[:away_goals].to_i
+      home_goals = row[:home_goals].to_i
       venue = row[:venue]
       venue_link = row[:venue_link]
       game_arr << Game.new(game_id, season, type, date_time, away_team_id, home_team_id,
@@ -96,5 +96,21 @@ include GameModule
 
 	def average_goals_per_game
 		(GameModule.total_score(@games).sum.to_f / @games.count).ceil(2)
+	end
+
+	def average_goals_per_season
+		season_goals_avg = {}
+		@games.each do |game|
+			season = game.season
+			if season_goals_avg[season] == nil
+				season_goals_avg[season] = [game.away_goals + game.home_goals]
+			else
+				season_goals_avg[season] << game.away_goals + game.home_goals
+			end
+		end
+			season_goals_avg.each do |season, goals|
+				season_goals_avg[season] = (goals.sum.to_f / goals.count.to_f).ceil(2)
+		end
+		return season_goals_avg
 	end
 end
