@@ -3,9 +3,7 @@ SimpleCov.start
 require './lib/stat_tracker'
 require 'csv'
 
-
 RSpec.describe StatTracker do
-
 
   it 'exists' do
 
@@ -39,7 +37,7 @@ RSpec.describe StatTracker do
     expected = CSV.read "#{locations[:games]}", headers: true, header_converters: :symbol
     expect(stat_tracker.games).to eq(expected)
   end
-  
+
   it 'can give us team info' do
    stat_tracker = StatTracker.new(locations)
 
@@ -273,8 +271,7 @@ RSpec.describe StatTracker do
     expect(stat_tracker.count_of_teams).to eq(32)
   end
 
+  it " " do 
 
-
-
+  end
 end
-
