@@ -422,6 +422,18 @@ end
     @team_ids.count
   end
 
+  def team_average_number_of_goals_per_game(team_id)
+    @game_count = 0
+    @game_score = 0
+    @game_teams.each do |row|
+      if row[:team_id].to_i == team_id.to_i
+        @game_count += 1
+        @game_score += row[:goals].to_i
+      end
+    end
+    @game_score.to_f / @game_count.to_f
+  end
+
   def best_offense
     @teams_hash = {}
     @id_avg_hash = {}
@@ -440,18 +452,23 @@ end
     end
   end
 
-  def team_average_number_of_goals_per_game(team_id)
-    @game_count = 0
-    @game_score = 0
-    @game_teams.each do |row|
-      if row[:team_id].to_i == team_id.to_i
-        @game_count += 1
-        @game_score += row[:goals].to_i
+  def worst_offense
+    @teams_hash = {}
+    @id_avg_hash = {}
+    @team_ids = game_teams[:team_id].uniq
+    @teams.each do |row|
+      @teams_hash.merge!("#{row[:team_id]}" => row[:teamname])
+    end
+    @team_ids.each do |id|
+      # @id_avg_hash.merge!("#{team_average_number_of_goals_per_game(id)}" => @teams_hash[id])
+      @id_avg_hash.merge!("#{@teams_hash[id]}" => team_average_number_of_goals_per_game(id))
+    end
+    @id_avg_hash.each do |k, v|
+      if v == @id_avg_hash.values.min
+        return k
       end
     end
-    @game_score.to_f / @game_count.to_f
   end
-
 
 
 
