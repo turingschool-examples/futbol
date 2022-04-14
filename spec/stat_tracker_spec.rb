@@ -408,10 +408,7 @@ end
     expect(@stat_tracker.count_of_teams).to eq(9)
   end
 
-
-
-
-
+  
 
 
 
