@@ -93,4 +93,8 @@ include GameModule
 	def percentage_home_wins
 		return ((GameModule.total_home_wins(@games).count).to_f / (@games.count).to_f) * 100
 	end
+
+	def average_goals_per_game
+		(GameModule.total_score(@games).sum.to_f / @games.count).ceil(2)
+	end
 end

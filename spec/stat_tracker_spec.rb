@@ -36,22 +36,38 @@ describe StatTracker do
     expect(@stat_tracker.game_teams[0]).to be_a(GameTeam)
   end
 
-	it "it can calculate the highest total score of games" do
-		expect(@stat_tracker.highest_total_score).to eq 5
-	end
+ describe "Game Statistics" do
+   before :each do
+     @game_path = './data/dummy_games.csv'
+     @team_path = './data/dummy_teams.csv'
+     @game_teams_path = './data/dummy_game_teams.csv'
 
-	it "can calculate the lowest total score of games" do
-		expect(@stat_tracker.lowest_total_score).to eq 3
-	end
+     @locations = {
+       games: @game_path,
+       teams: @team_path,
+       game_teams: @game_teams_path
+     }
+   end
+    it "it can calculate the highest total score of games" do
+    		expect(@stat_tracker.highest_total_score).to eq 5
+    	end
+
+  	it "can calculate the lowest total score of games" do
+  		expect(@stat_tracker.lowest_total_score).to eq 2
+  	end
 
 
-	it "can return the percentage of games that a visitor has won" do
-		expect(@stat_tracker.percentage_visitor_wins).to eq 40.0
-	end
+  	it "can return the percentage of games that a visitor has won" do
+  		expect(@stat_tracker.percentage_visitor_wins).to eq 43.75
+  	end
 
-	it "can calculate a percentage of home wins" do
-		expect(@stat_tracker.percentage_home_wins).to eq 60.0
-	end
+  	it "can calculate a percentage of home wins" do
+  		expect(@stat_tracker.percentage_home_wins).to eq 50.0
+    end
 
+    it "can calculate average goals per game" do
+      expect(@stat_tracker.average_goals_per_game).to eq 3.69
 
+    end
+  end
 end
