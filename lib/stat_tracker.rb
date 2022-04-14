@@ -53,5 +53,19 @@ attr_reader :games, :team, :game_teams
     @games.map {|game| game.away_goals + game.home_goals}.min
   end
 
+  ## TEAM STATISTICS
 
+  def team_info(id)
+    info = Hash.new
+    @teams.each do |team|
+      if team.team_id == id
+        info["team_id"] = team.team_id
+        info["franchise_id"] = team.franchise_id
+        info["team_name"] = team.team_name
+        info["abbreviation"] = team.abbr
+        info["link"] = team.link
+      end
+    end
+    info
+  end
 end
