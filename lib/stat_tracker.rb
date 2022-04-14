@@ -23,7 +23,24 @@ class StatTracker
     game_score.max
   end
 
+
+class A
+
+def initialize(argument)
+  @argument = argument
+  @argument = row[:game_id]
+
+end
+
+class B
+
+  def initialize(argument)
+    @argument = argument
+  end
+end
   # def initialize(locations)
+
+
   #   @games = CSV.open ""
   #   @teams = CSV.open ""
   #   @game_teams = CSV.open ""
