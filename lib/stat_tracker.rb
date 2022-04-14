@@ -84,6 +84,9 @@ class StatTracker
     total_amount
   end
 
+  def count_of_teams
+      @teams.map {|team| team[:team_id]}.length
+  end
 
 
 end
