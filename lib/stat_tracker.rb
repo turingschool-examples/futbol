@@ -99,4 +99,15 @@ class StatTracker
 		end
 		lowest_score_arr.min
 	end
+	def percentage_visitor_wins
+		# create accumulator - empty array to hold the return value
+		total_visitor_wins = []
+		# calculate percentage of games that away goals > home goals
+		@games.each do |game|
+			if game.home_goals.to_f < game.away_goals.to_f
+				total_visitor_wins << game
+			end
+		end
+		return ((total_visitor_wins.count).to_f / (@games.count).to_f) * 100
+	end
 end

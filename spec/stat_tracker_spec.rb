@@ -44,6 +44,7 @@ describe StatTracker do
 		expect(@stat_tracker.lowest_total_score).to eq 3
 	end
 
-
-
+	it "can return the percentage of games that a visitor has won" do
+		expect(@stat_tracker.percentage_visitor_wins).to eq 40.0
+	end
 end
