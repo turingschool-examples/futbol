@@ -133,7 +133,7 @@ class StatTracker
     return team_name(most_tackles_team_id)
   end
 
-  def least_tackles(season)
+  def fewest_tackles(season)
     season_game_teams = game_teams_by_season(season)
     hash = {}
     season_game_teams.each do |row|

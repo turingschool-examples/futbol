@@ -243,7 +243,7 @@ RSpec.describe StatTracker do
 
     stat_tracker = StatTracker.from_csv(locations)
     expect(stat_tracker.most_tackles(20142015)).to eq("Seattle Sounders FC")
-    expect(stat_tracker.least_tackles(20142015)).to eq("Orlando City SC")
+    expect(stat_tracker.fewest_tackles(20142015)).to eq("Orlando City SC")
   end
 
   it 'counts total number of teams' do
