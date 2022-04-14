@@ -113,4 +113,12 @@ include GameModule
 		end
 		return season_goals_avg
 	end
+
+	def count_of_teams
+		total_teams = []
+		@teams.each do |team|
+			total_teams << team.team_id
+		end
+			total_teams.count
+	end
 end

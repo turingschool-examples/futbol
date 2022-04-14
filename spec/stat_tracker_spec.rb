@@ -80,4 +80,22 @@ describe StatTracker do
 
     end
   end
+
+  describe "League Statistics" do
+    before :each do
+      @game_path = './data/dummy_games.csv'
+      @team_path = './data/dummy_teams.csv'
+      @game_teams_path = './data/dummy_game_teams.csv'
+
+      @locations = {
+        games: @game_path,
+        teams: @team_path,
+        game_teams: @game_teams_path
+      }
+    end
+  end
+
+  it 'can count the total number of teams' do
+    expect(@stat_tracker.count_of_teams).to eq 32
+  end
 end
