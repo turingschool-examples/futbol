@@ -203,7 +203,7 @@ RSpec.describe StatTracker do
   it 'gives me the team with the best shot percentage given a season' do
     game_path = './data/games_sample.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/games_teams_15_rows.csv'
+    game_teams_path = './data/game_teams.csv'
 
     locations = {
       games: game_path,
@@ -212,7 +212,22 @@ RSpec.describe StatTracker do
     }
 
     stat_tracker = StatTracker.from_csv(locations)
-    expect(stat_tracker.most_accurate_team(20172018)).to eq("Los Angeles FC")
+    expect(stat_tracker.most_accurate_team(20172018)).to eq("Portland Timbers")
+  end
+
+  it 'gives me the team with the worst shot percentage given a season' do
+    game_path = './data/games_sample.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+    expect(stat_tracker.least_accurate_team(20172018)).to eq("Portland Timbers")
   end
 
   it 'counts total number of teams' do
