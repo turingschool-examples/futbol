@@ -16,12 +16,15 @@ class StatTracker
   end
 
   def highest_total_score
-    game_score = []
-    @games.each do |row|
-      game_score << row[:away_goals].to_i + row[:home_goals].to_i
-    end
-    game_score.max
+    @games.map {|game| game[:away_goals].to_i + game[:home_goals].to_i}.max
   end
+
+  def games_by_season(season)
+    @games.select do |row|
+      row[:season] == season.to_s
+    end
+  end
+
 
   def team_info(team_id)
     # require "pry"; binding.pry
@@ -39,37 +42,69 @@ class StatTracker
     return team
   end
 
-  def team_wins
-    @game_teams.each do |row|
-      winning_teams = []
-      if stat_tracker.game_teams(results).include?("WIN")
-        winning_teams << row[:result]
+  def game_teams_by_season(season)
+    @game_teams.select do |row|
+      row[:game_id][0..3] == season.to_s[0..3]
+    end
+  end
+
+  def coaches_records(game_teams)
+    hash = {}
+    game_teams.each do |row|
+      hash[row[:head_coach]] = [0,0,0.to_f]
+    end
+    game_teams.each do |row|
+      if row[:result] == "WIN"
+        hash[row[:head_coach]][0] += 1
+      else
+        hash[row[:head_coach]][1] += 1
       end
     end
+    return hash
   end
 
-  def highest_win_percentage_team
-  end
-
-  def average_win_percentage(team_id)
-    opponent_for_every_win = []
-    @game_teams.each do |row|
-      row[:result]
+  def win_percentage_by_coach(coaching_hash)
+    coaching_hash.keys.map do |key|
+      total_games = coaching_hash[key][0] + coaching_hash[key][1]
+      coaching_hash[key][2] = coaching_hash[key][0]/total_games.to_f
     end
+    return coaching_hash
   end
+
+
+  def winningest_coach(season)
+    season_game_teams = game_teams_by_season(season)
+    coaches_hash = win_percentage_by_coach(coaches_records(season_game_teams))
+    winning_coach = coaches_hash.max_by do |coach|
+      coach[1][2]
+    end[0]
+  end
+
+  def worst_coach(season)
+    season_game_teams = game_teams_by_season(season)
+    coaches_records = win_percentage_by_coach(coaches_records(season_game_teams))
+    winning_coach = coaches_records.min_by do |coach|
+      coach[1][2]
+    end[0]
+  end
+
+  def team_name(id)
+    @teams.find do |row|
+      row[:team_id] == id.to_s
+    end[:teamname].to_s
+  end
+
+  def total_amount(game_teams, category)
+    total_amount = 0
+    game_teams.each do |game|
+      total_amount += game[category].to_i
+    end
+    total_amount
+  end
+
+  def count_of_teams
+      @teams.map {|team| team[:team_id]}.length
+  end
+
 end
 
-
-## -- Old Team info Method attempts -- ##
-    # @teams.find do |row|
-    #   team_id = row[:team_id]
-    #   franchise_id = row[:franchiseid]
-    #   team_name = row[:teamname]
-    #   abbrev = row[:abbreviation]
-    #   link = row[:link]
-    #   team << Hash.new(team_id, franchise_id, team_name, abbrev, link)
-      # :team_id => @teams[:team_id],
-      # :franchise_id => @teams[:franchiseid],
-      # :team_name => @teams[:teamname],
-      # :abbrev => @teams[:abbreviation],
-      # :link => @teams[:link]
