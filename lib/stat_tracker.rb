@@ -78,4 +78,14 @@ attr_reader :games, :team, :game_teams
     end
     game_team_arr.max
   end
+
+  def fewest_goals_scored(id)
+    game_team_arr = []
+    @game_teams.each do |game_team|
+      if game_team.team_id == id
+        game_team_arr << game_team.goals.to_i
+      end
+    end
+    game_team_arr.min
+  end
 end
