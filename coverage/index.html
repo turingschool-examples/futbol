@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2022-04-14T08:55:59-06:00">2022-04-14T08:55:59-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2022-04-14T09:42:42-06:00">2022-04-14T09:42:42-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -30,7 +30,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         3.5
+         3.83
        </span>
     </span> hits/line
     )
@@ -43,8 +43,8 @@
   </div>
 
   <div class="t-line-summary">
-    <b>40</b> relevant lines,
-    <span class="green"><b>40</b> lines covered</span> and
+    <b>42</b> relevant lines,
+    <span class="green"><b>42</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed. </span>
     (<span class="green">
   100.0%
@@ -73,11 +73,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#abc6d5eee6d032e78ff190bfaa43fbf66b32daeb" class="src_link" title="lib/stat_tracker.rb">lib/stat_tracker.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">522</td>
-            <td class="cell--number">40</td>
-            <td class="cell--number">40</td>
+            <td class="cell--number">527</td>
+            <td class="cell--number">42</td>
+            <td class="cell--number">42</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">3.50</td>
+            <td class="cell--number">3.83</td>
             
           </tr>
         
@@ -112,8 +112,8 @@
     
 
     <div class="t-line-summary">
-      <b>40</b> relevant lines.
-      <span class="green"><b>40</b> lines covered</span> and
+      <b>42</b> relevant lines.
+      <span class="green"><b>42</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -2479,8 +2479,30 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="215">
-            <span class="hits">1</span>
+          <li class="covered" data-hits="3" data-linenumber="215">
+            <span class="hits">3</span>
+            
+
+            
+
+            <code class="ruby">      counter = 0</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="3" data-linenumber="216">
+            <span class="hits">3</span>
+            
+
+            
+
+            <code class="ruby">      game = 0</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="3" data-linenumber="217">
+            <span class="hits">3</span>
             
 
             
@@ -2490,73 +2512,29 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="216">
-            <span class="hits">1</span>
+          <li class="covered" data-hits="7" data-linenumber="218">
+            <span class="hits">7</span>
             
 
             
 
-            <code class="ruby">        key.each do |data|</code>
+            <code class="ruby">        counter += (key[:away_goals].to_i + key[:home_goals].to_i)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="217">
-            <span class="hits">2</span>
+          <li class="covered" data-hits="7" data-linenumber="219">
+            <span class="hits">7</span>
             
 
             
 
-            <code class="ruby">        if data == :away_goals || :home_goals</code>
+            <code class="ruby">        game += 1</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="218">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">          average_by_season.merge!(season =&gt; key)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="219">
-            
-            
-
-            
-
-            <code class="ruby">        end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="2" data-linenumber="220">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">        require &#39;pry&#39;; binding.pry</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="221">
-            
-            
-
-            
-
-            <code class="ruby">        end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="222">
+          <li class="never" data-hits="" data-linenumber="220">
             
             
 
@@ -2567,13 +2545,35 @@
         </div>
       
         <div>
+          <li class="covered" data-hits="3" data-linenumber="221">
+            <span class="hits">3</span>
+            
+
+            
+
+            <code class="ruby">        average_by_season.merge!(season =&gt; (counter.to_f/game.to_f))</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="3" data-linenumber="222">
+            <span class="hits">3</span>
+            
+
+            
+
+            <code class="ruby">        require &#39;pry&#39;; binding.pry</code>
+          </li>
+        </div>
+      
+        <div>
           <li class="never" data-hits="" data-linenumber="223">
             
             
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">        # if data == :away_goals || :home_goals</code>
           </li>
         </div>
       
@@ -2584,7 +2584,7 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">        #   average_by_season.merge!(season =&gt; key)</code>
           </li>
         </div>
       
@@ -2595,7 +2595,7 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">        #</code>
           </li>
         </div>
       
@@ -2606,7 +2606,7 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">        # end</code>
           </li>
         </div>
       
@@ -2628,7 +2628,7 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
@@ -2639,7 +2639,7 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -3662,7 +3662,7 @@
 
             
 
-            <code class="ruby">  #THIAGO</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -3717,7 +3717,7 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  #THIAGO</code>
           </li>
         </div>
       
@@ -4762,7 +4762,7 @@
 
             
 
-            <code class="ruby">  #STEPHEN</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -4817,7 +4817,7 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  #STEPHEN</code>
           </li>
         </div>
       
@@ -5857,6 +5857,61 @@
       
         <div>
           <li class="never" data-hits="" data-linenumber="522">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="523">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="524">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="525">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="526">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="527">
             
             
 

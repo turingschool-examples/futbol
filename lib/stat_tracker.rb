@@ -212,14 +212,19 @@ class StatTracker
     season_hash = @games.group_by { |row| row[:season].itself }
     # season_hash.except(:away_goals, :home_goals)
     season_hash.each do |season, games|
+      counter = 0
+      game = 0
       games.each do |key|
-        key.each do |data|
-        if data == :away_goals || :home_goals
-          average_by_season.merge!(season => key)
-        end
-        require 'pry'; binding.pry
-        end
+        counter += (key[:away_goals].to_i + key[:home_goals].to_i)
+        game += 1
       end
+        average_by_season.merge!(season => (counter.to_f/game.to_f))
+        require 'pry'; binding.pry
+        # if data == :away_goals || :home_goals
+        #   average_by_season.merge!(season => key)
+        #
+        # end
+
     end
   end
 
