@@ -46,4 +46,8 @@ RSpec.describe StatTracker do
   it "can return most goals scored by a team" do
     expect(@stat_tracker.most_goals_scored("3")).to eq 2
   end
+
+  it "can return fewest goals scored by a team" do
+    expect(@stat_tracker.fewest_goals_scored("3")).to eq 1
+  end
 end
