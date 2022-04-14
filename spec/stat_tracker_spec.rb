@@ -298,12 +298,12 @@ end
 
 
 #THIAGO
-  it 'can return name of coach with best win percentage based on season' do
+  it 'can return name of coach with best win percentage based on season' do #.(season) not implemented yet
     expect(@stat_tracker.winningest_coach).to eq("Claude Julien")
   end
-
-
-
+  it 'can return name of coach with worst win percentage based on season' do #.(season) not implemented yet
+    expect(@stat_tracker.worst_coach).to eq("John Tortorella")
+  end
 
 
 
