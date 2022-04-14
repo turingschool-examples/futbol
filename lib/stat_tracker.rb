@@ -16,7 +16,9 @@ class StatTracker
   end
 
   def highest_total_score
+    # require 'pry'; binding.pry
     @games.map {|game| game[:away_goals].to_i + game[:home_goals].to_i}.max
+    @games.map {|game| games.away_goals + games.home_goals}.max
   end
 
   def games_by_season(season)
@@ -24,7 +26,6 @@ class StatTracker
       row[:season] == season.to_s
     end
   end
-
 
   def team_info(team_id)
     # require "pry"; binding.pry
@@ -41,6 +42,7 @@ class StatTracker
     end
     return team
   end
+
 
   def game_teams_by_season(season)
     @game_teams.select do |row|
@@ -166,11 +168,8 @@ class StatTracker
     return team_name(fewest_tackles_team_id)
   end
 
-
-
   def count_of_teams
       @teams.map {|team| team[:team_id]}.length
   end
 
 end
-
