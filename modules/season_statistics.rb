@@ -2,7 +2,6 @@ require './lib/game'
 require './lib/game_teams'
 require './lib/team_stats'
 
-# This mod will handle all season related methods
 module Season
   def winningest_coach(season)
     outcome = @game_teams.find_all { |game| game.result == 'WIN' }
