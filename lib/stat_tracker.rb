@@ -27,11 +27,30 @@ include GameModule
 			franchise_id = row[:franchiseid]
 			team_name = row[:teamname]
 			abbreviation = row[:abbreviation]
-			stadium = row[:stadium] # do symbols always return all lowercase or the same case as we assign it???
+			stadium = row[:stadium] # do symbols always return all lowercase or the same cse as we assign it???
 			link = row[:link]
 			team_arr << Team.new(team_id, franchise_id, team_name, abbreviation, stadium, link)
 		end
 		return team_arr
+	end
+
+	def create_games(games)
+		game_arr = []
+		games.each do |row|
+			game_id = row[:game_id]
+			season = row[:season]
+			type = row[:type]
+			date_time = row[:date_time]
+			away_team_id = row[:away_team_id]
+			home_team_id = row[:home_team_id]
+			away_goals = row[:away_goals].to_i
+			home_goals = row[:home_goals].to_i
+			venue = row[:venue]
+			venue_link = row[:venue_link]
+			game_arr << Game.new(game_id, season, type, date_time, away_team_id, home_team_id,
+				away_goals, home_goals, venue, venue_link)
+		end
+		return game_arr
 	end
 
   def create_game_teams(game_teams)
@@ -58,24 +77,9 @@ include GameModule
     return game_team_array
   end
 
-  def create_games(games)
-    game_arr = []
-    games.each do |row|
-      game_id = row[:game_id]
-      season = row[:season]
-      type = row[:type]
-      date_time = row[:date_time]
-      away_team_id = row[:away_team_id]
-      home_team_id = row[:home_team_id]
-      away_goals = row[:away_goals].to_i
-      home_goals = row[:home_goals].to_i
-      venue = row[:venue]
-      venue_link = row[:venue_link]
-      game_arr << Game.new(game_id, season, type, date_time, away_team_id, home_team_id,
-        away_goals, home_goals, venue, venue_link)
-    end
-  return game_arr
-  end
+	def game_count
+		@games.count
+	end
 
 	def highest_total_score
 		GameModule.total_score(@games).max
@@ -91,11 +95,11 @@ include GameModule
 	end
 
 	def percentage_home_wins
-		return ((GameModule.total_home_wins(@games).count).to_f / (@games.count).to_f) * 100
+		return ((GameModule.total_home_wins(@games).count).to_f / game_count.to_f) * 100
 	end
 
 	def average_goals_per_game
-		(GameModule.total_score(@games).sum.to_f / @games.count).ceil(2)
+		(GameModule.total_score(@games).sum.to_f / game_count).ceil(2)
 	end
 
 	def average_goals_per_season
@@ -108,8 +112,8 @@ include GameModule
 				season_goals_avg[season] << game.away_goals + game.home_goals
 			end
 		end
-			season_goals_avg.each do |season, goals|
-				season_goals_avg[season] = (goals.sum.to_f / goals.count.to_f).ceil(2)
+		season_goals_avg.each do |season, goals|
+			season_goals_avg[season] = (goals.sum.to_f / goals.count.to_f).ceil(2)
 		end
 		return season_goals_avg
 	end
@@ -120,5 +124,28 @@ include GameModule
 			total_teams << team.team_id
 		end
 			total_teams.count
+	end
+
+	def percentage_ties
+		ties = []
+		@games.each do |game|
+			if game.home_goals == game.away_goals
+				ties << game
+			end
+		end
+		return ((ties.count.to_f / game_count.to_f).ceil(4)) * 100
+	end
+
+# 	A hash with season names (e.g. 20122013) as keys and counts of games as values
+	def count_of_games_by_season
+		seasons_arr = []
+		@games.each do |game|
+			seasons_arr << game.season
+		end
+		game_count_by_season_hash = Hash.new
+		seasons_arr.uniq.each do |season|
+			game_count_by_season_hash[season] = seasons_arr.count(season)
+		end
+		return game_count_by_season_hash
 	end
 end
