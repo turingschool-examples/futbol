@@ -101,8 +101,12 @@ describe StatTracker do
 
   describe "Season Statistics" do
 
-    it 'can determine winningest coach' do
+    it 'can determine winningest coach for a season' do
       expect(@stat_tracker.winningest_coach("20122013")).to eq "Claude Julien"
+    end
+
+    it 'can determine worst coach for a season' do
+        expect(@stat_tracker.worst_coach("20122013")).to eq "John Tortorella"
     end
   end
 end
