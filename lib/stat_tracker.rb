@@ -171,4 +171,21 @@ end
   def count_of_teams
       @teams.map {|team| team.team_id}.length
   end
+
+  def best_season(id)
+  team_games = game_teams_by_team(id.to_i)
+  hash = Hash.new{|h,k| h[k] = [0,0,0.to_f] }
+    team_games.each do |game|
+      hash[game.game_id.to_s[0..3]][0]+=1
+      if game.result == "WIN" && game.team_id == id
+        hash[game.game_id.to_s[0..3]][1]+=1
+        hash[game.game_id.to_s[0..3]][2] = hash[game.game_id.to_s[0..3]][1]/hash[game.game_id.to_s[0..3]][0].to_f
+      end
+    end
+    best_season_id = hash.max_by do |season|
+      season[1][2]
+    end[0]
+    return team_name(best_season_id)
+    # require "pry";binding.pry
+  end
 end
