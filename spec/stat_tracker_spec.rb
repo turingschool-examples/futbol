@@ -144,7 +144,16 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.tackle_hash(20172018)[28]).to eq(1690)
   end
 
-  it " " do
+  xit "gives us the most goals scored for a team " do
+    expect(@stat_tracker.most_goals_scored(18)). to eq(7)
+  end
+
+  xit "gives us the fewest goals scored for a team" do
+    expect(@stat_tracker.fewest_goals_scored(19)).to eq(0)
+  end
+
+  xit "gives us the best season" do
+    expect(@stat_tracker.best_season("6")).to eq "20132014"
 
   end
 end
