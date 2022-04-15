@@ -3,9 +3,9 @@ require './spec/spec_helper'
 RSpec.describe StatTracker do
 
   before(:all) do
-    game_path = './data/games.csv'
+    game_path = './data/games_fixture.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_teams_path = './data/game_teams_fixture.csv'
 
     locations = {
       games: game_path,
@@ -23,17 +23,22 @@ RSpec.describe StatTracker do
 
   it "finds highest_total_score" do
 
-    expect(@stat_tracker.highest_total_score).to eq(11)
+    expect(@stat_tracker.highest_total_score).to eq(5)
   end
 
   it "finds lowest_total_score" do
 
-    expect(@stat_tracker.lowest_total_score).to eq(0)
+    expect(@stat_tracker.lowest_total_score).to eq(1)
   end
 
-  it "returns count_of_teams" do
+  it "returns the number of teams" do
 
     expect(@stat_tracker.count_of_teams).to eq(32)
+  end
+
+  it "returns a hash of the games played by each team" do
+
+    expect(@stat_tracker.games_by_team.keys).to eq([3, 6, 5, 17, 16])
   end
 
 end
