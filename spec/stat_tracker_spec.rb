@@ -46,6 +46,10 @@ RSpec.describe StatTracker do
            "Orlando City SC", "Portland Timbers", "San Jose Earthquakes"])
       end
 
+      it '#worst_offense finds team with the worst offense' do
+        expect(@stat_tracker.worst_offense).to eq("Seattle Sounders FC")
+      end
+
       it '#team_name_helper finds team name via team_id' do
         expect(@stat_tracker.team_name_helper("3")).to eq("Houston Dynamo")
       end

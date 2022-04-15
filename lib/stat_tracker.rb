@@ -65,7 +65,7 @@ class StatTracker
         team_hash.delete(team) if avg_goals < highest_avg
       end
 
-      if team_hash.keys.length > 1
+      if team_hash.length > 1
         team_names = []
         team_hash.keys.each do |team_id|
           team_names << team_name_helper(team_id)
@@ -74,18 +74,43 @@ class StatTracker
       else
         return team_name_helper(team_hash.keys[0])
       end
-
-
-
-
-      binding.pry
-      if highest_avg.length == 1
-      end
-      return team_hash
-
   end
 
+  def worst_offense
+    team_hash = {}
+    @game_teams.each do |game_team|
+      if team_hash[game_team.team_id].nil?
+        team_hash[game_team.team_id] = [game_team.goals]
+      else
+        team_hash[game_team.team_id] << game_team.goals
+      end
+    end
+    sum_goals = 0
+      team_hash.map do |team, goals|
+        goals.each do |goal|
+          sum_goals += goal
+        end
+        avg_goals = sum_goals.to_f / goals.length.to_f
+        team_hash[team] = avg_goals
+        sum_goals = 0
+      end
+      team_hash = team_hash.sort_by {|team_id, avg_goals| avg_goals}.to_h
 
+      lowest_avg = team_hash.values[0]
+      team_hash.map do |team, avg_goals|
+        team_hash.delete(team) if avg_goals > lowest_avg
+      end
+
+      if team_hash.length > 1
+        team_names = []
+        team_hash.keys.each do |team_id|
+          team_names << team_name_helper(team_id)
+        end
+        return team_names
+      else
+        return team_name_helper(team_hash.keys[0])
+      end
+  end
 
   def team_name_helper(team_id)
     @teams.each do |team|
