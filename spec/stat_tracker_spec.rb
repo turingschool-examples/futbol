@@ -50,7 +50,7 @@ describe StatTracker do
 		end
 
 		it "can calculate the total number of games played" do
-		 expect(@stat_tracker.total_num_games).to eq 16
+		 expect(@stat_tracker.game_count).to eq 16
 		end
 
 	  it "it can calculate the highest total score of games" do
@@ -105,9 +105,8 @@ describe StatTracker do
 			expect(@stat_tracker.percentage_ties).to eq 6.25
 		end
 
-# 	A hash with season names (e.g. 20122013) as keys and counts of games as values
 		it "can count the number of games by season" do
-			expect(@stat_tracker.count_of_games_by_season).to eq({season => num_of_games})
+			expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=>7, "20152016"=>5, "20132014"=>4})
 		end
 	end
 end
