@@ -43,7 +43,7 @@ attr_reader :games, :team, :game_teams
     game_teams_array
   end
 
-  ## GAME STATISTICS
+## GAME STATISTICS
 
   def highest_total_score
     @games.map {|game| game.away_goals + game.home_goals}.max
@@ -54,73 +54,25 @@ attr_reader :games, :team, :game_teams
   end
 
 
-  ## LEAGUE STATISTICS - JENN
+## LEAGUE STATISTICS - JENN ##
 
   def count_of_teams
     @teams.count
   end
 
-#best_offense:
+  #helper_methods that are used for best_offense and worse_offense
 
   def games_by_team
     games_by_team_hash = {}
     @game_teams.each do |game|
       if games_by_team_hash[game.team_id].nil?
-        games_by_team_hash[game.team_id] = [game]
+        games_by_team_hash[game.team_id] = { goals: game.goals, number_of_games: 1 }
       else
-        games_by_team_hash[game.team_id] << game
+        games_by_team_hash[game.team_id][:goals] += game.goals
+        games_by_team_hash[game.team_id][:number_of_games] += 1
       end
     end
     games_by_team_hash
-  end
-
-  def average_score_by_team
-    average_hash = {}
-    games_by_team.each do |key, value|
-      a = value.sum do |game|
-        game.goals
-      end
-      average = a.to_f / value.length
-      average_hash[key] = average.round(2)
-    end
-    average_hash
-  end
-
-  def best_offense_team_id
-    best_offense_id = 0
-    average_score_by_team.each do |key, value|
-      sorted = average_score_by_team.values.sort
-      if sorted.last == value
-        best_offense_id = key
-      end
-    end
-    best_offense_id
-  end
-
-  def best_offense
-    best_offense_team = @teams.find do |team|
-      team.team_id == best_offense_team_id
-    end
-    best_offense_team.team_name
-  end
-
-  ##worst_offense
-  def worst_offense_team_id
-    worst_offense_id = 0
-    average_score_by_team.each do |key, value|
-      sorted = average_score_by_team.values.sort
-      if sorted.first == value
-        worst_offense_id = key
-      end
-    end
-    worst_offense_id
-  end
-
-  def worst_offense
-    worst_offense_team = @teams.find do |team|
-      team.team_id == worst_offense_team_id
-    end
-    worst_offense_team.team_name
   end
 
 end
