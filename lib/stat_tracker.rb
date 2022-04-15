@@ -223,7 +223,18 @@ end
     average_by_season
   end
 
-
+  def count_of_games_by_season
+    season_games_hash = {}
+    season_games = @games.group_by { |row| row[:season].itself }
+    season_games.each do |season, games|
+      game = 0
+      games.each do |key|
+        game += 1
+      end
+        season_games_hash.merge!(season => game)
+    end
+    season_games_hash
+  end
 
 
 
@@ -335,7 +346,7 @@ end
       end
     end
     win_list.key(win_list.values.max)
-  
+
 
   end
 
@@ -368,29 +379,29 @@ end
 
 
 
- 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   #stephen
 
   def count_of_teams
