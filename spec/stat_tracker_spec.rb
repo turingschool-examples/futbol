@@ -41,4 +41,14 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.games_by_team.keys).to eq([3, 6, 5, 17, 16])
   end
 
+  it "returns a hash of the average number of goals scored across all seasons for each team" do
+    expected_hash =  {3=>1.6,
+                      6=>2.67,
+                      5=>0.5,
+                      17=>1.0,
+                      16=>2.0}
+
+    expect(@stat_tracker.average_score_by_team).to eq(expected_hash)
+  end
+
 end

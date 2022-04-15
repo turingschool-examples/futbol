@@ -74,5 +74,17 @@ attr_reader :games, :team, :game_teams
     games_by_team_hash
   end
 
+  def average_score_by_team
+    average_hash = {}
+    games_by_team.each do |key, value|
+      a = value.sum do |game|
+        game.goals
+      end
+      average = a.to_f / value.length
+      average_hash[key] = average.round(2)
+    end
+    average_hash
+  end
+
 
 end
