@@ -121,4 +121,16 @@ include GameModule
 		end
 			total_teams.count
 	end
+
+	def team_info(team_id)
+		@teams.reduce({}) do |hash, team_id|
+			hash[:team_id] = team_id.team_id.to_i
+			hash[:franchise_id] = team_id.franchise_id.to_i
+			hash[:team_name] = team_id.team_name
+			hash[:abbreviation] = team_id.abbreviation
+			hash[:link] = team_id.link
+			hash
+		end
+	end
+
 end
