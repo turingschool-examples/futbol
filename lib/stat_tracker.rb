@@ -74,10 +74,7 @@ end
   end
 
   def coaches_records(game_teams)
-    hash = {}
-    game_teams.each do |row|
-      hash[row.head_coach] = [0,0,0.to_f]
-    end
+    hash = Hash.new{|h,k| h[k] = [0,0,0.to_f] }
     game_teams.each do |row|
       if row.result == "WIN"
         hash[row.head_coach][0] += 1
@@ -119,47 +116,47 @@ end
     end.team_name.to_s
   end
 
-  def total_amount(game_teams, category)
-    total_amount = 0
-    game_teams.each do |game|
-      require 'pry'; binding.pry
-      total_amount += game.(category.to_s)
-    end
-    total_amount
-  end
+  # def total_amount_shots(game_teams, category)
+  #   game_teams.map do |game|
+  #     game.shots
+  #   end.sum
+  # end
+  #
+  # def total_amount_goals(game_teams, category)
+  #   game_teams.map do |game|
+  #     game.goals
+  #   end.sum
+  # end
+  #
+  # def total_amount_tackles(game_teams, category)
+  #   game_teams.map do |game|
+  #     game.tackles
+  #   end.sum
+  # end
 
-  def most_accurate_team(season)
+  def accuracy_hash(season)
     season_game_teams = game_teams_by_season(season)
-    hash = {}
-    season_game_teams.each do |row|
-      hash[row.team_id] = [0,0,0.to_f]
-    end
+    hash = Hash.new{|h,k| h[k] = [0,0,0.to_f] }
     season_game_teams.each do |row|
       hash[row.team_id][0] += row.goals
       hash[row.team_id][1] += row.shots
       hash[row.team_id][2] = hash[row.team_id][0]/hash[row.team_id][1].to_f
     end
-    accurate_team_id = hash.max_by do |team|
+    hash
+  end
+
+  def most_accurate_team(season)
+    accurate_team_id = accuracy_hash(season).max_by do |team|
       team[1][2]
     end[0]
     return team_name(accurate_team_id)
   end
 
   def least_accurate_team(season)
-    season_game_teams = game_teams_by_season(season)
-    hash = {}
-    season_game_teams.each do |row|
-      hash[row.team_id] = [0,0,0.to_f]
-    end
-    season_game_teams.each do |row|
-      hash[row.team_id][0] += row.goals
-      hash[row.team_id][1] += row.shots
-      hash[row.team_id][2] = hash[row.team_id][0]/hash[row.team_id][1].to_f
-    end
-    inaccurate_team_id = hash.min_by do |team|
+    accurate_team_id = accuracy_hash(season).min_by do |team|
       team[1][2]
     end[0]
-    return team_name(inaccurate_team_id)
+    return team_name(accurate_team_id)
   end
 
   def most_tackles(season)
