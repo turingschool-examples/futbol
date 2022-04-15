@@ -107,4 +107,9 @@ describe StatTracker do
   it "can calculate lowest average of goals scored per game across all seasons " do
     expect(@stat_tracker.worst_offense).to eq "New England Revolution"
   end
+
+  it "can return the most goals scored by a team in a single game" do
+    expect(@stat_tracker.most_goals_scored(16)).to eq 3
+
+  end
 end
