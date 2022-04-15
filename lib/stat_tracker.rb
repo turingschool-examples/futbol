@@ -20,4 +20,14 @@ class StatTracker
     end
     StatTracker.new(stats)
   end
+
+  # Start Game Statistics methods
+  def highest_total_score
+    @games.total_scores.max
+  end
+
+  def lowest_total_score
+    @games.total_scores.min
+  end
+  # End Game Statistics methods
 end

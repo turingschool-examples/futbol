@@ -39,4 +39,13 @@ RSpec.describe Games do
     expect = [3, 5, 5, 6, 6, 5, 5, 3, 5, 4, 3, 3, 5, 3, 1, 5, 3, 4, 5, 4]
     expect(@stat_tracker.games.total_scores).to eq(expect)
   end
+
+  it "checks and counts game outcomes (home win/away win/tie" do
+    expect = {
+      home_win: 10,
+      away_win: 7,
+      tie: 3
+    }
+    expect(@stat_tracker.games.game_outcomes).to eq(expect)
+  end
 end

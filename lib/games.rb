@@ -22,4 +22,10 @@ class Games
     @venue = data[:venue]
     @venue_link = data[:venue_link]
   end
+
+  def total_scores
+    @away_goals.each_with_index.map do |score, index|
+      score.to_i + @home_goals[index].to_i
+    end
+  end
 end

@@ -28,18 +28,16 @@ RSpec.describe StatTracker do
   end
 
   # Start Game Statistics methods
-  xit "checks highest_total_score" do
+  it "checks highest_total_score" do
     expect(@stat_tracker.highest_total_score).to eq 6
   end
 
-  xit "checks lowest_total_score" do
+  it "checks lowest_total_score" do
     expect(@stat_tracker.lowest_total_score).to eq 1
   end
 
-  xit "checks percentage_home_wins" do
-    # Percentage of games that a home team has won (rounded to the nearest 100th)
-    # Float
-    # 50.00
+  it "checks percentage_home_wins" do
+    expect(@stat_tracker.percentage_home_wins).to eq 50.00
   end
 
   xit "checks percentage_visitor_wins" do
