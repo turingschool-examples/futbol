@@ -95,7 +95,7 @@ RSpec.describe StatTracker do
     }
 
     stat_tracker = StatTracker.from_csv(locations)
-    expect(stat_tracker.precentage_home_wins()).to eq(50.00)
+    expect(stat_tracker.precentage_home_wins('Chicago Fire')).to eq(50.00)
   end
 
   it 'can give me the winningest coach given a specific season' do

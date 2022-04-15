@@ -48,19 +48,17 @@ end
   # end
 
   def highest_total_score
-    # require 'pry'; binding.pry
     @games.map {|game| game.away_goals + game.home_goals}.max
   end
 
   def lowest_total_score
-    # require 'pry'; binding.pry
+    require 'pry'; binding.pry
     @games.map {|game| game.away_goals + game.home_goals}.min
   end
 
-  # def percentage_home_wins(team)
-  #   require 'pry'; binding.pry
-  #   @game_teams.map {|game_team| (game_team.}
-  # end
+  def percentage_home_wins(team)
+    # @game_teams.map {|game_team| (gam.}
+  end
 
 
   def games_by_season(season)
