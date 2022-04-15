@@ -60,8 +60,7 @@ attr_reader :games, :team, :game_teams
     @teams.count
   end
 
-  #helper_methods that are used for best_offense and worse_offense
-
+#helper_methods that are used for best_offense and worse_offense
   def games_by_team
     games_by_team_hash = {}
     @game_teams.each do |game|
@@ -83,7 +82,7 @@ attr_reader :games, :team, :game_teams
     average_hash
   end
 
-  ## best_offense
+## best_offense
   def best_offense
     best_offense_team = @teams.find do |team|
       team.team_id == average_score_by_team.sort_by{|k, v| v}.last[0]
@@ -91,7 +90,7 @@ attr_reader :games, :team, :game_teams
     best_offense_team.team_name
   end
 
-    ##worst_offense
+##worst_offense
   def worst_offense
     worst_offense_team = @teams.find do |team|
       team.team_id == average_score_by_team.sort_by{|k, v| v}.first[0]
@@ -99,4 +98,41 @@ attr_reader :games, :team, :game_teams
     worst_offense_team.team_name
   end
 
+## helper methods for highest_scoring_visitor and lowest_scoring_visitor
+  def away_games_by_team
+    away_games_by_team_hash = {}
+    @game_teams.each do |game|
+      if away_games_by_team_hash[game.team_id].nil? && game.hoa == "away"
+        away_games_by_team_hash[game.team_id] = { goals: game.goals, number_of_games: 1 }
+      elsif game.hoa == "away"
+        away_games_by_team_hash[game.team_id][:goals] += game.goals
+        away_games_by_team_hash[game.team_id][:number_of_games] += 1
+      end
+    end
+    away_games_by_team_hash
+  end
+
+  def average_away_score_by_team
+    average_away_hash = {}
+    away_games_by_team.each do |key, value|
+      average_away_hash[key] = value[:goals].to_f / value[:number_of_games]
+    end
+    average_away_hash
+  end
+
+##highest_scoring_visitor
+  def highest_scoring_visitor
+    highest_scoring_visitor = @teams.find do |team|
+      team.team_id == average_away_score_by_team.sort_by{|k, v| v}.last[0]
+    end
+    highest_scoring_visitor.team_name
+  end
+
+##lowest_scoring_visitor
+  def lowest_scoring_visitor
+    lowest_scoring_visitor = @teams.find do |team|
+      team.team_id == average_away_score_by_team.sort_by{|k, v| v}.first[0]
+    end
+    lowest_scoring_visitor.team_name
+  end
 end
