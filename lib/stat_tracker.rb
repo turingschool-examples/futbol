@@ -135,4 +135,43 @@ attr_reader :games, :team, :game_teams
     end
     lowest_scoring_visitor.team_name
   end
+
+  ##helper methods for highest_scoring_home_team and lowest_scoring_home_team
+  def home_games_by_team
+    home_games_by_team_hash = {}
+    @game_teams.each do |game|
+      if home_games_by_team_hash[game.team_id].nil? && game.hoa == "home"
+        home_games_by_team_hash[game.team_id] = { goals: game.goals, number_of_games: 1 }
+      elsif game.hoa == "home"
+        home_games_by_team_hash[game.team_id][:goals] += game.goals
+        home_games_by_team_hash[game.team_id][:number_of_games] += 1
+      end
+    end
+    home_games_by_team_hash
+  end
+
+  def average_home_score_by_team
+    average_home_hash = {}
+    home_games_by_team.each do |key, value|
+      average_home_hash[key] = value[:goals].to_f / value[:number_of_games]
+    end
+    average_home_hash
+  end
+
+  #highest_scoring_home_team
+  def highest_scoring_home_team
+    highest_scoring_home_team = @teams.find do |team|
+      team.team_id == average_home_score_by_team.sort_by{|k, v| v}.last[0]
+    end
+    highest_scoring_home_team.team_name
+  end
+
+  #lowest_scoring_home_team
+  def lowest_scoring_home_team
+    lowest_scoring_home_team = @teams.find do |team|
+      team.team_id == average_home_score_by_team.sort_by{|k, v| v}.first[0]
+    end
+    lowest_scoring_home_team.team_name
+  end
+
 end

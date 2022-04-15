@@ -73,4 +73,23 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
   end
 
+  it "returns a hash of home games played by each team" do
+    expect(@stat_tracker.home_games_by_team.keys).to eq(["6", "3", "5", "16"])
+  end
+
+  it "returns a hash of the average number of home goals scored across all seasons for each team" do
+    expected_hash =  {"16"=>2.0,
+                      "3"=>1.5,
+                      "5"=>0.5,
+                      "6"=>2.4}
+    expect(@stat_tracker.average_home_score_by_team).to eq(expected_hash)
+  end
+
+  it "returns the name of the highest scoring home team" do
+    expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
+  end
+
+  it "returns the lowest scoring home team" do
+    expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
+  end
 end
