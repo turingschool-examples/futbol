@@ -53,7 +53,38 @@ attr_reader :games, :team, :game_teams
     @games.map {|game| game.away_goals + game.home_goals}.min
   end
 
+  def percentage_home_wins
+    home_wins = []
+    @game_teams.each do |wins|
+      if wins.result == "WIN" && wins.hoa == "home"
+        home_wins << wins
+      end
+    end
+    percent = (home_wins.count.to_f.round(2) / @game_teams.count) * 100
+    percent.round(2)
+  end
 
+  def percentage_visitor_wins
+    visitor_wins = []
+    @game_teams.each do |wins|
+      if wins.result == "WIN" && wins.hoa == "away"
+        visitor_wins << wins
+      end
+    end
+    percent = (visitor_wins.count.to_f.round(2) / @game_teams.count) * 100
+    percent.round(2)
+  end
+
+  def percentage_ties
+    total_ties = []
+    @game_teams.each do |ties|
+    if ties.result == "TIE"
+      total_ties << ties
+      end 
+    end
+    percent = (total_ties.count.to_f.round(2) / @game_teams.count) * 100
+    percent.round(2)
+  end
 
   ## SEASON STATISTICS : All methods return Strings
 
