@@ -1,5 +1,5 @@
-require './lib/game'
-require './lib/game_teams'
+require_relative '../lib/game'
+require_relative '../lib/game_teams'
 
 module GameStats
   def highest_total_score

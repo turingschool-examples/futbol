@@ -1,6 +1,6 @@
-require './lib/game'
-require './lib/game_teams'
-require './lib/team_stats'
+require_relative '../lib/game'
+require_relative '../lib/game_teams'
+require_relative '../lib/team_stats'
 
 module Season
   def games_by_season(season)
