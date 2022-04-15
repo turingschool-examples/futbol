@@ -112,5 +112,9 @@ describe StatTracker do
     it 'can determine team with best ratio of shots to goals for the season' do
       expect(@stat_tracker.most_accurate_team("20122013")).to eq "FC Dallas"
     end
+
+    it 'can determine team with worst ratio of shots to goals for the season' do
+      expect(@stat_tracker.least_accurate_team("20122013")).to eq "New England Revolution"
+    end
   end
 end
