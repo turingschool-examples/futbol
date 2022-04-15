@@ -46,5 +46,17 @@ RSpec.describe StatTracker do
       end
     end
 
+    describe 'Team Statistics' do
+      it '#team_info can put team info into a hash' do 
+        expected = {
+          "Team ID" => row[:team_id],
+          "Franchise ID" => row[:franchiseid],
+          "Team Name" => row[:teamname]
+          "Abbreviation" => row[:abbreviation]
+          "Link" => row[:link]
+        }
+
+        expect(@stat_tracker.team_info).to eq(expected)
+    end
 
 end
