@@ -203,7 +203,9 @@ it 'find the average goals per game' do
   expect(@stat_tracker.average_goals_per_game).to eq(4.78)
 end
 
-
+it 'finds the average goals by season' do
+  expect(@stat_tracker.average_goals_by_season).to eq({"20122013"=>3.33, "20132014"=>4.0, "20152016"=>4.0, "20142015"=>8.5})
+end
 
 
 

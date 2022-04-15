@@ -43,6 +43,7 @@
   </div>
 
   <div class="t-line-summary">
+
     <b>81</b> relevant lines,
     <span class="green"><b>79</b> lines covered</span> and
     <span class="red"><b>2</b> lines missed. </span>
@@ -1220,6 +1221,7 @@
 
             
 
+
             <code class="ruby">#SAI</code>
           </li>
         </div>
@@ -2320,6 +2322,7 @@
 
             
 
+
             <code class="ruby">#COLIN</code>
           </li>
         </div>
@@ -2330,6 +2333,7 @@
             
 
             
+
 
             <code class="ruby">def average_goals_per_game</code>
           </li>
@@ -2342,6 +2346,7 @@
 
             
 
+
             <code class="ruby">  goals = []</code>
           </li>
         </div>
@@ -2352,6 +2357,7 @@
             
 
             
+
 
             <code class="ruby">  @games.each do |row|</code>
           </li>
@@ -2364,6 +2370,7 @@
 
             
 
+
             <code class="ruby">    i = row[:away_goals].to_f + row[:home_goals].to_f</code>
           </li>
         </div>
@@ -2374,6 +2381,7 @@
             
 
             
+
 
             <code class="ruby">    goals &lt;&lt; i</code>
           </li>
@@ -2386,16 +2394,18 @@
 
             
 
+
             <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="207">
-            
+          <li class="covered" data-hits="1" data-linenumber="207">
+            <span class="hits">1</span>
             
 
             
+
 
             <code class="ruby">  # require &#39;pry&#39;; binding.pry</code>
           </li>
@@ -2407,6 +2417,7 @@
             
 
             
+
 
             <code class="ruby">  (goals.sum / goals.count).round(2)</code>
           </li>
@@ -2424,101 +2435,101 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="210">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="210">
+            <span class="hits">1</span>
             
 
-            <code class="ruby"></code>
+            
+
+            <code class="ruby">  def average_goals_by_season</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="211">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="211">
+            <span class="hits">1</span>
             
 
-            <code class="ruby"></code>
+            
+
+            <code class="ruby">    average_by_season = {}</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="212">
-            
-            
-
+          <li class="covered" data-hits="10" data-linenumber="212">
+            <span class="hits">10</span>
             
 
-            <code class="ruby"></code>
+            
+
+            <code class="ruby">    season_hash = @games.group_by { |row| row[:season].itself }</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="213">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="213">
+            <span class="hits">1</span>
             
 
-            <code class="ruby"></code>
+            
+
+            <code class="ruby">    season_hash.each do |season, games|</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="214">
-            
-            
-
+          <li class="covered" data-hits="4" data-linenumber="214">
+            <span class="hits">4</span>
             
 
-            <code class="ruby"></code>
+            
+
+            <code class="ruby">      counter = 0</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="215">
-            
-            
-
+          <li class="covered" data-hits="4" data-linenumber="215">
+            <span class="hits">4</span>
             
 
-            <code class="ruby"></code>
+            
+
+            <code class="ruby">      game = 0</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="216">
-            
-            
-
+          <li class="covered" data-hits="4" data-linenumber="216">
+            <span class="hits">4</span>
             
 
-            <code class="ruby"></code>
+            
+
+            <code class="ruby">      games.each do |key|</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="217">
-            
-            
-
+          <li class="covered" data-hits="9" data-linenumber="217">
+            <span class="hits">9</span>
             
 
-            <code class="ruby"></code>
+            
+
+            <code class="ruby">        counter += (key[:away_goals].to_i + key[:home_goals].to_i)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="218">
-            
-            
-
+          <li class="covered" data-hits="9" data-linenumber="218">
+            <span class="hits">9</span>
             
 
-            <code class="ruby"></code>
+            
+
+            <code class="ruby">        game += 1</code>
           </li>
         </div>
       
@@ -2529,18 +2540,18 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">      end</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="220">
-            
-            
-
+          <li class="covered" data-hits="4" data-linenumber="220">
+            <span class="hits">4</span>
             
 
-            <code class="ruby"></code>
+            
+
+            <code class="ruby">        average_by_season.merge!(season =&gt; (counter.to_f/game.to_f).round(2))</code>
           </li>
         </div>
       
@@ -2551,18 +2562,18 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="222">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="222">
+            <span class="hits">1</span>
             
 
-            <code class="ruby"></code>
+            
+
+            <code class="ruby">    average_by_season</code>
           </li>
         </div>
       
@@ -2573,7 +2584,7 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -3508,6 +3519,7 @@
 
             
 
+
             <code class="ruby">    # require &#39;pry&#39;; binding.pry</code>
           </li>
         </div>
@@ -3650,6 +3662,7 @@
             
 
             
+
 
             <code class="ruby">          win_list[coach] += 1</code>
           </li>
@@ -4751,7 +4764,7 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  #STEPHEN</code>
           </li>
         </div>
       
@@ -5619,6 +5632,7 @@
             
 
             
+
 
             <code class="ruby">end</code>
           </li>

@@ -97,6 +97,7 @@ class StatTracker
 
 
 
+
 #SAI
 def percentage_home_wins
   total_games = @games[:game_id].count.to_f
@@ -197,17 +198,30 @@ end
 
 
 
-#COLIN
-def average_goals_per_game
-  goals = []
-  @games.each do |row|
-    i = row[:away_goals].to_f + row[:home_goals].to_f
-    goals << i
+  #COLIN
+  def average_goals_per_game
+    goals = []
+    @games.each do |row|
+      i = row[:away_goals].to_f + row[:home_goals].to_f
+      goals << i
+    end
+    (goals.sum / goals.count).round(2)
   end
-  # require 'pry'; binding.pry
-  (goals.sum / goals.count).round(2)
-end
 
+  def average_goals_by_season
+    average_by_season = {}
+    season_hash = @games.group_by { |row| row[:season].itself }
+    season_hash.each do |season, games|
+      counter = 0
+      game = 0
+      games.each do |key|
+        counter += (key[:away_goals].to_i + key[:home_goals].to_i)
+        game += 1
+      end
+        average_by_season.merge!(season => (counter.to_f/game.to_f).round(2))
+    end
+    average_by_season
+  end
 
 
 
@@ -299,13 +313,11 @@ end
 
 # T H I A G O O O O O O O A L L L L L
   def winningest_coach#.(season) not implemented yet
-    # require 'pry'; binding.pry
     results = @game_teams[:result]
     coaches = @game_teams[:head_coach]
     unique_coaches = coaches.uniq
 
     win_list = Hash.new(0)
-    # require 'pry'; binding.pry
 
     coach_result = coaches.zip(results)
     win_results = []
@@ -322,61 +334,25 @@ end
         end
       end
     end
-    # require 'pry';binding.pry
     win_list.key(win_list.values.max)
+  
 
-
-    # coaches.each do |coach|
-    #   results.each do |result|
-    #     if win_list[:coach] == nil && result == "WIN"
-    #       win_list[:coach] += 1
-    #   end
-    # end
-    #
-    # coaches.each do |coach|
-    #   if result.includes?("WIN")
-    #     coach_win_list << coach
-    #   elsif result.includes?("LOSS")
-    #     coach_lose_list << coach
-    #   end
-    # end
-    # results = []
-    # coach_wins_list = []
-    # coach_lose_list = []
-    #
-    # # results.each do |result|
-    # #   results << result
-    # # end
-    #
-    # coaches.each do |coach|
-    #   if result.includes?("WIN")
-    #     coach_win_list << coach
-    #   elsif result.includes?("LOSS")
-    #     coach_lose_list << coach
-    #   end
-    # end
   end
-# This method should take a season id as an argument and return the values described below.
-#
-# Method: winningest_coach
-# Description: Name of the Coach with the best win percentage for the season
-# Return Value: String
 
 
-def worst_coach#.(season) not implemented yet
-  # require 'pry'; binding.pry
+def worst_coach
   results = @game_teams[:result]
   coaches = @game_teams[:head_coach]
   unique_coaches = coaches.uniq
 
   loss_list = Hash.new(0)
-  # require 'pry'; binding.pry
 
   coach_result = coaches.zip(results)
   loss_results = []
   coach_result.each do |g|
     loss_results << g if g.include?("LOSS")
   end
+
 
   unique_coaches.each do |coach|
     loss_results.each do |loss|
@@ -387,17 +363,35 @@ def worst_coach#.(season) not implemented yet
       end
     end
   end
-  # require 'pry';binding.pry
   loss_list.key(loss_list.values.min)
 end
-# This method should take a season id as an argument and return the values described below.
-#
-# Method: worst_coach
-# Description: Name of the Coach with the worst win percentage for the season
-# Return Value: String
 
 
-#STEPHEN
+
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  #stephen
 
 
 
