@@ -16,12 +16,12 @@ class Team
     team_data = []
     data.each do |row|
       team_id = row[:team_id]
-      franchise_id = row[:franchise_id]
-      team_name = row[:team_name]
+      franchise_id = row[:franchiseid]
+      team_name = row[:teamname]
       abbreviation = row[:abbreviation]
       stadium = row[:stadium]
       link = row[:link]
-      teams_array << Team.new(team_id, franchise_id, team_name,
+      team_data << Team.new(team_id, franchise_id, team_name,
          abbreviation, stadium, link)
       end
       team_data

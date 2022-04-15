@@ -34,7 +34,9 @@ class StatTracker
     highest_sum
   end
 
-
-
+  def count_of_teams
+    require 'pry'; binding.pry
+    @teams.count
+  end
 
   end
