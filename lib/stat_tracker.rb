@@ -116,4 +116,11 @@ attr_reader :games, :team, :game_teams
     worst_offense_id
   end
 
+  def worst_offense
+    worst_offense_team = @teams.find do |team|
+      team.team_id == worst_offense_team_id
+    end
+    worst_offense_team.team_name
+  end
+
 end
