@@ -75,4 +75,28 @@ attr_reader :games, :team, :game_teams
     games_by_team_hash
   end
 
+  def average_score_by_team
+    average_hash = {}
+    games_by_team.each do |key, value|
+      average_hash[key] = value[:goals].to_f / value[:number_of_games]
+    end
+    average_hash
+  end
+
+  ## best_offense
+  def best_offense
+    best_offense_team = @teams.find do |team|
+      team.team_id == average_score_by_team.sort_by{|k, v| v}.last[0]
+    end
+    best_offense_team.team_name
+  end
+
+    ##worst_offense
+  def worst_offense
+    worst_offense_team = @teams.find do |team|
+      team.team_id == average_score_by_team.sort_by{|k, v| v}.first[0]
+    end
+    worst_offense_team.team_name
+  end
+
 end

@@ -36,4 +36,21 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.games_by_team.keys).to eq(["3", "6", "5", "17", "16"])
   end
 
+  it "returns a hash of the average number of goals scored across all seasons for each team" do
+    expected_hash =  {"3"=>1.6,
+                      "6"=>2.6666666666666665,
+                      "5"=>0.5,
+                      "17"=>1.0,
+                      "16"=>2.0}
+    expect(@stat_tracker.average_score_by_team).to eq(expected_hash)
+  end
+
+  it "returns the name of the team with best offense" do
+    expect(@stat_tracker.best_offense).to eq("FC Dallas")
+  end
+
+  it "returns the name of the team with worst offense" do
+    expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
+  end
+
 end
