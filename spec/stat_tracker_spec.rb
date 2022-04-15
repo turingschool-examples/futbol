@@ -16,49 +16,62 @@ RSpec.describe StatTracker do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
-  it "exists" do
+  xit "exists" do
 
     expect(@stat_tracker).to be_a(StatTracker)
   end
 
-  it "finds highest_total_score" do
+  xit "finds highest_total_score" do
 
-    expect(@stat_tracker.highest_total_score).to eq 11
+    expect(@stat_tracker.highest_total_score).to eq 5
   end
 
-  it "finds lowest_total_score" do
+  xit "finds lowest_total_score" do
 
-    expect(@stat_tracker.lowest_total_score).to eq 0
+    expect(@stat_tracker.lowest_total_score).to eq 1
   end
 
   ## SEASON STAT TESTS
 
+  it "counts_coaches" do
+    expected = {
+      "John Tortorella" => 5,
+      "Claude Julien" => 9,
+      "Dan Bylsma" => 4,
+      "Mike Babcock" => 1,
+      "Joel Quenneville" => 1
+    }
+# require 'pry'; binding.pry
+
+    expect(@stat_tracker.count_coaches).to eq(expected)
+  end
+
   it "checks winningest coach" do
 
-
+    expect(@stat_tracker.winningest_coach).to eq("Claude Julien")
   end
 
-  it "checks worst coach" do
-
-
-  end
-
-  it "checks most accurate team" do
+  xit "checks worst coach" do
 
 
   end
 
-  it "checks least accurate team" do
+  xit "checks most accurate team" do
 
 
   end
 
-  it "checks most tackles" do
+  xit "checks least accurate team" do
 
 
   end
 
-  it "checks least tackles" do
+  xit "checks most tackles" do
+
+
+  end
+
+  xit "checks least tackles" do
 
 
   end

@@ -57,13 +57,43 @@ attr_reader :games, :team, :game_teams
 
   ## SEASON STATISTICS : All methods return Strings
 
+  def count_coaches
+# So this is actually count_of_games_by_season
+    total_coaches = @game_teams.group_by { |coach| coach.head_coach[0..].to_str }.transform_values { |values| values.count }
+  end
+
+
+
   def winningest_coach
-    # Name of the Coach with the best win percentage for the season
-    
+# Name of the Coach with the best win percentage for the season
+# Wins of coach / Total instances of each coach
+  total_coaches = @game_teams.group_by { |coach| coach.head_coach[0..].to_str }.transform_values { |values| values.count }#.sort_by(&:first)
+  # => [["Claude Julien", 9],
+  #     ["Dan Bylsma", 4],
+  #     ["Joel Quenneville", 1],
+  #     ["John Tortorella", 5],
+  #     ["Mike Babcock", 1]]
+  winning_coaches = []
+  win_loss_hash = @game_teams.group_by { |win_loss| win_loss.result[0..].to_s}
+    win_loss_hash.each do |k, v|
+      if k == "WIN"
+        v.each do |coach|
+          winning_coaches << coach.head_coach
+        end
+      end
+    end
+    coach_by_percent = Hash.new
+    winners_hash = winning_coaches.group_by { |coach| coach[0..]}.transform_values { |v| v.count}
+    # require 'pry'; binding.pry
+    winners_hash.each do |k, v|
+      coach_by_percent[k] = v / total_coaches[k] * 100
+    end
+    winner =  coach_by_percent.find { |k, v| v == coach_by_percent.values.max }
+    winner.first
   end
 
   def worst_coach
-    # Name of the Coach with the worst win percentage for the season
+# Name of the Coach with the worst win percentage for the season
 
   end
 
