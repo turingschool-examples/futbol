@@ -121,4 +121,46 @@ include GameModule
 		end
 			total_teams.count
 	end
+
+	def winningest_coach(season)
+    #find all the games for the given season
+    season_games = @games.find_all{|game| game.season == season}
+    #use the season to find the game_id and then get an array of all the game_teams for that season
+    game_teams_by_season = []
+    season_games.each do |game|
+      matching_game_team = @game_teams.find_all{|g_t| g_t.game_id == game.game_id}
+      if matching_game_team
+        game_teams_by_season << matching_game_team
+      end
+    end
+    game_teams_by_season.flatten!
+    #go through the game_team objects to calculate win precentage for each coach
+    coach_wins_losses = {}
+    game_teams_by_season.each do |game_team|
+      if coach_wins_losses.keys.include?(game_team.head_coach)
+        coach_wins_losses[game_team.head_coach] << game_team.result
+      else
+        coach_wins_losses[game_team.head_coach] = [game_team.result]
+      end
+    end
+    #calculate win percentage for each coach
+    highest_percentage = 0.0
+    best_coach = nil
+    coach_wins_losses.each do |coach, win_loss|
+        wins = 0
+        win_loss.each do |val|
+          if val == "WIN"
+            wins += 1
+          end
+        end
+        percentage = ((wins.to_f / win_loss.length) * 100).round(2)
+        if percentage > highest_percentage
+          best_coach = coach
+          highest_percentage = percentage
+        end
+    end
+    return best_coach
+  end
+
+
 end

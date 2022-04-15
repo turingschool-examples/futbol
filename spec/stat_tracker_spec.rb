@@ -98,4 +98,11 @@ describe StatTracker do
   it 'can count the total number of teams' do
     expect(@stat_tracker.count_of_teams).to eq 32
   end
+
+  describe "Season Statistics" do
+
+    it 'can determine winningest coach' do
+      expect(@stat_tracker.winningest_coach("20122013")).to eq "Claude Julien"
+    end
+  end
 end
