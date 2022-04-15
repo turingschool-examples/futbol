@@ -97,5 +97,11 @@ attr_reader :games, :team, :game_teams
     best_offense_id
   end
 
+  def best_offense
+    best_offense_team = @teams.find do |team|
+      team.team_id == best_offense_team_id
+    end
+    best_offense_team.team_name
+  end
 
 end

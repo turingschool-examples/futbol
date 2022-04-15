@@ -56,5 +56,9 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.best_offense_team_id).to eq(6)
   end
 
+  it "returns the name of the team with best offense" do
+
+    expect(@stat_tracker.best_offense).to eq("FC Dallas")
+  end
 
 end
