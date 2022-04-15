@@ -23,7 +23,7 @@ include GameModule
 	def create_teams(teams)
 		team_arr = Array.new
 		teams.each do |row|
-			team_id = row[:teamid]
+			team_id = row[:team_id].to_i
 			franchise_id = row[:franchiseid]
 			team_name = row[:teamname]
 			abbreviation = row[:abbreviation]
@@ -38,7 +38,7 @@ include GameModule
     game_team_array = []
     game_teams.each do |row|
       game_id = row[:game_id]
-      team_id = row[:team_id]
+      team_id = row[:team_id].to_i
       hoa = row[:hoa]
       result = row[:result]
       settled_in = row[:settled_in]
@@ -123,14 +123,44 @@ include GameModule
 	end
 
 	def team_info(team_id)
-		@teams.reduce({}) do |hash, team_id|
-			hash[:team_id] = team_id.team_id.to_i
-			hash[:franchise_id] = team_id.franchise_id.to_i
-			hash[:team_name] = team_id.team_name
-			hash[:abbreviation] = team_id.abbreviation
-			hash[:link] = team_id.link
-			hash
+		team_hash = {}
+		team = @teams.find do |team|
+			team.team_id == team_id
 		end
+		team_hash[:team_id] = team.team_id
+		team_hash[:franchise_id] = team.franchise_id.to_i
+		team_hash[:team_name] = team.team_name
+		team_hash[:abbreviation] = team.abbreviation
+		team_hash[:link] = team.link
+		team_hash
 	end
 
+	def best_season(team_id)
+	game_team_arr = @game_teams.find_all do |game|
+		game.team_id == team_id
+	end
+	season_record_hash = {}
+	game_team_arr.each do |game|
+		if season_record_hash[game.game_id[0..3]] == nil
+			season_record_hash[game.game_id[0..3]] = [game.result]
+		else
+			season_record_hash[game.game_id[0..3]] << game.result
+		end
+	end
+	win_counter = 0
+	best_win_percentage = 0 #100
+	season_record_hash.each do |season, result|
+		 win_counter = result.count("WIN")
+		 win_percentage = (win_counter.to_f / result.count.to_f) * 100
+		 season_record_hash[season] = win_percentage
+		 if best_win_percentage < win_percentage # >
+			 best_win_percentage = win_percentage
+		 end
+	 end
+	 best_season = season_record_hash.select{|season, result| result == best_win_percentage}
+	 best_game = @games.find do |game|
+		  best_season.keys[0] == game.season[0..3]
+		end
+		best_game.season
+	end
 end
