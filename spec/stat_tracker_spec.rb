@@ -98,4 +98,9 @@ describe StatTracker do
   it 'can count the total number of teams' do
     expect(@stat_tracker.count_of_teams).to eq 32
   end
+
+  it "can calculate highest average number of goals" do
+    expect(@stat_tracker.best_offense).to eq 4
+
+  end
 end

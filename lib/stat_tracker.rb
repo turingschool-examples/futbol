@@ -23,7 +23,7 @@ include GameModule
 	def create_teams(teams)
 		team_arr = Array.new
 		teams.each do |row|
-			team_id = row[:teamid]
+			team_id = row[:team_id]
 			franchise_id = row[:franchiseid]
 			team_name = row[:teamname]
 			abbreviation = row[:abbreviation]
