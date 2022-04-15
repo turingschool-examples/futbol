@@ -5,8 +5,8 @@ require "simplecov"
 SimpleCov.start
 require_relative "../lib/stat_tracker"
 require_relative "../lib/games"
-require_relative "../teams"
-require_relative "../game_teams"
+require_relative "../lib/teams"
+require_relative "../lib/game_teams"
 
 RSpec.describe StatTracker do
   before :each do
