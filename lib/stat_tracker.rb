@@ -6,7 +6,9 @@ require_relative 'game_team'
 
 class StatTracker
 
-attr_reader :games, :team, :game_teams
+  attr_reader :games,
+              :team, 
+              :game_teams
 
   def initialize(locations)
     @games = read_and_create_games(locations[:games])
@@ -54,8 +56,7 @@ attr_reader :games, :team, :game_teams
   end
 
 
-## LEAGUE STATISTICS - JENN ##
-
+########## LEAGUE STATISTICS - JENN ##########
   def count_of_teams
     @teams.count
   end
