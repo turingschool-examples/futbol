@@ -52,7 +52,7 @@ end
     @games.map {|game| game.away_goals + game.home_goals}.max
   end
 
-  def highest_total_score
+  def lowest_total_score
     # require 'pry'; binding.pry
     @games.map {|game| game.away_goals + game.home_goals}.min
   end

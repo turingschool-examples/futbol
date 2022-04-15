@@ -50,7 +50,7 @@ RSpec.describe StatTracker do
    expect(stat_tracker.team_info(1)).to eq(expected)
  end
 
-  it 'can give me the highest_total_score' do
+  it 'can calculate highest_total_score' do
 
     game_path = './data/games_15_rows.csv'
     team_path = './data/teams.csv'
@@ -64,6 +64,22 @@ RSpec.describe StatTracker do
 
     stat_tracker = StatTracker.from_csv(locations)
     expect(stat_tracker.highest_total_score).to eq(7)
+  end
+
+  it 'can calculate lowest_total_score' do
+
+    game_path = './data/games_15_rows.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/games_teams_15_rows.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+    expect(stat_tracker.lowest_total_score).to eq(2)
   end
 
   it 'can give me the winningest coach given a specific season' do
