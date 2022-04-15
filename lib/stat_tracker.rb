@@ -41,7 +41,6 @@ def read_game_teams(csv)
 end
 
   def highest_total_score
-    # @games.map {|game| game[:away_goals].to_i + game[:home_goals].to_i}.max
     @games.map {|game| game.away_goals + game.home_goals}.max
   end
 
@@ -68,7 +67,6 @@ end
 
   def game_teams_by_season(season)
     @game_teams.select do |row|
-      # require "pry"; binding.pry
       row.game_id.to_s[0..3] == season.to_s[0..3]
     end
   end
@@ -122,17 +120,6 @@ end
   #   end.sum
   # end
   #
-  # def total_amount_goals(game_teams, category)
-  #   game_teams.map do |game|
-  #     game.goals
-  #   end.sum
-  # end
-  #
-  # def total_amount_tackles(game_teams, category)
-  #   game_teams.map do |game|
-  #     game.tackles
-  #   end.sum
-  # end
 
   def accuracy_hash(season)
     season_game_teams = game_teams_by_season(season)
@@ -159,35 +146,27 @@ end
     return team_name(accurate_team_id)
   end
 
-  def most_tackles(season)
+  def tackle_hash(season)
     season_game_teams = game_teams_by_season(season)
-    hash = {}
+    hash = Hash.new{|h,k| h[k] = 0 }
     season_game_teams.each do |row|
-      hash[row.team_id] = [0]
+      hash[row.team_id] += row.tackles
     end
-    season_game_teams.each do |row|
-      # require 'pry'; binding.pry
-      hash[row.team_id][0] += row.tackles
-    end
-    most_tackles_team_id = hash.max_by do |team|
+    hash
+  end
+
+  def most_tackles(season)
+    most_tackles_team_id = tackle_hash(season).max_by do |team|
       team[1]
     end[0]
     return team_name(most_tackles_team_id)
   end
 
   def fewest_tackles(season)
-    season_game_teams = game_teams_by_season(season)
-    hash = {}
-    season_game_teams.each do |row|
-      hash[row.team_id] = [0]
-    end
-    season_game_teams.each do |row|
-      hash[row.team_id][0] += row.tackles
-    end
-    fewest_tackles_team_id = hash.min_by do |team|
+    most_tackles_team_id = tackle_hash(season).min_by do |team|
       team[1]
     end[0]
-    return team_name(fewest_tackles_team_id)
+    return team_name(most_tackles_team_id)
   end
 
   def count_of_teams

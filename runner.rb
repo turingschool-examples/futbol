@@ -1,5 +1,9 @@
 # runner.rb
 require './lib/stat_tracker'
+require './lib/game_team'
+require './lib/team'
+require './lib/game'
+require 'csv'
 
 game_path = './data/games_sample.csv'
 team_path = './data/teams.csv'
@@ -13,4 +17,10 @@ locations = {
 
 stat_tracker = StatTracker.from_csv(locations)
 
+hash = {bacon: "protein", apple: "fruit"}
 require 'pry'; binding.pry
+
+new_hash = hash.map do |k,v|
+  require 'pry'; binding.pry
+  [k, v.to_sym]
+end.to_h

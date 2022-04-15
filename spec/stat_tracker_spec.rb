@@ -124,7 +124,7 @@ RSpec.describe StatTracker do
   end
 
   it 'gives me an array of tackles given a season' do
-    expect(@stat_tracker.tackle_array(20172018)[0]).to eq(100)
+    expect(@stat_tracker.tackle_hash(20172018)[28]).to eq(1690)
   end
 
   it " " do
