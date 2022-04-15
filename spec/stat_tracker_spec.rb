@@ -98,14 +98,24 @@ describe StatTracker do
 
 
 #SAI
-  it 'returns a percentage of how many wins were home wins' do
-    expect(@stat_tracker.percentage_home_wins).to eq(44.44)
+  context 'Games: Percentages' do
+    it 'returns a percentage of how many wins were home wins' do
+        expect(@stat_tracker.percentage_home_wins).to eq(44.44)
+    end
+    it 'returns a percentage of how many wins were away wins' do
+        expect(@stat_tracker.percentage_visitor_wins).to eq(55.56)
+    end
+    it 'returns a percentage of how many ties there were' do
+        expect(@stat_tracker.percentage_ties).to eq(0.00)
+    end
   end
-  it 'returns a percentage of how many wins were away wins' do
-    expect(@stat_tracker.percentage_visitor_wins).to eq(55.56)
-  end
-  it 'returns a percentage of how many ties there were' do
-    expect(@stat_tracker.percentage_ties).to eq(0.00)
+  context "Season: Accuracy Ratios" do
+    it 'returns the name of the team with the best shot to goal ratio' do
+      expect(@stat_tracker.most_accurate_team).to eq("FC Dallas")
+    end
+    it 'returns the name of the team with the worst shot to goal ratio' do
+      expect(@stat_tracker.least_accurate_team).to eq("Houston Dynamo")
+    end
   end
 
 
