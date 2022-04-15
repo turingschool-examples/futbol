@@ -119,8 +119,12 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.count_of_teams).to eq(32)
   end
 
-  it 'gives me a hash of shot percentages' do
-    expect(@stat_tracker.accuracy_hash[:team_id][0][2]).to eq(0.5)
+  it 'gives me a hash of shot percentages given a season' do
+    expect(@stat_tracker.accuracy_hash(20172018)[28][2]).to eq(0.29614325068870523)
+  end
+
+  it 'gives me an array of tackles given a season' do
+    expect(@stat_tracker.tackle_array(20172018)[0]).to eq(100)
   end
 
   it " " do
