@@ -80,11 +80,28 @@ attr_reader :games, :team, :game_teams
     @game_teams.each do |ties|
     if ties.result == "TIE"
       total_ties << ties
-      end 
+      end
     end
     percent = (total_ties.count.to_f.round(2) / @game_teams.count) * 100
     percent.round(2)
   end
+
+  def count_of_games_by_season
+   @games.group_by { |total| total.season.to_s }.transform_values do |values| values.count
+   end
+
+  end
+
+  def average_goals_per_game
+
+  end
+
+  def average_goals_by_season
+
+  end
+
+
+
 
   ## SEASON STATISTICS : All methods return Strings
 
