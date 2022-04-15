@@ -93,9 +93,13 @@ describe StatTracker do
         game_teams: @game_teams_path
       }
     end
-  end
 
-  it 'can count the total number of teams' do
-    expect(@stat_tracker.count_of_teams).to eq 32
-  end
+	  it 'can count the total number of teams' do
+	    expect(@stat_tracker.count_of_teams).to eq 32
+	  end
+
+		it "can calculate the percentage of games that has resulted in a tie" do
+			expect(@stat_tracker).to eq 6.25
+		end
+	end
 end

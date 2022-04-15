@@ -108,8 +108,8 @@ include GameModule
 				season_goals_avg[season] << game.away_goals + game.home_goals
 			end
 		end
-			season_goals_avg.each do |season, goals|
-				season_goals_avg[season] = (goals.sum.to_f / goals.count.to_f).ceil(2)
+		season_goals_avg.each do |season, goals|
+			season_goals_avg[season] = (goals.sum.to_f / goals.count.to_f).ceil(2)
 		end
 		return season_goals_avg
 	end
@@ -121,4 +121,8 @@ include GameModule
 		end
 			total_teams.count
 	end
+
+#	percentage_ties	Percentage of games that has resulted in a tie (rounded to the nearest 100th)
+
+
 end
