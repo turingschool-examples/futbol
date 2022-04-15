@@ -108,5 +108,9 @@ describe StatTracker do
     it 'can determine worst coach for a season' do
         expect(@stat_tracker.worst_coach("20122013")).to eq "John Tortorella"
     end
+
+    it 'can determine team with best ratio of shots to goals for the season' do
+      expect(@stat_tracker.most_accurate_team("20122013")).to eq "FC Dallas"
+    end
   end
 end
