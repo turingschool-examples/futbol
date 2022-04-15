@@ -1,10 +1,5 @@
 require 'simplecov'
 SimpleCov.start
-#
-# require_relative 'game'
-# require_relative 'team'
-# require_relative 'game_team'
-
 require './lib/stat_tracker'
 require './lib/game_team'
 require './lib/team'
@@ -35,31 +30,13 @@ RSpec.describe StatTracker do
   end
 
   it 'can give us team info' do
-<<<<<<< HEAD
-=======
-    game_path = './data/games_15_rows.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/games_teams_15_rows.csv'
-
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
->>>>>>> 227ff65 (save files for rebase)
-
-   expected = {:team_id=>1,
+    expected = {:team_id=>1,
                :franchise_id=>23,
                :team_name=>"Atlanta United",
                :abbreviation=>"ATL",
                :link=>"/api/v1/teams/1"}
 
-<<<<<<< HEAD
    expect(@stat_tracker.team_info(1)).to eq(expected)
-=======
-   stat_tracker = StatTracker.from_csv(locations)
-   expect(stat_tracker.team_info(1)).to eq(expected)
->>>>>>> 227ff65 (save files for rebase)
  end
 
   it 'can give me the highest_total_score' do
@@ -77,6 +54,10 @@ RSpec.describe StatTracker do
 
   it 'gives me all the game teams given the season' do
     expect(@stat_tracker.game_teams_by_season(20172018).count).to eq(2710)
+  end
+
+  it 'gives me all the games played by a team' do
+    expect(@stat_tracker.game_teams_by_team(19).count).to eq(507)
   end
 
   it 'gives me coaches records given an array of games, not including win percentage' do
@@ -99,24 +80,6 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.team_name(29)).to eq("Orlando Pride")
 
   end
-
-  # it 'gives me an array of total amount of something when i pass it in' do
-  #   game_path = './data/games_sample.csv'
-  #   team_path = './data/teams.csv'
-  #   game_teams_path = './data/games_teams_15_rows.csv'
-  #
-  #   locations = {
-  #     games: game_path,
-  #     teams: team_path,
-  #     game_teams: game_teams_path
-  #   }
-  #
-  #   stat_tracker = StatTracker.from_csv(locations)
-  #
-  #   game_teams = stat_tracker.game_teams_by_season(20172018)
-  #   expect(stat_tracker.total_amount(game_teams, :goals)).to eq(9)
-  #
-  # end
 
   it 'gives me the team with the best shot percentage given a season' do
     expect(@stat_tracker.most_accurate_team(20172018)).to eq("Portland Timbers")
@@ -144,15 +107,15 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.tackle_hash(20172018)[28]).to eq(1690)
   end
 
-  xit "gives us the most goals scored for a team " do
+  it "gives us the most goals scored for a team " do
     expect(@stat_tracker.most_goals_scored(18)). to eq(7)
   end
 
-  xit "gives us the fewest goals scored for a team" do
+  it "gives us the fewest goals scored for a team" do
     expect(@stat_tracker.fewest_goals_scored(19)).to eq(0)
   end
 
-  xit "gives us the best season" do
+  it "gives us the best season" do
     expect(@stat_tracker.best_season("6")).to eq "20132014"
 
   end
