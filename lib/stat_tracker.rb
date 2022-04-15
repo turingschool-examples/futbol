@@ -70,6 +70,12 @@ end
     end
   end
 
+  def game_teams_by_team(team_id)
+    @game_teams.select do |row|
+      row.team_id == team_id
+    end
+  end
+
   def coaches_records(game_teams)
     hash = Hash.new{|h,k| h[k] = [0,0,0.to_f] }
     game_teams.each do |row|
