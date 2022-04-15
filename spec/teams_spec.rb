@@ -1,0 +1,33 @@
+require "pry"
+require "rspec"
+require "csv"
+require "./lib/teams"
+require "simplecov"
+SimpleCov.start
+require_relative "../lib/stat_tracker"
+
+RSpec.describe Teams do
+  before :each do
+    game_path = "./data/games.csv"
+    team_path = "./data/teams.csv"
+    game_teams_path = "./data/game_teams.csv"
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    @stat_tracker = StatTracker.from_csv(locations)
+  end
+
+  it 'exists and has attributes' do
+    expect(@stat_tracker.teams).to be_a Teams
+    expect(@stat_tracker.teams.team_id).to eq(@stat_tracker[:teams][:team_id])
+    expect(@stat_tracker.teams.franchiseid).to eq(@stat_tracker[:teams][:franchiseid])
+    expect(@stat_tracker.teams.teamname).to eq(@stat_tracker[:teams][:teamname])
+    expect(@stat_tracker.teams.abbreviation).to eq(@stat_tracker[:teams][:abbreviation])
+    expect(@stat_tracker.teams.stadium).to eq(@stat_tracker[:teams][:stadium])
+    expect(@stat_tracker.teams.link).to eq(@stat_tracker[:teams][:link])
+  end
+end 
