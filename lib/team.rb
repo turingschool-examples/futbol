@@ -11,4 +11,19 @@ class Team
     @stadium = stadium
     @link = link
   end
+
+  def self.fill_team_array(data)
+    team_data = []
+    data.each do |row|
+      team_id = row[:team_id]
+      franchise_id = row[:franchise_id]
+      team_name = row[:team_name]
+      abbreviation = row[:abbreviation]
+      stadium = row[:stadium]
+      link = row[:link]
+      teams_array << Team.new(team_id, franchise_id, team_name,
+         abbreviation, stadium, link)
+      end
+      team_data
+  end
 end
