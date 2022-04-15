@@ -83,23 +83,23 @@ RSpec.describe StatTracker do
 
   end
 
-  xit 'gives me an array of total amount of something when i pass it in' do
-    game_path = './data/games_sample.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/games_teams_15_rows.csv'
-
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-
-    stat_tracker = StatTracker.from_csv(locations)
-
-    game_teams = stat_tracker.game_teams_by_season(20172018)
-    expect(stat_tracker.total_amount(game_teams, :goals)).to eq(9)
-
-  end
+  # it 'gives me an array of total amount of something when i pass it in' do
+  #   game_path = './data/games_sample.csv'
+  #   team_path = './data/teams.csv'
+  #   game_teams_path = './data/games_teams_15_rows.csv'
+  #
+  #   locations = {
+  #     games: game_path,
+  #     teams: team_path,
+  #     game_teams: game_teams_path
+  #   }
+  #
+  #   stat_tracker = StatTracker.from_csv(locations)
+  #
+  #   game_teams = stat_tracker.game_teams_by_season(20172018)
+  #   expect(stat_tracker.total_amount(game_teams, :goals)).to eq(9)
+  #
+  # end
 
   it 'gives me the team with the best shot percentage given a season' do
     expect(@stat_tracker.most_accurate_team(20172018)).to eq("Portland Timbers")
@@ -117,6 +117,10 @@ RSpec.describe StatTracker do
 
   it 'counts total number of teams' do
     expect(@stat_tracker.count_of_teams).to eq(32)
+  end
+
+  it 'gives me a hash of shot percentages' do
+    expect(@stat_tracker.accuracy_hash[:team_id][0][2]).to eq(0.5)
   end
 
   it " " do
