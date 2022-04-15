@@ -15,11 +15,11 @@ RSpec.describe GameStats do
     @game_stats = GameStats.new(@locations)
     end
 
-    it 'exists' do
+    xit 'exists' do
       expect(@game_stats).to be_an_instance_of(GameStats)
     end
 
-    it 'has locations D:' do
+    xit 'has locations D:' do
       expect(@game_stats.game_path).to eq(@locations[:games])
       expect(@game_stats.team_path).to eq(@locations[:teams])
       expect(@game_stats.game_teams_path).to eq(@locations[:game_teams])
