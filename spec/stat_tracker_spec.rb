@@ -57,14 +57,19 @@ RSpec.describe StatTracker do
     describe 'Team Statistics' do
       it '#team_info can put team info into a hash' do 
         expected = {
-          "Team ID" => row[:team_id],
-          "Franchise ID" => row[:franchiseid],
-          "Team Name" => row[:teamname]
-          "Abbreviation" => row[:abbreviation]
-          "Link" => row[:link]
+          "team_id" => "1",
+          "franchise_id" => "23",
+          "team_name" => "Atlanta United",
+          "abbreviation" => "ATL",
+          "link" => "/api/v1/teams/1"
         }
 
-        expect(@stat_tracker.team_info).to eq(expected)
+        expect(@stat_tracker.team_info("1")).to eq(expected)
+      end
+
+      it '#best_season can determine the best season for a team'
+
+      end
     end
 
 end

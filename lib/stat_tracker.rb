@@ -1,7 +1,7 @@
 require "csv"
-require './lib/game'
-require './lib/team'
-require './lib/game_teams'
+require_relative 'game'
+require_relative 'team'
+require_relative 'game_teams'
 require 'pry'
 
 class StatTracker
@@ -98,5 +98,20 @@ class StatTracker
   # Season Statistics
 
   # Team Statistics
-
+  def team_info(team_id)
+    team_hash = {}
+    @teams.each do |team|
+    # require 'pry'; binding.pry
+      if team.team_id == team_id
+        team_hash = {
+        "team_id" => team.team_id,
+        "franchise_id" => team.franchise_id,
+        "team_name" => team.team_name,
+        "abbreviation" => team.abbreviation,
+        "link" => team.link
+        }
+      end
+    end
+    team_hash 
+  end
 end
