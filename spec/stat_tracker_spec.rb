@@ -105,7 +105,7 @@ RSpec.describe StatTracker do
     game_path = './data/games_15_rows.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/games_teams_15_rows.csv'
-    
+
     locations = {
       games: game_path,
       teams: team_path,
@@ -270,13 +270,7 @@ RSpec.describe StatTracker do
     stat_tracker = StatTracker.from_csv(locations)
     expect(stat_tracker.count_of_teams).to eq(32)
   end
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 8d459f83e9129a3a720d54d4f2cb4d0a6a36b0d2
-
-  it " " do 
-
-  end
 end
+  # it " " do
+  #
+  # end

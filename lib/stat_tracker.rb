@@ -1,5 +1,8 @@
 require 'csv'
-# 
+require_relative 'game'
+require_relative 'team'
+require_relative 'game_team'
+#
 # game_data = CSV.open"./data/games.csv", headers: true, header_converters: :symbol
 
 class StatTracker
@@ -40,9 +43,20 @@ def read_game_teams(csv)
   game_teams_arr
 end
 
+  # def highest_total_score
+  #   @games.map {|game| game[:away_goals].to_i + game[:home_goals].to_i}.max
+  # end
+
   def highest_total_score
-    @games.map {|game| game[:away_goals].to_i + game[:home_goals].to_i}.max
+    # require 'pry'; binding.pry
+    @games.map {|game| game.away_goals + game.home_goals}.max
   end
+
+  def highest_total_score
+    # require 'pry'; binding.pry
+    @games.map {|game| game.away_goals + game.home_goals}.min
+  end
+
 
   def games_by_season(season)
     @games.select do |row|
@@ -194,4 +208,6 @@ end
   def count_of_teams
       @teams.map {|team| team[:team_id]}.length
   end
+
+
 end
