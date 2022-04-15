@@ -5,6 +5,8 @@ require "./lib/teams"
 require "simplecov"
 SimpleCov.start
 require_relative "../lib/stat_tracker"
+require_relative "../lib/teams"
+
 
 RSpec.describe Teams do
   before :each do
@@ -23,11 +25,11 @@ RSpec.describe Teams do
 
   it 'exists and has attributes' do
     expect(@stat_tracker.teams).to be_a Teams
-    expect(@stat_tracker.teams.team_id).to eq(@stat_tracker[:teams][:team_id])
-    expect(@stat_tracker.teams.franchiseid).to eq(@stat_tracker[:teams][:franchiseid])
-    expect(@stat_tracker.teams.teamname).to eq(@stat_tracker[:teams][:teamname])
-    expect(@stat_tracker.teams.abbreviation).to eq(@stat_tracker[:teams][:abbreviation])
-    expect(@stat_tracker.teams.stadium).to eq(@stat_tracker[:teams][:stadium])
-    expect(@stat_tracker.teams.link).to eq(@stat_tracker[:teams][:link])
+    expect(@stat_tracker.teams.team_id).to eq(@stat_tracker.stats_main[:teams][:team_id])
+    expect(@stat_tracker.teams.franchiseid).to eq(@stat_tracker.stats_main[:teams][:franchiseid])
+    expect(@stat_tracker.teams.teamname).to eq(@stat_tracker.stats_main[:teams][:teamname])
+    expect(@stat_tracker.teams.abbreviation).to eq(@stat_tracker.stats_main[:teams][:abbreviation])
+    expect(@stat_tracker.teams.stadium).to eq(@stat_tracker.stats_main[:teams][:stadium])
+    expect(@stat_tracker.teams.link).to eq(@stat_tracker.stats_main[:teams][:link])
   end
-end 
+end
