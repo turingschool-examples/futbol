@@ -34,4 +34,9 @@ RSpec.describe Games do
     expect(@stat_tracker.games.venue).to eq(@stat_tracker.stats_main[:games][:venue])
     expect(@stat_tracker.games.venue_link).to eq(@stat_tracker.stats_main[:games][:venue_link])
   end
+
+  it "has array of total scores by game" do
+    expect = [3, 5, 5, 6, 6, 5, 5, 3, 5, 4, 3, 3, 5, 3, 1, 5, 3, 4, 5, 4]
+    expect(@stat_tracker.games.total_scores).to eq(expect)
+  end
 end

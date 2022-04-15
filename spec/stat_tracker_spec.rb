@@ -27,28 +27,31 @@ RSpec.describe StatTracker do
     expect(@stat_tracker).to be_a StatTracker
   end
 
+  # Start Game Statistics methods
   xit "checks highest_total_score" do
     expect(@stat_tracker.highest_total_score).to eq 6
   end
 
   xit "checks lowest_total_score" do
-    # Lowest sum of the winning and losing teams' scores
-    # Integer
+    expect(@stat_tracker.lowest_total_score).to eq 1
   end
 
   xit "checks percentage_home_wins" do
     # Percentage of games that a home team has won (rounded to the nearest 100th)
     # Float
+    # 50.00
   end
 
   xit "checks percentage_visitor_wins" do
     # Percentage of games that a visitor has won (rounded to the nearest 100th)
     # Float
+    # 35.00
   end
 
   xit "checks percentage_ties" do
     # Percentage of games that has resulted in a tie (rounded to the nearest 100th)
     # Float
+    # 15.00
   end
 
   xit "checks count_of_games_by_season" do
@@ -59,6 +62,7 @@ RSpec.describe StatTracker do
   xit "checks average_goals_per_game" do
     # Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)
     # Float
+    # 4.15
   end
 
   xit "checks average_goals_by_season" do
